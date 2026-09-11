@@ -13,119 +13,126 @@
 const OUT_PATH = new URL('../site/data.js', import.meta.url);
 
 async function fetchJSON(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
-  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-  return res.json();
+    const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+    if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
+    return res.json();
 }
 
 async function fetchCSV(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
-  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-  const text = await res.text();
-  return text.trim().split('\n').map((line) => line.split(','));
+    const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+    if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
+    const text = await res.text();
+    return text.trim().split('\n').map((line) => line.split(','));
 }
-
 // Last non-empty, non-"." (missing) value in a two-column FRED CSV [DATE, VALUE].
 function latestFredPoint(rows) {
-  for (let i = rows.length - 1; i >= 1; i--) {
-    const [date, val] = rows[i];
-    if (val && val.trim() !== '.' && !Number.isNaN(Number(val))) {
-      return { date, value: Number(val) };
+    for (let i = rows.length - 1; i >= 1; i--) {
+          const [date, val] = rows[i];
+          if (val && val.trim() !== '.' && !Number.isNaN(Number(val))) {
+                  return { date, value: Number(val) };
+          }
     }
-  }
-  return null;
+    return null;
 }
 
 async function getDebtToThePenny() {
-  const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny' +
-    '?sort=-record_date&page[size]=1';
-  const j = await fetchJSON(url);
-  const r = j.data[0];
-  return {
-    date: r.record_date,
-    totalDebtT: Number(r.tot_pub_debt_out_amt) / 1e12,
-    heldByPublicT: Number(r.debt_held_public_amt) / 1e12,
-    intragovT: Number(r.intragov_hold_amt) / 1e12,
-  };
+    const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny' +
+          '?sort=-record_date&page[size]=1';
+    const j = await fetchJSON(url);
+    const r = j.data[0];
+    return {
+          date: r.record_date,
+          totalDebtT: Number(r.tot_pub_debt_out_amt) / 1e12,
+          heldByPublicT: Number(r.debt_held_public_amt) / 1e12,
+          intragovT: Number(r.intragov_hold_amt) / 1e12,
+    };
 }
 
 async function getAvgInterestRate() {
-  const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/od/avg_interest_rates' +
-    '?filter=security_desc:eq:Total Marketable&sort=-record_date&page[size]=1';
-  const j = await fetchJSON(url);
-  const r = j.data[0];
-  return { date: r.record_date, avgRatePct: Number(r.avg_interest_rate_amt) };
+    const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/avg_interest_rates' +
+          '?filter=security_desc:eq:' + encodeURIComponent('Total Marketable') + '&sort=-record_date&page[size]=1';
+    const j = await fetchJSON(url);
+    const r = j.data[0];
+    return { date: r.record_date, avgRatePct: Number(r.avg_interest_rate_amt) };
 }
 
 // FRED series pulled via the public, key-free CSV export.
 const FRED_SERIES = {
-  walcl: 'WALCL',          // Fed total assets, weekly, $B
-  m2: 'M2SL',               // M2 money stock, monthly, $B
-  effr: 'EFFR',             // Effective federal funds rate, daily
-  iorb: 'IORB',             // Interest on reserve balances, daily
-  onrrp: 'RRPONTSYAWARD',   // ON RRP award rate, daily
-  discount: 'DPCREDIT',     // Primary credit (discount) rate, daily
-  rrpvol: 'RRPONTSYD',      // ON RRP take-up volume, daily, $B
+    walcl: 'WALCL',          // Fed total assets, weekly, $B
+    m2: 'M2SL',               // M2 money stock, monthly, $B
+    effr: 'EFFR',             // Effective federal funds rate, daily
+    iorb: 'IORB',             // Interest on reserve balances, daily
+    onrrp: 'RRPONTSYAWARD',   // ON RRP award rate, daily
+    discount: 'DPCREDIT',     // Primary credit (discount) rate, daily
+    rrpvol: 'RRPONTSYD',      // ON RRP take-up volume, daily, $B
 };
 
 async function getFred(seriesId) {
-  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
-  const rows = await fetchCSV(url);
-  return latestFredPoint(rows);
+    const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
+    const rows = await fetchCSV(url);
+    return latestFredPoint(rows);
 }
-
 async function main() {
-  const results = {};
-  const errors = [];
+    const results = {};
+    const errors = [];
 
-  const jobs = [
-    ['debt', getDebtToThePenny()],
-    ['avgRate', getAvgInterestRate()],
-    ...Object.entries(FRED_SERIES).map(([k, id]) => [k, getFred(id)]),
-  ];
+  // Each fetch is wrapped in its own try/catch BEFORE being handed to allSettled, so a
+  // single rejected promise can never surface as an unhandled rejection and crash the
+  // whole run (that's what happened here in an earlier version of this script — one
+  // failing series took the entire job down instead of just being logged and skipped).
+  const jobDefs = [
+        ['debt', getDebtToThePenny],
+        ['avgRate', getAvgInterestRate],
+        ...Object.entries(FRED_SERIES).map(([k, id]) => [k, () => getFred(id)]),
+      ];
 
-  for (const [key, promise] of jobs) {
-    try {
-      results[key] = await promise;
-    } catch (e) {
-      errors.push(`${key}: ${e.message}`);
-      results[key] = null;
-    }
-  }
+  const settled = await Promise.allSettled(
+        jobDefs.map(([, fn]) => fn())
+      );
+
+  jobDefs.forEach(([key], i) => {
+        const s = settled[i];
+        if (s.status === 'fulfilled') {
+                results[key] = s.value;
+        } else {
+                errors.push(`${key}: ${s.reason && s.reason.message ? s.reason.message : s.reason}`);
+                results[key] = null;
+        }
+  });
 
   if (errors.length) {
-    console.warn('Some series failed to fetch (keeping previous value for those):\n' + errors.join('\n'));
+        console.warn('Some series failed to fetch (keeping previous value for those):\n' + errors.join('\n'));
   }
 
   const payload = {
-    generatedAt: new Date().toISOString(),
-    debt: results.debt,           // {date, totalDebtT, heldByPublicT, intragovT}
-    avgRate: results.avgRate,     // {date, avgRatePct}
-    fed: {
-      walcl: results.walcl,       // {date, value} — $B
-      m2: results.m2,             // {date, value} — $B
-    },
-    rates: {
-      effr: results.effr,
-      iorb: results.iorb,
-      onrrp: results.onrrp,
-      discount: results.discount,
-    },
-    rrpVolume: results.rrpvol,    // {date, value} — $B, ON RRP take-up
+        generatedAt: new Date().toISOString(),
+        debt: results.debt,           // {date, totalDebtT, heldByPublicT, intragovT}
+        avgRate: results.avgRate,     // {date, avgRatePct}
+        fed: {
+                walcl: results.walcl,       // {date, value} — $B
+                m2: results.m2,             // {date, value} — $B
+        },
+        rates: {
+                effr: results.effr,
+                iorb: results.iorb,
+                onrrp: results.onrrp,
+                discount: results.discount,
+        },
+        rrpVolume: results.rrpvol,    // {date, value} — $B, ON RRP take-up
   };
 
   const js = `// AUTO-GENERATED by scripts/fetch-data.mjs — do not hand-edit.
-// Last refreshed: ${payload.generatedAt}
-// If a series failed to fetch on the most recent run, it is null here and
-// site/index.html falls back to the last baked-in snapshot value for it.
-window.LIVE_DATA = ${JSON.stringify(payload, null, 2)};
-`;
+  // Last refreshed: ${payload.generatedAt}
+  // If a series failed to fetch on the most recent run, it is null here and
+  // site/index.html falls back to the last baked-in snapshot value for it.
+  window.LIVE_DATA = ${JSON.stringify(payload, null, 2)};
+  `;
 
   await import('node:fs/promises').then((fs) => fs.writeFile(OUT_PATH, js, 'utf8'));
-  console.log('Wrote', OUT_PATH.pathname);
+    console.log('Wrote', OUT_PATH.pathname);
 }
 
 main().catch((e) => {
-  console.error(e);
-  process.exit(1);
+    console.error(e);
+    process.exit(1);
 });
