@@ -1,0 +1,86 @@
+﻿{
+    "majorGroups":  [
+                        {
+                            "id":  "SAH",
+                            "name":  "Housing",
+                            "w":  44.469,
+                            "wPrior":  44.201
+                        },
+                        {
+                            "id":  "SAT",
+                            "name":  "Transportation",
+                            "w":  16.316,
+                            "wPrior":  16.571
+                        },
+                        {
+                            "id":  "SAF",
+                            "name":  "Food and beverages",
+                            "w":  14.539,
+                            "wPrior":  14.526
+                        },
+                        {
+                            "id":  "SAM",
+                            "name":  "Medical care",
+                            "w":  8.423,
+                            "wPrior":  8.273
+                        },
+                        {
+                            "id":  "SAE",
+                            "name":  "Education and communication",
+                            "w":  5.846,
+                            "wPrior":  5.732
+                        },
+                        {
+                            "id":  "SAR",
+                            "name":  "Recreation",
+                            "w":  5.137,
+                            "wPrior":  5.292
+                        },
+                        {
+                            "id":  "SAG",
+                            "name":  "Other goods and services",
+                            "w":  2.902,
+                            "wPrior":  2.925
+                        },
+                        {
+                            "id":  "SAA",
+                            "name":  "Apparel",
+                            "w":  2.368,
+                            "wPrior":  2.480
+                        }
+                    ],
+    "specialAggregates":  [
+                              {
+                                  "id":  "SA0E",
+                                  "name":  "Energy",
+                                  "w":  6.383,
+                                  "wPrior":  6.216
+                              },
+                              {
+                                  "id":  "SA0L1E",
+                                  "name":  "All items less food and energy (core)",
+                                  "w":  79.919,
+                                  "wPrior":  80.094
+                              },
+                              {
+                                  "id":  "SAH1",
+                                  "name":  "Shelter",
+                                  "w":  35.625,
+                                  "wPrior":  35.483
+                              },
+                              {
+                                  "id":  "SACL1E",
+                                  "name":  "Core goods (commodities)",
+                                  "w":  19.176,
+                                  "wPrior":  19.388
+                              },
+                              {
+                                  "id":  "SASLE",
+                                  "name":  "Core services",
+                                  "w":  60.744,
+                                  "wPrior":  60.705
+                              }
+                          ],
+    "asOfMonth":  "2025-12",
+    "priorAsOfMonth":  "2024-12"
+}
