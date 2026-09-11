@@ -1,0 +1,64 @@
+# Rebuilds site/macro/index.html from every upstream source and commits it
+# when the data changed. Cloudflare Pages deploys the commit automatically,
+# the same way it does for the fiscal monitor.
+#
+# Schedule: 14:05 and 20:05 UTC on weekdays. Most US releases land at
+# 08:30 ET; the first run catches them within roughly an hour in either
+# daylight or standard time, the second catches afternoon releases and any
+# same-day revisions.
+name: Refresh macro dashboard
+
+on:
+  schedule:
+    - cron: "5 14,20 * * 1-5"
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - "tools/macro/**"
+      - ".github/workflows/macro-refresh.yml"
+
+concurrency:
+  group: macro-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      # Only used to convert the NY Fed GSCPI workbook (a legacy .xls); the
+      # rest of the pipeline is Windows PowerShell 5.1, which the runner ships.
+      - run: pip install xlrd==2.0.1
+
+      - name: Refresh data and build page
+        shell: powershell
+        env:
+          BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
+          BEA_API_KEY: ${{ secrets.BEA_API_KEY }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          CENSUS_API_KEY: ${{ secrets.CENSUS_API_KEY }}
+          MACRO_DATA_DIR: ${{ github.workspace }}\tools\macro\data
+        run: |
+          .\tools\macro\refresh_all.ps1 -OutFile "$env:GITHUB_WORKSPACE\site\macro\index.html"
+
+      - name: Commit if the data changed
+        shell: bash
+        run: |
+          git config user.name "macro-refresh[bot]"
+          git config user.email "macro-refresh@users.noreply.github.com"
+          git add site/macro/index.html tools/macro/data/gscpi_data.csv tools/macro/data/.datahash
+          if git diff --cached --quiet; then
+            echo "No data change since the last build; nothing to commit."
+          else
+            git commit -m "macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC"
+            git push
+          fi
