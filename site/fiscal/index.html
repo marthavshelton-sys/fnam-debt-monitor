@@ -173,6 +173,10 @@ table tr.total td{font-weight:700; border-top:1px solid var(--baseline); border-
 table td.est{color:var(--text-secondary); font-style:italic;}
 table tr.bold td{font-weight:700;}
 .tblwrap{overflow-x:auto;}
+/* CBO revenue/outlay-by-category table: year headers default to the site-wide right-aligned
+   th, but its data cells fall back to the browser's left-aligned td default, so every row
+   visually zigzags against its own column header. Center both so figures sit under their year. */
+#tblCboProjection th:not(:first-child), #tblCboProjection td:not(:first-child){ text-align:center; }
 
 .legend-row{display:flex; flex-wrap:wrap; gap:12px 18px; margin-top:12px; font-size:12px; color:var(--text-secondary);}
 .legend-row .dot{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:middle;}
@@ -338,6 +342,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <span class="es" hidden>Una cifra de un solo día se mueve con el calendario de caja y subastas del Tesoro, así que variaciones diarias de $10–50 mil millones son normales y no señalan un cambio de tendencia.</span>
         </div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="en">Total public debt, percent of GDP</span><span class="es" hidden>Deuda pública total, porcentaje del PIB</span></h3>
+      <p class="cap"><span class="en">Annual, 1939–2025</span><span class="es" hidden>Anual, 1939–2025</span></p>
+      <div class="chart-wrap tall"><canvas id="chartDebtGdpPct"></canvas></div>
+      <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repeated from <a href="#gdp">Section 06</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repetida de la <a href="#gdp">Sección 06</a></span></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="en">Total U.S. public debt, 1995–present</span><span class="es" hidden>Deuda pública total de EE. UU., 1995–presente</span></h3>
@@ -1034,10 +1044,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     ["Policy rates","09–10-Sep-2026 (daily)"]
   ];
 
+  // Fiscal year-end (Sep 30, or the last preceding business day) held-by-public/intragovernmental
+  // split, 1995-2025, from Treasury Debt to the Penny. FY1995-96 predate that dataset's public/
+  // intragov breakdown (it only starts FY1997), so those two years' "public" figure comes from
+  // FRED FYGFDPUN instead (a quarterly series snapshotted Oct 1, one day after FY-end — the extra
+  // day's growth is well under our $0.01T display precision) with intragov backed out as the
+  // remainder against Debt to the Penny's own FY-end total. The final point is reassigned by
+  // applyLiveData() below like the rest of the current-year snapshot.
   var debtTrend = {
-    labels:["FY2015","FY2016","FY2019","FY2020","FY2021","FY2022","FY2024","FY2025","Sep '26"],
-    public:[13.12,14.17,16.81,21.02,22.28,24.30,28.31,30.28,32.39],
-    intragov:[5.03,5.40,5.91,5.93,6.15,6.63,7.16,7.36,7.70]
+    labels:["FY1995","FY1996","FY1997","FY1998","FY1999","FY2000","FY2001","FY2002","FY2003","FY2004","FY2005","FY2006","FY2007","FY2008","FY2009","FY2010","FY2011","FY2012","FY2013","FY2014","FY2015","FY2016","FY2017","FY2018","FY2019","FY2020","FY2021","FY2022","FY2023","FY2024","FY2025","Sep '26"],
+    public:[3.68,3.83,3.79,3.73,3.64,3.41,3.34,3.55,3.92,4.31,4.60,4.84,5.05,5.81,7.55,9.02,10.13,11.27,11.98,12.78,13.12,14.17,14.67,15.76,16.81,21.02,22.28,24.30,26.33,28.31,30.28,32.39],
+    intragov:[1.29,1.40,1.62,1.79,2.02,2.27,2.47,2.68,2.86,3.07,3.33,3.66,3.96,4.22,4.36,4.54,4.66,4.80,4.76,5.04,5.03,5.40,5.57,5.75,5.91,5.93,6.15,6.63,6.84,7.16,7.36,7.70]
   };
 
   var holders = [
@@ -1645,20 +1662,35 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   new Chart(document.getElementById('chartDebtTrend'), {
     type:'bar',
     data:{ labels: debtTrend.labels, datasets:[
-      { label:L('Held by the public'), data:debtTrend.public, backgroundColor:getVar('--series-1'), stack:'s', borderRadius:3, maxBarThickness:34 },
-      { label:L('Intragovernmental'), data:debtTrend.intragov, backgroundColor:getVar('--series-6'), stack:'s', borderRadius:3, maxBarThickness:34 }
+      { label:L('Held by the public'), data:debtTrend.public, backgroundColor:getVar('--series-1'), stack:'s', borderRadius:2, maxBarThickness:18 },
+      { label:L('Intragovernmental'), data:debtTrend.intragov, backgroundColor:getVar('--series-6'), stack:'s', borderRadius:2, maxBarThickness:18 }
     ]},
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{display:true, position:'top', align:'end', labels:{boxWidth:9, boxHeight:9, usePointStyle:true, pointStyle:'rect', font:{size:11.5}}},
         tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+'T'; }, footer:function(items){ var s=0; items.forEach(function(i){s+=i.parsed.y;}); return L('Total')+': $'+s.toFixed(2)+'T'; } } } },
-      scales:{ x:{ grid:{display:false}, ticks:axisTicks }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
     }
   });
   (function(){
     var rows = debtTrend.labels.map(function(l,i){ return '<tr><td>'+l+'</td><td class="num">$'+debtTrend.public[i].toFixed(2)+'T</td><td class="num">$'+debtTrend.intragov[i].toFixed(2)+'T</td><td class="num">$'+(debtTrend.public[i]+debtTrend.intragov[i]).toFixed(2)+'T</td></tr>'; }).join('');
     document.getElementById('tblDebtTrend').innerHTML = '<table><thead><tr><th>'+L('Period')+'</th><th>'+L('Held by public')+'</th><th>'+L('Intragovernmental')+'</th><th>'+L('Total')+'</th></tr></thead><tbody>'+rows+'</tbody></table>';
   })();
+
+  // Exact repeat of the Section 06 chartGdp chart/data (same gdpTrend array) — placed here too
+  // so the "how much debt" and "debt relative to the economy" pictures sit next to each other.
+  new Chart(document.getElementById('chartDebtGdpPct'), {
+    type:'line',
+    data:{ labels: gdpTrend.labels, datasets:[{ data: gdpTrend.values, borderColor:getVar('--series-7'), backgroundColor:getVar('--series-7')+'1c', fill:true, tension:.2, pointRadius:0, pointHoverRadius:4, pointBackgroundColor:getVar('--series-7'), borderWidth:2 }] },
+    options:{ responsive:true, maintainAspectRatio:false,
+      interaction:{ mode:'index', intersect:false },
+      plugins:{ tooltip:{ callbacks:{ title:function(items){ return items[0].label; }, label:function(c){ return c.parsed.y.toFixed(1)+'% '+L('of GDP'); } } } },
+      scales:{
+        x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) },
+        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return v+'%';}}) }
+      }
+    }
+  });
 
   new Chart(document.getElementById('chartDebtHistory1995'), {
     type:'line',
