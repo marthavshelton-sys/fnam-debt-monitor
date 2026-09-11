@@ -10,7 +10,7 @@
 // Runs on GitHub Actions' ubuntu-latest runner, which ships Node 20+ with a global `fetch`.
 // No npm install / package.json needed.
 
-const OUT_PATH = new URL('../site/data.js', import.meta.url);
+const OUT_PATH = new URL('../site/fiscal/data.js', import.meta.url);
 
 async function fetchJSON(url) {
   const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
