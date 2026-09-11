@@ -11,6 +11,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <!-- Refreshed by .github/workflows/refresh-data.yml — see window.LIVE_DATA merge below. -->
 <script src="data.js"></script>
+<!-- Refreshed monthly via a reviewed PR — see window.MONTHLY_DATA merge below. -->
+<script src="monthly-data.js"></script>
 
 <style>
 :root{
@@ -1256,9 +1258,56 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       if(LD.rrpVolume){
         rrpTrend.values[rrpTrend.values.length-1] = LD.rrpVolume.value;
       }
+      if(LD.debtComposition){
+        var dc = LD.debtComposition;
+        var setVal = function(arr, label, v){ var row = arr.filter(function(r){ return r.label===label; })[0]; if(row && v!=null) row.value = v; };
+        setVal(composition, "Notes", dc.notes);
+        setVal(composition, "Bills", dc.bills);
+        setVal(composition, "Bonds", dc.bonds);
+        setVal(composition, "Non-marketable", dc.nonmarketable);
+        setVal(composition, "TIPS", dc.tips);
+        setVal(composition, "FRNs", dc.frns);
+        setVal(maturityMix, "Notes (2–10 yr)", dc.notes);
+        setVal(maturityMix, "Bills (≤1 yr)", dc.bills);
+        setVal(maturityMix, "Bonds (20–30 yr)", dc.bonds);
+        setVal(maturityMix, "TIPS", dc.tips);
+        setVal(maturityMix, "FRNs", dc.frns);
+        asof[2][1] = dc.date+" (monthly)";
+      }
     } catch(e){
       // A malformed/partial data.js should never break the page — fall back silently to the snapshot.
       console.warn("LIVE_DATA overlay skipped:", e);
+    }
+  })();
+
+  // ---------------- Monthly research overlay (holders, CBO, revenue/outlay by category) ----------------
+  // window.MONTHLY_DATA is written by a monthly scheduled research task via a reviewed pull
+  // request (see site/monthly-data.js) — these series either have no live API (CBO) or need
+  // hierarchy-aware aggregation Treasury's raw tables don't hand you directly (holders,
+  // revenue/outlay by category), so a research pass is more reliable here than a mechanical
+  // script. Same fallback philosophy as LIVE_DATA: missing/partial data never breaks the page.
+  (function applyMonthlyData(){
+    var MD = window.MONTHLY_DATA;
+    if(!MD) return;
+    try{
+      if(MD.holders && MD.holders.length){
+        holders.length = 0;
+        MD.holders.forEach(function(h){ holders.push(h); });
+        if(holders[0]) holders[0].g = 9;
+        asof[1][1] = (MD.asOf || asof[1][1].split(' (')[0])+" (quarterly, ~2Q lag)";
+      }
+      if(MD.cboGdpRow) cboGdpRow = MD.cboGdpRow;
+      if(MD.cboCategoryTable) cboCategoryTable = MD.cboCategoryTable;
+      if(MD.cboProjection) cboProjection = MD.cboProjection;
+      if(MD.revFY2025) revFY2025 = MD.revFY2025;
+      if(MD.revYTDcur) revYTDcur = MD.revYTDcur;
+      if(MD.revYTDpri) revYTDpri = MD.revYTDpri;
+      if(MD.outFY2025) outFY2025 = MD.outFY2025;
+      if(MD.outYTDcur) outYTDcur = MD.outYTDcur;
+      if(MD.outYTDpri) outYTDpri = MD.outYTDpri;
+      if(MD.revOutAsOf) asof[4][1] = MD.revOutAsOf+" YTD; FY2025 full year";
+    } catch(e){
+      console.warn("MONTHLY_DATA overlay skipped:", e);
     }
   })();
 
