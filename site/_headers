@@ -1,0 +1,12 @@
+# Cloudflare Pages custom headers — https://developers.cloudflare.com/pages/configuration/headers/
+# data.js/monthly-data.js change underneath the same URL every day (daily commit / monthly PR
+# merge), but a plain <script src="data.js"> tag has no cache-busting query string, so browsers
+# and Cloudflare's edge cache could otherwise keep serving a stale copy for hours after a fresh
+# commit — directly undermining the "always current" point of the live-data pipeline. Forcing
+# revalidation on every request keeps the JS payload tiny (still cached, just re-checked) while
+# guaranteeing visitors always get the latest committed values.
+/fiscal/data.js
+  Cache-Control: no-cache
+
+/fiscal/monthly-data.js
+  Cache-Control: no-cache
