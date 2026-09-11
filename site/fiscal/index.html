@@ -308,8 +308,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>La deuda pública total pendiente es la suma de la deuda en manos del público (vendida en el mercado abierto) y las tenencias intragubernamentales (principalmente el Seguro Social y otros fondos fiduciarios que poseen valores del Tesoro no negociables). Ha crecido en cada año fiscal desde 2001.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: Treasury Fiscal Data, <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny</a> · figures as of Sep 8, 2026 unless noted</span>
-      <span class="es" hidden>Fuente: Fiscal Data del Tesoro de EE. UU., <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny</a> · cifras al 8 de septiembre de 2026 salvo que se indique otra fecha</span>
+      <span class="en">Source: Treasury Fiscal Data, <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny</a> · figures as of <span data-bind="debtAsOfEn">Sep 8, 2026</span> unless noted</span>
+      <span class="es" hidden>Fuente: Fiscal Data del Tesoro de EE. UU., <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny</a> · cifras al <span data-bind="debtAsOfEs">8 de septiembre de 2026</span> salvo que se indique otra fecha</span>
     </p>
     <div class="grid-2">
       <div class="card">
@@ -322,22 +322,34 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         </details>
       </div>
       <div class="card">
-        <h3><span class="en">Snapshot, Sep 8, 2026</span><span class="es" hidden>Panorama al 8 de septiembre de 2026</span></h3>
+        <h3><span class="en">Snapshot, <span data-bind="debtAsOfEn">Sep 8, 2026</span></span><span class="es" hidden>Panorama al <span data-bind="debtAsOfEs">8 de septiembre de 2026</span></span></h3>
         <p class="cap"><span class="en">Latest daily figure</span><span class="es" hidden>Última cifra diaria</span></p>
         <div class="stat-row">
-          <div class="stat"><div class="v num">$40.08T</div><div class="l"><span class="en">Total public debt</span><span class="es" hidden>Deuda pública total</span></div></div>
-          <div class="stat"><div class="v num">$32.39T</div><div class="l"><span class="en">Held by the public (80.8%)</span><span class="es" hidden>En manos del público (80.8%)</span></div></div>
-          <div class="stat"><div class="v num">$7.70T</div><div class="l"><span class="en">Intragovernmental (19.2%)</span><span class="es" hidden>Intragubernamental (19.2%)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtTotalT">$40.08T</div><div class="l"><span class="en">Total public debt</span><span class="es" hidden>Deuda pública total</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtPublicT">$32.39T</div><div class="l"><span class="en">Held by the public (<span data-bind="debtPublicPct">80.8</span>%)</span><span class="es" hidden>En manos del público (<span data-bind="debtPublicPct">80.8</span>%)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtIntragovT">$7.70T</div><div class="l"><span class="en">Intragovernmental (<span data-bind="debtIntragovPct">19.2</span>%)</span><span class="es" hidden>Intragubernamental (<span data-bind="debtIntragovPct">19.2</span>%)</span></div></div>
         </div>
         <div class="callout">
-          <span class="en">Debt has risen roughly <b>$2.4 trillion</b> since fiscal year-end 2025 ($37.64T on Sep 30, 2025) — a pace of about <b>$220 billion a month</b>. Total debt first crossed $40 trillion in August 2026.</span>
-          <span class="es" hidden>La deuda ha aumentado aproximadamente <b>$2.4 billones</b> desde el fin del año fiscal 2025 ($37.64 billones el 30 de septiembre de 2025) — un ritmo de casi <b>$220 mil millones al mes</b>. La deuda total superó por primera vez los $40 billones en agosto de 2026.</span>
+          <span class="en">Debt has risen roughly <b>$<span data-bind="debtSinceFY25T">2.4</span> trillion</b> since fiscal year-end 2025 ($37.64T on Sep 30, 2025) — a pace of about <b>$<span data-bind="debtMonthlyPaceB">220</span> billion a month</b>. Total debt first crossed $40 trillion in August 2026.</span>
+          <span class="es" hidden>La deuda ha aumentado aproximadamente <b>$<span data-bind="debtSinceFY25T">2.4</span> billones</b> desde el fin del año fiscal 2025 ($37.64 billones el 30 de septiembre de 2025) — un ritmo de casi <b>$<span data-bind="debtMonthlyPaceB">220</span> mil millones al mes</b>. La deuda total superó por primera vez los $40 billones en agosto de 2026.</span>
         </div>
         <div class="callout">
           <span class="en">A one-day snapshot moves with the Treasury's cash and auction calendar, so day-to-day swings of $10–50B are normal and not a signal of a shift in trend.</span>
           <span class="es" hidden>Una cifra de un solo día se mueve con el calendario de caja y subastas del Tesoro, así que variaciones diarias de $10–50 mil millones son normales y no señalan un cambio de tendencia.</span>
         </div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="en">Total U.S. public debt, 1995–present</span><span class="es" hidden>Deuda pública total de EE. UU., 1995–presente</span></h3>
+      <p class="cap"><span class="en">Annual, calendar year-end, $ trillions</span><span class="es" hidden>Anual, fin de año calendario, billones de USD</span></p>
+      <div class="chart-wrap tall"><canvas id="chartDebtHistory1995"></canvas></div>
+      <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny ↗</a></span><span class="es" hidden>Fuente: Tesoro de EE. UU., <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny ↗</a></span></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="en">M2 money supply, 1995–present</span><span class="es" hidden>Oferta monetaria M2, 1995–presente</span></h3>
+      <p class="cap"><span class="en">Annual, calendar year-end, $ trillions</span><span class="es" hidden>Anual, fin de año calendario, billones de USD</span></p>
+      <div class="chart-wrap tall"><canvas id="chartM2History1995"></canvas></div>
+      <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a></span></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="en">Debt vs. the money supply vs. the Fed's balance sheet</span><span class="es" hidden>Deuda vs. la oferta monetaria vs. el balance de la Fed</span></h3>
@@ -348,8 +360,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="chart-wrap tall"><canvas id="chartTripleIndex"></canvas></div>
       <p class="chart-src"><span class="en">Source: Treasury <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny ↗</a>; FRED <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a>; FRED <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" rel="noopener">WALCL ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener">Debt to the Penny ↗</a>; FRED <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a>; FRED <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" rel="noopener">WALCL ↗</a></span></p>
       <div class="callout">
-        <span class="en">Since 2002, the Fed's balance sheet has grown roughly <b>9.2×</b> (mostly in three bursts: 2008, 2020, and 2023's bank-crisis lending), total public debt about <b>6.3×</b>, and M2 about <b>4.0×</b>. The Fed's own holdings grow in short, sharp steps tied to specific interventions; debt and M2 grow more steadily.</span>
-        <span class="es" hidden>Desde 2002, el balance de la Fed ha crecido aproximadamente <b>9.2×</b> (sobre todo en tres episodios: 2008, 2020 y los préstamos de la crisis bancaria de 2023), la deuda pública total cerca de <b>6.3×</b>, y M2 cerca de <b>4.0×</b>. Las tenencias de la Fed crecen en pasos cortos y marcados, ligados a intervenciones específicas; la deuda y M2 crecen de forma más constante.</span>
+        <span class="en">Since 2002, the Fed's balance sheet has grown roughly <b data-bind="fedMult">9.2×</b> (mostly in three bursts: 2008, 2020, and 2023's bank-crisis lending), total public debt about <b data-bind="debtMult">6.3×</b>, and M2 about <b data-bind="m2Mult">4.0×</b>. The Fed's own holdings grow in short, sharp steps tied to specific interventions; debt and M2 grow more steadily.</span>
+        <span class="es" hidden>Desde 2002, el balance de la Fed ha crecido aproximadamente <b data-bind="fedMult">9.2×</b> (sobre todo en tres episodios: 2008, 2020 y los préstamos de la crisis bancaria de 2023), la deuda pública total cerca de <b data-bind="debtMult">6.3×</b>, y M2 cerca de <b data-bind="m2Mult">4.0×</b>. Las tenencias de la Fed crecen en pasos cortos y marcados, ligados a intervenciones específicas; la deuda y M2 crecen de forma más constante.</span>
       </div>
     </div>
   </section>
@@ -384,12 +396,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <div class="stat"><div class="v num">69.2%</div><div class="l"><span class="en">Held domestically</span><span class="es" hidden>En manos nacionales</span></div></div>
         </div>
         <div class="callout">
-          <span class="en">The Federal Reserve's own portfolio (SOMA) holds an estimated <b>$4.39T</b>, down from a 2022 peak near $5.8T as the Fed continues to let securities roll off (quantitative tightening).</span>
-          <span class="es" hidden>La propia cartera de la Reserva Federal (SOMA) posee un estimado de <b>$4.39 billones</b>, por debajo de un máximo de 2022 cercano a $5.8 billones, conforme la Fed sigue dejando vencer valores sin reinvertir (ajuste cuantitativo).</span>
+          <span class="en">The Federal Reserve's own portfolio (SOMA) holds an estimated <b data-bind="fedSomaT">$4.39T</b>, down from a 2022 peak near $5.8T as the Fed continues to let securities roll off (quantitative tightening).</span>
+          <span class="es" hidden>La propia cartera de la Reserva Federal (SOMA) posee un estimado de <b data-bind="fedSomaTEs">$4.39 billones</b>, por debajo de un máximo de 2022 cercano a $5.8 billones, conforme la Fed sigue dejando vencer valores sin reinvertir (ajuste cuantitativo).</span>
         </div>
         <div class="callout">
-          <span class="en">Foreign &amp; international holdings have grown from $9.05T (Mar 2025) to <b>$9.36T</b> (Mar 2026) — up in dollar terms even as their share of total debt has drifted down over the past decade.</span>
-          <span class="es" hidden>Las tenencias extranjeras e internacionales crecieron de $9.05 billones (mar. 2025) a <b>$9.36 billones</b> (mar. 2026) — un aumento en dólares aunque su participación en la deuda total ha ido bajando en la última década.</span>
+          <span class="en">Foreign &amp; international holdings have grown from $9.05T (Mar 2025) to <b data-bind="foreignCurT">$9.36T</b> (<span data-bind="holdersShortEn">Mar 2026</span>) — up in dollar terms even as their share of total debt has drifted down over the past decade.</span>
+          <span class="es" hidden>Las tenencias extranjeras e internacionales crecieron de $9.05 billones (mar. 2025) a <b data-bind="foreignCurTEs">$9.36 billones</b> (<span data-bind="holdersShortEs">mar. 2026</span>) — un aumento en dólares aunque su participación en la deuda total ha ido bajando en la última década.</span>
         </div>
         <details class="tbl"><summary><span class="en">View data table</span><span class="es" hidden>Ver tabla de datos</span></summary>
           <div class="tblwrap" id="tblHolders"></div>
@@ -485,12 +497,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <div class="stat"><div class="v num">3.56%</div><div class="l"><span class="en">Avg. rate, non-marketable debt</span><span class="es" hidden>Tasa promedio, deuda no negociable</span></div></div>
         </div>
         <div class="stat-row">
-          <div class="stat"><div class="v num">$1.268T</div><div class="l"><span class="en">Accrued interest expense, FY2026 YTD (Oct '25–Aug '26, 11 mo.)</span><span class="es" hidden>Gasto de interés devengado, AF2026 a la fecha (oct. '25–ago. '26, 11 meses)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Accrued interest expense, FY2026 YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto de interés devengado, AF2026 a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
           <div class="stat"><div class="v num">$1.220T</div><div class="l"><span class="en">Accrued interest expense, full FY2025</span><span class="es" hidden>Gasto de interés devengado, AF2025 completo</span></div></div>
         </div>
         <div class="callout">
-          <span class="en">On a budget (cash-outlay) basis — the figure that counts against the deficit — net interest on the public debt was <b>$1.170T</b> through the first 10 months of FY2026, already above the <b>$1.013T</b> spent over the same months of FY2025, and on pace to be the second-largest federal budget line after Social Security and health programs (Section 8).</span>
-          <span class="es" hidden>En términos presupuestales (flujo de efectivo) — la cifra que cuenta para el déficit — el interés neto de la deuda pública fue de <b>$1.170 billones</b> en los primeros 10 meses del AF2026, ya por encima de los <b>$1.013 billones</b> gastados en los mismos meses del AF2025, y en camino de ser la segunda partida más grande del presupuesto federal después del Seguro Social y los programas de salud (Sección 8).</span>
+          <span class="en">On a budget (cash-outlay) basis — the figure that counts against the deficit — net interest on the public debt was <b data-bind="cashInterestT">$1.170T</b> through the first <span class="fyn-en">10</span> months of FY2026, already above the <b>$1.013T</b> spent over the same months of FY2025, and on pace to be the second-largest federal budget line after Social Security and health programs (Section 8).</span>
+          <span class="es" hidden>En términos presupuestales (flujo de efectivo) — la cifra que cuenta para el déficit — el interés neto de la deuda pública fue de <b data-bind="cashInterestTEs">$1.170 billones</b> en los primeros <span class="fyn-es">10</span> meses del AF2026, ya por encima de los <b>$1.013 billones</b> gastados en los mismos meses del AF2025, y en camino de ser la segunda partida más grande del presupuesto federal después del Seguro Social y los programas de salud (Sección 8).</span>
         </div>
       </div>
     </div>
@@ -651,8 +663,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4 ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4 ↗</a></span></p>
     </div>
     <div class="callout" style="margin-top:20px">
-      <span class="en">Year-to-date receipts are up <b>$139B (3.2%)</b> versus the same <span class="fyn-en">10</span> months of FY2025, led by individual income and payroll taxes; corporate receipts are down <b>$94B</b>, partly a timing effect from estimated-payment schedules.</span>
-      <span class="es" hidden>La recaudación a la fecha está <b>$139 mil millones (3.2%)</b> por encima de los mismos <span class="fyn-es">10</span> meses del AF2025, impulsada por el impuesto sobre la renta de las personas y los impuestos a la nómina; la recaudación corporativa está <b>$94 mil millones</b> por debajo, en parte por un efecto de calendario en los pagos estimados.</span>
+      <span class="en">Year-to-date receipts are <span data-bind="revYtdDirEn">up</span> <b><span data-bind="revYtdDeltaB">$139B</span> (<span data-bind="revYtdDeltaPct">3.2</span>%)</b> versus the same <span class="fyn-en">10</span> months of FY2025, led by individual income and payroll taxes; corporate receipts are <span data-bind="revCorpDirEn">down</span> <b><span data-bind="revCorpDeltaB">$94B</span></b>, partly a timing effect from estimated-payment schedules.</span>
+      <span class="es" hidden>La recaudación a la fecha está <b><span data-bind="revYtdDeltaBEs">$139 mil millones</span> (<span data-bind="revYtdDeltaPct">3.2</span>%)</b> <span data-bind="revYtdDirEs">por encima de</span> los mismos <span class="fyn-es">10</span> meses del AF2025, impulsada por el impuesto sobre la renta de las personas y los impuestos a la nómina; la recaudación corporativa está <b><span data-bind="revCorpDeltaBEs">$94 mil millones</span></b> <span data-bind="revCorpDirEs">por debajo</span>, en parte por un efecto de calendario en los pagos estimados.</span>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="en">Import tariffs (customs duties), 1935–2025</span><span class="es" hidden>Aranceles a la importación (derechos de aduana), 1935–2025</span></h3>
@@ -663,8 +675,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="chart-wrap tall"><canvas id="chartTariffs"></canvas></div>
       <p class="chart-src"><span class="en">Source: BEA National Income and Product Accounts via FRED, <a href="https://fred.stlouisfed.org/series/B235RC1A027NBEA" target="_blank" rel="noopener">Customs Duties (B235RC1A027NBEA) ↗</a></span><span class="es" hidden>Fuente: Cuentas Nacionales de Ingresos y Producto de la BEA vía FRED, <a href="https://fred.stlouisfed.org/series/B235RC1A027NBEA" target="_blank" rel="noopener">Customs Duties (B235RC1A027NBEA) ↗</a></span></p>
       <div class="callout">
-        <span class="en">Customs duties sat under $40B a year for decades, then stepped up with the first Trump administration's Section 301/232 tariffs on China, steel and aluminum starting 2018 ($38.5B → $77.8B by 2019). They jumped again — far more sharply — after the second Trump administration announced broad new "reciprocal" tariffs on <b>April 2, 2025</b> ("Liberation Day," a 10% universal tariff effective Apr 5 plus higher country-specific rates), pushing full-year 2025 customs receipts to <b>$265.1B</b>, more than triple any prior year. Treasury's FY2026 year-to-date customs collections (<span class="fyr-long-en">Oct '25–Jul '26</span>, per the Monthly Treasury Statement) are already <b>$154.5B</b> for just <span class="fyn-en">10</span> months.</span>
-        <span class="es" hidden>Los derechos de aduana se mantuvieron por debajo de $40 mil millones al año durante décadas, y luego subieron con los aranceles de la Sección 301/232 de la primera administración Trump sobre China, acero y aluminio a partir de 2018 ($38.5 mil millones → $77.8 mil millones para 2019). Subieron de nuevo — de forma mucho más pronunciada — después de que la segunda administración Trump anunciara nuevos aranceles "reciprocos" amplios el <b>2 de abril de 2025</b> ("Liberation Day", un arancel universal del 10% vigente desde el 5 de abril más tasas más altas por país), llevando la recaudación aduanera del año completo 2025 a <b>$265.1 mil millones</b>, más del triple de cualquier año anterior. La recaudación aduanera del AF2026 a la fecha (<span class="fyr-long-es">oct. '25–jul. '26</span>, según el Monthly Treasury Statement) ya es de <b>$154.5 mil millones</b> en solo <span class="fyn-es">10</span> meses.</span>
+        <span class="en">Customs duties sat under $40B a year for decades, then stepped up with the first Trump administration's Section 301/232 tariffs on China, steel and aluminum starting 2018 ($38.5B → $77.8B by 2019). They jumped again — far more sharply — after the second Trump administration announced broad new "reciprocal" tariffs on <b>April 2, 2025</b> ("Liberation Day," a 10% universal tariff effective Apr 5 plus higher country-specific rates), pushing full-year 2025 customs receipts to <b>$265.1B</b>, more than triple any prior year. Treasury's FY2026 year-to-date customs collections (<span class="fyr-long-en">Oct '25–Jul '26</span>, per the Monthly Treasury Statement) are already <b data-bind="customsYtdB">$154.5B</b> for just <span class="fyn-en">10</span> months.</span>
+        <span class="es" hidden>Los derechos de aduana se mantuvieron por debajo de $40 mil millones al año durante décadas, y luego subieron con los aranceles de la Sección 301/232 de la primera administración Trump sobre China, acero y aluminio a partir de 2018 ($38.5 mil millones → $77.8 mil millones para 2019). Subieron de nuevo — de forma mucho más pronunciada — después de que la segunda administración Trump anunciara nuevos aranceles "reciprocos" amplios el <b>2 de abril de 2025</b> ("Liberation Day", un arancel universal del 10% vigente desde el 5 de abril más tasas más altas por país), llevando la recaudación aduanera del año completo 2025 a <b>$265.1 mil millones</b>, más del triple de cualquier año anterior. La recaudación aduanera del AF2026 a la fecha (<span class="fyr-long-es">oct. '25–jul. '26</span>, según el Monthly Treasury Statement) ya es de <b data-bind="customsYtdBEs">$154.5 mil millones</b> en solo <span class="fyn-es">10</span> meses.</span>
       </div>
     </div>
     <details class="tbl"><summary><span class="en">View full data table</span><span class="es" hidden>Ver tabla de datos completa</span></summary>
@@ -695,8 +707,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5 ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5 ↗</a></span></p>
     </div>
     <div class="callout" style="margin-top:20px">
-      <span class="en">The <b>Treasury</b> total above is mostly net interest on the debt — <b>$1.170T</b> of its <b>$1.407T</b> FY2026 year-to-date figure (see Section 4) — with the remainder chiefly IRS-administered refundable tax credits. Social Security and Health &amp; Human Services (which includes Medicare and Medicaid) together are now roughly half of all federal outlays.</span>
-      <span class="es" hidden>El total del <b>Tesoro</b> de arriba es sobre todo interés neto de la deuda — <b>$1.170 billones</b> de su cifra de <b>$1.407 billones</b> del AF2026 a la fecha (ver Sección 4) — y el resto son principalmente créditos fiscales reembolsables administrados por el IRS. El Seguro Social y Salud y Servicios Humanos (que incluye Medicare y Medicaid) juntos son ahora aproximadamente la mitad de todo el gasto federal.</span>
+      <span class="en">The <b>Treasury</b> total above is mostly net interest on the debt — <b data-bind="cashInterestT">$1.170T</b> of its <b data-bind="outYtdTreasuryT">$1.407T</b> FY2026 year-to-date figure (see Section 4) — with the remainder chiefly IRS-administered refundable tax credits. Social Security and Health &amp; Human Services (which includes Medicare and Medicaid) together are now roughly half of all federal outlays.</span>
+      <span class="es" hidden>El total del <b>Tesoro</b> de arriba es sobre todo interés neto de la deuda — <b data-bind="cashInterestTEs">$1.170 billones</b> de su cifra de <b data-bind="outYtdTreasuryTEs">$1.407 billones</b> del AF2026 a la fecha (ver Sección 4) — y el resto son principalmente créditos fiscales reembolsables administrados por el IRS. El Seguro Social y Salud y Servicios Humanos (que incluye Medicare y Medicaid) juntos son ahora aproximadamente la mitad de todo el gasto federal.</span>
     </div>
     <details class="tbl"><summary><span class="en">View full data table</span><span class="es" hidden>Ver tabla de datos completa</span></summary>
       <div class="tblwrap" id="tblOutlays"></div>
@@ -849,7 +861,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <div class="ihead"><h4><span class="en">Overnight Reverse Repo (ON RRP)</span><span class="es" hidden>Reporto Inverso a un Día (ON RRP)</span></h4><span class="pill since"><span class="en">Since Sept 2013</span><span class="es" hidden>Desde sep. 2013</span></span></div>
         <p><span class="en">Lets money-market funds and other non-banks lend cash to the Fed overnight against Treasury collateral, setting a floor under short-term rates. Usage exploded as reserves and money-fund cash surged, then collapsed as the Fed shrank its balance sheet and Treasury bill supply absorbed that cash.</span><span class="es" hidden>Permite que fondos del mercado de dinero y otras entidades no bancarias presten efectivo a la Fed a un día contra garantía del Tesoro, fijando un piso para las tasas de corto plazo. Su uso se disparó cuando las reservas y el efectivo de los fondos del mercado de dinero crecieron, y luego se desplomó al reducirse el balance de la Fed y al absorber la oferta de letras del Tesoro ese efectivo.</span></p>
         <div class="chart-wrap short"><canvas id="chartRRP"></canvas></div>
-        <div class="metric"><span class="v">$0.4B</span><span class="l"><span class="en">outstanding, Sep 9, 2026 (vs. $2.55T peak, Dec 2022)</span><span class="es" hidden>pendiente, 9 de sep. de 2026 (vs. máximo de $2.55 billones, dic. 2022)</span></span></div>
+        <div class="metric"><span class="v" data-bind="rrpValB">$0.4B</span><span class="l"><span class="en">outstanding, <span data-bind="rrpAsOfEn">Sep 9, 2026</span> (vs. $2.55T peak, Dec 2022)</span><span class="es" hidden>pendiente, <span data-bind="rrpAsOfEs">9 de sep. de 2026</span> (vs. máximo de $2.55 billones, dic. 2022)</span></span></div>
         <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/RRPONTSYD" target="_blank" rel="noopener">RRPONTSYD ↗</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/RRPONTSYD" target="_blank" rel="noopener">RRPONTSYD ↗</a></span></p>
       </div>
       <div class="instr">
@@ -1043,6 +1055,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   ];
   // groups: 0 = intragovernmental, 1 = Federal Reserve, 2 = private domestic, 9 = foreign
   holders[0].g = 9; // foreign flag (first literal = "Foreign & international")
+  var holdersAsOf = "Mar 31, 2026"; // reassigned from MD.asOf below when the monthly PR updates holders
   var holderColorFor = function(h){
     if(h.g===9) return getVar("--series-2");
     if(h.g===1 || h.g===0) return getVar("--series-1");
@@ -1168,6 +1181,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     labels:["Jun '21","Dec '21","Jun '22","Dec '22","Jun '23","Dec '23","Jun '24","Dec '24","Jun '25","Sep '26"],
     values:[448.0,1904.6,2329.7,2553.7,2034.3,1018.5,664.6,473.5,460.7,0.4]
   };
+  // Baked defaults for the debt-snapshot prose in Section 01 and the RRP metric in Section 11 —
+  // reassigned by applyLiveData() below whenever fresh data.js is present, so every "as of" date
+  // and figure in that prose stays correct without hand-editing this file again.
+  var debtAsOf = "2026-09-08", debtTotalT = 40.08, debtPublicT = 32.39, debtIntragovT = 7.70;
+  var rrpAsOf = "2026-09-08", rrpVal = 0.4;
+  // Cash-basis net interest on the debt, FY-to-date $T — no mechanical Treasury API cleanly
+  // maps to this figure (it takes real reconciliation against Treasury's own summary tables),
+  // so it's researched and reassigned by the monthly task (site/monthly-data.js) like CBO/holders,
+  // not the daily script. Baked default below until the first monthly PR adds it.
+  var cashInterestT = 1.170;
+  var accruedInterestT = 1.268, accruedInterestAsOf = "2026-08-31"; // same deferred-to-monthly-task treatment
 
   var fundsRate = {
     labels:["2000","2003","2006","2007","2008","2010","2015","2018","2019","2020","2022","2023","2024","2026"],
@@ -1233,6 +1257,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         debtTrend.intragov[debtTrend.intragov.length-1] = LD.debt.intragovT;
         tripleIndex.debt[tripleIndex.debt.length-1] = LD.debt.totalDebtT*1000;
         asof[0][1] = LD.debt.date+" (daily)";
+        debtAsOf = LD.debt.date; debtTotalT = LD.debt.totalDebtT; debtPublicT = LD.debt.heldByPublicT; debtIntragovT = LD.debt.intragovT;
       }
       if(LD.avgRate){
         kpis[4].val = LD.avgRate.avgRatePct.toFixed(2)+"%";
@@ -1261,6 +1286,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       }
       if(LD.rrpVolume){
         rrpTrend.values[rrpTrend.values.length-1] = LD.rrpVolume.value;
+        rrpVal = LD.rrpVolume.value; if(LD.rrpVolume.date) rrpAsOf = LD.rrpVolume.date;
       }
       if(LD.debtComposition){
         var dc = LD.debtComposition;
@@ -1284,6 +1310,40 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     }
   })();
 
+  // ---------------- Derived values built from the (now possibly live-updated) data above ----------------
+  // Everything here is pure computation from variables already set — no new data source, just no
+  // longer hand-typed, so these numbers can't silently drift out of sync with the charts beside them.
+  function fmtDateEn(iso){
+    var mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var p=iso.split('-'); return mon[Number(p[1])-1]+' '+Number(p[2])+', '+p[0];
+  }
+  function fmtDateEs(iso){
+    var mon=["ene.","feb.","mar.","abr.","may.","jun.","jul.","ago.","sep.","oct.","nov.","dic."];
+    var p=iso.split('-'); return Number(p[2])+' de '+mon[Number(p[1])-1]+' de '+p[0];
+  }
+
+  // Total debt / M2, annual calendar year-end $B, 1995–2026 — five years of pure history
+  // (sourced once from Treasury Debt to the Penny / FRED M2SL, never changes) prepended onto
+  // tripleIndex's own arrays, built here (after the overlay above) so these two charts' latest
+  // point is always whatever tripleIndex.debt/.m2 just got updated to.
+  var debtHistory1995 = { labels:["1995","1996","1997","1998","1999"].concat(tripleIndex.labels),
+    values:[4988.66,5323.17,5502.39,5614.22,5776.09].concat(tripleIndex.debt) };
+  var m2History1995 = { labels:["1995","1996","1997","1998","1999"].concat(tripleIndex.labels),
+    values:[3629.8,3818.7,4033.0,4375.5,4639.1].concat(tripleIndex.m2) };
+
+  // Section 01 "debt has risen $X trillion since FY2025 ($37.64T on Sep 30, 2025)" callout.
+  var FY2025_END_DEBT_T = 37.64; // fixed historical anchor, Sep 30, 2025 — never changes
+  var FY2025_END_DATE = new Date(2025,8,30);
+  var debtSinceFY25T = debtTotalT - FY2025_END_DEBT_T;
+  var monthsSinceFY25 = Math.max(1, (new Date(debtAsOf) - FY2025_END_DATE) / (1000*60*60*24*30.44));
+  var debtMonthlyPaceB = (debtSinceFY25T*1000)/monthsSinceFY25;
+
+  // Section 09 "grown roughly Nx since 2002" multipliers — index 2 in tripleIndex's labels is 2002.
+  var TI_BASE = 2;
+  var fedMultiplier = tripleIndex.walcl[tripleIndex.walcl.length-1]/tripleIndex.walcl[TI_BASE];
+  var debtMultiplier = tripleIndex.debt[tripleIndex.debt.length-1]/tripleIndex.debt[TI_BASE];
+  var m2Multiplier = tripleIndex.m2[tripleIndex.m2.length-1]/tripleIndex.m2[TI_BASE];
+
   // ---------------- Monthly research overlay (holders, CBO, revenue/outlay by category) ----------------
   // window.MONTHLY_DATA is written by a monthly scheduled research task via a reviewed pull
   // request (see site/monthly-data.js) — these series either have no live API (CBO) or need
@@ -1298,6 +1358,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         holders.length = 0;
         MD.holders.forEach(function(h){ holders.push(h); });
         if(holders[0]) holders[0].g = 9;
+        if(MD.asOf) holdersAsOf = MD.asOf;
         asof[1][1] = (MD.asOf || asof[1][1].split(' (')[0])+" (quarterly, ~2Q lag)";
       }
       if(MD.cboGdpRow) cboGdpRow = MD.cboGdpRow;
@@ -1310,6 +1371,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       if(MD.outYTDcur) outYTDcur = MD.outYTDcur;
       if(MD.outYTDpri) outYTDpri = MD.outYTDpri;
       if(MD.revOutAsOf){ revOutAsOf = MD.revOutAsOf; asof[4][1] = MD.revOutAsOf+" YTD; FY2025 full year"; }
+      if(MD.cashInterestT) cashInterestT = MD.cashInterestT; // .val/.delta set below once revOutInfo (same MTS vintage) is computed
+      if(MD.accruedInterestT) accruedInterestT = MD.accruedInterestT;
+      if(MD.accruedInterestAsOf) accruedInterestAsOf = MD.accruedInterestAsOf;
     } catch(e){
       console.warn("MONTHLY_DATA overlay skipped:", e);
     }
@@ -1319,7 +1383,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // Turns revOutAsOf (e.g. "Aug 31, 2026") into everything the revenue/outlay sections need
   // to say about it, so a monthly data update can never leave a stale "10 mo." or date range
   // behind — every instance below re-derives from this same date every time renderAll() runs.
-  var revOutInfo = (function(dateStr){
+  function fyInfo(dateStr){
     var d = new Date(dateStr);
     var mIdx = d.getMonth(), y = d.getFullYear(); // fiscal year: Oct=month 1 ... Sep=month 12
     var months = ((mIdx - 9 + 12) % 12) + 1;
@@ -1334,13 +1398,59 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       rangeShortEn: "Oct–"+enMon[mIdx],
       rangeShortEs: "Oct.–"+esMon[mIdx]
     };
-  })(revOutAsOf);
+  }
+  var revOutInfo = fyInfo(revOutAsOf);
+  var accruedInfo = fyInfo(accruedInterestAsOf);
+  kpis[3].val = "$"+cashInterestT.toFixed(3)+"T";
+  kpis[3].delta = revOutInfo.months+" mo. · ≈4.3% of GDP, ann.";
   [].forEach.call(document.querySelectorAll('.fyn-en'),        function(el){ el.textContent = revOutInfo.months; });
   [].forEach.call(document.querySelectorAll('.fyn-es'),        function(el){ el.textContent = revOutInfo.months; });
   [].forEach.call(document.querySelectorAll('.fyr-long-en'),   function(el){ el.textContent = revOutInfo.rangeLongEn; });
   [].forEach.call(document.querySelectorAll('.fyr-long-es'),   function(el){ el.textContent = revOutInfo.rangeLongEs; });
   [].forEach.call(document.querySelectorAll('.fyr-short-en'),  function(el){ el.textContent = revOutInfo.rangeShortEn; });
   [].forEach.call(document.querySelectorAll('.fyr-short-es'),  function(el){ el.textContent = revOutInfo.rangeShortEs; });
+
+  // ---------------- Generic data-bind: fills every [data-bind] element from BIND below ----------------
+  // A catch-all for the numbers scattered through the prose that used to be hand-typed. Add a
+  // key here + a matching data-bind="key" span in the markup and it's live from then on — no
+  // more per-value querySelectorAll wiring needed for anything new.
+  var revYtdCurTotal = revYTDcur.reduce(function(a,b){return a+b;},0);
+  var revYtdPriTotal = revYTDpri.reduce(function(a,b){return a+b;},0);
+  var revYtdDeltaB = revYtdCurTotal - revYtdPriTotal;
+  var revYtdDeltaPct = (revYtdDeltaB/revYtdPriTotal*100);
+  var revCorpDeltaB = revYTDcur[2] - revYTDpri[2]; // Corporate income tax, index 2 (positive = grew)
+  var outYtdTreasuryB = outYTDcur[3]; // Treasury (incl. net interest), index 3
+  var fedSomaT = holders.filter(function(h){return h.label==="Federal Reserve (SOMA)";})[0].value/1000;
+  var foreignCurT = holders[0].value/1000; // "Foreign & international", index 0
+  var esMonShort = {Jan:'ene.',Feb:'feb.',Mar:'mar.',Apr:'abr.',May:'may.',Jun:'jun.',Jul:'jul.',Aug:'ago.',Sep:'sep.',Oct:'oct.',Nov:'nov.',Dec:'dic.'};
+  var holdersParts = holdersAsOf.replace(',','').split(' '); // "Mar 31 2026" -> ["Mar","31","2026"]
+  var holdersShortEn = holdersParts[0]+' '+holdersParts[2];
+  var holdersShortEs = (esMonShort[holdersParts[0]]||holdersParts[0])+' '+holdersParts[2];
+  var sign = function(v){ return v>=0 ? '+' : '−'; };
+  var BIND = {
+    debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
+    debtTotalT: '$'+debtTotalT.toFixed(2)+'T', debtPublicT: '$'+debtPublicT.toFixed(2)+'T', debtIntragovT: '$'+debtIntragovT.toFixed(2)+'T',
+    debtPublicPct: (debtPublicT/debtTotalT*100).toFixed(1), debtIntragovPct: (debtIntragovT/debtTotalT*100).toFixed(1),
+    debtSinceFY25T: debtSinceFY25T.toFixed(1), debtMonthlyPaceB: Math.round(debtMonthlyPaceB),
+    rrpValB: '$'+rrpVal.toFixed(1)+'B', rrpAsOfEn: fmtDateEn(rrpAsOf), rrpAsOfEs: fmtDateEs(rrpAsOf),
+    fedMult: fedMultiplier.toFixed(1)+'×', debtMult: debtMultiplier.toFixed(1)+'×', m2Mult: m2Multiplier.toFixed(1)+'×',
+    fedSomaT: '$'+fedSomaT.toFixed(2)+'T', foreignCurT: '$'+foreignCurT.toFixed(2)+'T',
+    fedSomaTEs: '$'+fedSomaT.toFixed(2)+' billones', foreignCurTEs: '$'+foreignCurT.toFixed(2)+' billones',
+    holdersShortEn: holdersShortEn, holdersShortEs: holdersShortEs,
+    revYtdDeltaB: '$'+Math.abs(revYtdDeltaB).toFixed(0)+'B', revYtdDeltaPct: Math.abs(revYtdDeltaPct).toFixed(1),
+    revYtdDeltaBEs: '$'+Math.abs(revYtdDeltaB).toFixed(0)+' mil millones',
+    revYtdDirEn: revYtdDeltaB>=0?'up':'down', revYtdDirEs: revYtdDeltaB>=0?'por encima de':'por debajo de',
+    revCorpDeltaB: '$'+Math.abs(revCorpDeltaB).toFixed(0)+'B', revCorpDeltaBEs: '$'+Math.abs(revCorpDeltaB).toFixed(0)+' mil millones',
+    revCorpDirEn: revCorpDeltaB>=0?'up':'down', revCorpDirEs: revCorpDeltaB>=0?'por encima':'por debajo',
+    customsYtdB: '$'+revYTDcur[3].toFixed(1)+'B', customsYtdBEs: '$'+revYTDcur[3].toFixed(1)+' mil millones',
+    outYtdTreasuryT: '$'+(outYtdTreasuryB/1000).toFixed(3)+'T', outYtdTreasuryTEs: '$'+(outYtdTreasuryB/1000).toFixed(3)+' billones',
+    cashInterestT: '$'+cashInterestT.toFixed(3)+'T', cashInterestTEs: '$'+cashInterestT.toFixed(3)+' billones',
+    accruedInterestT: '$'+accruedInterestT.toFixed(3)+'T', accruedMonths: accruedInfo.months,
+    accruedRangeLongEn: accruedInfo.rangeLongEn, accruedRangeLongEs: accruedInfo.rangeLongEs
+  };
+  Object.keys(BIND).forEach(function(k){
+    [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; });
+  });
 
   // ---------------- Helpers ----------------
   function getVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
@@ -1539,6 +1649,30 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var rows = debtTrend.labels.map(function(l,i){ return '<tr><td>'+l+'</td><td class="num">$'+debtTrend.public[i].toFixed(2)+'T</td><td class="num">$'+debtTrend.intragov[i].toFixed(2)+'T</td><td class="num">$'+(debtTrend.public[i]+debtTrend.intragov[i]).toFixed(2)+'T</td></tr>'; }).join('');
     document.getElementById('tblDebtTrend').innerHTML = '<table><thead><tr><th>'+L('Period')+'</th><th>'+L('Held by public')+'</th><th>'+L('Intragovernmental')+'</th><th>'+L('Total')+'</th></tr></thead><tbody>'+rows+'</tbody></table>';
   })();
+
+  new Chart(document.getElementById('chartDebtHistory1995'), {
+    type:'line',
+    data:{ labels: debtHistory1995.labels, datasets:[
+      { data: debtHistory1995.values.map(function(v){return v/1000;}), borderColor:getVar('--series-1'), backgroundColor:getVar('--series-1')+'1a', fill:true, tension:.2, pointRadius:0, pointHoverRadius:4, borderWidth:2.5 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+'T'; } } } },
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) },
+        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+    }
+  });
+
+  new Chart(document.getElementById('chartM2History1995'), {
+    type:'line',
+    data:{ labels: m2History1995.labels, datasets:[
+      { data: m2History1995.values.map(function(v){return v/1000;}), borderColor:getVar('--series-7'), backgroundColor:getVar('--series-7')+'1a', fill:true, tension:.2, pointRadius:0, pointHoverRadius:4, borderWidth:2.5 }
+    ]},
+    options:{ responsive:true, maintainAspectRatio:false,
+      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+'T'; } } } },
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) },
+        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+    }
+  });
 
   (function(){
     var baseIdx = tripleIndex.labels.indexOf('2002');
