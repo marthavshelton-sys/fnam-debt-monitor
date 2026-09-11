@@ -6,7 +6,7 @@
 # revalidation on every request keeps the JS payload tiny (still cached, just re-checked) while
 # guaranteeing visitors always get the latest committed values.
 /fiscal/data.js
-  Cache-Control: no-cache
+  Cache-Control: no-store
 
 /fiscal/monthly-data.js
-  Cache-Control: no-cache
+  Cache-Control: no-store
