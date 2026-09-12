@@ -41,6 +41,47 @@ foreach ($s in (Invoke-Bls $laborIds 2017 $thisYear)) {
 Write-Output ("labor: {0} series, unemployment {1} = {2}%, payrolls {3}" -f $labor.Count, $labor["LNS14000000"].points[-1].d, $labor["LNS14000000"].points[-1].v, $labor["CES0000000001"].points[-1].d)
 Save-Json $labor "labor_processed.json"
 
+# ---------------- labor_static upkeep ----------------
+# Two things in labor_static.json used to need a hand each month; both are now
+# maintained here so the revisions chart and the state maps never go stale.
+$lsPath = Join-Path $data "labor_static.json"
+$ls = Get-Content $lsPath -Raw -Encoding UTF8 | ConvertFrom-Json
+$changed = $false
+
+# (a) First prints. The payroll revisions chart compares each month's current
+# value with its first-published change. The first run after a jobs report is
+# the only time that number is observable, so record it then and never overwrite.
+$ces = $labor["CES0000000001"].points
+$latestM = $ces[-1]; $priorM = $ces[-2]
+if ($null -ne $latestM.v -and $null -ne $priorM.v) {
+  $firstPrint = [math]::Round($latestM.v - $priorM.v, 0)
+  if (-not $ls.payrollInitial.PSObject.Properties[$latestM.d]) {
+    $ls.payrollInitial | Add-Member -NotePropertyName $latestM.d -NotePropertyValue $firstPrint
+    Write-Output ("first print recorded: {0} = {1:+#;-#;0}K" -f $latestM.d, $firstPrint); $changed = $true
+  }
+}
+
+# (b) State nonfarm employment (BLS CES state series), the denominator for the
+# job-cut maps. 51 series, two API calls.
+$fips = @{ AL="01";AK="02";AZ="04";AR="05";CA="06";CO="08";CT="09";DE="10";DC="11";FL="12";GA="13";HI="15";ID="16";IL="17";IN="18";IA="19";KS="20";KY="21";LA="22";ME="23";MD="24";MA="25";MI="26";MN="27";MS="28";MO="29";MT="30";NE="31";NV="32";NH="33";NJ="34";NM="35";NY="36";NC="37";ND="38";OH="39";OK="40";OR="41";PA="42";RI="44";SC="45";SD="46";TN="47";TX="48";UT="49";VT="50";VA="51";WA="53";WV="54";WI="55";WY="56" }
+$byId = @{}; foreach ($st in $fips.Keys) { $byId["SMS$($fips[$st])000000000000001"] = $st }
+$ids = @($byId.Keys | Sort-Object)
+$stEmp = @{}; $stMonth = $null
+foreach ($chunk in @($ids[0..25], $ids[26..($ids.Count-1)])) {
+  foreach ($s in (Invoke-Bls $chunk ($thisYear-1) $thisYear)) {
+    $p = BlsMonthly $s | Where-Object { $null -ne $_.v } | Select-Object -Last 1
+    if ($p) { $stEmp[$byId[$s.seriesID]] = $p.v; if (-not $stMonth -or $p.d -lt $stMonth) { $stMonth = $p.d } }
+  }
+}
+if ($stEmp.Count -eq 51 -and $stMonth -ne $ls.challenger.stateEmploymentAsOf) {
+  $ls.stateEmployment = [PSCustomObject]$stEmp
+  $ls.challenger.stateEmploymentAsOf = $stMonth
+  Write-Output "state employment refreshed to $stMonth"; $changed = $true
+} elseif ($stEmp.Count -ne 51) { Write-Host "::warning::state employment: only $($stEmp.Count) of 51 states returned; kept previous values" }
+else { Write-Output "state employment already at $stMonth" }
+
+if ($changed) { ($ls | ConvertTo-Json -Depth 6) | Set-Content $lsPath -Encoding utf8; Write-Output "labor_static.json updated" }
+
 # ---------------- PCE prices + weights (BEA T20804 / T20805) ----------------
 $pceLines = @{
   "1"="Personal consumption expenditures (PCE)";"25"="PCE excluding food and energy (core)";"2"="Goods";"13"="Services";

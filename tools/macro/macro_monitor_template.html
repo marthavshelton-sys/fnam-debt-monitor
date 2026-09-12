@@ -1036,7 +1036,8 @@
       </div>
       <div class="meta-block">
         <div class="as-of" id="gdpAsOfLine">—</div>
-        <div id="gdpVintageLine">—</div>
+        <div id="gdpNextReleaseLine">-</div>
+        <div id="gdpVintageLine">-</div>
         <div id="gdpRefreshedLine">—</div>
         <div><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank" rel="noopener" data-i18n="sourceGDP">Source: BEA national accounts</a></div>
       </div>
@@ -2052,6 +2053,10 @@ let FINCOND_SOURCE = "snapshot";
 let SUPPLY = /*__SUPPLY_DATA__*/ null;
 let SUPPLY_SOURCE = "snapshot";
 let FISCAL = /*__FISCAL_DATA__*/ null;
+// Release dates come from FRED at build time (process_calendar.ps1), which
+// carries each agency's official schedule including future dates. No
+// hand-typed date tables remain in this file.
+const CALENDAR = /*__CALENDAR__*/ null;
 let FISCAL_SOURCE = "snapshot";
 
 // Set to "live" once a background fetch succeeds; drives the freshness line.
@@ -2237,6 +2242,8 @@ const I18N = {
     gdpTitle: "Crecimiento del PIB real",
     gdpDesc: "Crecimiento trimestral del producto y de dónde viene: consumo, inversión, gobierno y comercio exterior. Tasa anualizada, ajustada por estacionalidad.",
     sourceGDP: "Fuente: cuentas nacionales del BEA ↗",
+    gdpNextRelease: d => "Pr\u00f3xima publicaci\u00f3n del PIB: " + d,
+    gdpNextReleaseWas: d => "La publicaci\u00f3n del PIB fue el " + d,
     gdpVintage: "Estimación sujeta a revisión",
     gdpSecGrowth: "Crecimiento trimestral",
     gdpSecGrowthNote: "PIB real, variación porcentual a tasa anualizada",
@@ -2356,8 +2363,6 @@ const I18N = {
     cutsHiringFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " del año pasado",
     cutsLegMonthly: "Total mensual",
     cutsLeg3mo: "Promedio de 3 meses",
-    cutsHiringThis: "2026",
-    cutsHiringLast: "2025",
     cutsIndustryNote: (names, share, total, headline) => "Los tres sectores con más recortes (" + names + ") concentran el " + share + "% de los " + total + " clasificados por sector este mes. La tabla sectorial de Challenger no cubre todos los anuncios, por eso suma menos que el total de " + headline + ".",
     cutsHiringNote: (ytd, prior, pct) => "En lo que va del año se anunciaron " + ytd + " contrataciones, frente a " + prior + " en el mismo periodo del año pasado (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Tasa = recortes anunciados (Challenger) ÷ empleo no agrícola total del estado (BLS, " + m + "). La cuadrícula es esquemática: cada estado ocupa una celda del mismo tamaño, colocada para aproximar su posición real, de modo que estados pequeños sigan siendo legibles.",
@@ -3024,6 +3029,8 @@ const I18N = {
     gdpTitle: "Real GDP Growth",
     gdpDesc: "Quarterly output growth and where it comes from — consumption, investment, government and trade. Annualized rate, seasonally adjusted.",
     sourceGDP: "Source: BEA national accounts ↗",
+    gdpNextRelease: d => "Next GDP release: " + d,
+    gdpNextReleaseWas: d => "Next GDP release was " + d,
     gdpVintage: "Estimate subject to revision",
     gdpSecGrowth: "Quarterly growth",
     gdpSecGrowthNote: "Real GDP, percent change at an annual rate",
@@ -3143,8 +3150,6 @@ const I18N = {
     cutsHiringFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " last year",
     cutsLegMonthly: "Monthly total",
     cutsLeg3mo: "3-month average",
-    cutsHiringThis: "2026",
-    cutsHiringLast: "2025",
     cutsIndustryNote: (names, share, total, headline) => "The three heaviest-cutting sectors (" + names + ") account for " + share + "% of the " + total + " classified by sector this month. Challenger's sector table does not cover every announcement, which is why it sums to less than the " + headline + " headline total.",
     cutsHiringNote: (ytd, prior, pct) => ytd + " hires have been announced so far this year, against " + prior + " in the same period last year (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Rate = announced cuts (Challenger) ÷ the state's total nonfarm employment (BLS, " + m + "). The grid is schematic: every state gets an equal-sized tile placed to approximate its real position, so small states stay as legible as large ones.",
@@ -3748,25 +3753,6 @@ function lastReal(points) {
   return null;
 }
 
-// BLS's official CPI release calendar (from bls.gov/schedule/news_release/cpi.htm).
-// Reference month -> the date that month's report is published. Extend this list
-// periodically (the weekly refresh routine does not touch it) so "next release"
-// keeps resolving; if the table runs out, the page falls back to an estimate.
-const RELEASE_SCHEDULE = [
-  {month:"2025-11", date:"2025-12-18"},
-  {month:"2025-12", date:"2026-01-13"},
-  {month:"2026-01", date:"2026-02-13"},
-  {month:"2026-02", date:"2026-03-11"},
-  {month:"2026-03", date:"2026-04-10"},
-  {month:"2026-04", date:"2026-05-12"},
-  {month:"2026-05", date:"2026-06-10"},
-  {month:"2026-06", date:"2026-07-14"},
-  {month:"2026-07", date:"2026-08-12"},
-  {month:"2026-08", date:"2026-09-11"},
-  {month:"2026-09", date:"2026-10-14"},
-  {month:"2026-10", date:"2026-11-10"},
-  {month:"2026-11", date:"2026-12-10"}
-];
 
 // "Live from BLS · just now" once a fetch succeeds; otherwise names the snapshot date,
 // so a stale page can never quietly pass itself off as current.
@@ -3777,6 +3763,19 @@ function freshnessLabel(source, snapshotDate, agency) {
   }
   const dt = new Date(snapshotDate + "T00:00:00");
   return T.snapshotFrom(fmtDateDMY(dt));
+}
+
+// "Next release" line for a section: the next scheduled date from the
+// calendar, paired with the month that follows the latest data point. Falls
+// back to the section's estimate wording if the calendar is missing.
+function nextReleaseText(key, nextMonthLabel, estimate) {
+  const c = CALENDAR && CALENDAR.releases && CALENDAR.releases[key];
+  if (c && c.next) {
+    const dt = new Date(c.next + "T00:00:00");
+    // Live time is right here: "has this date passed as of viewing" is genuinely dynamic.
+    return (dt < new Date() ? T.nextReleaseWas : T.nextRelease)(fmtDateDMY(dt), nextMonthLabel);
+  }
+  return estimate(nextMonthLabel);
 }
 
 function nextMonthOf(monthStr) {
@@ -3843,18 +3842,7 @@ function renderAll() {
   document.getElementById("asOfLine").textContent = T.dataAsOf(fmtMonthYear(latest.d));
   document.getElementById("refreshedLine").textContent = freshnessLabel(CPI_SOURCE, REFRESHED_AT, "BLS");
 
-  const nextMonth = nextMonthOf(latest.d);
-  const sched = RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const nextEl = document.getElementById("nextReleaseLine");
-  const viewerNow = new Date(); // OK to use live time here: this comparison is "has the scheduled date passed as of viewing," which is genuinely dynamic, unlike "Refreshed" above.
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const dateStr = fmtDateDMY(dt);
-    const isPast = dt < viewerNow;
-    nextEl.textContent = (isPast ? T.nextReleaseWas : T.nextRelease)(dateStr, fmtMonthYear(nextMonth));
-  } else {
-    nextEl.textContent = T.nextReleaseEst(fmtMonthYear(nextMonth));
-  }
+  document.getElementById("nextReleaseLine").textContent = nextReleaseText("cpi", fmtMonthYear(nextMonthOf(latest.d)), T.nextReleaseEst);
 })();
 
 // ---------- KPI tiles ----------
@@ -4521,14 +4509,6 @@ const PCE_MAJOR_GROUPS = [
   {id:"npish",      key:"L22", color:"--cat-10"}
 ];
 
-// BEA's "Personal Income and Outlays" release calendar (bea.gov/news/schedule).
-// Reference month -> release date. Extend periodically, same spirit as CPI's table.
-const PCE_RELEASE_SCHEDULE = [
-  {month:"2026-08", date:"2026-09-30"},
-  {month:"2026-09", date:"2026-10-29"},
-  {month:"2026-10", date:"2026-11-25"},
-  {month:"2026-11", date:"2026-12-23"}
-];
 
 // ---------- PCE header ----------
 (function initPceHeader(){
@@ -4537,18 +4517,7 @@ const PCE_RELEASE_SCHEDULE = [
   document.getElementById("pceAsOfLine").textContent = T.dataAsOf(fmtMonthYear(latest.d));
   document.getElementById("pceRefreshedLine").textContent = freshnessLabel(PCE_SOURCE, PCE_REFRESHED_AT, "BEA");
 
-  const nextMonth = nextMonthOf(latest.d);
-  const sched = PCE_RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const nextEl = document.getElementById("pceNextReleaseLine");
-  const viewerNow = new Date();
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const dateStr = fmtDateDMY(dt);
-    const isPast = dt < viewerNow;
-    nextEl.textContent = (isPast ? T.nextReleaseWas : T.nextRelease)(dateStr, fmtMonthYear(nextMonth));
-  } else {
-    nextEl.textContent = T.nextReleaseEstPCE(fmtMonthYear(nextMonth));
-  }
+  document.getElementById("pceNextReleaseLine").textContent = nextReleaseText("pce", fmtMonthYear(nextMonthOf(latest.d)), T.nextReleaseEstPCE);
 })();
 
 // ---------- PCE KPI tiles ----------
@@ -4901,13 +4870,6 @@ const PPI_CATS = [
 const PPI_PIPELINE = ["WPUID62","WPUID61","WPUID63","WPUID54"];
 const PPI_BUYER_COLORS = {buyerPC:"--cat-1", buyerCapInv:"--cat-3", buyerExport:"--cat-5", buyerGovt:"--cat-7"};
 
-// BLS's PPI release calendar (bls.gov/schedule/news_release/ppi.htm). Same
-// upkeep rule as the CPI table: extend it periodically; it falls back to an estimate.
-const PPI_RELEASE_SCHEDULE = [
-  {month:"2026-09", date:"2026-10-15"},
-  {month:"2026-10", date:"2026-11-13"},
-  {month:"2026-11", date:"2026-12-11"}
-];
 
 function renderPPI() {
   if (!PPI || !PPI_WEIGHTS) return;
@@ -4918,16 +4880,7 @@ function renderPPI() {
   // ---- header ----
   document.getElementById("ppiAsOfLine").textContent = T.dataAsOf(fmtMonthYear(headline.d));
   document.getElementById("ppiRefreshedLine").textContent = freshnessLabel(PPI_SOURCE, REFRESHED_AT, "BLS");
-  const nextMonth = nextMonthOf(headline.d);
-  const sched = PPI_RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const nextEl = document.getElementById("ppiNextReleaseLine");
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const ds = fmtDateDMY(dt);
-    nextEl.textContent = (dt < new Date() ? T.nextReleaseWas : T.nextRelease)(ds, fmtMonthYear(nextMonth));
-  } else {
-    nextEl.textContent = T.nextReleaseEstPPI(fmtMonthYear(nextMonth));
-  }
+  document.getElementById("ppiNextReleaseLine").textContent = nextReleaseText("ppi", fmtMonthYear(nextMonthOf(headline.d)), T.nextReleaseEstPPI);
 
   // ---- KPI tiles ----
   const defs = [
@@ -5084,13 +5037,6 @@ const RETAIL_CATS = [
   {key:"452", color:"--cat-10"}, {key:"453", color:"--cat-1"}, {key:"454", color:"--cat-3"},
   {key:"722", color:"--cat-5"}
 ];
-// Census advance retail calendar (census.gov/retail/release_schedule.html).
-const RETAIL_RELEASE_SCHEDULE = [
-  {month:"2026-08", date:"2026-09-16"},
-  {month:"2026-09", date:"2026-10-15"},
-  {month:"2026-10", date:"2026-11-17"},
-  {month:"2026-11", date:"2026-12-16"}
-];
 
 // Tile map with a diverging scale: red below zero, green above, grey at zero.
 // The job-cuts map is one-sided (more cuts = redder); retail growth needs both
@@ -5179,16 +5125,7 @@ function renderRetail() {
   // ---- header ----
   document.getElementById("rtAsOfLine").textContent = T.dataAsOf(fmtMonthYear(total.d));
   document.getElementById("rtRefreshedLine").textContent = freshnessLabel(RETAIL_SOURCE, REFRESHED_AT, "Census");
-  const nextMonth = nextMonthOf(total.d);
-  const sched = RETAIL_RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const nextEl = document.getElementById("rtNextReleaseLine");
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const ds = fmtDateDMY(dt);
-    nextEl.textContent = (dt < new Date() ? T.nextReleaseWas : T.nextRelease)(ds, fmtMonthYear(nextMonth));
-  } else {
-    nextEl.textContent = T.nextReleaseEstRetail(fmtMonthYear(nextMonth));
-  }
+  document.getElementById("rtNextReleaseLine").textContent = nextReleaseText("retail", fmtMonthYear(nextMonthOf(total.d)), T.nextReleaseEstRetail);
 
   // ---- KPI tiles: YoY headline with MoM as the delta ----
   const realLast = real[real.length-1], ctlLast = ctl[ctl.length-1];
@@ -5742,13 +5679,6 @@ const SECTORS = [
   {id:"govt",     key:"CES9000000001", color:"--series-category"}
 ];
 
-// BLS Employment Situation release calendar (reference month -> release date).
-const JOBS_RELEASE_SCHEDULE = [
-  {month:"2026-08", date:"2026-09-04"},
-  {month:"2026-09", date:"2026-10-02"},
-  {month:"2026-10", date:"2026-11-06"},
-  {month:"2026-11", date:"2026-12-04"}
-];
 
 function lbPts(key) {
   const s = LABOR && LABOR[key];
@@ -5785,17 +5715,7 @@ function laborHeader(prefix) {
   document.getElementById(prefix + "AsOfLine").textContent = T.dataAsOf(fmtMonthYear(latest.d));
   document.getElementById(prefix + "RefreshedLine").textContent =
     freshnessLabel(LABOR_SOURCE, REFRESHED_AT, "BLS");
-  const nextMonth = nextMonthOf(latest.d);
-  const sched = JOBS_RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const el = document.getElementById(prefix + "NextReleaseLine");
-  const now = new Date();
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const ds = fmtDateDMY(dt);
-    el.textContent = (dt < now ? T.nextReleaseWas : T.nextRelease)(ds, fmtMonthYear(nextMonth));
-  } else {
-    el.textContent = T.nextReleaseEstJobs(fmtMonthYear(nextMonth));
-  }
+  document.getElementById(prefix + "NextReleaseLine").textContent = nextReleaseText("jobs", fmtMonthYear(nextMonthOf(latest.d)), T.nextReleaseEstJobs);
 }
 
 // Generic ranked/diverging bar list, reusing the derby row component.
@@ -6434,8 +6354,8 @@ function renderCuts() {
   const tiles = [
     {label:T.cutsKpiMonth, value:nf(latest.v), foot:T.cutsVsPrev(pctChg(latest.v, prev.v), pctChg(latest.v, yearAgo.v)), color:"--cat-8"},
     {label:T.cutsKpi3mo, value:nf(avg3), foot:T.cutsKpi3moFoot, color:"--series-core"},
-    {label:T.cutsKpiYtd, value:nf(C.ytdCuts), foot:T.cutsYtdFoot(pctChg(C.ytdCuts, C.ytdCuts2025), nf(C.ytdCuts2025)), color:"--cat-5"},
-    {label:T.cutsKpiHiring, value:nf(C.ytdHiring), foot:T.cutsHiringFoot(pctChg(C.ytdHiring, C.ytdHiring2025), nf(C.ytdHiring2025)), color:"--series-category"}
+    {label:T.cutsKpiYtd, value:nf(C.ytdCuts), foot:T.cutsYtdFoot(pctChg(C.ytdCuts, C.ytdCutsLastYear), nf(C.ytdCutsLastYear)), color:"--cat-5"},
+    {label:T.cutsKpiHiring, value:nf(C.ytdHiring), foot:T.cutsHiringFoot(pctChg(C.ytdHiring, C.ytdHiringLastYear), nf(C.ytdHiringLastYear)), color:"--series-category"}
   ];
   const row = document.getElementById("cutsKpiRow");
   tiles.forEach((t2,i) => {
@@ -6472,13 +6392,14 @@ function renderCuts() {
               Math.round((top3.reduce((a,b)=>a+b.value,0)/indTotal)*100), nf(indTotal), nf(latest.v)) + "</div>";
 
   // hiring plans, this year vs last
-  const hLabels = C.hiring2026.map((_,i) => String(i+1).padStart(2,"0"));
+  const thisYear = C.asOfMonth.slice(0, 4), lastYear = String(+thisYear - 1);
+  const hLabels = C.hiringThisYear.map((_,i) => String(i+1).padStart(2,"0"));
   plotSeries("cutsHiringChart","cutsHiringTooltip","cutsHiringLegend", hLabels, [
-    {name:T.cutsHiringThis, color:"--series-category", data:C.hiring2026},
-    {name:T.cutsHiringLast, color:"--text-muted", data:C.hiring2025, dashed:true}
+    {name:thisYear, color:"--series-category", data:C.hiringThisYear},
+    {name:lastYear, color:"--text-muted", data:C.hiringLastYear, dashed:true}
   ], {fmt: v => nf(v), labelFmt: m => T.months[parseInt(m,10)-1]});
   document.getElementById("cutsHiringCallout").innerHTML =
-    "<div>" + T.cutsHiringNote(nf(C.ytdHiring), nf(C.ytdHiring2025), pctChg(C.ytdHiring, C.ytdHiring2025)) + "</div>";
+    "<div>" + T.cutsHiringNote(nf(C.ytdHiring), nf(C.ytdHiringLastYear), pctChg(C.ytdHiring, C.ytdHiringLastYear)) + "</div>";
 
   // state maps — cut counts differenced from Challenger's own YTD state tables,
   // divided by each state's nonfarm employment so big states aren't flattered.
@@ -6550,6 +6471,10 @@ function renderGDP() {
 
   document.getElementById("gdpAsOfLine").textContent = T.dataAsOf(fmtQuarter(latest.d));
   document.getElementById("gdpVintageLine").textContent = T.gdpVintage;
+  (function(){ const c = CALENDAR && CALENDAR.releases && CALENDAR.releases.gdp;
+    const el = document.getElementById("gdpNextReleaseLine");
+    if (c && c.next) { const dt = new Date(c.next + "T00:00:00"); el.textContent = (dt < new Date() ? T.gdpNextReleaseWas : T.gdpNextRelease)(fmtDateDMY(dt)); }
+    else el.textContent = ""; })();
   document.getElementById("gdpRefreshedLine").textContent = freshnessLabel(GDP_SOURCE, REFRESHED_AT, "BEA");
 
   const con = k => gdpLatest("contributions", k);
@@ -6635,16 +6560,7 @@ function renderIncome() {
 
   document.getElementById("incAsOfLine").textContent = T.dataAsOf(fmtMonthYear(inc.d));
   document.getElementById("incRefreshedLine").textContent = freshnessLabel(GDP_SOURCE, REFRESHED_AT, "BEA");
-  const nextMonth = nextMonthOf(inc.d);
-  const sched = PCE_RELEASE_SCHEDULE.find(r => r.month === nextMonth);
-  const el = document.getElementById("incNextReleaseLine");
-  if (sched) {
-    const dt = new Date(sched.date + "T00:00:00");
-    const ds = fmtDateDMY(dt);
-    el.textContent = (dt < new Date() ? T.nextReleaseWas : T.nextRelease)(ds, fmtMonthYear(nextMonth));
-  } else {
-    el.textContent = T.nextReleaseEstPCE(fmtMonthYear(nextMonth));
-  }
+  document.getElementById("incNextReleaseLine").textContent = nextReleaseText("pce", fmtMonthYear(nextMonthOf(inc.d)), T.nextReleaseEstPCE);
 
   const L = k => gdpLatest("income", k);
   const savingRate = L(INC.savingRate);

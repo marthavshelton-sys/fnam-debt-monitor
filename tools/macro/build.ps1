@@ -28,6 +28,7 @@ $retailJson   = Get-Content "$data\retail_processed.json" -Raw -Encoding UTF8
 $fincondJson  = Get-Content "$data\fincond_processed.json" -Raw -Encoding UTF8
 $supplyJson   = Get-Content "$data\supply_processed.json" -Raw -Encoding UTF8
 $fiscalJson   = Get-Content "$data\fiscal_processed.json" -Raw -Encoding UTF8
+$calendarJson = Get-Content "$data\calendar.json" -Raw -Encoding UTF8
 $refreshedAt  = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
 $pceRefreshed = $refreshedAt      # BEA is pulled on every build
 $umichRefresh = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
@@ -113,9 +114,10 @@ function Build-Page([string]$liveFlag) {
     Replace('/*__FINCOND_DATA__*/ null',     $fincondJson).
     Replace('/*__SUPPLY_DATA__*/ null',      $supplyJson).
     Replace('/*__FISCAL_DATA__*/ null',      $fiscalJson).
+    Replace('/*__CALENDAR__*/ null',         $calendarJson).
     Replace('/*__LIVE_DATA__*/ false',       $liveFlag)
 
-  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA)__') {
+  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA)__') {
     throw "A placeholder was left unsubstituted."
   }
   return $out
@@ -140,7 +142,7 @@ if ($Target -eq "both" -or $Target -eq "web") {
   # template and every data file (pull-date stamps stripped), so either a data
   # release or an edit to the page triggers a rebuild, and nothing else does.
   $payload = ($template + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
-              $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
+              $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson + $calendarJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
   $sha = [System.Security.Cryptography.SHA256]::Create()
   $hash = ([System.BitConverter]::ToString($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($payload)))).Replace("-", "").ToLower()
   $hashFile = Join-Path $data ".datahash"
