@@ -1,0 +1,88 @@
+{
+  "_doc": [
+    "One entry per logical series the Mexico macro page uses. The fetcher tries each",
+    "candidate in order and keeps the first one that (a) answers, (b) carries the",
+    "expected title (regex, case-insensitive, checked against the provider's own",
+    "metadata) and (c) returns enough points. A candidate whose title does not match",
+    "is dropped and reported, so a mistyped ID can never put a wrongly-labelled",
+    "series on the page. Providers: banxico (SIE API, token), fred (St. Louis Fed,",
+    "key optional; without a key the CSV export is used and the title is not checked",
+    "because the export carries none), inegi (Indicadores API, token; no title",
+    "metadata in its response, so only use it for IDs already confirmed in the",
+    "INEGI catalog and set title to null)."
+  ],
+  "series": {
+    "inpc":            { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP1",     "title": "^(?!.*subyacente).*(precios al consumidor|INPC|(í|i)ndice general)" },
+      { "provider": "fred",    "id": "MEXCPIALLMINMEI", "title": "consumer price.*mexico" } ] },
+    "inpcCore":        { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74625", "title": "^(?!.*no subyacente).*subyacente" },
+      { "provider": "fred",    "id": "MEXCPICORMINMEI", "title": "consumer price.*(non-food|excluding).*mexico|all items less food and energy.*mexico", "note": "OECD definition (all items less food and energy), not INEGI's subyacente" } ] },
+    "inpcNonCore":     { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74633", "title": "no subyacente" } ] },
+    "inpcGoods":       { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74626", "title": "^(?!.*aliment).*mercanc" } ] },
+    "inpcFood":        { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74627", "title": "alimentos,? bebidas y tabaco" } ] },
+    "inpcNonFoodGoods":{ "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74628", "title": "mercanc(í|i)as no alimenticias" } ] },
+    "inpcServices":    { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74629", "title": "^(?!.*otros).*servicios" } ] },
+    "inpcHousing":     { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74630", "title": "vivienda" } ] },
+    "inpcEducation":   { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74631", "title": "educaci(ó|o)n" } ] },
+    "inpcOtherServices":{ "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74632", "title": "otros servicios" } ] },
+    "inpcAgro":        { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74634", "title": "agropecuarios" } ] },
+    "inpcFruitVeg":    { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74635", "title": "frutas y verduras" } ] },
+    "inpcLivestock":   { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74636", "title": "^(?!.*agropecuarios).*pecuarios" } ] },
+    "inpcEnergyTariffs":{ "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74637", "title": "energ(é|e)ticos y tarifas" } ] },
+    "inpcEnergy":      { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74638", "title": "^(?!.*tarifas).*energ(é|e)ticos" } ] },
+    "inpcTariffs":     { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SP74639", "title": "tarifas autorizadas" } ] },
+
+    "gdp":             { "freq": "Q", "unit": "level", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "NGDPRSAXDCMXQ", "title": "real gross domestic product.*mexico" } ] },
+    "igae":            { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SR16734", "title": "actividad econ(ó|o)mica" } ] },
+    "indprod":         { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "MEXPROINDMISMEI", "title": "production.*mexico" } ] },
+
+    "unemployment":    { "freq": "M", "unit": "pct", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "LRUNTTTTMXM156S", "title": "unemployment rate.*mexico" } ] },
+    "imssJobs":        { "freq": "M", "unit": "level", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SL11295", "title": "IMSS|asegurados" } ] },
+
+    "consumerConfidence": { "freq": "M", "unit": "index", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "CSCICP03MXM665S", "title": "consumer (confidence|opinion).*mexico" } ] },
+
+    "remittances":     { "freq": "M", "unit": "usd_mn", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SE27803", "title": "remesas" } ] },
+    "exports":         { "freq": "M", "unit": "usd", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "XTEXVA01MXM667S", "title": "exports.*mexico" } ] },
+    "imports":         { "freq": "M", "unit": "usd", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "XTIMVA01MXM667S", "title": "imports.*mexico" } ] },
+    "usdmxn":          { "freq": "D", "unit": "mxn", "since": "2015-01-01", "candidates": [
+      { "provider": "banxico", "id": "SF43718", "title": "tipo de cambio" },
+      { "provider": "fred",    "id": "DEXMXUS", "title": "mexican peso" } ] },
+    "reserves":        { "freq": "W", "unit": "usd_mn", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SF43707", "title": "reserva" },
+      { "provider": "fred",    "id": "TRESEGMXM052N", "title": "reserves.*mexico" } ] },
+
+    "policyRate":      { "freq": "D", "unit": "pct", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SF61745", "title": "objetivo" },
+      { "provider": "fred",    "id": "IRSTCI01MXM156N", "title": "immediate rates.*mexico|interbank.*mexico" } ] },
+    "tiie28":          { "freq": "D", "unit": "pct", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SF43783", "title": "TIIE.*28" } ] },
+    "cetes28":         { "freq": "W", "unit": "pct", "since": "2010-01-01", "candidates": [
+      { "provider": "banxico", "id": "SF43936", "title": "cetes.*28" } ] },
+    "mbono10":         { "freq": "M", "unit": "pct", "since": "2010-01-01", "candidates": [
+      { "provider": "fred",    "id": "IRLTLT01MXM156N", "title": "long-term government bond.*mexico" } ] }
+  }
+}
