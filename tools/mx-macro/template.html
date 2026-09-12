@@ -1565,7 +1565,8 @@ function sourceLine(elId, keys) {
   keys.forEach(k => {
     const s = S(k); if (!s) return;
     const txt = T.sourceVia(originOf(k, s), s.providerLabel, s.id);
-    parts.push(`<div><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(txt)}</a>${s.stale ? `<span class="stale-pill" title="${esc(T.staleNote(fmtDateDMY(s.staleSince)))}">${esc(T.staleNote(fmtDateDMY(s.staleSince)).split(" (")[0])}</span>` : ""}</div>`);
+    const note = s.note && (s.note[LANG] || s.note.es || s.note.en);
+    parts.push(`<div><a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(txt)}</a>${note ? " · " + esc(note) : ""}${s.stale ? `<span class="stale-pill" title="${esc(T.staleNote(fmtDateDMY(s.staleSince)))}">${esc(T.staleNote(fmtDateDMY(s.staleSince)).split(" (")[0])}</span>` : ""}</div>`);
   });
   el.innerHTML = parts.join("");
 }

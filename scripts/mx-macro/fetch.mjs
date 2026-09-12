@@ -32,7 +32,7 @@ async function http(url, headers = {}, tries = 3) {
       const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: 'application/json, text/csv, */*', ...headers } });
       if (res.ok) return res;
       last = new Error(`HTTP ${res.status} ${await res.text().then((t) => t.slice(0, 160)).catch(() => '')}`);
-      if (res.status === 404 || res.status === 401 || res.status === 403) break;
+      if ([400, 401, 403, 404].includes(res.status)) break;
     } catch (e) { last = e; }
     await sleep(1500 * i);
   }
@@ -118,12 +118,21 @@ const PROVIDERS = { banxico, fred, inegi };
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI' };
 
 function minPoints(freq) { return freq === 'Q' ? 8 : freq === 'M' ? 24 : 50; }
+// A provider that stopped updating a series (FRED's OECD mirrors do this) must not put
+// two-year-old data on the page as if it were current: the candidate is skipped instead.
+function isDiscontinued(lastDate, freq) {
+  const now = new Date();
+  if (freq === 'Q') { const y = +lastDate.slice(0, 4), q = +lastDate.slice(6); return (now.getUTCFullYear() - y) * 12 + (now.getUTCMonth() + 1 - q * 3) > 12; }
+  if (freq === 'M') { const y = +lastDate.slice(0, 4), m = +lastDate.slice(5, 7); return (now.getUTCFullYear() - y) * 12 + (now.getUTCMonth() + 1 - m) > 15; }
+  return (now - new Date(lastDate + 'T00:00:00Z')) / 86400000 > 120;
+}
 
 async function fetchOne(key, spec, log) {
   const tried = [];
   for (const cand of spec.candidates) {
+    const cspec = cand.freq ? { ...spec, freq: cand.freq } : spec;
     try {
-      const r = await PROVIDERS[cand.provider](cand, spec);
+      const r = await PROVIDERS[cand.provider](cand, cspec);
       if (cand.title && r.title !== null && !new RegExp(cand.title, 'i').test(r.title)) {
         tried.push(`${cand.provider}:${cand.id} title mismatch ("${r.title}")`);
         log.warn(`${key}: ${cand.provider} ${cand.id} answered but its title "${r.title}" does not match /${cand.title}/ - dropped`);
@@ -132,10 +141,16 @@ async function fetchOne(key, spec, log) {
       r.points.sort((a, b) => a[0].localeCompare(b[0]));
       // de-duplicate on date (daily series can repeat a day; keep the last value)
       const byDate = new Map(r.points); r.points = [...byDate.entries()];
-      if (r.points.length < minPoints(spec.freq)) { tried.push(`${cand.provider}:${cand.id} only ${r.points.length} points`); continue; }
+      if (r.points.length < minPoints(cspec.freq)) { tried.push(`${cand.provider}:${cand.id} only ${r.points.length} points`); continue; }
+      const lastDate = r.points[r.points.length - 1][0];
+      if (isDiscontinued(lastDate, cspec.freq)) {
+        tried.push(`${cand.provider}:${cand.id} discontinued (last point ${lastDate})`);
+        log.warn(`${key}: ${cand.provider} ${cand.id} last observation is ${lastDate}; treated as discontinued and skipped`);
+        continue;
+      }
       return {
         provider: cand.provider, providerLabel: PROVIDER_LABEL[cand.provider], id: cand.id, title: r.title, url: r.url,
-        note: cand.note || null, freq: spec.freq, unit: spec.unit, fetchedAt: today(), points: r.points, tried,
+        note: cand.note || null, freq: cspec.freq, unit: spec.unit, fetchedAt: today(), points: r.points, tried,
       };
     } catch (e) {
       tried.push(`${cand.provider}:${cand.id} ${e.message}`);
