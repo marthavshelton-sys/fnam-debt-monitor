@@ -1,15 +1,17 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>FNAM — Macro &amp; Fiscal Dashboards | Paneles Macro y Fiscales</title>
-<meta name="description" content="Live macro, fiscal, and market dashboards for the United States and Mexico, built directly on official data. Paneles en vivo de datos macro, fiscales y de mercados para Estados Unidos y México.">
+<title>FNAM — Paneles Macro y Fiscales | Macro &amp; Fiscal Dashboards</title>
+<meta name="description" content="Paneles en vivo de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales. Live macro, fiscal, and market dashboards for the United States and Mexico.">
 <link rel="canonical" href="https://fnam.mx/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FNAM">
-<meta property="og:title" content="FNAM — Macro &amp; Fiscal Dashboards">
-<meta property="og:description" content="Live macro, fiscal, and market dashboards for the United States and Mexico, built directly on official data.">
+<meta property="og:title" content="FNAM — Paneles Macro y Fiscales">
+<meta property="og:description" content="Paneles en vivo de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales.">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://fnam.mx/">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
@@ -96,7 +98,9 @@ body{
   flex-direction:column;
 }
 a{color:inherit;}
-.es[hidden],.en[hidden]{display:none !important;}
+/* Language: Spanish is the default; <html lang> drives which copy is shown (no JS needed for first paint). */
+html[lang="es"] .en{display:none !important;}
+html[lang="en"] .es{display:none !important;}
 .wrap{width:min(1120px, 100% - 48px); margin:0 auto;}
 @media (max-width:640px){ .wrap{width:min(1120px, 100% - 32px);} }
 
@@ -124,14 +128,26 @@ a{color:inherit;}
   border-left:1px solid var(--border-strong); padding-left:10px; margin-left:2px;
 }
 @media (max-width:560px){ .brand .tag{display:none;} }
+/* Segmented ES / EN switch — both options always visible, active one filled. */
 .lang-switch{
-  appearance:none; border:1px solid var(--border-strong); background:transparent;
-  color:var(--text-primary); font:inherit; font-size:13px; font-weight:600;
-  padding:6px 12px; border-radius:999px; cursor:pointer;
-  transition:background .15s, border-color .15s;
+  display:inline-flex; align-items:center; gap:2px;
+  padding:3px; border-radius:999px;
+  background:var(--surface-2); border:1px solid var(--border-strong);
+  flex:none;
 }
-.lang-switch:hover{background:var(--surface-2); border-color:var(--accent);}
-.lang-switch:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+.lang-switch button{
+  appearance:none; border:0; background:transparent;
+  color:var(--text-secondary); font:inherit; font-size:13px; font-weight:600;
+  line-height:1; padding:7px 14px; border-radius:999px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px;
+  transition:background .15s, color .15s;
+}
+.lang-switch button:hover{color:var(--text-primary);}
+.lang-switch button[aria-pressed="true"]{
+  background:var(--accent); color:#fff; cursor:default;
+}
+.lang-switch button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+@media (max-width:400px){ .lang-switch button{padding:7px 10px; font-size:12px;} }
 
 /* ---------- hero ---------- */
 .hero{padding:64px 0 40px;}
@@ -261,13 +277,13 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       <span class="word">FNAM</span>
       <span class="tag">
         <span class="en">Macro &amp; fiscal dashboards</span>
-        <span class="es" hidden>Paneles macro y fiscales</span>
+        <span class="es">Paneles macro y fiscales</span>
       </span>
     </a>
-    <button class="lang-switch" id="langSwitch" type="button" aria-label="Switch language">
-      <span class="en">Español</span>
-      <span class="es" hidden>English</span>
-    </button>
+    <div class="lang-switch" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true" lang="es">Español</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">English</button>
+    </div>
   </div>
 </header>
 
@@ -276,15 +292,15 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     <div class="wrap">
       <span class="eyebrow">
         <span class="en">Live data · Official sources</span>
-        <span class="es" hidden>Datos en vivo · Fuentes oficiales</span>
+        <span class="es">Datos en vivo · Fuentes oficiales</span>
       </span>
       <h1>
         <span class="en">Macro and fiscal data, straight from the source.</span>
-        <span class="es" hidden>Datos macro y fiscales, directo de la fuente.</span>
+        <span class="es">Datos macro y fiscales, directo de la fuente.</span>
       </h1>
       <p class="sub">
         <span class="en">Independent dashboards that track the U.S. and Mexican economies — inflation, labor, growth, public debt, and markets — built directly on official statistical releases and refreshed automatically as new data lands.</span>
-        <span class="es" hidden>Paneles independientes que siguen las economías de Estados Unidos y México — inflación, empleo, crecimiento, deuda pública y mercados — construidos directamente sobre publicaciones estadísticas oficiales y actualizados automáticamente conforme salen los datos.</span>
+        <span class="es">Paneles independientes que siguen las economías de Estados Unidos y México — inflación, empleo, crecimiento, deuda pública y mercados — construidos directamente sobre publicaciones estadísticas oficiales y actualizados automáticamente conforme salen los datos.</span>
       </p>
     </div>
   </section>
@@ -295,11 +311,11 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       <div class="section-head">
         <h2>
           <span class="en">United States</span>
-          <span class="es" hidden>Estados Unidos</span>
+          <span class="es">Estados Unidos</span>
         </h2>
         <span class="count">
           <span class="en">2 live · 1 planned</span>
-          <span class="es" hidden>2 en vivo · 1 en desarrollo</span>
+          <span class="es">2 en vivo · 1 en desarrollo</span>
         </span>
       </div>
       <div class="grid">
@@ -308,25 +324,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Economy</span>
-              <span class="es" hidden>Economía</span>
+              <span class="es">Economía</span>
             </span>
             <span class="pill live">
               <span class="en">Live</span>
-              <span class="es" hidden>En vivo</span>
+              <span class="es">En vivo</span>
             </span>
           </div>
           <h3>
             <span class="en">U.S. Macro Dashboard</span>
-            <span class="es" hidden>Panel Macro de EE. UU.</span>
+            <span class="es">Panel Macro de EE. UU.</span>
           </h3>
           <p>
             <span class="en">Inflation (CPI, PCE, PPI), the labor market, real GDP, personal income and saving, retail sales, and consumer sentiment — each with release history and the next scheduled print.</span>
-            <span class="es" hidden>Inflación (CPI, PCE, PPI), mercado laboral, PIB real, ingreso y ahorro personal, ventas minoristas y confianza del consumidor — cada uno con su historial y la próxima publicación programada.</span>
+            <span class="es">Inflación (CPI, PCE, PPI), mercado laboral, PIB real, ingreso y ahorro personal, ventas minoristas y confianza del consumidor — cada uno con su historial y la próxima publicación programada.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">Open dashboard</span>
-              <span class="es" hidden>Abrir panel</span>
+              <span class="es">Abrir panel</span>
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </span>
             <span class="src">BLS · BEA · FRED</span>
@@ -337,30 +353,30 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Public finance</span>
-              <span class="es" hidden>Finanzas públicas</span>
+              <span class="es">Finanzas públicas</span>
             </span>
             <span class="pill live">
               <span class="en">Live</span>
-              <span class="es" hidden>En vivo</span>
+              <span class="es">En vivo</span>
             </span>
           </div>
           <h3>
             <span class="en">U.S. Fiscal Debt Monitor</span>
-            <span class="es" hidden>Monitor de la Deuda Fiscal de EE. UU.</span>
+            <span class="es">Monitor de la Deuda Fiscal de EE. UU.</span>
           </h3>
           <p>
             <span class="en">Federal debt and who holds it, maturity structure, interest cost, revenue and spending, the deficit — plus the Federal Reserve's balance sheet, money supply, and policy rates.</span>
-            <span class="es" hidden>Deuda federal y quién la posee, estructura de vencimientos, costo de intereses, ingresos y gasto, el déficit — más el balance de la Reserva Federal, la oferta monetaria y las tasas de política.</span>
+            <span class="es">Deuda federal y quién la posee, estructura de vencimientos, costo de intereses, ingresos y gasto, el déficit — más el balance de la Reserva Federal, la oferta monetaria y las tasas de política.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">Open dashboard</span>
-              <span class="es" hidden>Abrir panel</span>
+              <span class="es">Abrir panel</span>
               <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
             </span>
             <span class="src">
               <span class="en">Treasury · Federal Reserve</span>
-              <span class="es" hidden>Tesoro · Reserva Federal</span>
+              <span class="es">Tesoro · Reserva Federal</span>
             </span>
           </div>
         </a>
@@ -369,25 +385,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Markets</span>
-              <span class="es" hidden>Mercados</span>
+              <span class="es">Mercados</span>
             </span>
             <span class="pill soon">
               <span class="en">Coming soon</span>
-              <span class="es" hidden>Próximamente</span>
+              <span class="es">Próximamente</span>
             </span>
           </div>
           <h3>
             <span class="en">U.S. Equities</span>
-            <span class="es" hidden>Renta Variable de EE. UU.</span>
+            <span class="es">Renta Variable de EE. UU.</span>
           </h3>
           <p>
             <span class="en">Index performance, sector breadth, valuation, and earnings trends for the U.S. stock market.</span>
-            <span class="es" hidden>Desempeño de índices, amplitud sectorial, valuación y tendencias de utilidades del mercado accionario estadounidense.</span>
+            <span class="es">Desempeño de índices, amplitud sectorial, valuación y tendencias de utilidades del mercado accionario estadounidense.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">In development</span>
-              <span class="es" hidden>En desarrollo</span>
+              <span class="es">En desarrollo</span>
             </span>
           </div>
         </div>
@@ -402,11 +418,11 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       <div class="section-head">
         <h2>
           <span class="en">Mexico</span>
-          <span class="es" hidden>México</span>
+          <span class="es">México</span>
         </h2>
         <span class="count">
           <span class="en">2 planned</span>
-          <span class="es" hidden>2 en desarrollo</span>
+          <span class="es">2 en desarrollo</span>
         </span>
       </div>
       <div class="grid">
@@ -415,25 +431,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Economy</span>
-              <span class="es" hidden>Economía</span>
+              <span class="es">Economía</span>
             </span>
             <span class="pill soon">
               <span class="en">Coming soon</span>
-              <span class="es" hidden>Próximamente</span>
+              <span class="es">Próximamente</span>
             </span>
           </div>
           <h3>
             <span class="en">Mexico Macro Dashboard</span>
-            <span class="es" hidden>Panel Macro de México</span>
+            <span class="es">Panel Macro de México</span>
           </h3>
           <p>
             <span class="en">INPC inflation, IGAE activity, GDP, employment, remittances, trade, and Banxico's policy rate.</span>
-            <span class="es" hidden>Inflación INPC, actividad IGAE, PIB, empleo, remesas, comercio exterior y la tasa de política de Banxico.</span>
+            <span class="es">Inflación INPC, actividad IGAE, PIB, empleo, remesas, comercio exterior y la tasa de política de Banxico.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">In development</span>
-              <span class="es" hidden>En desarrollo</span>
+              <span class="es">En desarrollo</span>
             </span>
             <span class="src">INEGI · Banxico</span>
           </div>
@@ -443,25 +459,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Public finance</span>
-              <span class="es" hidden>Finanzas públicas</span>
+              <span class="es">Finanzas públicas</span>
             </span>
             <span class="pill soon">
               <span class="en">Coming soon</span>
-              <span class="es" hidden>Próximamente</span>
+              <span class="es">Próximamente</span>
             </span>
           </div>
           <h3>
             <span class="en">Mexico Fiscal Monitor</span>
-            <span class="es" hidden>Monitor Fiscal de México</span>
+            <span class="es">Monitor Fiscal de México</span>
           </h3>
           <p>
             <span class="en">Public-sector balance, federal debt (SHRFSP), financing cost, oil and tax revenue, and budget execution.</span>
-            <span class="es" hidden>Balance del sector público, deuda federal (SHRFSP), costo financiero, ingresos petroleros y tributarios, y ejercicio del presupuesto.</span>
+            <span class="es">Balance del sector público, deuda federal (SHRFSP), costo financiero, ingresos petroleros y tributarios, y ejercicio del presupuesto.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">In development</span>
-              <span class="es" hidden>En desarrollo</span>
+              <span class="es">En desarrollo</span>
             </span>
             <span class="src">SHCP · Banxico</span>
           </div>
@@ -477,11 +493,11 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       <div class="section-head">
         <h2>
           <span class="en">Companies</span>
-          <span class="es" hidden>Empresas</span>
+          <span class="es">Empresas</span>
         </h2>
         <span class="count">
           <span class="en">1 planned</span>
-          <span class="es" hidden>1 en desarrollo</span>
+          <span class="es">1 en desarrollo</span>
         </span>
       </div>
       <div class="grid">
@@ -490,25 +506,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="card-top">
             <span class="kicker">
               <span class="en">Company research</span>
-              <span class="es" hidden>Análisis de empresas</span>
+              <span class="es">Análisis de empresas</span>
             </span>
             <span class="pill soon">
               <span class="en">Coming soon</span>
-              <span class="es" hidden>Próximamente</span>
+              <span class="es">Próximamente</span>
             </span>
           </div>
           <h3>
             <span class="en">Company-Specific Analysis</span>
-            <span class="es" hidden>Análisis por Empresa</span>
+            <span class="es">Análisis por Empresa</span>
           </h3>
           <p>
             <span class="en">Fundamentals, filings, and key metrics for individual companies — one page per name.</span>
-            <span class="es" hidden>Fundamentales, reportes y métricas clave de empresas individuales — una página por emisora.</span>
+            <span class="es">Fundamentales, reportes y métricas clave de empresas individuales — una página por emisora.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
               <span class="en">In development</span>
-              <span class="es" hidden>En desarrollo</span>
+              <span class="es">En desarrollo</span>
             </span>
           </div>
         </div>
@@ -522,8 +538,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   <div class="wrap">
     <span>© <span id="year">2026</span> FNAM · fnam.mx</span>
     <nav class="links" aria-label="Dashboards">
-      <a href="/macro/"><span class="en">U.S. Macro</span><span class="es" hidden>Macro EE. UU.</span></a>
-      <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es" hidden>Deuda Fiscal EE. UU.</span></a>
+      <a href="/macro/"><span class="en">U.S. Macro</span><span class="es">Macro EE. UU.</span></a>
+      <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es">Deuda Fiscal EE. UU.</span></a>
     </nav>
   </div>
 </footer>
@@ -532,31 +548,30 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 (function(){
   var KEY = "fnam-lang";
   var root = document.documentElement;
-  var btn = document.getElementById("langSwitch");
+  var buttons = document.querySelectorAll(".lang-switch button");
 
   function apply(lang){
     var showEs = lang === "es";
-    document.querySelectorAll(".en").forEach(function(el){ el.hidden = showEs; });
-    document.querySelectorAll(".es").forEach(function(el){ el.hidden = !showEs; });
     root.setAttribute("lang", showEs ? "es" : "en");
     document.title = showEs
       ? "FNAM — Paneles Macro y Fiscales | Macro & Fiscal Dashboards"
       : "FNAM — Macro & Fiscal Dashboards | Paneles Macro y Fiscales";
-    btn.setAttribute("aria-label", showEs ? "Cambiar a inglés" : "Switch to Spanish");
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
   }
 
-  var lang = null;
-  try { lang = localStorage.getItem(KEY); } catch (e) {}
-  if (lang !== "en" && lang !== "es") {
-    var nav = (navigator.language || "").toLowerCase();
-    lang = nav.indexOf("es") === 0 ? "es" : "en";
-  }
+  // Spanish by default; only an explicit choice (stored) switches to English.
+  var lang = "es";
+  try { var stored = localStorage.getItem(KEY); if (stored === "en") lang = "en"; } catch (e) {}
   apply(lang);
 
-  btn.addEventListener("click", function(){
-    lang = lang === "es" ? "en" : "es";
-    try { localStorage.setItem(KEY, lang); } catch (e) {}
-    apply(lang);
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      lang = b.getAttribute("data-lang");
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+      apply(lang);
+    });
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
