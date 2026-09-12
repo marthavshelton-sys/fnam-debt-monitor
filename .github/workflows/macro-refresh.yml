@@ -2,14 +2,16 @@
 # when the data changed. Cloudflare Pages deploys the commit automatically,
 # the same way it does for the fiscal monitor.
 #
-# Schedule: 14:05 and 20:05 UTC on weekdays. Most US releases land at
-# 08:30 ET; the first run catches them within roughly an hour in either
-# daylight or standard time, the second catches afternoon releases and any
-# same-day revisions.
+# Schedule: 12:50, 14:05 and 20:05 UTC on weekdays. Most US releases land at
+# 08:30 ET. The 12:50 run is 20 minutes after that during daylight time (and
+# harmlessly before it in winter - nothing changes, nothing is committed); the
+# 14:05 run is the safety net in either season; 20:05 catches afternoon
+# releases and same-day revisions.
 name: Refresh macro dashboard
 
 on:
   schedule:
+    - cron: "50 12 * * 1-5"
     - cron: "5 14,20 * * 1-5"
   workflow_dispatch:
   push:
