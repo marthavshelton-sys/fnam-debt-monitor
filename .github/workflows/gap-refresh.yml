@@ -1,0 +1,99 @@
+# Keeps the GAP financial model (site/gap) current.
+#
+#   market   daily after the BMV close: share prices, dividends, USD/MXN, 10-year yields
+#            -> site/gap/data/market.js
+#   filings  three times a month (GAP files monthly traffic around the 5th-10th and quarterly
+#            results in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new 6-K releases
+#            from SEC EDGAR into tools/gap/raw/, re-parses them into site/gap/data/*.js and
+#            validates the tie-outs before anything is committed.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). On other branches the
+# workflow runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry
+# [skip ci] so they never re-trigger the workflow. Cloudflare Pages deploys the commit.
+name: Refresh GAP model data
+
+on:
+  schedule:
+    - cron: "40 22 * * 1-5"      # market, weekdays 22:40 UTC (BMV closes 15:00 Mexico City = 21:00 UTC in summer)
+    - cron: "30 14 6,12,18,24 * *"  # filings + market
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "market | filings | all"
+        default: "all"
+      full:
+        description: "Re-download every filing (ignore tools/gap/raw/manifest.json)"
+        type: boolean
+        default: false
+  push:
+    branches: ["claude/gap-financial-model-vfypi1"]
+    paths:
+      - "scripts/gap/**"
+      - ".github/workflows/gap-refresh.yml"
+
+concurrency:
+  group: gap-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Decide what to run
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'all' }}"
+          # The daily 22:40 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "40 22 * * 1-5" ]; then MODE=market; fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Fetch market data
+        if: steps.plan.outputs.mode != 'filings'
+        run: node scripts/gap/fetch-market.mjs
+
+      - name: Harvest SEC EDGAR filings
+        if: steps.plan.outputs.mode != 'market'
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: node scripts/gap/harvest-edgar.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
+
+      - name: Parse filings into model data
+        if: steps.plan.outputs.mode != 'market'
+        shell: bash
+        run: |
+          if [ -f scripts/gap/build-data.mjs ]; then node scripts/gap/build-data.mjs; else echo "build-data.mjs not present yet; raw harvest only"; fi
+
+      - name: Validate model data
+        shell: bash
+        run: |
+          if [ -f scripts/gap/validate-data.mjs ]; then node scripts/gap/validate-data.mjs; else echo "validate-data.mjs not present yet"; fi
+
+      - name: Commit if anything changed
+        shell: bash
+        run: |
+          git config user.name "gap-refresh[bot]"
+          git config user.email "gap-refresh@users.noreply.github.com"
+          git add site/gap/data tools/gap/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "gap: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip ci]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
