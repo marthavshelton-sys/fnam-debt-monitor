@@ -130,19 +130,19 @@ window.GAP_REF = {
     horizonYears: 5,
     terminalMethod: "annuity",        // annuity to concession end | perpetuity | exit multiple
     concessionEnd: 2048,
-    trafficGrowthPct: [2.0, 4.0, 4.0, 3.5, 3.5],
-    revPerPaxGrowthPct: 5.0,          // tariff + inflation + commercial yield
+    trafficGrowthPct: [2.0, 4.0, 4.0, 3.5, 3.5],   // 2027e–2031e; 2026 guidance −3% to 0% (World Cup base, Jamaica)
+    revPerPaxGrowthPct: 6.0,          // maximum-tariff path 2025-29 + inflation + commercial yield (LTM: +11%)
     ebitdaMarginPct: null,            // null = latest LTM margin (ex-IFRIC 12)
-    capexMxnM: [13000, 11000, 10000, 9000, 9000],  // PMD 2025-29 profile; Ps. 52 bn over 5 years
+    capexMxnM: [12000, 10000, 8000, 7000, 7000],   // PMD 2025-29 (> Ps. 52 bn) tapering after 2029; 2026 guidance Ps. 12 bn
     daPctRevenue: null,               // null = LTM D&A / revenue
     taxRatePct: 30,
     nwcPctDeltaRevenue: 5,
-    riskFreePct: null,                // null = latest MX 10-year yield in market.js
-    erpPct: 5.5,
-    beta: 0.90,
-    costOfDebtPct: 10.0,
-    targetDebtPct: 20,
-    terminalGrowthPct: 3.5,
+    riskFreePct: null,                // null = latest MX 10-year yield in market.js (FRED IRLTLT01MXM156N)
+    erpPct: 5.0,
+    beta: 0.85,
+    costOfDebtPct: 9.9,               // GAP 26-2 coupon 9.87% (10-yr fixed, Mar-2026)
+    targetDebtPct: 25,
+    terminalGrowthPct: 4.0,           // nominal MXN (≈ 3.5–4% inflation + modest real growth)
     exitMultiple: 11.0,
   },
   // Peer set for relative valuation. Multiples are placeholders until the FactSet connector is

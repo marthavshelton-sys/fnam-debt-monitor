@@ -26,7 +26,7 @@ on:
         type: boolean
         default: false
   push:
-    branches: ["claude/gap-financial-model-vfypi1"]
+    branches: ["main", "claude/gap-financial-model-vfypi1"]
     paths:
       - "scripts/gap/**"
       - ".github/workflows/gap-refresh.yml"

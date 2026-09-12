@@ -74,11 +74,12 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; ba
 header.top{padding:54px 0 26px; border-bottom:1px solid var(--border); background:var(--surface);}
 .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink);}
 .eyebrow .live{width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 0 3px rgba(12,163,12,.18);}
-header h1{font-size:clamp(30px,4.2vw,44px); font-weight:700; margin-top:14px; line-height:1.08;}
+header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; line-height:1.08; overflow-wrap:anywhere;}
 header p.sub{font-size:15.5px; color:var(--text-secondary); max-width:78ch; margin-top:14px; line-height:1.6;}
 .asof-row{display:flex; flex-wrap:wrap; gap:8px 22px; margin-top:20px; font-size:12.5px; color:var(--muted);}
 .asof-row b{color:var(--text-secondary); font-weight:600;}
 .notice{margin-top:18px; padding:12px 14px; border-radius:10px; background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink); font-size:13px; line-height:1.5;}
+.notice b{color:inherit;}
 .notice.warn{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
 :root[data-theme="dark"] .notice.warn, :root:not([data-theme="light"]) .notice.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
 
@@ -116,6 +117,8 @@ section.block:first-of-type{border-top:none;}
 @media (max-width:900px){.grid-2,.grid-2.rev,.grid-2.eq{grid-template-columns:1fr;} .grid-3{grid-template-columns:1fr;}}
 
 .card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
+.grid-2 > *, .grid-3 > *, .dcf-grid > *{min-width:0;}
+.tblwrap{min-width:0;}
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:var(--sans);}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
@@ -142,7 +145,7 @@ table tr.sub2 td:first-child{padding-left:36px; color:var(--text-secondary);}
 table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding-top:14px;}
 table td.est{color:var(--text-secondary); font-style:italic;}
 .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
-.stmt-table td:first-child{min-width:220px;}
+.stmt-table td:first-child{min-width:200px; max-width:420px;}
 
 .callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .callout b{color:var(--text-primary);}
@@ -155,9 +158,10 @@ table td.est{color:var(--text-secondary); font-style:italic;}
 
 /* ---------- Controls ---------- */
 .controls{display:flex; flex-wrap:wrap; gap:10px 16px; align-items:center; margin-top:18px; padding:12px 14px; background:var(--surface); border:1px solid var(--border); border-radius:12px;}
-.controls .ctl{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-secondary);}
+.controls .ctl{display:flex; flex-wrap:wrap; align-items:center; gap:8px; font-size:12.5px; color:var(--text-secondary); min-width:0; max-width:100%;}
+.controls select{max-width:100%;}
 .controls label.lbl{font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
-.seg{display:inline-flex; border:1px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface);}
+.seg{display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface); max-width:100%;}
 .seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; white-space:nowrap;}
 .seg button + button{border-left:1px solid var(--border);}
 .seg button.active{background:var(--accent); color:#fff;}
@@ -178,7 +182,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
 
 /* ---------- DCF ---------- */
-.dcf-grid{display:grid; grid-template-columns:340px 1fr; gap:20px; margin-top:22px;}
+.dcf-grid{display:grid; grid-template-columns:360px minmax(0,1fr); gap:20px; margin-top:22px;}
 @media (max-width:960px){.dcf-grid{grid-template-columns:1fr;}}
 .inputs h4{font-family:var(--sans); font-size:11px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); margin:16px 0 6px; padding-top:12px; border-top:1px solid var(--grid);}
 .inputs h4:first-of-type{margin-top:4px; border-top:none; padding-top:0;}
@@ -188,11 +192,11 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .inp input[type=number]{width:88px; padding:4px 7px;}
 .inp select{padding:4px 7px; font-size:12.5px;}
 .inp.years{grid-template-columns:1fr; }
-.inp.years .row5{display:grid; grid-template-columns:repeat(5,1fr); gap:4px; margin-top:4px;}
-.inp.years .row5 input{width:100%; padding:4px 5px; font-size:12px;}
+.inp.years .row5{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; margin-top:4px;}
+.inp.years .row5 input{width:100%; min-width:0; padding:4px 3px; font-size:11.5px; text-align:center;}
 .inp.years .row5 span{font-size:10.5px; color:var(--muted); text-align:center;}
 .hero{margin-top:6px;}
-.hero .v{font-family:var(--sans); font-size:48px; font-weight:800; letter-spacing:-0.02em; line-height:1;}
+.hero .v{font-family:var(--sans); font-size:clamp(34px,6vw,48px); font-weight:800; letter-spacing:-0.02em; line-height:1;}
 .hero .l{font-size:12.5px; color:var(--muted); margin-top:6px;}
 .out-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:16px;}
 @media (max-width:640px){.out-grid{grid-template-columns:repeat(2,1fr);}}
@@ -314,27 +318,30 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="ctl"><label class="switch"><input type="checkbox" id="chkUsd"><span>USD</span></label></div>
     </div>
 
-    <div class="grid-2 rev">
+    <div class="card" style="margin-top:22px">
+      <h3 id="stmtTitle"></h3>
+      <p class="cap" id="stmtCap"></p>
+      <div class="tblwrap" id="stmtTable"></div>
+      <p class="chart-src" id="stmtSrc"></p>
+    </div>
+    <div class="grid-2 eq">
       <div class="card">
-        <h3 id="stmtTitle"></h3>
-        <p class="cap" id="stmtCap"></p>
-        <div class="tblwrap" id="stmtTable"></div>
-        <p class="chart-src" id="stmtSrc"></p>
+        <h3><span class="es">Ingresos por tipo</span><span class="en" hidden>Revenue by type</span></h3>
+        <p class="cap"><span class="es">Ps. millones por trimestre, últimos 12 trimestres</span><span class="en" hidden>Ps. million per quarter, last 12 quarters</span></p>
+        <div class="chart-wrap"><canvas id="chartRevMix"></canvas></div>
+        <p class="chart-src" id="revMixSrc"></p>
       </div>
-      <div>
-        <div class="card">
-          <h3><span class="es">Ingresos por tipo y margen EBITDA</span><span class="en" hidden>Revenue by type and EBITDA margin</span></h3>
-          <p class="cap"><span class="es">Ps. millones por trimestre · margen sin IFRIC 12 en la tabla</span><span class="en" hidden>Ps. million per quarter · margin ex-IFRIC 12 in the table</span></p>
-          <div class="chart-wrap"><canvas id="chartRevMix"></canvas></div>
-          <div class="chart-wrap short"><canvas id="chartMargin"></canvas></div>
-          <p class="chart-src" id="revMixSrc"></p>
-        </div>
-        <div class="card" style="margin-top:20px">
-          <h3><span class="es">Indicadores por trimestre</span><span class="en" hidden>Quarterly indicators</span></h3>
-          <p class="cap"><span class="es">Últimos 12 trimestres reportados</span><span class="en" hidden>Last 12 reported quarters</span></p>
-          <div class="tblwrap" id="kpiTable"></div>
-        </div>
+      <div class="card">
+        <h3><span class="es">Margen EBITDA sin IFRIC 12</span><span class="en" hidden>EBITDA margin ex-IFRIC 12</span></h3>
+        <p class="cap"><span class="es">EBITDA / (ingresos − ingresos por construcción), %</span><span class="en" hidden>EBITDA / (revenue − construction revenue), %</span></p>
+        <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: informes trimestrales de GAP (margen reportado)</span><span class="en" hidden>Source: GAP quarterly reports (reported margin)</span></p>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Indicadores por trimestre</span><span class="en" hidden>Quarterly indicators</span></h3>
+      <p class="cap"><span class="es">Últimos 12 trimestres reportados · variación contra el mismo trimestre del año anterior</span><span class="en" hidden>Last 12 reported quarters · change vs. the same quarter a year earlier</span></p>
+      <div class="tblwrap" id="kpiTable"></div>
     </div>
   </section>
 
