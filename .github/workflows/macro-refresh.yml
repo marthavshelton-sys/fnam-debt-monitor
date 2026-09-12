@@ -55,7 +55,9 @@ jobs:
         run: |
           git config user.name "macro-refresh[bot]"
           git config user.email "macro-refresh@users.noreply.github.com"
-          git add site/macro/index.html tools/macro/data/gscpi_data.csv tools/macro/data/.datahash
+          # The data folder is committed in full: each processed file is the
+          # last-good copy a later run falls back to if that source is down.
+          git add site/macro/index.html tools/macro/data
           if git diff --cached --quiet; then
             echo "No data change since the last build; nothing to commit."
           else
