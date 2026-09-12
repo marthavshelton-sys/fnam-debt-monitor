@@ -26,8 +26,7 @@ const SIX_K_DIR = new URL('6k/', RAW_DIR);
 const MANIFEST = new URL('manifest.json', RAW_DIR);
 // SEC EDGAR rejects requests whose User-Agent does not identify the requester with a contact
 // address. Set the SEC_USER_AGENT repository secret to "<org or site> <contact email>".
-const UA = process.env.SEC_USER_AGENT
-  || 'fnam-debt-monitor/1.0 (gap-refresh@users.noreply.github.com; https://github.com/marthavshelton-sys/fnam-debt-monitor)';
+const UA = process.env.SEC_USER_AGENT || 'fnam-debt-monitor gap-refresh@users.noreply.github.com';
 const FULL = process.argv.includes('--full');
 const DELAY_MS = 130; // ~7.5 req/s, under the SEC's 10 req/s ceiling
 
@@ -43,7 +42,7 @@ async function secFetch(url, { json = false } = {}) {
     const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept': json ? 'application/json' : 'text/html,*/*', 'Accept-Encoding': 'gzip, deflate' } });
     if (res.ok) return json ? res.json() : res.text();
     if (res.status === 404) throw new Error(`${url} -> 404`);
-    lastStatus = `${res.status} ${(await res.text()).replace(/\s+/g, ' ').slice(0, 160)}`;
+    lastStatus = `${res.status} ${htmlToText(await res.text()).replace(/\s+/g, ' ').slice(0, 400)}`;
     // 403/429 = throttled or UA rejected; back off and retry
     await sleep(1500 * attempt);
   }
