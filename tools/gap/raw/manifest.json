@@ -1,0 +1,3884 @@
+{
+ "entity": "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
+ "source": "gnw",
+ "since": "2016-01-01",
+ "otherSince": "2024-01-01",
+ "updatedAt": "2026-09-12T15:34:24.794Z",
+ "kept": {
+  "results": 32,
+  "traffic": 154,
+  "other": 22
+ },
+ "companyFactsConcepts": null,
+ "filings": [
+  {
+   "source": "gnw",
+   "id": "917820",
+   "lang": "en",
+   "filingDate": "2017-02-16",
+   "title": "HOTEL announces the acquisition of 933 rooms in Los Cabos",
+   "url": "https://www.globenewswire.com/news-release/2017/02/16/917820/0/en/hotel-announces-the-acquisition-of-933-rooms-in-los-cabos-and-nuevo-vallarta.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "917820",
+   "lang": "es",
+   "filingDate": "2017-02-16",
+   "title": "Grupo Hotelero Santa Fe anuncia la adquisición de 933",
+   "url": "https://www.globenewswire.com/news-release/2017/02/16/917820/0/es/grupo-hotelero-santa-fe-anuncia-la-adquisici%c3%b3n-de-933-cuartos-en-los-cabos-y-nuevo-vallarta.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1681243",
+   "lang": "en",
+   "filingDate": "2019-01-07",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/01/07/1681243/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-7-1-for-the-month-of-december.html",
+   "docs": [
+    {
+     "name": "2019-01-07_gnw1681243_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/01/07/1681243/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-7-1-for-the-month-of-december.html",
+     "class": "traffic",
+     "chars": 10384,
+     "path": "tools/gap/raw/6k/2019-01-07_gnw1681243_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1685891",
+   "lang": "en",
+   "filingDate": "2019-01-10",
+   "title": "Grupo Aeroportuario del Pacifico Announces Guidance for",
+   "url": "https://www.globenewswire.com/news-release/2019/01/10/1685891/0/en/grupo-aeroportuario-del-pacifico-announces-guidance-for-full-year-2019.html",
+   "docs": [
+    {
+     "name": "2019-01-10_gnw1685891_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/01/10/1685891/0/en/grupo-aeroportuario-del-pacifico-announces-guidance-for-full-year-2019.html",
+     "class": "traffic",
+     "chars": 7500,
+     "path": "tools/gap/raw/6k/2019-01-10_gnw1685891_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1711811",
+   "lang": "en",
+   "filingDate": "2019-02-07",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/02/07/1711811/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-4-9-for-the-month-of-january.html",
+   "docs": [
+    {
+     "name": "2019-02-07_gnw1711811_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/02/07/1711811/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-4-9-for-the-month-of-january.html",
+     "class": "traffic",
+     "chars": 7977,
+     "path": "tools/gap/raw/6k/2019-02-07_gnw1711811_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1739349",
+   "lang": "en",
+   "filingDate": "2019-02-21",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2019/02/21/1739349/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2018.html",
+   "docs": [
+    {
+     "name": "2019-02-21_gnw1739349_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/02/21/1739349/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2018.html",
+     "class": "results",
+     "chars": 6456,
+     "path": "tools/gap/raw/6k/2019-02-21_gnw1739349_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1748521",
+   "lang": "en",
+   "filingDate": "2019-03-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/03/05/1748521/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-4-9-for-the-month-of-february.html",
+   "docs": [
+    {
+     "name": "2019-03-05_gnw1748521_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/03/05/1748521/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-4-9-for-the-month-of-february.html",
+     "class": "traffic",
+     "chars": 9183,
+     "path": "tools/gap/raw/6k/2019-03-05_gnw1748521_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1750872",
+   "lang": "en",
+   "filingDate": "2019-03-09",
+   "title": "Grupo Aeroportuario del Pacifico, S.A.B. de C.V. Announces",
+   "url": "https://www.globenewswire.com/news-release/2019/03/09/1750872/0/en/grupo-aeroportuario-del-pacifico-s-a-b-de-c-v-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1790212",
+   "lang": "en",
+   "filingDate": "2019-03-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2019/03/29/1790212/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-3-0-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1797443",
+   "lang": "en",
+   "filingDate": "2019-04-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/04/04/1797443/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-5-7-for-the-month-of-march.html",
+   "docs": [
+    {
+     "name": "2019-04-04_gnw1797443_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/04/04/1797443/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-5-7-for-the-month-of-march.html",
+     "class": "traffic",
+     "chars": 9563,
+     "path": "tools/gap/raw/6k/2019-04-04_gnw1797443_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1809244",
+   "lang": "en",
+   "filingDate": "2019-04-25",
+   "title": "Resolutions Adopted at the General Ordinary Shareholders’",
+   "url": "https://www.globenewswire.com/news-release/2019/04/25/1809244/0/en/resolutions-adopted-at-the-general-ordinary-shareholders-meeting-and-general-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-s-a-b-de-c-v-on-april-23-2019.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1810210",
+   "lang": "en",
+   "filingDate": "2019-04-25",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2019/04/25/1810210/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2019.html",
+   "docs": [
+    {
+     "name": "2019-04-25_gnw1810210_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/04/25/1810210/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2019.html",
+     "class": "results",
+     "chars": 6580,
+     "path": "tools/gap/raw/6k/2019-04-25_gnw1810210_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1817910",
+   "lang": "en",
+   "filingDate": "2019-05-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/05/06/1817910/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-8-7-for-the-month-of-april.html",
+   "docs": [
+    {
+     "name": "2019-05-06_gnw1817910_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/05/06/1817910/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-8-7-for-the-month-of-april.html",
+     "class": "traffic",
+     "chars": 9215,
+     "path": "tools/gap/raw/6k/2019-05-06_gnw1817910_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1827118",
+   "lang": "en",
+   "filingDate": "2019-05-17",
+   "title": "Grupo Aeroportuario del Pacifico Pays the Capital Stock",
+   "url": "https://www.globenewswire.com/news-release/2019/05/17/1827118/0/en/grupo-aeroportuario-del-pacifico-pays-the-capital-stock-reduction-approved-at-the-annual-general-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2019-05-17_gnw1827118_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/05/17/1827118/0/en/grupo-aeroportuario-del-pacifico-pays-the-capital-stock-reduction-approved-at-the-annual-general-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 6148,
+     "path": "tools/gap/raw/6k/2019-05-17_gnw1827118_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1864360",
+   "lang": "en",
+   "filingDate": "2019-06-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/06/04/1864360/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-11-7-for-the-month-of-may.html",
+   "docs": [
+    {
+     "name": "2019-06-04_gnw1864360_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/06/04/1864360/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-11-7-for-the-month-of-may.html",
+     "class": "traffic",
+     "chars": 9317,
+     "path": "tools/gap/raw/6k/2019-06-04_gnw1864360_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1878131",
+   "lang": "en",
+   "filingDate": "2019-07-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/07/03/1878131/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-9-0-for-the-month-of-june.html",
+   "docs": [
+    {
+     "name": "2019-07-03_gnw1878131_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/07/03/1878131/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-9-0-for-the-month-of-june.html",
+     "class": "traffic",
+     "chars": 9669,
+     "path": "tools/gap/raw/6k/2019-07-03_gnw1878131_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1893252",
+   "lang": "en",
+   "filingDate": "2019-07-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2019/07/29/1893252/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2019.html",
+   "docs": [
+    {
+     "name": "2019-07-29_gnw1893252_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/07/29/1893252/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2019.html",
+     "class": "results",
+     "chars": 24280,
+     "path": "tools/gap/raw/6k/2019-07-29_gnw1893252_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1897185",
+   "lang": "en",
+   "filingDate": "2019-08-05",
+   "title": "Grupo Aeroportuario Del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/08/05/1897185/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-5-2-for-the-month-of-july.html",
+   "docs": [
+    {
+     "name": "2019-08-05_gnw1897185_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/08/05/1897185/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-5-2-for-the-month-of-july.html",
+     "class": "traffic",
+     "chars": 9699,
+     "path": "tools/gap/raw/6k/2019-08-05_gnw1897185_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1903783",
+   "lang": "en",
+   "filingDate": "2019-08-19",
+   "title": "Grupo Aeroportuario del Pacifico Announces Dividend",
+   "url": "https://www.globenewswire.com/news-release/2019/08/19/1903783/0/en/grupo-aeroportuario-del-pacifico-announces-dividend-payment.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1908780",
+   "lang": "en",
+   "filingDate": "2019-08-29",
+   "title": "Grupo Aeroportuario del Pacifico Pays the First Portion of",
+   "url": "https://www.globenewswire.com/news-release/2019/08/29/1908780/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-portion-of-the-dividend-approved-at-the-april-23-2019-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2019-08-29_gnw1908780_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/08/29/1908780/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-portion-of-the-dividend-approved-at-the-april-23-2019-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 6191,
+     "path": "tools/gap/raw/6k/2019-08-29_gnw1908780_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1911204",
+   "lang": "en",
+   "filingDate": "2019-09-04",
+   "title": "Grupo Aeroportuario Del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/09/04/1911204/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-8-1-for-the-month-of-august.html",
+   "docs": [
+    {
+     "name": "2019-09-04_gnw1911204_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/09/04/1911204/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-8-1-for-the-month-of-august.html",
+     "class": "traffic",
+     "chars": 9201,
+     "path": "tools/gap/raw/6k/2019-09-04_gnw1911204_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1927444",
+   "lang": "en",
+   "filingDate": "2019-10-09",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/10/09/1927444/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-9-1-for-the-month-of-september.html",
+   "docs": [
+    {
+     "name": "2019-10-09_gnw1927444_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/10/09/1927444/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-9-1-for-the-month-of-september.html",
+     "class": "traffic",
+     "chars": 10053,
+     "path": "tools/gap/raw/6k/2019-10-09_gnw1927444_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1927654",
+   "lang": "en",
+   "filingDate": "2019-10-10",
+   "title": "Grupo Aeroportuario del Pacifico Informs Regarding Media",
+   "url": "https://www.globenewswire.com/news-release/2019/10/10/1927654/0/en/grupo-aeroportuario-del-pacifico-informs-regarding-media-coverage.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1935228",
+   "lang": "en",
+   "filingDate": "2019-10-24",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2019/10/24/1935228/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2019.html",
+   "docs": [
+    {
+     "name": "2019-10-24_gnw1935228_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/10/24/1935228/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2019.html",
+     "class": "results",
+     "chars": 52523,
+     "path": "tools/gap/raw/6k/2019-10-24_gnw1935228_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1941769",
+   "lang": "en",
+   "filingDate": "2019-11-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/11/06/1941769/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-12-2-for-the-month-of-october.html",
+   "docs": [
+    {
+     "name": "2019-11-06_gnw1941769_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/11/06/1941769/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-12-2-for-the-month-of-october.html",
+     "class": "traffic",
+     "chars": 10420,
+     "path": "tools/gap/raw/6k/2019-11-06_gnw1941769_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1944330",
+   "lang": "en",
+   "filingDate": "2019-11-08",
+   "title": "Grupo Aeroportuario del Pacifico Announces Second Dividend",
+   "url": "https://www.globenewswire.com/news-release/2019/11/08/1944330/0/en/grupo-aeroportuario-del-pacifico-announces-second-dividend-payment.html",
+   "docs": [
+    {
+     "name": "2019-11-08_gnw1944330_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/11/08/1944330/0/en/grupo-aeroportuario-del-pacifico-announces-second-dividend-payment.html",
+     "class": "traffic",
+     "chars": 6032,
+     "path": "tools/gap/raw/6k/2019-11-08_gnw1944330_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1950475",
+   "lang": "en",
+   "filingDate": "2019-11-21",
+   "title": "Grupo Aeroportuario del Pacifico Pays the Second Portion of",
+   "url": "https://www.globenewswire.com/news-release/2019/11/21/1950475/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-portion-of-the-dividend-approved-at-the-april-23-2019-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2019-11-21_gnw1950475_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/11/21/1950475/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-portion-of-the-dividend-approved-at-the-april-23-2019-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5907,
+     "path": "tools/gap/raw/6k/2019-11-21_gnw1950475_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1957069",
+   "lang": "en",
+   "filingDate": "2019-12-05",
+   "title": "Grupo Aeroportuario Del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2019/12/05/1957069/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-10-1-for-the-month-of-november.html",
+   "docs": [
+    {
+     "name": "2019-12-05_gnw1957069_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2019/12/05/1957069/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-10-1-for-the-month-of-november.html",
+     "class": "traffic",
+     "chars": 10512,
+     "path": "tools/gap/raw/6k/2019-12-05_gnw1957069_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1960218",
+   "lang": "en",
+   "filingDate": "2019-12-12",
+   "title": "Grupo Aeroportuario Del Pacifico announces Approval of",
+   "url": "https://www.globenewswire.com/news-release/2019/12/12/1960218/0/en/grupo-aeroportuario-del-pacifico-announces-approval-of-master-development-programs-and-passenger-tariffs-for-its-airports-for-2020-2024-period.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1966872",
+   "lang": "en",
+   "filingDate": "2020-01-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/01/06/1966872/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-11-4-for-the-month-of-december.html",
+   "docs": [
+    {
+     "name": "2020-01-06_gnw1966872_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/01/06/1966872/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-11-4-for-the-month-of-december.html",
+     "class": "traffic",
+     "chars": 10683,
+     "path": "tools/gap/raw/6k/2020-01-06_gnw1966872_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1980679",
+   "lang": "en",
+   "filingDate": "2020-02-06",
+   "title": "Grupo Aeroportuario Del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/02/06/1980679/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-13-1-for-the-month-of-january.html",
+   "docs": [
+    {
+     "name": "2020-02-06_gnw1980679_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/02/06/1980679/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-13-1-for-the-month-of-january.html",
+     "class": "traffic",
+     "chars": 9052,
+     "path": "tools/gap/raw/6k/2020-02-06_gnw1980679_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1985008",
+   "lang": "en",
+   "filingDate": "2020-02-13",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2020/02/13/1985008/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-3-0-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "1988301",
+   "lang": "en",
+   "filingDate": "2020-02-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2020/02/20/1988301/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2019.html",
+   "docs": [
+    {
+     "name": "2020-02-20_gnw1988301_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/02/20/1988301/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2019.html",
+     "class": "results",
+     "chars": 63878,
+     "path": "tools/gap/raw/6k/2020-02-20_gnw1988301_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1995445",
+   "lang": "en",
+   "filingDate": "2020-03-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/03/04/1995445/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-17-0-for-the-month-of-february.html",
+   "docs": [
+    {
+     "name": "2020-03-04_gnw1995445_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/03/04/1995445/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-increase-of-17-0-for-the-month-of-february.html",
+     "class": "traffic",
+     "chars": 10474,
+     "path": "tools/gap/raw/6k/2020-03-04_gnw1995445_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "1999132",
+   "lang": "en",
+   "filingDate": "2020-03-12",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO ANNOUNCES ANNUAL GENERAL",
+   "url": "https://www.globenewswire.com/news-release/2020/03/12/1999132/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2006676",
+   "lang": "en",
+   "filingDate": "2020-03-26",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO ANNOUNCES CONTINGENCY PLAN",
+   "url": "https://www.globenewswire.com/news-release/2020/03/26/2006676/0/en/grupo-aeroportuario-del-pacifico-announces-contingency-plan-to-face-covid-19.html",
+   "docs": [
+    {
+     "name": "2020-03-26_gnw2006676_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/03/26/2006676/0/en/grupo-aeroportuario-del-pacifico-announces-contingency-plan-to-face-covid-19.html",
+     "class": "traffic",
+     "chars": 8889,
+     "path": "tools/gap/raw/6k/2020-03-26_gnw2006676_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2007384",
+   "lang": "en",
+   "filingDate": "2020-03-27",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO UPDATES REGARDING ITS",
+   "url": "https://www.globenewswire.com/news-release/2020/03/27/2007384/0/en/grupo-aeroportuario-del-pacifico-updates-regarding-its-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2011806",
+   "lang": "en",
+   "filingDate": "2020-04-05",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO REPORTS PASSENGER TRAFFIC",
+   "url": "https://www.globenewswire.com/news-release/2020/04/05/2011806/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-30-2-for-the-month-of-march.html",
+   "docs": [
+    {
+     "name": "2020-04-05_gnw2011806_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/04/05/2011806/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-30-2-for-the-month-of-march.html",
+     "class": "traffic",
+     "chars": 11955,
+     "path": "tools/gap/raw/6k/2020-04-05_gnw2011806_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2016102",
+   "lang": "en",
+   "filingDate": "2020-04-15",
+   "title": "Grupo Aeroportuario del Pacifico Announces Postponement of",
+   "url": "https://www.globenewswire.com/news-release/2020/04/15/2016102/0/en/grupo-aeroportuario-del-pacifico-announces-postponement-of-annual-general-ordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2021993",
+   "lang": "en",
+   "filingDate": "2020-04-24",
+   "title": "Grupo Aeroportuario del Pacifico Delaying Filing of Its",
+   "url": "https://www.globenewswire.com/news-release/2020/04/24/2021993/0/en/grupo-aeroportuario-del-pacifico-delaying-filing-of-its-2019-form-20-f-and-annual-report.html",
+   "docs": [
+    {
+     "name": "2020-04-24_gnw2021993_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/04/24/2021993/0/en/grupo-aeroportuario-del-pacifico-delaying-filing-of-its-2019-form-20-f-and-annual-report.html",
+     "class": "traffic",
+     "chars": 9187,
+     "path": "tools/gap/raw/6k/2020-04-24_gnw2021993_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2024780",
+   "lang": "en",
+   "filingDate": "2020-04-30",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2020/04/30/2024780/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2020.html",
+   "docs": [
+    {
+     "name": "2020-04-30_gnw2024780_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/04/30/2024780/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2020.html",
+     "class": "results",
+     "chars": 45861,
+     "path": "tools/gap/raw/6k/2020-04-30_gnw2024780_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2028032",
+   "lang": "en",
+   "filingDate": "2020-05-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/05/05/2028032/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-91-5-for-the-month-of-april.html",
+   "docs": [
+    {
+     "name": "2020-05-05_gnw2028032_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/05/05/2028032/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-91-5-for-the-month-of-april.html",
+     "class": "traffic",
+     "chars": 11136,
+     "path": "tools/gap/raw/6k/2020-05-05_gnw2028032_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2029012",
+   "lang": "en",
+   "filingDate": "2020-05-07",
+   "title": "Grupo Aeroportuario del Pacifico Announces Transfer of",
+   "url": "https://www.globenewswire.com/news-release/2020/05/07/2029012/0/en/grupo-aeroportuario-del-pacifico-announces-transfer-of-shares-by-board-members.html",
+   "docs": [
+    {
+     "name": "2020-05-07_gnw2029012_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/05/07/2029012/0/en/grupo-aeroportuario-del-pacifico-announces-transfer-of-shares-by-board-members.html",
+     "class": "traffic",
+     "chars": 5864,
+     "path": "tools/gap/raw/6k/2020-05-07_gnw2029012_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2033951",
+   "lang": "en",
+   "filingDate": "2020-05-14",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Annual General",
+   "url": "https://www.globenewswire.com/news-release/2020/05/14/2033951/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2044053",
+   "lang": "en",
+   "filingDate": "2020-06-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/06/04/2044053/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-90-7-for-the-month-of-may.html",
+   "docs": [
+    {
+     "name": "2020-06-04_gnw2044053_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/06/04/2044053/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-90-7-for-the-month-of-may.html",
+     "class": "traffic",
+     "chars": 11145,
+     "path": "tools/gap/raw/6k/2020-06-04_gnw2044053_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2050497",
+   "lang": "en",
+   "filingDate": "2020-06-19",
+   "title": "Grupo Aeroportuario del Pacifico Announces Temporary",
+   "url": "https://www.globenewswire.com/news-release/2020/06/19/2050497/0/en/grupo-aeroportuario-del-pacifico-announces-temporary-closure-of-tijuana-airport-due-to-security-concerns.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2053805",
+   "lang": "en",
+   "filingDate": "2020-06-26",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2020/06/26/2053805/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-4-2-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2056627",
+   "lang": "en",
+   "filingDate": "2020-07-02",
+   "title": "Grupo Aeroportuario Del Pacifico Informs on Current Status",
+   "url": "https://www.globenewswire.com/news-release/2020/07/02/2056627/0/en/grupo-aeroportuario-del-pacifico-informs-on-current-status-of-aeromexico.html",
+   "docs": [
+    {
+     "name": "2020-07-02_gnw2056627_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/07/02/2056627/0/en/grupo-aeroportuario-del-pacifico-informs-on-current-status-of-aeromexico.html",
+     "class": "traffic",
+     "chars": 6191,
+     "path": "tools/gap/raw/6k/2020-07-02_gnw2056627_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2057214",
+   "lang": "en",
+   "filingDate": "2020-07-02",
+   "title": "Resolutions Adopted at the General Ordinary Shareholders’",
+   "url": "https://www.globenewswire.com/news-release/2020/07/02/2057214/0/en/resolutions-adopted-at-the-general-ordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-s-a-b-de-c-v-on-july-1-2020.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2057864",
+   "lang": "en",
+   "filingDate": "2020-07-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/07/06/2057864/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-76-8-for-the-month-of-june.html",
+   "docs": [
+    {
+     "name": "2020-07-06_gnw2057864_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/07/06/2057864/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-76-8-for-the-month-of-june.html",
+     "class": "traffic",
+     "chars": 10581,
+     "path": "tools/gap/raw/6k/2020-07-06_gnw2057864_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2067276",
+   "lang": "en",
+   "filingDate": "2020-07-24",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2020/07/24/2067276/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2020.html",
+   "docs": [
+    {
+     "name": "2020-07-24_gnw2067276_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/07/24/2067276/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2020.html",
+     "class": "results",
+     "chars": 66906,
+     "path": "tools/gap/raw/6k/2020-07-24_gnw2067276_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2073792",
+   "lang": "en",
+   "filingDate": "2020-08-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/08/05/2073792/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-62-3-for-the-month-of-july.html",
+   "docs": [
+    {
+     "name": "2020-08-05_gnw2073792_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/08/05/2073792/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-62-3-for-the-month-of-july.html",
+     "class": "traffic",
+     "chars": 11553,
+     "path": "tools/gap/raw/6k/2020-08-05_gnw2073792_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2088869",
+   "lang": "en",
+   "filingDate": "2020-09-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/09/03/2088869/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-51-4-for-the-month-of-august.html",
+   "docs": [
+    {
+     "name": "2020-09-03_gnw2088869_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/09/03/2088869/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-51-4-for-the-month-of-august.html",
+     "class": "traffic",
+     "chars": 10450,
+     "path": "tools/gap/raw/6k/2020-09-03_gnw2088869_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2089329",
+   "lang": "en",
+   "filingDate": "2020-09-04",
+   "title": "Grupo Aeroportuario del Pacifico Announces Long-Term Debt",
+   "url": "https://www.globenewswire.com/news-release/2020/09/04/2089329/0/en/grupo-aeroportuario-del-pacifico-announces-long-term-debt-financing-at-montego-bay-airport.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2103913",
+   "lang": "en",
+   "filingDate": "2020-10-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/10/05/2103913/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-38-3-for-the-month-of-september.html",
+   "docs": [
+    {
+     "name": "2020-10-05_gnw2103913_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/10/05/2103913/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-38-3-for-the-month-of-september.html",
+     "class": "traffic",
+     "chars": 11683,
+     "path": "tools/gap/raw/6k/2020-10-05_gnw2103913_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2116766",
+   "lang": "en",
+   "filingDate": "2020-10-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2020/10/29/2116766/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2020.html",
+   "docs": [
+    {
+     "name": "2020-10-29_gnw2116766_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/10/29/2116766/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2020.html",
+     "class": "results",
+     "chars": 66912,
+     "path": "tools/gap/raw/6k/2020-10-29_gnw2116766_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2117463",
+   "lang": "en",
+   "filingDate": "2020-10-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Debt Refinancing",
+   "url": "https://www.globenewswire.com/news-release/2020/10/29/2117463/0/en/grupo-aeroportuario-del-pacifico-announces-debt-refinancing-for-us-191-0-million.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2120587",
+   "lang": "en",
+   "filingDate": "2020-11-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/11/05/2120587/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-34-9-for-the-month-of-october.html",
+   "docs": [
+    {
+     "name": "2020-11-05_gnw2120587_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/11/05/2120587/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-34-9-for-the-month-of-october.html",
+     "class": "traffic",
+     "chars": 10358,
+     "path": "tools/gap/raw/6k/2020-11-05_gnw2120587_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2135554",
+   "lang": "en",
+   "filingDate": "2020-11-27",
+   "title": "Grupo Aeroportuario del Pacifico Announces Conclusion of",
+   "url": "https://www.globenewswire.com/news-release/2020/11/27/2135554/0/en/grupo-aeroportuario-del-pacifico-announces-conclusion-of-extraordinary-review-process-of-the-master-development-program-for-the-mexican-airports.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2140126",
+   "lang": "en",
+   "filingDate": "2020-12-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2020/12/05/2140126/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-34-4-for-the-month-of-november.html",
+   "docs": [
+    {
+     "name": "2020-12-05_gnw2140126_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2020/12/05/2140126/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-34-4-for-the-month-of-november.html",
+     "class": "traffic",
+     "chars": 11200,
+     "path": "tools/gap/raw/6k/2020-12-05_gnw2140126_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2153887",
+   "lang": "en",
+   "filingDate": "2021-01-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports  Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2021/01/06/2153887/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-37-1-for-the-month-of-december.html",
+   "docs": [
+    {
+     "name": "2021-01-06_gnw2153887_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/01/06/2153887/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-37-1-for-the-month-of-december.html",
+     "class": "traffic",
+     "chars": 10140,
+     "path": "tools/gap/raw/6k/2021-01-06_gnw2153887_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2170387",
+   "lang": "en",
+   "filingDate": "2021-02-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2021/02/04/2170387/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-43-5-for-the-month-of-january.html",
+   "docs": [
+    {
+     "name": "2021-02-04_gnw2170387_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/02/04/2170387/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-43-5-for-the-month-of-january.html",
+     "class": "traffic",
+     "chars": 9182,
+     "path": "tools/gap/raw/6k/2021-02-04_gnw2170387_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2182008",
+   "lang": "en",
+   "filingDate": "2021-02-25",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2021/02/25/2182008/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2020.html",
+   "docs": [
+    {
+     "name": "2021-02-25_gnw2182008_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/02/25/2182008/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2020.html",
+     "class": "results",
+     "chars": 65057,
+     "path": "tools/gap/raw/6k/2021-02-25_gnw2182008_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2183770",
+   "lang": "en",
+   "filingDate": "2021-02-27",
+   "title": "Grupo Aeroportuario del Pacifico Announces Upcoming",
+   "url": "https://www.globenewswire.com/news-release/2021/02/27/2183770/0/en/grupo-aeroportuario-del-pacifico-announces-upcoming-proposals-for-the-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2021-02-27_gnw2183770_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/02/27/2183770/0/en/grupo-aeroportuario-del-pacifico-announces-upcoming-proposals-for-the-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5968,
+     "path": "tools/gap/raw/6k/2021-02-27_gnw2183770_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2187678",
+   "lang": "en",
+   "filingDate": "2021-03-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2021/03/04/2187678/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-52-7-for-the-month-of-february.html",
+   "docs": [
+    {
+     "name": "2021-03-04_gnw2187678_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/03/04/2187678/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-52-7-for-the-month-of-february.html",
+     "class": "traffic",
+     "chars": 10892,
+     "path": "tools/gap/raw/6k/2021-03-04_gnw2187678_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2189965",
+   "lang": "en",
+   "filingDate": "2021-03-09",
+   "title": "Grupo Aeroportuario del Pacifico Announces Annual General",
+   "url": "https://www.globenewswire.com/news-release/2021/03/09/2189965/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2205437",
+   "lang": "en",
+   "filingDate": "2021-04-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2021/04/06/2205437/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-4-6-for-the-month-of-march.html",
+   "docs": [
+    {
+     "name": "2021-04-06_gnw2205437_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/04/06/2205437/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-4-6-for-the-month-of-march.html",
+     "class": "traffic",
+     "chars": 9863,
+     "path": "tools/gap/raw/6k/2021-04-06_gnw2205437_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2219913",
+   "lang": "en",
+   "filingDate": "2021-04-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2021/04/29/2219913/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2021.html",
+   "docs": [
+    {
+     "name": "2021-04-29_gnw2219913_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/04/29/2219913/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2021.html",
+     "class": "results",
+     "chars": 44466,
+     "path": "tools/gap/raw/6k/2021-04-29_gnw2219913_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2222984",
+   "lang": "en",
+   "filingDate": "2021-05-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports Passenger Traffic",
+   "url": "https://www.globenewswire.com/news-release/2021/05/05/2222984/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-19-4-for-the-month-of-april-2021-compared-to-2019-increase-of-844-8-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-05-05_gnw2222984_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/05/05/2222984/0/en/grupo-aeroportuario-del-pacifico-reports-passenger-traffic-decrease-of-19-4-for-the-month-of-april-2021-compared-to-2019-increase-of-844-8-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 13650,
+     "path": "tools/gap/raw/6k/2021-05-05_gnw2222984_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2225805",
+   "lang": "en",
+   "filingDate": "2021-05-07",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2021/05/07/2225805/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-4-5-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2228798",
+   "lang": "en",
+   "filingDate": "2021-05-12",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment Date for",
+   "url": "https://www.globenewswire.com/news-release/2021/05/12/2228798/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-capital-stock-reduction-approved-at-the-general-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2021-05-12_gnw2228798_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/05/12/2228798/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-capital-stock-reduction-approved-at-the-general-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5945,
+     "path": "tools/gap/raw/6k/2021-05-12_gnw2228798_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2237881",
+   "lang": "en",
+   "filingDate": "2021-05-27",
+   "title": "Grupo Aeroportuario del Pacifico Announces Early Payment of",
+   "url": "https://www.globenewswire.com/news-release/2021/05/27/2237881/0/en/grupo-aeroportuario-del-pacifico-announces-early-payment-of-bank-loans.html",
+   "docs": [
+    {
+     "name": "2021-05-27_gnw2237881_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/05/27/2237881/0/en/grupo-aeroportuario-del-pacifico-announces-early-payment-of-bank-loans.html",
+     "class": "traffic",
+     "chars": 5836,
+     "path": "tools/gap/raw/6k/2021-05-27_gnw2237881_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2238499",
+   "lang": "en",
+   "filingDate": "2021-05-28",
+   "title": "Grupo Aeroportuario Del Pacifico  Pays Capital Stock",
+   "url": "https://www.globenewswire.com/news-release/2021/05/28/2238499/0/en/grupo-aeroportuario-del-pacifico-pays-capital-stock-reduction-approved-at-the-general-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2021-05-28_gnw2238499_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/05/28/2238499/0/en/grupo-aeroportuario-del-pacifico-pays-capital-stock-reduction-approved-at-the-general-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5817,
+     "path": "tools/gap/raw/6k/2021-05-28_gnw2238499_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2242337",
+   "lang": "en",
+   "filingDate": "2021-06-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in May 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/06/04/2242337/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2021-a-passenger-traffic-decrease-of-6-4-compared-to-2019-increase-of-902-4-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-06-04_gnw2242337_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/06/04/2242337/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2021-a-passenger-traffic-decrease-of-6-4-compared-to-2019-increase-of-902-4-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 13591,
+     "path": "tools/gap/raw/6k/2021-06-04_gnw2242337_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2258045",
+   "lang": "en",
+   "filingDate": "2021-07-06",
+   "title": "Grupo Aeroportuario Del Pacifico Reports in June 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/07/06/2258045/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2021-a-passenger-traffic-decrease-of-2-7-compared-to-2019-increase-of-319-6-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-07-06_gnw2258045_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/07/06/2258045/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2021-a-passenger-traffic-decrease-of-2-7-compared-to-2019-increase-of-319-6-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 13826,
+     "path": "tools/gap/raw/6k/2021-07-06_gnw2258045_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2270888",
+   "lang": "en",
+   "filingDate": "2021-07-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2021/07/29/2270888/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2021.html",
+   "docs": [
+    {
+     "name": "2021-07-29_gnw2270888_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/07/29/2270888/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2021.html",
+     "class": "results",
+     "chars": 68772,
+     "path": "tools/gap/raw/6k/2021-07-29_gnw2270888_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2273239",
+   "lang": "en",
+   "filingDate": "2021-08-02",
+   "title": "Grupo Aeroportuario del Pacifico Announces General Ordinary",
+   "url": "https://www.globenewswire.com/news-release/2021/08/02/2273239/0/en/grupo-aeroportuario-del-pacifico-announces-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2275042",
+   "lang": "en",
+   "filingDate": "2021-08-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in July 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/08/04/2275042/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2021-a-passenger-traffic-decrease-of-2-1-compared-to-2019-increase-of-159-6-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-08-04_gnw2275042_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/08/04/2275042/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2021-a-passenger-traffic-decrease-of-2-1-compared-to-2019-increase-of-159-6-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 13751,
+     "path": "tools/gap/raw/6k/2021-08-04_gnw2275042_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2291631",
+   "lang": "en",
+   "filingDate": "2021-09-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports in August 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/09/03/2291631/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2021-a-passenger-traffic-decrease-of-2-0-compared-to-2019-increase-of-101-7-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-09-03_gnw2291631_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/09/03/2291631/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2021-a-passenger-traffic-decrease-of-2-0-compared-to-2019-increase-of-101-7-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 13604,
+     "path": "tools/gap/raw/6k/2021-09-03_gnw2291631_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2297107",
+   "lang": "en",
+   "filingDate": "2021-09-14",
+   "title": "Resolutions Adopted at the General Ordinary and",
+   "url": "https://www.globenewswire.com/news-release/2021/09/14/2297107/0/en/resolutions-adopted-at-the-general-ordinary-and-extraordinary-shareholders-meetings-for-grupo-aeroportuario-del-pacifico-on-september-14-2021.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2297976",
+   "lang": "en",
+   "filingDate": "2021-09-15",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment Date for",
+   "url": "https://www.globenewswire.com/news-release/2021/09/15/2297976/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2021-09-15_gnw2297976_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/09/15/2297976/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5824,
+     "path": "tools/gap/raw/6k/2021-09-15_gnw2297976_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2304927",
+   "lang": "en",
+   "filingDate": "2021-09-28",
+   "title": "Grupo Aeroportuario Del Pacifico Pays Capital Stock",
+   "url": "https://www.globenewswire.com/news-release/2021/09/28/2304927/0/en/grupo-aeroportuario-del-pacifico-pays-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2021-09-28_gnw2304927_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/09/28/2304927/0/en/grupo-aeroportuario-del-pacifico-pays-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5856,
+     "path": "tools/gap/raw/6k/2021-09-28_gnw2304927_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2308385",
+   "lang": "en",
+   "filingDate": "2021-10-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in September 2021",
+   "url": "https://www.globenewswire.com/news-release/2021/10/05/2308385/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2021-a-passenger-traffic-increase-of-1-2-compared-to-2019-increase-of-64-1-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-10-05_gnw2308385_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/10/05/2308385/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2021-a-passenger-traffic-increase-of-1-2-compared-to-2019-increase-of-64-1-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 14206,
+     "path": "tools/gap/raw/6k/2021-10-05_gnw2308385_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2315225",
+   "lang": "en",
+   "filingDate": "2021-10-15",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2021/10/15/2315225/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-2-5-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2322255",
+   "lang": "en",
+   "filingDate": "2021-10-28",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2021/10/28/2322255/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2021.html",
+   "docs": [
+    {
+     "name": "2021-10-28_gnw2322255_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/10/28/2322255/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2021.html",
+     "class": "results",
+     "chars": 73858,
+     "path": "tools/gap/raw/6k/2021-10-28_gnw2322255_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2328191",
+   "lang": "en",
+   "filingDate": "2021-11-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in October 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/11/04/2328191/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2021-a-passenger-traffic-increase-of-0-4-compared-to-2019-increase-of-54-2-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-11-04_gnw2328191_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/11/04/2328191/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2021-a-passenger-traffic-increase-of-0-4-compared-to-2019-increase-of-54-2-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 14606,
+     "path": "tools/gap/raw/6k/2021-11-04_gnw2328191_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2329867",
+   "lang": "en",
+   "filingDate": "2021-11-09",
+   "title": "Grupo Aeroportuario del Pacifico Informs of the Resignation",
+   "url": "https://www.globenewswire.com/news-release/2021/11/09/2329867/0/en/grupo-aeroportuario-del-pacifico-informs-of-the-resignation-of-a-member-of-its-board-of-directors.html",
+   "docs": [
+    {
+     "name": "2021-11-09_gnw2329867_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/11/09/2329867/0/en/grupo-aeroportuario-del-pacifico-informs-of-the-resignation-of-a-member-of-its-board-of-directors.html",
+     "class": "traffic",
+     "chars": 6041,
+     "path": "tools/gap/raw/6k/2021-11-09_gnw2329867_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2346370",
+   "lang": "en",
+   "filingDate": "2021-12-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports in November 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2021/12/06/2346370/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2021-a-passenger-traffic-increase-of-0-1-compared-to-2019-increase-of-52-6-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2021-12-06_gnw2346370_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2021/12/06/2346370/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2021-a-passenger-traffic-increase-of-0-1-compared-to-2019-increase-of-52-6-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 15091,
+     "path": "tools/gap/raw/6k/2021-12-06_gnw2346370_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2361264",
+   "lang": "en",
+   "filingDate": "2022-01-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in December 2021 a",
+   "url": "https://www.globenewswire.com/news-release/2022/01/05/2361264/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2021-a-passenger-traffic-decrease-of-0-2-compared-to-2019-increase-of-58-8-compared-to-2020.html",
+   "docs": [
+    {
+     "name": "2022-01-05_gnw2361264_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/01/05/2361264/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2021-a-passenger-traffic-decrease-of-0-2-compared-to-2019-increase-of-58-8-compared-to-2020.html",
+     "class": "traffic",
+     "chars": 14456,
+     "path": "tools/gap/raw/6k/2022-01-05_gnw2361264_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2373919",
+   "lang": "en",
+   "filingDate": "2022-01-27",
+   "title": "Grupo Aeroportuario del Pacifico  Announces Its Inclusion",
+   "url": "https://www.globenewswire.com/news-release/2022/01/27/2373919/0/en/grupo-aeroportuario-del-pacifico-announces-its-inclusion-in-2022-bloomberg-gender-equality-index.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2379535",
+   "lang": "en",
+   "filingDate": "2022-02-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in January 2022  a",
+   "url": "https://www.globenewswire.com/news-release/2022/02/05/2379535/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2022-a-passenger-traffic-increase-of-0-1-compared-to-2019-increase-of-56-6-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-02-05_gnw2379535_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/02/05/2379535/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2022-a-passenger-traffic-increase-of-0-1-compared-to-2019-increase-of-56-6-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 10657,
+     "path": "tools/gap/raw/6k/2022-02-05_gnw2379535_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2389947",
+   "lang": "en",
+   "filingDate": "2022-02-23",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2022/02/23/2389947/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2021.html",
+   "docs": [
+    {
+     "name": "2022-02-23_gnw2389947_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/02/23/2389947/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2021.html",
+     "class": "results",
+     "chars": 72246,
+     "path": "tools/gap/raw/6k/2022-02-23_gnw2389947_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2392594",
+   "lang": "en",
+   "filingDate": "2022-02-26",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Annual General",
+   "url": "https://www.globenewswire.com/news-release/2022/02/26/2392594/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2397347",
+   "lang": "en",
+   "filingDate": "2022-03-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in February 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/03/04/2397347/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2022-a-passenger-traffic-increase-of-7-1-compared-to-2019-increase-of-93-6-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-03-04_gnw2397347_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/03/04/2397347/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2022-a-passenger-traffic-increase-of-7-1-compared-to-2019-increase-of-93-6-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 14121,
+     "path": "tools/gap/raw/6k/2022-03-04_gnw2397347_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2405714",
+   "lang": "en",
+   "filingDate": "2022-03-17",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2022/03/17/2405714/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-5-0-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2406274",
+   "lang": "en",
+   "filingDate": "2022-03-18",
+   "title": "Grupo Aeroportuario del Pacifico Informs Debt Refinancing",
+   "url": "https://www.globenewswire.com/news-release/2022/03/18/2406274/0/en/grupo-aeroportuario-del-pacifico-informs-debt-refinancing-for-us-191-0-million.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2409999",
+   "lang": "en",
+   "filingDate": "2022-03-25",
+   "title": "Grupo Aeroportuario Del Pacifico Informs About the",
+   "url": "https://www.globenewswire.com/news-release/2022/03/25/2409999/0/en/grupo-aeroportuario-del-pacifico-informs-about-the-investors-day-2022.html",
+   "docs": [
+    {
+     "name": "2022-03-25_gnw2409999_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/03/25/2409999/0/en/grupo-aeroportuario-del-pacifico-informs-about-the-investors-day-2022.html",
+     "class": "traffic",
+     "chars": 5622,
+     "path": "tools/gap/raw/6k/2022-03-25_gnw2409999_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2417149",
+   "lang": "en",
+   "filingDate": "2022-04-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in March 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/04/05/2417149/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2022-a-passenger-traffic-increase-of-10-2-compared-to-2019-increase-of-65-6-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-04-05_gnw2417149_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/04/05/2417149/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2022-a-passenger-traffic-increase-of-10-2-compared-to-2019-increase-of-65-6-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13236,
+     "path": "tools/gap/raw/6k/2022-04-05_gnw2417149_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2427339",
+   "lang": "en",
+   "filingDate": "2022-04-22",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Filing of 2021",
+   "url": "https://www.globenewswire.com/news-release/2022/04/22/2427339/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2021-annual-report-and-form-20-f.html",
+   "docs": [
+    {
+     "name": "2022-04-22_gnw2427339_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/04/22/2427339/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2021-annual-report-and-form-20-f.html",
+     "class": "traffic",
+     "chars": 5929,
+     "path": "tools/gap/raw/6k/2022-04-22_gnw2427339_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2428044",
+   "lang": "en",
+   "filingDate": "2022-04-25",
+   "title": "Resolutions Adopted at the General Ordinary Shareholders’",
+   "url": "https://www.globenewswire.com/news-release/2022/04/25/2428044/0/en/resolutions-adopted-at-the-general-ordinary-shareholders-meeting-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-22-2022.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2428610",
+   "lang": "en",
+   "filingDate": "2022-04-25",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2022/04/25/2428610/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2022.html",
+   "docs": [
+    {
+     "name": "2022-04-25_gnw2428610_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/04/25/2428610/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2022.html",
+     "class": "results",
+     "chars": 46569,
+     "path": "tools/gap/raw/6k/2022-04-25_gnw2428610_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2432110",
+   "lang": "en",
+   "filingDate": "2022-04-28",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Payment Date",
+   "url": "https://www.globenewswire.com/news-release/2022/04/28/2432110/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2022-04-28_gnw2432110_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/04/28/2432110/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5835,
+     "path": "tools/gap/raw/6k/2022-04-28_gnw2432110_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2436247",
+   "lang": "en",
+   "filingDate": "2022-05-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports In April 2022  a",
+   "url": "https://www.globenewswire.com/news-release/2022/05/04/2436247/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2022-a-passenger-traffic-increase-of-15-3-compared-to-2019-increase-of-43-1-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-05-04_gnw2436247_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/05/04/2436247/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2022-a-passenger-traffic-increase-of-15-3-compared-to-2019-increase-of-43-1-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13559,
+     "path": "tools/gap/raw/6k/2022-05-04_gnw2436247_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2444486",
+   "lang": "en",
+   "filingDate": "2022-05-17",
+   "title": "Grupo Aeroportuario del Pacifico Pays the First Installment",
+   "url": "https://www.globenewswire.com/news-release/2022/05/17/2444486/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-installment-of-the-dividend-approved-at-the-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2022-05-17_gnw2444486_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/05/17/2444486/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-installment-of-the-dividend-approved-at-the-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5656,
+     "path": "tools/gap/raw/6k/2022-05-17_gnw2444486_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2456256",
+   "lang": "en",
+   "filingDate": "2022-06-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in May 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/06/04/2456256/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2022-a-passenger-traffic-increase-of-15-3-compared-to-2019-increase-of-23-2-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-06-04_gnw2456256_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/06/04/2456256/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2022-a-passenger-traffic-increase-of-15-3-compared-to-2019-increase-of-23-2-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13208,
+     "path": "tools/gap/raw/6k/2022-06-04_gnw2456256_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2485456",
+   "lang": "en",
+   "filingDate": "2022-07-25",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2022/07/25/2485456/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2022.html",
+   "docs": [
+    {
+     "name": "2022-07-25_gnw2485456_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/07/25/2485456/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2022.html",
+     "class": "results",
+     "chars": 69300,
+     "path": "tools/gap/raw/6k/2022-07-25_gnw2485456_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2492889",
+   "lang": "en",
+   "filingDate": "2022-08-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in July 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/08/04/2492889/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2022-a-passenger-traffic-increase-of-20-7-compared-to-2019.html",
+   "docs": [
+    {
+     "name": "2022-08-04_gnw2492889_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/08/04/2492889/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2022-a-passenger-traffic-increase-of-20-7-compared-to-2019.html",
+     "class": "traffic",
+     "chars": 13303,
+     "path": "tools/gap/raw/6k/2022-08-04_gnw2492889_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2509965",
+   "lang": "en",
+   "filingDate": "2022-09-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in August 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/09/05/2509965/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2022-a-passenger-traffic-increase-of-22-5-compared-to-2019-increase-of-24-9-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-09-05_gnw2509965_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/09/05/2509965/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2022-a-passenger-traffic-increase-of-22-5-compared-to-2019-increase-of-24-9-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13187,
+     "path": "tools/gap/raw/6k/2022-09-05_gnw2509965_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2522897",
+   "lang": "en",
+   "filingDate": "2022-09-26",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of",
+   "url": "https://www.globenewswire.com/news-release/2022/09/26/2522897/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-sustainability-linked-bond-certificates-in-mexico-for-ps-2-8-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2529082",
+   "lang": "en",
+   "filingDate": "2022-10-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in September 2022",
+   "url": "https://www.globenewswire.com/news-release/2022/10/05/2529082/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2022-a-passenger-traffic-increase-of-27-4-compared-to-2019-increase-of-25-9-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-10-05_gnw2529082_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/10/05/2529082/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2022-a-passenger-traffic-increase-of-27-4-compared-to-2019-increase-of-25-9-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13366,
+     "path": "tools/gap/raw/6k/2022-10-05_gnw2529082_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2539507",
+   "lang": "en",
+   "filingDate": "2022-10-21",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2022/10/21/2539507/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2022.html",
+   "docs": [
+    {
+     "name": "2022-10-21_gnw2539507_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/10/21/2539507/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2022.html",
+     "class": "results",
+     "chars": 64640,
+     "path": "tools/gap/raw/6k/2022-10-21_gnw2539507_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2546070",
+   "lang": "en",
+   "filingDate": "2022-11-01",
+   "title": "Grupo Aeroportuario del Pacifico  Announces the Payment",
+   "url": "https://www.globenewswire.com/news-release/2022/11/01/2546070/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2022-11-01_gnw2546070_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/11/01/2546070/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5877,
+     "path": "tools/gap/raw/6k/2022-11-01_gnw2546070_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2548468",
+   "lang": "en",
+   "filingDate": "2022-11-04",
+   "title": "Grupo Aeroportuario del Pacifico Announces Debt Securities",
+   "url": "https://www.globenewswire.com/news-release/2022/11/04/2548468/0/en/grupo-aeroportuario-del-pacifico-announces-debt-securities-gap-17-2-payment.html",
+   "docs": [
+    {
+     "name": "2022-11-04_gnw2548468_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/11/04/2548468/0/en/grupo-aeroportuario-del-pacifico-announces-debt-securities-gap-17-2-payment.html",
+     "class": "traffic",
+     "chars": 5644,
+     "path": "tools/gap/raw/6k/2022-11-04_gnw2548468_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2549106",
+   "lang": "en",
+   "filingDate": "2022-11-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in October 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/11/05/2549106/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2022-a-passenger-traffic-increase-of-22-1-compared-to-2019-increase-of-21-6-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-11-05_gnw2549106_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/11/05/2549106/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2022-a-passenger-traffic-increase-of-22-1-compared-to-2019-increase-of-21-6-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 13613,
+     "path": "tools/gap/raw/6k/2022-11-05_gnw2549106_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2558704",
+   "lang": "en",
+   "filingDate": "2022-11-17",
+   "title": "Grupo Aeroportuario del Pacifico Pays the Second and Last",
+   "url": "https://www.globenewswire.com/news-release/2022/11/17/2558704/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-and-last-installment-of-the-dividend-approved-at-the-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2022-11-17_gnw2558704_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/11/17/2558704/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-and-last-installment-of-the-dividend-approved-at-the-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5707,
+     "path": "tools/gap/raw/6k/2022-11-17_gnw2558704_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2567865",
+   "lang": "en",
+   "filingDate": "2022-12-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in November 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2022/12/05/2567865/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2022-a-passenger-traffic-increase-of-22-4-compared-to-2019-increase-of-22-3-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2022-12-05_gnw2567865_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/12/05/2567865/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2022-a-passenger-traffic-increase-of-22-4-compared-to-2019-increase-of-22-3-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 14013,
+     "path": "tools/gap/raw/6k/2022-12-05_gnw2567865_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2571320",
+   "lang": "en",
+   "filingDate": "2022-12-09",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Ps.1.5",
+   "url": "https://www.globenewswire.com/news-release/2022/12/09/2571320/0/en/grupo-aeroportuario-del-pacifico-announces-the-ps-1-5-billion-drawdown-from-available-credit-facility.html",
+   "docs": [
+    {
+     "name": "2022-12-09_gnw2571320_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2022/12/09/2571320/0/en/grupo-aeroportuario-del-pacifico-announces-the-ps-1-5-billion-drawdown-from-available-credit-facility.html",
+     "class": "traffic",
+     "chars": 5740,
+     "path": "tools/gap/raw/6k/2022-12-09_gnw2571320_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2583332",
+   "lang": "en",
+   "filingDate": "2023-01-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in December 2022 a",
+   "url": "https://www.globenewswire.com/news-release/2023/01/04/2583332/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2022-a-passenger-traffic-increase-of-18-6-compared-to-2019-increase-of-18-8-compared-to-2021.html",
+   "docs": [
+    {
+     "name": "2023-01-04_gnw2583332_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/01/04/2583332/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2022-a-passenger-traffic-increase-of-18-6-compared-to-2019-increase-of-18-8-compared-to-2021.html",
+     "class": "traffic",
+     "chars": 14026,
+     "path": "tools/gap/raw/6k/2023-01-04_gnw2583332_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2586672",
+   "lang": "en",
+   "filingDate": "2023-01-10",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Ps.1.0",
+   "url": "https://www.globenewswire.com/news-release/2023/01/10/2586672/0/en/grupo-aeroportuario-del-pacifico-announces-the-ps-1-0-billion-drawdown-from-available-credit-facility.html",
+   "docs": [
+    {
+     "name": "2023-01-10_gnw2586672_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/01/10/2586672/0/en/grupo-aeroportuario-del-pacifico-announces-the-ps-1-0-billion-drawdown-from-available-credit-facility.html",
+     "class": "traffic",
+     "chars": 5744,
+     "path": "tools/gap/raw/6k/2023-01-10_gnw2586672_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2589525",
+   "lang": "en",
+   "filingDate": "2023-01-17",
+   "title": "Grupo Aeroportuario del Pacifico Announces Growth Guidance",
+   "url": "https://www.globenewswire.com/news-release/2023/01/17/2589525/0/en/grupo-aeroportuario-del-pacifico-announces-growth-guidance-for-the-full-year-2023.html",
+   "docs": [
+    {
+     "name": "2023-01-17_gnw2589525_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/01/17/2589525/0/en/grupo-aeroportuario-del-pacifico-announces-growth-guidance-for-the-full-year-2023.html",
+     "class": "traffic",
+     "chars": 7424,
+     "path": "tools/gap/raw/6k/2023-01-17_gnw2589525_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2599736",
+   "lang": "en",
+   "filingDate": "2023-02-01",
+   "title": "Grupo Aeroportuario del Pacifico Announces Its Inclusion in",
+   "url": "https://www.globenewswire.com/news-release/2023/02/01/2599736/0/en/grupo-aeroportuario-del-pacifico-announces-its-inclusion-in-2023-bloomberg-gender-equality-index.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2601644",
+   "lang": "en",
+   "filingDate": "2023-02-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports in January 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/02/03/2601644/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2023-a-passenger-traffic-increase-of-33-1-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-02-03_gnw2601644_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/02/03/2601644/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2023-a-passenger-traffic-increase-of-33-1-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 8538,
+     "path": "tools/gap/raw/6k/2023-02-03_gnw2601644_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2612551",
+   "lang": "en",
+   "filingDate": "2023-02-21",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2023/02/21/2612551/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2022.html",
+   "docs": [
+    {
+     "name": "2023-02-21_gnw2612551_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/02/21/2612551/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2022.html",
+     "class": "results",
+     "chars": 66733,
+     "path": "tools/gap/raw/6k/2023-02-21_gnw2612551_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2618840",
+   "lang": "en",
+   "filingDate": "2023-03-01",
+   "title": "Grupo Aeroportuario del Pacifico Informs Annual General",
+   "url": "https://www.globenewswire.com/news-release/2023/03/01/2618840/0/en/grupo-aeroportuario-del-pacifico-informs-annual-general-ordinary-and-extraordinary-shareholders-meeting-agenda.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2620580",
+   "lang": "en",
+   "filingDate": "2023-03-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports in February 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/03/03/2620580/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2023-a-passenger-traffic-increase-of-24-3-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-03-03_gnw2620580_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/03/03/2620580/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2023-a-passenger-traffic-increase-of-24-3-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9451,
+     "path": "tools/gap/raw/6k/2023-03-03_gnw2620580_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2624697",
+   "lang": "en",
+   "filingDate": "2023-03-10",
+   "title": "Grupo Aeroportuario del Pacifico Announces Management",
+   "url": "https://www.globenewswire.com/news-release/2023/03/10/2624697/0/en/grupo-aeroportuario-del-pacifico-announces-management-appointments.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2635303",
+   "lang": "en",
+   "filingDate": "2023-03-28",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2023/03/28/2635303/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-5-4-billion.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2641256",
+   "lang": "en",
+   "filingDate": "2023-04-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in March 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/04/04/2641256/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2023-a-passenger-traffic-increase-of-15-8-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-04-04_gnw2641256_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/04/04/2641256/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2023-a-passenger-traffic-increase-of-15-8-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9435,
+     "path": "tools/gap/raw/6k/2023-04-04_gnw2641256_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2646636",
+   "lang": "en",
+   "filingDate": "2023-04-13",
+   "title": "Grupo Aeroportuario del Pacifico Announces Filing of 2022",
+   "url": "https://www.globenewswire.com/news-release/2023/04/13/2646636/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2022-annual-report-and-form-20-f.html",
+   "docs": [
+    {
+     "name": "2023-04-13_gnw2646636_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/04/13/2646636/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2022-annual-report-and-form-20-f.html",
+     "class": "traffic",
+     "chars": 5851,
+     "path": "tools/gap/raw/6k/2023-04-13_gnw2646636_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2647415",
+   "lang": "en",
+   "filingDate": "2023-04-14",
+   "title": "Resolutions Adopted at the General Ordinary Shareholders’",
+   "url": "https://www.globenewswire.com/news-release/2023/04/14/2647415/0/en/resolutions-adopted-at-the-general-ordinary-shareholders-meeting-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-13-2023.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2648543",
+   "lang": "en",
+   "filingDate": "2023-04-17",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2023/04/17/2648543/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2023.html",
+   "docs": [
+    {
+     "name": "2023-04-17_gnw2648543_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/04/17/2648543/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2023.html",
+     "class": "results",
+     "chars": 39457,
+     "path": "tools/gap/raw/6k/2023-04-17_gnw2648543_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2662202",
+   "lang": "en",
+   "filingDate": "2023-05-05",
+   "title": "Grupo Aeroportuario del Pacifico  Announces the Payment",
+   "url": "https://www.globenewswire.com/news-release/2023/05/05/2662202/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-05-05_gnw2662202_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/05/05/2662202/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5771,
+     "path": "tools/gap/raw/6k/2023-05-05_gnw2662202_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2672293",
+   "lang": "en",
+   "filingDate": "2023-05-18",
+   "title": "Grupo Aeroportuario del Pacifico Pays the First Installment",
+   "url": "https://www.globenewswire.com/news-release/2023/05/18/2672293/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-05-18_gnw2672293_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/05/18/2672293/0/en/grupo-aeroportuario-del-pacifico-pays-the-first-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5613,
+     "path": "tools/gap/raw/6k/2023-05-18_gnw2672293_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2682413",
+   "lang": "en",
+   "filingDate": "2023-06-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in May 2023 A",
+   "url": "https://www.globenewswire.com/news-release/2023/06/05/2682413/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2023-a-passenger-traffic-increase-of-10-4-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-06-05_gnw2682413_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/06/05/2682413/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2023-a-passenger-traffic-increase-of-10-4-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9489,
+     "path": "tools/gap/raw/6k/2023-06-05_gnw2682413_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2693359",
+   "lang": "en",
+   "filingDate": "2023-06-22",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment of Debt",
+   "url": "https://www.globenewswire.com/news-release/2023/06/22/2693359/0/en/grupo-aeroportuario-del-pacifico-announces-payment-of-debt-securities-gap-20-2.html",
+   "docs": [
+    {
+     "name": "2023-06-22_gnw2693359_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/06/22/2693359/0/en/grupo-aeroportuario-del-pacifico-announces-payment-of-debt-securities-gap-20-2.html",
+     "class": "traffic",
+     "chars": 5520,
+     "path": "tools/gap/raw/6k/2023-06-22_gnw2693359_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2698111",
+   "lang": "en",
+   "filingDate": "2023-06-30",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Payment Date",
+   "url": "https://www.globenewswire.com/news-release/2023/06/30/2698111/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-06-30_gnw2698111_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/06/30/2698111/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5772,
+     "path": "tools/gap/raw/6k/2023-06-30_gnw2698111_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2699981",
+   "lang": "en",
+   "filingDate": "2023-07-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in June 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/07/05/2699981/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2023-a-passenger-traffic-increase-of-12-5-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-07-05_gnw2699981_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/07/05/2699981/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2023-a-passenger-traffic-increase-of-12-5-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9900,
+     "path": "tools/gap/raw/6k/2023-07-05_gnw2699981_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2704780",
+   "lang": "en",
+   "filingDate": "2023-07-13",
+   "title": "Grupo Aeroportuario del Pacifico Pays the Second",
+   "url": "https://www.globenewswire.com/news-release/2023/07/13/2704780/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2023-07-13_gnw2704780_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/07/13/2704780/0/en/grupo-aeroportuario-del-pacifico-pays-the-second-installment-of-the-dividend-approved-at-the-ordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5619,
+     "path": "tools/gap/raw/6k/2023-07-13_gnw2704780_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2710045",
+   "lang": "en",
+   "filingDate": "2023-07-25",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2023/07/25/2710045/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2023.html",
+   "docs": [
+    {
+     "name": "2023-07-25_gnw2710045_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/07/25/2710045/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2023.html",
+     "class": "results",
+     "chars": 61101,
+     "path": "tools/gap/raw/6k/2023-07-25_gnw2710045_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2719276",
+   "lang": "en",
+   "filingDate": "2023-08-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in July 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/08/04/2719276/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2023-a-passenger-traffic-increase-of-11-5-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-08-04_gnw2719276_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/08/04/2719276/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2023-a-passenger-traffic-increase-of-11-5-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 10751,
+     "path": "tools/gap/raw/6k/2023-08-04_gnw2719276_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2737930",
+   "lang": "en",
+   "filingDate": "2023-09-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in August 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/09/05/2737930/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2023-a-passenger-traffic-increase-of-14-1-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-09-05_gnw2737930_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/09/05/2737930/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2023-a-passenger-traffic-increase-of-14-1-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9524,
+     "path": "tools/gap/raw/6k/2023-09-05_gnw2737930_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2750799",
+   "lang": "en",
+   "filingDate": "2023-09-27",
+   "title": "Grupo Aeroportuario Del Pacifico Announces the USD$40.0",
+   "url": "https://www.globenewswire.com/news-release/2023/09/27/2750799/0/en/grupo-aeroportuario-del-pacifico-announces-the-usd-40-0-million-drawdown-from-an-available-credit-facility-for-the-acquisition-of-a-company-within-the-tijuana-airport.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2751692",
+   "lang": "en",
+   "filingDate": "2023-09-28",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Payment Date",
+   "url": "https://www.globenewswire.com/news-release/2023/09/28/2751692/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-third-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-09-28_gnw2751692_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/09/28/2751692/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-third-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5786,
+     "path": "tools/gap/raw/6k/2023-09-28_gnw2751692_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2755031",
+   "lang": "en",
+   "filingDate": "2023-10-05",
+   "title": "Grupo Aeroportuario del Pacifico Announces Government",
+   "url": "https://www.globenewswire.com/news-release/2023/10/05/2755031/0/en/grupo-aeroportuario-del-pacifico-announces-government-action-to-change-tariff-base-regulation.html",
+   "docs": [
+    {
+     "name": "2023-10-05_gnw2755031_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/10/05/2755031/0/en/grupo-aeroportuario-del-pacifico-announces-government-action-to-change-tariff-base-regulation.html",
+     "class": "traffic",
+     "chars": 6188,
+     "path": "tools/gap/raw/6k/2023-10-05_gnw2755031_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2756331",
+   "lang": "en",
+   "filingDate": "2023-10-06",
+   "title": "Grupo Aeroportuario Del Pacifico Reports In September 2023",
+   "url": "https://www.globenewswire.com/news-release/2023/10/06/2756331/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2023.html",
+   "docs": [
+    {
+     "name": "2023-10-06_gnw2756331_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/10/06/2756331/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2023.html",
+     "class": "traffic",
+     "chars": 9793,
+     "path": "tools/gap/raw/6k/2023-10-06_gnw2756331_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2759710",
+   "lang": "en",
+   "filingDate": "2023-10-12",
+   "title": "Grupo Aeroportuario del Pacifico Pays the Third Installment",
+   "url": "https://www.globenewswire.com/news-release/2023/10/12/2759710/0/en/grupo-aeroportuario-del-pacifico-pays-the-third-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-10-12_gnw2759710_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/10/12/2759710/0/en/grupo-aeroportuario-del-pacifico-pays-the-third-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5691,
+     "path": "tools/gap/raw/6k/2023-10-12_gnw2759710_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2763783",
+   "lang": "en",
+   "filingDate": "2023-10-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Government",
+   "url": "https://www.globenewswire.com/news-release/2023/10/20/2763783/0/en/grupo-aeroportuario-del-pacifico-announces-government-action-to-amend-the-rules-for-tariff-regulation.html",
+   "docs": []
+  },
+  {
+   "source": "gnw",
+   "id": "2765225",
+   "lang": "en",
+   "filingDate": "2023-10-24",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2023/10/24/2765225/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2023.html",
+   "docs": [
+    {
+     "name": "2023-10-24_gnw2765225_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/10/24/2765225/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2023.html",
+     "class": "results",
+     "chars": 59083,
+     "path": "tools/gap/raw/6k/2023-10-24_gnw2765225_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2773497",
+   "lang": "en",
+   "filingDate": "2023-11-03",
+   "title": "Grupo Aeroportuario Del Pacifico Reports in October 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/11/03/2773497/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2023-a-passenger-traffic-increase-of-4-7-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-11-03_gnw2773497_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/11/03/2773497/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2023-a-passenger-traffic-increase-of-4-7-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9728,
+     "path": "tools/gap/raw/6k/2023-11-03_gnw2773497_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2775747",
+   "lang": "en",
+   "filingDate": "2023-11-08",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Drawdown of",
+   "url": "https://www.globenewswire.com/news-release/2023/11/08/2775747/0/en/grupo-aeroportuario-del-pacifico-announces-the-drawdown-of-ps-1-5-billion-from-a-credit-facility.html",
+   "docs": [
+    {
+     "name": "2023-11-08_gnw2775747_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/11/08/2775747/0/en/grupo-aeroportuario-del-pacifico-announces-the-drawdown-of-ps-1-5-billion-from-a-credit-facility.html",
+     "class": "traffic",
+     "chars": 5754,
+     "path": "tools/gap/raw/6k/2023-11-08_gnw2775747_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2789019",
+   "lang": "en",
+   "filingDate": "2023-11-30",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Payment Date",
+   "url": "https://www.globenewswire.com/news-release/2023/11/30/2789019/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-fourth-and-final-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2023-11-30_gnw2789019_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/11/30/2789019/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-date-of-the-fourth-and-final-installment-of-the-dividend-approved-at-the-ordinary-shareholder-s-meeting.html",
+     "class": "traffic",
+     "chars": 5812,
+     "path": "tools/gap/raw/6k/2023-11-30_gnw2789019_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2791408",
+   "lang": "en",
+   "filingDate": "2023-12-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports in November 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2023/12/06/2791408/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2023-a-passenger-traffic-increase-of-0-7-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2023-12-06_gnw2791408_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2023/12/06/2791408/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2023-a-passenger-traffic-increase-of-0-7-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 9915,
+     "path": "tools/gap/raw/6k/2023-12-06_gnw2791408_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2804880",
+   "lang": "en",
+   "filingDate": "2024-01-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in December 2023 a",
+   "url": "https://www.globenewswire.com/news-release/2024/01/05/2804880/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2023-a-passenger-traffic-increase-of-2-2-compared-to-2022.html",
+   "docs": [
+    {
+     "name": "2024-01-05_gnw2804880_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/01/05/2804880/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2023-a-passenger-traffic-increase-of-2-2-compared-to-2022.html",
+     "class": "traffic",
+     "chars": 10039,
+     "path": "tools/gap/raw/6k/2024-01-05_gnw2804880_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2812529",
+   "lang": "en",
+   "filingDate": "2024-01-19",
+   "title": "Grupo Aeroportuario del Pacifico Announces Growth Guidance",
+   "url": "https://www.globenewswire.com/news-release/2024/01/19/2812529/0/en/grupo-aeroportuario-del-pacifico-announces-growth-guidance-for-the-full-year-2024.html",
+   "docs": [
+    {
+     "name": "2024-01-19_gnw2812529_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/01/19/2812529/0/en/grupo-aeroportuario-del-pacifico-announces-growth-guidance-for-the-full-year-2024.html",
+     "class": "traffic",
+     "chars": 7459,
+     "path": "tools/gap/raw/6k/2024-01-19_gnw2812529_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2824812",
+   "lang": "en",
+   "filingDate": "2024-02-07",
+   "title": "Grupo Aeroportuario del Pacifico Reports in January 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/02/07/2824812/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2024-a-passenger-traffic-decrease-of-0-6-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-02-07_gnw2824812_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/02/07/2824812/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2024-a-passenger-traffic-decrease-of-0-6-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 8465,
+     "path": "tools/gap/raw/6k/2024-02-07_gnw2824812_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2835600",
+   "lang": "en",
+   "filingDate": "2024-02-27",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2024/02/27/2835600/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2023.html",
+   "docs": [
+    {
+     "name": "2024-02-27_gnw2835600_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/02/27/2835600/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2023.html",
+     "class": "results",
+     "chars": 63577,
+     "path": "tools/gap/raw/6k/2024-02-27_gnw2835600_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2838452",
+   "lang": "en",
+   "filingDate": "2024-02-29",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Annual General",
+   "url": "https://www.globenewswire.com/news-release/2024/02/29/2838452/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2024-02-29_gnw2838452_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/02/29/2838452/0/en/grupo-aeroportuario-del-pacifico-announces-annual-general-ordinary-and-extraordinary-shareholders-meeting.html",
+     "class": "other",
+     "chars": 16027,
+     "path": "tools/gap/raw/6k/2024-02-29_gnw2838452_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2840923",
+   "lang": "en",
+   "filingDate": "2024-03-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in February 2024 A",
+   "url": "https://www.globenewswire.com/news-release/2024/03/05/2840923/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2024-a-passenger-traffic-increase-of-1-7-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-03-05_gnw2840923_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/03/05/2840923/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2024-a-passenger-traffic-increase-of-1-7-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9809,
+     "path": "tools/gap/raw/6k/2024-03-05_gnw2840923_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2849855",
+   "lang": "en",
+   "filingDate": "2024-03-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2024/03/20/2849855/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-3-0-billion.html",
+   "docs": [
+    {
+     "name": "2024-03-20_gnw2849855_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/03/20/2849855/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-3-0-billion.html",
+     "class": "other",
+     "chars": 7876,
+     "path": "tools/gap/raw/6k/2024-03-20_gnw2849855_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2858254",
+   "lang": "en",
+   "filingDate": "2024-04-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in March 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/04/04/2858254/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2024-a-passenger-traffic-decrease-of-0-6-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-04-04_gnw2858254_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/04/04/2858254/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2024-a-passenger-traffic-decrease-of-0-6-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 10022,
+     "path": "tools/gap/raw/6k/2024-04-04_gnw2858254_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2867308",
+   "lang": "en",
+   "filingDate": "2024-04-23",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2024/04/23/2867308/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2024.html",
+   "docs": [
+    {
+     "name": "2024-04-23_gnw2867308_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/04/23/2867308/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2024.html",
+     "class": "results",
+     "chars": 39905,
+     "path": "tools/gap/raw/6k/2024-04-23_gnw2867308_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2870209",
+   "lang": "en",
+   "filingDate": "2024-04-26",
+   "title": "Resolutions Adopted at the Annual General Ordinary and",
+   "url": "https://www.globenewswire.com/news-release/2024/04/26/2870209/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-25-2024.html",
+   "docs": [
+    {
+     "name": "2024-04-26_gnw2870209_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/04/26/2870209/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-25-2024.html",
+     "class": "other",
+     "chars": 14305,
+     "path": "tools/gap/raw/6k/2024-04-26_gnw2870209_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2871721",
+   "lang": "en",
+   "filingDate": "2024-04-29",
+   "title": "Grupo Aeroportuario del Pacifico Announces Filing of 2023",
+   "url": "https://www.globenewswire.com/news-release/2024/04/29/2871721/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2023-annual-report-and-form-20-f.html",
+   "docs": [
+    {
+     "name": "2024-04-29_gnw2871721_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/04/29/2871721/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2023-annual-report-and-form-20-f.html",
+     "class": "other",
+     "chars": 6405,
+     "path": "tools/gap/raw/6k/2024-04-29_gnw2871721_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2875396",
+   "lang": "en",
+   "filingDate": "2024-05-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports in April 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/05/03/2875396/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2024-a-passenger-traffic-decrease-of-7-3-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-05-03_gnw2875396_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/05/03/2875396/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2024-a-passenger-traffic-decrease-of-7-3-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9813,
+     "path": "tools/gap/raw/6k/2024-05-03_gnw2875396_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2893516",
+   "lang": "en",
+   "filingDate": "2024-06-04",
+   "title": "Grupo Aeroportuario Del Pacifico Reports in May 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/06/04/2893516/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2024-a-passenger-traffic-decrease-of-2-3-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-06-04_gnw2893516_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/06/04/2893516/0/en/grupo-aeroportuario-del-pacifico-reports-in-may-2024-a-passenger-traffic-decrease-of-2-3-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9526,
+     "path": "tools/gap/raw/6k/2024-06-04_gnw2893516_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2895599",
+   "lang": "en",
+   "filingDate": "2024-06-07",
+   "title": "Grupo Aeroportuario del Pacifico Announces Credit Line",
+   "url": "https://www.globenewswire.com/news-release/2024/06/07/2895599/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-ps-1-5-billion.html",
+   "docs": [
+    {
+     "name": "2024-06-07_gnw2895599_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/06/07/2895599/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-ps-1-5-billion.html",
+     "class": "traffic",
+     "chars": 5665,
+     "path": "tools/gap/raw/6k/2024-06-07_gnw2895599_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2897230",
+   "lang": "en",
+   "filingDate": "2024-06-11",
+   "title": "Grupo Aeroportuario del Pacifico Informs the Acquisition of",
+   "url": "https://www.globenewswire.com/news-release/2024/06/11/2897230/0/en/grupo-aeroportuario-del-pacifico-informs-the-acquisition-of-51-5-of-the-shares-representing-the-capital-stock-of-the-company-gwtc.html",
+   "docs": [
+    {
+     "name": "2024-06-11_gnw2897230_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/06/11/2897230/0/en/grupo-aeroportuario-del-pacifico-informs-the-acquisition-of-51-5-of-the-shares-representing-the-capital-stock-of-the-company-gwtc.html",
+     "class": "other",
+     "chars": 6400,
+     "path": "tools/gap/raw/6k/2024-06-11_gnw2897230_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2902067",
+   "lang": "en",
+   "filingDate": "2024-06-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces a Drawdown of a",
+   "url": "https://www.globenewswire.com/news-release/2024/06/20/2902067/0/en/grupo-aeroportuario-del-pacifico-announces-a-drawdown-of-a-credit-line-for-ps-875-0-million.html",
+   "docs": [
+    {
+     "name": "2024-06-20_gnw2902067_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/06/20/2902067/0/en/grupo-aeroportuario-del-pacifico-announces-a-drawdown-of-a-credit-line-for-ps-875-0-million.html",
+     "class": "traffic",
+     "chars": 5799,
+     "path": "tools/gap/raw/6k/2024-06-20_gnw2902067_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2908845",
+   "lang": "en",
+   "filingDate": "2024-07-05",
+   "title": "Grupo Aeroportuario del Pacifico Announces no Major Damage",
+   "url": "https://www.globenewswire.com/news-release/2024/07/05/2908845/0/en/grupo-aeroportuario-del-pacifico-announces-no-major-damage-reported-as-a-result-of-hurricane-beryl.html",
+   "docs": [
+    {
+     "name": "2024-07-05_gnw2908845_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/07/05/2908845/0/en/grupo-aeroportuario-del-pacifico-announces-no-major-damage-reported-as-a-result-of-hurricane-beryl.html",
+     "class": "other",
+     "chars": 6336,
+     "path": "tools/gap/raw/6k/2024-07-05_gnw2908845_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2909188",
+   "lang": "en",
+   "filingDate": "2024-07-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in June 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/07/05/2909188/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2024-a-passenger-traffic-decrease-of-1-9-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-07-05_gnw2909188_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/07/05/2909188/0/en/grupo-aeroportuario-del-pacifico-reports-in-june-2024-a-passenger-traffic-decrease-of-1-9-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9459,
+     "path": "tools/gap/raw/6k/2024-07-05_gnw2909188_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2916916",
+   "lang": "en",
+   "filingDate": "2024-07-23",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2024/07/23/2916916/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2024.html",
+   "docs": [
+    {
+     "name": "2024-07-23_gnw2916916_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/07/23/2916916/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2024.html",
+     "class": "results",
+     "chars": 59853,
+     "path": "tools/gap/raw/6k/2024-07-23_gnw2916916_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2919899",
+   "lang": "en",
+   "filingDate": "2024-07-26",
+   "title": "Grupo Aeroportuario del Pacifico Announces Amendments to",
+   "url": "https://www.globenewswire.com/news-release/2024/07/26/2919899/0/en/grupo-aeroportuario-del-pacifico-announces-amendments-to-the-concession-agreement-of-jamaican-airports.html",
+   "docs": [
+    {
+     "name": "2024-07-26_gnw2919899_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/07/26/2919899/0/en/grupo-aeroportuario-del-pacifico-announces-amendments-to-the-concession-agreement-of-jamaican-airports.html",
+     "class": "other",
+     "chars": 6407,
+     "path": "tools/gap/raw/6k/2024-07-26_gnw2919899_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2921516",
+   "lang": "en",
+   "filingDate": "2024-07-31",
+   "title": "Grupo Aeroportuario del Pacifico Announces Publication of",
+   "url": "https://www.globenewswire.com/news-release/2024/07/31/2921516/0/en/grupo-aeroportuario-del-pacifico-announces-publication-of-green-bond-report.html",
+   "docs": [
+    {
+     "name": "2024-07-31_gnw2921516_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/07/31/2921516/0/en/grupo-aeroportuario-del-pacifico-announces-publication-of-green-bond-report.html",
+     "class": "traffic",
+     "chars": 5716,
+     "path": "tools/gap/raw/6k/2024-07-31_gnw2921516_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2924711",
+   "lang": "en",
+   "filingDate": "2024-08-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports in July 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/08/06/2924711/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2024-a-passenger-traffic-decrease-of-5-6-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-08-06_gnw2924711_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/08/06/2924711/0/en/grupo-aeroportuario-del-pacifico-reports-in-july-2024-a-passenger-traffic-decrease-of-5-6-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9888,
+     "path": "tools/gap/raw/6k/2024-08-06_gnw2924711_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2936661",
+   "lang": "en",
+   "filingDate": "2024-08-27",
+   "title": "Grupo Aeroportuario del Pacifico  Announces Master",
+   "url": "https://www.globenewswire.com/news-release/2024/08/27/2936661/0/en/grupo-aeroportuario-del-pacifico-announces-master-development-program-and-maximum-tariffs-for-its-mexican-airports-for-the-2025-2029-period.html",
+   "docs": [
+    {
+     "name": "2024-08-27_gnw2936661_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/08/27/2936661/0/en/grupo-aeroportuario-del-pacifico-announces-master-development-program-and-maximum-tariffs-for-its-mexican-airports-for-the-2025-2029-period.html",
+     "class": "other",
+     "chars": 8682,
+     "path": "tools/gap/raw/6k/2024-08-27_gnw2936661_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2940978",
+   "lang": "en",
+   "filingDate": "2024-09-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in August 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/09/04/2940978/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2024-a-passenger-traffic-decrease-of-7-2-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-09-04_gnw2940978_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/09/04/2940978/0/en/grupo-aeroportuario-del-pacifico-reports-in-august-2024-a-passenger-traffic-decrease-of-7-2-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9476,
+     "path": "tools/gap/raw/6k/2024-09-04_gnw2940978_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2941884",
+   "lang": "en",
+   "filingDate": "2024-09-05",
+   "title": "Grupo Aeroportuario del Pacifico  Announces Issuance of",
+   "url": "https://www.globenewswire.com/news-release/2024/09/05/2941884/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-5-648-1-million.html",
+   "docs": [
+    {
+     "name": "2024-09-05_gnw2941884_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/09/05/2941884/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-5-648-1-million.html",
+     "class": "other",
+     "chars": 6565,
+     "path": "tools/gap/raw/6k/2024-09-05_gnw2941884_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2954185",
+   "lang": "en",
+   "filingDate": "2024-09-26",
+   "title": "Grupo Aeroportuario del Pacifico Announces Credit Line",
+   "url": "https://www.globenewswire.com/news-release/2024/09/26/2954185/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-usd-40-0-million.html",
+   "docs": [
+    {
+     "name": "2024-09-26_gnw2954185_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/09/26/2954185/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-usd-40-0-million.html",
+     "class": "traffic",
+     "chars": 5675,
+     "path": "tools/gap/raw/6k/2024-09-26_gnw2954185_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2957396",
+   "lang": "en",
+   "filingDate": "2024-10-02",
+   "title": "Grupo Aeroportuario Del Pacifico Reports in September 2024",
+   "url": "https://www.globenewswire.com/news-release/2024/10/02/2957396/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2024-a-passenger-traffic-decrease-of-3-9-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-10-02_gnw2957396_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/10/02/2957396/0/en/grupo-aeroportuario-del-pacifico-reports-in-september-2024-a-passenger-traffic-decrease-of-3-9-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9588,
+     "path": "tools/gap/raw/6k/2024-10-02_gnw2957396_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2965742",
+   "lang": "en",
+   "filingDate": "2024-10-18",
+   "title": "Grupo Aeroportuario del Pacifico Announces Credit Line",
+   "url": "https://www.globenewswire.com/news-release/2024/10/18/2965742/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-ps-1-5-billion.html",
+   "docs": [
+    {
+     "name": "2024-10-18_gnw2965742_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/10/18/2965742/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-ps-1-5-billion.html",
+     "class": "traffic",
+     "chars": 5674,
+     "path": "tools/gap/raw/6k/2024-10-18_gnw2965742_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2966604",
+   "lang": "en",
+   "filingDate": "2024-10-22",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2024/10/22/2966604/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2024.html",
+   "docs": [
+    {
+     "name": "2024-10-22_gnw2966604_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/10/22/2966604/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2024.html",
+     "class": "results",
+     "chars": 57472,
+     "path": "tools/gap/raw/6k/2024-10-22_gnw2966604_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2975300",
+   "lang": "en",
+   "filingDate": "2024-11-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in October 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/11/05/2975300/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2024-a-passenger-traffic-decrease-of-0-8-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-11-05_gnw2975300_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/11/05/2975300/0/en/grupo-aeroportuario-del-pacifico-reports-in-october-2024-a-passenger-traffic-decrease-of-0-8-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9745,
+     "path": "tools/gap/raw/6k/2024-11-05_gnw2975300_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2977874",
+   "lang": "en",
+   "filingDate": "2024-11-08",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment Date for",
+   "url": "https://www.globenewswire.com/news-release/2024/11/08/2977874/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-second-and-last-installment-of-the-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2024-11-08_gnw2977874_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/11/08/2977874/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-second-and-last-installment-of-the-capital-stock-reduction-approved-at-the-extraordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5839,
+     "path": "tools/gap/raw/6k/2024-11-08_gnw2977874_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "2991957",
+   "lang": "en",
+   "filingDate": "2024-12-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in November 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2024/12/04/2991957/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2024-a-passenger-traffic-increase-of-1-8-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2024-12-04_gnw2991957_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2024/12/04/2991957/0/en/grupo-aeroportuario-del-pacifico-reports-in-november-2024-a-passenger-traffic-increase-of-1-8-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 9881,
+     "path": "tools/gap/raw/6k/2024-12-04_gnw2991957_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3005044",
+   "lang": "en",
+   "filingDate": "2025-01-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports in December 2024 a",
+   "url": "https://www.globenewswire.com/news-release/2025/01/06/3005044/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2024-a-passenger-traffic-increase-of-2-9-compared-to-2023.html",
+   "docs": [
+    {
+     "name": "2025-01-06_gnw3005044_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/01/06/3005044/0/en/grupo-aeroportuario-del-pacifico-reports-in-december-2024-a-passenger-traffic-increase-of-2-9-compared-to-2023.html",
+     "class": "traffic",
+     "chars": 10256,
+     "path": "tools/gap/raw/6k/2025-01-06_gnw3005044_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3020844",
+   "lang": "en",
+   "filingDate": "2025-02-04",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2025/02/04/3020844/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-6-0-billion.html",
+   "docs": [
+    {
+     "name": "2025-02-04_gnw3020844_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/02/04/3020844/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-6-0-billion.html",
+     "class": "other",
+     "chars": 7714,
+     "path": "tools/gap/raw/6k/2025-02-04_gnw3020844_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3021624",
+   "lang": "en",
+   "filingDate": "2025-02-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in January 2025 a",
+   "url": "https://www.globenewswire.com/news-release/2025/02/05/3021624/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2025-a-passenger-traffic-increase-of-5-4-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-02-05_gnw3021624_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/02/05/3021624/0/en/grupo-aeroportuario-del-pacifico-reports-in-january-2025-a-passenger-traffic-increase-of-5-4-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 8513,
+     "path": "tools/gap/raw/6k/2025-02-05_gnw3021624_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3031645",
+   "lang": "en",
+   "filingDate": "2025-02-25",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2025/02/25/3031645/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2024.html",
+   "docs": [
+    {
+     "name": "2025-02-25_gnw3031645_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/02/25/3031645/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2024.html",
+     "class": "results",
+     "chars": 61410,
+     "path": "tools/gap/raw/6k/2025-02-25_gnw3031645_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3037068",
+   "lang": "en",
+   "filingDate": "2025-03-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports in February 2025 a",
+   "url": "https://www.globenewswire.com/news-release/2025/03/05/3037068/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2025-a-passenger-traffic-increase-of-1-6-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-03-05_gnw3037068_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/03/05/3037068/0/en/grupo-aeroportuario-del-pacifico-reports-in-february-2025-a-passenger-traffic-increase-of-1-6-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9455,
+     "path": "tools/gap/raw/6k/2025-03-05_gnw3037068_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3039268",
+   "lang": "en",
+   "filingDate": "2025-03-07",
+   "title": "Grupo Aeroportuario del Pacifico, S.A.B. de C.V. General",
+   "url": "https://www.globenewswire.com/news-release/2025/03/07/3039268/0/en/grupo-aeroportuario-del-pacifico-s-a-b-de-c-v-general-ordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2025-03-07_gnw3039268_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/03/07/3039268/0/en/grupo-aeroportuario-del-pacifico-s-a-b-de-c-v-general-ordinary-shareholders-meeting.html",
+     "class": "other",
+     "chars": 16444,
+     "path": "tools/gap/raw/6k/2025-03-07_gnw3039268_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3047370",
+   "lang": "en",
+   "filingDate": "2025-03-21",
+   "title": "Grupo Aeroportuario del Pacifico Announces  Credit Line",
+   "url": "https://www.globenewswire.com/news-release/2025/03/21/3047370/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-usd-40-0-million.html",
+   "docs": [
+    {
+     "name": "2025-03-21_gnw3047370_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/03/21/3047370/0/en/grupo-aeroportuario-del-pacifico-announces-credit-line-refinancing-for-usd-40-0-million.html",
+     "class": "traffic",
+     "chars": 5724,
+     "path": "tools/gap/raw/6k/2025-03-21_gnw3047370_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3052950",
+   "lang": "en",
+   "filingDate": "2025-04-01",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Extension of",
+   "url": "https://www.globenewswire.com/news-release/2025/04/01/3052950/0/en/grupo-aeroportuario-del-pacifico-announces-the-extension-of-a-usd-60-0-million-credit-line-for-its-subsidiary-mbj-airports-limited-mbja.html",
+   "docs": [
+    {
+     "name": "2025-04-01_gnw3052950_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/04/01/3052950/0/en/grupo-aeroportuario-del-pacifico-announces-the-extension-of-a-usd-60-0-million-credit-line-for-its-subsidiary-mbj-airports-limited-mbja.html",
+     "class": "traffic",
+     "chars": 5833,
+     "path": "tools/gap/raw/6k/2025-04-01_gnw3052950_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3056228",
+   "lang": "en",
+   "filingDate": "2025-04-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports in March 2025 a",
+   "url": "https://www.globenewswire.com/news-release/2025/04/04/3056228/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2025-a-passenger-traffic-increase-of-5-6-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-04-04_gnw3056228_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/04/04/3056228/0/en/grupo-aeroportuario-del-pacifico-reports-in-march-2025-a-passenger-traffic-increase-of-5-6-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9481,
+     "path": "tools/gap/raw/6k/2025-04-04_gnw3056228_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3067039",
+   "lang": "en",
+   "filingDate": "2025-04-24",
+   "title": "Grupo Aeroportuario del Pacifico Announces Filing of 2024",
+   "url": "https://www.globenewswire.com/news-release/2025/04/24/3067039/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2024-annual-report-and-form-20-f.html",
+   "docs": [
+    {
+     "name": "2025-04-24_gnw3067039_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/04/24/3067039/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2024-annual-report-and-form-20-f.html",
+     "class": "other",
+     "chars": 6404,
+     "path": "tools/gap/raw/6k/2025-04-24_gnw3067039_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3068046",
+   "lang": "en",
+   "filingDate": "2025-04-25",
+   "title": "Resolutions Adopted at the Annual General Ordinary and",
+   "url": "https://www.globenewswire.com/news-release/2025/04/25/3068046/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-24-2025.html",
+   "docs": [
+    {
+     "name": "2025-04-25_gnw3068046_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/04/25/3068046/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-24-2025.html",
+     "class": "other",
+     "chars": 14166,
+     "path": "tools/gap/raw/6k/2025-04-25_gnw3068046_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3069808",
+   "lang": "en",
+   "filingDate": "2025-04-29",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2025/04/29/3069808/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2025.html",
+   "docs": [
+    {
+     "name": "2025-04-29_gnw3069808_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/04/29/3069808/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2025.html",
+     "class": "results",
+     "chars": 44630,
+     "path": "tools/gap/raw/6k/2025-04-29_gnw3069808_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3074657",
+   "lang": "en",
+   "filingDate": "2025-05-06",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Debt Securities",
+   "url": "https://www.globenewswire.com/news-release/2025/05/06/3074657/0/en/grupo-aeroportuario-del-pacifico-announces-debt-securities-gap-21-payment.html",
+   "docs": [
+    {
+     "name": "2025-05-06_gnw3074657_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/05/06/3074657/0/en/grupo-aeroportuario-del-pacifico-announces-debt-securities-gap-21-payment.html",
+     "class": "traffic",
+     "chars": 5669,
+     "path": "tools/gap/raw/6k/2025-05-06_gnw3074657_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3075666",
+   "lang": "en",
+   "filingDate": "2025-05-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports in April 2025 a",
+   "url": "https://www.globenewswire.com/news-release/2025/05/06/3075666/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2025-a-passenger-traffic-increase-of-9-1-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-05-06_gnw3075666_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/05/06/3075666/0/en/grupo-aeroportuario-del-pacifico-reports-in-april-2025-a-passenger-traffic-increase-of-9-1-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9697,
+     "path": "tools/gap/raw/6k/2025-05-06_gnw3075666_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3081724",
+   "lang": "en",
+   "filingDate": "2025-05-14",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment Date for",
+   "url": "https://www.globenewswire.com/news-release/2025/05/14/3081724/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-first-installment-of-the-dividend-approved-by-the-annual-general-ordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2025-05-14_gnw3081724_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/05/14/3081724/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-first-installment-of-the-dividend-approved-by-the-annual-general-ordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5891,
+     "path": "tools/gap/raw/6k/2025-05-14_gnw3081724_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3091347",
+   "lang": "en",
+   "filingDate": "2025-05-30",
+   "title": "Grupo Aeroportuario del Pacifico Announces  Drawdown of Ps.",
+   "url": "https://www.globenewswire.com/news-release/2025/05/30/3091347/0/en/grupo-aeroportuario-del-pacifico-announces-drawdown-of-ps-3-375-million-credit-facility.html",
+   "docs": [
+    {
+     "name": "2025-05-30_gnw3091347_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/05/30/3091347/0/en/grupo-aeroportuario-del-pacifico-announces-drawdown-of-ps-3-375-million-credit-facility.html",
+     "class": "traffic",
+     "chars": 5762,
+     "path": "tools/gap/raw/6k/2025-05-30_gnw3091347_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3094840",
+   "lang": "en",
+   "filingDate": "2025-06-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/06/05/3094840/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-may-2025-of-2-6-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-06-05_gnw3094840_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/06/05/3094840/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-may-2025-of-2-6-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9816,
+     "path": "tools/gap/raw/6k/2025-06-05_gnw3094840_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3095504",
+   "lang": "en",
+   "filingDate": "2025-06-07",
+   "title": "Grupo Aeroportuario del Pacifico Announces  Approval of",
+   "url": "https://www.globenewswire.com/news-release/2025/06/07/3095504/0/en/grupo-aeroportuario-del-pacifico-announces-approval-of-maximum-tariffs-and-capital-development-program-for-2026-2030-for-kingston-airport-in-jamaica.html",
+   "docs": [
+    {
+     "name": "2025-06-07_gnw3095504_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/06/07/3095504/0/en/grupo-aeroportuario-del-pacifico-announces-approval-of-maximum-tariffs-and-capital-development-program-for-2026-2030-for-kingston-airport-in-jamaica.html",
+     "class": "traffic",
+     "chars": 6128,
+     "path": "tools/gap/raw/6k/2025-06-07_gnw3095504_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3095512",
+   "lang": "en",
+   "filingDate": "2025-06-07",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Approval Of",
+   "url": "https://www.globenewswire.com/news-release/2025/06/07/3095512/0/en/grupo-aeroportuario-del-pacifico-announces-approval-of-maximum-tariffs-and-capital-development-program-for-2026-2030-for-montego-bay-airport-in-jamaica.html",
+   "docs": [
+    {
+     "name": "2025-06-07_gnw3095512_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/06/07/3095512/0/en/grupo-aeroportuario-del-pacifico-announces-approval-of-maximum-tariffs-and-capital-development-program-for-2026-2030-for-montego-bay-airport-in-jamaica.html",
+     "class": "traffic",
+     "chars": 6109,
+     "path": "tools/gap/raw/6k/2025-06-07_gnw3095512_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3110180",
+   "lang": "en",
+   "filingDate": "2025-07-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/07/04/3110180/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-june-2025-of-0-6-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-07-04_gnw3110180_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/07/04/3110180/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-june-2025-of-0-6-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9364,
+     "path": "tools/gap/raw/6k/2025-07-04_gnw3110180_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3110520",
+   "lang": "en",
+   "filingDate": "2025-07-05",
+   "title": "Grupo Aeroportuario Del Pacifico Presents The",
+   "url": "https://www.globenewswire.com/news-release/2025/07/05/3110520/0/en/grupo-aeroportuario-del-pacifico-presents-the-sustainability-report-2024.html",
+   "docs": [
+    {
+     "name": "2025-07-05_gnw3110520_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/07/05/3110520/0/en/grupo-aeroportuario-del-pacifico-presents-the-sustainability-report-2024.html",
+     "class": "traffic",
+     "chars": 6099,
+     "path": "tools/gap/raw/6k/2025-07-05_gnw3110520_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3119135",
+   "lang": "en",
+   "filingDate": "2025-07-22",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2025/07/22/3119135/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2025.html",
+   "docs": [
+    {
+     "name": "2025-07-22_gnw3119135_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/07/22/3119135/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2025.html",
+     "class": "results",
+     "chars": 58697,
+     "path": "tools/gap/raw/6k/2025-07-22_gnw3119135_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3119964",
+   "lang": "en",
+   "filingDate": "2025-07-23",
+   "title": "CORRECTION - Grupo Aeroportuario del Pacifico Announces",
+   "url": "https://www.globenewswire.com/news-release/2025/07/23/3119964/0/en/correction-grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2025.html",
+   "docs": [
+    {
+     "name": "2025-07-23_gnw3119964_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/07/23/3119964/0/en/correction-grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2025.html",
+     "class": "results",
+     "chars": 58907,
+     "path": "tools/gap/raw/6k/2025-07-23_gnw3119964_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3124579",
+   "lang": "en",
+   "filingDate": "2025-07-30",
+   "title": "Grupo Aeroportuario del Pacifico Announces Payment Date for",
+   "url": "https://www.globenewswire.com/news-release/2025/07/30/3124579/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-second-and-last-installment-of-the-dividend-approved-by-the-annual-general-ordinary-shareholders-meeting.html",
+   "docs": [
+    {
+     "name": "2025-07-30_gnw3124579_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/07/30/3124579/0/en/grupo-aeroportuario-del-pacifico-announces-payment-date-for-the-second-and-last-installment-of-the-dividend-approved-by-the-annual-general-ordinary-shareholders-meeting.html",
+     "class": "traffic",
+     "chars": 5975,
+     "path": "tools/gap/raw/6k/2025-07-30_gnw3124579_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3127998",
+   "lang": "en",
+   "filingDate": "2025-08-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/08/06/3127998/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-july-2025-of-3-1-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-08-06_gnw3127998_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/08/06/3127998/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-july-2025-of-3-1-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 10047,
+     "path": "tools/gap/raw/6k/2025-08-06_gnw3127998_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3138056",
+   "lang": "en",
+   "filingDate": "2025-08-22",
+   "title": "Grupo Aeroportuario del Pacifico Announces Issuance of Bond",
+   "url": "https://www.globenewswire.com/news-release/2025/08/22/3138056/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-8-5-billion.html",
+   "docs": [
+    {
+     "name": "2025-08-22_gnw3138056_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/08/22/3138056/0/en/grupo-aeroportuario-del-pacifico-announces-issuance-of-bond-certificates-in-mexico-for-ps-8-5-billion.html",
+     "class": "other",
+     "chars": 6986,
+     "path": "tools/gap/raw/6k/2025-08-22_gnw3138056_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3144124",
+   "lang": "en",
+   "filingDate": "2025-09-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/09/03/3144124/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-august-2025-of-3-4-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-09-03_gnw3144124_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/09/03/3144124/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-august-2025-of-3-4-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 10116,
+     "path": "tools/gap/raw/6k/2025-09-03_gnw3144124_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3161211",
+   "lang": "en",
+   "filingDate": "2025-10-03",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/10/03/3161211/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-september-2025-of-0-9-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-10-03_gnw3161211_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/10/03/3161211/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-september-2025-of-0-9-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 9584,
+     "path": "tools/gap/raw/6k/2025-10-03_gnw3161211_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3169891",
+   "lang": "en",
+   "filingDate": "2025-10-21",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2025/10/21/3169891/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2025.html",
+   "docs": [
+    {
+     "name": "2025-10-21_gnw3169891_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/10/21/3169891/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-third-quarter-of-2025.html",
+     "class": "results",
+     "chars": 60024,
+     "path": "tools/gap/raw/6k/2025-10-21_gnw3169891_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3176080",
+   "lang": "en",
+   "filingDate": "2025-10-29",
+   "title": "Grupo Aeroportuario del Pacifico Reports Impacts from",
+   "url": "https://www.globenewswire.com/news-release/2025/10/29/3176080/0/en/grupo-aeroportuario-del-pacifico-reports-impacts-from-hurricane-melissa-in-jamaica.html",
+   "docs": [
+    {
+     "name": "2025-10-29_gnw3176080_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/10/29/3176080/0/en/grupo-aeroportuario-del-pacifico-reports-impacts-from-hurricane-melissa-in-jamaica.html",
+     "class": "traffic",
+     "chars": 7215,
+     "path": "tools/gap/raw/6k/2025-10-29_gnw3176080_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3177018",
+   "lang": "en",
+   "filingDate": "2025-10-30",
+   "title": "Grupo Aeroportuario del Pacifico Provides Update on the",
+   "url": "https://www.globenewswire.com/news-release/2025/10/30/3177018/0/en/grupo-aeroportuario-del-pacifico-provides-update-on-the-impact-of-hurricane-melissa-in-jamaica.html",
+   "docs": [
+    {
+     "name": "2025-10-30_gnw3177018_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/10/30/3177018/0/en/grupo-aeroportuario-del-pacifico-provides-update-on-the-impact-of-hurricane-melissa-in-jamaica.html",
+     "class": "other",
+     "chars": 6621,
+     "path": "tools/gap/raw/6k/2025-10-30_gnw3177018_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3178685",
+   "lang": "en",
+   "filingDate": "2025-10-31",
+   "title": "Grupo Aeroportuario del Pacifico Provides Update on",
+   "url": "https://www.globenewswire.com/news-release/2025/10/31/3178685/0/en/grupo-aeroportuario-del-pacifico-provides-update-on-operations-in-montego-bay-following-hurricane-melissa.html",
+   "docs": [
+    {
+     "name": "2025-10-31_gnw3178685_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/10/31/3178685/0/en/grupo-aeroportuario-del-pacifico-provides-update-on-operations-in-montego-bay-following-hurricane-melissa.html",
+     "class": "other",
+     "chars": 6323,
+     "path": "tools/gap/raw/6k/2025-10-31_gnw3178685_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3184016",
+   "lang": "en",
+   "filingDate": "2025-11-07",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/11/07/3184016/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-october-2025-of-0-8-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-11-07_gnw3184016_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/11/07/3184016/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-october-2025-of-0-8-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 11077,
+     "path": "tools/gap/raw/6k/2025-11-07_gnw3184016_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3200407",
+   "lang": "en",
+   "filingDate": "2025-12-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2025/12/04/3200407/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-november-2025-of-2-0-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2025-12-04_gnw3200407_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/12/04/3200407/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-november-2025-of-2-0-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 10893,
+     "path": "tools/gap/raw/6k/2025-12-04_gnw3200407_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3204256",
+   "lang": "en",
+   "filingDate": "2025-12-11",
+   "title": "Grupo Aeroportuario del Pacifico Announces Shareholder",
+   "url": "https://www.globenewswire.com/news-release/2025/12/11/3204256/0/en/grupo-aeroportuario-del-pacifico-announces-shareholder-approval-of-the-business-combination-of-the-cross-border-xpress-and-technical-assistance-services.html",
+   "docs": [
+    {
+     "name": "2025-12-11_gnw3204256_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2025/12/11/3204256/0/en/grupo-aeroportuario-del-pacifico-announces-shareholder-approval-of-the-business-combination-of-the-cross-border-xpress-and-technical-assistance-services.html",
+     "class": "other",
+     "chars": 7044,
+     "path": "tools/gap/raw/6k/2025-12-11_gnw3204256_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3214165",
+   "lang": "en",
+   "filingDate": "2026-01-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/01/06/3214165/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-december-2025-of-0-1-compared-to-2024.html",
+   "docs": [
+    {
+     "name": "2026-01-06_gnw3214165_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/01/06/3214165/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-december-2025-of-0-1-compared-to-2024.html",
+     "class": "traffic",
+     "chars": 10286,
+     "path": "tools/gap/raw/6k/2026-01-06_gnw3214165_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3222349",
+   "lang": "en",
+   "filingDate": "2026-01-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Refinancing of",
+   "url": "https://www.globenewswire.com/news-release/2026/01/20/3222349/0/en/grupo-aeroportuario-del-pacifico-announces-refinancing-of-bank-debt-for-usd-95-5-million.html",
+   "docs": [
+    {
+     "name": "2026-01-20_gnw3222349_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/01/20/3222349/0/en/grupo-aeroportuario-del-pacifico-announces-refinancing-of-bank-debt-for-usd-95-5-million.html",
+     "class": "traffic",
+     "chars": 5773,
+     "path": "tools/gap/raw/6k/2026-01-20_gnw3222349_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3233515",
+   "lang": "en",
+   "filingDate": "2026-02-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/02/05/3233515/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-january-2026-of-2-2-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-02-05_gnw3233515_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/02/05/3233515/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-january-2026-of-2-2-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 8170,
+     "path": "tools/gap/raw/6k/2026-02-05_gnw3233515_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3243138",
+   "lang": "en",
+   "filingDate": "2026-02-24",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2026/02/24/3243138/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2025.html",
+   "docs": [
+    {
+     "name": "2026-02-24_gnw3243138_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/02/24/3243138/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-fourth-quarter-of-2025.html",
+     "class": "results",
+     "chars": 65896,
+     "path": "tools/gap/raw/6k/2026-02-24_gnw3243138_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3251336",
+   "lang": "en",
+   "filingDate": "2026-03-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/03/06/3251336/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-february-2026-of-5-5-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-03-06_gnw3251336_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/03/06/3251336/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-february-2026-of-5-5-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 10010,
+     "path": "tools/gap/raw/6k/2026-03-06_gnw3251336_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3252376",
+   "lang": "en",
+   "filingDate": "2026-03-09",
+   "title": "Grupo Aeroportuario del Pacifico Announces Annual Ordinary",
+   "url": "https://www.globenewswire.com/news-release/2026/03/09/3252376/0/en/grupo-aeroportuario-del-pacifico-announces-annual-ordinary-general-shareholder-s-meeting.html",
+   "docs": [
+    {
+     "name": "2026-03-09_gnw3252376_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/03/09/3252376/0/en/grupo-aeroportuario-del-pacifico-announces-annual-ordinary-general-shareholder-s-meeting.html",
+     "class": "other",
+     "chars": 15473,
+     "path": "tools/gap/raw/6k/2026-03-09_gnw3252376_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3259530",
+   "lang": "en",
+   "filingDate": "2026-03-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Refinancing of",
+   "url": "https://www.globenewswire.com/news-release/2026/03/20/3259530/0/en/grupo-aeroportuario-del-pacifico-announces-refinancing-of-bank-loan-for-usd-95-5-million.html",
+   "docs": [
+    {
+     "name": "2026-03-20_gnw3259530_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/03/20/3259530/0/en/grupo-aeroportuario-del-pacifico-announces-refinancing-of-bank-loan-for-usd-95-5-million.html",
+     "class": "traffic",
+     "chars": 5874,
+     "path": "tools/gap/raw/6k/2026-03-20_gnw3259530_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3260709",
+   "lang": "en",
+   "filingDate": "2026-03-23",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Obtaining of",
+   "url": "https://www.globenewswire.com/news-release/2026/03/23/3260709/0/en/grupo-aeroportuario-del-pacifico-announces-the-obtaining-of-independent-assurance-on-the-kpi-of-its-sustainability-linked-bonds-gap-22l-gap-23l-gap-23-2l-gap-24l-and-gap-24-2l.html",
+   "docs": [
+    {
+     "name": "2026-03-23_gnw3260709_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/03/23/3260709/0/en/grupo-aeroportuario-del-pacifico-announces-the-obtaining-of-independent-assurance-on-the-kpi-of-its-sustainability-linked-bonds-gap-22l-gap-23l-gap-23-2l-gap-24l-and-gap-24-2l.html",
+     "class": "other",
+     "chars": 7185,
+     "path": "tools/gap/raw/6k/2026-03-23_gnw3260709_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3260910",
+   "lang": "en",
+   "filingDate": "2026-03-23",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Payment of",
+   "url": "https://www.globenewswire.com/news-release/2026/03/23/3260910/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-of-bond-certificate-gap-23l-for-ps-1-120-0-million.html",
+   "docs": [
+    {
+     "name": "2026-03-23_gnw3260910_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/03/23/3260910/0/en/grupo-aeroportuario-del-pacifico-announces-the-payment-of-bond-certificate-gap-23l-for-ps-1-120-0-million.html",
+     "class": "traffic",
+     "chars": 5839,
+     "path": "tools/gap/raw/6k/2026-03-23_gnw3260910_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3266259",
+   "lang": "en",
+   "filingDate": "2026-04-01",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Issuance of",
+   "url": "https://www.globenewswire.com/news-release/2026/04/01/3266259/0/en/grupo-aeroportuario-del-pacifico-announces-the-issuance-of-bond-certificates-for-ps-10-718-0-million.html",
+   "docs": [
+    {
+     "name": "2026-04-01_gnw3266259_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/04/01/3266259/0/en/grupo-aeroportuario-del-pacifico-announces-the-issuance-of-bond-certificates-for-ps-10-718-0-million.html",
+     "class": "other",
+     "chars": 6861,
+     "path": "tools/gap/raw/6k/2026-04-01_gnw3266259_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3269747",
+   "lang": "en",
+   "filingDate": "2026-04-07",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/04/07/3269747/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-march-2026-of-8-9-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-04-07_gnw3269747_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/04/07/3269747/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-march-2026-of-8-9-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 10072,
+     "path": "tools/gap/raw/6k/2026-04-07_gnw3269747_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3276536",
+   "lang": "en",
+   "filingDate": "2026-04-17",
+   "title": "Grupo Aeroportuario del Pacifico Announces Filing of 2025",
+   "url": "https://www.globenewswire.com/news-release/2026/04/17/3276536/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2025-annual-report-and-form-20-f.html",
+   "docs": [
+    {
+     "name": "2026-04-17_gnw3276536_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/04/17/3276536/0/en/grupo-aeroportuario-del-pacifico-announces-filing-of-2025-annual-report-and-form-20-f.html",
+     "class": "traffic",
+     "chars": 4882,
+     "path": "tools/gap/raw/6k/2026-04-17_gnw3276536_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3277544",
+   "lang": "en",
+   "filingDate": "2026-04-20",
+   "title": "Grupo Aeroportuario del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2026/04/20/3277544/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2026.html",
+   "docs": [
+    {
+     "name": "2026-04-20_gnw3277544_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/04/20/3277544/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-first-quarter-of-2026.html",
+     "class": "results",
+     "chars": 39495,
+     "path": "tools/gap/raw/6k/2026-04-20_gnw3277544_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3280487",
+   "lang": "en",
+   "filingDate": "2026-04-24",
+   "title": "Resolutions Adopted at the  Annual General Ordinary",
+   "url": "https://www.globenewswire.com/news-release/2026/04/24/3280487/0/en/resolutions-adopted-at-the-annual-general-ordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-22-2026.html",
+   "docs": [
+    {
+     "name": "2026-04-24_gnw3280487_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/04/24/3280487/0/en/resolutions-adopted-at-the-annual-general-ordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-22-2026.html",
+     "class": "other",
+     "chars": 13307,
+     "path": "tools/gap/raw/6k/2026-04-24_gnw3280487_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3287245",
+   "lang": "en",
+   "filingDate": "2026-05-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports on Impact Arising",
+   "url": "https://www.globenewswire.com/news-release/2026/05/04/3287245/0/en/grupo-aeroportuario-del-pacifico-reports-on-impact-arising-from-the-cessation-of-operations-of-spirit-airlines.html",
+   "docs": [
+    {
+     "name": "2026-05-04_gnw3287245_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/05/04/3287245/0/en/grupo-aeroportuario-del-pacifico-reports-on-impact-arising-from-the-cessation-of-operations-of-spirit-airlines.html",
+     "class": "traffic",
+     "chars": 6630,
+     "path": "tools/gap/raw/6k/2026-05-04_gnw3287245_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3288440",
+   "lang": "en",
+   "filingDate": "2026-05-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/05/06/3288440/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-april-2026-of-7-6-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-05-06_gnw3288440_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/05/06/3288440/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-april-2026-of-7-6-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 9323,
+     "path": "tools/gap/raw/6k/2026-05-06_gnw3288440_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3289938",
+   "lang": "en",
+   "filingDate": "2026-05-07",
+   "title": "Grupo Aeroportuario del Pacifico Announces Completion of",
+   "url": "https://www.globenewswire.com/news-release/2026/05/07/3289938/0/en/grupo-aeroportuario-del-pacifico-announces-completion-of-business-combination-process-of-cbx-and-the-provision-of-technical-assistance-services.html",
+   "docs": [
+    {
+     "name": "2026-05-07_gnw3289938_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/05/07/3289938/0/en/grupo-aeroportuario-del-pacifico-announces-completion-of-business-combination-process-of-cbx-and-the-provision-of-technical-assistance-services.html",
+     "class": "traffic",
+     "chars": 6183,
+     "path": "tools/gap/raw/6k/2026-05-07_gnw3289938_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3291422",
+   "lang": "en",
+   "filingDate": "2026-05-09",
+   "title": "Grupo Aeroportuario del Pacifico Announces Initiation of",
+   "url": "https://www.globenewswire.com/news-release/2026/05/09/3291422/0/en/grupo-aeroportuario-del-pacifico-announces-initiation-of-the-process-to-establish-a-fibra.html",
+   "docs": [
+    {
+     "name": "2026-05-09_gnw3291422_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/05/09/3291422/0/en/grupo-aeroportuario-del-pacifico-announces-initiation-of-the-process-to-establish-a-fibra.html",
+     "class": "other",
+     "chars": 6562,
+     "path": "tools/gap/raw/6k/2026-05-09_gnw3291422_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3307640",
+   "lang": "en",
+   "filingDate": "2026-06-05",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/06/05/3307640/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-may-2026-of-4-1-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-06-05_gnw3307640_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/06/05/3307640/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-may-2026-of-4-1-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 9513,
+     "path": "tools/gap/raw/6k/2026-06-05_gnw3307640_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3308511",
+   "lang": "en",
+   "filingDate": "2026-06-09",
+   "title": "Grupo Aeroportuario del Pacifico Publishes its 2025",
+   "url": "https://www.globenewswire.com/news-release/2026/06/09/3308511/0/en/grupo-aeroportuario-del-pacifico-publishes-its-2025-sustainability-report.html",
+   "docs": [
+    {
+     "name": "2026-06-09_gnw3308511_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/06/09/3308511/0/en/grupo-aeroportuario-del-pacifico-publishes-its-2025-sustainability-report.html",
+     "class": "traffic",
+     "chars": 4780,
+     "path": "tools/gap/raw/6k/2026-06-09_gnw3308511_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3322791",
+   "lang": "en",
+   "filingDate": "2026-07-06",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/07/06/3322791/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-june-2026-of-5-1-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-07-06_gnw3322791_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/07/06/3322791/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-decrease-in-june-2026-of-5-1-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 10105,
+     "path": "tools/gap/raw/6k/2026-07-06_gnw3322791_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3326564",
+   "lang": "en",
+   "filingDate": "2026-07-14",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Results for the",
+   "url": "https://www.globenewswire.com/news-release/2026/07/14/3326564/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2026.html",
+   "docs": [
+    {
+     "name": "2026-07-14_gnw3326564_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/07/14/3326564/0/en/grupo-aeroportuario-del-pacifico-announces-results-for-the-second-quarter-of-2026.html",
+     "class": "results",
+     "chars": 64110,
+     "path": "tools/gap/raw/6k/2026-07-14_gnw3326564_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3339852",
+   "lang": "en",
+   "filingDate": "2026-08-05",
+   "title": "Grupo Aeroportuario Del Pacifico Reports A Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/08/05/3339852/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-july-2026-of-1-2-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-08-05_gnw3339852_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/08/05/3339852/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-july-2026-of-1-2-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 9998,
+     "path": "tools/gap/raw/6k/2026-08-05_gnw3339852_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3340873",
+   "lang": "en",
+   "filingDate": "2026-08-06",
+   "title": "Grupo Aeroportuario Del Pacifico Announces Changes to Its",
+   "url": "https://www.globenewswire.com/news-release/2026/08/06/3340873/0/en/grupo-aeroportuario-del-pacifico-announces-changes-to-its-management-team.html",
+   "docs": [
+    {
+     "name": "2026-08-06_gnw3340873_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/08/06/3340873/0/en/grupo-aeroportuario-del-pacifico-announces-changes-to-its-management-team.html",
+     "class": "traffic",
+     "chars": 4553,
+     "path": "tools/gap/raw/6k/2026-08-06_gnw3340873_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3356843",
+   "lang": "en",
+   "filingDate": "2026-09-04",
+   "title": "Grupo Aeroportuario del Pacifico Reports a Passenger",
+   "url": "https://www.globenewswire.com/news-release/2026/09/04/3356843/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-august-2026-of-0-5-compared-to-2025.html",
+   "docs": [
+    {
+     "name": "2026-09-04_gnw3356843_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/09/04/3356843/0/en/grupo-aeroportuario-del-pacifico-reports-a-passenger-traffic-increase-in-august-2026-of-0-5-compared-to-2025.html",
+     "class": "traffic",
+     "chars": 9664,
+     "path": "tools/gap/raw/6k/2026-09-04_gnw3356843_en.txt"
+    }
+   ]
+  },
+  {
+   "source": "gnw",
+   "id": "3360535",
+   "lang": "en",
+   "filingDate": "2026-09-11",
+   "title": "Grupo Aeroportuario del Pacifico Announces the Execution of",
+   "url": "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html",
+   "docs": [
+    {
+     "name": "2026-09-11_gnw3360535_en.txt",
+     "url": "https://www.globenewswire.com/news-release/2026/09/11/3360535/0/en/grupo-aeroportuario-del-pacifico-announces-the-execution-of-bank-credit-facilities-totaling-ps-8-000-million.html",
+     "class": "traffic",
+     "chars": 6345,
+     "path": "tools/gap/raw/6k/2026-09-11_gnw3360535_en.txt"
+    }
+   ]
+  }
+ ]
+}
