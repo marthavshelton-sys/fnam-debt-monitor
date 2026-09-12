@@ -8,7 +8,7 @@ $key = Get-ApiKey "CENSUS_API_KEY"
 
 # ---- MARTS ----
 $url = "https://api.census.gov/data/timeseries/eits/marts?get=cell_value,data_type_code,category_code,seasonally_adj&time=from+2016-01&key=$key"
-$r = Invoke-RestMethod -Uri $url -TimeoutSec 180
+$r = Invoke-Retry { Invoke-RestMethod -Uri $url -TimeoutSec 180 }
 $rows = $r[1..($r.Count-1)] | ForEach-Object { [PSCustomObject]@{ v=$_[0]; dt=$_[1]; cat=$_[2]; sa=$_[3]; t=$_[4] } }
 $sm = $rows | Where-Object { $_.dt -eq "SM" -and $_.t -match '^\d{4}-\d{2}$' }
 Write-Output ("MARTS rows {0}, SM level rows {1}, months {2}..{3}" -f $rows.Count, $sm.Count, ($sm.t | Sort-Object)[0], ($sm.t | Sort-Object)[-1])

@@ -22,6 +22,19 @@ function Get-ApiKey([string]$name) {
   throw "API key $name not found: set it as an environment variable (GitHub secret) or in api_keys.json"
 }
 
+# Census and BEA answer 503 now and then for no lasting reason; three tries
+# with a pause between them covers those without hiding a real outage.
+function Invoke-Retry([scriptblock]$call, [int]$tries = 3, [int]$waitSec = 20) {
+  for ($i = 1; $i -le $tries; $i++) {
+    try { return (& $call) } catch {
+      if ($i -eq $tries) { throw }
+      # Write-Host, not Write-Output: output from inside this function is the caller's return value.
+      Write-Host ("  attempt {0} failed ({1}); retrying in {2}s" -f $i, $_.Exception.Message.Split([char]10)[0], $waitSec)
+      Start-Sleep -Seconds $waitSec
+    }
+  }
+}
+
 function Save-Json($obj, [string]$file, [int]$depth = 8) {
   $path = Join-Path $script:data $file
   ($obj | ConvertTo-Json -Depth $depth -Compress) | Set-Content $path -Encoding utf8
