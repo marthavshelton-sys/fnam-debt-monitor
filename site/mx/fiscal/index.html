@@ -1,0 +1,1466 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monitor Fiscal de México | Mexico Fiscal Monitor</title>
+<meta name="description" content="Panel en vivo de la deuda pública, el déficit, el costo financiero, los ingresos y el gasto de México, más el balance y la tasa de política de Banco de México. Live dashboard of Mexico's public debt, deficit, revenue, spending and Banxico's monetary policy.">
+<link rel="canonical" href="https://fnam.mx/mx/fiscal/">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+<!-- Refreshed daily by .github/workflows/refresh-mx-data.yml (Banxico SIE) — see window.LIVE_DATA_MX merge below. -->
+<script src="data.js"></script>
+<!-- Refreshed monthly via a reviewed PR after each SHCP "Finanzas públicas y deuda pública" release — see window.MONTHLY_DATA_MX merge below. -->
+<script src="monthly-data.js"></script>
+
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7;
+  --surface:#fcfcfb;
+  --surface-2:#f2f1ec;
+  --text-primary:#0b0b0b;
+  --text-secondary:#52514e;
+  --muted:#898781;
+  --grid:#e1e0d9;
+  --baseline:#c3c2b7;
+  --border:rgba(11,11,11,0.10);
+  --accent:#1b4332;
+  --accent-ink:#0f2c20;
+  --accent-soft:#e6ede8;
+  --accent-soft-border:rgba(27,67,50,0.22);
+  --series-1:#2a78d6;
+  --series-2:#eb6834;
+  --series-3:#1baf7a;
+  --series-4:#eda100;
+  --series-5:#e87ba4;
+  --series-6:#3c7a52;
+  --series-7:#4a3aa7;
+  --series-8:#e34948;
+  --good:#0ca30c;
+  --warning:#fab219;
+  --serious:#ec835a;
+  --critical:#d03b3b;
+  --shadow: 0 1px 2px rgba(11,11,11,0.04);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0d0d0d;
+    --surface:#1a1a19;
+    --surface-2:#221f1c;
+    --text-primary:#ffffff;
+    --text-secondary:#c3c2b7;
+    --muted:#918f88;
+    --grid:#2c2c2a;
+    --baseline:#3a3a37;
+    --border:rgba(255,255,255,0.10);
+    --accent:#4f9a76;
+    --accent-ink:#bfe3cf;
+    --accent-soft:#16261e;
+    --accent-soft-border:rgba(79,154,118,0.32);
+    --series-1:#3987e5;
+    --series-2:#d95926;
+    --series-3:#199e70;
+    --series-4:#c98500;
+    --series-5:#d55181;
+    --series-6:#5fae7e;
+    --series-7:#9085e9;
+    --series-8:#e66767;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d;
+  --surface:#1a1a19;
+  --surface-2:#221f1c;
+  --text-primary:#ffffff;
+  --text-secondary:#c3c2b7;
+  --muted:#918f88;
+  --grid:#2c2c2a;
+  --baseline:#3a3a37;
+  --border:rgba(255,255,255,0.10);
+  --accent:#4f9a76;
+  --accent-ink:#bfe3cf;
+  --accent-soft:#16261e;
+  --accent-soft-border:rgba(79,154,118,0.32);
+  --series-1:#3987e5;
+  --series-2:#d95926;
+  --series-3:#199e70;
+  --series-4:#c98500;
+  --series-5:#d55181;
+  --series-6:#5fae7e;
+  --series-7:#9085e9;
+  --series-8:#e66767;
+}
+
+*{box-sizing:border-box;}
+body{margin:0; background:var(--page); color:var(--text-primary); font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;}
+h1,h2,h3{font-family:"Source Serif 4",Georgia,serif; text-wrap:balance; margin:0;}
+p{margin:0;}
+.num{font-variant-numeric: tabular-nums;}
+a{color:var(--series-1);}
+::selection{background:var(--accent-soft);}
+/* Language: <html lang> drives which copy is shown, no JS needed for first paint. */
+html[lang="es-MX"] .en{display:none !important;}
+html[lang="en"] .es{display:none !important;}
+
+.wrap{max-width:1180px; margin:0 auto; padding:0 24px;}
+
+/* ---------- Header ---------- */
+header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
+.eyebrow{
+  display:inline-flex; align-items:center; gap:8px;
+  font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
+  color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border);
+  padding:4px 10px; border-radius:100px;
+}
+header.top h1{font-size:clamp(28px,4vw,42px); font-weight:700; margin-top:14px; color:var(--text-primary);}
+header.top .sub{margin-top:10px; max-width:62ch; color:var(--text-secondary); font-size:15.5px; line-height:1.55;}
+.asof-row{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px; font-size:13px; color:var(--muted);}
+.asof-row b{color:var(--text-primary); font-weight:600;}
+.home-link{font-size:13px; color:var(--muted); text-decoration:none; display:inline-flex; align-items:center; gap:6px; margin-bottom:14px;}
+.home-link:hover{color:var(--accent);}
+
+/* ---------- Nav ---------- */
+nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
+nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; padding:0 24px; scrollbar-width:none;}
+nav.jump .wrap::-webkit-scrollbar{display:none;}
+nav.jump a{flex:0 0 auto; padding:12px 14px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
+nav.jump a:hover{color:var(--text-primary);}
+nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
+
+/* ---------- KPI strip ---------- */
+.kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
+.kpi{background:var(--surface); padding:18px 18px 16px;}
+.kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
+.kpi .val{font-family:"Source Serif 4",serif; font-size:clamp(20px,2.2vw,27px); font-weight:700; margin-top:6px; line-height:1.1;}
+.kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
+@media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+
+/* ---------- Sections ---------- */
+main{padding:44px 0 20px;}
+section.block{padding:46px 0; border-top:1px solid var(--border);}
+section.block:first-of-type{border-top:none;}
+.sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
+.sec-num{font-family:"Source Serif 4",serif; font-size:14px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px; padding:1px 8px;}
+.sec-head h2{font-size:24px; font-weight:700;}
+.sec-desc{color:var(--text-secondary); font-size:14.5px; line-height:1.6; max-width:72ch; margin-top:10px;}
+.sec-meta{margin-top:8px; font-size:12.5px; color:var(--muted);}
+.sec-meta a{color:var(--muted); text-decoration:underline;}
+
+.grid-2{display:grid; grid-template-columns:1.15fr 1fr; gap:20px; margin-top:22px;}
+.grid-2.rev{grid-template-columns:1fr 1.15fr;}
+@media (max-width:860px){.grid-2,.grid-2.rev{grid-template-columns:1fr;}}
+
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow);}
+.card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:Inter,sans-serif;}
+.card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
+.chart-wrap{position:relative; height:300px; margin-top:14px;}
+.chart-wrap.short{height:230px;}
+.chart-wrap.tall{height:400px;}
+p.chart-src{font-size:11px; color:var(--muted); margin-top:8px;}
+p.chart-src a{color:var(--muted); text-decoration:underline; text-underline-offset:2px;}
+p.chart-src a:hover{color:var(--series-1);}
+
+details.tbl{margin-top:14px;}
+details.tbl summary{cursor:pointer; font-size:12.5px; font-weight:600; color:var(--series-1); list-style:none;}
+details.tbl summary::-webkit-details-marker{display:none;}
+details.tbl summary:before{content:"▸ "; }
+details.tbl[open] summary:before{content:"▾ "; }
+table{width:100%; border-collapse:collapse; margin-top:10px; font-size:12.8px;}
+table th{text-align:right; font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding:6px 8px; border-bottom:1px solid var(--baseline);}
+table th:first-child, table td:first-child{text-align:left;}
+table td{padding:6px 8px; border-bottom:1px solid var(--grid); font-variant-numeric:tabular-nums;}
+table tr:last-child td{border-bottom:none;}
+table tr.total td{font-weight:700; border-top:1px solid var(--baseline); border-bottom:none;}
+table td.est{color:var(--text-secondary); font-style:italic;}
+table tr.bold td{font-weight:700;}
+.tblwrap{overflow-x:auto;}
+#tblCgpe th:not(:first-child), #tblCgpe td:not(:first-child){ text-align:center; }
+
+.legend-row{display:flex; flex-wrap:wrap; gap:12px 18px; margin-top:12px; font-size:12px; color:var(--text-secondary);}
+.legend-row .dot{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:middle;}
+
+.callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
+.callout b{color:var(--text-primary);}
+.callout.notice{border-color:var(--warning); background:color-mix(in srgb, var(--warning) 10%, var(--surface-2));}
+.stat-row{display:flex; gap:22px; flex-wrap:wrap; margin-top:16px;}
+.stat{min-width:120px;}
+.stat .v{font-family:"Source Serif 4",serif; font-size:24px; font-weight:700;}
+.stat .l{font-size:11.5px; color:var(--muted); margin-top:2px;}
+.approx{color:var(--muted); font-weight:500; font-size:.8em; vertical-align:super; cursor:help;}
+
+/* ---------- Footer ---------- */
+footer{border-top:1px solid var(--border); background:var(--surface); padding:36px 0 44px; margin-top:10px;}
+footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-family:Inter; font-weight:700;}
+.src-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px 28px; margin-top:16px;}
+@media (max-width:800px){.src-grid{grid-template-columns:1fr;}}
+.src-grid .item{font-size:12.8px; border-top:1px solid var(--border); padding-top:10px;}
+.src-grid .item .t{font-weight:600; color:var(--text-primary);}
+.src-grid .item .d{color:var(--muted); margin-top:2px;}
+.src-grid .item a{color:var(--series-1); text-decoration:none;}
+.src-grid .item a:hover{text-decoration:underline;}
+footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch; line-height:1.6;}
+
+/* ---------- Part divider ---------- */
+.part-divider{padding:38px 0 6px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:16px;}
+.part-divider .tag{font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); padding:4px 10px; border-radius:100px; flex:0 0 auto;}
+.part-divider .txt{font-size:13.5px; color:var(--text-secondary); line-height:1.55; max-width:78ch;}
+
+/* ---------- Mini T-account ---------- */
+.tacct{display:grid; grid-template-columns:1fr 1fr; gap:0 16px; margin-top:14px;}
+.tacct .side h4{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted); font-weight:700; padding-bottom:6px; border-bottom:1px solid var(--baseline); margin:0;}
+.tacct .row{display:flex; justify-content:space-between; gap:10px; padding:7px 0; border-bottom:1px solid var(--grid); font-size:12.8px;}
+.tacct .row .v{font-variant-numeric:tabular-nums; font-weight:600; flex:0 0 auto;}
+.tacct .row.total{border-bottom:none; border-top:1px solid var(--baseline); font-weight:700; margin-top:2px;}
+@media (max-width:560px){.tacct{grid-template-columns:1fr;} .tacct .side + .side{margin-top:16px;}}
+
+/* ---------- Rate corridor gauge ---------- */
+.corridor{margin-top:22px;}
+.corridor .track{position:relative; height:10px; border-radius:6px; background:var(--grid); margin:14px 11px 8px;}
+.corridor .band{position:absolute; top:0; bottom:0; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px;}
+.corridor .pt{position:absolute; top:50%; width:14px; height:14px; border-radius:50%; border:2.5px solid var(--surface); transform:translate(-50%,-50%); box-shadow:0 0 0 1px var(--border); cursor:default;}
+.corridor .axis{position:relative; height:14px; margin:0 11px;}
+.corridor .axis span{position:absolute; transform:translateX(-50%); font-size:10.5px; color:var(--muted);}
+.corridor .legend{display:flex; flex-direction:column; gap:7px; margin-top:18px;}
+.corridor .legend .item{display:flex; align-items:baseline; gap:9px; font-size:12.5px;}
+.corridor .legend .sw{flex:0 0 auto; width:10px; height:10px; border-radius:50%; border:1.5px solid var(--surface); box-shadow:0 0 0 1px var(--border);}
+.corridor .legend .nm{color:var(--text-primary); font-weight:600;}
+.corridor .legend .sub{color:var(--muted);}
+.corridor .legend .val{margin-left:auto; font-variant-numeric:tabular-nums; font-weight:700; color:var(--text-primary); flex:0 0 auto; padding-left:10px;}
+
+/* ---------- Instrument cards ---------- */
+.instr-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px;}
+@media (max-width:900px){.instr-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:640px){.instr-grid{grid-template-columns:1fr;}}
+.instr{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 17px; box-shadow:var(--shadow); display:flex; flex-direction:column;}
+.instr .ihead{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.instr h4{font-size:14px; font-weight:700; font-family:Inter,sans-serif; color:var(--text-primary); margin:0;}
+.instr .pill{flex:0 0 auto; font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:100px; white-space:nowrap;}
+.instr .pill.since{color:var(--muted); background:var(--surface-2); border:1px solid var(--border);}
+.instr p{font-size:12.6px; color:var(--text-secondary); line-height:1.55; margin-top:8px;}
+.instr .metric{margin-top:auto; padding-top:10px; border-top:1px solid var(--grid); display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
+.instr .metric .v{font-family:"Source Serif 4",serif; font-weight:700; font-size:18px; font-variant-numeric:tabular-nums;}
+.instr .metric .l{font-size:11px; color:var(--muted); text-align:right;}
+
+/* ---------- Leader-line donut ---------- */
+.leader-pie-wrap{position:relative; margin-top:14px;}
+.leader-pie-wrap svg{width:100%; height:auto; display:block; overflow:visible;}
+.leader-pie-wrap .slice{cursor:pointer; transition:opacity .12s ease;}
+.leader-pie-wrap .slice:hover{opacity:.82;}
+.leader-pie-wrap .leader-line{fill:none; stroke:var(--baseline); stroke-width:1; opacity:.75;}
+.leader-pie-wrap .lbl-name{font-family:Inter,sans-serif; font-weight:700; font-size:13.5px; fill:var(--text-primary);}
+.leader-pie-wrap .lbl-val{font-family:Inter,sans-serif; font-weight:500; font-size:11.5px; fill:var(--text-secondary); font-variant-numeric:tabular-nums;}
+.leader-pie-wrap .lbl-swatch{stroke:var(--surface); stroke-width:1.5;}
+.leader-pie-wrap .center-lbl{font-family:"Source Serif 4",serif; font-weight:700; fill:var(--text-primary);}
+.leader-pie-wrap .center-sub{font-family:Inter,sans-serif; font-size:11px; fill:var(--muted);}
+
+/* ---------- Language toggle (segmented, like the landing page) ---------- */
+.lang-btn{position:fixed; top:16px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
+.lang-btn button.active{background:var(--accent); color:#fff;}
+@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+</style>
+</head>
+<body>
+
+<div class="lang-btn" role="group" aria-label="Idioma / Language">
+  <button type="button" id="btnLangEs" class="active" lang="es">ES</button>
+  <button type="button" id="btnLangEn" lang="en">EN</button>
+</div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="home-link" href="/">← <span class="es">FNAM · todos los paneles</span><span class="en">FNAM · all dashboards</span></a><br>
+    <span class="eyebrow">
+      <span class="es">Panorama en vivo · Datos de la SHCP y del Banco de México</span>
+      <span class="en">Live snapshot · SHCP &amp; Banco de México data</span>
+    </span>
+    <h1>
+      <span class="es">Monitor Fiscal de México</span>
+      <span class="en">Mexico Fiscal Monitor</span>
+    </h1>
+    <p class="sub">
+      <span class="es">La deuda pública amplia (SHRFSP), quién la tiene, cómo está estructurada, cuánto cuesta y cómo se desglosan los ingresos y el gasto — más el caso Pemex y las proyecciones del Paquete Económico 2027. Después, el lado monetario: el balance del Banco de México, las reservas internacionales, el tipo de cambio y la tasa objetivo que fija el costo de la deuda de arriba. Construido sobre los comunicados mensuales de finanzas públicas de la SHCP, los Informes Trimestrales, el Plan Anual de Financiamiento y el Sistema de Información Económica (SIE) de Banxico.</span>
+      <span class="en">Mexico's broad public debt (SHRFSP), who holds it, how it is structured, what it costs and how revenue and spending break down — plus the Pemex question and the projections in the 2027 Economic Package. Then the monetary side: Banco de México's balance sheet, international reserves, the exchange rate and the policy rate that sets the cost of the debt above. Built on SHCP's monthly public-finance releases, the Quarterly Reports, the Annual Financing Plan and Banxico's Economic Information System (SIE).</span>
+    </p>
+    <div class="asof-row" id="asofRow"></div>
+    <div class="kpi-strip" id="kpiStrip"></div>
+    <div class="callout notice" id="snapshotNotice">
+      <span class="es"><b>Nota sobre esta primera versión.</b> Las cifras de este panorama inicial se tomaron de comunicados oficiales de la SHCP y de Banxico y de su cobertura en prensa especializada (consultados el 12 de septiembre de 2026), no directamente de las bases de datos. Los valores marcados con <span class="approx" title="Aproximado">~</span> son aproximados o interpolados. Los indicadores de Banxico (tasa objetivo, tipo de cambio FIX, reservas, TIIE, Cetes, UDI) pasan a actualizarse automáticamente cada día a partir del primer corrido del proceso <code>refresh-mx-data</code>; el resto se revisa cada mes tras el comunicado de finanzas públicas de la SHCP.</span>
+      <span class="en"><b>Note on this first version.</b> The figures in this initial snapshot were taken from official SHCP and Banxico releases and their coverage in the specialized press (consulted 12-Sep-2026), not directly from the underlying databases. Values marked <span class="approx" title="Approximate">~</span> are approximate or interpolated. Banxico indicators (policy rate, FIX exchange rate, reserves, TIIE, Cetes, UDI) update automatically every day from the first run of the <code>refresh-mx-data</code> job; everything else is reviewed monthly after SHCP's public-finance release.</span>
+    </div>
+  </div>
+</header>
+
+<nav class="jump">
+  <div class="wrap" id="jumpNav">
+    <a href="#outstanding"><span class="es">Deuda</span><span class="en">Debt Outstanding</span></a>
+    <a href="#holders"><span class="es">Tenedores</span><span class="en">Holders</span></a>
+    <a href="#maturity"><span class="es">Plazos</span><span class="en">Maturity</span></a>
+    <a href="#cost"><span class="es">Costo financiero</span><span class="en">Cost of Debt</span></a>
+    <a href="#composition"><span class="es">Composición</span><span class="en">Composition</span></a>
+    <a href="#gdp"><span class="es">Deuda vs. PIB</span><span class="en">Debt vs GDP</span></a>
+    <a href="#revenues"><span class="es">Ingresos</span><span class="en">Revenues</span></a>
+    <a href="#outlays"><span class="es">Gasto</span><span class="en">Spending</span></a>
+    <a href="#pemex">Pemex</a>
+    <a href="#banxico"><span class="es">Balance de Banxico</span><span class="en">Banxico Balance Sheet</span></a>
+    <a href="#policyrates"><span class="es">Tasa objetivo</span><span class="en">Policy Rate</span></a>
+    <a href="#instruments"><span class="es">Instrumentos</span><span class="en">Instruments</span></a>
+    <a href="#sources"><span class="es">Fuentes</span><span class="en">Sources</span></a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+  <section class="block" id="outstanding">
+    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Deuda pendiente</span><span class="en">Debt outstanding</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">México reporta su deuda con tres medidas anidadas. La más amplia es el <b>Saldo Histórico de los Requerimientos Financieros del Sector Público (SHRFSP)</b>, que suma la deuda del Gobierno Federal, Pemex, CFE, la banca de desarrollo, el IPAB, los Pidiregas y los pasivos por el rescate carretero, netos de activos financieros. La <b>deuda bruta del sector público federal</b> excluye esos pasivos "extra-presupuestarios" y no descuenta activos; la <b>deuda neta del Gobierno Federal</b> es la más estrecha.</span>
+      <span class="en">Mexico reports its debt with three nested measures. The broadest is the <b>Historical Balance of Public Sector Borrowing Requirements (SHRFSP)</b>, which adds up the debt of the Federal Government, Pemex, CFE, the development banks, the deposit-insurance agency IPAB, Pidiregas and the highway-rescue liabilities, net of financial assets. The <b>gross debt of the federal public sector</b> leaves out those "off-budget" liabilities and does not net out assets; the <b>net debt of the Federal Government</b> is the narrowest.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, <a href="https://www.gob.mx/shcp/prensa/comunicado-no-70-finanzas-publicas-y-deuda-publica-a-julio-de-2026" target="_blank" rel="noopener">Comunicado 70, Finanzas públicas y deuda pública a julio de 2026</a> (28-ago-2026) · cifras al <span data-bind="shrfspAsOfEs">31 de jul. de 2026</span> salvo que se indique otra fecha</span>
+      <span class="en">Source: SHCP, <a href="https://www.gob.mx/shcp/prensa/comunicado-no-70-finanzas-publicas-y-deuda-publica-a-julio-de-2026" target="_blank" rel="noopener">Press release 70, Public finances and public debt through July 2026</a> (28-Aug-2026) · figures as of <span data-bind="shrfspAsOfEn">31-Jul-2026</span> unless noted</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Deuda amplia (SHRFSP), porcentaje del PIB</span><span class="en">Broad public debt (SHRFSP), percent of GDP</span></h3>
+        <p class="cap"><span class="es">Cierre de año, 2000–2025, y último dato mensual · años sin punto = dato no localizado en esta versión, la línea se interpola</span><span class="en">Year-end, 2000–2025, plus latest monthly reading · years without a marker = figure not located in this version, the line is interpolated</span></p>
+        <div class="chart-wrap tall"><canvas id="chartShrfspPct"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Informes_al_Congreso_de_la_Union" target="_blank" rel="noopener">Informes Trimestrales al Congreso, anexo "SHRFSP" ↗</a>; 2000–2012 con la base del PIB anterior (2013), 2018 en adelante con base 2018</span><span class="en">Source: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Informes_al_Congreso_de_la_Union" target="_blank" rel="noopener">Quarterly Reports to Congress, "SHRFSP" annex ↗</a>; 2000–2012 on the previous (2013) GDP base, 2018 onward on the 2018 base</span></p>
+        <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en">View data table</span></summary>
+          <div class="tblwrap" id="tblShrfspPct"></div>
+        </details>
+      </div>
+      <div class="card">
+        <h3><span class="es">Panorama al <span data-bind="shrfspAsOfEs">31 de jul. de 2026</span></span><span class="en">Snapshot, <span data-bind="shrfspAsOfEn">31-Jul-2026</span></span></h3>
+        <p class="cap"><span class="es">Último corte mensual de la SHCP</span><span class="en">Latest SHCP monthly reading</span></p>
+        <div class="stat-row">
+          <div class="stat"><div class="v num" data-bind="shrfspBn">$19.2 bn</div><div class="l"><span class="es">SHRFSP, billones de pesos</span><span class="en">SHRFSP, MXN trillion</span></div></div>
+          <div class="stat"><div class="v num" data-bind="shrfspPct">51.5%</div><div class="l"><span class="es">SHRFSP, % del PIB</span><span class="en">SHRFSP, % of GDP</span></div></div>
+          <div class="stat"><div class="v num" data-bind="grossDebtBn">$20.60 bn</div><div class="l"><span class="es">Deuda bruta del sector público federal</span><span class="en">Gross federal public-sector debt</span></div></div>
+          <div class="stat"><div class="v num" data-bind="gfNetPct">48.3%</div><div class="l"><span class="es">Deuda neta del Gobierno Federal, % del PIB</span><span class="en">Federal Government net debt, % of GDP</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">El SHRFSP creció <b>$1.4 billones en un año</b> (17.8 billones en julio de 2025 → 19.2 billones en julio de 2026), un <b>3.7% real</b>. Descontando la inflación y el PIB, la razón deuda/PIB subió de 50.4% al cierre de 2025 a 51.5%, todavía por debajo del 52.3% que la propia SHCP proyectaba para fin de 2026.</span>
+          <span class="en">The SHRFSP grew <b>MXN 1.4 trillion in a year</b> (17.8 trillion in July 2025 → 19.2 trillion in July 2026), <b>3.7% in real terms</b>. Relative to GDP, the ratio rose from 50.4% at end-2025 to 51.5%, still below the 52.3% SHCP itself projected for end-2026.</span>
+        </div>
+        <div class="callout">
+          <span class="es">Repartida entre la población, la deuda amplia equivale a unos <b>$151,000 pesos por habitante</b> (cálculo de Expansión con el saldo de enero de 2026). La cifra mensual se mueve con el tipo de cambio: cerca de un sexto de la deuda está en moneda extranjera, así que una apreciación del peso como la de 2025 (13%) <i>reduce</i> el saldo en pesos sin que se haya pagado nada.</span>
+          <span class="en">Spread across the population, broad debt works out to about <b>MXN 151,000 per person</b> (Expansión's calculation on the January 2026 balance). The monthly figure moves with the exchange rate: roughly a sixth of the debt is in foreign currency, so a peso appreciation like 2025's (13%) <i>lowers</i> the peso balance without anything being repaid.</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Déficit amplio (RFSP), porcentaje del PIB</span><span class="en">Broad deficit (RFSP), percent of GDP</span></h3>
+        <p class="cap"><span class="es">Requerimientos Financieros del Sector Público por año; 2026 y 2027 = estimación de la SHCP en el Paquete Económico 2027</span><span class="en">Public Sector Borrowing Requirements by year; 2026 and 2027 = SHCP estimate in the 2027 Economic Package</span></p>
+        <div class="chart-wrap"><canvas id="chartRfsp"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, Informes Trimestrales y <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto" target="_blank" rel="noopener">Criterios Generales de Política Económica 2027 ↗</a>; 2019–2023 y 2025 marcados ~ = cifra tomada de cobertura secundaria, pendiente de cotejo con la tabla oficial</span><span class="en">Source: SHCP, Quarterly Reports and <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto" target="_blank" rel="noopener">General Economic Policy Criteria 2027 ↗</a>; 2019–2023 and 2025 marked ~ = figure taken from secondary coverage, pending check against the official table</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">La deuda por sexenio</span><span class="en">Debt by presidential term</span></h3>
+        <p class="cap"><span class="es">SHRFSP al cierre de cada administración, % del PIB</span><span class="en">SHRFSP at the end of each administration, % of GDP</span></p>
+        <div class="tblwrap" id="tblSexenios"></div>
+        <div class="callout">
+          <span class="es">El mayor salto en puntos del PIB ocurrió con Peña Nieto (+8.0), seguido por López Obrador (+7.8) y Calderón (+7.4); en los dos primeros años de Sheinbaum la razón se ha movido poco (51.4% → 51.5%) porque el ajuste del déficit de 2025 y la apreciación del peso compensaron el mayor endeudamiento. Nota: 2006 y 2012 se calcularon con la base anterior del PIB, así que las diferencias entre sexenios son indicativas.</span>
+          <span class="en">The biggest jump in GDP points came under Peña Nieto (+8.0), then López Obrador (+7.8) and Calderón (+7.4); in Sheinbaum's first two years the ratio has barely moved (51.4% → 51.5%) because 2025's deficit reduction and the peso's appreciation offset new borrowing. Note: 2006 and 2012 were computed on the previous GDP base, so cross-term differences are indicative.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="holders">
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Tenedores de la deuda</span><span class="en">Holders of the debt</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Banxico publica cada semana quién tiene los valores gubernamentales en circulación (Cetes, Bondes, Bonos M, Udibonos). Hoy el ahorro para el retiro (Siefores) y los fondos de inversión son, por mucho, los mayores tenedores; los residentes en el extranjero, que llegaron a tener cerca de un tercio hace una década, hoy tienen poco más de un décimo.</span>
+      <span class="en">Banxico publishes weekly who holds the government securities outstanding (Cetes, Bondes, Bonos M, Udibonos). Today retirement savings (Siefores) and mutual funds are by far the largest holders; non-residents, who held close to a third a decade ago, now hold just over a tenth.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: Banco de México, <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF457&sector=7&locale=es" target="_blank" rel="noopener">Tenencia de valores gubernamentales (CF457)</a>, vía el reporte de Monex del 12-may-2026 · saldos al 30-abr-2026; extranjeros al 30-jun-2026</span>
+      <span class="en">Source: Banco de México, <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF457&sector=7&locale=es" target="_blank" rel="noopener">Holdings of government securities (CF457)</a>, via Monex's 12-May-2026 report · balances as of 30-Apr-2026; non-residents as of 30-Jun-2026</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Quién tiene los $15.4 billones en valores gubernamentales (abr. 2026)</span><span class="en">Who holds the MXN 15.4 trillion in government securities (Apr 2026)</span></h3>
+        <p class="cap"><span class="es">Por sector tenedor, miles de millones de pesos a valor nominal · "otros residentes" = remanente calculado (bancos, aseguradoras, Banxico, empresas y personas)</span><span class="en">By holder sector, MXN billions at nominal value · "other residents" = computed remainder (banks, insurers, Banxico, companies and individuals)</span></p>
+        <div class="chart-wrap" style="height:320px"><canvas id="chartHolders"></canvas></div>
+        <div class="legend-row">
+          <span><span class="dot" style="background:var(--series-2)"></span><span class="es">Residentes en el extranjero</span><span class="en">Non-residents</span></span>
+          <span><span class="dot" style="background:var(--series-3)"></span><span class="es">Residentes en México</span><span class="en">Mexican residents</span></span>
+        </div>
+        <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en">View data table</span></summary>
+          <div class="tblwrap" id="tblHolders"></div>
+        </details>
+      </div>
+      <div class="card">
+        <h3><span class="es">Los extranjeros, en detalle</span><span class="en">Non-residents, in detail</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">$1.78 bn</div><div class="l"><span class="es">Tenencia extranjera, jun. 2026 (billones de pesos)</span><span class="en">Foreign holdings, Jun 2026 (MXN trillion)</span></div></div>
+          <div class="stat"><div class="v num">11.4%</div><div class="l"><span class="es">Del total en circulación</span><span class="en">Of total outstanding</span></div></div>
+          <div class="stat"><div class="v num">+$42 mmdp</div><div class="l"><span class="es">Cambio en el 1er semestre de 2026</span><span class="en">Change in H1 2026</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">La tenencia extranjera pasó de <b>$1.739 billones</b> al cierre de 2025 a <b>$1.782 billones</b> al cierre de junio de 2026. El aumento vino de los <b>Bonos M</b> (+$20,275 millones en el semestre) y los <b>Cetes</b> (+$17,851 millones; la posición extranjera en Cetes tocó un máximo anual de $221,600 millones el 5 de junio), mientras que los Udibonos registraron salidas.</span>
+          <span class="en">Foreign holdings went from <b>MXN 1.739 trillion</b> at end-2025 to <b>MXN 1.782 trillion</b> at end-June 2026. The increase came from <b>Bonos M</b> (+MXN 20,275 million in the half) and <b>Cetes</b> (+MXN 17,851 million; the foreign Cetes position hit a yearly high of MXN 221,600 million on 5 June), while Udibonos saw outflows.</span>
+        </div>
+        <div class="callout">
+          <span class="es">Por qué importa: una base de tenedores dominada por Siefores y fondos locales, que reciben flujos obligatorios de ahorro cada mes, hace que la deuda en pesos sea mucho menos sensible a salidas de capital de lo que era en 2013 o 2020. La contraparte es que el mercado depende de que ese ahorro siga creciendo.</span>
+          <span class="en">Why it matters: a holder base dominated by Siefores and local funds, which receive mandatory savings inflows every month, makes peso debt far less exposed to capital flight than it was in 2013 or 2020. The flip side is that the market depends on that savings pool continuing to grow.</span>
+        </div>
+        <p class="chart-src"><span class="es">Fuente: Banxico, tenencia de residentes en el extranjero (CA175), vía La Jornada 16-jul-2026 y El CEO</span><span class="en">Source: Banxico, holdings by non-residents (CA175), via La Jornada 16-Jul-2026 and El CEO</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="maturity">
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Plazos y vencimientos</span><span class="en">Maturity structure</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">El Gobierno Federal se financia en el mercado local con cuatro instrumentos — Cetes (descuento, hasta 2 años), Bondes F (tasa revisable), Bonos M (tasa fija nominal, 3 a 30 años) y Udibonos (tasa fija real, indexados a la UDI) — y en el exterior con bonos "UMS" en dólares, euros y yenes y créditos de organismos multilaterales. Un plazo promedio largo y una mayoría a tasa fija son lo que amortigua el impacto de las alzas de tasas sobre el costo financiero.</span>
+      <span class="en">The Federal Government funds itself locally with four instruments — Cetes (discount bills up to 2 years), Bondes F (floating rate), Bonos M (nominal fixed rate, 3 to 30 years) and Udibonos (real fixed rate, indexed to the UDI) — and abroad with "UMS" bonds in dollars, euros and yen plus multilateral loans. A long average maturity and a fixed-rate majority are what cushion the cost of debt when rates rise.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/paf/paf_2026.pdf" target="_blank" rel="noopener">Plan Anual de Financiamiento 2026</a> (19-dic-2025) y Apéndice Estadístico de Deuda Pública · perfil de vencimientos al cierre de 2025</span>
+      <span class="en">Source: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/paf/paf_2026.pdf" target="_blank" rel="noopener">Annual Financing Plan 2026</a> (19-Dec-2025) and Public Debt Statistical Appendix · maturity profile as of end-2025</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Cuándo vence la deuda interna del Gobierno Federal</span><span class="en">When the Federal Government's domestic debt comes due</span></h3>
+        <p class="cap"><span class="es">Amortizaciones por año, miles de millones de pesos · 2026 incluye el refinanciamiento rutinario de Cetes de corto plazo</span><span class="en">Amortizations by year, MXN billions · 2026 includes the routine rollover of short-dated Cetes</span></p>
+        <div class="chart-wrap"><canvas id="chartMaturity"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, Informe de la Deuda Pública, perfil de amortizaciones de la deuda interna del Gobierno Federal ↗</span><span class="en">Source: SHCP, Public Debt Report, amortization profile of the Federal Government's domestic debt ↗</span></p>
+        <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en">View data table</span></summary>
+          <div class="tblwrap" id="tblMaturity"></div>
+        </details>
+      </div>
+      <div class="card">
+        <h3><span class="es">Estructura del portafolio</span><span class="en">Portfolio structure</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">7.9 <span class="es">años</span><span class="en">yrs</span></div><div class="l"><span class="es">Plazo promedio, deuda interna (PAF 2026)</span><span class="en">Avg. maturity, domestic debt (PAF 2026)</span></div></div>
+          <div class="stat"><div class="v num">15.6 <span class="es">años</span><span class="en">yrs</span></div><div class="l"><span class="es">Plazo promedio, deuda externa</span><span class="en">Avg. maturity, external debt</span></div></div>
+          <div class="stat"><div class="v num">79.4%</div><div class="l"><span class="es">De la deuda interna a tasa fija (nominal o real) con plazo mayor a un año</span><span class="en">Of domestic debt at fixed (nominal or real) rate with maturity over one year</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">El PAF 2026 reduce las colocaciones de Bonos M de 3 y 5 años y aumenta las de 20 y 30 años; los Cetes se subastan cada semana en un rango de $5,000 a $20,000 millones. En julio de 2026 la SHCP refinanció deuda interna e introdujo un nuevo Udibono para alargar el perfil, y el 29 de julio recompró anticipadamente tres bonos en dólares (2027–2028) y uno en euros (2029) por 5.9 mil millones de dólares.</span>
+          <span class="en">PAF 2026 trims 3- and 5-year Bonos M issuance and raises 20- and 30-year issuance; Cetes are auctioned weekly in a MXN 5,000–20,000 million range. In July 2026 SHCP refinanced domestic debt and launched a new Udibono to lengthen the profile, and on 29 July bought back three dollar bonds (2027–2028) and one euro bond (2029) early for USD 5.9 billion.</span>
+        </div>
+        <div class="callout">
+          <span class="es">Las necesidades de financiamiento del sector público para 2026 se estiman en <b>16.6% del PIB</b>, 2.2 puntos menos que en 2025. Que casi el 80% de la deuda interna sea a tasa fija de más de un año significa que el costo financiero (Sección 04) reacciona con rezago a los movimientos de la tasa objetivo de Banxico.</span>
+          <span class="en">Public-sector financing needs for 2026 are estimated at <b>16.6% of GDP</b>, 2.2 points less than in 2025. With almost 80% of domestic debt at fixed rates beyond one year, the cost of debt (Section 04) responds with a lag to moves in Banxico's policy rate.</span>
+        </div>
+      </div>
+    </div>
+    <div class="instr-grid" id="debtInstrGrid"></div>
+  </section>
+
+  <section class="block" id="cost">
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Costo financiero de la deuda</span><span class="en">Cost of the debt</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">El costo financiero — intereses, comisiones y apoyos a ahorradores y deudores — es hoy la partida que más rápido crece en el presupuesto: en 2026 absorbe el equivalente a 4.1% del PIB, más que todo el gasto federal en educación (2.9%) o en salud (2.5%). Con la deuda a tasa fija de largo plazo, la baja de la tasa objetivo de Banxico desde 2024 llega al presupuesto con lentitud.</span>
+      <span class="en">The financial cost — interest, fees and support to savers and debtors — is now the fastest-growing budget line: in 2026 it absorbs the equivalent of 4.1% of GDP, more than all federal spending on education (2.9%) or health (2.5%). With debt mostly at long fixed rates, Banxico's rate cuts since 2024 reach the budget only slowly.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, Presupuesto de Egresos de la Federación 2026 y Comunicado 70; CIEP, <a href="https://ciep.mx/el-costo-financiero-de-la-deuda-en-mexico/" target="_blank" rel="noopener">"El costo financiero de la deuda en México"</a> · ejercido ene–jul 2026</span>
+      <span class="en">Source: SHCP, 2026 Federal Budget and Press release 70; CIEP, <a href="https://ciep.mx/el-costo-financiero-de-la-deuda-en-mexico/" target="_blank" rel="noopener">"The financial cost of debt in Mexico"</a> · outturn Jan–Jul 2026</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Costo financiero del sector público, porcentaje del PIB</span><span class="en">Public-sector financial cost, percent of GDP</span></h3>
+        <p class="cap"><span class="es">Anual, 2008–2026 (2026 = aprobado en el PEF) · años intermedios marcados ~ = aproximados</span><span class="en">Annual, 2008–2026 (2026 = approved budget) · intermediate years marked ~ = approximate</span></p>
+        <div class="chart-wrap tall"><canvas id="chartCostPct"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, Estadísticas Oportunas de Finanzas Públicas; CIEP (1.8% en 2008, 3.7% en 2025); PEF 2026 (4.1%)</span><span class="en">Source: SHCP, Timely Public Finance Statistics; CIEP (1.8% in 2008, 3.7% in 2025); 2026 Budget (4.1%)</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Lo que cuesta, ahora mismo</span><span class="en">What it costs, right now</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">$1,572 mmdp</div><div class="l"><span class="es">Costo financiero aprobado 2026 (4.1% del PIB, +9.4% real vs. 2025 aprobado)</span><span class="en">Approved financial cost 2026 (4.1% of GDP, +9.4% real vs. 2025 approved)</span></div></div>
+          <div class="stat"><div class="v num">$1,310 mmdp</div><div class="l"><span class="es">Pagado en 2025 (vs. $1,150 mmdp en 2024, +9.8%)</span><span class="en">Paid in 2025 (vs. MXN 1,150bn in 2024, +9.8%)</span></div></div>
+          <div class="stat"><div class="v num">−4.9%</div><div class="l"><span class="es">Variación real anual, ene–jul 2026 ($115 mmdp por debajo del programa)</span><span class="en">Real annual change, Jan–Jul 2026 (MXN 115bn below program)</span></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">22.8%</div><div class="l"><span class="es">De los ingresos tributarios se van al servicio de la deuda (2026)</span><span class="en">Of tax revenue goes to debt service (2026)</span></div></div>
+          <div class="stat"><div class="v num">~$108 mmdp</div><div class="l"><span class="es">Por mes en 2027, según el proyecto de presupuesto</span><span class="en">Per month in 2027, per the budget proposal</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">La caída de 4.9% real en enero–julio de 2026 se explica por la <b>apreciación del peso</b> (que abarata el servicio de la deuda externa) y por las operaciones de manejo de pasivos, no por una baja del costo de fondeo en pesos: la tasa objetivo bajó de 10.00% a 6.50% entre 2024 y mayo de 2026, pero el rendimiento del Bono M a 10 años seguía cerca de 8.8% en marzo de 2026.</span>
+          <span class="en">The 4.9% real decline in January–July 2026 reflects <b>peso appreciation</b> (which makes external debt service cheaper) and liability-management operations, not a lower peso funding cost: the policy rate fell from 10.00% to 6.50% between 2024 and May 2026, but the 10-year Bono M yield was still near 8.8% in March 2026.</span>
+        </div>
+        <div class="callout">
+          <span class="es"><b>Calificación soberana.</b> Moody's bajó a México de Baa2 a <b>Baa3</b> (perspectiva estable) el 20 de mayo de 2026, citando bajo crecimiento, deuda creciente y el apoyo continuo a Pemex; S&P mantiene <b>BBB</b> con perspectiva negativa y Fitch <b>BBB−</b> estable. Con dos agencias en el último escalón de grado de inversión, una rebaja adicional de cualquiera de ellas dejaría al país a un paso de perderlo, con el consecuente encarecimiento del financiamiento.</span>
+          <span class="en"><b>Sovereign rating.</b> Moody's cut Mexico from Baa2 to <b>Baa3</b> (stable outlook) on 20 May 2026, citing weak growth, rising debt and continued support for Pemex; S&P keeps <b>BBB</b> with a negative outlook and Fitch <b>BBB−</b> stable. With two agencies on the last rung of investment grade, one more downgrade from either would leave the country one step from losing it, with correspondingly higher borrowing costs.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="composition">
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Composición de la deuda</span><span class="en">Composition of the debt</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Poco más de cinco sextos de la deuda del sector público federal es interna, en pesos, y el resto es externa, en moneda extranjera. Esa proporción es una decisión de política: desde la crisis de 1994–95 México ha privilegiado el mercado local para evitar que una depreciación del peso dispare el saldo de la deuda, y el PAF 2026 vuelve a reducir el peso de la deuda externa.</span>
+      <span class="en">Just over five-sixths of federal public-sector debt is domestic, in pesos, and the rest is external, in foreign currency. That mix is a policy choice: since the 1994–95 crisis Mexico has favored the local market so that a peso depreciation cannot balloon the debt stock, and PAF 2026 again lowers the external share.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, Comunicado 70 (deuda bruta y externa a julio de 2026), Plan Anual de Financiamiento 2026 y Ley de Ingresos 2026 · valor en pesos de la deuda externa calculado con el tipo de cambio FIX de fin de julio de 2026 (~$18.7)</span>
+      <span class="en">Source: SHCP, Press release 70 (gross and external debt through July 2026), Annual Financing Plan 2026 and 2026 Revenue Law · peso value of external debt computed at the end-July 2026 FIX rate (~18.7)</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Deuda bruta del sector público federal: interna vs. externa</span><span class="en">Gross federal public-sector debt: domestic vs. external</span></h3>
+        <p class="cap"><span class="es">Miles de millones de pesos, julio de 2026 · deuda externa = 159.8 mil millones de dólares</span><span class="en">MXN billions, July 2026 · external debt = USD 159.8 billion</span></p>
+        <div class="leader-pie-wrap" id="pieComposition"></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, Comunicado 70 y Apéndice Estadístico de Deuda Pública ↗</span><span class="en">Source: SHCP, Press release 70 and Public Debt Statistical Appendix ↗</span></p>
+        <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en">View data table</span></summary>
+          <div class="tblwrap" id="tblComposition"></div>
+        </details>
+      </div>
+      <div class="card">
+        <h3><span class="es">Endeudamiento autorizado para 2026</span><span class="en">Borrowing authorized for 2026</span></h3>
+        <p class="cap"><span class="es">Ley de Ingresos de la Federación 2026, techos de endeudamiento neto</span><span class="en">2026 Federal Revenue Law, net borrowing ceilings</span></p>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">$1.78 bn</div><div class="l"><span class="es">Endeudamiento neto total (billones de pesos)</span><span class="en">Total net borrowing (MXN trillion)</span></div></div>
+          <div class="stat"><div class="v num">$1.70 bn</div><div class="l"><span class="es">Interno</span><span class="en">Domestic</span></div></div>
+          <div class="stat"><div class="v num">US$15.5 mmd</div><div class="l"><span class="es">Externo</span><span class="en">External</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">La deuda externa bruta subió a <b>159.8 mil millones de dólares</b> en julio de 2026, unos 34 mil millones más que al inicio de la administración (octubre de 2024), en parte porque la SHCP emitió los <b>12 mil millones de dólares</b> de notas precapitalizadas (P-Caps) de julio de 2025 para respaldar a Pemex (Sección 09). Aun así, en pesos la deuda externa <i>bajó</i> por la apreciación de la moneda.</span>
+          <span class="en">Gross external debt rose to <b>USD 159.8 billion</b> in July 2026, about USD 34 billion more than at the start of the administration (October 2024), partly because SHCP issued the <b>USD 12 billion</b> of pre-capitalized notes (P-Caps) in July 2025 to backstop Pemex (Section 09). Even so, in pesos external debt <i>fell</i> thanks to the currency's appreciation.</span>
+        </div>
+        <div class="callout">
+          <span class="es"><b>Interna vs. externa: ¿cuál es la diferencia?</b> La deuda interna se paga en pesos y la tiene sobre todo el ahorro nacional (Siefores, fondos, bancos), así que su riesgo es de <i>tasa</i>; la externa se paga en dólares o euros y su riesgo es de <i>tipo de cambio</i>: cada peso de depreciación agrega unos $160 mil millones al saldo. Por eso el PAF fija el techo de deuda externa en 15.8% del total.</span>
+          <span class="en"><b>Domestic vs. external: what's the difference?</b> Domestic debt is repaid in pesos and held mostly by national savings (Siefores, funds, banks), so its risk is <i>interest-rate</i> risk; external debt is repaid in dollars or euros and its risk is <i>exchange-rate</i> risk: every peso of depreciation adds roughly MXN 160 billion to the stock. That is why the PAF caps external debt at 15.8% of the total.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="gdp">
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">La deuda frente al PIB y las proyecciones oficiales</span><span class="en">Debt relative to GDP and the official projections</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Cada septiembre la SHCP entrega al Congreso los Criterios Generales de Política Económica (CGPE), el equivalente mexicano de las proyecciones de la CBO estadounidense: supuestos macro y la trayectoria esperada del déficit y de la deuda. El Paquete Económico 2027 se entregó el 8 de septiembre de 2026.</span>
+      <span class="en">Every September SHCP delivers the General Economic Policy Criteria (CGPE) to Congress, Mexico's equivalent of the U.S. CBO baseline: macro assumptions and the expected path of the deficit and the debt. The 2027 Economic Package was delivered on 8 September 2026.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto" target="_blank" rel="noopener">Criterios Generales de Política Económica 2027</a>; Banxico, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html" target="_blank" rel="noopener">Encuesta sobre las expectativas de los especialistas</a> y Encuesta Citi (ago. 2026); INEGI</span>
+      <span class="en">Source: SHCP, <a href="https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto" target="_blank" rel="noopener">General Economic Policy Criteria 2027</a>; Banxico, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html" target="_blank" rel="noopener">Survey of private-sector analysts</a> and Citi survey (Aug 2026); INEGI</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Trayectoria oficial de la deuda amplia</span><span class="en">Official path of broad debt</span></h3>
+        <p class="cap"><span class="es">SHRFSP, % del PIB: observado 2023–2025, último dato (jul. 2026) y estimaciones de la SHCP para el cierre de 2026 y 2027</span><span class="en">SHRFSP, % of GDP: actual 2023–2025, latest reading (Jul 2026) and SHCP estimates for end-2026 and 2027</span></p>
+        <div class="chart-wrap"><canvas id="chartCgpeProjection"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, CGPE 2026 (52.3% para 2026) y CGPE 2027 (21.8 billones ≈ 55% del PIB para 2027, según la cobertura del paquete) ↗ · ambas estimaciones marcadas ~ hasta cotejar la tabla oficial</span><span class="en">Source: SHCP, CGPE 2026 (52.3% for 2026) and CGPE 2027 (MXN 21.8 trillion ≈ 55% of GDP for 2027, per package coverage) ↗ · both estimates marked ~ until checked against the official table</span></p>
+        <div class="callout">
+          <span class="es">La propia SHCP proyecta que la deuda amplia seguirá subiendo como proporción del PIB en 2026 y 2027 pese a la consolidación del déficit, porque el crecimiento nominal es bajo y el costo financiero es alto. El CIEP estima que podría <b>rozar 59% del PIB en 2030</b> y Moody's habla de 55% hacia fin de la década. Ninguna de estas trayectorias supone una emergencia: son el resultado aritmético de un déficit de ~4% con crecimiento de 1–2%.</span>
+          <span class="en">SHCP itself projects broad debt will keep rising as a share of GDP in 2026 and 2027 despite the deficit consolidation, because nominal growth is low and the financial cost is high. CIEP estimates it could <b>approach 59% of GDP by 2030</b> and Moody's points to 55% by the end of the decade. None of these paths assumes an emergency: they are the arithmetic of a ~4% deficit with 1–2% growth.</span>
+        </div>
+      </div>
+      <div class="card">
+        <h3><span class="es">Los supuestos macro detrás del Paquete 2027</span><span class="en">The macro assumptions behind the 2027 Package</span></h3>
+        <p class="cap"><span class="es">Dato observado más reciente vs. lo que supone la SHCP vs. lo que esperan los analistas (Encuesta Citi, ago. 2026)</span><span class="en">Latest actual vs. what SHCP assumes vs. what analysts expect (Citi survey, Aug 2026)</span></p>
+        <div class="tblwrap"><table id="tblCgpe"></table></div>
+        <div class="stat-row" style="margin-top:16px">
+          <div class="stat"><div class="v num">$37.2 bn</div><div class="l"><span class="es">PIB nominal 2026 estimado (billones de pesos)</span><span class="en">Estimated 2026 nominal GDP (MXN trillion)</span></div></div>
+          <div class="stat"><div class="v num">3.9%</div><div class="l"><span class="es">RFSP 2027, % del PIB (1.8 puntos menos que en 2024)</span><span class="en">RFSP 2027, % of GDP (1.8 points below 2024)</span></div></div>
+          <div class="stat"><div class="v num">$1.36 bn</div><div class="l"><span class="es">Déficit presupuestario 2027 (3.4% del PIB)</span><span class="en">2027 budget deficit (3.4% of GDP)</span></div></div>
+          <div class="stat"><div class="v num">15.9%</div><div class="l"><span class="es">Recaudación tributaria 2027, % del PIB</span><span class="en">2027 tax revenue, % of GDP</span></div></div>
+        </div>
+        <div class="callout" style="margin-top:14px">
+          <span class="es">El paquete apuesta a que la economía crezca entre 1.5% y 2.5% en 2027, por encima del 1.8% que esperan los analistas, y a un precio de la mezcla mexicana de 61.8 dólares. Un crecimiento menor o un peso más débil que los 18.0 por dólar supuestos elevarían el déficit y la deuda por encima de lo proyectado; el ISR, que cae 6% real en 2026, es el principal riesgo por el lado de los ingresos.</span>
+          <span class="en">The package bets on growth of 1.5%–2.5% in 2027, above the 1.8% analysts expect, and on a Mexican crude basket price of USD 61.8. Weaker growth or a peso softer than the assumed 18.0 per dollar would push the deficit and debt above projections; income tax, down 6% in real terms in 2026, is the main revenue-side risk.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="revenues">
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Ingresos públicos por fuente</span><span class="en">Public revenue by source</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">El ISR y el IVA aportan alrededor de cuatro de cada cinco pesos de recaudación tributaria; el IEPS (gasolinas, tabaco, alcohol, refrescos) es un lejano tercero. Los ingresos petroleros, que en 2008 eran 8% del PIB y un tercio de todos los ingresos, hoy rondan 1% del PIB. Con 14.6% del PIB, la recaudación tributaria de México sigue siendo de las más bajas de la OCDE (promedio 34%) y de América Latina (21.5%).</span>
+      <span class="en">Income tax (ISR) and VAT (IVA) supply roughly four of every five pesos of tax revenue; excise taxes (IEPS on fuel, tobacco, alcohol, soft drinks) are a distant third. Oil revenue, 8% of GDP and a third of all revenue in 2008, is now around 1% of GDP. At 14.6% of GDP, Mexico's tax take remains among the lowest in the OECD (average 34%) and Latin America (21.5%).</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: SHCP, Comunicado 70 y <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2026.pdf" target="_blank" rel="noopener">Ley de Ingresos de la Federación 2026</a>; CIEP · ene–jul 2026 vs. ene–jul 2025</span>
+      <span class="en">Source: SHCP, Press release 70 and <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2026.pdf" target="_blank" rel="noopener">2026 Federal Revenue Law</a>; CIEP · Jan–Jul 2026 vs. Jan–Jul 2025</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Ingresos presupuestarios aprobados para 2026</span><span class="en">Approved budget revenue for 2026</span></h3>
+        <p class="cap"><span class="es">$8.72 billones en total, por fuente, miles de millones de pesos · "otros no petroleros" = no tributarios más ingresos propios de IMSS, ISSSTE y CFE (remanente calculado)</span><span class="en">MXN 8.72 trillion total, by source, MXN billions · "other non-oil" = non-tax revenue plus IMSS, ISSSTE and CFE own revenue (computed remainder)</span></p>
+        <div class="leader-pie-wrap" id="pieRevenue"></div>
+        <p class="chart-src"><span class="es">Fuente: Ley de Ingresos de la Federación 2026 ↗ (ingresos presupuestarios; el total de la LIF, $10.19 billones, incluye además $1.78 billones de endeudamiento)</span><span class="en">Source: 2026 Federal Revenue Law ↗ (budget revenue; the law's headline MXN 10.19 trillion also includes MXN 1.78 trillion of borrowing)</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Recaudación tributaria, enero–julio 2026 vs. 2025</span><span class="en">Tax collection, January–July 2026 vs. 2025</span></h3>
+        <p class="cap"><span class="es">Miles de millones de pesos corrientes · 2025 reconstruido a partir de las variaciones reportadas por la SHCP</span><span class="en">MXN billions, current pesos · 2025 reconstructed from the changes SHCP reported</span></p>
+        <div class="chart-wrap"><canvas id="chartRevYTD"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: SHCP, Comunicado 70; La Razón, Milenio e Infobae (28-ago-2026) ↗</span><span class="en">Source: SHCP, Press release 70; La Razón, Milenio and Infobae (28-Aug-2026) ↗</span></p>
+      </div>
+    </div>
+    <div class="callout" style="margin-top:20px">
+      <span class="es">Entre enero y julio de 2026 los ingresos presupuestarios sumaron <b>$4.996 billones</b>, apenas <b>0.9% real</b> más que un año antes y <b>$170 mil millones por debajo</b> de lo programado en la Ley de Ingresos. El <b>ISR cayó 6% real</b> por menores pagos de las empresas; lo compensaron parcialmente el <b>IVA (+9.9% real, el mayor avance para un periodo similar desde 2021)</b>, el IEPS y los impuestos a las importaciones (+8.1% real). Los ingresos petroleros crecieron 10.7% real en el acumulado (56.6% solo en julio) por mayores precios del crudo.</span>
+      <span class="en">Between January and July 2026 budget revenue totaled <b>MXN 4.996 trillion</b>, only <b>0.9% more in real terms</b> than a year earlier and <b>MXN 170 billion below</b> the Revenue Law program. <b>Income tax fell 6% in real terms</b> on lower corporate payments; <b>VAT (+9.9% real, the strongest for a comparable period since 2021)</b>, excise and import taxes (+8.1% real) partly offset it. Oil revenue rose 10.7% real year-to-date (56.6% in July alone) on higher crude prices.</span>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Ingresos tributarios vs. petroleros, porcentaje del PIB</span><span class="en">Tax vs. oil revenue, percent of GDP</span></h3>
+      <p class="cap"><span class="es">Sector público, años seleccionados 2008–2027 · la reforma fiscal de 2014 y la caída del petróleo invirtieron la mezcla · años marcados ~ = aproximados</span><span class="en">Public sector, selected years 2008–2027 · the 2014 tax reform and the oil slump flipped the mix · years marked ~ = approximate</span></p>
+      <div class="chart-wrap tall"><canvas id="chartRevMix"></canvas></div>
+      <p class="chart-src"><span class="es">Fuente: CIEP, <a href="https://ciep.mx/la-renta-petrolera-en-las-finanzas-publicas-de-mexico/" target="_blank" rel="noopener">"La renta petrolera en las finanzas públicas"</a> e <a href="https://ciep.mx/ingresos-tributarios-no-petroleros/" target="_blank" rel="noopener">"Ingresos tributarios no petroleros"</a>; CGPE 2027 (15.9% en 2027) ↗</span><span class="en">Source: CIEP, <a href="https://ciep.mx/la-renta-petrolera-en-las-finanzas-publicas-de-mexico/" target="_blank" rel="noopener">"Oil rent in public finances"</a> and <a href="https://ciep.mx/ingresos-tributarios-no-petroleros/" target="_blank" rel="noopener">"Non-oil tax revenue"</a>; CGPE 2027 (15.9% in 2027) ↗</span></p>
+    </div>
+    <details class="tbl"><summary><span class="es">Ver tabla de datos completa</span><span class="en">View full data table</span></summary>
+      <div class="tblwrap" id="tblRevenues"></div>
+    </details>
+  </section>
+
+  <section class="block" id="outlays">
+    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Gasto público por rubro</span><span class="en">Public spending by category</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">El presupuesto distingue el gasto <b>programable</b> (lo que el gobierno decide cada año: programas sociales, salud, educación, inversión, Pemex y CFE) del <b>no programable</b> (obligaciones fijas: costo financiero, participaciones a estados y municipios, y adeudos de años anteriores). Pensiones, costo financiero y participaciones — tres rubros que el Ejecutivo casi no puede tocar — ya suman casi la mitad del gasto total.</span>
+      <span class="en">The budget separates <b>programmable</b> spending (what the government chooses each year: social programs, health, education, investment, Pemex and CFE) from <b>non-programmable</b> spending (fixed obligations: financial cost, revenue-sharing transfers to states and municipalities, and prior-year liabilities). Pensions, financial cost and transfers — three lines the Executive can barely touch — already add up to almost half of total spending.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/PEF_2026.pdf" target="_blank" rel="noopener">Presupuesto de Egresos de la Federación 2026</a> (aprobado nov. 2025); SHCP, Comunicado 70 · ene–jul 2026</span>
+      <span class="en">Source: <a href="https://www.diputados.gob.mx/LeyesBiblio/pdf/PEF_2026.pdf" target="_blank" rel="noopener">2026 Federal Expenditure Budget</a> (approved Nov 2025); SHCP, Press release 70 · Jan–Jul 2026</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Gasto neto total aprobado para 2026</span><span class="en">Approved net total spending for 2026</span></h3>
+        <p class="cap"><span class="es">$10.19 billones en total, por rubro, miles de millones de pesos</span><span class="en">MXN 10.19 trillion total, by category, MXN billions</span></p>
+        <div class="leader-pie-wrap" id="pieOutlays"></div>
+        <p class="chart-src"><span class="es">Fuente: PEF 2026 ↗ · costo financiero, participaciones y ADEFAS = gasto no programable ($3.10 billones); pensiones y "resto programable" = gasto programable ($7.09 billones)</span><span class="en">Source: 2026 Budget ↗ · financial cost, transfers and ADEFAS = non-programmable spending (MXN 3.10 trillion); pensions and "rest of programmable" = programmable spending (MXN 7.09 trillion)</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Cómo va el gasto en 2026</span><span class="en">How spending is tracking in 2026</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">$5.742 bn</div><div class="l"><span class="es">Gasto neto pagado ene–jul 2026 ($438 mmdp por debajo del programa)</span><span class="en">Net spending Jan–Jul 2026 (MXN 438bn below program)</span></div></div>
+          <div class="stat"><div class="v num">~$1.0 bn</div><div class="l"><span class="es">Pensiones contributivas ene–jul (+5% real; récord para el periodo)</span><span class="en">Contributory pensions Jan–Jul (+5% real; record for the period)</span></div></div>
+          <div class="stat"><div class="v num">$454 mmdp</div><div class="l"><span class="es">Inversión física ene–jul (−1.2% real, segundo año de caída)</span><span class="en">Physical investment Jan–Jul (−1.2% real, second year of decline)</span></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">−$746 mmdp</div><div class="l"><span class="es">Déficit presupuestario ene–jul ($268 mmdp menor al previsto)</span><span class="en">Budget deficit Jan–Jul (MXN 268bn smaller than planned)</span></div></div>
+          <div class="stat"><div class="v num">+$13 mmdp</div><div class="l"><span class="es">Superávit primario ene–jul (antes de intereses)</span><span class="en">Primary surplus Jan–Jul (before interest)</span></div></div>
+          <div class="stat"><div class="v num">$727.5 mmdp</div><div class="l"><span class="es">RFSP ene–jul (≈$40 mmdp más que en 2025)</span><span class="en">RFSP Jan–Jul (≈MXN 40bn more than in 2025)</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">Las pensiones contributivas del Gobierno Federal absorbieron en enero–julio de 2026 <b>una de cada cinco pesos</b> de ingresos presupuestarios: el 29% de la recaudación tributaria, el 56% del ISR y el 95% del IVA. Como pensiones, costo financiero y participaciones crecen más rápido que los ingresos, el ajuste recae en el gasto discrecional, sobre todo la inversión física.</span>
+          <span class="en">In January–July 2026 the Federal Government's contributory pensions absorbed <b>one of every five pesos</b> of budget revenue: 29% of tax collection, 56% of income tax and 95% of VAT. Because pensions, financial cost and transfers grow faster than revenue, the adjustment falls on discretionary spending, above all physical investment.</span>
+        </div>
+      </div>
+    </div>
+    <details class="tbl"><summary><span class="es">Ver tabla de datos completa</span><span class="en">View full data table</span></summary>
+      <div class="tblwrap" id="tblOutlays"></div>
+    </details>
+  </section>
+
+  <section class="block" id="pemex">
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Pemex: el pasivo contingente</span><span class="en">Pemex: the contingent liability</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Petróleos Mexicanos es la petrolera más endeudada del mundo y, desde 2019, el mayor riesgo para las finanzas públicas: el gobierno ha transferido cerca de $1.9 billones de pesos para sostenerla, y las calificadoras citan ese apoyo como motivo de rebaja soberana. En 2025 la SHCP cambió de estrategia con un vehículo fuera de balance (las notas precapitalizadas "P-Caps") y Pemex ha reducido su deuda financiera al nivel más bajo en once años.</span>
+      <span class="en">Petróleos Mexicanos is the world's most indebted oil company and, since 2019, the biggest risk to public finances: the government has transferred close to MXN 1.9 trillion to keep it afloat, and rating agencies cite that support in sovereign downgrades. In 2025 SHCP changed tack with an off-balance-sheet vehicle (the "P-Caps" pre-capitalized notes), and Pemex has cut its financial debt to the lowest level in eleven years.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: <a href="https://www.pemex.com/ri/finanzas/Paginas/default.aspx" target="_blank" rel="noopener">Pemex, Relación con Inversionistas</a> (reporte 2T26, 31-jul-2026); SHCP, Pre-Criterios 2027; El Financiero; LatinFinance</span>
+      <span class="en">Source: <a href="https://www.pemex.com/ri/finanzas/Paginas/default.aspx" target="_blank" rel="noopener">Pemex, Investor Relations</a> (Q2 2026 report, 31-Jul-2026); SHCP, Pre-Criteria 2027; El Financiero; LatinFinance</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Deuda financiera de Pemex</span><span class="en">Pemex financial debt</span></h3>
+        <p class="cap"><span class="es">Miles de millones de dólares, cierre de año y último trimestre · años marcados ~ = aproximados</span><span class="en">USD billions, year-end and latest quarter · years marked ~ = approximate</span></p>
+        <div class="chart-wrap"><canvas id="chartPemex"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: Pemex, reportes trimestrales no dictaminados ↗; La Jornada 5-feb-2026 (cierre 2025)</span><span class="en">Source: Pemex, unaudited quarterly reports ↗; La Jornada 5-Feb-2026 (end-2025)</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">El apoyo fiscal, en cifras</span><span class="en">The fiscal support, in numbers</span></h3>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">US$77.5 mmd</div><div class="l"><span class="es">Deuda financiera al 30-jun-2026 (−9.1% vs. cierre de 2025)</span><span class="en">Financial debt at 30-Jun-2026 (−9.1% vs. end-2025)</span></div></div>
+          <div class="stat"><div class="v num">$396 mmdp</div><div class="l"><span class="es">Apoyo del Gobierno Federal en 2025</span><span class="en">Federal Government support in 2025</span></div></div>
+          <div class="stat"><div class="v num">$100 mmdp</div><div class="l"><span class="es">Aportaciones de capital, 1er semestre de 2026 (tope 2026: $177 mmdp)</span><span class="en">Capital contributions, H1 2026 (2026 cap: MXN 177bn)</span></div></div>
+        </div>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">US$12 mmd</div><div class="l"><span class="es">P-Caps emitidas por la SHCP vía Eagle Funding LuxCo (jul. 2025, cupón 5.50%, vencen 17-ago-2030)</span><span class="en">P-Caps issued by SHCP via Eagle Funding LuxCo (Jul 2025, 5.50% coupon, due 17-Aug-2030)</span></div></div>
+          <div class="stat"><div class="v num">US$18.7 mmd</div><div class="l"><span class="es">Vencimientos de deuda de Pemex en 2026</span><span class="en">Pemex debt maturities in 2026</span></div></div>
+          <div class="stat"><div class="v num">$517 mmdp</div><div class="l"><span class="es">Adeudo con proveedores, récord (3T25)</span><span class="en">Owed to suppliers, record (Q3 2025)</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es"><b>¿Cómo funcionan las P-Caps?</b> Un vehículo en Luxemburgo colocó 12 mil millones de dólares en notas a 5 años; con el dinero compró bonos del Tesoro de EE. UU. que presta a Pemex a cambio de una comisión, y Pemex los vende para obtener liquidez y pagar a acreedores. Como la deuda es del vehículo y no del Gobierno, no cuenta en la deuda pública, aunque las calificadoras (Fitch subió a Pemex de B+ a BB) sí la tratan como apoyo soberano. En el 2T26 Pemex reportó utilidad neta de $18 mmdp y ventas de $510 mmdp, las mayores en 14 trimestres, pero el Paquete 2027 mantiene apoyos pese a la promesa de "autosuficiencia".</span>
+          <span class="en"><b>How do the P-Caps work?</b> A Luxembourg vehicle sold USD 12 billion of 5-year notes; with the proceeds it bought U.S. Treasuries that it lends to Pemex for a fee, and Pemex sells them to raise cash and pay creditors. Because the debt belongs to the vehicle, not the Government, it does not count as public debt, though rating agencies (Fitch lifted Pemex from B+ to BB) treat it as sovereign support. In Q2 2026 Pemex reported net profit of MXN 18bn and sales of MXN 510bn, the highest in 14 quarters, yet the 2027 Package keeps support flowing despite the "self-sufficiency" pledge.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap part-divider" style="padding-left:0; padding-right:0;">
+    <span class="tag"><span class="es">Parte II · Política monetaria</span><span class="en">Part II · Monetary policy</span></span>
+    <p class="txt">
+      <span class="es">Todo lo anterior es política <i>fiscal</i>: decisiones de impuestos, endeudamiento y gasto del Ejecutivo y el Congreso. El Banco de México es autónomo desde 1994 y tiene un mandato único, la estabilidad de precios: fija la tasa de interés de un día, administra las reservas internacionales y, a diferencia de la Fed, casi no compra deuda del gobierno. Con ello determina el costo de fondeo en pesos de la deuda de arriba (Sección 04) y, vía el tipo de cambio, el valor en pesos de la deuda externa (Sección 05).</span>
+      <span class="en">Everything above is <i>fiscal</i> policy: tax, borrowing and spending decisions by the Executive and Congress. Banco de México has been autonomous since 1994 with a single mandate, price stability: it sets the overnight rate, manages international reserves and, unlike the Fed, buys almost no government debt. In doing so it sets the peso funding cost of the debt above (Section 04) and, through the exchange rate, the peso value of external debt (Section 05).</span>
+    </p>
+  </div>
+
+  <section class="block" id="banxico">
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">El balance del Banco de México</span><span class="en">Banco de México's balance sheet</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">El activo de Banxico es, casi por completo, la reserva internacional: dólares, oro y otros activos externos que respaldan al peso. Del lado del pasivo están la base monetaria (billetes y monedas más los depósitos de los bancos en Banxico), los depósitos de regulación monetaria y la cuenta del Gobierno Federal. Cada semana el banco publica su estado de cuenta.</span>
+      <span class="en">Banxico's assets are almost entirely the international reserve: dollars, gold and other external assets backing the peso. On the liability side sit the monetary base (notes and coins plus banks' deposits at Banxico), monetary-regulation deposits and the Federal Government's account. The bank publishes its statement every week.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: Banco de México, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/estado-de-cuenta-semanal/estado-cuenta-semanal-reserva.html" target="_blank" rel="noopener">Estado de cuenta semanal</a> y <a href="https://www.banxico.org.mx/publicaciones-y-prensa/balanza-de-pagos/" target="_blank" rel="noopener">Balanza de pagos en 2025</a> · reservas al <span data-bind="reservesAsOfEs">4 de sep. de 2026</span> (semanal); base monetaria al 4-sep-2026</span>
+      <span class="en">Source: Banco de México, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/estado-de-cuenta-semanal/estado-cuenta-semanal-reserva.html" target="_blank" rel="noopener">Weekly statement</a> and <a href="https://www.banxico.org.mx/publicaciones-y-prensa/balanza-de-pagos/" target="_blank" rel="noopener">Balance of payments in 2025</a> · reserves as of <span data-bind="reservesAsOfEn">04-Sep-2026</span> (weekly); monetary base as of 04-Sep-2026</span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Reserva internacional</span><span class="en">International reserve</span></h3>
+        <p class="cap"><span class="es">Miles de millones de dólares, cierre de año 2008–2025 y último dato semanal · años anteriores a 2023 marcados ~ = redondeados</span><span class="en">USD billions, year-end 2008–2025 and latest weekly reading · years before 2023 marked ~ = rounded</span></p>
+        <div class="chart-wrap tall"><canvas id="chartReserves"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: Banxico, serie SIE <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF106&locale=es&sector=4" target="_blank" rel="noopener">SF43707, Reservas internacionales ↗</a></span><span class="en">Source: Banxico, SIE series <a href="https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=CF106&locale=es&sector=4" target="_blank" rel="noopener">SF43707, International reserves ↗</a></span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">El balance hoy, simplificado</span><span class="en">The balance sheet today, simplified</span></h3>
+        <p class="cap"><span class="es">Partidas principales, miles de millones de pesos · reserva convertida al tipo de cambio FIX vigente</span><span class="en">Main items, MXN billions · reserve converted at the current FIX rate</span></p>
+        <div class="tacct">
+          <div class="side" id="tacctAssets"></div>
+          <div class="side" id="tacctLiab"></div>
+        </div>
+        <div class="stat-row" style="margin-top:14px">
+          <div class="stat"><div class="v num" data-bind="reservesUsd">US$258.0 mmd</div><div class="l"><span class="es">Reserva internacional, <span data-bind="reservesAsOfEs">4 de sep. de 2026</span></span><span class="en">International reserve, <span data-bind="reservesAsOfEn">04-Sep-2026</span></span></div></div>
+          <div class="stat"><div class="v num" data-bind="baseMonBn">$3.52 bn</div><div class="l"><span class="es">Base monetaria (billones de pesos)</span><span class="en">Monetary base (MXN trillion)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="reserveCover">125%</div><div class="l"><span class="es">Reserva ÷ base monetaria</span><span class="en">Reserve ÷ monetary base</span></div></div>
+        </div>
+        <div class="callout">
+          <span class="es">2025 fue el año de <b>mayor acumulación de reservas desde que hay registro (1995)</b>: +22.9 mil millones de dólares, hasta 251.9 mil millones, sin que Banxico comprara dólares en el mercado. La reserva crece sobre todo por las ventas de dólares de Pemex al banco central y por el rendimiento de los propios activos; en 2026 suma otros +6.2 mil millones.</span>
+          <span class="en">2025 saw the <b>largest reserve accumulation on record (since 1995)</b>: +USD 22.9 billion, to USD 251.9 billion, without Banxico buying dollars in the market. The reserve grows mainly from Pemex's dollar sales to the central bank and from the return on the assets themselves; 2026 has added another +USD 6.2 billion.</span>
+        </div>
+        <div class="callout">
+          <span class="es"><b>A diferencia de la Fed</b>, Banxico no hace "QE": no compra bonos del gobierno para inyectar dinero. Su balance crece con las reservas y con la demanda de billetes, y esteriliza el exceso de liquidez con depósitos de regulación monetaria y Bondes F (~$515 mmdp en circulación a mediados de 2026). Desde el 17 de agosto de 2026 puede, por primera vez, comprar Cetes y Bondes F en el mercado secundario (Circular 8/2026), pero solo con fines de liquidez y con un tope de $100 mmdp.</span>
+          <span class="en"><b>Unlike the Fed</b>, Banxico does no "QE": it does not buy government bonds to inject money. Its balance sheet grows with reserves and with demand for banknotes, and it sterilizes excess liquidity with monetary-regulation deposits and Bondes F (~MXN 515bn outstanding in mid-2026). Since 17 August 2026 it can, for the first time, buy Cetes and Bondes F in the secondary market (Circular 8/2026), but only for liquidity purposes and capped at MXN 100bn.</span>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Tipo de cambio FIX, pesos por dólar</span><span class="en">FIX exchange rate, pesos per dollar</span></h3>
+      <p class="cap"><span class="es">Cierre de año 2008–2025 y último dato diario · años anteriores a 2023 marcados ~ = redondeados</span><span class="en">Year-end 2008–2025 and latest daily reading · years before 2023 marked ~ = rounded</span></p>
+      <div class="chart-wrap"><canvas id="chartFx"></canvas></div>
+      <p class="chart-src"><span class="es">Fuente: Banxico, serie SIE <a href="https://www.banxico.org.mx/tipcamb/main.do?page=tip&idioma=sp" target="_blank" rel="noopener">SF43718, Tipo de cambio FIX ↗</a></span><span class="en">Source: Banxico, SIE series <a href="https://www.banxico.org.mx/tipcamb/main.do?page=tip&idioma=sp" target="_blank" rel="noopener">SF43718, FIX exchange rate ↗</a></span></p>
+      <div class="callout">
+        <span class="es">El peso cerró 2025 en <b>18.00 por dólar</b>, una apreciación de 13.4% en el año, la mayor desde que flota (1994), y en septiembre de 2026 cotiza cerca de <b><span data-bind="fxNow">17.0</span></b>. Un "superpeso" abarata la deuda externa en pesos y el costo financiero, pero también reduce en pesos los ingresos petroleros y las remesas.</span>
+        <span class="en">The peso closed 2025 at <b>18.00 per dollar</b>, a 13.4% appreciation on the year, the largest since it began floating (1994), and trades near <b><span data-bind="fxNow">17.0</span></b> in September 2026. A "super peso" makes external debt and the financial cost cheaper in pesos, but it also shrinks peso-denominated oil revenue and remittances.</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="policyrates">
+    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">La tasa objetivo y su corredor</span><span class="en">The policy rate and its corridor</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Desde 2008 Banxico opera con un <b>objetivo para la Tasa de Interés Interbancaria a un día</b>. La Junta de Gobierno (cinco miembros) lo revisa ocho veces al año, en fechas alineadas con la Reserva Federal. Tras subir hasta 11.25% en 2023 para contener la inflación pospandemia, el banco recortó 475 puntos base entre marzo de 2024 y mayo de 2026 y desde entonces está en pausa.</span>
+      <span class="en">Since 2008 Banxico has operated with a <b>target for the overnight interbank rate</b>. The five-member Board reviews it eight times a year, on dates aligned with the Federal Reserve. After raising it to 11.25% in 2023 to contain post-pandemic inflation, the bank cut 475 basis points between March 2024 and May 2026 and has been on hold since.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: Banco de México, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html" target="_blank" rel="noopener">Anuncios de política monetaria</a>; series SIE SF61745 (tasa objetivo), SF43783 (TIIE 28 días), SF43936 (Cetes 28 días) · tasas al <span data-bind="ratesAsOfEs">9 de sep. de 2026</span></span>
+      <span class="en">Source: Banco de México, <a href="https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html" target="_blank" rel="noopener">Monetary policy announcements</a>; SIE series SF61745 (target rate), SF43783 (28-day TIIE), SF43936 (28-day Cetes) · rates as of <span data-bind="ratesAsOfEn">09-Sep-2026</span></span>
+    </p>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Tasa objetivo de Banxico</span><span class="en">Banxico target rate</span></h3>
+        <p class="cap"><span class="es">Cierre de año, porcentaje, 2008–2025 y nivel actual</span><span class="en">Year-end, percent, 2008–2025 and current level</span></p>
+        <div class="chart-wrap"><canvas id="chartPolicyRate"></canvas></div>
+        <p class="chart-src"><span class="es">Fuente: Banxico, serie SIE SF61745 ↗</span><span class="en">Source: Banxico, SIE series SF61745 ↗</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">El corredor de tasas hoy</span><span class="en">Today's rate corridor</span></h3>
+        <p class="cap"><span class="es">Dónde se ubica cada tasa de corto plazo, porcentaje</span><span class="en">Where each short-term rate sits, percent</span></p>
+        <div class="corridor" id="corridorWrap"></div>
+        <div class="callout">
+          <span class="es">Banxico no defiende un rango, sino un <b>nivel puntual</b> (hoy <b data-bind="targetRate">6.50%</b>): inyecta o retira liquidez cada día para que la tasa de fondeo interbancario cierre en el objetivo. La <b>TIIE a 28 días</b>, referencia de la mayoría de los créditos, y los <b>Cetes a 28 días</b> orbitan ese nivel. Con inflación de 3.26% (ago. 2026), la tasa real ex ante ronda 3.2%, todavía restrictiva. La diferencia frente a la tasa de fondos federales de EE. UU. (3.63%) es de unos 290 puntos base, el "carry" que sostiene al peso.</span>
+          <span class="en">Banxico defends a <b>single level</b> rather than a range (today <b data-bind="targetRate">6.50%</b>): it injects or drains liquidity daily so the interbank funding rate settles at the target. The <b>28-day TIIE</b>, the benchmark for most loans, and <b>28-day Cetes</b> orbit that level. With inflation at 3.26% (Aug 2026), the ex-ante real rate is about 3.2%, still restrictive. The gap to the U.S. fed funds rate (3.63%) is roughly 290 basis points, the "carry" that supports the peso.</span>
+        </div>
+      </div>
+    </div>
+    <div class="grid-2" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Las decisiones de 2026</span><span class="en">The 2026 decisions</span></h3>
+        <p class="cap"><span class="es">Ocho anuncios programados, jueves a las 13:00; calendario alineado con el FOMC</span><span class="en">Eight scheduled announcements, Thursdays at 13:00; calendar aligned with the FOMC</span></p>
+        <div class="tblwrap" id="tblDecisions"></div>
+        <p class="chart-src"><span class="es">Fuente: Banxico, anuncios de política monetaria de 2026 ↗ · fechas de noviembre y diciembre según el calendario oficial 2026</span><span class="en">Source: Banxico, 2026 monetary policy announcements ↗ · November and December dates per the official 2026 calendar</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Qué esperan los analistas</span><span class="en">What analysts expect</span></h3>
+        <p class="cap"><span class="es">Encuesta Citi de expectativas, agosto de 2026: 35 instituciones sobre el próximo movimiento de Banxico</span><span class="en">Citi expectations survey, August 2026: 35 institutions on Banxico's next move</span></p>
+        <div class="chart-wrap short"><canvas id="chartExpectations"></canvas></div>
+        <div class="stat-row">
+          <div class="stat"><div class="v num">6.50%</div><div class="l"><span class="es">Tasa esperada al cierre de 2026 y de 2027 (mediana)</span><span class="en">Expected rate at end-2026 and end-2027 (median)</span></div></div>
+          <div class="stat"><div class="v num">4.15% → 3.84%</div><div class="l"><span class="es">Inflación esperada, cierre 2026 → 2027</span><span class="en">Expected inflation, end-2026 → 2027</span></div></div>
+          <div class="stat"><div class="v num">17.92 → 18.50</div><div class="l"><span class="es">Tipo de cambio esperado, cierre 2026 → 2027</span><span class="en">Expected exchange rate, end-2026 → 2027</span></div></div>
+        </div>
+        <p class="chart-src"><span class="es">Fuente: Encuesta Citi México de expectativas (ago. 2026), vía El Financiero; Banxico, Encuesta sobre las expectativas de los especialistas ↗ · a diferencia del FedWatch de CME, no hay una probabilidad implícita en futuros de libre acceso para México; la encuesta es el sustituto más cercano</span><span class="en">Source: Citi Mexico expectations survey (Aug 2026), via El Financiero; Banxico, Survey of analysts' expectations ↗ · unlike CME's FedWatch there is no freely available futures-implied probability for Mexico; the survey is the closest substitute</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="block" id="instruments">
+    <div class="sec-head"><span class="sec-num">12</span><h2><span class="es">Instrumentos de política monetaria</span><span class="en">Monetary policy instruments</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Banxico opera con un esquema de "saldos cero": cada día compensa la liquidez del sistema para que las cuentas corrientes de los bancos cierren en cero y la tasa de fondeo se ubique en el objetivo. Las herramientas se resumen aquí, junto con las líneas de defensa del peso.</span>
+      <span class="en">Banxico runs a "zero-balance" framework: every day it offsets system liquidity so that banks' current accounts close at zero and the funding rate settles at the target. The tools are summarized here, together with the peso's lines of defense.</span>
+    </p>
+    <p class="sec-meta">
+      <span class="es">Fuente: Banco de México, <a href="https://www.banxico.org.mx/politica-monetaria/" target="_blank" rel="noopener">Política monetaria e instrumentación</a>, Programa Monetario 2026 y Circular 8/2026</span>
+      <span class="en">Source: Banco de México, <a href="https://www.banxico.org.mx/politica-monetaria/" target="_blank" rel="noopener">Monetary policy and implementation</a>, 2026 Monetary Program and Circular 8/2026</span>
+    </p>
+    <div class="instr-grid" id="mpInstrGrid"></div>
+  </section>
+
+</main>
+
+<footer id="sources">
+  <div class="wrap">
+    <h3><span class="es">Fuentes y fecha de los datos</span><span class="en">Sources &amp; data vintage</span></h3>
+    <div class="src-grid" id="srcGrid"></div>
+    <p class="fine">
+      <span class="es">Este panel combina tres cadencias. Los indicadores de Banxico marcados "en vivo" (tasa objetivo, tipo de cambio FIX, reservas, TIIE, Cetes, UDI) se actualizan cada día hábil con el <a href="https://www.banxico.org.mx/SieAPIRest/service/v1/" target="_blank" rel="noopener">API del SIE</a>. Las cifras de finanzas públicas se revisan cada mes tras el comunicado de la SHCP (normalmente el último día hábil del mes siguiente) mediante una solicitud de cambios revisada por una persona. Las series históricas y las proyecciones se actualizan con cada Informe Trimestral y con el Paquete Económico. Las cifras pueden no sumar exactamente por redondeo; "billones" sigue el uso mexicano (10¹²) y "mmdp" significa miles de millones de pesos. Esta página es informativa y no es material oficial del Gobierno de México ni del Banco de México.</span>
+      <span class="en">This dashboard blends three cadences. Banxico indicators marked "live" (policy rate, FIX exchange rate, reserves, TIIE, Cetes, UDI) update every business day from the <a href="https://www.banxico.org.mx/SieAPIRest/service/v1/" target="_blank" rel="noopener">SIE API</a>. Public-finance figures are reviewed monthly after SHCP's release (normally the last business day of the following month) through a human-reviewed pull request. Historical series and projections update with each Quarterly Report and the Economic Package. Figures may not sum exactly due to rounding; in the English version "trillion" means 10¹² and "bn" means billions (10⁹) of pesos. This page is informational and is not official material of the Government of Mexico or Banco de México.</span>
+    </p>
+    <p class="fine">
+      <span class="es">La versión en inglés es una traducción completa de los mismos datos, fuentes y cálculos que la versión en español — ambas se generan a partir de un único conjunto de cifras, así que nunca deberían discrepar; si encuentra una discrepancia, es un error de traducción y vale la pena reportarlo.</span>
+      <span class="en">The English version is a full translation of the same data, sources and calculations as the Spanish version — both are generated from one shared set of figures, so the two are never meant to disagree; if you find a discrepancy, it is a translation bug and worth flagging.</span>
+    </p>
+    <p class="fine"><span class="es">Elaborado por Claude para FNAM · panorama inicial generado el 12 de septiembre de 2026</span><span class="en">Built by Claude for FNAM · initial snapshot generated 12-Sep-2026</span></p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  // ---------------- Language ----------------
+  // Spanish (es-MX) is the default. An explicit ?lang=en, or the choice stored by the landing
+  // page under the shared "fnam-lang" key, switches to English. Both languages are rendered from
+  // ONE set of figures below — only labels are translated.
+  var LANG_KEY = 'fnam-lang';
+  function detectLang(){
+    try{
+      var q = new URLSearchParams(location.search).get('lang');
+      if(q === 'en' || q === 'es') return q;
+      var stored = localStorage.getItem(LANG_KEY);
+      if(stored === 'en') return 'en';
+    }catch(e){}
+    return 'es';
+  }
+  var LANG = detectLang();
+  // Spanish string -> English string. Applied to every chart/table label at render time.
+  // Numbers are NEVER stored here — they live only in the data arrays below, shared by both languages.
+  var EN_STR = {
+    "Deuda amplia (SHRFSP)":"Broad debt (SHRFSP)", "billones de pesos":"MXN trillion", "SHRFSP ÷ PIB":"SHRFSP ÷ GDP",
+    "50.4% al cierre de 2025":"50.4% at end-2025", "Costo financiero 2026":"Financial cost 2026", "4.1% del PIB · PEF 2026":"4.1% of GDP · 2026 budget",
+    "Tasa objetivo Banxico":"Banxico target rate", "sin cambio desde el 7-may-2026":"unchanged since 07-May-2026",
+    "Tipo de cambio FIX":"FIX exchange rate", "pesos por dólar":"pesos per dollar",
+    "Deuda (SHRFSP)":"Debt (SHRFSP)", "Tenedores":"Holders", "Plazos":"Maturity", "Costo financiero":"Cost of debt",
+    "Ingresos y gasto":"Revenue & spending", "Proyecciones":"Projections", "Banxico":"Banxico", "Tipo de cambio":"Exchange rate",
+    "(mensual, SHCP)":"(monthly, SHCP)", "(Banxico, mensual)":"(Banxico, monthly)", "PAF 2026 (dic. 2025)":"PAF 2026 (Dec 2025)",
+    "PEF 2026; ejercido ene–jul 2026":"2026 budget; outturn Jan–Jul 2026", "CGPE 2027 (8-sep-2026)":"CGPE 2027 (08-Sep-2026)",
+    "decisión 6-ago-2026; reservas":"decision 06-Aug-2026; reserves", "(diario)":"(daily)", "(semanal)":"(weekly)",
+    "SHRFSP, % del PIB":"SHRFSP, % of GDP", "RFSP, % del PIB":"RFSP, % of GDP", "Estimación SHCP":"SHCP estimate", "Observado":"Actual",
+    "Año":"Year", "Periodo":"Period", "Valor":"Value", "Nota":"Note", "aproximado":"approximate", "estimación":"estimate", "dato oficial":"official figure", "no localizado":"not located",
+    "Sexenio":"Administration", "Cierre":"End of term", "SHRFSP, % PIB":"SHRFSP, % GDP", "Cambio (puntos)":"Change (points)",
+    "Fox (2000–2006)":"Fox (2000–2006)", "Calderón (2006–2012)":"Calderón (2006–2012)", "Peña Nieto (2012–2018)":"Peña Nieto (2012–2018)",
+    "López Obrador (2018–2024)":"López Obrador (2018–2024)", "Sheinbaum (2024– ), a jul. 2026":"Sheinbaum (2024– ), as of Jul 2026",
+    "Residentes en el extranjero":"Non-residents", "Siefores (ahorro para el retiro)":"Siefores (pension funds)", "Sociedades de inversión":"Mutual funds",
+    "Otros residentes (bancos, aseguradoras, Banxico, otros)":"Other residents (banks, insurers, Banxico, others)",
+    "Sector tenedor":"Holder sector", "Monto":"Amount", "% del total":"% of total", "Total en circulación":"Total outstanding",
+    "Amortizaciones":"Amortizations", "vence en":"matures in", "Cetes (≤ 2 años)":"Cetes (≤ 2 years)", "Bondes F (tasa revisable)":"Bondes F (floating rate)",
+    "Bonos M (tasa fija nominal)":"Bonos M (nominal fixed rate)", "Udibonos (tasa fija real)":"Udibonos (real fixed rate)", "Bonos UMS (mercado externo)":"UMS bonds (external market)",
+    "Desde 1978":"Since 1978", "Desde 2006 (Bondes D); F desde 2021":"Since 2006 (Bondes D); F since 2021", "Desde 2000":"Since 2000", "Desde 1996":"Since 1996", "Desde los años 90":"Since the 1990s",
+    "Certificados de la Tesorería: se venden a descuento a 28, 91, 182, 364 y 728 días; son el instrumento de referencia de corto plazo, el que compra el público en Cetesdirecto y el que más han comprado los extranjeros en 2026.":"Treasury certificates sold at a discount for 28, 91, 182, 364 and 728 days; the short-term benchmark, what the public buys on Cetesdirecto and the instrument foreigners bought most in 2026.",
+    "Bonos de desarrollo con cupón que se revisa cada día con la tasa de fondeo; también los emite Banxico con fines de regulación monetaria. Casi sin riesgo de tasa para el tenedor, pero trasladan de inmediato cualquier cambio de la tasa objetivo al costo del gobierno.":"Development bonds whose coupon resets daily with the funding rate; Banxico also issues them for monetary regulation. Almost no rate risk for the holder, but they pass any change in the target rate straight through to the government's cost.",
+    "Bonos a tasa fija en pesos de 3 a 30 años, la columna vertebral del mercado local y el instrumento que Siefores y extranjeros más tienen. Su rendimiento a 10 años es la referencia del costo de la deuda de largo plazo.":"Fixed-rate peso bonds from 3 to 30 years, the backbone of the local market and the instrument Siefores and foreigners hold most. The 10-year yield is the benchmark for long-term borrowing costs.",
+    "Bonos indexados a la inflación (UDI) de 3 a 30 años: pagan una tasa real fija y el principal se ajusta con el INPC. Protegen a los fondos de pensiones y trasladan al gobierno el riesgo de inflación.":"Inflation-linked (UDI) bonds from 3 to 30 years: they pay a fixed real rate and the principal adjusts with the CPI. They protect pension funds and shift inflation risk to the government.",
+    "Bonos de los Estados Unidos Mexicanos en dólares, euros y yenes, más créditos del Banco Mundial, el BID y otros organismos. El PAF 2026 los limita a 15.8% de la deuda total; en julio de 2026 la SHCP recompró anticipadamente US$5.9 mmd.":"United Mexican States bonds in dollars, euros and yen, plus loans from the World Bank, IDB and other agencies. PAF 2026 caps them at 15.8% of total debt; in July 2026 SHCP bought back USD 5.9bn early.",
+    "Cetes a 28 días, subasta del 1-sep-2026 (en vivo)":"28-day Cetes, 01-Sep-2026 auction (live)", "rango semanal de colocación":"weekly issuance range", "Bono M a 10 años, mar. 2026 (~)":"10-year Bono M, Mar 2026 (~)",
+    "plazos vigentes":"current tenors", "de la deuda total, tope del PAF 2026":"of total debt, PAF 2026 ceiling",
+    "Costo financiero, % del PIB":"Financial cost, % of GDP", "Deuda interna":"Domestic debt", "Deuda externa":"External debt", "Componente":"Component",
+    "Deuda bruta del sector público federal":"Gross federal public-sector debt", "deuda bruta SPF":"gross federal public-sector debt",
+    "Ingresos tributarios":"Tax revenue", "Ingresos petroleros":"Oil revenue", "Otros no petroleros (no tributarios, IMSS, ISSSTE, CFE)":"Other non-oil (non-tax, IMSS, ISSSTE, CFE)",
+    "ingresos presupuestarios 2026":"2026 budget revenue", "ISR":"Income tax (ISR)", "IVA":"VAT (IVA)", "IEPS":"Excise (IEPS)", "Otros tributarios":"Other taxes",
+    "ene–jul 2026":"Jan–Jul 2026", "ene–jul 2025 (reconstruido)":"Jan–Jul 2025 (reconstructed)",
+    "Tributarios, % del PIB":"Tax revenue, % of GDP", "Renta petrolera, % del PIB (CIEP)":"Oil rent, % of GDP (CIEP)",
+    "Concepto":"Item", "LIF 2026 aprobado":"2026 Revenue Law", "Total ingresos presupuestarios":"Total budget revenue", "Total tributarios":"Total tax revenue",
+    "Pensiones y jubilaciones":"Pensions", "Participaciones a estados y municipios":"Transfers to states & municipalities", "ADEFAS (adeudos de años anteriores)":"ADEFAS (prior-year liabilities)",
+    "Resto del gasto programable (salud, educación, programas sociales, inversión, Pemex, CFE)":"Rest of programmable spending (health, education, social programs, investment, Pemex, CFE)",
+    "gasto neto total 2026":"2026 net total spending", "Rubro":"Category", "PEF 2026 aprobado":"2026 approved budget", "Gasto neto total":"Net total spending",
+    "Gasto programable":"Programmable spending", "Gasto no programable":"Non-programmable spending",
+    "Deuda financiera de Pemex":"Pemex financial debt", "Reserva internacional":"International reserve", "Base monetaria":"Monetary base",
+    "Activos":"Assets", "Pasivos":"Liabilities", "Reserva internacional (a tipo de cambio FIX)":"International reserve (at FIX rate)",
+    "Otros activos (crédito interno, valores, otros)":"Other assets (domestic credit, securities, other)", "Depósitos de regulación monetaria y Bondes F":"Monetary-regulation deposits and Bondes F",
+    "Cuenta corriente del Gobierno Federal y otros pasivos":"Federal Government current account and other liabilities", "Total conocido":"Known total",
+    "n.d.":"n/a", "pesos por dólar (FIX)":"pesos per dollar (FIX)", "Tasa objetivo":"Target rate", "TIIE 28 días":"28-day TIIE", "Cetes 28 días":"28-day Cetes", "Cetes 364 días":"364-day Cetes",
+    "objetivo de Banxico":"Banxico target", "referencia de créditos":"loan benchmark", "subasta primaria":"primary auction", "un año":"one year",
+    "Fecha":"Date", "Decisión":"Decision", "Tasa":"Rate", "Votación":"Vote", "Sin cambio":"Hold", "Recorte de 25 pb":"25 bp cut", "Próxima reunión":"Next meeting", "Programada":"Scheduled",
+    "Unánime":"Unanimous", "Mayoría":"Majority", "—":"—",
+    "Mantener en 6.50%":"Hold at 6.50%", "Subir":"Hike", "Recortar":"Cut", "instituciones":"institutions",
+    "Tasa objetivo para la TIIE a un día":"Overnight interbank rate target", "Operaciones de mercado abierto":"Open market operations", "Depósitos de regulación monetaria":"Monetary-regulation deposits",
+    "Bondes F de regulación monetaria":"Monetary-regulation Bondes F", "Compras en el mercado secundario":"Secondary-market purchases", "Coberturas cambiarias y Comisión de Cambios":"FX hedges and the Exchange Commission",
+    "Líneas de defensa externas":"External lines of defense",
+    "Desde ene. 2008":"Since Jan 2008", "Esquema de saldos cero":"Zero-balance scheme", "Desde 2006":"Since 2006", "Desde 2021":"Since 2021", "Desde el 17-ago-2026":"Since 17-Aug-2026", "Desde feb. 2017":"Since Feb 2017", "FCL desde 2009":"FCL since 2009",
+    "La herramienta principal: un nivel puntual para la tasa de fondeo interbancario a un día, revisado ocho veces al año por la Junta de Gobierno. Banxico lo alcanza compensando cada día la liquidez del sistema.":"The main tool: a point target for the overnight interbank funding rate, reviewed eight times a year by the Board. Banxico hits it by offsetting system liquidity every day.",
+    "Subastas diarias de crédito o de depósito con los bancos, garantizadas con valores, para que las cuentas corrientes en Banxico cierren en cero. Es el equivalente operativo de las operaciones de la Fed, pero a un día y sin compras permanentes de bonos.":"Daily credit or deposit auctions with banks, collateralized with securities, so that current accounts at Banxico close at zero. The operational equivalent of the Fed's operations, but overnight and with no permanent bond purchases.",
+    "Depósitos obligatorios de largo plazo que los bancos mantienen en Banxico y que retiran liquidez estructural del sistema — el sustituto mexicano del encaje legal, que desapareció en los años 90.":"Mandatory long-term deposits banks keep at Banxico that drain structural liquidity from the system — Mexico's substitute for reserve requirements, abolished in the 1990s.",
+    "Bonos del Gobierno Federal que Banxico coloca por cuenta propia para esterilizar liquidez (por ejemplo, la que crea la acumulación de reservas). El saldo de instrumentos de regulación monetaria rondaba $515 mmdp a mediados de 2026.":"Federal Government bonds that Banxico places on its own account to sterilize liquidity (for example, the liquidity created by reserve accumulation). Monetary-regulation instruments outstanding were about MXN 515bn in mid-2026.",
+    "La Circular 8/2026 (DOF, 15-jun-2026) permite a Banxico comprar Cetes y Bondes F en el mercado secundario a casas de bolsa, fondos y Afores, con fines de liquidez, no de financiamiento al gobierno. Tope: $100 mmdp, ~20% del saldo de instrumentos de regulación monetaria.":"Circular 8/2026 (Official Gazette, 15-Jun-2026) lets Banxico buy Cetes and Bondes F in the secondary market from brokers, funds and Afores, for liquidity purposes, not to finance the government. Cap: MXN 100bn, ~20% of monetary-regulation instruments outstanding.",
+    "La Comisión de Cambios (SHCP + Banxico) decide la política cambiaria; desde 2017 el instrumento preferido son coberturas cambiarias liquidables en pesos (NDF), que defienden al peso sin gastar reservas. No hay meta de tipo de cambio: el peso flota desde diciembre de 1994.":"The Exchange Commission (SHCP + Banxico) sets FX policy; since 2017 the preferred instrument has been peso-settled FX hedges (NDFs), which defend the peso without spending reserves. There is no exchange-rate target: the peso has floated since December 1994.",
+    "Además de la reserva, México cuenta con la Línea de Crédito Flexible del FMI (renovada en 2025 por ~US$24 mmd, sin uso desde 2009) y usó una línea swap temporal con la Reserva Federal (US$60 mmd) en 2020. Son seguros contra choques, no fuentes de financiamiento del déficit.":"Beyond the reserve, Mexico holds the IMF's Flexible Credit Line (renewed in 2025 for ~USD 24bn, never drawn since 2009) and used a temporary swap line with the Federal Reserve (USD 60bn) in 2020. They are insurance against shocks, not deficit financing.",
+    "tasa objetivo vigente":"current target rate", "meta operativa diaria":"daily operating target", "saldo de instrumentos de regulación monetaria (~)":"monetary-regulation instruments outstanding (~)",
+    "tope de compras":"purchase cap", "coberturas vigentes al inicio de 2026 (~)":"hedges outstanding at the start of 2026 (~)", "reserva internacional":"international reserve", "Línea de Crédito Flexible del FMI (~)":"IMF Flexible Credit Line (~)",
+    "SHCP — Estadísticas Oportunas de Finanzas Públicas":"SHCP — Timely Public Finance Statistics",
+    "Comunicado mensual de finanzas públicas y deuda pública; base de las cifras de ingresos, gasto, balances y SHRFSP.":"Monthly public-finance and public-debt release; basis for the revenue, spending, balances and SHRFSP figures.",
+    "SHCP — Informes Trimestrales al Congreso":"SHCP — Quarterly Reports to Congress",
+    "Situación económica, finanzas públicas y deuda pública, con anexos históricos del SHRFSP, la deuda por instrumento y el perfil de vencimientos.":"Economic situation, public finances and public debt, with historical annexes on SHRFSP, debt by instrument and the maturity profile.",
+    "SHCP — Plan Anual de Financiamiento 2026":"SHCP — Annual Financing Plan 2026",
+    "Estrategia de deuda del año: mezcla interna/externa, plazos promedio, instrumentos y calendario de subastas.":"The year's debt strategy: domestic/external mix, average maturities, instruments and auction calendar.",
+    "SHCP — Paquete Económico 2027 (CGPE, LIF, PEF)":"SHCP — 2027 Economic Package (CGPE, Revenue Law, Budget)",
+    "Supuestos macroeconómicos y trayectoria oficial del déficit y la deuda; Ley de Ingresos y Presupuesto de Egresos 2026 aprobados.":"Macro assumptions and the official deficit and debt path; approved 2026 Revenue Law and Expenditure Budget.",
+    "datos.gob.mx — SHRFSP (deuda amplia), 2014 a la fecha":"datos.gob.mx — SHRFSP (broad debt), 2014 to date",
+    "Base de datos abierta de la SHCP con el saldo mensual del SHRFSP y sus componentes.":"SHCP open dataset with the monthly SHRFSP balance and its components.",
+    "Banco de México — API del SIE":"Banco de México — SIE API",
+    "Series de tasa objetivo (SF61745), tipo de cambio FIX (SF43718), reservas (SF43707), TIIE (SF43783), Cetes (SF43936) y UDI (SP68257); alimenta la actualización diaria.":"Series for the target rate (SF61745), FIX exchange rate (SF43718), reserves (SF43707), TIIE (SF43783), Cetes (SF43936) and UDI (SP68257); feeds the daily refresh.",
+    "Banco de México — Tenencia de valores gubernamentales":"Banco de México — Holdings of government securities",
+    "Distribución semanal de los valores gubernamentales por sector tenedor y por instrumento (cuadros CF457, CA175, CA171).":"Weekly distribution of government securities by holder sector and by instrument (tables CF457, CA175, CA171).",
+    "Banco de México — Anuncios de política monetaria":"Banco de México — Monetary policy announcements",
+    "Comunicados, minutas y calendario de las decisiones de la Junta de Gobierno.":"Statements, minutes and calendar of the Board's decisions.",
+    "Banco de México — Estado de cuenta semanal":"Banco de México — Weekly statement",
+    "Reserva internacional, base monetaria y demás partidas del balance, cada martes.":"International reserve, monetary base and other balance-sheet items, every Tuesday.",
+    "Pemex — Relación con Inversionistas":"Pemex — Investor Relations",
+    "Reportes trimestrales de resultados y deuda financiera de Petróleos Mexicanos.":"Quarterly results and financial-debt reports of Petróleos Mexicanos.",
+    "CIEP — Centro de Investigación Económica y Presupuestaria":"CIEP — Center for Economic and Budgetary Research",
+    "Análisis independiente del costo financiero, la deuda por sexenio, la renta petrolera y los ingresos tributarios.":"Independent analysis of the financial cost, debt by administration, oil rent and tax revenue.",
+    "INEGI — PIB nominal e INPC":"INEGI — Nominal GDP and CPI",
+    "Producto Interno Bruto a precios corrientes (denominador de las razones deuda/PIB) e Índice Nacional de Precios al Consumidor.":"GDP at current prices (denominator of the debt-to-GDP ratios) and the National Consumer Price Index.",
+    "Calificadoras — Moody's, S&P Global, Fitch":"Rating agencies — Moody's, S&P Global, Fitch",
+    "Calificación soberana y de Pemex, y sus perspectivas.":"Sovereign and Pemex ratings and outlooks."
+  };
+  function L(s){ return (LANG==='en' && EN_STR.hasOwnProperty(s)) ? EN_STR[s] : s; }
+
+  document.getElementById('btnLangEs').addEventListener('click', function(){ setLang('es'); });
+  document.getElementById('btnLangEn').addEventListener('click', function(){ setLang('en'); });
+  function applyLangAttrs(){
+    document.getElementById('btnLangEs').classList.toggle('active', LANG==='es');
+    document.getElementById('btnLangEn').classList.toggle('active', LANG==='en');
+    document.documentElement.setAttribute('lang', LANG==='en' ? 'en' : 'es-MX');
+    document.title = LANG==='en' ? 'Mexico Fiscal Monitor | Monitor Fiscal de México' : 'Monitor Fiscal de México | Mexico Fiscal Monitor';
+  }
+  function setLang(lang){
+    LANG = lang;
+    try{ localStorage.setItem(LANG_KEY, lang); }catch(e){}
+    applyLangAttrs();
+    renderAll();
+  }
+  applyLangAttrs();
+
+  // ---------------- Date helpers (pure string parsing of ISO "YYYY-MM-DD" — never a Date object, so no timezone day-shift) ----------------
+  var MON_EN = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+  var MON_ES = ["ene.","feb.","mar.","abr.","may.","jun.","jul.","ago.","sep.","oct.","nov.","dic."];
+  function fmtDateEn(iso){ var p=iso.split('-'); return p[2]+'-'+MON_EN[Number(p[1])-1]+'-'+p[0]; }
+  function fmtDateEs(iso){ var p=iso.split('-'); return Number(p[2])+' de '+MON_ES[Number(p[1])-1]+' de '+p[0]; }
+  function fmtDateShortEs(iso){ var p=iso.split('-'); return Number(p[2])+'-'+MON_ES[Number(p[1])-1].replace('.','')+'-'+p[0]; }
+  function fmtDate(iso){ return LANG==='en' ? fmtDateEn(iso) : fmtDateShortEs(iso); }
+  function fmtDateLong(iso){ return LANG==='en' ? fmtDateEn(iso) : fmtDateEs(iso); }
+  function monYY(iso){ var p=iso.split('-'); return (LANG==='en'?MON_EN:MON_ES)[Number(p[1])-1].replace('.','')+" '"+p[0].slice(-2); }
+
+  // ---------------- Number helpers (Mexican convention: comma thousands, dot decimals, in both languages) ----------------
+  function n(v, d){ return Number(v).toLocaleString('en-US',{minimumFractionDigits:d||0, maximumFractionDigits:d||0}); }
+  function fmtMMDP(v, d){ return LANG==='en' ? 'MXN '+n(v,d)+'bn' : '$'+n(v,d)+' mmdp'; }          // v in thousands of millions of pesos
+  function fmtBnPesos(v, d){ return LANG==='en' ? 'MXN '+n(v,d==null?2:d)+' trillion' : '$'+n(v,d==null?2:d)+' billones'; } // v in millions of millions (10^12)
+  function fmtUSDbn(v, d){ return LANG==='en' ? 'USD '+n(v,d==null?1:d)+'bn' : 'US$'+n(v,d==null?1:d)+' mmd'; }
+  function pct(v,total){ return (100*v/total).toFixed(1)+'%'; }
+  var APPROX = '<span class="approx" title="'+(LANG==='en'?'Approximate / secondary source':'Aproximado / fuente secundaria')+'">~</span>';
+
+  function renderAll(){
+  Array.prototype.forEach.call(document.querySelectorAll('canvas'), function(cv){ var ex = Chart.getChart(cv); if(ex) ex.destroy(); });
+
+  // ================= DATA (one shared set of figures for both languages) =================
+  // Latest SHCP monthly release (Comunicado 70, 28-Aug-2026, data through July 2026). Reassigned by applyMonthlyData().
+  var shrfspAsOf = '2026-07-31', shrfspBn = 19.2, shrfspPct = 51.5, shrfspYoYBn = 1.4, shrfspYoYRealPct = 3.7;
+  var grossDebtBn = 20.6036, gfNetPct = 48.3;
+  var externalDebtUsdBn = 159.8466, externalFx = 18.7; // gross external debt of the federal public sector, Jul 2026; FIX at end-Jul (~)
+
+  // Banxico snapshot — every one of these is reassigned by applyLiveData() when data.js carries fresh values.
+  var targetRate = 6.50, targetSince = '2026-05-07';
+  var fxNow = 17.01, fxAsOf = '2026-09-10';
+  var reservesUsdBn = 258.035, reservesAsOf = '2026-09-04';
+  var baseMonBn = 3.516433, baseMonAsOf = '2026-09-04'; // MXN trillion
+  var tiie28 = 6.7458, cetes28 = 6.49, cetes364 = 7.00, ratesAsOf = '2026-09-09';
+  var inflationAug = 3.26, fedFunds = 3.63;
+
+  // SHRFSP, % of GDP, year-end. null = not located in this version (line is interpolated). est = from secondary coverage.
+  var shrfspPctTrend = {
+    labels:["2000","2001","2002","2003","2004","2005","2006","2007","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","jul '26"],
+    values:[29.2,null,null,null,null,null,28.2,null,31.4,null,null,null,35.6,null,null,null,null,null,43.6,44.5,51.6,49.9,47.6,46.7,51.4,50.4,51.5],
+    est:   [true,false,false,false,false,false,true,false,true,false,false,false,false,false,false,false,false,false,false,true,true,true,true,false,false,false,false]
+  };
+  // RFSP (broad deficit), % of GDP. 2026–2027 = SHCP estimates (CGPE 2027).
+  var rfsp = { labels:["2018","2019","2020","2021","2022","2023","2024","2025","2026e","2027e"],
+    values:[2.2,2.3,3.9,3.8,4.3,4.3,5.7,4.4,4.1,3.9], est:[true,true,true,true,true,true,false,true,false,false], proj:[false,false,false,false,false,false,false,false,true,true] };
+  var sexenios = [
+    ["Fox (2000–2006)", 28.2, -1.0],
+    ["Calderón (2006–2012)", 35.6, 7.4],
+    ["Peña Nieto (2012–2018)", 43.6, 8.0],
+    ["López Obrador (2018–2024)", 51.4, 7.8],
+    ["Sheinbaum (2024– ), a jul. 2026", 51.5, 0.1]
+  ];
+  // Holdings of government securities by sector, MXN bn nominal, Apr 2026 (Banxico CF457 via Monex). Shares of Siefores and
+  // mutual funds are as published (~); "other residents" is the computed remainder.
+  var holdersTotal = 15366.0, holdersAsOf = '2026-04-30';
+  var holders = [
+    {g:9, label:"Residentes en el extranjero", value:1788.5, est:false},
+    {g:2, label:"Siefores (ahorro para el retiro)", value:5116.9, est:true},
+    {g:2, label:"Sociedades de inversión", value:3042.5, est:true},
+    {g:2, label:"Otros residentes (bancos, aseguradoras, Banxico, otros)", value:5418.1, est:true}
+  ];
+  // Amortization profile of the Federal Government's domestic debt, MXN bn, as of end-2025.
+  var maturity = { labels:["2026","2027","2028","2029","2030","2031"], values:[3163.1,1934.8,1048.3,1150.7,398.7,1074.0] };
+  // Financial cost of the public sector, % of GDP. Anchors: 2008 (1.8, CIEP), 2025 (3.7, CIEP), 2026 (4.1, PEF). Others ~.
+  var costPct = { labels:["2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","2026"],
+    values:[1.8,2.2,2.0,2.0,2.0,2.0,2.0,2.2,2.3,2.4,2.6,2.7,2.8,2.6,2.7,3.0,3.4,3.7,4.1],
+    est:[false,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,false] };
+  // Official debt path: actual 2023–2025, latest monthly, SHCP estimates for 2026 (CGPE 2026) and 2027 (CGPE 2027, ~).
+  var cgpeProjection = { labels:["2023","2024","2025","jul '26","2026e","2027e"], values:[46.7,51.4,50.4,51.5,52.3,55.0], est:[false,false,false,false,true,true] };
+  // Macro assumptions table: [row label, SHCP 2026, analysts 2026, SHCP 2027, analysts 2027]
+  var cgpeRows = [
+    ["Crecimiento del PIB real","1.0–2.0%","1.2%","1.5–2.5%","1.8%"],
+    ["Inflación, cierre de año","3.5%","4.15%","3.0%","3.84%"],
+    ["Tipo de cambio, cierre de año","—","17.92","18.0","18.50"],
+    ["Tasa objetivo, cierre de año","—","6.50%","—","6.50%"],
+    ["Cetes 28 días, promedio","—","—","6.00%","—"],
+    ["Mezcla mexicana, US$/barril","—","—","61.8","—"],
+    ["RFSP, % del PIB","4.1%","—","3.9%","—"],
+    ["Déficit presupuestario, % del PIB","3.0%","—","3.4%","—"]
+  ];
+  // Revenue: 2026 Revenue Law (MXN bn) and Jan–Jul 2026 tax collection vs. reconstructed Jan–Jul 2025.
+  var revLIF = [ {label:"Ingresos tributarios", value:5839.0}, {label:"Ingresos petroleros", value:1204.2}, {label:"Otros no petroleros (no tributarios, IMSS, ISSSTE, CFE)", value:1677.8} ];
+  var revCats = ["ISR","IVA","IEPS","Otros tributarios"];
+  var revYTDcur = [1700.0, 1041.0, 401.7, 264.6];
+  var revYTDpri = [1747.0, 911.4, 379.1, 241.3];
+  var revYTDest = [true, false, false, true];
+  var revTotalYTD = 4996.0, revTotalYTDRealPct = 0.9, revTotalVsProgram = -170;
+  // Tax vs. oil revenue, % of GDP, selected years (CIEP; 2027 = CGPE). ~ where not directly cited.
+  var revMix = { labels:["2008","2012","2015","2018","2020","2023","2025","2027e"],
+    tax:[8.1,8.4,13.0,13.0,14.4,14.4,14.6,15.9], taxEst:[true,true,true,true,true,true,false,false],
+    oil:[8.0,7.7,2.2,null,null,1.1,null,null], oilEst:[false,false,false,false,false,false,false,false] };
+  // Spending: 2026 budget (MXN bn).
+  var outPEF = [
+    {label:"Pensiones y jubilaciones", value:1716.6},
+    {label:"Costo financiero", value:1572.1},
+    {label:"Participaciones a estados y municipios", value:1456.0},
+    {label:"ADEFAS (adeudos de años anteriores)", value:70.9},
+    {label:"Resto del gasto programable (salud, educación, programas sociales, inversión, Pemex, CFE)", value:5378.1}
+  ];
+  var outTotal = 10193.7, outProgramable = 7094.7, outNoProgramable = 3099.0;
+  var outYTD = { total:5742, vsProgram:-438, pensions:1000, investment:454, deficit:-746, primary:13, rfsp:727.5 };
+  // Pemex financial debt, USD bn.
+  var pemexDebt = { labels:["2018","2020","2022","2024","2025","jun '26"], values:[105.8,110.3,107.7,97.6,84.5,77.5], est:[false,true,true,false,false,false] };
+  // International reserve, USD bn, year-end (~ before 2023) + latest weekly.
+  var reserves = { labels:["2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","sep '26"],
+    values:[85.4,90.8,113.6,142.5,163.5,176.5,193.2,176.7,176.5,172.8,174.8,180.9,195.7,202.4,199.1,212.8,229.0,251.9,258.0],
+    est:[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,false,false,false] };
+  // FIX exchange rate, year-end (~ before 2023) + latest daily.
+  var fx = { labels:["2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","sep '26"],
+    values:[13.54,13.06,12.35,13.98,12.97,13.08,14.72,17.21,20.66,19.74,19.68,18.85,19.91,20.47,19.36,16.97,20.88,18.00,17.01],
+    est:[true,true,true,true,true,true,true,true,true,true,true,true,true,true,true,false,false,false,false] };
+  // Banxico target rate, year-end + current.
+  var policyRate = { labels:["2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024","2025","sep '26"],
+    values:[8.25,4.50,4.50,4.50,4.50,3.50,3.00,3.25,5.75,7.25,8.25,7.25,4.25,5.50,10.50,11.25,10.00,7.00,6.50] };
+  var decisions = [
+    ["2026-02-05","Sin cambio",7.00,"Unánime"],
+    ["2026-03-26","Recorte de 25 pb",6.75,"Mayoría"],
+    ["2026-05-07","Recorte de 25 pb",6.50,"Mayoría"],
+    ["2026-06-25","Sin cambio",6.50,"Unánime"],
+    ["2026-08-06","Sin cambio",6.50,"Unánime"],
+    ["2026-09-24","Próxima reunión",null,"—"],
+    ["2026-11-05","Programada",null,"—"],
+    ["2026-12-17","Programada",null,"—"]
+  ];
+  var expectations = { labels:["Mantener en 6.50%","Subir","Recortar"], values:[22,7,6] };
+  var mpInstruments = [
+    ["Tasa objetivo para la TIIE a un día","Desde ene. 2008","La herramienta principal: un nivel puntual para la tasa de fondeo interbancario a un día, revisado ocho veces al año por la Junta de Gobierno. Banxico lo alcanza compensando cada día la liquidez del sistema.", function(){ return targetRate.toFixed(2)+'%'; }, "tasa objetivo vigente"],
+    ["Operaciones de mercado abierto","Esquema de saldos cero","Subastas diarias de crédito o de depósito con los bancos, garantizadas con valores, para que las cuentas corrientes en Banxico cierren en cero. Es el equivalente operativo de las operaciones de la Fed, pero a un día y sin compras permanentes de bonos.", function(){ return '$0'; }, "meta operativa diaria"],
+    ["Depósitos de regulación monetaria","Desde 2006","Depósitos obligatorios de largo plazo que los bancos mantienen en Banxico y que retiran liquidez estructural del sistema — el sustituto mexicano del encaje legal, que desapareció en los años 90.", function(){ return LANG==='en'?'Long-term':'Largo plazo'; }, "n.d."],
+    ["Bondes F de regulación monetaria","Desde 2021","Bonos del Gobierno Federal que Banxico coloca por cuenta propia para esterilizar liquidez (por ejemplo, la que crea la acumulación de reservas). El saldo de instrumentos de regulación monetaria rondaba $515 mmdp a mediados de 2026.", function(){ return fmtMMDP(515); }, "saldo de instrumentos de regulación monetaria (~)"],
+    ["Compras en el mercado secundario","Desde el 17-ago-2026","La Circular 8/2026 (DOF, 15-jun-2026) permite a Banxico comprar Cetes y Bondes F en el mercado secundario a casas de bolsa, fondos y Afores, con fines de liquidez, no de financiamiento al gobierno. Tope: $100 mmdp, ~20% del saldo de instrumentos de regulación monetaria.", function(){ return fmtMMDP(100); }, "tope de compras"],
+    ["Coberturas cambiarias y Comisión de Cambios","Desde feb. 2017","La Comisión de Cambios (SHCP + Banxico) decide la política cambiaria; desde 2017 el instrumento preferido son coberturas cambiarias liquidables en pesos (NDF), que defienden al peso sin gastar reservas. No hay meta de tipo de cambio: el peso flota desde diciembre de 1994.", function(){ return fmtUSDbn(reservesUsdBn,1); }, "reserva internacional"],
+    ["Líneas de defensa externas","FCL desde 2009","Además de la reserva, México cuenta con la Línea de Crédito Flexible del FMI (renovada en 2025 por ~US$24 mmd, sin uso desde 2009) y usó una línea swap temporal con la Reserva Federal (US$60 mmd) en 2020. Son seguros contra choques, no fuentes de financiamiento del déficit.", function(){ return fmtUSDbn(24,0); }, "Línea de Crédito Flexible del FMI (~)"]
+  ];
+  var debtInstruments = [
+    ["Cetes (≤ 2 años)","Desde 1978","Certificados de la Tesorería: se venden a descuento a 28, 91, 182, 364 y 728 días; son el instrumento de referencia de corto plazo, el que compra el público en Cetesdirecto y el que más han comprado los extranjeros en 2026.", function(){ return cetes28.toFixed(2)+'%'; }, "Cetes a 28 días, subasta del 1-sep-2026 (en vivo)"],
+    ["Bondes F (tasa revisable)","Desde 2006 (Bondes D); F desde 2021","Bonos de desarrollo con cupón que se revisa cada día con la tasa de fondeo; también los emite Banxico con fines de regulación monetaria. Casi sin riesgo de tasa para el tenedor, pero trasladan de inmediato cualquier cambio de la tasa objetivo al costo del gobierno.", function(){ return LANG==='en'?'Daily reset':'Cupón diario'; }, "plazos vigentes"],
+    ["Bonos M (tasa fija nominal)","Desde 2000","Bonos a tasa fija en pesos de 3 a 30 años, la columna vertebral del mercado local y el instrumento que Siefores y extranjeros más tienen. Su rendimiento a 10 años es la referencia del costo de la deuda de largo plazo.", function(){ return '~8.8%'; }, "Bono M a 10 años, mar. 2026 (~)"],
+    ["Udibonos (tasa fija real)","Desde 1996","Bonos indexados a la inflación (UDI) de 3 a 30 años: pagan una tasa real fija y el principal se ajusta con el INPC. Protegen a los fondos de pensiones y trasladan al gobierno el riesgo de inflación.", function(){ return '3 · 10 · 20 · 30'; }, "plazos vigentes"],
+    ["Bonos UMS (mercado externo)","Desde los años 90","Bonos de los Estados Unidos Mexicanos en dólares, euros y yenes, más créditos del Banco Mundial, el BID y otros organismos. El PAF 2026 los limita a 15.8% de la deuda total; en julio de 2026 la SHCP recompró anticipadamente US$5.9 mmd.", function(){ return '15.8%'; }, "de la deuda total, tope del PAF 2026"]
+  ];
+  var sources = [
+    ["SHCP — Estadísticas Oportunas de Finanzas Públicas","Comunicado mensual de finanzas públicas y deuda pública; base de las cifras de ingresos, gasto, balances y SHRFSP.","https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Estadisticas_Oportunas_de_Finanzas_Publicas"],
+    ["SHCP — Informes Trimestrales al Congreso","Situación económica, finanzas públicas y deuda pública, con anexos históricos del SHRFSP, la deuda por instrumento y el perfil de vencimientos.","https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Informes_al_Congreso_de_la_Union"],
+    ["SHCP — Plan Anual de Financiamiento 2026","Estrategia de deuda del año: mezcla interna/externa, plazos promedio, instrumentos y calendario de subastas.","https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/paf/paf_2026.pdf"],
+    ["SHCP — Paquete Económico 2027 (CGPE, LIF, PEF)","Supuestos macroeconómicos y trayectoria oficial del déficit y la deuda; Ley de Ingresos y Presupuesto de Egresos 2026 aprobados.","https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto"],
+    ["datos.gob.mx — SHRFSP (deuda amplia), 2014 a la fecha","Base de datos abierta de la SHCP con el saldo mensual del SHRFSP y sus componentes.","https://www.datos.gob.mx/dataset/saldo_historico_requerimientos_financieros_sector_publico_shrfsp_deuda_amplia_2014_a_fecha"],
+    ["Banco de México — API del SIE","Series de tasa objetivo (SF61745), tipo de cambio FIX (SF43718), reservas (SF43707), TIIE (SF43783), Cetes (SF43936) y UDI (SP68257); alimenta la actualización diaria.","https://www.banxico.org.mx/SieAPIRest/service/v1/"],
+    ["Banco de México — Tenencia de valores gubernamentales","Distribución semanal de los valores gubernamentales por sector tenedor y por instrumento (cuadros CF457, CA175, CA171).","https://www.banxico.org.mx/mercados/valores-gubernamentales-secto.html"],
+    ["Banco de México — Anuncios de política monetaria","Comunicados, minutas y calendario de las decisiones de la Junta de Gobierno.","https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html"],
+    ["Banco de México — Estado de cuenta semanal","Reserva internacional, base monetaria y demás partidas del balance, cada martes.","https://www.banxico.org.mx/publicaciones-y-prensa/estado-de-cuenta-semanal/estado-cuenta-semanal-reserva.html"],
+    ["Pemex — Relación con Inversionistas","Reportes trimestrales de resultados y deuda financiera de Petróleos Mexicanos.","https://www.pemex.com/ri/finanzas/Paginas/default.aspx"],
+    ["CIEP — Centro de Investigación Económica y Presupuestaria","Análisis independiente del costo financiero, la deuda por sexenio, la renta petrolera y los ingresos tributarios.","https://ciep.mx/"],
+    ["INEGI — PIB nominal e INPC","Producto Interno Bruto a precios corrientes (denominador de las razones deuda/PIB) e Índice Nacional de Precios al Consumidor.","https://www.inegi.org.mx/temas/pib/"],
+    ["Calificadoras — Moody's, S&P Global, Fitch","Calificación soberana y de Pemex, y sus perspectivas.","https://elceo.com/economia/estas-son-las-calificaciones-crediticias-de-mexico-en-2026-segun-sp-fitch-y-moodys/"]
+  ];
+
+  // ---------------- Live data overlay (Banxico SIE, daily) ----------------
+  // window.LIVE_DATA_MX is written by scripts/fetch-mx-data.mjs via .github/workflows/refresh-mx-data.yml
+  // (see site/mx/fiscal/data.js). Any missing field leaves the baked value above untouched, so the page always renders.
+  (function applyLiveData(){
+    var LD = window.LIVE_DATA_MX;
+    if(!LD) return;
+    try{
+      if(LD.tasaObjetivo && LD.tasaObjetivo.value!=null){ targetRate = LD.tasaObjetivo.value; policyRate.values[policyRate.values.length-1] = targetRate; }
+      if(LD.fix && LD.fix.value!=null){ fxNow = LD.fix.value; fxAsOf = LD.fix.date || fxAsOf; fx.values[fx.values.length-1] = fxNow; }
+      if(LD.reservas && LD.reservas.value!=null){ reservesUsdBn = LD.reservas.value/1000; reservesAsOf = LD.reservas.date || reservesAsOf; reserves.values[reserves.values.length-1] = Math.round(reservesUsdBn*10)/10; }
+      if(LD.tiie28 && LD.tiie28.value!=null){ tiie28 = LD.tiie28.value; ratesAsOf = LD.tiie28.date || ratesAsOf; }
+      if(LD.cetes28 && LD.cetes28.value!=null){ cetes28 = LD.cetes28.value; }
+      if(LD.cetes364 && LD.cetes364.value!=null){ cetes364 = LD.cetes364.value; }
+      if(LD.baseMonetaria && LD.baseMonetaria.value!=null){ baseMonBn = LD.baseMonetaria.value/1e6; baseMonAsOf = LD.baseMonetaria.date || baseMonAsOf; }
+    }catch(e){ console.warn('LIVE_DATA_MX overlay skipped:', e); }
+  })();
+
+  // ---------------- Monthly research overlay (SHCP release, reviewed PR) ----------------
+  (function applyMonthlyData(){
+    var MD = window.MONTHLY_DATA_MX;
+    if(!MD) return;
+    try{
+      if(MD.shrfsp){ if(MD.shrfsp.date) shrfspAsOf = MD.shrfsp.date; if(MD.shrfsp.bn!=null) shrfspBn = MD.shrfsp.bn; if(MD.shrfsp.pct!=null) shrfspPct = MD.shrfsp.pct;
+        if(MD.shrfsp.yoyBn!=null) shrfspYoYBn = MD.shrfsp.yoyBn; if(MD.shrfsp.yoyRealPct!=null) shrfspYoYRealPct = MD.shrfsp.yoyRealPct;
+        shrfspPctTrend.values[shrfspPctTrend.values.length-1] = shrfspPct; shrfspPctTrend.labels[shrfspPctTrend.labels.length-1] = monYY(shrfspAsOf);
+        cgpeProjection.values[3] = shrfspPct; cgpeProjection.labels[3] = monYY(shrfspAsOf); sexenios[4][1] = shrfspPct; sexenios[4][2] = Math.round((shrfspPct-51.4)*10)/10; }
+      if(MD.grossDebtBn!=null) grossDebtBn = MD.grossDebtBn;
+      if(MD.gfNetPct!=null) gfNetPct = MD.gfNetPct;
+      if(MD.externalDebtUsdBn!=null) externalDebtUsdBn = MD.externalDebtUsdBn;
+      if(MD.externalFx!=null) externalFx = MD.externalFx;
+      if(MD.holders && MD.holders.length){ holders.length = 0; MD.holders.forEach(function(h){ holders.push(h); }); if(MD.holdersTotal) holdersTotal = MD.holdersTotal; if(MD.holdersAsOf) holdersAsOf = MD.holdersAsOf; }
+      if(MD.revYTDcur) revYTDcur = MD.revYTDcur; if(MD.revYTDpri) revYTDpri = MD.revYTDpri;
+      if(MD.outYTD) outYTD = Object.assign(outYTD, MD.outYTD);
+      if(MD.rfspValues) rfsp.values = MD.rfspValues;
+      if(MD.pemexDebtUsdBn!=null) pemexDebt.values[pemexDebt.values.length-1] = MD.pemexDebtUsdBn;
+    }catch(e){ console.warn('MONTHLY_DATA_MX overlay skipped:', e); }
+  })();
+
+  // ---------------- Derived values ----------------
+  var externalDebtBn = externalDebtUsdBn * externalFx / 1000; // MXN trillion
+  var domesticDebtBn = grossDebtBn - externalDebtBn;
+  var reservesMXNbn = reservesUsdBn * fxNow / 1000; // MXN trillion
+  var reserveCover = reservesMXNbn / baseMonBn * 100;
+  var realRate = ((1+targetRate/100)/(1+inflationAug/100)-1)*100;
+
+  // ---------------- KPI strip and as-of row ----------------
+  var kpis = [
+    {lbl:"Deuda amplia (SHRFSP)", val:fmtBnPesos(shrfspBn,1), delta:fmtDate(shrfspAsOf)+' · '+L('billones de pesos')},
+    {lbl:"SHRFSP ÷ PIB", val:shrfspPct.toFixed(1)+'%', delta:L("50.4% al cierre de 2025")},
+    {lbl:"Costo financiero 2026", val:fmtMMDP(1572), delta:L("4.1% del PIB · PEF 2026")},
+    {lbl:"Tasa objetivo Banxico", val:targetRate.toFixed(2)+'%', delta:L("sin cambio desde el 7-may-2026")},
+    {lbl:"Tipo de cambio FIX", val:fxNow.toFixed(2), delta:fmtDate(fxAsOf)+' · '+L('pesos por dólar')}
+  ];
+  var asof = [
+    ["Deuda (SHRFSP)", fmtDate(shrfspAsOf)+' '+L('(mensual, SHCP)')],
+    ["Tenedores", fmtDate(holdersAsOf)+' '+L('(Banxico, mensual)')],
+    ["Plazos", L("PAF 2026 (dic. 2025)")],
+    ["Costo financiero", L("PEF 2026; ejercido ene–jul 2026")],
+    ["Proyecciones", L("CGPE 2027 (8-sep-2026)")],
+    ["Banxico", L("decisión 6-ago-2026; reservas")+' '+fmtDate(reservesAsOf)+' '+L('(semanal)')],
+    ["Tipo de cambio", fmtDate(fxAsOf)+' '+L('(diario)')]
+  ];
+  var kpiEl = document.getElementById('kpiStrip'); kpiEl.innerHTML = '';
+  kpis.forEach(function(k){
+    var d = document.createElement('div'); d.className='kpi';
+    d.innerHTML = '<div class="lbl">'+L(k.lbl)+'</div><div class="val num">'+k.val+'</div><div class="delta">'+k.delta+'</div>';
+    kpiEl.appendChild(d);
+  });
+  var asofEl = document.getElementById('asofRow'); asofEl.innerHTML = '';
+  asof.forEach(function(a){ var s = document.createElement('span'); s.innerHTML = L(a[0])+': <b>'+a[1]+'</b>'; asofEl.appendChild(s); });
+
+  // ---------------- Generic data-bind ----------------
+  var BIND = {
+    shrfspAsOfEs: fmtDateEs(shrfspAsOf), shrfspAsOfEn: fmtDateEn(shrfspAsOf),
+    shrfspBn: fmtBnPesos(shrfspBn,1), shrfspPct: shrfspPct.toFixed(1)+'%', grossDebtBn: fmtBnPesos(grossDebtBn,2), gfNetPct: gfNetPct.toFixed(1)+'%',
+    reservesAsOfEs: fmtDateEs(reservesAsOf), reservesAsOfEn: fmtDateEn(reservesAsOf), reservesUsd: fmtUSDbn(reservesUsdBn,1),
+    baseMonBn: fmtBnPesos(baseMonBn,2), reserveCover: Math.round(reserveCover)+'%', fxNow: fxNow.toFixed(2),
+    ratesAsOfEs: fmtDateEs(ratesAsOf), ratesAsOfEn: fmtDateEn(ratesAsOf), targetRate: targetRate.toFixed(2)+'%'
+  };
+  Object.keys(BIND).forEach(function(k){ [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; }); });
+
+  // ---------------- Chart helpers ----------------
+  function getVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+  function wrapTick(text, maxChars){
+    maxChars = maxChars || 16;
+    var words = text.split(' '), lines = [], cur = '';
+    words.forEach(function(w){ var test = cur ? cur+' '+w : w; if(test.length > maxChars && cur){ lines.push(cur); cur = w; } else { cur = test; } });
+    if(cur) lines.push(cur);
+    return lines;
+  }
+  var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  var stamp = document.documentElement.getAttribute('data-theme');
+  if(stamp === 'dark') isDark = true; else if(stamp === 'light') isDark = false;
+  var ink = getVar('--text-secondary'), mutedInk = getVar('--muted'), gridColor = getVar('--grid');
+  Chart.defaults.font.family = "Inter, system-ui, sans-serif";
+  Chart.defaults.color = ink;
+  Chart.defaults.borderColor = gridColor;
+  Chart.defaults.plugins.legend.display = false;
+  Chart.defaults.plugins.tooltip.backgroundColor = isDark ? '#2a2a27' : '#0b0b0b';
+  Chart.defaults.plugins.tooltip.titleFont = {family:"Inter",weight:'700',size:12};
+  Chart.defaults.plugins.tooltip.bodyFont = {family:"Inter",size:12};
+  Chart.defaults.plugins.tooltip.padding = 10;
+  Chart.defaults.plugins.tooltip.cornerRadius = 6;
+  Chart.defaults.plugins.tooltip.displayColors = true;
+  Chart.defaults.plugins.tooltip.boxPadding = 4;
+  var axisGrid = { color: gridColor, drawTicks:false };
+  var axisTicks = { color: mutedInk, font:{size:11} };
+  var legendTop = {display:true, position:'top', align:'end', labels:{boxWidth:9,boxHeight:9,usePointStyle:true,pointStyle:'rect',font:{size:11.5}}};
+  var approxMark = function(flag){ return flag ? ' ~' : ''; };
+
+  // Donut with external labels + leader lines (same renderer as the U.S. monitor).
+  function renderLeaderPie(containerId, items, colors, opts){
+    opts = opts || {};
+    var el = document.getElementById(containerId);
+    var W = 780, H = 420, cx = W/2, cy = H/2;
+    var rOuter = 92, rInner = 56, rLine1 = rOuter+14, labelX = 148;
+    var maxChars = 19, lineH = 14;
+    function wrapLabel(text){ var words = text.split(' '), lines = [], cur = ''; words.forEach(function(w){ var test = cur ? cur+' '+w : w; if(test.length > maxChars && cur){ lines.push(cur); cur = w; } else { cur = test; } }); if(cur) lines.push(cur); return lines; }
+    var total = items.reduce(function(s,it){return s+it.value;},0);
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.setAttribute('role','img'); svg.setAttribute('aria-label', (opts.title||'Chart'));
+    function polar(r,a){ return [cx + r*Math.cos(a), cy + r*Math.sin(a)]; }
+    function arcPath(r0,r1,a0,a1){ var large = (a1-a0) > Math.PI ? 1 : 0; var p0o=polar(r1,a0), p1o=polar(r1,a1), p0i=polar(r0,a1), p1i=polar(r0,a0);
+      return 'M'+p0o[0]+','+p0o[1]+' A'+r1+','+r1+' 0 '+large+' 1 '+p1o[0]+','+p1o[1]+' L'+p0i[0]+','+p0i[1]+' A'+r0+','+r0+' 0 '+large+' 0 '+p1i[0]+','+p1i[1]+' Z'; }
+    var start = -Math.PI/2;
+    var slices = items.map(function(it,i){ var frac = it.value/total; var a0 = start, a1 = start + frac*Math.PI*2; start = a1; var lines = wrapLabel(it.label);
+      return { i:i, label:it.label, lines:lines, blockH:lines.length*lineH + 17, value:it.value, pct:frac*100, a0:a0, a1:a1, mid:(a0+a1)/2, color:colors[i%colors.length] }; });
+    slices.forEach(function(s){ var path = document.createElementNS(ns,'path'); path.setAttribute('d', arcPath(rInner, rOuter, s.a0, s.a1)); path.setAttribute('fill', s.color); path.setAttribute('class','slice');
+      var title = document.createElementNS(ns,'title'); title.textContent = s.label+': '+opts.fmt(s.value)+' ('+s.pct.toFixed(1)+'%)'; path.appendChild(title); svg.appendChild(path); });
+    var overrides = opts.sideOverride || {};
+    function side(s){ return overrides[s.label] || (Math.cos(s.mid) < 0 ? 'left' : 'right'); }
+    var left = slices.filter(function(s){ return side(s)==='left'; }).sort(function(a,b){ return polar(1,a.mid)[1]-polar(1,b.mid)[1]; });
+    var right = slices.filter(function(s){ return side(s)==='right'; }).sort(function(a,b){ return polar(1,a.mid)[1]-polar(1,b.mid)[1]; });
+    var pad = 8, topBound = 18, botBound = H-18;
+    function layout(arr){ var ys = arr.map(function(s){ return polar(rLine1+18, s.mid)[1]; });
+      for(var i=1;i<ys.length;i++){ var need = arr[i-1].blockH/2 + arr[i].blockH/2 + pad; if(ys[i]-ys[i-1] < need) ys[i] = ys[i-1]+need; }
+      if(ys.length){ var overflow = (ys[ys.length-1] + arr[arr.length-1].blockH/2) - botBound; if(overflow > 0){ for(var j=0;j<ys.length;j++){ ys[j] -= overflow; } }
+        var minTop = topBound + arr[0].blockH/2; if(ys[0] < minTop){ var shift = minTop - ys[0]; for(var m=0;m<ys.length;m++){ ys[m] += shift; } } }
+      arr.forEach(function(s,idx){ s.labelY = ys[idx]; }); }
+    layout(left); layout(right);
+    [left,right].forEach(function(arr, sideIdx){ var isRight = sideIdx===1;
+      arr.forEach(function(s){ var p0 = polar(rOuter, s.mid), p1 = polar(rLine1, s.mid); var lx = cx + (isRight? labelX : -labelX); var p2 = [lx, s.labelY];
+        var poly = document.createElementNS(ns,'polyline'); poly.setAttribute('points', p0[0]+','+p0[1]+' '+p1[0]+','+p1[1]+' '+p2[0]+','+p2[1]); poly.setAttribute('class','leader-line'); svg.appendChild(poly);
+        var swR = 5, swX = isRight? lx+8 : lx-8-swR*2;
+        var sw = document.createElementNS(ns,'rect'); sw.setAttribute('x', swX); sw.setAttribute('y', s.labelY-5); sw.setAttribute('width',10); sw.setAttribute('height',10); sw.setAttribute('rx',2.5); sw.setAttribute('fill', s.color); sw.setAttribute('class','lbl-swatch'); svg.appendChild(sw);
+        var textX = isRight? swX+16 : swX-6, anchor = isRight? 'start' : 'end', lineY = s.labelY - s.blockH/2 + lineH - 3;
+        s.lines.forEach(function(line){ var t = document.createElementNS(ns,'text'); t.setAttribute('x', textX); t.setAttribute('y', lineY); t.setAttribute('text-anchor', anchor); t.setAttribute('class','lbl-name'); t.textContent = line; svg.appendChild(t); lineY += lineH; });
+        var t2 = document.createElementNS(ns,'text'); t2.setAttribute('x', textX); t2.setAttribute('y', lineY+2); t2.setAttribute('text-anchor', anchor); t2.setAttribute('class','lbl-val'); t2.textContent = opts.fmt(s.value)+' · '+s.pct.toFixed(1)+'%'; svg.appendChild(t2); }); });
+    if(opts.centerTitle){ var ct = document.createElementNS(ns,'text'); ct.setAttribute('x',cx); ct.setAttribute('y',cy-4); ct.setAttribute('text-anchor','middle'); ct.setAttribute('class','center-lbl'); ct.setAttribute('font-size','19'); ct.textContent = opts.centerTitle; svg.appendChild(ct);
+      var cs = document.createElementNS(ns,'text'); cs.setAttribute('x',cx); cs.setAttribute('y',cy+14); cs.setAttribute('text-anchor','middle'); cs.setAttribute('class','center-sub'); cs.textContent = opts.centerSub||''; svg.appendChild(cs); }
+    el.innerHTML=''; el.appendChild(svg);
+  }
+  function lineChart(id, labels, values, color, opts){
+    opts = opts || {};
+    var est = opts.est || [];
+    return new Chart(document.getElementById(id), {
+      type:'line',
+      data:{ labels: labels, datasets:[{ data: values, spanGaps:true, borderColor:color, backgroundColor:color+'1c', fill:opts.fill!==false, tension:.25,
+        pointRadius:function(c){ var v = values[c.dataIndex]; return v===null||v===undefined ? 0 : (est[c.dataIndex] ? 2.5 : 4); },
+        pointBackgroundColor:function(c){ return est[c.dataIndex] ? getVar('--surface') : color; }, pointBorderColor:color, pointBorderWidth:2, borderWidth:2.5,
+        segment: opts.dashFrom!=null ? { borderDash: function(ctx){ return ctx.p1DataIndex >= opts.dashFrom ? [6,3] : undefined; } } : undefined }] },
+      options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins:{ tooltip:{ filter:function(item){ return values[item.dataIndex]!==null; }, callbacks:{ label:function(c){ return opts.fmt(c.parsed.y)+approxMark(est[c.dataIndex]); } } } },
+        scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:opts.maxTicks||14, maxRotation:0}) },
+          y:{ grid:axisGrid, min:opts.min, ticks:Object.assign({},axisTicks,{callback:function(v){ return opts.tick ? opts.tick(v) : v; }}) } } }
+    });
+  }
+  function simpleTable(id, head, rows, totalRow){
+    var h = '<thead><tr>'+head.map(function(x){return '<th>'+x+'</th>';}).join('')+'</tr></thead>';
+    var b = rows.map(function(r){ return '<tr>'+r.map(function(c,i){ return '<td'+(i>0?' class="num"':'')+'>'+c+'</td>'; }).join('')+'</tr>'; }).join('');
+    if(totalRow) b += '<tr class="total">'+totalRow.map(function(c,i){ return '<td'+(i>0?' class="num"':'')+'>'+c+'</td>'; }).join('')+'</tr>';
+    document.getElementById(id).innerHTML = '<table>'+h+'<tbody>'+b+'</tbody></table>';
+  }
+
+  // ================= RENDERS =================
+  // ---- 01 SHRFSP % GDP ----
+  lineChart('chartShrfspPct', shrfspPctTrend.labels, shrfspPctTrend.values, getVar('--series-7'), { est:shrfspPctTrend.est, fmt:function(v){ return v.toFixed(1)+'% '+(LANG==='en'?'of GDP':'del PIB'); }, tick:function(v){ return v+'%'; }, min:20 });
+  simpleTable('tblShrfspPct', [L('Año'), L('SHRFSP, % del PIB'), L('Nota')],
+    shrfspPctTrend.labels.map(function(l,i){ var v = shrfspPctTrend.values[i]; return [l, v==null?'—':v.toFixed(1)+'%', v==null?L('no localizado'):(shrfspPctTrend.est[i]?L('aproximado'):L('dato oficial'))]; }));
+  new Chart(document.getElementById('chartRfsp'), { type:'bar',
+    data:{ labels:rfsp.labels, datasets:[{ data:rfsp.values, backgroundColor:rfsp.labels.map(function(l,i){ return rfsp.proj[i] ? getVar('--series-8')+'80' : getVar('--series-8'); }), borderColor:rfsp.labels.map(function(l,i){ return rfsp.proj[i] ? getVar('--series-8') : 'transparent'; }), borderWidth:1.5, borderDash:[4,3], borderRadius:3, maxBarThickness:36 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ tooltip:{ callbacks:{ label:function(c){ return c.parsed.y.toFixed(1)+'% '+(LANG==='en'?'of GDP':'del PIB')+approxMark(rfsp.est[c.dataIndex])+(rfsp.proj[c.dataIndex]?' · '+L('Estimación SHCP'):''); } } } },
+      scales:{ x:{ grid:{display:false}, ticks:axisTicks }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return v+'%';}}) } } } });
+  simpleTable('tblSexenios', [L('Sexenio'), L('SHRFSP, % PIB'), L('Cambio (puntos)')],
+    sexenios.map(function(s){ return [L(s[0]), s[1].toFixed(1)+'%', (s[2]>=0?'+':'−')+Math.abs(s[2]).toFixed(1)]; }));
+
+  // ---- 02 Holders ----
+  (function(){
+    var sorted = holders.slice().sort(function(a,b){return b.value-a.value;});
+    new Chart(document.getElementById('chartHolders'), { type:'bar',
+      data:{ labels: sorted.map(function(h){ return wrapTick(L(h.label), 22); }), datasets:[{ data: sorted.map(function(h){return h.value;}), backgroundColor: sorted.map(function(h){ return h.g===9 ? getVar('--series-2') : getVar('--series-3'); }), borderRadius:3, maxBarThickness:26 }] },
+      options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, layout:{ padding:{ left:4 } },
+        plugins:{ tooltip:{ callbacks:{ label:function(c){ return fmtMMDP(c.parsed.x,1)+' · '+pct(c.parsed.x, holdersTotal)+approxMark(sorted[c.dataIndex].est); } } } },
+        scales:{ x:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+(v/1000).toFixed(0)+(LANG==='en'?'T':' bn');}}) }, y:{ grid:{display:false}, afterFit:function(scale){ scale.width = 150; }, ticks:{ color:ink, font:{size:11.5}, autoSkip:false, padding:6 } } } } });
+    simpleTable('tblHolders', [L('Sector tenedor'), L('Monto'), L('% del total')],
+      sorted.map(function(h){ return [L(h.label)+(h.est?' '+APPROX:''), fmtMMDP(h.value,1), pct(h.value, holdersTotal)]; }), [L('Total en circulación'), fmtMMDP(holdersTotal,1), '100.0%']);
+  })();
+
+  // ---- 03 Maturity ----
+  new Chart(document.getElementById('chartMaturity'), { type:'bar',
+    data:{ labels:maturity.labels, datasets:[{ data:maturity.values, backgroundColor:maturity.labels.map(function(l){ return l<='2028' ? getVar('--series-1') : getVar('--series-1')+'80'; }), borderRadius:3, maxBarThickness:44 }] },
+    options:{ responsive:true, maintainAspectRatio:false, plugins:{ tooltip:{ callbacks:{ label:function(c){ return fmtMMDP(c.parsed.y,1)+' '+L('vence en')+' '+c.label; } } } },
+      scales:{ x:{ grid:{display:false}, ticks:axisTicks }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+n(v/1000,1)+(LANG==='en'?'T':' bn');}}) } } } });
+  simpleTable('tblMaturity', [L('Año'), L('Amortizaciones')], maturity.labels.map(function(l,i){ return [l, fmtMMDP(maturity.values[i],1)]; }),
+    [L('Total') , fmtMMDP(maturity.values.reduce(function(a,b){return a+b;},0),1)]);
+  (function(){
+    var el = document.getElementById('debtInstrGrid'); el.innerHTML='';
+    debtInstruments.forEach(function(d){ var c = document.createElement('div'); c.className='instr';
+      c.innerHTML = '<div class="ihead"><h4>'+L(d[0])+'</h4><span class="pill since">'+L(d[1])+'</span></div><p>'+L(d[2])+'</p><div class="metric"><span class="v num">'+d[3]()+'</span><span class="l">'+L(d[4])+'</span></div>';
+      el.appendChild(c); });
+  })();
+
+  // ---- 04 Cost ----
+  lineChart('chartCostPct', costPct.labels, costPct.values, getVar('--series-2'), { est:costPct.est, fmt:function(v){ return v.toFixed(1)+'% '+(LANG==='en'?'of GDP':'del PIB'); }, tick:function(v){ return v+'%'; }, min:0, maxTicks:19 });
+
+  // ---- 05 Composition ----
+  (function(){
+    var items = [ {label:L('Deuda interna'), value:domesticDebtBn*1000}, {label:L('Deuda externa'), value:externalDebtBn*1000} ];
+    renderLeaderPie('pieComposition', items, [getVar('--series-1'), getVar('--series-2')], { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBnPesos(grossDebtBn,2), centerSub:L('deuda bruta SPF') });
+    simpleTable('tblComposition', [L('Componente'), L('Monto'), L('% del total')], [
+      [L('Deuda interna'), fmtMMDP(domesticDebtBn*1000,0), pct(domesticDebtBn, grossDebtBn)],
+      [L('Deuda externa')+' '+APPROX+' ('+fmtUSDbn(externalDebtUsdBn,1)+' × '+externalFx.toFixed(1)+')', fmtMMDP(externalDebtBn*1000,0), pct(externalDebtBn, grossDebtBn)]
+    ], [L('Deuda bruta del sector público federal'), fmtMMDP(grossDebtBn*1000,0), '100.0%']);
+  })();
+
+  // ---- 06 Projections ----
+  lineChart('chartCgpeProjection', cgpeProjection.labels, cgpeProjection.values, getVar('--series-8'), { est:cgpeProjection.est, fmt:function(v){ return v.toFixed(1)+'% '+(LANG==='en'?'of GDP':'del PIB'); }, tick:function(v){ return v+'%'; }, min:40, dashFrom:4 });
+  (function(){
+    var head = '<thead><tr><th style="text-align:left">'+(LANG==='en'?'Indicator':'Indicador')+'</th><th>SHCP 2026</th><th>'+(LANG==='en'?'Analysts 2026':'Analistas 2026')+'</th><th>SHCP 2027</th><th>'+(LANG==='en'?'Analysts 2027':'Analistas 2027')+'</th></tr></thead>';
+    var EN_ROWS = {"Crecimiento del PIB real":"Real GDP growth","Inflación, cierre de año":"Inflation, year-end","Tipo de cambio, cierre de año":"Exchange rate, year-end","Tasa objetivo, cierre de año":"Target rate, year-end","Cetes 28 días, promedio":"28-day Cetes, average","Mezcla mexicana, US$/barril":"Mexican crude basket, USD/bbl","RFSP, % del PIB":"RFSP, % of GDP","Déficit presupuestario, % del PIB":"Budget deficit, % of GDP"};
+    var rows = cgpeRows.map(function(r){ return '<tr><td style="text-align:left">'+(LANG==='en'?EN_ROWS[r[0]]||r[0]:r[0])+'</td>'+r.slice(1).map(function(c){ return '<td class="num">'+c+'</td>'; }).join('')+'</tr>'; }).join('');
+    document.getElementById('tblCgpe').innerHTML = head+'<tbody>'+rows+'</tbody>';
+  })();
+
+  // ---- 07 Revenue ----
+  (function(){
+    var cols = [getVar('--series-1'), getVar('--series-2'), getVar('--series-3')];
+    var total = revLIF.reduce(function(s,r){return s+r.value;},0);
+    renderLeaderPie('pieRevenue', revLIF.map(function(r){ return {label:L(r.label), value:r.value}; }), cols, { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBnPesos(total/1000,2), centerSub:L('ingresos presupuestarios 2026') });
+    new Chart(document.getElementById('chartRevYTD'), { type:'bar',
+      data:{ labels: revCats.map(function(c){ return L(c); }), datasets:[
+        { label:L('ene–jul 2026'), data:revYTDcur, backgroundColor:getVar('--series-1'), borderRadius:3, maxBarThickness:22 },
+        { label:L('ene–jul 2025 (reconstruido)'), data:revYTDpri, backgroundColor:getVar('--muted')+'80', borderRadius:3, maxBarThickness:22 } ] },
+      options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, layout:{ padding:{ left:4, top:4 } },
+        plugins:{ legend:legendTop, tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+fmtMMDP(c.parsed.x,1)+approxMark(revYTDest[c.dataIndex]); } } } },
+        scales:{ x:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+n(v);}}) }, y:{ grid:{display:false}, afterFit:function(scale){ scale.width = 120; }, ticks:{ color:ink, font:{size:11.5, weight:'600'}, autoSkip:false, padding:8 } } } } });
+    new Chart(document.getElementById('chartRevMix'), { type:'line',
+      data:{ labels:revMix.labels, datasets:[
+        { label:L('Tributarios, % del PIB'), data:revMix.tax, borderColor:getVar('--series-1'), backgroundColor:'transparent', tension:.25, pointRadius:4, pointBackgroundColor:revMix.taxEst.map(function(e){ return e ? getVar('--surface') : getVar('--series-1'); }), pointBorderColor:getVar('--series-1'), pointBorderWidth:2, borderWidth:2.5 },
+        { label:L('Renta petrolera, % del PIB (CIEP)'), data:revMix.oil, spanGaps:true, borderColor:getVar('--series-2'), backgroundColor:'transparent', tension:.25, pointRadius:4, pointBackgroundColor:getVar('--series-2'), borderWidth:2.5, borderDash:[5,3] } ] },
+      options:{ responsive:true, maintainAspectRatio:false, interaction:{ mode:'index', intersect:false },
+        plugins:{ legend:legendTop, tooltip:{ filter:function(i){ return i.parsed.y!==null; }, callbacks:{ label:function(c){ var e = c.datasetIndex===0 ? revMix.taxEst[c.dataIndex] : revMix.oilEst[c.dataIndex]; return c.dataset.label+': '+c.parsed.y.toFixed(1)+'%'+approxMark(e); } } } },
+        scales:{ x:{ grid:{display:false}, ticks:axisTicks }, y:{ grid:axisGrid, min:0, ticks:Object.assign({},axisTicks,{callback:function(v){return v+'%';}}) } } } });
+    var rows = revLIF.map(function(r){ return [L(r.label), fmtMMDP(r.value,1), pct(r.value,total)]; });
+    rows.push([L('Total ingresos presupuestarios')+' (LIF 2026)', fmtMMDP(total,1), '100.0%']);
+    revCats.forEach(function(c,i){ rows.push([L(c)+' — '+L('ene–jul 2026')+' vs. 2025'+(revYTDest[i]?' '+APPROX:''), fmtMMDP(revYTDcur[i],1), fmtMMDP(revYTDpri[i],1)]); });
+    simpleTable('tblRevenues', [L('Concepto'), L('Monto'), L('% del total')+' / 2025'], rows,
+      [L('Total tributarios')+' '+L('ene–jul 2026'), fmtMMDP(revYTDcur.reduce(function(a,b){return a+b;},0),1), fmtMMDP(revYTDpri.reduce(function(a,b){return a+b;},0),1)]);
+  })();
+
+  // ---- 08 Spending ----
+  (function(){
+    var cols = [getVar('--series-1'), getVar('--series-2'), getVar('--series-3'), getVar('--series-4'), getVar('--series-6')];
+    renderLeaderPie('pieOutlays', outPEF.map(function(r){ return {label:L(r.label), value:r.value}; }), cols, { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBnPesos(outTotal/1000,2), centerSub:L('gasto neto total 2026') });
+    var rows = outPEF.map(function(r){ return [L(r.label), fmtMMDP(r.value,1), pct(r.value,outTotal)]; });
+    rows.push([L('Gasto programable'), fmtMMDP(outProgramable,1), pct(outProgramable,outTotal)]);
+    rows.push([L('Gasto no programable'), fmtMMDP(outNoProgramable,1), pct(outNoProgramable,outTotal)]);
+    simpleTable('tblOutlays', [L('Rubro'), L('PEF 2026 aprobado'), L('% del total')], rows, [L('Gasto neto total'), fmtMMDP(outTotal,1), '100.0%']);
+  })();
+
+  // ---- 09 Pemex ----
+  lineChart('chartPemex', pemexDebt.labels, pemexDebt.values, getVar('--series-6'), { est:pemexDebt.est, fmt:function(v){ return fmtUSDbn(v,1); }, tick:function(v){ return '$'+v; }, min:60 });
+
+  // ---- 10 Banxico balance ----
+  lineChart('chartReserves', reserves.labels, reserves.values, getVar('--series-3'), { est:reserves.est, fmt:function(v){ return fmtUSDbn(v,1); }, tick:function(v){ return '$'+v; }, min:0, maxTicks:19 });
+  lineChart('chartFx', fx.labels, fx.values, getVar('--series-4'), { est:fx.est, fmt:function(v){ return v.toFixed(2)+' '+L('pesos por dólar (FIX)'); }, tick:function(v){ return v; }, min:10, maxTicks:19, fill:false });
+  (function(){
+    var na = L('n.d.');
+    document.getElementById('tacctAssets').innerHTML = '<h4>'+L('Activos')+'</h4>'+
+      '<div class="row"><span>'+L('Reserva internacional (a tipo de cambio FIX)')+'</span><span class="v num">'+fmtMMDP(reservesMXNbn*1000,0)+'</span></div>'+
+      '<div class="row"><span>'+L('Otros activos (crédito interno, valores, otros)')+'</span><span class="v num">'+na+'</span></div>'+
+      '<div class="row total"><span>'+L('Total conocido')+'</span><span class="v num">'+fmtMMDP(reservesMXNbn*1000,0)+'</span></div>';
+    document.getElementById('tacctLiab').innerHTML = '<h4>'+L('Pasivos')+'</h4>'+
+      '<div class="row"><span>'+L('Base monetaria')+'</span><span class="v num">'+fmtMMDP(baseMonBn*1000,0)+'</span></div>'+
+      '<div class="row"><span>'+L('Depósitos de regulación monetaria y Bondes F')+' '+APPROX+'</span><span class="v num">'+fmtMMDP(515,0)+'</span></div>'+
+      '<div class="row"><span>'+L('Cuenta corriente del Gobierno Federal y otros pasivos')+'</span><span class="v num">'+na+'</span></div>'+
+      '<div class="row total"><span>'+L('Total conocido')+'</span><span class="v num">'+fmtMMDP(baseMonBn*1000+515,0)+'</span></div>';
+  })();
+
+  // ---- 11 Policy rate ----
+  lineChart('chartPolicyRate', policyRate.labels, policyRate.values, getVar('--series-1'), { fmt:function(v){ return v.toFixed(2)+'%'; }, tick:function(v){ return v+'%'; }, min:0, maxTicks:19 });
+  (function(){
+    var corridor = [
+      {label:"Cetes 28 días", sub:"subasta primaria", val:cetes28, color:getVar('--series-3')},
+      {label:"Tasa objetivo", sub:"objetivo de Banxico", val:targetRate, color:getVar('--series-1')},
+      {label:"TIIE 28 días", sub:"referencia de créditos", val:tiie28, color:getVar('--series-8')},
+      {label:"Cetes 364 días", sub:"un año", val:cetes364, color:getVar('--series-4')}
+    ];
+    var vals = corridor.map(function(c){return c.val;});
+    var lo = Math.floor((Math.min.apply(null,vals)-0.3)*4)/4, hi = Math.ceil((Math.max.apply(null,vals)+0.3)*4)/4;
+    var toPct = function(v){ return ((v-lo)/(hi-lo)*100).toFixed(2)+'%'; };
+    var html = '<div class="track">';
+    html += '<div class="band" style="left:'+toPct(targetRate-0.05)+';right:calc(100% - '+toPct(targetRate+0.05)+');"></div>';
+    corridor.forEach(function(c){ html += '<div class="pt" style="left:'+toPct(c.val)+'; background:'+c.color+';" title="'+L(c.label)+': '+c.val.toFixed(2)+'%"></div>'; });
+    html += '</div><div class="axis">';
+    for(var v=lo; v<=hi+0.001; v+=0.25){ html += '<span style="left:'+toPct(v)+'">'+v.toFixed(2)+'%</span>'; }
+    html += '</div><div class="legend">';
+    corridor.slice().sort(function(a,b){return b.val-a.val;}).forEach(function(c){ html += '<div class="item"><span class="sw" style="background:'+c.color+'"></span><span class="nm">'+L(c.label)+'</span><span class="sub">— '+L(c.sub)+'</span><span class="val">'+c.val.toFixed(2)+'%</span></div>'; });
+    html += '<div class="item"><span class="sw" style="background:'+getVar('--muted')+'"></span><span class="nm">'+(LANG==='en'?'Real ex-ante rate':'Tasa real ex ante')+'</span><span class="sub">— '+(LANG==='en'?'target vs. Aug 2026 inflation ('+inflationAug.toFixed(2)+'%)':'objetivo vs. inflación de ago. 2026 ('+inflationAug.toFixed(2)+'%)')+'</span><span class="val">'+realRate.toFixed(2)+'%</span></div>';
+    html += '<div class="item"><span class="sw" style="background:'+getVar('--muted')+'"></span><span class="nm">'+(LANG==='en'?'Spread vs. U.S. fed funds':'Diferencial vs. fondos federales de EE. UU.')+'</span><span class="sub">— '+fedFunds.toFixed(2)+'%</span><span class="val">'+Math.round((targetRate-fedFunds)*100)+' pb</span></div>';
+    html += '</div>';
+    document.getElementById('corridorWrap').innerHTML = html;
+  })();
+  simpleTable('tblDecisions', [L('Fecha'), L('Decisión'), L('Tasa'), L('Votación')],
+    decisions.map(function(d){ return [fmtDate(d[0]), L(d[1]), d[2]==null ? '—' : d[2].toFixed(2)+'%', L(d[3])]; }));
+  new Chart(document.getElementById('chartExpectations'), { type:'bar',
+    data:{ labels:[LANG==='en'?'Next move':'Próximo movimiento'], datasets: expectations.labels.map(function(l,i){ return { label:L(l), data:[expectations.values[i]], backgroundColor:[getVar('--series-1'), getVar('--series-8'), getVar('--series-3')][i], borderColor:getVar('--surface'), borderWidth:1, stack:'s' }; }) },
+    options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, layout:{ padding:{ left:4 } },
+      plugins:{ legend:legendTop, tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+c.parsed.x+' '+L('instituciones')+' ('+(c.parsed.x/35*100).toFixed(0)+'%)'; } } } },
+      scales:{ x:{ stacked:true, max:35, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return v;}}) }, y:{ stacked:true, grid:{display:false}, ticks:{ color:ink, font:{size:12,weight:'600'} } } } } });
+
+  // ---- 12 Instruments ----
+  (function(){
+    var el = document.getElementById('mpInstrGrid'); el.innerHTML='';
+    mpInstruments.forEach(function(d){ var c = document.createElement('div'); c.className='instr';
+      c.innerHTML = '<div class="ihead"><h4>'+L(d[0])+'</h4><span class="pill since">'+L(d[1])+'</span></div><p>'+L(d[2])+'</p><div class="metric"><span class="v num">'+d[3]()+'</span><span class="l">'+L(d[4])+'</span></div>';
+      el.appendChild(c); });
+  })();
+
+  // ---- Sources ----
+  var srcEl = document.getElementById('srcGrid'); srcEl.innerHTML = '';
+  sources.forEach(function(s){ var d = document.createElement('div'); d.className='item'; var host = s[2].replace(/^https?:\/\//,'').split('/')[0];
+    d.innerHTML = '<div class="t">'+L(s[0])+'</div><div class="d">'+L(s[1])+'</div><a href="'+s[2]+'" target="_blank" rel="noopener">'+host+' ↗</a>'; srcEl.appendChild(d); });
+  } // ---- end renderAll ----
+
+  renderAll();
+
+  // ---------------- Nav scroll-spy ----------------
+  var links = Array.prototype.slice.call(document.querySelectorAll('nav.jump a'));
+  var secs = links.map(function(l){ return document.querySelector(l.getAttribute('href')); });
+  window.addEventListener('scroll', function(){
+    var y = window.scrollY + 90, idx = 0;
+    secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; });
+    links.forEach(function(l,i){ l.classList.toggle('active', i===idx); });
+  }, {passive:true});
+})();
+</script>
+</body>
+</html>
