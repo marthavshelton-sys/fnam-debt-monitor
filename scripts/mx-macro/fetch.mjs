@@ -203,7 +203,13 @@ async function main() {
       console.log(`${key.padEnd(20)} ${s.providerLabel} ${s.id}  ${s.points.length} pts  last ${last[0]} = ${last[1]}`);
     } catch (e) {
       failed++;
-      const stale = prev.series?.[key];
+      let stale = prev.series?.[key];
+      // Last-good data is kept only while it is still within the freshness limit; beyond that the
+      // section goes to "pending" rather than showing years-old figures as if they were current.
+      if (stale && isDiscontinued(stale.points[stale.points.length - 1][0], stale.freq)) {
+        log.warn(`${key}: previous data ends ${stale.points[stale.points.length - 1][0]} and is past the freshness limit - dropped`);
+        stale = null;
+      }
       if (stale) {
         out.series[key] = { ...stale, stale: true, staleSince: stale.fetchedAt, error: e.message };
         rows.push([key, `${stale.providerLabel} ${stale.id}`, stale.title ?? '', stale.points.at(-1)?.[0] ?? '', '', stale.points.length, `STALE since ${stale.fetchedAt}: ${e.message}`]);
