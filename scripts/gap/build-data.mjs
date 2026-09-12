@@ -1,0 +1,586 @@
+// Parses the harvested GAP releases (tools/gap/raw/6k/*.txt) into the model's data files:
+//   site/gap/data/financials.js  — quarterly + year-to-date + fiscal-year statements (IS, BS, CF, KPIs)
+//   site/gap/data/traffic.js     — monthly terminal passengers by airport (domestic / international / total)
+//
+// Every value is taken from a table in a specific release (the source URL is stored next to it), so a
+// later run with new releases simply extends the series. Comparative columns (prior-year figures printed
+// in each release) fill gaps but never override a figure taken from the period's own release.
+// Figures stay in the units GAP prints: thousands of pesos (statements), thousands of passengers (traffic).
+//
+// Run:  node scripts/gap/build-data.mjs        (after scripts/gap/harvest-releases.mjs)
+// Then: node scripts/gap/validate-data.mjs     (tie-outs; the workflow refuses to commit if it fails)
+
+import { readdir, readFile, writeFile } from 'node:fs/promises';
+
+const RAW = new URL('../../tools/gap/raw/6k/', import.meta.url);
+const COMPANYFACTS = new URL('../../tools/gap/raw/companyfacts.json', import.meta.url);
+// IFRS taxonomy tags -> model keys, for fiscal years the press-release harvest cannot reach (FY2015–FY2017).
+const XBRL_MAP = {
+  is: { revTotal: ['ifrs-full:Revenue'], opIncome: ['ifrs-full:ProfitLossFromOperatingActivities'], incomeBeforeTax: ['ifrs-full:ProfitLossBeforeTax'], incomeTax: ['ifrs-full:IncomeTaxExpenseContinuingOperations'], netIncome: ['ifrs-full:ProfitLoss'], comprehensiveIncome: ['ifrs-full:ComprehensiveIncome'], da: ['ifrs-full:DepreciationAndAmortisationExpense'], comprehensiveControlling: ['ifrs-full:ComprehensiveIncomeAttributableToOwnersOfParent'] },
+  bs: { cash: ['ifrs-full:CashAndCashEquivalents'], totalCurrentAssets: ['ifrs-full:CurrentAssets'], totalAssets: ['ifrs-full:Assets'], totalCurrentLiabilities: ['ifrs-full:CurrentLiabilities'], totalLiabilities: ['ifrs-full:Liabilities'], totalEquity: ['ifrs-full:Equity'], controllingEquity: ['ifrs-full:EquityAttributableToOwnersOfParent'], nci: ['ifrs-full:NoncontrollingInterests'], totalLiabEquity: ['ifrs-full:EquityAndLiabilities'] },
+  cf: { cfo: ['ifrs-full:CashFlowsFromUsedInOperatingActivities'], cfi: ['ifrs-full:CashFlowsFromUsedInInvestingActivities'], cff: ['ifrs-full:CashFlowsFromUsedInFinancingActivities'], dividendsPaid: ['ifrs-full:DividendsPaidClassifiedAsFinancingActivities'], interestPaid: ['ifrs-full:InterestPaidClassifiedAsFinancingActivities', 'ifrs-full:InterestPaidClassifiedAsOperatingActivities'], taxesPaid: ['ifrs-full:IncomeTaxesPaidClassifiedAsOperatingActivities'], netChangeCash: ['ifrs-full:IncreaseDecreaseInCashAndCashEquivalents'], cashEnd: ['ifrs-full:CashAndCashEquivalents'] },
+};
+async function annualFromXbrl() {
+  let facts;
+  try { facts = JSON.parse(await readFile(COMPANYFACTS, 'utf8')); } catch { return {}; }
+  const years = {};
+  for (const [stmt, map] of Object.entries(XBRL_MAP)) {
+    for (const [key, tags] of Object.entries(map)) {
+      for (const tag of tags) {
+        const units = facts.facts?.[tag]?.units || {};
+        const entries = units.MXN || Object.values(units)[0] || [];
+        for (const e of entries) {
+          if (!e.end || !/-12-31$/.test(e.end)) continue;
+          if (stmt !== 'bs' && e.start && !/-01-01$/.test(e.start)) continue; // full-year durations only
+          const fy = +e.end.slice(0, 4);
+          const y = (years[fy] ??= { is: {}, bs: {}, cf: {}, source: { url: 'https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001347557&type=20-F', title: `20-F XBRL company facts (${tag})`, date: e.filed } });
+          if (y[stmt][key] == null || e.filed > (y[stmt].__filed?.[key] || '')) { y[stmt][key] = Math.round(e.val / 1000); (y[stmt].__filed ??= {})[key] = e.filed; }
+        }
+      }
+    }
+  }
+  for (const y of Object.values(years)) for (const st of ['is', 'bs', 'cf']) delete y[st].__filed;
+  return years;
+}
+const OUT_FIN = new URL('../../site/gap/data/financials.js', import.meta.url);
+const OUT_TRAFFIC = new URL('../../site/gap/data/traffic.js', import.meta.url);
+
+// ---------------------------------------------------------------------------------------------
+// Line-item catalogue. Each entry: key, en/es labels, regexes that match the printed label,
+// and presentation hints (level 0 = total/heading, 1 = item, 2 = sub-item; bold; sign for USD conv.).
+// ---------------------------------------------------------------------------------------------
+const IS_ROWS = [
+  { k: 'revAero', en: 'Aeronautical services', es: 'Servicios aeronáuticos', re: /^aeronautical services$/, level: 1 },
+  { k: 'revNonAero', en: 'Non-aeronautical services', es: 'Servicios no aeronáuticos', re: /^non-?aeronautical services$/, level: 1 },
+  { k: 'revConstruction', en: 'Improvements to concession assets (IFRIC 12)', es: 'Mejoras a bienes concesionados (IFRIC 12)', re: /^improvements to concession assets/, level: 1, ifric: true },
+  { k: 'revTotal', en: 'Total revenues', es: 'Ingresos totales', re: /^total revenues$/, level: 0, bold: true },
+  { k: 'costServices', en: 'Cost of services', es: 'Costo de servicios', re: /^costs? of services:?$/, level: 1 },
+  { k: 'costEmployee', en: 'Employee costs', es: 'Costos de personal', re: /^employee costs$/, level: 2 },
+  { k: 'costMaintenance', en: 'Maintenance', es: 'Mantenimiento', re: /^maintenance$/, level: 2 },
+  { k: 'costSecurity', en: 'Safety, security & insurance', es: 'Seguridad y seguros', re: /^safety,? security/, level: 2 },
+  { k: 'costUtilities', en: 'Utilities', es: 'Servicios públicos', re: /^utilities$/, level: 2 },
+  { k: 'costProfessional', en: 'Professional services', es: 'Servicios profesionales', re: /^professional services$/, level: 2 },
+  { k: 'costBusinessDirect', en: 'Businesses operated directly', es: 'Negocios operados directamente', re: /^business(es)? operated directly/, level: 2 },
+  { k: 'costOther', en: 'Other operating expenses', es: 'Otros gastos de operación', re: /^other operating expenses$/, level: 2 },
+  { k: 'costCbx', en: 'CBX operating expenses', es: 'Gastos de operación de CBX', re: /^cbx operating expenses$/, level: 2 },
+  { k: 'techAssistance', en: 'Technical assistance fees', es: 'Cuotas de asistencia técnica', re: /^technical assistance fees?$/, level: 1 },
+  { k: 'concessionTaxes', en: 'Concession taxes', es: 'Derechos de concesión', re: /^concession (taxes|fees)$/, level: 1 },
+  { k: 'da', en: 'Depreciation and amortization', es: 'Depreciación y amortización', re: /^depreciation and amortization$/, level: 1 },
+  { k: 'costConstruction', en: 'Cost of improvements to concession assets (IFRIC 12)', es: 'Costo de mejoras a bienes concesionados (IFRIC 12)', re: /^cost of improvements to concession assets/, level: 1, ifric: true },
+  { k: 'otherIncome', en: 'Other (income) expense', es: 'Otros (ingresos) gastos', re: /^other( expenses?)?$|^other income$/, level: 1 },
+  { k: 'totalOpCosts', en: 'Total operating costs', es: 'Costos de operación totales', re: /^total operating costs$/, level: 0, bold: true },
+  { k: 'opIncome', en: 'Income from operations', es: 'Utilidad de operación', re: /^(income from operations|operating income)$/, level: 0, bold: true },
+  { k: 'costRatio', en: 'Costs of services and improvements / total revenues', es: 'Costos de servicios y mejoras / ingresos', re: /^costs? of services and improvements \/ total revenues$/, level: 1, kpi: true, pct: true },
+  { k: 'costRatioExIfric', en: 'Cost of services / revenues (ex-IFRIC 12)', es: 'Costo de servicios / ingresos (sin IFRIC 12)', re: /^cost of services \/ total revenues/, level: 1, kpi: true, pct: true },
+  { k: 'financialResult', en: 'Financial result', es: 'Resultado financiero', re: /^financial result$/i, level: 1 },
+  { k: 'associates', en: 'Share of profit (loss) of associates', es: 'Participación en asociadas', re: /^share of (profit|loss)( or loss)? of associates?$/, level: 1 },
+  { k: 'incomeBeforeTax', en: 'Income before income taxes', es: 'Utilidad antes de impuestos', re: /^income before income taxes$/, level: 0, bold: true },
+  { k: 'incomeTax', en: 'Income taxes', es: 'Impuestos a la utilidad', re: /^income taxes$/, level: 1 },
+  { k: 'netIncome', en: 'Net income', es: 'Utilidad neta', re: /^net (and comprehensive )?income$/, level: 0, bold: true },
+  { k: 'fxTranslation', en: 'Currency translation effect', es: 'Efecto por conversión', re: /^currency translation effect$/, level: 1 },
+  { k: 'cashFlowHedges', en: 'Cash-flow hedges, net of tax', es: 'Coberturas de flujo, netas', re: /^cash flow hedges/, level: 1 },
+  { k: 'remeasurements', en: 'Remeasurements of employee benefits', es: 'Remediciones de beneficios a empleados', re: /^remeasurements of employee benefit/, level: 1 },
+  { k: 'comprehensiveIncome', en: 'Comprehensive income', es: 'Utilidad integral', re: /^comprehensive income$/, level: 0, bold: true },
+  { k: 'nci', en: 'Non-controlling interest', es: 'Participación no controladora', re: /^non-?controlling interest$/, level: 1 },
+  { k: 'comprehensiveControlling', en: 'Comprehensive income attributable to controlling interest', es: 'Utilidad integral de la participación controladora', re: /^comprehensive income attributable to controlling/, level: 0, bold: true },
+  { k: 'ebitda', en: 'EBITDA', es: 'EBITDA', re: /^ebitda$/, level: 0, bold: true, kpi: true },
+  { k: 'ciPerShare', en: 'Comprehensive income per share (Ps.)', es: 'Utilidad integral por acción (Ps.)', re: /^(comprehensive|net) income per share/, level: 1, kpi: true, perShare: true },
+  { k: 'ciPerAds', en: 'Comprehensive income per ADS (US$)', es: 'Utilidad integral por ADS (US$)', re: /^(comprehensive|net) income per ads/, level: 1, kpi: true, perShare: true },
+  { k: 'opMargin', en: 'Operating margin', es: 'Margen operativo', re: /^operating income margin$/, level: 1, kpi: true, pct: true },
+  { k: 'opMarginExIfric', en: 'Operating margin (ex-IFRIC 12)', es: 'Margen operativo (sin IFRIC 12)', re: /^operating income margin \(excluding/, level: 1, kpi: true, pct: true },
+  { k: 'ebitdaMargin', en: 'EBITDA margin', es: 'Margen EBITDA', re: /^ebitda margin$/, level: 1, kpi: true, pct: true },
+  { k: 'ebitdaMarginExIfric', en: 'EBITDA margin (ex-IFRIC 12)', es: 'Margen EBITDA (sin IFRIC 12)', re: /^ebitda margin \(excluding/, level: 1, kpi: true, pct: true },
+];
+const BS_ROWS = [
+  { k: 'cash', en: 'Cash and cash equivalents', es: 'Efectivo y equivalentes', re: /^cash and cash equivalents$/, level: 1 },
+  { k: 'receivables', en: 'Trade accounts receivable, net', es: 'Cuentas por cobrar, neto', re: /^trade accounts receivable/, level: 1 },
+  { k: 'otherCurrentAssets', en: 'Other current assets', es: 'Otros activos circulantes', re: /^other current assets$/, level: 1 },
+  { k: 'totalCurrentAssets', en: 'Total current assets', es: 'Activo circulante', re: /^total current assets$/, level: 0, bold: true },
+  { k: 'advancesSuppliers', en: 'Advance payments to suppliers', es: 'Anticipos a proveedores', re: /^advanced? payments to suppliers$/, level: 1 },
+  { k: 'ppe', en: 'Machinery, equipment and leasehold improvements, net', es: 'Maquinaria, equipo y mejoras a locales arrendados', re: /^machinery, equipment and improvements/, level: 1 },
+  { k: 'concessionImprovements', en: 'Improvements to concession assets, net', es: 'Mejoras a bienes concesionados, neto', re: /^improvements to concession assets/, level: 1 },
+  { k: 'cip', en: 'Construction in progress', es: 'Obras en proceso', re: /^construction in-? ?progress$/, level: 1 },
+  { k: 'land', en: 'Land', es: 'Terrenos', re: /^land$/, level: 1 },
+  { k: 'airportConcessions', en: 'Airport concessions, net', es: 'Concesiones aeroportuarias, neto', re: /^airport concessions/, level: 1 },
+  { k: 'rightsToUse', en: 'Rights to use airport facilities, net', es: 'Derechos de uso de instalaciones', re: /^rights to use airport facilities/, level: 1 },
+  { k: 'otherAcquiredRights', en: 'Other acquired rights', es: 'Otros derechos adquiridos', re: /^other acquired rights$/, level: 1 },
+  { k: 'goodwill', en: 'Goodwill / intangible assets', es: 'Crédito mercantil / intangibles', re: /^goodwill/, level: 1 },
+  { k: 'deferredTaxAssets', en: 'Deferred income taxes, net', es: 'Impuestos diferidos, neto', re: /^deferred income taxes/, level: 1 },
+  { k: 'otherNonCurrentAssets', en: 'Other non-current assets', es: 'Otros activos no circulantes', re: /^other non-?current assets$/, level: 1 },
+  { k: 'totalAssets', en: 'Total assets', es: 'Activo total', re: /^total assets$/, level: 0, bold: true },
+  { k: 'bankLoansCurrent', en: 'Bank loans and interest payable (current)', es: 'Préstamos bancarios e intereses (corto plazo)', re: /^bank loans and interest payable$|^current portion of (bank loans|long-term debt)/, level: 1 },
+  { k: 'bondsCurrent', en: 'Bond certificates (current)', es: 'Certificados bursátiles (corto plazo)', re: /^(current portion of )?(local )?bond certificates( payable)?$|^bonds? payable \(current/, level: 1 },
+  { k: 'concessionFeesPayable', en: 'Concession fees payable', es: 'Derechos de concesión por pagar', re: /^concession (fees|taxes)( payable)?$/, level: 1 },
+  { k: 'accountsPayable', en: 'Accounts payable', es: 'Cuentas por pagar', re: /^accounts payable$/, level: 1 },
+  { k: 'unearnedRevenue', en: 'Unearned revenue', es: 'Ingresos diferidos', re: /^unrealized revenue$|^unearned revenue$|^deferred revenue$/, level: 1 },
+  { k: 'otherCurrentLiabilities', en: 'Other current liabilities', es: 'Otros pasivos circulantes', re: /^other current liabilities$/, level: 1 },
+  { k: 'dividendsPayable', en: 'Dividends payable', es: 'Dividendos por pagar', re: /^dividends payable$/, level: 1 },
+  { k: 'totalCurrentLiabilities', en: 'Total current liabilities', es: 'Pasivo circulante', re: /^(total )?current liabilities$/, level: 0, bold: true },
+  { k: 'securityDeposits', en: 'Security deposits received', es: 'Depósitos en garantía', re: /^security deposits received$/, level: 1 },
+  { k: 'bankLoansLT', en: 'Bank loans (long-term)', es: 'Préstamos bancarios (largo plazo)', re: /^bank loans$|^long-term bank loans$/, level: 1 },
+  { k: 'otherLTLiabilities', en: 'Other long-term liabilities', es: 'Otros pasivos a largo plazo', re: /^other long-term liabilities$/, level: 1 },
+  { k: 'bondsLT', en: 'Long-term bond certificates', es: 'Certificados bursátiles (largo plazo)', re: /^long-term (local )?bonds? (certificates )?payable$|^long-term bond certificates$/, level: 1 },
+  { k: 'totalLTLiabilities', en: 'Total long-term liabilities', es: 'Pasivo a largo plazo', re: /^(total )?(long-term|non-?current) liabilities$/, level: 0, bold: true },
+  { k: 'totalLiabilities', en: 'Total liabilities', es: 'Pasivo total', re: /^total liabilities$/, level: 0, bold: true },
+  { k: 'commonStock', en: 'Common stock', es: 'Capital social', re: /^common stock$/, level: 1 },
+  { k: 'legalReserve', en: 'Legal reserve', es: 'Reserva legal', re: /^legal reserve$/, level: 1 },
+  { k: 'netIncomeEquity', en: 'Net income for the period (in equity)', es: 'Utilidad del periodo (en capital)', re: /^net income$/, level: 1 },
+  { k: 'retainedEarnings', en: 'Retained earnings', es: 'Utilidades retenidas', re: /^retained earnings$/, level: 1 },
+  { k: 'repurchasedShares', en: 'Repurchased shares', es: 'Acciones recompradas', re: /^repurchased shares?$/, level: 1 },
+  { k: 'repurchaseReserve', en: 'Reserve for share repurchase', es: 'Reserva para recompra de acciones', re: /^reserve for share repurchase$/, level: 1 },
+  { k: 'fxReserve', en: 'Foreign-currency translation reserve', es: 'Efecto por conversión', re: /^foreign currency translation reserve$/, level: 1 },
+  { k: 'remeasurementsReserve', en: 'Remeasurements of employee benefits', es: 'Remediciones de beneficios a empleados', re: /^remeasurements of employee benefit/, level: 1 },
+  { k: 'hedgesReserve', en: 'Cash-flow hedges, net', es: 'Coberturas de flujo, netas', re: /^cash flow hedges/, level: 1 },
+  { k: 'sharePremium', en: 'Premium on share subscription', es: 'Prima en suscripción de acciones', re: /^premium on share su[bs]s?cription$/, level: 1 },
+  { k: 'controllingEquity', en: 'Total controlling interest', es: 'Participación controladora', re: /^total controlling interest$/, level: 0, bold: true },
+  { k: 'nci', en: 'Non-controlling interest', es: 'Participación no controladora', re: /^non-?controlling interest$/, level: 1 },
+  { k: 'totalEquity', en: "Total stockholders' equity", es: 'Capital contable total', re: /^total stockholders?'?s?'? equity$/, level: 0, bold: true },
+  { k: 'totalLiabEquity', en: "Total liabilities and stockholders' equity", es: 'Total pasivo y capital contable', re: /^total liabilities and stockholders/, level: 0, bold: true },
+];
+const CF_ROWS = [
+  { k: 'netIncome', en: 'Consolidated net income', es: 'Utilidad neta consolidada', re: /^consolidated net income$/, level: 1 },
+  { k: 'postemployment', en: 'Post-employment benefit costs', es: 'Beneficios post-empleo', re: /^post-?employment benefit costs$/, level: 2 },
+  { k: 'ecl', en: 'Expected credit-loss allowance / bad debt', es: 'Estimación de pérdidas crediticias', re: /^allowance (for )?expected credit loss|^bad debt expense$/, level: 2 },
+  { k: 'da', en: 'Depreciation and amortization', es: 'Depreciación y amortización', re: /^depreciation and amortization$/, level: 2 },
+  { k: 'gainLossSale', en: 'Loss (gain) on sale of assets', es: 'Pérdida (utilidad) en venta de activos', re: /^loss on sale|^lost sale of fixed assets|^loss \(gain\) on sale/, level: 2 },
+  { k: 'interestExpense', en: 'Interest expense', es: 'Gasto por intereses', re: /^interest expense$/, level: 2 },
+  { k: 'associates', en: 'Share of (profit) loss of associates', es: 'Participación en asociadas', re: /^(loss )?share of (profit|loss)( or loss)? of associates?$/, level: 2 },
+  { k: 'provisions', en: 'Provisions', es: 'Provisiones', re: /^(long-term )?provisions$/, level: 2 },
+  { k: 'incomeTaxExpense', en: 'Income tax expense', es: 'Impuestos a la utilidad', re: /^income tax expense$/, level: 2 },
+  { k: 'unrealizedFx', en: 'Unrealized exchange (gain) loss', es: 'Pérdida (utilidad) cambiaria no realizada', re: /^unrealized exchange|^bank loan exchange rate fluctuation$/, level: 2 },
+  { k: 'derivatives', en: 'Net (gain) loss on derivative instruments', es: 'Resultado neto en derivados', re: /^net (loss )?(on )?derivative financial instruments$|^net loss on derivative/, level: 2 },
+  { k: 'opBeforeWc', en: 'Cash flow before working capital', es: 'Flujo antes de capital de trabajo', re: /^$/, level: 0, bold: true, unlabeled: true },
+  { k: 'wcReceivables', en: 'Trade accounts receivable', es: 'Cuentas por cobrar', re: /^trade accounts receivable$/, level: 2 },
+  { k: 'wcRecoverableTax', en: 'Recoverable taxes and other assets', es: 'Impuestos por recuperar y otros activos', re: /^recoverable tax/, level: 2 },
+  { k: 'wcConcessionTaxes', en: 'Concession taxes payable', es: 'Derechos de concesión por pagar', re: /^concession taxes payable$/, level: 2 },
+  { k: 'wcPayables', en: 'Accounts payable', es: 'Cuentas por pagar', re: /^accounts payable$/, level: 2 },
+  { k: 'cashGeneratedOps', en: 'Cash generated by operating activities', es: 'Efectivo generado por la operación', re: /^cash generated by operating activities$/, level: 0, bold: true },
+  { k: 'taxesPaid', en: 'Income taxes paid', es: 'Impuestos pagados', re: /^income taxes paid$/, level: 1 },
+  { k: 'cfo', en: 'Net cash from operating activities', es: 'Flujo neto de actividades de operación', re: /^net cash flows? provided by operating activities$/, level: 0, bold: true },
+  { k: 'capex', en: 'Machinery, equipment and improvements to concession assets', es: 'Maquinaria, equipo y mejoras a bienes concesionados', re: /^machinery, equipment and improvements to concession assets$|^improvements to concession assets$/, level: 1 },
+  { k: 'saleProceeds', en: 'Proceeds from sale of machinery and equipment', es: 'Venta de maquinaria y equipo', re: /^cash flows from sales? of machinery/, level: 1 },
+  { k: 'otherInvesting', en: 'Other investing activities', es: 'Otras actividades de inversión', re: /^other invest(ment|ing) activities$|^cash flows by concession right$|^other deferred assets$/, level: 1 },
+  { k: 'acquisitions', en: 'Business acquisitions (2026: 25% of CBX)', es: 'Adquisiciones de negocios (2026: 25% de CBX)', re: /^acquisition of a 25% interest in cbx$|^business acquisition$|^acquisition business$/, level: 1 },
+  { k: 'cfi', en: 'Net cash used in investing activities', es: 'Flujo neto de actividades de inversión', re: /^net cash used (by|in) invest(ment|ing) activities$/, level: 0, bold: true },
+  { k: 'dividendsPaid', en: 'Dividends declared and paid', es: 'Dividendos pagados', re: /^dividends (declared and )?paid$|^dividends declared$/, level: 1 },
+  { k: 'dividendsNci', en: 'Dividends paid to non-controlling interests', es: 'Dividendos a la participación no controladora', re: /^dividends (declared and )?paid (to )?non-?controlling|^dividends of finance borrowings paid to non-?controlling|^dividends declared non-?controlling/, level: 1 },
+  { k: 'buybacks', en: 'Share repurchases', es: 'Recompra de acciones', re: /^(repurchase|purchase) of (treasury )?shares|^share repurchases?$/, level: 1 },
+  { k: 'capitalReduction', en: 'Capital reduction / distribution paid', es: 'Reembolso de capital', re: /^capital (reduction|reimbursement|distribution)/, level: 1 },
+  { k: 'cashFromCombination', en: 'Cash from business combination', es: 'Efectivo de la combinación de negocios', re: /^cash and cash equivalent[es]* from business combination$/, level: 1 },
+  { k: 'bondsIssued', en: 'Bond certificates issued', es: 'Certificados bursátiles emitidos', re: /^bond certificates issued$|^debt securities$/, level: 1 },
+  { k: 'bondsPaid', en: 'Bond certificates paid', es: 'Certificados bursátiles pagados', re: /^bond certificates paid$|^payment (from|of) debt securities$/, level: 1 },
+  { k: 'loansPaid', en: 'Bank loans paid', es: 'Préstamos bancarios pagados', re: /^banks? loans (paid|payments?)$|^payments on bank loans$/, level: 1 },
+  { k: 'loansReceived', en: 'Bank loans received', es: 'Préstamos bancarios obtenidos', re: /^banks? loans$|^bank loans received$|^proceeds from bank loans$/, level: 1 },
+  { k: 'capitalizedInterest', en: 'Capitalized interest on bank loans', es: 'Intereses capitalizados', re: /^capitalized interest|^interest capitalized/, level: 1 },
+  { k: 'interestPaid', en: 'Interest paid', es: 'Intereses pagados', re: /^interest paid( on bank loans)?$/, level: 1 },
+  { k: 'leaseInterest', en: 'Interest paid on leases', es: 'Intereses de arrendamientos', re: /^interest paid on lease/, level: 1 },
+  { k: 'leasePayments', en: 'Lease payments', es: 'Pagos de arrendamientos', re: /^payments? of (obligations for )?leas/, level: 1 },
+  { k: 'cff', en: 'Net cash from (used in) financing activities', es: 'Flujo neto de actividades de financiamiento', re: /^net cash flows? (used in|provided by|from) financing activities$/, level: 0, bold: true },
+  { k: 'fxEffectCash', en: 'Effect of exchange-rate changes on cash', es: 'Efecto cambiario en el efectivo', re: /^effects? of exchange rate changes on cash/, level: 1 },
+  { k: 'netChangeCash', en: 'Net increase (decrease) in cash', es: 'Aumento (disminución) neto de efectivo', re: /^net( increase| decrease)? in cash/, level: 0, bold: true },
+  { k: 'cashBegin', en: 'Cash at beginning of period', es: 'Efectivo al inicio del periodo', re: /^cash and cash equivalents at (the )?beginning/, level: 1 },
+  { k: 'cashEnd', en: 'Cash at end of period', es: 'Efectivo al final del periodo', re: /^cash and cash equivalents at (the )?end/, level: 0, bold: true },
+];
+const KPI_ROWS = [
+  { k: 'pax', en: 'Total passengers (thousands)', es: 'Pasajeros totales (miles)', re: /^total passengers$/ },
+  { k: 'cargoWlu', en: 'Cargo (thousand WLUs)', es: 'Carga (miles de WLU)', re: /^total cargo volume/ },
+  { k: 'wlu', en: 'Total WLUs (thousands)', es: 'WLU totales (miles)', re: /^total wlus$/ },
+  { k: 'revPerPax', en: 'Aero + non-aero revenue per passenger (Ps.)', es: 'Ingreso aero + no aero por pasajero (Ps.)', re: /^aeronautical & non aeronautical services per passenger/ },
+  { k: 'aeroPerWlu', en: 'Aeronautical revenue per WLU (Ps.)', es: 'Ingreso aeronáutico por WLU (Ps.)', re: /^aeronautical services per wlu/ },
+  { k: 'nonAeroPerPax', en: 'Non-aeronautical revenue per passenger (Ps.)', es: 'Ingreso no aeronáutico por pasajero (Ps.)', re: /^non aeronautical services per passenger/ },
+  { k: 'costPerWlu', en: 'Cost of services per WLU (Ps.)', es: 'Costo de servicios por WLU (Ps.)', re: /^cost of services per wlu/ },
+];
+
+const norm = (s) => s.toLowerCase().replace(/[“”"’'´`]/g, "'").replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
+// Labels flip between "net income", "net (loss) income" and "net income (loss)" depending on the sign of the
+// period; strip those qualifiers so one regex matches every variant.
+const normLabel = (s) => norm(s).replace(/\((loss|income|used|gain|decrease|increase|expense)\)/g, '').replace(/\s+/g, ' ').replace(/\s+:/, ':').trim();
+
+// ---------------------------------------------------------------------------------------------
+// Row tokenizer: "label | 2,655,135 |  | (733,545 | ) | 29.0 | % | ..." -> label + numeric tokens.
+// A token is {v, pct} where pct marks a number followed by "%" / "%)". "-" prints as null.
+// ---------------------------------------------------------------------------------------------
+function tokenizeRow(line) {
+  let cells = line.split('|').map((c) => c.trim());
+  if (/^\(?[\d,]+(\.\d+)?\)?$/.test(cells[0]) && cells.length > 1) cells = ['', ...cells]; // unlabeled subtotal row
+  const label = cells[0];
+  const toks = [];
+  for (let i = 1; i < cells.length; i++) {
+    let c = cells[i];
+    if (c === '' || c === ')' || c === '%' || c === '%)') continue;
+    if (c === '-' || c === '–' || c === '—' || c === 'n/a' || c === 'N/A') { toks.push({ v: null, pct: false, dash: true }); continue; }
+    let neg = false;
+    if (c.startsWith('(')) { neg = true; c = c.slice(1); }
+    if (c.endsWith(')')) { c = c.slice(0, -1); neg = true; }
+    let pct = false;
+    if (c.endsWith('%')) { pct = true; c = c.slice(0, -1); }
+    c = c.replace(/,/g, '').trim();
+    if (!/^-?\d+(\.\d+)?$/.test(c)) return null; // not a numeric row
+    let v = Number(c);
+    if (neg) v = -v;
+    const next = cells[i + 1] || '';
+    if (next === '%' || next === '%)') pct = true;
+    if (next === '%)') v = -Math.abs(v);
+    toks.push({ v, pct });
+  }
+  return { label, toks };
+}
+
+// Map tokens onto `groups` period-groups whose layout is [prior, current, change] (or, for the balance
+// sheet, [prior, current, changeAbs, changePct]). Returns [[prior, current], ...] per group.
+function assignValues(toks, groups, layout) {
+  const per = layout.length; // 3 or 4
+  const vals = toks.map((t) => (t.dash ? null : t.v));
+  if (vals.length === per * groups) return Array.from({ length: groups }, (_, g) => [vals[g * per], vals[g * per + 1]]);
+  if (vals.length === 2 * groups && !toks.some((t) => t.pct)) return Array.from({ length: groups }, (_, g) => [vals[g * 2], vals[g * 2 + 1]]);
+  // Values missing (typically the prior-year comparative of a new line item): whatever numbers remain,
+  // non-percent tokens are values; assign right-to-left so the current period is filled first.
+  const nonPct = toks.filter((t) => !t.pct).map((t) => (t.dash ? null : t.v));
+  if (nonPct.length === groups) return Array.from({ length: groups }, (_, g) => [null, nonPct[g]]);
+  if (nonPct.length === 2 * groups) return Array.from({ length: groups }, (_, g) => [nonPct[g * 2], nonPct[g * 2 + 1]]);
+  if (groups === 1 && nonPct.length >= 2) return [[nonPct[0], nonPct[1]]];
+  return null;
+}
+
+// Period label "2Q26" -> {q:2, fy:2026}; "6M26"/"12M19" -> {months:6, fy:2026}; "2026" (BS) -> {fy}
+function parsePeriodLabel(s) {
+  let m = s.match(/^(\d)Q(\d\d)$/i); if (m) return { q: +m[1], fy: 2000 + +m[2] };
+  m = s.match(/^(\d{1,2})M(\d\d)$/i); if (m) return { months: +m[1], fy: 2000 + +m[2] };
+  m = s.match(/^(20\d\d)$/); if (m) return { fy: +m[1] };
+  return null;
+}
+function qid(fy, q) { return `${fy}Q${q}`; }
+
+// Find table header lines like "2Q25 | 2Q26 | Change | 6M25 | 6M26 | Change" after `start`.
+const isHeaderCell = (c) => parsePeriodLabel(c) || /^change$|^%$|^variation$|^% change$/i.test(c);
+function findHeader(lines, start, maxAhead = 12) {
+  for (let i = start; i < Math.min(lines.length, start + maxAhead); i++) {
+    let cells = lines[i].split('|').map((c) => c.trim()).filter(Boolean);
+    if (cells.length >= 2 && cells.every(isHeaderCell) && cells.some((c) => parsePeriodLabel(c))) {
+      // The wire sometimes breaks a header across lines ("4Q24 | 4Q25 | Change | 2024" / "2025" / "Change").
+      let j = i;
+      while (j + 1 < lines.length) {
+        const more = lines[j + 1].split('|').map((c) => c.trim()).filter(Boolean);
+        if (!more.length || !more.every(isHeaderCell)) break;
+        cells = cells.concat(more); j++;
+      }
+      const periods = cells.filter((c) => parsePeriodLabel(c)).map(parsePeriodLabel);
+      if (periods.length % 2 !== 0) continue;
+      return { line: j, periods, groups: periods.length / 2 };
+    }
+  }
+  return null;
+}
+
+function parseTable(lines, start, end, catalogue, groups, layout) {
+  const out = Array.from({ length: groups }, () => ({}));
+  const unmatched = [];
+  for (let i = start; i < end; i++) {
+    const row = tokenizeRow(lines[i]);
+    if (!row || !row.toks.length) continue;
+    const lab = normLabel(row.label);
+    const def = catalogue.find((d) => (d.unlabeled ? lab === '' : d.re.test(lab)));
+    if (!def) { if (lab) unmatched.push(lab); continue; }
+    const vals = assignValues(row.toks, groups, layout);
+    if (!vals) { unmatched.push(lab + ' (layout)'); continue; }
+    vals.forEach((pair, g) => { if (!(def.k in out[g])) out[g][def.k] = pair; });
+  }
+  return { out, unmatched };
+}
+
+// ---------------------------------------------------------------------------------------------
+// Results release
+// ---------------------------------------------------------------------------------------------
+function parseResults(text, meta) {
+  const lines = text.split('\n');
+  const head = text.slice(0, 4000);
+  const m = head.match(/Summary of Results (\d)Q(\d\d)/i) || head.match(/results for the (first|second|third|fourth) quarter of (\d{4})/i);
+  if (!m) return null;
+  let q, fy;
+  if (/^\d$/.test(m[1])) { q = +m[1]; fy = 2000 + +m[2]; } else { q = ['first', 'second', 'third', 'fourth'].indexOf(m[1].toLowerCase()) + 1; fy = +m[2]; }
+  const rel = { id: qid(fy, q), fy, q, source: meta, quarters: {}, ytd: {}, bs: {}, warnings: [] };
+
+  const idx = (re, from = 0) => { for (let i = from; i < lines.length; i++) if (re.test(lines[i])) return i; return -1; };
+  const stmtEnd = (from, re) => { const e = idx(re, from); return e < 0 ? Math.min(lines.length, from + 120) : e + 1; };
+
+  // --- Income statement. Exhibit D (quarter + YTD) plus every table in the summary section (the
+  // "Consolidated Results" tables and the EBITDA / margin mini-tables that follow them, which carry
+  // EBITDA in the 2019–2021 layout). First value found for a period wins; tie-outs run afterwards.
+  const summaryEnd = (() => { const e = idx(/^Exhibit A|^Exhibit B|^Statement of Financial Position|^Consolidated statement of financial position/i); return e < 0 ? lines.length : e; })();
+  const isHeaders = [];
+  const exD = idx(/^Exhibit D: Consolidated statements? of profit or loss/i);
+  if (exD >= 0) { const h = findHeader(lines, exD + 1); if (h) isHeaders.push(h); }
+  for (let i = 0; i < summaryEnd; i++) {
+    const h = findHeader(lines, i, 1);
+    if (h && h.groups >= 1) { isHeaders.push(h); i = h.line; }
+  }
+  for (const h of isHeaders) {
+    let end = h.line + 1;
+    while (end < lines.length && !findHeader(lines, end, 1) && !/^Exhibit [A-Z]|^Non-controlling interest represents|^Consolidated statement of|^Statement of Financial Position|^Revenues \(\d|^Consolidated Results for|^Non-aeronautical revenues for/i.test(lines[end])) end++;
+    const { out, unmatched } = parseTable(lines, h.line + 1, end, IS_ROWS, h.groups, [0, 1, 2]);
+    if (unmatched.length && h.line === (exD >= 0 ? findHeader(lines, exD + 1)?.line : -1)) rel.warnings.push(`IS unmatched: ${unmatched.slice(0, 6).join(' | ')}`);
+    out.forEach((vals, g) => {
+      const p0 = h.periods[g * 2], p1 = h.periods[g * 2 + 1];
+      storeIS(rel, p0, mapPair(vals, 0)); storeIS(rel, p1, mapPair(vals, 1));
+    });
+  }
+  // --- Balance sheet
+  const bsStart = idx(/^Exhibit B: Consolidated statement of financial position|^Consolidated statement of financial position|^Statement of financial position \(/i);
+  if (bsStart >= 0) {
+    const h = findHeader(lines, bsStart + 1, 6);
+    const end = stmtEnd(bsStart + 1, /^Total liabilities and stockholders/i);
+    const { out, unmatched } = parseTable(lines, (h ? h.line : bsStart) + 1, end, BS_ROWS, 1, [0, 1, 2, 3]);
+    if (unmatched.length) rel.warnings.push(`BS unmatched: ${unmatched.slice(0, 6).join(' | ')}`);
+    const yPrev = h && h.periods[0]?.fy ? h.periods[0].fy : fy - 1;
+    rel.bs[qid(yPrev, q)] = mapPair(out[0], 0);
+    rel.bs[qid(fy, q)] = mapPair(out[0], 1);
+  } else rel.warnings.push('BS table not found');
+  // --- Cash flow
+  const cfStart = idx(/^Exhibit C: Consolidated statement of cash flows|^Consolidated statement of cash flows/i);
+  if (cfStart >= 0) {
+    const h = findHeader(lines, cfStart + 1, 8);
+    if (h) {
+      const end = stmtEnd(h.line + 1, /^Cash and cash equivalents at (the )?end/i);
+      const { out, unmatched } = parseTable(lines, h.line + 1, end, CF_ROWS, h.groups, [0, 1, 2]);
+      if (unmatched.length) rel.warnings.push(`CF unmatched: ${unmatched.slice(0, 6).join(' | ')}`);
+      out.forEach((vals, g) => {
+        const p0 = h.periods[g * 2], p1 = h.periods[g * 2 + 1];
+        storeCF(rel, p0, mapPair(vals, 0)); storeCF(rel, p1, mapPair(vals, 1));
+      });
+    } else rel.warnings.push('CF header not found');
+  } else rel.warnings.push('CF table not found');
+  // --- Other operating data (KPIs)
+  const kStart = idx(/^Exhibit F: Other operating data|^Other operating data/i);
+  if (kStart >= 0) {
+    const h = findHeader(lines, kStart + 1, 6);
+    if (h) {
+      const { out } = parseTable(lines, h.line + 1, Math.min(lines.length, h.line + 16), KPI_ROWS, h.groups, [0, 1, 2]);
+      out.forEach((vals, g) => {
+        const p0 = h.periods[g * 2], p1 = h.periods[g * 2 + 1];
+        storeKPI(rel, p0, mapPair(vals, 0)); storeKPI(rel, p1, mapPair(vals, 1));
+      });
+    }
+  }
+  // Shares outstanding + FX from the footnote
+  const sh = text.match(/calculated based on ([\d,]+) shares outstanding as of ([A-Za-z]+ \d{1,2}, \d{4}),? and ([\d,]+) as of ([A-Za-z]+ \d{1,2}, \d{4})/);
+  if (sh) rel.shares = { current: +sh[1].replace(/,/g, ''), currentAsOf: sh[2], prior: +sh[3].replace(/,/g, ''), priorAsOf: sh[4] };
+  const fxEop = text.match(/exchange rate of Ps\. ([\d.]+) per U\.S\. dollar, as published by the U\.S\. Federal Reserve Board \(noon buying rate\) on ([A-Za-z]+ \d{1,2}, \d{4})/);
+  if (fxEop) rel.fxEop = +fxEop[1];
+  const fxAvg = text.match(/an average exchange rate of Ps\. ([\d.]+) per U\.S\. dollar was used, corresponding to the (three|six|nine|twelve)-month period/);
+  if (fxAvg) rel.fxAvg = { rate: +fxAvg[1], months: { three: 3, six: 6, nine: 9, twelve: 12 }[fxAvg[2]] };
+  return rel;
+}
+function mapPair(obj, i) { const o = {}; for (const [k, pair] of Object.entries(obj)) if (pair && pair[i] != null) o[k] = pair[i]; return o; }
+// A bare year label ("2024 | 2025") in a flow-statement header is the twelve-month column.
+function storePart(rel, p, part, vals) {
+  if (!p || !Object.keys(vals).length) return;
+  const store = p.q ? (rel.quarters[qid(p.fy, p.q)] ??= {}) : (rel.ytd[`${p.fy}M${p.months || 12}`] ??= {});
+  store[part] = { ...vals, ...(store[part] || {}) }; // first value found wins
+}
+const storeIS = (rel, p, vals) => storePart(rel, p, 'is', vals);
+const storeCF = (rel, p, vals) => storePart(rel, p, 'cf', vals);
+const storeKPI = (rel, p, vals) => storePart(rel, p, 'kpi', vals);
+
+// ---------------------------------------------------------------------------------------------
+// Traffic release
+// ---------------------------------------------------------------------------------------------
+const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+const MON3 = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
+const AIRPORT_BY_NAME = { guadalajara: 'GDL', tijuana: 'TIJ', 'los cabos': 'SJD', 'puerto vallarta': 'PVR', 'montego bay': 'MBJ', guanajuato: 'BJX', 'bajio': 'BJX', 'bajío': 'BJX', hermosillo: 'HMO', kingston: 'KIN', morelia: 'MLM', 'la paz': 'LAP', mexicali: 'MXL', aguascalientes: 'AGU', 'los mochis': 'LMM', manzanillo: 'ZLO', total: 'TOTAL' };
+
+function parseTraffic(text, meta) {
+  const head = text.slice(0, 3000);
+  const m = head.match(/traffic[^.\n]*?(?:in|for|of)\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d\d)/i)
+    || head.match(/(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d\d),? compared/i);
+  if (!m) return null;
+  const mi = MONTHS.indexOf(m[1].toLowerCase());
+  const ym = `${m[2]}-${String(mi + 1).padStart(2, '0')}`;
+  const colLabel = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${m[2].slice(2)}$`, 'i');   // "Aug-26", "Aug 26", "Aug-2026"
+  const colLabelFull = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${m[2]}$`, 'i');
+  const lines = text.split('\n');
+  const prevLabel = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${String(+m[2] - 1).slice(2)}$`, 'i');
+  const prevLabelFull = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${+m[2] - 1}$`, 'i');
+  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {} }, warnings: [] };
+  const isChangeCell = (c) => /^(%\\s*(change|var\\.?)|change|%|var\\.?)$/i.test(c);
+  let section = null;
+  let col = -1;          // index of the release month among the header's value columns
+  let colPrev = -1;      // same month a year earlier (used to back-fill a month whose own release is missing)
+  let headerCells = null; // accumulates a header that the wire broke across lines
+  const NEXT = { dom: 'intl', intl: 'total', total: null };
+  for (const line of lines) {
+    const l = norm(line);
+    if (/^domestic terminal passengers/.test(l)) { section = 'dom'; col = -1; headerCells = null; continue; }
+    if (/^international terminal passengers/.test(l)) { section = 'intl'; col = -1; headerCells = null; continue; }
+    if (/^total terminal passengers/.test(l)) { section = 'total'; col = -1; headerCells = null; continue; }
+    if (/^cbx users/.test(l)) { section = 'cbx'; col = -1; headerCells = null; continue; }
+    if (!section) continue;
+    const cells = line.split('|').map((c) => c.trim()).filter(Boolean);
+    if (!cells.length) continue;
+    if (/^airport$/i.test(cells[0])) {
+      // A second "Airport" header inside a section that already has rows is the next (untitled) table.
+      if (col >= 0 && section !== 'cbx' && Object.keys(rel[section]).length) section = NEXT[section];
+      if (!section) break;
+      headerCells = cells.slice(1); col = -1; colPrev = -1;
+    }
+    else if (headerCells && col < 0 && cells.every((c) => isChangeCell(c) || /^[A-Za-z]{3}[a-z]*\.?\s*[-']?\s*\d{2,4}$/.test(c) || /^[A-Za-z]{3}[a-z]*\.?\s*-\s*[A-Za-z]{3}[a-z]*\.?\s*\d{2,4}$/.test(c))) { headerCells = headerCells.concat(cells); }
+    if (headerCells && col < 0) {
+      const valueCols = headerCells.filter((c) => !isChangeCell(c));
+      const ci = valueCols.findIndex((c) => colLabel.test(c) || colLabelFull.test(c));
+      if (ci >= 0) { col = ci; colPrev = valueCols.findIndex((c) => prevLabel.test(c) || prevLabelFull.test(c)); headerCells = null; }
+      if (/^airport$/i.test(cells[0]) || headerCells) continue;
+    }
+    if (col < 0) continue;
+    const name = norm(cells[0]).replace(/\*+$/, '').trim();
+    const code = AIRPORT_BY_NAME[name];
+    if (!code) continue;
+    const row = tokenizeRow(line);
+    if (!row) continue;
+    const values = row.toks.filter((t) => !t.pct).map((t) => (t.dash ? 0 : t.v));
+    if (values.length <= col || values[col] == null) continue;
+    const v = values[col];
+    if (section === 'cbx') { if (code === 'TIJ') rel.cbx = v; }
+    else { rel[section][code] = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior[section][code] = values[colPrev]; }
+    if (section === 'total' && code === 'TOTAL') { section = null; }
+  }
+  if (col < 0 && !Object.keys(rel.total).length) rel.warnings.push(`no column for ${ym} found in any table`);
+  // Releases occasionally transpose two rows inside one table (e.g. May-2025 Los Cabos / Puerto Vallarta
+  // in the domestic table). The Total table is the reference: rebuild the domestic figure from it.
+  for (const code of Object.keys(rel.total)) {
+    if (code === 'TOTAL' || rel.intl[code] == null || rel.dom[code] == null) continue;
+    if (Math.abs(rel.dom[code] + rel.intl[code] - rel.total[code]) > 0.25) {
+      rel.warnings.push(`${code}: dom ${rel.dom[code]} + intl ${rel.intl[code]} != total ${rel.total[code]} in the release; domestic rebuilt as total − international`);
+      rel.dom[code] = Math.round((rel.total[code] - rel.intl[code]) * 10) / 10;
+    }
+  }
+  if (!Object.keys(rel.total).length && Object.keys(rel.dom).length) {
+    for (const k of Object.keys(rel.dom)) rel.total[k] = Math.round(((rel.dom[k] || 0) + (rel.intl[k] || 0)) * 10) / 10;
+  }
+  return rel;
+}
+
+// ---------------------------------------------------------------------------------------------
+// Main: read raw files, parse, merge, write
+// ---------------------------------------------------------------------------------------------
+function header(text) {
+  const h = {};
+  for (const line of text.split('\n').slice(0, 8)) { const m = line.match(/^# (\w+): (.*)$/); if (m) h[m[1]] = m[2]; }
+  return h;
+}
+
+async function main() {
+  const files = (await readdir(RAW)).filter((f) => f.endsWith('.txt')).sort();
+  const results = [], traffic = [];
+  for (const f of files) {
+    const text = await readFile(new URL(f, RAW), 'utf8');
+    const h = header(text);
+    const meta = { file: f, url: h.source, date: h.date, title: h.title };
+    if (h.class === 'results') {
+      const r = parseResults(text, meta);
+      if (r) results.push(r); else console.warn(`results: could not identify period in ${f}`);
+    } else if (h.class === 'traffic') {
+      const t = parseTraffic(text, meta);
+      if (t) traffic.push(t); else console.warn(`traffic: could not identify month in ${f}`);
+    }
+  }
+
+  // ---- Financials merge. Own-release figures win; comparatives fill gaps. Later files win on ties (corrections).
+  const quarters = {}, ytd = {}, bsByQ = {};
+  const put = (store, id, part, vals, src, primary) => {
+    if (!vals || !Object.keys(vals).length) return;
+    const e = (store[id] ??= { id, parts: {}, sources: {} });
+    const cur = e.parts[part];
+    const curPrimary = e.sources[part]?.primary;
+    if (cur && curPrimary && !primary) return;                 // never let a comparative override the own release
+    if (cur && curPrimary === primary && e.sources[part].date > src.date) return; // keep the later-dated when equal rank
+    e.parts[part] = vals; e.sources[part] = { ...src, primary };
+  };
+  for (const r of results.sort((a, b) => a.source.date.localeCompare(b.source.date))) {
+    const src = { url: r.source.url, date: r.source.date, title: r.source.title };
+    for (const [id, parts] of Object.entries(r.quarters)) {
+      const primary = id === r.id;
+      for (const part of ['is', 'cf', 'kpi']) put(quarters, id, part, parts[part], src, primary);
+    }
+    for (const [id, vals] of Object.entries(r.bs)) put(bsByQ, id, 'bs', vals, src, id === r.id);
+    for (const [id, parts] of Object.entries(r.ytd)) {
+      const primary = id === `${r.fy}M${r.q * 3}`;
+      for (const part of ['is', 'cf', 'kpi']) put(ytd, id, part, parts[part], src, primary);
+    }
+    if (r.id in quarters) {
+      quarters[r.id].shares = r.shares || null; quarters[r.id].fxEop = r.fxEop || null; quarters[r.id].fxAvg = r.fxAvg || null;
+    }
+    if (r.warnings.length) console.warn(`${r.id} (${r.source.file}): ${r.warnings.join(' ; ')}`);
+  }
+  for (const [id, e] of Object.entries(bsByQ)) { const q = (quarters[id] ??= { id, parts: {}, sources: {} }); q.parts.bs = e.parts.bs; q.sources.bs = e.sources.bs; }
+
+  const qList = Object.values(quarters).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
+    id: e.id, fy: +e.id.slice(0, 4), q: +e.id.slice(5), label: `${e.id.slice(5)}Q${e.id.slice(2, 4)}`,
+    is: e.parts.is || null, bs: e.parts.bs || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null,
+    shares: e.shares || null, fxEop: e.fxEop || null, fxAvg: e.fxAvg || null, sources: e.sources,
+  }));
+  const ytdList = Object.values(ytd).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
+    id: e.id, fy: +e.id.slice(0, 4), months: +e.id.split('M')[1], is: e.parts.is || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, sources: e.sources,
+  }));
+  // Fiscal years = the twelve-month YTD columns + the Q4 balance sheet; earlier years (FY2015–FY2017) from
+  // the 20-F XBRL facts when tools/gap/raw/companyfacts.json exists (harvest-releases.mjs --source=sec).
+  const years = ytdList.filter((y) => y.months === 12).map((y) => {
+    const q4 = qList.find((q) => q.id === `${y.fy}Q4`);
+    return { id: `FY${y.fy}`, fy: y.fy, is: y.is, cf: y.cf, kpi: y.kpi, bs: q4?.bs || null, sources: { ...y.sources, bs: q4?.sources?.bs } };
+  });
+  const xbrl = await annualFromXbrl();
+  for (const [fyStr, y] of Object.entries(xbrl)) {
+    const fy = +fyStr;
+    if (fy < 2015 || years.some((e) => e.fy === fy)) continue;
+    years.push({ id: `FY${fy}`, fy, is: y.is, cf: y.cf, kpi: null, bs: y.bs, sources: { is: y.source, bs: y.source, cf: y.source }, partial: true });
+  }
+  years.sort((a, b) => a.fy - b.fy);
+
+  const fin = {
+    generatedAt: new Date().toISOString(),
+    currency: 'MXN', units: 'thousands', unitsNote: 'Statements in thousands of pesos as printed by GAP; per-share in pesos / US$; margins in %.',
+    layout: {
+      is: IS_ROWS.map(({ re, ...d }) => d), bs: BS_ROWS.map(({ re, ...d }) => d), cf: CF_ROWS.map(({ re, ...d }) => d), kpi: KPI_ROWS.map(({ re, ...d }) => d),
+    },
+    quarters: qList, ytd: ytdList, years,
+    coverage: { quarters: [qList[0]?.id, qList.at(-1)?.id], years: [years[0]?.id, years.at(-1)?.id], releasesParsed: results.length },
+  };
+  await writeFile(OUT_FIN, `// AUTO-GENERATED by scripts/gap/build-data.mjs from tools/gap/raw/6k — do not hand-edit.\n// Generated: ${fin.generatedAt}\nwindow.GAP_FIN = ${JSON.stringify(fin)};\n`, 'utf8');
+  console.log(`financials.js: ${qList.length} quarters (${fin.coverage.quarters.join(' → ')}), ${ytdList.length} YTD periods, ${years.length} fiscal years (${fin.coverage.years.join(' → ')}) from ${results.length} releases`);
+
+  // ---- Traffic merge (later release wins for the same month — e.g. a correction).
+  const byMonth = {};
+  for (const t of traffic.sort((a, b) => a.source.date.localeCompare(b.source.date))) {
+    if (!Object.keys(t.total).length) { console.warn(`traffic ${t.ym}: no rows parsed (${t.source.file})`); continue; }
+    byMonth[t.ym] = { ym: t.ym, dom: t.dom, intl: t.intl, total: t.total, cbx: t.cbx, source: { url: t.source.url, date: t.source.date } };
+    if (t.warnings.length) console.warn(`traffic ${t.ym}: ${t.warnings.join(' ; ')}`);
+  }
+  for (const t of traffic) {
+    const [y, mo] = t.ym.split('-').map(Number);
+    const prevYm = `${y - 1}-${String(mo).padStart(2, '0')}`;
+    if (!byMonth[prevYm] && Object.keys(t.prior.total).length >= 12 && prevYm >= '2018-01') {
+      byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, cbx: null, source: { url: t.source.url, date: t.source.date, note: 'prior-year comparative column of the following year\'s release' } };
+      console.warn(`traffic ${prevYm}: no own release harvested; filled from the ${t.ym} release's comparative column`);
+    }
+  }
+  const months = Object.values(byMonth).sort((a, b) => a.ym.localeCompare(b.ym));
+  const airports = [
+    { code: 'GDL', en: 'Guadalajara', es: 'Guadalajara', country: 'MX', group: 'metro' },
+    { code: 'TIJ', en: 'Tijuana', es: 'Tijuana', country: 'MX', group: 'metro' },
+    { code: 'SJD', en: 'Los Cabos', es: 'Los Cabos', country: 'MX', group: 'tourist' },
+    { code: 'PVR', en: 'Puerto Vallarta', es: 'Puerto Vallarta', country: 'MX', group: 'tourist' },
+    { code: 'MBJ', en: 'Montego Bay', es: 'Montego Bay', country: 'JM', group: 'jamaica' },
+    { code: 'BJX', en: 'Guanajuato (Bajío)', es: 'Guanajuato (Bajío)', country: 'MX', group: 'regional' },
+    { code: 'HMO', en: 'Hermosillo', es: 'Hermosillo', country: 'MX', group: 'regional' },
+    { code: 'KIN', en: 'Kingston', es: 'Kingston', country: 'JM', group: 'jamaica' },
+    { code: 'MLM', en: 'Morelia', es: 'Morelia', country: 'MX', group: 'regional' },
+    { code: 'LAP', en: 'La Paz', es: 'La Paz', country: 'MX', group: 'tourist' },
+    { code: 'MXL', en: 'Mexicali', es: 'Mexicali', country: 'MX', group: 'regional' },
+    { code: 'AGU', en: 'Aguascalientes', es: 'Aguascalientes', country: 'MX', group: 'regional' },
+    { code: 'LMM', en: 'Los Mochis', es: 'Los Mochis', country: 'MX', group: 'regional' },
+    { code: 'ZLO', en: 'Manzanillo', es: 'Manzanillo', country: 'MX', group: 'tourist' },
+  ];
+  const tr = { generatedAt: new Date().toISOString(), units: 'thousands of terminal passengers', airports, months, coverage: [months[0]?.ym, months.at(-1)?.ym], note: 'Passengers in Tijuana who use CBX in both directions are classified as international. Preliminary figures as released each month.' };
+  await writeFile(OUT_TRAFFIC, `// AUTO-GENERATED by scripts/gap/build-data.mjs from tools/gap/raw/6k — do not hand-edit.\n// Generated: ${tr.generatedAt}\nwindow.GAP_TRAFFIC = ${JSON.stringify(tr)};\n`, 'utf8');
+  console.log(`traffic.js: ${months.length} months (${tr.coverage.join(' → ')})`);
+}
+
+main().catch((e) => { console.error(e); process.exit(1); });
