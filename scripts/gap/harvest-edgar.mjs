@@ -24,8 +24,10 @@ const OTHER_SINCE = '2024-01-01';  // material events (dividends, CBX, FIBRA GAP
 const RAW_DIR = new URL('../../tools/gap/raw/', import.meta.url);
 const SIX_K_DIR = new URL('6k/', RAW_DIR);
 const MANIFEST = new URL('manifest.json', RAW_DIR);
+// SEC EDGAR rejects requests whose User-Agent does not identify the requester with a contact
+// address. Set the SEC_USER_AGENT repository secret to "<org or site> <contact email>".
 const UA = process.env.SEC_USER_AGENT
-  || 'fnam-debt-monitor GAP model (https://github.com/marthavshelton-sys/fnam-debt-monitor)';
+  || 'fnam-debt-monitor/1.0 (gap-refresh@users.noreply.github.com; https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const FULL = process.argv.includes('--full');
 const DELAY_MS = 130; // ~7.5 req/s, under the SEC's 10 req/s ceiling
 
@@ -33,17 +35,19 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 let lastRequest = 0;
 
 async function secFetch(url, { json = false } = {}) {
+  let lastStatus = '';
   for (let attempt = 1; attempt <= 4; attempt++) {
     const wait = lastRequest + DELAY_MS - Date.now();
     if (wait > 0) await sleep(wait);
     lastRequest = Date.now();
-    const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept-Encoding': 'gzip, deflate' } });
+    const res = await fetch(url, { headers: { 'User-Agent': UA, 'Accept': json ? 'application/json' : 'text/html,*/*', 'Accept-Encoding': 'gzip, deflate' } });
     if (res.ok) return json ? res.json() : res.text();
     if (res.status === 404) throw new Error(`${url} -> 404`);
-    // 403/429 = throttled; back off and retry
+    lastStatus = `${res.status} ${(await res.text()).replace(/\s+/g, ' ').slice(0, 160)}`;
+    // 403/429 = throttled or UA rejected; back off and retry
     await sleep(1500 * attempt);
   }
-  throw new Error(`${url} -> gave up after 4 attempts`);
+  throw new Error(`${url} -> gave up after 4 attempts (last: ${lastStatus})`);
 }
 
 // ---------- HTML -> structured text ----------

@@ -68,18 +68,22 @@ jobs:
           SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
         run: node scripts/gap/harvest-edgar.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
 
+      # The steps below run even if a fetch failed, so whatever did refresh still gets committed
+      # (the job itself stays red so the failure is visible in the Actions tab).
       - name: Parse filings into model data
-        if: steps.plan.outputs.mode != 'market'
+        if: always() && steps.plan.outputs.mode != 'market'
         shell: bash
         run: |
           if [ -f scripts/gap/build-data.mjs ]; then node scripts/gap/build-data.mjs; else echo "build-data.mjs not present yet; raw harvest only"; fi
 
       - name: Validate model data
+        if: always()
         shell: bash
         run: |
           if [ -f scripts/gap/validate-data.mjs ]; then node scripts/gap/validate-data.mjs; else echo "validate-data.mjs not present yet"; fi
 
       - name: Commit if anything changed
+        if: always()
         shell: bash
         run: |
           git config user.name "gap-refresh[bot]"
