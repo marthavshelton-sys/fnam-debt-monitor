@@ -5483,7 +5483,10 @@ function renderFinCond() {
     {name:T.legSpread10y2y, color:"--series-headline", data: s102.map(p => p.v)},
     {name:T.legSpread10y3m, color:"--cat-5",           data: s102.map(p => pick(s103, p.d))}
   ], {fmt: v => v.toFixed(2) + "pp", labelFmt: fmtWeek});
-  const s102L = s102[s102.length-1];
+  // FRED publishes the spread series a day ahead of the underlying yields, so
+  // quote the slope for the same date as the two yields it sits next to;
+  // otherwise the sentence can show 4.78 and 4.37 with a slope that isn't 0.41.
+  const s102L = s102.find(p => p.d === y10L.d) || s102[s102.length-1];
   document.getElementById("fcYieldCallout").innerHTML =
     "<div>" + T.fcYieldNote(pctFmt(y10L.v), pctFmt(pick(y2, y10L.d)), s102L.v.toFixed(2), fmtDay(y10L.d)) + " " +
               T.fcYieldSlope(s102L.v < 0 ? "inverted" : "normal") + "</div>";
