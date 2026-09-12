@@ -77,6 +77,7 @@
 
   * { box-sizing: border-box; }
   body {
+    margin: 0;
     background: var(--page-plane);
     color: var(--text-primary);
     font-family: "Public Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -89,9 +90,56 @@
     grid-template-columns: 216px 1fr;
     min-height: 100vh;
   }
+  /* Phone layout: the sidebar gives way to a sticky bar carrying the two
+     controls a visitor cannot do without - the language button and a native
+     section picker built from the same nav as the sidebar, so the two can't
+     drift apart. Content is identical to desktop, only reflowed. */
+  .mobilebar { display: none; }
   @media (max-width: 860px) {
     .shell { grid-template-columns: 1fr; }
     .rail { display: none; }
+    .mobilebar {
+      display: flex; align-items: center; gap: 10px;
+      position: sticky; top: 0; z-index: 20;
+      padding: 10px 14px;
+      background: var(--surface-1);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+    .mobilebar select {
+      flex: 1 1 auto; min-width: 0;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      padding: 9px 10px;
+      color: var(--text-primary); background: var(--page-plane);
+      border: 1px solid var(--baseline); border-radius: 8px;
+    }
+    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 12px; font-size: 14px; flex: none; }
+    main { padding: 16px 14px 48px; }
+    .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
+    .page-header h1 { font-size: 20px; }
+    .meta-block { text-align: left; }
+    .panel { padding: 14px 12px; }
+    .kpi-value { font-size: 22px; }
+    .kpi-value-row { flex-wrap: wrap; gap: 2px 8px; }
+    .kpi-delta { white-space: nowrap; flex-basis: 100%; }
+    .page-header > * { flex-basis: 100%; }
+    .meta-block, .meta-block * { text-align: left; }
+    .section-head { flex-wrap: wrap; }
+    .section-head .note { font-size: 11px; }
+    .momentum-stats { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .momentum-charts { gap: 18px; }
+    .derby-row { grid-template-columns: 96px 1fr 52px; gap: 6px; }
+    .derby-label { font-size: 11.5px; }
+    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .fiscal-link-card { flex-direction: column; align-items: flex-start; }
+    /* Tile maps keep a readable size and scroll sideways inside their panel
+       rather than shrinking until the state values become unreadable. */
+    #rtMap, .map-grid > div { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    #rtMap svg, .map-grid svg { min-width: 520px; }
+  }
+  @media (max-width: 420px) {
+    .mobilebar .brand { display: none; }
   }
 
   /* ---------- left rail ---------- */
@@ -461,6 +509,11 @@
   footer a { color: var(--text-secondary); }
 </style>
 
+<div class="mobilebar" id="mobileBar">
+  <div class="brand" data-i18n="brand">Macro Monitor</div>
+  <select id="mobileNav" aria-label="Section"></select>
+  <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
+</div>
 <div class="shell">
   <nav class="rail">
     <div class="rail-brand" data-i18n="brand">Macro Monitor</div>
@@ -3633,6 +3686,7 @@ function setLang(lang) {
   url.searchParams.set("lang", lang);
   history.replaceState(null, "", url);
   applyStaticStrings();
+  buildMobileNav();
   clearTargets();
   renderAll();
 }
@@ -3679,8 +3733,7 @@ function applyStaticStrings() {
     const val = T[el.getAttribute("data-i18n")];
     if (typeof val === "string") el.textContent = val;
   });
-  const btn = document.getElementById("langSwitch");
-  if (btn) btn.setAttribute("aria-label", T.switchAria);
+  document.querySelectorAll(".lang-switch").forEach(b => b.setAttribute("aria-label", T.switchAria));
 }
 function fmtPct(v, digits) {
   if (v === null || v === undefined) return "—";
@@ -7115,13 +7168,52 @@ async function goLive() {
   }
 })();
 
+// The phone picker mirrors the sidebar by reading it, so adding a section to
+// the rail adds it here too, in both languages, with no second list to maintain.
+function buildMobileNav() {
+  const sel = document.getElementById("mobileNav");
+  if (!sel) return;
+  sel.innerHTML = "";
+  let group = null;
+  document.querySelectorAll(".rail > *").forEach(el => {
+    if (el.classList.contains("rail-group-label")) {
+      group = document.createElement("optgroup"); group.label = el.textContent.trim(); sel.appendChild(group);
+    } else if (el.classList.contains("rail-item")) {
+      const opt = document.createElement("option");
+      const label = el.querySelector("[data-i18n]");
+      opt.textContent = label ? label.textContent.trim() : el.textContent.trim();
+      if (el.hasAttribute("data-view")) {
+        opt.value = "view:" + el.getAttribute("data-view");
+        if (el.classList.contains("active")) opt.selected = true;
+      } else if (el.tagName === "A" && el.href) {
+        opt.value = "link:" + el.href; opt.textContent += " \u2197";
+      } else {
+        opt.value = ""; opt.disabled = true;
+        opt.textContent += " (" + (T.soon || "Soon") + ")";
+      }
+      (group || sel).appendChild(opt);
+    }
+  });
+}
+document.getElementById("mobileNav").addEventListener("change", e => {
+  const v = e.target.value;
+  if (v.startsWith("view:")) {
+    const item = document.querySelector(".rail-item[data-view=\"" + v.slice(5) + "\"]");
+    if (item) item.click();
+  } else if (v.startsWith("link:")) {
+    window.open(v.slice(5), "_blank", "noopener");
+    buildMobileNav();   // put the picker back on the current section
+  }
+});
+document.querySelectorAll(".rail-item[data-view]").forEach(item => item.addEventListener("click", buildMobileNav));
+
 document.documentElement.setAttribute("lang", T.htmlLang);
-const langBtn = document.getElementById("langSwitch");
-if (langBtn) langBtn.addEventListener("click", () => setLang(LANG === "es" ? "en" : "es"));
+document.querySelectorAll(".lang-switch").forEach(b => b.addEventListener("click", () => setLang(LANG === "es" ? "en" : "es")));
 
 // Paint from the snapshot immediately, then refresh in the background where the
 // proxy endpoints exist.
 applyStaticStrings();
+buildMobileNav();
 renderAll();
 if (LIVE_DATA) goLive();
 </script>

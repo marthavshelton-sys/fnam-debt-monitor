@@ -149,6 +149,13 @@ if ($Target -eq "both" -or $Target -eq "web") {
     return
   }
   $page = Build-Page "false"
+  # The artifact host wraps pages in its own <html>/<head>/<body>; the site gets
+  # no such help, and without a viewport meta an iPhone renders it as a shrunken
+  # desktop page. Split at the shell so the title/fonts/styles land in <head>.
+  $cut = $page.IndexOf('<div class="mobilebar"')
+  if ($cut -lt 0) { throw "could not find the page body to wrap" }
+  $page = "<!doctype html>`n<html lang=`"es`">`n<head>`n<meta charset=`"utf-8`">`n<meta name=`"viewport`" content=`"width=device-width, initial-scale=1`">`n" +
+          $page.Substring(0, $cut) + "</head>`n<body>`n" + $page.Substring($cut) + "`n</body>`n</html>`n"
   New-Item -ItemType Directory -Force -Path (Split-Path $OutFile) | Out-Null
   [System.IO.File]::WriteAllText($OutFile, $page, $utf8NoBom)
   [System.IO.File]::WriteAllText($hashFile, $hash, $utf8NoBom)
