@@ -141,23 +141,26 @@
     color: var(--text-primary);
     font-weight: 600;
   }
+  /* The language toggle is the one control every visitor needs to find, so it
+     is a filled accent button rather than a quiet outline like the nav rows. */
   .lang-switch {
     display: block;
     width: 100%;
     margin: 0 0 18px;
-    padding: 7px 10px;
+    padding: 11px 12px;
     font-family: inherit;
-    font-size: 11.5px;
-    font-weight: 600;
+    font-size: 15px;
+    font-weight: 700;
     letter-spacing: 0.02em;
-    color: var(--text-secondary);
-    background: var(--soon-bg);
-    border: 1px solid var(--border);
-    border-radius: 7px;
+    color: #fff;
+    background: var(--series-single);
+    border: 1px solid var(--series-single);
+    border-radius: 8px;
     cursor: pointer;
     text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.15);
   }
-  .lang-switch:hover { color: var(--text-primary); border-color: var(--baseline); }
+  .lang-switch:hover { filter: brightness(1.12); }
   .lang-switch:focus-visible { outline: 2px solid var(--series-single); outline-offset: 2px; }
   .rail-item[data-view] { cursor: pointer; }
   .rail-item[data-view]:hover:not(.active) { background: var(--soon-bg); }
