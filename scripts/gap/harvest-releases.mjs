@@ -235,6 +235,58 @@ function extractArticle(html) {
   return { body: m ? m[1] : html, title: decodeEntities(title).trim() };
 }
 
+// ---------- PR Newswire (GAP's wire before Jan-2019; needed for the FY2015–FY2018 4Q releases) ----------
+const PRN_LISTING = 'https://www.prnewswire.com/search/news/?keyword=%22Grupo%20Aeroportuario%20del%20Pacifico%22&pagesize=100&page=';
+const PRN_RE = /\/news-releases\/[a-z0-9-]*grupo-aeroportuario[a-z0-9-]*-\d{6,}\.html/g;
+const MONTH_IDX = { jan: '01', feb: '02', mar: '03', apr: '04', may: '05', jun: '06', jul: '07', aug: '08', sep: '09', sept: '09', oct: '10', nov: '11', dec: '12' };
+function dateFromText(text) {
+  const m = text.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sept|Sep|Oct|Nov|Dec)[a-z]*\.?\s+(\d{1,2}),\s+(20\d\d)/);
+  return m ? `${m[3]}-${MONTH_IDX[m[1].toLowerCase()]}-${m[2].padStart(2, '0')}` : null;
+}
+async function prnList() {
+  const seen = new Map();
+  for (let page = 1; page <= 12; page++) {
+    let html;
+    try { html = await gnwFetch(PRN_LISTING + page); } catch (e) { console.error(`PRN listing page ${page}: ${e.message}`); break; }
+    let found = 0;
+    for (const m of html.matchAll(PRN_RE)) {
+      const path = m[0];
+      const id = (path.match(/-(\d{6,})\.html$/) || [])[1];
+      if (!seen.has(id)) { seen.set(id, { id, lang: 'en', url: 'https://www.prnewswire.com' + path }); found++; }
+    }
+    if (page === 1) console.log(`PRN listing: ${found} links${found ? '' : ' — page head: ' + htmlToText(html).slice(0, 300).replace(/\n/g, ' ')}`);
+    if (found === 0) break;
+  }
+  return [...seen.values()];
+}
+async function harvestPrn(manifest, results, known) {
+  let fetched = 0;
+  for (const r of await prnList()) {
+    if (known.has(r.url)) continue;
+    let html;
+    try { html = await gnwFetch(r.url); } catch (e) { results.push({ source: 'prn', ...r, filingDate: '0000-00-00', error: e.message, docs: [] }); continue; }
+    const body = (html.match(/<section[^>]+class="[^"]*release-body[^"]*"[^>]*>([\s\S]*?)<\/section>/i) || html.match(/<article[^>]*>([\s\S]*?)<\/article>/i) || [, html])[1];
+    const title = decodeEntities((html.match(/<title>([\s\S]*?)<\/title>/i) || [, ''])[1]).trim();
+    const text = htmlToText(body);
+    const date = dateFromText(text.slice(0, 3000)) || dateFromText(html.slice(0, 20000)) || '0000-00-00';
+    if (date !== '0000-00-00' && date >= '2019-01-01') { known.add(r.url); continue; } // GlobeNewswire era, already covered
+    let cls = classify(title + '\n' + text);
+    if (cls === 'other') cls = 'skip';
+    const entry = { source: 'prn', id: r.id, lang: 'en', filingDate: date, title, url: r.url, docs: [] };
+    if (cls !== 'skip') {
+      const file = `${date}_prn${r.id}_en.txt`;
+      const header = `# source: ${r.url}\n# title: ${title}\n# date: ${date}\n# lang: en\n# class: ${cls}\n\n`;
+      await writeFile(new URL(file, SIX_K_DIR), header + text, 'utf8');
+      entry.docs.push({ name: file, url: r.url, class: cls, chars: text.length, path: `tools/gap/raw/6k/${file}` });
+    }
+    results.push(entry);
+    known.add(r.url);
+    fetched++;
+    console.log(`${date} prn ${cls.padEnd(7)} ${title.slice(0, 90)}`);
+  }
+  return fetched;
+}
+
 async function harvestGnw(manifest) {
   const known = new Set(manifest.filings.filter((f) => f.url).map((f) => f.url));
   const listing = await gnwList();
@@ -259,6 +311,10 @@ async function harvestGnw(manifest) {
     results.push(entry);
     fetched++;
     console.log(`${r.date} ${r.lang} ${cls.padEnd(7)} ${title.slice(0, 90)}`);
+  }
+  // Pre-2019 releases (PR Newswire) — only needed once; skipped when the manifest already has them.
+  if (FULL || !manifest.filings.some((f) => f.source === 'prn')) {
+    try { fetched += await harvestPrn(manifest, results, known); } catch (e) { console.error(`PRN harvest failed: ${e.message}`); }
   }
   return { results, fetched, entity: 'Grupo Aeroportuario del Pacífico, S.A.B. de C.V.' };
 }
