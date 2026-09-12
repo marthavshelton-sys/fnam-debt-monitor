@@ -1,17 +1,20 @@
-// Harvests Grupo Aeroportuario del Pacífico (GAP, SEC CIK 1347557) filings for the GAP model.
+// Harvests Grupo Aeroportuario del Pacífico's press releases for the GAP model.
 //
-//  1. Every Form 6-K since SINCE whose document is a quarterly-results release or a monthly
-//     passenger-traffic release (plus material-event releases since OTHER_SINCE) is downloaded,
-//     converted from HTML to pipe-delimited text (tables keep their cell structure) and saved
-//     under tools/gap/raw/6k/. These are the primary sources scripts/gap/build-data.mjs parses.
-//  2. The XBRL "company facts" for the 20-F annual filings are saved (reduced to fiscal-year
-//     entries) as tools/gap/raw/companyfacts.json — the annual FY2015–FY2025 series.
+// Every quarterly-results release and monthly passenger-traffic release since SINCE (plus
+// material-event releases since OTHER_SINCE) is downloaded, converted from HTML to
+// pipe-delimited text (tables keep their cell structure) and saved under tools/gap/raw/6k/.
+// These are the primary sources scripts/gap/build-data.mjs parses.
 //
-// Incremental by default: filings already listed in tools/gap/raw/manifest.json are skipped.
+// Sources (--source gnw|sec, default gnw):
+//   gnw  GlobeNewswire, the wire GAP distributes every release through (EN and ES). Listing
+//        via the keyword search pages, then each release page. Works from GitHub runners.
+//   sec  SEC EDGAR Form 6-K filings (CIK 1347557) + XBRL company facts for the 20-F annual
+//        series. Identical content, but EDGAR blocks GitHub-hosted runner networks as
+//        "undeclared automated tools", so use this from a workstation with SEC_USER_AGENT set
+//        to "<name> <contact email>" (SEC fair-access policy: <= 10 requests/second).
+//
+// Incremental by default: releases already listed in tools/gap/raw/manifest.json are skipped.
 // Pass --full to re-download everything (e.g. after changing the classifier).
-//
-// Runs on GitHub Actions (ubuntu-latest, Node 20+ with global fetch). SEC fair-access policy:
-// stay under 10 requests/second and send a descriptive User-Agent (override with SEC_USER_AGENT).
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -28,6 +31,9 @@ const MANIFEST = new URL('manifest.json', RAW_DIR);
 // address. Set the SEC_USER_AGENT repository secret to "<org or site> <contact email>".
 const UA = process.env.SEC_USER_AGENT || 'fnam-debt-monitor gap-refresh@users.noreply.github.com';
 const FULL = process.argv.includes('--full');
+const SOURCE = (process.argv.find((a) => a.startsWith('--source=')) || '--source=gnw').split('=')[1];
+const GNW_UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
+const GNW_DELAY_MS = 450;
 const DELAY_MS = 130; // ~7.5 req/s, under the SEC's 10 req/s ceiling
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -172,10 +178,93 @@ async function harvestCompanyFacts() {
   return Object.keys(reduced.facts).length;
 }
 
-async function main() {
-  await mkdir(SIX_K_DIR, { recursive: true });
-  const manifest = await loadManifest();
-  const known = new Set(manifest.filings.map((f) => f.accession));
+// ---------- GlobeNewswire ----------
+let lastGnw = 0;
+async function gnwFetch(url) {
+  let lastErr = '';
+  for (let attempt = 1; attempt <= 4; attempt++) {
+    const wait = lastGnw + GNW_DELAY_MS - Date.now();
+    if (wait > 0) await sleep(wait);
+    lastGnw = Date.now();
+    const res = await fetch(url, { headers: { 'User-Agent': GNW_UA, Accept: 'text/html,*/*', 'Accept-Language': 'en,es;q=0.8' } });
+    if (res.ok) return res.text();
+    if (res.status === 404) throw new Error(`${url} -> 404`);
+    lastErr = `${res.status}`;
+    await sleep(2000 * attempt);
+  }
+  throw new Error(`${url} -> gave up (last ${lastErr})`);
+}
+
+const GNW_LISTINGS = [
+  'https://www.globenewswire.com/en/search/keyword/Grupo%20Aeroportuario%20del%20Pacifico?page=',
+  'https://www.globenewswire.com/search/keyword/Grupo%20Aeroportuario%20del%20Pacifico?page=',
+];
+const RELEASE_RE = /\/news-release\/(\d{4})\/(\d{2})\/(\d{2})\/(\d+)\/(\d+)\/(en|es|[a-z]{2})\/[^"'\s<>]+/g;
+
+async function gnwList() {
+  const seen = new Map();
+  for (const base of GNW_LISTINGS) {
+    let empty = 0;
+    for (let page = 1; page <= 120; page++) {
+      let html;
+      try { html = await gnwFetch(base + page); } catch (e) { console.error(`listing ${base}${page}: ${e.message}`); break; }
+      let found = 0, oldest = '9999';
+      for (const m of html.matchAll(RELEASE_RE)) {
+        const [path, y, mo, d, id, , lang] = m;
+        const date = `${y}-${mo}-${d}`;
+        const url = 'https://www.globenewswire.com' + path.replace(/&amp;/g, '&');
+        if (!seen.has(id + lang)) { seen.set(id + lang, { id, lang, date, url }); found++; }
+        if (date < oldest) oldest = date;
+      }
+      if (page === 1) console.log(`listing ${base}1: ${found} release links${found ? '' : ' — page head: ' + htmlToText(html).slice(0, 300).replace(/\n/g, ' ')}`);
+      if (found === 0) { if (++empty >= 2) break; } else empty = 0;
+      if (oldest < SINCE) break;
+    }
+    if (seen.size) break; // first listing variant that works is enough
+  }
+  const out = [...seen.values()].filter((r) => r.date >= SINCE);
+  out.sort((a, b) => a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  return out;
+}
+
+function extractArticle(html) {
+  // GlobeNewswire wraps the release body in an article element; fall back to the whole page.
+  const m = html.match(/<div[^>]+class="[^"]*\bmain-body-container\b[^"]*"[^>]*>([\s\S]*?)<\/div>\s*(?:<div[^>]+class="[^"]*\b(?:article-footer|tag-list|related)\b|<footer)/i)
+    || html.match(/<article[^>]*>([\s\S]*?)<\/article>/i);
+  const title = (html.match(/<title>([\s\S]*?)<\/title>/i) || [, ''])[1];
+  return { body: m ? m[1] : html, title: decodeEntities(title).trim() };
+}
+
+async function harvestGnw(manifest) {
+  const known = new Set(manifest.filings.filter((f) => f.url).map((f) => f.url));
+  const listing = await gnwList();
+  console.log(`GlobeNewswire: ${listing.length} releases since ${SINCE}; ${known.size} already harvested`);
+  const results = [...manifest.filings];
+  let fetched = 0;
+  for (const r of listing) {
+    if (known.has(r.url)) continue;
+    let html;
+    try { html = await gnwFetch(r.url); } catch (e) { results.push({ ...r, error: e.message, docs: [] }); continue; }
+    const { body, title } = extractArticle(html);
+    const text = htmlToText(body);
+    let cls = classify(title + '\n' + text);
+    if (cls === 'other' && r.date < OTHER_SINCE) cls = 'skip';
+    const entry = { source: 'gnw', id: r.id, lang: r.lang, filingDate: r.date, title, url: r.url, docs: [] };
+    if (cls !== 'skip') {
+      const file = `${r.date}_gnw${r.id}_${r.lang}.txt`;
+      const header = `# source: ${r.url}\n# title: ${title}\n# date: ${r.date}\n# lang: ${r.lang}\n# class: ${cls}\n\n`;
+      await writeFile(new URL(file, SIX_K_DIR), header + text, 'utf8');
+      entry.docs.push({ name: file, url: r.url, class: cls, chars: text.length, path: `tools/gap/raw/6k/${file}` });
+    }
+    results.push(entry);
+    fetched++;
+    console.log(`${r.date} ${r.lang} ${cls.padEnd(7)} ${title.slice(0, 90)}`);
+  }
+  return { results, fetched, entity: 'Grupo Aeroportuario del Pacífico, S.A.B. de C.V.' };
+}
+
+async function harvestSec(manifest) {
+  const known = new Set(manifest.filings.map((f) => f.accession).filter(Boolean));
   const listing = await listSixKs();
   console.log(`${listing.name}: ${listing.filings.length} Form 6-K filings since ${SINCE}; ${known.size} already harvested`);
   const results = [...manifest.filings];
@@ -183,21 +272,28 @@ async function main() {
   for (const f of listing.filings) {
     if (known.has(f.accession)) continue;
     const r = await harvestFiling(f);
-    results.push(r);
+    results.push({ source: 'sec', ...r });
     fetched++;
     const kept = r.docs.filter((d) => d.path).map((d) => `${d.class}:${d.name}`).join(', ');
     console.log(`${f.filingDate} ${f.accession} ${kept || '(nothing kept)'}${r.error ? ' ERROR ' + r.error : ''}`);
   }
-  results.sort((a, b) => a.filingDate.localeCompare(b.filingDate) || a.accession.localeCompare(b.accession));
-  const summary = { results: 0, traffic: 0, other: 0 };
-  for (const r of results) for (const d of r.docs) if (d.path) summary[d.class]++;
   const conceptCount = await harvestCompanyFacts();
+  return { results, fetched, entity: listing.name, conceptCount };
+}
+
+async function main() {
+  await mkdir(SIX_K_DIR, { recursive: true });
+  const manifest = await loadManifest();
+  const { results, fetched, entity, conceptCount } = SOURCE === 'sec' ? await harvestSec(manifest) : await harvestGnw(manifest);
+  results.sort((a, b) => a.filingDate.localeCompare(b.filingDate) || String(a.id || a.accession).localeCompare(String(b.id || b.accession)));
+  const summary = { results: 0, traffic: 0, other: 0 };
+  for (const r of results) for (const d of r.docs || []) if (d.path) summary[d.class] = (summary[d.class] || 0) + 1;
   await writeFile(MANIFEST, JSON.stringify({
-    cik: CIK, entity: listing.name, tickers: listing.tickers, exchanges: listing.exchanges,
-    since: SINCE, otherSince: OTHER_SINCE, updatedAt: new Date().toISOString(),
-    kept: summary, companyFactsConcepts: conceptCount, filings: results,
+    entity, source: SOURCE, since: SINCE, otherSince: OTHER_SINCE, updatedAt: new Date().toISOString(),
+    kept: summary, companyFactsConcepts: conceptCount ?? manifest.companyFactsConcepts ?? null, filings: results,
   }, null, 1), 'utf8');
-  console.log(`Fetched ${fetched} new filings. Kept on disk: ${JSON.stringify(summary)}. Company-facts concepts: ${conceptCount}.`);
+  console.log(`Fetched ${fetched} new releases. Kept on disk: ${JSON.stringify(summary)}.`);
+  if (fetched === 0 && results.length === 0) { console.error('Nothing harvested — listing returned no releases.'); process.exit(1); }
 }
 
 if (process.argv[1] && import.meta.url.endsWith(path.basename(process.argv[1]))) {

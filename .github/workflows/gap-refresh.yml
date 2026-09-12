@@ -3,8 +3,8 @@
 #   market   daily after the BMV close: share prices, dividends, USD/MXN, 10-year yields
 #            -> site/gap/data/market.js
 #   filings  three times a month (GAP files monthly traffic around the 5th-10th and quarterly
-#            results in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new 6-K releases
-#            from SEC EDGAR into tools/gap/raw/, re-parses them into site/gap/data/*.js and
+#            results in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases from
+#            GlobeNewswire (GAP's wire; EDGAR blocks GitHub runners) into tools/gap/raw/, re-parses them into site/gap/data/*.js and
 #            validates the tie-outs before anything is committed.
 #
 # Scheduled runs only happen on the default branch (GitHub rule). On other branches the
@@ -62,11 +62,9 @@ jobs:
         if: steps.plan.outputs.mode != 'filings'
         run: node scripts/gap/fetch-market.mjs
 
-      - name: Harvest SEC EDGAR filings
+      - name: Harvest press releases (GlobeNewswire)
         if: steps.plan.outputs.mode != 'market'
-        env:
-          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
-        run: node scripts/gap/harvest-edgar.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
+        run: node scripts/gap/harvest-releases.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
 
       # The steps below run even if a fetch failed, so whatever did refresh still gets committed
       # (the job itself stays red so the failure is visible in the Actions tab).
