@@ -135,10 +135,11 @@ if ($Target -eq "both" -or $Target -eq "art") {
 if ($Target -eq "both" -or $Target -eq "web") {
   if (-not $OutFile) { $OutFile = Join-Path $base "macrodash\index.html" }
 
-  # Skip the write when nothing upstream changed, so the scheduled job doesn't
-  # commit a 1.4 MB page twice a day just to move a "refreshed" date. The hash
-  # covers every data file with the pull-date stamps stripped out.
-  $payload = ($cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
+  # Skip the write when nothing changed, so the scheduled job doesn't commit a
+  # 1.4 MB page twice a day just to move a "refreshed" date. The hash covers the
+  # template and every data file (pull-date stamps stripped), so either a data
+  # release or an edit to the page triggers a rebuild, and nothing else does.
+  $payload = ($template + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
               $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
   $sha = [System.Security.Cryptography.SHA256]::Create()
   $hash = ([System.BitConverter]::ToString($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($payload)))).Replace("-", "").ToLower()
