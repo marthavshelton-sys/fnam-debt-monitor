@@ -26,6 +26,7 @@
     --up-ink:         #52514e;
     --down-ink:       #52514e;
     --soon-bg:        #f0efec;
+    --lang-btn:       #0d8f6e;   /* language toggle: its own color, not a chart or link color */
     --cat-1: #2a78d6; --cat-2: #eb6834; --cat-3: #1baf7a; --cat-4: #eda100;
     --cat-5: #e87ba4; --cat-6: #008300; --cat-7: #4a3aa7; --cat-8: #e34948;
     --cat-9: #a3703f; --cat-10: #767c88;
@@ -119,7 +120,7 @@
       color: var(--text-primary); background: var(--page-plane);
       border: 1px solid var(--baseline); border-radius: 8px;
     }
-    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 12px; font-size: 14px; flex: none; }
+    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
     main { padding: 16px 14px 48px; }
     .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
     .page-header h1 { font-size: 20px; }
@@ -206,8 +207,8 @@
     font-weight: 700;
     letter-spacing: 0.02em;
     color: #fff;
-    background: var(--series-single);
-    border: 1px solid var(--series-single);
+    background: var(--lang-btn);
+    border: 1px solid var(--lang-btn);
     border-radius: 8px;
     cursor: pointer;
     text-align: center;
@@ -2191,8 +2192,8 @@ const I18N = {
     htmlLang: "es-MX",
     dateLocale: "es-MX",
     months: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
-    switchTo: "English",
-    switchAria: "Switch to English",
+    switchTo: "Cambiar a inglés",
+    switchAria: "Cambiar a inglés",
 
     brand: "Macro Monitor",
     railSub: "Indicadores económicos de Estados Unidos",
@@ -2978,8 +2979,8 @@ const I18N = {
     htmlLang: "en",
     dateLocale: "en-US",
     months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-    switchTo: "Español",
-    switchAria: "Cambiar a español",
+    switchTo: "Change to Spanish",
+    switchAria: "Change to Spanish",
 
     brand: "Macro Monitor",
     railSub: "U.S. economic indicators",
