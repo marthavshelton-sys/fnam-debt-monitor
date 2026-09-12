@@ -11,6 +11,9 @@ $base = $PSScriptRoot
 $data = if ($env:MACRO_DATA_DIR) { $env:MACRO_DATA_DIR } else { "$env:TEMP\claude" }
 
 $template     = Get-Content "$base\macro_monitor_template.html" -Raw -Encoding UTF8
+# A Windows git checkout may hand the template back with CRLF line endings; the
+# guards below match on LF, and the page is emitted with LF either way.
+$template     = $template -replace "`r`n", "`n"
 $cpiJson      = Get-Content "$data\bls_cpi_processed3.json" -Raw -Encoding UTF8
 $weightsJson  = Get-Content "$data\bls_weights.json" -Raw -Encoding UTF8
 $pceJson      = Get-Content "$data\pce_processed.json" -Raw -Encoding UTF8
