@@ -99,7 +99,23 @@ async function fred(cand, spec) {
 // CL_INDICATOR catalog entry for the same id. Both need INEGI_TOKEN (free registration).
 const INEGI_BASE = 'https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml';
 function inegiToken() { const t = process.env.INEGI_TOKEN; if (!t) throw new Error('INEGI_TOKEN not set'); return t; }
-async function inegiTitle(id) {
+// Full-text search of INEGI's Banco de Información Económica: the same request INEGI's own query
+// builder sends from its search box. Returns [{INDICADOR, TITULO}] with the full topic path as the
+// title; needs no token.
+async function bieSearch(q) {
+  const base = process.env.INEGI_SEARCH_BASE || 'https://www.inegi.org.mx/';
+  const body = { busqueda: q, busquedaCiencia: '', paginaInicio: 0, paginaFin: 40, filtrobusqueda: 'CBUSQUEDA', filtrotema: 'null', orderby: 'RANKING', orderbyAscDesc: 'Desc', metodoBusqueda: 1, herramienta: 32 };
+  const res = await fetch(base + 'app/api/buscadorcore/v1/busquedaBIE/', { method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json' }, body: JSON.stringify(body) });
+  if (!res.ok) throw new Error(`busquedaBIE HTTP ${res.status}`);
+  const data = await res.json();
+  return (Array.isArray(data) ? data : []).map((r) => ({ INDICADOR: String(r.INDICADOR ?? ''), TITULO: String(r.TITULO ?? '').replace(/#null/g, '').replace(/\s+/g, ' ').trim() }));
+}
+// Title for an INEGI id: the BIE search (candidate `search` query) gives the full topic path, which
+// is what the manifest regex is written against; the CL_INDICATOR catalog entry is the fallback.
+async function inegiTitle(id, cand) {
+  if (cand && cand.search) {
+    try { const row = (await bieSearch(cand.search)).find((r) => r.INDICADOR === String(id)); if (row) return row.TITULO; } catch (e) { /* fall through */ }
+  }
   try {
     const body = await (await http(`${INEGI_BASE}/CL_INDICATOR/${id}/es/BIE/2.0/${inegiToken()}?type=json`)).json();
     const row = (body?.CODE || []).find((c) => String(c.value) === String(id)) || body?.CODE?.[0];
@@ -124,7 +140,7 @@ async function inegi(cand, spec) {
     if (d.slice(0, 4) >= spec.since.slice(0, 4)) points.push([d, r4(v)]);
   }
   points.sort((a, b) => a[0].localeCompare(b[0]));
-  const title = await inegiTitle(cand.id);
+  const title = await inegiTitle(cand.id, cand);
   return { title: title || null, points, url: `https://www.inegi.org.mx/app/indicadores/?ind=${cand.id}`, meta: { freq: s.FREQ, unit: s.UNIT, lastUpdate: s.LASTUPDATE, note: s.NOTE } };
 }
 // Downloads INEGI's full BIE indicator catalog and prints every entry whose description matches
@@ -254,15 +270,10 @@ async function main() {
       // BIE full-text search, the same request INEGI's own query builder sends from its search box.
       // Prints INDICADOR ids with titles; needs no token.
       for (const q of (argv[searchIdx + 1] || '').split('|').map((x) => x.trim()).filter(Boolean)) {
-        const base = process.env.INEGI_SEARCH_BASE || 'https://www.inegi.org.mx/';
-        const body = { busqueda: q, busquedaCiencia: '', paginaInicio: 0, paginaFin: 40, filtrobusqueda: 'CBUSQUEDA', filtrotema: 'null', orderby: 'RANKING', orderbyAscDesc: 'Desc', metodoBusqueda: 1, herramienta: 32 };
         try {
-          const res = await fetch(base + 'app/api/buscadorcore/v1/busquedaBIE/', { method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json' }, body: JSON.stringify(body) });
-          const txt = await res.text();
-          let data; try { data = JSON.parse(txt); } catch { data = null; }
-          out(`search "${q}" -> HTTP ${res.status}, ${Array.isArray(data) ? data.length + ' results' : txt.slice(0, 300)}`);
-          if (Array.isArray(data)) for (const r of data) out(`  ${r.INDICADOR ?? r.indicador ?? '?'}\t${String(r.TITULO ?? r.titulo ?? JSON.stringify(r)).replace(/#null/g, '').replace(/\s+/g, ' ').slice(0, 300)}`);
-          else if (data && typeof data === 'object') out('  ' + JSON.stringify(data).slice(0, 1500));
+          const rows = await bieSearch(q);
+          out(`search "${q}" -> ${rows.length} results`);
+          for (const r of rows) out(`  ${r.INDICADOR}\t${r.TITULO.slice(0, 300)}`);
         } catch (e) { out(`search "${q}" -> ERROR ${e.message}`); }
       }
     }

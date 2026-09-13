@@ -1,7 +1,7 @@
 {
  "_doc": [
   "One entry per logical series the Mexico macro page uses. The fetcher tries each",
-  "inegi (Indicadores API, INEGI_TOKEN): the data endpoint has no series name, so the title check uses the CL_INDICATOR catalog description for the same id. The ids listed for igae and consumerConfidence are candidates to be confirmed by the catalog search (workflow input \"catalog\"); a candidate whose description does not match is dropped.",
+  "inegi (Indicadores API, INEGI_TOKEN): the data endpoint has no series name, so an INEGI candidate carries a `search` query; the fetcher runs INEGI's BIE full-text search with it, finds the row whose INDICADOR equals the candidate id and checks the title regex against that row's full topic path (the CL_INDICATOR catalog description is the fallback). IGAE ids 737219/737217/737226/737233/737268 and consumer-confidence ids 454186/454168 were confirmed this way on 2026-09-13.",
   "candidate in order and keeps the first one that (a) answers, (b) carries the",
   "expected title (regex, case-insensitive, checked against the provider's own",
   "metadata) and (c) returns enough points. A candidate whose title does not match",
@@ -165,26 +165,79 @@
    "candidates": [
     {
      "provider": "inegi",
-     "id": "496150",
-     "title": "actividad econ(ó|o)mica|IGAE",
+     "id": "737219",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total.*Serie desestacionalizada.*(Í|I)ndice$",
      "note": {
-      "es": "Indicador Global de la Actividad Económica, cifras desestacionalizadas (INEGI)",
-      "en": "Global Indicator of Economic Activity, seasonally adjusted (INEGI)"
+      "es": "IGAE total, base 2018, serie desestacionalizada (INEGI)",
+      "en": "IGAE total, base 2018, seasonally adjusted (INEGI)"
      }
     },
     {
      "provider": "inegi",
-     "id": "737121",
-     "title": "actividad econ(ó|o)mica|IGAE",
+     "id": "737217",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total.*Serie original corregida.*(Í|I)ndice$",
      "note": {
-      "es": "Indicador Global de la Actividad Económica (INEGI)",
-      "en": "Global Indicator of Economic Activity (INEGI)"
+      "es": "IGAE total, base 2018, serie original corregida por efectos de calendario (INEGI)",
+      "en": "IGAE total, base 2018, original series adjusted for calendar effects (INEGI)"
      }
     },
     {
      "provider": "banxico",
      "id": "SR16734",
      "title": "actividad econ(ó|o)mica"
+    }
+   ]
+  },
+  "igaePrimary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737226",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Actividades primarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades primarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE primary activities, seasonally adjusted (INEGI)"
+     }
+    }
+   ]
+  },
+  "igaeSecondary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737233",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total actividades secundarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades secundarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE secondary activities, seasonally adjusted (INEGI)"
+     }
+    }
+   ]
+  },
+  "igaeTertiary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737268",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total actividades terciarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades terciarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE tertiary activities, seasonally adjusted (INEGI)"
+     }
     }
    ]
   },
@@ -220,20 +273,22 @@
    "candidates": [
     {
      "provider": "inegi",
-     "id": "63541",
-     "title": "confianza del consumidor",
+     "id": "454186",
+     "search": "confianza del consumidor",
+     "title": "Confianza del consumidor.*Indicador de confianza del consumidor.*Serie desestacionalizada.*Indicador$",
      "note": {
-      "es": "Indicador de Confianza del Consumidor, ENCO (INEGI y Banxico), 2003 = 100",
-      "en": "Consumer Confidence Indicator, ENCO survey (INEGI and Banxico), 2003 = 100"
+      "es": "Indicador de Confianza del Consumidor (ENCO, INEGI y Banxico), balance en puntos, serie desestacionalizada",
+      "en": "Consumer Confidence Indicator (ENCO survey, INEGI and Banxico), balance in points, seasonally adjusted"
      }
     },
     {
      "provider": "inegi",
-     "id": "63542",
-     "title": "confianza del consumidor",
+     "id": "454168",
+     "search": "confianza del consumidor",
+     "title": "Confianza del consumidor.*Series originales.*Indicador de confianza del consumidor$",
      "note": {
-      "es": "Indicador de Confianza del Consumidor, ENCO (INEGI y Banxico), 2003 = 100",
-      "en": "Consumer Confidence Indicator, ENCO survey (INEGI and Banxico), 2003 = 100"
+      "es": "Indicador de Confianza del Consumidor (ENCO, INEGI y Banxico), balance en puntos, serie original",
+      "en": "Consumer Confidence Indicator (ENCO survey, INEGI and Banxico), balance in points, original series"
      }
     },
     {
