@@ -28,13 +28,14 @@ const SERIES = {
   tiie28:       { ids: ['SF43783'], title: /TIIE a 28/i, desc: 'TIIE a 28 días, % anual' },
   cetes28:      { ids: ['SF43936'], title: /cetes a 28/i, desc: 'Cetes a 28 días, tasa de rendimiento en subasta primaria, %' },
   cetes91:      { ids: ['SF43939'], title: /cetes a 91/i, desc: 'Cetes a 91 días, tasa de rendimiento en subasta primaria, %' },
-  // SF43939 turned out to be the 91-day Cetes (confirmed 2026-09-13); the 364-day series is
-  // probed among the neighbouring IDs of the same auction-results table.
-  cetes364:     { ids: (process.env.BANXICO_SERIES_CETES_364 ? [process.env.BANXICO_SERIES_CETES_364] : []).concat(['SF43945','SF43942','SF43948','SF43951','SF45470']), title: /cetes a 364/i, desc: 'Cetes a 364 días, tasa de rendimiento en subasta primaria, %' },
+  cetes182:     { ids: ['SF43942'], title: /cetes a 182/i, desc: 'Cetes a 182 días, tasa de rendimiento en subasta primaria, %' },
+  cetes364:     { ids: (process.env.BANXICO_SERIES_CETES_364 ? [process.env.BANXICO_SERIES_CETES_364] : []).concat(['SF43945']), title: /cetes a 364/i, desc: 'Cetes a 364 días, tasa de rendimiento en subasta primaria, %' },
   udi:          { ids: ['SP68257'], title: /UDIS?/i, desc: 'Valor de la UDI, pesos' },
-  // Monetary base, millions of pesos. SF30579 returned an empty title (confirmed wrong 2026-09-13);
-  // candidates below are probed and the winner is whichever title says "base monetaria".
-  baseMonetaria:{ ids: (process.env.BANXICO_SERIES_BASE_MONETARIA ? [process.env.BANXICO_SERIES_BASE_MONETARIA] : []).concat(['SF1','SF2','SF30573','SF30574','SF30580','SF30581','SF43695','SF43697','SF61773','SF61774']), title: /base monetaria/i, desc: 'Base monetaria, millones de pesos' },
+  // Monetary base, millions of pesos, weekly. Confirmed 2026-09-13: SF43695 «Base monetaria, circulante y
+  // depósitos — Base monetaria». The title pattern is deliberately narrow: SF1 («Fuentes y usos de la base
+  // monetaria — Billetes y monedas en circulación», thousands of pesos, monthly) also contains the words
+  // "base monetaria" and was published by mistake on the first probe run.
+  baseMonetaria:{ ids: (process.env.BANXICO_SERIES_BASE_MONETARIA ? [process.env.BANXICO_SERIES_BASE_MONETARIA] : []).concat(['SF43695']), title: /circulante y dep[oó]sitos\s+Base monetaria$/i, desc: 'Base monetaria, millones de pesos (semanal)' },
 };
 
 // Banxico dates arrive as "dd/mm/yyyy"; normalise to ISO so the page's string-only date
