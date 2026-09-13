@@ -95,3 +95,13 @@ picks it up on the next deploy; no build step is needed. Page and data responses
 ```
 npx http-server site -p 8080      # then open http://localhost:8080/gap/  (no password locally)
 ```
+
+## Change notifications (email)
+
+A Claude Code Routine ("GAP data change alert") runs each weekday at 15:30 UTC, one hour after the
+release harvest. It compares the newest quarter, the newest traffic month and the `reference.js`
+blob against `tools/gap/notify-state.json`; when something material changed it emails a concise
+summary with analysis to the repo owner through the Gmail connector, then updates the state file on
+`main`. No change, no email. If the data files fail to load or `validate-data.mjs` fails, it emails a
+one-line pipeline alert once per distinct failure. Manage or pause it from the Routines list in
+claude.ai/code.
