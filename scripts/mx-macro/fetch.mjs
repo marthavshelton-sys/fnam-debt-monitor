@@ -228,7 +228,9 @@ async function main() {
       const mask = (t) => [process.env.INEGI_TOKEN, process.env.BANXICO_TOKEN, process.env.FRED_API_KEY].filter(Boolean).reduce((a, k) => a.split(k).join('***'), t);
       // Each item is URL or URL#regex: with a regex, only matching lines are printed (up to 80), else the first 2500 chars.
       for (const item of (argv[urlIdx + 1] || '').split(/\s+/).filter(Boolean)) {
-        const [raw, pat] = item.split('#');
+        // URL#regex filters lines; URL##regex forces match-with-context mode even on multi-line bodies.
+        const forceCtx = item.includes('##');
+        const [raw, pat] = item.split(/#{1,2}/);
         try {
           const res = await fetch(sub(raw), { headers: { 'User-Agent': UA, Accept: 'application/json, */*', ...(raw.includes('banxico') ? { 'Bmx-Token': process.env.BANXICO_TOKEN || '' } : {}) } });
           const body = await res.text();
@@ -236,7 +238,7 @@ async function main() {
           if (pat) {
             // Short lines: print matching lines. Minified/one-line bodies: print each match with context.
             const lines = body.split(/\r?\n/);
-            if (lines.length > 20) {
+            if (lines.length > 20 && !forceCtx) {
               const re = new RegExp(pat, 'i');
               for (const l of lines.filter((l) => re.test(l)).slice(0, 80)) out('  | ' + mask(l.trim().slice(0, 400)));
             } else {
