@@ -27,10 +27,9 @@ notice that lists what is pending. One bad feed never takes the page down.
 
 **Required repository secret:** `BANXICO_TOKEN` — free and instant at
 <https://www.banxico.org.mx/SieAPIRest/service/v1/token>. Without it only the
-FRED fallbacks load (GDP, industrial production, unemployment, consumer
-confidence, trade, the 10-year yield, plus the OECD copies of headline/core
-CPI, the exchange rate and reserves); the INPC components, remittances, IMSS
-jobs, the policy rate, TIIE and Cetes come only from Banxico.
+FRED fallbacks load (GDP, unemployment, trade, the exchange rate, reserves,
+an interbank-rate proxy and the 10-year yield); the INPC and its components,
+remittances, the target rate, TIIE and Cetes come only from Banxico.
 
 **Optional:** `FRED_API_KEY` (already set for the U.S. page) lets the fetcher
 verify each FRED series' title; `INEGI_TOKEN` is only read once INEGI
@@ -46,21 +45,28 @@ reported as a warning in the Actions run (and in the run summary table, which
 shows every series' source, reported title, last date and value). That is the
 guard against a mistyped ID putting a wrongly labelled series on the page.
 
-The Banxico IDs for the INPC family (`SP1`, `SP74625`–`SP74639`), the FIX
-(`SF43718`), the target rate (`SF61745`), TIIE 28 (`SF43783`), Cetes 28
-(`SF43936`), remittances (`SE27803`) and reserves (`SF43707`) are the
-customary SIE identifiers; `SR16734` (IGAE) and `SL11295` (IMSS jobs) are best
-guesses that the title check will confirm or reject on the first run. To look
-an ID up without a full run:
+Banxico IDs confirmed against the titles the API reported on the first run
+with a token: `SP1` (INPC general), `SP74625`–`SP74631` (subyacente,
+mercancías, mercancías no alimenticias, servicios, otros servicios, no
+subyacente, energéticos y tarifas), `SF43718` (FIX), `SF61745` (tasa
+objetivo), `SF43783` (TIIE 28), `SF43936` (Cetes 28), `SE27803` (remesas)
+and `SF43707` (reservas). `SP2`–`SP8` (the INPC spending-purpose groups)
+and `SP74639` (tarifas autorizadas) are the customary IDs, still guarded by
+the title check.
+
+Not yet sourced, and therefore shown as pending on the page: IGAE (Banxico's
+`SR16734` is the old 2013-base series, discontinued in 2023), IMSS jobs,
+industrial production, consumer confidence (FRED's OECD mirror ended in
+December 2023) and the agricultural/energy detail of the non-core index.
+These live in INEGI's Indicadores API; once an `INEGI_TOKEN` secret exists
+and the indicator IDs are confirmed in the INEGI catalog, add them as
+candidates in `series.json`. To look an ID up without a full run:
 
 ```bash
-BANXICO_TOKEN=... node scripts/mx-macro/fetch.mjs --probe banxico:SR16734,banxico:SL11295,fred:LRUNTTTTMXM156S
+BANXICO_TOKEN=... node scripts/mx-macro/fetch.mjs --probe banxico:SP74639,fred:LRHUTTTTMXM156S
 ```
 
 which prints the title, point count and last value each provider reports.
-If a guess is rejected, find the right ID in the SIE catalog
-(<https://www.banxico.org.mx/SieAPIRest/service/v1/doc/catalogoSeries>) and
-edit `series.json`; the next run picks it up.
 
 INEGI's Indicadores API returns no series name, so INEGI candidates should be
 added only with IDs confirmed in the INEGI catalog (`"title": null` disables

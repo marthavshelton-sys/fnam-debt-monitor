@@ -612,7 +612,7 @@
 
     <section id="inpcNonCoreSec">
       <div class="section-head">
-        <h2 data-i18n="inpcSecNonCore">No subyacente: agropecuarios vs. energéticos y tarifas</h2>
+        <h2 data-i18n="inpcSecNonCore">No subyacente vs. energéticos y tarifas</h2>
         <span class="note" data-i18n="noteYoyMonthly">Variación anual (%), mensual</span>
       </div>
       <div class="panel">
@@ -1018,7 +1018,7 @@ const I18N = {
     inpcNext: (m) => "Próximo INPC: " + m + ", alrededor del día 9",
     inpcSecTrend: "Inflación general vs. subyacente",
     inpcSecCoreSplit: "Subyacente: mercancías vs. servicios",
-    inpcSecNonCore: "No subyacente: agropecuarios vs. energéticos y tarifas",
+    inpcSecNonCore: "No subyacente vs. energéticos y tarifas",
     inpcSecMomentum: "Ritmo mensual",
     inpcSecMomentumNote: "Variación mensual (%), cifras originales",
     inpcMomHeadlineTitle: "General, variación mensual",
@@ -1036,13 +1036,12 @@ const I18N = {
     legCore: "Subyacente",
     legGoods: "Mercancías",
     legServices: "Servicios",
-    legAgro: "Agropecuarios",
     legEnergyTariffs: "Energéticos y tarifas",
     target: "Objetivo 3%",
     targetBand: "intervalo ±1 pp",
     inpcTrendCallout: (m, h, c) => m + ": inflación general " + h + ", subyacente " + c + ". Objetivo de Banxico: 3% ±1 pp.",
     inpcCoreSplitCallout: (m, g, s) => m + ": mercancías " + g + ", servicios " + s + ".",
-    inpcNonCoreCallout: (m, a, e) => m + ": agropecuarios " + a + ", energéticos y tarifas " + e + ".",
+    inpcNonCoreCallout: (m, a, e) => m + ": no subyacente " + a + ", energéticos y tarifas " + e + ". La diferencia son los agropecuarios.",
     mstatHeadlineMoM: "General, mensual",
     mstatCoreMoM: "Subyacente, mensual",
     mstatCore3m: "Subyacente, 3 meses anualizada",
@@ -1058,19 +1057,17 @@ const I18N = {
       "inpcNonFoodGoods": "Mercancías no alimenticias",
       "inpcServices": "Servicios",
       "inpcHousing": "Vivienda",
-      "inpcEducation": "Educación (colegiaturas)",
+      "inpcEducation": "Educación y esparcimiento",
+      "inpcClothing": "Ropa, calzado y accesorios",
+      "inpcFurnishings": "Muebles y aparatos domésticos",
+      "inpcHealth": "Salud y cuidado personal",
+      "inpcTransport": "Transporte",
       "inpcOtherServices": "Otros servicios",
-      "inpcAgro": "Agropecuarios",
-      "inpcFruitVeg": "Frutas y verduras",
-      "inpcLivestock": "Pecuarios",
       "inpcEnergyTariffs": "Energéticos y tarifas",
-      "inpcEnergy": "Energéticos",
       "inpcTariffs": "Tarifas autorizadas",
       "gdp": "PIB real",
       "igae": "IGAE",
-      "indprod": "Producción industrial",
       "unemployment": "Tasa de desocupación",
-      "imssJobs": "Puestos afiliados al IMSS",
       "consumerConfidence": "Confianza del consumidor",
       "remittances": "Remesas",
       "exports": "Exportaciones",
@@ -1267,7 +1264,7 @@ const I18N = {
     inpcNext: (m) => "Next INPC: " + m + ", around the 9th",
     inpcSecTrend: "Headline vs. core inflation",
     inpcSecCoreSplit: "Core: goods vs. services",
-    inpcSecNonCore: "Non-core: agricultural vs. energy and government tariffs",
+    inpcSecNonCore: "Non-core vs. energy and government tariffs",
     inpcSecMomentum: "Monthly momentum",
     inpcSecMomentumNote: "Month-over-month % change, not seasonally adjusted",
     inpcMomHeadlineTitle: "Headline, MoM",
@@ -1285,13 +1282,12 @@ const I18N = {
     legCore: "Core",
     legGoods: "Goods",
     legServices: "Services",
-    legAgro: "Agricultural",
     legEnergyTariffs: "Energy & tariffs",
     target: "3% target",
     targetBand: "±1 pp band",
     inpcTrendCallout: (m, h, c) => m + ": headline inflation " + h + ", core " + c + ". Banxico's target: 3% ±1 pp.",
     inpcCoreSplitCallout: (m, g, s) => m + ": goods " + g + ", services " + s + ".",
-    inpcNonCoreCallout: (m, a, e) => m + ": agricultural " + a + ", energy and tariffs " + e + ".",
+    inpcNonCoreCallout: (m, a, e) => m + ": non-core " + a + ", energy and tariffs " + e + ". The difference is agricultural products.",
     mstatHeadlineMoM: "Headline, MoM",
     mstatCoreMoM: "Core, MoM",
     mstatCore3m: "Core, 3-month annualized",
@@ -1307,19 +1303,17 @@ const I18N = {
       "inpcNonFoodGoods": "Non-food goods",
       "inpcServices": "Services",
       "inpcHousing": "Housing",
-      "inpcEducation": "Education (tuition)",
+      "inpcEducation": "Education & recreation",
+      "inpcClothing": "Clothing & footwear",
+      "inpcFurnishings": "Furnishings & appliances",
+      "inpcHealth": "Health & personal care",
+      "inpcTransport": "Transport",
       "inpcOtherServices": "Other services",
-      "inpcAgro": "Agricultural",
-      "inpcFruitVeg": "Fruits & vegetables",
-      "inpcLivestock": "Livestock products",
       "inpcEnergyTariffs": "Energy & tariffs",
-      "inpcEnergy": "Energy",
       "inpcTariffs": "Government-set tariffs",
       "gdp": "Real GDP",
       "igae": "IGAE",
-      "indprod": "Industrial production",
       "unemployment": "Unemployment rate",
-      "imssJobs": "IMSS-registered jobs",
       "consumerConfidence": "Consumer confidence",
       "remittances": "Remittances",
       "exports": "Exports",
@@ -1777,14 +1771,16 @@ function clearTargets() {
 // ================================================================
 //  View: INPC
 // ================================================================
+// Core/non-core subindices (green, purple, amber) and the spending-purpose groups (blue).
 const INPC_COMPONENTS = [
-  {key: "inpcGoods", color: "--cat-3"}, {key: "inpcFood", color: "--cat-3"}, {key: "inpcNonFoodGoods", color: "--cat-3"},
-  {key: "inpcServices", color: "--cat-7"}, {key: "inpcHousing", color: "--cat-7"}, {key: "inpcEducation", color: "--cat-7"}, {key: "inpcOtherServices", color: "--cat-7"},
-  {key: "inpcAgro", color: "--cat-6"}, {key: "inpcFruitVeg", color: "--cat-6"}, {key: "inpcLivestock", color: "--cat-6"},
-  {key: "inpcEnergyTariffs", color: "--cat-4"}, {key: "inpcEnergy", color: "--cat-4"}, {key: "inpcTariffs", color: "--cat-4"}
+  {key: "inpcGoods", color: "--cat-3"}, {key: "inpcNonFoodGoods", color: "--cat-3"},
+  {key: "inpcServices", color: "--cat-7"}, {key: "inpcOtherServices", color: "--cat-7"},
+  {key: "inpcNonCore", color: "--cat-4"}, {key: "inpcEnergyTariffs", color: "--cat-4"}, {key: "inpcTariffs", color: "--cat-4"},
+  {key: "inpcFood", color: "--cat-1"}, {key: "inpcClothing", color: "--cat-1"}, {key: "inpcHousing", color: "--cat-1"}, {key: "inpcFurnishings", color: "--cat-1"},
+  {key: "inpcHealth", color: "--cat-1"}, {key: "inpcTransport", color: "--cat-1"}, {key: "inpcEducation", color: "--cat-1"}
 ];
 function renderInpc() {
-  const optional = ["inpcCore", "inpcGoods", "inpcServices", "inpcNonCore", "inpcAgro", "inpcEnergyTariffs"];
+  const optional = ["inpcCore", "inpcGoods", "inpcServices", "inpcNonCore", "inpcEnergyTariffs"];
   if (!gate("inpc", ["inpc"], optional)) return;
   const C = {}; ["inpc"].concat(optional, INPC_COMPONENTS.map(c => c.key)).forEach(k => { if (S(k)) C[k] = withChanges(P(k)); });
   const H = C.inpc, hL = lastWith(H, "yoy");
@@ -1822,11 +1818,11 @@ function renderInpc() {
       {pts: C.inpcServices.filter(since).map(p => ({d: p.d, v: p.yoy})), color: "--series-services", label: T.legServices}
     ], {legendId: "inpcCoreSplitLegend", tooltipId: "inpcCoreSplitTooltip", calloutId: "inpcCoreSplitCallout", zeroBase: true, calloutLines: [T.inpcCoreSplitCallout(fmtMonthYear(g.d), fmtPct(g.yoy), fmtPct(s.yoy))]});
   }
-  showSec("inpcNonCoreSec", both("inpcAgro", "inpcEnergyTariffs"));
-  if (both("inpcAgro", "inpcEnergyTariffs")) {
-    const a = lastWith(C.inpcAgro, "yoy"), e = lastWith(C.inpcEnergyTariffs, "yoy");
+  showSec("inpcNonCoreSec", both("inpcNonCore", "inpcEnergyTariffs"));
+  if (both("inpcNonCore", "inpcEnergyTariffs")) {
+    const a = lastWith(C.inpcNonCore, "yoy"), e = lastWith(C.inpcEnergyTariffs, "yoy");
     lineChart("inpcNonCoreChart", [
-      {pts: C.inpcAgro.filter(since).map(p => ({d: p.d, v: p.yoy})), color: "--cat-6", label: T.legAgro},
+      {pts: C.inpcNonCore.filter(since).map(p => ({d: p.d, v: p.yoy})), color: "--cat-6", label: T.kpiNonCore},
       {pts: C.inpcEnergyTariffs.filter(since).map(p => ({d: p.d, v: p.yoy})), color: "--series-energy", label: T.legEnergyTariffs}
     ], {legendId: "inpcNonCoreLegend", tooltipId: "inpcNonCoreTooltip", calloutId: "inpcNonCoreCallout", zeroBase: true, calloutLines: [T.inpcNonCoreCallout(fmtMonthYear(a.d), fmtPct(a.yoy), fmtPct(e.yoy))]});
   }
@@ -1846,7 +1842,7 @@ function renderInpc() {
 
   // component cards and the ranked list
   const grid = document.getElementById("inpcCatGrid");
-  const cardKeys = ["inpcGoods", "inpcServices", "inpcFood", "inpcHousing", "inpcEducation", "inpcAgro", "inpcEnergy", "inpcTariffs"];
+  const cardKeys = ["inpcGoods", "inpcServices", "inpcFood", "inpcHousing", "inpcTransport", "inpcEducation", "inpcHealth", "inpcEnergyTariffs"];
   const cardColors = ["--cat-1", "--cat-2", "--cat-3", "--cat-4", "--cat-5", "--cat-6", "--cat-7", "--cat-8"];
   let cards = 0;
   cardKeys.forEach((k, i) => { if (C[k]) { catCard(grid, nameOf(k), C[k], cardColors[i]); cards++; } });
@@ -1863,7 +1859,7 @@ function renderInpc() {
 //  View: activity (GDP, IGAE, industrial production)
 // ================================================================
 function renderActivity() {
-  if (!gate("ac", [], ["gdp", "igae", "indprod"])) return;
+  if (!gate("ac", [], ["gdp", "igae"])) return;
   const G = S("gdp") ? withChanges(P("gdp")) : null, I = S("igae") ? withChanges(P("igae")) : null, IP = S("indprod") ? withChanges(P("indprod")) : null;
   const gL = G ? lastWith(G, "mom") : null, iL = I ? lastWith(I, "yoy") : null, ipL = IP ? lastWith(IP, "yoy") : null;
   const asOf = gL ? fmtMonthYear(gL.d) + (iL ? " · " + T.legIgae + " " + fmtMonthYear(iL.d) : "") : (iL ? fmtMonthYear(iL.d) : fmtMonthYear(ipL.d));
@@ -1912,7 +1908,7 @@ function renderActivity() {
 //  View: labor
 // ================================================================
 function renderLabor() {
-  if (!gate("lb", [], ["unemployment", "imssJobs"])) return;
+  if (!gate("lb", [], ["unemployment"])) return;
   const U = S("unemployment") ? withChanges(P("unemployment")) : null, J = S("imssJobs") ? withChanges(P("imssJobs")) : null;
   const uL = U ? last(U) : null, jL = J ? last(J) : null;
   headerMeta("lb", [uL && fmtMonthYear(uL.d), jL && (T.legImssYoy.split(",")[0] + " " + fmtMonthYear(jL.d))].filter(Boolean).join(" · "), T.lbNext, ["unemployment", "imssJobs"]);
