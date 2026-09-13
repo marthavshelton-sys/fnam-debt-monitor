@@ -70,12 +70,13 @@ shows GAP's own multiples computed live and each peer's row once values are non-
 ## Access (password)
 
 `functions/gap/_middleware.js` is a Cloudflare Pages Function that guards every URL under `/gap/`.
-Configure once in the Cloudflare dashboard → Workers & Pages → the Pages project → **Settings →
+**It is dormant until `GAP_PASSWORD` exists**: without the variable the page is served openly (with
+`noindex` and `no-store` headers). To turn the password on, configure once in the Cloudflare dashboard → Workers & Pages → the Pages project → **Settings →
 Variables and Secrets**, for **Production and Preview**:
 
 | Variable | Required | Meaning |
 | --- | --- | --- |
-| `GAP_PASSWORD` | yes | The shared password. If unset the gate fails closed (503 page). |
+| `GAP_PASSWORD` | to enable | The shared password. Unset = no password, page served openly. |
 | `GAP_SESSION_SECRET` | no | Random string signing the session cookie; defaults to a hash of the password. |
 | `GAP_SESSION_DAYS` | no | Session length in days (default 30). Append `?logout` to any /gap URL to end a session. |
 
