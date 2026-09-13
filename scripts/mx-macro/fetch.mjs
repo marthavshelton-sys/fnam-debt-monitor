@@ -11,7 +11,8 @@
 //
 // A series that fails on this run keeps the points from the committed data file (marked stale);
 // one bad feed never blanks a section. Exit code is non-zero only if nothing could be fetched at
-// all. Usage: node scripts/mx-macro/fetch.mjs [--probe banxico:SP1,SF43718]  (prints titles only)
+// all. Diagnostics: node scripts/mx-macro/fetch.mjs --probe banxico:SP1,inegi:496150 (prints what an id is)
+//                    node scripts/mx-macro/fetch.mjs --catalog "actividad economica" (searches INEGI's catalog)
 
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
@@ -92,26 +93,47 @@ async function fred(cand, spec) {
 }
 
 // ---------------- INEGI ----------------
+// Indicadores API (BIE). The data endpoint carries no series name, so the title check uses the
+// CL_INDICATOR catalog entry for the same id. Both need INEGI_TOKEN (free registration).
+const INEGI_BASE = 'https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml';
+function inegiToken() { const t = process.env.INEGI_TOKEN; if (!t) throw new Error('INEGI_TOKEN not set'); return t; }
+async function inegiTitle(id) {
+  try {
+    const body = await (await http(`${INEGI_BASE}/CL_INDICATOR/${id}/es/BIE/2.0/${inegiToken()}?type=json`)).json();
+    const row = (body?.CODE || []).find((c) => String(c.value) === String(id)) || body?.CODE?.[0];
+    return row ? String(row.Description || '').replace(/\s+/g, ' ').trim() : '';
+  } catch (e) { return ''; }
+}
 async function inegi(cand, spec) {
-  const token = process.env.INEGI_TOKEN;
-  if (!token) throw new Error('INEGI_TOKEN not set');
-  const url = `https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml/INDICATOR/${cand.id}/es/0700/false/BIE/2.0/${token}?type=json`;
+  const url = `${INEGI_BASE}/INDICATOR/${cand.id}/es/0700/false/BIE/2.0/${inegiToken()}?type=json`;
   const body = await (await http(url)).json();
   const s = body?.Series?.[0];
   if (!s) throw new Error('empty response');
   const points = [];
   for (const o of s.OBSERVATIONS || []) {
+    if (o.OBS_VALUE === null || o.OBS_VALUE === undefined || String(o.OBS_VALUE).trim() === '') continue;
     const v = Number(o.OBS_VALUE);
     if (!Number.isFinite(v)) continue;
     const [y, p] = String(o.TIME_PERIOD).split('/');
     let d;
-    if (spec.freq === 'Q') d = `${y}-Q${p.replace(/^0/, '')}`;
-    else if (spec.freq === 'M') d = `${y}-${p.padStart(2, '0')}`;
+    if (spec.freq === 'Q') d = `${y}-Q${String(p).replace(/^0/, '')}`;
+    else if (spec.freq === 'M') d = `${y}-${String(p).padStart(2, '0')}`;
     else d = `${y}-${p}`;
     if (d.slice(0, 4) >= spec.since.slice(0, 4)) points.push([d, r4(v)]);
   }
   points.sort((a, b) => a[0].localeCompare(b[0]));
-  return { title: null, points, url: `https://www.inegi.org.mx/app/indicadores/?ind=${cand.id}` };
+  const title = await inegiTitle(cand.id);
+  return { title: title || null, points, url: `https://www.inegi.org.mx/app/indicadores/?ind=${cand.id}`, meta: { freq: s.FREQ, unit: s.UNIT, lastUpdate: s.LASTUPDATE, note: s.NOTE } };
+}
+// Downloads INEGI's full BIE indicator catalog and prints every entry whose description matches
+// the regex (accent-insensitive). Used from the workflow's "catalog" input to find indicator ids.
+const fold = (t) => String(t).normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+async function inegiCatalogSearch(pattern, limit = 80) {
+  const body = await (await http(`${INEGI_BASE}/CL_INDICATOR/es/BIE/2.0/${inegiToken()}?type=json`)).json();
+  const rows = body?.CODE || [];
+  const re = new RegExp(fold(pattern), 'i');
+  const hits = rows.filter((r) => re.test(fold(r.Description || ''))).slice(0, limit);
+  return { total: rows.length, hits: hits.map((r) => [String(r.value), String(r.Description || '').replace(/\s+/g, ' ').trim()]) };
 }
 
 const PROVIDERS = { banxico, fred, inegi };
@@ -164,15 +186,30 @@ async function main() {
   const probeIdx = argv.indexOf('--probe');
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
-  if (probeIdx >= 0) {
-    // Title lookup for candidate IDs, e.g. --probe banxico:SP1,banxico:SR16734,fred:LRUNTTTTMXM156S
-    for (const item of (argv[probeIdx + 1] || '').split(',').filter(Boolean)) {
-      const [provider, id] = item.split(':');
+  const catIdx = argv.indexOf('--catalog');
+  if (probeIdx >= 0 || catIdx >= 0) {
+    // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
+    // --catalog "actividad economica" searches INEGI's indicator catalog by description.
+    const lines = [];
+    const out = (l) => { console.log(l); lines.push(l); };
+    if (catIdx >= 0) {
+      const pattern = argv[catIdx + 1] || '';
       try {
-        const r = await PROVIDERS[provider]({ id }, { freq: 'M', since: '2023-01-01' });
-        console.log(`${provider}:${id}\t${r.title ?? '(no title metadata)'}\t${r.points.length} pts\tlast ${JSON.stringify(r.points.at(-1))}`);
-      } catch (e) { console.log(`${provider}:${id}\tERROR ${e.message}`); }
+        const r = await inegiCatalogSearch(pattern);
+        out(`INEGI catalog: ${r.total} indicators, ${r.hits.length} shown for /${pattern}/`);
+        for (const [id, desc] of r.hits) out(`  ${id}\t${desc}`);
+      } catch (e) { out(`INEGI catalog search failed: ${e.message}`); }
     }
+    if (probeIdx >= 0) {
+      for (const item of (argv[probeIdx + 1] || '').split(',').filter(Boolean)) {
+        const [provider, id] = item.split(':');
+        try {
+          const r = await PROVIDERS[provider]({ id }, { freq: 'M', since: '2015-01-01' });
+          out(`${provider}:${id}\t${r.title ?? '(no title metadata)'}\t${r.points.length} pts\tfirst ${JSON.stringify(r.points[0])}\tlast ${JSON.stringify(r.points.at(-1))}${r.meta ? '\t' + JSON.stringify(r.meta) : ''}`);
+        } catch (e) { out(`${provider}:${id}\tERROR ${e.message}`); }
+      }
+    }
+    if (process.env.GITHUB_STEP_SUMMARY) await appendFile(process.env.GITHUB_STEP_SUMMARY, '## Series diagnostics\n\n```\n' + lines.join('\n') + '\n```\n');
     return;
   }
 

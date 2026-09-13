@@ -31,9 +31,12 @@ FRED fallbacks load (GDP, unemployment, trade, the exchange rate, reserves,
 an interbank-rate proxy and the 10-year yield); the INPC and its components,
 remittances, the target rate, TIIE and Cetes come only from Banxico.
 
+**Also required for IGAE and consumer confidence:** `INEGI_TOKEN` — free
+registration at
+<https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify>.
+
 **Optional:** `FRED_API_KEY` (already set for the U.S. page) lets the fetcher
-verify each FRED series' title; `INEGI_TOKEN` is only read once INEGI
-candidates are added to the manifest.
+verify each FRED series' title.
 
 ## Series manifest and the title check
 
@@ -70,9 +73,15 @@ BANXICO_TOKEN=... node scripts/mx-macro/fetch.mjs --probe banxico:SP74639,fred:L
 
 which prints the title, point count and last value each provider reports.
 
-INEGI's Indicadores API returns no series name, so INEGI candidates should be
-added only with IDs confirmed in the INEGI catalog (`"title": null` disables
-the check for that candidate).
+INEGI's data endpoint returns no series name, so for INEGI candidates the
+fetcher reads the indicator's description from the `CL_INDICATOR` catalog and
+checks the regex against that. To find an indicator id without leaving
+GitHub, run the workflow by hand (Actions → Refresh Mexico macro dashboard →
+Run workflow) with the **catalog** input set to a name fragment such as
+`actividad economica` or `confianza del consumidor`; the run summary lists
+every matching id and description, and nothing is fetched or committed. The
+**probe** input (`inegi:496150,banxico:SP1`) describes specific ids the same
+way.
 
 ## Editing the page
 

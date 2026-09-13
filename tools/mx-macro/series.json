@@ -1,13 +1,13 @@
 {
  "_doc": [
   "One entry per logical series the Mexico macro page uses. The fetcher tries each",
+  "inegi (Indicadores API, INEGI_TOKEN): the data endpoint has no series name, so the title check uses the CL_INDICATOR catalog description for the same id. The ids listed for igae and consumerConfidence are candidates to be confirmed by the catalog search (workflow input \"catalog\"); a candidate whose description does not match is dropped.",
   "candidate in order and keeps the first one that (a) answers, (b) carries the",
   "expected title (regex, case-insensitive, checked against the provider's own",
   "metadata) and (c) returns enough points. A candidate whose title does not match",
   "is dropped and reported, so a mistyped ID can never put a wrongly-labelled",
   "series on the page. Providers: banxico (SIE API, token), fred (St. Louis Fed,",
   "key optional; without a key the CSV export is used and the title is not checked",
-  "because the export carries none), inegi (Indicadores API, token; no title",
   "metadata in its response, so only use it for IDs already confirmed in the",
   "INEGI catalog and set title to null).",
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
@@ -163,6 +163,24 @@
    "since": "2010-01-01",
    "candidates": [
     {
+     "provider": "inegi",
+     "id": "496150",
+     "title": "actividad econ(ó|o)mica|IGAE",
+     "note": {
+      "es": "Indicador Global de la Actividad Económica, cifras desestacionalizadas (INEGI)",
+      "en": "Global Indicator of Economic Activity, seasonally adjusted (INEGI)"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "737121",
+     "title": "actividad econ(ó|o)mica|IGAE",
+     "note": {
+      "es": "Indicador Global de la Actividad Económica (INEGI)",
+      "en": "Global Indicator of Economic Activity (INEGI)"
+     }
+    },
+    {
      "provider": "banxico",
      "id": "SR16734",
      "title": "actividad econ(ó|o)mica"
@@ -199,6 +217,24 @@
    "unit": "index",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "63541",
+     "title": "confianza del consumidor",
+     "note": {
+      "es": "Indicador de Confianza del Consumidor, ENCO (INEGI y Banxico), 2003 = 100",
+      "en": "Consumer Confidence Indicator, ENCO survey (INEGI and Banxico), 2003 = 100"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "63542",
+     "title": "confianza del consumidor",
+     "note": {
+      "es": "Indicador de Confianza del Consumidor, ENCO (INEGI y Banxico), 2003 = 100",
+      "en": "Consumer Confidence Indicator, ENCO survey (INEGI and Banxico), 2003 = 100"
+     }
+    },
     {
      "provider": "fred",
      "id": "CSCICP03MXM665S",
