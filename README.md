@@ -8,6 +8,7 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 | `/` | Landing page (Spanish default, ES/EN toggle) | static |
 | `/macro/` | U.S. macro dashboard | `macro-refresh.yml` |
 | `/fiscal/` | U.S. fiscal debt monitor | daily `refresh-data.yml` (Treasury/FRED) + monthly PR to `monthly-data.js` |
+| `/mx/macro/` | Mexico macro dashboard | `mx-macro-refresh.yml` (Banxico SIE, FRED, INEGI) |
 | `/mx/fiscal/` | Mexico fiscal monitor (SHRFSP, holders, maturities, financial cost, revenue, spending, Pemex, CGPE 2027; Banxico balance sheet, policy rate, instruments) | daily `refresh-mx-data.yml` (Banxico SIE) + monthly PR to `monthly-data.js` |
 | `/gap/` | GAP interactive financial model | `gap-refresh.yml` |
 
