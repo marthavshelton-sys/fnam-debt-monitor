@@ -6,8 +6,9 @@
 //
 // Configure in the Cloudflare dashboard: Workers & Pages → this Pages project → Settings →
 // Variables and Secrets (set them for BOTH Production and Preview):
-//   GAP_PASSWORD        required. The shared password. If it is missing the gate FAILS CLOSED
-//                       (every request gets a 503 "not configured" page).
+//   GAP_PASSWORD        the shared password. While it is UNSET the gate is dormant: /gap/ is served
+//                       openly (still with noindex / no-store headers). Setting the variable and
+//                       redeploying turns the password on; removing it turns it off again.
 //   GAP_SESSION_SECRET  optional. Random string used to sign session cookies. Defaults to a
 //                       SHA-256 of the password; set it explicitly so changing the password does
 //                       not have to invalidate existing sessions, or leave it to get exactly that.
@@ -103,13 +104,16 @@ ${error ? `<div class="err">${error}</div>` : ''}
 }
 
 export async function onRequest({ request, env, next }) {
-  if (!env.GAP_PASSWORD) {
-    return page({
-      title: 'GAP · not configured', status: 503,
-      body: '<div class="eyebrow">Configuration</div><h1>Password not set</h1><p>Set the <code>GAP_PASSWORD</code> variable on this Cloudflare Pages project (Production and Preview) to enable /gap/.</p>',
-    });
-  }
   const url = new URL(request.url);
+  if (!env.GAP_PASSWORD) {
+    // Password protection not enabled yet: serve the page, keep it out of search engines and caches.
+    if (request.method === 'POST' && url.pathname === LOGIN_PATH) return new Response(null, { status: 303, headers: { location: '/gap/' } });
+    const res = await next();
+    const out = new Response(res.body, res);
+    out.headers.set('cache-control', 'private, no-store');
+    out.headers.set('x-robots-tag', 'noindex, nofollow');
+    return out;
+  }
   const cookies = parseCookies(request.headers.get('cookie'));
 
   if (url.searchParams.has('logout')) {

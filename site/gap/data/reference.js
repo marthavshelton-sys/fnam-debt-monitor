@@ -3,7 +3,7 @@
 // something (see tools/gap/README.md "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-09-12",
+  updatedAt: "2026-09-13",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -63,22 +63,25 @@ window.GAP_REF = {
   // following 12 months. Older years are shown from the exchange-recorded cash dividends in market.js
   // (Yahoo Finance) — cross-check against the 20-F Item 8 before quoting them.
   dividends: [
-    { agmYear: 2025, agmDate: "2025-04-24", dps: 16.84, note: "Paid in two instalments (Jul-2025, Dec-2025).", source: "GAP release 24-Apr-2025 (AGM resolutions)" },
-    { agmYear: 2026, agmDate: "2026-04-22", dps: 20.80, note: "Board proposal of Ps. 20.80 per share for the 22-Apr-2026 AGM (≈5% yield on the 9-Mar-2026 price of Ps. 415.73); confirm the approved amount in the AGM resolutions.", source: "GAP AGM call, Mar-2026 (Axis Negocios)" },
+    { agmYear: 2025, agmDate: "2025-04-24", dps: 16.84, note: { en: "Paid in two instalments (Jul-2025, Dec-2025).", es: "Pagado en dos exhibiciones (jul-2025 y dic-2025)." }, source: { en: "GAP release 24-Apr-2025 (AGM resolutions)", es: "Comunicado de GAP, 24-abr-2025 (resoluciones de la asamblea)" } },
+    { agmYear: 2026, agmDate: "2026-04-22", dps: 20.80, note: { en: "Board proposal of Ps. 20.80 per share for the 22-Apr-2026 AGM (≈5% yield on the 9-Mar-2026 price of Ps. 415.73); confirm the approved amount in the AGM resolutions.", es: "Propuesta del consejo de Ps. 20.80 por acción para la asamblea del 22-abr-2026 (≈5% de rendimiento sobre el precio de Ps. 415.73 del 9-mar-2026); confirmar el monto aprobado en las resoluciones de la asamblea." }, source: { en: "GAP AGM call, Mar-2026 (Axis Negocios)", es: "Convocatoria a la asamblea de GAP, mar-2026 (Axis Negocios)" } },
   ],
   // Debt instruments — long-term certificados bursátiles (local bonds) and bank facilities. Fill /
   // refresh from the "Debt" table of the latest quarterly report; principal in Ps. million.
   debt: {
     ratings: [
-      { agency: "Moody's Local MX", rating: "Aaa.mx", outlook: "estable", scope: "national scale, CBs", source: "Moody's Local rating report 1-Apr-2026" },
-      { agency: "S&P Global Ratings", rating: "mxAAA", outlook: "estable", scope: "national scale, CBs", source: "S&P, Mar-2026 (A21 17-Mar-2026)" },
+      { agency: "Moody's Local MX", rating: "Aaa.mx", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, certificados bursátiles", es: "escala nacional, certificados bursátiles" }, source: { en: "Moody's Local rating report, 1-Apr-2026", es: "Informe de calificación de Moody's Local, 1-abr-2026" } },
+      { agency: "S&P Global Ratings", rating: "mxAAA", outlook: { en: "stable", es: "estable" }, scope: { en: "national scale, certificados bursátiles", es: "escala nacional, certificados bursátiles" }, source: { en: "S&P, Mar-2026 (A21, 17-Mar-2026)", es: "S&P, mar-2026 (A21, 17-mar-2026)" } },
     ],
     instruments: [
-      { name: "GAP 26", type: "CB", issued: "2026-03-27", matures: "2029-03-27", principalMxn: 2767, rate: "TIIE + 45 pb (28 días)", source: "GAP release 1-Apr-2026" },
-      { name: "GAP 26-2", type: "CB", issued: "2026-03-27", matures: "2036-03-27", principalMxn: 7951, rate: "9.87% fija (182 días)", source: "GAP release 1-Apr-2026" },
-      { name: "Bank credit facilities (Ps. 8,000 M)", type: "loan", issued: "2026-09-11", matures: null, principalMxn: 8000, rate: "n/d", note: "Executed 11-Sep-2026 to refinance maturities and fund the PMD; terms in the 6-K.", source: "GAP release 11-Sep-2026" },
+      { name: "GAP 26", type: "CB", issued: "2026-03-27", matures: "2029-03-27", principalMxn: 2767, rate: { en: "TIIE + 45 bp (28-day)", es: "TIIE + 45 pb (28 días)" }, source: "GAP 1-Apr-2026" },
+      { name: "GAP 26-2", type: "CB", issued: "2026-03-27", matures: "2036-03-27", principalMxn: 7951, rate: { en: "9.87% fixed (182-day)", es: "9.87% fija (182 días)" }, source: "GAP 1-Apr-2026" },
+      { name: { en: "Bank credit facilities (Ps. 8,000 M)", es: "Líneas de crédito bancarias (Ps. 8,000 M)" }, type: { en: "loan", es: "préstamo" }, issued: "2026-09-11", matures: null, principalMxn: 8000, rate: { en: "n/a", es: "n/d" }, note: { en: "Executed 11-Sep-2026 to refinance maturities and fund the PMD; terms in the 6-K.", es: "Firmadas el 11-sep-2026 para refinanciar vencimientos y financiar el PMD; términos en el 6-K." }, source: "GAP 11-Sep-2026" },
     ],
-    instrumentsNote: "Outstanding older series (GAP 17, GAP 19, GAP 20, GAP 21, GAP 22, GAP 23, GAP 24, GAP 25 tranches) and the Jamaican USD facilities are listed in the quarterly report's debt table and the 20-F Item 5.B — complete this table from the latest report; GAP 23L (Ps. 1,120 M) was repaid at maturity in Mar-2026.",
+    instrumentsNote: {
+      en: "Outstanding older series (GAP 17, GAP 19, GAP 20, GAP 21, GAP 22, GAP 23, GAP 24 and GAP 25 tranches) and the Jamaican USD facilities are listed in the quarterly report's debt table and in the 20-F, Item 5.B; this table is to be completed from the latest report. GAP 23L (Ps. 1,120 M) was repaid at maturity in Mar-2026.",
+      es: "Las series anteriores vigentes (tramos GAP 17, GAP 19, GAP 20, GAP 21, GAP 22, GAP 23, GAP 24 y GAP 25) y las líneas en dólares de Jamaica aparecen en la tabla de deuda del reporte trimestral y en la Forma 20-F, punto 5.B; esta tabla está por completarse con el reporte más reciente. GAP 23L (Ps. 1,120 M) se pagó a su vencimiento en mar-2026.",
+    },
   },
   cbx: {
     // Cross Border Xpress: the ground-side terminal in Otay Mesa (San Diego) linked to Tijuana airport
@@ -98,16 +101,26 @@ window.GAP_REF = {
       { k: "sharesAfter", label_en: "Shares outstanding after", label_es: "Acciones en circulación después", v: 595018195, fmt: "int" },
       { k: "dilution", label_en: "Dilution to pre-deal holders", label_es: "Dilución para accionistas previos", v: 89740731 / 595018195, fmt: "pct" },
       { k: "cbxEbitda2024", label_en: "CBX EBITDA 2024 (press estimate)", label_es: "EBITDA de CBX 2024 (estimación de prensa)", v: 93.6, fmt: "usdM", source: "San Diego Business Journal" },
-      { k: "tijPax2025", label_en: "Tijuana passengers 2025", label_es: "Pasajeros de Tijuana 2025", v: 13.0, fmt: "M", source: "SDBJ; GAP traffic reports" },
+      { k: "tijPax2025", label_en: "Tijuana passengers 2025", label_es: "Pasajeros de Tijuana 2025", v: 13.0, fmt: "M", source: { en: "SDBJ; GAP traffic reports", es: "SDBJ; reportes de tráfico de GAP" } },
     ],
-    sources: [
-      "GAP, 'Business combination of CBX and technical assistance services' — 3-Nov-2025 (6-K)",
-      "GAP, 'Shareholder approval …' — 11-Dec-2025 (6-K)",
-      "GAP, 'Issuance of bond certificates for Ps. 10,718.0 million' — 1-Apr-2026 (6-K)",
-      "GAP, 'Completion of business combination process of CBX …' — 7-May-2026 (6-K)",
-      "Aena, notice to CNMV — 7-May-2026 (Infobae, El Economista)",
-      "San Diego Business Journal, 'Cross Border Xpress has $100M growth agenda' (2025)",
-    ],
+    sources: {
+      en: [
+        "GAP, 'Business combination of CBX and technical assistance services', 3-Nov-2025 (6-K)",
+        "GAP, 'Shareholder approval …', 11-Dec-2025 (6-K)",
+        "GAP, 'Issuance of bond certificates for Ps. 10,718.0 million', 1-Apr-2026 (6-K)",
+        "GAP, 'Completion of business combination process of CBX …', 7-May-2026 (6-K)",
+        "Aena, notice to the CNMV, 7-May-2026 (Infobae, El Economista)",
+        "San Diego Business Journal, 'Cross Border Xpress has $100M growth agenda' (2025)",
+      ],
+      es: [
+        "GAP, 'Combinación de negocios de CBX y de los servicios de asistencia técnica', 3-nov-2025 (6-K)",
+        "GAP, 'Aprobación de los accionistas …', 11-dic-2025 (6-K)",
+        "GAP, 'Emisión de certificados bursátiles por Ps. 10,718.0 millones', 1-abr-2026 (6-K)",
+        "GAP, 'Conclusión del proceso de combinación de negocios de CBX …', 7-may-2026 (6-K)",
+        "Aena, comunicación a la CNMV, 7-may-2026 (Infobae, El Economista)",
+        "San Diego Business Journal, 'Cross Border Xpress has $100M growth agenda' (2025)",
+      ],
+    },
   },
   fibra: {
     name: "FIBRA GAP (Fibra E)",
@@ -119,11 +132,18 @@ window.GAP_REF = {
     stakePct: 4.2,
     status_en: "Announced May-2026; first placement targeted for 25-Jun-2026, then guided to 3Q26 while authorisations completed. As of 12-Sep-2026 no completion notice had been located — verify in GAP's material events before quoting it as closed.",
     status_es: "Anunciada en mayo de 2026; primera colocación prevista para el 25-Jun-2026 y después guiada al 3T26 mientras concluían las autorizaciones. Al 12-Sep-2026 no se localizó aviso de cierre: verificar en los eventos relevantes de GAP antes de darla por colocada.",
-    sources: [
-      "GAP, material event on the constitution of FIBRA GAP — BMV eventemi 1558742 (May-2026)",
-      "El Universal, 'GAP inicia proceso para crear fideicomiso; prevé inversiones por 40 mil mdp'",
-      "El Cronista / Axis Negocios / El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
-    ],
+    sources: {
+      en: [
+        "GAP, material event on the constitution of FIBRA GAP, BMV eventemi 1558742 (May-2026)",
+        "El Universal, 'GAP inicia proceso para crear fideicomiso; prevé inversiones por 40 mil mdp'",
+        "El Cronista, Axis Negocios and El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
+      ],
+      es: [
+        "GAP, evento relevante sobre la constitución de FIBRA GAP, BMV eventemi 1558742 (may-2026)",
+        "El Universal, 'GAP inicia proceso para crear fideicomiso; prevé inversiones por 40 mil mdp'",
+        "El Cronista, Axis Negocios y El CEO, cobertura de la oferta de FGAP 26 (jun–jul 2026)",
+      ],
+    },
   },
   // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million.
   dcf: {

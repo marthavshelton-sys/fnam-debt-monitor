@@ -1,0 +1,363 @@
+{
+ "_doc": [
+  "One entry per logical series the Mexico macro page uses. The fetcher tries each",
+  "candidate in order and keeps the first one that (a) answers, (b) carries the",
+  "expected title (regex, case-insensitive, checked against the provider's own",
+  "metadata) and (c) returns enough points. A candidate whose title does not match",
+  "is dropped and reported, so a mistyped ID can never put a wrongly-labelled",
+  "series on the page. Providers: banxico (SIE API, token), fred (St. Louis Fed,",
+  "key optional; without a key the CSV export is used and the title is not checked",
+  "because the export carries none), inegi (Indicadores API, token; no title",
+  "metadata in its response, so only use it for IDs already confirmed in the",
+  "INEGI catalog and set title to null).",
+  "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
+  "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog."
+ ],
+ "series": {
+  "inpc": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP1",
+     "title": "^(?!.*subyacente).*(i\\s*n\\s*d\\s*i\\s*c\\s*e\\s+g\\s*e\\s*n\\s*e\\s*r\\s*a\\s*l|precios al consumidor|INPC)"
+    },
+    {
+     "provider": "fred",
+     "id": "CPALTT01MXM661N",
+     "title": "consumer price.*mexico"
+    },
+    {
+     "provider": "fred",
+     "id": "MEXCPIALLMINMEI",
+     "title": "consumer price.*mexico"
+    }
+   ]
+  },
+  "inpcCore": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74625",
+     "title": "subyacente\\s*$"
+    },
+    {
+     "provider": "fred",
+     "id": "MEXCPICORMINMEI",
+     "title": "consumer price.*mexico",
+     "note": {
+      "es": "Definición OCDE (todo excepto alimentos y energía), no la subyacente de INEGI",
+      "en": "OECD definition (all items less food and energy), not INEGI's core"
+     }
+    }
+   ]
+  },
+  "inpcNonCore": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74630",
+     "title": "no subyacente\\s*$"
+    }
+   ]
+  },
+  "inpcGoods": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74626",
+     "title": "subyacente\\s+mercanc(í|i)as\\s*$"
+    }
+   ]
+  },
+  "inpcNonFoodGoods": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74627",
+     "title": "mercanc(í|i)as no alimenticias"
+    }
+   ]
+  },
+  "inpcServices": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74628",
+     "title": "subyacente\\s+servicios\\s*$"
+    }
+   ]
+  },
+  "inpcOtherServices": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74629",
+     "title": "otros servicios"
+    }
+   ]
+  },
+  "inpcEnergyTariffs": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74631",
+     "title": "energ(é|e)ticos y tarifas"
+    }
+   ]
+  },
+  "inpcTariffs": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SP74639",
+     "title": "tarifas autorizadas por el gobierno\\s+tarifas autorizadas"
+    }
+   ]
+  },
+  "gdp": {
+   "freq": "Q",
+   "unit": "level",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "NGDPRSAXDCMXQ",
+     "title": "real gross domestic product.*mexico",
+     "note": {
+      "es": "Serie del FMI, desestacionalizada",
+      "en": "IMF series, seasonally adjusted"
+     }
+    }
+   ]
+  },
+  "igae": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SR16734",
+     "title": "actividad econ(ó|o)mica"
+    }
+   ]
+  },
+  "unemployment": {
+   "freq": "M",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "LRHUTTTTMXM156S",
+     "title": "unemployment rate.*mexico",
+     "note": {
+      "es": "Serie OCDE desestacionalizada",
+      "en": "OECD seasonally adjusted series"
+     }
+    },
+    {
+     "provider": "fred",
+     "id": "LRUNTTTTMXM156S",
+     "title": "unemployment rate.*mexico",
+     "note": {
+      "es": "Serie OCDE desestacionalizada",
+      "en": "OECD seasonally adjusted series"
+     }
+    }
+   ]
+  },
+  "consumerConfidence": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "CSCICP03MXM665S",
+     "title": "consumer (confidence|opinion).*mexico",
+     "note": {
+      "es": "Índice estandarizado de la OCDE (100 = promedio de largo plazo)",
+      "en": "OECD standardized index (100 = long-run average)"
+     }
+    }
+   ]
+  },
+  "remittances": {
+   "freq": "M",
+   "unit": "usd_mn",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SE27803",
+     "title": "remesas"
+    }
+   ]
+  },
+  "exports": {
+   "freq": "M",
+   "unit": "usd",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "XTEXVA01MXM667S",
+     "title": "exports.*mexico",
+     "note": {
+      "es": "Serie OCDE desestacionalizada",
+      "en": "OECD seasonally adjusted series"
+     }
+    }
+   ]
+  },
+  "imports": {
+   "freq": "M",
+   "unit": "usd",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "XTIMVA01MXM667S",
+     "title": "imports.*mexico",
+     "note": {
+      "es": "Serie OCDE desestacionalizada",
+      "en": "OECD seasonally adjusted series"
+     }
+    }
+   ]
+  },
+  "usdmxn": {
+   "freq": "D",
+   "unit": "mxn",
+   "since": "2015-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF43718",
+     "title": "tipo de cambio"
+    },
+    {
+     "provider": "fred",
+     "id": "DEXMXUS",
+     "title": "mexican peso",
+     "note": {
+      "es": "Cotización de mediodía en Nueva York (Reserva Federal H.10)",
+      "en": "New York noon buying rate (Federal Reserve H.10)"
+     }
+    }
+   ]
+  },
+  "reserves": {
+   "freq": "W",
+   "unit": "usd_mn",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF43707",
+     "title": "reserva"
+    },
+    {
+     "provider": "fred",
+     "id": "TRESEGMXM052N",
+     "title": "reserves.*mexico",
+     "freq": "M",
+     "note": {
+      "es": "Reservas excluyendo oro (FMI), mensual",
+      "en": "Reserves excluding gold (IMF), monthly"
+     }
+    }
+   ]
+  },
+  "policyRate": {
+   "freq": "D",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF61745",
+     "title": "objetivo"
+    },
+    {
+     "provider": "fred",
+     "id": "IRSTCI01MXM156N",
+     "title": "immediate rates.*mexico|interbank.*mexico",
+     "freq": "M",
+     "note": {
+      "es": "Tasa interbancaria a un día (OCDE, promedio mensual), no la tasa objetivo",
+      "en": "Overnight interbank rate (OECD, monthly average), not the target rate"
+     }
+    }
+   ]
+  },
+  "tiie28": {
+   "freq": "D",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF43783",
+     "title": "TIIE.*28"
+    }
+   ]
+  },
+  "cetes28": {
+   "freq": "W",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF43936",
+     "title": "cetes.*28"
+    }
+   ]
+  },
+  "mbono10": {
+   "freq": "M",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "fred",
+     "id": "IRLTLT01MXM156N",
+     "title": "long-term government bond.*mexico",
+     "note": {
+      "es": "Rendimiento mensual reportado por la OCDE",
+      "en": "Monthly yield as reported by the OECD"
+     }
+    }
+   ]
+  }
+ }
+}
