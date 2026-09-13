@@ -98,10 +98,12 @@ npx http-server site -p 8080      # then open http://localhost:8080/gap/  (no pa
 
 ## Change notifications (email)
 
-A Claude Code Routine ("GAP data change alert") runs each weekday at 15:30 UTC, one hour after the
-release harvest. It compares the newest quarter, the newest traffic month and the `reference.js`
-blob against `tools/gap/notify-state.json`; when something material changed it emails a concise
-summary with analysis to the repo owner through the Gmail connector, then updates the state file on
-`main`. No change, no email. If the data files fail to load or `validate-data.mjs` fails, it emails a
+A Claude Code Routine ("FNAM GAP: email material changes") runs each weekday at 15:30 UTC, one hour
+after the release harvest. It compares the newest quarter, the newest traffic month and the
+`reference.js` blob against `tools/gap/notify-state.json`; when something material changed, its final
+message is a concise note with analysis, which the platform delivers to the repo owner by email (the
+routine's completion notification, the same mechanism as the Mexico Fiscal monitor), and it records
+the alert in the state file on `main`. If nothing changed the note is the single line "No material
+change in GAP data today." If the data files fail to load or `validate-data.mjs` fails, it reports a
 one-line pipeline alert once per distinct failure. Manage or pause it from the Routines list in
 claude.ai/code.
