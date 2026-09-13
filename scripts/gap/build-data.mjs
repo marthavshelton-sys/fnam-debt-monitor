@@ -83,8 +83,8 @@ const IS_ROWS = [
   { k: 'opIncome', en: 'Income from operations', es: 'Utilidad de operación', re: /^(income from operations|operating income)$/, level: 0, bold: true },
   { k: 'costRatio', en: 'Costs of services and improvements / total revenues', es: 'Costos de servicios y mejoras / ingresos', re: /^costs? of services and improvements \/ total revenues$/, level: 1, kpi: true, pct: true },
   { k: 'costRatioExIfric', en: 'Cost of services / revenues (ex-IFRIC 12)', es: 'Costo de servicios / ingresos (sin IFRIC 12)', re: /^cost of services \/ total revenues/, level: 1, kpi: true, pct: true },
-  { k: 'financialResult', en: 'Financial result', es: 'Resultado financiero', re: /^financial result$/i, level: 1 },
-  { k: 'associates', en: 'Share of profit (loss) of associates', es: 'Participación en asociadas', re: /^share of (profit|loss)( or loss)? of associates?$/, level: 1 },
+  { k: 'financialResult', en: 'Financial result', es: 'Resultado financiero', re: /^financial result$|^finance \(cost\) income$|^finance (cost|income)( \(cost\))?$/i, level: 1 },
+  { k: 'associates', en: 'Share of profit (loss) of associates', es: 'Participación en asociadas', re: /^share of (profit|loss)( or loss)? of associates?$|^loss from minority position$/, level: 1 },
   { k: 'incomeBeforeTax', en: 'Income before income taxes', es: 'Utilidad antes de impuestos', re: /^income before income taxes$/, level: 0, bold: true },
   { k: 'incomeTax', en: 'Income taxes', es: 'Impuestos a la utilidad', re: /^income taxes$/, level: 1 },
   { k: 'netIncome', en: 'Net income', es: 'Utilidad neta', re: /^net (and comprehensive )?income$/, level: 0, bold: true },
@@ -135,7 +135,8 @@ const BS_ROWS = [
   { k: 'totalLiabilities', en: 'Total liabilities', es: 'Pasivo total', re: /^total liabilities$/, level: 0, bold: true },
   { k: 'commonStock', en: 'Common stock', es: 'Capital social', re: /^common stock$/, level: 1 },
   { k: 'legalReserve', en: 'Legal reserve', es: 'Reserva legal', re: /^legal reserve$/, level: 1 },
-  { k: 'netIncomeEquity', en: 'Net income for the period (in equity)', es: 'Utilidad del periodo (en capital)', re: /^net income$/, level: 1 },
+  { k: 'netIncomeEquity', en: 'Net income for the period (in equity)', es: 'Utilidad del periodo (en capital)', re: /^net (comprehensive )?income$/, level: 1 },
+  { k: 'otherEquity', en: 'Other components of equity', es: 'Otros componentes del capital', re: /^other components of equity$/, level: 1 },
   { k: 'retainedEarnings', en: 'Retained earnings', es: 'Utilidades retenidas', re: /^retained earnings$/, level: 1 },
   { k: 'repurchasedShares', en: 'Repurchased shares', es: 'Acciones recompradas', re: /^repurchased shares?$/, level: 1 },
   { k: 'repurchaseReserve', en: 'Reserve for share repurchase', es: 'Reserva para recompra de acciones', re: /^reserve for share repurchase$/, level: 1 },
@@ -155,11 +156,15 @@ const CF_ROWS = [
   { k: 'da', en: 'Depreciation and amortization', es: 'Depreciación y amortización', re: /^depreciation and amortization$/, level: 2 },
   { k: 'gainLossSale', en: 'Loss (gain) on sale of assets', es: 'Pérdida (utilidad) en venta de activos', re: /^loss on sale|^lost sale of fixed assets|^loss \(gain\) on sale/, level: 2 },
   { k: 'interestExpense', en: 'Interest expense', es: 'Gasto por intereses', re: /^interest expense$/, level: 2 },
-  { k: 'associates', en: 'Share of (profit) loss of associates', es: 'Participación en asociadas', re: /^(loss )?share of (profit|loss)( or loss)? of associates?$/, level: 2 },
+  { k: 'associates', en: 'Share of (profit) loss of associates', es: 'Participación en asociadas', re: /^(loss )?share of (profit|loss)( or loss)? of associates?$|^loss from minority position$/, level: 2 },
+  { k: 'bargainPurchase', en: 'Bargain purchase gain', es: 'Ganancia por compra ventajosa', re: /^bargain purchases?$/, level: 2 },
   { k: 'provisions', en: 'Provisions', es: 'Provisiones', re: /^(long-term )?provisions$/, level: 2 },
   { k: 'incomeTaxExpense', en: 'Income tax expense', es: 'Impuestos a la utilidad', re: /^income tax expense$/, level: 2 },
   { k: 'unrealizedFx', en: 'Unrealized exchange (gain) loss', es: 'Pérdida (utilidad) cambiaria no realizada', re: /^unrealized exchange|^bank loan exchange rate fluctuation$/, level: 2 },
-  { k: 'derivatives', en: 'Net (gain) loss on derivative instruments', es: 'Resultado neto en derivados', re: /^net (loss )?(on )?derivative financial instruments$|^net loss on derivative/, level: 2 },
+  { k: 'derivatives', en: 'Net (gain) loss on derivative instruments', es: 'Resultado neto en derivados', re: /^net (loss |profit )?(on )?derivative financial instruments$|^net (loss|profit) on derivative|^derivative financial instruments$/, level: 2 },
+  { k: 'equityReimbursement', en: 'Equity reimbursement of associate', es: 'Reembolso de capital de asociada', re: /^equity reimbursement of associate$/, level: 1 },
+  { k: 'derivativesSettled', en: 'Derivative financial instruments (financing)', es: 'Instrumentos financieros derivados (financiamiento)', re: /^derivative financial instruments$|^instrumento derivado de cobertura$/, level: 1 },
+  { k: 'tradingInstruments', en: 'Financial instruments held for trading', es: 'Instrumentos financieros para negociar', re: /^financial instruments held for trading/, level: 1 },
   { k: 'opBeforeWc', en: 'Cash flow before working capital', es: 'Flujo antes de capital de trabajo', re: /^$/, level: 0, bold: true, unlabeled: true },
   { k: 'wcReceivables', en: 'Trade accounts receivable', es: 'Cuentas por cobrar', re: /^trade accounts receivable$/, level: 2 },
   { k: 'wcRecoverableTax', en: 'Recoverable taxes and other assets', es: 'Impuestos por recuperar y otros activos', re: /^recoverable tax/, level: 2 },
@@ -178,7 +183,7 @@ const CF_ROWS = [
   { k: 'buybacks', en: 'Share repurchases', es: 'Recompra de acciones', re: /^(repurchase|purchase) of (treasury )?shares|^share repurchases?$/, level: 1 },
   { k: 'capitalReduction', en: 'Capital reduction / distribution paid', es: 'Reembolso de capital', re: /^capital (reduction|reimbursement|distribution)/, level: 1 },
   { k: 'cashFromCombination', en: 'Cash from business combination', es: 'Efectivo de la combinación de negocios', re: /^cash and cash equivalent[es]* from business combination$/, level: 1 },
-  { k: 'bondsIssued', en: 'Bond certificates issued', es: 'Certificados bursátiles emitidos', re: /^bond certificates issued$|^debt securities$/, level: 1 },
+  { k: 'bondsIssued', en: 'Bond certificates issued', es: 'Certificados bursátiles emitidos', re: /^bond certificates issued$|^debt securities$|^long-term bond certificates$/, level: 1 },
   { k: 'bondsPaid', en: 'Bond certificates paid', es: 'Certificados bursátiles pagados', re: /^bond certificates paid$|^payment (from|of) debt securities$/, level: 1 },
   { k: 'loansPaid', en: 'Bank loans paid', es: 'Préstamos bancarios pagados', re: /^banks? loans (paid|payments?)$|^payments on bank loans$/, level: 1 },
   { k: 'loansReceived', en: 'Bank loans received', es: 'Préstamos bancarios obtenidos', re: /^banks? loans$|^bank loans received$|^proceeds from bank loans$/, level: 1 },
@@ -544,6 +549,7 @@ async function main() {
     years.push({ id: `FY${fy}`, fy, is: y.is, cf: y.cf, kpi: null, bs: y.bs, sources: { is: y.source, bs: y.source, cf: y.source }, partial: true });
   }
   years.sort((a, b) => a.fy - b.fy);
+  const yearsOut = years.filter((y) => y.fy >= 2015); // FY2014 only exists as a comparative column
 
   const fin = {
     generatedAt: new Date().toISOString(),
@@ -551,11 +557,11 @@ async function main() {
     layout: {
       is: IS_ROWS.map(({ re, ...d }) => d), bs: BS_ROWS.map(({ re, ...d }) => d), cf: CF_ROWS.map(({ re, ...d }) => d), kpi: KPI_ROWS.map(({ re, ...d }) => d),
     },
-    quarters: qList, ytd: ytdList, years,
-    coverage: { quarters: [qList[0]?.id, qList.at(-1)?.id], years: [years[0]?.id, years.at(-1)?.id], releasesParsed: results.length },
+    quarters: qList, ytd: ytdList, years: yearsOut,
+    coverage: { quarters: [qList[0]?.id, qList.at(-1)?.id], years: [yearsOut[0]?.id, yearsOut.at(-1)?.id], releasesParsed: results.length },
   };
   const finChanged = await writeData(OUT_FIN, 'GAP_FIN', fin);
-  console.log(`financials.js${finChanged ? '' : ' (unchanged)'}: ${qList.length} quarters (${fin.coverage.quarters.join(' → ')}), ${ytdList.length} YTD periods, ${years.length} fiscal years (${fin.coverage.years.join(' → ')}) from ${results.length} releases`);
+  console.log(`financials.js${finChanged ? '' : ' (unchanged)'}: ${qList.length} quarters (${fin.coverage.quarters.join(' → ')}), ${ytdList.length} YTD periods, ${yearsOut.length} fiscal years (${fin.coverage.years.join(' → ')}) from ${results.length} releases`);
 
   // ---- Traffic merge (later release wins for the same month — e.g. a correction).
   const byMonth = {};
