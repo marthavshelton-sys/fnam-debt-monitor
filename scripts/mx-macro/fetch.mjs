@@ -187,7 +187,7 @@ async function main() {
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
   const catIdx = argv.indexOf('--catalog');
-  if (probeIdx >= 0 || catIdx >= 0) {
+  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url')) {
     // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
     // --catalog "actividad economica" searches INEGI's indicator catalog by description.
     const lines = [];
@@ -199,6 +199,20 @@ async function main() {
         out(`INEGI catalog: ${r.total} indicators, ${r.hits.length} shown for /${pattern}/`);
         for (const [id, desc] of r.hits) out(`  ${id}\t${desc}`);
       } catch (e) { out(`INEGI catalog search failed: ${e.message}`); }
+    }
+    const urlIdx = argv.indexOf('--url');
+    if (urlIdx >= 0) {
+      // Raw endpoint check: fetch each whitespace-separated URL ({INEGI_TOKEN}/{BANXICO_TOKEN}/{FRED_API_KEY}
+      // are substituted from the environment) and print the status plus the start of the body, tokens masked.
+      const sub = (u) => u.replace('{INEGI_TOKEN}', process.env.INEGI_TOKEN || '').replace('{BANXICO_TOKEN}', process.env.BANXICO_TOKEN || '').replace('{FRED_API_KEY}', process.env.FRED_API_KEY || '');
+      const mask = (t) => [process.env.INEGI_TOKEN, process.env.BANXICO_TOKEN, process.env.FRED_API_KEY].filter(Boolean).reduce((a, k) => a.split(k).join('***'), t);
+      for (const raw of (argv[urlIdx + 1] || '').split(/\s+/).filter(Boolean)) {
+        try {
+          const res = await fetch(sub(raw), { headers: { 'User-Agent': UA, Accept: 'application/json, */*', ...(raw.includes('banxico') ? { 'Bmx-Token': process.env.BANXICO_TOKEN || '' } : {}) } });
+          const body = await res.text();
+          out(`${raw}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${body.length} bytes\n  ${mask(body.replace(/\s+/g, ' ').slice(0, 700))}`);
+        } catch (e) { out(`${raw}\n  -> ERROR ${e.message}`); }
+      }
     }
     if (probeIdx >= 0) {
       for (const item of (argv[probeIdx + 1] || '').split(',').filter(Boolean)) {

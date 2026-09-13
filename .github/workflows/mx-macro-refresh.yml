@@ -34,6 +34,9 @@ on:
       catalog:
         description: "Diagnostics only: search INEGI's indicator catalog by description (regex, accents ignored)"
         default: ""
+      url:
+        description: "Diagnostics only: whitespace-separated URLs to fetch and print ({INEGI_TOKEN} etc. substituted)"
+        default: ""
   push:
     branches: ["main", "claude/mexico-macro-dashboard-fnam-3m65pe"]
     paths:
@@ -60,21 +63,23 @@ jobs:
           node-version: "22"
 
       - name: Series diagnostics (probe / catalog search)
-        if: github.event.inputs.probe != '' || github.event.inputs.catalog != ''
+        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
           INEGI_TOKEN: ${{ secrets.INEGI_TOKEN }}
           PROBE: ${{ github.event.inputs.probe }}
           CATALOG: ${{ github.event.inputs.catalog }}
+          URLS: ${{ github.event.inputs.url }}
         run: |
           ARGS=()
           if [ -n "$PROBE" ]; then ARGS+=(--probe "$PROBE"); fi
           if [ -n "$CATALOG" ]; then ARGS+=(--catalog "$CATALOG"); fi
+          if [ -n "$URLS" ]; then ARGS+=(--url "$URLS"); fi
           node scripts/mx-macro/fetch.mjs "${ARGS[@]}"
 
       - name: Fetch series (Banxico SIE, FRED, INEGI)
-        if: github.event.inputs.probe == '' && github.event.inputs.catalog == ''
+        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -85,11 +90,11 @@ jobs:
 
       # Runs even if a fetch failed, so whatever did refresh still reaches the page.
       - name: Build page
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == ''
         run: node scripts/mx-macro/build.mjs
 
       - name: Commit if anything changed
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == ''
         shell: bash
         run: |
           git config user.name "mx-macro-refresh[bot]"
