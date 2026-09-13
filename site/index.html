@@ -149,18 +149,8 @@ html[lang="en"] .es{display:none !important;}
 .lang-switch button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 @media (max-width:400px){ .lang-switch button{padding:7px 10px; font-size:12px;} }
 
-/* ---------- hero ---------- */
-.hero{padding:36px 0 0;}
-@media (max-width:640px){ .hero{padding:24px 0 0;} }
-.eyebrow{
-  display:inline-flex; align-items:center; gap:8px;
-  font-size:12px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
-  color:var(--accent);
-}
-.eyebrow::before{content:""; width:18px; height:2px; background:var(--accent); border-radius:2px;}
-
 /* ---------- sections ---------- */
-main{flex:1;}
+main{flex:1; padding-top:12px;}
 .section{padding:28px 0 8px;}
 .section:last-of-type{padding-bottom:48px;}
 .section-head{
@@ -279,15 +269,6 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 </header>
 
 <main>
-  <section class="hero">
-    <div class="wrap">
-      <span class="eyebrow">
-        <span class="en">Live data · Official sources</span>
-        <span class="es">Datos en vivo · Fuentes oficiales</span>
-      </span>
-    </div>
-  </section>
-
   <!-- ================= United States ================= -->
   <section class="section" id="us">
     <div class="wrap">
