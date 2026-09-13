@@ -926,6 +926,7 @@
       </div>
       <div class="panel">
         <div class="chart-wrap"><svg id="bxRealChart" viewBox="0 0 920 180"></svg></div>
+        <div class="legend" id="bxRealLegend" style="margin-top:8px"></div>
         <div class="callout" id="bxRealCallout"></div>
       </div>
     </section>
@@ -1070,7 +1071,8 @@ const I18N = {
       "policyRate": "Tasa objetivo",
       "tiie28": "TIIE 28 días",
       "cetes28": "Cetes 28 días",
-      "mbono10": "Bono M 10 años"
+      "mbono10": "Bono M 10 años",
+      "inflExp12m": "Inflación esperada a 12 meses"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (vía Banxico)", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
 
@@ -1177,22 +1179,25 @@ const I18N = {
 
     // ---- Banxico ----
     bxTitle: "Banxico y mercados",
-    bxDesc: "Tasa de política, tasas de mercado, tasa real y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
+    bxDesc: "Tasa de política, tasas de mercado, tasas reales y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
     bxNext: "Calendario de decisiones de política monetaria: banxico.org.mx",
     bxSecPolicy: "Tasa objetivo vs. inflación anual",
     bxSecPolicyNote: "%, mensual (tasa al cierre de cada mes)",
-    bxSecReal: "Tasa real ex post",
-    bxSecRealNote: "Tasa objetivo menos inflación anual observada, puntos porcentuales",
+    bxSecReal: "Tasa real ex post y ex ante",
+    bxSecRealNote: "Tasa objetivo menos inflación observada (barras) y menos inflación esperada a 12 meses (línea), puntos porcentuales",
     bxSecCurve: "Tasas de mercado: Cetes 28, TIIE 28 y Bono M a 10 años",
     bxSecCurveNote: "%, promedio mensual",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; no es la tasa real ex ante que usa Banxico, que descuenta la inflación esperada.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
     kpiBono: "Bono M 10 años",
     kpiReal: "Tasa real ex post",
+    kpiRealExAnte: "Tasa real ex ante",
+    legExp: "Inflación esperada a 12 meses (encuesta Banxico)",
+    kpiExpFoot: "tasa objetivo menos inflación esperada",
     kpiReserves: "Reservas internacionales",
     legPolicy: "Tasa objetivo",
     legInflation: "Inflación general anual",
@@ -1201,7 +1206,7 @@ const I18N = {
     legBono: "Bono M 10 años",
     legReserves: "Reservas (miles de millones de dólares)",
     bxPolicyCallout: (d, r, m, i) => "Tasa objetivo " + r + " (" + d + "); inflación anual " + i + " (" + m + ").",
-    bxRealCallout: (m, v) => m + ": tasa real ex post de " + v + ".",
+    bxRealCallout: (m, v, a) => m + ": tasa real ex post de " + v + (a ? "; ex ante (con inflación esperada a 12 meses) de " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
     kpiDeltaRes: "mil millones vs. hace un año"
@@ -1309,7 +1314,8 @@ const I18N = {
       "policyRate": "Policy rate",
       "tiie28": "28-day TIIE",
       "cetes28": "28-day Cetes",
-      "mbono10": "10-year M bond"
+      "mbono10": "10-year M bond",
+      "inflExp12m": "Expected inflation, 12 months ahead"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (via Banxico)", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
 
@@ -1420,18 +1426,21 @@ const I18N = {
     bxNext: "Monetary policy decision calendar: banxico.org.mx",
     bxSecPolicy: "Policy rate vs. headline inflation",
     bxSecPolicyNote: "%, monthly (rate at each month-end)",
-    bxSecReal: "Ex post real rate",
-    bxSecRealNote: "Policy rate minus observed 12-month inflation, percentage points",
+    bxSecReal: "Ex post and ex ante real rates",
+    bxSecRealNote: "Policy rate minus observed inflation (bars) and minus expected 12-month inflation (line), percentage points",
     bxSecCurve: "Market rates: 28-day Cetes, 28-day TIIE and 10-year M bond",
     bxSecCurveNote: "%, monthly average",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; it is not the ex ante real rate Banxico uses, which subtracts expected inflation.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
     kpiBono: "10-year M bond",
     kpiReal: "Ex post real rate",
+    kpiRealExAnte: "Ex ante real rate",
+    legExp: "Expected inflation, 12 months ahead (Banxico survey)",
+    kpiExpFoot: "policy rate minus expected inflation",
     kpiReserves: "International reserves",
     legPolicy: "Policy rate",
     legInflation: "Headline inflation, YoY",
@@ -1440,7 +1449,7 @@ const I18N = {
     legBono: "10-year M bond",
     legReserves: "Reserves (US$ billion)",
     bxPolicyCallout: (d, r, m, i) => "Policy rate " + r + " (" + d + "); headline inflation " + i + " (" + m + ").",
-    bxRealCallout: (m, v) => m + ": ex post real rate of " + v + ".",
+    bxRealCallout: (m, v, a) => m + ": ex post real rate of " + v + (a ? "; ex ante (using expected 12-month inflation) " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
     kpiDeltaRes: "US$ billion vs. a year ago"
@@ -1718,6 +1727,13 @@ function columns(svgId, pts, colorVar, opts) {
   });
   const every = opts.tickEvery || 6;
   pts.forEach((p, i) => { if (i % every === 0 || i === pts.length - 1) svg.appendChild(axisText(xOf(i), H - 4, "middle", 8.5, opts.tickFmt ? opts.tickFmt(p.d) : p.d.slice(2, 7))); });
+  // Optional line overlaid on the same dates and axis (values outside the column range are clamped to the frame edge).
+  if (opts.overlay && opts.overlay.length) {
+    const byD = new Map(opts.overlay.map(p => [p.d, p.v]));
+    let d = "", open = false;
+    pts.forEach((p, i) => { const v = byD.get(p.d); if (v === undefined || v === null) { open = false; return; } const yy = Math.max(padT, Math.min(padT + plotH, yOf(v))); d += (open ? "L" : "M") + xOf(i).toFixed(1) + "," + yy.toFixed(1) + " "; open = true; });
+    svg.appendChild(svgEl("path", {d: d.trim(), fill: "none", stroke: "var(--cat-5)", "stroke-width": 2, "stroke-linejoin": "round"}));
+  }
 }
 
 function barList(containerId, items, fmtValue) {
@@ -2026,10 +2042,14 @@ function renderBanxico() {
   if (TI) rateTile(T.kpiTiie, TI, "--cat-7");
   if (CE) rateTile(T.kpiCetes, CE, "--cat-3");
   if (BO) rateTile(T.kpiBono, BO, "--cat-5");
+  const EX = S("inflExp12m") ? P("inflExp12m") : null;
+  const realSeries = (pm) => pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
+  const exAnteSeries = (pm) => EX ? pm.map(p => { const e = EX.find(q => q.d === p.d); return {d: p.d, v: e ? r2(p.v - e.v) : null}; }).filter(p => p.v !== null) : [];
   if (PR && H) {
-    const pm = monthEnd(PR), realPts = pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
-    const rl = last(realPts);
+    const realPts = realSeries(monthEnd(PR)), rl = last(realPts);
     kpiTile(row, {label: T.kpiReal, value: fmtLevelPct(rl.v, 2), foot: fmtMonthYear(rl.d), spark: realPts.slice(-24).map(p => p.v), color: "--cat-9"});
+    const ea = exAnteSeries(monthEnd(PR)), el = last(ea);
+    if (el) kpiTile(row, {label: T.kpiRealExAnte, value: fmtLevelPct(el.v, 2), foot: fmtMonthYear(el.d) + " · " + T.kpiExpFoot, spark: ea.slice(-24).map(p => p.v), color: "--cat-5"});
   }
   if (RS) {
     const l = last(RS), ago = atOrBefore(RS, shiftDays(l.d.length === 10 ? l.d : l.d + "-01", -365));
@@ -2041,13 +2061,14 @@ function renderBanxico() {
     const pm = monthEnd(PR).filter(p => p.d >= "2012-01");
     lineChart("bxPolicyChart", [
       {pts: pm, color: "--series-headline", label: T.legPolicy},
-      {pts: H.filter(p => p.d >= "2012-01" && p.yoy !== null).map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legInflation}
-    ], {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
+      {pts: H.filter(p => p.d >= "2012-01" && p.yoy !== null).map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legInflation},
+      EX ? {pts: EX.filter(p => p.d >= "2012-01"), color: "--cat-5", label: T.legExp, dashed: true, noDot: true} : null
+    ].filter(Boolean), {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
         calloutLines: [T.bxPolicyCallout(fmtAny(prL.d), fmtLevelPct(prL.v, 2), fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 2))]});
-    const realPts = pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
-    const rl = last(realPts);
-    columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8"});
-    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2)))}</div>`;
+    const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea);
+    columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8", overlay: ea});
+    document.getElementById("bxRealLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-9)"></span>${esc(T.kpiReal)}</div>` + (el ? `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.kpiRealExAnte)}</div>` : "");
+    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), el ? fmtPP(el.v, 2) : null))}</div>`;
   }
   showSec("bxCurveSec", !!(CE || TI || BO));
   if (CE || TI || BO) {
