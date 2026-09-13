@@ -1,0 +1,34 @@
+name: Refresh Banxico data (Mexico fiscal monitor)
+
+on:
+  schedule:
+    # 19:30 UTC (13:30 Mexico City) on weekdays — after Banxico's 12:00 FIX fixing, the weekly
+    # Tuesday reserves statement, and the Thursday 13:00 policy announcements.
+    - cron: '30 19 * * 1-5'
+  workflow_dispatch: {}   # lets you trigger a manual run from the Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Fetch latest Banxico SIE figures
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+        run: node scripts/fetch-mx-data.mjs
+
+      - name: Commit updated data.js if it changed
+        run: |
+          git config user.name "fnam-data-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add site/mx/fiscal/data.js
+          if git diff --cached --quiet; then
+            echo "No data changes."
+          else
+            git commit -m "chore: refresh live Banxico data [skip ci]"
+            git push
+          fi

@@ -14,3 +14,10 @@
 # GAP model data files are refreshed daily / after each release under the same URLs.
 /gap/data/*
   Cache-Control: no-store
+
+# Mexico fiscal monitor: same daily-commit / monthly-PR pattern as /fiscal/.
+/mx/fiscal/data.js
+  Cache-Control: no-store
+
+/mx/fiscal/monthly-data.js
+  Cache-Control: no-store
