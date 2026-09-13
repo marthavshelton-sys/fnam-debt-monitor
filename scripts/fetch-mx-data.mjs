@@ -19,16 +19,22 @@ const TOKEN = process.env.BANXICO_TOKEN;
 // The response carries each series' official title, which is logged on every run so a wrong
 // ID is caught immediately (see `titulo` in the log).
 const SERIES = {
-  tasaObjetivo: { id: 'SF61745', desc: 'Tasa objetivo, % anual' },
-  fix:          { id: 'SF43718', desc: 'Tipo de cambio FIX, pesos por dólar' },
-  reservas:     { id: 'SF43707', desc: 'Reservas internacionales, millones de dólares (semanal)' },
-  tiie28:       { id: 'SF43783', desc: 'TIIE a 28 días, % anual' },
-  cetes28:      { id: 'SF43936', desc: 'Cetes a 28 días, tasa de rendimiento en subasta primaria, %' },
-  cetes364:     { id: 'SF43939', desc: 'Cetes a 364 días, tasa de rendimiento en subasta primaria, %' },
-  udi:          { id: 'SP68257', desc: 'Valor de la UDI, pesos' },
-  // Monetary base (weekly, millions of pesos). Set BANXICO_SERIES_BASE_MONETARIA to override if
-  // the catalogue ID differs; the run log prints the title returned by the API for verification.
-  baseMonetaria:{ id: process.env.BANXICO_SERIES_BASE_MONETARIA || 'SF30579', desc: 'Base monetaria, millones de pesos (semanal)' },
+  // `ids`: candidate series IDs, tried in order; the first whose official title matches `title`
+  // wins. Every candidate's title is logged, so a wrong guess is visible (and correctable) on the
+  // next run instead of silently publishing the wrong series. Confirmed IDs are listed first.
+  tasaObjetivo: { ids: ['SF61745'], title: /tasa objetivo/i, desc: 'Tasa objetivo, % anual' },
+  fix:          { ids: ['SF43718'], title: /FIX/, desc: 'Tipo de cambio FIX, pesos por dólar' },
+  reservas:     { ids: ['SF43707'], title: /reserva internacional/i, desc: 'Reservas internacionales, millones de dólares (semanal)' },
+  tiie28:       { ids: ['SF43783'], title: /TIIE a 28/i, desc: 'TIIE a 28 días, % anual' },
+  cetes28:      { ids: ['SF43936'], title: /cetes a 28/i, desc: 'Cetes a 28 días, tasa de rendimiento en subasta primaria, %' },
+  cetes91:      { ids: ['SF43939'], title: /cetes a 91/i, desc: 'Cetes a 91 días, tasa de rendimiento en subasta primaria, %' },
+  // SF43939 turned out to be the 91-day Cetes (confirmed 2026-09-13); the 364-day series is
+  // probed among the neighbouring IDs of the same auction-results table.
+  cetes364:     { ids: (process.env.BANXICO_SERIES_CETES_364 ? [process.env.BANXICO_SERIES_CETES_364] : []).concat(['SF43945','SF43942','SF43948','SF43951','SF45470']), title: /cetes a 364/i, desc: 'Cetes a 364 días, tasa de rendimiento en subasta primaria, %' },
+  udi:          { ids: ['SP68257'], title: /UDIS?/i, desc: 'Valor de la UDI, pesos' },
+  // Monetary base, millions of pesos. SF30579 returned an empty title (confirmed wrong 2026-09-13);
+  // candidates below are probed and the winner is whichever title says "base monetaria".
+  baseMonetaria:{ ids: (process.env.BANXICO_SERIES_BASE_MONETARIA ? [process.env.BANXICO_SERIES_BASE_MONETARIA] : []).concat(['SF1','SF2','SF30573','SF30574','SF30580','SF30581','SF43695','SF43697','SF61773','SF61774']), title: /base monetaria/i, desc: 'Base monetaria, millones de pesos' },
 };
 
 // Banxico dates arrive as "dd/mm/yyyy"; normalise to ISO so the page's string-only date
@@ -59,29 +65,41 @@ async function main() {
     process.exit(1);
   }
   const keys = Object.keys(SERIES);
-  const ids = keys.map((k) => SERIES[k].id);
-  let bySeries = {};
-  try {
-    bySeries = await fetchOportuno(ids);
-  } catch (e) {
-    // One bad ID can fail the whole multi-series call, so fall back to one request per series.
-    console.warn('Batch request failed, retrying series one by one:', e.message);
-    for (const id of ids) {
-      try { Object.assign(bySeries, await fetchOportuno([id])); }
-      catch (e2) { console.warn(`${id}: ${e2.message}`); }
+  const ids = [...new Set(keys.flatMap((k) => SERIES[k].ids))];
+  // The SIE API caps a request at 20 series; probe candidates push us past that, so fetch in chunks.
+  // One bad ID can fail a whole multi-series call, so a failed chunk falls back to one request per series.
+  const bySeries = {};
+  for (let i = 0; i < ids.length; i += 15) {
+    const chunk = ids.slice(i, i + 15);
+    try {
+      Object.assign(bySeries, await fetchOportuno(chunk));
+    } catch (e) {
+      console.warn('Batch request failed, retrying series one by one:', e.message);
+      for (const id of chunk) {
+        try { Object.assign(bySeries, await fetchOportuno([id])); }
+        catch (e2) { console.warn(`${id}: ${e2.message}`); }
+      }
     }
   }
 
   const payload = { generatedAt: new Date().toISOString() };
   const errors = [];
+  const clean = (t) => String(t || '').replace(/\s+/g, ' ').trim();
   for (const k of keys) {
-    const s = bySeries[SERIES[k].id];
-    if (s && s.value != null) {
-      payload[k] = { date: s.date, value: s.value, series: SERIES[k].id };
-      console.log(`${k.padEnd(14)} ${SERIES[k].id}  ${s.date}  ${s.value}  «${s.titulo}»`);
+    const def = SERIES[k];
+    let chosen = null;
+    for (const id of def.ids) {
+      const s = bySeries[id];
+      const title = clean(s && s.titulo);
+      const ok = !!s && def.title.test(title);
+      console.log(`${k.padEnd(14)} ${id.padEnd(8)} ${ok ? 'MATCH ' : 'skip  '} ${s ? `${s.date}  ${s.value}` : 'not returned'}  «${title}»`);
+      if (ok && !chosen && s.value != null) chosen = { date: s.date, value: s.value, series: id };
+    }
+    if (chosen) {
+      payload[k] = chosen;
     } else {
-      payload[k] = null;
-      errors.push(`${k} (${SERIES[k].id}): ${s ? 'no numeric value' : 'not returned'}`);
+      payload[k] = null; // page keeps its baked value; a mismatched title is never published
+      errors.push(`${k}: no candidate matched /${def.title.source}/ (tried ${def.ids.join(', ')})`);
     }
   }
   if (errors.length) console.warn('Some series failed to fetch (page keeps its previous value for those):\n' + errors.join('\n'));
