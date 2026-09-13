@@ -234,9 +234,15 @@ async function main() {
           const body = await res.text();
           out(`${raw}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${body.length} bytes`);
           if (pat) {
-            const re = new RegExp(pat, 'i');
-            const lines = body.split(/\r?\n/).filter((l) => re.test(l)).slice(0, 80);
-            for (const l of lines) out('  | ' + mask(l.trim().slice(0, 400)));
+            // Short lines: print matching lines. Minified/one-line bodies: print each match with context.
+            const lines = body.split(/\r?\n/);
+            if (lines.length > 20) {
+              const re = new RegExp(pat, 'i');
+              for (const l of lines.filter((l) => re.test(l)).slice(0, 80)) out('  | ' + mask(l.trim().slice(0, 400)));
+            } else {
+              const re = new RegExp(pat, 'gi'); let m, n = 0;
+              while ((m = re.exec(body)) && n++ < 120) out('  @' + m.index + ' ' + mask(body.slice(Math.max(0, m.index - 100), m.index + m[0].length + 160).replace(/\s+/g, ' ')));
+            }
           } else out('  ' + mask(body.replace(/\s+/g, ' ').slice(0, 2500)));
         } catch (e) { out(`${raw}\n  -> ERROR ${e.message}`); }
       }
