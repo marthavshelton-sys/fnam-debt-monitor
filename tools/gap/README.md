@@ -37,8 +37,13 @@ git commit "[skip ci]" + push     Cloudflare Pages deploys the commit
   From a workstation, `node scripts/gap/harvest-releases.mjs --source=sec` (with
   `SEC_USER_AGENT="<name> <email>"`) pulls the 6-Ks and the 20-F XBRL company facts; `build-data.mjs`
   then also fills **FY2015–FY2017** from the XBRL facts (GlobeNewswire only starts in 2019, so those
-  years are empty until that is run once — the file it writes, `tools/gap/raw/companyfacts.json`, can
-  simply be committed).
+  years would otherwise be empty — the file it writes, `tools/gap/raw/companyfacts.json`, can simply be
+  committed; it is optional now that the PDF reports cover FY2015–FY2017).
+* **Pre-2019 reports (FY2015–FY2017)** come from the 4Q15, 4Q16 and 4Q17 quarterly-report PDFs in
+  `tools/gap/raw/pdf/`, converted once with `scripts/gap/pdf-to-text.py` (pdfplumber; see the file
+  header) into the same pipe-delimited text format under `tools/gap/raw/6k/` (`*_pdfNQyy_en.txt`).
+  To add another PDF report, drop it in `tools/gap/raw/pdf/` named `<YYYY-MM>_<nQyy>_….pdf`, run the
+  converter, then `build-data.mjs` + `validate-data.mjs`.
 * Validation (`validate-data.mjs`): revenue components = total; EBT + tax = net income; assets =
   liabilities + equity; cash begin + net change = cash end; CF cash end = BS cash; YTD = sum of
   quarters for revenue / net income / EBITDA; domestic + international = total per airport; airports
