@@ -50,14 +50,16 @@ with a token: `SP1` (INPC general), `SP74625`–`SP74631` (subyacente,
 mercancías, mercancías no alimenticias, servicios, otros servicios, no
 subyacente, energéticos y tarifas), `SF43718` (FIX), `SF61745` (tasa
 objetivo), `SF43783` (TIIE 28), `SF43936` (Cetes 28), `SE27803` (remesas)
-and `SF43707` (reservas). `SP2`–`SP8` (the INPC spending-purpose groups)
-and `SP74639` (tarifas autorizadas) are the customary IDs, still guarded by
-the title check.
+`SF43707` (reservas) and `SP74639` (tarifas autorizadas). `SP2`–`SP8` turned
+out to be producer-price and construction-cost indices, not the INPC
+spending-purpose groups; those groups (alimentos, vivienda, educación, …)
+still need their SIE IDs looked up in the catalog.
 
 Not yet sourced, and therefore shown as pending on the page: IGAE (Banxico's
 `SR16734` is the old 2013-base series, discontinued in 2023), IMSS jobs,
 industrial production, consumer confidence (FRED's OECD mirror ended in
-December 2023) and the agricultural/energy detail of the non-core index.
+December 2023) the agricultural/energy detail of the non-core index and the INPC
+spending-purpose groups.
 These live in INEGI's Indicadores API; once an `INEGI_TOKEN` secret exists
 and the indicator IDs are confirmed in the INEGI catalog, add them as
 candidates in `series.json`. To look an ID up without a full run:

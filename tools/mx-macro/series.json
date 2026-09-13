@@ -11,7 +11,7 @@
   "metadata in its response, so only use it for IDs already confirmed in the",
   "INEGI catalog and set title to null).",
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
-  "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP2-SP8 (objeto del gasto groups) and SP74639 are customary IDs still guarded by the title check. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog."
+  "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog."
  ],
  "series": {
   "inpc": {
@@ -137,91 +137,7 @@
     {
      "provider": "banxico",
      "id": "SP74639",
-     "title": "^(?!.*energ(é|e)ticos).*tarifas autorizadas"
-    }
-   ]
-  },
-  "inpcFood": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP2",
-     "title": "alimentos"
-    }
-   ]
-  },
-  "inpcClothing": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP3",
-     "title": "ropa"
-    }
-   ]
-  },
-  "inpcHousing": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP4",
-     "title": "vivienda"
-    }
-   ]
-  },
-  "inpcFurnishings": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP5",
-     "title": "muebles"
-    }
-   ]
-  },
-  "inpcHealth": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP6",
-     "title": "salud"
-    }
-   ]
-  },
-  "inpcTransport": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP7",
-     "title": "transporte"
-    }
-   ]
-  },
-  "inpcEducation": {
-   "freq": "M",
-   "unit": "index",
-   "since": "2010-01-01",
-   "candidates": [
-    {
-     "provider": "banxico",
-     "id": "SP8",
-     "title": "educaci(ó|o)n"
+     "title": "tarifas autorizadas por el gobierno\\s+tarifas autorizadas"
     }
    ]
   },

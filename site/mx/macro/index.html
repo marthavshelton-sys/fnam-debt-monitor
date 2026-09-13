@@ -1064,15 +1064,8 @@ const I18N = {
       "inpcCore": "Subyacente",
       "inpcNonCore": "No subyacente",
       "inpcGoods": "Mercancías",
-      "inpcFood": "Alimentos, bebidas y tabaco",
       "inpcNonFoodGoods": "Mercancías no alimenticias",
       "inpcServices": "Servicios",
-      "inpcHousing": "Vivienda",
-      "inpcEducation": "Educación y esparcimiento",
-      "inpcClothing": "Ropa, calzado y accesorios",
-      "inpcFurnishings": "Muebles y aparatos domésticos",
-      "inpcHealth": "Salud y cuidado personal",
-      "inpcTransport": "Transporte",
       "inpcOtherServices": "Otros servicios",
       "inpcEnergyTariffs": "Energéticos y tarifas",
       "inpcTariffs": "Tarifas autorizadas",
@@ -1310,15 +1303,8 @@ const I18N = {
       "inpcCore": "Core",
       "inpcNonCore": "Non-core",
       "inpcGoods": "Goods",
-      "inpcFood": "Food, beverages & tobacco",
       "inpcNonFoodGoods": "Non-food goods",
       "inpcServices": "Services",
-      "inpcHousing": "Housing",
-      "inpcEducation": "Education & recreation",
-      "inpcClothing": "Clothing & footwear",
-      "inpcFurnishings": "Furnishings & appliances",
-      "inpcHealth": "Health & personal care",
-      "inpcTransport": "Transport",
       "inpcOtherServices": "Other services",
       "inpcEnergyTariffs": "Energy & tariffs",
       "inpcTariffs": "Government-set tariffs",
@@ -1782,13 +1768,11 @@ function clearTargets() {
 // ================================================================
 //  View: INPC
 // ================================================================
-// Core/non-core subindices (green, purple, amber) and the spending-purpose groups (blue).
+// Core/non-core subindices: goods (green), services (purple), non-core (amber).
 const INPC_COMPONENTS = [
   {key: "inpcGoods", color: "--cat-3"}, {key: "inpcNonFoodGoods", color: "--cat-3"},
   {key: "inpcServices", color: "--cat-7"}, {key: "inpcOtherServices", color: "--cat-7"},
-  {key: "inpcNonCore", color: "--cat-4"}, {key: "inpcEnergyTariffs", color: "--cat-4"}, {key: "inpcTariffs", color: "--cat-4"},
-  {key: "inpcFood", color: "--cat-1"}, {key: "inpcClothing", color: "--cat-1"}, {key: "inpcHousing", color: "--cat-1"}, {key: "inpcFurnishings", color: "--cat-1"},
-  {key: "inpcHealth", color: "--cat-1"}, {key: "inpcTransport", color: "--cat-1"}, {key: "inpcEducation", color: "--cat-1"}
+  {key: "inpcNonCore", color: "--cat-4"}, {key: "inpcEnergyTariffs", color: "--cat-4"}, {key: "inpcTariffs", color: "--cat-4"}
 ];
 function renderInpc() {
   const optional = ["inpcCore", "inpcGoods", "inpcServices", "inpcNonCore", "inpcEnergyTariffs"];
@@ -1853,8 +1837,8 @@ function renderInpc() {
 
   // component cards and the ranked list
   const grid = document.getElementById("inpcCatGrid");
-  const cardKeys = ["inpcGoods", "inpcServices", "inpcFood", "inpcHousing", "inpcTransport", "inpcEducation", "inpcHealth", "inpcEnergyTariffs"];
-  const cardColors = ["--cat-1", "--cat-2", "--cat-3", "--cat-4", "--cat-5", "--cat-6", "--cat-7", "--cat-8"];
+  const cardKeys = ["inpcCore", "inpcGoods", "inpcNonFoodGoods", "inpcServices", "inpcOtherServices", "inpcNonCore", "inpcEnergyTariffs", "inpcTariffs"];
+  const cardColors = ["--series-core", "--cat-3", "--cat-3", "--cat-7", "--cat-7", "--cat-4", "--cat-4", "--cat-4"];
   let cards = 0;
   cardKeys.forEach((k, i) => { if (C[k]) { catCard(grid, nameOf(k), C[k], cardColors[i]); cards++; } });
   showSec("inpcCatSec", cards > 0);
