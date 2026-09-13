@@ -3707,6 +3707,10 @@ document.querySelectorAll(".rail-item[data-view]").forEach(item => {
   });
 });
 
+// Deep link: /macro/?view=fiscal opens that view directly (used by the landing page).
+const deepLinkView = document.querySelector('.rail-item[data-view="' + new URLSearchParams(location.search).get("view") + '"]');
+if (deepLinkView) deepLinkView.click();
+
 const MAJOR_GROUPS = [
   {id:"SAH", key:"CUUR0000SAH", color:"--cat-1"},
   {id:"SAT", key:"CUUR0000SAT", color:"--cat-2"},
