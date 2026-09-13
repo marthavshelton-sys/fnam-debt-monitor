@@ -21,9 +21,10 @@ English toggle (stored under the same `fnam-lang` key the landing page uses; `?l
   rate (SF43718), international reserves (SF43707), 28-day TIIE (SF43783), 28- and 364-day Cetes
   (SF43936/SF43939), the UDI (SP68257) and the monetary base from Banco de México's SIE API and
   writes `site/mx/fiscal/data.js`. It needs the free SIE token as the **`BANXICO_TOKEN`** repository
-  secret (get one at https://www.banxico.org.mx/SieAPIRest/service/v1/token). The run log prints the
-  official title of every series returned, so a wrong ID is visible on the first run; the monetary-base
-  ID can be overridden with `BANXICO_SERIES_BASE_MONETARIA` if the catalogue differs.
+  secret (get one at https://www.banxico.org.mx/SieAPIRest/service/v1/token). The script checks every
+  series' official title against an expected pattern and publishes nothing for a mismatch; all IDs were
+  confirmed against the API on 2026-09-13 (monetary base = SF43695, 364-day Cetes = SF43945). They can
+  be overridden with `BANXICO_SERIES_BASE_MONETARIA` and `BANXICO_SERIES_CETES_364`.
 - **Monthly (reviewed PR):** after SHCP's "Finanzas públicas y deuda pública" release (last business
   day of the following month), update `site/mx/fiscal/monthly-data.js` — SHRFSP, gross debt, holders,
   revenue/spending year-to-date, RFSP path, Pemex debt — and any new narrative in `index.html`.
