@@ -11,9 +11,12 @@
 # Banxico's FIX around 12:00 local = 18:00 UTC, and policy decisions at 13:00 local = 19:00 UTC.
 # Runs at 12:25, 18:25 and 19:25 UTC on weekdays; nothing is committed when nothing changed.
 #
-# Required repository secrets: BANXICO_TOKEN (free, https://www.banxico.org.mx/SieAPIRest/service/v1/token).
-# Optional: FRED_API_KEY (already used by the U.S. page; lets the fetcher verify FRED titles),
-# INEGI_TOKEN (only needed once INEGI candidates are added to the manifest).
+# Required repository secrets: BANXICO_TOKEN (free, https://www.banxico.org.mx/SieAPIRest/service/v1/token)
+# and INEGI_TOKEN (free registration, https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify)
+# for IGAE and consumer confidence. Optional: FRED_API_KEY (lets the fetcher verify FRED titles).
+#
+# Diagnostics: run the workflow by hand with the "probe" or "catalog" input filled in and nothing
+# is fetched or committed; the run summary shows what each id is / which INEGI ids match a name.
 #
 # Scheduled runs only happen on the default branch (GitHub rule). On other branches the workflow
 # runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry [skip ci].
@@ -24,6 +27,22 @@ on:
     - cron: "25 12 * * 1-5"
     - cron: "25 18,19 * * 1-5"
   workflow_dispatch:
+    inputs:
+      probe:
+        description: "Diagnostics only: comma list of provider:id to describe, e.g. inegi:496150,banxico:SP1"
+        default: ""
+      catalog:
+        description: "Diagnostics only: search INEGI's indicator catalog by description (regex, accents ignored)"
+        default: ""
+      url:
+        description: "Diagnostics only: whitespace-separated URLs to fetch and print ({INEGI_TOKEN} etc. substituted)"
+        default: ""
+      xlsx:
+        description: "Diagnostics only: URL#regex of a workbook whose matching rows to print"
+        default: ""
+      search:
+        description: "Diagnostics only: BIE full-text search terms separated by |, prints indicator ids and titles"
+        default: ""
   push:
     branches: ["main", "claude/mexico-macro-dashboard-fnam-3m65pe"]
     paths:
@@ -49,7 +68,28 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Fetch series (Banxico SIE, FRED)
+      - name: Series diagnostics (probe / catalog search)
+        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != '' || github.event.inputs.xlsx != '' || github.event.inputs.search != ''
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+          FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
+          INEGI_TOKEN: ${{ secrets.INEGI_TOKEN }}
+          PROBE: ${{ github.event.inputs.probe }}
+          CATALOG: ${{ github.event.inputs.catalog }}
+          URLS: ${{ github.event.inputs.url }}
+          XLSX: ${{ github.event.inputs.xlsx }}
+          SEARCH: ${{ github.event.inputs.search }}
+        run: |
+          ARGS=()
+          if [ -n "$PROBE" ]; then ARGS+=(--probe "$PROBE"); fi
+          if [ -n "$CATALOG" ]; then ARGS+=(--catalog "$CATALOG"); fi
+          if [ -n "$URLS" ]; then ARGS+=(--url "$URLS"); fi
+          if [ -n "$XLSX" ]; then ARGS+=(--xlsx "$XLSX"); fi
+          if [ -n "$SEARCH" ]; then ARGS+=(--search "$SEARCH"); fi
+          node scripts/mx-macro/fetch.mjs "${ARGS[@]}"
+
+      - name: Fetch series (Banxico SIE, FRED, INEGI)
+        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -60,11 +100,11 @@ jobs:
 
       # Runs even if a fetch failed, so whatever did refresh still reaches the page.
       - name: Build page
-        if: always()
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
         run: node scripts/mx-macro/build.mjs
 
       - name: Commit if anything changed
-        if: always()
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
         shell: bash
         run: |
           git config user.name "mx-macro-refresh[bot]"

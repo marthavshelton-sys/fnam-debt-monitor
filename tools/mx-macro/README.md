@@ -31,9 +31,12 @@ FRED fallbacks load (GDP, unemployment, trade, the exchange rate, reserves,
 an interbank-rate proxy and the 10-year yield); the INPC and its components,
 remittances, the target rate, TIIE and Cetes come only from Banxico.
 
+**Also required for IGAE and consumer confidence:** `INEGI_TOKEN` — free
+registration at
+<https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify>.
+
 **Optional:** `FRED_API_KEY` (already set for the U.S. page) lets the fetcher
-verify each FRED series' title; `INEGI_TOKEN` is only read once INEGI
-candidates are added to the manifest.
+verify each FRED series' title.
 
 ## Series manifest and the title check
 
@@ -55,24 +58,39 @@ out to be producer-price and construction-cost indices, not the INPC
 spending-purpose groups; those groups (alimentos, vivienda, educación, …)
 still need their SIE IDs looked up in the catalog.
 
-Not yet sourced, and therefore shown as pending on the page: IGAE (Banxico's
-`SR16734` is the old 2013-base series, discontinued in 2023), IMSS jobs,
-industrial production, consumer confidence (FRED's OECD mirror ended in
-December 2023) the agricultural/energy detail of the non-core index and the INPC
+INEGI ids, confirmed with the BIE search on 2026-09-13 (each candidate carries
+the `search` query that reproduces the confirmation): IGAE total `737219`
+(seasonally adjusted, base 2018; `737217` original series as fallback), IGAE
+by activity group `737226` / `737233` / `737268` (primary, secondary,
+tertiary, seasonally adjusted), consumer confidence `454186` (seasonally
+adjusted balance; `454168` original). `SR14195` (Banxico survey, median
+expected inflation 12 months ahead) feeds the ex ante real rate.
+
+Not yet sourced: IMSS jobs, industrial production and the INPC
 spending-purpose groups.
-These live in INEGI's Indicadores API; once an `INEGI_TOKEN` secret exists
-and the indicator IDs are confirmed in the INEGI catalog, add them as
-candidates in `series.json`. To look an ID up without a full run:
 
-```bash
-BANXICO_TOKEN=... node scripts/mx-macro/fetch.mjs --probe banxico:SP74639,fred:LRHUTTTTMXM156S
-```
+Finding an id without leaving GitHub: run the workflow by hand (Actions →
+Refresh Mexico macro dashboard → Run workflow) with one of the diagnostic
+inputs filled in; nothing is fetched or committed and the result is in the
+run's log and summary:
 
-which prints the title, point count and last value each provider reports.
+- **search** — BIE full-text search, e.g. `confianza del consumidor`; prints
+  indicator ids with their full topic path. This is the reliable way to find
+  INEGI ids (the public catalog endpoint only answers per id).
+- **probe** — `inegi:737219,banxico:SP1` describes specific ids: title,
+  point count, first and last observation.
+- **url** — fetch arbitrary URLs (`{INEGI_TOKEN}` etc. substituted),
+  `URL#regex` to filter lines, `URL##regex` for match-with-context.
+- **xlsx** — `URL#regex` prints matching rows of a workbook.
+- **catalog** — reserved; INEGI exposes no whole-catalog endpoint.
 
-INEGI's Indicadores API returns no series name, so INEGI candidates should be
-added only with IDs confirmed in the INEGI catalog (`"title": null` disables
-the check for that candidate).
+Locally the same flags work on `scripts/mx-macro/fetch.mjs` (`--search`,
+`--probe`, `--url`, `--xlsx`).
+
+INEGI's data endpoint returns no series name. For an INEGI candidate the
+fetcher runs the BIE search with the candidate's `search` query, takes the
+row whose id matches and checks the regex against that row's full topic path
+(the per-id `CL_INDICATOR` catalog description is the fallback).
 
 ## Editing the page
 

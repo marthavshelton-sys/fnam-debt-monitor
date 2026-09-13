@@ -1,17 +1,18 @@
 {
  "_doc": [
   "One entry per logical series the Mexico macro page uses. The fetcher tries each",
+  "inegi (Indicadores API, INEGI_TOKEN): the data endpoint has no series name, so an INEGI candidate carries a `search` query; the fetcher runs INEGI's BIE full-text search with it, finds the row whose INDICADOR equals the candidate id and checks the title regex against that row's full topic path (the CL_INDICATOR catalog description is the fallback). IGAE ids 737219/737217/737226/737233/737268 and consumer-confidence ids 454186/454168 were confirmed this way on 2026-09-13.",
   "candidate in order and keeps the first one that (a) answers, (b) carries the",
   "expected title (regex, case-insensitive, checked against the provider's own",
   "metadata) and (c) returns enough points. A candidate whose title does not match",
   "is dropped and reported, so a mistyped ID can never put a wrongly-labelled",
   "series on the page. Providers: banxico (SIE API, token), fred (St. Louis Fed,",
   "key optional; without a key the CSV export is used and the title is not checked",
-  "because the export carries none), inegi (Indicadores API, token; no title",
   "metadata in its response, so only use it for IDs already confirmed in the",
   "INEGI catalog and set title to null).",
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
-  "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog."
+  "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog.",
+  "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean)."
  ],
  "series": {
   "inpc": {
@@ -163,9 +164,80 @@
    "since": "2010-01-01",
    "candidates": [
     {
+     "provider": "inegi",
+     "id": "737219",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE total, base 2018, serie desestacionalizada (INEGI)",
+      "en": "IGAE total, base 2018, seasonally adjusted (INEGI)"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "737217",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total.*Serie original corregida.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE total, base 2018, serie original corregida por efectos de calendario (INEGI)",
+      "en": "IGAE total, base 2018, original series adjusted for calendar effects (INEGI)"
+     }
+    },
+    {
      "provider": "banxico",
      "id": "SR16734",
      "title": "actividad econ(ó|o)mica"
+    }
+   ]
+  },
+  "igaePrimary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737226",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Actividades primarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades primarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE primary activities, seasonally adjusted (INEGI)"
+     }
+    }
+   ]
+  },
+  "igaeSecondary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737233",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total actividades secundarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades secundarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE secondary activities, seasonally adjusted (INEGI)"
+     }
+    }
+   ]
+  },
+  "igaeTertiary": {
+   "freq": "M",
+   "unit": "index",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "inegi",
+     "id": "737268",
+     "search": "Indicador global de la actividad económica total serie desestacionalizada índice",
+     "title": "actividad econ(ó|o)mica, base 2018.*Total actividades terciarias.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "IGAE actividades terciarias, serie desestacionalizada (INEGI)",
+      "en": "IGAE tertiary activities, seasonally adjusted (INEGI)"
+     }
     }
    ]
   },
@@ -199,6 +271,26 @@
    "unit": "index",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "454186",
+     "search": "confianza del consumidor",
+     "title": "Confianza del consumidor.*Indicador de confianza del consumidor.*Serie desestacionalizada.*Indicador$",
+     "note": {
+      "es": "Indicador de Confianza del Consumidor (ENCO, INEGI y Banxico), balance en puntos, serie desestacionalizada",
+      "en": "Consumer Confidence Indicator (ENCO survey, INEGI and Banxico), balance in points, seasonally adjusted"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "454168",
+     "search": "confianza del consumidor",
+     "title": "Confianza del consumidor.*Series originales.*Indicador de confianza del consumidor$",
+     "note": {
+      "es": "Indicador de Confianza del Consumidor (ENCO, INEGI y Banxico), balance en puntos, serie original",
+      "en": "Consumer Confidence Indicator (ENCO survey, INEGI and Banxico), balance in points, original series"
+     }
+    },
     {
      "provider": "fred",
      "id": "CSCICP03MXM665S",
@@ -355,6 +447,22 @@
      "note": {
       "es": "Rendimiento mensual reportado por la OCDE",
       "en": "Monthly yield as reported by the OECD"
+     }
+    }
+   ]
+  },
+  "inflExp12m": {
+   "freq": "M",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SR14195",
+     "title": "expectativas de inflaci(ó|o)n.*12 meses.*mediana",
+     "note": {
+      "es": "Encuesta de Banxico a especialistas del sector privado, mediana",
+      "en": "Banxico survey of private-sector economists, median"
      }
     }
    ]

@@ -518,6 +518,7 @@
   @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .cat-card-head { flex-wrap: wrap; gap: 0 8px; }
   .cat-name { min-width: 0; overflow-wrap: anywhere; }
+  .legend { flex-wrap: wrap; row-gap: 4px; }
   .band { fill: var(--series-single-wash); }
   .src-line { font-size: 11.5px; color: var(--text-muted); }
   .src-line a { color: var(--series-single); text-decoration: none; }
@@ -706,13 +707,25 @@
 
     <section id="acIgaeSec">
       <div class="section-head">
-        <h2 data-i18n="acSecIgae">IGAE y producción industrial</h2>
+        <h2 data-i18n="acSecIgae">IGAE: variación anual</h2>
         <span class="note" data-i18n="noteYoyMonthly">Variación anual (%), mensual</span>
       </div>
       <div class="panel">
         <div class="legend" id="acIgaeLegend"></div>
         <div class="chart-wrap"><svg id="acIgaeChart" viewBox="0 0 920 260"></svg><div class="tooltip" id="acIgaeTooltip"></div></div>
         <div class="callout" id="acIgaeCallout"></div>
+      </div>
+    </section>
+
+    <section id="acSectorsSec">
+      <div class="section-head">
+        <h2 data-i18n="acSecSectors">IGAE por sector</h2>
+        <span class="note" data-i18n="acSecSectorsNote">Variación anual (%), series desestacionalizadas</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="acSectorsLegend"></div>
+        <div class="chart-wrap"><svg id="acSectorsChart" viewBox="0 0 920 260"></svg><div class="tooltip" id="acSectorsTooltip"></div></div>
+        <div class="callout" id="acSectorsCallout"></div>
       </div>
     </section>
 
@@ -926,6 +939,7 @@
       </div>
       <div class="panel">
         <div class="chart-wrap"><svg id="bxRealChart" viewBox="0 0 920 180"></svg></div>
+        <div class="legend" id="bxRealLegend" style="margin-top:8px"></div>
         <div class="callout" id="bxRealCallout"></div>
       </div>
     </section>
@@ -1060,6 +1074,9 @@ const I18N = {
       "inpcTariffs": "Tarifas autorizadas",
       "gdp": "PIB real",
       "igae": "IGAE",
+      "igaePrimary": "IGAE, actividades primarias",
+      "igaeSecondary": "IGAE, actividades secundarias",
+      "igaeTertiary": "IGAE, actividades terciarias",
       "unemployment": "Tasa de desocupación",
       "consumerConfidence": "Confianza del consumidor",
       "remittances": "Remesas",
@@ -1070,7 +1087,8 @@ const I18N = {
       "policyRate": "Tasa objetivo",
       "tiie28": "TIIE 28 días",
       "cetes28": "Cetes 28 días",
-      "mbono10": "Bono M 10 años"
+      "mbono10": "Bono M 10 años",
+      "inflExp12m": "Inflación esperada a 12 meses"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (vía Banxico)", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
 
@@ -1082,21 +1100,29 @@ const I18N = {
     acSecGdpNote: "Cifras desestacionalizadas, % vs. trimestre anterior",
     acSecGdpYoy: "PIB real: variación anual",
     acSecGdpYoyNote: "% vs. mismo trimestre del año anterior",
-    acSecIgae: "IGAE y producción industrial",
+    acSecIgae: "IGAE: variación anual",
     acSecLevel: "Nivel de actividad",
     acSecLevelNote: "Índices, últimos 5 años",
-    footerActivity: "PIB real trimestral desestacionalizado (INEGI; serie distribuida por el FMI vía FRED cuando la conexión directa no está disponible). IGAE: Indicador Global de la Actividad Económica (INEGI). Producción industrial: índice de volumen físico desestacionalizado (INEGI/OCDE). Las variaciones se calculan sobre los índices publicados.",
+    footerActivity: "PIB real trimestral desestacionalizado (INEGI; serie distribuida por el FMI vía FRED cuando la conexión directa no está disponible). IGAE: Indicador Global de la Actividad Económica, base 2018, series desestacionalizadas, total y por grupo de actividades (INEGI, Banco de Información Económica). Las variaciones se calculan sobre los índices publicados.",
     kpiGdpQoq: "PIB, trimestral",
     kpiGdpYoy: "PIB, anual",
     kpiIgaeYoy: "IGAE, anual",
     kpiIndprodYoy: "Producción industrial, anual",
+    kpiIgaeMom: "IGAE, mensual",
+    acSecSectors: "IGAE por sector",
+    acSecSectorsNote: "Variación anual (%), series desestacionalizadas",
+    legPrimary: "Primarias (agropecuario)",
+    legSecondary: "Secundarias (industria)",
+    legTertiary: "Terciarias (servicios)",
+    acSectorsCallout: (m, p, s, t) => m + ": primarias " + p + ", secundarias " + s + ", terciarias " + t + " (anual).",
     legGdpYoy: "PIB real, variación anual",
     legIgae: "IGAE",
     legIndprod: "Producción industrial",
+    legIgaeMom: "IGAE, variación mensual (desestacionalizada)",
     legGdpLevel: "PIB real (índice, último trimestre = 100)",
     legIgaeLevel: "IGAE (índice, último mes = 100)",
     acGdpCallout: (q, qoq, ann, yoy) => q + ": " + qoq + " trimestral (" + ann + " anualizado), " + yoy + " anual.",
-    acIgaeCallout: (m, a, b) => m + ": IGAE " + a + " anual; producción industrial " + b + " anual.",
+    acIgaeCallout: (m, a, b) => m + ": IGAE " + a + " anual, " + b + " mensual.",
     acLevelCallout: "Ambas series reindexadas a 100 en su último dato para comparar trayectorias.",
 
     // ---- Labor ----
@@ -1129,14 +1155,14 @@ const I18N = {
     ccNext: "Próximo dato: primera semana del mes siguiente (INEGI)",
     ccSecTrend: "Confianza del consumidor en el tiempo",
     ccSecContext: "¿Qué tan alto o bajo está el dato actual?",
-    footerConfidence: "Indicador de Confianza del Consumidor (INEGI y Banxico, ENCO). Cuando la conexión directa no está disponible se muestra la versión estandarizada de la OCDE (100 = promedio de largo plazo), que sigue la misma encuesta con distinta escala.",
+    footerConfidence: "Indicador de Confianza del Consumidor (INEGI y Banxico, Encuesta Nacional sobre Confianza del Consumidor), balance en puntos: promedio de los cinco componentes sobre la situación económica del hogar y del país, presente y esperada. Serie desestacionalizada por INEGI.",
     kpiCcLevel: "Nivel actual",
     kpiCcMoM: "Cambio mensual",
     kpiCcYoY: "Cambio anual",
     legCc: "Confianza del consumidor",
     legCcAvg: "Promedio del periodo",
     ccTrendNoteOecd: "Índice OCDE, 100 = promedio de largo plazo",
-    ccTrendNoteInegi: "Índice INEGI, 2003 = 100",
+    ccTrendNoteInegi: "Balance en puntos (INEGI, ENCO), serie desestacionalizada",
     ctxCurrent: "Dato actual",
     ctxAvg5: "Promedio 5 años",
     ctxAvg10: "Promedio 10 años",
@@ -1177,22 +1203,25 @@ const I18N = {
 
     // ---- Banxico ----
     bxTitle: "Banxico y mercados",
-    bxDesc: "Tasa de política, tasas de mercado, tasa real y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
+    bxDesc: "Tasa de política, tasas de mercado, tasas reales y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
     bxNext: "Calendario de decisiones de política monetaria: banxico.org.mx",
     bxSecPolicy: "Tasa objetivo vs. inflación anual",
     bxSecPolicyNote: "%, mensual (tasa al cierre de cada mes)",
-    bxSecReal: "Tasa real ex post",
-    bxSecRealNote: "Tasa objetivo menos inflación anual observada, puntos porcentuales",
+    bxSecReal: "Tasa real ex post y ex ante",
+    bxSecRealNote: "Tasa objetivo menos inflación observada (barras) y menos inflación esperada a 12 meses (línea), puntos porcentuales",
     bxSecCurve: "Tasas de mercado: Cetes 28, TIIE 28 y Bono M a 10 años",
     bxSecCurveNote: "%, promedio mensual",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; no es la tasa real ex ante que usa Banxico, que descuenta la inflación esperada.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
     kpiBono: "Bono M 10 años",
     kpiReal: "Tasa real ex post",
+    kpiRealExAnte: "Tasa real ex ante",
+    legExp: "Inflación esperada a 12 meses (encuesta Banxico)",
+    kpiExpFoot: "tasa objetivo menos inflación esperada",
     kpiReserves: "Reservas internacionales",
     legPolicy: "Tasa objetivo",
     legInflation: "Inflación general anual",
@@ -1201,7 +1230,7 @@ const I18N = {
     legBono: "Bono M 10 años",
     legReserves: "Reservas (miles de millones de dólares)",
     bxPolicyCallout: (d, r, m, i) => "Tasa objetivo " + r + " (" + d + "); inflación anual " + i + " (" + m + ").",
-    bxRealCallout: (m, v) => m + ": tasa real ex post de " + v + ".",
+    bxRealCallout: (m, v, a) => m + ": tasa real ex post de " + v + (a ? "; ex ante (con inflación esperada a 12 meses) de " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
     kpiDeltaRes: "mil millones vs. hace un año"
@@ -1299,6 +1328,9 @@ const I18N = {
       "inpcTariffs": "Government-set tariffs",
       "gdp": "Real GDP",
       "igae": "IGAE",
+      "igaePrimary": "IGAE, primary activities",
+      "igaeSecondary": "IGAE, secondary activities",
+      "igaeTertiary": "IGAE, tertiary activities",
       "unemployment": "Unemployment rate",
       "consumerConfidence": "Consumer confidence",
       "remittances": "Remittances",
@@ -1309,7 +1341,8 @@ const I18N = {
       "policyRate": "Policy rate",
       "tiie28": "28-day TIIE",
       "cetes28": "28-day Cetes",
-      "mbono10": "10-year M bond"
+      "mbono10": "10-year M bond",
+      "inflExp12m": "Expected inflation, 12 months ahead"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (via Banxico)", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
 
@@ -1321,21 +1354,29 @@ const I18N = {
     acSecGdpNote: "Seasonally adjusted, % vs. prior quarter",
     acSecGdpYoy: "Real GDP: annual change",
     acSecGdpYoyNote: "% vs. same quarter a year earlier",
-    acSecIgae: "IGAE and industrial production",
+    acSecIgae: "IGAE: 12-month change",
     acSecLevel: "Level of activity",
     acSecLevelNote: "Indices, last 5 years",
-    footerActivity: "Quarterly real GDP, seasonally adjusted (INEGI; distributed by the IMF via FRED when the direct connection is unavailable). IGAE: Global Indicator of Economic Activity (INEGI). Industrial production: seasonally adjusted volume index (INEGI/OECD). Changes are computed from the published indices.",
+    footerActivity: "Quarterly real GDP, seasonally adjusted (INEGI; distributed by the IMF via FRED when the direct connection is unavailable). IGAE: Global Indicator of Economic Activity, base 2018, seasonally adjusted series, total and by activity group (INEGI, Banco de Información Económica). Changes are computed from the published indices.",
     kpiGdpQoq: "GDP, QoQ",
     kpiGdpYoy: "GDP, YoY",
     kpiIgaeYoy: "IGAE, YoY",
     kpiIndprodYoy: "Industrial production, YoY",
+    kpiIgaeMom: "IGAE, MoM",
+    acSecSectors: "IGAE by sector",
+    acSecSectorsNote: "12-month % change, seasonally adjusted series",
+    legPrimary: "Primary (agriculture)",
+    legSecondary: "Secondary (industry)",
+    legTertiary: "Tertiary (services)",
+    acSectorsCallout: (m, p, s, t) => m + ": primary " + p + ", secondary " + s + ", tertiary " + t + " (YoY).",
     legGdpYoy: "Real GDP, 12-month change",
     legIgae: "IGAE",
     legIndprod: "Industrial production",
+    legIgaeMom: "IGAE, month-over-month (seasonally adjusted)",
     legGdpLevel: "Real GDP (index, latest quarter = 100)",
     legIgaeLevel: "IGAE (index, latest month = 100)",
     acGdpCallout: (q, qoq, ann, yoy) => q + ": " + qoq + " QoQ (" + ann + " annualized), " + yoy + " YoY.",
-    acIgaeCallout: (m, a, b) => m + ": IGAE " + a + " YoY; industrial production " + b + " YoY.",
+    acIgaeCallout: (m, a, b) => m + ": IGAE " + a + " YoY, " + b + " MoM.",
     acLevelCallout: "Both series re-indexed to 100 at their latest reading so the paths can be compared.",
 
     // ---- Labor ----
@@ -1368,14 +1409,14 @@ const I18N = {
     ccNext: "Next print: first week of the following month (INEGI)",
     ccSecTrend: "Consumer confidence over time",
     ccSecContext: "How high or low is the current reading?",
-    footerConfidence: "Consumer Confidence Indicator (INEGI and Banxico, ENCO survey). When the direct connection is unavailable the OECD standardized version is shown (100 = long-run average); it tracks the same survey on a different scale.",
+    footerConfidence: "Consumer Confidence Indicator (INEGI and Banxico, National Consumer Confidence Survey), balance in points: the average of five components on the household's and the country's economic situation, current and expected. Seasonally adjusted by INEGI.",
     kpiCcLevel: "Current level",
     kpiCcMoM: "Monthly change",
     kpiCcYoY: "Annual change",
     legCc: "Consumer confidence",
     legCcAvg: "Period average",
     ccTrendNoteOecd: "OECD index, 100 = long-run average",
-    ccTrendNoteInegi: "INEGI index, 2003 = 100",
+    ccTrendNoteInegi: "Balance in points (INEGI, ENCO survey), seasonally adjusted",
     ctxCurrent: "Current reading",
     ctxAvg5: "5-year average",
     ctxAvg10: "10-year average",
@@ -1420,18 +1461,21 @@ const I18N = {
     bxNext: "Monetary policy decision calendar: banxico.org.mx",
     bxSecPolicy: "Policy rate vs. headline inflation",
     bxSecPolicyNote: "%, monthly (rate at each month-end)",
-    bxSecReal: "Ex post real rate",
-    bxSecRealNote: "Policy rate minus observed 12-month inflation, percentage points",
+    bxSecReal: "Ex post and ex ante real rates",
+    bxSecRealNote: "Policy rate minus observed inflation (bars) and minus expected 12-month inflation (line), percentage points",
     bxSecCurve: "Market rates: 28-day Cetes, 28-day TIIE and 10-year M bond",
     bxSecCurveNote: "%, monthly average",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; it is not the ex ante real rate Banxico uses, which subtracts expected inflation.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
     kpiBono: "10-year M bond",
     kpiReal: "Ex post real rate",
+    kpiRealExAnte: "Ex ante real rate",
+    legExp: "Expected inflation, 12 months ahead (Banxico survey)",
+    kpiExpFoot: "policy rate minus expected inflation",
     kpiReserves: "International reserves",
     legPolicy: "Policy rate",
     legInflation: "Headline inflation, YoY",
@@ -1440,7 +1484,7 @@ const I18N = {
     legBono: "10-year M bond",
     legReserves: "Reserves (US$ billion)",
     bxPolicyCallout: (d, r, m, i) => "Policy rate " + r + " (" + d + "); headline inflation " + i + " (" + m + ").",
-    bxRealCallout: (m, v) => m + ": ex post real rate of " + v + ".",
+    bxRealCallout: (m, v, a) => m + ": ex post real rate of " + v + (a ? "; ex ante (using expected 12-month inflation) " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
     kpiDeltaRes: "US$ billion vs. a year ago"
@@ -1718,6 +1762,13 @@ function columns(svgId, pts, colorVar, opts) {
   });
   const every = opts.tickEvery || 6;
   pts.forEach((p, i) => { if (i % every === 0 || i === pts.length - 1) svg.appendChild(axisText(xOf(i), H - 4, "middle", 8.5, opts.tickFmt ? opts.tickFmt(p.d) : p.d.slice(2, 7))); });
+  // Optional line overlaid on the same dates and axis (values outside the column range are clamped to the frame edge).
+  if (opts.overlay && opts.overlay.length) {
+    const byD = new Map(opts.overlay.map(p => [p.d, p.v]));
+    let d = "", open = false;
+    pts.forEach((p, i) => { const v = byD.get(p.d); if (v === undefined || v === null) { open = false; return; } const yy = Math.max(padT, Math.min(padT + plotH, yOf(v))); d += (open ? "L" : "M") + xOf(i).toFixed(1) + "," + yy.toFixed(1) + " "; open = true; });
+    svg.appendChild(svgEl("path", {d: d.trim(), fill: "none", stroke: "var(--cat-5)", "stroke-width": 2, "stroke-linejoin": "round"}));
+  }
 }
 
 function barList(containerId, items, fmtValue) {
@@ -1844,10 +1895,10 @@ function renderInpc() {
 // ================================================================
 function renderActivity() {
   if (!gate("ac", [], ["gdp", "igae"])) return;
-  const G = S("gdp") ? withChanges(P("gdp")) : null, I = S("igae") ? withChanges(P("igae")) : null, IP = S("indprod") ? withChanges(P("indprod")) : null;
-  const gL = G ? lastWith(G, "mom") : null, iL = I ? lastWith(I, "yoy") : null, ipL = IP ? lastWith(IP, "yoy") : null;
-  const asOf = gL ? fmtMonthYear(gL.d) + (iL ? " · " + T.legIgae + " " + fmtMonthYear(iL.d) : "") : (iL ? fmtMonthYear(iL.d) : fmtMonthYear(ipL.d));
-  headerMeta("ac", asOf, gL ? T.acNext(fmtMonthYear(nextQuarterOf(gL.d))) : "", ["gdp", "igae", "indprod"]);
+  const G = S("gdp") ? withChanges(P("gdp")) : null, I = S("igae") ? withChanges(P("igae")) : null;
+  const gL = G ? lastWith(G, "mom") : null, iL = I ? lastWith(I, "yoy") : null;
+  const asOf = gL ? fmtMonthYear(gL.d) + (iL ? " · " + T.legIgae + " " + fmtMonthYear(iL.d) : "") : (iL ? fmtMonthYear(iL.d) : "");
+  headerMeta("ac", asOf, gL ? T.acNext(fmtMonthYear(nextQuarterOf(gL.d))) : "", ["gdp", "igae", "igaePrimary", "igaeSecondary", "igaeTertiary"]);
 
   const row = document.getElementById("acKpiRow");
   if (G) {
@@ -1856,9 +1907,12 @@ function renderActivity() {
     const yq = G.filter(p => p.yoy !== null), yl = yq[yq.length - 1], yp = yq[yq.length - 2];
     kpiTile(row, {label: T.kpiGdpYoy, value: fmtPct(yl.yoy), delta: deltaText(yl.yoy - yp.yoy, T.kpiDeltaQ), foot: fmtMonthYear(yl.d), spark: yq.slice(-16).map(x => x.yoy), color: "--series-core"});
   }
-  if (I) { const y = I.filter(p => p.yoy !== null), l = y[y.length - 1], p = y[y.length - 2]; kpiTile(row, {label: T.kpiIgaeYoy, value: fmtPct(l.yoy), delta: deltaText(l.yoy - p.yoy, T.kpiDelta), foot: fmtMonthYear(l.d), spark: y.slice(-24).map(x => x.yoy), color: "--cat-3"}); }
-  if (IP) { const y = IP.filter(p => p.yoy !== null), l = y[y.length - 1], p = y[y.length - 2]; kpiTile(row, {label: T.kpiIndprodYoy, value: fmtPct(l.yoy), delta: deltaText(l.yoy - p.yoy, T.kpiDelta), foot: fmtMonthYear(l.d), spark: y.slice(-24).map(x => x.yoy), color: "--cat-7"}); }
-
+  if (I) {
+    const y = I.filter(p => p.yoy !== null), l = y[y.length - 1], p = y[y.length - 2];
+    kpiTile(row, {label: T.kpiIgaeYoy, value: fmtPct(l.yoy), delta: deltaText(l.yoy - p.yoy, T.kpiDelta), foot: fmtMonthYear(l.d), spark: y.slice(-24).map(x => x.yoy), color: "--cat-3"});
+    const mm = I.filter(p => p.mom !== null), ml = mm[mm.length - 1];
+    kpiTile(row, {label: T.kpiIgaeMom, value: fmtPct(ml.mom, 2), foot: fmtMonthYear(ml.d), spark: mm.slice(-24).map(x => x.mom), color: "--cat-7"});
+  }
   showSec("acGdpSec", !!G); showSec("acGdpYoySec", !!G);
   if (G) {
     const q = G.filter(p => p.mom !== null), l = q[q.length - 1], yl = lastWith(G, "yoy");
@@ -1867,13 +1921,21 @@ function renderActivity() {
     lineChart("acGdpYoyChart", [{pts: G.filter(p => p.d >= "2012-Q1").map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legGdpYoy}],
       {legendId: "acGdpYoyLegend", tooltipId: "acGdpYoyTooltip", calloutId: "acGdpYoyCallout", zeroBase: true, labelFmt: fmtMonthYear});
   }
-  showSec("acIgaeSec", !!(I || IP));
-  if (I || IP) {
-    lineChart("acIgaeChart", [
-      I ? {pts: I.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.yoy})), color: "--cat-3", label: T.legIgae} : null,
-      IP ? {pts: IP.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.yoy})), color: "--cat-7", label: T.legIndprod} : null
-    ].filter(Boolean), {legendId: "acIgaeLegend", tooltipId: "acIgaeTooltip", calloutId: "acIgaeCallout", zeroBase: true,
-      calloutLines: [T.acIgaeCallout(fmtMonthYear((iL || ipL).d), iL ? fmtPct(iL.yoy) : "—", ipL ? fmtPct(ipL.yoy) : "—")]});
+  showSec("acIgaeSec", !!I);
+  if (I) {
+    const ml = lastWith(I, "mom");
+    lineChart("acIgaeChart", [{pts: I.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.yoy})), color: "--cat-3", label: T.legIgae}],
+      {legendId: "acIgaeLegend", tooltipId: "acIgaeTooltip", calloutId: "acIgaeCallout", zeroBase: true,
+       calloutLines: [T.acIgaeCallout(fmtMonthYear(iL.d), fmtPct(iL.yoy), fmtPct(ml.mom, 2))]});
+  }
+  const SEC = ["igaePrimary", "igaeSecondary", "igaeTertiary"].map(k => S(k) ? withChanges(P(k)) : null);
+  showSec("acSectorsSec", SEC.some(Boolean));
+  if (SEC.some(Boolean)) {
+    const labels = [T.legPrimary, T.legSecondary, T.legTertiary], colors = ["--cat-6", "--cat-4", "--cat-7"];
+    const lastY = SEC.map(x => x ? lastWith(x, "yoy") : null);
+    lineChart("acSectorsChart", SEC.map((x, i) => x ? {pts: x.filter(p => p.d >= "2015-01").map(p => ({d: p.d, v: p.yoy})), color: colors[i], label: labels[i]} : null).filter(Boolean),
+      {legendId: "acSectorsLegend", tooltipId: "acSectorsTooltip", calloutId: "acSectorsCallout", zeroBase: true,
+       calloutLines: [T.acSectorsCallout(fmtMonthYear((lastY.find(Boolean)).d), ...lastY.map(l => l ? fmtPct(l.yoy) : "—"))]});
   }
   // level chart: re-indexed to 100 at the latest reading, last 5 years, quarterly mapped onto mid-quarter months
   showSec("acLevelSec", !!(G || I));
@@ -1931,6 +1993,7 @@ function renderConfidence() {
   const s = S("consumerConfidence"), C = withChanges(P("consumerConfidence")), l = last(C);
   headerMeta("cc", fmtMonthYear(l.d), T.ccNext, ["consumerConfidence"]);
   document.getElementById("ccTrendNote").textContent = s.provider === "fred" ? T.ccTrendNoteOecd : T.ccTrendNoteInegi;
+  // INEGI's indicator is a balance in points (one decimal); the OECD fallback is an index around 100.
   const row = document.getElementById("ccKpiRow"), dg = s.provider === "fred" ? 2 : 1;
   kpiTile(row, {label: T.kpiCcLevel, value: l.v.toFixed(dg), delta: deltaText(l.dMom, T.pts, dg), foot: fmtMonthYear(l.d), spark: C.slice(-24).map(p => p.v), color: "--series-headline"});
   kpiTile(row, {label: T.kpiCcMoM, value: fmtSigned(l.dMom, dg) + " " + T.pts, foot: fmtMonthYear(l.d)});
@@ -2026,10 +2089,14 @@ function renderBanxico() {
   if (TI) rateTile(T.kpiTiie, TI, "--cat-7");
   if (CE) rateTile(T.kpiCetes, CE, "--cat-3");
   if (BO) rateTile(T.kpiBono, BO, "--cat-5");
+  const EX = S("inflExp12m") ? P("inflExp12m") : null;
+  const realSeries = (pm) => pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
+  const exAnteSeries = (pm) => EX ? pm.map(p => { const e = EX.find(q => q.d === p.d); return {d: p.d, v: e ? r2(p.v - e.v) : null}; }).filter(p => p.v !== null) : [];
   if (PR && H) {
-    const pm = monthEnd(PR), realPts = pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
-    const rl = last(realPts);
+    const realPts = realSeries(monthEnd(PR)), rl = last(realPts);
     kpiTile(row, {label: T.kpiReal, value: fmtLevelPct(rl.v, 2), foot: fmtMonthYear(rl.d), spark: realPts.slice(-24).map(p => p.v), color: "--cat-9"});
+    const ea = exAnteSeries(monthEnd(PR)), el = last(ea);
+    if (el) kpiTile(row, {label: T.kpiRealExAnte, value: fmtLevelPct(el.v, 2), foot: fmtMonthYear(el.d) + " · " + T.kpiExpFoot, spark: ea.slice(-24).map(p => p.v), color: "--cat-5"});
   }
   if (RS) {
     const l = last(RS), ago = atOrBefore(RS, shiftDays(l.d.length === 10 ? l.d : l.d + "-01", -365));
@@ -2041,13 +2108,14 @@ function renderBanxico() {
     const pm = monthEnd(PR).filter(p => p.d >= "2012-01");
     lineChart("bxPolicyChart", [
       {pts: pm, color: "--series-headline", label: T.legPolicy},
-      {pts: H.filter(p => p.d >= "2012-01" && p.yoy !== null).map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legInflation}
-    ], {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
+      {pts: H.filter(p => p.d >= "2012-01" && p.yoy !== null).map(p => ({d: p.d, v: p.yoy})), color: "--series-core", label: T.legInflation},
+      EX ? {pts: EX.filter(p => p.d >= "2012-01"), color: "--cat-5", label: T.legExp, dashed: true, noDot: true} : null
+    ].filter(Boolean), {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
         calloutLines: [T.bxPolicyCallout(fmtAny(prL.d), fmtLevelPct(prL.v, 2), fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 2))]});
-    const realPts = pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
-    const rl = last(realPts);
-    columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8"});
-    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2)))}</div>`;
+    const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea);
+    columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8", overlay: ea});
+    document.getElementById("bxRealLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-9)"></span>${esc(T.kpiReal)}</div>` + (el ? `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.kpiRealExAnte)}</div>` : "");
+    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), el ? fmtPP(el.v, 2) : null))}</div>`;
   }
   showSec("bxCurveSec", !!(CE || TI || BO));
   if (CE || TI || BO) {
