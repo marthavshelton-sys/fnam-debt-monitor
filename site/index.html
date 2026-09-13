@@ -123,11 +123,6 @@ html[lang="en"] .es{display:none !important;}
 }
 .brand .mark svg{width:16px; height:16px; display:block;}
 .brand .word{font-family:var(--serif); font-size:20px; font-weight:700; letter-spacing:0.04em;}
-.brand .tag{
-  font-size:12px; color:var(--muted); font-weight:500; letter-spacing:0;
-  border-left:1px solid var(--border-strong); padding-left:10px; margin-left:2px;
-}
-@media (max-width:560px){ .brand .tag{display:none;} }
 /* Segmented ES / EN switch — both options always visible, active one filled. */
 .lang-switch{
   display:inline-flex; align-items:center; gap:2px;
@@ -256,10 +251,6 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg>
       </span>
       <span class="word">FNAM</span>
-      <span class="tag">
-        <span class="en">Macro &amp; fiscal dashboards</span>
-        <span class="es">Paneles macro y fiscales</span>
-      </span>
     </a>
     <div class="lang-switch" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="es" aria-pressed="true" lang="es">Español</button>
@@ -279,8 +270,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="es">Estados Unidos</span>
         </h2>
         <span class="count">
-          <span class="en">2 live · 1 planned</span>
-          <span class="es">2 en vivo · 1 en desarrollo</span>
+          <span class="en">3 live</span>
+          <span class="es">3 en vivo</span>
         </span>
       </div>
       <div class="grid">
@@ -346,32 +337,37 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           </div>
         </a>
 
-        <div class="card planned" aria-disabled="true">
+        <a class="card" href="/macro/?view=fiscal">
           <div class="card-top">
             <span class="kicker">
-              <span class="en">Markets</span>
-              <span class="es">Mercados</span>
+              <span class="en">Public finance</span>
+              <span class="es">Finanzas públicas</span>
             </span>
-            <span class="pill soon">
-              <span class="en">Coming soon</span>
-              <span class="es">Próximamente</span>
+            <span class="pill live">
+              <span class="en">Live</span>
+              <span class="es">En vivo</span>
             </span>
           </div>
           <h3>
-            <span class="en">U.S. Equities</span>
-            <span class="es">Renta Variable de EE. UU.</span>
+            <span class="en">U.S. Fiscal Deficit</span>
+            <span class="es">Déficit Fiscal de EE. UU.</span>
           </h3>
           <p>
-            <span class="en">Index performance, sector breadth, valuation, and earnings trends for the U.S. stock market.</span>
-            <span class="es">Desempeño de índices, amplitud sectorial, valuación y tendencias de utilidades del mercado accionario estadounidense.</span>
+            <span class="en">What the federal government takes in, what it spends, and the gap between them — receipts, outlays and the deficit by fiscal year (October to September), from the Monthly Treasury Statement.</span>
+            <span class="es">Lo que el gobierno federal recauda, lo que gasta y la brecha entre ambos — ingresos, gasto y déficit por año fiscal (octubre a septiembre), con la Declaración Mensual del Tesoro.</span>
           </p>
           <div class="card-foot">
             <span class="cta">
-              <span class="en">In development</span>
-              <span class="es">En desarrollo</span>
+              <span class="en">Open dashboard</span>
+              <span class="es">Abrir panel</span>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </span>
+            <span class="src">
+              <span class="en">Treasury · MTS</span>
+              <span class="es">Tesoro · MTS</span>
             </span>
           </div>
-        </div>
+        </a>
 
       </div>
     </div>
@@ -509,6 +505,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     <nav class="links" aria-label="Dashboards">
       <a href="/macro/"><span class="en">U.S. Macro</span><span class="es">Macro EE. UU.</span></a>
       <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es">Deuda Fiscal EE. UU.</span></a>
+      <a href="/macro/?view=fiscal"><span class="en">U.S. Fiscal Deficit</span><span class="es">Déficit Fiscal EE. UU.</span></a>
       <a href="/mx/macro/"><span class="en">Mexico Macro</span><span class="es">Macro México</span></a>
       <a href="/mx/fiscal/"><span class="en">Mexico Fiscal</span><span class="es">Fiscal México</span></a>
       <a href="/gap/"><span class="en">GAP Model</span><span class="es">Modelo GAP</span></a>
