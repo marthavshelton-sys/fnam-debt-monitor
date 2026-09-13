@@ -16,6 +16,8 @@
 
 import { readFile, writeFile, mkdir, appendFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { createRequire } from 'node:module';
+const require = createRequire(import.meta.url);
 
 const ROOT = new URL('../../', import.meta.url);
 const MANIFEST = new URL('tools/mx-macro/series.json', ROOT);
@@ -136,6 +138,24 @@ async function inegiCatalogSearch(pattern, limit = 80) {
   return { total: rows.length, hits: hits.map((r) => [String(r.value), String(r.Description || '').replace(/\s+/g, ' ').trim()]) };
 }
 
+// Minimal .zip reader (stored and deflate entries) so the xlsx diagnostic needs no dependency.
+function unzip(buf) {
+  const zlib = require('node:zlib');
+  let eocd = buf.length - 22; while (eocd >= 0 && buf.readUInt32LE(eocd) !== 0x06054b50) eocd--;
+  if (eocd < 0) throw new Error('not a zip file');
+  const count = buf.readUInt16LE(eocd + 10); let p = buf.readUInt32LE(eocd + 16); const files = {};
+  for (let i = 0; i < count; i++) {
+    if (buf.readUInt32LE(p) !== 0x02014b50) break;
+    const method = buf.readUInt16LE(p + 10), csize = buf.readUInt32LE(p + 20), nlen = buf.readUInt16LE(p + 28), xlen = buf.readUInt16LE(p + 30), clen = buf.readUInt16LE(p + 32), off = buf.readUInt32LE(p + 42);
+    const name = buf.toString('utf8', p + 46, p + 46 + nlen);
+    const lh = off, lnlen = buf.readUInt16LE(lh + 26), lxlen = buf.readUInt16LE(lh + 28), start = lh + 30 + lnlen + lxlen;
+    const data = buf.subarray(start, start + csize);
+    if (/\.xml$/.test(name)) files[name] = (method === 8 ? zlib.inflateRawSync(data) : data).toString('utf8');
+    p += 46 + nlen + xlen + clen;
+  }
+  return files;
+}
+
 const PROVIDERS = { banxico, fred, inegi };
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI' };
 
@@ -187,7 +207,7 @@ async function main() {
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
   const catIdx = argv.indexOf('--catalog');
-  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url')) {
+  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx')) {
     // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
     // --catalog "actividad economica" searches INEGI's indicator catalog by description.
     const lines = [];
@@ -220,6 +240,23 @@ async function main() {
           } else out('  ' + mask(body.replace(/\s+/g, ' ').slice(0, 2500)));
         } catch (e) { out(`${raw}\n  -> ERROR ${e.message}`); }
       }
+    }
+    const xlsxIdx = argv.indexOf('--xlsx');
+    if (xlsxIdx >= 0) {
+      // --xlsx URL#regex : download a workbook and print the rows whose text matches (first sheet, plus headers).
+      const [raw, pat] = (argv[xlsxIdx + 1] || '').split('#');
+      try {
+        const buf = Buffer.from(await (await fetch(raw, { headers: { 'User-Agent': UA } })).arrayBuffer());
+        const files = unzip(buf);
+        const sst = [...(files['xl/sharedStrings.xml'] || '').matchAll(/<si>([\s\S]*?)<\/si>/g)].map((m) => [...m[1].matchAll(/<t[^>]*>([^<]*)<\/t>/g)].map((t) => t[1]).join(''));
+        const sheetName = Object.keys(files).filter((n) => /^xl\/worksheets\/sheet\d+\.xml$/.test(n)).sort()[0];
+        const rows = [...(files[sheetName] || '').matchAll(/<row[^>]*>([\s\S]*?)<\/row>/g)].map((r) =>
+          [...r[1].matchAll(/<c([^>]*)>([\s\S]*?)<\/c>/g)].map((c) => { const v = (c[2].match(/<v>([^<]*)<\/v>/) || [])[1]; const inl = (c[2].match(/<t[^>]*>([^<]*)<\/t>/) || [])[1]; return /t="s"/.test(c[1]) ? (sst[Number(v)] || '') : (inl ?? v ?? ''); }).join(' | '));
+        out(`${raw}: ${Object.keys(files).length} parts, sheet ${sheetName}, ${rows.length} rows, ${sst.length} shared strings`);
+        rows.slice(0, 3).forEach((r) => out('  H ' + r.slice(0, 300)));
+        const re = new RegExp(fold(pat || '.'), 'i');
+        rows.filter((r) => re.test(fold(r))).slice(0, 200).forEach((r) => out('  | ' + r.slice(0, 400)));
+      } catch (e) { out(`${raw} -> ERROR ${e.message}`); }
     }
     if (probeIdx >= 0) {
       for (const item of (argv[probeIdx + 1] || '').split(',').filter(Boolean)) {
