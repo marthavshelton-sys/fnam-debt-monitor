@@ -11,7 +11,10 @@ window.GAP_REF = {
     adsRatio: 10,                       // 1 ADS = 10 Series B shares
     fiscalYearEnd: "12-31",
     reportingCurrency: "MXN",
-    accounting: "IFRS (IFRIC 12 service-concession accounting: construction of concession assets is booked as revenue and cost at zero margin)",
+    accounting: {
+      en: "IFRS (IFRIC 12 service-concession accounting: construction of concession assets is booked as revenue and cost at zero margin)",
+      es: "IFRS (contabilidad de concesiones IFRIC 12: la construcción de activos concesionados se registra como ingreso y costo a margen cero)",
+    },
     ir: "https://www.aeropuertosgap.com.mx/en/investors",
   },
   // Shares outstanding after the CBX / AMP business combination (merger notarised 30-Apr-2026,
@@ -23,13 +26,13 @@ window.GAP_REF = {
     preMergerOutstanding: 505277464,       // = 595,018,195 − 89,740,731 net new shares
     newSharesIssuedCbx: 89740731,
     history: [
-      { asOf: "2025-12-31", total: 505277464, note: "before the CBX/AMP merger" },
-      { asOf: "2026-05-07", total: 595018195, note: "after issuing 89,740,731 net new shares" },
+      { asOf: "2025-12-31", total: 505277464, note: { en: "before the CBX/AMP merger", es: "antes de la fusión con CBX/AMP" } },
+      { asOf: "2026-05-07", total: 595018195, note: { en: "after issuing 89,740,731 net new shares", es: "después de emitir 89,740,731 acciones netas nuevas" } },
     ],
     holders: [
-      { name: "Aena Desarrollo Internacional (ES)", pct: 6.55, shares: 38900000, note: "25.2 M serie BB + 13.7 M serie B; direct stake after AMP merged into GAP", source: "Aena notice to CNMV, 7-May-2026 (via Infobae / El Economista)" },
-      { name: "Former AMP partners (CMA group)", pct: null, shares: null, note: "Remaining serie BB (≈50.6 M) plus serie B received in the merger — confirm in the 2026 20-F Item 7", source: "GAP 6-K 7-May-2026" },
-      { name: "Float (serie B, BMV + NYSE ADS)", pct: null, note: "Balance", source: "" },
+      { name: "Aena Desarrollo Internacional (ES)", pct: 6.55, shares: 38900000, note: { en: "25.2 M serie BB + 13.7 M serie B; direct stake after AMP merged into GAP", es: "25.2 M serie BB + 13.7 M serie B; participación directa tras la fusión de AMP en GAP" }, source: { en: "Aena notice to the CNMV, 7-May-2026 (via Infobae / El Economista)", es: "Comunicación de Aena a la CNMV, 7-may-2026 (vía Infobae / El Economista)" } },
+      { name: { en: "Former AMP partners (CMA group)", es: "Antiguos socios de AMP (grupo CMA)" }, pct: null, shares: null, note: { en: "Remaining serie BB (≈50.6 M) plus serie B received in the merger; confirm in the 2026 20-F, Item 7", es: "Resto de la serie BB (≈50.6 M) más serie B recibida en la fusión; confirmar en la Forma 20-F 2026, punto 7" }, source: "GAP 6-K 7-May-2026" },
+      { name: { en: "Float (serie B, BMV + NYSE ADS)", es: "Flotante (serie B, BMV + ADS en NYSE)" }, pct: null, note: { en: "Balance", es: "Resto" }, source: "" },
     ],
   },
   airports: [
@@ -49,15 +52,15 @@ window.GAP_REF = {
     { code: "KIN", en: "Kingston (Norman Manley)", es: "Kingston (Norman Manley)", country: "JM", group: "jamaica" },
   ],
   concessions: [
-    { scope: "12 Mexican airports", scopeEs: "12 aeropuertos en México", granted: "1998-11-01", expires: "2048-11-01", years: 50, note: "50-year concessions from the Mexican federal government (SICT/AFAC); extendable by up to 50 more years at the government's discretion.", source: "GAP Form 20-F, Item 4" },
-    { scope: "Montego Bay (MBJ Airports Ltd, 74.5% GAP)", scopeEs: "Montego Bay (MBJ Airports Ltd, 74.5% GAP)", granted: "2003-04-01", expires: "2033-04-01", years: 30, note: "30-year concession from the Airports Authority of Jamaica; the Jamaican government opened early extension talks in 2025.", source: "GAP 20-F; Jamaica Gleaner 4-Jul-2025" },
-    { scope: "Kingston (PAC Kingston Airport Ltd, 100% GAP)", scopeEs: "Kingston (PAC Kingston Airport Ltd, 100% GAP)", granted: "2019-10-10", expires: "2044-10-10", years: 25, note: "25-year concession signed Oct-2018 with a 12-month transition; operations started Oct-2019.", source: "GAP 20-F; Development Bank of Jamaica" },
+    { scope: "12 Mexican airports", scopeEs: "12 aeropuertos en México", granted: "1998-11-01", expires: "2048-11-01", years: 50, note: { en: "50-year concessions from the Mexican federal government (SICT/AFAC); extendable by up to 50 more years at the government's discretion.", es: "Concesiones a 50 años otorgadas por el gobierno federal mexicano (SICT/AFAC); prorrogables hasta por 50 años más a discreción del gobierno." }, source: { en: "GAP Form 20-F, Item 4", es: "Forma 20-F de GAP, punto 4" } },
+    { scope: "Montego Bay (MBJ Airports Ltd, 74.5% GAP)", scopeEs: "Montego Bay (MBJ Airports Ltd, 74.5% GAP)", granted: "2003-04-01", expires: "2033-04-01", years: 30, note: { en: "30-year concession from the Airports Authority of Jamaica; the Jamaican government opened early extension talks in 2025.", es: "Concesión a 30 años otorgada por la Airports Authority of Jamaica; el gobierno jamaiquino abrió pláticas anticipadas de prórroga en 2025." }, source: { en: "GAP 20-F; Jamaica Gleaner, 4-Jul-2025", es: "Forma 20-F de GAP; Jamaica Gleaner, 4-jul-2025" } },
+    { scope: "Kingston (PAC Kingston Airport Ltd, 100% GAP)", scopeEs: "Kingston (PAC Kingston Airport Ltd, 100% GAP)", granted: "2019-10-10", expires: "2044-10-10", years: 25, note: { en: "25-year concession signed Oct-2018 with a 12-month transition; operations started Oct-2019.", es: "Concesión a 25 años firmada en oct-2018 con una transición de 12 meses; la operación inició en oct-2019." }, source: { en: "GAP 20-F; Development Bank of Jamaica", es: "Forma 20-F de GAP; Development Bank of Jamaica" } },
   ],
   // Regulated-tariff cycle. Maximum tariffs (TM) per workload unit are set every 5 years by SICT/AFAC
   // together with the Master Development Program (PMD) capex commitment.
   regulation: {
-    mdp: { period: "2025–2029", capexMxnBn: 52, note: "Approved Feb-2025: > Ps. 52 bn over five years; ≈50% more terminal capacity, +45% inspection points, +25% aprons, +20% airfield across the 12 Mexican airports. 2026 capex guidance > Ps. 13 bn.", source: "GAP release 12-Feb-2025; La Jornada 3-Feb-2026" },
-    tua2026: { avgIncreasePct: 5, tijuanaPct: 2, note: "Average +5% TUA (passenger charge) increase in 2026, +2% in Tijuana.", source: "Milenio, Feb-2026 (CEO Raúl Revuelta)" },
+    mdp: { period: "2025–2029", capexMxnBn: 52, note: { en: "Approved Feb-2025: over Ps. 52 bn over five years; about 50% more terminal capacity, +45% inspection points, +25% aprons, +20% airfield across the 12 Mexican airports. 2026 capex guidance above Ps. 13 bn.", es: "Aprobado en feb-2025: más de Ps. 52 mil millones en cinco años; alrededor de 50% más capacidad de terminales, +45% puntos de inspección, +25% plataformas, +20% pistas y rodajes en los 12 aeropuertos mexicanos. Guía de capex 2026 superior a Ps. 13 mil millones." }, source: { en: "GAP release, 12-Feb-2025; La Jornada, 3-Feb-2026", es: "Comunicado de GAP, 12-feb-2025; La Jornada, 3-feb-2026" } },
+    tua2026: { avgIncreasePct: 5, tijuanaPct: 2, note: { en: "Average +5% TUA (passenger charge) increase in 2026, +2% in Tijuana.", es: "Aumento promedio de 5% en la TUA (tarifa de uso de aeropuerto) en 2026, 2% en Tijuana." }, source: { en: "Milenio, Feb-2026 (CEO Raúl Revuelta)", es: "Milenio, feb-2026 (director general Raúl Revuelta)" } },
   },
   // Dividends approved at the Annual General Meeting (AGM), Ps. per share, paid in instalments over the
   // following 12 months. Older years are shown from the exchange-recorded cash dividends in market.js
