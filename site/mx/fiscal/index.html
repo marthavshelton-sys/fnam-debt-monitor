@@ -895,7 +895,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     "Activos":"Assets", "Pasivos":"Liabilities", "Reserva internacional (a tipo de cambio FIX)":"International reserve (at FIX rate)",
     "Otros activos (crédito interno, valores, otros)":"Other assets (domestic credit, securities, other)", "Depósitos de regulación monetaria y Bondes F":"Monetary-regulation deposits and Bondes F",
     "Cuenta corriente del Gobierno Federal y otros pasivos":"Federal Government current account and other liabilities", "Total conocido":"Known total",
-    "n.d.":"n/a", "pesos por dólar (FIX)":"pesos per dollar (FIX)", "Tasa objetivo":"Target rate", "TIIE 28 días":"28-day TIIE", "Cetes 28 días":"28-day Cetes", "Cetes 364 días":"364-day Cetes",
+    "n.d.":"n/a", "pesos por dólar (FIX)":"pesos per dollar (FIX)", "Tasa objetivo":"Target rate", "TIIE 28 días":"28-day TIIE", "Cetes 28 días":"28-day Cetes", "Cetes 91 días":"91-day Cetes", "Cetes 364 días":"364-day Cetes",
     "objetivo de Banxico":"Banxico target", "referencia de créditos":"loan benchmark", "subasta primaria":"primary auction", "un año":"one year",
     "Fecha":"Date", "Decisión":"Decision", "Tasa":"Rate", "Votación":"Vote", "Sin cambio":"Hold", "Recorte de 25 pb":"25 bp cut", "Próxima reunión":"Next meeting", "Programada":"Scheduled",
     "Unánime":"Unanimous", "Mayoría":"Majority", "—":"—",
@@ -990,7 +990,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var fxNow = 17.01, fxAsOf = '2026-09-10';
   var reservesUsdBn = 258.035, reservesAsOf = '2026-09-04';
   var baseMonBn = 3.516433, baseMonAsOf = '2026-09-04'; // MXN trillion
-  var tiie28 = 6.7458, cetes28 = 6.49, cetes364 = 7.00, ratesAsOf = '2026-09-09';
+  var tiie28 = 6.7458, cetes28 = 6.49, cetes91 = 6.54, cetes364 = 7.00, ratesAsOf = '2026-09-09';
   var inflationAug = 3.26, fedFunds = 3.63;
 
   // SHRFSP, % of GDP, year-end. null = not located in this version (line is interpolated). est = from secondary coverage.
@@ -1126,6 +1126,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       if(LD.reservas && LD.reservas.value!=null){ reservesUsdBn = LD.reservas.value/1000; reservesAsOf = LD.reservas.date || reservesAsOf; reserves.values[reserves.values.length-1] = Math.round(reservesUsdBn*10)/10; }
       if(LD.tiie28 && LD.tiie28.value!=null){ tiie28 = LD.tiie28.value; ratesAsOf = LD.tiie28.date || ratesAsOf; }
       if(LD.cetes28 && LD.cetes28.value!=null){ cetes28 = LD.cetes28.value; }
+      if(LD.cetes91 && LD.cetes91.value!=null){ cetes91 = LD.cetes91.value; }
       if(LD.cetes364 && LD.cetes364.value!=null){ cetes364 = LD.cetes364.value; }
       if(LD.baseMonetaria && LD.baseMonetaria.value!=null){ baseMonBn = LD.baseMonetaria.value/1e6; baseMonAsOf = LD.baseMonetaria.date || baseMonAsOf; }
     }catch(e){ console.warn('LIVE_DATA_MX overlay skipped:', e); }
@@ -1411,6 +1412,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       {label:"Cetes 28 días", sub:"subasta primaria", val:cetes28, color:getVar('--series-3')},
       {label:"Tasa objetivo", sub:"objetivo de Banxico", val:targetRate, color:getVar('--series-1')},
       {label:"TIIE 28 días", sub:"referencia de créditos", val:tiie28, color:getVar('--series-8')},
+      {label:"Cetes 91 días", sub:"subasta primaria", val:cetes91, color:getVar('--series-6')},
       {label:"Cetes 364 días", sub:"un año", val:cetes364, color:getVar('--series-4')}
     ];
     var vals = corridor.map(function(c){return c.val;});
