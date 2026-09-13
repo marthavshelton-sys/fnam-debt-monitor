@@ -207,7 +207,7 @@ async function main() {
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
   const catIdx = argv.indexOf('--catalog');
-  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx')) {
+  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx') || argv.includes('--search')) {
     // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
     // --catalog "actividad economica" searches INEGI's indicator catalog by description.
     const lines = [];
@@ -245,6 +245,23 @@ async function main() {
             }
           } else out('  ' + mask(body.replace(/\s+/g, ' ').slice(0, 2500)));
         } catch (e) { out(`${raw}\n  -> ERROR ${e.message}`); }
+      }
+    }
+    const searchIdx = argv.indexOf('--search');
+    if (searchIdx >= 0) {
+      // BIE full-text search, the same request INEGI's own query builder sends from its search box.
+      // Prints INDICADOR ids with titles; needs no token.
+      for (const q of (argv[searchIdx + 1] || '').split('|').map((x) => x.trim()).filter(Boolean)) {
+        const base = process.env.INEGI_SEARCH_BASE || 'https://www.inegi.org.mx/';
+        const body = { busqueda: q, busquedaCiencia: '', paginaInicio: 0, paginaFin: 40, filtrobusqueda: 'CBUSQUEDA', filtrotema: 'null', orderby: 'RANKING', orderbyAscDesc: 'Desc', metodoBusqueda: 1, herramienta: 32 };
+        try {
+          const res = await fetch(base + 'app/api/buscadorcore/v1/busquedaBIE/', { method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json' }, body: JSON.stringify(body) });
+          const txt = await res.text();
+          let data; try { data = JSON.parse(txt); } catch { data = null; }
+          out(`search "${q}" -> HTTP ${res.status}, ${Array.isArray(data) ? data.length + ' results' : txt.slice(0, 300)}`);
+          if (Array.isArray(data)) for (const r of data) out(`  ${r.INDICADOR ?? r.indicador ?? '?'}\t${String(r.TITULO ?? r.titulo ?? JSON.stringify(r)).replace(/#null/g, '').replace(/\s+/g, ' ').slice(0, 300)}`);
+          else if (data && typeof data === 'object') out('  ' + JSON.stringify(data).slice(0, 1500));
+        } catch (e) { out(`search "${q}" -> ERROR ${e.message}`); }
       }
     }
     const xlsxIdx = argv.indexOf('--xlsx');
