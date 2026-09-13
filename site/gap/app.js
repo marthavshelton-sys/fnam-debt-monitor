@@ -40,6 +40,7 @@
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
   const L = (obj) => (obj ? (LANG === 'es' ? obj.es || obj.en : obj.en || obj.es) : '');
+  const LS = (v) => (v == null ? '' : typeof v === 'string' ? v : Array.isArray(v) ? v : L(v)); // string, {es,en} or array
 
   // ---------------- formatting ----------------
   const locale = () => (LANG === 'es' ? 'es-MX' : 'en-US');
@@ -558,11 +559,11 @@
       ? `Deuda bruta = préstamos bancarios + certificados bursátiles (corto y largo plazo) del balance publicado; efectivo del mismo balance. Sólido = balance detallado (desde ${firstBs ? qLabel(firstBs.q) : '—'}); <b>translúcido / punteado = estimación</b> obtenida restando a la deuda reportada los flujos de financiamiento de cada trimestre (emisiones y pagos de certificados y préstamos), sin revaluación cambiaria de la deuda en dólares ni intereses devengados. Sustituya las estimaciones con las cifras del reporte trimestral en PDF vía reference.js (debt.history).`
       : `Gross debt = bank loans + certificados bursátiles (current and long-term) from the published balance sheet; cash from the same balance sheet. Solid = itemised balance sheet (from ${firstBs ? qLabel(firstBs.q) : '—'}); <b>translucent / dashed = estimate</b> obtained by rolling reported debt back through each quarter's financing flows (bond and loan issues less repayments), ignoring FX revaluation of USD debt and accrued interest. Replace estimates with the PDF quarterly report figures via reference.js (debt.history).`);
     const D2 = REF.debt || {};
-    const instr = (D2.instruments || []).map((i) => `<tr><td>${i.name}${i.note ? `<br><span class="muted small">${i.note}</span>` : ''}</td><td>${i.type}</td><td>${fmtDate(i.issued)}</td><td>${i.matures ? fmtDate(i.matures) : '—'}</td><td>${fmtN(i.principalMxn)}</td><td>${i.rate || '—'}</td></tr>`).join('');
-    const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td colspan="4">${r.rating} (${r.outlook}) · ${r.scope}</td><td class="muted small">${r.source}</td></tr>`).join('');
+    const instr = (D2.instruments || []).map((i) => `<tr><td>${LS(i.name)}${i.note ? `<br><span class="muted small">${LS(i.note)}</span>` : ''}</td><td>${LS(i.type)}</td><td>${fmtDate(i.issued)}</td><td>${i.matures ? fmtDate(i.matures) : '—'}</td><td>${fmtN(i.principalMxn)}</td><td>${LS(i.rate) || '—'}</td></tr>`).join('');
+    const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td colspan="4">${r.rating} (${LS(r.outlook)}) · ${LS(r.scope)}</td><td class="muted small">${LS(r.source)}</td></tr>`).join('');
     html('instrTable', `<table><thead><tr><th>${t('instrument')}</th><th>${LANG === 'es' ? 'Tipo' : 'Type'}</th><th>${LANG === 'es' ? 'Emisión' : 'Issued'}</th><th>${t('matures')}</th><th>${t('principal')}</th><th>${t('rate')}</th></tr></thead><tbody>${instr}<tr class="head"><td colspan="6">${t('rating')}</td></tr>${ratings}</tbody></table>`);
     el('instrCap').textContent = LANG === 'es' ? `Fuente: comunicados de GAP (reference.js, actualizado ${fmtDate(REF.updatedAt)})` : `Source: GAP releases (reference.js, updated ${fmtDate(REF.updatedAt)})`;
-    html('instrNote', D2.instrumentsNote || '');
+    html('instrNote', LS(D2.instrumentsNote));
   }
 
   // ================= 07 DIVIDENDS =================
@@ -580,7 +581,7 @@
       return `<tr><td>${y}</td><td>${fmtN(byYear[y], 2)}</td><td>${paid != null ? fmtN(paid) : '—'}</td><td>${paid != null ? fmtN(capred) : '—'}</td><td>${paid != null ? fmtN(buy) : '—'}</td><td>${dist != null ? fmtN(dist) : '—'}</td><td>${eps ? fmtPct(100 * byYear[y] / eps, 0) : '—'}</td><td>${pEnd && byYear[y] ? fmtPct(100 * byYear[y] / pEnd[1]) : '—'}</td></tr>`; });
     html('dpsTable', `<table><thead><tr><th>${LANG === 'es' ? 'Año' : 'Year'}</th><th>${t('dps')}</th><th>${LANG === 'es' ? 'Dividendos (Ps. M)' : 'Dividends (Ps. M)'}</th><th>${LANG === 'es' ? 'Reembolsos de capital' : 'Capital reductions'}</th><th>${LANG === 'es' ? 'Recompras' : 'Buybacks'}</th><th>${LANG === 'es' ? 'Distribuciones' : 'Distributions'}</th><th>${t('payout')}</th><th>${t('yield')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('dpsCap').textContent = LANG === 'es' ? 'DPS = efectivo por acción registrado en bolsa (incluye reembolsos de capital, que GAP ha usado en lugar de dividendos en 2021 y 2024). Flujos en Ps. millones del estado de flujos anual. Razón de pago = DPS / utilidad por acción del año fiscal; rendimiento sobre el cierre del año.' : 'DPS = exchange-recorded cash per share (includes capital reductions, which GAP used instead of dividends in 2021 and 2024). Flows in Ps. million from the annual cash-flow statement. Payout = DPS / EPS of the fiscal year; yield on the year-end close.';
-    const ag = (REF.dividends || []).map((d) => `<b>${t('agm')} ${d.agmYear}</b> (${fmtDate(d.agmDate)}): Ps. ${fmtN(d.dps, 2)} ${LANG === 'es' ? 'por acción' : 'per share'}. ${d.note || ''} <span class="muted">(${d.source})</span>`).join('<br>') + `<br><span class="muted">${LANG === 'es' ? 'Los pagos del año en curso aparecen en la tabla cuando la bolsa los registra (Yahoo Finance); hasta entonces vea el importe aprobado arriba.' : 'Current-year instalments appear in the table once the exchange records them (Yahoo Finance); until then see the approved amount above.'}</span>`;
+    const ag = (REF.dividends || []).map((d) => `<b>${t('agm')} ${d.agmYear}</b> (${fmtDate(d.agmDate)}): Ps. ${fmtN(d.dps, 2)} ${LANG === 'es' ? 'por acción' : 'per share'}. ${LS(d.note)} <span class="muted">(${LS(d.source)})</span>`).join('<br>') + `<br><span class="muted">${LANG === 'es' ? 'Los pagos del año en curso aparecen en la tabla cuando la bolsa los registra (Yahoo Finance); hasta entonces vea el importe aprobado arriba.' : 'Current-year instalments appear in the table once the exchange records them (Yahoo Finance); until then see the approved amount above.'}</span>`;
     html('dpsNote', ag);
   }
 
@@ -589,13 +590,13 @@
     const C = REF.cbx || {};
     html('cbxTimeline', (C.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
     const fmtFact = (f) => (f.fmt === 'int' ? fmtN(f.v) : f.fmt === 'usdM' ? 'US$ ' + fmtN(f.v, 1) + ' M' : f.fmt === 'pct' ? fmtPct(100 * f.v) : f.fmt === 'M' ? fmtN(f.v, 1) + ' M' : fmtN(f.v));
-    html('cbxFacts', (C.facts || []).map((f) => `<div class="fact"><div class="v">${fmtFact(f)}</div><div class="l">${LANG === 'es' ? f.label_es : f.label_en}${f.source ? ` · <span class="muted">${f.source}</span>` : ''}</div></div>`).join(''));
-    html('cbxSrc', `${t('src')}: ${(C.sources || []).join(' · ')}`);
+    html('cbxFacts', (C.facts || []).map((f) => `<div class="fact"><div class="v">${fmtFact(f)}</div><div class="l">${LANG === 'es' ? f.label_es : f.label_en}${f.source ? ` · <span class="muted">${LS(f.source)}</span>` : ''}</div></div>`).join(''));
+    html('cbxSrc', `${t('src')}: ${(LS(C.sources) || []).join(' · ')}`);
     const F2 = REF.fibra || {};
     const rows = [[LANG === 'es' ? 'Vehículo' : 'Vehicle', F2.name], [LANG === 'es' ? 'Clave' : 'Ticker', F2.ticker], [LANG === 'es' ? 'Bolsa' : 'Exchange', F2.exchange], [LANG === 'es' ? 'Monto objetivo' : 'Target size', 'Ps. ' + fmtN(F2.targetMxnM) + ' M'], ['CBFEs', fmtN(F2.certificates) + ' × Ps. ' + fmtN(F2.priceMxn)], [LANG === 'es' ? 'Participación en cada concesionaria' : 'Stake in each concessionaire', fmtPct(F2.stakePct)], [LANG === 'es' ? 'Uso de recursos' : 'Use of proceeds', LANG === 'es' ? 'Programa Maestro de Desarrollo 2025–2029 (> Ps. 52,000 M), principalmente Guadalajara' : 'Master Development Program 2025–2029 (> Ps. 52,000 M), mainly Guadalajara']];
     html('fibraTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1] || '—'}</td></tr>`).join('')}</tbody></table>`);
     html('fibraStatus', `<b>${LANG === 'es' ? 'Estatus' : 'Status'}.</b> ${LANG === 'es' ? F2.status_es : F2.status_en}`);
-    html('fibraSrc', `${t('src')}: ${(F2.sources || []).join(' · ')}`);
+    html('fibraSrc', `${t('src')}: ${(LS(F2.sources) || []).join(' · ')}`);
   }
 
   // ================= 10 METHOD / SOURCES =================

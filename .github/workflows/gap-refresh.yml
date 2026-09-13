@@ -2,8 +2,8 @@
 #
 #   market   daily after the BMV close: share prices, dividends, USD/MXN, 10-year yields
 #            -> site/gap/data/market.js
-#   filings  three times a month (GAP files monthly traffic around the 5th-10th and quarterly
-#            results in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases from
+#   filings  every weekday morning (GAP files monthly traffic around the 5th and quarterly results
+#            in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases from
 #            GlobeNewswire (GAP's wire; EDGAR blocks GitHub runners) into tools/gap/raw/, re-parses them into site/gap/data/*.js and
 #            validates the tie-outs before anything is committed.
 #
@@ -15,7 +15,7 @@ name: Refresh GAP model data
 on:
   schedule:
     - cron: "40 22 * * 1-5"      # market, weekdays 22:40 UTC (BMV closes 15:00 Mexico City = 21:00 UTC in summer)
-    - cron: "30 14 6,12,18,24 * *"  # filings + market
+    - cron: "30 14 * * 1-5"      # filings + market, weekdays 14:30 UTC (after GAP's usual evening-before releases)
   workflow_dispatch:
     inputs:
       mode:
