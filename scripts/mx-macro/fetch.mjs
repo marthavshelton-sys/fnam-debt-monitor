@@ -206,11 +206,18 @@ async function main() {
       // are substituted from the environment) and print the status plus the start of the body, tokens masked.
       const sub = (u) => u.replace('{INEGI_TOKEN}', process.env.INEGI_TOKEN || '').replace('{BANXICO_TOKEN}', process.env.BANXICO_TOKEN || '').replace('{FRED_API_KEY}', process.env.FRED_API_KEY || '');
       const mask = (t) => [process.env.INEGI_TOKEN, process.env.BANXICO_TOKEN, process.env.FRED_API_KEY].filter(Boolean).reduce((a, k) => a.split(k).join('***'), t);
-      for (const raw of (argv[urlIdx + 1] || '').split(/\s+/).filter(Boolean)) {
+      // Each item is URL or URL#regex: with a regex, only matching lines are printed (up to 80), else the first 2500 chars.
+      for (const item of (argv[urlIdx + 1] || '').split(/\s+/).filter(Boolean)) {
+        const [raw, pat] = item.split('#');
         try {
           const res = await fetch(sub(raw), { headers: { 'User-Agent': UA, Accept: 'application/json, */*', ...(raw.includes('banxico') ? { 'Bmx-Token': process.env.BANXICO_TOKEN || '' } : {}) } });
           const body = await res.text();
-          out(`${raw}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${body.length} bytes\n  ${mask(body.replace(/\s+/g, ' ').slice(0, 700))}`);
+          out(`${raw}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${body.length} bytes`);
+          if (pat) {
+            const re = new RegExp(pat, 'i');
+            const lines = body.split(/\r?\n/).filter((l) => re.test(l)).slice(0, 80);
+            for (const l of lines) out('  | ' + mask(l.trim().slice(0, 400)));
+          } else out('  ' + mask(body.replace(/\s+/g, ' ').slice(0, 2500)));
         } catch (e) { out(`${raw}\n  -> ERROR ${e.message}`); }
       }
     }
