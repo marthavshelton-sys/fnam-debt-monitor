@@ -95,10 +95,16 @@ async function fred(cand, spec) {
 }
 
 // ---------------- INEGI ----------------
-// Indicadores API (BIE). The data endpoint carries no series name, so the title check uses the
-// CL_INDICATOR catalog entry for the same id. Both need INEGI_TOKEN (free registration).
+// INEGI's public "desarrolladores" API answers "No se encontraron resultados" for every BIE
+// (Banco de Información Económica) id, so BIE series come from the service INEGI's own query
+// builder (inegi.org.mx/app/indicadores) calls: interna_v1_3/API.svc. There BIE is "tematica" 3
+// and takes no geographic area ("null"); dates are whole years. The developer token from
+// INEGI_TOKEN is accepted; the token INEGI's own page script carries is the fallback.
 const INEGI_BASE = 'https://www.inegi.org.mx/app/api/indicadores/desarrolladores/jsonxml';
-function inegiToken() { const t = process.env.INEGI_TOKEN; if (!t) throw new Error('INEGI_TOKEN not set'); return t; }
+const INEGI_API = 'https://www.inegi.org.mx/app/api/indicadores/interna_v1_3/API.svc';
+const INEGI_PUBLIC_TOKEN = 'fb6730a1-d0c7-ebe9-65d1-d3dbb8d93457';
+function inegiToken() { return process.env.INEGI_TOKEN || INEGI_PUBLIC_TOKEN; }
+const INEGI_FREQ = { Mensual: 'M', Trimestral: 'Q', Anual: 'A', Semanal: 'W', Diaria: 'D' };
 // Full-text search of INEGI's Banco de Información Económica: the same request INEGI's own query
 // builder sends from its search box. Returns [{INDICADOR, TITULO}] with the full topic path as the
 // title; needs no token.
@@ -110,38 +116,68 @@ async function bieSearch(q) {
   const data = await res.json();
   return (Array.isArray(data) ? data : []).map((r) => ({ INDICADOR: String(r.INDICADOR ?? ''), TITULO: String(r.TITULO ?? '').replace(/#null/g, '').replace(/\s+/g, ' ').trim() }));
 }
+// Indicator metadata from the query-builder service: name, unit, frequency, topic path, last update.
+async function inegiMetadata(id, from, to) {
+  const base = process.env.INEGI_API_BASE || INEGI_API;
+  const body = await (await http(`${base}/MetadatoIndicador/es/${id}/null/${from}/${to}/null/3/json/${inegiToken()}`)).json();
+  if (!body || body.ErrorCode || !body.NOMBRE_INDICADOR) throw new Error(`INEGI metadata: ${body?.ErrorInfo || 'empty'}`);
+  // TEMAS[0].Ruta_tematica is the full topic path ending in the indicator name, e.g.
+  // "Indicadores económicos de coyuntura > Confianza del consumidor > ... > Indicador".
+  const name = String(body.NOMBRE_INDICADOR).replace(/\s+/g, ' ').trim();
+  const path = String(body.TEMAS?.[0]?.Ruta_tematica || '').replace(/\s+/g, ' ').trim() || name;
+  return { name, path, unit: body.NOMBRE_UNIDAD, freq: body.NOMBRE_FRECUENCIA, lastUpdate: body.ULTIMA_FECHA_ACTUALIZACION, periodEnd: body.PERIODO_FINAL, source: body.FUENTES?.[0]?.NOMBRE_FUENTE };
+}
 // Title for an INEGI id: the BIE search (candidate `search` query) gives the full topic path, which
-// is what the manifest regex is written against; the CL_INDICATOR catalog entry is the fallback.
-async function inegiTitle(id, cand) {
+// is what the manifest regex is written against; the metadata endpoint's topic path is the fallback.
+async function inegiTitle(id, cand, from, to) {
   if (cand && cand.search) {
     try { const row = (await bieSearch(cand.search)).find((r) => r.INDICADOR === String(id)); if (row) return row.TITULO; } catch (e) { /* fall through */ }
   }
-  try {
-    const body = await (await http(`${INEGI_BASE}/CL_INDICATOR/${id}/es/BIE/2.0/${inegiToken()}?type=json`)).json();
-    const row = (body?.CODE || []).find((c) => String(c.value) === String(id)) || body?.CODE?.[0];
-    return row ? String(row.Description || '').replace(/\s+/g, ' ').trim() : '';
-  } catch (e) { return ''; }
+  try { return (await inegiMetadata(id, from, to)).path; } catch (e) { return ''; }
+}
+// One or more BIE ids -> the query builder's export table: row 0 is the header (a "Periodos" cell,
+// then one cell per id carrying frequency and unit); every other row is a period followed by one
+// value per id. Values are strings; blanks, "N/D" and the like are gaps.
+async function inegiExport(ids, from, to) {
+  const base = process.env.INEGI_API_BASE || INEGI_API;
+  const body = { areasGeograficas: 'null', casoExportacion: 'indicadorVertical', fechaInicio: String(from), fechaFin: String(to), formato: 'json', idioma: 'es', indicadores: ids.join(','), mostrarDecimales: 'true', mostrarEstadistico: 'false', ordenaPeriodo: 'ap', orden: 'a', tematica: '3', token: inegiToken() };
+  let last;
+  for (let i = 1; i <= 3; i++) {
+    try {
+      const res = await fetch(`${base}/ExportacionBancoInformacion`, { method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json' }, body: JSON.stringify(body) });
+      const data = await res.json().catch(() => null);
+      if (Array.isArray(data)) return data.map((r) => (r && Array.isArray(r.listaCeldas) ? r.listaCeldas : []));
+      // The service answers 202 + {ErrorCode, ErrorInfo} both for unknown ids and for outages.
+      last = new Error(`INEGI export: ${data?.ErrorInfo || data?.ErrorDetails || 'HTTP ' + res.status}`);
+      if (data?.ErrorCode === '100') break; // "No se encontraron resultados": not transient
+    } catch (e) { last = e; }
+    await sleep(1500 * i);
+  }
+  throw last;
 }
 async function inegi(cand, spec) {
-  const url = `${INEGI_BASE}/INDICATOR/${cand.id}/es/0700/false/BIE/2.0/${inegiToken()}?type=json`;
-  const body = await (await http(url)).json();
-  const s = body?.Series?.[0];
-  if (!s) throw new Error('empty response');
+  const from = spec.since.slice(0, 4), to = String(new Date().getUTCFullYear() + 1);
+  const rows = await inegiExport([cand.id], from, to);
+  const header = rows[0] || [];
+  const col = header.findIndex((c, i) => i > 0 && String(c?.valor ?? '').trim() === String(cand.id));
+  if (col < 0) throw new Error('id missing from export header');
+  const freq = INEGI_FREQ[String(header[col]?.frecuencia ?? '').trim()] || null;
   const points = [];
-  for (const o of s.OBSERVATIONS || []) {
-    if (o.OBS_VALUE === null || o.OBS_VALUE === undefined || String(o.OBS_VALUE).trim() === '') continue;
-    const v = Number(o.OBS_VALUE);
-    if (!Number.isFinite(v)) continue;
-    const [y, p] = String(o.TIME_PERIOD).split('/');
+  for (const cells of rows.slice(1)) {
+    const raw = String(cells[col]?.valor ?? '').replace(/,/g, '').trim();
+    if (!/^-?\d+(\.\d+)?$/.test(raw)) continue;
+    const [y, p] = String(cells[0]?.valor ?? '').replace(/\\/g, '').split('/');
+    if (!/^\d{4}$/.test(y || '')) continue;
     let d;
     if (spec.freq === 'Q') d = `${y}-Q${String(p).replace(/^0/, '')}`;
     else if (spec.freq === 'M') d = `${y}-${String(p).padStart(2, '0')}`;
-    else d = `${y}-${p}`;
-    if (d.slice(0, 4) >= spec.since.slice(0, 4)) points.push([d, r4(v)]);
+    else if (spec.freq === 'A') d = y;
+    else d = p ? `${y}-${p}` : y;
+    if (d.slice(0, 4) >= spec.since.slice(0, 4)) points.push([d, r4(Number(raw))]);
   }
   points.sort((a, b) => a[0].localeCompare(b[0]));
-  const title = await inegiTitle(cand.id, cand);
-  return { title: title || null, points, url: `https://www.inegi.org.mx/app/indicadores/?ind=${cand.id}`, meta: { freq: s.FREQ, unit: s.UNIT, lastUpdate: s.LASTUPDATE, note: s.NOTE } };
+  const title = await inegiTitle(cand.id, cand, from, to);
+  return { title: title || null, points, url: `https://www.inegi.org.mx/app/indicadores/?ind=${cand.id}#divFV${cand.id}`, meta: { freq, unit: header[col]?.unidad } };
 }
 // Downloads INEGI's full BIE indicator catalog and prints every entry whose description matches
 // the regex (accent-insensitive). Used from the workflow's "catalog" input to find indicator ids.
