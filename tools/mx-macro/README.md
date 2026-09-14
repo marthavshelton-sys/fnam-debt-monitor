@@ -31,9 +31,15 @@ FRED fallbacks load (GDP, unemployment, trade, the exchange rate, reserves,
 an interbank-rate proxy and the 10-year yield); the INPC and its components,
 remittances, the target rate, TIIE and Cetes come only from Banxico.
 
-**Also required for IGAE and consumer confidence:** `INEGI_TOKEN` — free
+**Recommended for IGAE and consumer confidence:** `INEGI_TOKEN` — free
 registration at
 <https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify>.
+INEGI's public developer API answers "No se encontraron resultados" for every
+BIE (Banco de Información Económica) id, so the fetcher reads BIE series from
+the service INEGI's own query builder (inegi.org.mx/app/indicadores) uses,
+`interna_v1_3/API.svc/ExportacionBancoInformacion`. That service accepts the
+developer token; without the secret the fetcher falls back to the token INEGI's
+own page script carries, which INEGI can rotate at any time.
 
 **Optional:** `FRED_API_KEY` (already set for the U.S. page) lets the fetcher
 verify each FRED series' title.
@@ -82,15 +88,34 @@ run's log and summary:
 - **url** — fetch arbitrary URLs (`{INEGI_TOKEN}` etc. substituted),
   `URL#regex` to filter lines, `URL##regex` for match-with-context.
 - **xlsx** — `URL#regex` prints matching rows of a workbook.
+- **post** — `URL {json} ;; URL {json}` sends JSON POST requests (token
+  placeholders substituted) and prints status and body; how the INEGI
+  query-builder service was mapped.
 - **catalog** — reserved; INEGI exposes no whole-catalog endpoint.
 
 Locally the same flags work on `scripts/mx-macro/fetch.mjs` (`--search`,
-`--probe`, `--url`, `--xlsx`).
+`--probe`, `--url`, `--xlsx`, `--post`).
 
-INEGI's data endpoint returns no series name. For an INEGI candidate the
-fetcher runs the BIE search with the candidate's `search` query, takes the
-row whose id matches and checks the regex against that row's full topic path
-(the per-id `CL_INDICATOR` catalog description is the fallback).
+INEGI's export table carries the id, frequency and unit but no series name.
+For an INEGI candidate the fetcher runs the BIE search with the candidate's
+`search` query, takes the row whose id matches and checks the regex against
+that row's full topic path; the query-builder metadata endpoint
+(`MetadatoIndicador`: topic path plus indicator name) is the fallback.
+
+The INEGI query-builder service, as the fetcher calls it (BIE is "tematica"
+3 there, takes no geographic area and whole years as the date range):
+
+```
+POST https://www.inegi.org.mx/app/api/indicadores/interna_v1_3/API.svc/ExportacionBancoInformacion
+{"areasGeograficas":"null","casoExportacion":"indicadorVertical","fechaInicio":"2010","fechaFin":"2027",
+ "formato":"json","idioma":"es","indicadores":"737219","mostrarDecimales":"true","mostrarEstadistico":"false",
+ "ordenaPeriodo":"ap","orden":"a","tematica":"3","token":"<INEGI_TOKEN>"}
+```
+
+The answer is a table: row 0 is the header (a "Periodos" cell, then one cell
+per id with its frequency and unit), every other row a period ("2010/01")
+followed by one value per id. Unknown ids and outages both come back as
+HTTP 202 with `{"ErrorCode":"100","ErrorInfo":"No se encontraron resultados"}`.
 
 ## Editing the page
 
