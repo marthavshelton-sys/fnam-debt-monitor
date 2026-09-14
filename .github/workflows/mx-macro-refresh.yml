@@ -43,6 +43,9 @@ on:
       search:
         description: "Diagnostics only: BIE full-text search terms separated by |, prints indicator ids and titles"
         default: ""
+      post:
+        description: "Diagnostics only: 'URL {json}' pairs separated by ;; sent as JSON POST requests"
+        default: ""
   push:
     branches: ["main", "claude/mexico-macro-dashboard-fnam-3m65pe"]
     paths:
@@ -69,7 +72,7 @@ jobs:
           node-version: "22"
 
       - name: Series diagnostics (probe / catalog search)
-        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != '' || github.event.inputs.xlsx != '' || github.event.inputs.search != ''
+        if: github.event.inputs.probe != '' || github.event.inputs.catalog != '' || github.event.inputs.url != '' || github.event.inputs.xlsx != '' || github.event.inputs.search != '' || github.event.inputs.post != ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -79,6 +82,7 @@ jobs:
           URLS: ${{ github.event.inputs.url }}
           XLSX: ${{ github.event.inputs.xlsx }}
           SEARCH: ${{ github.event.inputs.search }}
+          POSTS: ${{ github.event.inputs.post }}
         run: |
           ARGS=()
           if [ -n "$PROBE" ]; then ARGS+=(--probe "$PROBE"); fi
@@ -86,10 +90,11 @@ jobs:
           if [ -n "$URLS" ]; then ARGS+=(--url "$URLS"); fi
           if [ -n "$XLSX" ]; then ARGS+=(--xlsx "$XLSX"); fi
           if [ -n "$SEARCH" ]; then ARGS+=(--search "$SEARCH"); fi
+          if [ -n "$POSTS" ]; then ARGS+=(--post "$POSTS"); fi
           node scripts/mx-macro/fetch.mjs "${ARGS[@]}"
 
       - name: Fetch series (Banxico SIE, FRED, INEGI)
-        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
+        if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
           FRED_API_KEY: ${{ secrets.FRED_API_KEY }}
@@ -100,11 +105,11 @@ jobs:
 
       # Runs even if a fetch failed, so whatever did refresh still reaches the page.
       - name: Build page
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         run: node scripts/mx-macro/build.mjs
 
       - name: Commit if anything changed
-        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == ''
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         shell: bash
         run: |
           git config user.name "mx-macro-refresh[bot]"

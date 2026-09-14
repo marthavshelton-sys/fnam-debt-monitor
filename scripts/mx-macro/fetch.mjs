@@ -223,7 +223,7 @@ async function main() {
   const manifest = JSON.parse(await readFile(MANIFEST, 'utf8'));
 
   const catIdx = argv.indexOf('--catalog');
-  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx') || argv.includes('--search')) {
+  if (probeIdx >= 0 || catIdx >= 0 || argv.includes('--url') || argv.includes('--xlsx') || argv.includes('--search') || argv.includes('--post')) {
     // Diagnostics only: nothing is written. --probe banxico:SP1,inegi:496150 prints what each id is;
     // --catalog "actividad economica" searches INEGI's indicator catalog by description.
     const lines = [];
@@ -275,6 +275,20 @@ async function main() {
           out(`search "${q}" -> ${rows.length} results`);
           for (const r of rows) out(`  ${r.INDICADOR}\t${r.TITULO.slice(0, 300)}`);
         } catch (e) { out(`search "${q}" -> ERROR ${e.message}`); }
+      }
+    }
+    const postIdx = argv.indexOf('--post');
+    if (postIdx >= 0) {
+      // --post "URL {json} ;; URL {json}" : JSON POST with token placeholders substituted, prints status + body start.
+      const sub = (u) => u.replace(/\{INEGI_TOKEN\}/g, process.env.INEGI_TOKEN || '').replace(/\{BANXICO_TOKEN\}/g, process.env.BANXICO_TOKEN || '');
+      const mask = (t) => [process.env.INEGI_TOKEN, process.env.BANXICO_TOKEN, process.env.FRED_API_KEY].filter(Boolean).reduce((a, k) => a.split(k).join('***'), t);
+      for (const item of (argv[postIdx + 1] || '').split(';;').map((x) => x.trim()).filter(Boolean)) {
+        const sp = item.indexOf(' '); const url = item.slice(0, sp), body = item.slice(sp + 1).trim();
+        try {
+          const res = await fetch(sub(url), { method: 'POST', headers: { 'User-Agent': UA, 'Content-Type': 'application/json; charset=utf-8', Accept: 'application/json, */*' }, body: sub(body) });
+          const txt = await res.text();
+          out(`POST ${url}\n  body ${body.slice(0, 300)}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${txt.length} bytes\n  ${mask(txt.replace(/\s+/g, ' ').slice(0, 2500))}`);
+        } catch (e) { out(`POST ${url} -> ERROR ${e.message}`); }
       }
     }
     const xlsxIdx = argv.indexOf('--xlsx');
