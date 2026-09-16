@@ -420,13 +420,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="en">Top 10 foreign &amp; international holders</span><span class="es" hidden>Los 10 principales tenedores extranjeros e internacionales</span></h3>
-      <p class="cap"><span class="en">$ billions and % of all foreign-held Treasury securities, Dec 2025</span><span class="es" hidden>Miles de millones de USD y % de todos los valores del Tesoro en manos extranjeras, dic. 2025</span></p>
+      <p class="cap"><span class="en">$ billions and % of all foreign-held Treasury securities, <span data-bind="foreignHoldersAsOfEn">Dec 2025</span></span><span class="es" hidden>Miles de millones de USD y % de todos los valores del Tesoro en manos extranjeras, <span data-bind="foreignHoldersAsOfEs">dic. 2025</span></span></p>
       <div class="tblwrap" id="tblForeign"></div>
       <div class="callout">
-        <span class="en">† <b>Belgium, Luxembourg, the Cayman Islands and Ireland</b> are financial centers, not primarily end holders: Belgium and Luxembourg host <b>Euroclear</b> and <b>Clearstream</b>, the international settlement depositories much of Europe (and beyond) uses to hold securities, so their totals mostly reflect custody accounts for other countries' investors rather than Belgian or Luxembourgish savings. Ireland is a major fund-domicile hub for the same reason. The Cayman Islands' total is dominated by U.S. and global hedge funds — largely the "basis trade" — routing purchases through Cayman-domiciled entities, and the Fed has separately estimated the true (uncounted) hedge-fund position there at closer to $2 trillion than the ~$420B TIC records. Treasury's TIC data attributes holdings to the country where the custodian sits, not the ultimate beneficial owner, so figures for these four should be read as "assets custodied in," not "owned by."</span>
-        <span class="es" hidden>† <b>Bélgica, Luxemburgo, las Islas Caimán e Irlanda</b> son centros financieros, no tenedores finales principalmente: Bélgica y Luxemburgo albergan <b>Euroclear</b> y <b>Clearstream</b>, los depositarios internacionales de liquidación que gran parte de Europa (y más allá) usa para custodiar valores, así que sus totales reflejan sobre todo cuentas de custodia de inversionistas de otros países, no ahorro belga o luxemburgués. Irlanda es un gran centro de domicilio de fondos por la misma razón. El total de las Islas Caimán está dominado por fondos de cobertura de EE. UU. y globales — en gran parte el "basis trade" — que canalizan sus compras a través de entidades domiciliadas en Caimán, y la Fed ha estimado por separado que la posición real (no contabilizada) de fondos de cobertura ahí es más cercana a $2 billones que a los ~$420 mil millones que registra el TIC. Los datos TIC del Tesoro atribuyen las tenencias al país donde reside el custodio, no al propietario beneficiario final, así que las cifras de estos cuatro deben leerse como "activos custodiados en", no "propiedad de".</span>
+        <span class="en">† <b>Belgium, Luxembourg, the Cayman Islands and Ireland</b> are financial centers, not primarily end holders: Belgium and Luxembourg host <b>Euroclear</b> and <b>Clearstream</b>, the international settlement depositories much of Europe (and beyond) uses to hold securities, so their totals mostly reflect custody accounts for other countries' investors rather than Belgian or Luxembourgish savings. Ireland is a major fund-domicile hub for the same reason. The Cayman Islands' total is dominated by U.S. and global hedge funds — largely the "basis trade" — routing purchases through Cayman-domiciled entities, and the Fed has separately estimated the true (uncounted) hedge-fund position there at closer to $2 trillion than the <span data-bind="caymanValB">~$422B</span> TIC records. Treasury's TIC data attributes holdings to the country where the custodian sits, not the ultimate beneficial owner, so figures for these four should be read as "assets custodied in," not "owned by."</span>
+        <span class="es" hidden>† <b>Bélgica, Luxemburgo, las Islas Caimán e Irlanda</b> son centros financieros, no tenedores finales principalmente: Bélgica y Luxemburgo albergan <b>Euroclear</b> y <b>Clearstream</b>, los depositarios internacionales de liquidación que gran parte de Europa (y más allá) usa para custodiar valores, así que sus totales reflejan sobre todo cuentas de custodia de inversionistas de otros países, no ahorro belga o luxemburgués. Irlanda es un gran centro de domicilio de fondos por la misma razón. El total de las Islas Caimán está dominado por fondos de cobertura de EE. UU. y globales — en gran parte el "basis trade" — que canalizan sus compras a través de entidades domiciliadas en Caimán, y la Fed ha estimado por separado que la posición real (no contabilizada) de fondos de cobertura ahí es más cercana a $2 billones que a los <span data-bind="caymanValBEs">~$422 mil millones</span> que registra el TIC. Los datos TIC del Tesoro atribuyen las tenencias al país donde reside el custodio, no al propietario beneficiario final, así que las cifras de estos cuatro deben leerse como "activos custodiados en", no "propiedad de".</span>
       </div>
-      <p class="chart-src"><span class="en">Source: Treasury International Capital (TIC) System, <a href="https://ticdata.treasury.gov/Publish/mfhhis01.txt" target="_blank" rel="noopener">Major Foreign Holders of Treasury Securities ↗</a></span><span class="es" hidden>Fuente: Sistema Treasury International Capital (TIC), <a href="https://ticdata.treasury.gov/Publish/mfhhis01.txt" target="_blank" rel="noopener">Major Foreign Holders of Treasury Securities ↗</a></span></p>
+      <p class="chart-src"><span class="en">Source: Treasury International Capital (TIC) System, <a href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.txt" target="_blank" rel="noopener">Major Foreign Holders of Treasury Securities (SLT Table 5) ↗</a></span><span class="es" hidden>Fuente: Sistema Treasury International Capital (TIC), <a href="https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.txt" target="_blank" rel="noopener">Major Foreign Holders of Treasury Securities (SLT Table 5) ↗</a></span></p>
     </div>
   </section>
 
@@ -1087,8 +1087,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     walcl:[null,null,732.059,771.551,810.944,847.700,869.988,890.662,2239.457,2234.067,2420.570,2926.095,2907.300,4032.575,4497.660,4486.587,4451.451,4448.680,4075.636,4165.591,7363.351,8757.460,8551.169,7712.781,6885.963,6640.618,6737.204]
   };
 
+  // Baked snapshot below is reassigned by applyLiveData() from the TIC "SLT" Table 5 fetch
+  // (scripts/fetch-data.mjs) whenever site/fiscal/data.js has a fresher month — this table
+  // updates monthly (with TIC's usual ~2-3 month reporting lag), so daily re-checks just repeat
+  // until Treasury republishes, same as the debt-composition (MSPD) figures above.
+  var foreignHoldersAsOf = "2025-12";
   var foreignHoldersTotal = 9269.5; // all foreign & international, $B, Dec 2025
-  // custodian: true = a financial-center/custody hub, not primarily a national beneficial owner
+  // Known financial-center/custody hubs, not primarily national beneficial owners (see the
+  // callout below) — a judgment call applied by name, since TIC itself doesn't flag this.
+  // If a country not in this list ever breaks into the top 10, it's treated as a regular
+  // reporting country (false) until someone updates this list.
+  var CUSTODY_HUBS = ["Belgium","Luxembourg","Cayman Islands","Ireland"];
   var foreignHolders = [
     ["Japan",1185.5,false],["United Kingdom",863.1,false],["China, Mainland",684.4,false],["Belgium",477.3,true],
     ["Canada",468.3,false],["Luxembourg",434.0,true],["Cayman Islands",421.6,true],["France",368.9,false],
@@ -1321,6 +1330,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         setVal(maturityMix, "FRNs", dc.frns);
         asof[2][1] = fmtDateEn(dc.date)+" (monthly)";
       }
+      if(LD.foreignHolders && LD.foreignHolders.top10 && LD.foreignHolders.top10.length){
+        foreignHolders = LD.foreignHolders.top10.map(function(c){
+          return [c.country, c.valueB, CUSTODY_HUBS.indexOf(c.country) >= 0];
+        });
+        foreignHoldersTotal = LD.foreignHolders.grandTotalB;
+        foreignHoldersAsOf = LD.foreignHolders.date; // "YYYY-MM"
+      }
     } catch(e){
       // A malformed/partial data.js should never break the page — fall back silently to the snapshot.
       console.warn("LIVE_DATA overlay skipped:", e);
@@ -1347,6 +1363,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   function fmtDateEs(iso){
     var mon=["ene.","feb.","mar.","abr.","may.","jun.","jul.","ago.","sep.","oct.","nov.","dic."];
     var p=iso.split('-'); return Number(p[2])+' de '+mon[Number(p[1])-1]+' de '+p[0];
+  }
+  // Month+year only (no day) — for monthly-cadence series like the TIC foreign-holders table,
+  // where TIC itself only ever reports "which month", never a specific day.
+  function fmtMonthYearEn(ym){
+    var mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var p=ym.split('-'); return mon[Number(p[1])-1]+' '+p[0];
+  }
+  function fmtMonthYearEs(ym){
+    var mon=["ene.","feb.","mar.","abr.","may.","jun.","jul.","ago.","sep.","oct.","nov.","dic."];
+    var p=ym.split('-'); return mon[Number(p[1])-1]+' '+p[0];
   }
 
   // Total debt / M2, annual calendar year-end $B, 1995–2026 — five years of pure history
@@ -1454,6 +1480,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var holdersShortEn = holdersParts[0]+' '+holdersParts[2];
   var holdersShortEs = (esMonShort[holdersParts[0]]||holdersParts[0])+' '+holdersParts[2];
   var sign = function(v){ return v>=0 ? '+' : '−'; };
+  var caymanRow = foreignHolders.filter(function(f){ return f[0]==="Cayman Islands"; })[0];
+  var caymanValB = caymanRow ? caymanRow[1] : 421.6; // falls back to the last-known baked figure if Cayman ever drops out of the top 10
   var BIND = {
     debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
     debtTotalT: '$'+debtTotalT.toFixed(2)+'T', debtPublicT: '$'+debtPublicT.toFixed(2)+'T', debtIntragovT: '$'+debtIntragovT.toFixed(2)+'T',
@@ -1473,7 +1501,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     outYtdTreasuryT: '$'+(outYtdTreasuryB/1000).toFixed(3)+'T', outYtdTreasuryTEs: '$'+(outYtdTreasuryB/1000).toFixed(3)+' billones',
     cashInterestT: '$'+cashInterestT.toFixed(3)+'T', cashInterestTEs: '$'+cashInterestT.toFixed(3)+' billones',
     accruedInterestT: '$'+accruedInterestT.toFixed(3)+'T', accruedMonths: accruedInfo.months,
-    accruedRangeLongEn: accruedInfo.rangeLongEn, accruedRangeLongEs: accruedInfo.rangeLongEs
+    accruedRangeLongEn: accruedInfo.rangeLongEn, accruedRangeLongEs: accruedInfo.rangeLongEs,
+    foreignHoldersAsOfEn: fmtMonthYearEn(foreignHoldersAsOf), foreignHoldersAsOfEs: fmtMonthYearEs(foreignHoldersAsOf),
+    caymanValB: '$'+caymanValB.toFixed(0)+'B', caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones'
   };
   Object.keys(BIND).forEach(function(k){
     [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; });
