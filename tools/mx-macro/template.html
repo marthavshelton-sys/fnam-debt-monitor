@@ -385,6 +385,19 @@
     gap: 4px;
   }
 
+  /* ---------- executive summary ---------- */
+  .exec-summary {
+    background: var(--surface-1);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--series-headline);
+    border-radius: 10px;
+    padding: 14px 16px;
+    display: flex; flex-direction: column; gap: 7px;
+  }
+  .exec-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); }
+  .exec-line { font-size: 13px; line-height: 1.55; color: var(--text-secondary); }
+  .exec-line b { color: var(--text-primary); font-weight: 600; }
+
   /* ---------- category grid ---------- */
   .cat-grid {
     display: grid;
@@ -585,6 +598,8 @@
     </div>
     <div class="notice pending" id="inpcPending" hidden></div>
 
+    <section id="inpcSummarySec"><div class="exec-summary" id="inpcSummary"></div></section>
+
     <section id="inpcKpiSec"><div class="kpi-row six" id="inpcKpiRow"></div></section>
 
     <section id="inpcTrendSec">
@@ -680,6 +695,8 @@
     </div>
     <div class="notice pending" id="acPending" hidden></div>
 
+    <section id="acSummarySec"><div class="exec-summary" id="acSummary"></div></section>
+
     <section id="acKpiSec"><div class="kpi-row" id="acKpiRow"></div></section>
 
     <section id="acGdpSec">
@@ -760,6 +777,8 @@
     </div>
     <div class="notice pending" id="lbPending" hidden></div>
 
+    <section id="lbSummarySec"><div class="exec-summary" id="lbSummary"></div></section>
+
     <section id="lbKpiSec"><div class="kpi-row" id="lbKpiRow"></div></section>
 
     <section id="lbUnSec">
@@ -816,6 +835,8 @@
     </div>
     <div class="notice pending" id="ccPending" hidden></div>
 
+    <section id="ccSummarySec"><div class="exec-summary" id="ccSummary"></div></section>
+
     <section id="ccKpiSec"><div class="kpi-row" id="ccKpiRow"></div></section>
 
     <section id="ccTrendSec">
@@ -858,6 +879,8 @@
       </div>
     </div>
     <div class="notice pending" id="exPending" hidden></div>
+
+    <section id="exSummarySec"><div class="exec-summary" id="exSummary"></div></section>
 
     <section id="exKpiSec"><div class="kpi-row six" id="exKpiRow"></div></section>
 
@@ -917,6 +940,8 @@
       </div>
     </div>
     <div class="notice pending" id="bxPending" hidden></div>
+
+    <section id="bxSummarySec"><div class="exec-summary" id="bxSummary"></div></section>
 
     <section id="bxKpiSec"><div class="kpi-row six" id="bxKpiRow"></div></section>
 
@@ -1025,6 +1050,49 @@ const I18N = {
     yoy: "anual",
     mom: "mensual",
     quarter: (q, y) => q + "T " + y,
+
+    // ---- Resúmenes ejecutivos ----
+    execTitle: "En resumen",
+    sumLatest: "Último dato",
+    sumDriver: "Detrás del dato",
+    sumWhy: "Por qué importa",
+    sumNext: "Qué sigue",
+    sumInpcLatest: (m, h, mom, c) => "La inflación general fue de " + h + " anual en " + m + " (" + mom + " mensual). La subyacente fue de " + c + ".",
+    sumInpcDriver: (sv, gv, nc) => "Los servicios van en " + sv + " y las mercancías en " + gv + "; la no subyacente, en " + nc + ".",
+    sumInpcWhyIn: "Está dentro del rango objetivo de Banxico (3% ±1 pp), la referencia para sus decisiones de tasa.",
+    sumInpcWhyAbove: "Está por arriba del rango objetivo de Banxico (3% ±1 pp), lo que limita el espacio para bajar la tasa.",
+    sumInpcWhyBelow: "Está por debajo del rango objetivo de Banxico (3% ±1 pp), lo que abre espacio para bajar la tasa.",
+    sumInpcNext: (m) => "INPC de " + m + " alrededor del día 9. La clave es la inflación de servicios, la más persistente.",
+    sumAcGdp: (q, qoq, yoy) => "PIB: " + qoq + " trimestral en " + q + " (" + yoy + " anual).",
+    sumAcIgae: (m, yoy, mom) => "IGAE: " + yoy + " anual en " + m + " (" + mom + " mensual).",
+    sumSectors: ["el agro", "la industria", "los servicios"],
+    sumAcDriver: (sn, sv, wn, wv) => "Por sectores: mejor desempeño, " + sn + " (" + sv + " anual); peor, " + wn + " (" + wv + ").",
+    sumAcWhy: "El IGAE es el avance mensual del PIB: muestra el rumbo de la economía antes del dato trimestral.",
+    sumAcNext: (q, m) => "PIB de " + q + " (estimación oportuna) e IGAE de " + m + ". La señal: si los servicios sostienen el crecimiento.",
+    sumLbLatest: (m, u, d) => "La tasa de desocupación fue de " + u + " en " + m + " (" + d + " vs. el mes previo).",
+    sumLbDriver: (ago, avg) => "Hace un año era " + ago + "; el promedio de los últimos cinco años es " + avg + ".",
+    sumLbWhy: "Una desocupación baja sostiene el consumo, pero también puede presionar salarios y la inflación de servicios.",
+    sumLbNext: "ENOE del mes siguiente unas 4 semanas después de cerrar el mes. La señal: un cambio sostenido de tendencia.",
+    sumCcLatest: (m, v, dm) => "La confianza del consumidor se ubicó en " + v + " puntos en " + m + " (" + dm + " puntos vs. el mes previo).",
+    sumCcDriver: (dy, pct) => "Frente a hace un año: " + dy + " puntos. El nivel actual supera el " + pct + " de las lecturas históricas.",
+    sumCcWhy: "Anticipa la disposición de los hogares a gastar, y el consumo es el principal motor de la economía.",
+    sumCcNext: "Próxima ENCO en la primera semana del mes. La señal: la brecha frente a su promedio histórico.",
+    sumExLatest: (m, r, ry, fx, fd) => "Remesas: " + r + " mdd en " + m + " (" + ry + " anual). Peso: " + fx + " por dólar al " + fd + ".",
+    sumExDriver: (xy, my, b) => "Exportaciones " + xy + " e importaciones " + my + " anual; la balanza acumula " + b + " mmd en 12 meses.",
+    sumExWhy: "Remesas y exportaciones son las mayores fuentes de dólares del país: sostienen el consumo y respaldan al peso.",
+    sumExNext: (m) => "Remesas de " + m + " en los primeros días hábiles (Banxico); balanza comercial cerca del día 27. La señal: la tendencia anual de las remesas.",
+    sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
+    sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
+    sumBxNoChange: "sin cambios",
+    sumBxDriverAbove: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ": por arriba del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno restrictivo.",
+    sumBxDriverWithin: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ", dentro del rango neutral que estima Banxico (1.8–3.4%).",
+    sumBxDriverBelow: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ": por debajo del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno acomodaticio.",
+    sumBxDriverPost: (v) => "La tasa real ex post (tasa menos inflación observada) es de " + v + ".",
+    sumBxWhy: "Esa distancia define qué tan restrictiva es la política monetaria: guía el costo del crédito y el atractivo del peso.",
+    sumBxNext: (w) => "Las decisiones siguen el calendario de Banxico. La señal: si la inflación converge al 3% y da espacio para " + w + ".",
+    sumBxMoveCuts: "más recortes",
+    sumBxMoveHikes: "más alzas",
+    sumBxMoveAny: "mover la tasa",
 
     // ---- INPC ----
     inpcTitle: "Inflación al consumidor (INPC)",
@@ -1279,6 +1347,49 @@ const I18N = {
     yoy: "YoY",
     mom: "MoM",
     quarter: (q, y) => "Q" + q + " " + y,
+
+    // ---- Executive summaries ----
+    execTitle: "At a glance",
+    sumLatest: "Latest print",
+    sumDriver: "Behind it",
+    sumWhy: "Why it matters",
+    sumNext: "What's next",
+    sumInpcLatest: (m, h, mom, c) => "Headline inflation was " + h + " year over year in " + m + " (" + mom + " on the month). Core came in at " + c + ".",
+    sumInpcDriver: (sv, gv, nc) => "Services are running at " + sv + " and goods at " + gv + "; non-core sits at " + nc + ".",
+    sumInpcWhyIn: "It is inside Banxico's target range (3% ±1 pp), the benchmark for its rate decisions.",
+    sumInpcWhyAbove: "It is above Banxico's target range (3% ±1 pp), which limits the room to cut rates.",
+    sumInpcWhyBelow: "It is below Banxico's target range (3% ±1 pp), which opens room to cut rates.",
+    sumInpcNext: (m) => m + " INPC around the 9th. The key is services inflation, the stickiest part.",
+    sumAcGdp: (q, qoq, yoy) => "GDP: " + qoq + " quarter over quarter in " + q + " (" + yoy + " year over year).",
+    sumAcIgae: (m, yoy, mom) => "IGAE: " + yoy + " year over year in " + m + " (" + mom + " on the month).",
+    sumSectors: ["agriculture", "industry", "services"],
+    sumAcDriver: (sn, sv, wn, wv) => "By sector: strongest, " + sn + " (" + sv + " year over year); weakest, " + wn + " (" + wv + ").",
+    sumAcWhy: "IGAE is the monthly proxy for GDP: it shows where the economy is heading before the quarterly print.",
+    sumAcNext: (q, m) => q + " GDP (flash estimate) and " + m + " IGAE. Watch whether services keep carrying growth.",
+    sumLbLatest: (m, u, d) => "The unemployment rate was " + u + " in " + m + " (" + d + " vs. the prior month).",
+    sumLbDriver: (ago, avg) => "A year ago it was " + ago + "; the five-year average is " + avg + ".",
+    sumLbWhy: "Low unemployment supports consumption, but it can also pressure wages and services inflation.",
+    sumLbNext: "Next month's ENOE lands about 4 weeks after month end. Watch for a sustained change in trend.",
+    sumCcLatest: (m, v, dm) => "Consumer confidence stood at " + v + " points in " + m + " (" + dm + " points vs. the prior month).",
+    sumCcDriver: (dy, pct) => "Versus a year ago: " + dy + " points. The current level is above " + pct + " of all historical readings.",
+    sumCcWhy: "It anticipates households' willingness to spend, and consumption is the economy's main engine.",
+    sumCcNext: "Next ENCO in the first week of the month. Watch the gap versus its historical average.",
+    sumExLatest: (m, r, ry, fx, fd) => "Remittances: " + r + " million dollars in " + m + " (" + ry + " year over year). Peso: " + fx + " per dollar as of " + fd + ".",
+    sumExDriver: (xy, my, b) => "Exports " + xy + " and imports " + my + " year over year; the 12-month trade balance is " + b + " billion dollars.",
+    sumExWhy: "Remittances and exports are Mexico's largest sources of dollars: they support consumption and back the peso.",
+    sumExNext: (m) => m + " remittances in the first business days (Banxico); trade balance around the 27th. Watch the annual trend in remittances.",
+    sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
+    sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
+    sumBxNoChange: "unchanged",
+    sumBxDriverAbove: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ": above the neutral range Banxico estimates (1.8–3.4%), i.e., restrictive territory.",
+    sumBxDriverWithin: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ", inside the neutral range Banxico estimates (1.8–3.4%).",
+    sumBxDriverBelow: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ": below the neutral range Banxico estimates (1.8–3.4%), i.e., accommodative territory.",
+    sumBxDriverPost: (v) => "The ex post real rate (policy rate minus observed inflation) is " + v + ".",
+    sumBxWhy: "That distance defines how restrictive monetary policy is: it drives the cost of credit and the peso's carry appeal.",
+    sumBxNext: (w) => "Decisions follow Banxico's calendar. Watch whether inflation converges to 3% and makes room for " + w + ".",
+    sumBxMoveCuts: "more cuts",
+    sumBxMoveHikes: "more hikes",
+    sumBxMoveAny: "a rate move",
 
     // ---- INPC ----
     inpcTitle: "Consumer Price Inflation (INPC)",
@@ -1615,6 +1726,15 @@ function gate(prefix, required, optional) {
   return true;
 }
 function showSec(id, ok) { const el = document.getElementById(id); if (el) el.hidden = !ok; }
+// Executive summary box at the top of a view: lines are [label, sentence] pairs (falsy skipped),
+// all composed at render time from the same data as the charts, so they update with every refresh.
+function execSummary(prefix, lines) {
+  const el = document.getElementById(prefix + "Summary"); if (!el) return;
+  lines = lines.filter(Boolean);
+  showSec(prefix + "SummarySec", lines.length > 0);
+  el.innerHTML = '<div class="exec-title">' + esc(T.execTitle) + '</div>' +
+    lines.map(l => '<div class="exec-line"><b>' + esc(l[0]) + '</b> · ' + esc(l[1]) + '</div>').join("");
+}
 
 // ================================================================
 //  Chart primitives (same visual grammar as the U.S. page)
@@ -1888,6 +2008,15 @@ function renderInpc() {
     document.getElementById("inpcDerbyLegend").innerHTML = `<div class="legend-item">${esc(T.derbyNote)} · ${esc(fmtMonthYear(hL.d))} · ${esc(T.legHeadline)} ${fmtPct(hL.yoy)}</div>`;
     barList("inpcDerbyList", derby, v => fmtPct(v));
   }
+
+  const sy = C.inpcServices ? lastWith(C.inpcServices, "yoy") : null, gy = C.inpcGoods ? lastWith(C.inpcGoods, "yoy") : null, ny = C.inpcNonCore ? lastWith(C.inpcNonCore, "yoy") : null;
+  const tgtState = hL.yoy > 4 ? "Above" : hL.yoy < 2 ? "Below" : "In";
+  execSummary("inpc", [
+    [T.sumLatest, T.sumInpcLatest(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1), fmtPct(hLm.mom, 2), cL ? fmtLevelPct(cL.yoy, 1) : "—")],
+    sy && gy && ny ? [T.sumDriver, T.sumInpcDriver(fmtLevelPct(sy.yoy, 1), fmtLevelPct(gy.yoy, 1), fmtLevelPct(ny.yoy, 1))] : null,
+    [T.sumWhy, T["sumInpcWhy" + tgtState]],
+    [T.sumNext, T.sumInpcNext(fmtMonthYear(nextMonthOf(hL.d)))]
+  ]);
 }
 
 // ================================================================
@@ -1948,6 +2077,21 @@ function renderActivity() {
       I ? {pts: reidx(I).filter(p => p.d >= cut), color: "--cat-3", label: T.legIgaeLevel} : null
     ].filter(Boolean), {legendId: "acLevelLegend", tooltipId: "acLevelTooltip", calloutId: "acLevelCallout", fmt: v => v.toFixed(1), axisFmt: v => v.toFixed(0), calloutLines: [T.acLevelCallout]});
   }
+
+  const gq = G ? lastWith(G, "mom") : null, gy = G ? lastWith(G, "yoy") : null, im = I ? lastWith(I, "mom") : null;
+  const latestTxt = [gq && T.sumAcGdp(fmtMonthYear(gq.d), fmtPct(gq.mom), gy ? fmtPct(gy.yoy) : "—"), iL && T.sumAcIgae(fmtMonthYear(iL.d), fmtPct(iL.yoy), im ? fmtPct(im.mom, 2) : "—")].filter(Boolean).join(" ");
+  const secY = SEC.map((x, i) => x ? {i, y: lastWith(x, "yoy")} : null).filter(z => z && z.y);
+  let drv = null;
+  if (secY.length >= 2) {
+    const hi = secY.reduce((a, b) => b.y.yoy > a.y.yoy ? b : a), lo = secY.reduce((a, b) => b.y.yoy < a.y.yoy ? b : a);
+    drv = [T.sumDriver, T.sumAcDriver(T.sumSectors[hi.i], fmtPct(hi.y.yoy), T.sumSectors[lo.i], fmtPct(lo.y.yoy))];
+  }
+  execSummary("ac", [
+    latestTxt ? [T.sumLatest, latestTxt] : null,
+    drv,
+    [T.sumWhy, T.sumAcWhy],
+    (gq || iL) ? [T.sumNext, T.sumAcNext(gq ? fmtMonthYear(nextQuarterOf(gq.d)) : "—", iL ? fmtMonthYear(nextMonthOf(iL.d)) : "—")] : null
+  ]);
 }
 
 // ================================================================
@@ -1983,6 +2127,16 @@ function renderLabor() {
     document.getElementById("lbImssCallout").innerHTML = `<div>${esc(T.lbImssCallout(fmtMonthYear(jL.d), fmtSigned(jL.dMom), fmtSigned(y.dYoy)))}</div>`;
     lineChart("lbImssYoyChart", [{pts: J.filter(p => p.d >= "2012-01").map(p => ({d: p.d, v: p.yoy})), color: "--cat-7", label: T.legImssYoy}], {legendId: "lbImssYoyLegend", tooltipId: "lbImssYoyTooltip", calloutId: "lbImssYoyCallout", zeroBase: true});
   }
+
+  if (U) {
+    const agoU = atOrBefore(U, prevYearKey(uL.d)), w5 = U.slice(-60), avg5 = w5.reduce((a, p) => a + p.v, 0) / w5.length;
+    execSummary("lb", [
+      [T.sumLatest, T.sumLbLatest(fmtMonthYear(uL.d), fmtLevelPct(uL.v, 1), fmtPP(uL.dMom, 1))],
+      agoU ? [T.sumDriver, T.sumLbDriver(fmtLevelPct(agoU.v, 1), fmtLevelPct(avg5, 1))] : null,
+      [T.sumWhy, T.sumLbWhy],
+      [T.sumNext, T.sumLbNext]
+    ]);
+  } else execSummary("lb", []);
 }
 
 // ================================================================
@@ -2011,6 +2165,13 @@ function renderConfidence() {
   barList("ccContextList", items, v => fmtSigned(v, dg));
   const below = C.filter(p => p.v < l.v).length;
   document.getElementById("ccContextCallout").innerHTML = `<div>${esc(T.ccContextCallout(Math.round(below / C.length * 100) + "%"))}</div>`;
+
+  execSummary("cc", [
+    [T.sumLatest, T.sumCcLatest(fmtMonthYear(l.d), l.v.toFixed(dg), fmtSigned(l.dMom, dg))],
+    l.dYoy !== null && l.dYoy !== undefined ? [T.sumDriver, T.sumCcDriver(fmtSigned(l.dYoy, dg), Math.round(below / C.length * 100) + "%")] : null,
+    [T.sumWhy, T.sumCcWhy],
+    [T.sumNext, T.sumCcNext]
+  ]);
 }
 
 // ================================================================
@@ -2067,6 +2228,19 @@ function renderExternal() {
     columns("exBalanceChart", bal.slice(-36).map(p => ({d: p.d, v: p.v / 1000})), "--cat-5", {fmt: v => fmtSigned(v, 1), axisFmt: v => fmtSigned(v, 0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-3" : "--cat-8"});
     document.getElementById("exTradeCallout").innerHTML = `<div>${esc(T.exTradeCallout(fmtMonthYear(xL.d), fmtPct(xL.yoy), fmtPct(mL.yoy), fmtSigned(bL.v / 1000, 1)))}</div>`;
   }
+
+  let exDrv = null;
+  if (X && M) {
+    const kx2 = scaleUsd(S("exports")), km2 = scaleUsd(S("imports")), mL2 = last(M);
+    const b12 = last(rolling(balanceSeries(X, M, kx2, km2), 12, "sum"));
+    exDrv = [T.sumDriver, T.sumExDriver(fmtPct(xL.yoy), fmtPct(mL2.yoy), fmtSigned(b12.v / 1000, 1))];
+  }
+  execSummary("ex", [
+    R && FX ? [T.sumLatest, T.sumExLatest(fmtMonthYear(rL.d), fmtNum(rL.v), fmtPct(rL.yoy), fL.v.toFixed(2), fmtDateDMY(fL.d))] : null,
+    exDrv,
+    [T.sumWhy, T.sumExWhy],
+    R ? [T.sumNext, T.sumExNext(fmtMonthYear(nextMonthOf(rL.d)))] : null
+  ]);
 }
 function balanceSeries(X, M, kx, km) { const m = new Map(M.map(p => [p.d, p.v])); return X.filter(p => m.has(p.d)).map(p => ({d: p.d, v: p.v * kx - m.get(p.d) * km})); }
 function shiftDays(d, n) { const dt = new Date(d + "T00:00:00Z"); dt.setUTCDate(dt.getUTCDate() + n); return dt.toISOString().slice(0, 10); }
@@ -2133,6 +2307,25 @@ function renderBanxico() {
       {legendId: "bxResLegend", tooltipId: "bxResTooltip", calloutId: "bxResCallout", fmt: v => fmtNum(v, 1), axisFmt: v => fmtNum(v, 0),
        calloutLines: [T.bxResCallout(fmtAny(l.d), fmtNum(l.v / 1000, 1), ago ? fmtSigned((l.v - ago.v) / 1000, 1) : "—")]});
   }
+
+  if (PR) {
+    const ago3 = atOrBefore(PR, prL.d.length === 10 ? shiftDays(prL.d, -91) : prevMonthKey(prevMonthKey(prevMonthKey(prL.d))));
+    const bp = ago3 ? Math.round((prL.v - ago3.v) * 100) : null;
+    const chgTxt = bp === null ? "—" : bp === 0 ? T.sumBxNoChange : fmtSigned(bp, 0) + " " + (LANG === "es" ? "pb" : "bp");
+    let drvLine = null, realV = null;
+    if (H) {
+      const eaPts = exAnteSeries(monthEnd(PR)), eaL = last(eaPts);
+      if (eaL) { realV = eaL.v; drvLine = [T.sumDriver, (realV > 3.4 ? T.sumBxDriverAbove : realV < 1.8 ? T.sumBxDriverBelow : T.sumBxDriverWithin)(fmtLevelPct(realV, 1))]; }
+      else { const rp = last(realSeries(monthEnd(PR))); if (rp) drvLine = [T.sumDriver, T.sumBxDriverPost(fmtLevelPct(rp.v, 1))]; }
+    }
+    const moveWord = bp !== null && bp < 0 ? T.sumBxMoveCuts : bp !== null && bp > 0 ? T.sumBxMoveHikes : T.sumBxMoveAny;
+    execSummary("bx", [
+      [T.sumLatest, T.sumBxLatest(fmtLevelPct(prL.v, 2), chgTxt) + (hL ? " " + T.sumBxInfl(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1)) : "")],
+      drvLine,
+      [T.sumWhy, T.sumBxWhy],
+      [T.sumNext, T.sumBxNext(moveWord)]
+    ]);
+  } else execSummary("bx", []);
 }
 function prevMonthKey(d) { const [y, m] = d.split("-").map(Number); return (m === 1 ? y - 1 : y) + "-" + String(m === 1 ? 12 : m - 1).padStart(2, "0"); }
 
