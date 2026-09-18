@@ -149,6 +149,7 @@ table td.est{color:var(--text-secondary); font-style:italic;}
 .stmt-table td:first-child{min-width:200px; max-width:420px;}
 .stmt-table th.cmt, .stmt-table td.cmt{text-align:left; font-size:12px; color:var(--text-secondary); min-width:280px; max-width:440px; white-space:normal; line-height:1.4; font-variant-numeric:normal;}
 .stmt-table td:not(.cmt):not(:first-child){white-space:nowrap;}
+#kpiTable th:first-child, #kpiTable td:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
 .stmt-table tr.grp-head td:first-child{cursor:pointer; user-select:none;}
 .stmt-table .grp{display:inline-block; width:16px; color:var(--accent); font-weight:700;}
 .stmt-table tr.grp-head .cnt{font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;}
@@ -336,6 +337,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <p class="cap" id="opsCap"></p>
       <div class="tblwrap" id="opsTable"></div>
       <p class="chart-src" id="opsSrc"></p>
+      <p class="chart-src" id="opsNote"></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3 id="stmtTitle"></h3>
