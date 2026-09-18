@@ -11,8 +11,10 @@
 //   shcp-index                        list the CSV/XLSX links on SHCP's Estadísticas Oportunas open-data page
 //   shcp-csv <url> [rows]             fetch a CSV and print its shape, header and first/last rows
 //   url <url>                         GET any url and print status, content-type and the first 1,500 chars
+//   tls <host>                        show the served certificate chain, its SAN, and the AIA chain repair result
+//   banxico-range <prefix> <from> <to> official titles of every id in a numeric range (20 per request)
 
-import { get as netGet, getText, peerChain, sleep as netSleep } from './net.mjs';
+import { get as netGet, getText, peerChain, repairChain, trustedRootCount, sleep as netSleep } from './net.mjs';
 const UA = 'fnam-debt-monitor/1.0 (+https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const TOKEN = process.env.BANXICO_TOKEN || '';
 
@@ -86,9 +88,14 @@ const commands = {
   },
   async 'banxico-ids'(list) { printMeta(await banxicoMeta(list.split(',').map((s) => s.trim()).filter(Boolean))); },
   async tls(host) {
+    // What the server sends, then the AIA walk net.mjs performs to complete the chain.
     const info = await peerChain(host);
-    console.log(`  authorized=${info.authorized} ${info.authorizationError || ''}`);
-    for (const c of info.chain) console.log(`  subject=${c.subject} issuer=${c.issuer} validTo=${c.validTo} AIA=${JSON.stringify(c.infoAccess['CA Issuers - URI'] || [])}`);
+    console.log(`  served: authorized=${info.authorized} ${info.authorizationError || ''}`);
+    for (const c of info.chain) console.log(`    subject=${c.subject} issuer=${c.issuer} validTo=${c.validTo} AIA=${JSON.stringify(c.infoAccess['CA Issuers - URI'] || [])}`);
+    if (info.chain[0]) console.log(`    SAN: ${info.chain[0].san.slice(0, 600)}`);
+    const rep = await repairChain(host);
+    console.log(`  repair: anchor=${rep.anchor || 'NONE'} ${rep.error || ''} (${trustedRootCount()} trusted roots)`);
+    for (const d of rep.downloaded) console.log(`    ${d}`);
   },
   async 'banxico-range'(prefix, from, to) {
     // Dump the official title of every id in a numeric range, 20 per request, paced — the SIE
