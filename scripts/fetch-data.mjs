@@ -86,6 +86,42 @@ async function getDebtComposition() {
   };
 }
 
+// Major Foreign Holders of Treasury Securities (TIC "SLT" Table 5) — a plain tab-delimited
+// text file, published monthly (with a ~2-3 month reporting lag), pre-sorted by the latest
+// month's holdings descending. Same "check daily, no-op until Treasury republishes" approach
+// as getDebtComposition above — this only actually changes once a month.
+async function getForeignHolders() {
+  const url = 'https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.txt';
+  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
+  const text = await res.text();
+  const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
+
+  const headerLine = lines.find((l) => l.startsWith('Country'));
+  if (!headerLine) throw new Error('slt_table5.txt: could not find the "Country" header row');
+  const headerCells = headerLine.split('\t').map((c) => c.trim()).filter(Boolean);
+  const latestMonth = headerCells[1]; // e.g. "2026-06" — the most recent column, per Treasury's own layout
+
+  const headerIdx = lines.indexOf(headerLine);
+  const countries = [];
+  let grandTotal = null;
+  for (let i = headerIdx + 1; i < lines.length; i++) {
+    const cells = lines[i].split('\t').map((c) => c.trim()).filter(Boolean);
+    if (cells.length < 2) break; // blank line -> end of the data block
+    const [name, latestValStr] = cells;
+    const value = Number(latestValStr);
+    if (Number.isNaN(value)) break;
+    if (name === 'Grand Total') { grandTotal = value; break; } // stop before the "Of Which:" sub-rows
+    if (name === 'All Other') continue; // not an individual country, exclude from the top-10 ranking
+    countries.push({ country: name, valueB: value });
+  }
+  if (grandTotal == null) throw new Error('slt_table5.txt: could not find the "Grand Total" row');
+
+  // Defensive re-sort (the file has always come pre-ranked, but don't depend on that holding forever).
+  countries.sort((a, b) => b.valueB - a.valueB);
+  return { date: latestMonth, top10: countries.slice(0, 10), grandTotalB: grandTotal };
+}
+
 // FRED series pulled via the public, key-free CSV export.
 const FRED_SERIES = {
   walcl: 'WALCL',          // Fed total assets, weekly, $B
@@ -115,6 +151,7 @@ async function main() {
     ['debt', getDebtToThePenny],
     ['avgRate', getAvgInterestRate],
     ['composition', getDebtComposition],
+    ['foreignHolders', getForeignHolders],
     ...Object.entries(FRED_SERIES).map(([k, id]) => [k, () => getFred(id)]),
   ];
 
@@ -149,6 +186,7 @@ async function main() {
       m2: results.m2,             // {date, value} — $B
     },
     debtComposition: results.composition, // {date, notes, bills, bonds, tips, frns, nonmarketable} — all $B
+    foreignHolders: results.foreignHolders, // {date: "YYYY-MM", top10: [{country, valueB}], grandTotalB}
     rates: {
       effr: results.effr,
       iorb: results.iorb,

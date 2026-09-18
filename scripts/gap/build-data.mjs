@@ -55,6 +55,7 @@ async function annualFromXbrl() {
 }
 const OUT_FIN = new URL('../../site/gap/data/financials.js', import.meta.url);
 const OUT_TRAFFIC = new URL('../../site/gap/data/traffic.js', import.meta.url);
+const OUT_GUIDANCE = new URL('../../site/gap/data/guidance.js', import.meta.url);
 
 // ---------------------------------------------------------------------------------------------
 // Line-item catalogue. Each entry: key, en/es labels, regexes that match the printed label,
@@ -63,6 +64,7 @@ const OUT_TRAFFIC = new URL('../../site/gap/data/traffic.js', import.meta.url);
 const IS_ROWS = [
   { k: 'revAero', en: 'Aeronautical services', es: 'Servicios aeronáuticos', re: /^aeronautical services$/, level: 1 },
   { k: 'revNonAero', en: 'Non-aeronautical services', es: 'Servicios no aeronáuticos', re: /^non-?aeronautical services$/, level: 1 },
+  { k: 'revCbx', en: 'of which: CBX revenues (consolidated from May 2026)', es: 'de los cuales: ingresos de CBX (consolidados desde mayo 2026)', re: /^cbx revenues$/, level: 2, memo: true },
   { k: 'revConstruction', en: 'Improvements to concession assets (IFRIC 12)', es: 'Mejoras a bienes concesionados (IFRIC 12)', re: /^improvements to concession assets/, level: 1, ifric: true },
   { k: 'revTotal', en: 'Total revenues', es: 'Ingresos totales', re: /^total revenues$/, level: 0, bold: true },
   { k: 'costServices', en: 'Cost of services', es: 'Costo de servicios', re: /^costs? of services:?$/, level: 1 },
@@ -416,7 +418,7 @@ function parseTraffic(text, meta) {
   const lines = text.split('\n');
   const prevLabel = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${String(+m[2] - 1).slice(2)}$`, 'i');
   const prevLabelFull = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${+m[2] - 1}$`, 'i');
-  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {} }, warnings: [] };
+  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {}, cbx: null }, warnings: [] };
   const isChangeCell = (c) => /^(%\\s*(change|var\\.?)|change|%|var\\.?)$/i.test(c);
   let section = null;
   let col = -1;          // index of the release month among the header's value columns
@@ -454,7 +456,7 @@ function parseTraffic(text, meta) {
     const values = row.toks.filter((t) => !t.pct).map((t) => (t.dash ? 0 : t.v));
     if (values.length <= col || values[col] == null) continue;
     const v = values[col];
-    if (section === 'cbx') { if (code === 'TIJ') rel.cbx = v; }
+    if (section === 'cbx') { if (code === 'TIJ') { rel.cbx = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior.cbx = values[colPrev]; } }
     else { rel[section][code] = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior[section][code] = values[colPrev]; }
     if (section === 'total' && code === 'TOTAL') { section = null; }
   }
@@ -477,6 +479,75 @@ function parseTraffic(text, meta) {
 // ---------------------------------------------------------------------------------------------
 // Main: read raw files, parse, merge, write
 // ---------------------------------------------------------------------------------------------
+// ---------------------------------------------------------------------------------------------
+// Management guidance. GAP prints a small table ("Traffic | 4% - 6%", "EBITDA Margin | 66% + - 1%",
+// "CAPEX | Ps. 13.0 billion") in the January guidance release or the 4Q results, and again when it
+// revises it (usually with the 2Q results). Growth is vs the prior fiscal year; revenue and margin are
+// on the ex-IFRIC 12 basis (aeronautical + non-aeronautical), as the outcomes confirm.
+// ---------------------------------------------------------------------------------------------
+const GUIDE_ROWS = [
+  { k: 'traffic', re: /^(passenger )?traffic$/ },
+  { k: 'revAero', re: /^aeronautical revenues?$/ },
+  { k: 'revNonAero', re: /^non-?aeronautical revenues?$/ },
+  { k: 'revTotal', re: /^total revenues?$/ },
+  { k: 'ebitda', re: /^ebitda$/ },
+  { k: 'ebitdaMargin', re: /^(ebitda margin|margin ebitda)$/ },
+  { k: 'capex', re: /^capex$/ },
+];
+function parseGuideValue(s) {
+  s = s.replace(/\s+/g, ' ').trim();
+  let m = s.match(/^([\d.]+)\s*%\s*\+\s*-\s*([\d.]+)\s*%$/);                       // "67% +- 1%", "65% + - 1%"
+  if (m) return { lo: +(+m[1] - +m[2]).toFixed(2), hi: +(+m[1] + +m[2]).toFixed(2), mid: +m[1], band: +m[2] };
+  const num = (t) => { const neg = /^\(/.test(t) || /^-/.test(t); const v = parseFloat(t.replace(/[()%\s-]/g, '')); return neg ? -v : v; };
+  m = s.match(/^(\(?-?[\d.]+%\)?)\s*(?:-|–|—|to)\s*(\(?-?[\d.]+%\)?)$/);           // "2% - 5%", "(5%) - (3%)", "-3% - 0%"
+  if (m) { const a = num(m[1]), b = num(m[2]); return { lo: Math.min(a, b), hi: Math.max(a, b) }; }
+  m = s.match(/^ps\.?\s*\$?\s*([\d,.]+)\s*(billion|million)/i);                      // "Ps. 12.0 billion"
+  if (m) return { mxnM: Math.round(parseFloat(m[1].replace(/,/g, '')) * (/billion/i.test(m[2]) ? 1000 : 1)) };
+  return null;
+}
+function parseGuidance(text, meta) {
+  const lines = text.split('\n');
+  const out = [];
+  const cellsOf = (l) => l.split('|').map((c) => c.trim()).filter(Boolean);
+  const rowOf = (l) => {
+    const c = cellsOf(l); if (c.length < 2) return null;
+    const label = norm(c[0]).replace(/[:*]+$/, '').trim();
+    const def = GUIDE_ROWS.find((d) => d.re.test(label)); if (!def) return null;
+    const v = parseGuideValue(c.slice(1).join(' ')); return v ? { k: def.k, v } : null;
+  };
+  for (let i = 0; i < lines.length; i++) {
+    const first = rowOf(lines[i]); if (!first) continue;
+    const items = {}; let j = i;
+    while (j < lines.length) { const r = rowOf(lines[j]); if (!r) break; if (!items[r.k]) items[r.k] = r.v; j++; }
+    const n = Object.keys(items).length;
+    if (n >= 4) {
+      const above = lines.slice(Math.max(0, i - 10), i);
+      const ctx = above.join('\n');
+      let fy = null, m;
+      for (let k = above.length - 1; k >= 0 && fy == null; k--) {
+        if ((m = above[k].match(/(20\d\d)\s*vs\.?\s*(20\d\d)/i))) fy = +m[1];
+        else if ((m = above[k].match(/(?:full[\s-]+year|fiscal year|for the year|for the period from january 1 to december 31,?|guidance (?:growth )?for)\s*(20\d\d)/i))) fy = +m[1];
+      }
+      if (fy == null && (m = (meta.title || '').match(/(20\d\d)/))) fy = +m[1];
+      if (fy == null && (m = text.slice(0, 5000).match(/guidance for (?:the )?full year (20\d\d)/i))) fy = +m[1];
+      const kind = /revis|updat/i.test(ctx) ? 'revised' : 'initial';
+      // prose GAP prints around the table: the intro (between the "guidance" heading and the table) and the notes after it
+      const isProse = (l) => l.length > 60 && !/\|/.test(l) && !/^(company description|these figures|this press release|in accordance with section)/i.test(l.trim());
+      // intro: walk up from the table to the nearest heading (short line, or a sentence ending in ":" which is kept)
+      const intro = []; for (let k = above.length - 1; k >= 0; k--) {
+        const l = above[k].trim(); if (!l || /\|/.test(l) || /^\d{4}\s*vs/i.test(l)) continue;
+        if (/GLOBE NEWSWIRE|^recent events/i.test(l)) break;
+        if (isProse(l)) intro.unshift(l);
+        if (l.length < 60 || /:$/.test(l)) break;
+      }
+      const notes = []; for (let k = j; k < Math.min(lines.length, j + 12); k++) { const l = lines[k].trim(); if (/^company description/i.test(l)) break; if (isProse(l) && !/^note: ebitda/i.test(l)) notes.push(l.replace(/^[•·-]\s*/, '')); }
+      if (fy != null) out.push({ fy, kind, date: meta.date, source: { url: meta.url, date: meta.date, title: meta.title, file: meta.file }, items, intro, notes });
+      i = j;
+    }
+  }
+  return out;
+}
+
 function header(text) {
   const h = {};
   for (const line of text.split('\n').slice(0, 8)) { const m = line.match(/^# (\w+): (.*)$/); if (m) h[m[1]] = m[2]; }
@@ -485,14 +556,15 @@ function header(text) {
 
 async function main() {
   const files = (await readdir(RAW)).filter((f) => f.endsWith('.txt')).sort();
-  const results = [], traffic = [];
+  const results = [], traffic = [], guidance = [];
   for (const f of files) {
     const text = await readFile(new URL(f, RAW), 'utf8');
     const h = header(text);
     const meta = { file: f, url: h.source, date: h.date, title: h.title };
+    for (const g of parseGuidance(text, meta)) guidance.push(g);
     if (h.class === 'results') {
       const r = parseResults(text, meta);
-      if (r) results.push(r); else console.warn(`results: could not identify period in ${f}`);
+      if (r) { results.push(r); for (const g of guidance) if (g.source.file === f) g.quarter = r.id; } else console.warn(`results: could not identify period in ${f}`);
     } else if (h.class === 'traffic') {
       const t = parseTraffic(text, meta);
       if (t) traffic.push(t); else console.warn(`traffic: could not identify month in ${f}`);
@@ -574,9 +646,10 @@ async function main() {
     const [y, mo] = t.ym.split('-').map(Number);
     const prevYm = `${y - 1}-${String(mo).padStart(2, '0')}`;
     if (!byMonth[prevYm] && Object.keys(t.prior.total).length >= 12 && prevYm >= '2018-01') {
-      byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, cbx: null, source: { url: t.source.url, date: t.source.date, note: 'prior-year comparative column of the following year\'s release' } };
+      byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, cbx: t.prior.cbx, source: { url: t.source.url, date: t.source.date, note: 'prior-year comparative column of the following year\'s release' } };
       console.warn(`traffic ${prevYm}: no own release harvested; filled from the ${t.ym} release's comparative column`);
     }
+    else if (byMonth[prevYm] && byMonth[prevYm].cbx == null && t.prior.cbx != null) byMonth[prevYm].cbx = t.prior.cbx;
   }
   const months = Object.values(byMonth).sort((a, b) => a.ym.localeCompare(b.ym));
   const airports = [
@@ -598,6 +671,24 @@ async function main() {
   const tr = { generatedAt: new Date().toISOString(), units: 'thousands of terminal passengers', airports, months, coverage: [months[0]?.ym, months.at(-1)?.ym], note: 'Passengers in Tijuana who use CBX in both directions are classified as international. Preliminary figures as released each month.' };
   const trChanged = await writeData(OUT_TRAFFIC, 'GAP_TRAFFIC', tr);
   console.log(`traffic.js${trChanged ? '' : ' (unchanged)'}: ${months.length} months (${tr.coverage.join(' → ')})`);
+
+  // ---- Guidance: one vintage per release; a re-issued identical table within 30 days (corrections) is dropped.
+  guidance.sort((a, b) => a.date.localeCompare(b.date) || a.source.file.localeCompare(b.source.file));
+  const vintages = [];
+  for (const g of guidance) {
+    const prev = vintages[vintages.length - 1];
+    if (prev && prev.fy === g.fy && JSON.stringify(prev.items) === JSON.stringify(g.items) && g.date <= addDaysIso(prev.date, 30)) continue;
+    vintages.push(g);
+  }
+  const gd = {
+    generatedAt: new Date().toISOString(),
+    basis: 'Growth vs the prior fiscal year in %. Revenue and EBITDA margin exclude IFRIC 12 construction revenue (aeronautical + non-aeronautical). Capex in Ps. million (mxnM). ebitdaMargin is a level, not a growth rate.',
+    metrics: GUIDE_ROWS.map((d) => d.k),
+    vintages,
+  };
+  const gdChanged = await writeData(OUT_GUIDANCE, 'GAP_GUIDANCE', gd);
+  console.log(`guidance.js${gdChanged ? '' : ' (unchanged)'}: ${vintages.length} vintages (${vintages.map((v) => `${v.fy} ${v.kind} ${v.date}`).join('; ')})`);
 }
+function addDaysIso(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 
 main().catch((e) => { console.error(e); process.exit(1); });

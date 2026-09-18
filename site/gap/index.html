@@ -19,6 +19,8 @@
 <script src="data/financials.js"></script>
 <script src="data/traffic.js"></script>
 <script src="data/reference.js"></script>
+<script src="data/guidance.js"></script>
+<script src="data/comments.js"></script>
 <script src="data/peers.js"></script>
 
 <style>
@@ -145,6 +147,12 @@ table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-trans
 table td.est{color:var(--text-secondary); font-style:italic;}
 .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 .stmt-table td:first-child{min-width:200px; max-width:420px;}
+.stmt-table th.cmt, .stmt-table td.cmt{text-align:left; font-size:12px; color:var(--text-secondary); min-width:280px; max-width:440px; white-space:normal; line-height:1.4; font-variant-numeric:normal;}
+.stmt-table td:not(.cmt):not(:first-child){white-space:nowrap;}
+#kpiTable th:first-child, #kpiTable td:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
+.stmt-table tr.grp-head td:first-child{cursor:pointer; user-select:none;}
+.stmt-table .grp{display:inline-block; width:16px; color:var(--accent); font-weight:700;}
+.stmt-table tr.grp-head .cnt{font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;}
 
 .callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .callout b{color:var(--text-primary);}
@@ -207,6 +215,16 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sens td.now{outline:2px solid var(--accent); outline-offset:-2px; font-weight:700;}
 
 /* ---------- Timeline ---------- */
+.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
+.guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
+.guide-chip.above{color:var(--good); border-color:var(--good);}
+.guide-chip.below{color:var(--critical); border-color:var(--critical);}
+.guide-chip.event{background:var(--accent); border-color:var(--accent); color:#fff;}
+table td.chg{background:var(--accent-soft); font-weight:700;}
+table td .was{display:block; font-size:11px; color:var(--muted); font-weight:400; text-decoration:line-through;}
+table td .sub, table th .sub{display:block; font-size:11px; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0;}
+.guide-table td:first-child{min-width:170px;}
+.guide-quote{font-size:12.5px; color:var(--text-secondary); line-height:1.55; margin:8px 0 0; padding-left:12px; border-left:3px solid var(--accent-soft-border);}
 .timeline{list-style:none; margin:16px 0 0; padding:0; border-left:2px solid var(--grid);}
 .timeline li{position:relative; padding:0 0 16px 18px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .timeline li:before{content:""; position:absolute; left:-7px; top:5px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--surface);}
@@ -261,6 +279,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 <nav class="jump">
   <div class="wrap" id="jumpNav">
     <a href="#statements"><span class="es">Estados financieros</span><span class="en" hidden>Statements</span></a>
+    <a href="#guidance"><span class="es">Guía</span><span class="en" hidden>Guidance</span></a>
     <a href="#traffic"><span class="es">Tráfico</span><span class="en" hidden>Traffic</span></a>
     <a href="#share"><span class="es">Acción</span><span class="en" hidden>Share price</span></a>
     <a href="#dcf"><span class="es">DCF</span><span class="en" hidden>DCF</span></a>
@@ -314,6 +333,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
 
     <div class="card" style="margin-top:22px">
+      <h3 id="opsTitle"></h3>
+      <p class="cap" id="opsCap"></p>
+      <div class="tblwrap" id="opsTable"></div>
+      <p class="chart-src" id="opsSrc"></p>
+      <p class="chart-src" id="opsNote"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
       <h3 id="stmtTitle"></h3>
       <p class="cap" id="stmtCap"></p>
       <div class="tblwrap" id="stmtTable"></div>
@@ -340,9 +366,58 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
   </section>
 
+  <!-- 02 GUIDANCE -->
+  <section class="block" id="guidance">
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Guía de la administración</span><span class="en" hidden>Management guidance</span></h2></div>
+    <p class="sec-desc">
+      <span class="es">Cada año GAP publica rangos de crecimiento esperado frente al año anterior (tráfico, ingresos aeronáuticos y no aeronáuticos, ingresos totales, EBITDA, margen EBITDA y capex), normalmente en enero o con los resultados del cuarto trimestre, y los revisa a mitad de año. Esta sección extrae esas tablas automáticamente de los comunicados, compara la guía vigente con lo realizado y conserva el historial trimestre a trimestre. Ingresos y margen se guían <b>sin IFRIC 12</b> (aeronáuticos + no aeronáuticos).</span>
+      <span class="en" hidden>Each year GAP publishes expected growth ranges versus the prior year (traffic, aeronautical and non-aeronautical revenue, total revenue, EBITDA, EBITDA margin and capex), normally in January or with the fourth-quarter results, and revises them mid-year. This section extracts those tables automatically from the releases, compares the guidance in force with actual results and keeps the quarter-by-quarter history. Revenue and margin are guided <b>ex-IFRIC 12</b> (aeronautical + non-aeronautical).</span>
+    </p>
+
+    <div class="card" style="margin-top:22px">
+      <h3 id="guideCurTitle"></h3>
+      <p class="cap" id="guideCurCap"></p>
+      <div class="tblwrap" id="guideCurrent"></div>
+      <details class="tbl" id="guideTextWrap"><summary><span class="es">Supuestos citados por GAP (texto original en inglés)</span><span class="en" hidden>Assumptions in GAP's own words</span></summary><div id="guideText"></div></details>
+      <p class="chart-src" id="guideCurSrc"></p>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Historial: últimos seis trimestres</span><span class="en" hidden>History: last six quarters</span></h3>
+      <p class="cap"><span class="es">Guía en vigor después del informe de cada trimestre · las celdas sombreadas cambiaron respecto al trimestre anterior (se muestra el valor previo tachado)</span><span class="en" hidden>Guidance in force after each quarter's report · shaded cells changed versus the prior quarter (the previous value is struck through)</span></p>
+      <div class="tblwrap" id="guideHistory"></div>
+      <p class="chart-src" id="guideHistSrc"></p>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+        <h3><span class="es">Guía vs. real por año</span><span class="en" hidden>Guidance vs. actual by year</span></h3>
+        <p class="cap"><span class="es">Barras = rango guiado (inicial y última revisión); punto = resultado real; el año en curso muestra el acumulado reportado</span><span class="en" hidden>Bars = guided range (initial and latest revision); dot = actual; the current year shows the reported year-to-date figure</span></p>
+        <div style="margin-top:12px">
+            <div class="seg" id="segGuideMetric">
+              <button type="button" data-v="traffic" class="active"><span class="es">Tráfico</span><span class="en" hidden>Traffic</span></button>
+              <button type="button" data-v="revAero"><span class="es">Aero</span><span class="en" hidden>Aero</span></button>
+              <button type="button" data-v="revNonAero"><span class="es">No aero</span><span class="en" hidden>Non-aero</span></button>
+              <button type="button" data-v="revTotal"><span class="es">Ingresos</span><span class="en" hidden>Revenue</span></button>
+              <button type="button" data-v="ebitda">EBITDA</button>
+              <button type="button" data-v="ebitdaMargin"><span class="es">Margen</span><span class="en" hidden>Margin</span></button>
+              <button type="button" data-v="capex">Capex</button>
+            </div>
+        </div>
+        <div class="chart-wrap"><canvas id="chartGuide"></canvas></div>
+        <p class="chart-src" id="guideChartSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+        <h3><span class="es">Cumplimiento por año</span><span class="en" hidden>Track record by year</span></h3>
+        <p class="cap"><span class="es">Resultado real frente a la última guía de cada año cerrado · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Actual outcome versus the final guidance of each closed year · green = above the range, grey = within, red = below</span></p>
+        <div class="tblwrap" id="guideRecord"></div>
+    </div>
+
+    <details class="tbl" id="guideAllWrap"><summary><span class="es">Todas las guías publicadas (con enlace al comunicado)</span><span class="en" hidden>Every guidance vintage (with a link to the release)</span></summary><div class="tblwrap" id="guideAll"></div></details>
+  </section>
+
   <!-- 02 TRAFFIC -->
   <section class="block" id="traffic">
-    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Tráfico de pasajeros</span><span class="en" hidden>Passenger traffic</span></h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Tráfico de pasajeros</span><span class="en" hidden>Passenger traffic</span></h2></div>
     <p class="sec-desc">
       <span class="es">Pasajeros terminales (nacionales e internacionales) por aeropuerto, según los reportes mensuales de tráfico de GAP. Vea la serie mensual, trimestral o anual, filtre por aeropuerto y compare contra el mismo periodo del año anterior. El tráfico es el principal impulsor de los ingresos aeronáuticos (tarifa máxima regulada por unidad de tráfico) y de los no aeronáuticos (gasto comercial por pasajero).</span>
       <span class="en" hidden>Terminal passengers (domestic and international) by airport, from GAP's monthly traffic reports. View the monthly, quarterly or annual series, filter by airport and compare with the same period a year earlier. Traffic is the main driver of aeronautical revenue (regulated maximum tariff per traffic unit) and of non-aeronautical revenue (commercial spend per passenger).</span>
@@ -383,7 +458,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 03 SHARE PRICE -->
   <section class="block" id="share">
-    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Desempeño de la acción</span><span class="en" hidden>Share-price performance</span></h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Desempeño de la acción</span><span class="en" hidden>Share-price performance</span></h2></div>
     <p class="sec-desc">
       <span class="es">GAP cotiza como serie B en la BMV (pesos) y como ADS en la NYSE (PAC, dólares; 1 ADS = 10 acciones B). El comparativo reindexa cada serie a 100 al inicio del periodo elegido para verla contra el S&amp;P/BMV IPC y los pares mexicanos ASUR y OMA. Precios de cierre diarios; se actualizan cada día hábil.</span>
       <span class="en" hidden>GAP trades as series B shares on the BMV (pesos) and as ADSs on the NYSE (PAC, dollars; 1 ADS = 10 B shares). The comparison rebases every series to 100 at the start of the chosen window to see it against the S&amp;P/BMV IPC and Mexican peers ASUR and OMA. Daily closes, refreshed every business day.</span>
@@ -425,7 +500,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 04 DCF -->
   <section class="block" id="dcf">
-    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h2></div>
     <p class="sec-desc">
       <span class="es">Flujo de efectivo libre a la firma en pesos nominales durante cinco años explícitos, descontado a un WACC construido con CAPM sobre el bono mexicano a 10 años. Como las concesiones mexicanas vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b>, no una perpetuidad; puede cambiarlo a perpetuidad o a múltiplo de salida. Todos los supuestos son editables y el resultado se recalcula al instante.</span>
       <span class="en" hidden>Unlevered free cash flow in nominal pesos over five explicit years, discounted at a CAPM-based WACC built on the Mexican 10-year bond. Because the Mexican concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b>, not a perpetuity; switch to perpetuity or an exit multiple if you prefer. Every assumption is editable and the result recalculates instantly.</span>
@@ -455,7 +530,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 05 RELATIVE -->
   <section class="block" id="relative">
-    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
       <span class="es">Múltiplos de GAP calculados en vivo con el precio más reciente, las acciones en circulación posteriores a la fusión con CBX y las cifras de los últimos doce meses. La tabla de pares (ASUR, OMA, Aena, Fraport, Zúrich, Auckland) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span>
       <span class="en" hidden>GAP multiples computed live from the latest price, post-CBX share count and last-twelve-month figures. The peer table (ASUR, OMA, Aena, Fraport, Zurich, Auckland) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
@@ -482,7 +557,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 06 DEBT -->
   <section class="block" id="debt">
-    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Apalancamiento y perfil de deuda</span><span class="en" hidden>Leverage and debt profile</span></h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Apalancamiento y perfil de deuda</span><span class="en" hidden>Leverage and debt profile</span></h2></div>
     <p class="sec-desc">
       <span class="es">Deuda neta (deuda financiera menos efectivo) y su relación con el EBITDA de los últimos doce meses, más los instrumentos vigentes: certificados bursátiles en pesos con calificación AAA en escala nacional y líneas bancarias. La emisión de marzo de 2026 financió la compra del 25% restante de CBX y el capex del PMD 2025–2029.</span>
       <span class="en" hidden>Net debt (financial debt less cash) and its ratio to last-twelve-month EBITDA, plus the outstanding instruments: peso-denominated certificados bursátiles rated AAA on the national scale and bank facilities. The March 2026 issuance funded the purchase of the remaining 25% of CBX and PMD 2025–2029 capex.</span>
@@ -506,7 +581,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 07 DIVIDENDS -->
   <section class="block" id="dividends">
-    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
+    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
     <p class="sec-desc">
       <span class="es">Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente; razón de pago contra la utilidad neta y rendimiento sobre el precio de cierre del año.</span>
       <span class="en" hidden>Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM; payout ratio against net income and yield on the year-end price.</span>
@@ -529,7 +604,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 08 CBX -->
   <section class="block" id="cbx">
-    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Adquisición de Cross Border Xpress (CBX)</span><span class="en" hidden>The Cross Border Xpress (CBX) acquisition</span></h2></div>
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Adquisición de Cross Border Xpress (CBX)</span><span class="en" hidden>The Cross Border Xpress (CBX) acquisition</span></h2></div>
     <div class="grid-2">
       <div>
         <div class="prose">
@@ -549,7 +624,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 09 FIBRA GAP -->
   <section class="block" id="fibra">
-    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">FIBRA GAP explicada</span><span class="en" hidden>FIBRA GAP explained</span></h2></div>
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">FIBRA GAP explicada</span><span class="en" hidden>FIBRA GAP explained</span></h2></div>
     <div class="grid-2">
       <div class="prose">
         <p><span class="es"><b>Qué es una Fibra E.</b> Es un fideicomiso de inversión en energía e infraestructura listado en bolsa: un vehículo mexicano, fiscalmente transparente, que emite certificados bursátiles fiduciarios (CBFEs) y cuyo activo son participaciones en sociedades que operan infraestructura con flujos estables. Fue diseñado para que inversionistas institucionales, en particular las Afores, financien infraestructura con ingresos regulados; el fideicomiso distribuye la mayor parte del flujo que recibe como dividendos de sus sociedades promovidas.</span><span class="en" hidden><b>What a Fibra E is.</b> A listed energy-and-infrastructure investment trust: a tax-transparent Mexican vehicle that issues trust certificates (CBFEs) and whose assets are stakes in companies operating infrastructure with stable cash flows. It was designed so institutional investors, chiefly the Afores pension funds, can finance regulated-revenue infrastructure; the trust distributes most of the cash it receives as dividends from its portfolio companies.</span></p>
@@ -567,7 +642,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 10 METHOD -->
   <section class="block" id="method">
-    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">Metodología y actualización</span><span class="en" hidden>Methodology and refresh</span></h2></div>
+    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Metodología y actualización</span><span class="en" hidden>Methodology and refresh</span></h2></div>
     <div class="grid-2 eq">
       <div class="prose">
         <p><span class="es"><b>IFRIC 12.</b> Bajo IFRS, el operador de una concesión registra las obras que construye para el concedente como ingreso por servicios de construcción y, al mismo tiempo, como costo por el mismo importe (margen cero) y como activo intangible (mejoras a bienes concesionados). Por eso el margen EBITDA "reportado" de GAP baja cuando invierte más. La vista sin IFRIC 12 resta ese ingreso y ese costo; el EBITDA no cambia, el margen sí.</span><span class="en" hidden><b>IFRIC 12.</b> Under IFRS, a concession operator books the works it builds for the grantor as construction-service revenue and, simultaneously, as cost for the same amount (zero margin) and as an intangible asset (improvements to concession assets). That is why GAP's "reported" EBITDA margin falls when it invests more. The ex-IFRIC 12 view removes that revenue and cost; EBITDA is unchanged, the margin is not.</span></p>

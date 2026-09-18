@@ -7,10 +7,28 @@ one of five data files in `site/gap/data/`; nothing is hard-coded in the page.
 | File | What it holds | How it is refreshed |
 | --- | --- | --- |
 | `financials.js` (`window.GAP_FIN`) | Income statement, balance sheet, cash flow and operating KPIs for every quarter since 3Q18, the year-to-date columns GAP prints (6M/9M/12M) and fiscal years FY2018→ | **Automatic.** `gap-refresh.yml` → `harvest-releases.mjs` → `build-data.mjs` → `validate-data.mjs` |
-| `traffic.js` (`window.GAP_TRAFFIC`) | Monthly terminal passengers by airport (domestic / international / total) since 2018, plus CBX users | **Automatic.** Same pipeline (monthly traffic release ≈ the 5th of each month) |
+| `traffic.js` (`window.GAP_TRAFFIC`) | Monthly terminal passengers by airport (domestic / international / total) since 2018, plus CBX users (a month's own release, else the following year's comparative column) | **Automatic.** Same pipeline (monthly traffic release ≈ the 5th of each month) |
+| `guidance.js` (`window.GAP_GUIDANCE`) | Management guidance vintages: full-year growth ranges (traffic, aero / non-aero / total revenue, EBITDA, EBITDA margin) and capex, one entry per release that printed a guidance table, with the intro and assumption text GAP wrote | **Automatic.** `build-data.mjs` scans every archived release for the guidance table (January guidance release, 4Q results, mid-year revisions) |
+| `comments.js` (`window.GAP_COMMENTS`) | One-line explanations per income-statement line (`lines`) and per operating metric (`ops`) for year-over-year comparisons (quarter, YTD, fiscal year), ES and EN, written from the results release and the earnings-call transcript; keyed `2026Q2`, `2026M6`, `FY2025` | **Drafted by the alert routine** when a new quarter lands (from the release), then reviewed; transcripts are folded in by hand when supplied |
 | `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX; GAPB cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC) |
 | `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF default assumptions | **By reviewed PR** when an event happens (AGM, issuance, transaction) |
 | `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland) | **Placeholder** until the FactSet connector is authorised; the page renders the schema with "pending" |
+
+The **operating metrics** card at the top of section 01 (domestic / international / total terminal
+passengers, CBX users, aeronautical and non-aeronautical revenue per passenger, CBX revenue per CBX user)
+is computed at render time: passengers are the sum of `traffic.js` months in the selected period (they
+tie to the quarterly report's total within rounding; before 2018 only the report's total is shown), unit
+revenues divide the income-statement lines by those passengers, and CBX revenue (`is.revCbx`, the "CBX
+revenues" line inside non-aeronautical revenue, consolidated from `reference.js` `cbx.consolidatedFrom`)
+is divided by CBX users in the consolidated months only. Cargo WLUs, total WLUs and the three Exhibit F
+ratios (aero + non-aero revenue per passenger, aeronautical revenue per WLU, cost of services per WLU) use
+the reported `kpi` volumes; the card also carries a Comments column from `comments.js` (`ops`).
+
+The income statement collapses two groups by default (the cost-of-services detail and the lines between
+net income and comprehensive income attributable to the controlling interest); click the row to expand.
+Its **Comments** column reads `comments.js` and only fills when period A is compared with the same period
+a year earlier. Percentages quoted in a comment are GAP's; where GAP restated the prior-year base in a later
+release, the table (as originally reported) can differ slightly, and the comment says so.
 
 `tools/gap/raw/6k/` keeps the text of every release the pipeline parsed (one file per release, source URL
 in the header) and `tools/gap/raw/manifest.json` lists them. They are the audit trail: any number on the
@@ -21,9 +39,9 @@ page can be traced to a line in one of these files.
 ```
 scripts/gap/fetch-market.mjs      Yahoo Finance + FRED  -> site/gap/data/market.js
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
-scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js
+scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit
-git commit "[skip ci]" + push     Cloudflare Pages deploys the commit
+git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the marker keeps GitHub Actions from re-running
 ```
 
 * Schedules: weekdays 22:40 UTC (market only) and 14:30 UTC on the 6th, 12th, 18th and 24th (releases +
@@ -99,7 +117,7 @@ npx http-server site -p 8080      # then open http://localhost:8080/gap/  (no pa
 ## Change notifications (email)
 
 A Claude Code Routine ("FNAM GAP: email material changes") runs each weekday at 15:30 UTC, one hour
-after the release harvest. It compares the newest quarter, the newest traffic month and the
+after the release harvest. It compares the newest quarter, the newest traffic month, the newest guidance vintage and the
 `reference.js` blob against `tools/gap/notify-state.json`; when something material changed, its final
 message is a concise note with analysis, which the platform delivers to the repo owner by email (the
 routine's completion notification, the same mechanism as the Mexico Fiscal monitor), and it records

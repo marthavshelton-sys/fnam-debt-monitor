@@ -91,7 +91,7 @@ jobs:
             echo "No data change; nothing to commit."
             exit 0
           fi
-          git commit -m "gap: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip ci]"
+          git commit -m "gap: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
           for i in 1 2 3 4; do
             if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
             echo "push failed; rebasing and retrying ($i)"

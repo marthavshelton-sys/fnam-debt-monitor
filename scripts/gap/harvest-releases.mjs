@@ -90,6 +90,7 @@ function classify(text) {
     || /(first|second|third|fourth)[\s-]+quarter\s+(of\s+)?20\d\d\s+results/.test(head)
     || /resultados\s+del\s+(primer|segundo|tercer|cuarto)\s+trimestre/.test(head)
     || /results\s+for\s+the\s+(twelve|nine|six|three)[\s-]+month/.test(head)) return 'results';
+  if (/announces\s+(growth\s+)?guidance|guidance\s+for\s+(the\s+)?full\s+year|gu[ií]a\s+de\s+crecimiento/.test(head)) return 'guidance';
   if (/passenger\s+traffic/.test(head) && new RegExp(`\\b(${MONTHS})\\b`).test(head)) return 'traffic';
   if (/tr[aá]fico\s+de\s+pasajeros/.test(head)) return 'traffic';
   if (/(dividend|cross border|cbx|fibra|master development|programa maestro|maximum tariff|tarifa m[aá]xima|certificados burs|bond|notes|credit facility|rating|calificaci|concession|concesi[oó]n|shareholders.? meeting|asamblea|buyback|repurchase|tender|share capital|capital stock|acquisition|adquisici)/.test(head)) return 'other';
@@ -145,10 +146,10 @@ async function harvestFiling(f) {
     try { html = await secFetch(url); } catch (e) { docs.push({ name, url, error: String(e.message) }); continue; }
     const text = htmlToText(html);
     let cls = classify(text);
-    if (text.length < 2500 && cls !== 'results' && cls !== 'traffic') cls = 'cover';
+    if (text.length < 2500 && cls !== 'results' && cls !== 'traffic' && cls !== 'guidance') cls = 'cover';
     if (cls === 'other' && f.filingDate < OTHER_SINCE) cls = 'skip';
     const doc = { name, url, class: cls, chars: text.length };
-    if (cls === 'results' || cls === 'traffic' || cls === 'other') {
+    if (cls === 'results' || cls === 'traffic' || cls === 'other' || cls === 'guidance') {
       const file = `${f.filingDate}_${accNoDash}_${name.replace(/\.(htm|html|txt)$/i, '')}.txt`;
       const header = `# source: ${url}\n# filed: ${f.filingDate}\n# class: ${cls}\n\n`;
       await writeFile(new URL(file, SIX_K_DIR), header + text, 'utf8');
