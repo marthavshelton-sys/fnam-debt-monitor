@@ -18,6 +18,7 @@
 //   node scripts/mx-fiscal/fetch.mjs --dry-run  refresh, print the summary, write nothing
 
 import fs from 'node:fs/promises';
+import { getText } from './net.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const MANIFEST = new URL('tools/mx-fiscal/series.json', ROOT);
@@ -119,12 +120,7 @@ function shcpDate(raw) {
   return null;
 }
 async function shcp(cand, spec) {
-  if (!csvCache.has(cand.url)) {
-    const buf = Buffer.from(await (await http(cand.url)).arrayBuffer());
-    let text = buf.toString('utf8');
-    if (text.includes('�')) text = buf.toString('latin1');
-    csvCache.set(cand.url, parseCSV(text));
-  }
+  if (!csvCache.has(cand.url)) csvCache.set(cand.url, parseCSV(await getText(cand.url))); // net.mjs completes SHCP's TLS chain
   const rows = csvCache.get(cand.url);
   const header = rows[0].map((h) => clean(h));
   const col = (re) => header.findIndex((h) => new RegExp(re, 'i').test(h));
