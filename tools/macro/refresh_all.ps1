@@ -16,7 +16,7 @@ $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
-foreach ($step in @("process_calendar.ps1","process_core.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1")) {
+foreach ($step in @("process_calendar.ps1","process_core.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1")) {
   Write-Output "=============== $step"
   try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
 }

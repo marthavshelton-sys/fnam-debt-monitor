@@ -559,6 +559,10 @@
     <div class="rail-item"><span data-i18n="navFedFunds">Federal Funds Rate</span> <span class="soon-pill" data-i18n="soon">Soon</span></div>
     <div class="rail-item" data-view="fincond"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFinConditions">Financial Conditions</span></span></div>
     <div class="rail-item" data-view="supply"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSupplyChain">Supply Chain</span></span></div>
+    <div class="rail-item" data-view="cape"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCape">Shiller CAPE Ratio</span></span></div>
+
+    <div class="rail-group-label" data-i18n="groupEnergy">Energy</div>
+    <div class="rail-item" data-view="spr"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSpr">Strategic Petroleum Reserve</span></span></div>
   </nav>
 
   <main>
@@ -2060,6 +2064,145 @@
 
     <footer data-i18n="footerFiscal">Treasury source note.</footer>
   </div>
+  <div class="view" id="view-spr">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="sprTitle">Strategic Petroleum Reserve</h1>
+        <div class="desc" data-i18n="sprDesc">The federal emergency crude stockpile: how much is in it, how each administration has used it, and where it is stored.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="sprAsOfLine">&mdash;</div>
+        <div id="sprNextReleaseLine">&mdash;</div>
+        <div id="sprRefreshedLine">&mdash;</div>
+        <div><a href="https://www.eia.gov/dnav/pet/hist/WCSSTUS1w.htm" target="_blank" rel="noopener" data-i18n="sourceSpr">Source: EIA weekly SPR stocks; DOE Office of Petroleum Reserves</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-spr"></div>
+
+    <section><div class="kpi-row" id="sprKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="sprSecHistory">Inventory since 1977</h2>
+        <span class="note" data-i18n="sprSecHistoryNote">Million barrels at month end (EIA) &middot; flags mark the peak, the 2022 emergency release and the start of the last two presidential terms</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="sprHistLegend"></div>
+        <div class="chart-wrap">
+          <svg id="sprHistChart" viewBox="0 0 920 300"></svg>
+          <div class="tooltip" id="sprHistTooltip"></div>
+        </div>
+        <div class="callout" id="sprHistCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="sprSecAdmin">Use of the reserve, by administration</h2>
+        <span class="note" data-i18n="sprSecAdminNote">Change in inventory between the first and last weekly reading of each term, million barrels</span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="sprAdminList"></div>
+        <div class="callout" id="sprAdminCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="sprSecRecent">The last three years, week by week</h2>
+        <span class="note" data-i18n="sprSecRecentNote">Million barrels, weekly (EIA, Friday stocks)</span>
+      </div>
+      <div class="panel">
+        <div class="chart-wrap">
+          <svg id="sprWeeklyChart" viewBox="0 0 920 240"></svg>
+          <div class="tooltip" id="sprWeeklyTooltip"></div>
+        </div>
+        <div class="callout" id="sprWeeklyCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="sprSecSites">Storage sites</h2>
+        <span class="note"><span data-i18n="sprSecSitesNote">Authorized capacity per site, million barrels (DOE)</span> &middot; <span id="sprSitesAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="sprSitesList"></div>
+        <div class="callout" id="sprSitesCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="sprSecReport">DOE daily inventory report</h2>
+        <span class="note"><span data-i18n="sprSecReportNote">As published by the Office of Petroleum Reserves: sweet/sour split and month-by-month purchases and releases</span> &middot; <span id="sprReportAsOf"></span></span>
+      </div>
+      <div class="panel">
+        <img id="sprImage" alt="DOE Strategic Petroleum Reserve daily inventory report" style="width:100%;max-width:840px;display:block;border:1px solid var(--border);border-radius:8px;background:#fff">
+        <div class="callout" id="sprReportCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerSpr">SPR source note.</footer>
+  </div>
+
+  <div class="view" id="view-cape">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="capeTitle">Shiller CAPE Ratio</h1>
+        <div class="desc" data-i18n="capeDesc">How expensive US stocks are against a decade of real earnings, and what past extremes were followed by.</div>
+      </div>
+      <div class="meta-block">
+        <div class="as-of" id="capeAsOfLine">&mdash;</div>
+        <div id="capeNextReleaseLine">&mdash;</div>
+        <div id="capeRefreshedLine">&mdash;</div>
+        <div><a href="https://shillerdata.com/" target="_blank" rel="noopener" data-i18n="sourceCape">Source: Robert J. Shiller, U.S. stock market data (shillerdata.com)</a></div>
+      </div>
+    </div>
+
+    <div class="exec" id="exec-cape"></div>
+
+    <section>
+      <div class="panel">
+        <div class="exec-grid">
+          <div class="exec-item"><span class="exec-k" data-i18n="capeWhat">What it is</span><span data-i18n="capeWhatText">What CAPE is.</span></div>
+          <div class="exec-item"><span class="exec-k" data-i18n="capeWhy">Why it matters</span><span data-i18n="capeWhyText">Why CAPE matters.</span></div>
+        </div>
+      </div>
+    </section>
+
+    <section><div class="kpi-row" id="capeKpiRow"></div></section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="capeSecChart">CAPE since 1881</h2>
+        <span class="note" id="capeSecChartNote"></span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="capeLegend"></div>
+        <div class="chart-wrap">
+          <svg id="capeChart" viewBox="0 0 920 320"></svg>
+          <div class="tooltip" id="capeTooltip"></div>
+        </div>
+        <div class="callout" id="capeCallout"></div>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2 data-i18n="capeSecPeaks">Notable peaks and what followed</h2>
+        <span class="note" data-i18n="capeSecPeaksNote">Real (inflation-adjusted) S&amp;P return over the ten years after each peak, % a year, as computed in Shiller's data</span>
+      </div>
+      <div class="panel">
+        <div class="derby-list" id="capePeaksList"></div>
+        <div class="callout" id="capePeaksCallout"></div>
+      </div>
+    </section>
+
+    <footer data-i18n="footerCape">CAPE source note.</footer>
+  </div>
+
   </main>
 </div>
 
@@ -2091,6 +2234,8 @@ let FINCOND_SOURCE = "snapshot";
 let SUPPLY = /*__SUPPLY_DATA__*/ null;
 let SUPPLY_SOURCE = "snapshot";
 let FISCAL = /*__FISCAL_DATA__*/ null;
+let SPR = /*__SPR_DATA__*/ null;
+let CAPE = /*__CAPE_DATA__*/ null;
 // Release dates come from FRED at build time (process_calendar.ps1), which
 // carries each agency's official schedule including future dates. No
 // hand-typed date tables remain in this file.
@@ -2471,6 +2616,100 @@ const I18N = {
     exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Ingresos " + r + " y gastos " + o + " frente a los mismos meses del año pasado. Interés neto de $" + intr + " mil millones en el año fiscal (" + intrPct + ")" + (cmp ? ", " + (cmp === "more" ? "más" : "menos") + " que defensa ($" + def + " mil millones)." : "."),
     exFiWhy: (pg, y, debt, r12, r12dir) => "El déficit fue " + pg + "% del PIB en el año fiscal " + y + " y la deuda federal ronda el " + debt + "% del PIB" + (r12 === null ? "." : "; el déficit de 12 meses móviles es de $" + r12 + " billones, " + (r12dir === "up" ? "más" : "menos") + " que hace un año.") + " Déficits persistentes implican más emisión del Tesoro y una factura de intereses creciente.",
     exFiWatch: (dm, rm, faster) => "Próximo Estado Mensual del Tesoro (datos de " + dm + ") alrededor del octavo día hábil de " + rm + ". Seguir la factura de intereses y si los ingresos siguen creciendo " + (faster === "faster" ? "más rápido" : "más lento") + " que los gastos.",
+    groupEnergy: "Energía",
+    navSpr: "Reserva Estratégica de Petróleo",
+    navCape: "Razón CAPE de Shiller",
+    sprTitle: "Reserva Estratégica de Petróleo",
+    sprDesc: "La reserva federal de crudo para emergencias: cuánto tiene, cómo la ha usado cada administración y dónde se almacena.",
+    sourceSpr: "Fuente: EIA, inventarios semanales de la SPR; DOE, Oficina de Reservas de Petróleo",
+    sprUpdated: "Se actualiza cada semana (EIA, miércoles)",
+    sprKpiLevel: "Inventario, millones de barriles",
+    sprKpiWk: "vs. semana previa",
+    sprKpi4w: "Cambio en 4 semanas",
+    sprKpi52w: "Cambio en 52 semanas",
+    sprKpiChgFoot: d => "desde el " + d,
+    sprKpiFill: "Llenado",
+    sprKpiFillFoot: cap => "de " + cap + " M de capacidad autorizada",
+    sprKpiVsPeak: "vs. máximo histórico",
+    sprKpiVsPeakFoot: (peak, m) => "máximo de " + peak + " M en " + m,
+    sprKpiLowest: "Nivel más bajo desde",
+    sprKpiLowestFoot: "última vez que la reserva fue menor",
+    sprLowestEver: "Mínimo histórico",
+    sprMb: "M bbl",
+    sprSecHistory: "Inventario desde 1977",
+    sprSecHistoryNote: "Millones de barriles al cierre de mes (EIA) · las banderas marcan el máximo, la caída de 2022 y el inicio de los dos últimos periodos presidenciales",
+    legSpr: "Inventario de la SPR",
+    annSprPeak: v => "Máximo " + v,
+    annSprPeakDetail: v => "el nivel más alto de la reserva, " + v + " millones de barriles",
+    annSprRelease2022: "Liberación 2022",
+    annSprRelease2022Detail: (from, to, toMonth, chg) => "la reserva cayó de " + from + " en mar 2022 a " + to + " en " + toMonth + " (" + chg + " millones de barriles), incluida la liberación de emergencia de 180 millones anunciada el 31-Mar-2022 (un millón de barriles al día durante seis meses)",
+    annTermBiden: "Biden",
+    annTermTrump: "Trump",
+    sprHistNote: (curV, curD, peakV, peakM, pct) => "La reserva tiene " + curV + " millones de barriles (" + curD + "), " + pct + "% por debajo de su máximo de " + peakV + " millones en " + peakM + ".",
+    sprSecAdmin: "Uso de la reserva por administración",
+    sprSecAdminNote: "Cambio del inventario entre la primera y la última lectura semanal de cada periodo, millones de barriles",
+    sprTermObama: "Obama",
+    sprTermTrump1: "Trump (1er periodo)",
+    sprTermBiden: "Biden",
+    sprTermTrump2: "Trump (2do periodo)",
+    sprNow: "hoy",
+    sprAdminBiden: (from, to, chg, largest) => "Con Biden (ene 2021 – ene 2025) la reserva pasó de " + from + " a " + to + " millones de barriles (" + chg + ")" + (largest ? ", el mayor cambio de los cuatro periodos mostrados" : "") + ". La mayor parte fue la liberación de emergencia anunciada el 31-Mar-2022 —un millón de barriles al día durante seis meses, 180 millones en total, la mayor en la historia de la reserva— además de ventas ya ordenadas por el Congreso; el rellenado empezó en 2023, cuando la reserva tocó su nivel más bajo desde 1983.",
+    sprAdminTrump: (from, to, chg, asOf, peakV, peakM, since, fell) => "Con el segundo periodo de Trump (desde ene 2025) ha pasado de " + from + " a " + to + " (" + chg + ") al " + asOf + ". Llegó al cargo prometiendo rellenar la reserva; " + (fell ? "esta alcanzó " + peakV + " en " + peakM + " y ha caído " + since + " desde entonces: las compras y liberaciones mes por mes están en el informe del DOE más abajo." : "la serie muestra un cambio neto de " + chg + " hasta ahora: las compras y liberaciones mes por mes están en el informe del DOE más abajo."),
+    sprAdminMethod: "Cada periodo va de la primera lectura semanal a partir del 20 de enero a la última antes de la siguiente toma de posesión; el periodo actual llega a la lectura más reciente.",
+    sprSecRecent: "Los últimos tres años, semana a semana",
+    sprSecRecentNote: "Millones de barriles, semanal (EIA, inventario del viernes)",
+    legSprWeekly: "Inventario semanal",
+    sprWeeklyNote: (chg52, from, to, bigChg, bigDate) => "En las últimas 52 semanas la reserva cambió " + chg52 + " millones de barriles, de " + from + " a " + to + "; el mayor movimiento de una semana en la ventana fue " + bigChg + " en la semana del " + bigDate + ".",
+    sprSecSites: "Sitios de almacenamiento",
+    sprSecSitesNote: "Capacidad autorizada por sitio, millones de barriles (DOE)",
+    sprCaverns: n => n + " cavernas",
+    sprSitesNote: (n, caverns, cap, fill, cur) => n + " sitios y " + caverns + " cavernas de sal pueden guardar hasta " + cap + " millones de barriles; con " + cur + " millones la reserva está al " + fill + "%. El DOE reporta el inventario de la reserva en conjunto (crudo dulce y amargo), no por sitio, así que la capacidad es la medida por sitio disponible.",
+    sprSecReport: "Informe diario de inventario del DOE",
+    sprSecReportNote: "Tal como lo publica la Oficina de Reservas de Petróleo: división dulce/amargo y compras y liberaciones mes por mes",
+    sprReportPublished: d => "publicado el " + d,
+    sprReportNote: "Las cifras entre paréntesis son barriles liberados. El DOE actualiza este informe al cierre de cada día; la copia mostrada se guardó en la última actualización del tablero, así que la fecha de arriba es la del propio DOE.",
+    footerSpr: "Datos: Administración de Información Energética de EE. UU. (EIA), inventarios semanales y mensuales de crudo en la SPR (miles de barriles), vía los libros de historia de la EIA; Departamento de Energía, Oficina de Reservas de Petróleo: capacidades por sitio e informe diario de inventario. Las comparaciones por periodo presidencial usan la serie semanal entre fechas de toma de posesión.",
+    exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "La reserva tenía " + level + " millones de barriles el " + d + ", " + ({up:"" + wkAbs + " más", down:"" + wkAbs + " menos", flat:"sin cambio"})[wkDir] + " que la semana previa y " + chg52 + " (" + pct52 + "%) en 52 semanas" + (fill !== null ? "; es el " + fill + "% de su capacidad autorizada" : "") + (lowYear ? " y el nivel más bajo desde " + lowYear + "." : "."),
+    exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Desde que Trump asumió en ene 2025 la reserva ha pasado de " + from + " a " + to + " (" + chg + ")" + (fell ? ", con un máximo de " + peakV + " en " + peakM + " y una caída de " + since + " desde entonces por las liberaciones de crudo" : "") + ". Con Biden cambió " + bidenChg + " en cuatro años, sobre todo por la liberación de emergencia de 2022.",
+    exSprWhy: (pct, peakM) => "La reserva es el seguro del país ante un corte de suministro: las liberaciones añaden crudo al mercado y presionan los precios a la baja por un tiempo, pero cada barril que sale es uno menos para la siguiente emergencia y uno que habrá que recomprar a precio de mercado. Está " + pct + "% por debajo de su máximo de " + peakM + ".",
+    exSprWatch: wkDir => "La EIA actualiza la serie cada miércoles. Seguir si el cambio semanal se vuelve de rellenado" + (wkDir === "up" ? " (esta semana fue positivo)" : "") + " y los avisos del DOE de compras, intercambios y ventas.",
+    capeTitle: "Razón CAPE de Shiller",
+    capeDesc: "Qué tan caras están las acciones de EE. UU. frente a una década de utilidades reales, y qué siguió a los extremos del pasado.",
+    sourceCape: "Fuente: Robert J. Shiller, datos del mercado accionario de EE. UU. (shillerdata.com)",
+    capeMtd: "(mes en curso)",
+    capeUpdated: "Shiller lo actualiza cada mes; el último mes usa el precio promedio hasta la fecha",
+    capeWhat: "Qué es",
+    capeWhatText: "El CAPE (precio/utilidades ajustado por el ciclo, o P/E10) divide el precio real del S&P 500 entre el promedio de las utilidades reales de los últimos diez años. Promediar una década de ganancias suaviza los vaivenes de auge y caída que hacen saltar un P/E de un solo año, así que la razón compara el precio de hoy con la capacidad de generar utilidades de un ciclo completo.",
+    capeWhy: "Por qué importa",
+    capeWhyText: "Un CAPE alto no ha predicho desplomes, pero sí se ha asociado de forma consistente con rendimientos más débiles en la década siguiente: cuanto más pagan los inversionistas por un dólar de utilidades promedio del ciclo, menos suele rendir ese dólar. Es un medidor de valuación para planear, no una señal para elegir el momento.",
+    capeKpiCurrent: "CAPE",
+    capeKpiVsPrev: "vs. mes previo",
+    capeKpiMean: "Promedio desde 1881",
+    capeKpiMeanFoot: y => "todos los meses desde " + y,
+    capeKpiMedian: "Mediana",
+    capeKpiMedianFoot: "la mitad de la historia arriba, la mitad abajo",
+    capeKpiPct: "Meses por debajo de hoy",
+    capeKpiPctFoot: "parte de la historia más barata que ahora",
+    capeKpiEcy: "Excess CAPE yield",
+    capeKpiEcyFoot: "1/CAPE menos la tasa real a 10 años",
+    capeKpiGs10: "Tesoro a 10 años",
+    capeKpiGs10Foot: "rendimiento nominal, promedio del mes",
+    capeSecChart: "CAPE desde 1881",
+    capeSecChartNote: thr => "Mensual; las banderas marcan las lecturas por encima de " + thr + " (el percentil 90 de toda la historia) que fueron las más altas en tres años a cada lado",
+    legCape: "CAPE",
+    legCapeAvg: v => "Promedio desde 1881 (" + v + ")",
+    capePeakDetail: (v, r10) => "CAPE " + v + "; rendimiento real del S&P en los diez años siguientes: " + r10 + " anual",
+    capePeakDetailRecent: v => "CAPE " + v + "; demasiado reciente para un resultado a diez años",
+    capeChartNote: (cur, curM, hi, hiM, lo, loM, pctHigher) => "El CAPE está en " + cur + " en " + curM + "; solo el " + pctHigher + "% de los meses desde 1881 fueron más altos. El récord es " + hi + " (" + hiM + "); el mínimo, " + lo + " (" + loM + ").",
+    capeSecPeaks: "Máximos notables y lo que siguió",
+    capeSecPeaksNote: "Rendimiento real (ajustado por inflación) del S&P en los diez años posteriores a cada máximo, % anual, según los cálculos de Shiller",
+    capePerYear: " anual",
+    capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "En los " + n + " máximos con historial de diez años, el rendimiento real de la década siguiente promedió " + avgPeaks + " anual, frente a " + avgAll + " anual para todos los meses desde 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " es demasiado reciente" : " son demasiado recientes") + " para tener todavía un resultado a diez años." : "."),
+    footerCape: "Datos: Robert J. Shiller, base de datos de 'Irrational Exuberance' (precio mensual del S&P Composite, dividendos, utilidades, CPI y tasas largas, 1871 a la fecha), mantenida en shillerdata.com. CAPE = precio real ÷ promedio de diez años de utilidades reales; el excess CAPE yield y los rendimientos reales de los diez años posteriores son columnas del propio Shiller.",
+    exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE de " + v + " en " + m + (partial ? " (mes en curso)" : "") + ", contra " + prev + " el mes previo; el promedio desde 1881 es " + mean + " y solo el " + pctAbove + "% de los meses han sido más altos.",
+    exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El excess CAPE yield (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con el Tesoro a 10 años en " + gs10 + "%.",
+    exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
+    exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el excess CAPE yield —el colchón que ofrecen las acciones sobre el rendimiento real de los bonos— y si las utilidades alcanzan a los precios.",
     mapM1: "Último mes",
     mapM3: "Últimos 3 meses",
     mapM6: "Últimos 6 meses",
@@ -3331,6 +3570,100 @@ const I18N = {
     exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Receipts " + r + " and outlays " + o + " vs. the same months last year. Net interest $" + intr + "B year to date (" + intrPct + ")" + (cmp ? ", " + cmp + " than defense ($" + def + "B)." : "."),
     exFiWhy: (pg, y, debt, r12, r12dir) => "The deficit was " + pg + "% of GDP in fiscal " + y + " and federal debt is about " + debt + "% of GDP" + (r12 === null ? "." : "; the rolling 12-month deficit is $" + r12 + " trillion, " + r12dir + " from a year earlier.") + " Persistent deficits mean more Treasury issuance and a growing interest bill.",
     exFiWatch: (dm, rm, faster) => "Next Monthly Treasury Statement (" + dm + " data) around the eighth business day of " + rm + ". Watch the interest bill and whether receipts keep growing " + faster + " than outlays.",
+    groupEnergy: "Energy",
+    navSpr: "Strategic Petroleum Reserve",
+    navCape: "Shiller CAPE Ratio",
+    sprTitle: "Strategic Petroleum Reserve",
+    sprDesc: "The federal emergency crude stockpile: how much is in it, how each administration has used it, and where it is stored.",
+    sourceSpr: "Source: EIA weekly SPR stocks; DOE Office of Petroleum Reserves",
+    sprUpdated: "Updated weekly (EIA, Wednesdays)",
+    sprKpiLevel: "Inventory, million barrels",
+    sprKpiWk: "w/w",
+    sprKpi4w: "Change over 4 weeks",
+    sprKpi52w: "Change over 52 weeks",
+    sprKpiChgFoot: d => "since " + d,
+    sprKpiFill: "Fill",
+    sprKpiFillFoot: cap => "of " + cap + " M authorized capacity",
+    sprKpiVsPeak: "vs. all-time peak",
+    sprKpiVsPeakFoot: (peak, m) => "peak of " + peak + " M in " + m,
+    sprKpiLowest: "Lowest since",
+    sprKpiLowestFoot: "last time the reserve was lower",
+    sprLowestEver: "Lowest ever",
+    sprMb: "M bbl",
+    sprSecHistory: "Inventory since 1977",
+    sprSecHistoryNote: "Million barrels at month end (EIA) · flags mark the peak, the 2022 drawdown and the start of the last two presidential terms",
+    legSpr: "SPR inventory",
+    annSprPeak: v => "Peak " + v,
+    annSprPeakDetail: v => "the reserve's highest level, " + v + " million barrels",
+    annSprRelease2022: "2022 release",
+    annSprRelease2022Detail: (from, to, toMonth, chg) => "the reserve fell from " + from + " in Mar 2022 to " + to + " in " + toMonth + " (" + chg + " million barrels), including the 180-million-barrel emergency release announced 31-Mar-2022 (one million barrels a day for six months)",
+    annTermBiden: "Biden",
+    annTermTrump: "Trump",
+    sprHistNote: (curV, curD, peakV, peakM, pct) => "The reserve holds " + curV + " million barrels (" + curD + "), " + pct + "% below its " + peakM + " peak of " + peakV + " million.",
+    sprSecAdmin: "Use of the reserve, by administration",
+    sprSecAdminNote: "Change in inventory between the first and last weekly reading of each term, million barrels",
+    sprTermObama: "Obama",
+    sprTermTrump1: "Trump (1st term)",
+    sprTermBiden: "Biden",
+    sprTermTrump2: "Trump (2nd term)",
+    sprNow: "now",
+    sprAdminBiden: (from, to, chg, largest) => "Under Biden (Jan 2021 – Jan 2025) the reserve went from " + from + " to " + to + " million barrels (" + chg + ")" + (largest ? ", the largest change of the four terms shown" : "") + ". Most of it was the emergency release announced on 31-Mar-2022 — one million barrels a day for six months, 180 million in all, the largest in the reserve's history — on top of sales Congress had already mandated; refilling began in 2023 after the reserve hit its lowest level since 1983.",
+    sprAdminTrump: (from, to, chg, asOf, peakV, peakM, since, fell) => "Under Trump's second term (since Jan 2025) it has gone from " + from + " to " + to + " (" + chg + ") as of " + asOf + ". He took office pledging to refill the reserve; " + (fell ? "it reached " + peakV + " in " + peakM + " and has fallen " + since + " since — the month-by-month purchases and releases are in DOE's report below." : "the series shows a net change of " + chg + " so far — the month-by-month purchases and releases are in DOE's report below."),
+    sprAdminMethod: "Each term runs from the first weekly reading on or after 20 January to the last one before the next inauguration; the current term runs to the latest reading.",
+    sprSecRecent: "The last three years, week by week",
+    sprSecRecentNote: "Million barrels, weekly (EIA, Friday stocks)",
+    legSprWeekly: "Weekly inventory",
+    sprWeeklyNote: (chg52, from, to, bigChg, bigDate) => "Over the last 52 weeks the reserve changed by " + chg52 + " million barrels, from " + from + " to " + to + "; the largest single-week move in the window was " + bigChg + " in the week of " + bigDate + ".",
+    sprSecSites: "Storage sites",
+    sprSecSitesNote: "Authorized capacity per site, million barrels (DOE)",
+    sprCaverns: n => n + " caverns",
+    sprSitesNote: (n, caverns, cap, fill, cur) => n + " sites and " + caverns + " salt caverns can hold up to " + cap + " million barrels; at " + cur + " million the reserve is " + fill + "% full. DOE reports inventory for the reserve as a whole (sweet and sour crude), not per site, so capacity is the by-site measure available.",
+    sprSecReport: "DOE daily inventory report",
+    sprSecReportNote: "As published by the Office of Petroleum Reserves: sweet/sour split and month-by-month purchases and releases",
+    sprReportPublished: d => "published " + d,
+    sprReportNote: "Figures in parentheses are barrels released. DOE updates this report as each day's inventory closes; the copy shown was saved on the dashboard's last refresh, so the date above is DOE's own.",
+    footerSpr: "Data: U.S. Energy Information Administration, weekly and monthly ending stocks of crude oil in the SPR (thousand barrels), via EIA's history workbooks; U.S. Department of Energy, Office of Petroleum Reserves — storage-site capacities and the daily inventory report. Presidential-term comparisons use the weekly series between inauguration dates.",
+    exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "The reserve held " + level + " million barrels on " + d + ", " + ({up:"up " + wkAbs, down:"down " + wkAbs, flat:"unchanged"})[wkDir] + " on the week and " + chg52 + " (" + pct52 + "%) over 52 weeks" + (fill !== null ? "; that is " + fill + "% of its authorized capacity" : "") + (lowYear ? " and the lowest level since " + lowYear + "." : "."),
+    exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Since Trump took office in Jan 2025 the reserve has gone from " + from + " to " + to + " (" + chg + ")" + (fell ? ", peaking at " + peakV + " in " + peakM + " and falling " + since + " since as crude was released" : "") + ". Under Biden it changed by " + bidenChg + " over four years, mostly the 2022 emergency release.",
+    exSprWhy: (pct, peakM) => "The reserve is the country's insurance against a supply cut: releases add crude to the market and weigh on prices for a while, but each barrel out is one less for the next emergency and one to buy back later at market prices. It is " + pct + "% below its " + peakM + " peak.",
+    exSprWatch: wkDir => "EIA updates the series every Wednesday. Watch whether the weekly change turns to refills" + (wkDir === "up" ? " (it was positive this week)" : "") + ", and DOE's notices of purchases, exchanges and sales.",
+    capeTitle: "Shiller CAPE Ratio",
+    capeDesc: "How expensive US stocks are against a decade of real earnings, and what past extremes were followed by.",
+    sourceCape: "Source: Robert J. Shiller, U.S. stock market data (shillerdata.com)",
+    capeMtd: "(month to date)",
+    capeUpdated: "Updated monthly by Shiller; the latest month uses the average price so far",
+    capeWhat: "What it is",
+    capeWhatText: "CAPE (cyclically adjusted price-to-earnings, or P/E10) divides the real S&P 500 price by the average of the last ten years of real earnings. Averaging a decade of profits smooths the boom-and-bust swings that make a one-year P/E jump around, so the ratio compares today's price with the earnings power of a full business cycle.",
+    capeWhy: "Why it matters",
+    capeWhyText: "A high CAPE has not predicted crashes, but it has been reliably linked to weaker returns over the following decade: the more investors pay for a dollar of cycle-average earnings, the less that dollar tends to return. It is a valuation gauge for planning, not a timing signal.",
+    capeKpiCurrent: "CAPE",
+    capeKpiVsPrev: "vs. prior month",
+    capeKpiMean: "Average since 1881",
+    capeKpiMeanFoot: y => "all months since " + y,
+    capeKpiMedian: "Median",
+    capeKpiMedianFoot: "half of history above, half below",
+    capeKpiPct: "Months below today",
+    capeKpiPctFoot: "share of history cheaper than now",
+    capeKpiEcy: "Excess CAPE yield",
+    capeKpiEcyFoot: "1/CAPE minus the real 10-year yield",
+    capeKpiGs10: "10-year Treasury",
+    capeKpiGs10Foot: "nominal yield, month average",
+    capeSecChart: "CAPE since 1881",
+    capeSecChartNote: thr => "Monthly; flags mark readings above " + thr + " (the 90th percentile of the whole history) that were the highest within three years either way",
+    legCape: "CAPE",
+    legCapeAvg: v => "Average since 1881 (" + v + ")",
+    capePeakDetail: (v, r10) => "CAPE " + v + "; real S&P return over the next ten years " + r10 + " a year",
+    capePeakDetailRecent: v => "CAPE " + v + "; too recent for a ten-year result",
+    capeChartNote: (cur, curM, hi, hiM, lo, loM, pctHigher) => "CAPE is " + cur + " in " + curM + "; only " + pctHigher + "% of months since 1881 were higher. The record is " + hi + " (" + hiM + "); the low is " + lo + " (" + loM + ").",
+    capeSecPeaks: "Notable peaks and what followed",
+    capeSecPeaksNote: "Real (inflation-adjusted) S&P return over the ten years after each peak, % a year, as computed in Shiller's data",
+    capePerYear: "/yr",
+    capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "Across the " + n + " peaks with a ten-year record, real returns over the following decade averaged " + avgPeaks + " a year, against " + avgAll + " a year for all months since 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " is" : " are") + " too recent to have a ten-year result yet." : "."),
+    footerCape: "Data: Robert J. Shiller, 'Irrational Exuberance' data set (monthly S&P Composite price, dividends, earnings, CPI and long rates, 1871–present), as maintained at shillerdata.com. CAPE = real price ÷ ten-year average real earnings; the excess CAPE yield and the ten-year subsequent real returns are Shiller's own columns.",
+    exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE " + v + " in " + m + (partial ? " (month to date)" : "") + ", vs. " + prev + " the month before; the average since 1881 is " + mean + " and only " + pctAbove + "% of months have been higher.",
+    exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year Treasury at " + gs10 + "%.",
+    exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
+    exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
     mapM1: "Last month",
     mapM3: "Trailing 3 months",
     mapM6: "Trailing 6 months",
@@ -3990,6 +4323,8 @@ function clearTargets() {
     "cutsKpiRow","cutsMonthlyChart","cutsMonthlyLegend","cutsIndustryList","cutsIndustryCallout",
     "cutsHiringChart","cutsHiringLegend","cutsHiringCallout","mapM1","mapM3","mapM6","mapM12",
     "legM1","legM3","legM6","legM12","cutsStatesCallout","cutsNotice",
+    "sprKpiRow","sprHistChart","sprHistLegend","sprHistCallout","sprAdminList","sprAdminCallout","sprWeeklyChart","sprWeeklyCallout",
+    "sprSitesList","sprSitesCallout","sprReportCallout","capeKpiRow","capeChart","capeLegend","capeCallout","capePeaksList","capePeaksCallout",
     "gdpKpiRow","gdpGrowthChart","gdpGrowthCallout","gdpContribList","gdpContribCallout",
     "gdpTrendChart","gdpTrendLegend","incKpiRow","incSavingChart","incSavingLegend",
     "incSavingCallout","incDispList","incDispCallout","incSourceList","incSourceCallout",
@@ -4172,9 +4507,10 @@ function renderDualLineChart(cfg) {
     svg.appendChild(targetLabel);
   }
 
-  // x-axis year ticks (January of each year)
+  // x-axis year ticks (January of each year; every Nth year on century-long series)
+  const tickEvery = cfg.tickEvery || 1;
   allDates.forEach((d,i) => {
-    if (d.endsWith("-01")) {
+    if (d.endsWith("-01") && (+d.slice(0,4)) % tickEvery === 0) {
       const xt = xIdx(i);
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xt); tick.setAttribute("y", H - 8);
@@ -4210,9 +4546,11 @@ function renderDualLineChart(cfg) {
   drawSeries(aPts, cfg.seriesA.colorVar);
   if (cfg.seriesB) drawSeries(bPts, cfg.seriesB.colorVar);
 
-  // event annotations (vertical marker + top label)
+  // event annotations (vertical marker + top label). Flags that would overlap
+  // an earlier one drop to the next row instead of drawing on top of it.
   const callouts = [];
-  (cfg.annotations || []).forEach(ann => {
+  const placedFlags = [];
+  (cfg.annotations || []).slice().sort((a, b) => a.date < b.date ? -1 : 1).forEach(ann => {
     const idx = allDates.indexOf(ann.date);
     if (idx === -1) return;
     const x = xIdx(idx);
@@ -4225,15 +4563,19 @@ function renderDualLineChart(cfg) {
     svg.appendChild(line);
     const flagW = ann.label.length * 5.6 + 12;
     const flagX = Math.min(Math.max(x - flagW/2, ML), W - MR - flagW);
+    let rowN = 0;
+    while (placedFlags.some(f => f.row === rowN && flagX < f.x + f.w + 4 && f.x < flagX + flagW + 4)) rowN++;
+    placedFlags.push({ row: rowN, x: flagX, w: flagW });
+    const flagY = MT - 2 + rowN * 17;
     const flag = document.createElementNS(ns,"rect");
-    flag.setAttribute("x", flagX); flag.setAttribute("y", MT - 2);
+    flag.setAttribute("x", flagX); flag.setAttribute("y", flagY);
     flag.setAttribute("width", flagW); flag.setAttribute("height", 15);
     flag.setAttribute("rx", 3);
     flag.setAttribute("fill", "var(--surface-1)");
     flag.setAttribute("stroke", "var(--border)");
     svg.appendChild(flag);
     const label = document.createElementNS(ns,"text");
-    label.setAttribute("x", flagX + flagW/2); label.setAttribute("y", MT + 9);
+    label.setAttribute("x", flagX + flagW/2); label.setAttribute("y", flagY + 11);
     label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","9.5"); label.setAttribute("font-weight","600");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-secondary)");
     label.textContent = ann.label;
@@ -6805,6 +7147,245 @@ function renderExecSummaries() {
       T.exFiWhy(Math.abs(gl.v).toFixed(1), gl.y, FISCAL.debtPctGdp.v.toFixed(0), r12 === null ? null : (r12 / 1000).toFixed(2), r12 === null ? null : (r12 >= r12a ? "up" : "down")),
       T.exFiWatch(fmtMonthYear(nextMonthOf(cur.d)), fmtMonthYear(monthsAgoKey(cur.d, -2)), pc(fytd.r, pytd.r) > pc(fytd.o, pytd.o) ? "faster" : "slower"));
   });
+
+  // ---- Strategic Petroleum Reserve ----
+  section("exec-spr", () => {
+    if (!SPR || !SPR.weekly || SPR.weekly.length < 60) return;
+    const W = SPR.weekly, mb = v => v / 1000;
+    const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+    const s1 = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
+    const cur = W[W.length - 1], prev = W[W.length - 2], w52 = W[W.length - 53];
+    const peak = SPR.monthly.reduce((m, p) => p.v > m.v ? p : m);
+    const cap = SPR.capacity ? SPR.capacity.total : null;
+    let lowIdx = -1; for (let i = W.length - 2; i >= 0; i--) { if (W[i].v < cur.v) { lowIdx = i; break; } }
+    const start = W.find(p => p.d >= "2025-01-20");
+    const win = W.filter(p => p.d >= "2025-01-20"), tPeak = win.reduce((m, p) => p.v > m.v ? p : m);
+    const bStart = W.find(p => p.d >= "2021-01-20"); let bEnd = null; for (const p of W) { if (p.d < "2025-01-20") bEnd = p; else break; }
+    const wk = cur.v - prev.v;
+    card("exec-spr",
+      T.exSprLatest(f1(mb(cur.v)), fmtDateDMY(cur.d), dir(wk, 100), f1(Math.abs(mb(wk))), s1(mb(cur.v - w52.v)), (cur.v >= w52.v ? "+" : "−") + Math.abs(Math.round((cur.v / w52.v - 1) * 100)), cap ? Math.round(mb(cur.v) / cap * 100) : null, lowIdx < 0 ? null : W[lowIdx].d.slice(0, 4)),
+      T.exSprDrivers(f1(mb(start.v)), f1(mb(cur.v)), s1(mb(cur.v - start.v)), f1(mb(tPeak.v)), fmtMonthYear(tPeak.d.slice(0, 7)), f1(mb(tPeak.v - cur.v)), tPeak.v - cur.v > 1000, bStart && bEnd ? s1(mb(bEnd.v - bStart.v)) : null),
+      T.exSprWhy(Math.round((1 - cur.v / peak.v) * 100), fmtMonthYear(peak.d)),
+      T.exSprWatch(dir(wk, 100)));
+  });
+
+  // ---- Shiller CAPE ----
+  section("exec-cape", () => {
+    if (!CAPE || !CAPE.monthly || CAPE.monthly.length < 120) return;
+    const P = CAPE.monthly, n = P.length, cur = P[n - 1], prev = P[n - 2];
+    const vals = P.map(p => p.cape), mean = vals.reduce((a, b) => a + b, 0) / n;
+    const pctAbove = Math.round(vals.filter(v => v > cur.cape).length / n * 100);
+    const f1 = v => v.toFixed(1);
+    const pk1929 = P.find(p => p.d === "1929-09"), pk1999 = P.find(p => p.d === "1999-12");
+    const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
+    card("exec-cape",
+      T.exCapeLatest(f1(cur.cape), fmtMonthYear(cur.d), CAPE.partialMonth, f1(prev.cape), f1(mean), pctAbove),
+      T.exCapeDrivers(Math.round(cur.real).toLocaleString(T.dateLocale), Math.round(cur.real / cur.cape).toLocaleString(T.dateLocale), f1(cur.cape), dir(cur.cape - prev.cape, 0.05), cur.ecy === null ? "—" : pctf(cur.ecy), f1(cur.gs10)),
+      T.exCapeWhy(pk1929 && pk1929.r10 !== null ? pctf(pk1929.r10) : null, pk1999 && pk1999.r10 !== null ? pctf(pk1999.r10) : null),
+      T.exCapeWatch);
+  });
+}
+
+// ================================================================
+// Strategic Petroleum Reserve: EIA stocks (weekly since 1982, monthly since
+// 1977), DOE capacity per site, and DOE's daily inventory report as published.
+// Every figure about an administration is read off the weekly series between
+// the inauguration dates; nothing about "use of the reserve" is typed in.
+// ================================================================
+const SPR_TERMS = [
+  { id: "obama",  start: "2009-01-20", end: "2017-01-20" },
+  { id: "trump1", start: "2017-01-20", end: "2021-01-20" },
+  { id: "biden",  start: "2021-01-20", end: "2025-01-20" },
+  { id: "trump2", start: "2025-01-20", end: null }
+];
+function renderSpr() {
+  if (!SPR || !SPR.weekly || SPR.weekly.length < 60) return;
+  const W = SPR.weekly, M = SPR.monthly;
+  const mb = v => v / 1000;                                                   // thousand -> million barrels
+  const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
+  const f0 = v => Math.round(v).toLocaleString(T.dateLocale);
+  const s1 = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
+  const cur = W[W.length - 1], prevW = W[W.length - 2], w4 = W[W.length - 5], w52 = W[W.length - 53];
+  const cap = SPR.capacity ? SPR.capacity.total : null;
+  const peak = M.reduce((m, p) => p.v > m.v ? p : m);                        // month-end peak, the same one the chart flags
+  let lowIdx = -1; for (let i = W.length - 2; i >= 0; i--) { if (W[i].v < cur.v) { lowIdx = i; break; } }
+  const atOrAfter = d => W.find(p => p.d >= d) || null;
+  const lastBefore = d => { let r = null; for (const p of W) { if (p.d < d) r = p; else break; } return r; };
+  const termName = id => ({ obama: T.sprTermObama, trump1: T.sprTermTrump1, biden: T.sprTermBiden, trump2: T.sprTermTrump2 })[id];
+
+  document.getElementById("sprAsOfLine").textContent = T.dataAsOf(fmtDateDMY(cur.d));
+  document.getElementById("sprNextReleaseLine").textContent = T.sprUpdated;
+  document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
+
+  // ---- KPIs ----
+  const tiles = [
+    { label: T.sprKpiLevel, value: f1(mb(cur.v)), dlt: mb(cur.v - prevW.v), sub: T.sprKpiWk, foot: fmtDateDMY(cur.d), spark: W.slice(-52).map(p => mb(p.v)), color: "--series-headline" },
+    { label: T.sprKpi4w, value: s1(mb(cur.v - w4.v)), foot: T.sprKpiChgFoot(fmtDateDMY(w4.d)), spark: W.slice(-5).map(p => mb(p.v)), color: "--series-core" },
+    { label: T.sprKpi52w, value: s1(mb(cur.v - w52.v)), dltPct: (cur.v / w52.v - 1) * 100, foot: T.sprKpiChgFoot(fmtDateDMY(w52.d)), spark: W.slice(-53).map(p => mb(p.v)), color: "--series-services" },
+    { label: T.sprKpiFill, value: cap ? Math.round(mb(cur.v) / cap * 100) + "%" : "—", foot: cap ? T.sprKpiFillFoot(f0(cap)) : "", spark: null, color: "--cat-5" },
+    { label: T.sprKpiVsPeak, value: "−" + Math.round((1 - cur.v / peak.v) * 100) + "%", foot: T.sprKpiVsPeakFoot(f1(mb(peak.v)), fmtMonthYear(peak.d)), spark: null, color: "--series-energy" },
+    { label: T.sprKpiLowest, value: lowIdx < 0 ? T.sprLowestEver : fmtMonthYear(W[lowIdx].d.slice(0, 7)), foot: T.sprKpiLowestFoot, spark: null, color: "--cat-7" }
+  ];
+  const row = document.getElementById("sprKpiRow");
+  tiles.forEach((t2, i) => {
+    const tile = document.createElement("div"); tile.className = "kpi-tile";
+    const id = "sprspark-" + i;
+    const dHtml = t2.dlt !== undefined ? `<div class="kpi-delta">${Math.abs(t2.dlt) < 0.05 ? "—" : t2.dlt > 0 ? "▲" : "▼"} ${f1(Math.abs(t2.dlt))} ${t2.sub}</div>`
+               : t2.dltPct !== undefined ? `<div class="kpi-delta">${t2.dltPct > 0 ? "▲" : "▼"} ${Math.abs(t2.dltPct).toFixed(1)}%</div>` : "";
+    tile.innerHTML =
+      `<div class="kpi-label">${t2.label}</div>` +
+      `<div class="kpi-value-row"><div class="kpi-value">${t2.value}</div>${dHtml}</div>` +
+      (t2.spark ? `<svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` : `<div style="height:40px"></div>`) +
+      `<div class="kpi-foot">${t2.foot}</div>`;
+    row.appendChild(tile);
+    if (t2.spark && t2.spark.length > 1) drawSparkline(document.getElementById(id), t2.spark, t2.color);
+  });
+
+  // ---- history since 1977 (monthly), with data-derived flags ----
+  const mPts = M.map(p => ({ d: p.d, v: mb(p.v) }));
+  const mPeak = mPts.reduce((m, p) => p.v > m.v ? p : m);
+  // 2022 emergency release: from the March 2022 reading to the trough that followed within two years.
+  const rel0 = mPts.find(p => p.d === "2022-03");
+  const relWin = rel0 ? mPts.filter(p => p.d > "2022-03" && p.d <= "2024-03") : [];
+  const relLow = relWin.length ? relWin.reduce((m, p) => p.v < m.v ? p : m) : null;
+  const ann = [{ date: mPeak.d, label: T.annSprPeak(f1(mPeak.v)), detail: T.annSprPeakDetail(f1(mPeak.v)) }];
+  if (rel0 && relLow) ann.push({ date: "2022-04", label: T.annSprRelease2022, detail: T.annSprRelease2022Detail(f1(rel0.v), f1(relLow.v), fmtMonthYear(relLow.d), f1(rel0.v - relLow.v)) });
+  if (mPts.some(p => p.d === "2021-01")) ann.push({ date: "2021-01", label: T.annTermBiden });
+  if (mPts.some(p => p.d === "2025-01")) ann.push({ date: "2025-01", label: T.annTermTrump });
+  renderDualLineChart({
+    svgId: "sprHistChart", legendId: "sprHistLegend", tooltipId: "sprHistTooltip", calloutId: "sprHistCallout",
+    data: { spr: { points: mPts } }, field: "v", showTarget: false, niceAxis: false, tickEvery: 5,
+    fmtVal: v => f1(v) + " " + T.sprMb, fmtAxis: v => f0(v), annotations: ann,
+    seriesA: { key: "spr", label: T.legSpr, colorVar: "--series-headline" }
+  });
+  const histCallout = document.getElementById("sprHistCallout");
+  histCallout.innerHTML = "<div>" + T.sprHistNote(f1(mb(cur.v)), fmtDateDMY(cur.d), f1(mPeak.v), fmtMonthYear(mPeak.d), Math.round((1 - cur.v / (mPeak.v * 1000)) * 100)) + "</div>" + histCallout.innerHTML;
+
+  // ---- by administration ----
+  const terms = SPR_TERMS.map(t => {
+    const a = atOrAfter(t.start), b = t.end ? lastBefore(t.end) : cur;
+    return a && b ? { id: t.id, from: a, to: b, chg: mb(b.v - a.v), open: !t.end } : null;
+  }).filter(Boolean);
+  renderBarList("sprAdminList", terms.map(t => ({
+    name: termName(t.id) + " (" + fmtMonthYear(t.from.d.slice(0, 7)) + " – " + (t.open ? T.sprNow : fmtMonthYear(t.to.d.slice(0, 7))) + "): " + f1(mb(t.from.v)) + " → " + f1(mb(t.to.v)),
+    value: t.chg, color: t.chg < 0 ? "--cat-8" : "--cat-3"
+  })), v => s1(v) + " " + T.sprMb);
+  const biden = terms.find(t => t.id === "biden"), trump2 = terms.find(t => t.id === "trump2");
+  const largest = terms.reduce((m, t) => Math.abs(t.chg) > Math.abs(m.chg) ? t : m);
+  const parts = [];
+  if (biden) parts.push(T.sprAdminBiden(f1(mb(biden.from.v)), f1(mb(biden.to.v)), s1(biden.chg), largest.id === "biden"));
+  if (trump2) {
+    const win = W.filter(p => p.d >= trump2.from.d);
+    const tPeak = win.reduce((m, p) => p.v > m.v ? p : m);
+    parts.push(T.sprAdminTrump(f1(mb(trump2.from.v)), f1(mb(trump2.to.v)), s1(trump2.chg), fmtDateDMY(cur.d), f1(mb(tPeak.v)), fmtMonthYear(tPeak.d.slice(0, 7)), f1(mb(tPeak.v - cur.v)), tPeak.v - cur.v > 1000));
+  }
+  document.getElementById("sprAdminCallout").innerHTML = parts.map(p => "<div>" + p + "</div>").join("") + "<div>" + T.sprAdminMethod + "</div>";
+
+  // ---- last three years, weekly ----
+  const recent = W.slice(-157);
+  plotSeries("sprWeeklyChart", "sprWeeklyTooltip", null, recent.map(p => p.d),
+    [{ name: T.legSprWeekly, color: "--series-headline", data: recent.map(p => mb(p.v)) }],
+    { fmt: v => f1(v) + " " + T.sprMb, labelFmt: d => fmtDateDMY(d), zeroBase: false });
+  let big = null;
+  for (let i = 1; i < recent.length; i++) { const c = recent[i].v - recent[i - 1].v; if (!big || Math.abs(c) > Math.abs(big.c)) big = { c: c, d: recent[i].d }; }
+  document.getElementById("sprWeeklyCallout").innerHTML =
+    "<div>" + T.sprWeeklyNote(s1(mb(cur.v - w52.v)), f1(mb(w52.v)), f1(mb(cur.v)), s1(mb(big.c)), fmtDateDMY(big.d)) + "</div>";
+
+  // ---- sites (capacity; DOE does not publish inventory per site) ----
+  if (SPR.capacity && SPR.capacity.sites) {
+    const sites = SPR.capacity.sites.slice().sort((a, b) => b.cap - a.cap);
+    document.getElementById("sprSitesAsOf").textContent = fmtDateDMY(SPR.capacity.fetchedAt);
+    renderBarList("sprSitesList", sites.map((s, i) => ({ name: s.name + " · " + s.location + " · " + T.sprCaverns(s.caverns), value: s.cap, color: "--cat-" + ((i % 10) + 1) })), v => f1(v) + " " + T.sprMb);
+    const caverns = sites.reduce((a, s) => a + s.caverns, 0);
+    document.getElementById("sprSitesCallout").innerHTML = "<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v))) + "</div>";
+  }
+
+  // ---- DOE daily report, as published ----
+  if (SPR.image && SPR.image.file) {
+    const img = document.getElementById("sprImage");
+    img.src = SPR.image.file + "?v=" + (SPR.image.published || "").replace(/-/g, "");
+    document.getElementById("sprReportAsOf").textContent = T.sprReportPublished(fmtDateDMY(SPR.image.published));
+    document.getElementById("sprReportCallout").innerHTML = "<div>" + T.sprReportNote + "</div>";
+  }
+}
+
+// ================================================================
+// Shiller CAPE: price against ten years of inflation-adjusted earnings,
+// monthly since 1881 from Robert Shiller's data set. Peaks are found by the
+// data (episodes above the 95th percentile of the whole history), and what
+// followed each one comes from Shiller's own ten-year real-return column.
+// ================================================================
+function renderCape() {
+  if (!CAPE || !CAPE.monthly || CAPE.monthly.length < 120) return;
+  const P = CAPE.monthly, n = P.length, cur = P[n - 1], prev = P[n - 2];
+  const vals = P.map(p => p.cape);
+  const mean = vals.reduce((a, b) => a + b, 0) / n;
+  const sorted = vals.slice().sort((a, b) => a - b);
+  const median = sorted[Math.floor(n / 2)];
+  const thr = sorted[Math.floor(n * 0.90)];
+  const pctBelow = vals.filter(v => v < cur.cape).length / n * 100;
+  const hi = P.reduce((m, p) => p.cape > m.cape ? p : m), lo = P.reduce((m, p) => p.cape < m.cape ? p : m);
+  const f1 = v => v.toFixed(1);
+  const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
+
+  document.getElementById("capeAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d)) + (CAPE.partialMonth ? " " + T.capeMtd : "");
+  document.getElementById("capeNextReleaseLine").textContent = T.capeUpdated;
+  document.getElementById("capeRefreshedLine").textContent = freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
+
+  // ---- KPIs ----
+  const tiles = [
+    { label: T.capeKpiCurrent, value: f1(cur.cape), dlt: cur.cape - prev.cape, sub: T.capeKpiVsPrev, foot: fmtMonthYear(cur.d) + (CAPE.partialMonth ? " " + T.capeMtd : ""), spark: P.slice(-120).map(p => p.cape), color: "--series-headline" },
+    { label: T.capeKpiMean, value: f1(mean), foot: T.capeKpiMeanFoot(P[0].d.slice(0, 4)), spark: null, color: "--series-core" },
+    { label: T.capeKpiMedian, value: f1(median), foot: T.capeKpiMedianFoot, spark: null, color: "--series-services" },
+    { label: T.capeKpiPct, value: Math.round(pctBelow) + "%", foot: T.capeKpiPctFoot, spark: null, color: "--cat-5" },
+    { label: T.capeKpiEcy, value: cur.ecy === null ? "—" : pctf(cur.ecy), foot: T.capeKpiEcyFoot, spark: P.slice(-120).map(p => p.ecy), color: "--series-goods" },
+    { label: T.capeKpiGs10, value: f1(cur.gs10) + "%", foot: T.capeKpiGs10Foot, spark: P.slice(-120).map(p => p.gs10), color: "--series-energy" }
+  ];
+  const row = document.getElementById("capeKpiRow");
+  tiles.forEach((t2, i) => {
+    const tile = document.createElement("div"); tile.className = "kpi-tile";
+    const id = "capespark-" + i;
+    const dHtml = t2.dlt !== undefined ? `<div class="kpi-delta">${Math.abs(t2.dlt) < 0.05 ? "—" : t2.dlt > 0 ? "▲" : "▼"} ${Math.abs(t2.dlt).toFixed(1)} ${t2.sub}</div>` : "";
+    tile.innerHTML =
+      `<div class="kpi-label">${t2.label}</div>` +
+      `<div class="kpi-value-row"><div class="kpi-value">${t2.value}</div>${dHtml}</div>` +
+      (t2.spark ? `<svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` : `<div style="height:40px"></div>`) +
+      `<div class="kpi-foot">${t2.foot}</div>`;
+    row.appendChild(tile);
+    if (t2.spark && t2.spark.filter(v => v !== null).length > 1) drawSparkline(document.getElementById(id), t2.spark.map(v => v === null ? 0 : v), t2.color);
+  });
+
+  // ---- peaks: readings above the 90th percentile that are the highest within three years either way ----
+  const peaks = [];
+  P.forEach((p, i) => {
+    if (p.cape < thr) return;
+    const lo = Math.max(0, i - 36), hi = Math.min(n - 1, i + 36);
+    for (let j = lo; j <= hi; j++) { if (P[j].cape > p.cape || (P[j].cape === p.cape && j < i)) return; }
+    peaks.push(p);
+  });
+  document.getElementById("capeSecChartNote").textContent = T.capeSecChartNote(f1(thr));
+
+  renderDualLineChart({
+    svgId: "capeChart", legendId: "capeLegend", tooltipId: "capeTooltip", calloutId: "capeCallout",
+    data: { cape: { points: P.map(p => ({ d: p.d, v: p.cape })) }, avg: { points: P.map(p => ({ d: p.d, v: mean })) } },
+    field: "v", showTarget: false, niceAxis: false, tickEvery: 10,
+    fmtVal: v => f1(v), fmtAxis: v => Math.round(v),
+    annotations: peaks.map(pk => ({ date: pk.d, label: fmtMonthYear(pk.d) + " · " + f1(pk.cape), detail: pk.r10 === null || pk.r10 === undefined ? T.capePeakDetailRecent(f1(pk.cape)) : T.capePeakDetail(f1(pk.cape), pctf(pk.r10)) })),
+    seriesA: { key: "cape", label: T.legCape, colorVar: "--series-headline" },
+    seriesB: { key: "avg", label: T.legCapeAvg(f1(mean)), colorVar: "--text-muted" }
+  });
+  const cc = document.getElementById("capeCallout");
+  cc.innerHTML = "<div>" + T.capeChartNote(f1(cur.cape), fmtMonthYear(cur.d), f1(hi.cape), fmtMonthYear(hi.d), f1(lo.cape), fmtMonthYear(lo.d), Math.round(100 - pctBelow)) + "</div>" + cc.innerHTML;
+
+  // ---- what followed each peak ----
+  const withR = peaks.filter(pk => pk.r10 !== null && pk.r10 !== undefined);
+  renderBarList("capePeaksList", withR.map(pk => ({ name: fmtMonthYear(pk.d) + " · CAPE " + f1(pk.cape), value: pk.r10, color: pk.r10 < 0 ? "--cat-8" : "--cat-3" })), v => pctf(v) + T.capePerYear);
+  const recent = peaks.filter(pk => pk.r10 === null || pk.r10 === undefined);
+  const allR = P.filter(p => p.r10 !== null && p.r10 !== undefined);
+  const avgAll = allR.length ? allR.reduce((a, p) => a + p.r10, 0) / allR.length : null;
+  const avgPeaks = withR.length ? withR.reduce((a, p) => a + p.r10, 0) / withR.length : null;
+  document.getElementById("capePeaksCallout").innerHTML =
+    "<div>" + T.capePeaksNote(withR.length, avgPeaks === null ? "—" : pctf(avgPeaks), avgAll === null ? "—" : pctf(avgAll), recent.length, recent.map(pk => fmtMonthYear(pk.d)).join(", ")) + "</div>";
 }
 
 function renderCuts() {
@@ -7400,6 +7981,8 @@ renderRetail();
 renderFinCond();
 renderSupply();
 renderFiscal();
+renderSpr();
+renderCape();
 renderExecSummaries();
 
 } // end renderAll

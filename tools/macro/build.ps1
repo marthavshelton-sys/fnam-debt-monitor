@@ -29,6 +29,8 @@ $fincondJson  = Get-Content "$data\fincond_processed.json" -Raw -Encoding UTF8
 $supplyJson   = Get-Content "$data\supply_processed.json" -Raw -Encoding UTF8
 $fiscalJson   = Get-Content "$data\fiscal_processed.json" -Raw -Encoding UTF8
 $calendarJson = Get-Content "$data\calendar.json" -Raw -Encoding UTF8
+$sprJson      = Get-Content "$data\spr_processed.json" -Raw -Encoding UTF8
+$capeJson     = Get-Content "$data\cape_processed.json" -Raw -Encoding UTF8
 $refreshedAt  = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
 $pceRefreshed = $refreshedAt      # BEA is pulled on every build
 $umichRefresh = '"' + (Get-Date -Format "yyyy-MM-dd") + '"'
@@ -115,9 +117,11 @@ function Build-Page([string]$liveFlag) {
     Replace('/*__SUPPLY_DATA__*/ null',      $supplyJson).
     Replace('/*__FISCAL_DATA__*/ null',      $fiscalJson).
     Replace('/*__CALENDAR__*/ null',         $calendarJson).
+    Replace('/*__SPR_DATA__*/ null',         $sprJson).
+    Replace('/*__CAPE_DATA__*/ null',        $capeJson).
     Replace('/*__LIVE_DATA__*/ false',       $liveFlag)
 
-  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA)__') {
+  if ($out -match '__(CPI_DATA|WEIGHTS_DATA|REFRESHED_AT|PCE_DATA|PCE_WEIGHTS|PCE_REFRESHED_AT|UMICH_DATA|UMICH_REFRESHED_AT|PPI_DATA|PPI_WEIGHTS|RETAIL_DATA|FINCOND_DATA|SUPPLY_DATA|FISCAL_DATA|CALENDAR|LIVE_DATA|LABOR_DATA|LABOR_STATIC|GDP_DATA|SPR_DATA|CAPE_DATA)__') {
     throw "A placeholder was left unsubstituted."
   }
   return $out
@@ -145,7 +149,8 @@ if ($Target -eq "both" -or $Target -eq "web") {
   # template and every data file (pull-date stamps stripped), so either a data
   # release or an edit to the page triggers a rebuild, and nothing else does.
   $payload = ($template + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
-              $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson + $calendarJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
+              $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson + $calendarJson +
+              $sprJson + $capeJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
   $sha = [System.Security.Cryptography.SHA256]::Create()
   $hash = ([System.BitConverter]::ToString($sha.ComputeHash([System.Text.Encoding]::UTF8.GetBytes($payload)))).Replace("-", "").ToLower()
   $hashFile = Join-Path $data ".datahash"
@@ -163,6 +168,10 @@ if ($Target -eq "both" -or $Target -eq "web") {
           $page.Substring(0, $cut) + "</head>`n<body>`n" + $page.Substring($cut) + "`n</body>`n</html>`n"
   New-Item -ItemType Directory -Force -Path (Split-Path $OutFile) | Out-Null
   [System.IO.File]::WriteAllText($OutFile, $page, $utf8NoBom)
+  # DOE's SPR daily report is an image; the page shows the copy the last refresh
+  # saved next to the data, served beside the page.
+  $sprImg = Join-Path $data "spr-inventory.jpg"
+  if (Test-Path $sprImg) { Copy-Item $sprImg (Join-Path (Split-Path $OutFile) "spr-inventory.jpg") -Force }
   [System.IO.File]::WriteAllText($hashFile, $hash, $utf8NoBom)
   Write-Output ("site build     : {0:N0} bytes -> {1}" -f (Get-Item $OutFile).Length, $OutFile)
 }

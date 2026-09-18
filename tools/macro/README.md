@@ -1,7 +1,8 @@
 # Macro Monitor — fnam.mx/macro
 
 Bilingual (EN / es-MX) US macro dashboard: CPI, PCE, PPI, labor, GDP, income,
-retail, consumer sentiment, financial conditions, supply chain, fiscal deficit.
+retail, consumer sentiment, financial conditions, supply chain, fiscal deficit,
+the Strategic Petroleum Reserve and the Shiller CAPE ratio.
 One page, two languages; the page is served at `site/macro/index.html`.
 
 ## How it stays current
@@ -80,7 +81,15 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `process_calendar.ps1` - release dates for every section, from FRED
 - `process_umich.ps1`, `process_ppi.ps1`, `process_retail.ps1`,
   `process_fincond.ps1`, `process_supply.ps1`, `process_fiscal.ps1` — one per section
+- `process_spr.ps1` — EIA weekly/monthly SPR stocks (keyless history workbooks),
+  DOE capacity per site (scraped from the storage-sites page) and DOE's daily
+  inventory report, which exists only as an image and is saved as
+  `data/spr-inventory.jpg` then copied beside the page
+- `process_cape.ps1` — Shiller's ie_data.xls from shillerdata.com (the link
+  carries a version token, so the page is read first); CAPE since 1881 plus
+  Shiller's excess CAPE yield and ten-year subsequent real returns
 - `xlsx_to_rows.ps1` — reads the PPI weights workbook without Excel
-- `gscpi_xls_to_csv.py` — converts the NY Fed workbook on the runner (no Excel there)
+- `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
+  runner (no Excel there); locally `common.ps1` uses Excel COM first
 - `build.ps1` — template + data → page, with the locale guards
 - `refresh_all.ps1` — runs everything in order; what the workflow calls

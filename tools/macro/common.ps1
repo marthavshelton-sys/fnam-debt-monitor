@@ -35,6 +35,41 @@ function Invoke-Retry([scriptblock]$call, [int]$tries = 3, [int]$waitSec = 20) {
   }
 }
 
+# Legacy .xls workbooks (EIA history files, Shiller's data set) -> one sheet as
+# CSV. Excel COM does it where Excel exists (this machine); the GitHub runner has
+# no Excel and falls back to Python + xlrd (xls_to_csv.py). Date columns are
+# written as YYYY-MM-DD; everything else as invariant numbers or text.
+function Convert-XlsSheetToCsv([string]$xls, [string]$sheet, [string]$csv, [int[]]$dateCols = @()) {
+  $done = $false
+  try {
+    $x = New-Object -ComObject Excel.Application; $x.Visible = $false; $x.DisplayAlerts = $false
+    try {
+      $wb = $x.Workbooks.Open($xls, 0, $true)
+      $ws = $wb.Worksheets.Item($sheet)
+      $vals = $ws.UsedRange.Value2
+      $rows = $vals.GetLength(0); $cols = $vals.GetLength(1)
+      $sb = New-Object System.Text.StringBuilder
+      for ($r = 1; $r -le $rows; $r++) {
+        $cells = for ($c = 1; $c -le $cols; $c++) {
+          $v = $vals[$r, $c]
+          if ($null -eq $v) { "" }
+          elseif ($v -is [double] -and $dateCols -contains $c) { [DateTime]::FromOADate($v).ToString("yyyy-MM-dd") }
+          elseif ($v -is [double]) { $v.ToString("R", [System.Globalization.CultureInfo]::InvariantCulture) }
+          else { $s = "$v"; if ($s.Contains(",") -or $s.Contains('"')) { '"' + $s.Replace('"', '""') + '"' } else { $s } }
+        }
+        [void]$sb.AppendLine(($cells -join ","))
+      }
+      $wb.Close($false)
+      [System.IO.File]::WriteAllText($csv, $sb.ToString(), (New-Object System.Text.UTF8Encoding($false)))
+      $done = $true
+    } finally { $x.Quit(); [System.Runtime.InteropServices.Marshal]::ReleaseComObject($x) | Out-Null }
+  } catch { Write-Host "  Excel COM unavailable ($($_.Exception.Message.Split([char]10)[0])); converting with Python xlrd" }
+  if (-not $done) {
+    & python "$PSScriptRoot\xls_to_csv.py" $xls $sheet $csv ($dateCols -join ",")
+    if ($LASTEXITCODE -ne 0 -or -not (Test-Path $csv)) { throw "xls conversion failed for $xls ($sheet)" }
+  }
+}
+
 function Save-Json($obj, [string]$file, [int]$depth = 8) {
   $path = Join-Path $script:data $file
   ($obj | ConvertTo-Json -Depth $depth -Compress) | Set-Content $path -Encoding utf8
