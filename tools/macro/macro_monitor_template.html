@@ -6723,6 +6723,13 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
   const W = vb[2], H = vb[3], ML = 46, MR = 16, MT = 12, MB = 26;
   const plotW = W - ML - MR, plotH = H - MT - MB;
   const fmtV = (opts && opts.fmt) || (v => Math.round(v).toLocaleString(T.dateLocale));
+  // Axis labels have 40px of margin; a tooltip value like "285.0 M bbl" does
+  // not, so callers with units pass a bare-number axisFmt.
+  const axisFmt = (opts && opts.axisFmt) || fmtV;
+  // Day-dated series (weekly data) get month-year ticks: "11-Sep-2026" every
+  // seventh of the width runs into its neighbour, "Sep 2026" does not.
+  const dayDated = labels.length && /^\d{4}-\d{2}-\d{2}$/.test(labels[0]);
+  const tickFmt = (opts && opts.tickFmt) || (dayDated ? (d => fmtMonthYear(d.slice(0, 7))) : ((opts && opts.labelFmt) || (lb => lb)));
   const all = series.flatMap(s => s.data).filter(v => v !== null && v !== undefined);
   // Percent-change charts need zero in frame — it's the line that separates rising
   // from falling. An index level has no such landmark, and forcing zero in wastes
@@ -6746,15 +6753,18 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     tx.setAttribute("x",ML-7); tx.setAttribute("y",y(gv)+3.5);
     tx.setAttribute("text-anchor","end"); tx.setAttribute("font-size","10");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
-    tx.textContent = fmtV(gv); svg.appendChild(tx);
+    tx.textContent = axisFmt(gv); svg.appendChild(tx);
   }
+  const tickStep = Math.max(1, Math.round(n/7));
   labels.forEach((lb,i) => {
-    if (i % Math.max(1, Math.round(n/7)) !== 0 && i !== n-1) return;
+    if (i % tickStep !== 0 && i !== n-1) return;
+    // The final tick is dropped when it would sit on top of the previous one.
+    if (i === n-1 && i % tickStep !== 0 && (i % tickStep) < tickStep / 2) return;
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",x(i)); tx.setAttribute("y",H-6);
-    tx.setAttribute("text-anchor","middle"); tx.setAttribute("font-size","9.5");
+    tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","9.5");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
-    tx.textContent = (opts && opts.labelFmt) ? opts.labelFmt(lb) : lb;
+    tx.textContent = tickFmt(lb);
     svg.appendChild(tx);
   });
   series.forEach(s => {
@@ -7285,7 +7295,7 @@ function renderSpr() {
   const recent = W.slice(-157);
   plotSeries("sprWeeklyChart", "sprWeeklyTooltip", null, recent.map(p => p.d),
     [{ name: T.legSprWeekly, color: "--series-headline", data: recent.map(p => mb(p.v)) }],
-    { fmt: v => f1(v) + " " + T.sprMb, labelFmt: d => fmtDateDMY(d), zeroBase: false });
+    { fmt: v => f1(v) + " " + T.sprMb, axisFmt: v => f0(v), labelFmt: d => fmtDateDMY(d), zeroBase: false });
   let big = null;
   for (let i = 1; i < recent.length; i++) { const c = recent[i].v - recent[i - 1].v; if (!big || Math.abs(c) > Math.abs(big.c)) big = { c: c, d: recent[i].d }; }
   document.getElementById("sprWeeklyCallout").innerHTML =
