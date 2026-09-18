@@ -9,6 +9,7 @@
   const REF = window.GAP_REF || {};
   const PEERS = window.GAP_PEERS || { peers: [] };
   const GD = window.GAP_GUIDANCE || { vintages: [] };
+  const CM = window.GAP_COMMENTS || { periods: {} };
 
   // ---------------- i18n ----------------
   let LANG = 'es';
@@ -46,6 +47,9 @@
     guideFy: { es: 'Año guiado', en: 'Guided year' }, guideStatus: { es: 'Estatus', en: 'Status' }, issued: { es: 'Emitida', en: 'Issued' }, revised: { es: 'Revisada', en: 'Revised' }, unchanged: { es: 'Sin cambios', en: 'Unchanged' }, initial: { es: 'Inicial', en: 'Initial' },
     actual: { es: 'Real', en: 'Actual' }, tracking: { es: 'Seguimiento', en: 'Tracking' }, outcome: { es: 'Resultado', en: 'Outcome' }, within: { es: 'En rango', en: 'In range' }, above: { es: 'Por encima', en: 'Above' }, below: { es: 'Por debajo', en: 'Below' }, ofYear: { es: 'del año', en: 'of the year' },
     date: { es: 'Fecha', en: 'Date' }, type: { es: 'Tipo', en: 'Type' }, hits: { es: 'En rango o mejor', en: 'In range or better' }, gapRelease: { es: 'comunicado de GAP', en: 'GAP release' }, standalone: { es: 'comunicado aparte', en: 'standalone release' }, withResults: { es: 'con resultados', en: 'with results' },
+    comments: { es: 'Comentarios', en: 'Comments' }, ociGroup: { es: 'Otros resultados integrales y participación no controladora', en: 'Other comprehensive income and non-controlling interest' }, items: { es: 'conceptos', en: 'items' },
+    cmtNote: { es: 'Comentarios (a/a) elaborados a partir de los informes trimestrales y las transcripciones de las conferencias de resultados; disponibles para los últimos cuatro trimestres reportados y sus acumulados.', en: 'Comments (y/y) written from the quarterly reports and the earnings-call transcripts; available for the last four reported quarters and their year-to-date periods.' },
+    cmtOnlyYoy: { es: 'Los comentarios se muestran al comparar un periodo con el mismo periodo del año anterior.', en: 'Comments appear when a period is compared with the same period a year earlier.' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute el flujo de actualización.', en: 'Provisional: data files missing. Run the refresh workflow.' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
@@ -210,7 +214,7 @@
   function addDays(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 
   // ================= 01 STATEMENTS =================
-  const st = { stmt: 'is', mode: 'q', a: null, b: null, exIfric: true, usd: false };
+  const st = { stmt: 'is', mode: 'q', a: null, b: null, exIfric: true, usd: false, open: { cos: false, oci: false } };
   function periodOptions() {
     if (st.mode === 'fy') return Y.map((y) => ({ id: y.id, label: 'FY' + y.fy, obj: { ...y, label: 'FY' + y.fy } }));
     if (st.mode === 'q') return Q.map((q) => ({ id: q.id, label: qLabel(q), obj: { ...q, label: qLabel(q) } }));
@@ -253,9 +257,30 @@
     const layout = FIN.layout[st.stmt] || [];
     const key = st.stmt;
     const get = (obj, def) => { if (!obj || !obj[key]) return null; let v = obj[key][def.k]; if (v == null) return null; return convert(v, def, obj); };
+    // Comments apply to year-over-year comparisons only (quarter vs same quarter, YTD vs prior YTD, FY vs FY).
+    let C = null;
+    if (key === 'is' && A && B) {
+      const yoy = st.mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : st.mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : st.mode === 'fy' ? (B.fy === A.fy - 1) : false;
+      const ck = st.mode === 'q' ? A.id : st.mode === 'ytd' ? `${A.fy}M${A.months}` : st.mode === 'fy' ? A.id : null;
+      if (yoy && ck && CM.periods && CM.periods[ck]) C = CM.periods[ck];
+    }
+    const withCmt = key === 'is';
+    // Collapsible groups on the income statement: the cost-of-services detail, and the lines between net
+    // income and comprehensive income attributable to the controlling interest.
+    const OCI = new Set(); if (key === 'is') { let on = false; for (const d of layout) { if (d.k === 'comprehensiveControlling') on = false; if (on) OCI.add(d.k); if (d.k === 'netIncome') on = true; } }
+    const grpRow = (g, label, count) => `<tr class="grp-head"><td data-g="${g}"><span class="grp">${st.open[g] ? '▾' : '▸'}</span>${label}<span class="cnt">${count} ${t('items')}</span></td><td></td><td></td><td></td><td></td>${withCmt ? '<td class="cmt"></td>' : ''}</tr>`;
     const rows = [];
+    let inCos = false, ociDone = false;
     for (const def of layout) {
       if (st.exIfric && def.ifric) continue;
+      if (key === 'is') {
+        if (inCos && def.level !== 2) inCos = false;
+        if (OCI.has(def.k)) {
+          if (!ociDone) { ociDone = true; rows.push(grpRow('oci', t('ociGroup'), [...OCI].filter((k) => layout.find((d) => d.k === k && !(st.exIfric && d.ifric))).length)); }
+          if (!st.open.oci) continue;
+        }
+        if (inCos && !st.open.cos) continue;
+      }
       let va = get(A, def), vb = get(B, def);
       if (st.exIfric && st.stmt === 'is' && (def.k === 'revTotal' || def.k === 'totalOpCosts')) {
         const adj = (obj, v) => (v == null || !obj || !obj.is ? v : v - convert(obj.is.revConstruction || 0, def, obj));
@@ -267,15 +292,21 @@
       const isPct = def.pct, isPs = def.perShare;
       const f = (v) => (v == null ? '—' : isPct ? fmtPct(v) : isPs ? fmtN(v, 2) : fmtM(v, st.usd ? 1 : 0));
       const fd = d == null ? '—' : isPct ? fmtN(d, 1) + ' pp' : isPs ? fmtN(d, 2) : fmtM(d, st.usd ? 1 : 0);
-      rows.push(`<tr class="${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}"><td>${L(def)}${def.ifric ? ' <span class="muted small">IFRIC 12</span>' : ''}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtPct(pct, 1, true)}</td></tr>`);
+      const isCosHead = key === 'is' && def.k === 'costServices';
+      if (isCosHead) inCos = true;
+      const cosCount = isCosHead ? layout.filter((d, i) => i > layout.indexOf(def) && d.level === 2 && layout.slice(layout.indexOf(def) + 1, i).every((x) => x.level === 2)).length : 0;
+      const cmt = withCmt ? `<td class="cmt">${C && C.lines[def.k] ? L(C.lines[def.k]) : ''}</td>` : '';
+      const first = isCosHead ? `<td data-g="cos"><span class="grp">${st.open.cos ? '▾' : '▸'}</span>${L(def)}<span class="cnt">${cosCount} ${t('items')}</span></td>` : `<td>${L(def)}${def.ifric ? ' <span class="muted small">IFRIC 12</span>' : ''}</td>`;
+      rows.push(`<tr class="${isCosHead ? 'grp-head ' : ''}${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}">${first}<td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtPct(pct, 1, true)}</td>${cmt}</tr>`);
     }
     const la = A ? A.label : '—', lb = B ? B.label : '—';
-    html('stmtTable', `<table class="stmt-table"><thead><tr><th>${t('line')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('stmtTable', `<table class="stmt-table"><thead><tr><th>${t('line')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th>${withCmt ? `<th class="cmt">${t('comments')}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('stmtTitle').textContent = `${t(st.stmt)} · ${la} vs ${lb}`;
     const unit = st.usd ? t('usdM') : t('mxnM');
     el('stmtCap').textContent = `${unit}${st.stmt === 'is' ? ' · ' + (st.exIfric ? t('exIfric') : t('reported')) : ''}${st.usd ? (LANG === 'es' ? ' · convertido con el tipo de cambio promedio (flujos) o de cierre (balance) de la Fed H.10' : ' · converted at the Fed H.10 average (flows) or period-end (balance sheet) rate') : ''}${(A && A.derived) || (B && B.derived) ? (LANG === 'es' ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''}`;
+    if (withCmt) el('stmtCap').textContent += ' · ' + (C ? t('cmtNote') : t('cmtOnlyYoy'));
     const srcs = [A, B].filter(Boolean).map((o) => o.sources && o.sources[key === 'kpi' ? 'is' : key]).filter(Boolean);
-    html('stmtSrc', `${t('src')}: ` + [...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${t('release')} (${fmtDate(s.date)})</a>`).join(' · '));
+    html('stmtSrc', `${t('src')}: ` + [...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${t('release')} (${fmtDate(s.date)})</a>`).join(' · ') + (C && C.call ? ' · ' + L(C.call) : ''));
     // meta line
     const first = Q[0], last = lastQ;
     html('stmtMeta', LANG === 'es'
@@ -803,6 +834,7 @@
       [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'días 6, 12, 18 y 24 de cada mes' : '6th, 12th, 18th, 24th monthly', LANG === 'es' ? 'GitHub Actions descarga los informes de GAP (GlobeNewswire), los convierte en tablas y valida cuadres antes de publicar' : 'GitHub Actions downloads GAP\'s reports (GlobeNewswire), parses the tables and validates tie-outs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Tráfico mensual por aeropuerto' : 'Monthly traffic by airport', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'reporte mensual de tráfico (≈ día 5 de cada mes)' : 'monthly traffic report (≈ 5th of each month)', fmtDate((TR.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'tabla de guía en los comunicados (enero, 4T, revisiones)' : 'guidance table in the releases (January, 4Q, revisions)', fmtDate((GD.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · FRED (DEXMXUS, DGS10, IRLTLT01MXM156N)', fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
@@ -834,6 +866,7 @@
     fillSelects(); renderAll();
   }
   el('btnLangEs').addEventListener('click', () => setLang('es')); el('btnLangEn').addEventListener('click', () => setLang('en'));
+  el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
   seg('segPreset', (v) => { fillSelects(v); renderStatements(); });
