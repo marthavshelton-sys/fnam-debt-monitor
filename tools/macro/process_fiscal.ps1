@@ -13,7 +13,9 @@ $MN = @{October=10;November=11;December=12;January=1;February=2;March=3;April=4;
 # ---- Table 1 history ----
 $rows = @(); $page = 1
 do {
-  $r = Invoke-RestMethod "$api/mts_table_1?filter=record_type_cd:eq:MTH&fields=record_date,classification_desc,current_month_gross_rcpt_amt,current_month_gross_outly_amt,current_month_dfct_sur_amt,sequence_number_cd,record_fiscal_year&page[size]=5000&page[number]=$page" -TimeoutSec 120
+  # FiscalData is slow some mornings; a 5,000-row page can take over two minutes, and a
+  # timed-out request is retried rather than failing the whole section.
+  $r = Invoke-Retry { Invoke-RestMethod "$api/mts_table_1?filter=record_type_cd:eq:MTH&fields=record_date,classification_desc,current_month_gross_rcpt_amt,current_month_gross_outly_amt,current_month_dfct_sur_amt,sequence_number_cd,record_fiscal_year&page[size]=5000&page[number]=$page" -TimeoutSec 300 }
   $rows += $r.data; $page++
 } while ($r.data.Count -eq 5000)
 Write-Output "table 1 monthly rows: $($rows.Count)   statements: $(($rows.record_date | Sort-Object -Unique).Count)   latest: $(($rows.record_date | Sort-Object)[-1])"
@@ -51,7 +53,7 @@ if ($bad.Count) { throw "deficit identity fails for $($bad.Count) months" }
 Write-Output "identity outlays - receipts = deficit: OK for all $($monthly.Count) months"
 
 # ---- Table 9: latest statement ----
-$r9 = Invoke-RestMethod "$api/mts_table_9?filter=record_date:eq:$latestStmt&page[size]=100" -TimeoutSec 60
+$r9 = Invoke-Retry { Invoke-RestMethod "$api/mts_table_9?filter=record_date:eq:$latestStmt&page[size]=100" -TimeoutSec 180 }
 $sources = New-Object System.Collections.ArrayList; $functions = New-Object System.Collections.ArrayList
 $section = ""
 foreach ($row in $r9.data) {
@@ -73,7 +75,7 @@ if ([math]::Abs($sumR - $totR.fytd) -gt 0.5 -or [math]::Abs($sumO - $totO.fytd) 
 
 # ---- FRED annual: deficit as % of GDP; fiscal-year totals for the long view ----
 function Get-FredA($id) {
-  $r = Invoke-RestMethod "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$fredKey&file_type=json&observation_start=1970-01-01" -TimeoutSec 60
+  $r = Invoke-Retry { Invoke-RestMethod "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$fredKey&file_type=json&observation_start=1970-01-01" -TimeoutSec 120 }
   $a = New-Object System.Collections.ArrayList
   foreach ($o in $r.observations) { if ($o.value -ne ".") { [void]$a.Add([ordered]@{ y = [int]$o.date.Substring(0,4); v = [double]$o.value }) } }
   return $a
