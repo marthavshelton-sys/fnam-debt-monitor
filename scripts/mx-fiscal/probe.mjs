@@ -12,6 +12,7 @@
 //   shcp-csv <url> [rows]             fetch a CSV and print its shape, header and first/last rows
 //   url <url>                         GET any url and print status, content-type and the first 1,500 chars
 
+import { get as netGet, getText, peerChain, sleep as netSleep } from './net.mjs';
 const UA = 'fnam-debt-monitor/1.0 (+https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const TOKEN = process.env.BANXICO_TOKEN || '';
 
@@ -84,15 +85,36 @@ const commands = {
     printMeta(await banxicoMeta(ids));
   },
   async 'banxico-ids'(list) { printMeta(await banxicoMeta(list.split(',').map((s) => s.trim()).filter(Boolean))); },
+  async tls(host) {
+    const info = await peerChain(host);
+    console.log(`  authorized=${info.authorized} ${info.authorizationError || ''}`);
+    for (const c of info.chain) console.log(`  subject=${c.subject} issuer=${c.issuer} validTo=${c.validTo} AIA=${JSON.stringify(c.infoAccess['CA Issuers - URI'] || [])}`);
+  },
+  async 'banxico-range'(prefix, from, to) {
+    // Dump the official title of every id in a numeric range, 20 per request, paced — the SIE
+    // has no search endpoint, so this is how a whole table's rows are found.
+    const ids = [];
+    for (let n = Number(from); n <= Number(to); n++) ids.push(prefix + n);
+    let shown = 0;
+    for (let i = 0; i < ids.length; i += 20) {
+      const chunk = ids.slice(i, i + 20);
+      try {
+        const j = await (await http(`https://www.banxico.org.mx/SieAPIRest/service/v1/series/${chunk.join(',')}`, { 'Bmx-Token': TOKEN, Accept: 'application/json' })).json();
+        for (const s of j?.bmx?.series || []) if (clean(s.titulo)) { shown++; console.log(`  ${String(s.idSerie).padEnd(8)} ${String(s.periodicidad || '').padEnd(9)} ${String(s.fechaFin || '').padEnd(11)} ${String(s.unidad || '').slice(0, 26).padEnd(26)} «${clean(s.titulo)}»`); }
+      } catch (e) { console.log(`  chunk ${chunk[0]}: ${e.message}`); }
+      await netSleep(700);
+    }
+    console.log(`  ${shown} titled series in ${prefix}${from}–${prefix}${to}`);
+  },
   async 'shcp-index'() {
-    const html = await (await http('https://www.secciones.hacienda.gob.mx/es/estadisticas_oportunas/base_de_datos')).text();
+    const html = await getText('https://www.secciones.hacienda.gob.mx/es/estadisticas_oportunas/base_de_datos');
     const links = [...new Set((html.match(/https?:\/\/[^"'\s>]+\.(?:csv|xlsx?|zip|json)(?:\?[^"'\s>]*)?/gi) || []).concat((html.match(/\/work\/models\/[^"'\s>]+\.(?:csv|xlsx?|zip|json)/gi) || []).map((p) => 'https://www.secciones.hacienda.gob.mx' + p)))];
     console.log(`  ${links.length} data links`);
     for (const l of links) console.log('  ' + l);
     if (!links.length) console.log(html.slice(0, 1500));
   },
   async 'shcp-csv'(url, rows = '6') {
-    const buf = Buffer.from(await (await http(url)).arrayBuffer());
+    const buf = (await netGet(url)).body;
     let text = buf.toString('utf8');
     if (text.includes('�')) text = buf.toString('latin1');
     const lines = text.split(/\r?\n/).filter((l) => l.trim());
@@ -103,9 +125,9 @@ const commands = {
     lines.slice(-3).forEach((l) => console.log('  T ' + l.slice(0, 400)));
   },
   async url(u) {
-    const res = await http(u);
-    const text = await res.text();
-    console.log(`  ${res.status} ${res.headers.get('content-type')} ${text.length} chars\n` + text.slice(0, 1500));
+    const res = await netGet(u);
+    const text = res.body.toString('utf8');
+    console.log(`  ${res.status} ${res.headers['content-type']} ${text.length} chars\n` + text.slice(0, 1500));
   },
 };
 
