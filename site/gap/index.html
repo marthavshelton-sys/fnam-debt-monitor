@@ -21,6 +21,7 @@
 <script src="data/reference.js"></script>
 <script src="data/guidance.js"></script>
 <script src="data/comments.js"></script>
+<script src="data/summary.js"></script>
 <script src="data/peers.js"></script>
 
 <style>
@@ -215,6 +216,12 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sens td.now{outline:2px solid var(--accent); outline-offset:-2px; font-weight:700;}
 
 /* ---------- Timeline ---------- */
+.sum-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+.sum-grid .card h3{margin-bottom:6px;}
+.sum-grid ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.55; color:var(--text-secondary);}
+.sum-grid li{margin:6px 0;}
+.sum-grid li b{color:var(--text-primary);}
+@media (max-width:760px){.sum-grid{grid-template-columns:1fr;}}
 .guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
 .guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .guide-chip.above{color:var(--good); border-color:var(--good);}
@@ -278,6 +285,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
 <nav class="jump">
   <div class="wrap" id="jumpNav">
+    <a href="#summary"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
     <a href="#statements"><span class="es">Estados financieros</span><span class="en" hidden>Statements</span></a>
     <a href="#guidance"><span class="es">Guía</span><span class="en" hidden>Guidance</span></a>
     <a href="#traffic"><span class="es">Tráfico</span><span class="en" hidden>Traffic</span></a>
@@ -294,6 +302,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 </nav>
 
 <main class="wrap">
+
+  <!-- 00 EXECUTIVE SUMMARY -->
+  <section class="block" id="summary">
+    <div class="sec-head"><span class="sec-num">00</span><h2><span class="es">Resumen ejecutivo</span><span class="en" hidden>Executive summary</span></h2></div>
+    <p class="sec-meta" id="sumMeta"></p>
+    <div class="sum-grid" id="sumGrid"></div>
+  </section>
 
   <!-- 01 STATEMENTS -->
   <section class="block" id="statements">
