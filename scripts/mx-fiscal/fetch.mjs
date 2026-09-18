@@ -18,10 +18,11 @@
 //   node scripts/mx-fiscal/fetch.mjs --dry-run  refresh, print the summary, write nothing
 
 import fs from 'node:fs/promises';
+import { pathToFileURL } from 'node:url';
 import { getText } from './net.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
-const MANIFEST = new URL('tools/mx-fiscal/series.json', ROOT);
+const MANIFEST = process.env.MX_FISCAL_MANIFEST ? pathToFileURL(process.env.MX_FISCAL_MANIFEST) : new URL('tools/mx-fiscal/series.json', ROOT); // env override is for tests
 const OUT = new URL('site/mx/fiscal/data.js', ROOT);
 const UA = 'fnam-debt-monitor/1.0 (+https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const DRY = process.argv.includes('--dry-run');
@@ -90,9 +91,11 @@ async function banxico(cand, spec) {
   return { title: clean(s.titulo), points, url: `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${cand.id}/datos/oportuno` };
 }
 
-// ---------------- SHCP Estadísticas Oportunas (open-data CSV) ----------------
-// A candidate names the CSV `url`, a `dateCol` and a `valueCol` (header regexes) and optionally a
-// `filter` {col, regex} to keep only matching rows. Dates are read as YYYY-MM or "mes año".
+// SHCP provider: Estadísticas Oportunas open-data CSVs (secciones.hacienda.gob.mx). They are long
+// tables, one row per (CICLO, MES, CLAVE_DE_CONCEPTO) with NOMBRE, UNIDAD_DE_MEDIDA and MONTO.
+// A candidate names the CSV `url` and the `concept` clave; `title` is checked against NOMBRE, so a
+// renumbered concept can never publish under the wrong label. `scale` converts the unit (SHCP
+// reports stocks in miles de pesos). "N/E", "n.d." and blank MONTO cells are skipped.
 const csvCache = new Map();
 const MESES = { enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', julio: '07', agosto: '08', septiembre: '09', setiembre: '09', octubre: '10', noviembre: '11', diciembre: '12' };
 function parseCSV(text) {
@@ -110,31 +113,36 @@ function parseCSV(text) {
   if (field || row.length) { row.push(field); rows.push(row); }
   return rows.filter((r) => r.some((x) => x.trim() !== ''));
 }
-function shcpDate(raw) {
-  const s = clean(raw).toLowerCase();
-  let m = s.match(/^(\d{4})-(\d{2})/); if (m) return `${m[1]}-${m[2]}`;
-  m = s.match(/^(\d{4})\/(\d{2})/); if (m) return `${m[1]}-${m[2]}`;
-  m = s.match(/^(\d{2})\/(\d{4})/); if (m) return `${m[2]}-${m[1]}`;
-  m = s.match(/([a-zñ]+)\D+(\d{4})/); if (m && MESES[m[1]]) return `${m[2]}-${MESES[m[1]]}`;
-  m = s.match(/(\d{4})\D+([a-zñ]+)/); if (m && MESES[m[2]]) return `${m[1]}-${MESES[m[2]]}`;
+// (CICLO, MES) -> YYYY-MM; an empty or "anual" MES gives YYYY; "1er trimestre" etc. give YYYY-Qn.
+function shcpDate(ciclo, mes) {
+  const y = clean(ciclo); if (!/^\d{4}$/.test(y)) return null;
+  const m = clean(mes).toLowerCase();
+  if (!m || /anual|total/.test(m)) return y;
+  if (MESES[m]) return `${y}-${MESES[m]}`;
+  if (/^\d{1,2}$/.test(m) && Number(m) >= 1 && Number(m) <= 12) return `${y}-${m.padStart(2, '0')}`;
+  const q = m.match(/^([1-4])/); if (q && /trim/.test(m)) return `${y}-Q${q[1]}`;
   return null;
 }
 async function shcp(cand, spec) {
   if (!csvCache.has(cand.url)) csvCache.set(cand.url, parseCSV(await getText(cand.url))); // net.mjs completes SHCP's TLS chain
   const rows = csvCache.get(cand.url);
-  const header = rows[0].map((h) => clean(h));
-  const col = (re) => header.findIndex((h) => new RegExp(re, 'i').test(h));
-  const di = col(cand.dateCol), vi = col(cand.valueCol);
-  if (di < 0 || vi < 0) throw new Error(`column not found (date=${di}, value=${vi}) in [${header.slice(0, 12).join(' | ')}]`);
-  const fi = cand.filter ? col(cand.filter.col) : -1;
-  const points = [];
+  const header = rows[0].map((h) => clean(h).toUpperCase().replace(/^﻿/, ''));
+  const ix = (n) => header.indexOf(n);
+  const [iCiclo, iMes, iClave, iNombre, iUnidad, iMonto] = ['CICLO', 'MES', 'CLAVE_DE_CONCEPTO', 'NOMBRE', 'UNIDAD_DE_MEDIDA', 'MONTO'].map(ix);
+  if ([iCiclo, iMes, iClave, iNombre, iMonto].some((i) => i < 0)) throw new Error(`unexpected columns [${header.slice(0, 16).join(' | ')}] in ${cand.url.split('/').pop()}`);
+  let nombre = null, unidad = null;
+  const byDate = new Map(); // a revised month appears twice in some files; the last row wins
   for (const r of rows.slice(1)) {
-    if (fi >= 0 && !new RegExp(cand.filter.regex, 'i').test(clean(r[fi]))) continue;
-    const d = shcpDate(r[di]); const v = Number(String(r[vi]).replace(/[,\s$%]/g, ''));
-    if (d && Number.isFinite(v)) points.push([d, r4(v * (cand.scale || 1))]);
+    if (clean(r[iClave]) !== cand.concept) continue;
+    nombre ??= clean(r[iNombre]); unidad ??= clean(r[iUnidad] ?? '');
+    const d = shcpDate(r[iCiclo], r[iMes]);
+    const v = Number(String(r[iMonto]).replace(/[,\s$%]/g, ''));
+    if (d && String(r[iMonto]).trim() !== '' && Number.isFinite(v)) byDate.set(d, r4(v * (cand.scale || 1)));
   }
-  points.sort((a, b) => (a[0] < b[0] ? -1 : 1));
-  return { title: header[vi] + (cand.filter ? ` [${cand.filter.regex}]` : ''), points, url: cand.url };
+  if (!nombre) throw new Error(`concept ${cand.concept} not found in ${cand.url.split('/').pop()}`);
+  const since = spec.since || '2000-01-01';
+  const points = [...byDate.entries()].filter(([d]) => d >= since.slice(0, d.length)).sort((a, b) => (a[0] < b[0] ? -1 : 1));
+  return { title: `${nombre} [${unidad}]`, points, url: cand.url, meta: { sourceUnit: unidad } };
 }
 
 // Daily/weekly series ship as month-end points (last observation of each month) so data.js stays
@@ -172,13 +180,13 @@ async function fetchOne(key, spec, prev, log) {
     if (!fn) { errors.push(`${cand.provider}: unknown provider`); continue; }
     try {
       const got = await fn(cand, spec);
-      if (cand.title && got.title && !new RegExp(cand.title, 'i').test(got.title)) { errors.push(`${cand.provider}:${cand.id || ''} title «${got.title}» does not match /${cand.title}/`); continue; }
+      if (cand.title && got.title && !new RegExp(cand.title, 'i').test(got.title)) { errors.push(`${cand.provider}:${cand.id || cand.concept || ''} title «${got.title}» does not match /${cand.title}/`); continue; }
       const bad = guard(got.points, spec);
-      if (bad) { errors.push(`${cand.provider}:${cand.id || ''} rejected: ${bad}`); continue; }
+      if (bad) { errors.push(`${cand.provider}:${cand.id || cand.concept || ''} rejected: ${bad}`); continue; }
       const last = got.points[got.points.length - 1];
-      log.push([key, PROVIDER_LABEL[cand.provider], cand.id || cand.url.split('/').pop(), 'ok', last[0], String(last[1]), got.title]);
-      return { ...spec.meta, key, provider: cand.provider, id: cand.id || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, fetchedAt: today(), stale: false, last, points: thin(got.points, spec.thin) };
-    } catch (e) { errors.push(`${cand.provider}:${cand.id || ''} ${e.message}`); }
+      log.push([key, PROVIDER_LABEL[cand.provider], cand.id || cand.concept || '', 'ok', last[0], String(last[1]), got.title]);
+      return { ...spec.meta, ...got.meta, key, provider: cand.provider, id: cand.id || cand.concept || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, fetchedAt: today(), stale: false, last, points: thin(got.points, spec.thin) };
+    } catch (e) { errors.push(`${cand.provider}:${cand.id || cand.concept || ''} ${e.message}`); }
   }
   if (prev && prev.points?.length) {
     const last = prev.points[prev.points.length - 1];
