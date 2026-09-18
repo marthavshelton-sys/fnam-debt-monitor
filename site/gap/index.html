@@ -261,6 +261,60 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 .lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
 @media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+
+/* ---------- Print as presentation (Letter landscape, one slide per section) ---------- */
+.print-only{display:none;}
+.lang-btn .print-btn{border-left:1px solid var(--border);}
+@media print{
+  @page{size:11in 8.5in; margin:0.45in 0.55in 0.6in;}
+  :root, :root[data-theme="dark"], :root[data-theme="light"], :root:not([data-theme="light"]){--bg:#fff; --surface:#fff; --surface-2:#f5f5f2; --text-primary:#000; --text-secondary:#111; --muted:#333; --border:#bbb; --border-strong:#999; --grid:#ddd; --baseline:#888; --shadow:none; --accent-soft:#eef2ef; --accent-soft-border:#9db9aa; --accent-ink:#0f2c20;}
+  html, body{background:#fff !important; color:#000 !important;}
+  body{font-size:14pt; line-height:1.45; padding:0 !important;}
+  .print-only{display:block;}
+  nav.jump, .lang-btn, .controls, .seg, .btn, .chips, #dataNotice, footer#sources, section#method, .sec-meta, .chart-src, details.tbl, .eyebrow .live, .notice{display:none !important;}
+  header{padding:0 !important; min-height:0 !important; break-after:page; page-break-after:always;}
+  header .wrap, .block, .wrap{max-width:none !important; padding-left:0 !important; padding-right:0 !important;}
+  header h1{font-size:34pt; margin-top:6pt;}
+  .eyebrow{font-size:13pt;}
+  .asof-row{font-size:12pt;}
+  .kpi-strip{margin-top:14pt;} .kpi{padding:10pt 10pt 8pt;} .kpi .lbl{font-size:9.5pt;} .kpi .val{font-size:19pt; white-space:nowrap;} .kpi .delta{font-size:10.5pt;}
+  header{break-inside:avoid;} .eyebrow{font-size:11pt;} header h1{font-size:30pt !important;} .asof-row{font-size:11pt;}
+  .print-cover{margin-top:16pt; font-size:13pt; line-height:1.5;}
+  .print-cover .basis{margin-top:10pt;} .print-cover .basis div{margin:2pt 0;}
+  .print-cover .conf{margin-top:12pt; padding:8pt 12pt; border:1px solid #999; border-radius:8pt; font-weight:600;}
+  .sum-grid .card{padding:12pt 14pt 10pt; margin-top:10pt;} .sum-grid ul{font-size:12.5pt !important;} .sum-grid li{margin:3pt 0;}
+  section.block{break-before:page; page-break-before:always; padding-top:0 !important; padding-bottom:0 !important; margin:0 !important;}
+  section.block#summary{break-before:auto;}
+  .sec-head{margin-bottom:8pt;} .sec-num{font-size:14pt; padding:2pt 8pt;}
+  h2{font-size:28pt !important; line-height:1.2;} h3{font-size:18pt !important;} h4{font-size:15pt !important;}
+  .sec-desc, .prose, .prose p, .sum-grid ul, .callout, .fact-grid, .timeline li{font-size:14pt !important; max-width:none !important; line-height:1.5;}
+  .cap{font-size:12pt !important;} .small{font-size:11.5pt !important;}
+  .card{break-inside:avoid; page-break-inside:avoid; box-shadow:none !important; border:1px solid #bbb; padding:16pt 18pt 14pt; margin-top:14pt;}
+  .grid-2, .grid-3, .sum-grid, .fact-grid, .dcf-grid, .src-grid{display:block !important;}
+  .grid-2 > *, .grid-3 > *, .sum-grid > *, .dcf-grid > *{margin-top:14pt;}
+  .fact-grid{display:grid !important; grid-template-columns:repeat(3,1fr) !important; gap:10pt;} .fact .v{font-size:22pt;} .fact .l{font-size:11.5pt;}
+  .stat-row{gap:16pt 28pt;} .stat .v{font-size:24pt;} .stat .l{font-size:11.5pt;}
+  .chart-wrap{height:2.9in !important; margin-top:8pt;} canvas{max-width:100% !important;}
+  table td, table th, .guide-chip, .stmt-table td:not(.cmt):not(:first-child){white-space:normal !important;}
+  table{width:100%; table-layout:auto;} .guide-table{font-size:11.5pt !important;} .guide-table td .was, .guide-table td .sub, .guide-table th .sub{font-size:9.5pt;}
+  .print-cover{max-width:none;} header h1{font-size:36pt;}
+  table{font-size:13pt !important; margin-top:8pt;} table th{font-size:10.5pt !important; padding:5pt 7pt !important;} table td{padding:5pt 7pt !important;}
+  .tblwrap{overflow:visible !important;} tr{break-inside:avoid;} thead{display:table-header-group;}
+  .stmt-table th.cmt, .stmt-table td.cmt{font-size:11pt !important; min-width:3.5in !important; max-width:3.9in !important; line-height:1.35;}
+  .stmt-table td:first-child{min-width:1.7in !important; max-width:2.1in !important;}
+  .stmt-table td:not(.cmt):not(:first-child), #kpiTable td, #kpiTable th{white-space:nowrap !important;}
+  .guide-table{font-size:11pt !important;} .guide-table td, .guide-table th{white-space:normal !important; padding:4pt 5pt !important;}
+  #kpiTable table{font-size:11pt !important;} #kpiTable td, #kpiTable th{padding:3pt 4pt !important;} #kpiTable td:first-child{white-space:normal !important; max-width:1.8in;} #kpiTable .small{font-size:10pt !important;}
+  #kpiTable th:first-child, #kpiTable td:first-child{position:static !important; box-shadow:none !important;}
+  .guide-chip{font-size:9.5pt !important;} .guide-quote{font-size:12pt;}
+  .inputs .inp{font-size:12.5pt;} input, select{font-size:12.5pt !important; color:#000 !important; background:#fff !important; border:1px solid #999 !important;}
+  .dcf-hero .v, #dcfHero{font-size:30pt;} .out .v{font-size:22pt;} .out .l{font-size:11.5pt;}
+  a{color:#000 !important; text-decoration:none !important;}
+  .print-footer{position:fixed; top:-0.38in; left:0; right:0; font-size:9pt; color:#555; text-align:right; padding-bottom:2pt;}
+  #printClose .src-grid{display:grid !important; grid-template-columns:1fr 1fr; gap:10pt;}
+  #printClose .fine{font-size:11.5pt; margin-top:14pt;}
+  #printClose .conf{margin-top:14pt; font-weight:600;}
+}
 </style>
 </head>
 <body>
@@ -268,6 +322,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 <div class="lang-btn">
   <button type="button" id="btnLangEs" class="active">ES</button>
   <button type="button" id="btnLangEn">EN</button>
+  <button type="button" id="btnPrint" class="print-btn" title="Imprimir como presentación / Print as presentation">🖨 <span class="es">Presentación</span><span class="en" hidden>Presentation</span></button>
 </div>
 
 <header class="top">
@@ -280,8 +335,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <div class="asof-row" id="asofRow"></div>
     <div id="dataNotice" hidden></div>
     <div class="kpi-strip" id="kpiStrip"></div>
+    <div class="print-only print-cover" id="printCover"></div>
   </div>
 </header>
+<div class="print-only print-footer" id="printFooter"></div>
 
 <nav class="jump">
   <div class="wrap" id="jumpNav">
@@ -673,6 +730,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   </section>
 
 </main>
+
+<section class="block print-only" id="printClose"><div class="sec-head"><h2><span class="es">Fuentes y metodología</span><span class="en" hidden>Sources and method</span></h2></div><div id="printCloseBody"></div></section>
 
 <footer id="sources">
   <div class="wrap">

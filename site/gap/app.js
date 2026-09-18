@@ -14,6 +14,8 @@
 
   // ---------------- i18n ----------------
   let LANG = 'es';
+  let PRINT = false; // print-as-presentation mode: light theme, trimmed tables, fixed-size charts
+  const lastN = () => (PRINT ? 8 : 12); // quarters shown in the rolling tables and charts
   const S = {
     quarter: { es: 'Trimestre', en: 'Quarter' }, ytd: { es: 'Acumulado', en: 'Year-to-date' }, ltm: { es: 'Últimos 12 meses', en: 'Last twelve months' }, fy: { es: 'Año fiscal', en: 'Fiscal year' },
     is: { es: 'Estado de resultados', en: 'Income statement' }, bs: { es: 'Estado de situación financiera', en: 'Statement of financial position' }, cf: { es: 'Estado de flujos de efectivo', en: 'Cash-flow statement' },
@@ -419,7 +421,7 @@
     html('opsSrc', srcs.length ? `${t('src')}: ` + [...new Map(srcs.map((x) => [x.url, x])).values()].map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${x.label} (${fmtDate(x.date)})</a>`).join(' · ') + (C && C.call ? ' · ' + L(C.call) : '') : '');
   }
   function renderRevMix() {
-    const qs = Q.slice(-12);
+    const qs = Q.slice(-lastN());
     const c = SERIES();
     const ds = [
       { label: t('aero'), data: qs.map((q) => q.is.revAero / 1000), backgroundColor: c[0], stack: 'r' },
@@ -432,7 +434,7 @@
     html('revMixSrc', src ? `${t('src')}: <a href="${src.url}" target="_blank" rel="noopener">${t('release')} ↗</a>` : '');
   }
   function renderKpiTable() {
-    const qs = Q.slice(-12);
+    const qs = Q.slice(-lastN());
     const yoy = (q, f) => { const p = qById[yoyQid(q)]; const a = f(q), b = p && f(p); return a != null && b ? 100 * (a / b - 1) : null; };
     const rowsDef = [
       { l: t('revenue') + ' ' + t('exIfric') + ' (Ps. M)', f: (q) => (q.is.revTotal - (q.is.revConstruction || 0)) / 1000, fmt: (v) => fmtN(v) },
@@ -822,7 +824,7 @@
 
   // ================= 06 DEBT =================
   function renderDebt() {
-    const qs = Q.slice(-12); const c = SERIES();
+    const qs = Q.slice(-lastN()); const c = SERIES();
     const nds = qs.map((q) => ({ q, nd: netDebt(q), l: ltmFor(q) }));
     const est = nds.map((x) => x.nd && x.nd.basis === 'est');
     const tip = (x, v, d = 0) => `${x.dataset.label}: ${fmtN(v, d)}${est[x.dataIndex] ? ' (' + estTag() + ')' : ''}`;
@@ -917,6 +919,41 @@
     fillSelects(); renderAll();
   }
   el('btnLangEs').addEventListener('click', () => setLang('es')); el('btnLangEn').addEventListener('click', () => setLang('en'));
+
+  // ---------------- print as presentation ----------------
+  function renderPrintExtras() {
+    const conf = LANG === 'es' ? 'Confidencial. Preparado para uso interno del consejo; no distribuir.' : 'Confidential. Prepared for internal board use; do not distribute.';
+    const today = new Date().toISOString().slice(0, 10);
+    const lastM = TR.months.length ? TR.months[TR.months.length - 1] : null;
+    const gv = (GD.vintages || []).slice().sort((a, b) => a.date.localeCompare(b.date)).pop();
+    const basis = LANG === 'es'
+      ? [`Último trimestre reportado: ${lastQ ? qLabel(lastQ) : '—'} (${lastQ && lastQ.sources && lastQ.sources.is ? fmtDate(lastQ.sources.is.date) : '—'})`, `Tráfico: ${lastM ? ymLabel(lastM.ym) : '—'}`, `Guía vigente: ${gv ? fmtDate(gv.date) : '—'}`, `Cierre de mercado: ${lastPx ? `Ps. ${fmtN(lastPx[1], 2)} (${fmtDate(lastPx[0])})` : '—'}`, `Comparación en pantalla: ${el('stmtTitle') ? el('stmtTitle').textContent : ''}`]
+      : [`Latest reported quarter: ${lastQ ? qLabel(lastQ) : '—'} (${lastQ && lastQ.sources && lastQ.sources.is ? fmtDate(lastQ.sources.is.date) : '—'})`, `Traffic: ${lastM ? ymLabel(lastM.ym) : '—'}`, `Guidance in force: ${gv ? fmtDate(gv.date) : '—'}`, `Market close: ${lastPx ? `Ps. ${fmtN(lastPx[1], 2)} (${fmtDate(lastPx[0])})` : '—'}`, `Comparison on screen: ${el('stmtTitle') ? el('stmtTitle').textContent : ''}`];
+    html('printCover', `<div>${LANG === 'es' ? 'Modelo financiero interactivo · elaborado únicamente con información pública' : 'Interactive financial model · built only from public information'}</div><div class="basis">${basis.map((x) => `<div>${x}</div>`).join('')}<div>${LANG === 'es' ? 'Impreso el' : 'Printed'} ${fmtDate(today)} · fnam.mx/gap</div></div><div class="conf">${conf}</div>`);
+    html('printFooter', `GAP · ${LANG === 'es' ? 'Modelo financiero' : 'Financial model'} · fnam.mx/gap · ${conf} · ${fmtDate(today)}`);
+    const src = el('srcGrid'), fine = document.querySelector('footer#sources .fine');
+    html('printCloseBody', `<div class="src-grid">${src ? src.innerHTML : ''}</div><p class="fine">${fine ? fine.innerHTML : ''}</p><p class="conf">${conf}</p>`);
+    document.querySelectorAll('#printCloseBody .es').forEach((e) => { e.hidden = LANG !== 'es'; }); document.querySelectorAll('#printCloseBody .en').forEach((e) => { e.hidden = LANG !== 'en'; });
+  }
+  let prevTheme = null, prevAnim = null;
+  function setPrintMode(on) {
+    if (on === PRINT) return;
+    PRINT = on;
+    const root = document.documentElement;
+    if (on) {
+      prevTheme = root.getAttribute('data-theme'); root.setAttribute('data-theme', 'light');
+      if (hasChart()) { prevAnim = Chart.defaults.animation; Chart.defaults.animation = false; }
+      renderAll(); renderPrintExtras();
+      if (hasChart()) for (const c of Object.values(Chart.instances)) { c.options.responsive = false; c.resize(930, 270); }
+    } else {
+      if (prevTheme) root.setAttribute('data-theme', prevTheme); else root.removeAttribute('data-theme');
+      if (hasChart()) Chart.defaults.animation = prevAnim;
+      renderAll();
+    }
+  }
+  window.addEventListener('beforeprint', () => setPrintMode(true));
+  window.addEventListener('afterprint', () => setPrintMode(false));
+  el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
   el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
