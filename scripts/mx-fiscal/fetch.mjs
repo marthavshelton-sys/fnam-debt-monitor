@@ -141,6 +141,15 @@ async function shcp(cand, spec) {
   return { title: header[vi] + (cand.filter ? ` [${cand.filter.regex}]` : ''), points, url: cand.url };
 }
 
+// Daily/weekly series ship as month-end points (last observation of each month) so data.js stays
+// small; the true latest observation is always kept separately as `last`.
+function thin(points, mode) {
+  if (mode !== 'monthly') return points;
+  const byMonth = new Map();
+  for (const p of points) byMonth.set(p[0].slice(0, 7), p);
+  return [...byMonth.values()];
+}
+
 const PROVIDERS = { banxico, shcp };
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', shcp: 'SHCP Estadísticas Oportunas' };
 
@@ -172,7 +181,7 @@ async function fetchOne(key, spec, prev, log) {
       if (bad) { errors.push(`${cand.provider}:${cand.id || ''} rejected: ${bad}`); continue; }
       const last = got.points[got.points.length - 1];
       log.push([key, PROVIDER_LABEL[cand.provider], cand.id || cand.url.split('/').pop(), 'ok', last[0], String(last[1]), got.title]);
-      return { ...spec.meta, key, provider: cand.provider, id: cand.id || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, fetchedAt: today(), stale: false, points: got.points };
+      return { ...spec.meta, key, provider: cand.provider, id: cand.id || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, fetchedAt: today(), stale: false, last, points: thin(got.points, spec.thin) };
     } catch (e) { errors.push(`${cand.provider}:${cand.id || ''} ${e.message}`); }
   }
   if (prev && prev.points?.length) {
