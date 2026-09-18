@@ -930,7 +930,11 @@
       ? [`Último trimestre reportado: ${lastQ ? qLabel(lastQ) : '—'} (${lastQ && lastQ.sources && lastQ.sources.is ? fmtDate(lastQ.sources.is.date) : '—'})`, `Tráfico: ${lastM ? ymLabel(lastM.ym) : '—'}`, `Guía vigente: ${gv ? fmtDate(gv.date) : '—'}`, `Cierre de mercado: ${lastPx ? `Ps. ${fmtN(lastPx[1], 2)} (${fmtDate(lastPx[0])})` : '—'}`, `Comparación en pantalla: ${el('stmtTitle') ? el('stmtTitle').textContent : ''}`]
       : [`Latest reported quarter: ${lastQ ? qLabel(lastQ) : '—'} (${lastQ && lastQ.sources && lastQ.sources.is ? fmtDate(lastQ.sources.is.date) : '—'})`, `Traffic: ${lastM ? ymLabel(lastM.ym) : '—'}`, `Guidance in force: ${gv ? fmtDate(gv.date) : '—'}`, `Market close: ${lastPx ? `Ps. ${fmtN(lastPx[1], 2)} (${fmtDate(lastPx[0])})` : '—'}`, `Comparison on screen: ${el('stmtTitle') ? el('stmtTitle').textContent : ''}`];
     html('printCover', `<div>${LANG === 'es' ? 'Modelo financiero interactivo · elaborado únicamente con información pública' : 'Interactive financial model · built only from public information'}</div><div class="basis">${basis.map((x) => `<div>${x}</div>`).join('')}<div>${LANG === 'es' ? 'Impreso el' : 'Printed'} ${fmtDate(today)} · fnam.mx/gap</div></div><div class="conf">${conf}</div>`);
-    html('printFooter', `GAP · ${LANG === 'es' ? 'Modelo financiero' : 'Financial model'} · fnam.mx/gap · ${conf} · ${fmtDate(today)}`);
+    // Page footer and numbers via CSS page-margin boxes (Chrome / Edge 131+); language-specific, so injected here.
+    const esc = (x) => x.replace(/\\/g, '\\\\').replace(/"/g, '\\"');
+    const left = esc(`GAP · ${LANG === 'es' ? 'Modelo financiero' : 'Financial model'} · fnam.mx/gap · ${conf} · ${fmtDate(today)}`);
+    let st = el('printPageStyle'); if (!st) { st = document.createElement('style'); st.id = 'printPageStyle'; document.head.appendChild(st); }
+    st.textContent = `@page { size: 11in 8.5in; margin: 0.45in 0.55in 0.6in; @bottom-left { content: "${left}"; font-family: Inter, system-ui, sans-serif; font-size: 8.5pt; color: #555; vertical-align: top; padding-top: 6pt; } @bottom-right { content: "${LANG === 'es' ? 'Página' : 'Page'} " counter(page) " ${LANG === 'es' ? 'de' : 'of'} " counter(pages); font-family: Inter, system-ui, sans-serif; font-size: 9.5pt; color: #333; vertical-align: top; padding-top: 6pt; } }`;
     const src = el('srcGrid'), fine = document.querySelector('footer#sources .fine');
     html('printCloseBody', `<div class="src-grid">${src ? src.innerHTML : ''}</div><p class="fine">${fine ? fine.innerHTML : ''}</p><p class="conf">${conf}</p>`);
     document.querySelectorAll('#printCloseBody .es').forEach((e) => { e.hidden = LANG !== 'es'; }); document.querySelectorAll('#printCloseBody .en').forEach((e) => { e.hidden = LANG !== 'en'; });
@@ -944,7 +948,7 @@
       prevTheme = root.getAttribute('data-theme'); root.setAttribute('data-theme', 'light');
       if (hasChart()) { prevAnim = Chart.defaults.animation; Chart.defaults.animation = false; }
       renderAll(); renderPrintExtras();
-      if (hasChart()) for (const c of Object.values(Chart.instances)) { c.options.responsive = false; c.resize(930, 270); }
+      if (hasChart()) for (const c of Object.values(Chart.instances)) { c.options.responsive = false; c.resize(930, 240); }
     } else {
       if (prevTheme) root.setAttribute('data-theme', prevTheme); else root.removeAttribute('data-theme');
       if (hasChart()) Chart.defaults.animation = prevAnim;
