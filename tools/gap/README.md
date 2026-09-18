@@ -109,6 +109,13 @@ The function directory must sit at the **project root** (next to `site/`). If th
 picks it up on the next deploy; no build step is needed. Page and data responses are sent with
 `Cache-Control: private, no-store` and `X-Robots-Tag: noindex`.
 
+## Print as presentation
+
+The 🖨 button next to the language toggle switches the page into print mode (light theme, tables trimmed
+to the last 8 quarters, fixed-size charts, a cover with the basis dates and a confidentiality line, a
+closing slide with the sources) and opens the browser's print dialog; choose "Save as PDF", Letter
+landscape. Each section starts on a new page and cards never split. Ctrl/Cmd+P triggers the same mode.
+
 ## Local preview
 
 ```
