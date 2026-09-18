@@ -15,9 +15,9 @@
 /gap/data/*
   Cache-Control: no-store
 
-# Mexico fiscal monitor: same daily-commit / monthly-PR pattern as /fiscal/.
+# Mexico fiscal monitor: data.js is committed every business day, docs-data.js by a weekly PR.
 /mx/fiscal/data.js
   Cache-Control: no-store
 
-/mx/fiscal/monthly-data.js
+/mx/fiscal/docs-data.js
   Cache-Control: no-store

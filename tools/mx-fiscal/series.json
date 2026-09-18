@@ -26,7 +26,7 @@
     "udi":            { "freq": "D", "unit": "pesos", "since": "2015-01-01", "thin": "monthly", "guard": { "min": 4, "max": 20, "maxStepPct": 3 },
       "candidates": [{ "provider": "banxico", "id": "SP68257", "title": "UDIS?" }] },
     "inpc":           { "freq": "M", "unit": "índice (2ª quincena jul-2018 = 100)", "since": "2005-01-01", "guard": { "min": 50, "max": 400, "maxStepPct": 5 },
-      "candidates": [{ "provider": "banxico", "id": "SP1", "title": "^(?!.*subyacente).*(índice general|precios al consumidor|INPC)" }] },
+      "candidates": [{ "provider": "banxico", "id": "SP1", "title": "^(?!.*subyacente).*(i\\s*n\\s*d\\s*i\\s*c\\s*e\\s+g\\s*e\\s*n\\s*e\\s*r\\s*a\\s*l|precios al consumidor|INPC)" }] },
     "inpcAnual":      { "freq": "M", "unit": "% anual", "since": "2008-01-01", "guard": { "min": -5, "max": 30 },
       "candidates": [{ "provider": "banxico", "id": "SP30578", "title": "INPC|inflaci|precios" }] },
 
