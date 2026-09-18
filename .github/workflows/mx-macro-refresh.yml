@@ -9,7 +9,14 @@
 #
 # Schedule (Mexico City is UTC-6 all year since 2022): INEGI publishes at 06:00 local = 12:00 UTC,
 # Banxico's FIX around 12:00 local = 18:00 UTC, and policy decisions at 13:00 local = 19:00 UTC.
-# Runs at 12:25, 18:25 and 19:25 UTC on weekdays; nothing is committed when nothing changed.
+# Runs at 12:25, 18:25 and 19:25 UTC on weekdays, plus 15:25 UTC on Saturday and Sunday (the
+# sources publish nothing on weekends, but the run catches corrections and late postings);
+# nothing is committed when nothing changed.
+#
+# Health alarm: after every refresh, scripts/mx-macro/health.mjs flags any series no provider
+# has answered for in 7 days (the page silently keeps old data in that case), and the last step
+# opens - or comments on - a GitHub issue labeled mx-macro-health when the run failed or a
+# series is stale. The first healthy run afterwards closes the issue.
 #
 # Required repository secrets: BANXICO_TOKEN (free, https://www.banxico.org.mx/SieAPIRest/service/v1/token)
 # and INEGI_TOKEN (free registration, https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify)
@@ -19,13 +26,16 @@
 # is fetched or committed; the run summary shows what each id is / which INEGI ids match a name.
 #
 # Scheduled runs only happen on the default branch (GitHub rule). On other branches the workflow
-# runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry [skip ci].
+# runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry
+# [skip actions]: it stops Actions from re-triggering but, unlike [skip ci], is not one of
+# Cloudflare Pages' skip markers, so every refresh commit actually deploys.
 name: Refresh Mexico macro dashboard
 
 on:
   schedule:
     - cron: "25 12 * * 1-5"
     - cron: "25 18,19 * * 1-5"
+    - cron: "25 15 * * 0,6"
   workflow_dispatch:
     inputs:
       probe:
@@ -60,6 +70,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -94,6 +105,7 @@ jobs:
           node scripts/mx-macro/fetch.mjs "${ARGS[@]}"
 
       - name: Fetch series (Banxico SIE, FRED, INEGI)
+        id: fetch
         if: github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
@@ -105,10 +117,12 @@ jobs:
 
       # Runs even if a fetch failed, so whatever did refresh still reaches the page.
       - name: Build page
+        id: build
         if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         run: node scripts/mx-macro/build.mjs
 
       - name: Commit if anything changed
+        id: commit
         if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         shell: bash
         run: |
@@ -119,7 +133,7 @@ jobs:
             echo "No data change; nothing to commit."
             exit 0
           fi
-          git commit -m "mx-macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC [skip ci]"
+          git commit -m "mx-macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
           for i in 1 2 3 4; do
             if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
             echo "push failed; rebasing and retrying ($i)"
@@ -127,3 +141,50 @@ jobs:
             sleep $((i * 5))
           done
           exit 1
+
+      # fetchedAt only advances when a provider answers, so this catches a dead token or a
+      # changed API even though the page keeps its last good data and the run stays green.
+      - name: Data health check
+        id: health
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        run: node scripts/mx-macro/health.mjs
+
+      - name: Open, update or close the mx-macro-health issue
+        if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        uses: actions/github-script@v7
+        env:
+          PROBLEMS: ${{ steps.health.outputs.problems }}
+          RUN_FAILED: ${{ steps.fetch.conclusion == 'failure' || steps.build.conclusion == 'failure' || steps.commit.conclusion == 'failure' || steps.health.conclusion == 'failure' }}
+        with:
+          script: |
+            const label = 'mx-macro-health';
+            const problems = (process.env.PROBLEMS || '').trim();
+            const failed = process.env.RUN_FAILED === 'true';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (failed || problems) {
+              const body = [
+                failed ? `A refresh run failed: ${runUrl}` : `A refresh run succeeded but some series are stale: ${runUrl}`,
+                problems ? '\n```\n' + problems + '\n```' : '',
+                '\nThe page keeps its last good data meanwhile. tools/mx-macro/README.md documents the diagnostics inputs for finding the cause.',
+              ].join('\n');
+              if (issue) {
+                // At most one comment per ~20h so three failing runs a day do not triple-notify.
+                const { data: comments } = await github.rest.issues.listComments({ ...context.repo, issue_number: issue.number, per_page: 100 });
+                const lastTouched = Date.parse(comments.length ? comments[comments.length - 1].created_at : issue.created_at);
+                if (Date.now() - lastTouched > 20 * 3600 * 1000) {
+                  await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
+                } else {
+                  core.info('Open issue already updated recently; not commenting again.');
+                }
+              } else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Mexico macro dashboard refresh needs attention' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title: 'Mexico macro dashboard: refresh needs attention', labels: [label], body });
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Healthy again: every series answered by a provider in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            } else {
+              core.info('Healthy and no open issue; nothing to do.');
+            }
