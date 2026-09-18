@@ -151,11 +151,20 @@ async function shcp(cand, spec) {
 // Daily/weekly series ship as month-end points (last observation of each month) so data.js stays
 // small; the true latest observation is always kept separately as `last`.
 function thin(points, mode) {
-  if (mode !== 'monthly') return points;
+  if (!mode) return points;
   const byMonth = new Map();
   for (const p of points) byMonth.set(p[0].slice(0, 7), p);
-  return [...byMonth.values()];
+  const kept = [...byMonth.values()];
+  if (mode === 'monthly+changes') { // month-ends plus every point where the value changes (policy-rate decisions)
+    const changes = points.filter((p, i) => i === 0 || p[1] !== points[i - 1][1]);
+    const seen = new Set(kept.map((p) => p[0]));
+    for (const p of changes) if (!seen.has(p[0])) { kept.push(p); seen.add(p[0]); }
+    kept.sort((a, b) => (a[0] < b[0] ? -1 : 1));
+  }
+  return kept;
 }
+// data.js precision: four decimals for rates and prices, one decimal for large money amounts.
+const tidy = (points) => points.map(([d, v]) => [d, Math.abs(v) >= 1000 ? Math.round(v * 10) / 10 : v]);
 
 const PROVIDERS = { banxico, shcp };
 const PROVIDER_LABEL = { banxico: 'Banxico SIE', shcp: 'SHCP Estadísticas Oportunas' };
@@ -188,7 +197,7 @@ async function fetchOne(key, spec, prev, log) {
       if (bad) { errors.push(`${cand.provider}:${cand.id || cand.concept || ''} rejected: ${bad}`); continue; }
       const last = got.points[got.points.length - 1];
       log.push([key, PROVIDER_LABEL[cand.provider], cand.id || cand.concept || '', 'ok', last[0], String(last[1]), got.title]);
-      return { ...spec.meta, ...got.meta, key, provider: cand.provider, id: cand.id || cand.concept || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, fetchedAt: today(), stale: false, last, points: thin(got.points, spec.thin) };
+      return { ...spec.meta, ...got.meta, key, provider: cand.provider, id: cand.id || cand.concept || null, title: got.title, url: got.url, freq: spec.freq, unit: spec.unit, ...(spec.ytd ? { ytd: true } : {}), fetchedAt: today(), stale: false, last, points: tidy(thin(got.points, spec.thin)) };
     } catch (e) { errors.push(`${cand.provider}:${cand.id || cand.concept || ''} ${e.message}`); }
   }
   if (prev && prev.points?.length) {
