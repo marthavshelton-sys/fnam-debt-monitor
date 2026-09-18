@@ -55,17 +55,23 @@ Write-Output "identity outlays - receipts = deficit: OK for all $($monthly.Count
 # ---- Table 9: latest statement ----
 $r9 = Invoke-Retry { Invoke-RestMethod "$api/mts_table_9?filter=record_date:eq:$latestStmt&page[size]=100" -TimeoutSec 180 }
 $sources = New-Object System.Collections.ArrayList; $functions = New-Object System.Collections.ArrayList
-$section = ""
-foreach ($row in $r9.data) {
-  if ($row.sequence_level_nbr -eq "1") { $section = $row.classification_desc; continue }
+# The API does not guarantee row order (it stopped being sequential in Sep 2026), so the
+# sequence code decides the section (1.x = receipts by source, 2.x = outlays by function)
+# and the display order.
+$seqParts = { param($s) $p = "$s".Split('.'); @(0, 1, 2) | ForEach-Object { if ($p.Count -gt $_) { [int]$p[$_] } else { 0 } } }
+$rows9 = $r9.data | Sort-Object { (& $seqParts $_.sequence_number_cd)[0] }, { (& $seqParts $_.sequence_number_cd)[1] }, { (& $seqParts $_.sequence_number_cd)[2] }
+foreach ($row in $rows9) {
+  if ($row.sequence_level_nbr -eq "1") { continue }
   if ($row.current_fytd_rcpt_outly_amt -eq $null -or $row.current_fytd_rcpt_outly_amt -eq "null") { continue }
   $item = [ordered]@{ name = $row.classification_desc.TrimEnd(':'); level = [int]$row.sequence_level_nbr
     fytd = [math]::Round([double]$row.current_fytd_rcpt_outly_amt / 1e9, 2)
     pyfytd = [math]::Round([double]$row.prior_fytd_rcpt_outly_amt / 1e9, 2)
     cm = [math]::Round([double]$row.current_month_rcpt_outly_amt / 1e9, 2) }
-  if ($section -eq "Receipts") { [void]$sources.Add($item) } else { [void]$functions.Add($item) }
+  if ($row.sequence_number_cd -like "1.*") { [void]$sources.Add($item) } else { [void]$functions.Add($item) }
 }
-$totR = $sources | Where-Object { $_.name -eq "Total" }; $totO = $functions | Where-Object { $_.name -eq "Total" }
+$totR = @($sources | Where-Object { $_.name -eq "Total" }); $totO = @($functions | Where-Object { $_.name -eq "Total" })
+if ($totR.Count -ne 1 -or $totO.Count -ne 1) { throw "table 9: expected one Total per section, got $($totR.Count) receipts / $($totO.Count) outlays" }
+$totR = $totR[0]; $totO = $totO[0]
 Write-Output ("FYTD receipts {0}B (py {1}B)  outlays {2}B (py {3}B)  deficit {4}B (py {5}B)" -f $totR.fytd, $totR.pyfytd, $totO.fytd, $totO.pyfytd, ($totO.fytd - $totR.fytd), ($totO.pyfytd - $totR.pyfytd))
 # Identity: sources sum to total (level-2 items, excluding the social insurance header whose level-3 children carry the value)
 $sumR = ($sources | Where-Object { $_.name -ne "Total" -and $_.level -ge 2 } | ForEach-Object { $_.fytd } | Measure-Object -Sum).Sum
