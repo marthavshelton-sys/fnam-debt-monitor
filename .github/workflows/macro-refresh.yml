@@ -37,8 +37,9 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Only used to convert the NY Fed GSCPI workbook (a legacy .xls); the
-      # rest of the pipeline is Windows PowerShell 5.1, which the runner ships.
+      # Only used to convert legacy .xls workbooks (NY Fed GSCPI, EIA SPR
+      # history, Shiller's data set); the rest of the pipeline is Windows
+      # PowerShell 5.1, which the runner ships.
       - run: pip install xlrd==2.0.1
 
       - name: Refresh data and build page
@@ -59,7 +60,7 @@ jobs:
           git config user.email "macro-refresh@users.noreply.github.com"
           # The data folder is committed in full: each processed file is the
           # last-good copy a later run falls back to if that source is down.
-          git add site/macro/index.html tools/macro/data
+          git add site/macro/index.html site/macro/spr-inventory.jpg tools/macro/data
           if git diff --cached --quiet; then
             echo "No data change since the last build; nothing to commit."
           else
