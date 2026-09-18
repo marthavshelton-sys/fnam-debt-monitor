@@ -15,10 +15,29 @@
 const UA = 'fnam-debt-monitor/1.0 (+https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const TOKEN = process.env.BANXICO_TOKEN || '';
 
-async function http(url, headers = {}) {
-  const res = await fetch(url, { headers: { 'User-Agent': UA, ...headers }, redirect: 'follow' });
-  if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
-  return res;
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+let lastBanxico = 0;
+// Banxico's web pages answer 429 to bursts, so page requests are paced ~2 s apart and retried with backoff.
+async function http(url, headers = {}, tries = 4) {
+  if (url.includes('banxico.org.mx/SieInternet')) {
+    const wait = 2000 - (Date.now() - lastBanxico);
+    if (wait > 0) await sleep(wait);
+  }
+  for (let i = 1; ; i++) {
+    let res;
+    try {
+      res = await fetch(url, { headers: { 'User-Agent': UA, ...headers }, redirect: 'follow' });
+    } catch (e) {
+      const cause = e.cause ? ` (${e.cause.code || ''} ${e.cause.message || ''})` : '';
+      if (i >= tries) throw new Error(`${e.message}${cause} for ${url}`);
+      await sleep(1500 * i); continue;
+    } finally {
+      if (url.includes('banxico.org.mx/SieInternet')) lastBanxico = Date.now();
+    }
+    if (res.status === 429 && i < tries) { await sleep(5000 * i); continue; }
+    if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
+    return res;
+  }
 }
 const clean = (t) => String(t || '').replace(/<[^>]+>/g, ' ').replace(/&nbsp;/g, ' ').replace(/\s+/g, ' ').trim();
 
@@ -55,7 +74,8 @@ const commands = {
     if (!seen.size) console.log('  (no cuadros found; first 600 chars follow)\n' + html.slice(0, 600));
   },
   async 'banxico-cuadro'(idCuadro, sector) {
-    const url = `https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=consultarCuadro&idCuadro=${idCuadro}&sector=${sector}&locale=es`;
+    const accion = /^CA/.test(idCuadro) ? 'consultarCuadroAnalitico' : 'consultarCuadro';
+    const url = `https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?accion=${accion}&idCuadro=${idCuadro}&sector=${sector}&locale=es`;
     const html = await (await http(url)).text();
     const title = clean((html.match(/<title>([\s\S]*?)<\/title>/) || [])[1]);
     const ids = [...new Set(html.match(/\bS[A-Z]\d{3,7}\b/g) || [])];
@@ -83,7 +103,7 @@ const commands = {
     lines.slice(-3).forEach((l) => console.log('  T ' + l.slice(0, 400)));
   },
   async url(u) {
-    const res = await fetch(u, { headers: { 'User-Agent': UA }, redirect: 'follow' });
+    const res = await http(u);
     const text = await res.text();
     console.log(`  ${res.status} ${res.headers.get('content-type')} ${text.length} chars\n` + text.slice(0, 1500));
   },
