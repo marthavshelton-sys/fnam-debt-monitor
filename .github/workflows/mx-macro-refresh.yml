@@ -26,7 +26,9 @@
 # is fetched or committed; the run summary shows what each id is / which INEGI ids match a name.
 #
 # Scheduled runs only happen on the default branch (GitHub rule). On other branches the workflow
-# runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry [skip ci].
+# runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry
+# [skip actions]: it stops Actions from re-triggering but, unlike [skip ci], is not one of
+# Cloudflare Pages' skip markers, so every refresh commit actually deploys.
 name: Refresh Mexico macro dashboard
 
 on:
@@ -131,7 +133,7 @@ jobs:
             echo "No data change; nothing to commit."
             exit 0
           fi
-          git commit -m "mx-macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC [skip ci]"
+          git commit -m "mx-macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
           for i in 1 2 3 4; do
             if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
             echo "push failed; rebasing and retrying ($i)"

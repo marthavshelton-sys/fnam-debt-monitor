@@ -29,6 +29,8 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data changes."
           else
-            git commit -m "chore: refresh live Banxico data [skip ci]"
+            # [skip actions] instead of [skip ci]: Cloudflare Pages treats [skip ci] as a skip
+            # marker too, so these data commits were never deploying (same fix as refresh-data.yml).
+            git commit -m "chore: refresh live Banxico data [skip actions]"
             git push
           fi
