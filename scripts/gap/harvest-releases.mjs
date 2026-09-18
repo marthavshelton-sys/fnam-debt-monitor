@@ -91,6 +91,8 @@ function classify(text) {
     || /resultados\s+del\s+(primer|segundo|tercer|cuarto)\s+trimestre/.test(head)
     || /results\s+for\s+the\s+(twelve|nine|six|three)[\s-]+month/.test(head)) return 'results';
   if (/announces\s+(growth\s+)?guidance|guidance\s+for\s+(the\s+)?full\s+year|gu[ií]a\s+de\s+crecimiento/.test(head)) return 'guidance';
+  const title = head.split('\n')[0];
+  if (/(dividend|cross border|cbx|fibra|master development|programa maestro|maximum tariff|tarifa m[aá]xima|certificados burs|bond|notes|credit facilit|rating|calificaci|concession|concesi[oó]n|shareholders.? meeting|asamblea|buyback|repurchase|tender|share capital|capital stock|acquisition|adquisici|business combination|merger)/.test(title) && !/passenger\s+traffic|tr[aá]fico/.test(title)) return 'other';
   if (/passenger\s+traffic/.test(head) && new RegExp(`\\b(${MONTHS})\\b`).test(head)) return 'traffic';
   if (/tr[aá]fico\s+de\s+pasajeros/.test(head)) return 'traffic';
   if (/(dividend|cross border|cbx|fibra|master development|programa maestro|maximum tariff|tarifa m[aá]xima|certificados burs|bond|notes|credit facility|rating|calificaci|concession|concesi[oó]n|shareholders.? meeting|asamblea|buyback|repurchase|tender|share capital|capital stock|acquisition|adquisici)/.test(head)) return 'other';

@@ -11,7 +11,7 @@ one of five data files in `site/gap/data/`; nothing is hard-coded in the page.
 | `guidance.js` (`window.GAP_GUIDANCE`) | Management guidance vintages: full-year growth ranges (traffic, aero / non-aero / total revenue, EBITDA, EBITDA margin) and capex, one entry per release that printed a guidance table, with the intro and assumption text GAP wrote | **Automatic.** `build-data.mjs` scans every archived release for the guidance table (January guidance release, 4Q results, mid-year revisions) |
 | `comments.js` (`window.GAP_COMMENTS`) | One-line explanations per income-statement line (`lines`) and per operating metric (`ops`) for year-over-year comparisons (quarter, YTD, fiscal year), ES and EN, written from the results release and the earnings-call transcript; keyed `2026Q2`, `2026M6`, `FY2025` | **Drafted by the alert routine** when a new quarter lands (from the release), then reviewed; transcripts are folded in by hand when supplied |
 | `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX; GAPB cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC) |
-| `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF default assumptions | **By reviewed PR** when an event happens (AGM, issuance, transaction) |
+| `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF fallback assumptions | **Automatic via the alert routine.** Each weekday it reads any new event release (dividends, bond issuances or repayments, credit facilities, ratings, CBX / FIBRA GAP milestones, share-count changes) and edits this file on `main`, describing the change in the alert email. Shares outstanding also come from the latest results release once it is newer. Beta and cost of debt in the DCF are derived at render time (two years of weekly GAPB vs IPC returns; latest fixed-rate bond coupon); the values here are fallbacks. |
 | `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland) | **Placeholder** until the FactSet connector is authorised; the page renders the schema with "pending" |
 
 The **operating metrics** card at the top of section 01 (domestic / international / total terminal
@@ -75,7 +75,7 @@ subtotal no longer reconciles, the validator fails and nothing is committed. Fix
 to the regex (or a new row to the catalogue, which also adds it to the page), run
 `node scripts/gap/build-data.mjs && node scripts/gap/validate-data.mjs` locally, commit.
 
-## Manual updates (reviewed PR)
+## Manual updates (now rare; the routine handles the usual events)
 
 **`site/gap/data/reference.js`** — update when:
 
