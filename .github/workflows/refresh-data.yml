@@ -2,8 +2,11 @@ name: Refresh Treasury/Fed data
 
 on:
   schedule:
-    # 13:15 UTC daily (after Treasury's morning data release and the FRED overnight update)
+    # 13:15 UTC daily (after the FRED overnight update) and 21:30 UTC (after Treasury's
+    # ~4 PM ET Debt to the Penny release, so the same-day figure lands the same evening
+    # instead of waiting for the next morning). Each run only commits if something changed.
     - cron: '15 13 * * *'
+    - cron: '30 21 * * *'
   workflow_dispatch: {}   # lets you trigger a manual run from the Actions tab
 
 permissions:
@@ -26,6 +29,10 @@ jobs:
           if git diff --cached --quiet; then
             echo "No data changes."
           else
-            git commit -m "chore: refresh live Treasury/Fed data [skip ci]"
+            # [skip actions] still stops GitHub Actions from re-triggering on this bot commit,
+            # but unlike [skip ci] it is NOT one of Cloudflare Pages' skip markers. [skip ci]
+            # made Pages silently drop every one of these deploys, so the live site only
+            # refreshed when some unrelated commit happened to land and rebuild it.
+            git commit -m "chore: refresh live Treasury/Fed data [skip actions]"
             git push
           fi
