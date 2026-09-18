@@ -63,6 +63,7 @@ const OUT_TRAFFIC = new URL('../../site/gap/data/traffic.js', import.meta.url);
 const IS_ROWS = [
   { k: 'revAero', en: 'Aeronautical services', es: 'Servicios aeronáuticos', re: /^aeronautical services$/, level: 1 },
   { k: 'revNonAero', en: 'Non-aeronautical services', es: 'Servicios no aeronáuticos', re: /^non-?aeronautical services$/, level: 1 },
+  { k: 'revCbx', en: 'of which: CBX revenues (consolidated from May 2026)', es: 'de los cuales: ingresos de CBX (consolidados desde mayo 2026)', re: /^cbx revenues$/, level: 2, memo: true },
   { k: 'revConstruction', en: 'Improvements to concession assets (IFRIC 12)', es: 'Mejoras a bienes concesionados (IFRIC 12)', re: /^improvements to concession assets/, level: 1, ifric: true },
   { k: 'revTotal', en: 'Total revenues', es: 'Ingresos totales', re: /^total revenues$/, level: 0, bold: true },
   { k: 'costServices', en: 'Cost of services', es: 'Costo de servicios', re: /^costs? of services:?$/, level: 1 },
@@ -416,7 +417,7 @@ function parseTraffic(text, meta) {
   const lines = text.split('\n');
   const prevLabel = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${String(+m[2] - 1).slice(2)}$`, 'i');
   const prevLabelFull = new RegExp(`^${MON3[mi]}[a-z]*[-\\s']*${+m[2] - 1}$`, 'i');
-  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {} }, warnings: [] };
+  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, cbx: null, prior: { dom: {}, intl: {}, total: {}, cbx: null }, warnings: [] };
   const isChangeCell = (c) => /^(%\\s*(change|var\\.?)|change|%|var\\.?)$/i.test(c);
   let section = null;
   let col = -1;          // index of the release month among the header's value columns
@@ -454,7 +455,7 @@ function parseTraffic(text, meta) {
     const values = row.toks.filter((t) => !t.pct).map((t) => (t.dash ? 0 : t.v));
     if (values.length <= col || values[col] == null) continue;
     const v = values[col];
-    if (section === 'cbx') { if (code === 'TIJ') rel.cbx = v; }
+    if (section === 'cbx') { if (code === 'TIJ') { rel.cbx = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior.cbx = values[colPrev]; } }
     else { rel[section][code] = v; if (colPrev >= 0 && values[colPrev] != null) rel.prior[section][code] = values[colPrev]; }
     if (section === 'total' && code === 'TOTAL') { section = null; }
   }
@@ -574,9 +575,10 @@ async function main() {
     const [y, mo] = t.ym.split('-').map(Number);
     const prevYm = `${y - 1}-${String(mo).padStart(2, '0')}`;
     if (!byMonth[prevYm] && Object.keys(t.prior.total).length >= 12 && prevYm >= '2018-01') {
-      byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, cbx: null, source: { url: t.source.url, date: t.source.date, note: 'prior-year comparative column of the following year\'s release' } };
+      byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, cbx: t.prior.cbx, source: { url: t.source.url, date: t.source.date, note: 'prior-year comparative column of the following year\'s release' } };
       console.warn(`traffic ${prevYm}: no own release harvested; filled from the ${t.ym} release's comparative column`);
     }
+    else if (byMonth[prevYm] && byMonth[prevYm].cbx == null && t.prior.cbx != null) byMonth[prevYm].cbx = t.prior.cbx;
   }
   const months = Object.values(byMonth).sort((a, b) => a.ym.localeCompare(b.ym));
   const airports = [
