@@ -14,6 +14,7 @@ const fail = (m) => fails.push(m), warn = (m) => warns.push(m);
 
 const fin = await load('../../site/gap/data/financials.js');
 const traffic = await load('../../site/gap/data/traffic.js');
+const guidance = await load('../../site/gap/data/guidance.js');
 
 // ---- financial statements
 for (const q of [...fin.quarters, ...fin.years]) {
@@ -90,5 +91,29 @@ while (cur <= months.at(-1)) {
 
 for (const w of warns) console.log('WARN ' + w);
 for (const f of fails) console.error('FAIL ' + f);
-console.log(`validate-data: ${fails.length} failures, ${warns.length} warnings; ${fin.quarters.length} quarters, ${fin.years.length} years, ${traffic.months.length} traffic months`);
+// ---- management guidance
+{
+  const vs = guidance.vintages || [];
+  if (!vs.length) fail('guidance: no vintages parsed');
+  const today = new Date().toISOString().slice(0, 10);
+  let prev = null;
+  for (const v of vs) {
+    const tag = `guidance ${v.fy} ${v.kind} (${v.date})`;
+    if (!(v.fy >= 2015 && v.fy <= 2040)) fail(`${tag}: fiscal year out of range`);
+    if (!v.date || v.date > today) fail(`${tag}: bad date`);
+    if (v.date && v.fy < +v.date.slice(0, 4) - 1) fail(`${tag}: guidance issued after the year it covers`);
+    for (const [k, x] of Object.entries(v.items || {})) {
+      if (k === 'capex') { if (!(x.mxnM > 500 && x.mxnM < 100000)) fail(`${tag}: capex ${x.mxnM} Ps. M implausible`); continue; }
+      if (x.lo == null || x.hi == null || x.lo > x.hi) fail(`${tag}: ${k} range ${JSON.stringify(x)}`);
+      if (k === 'ebitdaMargin' && !(x.lo > 40 && x.hi < 90)) fail(`${tag}: margin ${x.lo}-${x.hi} implausible`);
+      if (k !== 'ebitdaMargin' && (x.lo < -80 || x.hi > 150)) fail(`${tag}: ${k} growth ${x.lo}-${x.hi} implausible`);
+    }
+    for (const k of ['traffic', 'revTotal', 'ebitda']) if (!v.items || !v.items[k]) warn(`${tag}: ${k} missing`);
+    if (prev && prev.fy === v.fy && JSON.stringify(prev.items) === JSON.stringify(v.items)) warn(`${tag}: identical to the previous vintage`);
+    if (prev && v.date < prev.date) fail(`${tag}: vintages not in date order`);
+    prev = v;
+  }
+}
+
+console.log(`validate-data: ${fails.length} failures, ${warns.length} warnings; ${fin.quarters.length} quarters, ${fin.years.length} years, ${traffic.months.length} traffic months, ${(guidance.vintages || []).length} guidance vintages`);
 if (fails.length) process.exit(1);

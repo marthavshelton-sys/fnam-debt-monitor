@@ -8,6 +8,7 @@
   const MK = window.GAP_MARKET || { prices: {}, dividends: {}, fx: {}, rates: {} };
   const REF = window.GAP_REF || {};
   const PEERS = window.GAP_PEERS || { peers: [] };
+  const GD = window.GAP_GUIDANCE || { vintages: [] };
 
   // ---------------- i18n ----------------
   let LANG = 'es';
@@ -42,6 +43,9 @@
     unitRev: { es: 'Ingresos unitarios', en: 'Unit revenues' }, aeroPerPax: { es: 'Ingreso aeronáutico por pasajero', en: 'Aeronautical revenue per passenger' },
     nonAeroPerPax: { es: 'Ingreso no aeronáutico por pasajero', en: 'Non-aeronautical revenue per passenger' }, nonAeroExCbx: { es: 'sin ingresos de CBX', en: 'excluding CBX revenue' },
     cbxPerUser: { es: 'Ingreso de CBX por usuario de CBX', en: 'CBX revenue per CBX user' },
+    guideFy: { es: 'Año guiado', en: 'Guided year' }, guideStatus: { es: 'Estatus', en: 'Status' }, issued: { es: 'Emitida', en: 'Issued' }, revised: { es: 'Revisada', en: 'Revised' }, unchanged: { es: 'Sin cambios', en: 'Unchanged' }, initial: { es: 'Inicial', en: 'Initial' },
+    actual: { es: 'Real', en: 'Actual' }, tracking: { es: 'Seguimiento', en: 'Tracking' }, outcome: { es: 'Resultado', en: 'Outcome' }, within: { es: 'En rango', en: 'In range' }, above: { es: 'Por encima', en: 'Above' }, below: { es: 'Por debajo', en: 'Below' }, ofYear: { es: 'del año', en: 'of the year' },
+    date: { es: 'Fecha', en: 'Date' }, type: { es: 'Tipo', en: 'Type' }, hits: { es: 'En rango o mejor', en: 'In range or better' }, gapRelease: { es: 'comunicado de GAP', en: 'GAP release' }, standalone: { es: 'comunicado aparte', en: 'standalone release' }, withResults: { es: 'con resultados', en: 'with results' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute el flujo de actualización.', en: 'Provisional: data files missing. Run the refresh workflow.' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
@@ -114,7 +118,14 @@
     const id = `${q.fy}M${q.q * 3}`;
     if (q.q === 1) return { is: q.is, cf: q.cf, kpi: q.kpi, id: ytdLabel(q.fy, 3), sources: q.sources, fy: q.fy, months: 3 };
     const y = ytdById[id];
-    if (y && y.is) return { ...y, id: ytdLabel(q.fy, q.q * 3) };
+    if (y && y.is) {
+      let is = y.is;
+      if (is.ebitda == null) { // the 6M/9M column of some releases omits EBITDA: take it from the quarters
+        const qs = []; for (let i = 1; i <= q.q; i++) { const x = qById[`${q.fy}Q${i}`]; if (!x || !x.is || x.is.ebitda == null) { qs.length = 0; break; } qs.push(x); }
+        if (qs.length) { const sm = fixRatios(sumParts(qs.map((x) => x.is))); is = { ...is }; for (const k of ['ebitda', 'ebitdaMargin', 'ebitdaMarginExIfric']) if (is[k] == null && sm[k] != null) is[k] = sm[k]; }
+      }
+      return { ...y, is, id: ytdLabel(q.fy, q.q * 3) };
+    }
     const qs = []; for (let i = 1; i <= q.q; i++) { const x = qById[`${q.fy}Q${i}`]; if (!x || !x.is) return null; qs.push(x); }
     return { id: ytdLabel(q.fy, q.q * 3), fy: q.fy, months: q.q * 3, is: fixRatios(sumParts(qs.map((x) => x.is))), cf: sumParts(qs.map((x) => x.cf)), kpi: sumParts(qs.map((x) => x.kpi)), sources: q.sources, derived: true };
   }
@@ -375,6 +386,113 @@
     const head = `<tr><th>${t('metric')}</th>${qs.map((q) => `<th>${qLabel(q)}</th>`).join('')}</tr>`;
     const body = rowsDef.map((r) => `<tr><td>${r.l}</td>${qs.map((q) => { const v = r.f(q); const y = r.noYoy ? null : yoy(q, r.f); return `<td>${r.fmt(v)}${y != null ? `<br><span class="small ${cls(y)}">${fmtPct(y, 1, true)}</span>` : ''}</td>`; }).join('')}</tr>`).join('');
     html('kpiTable', `<table><thead>${head}</thead><tbody>${body}</tbody></table>`);
+  }
+
+  // ================= 02 GUIDANCE =================
+  // Management guidance vintages (data/guidance.js, parsed from the releases) against actual results.
+  const GM = [
+    { k: 'traffic', es: 'Tráfico de pasajeros', en: 'Passenger traffic', s: { es: 'Tráfico', en: 'Traffic' }, kind: 'growth' },
+    { k: 'revAero', es: 'Ingresos aeronáuticos', en: 'Aeronautical revenue', s: { es: 'Aero', en: 'Aero' }, kind: 'growth' },
+    { k: 'revNonAero', es: 'Ingresos no aeronáuticos', en: 'Non-aeronautical revenue', s: { es: 'No aero', en: 'Non-aero' }, kind: 'growth' },
+    { k: 'revTotal', es: 'Ingresos totales (sin IFRIC 12)', en: 'Total revenue (ex-IFRIC 12)', s: { es: 'Ingresos', en: 'Revenue' }, kind: 'growth' },
+    { k: 'ebitda', es: 'EBITDA', en: 'EBITDA', s: { es: 'EBITDA', en: 'EBITDA' }, kind: 'growth' },
+    { k: 'ebitdaMargin', es: 'Margen EBITDA (sin IFRIC 12)', en: 'EBITDA margin (ex-IFRIC 12)', s: { es: 'Margen', en: 'Margin' }, kind: 'level' },
+    { k: 'capex', es: 'Capex (Ps. millones)', en: 'Capex (Ps. million)', s: { es: 'Capex', en: 'Capex' }, kind: 'amount' },
+  ];
+  const GV = (GD.vintages || []).slice().sort((a, b) => a.date.localeCompare(b.date));
+  const gs = { metric: 'traffic' };
+  const gRange = (m, x) => { if (!x) return '—'; if (m.kind === 'amount') return fmtN(x.mxnM); const f = (v) => fmtN(v, Number.isInteger(v) ? 0 : 1) + '%'; if (x.mid != null) return `${f(x.mid)} ± ${fmtN(x.band, 0)}`; return `${f(x.lo)} ${LANG === 'es' ? 'a' : 'to'} ${f(x.hi)}`; };
+  const gMid = (m, x) => (!x ? null : m.kind === 'amount' ? x.mxnM : (x.lo + x.hi) / 2);
+  const gActualFmt = (m, v) => (v == null ? '—' : m.kind === 'amount' ? fmtN(v) : fmtPct(v, 1, m.kind === 'growth'));
+  const gStatus = (m, x, v) => (x == null || v == null || m.kind === 'amount' ? null : v > x.hi + 1e-9 ? 'above' : v < x.lo - 1e-9 ? 'below' : 'within');
+  const gChip = (c, txt) => `<span class="guide-chip ${c || ''}">${txt}</span>`;
+  const gLink = (v, label) => `<a href="${v.source.url}" target="_blank" rel="noopener">${label || fmtDate(v.date)}</a>`;
+  function gGrowthSet(a, b) { // guidance basis: growth vs prior year; revenue and margin ex-IFRIC 12; capex in Ps. M
+    const g = (x, y) => (x != null && y ? 100 * (x / y - 1) : null);
+    const ex = (o) => (o.is && o.is.revTotal != null ? o.is.revTotal - (o.is.revConstruction || 0) : null);
+    return { traffic: g(a.kpi && a.kpi.pax, b.kpi && b.kpi.pax), revAero: g(a.is.revAero, b.is.revAero), revNonAero: g(a.is.revNonAero, b.is.revNonAero), revTotal: g(ex(a), ex(b)), ebitda: g(a.is.ebitda, b.is.ebitda), ebitdaMargin: a.is.ebitda != null && ex(a) ? 100 * a.is.ebitda / ex(a) : null, capex: a.cf && a.cf.capex != null ? -a.cf.capex / 1000 : null };
+  }
+  function gActual(fy) { // closed year: FY vs FY−1; open year: quarters reported so far vs the same quarters a year earlier
+    const y = Y.find((x) => x.fy === fy), p = Y.find((x) => x.fy === fy - 1);
+    if (y && p && y.is && p.is) return { kind: 'fy', label: 'FY' + fy, v: gGrowthSet(y, p) };
+    const qs = Q.filter((q) => q.fy === fy && q.is), pq = qs.map((q) => qById[`${fy - 1}Q${q.q}`]);
+    if (!qs.length || pq.some((x) => !x || !x.is)) return null;
+    const agg = (arr) => ({ is: sumParts(arr.map((q) => q.is)), cf: sumParts(arr.map((q) => q.cf)), kpi: sumParts(arr.map((q) => q.kpi)) });
+    return { kind: 'ytd', months: qs.length * 3, label: ytdLabel(fy, qs.length * 3), v: gGrowthSet(agg(qs), agg(pq)) };
+  }
+  function renderGuidance() {
+    if (!GV.length) { html('guideCurrent', `<p class="muted small">${t('na')}</p>`); return; }
+    // ---- guidance in force for the latest guided year, every vintage of that year side by side, vs actuals
+    const fy = Math.max(...GV.map((v) => v.fy));
+    const cur = GV.filter((v) => v.fy === fy), last = cur[cur.length - 1];
+    const act = gActual(fy), closed = !!(act && act.kind === 'fy');
+    el('guideCurTitle').textContent = `${LANG === 'es' ? 'Guía' : 'Guidance'} FY${fy} · ${cur.length > 1 ? (LANG === 'es' ? 'revisada el ' : 'revised ') : (LANG === 'es' ? 'emitida el ' : 'issued ')}${fmtDate(last.date)}`;
+    el('guideCurCap').textContent = !act ? (LANG === 'es' ? 'Aún no hay resultados reportados del año guiado.' : 'No results reported yet for the guided year.')
+      : closed ? (LANG === 'es' ? `Año cerrado: resultado real FY${fy} frente a la última guía.` : `Closed year: actual FY${fy} versus the final guidance.`)
+      : (LANG === 'es' ? `Seguimiento con el acumulado reportado (${act.label} vs ${ytdLabel(fy - 1, act.months)}); la guía es para el año completo, así que un acumulado fuera del rango no implica un incumplimiento.` : `Tracked against the reported year-to-date (${act.label} vs ${ytdLabel(fy - 1, act.months)}); guidance is for the full year, so a year-to-date figure outside the range is not a miss in itself.`);
+    const head = `<tr><th>${t('metric')}</th>${cur.map((v, i) => `<th>${i === 0 ? t('initial') : t('revised')}<span class="sub">${fmtDate(v.date)}</span></th>`).join('')}${cur.length > 1 ? `<th>${t('change')}</th>` : ''}<th>${t('actual')}${act ? `<span class="sub">${act.label}</span>` : ''}</th><th>${closed ? t('outcome') : t('tracking')}</th></tr>`;
+    const rows = GM.map((m) => {
+      const cells = cur.map((v) => `<td>${gRange(m, v.items[m.k])}</td>`).join('');
+      let chg = '';
+      if (cur.length > 1) { const a = gMid(m, cur[0].items[m.k]), b = gMid(m, last.items[m.k]); const d = a != null && b != null ? b - a : null; chg = `<td class="${cls(d)}">${d == null ? '—' : m.kind === 'amount' ? fmtN(d) : fmtN(d, 1) + ' pp'}</td>`; }
+      const v = act ? act.v[m.k] : null, x = last.items[m.k];
+      let stc = '';
+      if (v != null && x) { if (m.kind === 'amount') stc = gChip('', `${fmtPct(100 * v / x.mxnM, 0)} ${closed ? (LANG === 'es' ? 'de la guía' : 'of guidance') : t('ofYear')}`); else { const sx = gStatus(m, x, v); stc = gChip(sx, t(sx)); } }
+      return `<tr><td>${L(m)}</td>${cells}${chg}<td><b>${gActualFmt(m, v)}</b></td><td>${stc}</td></tr>`;
+    });
+    html('guideCurrent', `<table class="guide-table"><thead>${head}</thead><tbody>${rows.join('')}</tbody></table>`);
+    const quotes = cur.flatMap((v) => [...(v.intro || []), ...(v.notes || [])].map((q) => `<p class="guide-quote">“${q}” <span class="muted small">— ${gLink(v)}</span></p>`));
+    html('guideText', quotes.join('')); el('guideTextWrap').hidden = !quotes.length;
+    html('guideCurSrc', `${t('src')}: ` + cur.map((v) => gLink(v, `${t('gapRelease')} (${fmtDate(v.date)})`)).join(' · '));
+
+    // ---- six-quarter history: the guidance in force after each quarter's report, with what changed
+    const rq = Q.filter((q) => q.sources && q.sources.is && q.sources.is.date);
+    const qs = rq.slice(-6), before = rq[rq.length - 7] || null;
+    const relDate = (q) => q.sources.is.date;
+    const inForce = (date) => { let v = null; for (const x of GV) if (x.date <= date) v = x; return v; };
+    const cols = qs.map((q, i) => { const from = i ? relDate(qs[i - 1]) : (before ? relDate(before) : '0000-00-00'); return { q, v: inForce(relDate(q)), events: GV.filter((x) => x.date > from && x.date <= relDate(q)) }; });
+    const prevOf = (i) => (i ? cols[i - 1].v : before ? inForce(relDate(before)) : null);
+    const hHead = `<tr><th>${t('metric')}</th>${cols.map((c) => `<th>${qLabel(c.q)}<span class="sub">${fmtDate(relDate(c.q))}</span></th>`).join('')}</tr>`;
+    const rFy = `<tr class="bold"><td>${t('guideFy')}</td>${cols.map((c, i) => `<td class="${c.v && prevOf(i) && c.v.fy !== prevOf(i).fy ? 'chg' : ''}">${c.v ? 'FY' + c.v.fy : '—'}</td>`).join('')}</tr>`;
+    const rSt = `<tr><td>${t('guideStatus')}</td>${cols.map((c) => `<td>${c.events.length ? c.events.map((e) => gChip('event', `${e.kind === 'revised' ? t('revised') : t('issued')} · ${fmtDate(e.date)}`) + (e.quarter ? '' : `<span class="sub">${t('standalone')}</span>`)).join('<br>') : gChip('', t('unchanged')) + (c.v ? `<span class="sub">${LANG === 'es' ? 'desde' : 'since'} ${fmtDate(c.v.date)}</span>` : '')}</td>`).join('')}</tr>`;
+    const rM = GM.map((m) => `<tr><td>${L(m)}</td>${cols.map((c, i) => { const now = c.v && c.v.items[m.k], p = prevOf(i), was = p && p.items[m.k]; const sameFy = c.v && p && c.v.fy === p.fy; const changed = c.v && p && (!sameFy || JSON.stringify(now) !== JSON.stringify(was)); return `<td class="${changed ? 'chg' : ''}">${gRange(m, now)}${changed && sameFy && was ? `<span class="was">${gRange(m, was)}</span>` : ''}</td>`; }).join('')}</tr>`).join('');
+    html('guideHistory', `<table class="guide-table"><thead>${hHead}</thead><tbody>${rFy}${rSt}${rM}</tbody></table>`);
+    const ev = cols.flatMap((c) => c.events);
+    html('guideHistSrc', ev.length ? `${t('src')}: ` + ev.map((v) => gLink(v, `${t('gapRelease')} (${fmtDate(v.date)})`)).join(' · ') : '');
+
+    // ---- track record for closed years, against the final guidance of each year
+    const fys = [...new Set(GV.map((v) => v.fy))].sort();
+    const finalOf = (y) => GV.filter((v) => v.fy === y).pop();
+    const closedFys = fys.filter((y) => { const a = gActual(y); return a && a.kind === 'fy'; });
+    const rHead = `<tr><th>${t('year')}</th>${GM.map((m) => `<th>${L(m.s)}</th>`).join('')}<th>${t('hits')}</th></tr>`;
+    const rRows = closedFys.map((y) => { const v = finalOf(y), a = gActual(y); let hit = 0, n = 0; const cells = GM.map((m) => { const x = v.items[m.k], val = a.v[m.k]; const sx = gStatus(m, x, val); if (sx) { n++; if (sx !== 'below') hit++; } return `<td class="${sx === 'above' ? 'pos' : sx === 'below' ? 'neg' : ''}"><b>${gActualFmt(m, val)}</b><span class="sub">${LANG === 'es' ? 'guía' : 'guided'} ${gRange(m, x)}</span></td>`; }); return `<tr><td>FY${y}<span class="sub">${v.kind === 'revised' ? t('revised') : t('initial')} · ${fmtDate(v.date)}</span></td>${cells.join('')}<td><b>${hit}/${n}</b></td></tr>`; });
+    html('guideRecord', `<table><thead>${rHead}</thead><tbody>${rRows.join('')}</tbody></table>`);
+
+    // ---- every vintage
+    const aHead = `<tr><th>${t('date')}</th><th>${t('year')}</th><th>${t('type')}</th>${GM.map((m) => `<th>${L(m.s)}</th>`).join('')}<th>${t('src')}</th></tr>`;
+    const aRows = GV.slice().reverse().map((v) => { const qq = v.quarter ? (qById[v.quarter] || { fy: +v.quarter.slice(0, 4), q: +v.quarter.slice(5) }) : null; return `<tr><td>${fmtDate(v.date)}<span class="sub">${qq ? `${t('withResults')} ${qLabel(qq)}` : t('standalone')}</span></td><td>FY${v.fy}</td><td>${v.kind === 'revised' ? t('revised') : t('initial')}</td>${GM.map((m) => `<td>${gRange(m, v.items[m.k])}</td>`).join('')}<td>${gLink(v, '↗')}</td></tr>`; });
+    html('guideAll', `<table><thead>${aHead}</thead><tbody>${aRows.join('')}</tbody></table>`);
+    renderGuideChart();
+  }
+  function renderGuideChart() {
+    const m = GM.find((x) => x.k === gs.metric); if (!m || !GV.length) return;
+    const fys = [...new Set(GV.map((v) => v.fy))].sort();
+    const firstOf = (y) => GV.find((v) => v.fy === y), finalOf = (y) => GV.filter((v) => v.fy === y).pop();
+    const acts = fys.map((y) => gActual(y));
+    const c = SERIES();
+    const range = (x) => (!x ? null : m.kind === 'amount' ? x.mxnM : [x.lo, x.hi]);
+    const ds = [
+      { type: 'bar', label: LANG === 'es' ? 'Guía inicial' : 'Initial guidance', data: fys.map((y) => range(firstOf(y).items[m.k])), backgroundColor: c[3], borderWidth: 0, skipNull: true },
+      { type: 'bar', label: LANG === 'es' ? 'Última revisión' : 'Latest revision', data: fys.map((y) => (finalOf(y) !== firstOf(y) ? range(finalOf(y).items[m.k]) : null)), backgroundColor: c[0], borderWidth: 0, skipNull: true },
+      { type: 'line', label: t('actual'), data: fys.map((y, i) => (acts[i] ? acts[i].v[m.k] : null)), showLine: false, pointRadius: 6, pointHoverRadius: 7, pointStyle: fys.map((y, i) => (acts[i] && acts[i].kind === 'ytd' ? 'triangle' : 'circle')), borderColor: c[1], backgroundColor: c[1], pointBackgroundColor: c[1], pointBorderColor: c[1] },
+    ];
+    mkChart('chartGuide', { type: 'bar', data: { labels: fys.map((y) => 'FY' + y), datasets: ds }, options: {
+      plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => { const raw = x.raw; if (Array.isArray(raw)) return `${x.dataset.label}: ${gRange(m, { lo: raw[0], hi: raw[1] })}`; const a = acts[x.dataIndex]; return `${x.dataset.label}${x.dataset.type === 'line' && a && a.kind === 'ytd' ? ` (${a.label})` : ''}: ${gActualFmt(m, raw)}`; } } } },
+      scales: { x: { grid: { display: false } }, y: { ticks: m.kind === 'amount' ? { callback: (v) => fmtN(v) } : { callback: (v) => v + '%' }, beginAtZero: m.kind !== 'level' } },
+      datasets: { bar: { maxBarThickness: 28 } },
+    } });
+    const lastV = GV[GV.length - 1];
+    html('guideChartSrc', `${t('src')}: ${LANG === 'es' ? 'comunicados de GAP (guía) e informes trimestrales (real)' : 'GAP releases (guidance) and quarterly reports (actual)'} · ${gLink(lastV, `${LANG === 'es' ? 'última guía' : 'latest guidance'} ↗`)}`);
   }
 
   // ================= 02 TRAFFIC =================
@@ -684,6 +802,7 @@
     const rows = [
       [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'días 6, 12, 18 y 24 de cada mes' : '6th, 12th, 18th, 24th monthly', LANG === 'es' ? 'GitHub Actions descarga los informes de GAP (GlobeNewswire), los convierte en tablas y valida cuadres antes de publicar' : 'GitHub Actions downloads GAP\'s reports (GlobeNewswire), parses the tables and validates tie-outs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Tráfico mensual por aeropuerto' : 'Monthly traffic by airport', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'reporte mensual de tráfico (≈ día 5 de cada mes)' : 'monthly traffic report (≈ 5th of each month)', fmtDate((TR.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'tabla de guía en los comunicados (enero, 4T, revisiones)' : 'guidance table in the releases (January, 4Q, revisions)', fmtDate((GD.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · FRED (DEXMXUS, DGS10, IRLTLT01MXM156N)', fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
@@ -704,7 +823,7 @@
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b)); onChange(b.dataset.v); })); }
   function renderAll() {
     chartDefaults();
-    renderHeader(); renderStatements(); renderTraffic(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCbx(); renderMethod();
+    renderHeader(); renderStatements(); renderGuidance(); renderTraffic(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCbx(); renderMethod();
   }
   function setLang(lang) {
     LANG = lang;
@@ -722,6 +841,7 @@
   el('selB').addEventListener('change', (e) => { st.b = e.target.value; renderStatements(); });
   el('chkIfric').addEventListener('change', (e) => { st.exIfric = e.target.checked; renderStatements(); });
   el('chkUsd').addEventListener('change', (e) => { st.usd = e.target.checked; renderStatements(); });
+  seg('segGuideMetric', (v) => { gs.metric = v; renderGuideChart(); });
   seg('segTrafFreq', (v) => { tr.freq = v; renderTraffic(); });
   seg('segTrafSeg', (v) => { tr.seg = v; renderTraffic(); });
   seg('segRange', (v) => { sh.range = v; renderShare(); });
