@@ -345,7 +345,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="en">Total public debt, percent of GDP</span><span class="es" hidden>Deuda pública total, porcentaje del PIB</span></h3>
-      <p class="cap"><span class="en">Annual, 1939–2025</span><span class="es" hidden>Anual, 1939–2025</span></p>
+      <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span></p>
       <div class="chart-wrap tall"><canvas id="chartDebtGdpPct"></canvas></div>
       <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repeated from <a href="#gdp">Section 06</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repetida de la <a href="#gdp">Sección 06</a></span></p>
     </div>
@@ -450,9 +450,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="card">
         <h3><span class="en">Average maturity of marketable debt</span><span class="es" hidden>Vencimiento promedio de la deuda negociable</span></h3>
         <div class="stat-row">
-          <div class="stat"><div class="v num">~70 <span class="en">mo.</span><span class="es" hidden>meses</span></div><div class="l"><span class="en">Avg. maturity (≈5.8 yrs), Dec 2025</span><span class="es" hidden>Vencimiento promedio (≈5.8 años), dic. 2025</span></div></div>
+          <div class="stat"><div class="v num"><span data-bind="tbacAvgMonths">~70</span> <span class="en">mo.</span><span class="es" hidden>meses</span></div><div class="l"><span class="en">Avg. maturity (<span data-bind="tbacAvgYears">≈5.8</span> yrs), <span data-bind="tbacAsOfEn">Dec 2025</span></span><span class="es" hidden>Vencimiento promedio (<span data-bind="tbacAvgYears">≈5.8</span> años), <span data-bind="tbacAsOfEs">dic. 2025</span></span></div></div>
           <div class="stat"><div class="v num">~33%</div><div class="l"><span class="en">Of privately-held marketable debt matures within 12 months</span><span class="es" hidden>De la deuda negociable en manos privadas vence en 12 meses</span></div></div>
-          <div class="stat"><div class="v num">65 → 75 → 70</div><div class="l"><span class="en">Months: Dec 2020 → May 2023 peak → Dec 2025</span><span class="es" hidden>Meses: dic. 2020 → máximo de mayo 2023 → dic. 2025</span></div></div>
+          <div class="stat"><div class="v num" data-bind="tbacHistoryVals">65 → 75 → 70</div><div class="l"><span class="en">Months: <span data-bind="tbacHistoryLabelsEn">Dec 2020 → May 2023 peak → Dec 2025</span></span><span class="es" hidden>Meses: <span data-bind="tbacHistoryLabelsEs">dic. 2020 → máximo de mayo 2023 → dic. 2025</span></span></div></div>
         </div>
         <div class="callout">
           <span class="en">Treasury lengthened average maturity sharply after 2020 as rates fell, then began leaning back on bills as issuance needs grew. A third of marketable debt rolling over within a year means the "cost of debt" (Section 4) resets quickly when rates move.</span>
@@ -570,21 +570,21 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>La razón deuda/PIB pone el tamaño de la deuda en el contexto de la capacidad de la economía para sostenerla. Se acercó por última vez al nivel actual en los años inmediatamente posteriores a la Segunda Guerra Mundial, bajó durante las siguientes seis décadas conforme la economía de posguerra creció más rápido que la deuda, y luego se revirtió con fuerza después de la crisis financiera de 2008 y de nuevo en 2020.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–2025 (earliest year with a consistent GDP-based series) · latest quarterly estimate (Q1–Q2 2026) computed the same way from Treasury debt ÷ BEA GDP</span>
-      <span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, anual, 1939–2025 (primer año con una serie consistente basada en el PIB) · última estimación trimestral (T1–T2 2026) calculada de la misma manera con deuda del Tesoro ÷ PIB de la BEA</span>
+      <span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (earliest year with a consistent GDP-based series) · latest quarter (<span data-bind="debtGdpQtrEn">Q2 2026</span>) computed the same way from live Treasury debt ÷ BEA GDP</span>
+      <span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, anual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (primer año con una serie consistente basada en el PIB) · último trimestre (<span data-bind="debtGdpQtrEs">T2 2026</span>) calculado de la misma manera con deuda del Tesoro en vivo ÷ PIB de la BEA</span>
     </p>
     <div class="grid-2">
       <div class="card">
         <h3><span class="en">Total public debt, percent of GDP</span><span class="es" hidden>Deuda pública total, porcentaje del PIB</span></h3>
-        <p class="cap"><span class="en">Annual, 1939–2025</span><span class="es" hidden>Anual, 1939–2025</span></p>
+        <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span></p>
         <div class="chart-wrap tall"><canvas id="chartGdp"></canvas></div>
         <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a></span></p>
       </div>
       <div class="card">
         <h3><span class="en">Where it stands</span><span class="es" hidden>Dónde está hoy</span></h3>
         <div class="stat-row">
-          <div class="stat"><div class="v num">121.5%</div><div class="l"><span class="en">2025, latest full year (FRED)</span><span class="es" hidden>2025, último año completo (FRED)</span></div></div>
-          <div class="stat"><div class="v num">~121–123%</div><div class="l"><span class="en">Q1–Q2 2026, latest quarterly estimate</span><span class="es" hidden>T1–T2 2026, última estimación trimestral</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpAnnualPct">121.5%</div><div class="l"><span class="en"><span data-bind="debtGdpAnnualYear">2025</span>, latest full year (FRED)</span><span class="es" hidden><span data-bind="debtGdpAnnualYear">2025</span>, último año completo (FRED)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpPct">~121–123%</div><div class="l"><span class="en"><span data-bind="debtGdpQtrEn">Q2 2026</span>, latest quarter (live Treasury debt ÷ BEA GDP)</span><span class="es" hidden><span data-bind="debtGdpQtrEs">T2 2026</span>, último trimestre (deuda del Tesoro en vivo ÷ PIB de la BEA)</span></div></div>
           <div class="stat"><div class="v num">119.1%</div><div class="l"><span class="en">1946, prior all-time peak</span><span class="es" hidden>1946, máximo histórico previo</span></div></div>
         </div>
         <div class="callout">
@@ -836,12 +836,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </p>
       <div class="chart-wrap tall"><canvas id="chartFedWatch"></canvas></div>
       <p class="chart-src">
-        <span class="en">Source: CME Group FedWatch methodology (fed funds futures); figures as reported by Investing.com's Fed Rate Monitor, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, snapshot taken 10-Sep-2026 — CME's own tool updates live intraday and is not directly embeddable here; check it directly for the current reading</span>
-        <span class="es" hidden>Fuente: metodología FedWatch de CME Group (futuros de fondos federales); cifras reportadas por el Fed Rate Monitor de Investing.com, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, captura del 10 de sep. de 2026 — la propia herramienta de CME se actualiza en vivo intradía y no puede incrustarse aquí directamente; consúltela directamente para la lectura actual</span>
+        <span class="en">Source: CME Group FedWatch methodology (fed funds futures); figures as reported by Investing.com's Fed Rate Monitor, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, snapshot taken <span data-bind="fedWatchAsOfEn">10-Sep-2026</span> — CME's own tool updates live intraday and is not directly embeddable here; check it directly for the current reading</span>
+        <span class="es" hidden>Fuente: metodología FedWatch de CME Group (futuros de fondos federales); cifras reportadas por el Fed Rate Monitor de Investing.com, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, captura del <span data-bind="fedWatchAsOfEs">10 de sep. de 2026</span> — la propia herramienta de CME se actualiza en vivo intradía y no puede incrustarse aquí directamente; consúltela directamente para la lectura actual</span>
       </p>
       <div class="callout">
-        <span class="en">Markets currently lean toward a <b>25-basis-point hike</b> at the Sept 16 meeting — a <b>69.6%</b> probability of moving to 3.75–4.00%, vs. <b>30.4%</b> for holding at 3.50–3.75% — with the odds of still-higher rates building at each meeting after that, reaching a <b>45%</b> chance of 4.00–4.25% by December. That's a shift in market expectations, not a Fed announcement — it will keep moving as new data (like the CPI print in Section 4's implied backdrop) comes in before each meeting.</span>
-        <span class="es" hidden>Los mercados actualmente se inclinan hacia un <b>aumento de 25 puntos base</b> en la reunión del 16 de sep. — una probabilidad de <b>69.6%</b> de pasar a 3.75–4.00%, contra <b>30.4%</b> de mantenerse en 3.50–3.75% — con probabilidades de tasas aún más altas creciendo en cada reunión posterior, llegando a un <b>45%</b> de probabilidad de 4.00–4.25% para diciembre. Esto es un cambio en las expectativas del mercado, no un anuncio de la Fed — seguirá moviéndose conforme lleguen nuevos datos (como la lectura del INPC del contexto de la Sección 4) antes de cada reunión.</span>
+        <span class="en" id="fedWatchCalloutEn">Markets currently lean toward a <b>25-basis-point hike</b> at the Sept 16 meeting — a <b>69.6%</b> probability of moving to 3.75–4.00%, vs. <b>30.4%</b> for holding at 3.50–3.75% — with the odds of still-higher rates building at each meeting after that, reaching a <b>45%</b> chance of 4.00–4.25% by December. That's a shift in market expectations, not a Fed announcement — it will keep moving as new data (like the CPI print in Section 4's implied backdrop) comes in before each meeting.</span>
+        <span class="es" hidden id="fedWatchCalloutEs">Los mercados actualmente se inclinan hacia un <b>aumento de 25 puntos base</b> en la reunión del 16 de sep. — una probabilidad de <b>69.6%</b> de pasar a 3.75–4.00%, contra <b>30.4%</b> de mantenerse en 3.50–3.75% — con probabilidades de tasas aún más altas creciendo en cada reunión posterior, llegando a un <b>45%</b> de probabilidad de 4.00–4.25% para diciembre. Esto es un cambio en las expectativas del mercado, no un anuncio de la Fed — seguirá moviéndose conforme lleguen nuevos datos (como la lectura del INPC del contexto de la Sección 4) antes de cada reunión.</span>
       </div>
     </div>
   </section>
@@ -860,7 +860,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="instr">
         <div class="ihead"><h4><span class="en">Federal funds target range</span><span class="es" hidden>Rango objetivo de fondos federales</span></h4><span class="pill since"><span class="en">Since 1994 (formal target)</span><span class="es" hidden>Desde 1994 (objetivo formal)</span></span></div>
         <p><span class="en">The FOMC's headline tool: a 25-basis-point target range for the overnight rate banks charge each other for reserves, reset at each of its eight scheduled meetings a year.</span><span class="es" hidden>La herramienta principal del FOMC: un rango objetivo de 25 puntos base para la tasa overnight que los bancos se cobran entre sí por reservas, reajustado en cada una de sus ocho reuniones programadas al año.</span></p>
-        <div class="metric"><span class="v">3.50–3.75%</span><span class="l"><span class="en">current target range</span><span class="es" hidden>rango objetivo actual</span></span></div>
+        <div class="metric"><span class="v" data-bind="targetRange">3.50–3.75%</span><span class="l"><span class="en">current target range</span><span class="es" hidden>rango objetivo actual</span></span></div>
       </div>
       <div class="instr">
         <div class="ihead"><h4><span class="en">Interest on Reserve Balances (IORB)</span><span class="es" hidden>Interés sobre Saldos de Reservas (IORB)</span></h4><span class="pill since"><span class="en">Since Oct 2008</span><span class="es" hidden>Desde oct. 2008</span></span></div>
@@ -1218,6 +1218,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // not the daily script. Baked default below until the first monthly PR adds it.
   var cashInterestT = 1.170;
   var accruedInterestT = 1.268, accruedInterestAsOf = "2026-08-31"; // same deferred-to-monthly-task treatment
+  // Nominal GDP (FRED "GDP", quarterly SAAR, $B) and FRED's annual gross-debt/GDP series, both
+  // overlaid by applyLiveData() — every Debt ÷ GDP figure on the page is computed from these,
+  // never hand-typed. Baked defaults mirror the last values seen when this was wired up.
+  var gdpB = 32486.066, gdpDate = "2026-04-01"; // Q2 2026
+  var debtGdpAnnualPct = 121.5, debtGdpAnnualYear = "2025";
+  // FOMC target range, inferred from the live ON RRP award rate (the range floor; the range is
+  // always 25 bp wide). The Fed publishes no free machine-readable feed of the range itself.
+  var targetRangeLo = 3.50, targetRangeHi = 3.75;
 
   var fundsRate = {
     labels:["2000","2003","2006","2007","2008","2010","2015","2018","2019","2020","2022","2023","2024","2026"],
@@ -1246,6 +1254,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       [0,    0,    0,    6.4]
     ]
   };
+  // Research snapshots with no machine-readable source (CME FedWatch odds, TBAC maturity
+  // statistics). Refreshed by the monthly research task through site/fiscal/monthly-data.js
+  // (MD.fedWatch, MD.tbac) and overlaid in applyMonthlyData(); baked defaults mirror the
+  // page's last hand-entered snapshot. The FedWatch callout prose is only replaced when the
+  // monthly file supplies it (calloutEn/calloutEs), otherwise the markup below stands.
+  var fedWatchAsOf = "2026-09-10"; // ISO, date the odds were captured
+  var fedWatchCalloutEn = null, fedWatchCalloutEs = null; // HTML strings (may contain <b>)
+  var tbacAvgMonths = 70, tbacAsOf = "2025-12"; // "YYYY-MM"
+  var tbacHistory = [
+    {label:"Dec 2020", labelEs:"dic. 2020", months:65},
+    {label:"May 2023 peak", labelEs:"máximo de mayo 2023", months:75},
+    {label:"Dec 2025", labelEs:"dic. 2025", months:70}
+  ];
 
   var sources = [
     ["Debt to the Penny","Daily total public debt outstanding, split between debt held by the public and intragovernmental holdings.","https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny"],
@@ -1337,6 +1358,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         foreignHoldersTotal = LD.foreignHolders.grandTotalB;
         foreignHoldersAsOf = LD.foreignHolders.date; // "YYYY-MM"
       }
+      if(LD.gdp && LD.gdp.value){ gdpB = LD.gdp.value; gdpDate = LD.gdp.date; }
+      if(LD.debtGdpAnnual && LD.debtGdpAnnual.value){
+        debtGdpAnnualPct = LD.debtGdpAnnual.value;
+        debtGdpAnnualYear = String(LD.debtGdpAnnual.date).slice(0,4);
+        // Extend the 1939– chart when FRED posts a new year (it only ever grows by one point a year).
+        if(gdpTrend.labels[gdpTrend.labels.length-1] !== debtGdpAnnualYear){
+          gdpTrend.labels.push(debtGdpAnnualYear);
+          gdpTrend.values.push(Math.round(debtGdpAnnualPct*100)/100);
+        }
+      }
+      if(LD.rates && LD.rates.onrrp && LD.rates.onrrp.value != null){
+        targetRangeLo = LD.rates.onrrp.value;
+        targetRangeHi = Math.round((targetRangeLo + 0.25)*100)/100;
+      }
     } catch(e){
       // A malformed/partial data.js should never break the page — fall back silently to the snapshot.
       console.warn("LIVE_DATA overlay skipped:", e);
@@ -1427,6 +1462,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       if(MD.cashInterestT) cashInterestT = MD.cashInterestT; // .val/.delta set below once revOutInfo (same MTS vintage) is computed
       if(MD.accruedInterestT) accruedInterestT = MD.accruedInterestT;
       if(MD.accruedInterestAsOf) accruedInterestAsOf = MD.accruedInterestAsOf;
+      if(MD.fedWatch){
+        var fw = MD.fedWatch;
+        if(fw.meetings && fw.meetings.length) fedWatch.meetings = fw.meetings;
+        if(fw.buckets && fw.buckets.length) fedWatch.buckets = fw.buckets;
+        if(fw.probs && fw.probs.length) fedWatch.probs = fw.probs;
+        if(fw.asOf) fedWatchAsOf = fw.asOf;
+        if(fw.calloutEn) fedWatchCalloutEn = fw.calloutEn;
+        if(fw.calloutEs) fedWatchCalloutEs = fw.calloutEs;
+      }
+      if(MD.tbac){
+        if(MD.tbac.avgMaturityMonths != null) tbacAvgMonths = MD.tbac.avgMaturityMonths;
+        if(MD.tbac.asOf) tbacAsOf = MD.tbac.asOf;
+        if(MD.tbac.history && MD.tbac.history.length) tbacHistory = MD.tbac.history;
+      }
     } catch(e){
       console.warn("MONTHLY_DATA overlay skipped:", e);
     }
@@ -1482,6 +1531,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var sign = function(v){ return v>=0 ? '+' : '−'; };
   var caymanRow = foreignHolders.filter(function(f){ return f[0]==="Cayman Islands"; })[0];
   var caymanValB = caymanRow ? caymanRow[1] : 421.6; // falls back to the last-known baked figure if Cayman ever drops out of the top 10
+  // Debt ÷ GDP: live debt total over the latest FRED nominal GDP (quarterly SAAR). The KPI and
+  // the "as of" row are rebuilt here, with their Spanish strings registered at runtime so the
+  // exact-string L() lookup keeps working as the quarter label changes.
+  var debtGdpPct = debtTotalT*1000/gdpB*100;
+  var gdpQ = 'Q'+(Math.floor(Number(gdpDate.split('-')[1])/3)+1)+' '+gdpDate.slice(0,4); // "2026-04-01" -> "Q2 2026"
+  var gdpQEs = gdpQ.replace('Q','T');
+  var gdpTStr = '$'+(gdpB/1000).toFixed(2)+'T';
+  kpis[2].val = debtGdpPct.toFixed(1)+'%';
+  kpis[2].delta = 'GDP ≈ '+gdpTStr+' ('+gdpQ+')';
+  ES_STR[kpis[2].delta] = 'PIB ≈ $'+(gdpB/1000).toFixed(2)+' billones ('+gdpQEs+')';
+  asof[5][1] = gdpQ+' (BEA GDP, quarterly)';
+  ES_STR[asof[5][1]] = gdpQEs+' (PIB de la BEA, trimestral)';
+  var targetRangeStr = targetRangeLo.toFixed(2)+'–'+targetRangeHi.toFixed(2)+'%';
+  var gdpTrendEndYear = gdpTrend.labels[gdpTrend.labels.length-1];
   var BIND = {
     debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
     debtTotalT: '$'+debtTotalT.toFixed(2)+'T', debtPublicT: '$'+debtPublicT.toFixed(2)+'T', debtIntragovT: '$'+debtIntragovT.toFixed(2)+'T',
@@ -1503,11 +1566,24 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     accruedInterestT: '$'+accruedInterestT.toFixed(3)+'T', accruedMonths: accruedInfo.months,
     accruedRangeLongEn: accruedInfo.rangeLongEn, accruedRangeLongEs: accruedInfo.rangeLongEs,
     foreignHoldersAsOfEn: fmtMonthYearEn(foreignHoldersAsOf), foreignHoldersAsOfEs: fmtMonthYearEs(foreignHoldersAsOf),
-    caymanValB: '$'+caymanValB.toFixed(0)+'B', caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones'
+    caymanValB: '$'+caymanValB.toFixed(0)+'B', caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones',
+    debtGdpPct: debtGdpPct.toFixed(1)+'%', debtGdpQtrEn: gdpQ, debtGdpQtrEs: gdpQEs,
+    debtGdpAnnualPct: debtGdpAnnualPct.toFixed(1)+'%', debtGdpAnnualYear: debtGdpAnnualYear,
+    gdpTrendEndYear: gdpTrendEndYear, targetRange: targetRangeStr,
+    fedWatchAsOfEn: fmtDateEn(fedWatchAsOf), fedWatchAsOfEs: fmtDateEs(fedWatchAsOf),
+    tbacAvgMonths: '~'+tbacAvgMonths, tbacAvgYears: '≈'+(tbacAvgMonths/12).toFixed(1),
+    tbacAsOfEn: fmtMonthYearEn(tbacAsOf), tbacAsOfEs: fmtMonthYearEs(tbacAsOf),
+    tbacHistoryVals: tbacHistory.map(function(h){ return h.months; }).join(' → '),
+    tbacHistoryLabelsEn: tbacHistory.map(function(h){ return h.label; }).join(' → '),
+    tbacHistoryLabelsEs: tbacHistory.map(function(h){ return h.labelEs || h.label; }).join(' → ')
   };
   Object.keys(BIND).forEach(function(k){
     [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; });
   });
+  // FedWatch callout prose is HTML (bold figures), so it bypasses the textContent binder above and
+  // is only swapped in when the monthly file supplies replacement text.
+  if(fedWatchCalloutEn) document.getElementById('fedWatchCalloutEn').innerHTML = fedWatchCalloutEn;
+  if(fedWatchCalloutEs) document.getElementById('fedWatchCalloutEs').innerHTML = fedWatchCalloutEs;
 
   // ---------------- Helpers ----------------
   function getVar(name){ return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
@@ -2026,9 +2102,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   });
 
   (function(){
-    var lo=3.0, hi=4.2; // gauge scale bounds
+    var bandLo = targetRangeLo, bandHi = targetRangeHi; // live: ON RRP floor .. floor + 25 bp (see applyLiveData)
+    var lo = bandLo - 0.5, hi = bandHi + 0.45; // gauge scale follows the band (was a fixed 3.0–4.2 around 3.50–3.75)
     var toPct = function(v){ return ((v-lo)/(hi-lo)*100).toFixed(2)+'%'; };
-    var bandLo = 3.50, bandHi = 3.75;
     var colorFor = function(c){ return c.label==='Discount rate' ? getVar('--series-8') : (c.label==='ON RRP rate' ? getVar('--series-3') : getVar('--series-1')); };
 
     // Track: dots only (no attached text — avoids collisions when rates sit close together)
@@ -2040,7 +2116,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       html += '<div class="pt" style="left:'+toPct(c.val)+'; background:'+colorFor(c)+';" title="'+title+'"></div>';
     });
     html += '</div><div class="axis">';
-    [3.0,3.25,3.5,3.75,4.0].forEach(function(v){ html += '<span style="left:'+toPct(v)+'">'+v.toFixed(2)+'%</span>'; });
+    var ticks = []; for(var t = Math.ceil(lo*4)/4; t <= hi + 1e-9; t += 0.25) ticks.push(Math.round(t*100)/100); // 25 bp ticks across the live scale
+    ticks.forEach(function(v){ html += '<span style="left:'+toPct(v)+'">'+v.toFixed(2)+'%</span>'; });
     html += '</div>';
 
     // Legend: every rate gets its own row underneath, sorted high to low — zero collision risk regardless of how close values are
@@ -2049,7 +2126,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     sorted.forEach(function(c){
       html += '<div class="item"><span class="sw" style="background:'+colorFor(c)+'"></span><span class="nm">'+L(c.label)+'</span><span class="sub">— '+L(c.sub)+'</span><span class="val">'+c.val.toFixed(2)+'%</span></div>';
     });
-    html += '<div class="item"><span class="sw" style="background:'+getVar('--accent')+'; border-radius:2px;"></span><span class="nm">'+L('Target range')+'</span><span class="sub">— '+L('FOMC-set band')+'</span><span class="val">3.50–3.75%</span></div>';
+    html += '<div class="item"><span class="sw" style="background:'+getVar('--accent')+'; border-radius:2px;"></span><span class="nm">'+L('Target range')+'</span><span class="sub">— '+L('FOMC-set band')+'</span><span class="val">'+targetRangeStr+'</span></div>';
     html += '</div>';
     document.getElementById('corridorWrap').innerHTML = html;
   })();

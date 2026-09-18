@@ -1,8 +1,9 @@
 // Refreshed monthly by a scheduled research task, which opens a pull request for human
-// review rather than publishing directly — these series either have no live API (CBO) or
-// need hierarchy-aware aggregation Treasury's raw tables don't hand you directly (holders,
-// revenue/outlay by category). Initial values below mirror the snapshot baked into
-// index.html, so this file is a no-op until the first monthly PR is reviewed and merged.
+// review rather than publishing directly — these series either have no live API (CBO,
+// CME FedWatch odds, TBAC maturity statistics) or need hierarchy-aware aggregation
+// Treasury's raw tables don't hand you directly (holders, revenue/outlay by category).
+// Initial values below mirror the snapshot baked into index.html, so this file is a no-op
+// until the first monthly PR is reviewed and merged.
 window.MONTHLY_DATA = {
   "asOf": "Mar 31, 2026",
   "revOutAsOf": "Jul 31, 2026",
@@ -49,5 +50,28 @@ window.MONTHLY_DATA = {
   "outYTDpri": [1368.38,1557.01,718.94,1266.66,309.56,754.60],
   "cashInterestT": 1.170,
   "accruedInterestT": 1.268,
-  "accruedInterestAsOf": "2026-08-31"
+  "accruedInterestAsOf": "2026-08-31",
+  "fedWatch": {
+    "asOf": "2026-09-10",
+    "meetings": ["16-Sep-2026","28-Oct-2026","09-Dec-2026","27-Jan-2027"],
+    "buckets": ["3.50–3.75%","3.75–4.00%","4.00–4.25%","4.25–4.50%","4.50–4.75%"],
+    "probs": [
+      [30.4, 20.0, 6.9, 4.1],
+      [69.6, 56.1, 32.4, 22.1],
+      [0,    24.0, 45.0, 39.9],
+      [0,    0,    15.7, 27.6],
+      [0,    0,    0,    6.4]
+    ],
+    "calloutEn": null,
+    "calloutEs": null
+  },
+  "tbac": {
+    "asOf": "2025-12",
+    "avgMaturityMonths": 70,
+    "history": [
+      { "label": "Dec 2020", "labelEs": "dic. 2020", "months": 65 },
+      { "label": "May 2023 peak", "labelEs": "máximo de mayo 2023", "months": 75 },
+      { "label": "Dec 2025", "labelEs": "dic. 2025", "months": 70 }
+    ]
+  }
 };
