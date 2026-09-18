@@ -178,10 +178,15 @@ const commands = {
     for (const [k, n] of combos) console.log(`    ${String(n).padStart(5)} × ${k}`);
     const iC = h.indexOf('CICLO'), iM = h.indexOf('MES'), iMonto = h.indexOf('MONTO'), iB = h.indexOf('BASE_DE_REGISTRO'), iF = h.indexOf('FRECUENCIA'), iT = h.indexOf('TIPO_DE_INFORMACION');
     for (const r of mine.slice(-9)) console.log(`    ${r[iC]}-${r[iM]} ${r[iT]}/${r[iB]}/${r[iF]} MONTO=${r[iMonto]}`);
+    // Months listed more than once: do the repeated rows agree? Where in the file do they sit?
     const byMonth = new Map();
-    for (const r of mine) { const k = `${r[iC]}-${r[iM]}`; byMonth.set(k, (byMonth.get(k) || 0) + 1); }
-    const multi = [...byMonth.values()].filter((n) => n > 1).length;
-    console.log(`    ${byMonth.size} distinct months, ${multi} of them with more than one row`);
+    rows.slice(1).forEach((r, pos) => { if (r[iClave] !== clave) return; const k = `${r[iC]}-${r[iM]}`; (byMonth.get(k) || byMonth.set(k, []).get(k)).push({ pos, v: r[iMonto] }); });
+    const multi = [...byMonth.entries()].filter(([, v]) => v.length > 1);
+    const differ = multi.filter(([, v]) => new Set(v.map((x) => x.v)).size > 1);
+    console.log(`    ${byMonth.size} distinct months, ${multi.length} listed more than once, ${differ.length} of those with differing MONTO`);
+    for (const [k, v] of (differ.length ? differ : multi).slice(0, 6)) console.log(`      ${k}: ${v.map((x) => `row ${x.pos}=${x.v}`).join(', ')}`);
+    const months = [...byMonth.keys()];
+    console.log(`    file order: first ${months[0]} … last ${months[months.length - 1]}`);
   },
   async url(u) {
     const res = await netGet(u);
