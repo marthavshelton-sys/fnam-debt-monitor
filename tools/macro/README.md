@@ -34,17 +34,32 @@ so no date tables live in the code); the first-print payroll figures behind
 the revisions chart (recorded on the first run after each jobs report); and
 state nonfarm employment behind the job-cut maps.
 
-## What is not automatic
+## What arrives as a pull request
 
-The workflow prints a warning annotation in the Actions run list when any of
-these falls behind, so nothing has to be remembered.
+Three inputs have no API. Scheduled browser tasks in Marcie's Claude desktop
+app read them from the publisher's page, rewrite the data file and open a pull
+request against this repo; nothing is live until the PR is merged, and the
+workflow rebuilds the page on the merge. The workflow also prints a warning
+annotation (and `data/health.json` records it, which the release-alert task
+emails) when any of these falls behind.
 
-| File | Cadence | Why |
-|---|---|---|
-| `data/bls_weights.json` | Yearly (BLS posts CPI relative importance each February) | Published as a table, not an API; BLS blocks scripted page fetches |
-| `data/ppi-fdgrouprel.xlsx` | Yearly (BLS posts it around June) | Same; download in a browser from bls.gov/ppi/tables and replace the file |
-| `data/labor_static.json` -> `challenger` block | Monthly, first week | Challenger's job-cut report is a private release with no API; the page labels that section "manually updated". Keys are year-neutral (`hiringThisYear`, `hiringLastYear`, `ytdCutsLastYear`, `ytdHiringLastYear`) - at a new year, shift the values, don't rename |
-| `data/labor_static.json` -> `states[].v` | Monthly, with the above | Challenger's by-state cut counts |
+| File | Cadence | Task | Source |
+|---|---|---|---|
+| `data/labor_static.json` -> `challenger` block | Monthly, first days of the month | `challenger-monthly` | Challenger, Gray & Christmas monthly report PDF (Tables 1, 2, 3, 6), read with pdf.js in the browser |
+| `data/bls_weights.json` | Yearly, February/March | `cpi-weights-yearly` | BLS CPI relative-importance Table 1 (BLS blocks scripted page fetches) |
+| `data/ppi-fdgrouprel.xlsx` | Yearly, June/July | `ppi-weights-yearly` | BLS PPI final-demand relative-importance workbook |
+
+The `challenger` block is a growing history, not a snapshot: `monthly[]` is the
+national series, `industry[]` is keyed by Challenger's own labels, and
+`stateCuts.<code>` holds `m` (the month's cuts), `ytd` and `priorYtd` keyed by
+month, with `stateYearTotals.<year>` for completed years. The page derives its
+1/3/6/12-month state maps from that history and states the span each map
+covers, so a month is simply appended - nothing is re-keyed.
+
+`data/health.json` is written by every run: which processors failed, how many
+consecutive times, and the staleness warnings. The `macro-release-alerts`
+task reads it and emails when the pipeline needs attention.
+
 ## Editing the page
 
 All content lives in `macro_monitor_template.html`. Every user-visible string is

@@ -551,6 +551,7 @@
   </nav>
 
   <main>
+  <div id="artNotice"></div>
   <div class="view active" id="view-cpi">
     <div class="page-header">
       <div>
@@ -2342,7 +2343,7 @@ const I18N = {
     cutsTitle: "Despidos anunciados",
     cutsDesc: "Reporte Challenger: recortes e intenciones de contratación anunciados por empresas. Es un indicador adelantado de intenciones, no de separaciones ya ocurridas, y no es una serie del BLS.",
     sourceChallenger: "Fuente: Challenger, Gray & Christmas ↗",
-    manualBadge: "Actualización manual",
+    manualBadge: "Del informe mensual de Challenger",
     releasedOn: d => "Publicado el " + d,
     cutsNotice: "<b>Esta sección no se actualiza sola.</b> Challenger es un proveedor privado sin API pública, así que estas cifras se cargan a mano con cada reporte mensual. El resto del panel se actualiza automáticamente desde el BLS y el BEA.",
     cutsSecMonthly: "Recortes anunciados por mes",
@@ -2366,6 +2367,7 @@ const I18N = {
     cutsIndustryNote: (names, share, total, headline) => "Los tres sectores con más recortes (" + names + ") concentran el " + share + "% de los " + total + " clasificados por sector este mes. La tabla sectorial de Challenger no cubre todos los anuncios, por eso suma menos que el total de " + headline + ".",
     cutsHiringNote: (ytd, prior, pct) => "En lo que va del año se anunciaron " + ytd + " contrataciones, frente a " + prior + " en el mismo periodo del año pasado (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Tasa = recortes anunciados (Challenger) ÷ empleo no agrícola total del estado (BLS, " + m + "). La cuadrícula es esquemática: cada estado ocupa una celda del mismo tamaño, colocada para aproximar su posición real, de modo que estados pequeños sigan siendo legibles.",
+    mapSpan: (a, b) => a + " a " + b,
     mapM1: "Último mes",
     mapM3: "Últimos 3 meses",
     mapM6: "Últimos 6 meses",
@@ -2795,6 +2797,12 @@ const I18N = {
       "WPU301": "Transporte de carga y correo (total)", "WPU3012": "Carga por camión", "WPU3011": "Carga por ferrocarril",
       "WPU3013": "Carga marítima y fluvial", "WPU3014": "Carga aérea", "PCU483111483111": "Flete de altura (marítimo internacional)",
       "PCU4841214841212": "Camión de larga distancia, carga completa", "WPU32": "Almacenamiento y servicios relacionados",
+      "Aerospace/Defense": "Aeroespacial y defensa", "Apparel": "Ropa y confección", "Automotive": "Automotriz", "Chemical": "Química", "Construction": "Construcción",
+      "Consumer Products": "Productos de consumo", "Education": "Educación", "Electronics": "Electrónica", "Energy": "Energía", "Entertainment/Leisure": "Entretenimiento y ocio",
+      "Financial": "Financiero", "FinTech": "FinTech", "Food": "Alimentos", "Government": "Gobierno", "Health Care/Products": "Salud y productos médicos",
+      "Industrial Goods": "Bienes industriales", "Insurance": "Seguros", "Legal": "Legal", "Media": "Medios", "Mining": "Minería",
+      "Non-Profit": "Sin fines de lucro", "Pharmaceutical": "Farmacéutica", "Real Estate": "Bienes raíces", "Retail": "Comercio minorista", "Services": "Servicios",
+      "Technology": "Tecnología", "Telecommunications": "Telecomunicaciones", "Transportation": "Transporte", "Utility": "Servicios públicos", "Warehousing": "Almacenamiento y logística",
       "44X72": "Total minorista y restaurantes", "44000": "Total minorista", "44Y72": "Excl. autos",
       "44W72": "Excl. autos y gasolina", "control": "Grupo de control",
       "441": "Autos y refacciones", "442": "Muebles y mobiliario", "443": "Electrónica y electrodomésticos",
@@ -3129,7 +3137,7 @@ const I18N = {
     cutsTitle: "Announced Job Cuts",
     cutsDesc: "Challenger report — employer-announced layoffs and hiring intentions. A leading indicator of intentions rather than realized separations, and not a BLS series.",
     sourceChallenger: "Source: Challenger, Gray & Christmas ↗",
-    manualBadge: "Manually updated",
+    manualBadge: "From Challenger's monthly report",
     releasedOn: d => "Released " + d,
     cutsNotice: "<b>This section does not update itself.</b> Challenger is a private vendor with no public API, so these figures are entered by hand from each monthly report. Everything else on this dashboard refreshes automatically from BLS and BEA.",
     cutsSecMonthly: "Announced cuts by month",
@@ -3153,6 +3161,7 @@ const I18N = {
     cutsIndustryNote: (names, share, total, headline) => "The three heaviest-cutting sectors (" + names + ") account for " + share + "% of the " + total + " classified by sector this month. Challenger's sector table does not cover every announcement, which is why it sums to less than the " + headline + " headline total.",
     cutsHiringNote: (ytd, prior, pct) => ytd + " hires have been announced so far this year, against " + prior + " in the same period last year (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Rate = announced cuts (Challenger) ÷ the state's total nonfarm employment (BLS, " + m + "). The grid is schematic: every state gets an equal-sized tile placed to approximate its real position, so small states stay as legible as large ones.",
+    mapSpan: (a, b) => a + " \u2013 " + b,
     mapM1: "Last month",
     mapM3: "Trailing 3 months",
     mapM6: "Trailing 6 months",
@@ -3580,6 +3589,12 @@ const I18N = {
       "WPU301": "Freight & mail transportation (total)", "WPU3012": "Truck freight", "WPU3011": "Rail freight",
       "WPU3013": "Water freight", "WPU3014": "Air freight", "PCU483111483111": "Deep-sea freight (international ocean)",
       "PCU4841214841212": "Long-distance truckload", "WPU32": "Warehousing & related services",
+      "Aerospace/Defense": "Aerospace & defense", "Apparel": "Apparel", "Automotive": "Automotive", "Chemical": "Chemical", "Construction": "Construction",
+      "Consumer Products": "Consumer products", "Education": "Education", "Electronics": "Electronics", "Energy": "Energy", "Entertainment/Leisure": "Entertainment & leisure",
+      "Financial": "Financial", "FinTech": "FinTech", "Food": "Food", "Government": "Government", "Health Care/Products": "Health care & products",
+      "Industrial Goods": "Industrial goods", "Insurance": "Insurance", "Legal": "Legal", "Media": "Media", "Mining": "Mining",
+      "Non-Profit": "Non-profit", "Pharmaceutical": "Pharmaceutical", "Real Estate": "Real estate", "Retail": "Retail", "Services": "Services",
+      "Technology": "Technology", "Telecommunications": "Telecommunications", "Transportation": "Transportation", "Utility": "Utility", "Warehousing": "Warehousing",
       "44X72": "Total retail & food services", "44000": "Total retail", "44Y72": "Ex autos",
       "44W72": "Ex autos & gas", "control": "Control group",
       "441": "Motor vehicles & parts", "442": "Furniture & home furnishings", "443": "Electronics & appliances",
@@ -3706,10 +3721,6 @@ document.querySelectorAll(".rail-item[data-view]").forEach(item => {
     window.scrollTo({top: 0, behavior: "instant"});
   });
 });
-
-// Deep link: /macro/?view=fiscal opens that view directly (used by the landing page).
-const deepLinkView = document.querySelector('.rail-item[data-view="' + new URLSearchParams(location.search).get("view") + '"]');
-if (deepLinkView) deepLinkView.click();
 
 const MAJOR_GROUPS = [
   {id:"SAH", key:"CUUR0000SAH", color:"--cat-1"},
@@ -6386,7 +6397,7 @@ function renderCuts() {
 
   // by industry
   document.getElementById("cutsIndAsOf").textContent = fmtMonthYear(C.asOfMonth);
-  const inds = C.industry.map(x => ({name:nameOf(x.id), value:x.v, color:"--cat-8"}))
+  const inds = C.industry.map(x => ({name:nameOf(x.name), value:x.v, color:"--cat-8"}))
                          .sort((a,b)=>b.value-a.value);
   renderBarList("cutsIndustryList", inds, v => nf(v));
   const indTotal = inds.reduce((a,b)=>a+b.value,0);
@@ -6405,22 +6416,51 @@ function renderCuts() {
   document.getElementById("cutsHiringCallout").innerHTML =
     "<div>" + T.cutsHiringNote(nf(C.ytdHiring), nf(C.ytdHiringLastYear), pctChg(C.ytdHiring, C.ytdHiringLastYear)) + "</div>";
 
-  // state maps — cut counts differenced from Challenger's own YTD state tables,
-  // divided by each state's nonfarm employment so big states aren't flattered.
-  const emp = LABOR_STATIC.stateEmployment;
-  const rate = (s, kind) => {
-    const [aug1, ytdAug, ytdMay, ytdFeb, fy25, ytd25Aug] = s.v;
-    const cuts = kind === "m1" ? aug1
-               : kind === "m3" ? ytdAug - ytdMay
-               : kind === "m6" ? ytdAug - ytdFeb
-               : ytdAug + (fy25 - ytd25Aug);
-    const base = (emp[s.code] || 0) * 1000;
-    return base ? (cuts/base)*100 : 0;
+  // State maps. Cuts per state come from Challenger's monthly report tables and
+  // accumulate month by month (stateCuts: m = the month's cuts, ytd = year-to-
+  // date snapshots, priorYtd = the prior year's YTD for the same month;
+  // stateYearTotals = full prior years). Each window is derived from whatever
+  // the history can support exactly, and the legend states the span it covers.
+  const SC = C.stateCuts || {}, YT = C.stateYearTotals || {};
+  const asOf = C.asOfMonth;
+  const monthsBack = (d, k) => { const [y, mo] = d.split("-").map(Number); const tt = y*12 + (mo-1) - k; return Math.floor(tt/12) + "-" + String((tt % 12) + 1).padStart(2, "0"); };
+  const ytdAt = (s, mth) => {
+    if (s.ytd && s.ytd[mth] !== undefined) return s.ytd[mth];
+    // The prior year's YTD for a month is recorded under this year's report of the same month.
+    const [y, mo] = mth.split("-"); const thisYearKey = (+y + 1) + "-" + mo;
+    if (s.priorYtd && s.priorYtd[thisYearKey] !== undefined) return s.priorYtd[thisYearKey];
+    return null;
   };
-  renderTileMap("mapM1","legM1", s => rate(s,"m1"), 3);
-  renderTileMap("mapM3","legM3", s => rate(s,"m3"), 2);
-  renderTileMap("mapM6","legM6", s => rate(s,"m6"), 2);
-  renderTileMap("mapM12","legM12", s => rate(s,"m12"), 2);
+  // Cuts over the k months ending at asOf. Returns {cuts, from} where from is the first month covered.
+  function windowCuts(code, k) {
+    const s = SC[code] || {m:{}, ytd:{}, priorYtd:{}};
+    if (k === 1) return {cuts: (s.m && s.m[asOf]) || 0, from: asOf};
+    const endY = +asOf.slice(0, 4), endM = +asOf.slice(5, 7);
+    const start = monthsBack(asOf, k);              // month before the window
+    const endYtd = ytdAt(s, asOf);
+    if (endYtd !== null) {
+      if (k < endM) { const sv = ytdAt(s, start); if (sv !== null) return {cuts: endYtd - sv, from: monthsBack(asOf, k-1)}; }
+      else if (k === endM) return {cuts: endYtd, from: endY + "-01"};
+      else { const yt = YT[String(endY-1)]; const sv = ytdAt(s, start);
+             if (yt && yt[code] !== undefined && sv !== null) return {cuts: endYtd + yt[code] - sv, from: monthsBack(asOf, k-1)}; }
+      // No exact snapshot: use the nearest earlier snapshot in this year, or the year to date.
+      let best = null;
+      Object.keys(s.ytd || {}).forEach(mth => { if (mth.slice(0,4) === String(endY) && mth < asOf && mth > start && (!best || mth < best)) best = mth; });
+      if (best) return {cuts: endYtd - s.ytd[best], from: monthsBack(best, -1)};
+      return {cuts: endYtd, from: endY + "-01"};
+    }
+    // Last resort: sum whatever monthly values exist in the window.
+    let sum = 0, first = null;
+    for (let i = k-1; i >= 0; i--) { const mth = monthsBack(asOf, i); if (s.m && s.m[mth] !== undefined) { sum += s.m[mth]; if (!first) first = mth; } }
+    return {cuts: sum, from: first || asOf};
+  }
+  const emp = LABOR_STATIC.stateEmployment;
+  const rateFor = k => s => { const base = (emp[s.code] || 0) * 1000; return base ? (windowCuts(s.code, k).cuts / base) * 100 : 0; };
+  const spanFor = k => { const w = windowCuts("CA", k); return w.from === asOf ? fmtMonthYear(asOf) : T.mapSpan(fmtMonthYear(w.from), fmtMonthYear(asOf)); };
+  [["mapM1","legM1",1,3],["mapM3","legM3",3,2],["mapM6","legM6",6,2],["mapM12","legM12",12,2]].forEach(([mapId, legId, k, dec]) => {
+    renderTileMap(mapId, legId, rateFor(k), dec);
+    const leg = document.getElementById(legId); if (leg) leg.textContent = spanFor(k) + " \u00b7 " + leg.textContent;
+  });
   document.getElementById("cutsStatesCallout").innerHTML =
     "<div>" + T.cutsStatesNote(fmtMonthYear(C.stateEmploymentAsOf)) + "</div>";
 }

@@ -127,6 +127,9 @@ $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
 
 if ($Target -eq "both" -or $Target -eq "art") {
   $page = Build-Page "false"
+  # The claude.ai copy is a frozen preview; the self-updating page is the site.
+  $stamp = (Get-Date).ToString("dd-MMM-yyyy")
+  $page = $page.Replace('<div id="artNotice"></div>', '<div class="notice" style="margin-bottom:18px"><div><b>Vista previa congelada del ' + $stamp + ' / Frozen preview from ' + $stamp + '.</b> El tablero que se actualiza solo est&aacute; en <a href="https://fnam.mx/macro/" target="_blank" rel="noopener">fnam.mx/macro</a> &middot; The self-updating dashboard is at <a href="https://fnam.mx/macro/" target="_blank" rel="noopener">fnam.mx/macro</a>.</div></div>')
   [System.IO.File]::WriteAllText("$base\macro_monitor.html", $page, $utf8NoBom)
   Write-Output ("artifact build : {0:N0} bytes  (snapshot only)" -f (Get-Item "$base\macro_monitor.html").Length)
 }
