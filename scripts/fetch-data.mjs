@@ -12,14 +12,33 @@
 
 const OUT_PATH = new URL('../site/fiscal/data.js', import.meta.url);
 
+// Every upstream call gets a hard timeout. Without one, a single slow or hung source
+// (Treasury's MSPD endpoint stalled for well over a minute on 2026-09-18) holds up
+// Promise.allSettled and with it the whole daily run -- the job would sit against GitHub's
+// 6-hour default limit instead of degrading that one series to null (the page keeps its
+// last good value for it) and publishing everything else on time.
+const FETCH_TIMEOUT_MS = 45_000;
+async function fetchWithTimeout(url) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), FETCH_TIMEOUT_MS);
+  try {
+    return await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' }, signal: ctrl.signal });
+  } catch (e) {
+    if (e && e.name === 'AbortError') throw new Error(`${url} -> timed out after ${FETCH_TIMEOUT_MS / 1000}s`);
+    throw e;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 async function fetchJSON(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+  const res = await fetchWithTimeout(url);
   if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
   return res.json();
 }
 
 async function fetchCSV(url) {
-  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+  const res = await fetchWithTimeout(url);
   if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
   const text = await res.text();
   return text.trim().split('\n').map((line) => line.split(','));
@@ -92,7 +111,7 @@ async function getDebtComposition() {
 // as getDebtComposition above — this only actually changes once a month.
 async function getForeignHolders() {
   const url = 'https://ticdata.treasury.gov/resource-center/data-chart-center/tic/Documents/slt_table5.txt';
-  const res = await fetch(url, { headers: { 'User-Agent': 'fnam-debt-monitor-bot/1.0' } });
+  const res = await fetchWithTimeout(url);
   if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
   const text = await res.text();
   const lines = text.split('\n').map((l) => l.trim()).filter(Boolean);
