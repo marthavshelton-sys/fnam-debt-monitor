@@ -20,6 +20,7 @@
 <script src="data/traffic.js"></script>
 <script src="data/reference.js"></script>
 <script src="data/guidance.js"></script>
+<script src="data/comments.js"></script>
 <script src="data/peers.js"></script>
 
 <style>
@@ -146,6 +147,11 @@ table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-trans
 table td.est{color:var(--text-secondary); font-style:italic;}
 .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
 .stmt-table td:first-child{min-width:200px; max-width:420px;}
+.stmt-table th.cmt, .stmt-table td.cmt{text-align:left; font-size:12px; color:var(--text-secondary); min-width:280px; max-width:440px; white-space:normal; line-height:1.4; font-variant-numeric:normal;}
+.stmt-table td:not(.cmt):not(:first-child){white-space:nowrap;}
+.stmt-table tr.grp-head td:first-child{cursor:pointer; user-select:none;}
+.stmt-table .grp{display:inline-block; width:16px; color:var(--accent); font-weight:700;}
+.stmt-table tr.grp-head .cnt{font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;}
 
 .callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .callout b{color:var(--text-primary);}
