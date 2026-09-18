@@ -10,6 +10,7 @@
 //   banxico-ids <id,id,...>           metadata for specific series ids
 //   shcp-index                        list the CSV/XLSX links on SHCP's Estadísticas Oportunas open-data page
 //   shcp-csv <url> [rows]             fetch a CSV and print its shape, header and first/last rows
+//   shcp-concepts <url>               list the CLAVE_DE_CONCEPTO rows of an SHCP long-format CSV with names, units and ranges
 //   url <url>                         GET any url and print status, content-type and the first 1,500 chars
 //   tls <host>                        show the served certificate chain, its SAN, and the AIA chain repair result
 //   banxico-range <prefix> <from> <to> official titles of every id in a numeric range (20 per request)
@@ -19,6 +20,22 @@ const UA = 'fnam-debt-monitor/1.0 (+https://github.com/marthavshelton-sys/fnam-d
 const TOKEN = process.env.BANXICO_TOKEN || '';
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Minimal CSV parser (quotes, embedded delimiters, CRLF) for SHCP's open-data tables.
+function parseCSV(text) {
+  const delim = (text.split(/\r?\n/)[0] || '').includes(';') ? ';' : ',';
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; }
+    else if (ch === '"') q = true;
+    else if (ch === delim) { row.push(cell); cell = ''; }
+    else if (ch === '\n') { row.push(cell); rows.push(row); row = []; cell = ''; }
+    else if (ch !== '\r') cell += ch;
+  }
+  if (cell || row.length) { row.push(cell); rows.push(row); }
+  return rows.filter((r) => r.some((c) => c.trim() !== ''));
+}
+
 let lastBanxico = 0;
 // Banxico's web pages answer 429 to bursts, so page requests are paced ~2 s apart and retried with backoff.
 async function http(url, headers = {}, tries = 4) {
@@ -130,6 +147,22 @@ const commands = {
     const n = Number(rows) || 6;
     lines.slice(0, n).forEach((l) => console.log('  H ' + l.slice(0, 400)));
     lines.slice(-3).forEach((l) => console.log('  T ' + l.slice(0, 400)));
+  },
+  async 'shcp-concepts'(url) {
+    // SHCP's open-data CSVs are long tables: one row per (CICLO, MES, CLAVE_DE_CONCEPTO). List the concepts.
+    const rows = parseCSV(await getText(url));
+    const h = rows[0].map((x) => x.trim().toUpperCase());
+    const ix = (n) => h.indexOf(n);
+    const [iCiclo, iMes, iClave, iNombre, iTema, iSub, iUnidad, iFin, iMonto] = ['CICLO', 'MES', 'CLAVE_DE_CONCEPTO', 'NOMBRE', 'TEMA', 'SUBTEMA', 'UNIDAD_DE_MEDIDA', 'PERIODO_FINAL', 'MONTO'].map(ix);
+    console.log(`  ${rows.length - 1} rows, columns: ${h.join(' | ')}`);
+    const by = new Map();
+    for (const r of rows.slice(1)) {
+      if (!r[iClave]) continue;
+      const c = by.get(r[iClave]) || { clave: r[iClave], nombre: r[iNombre], tema: r[iTema], sub: r[iSub], unidad: r[iUnidad], fin: r[iFin], n: 0, first: `${r[iCiclo]}-${r[iMes]}`, last: '', lastVal: '' };
+      c.n++; c.last = `${r[iCiclo]}-${r[iMes]}`; c.lastVal = r[iMonto];
+      by.set(r[iClave], c);
+    }
+    for (const c of [...by.values()].sort((a, b) => a.clave.localeCompare(b.clave))) console.log(`  ${c.clave.padEnd(12)} ${String(c.n).padStart(4)} ${c.first}→${c.last} ${String(c.lastVal).padStart(14)} [${c.unidad}] «${c.nombre}» (${c.tema} / ${c.sub})`);
   },
   async url(u) {
     const res = await netGet(u);

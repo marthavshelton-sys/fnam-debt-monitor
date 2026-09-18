@@ -199,12 +199,13 @@ async function main() {
 
   // Pre-load every Banxico id in one pass of chunked requests, grouped by `since`.
   const bySince = {};
-  for (const [key, spec] of Object.entries(manifest.series)) for (const c of spec.candidates) if (c.provider === 'banxico') (bySince[spec.since || '2000-01-01'] ||= []).push(c.id);
+  const entries = Object.entries(manifest.series).filter(([key]) => !key.startsWith('_')); // '_' keys are notes
+  for (const [key, spec] of entries) for (const c of spec.candidates) if (c.provider === 'banxico') (bySince[spec.since || '2000-01-01'] ||= []).push(c.id);
   for (const [since, ids] of Object.entries(bySince)) { try { await banxicoLoad([...new Set(ids)], since); } catch (e) { console.warn('Banxico preload failed:', e.message); } }
 
   const log = [], series = {};
   let ok = 0, hardFail = false;
-  for (const [key, spec] of Object.entries(manifest.series)) {
+  for (const [key, spec] of entries) {
     const got = await fetchOne(key, spec, prev[key], log);
     if (got) { series[key] = got; if (!got.stale) ok++; }
     else if (spec.required) hardFail = true;
