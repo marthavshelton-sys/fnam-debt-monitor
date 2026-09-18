@@ -9,9 +9,11 @@ Same visual system as the U.S. page at `/macro/`.
 
 ## How it stays current
 
-`.github/workflows/mx-macro-refresh.yml` runs at 12:25, 18:25 and 19:25 UTC on
-weekdays (INEGI releases at 06:00 Mexico City = 12:00 UTC; Banxico's FIX and
-policy decisions land in the afternoon) and on demand from the Actions tab. It:
+`.github/workflows/mx-macro-refresh.yml` runs every day: at 12:25, 18:25 and
+19:25 UTC on weekdays (INEGI releases at 06:00 Mexico City = 12:00 UTC;
+Banxico's FIX and policy decisions land in the afternoon), at 15:25 UTC on
+Saturday and Sunday (the sources publish nothing on weekends; the run catches
+corrections and late postings), and on demand from the Actions tab. It:
 
 1. runs `scripts/mx-macro/fetch.mjs`, which pulls every series in
    `series.json` into `data/series.json`;
@@ -19,6 +21,13 @@ policy decisions land in the afternoon) and on demand from the Actions tab. It:
    `template.html` and writes the page;
 3. commits only if the data actually changed. Cloudflare Pages deploys the
    commit like any other.
+
+After each refresh, `scripts/mx-macro/health.mjs` checks that a provider has
+answered for every series within the last 7 days (`fetchedAt` only advances on
+a successful fetch). If not - or if the run itself failed - the workflow opens
+a GitHub issue labeled `mx-macro-health` (or comments on the open one, at most
+once every ~20 hours), so a dead token or a changed API cannot make the page go
+stale silently. The first healthy run afterwards closes the issue.
 
 A series that fails on a run keeps its last committed points (the page marks
 that source "sin actualizar desde …"); a series that has never been obtained
