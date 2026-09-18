@@ -159,7 +159,9 @@
   const fxAt = (date) => { const p = pointAtOrBefore(fxPts, date); return p ? p[1] : null; };
   const mx10 = (MK.rates && MK.rates.MX10Y && MK.rates.MX10Y.points) || [];
   const gapPx = px('GAPB.MX'); const lastPx = lastPoint(gapPx);
-  const sharesNow = (REF.shares && REF.shares.total) || (lastQ && lastQ.shares && lastQ.shares.current) || null;
+  // Shares outstanding: the latest results release once it is dated after the hand-curated figure in reference.js.
+  const lastQEnd = lastQ ? `${lastQ.fy}-${String(lastQ.q * 3).padStart(2, '0')}-28` : null;
+  const sharesNow = (lastQ && lastQ.shares && lastQ.shares.current && (!(REF.shares && REF.shares.asOf) || lastQEnd >= REF.shares.asOf)) ? lastQ.shares.current : (REF.shares && REF.shares.total) || (lastQ && lastQ.shares && lastQ.shares.current) || null;
   const sharesAt = (date) => { const h = (REF.shares && REF.shares.history) || []; let v = sharesNow; for (const e of h) if (e.asOf <= date) v = e.total; if (h.length && date < h[0].asOf) v = h[0].total; return v; };
   const qEndDate = (q) => `${q.fy}-${String(q.q * 3).padStart(2, '0')}-${q.q === 1 || q.q === 4 ? '31' : '30'}`;
 
@@ -635,6 +637,26 @@
   // ================= 04 DCF =================
   const D = Object.assign({}, REF.dcf || {});
   const dcfState = {};
+  // Beta: OLS slope of two years of weekly log returns, GAPB.MX on the IPC (^MXX), from market.js.
+  function betaFromMarket() {
+    const g = px('GAPB.MX'), m = px('^MXX'); if (g.length < 120 || m.length < 120) return null;
+    const mm = new Map(m.map((p) => [p[0], p[1]]));
+    const start = addDays(g[g.length - 1][0], -730);
+    const wk = (d) => { const dt = new Date(d + 'T12:00:00Z'); dt.setUTCDate(dt.getUTCDate() - ((dt.getUTCDay() + 6) % 7)); return dt.toISOString().slice(0, 10); };
+    const byWeek = new Map(); for (const p of g) if (p[0] >= start && mm.has(p[0])) byWeek.set(wk(p[0]), [p[1], mm.get(p[0])]);
+    const pts = [...byWeek.values()]; if (pts.length < 60) return null;
+    const rg = [], rm = []; for (let i = 1; i < pts.length; i++) { rg.push(Math.log(pts[i][0] / pts[i - 1][0])); rm.push(Math.log(pts[i][1] / pts[i - 1][1])); }
+    const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length; const ag = mean(rg), am = mean(rm);
+    let cov = 0, vr = 0; for (let i = 0; i < rg.length; i++) { cov += (rg[i] - ag) * (rm[i] - am); vr += (rm[i] - am) ** 2; }
+    return vr ? { beta: Math.round(100 * cov / vr) / 100, weeks: rg.length, from: pts.length ? [...byWeek.keys()][0] : null } : null;
+  }
+  // Pre-tax cost of debt: coupon of GAP's most recent fixed-rate bond in reference.js (kept current by the routine).
+  function kdFromDebt() {
+    const ins = (REF.debt && REF.debt.instruments) || [];
+    const fixed = ins.map((x) => { const r = x.rate && (typeof x.rate === 'string' ? x.rate : x.rate.en); const m = typeof r === 'string' && r.match(/([\d.]+)\s*%\s*(fixed|fija)/i); return m ? { issued: x.issued || '', rate: +m[1], name: typeof x.name === 'string' ? x.name : L(x.name) } : null; }).filter(Boolean).sort((a, b) => a.issued.localeCompare(b.issued));
+    return fixed.length ? fixed[fixed.length - 1] : null;
+  }
+  const BETA = betaFromMarket(), KD = kdFromDebt();
   function dcfDefaults() {
     const ltm = lastLTM && lastLTM.is ? lastLTM.is : {};
     const revEx = ltm.revTotal ? (ltm.revTotal - (ltm.revConstruction || 0)) / 1000 : 0; // Ps. M
@@ -644,7 +666,7 @@
       trafficG: (D.trafficGrowthPct || [2, 4, 4, 3.5, 3.5]).slice(), revPaxG: D.revPerPaxGrowthPct ?? 5,
       margin: D.ebitdaMarginPct ?? (ltm.ebitdaMarginExIfric ? Math.round(10 * ltm.ebitdaMarginExIfric) / 10 : 67), capex: (D.capexMxnM || [13000, 11000, 10000, 9000, 9000]).slice(),
       daPct: D.daPctRevenue ?? (revEx ? Math.round(1000 * (ltm.da / 1000) / revEx) / 10 : 9), tax: D.taxRatePct ?? 30, nwc: D.nwcPctDeltaRevenue ?? 5,
-      rf: D.riskFreePct ?? (mx10.length ? mx10[mx10.length - 1][1] : 9.5), erp: D.erpPct ?? 5.5, beta: D.beta ?? 0.9, kd: D.costOfDebtPct ?? 10, dw: D.targetDebtPct ?? 20,
+      rf: D.riskFreePct ?? (mx10.length ? mx10[mx10.length - 1][1] : 9.5), erp: D.erpPct ?? 5.5, beta: BETA ? BETA.beta : (D.beta ?? 0.9), kd: KD ? KD.rate : (D.costOfDebtPct ?? 10), dw: D.targetDebtPct ?? 20,
       method: D.terminalMethod || 'annuity', g: D.terminalGrowthPct ?? 3.5, mult: D.exitMultiple ?? 11, endYear: D.concessionEnd || 2048,
       baseYear: lastQ ? lastQ.fy : new Date().getFullYear(), stubFrac: lastQ ? (4 - lastQ.q) / 4 : 0.5,
     };
@@ -667,8 +689,8 @@
       <h4>${LANG === 'es' ? 'Costo de capital' : 'Cost of capital'}</h4>
       ${row(LANG === 'es' ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', LANG === 'es' ? `Bono M 10 años (FRED/OCDE): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/d'}` : `MX 10-yr bond (FRED/OECD): ${mx10.length ? fmtPct(mx10[mx10.length - 1][1], 2) + ' ' + fmtDate(mx10[mx10.length - 1][0]) : 'n/a'}`, num('rf', 0.1))}
       ${row(LANG === 'es' ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', '', num('erp', 0.25))}
-      ${row('Beta', '', num('beta', 0.05))}
-      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', LANG === 'es' ? 'GAP 26-2: 9.87% fija a 10 años' : 'GAP 26-2: 9.87% fixed, 10-yr', num('kd', 0.1))}
+      ${row('Beta', BETA ? (LANG === 'es' ? `calculada: ${BETA.weeks} rendimientos semanales GAPB vs IPC desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns GAPB vs IPC since ${fmtDate(BETA.from)}`) : (LANG === 'es' ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05))}
+      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (LANG === 'es' ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija, último bono a tasa fija (${fmtDate(KD.issued)})` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed, latest fixed-rate bond (${fmtDate(KD.issued)})`) : '', num('kd', 0.1))}
       ${row(LANG === 'es' ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', '', num('dw', 1, 0, 90))}
       <h4>${t('tv')}</h4>
       ${row(LANG === 'es' ? 'Método' : 'Method', '', `<select data-k="method"><option value="annuity"${s.method === 'annuity' ? ' selected' : ''}>${LANG === 'es' ? 'Anualidad hasta ' + s.endYear : 'Annuity to ' + s.endYear}</option><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${LANG === 'es' ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
