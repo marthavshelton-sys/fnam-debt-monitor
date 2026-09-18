@@ -1,7 +1,9 @@
 // Hand-curated one-line explanations for the income-statement comparison (year-over-year only).
 // Sources: GAP's quarterly results releases (GlobeNewswire / Form 6-K) and the earnings-call transcripts
 // the repo owner supplied for 3Q25–2Q26. Keys: quarter id (2026Q2 = 2Q26 vs 2Q25), YTD id (2026M6 =
-// 6M26 vs 6M25) or fiscal year (FY2025 vs FY2024). `call` names the earnings call used; the release link
+// 6M26 vs 6M25) or fiscal year (FY2025 vs FY2024). `lines` holds income-statement keys, `ops` the
+// operating-metrics keys (dom, intl, total, cbx, cargo, wlu, aeroPerPax, nonAeroPerPax, cbxPerUser,
+// revPerPaxGap, aeroPerWlu, costPerWlu). `call` names the earnings call used; the release link
 // comes from financials.js. New quarters: the change-alert routine drafts entries from the new release;
 // transcripts can be added afterwards. Percentages quoted are as printed by GAP; where GAP restated the
 // prior-year base, the table (as originally reported) can differ slightly.
@@ -9,6 +11,20 @@ window.GAP_COMMENTS = {
   updatedAt: "2026-09-18",
   periods: {
     "2026Q2": {
+      ops: {
+        dom: { es: "México −4.2% en total: aerolíneas recortan capacidad por el combustible y las tarifas aéreas más altas del Mundial desplazaron viajeros de negocios y ocio en junio; Guadalajara +6%.", en: "Mexico −4.2% overall: airlines cut capacity on fuel costs and higher World Cup airfares displaced business and leisure travellers in June; Guadalajara +6%." },
+        intl: { es: "Puerto Vallarta internacional −27% por la percepción de seguridad y avisos de viaje de EE. UU.; Jamaica −16.9%, aún por el huracán Melissa.", en: "Puerto Vallarta international −27% on security perception and US travel advisories; Jamaica −16.9%, still Hurricane Melissa." },
+        total: { es: "−5.6%: la dirección lo ve en gran parte temporal; 19 rutas nuevas en el trimestre y comparativos más fáciles en el segundo semestre.", en: "−5.6%: management sees most of it as temporary; 19 new routes in the quarter and easier comparisons in the second half." },
+        cbx: { es: "Por debajo del año anterior (≈75% son pasajeros con base en EE. UU.); GAP ve margen en precios dinámicos y servicios auxiliares.", en: "Below a year earlier (≈75% are US-based passengers); GAP sees upside in dynamic pricing and ancillary services." },
+        cargo: { es: "+8.3%: carga electrónica de alto valor que se traslada de Asia a la zona de Guadalajara tras los aranceles de EE. UU. a Asia.", en: "+8.3%: high-value electronics cargo shifting from Asia to the Guadalajara area after the US tariffs on Asia." },
+        wlu: { es: "−5.0%: la caída de pasajeros supera el crecimiento de la carga.", en: "−5.0%: the passenger decline outweighs cargo growth." },
+        aeroPerPax: { es: "Sube por las tarifas máximas 2025–29 pese al peso fuerte sobre los cargos a pasajeros internacionales.", en: "Up on the 2025–29 maximum tariffs despite the stronger peso on international passenger charges." },
+        nonAeroPerPax: { es: "+31%: CBX y los negocios operados por GAP (carga, publicidad, hotel) crecen con menos pasajeros.", en: "+31%: CBX and GAP-operated businesses (cargo, advertising, hotel) grow on fewer passengers." },
+        cbxPerUser: { es: "US$42.8 por usuario en mayo–junio, en línea con lo esperado por GAP.", en: "US$42.8 per user in May–June, in line with GAP's expectations." },
+        revPerPaxGap: { es: "+11.1% (Exhibit F): tarifas, comercial y CBX sobre una base de pasajeros menor.", en: "+11.1% (Exhibit F): tariffs, commercial revenue and CBX over a smaller passenger base." },
+        aeroPerWlu: { es: "+1.9% (Exhibit F): las tarifas compensan el peso fuerte; la carga suma WLU sin cobro por pasajero.", en: "+1.9% (Exhibit F): tariffs offset the stronger peso; cargo adds WLUs without passenger charges." },
+        costPerWlu: { es: "+32.6% (Exhibit F): más personal, asistencia técnica internalizada y CBX sobre menos WLU.", en: "+32.6% (Exhibit F): more personnel, internalised technical assistance and CBX over fewer WLUs." },
+      },
       call: { date: "2026-07-15", es: "conferencia de resultados del 2T26 (15 jul 2026, transcripción Bloomberg)", en: "2Q26 earnings call (15 Jul 2026, Bloomberg transcript)" },
       lines: {
         revAero: { es: "Tráfico −5.6% y peso 10.9% más fuerte sobre los cargos en dólares; lo compensa en parte la aplicación gradual de la tarifa máxima 2025–29.", en: "Traffic −5.6% and a 10.9% stronger peso on USD-linked charges; partly offset by the phased 2025–29 maximum-tariff increases." },
@@ -38,6 +54,18 @@ window.GAP_COMMENTS = {
       }
     },
     "2026M6": {
+      ops: {
+        dom: { es: "México −3.7% en el semestre: hechos de seguridad en Jalisco (feb–mar), capacidad recortada por el combustible y el efecto del Mundial en junio.", en: "Mexico −3.7% in the half: Jalisco security events (Feb–Mar), capacity cut on fuel costs and the World Cup effect in June." },
+        intl: { es: "Jamaica −20.8% por Melissa; Puerto Vallarta débil por seguridad y avisos de viaje de EE. UU.", en: "Jamaica −20.8% on Melissa; Puerto Vallarta weak on security and US travel advisories." },
+        total: { es: "−5.6%; guía revisada a −3% a 0% con mejora gradual en el segundo semestre.", en: "−5.6%; guidance revised to −3% to 0% with gradual improvement in the second half." },
+        cbx: { es: "Por debajo del año anterior; depende del viajero con base en EE. UU.", en: "Below a year earlier; relies on US-based travellers." },
+        cargo: { es: "+8.2%: carga electrónica de alto valor hacia Guadalajara.", en: "+8.2%: high-value electronics cargo into Guadalajara." },
+        wlu: { es: "−5.0%: caída de pasajeros.", en: "−5.0%: passenger decline." },
+        nonAeroPerPax: { es: "+21.9% (Exhibit F): negocios operados por GAP y dos meses de CBX.", en: "+21.9% (Exhibit F): GAP-operated businesses and two months of CBX." },
+        revPerPaxGap: { es: "+10.9% (Exhibit F): tarifas, comercial y CBX.", en: "+10.9% (Exhibit F): tariffs, commercial revenue and CBX." },
+        aeroPerWlu: { es: "+5.7% (Exhibit F): tarifas 2025–29.", en: "+5.7% (Exhibit F): 2025–29 tariffs." },
+        costPerWlu: { es: "+21.4% (Exhibit F): personal, seguridad y mantenimiento sobre menos WLU.", en: "+21.4% (Exhibit F): personnel, security and maintenance over fewer WLUs." },
+      },
       call: { date: "2026-07-15", es: "conferencia de resultados del 2T26 (15 jul 2026, transcripción Bloomberg)", en: "2Q26 earnings call (15 Jul 2026, Bloomberg transcript)" },
       lines: {
         revAero: { es: "La tarifa máxima 2025–29 compensa tráfico −3.7% en México, −20.8% en Jamaica y un peso 12.5% más fuerte.", en: "The tariff phase-in offsets traffic −3.7% in Mexico, −20.8% in Jamaica and a 12.5% stronger peso." },
@@ -61,6 +89,19 @@ window.GAP_COMMENTS = {
       }
     },
     "2026Q1": {
+      ops: {
+        dom: { es: "Los hechos de seguridad en Jalisco a fines de febrero afectaron Guadalajara y Puerto Vallarta en marzo; Tijuana aún limitada por los motores Pratt & Whitney.", en: "Late-February security events in Jalisco hit Guadalajara and Puerto Vallarta in March; Tijuana still constrained by Pratt & Whitney engine groundings." },
+        intl: { es: "Jamaica −24.6% por Melissa (capacidad hotelera aún sin recuperarse); destinos de playa afectados por la percepción de seguridad.", en: "Jamaica −24.6% on Melissa (hotel capacity not yet recovered); beach destinations hit by security perception." },
+        total: { es: "−5.5%; la dirección esperaba dejar atrás los efectos temporales para el verano y mantuvo la guía.", en: "−5.5%; management expected the temporary effects to fade by summer and kept guidance." },
+        cbx: { es: "≈75% de los usuarios son pasajeros con base en EE. UU. hacia destinos turísticos mexicanos, afectados por seguridad y combustible.", en: "≈75% of users are US-based passengers flying to Mexican tourist destinations, hit by security and fuel." },
+        cargo: { es: "+8.2%: carga electrónica de alto valor (p. ej. Foxconn) reubicada de Asia a Guadalajara tras los aranceles.", en: "+8.2%: high-value electronics cargo (e.g. Foxconn) relocating from Asia to Guadalajara after the tariffs." },
+        wlu: { es: "−5.0%: caída de pasajeros.", en: "−5.0%: passenger decline." },
+        aeroPerPax: { es: "Tarifas máximas 2025–29 en México; Jamaica resta.", en: "2025–29 maximum tariffs in Mexico; Jamaica weighs." },
+        nonAeroPerPax: { es: "+12.3% (Exhibit F): recinto fiscal y negocios operados por GAP.", en: "+12.3% (Exhibit F): bonded warehouse and GAP-operated businesses." },
+        revPerPaxGap: { es: "+10.7% (Exhibit F): tarifas y comercial.", en: "+10.7% (Exhibit F): tariffs and commercial revenue." },
+        aeroPerWlu: { es: "+9.4% (Exhibit F): tarifas 2025–29.", en: "+9.4% (Exhibit F): 2025–29 tariffs." },
+        costPerWlu: { es: "+10.0% (Exhibit F): personal, seguridad y mantenimiento sobre menos WLU.", en: "+10.0% (Exhibit F): personnel, security and maintenance over fewer WLUs." },
+      },
       call: { date: "2026-04-22", es: "conferencia de resultados del 1T26 (22 abr 2026, transcripción Bloomberg)", en: "1Q26 earnings call (22 Apr 2026, Bloomberg transcript)" },
       lines: {
         revAero: { es: "México +9.3% por la tarifa máxima 2025–29; Jamaica −26.2% tras el huracán Melissa y un peso 14.0% más fuerte.", en: "Mexico +9.3% on the 2025–29 tariffs; Jamaica −26.2% after Hurricane Melissa and a 14.0% stronger peso." },
@@ -86,6 +127,19 @@ window.GAP_COMMENTS = {
       }
     },
     "2025Q4": {
+      ops: {
+        dom: { es: "México +2.9%: tendencia estable con rutas nuevas (ocho a Canadá lanzadas en el trimestre).", en: "Mexico +2.9%: stable trend with new routes (eight to Canada launched in the quarter)." },
+        intl: { es: "Jamaica −34.5%: Montego Bay cerró del 26 de octubre al 1 de noviembre por el huracán Melissa y ≈70% de la capacidad hotelera quedó afectada.", en: "Jamaica −34.5%: Montego Bay closed 26 Oct–1 Nov for Hurricane Melissa and ≈70% of hotel capacity was affected." },
+        total: { es: "−0.9%: Jamaica resta; México crece.", en: "−0.9%: Jamaica drags; Mexico grows." },
+        cbx: { es: "Mercado VFR hacia EE. UU. desacelerado por la incertidumbre migratoria.", en: "US-bound VFR market slowed by immigration uncertainty." },
+        cargo: { es: "+7.8%: recinto fiscal y carga en Guadalajara.", en: "+7.8%: bonded warehouse and cargo at Guadalajara." },
+        wlu: { es: "−0.5%.", en: "−0.5%." },
+        aeroPerPax: { es: "Tarifas 2025–29 (15% en marzo, +7.5% en septiembre) en México; Jamaica y el peso fuerte restan.", en: "2025–29 tariffs (15% in March, +7.5% in September) in Mexico; Jamaica and the stronger peso weigh." },
+        nonAeroPerPax: { es: "+14.3% (Exhibit F): recinto fiscal, espacios nuevos y contratos renegociados.", en: "+14.3% (Exhibit F): bonded warehouse, new spaces and renegotiated contracts." },
+        revPerPaxGap: { es: "+13.8% (Exhibit F): tarifas y comercial.", en: "+13.8% (Exhibit F): tariffs and commercial revenue." },
+        aeroPerWlu: { es: "+13.2% (Exhibit F): tarifas 2025–29.", en: "+13.2% (Exhibit F): 2025–29 tariffs." },
+        costPerWlu: { es: "+26.8% (Exhibit F): pasarelas y autobuses operados por GAP, personal y consultoría de adquisiciones.", en: "+26.8% (Exhibit F): jet bridges and buses operated by GAP, personnel and acquisition consulting." },
+      },
       call: { date: "2026-02-25", es: "conferencia de resultados del 4T25 (25 feb 2026, transcripción Bloomberg)", en: "4Q25 earnings call (25 Feb 2026, Bloomberg transcript)" },
       lines: {
         revAero: { es: "México +21.2% por tarifas 2025–29 y tráfico +2.9%; Jamaica −35.7% por el huracán Melissa (tráfico −34.5%) y un peso 8.7% más fuerte.", en: "Mexico +21.2% on the 2025–29 tariffs and +2.9% traffic; Jamaica −35.7% after Hurricane Melissa (traffic −34.5%) and an 8.7% stronger peso." },
@@ -111,6 +165,19 @@ window.GAP_COMMENTS = {
       }
     },
     "FY2025": {
+      ops: {
+        dom: { es: "México +3.7% en el año: rutas nuevas y demanda doméstica; Volaris y Viva limitadas por los motores Pratt & Whitney.", en: "Mexico +3.7% for the year: new routes and domestic demand; Volaris and Viva constrained by Pratt & Whitney engines." },
+        intl: { es: "Internacional débil: mercado VFR hacia EE. UU. frenado por la política migratoria, menos capacidad de aerolíneas de EE. UU. en Puerto Vallarta y Jamaica −35% en el 4T por Melissa.", en: "International weak: US-bound VFR slowed by immigration policy, less US-airline capacity at Puerto Vallarta and Jamaica −35% in 4Q on Melissa." },
+        total: { es: "+2.5% frente a la guía de 4% a 6%: motores Pratt & Whitney, VFR y Melissa.", en: "+2.5% against guidance of 4% to 6%: Pratt & Whitney engines, VFR and Melissa." },
+        cbx: { es: "Ligeramente abajo: desaceleración del VFR hacia EE. UU.", en: "Slightly down: US-bound VFR slowdown." },
+        cargo: { es: "+1.7%.", en: "+1.7%." },
+        wlu: { es: "+2.4%.", en: "+2.4%." },
+        aeroPerPax: { es: "Tarifas nuevas desde marzo de 2025 y peso promedio más débil.", en: "New tariffs from March 2025 and a weaker average peso." },
+        nonAeroPerPax: { es: "Ps. 152 vs 123 (+23.5%): recinto fiscal año completo, mejor ejecución comercial y precios.", en: "Ps. 152 vs 123 (+23.5%): full year of the bonded warehouse, better commercial execution and pricing." },
+        revPerPaxGap: { es: "+18.5% (Exhibit F): tarifas nuevas y comercial.", en: "+18.5% (Exhibit F): new tariffs and commercial revenue." },
+        aeroPerWlu: { es: "+16.6% (Exhibit F): tarifas 2025–29 y peso promedio 5.1% más débil.", en: "+16.6% (Exhibit F): 2025–29 tariffs and a 5.1% weaker average peso." },
+        costPerWlu: { es: "+20.4% (Exhibit F): personal, mantenimiento (pasarelas) y negocio de carga.", en: "+20.4% (Exhibit F): personnel, maintenance (jet bridges) and the cargo business." },
+      },
       call: { date: "2026-02-25", es: "conferencia de resultados del 4T25 (25 feb 2026, transcripción Bloomberg)", en: "4Q25 earnings call (25 Feb 2026, Bloomberg transcript)" },
       lines: {
         revAero: { es: "México +22.5%: tarifas nuevas desde marzo, tráfico +3.7% y peso promedio 5.1% más débil; Jamaica +2.9% (−2.0% en dólares).", en: "Mexico +22.5%: new tariffs from March, +3.7% traffic and a 5.1% weaker average peso; Jamaica +2.9% (−2.0% in USD)." },
@@ -135,6 +202,19 @@ window.GAP_COMMENTS = {
       }
     },
     "2025Q3": {
+      ops: {
+        dom: { es: "Demanda doméstica sostenida con rutas y frecuencias nuevas; Volaris y Viva aún limitadas por los motores Pratt & Whitney (flota completa hacia 2027).", en: "Sustained domestic demand with new routes and frequencies; Volaris and Viva still constrained by Pratt & Whitney engines (full fleet by 2027)." },
+        intl: { es: "Internacional a la baja: VFR hacia EE. UU. (directo y vía Tijuana/CBX) frenado por la política migratoria; Puerto Vallarta −5% en el año por menor capacidad de aerolíneas de EE. UU.; Jamaica +6.1%.", en: "International down: US-bound VFR (direct and via Tijuana/CBX) slowed by immigration policy; Puerto Vallarta −5% year-to-date on less US-airline capacity; Jamaica +6.1%." },
+        total: { es: "+2.5%: rutas nuevas compensan la caída internacional.", en: "+2.5%: new routes offset the international decline." },
+        cbx: { es: "Desaceleración del VFR vía Tijuana/CBX por la incertidumbre migratoria en EE. UU.", en: "VFR via Tijuana/CBX slowed by US immigration uncertainty." },
+        cargo: { es: "−0.5%.", en: "−0.5%." },
+        wlu: { es: "+2.4%.", en: "+2.4%." },
+        aeroPerPax: { es: "Tarifa máxima: +15% en marzo y +7.5% adicional desde el 1 de septiembre.", en: "Maximum tariff: +15% in March and a further +7.5% from 1 September." },
+        nonAeroPerPax: { es: "+12.7% (Exhibit F): negocios operados por GAP a doble dígito (carga, tiendas, FBO).", en: "+12.7% (Exhibit F): double-digit growth in GAP-operated businesses (cargo, stores, FBO)." },
+        revPerPaxGap: { es: "+14.5% (Exhibit F): tarifas y comercial.", en: "+14.5% (Exhibit F): tariffs and commercial revenue." },
+        aeroPerWlu: { es: "+15.5% (Exhibit F): tarifas nuevas; frente al 2T baja por mezcla (menos internacional) y un peso 4.6% más fuerte.", en: "+15.5% (Exhibit F): new tariffs; versus 2Q it fell on mix (less international) and a 4.6% stronger peso." },
+        costPerWlu: { es: "+11.4% (Exhibit F): pasarelas y autobuses operados por GAP; ≈+4.8% sin ese efecto.", en: "+11.4% (Exhibit F): jet bridges and buses operated by GAP; ≈+4.8% excluding that." },
+      },
       call: { date: "2025-10-21", es: "conferencia de resultados del 3T25 (21 oct 2025, transcripción Bloomberg)", en: "3Q25 earnings call (21 Oct 2025, Bloomberg transcript)" },
       lines: {
         revAero: { es: "México +20.5% por la tarifa máxima (15% en marzo y +7.5% desde el 1 de septiembre, adelantado de 2026); Jamaica +7.3%.", en: "Mexico +20.5% on the new maximum tariffs (15% in March, +7.5% from 1 September, brought forward from 2026); Jamaica +7.3%." },
@@ -158,6 +238,18 @@ window.GAP_COMMENTS = {
       }
     },
     "2025M9": {
+      ops: {
+        dom: { es: "México +4.0% en nueve meses: demanda doméstica y rutas nuevas.", en: "Mexico +4.0% over nine months: domestic demand and new routes." },
+        intl: { es: "VFR hacia EE. UU. desacelerado; Puerto Vallarta internacional −5% por menor capacidad de aerolíneas de EE. UU.", en: "US-bound VFR slowed; Puerto Vallarta international −5% on less US-airline capacity." },
+        total: { es: "+3.6%.", en: "+3.6%." },
+        cbx: { es: "Desaceleración del VFR hacia EE. UU.", en: "US-bound VFR slowdown." },
+        cargo: { es: "−0.4%.", en: "−0.4%." },
+        wlu: { es: "+3.4%.", en: "+3.4%." },
+        nonAeroPerPax: { es: "+27.0% (Exhibit F): consolidación del recinto fiscal.", en: "+27.0% (Exhibit F): bonded-warehouse consolidation." },
+        revPerPaxGap: { es: "+20.2% (Exhibit F): tarifas y comercial.", en: "+20.2% (Exhibit F): tariffs and commercial revenue." },
+        aeroPerWlu: { es: "+17.7% (Exhibit F): tarifas y peso promedio 10.3% más débil.", en: "+17.7% (Exhibit F): tariffs and a 10.3% weaker average peso." },
+        costPerWlu: { es: "+20.7% (Exhibit F): personal, mantenimiento y negocio de carga.", en: "+20.7% (Exhibit F): personnel, maintenance and the cargo business." },
+      },
       call: { date: "2025-10-21", es: "conferencia de resultados del 3T25 (21 oct 2025, transcripción Bloomberg)", en: "3Q25 earnings call (21 Oct 2025, Bloomberg transcript)" },
       lines: {
         revAero: { es: "México +22.9%: tarifas desde marzo, peso promedio 10.3% más débil y tráfico +4.0%; Jamaica +15.9%.", en: "Mexico +22.9%: tariffs from March, a 10.3% weaker average peso and +4.0% traffic; Jamaica +15.9%." },
