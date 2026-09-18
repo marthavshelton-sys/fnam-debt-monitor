@@ -12,6 +12,11 @@ on:
         description: 'Diagnostics only (nothing written), e.g. "banxico-cuadro CG2 9; shcp-index" — see scripts/mx-fiscal/probe.mjs'
         required: false
         default: ''
+      dry_run:
+        description: 'Fetch and validate every series, print the summary, write and commit nothing'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -38,10 +43,10 @@ jobs:
         if: ${{ github.event.inputs.probe == '' }}
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
-        run: node scripts/mx-fiscal/fetch.mjs
+        run: node scripts/mx-fiscal/fetch.mjs ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Commit updated data.js if it changed
-        if: ${{ github.event.inputs.probe == '' }}
+        if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name "fnam-data-bot"
           git config user.email "actions@users.noreply.github.com"
