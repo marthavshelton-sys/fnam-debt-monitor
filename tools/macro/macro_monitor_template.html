@@ -482,6 +482,17 @@
     text-transform: uppercase; color: var(--cat-4);
     border: 1px solid var(--cat-4); border-radius: 5px; padding: 2px 7px; margin-top: 3px;
   }
+  /* ---------- executive summary (top of every section) ---------- */
+  .exec {
+    background: var(--surface-1); border: 1px solid var(--border); border-left: 4px solid var(--lang-btn);
+    border-radius: 10px; padding: 14px 16px 12px; margin-bottom: 22px;
+  }
+  .exec:empty { display: none; }
+  .exec-title { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--lang-btn); margin-bottom: 10px; }
+  .exec-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; }
+  @media (max-width: 860px) { .exec-grid { grid-template-columns: 1fr; gap: 8px; } }
+  .exec-item { font-size: 13.5px; line-height: 1.55; color: var(--text-secondary); }
+  .exec-k { display: block; font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-primary); margin-bottom: 2px; }
   .notice {
     display: flex; gap: 11px; align-items: flex-start;
     background: var(--soon-bg); border: 1px solid var(--cat-4);
@@ -565,6 +576,8 @@
         <div><a href="https://www.bls.gov/cpi/" target="_blank" rel="noopener" data-i18n="sourceBLS">Source: BLS CPI program</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-cpi"></div>
 
     <section>
       <div class="kpi-row" id="kpiRow"></div>
@@ -683,6 +696,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-unemployment"></div>
+
     <section><div class="kpi-row" id="unKpiRow"></div></section>
 
     <section>
@@ -792,6 +807,8 @@
         <div><a href="https://www.bls.gov/ces/" target="_blank" rel="noopener" data-i18n="sourceCES">Source: BLS Current Employment Statistics</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-payrolls"></div>
 
     <section><div class="kpi-row" id="pyKpiRow"></div></section>
 
@@ -963,6 +980,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-cuts"></div>
+
     <div class="notice" id="cutsNotice"></div>
 
     <section><div class="kpi-row" id="cutsKpiRow"></div></section>
@@ -1044,6 +1063,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-gdp"></div>
+
     <section><div class="kpi-row" id="gdpKpiRow"></div></section>
 
     <section>
@@ -1098,6 +1119,8 @@
         <div><a href="https://www.bea.gov/data/income-saving/personal-income" target="_blank" rel="noopener" data-i18n="sourceIncome">Source: BEA personal income</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-income"></div>
 
     <section><div class="kpi-row" id="incKpiRow"></div></section>
 
@@ -1181,6 +1204,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-confidence"></div>
+
     <div id="confPrelimBanner"></div>
 
     <section>
@@ -1259,6 +1284,8 @@
         <div><a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank" rel="noopener" data-i18n="sourceBEA">Source: BEA PCE price index</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-pce"></div>
 
     <section>
       <div class="kpi-row" id="pceKpiRow"></div>
@@ -1405,6 +1432,8 @@
         <div><a href="https://www.bls.gov/ppi/" target="_blank" rel="noopener" data-i18n="sourcePPI">Source: BLS PPI program</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-ppi"></div>
 
     <section><div class="kpi-row" id="ppiKpiRow"></div></section>
 
@@ -1577,6 +1606,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-retail"></div>
+
     <section><div class="kpi-row" id="rtKpiRow"></div></section>
 
     <section>
@@ -1698,6 +1729,8 @@
         <div><a href="https://fred.stlouisfed.org/" target="_blank" rel="noopener" data-i18n="sourceFRED">Source: FRED, Federal Reserve Bank of St. Louis</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-fincond"></div>
 
     <section><div class="kpi-row" id="fcKpiRow"></div></section>
 
@@ -1850,6 +1883,8 @@
       </div>
     </div>
 
+    <div class="exec" id="exec-supply"></div>
+
     <section><div class="kpi-row" id="scKpiRow"></div></section>
 
     <section>
@@ -1945,6 +1980,8 @@
         <div><a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener" data-i18n="sourceMTS">Source: U.S. Treasury, Monthly Treasury Statement</a></div>
       </div>
     </div>
+
+    <div class="exec" id="exec-fiscal"></div>
 
     <div class="fiscal-link-card">
       <div data-i18n="fiLinkBlurb">For the debt side — total public debt, holders, maturity, and interest — see the companion monitor.</div>
@@ -2368,6 +2405,72 @@ const I18N = {
     cutsHiringNote: (ytd, prior, pct) => "En lo que va del año se anunciaron " + ytd + " contrataciones, frente a " + prior + " en el mismo periodo del año pasado (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Tasa = recortes anunciados (Challenger) ÷ empleo no agrícola total del estado (BLS, " + m + "). La cuadrícula es esquemática: cada estado ocupa una celda del mismo tamaño, colocada para aproximar su posición real, de modo que estados pequeños sigan siendo legibles.",
     mapSpan: (a, b) => a + " a " + b,
+    exTitle: "En resumen",
+    exLatest: "Último dato",
+    exDrivers: "Qué lo explica",
+    exWhy: "Por qué importa",
+    exWatch: "Qué seguir",
+    exNext: (what, d) => "Próximo: " + what + " el " + d + ".",
+    exNextTbd: what => "Próximo: " + what + " (fecha por publicar).",
+    exPrelimTag: ", preliminar",
+    exRelCpi: m => "CPI de " + m,
+    exRelPce: m => "PCE de " + m + " (con ingreso y gasto)",
+    exRelPpi: m => "PPI de " + m,
+    exRelJobs: m => "informe de empleo de " + m,
+    exRelGdp: "estimación del PIB",
+    exRelRetail: m => "ventas minoristas de " + m,
+    exRelUmichFinal: m => "confianza final de " + m,
+    exRelUmichPrelim: m => "confianza preliminar de " + m,
+    exContribDrivers: (a, av, b, bv, neg, negv, total) => a + " aportó " + av + " del " + total + " y " + b + " " + bv + (neg ? "; " + neg + " restó " + negv + "." : "; ningún grupo mayor restó."),
+    exCpiLatest: (h, m, hp, mp, c, a3) => "CPI general de " + h + " anual en " + m + " (" + hp + " en " + mp + "); subyacente de " + c + ". En los últimos tres meses el subyacente avanza a un ritmo anualizado de " + a3 + ".",
+    exCpiWhy: (gap, rel, mo) => "El subyacente está " + gap + " pp " + (rel === "above" ? "por encima" : "por debajo") + " del 2% que busca la Fed y " + ({slowing:"desacelera", faster:"vuelve a acelerar", steady:"mantiene su ritmo"})[mo] + " en la ventana de tres meses. Esa brecha marca el rumbo de las tasas y de los salarios reales.",
+    exCpiWatch: (shW, sh, shDir, en) => "Seguir el alojamiento (" + shW + "% del índice, " + sh + " y " + ({up:"reacelerando", down:"enfriándose", flat:"estable"})[shDir] + ") y la energía (" + en + "), los dos factores que más mueven el dato.",
+    exPceLatest: (h, m, hp, c, a3) => "Precios PCE de " + h + " anual en " + m + " (" + hp + " el mes previo); PCE subyacente de " + c + ", a un ritmo anualizado de " + a3 + " en tres meses.",
+    exPceWhy: (gap, rel, mo, cpiCore) => "Es el índice sobre el que está definida la meta de 2% de la Fed. El subyacente está " + gap + " pp " + (rel === "above" ? "por encima" : "por debajo") + " y " + ({slowing:"desacelera", faster:"vuelve a acelerar", steady:"mantiene su ritmo"})[mo] + "; el CPI subyacente, que pondera más la vivienda, marca " + cpiCore + ".",
+    exPceWatch: top => "Seguir si el subyacente mantiene su ritmo de tres meses y si " + top + ", el mayor contribuyente, cede.",
+    exPpiLatest: (fd, m, fdp, core, g, s) => "Precios al productor de demanda final: " + fd + " anual en " + m + " (" + fdp + " el mes previo); subyacente " + core + "; bienes " + g + ", servicios " + s + ".",
+    exPpiWhy: (diff, rel, cpi) => "Los precios al productor anticipan por unos meses los precios de los bienes al consumidor y muestran si los costos se absorben o se trasladan." + (diff === null ? "" : " La demanda final corre " + diff + " pp " + (rel === "above" ? "por encima" : "por debajo") + " del CPI general (" + cpi + ")."),
+    exPpiWatch: (en, s) => "Seguir la energía (" + en + ") como próximo vaivén y los servicios (" + s + ") para ver si los márgenes se amplían.",
+    exUnLatest: (u, m, prev, ago, u6, part) => "Desempleo de " + u + " en " + m + " (" + prev + " el mes previo, " + ago + " hace un año); U-6 de " + u6 + "; participación de " + part + ".",
+    exUnDrivers: (d, k, lvl, lt, pd, pk) => "El número de desempleados " + ({up:"subió " + k + " mil", down:"bajó " + k + " mil", flat:"casi no cambió"})[d] + ", a " + lvl + " millones; el " + lt + "% lleva 27 semanas o más sin trabajo. La participación " + ({up:"subió " + pk + " pp", down:"bajó " + pk + " pp", flat:"se mantuvo"})[pd] + ".",
+    exUnWhy: (sahm, band) => "Es la mitad del mandato de la Fed. La brecha de Sahm (promedio de 3 meses contra su mínimo de 12 meses) es de " + sahm + " pp, " + ({over:"por encima del 0.5 pp que ha marcado cada recesión desde 1970", near:"acercándose al 0.5 pp que ha marcado las recesiones pasadas", under:"bien por debajo del 0.5 pp que ha marcado las recesiones pasadas"})[band] + ".",
+    exUnWatch: "Seguir la tendencia del número de desempleados y del desempleo de larga duración más que la tasa de un solo mes; una participación a la baja puede maquillar el dato principal.",
+    exPyLatest: (chg, m, a3, rev, ahe) => "Nómina no agrícola: " + chg + " en " + m + "; promedio de 3 meses de " + a3 + ". " + rev + "Salario promedio por hora: " + ahe + " anual.",
+    exPyRev: (net, n) => "Los " + n + " meses previos se revisaron " + net + " en conjunto. ",
+    exPyDrivers: (a, av, b, bv, neg, negv) => a + " (" + av + ") y " + b + " (" + bv + ") lideraron las alzas" + (neg ? "; " + neg + " perdió empleos (" + negv + ")." : "; ningún sector mayor perdió empleos."),
+    exPyWhy: (a3, a12, pace, ahe, cpi, real) => "El empleo impulsa el ingreso y el gasto. El promedio de 3 meses (" + a3 + ") está " + ({up:"por encima del", down:"por debajo del", flat:"en línea con el"})[pace] + " promedio de 12 meses (" + a12 + "), así que la contratación " + ({up:"se acelera", down:"se desacelera", flat:"es estable"})[pace] + ". Salarios de " + ahe + " contra inflación de " + cpi + ": el salario real " + (real === "up" ? "sube" : "baja") + ".",
+    exPyWatch: (jolts, jm) => "Seguir las revisiones y la tendencia de 3 meses más que el dato principal; las vacantes (" + jolts + " millones en " + jm + ") muestran cuánta demanda de trabajadores queda.",
+    exCutsLatest: (n, m, mom, yoy, ytd, ytdPct) => n + " recortes anunciados en " + m + ", " + mom + " contra el mes previo y " + yoy + " contra hace un año; " + ytd + " en lo que va del año (" + ytdPct + " frente a los mismos meses del año pasado).",
+    exCutsDrivers: (a, av, b, bv, share, hire, hirePct) => a + " (" + av + ") y " + b + " (" + bv + ") concentraron el " + share + "% de los recortes clasificados por sector. Los planes de contratación suman " + hire + " en el año (" + hirePct + ").",
+    exCutsWhy: (a3, a12, pace) => "Los anuncios se adelantan a los despidos reales, así que suelen aparecer en las solicitudes de desempleo y en la tasa de desempleo unos meses después. El promedio de 3 meses (" + a3 + ") está " + ({up:"por encima del", down:"por debajo del", flat:"en línea con el"})[pace] + " promedio de 12 meses (" + a12 + ").",
+    exCutsWatch: (dm, rm, rel, top) => "Próximo informe (recortes de " + dm + ") en la primera semana de " + rm + ". Seguir si los recortes se mantienen " + (rel === "below" ? "por debajo" : "por encima") + " del nivel de hace un año y si " + top + " sigue a la cabeza.",
+    exGdpLatest: (g, q, gp, qp, avg) => "El PIB real creció " + g + " a tasa anualizada en " + q + " (" + gp + " en " + qp + "); el promedio de cuatro trimestres es " + avg + ".",
+    exGdpDrivers: (pce, inv, gov, nx) => "El consumo aportó " + pce + ", la inversión " + inv + ", el gobierno " + gov + " y las exportaciones netas " + nx + ".",
+    exGdpWhy: (rel, share, pce) => "Es la medida más amplia de la actividad. El crecimiento está " + ({above:"por encima de", below:"por debajo de", near:"cerca de"})[rel] + " su promedio reciente" + (share === null ? "." : share > 100 ? ", y el consumo, cerca de dos tercios de la economía, aportó más que todo el dato (" + pce + "): los demás componentes restaron." : ", y el consumo, cerca de dos tercios de la economía, explicó el " + share + "% del dato."),
+    exGdpWatch: nx => "Cada trimestre se revisa dos veces después de la estimación anticipada. Seguir el consumo para el ritmo de fondo y si el vaivén comercial (" + nx + ") se revierte.",
+    exIncLatest: (m, inc, rdm, rdy, out, sr, srp) => "En " + m + " el ingreso personal varió " + inc + "%; el ingreso disponible real " + rdm + "% en el mes y " + rdy + "% en el año; el gasto " + out + "%. Tasa de ahorro de " + sr + " (" + srp + " el mes previo).",
+    exIncDrivers: (out, inc, srDir, rpce) => "El gasto creció " + out + "% frente a un ingreso de " + inc + "%, así que la tasa de ahorro " + ({down:"bajó", up:"subió", flat:"se mantuvo"})[srDir] + ". El gasto real es " + rpce + "% mayor que hace un año.",
+    exIncWhy: (sr, sr12, d) => "El consumo es cerca de dos tercios del PIB y la tasa de ahorro es el colchón detrás de él. En " + sr + " contra " + sr12 + " hace un año, " + ({down:"ha bajado: el gasto se financia con menos ahorro y no con más ingreso", up:"ha subido: los hogares gastan una parte menor de lo que ganan", flat:"casi no se ha movido: el gasto sigue al ingreso"})[d] + ".",
+    exIncWatch: "Seguir el ingreso disponible real, la fuente de un crecimiento duradero del gasto, y la dirección de la tasa de ahorro.",
+    exRtLatest: (mom, m, yoy, ctl, real) => "Ventas minoristas de " + mom + "% en " + m + " y " + yoy + "% en el año; el grupo de control que alimenta al PIB, " + ctl + "% en el mes. Descontando la inflación, las ventas reales van " + real + "% contra hace un año.",
+    exRtWhy: (cpi, real) => "El comercio minorista es cerca de un tercio del consumo y la primera lectura dura del trimestre. Con inflación de " + cpi + ", " + ({up:"los volúmenes crecen, no solo los precios", down:"los volúmenes se contraen una vez descontados los precios", flat:"los volúmenes están casi planos una vez descontados los precios"})[real] + ".",
+    exRtWatch: "Seguir el grupo de control y las ventas reales; un alza nominal que solo iguala a los precios no es crecimiento.",
+    exConfLatest: (cur, m, tag, prev, avg, icc, ice) => "Confianza de " + cur + " en " + m + tag + " (" + prev + " el mes previo), contra un promedio histórico de " + avg + "; condiciones actuales " + icc + ", expectativas " + ice + ".",
+    exConfDrivers: (which, dIce, dIcc, px1, px5) => (which === "ice" ? "Las expectativas fueron lo que más se movió, " + dIce + " puntos, con las condiciones actuales en " + dIcc : "Las condiciones actuales fueron lo que más se movió, " + dIcc + " puntos, con las expectativas en " + dIce) + ". Los hogares esperan una inflación de " + px1 + " el próximo año y de " + px5 + " anual a cinco años.",
+    exConfWhy: (nBelow, total, gap, rel, cpi, px1) => "La confianza es una guía laxa del gasto pero muy precisa de cómo viven los hogares los precios. " + (nBelow <= 24 ? "Solo " + nBelow + (nBelow === 1 ? " mes" : " meses") + " desde 1952 " + (nBelow === 1 ? "ha" : "han") + " marcado menos" : nBelow + " de " + total + " meses desde 1952 han marcado menos") + (gap === null ? "." : ", y la inflación esperada a un año, " + px1 + ", está " + gap + " pp " + (rel === "above" ? "por encima" : "por debajo") + " del CPI observado (" + cpi + ")."),
+    exConfWatch: px5 => "Seguir si se recuperan las expectativas (no las condiciones actuales) y si la inflación esperada a cinco años sigue anclada cerca de " + px5 + ".",
+    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg) => "NFCI de la Fed de Chicago en " + nfci + " al " + d + " (bajo cero = más laxo que el promedio), " + ({up:"sube " + chg, down:"baja " + chg, flat:"casi sin cambio"})[dir] + " en cuatro semanas. Tesoro a 10 años " + y10 + ", a 2 años " + y2 + " (curva " + slope + " pp); diferencial de alto rendimiento " + hy + " pp; hipoteca a 30 años " + mtg + ".",
+    exFcDrivers: (sub, v, tl, ff, hyDir, hyChg) => "El subíndice de " + sub + " es el más alejado de neutral (" + v + ", " + (tl === "tight" ? "más restrictivo" : "más laxo") + " que el promedio); la tasa objetivo de la Fed es " + ff + ". Los diferenciales de alto rendimiento están " + ({up:"más amplios por " + hyChg + " pp", down:"más estrechos por " + hyChg + " pp", flat:"casi sin cambio"})[hyDir] + " en cuatro semanas.",
+    exFcWhy: (state, band, hy) => "Las condiciones financieras son el canal por el que la política de la Fed llega a la economía: " + ({loose:"condiciones así de laxas significan crédito barato y activos con soporte", tight:"condiciones así de restrictivas frenan el crédito y el crecimiento", neutral:"condiciones cerca de neutral ni suman ni restan al crecimiento"})[state] + ". Un diferencial de alto rendimiento de " + hy + " pp señala " + ({calm:"calma en el crédito (menos de 4 pp)", elevated:"cierta cautela crediticia (4-6 pp)", stress:"tensión crediticia (más de 6 pp)"})[band] + ".",
+    exFcWatch: curve => "Se actualiza cada semana. Seguir la tasa a 2 años, la primera en moverse cuando cambian las expectativas de tasas, y el diferencial de alto rendimiento; la curva está " + (curve === "inverted" ? "invertida, una señal clásica de fin de ciclo" : "con pendiente positiva") + ".",
+    exScLatest: (g, m, gp, fr, ir, irm) => "Índice de presión en cadenas de suministro de la Fed de NY en " + g + " desviaciones estándar en " + m + " (" + gp + " el mes previo; cero es normal). Costos de flete " + fr + "% y precios de importación " + ir + "% en el año (" + irm + ").",
+    exScDrivers: (isr, d, bal, bm) => "Los inventarios de las empresas cubren " + isr + " meses de ventas (" + ({up:"al alza", down:"a la baja", flat:"estables"})[d] + "); el déficit comercial de bienes y servicios fue de $" + bal + " mil millones en " + bm + ".",
+    exScWhy: (state, looser) => "La presión en las cadenas de suministro se traslada a los precios de los bienes con unos meses de rezago. " + ({tight:"La presión está por encima de lo normal", loose:"La presión está por debajo de lo normal", normal:"La presión está cerca de lo normal"})[state] + ": el " + looser + "% de los meses desde 1998 han sido más holgados que este.",
+    exScWatch: (fr, ir) => "Se actualiza cada mes (GSCPI en la primera semana). Seguir el flete (" + fr + "%) y los precios de importación (" + ir + "%) por su traslado a la inflación de bienes.",
+    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => m + ": ingresos $" + r + " mil millones, gastos $" + o + " mil millones, " + (kind === "deficit" ? "déficit" : "superávit") + " de $" + d + " mil millones" + (vs ? " (" + vs + " contra el mismo mes del año pasado)" : "") + ". En lo que va del año fiscal " + fy + " el déficit es de $" + fytd + " mil millones, " + fyPct + " " + (wid === "wider" ? "mayor" : "menor") + " que hace un año.",
+    exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Ingresos " + r + " y gastos " + o + " frente a los mismos meses del año pasado. Interés neto de $" + intr + " mil millones en el año fiscal (" + intrPct + ")" + (cmp ? ", " + (cmp === "more" ? "más" : "menos") + " que defensa ($" + def + " mil millones)." : "."),
+    exFiWhy: (pg, y, debt, r12, r12dir) => "El déficit fue " + pg + "% del PIB en el año fiscal " + y + " y la deuda federal ronda el " + debt + "% del PIB" + (r12 === null ? "." : "; el déficit de 12 meses móviles es de $" + r12 + " billones, " + (r12dir === "up" ? "más" : "menos") + " que hace un año.") + " Déficits persistentes implican más emisión del Tesoro y una factura de intereses creciente.",
+    exFiWatch: (dm, rm, faster) => "Próximo Estado Mensual del Tesoro (datos de " + dm + ") alrededor del octavo día hábil de " + rm + ". Seguir la factura de intereses y si los ingresos siguen creciendo " + (faster === "faster" ? "más rápido" : "más lento") + " que los gastos.",
     mapM1: "Último mes",
     mapM3: "Últimos 3 meses",
     mapM6: "Últimos 6 meses",
@@ -3162,6 +3265,72 @@ const I18N = {
     cutsHiringNote: (ytd, prior, pct) => ytd + " hires have been announced so far this year, against " + prior + " in the same period last year (" + (pct>=0?"+":"") + pct + "%).",
     cutsStatesNote: m => "Rate = announced cuts (Challenger) ÷ the state's total nonfarm employment (BLS, " + m + "). The grid is schematic: every state gets an equal-sized tile placed to approximate its real position, so small states stay as legible as large ones.",
     mapSpan: (a, b) => a + " \u2013 " + b,
+    exTitle: "At a glance",
+    exLatest: "Latest print",
+    exDrivers: "What drove it",
+    exWhy: "Why it matters",
+    exWatch: "What to watch",
+    exNext: (what, d) => "Next: " + what + " on " + d + ".",
+    exNextTbd: what => "Next: " + what + " (date not yet published).",
+    exPrelimTag: ", preliminary",
+    exRelCpi: m => m + " CPI",
+    exRelPce: m => m + " PCE (with income and spending)",
+    exRelPpi: m => m + " PPI",
+    exRelJobs: m => m + " jobs report",
+    exRelGdp: "GDP estimate",
+    exRelRetail: m => m + " retail sales",
+    exRelUmichFinal: m => "final " + m + " sentiment",
+    exRelUmichPrelim: m => "preliminary " + m + " sentiment",
+    exContribDrivers: (a, av, b, bv, neg, negv, total) => a + " contributed " + av + " of the " + total + " and " + b + " " + bv + (neg ? "; " + neg + " subtracted " + negv + "." : "; no major group subtracted from it."),
+    exCpiLatest: (h, m, hp, mp, c, a3) => "Headline CPI " + h + " year over year in " + m + " (" + hp + " in " + mp + "); core " + c + ". Over the last three months core has run at a " + a3 + " annualized pace.",
+    exCpiWhy: (gap, rel, mo) => "Core is " + gap + " pp " + (rel === "above" ? "above" : "below") + " the 2% pace the Fed aims for and " + ({slowing:"slowing", faster:"re-accelerating", steady:"holding its pace"})[mo] + " on a three-month basis. That gap sets the tone for interest rates and real wages.",
+    exCpiWatch: (shW, sh, shDir, en) => "Watch shelter (" + shW + "% of the index, " + sh + " and " + ({up:"re-accelerating", down:"cooling", flat:"steady"})[shDir] + ") and energy (" + en + "), the two swing factors.",
+    exPceLatest: (h, m, hp, c, a3) => "PCE prices " + h + " year over year in " + m + " (" + hp + " the month before); core PCE " + c + ", running at " + a3 + " annualized over three months.",
+    exPceWhy: (gap, rel, mo, cpiCore) => "This is the index the Fed's 2% target is written on. Core is " + gap + " pp " + (rel === "above" ? "above" : "below") + " it and " + ({slowing:"slowing", faster:"re-accelerating", steady:"holding its pace"})[mo] + "; core CPI, which weights housing more heavily, reads " + cpiCore + ".",
+    exPceWatch: top => "Watch whether core keeps its three-month pace and whether " + top + ", the largest contributor, eases.",
+    exPpiLatest: (fd, m, fdp, core, g, s) => "Final-demand producer prices " + fd + " year over year in " + m + " (" + fdp + " the month before); core " + core + "; goods " + g + ", services " + s + ".",
+    exPpiWhy: (diff, rel, cpi) => "Producer prices lead consumer goods prices by a few months and show whether costs are being absorbed or passed on." + (diff === null ? "" : " Final demand is running " + diff + " pp " + rel + " headline CPI (" + cpi + ")."),
+    exPpiWatch: (en, s) => "Watch energy (" + en + ") for the next swing and services (" + s + ") for whether margins are widening.",
+    exUnLatest: (u, m, prev, ago, u6, part) => "Unemployment " + u + " in " + m + " (" + prev + " the month before, " + ago + " a year ago); U-6 " + u6 + "; participation " + part + ".",
+    exUnDrivers: (d, k, lvl, lt, pd, pk) => "The number of unemployed " + ({up:"rose by " + k + "K", down:"fell by " + k + "K", flat:"was about unchanged"})[d] + " to " + lvl + " million; " + lt + "% of them have been out of work 27 weeks or more. Participation " + ({up:"rose " + pk + " pp", down:"fell " + pk + " pp", flat:"held steady"})[pd] + ".",
+    exUnWhy: (sahm, band) => "Half of the Fed's mandate. The Sahm gap (3-month average vs. its 12-month low) is " + sahm + " pp, " + ({over:"past the 0.5 pp level that has marked every recession since 1970", near:"approaching the 0.5 pp level that has marked past recessions", under:"well inside the 0.5 pp level that has marked past recessions"})[band] + ".",
+    exUnWatch: "Watch the trend in the unemployed count and long-term unemployment rather than one month's rate; a falling participation rate can flatter the headline.",
+    exPyLatest: (chg, m, a3, rev, ahe) => "Payrolls " + chg + " in " + m + "; 3-month average " + a3 + ". " + rev + "Average hourly earnings " + ahe + " year over year.",
+    exPyRev: (net, n) => "The prior " + n + " months were revised " + net + " in total. ",
+    exPyDrivers: (a, av, b, bv, neg, negv) => a + " (" + av + ") and " + b + " (" + bv + ") led the gains" + (neg ? "; " + neg + " lost jobs (" + negv + ")." : "; no major sector lost jobs."),
+    exPyWhy: (a3, a12, pace, ahe, cpi, real) => "Jobs drive income and spending. The 3-month average (" + a3 + ") is " + ({up:"above", down:"below", flat:"in line with"})[pace] + " the 12-month average (" + a12 + "), so hiring is " + ({up:"picking up", down:"slowing", flat:"steady"})[pace] + ". Wages at " + ahe + " vs. inflation of " + cpi + " mean real pay is " + (real === "up" ? "rising" : "falling") + ".",
+    exPyWatch: (jolts, jm) => "Watch revisions and the 3-month trend more than the headline; job openings (" + jolts + " million in " + jm + ") show how much demand for workers is left.",
+    exCutsLatest: (n, m, mom, yoy, ytd, ytdPct) => n + " announced job cuts in " + m + ", " + mom + " vs. the month before and " + yoy + " vs. a year ago; " + ytd + " so far this year (" + ytdPct + " vs. the same months last year).",
+    exCutsDrivers: (a, av, b, bv, share, hire, hirePct) => a + " (" + av + ") and " + b + " (" + bv + ") made up " + share + "% of the cuts classified by industry. Announced hiring plans total " + hire + " year to date (" + hirePct + ").",
+    exCutsWhy: (a3, a12, pace) => "Announcements run ahead of actual layoffs, so they tend to show up in jobless claims and unemployment a few months later. The 3-month average (" + a3 + ") is " + ({up:"above", down:"below", flat:"in line with"})[pace] + " the 12-month average (" + a12 + ").",
+    exCutsWatch: (dm, rm, rel, top) => "Next report (" + dm + " cuts) in the first week of " + rm + ". Watch whether cuts stay " + rel + " year-ago levels and whether " + top + " keeps leading.",
+    exGdpLatest: (g, q, gp, qp, avg) => "Real GDP grew " + g + " at an annual rate in " + q + " (" + gp + " in " + qp + "); the four-quarter average is " + avg + ".",
+    exGdpDrivers: (pce, inv, gov, nx) => "Consumer spending contributed " + pce + ", investment " + inv + ", government " + gov + " and net exports " + nx + ".",
+    exGdpWhy: (rel, share, pce) => "The broadest measure of activity. Growth is " + ({above:"above", below:"below", near:"close to"})[rel] + " its recent average" + (share === null ? "." : share > 100 ? ", and consumer spending, about two-thirds of the economy, contributed more than all of it (" + pce + "); the other components subtracted." : ", and consumer spending, about two-thirds of the economy, accounted for " + share + "% of it."),
+    exGdpWatch: nx => "Each quarter is revised twice after the advance estimate. Watch consumer spending for the underlying pace and whether the trade swing (" + nx + ") reverses.",
+    exIncLatest: (m, inc, rdm, rdy, out, sr, srp) => "In " + m + " personal income " + inc + "%; real disposable income " + rdm + "% on the month and " + rdy + "% over the year; outlays " + out + "%. Saving rate " + sr + " (" + srp + " the month before).",
+    exIncDrivers: (out, inc, srDir, rpce) => "Outlays grew " + out + "% against income of " + inc + "%, so the saving rate " + ({down:"fell", up:"rose", flat:"held"})[srDir] + ". Real spending is " + rpce + "% higher than a year ago.",
+    exIncWhy: (sr, sr12, d) => "Consumer spending is about two-thirds of GDP, and the saving rate is the cushion behind it. At " + sr + " vs. " + sr12 + " a year ago it has " + ({down:"fallen, so spending is being funded by less saving rather than more income", up:"risen, so households are spending less of what they earn", flat:"barely moved, so spending is tracking income"})[d] + ".",
+    exIncWatch: "Watch real disposable income, the source of durable spending growth, and the direction of the saving rate.",
+    exRtLatest: (mom, m, yoy, ctl, real) => "Retail sales " + mom + "% in " + m + " and " + yoy + "% over the year; the control group that feeds GDP " + ctl + "% on the month. After inflation, real sales are " + real + "% vs. a year ago.",
+    exRtWhy: (cpi, real) => "Retail is about a third of consumer spending and the first hard read on the quarter. With inflation at " + cpi + ", " + ({up:"volumes are growing, not just prices", down:"volumes are shrinking once prices are stripped out", flat:"volumes are roughly flat once prices are stripped out"})[real] + ".",
+    exRtWatch: "Watch the control group and real sales; nominal gains that only match prices are not growth.",
+    exConfLatest: (cur, m, tag, prev, avg, icc, ice) => "Sentiment " + cur + " in " + m + tag + " (" + prev + " the month before), against a long-run average of " + avg + "; current conditions " + icc + ", expectations " + ice + ".",
+    exConfDrivers: (which, dIce, dIcc, px1, px5) => (which === "ice" ? "Expectations moved most, " + dIce + " points, with current conditions " + dIcc : "Current conditions moved most, " + dIcc + " points, with expectations " + dIce) + ". Households expect " + px1 + " inflation over the next year and " + px5 + " a year over the next five.",
+    exConfWhy: (nBelow, total, gap, rel, cpi, px1) => "Sentiment is a loose guide to spending but a sharp one for how households experience prices. " + (nBelow <= 24 ? "Only " + nBelow + " month" + (nBelow === 1 ? "" : "s") + " since 1952 " + (nBelow === 1 ? "has" : "have") + " read lower" : nBelow + " of " + total + " months since 1952 have read lower") + (gap === null ? "." : ", and one-year inflation expectations of " + px1 + " sit " + gap + " pp " + rel + " actual CPI (" + cpi + ")."),
+    exConfWatch: px5 => "Watch whether expectations (not current conditions) recover and whether five-year inflation expectations stay anchored near " + px5 + ".",
+    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg) => "Chicago Fed NFCI " + nfci + " as of " + d + " (below zero = looser than average), " + ({up:"up " + chg, down:"down " + chg, flat:"little changed"})[dir] + " over four weeks. 10-year Treasury " + y10 + ", 2-year " + y2 + " (curve " + slope + " pp); high-yield spread " + hy + " pp; 30-year mortgage " + mtg + ".",
+    exFcDrivers: (sub, v, tl, ff, hyDir, hyChg) => "The " + sub + " sub-index is furthest from neutral (" + v + ", " + (tl === "tight" ? "tighter" : "looser") + " than average); the fed funds target is " + ff + ". High-yield spreads are " + ({up:"wider by " + hyChg + " pp", down:"narrower by " + hyChg + " pp", flat:"about unchanged"})[hyDir] + " over four weeks.",
+    exFcWhy: (state, band, hy) => "Financial conditions are how Fed policy reaches the economy: " + ({loose:"conditions this loose mean cheap credit and supportive asset prices", tight:"conditions this tight restrain borrowing and growth", neutral:"conditions near neutral neither add to nor subtract from growth"})[state] + ". A " + hy + " pp high-yield spread signals " + ({calm:"calm credit markets (under 4 pp)", elevated:"some credit caution (4-6 pp)", stress:"credit stress (above 6 pp)"})[band] + ".",
+    exFcWatch: curve => "Updated weekly. Watch the 2-year yield, which moves first when rate expectations change, and the high-yield spread; the curve is " + (curve === "inverted" ? "inverted, a classic late-cycle signal" : "positively sloped") + ".",
+    exScLatest: (g, m, gp, fr, ir, irm) => "NY Fed supply-chain pressure index " + g + " standard deviations in " + m + " (" + gp + " the month before; zero is normal). Freight costs " + fr + "% and import prices " + ir + "% over the year (" + irm + ").",
+    exScDrivers: (isr, d, bal, bm) => "Business inventories cover " + isr + " months of sales (" + ({up:"rising", down:"falling", flat:"steady"})[d] + "); the goods-and-services trade deficit was $" + bal + " billion in " + bm + ".",
+    exScWhy: (state, looser) => "Supply pressure feeds into goods prices with a lag of a few months. " + ({tight:"Pressure is above normal", loose:"Pressure is below normal", normal:"Pressure is close to normal"})[state] + ": " + looser + "% of months since 1998 have been looser than this one.",
+    exScWatch: (fr, ir) => "Updated monthly (GSCPI in the first week). Watch freight (" + fr + "%) and import prices (" + ir + "%) for pass-through to goods inflation.",
+    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => m + ": receipts $" + r + "B, outlays $" + o + "B, a " + kind + " of $" + d + "B" + (vs ? " (" + vs + " vs. the same month last year)" : "") + ". Fiscal " + fy + " to date the deficit is $" + fytd + "B, " + fyPct + " " + wid + " than a year earlier.",
+    exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Receipts " + r + " and outlays " + o + " vs. the same months last year. Net interest $" + intr + "B year to date (" + intrPct + ")" + (cmp ? ", " + cmp + " than defense ($" + def + "B)." : "."),
+    exFiWhy: (pg, y, debt, r12, r12dir) => "The deficit was " + pg + "% of GDP in fiscal " + y + " and federal debt is about " + debt + "% of GDP" + (r12 === null ? "." : "; the rolling 12-month deficit is $" + r12 + " trillion, " + r12dir + " from a year earlier.") + " Persistent deficits mean more Treasury issuance and a growing interest bill.",
+    exFiWatch: (dm, rm, faster) => "Next Monthly Treasury Statement (" + dm + " data) around the eighth business day of " + rm + ". Watch the interest bill and whether receipts keep growing " + faster + " than outlays.",
     mapM1: "Last month",
     mapM3: "Trailing 3 months",
     mapM6: "Trailing 6 months",
@@ -6349,6 +6518,295 @@ function renderTileMap(containerId, legendId, rateFn, decimals) {
 }
 
 // ---------- view: announced job cuts (Challenger) ----------
+// ================================================================
+// Executive summaries: four short lines at the top of every section (latest
+// print, what drove it, why it matters, what to watch). Every number and every
+// direction word is computed from the data on the page, so the text moves with
+// each release instead of going stale. A section whose data is missing simply
+// shows no card.
+// ================================================================
+function renderExecSummaries() {
+  const today = new Date(); today.setHours(0, 0, 0, 0);
+  const lv = (v, d) => v.toFixed(d === undefined ? 1 : d) + "%";                                   // a level, no sign
+  const sg = (v, d) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d === undefined ? 1 : d);   // a signed change
+  const pp = (v, d) => sg(v, d) + " pp";
+  const ppa = v => Math.abs(v).toFixed(2) + " pp";
+  const mn = v => v.toFixed(2).replace("-", "−");                                             // a signed level with a real minus
+  const n0 = v => Math.round(v).toLocaleString(T.dateLocale);
+  const dir = (delta, tol) => Math.abs(delta) < (tol === undefined ? 0.05 : tol) ? "flat" : delta > 0 ? "up" : "down";
+  const monthsAgoKey = (d, k) => { const [y, m] = d.split("-").map(Number); const t = y * 12 + (m - 1) - k; return Math.floor(t / 12) + "-" + String((t % 12) + 1).padStart(2, "0"); };
+  function nextRelDate(key) {
+    const c = CALENDAR && CALENDAR.releases && CALENDAR.releases[key]; if (!c) return null;
+    const cands = [c.next].concat(c.upcoming || []).filter(Boolean).map(s => new Date(s + "T00:00:00")).filter(d => d >= today).sort((a, b) => a - b);
+    return cands.length ? cands[0] : null;
+  }
+  const nextLine = (key, what) => { const d = nextRelDate(key); return d ? T.exNext(what, fmtDateDMY(d)) : T.exNextTbd(what); };
+  function card(id, latest, drivers, why, watch) {
+    const el = document.getElementById(id); if (!el) return;
+    const item = (k, v) => '<div class="exec-item"><span class="exec-k">' + k + '</span>' + v + '</div>';
+    el.innerHTML = '<div class="exec-title">' + T.exTitle + '</div><div class="exec-grid">' +
+      item(T.exLatest, latest) + item(T.exDrivers, drivers) + item(T.exWhy, why) + item(T.exWatch, watch) + '</div>';
+  }
+  const section = (id, fn) => { try { fn(); } catch (e) { const el = document.getElementById(id); if (el) el.innerHTML = ""; console.warn("exec summary " + id, e); } };
+  const yoyLast = (S, key) => { if (!S || !S[key]) return null; const p = S[key].points.filter(q => q.yoy !== null); return p.length ? p[p.length - 1] : null; };
+  const yoyPrev = (S, key) => { if (!S || !S[key]) return null; const p = S[key].points.filter(q => q.yoy !== null); return p.length > 1 ? p[p.length - 2] : null; };
+  const yoyAt = (S, key, d) => { if (!S || !S[key]) return null; const p = S[key].points.find(q => q.d === d); return p && p.yoy !== null ? p.yoy : null; };
+  const ann = (pts, m) => { const n = pts.length; return n > m ? (Math.pow(pts[n - 1].idx / pts[n - 1 - m].idx, 12 / m) - 1) * 100 : null; };
+  const topBottom = items => { const s = items.slice().sort((a, b) => b.value - a.value); return { a: s[0], b: s[1], neg: s[s.length - 1].value < 0 ? s[s.length - 1] : null }; };
+  const momentumOf = (a3, yoy) => a3 === null ? "steady" : a3 < yoy - 0.3 ? "slowing" : a3 > yoy + 0.3 ? "faster" : "steady";
+
+  // ---- CPI ----
+  section("exec-cpi", () => {
+    if (!CPI || !WEIGHTS) return;
+    const h = yoyLast(CPI, "CUUR0000SA0"), hp = yoyPrev(CPI, "CUUR0000SA0"), c = yoyLast(CPI, "CUUR0000SA0L1E");
+    const a3 = ann(CPI["CUSR0000SA0L1E"].points.filter(p => p.idx !== null), 3);
+    const w = Object.fromEntries(WEIGHTS.majorGroups.map(g => [g.id, g.w]));
+    const items = MAJOR_GROUPS.map(g => { const y = yoyLast(CPI, g.key); return y && w[g.id] !== undefined ? { name: nameOf(g.key), value: w[g.id] / 100 * y.yoy } : null; }).filter(Boolean);
+    const tb = topBottom(items);
+    const sh = yoyLast(CPI, "CUUR0000SAH1"), sh3 = yoyAt(CPI, "CUUR0000SAH1", monthsAgoKey(sh.d, 3)), en = yoyLast(CPI, "CUUR0000SA0E");
+    const shW = (WEIGHTS.specialAggregates || []).find(g => g.id === "SAH1");
+    card("exec-cpi",
+      T.exCpiLatest(lv(h.yoy), fmtMonthYear(h.d), lv(hp.yoy), fmtMonthYear(hp.d), lv(c.yoy), a3 === null ? "—" : lv(a3)),
+      T.exContribDrivers(tb.a.name, pp(tb.a.value, 2), tb.b.name, pp(tb.b.value, 2), tb.neg ? tb.neg.name : null, tb.neg ? ppa(tb.neg.value) : null, lv(h.yoy)),
+      T.exCpiWhy(Math.abs(c.yoy - 2).toFixed(1), c.yoy >= 2 ? "above" : "below", momentumOf(a3, c.yoy)),
+      nextLine("cpi", T.exRelCpi(fmtMonthYear(nextMonthOf(h.d)))) + " " +
+        T.exCpiWatch(shW ? shW.w.toFixed(0) : "—", lv(sh.yoy), sh3 === null ? "flat" : dir(sh.yoy - sh3, 0.15), lv(en.yoy)));
+  });
+
+  // ---- PCE ----
+  section("exec-pce", () => {
+    if (!PCE || !PCE_WEIGHTS) return;
+    const h = yoyLast(PCE, "L1"), hp = yoyPrev(PCE, "L1"), c = yoyLast(PCE, "L25");
+    const a3 = ann(PCE["L25"].points.filter(p => p.idx !== null && p.idx !== undefined), 3);
+    const w = Object.fromEntries(PCE_WEIGHTS.majorGroups.map(g => [g.id, g.w]));
+    const items = PCE_MAJOR_GROUPS.map(g => { const y = yoyLast(PCE, g.key); return y && w[g.id] !== undefined ? { name: nameOf(g.key), value: w[g.id] / 100 * y.yoy } : null; }).filter(Boolean);
+    const tb = topBottom(items);
+    const cpiC = yoyLast(CPI, "CUUR0000SA0L1E");
+    card("exec-pce",
+      T.exPceLatest(lv(h.yoy), fmtMonthYear(h.d), lv(hp.yoy), lv(c.yoy), a3 === null ? "—" : lv(a3)),
+      T.exContribDrivers(tb.a.name, pp(tb.a.value, 2), tb.b.name, pp(tb.b.value, 2), tb.neg ? tb.neg.name : null, tb.neg ? ppa(tb.neg.value) : null, lv(h.yoy)),
+      T.exPceWhy(Math.abs(c.yoy - 2).toFixed(1), c.yoy >= 2 ? "above" : "below", momentumOf(a3, c.yoy), cpiC ? lv(cpiC.yoy) : "—"),
+      nextLine("pce", T.exRelPce(fmtMonthYear(nextMonthOf(h.d)))) + " " + T.exPceWatch(tb.a.name));
+  });
+
+  // ---- PPI ----
+  section("exec-ppi", () => {
+    if (!PPI || !PPI_WEIGHTS) return;
+    const fd = yoyLast(PPI, "WPUFD4"), fdp = yoyPrev(PPI, "WPUFD4"), core = yoyLast(PPI, "WPUFD49104");
+    const g = yoyLast(PPI, "WPUFD41"), s = yoyLast(PPI, "WPUFD42"), en = yoyLast(PPI, "WPUFD412");
+    const items = PPI_WEIGHTS.detail.map(d => { const y = yoyLast(PPI, d.id); return y ? { name: nameOf(d.id), value: d.w / 100 * y.yoy } : null; }).filter(Boolean);
+    const tb = topBottom(items);
+    const cpiH = yoyLast(CPI, "CUUR0000SA0");
+    const diff = cpiH ? fd.yoy - cpiH.yoy : null;
+    card("exec-ppi",
+      T.exPpiLatest(lv(fd.yoy), fmtMonthYear(fd.d), lv(fdp.yoy), lv(core.yoy), lv(g.yoy), lv(s.yoy)),
+      T.exContribDrivers(tb.a.name, pp(tb.a.value, 2), tb.b.name, pp(tb.b.value, 2), tb.neg ? tb.neg.name : null, tb.neg ? ppa(tb.neg.value) : null, lv(fd.yoy)),
+      T.exPpiWhy(diff === null ? null : Math.abs(diff).toFixed(1), diff === null ? null : (diff >= 0 ? "above" : "below"), cpiH ? lv(cpiH.yoy) : null),
+      nextLine("ppi", T.exRelPpi(fmtMonthYear(nextMonthOf(fd.d)))) + " " + T.exPpiWatch(lv(en.yoy), lv(s.yoy)));
+  });
+
+  // ---- Unemployment ----
+  section("exec-unemployment", () => {
+    if (!LABOR) return;
+    const u = lbPts(LB.u3); if (u.length < 14) return;
+    const cur = u[u.length - 1], prev = u[u.length - 2], ago = u[u.length - 13];
+    const u6 = lbLatest(LB.u6), part = lbLatest(LB.part), partPrev = lbPrev(LB.part);
+    const un = lbLatest(LB.unemp), unPrev = lbPrev(LB.unemp), d27 = lbLatest(LB.d27);
+    // Sahm gap: the 3-month average of the rate against its lowest 3-month average of the prior 12 months.
+    const avg3 = i => (u[i].v + u[i - 1].v + u[i - 2].v) / 3;
+    let low = Infinity; for (let i = u.length - 2; i >= u.length - 13; i--) low = Math.min(low, avg3(i));
+    const sahm = avg3(u.length - 1) - low;
+    card("exec-unemployment",
+      T.exUnLatest(lv(cur.v), fmtMonthYear(cur.d), lv(prev.v), lv(ago.v), lv(u6.v), lv(part.v)),
+      T.exUnDrivers(dir(un.v - unPrev.v, 25), n0(Math.abs(un.v - unPrev.v)), (un.v / 1000).toFixed(1), (d27.v / un.v * 100).toFixed(0), dir(part.v - partPrev.v, 0.05), Math.abs(part.v - partPrev.v).toFixed(1)),
+      T.exUnWhy(mn(sahm), sahm >= 0.5 ? "over" : sahm >= 0.3 ? "near" : "under"),
+      nextLine("jobs", T.exRelJobs(fmtMonthYear(nextMonthOf(cur.d)))) + " " + T.exUnWatch);
+  });
+
+  // ---- Payrolls ----
+  section("exec-payrolls", () => {
+    if (!LABOR) return;
+    const chg = lbDiff(LB.nonfarm); if (chg.length < 13) return;
+    const last = chg[chg.length - 1];
+    const avg = k => chg.slice(-k).reduce((a, b) => a + b.v, 0) / k;
+    const a3 = avg(3), a12 = avg(12);
+    const aheY = lbYoY(LB.ahe), ahe = aheY[aheY.length - 1];
+    const cpiH = yoyLast(CPI, "CUUR0000SA0");
+    const items = SECTORS.map(s => { const d = lbDiff(s.key); return d.length ? { name: nameOf(s.id), value: d[d.length - 1].v } : null; }).filter(Boolean);
+    const tb = topBottom(items);
+    let revText = "";
+    if (LABOR_STATIC && LABOR_STATIC.payrollInitial) {
+      const by = {}; chg.forEach(p => by[p.d] = p.v);
+      const revs = Object.keys(LABOR_STATIC.payrollInitial).filter(d => by[d] !== undefined && d !== last.d).sort().slice(-2).map(d => by[d] - LABOR_STATIC.payrollInitial[d]);
+      if (revs.length) revText = T.exPyRev(fmtK(revs.reduce((a, b) => a + b, 0)), revs.length);
+    }
+    const pace = a3 > a12 + 25 ? "up" : a3 < a12 - 25 ? "down" : "flat";
+    const jolts = lbLatest(LB.jolts);
+    card("exec-payrolls",
+      T.exPyLatest(fmtK(last.v), fmtMonthYear(last.d), fmtK(a3), revText, lv(ahe.v)),
+      T.exPyDrivers(tb.a.name, fmtK(tb.a.value), tb.b.name, fmtK(tb.b.value), tb.neg ? tb.neg.name : null, tb.neg ? fmtK(tb.neg.value) : null),
+      T.exPyWhy(fmtK(a3), fmtK(a12), pace, lv(ahe.v), cpiH ? lv(cpiH.yoy) : "—", cpiH && ahe.v < cpiH.yoy ? "down" : "up"),
+      nextLine("jobs", T.exRelJobs(fmtMonthYear(nextMonthOf(last.d)))) + " " + T.exPyWatch(jolts ? (jolts.v / 1000).toFixed(1) : "—", jolts ? fmtMonthYear(jolts.d) : ""));
+  });
+
+  // ---- Job cuts ----
+  section("exec-cuts", () => {
+    if (!LABOR_STATIC || !LABOR_STATIC.challenger) return;
+    const C = LABOR_STATIC.challenger, M = C.monthly; if (M.length < 13) return;
+    const last = M[M.length - 1], prev = M[M.length - 2], ago = M[M.length - 13];
+    const avg = k => M.slice(-k).reduce((a, b) => a + b.v, 0) / k;
+    const a3 = avg(3), a12 = avg(12);
+    const pc = (a, b) => Math.round((a / b - 1) * 100);
+    const inds = C.industry.slice().sort((a, b) => b.v - a.v), tot = C.industry.reduce((a, b) => a + b.v, 0);
+    const share = Math.round((inds[0].v + inds[1].v) / tot * 100);
+    card("exec-cuts",
+      T.exCutsLatest(n0(last.v), fmtMonthYear(last.d), sg(pc(last.v, prev.v), 0) + "%", sg(pc(last.v, ago.v), 0) + "%", n0(C.ytdCuts), sg(pc(C.ytdCuts, C.ytdCutsLastYear), 0) + "%"),
+      T.exCutsDrivers(nameOf(inds[0].name), n0(inds[0].v), nameOf(inds[1].name), n0(inds[1].v), share, n0(C.ytdHiring), sg(pc(C.ytdHiring, C.ytdHiringLastYear), 0) + "%"),
+      T.exCutsWhy(n0(a3), n0(a12), a3 > a12 * 1.1 ? "up" : a3 < a12 * 0.9 ? "down" : "flat"),
+      T.exCutsWatch(fmtMonthYear(nextMonthOf(C.asOfMonth)), fmtMonthYear(monthsAgoKey(C.asOfMonth, -2)), last.v < ago.v ? "below" : "above", nameOf(inds[0].name)));
+  });
+
+  // ---- GDP ----
+  section("exec-gdp", () => {
+    if (!GDP) return;
+    const g = gdpPts("growth", "L1"); if (g.length < 5) return;
+    const cur = g[g.length - 1], prev = g[g.length - 2];
+    const avg4 = g.slice(-4).reduce((a, b) => a + b.v, 0) / 4;
+    const con = k => { const p = gdpLatest("contributions", k); return p ? p.v : null; };
+    const pce = con("L2"), inv = con("L7"), gov = con("L22"), nx = con("L15");
+    if ([pce, inv, gov, nx].some(v => v === null)) return;
+    const share = Math.abs(cur.v) >= 0.5 ? Math.round(pce / cur.v * 100) : null;
+    card("exec-gdp",
+      T.exGdpLatest(lv(cur.v), fmtQuarter(cur.d), lv(prev.v), fmtQuarter(prev.d), lv(avg4)),
+      T.exGdpDrivers(pp(pce, 2), pp(inv, 2), pp(gov, 2), pp(nx, 2)),
+      T.exGdpWhy(cur.v > avg4 + 0.3 ? "above" : cur.v < avg4 - 0.3 ? "below" : "near", share, pp(pce, 2)),
+      nextLine("gdp", T.exRelGdp) + " " + T.exGdpWatch(pp(nx, 2)));
+  });
+
+  // ---- Income & saving ----
+  section("exec-income", () => {
+    if (!GDP) return;
+    const P = k => gdpPts("income", k);
+    const inc = P(INC.income), rd = P(INC.realDpi), out = P(INC.outlays), sr = P(INC.savingRate);
+    if (inc.length < 14 || rd.length < 14 || out.length < 2 || sr.length < 13) return;
+    const m = (a, i) => (a[a.length - 1].v / a[a.length - 1 - i].v - 1) * 100;
+    const incM = m(inc, 1), rdM = m(rd, 1), rdY = m(rd, 12), outM = m(out, 1);
+    const srC = sr[sr.length - 1].v, srP = sr[sr.length - 2].v, sr12 = sr[sr.length - 13].v;
+    const rp = gdpYoY("realPce", "L1"), rpce = rp.length ? rp[rp.length - 1].v : null;
+    card("exec-income",
+      T.exIncLatest(fmtMonthYear(inc[inc.length - 1].d), sg(incM), sg(rdM), sg(rdY), sg(outM), lv(srC), lv(srP)),
+      T.exIncDrivers(sg(outM), sg(incM), srC < srP - 0.05 ? "down" : srC > srP + 0.05 ? "up" : "flat", rpce === null ? "—" : sg(rpce)),
+      T.exIncWhy(lv(srC), lv(sr12), srC < sr12 - 0.2 ? "down" : srC > sr12 + 0.2 ? "up" : "flat"),
+      nextLine("pce", T.exRelPce(fmtMonthYear(nextMonthOf(inc[inc.length - 1].d)))) + " " + T.exIncWatch);
+  });
+
+  // ---- Retail ----
+  section("exec-retail", () => {
+    if (!RETAIL || !RETAIL.marts) return;
+    const M = RETAIL.marts, pts = k => M[k].points, at = (k, d) => pts(k).find(p => p.d === d);
+    const tot = pts("44X72"), cur = tot[tot.length - 1]; if (cur.yoy === null || cur.mom === null) return;
+    // Control group = total less autos, gas, building materials and restaurants, from the published levels.
+    const ctlOf = d => { const t = at("44X72", d); if (!t) return null; let s = 0; for (const k of ["441", "447", "444", "722"]) { const q = at(k, d); if (!q) return null; s += q.v; } return t.v - s; };
+    const cNow = ctlOf(cur.d), cPrev = ctlOf(monthsAgoKey(cur.d, 1));
+    const ctlM = cNow !== null && cPrev !== null ? (cNow / cPrev - 1) * 100 : null;
+    const agoD = monthsAgoKey(cur.d, 12), totAgo = at("44X72", agoD);
+    const cpiIdx = d => { const p = CPI && CPI["CUSR0000SA0"] ? CPI["CUSR0000SA0"].points.find(q => q.d === d) : null; return p && p.idx !== null ? p.idx : null; };
+    const realY = cpiIdx(cur.d) && cpiIdx(agoD) && totAgo ? ((cur.v / cpiIdx(cur.d)) / (totAgo.v / cpiIdx(agoD)) - 1) * 100 : null;
+    const cpiH = yoyLast(CPI, "CUUR0000SA0");
+    const items = RETAIL_CATS.map(c => { const now = at(c.key, cur.d), ago = at(c.key, agoD); return now && ago && totAgo ? { name: nameOf(c.key), value: (now.v - ago.v) / totAgo.v * 100 } : null; }).filter(Boolean);
+    const tb = topBottom(items);
+    card("exec-retail",
+      T.exRtLatest(sg(cur.mom), fmtMonthYear(cur.d), sg(cur.yoy), ctlM === null ? "—" : sg(ctlM), realY === null ? "—" : sg(realY)),
+      T.exContribDrivers(tb.a.name, pp(tb.a.value, 2), tb.b.name, pp(tb.b.value, 2), tb.neg ? tb.neg.name : null, tb.neg ? ppa(tb.neg.value) : null, sg(cur.yoy) + "%"),
+      T.exRtWhy(cpiH ? lv(cpiH.yoy) : "—", realY === null ? "flat" : realY > 0.2 ? "up" : realY < -0.2 ? "down" : "flat"),
+      nextLine("retail", T.exRelRetail(fmtMonthYear(nextMonthOf(cur.d)))) + " " + T.exRtWatch);
+  });
+
+  // ---- Consumer sentiment ----
+  section("exec-confidence", () => {
+    if (!UMICH || !UMICH.stats) return;
+    const S = UMICH.stats, P = UMICH.prelim;
+    const withP = (arr, key) => { const out = arr.slice(); if (P && P[key] !== null && P[key] !== undefined && (!out.length || P.d > out[out.length - 1].d)) out.push({ d: P.d, v: P[key], p: true }); return out; };
+    const ics = withP(UMICH.ics, "ics"), icc = withP(UMICH.icc, "icc"), ice = withP(UMICH.ice, "ice"), px1 = withP(UMICH.px1, "px1"), px5 = withP(UMICH.px5, "px5");
+    const L = a => a[a.length - 1], Pv = a => a[a.length - 2];
+    const cur = L(ics), prev = Pv(ics);
+    const dIcc = L(icc).v - Pv(icc).v, dIce = L(ice).v - Pv(ice).v;
+    const cpiH = yoyLast(CPI, "CUUR0000SA0");
+    const gap = cpiH ? L(px1).v - cpiH.yoy : null;
+    // Michigan publishes a cadence, not a calendar: preliminary around the second Friday, final on the last.
+    const [cy, cm] = S.currentMonth.split("-").map(Number);
+    const lastFri = (y, m) => { const d = new Date(y, m, 0); d.setDate(d.getDate() - ((d.getDay() + 2) % 7)); return d; };
+    const secondFri = (y, m) => { const d = new Date(y, m - 1, 1); d.setDate(1 + ((5 - d.getDay() + 7) % 7) + 7); return d; };
+    let nextTxt;
+    if (S.currentIsPrelim) nextTxt = T.exNext(T.exRelUmichFinal(fmtMonthYear(S.currentMonth)), fmtDateDMY(lastFri(cy, cm)));
+    else { const nm = nextMonthOf(S.currentMonth), [ny, nmm] = nm.split("-").map(Number); nextTxt = T.exNext(T.exRelUmichPrelim(fmtMonthYear(nm)), fmtDateDMY(secondFri(ny, nmm))); }
+    card("exec-confidence",
+      T.exConfLatest(cur.v.toFixed(1), fmtMonthYear(cur.d), S.currentIsPrelim ? T.exPrelimTag : "", prev.v.toFixed(1), S.longRunAvg.toFixed(1), L(icc).v.toFixed(1), L(ice).v.toFixed(1)),
+      T.exConfDrivers(Math.abs(dIce) >= Math.abs(dIcc) ? "ice" : "icc", sg(dIce), sg(dIcc), lv(L(px1).v), lv(L(px5).v)),
+      T.exConfWhy(S.monthsBelowCurrent, S.totalMonths, gap === null ? null : Math.abs(gap).toFixed(1), gap === null ? null : (gap >= 0 ? "above" : "below"), cpiH ? lv(cpiH.yoy) : null, lv(L(px1).v)),
+      nextTxt + " " + T.exConfWatch(lv(L(px5).v)));
+  });
+
+  // ---- Financial conditions ----
+  section("exec-fincond", () => {
+    if (!FINCOND || !FINCOND.series) return;
+    const L = id => { const p = fcPts(id); return p.length ? p[p.length - 1] : null; };
+    const nf = fcPts("NFCI"); if (nf.length < 6) return;
+    const cur = nf[nf.length - 1], ago = nf[nf.length - 5];
+    const y10 = L("DGS10"), y2 = L("DGS2"), hy = L("BAMLH0A0HYM2"), ff = L("DFEDTARU"), mtg = L("MORTGAGE30US");
+    const hyPts = fcPts("BAMLH0A0HYM2"), hyAgo = hyPts[Math.max(0, hyPts.length - 5)];
+    const subs = [{ id: "NFCIRISK", name: T.legNfciRisk }, { id: "NFCICREDIT", name: T.legNfciCredit }, { id: "NFCILEVERAGE", name: T.legNfciLeverage }].map(s => ({ name: s.name, v: L(s.id) ? L(s.id).v : 0 }));
+    const drv = subs.reduce((m, s) => Math.abs(s.v) > Math.abs(m.v) ? s : m);
+    const slope = y10.v - y2.v;
+    card("exec-fincond",
+      T.exFcLatest(mn(cur.v), fmtDateDMY(cur.d), dir(cur.v - ago.v, 0.02), Math.abs(cur.v - ago.v).toFixed(2), lv(y10.v, 2), lv(y2.v, 2), sg(slope, 2), hy.v.toFixed(2), lv(mtg.v, 2)),
+      T.exFcDrivers(drv.name.toLowerCase(), mn(drv.v), drv.v > 0 ? "tight" : "loose", (ff.v - 0.25).toFixed(2) + "–" + ff.v.toFixed(2) + "%", dir(hy.v - hyAgo.v, 0.05), Math.abs(hy.v - hyAgo.v).toFixed(2)),
+      T.exFcWhy(cur.v < -0.2 ? "loose" : cur.v > 0.2 ? "tight" : "neutral", hy.v < 4 ? "calm" : hy.v < 6 ? "elevated" : "stress", hy.v.toFixed(2)),
+      T.exFcWatch(slope < 0 ? "inverted" : "positive"));
+  });
+
+  // ---- Supply chain ----
+  section("exec-supply", () => {
+    if (!SUPPLY || !SUPPLY.gscpi) return;
+    const G = SUPPLY.gscpi, F = SUPPLY.fred, Lo = a => a[a.length - 1];
+    const g = Lo(G), gp = G[G.length - 2];
+    const fr = SUPPLY.freight["WPU301"].points.filter(p => p.yoy !== null), frL = Lo(fr);
+    const yoyOf = arr => { const b = {}; arr.forEach(p => b[p.d] = p.v); return arr.map(p => { const ago = b[monthsAgoKey(p.d, 12)]; return ago ? { d: p.d, v: (p.v / ago - 1) * 100 } : null; }).filter(Boolean); };
+    const ir = Lo(yoyOf(F.IR));
+    const isr = Lo(F.ISRATIO), isrP = F.ISRATIO[F.ISRATIO.length - 2], bal = Lo(F.BOPGSTB);
+    const bn = v => (Math.abs(v) / 1000).toLocaleString(T.dateLocale, { maximumFractionDigits: 1 });
+    const looser = Math.round(G.filter(p => p.v < g.v).length / G.length * 100);
+    card("exec-supply",
+      T.exScLatest(mn(g.v), fmtMonthYear(g.d), mn(gp.v), sg(frL.yoy), sg(ir.v), fmtMonthYear(ir.d)),
+      T.exScDrivers(isr.v.toFixed(2), dir(isr.v - isrP.v, 0.005), bn(bal.v), fmtMonthYear(bal.d)),
+      T.exScWhy(g.v > 0.5 ? "tight" : g.v < -0.5 ? "loose" : "normal", looser),
+      T.exScWatch(sg(frL.yoy), sg(ir.v)));
+  });
+
+  // ---- Fiscal ----
+  section("exec-fiscal", () => {
+    if (!FISCAL || !FISCAL.monthly) return;
+    const M = FISCAL.monthly, cur = M[M.length - 1];
+    const byD = {}; M.forEach(p => byD[p.d] = p);
+    const ago = byD[monthsAgoKey(cur.d, 12)];
+    const fy = M.filter(p => p.fy === cur.fy), py = fy.map(p => byD[monthsAgoKey(p.d, 12)]).filter(Boolean);
+    const sum = (a, k) => a.reduce((x, p) => x + p[k], 0);
+    const fytd = { r: sum(fy, "rcpt"), o: sum(fy, "outly"), d: sum(fy, "dfct") }, pytd = { r: sum(py, "rcpt"), o: sum(py, "outly"), d: sum(py, "dfct") };
+    const pc = (a, b) => (a / b - 1) * 100;
+    const bn = v => Math.abs(v).toLocaleString(T.dateLocale, { maximumFractionDigits: 0 });
+    const fn = {}; FISCAL.functions.forEach(f => fn[f.name] = f);
+    const intr = fn["Net Interest"], def = fn["National Defense"];
+    const r12 = M.length >= 24 ? sum(M.slice(-12), "dfct") : null, r12a = M.length >= 24 ? sum(M.slice(-24, -12), "dfct") : null;
+    const gl = FISCAL.pctGdp[FISCAL.pctGdp.length - 1];
+    const vsAgo = ago && cur.dfct * ago.dfct > 0 ? sg(pc(cur.dfct, ago.dfct), 0) + "%" : null;
+    card("exec-fiscal",
+      T.exFiLatest(fmtMonthYear(cur.d).charAt(0).toUpperCase() + fmtMonthYear(cur.d).slice(1), bn(cur.rcpt), bn(cur.outly), cur.dfct >= 0 ? "deficit" : "surplus", bn(cur.dfct), vsAgo, cur.fy, bn(fytd.d), Math.abs(pc(fytd.d, pytd.d)).toFixed(1) + "%", fytd.d >= pytd.d ? "wider" : "narrower"),
+      T.exFiDrivers(sg(pc(fytd.r, pytd.r)) + "%", sg(pc(fytd.o, pytd.o)) + "%", intr ? bn(intr.fytd) : "—", intr ? sg(pc(intr.fytd, intr.pyfytd)) + "%" : "—", intr && def ? (intr.fytd > def.fytd ? "more" : "less") : null, def ? bn(def.fytd) : null),
+      T.exFiWhy(Math.abs(gl.v).toFixed(1), gl.y, FISCAL.debtPctGdp.v.toFixed(0), r12 === null ? null : (r12 / 1000).toFixed(2), r12 === null ? null : (r12 >= r12a ? "up" : "down")),
+      T.exFiWatch(fmtMonthYear(nextMonthOf(cur.d)), fmtMonthYear(monthsAgoKey(cur.d, -2)), pc(fytd.r, pytd.r) > pc(fytd.o, pytd.o) ? "faster" : "slower"));
+  });
+}
+
 function renderCuts() {
   if (!LABOR_STATIC || !LABOR_STATIC.challenger) return;
   const C = LABOR_STATIC.challenger;
@@ -6942,6 +7400,7 @@ renderRetail();
 renderFinCond();
 renderSupply();
 renderFiscal();
+renderExecSummaries();
 
 } // end renderAll
 
