@@ -36,6 +36,12 @@
     pending: { es: 'Pendiente (conector FactSet)', en: 'Pending (FactSet connector)' }, na: { es: 'n/d', en: 'n/a' },
     metric: { es: 'Métrica', en: 'Metric' }, value: { es: 'Valor', en: 'Value' }, basis: { es: 'Base', en: 'Basis' },
     block: { es: 'Bloque', en: 'Block' }, cadence: { es: 'Cadencia', en: 'Cadence' }, mechanism: { es: 'Mecanismo', en: 'Mechanism' }, lastUpdate: { es: 'Última actualización', en: 'Last update' },
+    ops: { es: 'Métricas operativas', en: 'Operating metrics' }, termPax: { es: 'Pasajeros terminales (miles)', en: 'Terminal passengers (thousands)' },
+    domPax: { es: 'Nacionales', en: 'Domestic' }, intlPax: { es: 'Internacionales', en: 'International' }, totalPax: { es: 'Total', en: 'Total' },
+    cbxUsers: { es: 'Usuarios de CBX (miles, ambas direcciones)', en: 'CBX users (thousands, both directions)' },
+    unitRev: { es: 'Ingresos unitarios', en: 'Unit revenues' }, aeroPerPax: { es: 'Ingreso aeronáutico por pasajero', en: 'Aeronautical revenue per passenger' },
+    nonAeroPerPax: { es: 'Ingreso no aeronáutico por pasajero', en: 'Non-aeronautical revenue per passenger' }, nonAeroExCbx: { es: 'sin ingresos de CBX', en: 'excluding CBX revenue' },
+    cbxPerUser: { es: 'Ingreso de CBX por usuario de CBX', en: 'CBX revenue per CBX user' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute el flujo de actualización.', en: 'Provisional: data files missing. Run the refresh workflow.' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
@@ -264,7 +270,81 @@
     html('stmtMeta', LANG === 'es'
       ? `Cobertura: ${Q.length} trimestres (${qLabel(first)} → ${qLabel(last)}), ${Y.length} años fiscales (${Y[0] ? 'FY' + Y[0].fy : ''} → ${Y.length ? 'FY' + Y[Y.length - 1].fy : ''}). Cifras en pesos nominales tal como las reporta GAP; miles convertidos a millones.`
       : `Coverage: ${Q.length} quarters (${qLabel(first)} → ${qLabel(last)}), ${Y.length} fiscal years (${Y[0] ? 'FY' + Y[0].fy : ''} → ${Y.length ? 'FY' + Y[Y.length - 1].fy : ''}). Nominal pesos as reported by GAP; thousands shown in millions.`);
-    renderRevMix(); renderKpiTable();
+    renderOps(); renderRevMix(); renderKpiTable();
+  }
+  // ---- Operating metrics: passengers from the monthly traffic reports (which tie to the quarterly
+  // report's passenger total within rounding), unit revenues = income-statement revenue / passengers.
+  const trByYm = Object.fromEntries(TR.months.map((m) => [m.ym, m]));
+  function periodYms(obj) { // calendar months covered by a period object in the current mode
+    const endM = st.mode === 'fy' ? 12 : (obj.q || 4) * 3;
+    const n = st.mode === 'q' ? 3 : st.mode === 'ytd' ? (obj.months || endM) : 12;
+    const out = []; for (let i = n - 1; i >= 0; i--) { let m = endM - i, y = obj.fy; while (m <= 0) { m += 12; y--; } out.push(`${y}-${String(m).padStart(2, '0')}`); } return out;
+  }
+  function opsFor(obj) {
+    if (!obj) return null;
+    const ms = periodYms(obj).map((ym) => trByYm[ym]);
+    const full = ms.length > 0 && ms.every(Boolean);
+    const sum = (f) => (full ? ms.reduce((a, m) => a + (f(m) || 0), 0) : null);
+    const dom = sum((m) => m.dom && m.dom.TOTAL), intl = sum((m) => m.intl && m.intl.TOTAL);
+    let total = sum((m) => m.total && m.total.TOTAL);
+    let totalSrc = 'traffic';
+    if (total == null && obj.kpi && obj.kpi.pax != null) { total = obj.kpi.pax; totalSrc = 'report'; } // pre-2018: only the reported total
+    const cbx = full && ms.every((m) => m.cbx != null) ? ms.reduce((a, m) => a + m.cbx, 0) : null;
+    const from = (REF.cbx && REF.cbx.consolidatedFrom) || null;
+    const cons = from ? ms.filter((m) => m && m.ym >= from) : [];
+    const cbxCons = cons.length && cons.every((m) => m.cbx != null) ? cons.reduce((a, m) => a + m.cbx, 0) : null;
+    const is = obj.is || {};
+    const per = (v, d) => (v != null && d ? v / d : null); // thousands of pesos / thousands of pax = pesos
+    return {
+      dom, intl, total, cbx, totalSrc,
+      aeroPerPax: per(is.revAero, total), nonAeroPerPax: per(is.revNonAero, total),
+      // before consolidation, non-aero revenue already excludes CBX, so the ex-CBX figure is the same series
+      nonAeroExCbxPerPax: is.revCbx != null ? per(is.revNonAero - is.revCbx, total) : (from && full && ms.every((m) => m.ym < from) ? per(is.revNonAero, total) : null),
+      cbxPerUser: is.revCbx != null ? per(is.revCbx, cbxCons) : null,
+      cbxConsMonths: cons.length,
+    };
+  }
+  function renderOps() {
+    const opts = periodOptions();
+    const A = (opts.find((o) => o.id === st.a) || {}).obj, B = (opts.find((o) => o.id === st.b) || {}).obj;
+    const oa = opsFor(A), ob = opsFor(B);
+    const fxOf = (obj) => (obj ? (obj.fxAvg && obj.fxAvg.rate) || avgFx(obj) : null);
+    const fxA = st.usd ? fxOf(A) : null, fxB = st.usd ? fxOf(B) : null;
+    const rows = [];
+    const head = (label) => rows.push(`<tr class="head"><td colspan="5">${label}</td></tr>`);
+    const row = (label, k, opt = {}) => {
+      let va = oa ? oa[k] : null, vb = ob ? ob[k] : null;
+      if (opt.money && st.usd) { va = va != null && fxA ? va / fxA : null; vb = vb != null && fxB ? vb / fxB : null; }
+      if (va == null && vb == null) return;
+      const d = va != null && vb != null ? va - vb : null;
+      const pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
+      const dec = opt.money ? (st.usd ? 2 : 1) : 1;
+      const f = (v) => (v == null ? '—' : fmtN(v, dec));
+      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '—' : fmtN(d, dec)}</td><td class="${cls(pct)}">${fmtPct(pct, 1, true)}</td></tr>`);
+    };
+    head(t('termPax'));
+    row(t('domPax'), 'dom', { cls: 'sub' });
+    row(t('intlPax'), 'intl', { cls: 'sub' });
+    row(t('totalPax'), 'total', { cls: 'bold' });
+    row(t('cbxUsers'), 'cbx');
+    head(`${t('unitRev')} (${st.usd ? 'US$' : 'Ps.'})`);
+    row(t('aeroPerPax'), 'aeroPerPax', { money: true });
+    row(t('nonAeroPerPax'), 'nonAeroPerPax', { money: true });
+    if ([A, B].some((o) => o && o.is && o.is.revCbx != null)) row(t('nonAeroExCbx'), 'nonAeroExCbxPerPax', { money: true, cls: 'sub' }); // only once CBX is inside the reported figure
+    row(t('cbxPerUser'), 'cbxPerUser', { money: true });
+    const la = A ? A.label : '—', lb = B ? B.label : '—';
+    html('opsTable', `<table class="stmt-table"><thead><tr><th>${t('metric')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    el('opsTitle').textContent = `${t('ops')} · ${la} vs ${lb}`;
+    const from = REF.cbx && REF.cbx.consolidatedFrom;
+    const fromLabel = from ? new Date(Date.UTC(+from.slice(0, 4), +from.slice(5, 7) - 1, 1)).toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }) : '';
+    const partial = [oa, ob].some((o) => o && o.cbxPerUser != null && o.cbxConsMonths && o.cbxConsMonths < periodYms(o === oa ? A : B).length);
+    const reportOnly = [oa, ob].some((o) => o && o.totalSrc === 'report');
+    el('opsCap').textContent = LANG === 'es'
+      ? `Pasajeros de los reportes mensuales de tráfico (los de Tijuana que usan CBX se clasifican como internacionales). Ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo${st.usd ? ', convertidos al tipo de cambio promedio de la Fed H.10' : ''}.${from ? ` Los ingresos de CBX se consolidan desde ${fromLabel} dentro de los no aeronáuticos; el ingreso por usuario de CBX divide entre los usuarios de los meses consolidados${partial ? ' (periodo parcial)' : ''}.` : ''}${reportOnly ? ' Antes de 2018 solo se dispone del total de pasajeros del informe trimestral.' : ''}`
+      : `Passengers from the monthly traffic reports (Tijuana passengers using CBX are classified as international). Unit revenues = income-statement revenue ÷ passengers in the period${st.usd ? ', converted at the Fed H.10 average rate' : ''}.${from ? ` CBX revenue is consolidated from ${fromLabel} within non-aeronautical revenue; CBX revenue per user divides by users in the consolidated months only${partial ? ' (partial period)' : ''}.` : ''}${reportOnly ? ' Before 2018 only the quarterly report\'s passenger total is available.' : ''}`;
+    const srcs = [];
+    for (const obj of [A, B]) { if (!obj) continue; const last = periodYms(obj).map((ym) => trByYm[ym]).filter(Boolean).pop(); if (last && last.source) srcs.push({ url: last.source.url, label: LANG === 'es' ? 'reporte de tráfico' : 'traffic report', date: last.source.date }); if (obj.sources && obj.sources.is) srcs.push({ url: obj.sources.is.url, label: t('release'), date: obj.sources.is.date }); }
+    html('opsSrc', srcs.length ? `${t('src')}: ` + [...new Map(srcs.map((x) => [x.url, x])).values()].map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${x.label} (${fmtDate(x.date)})</a>`).join(' · ') : '');
   }
   function renderRevMix() {
     const qs = Q.slice(-12);

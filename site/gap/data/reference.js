@@ -87,6 +87,7 @@ window.GAP_REF = {
     },
   },
   cbx: {
+    consolidatedFrom: "2026-05", // first month of CBX revenue in GAP's income statement (merger effective 1 May 2026)
     // Cross Border Xpress: the ground-side terminal in Otay Mesa (San Diego) linked to Tijuana airport
     // by a 120 m pedestrian bridge. Timeline and terms from GAP's releases (GlobeNewswire / Form 6-K).
     timeline: [
