@@ -65,5 +65,10 @@ jobs:
             echo "No data change since the last build; nothing to commit."
           else
             git commit -m "macro: refresh $(date -u +%Y-%m-%d\ %H:%M) UTC"
-            git push
+            # Other workflows commit to main as well; rebase onto whatever landed
+            # in the meantime and try again instead of failing on a non-fast-forward.
+            for i in 1 2 3; do
+              if git pull --rebase origin main && git push; then break; fi
+              echo "push attempt $i failed; retrying in 20s"; sleep 20
+            done
           fi
