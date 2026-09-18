@@ -94,7 +94,8 @@ async function banxico(cand, spec) {
 // SHCP provider: Estadísticas Oportunas open-data CSVs (secciones.hacienda.gob.mx). They are long
 // tables, one row per (CICLO, MES, CLAVE_DE_CONCEPTO) with NOMBRE, UNIDAD_DE_MEDIDA and MONTO.
 // A candidate names the CSV `url` and the `concept` clave; `title` is checked against NOMBRE, so a
-// renumbered concept can never publish under the wrong label. `scale` converts the unit (SHCP
+// renumbered concept can never publish under the wrong label. `where` {COLUMN: regex} keeps only rows
+// whose attributes match (e.g. BASE_DE_REGISTRO, FRECUENCIA) when a month appears more than once. `scale` converts the unit (SHCP
 // reports stocks in miles de pesos). "N/E", "n.d." and blank MONTO cells are skipped.
 const csvCache = new Map();
 const MESES = { enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', julio: '07', agosto: '08', septiembre: '09', setiembre: '09', octubre: '10', noviembre: '11', diciembre: '12' };
@@ -130,10 +131,12 @@ async function shcp(cand, spec) {
   const ix = (n) => header.indexOf(n);
   const [iCiclo, iMes, iClave, iNombre, iUnidad, iMonto] = ['CICLO', 'MES', 'CLAVE_DE_CONCEPTO', 'NOMBRE', 'UNIDAD_DE_MEDIDA', 'MONTO'].map(ix);
   if ([iCiclo, iMes, iClave, iNombre, iMonto].some((i) => i < 0)) throw new Error(`unexpected columns [${header.slice(0, 16).join(' | ')}] in ${cand.url.split('/').pop()}`);
+  const where = Object.entries(cand.where || {}).map(([c, re]) => { const i = ix(c.toUpperCase()); if (i < 0) throw new Error(`where column ${c} not in ${cand.url.split('/').pop()}`); return [i, new RegExp(re, 'i')]; });
   let nombre = null, unidad = null;
   const byDate = new Map(); // a revised month appears twice in some files; the last row wins
   for (const r of rows.slice(1)) {
     if (clean(r[iClave]) !== cand.concept) continue;
+    if (!where.every(([i, re]) => re.test(clean(r[i])))) continue;
     nombre ??= clean(r[iNombre]); unidad ??= clean(r[iUnidad] ?? '');
     const d = shcpDate(r[iCiclo], r[iMes]);
     const v = Number(String(r[iMonto]).replace(/[,\s$%]/g, ''));

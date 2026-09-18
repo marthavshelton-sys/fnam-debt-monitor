@@ -11,6 +11,7 @@
 //   shcp-index                        list the CSV/XLSX links on SHCP's Estadísticas Oportunas open-data page
 //   shcp-csv <url> [rows]             fetch a CSV and print its shape, header and first/last rows
 //   shcp-concepts <url>               list the CLAVE_DE_CONCEPTO rows of an SHCP long-format CSV with names, units and ranges
+//   shcp-concept <url> <clave>        one concept's attribute combinations (base de registro, frecuencia…) and newest rows
 //   url <url>                         GET any url and print status, content-type and the first 1,500 chars
 //   tls <host>                        show the served certificate chain, its SAN, and the AIA chain repair result
 //   banxico-range <prefix> <from> <to> official titles of every id in a numeric range (20 per request)
@@ -163,6 +164,24 @@ const commands = {
       by.set(r[iClave], c);
     }
     for (const c of [...by.values()].sort((a, b) => a.clave.localeCompare(b.clave))) console.log(`  ${c.clave.padEnd(12)} ${String(c.n).padStart(4)} ${c.first}→${c.last} ${String(c.lastVal).padStart(14)} [${c.unidad}] «${c.nombre}» (${c.tema} / ${c.sub})`);
+  },
+  async 'shcp-concept'(url, clave) {
+    // One concept's rows: which attribute combinations exist (a month can appear several times) and the newest rows.
+    const rows = parseCSV(await getText(url));
+    const h = rows[0].map((x) => x.trim().toUpperCase());
+    const iClave = h.indexOf('CLAVE_DE_CONCEPTO');
+    const attrs = ['TEMA', 'SUBTEMA', 'SECTOR', 'AMBITO', 'TIPO_DE_INFORMACION', 'BASE_DE_REGISTRO', 'UNIDAD_DE_MEDIDA', 'PERIODO_INICIO', 'PERIODO_FINAL', 'FRECUENCIA', 'DIFUSION'].map((a) => [a, h.indexOf(a)]);
+    const combos = new Map();
+    const mine = rows.slice(1).filter((r) => r[iClave] === clave);
+    for (const r of mine) { const k = attrs.map(([a, i]) => `${a}=${r[i]}`).join(' | '); combos.set(k, (combos.get(k) || 0) + 1); }
+    console.log(`  ${mine.length} rows for ${clave}; ${combos.size} attribute combination(s):`);
+    for (const [k, n] of combos) console.log(`    ${String(n).padStart(5)} × ${k}`);
+    const iC = h.indexOf('CICLO'), iM = h.indexOf('MES'), iMonto = h.indexOf('MONTO'), iB = h.indexOf('BASE_DE_REGISTRO'), iF = h.indexOf('FRECUENCIA'), iT = h.indexOf('TIPO_DE_INFORMACION');
+    for (const r of mine.slice(-9)) console.log(`    ${r[iC]}-${r[iM]} ${r[iT]}/${r[iB]}/${r[iF]} MONTO=${r[iMonto]}`);
+    const byMonth = new Map();
+    for (const r of mine) { const k = `${r[iC]}-${r[iM]}`; byMonth.set(k, (byMonth.get(k) || 0) + 1); }
+    const multi = [...byMonth.values()].filter((n) => n > 1).length;
+    console.log(`    ${byMonth.size} distinct months, ${multi} of them with more than one row`);
   },
   async url(u) {
     const res = await netGet(u);
