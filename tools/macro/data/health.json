@@ -1,10 +1,12 @@
 ﻿{
-    "runAt":  "2026-09-19T00:59:25Z",
+    "runAt":  "2026-09-19T01:05:46Z",
     "failed":  [
+                   "process_core.ps1",
                    "process_spr.ps1"
                ],
     "consecutive":  {
-                        "process_spr.ps1":  5
+                        "process_core.ps1":  1,
+                        "process_spr.ps1":  6
                     },
     "warnings":  [
 
