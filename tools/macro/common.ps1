@@ -80,7 +80,9 @@ function Convert-XlsSheetToCsv([string]$xls, [string]$sheet, [string]$csv, [int[
     } finally { $x.Quit(); [System.Runtime.InteropServices.Marshal]::ReleaseComObject($x) | Out-Null }
   } catch { Write-Host "  Excel COM unavailable ($($_.Exception.Message.Split([char]10)[0])); converting with Python xlrd" }
   if (-not $done) {
-    & (Get-Python) "$PSScriptRoot\xls_to_csv.py" $xls $sheet $csv ($dateCols -join ",")
+    # The script's stdout ("rows N") must go to the host, not into this
+    # function's output stream, or the caller's return value picks it up.
+    & (Get-Python) "$PSScriptRoot\xls_to_csv.py" $xls $sheet $csv ($dateCols -join ",") | ForEach-Object { Write-Host "  xlrd: $_" }
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $csv)) { throw "xls conversion failed for $xls ($sheet)" }
   }
 }
@@ -126,7 +128,7 @@ function WithChanges($pts, [string]$from) {
 
 function Invoke-Bea([string]$table, [string]$freq, [string]$years) {
   $u = "https://apps.bea.gov/api/data/?UserID=$(Get-ApiKey 'BEA_API_KEY')&method=GetData&datasetname=NIPA&TableName=$table&Frequency=$freq&Year=$years&ResultFormat=JSON"
-  $r = Invoke-RestMethod -Uri $u -TimeoutSec 120
+  $r = Invoke-Retry { Invoke-RestMethod -Uri $u -TimeoutSec 120 }
   if ($r.BEAAPI.Error) { throw "BEA $table : $($r.BEAAPI.Error.APIErrorDescription)" }
   return $r.BEAAPI.Results.Data
 }
