@@ -187,16 +187,16 @@
                                             "v":  2261
                                         },
                                         {
-                                            "name":  "Chemical",
-                                            "v":  2224
-                                        },
-                                        {
                                             "name":  "Government",
                                             "v":  1477
                                         },
                                         {
                                             "name":  "Health Care/Products",
                                             "v":  1211
+                                        },
+                                        {
+                                            "name":  "Pharmaceutical",
+                                            "v":  1029
                                         },
                                         {
                                             "name":  "Entertainment/Leisure",
@@ -207,8 +207,52 @@
                                             "v":  808
                                         },
                                         {
+                                            "name":  "Real Estate",
+                                            "v":  611
+                                        },
+                                        {
+                                            "name":  "Transportation",
+                                            "v":  531
+                                        },
+                                        {
+                                            "name":  "Media",
+                                            "v":  480
+                                        },
+                                        {
+                                            "name":  "Retail",
+                                            "v":  423
+                                        },
+                                        {
+                                            "name":  "Electronics",
+                                            "v":  414
+                                        },
+                                        {
                                             "name":  "Construction",
                                             "v":  315
+                                        },
+                                        {
+                                            "name":  "Mining",
+                                            "v":  300
+                                        },
+                                        {
+                                            "name":  "FinTech",
+                                            "v":  225
+                                        },
+                                        {
+                                            "name":  "Aerospace/Defense",
+                                            "v":  149
+                                        },
+                                        {
+                                            "name":  "Chemical",
+                                            "v":  94
+                                        },
+                                        {
+                                            "name":  "Energy",
+                                            "v":  93
+                                        },
+                                        {
+                                            "name":  "Insurance",
+                                            "v":  77
                                         }
                                     ],
                        "hiringThisYear":  [
@@ -229,7 +273,11 @@
                                               9683,
                                               3191,
                                               3200,
-                                              1494
+                                              1494,
+                                              117313,
+                                              283138,
+                                              9074,
+                                              10496
                                           ],
                        "ytdCuts":  529914,
                        "ytdCutsLastYear":  892362,
@@ -421,7 +469,7 @@
                                                 },
                                          "SD":  {
                                                     "m":  {
-                                                              "2026-08":  0
+                                                              "2026-08":  2
                                                           },
                                                     "ytd":  {
                                                                 "2026-02":  0,
