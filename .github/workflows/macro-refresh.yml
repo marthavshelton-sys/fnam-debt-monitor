@@ -26,6 +26,7 @@ concurrency:
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -37,12 +38,13 @@ jobs:
         with:
           python-version: "3.12"
 
-      # Only used to convert legacy .xls workbooks (NY Fed GSCPI, EIA SPR
-      # history, Shiller's data set); the rest of the pipeline is Windows
-      # PowerShell 5.1, which the runner ships.
-      - run: pip install xlrd==2.0.1
+      # xlrd converts legacy .xls workbooks (NY Fed GSCPI, EIA SPR history,
+      # Shiller's data set); PyMuPDF reads the Challenger report's tables.
+      # The rest of the pipeline is Windows PowerShell 5.1, which the runner ships.
+      - run: pip install xlrd==2.0.1 pymupdf==1.25.5
 
       - name: Refresh data and build page
+        id: refresh
         shell: powershell
         env:
           BLS_API_KEY: ${{ secrets.BLS_API_KEY }}
@@ -52,6 +54,19 @@ jobs:
           MACRO_DATA_DIR: ${{ github.workspace }}\tools\macro\data
         run: |
           .\tools\macro\refresh_all.ps1 -OutFile "$env:GITHUB_WORKSPACE\site\macro\index.html"
+
+      # New releases since the last run become a GitHub issue whose body is the
+      # page's own "At a glance" text for each section; GitHub emails the
+      # repository owner about it. The issue is only the delivery channel - no
+      # mail server, no credentials, nothing on anyone's computer. State lives
+      # in tools/macro/data/alerts_state.json and is committed with the data.
+      - name: Email material updates (as a GitHub issue)
+        shell: powershell
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          MACRO_DATA_DIR: ${{ github.workspace }}\tools\macro\data
+        run: |
+          .\tools\macro\alerts.ps1 -Page "$env:GITHUB_WORKSPACE\site\macro\index.html"
 
       - name: Commit if the data changed
         shell: bash
@@ -72,3 +87,15 @@ jobs:
               echo "push attempt $i failed; retrying in 20s"; sleep 20
             done
           fi
+
+      # The page is already committed with last-good data for the broken
+      # source; failing the run here is only so GitHub sends its "run failed"
+      # email to the repository owner. refresh_all.ps1 sets `stuck` when a
+      # source has failed three runs in a row or a staleness warning has
+      # persisted that long.
+      - name: Fail the run if a source has been down for three runs
+        if: steps.refresh.outputs.stuck != ''
+        shell: bash
+        run: |
+          echo "::error::${{ steps.refresh.outputs.stuck }}"
+          exit 1
