@@ -10,6 +10,10 @@ $ProgressPreference = "SilentlyContinue"
 
 $script:data = if ($env:MACRO_DATA_DIR) { $env:MACRO_DATA_DIR } else { "$env:TEMP\claude" }
 if (-not (Test-Path $script:data)) { New-Item -ItemType Directory -Force -Path $script:data | Out-Null }
+# Raw downloads (workbooks, PDFs) go here, not into the committed data folder:
+# only the processed JSON is worth keeping as a fallback.
+$script:scratch = if ($env:RUNNER_TEMP) { Join-Path $env:RUNNER_TEMP "macro" } else { Join-Path $env:TEMP "macro-scratch" }
+if (-not (Test-Path $script:scratch)) { New-Item -ItemType Directory -Force -Path $script:scratch | Out-Null }
 
 function Get-ApiKey([string]$name) {
   $v = [Environment]::GetEnvironmentVariable($name)
@@ -33,6 +37,17 @@ function Invoke-Retry([scriptblock]$call, [int]$tries = 3, [int]$waitSec = 20) {
       Start-Sleep -Seconds $waitSec
     }
   }
+}
+
+# Python for the steps that need it (xlrd on the runner, pdfplumber for the
+# Challenger report). On the runner setup-python puts it on PATH; on Windows
+# desktops the Store's "python" alias answers to the name but is not Python.
+function Get-Python {
+  $cands = @("python") + @(Get-ChildItem "$env:LOCALAPPDATA\Programs\Python" -Recurse -Filter python.exe -ErrorAction SilentlyContinue | Where-Object { $_.DirectoryName -notmatch 'venv' } | ForEach-Object { $_.FullName })
+  foreach ($c in $cands) {
+    try { $v = & $c --version 2>$null; if ($LASTEXITCODE -eq 0 -and "$v" -match 'Python 3') { return $c } } catch {}
+  }
+  throw "Python 3 not found"
 }
 
 # Legacy .xls workbooks (EIA history files, Shiller's data set) -> one sheet as
@@ -65,7 +80,7 @@ function Convert-XlsSheetToCsv([string]$xls, [string]$sheet, [string]$csv, [int[
     } finally { $x.Quit(); [System.Runtime.InteropServices.Marshal]::ReleaseComObject($x) | Out-Null }
   } catch { Write-Host "  Excel COM unavailable ($($_.Exception.Message.Split([char]10)[0])); converting with Python xlrd" }
   if (-not $done) {
-    & python "$PSScriptRoot\xls_to_csv.py" $xls $sheet $csv ($dateCols -join ",")
+    & (Get-Python) "$PSScriptRoot\xls_to_csv.py" $xls $sheet $csv ($dateCols -join ",")
     if ($LASTEXITCODE -ne 0 -or -not (Test-Path $csv)) { throw "xls conversion failed for $xls ($sheet)" }
   }
 }

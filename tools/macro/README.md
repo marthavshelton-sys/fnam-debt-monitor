@@ -35,20 +35,15 @@ so no date tables live in the code); the first-print payroll figures behind
 the revisions chart (recorded on the first run after each jobs report); and
 state nonfarm employment behind the job-cut maps.
 
-## What arrives as a pull request
+## The Challenger report (no API, handled on the runner)
 
-Three inputs have no API. Scheduled browser tasks in Marcie's Claude desktop
-app read them from the publisher's page, rewrite the data file and open a pull
-request against this repo; nothing is live until the PR is merged, and the
-workflow rebuilds the page on the merge. The workflow also prints a warning
-annotation (and `data/health.json` records it, which the release-alert task
-emails) when any of these falls behind.
-
-| File | Cadence | Task | Source |
-|---|---|---|---|
-| `data/labor_static.json` -> `challenger` block | Monthly, first days of the month | `challenger-monthly` | Challenger, Gray & Christmas monthly report PDF (Tables 1, 2, 3, 6), read with pdf.js in the browser |
-| `data/bls_weights.json` | Yearly, February/March | `cpi-weights-yearly` | BLS CPI relative-importance Table 1 (BLS blocks scripted page fetches) |
-| `data/ppi-fdgrouprel.xlsx` | Yearly, June/July | `ppi-weights-yearly` | BLS PPI final-demand relative-importance workbook |
+`process_challenger.ps1` finds the newest post in Challenger's job-cuts
+category, downloads the report PDF and hands it to `challenger_pdf.py`
+(PyMuPDF), which reads Tables 1, 2, 3 and 6 by position and checks every
+figure against the report's own totals (industries sum to the month, states
+sum to regions, regions to the headline, 51 states). Only a report that
+reconciles is written into the `challenger` block; anything else fails that
+step and the page keeps last month's data.
 
 The `challenger` block is a growing history, not a snapshot: `monthly[]` is the
 national series, `industry[]` is keyed by Challenger's own labels, and
@@ -57,9 +52,42 @@ month, with `stateYearTotals.<year>` for completed years. The page derives its
 1/3/6/12-month state maps from that history and states the span each map
 covers, so a month is simply appended - nothing is re-keyed.
 
-`data/health.json` is written by every run: which processors failed, how many
-consecutive times, and the staleness warnings. The `macro-release-alerts`
-task reads it and emails when the pipeline needs attention.
+## The two yearly inputs that still arrive as a pull request
+
+BLS answers scripted requests for its tables with HTTP 403 (`process_weights.ps1`
+probes on every run and logs the result; if BLS ever allows it, the update can
+move here). Until then two scheduled browser tasks in Marcie's Claude desktop
+app read the tables and open a pull request; nothing is live until the PR is
+merged, and the workflow rebuilds the page on the merge.
+
+| File | Cadence | Task | Source |
+|---|---|---|---|
+| `data/bls_weights.json` | Yearly, February/March | `cpi-weights-yearly` | BLS CPI relative-importance Table 1 |
+| `data/ppi-fdgrouprel.xlsx` | Yearly, June/July | `ppi-weights-yearly` | BLS PPI final-demand relative-importance workbook |
+
+## Email alerts on new data
+
+`alerts.ps1` runs after every build. It compares the latest period of each
+tracked release (CPI, PPI, jobs, PCE, GDP, retail, sentiment preliminary and
+final, the Monthly Treasury Statement, Challenger, CAPE, and SPR weekly moves
+of 3 M bbl or more) with `data/alerts_state.json`. For anything new it opens
+one GitHub issue whose body is the page's own "At a glance" text for the
+affected sections - `exec_extract.js` runs the built page under Node with a
+stand-in DOM and reads the summaries out, so the wording is written once, in
+the template. GitHub emails the repository owner about the issue; that is the
+whole delivery mechanism (no mail server, no credentials). The subject starts
+with MATERIAL when a threshold in `alerts.ps1` is crossed. The state file is
+seeded from the current data on first run and committed with the data.
+
+## When something breaks
+
+Every run writes `data/health.json`: which processors failed, for how many
+consecutive runs, the staleness warnings and how long they have persisted.
+One failed run is silent (feeds hiccup; the page keeps last-good data). When a
+source has failed three runs in a row, or a staleness warning has lasted that
+long, `refresh_all.ps1` reports it and the workflow fails its run after
+committing, so GitHub sends its standard "run failed" email to the repository
+owner. No other monitoring exists or is needed.
 
 ## Editing the page
 
@@ -85,11 +113,14 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
   DOE capacity per site (scraped from the storage-sites page) and DOE's daily
   inventory report, which exists only as an image and is saved as
   `data/spr-inventory.jpg` then copied beside the page
+- `process_challenger.ps1` + `challenger_pdf.py` — the Challenger job-cut report
+  (see above); `process_weights.ps1` — BLS probe for the weights tables
 - `process_cape.ps1` — Shiller's ie_data.xls from shillerdata.com (the link
   carries a version token, so the page is read first); CAPE since 1881 plus
   Shiller's excess CAPE yield and ten-year subsequent real returns
 - `xlsx_to_rows.ps1` — reads the PPI weights workbook without Excel
 - `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
   runner (no Excel there); locally `common.ps1` uses Excel COM first
+- `alerts.ps1` + `exec_extract.js` — new-release emails via GitHub issues (see above)
 - `build.ps1` — template + data → page, with the locale guards
 - `refresh_all.ps1` — runs everything in order; what the workflow calls

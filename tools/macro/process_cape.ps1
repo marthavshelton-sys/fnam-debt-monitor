@@ -10,7 +10,7 @@
 # the average of the month so far.
 . "$PSScriptRoot\common.ps1"
 $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
-$xls = Join-Path $data "ie_data.xls"; $csv = Join-Path $data "ie_data.csv"
+$xls = Join-Path $scratch "ie_data.xls"; $csv = Join-Path $scratch "ie_data.csv"
 
 $page = Invoke-Retry { Invoke-WebRequest -Uri "https://shillerdata.com/" -UserAgent $ua -UseBasicParsing -TimeoutSec 60 }
 $m = [regex]::Match($page.Content, 'href="([^"]*ie_data\.xls[^"]*)"')

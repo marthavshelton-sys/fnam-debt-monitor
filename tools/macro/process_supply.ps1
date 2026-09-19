@@ -9,11 +9,12 @@
 $keys = [PSCustomObject]@{ FRED_API_KEY = (Get-ApiKey "FRED_API_KEY"); BLS_API_KEY = (Get-ApiKey "BLS_API_KEY") }
 
 # ---- GSCPI ----
-$xlsx = "$data\gscpi_data.xlsx"; $xls = "$data\gscpi_data.xls"; $csv = "$data\gscpi_data.csv"
+$xlsx = "$scratch\gscpi_data.xlsx"; $xls = "$scratch\gscpi_data.xls"; $csv = "$data\gscpi_data.csv"
 # gscpi_data.csv is committed alongside the scripts as the last good copy. If
 # the download or the conversion fails on a given run, the page keeps last
-# month's GSCPI rather than losing the whole build over one input.
-$fresh = "$data\gscpi_fresh.csv"
+# month's GSCPI rather than losing the whole build over one input. The raw
+# workbook and the fresh CSV stay in the scratch folder, out of the repo.
+$fresh = "$scratch\gscpi_fresh.csv"
 $converted = $false
 try {
   Invoke-WebRequest -Uri "https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx" -OutFile $xlsx -UserAgent "Mozilla/5.0" -TimeoutSec 60

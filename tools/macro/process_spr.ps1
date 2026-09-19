@@ -14,7 +14,7 @@ $prev = if (Test-Path $prevFile) { try { Get-Content $prevFile -Raw -Encoding UT
 
 # ---- EIA stocks ----
 function Get-EiaHistory([string]$id, [string]$freq) {
-  $xls = Join-Path $data "$id$freq.xls"; $csv = Join-Path $data "$id$freq.csv"
+  $xls = Join-Path $scratch "$id$freq.xls"; $csv = Join-Path $scratch "$id$freq.csv"
   Invoke-Retry { Invoke-WebRequest -Uri "https://www.eia.gov/dnav/pet/hist_xls/$id$freq.xls" -OutFile $xls -UserAgent $ua -TimeoutSec 90 }
   Convert-XlsSheetToCsv $xls "Data 1" $csv @(1)
   $pts = New-Object System.Collections.ArrayList

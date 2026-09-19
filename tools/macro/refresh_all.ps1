@@ -16,7 +16,7 @@ $warnings = New-Object System.Collections.ArrayList
 # Warnings are annotated for the Actions UI and also collected for health.json,
 # which the email alert task reads.
 function Warn([string]$msg) { Write-Host "::warning::$msg"; [void]$script:warnings.Add($msg) }
-foreach ($step in @("process_calendar.ps1","process_core.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1")) {
+foreach ($step in @("process_calendar.ps1","process_core.ps1","process_challenger.ps1","process_umich.ps1","process_ppi.ps1","process_retail.ps1","process_fincond.ps1","process_supply.ps1","process_fiscal.ps1","process_spr.ps1","process_cape.ps1","process_weights.ps1")) {
   Write-Output "=============== $step"
   try { & "$here\$step" } catch { Write-Output "FAILED $step : $($_.Exception.Message)"; $failed += $step }
 }
@@ -39,7 +39,9 @@ try {
   $lb = Get-Content (Join-Path $data "labor_processed.json") -Raw | ConvertFrom-Json
   $payrollMonth = $lb.CES0000000001.points[-1].d
   $lag = MonthsBetween $ls.challenger.asOfMonth ([datetime]::ParseExact($payrollMonth + "-01", "yyyy-MM-dd", $null))
-  if ($lag -ge 1) { Warn "Challenger job-cut data is for $($ls.challenger.asOfMonth) while payrolls are at $payrollMonth. Challenger publishes its report in the first week of each month - update the challenger block in tools/macro/data/labor_static.json" } else { Write-Output "Challenger: $($ls.challenger.asOfMonth) matches payrolls $payrollMonth OK" }
+  # Challenger's report can trail the jobs report by a few days; only a lag that
+  # persists into the second week of the month (or two months) is a problem.
+  if ($lag -ge 2 -or ($lag -ge 1 -and $now.Day -ge 12)) { Warn "Challenger job-cut data is for $($ls.challenger.asOfMonth) while payrolls are at $payrollMonth. process_challenger.ps1 should have picked up the new report - check its output" } else { Write-Output "Challenger: $($ls.challenger.asOfMonth) vs payrolls $payrollMonth OK" }
 } catch { Warn "staleness check could not run: $($_.Exception.Message)" }
 
 # ---- health.json: what the email alert task reads to judge pipeline health ----
@@ -52,9 +54,20 @@ if (Test-Path $healthPath) {
 }
 $consec = [ordered]@{}
 foreach ($f in $failed) { $consec[$f] = $(if ($prevConsec.ContainsKey($f)) { $prevConsec[$f] + 1 } else { 1 }) }
-$health = [ordered]@{ runAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"); failed = @($failed); consecutive = $consec; warnings = @($warnings) }
+$prevWarnStreak = 0; try { if ($prev -and $prev.warnStreak) { $prevWarnStreak = [int]$prev.warnStreak } } catch {}
+$warnStreak = if ($warnings.Count) { $prevWarnStreak + 1 } else { 0 }
+$health = [ordered]@{ runAt = (Get-Date).ToUniversalTime().ToString("yyyy-MM-ddTHH:mm:ssZ"); failed = @($failed); consecutive = $consec; warnings = @($warnings); warnStreak = $warnStreak }
 ($health | ConvertTo-Json -Depth 4) | Set-Content $healthPath -Encoding utf8
-Write-Output ("health.json: {0} failed, {1} warnings" -f $failed.Count, $warnings.Count)
+Write-Output ("health.json: {0} failed, {1} warnings (streak {2})" -f $failed.Count, $warnings.Count, $warnStreak)
+
+# Nobody watches the Actions tab, so a source that has been down for three runs
+# in a row (a day) - or a staleness warning that has persisted that long - is
+# reported to the workflow, which fails the run after committing so GitHub
+# emails the repository owner. One bad run stays silent: feeds hiccup.
+$stuck = @($consec.Keys | Where-Object { $consec[$_] -ge 3 })
+if ($warnStreak -ge 3) { $stuck += "staleness: " + ($warnings -join " / ") }
+if ($stuck.Count) { Write-Host "::error::Stuck for three runs or more: $($stuck -join '; ')" }
+if ($env:GITHUB_OUTPUT) { "stuck=$(($stuck -join '; ') -replace '[\r\n]', ' ')" | Out-File $env:GITHUB_OUTPUT -Append -Encoding utf8 }
 
 Write-Output "=============== build"
 if ($OutFile) { & "$here\build.ps1" -Target web -OutFile $OutFile } else { & "$here\build.ps1" -Target art }

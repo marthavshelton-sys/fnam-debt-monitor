@@ -6894,6 +6894,9 @@ function renderExecSummaries() {
   }
   const nextLine = (key, what) => { const d = nextRelDate(key); return d ? T.exNext(what, fmtDateDMY(d)) : T.exNextTbd(what); };
   function card(id, latest, drivers, why, watch) {
+    // The pipeline's alert step runs this page under Node and collects the same
+    // four lines for its emails, so the wording is written exactly once.
+    if (typeof __execSummaries !== "undefined" && __execSummaries && __execSummaries.push) __execSummaries.push({ id: id, latest: latest, drivers: drivers, why: why, watch: watch });
     const el = document.getElementById(id); if (!el) return;
     const item = (k, v) => '<div class="exec-item"><span class="exec-k">' + k + '</span>' + v + '</div>';
     el.innerHTML = '<div class="exec-title">' + T.exTitle + '</div><div class="exec-grid">' +
@@ -8229,4 +8232,10 @@ applyStaticStrings();
 buildMobileNav();
 renderAll();
 if (LIVE_DATA) goLive();
+// Deep link to a section (?view=cpi), used by the alert emails.
+(function () {
+  const v = new URLSearchParams(location.search).get("view");
+  const item = v && document.querySelector('.rail-item[data-view="' + v.replace(/[^a-z]/g, "") + '"]');
+  if (item) item.click();
+})();
 </script>
