@@ -1,0 +1,1120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Quálitas · Quarterly Financial Dashboard | Quálitas Controladora (BMV: Q*)</title>
+<meta name="description" content="Quarterly financial dashboard for Quálitas Controladora (BMV: Q*), Mexico’s largest auto insurer: written premiums by line of business, insured units, CNSF-style cost ratios, income statement, balance sheet, investment portfolio and regulatory solvency, 1Q24–2Q26.">
+<link rel="canonical" href="https://fnam.mx/qualitas/">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
+</head>
+<body>
+<style>
+.viz-root {
+  color-scheme: light;
+  --surface-1:      #fcfcfb;
+  --surface-2:      #f2f1ec;
+  --page:           #f9f9f7;
+  --text-primary:   #0b0b0b;
+  --text-secondary: #52514e;
+  --text-muted:     #898781;
+  --grid:           #e1e0d9;
+  --axis:           #c3c2b7;
+  --border:         rgba(11,11,11,0.10);
+  --good:           #006300;
+  --bad:            #d03b3b;
+  --band:           rgba(27,175,122,0.12);
+  --s1: #2a78d6; /* blue */
+  --s2: #eb6834; /* orange */
+  --s3: #1baf7a; /* aqua */
+  --s4: #eda100; /* yellow */
+  --s7: #4a3aa7; /* violet */
+  --s8: #e34948; /* red */
+  --tooltip-bg: #0b0b0b;
+  --tooltip-fg: #ffffff;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  background: var(--page);
+  color: var(--text-primary);
+}
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) .viz-root {
+    color-scheme: dark;
+    --surface-1: #1a1a19;
+    --surface-2: #232320;
+    --page: #0d0d0d;
+    --text-primary: #ffffff;
+    --text-secondary: #c3c2b7;
+    --text-muted: #898781;
+    --grid: #2c2c2a;
+    --axis: #383835;
+    --border: rgba(255,255,255,0.10);
+    --good: #0ca30c;
+    --bad: #e66767;
+    --band: rgba(25,158,112,0.18);
+    --s1: #3987e5;
+    --s2: #d95926;
+    --s3: #199e70;
+    --s4: #c98500;
+    --s7: #9085e9;
+    --s8: #e66767;
+    --tooltip-bg: #ffffff;
+    --tooltip-fg: #0b0b0b;
+  }
+}
+:root[data-theme="dark"] .viz-root {
+  color-scheme: dark;
+  --surface-1: #1a1a19;
+  --surface-2: #232320;
+  --page: #0d0d0d;
+  --text-primary: #ffffff;
+  --text-secondary: #c3c2b7;
+  --text-muted: #898781;
+  --grid: #2c2c2a;
+  --axis: #383835;
+  --border: rgba(255,255,255,0.10);
+  --good: #0ca30c;
+  --bad: #e66767;
+  --band: rgba(25,158,112,0.18);
+  --s1: #3987e5;
+  --s2: #d95926;
+  --s3: #199e70;
+  --s4: #c98500;
+  --s7: #9085e9;
+  --s8: #e66767;
+  --tooltip-bg: #ffffff;
+  --tooltip-fg: #0b0b0b;
+}
+body { background: #f9f9f7; margin: 0; }
+@media (prefers-color-scheme: dark) { :root:where(:not([data-theme="light"])) body { background: #0d0d0d; } }
+:root[data-theme="dark"] body { background: #0d0d0d; }
+.viz-root * { box-sizing: border-box; }
+.wrap { max-width: 1180px; margin: 0 auto; padding: 20px 20px 60px; }
+header.hero {
+  padding: 22px 20px 20px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 8px;
+}
+.hero .home { display:inline-block; font-size:12px; font-weight:600; color:var(--text-secondary); text-decoration:none; margin-bottom:10px; letter-spacing:.02em; }
+.hero .home:hover, .hero .home:focus-visible { color:var(--text-primary); text-decoration:underline; outline:none; }
+header.hero h1 { margin: 0 0 4px; font-size: 22px; font-weight: 700; letter-spacing: -0.01em; text-wrap: balance; }
+header.hero .ticker { color: var(--text-secondary); font-size: 13px; }
+header.hero .meta { margin-top: 10px; font-size: 12.5px; color: var(--text-muted); line-height: 1.6; max-width: 820px; }
+nav.tabs {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20;
+  display: flex; gap: 4px; flex-wrap: wrap;
+  background: var(--page);
+  padding: 10px 20px; border-bottom: 1px solid var(--border);
+  margin-bottom: 22px;
+}
+nav.tabs a {
+  font-size: 12.5px; font-weight: 600; color: var(--text-secondary);
+  text-decoration: none; padding: 6px 12px; border-radius: 100px;
+  border: 1px solid var(--border);
+}
+nav.tabs a:hover, nav.tabs a:focus-visible { background: var(--surface-2); color: var(--text-primary); outline: none; }
+section { margin: 0 20px 44px; scroll-margin-top: 56px; }
+section h2 { font-size: 17px; margin: 0 0 3px; font-weight: 700; }
+section .sub { font-size: 12.5px; color: var(--text-muted); margin: 0 0 16px; max-width: 760px; line-height: 1.5; }
+.card {
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px;
+  padding: 18px 20px;
+}
+.grid-2 { display: grid; grid-template-columns: 1.3fr 1fr; gap: 16px; }
+.grid-2.even { grid-template-columns: 1fr 1fr; }
+.grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+@media (max-width: 860px) { .grid-2, .grid-3 { grid-template-columns: 1fr; } }
+.kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+@media (max-width: 980px) { .kpis { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 480px) { .kpis { grid-template-columns: 1fr; } }
+.kpi { background: var(--surface-1); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; }
+.kpi .label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; margin-bottom: 6px; }
+.kpi .value { font-size: 21px; font-weight: 700; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.kpi .delta { font-size: 12px; margin-top: 4px; font-weight: 600; }
+.kpi .delta.up { color: var(--good); }
+.kpi .delta.down { color: var(--bad); }
+.kpi .sub2 { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+h3.chart-title { font-size: 13px; font-weight: 700; margin: 0 0 2px; }
+h3.group { font-size: 14px; margin: 0 0 4px; }
+p.chart-note { font-size: 11.5px; color: var(--text-muted); margin: 0 0 10px; }
+.legend { display: flex; gap: 14px; flex-wrap: wrap; margin: 6px 0 10px; font-size: 11.5px; color: var(--text-secondary); }
+.legend .dot { display: inline-block; width: 9px; height: 9px; border-radius: 2px; margin-right: 5px; vertical-align: -1px; }
+svg.chart { width: 100%; height: auto; display: block; overflow: visible; }
+svg.chart .gridline { stroke: var(--grid); stroke-width: 1; }
+svg.chart .axis { stroke: var(--axis); stroke-width: 1; }
+svg.chart .ref { stroke: var(--text-muted); stroke-width: 1; stroke-dasharray: 4 3; }
+svg.chart text.tick { fill: var(--text-muted); font-size: 10px; }
+svg.chart text.tick.strong { fill: var(--text-secondary); font-weight: 600; }
+svg.chart text.lab { fill: var(--text-secondary); font-size: 10px; font-weight: 600; }
+svg.chart rect.band { fill: var(--band); }
+.tt {
+  position: fixed; pointer-events: none; z-index: 999;
+  background: var(--tooltip-bg); color: var(--tooltip-fg);
+  font-size: 11.5px; line-height: 1.5; padding: 8px 10px; border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  opacity: 0; transform: translate(-50%, -110%); transition: opacity .08s ease;
+  white-space: nowrap;
+}
+@media (prefers-reduced-motion: reduce) { .tt { transition: none; } }
+.tt.show { opacity: 1; }
+.tt b { font-weight: 700; }
+table.dtable { width: 100%; border-collapse: collapse; font-size: 12px; }
+table.dtable caption { caption-side: top; text-align: left; font-size: 11.5px; color: var(--text-muted); padding-bottom: 8px; line-height: 1.5; }
+table.dtable th, table.dtable td { padding: 7px 9px; text-align: right; white-space: nowrap; border-bottom: 1px solid var(--grid); font-variant-numeric: tabular-nums; }
+table.dtable th:first-child, table.dtable td:first-child { text-align: left; position: sticky; left: 0; background: var(--surface-1); }
+table.dtable thead th { color: var(--text-muted); font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: .02em; border-bottom: 1px solid var(--axis); }
+table.dtable tbody tr:hover td { background: var(--surface-2); }
+table.dtable td.pos { color: var(--good); }
+table.dtable td.neg { color: var(--bad); }
+table.dtable tr.section-row td { font-weight: 700; background: var(--surface-2); }
+table.dtable tr.sub-row td { font-style: italic; color: var(--text-muted); font-size: 11px; }
+table.dtable tr.sub-row td:first-child { padding-left: 24px; }
+table.dtable tr.item-row td:first-child { padding-left: 12px; }
+table.dtable tr.item2-row td:first-child { padding-left: 24px; }
+table.dtable tr.item2-row td { color: var(--text-secondary); }
+table.dtable td .es { color: var(--text-muted); font-size: 10.5px; font-weight: 400; font-style: italic; }
+.tblwrap { overflow-x: auto; margin-top: 8px; border: 1px solid var(--border); border-radius: 10px; }
+.tblwrap table.dtable { min-width: 920px; }
+.note-box { background: var(--surface-2); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; font-size: 12px; color: var(--text-secondary); line-height: 1.6; margin-top: 14px; }
+footer.foot { margin: 40px 20px 0; padding-top: 16px; border-top: 1px solid var(--border); font-size: 11.5px; color: var(--text-muted); line-height: 1.7; }
+footer.foot a { color: var(--text-secondary); }
+</style>
+
+<div class="viz-root" data-palette="s1,s2,s3,s4,s7,s8">
+  <div class="wrap">
+    <header class="hero">
+      <a class="home" href="/" aria-label="FNAM home">&larr; FNAM &middot; dashboards</a>
+      <h1>Qu&aacute;litas Controladora &mdash; Quarterly Financial Dashboard</h1>
+      <div class="ticker">BMV: Q* &middot; Mexico&rsquo;s largest auto insurer (34.2% market share, AMIS) &middot; Insurance subsidiaries in Mexico, El Salvador, Costa Rica, the United States, Peru and Colombia, plus non-insurance service verticals</div>
+      <div class="meta">
+        Figures in nominal Mexican pesos (Ps.) millions, consolidated, prepared under the accounting criteria of the CNSF (Mexico&rsquo;s insurance regulator) rather than IFRS &mdash; unaudited quarterly releases. Covers <b>1Q24 through 2Q26</b> (10 quarters), sourced from Qu&aacute;litas&rsquo; quarterly reports and its historical financial data file on the IR site (qinversionistas.qualitas.com.mx), with the 2Q26 filing located on the BMV. No accounting-regime change falls inside the window (IFRS&nbsp;17 has not been adopted in these statements). Two items affect comparability: <b>4Q25</b> carries a non-recurring, full-year charge from the change in the VAT (IVA) treatment of claims costs, and <b>4Q24</b> figures are the audited year-end numbers rather than the original release; see footnotes.
+      </div>
+    </header>
+
+    <nav class="tabs">
+      <a href="#overview">Overview</a>
+      <a href="#drivers">Revenue Drivers</a>
+      <a href="#income">Income Statement</a>
+      <a href="#balance">Balance Sheet</a>
+      <a href="#invest">Investments &amp; Solvency</a>
+    </nav>
+
+    <section id="overview">
+      <h2>2Q26 Snapshot</h2>
+      <p class="sub">Latest reported quarter (ended June 30, 2026) vs. the same quarter a year earlier. Ratios follow Qu&aacute;litas&rsquo; own CNSF-style definitions; changes in ratios are shown in basis points (bp).</p>
+      <div class="kpis" id="kpiRow"></div>
+    </section>
+
+    <section id="drivers">
+      <h2>Key Revenue Drivers</h2>
+      <p class="sub">Written premiums (<i>prima emitida</i>) by line of business and insured units (<i>unidades aseguradas</i>), quarterly and annually, back to 2022 &mdash; the volume and price levers behind the top line. 2026 annual figures are year-to-date through 2Q26.</p>
+
+      <h3 class="group">Written premiums</h3>
+      <div class="card">
+        <h3 class="chart-title">Written premiums by line of business, by quarter</h3>
+        <p class="chart-note">Ps. millions, stacked, 1Q22&ndash;2Q26. Individual + fleets = the &ldquo;traditional&rdquo; channel (agents); financial institutions = policies sold with auto loans, largely multi-year; foreign subsidiaries = El Salvador, Costa Rica, U.S., Peru and Colombia. 4Q seasonality reflects fleet and multi-year renewals.</p>
+        <div class="legend" id="legRev"></div>
+        <svg class="chart" id="chartRev" viewBox="0 0 1120 300"></svg>
+      </div>
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="chart-title">Written premiums &mdash; YoY growth by quarter</h3>
+          <p class="chart-note">% change vs. same quarter prior year, 1Q23&ndash;2Q26.</p>
+          <svg class="chart" id="chartRevYoYQ" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Written premiums by line of business, by year</h3>
+          <p class="chart-note">Ps. millions, stacked, 2022&ndash;2026 YTD.</p>
+          <div class="legend" id="legRevY"></div>
+          <svg class="chart" id="chartRevY" viewBox="0 0 660 260"></svg>
+        </div>
+      </div>
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="chart-title">Written premiums &mdash; YoY growth by year</h3>
+          <p class="chart-note">% change vs. prior year (2026 vs. same 6M period in 2025).</p>
+          <svg class="chart" id="chartRevYoYY" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Trailing-12-month written premium per insured unit</h3>
+          <p class="chart-note">Ps. per unit, 1Q24&ndash;2Q26: TTM written premiums &divide; average of insured units at the start and end of the 12-month window &mdash; the blended price/mix yield.</p>
+          <svg class="chart" id="chartYield" viewBox="0 0 660 260"></svg>
+        </div>
+      </div>
+
+      <h3 class="group" style="margin-top:24px;">Insured units</h3>
+      <div class="card">
+        <h3 class="chart-title">Insured units at quarter-end</h3>
+        <p class="chart-note">Thousands of vehicles, all subsidiaries (Mexico is ~94%), 1Q22&ndash;2Q26.</p>
+        <svg class="chart" id="chartUnitsQ" viewBox="0 0 1120 300"></svg>
+      </div>
+      <div class="grid-2" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="chart-title">Insured units &mdash; YoY growth by quarter</h3>
+          <p class="chart-note">% change vs. same quarter-end prior year, 1Q23&ndash;2Q26.</p>
+          <svg class="chart" id="chartUnitsYoYQ" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Insured units at year-end</h3>
+          <p class="chart-note">Thousands of vehicles, 2022&ndash;2025 year-end and 2Q26.</p>
+          <svg class="chart" id="chartUnitsY" viewBox="0 0 660 260"></svg>
+        </div>
+      </div>
+      <div class="card" style="margin-top:16px; max-width:660px;">
+        <h3 class="chart-title">Insured units &mdash; YoY growth by year</h3>
+        <p class="chart-note">% change vs. prior year-end (2Q26 vs. 2Q25 for the partial year).</p>
+        <svg class="chart" id="chartUnitsYoYY" viewBox="0 0 660 260"></svg>
+      </div>
+    </section>
+
+    <section id="income">
+      <h2>Income Statement</h2>
+      <p class="sub">2Q26 vs. 2Q25 (same quarter, one year ago), with the YoY change in the column to the right. Ordered as: insured-unit and per-unit drivers, written premiums by line and by country, the bridge from written to earned premiums, acquisition and claims costs, technical and operating result, financing result (RIF) and net income. Indented italic rows are always a derived metric (ratio, margin or rate) &mdash; never a reported line item.</p>
+
+      <div class="card" style="max-width:660px;">
+        <h3 class="chart-title">Written premiums &mdash; YoY growth by quarter</h3>
+        <p class="chart-note">% change vs. same quarter prior year, all 10 quarters shown (trend context for the 2Q26-vs-2Q25 comparison below).</p>
+        <svg class="chart" id="chartYoY" viewBox="0 0 660 260"></svg>
+      </div>
+      <div class="grid-2 even" style="margin-top:12px;">
+        <div class="card">
+          <h3 class="chart-title">Combined ratio, decomposed</h3>
+          <p class="chart-note">Acquisition ratio (&divide; retained premiums) + loss ratio (&divide; earned premiums) + operating ratio (&divide; written premiums), Qu&aacute;litas&rsquo; own definitions; company target range 92&ndash;94%.</p>
+          <div class="legend" id="legComb"></div>
+          <svg class="chart" id="chartComb" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Loss ratio vs. the 62&ndash;65% target band</h3>
+          <p class="chart-note">Claims cost &divide; earned premiums, all 10 quarters. The shaded band is the company&rsquo;s stated long-term target range; 4Q25 carries the full-year VAT charge.</p>
+          <svg class="chart" id="chartLoss" viewBox="0 0 660 260"></svg>
+        </div>
+      </div>
+
+      <div class="tblwrap" style="margin-top:16px;">
+        <table class="dtable" id="tblIncome"></table>
+      </div>
+      <div class="note-box"><b>Ratio methodology (CNSF / Qu&aacute;litas convention):</b> acquisition ratio = acquisition cost &divide; retained premiums; loss ratio = claims cost &divide; earned retained premiums; operating ratio = operating expenses &divide; written premiums; combined ratio = the sum of the three. Because each ratio uses a different denominator, the combined ratio is not directly comparable with the international convention; the &ldquo;adjusted combined ratio&rdquo; row divides all three costs by earned premiums, which is the figure Qu&aacute;litas publishes for cross-border comparison. Operating margin is operating result &divide; earned premiums and net margin is net income &divide; written premiums, again as the company defines them. All ratios in the table are computed from the raw statement figures, not from the company&rsquo;s pre-rounded percentages, so bp changes can differ from the release by a basis point.</div>
+      <div class="note-box"><b>VAT (IVA) charge and the 2025&ndash;2026 loss-ratio comparison:</b> in 4Q25 Qu&aacute;litas recognized a non-recurring charge for the full year 2025 arising from the non-creditability of VAT on certain components of claims costs, which took the 4Q25 loss ratio to 77.0%, the combined ratio to 102.6% and the quarter to a net loss of Ps. 190m; the company states that excluding it, 2025 net income would have been Ps. 6,778m (ROE 12M 26.9%) instead of Ps. 5,095m (20.2%). From 2026 the higher claims cost is a run-rate item: at 6M26 the company puts the VAT effect at ~320 bp of the loss ratio, which is most of the 2Q26-vs-2Q25 deterioration shown above. The November 2025 Ley de Ingresos 2026 gave certainty on the treatment going forward.</div>
+      <div class="note-box"><b>Reading the premium bridge:</b> the <i>net increase in the unearned-premium reserve</i> is the difference between written and earned premiums &mdash; positive when the book is growing (premiums written but not yet earned, typically 1Q and 4Q with multi-year and fleet renewals), negative when reserves are released (2Q26: a Ps. 322m release after a large multi-year account changed coverage, which is also why written premiums fell 0.5% while earned premiums grew 4.4%). The share of multi-year policies, which drives this timing, fell from 23.0% of written premiums in 2Q25 to 20.7% in 2Q26.</div>
+    </section>
+
+    <section id="balance">
+      <h2>Balance Sheet</h2>
+      <p class="sub">Consolidated statement of financial position (<i>balance general</i>) at each quarter-end under CNSF format, plus leverage and coverage metrics. CNSF balance sheets carry no current/non-current split, so a current ratio is not computable; the coverage of technical reserves by investments is the insurer&rsquo;s equivalent liquidity measure.</p>
+      <div class="grid-2">
+        <div class="card">
+          <h3 class="chart-title">Assets, liabilities &amp; equity</h3>
+          <p class="chart-note">Ps. millions, quarter-end balances.</p>
+          <div class="legend" id="legBS"></div>
+          <svg class="chart" id="chartBS" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Leverage &amp; reserve coverage</h3>
+          <p class="chart-note">Total liabilities / equity, and total investments / technical reserves.</p>
+          <div class="legend" id="legRatio"></div>
+          <svg class="chart" id="chartRatio" viewBox="0 0 440 260"></svg>
+        </div>
+      </div>
+      <div class="tblwrap">
+        <table class="dtable" id="tblBalance"></table>
+      </div>
+      <div class="note-box"><b>What is specific to this balance sheet:</b> premium receivables (<i>deudor por primas</i>) are ~40% of total assets because policies sold through financial institutions are multi-year and paid in installments; the offsetting liability is the unearned-premium reserve inside technical reserves. Investments cover ~83% of technical reserves at 2Q26, with the remainder effectively funded by those receivables. Equity is held down by a steady dividend and buyback policy; the 400m share count has been constant across the window.</div>
+      <div class="note-box"><b>4Q24 figures:</b> the 4Q24 column shows the audited 2024 year-end statements, as carried in the company&rsquo;s historical data file and in the 4T25 release&rsquo;s comparative column. They differ modestly from the original 4T24 release (total assets Ps. 107,900m and technical reserves Ps. 59,446m in the original vs. Ps. 108,134m and Ps. 59,301m audited; 4Q24 net income Ps. 1,378m original vs. Ps. 1,352m audited). Every other quarter is as originally reported.</div>
+    </section>
+
+    <section id="invest">
+      <h2>Investments &amp; Solvency</h2>
+      <p class="sub">The two things that replace a cash-flow statement in an insurer&rsquo;s analysis: the investment portfolio that funds the reserves (and produces the financing result, RIF), and the regulatory capital position. Quarterly, 1Q24&ndash;2Q26.</p>
+      <div class="card">
+        <h3 class="chart-title">Securities portfolio by instrument</h3>
+        <p class="chart-note">Ps. millions, stacked, quarter-end (<i>valores</i> only; excludes repo receivables, the loan book and real estate). Government paper dominates; corporate fixed-rate has grown as the company extended duration into the 2025&ndash;26 rate-cutting cycle.</p>
+        <div class="legend" id="legPort"></div>
+        <svg class="chart" id="chartPort" viewBox="0 0 1120 300"></svg>
+      </div>
+      <div class="card" style="margin-top:16px;">
+        <h3 class="chart-title">Comprehensive financing result (RIF) by component &mdash; quarterly</h3>
+        <p class="chart-note">Ps. millions. Investment income is the accrual on the portfolio; realized gains and mark-to-market valuation are the volatile pieces; &ldquo;other&rdquo; bundles the surcharge on premiums paid in installments, FX, loan interest and provisions.</p>
+        <div class="legend" id="legRIF"></div>
+        <svg class="chart" id="chartRIF" viewBox="0 0 1120 300"></svg>
+      </div>
+      <div class="grid-2 even" style="margin-top:16px;">
+        <div class="card">
+          <h3 class="chart-title">Return on investments (RSI) and ROE 12M</h3>
+          <p class="chart-note">% as reported by the company: RSI is the annualized quarterly RIF on the investment portfolio; ROE 12M is trailing-twelve-month net income on equity.</p>
+          <div class="legend" id="legRet"></div>
+          <svg class="chart" id="chartRet" viewBox="0 0 660 260"></svg>
+        </div>
+        <div class="card">
+          <h3 class="chart-title">Regulatory solvency</h3>
+          <p class="chart-note">Ps. millions: regulatory capital requirement (RCS) plus solvency margin = eligible own funds; the solvency index (own funds &divide; RCS) is in the tooltip and labeled on the latest bar.</p>
+          <div class="legend" id="legSolv"></div>
+          <svg class="chart" id="chartSolv" viewBox="0 0 660 260"></svg>
+        </div>
+      </div>
+      <div class="tblwrap">
+        <table class="dtable" id="tblInvest"></table>
+      </div>
+      <div class="tblwrap" style="margin-top:12px;">
+        <table class="dtable" id="tblSolv"></table>
+      </div>
+      <div class="note-box"><b>Definitions:</b> <i>float</i> (invested assets), as Qu&aacute;litas reports it, = securities + repo receivables + net loan portfolio, i.e. total investments excluding real estate. <i>RSI</i> is the company&rsquo;s reported annualized return on the portfolio; it excludes unrealized gains on positions not marked to market (the company put these at ~Ps. 2.4bn at 2Q26, which would have lifted the 2Q26 RSI to 13.6%). Fixed-income share and duration are as disclosed in each release. <i>Solvency index</i> = (solvency margin + RCS) &divide; RCS, which is how the company&rsquo;s reported figures reconcile (e.g. 2Q26: (15,984 + 6,646) &divide; 6,646 = 341%); the CNSF minimum is 100%. The company notes that from 2024 its solvency figures are consolidated across subsidiaries.</div>
+    </section>
+
+    <footer class="foot">
+      Sources: Qu&aacute;litas Controladora quarterly reports 1T23&ndash;2T26 (Spanish editions, including the CNSF-format balance sheet and income statement reproduced in each) and the &ldquo;Datos Financieros Hist&oacute;ricos 2T26&rdquo; workbook, all downloaded from qinversionistas.qualitas.com.mx/ES/reportes-trimestrales; written premiums by line of business and insured units by country come from each quarter&rsquo;s own report (2022 quarters from the comparative columns of the 2023 reports). The BMV issuer page for Q (bmv.com.mx, emisora Q-7790) lists the 2Q26 quarterly filing dated 21 July 2026, which carries the same statements. All figures unaudited except where noted for 4Q24. Dashboard compiled for reference by Talipot; not investment advice. Built {{BUILD_DATE}}.
+    </footer>
+  </div>
+</div>
+
+<div class="tt" id="tooltip"></div>
+
+<script>
+(function(){
+"use strict";
+
+/* ===================== DATA ===================== */
+/* Quarterly written premiums by line of business (Ps. millions, as disclosed in each quarter's own
+   report; 2022 quarters from the comparatives in the 2023 reports) and insured units at quarter-end
+   (thousands, exact from the company's historical data file). The four lines do not always sum to the
+   reported total: the residual (consolidation / rounding, typically <1% of the total) is stacked as
+   "Other" when positive. */
+var QRev = [
+{q:"1Q22", ind:3536, fleet:2638, fin:2579, intl:927, total:9795.717, units:4586.381},
+{q:"2Q22", ind:3386, fleet:2351, fin:2976, intl:967, total:9701.017, units:4671.272},
+{q:"3Q22", ind:3774, fleet:2576, fin:2988, intl:762, total:10114.646, units:4773.648},
+{q:"4Q22", ind:4626, fleet:3593, fin:3433, intl:767, total:12424.347, units:4810.169},
+{q:"1Q23", ind:4887, fleet:3213, fin:3313, intl:817, total:12240.502, units:5000.895},
+{q:"2Q23", ind:4783, fleet:2935, fin:3464, intl:827, total:12048.126, units:5195.382},
+{q:"3Q23", ind:5185, fleet:3296, fin:3787, intl:759, total:13035.608, units:5368.581},
+{q:"4Q23", ind:6129, fleet:4714, fin:4559, intl:981, total:16402.000, units:5337.212},
+{q:"1Q24", ind:6383, fleet:5244, fin:4233, intl:927, total:16803.657, units:5527.840},
+{q:"2Q24", ind:6277, fleet:4012, fin:4358, intl:761, total:15423.880, units:5609.630},
+{q:"3Q24", ind:6231, fleet:4224, fin:4826, intl:870, total:16151.092, units:5693.674},
+{q:"4Q24", ind:7336, fleet:7143, fin:5625, intl:800, total:20897.464, units:5737.036},
+{q:"1Q25", ind:7719, fleet:4920, fin:5170, intl:987, total:18821.754, units:5894.313},
+{q:"2Q25", ind:6714, fleet:4117, fin:5596, intl:931, total:17414.371, units:6024.450},
+{q:"3Q25", ind:6552, fleet:4185, fin:5676, intl:872, total:17335.376, units:6143.191},
+{q:"4Q25", ind:7266, fleet:6681, fin:7282, intl:969, total:22232.611, units:6072.305},
+{q:"1Q26", ind:7667, fleet:6600, fin:6493, intl:909, total:21693.090, units:6093.796},
+{q:"2Q26", ind:6873, fleet:3614, fin:5924, intl:833, total:17329.024, units:6143.717}
+];
+QRev.forEach(function(d){ d.other = Math.max(0, d.total - (d.ind + d.fleet + d.fin + d.intl)); });
+
+/* Annual written premiums by line (from the 4Q reports' year-to-date columns) and year-end insured units.
+   2026 is partial (6M); its YoY compares with the same 6M25 period / 2Q25 unit count. */
+var A = [
+{y:"2022", ind:15318, fleet:11155, fin:11982, intl:3422, total:42035.727, units:4810.169, prevTotal:null, prevUnits:null, partial:false},
+{y:"2023", ind:20853, fleet:14278, fin:15134, intl:3382, total:53725.802, units:5337.212, prevTotal:42035.727, prevUnits:4810.169, partial:false},
+{y:"2024", ind:26048, fleet:20813, fin:19051, intl:3358, total:69276.093, units:5737.036, prevTotal:53725.802, prevUnits:5337.212, partial:false},
+{y:"2025", ind:27886, fleet:20263, fin:23729, intl:3759, total:75804.112, units:6072.305, prevTotal:69276.093, prevUnits:5737.036, partial:false},
+{y:"2026 (YTD 6M)", ind:14540, fleet:10214, fin:12416, intl:1742, total:39022.113, units:6143.717, prevTotal:36236.125, prevUnits:6024.450, partial:true}
+];
+A.forEach(function(d){ d.other = Math.max(0, d.total - (d.ind + d.fleet + d.fin + d.intl)); });
+
+/* Ten quarters of consolidated statements, Ps. millions (CNSF format, from each quarter's own report;
+   4Q24 = audited year-end figures). Ratios and RSI/ROE as reported in the company's historical file;
+   portfolio detail, RIF components and solvency from the releases. Units in thousands. */
+var Q = [
+{q:"1Q24", written:16803.657, ceded:18.094, retained:16785.563, resInc:2492.891, earned:14292.672,
+ acq:3576.771, comm:1307.116, comp:439.246, reinsComm:0.080, xl:5.099, otherAcq:1825.389,
+ loss:9156.201, tech:1559.700, opex:679.014, admin:74.171, staff:491.422, da:113.421, opRes:880.686,
+ rif:1058.131, invInc:807.443, sale:1.987, val:113.184, surcharge:124.187, fx:-17.739,
+ ibt:1938.817, tax:700.813, net:1238.004, acqR:21.3, lossR:64.1, opR:4.0, comb:89.4, rsi:8.9, roe12:19.1,
+ units:5527.840, inv:46922.619, valores:43598.326, gov:36041.600, corp:2059.608, eq:5540.254, foreign:0, repo:41.181, loans:753.845, realEstate:2529.267, float:44393,
+ cash:2919.747, premRec:32221.860, assets:93156.155, reserves:51254.701, upr:34954.695, creditors:8705.304, otherLiab:9720.358, liab:70360.097, equity:22796.059,
+ rcs:5091, solvMargin:12035, solvIdx:336, fiPct:88.0, duration:1.6},
+{q:"2Q24", written:15423.880, ceded:26.106, retained:15397.773, resInc:328.871, earned:15068.902,
+ acq:3531.805, comm:1173.205, comp:435.624, reinsComm:7.995, xl:13.120, otherAcq:1917.851,
+ loss:9899.541, tech:1637.557, opex:743.787, admin:87.805, staff:537.714, da:118.267, opRes:893.995,
+ rif:1135.793, invInc:814.373, sale:-118.635, val:220.325, surcharge:129.961, fx:40.660,
+ ibt:2029.788, tax:646.178, net:1383.610, acqR:22.9, lossR:65.7, opR:4.8, comb:93.5, rsi:8.8, roe12:23.5,
+ units:5609.630, inv:47301.112, valores:44018.835, gov:35902.437, corp:2121.663, eq:5568.217, foreign:466.904, repo:75.838, loans:679.537, realEstate:2526.901, float:44774,
+ cash:3055.087, premRec:32961.949, assets:93637.183, reserves:52380.242, upr:35441.130, creditors:8950.341, otherLiab:10342.400, liab:72363.508, equity:21273.675,
+ rcs:5056, solvMargin:13985, solvIdx:377, fiPct:87.0, duration:1.6},
+{q:"3Q24", written:16151.092, ceded:15.946, retained:16135.146, resInc:813.926, earned:15321.220,
+ acq:3660.619, comm:1231.179, comp:445.689, reinsComm:0.955, xl:6.963, otherAcq:1977.743,
+ loss:10601.052, tech:1059.549, opex:608.422, admin:51.083, staff:425.260, da:132.079, opRes:451.127,
+ rif:1182.724, invInc:864.933, sale:-341.538, val:457.634, surcharge:140.924, fx:21.112,
+ ibt:1633.851, tax:488.526, net:1145.325, acqR:22.7, lossR:69.2, opR:3.8, comb:95.6, rsi:8.7, roe12:22.4,
+ units:5693.674, inv:52574.207, valores:48186.468, gov:38877.469, corp:2655.383, eq:6015.282, foreign:529.362, repo:83.346, loans:693.504, realEstate:3610.888, float:48963,
+ cash:2845.991, premRec:34398.830, assets:100723.252, reserves:55166.880, upr:36397.415, creditors:10183.263, otherLiab:11261.471, liab:77329.921, equity:23393.331,
+ rcs:5303, solvMargin:15799, solvIdx:398, fiPct:87.0, duration:1.6},
+{q:"4Q24", written:20897.464, ceded:14.177, retained:20883.286, resInc:4273.474, earned:16609.813,
+ acq:4435.584, comm:1592.189, comp:554.443, reinsComm:2.179, xl:9.708, otherAcq:2281.422,
+ loss:10857.034, tech:1317.194, opex:734.309, admin:33.038, staff:557.019, da:144.253, opRes:582.958,
+ rif:1556.803, invInc:805.913, sale:290.515, val:239.509, surcharge:148.065, fx:57.345,
+ ibt:2139.761, tax:787.366, net:1352.395, acqR:21.2, lossR:65.4, opR:3.5, comb:90.1, rsi:11.5, roe12:22.1,
+ units:5737.036, inv:52094.167, valores:47821.537, gov:37953.817, corp:3100.091, eq:3604.693, foreign:3191.749, repo:103.109, loans:657.045, realEstate:3512.476, float:48582,
+ cash:3278.019, premRec:40089.816, assets:108133.658, reserves:59301.053, upr:40801.566, creditors:11432.336, otherLiab:11960.735, liab:83467.015, equity:24666.643,
+ rcs:5473, solvMargin:17541, solvIdx:421, fiPct:87.0, duration:1.8},
+{q:"1Q25", written:18821.754, ceded:94.696, retained:18727.058, resInc:1894.237, earned:16832.821,
+ acq:4152.228, comm:1393.572, comp:544.668, reinsComm:0.243, xl:9.830, otherAcq:2204.400,
+ loss:10054.641, tech:2625.952, opex:1180.594, admin:396.749, staff:653.759, da:130.086, opRes:1445.407,
+ rif:1532.682, invInc:787.717, sale:361.300, val:178.752, surcharge:148.630, fx:-3.417,
+ ibt:2978.089, tax:832.870, net:2145.219, acqR:22.2, lossR:59.7, opR:6.3, comb:88.2, rsi:10.8, roe12:24.2,
+ units:5894.313, inv:54809.268, valores:50519.759, gov:40057.442, corp:3496.138, eq:4560.022, foreign:2435.173, repo:89.949, loans:591.402, realEstate:3608.157, float:51201,
+ cash:2789.668, premRec:41256.109, assets:110562.063, reserves:61561.064, upr:42807.649, creditors:11247.978, otherLiab:10027.651, liab:83719.125, equity:26842.938,
+ rcs:5615, solvMargin:14738, solvIdx:362, fiPct:86.7, duration:1.87},
+{q:"2Q25", written:17414.371, ceded:18.641, retained:17395.731, resInc:730.112, earned:16665.619,
+ acq:4195.631, comm:1275.195, comp:503.551, reinsComm:0.491, xl:12.124, otherAcq:2405.252,
+ loss:10514.299, tech:1955.689, opex:976.164, admin:221.433, staff:629.426, da:125.305, opRes:979.638,
+ rif:1218.185, invInc:830.653, sale:44.453, val:163.243, surcharge:152.491, fx:1.572,
+ ibt:2197.823, tax:791.306, net:1406.517, acqR:24.1, lossR:63.1, opR:5.6, comb:92.8, rsi:8.4, roe12:26.5,
+ units:6024.450, inv:53163.372, valores:48135.338, gov:37019.074, corp:3886.781, eq:4564.217, foreign:2685.894, repo:597.894, loans:756.819, realEstate:3673.321, float:49490,
+ cash:2959.074, premRec:42313.853, assets:110835.104, reserves:61526.014, upr:43314.525, creditors:11595.232, otherLiab:12690.627, liab:86713.446, equity:24121.658,
+ rcs:5674, solvMargin:16155, solvIdx:385, fiPct:85.9, duration:2.2,
+ roePeriod:22.0, multiYearPct:23.0, mx:5751, autos:3904, trucks:1456, motos:391, sv:46, cr:134, us:24, pe:69, co:2,
+ pES:109, pCR:330, pIC:319, pPE:157, pCO:16, verticals:415},
+{q:"3Q25", written:17335.376, ceded:-6.664, retained:17342.040, resInc:-460.362, earned:17802.402,
+ acq:4252.696, comm:1314.827, comp:516.836, reinsComm:0.196, xl:8.809, otherAcq:2412.421,
+ loss:11110.627, tech:2439.079, opex:1048.062, admin:264.649, staff:640.777, da:142.636, opRes:1391.175,
+ rif:1134.491, invInc:566.097, sale:18.647, val:373.805, surcharge:145.793, fx:-12.124,
+ ibt:2525.665, tax:792.083, net:1733.583, acqR:24.5, lossR:62.4, opR:6.0, comb:93.0, rsi:7.6, roe12:26.7,
+ units:6143.191, inv:56094.912, valores:50274.969, gov:37815.620, corp:5009.091, eq:4677.382, foreign:2794.503, repo:1338.886, loans:745.328, realEstate:3735.729, float:52359,
+ cash:2963.333, premRec:42839.551, assets:114452.558, reserves:60874.195, upr:42687.040, creditors:12142.854, otherLiab:14415.625, liab:88354.194, equity:26098.365,
+ rcs:5968, solvMargin:17987, solvIdx:401, fiPct:86.4, duration:2.3},
+{q:"4Q25", written:22232.611, ceded:16.231, retained:22216.381, resInc:4194.057, earned:18022.323,
+ acq:4890.742, comm:1608.230, comp:469.161, reinsComm:1.440, xl:8.399, otherAcq:2806.391,
+ loss:13878.383, tech:-746.801, opex:798.162, admin:272.813, staff:380.657, da:144.691, opRes:-1544.874,
+ rif:1224.716, invInc:824.070, sale:-2.934, val:242.705, surcharge:148.530, fx:-14.067,
+ ibt:-320.157, tax:-129.967, net:-190.190, acqR:22.0, lossR:77.0, opR:3.6, comb:102.6, rsi:8.1, roe12:20.2,
+ units:6072.305, inv:57099.402, valores:50626.416, gov:37420.197, corp:5678.617, eq:4243.435, foreign:3304.522, repo:1582.571, loans:979.325, realEstate:3911.089, float:53188,
+ cash:2955.633, premRec:47838.018, assets:121936.366, reserves:65259.736, upr:46836.312, creditors:13709.129, otherLiab:16263.847, liab:96220.773, equity:25715.593,
+ rcs:6143, solvMargin:16105, solvIdx:362, fiPct:86.5, duration:2.3},
+{q:"1Q26", written:21693.090, ceded:7.468, retained:21685.622, resInc:2885.659, earned:18799.963,
+ acq:4898.940, comm:1444.941, comp:595.386, reinsComm:0.924, xl:9.815, otherAcq:2849.722,
+ loss:11774.662, tech:2126.361, opex:1088.093, admin:161.176, staff:791.128, da:135.789, opRes:1038.270,
+ rif:1175.593, invInc:820.204, sale:218.998, val:-52.137, surcharge:153.251, fx:-21.143,
+ ibt:2213.863, tax:658.605, net:1555.259, acqR:22.6, lossR:62.6, opR:5.0, comb:90.2, rsi:7.4, roe12:16.8,
+ units:6093.796, inv:57984.503, valores:51719.620, gov:37309.508, corp:7086.490, eq:4033.916, foreign:3310.192, repo:1313.041, loans:923.568, realEstate:4028.274, float:53956,
+ cash:2352.719, premRec:50462.377, assets:122993.925, reserves:69530.299, upr:49712.955, creditors:13732.871, otherLiab:11959.042, liab:96156.802, equity:26837.123,
+ rcs:6440, solvMargin:13750, solvIdx:314, fiPct:86.8, duration:2.5},
+{q:"2Q26", written:17329.024, ceded:259.318, retained:17069.706, resInc:-322.221, earned:17391.926,
+ acq:4288.540, comm:1306.255, comp:537.081, reinsComm:35.254, xl:27.403, otherAcq:2453.055,
+ loss:11271.894, tech:1831.492, opex:1006.936, admin:145.691, staff:716.879, da:144.366, opRes:824.612,
+ rif:1161.138, invInc:730.422, sale:535.409, val:-304.891, surcharge:159.843, fx:0.455,
+ ibt:1985.750, tax:597.148, net:1388.602, acqR:25.1, lossR:64.8, opR:5.8, comb:95.7, rsi:7.4, roe12:18.3,
+ units:6143.717, inv:57458.504, valores:50830.795, gov:35552.540, corp:7376.848, eq:4266.151, foreign:3640.077, repo:1707.346, loans:891.534, realEstate:4028.828, float:53430,
+ cash:2205.311, premRec:49737.191, assets:123701.686, reserves:69239.829, upr:49497.296, creditors:14033.965, otherLiab:14204.583, liab:98648.474, equity:25053.212,
+ rcs:6646, solvMargin:15984, solvIdx:341, fiPct:85.7, duration:2.6,
+ roePeriod:21.4, multiYearPct:20.7, mx:5801, autos:3982, trucks:1515, motos:304, sv:48, cr:158, us:18, pe:93, co:26,
+ pES:112, pCR:371, pIC:63, pPE:176, pCO:111, verticals:456}
+];
+Q.forEach(function(d){
+  d.otherRif = d.rif - (d.invInc + d.sale + d.val + d.surcharge + d.fx);
+  d.ownFunds = d.rcs + d.solvMargin;
+  var r = null; QRev.forEach(function(x){ if(x.q===d.q) r = x; });
+  d.pInd = r.ind; d.pFleet = r.fleet; d.pFin = r.fin; d.pIntl = r.intl;
+});
+var SHARES = 400; // millions of shares outstanding, unchanged 1Q24-2Q26
+
+/* ===================== HELPERS ===================== */
+var css = getComputedStyle(document.querySelector('.viz-root'));
+function cv(name){ return css.getPropertyValue(name).trim(); }
+var COL = { s1:cv('--s1'), s2:cv('--s2'), s3:cv('--s3'), s4:cv('--s4'), s7:cv('--s7'), s8:cv('--s8'),
+            grid:cv('--grid'), axis:cv('--axis'), muted:cv('--text-muted'), secondary:cv('--text-secondary'),
+            good:cv('--good'), bad:cv('--bad') };
+
+function fmtNum(v,d){ d = d===undefined?0:d; return v.toLocaleString('en-US',{minimumFractionDigits:d,maximumFractionDigits:d}); }
+function fmtM(v){ return (v===null||v===undefined) ? 'n/a' : fmtNum(v,0); }
+function yoy(cur,prev){ if(prev===null||prev===undefined||cur===null||cur===undefined||prev<=0||cur<0) return null; return (cur-prev)/prev*100; }
+function svgns(tag){ return document.createElementNS('http://www.w3.org/2000/svg', tag); }
+function niceScale(maxVal){
+  var best = null;
+  [4,5].forEach(function(ticks){
+    var raw = maxVal/ticks, mag = Math.pow(10, Math.floor(Math.log(raw)/Math.LN10)), norm = raw/mag;
+    var steps = [1,1.2,1.5,2,2.5,3,4,5,6,8,10], nice = 10;
+    for(var i=0;i<steps.length;i++){ if(norm<=steps[i]){ nice=steps[i]; break; } }
+    var step = nice*mag, max = step*ticks;
+    if(!best || max < best.max) best = {max:max, ticks:ticks};
+  });
+  return best;
+}
+
+var tooltip = document.getElementById('tooltip');
+function showTip(x,y,html){ tooltip.innerHTML = html; tooltip.style.left = x+'px'; tooltip.style.top = y+'px'; tooltip.classList.add('show'); }
+function hideTip(){ tooltip.classList.remove('show'); }
+function tipOn(el, fn){ el.addEventListener('mousemove', function(e){ showTip(e.clientX, e.clientY, fn()); }); el.addEventListener('mouseleave', hideTip); }
+
+function chartFrame(svg, W, H, margin){ return { W:W, H:H, m:margin, iw: W-margin.l-margin.r, ih: H-margin.t-margin.b }; }
+function axisY(svg, fr, maxV, minV, fmt, ticks){
+  ticks = ticks || 4;
+  var g = svgns('g');
+  for(var i=0;i<=ticks;i++){
+    var v = minV + (maxV-minV)*i/ticks;
+    var y = fr.m.t + fr.ih - (v-minV)/(maxV-minV)*fr.ih;
+    var line = svgns('line');
+    line.setAttribute('x1', fr.m.l); line.setAttribute('x2', fr.m.l+fr.iw);
+    line.setAttribute('y1', y); line.setAttribute('y2', y);
+    line.setAttribute('class','gridline');
+    g.appendChild(line);
+    var t = svgns('text');
+    t.setAttribute('x', fr.m.l-8); t.setAttribute('y', y+3.5);
+    t.setAttribute('text-anchor','end'); t.setAttribute('class','tick');
+    t.textContent = fmt(v);
+    g.appendChild(t);
+  }
+  svg.appendChild(g);
+}
+function axisX(svg, fr, labels, xOf){
+  var g = svgns('g');
+  var line = svgns('line');
+  line.setAttribute('x1', fr.m.l); line.setAttribute('x2', fr.m.l+fr.iw);
+  line.setAttribute('y1', fr.m.t+fr.ih); line.setAttribute('y2', fr.m.t+fr.ih);
+  line.setAttribute('class','axis');
+  g.appendChild(line);
+  labels.forEach(function(lab,i){
+    var t = svgns('text');
+    t.setAttribute('x', xOf(i)); t.setAttribute('y', fr.m.t+fr.ih+16);
+    t.setAttribute('text-anchor','middle'); t.setAttribute('class','tick'+(i===labels.length-1?' strong':''));
+    t.textContent = lab;
+    g.appendChild(t);
+  });
+  svg.appendChild(g);
+}
+function refLine(svg, fr, y, label){
+  var l = svgns('line');
+  l.setAttribute('x1', fr.m.l); l.setAttribute('x2', fr.m.l+fr.iw);
+  l.setAttribute('y1', y); l.setAttribute('y2', y); l.setAttribute('class','ref');
+  svg.appendChild(l);
+  if(label){
+    var t = svgns('text'); t.setAttribute('x', fr.m.l+fr.iw); t.setAttribute('y', y-4);
+    t.setAttribute('text-anchor','end'); t.setAttribute('class','lab'); t.textContent = label; svg.appendChild(t);
+  }
+}
+function legendRow(el, items){
+  el.innerHTML = items.map(function(it){
+    return '<span><span class="dot" style="background:'+it.c+'"></span>'+it.label+'</span>';
+  }).join('');
+}
+function addPath(svg, pts, color){
+  var path = svgns('path');
+  path.setAttribute('d', 'M'+pts.map(function(p){return p[0]+','+p[1];}).join(' L '));
+  path.setAttribute('fill','none'); path.setAttribute('stroke', color); path.setAttribute('stroke-width','2');
+  path.setAttribute('vector-effect','non-scaling-stroke');
+  svg.appendChild(path);
+}
+function addDot(svg, x, y, color, tipFn, r){
+  var c = svgns('circle');
+  c.setAttribute('cx', x); c.setAttribute('cy', y); c.setAttribute('r', r||3.5);
+  c.setAttribute('fill', color);
+  tipOn(c, tipFn);
+  svg.appendChild(c);
+}
+function addLabel(svg, x, y, text, anchor){
+  var t = svgns('text'); t.setAttribute('x', x); t.setAttribute('y', y);
+  t.setAttribute('text-anchor', anchor||'middle'); t.setAttribute('class','lab'); t.textContent = text; svg.appendChild(t);
+}
+
+/* ---------- generic single-series bar chart ---------- */
+function drawBarSingle(svgId, data, W, H, margin, valFn, labelFn, color, yFmt, tipFn){
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  var sc = niceScale(Math.max.apply(null, data.map(valFn)));
+  axisY(svg, fr, sc.max, 0, yFmt, sc.ticks);
+  var n = data.length, bw = fr.iw/n*0.56, gap = fr.iw/n;
+  var xOf = function(i){ return fr.m.l + gap*i + gap/2; };
+  axisX(svg, fr, data.map(labelFn), xOf);
+  data.forEach(function(d,i){
+    var v = valFn(d), h = v/sc.max*fr.ih;
+    var rect = svgns('rect');
+    rect.setAttribute('x', xOf(i)-bw/2); rect.setAttribute('y', fr.m.t+fr.ih-h);
+    rect.setAttribute('width', bw); rect.setAttribute('height', Math.max(h,1));
+    rect.setAttribute('fill', color); rect.setAttribute('rx', 2);
+    tipOn(rect, function(){ return tipFn(d); });
+    svg.appendChild(rect);
+  });
+}
+
+/* ---------- generic single-series line chart ---------- */
+function drawLineSingle(svgId, data, W, H, margin, valFn, labelFn, color, yFmt, tipFn, yTicks, isPct, band){
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  var vals = data.map(valFn);
+  var maxV = Math.max.apply(null, vals), minV = Math.min.apply(null, vals);
+  if(band){ maxV = Math.max(maxV, band[1]); minV = Math.min(minV, band[0]); }
+  /* pad the range, then snap both bounds to a round step so every tick is a round number */
+  var padR = Math.max(isPct?5:0, (maxV-minV||Math.abs(maxV)||1)*0.12);
+  var lo = minV-padR, hi = maxV+padR, span = hi-lo;
+  var mag = Math.pow(10, Math.floor(Math.log(span/4)/Math.LN10)), stepPick = 10*mag;
+  [1,2,2.5,5,10].forEach(function(m){ var s=m*mag; if(s>=span/6 && s<stepPick) stepPick=s; });
+  if(isPct && stepPick<5) stepPick = 5;
+  minV = Math.floor(lo/stepPick)*stepPick; maxV = Math.ceil(hi/stepPick)*stepPick;
+  if(isPct && minV<0 && Math.min.apply(null,vals)>=0 && (!band)) minV = 0;
+  yTicks = Math.round((maxV-minV)/stepPick);
+  axisY(svg, fr, maxV, minV, yFmt, yTicks);
+  var n = data.length, gap = fr.iw/(n-1);
+  var xOf = function(i){ return fr.m.l+gap*i; };
+  axisX(svg, fr, data.map(labelFn), xOf);
+  var yOf = function(v){ return fr.m.t+fr.ih-(v-minV)/(maxV-minV)*fr.ih; };
+  if(band){
+    var r = svgns('rect'); r.setAttribute('class','band');
+    r.setAttribute('x', fr.m.l); r.setAttribute('width', fr.iw);
+    r.setAttribute('y', yOf(band[1])); r.setAttribute('height', yOf(band[0])-yOf(band[1]));
+    svg.appendChild(r);
+    addLabel(svg, fr.m.l+6, yOf(band[1])-4, band[2], 'start');
+  }
+  if(isPct){
+    var zy = yOf(0);
+    if(zy >= fr.m.t && zy <= fr.m.t+fr.ih){
+      var zline = svgns('line');
+      zline.setAttribute('x1', fr.m.l); zline.setAttribute('x2', fr.m.l+fr.iw);
+      zline.setAttribute('y1', zy); zline.setAttribute('y2', zy);
+      zline.setAttribute('class','axis');
+      svg.appendChild(zline);
+    }
+  }
+  var pts = data.map(function(d,i){ return [xOf(i), yOf(valFn(d))]; });
+  addPath(svg, pts, color);
+  data.forEach(function(d,i){ addDot(svg, pts[i][0], pts[i][1], color, function(){ return tipFn(d); }); });
+}
+
+/* ---------- generic multi-series line chart ---------- */
+function drawLines(svgId, legId, data, series, W, H, margin, labelFn, yFmt, minV, maxV, ticks, tipFmt){
+  legendRow(document.getElementById(legId), series);
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  axisY(svg, fr, maxV, minV, yFmt, ticks||4);
+  var n=data.length, gap=fr.iw/(n-1);
+  var xOf = function(i){ return fr.m.l+gap*i; };
+  axisX(svg, fr, data.map(labelFn), xOf);
+  var yOf = function(v){ return fr.m.t+fr.ih-(v-minV)/(maxV-minV)*fr.ih; };
+  series.forEach(function(s){
+    var pts = data.map(function(d,i){ return [xOf(i), yOf(s.v(d))]; });
+    addPath(svg, pts, s.c);
+    data.forEach(function(d,i){ addDot(svg, pts[i][0], pts[i][1], s.c, function(){ return '<b>'+labelFn(d)+'</b><br>'+s.label+': '+tipFmt(s.v(d)); }, 3.2); });
+  });
+}
+
+/* ---------- generic stacked bar chart ---------- */
+function drawStacked(svgId, legId, data, layers, W, H, margin, labelFn, opts){
+  opts = opts || {};
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  var sums = data.map(function(d){ return layers.reduce(function(s,ly){ return s + Math.max(0, d[ly.k]||0); }, 0); });
+  var sc = opts.maxV ? {max:opts.maxV, ticks:opts.ticks||4} : niceScale(Math.max.apply(null, sums));
+  var yFmt = opts.yFmt || function(v){ return fmtNum(v,0); };
+  axisY(svg, fr, sc.max, 0, yFmt, sc.ticks);
+  var n = data.length, bw = fr.iw/n*0.56, gap = fr.iw/n;
+  var xOf = function(i){ return fr.m.l + gap*i + gap/2; };
+  var yOf = function(v){ return fr.m.t+fr.ih - v/sc.max*fr.ih; };
+  axisX(svg, fr, data.map(labelFn), xOf);
+  if(opts.ref !== undefined) refLine(svg, fr, yOf(opts.ref), opts.refLabel);
+  if(legId) legendRow(document.getElementById(legId), layers);
+  var unit = opts.unit || function(v){ return 'Ps. '+fmtNum(v,0)+'M'; };
+  data.forEach(function(d,i){
+    var y0 = fr.m.t+fr.ih, x = xOf(i)-bw/2, label = labelFn(d);
+    layers.forEach(function(ly){
+      var val = Math.max(0, d[ly.k]||0);
+      if(!val) return;
+      var h = val/sc.max*fr.ih, y = y0-h;
+      var rect = svgns('rect');
+      rect.setAttribute('x', x); rect.setAttribute('y', y);
+      rect.setAttribute('width', bw); rect.setAttribute('height', Math.max(h-1,0));
+      rect.setAttribute('fill', ly.c); rect.setAttribute('rx', 2);
+      tipOn(rect, function(){ return '<b>'+label+'</b><br>'+ly.label+': '+unit(val)+(opts.tipExtra ? '<br>'+opts.tipExtra(d) : ''); });
+      svg.appendChild(rect);
+      y0 = y;
+    });
+    if(opts.topLabel){ var tl = opts.topLabel(d,i,n); if(tl) addLabel(svg, xOf(i), y0-5, tl); }
+  });
+}
+
+/* ---------- generic grouped bar chart (positive & negative) ---------- */
+function drawGrouped(svgId, legId, data, series, W, H, margin, labelFn, unit){
+  legendRow(document.getElementById(legId), series);
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  var allVals = [];
+  data.forEach(function(d){ series.forEach(function(s){ allVals.push(s.v(d)); }); });
+  var scP = niceScale(Math.max.apply(null, allVals)), scN = niceScale(Math.max(1, -Math.min.apply(null, allVals)));
+  var step = Math.max(scP.max/scP.ticks, scN.max/scN.ticks);
+  var maxV = Math.ceil(Math.max.apply(null, allVals)/step)*step;
+  var minV = Math.min(0, Math.floor(Math.min.apply(null, allVals)/step)*step);
+  axisY(svg, fr, maxV, minV, function(v){return fmtNum(v,0);}, Math.round((maxV-minV)/step));
+  var n=data.length, gap=fr.iw/n, groupW=gap*0.72, bw=groupW/series.length;
+  var xOf = function(i){ return fr.m.l+gap*i+gap/2; };
+  axisX(svg, fr, data.map(labelFn), xOf);
+  var zeroY = fr.m.t + fr.ih*(maxV/(maxV-minV));
+  var zline = svgns('line');
+  zline.setAttribute('x1', fr.m.l); zline.setAttribute('x2', fr.m.l+fr.iw);
+  zline.setAttribute('y1', zeroY); zline.setAttribute('y2', zeroY);
+  zline.setAttribute('class','axis');
+  svg.appendChild(zline);
+  data.forEach(function(d,i){
+    var gx = xOf(i)-groupW/2;
+    series.forEach(function(s, si){
+      var v = s.v(d);
+      var h = Math.abs(v)/(maxV-minV)*fr.ih;
+      var y = v>=0 ? zeroY-h : zeroY;
+      var rect = svgns('rect');
+      rect.setAttribute('x', gx+si*bw+1); rect.setAttribute('y', y);
+      rect.setAttribute('width', bw-2); rect.setAttribute('height', Math.max(h,1));
+      rect.setAttribute('fill', s.c); rect.setAttribute('rx', 1.5);
+      tipOn(rect, function(){ return '<b>'+labelFn(d)+'</b><br>'+s.label+': '+unit(v); });
+      svg.appendChild(rect);
+    });
+  });
+}
+
+/* ---------- diverging YoY bar ---------- */
+function drawDiverging(svgId, series, W, H, margin, tipLabel){
+  var svg = document.getElementById(svgId);
+  var fr = chartFrame(svg, W, H, margin);
+  var maxAbs = Math.ceil(Math.max.apply(null, series.map(function(s){return Math.abs(s.v);}))/5)*5;
+  axisY(svg, fr, maxAbs, -maxAbs, function(v){return v.toFixed(0)+'%';}, 4);
+  var n=series.length, bw=fr.iw/n*0.5, gap=fr.iw/n;
+  var xOf = function(i){ return fr.m.l+gap*i+gap/2; };
+  axisX(svg, fr, series.map(function(s){return s.q;}), xOf);
+  var zeroY = fr.m.t+fr.ih/2;
+  var zline = svgns('line');
+  zline.setAttribute('x1', fr.m.l); zline.setAttribute('x2', fr.m.l+fr.iw);
+  zline.setAttribute('y1', zeroY); zline.setAttribute('y2', zeroY);
+  zline.setAttribute('class','axis');
+  svg.appendChild(zline);
+  series.forEach(function(s,i){
+    var h = Math.abs(s.v)/maxAbs*(fr.ih/2), up = s.v>=0, y = up ? zeroY-h : zeroY;
+    var rect = svgns('rect');
+    rect.setAttribute('x', xOf(i)-bw/2); rect.setAttribute('y', y);
+    rect.setAttribute('width', bw); rect.setAttribute('height', Math.max(h,1));
+    rect.setAttribute('fill', up?COL.s1:COL.s8); rect.setAttribute('rx', 2);
+    tipOn(rect, function(){ return '<b>'+s.q+'</b><br>'+tipLabel+': '+(up?'+':'')+s.v.toFixed(1)+'%'; });
+    svg.appendChild(rect);
+  });
+}
+
+/* ===================== KPI ROW ===================== */
+(function(){
+  var cur = Q[9], prev = Q[5];
+  var combCur = (cur.acq/cur.retained + cur.loss/cur.earned + cur.opex/cur.written)*100;
+  var combPrev = (prev.acq/prev.retained + prev.loss/prev.earned + prev.opex/prev.written)*100;
+  var items = [
+    {label:'Written premiums', val:'Ps. '+fmtM(cur.written)+'M', kind:'pct', d:yoy(cur.written, prev.written), sub:'vs 2Q25: Ps. '+fmtM(prev.written)+'M'},
+    {label:'Combined ratio', val:combCur.toFixed(1)+'%', kind:'bp', d:(combCur-combPrev)*100, inverse:true, sub:'loss ratio '+(cur.loss/cur.earned*100).toFixed(1)+'% · acquisition '+(cur.acq/cur.retained*100).toFixed(1)+'% · operating '+(cur.opex/cur.written*100).toFixed(1)+'%'},
+    {label:'Net income', val:'Ps. '+fmtM(cur.net)+'M', kind:'pct', d:yoy(cur.net, prev.net), sub:'vs 2Q25: Ps. '+fmtM(prev.net)+'M'},
+    {label:'Insured units', val:fmtNum(cur.units/1000,2)+'m', kind:'pct', d:yoy(cur.units, prev.units), sub:'record quarter-end; Mexico '+fmtNum(cur.mx,0)+'k of '+fmtNum(cur.units,0)+'k'},
+    {label:'ROE 12M', val:cur.roe12.toFixed(1)+'%', kind:'bp', d:(cur.roe12-prev.roe12)*100, sub:'trailing 12 months, as reported; RSI '+cur.rsi.toFixed(1)+'%'}
+  ];
+  var row = document.getElementById('kpiRow');
+  items.forEach(function(it){
+    var up = it.d>=0, good = it.inverse ? !up : up;
+    var txt = it.kind==='bp' ? Math.abs(Math.round(it.d))+' bp YoY' : Math.abs(it.d).toFixed(1)+'% YoY';
+    var el = document.createElement('div'); el.className='kpi';
+    el.innerHTML = '<div class="label">'+it.label+'</div><div class="value">'+it.val+'</div>'+
+      '<div class="delta '+(good?'up':'down')+'">'+(up?'&#9650; ':'&#9660; ')+txt+'</div>' +
+      '<div class="sub2">'+it.sub+'</div>';
+    row.appendChild(el);
+  });
+})();
+
+/* ===================== REVENUE DRIVERS ===================== */
+var REV_LAYERS = [ {k:'ind', c:COL.s1, label:'Individual'}, {k:'fleet', c:COL.s2, label:'Fleets'}, {k:'fin', c:COL.s3, label:'Financial institutions'}, {k:'intl', c:COL.s4, label:'Foreign subsidiaries'}, {k:'other', c:COL.s7, label:'Other / consolidation adj.'} ];
+drawStacked('chartRev', 'legRev', QRev, REV_LAYERS, 1120, 300, {l:52,r:16,t:14,b:34}, function(d){return d.q;}, {tipExtra:function(d){ return 'Total written: Ps. '+fmtM(d.total)+'M'; }});
+drawStacked('chartRevY', 'legRevY', A, REV_LAYERS, 660, 260, {l:52,r:16,t:14,b:34}, function(d){return d.y;}, {tipExtra:function(d){ return 'Total written: Ps. '+fmtM(d.total)+'M'+(d.partial?' (YTD)':''); }});
+
+(function(){
+  var series = QRev.slice(4).map(function(d,i){ return {label:d.q, v: yoy(d.total, QRev[i].total)}; });
+  drawLineSingle('chartRevYoYQ', series, 660, 260, {l:40,r:14,t:14,b:34},
+    function(d){return d.v;}, function(d){return d.label;}, COL.s1,
+    function(v){return v.toFixed(0)+'%';},
+    function(d){return '<b>'+d.label+'</b><br>Written premiums YoY: '+(d.v>=0?'+':'')+d.v.toFixed(1)+'%';}, 4, true);
+})();
+(function(){
+  var series = A.slice(1).map(function(d){ return {label:d.y, v: yoy(d.total, d.prevTotal)}; });
+  drawLineSingle('chartRevYoYY', series, 660, 260, {l:40,r:14,t:14,b:34},
+    function(d){return d.v;}, function(d){return d.label;}, COL.s1,
+    function(v){return v.toFixed(0)+'%';},
+    function(d){return '<b>'+d.label+'</b><br>Written premiums YoY: '+(d.v>=0?'+':'')+d.v.toFixed(1)+'%';}, 4, true);
+})();
+
+/* TTM written premium per insured unit (Ps.), 1Q24-2Q26 */
+function ttmPerUnit(i){ // i = index in QRev, needs i>=4
+  var ttm = QRev[i].total + QRev[i-1].total + QRev[i-2].total + QRev[i-3].total;
+  var avgUnits = (QRev[i].units + QRev[i-4].units)/2;
+  return ttm/avgUnits*1000;
+}
+(function(){
+  var series = [];
+  for(var i=8;i<QRev.length;i++) series.push({label:QRev[i].q, v: ttmPerUnit(i)});
+  drawLineSingle('chartYield', series, 660, 260, {l:48,r:14,t:14,b:34},
+    function(d){return d.v;}, function(d){return d.label;}, COL.s2,
+    function(v){return fmtNum(v,0);},
+    function(d){return '<b>'+d.label+'</b><br>Ps. '+fmtNum(d.v,0)+' per insured unit (TTM)';}, 4, false);
+})();
+
+drawBarSingle('chartUnitsQ', QRev, 1120, 300, {l:52,r:16,t:14,b:34},
+  function(d){return d.units;}, function(d){return d.q;}, COL.s1,
+  function(v){return fmtNum(v,0);},
+  function(d){return '<b>'+d.q+'</b><br>'+fmtNum(d.units,0)+'k insured units';});
+drawBarSingle('chartUnitsY', A, 660, 260, {l:52,r:16,t:14,b:34},
+  function(d){return d.units;}, function(d){return d.y;}, COL.s1,
+  function(v){return fmtNum(v,0);},
+  function(d){return '<b>'+d.y+'</b><br>'+fmtNum(d.units,0)+'k insured units'+(d.partial?' (at 2Q26)':' (year-end)');});
+(function(){
+  var series = QRev.slice(4).map(function(d,i){ return {label:d.q, v: yoy(d.units, QRev[i].units)}; });
+  drawLineSingle('chartUnitsYoYQ', series, 660, 260, {l:40,r:14,t:14,b:34},
+    function(d){return d.v;}, function(d){return d.label;}, COL.s2,
+    function(v){return v.toFixed(0)+'%';},
+    function(d){return '<b>'+d.label+'</b><br>Insured units YoY: '+(d.v>=0?'+':'')+d.v.toFixed(1)+'%';}, 4, true);
+})();
+(function(){
+  var series = A.slice(1).map(function(d){ return {label:d.y, v: yoy(d.units, d.prevUnits)}; });
+  drawLineSingle('chartUnitsYoYY', series, 660, 260, {l:40,r:14,t:14,b:34},
+    function(d){return d.v;}, function(d){return d.label;}, COL.s2,
+    function(v){return v.toFixed(0)+'%';},
+    function(d){return '<b>'+d.label+'</b><br>Insured units YoY: '+(d.v>=0?'+':'')+d.v.toFixed(1)+'%';}, 4, true);
+})();
+
+/* ===================== INCOME STATEMENT CHARTS ===================== */
+(function(){
+  var series = Q.map(function(d){ var i = QRev.map(function(x){return x.q;}).indexOf(d.q); return {q:d.q, v: yoy(QRev[i].total, QRev[i-4].total)}; });
+  drawDiverging('chartYoY', series, 660, 260, {l:40,r:14,t:14,b:34}, 'Written premiums YoY');
+})();
+(function(){
+  Q.forEach(function(d){ d.acqRc = d.acq/d.retained*100; d.lossRc = d.loss/d.earned*100; d.opRc = d.opex/d.written*100; d.combc = d.acqRc+d.lossRc+d.opRc; });
+  drawStacked('chartComb', 'legComb', Q,
+    [ {k:'lossRc', c:COL.s1, label:'Loss ratio'}, {k:'acqRc', c:COL.s2, label:'Acquisition ratio'}, {k:'opRc', c:COL.s3, label:'Operating ratio'} ],
+    660, 260, {l:40,r:14,t:18,b:34}, function(d){return d.q;},
+    {maxV:120, ticks:6, yFmt:function(v){return v.toFixed(0)+'%';}, unit:function(v){return v.toFixed(1)+'%';}, ref:100, refLabel:'100% break-even',
+     tipExtra:function(d){ return 'Combined: '+d.combc.toFixed(1)+'%'; },
+     topLabel:function(d,i,n){ return (i===n-1 || d.combc>100) ? d.combc.toFixed(1)+'%' : null; }});
+})();
+drawLineSingle('chartLoss', Q, 660, 260, {l:40,r:14,t:14,b:34},
+  function(d){return d.lossRc;}, function(d){return d.q;}, COL.s1,
+  function(v){return v.toFixed(0)+'%';},
+  function(d){return '<b>'+d.q+'</b><br>Loss ratio: '+d.lossRc.toFixed(1)+'%';}, 4, true, [62,65,'target 62-65%']);
+
+/* ===================== INCOME STATEMENT TABLE ===================== */
+(function(){
+  var CUR = Q[9], BASE = Q[5];
+  function es(s){ return s ? ' <span class="es">'+s+'</span>' : ''; }
+  function tdDelta(v, inverse, isBp){
+    if(v===null||v===undefined||isNaN(v)) return '<td>n/m</td>';
+    var good = inverse ? v<=0 : v>=0;
+    var txt = isBp ? (v>=0?'+':'')+Math.round(v)+' bp' : (v>=0?'+':'')+v.toFixed(1)+'%';
+    return '<td class="'+(good?'pos':'neg')+'">'+txt+'</td>';
+  }
+  function tr(label, esName, curCell, baseCell, deltaCell, cls){
+    cls = cls ? ' class="'+cls+'"' : '';
+    return '<tr'+cls+'><td>'+label+es(esName)+'</td><td>'+curCell+'</td><td>'+baseCell+'</td>'+deltaCell+'</tr>';
+  }
+  function rowMM(label, esName, k, cls, inverse){
+    return tr(label, esName, fmtM(CUR[k]), fmtM(BASE[k]), tdDelta(yoy(CUR[k], BASE[k]), inverse, false), cls);
+  }
+  function rowVal(label, esName, cur, base, fmt, cls, inverse){
+    return tr(label, esName, fmt(cur), fmt(base), tdDelta(yoy(cur, base), inverse, false), cls);
+  }
+  function rowPct(label, esName, curPct, basePct, cls, inverse){
+    return tr(label, esName, curPct.toFixed(1)+'%', basePct.toFixed(1)+'%', tdDelta((curPct-basePct)*100, inverse, true), cls||'sub-row');
+  }
+  function rowStatic(label, esName, v, cls){ return tr(label, esName, v, v, '<td>&mdash;</td>', cls); }
+  var k0 = function(v){ return fmtNum(v,0); };
+  var rows = [];
+
+  // Drivers
+  rows.push(rowVal('Insured units, total (thousands)', 'unidades aseguradas', CUR.units, BASE.units, k0));
+  rows.push(rowVal('Mexico', '', CUR.mx, BASE.mx, k0, 'item-row'));
+  rows.push(rowVal('Automobiles', 'autom&oacute;viles', CUR.autos, BASE.autos, k0, 'item2-row'));
+  rows.push(rowVal('Trucks &amp; buses', 'camiones', CUR.trucks, BASE.trucks, k0, 'item2-row'));
+  rows.push(rowVal('Motorcycles &amp; foreign liability', 'motocicletas y RC extranjero', CUR.motos, BASE.motos, k0, 'item2-row'));
+  rows.push(rowVal('Costa Rica', '', CUR.cr, BASE.cr, k0, 'item-row'));
+  rows.push(rowVal('Peru', '', CUR.pe, BASE.pe, k0, 'item-row'));
+  rows.push(rowVal('El Salvador', '', CUR.sv, BASE.sv, k0, 'item-row'));
+  rows.push(rowVal('Colombia (start-up, first policies 2Q25)', '', CUR.co, BASE.co, k0, 'item-row'));
+  rows.push(rowVal('United States (run-off of cross-border book)', '', CUR.us, BASE.us, k0, 'item-row'));
+  rows.push(rowStatic('Countries with insurance subsidiaries', '', '6'));
+  rows.push(rowVal('TTM written premium per insured unit (Ps.)', '', ttmPerUnit(17), ttmPerUnit(13), k0));
+  rows.push(rowVal('Non-insurance verticals revenue (Flekk, Autos y Salvamentos, etc.), not premiums', 'verticales', CUR.verticals, BASE.verticals, k0));
+
+  // Written premiums by line and country
+  rows.push(rowMM('Individual', 'individual', 'pInd'));
+  rows.push(rowPct('&mdash; as % of written premiums', '', CUR.pInd/CUR.written*100, BASE.pInd/BASE.written*100));
+  rows.push(rowMM('Fleets', 'flotillas', 'pFleet'));
+  rows.push(rowPct('&mdash; as % of written premiums', '', CUR.pFleet/CUR.written*100, BASE.pFleet/BASE.written*100));
+  rows.push(rowMM('Financial institutions (auto-loan channel)', 'instituciones financieras', 'pFin'));
+  rows.push(rowPct('&mdash; as % of written premiums', '', CUR.pFin/CUR.written*100, BASE.pFin/BASE.written*100));
+  rows.push(rowMM('Foreign subsidiaries', 'subsidiarias en el extranjero', 'pIntl'));
+  rows.push(rowPct('&mdash; as % of written premiums', '', CUR.pIntl/CUR.written*100, BASE.pIntl/BASE.written*100));
+  rows.push(rowMM('Costa Rica', 'Q CR', 'pCR', 'item-row'));
+  rows.push(rowMM('Peru', 'Q P', 'pPE', 'item-row'));
+  rows.push(rowMM('El Salvador', 'Q ES', 'pES', 'item-row'));
+  rows.push(rowMM('Colombia', 'Q Col', 'pCO', 'item-row'));
+  rows.push(rowMM('United States', 'Q IC', 'pIC', 'item-row'));
+  rows.push(rowMM('Total written premiums', 'prima emitida', 'written', 'section-row'));
+  rows.push(rowPct('&mdash; multi-year policies, % of written premiums (as reported)', '', CUR.multiYearPct, BASE.multiYearPct));
+  rows.push(rowMM('Ceded premiums', 'primas cedidas', 'ceded', null, true));
+  rows.push(rowMM('Retained premiums', 'prima retenida', 'retained'));
+  rows.push(rowPct('&mdash; retention ratio (retained &divide; written)', '', CUR.retained/CUR.written*100, BASE.retained/BASE.written*100));
+  rows.push(rowMM('Net increase (release) in unearned-premium reserve', 'incremento neto de la reserva de riesgos en curso', 'resInc', null, true));
+  rows.push(rowMM('Earned premiums', 'prima devengada', 'earned', 'section-row'));
+
+  // Costs
+  rows.push(rowMM('Acquisition cost', 'costo neto de adquisici&oacute;n', 'acq', null, true));
+  rows.push(rowMM('Commissions to agents', 'comisiones a agentes', 'comm', 'item-row', true));
+  rows.push(rowMM('Additional compensation to agents', 'compensaciones adicionales', 'comp', 'item-row', true));
+  rows.push(rowMM('Excess-of-loss reinsurance cover', 'cobertura de exceso de p&eacute;rdida', 'xl', 'item-row', true));
+  rows.push(rowMM('Other, incl. payments to financial institutions (UDI)', 'otros', 'otherAcq', 'item-row', true));
+  rows.push(tr('Less: commissions on ceded reinsurance', 'comisiones por reaseguro cedido', '('+fmtM(CUR.reinsComm)+')', '('+fmtM(BASE.reinsComm)+')', '<td>n/m</td>', 'item-row'));
+  rows.push(rowPct('&mdash; acquisition ratio (&divide; retained premiums)', '&iacute;ndice de adquisici&oacute;n', CUR.acq/CUR.retained*100, BASE.acq/BASE.retained*100, null, true));
+  rows.push(rowMM('Claims cost', 'costo neto de siniestralidad', 'loss', null, true));
+  rows.push(rowPct('&mdash; loss ratio (&divide; earned premiums)', '&iacute;ndice de siniestralidad', CUR.loss/CUR.earned*100, BASE.loss/BASE.earned*100, null, true));
+  rows.push(rowMM('Technical result', 'resultado t&eacute;cnico', 'tech', 'section-row'));
+  rows.push(rowPct('&mdash; technical margin (&divide; earned premiums)', '', CUR.tech/CUR.earned*100, BASE.tech/BASE.earned*100));
+  rows.push(rowMM('Operating expenses, net', 'gastos de operaci&oacute;n', 'opex', null, true));
+  rows.push(rowMM('Administrative &amp; operating, net of policy fees', 'gastos administrativos y operativos', 'admin', 'item-row', true));
+  rows.push(rowMM('Personnel', 'remuneraciones y prestaciones', 'staff', 'item-row', true));
+  rows.push(rowMM('Depreciation &amp; amortization', 'depreciaciones y amortizaciones', 'da', 'item-row', true));
+  rows.push(rowPct('&mdash; operating ratio (&divide; written premiums)', '&iacute;ndice de operaci&oacute;n', CUR.opex/CUR.written*100, BASE.opex/BASE.written*100, null, true));
+  rows.push(rowMM('Operating result', 'resultado de operaci&oacute;n', 'opRes', 'section-row'));
+  rows.push(rowPct('&mdash; operating margin (&divide; earned premiums)', 'margen operativo', CUR.opRes/CUR.earned*100, BASE.opRes/BASE.earned*100));
+  rows.push(rowPct('&mdash; combined ratio (acquisition + loss + operating)', '&iacute;ndice combinado', CUR.combc, BASE.combc, null, true));
+  rows.push(rowPct('&mdash; adjusted combined ratio (all three costs &divide; earned premiums)', '&iacute;ndice combinado ajustado', (CUR.acq+CUR.loss+CUR.opex)/CUR.earned*100, (BASE.acq+BASE.loss+BASE.opex)/BASE.earned*100, null, true));
+
+  // Financing result & net income
+  rows.push(rowMM('Comprehensive financing result (RIF)', 'resultado integral de financiamiento', 'rif'));
+  rows.push(rowMM('Investment income (accrual)', 'de inversiones', 'invInc', 'item-row'));
+  rows.push(rowMM('Realized gains on sale of investments', 'por venta de inversiones', 'sale', 'item-row'));
+  rows.push(rowMM('Valuation of investments (mark-to-market)', 'por valuaci&oacute;n de inversiones', 'val', 'item-row'));
+  rows.push(rowMM('Surcharge on premiums paid in installments', 'recargo sobre primas', 'surcharge', 'item-row'));
+  rows.push(rowMM('FX result', 'resultado cambiario', 'fx', 'item-row'));
+  rows.push(rowMM('Other, net (loan interest, provisions, other)', '', 'otherRif', 'item-row'));
+  rows.push(rowPct('&mdash; return on investments, RSI (annualized, as reported)', 'rendimiento sobre inversiones', CUR.rsi, BASE.rsi));
+  rows.push(rowMM('Income before income taxes', 'utilidad antes de impuestos', 'ibt'));
+  rows.push(rowMM('Income taxes', 'impuestos a la utilidad', 'tax', null, true));
+  rows.push(rowPct('&mdash; effective tax rate', '', CUR.tax/CUR.ibt*100, BASE.tax/BASE.ibt*100, null, true));
+  rows.push(rowMM('Net income', 'resultado neto', 'net', 'section-row'));
+  rows.push(rowPct('&mdash; net margin (&divide; written premiums)', 'margen neto', CUR.net/CUR.written*100, BASE.net/BASE.written*100));
+  rows.push(rowPct('&mdash; ROE for the period, annualized (as reported)', 'ROE del periodo', CUR.roePeriod, BASE.roePeriod));
+  rows.push(rowPct('&mdash; ROE, trailing 12 months (as reported)', 'ROE 12M', CUR.roe12, BASE.roe12));
+
+  var head = '<caption>Ps. millions unless noted. The YoY column follows Qu&aacute;litas&rsquo; own &ldquo;&Delta; %/pb&rdquo; convention: relative % change for amounts and basis-point (bp) change for ratios and margins (100 bp = 1 percentage point). Cost lines and cost ratios are colored inversely, so an increase reads as adverse. Indented italic rows are derived metrics (ratio, margin or rate), never reported line items; the small italic captions are the Spanish CNSF statement names. Written premiums by line of business are as disclosed in the release and do not sum exactly to the reported total (2Q26 residual Ps. 85m; 2Q25 Ps. 56m).</caption>';
+  head += '<thead><tr><th>Line item</th><th>'+CUR.q+'</th><th>'+BASE.q+'</th><th>YoY change</th></tr></thead>';
+  document.getElementById('tblIncome').innerHTML = head + '<tbody>' + rows.join('') + '</tbody>';
+})();
+
+/* ===================== BALANCE SHEET ===================== */
+(function(){
+  var svg = document.getElementById('chartBS');
+  legendRow(document.getElementById('legBS'), [{c:COL.s1,label:'Total assets'},{c:COL.s2,label:'Total liabilities'},{c:COL.s3,label:'Total equity'}]);
+  var fr = chartFrame(svg, 660, 260, {l:52,r:14,t:14,b:34});
+  var sc = niceScale(Math.max.apply(null, Q.map(function(d){return d.assets;})));
+  axisY(svg, fr, sc.max, 0, function(v){return fmtNum(v,0);}, sc.ticks);
+  var n=Q.length, gap=fr.iw/(n-1);
+  var xOf = function(i){ return fr.m.l+gap*i; };
+  axisX(svg, fr, Q.map(function(d){return d.q;}), xOf);
+  var yOf = function(v){ return fr.m.t+fr.ih-v/sc.max*fr.ih; };
+  [ {k:'assets', c:COL.s1, label:'Total assets'}, {k:'liab', c:COL.s2, label:'Total liabilities'}, {k:'equity', c:COL.s3, label:'Total equity'} ].forEach(function(series){
+    var pts = Q.map(function(d,i){ return [xOf(i), yOf(d[series.k])]; });
+    addPath(svg, pts, series.c);
+    Q.forEach(function(d,i){ addDot(svg, pts[i][0], pts[i][1], series.c, function(){ return '<b>'+d.q+'</b><br>'+series.label+': Ps. '+fmtM(d[series.k])+'M'; }, 3.2); });
+  });
+})();
+(function(){
+  Q.forEach(function(d){ d.lev = d.liab/d.equity; d.cov = d.inv/d.reserves; });
+  drawLines('chartRatio', 'legRatio', Q,
+    [ {v:function(d){return d.lev;}, c:COL.s1, label:'Liabilities / equity (x)'}, {v:function(d){return d.cov;}, c:COL.s2, label:'Investments / technical reserves (x)'} ],
+    440, 260, {l:36,r:14,t:14,b:34}, function(d){return d.q;}, function(v){return v.toFixed(1)+'x';}, 0, 5, 5, function(v){return v.toFixed(2)+'x';});
+})();
+(function(){
+  var t = document.getElementById('tblBalance');
+  var head = '<caption>Ps. millions, quarter-end balances, CNSF format. 4Q24 = audited year-end figures (see note).</caption>';
+  head += '<thead><tr><th>Line item</th>' + Q.map(function(d){return '<th>'+d.q+'</th>';}).join('') + '</tr></thead>';
+  function es(s){ return ' <span class="es">'+s+'</span>'; }
+  var rows = [
+    {label:'Cash &amp; banks'+es('disponibilidad'), k:'cash'},
+    {label:'Total investments'+es('inversiones'), k:'inv'},
+    {label:'&mdash; of which securities portfolio'+es('valores'), k:'valores', cls:'item-row'},
+    {label:'Premium receivables'+es('deudor por primas'), k:'premRec'},
+    {label:'Total assets'+es('suma del activo'), k:'assets', bold:true},
+    {label:'Technical reserves'+es('reservas t&eacute;cnicas'), k:'reserves'},
+    {label:'&mdash; of which unearned-premium reserve'+es('riesgos en curso'), k:'upr', cls:'item-row'},
+    {label:'Creditors (agents, adjusters, other)'+es('acreedores'), k:'creditors'},
+    {label:'Other liabilities (taxes, PTU, other)'+es('otros pasivos'), k:'otherLiab'},
+    {label:'Total liabilities'+es('suma del pasivo'), k:'liab', bold:true},
+    {label:'Total stockholders&rsquo; equity'+es('capital contable'), k:'equity', bold:true}
+  ];
+  var body = '<tbody>' + rows.map(function(r){
+    var cells = Q.map(function(d){ return '<td>'+fmtM(d[r.k])+'</td>'; }).join('');
+    return '<tr class="'+(r.bold?'section-row':(r.cls||''))+'"><td>'+r.label+'</td>'+cells+'</tr>';
+  }).join('');
+  body += '<tr><td>Liabilities / equity (x)</td>'+Q.map(function(d){return '<td>'+d.lev.toFixed(2)+'x</td>';}).join('')+'</tr>';
+  body += '<tr><td>Investments / technical reserves (x)</td>'+Q.map(function(d){return '<td>'+d.cov.toFixed(2)+'x</td>';}).join('')+'</tr>';
+  body += '<tr><td>Premium receivables / total assets (%)</td>'+Q.map(function(d){return '<td>'+(d.premRec/d.assets*100).toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body += '<tr><td>Equity / total assets (%)</td>'+Q.map(function(d){return '<td>'+(d.equity/d.assets*100).toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body += '<tr><td>Book value per share (Ps., 400m shares)</td>'+Q.map(function(d){return '<td>'+fmtNum(d.equity/SHARES,1)+'</td>';}).join('')+'</tr>';
+  body += '</tbody>';
+  t.innerHTML = head+body;
+})();
+
+/* ===================== INVESTMENTS & SOLVENCY ===================== */
+drawStacked('chartPort', 'legPort', Q,
+  [ {k:'gov', c:COL.s1, label:'Government'}, {k:'corp', c:COL.s2, label:'Corporate fixed-rate'}, {k:'eq', c:COL.s3, label:'Equities'}, {k:'foreign', c:COL.s4, label:'Foreign securities'} ],
+  1120, 300, {l:52,r:16,t:14,b:34}, function(d){return d.q;},
+  {tipExtra:function(d){ return 'Securities portfolio: Ps. '+fmtM(d.valores)+'M · fixed income '+d.fiPct.toFixed(1)+'% · duration '+d.duration.toFixed(1)+' yrs'; }});
+
+drawGrouped('chartRIF', 'legRIF', Q,
+  [ {v:function(d){return d.invInc;}, c:COL.s1, label:'Investment income'}, {v:function(d){return d.sale;}, c:COL.s2, label:'Realized gains (losses)'}, {v:function(d){return d.val;}, c:COL.s3, label:'Valuation'}, {v:function(d){return d.surcharge+d.fx+d.otherRif;}, c:COL.s4, label:'Surcharge, FX & other'} ],
+  1120, 300, {l:56,r:16,t:14,b:34}, function(d){return d.q;}, function(v){ return 'Ps. '+fmtNum(v,0)+'M'; });
+
+drawLines('chartRet', 'legRet', Q,
+  [ {v:function(d){return d.rsi;}, c:COL.s1, label:'RSI, return on investments (%)'}, {v:function(d){return d.roe12;}, c:COL.s2, label:'ROE 12M (%)'} ],
+  660, 260, {l:40,r:14,t:14,b:34}, function(d){return d.q;}, function(v){return v.toFixed(0)+'%';}, 0, 30, 6, function(v){return v.toFixed(1)+'%';});
+
+drawStacked('chartSolv', 'legSolv', Q,
+  [ {k:'rcs', c:COL.s2, label:'Regulatory capital requirement (RCS)'}, {k:'solvMargin', c:COL.s1, label:'Solvency margin'} ],
+  660, 260, {l:52,r:14,t:18,b:34}, function(d){return d.q;},
+  {tipExtra:function(d){ return 'Solvency index: '+d.solvIdx+'%'; }, topLabel:function(d,i,n){ return i===n-1 ? d.solvIdx+'%' : null; }});
+
+(function(){
+  var t = document.getElementById('tblInvest');
+  var head = '<caption><b>Investment portfolio</b> &mdash; Ps. millions at quarter-end; fixed-income share, duration and RSI as reported by the company.</caption>';
+  head += '<thead><tr><th>Line item</th>' + Q.map(function(d){return '<th>'+d.q+'</th>';}).join('') + '</tr></thead>';
+  function es(s){ return ' <span class="es">'+s+'</span>'; }
+  var rows = [
+    {label:'Total investments'+es('inversiones'), k:'inv', bold:true},
+    {label:'Securities portfolio'+es('valores'), k:'valores'},
+    {label:'&mdash; Government'+es('gubernamentales'), k:'gov', cls:'item-row'},
+    {label:'&mdash; Corporate fixed-rate'+es('empresas privadas, tasa conocida'), k:'corp', cls:'item-row'},
+    {label:'&mdash; Equities'+es('renta variable'), k:'eq', cls:'item-row'},
+    {label:'&mdash; Foreign securities'+es('extranjeros'), k:'foreign', cls:'item-row'},
+    {label:'Repo receivables'+es('deudor por reporto'), k:'repo'},
+    {label:'Loan portfolio, net'+es('cartera de cr&eacute;dito'), k:'loans'},
+    {label:'Real estate, net'+es('inmuebles'), k:'realEstate'},
+    {label:'Float / invested assets, as reported'+es('activos invertidos'), k:'float'}
+  ];
+  var body = '<tbody>' + rows.map(function(r){
+    var cells = Q.map(function(d){ return '<td>'+fmtM(d[r.k])+'</td>'; }).join('');
+    return '<tr class="'+(r.bold?'section-row':(r.cls||''))+'"><td>'+r.label+'</td>'+cells+'</tr>';
+  }).join('');
+  body += '<tr><td>Fixed income, % of portfolio (as reported)</td>'+Q.map(function(d){return '<td>'+d.fiPct.toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body += '<tr><td>Portfolio duration, years (as reported)</td>'+Q.map(function(d){return '<td>'+d.duration.toFixed(1)+'</td>';}).join('')+'</tr>';
+  body += '<tr class="section-row"><td>Comprehensive financing result (RIF)</td>'+Q.map(function(d){return '<td>'+fmtM(d.rif)+'</td>';}).join('')+'</tr>';
+  body += '<tr><td>RSI, return on investments (%, annualized, as reported)</td>'+Q.map(function(d){return '<td>'+d.rsi.toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body += '</tbody>';
+  t.innerHTML = head+body;
+
+  var t2 = document.getElementById('tblSolv');
+  var head2 = '<caption><b>Regulatory capital and returns</b> &mdash; Ps. millions; RCS and solvency margin as reported in each release.</caption>';
+  head2 += '<thead><tr><th>Line item</th>' + Q.map(function(d){return '<th>'+d.q+'</th>';}).join('') + '</tr></thead>';
+  var body2 = '<tbody>';
+  body2 += '<tr><td>Technical reserves'+es('reservas t&eacute;cnicas')+'</td>'+Q.map(function(d){return '<td>'+fmtM(d.reserves)+'</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>Regulatory capital requirement (RCS)'+es('requerimiento de capital de solvencia')+'</td>'+Q.map(function(d){return '<td>'+fmtM(d.rcs)+'</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>Solvency margin'+es('margen de solvencia')+'</td>'+Q.map(function(d){return '<td>'+fmtM(d.solvMargin)+'</td>';}).join('')+'</tr>';
+  body2 += '<tr class="section-row"><td>Eligible own funds (RCS + margin)</td>'+Q.map(function(d){return '<td>'+fmtM(d.ownFunds)+'</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>Solvency index (own funds &divide; RCS)'+es('&iacute;ndice de solvencia')+'</td>'+Q.map(function(d){return '<td>'+d.solvIdx+'%</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>Own funds / technical reserves (%)</td>'+Q.map(function(d){return '<td>'+(d.ownFunds/d.reserves*100).toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body2 += '<tr class="section-row"><td>Stockholders&rsquo; equity'+es('capital contable')+'</td>'+Q.map(function(d){return '<td>'+fmtM(d.equity)+'</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>ROE 12M (%, as reported)</td>'+Q.map(function(d){return '<td>'+d.roe12.toFixed(1)+'%</td>';}).join('')+'</tr>';
+  body2 += '<tr><td>Net income, quarter</td>'+Q.map(function(d){return '<td class="'+(d.net>=0?'':'neg')+'">'+fmtM(d.net)+'</td>';}).join('')+'</tr>';
+  body2 += '</tbody>';
+  t2.innerHTML = head2+body2;
+})();
+
+document.querySelector('footer.foot').innerHTML = document.querySelector('footer.foot').innerHTML.replace('{{BUILD_DATE}}', new Date().toISOString().slice(0,10));
+
+})();
+</script>
+</body>
+</html>
