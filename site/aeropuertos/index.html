@@ -1,0 +1,465 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aeropuertos Mexicanos — FNAM | Mexican Airports</title>
+<meta name="description" content="Los tres grupos aeroportuarios listados de México — GAP, OMA y ASUR — con un modelo financiero interactivo por grupo. Mexico's three listed airport groups, one interactive financial model each.">
+<link rel="canonical" href="https://fnam.mx/aeropuertos/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FNAM">
+<meta property="og:title" content="Aeropuertos Mexicanos — FNAM">
+<meta property="og:description" content="Los tres grupos aeroportuarios listados de México — GAP, OMA y ASUR — con un modelo financiero interactivo por grupo.">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://fnam.mx/aeropuertos/">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7;
+  --surface:#fcfcfb;
+  --surface-2:#f2f1ec;
+  --text-primary:#0b0b0b;
+  --text-secondary:#52514e;
+  --muted:#898781;
+  --grid:#e1e0d9;
+  --border:rgba(11,11,11,0.10);
+  --border-strong:rgba(11,11,11,0.18);
+  --accent:#1b4332;
+  --accent-ink:#0f2c20;
+  --accent-soft:#e6ede8;
+  --accent-soft-border:rgba(27,67,50,0.22);
+  --live:#0ca30c;
+  --shadow: 0 1px 2px rgba(11,11,11,0.04);
+  --shadow-hover: 0 6px 20px rgba(11,11,11,0.08);
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0d0d0d;
+    --surface:#1a1a19;
+    --surface-2:#221f1c;
+    --text-primary:#ffffff;
+    --text-secondary:#c3c2b7;
+    --muted:#918f88;
+    --grid:#2c2c2a;
+    --border:rgba(255,255,255,0.10);
+    --border-strong:rgba(255,255,255,0.22);
+    --accent:#4f9a76;
+    --accent-ink:#bfe3cf;
+    --accent-soft:#16261e;
+    --accent-soft-border:rgba(79,154,118,0.32);
+    --live:#3ec43e;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d;
+  --surface:#1a1a19;
+  --surface-2:#221f1c;
+  --text-primary:#ffffff;
+  --text-secondary:#c3c2b7;
+  --muted:#918f88;
+  --grid:#2c2c2a;
+  --border:rgba(255,255,255,0.10);
+  --border-strong:rgba(255,255,255,0.22);
+  --accent:#4f9a76;
+  --accent-ink:#bfe3cf;
+  --accent-soft:#16261e;
+  --accent-soft-border:rgba(79,154,118,0.32);
+  --live:#3ec43e;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--text-primary);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:inherit;}
+/* Language: Spanish is the default; <html lang> drives which copy is shown (no JS needed for first paint). */
+html[lang="es"] .en{display:none !important;}
+html[lang="en"] .es{display:none !important;}
+.wrap{width:min(1120px, 100% - 48px); margin:0 auto;}
+@media (max-width:640px){ .wrap{width:min(1120px, 100% - 32px);} }
+
+/* ---------- top bar ---------- */
+.topbar{
+  border-bottom:1px solid var(--border);
+  background:var(--page);
+}
+.topbar .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:60px; gap:16px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none; font-weight:700; letter-spacing:0.02em;
+}
+.brand .mark{
+  width:28px; height:28px; border-radius:7px; background:var(--accent);
+  display:grid; place-items:center; flex:none;
+}
+.brand .mark svg{width:16px; height:16px; display:block;}
+.brand .word{font-family:var(--serif); font-size:20px; font-weight:700; letter-spacing:0.04em;}
+/* Segmented ES / EN switch — both options always visible, active one filled. */
+.lang-switch{
+  display:inline-flex; align-items:center; gap:2px;
+  padding:3px; border-radius:999px;
+  background:var(--surface-2); border:1px solid var(--border-strong);
+  flex:none;
+}
+.lang-switch button{
+  appearance:none; border:0; background:transparent;
+  color:var(--text-secondary); font:inherit; font-size:13px; font-weight:600;
+  line-height:1; padding:7px 14px; border-radius:999px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px;
+  transition:background .15s, color .15s;
+}
+.lang-switch button:hover{color:var(--text-primary);}
+.lang-switch button[aria-pressed="true"]{
+  background:var(--accent); color:#fff; cursor:default;
+}
+.lang-switch button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+@media (max-width:400px){ .lang-switch button{padding:7px 10px; font-size:12px;} }
+
+/* ---------- sections ---------- */
+main{flex:1; padding-top:12px;}
+.section{padding:28px 0 8px;}
+.section:last-of-type{padding-bottom:48px;}
+.section-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+  padding-bottom:14px; margin-bottom:18px;
+  border-bottom:1px solid var(--grid);
+}
+.section-head h2{
+  font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
+}
+.section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
+
+.grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+}
+@media (max-width:360px){ .grid{grid-template-columns:1fr;} }
+
+.card{
+  position:relative;
+  display:flex; flex-direction:column; gap:10px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:22px 22px 18px;
+  box-shadow:var(--shadow);
+  text-decoration:none;
+  color:inherit;
+  min-height:196px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+a.card:hover, a.card:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-hover);
+  border-color:var(--accent);
+  outline:none;
+}
+a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shadow-hover);}
+.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.kicker{
+  font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--muted);
+}
+.pill{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  padding:4px 9px; border-radius:999px; white-space:nowrap;
+}
+.pill.live{background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-soft-border);}
+.pill.live::before{
+  content:""; width:7px; height:7px; border-radius:50%; background:var(--live);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent);
+}
+.pill.soon{background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border);}
+.card h3{
+  font-family:var(--serif); font-weight:700; font-size:22px; line-height:1.2;
+  margin:2px 0 0; letter-spacing:-0.01em;
+}
+.card p{margin:0; color:var(--text-secondary); font-size:14.5px; line-height:1.5;}
+.card-foot{
+  margin-top:auto; padding-top:10px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  font-size:13px; font-weight:600;
+}
+.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px;}
+.card-foot .cta svg{width:14px; height:14px; transition:transform .18s ease;}
+a.card:hover .cta svg{transform:translateX(3px);}
+.card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
+
+.card.planned{
+  background:transparent;
+  border-style:dashed;
+  border-color:var(--border-strong);
+  box-shadow:none;
+}
+.card.planned h3{color:var(--text-secondary);}
+.card.planned p{color:var(--muted);}
+.card.planned .cta{color:var(--muted);}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 0 32px;
+  color:var(--muted); font-size:13px;
+}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; align-items:center;}
+footer a{color:var(--text-secondary); text-decoration:none;}
+footer a:hover{color:var(--accent); text-decoration:underline;}
+footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
+
+@media (prefers-reduced-motion: reduce){
+  .card, .card-foot .cta svg, .lang-switch{transition:none;}
+  a.card:hover{transform:none;}
+}
+</style>
+<style>
+/* ---------- page head (this page only) ---------- */
+.pagehead{padding:28px 0 4px;}
+.backlink{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:600; color:var(--text-secondary);
+  text-decoration:none;
+}
+.backlink svg{width:14px; height:14px; transition:transform .18s ease;}
+.backlink:hover{color:var(--accent);}
+.backlink:hover svg{transform:translateX(-3px);}
+.backlink:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px;}
+.pagehead h1{
+  font-family:var(--serif); font-weight:700;
+  font-size:clamp(30px, 4vw, 42px); line-height:1.12; letter-spacing:-0.015em;
+  margin:14px 0 14px; text-wrap:balance;
+}
+.pagehead .sub{
+  font-size:17px; color:var(--text-secondary); max-width:68ch; margin:0;
+}
+@media (max-width:640px){
+  .pagehead{padding:20px 0 0;}
+  .pagehead .sub{font-size:16px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .backlink svg{transition:none;}
+  .backlink:hover svg{transform:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="FNAM home">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg>
+      </span>
+      <span class="word">FNAM</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true" lang="es">Español</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="pagehead">
+    <div class="wrap">
+      <a class="backlink" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="en">All dashboards</span>
+        <span class="es">Todos los paneles</span>
+      </a>
+      <h1>
+        <span class="en">Mexican Airports</span>
+        <span class="es">Aeropuertos Mexicanos</span>
+      </h1>
+      <p class="sub">
+        <span class="en">Mexico's airport concessions are split among three listed groups, each with its own region, hub and international footprint. One interactive financial model per group — built on the same structure so the three can be read side by side.</span>
+        <span class="es">Las concesiones aeroportuarias de México se reparten entre tres grupos listados, cada uno con su región, su hub y su presencia internacional. Un modelo financiero interactivo por grupo — con la misma estructura, para poder leerlos en paralelo.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="grupos">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          <span class="en">The three groups</span>
+          <span class="es">Los tres grupos</span>
+        </h2>
+        <span class="count">
+          <span class="en">1 live · 2 in development</span>
+          <span class="es">1 en vivo · 2 en desarrollo</span>
+        </span>
+      </div>
+      <div class="grid">
+
+        <a class="card" href="/gap/">
+          <div class="card-top">
+            <span class="kicker">
+              <span class="en">Pacific · BMV: GAP · NYSE: PAC</span>
+              <span class="es">Pacífico · BMV: GAP · NYSE: PAC</span>
+            </span>
+            <span class="pill live">
+              <span class="en">Live</span>
+              <span class="es">En vivo</span>
+            </span>
+          </div>
+          <h3>
+            <span class="en">GAP — Grupo Aeroportuario del Pacífico</span>
+            <span class="es">GAP — Grupo Aeroportuario del Pacífico</span>
+          </h3>
+          <p>
+            <span class="en">Twelve airports in western and northwestern Mexico — Guadalajara, Tijuana, Los Cabos, Puerto Vallarta — plus Montego Bay and Kingston in Jamaica. Interactive model: quarterly, year-to-date and fiscal-year statements, monthly traffic by airport, share performance vs. IPC, ASUR and OMA, an editable DCF, multiples, leverage and dividends, plus the CBX acquisition and FIBRA GAP explained.</span>
+            <span class="es">Doce aeropuertos en el occidente y noroeste de México — Guadalajara, Tijuana, Los Cabos, Puerto Vallarta — más Montego Bay y Kingston en Jamaica. Modelo interactivo: estados financieros por trimestre, acumulado y año fiscal, tráfico mensual por aeropuerto, desempeño de la acción vs. IPC, ASUR y OMA, DCF con supuestos editables, múltiplos, apalancamiento y dividendos, más la adquisición de CBX y la FIBRA GAP explicadas.</span>
+          </p>
+          <div class="card-foot">
+            <span class="cta">
+              <span class="en">Open model</span>
+              <span class="es">Abrir modelo</span>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </span>
+            <span class="src">GAP · BMV / SEC · FRED</span>
+          </div>
+        </a>
+
+        <div class="card planned" aria-disabled="true">
+          <div class="card-top">
+            <span class="kicker">
+              <span class="en">Central-north · BMV: OMA · Nasdaq: OMAB</span>
+              <span class="es">Centro-Norte · BMV: OMA · Nasdaq: OMAB</span>
+            </span>
+            <span class="pill soon">
+              <span class="en">In development</span>
+              <span class="es">En desarrollo</span>
+            </span>
+          </div>
+          <h3>
+            <span class="en">OMA — Grupo Aeroportuario del Centro Norte</span>
+            <span class="es">OMA — Grupo Aeroportuario del Centro Norte</span>
+          </h3>
+          <p>
+            <span class="en">Thirteen airports across central and northern Mexico, anchored by Monterrey — the group with the largest business-travel mix — plus its hotel and industrial-park businesses at the terminals.</span>
+            <span class="es">Trece aeropuertos en el centro y norte de México, anclados en Monterrey — el grupo con mayor peso de viaje de negocios — más sus negocios hoteleros y de parques industriales en las terminales.</span>
+          </p>
+          <div class="card-foot">
+            <span class="cta">
+              <span class="en">Model in development</span>
+              <span class="es">Modelo en desarrollo</span>
+            </span>
+            <span class="src">OMA · BMV / SEC</span>
+          </div>
+        </div>
+
+        <div class="card planned" aria-disabled="true">
+          <div class="card-top">
+            <span class="kicker">
+              <span class="en">Southeast · BMV: ASUR · NYSE: ASR</span>
+              <span class="es">Sureste · BMV: ASUR · NYSE: ASR</span>
+            </span>
+            <span class="pill soon">
+              <span class="en">In development</span>
+              <span class="es">En desarrollo</span>
+            </span>
+          </div>
+          <h3>
+            <span class="en">ASUR — Grupo Aeroportuario del Sureste</span>
+            <span class="es">ASUR — Grupo Aeroportuario del Sureste</span>
+          </h3>
+          <p>
+            <span class="en">Nine airports in southeastern Mexico led by Cancún, the country's largest international gateway after Mexico City, plus San Juan in Puerto Rico and a group of airports in Colombia — the most tourism- and dollar-exposed of the three.</span>
+            <span class="es">Nueve aeropuertos en el sureste de México encabezados por Cancún, la mayor puerta internacional del país después de la Ciudad de México, más San Juan en Puerto Rico y un grupo de aeropuertos en Colombia — el más expuesto al turismo y al dólar de los tres.</span>
+          </p>
+          <div class="card-foot">
+            <span class="cta">
+              <span class="en">Model in development</span>
+              <span class="es">Modelo en desarrollo</span>
+            </span>
+            <span class="src">ASUR · BMV / SEC</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> FNAM · fnam.mx</span>
+    <nav class="links" aria-label="Dashboards">
+      <a href="/macro/"><span class="en">U.S. Macro</span><span class="es">Macro EE. UU.</span></a>
+      <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es">Deuda Fiscal EE. UU.</span></a>
+      <a href="/macro/?view=fiscal"><span class="en">U.S. Fiscal Deficit</span><span class="es">Déficit Fiscal EE. UU.</span></a>
+      <a href="/mx/macro/"><span class="en">Mexico Macro</span><span class="es">Macro México</span></a>
+      <a href="/mx/fiscal/"><span class="en">Mexico Fiscal</span><span class="es">Fiscal México</span></a>
+      <a href="/gap/"><span class="en">GAP Model</span><span class="es">Modelo GAP</span></a>
+      <a href="/qualitas/"><span class="en">Quálitas Model</span><span class="es">Modelo Quálitas</span></a>
+      <a href="/gentera/"><span class="en">Gentera Model</span><span class="es">Modelo Gentera</span></a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = "fnam-lang";
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll(".lang-switch button");
+
+  function apply(lang){
+    var showEs = lang === "es";
+    root.setAttribute("lang", showEs ? "es" : "en");
+    document.title = showEs
+      ? "Aeropuertos Mexicanos — FNAM | Mexican Airports"
+      : "Mexican Airports — FNAM | Aeropuertos Mexicanos";
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+  }
+
+  // Spanish by default; only an explicit choice (stored) switches to English.
+  // Same key as the landing page, so the choice carries across the site.
+  var lang = "es";
+  try { var stored = localStorage.getItem(KEY); if (stored === "en") lang = "en"; } catch (e) {}
+  apply(lang);
+
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      lang = b.getAttribute("data-lang");
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+      apply(lang);
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
