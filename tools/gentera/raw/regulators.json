@@ -2,64 +2,13 @@
  "cnbv": {
   "name": "Banco Compartamos — CNBV Boletín Estadístico Banca Múltiple",
   "unit": "MXN millions; IMOR %",
-  "series": [
-   {
-    "month": "202603",
-    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx",
-    "loans": 2.05,
-    "imor": 0.0,
-    "deposits": 95.75
-   },
-   {
-    "month": "202604",
-    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx",
-    "loans": 1.9,
-    "imor": 0.0,
-    "deposits": 20869.9
-   },
-   {
-    "month": "202605",
-    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx",
-    "loans": 2.01,
-    "imor": 0.0,
-    "deposits": 21004.54
-   },
-   {
-    "month": "202606",
-    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx",
-    "loans": 2.1,
-    "imor": 0.0,
-    "deposits": 20715.26
-   },
-   {
-    "month": "202607",
-    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx",
-    "loans": 2.06,
-    "imor": 0.0,
-    "deposits": 20715.13
-   }
-  ]
+  "series": []
  },
  "sbs": {
   "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
   "unit": "PEN millions; ratios %",
   "series": []
  },
- "log": [
-  "CNBV 202608: HTTP Error 404: NOT FOUND",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx (public statistics download)",
-  "SBS B-2201: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2201&p=2: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2334: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2334&p=2: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2362: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2362&p=2: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2369: no monthly xls links recognised (page saved under raw/debug)",
-  "SBS B-2369&p=2: no monthly xls links recognised (page saved under raw/debug)"
- ],
+ "log": [],
  "updatedAt": "2026-09-22T23:03:41+00:00"
 }

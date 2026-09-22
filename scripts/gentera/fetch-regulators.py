@@ -99,29 +99,45 @@ CNBV_WANT = {  # sheet-title fragment -> series key
 }
 
 
-def cnbv_month(ym, data, log):
+def cnbv_month(ym, data, log, dump_path=None):
     import openpyxl
     wb = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=True)
     rec = {'month': ym, 'source': None}
+    dump = {'sheets': []}
     for ws in wb.worksheets:
-        title = ' '.join(norm(c.value) for row in ws.iter_rows(min_row=1, max_row=6) for c in row if c.value)
+        head = [' '.join(str(c) for c in row if c is not None)[:160] for row in ws.iter_rows(min_row=1, max_row=8, values_only=True)]
+        title = norm(' '.join(head))
         key = next((v for k, v in CNBV_WANT.items() if k in title), None)
-        if not key or key in rec:
-            continue
+        hit = None
         for row in ws.iter_rows(values_only=True):
-            if not row or not any(isinstance(c, str) and 'compartamos' in norm(c) for c in row):
-                continue
-            vals = [c for c in row if isinstance(c, (int, float))]
-            if vals:
-                rec[key] = round(float(vals[-1]), 2)  # the last numeric cell is the most recent month's column
-                break
+            if row and any(isinstance(c, str) and 'compartamos' in norm(c) for c in row):
+                hit = [c for c in row][:14]; break
+        dump['sheets'].append({'name': ws.title, 'head': head[:6], 'key': key, 'compartamos_row': [str(c)[:40] if c is not None else None for c in hit] if hit else None})
+        if not key or key in rec or not hit:
+            continue
+        vals = [c for c in hit if isinstance(c, (int, float))]
+        if vals:
+            rec[key] = round(float(vals[-1]), 2)
+    if dump_path:
+        with open(dump_path, 'w', encoding='utf-8') as f:
+            json.dump(dump, f, ensure_ascii=False, indent=1)
     if len(rec) <= 2:
         log.append('CNBV %s: no Compartamos rows recognised' % ym); return None
     return rec
 
 
+def plausible_cnbv(rec):
+    ok = True
+    if rec.get('loans') is not None: ok &= 10000 <= rec['loans'] <= 300000
+    if rec.get('imor') is not None: ok &= 0.5 <= rec['imor'] <= 30
+    if rec.get('deposits') is not None: ok &= 1000 <= rec['deposits'] <= 200000
+    return ok
+
+
 def fetch_cnbv(reg, months, log):
     have = {s['month'] for s in reg['cnbv']['series']}
+    debug_dir = os.path.join(os.path.dirname(OUT), 'debug')
+    dumped = False
     for d in months:
         ym = d.strftime('%Y%m')
         if ym in have:
@@ -133,24 +149,33 @@ def fetch_cnbv(reg, months, log):
         except Exception as e:  # noqa: BLE001
             log.append('CNBV %s: %s' % (ym, e)); continue
         try:
-            rec = cnbv_month(ym, data, log)
+            dump_path = None
+            if not dumped:
+                os.makedirs(debug_dir, exist_ok=True); dump_path = os.path.join(debug_dir, 'cnbv_%s.json' % ym); dumped = True
+            rec = cnbv_month(ym, data, log, dump_path)
         except Exception as e:  # noqa: BLE001
             log.append('CNBV %s: parse error %s' % (ym, e)); continue
-        if rec:
+        if rec and plausible_cnbv(rec):
             rec['source'] = url; reg['cnbv']['series'].append(rec); print('CNBV %s: %s' % (ym, rec))
+        elif rec:
+            log.append('CNBV %s: implausible values %s dropped (check raw/debug/cnbv_*.json and CNBV_WANT)' % (ym, {k: v for k, v in rec.items() if k not in ('month', 'source')}))
+    reg['cnbv']['series'] = [s for s in reg['cnbv']['series'] if plausible_cnbv(s)]
     reg['cnbv']['series'].sort(key=lambda s: s['month'])
 
 
 # ------------------------------------------------------------------ SBS
+SBS_MONTHS = {'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5, 'junio': 6, 'julio': 7, 'agosto': 8, 'setiembre': 9, 'septiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12}
+
+
 def sbs_links(html):
-    """xls links on an SBS results page with their month label ('Diciembre 2025' -> '202512')."""
-    M = {'enero': 1, 'febrero': 2, 'marzo': 3, 'abril': 4, 'mayo': 5, 'junio': 6, 'julio': 7, 'agosto': 8, 'septiembre': 9, 'setiembre': 9, 'octubre': 10, 'noviembre': 11, 'diciembre': 12}
+    """Monthly xls links on an SBS results page. The anchor text is only the month name; year and month sit in
+    the path: https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2201-jl2026.XLS -> ('202607', url)."""
     out = []
-    for m in re.finditer(r'<a\b[^>]*href="([^"]+\.xlsx?)"[^>]*>(.*?)</a>', html, re.I | re.S):
-        href, text = m.group(1), norm(re.sub(r'<[^>]+>', ' ', m.group(2)))
-        mm = re.search(r'(%s)\s+(?:de\s+)?(20\d\d)' % '|'.join(M), text) or re.search(r'(%s)\s*(20\d\d)' % '|'.join(M), norm(href))
+    for m in re.finditer(r'<a\b[^>]*href="([^"]+\.xlsx?)"', html, re.I):
+        href = m.group(1)
+        mm = re.search(r'/(20\d\d)/(%s)/' % '|'.join(SBS_MONTHS), norm(href))
         if mm:
-            out.append(('%s%02d' % (mm.group(2), M[mm.group(1)]), urljoin('https://www.sbs.gob.pe/', href)))
+            out.append(('%s%02d' % (mm.group(1), SBS_MONTHS[mm.group(2)]), urljoin('https://www.sbs.gob.pe/', href)))
     return out
 
 
@@ -186,43 +211,54 @@ SBS_PICK = {'balance': {'loans': ('creditos', 'colocaciones'), 'deposits': ('dep
             'delinquency': {'morosidad': ('morosidad', 'cartera atrasada')}, 'writeoffs': {'writeoffs': ('castig',)}, 'loansByType': {'loansRefinanced': ('refinanciad',), 'loansOverdue': ('atrasad', 'vencid')}}
 
 
+def plausible_sbs(rec):
+    return rec.get('loans') is None or 500 <= rec['loans'] <= 50000  # Compartamos Banco Perú: a few thousand million soles
+
+
 def fetch_sbs(reg, months, log):
+    """Compartamos Banco appears in the Banca Múltiple tables from January 2025 (before that it was Compartamos
+    Financiera under Empresas Financieras, whose table codes differ and are not fetched yet)."""
     have = {s['month'] for s in reg['sbs']['series']}
-    want = {d.strftime('%Y%m') for d in months} - have
+    want = {d.strftime('%Y%m') for d in months if d >= date(2025, 1, 1)} - have
     if not want:
         return
     debug_dir = os.path.join(os.path.dirname(OUT), 'debug')
+    newest = max(want)
     for table, kind in SBS_TABLES.items():
-        for p in ('', '&p=2'):  # Banca Múltiple, then Empresas Financieras (pre-2025 Compartamos Financiera)
+        try:
+            html = get(SBS % (table, ''), log=log).decode('latin-1', 'replace')
+        except Exception as e:  # noqa: BLE001
+            log.append('SBS %s: %s' % (table, e)); continue
+        links = sbs_links(html)
+        if not links:
+            log.append('SBS %s: no monthly xls links recognised' % table); continue
+        for ym, url in links:
+            if ym not in want:
+                continue
             try:
-                html = get(SBS % (table, p), log=log).decode('latin-1', 'replace')
+                data = get(url, log=log)
+                vals = sbs_sheet_values(data)
             except Exception as e:  # noqa: BLE001
-                log.append('SBS %s%s: %s' % (table, p, e)); continue
-            links = sbs_links(html)
-            if not links:
-                # keep the page so the link pattern can be adjusted from the repository without re-fetching
+                log.append('SBS %s %s: %s' % (table, ym, e)); continue
+            if ym == newest:
                 os.makedirs(debug_dir, exist_ok=True)
-                with open(os.path.join(debug_dir, 'sbs_%s%s.html' % (table, p.replace('&', '_'))), 'w', encoding='utf-8') as f:
-                    f.write(html[:300000])
-                log.append('SBS %s%s: no monthly xls links recognised (page saved under raw/debug)' % (table, p))
-            for ym, url in links:
-                if ym not in want:
-                    continue
-                try:
-                    vals = sbs_sheet_values(get(url))
-                except Exception as e:  # noqa: BLE001
-                    log.append('SBS %s %s: %s' % (table, ym, e)); continue
-                if not vals:
-                    continue
-                rec = next((s for s in reg['sbs']['series'] if s['month'] == ym), None)
-                if not rec:
-                    rec = {'month': ym, 'sources': {}}; reg['sbs']['series'].append(rec)
-                for key, frags in SBS_PICK[kind].items():
-                    v = next((vals[k] for k in vals if any(f in k for f in frags)), None)
-                    if v is not None:
-                        rec[key] = round(float(v) / 1000, 2) if kind != 'delinquency' else round(float(v), 2)
-                rec['sources'][kind] = url
-                print('SBS %s %s: %s' % (table, ym, {k: v for k, v in rec.items() if k not in ('sources',)}))
+                with open(os.path.join(debug_dir, 'sbs_%s_%s.json' % (table, ym)), 'w', encoding='utf-8') as f:
+                    json.dump({'url': url, 'rows': dict(list(vals.items())[:80])}, f, ensure_ascii=False, indent=1)
+            if not vals:
+                log.append('SBS %s %s: Compartamos column not found' % (table, ym)); continue
+            rec = next((s for s in reg['sbs']['series'] if s['month'] == ym), None)
+            if not rec:
+                rec = {'month': ym, 'sources': {}}; reg['sbs']['series'].append(rec)
+            for key, frags in SBS_PICK[kind].items():
+                v = next((vals[k] for k in vals if any(f in k for f in frags)), None)
+                if v is not None:
+                    rec[key] = round(float(v) / 1000, 2) if kind != 'delinquency' else round(float(v), 2)
+            rec['sources'][kind] = url
+            print('SBS %s %s: %s' % (table, ym, {k: v for k, v in rec.items() if k not in ('sources',)}))
+    bad = [s['month'] for s in reg['sbs']['series'] if not plausible_sbs(s)]
+    if bad:
+        log.append('SBS: implausible values for %s dropped (check raw/debug/sbs_*.json and SBS_PICK)' % bad)
+        reg['sbs']['series'] = [s for s in reg['sbs']['series'] if plausible_sbs(s)]
     reg['sbs']['series'].sort(key=lambda s: s['month'])
 
 
