@@ -606,15 +606,16 @@
    "url": "https://www.gentera.com.mx/wcm/connect/0d1d7bb3-daa3-467d-a8d6-9979b700f3f8/Gentera+3T25.pdf?MOD=AJPERES"
   },
   "release:2025Q4": {
-   "chars": 38930,
-   "fetchedAt": "2026-09-22T22:23:19+00:00",
+   "anchor": "Press release",
+   "chars": 64250,
+   "fetchedAt": "2026-09-22T22:59:28+00:00",
    "kind": "release",
-   "pages": 44,
+   "pages": 18,
    "quarter": "2025Q4",
-   "sha256": "fadcf02d0405a6b46df4a5695e718faaa55e50835f9610fafffff63fcd39bf45",
-   "size": 3005817,
+   "sha256": "c91c7dffa647d08e6aa399e9aa53f1b9047e8b1d867a984b0acad493a3750558",
+   "size": 788967,
    "text": "tools/gentera/raw/text/releases/2025Q4.txt",
-   "url": "https://www.gentera.com.mx/wcm/connect/1e51aa9e-dd75-40bf-91d0-642ddc17921e/Gentera+4T25_compressed.pdf?MOD=AJPERES"
+   "url": "https://www.gentera.com.mx/wcm/connect/e6478ebf-d2b9-42fd-a8af-96be385d9947/Gentera+4T25.pdf?MOD=AJPERES"
   },
   "release:2026Q1": {
    "chars": 57457,
@@ -639,5 +640,5 @@
    "url": "https://www.gentera.com.mx/wcm/connect/f5f750b4-7e9d-4206-a016-65f7d75de456/Gentera+2T26.pdf?MOD=AJPERES"
   }
  },
- "updatedAt": "2026-09-22T22:23:29+00:00"
+ "updatedAt": "2026-09-22T22:59:29+00:00"
 }
