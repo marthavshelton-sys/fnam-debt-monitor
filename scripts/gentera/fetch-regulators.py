@@ -91,12 +91,30 @@ def months_back(n):
 
 
 # ------------------------------------------------------------------ CNBV
-CNBV_WANT = {  # sheet-title fragment -> series key
-    'cartera de credito total': 'loans', 'cartera total': 'loans',
-    'imor': 'imor', 'indice de morosidad': 'imor',
-    'captacion tradicional': 'deposits', 'captacion total': 'deposits',
-    'resultado neto': 'netIncomeYtd',
+# Boletín Estadístico Banca Múltiple: one sheet per indicator, one row per bank, and for every indicator a
+# triplet of columns [same month a year earlier, previous month, current month]. Sheet name -> (key, triplet
+# index): the triplet index counts triplets from the first numeric cell of the bank's row.
+CNBV_SHEETS = {
+    'CCT': [('loans', 0), ('imor', 1), ('coverage', 2)],          # Cartera de crédito total: saldo, IMOR, cobertura
+    'CCCMicro': [('loansMicro', 0), ('imorMicro', 1)],            # microcrédito
+    'CaptRec': [('captacion', 0)],                                # captación total (depósitos + préstamos + títulos)
+    'Pm2': [('totalAssets', 0)],                                  # principales rubros: activo total (value, share pairs)
+    'Indicadores': [('roa', 0), ('roe', 1)],                      # indicadores financieros: ROA, ROE
 }
+
+
+def _triplets(row):
+    """Numeric cells of a bank's row grouped in threes (year-ago, previous month, current month); 'n.c.' -> None.
+    The Pm2 sheet interleaves value/share pairs, handled by the caller."""
+    vals = []
+    for c in row[2:]:
+        if isinstance(c, (int, float)):
+            vals.append(float(c))
+        elif isinstance(c, str) and c.strip().lower() in ('n.c.', 'n.a.', 'n.d.', 'n.a', 'n.c'):
+            vals.append(None)
+        elif isinstance(c, str) and re.match(r'^-?\d+(\.\d+)?$', c.strip()):
+            vals.append(float(c))
+    return [vals[i:i + 3] for i in range(0, len(vals) - 2, 3)]
 
 
 def cnbv_month(ym, data, log, dump_path=None):
@@ -104,20 +122,27 @@ def cnbv_month(ym, data, log, dump_path=None):
     wb = openpyxl.load_workbook(io.BytesIO(data), read_only=True, data_only=True)
     rec = {'month': ym, 'source': None}
     dump = {'sheets': []}
-    for ws in wb.worksheets:
-        head = [' '.join(str(c) for c in row if c is not None)[:160] for row in ws.iter_rows(min_row=1, max_row=8, values_only=True)]
-        title = norm(' '.join(head))
-        key = next((v for k, v in CNBV_WANT.items() if k in title), None)
+    names = {ws.title.strip(): ws for ws in wb.worksheets}
+    for sheet, keys in CNBV_SHEETS.items():
+        ws = names.get(sheet)
+        if ws is None:
+            log.append('CNBV %s: sheet %s missing' % (ym, sheet)); continue
         hit = None
         for row in ws.iter_rows(values_only=True):
-            if row and any(isinstance(c, str) and 'compartamos' in norm(c) for c in row):
-                hit = [c for c in row][:14]; break
-        dump['sheets'].append({'name': ws.title, 'head': head[:6], 'key': key, 'compartamos_row': [str(c)[:40] if c is not None else None for c in hit] if hit else None})
-        if not key or key in rec or not hit:
+            if row and any(isinstance(c, str) and norm(c).strip() == 'compartamos' for c in row):
+                hit = list(row); break
+        dump['sheets'].append({'name': sheet, 'compartamos_row': [str(c)[:40] if c is not None else None for c in hit[:16]] if hit else None})
+        if not hit:
+            log.append('CNBV %s: Compartamos row missing in %s' % (ym, sheet)); continue
+        if sheet == 'Pm2':
+            nums = [float(c) for c in hit[2:] if isinstance(c, (int, float))]
+            vals = nums[0::2][:3]  # value, share, value, share, value, share
+            if len(vals) == 3: rec['totalAssets'] = round(vals[2], 2)
             continue
-        vals = [c for c in hit if isinstance(c, (int, float))]
-        if vals:
-            rec[key] = round(float(vals[-1]), 2)
+        trips = _triplets(hit)
+        for key, idx in keys:
+            if idx < len(trips) and trips[idx][2] is not None:
+                rec[key] = round(trips[idx][2], 2)
     if dump_path:
         with open(dump_path, 'w', encoding='utf-8') as f:
             json.dump(dump, f, ensure_ascii=False, indent=1)
@@ -130,7 +155,8 @@ def plausible_cnbv(rec):
     ok = True
     if rec.get('loans') is not None: ok &= 10000 <= rec['loans'] <= 300000
     if rec.get('imor') is not None: ok &= 0.5 <= rec['imor'] <= 30
-    if rec.get('deposits') is not None: ok &= 1000 <= rec['deposits'] <= 200000
+    if rec.get('captacion') is not None: ok &= 1000 <= rec['captacion'] <= 300000
+    if rec.get('coverage') is not None: ok &= 50 <= rec['coverage'] <= 2000
     return ok
 
 
@@ -207,8 +233,8 @@ def sbs_sheet_values(data):
     return out
 
 
-SBS_PICK = {'balance': {'loans': ('creditos', 'colocaciones'), 'deposits': ('depositos', 'obligaciones con el publico'), 'netIncome': ('utilidad neta', 'resultado neto'), 'equity': ('patrimonio',)},
-            'delinquency': {'morosidad': ('morosidad', 'cartera atrasada')}, 'writeoffs': {'writeoffs': ('castig',)}, 'loansByType': {'loansRefinanced': ('refinanciad',), 'loansOverdue': ('atrasad', 'vencid')}}
+SBS_PICK = {'balance': {'loans': ('creditos netos', 'colocaciones', 'creditos'), 'deposits': ('obligaciones con el publico', 'depositos totales', 'total depositos', 'depositos'), 'netIncome': ('utilidad neta', 'resultado neto'), 'equity': ('patrimonio',)},
+            'delinquency': {'morosidad': ('cartera atrasada / creditos directos', 'morosidad', 'cartera atrasada')}, 'writeoffs': {'writeoffs': ('castig',)}, 'loansByType': {'loansRefinanced': ('refinanciad',), 'loansOverdue': ('atrasad', 'vencid')}}
 
 
 def plausible_sbs(rec):
@@ -223,8 +249,8 @@ def fetch_sbs(reg, months, log):
     if not want:
         return
     debug_dir = os.path.join(os.path.dirname(OUT), 'debug')
-    newest = max(want)
     for table, kind in SBS_TABLES.items():
+        dumped = False
         try:
             html = get(SBS % (table, ''), log=log).decode('latin-1', 'replace')
         except Exception as e:  # noqa: BLE001
@@ -240,10 +266,11 @@ def fetch_sbs(reg, months, log):
                 vals = sbs_sheet_values(data)
             except Exception as e:  # noqa: BLE001
                 log.append('SBS %s %s: %s' % (table, ym, e)); continue
-            if ym == newest:
+            if not dumped:
+                dumped = True
                 os.makedirs(debug_dir, exist_ok=True)
-                with open(os.path.join(debug_dir, 'sbs_%s_%s.json' % (table, ym)), 'w', encoding='utf-8') as f:
-                    json.dump({'url': url, 'rows': dict(list(vals.items())[:80])}, f, ensure_ascii=False, indent=1)
+                with open(os.path.join(debug_dir, 'sbs_%s.json' % table), 'w', encoding='utf-8') as f:
+                    json.dump({'url': url, 'month': ym, 'rows': dict(list(vals.items())[:120])}, f, ensure_ascii=False, indent=1)
             if not vals:
                 log.append('SBS %s %s: Compartamos column not found' % (table, ym)); continue
             rec = next((s for s in reg['sbs']['series'] if s['month'] == ym), None)

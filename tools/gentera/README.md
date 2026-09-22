@@ -82,9 +82,13 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   that (FY2021 and earlier EPS is not shown).
 - The 3Q20 release prints the discontinued-operations line with an inconsistent sign; the model derives the
   line as net income minus (pre-tax minus tax).
-- CNBV downloads needed a certificate fallback (`certifi`, then unverified for these public files, logged);
-  the SBS page yielded no monthly links in the first run — the fetched HTML is saved under
-  `tools/gentera/raw/debug/` so the link pattern in `fetch-regulators.py` can be adjusted.
+- CNBV downloads need a certificate fallback (`certifi`, then unverified for these public files, logged). The
+  reader takes the bank's row from the sheets `CCT`, `CCCMicro`, `CaptRec`, `Pm2` and `Indicadores` (triplets
+  of year-ago / previous / current month). SBS monthly files are linked by path
+  (`…/estadistica/financiera/YYYY/Mes/B-2201-xxYYYY.XLS`); the balance (B-2201) and delinquency (B-2362)
+  tables are read for Compartamos Banco (Banca Múltiple, 2025 on); the loans-by-type (B-2334) and write-off
+  (B-2369) tables list banks differently and are still being mapped — a structure summary of each is saved
+  under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
 - Guidance vintage dates are approximate (`dateApprox`) until transcribed from the releases.
 - Gentera publishes no earnings-call transcripts; comments come from the management discussion in the release.
 - Peer multiples and consensus wait for the FactSet connector. Ratings and analyst targets are not transcribed.
