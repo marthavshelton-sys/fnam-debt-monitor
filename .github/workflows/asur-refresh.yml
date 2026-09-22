@@ -1,0 +1,113 @@
+# Keeps the ASUR financial model (site/asur) current.
+#
+#   market   daily after the BMV close: share prices, dividends, USD/MXN, 10-year yields
+#            -> site/asur/data/market.js
+#   filings  every weekday morning (ASUR publishes monthly traffic in the first week of the month and
+#            quarterly results in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases and PDF reports
+#            into tools/asur/raw/ (see scripts/asur/harvest-releases.mjs for the sources), re-parses them into
+#            site/asur/data/*.js and validates the tie-outs before anything is committed.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). On other branches the
+# workflow runs when its scripts change (bootstrap) or on manual dispatch. Bot commits carry
+# [skip actions] so they never re-trigger the workflow. Cloudflare Pages deploys the commit.
+name: Refresh ASUR model data
+
+on:
+  schedule:
+    - cron: "50 22 * * 1-5"      # market, weekdays (after the BMV close)
+    - cron: "40 14 * * 1-5"      # filings + market, weekdays (after the previous evening's releases)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "market | filings | all"
+        default: "all"
+      full:
+        description: "Re-download every filing (ignore tools/asur/raw/manifest.json)"
+        type: boolean
+        default: false
+  push:
+    branches: ["main", "claude/gap-financial-model-vfypi1"]
+    paths:
+      - "scripts/asur/**"
+      - "scripts/airports/lib.mjs"
+      - "scripts/airports/pdf2text.py"
+      - "scripts/airports/fetch-market.mjs"
+      - ".github/workflows/asur-refresh.yml"
+
+concurrency:
+  group: asur-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Decide what to run
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'all' }}"
+          # The daily 22:40 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "50 22 * * 1-5" ]; then MODE=market; fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Fetch market data
+        if: steps.plan.outputs.mode != 'filings'
+        run: node scripts/airports/fetch-market.mjs --company=asur
+
+      - uses: actions/setup-python@v5
+        if: steps.plan.outputs.mode != 'market'
+        with: { python-version: "3.12" }
+      - name: Install the PDF converter
+        if: steps.plan.outputs.mode != 'market'
+        run: pip install pdfplumber
+
+      - name: Harvest releases and PDF reports
+        if: steps.plan.outputs.mode != 'market'
+        run: node scripts/asur/harvest-releases.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
+
+      # The steps below run even if a fetch failed, so whatever did refresh still gets committed
+      # (the job itself stays red so the failure is visible in the Actions tab).
+      - name: Parse filings into model data
+        if: always() && steps.plan.outputs.mode != 'market'
+        shell: bash
+        run: |
+          if [ -f scripts/asur/build-data.mjs ]; then node scripts/asur/build-data.mjs; else echo "build-data.mjs not present yet; raw harvest only"; fi
+
+      - name: Validate model data
+        id: validate
+        if: always()
+        shell: bash
+        run: |
+          if [ -f scripts/asur/validate-data.mjs ]; then node scripts/asur/validate-data.mjs; else echo "validate-data.mjs not present yet"; fi
+
+      # Never commit data that failed validation; market-only runs (no validate step) still commit.
+      - name: Commit if anything changed
+        if: always() && steps.validate.outcome != 'failure'
+        shell: bash
+        run: |
+          git config user.name "asur-refresh[bot]"
+          git config user.email "asur-refresh@users.noreply.github.com"
+          git add site/asur/data tools/asur/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "asur: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
