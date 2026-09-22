@@ -52,6 +52,14 @@ async function main() {
     console.log(`PRN page ${page}: ${found} new links`);
     if (found === 0) break;
   }
+  // supplement: the keyword search (about a year deep) catches releases the organisation page occasionally omits
+  for (let page = 1; page <= 2; page++) {
+    let html; try { html = await fetchText(`https://www.prnewswire.com/search/news/?keyword=ASUR&pagesize=100&page=${page}`); } catch (e) { console.error(`PRN search page ${page}: ${e.message}`); break; }
+    let found = 0;
+    for (const m of html.matchAll(/href="(\/news-releases\/asur-[a-z0-9-]+-(\d{6,})\.html)"/g)) { if (!links.has(m[2])) { links.set(m[2], 'https://www.prnewswire.com' + m[1]); found++; } }
+    console.log(`PRN search page ${page}: ${found} additional links`);
+    if (!found) break;
+  }
   const results = []; // {tag, date}
   for (const [id, url] of [...links.entries()].reverse()) {
     if (known.has(url)) { const f = filings.find((x) => x.url === url); if (f && f.class === 'results') results.push(f); continue; }
@@ -86,6 +94,14 @@ async function main() {
     if (er) pdfLinks.push({ kind: 'results-pdf', tag: er[1].toUpperCase(), href });
     else if (tr) { const t = tr[1].toUpperCase(); pdfLinks.push({ kind: 'transcript', tag: /^\d\dQ\d$/.test(t) ? `${t[3]}Q${t.slice(0, 2)}` : t, href }); }
   }
+  // quarters the page does not link (e.g. 2Q24) and years before the page's range: try the conventional path
+  const have = new Set(pdfLinks.filter((p) => p.kind === 'results-pdf').map((p) => p.tag));
+  const nowY = new Date().getUTCFullYear();
+  for (let fy = 2019; fy <= nowY; fy++) for (let q = 1; q <= 4; q++) {
+    const tag = `${q}Q${String(fy).slice(2)}`; if (have.has(tag)) continue;
+    if (fy === nowY && q * 3 > new Date().getUTCMonth()) continue;
+    for (const suf of ['.pdf', '.pdf.pdf']) pdfLinks.push({ kind: 'results-pdf', tag, href: `/media/Informes Financieros/${fy}/${q}/ASUR-Airport-Cancun-Mexico-Earnings-Release-${tag}${suf}`, guess: true });
+  }
   console.log(`asur.com.mx: ${pdfLinks.length} PDF links (${pdfLinks.filter((p) => p.kind === 'results-pdf').length} earnings releases, ${pdfLinks.filter((p) => p.kind === 'transcript').length} transcripts)`);
   for (const p of pdfLinks) {
     const url = ASUR_BASE + encodeURI(href2path(p.href));
@@ -93,7 +109,11 @@ async function main() {
     const m = p.tag.match(tagRe); const q = +m[1], fy = 2000 + +m[2];
     const prn = results.find((r) => new RegExp(`\\b${q}Q${String(fy).slice(2)}\\b`, 'i').test(r.title || '') || new RegExp(`(first|second|third|fourth) quarter (of )?${fy}`, 'i').test(r.title || '') && ['first', 'second', 'third', 'fourth'][q - 1] === (r.title.match(/(first|second|third|fourth)/i) || [, ''])[1].toLowerCase());
     let buf;
-    try { buf = (await fetchRaw(url, { accept: 'application/pdf,*/*' })).buf; } catch (e) { filings.push({ source: 'ir', id: p.tag, url, error: e.message }); console.error(`${p.tag} ${p.kind}: ${e.message}`); continue; }
+    if (p.guess && filings.some((f) => f.source === 'ir' && f.id === p.tag && f.class === 'results-pdf' && f.path)) continue;
+    let r;
+    try { r = await fetchRaw(url, { accept: 'application/pdf,*/*', tries: p.guess ? 1 : 4 }); } catch (e) { if (!p.guess) { filings.push({ source: 'ir', id: p.tag, url, error: e.message }); console.error(`${p.tag} ${p.kind}: ${e.message}`); } continue; }
+    if (r.buf.slice(0, 4).toString() !== '%PDF') { if (!p.guess) filings.push({ source: 'ir', id: p.tag, url, error: 'not a PDF' }); continue; }
+    buf = r.buf;
     const pdfPath = fileURLToPath(new URL(`${p.kind}_${p.tag}.pdf`, PDF));
     await writeFile(pdfPath, buf);
     const tmp = fileURLToPath(new URL(`${p.kind}_${p.tag}.tmp.txt`, PDF));

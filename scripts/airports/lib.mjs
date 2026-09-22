@@ -93,7 +93,19 @@ export function header(text) { // "# key: value" lines at the top of a raw file
 
 // ---------- rows ----------
 export const norm = (s) => s.toLowerCase().replace(/[“”"’'´`]/g, "'").replace(/[–—]/g, '-').replace(/\s+/g, ' ').trim();
-export const normLabel = (s) => norm(s).replace(/\((loss|income|used|gain|decrease|increase|expense|reduction|revenues?)\)/g, '').replace(/\s+/g, ' ').replace(/\s+:/, ':').replace(/[:*]+$/, '').trim();
+export const normLabel = (s) => norm(s).replace(/\((loss|income|used|gain|decrease|increase|expense|reduction|revenues?)\)/g, '').replace(/non-\s+/g, 'non-').replace(/\s+/g, ' ').replace(/\s+:/, ':').replace(/[:*]+$/, '').trim();
+// "3.877.418" / "19,8" (Spanish locale in some PDFs) -> "3,877,418" / "19.8"
+export const normNumber = (c) => (/^\(?-?\d{1,3}(\.\d{3})+(,\d+)?%?\)?$/.test(c) ? c.replace(/\./g, '').replace(',', '.') : /^\(?-?\d+,\d{1,2}\)?%?$/.test(c) ? c.replace(',', '.') : c);
+const NUMTOK = /^\(?-?\d[\d,.]*%?\)?$|^-$|^n\/?a$|^n\.a\.$/i;
+// Re-pipe a line whose trailing tokens are numbers but that the PDF converter left unsplit.
+export function repipe(line) {
+  if (!line.trim()) return line;
+  const cells = line.split('|');
+  const words = cells[0].trim().split(' ');
+  const nums = []; while (words.length > 1 && NUMTOK.test(words[words.length - 1]) && /\d/.test(words[words.length - 1])) nums.unshift(words.pop());
+  if (!nums.length || (cells.length === 1 && nums.length < 2)) return line;
+  return [words.join(' ').replace(/[.:]$/, ''), ...nums, ...cells.slice(1).map((c) => c.trim())].join(' | ');
+}
 // "label | 2,655,135 | (733,545) | 29.0 | %" -> {label, toks:[{v, pct, dash}]}; null when a cell is not numeric.
 export function tokenizeRow(line) {
   let cells = line.split('|').map((c) => c.trim());
@@ -101,7 +113,7 @@ export function tokenizeRow(line) {
   const label = cells[0];
   const toks = [];
   for (let i = 1; i < cells.length; i++) {
-    let c = cells[i];
+    let c = normNumber(cells[i]);
     if (c === '' || c === ')' || c === '%' || c === '%)') continue;
     if (/^(-|–|—|n\/?a|n\.a\.|n\.m\.|nm)$/i.test(c)) { toks.push({ v: 0, pct: false, dash: true }); continue; }
     let neg = false;
@@ -128,3 +140,73 @@ export function parsePeriodLabel(s) { // "2Q26" -> {q, fy}; "6M26" / "6M 2026" -
   return null;
 }
 export const qid = (fy, q) => `${fy}Q${q}`;
+
+// ---------- table machinery shared by the build-data parsers ----------
+// Map numeric tokens onto `groups` period-groups of `per` columns each ([prior, current, change] or
+// [prior, current, changeAbs, changePct]); returns [[prior, current], ...] per group, or null.
+export function assignValues(toks, groups, per = 3) {
+  const attempt = (tk) => {
+    const vals = tk.map((t) => t.v);
+    if (vals.length === per * groups) return Array.from({ length: groups }, (_, g) => [vals[g * per], vals[g * per + 1]]);
+    if (vals.length === 2 * groups) return Array.from({ length: groups }, (_, g) => [vals[g * 2], vals[g * 2 + 1]]);
+    const nonPct = tk.filter((t) => !t.pct).map((t) => t.v);
+    if (nonPct.length === 2 * groups) return Array.from({ length: groups }, (_, g) => [nonPct[g * 2], nonPct[g * 2 + 1]]);
+    if (nonPct.length === groups) return Array.from({ length: groups }, (_, g) => [null, nonPct[g]]);
+    if (groups === 1 && nonPct.length >= 2) return [[nonPct[0], nonPct[1]]];
+    return null;
+  };
+  const exact = attempt(toks) || (toks.some((t) => t.dash) ? attempt(toks.filter((t) => !t.dash)) : null);
+  if (exact || per !== 3) return exact;
+  // Partial rows (a period left blank): walk left to right, a group closes on its change token
+  const gs = []; let cur = [];
+  for (const t of toks) {
+    if (cur.length === 2) { gs.push(cur); cur = []; continue; }
+    if (t.dash && cur.length === 1) { gs.push([cur[0], null]); cur = []; continue; }
+    if (t.pct) { gs.push(cur.length ? [cur[0], null] : [null, null]); cur = []; continue; }
+    cur.push(t.dash ? 0 : t.v);
+  }
+  if (cur.length) gs.push(cur.length === 2 ? cur : [cur[0], null]);
+  if (!gs.length || gs.length > groups) return null;
+  while (gs.length < groups) gs.push([null, null]);
+  return gs;
+}
+// Rows of a PDF-extracted table. pdfplumber sometimes emits a numeric row whose label sits on the next
+// (or previous) line; such rows are re-joined here. Yields {label, toks, line}.
+export function pdfRows(lines, start, end, { footnoteFix = false } = {}) {
+  const out = [];
+  const isLabelOnly = (l) => l && !/\|/.test(l) && !/^\(?-?[\d,]+(\.\d+)?%?\)?$/.test(l.trim()) && /[A-Za-z]/.test(l) && !/^<<page/.test(l);
+  for (let i = start; i < end; i++) {
+    const l = lines[i]; if (!l || !/\|/.test(l)) continue;
+    const row = tokenizeRow(l); if (!row || !row.toks.length) continue;
+    const labels = [];
+    if (row.label) labels.push(row.label);
+    else {
+      const next = (lines[i + 1] || '').trim(), prev = (lines[i - 1] || '').trim();
+      if (isLabelOnly(next)) { labels.push(next); if (isLabelOnly(prev)) labels.push(prev + ' ' + next); }
+      if (isLabelOnly(prev)) labels.push(prev);
+    }
+    // A footnote digit glued to the first figure ("3146.8 | 153.6", "13,608,582 | 3,529,798"): drop it when the
+    // remainder is within a third of the next figure.
+    const t = row.toks;
+    if (footnoteFix && t.length >= 2 && !t[0].dash && !t[1].dash && t[0].v > 0 && t[1].v > 0) {
+      const a = String(t[0].v), b = String(Math.round(t[1].v));
+      if (a.replace(/\..*$/, '').length === b.length + 1 && !/^0/.test(a)) { const r = Number(a.slice(1)); if (r > 0 && Math.abs(r / t[1].v - 1) < 0.35) t[0] = { ...t[0], v: t[0].v < 0 ? -r : r, fixed: true }; }
+    }
+    out.push({ label: labels[0] || '', labels, toks: t, line: i });
+  }
+  return out;
+}
+export function parseRows(rows, catalogue, groups, per = 3) {
+  const out = Array.from({ length: groups }, () => ({}));
+  const unmatched = [];
+  for (const row of rows) {
+    let lab = normLabel(row.label || ''), def = null;
+    for (const cand of (row.labels && row.labels.length ? row.labels : [row.label || ''])) { const nl = normLabel(cand); const d = catalogue.find((x) => (x.unlabeled ? nl === '' : x.re.test(nl))); if (d) { def = d; lab = nl; break; } }
+    if (!def) { if (lab) unmatched.push(lab); continue; }
+    const vals = assignValues(row.toks, groups, per);
+    if (!vals) { unmatched.push(lab + ' (layout)'); continue; }
+    vals.forEach((pair, g) => { if (!(def.k in out[g])) out[g][def.k] = pair; });
+  }
+  return { out, unmatched };
+}
+export function mapPair(obj, i) { const o = {}; for (const [k, pair] of Object.entries(obj)) if (pair && pair[i] != null) o[k] = pair[i]; return o; }
