@@ -8,8 +8,8 @@
 //   dividends  cash dividends per GENTERA share as recorded by Yahoo (cross-checked against the AGM
 //              resolutions in reference.js).
 //   fx         USD/MXN — FRED DEXMXUS (Federal Reserve H.10, no key required).
-//   rates      Mexico 10-year government bond: Banxico SIE (needs BANXICO_TOKEN; series id overridable with
-//              BANXICO_SERIES_MX10Y, default SF43936 = 10-year Bono M secondary-market yield) with the FRED/OECD
+//   rates      Mexico 10-year government bond: Banxico SIE weekly auction yield (needs BANXICO_TOKEN; the series
+//              id is found by title among candidate ids, or pinned with BANXICO_SERIES_MX10Y) with the FRED/OECD
 //              monthly series (IRLTLT01MXM156N) as fallback; US 10-year Treasury (FRED DGS10, daily).
 //              These are the risk-free inputs of the valuation section.
 //
@@ -34,7 +34,7 @@ const FRED_SERIES = [
   { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
-const BANXICO_MX10Y = process.env.BANXICO_SERIES_MX10Y || 'SF43936';
+const BANXICO_MX10Y = process.env.BANXICO_SERIES_MX10Y || null;
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const toUnix = (d) => Math.floor(new Date(d + 'T00:00:00Z').getTime() / 1000);
@@ -85,20 +85,34 @@ async function fred(id, since) {
   return { points, source: `FRED ${id}` };
 }
 
-// Banxico SIE: daily 10-year Bono M yield. The title check refuses a series whose name does not mention
-// "10" and "años"/"bono", so a wrong id never publishes silently.
+// Banxico SIE: 10-year Bono M yield. The exact series id is found by scanning candidate ids (the weekly
+// auction results live in the SF439xx–SF440xx range, one id per instrument) and keeping the first whose title
+// names a 10-year bond; BANXICO_SERIES_MX10Y pins one once known. A wrong id never publishes: the title check
+// refuses it, and the titles seen are recorded in the note so the candidate list can be corrected.
+const BANXICO_CANDIDATES = ['SF43948', 'SF43951', 'SF43954', 'SF43957', 'SF43960', 'SF43963', 'SF43966', 'SF43969', 'SF43972', 'SF43975', 'SF43978', 'SF43981', 'SF43984', 'SF43987', 'SF43990', 'SF43993', 'SF43996', 'SF43999', 'SF44002', 'SF44005'];
+const isTenYearBond = (title) => /bono/i.test(title) && /10\s*a[ñn]os/i.test(title) && !/udibono/i.test(title);
+async function banxicoSeries(ids, since, token) {
+  const url = `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${ids.join(',')}/datos/${since}/${new Date().toISOString().slice(0, 10)}?token=${token}`;
+  const body = JSON.parse(await getText(url, { headers: { Accept: 'application/json' } }));
+  return body?.bmx?.series || [];
+}
 async function banxico(series, since) {
   const token = process.env.BANXICO_TOKEN;
   if (!token) throw new Error('BANXICO_TOKEN not set');
-  const url = `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${series}/datos/${since}/${new Date().toISOString().slice(0, 10)}?token=${token}`;
-  const body = JSON.parse(await getText(url, { headers: { Accept: 'application/json' } }));
-  const s = body?.bmx?.series?.[0];
-  if (!s) throw new Error(`Banxico ${series}: no series in response`);
-  const title = (s.titulo || '').toLowerCase();
-  if (!/10/.test(title) || !/(bono|a[ñn]os)/.test(title)) throw new Error(`Banxico ${series}: unexpected title "${s.titulo}"`);
+  let s = null, seen = [];
+  if (series) {
+    s = (await banxicoSeries([series], since, token))[0];
+    if (!s) throw new Error(`Banxico ${series}: no series in response`);
+    if (!isTenYearBond(s.titulo || '')) { seen.push(`${series}: ${(s.titulo || '').replace(/\s+/g, ' ').slice(0, 90)}`); s = null; }
+  }
+  if (!s) {
+    const found = await banxicoSeries(BANXICO_CANDIDATES, since, token);
+    for (const c of found) { const t = (c.titulo || '').replace(/\s+/g, ' '); seen.push(`${c.idSerie}: ${t.slice(0, 90)}`); if (!s && isTenYearBond(t)) s = c; }
+    if (!s) throw new Error(`no 10-year Bono M among the candidate ids; titles seen: ${seen.join(' | ').slice(0, 1200)}`);
+  }
   const points = (s.datos || []).map((d) => { const [dd, mm, yy] = d.fecha.split('/'); return [`${yy}-${mm}-${dd}`, Number(String(d.dato).replace(',', ''))]; }).filter((p) => Number.isFinite(p[1])).map((p) => [p[0], r4(p[1])]).sort((a, b) => a[0].localeCompare(b[0]));
-  if (!points.length) throw new Error(`Banxico ${series}: no points`);
-  return { points, source: `Banxico SIE ${series} (${s.titulo})` };
+  if (!points.length) throw new Error(`Banxico ${s.idSerie}: no points`);
+  return { points, source: `Banxico SIE ${s.idSerie} (${(s.titulo || '').replace(/\s+/g, ' ').slice(0, 120)})` };
 }
 
 async function loadPrevious() {
@@ -150,7 +164,7 @@ async function main() {
   // MX 10-year: Banxico daily first, FRED/OECD monthly as fallback
   try {
     const data = await banxico(BANXICO_MX10Y, '2015-01-01');
-    out.rates.MX10Y = { name: 'México Bono M 10 años, rendimiento diario (%)', source: data.source, fetchedAt: out.generatedAt, points: data.points };
+    out.rates.MX10Y = { name: 'México Bono M 10 años, subasta semanal (%)', source: data.source, fetchedAt: out.generatedAt, points: data.points };
     ok++; console.log(`MX10Y: ${data.points.length} points via Banxico (last ${data.points.at(-1)})`);
   } catch (e1) {
     try {
