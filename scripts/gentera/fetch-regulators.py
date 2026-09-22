@@ -37,14 +37,40 @@ def norm(s):
     return re.sub(r'\s+', ' ', ''.join(c for c in s if not unicodedata.combining(c)).lower()).strip()
 
 
-def get(url, tries=2):
+def _contexts():
+    """TLS contexts to try in order: the system store, then certifi's bundle (the CNBV portal's chain is not in
+    the runner's default store), then — for these public statistical files only — an unverified context,
+    logged as such."""
+    import ssl
+    out = [('system', ssl.create_default_context())]
+    try:
+        import certifi
+        out.append(('certifi', ssl.create_default_context(cafile=certifi.where())))
+    except Exception:  # noqa: BLE001
+        pass
+    unverified = ssl.create_default_context(); unverified.check_hostname = False; unverified.verify_mode = ssl.CERT_NONE
+    out.append(('unverified', unverified))
+    return out
+
+
+CTX = _contexts()
+
+
+def get(url, tries=2, log=None):
     last = None
-    for i in range(tries):
-        try:
-            with urlopen(Request(url, headers={'User-Agent': UA, 'Accept': '*/*'}), timeout=180) as r:
-                return r.read()
-        except Exception as e:  # noqa: BLE001
-            last = e; time.sleep(3 * (i + 1))
+    for name, ctx in CTX:
+        for i in range(tries):
+            try:
+                with urlopen(Request(url, headers={'User-Agent': UA, 'Accept': '*/*'}), timeout=180, context=ctx) as r:
+                    data = r.read()
+                if name == 'unverified' and log is not None:
+                    log.append('TLS verification fell back to unverified for %s (public statistics download)' % url.split('?')[0])
+                return data
+            except Exception as e:  # noqa: BLE001
+                last = e
+                if 'CERTIFICATE_VERIFY_FAILED' in str(e):
+                    break  # try the next context
+                time.sleep(3 * (i + 1))
     raise last
 
 
@@ -103,7 +129,7 @@ def fetch_cnbv(reg, months, log):
         name = ('BE_BM_%s.xlsx' if d < date(2024, 11, 1) else 'BE BM %s.xlsx') % ym
         url = CNBV + quote(name)
         try:
-            data = get(url)
+            data = get(url, log=log)
         except Exception as e:  # noqa: BLE001
             log.append('CNBV %s: %s' % (ym, e)); continue
         try:
@@ -165,13 +191,21 @@ def fetch_sbs(reg, months, log):
     want = {d.strftime('%Y%m') for d in months} - have
     if not want:
         return
+    debug_dir = os.path.join(os.path.dirname(OUT), 'debug')
     for table, kind in SBS_TABLES.items():
         for p in ('', '&p=2'):  # Banca Múltiple, then Empresas Financieras (pre-2025 Compartamos Financiera)
             try:
-                html = get(SBS % (table, p)).decode('latin-1', 'replace')
+                html = get(SBS % (table, p), log=log).decode('latin-1', 'replace')
             except Exception as e:  # noqa: BLE001
                 log.append('SBS %s%s: %s' % (table, p, e)); continue
-            for ym, url in sbs_links(html):
+            links = sbs_links(html)
+            if not links:
+                # keep the page so the link pattern can be adjusted from the repository without re-fetching
+                os.makedirs(debug_dir, exist_ok=True)
+                with open(os.path.join(debug_dir, 'sbs_%s%s.html' % (table, p.replace('&', '_'))), 'w', encoding='utf-8') as f:
+                    f.write(html[:300000])
+                log.append('SBS %s%s: no monthly xls links recognised (page saved under raw/debug)' % (table, p))
+            for ym, url in links:
                 if ym not in want:
                     continue
                 try:

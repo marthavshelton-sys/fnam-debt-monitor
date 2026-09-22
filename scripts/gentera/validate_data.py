@@ -29,18 +29,19 @@ def identity(tag, msg, a, b, tol=TOL, soft=False):
 fin = load('financials.js'); ops = load('operations.js')
 
 
-def check_is(tag, i):
-    g = i.get
-    identity(tag, 'IS: interest income − expense != financial margin', (g('intInc') or 0) - (g('intExp') or 0), g('finMargin'))
-    identity(tag, 'IS: margin − provisions != margin after provisions', (g('finMargin') or 0) - (g('prov') or 0), g('finMarginAdj'))
+def check_is(tag, i, n=1):
+    """n = number of quarters summed into the period: printed roundings of Ps. ±1 M per line accumulate."""
+    g = i.get; tol = TOL if n == 1 else 5.0 * n
+    identity(tag, 'IS: interest income − expense != financial margin', (g('intInc') or 0) - (g('intExp') or 0), g('finMargin'), tol)
+    identity(tag, 'IS: margin − provisions != margin after provisions', (g('finMargin') or 0) - (g('prov') or 0), g('finMarginAdj'), tol)
     if all(g(k) is not None for k in ('finMarginAdj', 'feesCh', 'feesPd', 'opex', 'opRes')):
-        identity(tag, 'IS: margin after prov. + fees − opex != operating result', g('finMarginAdj') + g('feesCh') - g('feesPd') + (g('trading') or 0) + (g('otherInc') or 0) - g('opex'), g('opRes'))
+        identity(tag, 'IS: margin after prov. + fees − opex != operating result', g('finMarginAdj') + g('feesCh') - g('feesPd') + (g('trading') or 0) + (g('otherInc') or 0) - g('opex'), g('opRes'), tol)
     if g('ibt') is not None and g('tax') is not None:
-        identity(tag, 'IS: income before tax − tax + discontinued != net income', g('ibt') - g('tax') + (g('discontinued') or 0), g('netInc'))
+        identity(tag, 'IS: income before tax − tax + discontinued != net income', g('ibt') - g('tax') + (g('discontinued') or 0), g('netInc'), tol)
     if g('niCtrl') is not None and g('niMin') is not None:
-        identity(tag, 'IS: controlling + minority != net income', g('niCtrl') + g('niMin'), g('netInc'))
+        identity(tag, 'IS: controlling + minority != net income', g('niCtrl') + g('niMin'), g('netInc'), tol)
     if g('fundExp') is not None and g('origExp') is not None:
-        identity(tag, 'IS: funding + origination != interest expense', g('fundExp') + g('origExp'), g('intExp'), soft=True)
+        identity(tag, 'IS: funding + origination != interest expense', g('fundExp') + g('origExp'), g('intExp'), tol, soft=True)
 
 
 def check_bs(tag, b):
@@ -67,7 +68,7 @@ for q in fin['quarters']:
     if q['id'] >= '2025Q4' and k.get('coverageRep') is not None and k.get('coverage') is not None and abs(k['coverageRep'] - k['coverage']) > 1.5:
         warn('%s: coverage recomputed %.1f vs printed %.1f (same definition expected from 4Q25)' % (q['id'], k['coverage'], k['coverageRep']))
 for y in fin['ytd'] + fin['years']:
-    check_is(y['id'], y['is'])
+    check_is(y['id'], y['is'], len(y.get('covers') or [1]))
 # YTD/FY = sum of quarters
 byid = {q['id']: q for q in fin['quarters']}
 for y in fin['ytd'] + fin['years']:
@@ -87,7 +88,9 @@ for i in range(12):
 for e in ops['quarters']:
     if e.get('loans') and all(e.get(k) is not None for k in ('loansMX', 'loansPE', 'loansCC')):
         s = e['loansMX'] + e['loansPE'] + e['loansCC']
-        if s > e['loans'] * 1.005: fail('%s: subsidiary loans %.0f exceed consolidated %.0f' % (e['id'], s, e['loans']))
+        # subsidiaries' own books can exceed the consolidated figure by intercompany eliminations (≈1–3% in 2020–23)
+        if s > e['loans'] * 1.03: fail('%s: subsidiary loans %.0f exceed consolidated %.0f by more than 3%%' % (e['id'], s, e['loans']))
+        elif s > e['loans'] * 1.005: warn('%s: subsidiary loans %.0f exceed consolidated %.0f (eliminations)' % (e['id'], s, e['loans']))
         if s < e['loans'] * 0.97: warn('%s: subsidiary loans %.0f are %.1f%% below consolidated %.0f' % (e['id'], s, 100 * (1 - s / e['loans']), e['loans']))
     if e.get('clientsCred') and e.get('clientsTot') and e['clientsCred'] > e['clientsTot']:
         fail('%s: credit clients exceed people served' % e['id'])

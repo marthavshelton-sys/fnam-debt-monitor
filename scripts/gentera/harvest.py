@@ -113,19 +113,29 @@ def encode_url(u):
     return urlunsplit((p.scheme, p.netloc, quote(p.path, safe='/%+'), p.query, ''))
 
 
+PRESS_ANCHOR = ('press release', 'press-release', 'comunicado', 'reporte trimestral', 'informe trimestral', 'resultados')
+NOT_PRESS = ('presentaci', 'ingl', 'english', 'audit', 'anual', 'annual', 'transcri', 'webcast')
+
+
+def anchor_ok(text):
+    """True when the anchor text names the quarterly press release (never a presentation, transcript or the
+    English version). The href is deliberately not consulted: a file called ..._compressed.pdf contains
+    'press' and was harvested as the 4Q25 release in the first run."""
+    tn = norm(text)
+    return any(w in tn for w in PRESS_ANCHOR) and not any(w in tn for w in NOT_PRESS)
+
+
 def release_links(html):
-    """Anchors whose text or href says 'press release' / 'comunicado' and point to a PDF (WCM or plain).
-    Returns [(qid, url, anchor_text)]."""
+    """PDF anchors (WCM or plain) with their quarter id and anchor text; press-release anchors first so they take
+    precedence over other documents of the same quarter. Returns [(qid, url, anchor_text)]."""
     out, seen = [], set()
     for m in re.finditer(r'<a\b[^>]*href="([^"]+)"[^>]*>(.*?)</a>', html, re.I | re.S):
         href, text = m.group(1), re.sub(r'<[^>]+>', ' ', m.group(2))
-        h, tn = norm(href), norm(text)
+        h = norm(href)
         if not ('.pdf' in h or 'wcm/connect' in h):
             continue
-        if not ('press' in tn or 'comunicado' in tn or 'press' in h or 'comunicado' in h or 'release' in h):
+        if not anchor_ok(text):
             continue
-        if 'ingl' in tn or 'english' in tn or '_en' in h or 'eng' in h.split('/')[-1]:
-            continue  # English version
         url = unescape(href if href.startswith('http') else urljoin(BASE, href))
         if 'wcm/connect' in url and 'MOD=AJPERES' not in url:
             url += ('&' if '?' in url else '?') + 'MOD=AJPERES'
@@ -156,6 +166,15 @@ def harvest(full, since, only):
         key = 'release:%s' % qid if qid else 'release:' + hashlib.sha1(url.encode()).hexdigest()[:10]
         if key in items and not full and items[key].get('url') == url:
             continue
+        if key in items and not full and items[key].get('url') != url:
+            stored = items[key].get('anchor')
+            if stored is None and items[key].get('text') and os.path.exists(os.path.join(ROOT, items[key]['text'])):
+                with open(os.path.join(ROOT, items[key]['text']), encoding='utf-8') as f:
+                    m = re.search(r'^ANCHOR: (.*)$', f.read(2000), re.M)
+                stored = m.group(1) if m else 'press release'
+            if anchor_ok(stored or 'press release'):
+                continue  # a different document for a quarter we already hold as a press release
+            print('%s: replacing "%s" with the press release' % (qid, stored))
         try:
             data = get(encode_url(url), binary=True)
         except Exception as e:  # noqa: BLE001
@@ -175,7 +194,7 @@ def harvest(full, since, only):
         txt_path = os.path.join(TXT_DIR, '%s.txt' % qid)
         with open(txt_path, 'w', encoding='utf-8') as f:
             f.write('SOURCE: %s\nFETCHED: %s\nANCHOR: %s\n' % (url, datetime.now(timezone.utc).isoformat(timespec='seconds'), text) + txt)
-        items[key] = {'url': url, 'sha256': hashlib.sha256(data).hexdigest(), 'size': len(data), 'pages': pages, 'chars': len(txt), 'kind': 'release', 'quarter': qid,
+        items[key] = {'url': url, 'anchor': text.strip(), 'sha256': hashlib.sha256(data).hexdigest(), 'size': len(data), 'pages': pages, 'chars': len(txt), 'kind': 'release', 'quarter': qid,
                       'text': os.path.relpath(txt_path, ROOT).replace('\\', '/'), 'fetchedAt': datetime.now(timezone.utc).isoformat(timespec='seconds')}
         new += 1
         print('%s: %d pages, %d chars%s' % (qid, pages, len(txt), '' if len(txt) > 1000 else '  (image-only PDF, no text)'))

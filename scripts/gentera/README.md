@@ -17,11 +17,15 @@ statement identities tie out) → the comparative column of a later release → 
 `tools/gentera/raw/seed/quarters.json` (1Q22–2Q26, hand-transcribed from the same releases). `quality.js`
 records which origin every quarter has; `site/gentera/quality.html` shows it.
 
-**Status of the harvester.** The build environment that wrote these scripts could not reach gentera.com.mx,
-CNBV, SBS, Yahoo or FRED (egress policy), so `harvest.py`, `fetch-regulators.py` and the release parser in
-`build_data.py` have not yet run against real files. The first `workflow_dispatch` on `main` (mode `all`,
-`full` = true) does that; expect to adjust the regexes in `IS_TPL` / `BS_TPL` / `IND_TPL` and `release_links()`
-after reading the log. Until a release parses, the page runs on the seed dataset, which ties out.
+**How the parser reads a release.** Every page is cut into segments at its column-header lines (two or more
+quarter ids, possibly split over several lines in the 2012–2021 layouts); the header gives the column order
+with a slot for every "% Var" column and for the annual columns of the 4Q releases; each row's trailing numeric
+tokens are aligned to those slots. The entity (GENTERA consolidated, Banco Compartamos, Perú, ConCrédito) comes
+from the page title and the segment kind (income statement, balance sheet, indicators, cost of funds) from the
+row labels; `IS_TPL` / `BS_TPL` / `IND_TPL` carry every wording used since 2012. A quarter is accepted only
+when its statements tie out and, for seed quarters, agree with the seed. `test_parser.py` runs the parser on
+every archived text and fails the workflow on the first regression. Status after the first harvest: 57/57
+press releases parse; see `tools/gentera/README.md` for the remaining limitations.
 
 Hand-curated files in `site/gentera/data/` (`reference.js`, `guidance.js`, `comments.js`, `summary.js`,
 `peers.js`) are edited by reviewed commit; see `tools/gentera/README.md` for the per-quarter routine.

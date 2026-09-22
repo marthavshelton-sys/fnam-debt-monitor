@@ -69,14 +69,23 @@ Either way the page already carries `noindex,nofollow` and the data files are se
 
 ## Known limitations
 
-- The build environment could not reach the IR site, CNBV, SBS, Yahoo or FRED: the release parser, the
-  regulator fetchers and the market fetcher have not run against real files yet. The first `workflow_dispatch`
-  on `main` does that; the page runs on the seed dataset (1Q22–2Q26, ties out) until releases parse.
-- Fiscal years before 2022 and quarters 1Q19–4Q21 appear once the harvester has converted those PDFs and the
-  parser recognises their (older) layout; older releases used "cartera vencida" instead of "etapa 3" and had no
-  IFRS 9 stages, so `BS_TPL` needs the pre-2022 labels added when those files are first read.
-- Release dates are `null` for seed quarters (the harvester fills them from the PDF's dateline); guidance
-  vintage dates are approximate (`dateApprox`) for the same reason.
+- Coverage after the first harvest (22 Sep 2026): 57 press releases 1Q12–2Q26 parsed (consolidated statements,
+  indicators, Banco Compartamos / Perú / ConCrédito tables, cost of funds), 62 quarters 1Q11–2Q26 (the 2011
+  quarters come from the comparative columns of the 2012 releases), 15 fiscal years. The parser test
+  (`test_parser.py`) passes on every file and the 18 seed quarters agree with the parsed values.
+- The IR page listed the **corporate presentation** under 4Q25 in the first harvest; 4Q25 therefore comes from
+  the comparative column of the 1Q26 release until the harvester finds the 4T25 press-release anchor (it now
+  replaces a non-press document automatically; run `workflow_dispatch` with `full` = true if needed).
+- Pre-2022 statements use the pre-IFRS 9 layout: "cartera vigente / vencida" is shown in the stage 1–2 /
+  stage 3 rows; the reported stage-3 ratio for 4Q21 (4.46%) is on the new basis while its balances are on the
+  old one. Shares outstanding are known only from 1Q22 on, so EPS and book value per share are null before
+  that (FY2021 and earlier EPS is not shown).
+- The 3Q20 release prints the discontinued-operations line with an inconsistent sign; the model derives the
+  line as net income minus (pre-tax minus tax).
+- CNBV downloads needed a certificate fallback (`certifi`, then unverified for these public files, logged);
+  the SBS page yielded no monthly links in the first run — the fetched HTML is saved under
+  `tools/gentera/raw/debug/` so the link pattern in `fetch-regulators.py` can be adjusted.
+- Guidance vintage dates are approximate (`dateApprox`) until transcribed from the releases.
 - Gentera publishes no earnings-call transcripts; comments come from the management discussion in the release.
 - Peer multiples and consensus wait for the FactSet connector. Ratings and analyst targets are not transcribed.
 

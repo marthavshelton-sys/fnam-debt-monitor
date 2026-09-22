@@ -57,7 +57,7 @@ jobs:
           python-version: "3.12"
 
       - name: Install Python dependencies
-        run: pip install --quiet pypdf pypdfium2 openpyxl xlrd
+        run: pip install --quiet pypdf pypdfium2 openpyxl xlrd certifi
 
       - name: Decide what to run
         id: plan
@@ -96,12 +96,20 @@ jobs:
         run: python scripts/gentera/build_data.py
 
       - name: Parser regression test on archived releases
+        id: parsertest
         if: always() && steps.plan.outputs.mode != 'market'
         run: python scripts/gentera/test_parser.py
 
       - name: Validate model data
+        id: validate
         if: always()
         run: python scripts/gentera/validate_data.py
+
+      # A data set that does not reconcile never reaches the page: the statement files go back to the last good
+      # version while the raw texts, market data and quality.js (which records the failure) are still committed.
+      - name: Keep the last good statements if validation or the parser test failed
+        if: always() && (steps.validate.outcome == 'failure' || steps.parsertest.outcome == 'failure')
+        run: git checkout -- site/gentera/data/financials.js site/gentera/data/operations.js
 
       - name: Commit if anything changed
         if: always()
