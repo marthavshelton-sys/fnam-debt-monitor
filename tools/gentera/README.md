@@ -46,9 +46,8 @@ changed it drafts the Comments column for the new quarter from the release, upda
 rewrites the affected executive-summary cards, records what it did in the state file on `main`, and its final
 message is a concise note (headline figure, what changed with source links, why it matters, what to watch,
 link to the model) that the platform emails to the repository owner. On quiet days the note is the single line
-"No material change in Gentera data today" and nothing is emailed. The routine is created **disabled** until
-this branch is merged to `main` (the scripts it runs live only here); enable it from the Routines list in
-claude.ai/code after the merge.
+"No material change in Gentera data today" and nothing is emailed. Enabled since 22 Sep 2026; pause or edit it
+from the Routines list in claude.ai/code.
 
 ## Access (password)
 
@@ -69,13 +68,13 @@ Either way the page already carries `noindex,nofollow` and the data files are se
 
 ## Known limitations
 
-- Coverage after the first harvest (22 Sep 2026): 57 press releases 1Q12–2Q26 parsed (consolidated statements,
+- Coverage after the first harvest (22 Sep 2026): 58 press releases 1Q12–2Q26 parsed (consolidated statements,
   indicators, Banco Compartamos / Perú / ConCrédito tables, cost of funds), 62 quarters 1Q11–2Q26 (the 2011
   quarters come from the comparative columns of the 2012 releases), 15 fiscal years. The parser test
   (`test_parser.py`) passes on every file and the 18 seed quarters agree with the parsed values.
-- The IR page listed the **corporate presentation** under 4Q25 in the first harvest; 4Q25 therefore comes from
-  the comparative column of the 1Q26 release until the harvester finds the 4T25 press-release anchor (it now
-  replaces a non-press document automatically; run `workflow_dispatch` with `full` = true if needed).
+- The IR page's first harvest returned the **corporate presentation** under 4Q25 (its file name contains
+  "compressed"); the harvester now selects press-release anchors by anchor text and replaced it with the 4T25
+  release on the second run (58/58 releases parsed).
 - Pre-2022 statements use the pre-IFRS 9 layout: "cartera vigente / vencida" is shown in the stage 1–2 /
   stage 3 rows; the reported stage-3 ratio for 4Q21 (4.46%) is on the new basis while its balances are on the
   old one. Shares outstanding are known only from 1Q22 on, so EPS and book value per share are null before
