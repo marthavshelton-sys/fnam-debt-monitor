@@ -73,7 +73,68 @@
  "sbs": {
   "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
   "unit": "PEN millions; ratios %",
-  "series": []
+  "series": [
+   {
+    "month": "202603",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Marzo/B-2201-ma2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Marzo/B-2362-ma2026.XLS"
+    },
+    "loans": 4822.08,
+    "loansNet": 4435.8,
+    "netIncome": 90.02,
+    "equity": 1189.99,
+    "morosidad": 4.33
+   },
+   {
+    "month": "202604",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2201-ab2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2362-ab2026.XLS"
+    },
+    "loans": 4859.15,
+    "loansNet": 4465.76,
+    "netIncome": 122.15,
+    "equity": 1219.85,
+    "morosidad": 4.47
+   },
+   {
+    "month": "202605",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2201-my2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2362-my2026.XLS"
+    },
+    "loans": 4869.82,
+    "loansNet": 4466.64,
+    "netIncome": 156.27,
+    "equity": 1252.2,
+    "morosidad": 4.73
+   },
+   {
+    "month": "202606",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2201-jn2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2362-jn2026.XLS"
+    },
+    "loans": 4893.69,
+    "loansNet": 4482.33,
+    "netIncome": 186.45,
+    "equity": 1280.07,
+    "morosidad": 4.9
+   },
+   {
+    "month": "202607",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2201-jl2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2362-jl2026.XLS"
+    },
+    "loans": 4907.11,
+    "loansNet": 4484.64,
+    "netIncome": 222.44,
+    "equity": 1313.57,
+    "morosidad": 5.07
+   }
+  ]
  },
  "log": [
   "CNBV 202608: HTTP Error 404: NOT FOUND",
@@ -86,8 +147,7 @@
   "SBS B-2369 202604: Compartamos column not found",
   "SBS B-2369 202605: Compartamos column not found",
   "SBS B-2369 202606: Compartamos column not found",
-  "SBS B-2369 202607: Compartamos column not found",
-  "SBS: implausible values for ['202603'] dropped (check raw/debug/sbs_*.json and SBS_PICK)"
+  "SBS B-2369 202607: Compartamos column not found"
  ],
- "updatedAt": "2026-09-22T23:14:39+00:00"
+ "updatedAt": "2026-09-22T23:16:57+00:00"
 }
