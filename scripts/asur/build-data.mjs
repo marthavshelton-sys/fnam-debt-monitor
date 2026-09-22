@@ -342,6 +342,7 @@ function parseTraffic(text, meta) {
   const enter = (t) => { if (seen.has(t)) return false; seen.add(t); table = t; seg = null; return true; };
   for (const raw of lines) {
     const l = norm(raw);
+    if (/\(continued\)/.test(l)) continue; // "Mexico Passenger Traffic (continued)": same table, next page
     if (/^passenger traffic summary/.test(l)) { if (!enter('summary')) break; continue; }
     if (/passenger traffic/.test(l) && /mexico|m[eé]xico/.test(l) && !/\d/.test(l)) { if (!enter('MX')) break; continue; }
     if (/passenger traffic|san juan airport/.test(l) && /san juan|puerto rico|\(lmm\)/.test(l) && !/\d/.test(l.replace(/\(lmm\)/, ''))) { if (!enter('PR')) break; continue; }
