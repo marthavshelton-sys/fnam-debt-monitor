@@ -73,63 +73,7 @@
  "sbs": {
   "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
   "unit": "PEN millions; ratios %",
-  "series": [
-   {
-    "month": "202603",
-    "sources": {
-     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Marzo/B-2201-ma2026.XLS",
-     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Marzo/B-2362-ma2026.XLS"
-    },
-    "loans": 4435.8,
-    "deposits": 35.59,
-    "netIncome": 90.02,
-    "equity": 1189.99
-   },
-   {
-    "month": "202604",
-    "sources": {
-     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2201-ab2026.XLS",
-     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2362-ab2026.XLS"
-    },
-    "loans": 4465.76,
-    "deposits": 47.96,
-    "netIncome": 122.15,
-    "equity": 1219.85
-   },
-   {
-    "month": "202605",
-    "sources": {
-     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2201-my2026.XLS",
-     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2362-my2026.XLS"
-    },
-    "loans": 4466.64,
-    "deposits": 60.97,
-    "netIncome": 156.27,
-    "equity": 1252.2
-   },
-   {
-    "month": "202606",
-    "sources": {
-     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2201-jn2026.XLS",
-     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2362-jn2026.XLS"
-    },
-    "loans": 4482.33,
-    "deposits": 73.78,
-    "netIncome": 186.45,
-    "equity": 1280.07
-   },
-   {
-    "month": "202607",
-    "sources": {
-     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2201-jl2026.XLS",
-     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2362-jl2026.XLS"
-    },
-    "loans": 4484.64,
-    "deposits": 87.03,
-    "netIncome": 222.44,
-    "equity": 1313.57
-   }
-  ]
+  "series": []
  },
  "log": [
   "CNBV 202608: HTTP Error 404: NOT FOUND",
