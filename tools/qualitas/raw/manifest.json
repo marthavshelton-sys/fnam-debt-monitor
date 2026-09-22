@@ -1,5 +1,60 @@
 {
  "items": {
+  "reports:2021Q3": {
+   "chars": 36673,
+   "fetchedAt": "2026-09-22T21:32:29+00:00",
+   "kind": "reports",
+   "pages": 19,
+   "quarter": "2021Q3",
+   "sha256": "db20d48804517cd4d37e924c81625cdb3d7015f3d83bce3a4c2d66be48a4804f",
+   "size": 1072044,
+   "text": "tools/qualitas/raw/text/reports/2021Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/trimestral/3T/mx/Q-Reporte-de-Resultados-3T21.pdf"
+  },
+  "reports:2021Q4": {
+   "chars": 36742,
+   "fetchedAt": "2026-09-22T21:32:32+00:00",
+   "kind": "reports",
+   "pages": 18,
+   "quarter": "2021Q4",
+   "sha256": "c4fdd3b6bf31d28ce5279822faade4a16ad9dfd244e70b12d42123c75db8d73e",
+   "size": 1239576,
+   "text": "tools/qualitas/raw/text/reports/2021Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/trimestral/4T/mx/Q-Reporte-de-Resultados-4T21.pdf"
+  },
+  "reports:2022Q1": {
+   "chars": 31660,
+   "fetchedAt": "2026-09-22T21:32:46+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2022Q1",
+   "sha256": "6c6793b4304df9d6fd4eab68bc0b58b4381086071960b8dff6f97917caf70efe",
+   "size": 1380858,
+   "text": "tools/qualitas/raw/text/reports/2022Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/trimestral/1T/mx/Q - Reporte de Resultados 1T22.pdf"
+  },
+  "reports:2022Q2": {
+   "chars": 37737,
+   "fetchedAt": "2026-09-22T21:32:50+00:00",
+   "kind": "reports",
+   "pages": 22,
+   "quarter": "2022Q2",
+   "sha256": "e9f541ffa2687321057c5c86a5d5771ffd5e967af66163adbf5965f638a58d77",
+   "size": 1520828,
+   "text": "tools/qualitas/raw/text/reports/2022Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/trimestral/2T/mx/Q_Reporte_de_Resultados_2T22.pdf"
+  },
+  "reports:2022Q3": {
+   "chars": 39623,
+   "fetchedAt": "2026-09-22T21:32:55+00:00",
+   "kind": "reports",
+   "pages": 21,
+   "quarter": "2022Q3",
+   "sha256": "8eaad58a1cd47f4c94cc331defce9f2207bf751b2878cf5ef0bd6dc204af5c75",
+   "size": 1438378,
+   "text": "tools/qualitas/raw/text/reports/2022Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/trimestral/3T/mx/Q_Reporte_de_Resultados_3T22.pdf"
+  },
   "reports:2023Q1": {
    "chars": 34276,
    "fetchedAt": "2026-09-22T20:15:28+00:00",
@@ -154,6 +209,138 @@
    "text": "tools/qualitas/raw/text/reports/2026Q2.txt",
    "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/Q - Reporte Trimestral 2T26 VFF2.pdf"
   },
+  "sific:2020Q1": {
+   "chars": 35560,
+   "fetchedAt": "2026-09-22T21:32:18+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2020Q1",
+   "sha256": "3b30c63a5630852a87f15eab528588f0799cb8b3a6efd80269ae44e47b71bf02",
+   "size": 399948,
+   "text": "tools/qualitas/raw/text/sific/2020Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2020/sific/mx/rHLMsTw8K9o9ZylemQIW5E4ZXVTel07dzGdNJwDt.pdf"
+  },
+  "sific:2020Q2": {
+   "chars": 39633,
+   "fetchedAt": "2026-09-22T21:32:21+00:00",
+   "kind": "sific",
+   "pages": 16,
+   "quarter": "2020Q2",
+   "sha256": "839a7e11cb9486b920f1b2a136498632b7adeba9e22b415b9be81a39b2ed4544",
+   "size": 405866,
+   "text": "tools/qualitas/raw/text/sific/2020Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2020/sific/mx/wpP8gJnMvjNyDGBfArFVXL4XNLdG59stR09ulkV7.pdf"
+  },
+  "sific:2020Q3": {
+   "chars": 36602,
+   "fetchedAt": "2026-09-22T21:32:24+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2020Q3",
+   "sha256": "c214d0a53b1ed5340fda9271574c42809703e7f59dc9bfafc9939d836a1f95bd",
+   "size": 398887,
+   "text": "tools/qualitas/raw/text/sific/2020Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2020/sific/mx/ehI2YiS6bqDHBiPvkpJEu7RTXpqqJFU1cUbPZH7j.pdf"
+  },
+  "sific:2020Q4": {
+   "chars": 40608,
+   "fetchedAt": "2026-09-22T21:32:26+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2020Q4",
+   "sha256": "fa544558f5fffbfd8339e867cab7fb2ec111eae5fff16a76649ac6e89e483651",
+   "size": 411189,
+   "text": "tools/qualitas/raw/text/sific/2020Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2020/sific/mx/i29HTnMT6DC0NEwNY6VpuSsIu71M8wCx4iHQNL8t.pdf"
+  },
+  "sific:2021Q1": {
+   "chars": 42260,
+   "fetchedAt": "2026-09-22T21:32:34+00:00",
+   "kind": "sific",
+   "pages": 15,
+   "quarter": "2021Q1",
+   "sha256": "c653233f30d6e83c5f066b7711e6b7dc1937516834fb377ffbd858b6dc8037f5",
+   "size": 405586,
+   "text": "tools/qualitas/raw/text/sific/2021Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/sific/mx/wAjP8ur7ycbQvVSf8CEbyUGQOTxAGs7nylPLrgcs.pdf"
+  },
+  "sific:2021Q2": {
+   "chars": 38129,
+   "fetchedAt": "2026-09-22T21:32:36+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2021Q2",
+   "sha256": "1fc0d6e03b2bf1a1b416f62671bbbd82947653be73f410ac828b4dbf670fd1a7",
+   "size": 402872,
+   "text": "tools/qualitas/raw/text/sific/2021Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/sific/mx/GgrhtWaclbQS1JhepZayfcYnWfRVJLWUua1HywL0.pdf"
+  },
+  "sific:2021Q3": {
+   "chars": 36278,
+   "fetchedAt": "2026-09-22T21:32:38+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2021Q3",
+   "sha256": "03f230d08ee34205e15b39afb57322e0f88073bc6101e6c2cce946fc1cff0af8",
+   "size": 400356,
+   "text": "tools/qualitas/raw/text/sific/2021Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/sific/mx/reporte 3T21 SIFIC.pdf"
+  },
+  "sific:2021Q4": {
+   "chars": 36382,
+   "fetchedAt": "2026-09-22T21:32:41+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2021Q4",
+   "sha256": "b7ac517b003a1bed0a8437864dad895117fbb88b96ab725d4cba187fd52da365",
+   "size": 400037,
+   "text": "tools/qualitas/raw/text/sific/2021Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2021/sific/mx/reporte 4T21 SIFIC.pdf"
+  },
+  "sific:2022Q1": {
+   "chars": 35138,
+   "fetchedAt": "2026-09-22T21:32:59+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2022Q1",
+   "sha256": "654e54881e28d4de1912c60f75338b76beec4bdf25d36debdae1d032a81ead94",
+   "size": 397431,
+   "text": "tools/qualitas/raw/text/sific/2022Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/sific/mx/reporte 1T22 SIFIC.pdf"
+  },
+  "sific:2022Q2": {
+   "chars": 37859,
+   "fetchedAt": "2026-09-22T21:33:02+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2022Q2",
+   "sha256": "e63b05bc4e0c2db8d91f964faf3a43e46765c5bef201003c5ea81489d474af48",
+   "size": 401304,
+   "text": "tools/qualitas/raw/text/sific/2022Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/sific/mx/reporte 2T22 SIFIC.pdf"
+  },
+  "sific:2022Q3": {
+   "chars": 39237,
+   "fetchedAt": "2026-09-22T21:33:05+00:00",
+   "kind": "sific",
+   "pages": 15,
+   "quarter": "2022Q3",
+   "sha256": "1e56cef772fa84e7318119bb7bafbcb38d1ff90413407b850b4a92f152eb70df",
+   "size": 405877,
+   "text": "tools/qualitas/raw/text/sific/2022Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/sific/mx/Reporte_3T22_SIFIC.pdf"
+  },
+  "sific:2022Q4": {
+   "chars": 38425,
+   "fetchedAt": "2026-09-22T21:33:08+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2022Q4",
+   "sha256": "7b5fb3ccba12e96499598348d51daaea07aa7ec4334832dda2e451b9740f77f6",
+   "size": 403683,
+   "text": "tools/qualitas/raw/text/sific/2022Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2022/sific/mx/reporte_4T_SIFIC.pdf"
+  },
   "sific:2023Q1": {
    "chars": 35587,
    "fetchedAt": "2026-09-22T20:15:43+00:00",
@@ -305,5 +492,5 @@
    "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/DatosFinancierosHistoricos 2T26.xlsx"
   }
  },
- "updatedAt": "2026-09-22T20:17:27+00:00"
+ "updatedAt": "2026-09-22T21:33:28+00:00"
 }
