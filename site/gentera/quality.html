@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Gentera · Data quality</title>
+<meta name="description" content="Pipeline health for the Gentera model: origin of every quarter, parse warnings, tie-out results, stale series.">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<script src="data/market.js"></script>
+<script src="data/financials.js"></script>
+<script src="data/operations.js"></script>
+<script src="data/quality.js"></script>
+<script src="data/guidance.js"></script>
+<script src="data/comments.js"></script>
+<script src="data/summary.js"></script>
+<script src="data/reference.js"></script>
+<style>
+:root{color-scheme:light; --page:#f9f9f7; --surface:#fcfcfb; --text:#0b0b0b; --muted:#898781; --border:rgba(11,11,11,.12); --good:#006300; --bad:#d03b3b; --warn:#8a5a00; --accent:#1b4332;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --text:#fff; --muted:#918f88; --border:rgba(255,255,255,.14); --good:#0ca30c; --bad:#e66767; --warn:#f0d58a; --accent:#4f9a76;} }
+:root[data-theme="dark"]{color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --text:#fff; --muted:#918f88; --border:rgba(255,255,255,.14); --good:#0ca30c; --bad:#e66767; --warn:#f0d58a; --accent:#4f9a76;}
+body{margin:0; background:var(--page); color:var(--text); font:14px/1.5 Inter, system-ui, sans-serif;}
+.wrap{max-width:1000px; margin:0 auto; padding:32px 16px 60px;}
+h1{font-size:22px; margin:0 0 4px;} h2{font-size:15px; margin:28px 0 8px;}
+.muted{color:var(--muted);} .ok{color:var(--good); font-weight:700;} .bad{color:var(--bad); font-weight:700;} .warn{color:var(--warn);}
+table{width:100%; border-collapse:collapse; font-size:13px; background:var(--surface); border:1px solid var(--border); border-radius:8px;}
+th,td{padding:6px 9px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top;} th{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted);}
+td.num{text-align:right; font-variant-numeric:tabular-nums;}
+.pill{display:inline-block; padding:1px 8px; border-radius:100px; font-size:11px; font-weight:700; border:1px solid var(--border);}
+.pill.release{background:rgba(27,67,50,.12); color:var(--accent);} .pill.seed{color:var(--warn);} .pill.comparative{color:var(--muted);}
+a{color:var(--accent);}
+ul{padding-left:20px;} li{margin:3px 0;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <a href="./" class="muted">← Gentera model</a>
+  <h1>Gentera model · data quality</h1>
+  <p class="muted" id="meta"></p>
+  <h2>Validation</h2><div id="validation"></div>
+  <h2>Origin of every quarter</h2><div id="origins"></div>
+  <h2>Parse warnings</h2><div id="warnings"></div>
+  <h2>Series freshness</h2><div id="fresh"></div>
+  <h2>Curated files</h2><div id="curated"></div>
+</div>
+<script>
+(function () {
+  const Q = window.G_QUALITY || {}, F = window.G_FIN || { quarters: [] }, O = window.G_OPS || {}, M = window.G_MARKET || {};
+  const el = (id) => document.getElementById(id);
+  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  el('meta').textContent = `Data generated ${Q.generatedAt || F.generatedAt || '—'} · ${F.quarters.length} quarters · market ${M.generatedAt || 'pending first workflow run'}`;
+  const v = Q.validation;
+  el('validation').innerHTML = !v ? '<p class="warn">validate_data.py has not run on this build.</p>' : `<p class="${v.ok ? 'ok' : 'bad'}">${v.ok ? 'All tie-outs pass' : v.failures.length + ' failure(s)'} · ${v.checks} identities checked · ${v.warnings.length} warning(s)</p>` + (v.failures.length ? '<ul>' + v.failures.map((x) => `<li class="bad">${esc(x)}</li>`).join('') + '</ul>' : '') + (v.warnings.length ? '<ul>' + v.warnings.map((x) => `<li class="warn">${esc(x)}</li>`).join('') + '</ul>' : '');
+  el('origins').innerHTML = '<table><thead><tr><th>Quarter</th><th>Origin</th><th>Source</th><th class="num">Net income</th><th class="num">Total assets</th><th class="num">Stage 3</th></tr></thead><tbody>' + F.quarters.slice().reverse().map((q) => { const s = q.sources && q.sources.is || {}; return `<tr><td>${q.label}</td><td><span class="pill ${q.origin}">${q.origin}</span></td><td>${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${esc(s.title || s.url)}</a>${s.date ? ' · ' + s.date : ''}${s.page ? ' · p. ' + s.page : ''}` : '—'}</td><td class="num">${q.is.netInc != null ? q.is.netInc.toLocaleString('en-US') : '—'}</td><td class="num">${q.bs.totAssets != null ? q.bs.totAssets.toLocaleString('en-US') : '—'}</td><td class="num">${q.kpi.npl != null ? q.kpi.npl.toFixed(2) + '%' : '—'}</td></tr>`; }).join('') + '</tbody></table>' + `<p class="muted">release = parsed from the quarter's own press release · comparative = comparative column of a later release · seed = hand transcription in tools/gentera/raw/seed/quarters.json (the parser has not yet run against the PDF).</p>`;
+  const w = Q.warnings || [];
+  el('warnings').innerHTML = w.length ? '<ul>' + w.map((x) => `<li class="warn">${esc(x)}</li>`).join('') + '</ul>' : '<p class="ok">None</p>';
+  const rows = [];
+  const last = (pts) => (pts && pts.length ? pts[pts.length - 1][0] : null);
+  const ageDays = (d) => (d ? Math.round((Date.now() - new Date(d + 'T12:00:00Z').getTime()) / 864e5) : null);
+  for (const [k, s] of Object.entries(M.prices || {})) rows.push(['price ' + k, last(s.points), s.error]);
+  for (const [k, s] of Object.entries(M.fx || {})) rows.push(['fx ' + k, last(s.points), s.error]);
+  for (const [k, s] of Object.entries(M.rates || {})) rows.push(['rate ' + k, last(s.points), s.error]);
+  const mo = (O.monthly || {});
+  for (const k of ['cnbv', 'sbs']) { const ser = (mo[k] && mo[k].series) || []; rows.push([k.toUpperCase() + ' monthly', ser.length ? ser[ser.length - 1].month : null, ser.length ? null : (mo[k] && mo[k].note) || 'not fetched']); }
+  rows.push(['quarterly statements', F.quarters.length ? F.quarters[F.quarters.length - 1].label : null, null]);
+  el('fresh').innerHTML = rows.length ? '<table><thead><tr><th>Series</th><th>Last point</th><th>Age</th><th>Status</th></tr></thead><tbody>' + rows.map(([n, d, e]) => { const a = /^\d{4}-\d{2}-\d{2}$/.test(d || '') ? ageDays(d) : null; const stale = a != null && a > 7; return `<tr><td>${esc(n)}</td><td>${d || '—'}</td><td>${a != null ? a + ' d' : ''}</td><td class="${e ? 'bad' : stale ? 'warn' : 'ok'}">${e ? esc(e) : stale ? 'stale' : d ? 'ok' : 'pending'}</td></tr>`; }).join('') + '</tbody></table>' : '<p class="muted">No series yet.</p>';
+  const cur = [['guidance.js', (window.G_GUIDANCE || {}).updatedAt, ((window.G_GUIDANCE || {}).vintages || []).length + ' vintages'], ['comments.js', (window.G_COMMENTS || {}).updatedAt, Object.keys((window.G_COMMENTS || {}).periods || {}).join(', ')], ['summary.js', (window.G_SUMMARY || {}).updatedAt, 'basis ' + (((window.G_SUMMARY || {}).basis || {}).quarter || '—')], ['reference.js', (window.G_REF || {}).updatedAt, ((window.G_REF || {}).dividends || []).length + ' AGM dividends']];
+  el('curated').innerHTML = '<table><thead><tr><th>File</th><th>Updated</th><th>Contents</th></tr></thead><tbody>' + cur.map((r) => `<tr><td>${r[0]}</td><td>${r[1] || '—'}</td><td>${esc(r[2])}</td></tr>`).join('') + '</tbody></table>';
+})();
+</script>
+</body>
+</html>
