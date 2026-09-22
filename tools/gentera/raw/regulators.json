@@ -73,15 +73,66 @@
  "sbs": {
   "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
   "unit": "PEN millions; ratios %",
-  "series": []
+  "series": [
+   {
+    "month": "202604",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2201-ab2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2362-ab2026.XLS"
+    },
+    "loans": 616.95,
+    "deposits": 47.96,
+    "netIncome": 122.15,
+    "equity": 1219.85
+   },
+   {
+    "month": "202605",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2201-my2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2362-my2026.XLS"
+    },
+    "loans": 779.7,
+    "deposits": 60.97,
+    "netIncome": 156.27,
+    "equity": 1252.2
+   },
+   {
+    "month": "202606",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2201-jn2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2362-jn2026.XLS"
+    },
+    "loans": 938.27,
+    "deposits": 73.78,
+    "netIncome": 186.45,
+    "equity": 1280.07
+   },
+   {
+    "month": "202607",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2201-jl2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2362-jl2026.XLS"
+    },
+    "loans": 1101.59,
+    "deposits": 87.03,
+    "netIncome": 222.44,
+    "equity": 1313.57
+   }
+  ]
  },
  "log": [
   "CNBV 202608: HTTP Error 404: NOT FOUND",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx (public statistics download)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx (public statistics download)"
+  "SBS B-2334 202603: Compartamos column not found",
+  "SBS B-2334 202604: Compartamos column not found",
+  "SBS B-2334 202605: Compartamos column not found",
+  "SBS B-2334 202606: Compartamos column not found",
+  "SBS B-2334 202607: Compartamos column not found",
+  "SBS B-2369 202603: Compartamos column not found",
+  "SBS B-2369 202604: Compartamos column not found",
+  "SBS B-2369 202605: Compartamos column not found",
+  "SBS B-2369 202606: Compartamos column not found",
+  "SBS B-2369 202607: Compartamos column not found",
+  "SBS: implausible values for ['202603'] dropped (check raw/debug/sbs_*.json and SBS_PICK)"
  ],
- "updatedAt": "2026-09-22T23:11:04+00:00"
+ "updatedAt": "2026-09-22T23:14:39+00:00"
 }
