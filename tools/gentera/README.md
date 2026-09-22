@@ -91,7 +91,9 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   write-off (B-2369) tables list banks differently and are not mapped yet. A structure summary of each table
   is saved under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
 - Guidance vintage dates are approximate (`dateApprox`) until transcribed from the releases.
-- Gentera publishes no earnings-call transcripts; comments come from the management discussion in the release.
+- Gentera does not post call transcripts on the IR page; hand-supplied transcripts and presentations go in
+  `tools/gentera/raw/transcripts/` (see its README) and are converted by `scripts/gentera/ingest-transcripts.py`
+  for the reviewing routine to quote in `comments.js`.
 - Peer multiples and consensus wait for the FactSet connector. Ratings and analyst targets are not transcribed.
 
 ## Local run
