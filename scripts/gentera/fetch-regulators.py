@@ -233,8 +233,11 @@ def sbs_sheet_values(data):
     return out
 
 
-SBS_PICK = {'balance': {'loans': ('creditos directos', 'creditos netos', 'colocaciones', 'creditos'), 'deposits': ('obligaciones con el publico', 'depositos totales', 'total depositos', 'depositos'), 'netIncome': ('utilidad neta', 'resultado neto'), 'equity': ('patrimonio',)},
-            'delinquency': {'morosidad': ('cartera atrasada / creditos directos', 'morosidad', 'cartera atrasada')}, 'writeoffs': {'writeoffs': ('castig',)}, 'loansByType': {'loansRefinanced': ('refinanciad',), 'loansOverdue': ('atrasad', 'vencid')}}
+# Row labels in the SBS sheets (thousands of soles; ratios in %). 'sum' adds several rows, 'first' takes the first
+# row whose label starts with one of the alternatives.
+SBS_PICK = {'balance': {'loans': ('sum', ['vigentes', 'refinanciados y reestructurados', 'atrasados']), 'loansNet': ('first', ['creditos netos de provisiones']),
+                        'netIncome': ('first', ['utilidad neta', 'resultado neto', 'utilidad (perdida) neta']), 'equity': ('first', ['patrimonio'])},
+            'delinquency': {'morosidad': ('first', ['total creditos directos'])}, 'writeoffs': {'writeoffs': ('first', ['castig'])}, 'loansByType': {'loansOverdue': ('first', ['atrasad'])}}
 
 
 def plausible_sbs(rec):
@@ -276,9 +279,12 @@ def fetch_sbs(reg, months, log):
             rec = next((s for s in reg['sbs']['series'] if s['month'] == ym), None)
             if not rec:
                 rec = {'month': ym, 'sources': {}}; reg['sbs']['series'].append(rec)
-            for key, frags in SBS_PICK[kind].items():
-                # fragments are in priority order: the first fragment that matches any row label wins
-                v = next((vals[k] for f in frags for k in vals if f in k), None)
+            for key, (mode, labels) in SBS_PICK[kind].items():
+                if mode == 'sum':
+                    parts = [next((vals[k] for k in vals if k.startswith(l)), None) for l in labels]
+                    v = sum(parts) if all(x is not None for x in parts) else None
+                else:
+                    v = next((vals[k] for l in labels for k in vals if k.startswith(l)), None)
                 if v is not None:
                     rec[key] = round(float(v) / 1000, 2) if kind != 'delinquency' else round(float(v), 2)
             rec['sources'][kind] = url

@@ -86,9 +86,11 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   reader takes the bank's row from the sheets `CCT`, `CCCMicro`, `CaptRec`, `Pm2` and `Indicadores` (triplets
   of year-ago / previous / current month). SBS monthly files are linked by path
   (`…/estadistica/financiera/YYYY/Mes/B-2201-xxYYYY.XLS`); the balance (B-2201) and delinquency (B-2362)
-  tables are read for Compartamos Banco (Banca Múltiple, 2025 on); the loans-by-type (B-2334) and write-off
-  (B-2369) tables list banks differently and are still being mapped — a structure summary of each is saved
-  under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
+  tables are read for Compartamos Banco (Banca Múltiple, 2025 on): gross direct loans = vigentes +
+  refinanciados + atrasados, net loans, year-to-date net income, equity and the delinquency ratio. The
+  deposit lines of B-2201 did not read consistently and are not shown; the loans-by-type (B-2334) and
+  write-off (B-2369) tables list banks differently and are not mapped yet. A structure summary of each table
+  is saved under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
 - Guidance vintage dates are approximate (`dateApprox`) until transcribed from the releases.
 - Gentera publishes no earnings-call transcripts; comments come from the management discussion in the release.
 - Peer multiples and consensus wait for the FactSet connector. Ratings and analyst targets are not transcribed.
