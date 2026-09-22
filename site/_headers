@@ -15,6 +15,13 @@
 /gap/data/*
   Cache-Control: no-store
 
+# ASUR and OMA model data files: same daily-refresh pattern as /gap/.
+/asur/data/*
+  Cache-Control: no-store
+
+/oma/data/*
+  Cache-Control: no-store
+
 # Mexico fiscal monitor: same daily-commit / monthly-PR pattern as /fiscal/.
 /mx/fiscal/data.js
   Cache-Control: no-store

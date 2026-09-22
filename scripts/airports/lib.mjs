@@ -129,7 +129,7 @@ export function tokenizeRow(line) {
     if (neg) v = -v;
     const next = cells[i + 1] || '';
     if (next === '%' || next === '%)') pct = true;
-    toks.push({ v, pct });
+    toks.push({ v, pct, ...(c.includes('.') ? { dec: true } : {}) });
   }
   return { label, toks };
 }
@@ -145,24 +145,31 @@ export const qid = (fy, q) => `${fy}Q${q}`;
 // Map numeric tokens onto `groups` period-groups of `per` columns each ([prior, current, change] or
 // [prior, current, changeAbs, changePct]); returns [[prior, current], ...] per group, or null.
 export function assignValues(toks, groups, per = 3) {
-  const attempt = (tk) => {
+  // strict: the token count matches the layout exactly; loose: single-group fallbacks
+  const strict = (tk) => {
     const vals = tk.map((t) => t.v);
     if (vals.length === per * groups) return Array.from({ length: groups }, (_, g) => [vals[g * per], vals[g * per + 1]]);
     if (vals.length === 2 * groups) return Array.from({ length: groups }, (_, g) => [vals[g * 2], vals[g * 2 + 1]]);
     const nonPct = tk.filter((t) => !t.pct).map((t) => t.v);
     if (nonPct.length === 2 * groups) return Array.from({ length: groups }, (_, g) => [nonPct[g * 2], nonPct[g * 2 + 1]]);
+    return null;
+  };
+  const loose = (tk) => {
+    const nonPct = tk.filter((t) => !t.pct).map((t) => t.v);
     if (nonPct.length === groups) return Array.from({ length: groups }, (_, g) => [null, nonPct[g]]);
     if (groups === 1 && nonPct.length >= 2) return [[nonPct[0], nonPct[1]]];
     return null;
   };
-  const exact = attempt(toks) || (toks.some((t) => t.dash) ? attempt(toks.filter((t) => !t.dash)) : null);
+  const clean = toks.some((t) => t.dash) ? toks.filter((t) => !t.dash) : null;
+  const exact = strict(toks) || (clean && strict(clean)) || (clean && loose(clean)) || loose(toks);
   if (exact || per !== 3) return exact;
   // Partial rows (a period left blank): walk left to right, a group closes on its change token
+  // (a token flagged as a percentage, or a decimal in a table of integers)
   const gs = []; let cur = [];
   for (const t of toks) {
     if (cur.length === 2) { gs.push(cur); cur = []; continue; }
     if (t.dash && cur.length === 1) { gs.push([cur[0], null]); cur = []; continue; }
-    if (t.pct) { gs.push(cur.length ? [cur[0], null] : [null, null]); cur = []; continue; }
+    if (t.pct || t.dec) { gs.push(cur.length ? [cur[0], null] : [null, null]); cur = []; continue; }
     cur.push(t.dash ? 0 : t.v);
   }
   if (cur.length) gs.push(cur.length === 2 ? cur : [cur[0], null]);

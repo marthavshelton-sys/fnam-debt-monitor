@@ -131,7 +131,7 @@ export const KPI_ROWS = [
   { k: 'paxPR', en: 'Passengers Puerto Rico (thousands)', es: 'Pasajeros Puerto Rico (miles)', re: /^total san juan,? puerto rico$|^sju total$/ },
   { k: 'paxCO', en: 'Passengers Colombia (thousands)', es: 'Pasajeros Colombia (miles)', re: /^total colombia$|^total traffic colombia$/ },
   { k: 'commercialPerPax', en: 'Commercial revenue per passenger (Ps.)', es: 'Ingreso comercial por pasajero (Ps.)', re: /^commercial revenues per pax$|^total commercial revenues per passenger$/ },
-  { k: 'capex', en: 'Capex (Ps. thousand)', es: 'Capex (miles de Ps.)', re: /^capex$/ },
+  { k: 'capex', en: 'Capex (Ps. thousand)', es: 'Capex (miles de Ps.)', re: /(^|[.:] )capex$/ },
   { k: 'totalDebt', en: 'Total debt (Ps. thousand)', es: 'Deuda total (miles de Ps.)', re: /^total debt$/ },
   { k: 'netDebt', en: 'Net debt (Ps. thousand)', es: 'Deuda neta (miles de Ps.)', re: /^(total )?net debt$/ },
   { k: 'netDebtEbitda', en: 'Net debt / LTM EBITDA (x)', es: 'Deuda neta / EBITDA UDM (x)', re: /^(total )?net debt\/? ?ltm ebitda( \(times\))?$/ },

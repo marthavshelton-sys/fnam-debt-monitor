@@ -1,5 +1,0 @@
-# https://miranda-newswire.com/wp-json/wp/v2/posts?search=OMA&per_page=100&page=1&_fields=id,date,link,title,categories,content
-# final: https://miranda-newswire.com/wp-json/wp/v2/posts?search=OMA&per_page=100&page=1&_fields=id,date,link,title,categories,content
-# status: 401 application/json; charset=UTF-8
-
-{"code":"rest_authentication_error","message":"Sorry, you do not have permission to make REST API requests.","data":{"status":401}}

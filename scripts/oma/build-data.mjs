@@ -48,12 +48,12 @@ export const IS_ROWS = [
   { k: 'opIncome', en: 'Operating income', es: 'Utilidad de operación', re: /^operating income$|^income from operations$/, level: 0, bold: true },
   { k: 'financialResult', en: 'Financing (expense) income, net', es: 'Resultado de financiamiento, neto', re: /^total financing( income)?$|^total financing expense$/, level: 1 },
   { k: 'interestIncome', en: 'Interest income', es: 'Ingresos por intereses', re: /^interest income$/, level: 2 },
-  { k: 'interestExpense', en: 'Interest expense', es: 'Gastos por intereses', re: /^interest$/, level: 2 },
+  { k: 'interestExpense', en: 'Interest expense', es: 'Gastos por intereses', re: /^interest( expense)?$/, level: 2 },
   { k: 'interestDebt', en: 'of which: interest on bank and issued debt', es: 'de los cuales: intereses de deuda bancaria y bursátil', re: /^interest expense from bank and issued debt$/, level: 2 },
-  { k: 'mmpPV', en: 'of which: unwinding of the major-maintenance provision', es: 'de los cuales: cambio en valor presente de la provisión de mantenimiento mayor', re: /^changes in present value of major maintenance provision$/, level: 2 },
+  { k: 'mmpPV', en: 'of which: unwinding of the major-maintenance provision', es: 'de los cuales: cambio en valor presente de la provisión de mantenimiento mayor', re: /^(changes in )?present value of major maintenance provision$/, level: 2 },
   { k: 'fxResult', en: 'Exchange gain (loss), net', es: 'Resultado cambiario, neto', re: /^exchange gain,? -? ?net$/, level: 2 },
   { k: 'incomeBeforeTax', en: 'Income before taxes', es: 'Utilidad antes de impuestos', re: /^income before taxes$/, level: 0, bold: true },
-  { k: 'incomeTaxCurrent', en: 'Taxes, current', es: 'Impuestos causados', re: /^taxes - cash$/, level: 2 },
+  { k: 'incomeTaxCurrent', en: 'Taxes, current', es: 'Impuestos causados', re: /^taxes - (cash|current)$/, level: 2 },
   { k: 'incomeTaxDeferred', en: 'Taxes, deferred', es: 'Impuestos diferidos', re: /^taxes - deferred$/, level: 2 },
   { k: 'incomeTax', en: 'Income tax', es: 'Impuestos a la utilidad', re: /^income tax$/, level: 1 },
   { k: 'netIncome', en: 'Consolidated net income', es: 'Utilidad neta consolidada', re: /^consolidated net income$/, level: 0, bold: true },
@@ -118,10 +118,10 @@ const CF_OPS = [
   { k: 'gainLossSale', en: '(Profit) loss on sale of equipment', es: '(Utilidad) pérdida en venta de equipo', re: /on sales? of machinery and equipment/, level: 2 },
   { k: 'interestIncomeAdj', en: 'Interest income (reclassified)', es: 'Ingresos por intereses (reclasificados)', re: /^interest income$/, level: 2 },
   { k: 'leasePV', en: 'Unwinding of lease liabilities', es: 'Cambio en valor presente de arrendamientos', re: /^changes in present value of financial leases$/, level: 2 },
-  { k: 'mmpPV', en: 'Unwinding of the major-maintenance provision', es: 'Cambio en valor presente de la provisión de mantenimiento mayor', re: /^changes in present value of major maintenance provision$/, level: 2 },
+  { k: 'mmpPV', en: 'Unwinding of the major-maintenance provision', es: 'Cambio en valor presente de la provisión de mantenimiento mayor', re: /^(changes in )?present value of major maintenance provision$/, level: 2 },
   { k: 'interestDebt', en: 'Interest on bank and issued debt', es: 'Intereses de deuda bancaria y bursátil', re: /^interest expense from bank and issued debt$/, level: 2 },
-  { k: 'interestExpenseAdj', en: 'Interest expense (total)', es: 'Gastos por intereses (total)', re: /^interest$/, level: 2 },
-  { k: 'fxFluct', en: 'Exchange fluctuation', es: 'Fluctuación cambiaria', re: /^exchange fluctuation$/, level: 2 },
+  { k: 'interestExpenseAdj', en: 'Interest expense (total)', es: 'Gastos por intereses (total)', re: /^interest( expense)?$/, level: 2 },
+  { k: 'fxFluct', en: 'Exchange fluctuation', es: 'Fluctuación cambiaria', re: /^(non-paid )?exchange fluctuation$/, level: 2 },
   { k: 'opBeforeWc', en: 'Cash flow before working capital', es: 'Flujo antes de capital de trabajo', re: /^$/, level: 0, bold: true, unlabeled: true },
   { k: 'wcReceivables', en: 'Trade accounts receivable', es: 'Cuentas por cobrar', re: /^trade accounts receivable - net$/, level: 2 },
   { k: 'wcRecoverableTax', en: 'Recoverable taxes', es: 'Impuestos por recuperar', re: /^recoverable taxes$/, level: 2 },
@@ -145,17 +145,17 @@ const CF_INV = [
 ];
 const CF_FIN = [
   { k: 'cfBeforeFin', en: 'Cash flow before financing activities', es: 'Flujo antes de actividades de financiamiento', re: /^cash flow before financing activities$/, level: 0, bold: true },
-  { k: 'loansReceived', en: 'Bank loans received', es: 'Préstamos bancarios obtenidos', re: /^bank loans - received$/, level: 1 },
+  { k: 'loansReceived', en: 'Bank loans received', es: 'Préstamos bancarios obtenidos', re: /^bank loans - received$|^loans - disbursed$/, level: 1 },
   { k: 'loansPaid', en: 'Bank loans paid', es: 'Préstamos bancarios pagados', re: /^bank loans - paid$/, level: 1 },
-  { k: 'bondsIssued', en: 'Debt issuance', es: 'Emisión de deuda', re: /^debt issuance$/, level: 1 },
-  { k: 'bondsPaid', en: 'Debt issues paid', es: 'Pago de emisiones de deuda', re: /^debt issue - paid$/, level: 1 },
-  { k: 'issuanceCosts', en: 'Debt issuance expenses', es: 'Gastos de emisión de deuda', re: /^debt issuance expenses$/, level: 1 },
+  { k: 'bondsIssued', en: 'Debt issuance', es: 'Emisión de deuda', re: /^debt issuance$|^issuance of debt securities$|^securities debt - disbursed$/, level: 1 },
+  { k: 'bondsPaid', en: 'Debt issues paid', es: 'Pago de emisiones de deuda', re: /^debt issue - paid$|^repayment of debt securities$|^securities debt - paid$/, level: 1 },
+  { k: 'issuanceCosts', en: 'Debt issuance expenses', es: 'Gastos de emisión de deuda', re: /^debt issuance (expenses|costs)$/, level: 1 },
   { k: 'relatedLoansReceived', en: 'Related-party loans received', es: 'Préstamos de partes relacionadas obtenidos', re: /^related-party loans - received$/, level: 1 },
   { k: 'relatedLoansPaid', en: 'Related-party loans paid', es: 'Préstamos de partes relacionadas pagados', re: /^related-party loans - paid$/, level: 1 },
   { k: 'interestPaid', en: 'Interest paid', es: 'Intereses pagados', re: /^interest expense$/, level: 1 },
   { k: 'nciChange', en: 'Change in non-controlling interest', es: 'Cambio en participación no controladora', re: /^increase in the non-?controlling interest$/, level: 1 },
   { k: 'dividendsPaid', en: 'Dividends paid', es: 'Dividendos pagados', re: /^dividends paid$/, level: 1 },
-  { k: 'capitalReduction', en: 'Capital reimbursement', es: 'Reembolso de capital', re: /^capital rei[mn]bursement$/, level: 1 },
+  { k: 'capitalReduction', en: 'Capital reimbursement', es: 'Reembolso de capital', re: /^capital rei[mn]bursements?( paid)?$/, level: 1 },
   { k: 'buybacks', en: 'Share repurchases', es: 'Recompra de acciones', re: /repurchase|buyback/, level: 1 },
   { k: 'leasePayments', en: 'Payment of leases', es: 'Pagos de arrendamientos', re: /^payment of financial leases$/, level: 1 },
   { k: 'cff', en: 'Net cash from (used in) financing activities', es: 'Flujo neto de actividades de financiamiento', re: /^net cash flow from financing activities$/, level: 0, bold: true },
@@ -218,9 +218,11 @@ function findHeader(lines, start, maxAhead = 8, ctx = {}) {
     // year-only tokens: resolve with the title line(s) above ("From April 1 to June 30" -> quarter; "From January 1" -> YTD; "4Q24 4Q25 % Var 2024 2025" -> FY)
     if (ps.some((p) => p.fy && p.q == null && p.months == null)) {
       const above = lines.slice(Math.max(0, i - 3), i).join(' ');
-      const spans = [...above.matchAll(/From (January|February|March|April|May|June|July|August|September|October|November|December) \|? ?1,? to (January|February|March|April|May|June|July|August|September|October|November|December)/gi)].map((m) => { const s = MONTHS_EN.indexOf(m[1].toLowerCase()) + 1, e = MONTHS_EN.indexOf(m[2].toLowerCase()) + 1; return s === 1 ? { months: e } : { q: Math.ceil(e / 3) }; });
+      const monthNo = (s) => MONTHS_EN.findIndex((m) => m.startsWith(s.toLowerCase().slice(0, 3))) + 1;
+      const spans = [...above.matchAll(/From ([A-Za-z]{3,9})\.? \|? ?1,? to ([A-Za-z]{3,9})/g)].filter((m) => monthNo(m[1]) && monthNo(m[2])).map((m) => { const s = monthNo(m[1]), e = monthNo(m[2]); return s === 1 ? { months: e } : { q: Math.ceil(e / 3) }; });
       const groups = ps.length / 2;
-      const kinds = spans.length ? spans : ps.some((p) => p.q) ? [{ months: 12 }] : ctx.q ? (groups === 1 ? [{ q: ctx.q }] : [{ q: ctx.q }, { months: ctx.q * 3 }]) : [];
+      // the spans are trusted only when one is named per group; otherwise fall back to the release's quarter
+      const kinds = spans.length === groups ? spans : ps.some((p) => p.q) ? [{ months: 12 }] : ctx.q ? (groups === 1 ? [{ q: ctx.q }] : [{ q: ctx.q }, { months: ctx.q * 3 }]) : spans;
       let gi = 0;
       for (let k = 0; k < ps.length; k += 2) { if (ps[k].q == null && ps[k].months == null) { const kind = kinds[gi] || kinds[kinds.length - 1]; if (!kind) return null; ps[k] = { ...kind, fy: ps[k].fy }; ps[k + 1] = { ...kind, fy: ps[k + 1].fy }; } gi++; }
     }
@@ -241,7 +243,12 @@ function parseResults(text, meta) {
   const fy = /^\d$/.test(m[1]) ? 2000 + +m[2] : +m[2];
   const rel = { id: qid(fy, q), fy, q, source: meta, quarters: {}, ytd: {}, bs: {}, warnings: [] };
   const idx = (re, from = 0) => { for (let i = from; i < lines.length; i++) if (re.test(lines[i])) return i; return -1; };
-  const store = (p, part, vals) => { if (!p || !Object.keys(vals).length) return; const s = p.q ? (rel.quarters[qid(p.fy, p.q)] ??= {}) : (rel.ytd[`${p.fy}M${p.months}`] ??= {}); s[part] = { ...vals, ...(s[part] || {}) }; };
+  const store = (p, part, vals) => {
+    if (!p || !Object.keys(vals).length) return;
+    const s = p.q ? (rel.quarters[qid(p.fy, p.q)] ??= {}) : (rel.ytd[`${p.fy}M${p.months}`] ??= {});
+    s[part] = { ...vals, ...(s[part] || {}) };
+    if (!p.q && p.months === 3) store({ fy: p.fy, q: 1 }, part, vals); // "From January 1 to March 31" is also the first quarter
+  };
   const storeGroups = (hd, out, part, conv = (o) => o) => out.forEach((vals, g) => { store(hd.periods[g * 2], part, conv(mapPair(vals, 0))); store(hd.periods[g * 2 + 1], part, conv(mapPair(vals, 1))); });
   const blockEnd = (from, max, stop = /^<<page|^Grupo Aeroportuario|^Unaudited /) => { let e = from; while (e < lines.length && e < from + max && !stop.test(lines[e])) e++; return e; };
   // --- Income statement exhibit
@@ -389,6 +396,7 @@ async function main() {
     const text = await readFile(new URL(f, RAW), 'utf8');
     const h = header(text);
     const meta = { file: f, url: h.source, date: h.date, title: h.title };
+    if (h.class === 'results' && /Investor-Relations|Presentacion|_omaIR-|IR-\dT\d\d|PPT/i.test(f)) continue; // investor presentations (no exhibits)
     if (h.class === 'results') { const r = parseResults(text, meta); if (r) results.push(r); else console.warn(`results: could not identify period in ${f}`); }
     else if (h.class === 'traffic') { const t = parseTraffic(text, meta); if (t) traffic.push(t); else console.warn(`traffic: could not identify month in ${f}`); }
   }
@@ -413,6 +421,8 @@ async function main() {
   const finish = (e) => { const is = e.parts.is, cf = e.parts.cf; if (cf && cf.capex == null && (cf.capexPpe != null || cf.capexConcessions != null)) cf.capex = (cf.capexPpe || 0) + (cf.capexConcessions || 0); if (is && is.revExConstruction == null && is.revAero != null && is.revNonAero != null) is.revExConstruction = is.revAero + is.revNonAero; if (is && is.ebitda != null && is.revExConstruction) is.ebitdaMarginExIfric = +(100 * is.ebitda / is.revExConstruction).toFixed(1); if (is && is.ebitdaReported != null && is.revTotal) is.ebitdaMarginReported = +(100 * is.ebitdaReported / is.revTotal).toFixed(1); if (is && is.opIncome != null && is.revTotal) is.opMargin = +(100 * is.opIncome / is.revTotal).toFixed(1); };
   for (const e of Object.values(quarters)) finish(e);
   for (const e of Object.values(ytd)) finish(e);
+  // the cash balance at the end of the period is the same for a quarter and the YTD ending with it
+  for (const [id, e] of Object.entries(ytd)) { const qq = quarters[`${id.slice(0, 4)}Q${+id.split('M')[1] / 3}`]; const a = e.parts.cf, b = qq?.parts.cf; if (a && b) { if (a.cashEnd == null && b.cashEnd != null) a.cashEnd = b.cashEnd; if (b.cashEnd == null && a.cashEnd != null) b.cashEnd = a.cashEnd; } }
   const qList = Object.values(quarters).filter((e) => e.parts.is || e.parts.bs).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({
     id: e.id, fy: +e.id.slice(0, 4), q: +e.id.slice(5), label: `${e.id.slice(5)}Q${e.id.slice(2, 4)}`,
     is: e.parts.is || null, bs: e.parts.bs || null, cf: e.parts.cf || null, kpi: e.parts.kpi || null, trafficQ: e.parts.trafficQ || null, debt: e.debt || null,
@@ -437,9 +447,24 @@ async function main() {
     byMonth[t.ym] = { ym: t.ym, dom: t.dom, intl: t.intl, total: t.total, source: { url: t.source.url, date: t.source.date } };
     if (t.warnings.length) console.warn(`traffic ${t.ym}: ${t.warnings.join(' ; ')}`);
   }
+  const nAirports = (m) => Object.keys(m.total).filter((c) => c !== 'TOTAL').length;
   for (const t of traffic) {
     const [y, mo] = t.ym.split('-').map(Number); const prevYm = `${y - 1}-${String(mo).padStart(2, '0')}`;
-    if (!byMonth[prevYm] && Object.keys(t.prior.total).length >= 12) byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, source: { url: t.source.url, date: t.source.date, note: "prior-year comparative column of the following year's release" } };
+    if (Object.keys(t.prior.total).length < 12) continue;
+    const note = "prior-year comparative column of the following year's release";
+    if (!byMonth[prevYm]) byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, source: { url: t.source.url, date: t.source.date, note } };
+    else if (nAirports(byMonth[prevYm]) < 10) { const m = byMonth[prevYm]; for (const k of ['dom', 'intl', 'total']) m[k] = { ...t.prior[k], ...m[k] }; m.source.note = `airports from the ${note} (${t.source.url})`; }
+  }
+  // a month whose release could not be read (e.g. a PDF with an unreadable font) = quarter (results release) − the other two months
+  const ymOf = (y, m) => `${y}-${String(m).padStart(2, '0')}`;
+  const allYm = Object.keys(byMonth).sort(); const [y0, m0] = allYm[0].split('-').map(Number), [y1, m1] = allYm.at(-1).split('-').map(Number);
+  for (let y = y0, m = m0; y < y1 || (y === y1 && m <= m1); m === 12 ? (y++, m = 1) : m++) {
+    const ym = ymOf(y, m); if (byMonth[ym]) continue;
+    const qn = Math.ceil(m / 3), qe = quarters[`${y}Q${qn}`], tq = qe?.parts.trafficQ; if (!tq) continue;
+    const others = [1, 2, 3].map((k) => (qn - 1) * 3 + k).filter((k) => k !== m).map((k) => byMonth[ymOf(y, k)]); if (others.some((o) => !o)) continue;
+    const derived = { ym, dom: {}, intl: {}, total: {}, source: { url: qe.sources?.trafficQ?.url, date: qe.sources?.trafficQ?.date, note: `derived: ${y}Q${qn} traffic by airport (results release) less ${others.map((o) => o.ym).join(' and ')}` } };
+    for (const k of ['dom', 'intl', 'total']) for (const [code, v] of Object.entries(tq[k] || {})) { const o = others.map((x) => x[k][code]); if (o.every((x) => x != null)) derived[k][code] = +(v - o[0] - o[1]).toFixed(3); }
+    if (nAirports(derived) >= 12) { byMonth[ym] = derived; console.warn(`traffic ${ym}: derived from ${y}Q${qn} less the other two months`); }
   }
   const months = Object.values(byMonth).sort((a, b) => a.ym.localeCompare(b.ym));
   const tr = { generatedAt: new Date().toISOString(), units: 'thousands of terminal passengers', airports: AIRPORTS, months, coverage: [months[0]?.ym, months.at(-1)?.ym], note: 'Terminal passengers (commercial, charter and general aviation), excluding transit passengers, as reported monthly by OMA. Persons converted to thousands.' };
