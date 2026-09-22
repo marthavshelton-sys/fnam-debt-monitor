@@ -178,7 +178,7 @@ function findHeader(lines, start, maxAhead = 10, ctx = {}) {
     const groups = years.length / 2;
     const above = lines.slice(Math.max(0, i - 4), i).join(' ');
     const kinds = [];
-    for (const m of above.matchAll(/(\d{1,2})M\b|(\d)Q\b|\b(first|second|third|fourth) quarter|\b(three|six|nine|twelve)[- ]months?|\b(?:full )?year\b/gi)) {
+    for (const m of above.matchAll(/(\d{1,2})M\b|(\d)Q\b|\b(first|second|third|fourth) quarter|\b(three|six|nine|twelve)[- ]months?|\b(?:full year|FY|year)\b/gi)) {
       if (m[1]) kinds.push({ months: +m[1] }); else if (m[2]) kinds.push({ q: +m[2] }); else if (m[3]) kinds.push({ q: QWORDS[m[3].toLowerCase()] }); else if (m[4]) kinds.push({ months: MWORDS[m[4].toLowerCase()] }); else kinds.push({ months: 12 });
     }
     // "3M 3M % 1Q 1Q %" repeats each kind twice; collapse consecutive duplicates
@@ -420,7 +420,13 @@ async function main() {
   }
   for (const [id, e] of Object.entries(bsByQ)) { const qq = (quarters[id] ??= { id, parts: {}, sources: {} }); qq.parts.bs = e.parts.bs; qq.sources.bs = e.sources.bs; }
   // derived: income tax total; 1Q YTD == quarter (the 3M column); quarterly cash flow = YTD − prior YTD
-  const finish = (is) => { if (is && is.incomeTax == null && (is.incomeTaxCurrent != null || is.incomeTaxDeferred != null)) is.incomeTax = (is.incomeTaxCurrent || 0) + (is.incomeTaxDeferred || 0); if (is && is.revTotal && is.ebitda != null) { is.ebitdaMargin = +(100 * is.ebitda / is.revTotal).toFixed(1); is.ebitdaMarginExIfric = +(100 * is.ebitda / (is.revTotal - (is.revConstruction || 0))).toFixed(1); } if (is && is.revTotal && is.opIncome != null) { is.opMargin = +(100 * is.opIncome / is.revTotal).toFixed(1); is.opMarginExIfric = +(100 * is.opIncome / (is.revTotal - (is.revConstruction || 0))).toFixed(1); } return is; };
+  const finish = (is) => {
+    if (is && is.incomeTax == null && (is.incomeTaxCurrent != null || is.incomeTaxDeferred != null)) is.incomeTax = (is.incomeTaxCurrent || 0) + (is.incomeTaxDeferred || 0);
+    // the printed "Other Revenues" row leaves one period blank, which the text conversion cannot distinguish from a
+    // blank current period: derive it from the totals instead (operating income − (revenue − operating expenses))
+    if (is && is.opIncome != null && is.revTotal != null && is.totalOpCosts != null) { const d = is.opIncome - (is.revTotal - is.totalOpCosts); is.otherRevenues = Math.abs(d) < 3 ? 0 : d; }
+    // income-tax total: the two tax lines plus small items ASUR nets below the tax line; use EBT − NI when it is within 0.5%
+    if (is && is.incomeBeforeTax != null && is.netIncome != null) { const tx = is.incomeBeforeTax - is.netIncome; if (is.incomeTax == null || Math.abs(tx - is.incomeTax) < 0.005 * Math.abs(is.netIncome || 1)) is.incomeTax = tx; } if (is && is.revTotal && is.ebitda != null) { is.ebitdaMargin = +(100 * is.ebitda / is.revTotal).toFixed(1); is.ebitdaMarginExIfric = +(100 * is.ebitda / (is.revTotal - (is.revConstruction || 0))).toFixed(1); } if (is && is.revTotal && is.opIncome != null) { is.opMargin = +(100 * is.opIncome / is.revTotal).toFixed(1); is.opMarginExIfric = +(100 * is.opIncome / (is.revTotal - (is.revConstruction || 0))).toFixed(1); } return is; };
   for (const e of Object.values(quarters)) finish(e.parts.is);
   for (const e of Object.values(ytd)) finish(e.parts.is);
   for (const e of Object.values(quarters)) {

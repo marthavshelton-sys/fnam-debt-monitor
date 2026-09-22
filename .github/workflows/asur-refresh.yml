@@ -85,13 +85,15 @@ jobs:
           if [ -f scripts/asur/build-data.mjs ]; then node scripts/asur/build-data.mjs; else echo "build-data.mjs not present yet; raw harvest only"; fi
 
       - name: Validate model data
+        id: validate
         if: always()
         shell: bash
         run: |
           if [ -f scripts/asur/validate-data.mjs ]; then node scripts/asur/validate-data.mjs; else echo "validate-data.mjs not present yet"; fi
 
+      # Never commit data that failed validation; market-only runs (no validate step) still commit.
       - name: Commit if anything changed
-        if: always()
+        if: always() && steps.validate.outcome != 'failure'
         shell: bash
         run: |
           git config user.name "asur-refresh[bot]"
