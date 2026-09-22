@@ -34,7 +34,7 @@ const FRED_SERIES = [
   { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
-const BANXICO_MX10Y = process.env.BANXICO_SERIES_MX10Y || null;
+const BANXICO_MX10Y = process.env.BANXICO_SERIES_MX10Y || 'SF44071';  // Bono tasa fija 10 años, tasa de rendimiento, subasta semanal (found by the title scan on 2026-09-22)
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const toUnix = (d) => Math.floor(new Date(d + 'T00:00:00Z').getTime() / 1000);
