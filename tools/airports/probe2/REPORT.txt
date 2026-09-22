@@ -1,0 +1,23 @@
+asur_fin: 200 text/html; charset=utf-8 50579B -> https://www.asur.com.mx/informacion-financiera-page-0
+asur_fin_en: 200 text/html; charset=utf-8 50579B -> https://www.asur.com.mx/informacion-financiera-page-0
+asur_comunicados: 200 text/html; charset=utf-8 49853B -> https://www.asur.com.mx/comunicados
+asur_comunicados1: 200 text/html; charset=utf-8 49626B -> https://www.asur.com.mx/comunicados-1
+asur_trafico: 200 text/html; charset=utf-8 42885B -> https://www.asur.com.mx/trafico-de-pasajeros-2
+asur_prn_org_p2: 200 text/html;charset=utf-8 308571B -> https://www.prnewswire.com/news/grupo-aeroportuario-del-sureste%2C-s.a.b.-de-c.v./?page=2&pagesize=100
+asur_prn_org_p3: 200 text/html;charset=utf-8 309741B -> https://www.prnewswire.com/news/grupo-aeroportuario-del-sureste%2C-s.a.b.-de-c.v./?page=3&pagesize=100
+asur_pdf_1q26: 200 application/pdf 782401B -> https://www.asur.com.mx/media/Informes%20Financieros/2026/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q26.pdf.pdf
+asur_pdf_1q25: 200 application/pdf 656613B -> https://www.asur.com.mx/media/Informes%20Financieros/2025/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q25.pdf
+asur_prn_traffic_aug26_fixed: 200 text/html; charset=UTF-8 305927B -> https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-august-2026-302872657.html
+oma_wp_posts_p1: 401 application/json; charset=UTF-8 131B -> https://miranda-newswire.com/wp-json/wp/v2/posts?search=OMA&per_page=100&page=1&_fields=id,date,link,title,categories,content
+oma_wp_posts_p2: 401 application/json; charset=UTF-8 131B -> https://miranda-newswire.com/wp-json/wp/v2/posts?search=OMA&per_page=100&page=2&_fields=id,date,link,title,categories,content
+oma_wp_posts_p3: 401 application/json; charset=UTF-8 131B -> https://miranda-newswire.com/wp-json/wp/v2/posts?search=OMA&per_page=100&page=3&_fields=id,date,link,title,categories,content
+oma_wp_cats: 401 application/json; charset=UTF-8 131B -> https://miranda-newswire.com/wp-json/wp/v2/categories?per_page=100
+oma_miranda_qr_p2: 200 text/html; charset=UTF-8 126420B -> https://miranda-newswire.com/category/quarterly-reports/page/2/
+oma_pdf_2q26: 200 application/pdf 732889B -> https://miranda-newswire.com/wp-content/uploads/2026/07/Results_2Q26_vf.pdf
+oma_pdf_may26_traffic: 200 application/pdf 167436B -> https://miranda-newswire.com/wp-content/uploads/2026/06/OMA_May_2026_Traffic_Report_vf.pdf
+oma_ir_news_browser: 200 text/html; charset=UTF-8 324130B -> https://ir.oma.aero/en/news-releases/
+oma_ir_wp: 200 application/json; charset=UTF-8 2B -> https://ir.oma.aero/wp-json/wp/v2/posts?per_page=5
+oma_news_p2: 200 text/html; charset=UTF-8 81190B -> https://news.oma.aero/news/?page=2
+oma_news_p31: 200 text/html; charset=UTF-8 60126B -> https://news.oma.aero/news/?page=31
+oma_news_jul26: 200 text/html; charset=UTF-8 76389B -> https://news.oma.aero/news/oma-reports-a-3-9-increase-in-july-2026-passenger-traffic-b54f6-f8d04.html
+oma_site_press: 200 text/html; charset=UTF-8 77536B -> https://news.oma.aero/
