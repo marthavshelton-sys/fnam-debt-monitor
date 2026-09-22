@@ -81,12 +81,19 @@ jobs:
           if [ -n "${{ github.event.inputs.years }}" ]; then ARGS="$ARGS --years ${{ github.event.inputs.years }}"; fi
           python scripts/qualitas/harvest.py $ARGS
 
+      # Parser unit tests on archived releases: a layout change in a report or a SIFIC filing fails here,
+      # before anything is rebuilt, so the page keeps serving the last good data set.
+      - name: Parser tests (archived releases)
+        if: always() && steps.plan.outputs.mode != 'market'
+        run: python scripts/qualitas/test_parsers.py
+
       # The steps below run even if a fetch failed, so whatever did refresh still gets committed
       # (the job itself stays red so the failure is visible in the Actions tab).
       - name: Parse filings into model data
         if: always() && steps.plan.outputs.mode != 'market'
         run: python scripts/qualitas/build_data.py
 
+      # Tie-outs; also writes site/qualitas/data/quality.js for the hidden data-quality page.
       - name: Validate model data
         if: always()
         run: python scripts/qualitas/validate_data.py
