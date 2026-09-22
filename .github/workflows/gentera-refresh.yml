@@ -1,0 +1,132 @@
+# Keeps the Gentera financial model (site/gentera) current.
+#
+#   market   daily after the BMV close: GENTERA, IPC and peer prices, GENTERA dividends, USD/MXN, 10-year yields
+#            (Banxico SIE with BANXICO_TOKEN, FRED fallback) -> site/gentera/data/market.js
+#   filings  every weekday morning (Gentera publishes quarterly results in the 3rd/4th week of Jan/Feb, Apr, Jul,
+#            Oct — 3Q26 is scheduled for 21 Oct 2026): harvests new press-release PDFs from the IR site into
+#            tools/gentera/raw/, fetches the monthly CNBV and SBS tables, re-parses everything into
+#            site/gentera/data/financials.js + operations.js + quality.js and validates the tie-outs before
+#            committing.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). Bot commits carry [skip actions] so they
+# never re-trigger the workflow. Cloudflare Pages deploys the commit. The hand-curated files
+# (reference, guidance, comments, summary, peers) are never touched by this workflow.
+name: Refresh Gentera model data
+
+on:
+  schedule:
+    - cron: "45 22 * * 1-5"      # market, weekdays 22:45 UTC (after the BMV close)
+    - cron: "35 14 * * 1-5"      # filings + market, weekdays 14:35 UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "market | filings | all"
+        default: "all"
+      full:
+        description: "Re-download every press release (ignore tools/gentera/raw/manifest.json)"
+        type: boolean
+        default: false
+      since:
+        description: "First fiscal year to harvest from the IR page (default 2012)"
+        default: ""
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/gentera/**"
+      - ".github/workflows/gentera-refresh.yml"
+
+concurrency:
+  group: gentera-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install --quiet pypdf pypdfium2 openpyxl xlrd certifi
+
+      - name: Decide what to run
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'all' }}"
+          # The 22:45 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "45 22 * * 1-5" ]; then MODE=market; fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Fetch market data
+        if: steps.plan.outputs.mode != 'filings'
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+        run: node scripts/gentera/fetch-market.mjs
+
+      - name: Harvest press releases (IR site)
+        if: steps.plan.outputs.mode != 'market'
+        shell: bash
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.full }}" = "true" ]; then ARGS="$ARGS --full"; fi
+          if [ -n "${{ github.event.inputs.since }}" ]; then ARGS="$ARGS --since ${{ github.event.inputs.since }}"; fi
+          python scripts/gentera/harvest.py $ARGS
+
+      - name: Fetch monthly regulator tables (CNBV, SBS)
+        if: always() && steps.plan.outputs.mode != 'market'
+        continue-on-error: true
+        run: python scripts/gentera/fetch-regulators.py --months 6
+
+      # The steps below run even if a fetch failed, so whatever did refresh still gets committed
+      # (the job itself stays red so the failure is visible in the Actions tab).
+      - name: Parse releases into model data
+        if: always() && steps.plan.outputs.mode != 'market'
+        run: python scripts/gentera/build_data.py
+
+      - name: Parser regression test on archived releases
+        id: parsertest
+        if: always() && steps.plan.outputs.mode != 'market'
+        run: python scripts/gentera/test_parser.py
+
+      - name: Validate model data
+        id: validate
+        if: always()
+        run: python scripts/gentera/validate_data.py
+
+      # A data set that does not reconcile never reaches the page: the statement files go back to the last good
+      # version while the raw texts, market data and quality.js (which records the failure) are still committed.
+      - name: Keep the last good statements if validation or the parser test failed
+        if: always() && (steps.validate.outcome == 'failure' || steps.parsertest.outcome == 'failure')
+        run: git checkout -- site/gentera/data/financials.js site/gentera/data/operations.js
+
+      - name: Commit if anything changed
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "gentera-refresh[bot]"
+          git config user.email "gentera-refresh@users.noreply.github.com"
+          git add site/gentera/data tools/gentera/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "gentera: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1

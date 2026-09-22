@@ -1,0 +1,138 @@
+{
+ "cnbv": {
+  "name": "Banco Compartamos — CNBV Boletín Estadístico Banca Múltiple",
+  "unit": "MXN millions; IMOR %",
+  "series": [
+   {
+    "month": "202603",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx",
+    "loans": 63486.78,
+    "imor": 4.86,
+    "coverage": 187.15,
+    "loansMicro": 53589.28,
+    "imorMicro": 4.83,
+    "captacion": 44479.43,
+    "totalAssets": 72693.9,
+    "roa": 8.52,
+    "roe": 31.29
+   },
+   {
+    "month": "202604",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx",
+    "loans": 61307.14,
+    "imor": 4.73,
+    "coverage": 198.14,
+    "loansMicro": 51367.47,
+    "imorMicro": 4.73,
+    "captacion": 44133.97,
+    "totalAssets": 70702.67,
+    "roa": 8.3,
+    "roe": 30.48
+   },
+   {
+    "month": "202605",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx",
+    "loans": 60139.79,
+    "imor": 4.88,
+    "coverage": 195.57,
+    "loansMicro": 50325.3,
+    "imorMicro": 4.87,
+    "captacion": 44472.89,
+    "totalAssets": 70543.67,
+    "roa": 8.32,
+    "roe": 30.52
+   },
+   {
+    "month": "202606",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx",
+    "loans": 62518.99,
+    "imor": 4.59,
+    "coverage": 203.33,
+    "loansMicro": 52757.56,
+    "imorMicro": 4.54,
+    "captacion": 44474.48,
+    "totalAssets": 71692.96,
+    "roa": 8.48,
+    "roe": 30.98
+   },
+   {
+    "month": "202607",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx",
+    "loans": 63344.23,
+    "imor": 4.62,
+    "coverage": 203.34,
+    "loansMicro": 53507.21,
+    "imorMicro": 4.57,
+    "captacion": 44403.11,
+    "totalAssets": 71877.08,
+    "roa": 8.43,
+    "roe": 30.71
+   }
+  ]
+ },
+ "sbs": {
+  "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
+  "unit": "PEN millions; ratios %",
+  "series": [
+   {
+    "month": "202604",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2201-ab2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Abril/B-2362-ab2026.XLS"
+    },
+    "loans": 616.95,
+    "deposits": 47.96,
+    "netIncome": 122.15,
+    "equity": 1219.85
+   },
+   {
+    "month": "202605",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2201-my2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Mayo/B-2362-my2026.XLS"
+    },
+    "loans": 779.7,
+    "deposits": 60.97,
+    "netIncome": 156.27,
+    "equity": 1252.2
+   },
+   {
+    "month": "202606",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2201-jn2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Junio/B-2362-jn2026.XLS"
+    },
+    "loans": 938.27,
+    "deposits": 73.78,
+    "netIncome": 186.45,
+    "equity": 1280.07
+   },
+   {
+    "month": "202607",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2201-jl2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Julio/B-2362-jl2026.XLS"
+    },
+    "loans": 1101.59,
+    "deposits": 87.03,
+    "netIncome": 222.44,
+    "equity": 1313.57
+   }
+  ]
+ },
+ "log": [
+  "CNBV 202608: HTTP Error 404: NOT FOUND",
+  "SBS B-2334 202603: Compartamos column not found",
+  "SBS B-2334 202604: Compartamos column not found",
+  "SBS B-2334 202605: Compartamos column not found",
+  "SBS B-2334 202606: Compartamos column not found",
+  "SBS B-2334 202607: Compartamos column not found",
+  "SBS B-2369 202603: Compartamos column not found",
+  "SBS B-2369 202604: Compartamos column not found",
+  "SBS B-2369 202605: Compartamos column not found",
+  "SBS B-2369 202606: Compartamos column not found",
+  "SBS B-2369 202607: Compartamos column not found",
+  "SBS: implausible values for ['202603'] dropped (check raw/debug/sbs_*.json and SBS_PICK)"
+ ],
+ "updatedAt": "2026-09-22T23:14:39+00:00"
+}

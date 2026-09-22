@@ -11,6 +11,8 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 | `/mx/macro/` | Mexico macro dashboard | `mx-macro-refresh.yml` (Banxico SIE, FRED, INEGI) |
 | `/mx/fiscal/` | Mexico fiscal monitor (SHRFSP, holders, maturities, financial cost, revenue, spending, Pemex, CGPE 2027; Banxico balance sheet, policy rate, instruments) | daily `refresh-mx-data.yml` (Banxico SIE) + monthly PR to `monthly-data.js` |
 | `/gap/` | GAP interactive financial model | `gap-refresh.yml` |
+| `/qualitas/` | Quálitas interactive financial model | `qualitas-refresh.yml` |
+| `/gentera/` | Gentera interactive financial model (runbook: `tools/gentera/README.md`; pipeline health: `/gentera/quality.html`) | `gentera-refresh.yml` |
 
 ## Mexico fiscal monitor (`site/mx/fiscal/`)
 
