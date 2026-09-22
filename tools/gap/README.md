@@ -109,6 +109,12 @@ The function directory must sit at the **project root** (next to `site/`). If th
 picks it up on the next deploy; no build step is needed. Page and data responses are sent with
 `Cache-Control: private, no-store` and `X-Robots-Tag: noindex`.
 
+## Reusing the design for another company
+
+`tools/gap/PROMPT-company-dashboard.md` is a fill-in-the-blanks prompt that specifies this model
+(sources, coverage, sections, toggles, aesthetics, automation, delivery) plus a list of improvements,
+for building the same dashboard for another listed company with Claude or another LLM.
+
 ## Print as presentation
 
 The 🖨 button next to the language toggle switches the page into print mode (light theme, tables trimmed
