@@ -89,8 +89,9 @@ async function fred(id, since) {
 // auction results live in the SF439xx–SF440xx range, one id per instrument) and keeping the first whose title
 // names a 10-year bond; BANXICO_SERIES_MX10Y pins one once known. A wrong id never publishes: the title check
 // refuses it, and the titles seen are recorded in the note so the candidate list can be corrected.
-const BANXICO_CANDIDATES = ['SF43948', 'SF43951', 'SF43954', 'SF43957', 'SF43960', 'SF43963', 'SF43966', 'SF43969', 'SF43972', 'SF43975', 'SF43978', 'SF43981', 'SF43984', 'SF43987', 'SF43990', 'SF43993', 'SF43996', 'SF43999', 'SF44002', 'SF44005'];
-const isTenYearBond = (title) => /bono/i.test(title) && /10\s*a[ñn]os/i.test(title) && !/udibono/i.test(title);
+const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => 'SF' + (a + i));
+const BANXICO_CANDIDATES = [...range(43880, 44100), ...range(45400, 45500)];  // weekly auction results and secondary-market yields
+const isTenYearBond = (title) => /bonos?\b/i.test(title) && /10\s*a[ñn]os|3640\s*d[ií]as/i.test(title) && /rendimiento/i.test(title) && !/udibono|bpa|brems|monto|precio|plazo en/i.test(title);
 async function banxicoSeries(ids, since, token) {
   const url = `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${ids.join(',')}/datos/${since}/${new Date().toISOString().slice(0, 10)}?token=${token}`;
   const body = JSON.parse(await getText(url, { headers: { Accept: 'application/json' } }));
@@ -99,20 +100,24 @@ async function banxicoSeries(ids, since, token) {
 async function banxico(series, since) {
   const token = process.env.BANXICO_TOKEN;
   if (!token) throw new Error('BANXICO_TOKEN not set');
-  let s = null, seen = [];
+  let s = null; const seen = [];
   if (series) {
     s = (await banxicoSeries([series], since, token))[0];
     if (!s) throw new Error(`Banxico ${series}: no series in response`);
     if (!isTenYearBond(s.titulo || '')) { seen.push(`${series}: ${(s.titulo || '').replace(/\s+/g, ' ').slice(0, 90)}`); s = null; }
   }
   if (!s) {
-    const found = await banxicoSeries(BANXICO_CANDIDATES, since, token);
-    for (const c of found) { const t = (c.titulo || '').replace(/\s+/g, ' '); seen.push(`${c.idSerie}: ${t.slice(0, 90)}`); if (!s && isTenYearBond(t)) s = c; }
-    if (!s) throw new Error(`no 10-year Bono M among the candidate ids; titles seen: ${seen.join(' | ').slice(0, 1200)}`);
+    // one-off scan (the id found is cached in market.js as rates.MX10Y.seriesId and tried first next time)
+    for (let i = 0; i < BANXICO_CANDIDATES.length && !s; i += 20) {
+      const found = await banxicoSeries(BANXICO_CANDIDATES.slice(i, i + 20), since, token).catch(() => []);
+      for (const c of found) { const t = (c.titulo || '').replace(/\s+/g, ' '); if (/bono/i.test(t) && /10\s*a[ñn]os/i.test(t)) seen.push(`${c.idSerie}: ${t.slice(0, 100)}`); if (!s && isTenYearBond(t)) s = c; }
+      await sleep(400);
+    }
+    if (!s) throw new Error(`no 10-year Bono M yield among ${BANXICO_CANDIDATES.length} candidate ids; 10-year bond titles seen: ${seen.join(' | ').slice(0, 1500) || 'none'}`);
   }
   const points = (s.datos || []).map((d) => { const [dd, mm, yy] = d.fecha.split('/'); return [`${yy}-${mm}-${dd}`, Number(String(d.dato).replace(',', ''))]; }).filter((p) => Number.isFinite(p[1])).map((p) => [p[0], r4(p[1])]).sort((a, b) => a[0].localeCompare(b[0]));
   if (!points.length) throw new Error(`Banxico ${s.idSerie}: no points`);
-  return { points, source: `Banxico SIE ${s.idSerie} (${(s.titulo || '').replace(/\s+/g, ' ').slice(0, 120)})` };
+  return { points, seriesId: s.idSerie, source: `Banxico SIE ${s.idSerie} (${(s.titulo || '').replace(/\s+/g, ' ').slice(0, 120)})` };
 }
 
 async function loadPrevious() {
@@ -163,8 +168,8 @@ async function main() {
   }
   // MX 10-year: Banxico daily first, FRED/OECD monthly as fallback
   try {
-    const data = await banxico(BANXICO_MX10Y, '2015-01-01');
-    out.rates.MX10Y = { name: 'México Bono M 10 años, subasta semanal (%)', source: data.source, fetchedAt: out.generatedAt, points: data.points };
+    const data = await banxico(BANXICO_MX10Y || prev?.rates?.MX10Y?.seriesId || null, '2015-01-01');
+    out.rates.MX10Y = { name: 'México Bono M 10 años, subasta semanal (%)', source: data.source, seriesId: data.seriesId, fetchedAt: out.generatedAt, points: data.points };
     ok++; console.log(`MX10Y: ${data.points.length} points via Banxico (last ${data.points.at(-1)})`);
   } catch (e1) {
     try {
