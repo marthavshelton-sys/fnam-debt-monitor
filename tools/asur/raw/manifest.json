@@ -2,13 +2,13 @@
  "entity": "Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-09-22T22:13:17.251Z",
+ "updatedAt": "2026-09-22T22:29:06.878Z",
  "kept": {
-  "traffic": 138,
+  "traffic": 139,
+  "results-pdf": 29,
   "results": 26,
-  "results-pdf": 14,
   "transcript": 14,
-  "other": 18
+  "other": 19
  },
  "filings": [
   {
@@ -1619,6 +1619,15 @@
    "path": "tools/asur/raw/releases/2019-04-03_prn300824197_en.txt"
   },
   {
+   "source": "ir",
+   "id": "1Q19",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2019/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q19.pdf",
+   "date": "2019-04-24",
+   "title": "ASUR 1Q19 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2019-04-24_ir1Q19_en.txt"
+  },
+  {
    "source": "prn",
    "id": "300837645",
    "url": "https://www.prnewswire.com/news-releases/asur-announces-resolutions-approved-at-the-general-annual-ordinary-shareholders-meeting-held-on-april-24th-2019-300837645.html",
@@ -1660,6 +1669,15 @@
    "title": "ASUR Announces Total Passenger Traffic for June 2019",
    "class": "traffic",
    "path": "tools/asur/raw/releases/2019-07-03_prn300880082_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "2Q19",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2019/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q19.pdf",
+   "date": "2019-07-22",
+   "title": "ASUR 2Q19 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2019-07-22_ir2Q19_en.txt"
   },
   {
    "source": "prn",
@@ -1715,6 +1733,15 @@
    "path": "tools/asur/raw/releases/2019-10-23_prn300944319_en.txt"
   },
   {
+   "source": "ir",
+   "id": "3Q19",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2019/3/ASUR-Airport-Cancun-Mexico-Earnings-Release-3Q19.pdf",
+   "date": "2019-10-23",
+   "title": "ASUR 3Q19 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2019-10-23_ir3Q19_en.txt"
+  },
+  {
    "source": "prn",
    "id": "300952197",
    "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-october-2019-300952197.html",
@@ -1758,6 +1785,15 @@
    "title": "ASUR 4Q19 Passenger Traffic Increased 3.6% YoY in Mexico, 18.1% in Puerto Rico and 9.4% in Colombia",
    "class": "traffic",
    "path": "tools/asur/raw/releases/2020-02-24_prn301010123_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "4Q19",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2019/4/ASUR-Airport-Cancun-Mexico-Earnings-Release-4Q19.pdf",
+   "date": "2020-02-24",
+   "title": "ASUR 4Q19 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2020-02-24_ir4Q19_en.txt"
   },
   {
    "source": "prn",
@@ -1846,6 +1882,15 @@
    "path": "tools/asur/raw/releases/2020-07-06_prn301088637_en.txt"
   },
   {
+   "source": "ir",
+   "id": "2Q20",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2020/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q20.pdf",
+   "date": "2020-07-22",
+   "title": "ASUR 2Q20 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2020-07-22_ir2Q20_en.txt"
+  },
+  {
    "source": "prn",
    "id": "301098226",
    "url": "https://www.prnewswire.com/news-releases/asur-reports-2q20-financial-results-301098226.html",
@@ -1889,6 +1934,15 @@
    "title": "ASUR Reports 3Q20 Financial Results",
    "class": "results",
    "path": "tools/asur/raw/releases/2020-10-22_prn301158276_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "3Q20",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2020/3/ASUR-Airport-Cancun-Mexico-Earnings-Release-3Q20.pdf",
+   "date": "2020-10-22",
+   "title": "ASUR 3Q20 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2020-10-22_ir3Q20_en.txt"
   },
   {
    "source": "prn",
@@ -1936,6 +1990,15 @@
    "path": "tools/asur/raw/releases/2021-02-24_prn301234927_en.txt"
   },
   {
+   "source": "ir",
+   "id": "4Q20",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2020/4/ASUR-Airport-Cancun-Mexico-Earnings-Release-4Q20.pdf",
+   "date": "2021-02-24",
+   "title": "ASUR 4Q20 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2021-02-24_ir4Q20_en.txt"
+  },
+  {
    "source": "prn",
    "id": "301241060",
    "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-february-2021-301241060.html",
@@ -1976,6 +2039,15 @@
    "date": "2021-04-12",
    "title": "ASUR Files Form 20-F with the U.S. Securities and Exchange Commission",
    "class": "skip"
+  },
+  {
+   "source": "ir",
+   "id": "1Q21",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2021/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q21.pdf",
+   "date": "2021-04-22",
+   "title": "ASUR 1Q21 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2021-04-22_ir1Q21_en.txt"
   },
   {
    "source": "prn",
@@ -2036,6 +2108,15 @@
    "title": "ASUR Announces Total Passenger Traffic for June 2021",
    "class": "traffic",
    "path": "tools/asur/raw/releases/2021-07-06_prn301326360_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "2Q21",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2021/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q21.pdf",
+   "date": "2021-07-22",
+   "title": "ASUR 2Q21 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2021-07-22_ir2Q21_en.txt"
   },
   {
    "source": "prn",
@@ -2128,6 +2209,15 @@
    "path": "tools/asur/raw/releases/2022-02-24_prn301490118_en.txt"
   },
   {
+   "source": "ir",
+   "id": "4Q21",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2021/4/ASUR-Airport-Cancun-Mexico-Earnings-Release-4Q21.pdf",
+   "date": "2022-02-24",
+   "title": "ASUR 4Q21 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2022-02-24_ir4Q21_en.txt"
+  },
+  {
    "source": "prn",
    "id": "301497129",
    "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-february-2022-301497129.html",
@@ -2170,6 +2260,15 @@
    "class": "skip"
   },
   {
+   "source": "ir",
+   "id": "1Q22",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2022/1/ASUR-Airport-Cancun-Mexico-Earnings-Release-1Q22.pdf",
+   "date": "2022-04-25",
+   "title": "ASUR 1Q22 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2022-04-25_ir1Q22_en.txt"
+  },
+  {
    "source": "prn",
    "id": "301532284",
    "url": "https://www.prnewswire.com/news-releases/asur-reports-1q22-financial-results-301532284.html",
@@ -2204,6 +2303,15 @@
    "title": "ASUR Announces Total Passenger Traffic for June 2022",
    "class": "traffic",
    "path": "tools/asur/raw/releases/2022-07-06_prn301581866_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "2Q22",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2022/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q22.pdf",
+   "date": "2022-07-25",
+   "title": "ASUR 2Q22 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2022-07-25_ir2Q22_en.txt"
   },
   {
    "source": "prn",
@@ -2251,6 +2359,15 @@
    "path": "tools/asur/raw/releases/2022-10-24_prn301657625_en.txt"
   },
   {
+   "source": "ir",
+   "id": "3Q22",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2022/3/ASUR-Airport-Cancun-Mexico-Earnings-Release-3Q22.pdf",
+   "date": "2022-10-24",
+   "title": "ASUR 3Q22 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2022-10-24_ir3Q22_en.txt"
+  },
+  {
    "source": "prn",
    "id": "301670771",
    "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-october-2022-301670771.html",
@@ -2294,6 +2411,15 @@
    "title": "ASUR Reports 4Q22 Financial Results",
    "class": "results",
    "path": "tools/asur/raw/releases/2023-02-23_prn301754961_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "4Q22",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2022/4/ASUR-Airport-Cancun-Mexico-Earnings-Release-4Q22.pdf",
+   "date": "2023-02-23",
+   "title": "ASUR 4Q22 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2023-02-23_ir4Q22_en.txt"
   },
   {
    "source": "prn",
@@ -2666,6 +2792,15 @@
    "title": "ASUR 2Q24 earnings-call transcript (PDF)",
    "class": "transcript",
    "path": "tools/asur/raw/releases/2024-07-23_ir2Q24tx_en.txt"
+  },
+  {
+   "source": "ir",
+   "id": "2Q24",
+   "url": "https://www.asur.com.mx/media/Informes%20Financieros/2024/2/ASUR-Airport-Cancun-Mexico-Earnings-Release-2Q24.pdf",
+   "date": "2024-07-23",
+   "title": "ASUR 2Q24 earnings release (full report, PDF)",
+   "class": "results-pdf",
+   "path": "tools/asur/raw/releases/2024-07-23_ir2Q24_en.txt"
   },
   {
    "source": "prn",
@@ -3089,6 +3224,24 @@
    "title": "ASUR 4Q25 earnings-call transcript (PDF)",
    "class": "transcript",
    "path": "tools/asur/raw/releases/2026-02-24_ir4Q25tx_en.txt"
+  },
+  {
+   "source": "prn",
+   "id": "302704361",
+   "url": "https://www.prnewswire.com/news-releases/asur-calls-for-a-shareholders-meeting-302704361.html",
+   "date": "2026-03-04",
+   "title": "ASUR Calls for a Shareholders' Meeting",
+   "class": "other",
+   "path": "tools/asur/raw/releases/2026-03-04_prn302704361_en.txt"
+  },
+  {
+   "source": "prn",
+   "id": "302705737",
+   "url": "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-february-2026-302705737.html",
+   "date": "2026-03-05",
+   "title": "ASUR Announces Total Passenger Traffic for February 2026",
+   "class": "traffic",
+   "path": "tools/asur/raw/releases/2026-03-05_prn302705737_en.txt"
   },
   {
    "source": "prn",
