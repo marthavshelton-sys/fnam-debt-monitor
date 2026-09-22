@@ -1,0 +1,21 @@
+{
+ "cnbv": {
+  "name": "Banco Compartamos — CNBV Boletín Estadístico Banca Múltiple",
+  "unit": "MXN millions; IMOR %",
+  "series": []
+ },
+ "sbs": {
+  "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
+  "unit": "PEN millions; ratios %",
+  "series": []
+ },
+ "log": [
+  "CNBV 202608: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>",
+  "CNBV 202607: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>",
+  "CNBV 202606: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>",
+  "CNBV 202605: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>",
+  "CNBV 202604: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>",
+  "CNBV 202603: <urlopen error [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: unable to get local issuer certificate (_ssl.c:1010)>"
+ ],
+ "updatedAt": "2026-09-22T22:36:13+00:00"
+}
