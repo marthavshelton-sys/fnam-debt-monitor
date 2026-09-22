@@ -1,0 +1,309 @@
+{
+ "items": {
+  "reports:2023Q1": {
+   "chars": 34276,
+   "fetchedAt": "2026-09-22T20:15:28+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2023Q1",
+   "sha256": "e7f84b1ac45e53b96137733c887638bd7c97c43886ea0b9c2107b67879e3fcbc",
+   "size": 1399430,
+   "text": "tools/qualitas/raw/text/reports/2023Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/trimestral/1T/mx/Q-Reporte_de_resultados_1T23.pdf"
+  },
+  "reports:2023Q2": {
+   "chars": 40367,
+   "fetchedAt": "2026-09-22T20:15:31+00:00",
+   "kind": "reports",
+   "pages": 21,
+   "quarter": "2023Q2",
+   "sha256": "98c74a96d225e0b563604feec661ee6dd8e7771d5a1e3b3a053dea55846e456d",
+   "size": 1469856,
+   "text": "tools/qualitas/raw/text/reports/2023Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/trimestral/2T/mx/Q-Reporte_de_resultados_2T23.pdf"
+  },
+  "reports:2023Q3": {
+   "chars": 40559,
+   "fetchedAt": "2026-09-22T20:15:35+00:00",
+   "kind": "reports",
+   "pages": 21,
+   "quarter": "2023Q3",
+   "sha256": "72a76da3a336eb573f70a992d55648c2a6a8aa8e3901673e308ae0b9575de77b",
+   "size": 1499541,
+   "text": "tools/qualitas/raw/text/reports/2023Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/trimestral/3T/mx/Q-Reporte_de_resultados_3T23.pdf"
+  },
+  "reports:2023Q4": {
+   "chars": 40723,
+   "fetchedAt": "2026-09-22T20:15:40+00:00",
+   "kind": "reports",
+   "pages": 21,
+   "quarter": "2023Q4",
+   "sha256": "1c63f9162a3d1df398d7608efcba2316188d8ceba227e4b45c6eb122c089ed9a",
+   "size": 1594927,
+   "text": "tools/qualitas/raw/text/reports/2023Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/trimestral/4T/mx/Q-Reporte_de_resultados_4T23.pdf"
+  },
+  "reports:2024Q1": {
+   "chars": 35285,
+   "fetchedAt": "2026-09-22T20:16:05+00:00",
+   "kind": "reports",
+   "pages": 18,
+   "quarter": "2024Q1",
+   "sha256": "d209e3346b873fe06e916f1aa0137b9a95b7da45e8d773f107b04b20faf3fceb",
+   "size": 1553860,
+   "text": "tools/qualitas/raw/text/reports/2024Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/1T/mx/Q-Reporte_de_resultados_1T24.pdf"
+  },
+  "reports:2024Q2": {
+   "chars": 40312,
+   "fetchedAt": "2026-09-22T20:16:10+00:00",
+   "kind": "reports",
+   "pages": 19,
+   "quarter": "2024Q2",
+   "sha256": "7ab9082a588364385dac3a2cbe3edd6acd4ab1caca4ec925fd604eeb2eff51dd",
+   "size": 1585931,
+   "text": "tools/qualitas/raw/text/reports/2024Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/2T/mx/Q-Reporte_resultados_2T24.pdf"
+  },
+  "reports:2024Q3": {
+   "chars": 39590,
+   "fetchedAt": "2026-09-22T20:16:18+00:00",
+   "kind": "reports",
+   "pages": 19,
+   "quarter": "2024Q3",
+   "sha256": "e383d8e33dbb44d7017956f2ff0272ce5678aff9503bb8135047547f7ef6e913",
+   "size": 1562753,
+   "text": "tools/qualitas/raw/text/reports/2024Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/3T/mx/Q-Reporte_de_resultados_3T24.pdf"
+  },
+  "reports:2024Q4": {
+   "chars": 41246,
+   "fetchedAt": "2026-09-22T20:16:22+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2024Q4",
+   "sha256": "da2416f83fe992091213dea8dd032739a416434b8cc5f8dcf13d4abe0445406b",
+   "size": 1546541,
+   "text": "tools/qualitas/raw/text/reports/2024Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/4T/mx/Q-Reporte_de_resultados_4T24.pdf"
+  },
+  "reports:2025Q1": {
+   "chars": 36403,
+   "fetchedAt": "2026-09-22T20:16:38+00:00",
+   "kind": "reports",
+   "pages": 19,
+   "quarter": "2025Q1",
+   "sha256": "41bc8fc37291ec8e541c16a224ba8819057a8675e78066fc9ad00b8fee011d25",
+   "size": 1962994,
+   "text": "tools/qualitas/raw/text/reports/2025Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2025/trimestral/1T/mx/Reporte Trimestral 1T25.pdf"
+  },
+  "reports:2025Q2": {
+   "chars": 42560,
+   "fetchedAt": "2026-09-22T20:16:43+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2025Q2",
+   "sha256": "755cfba64bf82c020d6166350d73145244e4fbe1a2d07bce6902a95f73c80192",
+   "size": 1833815,
+   "text": "tools/qualitas/raw/text/reports/2025Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/trimestral/2T/mx/Reporte_Trimestral_2T25.pdf"
+  },
+  "reports:2025Q3": {
+   "chars": 43735,
+   "fetchedAt": "2026-09-22T20:16:50+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2025Q3",
+   "sha256": "f1d181ce6bd35652b45c3d06089b2b39dac87fd37cdf4b93a5d6258608b898c3",
+   "size": 1859878,
+   "text": "tools/qualitas/raw/text/reports/2025Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/trimestral/3T/mx/Q-Reporte_Trimestral_3T25.pdf"
+  },
+  "reports:2025Q4": {
+   "chars": 45213,
+   "fetchedAt": "2026-09-22T20:16:53+00:00",
+   "kind": "reports",
+   "pages": 21,
+   "quarter": "2025Q4",
+   "sha256": "540f3eef739269c649ba7d566ff180175306cd48545aacdca23ee56523303701",
+   "size": 1917089,
+   "text": "tools/qualitas/raw/text/reports/2025Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/trimestral/4T/mx/Q - Reporte Trimestral 4T25 y 2025.pdf"
+  },
+  "reports:2026Q1": {
+   "chars": 36534,
+   "fetchedAt": "2026-09-22T20:17:14+00:00",
+   "kind": "reports",
+   "pages": 19,
+   "quarter": "2026Q1",
+   "sha256": "908069d0eaaeba5857ad78c6af0acb9f6ac853d318e93e449bec365668e04753",
+   "size": 1414572,
+   "text": "tools/qualitas/raw/text/reports/2026Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/1T/mx/Q - Reporte Trimestral 1T26.pdf"
+  },
+  "reports:2026Q2": {
+   "chars": 45106,
+   "fetchedAt": "2026-09-22T20:17:19+00:00",
+   "kind": "reports",
+   "pages": 20,
+   "quarter": "2026Q2",
+   "sha256": "beaa50480f91208bb6521adbedc2de9bd4bac2c9faff2856438390f68b1d7a93",
+   "size": 1486842,
+   "text": "tools/qualitas/raw/text/reports/2026Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/Q - Reporte Trimestral 2T26 VFF2.pdf"
+  },
+  "sific:2023Q1": {
+   "chars": 35587,
+   "fetchedAt": "2026-09-22T20:15:43+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2023Q1",
+   "sha256": "2379e6c3393d4858838260928f9f0b9d04f4c3e4aa3c0ecf540978f6ad8ee666",
+   "size": 400789,
+   "text": "tools/qualitas/raw/text/sific/2023Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/sific/mx/reporte_1T23_SIFIC_QC.pdf"
+  },
+  "sific:2023Q2": {
+   "chars": 37075,
+   "fetchedAt": "2026-09-22T20:15:45+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2023Q2",
+   "sha256": "1578bcba917dda8ca2bc28708b7d2bda467cb04e8539d33d587013574d0bf994",
+   "size": 402179,
+   "text": "tools/qualitas/raw/text/sific/2023Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/sific/mx/reporte_2T23_SIFIC.pdf"
+  },
+  "sific:2023Q4": {
+   "chars": 38825,
+   "fetchedAt": "2026-09-22T20:16:02+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2023Q4",
+   "sha256": "dd644c9f78dbd9dff118995f57e77ffcb0afd883e7605cc210134ab8f7943ebb",
+   "size": 404114,
+   "text": "tools/qualitas/raw/text/sific/2023Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/sific/mx/reporte 4T23.pdf"
+  },
+  "sific:2024Q1": {
+   "chars": 36016,
+   "fetchedAt": "2026-09-22T20:16:25+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2024Q1",
+   "sha256": "3b7f44c740a365bb89664cda982ac3f6d06a6cb1fbd3df3a51f4e290fb778bba",
+   "size": 400490,
+   "text": "tools/qualitas/raw/text/sific/2024Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/sific/mx/reporte QC1T24.pdf"
+  },
+  "sific:2024Q2": {
+   "chars": 36616,
+   "fetchedAt": "2026-09-22T20:16:27+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2024Q2",
+   "sha256": "7adeaa89986ac4209bfd09dad871e65e0cfdc18ef6a2c4be36a00f179af39a47",
+   "size": 401794,
+   "text": "tools/qualitas/raw/text/sific/2024Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/sific/mx/Reporte_QC_2T24.pdf"
+  },
+  "sific:2024Q3": {
+   "chars": 36034,
+   "fetchedAt": "2026-09-22T20:16:30+00:00",
+   "kind": "sific",
+   "pages": 13,
+   "quarter": "2024Q3",
+   "sha256": "b2ad1d10713b8972d6ea57ce693964a4008e349bdefc6894b55a73e85e202cda",
+   "size": 401814,
+   "text": "tools/qualitas/raw/text/sific/2024Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/sific/mx/reporte QC 3T24.pdf"
+  },
+  "sific:2024Q4": {
+   "chars": 38252,
+   "fetchedAt": "2026-09-22T20:16:33+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2024Q4",
+   "sha256": "1e9785d92e437f512efd11821cbb99e40d676ccaa4f8475a35db9afa7343cefe",
+   "size": 403337,
+   "text": "tools/qualitas/raw/text/sific/2024Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/sific/mx/reporte_QC_4T24_dictaminado_sific_4t24.pdf"
+  },
+  "sific:2025Q1": {
+   "chars": 228,
+   "fetchedAt": "2026-09-22T20:17:01+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2025Q1",
+   "sha256": "781cda385a62fac855888bc073a9b1ffc768980b9b09081a401e42322845b2d6",
+   "size": 4579859,
+   "text": "tools/qualitas/raw/text/sific/2025Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/sific/mx/reporte_QC_1T2025.pdf"
+  },
+  "sific:2025Q2": {
+   "chars": 38717,
+   "fetchedAt": "2026-09-22T20:17:03+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2025Q2",
+   "sha256": "84a53b087d76966b56e6abc273176abb5c62b05256b1bdda7f6a9200376ca581",
+   "size": 405132,
+   "text": "tools/qualitas/raw/text/sific/2025Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/sific/mx/reporte_QC_2T25_SIFIC.pdf"
+  },
+  "sific:2025Q3": {
+   "chars": 40002,
+   "fetchedAt": "2026-09-22T20:17:06+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2025Q3",
+   "sha256": "1f2cc8a55f67fb11759b67ad9155c9ab0d52a9cc5d3763347e9d0ef2413aaeb4",
+   "size": 407221,
+   "text": "tools/qualitas/raw/text/sific/2025Q3.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/uploads/informes/2025/sific/mx/reporte_QC_3T25.pdf"
+  },
+  "sific:2025Q4": {
+   "chars": 41195,
+   "fetchedAt": "2026-09-22T20:17:09+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2025Q4",
+   "sha256": "4aa94cf643320d7b299feaedb2412612b857321a01ad1abe3233649fab3cbf76",
+   "size": 407877,
+   "text": "tools/qualitas/raw/text/sific/2025Q4.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2025/sific/mx/reporte QC 4T25.pdf"
+  },
+  "sific:2026Q1": {
+   "chars": 228,
+   "fetchedAt": "2026-09-22T20:17:24+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2026Q1",
+   "sha256": "ddfe50010d0404c7b2256390de492671687633b86635b0198afb5ea289e3e382",
+   "size": 4638397,
+   "text": "tools/qualitas/raw/text/sific/2026Q1.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/sific/Reporte 1T26.pdf"
+  },
+  "sific:2026Q2": {
+   "chars": 40790,
+   "fetchedAt": "2026-09-22T20:17:26+00:00",
+   "kind": "sific",
+   "pages": 14,
+   "quarter": "2026Q2",
+   "sha256": "ba7ddb8f1e42685c810d5c1014a8020f6b4dc23c33635564dcad1ea11b679881",
+   "size": 406797,
+   "text": "tools/qualitas/raw/text/sific/2026Q2.txt",
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/sific/reporte QC 2T26.pdf"
+  },
+  "xlsx:historicos": {
+   "fetchedAt": "2026-09-22T20:15:25+00:00",
+   "kind": "xlsx",
+   "sha256": "138e907f39b71da91ff5587871a0b320a2c6e985b7f030b04fbb7dd0b51e75b6",
+   "size": 1142481,
+   "url": "https://qinversionistas.qualitas.com.mx/storage/informes/2026/trimestral/2T/mx/DatosFinancierosHistoricos 2T26.xlsx"
+  }
+ },
+ "updatedAt": "2026-09-22T20:17:27+00:00"
+}
