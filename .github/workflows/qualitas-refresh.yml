@@ -1,0 +1,112 @@
+# Keeps the Quálitas financial model (site/qualitas) current.
+#
+#   market   daily after the BMV close: Q.MX, IPC and peer prices, Q.MX dividends, USD/MXN, 10-year yields
+#            -> site/qualitas/data/market.js
+#   filings  every weekday morning (Quálitas publishes quarterly results in the 3rd/4th week of Jan, Apr,
+#            Jul, Oct and the SIFIC filings a few days later): harvests new quarterly reports and SIFIC
+#            filings from the IR site into tools/qualitas/raw/, re-parses them into
+#            site/qualitas/data/financials.js + operations.js and validates the tie-outs before committing.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). Bot commits carry [skip actions] so they
+# never re-trigger the workflow. Cloudflare Pages deploys the commit. The hand-curated files
+# (reference, guidance, comments, summary, peers) are never touched by this workflow.
+name: Refresh Quálitas model data
+
+on:
+  schedule:
+    - cron: "45 22 * * 1-5"      # market, weekdays 22:45 UTC (after the BMV close)
+    - cron: "35 14 * * 1-5"      # filings + market, weekdays 14:35 UTC
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "market | filings | all"
+        default: "all"
+      full:
+        description: "Re-download every filing (ignore tools/qualitas/raw/manifest.json)"
+        type: boolean
+        default: false
+      years:
+        description: "Years to scan on the IR site (space-separated); default = 2023..current"
+        default: ""
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/qualitas/**"
+      - ".github/workflows/qualitas-refresh.yml"
+
+concurrency:
+  group: qualitas-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install Python dependencies
+        run: pip install --quiet pypdf openpyxl
+
+      - name: Decide what to run
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'all' }}"
+          # The 22:45 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "45 22 * * 1-5" ]; then MODE=market; fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Fetch market data
+        if: steps.plan.outputs.mode != 'filings'
+        run: node scripts/qualitas/fetch-market.mjs
+
+      - name: Harvest quarterly reports and SIFIC filings (IR site)
+        if: steps.plan.outputs.mode != 'market'
+        shell: bash
+        run: |
+          ARGS=""
+          if [ "${{ github.event.inputs.full }}" = "true" ]; then ARGS="$ARGS --full"; fi
+          if [ -n "${{ github.event.inputs.years }}" ]; then ARGS="$ARGS --years ${{ github.event.inputs.years }}"; fi
+          python scripts/qualitas/harvest.py $ARGS
+
+      # The steps below run even if a fetch failed, so whatever did refresh still gets committed
+      # (the job itself stays red so the failure is visible in the Actions tab).
+      - name: Parse filings into model data
+        if: always() && steps.plan.outputs.mode != 'market'
+        run: python scripts/qualitas/build_data.py
+
+      - name: Validate model data
+        if: always()
+        run: python scripts/qualitas/validate_data.py
+
+      - name: Commit if anything changed
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "qualitas-refresh[bot]"
+          git config user.email "qualitas-refresh@users.noreply.github.com"
+          git add site/qualitas/data tools/qualitas/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "qualitas: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
