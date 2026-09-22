@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Quálitas · Calidad de datos | Data quality</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f9f9f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%23f9f9f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Hidden owner page: not linked from the navigation; reachable from section 11 of the model. Reads
+     data/quality.js, written by scripts/qualitas/validate_data.py after every data build. -->
+<script src="data/quality.js"></script>
+<style>
+:root{color-scheme:light; --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec; --text:#0b0b0b; --text-2:#52514e; --muted:#6f6e69; --border:rgba(11,11,11,.12); --grid:#e1e0d9; --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --good:#006300; --warn:#8a5a00; --warn-bg:#fff3d6; --bad:#b32828; --bad-bg:#fde5e5; --good-bg:#e4f3e4;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c; --text:#fff; --text-2:#c3c2b7; --muted:#a3a19a; --border:rgba(255,255,255,.12); --grid:#2c2c2a; --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --good:#5fcf5f; --warn:#f0c060; --warn-bg:#2a2410; --bad:#ff8a8a; --bad-bg:#3a1a1a; --good-bg:#16261e;}}
+:root[data-theme="dark"]{color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c; --text:#fff; --text-2:#c3c2b7; --muted:#a3a19a; --border:rgba(255,255,255,.12); --grid:#2c2c2a; --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --good:#5fcf5f; --warn:#f0c060; --warn-bg:#2a2410; --bad:#ff8a8a; --bad-bg:#3a1a1a; --good-bg:#16261e;}
+*{box-sizing:border-box} body{margin:0; background:var(--page); color:var(--text); font:14px/1.5 Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px; margin:0 auto; padding:28px 16px 60px}
+h1{font-family:"Source Serif 4",Georgia,serif; font-size:28px; margin:6px 0 4px} h2{font-family:"Source Serif 4",Georgia,serif; font-size:19px; margin:0 0 4px}
+.eyebrow{font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+.sub{color:var(--text-2); font-size:13px} a{color:var(--accent-ink)}
+.badge{display:inline-block; padding:3px 10px; border-radius:100px; font-size:12px; font-weight:700; letter-spacing:.03em}
+.badge.ok{background:var(--good-bg); color:var(--good)} .badge.warn{background:var(--warn-bg); color:var(--warn)} .badge.fail{background:var(--bad-bg); color:var(--bad)}
+.cards{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0} @media(max-width:760px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; min-width:0}
+.card .v{font-size:24px; font-weight:700; font-variant-numeric:tabular-nums} .card .l{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-top:2px}
+section{margin-top:26px} .tblwrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface)}
+table{width:100%; border-collapse:collapse; font-size:12.8px} th{position:sticky; top:0; background:var(--surface-2); text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); padding:8px 10px; border-bottom:1px solid var(--grid)}
+td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; font-variant-numeric:tabular-nums} tr:last-child td{border-bottom:none} td.n{text-align:right; white-space:nowrap}
+.st{font-weight:700} .st.ok{color:var(--good)} .st.warn{color:var(--warn)} .st.fail{color:var(--bad)}
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0} .filters button{font:inherit; font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--text-2); cursor:pointer}
+.filters button.active{background:var(--accent); border-color:var(--accent); color:#fff} .filters button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.lang{position:fixed; top:12px; right:12px; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; overflow:hidden}
+.lang button{border:0; background:transparent; font:inherit; font-size:12px; font-weight:700; padding:7px 12px; color:var(--text-2); cursor:pointer} .lang button.active{background:var(--accent); color:#fff}
+.empty{padding:14px; color:var(--muted); font-size:13px}
+</style>
+</head>
+<body>
+<div class="lang"><button type="button" id="es" class="active">ES</button><button type="button" id="en">EN</button></div>
+<div class="wrap">
+  <div class="eyebrow"><span class="es">Quálitas · página oculta del propietario</span><span class="en" hidden>Quálitas · hidden owner page</span></div>
+  <h1><span class="es">Calidad de datos del modelo</span><span class="en" hidden>Model data quality</span></h1>
+  <p class="sub" id="meta"></p>
+  <div class="cards" id="cards"></div>
+  <section><h2><span class="es">Series y periodos: vigencia</span><span class="en" hidden>Series and periods: freshness</span></h2><p class="sub"><span class="es">Última fecha de cada serie de mercado y el último trimestre frente al calendario de resultados.</span><span class="en" hidden>Last date of each market series and the latest quarter against the results calendar.</span></p><div class="tblwrap" id="stale"></div></section>
+  <section><h2><span class="es">Archivos curados</span><span class="en" hidden>Curated files</span></h2><p class="sub"><span class="es">¿Comentarios, expectativas, resumen y referencia cubren el último trimestre?</span><span class="en" hidden>Do comments, expectations, summary and reference cover the latest quarter?</span></p><div class="tblwrap" id="curated"></div></section>
+  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por build_data.py: archivos sin capa de texto, tablas no encontradas, trimestres sin flujo de efectivo.</span><span class="en" hidden>Written by build_data.py: image-only files, tables not found, quarters without a cash-flow statement.</span></p><div class="tblwrap" id="parse"></div></section>
+  <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/qualitas-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
+</div>
+<script>
+(function () {
+  const Q = window.Q_QUALITY || null;
+  let LANG = 'es'; try { LANG = localStorage.getItem('q-lang') || 'es'; } catch (e) {}
+  const T = { ok: { es: 'OK', en: 'OK' }, warn: { es: 'Aviso', en: 'Warning' }, fail: { es: 'Falla', en: 'Fail' }, all: { es: 'Todos', en: 'All' } };
+  const t = (k) => T[k] ? T[k][LANG] : k;
+  const fmtDate = (iso) => iso ? new Date(iso.slice(0, 10) + 'T12:00:00Z').toLocaleDateString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : '—';
+  const st = (s) => `<span class="st ${s}">${t(s)}</span>`;
+  let filter = 'all';
+  function render() {
+    document.querySelectorAll('.es').forEach((e) => { e.hidden = LANG !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = LANG !== 'en'; });
+    document.getElementById('es').classList.toggle('active', LANG === 'es'); document.getElementById('en').classList.toggle('active', LANG === 'en');
+    document.documentElement.lang = LANG === 'es' ? 'es-MX' : 'en';
+    if (!Q) { document.getElementById('meta').textContent = LANG === 'es' ? 'data/quality.js no existe todavía: ejecute scripts/qualitas/validate_data.py.' : 'data/quality.js does not exist yet: run scripts/qualitas/validate_data.py.'; return; }
+    const es = LANG === 'es';
+    document.getElementById('meta').innerHTML = `${es ? 'Generado' : 'Generated'} ${fmtDate(Q.generatedAt)} · ${es ? 'datos financieros del' : 'financial data of'} ${fmtDate(Q.financialsGeneratedAt)} · <span class="badge ${Q.ok ? 'ok' : 'fail'}">${Q.ok ? (es ? 'sin fallas' : 'no failures') : (es ? 'con fallas: no se publicó' : 'failures: not published')}</span>`;
+    const c = Q.counts || {};
+    document.getElementById('cards').innerHTML = [
+      [c.checks, es ? 'identidades verificadas' : 'identities checked'], [c.ok, 'OK'], [c.warn, es ? 'avisos' : 'warnings'], [c.fail, es ? 'fallas' : 'failures'],
+      [Q.latestQuarter, es ? 'último trimestre' : 'latest quarter'], [Q.expectedQuarter, es ? 'esperado por calendario' : 'expected by calendar'], [(Q.coverage || {}).reportsParsed, es ? 'informes parseados' : 'reports parsed'], [(Q.coverage || {}).sificParsed, es ? 'reportes SIFIC parseados' : 'SIFIC filings parsed'],
+    ].map(([v, l]) => `<div class="card"><div class="v">${v == null ? '—' : v}</div><div class="l">${l}</div></div>`).join('');
+    document.getElementById('stale').innerHTML = `<table><thead><tr><th>${es ? 'Serie' : 'Series'}</th><th>${es ? 'Última fecha' : 'Last date'}</th><th>${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th>${es ? 'Límite' : 'Limit'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${(Q.stale || []).map((s) => `<tr><td>${s.series}</td><td>${/^\d{4}-/.test(s.lastDate || '') ? fmtDate(s.lastDate) : (s.lastDate || '—')}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${s.note || ''}</td></tr>`).join('')}</tbody></table>`;
+    document.getElementById('curated').innerHTML = `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(Q.curated || []).map((s) => `<tr><td>${s.file}</td><td>${st(s.status)}</td><td>${s.detail}</td></tr>`).join('')}</tbody></table>`;
+    const p = Q.parse || [];
+    document.getElementById('parse').innerHTML = p.length ? `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Aviso' : 'Warning'}</th></tr></thead><tbody>${p.map((w) => `<tr><td>${w.file}</td><td>${w.msg}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">${es ? 'Sin avisos en el último parseo.' : 'No warnings in the last parse.'}</div>`;
+    const tol = Q.tolerances || {};
+    document.getElementById('tolNote').textContent = es ? `Tolerancias: Ps. ${tol.statementThousands} mil en identidades parseadas de informes o reportes SIFIC; Ps. ${tol.workbookThousands} mil cuando la única fuente es el libro histórico; ${tol.ratioPp} pp en índices; diferencias hasta Ps. ${tol.slackThousands} mil son avisos (inconsistencias de las cifras impresas), mayores son fallas y detienen la publicación.` : `Tolerances: Ps. ${tol.statementThousands} thousand on identities parsed from reports or SIFIC filings; Ps. ${tol.workbookThousands} thousand when the only source is the historical workbook; ${tol.ratioPp} pp on ratios; gaps up to Ps. ${tol.slackThousands} thousand are warnings (inconsistencies in the printed figures), larger ones are failures and block publication.`;
+    const checks = Q.checks || [];
+    const counts = { all: checks.length, fail: checks.filter((x) => x.status === 'fail').length, warn: checks.filter((x) => x.status === 'warn').length, ok: checks.filter((x) => x.status === 'ok').length };
+    document.getElementById('filters').innerHTML = ['all', 'fail', 'warn', 'ok'].map((k) => `<button type="button" data-f="${k}" class="${filter === k ? 'active' : ''}" aria-pressed="${filter === k}">${t(k)} (${counts[k]})</button>`).join('');
+    document.querySelectorAll('#filters button').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.f; render(); }));
+    const rows = checks.filter((x) => filter === 'all' || x.status === filter).slice().sort((a, b) => ({ fail: 0, warn: 1, ok: 2 }[a.status] - { fail: 0, warn: 1, ok: 2 }[b.status]) || b.tag.localeCompare(a.tag));
+    document.getElementById('checks').innerHTML = rows.length ? `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Cuadre' : 'Check'}</th><th>${es ? 'Diferencia (Ps. miles)' : 'Difference (Ps. thousand)'}</th><th>${es ? 'Tolerancia' : 'Tolerance'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${x.tag}</td><td>${x.check}</td><td class="n">${x.diff == null ? '—' : x.diff.toLocaleString(es ? 'es-MX' : 'en-US')}</td><td class="n">${x.tol == null ? '—' : x.tol}</td><td>${st(x.status)}</td><td>${x.note || ''}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
+  }
+  document.getElementById('es').addEventListener('click', () => { LANG = 'es'; try { localStorage.setItem('q-lang', 'es'); } catch (e) {} render(); });
+  document.getElementById('en').addEventListener('click', () => { LANG = 'en'; try { localStorage.setItem('q-lang', 'en'); } catch (e) {} render(); });
+  render();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,71 @@
+{
+ "generatedAt": "2026-09-22T21:54:46+00:00",
+ "reportsParsed": 19,
+ "sificParsed": 23,
+ "warnings": [
+  {
+   "file": "reports/2022Q2.txt",
+   "msg": "release date not found"
+  },
+  {
+   "file": "reports/2023Q4.txt",
+   "msg": "insured-units table not found"
+  },
+  {
+   "file": "sific/2025Q1.txt",
+   "msg": "image-only PDF (no text layer), skipped"
+  },
+  {
+   "file": "sific/2026Q1.txt",
+   "msg": "image-only PDF (no text layer), skipped"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2017Q1 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2017Q2 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2017Q3 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2017Q4 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2018Q1 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2018Q2 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2018Q3 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2018Q4 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2025Q1 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2025Q2 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2026Q1 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  },
+  {
+   "file": "financials.js",
+   "msg": "2026Q2 has no quarterly cash-flow statement (SIFIC filing missing or image-only)"
+  }
+ ]
+}

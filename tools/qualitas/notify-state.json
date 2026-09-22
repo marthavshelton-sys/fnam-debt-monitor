@@ -1,0 +1,15 @@
+{
+  "note": "Updated by the Quálitas reviewing routine (tools/qualitas/ROUTINE.md). Compare the live data files against these markers to decide whether anything material landed since the last run.",
+  "lastQuarter": "2026Q2",
+  "lastQuarterReleaseDate": "2026-07-21",
+  "lastOpsQuarter": "2026Q2",
+  "lastGuidanceDate": "2026-07-21",
+  "lastReferenceUpdatedAt": "2026-09-22",
+  "lastCommentsUpdatedAt": "2026-09-22",
+  "lastSummaryUpdatedAt": "2026-09-22",
+  "lastMarketDate": null,
+  "lastAlertKeys": [],
+  "lastNotifiedAt": null,
+  "lastFailureNote": null,
+  "pendingFromOwner": ["earnings-call transcript for 3Q26 once available", "consensus / peer connector authorisation", "password decision (QUALITAS_PASSWORD)"]
+}

@@ -24,12 +24,15 @@
 <script src="data/comments.js"></script>
 <script src="data/summary.js"></script>
 <script src="data/peers.js"></script>
+<script src="data/glossary.js"></script>
+<script src="data/consensus.js"></script>
+<script src="data/alerts.js"></script>
 
 <style>
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec;
-  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#6f6e69;
   --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10); --border-strong:rgba(11,11,11,0.18);
   --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --accent-soft-border:rgba(27,67,50,0.22);
   --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --series-5:#e87ba4; --series-6:#008300; --series-7:#4a3aa7; --series-8:#e34948;
@@ -43,7 +46,7 @@
   :root:not([data-theme="light"]){
     color-scheme: dark;
     --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
     --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
     --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
     --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -53,7 +56,7 @@
 :root[data-theme="dark"]{
   color-scheme: dark;
   --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
   --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
   --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
   --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -73,6 +76,41 @@ a{color:var(--accent-ink);}
 .small{font-size:12px;}
 .pos{color:var(--good);} .neg{color:var(--critical);}
 code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; background:var(--surface-2); padding:1px 5px; border-radius:4px;}
+
+/* ---------- Accessibility ---------- */
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, summary:focus-visible, [tabindex]:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:4px;}
+.skip{position:absolute; left:-9999px; top:8px; z-index:100; background:var(--accent); color:#fff; padding:8px 12px; border-radius:8px; font-weight:700;}
+.skip:focus{left:8px;}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto;} *, *::before, *::after{transition:none !important; animation:none !important;}}
+/* provenance and glossary tooltips */
+[data-prov]{cursor:help; text-decoration:underline dotted var(--de-emph); text-underline-offset:3px;}
+.gl{border-bottom:1px dotted var(--muted); cursor:help;}
+#tip{position:fixed; z-index:60; max-width:340px; background:var(--text-primary); color:var(--page); font-size:12px; line-height:1.45; padding:9px 11px; border-radius:8px; box-shadow:var(--shadow-hover); pointer-events:none;}
+#tip b{display:block; margin-bottom:2px; color:inherit;}
+#tip .m{opacity:.75; font-size:11px;}
+/* management quotes */
+.quotes-btn{display:inline-block; margin-left:6px; border:1px solid var(--border-strong); background:var(--surface); color:var(--accent-ink); font:inherit; font-size:11px; font-weight:700; padding:1px 7px; border-radius:100px; cursor:pointer; white-space:nowrap;}
+.quotes-btn[aria-expanded="true"]{background:var(--accent-soft); border-color:var(--accent-soft-border);}
+.quotes{margin-top:8px;}
+.quote{margin:6px 0 0; padding:6px 0 6px 10px; border-left:3px solid var(--accent-soft-border); font-size:12px; line-height:1.45; color:var(--text-secondary);}
+.quote .who{display:block; font-weight:700; color:var(--text-primary); font-size:11.5px;}
+.quote .who span{font-weight:400; color:var(--muted);}
+/* scenario bar and alert settings */
+.scenario{display:flex; flex-wrap:wrap; gap:8px 12px; align-items:center; margin-top:10px; padding:10px 14px; border:1px dashed var(--border-strong); border-radius:12px; font-size:12.5px; color:var(--text-secondary);}
+.scenario .lbl{font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
+.scenario .msg{color:var(--accent-ink); font-weight:600;}
+.alert-grid{display:grid; grid-template-columns:1fr auto; gap:6px 10px; align-items:center; font-size:12.8px; color:var(--text-secondary); margin-top:10px;}
+.alert-grid input{width:84px;}
+.notice ul{margin:6px 0 0; padding-left:18px;}
+.notice li{margin:3px 0;}
+.notice .close{float:right; border:0; background:transparent; color:inherit; font:inherit; font-weight:700; cursor:pointer; padding:0 4px;}
+/* phones: the first column of every table stays fixed while the rest scrolls inside the table */
+@media (max-width:760px){
+  .tblwrap table th:first-child, .tblwrap table td:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
+  .stmt-table td:first-child{min-width:150px; max-width:190px; white-space:normal;}
+  .stmt-table th.cmt, .stmt-table td.cmt{min-width:220px; max-width:300px;}
+  .guide-table td.txt{min-width:200px;}
+}
 
 /* ---------- Header ---------- */
 header.top{padding:54px 0 26px; border-bottom:1px solid var(--border); background:var(--surface);}
@@ -271,7 +309,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   html, body{background:#fff !important; color:#000 !important;}
   body{font-size:14pt; line-height:1.45; padding:0 !important;}
   .print-only{display:block;}
-  nav.jump, .lang-btn, .controls, .seg, .btn, .chips, #dataNotice, footer#sources, section#method, .sec-meta, .chart-src, details.tbl, .eyebrow .live, .notice{display:none !important;}
+  nav.jump, .lang-btn, .controls, .seg, .btn, .chips, #dataNotice, footer#sources, section#method, .sec-meta, .chart-src, details.tbl, .eyebrow .live, .notice, .skip, #tip, #scenarioBar, #alertsCard, #sinceBanner, #alertBanner, .quotes-btn, .quotes{display:none !important;}
+  [data-prov], .gl{text-decoration:none !important; border-bottom:none !important;}
   header{padding:0 !important; min-height:0 !important; break-after:page; page-break-after:always;}
   header .wrap, .block, .wrap{max-width:none !important; padding-left:0 !important; padding-right:0 !important;}
   header h1{font-size:34pt; margin-top:6pt;}
@@ -320,6 +359,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 </style>
 </head>
 <body>
+<a class="skip" href="#summary"><span class="es">Saltar al contenido</span><span class="en" hidden>Skip to content</span></a>
+<div id="tip" role="tooltip" hidden></div>
 
 <div class="lang-btn">
   <button type="button" id="btnLangEs" class="active">ES</button>
@@ -336,6 +377,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <h1>Quálitas Controladora <span class="muted" style="font-weight:600">(BMV: Q*)</span></h1>
     <div class="asof-row" id="asofRow"></div>
     <div id="dataNotice" hidden></div>
+    <div id="sinceBanner" class="notice" role="status" hidden></div>
+    <div id="alertBanner" class="notice warn" role="status" hidden></div>
     <div class="kpi-strip" id="kpiStrip"></div>
     <div class="print-only print-cover" id="printCover"></div>
   </div>
@@ -405,6 +448,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="ctl"><label class="switch"><input type="checkbox" id="chkVat"><span><span class="es">Excluir cargo IVA 4T25</span><span class="en" hidden>Exclude 4Q25 VAT charge</span></span></label></div>
       <div class="ctl"><label class="switch"><input type="checkbox" id="chkUsd"><span>USD</span></label></div>
     </div>
+    <div class="scenario" id="scenarioBar">
+      <span class="lbl"><span class="es">Escenario</span><span class="en" hidden>Scenario</span></span>
+      <span class="small"><span class="es">Los periodos, interruptores y supuestos de valuación viven en la dirección de la página: cópiela para compartir o guárdela en este navegador.</span><span class="en" hidden>Periods, toggles and valuation assumptions live in the page address: copy it to share, or save it in this browser.</span></span>
+      <button type="button" class="btn" id="scnCopy"><span class="es">Copiar enlace</span><span class="en" hidden>Copy link</span></button>
+      <select id="scnSlot" aria-label="Scenario slot"></select>
+      <button type="button" class="btn" id="scnSave"><span class="es">Guardar</span><span class="en" hidden>Save</span></button>
+      <button type="button" class="btn" id="scnLoad"><span class="es">Cargar</span><span class="en" hidden>Load</span></button>
+      <button type="button" class="btn" id="scnReset"><span class="es">Restablecer todo</span><span class="en" hidden>Reset all</span></button>
+      <span class="msg" id="scnMsg" aria-live="polite"></span>
+    </div>
 
     <div class="card" style="margin-top:22px">
       <h3 id="opsTitle"></h3>
@@ -418,24 +471,31 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="tblwrap" id="stmtTable"></div>
       <p class="chart-src" id="stmtSrc"></p>
     </div>
-    <div class="grid-2 eq">
+    <div class="grid-3">
       <div class="card">
         <h3><span class="es">Prima emitida por línea de negocio</span><span class="en" hidden>Written premiums by line of business</span></h3>
         <p class="cap"><span class="es">Ps. millones por trimestre, últimos 12 trimestres</span><span class="en" hidden>Ps. million per quarter, last 12 quarters</span></p>
-        <div class="chart-wrap"><canvas id="chartPremMix"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartPremMix" role="img" aria-label="Written premiums by line of business, stacked bars per quarter"></canvas></div>
         <p class="chart-src" id="premMixSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Índice combinado y sus componentes</span><span class="en" hidden>Combined ratio and its components</span></h3>
         <p class="cap"><span class="es">Adquisición + siniestralidad + operación, % (definiciones de Quálitas); línea = rango objetivo 92–94%</span><span class="en" hidden>Acquisition + loss + operating, % (Quálitas' definitions); band = 92–94% target range</span></p>
-        <div class="chart-wrap"><canvas id="chartCombined"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartCombined" role="img" aria-label="Combined ratio components per quarter"></canvas></div>
         <p class="chart-src"><span class="es">Fuente: informes trimestrales de Quálitas; índices calculados a partir del estado de resultados</span><span class="en" hidden>Source: Quálitas quarterly reports; ratios computed from the income statement</span></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Márgenes</span><span class="en" hidden>Margins</span></h3>
+        <p class="cap"><span class="es">Técnico y operativo sobre prima devengada, neto sobre prima emitida, % · eje acotado cerca de los datos</span><span class="en" hidden>Technical and operating on earned premiums, net on written premiums, % · axis floored near the data</span></p>
+        <div class="chart-wrap"><canvas id="chartMargins" role="img" aria-label="Technical, operating and net margins per quarter"></canvas></div>
+        <p class="chart-src" id="marginsSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Indicadores por trimestre</span><span class="en" hidden>Quarterly indicators</span></h3>
-      <p class="cap"><span class="es">Últimos 12 trimestres reportados · variación contra el mismo trimestre del año anterior (pp para los índices)</span><span class="en" hidden>Last 12 reported quarters · change vs. the same quarter a year earlier (pp for ratios)</span></p>
+      <p class="cap"><span class="es">Últimos 12 trimestres reportados · variación contra el mismo trimestre del año anterior (pp para los índices) · la primera columna queda fija al desplazar</span><span class="en" hidden>Last 12 reported quarters · change vs. the same quarter a year earlier (pp for ratios) · the first column stays fixed while scrolling</span></p>
       <div class="tblwrap" id="kpiTable"></div>
+      <p class="chart-src" id="kpiSrc"></p>
     </div>
   </section>
 
@@ -453,6 +513,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="tblwrap" id="guideCurrent"></div>
       <details class="tbl" id="guideTextWrap"><summary><span class="es">Notas de la conferencia y del informe</span><span class="en" hidden>Notes from the call and the report</span></summary><div id="guideText"></div></details>
       <p class="chart-src" id="guideCurSrc"></p>
+    </div>
+
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Consenso de analistas</span><span class="en" hidden>Sell-side consensus</span></h3>
+      <p class="cap" id="consCap"></p>
+      <div class="tblwrap" id="consTable"></div>
+      <p class="chart-src" id="consSrc"></p>
     </div>
 
     <div class="card" style="margin-top:20px">
@@ -480,6 +547,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Cumplimiento por año</span><span class="en" hidden>Track record by year</span></h3>
         <p class="cap"><span class="es">Resultado real frente a la última expectativa de cada año cerrado · verde = mejor que el rango, gris = dentro, rojo = peor</span><span class="en" hidden>Actual outcome versus the final expectation of each closed year · green = better than the range, grey = within, red = worse</span></p>
         <div class="tblwrap" id="guideRecord"></div>
+        <p class="chart-src" id="guideRecSrc"></p>
     </div>
 
     <details class="tbl" id="guideAllWrap"><summary><span class="es">Todas las expectativas publicadas (con enlace a la fuente)</span><span class="en" hidden>Every expectation vintage (with a link to the source)</span></summary><div class="tblwrap" id="guideAll"></div></details>
@@ -520,6 +588,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3 id="drvTblTitle"></h3>
         <p class="cap" id="drvTblCap"></p>
         <div class="tblwrap" id="drvTable"></div>
+        <p class="chart-src" id="drvTblSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
@@ -581,16 +650,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <div class="hero"><div class="v" id="valHero">—</div><div class="l" id="valHeroLbl"></div></div>
           <div class="out-grid" id="valOutputs"></div>
           <div class="callout" id="valNote"></div>
+          <div class="callout" id="valHow"></div>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Proyección</span><span class="en" hidden>Projection</span></h3>
           <p class="cap"><span class="es">Ps. millones, nominales</span><span class="en" hidden>Ps. million, nominal</span></p>
           <div class="tblwrap" id="valTable"></div>
+          <p class="chart-src" id="valSrc"></p>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
           <p class="cap" id="sensCap"></p>
           <div class="tblwrap" id="valSens"></div>
+          <p class="chart-src" id="sensSrc"></p>
         </div>
       </div>
     </div>
@@ -608,6 +680,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Quálitas: múltiplos actuales</span><span class="en" hidden>Quálitas: current multiples</span></h3>
         <p class="cap" id="multCap"></p>
         <div class="tblwrap" id="multTable"></div>
+        <p class="chart-src" id="multTblSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">P/VL y P/U UDM históricos</span><span class="en" hidden>Historical P/BV and LTM P/E</span></h3>
@@ -620,6 +693,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
       <p class="cap" id="peersCap"></p>
       <div class="tblwrap" id="peersTable"></div>
+      <p class="chart-src" id="peersSrc"></p>
     </div>
   </section>
 
@@ -649,13 +723,21 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Portafolio de inversión y RIF</span><span class="en" hidden>Investment portfolio and RIF</span></h3>
         <p class="cap" id="portCap"></p>
         <div class="tblwrap" id="portTable"></div>
+        <p class="chart-src" id="portSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Calificaciones</span><span class="en" hidden>Ratings</span></h3>
         <p class="cap" id="ratingsCap"></p>
         <div class="tblwrap" id="ratingsTable"></div>
+        <p class="chart-src" id="ratingsSrc"></p>
         <div class="callout" id="capNote"></div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Deuda e instrumentos</span><span class="en" hidden>Debt and instruments</span></h3>
+      <p class="cap" id="debtCap"></p>
+      <div class="tblwrap" id="debtTable"></div>
+      <p class="chart-src" id="debtSrc"></p>
     </div>
   </section>
 
@@ -677,6 +759,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Detalle</span><span class="en" hidden>Detail</span></h3>
         <p class="cap" id="dpsCap"></p>
         <div class="tblwrap" id="dpsTable"></div>
+        <p class="chart-src" id="dpsTblSrc"></p>
         <div class="callout" id="dpsNote"></div>
       </div>
     </div>
@@ -709,7 +792,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="prose">
         <p><span class="es"><b>Qué son.</b> Quálitas México genera ≈95% de la prima; el resto viene de aseguradoras de autos en El Salvador, Costa Rica, Estados Unidos (Quálitas Insurance Company, QIC), Perú y, desde 2025, Colombia, todas construidas orgánicamente con el mismo modelo de agentes y oficinas de servicio. Las <b>verticales</b> (talleres, distribución de cristales y refacciones, salvamentos, telemática y tecnología, inmuebles y Quálitas Salud) integran la cadena de siniestros y venden también a terceros; sus ingresos se reportan junto con las subsidiarias pero no son prima.</span><span class="en" hidden><b>What they are.</b> Quálitas Mexico writes ≈95% of premiums; the rest comes from motor insurers in El Salvador, Costa Rica, the United States (Quálitas Insurance Company, QIC), Peru and, since 2025, Colombia, all built organically with the same agent and service-office model. The <b>verticals</b> (repair shops, glass and spare-parts distribution, salvage, telematics and technology, real estate and Quálitas Salud) integrate the claims chain and also sell to third parties; their revenue is reported alongside the subsidiaries but is not premium.</span></p>
         <p><span class="es"><b>Qué cambia en el modelo.</b> LATAM crece a doble dígito en dólares (Costa Rica y Perú con ≈9–16% de participación; Colombia con 20 oficinas y US$ 11 M de primas en su primer año y medio), pero el tipo de cambio y la salida de QIC del negocio doméstico (−80% de primas en el 2T26, concentrado en productos transfronterizos y binacionales) hacen que las subsidiarias internacionales caigan en pesos. El objetivo declarado es que las subsidiarias aporten una parte creciente de la utilidad con ROE ≥ 20%; Quálitas Salud debería alcanzar su punto de equilibrio en 2026.</span><span class="en" hidden><b>What changes in the model.</b> LATAM grows double-digit in dollars (Costa Rica and Peru with ≈9–16% market share; Colombia with 20 offices and US$ 11 M of premiums in its first year and a half), but currency and QIC's exit from domestic business (−80% premiums in 2Q26, now focused on cross-border and binational products) make the international subsidiaries shrink in pesos. The stated goal is for subsidiaries to contribute a rising share of profit at ROE ≥ 20%; Quálitas Salud should break even in 2026.</span></p>
+        <p class="cap" id="subsRefCap"></p>
         <div class="tblwrap" id="subsRefTable"></div>
+        <p class="chart-src" id="subsRefSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Cronología</span><span class="en" hidden>Timeline</span></h3>
@@ -731,7 +816,21 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
         <div class="tblwrap" id="refreshTable"></div>
-        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/qualitas/*</code> y <code>.github/workflows/qualitas-refresh.yml</code> en el repositorio; runbook en <code>tools/qualitas/README.md</code>.</span><span class="en" hidden>Data flow: <code>scripts/qualitas/*</code> and <code>.github/workflows/qualitas-refresh.yml</code> in the repository; runbook in <code>tools/qualitas/README.md</code>.</span></p>
+        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/qualitas/*</code> y <code>.github/workflows/qualitas-refresh.yml</code> en el repositorio; runbook en <code>tools/qualitas/README.md</code>; rutina de revisión en <code>tools/qualitas/ROUTINE.md</code>. Estado del pipeline (cuadres, avisos de parseo, series vencidas): <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: <code>scripts/qualitas/*</code> and <code>.github/workflows/qualitas-refresh.yml</code> in the repository; runbook in <code>tools/qualitas/README.md</code>; reviewing routine in <code>tools/qualitas/ROUTINE.md</code>. Pipeline health (tie-outs, parse warnings, stale series): <a href="quality.html">data-quality page</a>.</span></p>
+      </div>
+    </div>
+    <div class="grid-2 eq">
+      <div class="card" id="alertsCard">
+        <h3><span class="es">Umbrales de alerta</span><span class="en" hidden>Alert thresholds</span></h3>
+        <p class="cap"><span class="es">La página revisa estos umbrales al abrirse y muestra un aviso en el encabezado; la rutina de revisión envía un correo con los mismos umbrales (data/alerts.js). Sus cambios se guardan sólo en este navegador.</span><span class="en" hidden>The page checks these thresholds on load and shows a notice in the header; the reviewing routine emails on the same thresholds (data/alerts.js). Your changes are stored in this browser only.</span></p>
+        <div class="alert-grid" id="alertsGrid"></div>
+        <div style="margin-top:12px"><button type="button" class="btn" id="alertsReset"><span class="es">Restablecer</span><span class="en" hidden>Reset</span></button> <span class="small muted" id="alertsMeta"></span></div>
+      </div>
+      <div class="card">
+        <h3><span class="es">Glosario</span><span class="en" hidden>Glossary</span></h3>
+        <p class="cap"><span class="es">Una oración por término; los mismos textos aparecen al pasar el cursor sobre los conceptos de las tablas.</span><span class="en" hidden>One sentence per term; the same texts appear when hovering over the line items in the tables.</span></p>
+        <details class="tbl" id="glossaryWrap"><summary><span class="es">Ver el glosario completo</span><span class="en" hidden>Show the full glossary</span></summary><div id="glossary"></div></details>
+        <p class="chart-src" id="glossarySrc"></p>
       </div>
     </div>
   </section>

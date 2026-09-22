@@ -34,6 +34,14 @@ window.Q_REF = {
     { agency: "S&P National Ratings", date: "2026-05-28", entity: "Quálitas Compañía de Seguros", rating: "mxAAA (fortaleza financiera) · mxAAA (crediticia)", outlook: { es: "Estable", en: "Stable" }, source: { url: "https://qinversionistas.qualitas.com.mx/ES/eventos-relevantes", es: "evento relevante 28 may 2026", en: "material event 28 May 2026" } },
   ],
   analysts: [{ firm: "Citigroup", analyst: "Arnon Shirazi", date: "2026-06-07", target: 180, rating: "Neutral", source: { es: "evento relevante 8 jun 2026 (inicio de cobertura)", en: "material event 8 Jun 2026 (initiation)" } }],
+  // Debt instruments: none. The CNSF balance sheet lines "financiamientos obtenidos" and "emisión de deuda" are
+  // zero in every filing since 2013; the holding company has no bonds, bank loans or subordinated notes outstanding.
+  debt: {
+    instruments: [],
+    asOf: "2026-06-30",
+    note: { es: "Sin deuda financiera: las líneas 'financiamientos obtenidos' y 'emisión de deuda' del balance CNSF son cero en todos los reportes SIFIC desde 2013. El apalancamiento es operativo (prima retenida ÷ capital) y regulatorio (RCS).", en: "No financial debt: the CNSF balance-sheet lines 'borrowings' and 'debt issued' are zero in every SIFIC filing since 2013. Leverage is operating (retained premiums ÷ equity) and regulatory (RCS)." },
+    source: { es: "reportes SIFIC (balance general, códigos 239–242) y informes trimestrales", en: "SIFIC filings (balance sheet, codes 239–242) and quarterly reports" },
+  },
   // Dividends approved at the annual general meeting (Ps. per share, paid in two instalments). Policy: 40–90% of net income.
   dividendPolicy: { lo: 40, hi: 90 },
   dividends: [

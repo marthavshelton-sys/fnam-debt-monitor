@@ -40,7 +40,9 @@ def norm(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
-NUM_TOKEN = re.compile(r'\(?-?\$?\s?[\d][\d,]*(?:\.\d+)?%?\)?|(?<![\w])-(?![\w])')
+# A number is "(1,234)", "-1,234", "$ 1,234", "1,234.5%"; a lone "-" (zero in the CNSF layouts) stays a separate
+# token even when the next column's figure follows it after spaces ("Daños -   3,540,000" = [0, 3540000]).
+NUM_TOKEN = re.compile(r'\(?(?:-\$\s?|-|\$\s?)?[\d][\d,]*(?:\.\d+)?%?\)?|(?<![\w])-(?![\w])')
 NEG_MARK = re.compile(r'\(\s*-\s*\)')  # the "(-)" prefix the CNSF layout prints on deduction lines — not a number
 
 
@@ -413,19 +415,42 @@ def parse_xlsx(path):
 
 
 # ----------------------------------------------------------------------------- assembly
+BUILD_LOG = os.path.join(RAW, 'build-log.json')
+LOG = []  # structural parse warnings, written to tools/qualitas/raw/build-log.json and shown on quality.html
+
+
+def logw(file, msg):
+    LOG.append({'file': file, 'msg': msg}); print('WARN %s: %s' % (file, msg))
+
+
 def main():
     man = json.load(open(MANIFEST, encoding='utf-8')) if os.path.exists(MANIFEST) else {'items': {}}
     reports, sifics = {}, {}
     for f in sorted(glob.glob(os.path.join(TXT, 'reports', '*.txt'))):
         qid = os.path.basename(f)[:-4]
-        reports[qid] = parse_report(qid, open(f, encoding='utf-8').read())
+        r = reports[qid] = parse_report(qid, open(f, encoding='utf-8').read())
+        name = 'reports/%s.txt' % qid
+        if not r.get('is_q'): logw(name, 'no quarterly income statement found')
+        elif any(r['is_q'].get(k) is None for k in ('written', 'earned', 'lossCost', 'netIncome')): logw(name, 'income statement missing a core line (written / earned / claims / net income)')
+        if not r.get('bs'): logw(name, 'no balance sheet found')
+        elif any(r['bs'].get(k) is None for k in ('totalAssets', 'totalLiab', 'totalEquity')): logw(name, 'balance sheet missing a total')
+        if not r.get('date'): logw(name, 'release date not found')
+        o = r.get('ops', {})
+        if not o.get('units'): logw(name, 'insured-units table not found')
+        if not o.get('segments'): logw(name, 'line-of-business table not found')
+        if not o.get('solvency'): logw(name, 'solvency paragraph not found')
     for f in sorted(glob.glob(os.path.join(TXT, 'sific', '*.txt'))):
         qid = os.path.basename(f)[:-4]
         txt = open(f, encoding='utf-8').read()
+        name = 'sific/%s.txt' % qid
         if len(txt) < 2000:
-            print('SIFIC %s: image-only PDF, skipped' % qid); continue
-        sifics[qid] = parse_sific(qid, txt)
+            logw(name, 'image-only PDF (no text layer), skipped'); continue
+        s = sifics[qid] = parse_sific(qid, txt)
+        if not s['cf_ytd'] or s['cf_ytd'].get('cashEnd') is None: logw(name, 'cash-flow statement not parsed')
+        if not s['bs'] or s['bs'].get('totalAssets') is None: logw(name, 'balance sheet not parsed')
+        if not s['is_ytd'] or s['is_ytd'].get('written') is None: logw(name, 'income statement not parsed')
     xl = parse_xlsx(XLSX)
+    if not xl: logw('DatosFinancierosHistoricos.xlsx', 'historical workbook missing or unreadable (pre-2019 quarters will be empty)')
 
     Q, YTD, FY = {}, {}, {}
     def qrec(qid):
@@ -660,6 +685,9 @@ def main():
     print('financials.js: %d quarters (%s → %s), %d YTD periods, %d fiscal years; operations.js: %d quarters' % (len(quarters), quarters[0]['id'] if quarters else '-', quarters[-1]['id'] if quarters else '-', len(ytd), len(years), len(OPS)))
     missing = [q['id'] for q in quarters if not q['cf']]
     print('quarters without a cash-flow statement:', ', '.join(missing[-12:]) if missing else 'none')
+    for qid in missing[-12:]: logw('financials.js', '%s has no quarterly cash-flow statement (SIFIC filing missing or image-only)' % qid)
+    with open(BUILD_LOG, 'w', encoding='utf-8') as f:
+        json.dump({'generatedAt': gen, 'reportsParsed': len(reports), 'sificParsed': len(sifics), 'warnings': LOG}, f, ensure_ascii=False, indent=1)
 
 
 def build_layout():

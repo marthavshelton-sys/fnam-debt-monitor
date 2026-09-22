@@ -12,6 +12,39 @@ window.Q_GUIDANCE = {
   longTerm: { lossRatio: { lo: 62, hi: 65 }, combined: { lo: 92, hi: 94 }, roe: { lo: 20, hi: 25 }, payout: { lo: 40, hi: 90 } },
   vintages: [
     {
+      fy: 2024, kind: "initial", date: "2024-01-25", quarter: "2023Q4",
+      source: { url: "https://qinversionistas.qualitas.com.mx/uploads/informes/2023/trimestral/4T/mx/Q-Reporte_de_resultados_4T23.pdf", date: "2024-01-25", title: { es: "Informe 4T23 y conferencia de resultados (26 ene 2024)", en: "4Q23 report and earnings call (26 Jan 2024)" } },
+      items: {
+        written: { lo: 15, hi: 19, text: { es: "Crecimiento de dos dígitos medios a altos ('mid- to high-teens'), impulsado por el arrastre de tarifas de 2023 y nuevos precios; unidades de dígito bajo a medio", en: "Mid- to high-teens growth, driven by the 2023 tariff carry-over and new pricing; units low- to mid-single digit" } },
+        lossRatio: { lo: 62, hi: 65, text: { es: "Seguir avanzando hacia el rango técnico de 62%–65%; cerca de los objetivos y mejor que los últimos tres años", en: "Continue making progress towards the 62%–65% technical range; close to targets and better than the past three years" } },
+        combined: { lo: 90, hi: 94, text: { es: "Objetivo de 90%–94% (2023 cerró en 96%); margen operativo objetivo 5%–7%", en: "90%–94% target (2023 closed at 96%); operating-margin target 5%–7%" } },
+        roe: { lo: 20, hi: 25, text: { es: "Objetivo de largo plazo 20%–25%", en: "Long-term objective 20%–25%" } },
+      },
+      notes: { es: ["La administración recuerda que no publica guía formal, sólo expectativas generales.", "Portafolio: migración gradual a la asignación objetivo de ETFs aprovechando el tipo de cambio."], en: ["Management reiterates it gives no formal guidance, only overall expectations.", "Portfolio: gradual migration to the target ETF allocation, taking advantage of FX levels."] },
+    },
+    {
+      fy: 2024, kind: "reaffirmed", date: "2024-04-18", quarter: "2024Q1",
+      source: { url: "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/1T/mx/Q-Reporte_de_resultados_1T24.pdf", date: "2024-04-18", title: { es: "Conferencia de resultados 1T24 (19 abr 2024)", en: "1Q24 earnings call (19 Apr 2024)" } },
+      items: {
+        written: { lo: 15, hi: 19, text: { es: "Se mantiene el crecimiento de dos dígitos medios a altos, con un primer semestre más fuerte por el calendario de precios", en: "Mid- to high-teens growth maintained, with a stronger first half given the pricing calendar" } },
+        lossRatio: { lo: 62, hi: 65 },
+        combined: { lo: 90, hi: 94, text: { es: "89.4% en el 1T, por debajo del objetivo de 90%–94% (efectos de Semana Santa y menor robo); índice de operación de 3%–4% sostenible", en: "89.4% in 1Q, below the 90%–94% target (Holy Week and lower theft); a 3%–4% operating ratio should hold" } },
+        roe: { lo: 20, hi: 25 },
+      },
+      notes: { es: ["Se esperan mayores bonos a agentes (índice de adquisición) si primas y siniestralidad siguen la tendencia."], en: ["Higher agent bonuses (acquisition ratio) expected if premiums and the loss ratio keep their trend."] },
+    },
+    {
+      fy: 2024, kind: "revised", date: "2024-10-17", quarter: "2024Q3",
+      source: { url: "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/3T/mx/Q-Reporte_de_resultados_3T24.pdf", date: "2024-10-17", title: { es: "Conferencia de resultados 3T24 (18 oct 2024)", en: "3Q24 earnings call (18 Oct 2024)" } },
+      items: {
+        written: { lo: 15, hi: 19, text: { es: "Desaceleración secuencial al diluirse el beneficio de los precios de 2023; la prima devengada crecerá más rápido al estabilizarse la emisión", en: "Sequential slowdown as the 2023 pricing benefit fades; earned premiums to grow faster once written growth stabilises" } },
+        lossRatio: { lo: 62, hi: 65, text: { es: "Acumulado México 64.9%, consistente con el rango; mejora en el 4T por estacionalidad", en: "Mexico YTD 64.9%, consistent with the range; 4Q improvement on seasonality" } },
+        combined: { lo: 92, hi: 94, text: { es: "Objetivo reexpresado como 92%–94%; acumulado dentro del rango", en: "Target restated as 92%–94%; year-to-date within the range" } },
+        roe: { lo: 20, hi: 25, text: { es: "ROE 12M 22.4%, dentro del objetivo de largo plazo", en: "12M ROE 22.4%, within the long-term objective" } },
+      },
+      notes: { es: ["Quálitas Salud: punto de equilibrio esperado en 2026. Duración del portafolio ≈1.7 años al cierre de 2024."], en: ["Quálitas Salud: breakeven expected by 2026. Portfolio duration ≈1.7 years by end-2024."] },
+    },
+    {
       fy: 2025, kind: "initial", date: "2025-01-27", quarter: "2024Q4",
       source: { url: "https://qinversionistas.qualitas.com.mx/uploads/informes/2024/trimestral/4T/mx/Q-Reporte_de_resultados_4T24.pdf", date: "2025-01-27", title: { es: "Conferencia de resultados 4T24 y 2024 (28 ene 2025)", en: "4Q24 and FY2024 earnings call (28 Jan 2025)" } },
       items: {
