@@ -2,7 +2,73 @@
  "cnbv": {
   "name": "Banco Compartamos — CNBV Boletín Estadístico Banca Múltiple",
   "unit": "MXN millions; IMOR %",
-  "series": []
+  "series": [
+   {
+    "month": "202603",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx",
+    "loans": 63486.78,
+    "imor": 4.86,
+    "coverage": 187.15,
+    "loansMicro": 53589.28,
+    "imorMicro": 4.83,
+    "captacion": 44479.43,
+    "totalAssets": 72693.9,
+    "roa": 8.52,
+    "roe": 31.29
+   },
+   {
+    "month": "202604",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx",
+    "loans": 61307.14,
+    "imor": 4.73,
+    "coverage": 198.14,
+    "loansMicro": 51367.47,
+    "imorMicro": 4.73,
+    "captacion": 44133.97,
+    "totalAssets": 70702.67,
+    "roa": 8.3,
+    "roe": 30.48
+   },
+   {
+    "month": "202605",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx",
+    "loans": 60139.79,
+    "imor": 4.88,
+    "coverage": 195.57,
+    "loansMicro": 50325.3,
+    "imorMicro": 4.87,
+    "captacion": 44472.89,
+    "totalAssets": 70543.67,
+    "roa": 8.32,
+    "roe": 30.52
+   },
+   {
+    "month": "202606",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx",
+    "loans": 62518.99,
+    "imor": 4.59,
+    "coverage": 203.33,
+    "loansMicro": 52757.56,
+    "imorMicro": 4.54,
+    "captacion": 44474.48,
+    "totalAssets": 71692.96,
+    "roa": 8.48,
+    "roe": 30.98
+   },
+   {
+    "month": "202607",
+    "source": "https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx",
+    "loans": 63344.23,
+    "imor": 4.62,
+    "coverage": 203.34,
+    "loansMicro": 53507.21,
+    "imorMicro": 4.57,
+    "captacion": 44403.11,
+    "totalAssets": 71877.08,
+    "roa": 8.43,
+    "roe": 30.71
+   }
+  ]
  },
  "sbs": {
   "name": "Compartamos Banco Perú — SBS estadísticas mensuales",
@@ -68,25 +134,10 @@
  "log": [
   "CNBV 202608: HTTP Error 404: NOT FOUND",
   "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202607.xlsx (public statistics download)",
-  "CNBV 202607: implausible values {'loans': 0.0, 'imor': 0.0, 'deposits': 0.0} dropped (check raw/debug/cnbv_*.json and CNBV_WANT)",
   "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202606.xlsx (public statistics download)",
-  "CNBV 202606: implausible values {'loans': 0.0, 'imor': 0.0, 'deposits': 0.0} dropped (check raw/debug/cnbv_*.json and CNBV_WANT)",
   "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202605.xlsx (public statistics download)",
-  "CNBV 202605: implausible values {'loans': 0.0, 'imor': 0.0, 'deposits': 0.0} dropped (check raw/debug/cnbv_*.json and CNBV_WANT)",
   "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202604.xlsx (public statistics download)",
-  "CNBV 202604: implausible values {'loans': 0.0, 'imor': 0.0, 'deposits': 0.0} dropped (check raw/debug/cnbv_*.json and CNBV_WANT)",
-  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx (public statistics download)",
-  "CNBV 202603: implausible values {'loans': 0.0, 'imor': 0.0, 'deposits': 0.0} dropped (check raw/debug/cnbv_*.json and CNBV_WANT)",
-  "SBS B-2334 202603: Compartamos column not found",
-  "SBS B-2334 202604: Compartamos column not found",
-  "SBS B-2334 202605: Compartamos column not found",
-  "SBS B-2334 202606: Compartamos column not found",
-  "SBS B-2334 202607: Compartamos column not found",
-  "SBS B-2369 202603: Compartamos column not found",
-  "SBS B-2369 202604: Compartamos column not found",
-  "SBS B-2369 202605: Compartamos column not found",
-  "SBS B-2369 202606: Compartamos column not found",
-  "SBS B-2369 202607: Compartamos column not found"
+  "TLS verification fell back to unverified for https://portafolioinfo.cnbv.gob.mx/PortafolioInformacion/BE%20BM%20202603.xlsx (public statistics download)"
  ],
- "updatedAt": "2026-09-22T23:07:35+00:00"
+ "updatedAt": "2026-09-22T23:11:04+00:00"
 }

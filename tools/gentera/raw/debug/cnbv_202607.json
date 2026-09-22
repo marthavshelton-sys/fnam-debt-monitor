@@ -1,275 +1,7 @@
 {
  "sheets": [
   {
-   "name": "Portada",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Presentación",
-   "head": [
-    "",
-    "",
-    "Presentación",
-    "La Comisión Nacional Bancaria y de Valores (CNBV o Comisión) emite el presente documento para cumplir con lo dispuesto por la fracción XXIII del Artículo 4º de ",
-    "El boletín estadístico se encuentra dividido en 3 secciones: \n• Nivel de Capitalización: informa sobre el Índice de Capitalización de las instituciones y su cor",
-    "• Información financiera e indicadores: contiene información estadística relevante y principales indicadores de rentabilidad de cada institución obtenidos o cal"
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Notas",
-   "head": [
-    "",
-    "",
-    "",
-    "Consideraciones metodológicas \n\nLa información contenida en este boletín corresponde a la que, en cumplimiento a las Disposiciones aplicables, remiten las entid",
-    "",
-    "Consideraciones sobre los criterios para integrar los estados financieros del sector de Banca Múltiple a partir de enero de 2022.\n\nEl 13 de marzo de 2020 se pub"
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Índice",
-   "head": [
-    "",
-    "",
-    "",
-    "Presentación",
-    "Índice",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Portadilla I",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Art_121",
-   "head": [
-    "",
-    "",
-    "",
-    "REGLAS DE CARÁCTER GENERAL A QUE SE REFIERE EL ARTÍCULO 121 DE LA LEY DE INSTITUCIONES DE CRÉDITO.",
-    "Con el fin de mantener informado al público sobre el desempeño de las instituciones que conforman al sector de banca múltiple, la CNBV con fundamento en lo disp",
-    "CLASIFICACIÓN DE LAS INSTITUCIONES DE BANCA MÚLTIPLE DE ACUERDO CON EL ARTÍCULO 220 DE LAS DISPOSICIONES"
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "32.1044628",
-    "32.1044628",
-    "32.1044628",
-    "I",
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-   ]
-  },
-  {
-   "name": "Ficha Técnica",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "Evaluación Calidad",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "Evaluación de la Calidad de la Información"
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "17",
-    "040130",
-    "Compartamos",
-    null,
-    null,
-    "98.95",
-    "98.95",
-    null,
-    "98.95",
-    "100",
-    null,
-    null,
-    null
-   ]
-  },
-  {
-   "name": "Evaluación Calidad Grupos",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "6",
-    "040130",
-    "Compartamos",
-    null,
-    null,
-    "98.95",
-    "98.95",
-    null,
-    null,
-    "98.95",
-    "100",
-    null,
-    null
-   ]
-  },
-  {
-   "name": "Evaluación Calidad Detallada",
-   "head": [
-    "",
-    "",
-    "Evaluación de la Calidad de la Información",
-    "Banca Múltiple",
-    "julio 2026",
-    "Fecha de corte: 21 de agosto de 2026"
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "17",
-    "040130",
-    "Compartamos",
-    null,
-    null,
-    "100",
-    "100",
-    null,
-    "100",
-    "100",
-    null,
-    "n.a",
-    "100"
-   ]
-  },
-  {
-   "name": "Portadilla II",
-   "head": [
-    "",
-    "II. Estadísticas de la Banca Múltiple",
-    "\nEl objetivo de este apartado es proporcionar al público indicadores estadísticos que reflejen adecuadamente la evolución de la condición financiera de la Banca",
-    "",
-    "Notas:",
-    ""
-   ],
-   "key": "loans",
-   "compartamos_row": null
-  },
-  {
-   "name": "Pm2",
-   "head": [
-    "",
-    "",
-    "Principales rubros del estado de situación financiera y estado de resultado integral",
-    "Millones de pesos y porcentajes",
-    "Activo total Inversiones en instrumentos financieros Cartera total1/ Captación total      Capital contable Resultado neto 2/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "65277.491666",
-    "0.42417938088337714",
-    "71692.964328",
-    "0.44665516257200316",
-    "71877.082758",
-    "0.44022037326138486",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0",
-    "0"
-   ]
-  },
-  {
-   "name": "Indicadores",
-   "head": [
-    "",
-    "Indicadores financieros",
-    "Porcentajes 1.58534433534839",
-    "",
-    "ROA  (Flujo 12 meses)  3/ ROE  (Flujo 12 meses)  4/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00"
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "9.07565208590308",
-    "8.475570122598757",
-    "8.431991071809662",
-    "33.2282036471327",
-    "30.98154490426755",
-    "30.714876664829315",
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-   ]
-  },
-  {
    "name": "CCT",
-   "head": [
-    "",
-    "Cartera de crédito total",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
    "compartamos_row": [
     null,
     "Compartamos",
@@ -284,356 +16,13 @@
     "203.33683833489053",
     "7.467824007243094",
     "9.342479180950843",
-    "9.385991045517455"
-   ]
-  },
-  {
-   "name": "CCE",
-   "head": [
-    "",
-    "Cartera de crédito a empresas",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%) 5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCEF",
-   "head": [
-    "",
-    "Cartera de crédito a entidades financieras",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCGT",
-   "head": [
-    "",
-    "Cartera de crédito a entidades gubernamentales",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCG EyM",
-   "head": [
-    "",
-    "Cartera de crédito a estados y municipios",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00"
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    null,
-    null,
-    null,
-    null,
+    "9.385991045517455",
     null,
     null
-   ]
-  },
-  {
-   "name": "CCG OG",
-   "head": [
-    "",
-    "Cartera de crédito a otras entidades gubernamentales ",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00"
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    null,
-    null,
-    null,
-    null,
-    null,
-    null
-   ]
-  },
-  {
-   "name": "CCCT",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "58883.972261999996",
-    "62518.987550000005",
-    "63344.225774",
-    "3.185015380170447",
-    "4.594708747806649",
-    "4.615981600962522",
-    "234.38680299017466",
-    "203.27861323289142",
-    "203.28511710292267",
-    "7.465255724326868",
-    "9.340060224631708",
-    "9.383603602966028"
-   ]
-  },
-  {
-   "name": "CCCTC",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Tarjeta de crédito (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCCnrP",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Créditos personales (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "9228.546166",
-    "9761.422557",
-    "9837.012889",
-    "2.95976873373968",
-    "4.8862532403943755",
-    "4.865224376550067",
-    "319.820912605304",
-    "238.72120233954735",
-    "238.22024349140318",
-    "9.465959375252694",
-    "11.664522484824545",
-    "11.589949356220673"
-   ]
-  },
-  {
-   "name": "CCCN",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera de nómina (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCCAut",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Automotriz (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCCAdq BiMu",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Adquisición de bienes muebles (MDP) 1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCOAC",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Op. de arrendamiento financiero (MDP)  1/ IMOR (%)  5/    ICOR (%)  6/  Pérdida esperada (%)  7/  ",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
    ]
   },
   {
    "name": "CCCMicro",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Microcréditos (MDP) 1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
    "compartamos_row": [
     null,
     "Compartamos",
@@ -648,76 +37,13 @@
     "196.44781560463434",
     "7.092673433619081",
     "8.90997861751902",
-    "8.977978820023152"
-   ]
-  },
-  {
-   "name": "CCCnrO",
-   "head": [
-    "",
-    "Cartera de crédito al consumo",
-    "Millones de pesos y porcentajes",
-    "",
-    "Otros créditos al consumo (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "imor",
-   "compartamos_row": [
+    "8.977978820023152",
     null,
-    "Compartamos",
-    "0.489365",
-    "0",
-    "0",
-    "100",
-    "n.c.",
-    "n.c.",
-    "83.00001021732245",
-    "n.c.",
-    "n.c.",
-    "83.00001021732245",
-    "n.c.",
-    "n.c."
-   ]
-  },
-  {
-   "name": "CCV",
-   "head": [
-    "",
-    "Cartera de crédito a la vivienda",
-    "Millones de pesos y porcentajes",
-    "",
-    "Cartera total (MDP)  1/ IMOR (%)  5/ ICOR (%)  6/ Pérdida esperada (%)  7/",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "loans",
-   "compartamos_row": [
-    null,
-    "Compartamos",
-    "0",
-    "0",
-    "0",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c.",
-    "n.c."
+    null
    ]
   },
   {
    "name": "CaptRec",
-   "head": [
-    "",
-    "Saldos de la captación bancaria",
-    "Millones de pesos",
-    "",
-    "Captación total Depósitos exigibilidad inmediata Depósitos a plazo público en general Depósitos a plazo mercado de dinero Títulos de crédito Cuenta global de ca",
-    "2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 2026-07-01 00:00:00 2025-07-01 00:00:00 2026-06-01 00:00:00 "
-   ],
-   "key": "deposits",
    "compartamos_row": [
     null,
     "Compartamos",
@@ -732,76 +58,51 @@
     "2469.517707",
     "0",
     "0",
-    "0"
+    "0",
+    "13325.879599",
+    "17133.020132"
    ]
   },
   {
-   "name": "Cartera y calif",
-   "head": [
-    "",
-    "Cartera de Crédito por Calificación*",
-    "Julio de 2026",
-    "Millones de pesos y porcentajes",
-    "",
-    "BBVA México Santander Banorte Banamex Scotiabank HSBC Inbursa Citi México Banco del Bajío Banco Azteca Afirme Monex Banregio Invex Banco Base J.P. Morgan Banca "
-   ],
-   "key": "loans",
+   "name": "Pm2",
    "compartamos_row": [
     null,
+    "Compartamos",
+    "65277.491666",
+    "0.42417938088337714",
+    "71692.964328",
+    "0.44665516257200316",
+    "71877.082758",
+    "0.44022037326138486",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "0",
+    "58883.972262",
+    "0.751103491309892"
+   ]
+  },
+  {
+   "name": "Indicadores",
+   "compartamos_row": [
     null,
-    "BBVA México",
+    "Compartamos",
+    "9.07565208590308",
+    "8.475570122598757",
+    "8.431991071809662",
+    "33.2282036471327",
+    "30.98154490426755",
+    "30.714876664829315",
     null,
-    "Santander",
     null,
-    "Banorte",
     null,
-    "Banamex",
     null,
-    "Scotiabank",
     null,
-    "HSBC",
+    null,
+    null,
     null
-   ]
-  },
-  {
-   "name": "Portadilla III",
-   "head": [
-    "",
-    "",
-    "III. Estados Financieros de la Banca Múltiple\n\n\n ",
-    "En esta sección se presenta la información reportada por las 53 instituciones de banca múltiple en operación correspondiente a julio de 2026, consolidada con la",
-    "",
-    ""
-   ],
-   "key": null,
-   "compartamos_row": null
-  },
-  {
-   "name": "EF Resumen",
-   "head": [
-    "",
-    "",
-    "",
-    "",
-    "",
-    "Julio de 2026\nMillones de pesos Sistema BBVA México Santander Banorte Banamex Scotiabank HSBC Inbursa Citi México Banco del Bajío Banco Azteca Afirme Monex Banr"
-   ],
-   "key": null,
-   "compartamos_row": [
-    null,
-    "Julio de 2026\nMillones de pesos",
-    "Sistema",
-    "BBVA México",
-    "Santander",
-    "Banorte",
-    "Banamex",
-    "Scotiabank",
-    "HSBC",
-    "Inbursa",
-    "Citi México",
-    "Banco del Bajío",
-    "Banco Azteca",
-    "Afirme"
    ]
   }
  ]
