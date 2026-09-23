@@ -28,7 +28,7 @@
     {"group": "apps", "label": {"en": "Model-neutral developer integration", "es": "Integración de herramientas de distintos modelos"}, "value": "Codex · Claude Code", "source": "oracleApps", "note": {"en": "Oracle announced both as supported developer tools for Fusion AI Studio; no revenue attribution disclosed.", "es": "Oracle anunció ambos como herramientas de desarrollo para Fusion AI Studio; no divulgó ingresos atribuibles."}}
   ],
   "sites": [
-    {"name": "Abilene, Texas", "capacity": "618 MW delivered in six of eight buildings", "customer": "OpenAI / Stargate", "ramp": "Phased; future dates undisclosed", "power": "Not quantified in current call", "permit": "No update in Q1 call", "financing": "Not disclosed by site", "source": "call", "page": 10},
+    {"name": "Abilene, Texas", "capacity": "618 MW delivered in six of eight buildings", "customer": "OpenAI / Stargate", "ramp": "Phased; future dates undisclosed", "power": "Not quantified in current call", "permit": "No update in Q1 call", "financing": "Not disclosed by site", "source": "call", "page": 10, "secondary": "openaiSites"},
     {"name": "Doña Ana County, New Mexico", "capacity": "Part of up-to-5.5 GW combined Oracle site plan; site allocation undisclosed", "customer": "OpenAI / Stargate", "ramp": "Not required for FY27 guidance, per management", "power": "Undisclosed", "permit": "Air permit in process, per management", "financing": "Not disclosed by site", "source": "call", "page": 10, "secondary": "openaiSites"},
     {"name": "Wisconsin", "capacity": "Undisclosed", "customer": "Undisclosed in Oracle call", "ramp": "Not required for FY27 guidance, per management", "power": "Undisclosed", "permit": "Undisclosed", "financing": "Undisclosed", "source": "call", "page": 10}
   ],
