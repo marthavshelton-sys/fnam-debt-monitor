@@ -31,7 +31,7 @@
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec;
-  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#6b6a64; --accent-btn:#1b4332;
   --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10); --border-strong:rgba(11,11,11,0.18);
   --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --accent-soft-border:rgba(27,67,50,0.22);
   --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --series-5:#e87ba4; --series-6:#008300; --series-7:#4a3aa7; --series-8:#e34948;
@@ -46,7 +46,7 @@
   :root:not([data-theme="light"]){
     color-scheme: dark;
     --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88; --accent-btn:#236b4a;
     --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
     --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
     --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -56,7 +56,7 @@
 :root[data-theme="dark"]{
   color-scheme: dark;
   --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88; --accent-btn:#236b4a;
   --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
   --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
   --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -99,15 +99,17 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
 .kpi{background:var(--surface); padding:18px 18px 16px;}
 .kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
-.kpi .val{font-family:var(--sans); font-size:clamp(20px,2.2vw,27px); font-weight:700; margin-top:6px; line-height:1.1;}
+.kpi .val{font-family:var(--sans); font-size:clamp(20px,2.2vw,27px); font-weight:700; margin-top:6px; line-height:1.1; white-space:nowrap;}
+@media (max-width:640px){.kpi{padding:14px 12px 12px;} .kpi .val{font-size:clamp(17px,5vw,22px);} .kpi .lbl{font-size:10.5px;}}
 .kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
 @media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
-nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
+nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; flex-wrap:wrap;}
+@media (max-width:900px){nav.jump .wrap{flex-wrap:nowrap; padding-right:96px; -webkit-mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent); mask-image:linear-gradient(90deg,#000 calc(100% - 48px),transparent);}}
 nav.jump .wrap::-webkit-scrollbar{display:none;}
-nav.jump a{flex:0 0 auto; padding:12px 13px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
+nav.jump a{flex:0 0 auto; padding:10px 12px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
 nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
 
@@ -131,6 +133,8 @@ section.block:first-of-type{border-top:none;}
 .card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
 .grid-2 > *, .grid-3 > *, .dcf-grid > *{min-width:0;}
 .tblwrap{min-width:0;}
+.stack > .tblwrap + .tblwrap{margin-top:16px;}
+.grid-2 > *, .grid-3 > *, .sum-grid > *, .dcf-grid > *{min-width:0;}
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:var(--sans);}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
@@ -140,7 +144,7 @@ p.chart-src{font-size:11px; color:var(--muted); margin-top:8px;}
 p.chart-src a{color:var(--muted);}
 
 details.tbl{margin-top:14px;}
-details.tbl summary{cursor:pointer; font-size:12.5px; font-weight:600; color:var(--series-1); list-style:none;}
+details.tbl summary{cursor:pointer; font-size:12.5px; font-weight:600; color:var(--accent-ink); list-style:none;}
 details.tbl summary::-webkit-details-marker{display:none;}
 details.tbl summary:before{content:"▸ ";}
 details.tbl[open] summary:before{content:"▾ ";}
@@ -171,7 +175,7 @@ table td[title]{cursor:help; text-decoration:underline dotted var(--de-emph); te
 #kpiTable th:first-child, #kpiTable td:first-child, #aqTable th:first-child, #aqTable td:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
 .stmt-table tr.grp-head td:first-child{cursor:pointer; user-select:none;}
 .stmt-table .grp{display:inline-block; width:16px; color:var(--accent); font-weight:700;}
-.stmt-table tr.grp-head .cnt{font-size:11px; color:var(--muted); font-weight:400; margin-left:6px;}
+.stmt-table tr.grp-head .cnt{font-size:11px; color:var(--muted); font-weight:400; margin-left:6px; white-space:nowrap;}
 
 .callout{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:14px 16px; margin-top:16px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .callout b{color:var(--text-primary);}
@@ -188,7 +192,7 @@ table td[title]{cursor:help; text-decoration:underline dotted var(--de-emph); te
 .seg{display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface); max-width:100%;}
 .seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; white-space:nowrap;}
 .seg button + button{border-left:1px solid var(--border);}
-.seg button.active{background:var(--accent); color:#fff;}
+.seg button.active{background:var(--accent-btn); color:#fff;}
 .seg button:hover:not(.active){background:var(--surface-2); color:var(--text-primary);}
 .seg button:focus-visible{outline-offset:-3px;}
 select, input[type=number], input[type=text]{font:inherit; font-size:13px; color:var(--text-primary); background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:6px 9px; min-width:0;}
@@ -236,14 +240,16 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sum-grid li{margin:6px 0;}
 .sum-grid li b{color:var(--text-primary);}
 @media (max-width:760px){.sum-grid{grid-template-columns:1fr;}}
-.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
+.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 6px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
 .guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .guide-chip.above{color:var(--good); border-color:var(--good);}
 .guide-chip.below{color:var(--critical); border-color:var(--critical);}
 table td.chg{background:var(--accent-soft); font-weight:700;}
 table td .was{display:block; font-size:11px; color:var(--muted); font-weight:400; text-decoration:line-through;}
 table td .sub, table th .sub{display:block; font-size:11px; color:var(--muted); font-weight:400; text-transform:none; letter-spacing:0;}
-.guide-table td:first-child{min-width:170px;}
+.guide-table td:first-child{min-width:120px;}
+.guide-table{font-size:12.5px;} .guide-table th{font-size:10.5px;} .guide-table td{padding:8px 7px;} #guideRecord td:first-child{min-width:96px;}
+.guide-table td.rng{white-space:nowrap;}
 .guide-table td.txt{text-align:left; white-space:normal; font-size:12px; color:var(--text-secondary); min-width:260px; line-height:1.4;}
 .guide-quote{font-size:12.5px; color:var(--text-secondary); line-height:1.55; margin:8px 0 0; padding-left:12px; border-left:3px solid var(--accent-soft-border);}
 .timeline{list-style:none; margin:16px 0 0; padding:0; border-left:2px solid var(--grid);}
@@ -273,9 +279,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 /* ---------- Language toggle ---------- */
 .lang-btn{position:fixed; top:16px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
 .lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
-.lang-btn button.active{background:var(--accent); color:#fff;}
+.lang-btn button.active{background:var(--accent-btn); color:#fff;}
 .lang-btn button:focus-visible{outline-offset:-3px;}
-@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+@media (max-width:640px){.lang-btn{position:absolute; top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;} body{position:relative;}}
 
 /* ---------- Print as presentation (Letter landscape, one slide per section) ---------- */
 .print-only{display:none;}
@@ -458,8 +464,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="guidance">
     <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Guía de la administración</span><span class="en" hidden>Management guidance</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Gentera publica guía numérica anual con el informe del cuarto trimestre (utilidad por acción, crecimiento de cartera, gastos, índice de etapa 3) y la reitera o revisa con los informes del primer y segundo trimestre. Esta sección compara la guía vigente con lo realizado, conserva el historial de cada versión y deja el espacio para el consenso de analistas que llenará FactSet.</span>
-      <span class="en" hidden>Gentera publishes annual numeric guidance with the fourth-quarter release (EPS, loan growth, expenses, stage-3 ratio) and reaffirms or revises it with the first- and second-quarter releases. This section compares the guidance in force with actual results, keeps the history of every version and leaves room for the sell-side consensus FactSet will fill.</span>
+      <span class="es">Gentera publica guía numérica anual con el informe del cuarto trimestre (utilidad por acción y crecimiento de cartera en el informe; gastos, costo de riesgo, índice de etapa 3 y ROE controlador en la conferencia) y la reitera o revisa en las conferencias del primer, segundo y tercer trimestre. Esta sección compara la guía vigente con lo realizado, conserva el historial de cada versión (transcrito de las transcripciones de las conferencias 3T23–4T25 y de los informes 2026) y deja el espacio para el consenso de analistas que llenará FactSet.</span>
+      <span class="en" hidden>Gentera publishes annual numeric guidance with the fourth-quarter release (EPS and loan growth in the release; expenses, cost of risk, stage-3 ratio and controlling ROE on the call) and reaffirms or revises it on the first-, second- and third-quarter calls. This section compares the guidance in force with actual results, keeps the history of every version (transcribed from the 3Q23–4Q25 call transcripts and the 2026 releases) and leaves room for the sell-side consensus FactSet will fill.</span>
     </p>
     <div class="card" style="margin-top:22px">
       <h3 id="guideCurTitle"></h3>
@@ -468,20 +474,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <details class="tbl" id="guideTextWrap"><summary><span class="es">Notas del informe</span><span class="en" hidden>Notes from the release</span></summary><div id="guideText"></div></details>
       <p class="chart-src" id="guideCurSrc"></p>
     </div>
-    <div class="grid-2 eq">
-      <div class="card">
+    <div class="card" style="margin-top:20px">
         <h3><span class="es">Historial: guía vigente después de cada trimestre</span><span class="en" hidden>History: guidance in force after each quarter</span></h3>
         <p class="cap"><span class="es">Las celdas sombreadas cambiaron respecto a la versión anterior (valor previo tachado)</span><span class="en" hidden>Shaded cells changed versus the previous version (previous value struck through)</span></p>
         <div class="tblwrap" id="guideHistory"></div>
         <p class="chart-src" id="guideHistSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Consenso de analistas</span><span class="en" hidden>Sell-side consensus</span></h3>
-        <p class="cap" id="consCap"></p>
-        <div class="tblwrap" id="consTable"></div>
-      </div>
     </div>
-    <div class="card" style="margin-top:20px">
+    <div class="grid-2">
+    <div class="card">
       <h3><span class="es">Guía vs. real por año</span><span class="en" hidden>Guidance vs. actual by year</span></h3>
       <p class="cap"><span class="es">Barras = rango (inicial y última revisión); punto = real; el año en curso muestra el acumulado reportado</span><span class="en" hidden>Bars = range (initial and latest revision); dot = actual; the current year shows the reported year-to-date figure</span></p>
       <div style="margin-top:12px">
@@ -489,11 +489,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <button type="button" data-v="eps" class="active" aria-pressed="true"><span class="es">UPA</span><span class="en" hidden>EPS</span></button>
           <button type="button" data-v="loanGrowth" aria-pressed="false"><span class="es">Cartera</span><span class="en" hidden>Loan growth</span></button>
           <button type="button" data-v="opexGrowth" aria-pressed="false"><span class="es">Gastos</span><span class="en" hidden>Opex growth</span></button>
+          <button type="button" data-v="cor" aria-pressed="false"><span class="es">Costo de riesgo</span><span class="en" hidden>Cost of risk</span></button>
           <button type="button" data-v="npl" aria-pressed="false"><span class="es">Etapa 3</span><span class="en" hidden>Stage 3</span></button>
+          <button type="button" data-v="roe" aria-pressed="false"><span class="es">ROE</span><span class="en" hidden>ROE</span></button>
         </div>
       </div>
       <div class="chart-wrap"><canvas id="chartGuide"></canvas></div>
       <p class="chart-src" id="guideChartSrc"></p>
+    </div>
+      <div class="card">
+        <h3><span class="es">Consenso de analistas</span><span class="en" hidden>Sell-side consensus</span></h3>
+        <p class="cap" id="consCap"></p>
+        <div class="tblwrap" id="consTable"></div>
+      </div>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Cumplimiento por año</span><span class="en" hidden>Track record by year</span></h3>

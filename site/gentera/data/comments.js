@@ -963,12 +963,12 @@ return {
      "en": "+8.3%: funding cost flat (+0.2%) as rate cuts offset balance growth; origination and lease charges +29.4% with disbursement volume."
     },
     "finMargin": {
-     "es": "+22.9%; MIN 41.0% vs 39.8% al dejar de subir el costo de fondeo.",
-     "en": "+22.9%; NIM 41.0% vs 39.8% as funding cost stopped rising."
+     "es": "+22.9%; MIN anual reportada por Gentera 41.0% vs 39.8% al dejar de subir el costo de fondeo (la fila muestra el promedio de los cuatro trimestres: 41.2% vs 40.0%).",
+     "en": "+22.9%; Gentera's reported annual NIM 41.0% vs 39.8% as funding cost stopped rising (the row shows the four-quarter average: 41.2% vs 40.0%)."
     },
     "prov": {
-     "es": "+21.7%; costo de riesgo 12.9% vs 11.6%; etapa 3 al cierre 3.83% vs 3.93%, así que el aumento es volumen más una mayor mezcla de crédito individual.",
-     "en": "+21.7%; cost of risk 12.9% vs 11.6%; year-end stage-3 3.83% vs 3.93%, so the increase is volume plus a bigger individual-loan mix."
+     "es": "+21.7%; costo de riesgo 13.0% vs 12.9%; etapa 3 al cierre 3.83% vs 3.93%, así que el aumento es volumen más una mayor mezcla de crédito individual.",
+     "en": "+21.7%; cost of risk 13.0% vs 12.9%; year-end stage-3 3.83% vs 3.93%, so the increase is volume plus a bigger individual-loan mix."
     },
     "finMarginAdj": {
      "es": "+23.4%, ligeramente por encima del margen porque las provisiones crecieron menos que los ingresos.",
@@ -1065,8 +1065,8 @@ return {
      "en": "−4.3%: funding cost −10.4% on Banxico cuts (Bank cost of funds 7.2% vs 9.1%), while origination and lease charges rose 9.4% with volume."
     },
     "finMargin": {
-     "es": "+14.8%; MIN del semestre 40.6% vs 40.2% porque el costo de fondeo cayó más rápido que la tasa activa.",
-     "en": "+14.8%; 1H NIM 40.6% vs 40.2% as funding cost fell faster than the yield."
+     "es": "+14.8%; MIN promedio de los dos trimestres 40.6% vs 40.2% porque el costo de fondeo cayó más rápido que la tasa activa.",
+     "en": "+14.8%; two-quarter average NIM 40.6% vs 40.2% as funding cost fell faster than the yield."
     },
     "prov": {
      "es": "+28.0%; costo de riesgo del semestre 13.7% vs 12.2% con etapa 3 consolidada en 4.04% vs 3.32% un año antes (el crédito individual del Banco es la fuente principal).",
@@ -1198,8 +1198,8 @@ return {
      "en": "+12.2% YoY: CrediTienda online sales at ConCrédito (Ps. 524M gross) net of insurance-business expenses, R&D, IPAB fees and donations at the Bank (−Ps. 95M)."
     },
     "totOpInc": {
-     "es": "+13.9% anual, +3.4% secuencial: margen financiero +13.9%, comisiones netas +14.2%, otros ingresos +12%; la línea superior sigue impulsada por la cartera.",
-     "en": "+13.9% YoY, +3.4% QoQ: financial margin +13.9%, net fees +14.2%, other income +12%; the top line is still driven by the loan book."
+     "es": "+13.9% anual, +3.1% secuencial: margen financiero +13.9%, comisiones netas +14.2%, otros ingresos +12%; la línea superior sigue impulsada por la cartera.",
+     "en": "+13.9% YoY, +3.1% QoQ: financial margin +13.9%, net fees +14.2%, other income +12%; the top line is still driven by the loan book."
     },
     "opIncAfterProv": {
      "es": "+9.1% anual, plano secuencialmente (−0.1%): el aumento de Ps. 788M en provisiones absorbió casi toda la ganancia secuencial de ingresos.",
@@ -1210,8 +1210,8 @@ return {
      "en": "+7.7% YoY (+3.3% QoQ), well below the original 12–13% guide and below loan growth; management now targets full-year opex growth under ~12%. Bank +4.6% (loan officers, inflation), Perú +11.4%, ConCrédito +19.2%."
     },
     "opRes": {
-     "es": "+11.8% anual, −5.6% secuencial: en el trimestre, provisiones (+13.2%) y gastos (+3.3%) crecieron más que los ingresos (+3.4%).",
-     "en": "+11.8% YoY, −5.6% QoQ: sequentially, provisions (+13.2%) and opex (+3.3%) outgrew revenue (+3.4%)."
+     "es": "+11.8% anual, −5.6% secuencial: en el trimestre, provisiones (+13.2%) y gastos (+3.3%) crecieron más que los ingresos (+3.1%).",
+     "en": "+11.8% YoY, −5.6% QoQ: sequentially, provisions (+13.2%) and opex (+3.3%) outgrew revenue (+3.1%)."
     },
     "tax": {
      "es": "+12.1% anual en línea con la utilidad antes de impuestos; tasa efectiva 31.0% vs 30.9% (31.0% en el 1T26), es decir, estable.",

@@ -1,6 +1,6 @@
 // Management guidance for the Gentera model. Gentera publishes numeric guidance with the 4Q release (February)
 // and reaffirms or revises it on the 1Q, 2Q and 3Q calls. One entry per vintage, in date order, with the source
-// (release date; `call` = earnings-call date and converted transcript under tools/gentera/raw/text/transcripts).
+// (release date = the PDF dateline, the call day or the day before; `call` = earnings-call date and converted transcript under tools/gentera/raw/text/transcripts).
 // Ranges are as stated; `text` keeps the wording. Metrics: eps (Ps.), loanGrowth (%), opexGrowth (%), cor (cost
 // of risk, %), npl (stage-3 ratio, %), roe (controlling ROE, %). lo = null / hi = null means the bound was not
 // given ("around" values use lo = hi). 2023Q3–2025Q4 vintages are transcribed from the FactSet CallStreet
@@ -12,8 +12,8 @@ window.G_GUIDANCE = {
   ir: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral",
   vintages: [
     {
-      fy: 2023, kind: "revised", date: "2023-10-24", quarter: "2023Q3", call: "2023-10-25",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2023-10-24", title: { es: "Informe 3T23 y conferencia del 25 de octubre de 2023", en: "3Q23 release and call of 25 October 2023" }, transcript: "tools/gentera/raw/text/transcripts/2023Q3-transcript-Gentera_3T23_earnings_call_transcript_2023-10-25.txt" },
+      fy: 2023, kind: "revised", date: "2023-10-25", quarter: "2023Q3", call: "2023-10-25",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2023-10-25", title: { es: "Informe 3T23 y conferencia del 25 de octubre de 2023", en: "3Q23 release and call of 25 October 2023" }, transcript: "tools/gentera/raw/text/transcripts/2023Q3-transcript-Gentera_3T23_earnings_call_transcript_2023-10-25.txt" },
       items: {
         eps: { lo: 3.04, hi: 3.14, text: { es: "UPA 2023 recortada a Ps. 3.04–3.14 por las inversiones y gastos de colocación para capturar la oportunidad de mercado (rango previo no transcrito).", en: "2023 EPS cut to Ps. 3.04–3.14 because of the investments and placement expenses made to capture the market opportunity (previous range not transcribed)." } },
         loanGrowth: { lo: 16, hi: 18, text: { es: "Cartera subida a 16%–18% desde 14%–16%.", en: "Loan growth raised to 16%–18% from 14%–16%." } },
@@ -38,8 +38,8 @@ window.G_GUIDANCE = {
       notes: { es: ["Margen financiero ~+19% (como la cartera), MIN ~40%, MIN después de provisiones ~30%, comisiones netas creciendo como la cartera; tasa de referencia asumida 9.75% en México y 4.5% en Perú; dividendo 40%.", "La UPA 2023 de Ps. 2.99 quedó bajo el piso de Ps. 3.04 por Otis (Ps. 194 M de provisiones no recurrentes; Ps. 3.07 sin ese efecto)."], en: ["Net interest income ~+19% (in line with loans), NIM ~40%, NIM after provisions ~30%, net fees growing with the book; reference rate assumed at 9.75% in Mexico and 4.5% in Peru; 40% dividend.", "2023 EPS of Ps. 2.99 fell below the Ps. 3.04 floor because of Otis (Ps. 194 M non-recurring provisions; Ps. 3.07 without it)."] },
     },
     {
-      fy: 2024, kind: "reaffirmed", date: "2024-04-23", quarter: "2024Q1", call: "2024-04-24",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-04-23", title: { es: "Informe 1T24 y conferencia del 24 de abril de 2024", en: "1Q24 release and call of 24 April 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q1-transcript-Gentera_1T24_earnings_call_transcript_2024-04-24.txt" },
+      fy: 2024, kind: "reaffirmed", date: "2024-04-24", quarter: "2024Q1", call: "2024-04-24",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-04-24", title: { es: "Informe 1T24 y conferencia del 24 de abril de 2024", en: "1Q24 release and call of 24 April 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q1-transcript-Gentera_1T24_earnings_call_transcript_2024-04-24.txt" },
       items: {
         eps: { lo: 3.50, hi: 3.60, text: { es: "Reiterada; \"más cerca del techo, pero dentro de la guía\".", en: "Reaffirmed; \"closer to the high end, but still within the guidance\"." } },
         loanGrowth: { lo: 18, hi: 20, text: { es: "Reiterada; +20.6% en el 1T24.", en: "Reaffirmed; +20.6% at 1Q24." } },
@@ -51,8 +51,8 @@ window.G_GUIDANCE = {
       notes: { es: ["Tasa de referencia esperada ~10% en México para el resto del año; MIN 40% y MIN después de provisiones 30%; otros ingresos ~Ps. 200 M promedio en el año.", "Perú: acciones en abril para normalizar la calidad de la cartera hacia el 3T24."], en: ["Reference rate expected ~10% in Mexico for the rest of the year; NIM 40% and NIM after provisions 30%; other income ~Ps. 200 M on average for the year.", "Peru: April actions to normalise asset quality by 3Q24."] },
     },
     {
-      fy: 2024, kind: "revised", date: "2024-07-23", quarter: "2024Q2", call: "2024-07-24",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-07-23", title: { es: "Informe 2T24 y conferencia del 24 de julio de 2024", en: "2Q24 release and call of 24 July 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q2-transcript-Gentera_2T24_earnings_call_transcript_2024-07-24.txt" },
+      fy: 2024, kind: "revised", date: "2024-07-24", quarter: "2024Q2", call: "2024-07-24",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-07-24", title: { es: "Informe 2T24 y conferencia del 24 de julio de 2024", en: "2Q24 release and call of 24 July 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q2-transcript-Gentera_2T24_earnings_call_transcript_2024-07-24.txt" },
       items: {
         eps: { lo: 3.50, hi: 3.60, text: { es: "Reiterada: mayor costo de riesgo compensado con más ingresos por intereses, seguros y control de gastos.", en: "Reaffirmed: higher cost of risk offset by more interest income, insurance fees and expense control." } },
         loanGrowth: { lo: 18, hi: 20, text: { es: "Reiterada; +19.3% en el 2T24 pese al rezago de Perú.", en: "Reaffirmed; +19.3% at 2Q24 despite Peru lagging." } },
@@ -64,8 +64,8 @@ window.G_GUIDANCE = {
       notes: { es: ["MIN después de provisiones ~30% en el año; Perú: ROE ~15% en soles / 13% en pesos en 2024 y > 20% en un año aproximadamente; tasa corporativa normal 30%.", "Límites internos de capital: ICAP Banco 25%, solvencia Perú 17%, ConCrédito > 35%, capital tangible ~22.5%."], en: ["NIM after provisions ~30% for the year; Peru: ROE ~15% in soles / 13% in pesos for 2024 and > 20% in about a year; normal corporate tax rate 30%.", "Internal capital limits: Bank ICAP 25%, Peru solvency 17%, ConCrédito > 35%, tangible equity ~22.5%."] },
     },
     {
-      fy: 2024, kind: "revised", date: "2024-10-22", quarter: "2024Q3", call: "2024-10-23",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-10-22", title: { es: "Informe 3T24 y conferencia del 23 de octubre de 2024", en: "3Q24 release and call of 23 October 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q3-transcript-Gentera_3T24_earnings_call_transcript_2024-10-23.txt" },
+      fy: 2024, kind: "revised", date: "2024-10-23", quarter: "2024Q3", call: "2024-10-23",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2024-10-23", title: { es: "Informe 3T24 y conferencia del 23 de octubre de 2024", en: "3Q24 release and call of 23 October 2024" }, transcript: "tools/gentera/raw/text/transcripts/2024Q3-transcript-Gentera_3T24_earnings_call_transcript_2024-10-23.txt" },
       items: {
         eps: { lo: 3.50, hi: 3.60, text: { es: "Reiterada, cierre esperado en el techo (Ps. 3.60); 4T con estacionalidad de gastos e incentivos.", en: "Reaffirmed, year-end expected at the high end (Ps. 3.60); 4Q carries expense and incentive seasonality." } },
         loanGrowth: { lo: 18, hi: 20, text: { es: "Reiterada, cierre en la parte media del rango (+24.5% en el 3T24).", en: "Reaffirmed, year-end in the middle of the range (+24.5% at 3Q24)." } },
@@ -103,8 +103,8 @@ window.G_GUIDANCE = {
       notes: { es: ["MIN 39.5% en línea; MIN después de provisiones 28%–29%; seguros creciendo en el techo de la cartera (16%–17%); tasa de referencia 8.75% asumida (consenso 8%), 7.75% en 2026.", "Compra del 25.1% restante de ConCrédito prevista para el 2T25; Adolfo Peniche director general de Banco Compartamos Perú desde el 1 de abril de 2025; dividendos 16 de mayo y 28 de noviembre."], en: ["NIM 39.5% in line; NIM after provisions 28%–29%; insurance growing at the top of the loan range (16%–17%); reference rate 8.75% assumed (consensus 8%), 7.75% in 2026.", "Purchase of the remaining 25.1% of ConCrédito expected in 2Q25; Adolfo Peniche CEO of Banco Compartamos Perú from 1 April 2025; dividends 16 May and 28 November."] },
     },
     {
-      fy: 2025, kind: "revised", date: "2025-07-22", quarter: "2025Q2", call: "2025-07-23",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2025-07-22", title: { es: "Informe 2T25 y conferencia del 23 de julio de 2025", en: "2Q25 release and call of 23 July 2025" }, transcript: "tools/gentera/raw/text/transcripts/2025Q2-transcript-Gentera_2T25_earnings_call_transcript_2025-07-23.txt" },
+      fy: 2025, kind: "revised", date: "2025-07-23", quarter: "2025Q2", call: "2025-07-23",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2025-07-23", title: { es: "Informe 2T25 y conferencia del 23 de julio de 2025", en: "2Q25 release and call of 23 July 2025" }, transcript: "tools/gentera/raw/text/transcripts/2025Q2-transcript-Gentera_2T25_earnings_call_transcript_2025-07-23.txt" },
       items: {
         eps: { lo: 5.00, hi: 5.15, text: { es: "Subida hasta 10%: Ps. 5.00–5.15 (punto medio ~+32% sobre Ps. 3.80).", en: "Raised by up to 10%: Ps. 5.00–5.15 (midpoint ~+32% on Ps. 3.80)." } },
         loanGrowth: { lo: 13, hi: 16, text: { es: "Reiterada, cierre más cerca del techo (15%–16%).", en: "Reaffirmed, year-end closer to the high end (15%–16%)." } },
@@ -116,8 +116,8 @@ window.G_GUIDANCE = {
       notes: { es: ["MIN ~41% al cierre, MIN después de provisiones ~30%, comisiones netas ~+25%; plan con tasa de referencia de 8% en México.", "Compra del 25% restante de ConCrédito cerrada (prima ≈Ps. 575 M contra prima en venta de acciones); política de dividendos 40% en principio, revisable si sigue la acumulación de capital; plan de reparto de valor en febrero de 2026."], en: ["NIM ~41% at year-end, NIM after provisions ~30%, net fees ~+25%; plan assumes an 8% reference rate in Mexico.", "Purchase of the remaining 25% of ConCrédito closed (premium ≈Ps. 575 M against share premium); 40% dividend policy kept in principle, reviewable if capital keeps accumulating; value-sharing plan in February 2026."] },
     },
     {
-      fy: 2025, kind: "revised", date: "2025-10-21", quarter: "2025Q3", call: "2025-10-22",
-      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2025-10-21", title: { es: "Informe 3T25 y conferencia del 22 de octubre de 2025", en: "3Q25 release and call of 22 October 2025" }, transcript: "tools/gentera/raw/text/transcripts/2025Q3-transcript-Gentera_3T25_earnings_call_transcript_2025-10-22.txt" },
+      fy: 2025, kind: "revised", date: "2025-10-22", quarter: "2025Q3", call: "2025-10-22",
+      source: { url: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral", date: "2025-10-22", title: { es: "Informe 3T25 y conferencia del 22 de octubre de 2025", en: "3Q25 release and call of 22 October 2025" }, transcript: "tools/gentera/raw/text/transcripts/2025Q3-transcript-Gentera_3T25_earnings_call_transcript_2025-10-22.txt" },
       items: {
         eps: { lo: 5.15, hi: 5.15, text: { es: "Cierre en el techo, Ps. 5.15 (~+36%); guía no subida por mayores gastos e iniciativas estratégicas en el 4T.", en: "Year-end at the high end, Ps. 5.15 (~+36%); guidance not raised because of higher 4Q expenses and strategic initiatives." } },
         loanGrowth: { lo: 13, hi: 16, text: { es: "Rango formal 13%–16% sin cambio; expectativa \"alrededor de 15%\" (+16.4% en el 3T25).", en: "Formal 13%–16% range unchanged; expectation \"around 15%\" (+16.4% at 3Q25)." } },

@@ -98,6 +98,14 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   `scripts/gentera/ingest-transcripts.py`); their quotes, guidance vintages, ratings and management facts are in
   the data files. The 1T26 and 2T26 calls are not supplied yet, so those periods show release comments only and
   their guidance vintages carry only what the releases print (cost of risk / ROE marked "no change communicated").
+- Release dates come from the PDF dateline ("Ciudad de México, 22 de julio 2026"), which is the call day or the day
+  before; they stamp the header, the statement sources and the guidance vintages.
+- Fiscal-year and year-to-date NIM / NIM after provisions are averages of the quarterly ratios (Gentera prints its
+  own annual NIM, e.g. 41.0% for 2025 vs 41.2% here); every other aggregated ratio is recomputed from the sums.
+- Audit of 23 September 2026: every figure in comments.js, summary.js and reference.js was recomputed from
+  financials.js or looked up in the release texts; three comment figures were corrected. Layout checked at 390,
+  768, 1024 and 1360 px in both languages and both themes (no overflow, no overlapping text, muted text at
+  ≥ 4.5:1 contrast).
 - The initial 2023 guidance (February 2023) is not transcribed; the FY2023 record uses the October 2023 revision.
   The 2025 initial EPS range (Ps. 4.56–4.71) is derived from the guided +20% to +24% on Ps. 3.80.
 - Quote translations to Spanish are ours; the English text is the transcript wording, trimmed with [..].
