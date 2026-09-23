@@ -38,7 +38,10 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > Draft the Comments column and the executive-summary bullets for the quarter (bilingual, driver-only, one clause
 > per line of the income statement, balance sheet, cash-flow statement and operating-metrics card, sourced to
 > the release page or the call page and speaker) into `tools/oracle/data/_raw_comments_c.json` in the shape of
-> `_raw_comments_b.json`, then run `node scripts/oracle/merge-comments.mjs`. When the call transcript is available,
+> `_raw_comments_b.json`, then run `node scripts/oracle/merge-comments.mjs`. Every free-text field the page shows must be
+> bilingual: guidance vintages carry `_note`/`_note_es`, `fy_capex_note`/`fy_capex_note_es` and
+> `multi_year_targets.note`/`note_es`; buildout sites carry `capacity_text`, `customer`, `developer`, `financing`,
+> `oracle_status`, `contracted`, `first_delivery` each with an `_es` counterpart. When the call transcript is available,
 > also add the quarter's buildout disclosures (megawatts delivered, GPU utilization, renewals, GPUs delivered, new
 > or updated sites) to `tools/oracle/data/buildout.json` with page and speaker, marking any computed figure `derived`,
 > and refresh `promises` (what management said it will deliver: capacity, sites, timing, capex) — newest call first,

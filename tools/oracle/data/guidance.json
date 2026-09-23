@@ -36,7 +36,8 @@
       "fy_capex_note": "$90 billion to $95 billion in CapEx for FY2027, with not more than $70 billion in net cash CapEx (p4)",
       "multi_year_targets": {
         "note": "No new multi-year figures; FY2027 revenue guidance raised to at least $90 billion (+34%) and non-GAAP EPS to $8.10 (p7). New Q1 RPO (mostly Pre-Pay/BYOH) will not affect CapEx or revenues until FY2028 or beyond (p3). Gross margin expected to flatten over the next couple of years after the ramp (p14). New Mexico and Wisconsin sites: no impact on previously stated FY2027 revenue or earnings guidance (p10). More detail promised at Investor Day in October (p8, p14).",
-        "source_page": 7
+        "source_page": 7,
+        "note_es": "Sin nuevas cifras plurianuales; guía de ingresos del AF2027 elevada a al menos US$90 mil millones (+34%) y UPA No-GAAP a US$8.10 (p7). El nuevo RPO del 1T (en su mayoría prepagado/BYOH) no afectará el capex ni los ingresos hasta el AF2028 o después (p3). Se espera que el margen bruto se aplane en los próximos dos años tras la rampa (p14). Sitios de Nuevo México y Wisconsin: sin impacto en la guía de ingresos o utilidades del AF2027 ya comunicada (p10). Más detalle prometido para el Día del Inversionista de octubre (p8, p14)."
       },
       "fields_from_transcript": [
         "fy_capex_note",
@@ -44,7 +45,8 @@
       ],
       "transcript_source": "S-CALL-FY2027Q1",
       "transcript_page": 7,
-      "total_revenue_growth_basis": "usd"
+      "total_revenue_growth_basis": "usd",
+      "fy_capex_note_es": "Capex de US$90 mil a US$95 mil millones en el AF2027, con no más de US$70 mil millones de capex neto en efectivo (p4)"
     },
     {
       "issued_in": "FY2026Q4",
@@ -79,7 +81,8 @@
         "revenue_cagr_pct_through_fy2030": 31,
         "eps_cagr_pct_through_fy2030": 28,
         "note": "Long-term outlook from Analyst Day reconfirmed: 'plus 31% revenue CAGR and plus 28% EPS CAGR through our fiscal year 2030' (p8); 'full reconfirmation from my side on the long-term targets' (p10). Project-level ROIC 'in the high 20s at a steady state' (p10). Revenues and earnings expected to accelerate in 2H FY2027 (p8). Next Investor Day October 28 in Las Vegas (p8).",
-        "source_page": 8
+        "source_page": 8,
+        "note_es": "Perspectiva de largo plazo del Día del Analista reconfirmada: 'TCAC de ingresos de más de 31% y TCAC de UPA de más de 28% hasta nuestro año fiscal 2030' (p8); 'reconfirmación total de mi parte de los objetivos de largo plazo' (p10). ROIC a nivel de proyecto 'en los altos 20 en estado estable' (p10). Se espera que ingresos y utilidades se aceleren en el 2S del AF2027 (p8). Próximo Día del Inversionista el 28 de octubre en Las Vegas (p8)."
       },
       "fields_from_transcript": [
         "fy_capex_note",
@@ -87,7 +90,9 @@
       ],
       "transcript_source": "S-CALL-FY2026Q4",
       "transcript_page": 8,
-      "total_revenue_growth_basis": "usd"
+      "total_revenue_growth_basis": "usd",
+      "_note_es": "Textual (traducido) de 'Guidance for Q1 FY 2027': 'Se espera que los ingresos totales crezcan entre 27% y 29% tanto en moneda constante como en USD. Se espera que los ingresos totales de nube crezcan entre 57% y 63% en moneda constante y... entre 58% y 64% en USD. Se espera que la UPA No-GAAP crezca entre 16% y 19% y se ubique entre US$1.71 y US$1.75 en moneda constante, y que crezca entre 17% y 20% y se ubique entre US$1.72 y US$1.76 en USD.' Bajo 'Guidance for Full FY 2027' (el comunicado que fija por primera vez la guía del AF2027): 'confirmamos nuestra guía previa de ingresos totales de US$90 mil millones y elevamos la guía de UPA No-GAAP a US$8.05, un crecimiento de 18% tras ajustar por los eventos únicos de la venta de nuestro negocio de chips Ampere y de los warrants de Bloom Energy en el año fiscal 2026.' Según la nota al pie 1, ese 18% se mide contra una base ajustada de UPA No-GAAP del AF2026 de US$6.83 (los US$7.63 reportados excluyendo las ganancias únicas de Ampere/Bloom Energy), no contra los US$7.63 reportados: relevante para modelar el crecimiento comparable de la UPA del AF2027.",
+      "fy_capex_note_es": "Desembolso neto de efectivo por capex en el AF2027 de alrededor de US$70 mil millones; los prepagos de clientes y efectos de calendario de unos US$20–25 mil millones harán que el capex reportado sea mayor por ese monto (p8)"
     },
     {
       "issued_in": "FY2026Q3",

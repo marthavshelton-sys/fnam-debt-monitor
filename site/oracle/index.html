@@ -386,6 +386,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <div class="sec-head"><span class="sec-num">00</span><h2><span class="es">Resumen ejecutivo</span><span class="en" hidden>Executive summary</span></h2></div>
     <p class="sec-meta" id="sumMeta"></p>
     <div class="sum-grid" id="sumGrid"></div>
+    <p class="chart-src" id="sumSrc"></p>
   </section>
 
   <!-- 01 STATEMENTS -->
@@ -453,13 +454,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Márgenes</span><span class="en" hidden>Margins</span></h3>
         <p class="cap"><span class="es">Margen operativo GAAP y No-GAAP y margen EBITDA, % de ingresos, últimos 12 trimestres</span><span class="en" hidden>GAAP and Non-GAAP operating margin and EBITDA margin, % of revenue, last 12 quarters</span></p>
         <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
-        <p class="chart-src"><span class="es">Fuente: comunicados de resultados de Oracle (8-K, Anexo 99.1); EBITDA = utilidad de operación GAAP + depreciación y amortización del flujo de efectivo</span><span class="en" hidden>Source: Oracle earnings releases (8-K, Exhibit 99.1); EBITDA = GAAP operating income + cash-flow depreciation and amortization</span></p>
+        <p class="chart-src" id="marginSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Indicadores por trimestre</span><span class="en" hidden>Quarterly indicators</span></h3>
       <p class="cap"><span class="es">Últimos 12 trimestres reportados · variación contra el mismo trimestre del año fiscal anterior</span><span class="en" hidden>Last 12 reported quarters · change vs. the same quarter of the prior fiscal year</span></p>
       <div class="tblwrap" id="kpiTable"></div>
+      <p class="chart-src" id="kpiSrc"></p>
     </div>
   </section>
 
@@ -504,6 +506,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Cumplimiento por trimestre</span><span class="en" hidden>Track record by quarter</span></h3>
         <p class="cap"><span class="es">Resultado reportado frente a la guía dada un trimestre antes · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Reported result versus the guidance given one quarter earlier · green = above the range, grey = within, red = below</span></p>
         <div class="tblwrap" id="guideRecord"></div>
+        <p class="chart-src" id="guideRecordSrc"></p>
     </div>
 
     <details class="tbl" id="guideAllWrap"><summary><span class="es">Todas las guías registradas (con enlace al comunicado o transcripción)</span><span class="en" hidden>Every guidance vintage (with a link to the release or transcript)</span></summary><div class="tblwrap" id="guideAll"></div></details>
@@ -538,6 +541,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Último trimestre</span><span class="en" hidden>Latest quarter</span></h3>
         <p class="cap" id="opsTblCap"></p>
         <div class="tblwrap" id="opsQTable"></div>
+        <p class="chart-src" id="opsTblSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
@@ -623,16 +627,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
           <div class="out-grid" id="dcfOutputs"></div>
           <div class="callout" id="dcfNote"></div>
+          <p class="chart-src" id="dcfOutSrc"></p>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Proyección de flujos</span><span class="en" hidden>Cash-flow projection</span></h3>
           <p class="cap"><span class="es">US$ millones, nominales, por año fiscal</span><span class="en" hidden>US$ million, nominal, by fiscal year</span></p>
           <div class="tblwrap" id="dcfTable"></div>
+          <p class="chart-src" id="dcfTableSrc"></p>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
           <p class="cap" id="sensCap"></p>
           <div class="tblwrap" id="dcfSens"></div>
+          <p class="chart-src" id="dcfSensSrc"></p>
         </div>
       </div>
     </div>
@@ -650,6 +657,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Oracle: múltiplos actuales</span><span class="en" hidden>Oracle: current multiples</span></h3>
         <p class="cap" id="multCap"></p>
         <div class="tblwrap" id="multTable"></div>
+        <p class="chart-src" id="multSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">VE/EBITDA UDM histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
@@ -662,6 +670,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
       <p class="cap" id="peersCap"></p>
       <div class="tblwrap" id="peersTable"></div>
+      <p class="chart-src" id="peersSrc"></p>
     </div>
   </section>
 
@@ -693,6 +702,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="tblwrap" id="ratingsTable"></div>
       <details class="tbl"><summary id="instrSummary"></summary><div class="tblwrap" id="instrTable"></div></details>
       <div class="callout" id="instrNote"></div>
+      <p class="chart-src" id="instrSrc"></p>
     </div>
   </section>
 
@@ -715,6 +725,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="cap" id="dpsCap"></p>
         <div class="tblwrap" id="dpsTable"></div>
         <div class="callout" id="dpsNote"></div>
+        <p class="chart-src" id="dpsDetailSrc"></p>
       </div>
     </div>
   </section>

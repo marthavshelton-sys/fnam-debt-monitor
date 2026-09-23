@@ -176,7 +176,14 @@
           "url": "https://www.datacenterdynamics.com/en/news/crusoes-abilene-data-center-officially-live-serving-oracle-and-openais-stargate/",
           "short": "DCD"
         }
-      ]
+      ],
+      "capacity_text_es": "1.2 GW planeados en 8 edificios (Crusoe); Oracle: 6 de 8 edificios, 618 MW y 75% de la capacidad total entregados al 1T27",
+      "customer_es": "OpenAI (Stargate) a través de Oracle Cloud Infrastructure",
+      "developer_es": "Crusoe (con Lancium)",
+      "financing_es": "Financiamiento de proyecto de Crusoe respaldado por la plataforma de activos reales de Blue Owl Capital y Primary Digital Infrastructure; ~US$15 mil M levantados para el campus (Crusoe)",
+      "oracle_status_es": "42% de la capacidad entregada al 4T26 y otro 35% previsto en 90 días; 131,000 GPU entregadas en el 1T27 (1.9x el 4T26); aceptación del cliente reducida a 24 horas; GPT-6 Astra se entrenó en el sitio",
+      "contracted_es": "2024 (construcción iniciada en junio de 2024)",
+      "first_delivery_es": "En operación desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025"
     },
     {
       "name": "Shackelford County, Texas (Vantage 'Frontier')",
@@ -210,7 +217,14 @@
           "url": "https://www.datacenterdynamics.com/en/news/vantage-breaks-ground-on-texas-gigawatt-data-center-campus-for-openai/",
           "short": "DCD"
         }
-      ]
+      ],
+      "capacity_text_es": "1.4 GW en 10 edificios de un piso sobre ~1,200 acres, inversión de US$25 mil M+ (Vantage); Oracle: “nuestro siguiente campus a escala de gigavatio”",
+      "customer_es": "OpenAI (Stargate) a través de Oracle Cloud Infrastructure",
+      "developer_es": "Vantage Data Centers (empresa del portafolio de DigitalBridge)",
+      "financing_es": "Desarrollo respaldado por Vantage / DigitalBridge; Oracle no ha divulgado su compromiso más allá del contrato de capacidad",
+      "oracle_status_es": "Contratado en agosto de 2025; 115 MW de potencia ya en línea un mes antes de lo previsto (4T26); primeros sistemas NVIDIA Vera Rubin a clientes en el 2T27; microrred de gas en sitio según la prensa",
+      "contracted_es": "Agosto de 2025",
+      "first_delivery_es": "Primer semestre de 2027 (Oracle); primer edificio en servicio 2S 2026, terminación en 2028 (Vantage)"
     },
     {
       "name": "Doña Ana County, New Mexico ('Project Jupiter')",
@@ -249,7 +263,14 @@
           "url": "https://www.datacenterdynamics.com/en/news/oracle-to-deploy-up-to-245gw-of-bloom-fuel-cells-at-new-mexico-data-center/",
           "short": "DCD"
         }
-      ]
+      ],
+      "capacity_text_es": "Cerca de 1 GW según Oracle (“around 1 gigawatt a piece”); cuatro edificios en ~1,400 acres, alimentados por hasta 2.45 GW de celdas de combustible Bloom Energy en una sola microrred (comunicado de Oracle)",
+      "customer_es": "No divulgado por Oracle",
+      "developer_es": "BorderPlex Digital Assets (desarrollador); Oracle (operador)",
+      "financing_es": "No divulgado por Oracle; la prensa describe un crédito de proyecto. Oracle reporta casi US$1 mil M en contratos con proveedores de Nuevo México y ~US$100 M de impuestos pagados (jul 2026)",
+      "oracle_status_es": "Contratado en septiembre de 2025; diseño de energía cambiado de turbinas de gas a celdas Bloom (abr 2026); construcción 26% completa (jul 2026); Oracle: “algunos sitios van adelantados, otros son más difíciles”, sin impacto en la guía del AF2027 (Q&A 1T27)",
+      "contracted_es": "Septiembre de 2025",
+      "first_delivery_es": "Primer semestre de 2027 (Oracle, llamada 4T26)"
     },
     {
       "name": "Saline Township, Michigan (Stargate 'The Barn')",
@@ -283,7 +304,14 @@
           "url": "https://www.cnbc.com/2026/06/01/stargate-project-michigan-live-updates.html",
           "short": "CNBC 1 Jun 2026"
         }
-      ]
+      ],
+      "capacity_text_es": "Más de 1 GW (comunicado OpenAI/Oracle/Related); ~US$10 mil M de desarrollo (DCD)",
+      "customer_es": "OpenAI (Stargate) a través de Oracle Cloud Infrastructure",
+      "developer_es": "Related Digital (Related Companies)",
+      "financing_es": "Related Digital con Blackstone (nombrado por Oracle en el evento de construcción de junio de 2026); compromiso propio de Oracle no divulgado",
+      "oracle_status_es": "Contratado en octubre de 2025; construcción en marcha desde ~marzo de 2026 (Walbridge, mano de obra sindicalizada); la mayor inversión económica individual en la historia de Michigan según el comunicado",
+      "contracted_es": "Octubre de 2025",
+      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)"
     },
     {
       "name": "Port Washington, Wisconsin (Vantage 'Lighthouse')",
@@ -317,7 +345,14 @@
           "url": "https://www.constructiondive.com/news/stargate-openai-oracle-vantage-data-center-wisconsin/808437/",
           "short": "Construction Dive"
         }
-      ]
+      ],
+      "capacity_text_es": "“Cerca de un gigavatio” en cuatro centros de datos; inversión de US$15 mil M+ (Vantage / DigitalBridge)",
+      "customer_es": "OpenAI (Stargate) a través de Oracle Cloud Infrastructure",
+      "developer_es": "Vantage Data Centers (empresa del portafolio de DigitalBridge)",
+      "financing_es": "Desarrollo respaldado por Vantage / DigitalBridge con nueva capacidad de energía sin emisiones (solar, eólica, almacenamiento); compromiso propio de Oracle no divulgado",
+      "oracle_status_es": "Contratado en septiembre de 2025 (anunciado el 22 oct 2025); primera piedra en diciembre de 2025; energía de la red (“no estamos haciendo generación en sitio”) según el Q&A del 1T27",
+      "contracted_es": "Septiembre de 2025",
+      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)"
     }
   ],
   "rpo_schedule": {
