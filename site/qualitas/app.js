@@ -195,6 +195,11 @@
   const mx10 = (MK.rates && MK.rates.MX10Y && MK.rates.MX10Y.points) || [];
   const TICK = 'Q.MX';
   const qPx = px(TICK); const lastPx = lastPoint(qPx);
+  // As-of stamps appended to source lines so every table and chart says which data it rests on and when.
+  const relDate = () => (lastQ && lastQ.sources && lastQ.sources.is && lastQ.sources.is.date ? fmtDate(lastQ.sources.is.date) : null);
+  const asOfQ = () => (lastQ ? ` · ${LANG === 'es' ? 'último dato' : 'latest data'}: ${qLabel(lastQ)}${relDate() ? ` (${LANG === 'es' ? 'informe del' : 'report of'} ${relDate()})` : ''}` : '');
+  const asOfPx = () => (lastPx ? ` · ${LANG === 'es' ? 'precio al' : 'price as of'} ${fmtDate(lastPx[0])}` : '');
+  const asOfFile = (o, name) => (o && o.updatedAt ? ` · ${name ? name + ' ' : ''}${LANG === 'es' ? 'actualizado el' : 'updated'} ${fmtDate(o.updatedAt)}` : '');
   const sharesIssued = (REF.shares && REF.shares.issued) || (lastQ && sharesOf(lastQ)) || null;
   const sharesOut = sharesIssued ? sharesIssued - ((REF.shares && REF.shares.treasuryApprox) || 0) : null; // for market cap and value per share
   const qEndDate = (q) => `${q.fy}-${String(q.q * 3).padStart(2, '0')}-${q.q === 1 || q.q === 4 ? '31' : '30'}`;
@@ -523,7 +528,7 @@
     ];
     mkChart('chartPremMix', { type: 'bar', data: { labels: qs.map(qLabel), datasets: ds }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     const src = qs.length && opsById[qs[qs.length - 1].id].source;
-    html('premMixSrc', src && src.url ? `${t('src')}: <a href="${src.url}" target="_blank" rel="noopener">${t('release')} ↗</a>` : '');
+    html('premMixSrc', src && src.url ? `${t('src')}: <a href="${src.url}" target="_blank" rel="noopener">${t('release')}${src.date ? ` (${fmtDate(src.date)})` : ''} ↗</a>${asOfQ()}` : '');
   }
   function renderCombinedChart() {
     const qs = Q.slice(-lastN());
@@ -551,7 +556,7 @@
     const vals = ds.flatMap((d) => d.data).filter((v) => v != null);
     const lo = vals.length ? Math.floor(Math.min(...vals) / 2) * 2 - 2 : 0;
     mkChart('chartMargins', { type: 'line', data: { labels: qs.map(qLabel), datasets: ds }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtPct(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { min: lo, ticks: { callback: (v) => v + '%' } } } } });
-    html('marginsSrc', `${t('src')}: ${LANG === 'es' ? 'estado de resultados de cada informe trimestral; márgenes calculados por el modelo' : "each quarterly report's income statement; margins computed by the model"}`);
+    html('marginsSrc', `${t('src')}: ${LANG === 'es' ? 'estado de resultados de cada informe trimestral; márgenes calculados por el modelo' : "each quarterly report's income statement; margins computed by the model"}${asOfQ()}`);
   }
   function renderKpiTable() {
     const qs = Q.slice(-lastN());
@@ -573,6 +578,7 @@
     const body = rowsDef.map((r) => `<tr><td>${glLabel(r.k, r.l)}</td>${qs.map((q) => { const v = r.f(q); const y = yoy(q, r.f, r.pp); const c = r.inv ? clsInv(y) : cls(y); return `<td>${r.fmt(v)}${y != null ? `<br><span class="small ${c}">${r.pp ? fmtPp(y) : fmtPct(y, 1, true)}</span>` : ''}</td>`; }).join('')}</tr>`).join('');
     html('kpiTable', `<table><thead>${head}</thead><tbody>${body}</tbody></table>`);
     const srcs = [...new Map(qs.map((q) => q.sources && q.sources.is).filter((s) => s && s.url).map((s) => [s.url, s])).values()];
+    html('combinedAsOf', asOfQ());
     html('kpiSrc', `${t('src')}: ${srcs.slice(-4).map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${srcName(s)}${s.date ? ` (${fmtDate(s.date)})` : ''}</a>`).join(' · ')}${srcs.length > 4 ? ` · ${LANG === 'es' ? 'y los informes anteriores' : 'and earlier reports'}` : ''} · ${LANG === 'es' ? 'índices, RSI, ROE y solvencia como los reporta Quálitas o recalculados del estado de resultados' : 'ratios, RSI, ROE and solvency as reported by Quálitas or recomputed from the income statement'}`);
   }
 
@@ -609,17 +615,17 @@
     const rows = G_METRICS.filter((m) => cur.items[m]).map((m) => { const it = cur.items[m]; const v = act ? act[m] : null; const s = gStatus(m, it, v); const qs = quotesFor(curP, m); return `<tr><td>${glLabel(m, gLabel(m))}</td><td>${gRangeTxt(it)}</td><td class="txt">${L(it.text)}${qs ? quotesHtml(qs, curP.call && curP.call.date) : ''}</td><td>${v == null ? '—' : m === 'written' || m === 'rif' ? fmtPct(v, 1, true) : fmtPct(v)}</td><td>${chip(s)}</td></tr>`; });
     html('guideCurrent', `<table class="guide-table"><thead><tr><th>${t('metric')}</th><th>${t('range')}</th><th style="text-align:left">${t('words')}</th><th>${t('actual')} ${act ? act.label : ''}</th><th>${t('guideStatus')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     html('guideText', (cur.notes && cur.notes[LANG] || []).map((x) => `<p class="guide-quote">${x}</p>`).join('') || `<p class="guide-quote muted">—</p>`);
-    html('guideCurSrc', `${t('src')}: <a href="${cur.source.url}" target="_blank" rel="noopener">${L(cur.source.title)} ↗</a> · ${GD.basis || ''}`);
+    html('guideCurSrc', `${t('src')}: <a href="${cur.source.url}" target="_blank" rel="noopener">${L(cur.source.title)} (${fmtDate(cur.date)}) ↗</a> · ${GD.basis || ''}${asOfFile(GD, 'data/guidance.js')}`);
     // history: one row per vintage (latest first), cells shaded when the range changed vs the previous vintage of the same year
     const hist = vs.slice(-8).reverse();
     const hrows = hist.map((v, i) => { const prev = vs.filter((x) => x.fy === v.fy && x.date < v.date).pop(); const cells = G_METRICS.map((m) => { const it = v.items[m], pit = prev && prev.items[m]; const txt = gRangeTxt(it); const ptxt = gRangeTxt(pit); const changed = prev && txt !== ptxt; return `<td class="${changed ? 'chg' : ''}">${txt}${changed ? `<span class="was">${ptxt}</span>` : ''}</td>`; }).join(''); return `<tr><td>${fmtDate(v.date)}<span class="sub">${v.quarter ? qLabel({ fy: +v.quarter.slice(0, 4), q: +v.quarter.slice(5) }) : ''} · ${t(v.kind)}</span></td><td>${v.fy}</td>${cells}</tr>`; });
     html('guideHistory', `<table class="guide-table"><thead><tr><th>${t('date')}</th><th>${t('guideFy')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}</tr></thead><tbody>${hrows.join('')}</tbody></table>`);
-    html('guideHistSrc', `${t('src')}: ${LANG === 'es' ? 'informes trimestrales y conferencias de resultados de Quálitas (data/guidance.js)' : 'Quálitas quarterly reports and earnings calls (data/guidance.js)'}`);
+    html('guideHistSrc', `${t('src')}: ${LANG === 'es' ? 'informes trimestrales y conferencias de resultados de Quálitas (data/guidance.js)' : 'Quálitas quarterly reports and earnings calls (data/guidance.js)'}${asOfFile(GD)}`);
     // track record: closed years
     const closed = [...new Set(vs.map((v) => v.fy))].filter((fy) => { const a = gActual(fy); return a && a.closed; });
     const rrows = closed.map((fy) => { const fin = vs.filter((v) => v.fy === fy).pop(); const a = gActual(fy); const cells = G_METRICS.map((m) => { const it = fin.items[m]; if (!it || it.lo == null) return '<td>—</td>'; const v = a[m]; return `<td>${gRangeTxt(it)}<span class="sub">${t('actual')}: ${v == null ? '—' : m === 'written' ? fmtPct(v, 1, true) : fmtPct(v)}</span> ${chip(gStatus(m, it, v))}</td>`; }).join(''); const n = G_METRICS.filter((m) => fin.items[m] && fin.items[m].lo != null && a[m] != null).length, hits = G_METRICS.filter((m) => ['within', 'better', 'above'].includes(gStatus(m, fin.items[m], a[m]))).length; return `<tr><td>FY${fy}<span class="sub">${fmtDate(fin.date)}</span></td>${cells}<td>${hits}/${n}</td></tr>`; });
     html('guideRecord', rrows.length ? `<table class="guide-table"><thead><tr><th>${t('guideFy')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}<th>${t('hits')}</th></tr></thead><tbody>${rrows.join('')}</tbody></table><p class="chart-src">${LANG === 'es' ? 'FY2025 incluye el cargo único del IVA del 4T25 (siniestralidad 62.2% y combinado 90.6% sin él).' : 'FY2025 includes the one-off 4Q25 VAT charge (62.2% loss ratio and 90.6% combined without it).'}</p>` : `<p class="muted small">${LANG === 'es' ? 'Aún no hay años cerrados con expectativas registradas.' : 'No closed years with recorded expectations yet.'}</p>`);
-    html('guideRecSrc', `${t('src')}: ${LANG === 'es' ? 'última expectativa de cada año (data/guidance.js) frente a las cifras anuales de los informes del 4T; crecimiento sobre el año anterior, índices como nivel' : "each year's final expectation (data/guidance.js) against the annual figures of the 4Q reports; growth over the prior year, ratios as levels"}`);
+    html('guideRecSrc', `${t('src')}: ${LANG === 'es' ? 'última expectativa de cada año (data/guidance.js) frente a las cifras anuales de los informes del 4T; crecimiento sobre el año anterior, índices como nivel' : "each year's final expectation (data/guidance.js) against the annual figures of the 4Q reports; growth over the prior year, ratios as levels"}${asOfFile(GD)}`);
     // all vintages
     html('guideAll', `<table class="guide-table"><thead><tr><th>${t('date')}</th><th>${t('guideFy')}</th><th>${t('type')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}<th>${t('src')}</th></tr></thead><tbody>${vs.slice().reverse().map((v) => `<tr><td>${fmtDate(v.date)}</td><td>${v.fy}</td><td>${t(v.kind)}</td>${G_METRICS.map((m) => `<td class="txt">${gRangeTxt(v.items[m])}${v.items[m] && v.items[m].text ? `<span class="sub">${L(v.items[m].text)}</span>` : ''}</td>`).join('')}<td><a href="${v.source.url}" target="_blank" rel="noopener">${L(v.source.title)}</a></td></tr>`).join('')}</tbody></table>`);
     renderGuideChart(); renderConsensus();
@@ -646,7 +652,7 @@
     const tp = CONS.targetPrice || {};
     html('consTable', `<table class="guide-table"><thead><tr><th>${t('metric')}</th>${yrs.map((y) => `<th>FY${y.fy}<span class="sub">${es ? 'consenso' : 'consensus'}</span></th>`).join('')}${yrs.map((y) => `<th>FY${y.fy}<span class="sub">${es ? 'administración' : 'management'}</span></th>`).join('')}</tr></thead><tbody>${rows.map(([l, f, m]) => `<tr><td>${l}</td>${yrs.map((y) => `<td>${f(y)}</td>`).join('')}${yrs.map((y) => `<td>${m ? mg(y.fy, m) : '—'}</td>`).join('')}</tr>`).join('')}<tr class="total"><td>${es ? 'Precio objetivo (media · máx · mín)' : 'Target price (mean · high · low)'}</td><td colspan="${yrs.length}">${tp.mean == null ? pend : `Ps. ${fmtN(tp.mean, 0)} · ${fmtN(tp.high, 0)} · ${fmtN(tp.low, 0)}${lastPx ? ` (${fmtPct(100 * (tp.mean / lastPx[1] - 1), 1, true)})` : ''}`}</td><td colspan="${yrs.length}">${(REF.analysts || []).map((a) => `${a.firm}: ${a.rating}, PO Ps. ${fmtN(a.target, 0)} (${fmtDate(a.date)})`).join('; ') || '—'}</td></tr></tbody></table>`);
     el('consCap').textContent = `${CONS.source || ''}${CONS.updatedAt ? ' · ' + fmtDate(CONS.updatedAt) : ''} · ${L(CONS.note)}`;
-    html('consSrc', `${t('src')}: ${es ? 'contrato de datos en data/consensus.js (se llena con el conector autorizado); columnas "administración" = última expectativa publicada por Quálitas para ese año; precio objetivo público de reference.js (eventos relevantes)' : 'data contract in data/consensus.js (filled by the authorised connector); "management" columns = the latest expectation Quálitas published for that year; public target price from reference.js (material events)'}`);
+    html('consSrc', `${t('src')}: ${es ? 'contrato de datos en data/consensus.js (se llena con el conector autorizado); columnas "administración" = última expectativa publicada por Quálitas para ese año; precio objetivo público de reference.js (eventos relevantes)' : 'data contract in data/consensus.js (filled by the authorised connector); "management" columns = the latest expectation Quálitas published for that year; public target price from reference.js (material events)'}${CONS.updatedAt ? ' · ' + fmtDate(CONS.updatedAt) : (es ? ' · sin datos de consenso todavía (conector pendiente)' : ' · no consensus data yet (connector pending)')}${asOfFile(REF, 'reference.js')}`);
   }
   function renderGuideChart() {
     const vs = vintagesSorted(); const m = gs.metric;
@@ -660,7 +666,7 @@
       { label: LANG === 'es' ? 'Última revisión' : 'Latest revision', data: fys.map((fy) => rng(last(fy))), backgroundColor: c[2] + '99', borderColor: c[2], borderWidth: 1, borderSkipped: false, borderRadius: 4 },
       { type: 'line', label: t('actual'), data: acts, borderColor: c[1], backgroundColor: c[1], pointRadius: 6, pointHoverRadius: 7, showLine: false },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => { const v = x.raw; return Array.isArray(v) ? `${x.dataset.label}: ${fmtN(v[0], 0)}–${fmtN(v[1], 0)}%` : `${x.dataset.label}: ${fmtPct(v, 1)}`; } } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + '%' } } }, datasets: { bar: { maxBarThickness: 40 } } } });
-    html('guideChartSrc', `${t('src')}: data/guidance.js · ${gLabel(m)} · ${LANG === 'es' ? 'año en curso = acumulado reportado' : 'current year = reported year-to-date'}`);
+    html('guideChartSrc', `${t('src')}: data/guidance.js · ${gLabel(m)} · ${LANG === 'es' ? 'año en curso = acumulado reportado' : 'current year = reported year-to-date'}${asOfFile(GD)}${asOfQ()}`);
     updateHash();
   }
 
@@ -728,7 +734,7 @@
       options: { parsing: true, plugins: { tooltip: { callbacks: { title: (x) => fmtDate(x[0].raw.x), label: (x) => `${meta.currency} ${fmtN(x.parsed.y, 2)}` } } }, scales: { x: { type: 'category', ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i, ticks) => { const d = win[Math.round(i * (win.length - 1) / Math.max(1, ticks.length - 1))]; return d ? d[0].slice(0, 7) : ''; } }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     el('priceChartTitle').textContent = `${meta.name} · ${meta.currency}`;
     el('priceChartCap').textContent = `${t('close')} ${fmtDate(win[0][0])} → ${fmtDate(cur[0])}`;
-    html('priceSrc', `${t('src')}: ${meta.source}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
+    html('priceSrc', `${t('src')}: ${meta.source}${meta.fetchedAt ? ` (${LANG === 'es' ? 'descargado el' : 'fetched'} ${fmtDate(meta.fetchedAt)})` : ''}${asOfPx()}${meta.error ? ' · ⚠ ' + meta.error : ''}`);
     const yAgo = pointAtOrBefore(pts, addDays(cur[0], -365)); const yStart = pointAtOrBefore(pts, `${cur[0].slice(0, 4)}-01-01`);
     const w52 = pts.filter((p) => p[0] >= addDays(cur[0], -365)); const hi = Math.max(...w52.map((p) => p[1])), lo = Math.min(...w52.map((p) => p[1]));
     const stats = [
@@ -748,7 +754,7 @@
     mkChart('chartRebased', { type: 'line', data: { labels: idx.map((i) => dates[i]), datasets: ds.map((d) => ({ ...d, data: idx.map((i) => d.data[i]) })) },
       options: { plugins: { legend: legendTop, tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)}` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => (idx[i] != null ? dates[idx[i]].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) } } } } });
     html('rebasedTable', `<table><thead><tr><th>${t('period')}: ${fmtDate(dates[0])} → ${fmtDate(dates[dates.length - 1])}</th><th>${t('ret')}</th></tr></thead><tbody>${ds.map((d) => { const last = [...d.data].reverse().find((v) => v != null); return `<tr><td>${d.label}</td><td class="${cls(last - 100)}">${fmtPct(last - 100, 1, true)}</td></tr>`; }).join('')}</tbody></table>`);
-    html('rebasedSrc', `${t('src')}: Yahoo Finance (${LANG === 'es' ? 'cierres diarios, moneda local, sin dividendos reinvertidos' : 'daily closes, local currency, dividends not reinvested'})`);
+    html('rebasedSrc', `${t('src')}: Yahoo Finance (${LANG === 'es' ? 'cierres diarios, moneda local, sin dividendos reinvertidos' : 'daily closes, local currency, dividends not reinvested'})${asOfPx()}`);
     html('shareMeta', LANG === 'es' ? `Acciones emitidas: ${fmtN(sharesIssued)}; en circulación (netas de tesorería): ≈${fmtN(sharesOut)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}). Sin ADR.` : `Shares issued: ${fmtN(sharesIssued)}; outstanding (net of treasury): ≈${fmtN(sharesOut)} (${REF.shares ? fmtDate(REF.shares.asOf) : ''}). No ADR.`);
   }
 
@@ -855,8 +861,8 @@
     const roes = [s.roe - 6, s.roe - 3, s.roe, s.roe + 3, s.roe + 6], kes = [-2, -1, 0, 1, 2].map((d) => 100 * r.ke + d);
     html('valSens', `<table class="sens"><thead><tr><th>ROE ↓ / Ke →</th>${kes.map((k) => `<th>${fmtPct(k, 1)}</th>`).join('')}</tr></thead><tbody>${roes.map((ro) => `<tr><td>${fmtPct(ro, 1)}</td>${kes.map((k) => { const rr = valCompute(s, { roe: ro, rf: k - s.beta * s.erp }); const now = ro === s.roe && Math.abs(k - 100 * r.ke) < 1e-9; return `<td class="center ${lastPx && rr.perShare > lastPx[1] ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(rr.perShare, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
     el('sensCap').textContent = es ? `Ps. por acción; sombreado = por encima del precio actual (${lastPx ? 'Ps. ' + fmtN(lastPx[1], 2) : '—'}); ROE terminal y demás supuestos fijos` : `Ps. per share; shaded = above the current price (${lastPx ? 'Ps. ' + fmtN(lastPx[1], 2) : '—'}); terminal ROE and other assumptions held`;
-    const vsrc = `${t('src')}: ${es ? `capital contable del balance ${lastQ ? qLabel(lastQ) : ''} (informe trimestral); tasa libre de riesgo FRED/OCDE (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta con precios de Yahoo Finance; acciones en circulación de reference.js; los demás supuestos son los del panel` : `equity from the ${lastQ ? qLabel(lastQ) : ''} balance sheet (quarterly report); risk-free rate FRED/OECD (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta from Yahoo Finance prices; shares outstanding from reference.js; the rest are the panel's assumptions`}`;
-    html('valSrc', vsrc); html('sensSrc', vsrc);
+    const vsrc = `${t('src')}: ${es ? `capital contable del balance ${lastQ ? qLabel(lastQ) : ''} (informe trimestral); tasa libre de riesgo FRED/OCDE (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta con precios de Yahoo Finance; acciones en circulación de reference.js; los demás supuestos son los del panel` : `equity from the ${lastQ ? qLabel(lastQ) : ''} balance sheet (quarterly report); risk-free rate FRED/OECD (${mx10.length ? fmtDate(mx10[mx10.length - 1][0]) : '—'}); beta from Yahoo Finance prices; shares outstanding from reference.js; the rest are the panel's assumptions`}${asOfQ()}`;
+    html('valSrc', vsrc); html('sensSrc', vsrc); html('valOutSrc', vsrc);
     updateHash();
   }
 
@@ -878,7 +884,7 @@
     ];
     for (const a of REF.analysts || []) rows.push([`${a.firm} (${fmtDate(a.date)})`, `${a.rating} · PO Ps. ${fmtN(a.target, 0)}${lastPx ? ` (${fmtPct(100 * (a.target / lastPx[1] - 1), 1, true)})` : ''}`]);
     html('multTable', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</tbody></table>`);
-    html('multTblSrc', `${t('src')}: Yahoo Finance (Q.MX, ${lastPx ? fmtDate(lastPx[0]) : '—'}) · ${lastQ && lastQ.sources && lastQ.sources.is ? `<a href="${lastQ.sources.is.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(lastQ)} ↗</a>` : ''} · FRED DEXMXUS · reference.js (${es ? 'acciones, analistas' : 'shares, analysts'})`);
+    html('multTblSrc', `${t('src')}: Yahoo Finance (Q.MX, ${lastPx ? fmtDate(lastPx[0]) : '—'}) · ${lastQ && lastQ.sources && lastQ.sources.is ? `<a href="${lastQ.sources.is.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(lastQ)}${relDate() ? ` (${relDate()})` : ''} ↗</a>` : ''} · FRED DEXMXUS · reference.js (${es ? 'acciones, analistas' : 'shares, analysts'})`);
     el('multCap').textContent = es ? `Precio de Yahoo Finance; UPA UDM sobre ${fmtN(sharesIssued)} acciones emitidas (base de la compañía); valor en libros y capitalización sobre ≈${fmtN(sharesOut)} en circulación.` : `Yahoo Finance price; LTM EPS on ${fmtN(sharesIssued)} issued shares (company basis); book value and market cap on ≈${fmtN(sharesOut)} outstanding.`;
     // historical multiples at quarter-ends
     const qs = Q.slice(-lastN() - 4).filter((q) => q.bs);
@@ -889,13 +895,13 @@
       { label: `${t('pe')} ${t('ltm')}`, data: pts.map((x) => x.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3, yAxisID: 'y' },
       { label: `${t('pe')} ${t('ltm')} ${t('exVat')}`, data: pts.map((x) => x.peEx), borderColor: c[1], borderDash: [4, 4], pointRadius: 0, yAxisID: 'y' },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 2)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) + 'x' }, beginAtZero: true } } } });
-    html('multSrc', `${t('src')}: Yahoo Finance · ${es ? 'informes trimestrales (capital contable, utilidad neta)' : 'quarterly reports (equity, net income)'}`);
+    html('multSrc', `${t('src')}: Yahoo Finance · ${es ? 'informes trimestrales (capital contable, utilidad neta)' : 'quarterly reports (equity, net income)'}${asOfPx()}${asOfQ()}`);
     // peers
     const P = PEERS.peers || [];
     const cell = (v, f) => (v == null ? `<span class="muted">${t('pending')}</span>` : f(v));
     html('peersTable', `<table><thead><tr><th>${es ? 'Empresa' : 'Company'}</th><th>${t('price')}</th><th>${t('mktCap')} (US$ M)</th><th>${t('pe')} ${t('ltm')}</th><th>${t('pe')} NTM</th><th>${t('pbv')}</th><th>${t('yield')}</th><th>ROE</th><th>${t('combined')}</th></tr></thead><tbody>${P.map((p) => `<tr><td>${p.name} <span class="muted small">${p.ticker}</span></td><td>${cell(p.price, (v) => p.currency + ' ' + fmtN(v, 2))}</td><td>${cell(p.mktCapUsdM, (v) => fmtN(v))}</td><td>${cell(p.peLtm, (v) => fmtX(v))}</td><td>${cell(p.peNtm, (v) => fmtX(v))}</td><td>${cell(p.pbv, (v) => fmtX(v, 2))}</td><td>${cell(p.divYieldPct, (v) => fmtPct(v))}</td><td>${cell(p.roePct, (v) => fmtPct(v))}</td><td>${cell(p.combinedRatioPct, (v) => fmtPct(v))}</td></tr>`).join('')}<tr class="total"><td>Quálitas (Q*)</td><td>${lastPx ? 'MXN ' + fmtN(lastPx[1], 2) : '—'}</td><td>${lastPx && sharesOut && fxAt(lastPx[0]) ? fmtN(lastPx[1] * sharesOut / fxAt(lastPx[0]) / 1e6) : '—'}</td><td>${lastPx && e ? fmtX(lastPx[1] / e) : '—'}</td><td>—</td><td>${lastPx && bv ? fmtX(lastPx[1] / bv, 2) : '—'}</td><td>${lastPx && d12 ? fmtPct(100 * d12 / lastPx[1]) : '—'}</td><td>${lastQ && lastQ.kpi ? fmtPct(lastQ.kpi.roe12) : '—'}</td><td>${lastLTM ? fmtPct(lastLTM.kpi.combined) : '—'}</td></tr></tbody></table>`);
     el('peersCap').textContent = `${PEERS.source || ''}${PEERS.updatedAt ? ' · ' + fmtDate(PEERS.updatedAt) : ''} · ${L(REF.peers && REF.peers.note)}`;
-    html('peersSrc', `${t('src')}: ${es ? 'contrato de datos en data/peers.js; cuando el conector esté autorizado, la misma comparación de estados financieros podrá abrirse para cualquier par con un clic' : 'data contract in data/peers.js; once the connector is authorised, the same statement comparison can be opened for any peer with one click'} · ${es ? 'fila Quálitas calculada en vivo' : 'Quálitas row computed live'}`);
+    html('peersSrc', `${t('src')}: ${es ? 'contrato de datos en data/peers.js; cuando el conector esté autorizado, la misma comparación de estados financieros podrá abrirse para cualquier par con un clic' : 'data contract in data/peers.js; once the connector is authorised, the same statement comparison can be opened for any peer with one click'} · ${es ? 'fila Quálitas calculada en vivo' : 'Quálitas row computed live'}${window.Q_PEERS && window.Q_PEERS.updatedAt ? ' · ' + fmtDate(window.Q_PEERS.updatedAt) : (es ? ' · pares: sin datos todavía (conector pendiente)' : ' · peers: no data yet (connector pending)')}${asOfPx()}${asOfQ()}`);
   }
 
   // ================= 07 CAPITAL & SOLVENCY =================
@@ -908,14 +914,14 @@
       { label: t('rcs') + ' (Ps. M)', data: qs.map((q) => q.kpi.rcs / 1000), backgroundColor: c[1], stack: 's', yAxisID: 'y', order: 2 },
       { label: t('solvMargin') + ' (Ps. M)', data: qs.map((q) => q.kpi.solvMargin / 1000), backgroundColor: c[0], stack: 's', yAxisID: 'y', order: 2 },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${x.dataset.yAxisID === 'y2' ? fmtPct(x.parsed.y, 0) : fmtN(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: axisM(), beginAtZero: true, position: 'left' }, y2: { position: 'right', ticks: { callback: (v) => v + '%' }, grid: { display: false }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
-    html('solvSrc', `${t('src')}: ${es ? 'informes trimestrales (requerimiento de capital de solvencia y margen; índice = (margen + RCS) ÷ RCS)' : 'quarterly reports (solvency capital requirement and margin; index = (margin + RCS) ÷ RCS)'}`);
+    html('solvSrc', `${t('src')}: ${es ? 'informes trimestrales (requerimiento de capital de solvencia y margen; índice = (margen + RCS) ÷ RCS)' : 'quarterly reports (solvency capital requirement and margin; index = (margin + RCS) ÷ RCS)'}${asOfQ()}`);
     const qb = Q.slice(-lastN() - 4).filter((q) => q.bs && q.bs.reserves != null);
     mkChart('chartCapital', { type: 'bar', data: { labels: qb.map(qLabel), datasets: [
       { label: t('reserves'), data: qb.map((q) => q.bs.reserves / 1000), backgroundColor: c[1] },
       { label: t('float'), data: qb.map((q) => (q.kpi && q.kpi.float != null ? q.kpi.float : q.bs.inv != null ? q.bs.inv / 1000 : null)), backgroundColor: c[0] },
       { label: t('equity'), data: qb.map((q) => q.bs.totalEquity / 1000), backgroundColor: c[2] },
     ] }, options: { plugins: { legend: legendTop, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 18, borderWidth: 0 } } } });
-    html('capSrc', `${t('src')}: ${es ? 'balance general de cada informe; float = inversiones en valores + deudor por reporto + cartera de crédito (definición de Quálitas)' : 'balance sheet of each report; float = securities + repo receivables + loan portfolio (Quálitas\' definition)'}`);
+    html('capSrc', `${t('src')}: ${es ? 'balance general de cada informe; float = inversiones en valores + deudor por reporto + cartera de crédito (definición de Quálitas)' : 'balance sheet of each report; float = securities + repo receivables + loan portfolio (Quálitas\' definition)'}${asOfQ()}`);
     // portfolio table
     const qp = Q.slice(-8);
     const rateAt = (q) => { const p = pointAtOrBefore(mx10, qEndDate(q)); return p ? p[1] : null; };
@@ -930,7 +936,7 @@
     const sq = quotesFor(lastC, 'solvency');
     if (sq) el('capNote').insertAdjacentHTML('beforeend', `<div style="margin-top:8px">${quotesHtml(sq, lastC.call && lastC.call.date)}</div>`);
     html('portSrc', `${t('src')}: ${qp.length ? [...new Map(qp.map((q) => q.sources && q.sources.is).filter((s) => s && s.url).map((s) => [s.url, s])).values()].slice(-3).map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${srcName(s)} (${fmtDate(s.date)})</a>`).join(' · ') : ''} · FRED IRLTLT01MXM156N`);
-    html('ratingsSrc', `${t('src')}: ${[...new Set((REF.ratings || []).map((r) => r.source && r.source.url).filter(Boolean))].map((u) => `<a href="${u}" target="_blank" rel="noopener">${es ? 'eventos relevantes (IR)' : 'material events (IR)'} ↗</a>`).join(' · ')}`);
+    html('ratingsSrc', `${t('src')}: ${[...new Set((REF.ratings || []).map((r) => r.source && r.source.url).filter(Boolean))].map((u) => `<a href="${u}" target="_blank" rel="noopener">${es ? 'eventos relevantes (IR)' : 'material events (IR)'} ↗</a>`).join(' · ')}${asOfFile(REF, 'reference.js')}`);
     // debt instruments (none): the CNSF balance sheet has explicit lines for borrowings and debt issued
     const D = REF.debt || { instruments: [] };
     const bsq = Q.slice(-8).filter((q) => q.bs);
@@ -951,7 +957,7 @@
     const years = []; for (let y = 2016; y <= lastYear; y++) { years.push(String(y)); byYear[y] ??= 0; }
     const c = SERIES();
     mkChart('chartDps', { type: 'bar', data: { labels: years, datasets: [{ label: t('dps'), data: years.map((y) => byYear[y]), backgroundColor: c[0] }] }, options: { plugins: { tooltip: { callbacks: { label: (x) => 'Ps. ' + fmtN(x.parsed.y, 2) } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
-    html('dpsSrc', `${t('src')}: ${es ? 'dividendos en efectivo por acción registrados en bolsa (Yahoo Finance, Q.MX), sumados por año de pago' : 'exchange-recorded cash dividends per share (Yahoo Finance, Q.MX), summed by payment year'}`);
+    html('dpsSrc', `${t('src')}: ${es ? 'dividendos en efectivo por acción registrados en bolsa (Yahoo Finance, Q.MX), sumados por año de pago' : 'exchange-recorded cash dividends per share (Yahoo Finance, Q.MX), summed by payment year'}${divs.length ? ` · ${es ? 'último dividendo registrado' : 'latest recorded dividend'}: ${fmtDate(divs.map((d) => d[0]).sort().pop())}` : ''}`);
     const rows = years.map((y) => { const fy = Y.find((yy) => yy.fy === +y); const ni = fy && fy.is ? fy.is.netIncome / 1000 : null; const eps = ni && sharesIssued ? ni * 1e6 / sharesIssued : null; const pEnd = pointAtOrBefore(qPx, `${y}-12-31`);
       const cf = fy && fy.cf; const paid = cf && cf.dividendsPaid != null ? -cf.dividendsPaid / 1000 : null; const buy = cf && cf.buybacks != null ? -cf.buybacks / 1000 : null; const agm = (REF.dividends || []).find((d) => d.agmYear === +y);
       return `<tr><td>${y}</td><td>${fmtN(byYear[y], 2)}${agm ? `<span class="sub">${t('agm')}: Ps. ${fmtN(agm.dps, 2)}</span>` : ''}</td><td>${paid != null ? fmtN(paid) : '—'}</td><td>${buy != null ? fmtN(buy) : '—'}</td><td>${paid != null ? fmtN(paid + (buy || 0)) : '—'}</td><td>${eps ? fmtPct(100 * byYear[y] / eps, 0) : '—'}</td><td>${pEnd && byYear[y] ? fmtPct(100 * byYear[y] / pEnd[1]) : '—'}</td></tr>`; });
@@ -962,7 +968,7 @@
     const lastC = (CM.periods || {})[lastQ ? lastQ.id : ''] || (CM.periods || {})[lastQ ? prevQid(lastQ) : ''];
     const dq = quotesFor(lastC, 'dividends');
     html('dpsNote', ag + (dq ? `<div style="margin-top:8px">${quotesHtml(dq, lastC.call && lastC.call.date)}</div>` : ''));
-    html('dpsTblSrc', `${t('src')}: <a href="https://finance.yahoo.com/quote/Q.MX/history/" target="_blank" rel="noopener">Yahoo Finance (${es ? 'dividendos Q.MX' : 'Q.MX dividends'}) ↗</a> · ${es ? 'reportes SIFIC anuales (flujo de financiamiento)' : 'annual SIFIC filings (financing cash flow)'} · reference.js (${es ? 'acuerdos de asamblea' : 'AGM resolutions'})`);
+    html('dpsTblSrc', `${t('src')}: <a href="https://finance.yahoo.com/quote/Q.MX/history/" target="_blank" rel="noopener">Yahoo Finance (${es ? 'dividendos Q.MX' : 'Q.MX dividends'}) ↗</a> · ${es ? 'reportes SIFIC anuales (flujo de financiamiento)' : 'annual SIFIC filings (financing cash flow)'} · reference.js (${es ? 'acuerdos de asamblea' : 'AGM resolutions'})${asOfFile(REF)}`);
   }
 
   // ================= 09 VAT / 10 INTERNATIONAL =================
@@ -972,15 +978,15 @@
     const fmtFact = (f) => (f.fmt === 'mxnM' ? 'Ps. ' + fmtN(f.v) + ' M' : f.fmt === 'bp' ? fmtN(f.v) + ' pb' : f.fmt === 'pct' ? fmtPct(f.v) : fmtN(f.v));
     html('vatFacts', (Vt.facts || []).map((f) => `<div class="fact"><div class="v">${fmtFact(f)}</div><div class="l">${es ? f.label_es : f.label_en}</div></div>`).join(''));
     html('vatTimeline', (Vt.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
-    html('vatSrc', `${t('src')}: ${(LS(Vt.sources) || []).join(' · ')}`);
+    html('vatSrc', `${t('src')}: ${(LS(Vt.sources) || []).join(' · ')}${asOfFile(REF, 'reference.js')}`);
     const I = REF.international || {};
     html('intlTimeline', (I.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
-    html('intlSrc', `${t('src')}: ${(LS(I.sources) || []).join(' · ')}`);
+    html('intlSrc', `${t('src')}: ${(LS(I.sources) || []).join(' · ')}${asOfFile(REF, 'reference.js')}`);
     const last = (OPS.quarters || []).filter((e) => e.units && e.units.total).pop();
     const uKey = { es: 'sv', cr: 'cr', us: 'us', pe: 'pe', co: 'co', mx: 'mx' };
     html('subsRefTable', `<table><thead><tr><th>${t('subsidiary')}</th><th>${t('country')}</th><th>${es ? 'Unidades (miles)' : 'Units (thousands)'}${last ? ` <span class="sub">${qLabel(last)}</span>` : ''}</th><th style="text-align:left">${t('note')}</th></tr></thead><tbody>${(REF.subsidiaries || []).map((s) => `<tr><td>${L(s.name)}</td><td>${s.country || '—'}</td><td>${last && uKey[s.k] && last.units[uKey[s.k]] != null ? fmtN(last.units[uKey[s.k]]) : '—'}</td><td style="text-align:left; white-space:normal">${L(s.note)}</td></tr>`).join('')}</tbody></table>`);
     el('subsRefCap').textContent = es ? 'Ficha de cada subsidiaria y de las verticales; unidades aseguradas al cierre del último trimestre reportado.' : 'Fact sheet of each subsidiary and the verticals; insured units at the latest reported quarter-end.';
-    html('subsRefSrc', `${t('src')}: reference.js (${es ? 'informes trimestrales y conferencias' : 'quarterly reports and calls'})${last && last.source && last.source.url ? ` · <a href="${last.source.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(last)} ↗</a>` : ''}`);
+    html('subsRefSrc', `${t('src')}: reference.js (${es ? 'informes trimestrales y conferencias' : 'quarterly reports and calls'})${last && last.source && last.source.url ? ` · <a href="${last.source.url}" target="_blank" rel="noopener">${t('release')} ${qLabel(last)}${last.source.date ? ` (${fmtDate(last.source.date)})` : ''} ↗</a>` : ''}${asOfFile(REF, 'reference.js')}`);
   }
 
   // ================= 11 METHOD / SOURCES =================
@@ -1014,6 +1020,7 @@
   }
   function renderAlertsMeta() {
     const ov = store.get('q-alerts', {}); const n = Object.keys(ov).length; const items = evalAlerts();
+    html('alertsSrc', `${t('src')}: data/alerts.js (${LANG === 'es' ? 'umbrales fijados por el propietario' : 'owner-set thresholds'}${window.Q_ALERTS && window.Q_ALERTS.updatedAt ? ', ' + fmtDate(window.Q_ALERTS.updatedAt) : ''}) · ${LANG === 'es' ? 'evaluados al abrir la página sobre market.js, financials.js y guidance.js' : 'evaluated on page load against market.js, financials.js and guidance.js'}${asOfPx()}${asOfQ()}`);
     el('alertsMeta').textContent = `${LANG === 'es' ? `${n ? n + ' umbral(es) ajustado(s) en este navegador · ' : ''}${items.length ? items.length + ' alerta(s) activa(s)' : 'sin alertas activas'}` : `${n ? n + ' threshold(s) overridden in this browser · ' : ''}${items.length ? items.length + ' active alert(s)' : 'no active alerts'}`} · data/alerts.js ${window.Q_ALERTS && window.Q_ALERTS.updatedAt ? fmtDate(window.Q_ALERTS.updatedAt) : ''}`;
   }
 
@@ -1143,5 +1150,8 @@
   syncControlsFromState();
   setLang(hashLang || initLang);
   hashReady = true; updateHash();
+  // Keep the language toggle out of the sticky section menu: once the menu is stuck, its link row ends before the toggle.
+  const navEl = document.querySelector('nav.jump'), langEl = document.querySelector('.lang-btn');
+  if (navEl && langEl) { const onNavScroll = () => { const stuck = window.scrollY > 0 && navEl.getBoundingClientRect().top <= 0; document.body.classList.toggle('nav-stuck', stuck); if (stuck) navEl.style.setProperty('--lang-w', langEl.offsetWidth + 'px'); }; window.addEventListener('scroll', onNavScroll, { passive: true }); window.addEventListener('resize', onNavScroll); onNavScroll(); }
   window.addEventListener('hashchange', () => { const l = applyHash(); if (l && l !== LANG) setLang(l); else { syncControlsFromState(); fillSelects(); renderAll(); } });
 })();

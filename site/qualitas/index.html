@@ -130,7 +130,7 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
 .kpi .val{font-family:var(--sans); font-size:clamp(20px,2.2vw,27px); font-weight:700; margin-top:6px; line-height:1.1;}
 .kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
-@media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);} .kpi-strip .kpi:last-child:nth-child(odd){grid-column:1 / -1;}}
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
@@ -259,7 +259,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sum-grid li{margin:6px 0;}
 .sum-grid li b{color:var(--text-primary);}
 @media (max-width:760px){.sum-grid{grid-template-columns:1fr;}}
-.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
+.guide-chip{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
 .guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .guide-chip.above{color:var(--good); border-color:var(--good);}
 .guide-chip.below{color:var(--critical); border-color:var(--critical);}
@@ -299,6 +299,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 .lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
 @media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+/* Once the section menu is stuck to the top, its link row ends before the floating toggle so no link is covered. */
+body.nav-stuck nav.jump .wrap{margin-right:calc(var(--lang-w, 200px) + 16px);}
+body.nav-stuck .lang-btn{top:6px;}
+@media (max-width:640px){body.nav-stuck .lang-btn .print-btn{display:none;}}
 
 /* ---------- Print as presentation (Letter landscape, one slide per section) ---------- */
 .print-only{display:none;}
@@ -374,7 +378,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <span class="es">Modelo financiero interactivo · Datos públicos (BMV / CNSF / IR)</span>
       <span class="en" hidden>Interactive financial model · Public data (BMV / CNSF / IR)</span>
     </span>
-    <h1>Quálitas Controladora <span class="muted" style="font-weight:600">(BMV: Q*)</span></h1>
+    <h1>Quálitas Controladora <span class="muted" style="font-weight:600; white-space:nowrap">(BMV: Q*)</span></h1>
     <div class="asof-row" id="asofRow"></div>
     <div id="dataNotice" hidden></div>
     <div id="sinceBanner" class="notice" role="status" hidden></div>
@@ -482,7 +486,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Índice combinado y sus componentes</span><span class="en" hidden>Combined ratio and its components</span></h3>
         <p class="cap"><span class="es">Adquisición + siniestralidad + operación, % (definiciones de Quálitas); línea = rango objetivo 92–94%</span><span class="en" hidden>Acquisition + loss + operating, % (Quálitas' definitions); band = 92–94% target range</span></p>
         <div class="chart-wrap"><canvas id="chartCombined" role="img" aria-label="Combined ratio components per quarter"></canvas></div>
-        <p class="chart-src"><span class="es">Fuente: informes trimestrales de Quálitas; índices calculados a partir del estado de resultados</span><span class="en" hidden>Source: Quálitas quarterly reports; ratios computed from the income statement</span></p>
+        <p class="chart-src"><span class="es">Fuente: informes trimestrales de Quálitas; índices calculados a partir del estado de resultados</span><span class="en" hidden>Source: Quálitas quarterly reports; ratios computed from the income statement</span><span id="combinedAsOf"></span></p>
       </div>
       <div class="card">
         <h3><span class="es">Márgenes</span><span class="en" hidden>Margins</span></h3>
@@ -651,6 +655,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <div class="out-grid" id="valOutputs"></div>
           <div class="callout" id="valNote"></div>
           <div class="callout" id="valHow"></div>
+          <p class="chart-src" id="valOutSrc"></p>
         </div>
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Proyección</span><span class="en" hidden>Projection</span></h3>
@@ -825,6 +830,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="cap"><span class="es">La página revisa estos umbrales al abrirse y muestra un aviso en el encabezado; la rutina de revisión envía un correo con los mismos umbrales (data/alerts.js). Sus cambios se guardan sólo en este navegador.</span><span class="en" hidden>The page checks these thresholds on load and shows a notice in the header; the reviewing routine emails on the same thresholds (data/alerts.js). Your changes are stored in this browser only.</span></p>
         <div class="alert-grid" id="alertsGrid"></div>
         <div style="margin-top:12px"><button type="button" class="btn" id="alertsReset"><span class="es">Restablecer</span><span class="en" hidden>Reset</span></button> <span class="small muted" id="alertsMeta"></span></div>
+        <p class="chart-src" id="alertsSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Glosario</span><span class="en" hidden>Glossary</span></h3>
