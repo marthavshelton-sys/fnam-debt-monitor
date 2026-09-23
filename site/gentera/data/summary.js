@@ -3,7 +3,7 @@
 // periods (not live market data — the header strip is daily).
 window.G_SUMMARY = {
   updatedAt: "2026-09-22",
-  basis: { quarter: "2026Q2", resultsDate: null, guidanceDate: "2026-07-22", note: { es: "Fecha exacta del informe 2T26 pendiente de la primera cosecha de PDFs.", en: "Exact 2Q26 release date pending the first PDF harvest." } },
+  basis: { quarter: "2026Q2", resultsDate: "2026-07-22", guidanceDate: "2026-07-22", note: { es: "Informe 2T26 fechado el 22 de julio de 2026 (línea de fecha del PDF).", en: "2Q26 release dated 22 July 2026 (PDF dateline)." } },
   sections: [
     {
       k: "ops", title: { es: "Operación", en: "Operations" },

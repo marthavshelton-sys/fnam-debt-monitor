@@ -199,10 +199,11 @@ def release_date(txt, qid=None):
         end = date(fy, q * 3, 31 if q in (1, 4) else 30)
         lo, hi = end + timedelta(days=1), end + timedelta(days=75)
     cands = []
-    m = re.search(r'(ciudad de mexico|mexico,? d\.?f\.?),? a? ?(\d{1,2}) de (%s) del? (20\d\d)' % '|'.join(MONTHS_ES), t)
+    # Gentera's dateline usually omits the "de" before the year ("22 de julio 2026"); accept both forms.
+    m = re.search(r'(ciudad de mexico|mexico,? d\.?f\.?)\s*,?\s*(?:mexico)?\s*[,–-]?\s*a?\s*(\d{1,2}) de (%s)(?: del?)? (20\d\d)' % '|'.join(MONTHS_ES), t)
     if m:
         cands.append((int(m.group(4)), MONTHS_ES[m.group(3)], int(m.group(2))))
-    for m in re.finditer(r'(\d{1,2}) de (%s) del? (20\d\d)' % '|'.join(MONTHS_ES), t):
+    for m in re.finditer(r'(\d{1,2}) de (%s)(?: del?)? (20\d\d)' % '|'.join(MONTHS_ES), t):
         cands.append((int(m.group(3)), MONTHS_ES[m.group(2)], int(m.group(1))))
     for y, mo, d in cands:
         try:
