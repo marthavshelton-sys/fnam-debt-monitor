@@ -1,0 +1,411 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mauricio — FNAM | Cobertura de empresas</title>
+<meta name="description" content="Las empresas que cubre Mauricio, con un modelo financiero interactivo por emisora. La primera: Oracle (NYSE: ORCL). The companies Mauricio covers, one interactive financial model each — starting with Oracle.">
+<link rel="canonical" href="https://fnam.mx/mauricio/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FNAM">
+<meta property="og:title" content="Mauricio — FNAM">
+<meta property="og:description" content="Las empresas que cubre Mauricio, con un modelo financiero interactivo por emisora. La primera: Oracle (NYSE: ORCL).">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta property="og:url" content="https://fnam.mx/mauricio/">
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  color-scheme: light;
+  --page:#f9f9f7;
+  --surface:#fcfcfb;
+  --surface-2:#f2f1ec;
+  --text-primary:#0b0b0b;
+  --text-secondary:#52514e;
+  --muted:#898781;
+  --grid:#e1e0d9;
+  --border:rgba(11,11,11,0.10);
+  --border-strong:rgba(11,11,11,0.18);
+  --accent:#1b4332;
+  --accent-ink:#0f2c20;
+  --accent-soft:#e6ede8;
+  --accent-soft-border:rgba(27,67,50,0.22);
+  --live:#0ca30c;
+  --shadow: 0 1px 2px rgba(11,11,11,0.04);
+  --shadow-hover: 0 6px 20px rgba(11,11,11,0.08);
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --sans:"Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --page:#0d0d0d;
+    --surface:#1a1a19;
+    --surface-2:#221f1c;
+    --text-primary:#ffffff;
+    --text-secondary:#c3c2b7;
+    --muted:#918f88;
+    --grid:#2c2c2a;
+    --border:rgba(255,255,255,0.10);
+    --border-strong:rgba(255,255,255,0.22);
+    --accent:#4f9a76;
+    --accent-ink:#bfe3cf;
+    --accent-soft:#16261e;
+    --accent-soft-border:rgba(79,154,118,0.32);
+    --live:#3ec43e;
+    --shadow: 0 1px 2px rgba(0,0,0,0.3);
+    --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --page:#0d0d0d;
+  --surface:#1a1a19;
+  --surface-2:#221f1c;
+  --text-primary:#ffffff;
+  --text-secondary:#c3c2b7;
+  --muted:#918f88;
+  --grid:#2c2c2a;
+  --border:rgba(255,255,255,0.10);
+  --border-strong:rgba(255,255,255,0.22);
+  --accent:#4f9a76;
+  --accent-ink:#bfe3cf;
+  --accent-soft:#16261e;
+  --accent-soft-border:rgba(79,154,118,0.32);
+  --live:#3ec43e;
+  --shadow: 0 1px 2px rgba(0,0,0,0.3);
+  --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--page);
+  color:var(--text-primary);
+  font-family:var(--sans);
+  font-size:16px;
+  line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+a{color:inherit;}
+/* Language: Spanish is the default; <html lang> drives which copy is shown (no JS needed for first paint). */
+html[lang="es"] .en{display:none !important;}
+html[lang="en"] .es{display:none !important;}
+.wrap{width:min(1120px, 100% - 48px); margin:0 auto;}
+@media (max-width:640px){ .wrap{width:min(1120px, 100% - 32px);} }
+
+/* ---------- top bar ---------- */
+.topbar{
+  border-bottom:1px solid var(--border);
+  background:var(--page);
+}
+.topbar .wrap{
+  display:flex; align-items:center; justify-content:space-between;
+  height:60px; gap:16px;
+}
+.brand{
+  display:flex; align-items:center; gap:10px;
+  text-decoration:none; font-weight:700; letter-spacing:0.02em;
+}
+.brand .mark{
+  width:28px; height:28px; border-radius:7px; background:var(--accent);
+  display:grid; place-items:center; flex:none;
+}
+.brand .mark svg{width:16px; height:16px; display:block;}
+.brand .word{font-family:var(--serif); font-size:20px; font-weight:700; letter-spacing:0.04em;}
+/* Segmented ES / EN switch — both options always visible, active one filled. */
+.lang-switch{
+  display:inline-flex; align-items:center; gap:2px;
+  padding:3px; border-radius:999px;
+  background:var(--surface-2); border:1px solid var(--border-strong);
+  flex:none;
+}
+.lang-switch button{
+  appearance:none; border:0; background:transparent;
+  color:var(--text-secondary); font:inherit; font-size:13px; font-weight:600;
+  line-height:1; padding:7px 14px; border-radius:999px; cursor:pointer;
+  display:inline-flex; align-items:center; gap:6px;
+  transition:background .15s, color .15s;
+}
+.lang-switch button:hover{color:var(--text-primary);}
+.lang-switch button[aria-pressed="true"]{
+  background:var(--accent); color:#fff; cursor:default;
+}
+.lang-switch button:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
+@media (max-width:400px){ .lang-switch button{padding:7px 10px; font-size:12px;} }
+
+/* ---------- sections ---------- */
+main{flex:1; padding-top:12px;}
+.section{padding:28px 0 8px;}
+.section:last-of-type{padding-bottom:48px;}
+.section-head{
+  display:flex; align-items:baseline; justify-content:space-between; gap:16px;
+  padding-bottom:14px; margin-bottom:18px;
+  border-bottom:1px solid var(--grid);
+}
+.section-head h2{
+  font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
+}
+.section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
+
+.grid{
+  display:grid; gap:16px;
+  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+}
+@media (max-width:360px){ .grid{grid-template-columns:1fr;} }
+
+.card{
+  position:relative;
+  display:flex; flex-direction:column; gap:10px;
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:22px 22px 18px;
+  box-shadow:var(--shadow);
+  text-decoration:none;
+  color:inherit;
+  min-height:196px;
+  transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+a.card:hover, a.card:focus-visible{
+  transform:translateY(-2px);
+  box-shadow:var(--shadow-hover);
+  border-color:var(--accent);
+  outline:none;
+}
+a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shadow-hover);}
+.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
+.kicker{
+  font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  color:var(--muted);
+}
+.pill{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
+  padding:4px 9px; border-radius:999px; white-space:nowrap;
+}
+.pill.live{background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-soft-border);}
+.pill.live::before{
+  content:""; width:7px; height:7px; border-radius:50%; background:var(--live);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent);
+}
+.pill.soon{background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border);}
+.card h3{
+  font-family:var(--serif); font-weight:700; font-size:22px; line-height:1.2;
+  margin:2px 0 0; letter-spacing:-0.01em;
+}
+.card p{margin:0; color:var(--text-secondary); font-size:14.5px; line-height:1.5;}
+.card-foot{
+  margin-top:auto; padding-top:10px;
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  font-size:13px; font-weight:600;
+}
+.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px;}
+.card-foot .cta svg{width:14px; height:14px; transition:transform .18s ease;}
+a.card:hover .cta svg{transform:translateX(3px);}
+.card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
+
+.card.planned{
+  background:transparent;
+  border-style:dashed;
+  border-color:var(--border-strong);
+  box-shadow:none;
+}
+.card.planned h3{color:var(--text-secondary);}
+.card.planned p{color:var(--muted);}
+.card.planned .cta{color:var(--muted);}
+
+/* ---------- footer ---------- */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 0 32px;
+  color:var(--muted); font-size:13px;
+}
+footer .wrap{display:flex; flex-wrap:wrap; gap:8px 24px; justify-content:space-between; align-items:center;}
+footer a{color:var(--text-secondary); text-decoration:none;}
+footer a:hover{color:var(--accent); text-decoration:underline;}
+footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
+
+@media (prefers-reduced-motion: reduce){
+  .card, .card-foot .cta svg, .lang-switch{transition:none;}
+  a.card:hover{transform:none;}
+}
+</style>
+<style>
+/* ---------- page head (this page only) ---------- */
+.pagehead{padding:28px 0 4px;}
+.backlink{
+  display:inline-flex; align-items:center; gap:6px;
+  font-size:13px; font-weight:600; color:var(--text-secondary);
+  text-decoration:none;
+}
+.backlink svg{width:14px; height:14px; transition:transform .18s ease;}
+.backlink:hover{color:var(--accent);}
+.backlink:hover svg{transform:translateX(-3px);}
+.backlink:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px;}
+.pagehead h1{
+  font-family:var(--serif); font-weight:700;
+  font-size:clamp(30px, 4vw, 42px); line-height:1.12; letter-spacing:-0.015em;
+  margin:14px 0 14px; text-wrap:balance;
+}
+.pagehead .sub{
+  font-size:17px; color:var(--text-secondary); max-width:68ch; margin:0;
+}
+@media (max-width:640px){
+  .pagehead{padding:20px 0 0;}
+  .pagehead .sub{font-size:16px;}
+}
+@media (prefers-reduced-motion: reduce){
+  .backlink svg{transition:none;}
+  .backlink:hover svg{transform:none;}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="FNAM home">
+      <span class="mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg>
+      </span>
+      <span class="word">FNAM</span>
+    </a>
+    <div class="lang-switch" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true" lang="es">Español</button>
+      <button type="button" data-lang="en" aria-pressed="false" lang="en">English</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="pagehead">
+    <div class="wrap">
+      <a class="backlink" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="en">All dashboards</span>
+        <span class="es">Todos los paneles</span>
+      </a>
+      <h1>Mauricio</h1>
+      <p class="sub">
+        <span class="en">The companies Mauricio covers, one interactive financial model per name — the same structure as the rest of the site: statements, guidance, valuation, debt, and each company's key themes explained.</span>
+        <span class="es">Las empresas que cubre Mauricio, con un modelo financiero interactivo por emisora — la misma estructura que el resto del sitio: estados financieros, guía, valuación, deuda y los temas clave de cada compañía explicados.</span>
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="cobertura">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          <span class="en">Coverage</span>
+          <span class="es">Cobertura</span>
+        </h2>
+        <span class="count">
+          <span class="en">1 live</span>
+          <span class="es">1 en vivo</span>
+        </span>
+      </div>
+      <div class="grid">
+
+        <a class="card" href="/oracle/">
+          <div class="card-top">
+            <span class="kicker">
+              <span class="en">Software &amp; cloud · NYSE: ORCL</span>
+              <span class="es">Software y nube · NYSE: ORCL</span>
+            </span>
+            <span class="pill live">
+              <span class="en">Live</span>
+              <span class="es">En vivo</span>
+            </span>
+          </div>
+          <h3>
+            <span class="en">Oracle — Oracle Corporation</span>
+            <span class="es">Oracle — Oracle Corporation</span>
+          </h3>
+          <p>
+            <span class="en">Enterprise database and cloud-infrastructure vendor, fiscal year to 31 May. Interactive model: quarterly, year-to-date, LTM and fiscal-year GAAP statements with a Non-GAAP switch and a commentary column, remaining performance obligations and cloud revenue, guidance vs. actuals, share performance vs. the S&amp;P 500, an editable DCF, multiples, leverage and ratings, dividends, the debt instrument by instrument with its maturity schedule, plus the AI infrastructure buildout and RPO explained.</span>
+            <span class="es">Proveedor de bases de datos empresariales e infraestructura de nube, año fiscal al 31 de mayo. Modelo interactivo: estados financieros GAAP por trimestre, acumulado, UDM y año fiscal con conmutador No-GAAP y columna de comentarios, obligaciones de desempeño pendientes (RPO) e ingresos de nube, guía vs. real, desempeño de la acción vs. S&amp;P 500, DCF editable, múltiplos, apalancamiento y calificaciones, dividendos, la deuda instrumento por instrumento con su calendario de vencimientos, más la expansión de infraestructura de IA y el RPO explicados.</span>
+          </p>
+          <div class="card-foot">
+            <span class="cta">
+              <span class="en">Open model</span>
+              <span class="es">Abrir modelo</span>
+              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+            </span>
+            <span class="src">SEC EDGAR · Oracle IR · FRED</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© <span id="year">2026</span> FNAM · fnam.mx</span>
+    <nav class="links" aria-label="Dashboards">
+      <a href="/macro/"><span class="en">U.S. Macro</span><span class="es">Macro EE. UU.</span></a>
+      <a href="/fiscal/"><span class="en">U.S. Fiscal Debt</span><span class="es">Deuda Fiscal EE. UU.</span></a>
+      <a href="/macro/?view=fiscal"><span class="en">U.S. Fiscal Deficit</span><span class="es">Déficit Fiscal EE. UU.</span></a>
+      <a href="/mx/macro/"><span class="en">Mexico Macro</span><span class="es">Macro México</span></a>
+      <a href="/mx/fiscal/"><span class="en">Mexico Fiscal</span><span class="es">Fiscal México</span></a>
+      <a href="/aeropuertos/"><span class="en">Mexican Airports</span><span class="es">Aeropuertos Mexicanos</span></a>
+      <a href="/mauricio/"><span class="en">Mauricio</span><span class="es">Mauricio</span></a>
+      <a href="/gap/"><span class="en">GAP Model</span><span class="es">Modelo GAP</span></a>
+      <a href="/oma/"><span class="en">OMA Model</span><span class="es">Modelo OMA</span></a>
+      <a href="/asur/"><span class="en">ASUR Model</span><span class="es">Modelo ASUR</span></a>
+      <a href="/qualitas/"><span class="en">Quálitas Model</span><span class="es">Modelo Quálitas</span></a>
+      <a href="/gentera/"><span class="en">Gentera Model</span><span class="es">Modelo Gentera</span></a>
+      <a href="/oracle/"><span class="en">Oracle Model</span><span class="es">Modelo Oracle</span></a>
+    </nav>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY = "fnam-lang";
+  var root = document.documentElement;
+  var buttons = document.querySelectorAll(".lang-switch button");
+
+  function apply(lang){
+    var showEs = lang === "es";
+    root.setAttribute("lang", showEs ? "es" : "en");
+    document.title = showEs
+      ? "Mauricio — FNAM | Cobertura de empresas"
+      : "Mauricio — FNAM | Company coverage";
+    buttons.forEach(function(b){
+      b.setAttribute("aria-pressed", b.getAttribute("data-lang") === lang ? "true" : "false");
+    });
+  }
+
+  // Spanish by default; only an explicit choice (stored) switches to English.
+  // Same key as the landing page, so the choice carries across the site.
+  var lang = "es";
+  try { var stored = localStorage.getItem(KEY); if (stored === "en") lang = "en"; } catch (e) {}
+  apply(lang);
+
+  buttons.forEach(function(b){
+    b.addEventListener("click", function(){
+      lang = b.getAttribute("data-lang");
+      try { localStorage.setItem(KEY, lang); } catch (e) {}
+      apply(lang);
+    });
+  });
+
+  document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+</body>
+</html>
