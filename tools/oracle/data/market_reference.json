@@ -1,0 +1,536 @@
+{
+  "as_of": "2026-09-22",
+  "price_snapshot": {
+    "orcl": {
+      "close": 148.56,
+      "close_date": "2026-09-21",
+      "week52_high": 328.15,
+      "week52_high_date": "2025-09-22",
+      "week52_low": 114.99,
+      "week52_low_date": "2026-07-24",
+      "shares_outstanding_millions": 3023.736,
+      "market_cap_millions": 449206.22,
+      "one_day_change_pct": 0.64,
+      "one_year_change_pct": -51.87,
+      "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-09-22&todate=2026-09-22&limit=10000",
+      "accessed": "2026-09-22",
+      "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
+      "source_name": "Nasdaq"
+    },
+    "sp500": {
+      "close": 7764.7,
+      "close_date": "2026-09-21",
+      "one_day_change_pct": 1.49,
+      "one_year_change_pct": 16.51,
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
+      "source_name": "FRED SP500",
+      "accessed": "2026-09-22"
+    }
+  },
+  "treasury_10y": {
+    "yield_pct": 4.96,
+    "as_of_date": "2026-09-21",
+    "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+    "source_name": "FRED DGS10",
+    "accessed": "2026-09-22"
+  },
+  "credit_ratings": {
+    "moodys": {
+      "rating": "Baa2",
+      "outlook": "Negative",
+      "action_date": "2025-07-28",
+      "source_url": "https://www.investing.com/news/stock-market-news/moodys-revises-oracles-outlook-to-negative-amid-ai-expansion-93CH-4155891",
+      "_note": "Moody's affirmed the Baa2 senior unsecured rating and P-2 commercial paper rating but revised the outlook to negative from stable on 2025-07-28. This is the most recent Moody's outlook/rating change we could verify with a specific date; Oracle's FY2026 10-K (filed 2026-06-22) and subsequent SEC free-writing prospectuses continued to reference an expected Moody's rating of Baa2 (negative) for new notes issuances through at least February 2026, suggesting no change since. Moody's own ratings page (moodys.com/credit-ratings/Oracle-Corporation-credit-rating-561300) could not be fetched directly (subscription/JS-gated)."
+    },
+    "sp": {
+      "rating": "BBB-",
+      "outlook": "Stable",
+      "action_date": "2026-07-09",
+      "source_url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609",
+      "_note": "S&P Global Ratings downgraded Oracle's long-term issuer credit rating one notch to BBB- from BBB, and short-term rating to A-3 from A-2, on 2026-07-09, while assigning a stable outlook -- one notch above speculative grade. Direct fetch of the spglobal.com press release returned HTTP 403 in this environment; the rating/date is corroborated by multiple secondary sources (Yahoo Finance, heise.de, X/tokenando) citing the same 2026-07-09 date and BBB-/A-3/stable outcome. One secondary source (briefs.co) cited 'July 16' instead of July 9 -- flagging this minor date discrepancy for verification against S&P's own RatingsDirect platform if precision is required."
+    },
+    "fitch": {
+      "rating": "BBB",
+      "outlook": "Stable",
+      "action_date": "2026-02-01",
+      "source_url": "https://www.streetinsider.com/Credit+Ratings/Fitch+rates+Oracle+senior+notes+'BBB',+affirms+IDR+with+stable+outlook/25927130.html",
+      "_note": "Fitch's Long-Term IDR is BBB and Short-Term IDR/commercial paper rating is F2, both Stable outlook. Most recent dated action we could verify is 2026-02-01 (assigned BBB to a new benchmark senior notes issuance and affirmed the IDR at BBB/F2, Stable). An earlier affirmation occurred 2025-10-13 (also BBB/Stable). We found references suggesting Fitch may have taken another action around Oracle's July 2026 notes offering (contemporaneous with the S&P downgrade) but could not confirm an exact date for that action, so 2026-02-01 is reported as the latest VERIFIED date; rating level (BBB/Stable) is consistent across all sources found, including the most recent ones."
+    }
+  },
+  "debt_instruments": [
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2026",
+      "coupon_pct": 2.65,
+      "issued_date": "2016-07-07",
+      "maturity_date": "2026-07-15",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due April 2027",
+      "coupon_pct": 2.8,
+      "issued_date": "2020-04-01",
+      "maturity_date": "2027-04-01",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2027",
+      "coupon_pct": 3.25,
+      "issued_date": "2017-11-09",
+      "maturity_date": "2027-11-15",
+      "principal_millions": 2750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due March 2028",
+      "coupon_pct": 2.3,
+      "issued_date": "2021-03-31",
+      "maturity_date": "2028-03-25",
+      "principal_millions": 2000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2028",
+      "coupon_pct": 4.5,
+      "issued_date": "2023-02-06",
+      "maturity_date": "2028-05-31",
+      "principal_millions": 750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due August 2028",
+      "coupon_pct": 4.8,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2028-08-03",
+      "principal_millions": 1500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2029",
+      "coupon_pct": 4.55,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2029-02-04",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due September 2029",
+      "coupon_pct": 4.2,
+      "issued_date": "2024-09-27",
+      "maturity_date": "2029-09-27",
+      "principal_millions": 1500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2029",
+      "coupon_pct": 6.15,
+      "issued_date": "2022-11-09",
+      "maturity_date": "2029-11-09",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due April 2030",
+      "coupon_pct": 2.95,
+      "issued_date": "2020-04-01",
+      "maturity_date": "2030-04-01",
+      "principal_millions": 3250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2030",
+      "coupon_pct": 4.65,
+      "issued_date": "2023-02-06",
+      "maturity_date": "2030-05-31",
+      "principal_millions": 750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2030",
+      "coupon_pct": 3.25,
+      "issued_date": "2023-02-06",
+      "maturity_date": "2030-05-15",
+      "principal_millions": 500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due September 2030",
+      "coupon_pct": 4.45,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2030-09-26",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due February 2031",
+      "coupon_pct": 4.95,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2031-02-04",
+      "principal_millions": 3500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due March 2031",
+      "coupon_pct": 2.875,
+      "issued_date": "2021-03-31",
+      "maturity_date": "2031-03-31",
+      "principal_millions": 3250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2032",
+      "coupon_pct": 5.25,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2032-02-03",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-rate Senior Notes Due September 2032",
+      "coupon_pct": 4.8,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2032-09-26",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2032",
+      "coupon_pct": 6.25,
+      "issued_date": "2022-11-09",
+      "maturity_date": "2032-11-09",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2033",
+      "coupon_pct": 4.9,
+      "issued_date": "2023-02-06",
+      "maturity_date": "2033-02-28",
+      "principal_millions": 1500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due May 2033",
+      "coupon_pct": 5.35,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2033-05-04",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2034",
+      "coupon_pct": 4.3,
+      "issued_date": "2014-07-08",
+      "maturity_date": "2034-07-08",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due September 2034",
+      "coupon_pct": 4.7,
+      "issued_date": "2024-09-27",
+      "maturity_date": "2034-09-27",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2035",
+      "coupon_pct": 3.9,
+      "issued_date": "2015-05-05",
+      "maturity_date": "2035-05-15",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due August 2035",
+      "coupon_pct": 5.5,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2035-08-03",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-rate Senior Notes Due September 2035",
+      "coupon_pct": 5.2,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2035-09-26",
+      "principal_millions": 4000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due February 2036",
+      "coupon_pct": 5.7,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2036-02-04",
+      "principal_millions": 5000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2036",
+      "coupon_pct": 3.85,
+      "issued_date": "2016-07-07",
+      "maturity_date": "2036-07-15",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2037",
+      "coupon_pct": 3.8,
+      "issued_date": "2017-11-09",
+      "maturity_date": "2037-11-15",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due April 2038",
+      "coupon_pct": 6.5,
+      "issued_date": "2008-04-09",
+      "maturity_date": "2038-04-15",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2039",
+      "coupon_pct": 6.125,
+      "issued_date": "2009-07-08",
+      "maturity_date": "2039-07-08",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due April 2040",
+      "coupon_pct": 3.6,
+      "issued_date": "2020-04-01",
+      "maturity_date": "2040-04-01",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate senior notes due July 2040",
+      "coupon_pct": 5.375,
+      "issued_date": "2010-07-12",
+      "maturity_date": "2040-07-15",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due March 2041",
+      "coupon_pct": 3.65,
+      "issued_date": "2021-03-31",
+      "maturity_date": "2041-03-25",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2044",
+      "coupon_pct": 4.5,
+      "issued_date": "2014-07-08",
+      "maturity_date": "2044-07-08",
+      "principal_millions": 1000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2045",
+      "coupon_pct": 4.125,
+      "issued_date": "2015-05-05",
+      "maturity_date": "2045-05-15",
+      "principal_millions": 2000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due September 2045",
+      "coupon_pct": 5.875,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2045-09-26",
+      "principal_millions": 2500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed Rate Senior Notes Due February 2046",
+      "coupon_pct": 6.55,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2046-02-04",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due July 2046",
+      "coupon_pct": 4,
+      "issued_date": "2016-07-07",
+      "maturity_date": "2046-07-15",
+      "principal_millions": 3000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2047",
+      "coupon_pct": 4,
+      "issued_date": "2017-11-09",
+      "maturity_date": "2047-11-15",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due April 2050",
+      "coupon_pct": 3.6,
+      "issued_date": "2020-04-01",
+      "maturity_date": "2050-04-01",
+      "principal_millions": 4500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due March 2051",
+      "coupon_pct": 3.95,
+      "issued_date": "2021-03-31",
+      "maturity_date": "2051-03-25",
+      "principal_millions": 3250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due November 2052",
+      "coupon_pct": 6.9,
+      "issued_date": "2022-11-09",
+      "maturity_date": "2052-11-09",
+      "principal_millions": 2500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2053",
+      "coupon_pct": 5.55,
+      "issued_date": "2023-02-06",
+      "maturity_date": "2053-02-28",
+      "principal_millions": 2250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due September 2054",
+      "coupon_pct": 5.375,
+      "issued_date": "2024-09-27",
+      "maturity_date": "2054-09-27",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due May 2055",
+      "coupon_pct": 4.375,
+      "issued_date": "2015-05-05",
+      "maturity_date": "2055-05-15",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due August 2055",
+      "coupon_pct": 6,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2055-08-03",
+      "principal_millions": 1750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-rate Senior Notes Due September 2055",
+      "coupon_pct": 5.95,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2055-09-26",
+      "principal_millions": 3500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2056",
+      "coupon_pct": 6.7,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2056-02-04",
+      "principal_millions": 5000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due April 2060",
+      "coupon_pct": 3.85,
+      "issued_date": "2020-04-01",
+      "maturity_date": "2060-04-01",
+      "principal_millions": 3500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due March 2061",
+      "coupon_pct": 4.1,
+      "issued_date": "2021-03-31",
+      "maturity_date": "2061-03-25",
+      "principal_millions": 1500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due September 2064",
+      "coupon_pct": 5.5,
+      "issued_date": "2024-09-27",
+      "maturity_date": "2064-09-27",
+      "principal_millions": 1250,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due August 2065",
+      "coupon_pct": 6.125,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2065-08-03",
+      "principal_millions": 1000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-rate Senior Notes Due September 2065",
+      "coupon_pct": 6.1,
+      "issued_date": "2025-09-26",
+      "maturity_date": "2065-09-26",
+      "principal_millions": 2000,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Fixed-Rate Senior Notes Due February 2066",
+      "coupon_pct": 6.85,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2066-02-04",
+      "principal_millions": 2750,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Floating-rate senior notes due August 2028",
+      "coupon_pct": 0.76,
+      "issued_date": "2025-02-03",
+      "maturity_date": "2028-08-03",
+      "principal_millions": 500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Floating-Rate Senior Notes Due February 2029",
+      "coupon_pct": 1.11,
+      "issued_date": "2026-02-04",
+      "maturity_date": "2029-02-04",
+      "principal_millions": 500,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Term Loan Credit Agreement (SOFR + 1.35% spread; due August 2027)",
+      "coupon_pct": 5.29,
+      "issued_date": "2024-06-06",
+      "maturity_date": "2027-08-16",
+      "principal_millions": 5137,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    },
+    {
+      "series_name": "Commercial Paper Program (various maturities, weighted-avg effective rate)",
+      "coupon_pct": 4.35,
+      "issued_date": null,
+      "maturity_date": null,
+      "principal_millions": 1468,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+    }
+  ],
+  "notes": [
+    "All five data-gathering steps completed; see per-field _note entries for source caveats.",
+    "STOOQ CSV ENDPOINTS FAILED: both https://stooq.com/q/d/l/?s=orcl.us&i=d and https://stooq.com/q/d/l/?s=^spx&i=d returned an HTML/JavaScript proof-of-work bot-verification challenge page instead of CSV data (not solvable without executing arbitrary client-side JS to satisfy a SHA-256 proof-of-work challenge, which was treated as bot-detection and not bypassed). As a substitute free public data source, used Yahoo Finance's public chart JSON endpoint (https://query1.finance.yahoo.com/v8/finance/chart/ORCL?range=3y&interval=1d and analogous %5EGSPC URL), fetched directly via HTTPS on 2026-09-22, and converted to the same Date,Open,High,Low,Close,Volume CSV layout stooq would have produced. Data was cross-validated against FRED's SP500 series (exact match on 2026-09-21 close: 7764.70) and against stockanalysis.com's live ORCL quote (exact match on 2026-09-22 close: 149.20), so the substitute source is considered reliable.",
+    "prices_orcl_daily.csv and prices_spx_daily.csv each contain 751 daily rows (plus a 1-row header = 752 lines) spanning 2023-09-25 through 2026-09-22.",
+    "WSJ market-data quotes page (wsj.com) and Google Finance could not be fetched in this tool environment (WSJ blocked outright; Google Finance returned an 'unsupported device' placeholder with no data). stockanalysis.com and FRED were used as the primary public quote sources instead, as permitted by the task's example source list.",
+    "Oracle's own IR 'Debt Overview' / fixed income page (investor.oracle.com) was searched for but not located at a specific stable URL via web search in this session; credit ratings were instead sourced from the rating agencies' own press releases/regulatory filings (S&P Global Ratings site) and reputable financial press (Investing.com, StreetInsider) reporting those releases verbatim with dates.",
+    "Debt instrument table cross-validated internally: sum of all 58 listed instruments' principal_millions = 130,105, which matches Oracle's FY2026 10-K disclosed 'Total notes payable and other borrowings' (gross, before unamortized discount) of $130,105 million exactly (source: R55.htm within the same 10-K accession, filing index https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/). Current portion $7,199M; non-current $122,342M (net of $564M unamortized discount/issuance costs; net total $129,541M, the figure carried in quarters.json for FY2026Q4).",
+    "Coupon rates for the 2 floating-rate senior notes (due Aug 2028 and Feb 2029) are reported as their SOFR spread (0.76% and 1.11% respectively), not an all-in rate, consistent with how the 10-K's 'stated interest rate percentage' field defines them. The Term Loan's coupon_pct (5.29%) is its FY2026 effective/all-in interest rate (after interest rate swaps), since its base rate is SOFR + 1.35% and an all-in comparable figure is more decision-useful for a board model; the raw SOFR+1.35% spread is noted in its series_name instead.",
+    "Some duplicate-maturity series exist by design per the 10-K (e.g., two separate notes both maturing in May 2030, and both a fixed- and floating-rate tranche maturing in Aug 2028 and again in Feb 2029) -- these are distinct instruments, not data errors."
+  ]
+}

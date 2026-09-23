@@ -1,0 +1,21 @@
+{
+  "_comment": "Content for section 10 (plain-language explainers). Populated with verified figures cross-checked between the Q1 FY2027 8-K press release and the Q1 FY2027 10-Q itself.",
+  "rpo": {
+    "title_en": "Remaining Performance Obligations (RPO)",
+    "title_es": "Obligaciones de Desempeño Restantes (RPO)",
+    "plain_en": "RPO is Oracle's order backlog: contracted revenue that customers have committed to pay but that Oracle hasn't recognized yet because the service hasn't been delivered. A single multi-year cloud contract signed today adds its full value to RPO immediately, even though the revenue will only show up in the income statement gradually, quarter by quarter, as Oracle actually runs the workloads. That's why RPO can jump sharply in one quarter (from signing a few very large AI infrastructure contracts) well before revenue catches up.",
+    "plain_es": "El RPO es la cartera de pedidos de Oracle: ingresos contratados que los clientes se han comprometido a pagar pero que Oracle aún no ha reconocido porque el servicio todavía no se ha entregado. Un solo contrato de nube multianual firmado hoy suma su valor total al RPO de inmediato, aunque el ingreso solo aparecerá en el estado de resultados de forma gradual, trimestre a trimestre, conforme Oracle efectivamente opere las cargas de trabajo. Por eso el RPO puede saltar bruscamente en un trimestre (por la firma de unos cuantos contratos muy grandes de infraestructura de IA) mucho antes de que el ingreso lo alcance.",
+    "quote_en": "“Remaining performance obligations were $664 billion as of August 31, 2026, of which we expect to recognize approximately 13% as revenues over the next twelve months, 37% over the subsequent month 13 to month 36, 34% over the subsequent month 37 to month 60 and the remainder thereafter.”",
+    "quote_es": "“Las obligaciones de desempeño restantes fueron de $664,000 millones al 31 de agosto de 2026, de las cuales esperamos reconocer aproximadamente 13% como ingresos en los próximos doce meses, 37% entre el mes 13 y el mes 36, 34% entre el mes 37 y el mes 60, y el resto después.”",
+    "quote_source": "S-10Q-FY2027Q1",
+    "recognition_schedule": [
+      { "bucket_en": "Next 12 months", "bucket_es": "Próximos 12 meses", "pct": 13, "amount_bn": 86 },
+      { "bucket_en": "Months 13–36", "bucket_es": "Meses 13–36", "pct": 37, "amount_bn": 246 },
+      { "bucket_en": "Months 37–60", "bucket_es": "Meses 37–60", "pct": 34, "amount_bn": 226 },
+      { "bucket_en": "Beyond 60 months", "bucket_es": "Más allá de 60 meses", "pct": 16, "amount_bn": 106 }
+    ],
+    "caution_en": "RPO is a useful leading indicator of demand, not a guarantee: contracts can be modified or, in rare cases, cancelled, and the conversion pace depends on Oracle actually building and energizing enough data-center capacity to deliver the workloads — which is precisely why capital expenditure (Section 09) is the metric to watch alongside it.",
+    "caution_es": "El RPO es un buen indicador adelantado de la demanda, no una garantía: los contratos pueden modificarse o, en casos excepcionales, cancelarse, y el ritmo de conversión depende de que Oracle efectivamente construya y energice suficiente capacidad de centros de datos para entregar las cargas de trabajo — precisamente por eso el gasto de capital (Sección 09) es la métrica que hay que vigilar junto con esta.",
+    "source": "S-10Q-FY2027Q1"
+  }
+}

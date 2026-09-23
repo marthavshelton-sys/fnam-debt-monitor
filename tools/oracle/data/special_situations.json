@@ -1,0 +1,31 @@
+{
+  "_comment": "Content for section 09. Every figure here must already exist, identically, in quarters.json — this section narrates, it doesn't introduce new numbers.",
+  "ai_cloud_buildout": {
+    "title_en": "The AI cloud infrastructure buildout",
+    "title_es": "La expansión de infraestructura de nube de IA",
+    "what_it_is_en": "Since fiscal 2026, Oracle has been signing very large, multi-year cloud infrastructure (OCI) contracts tied to AI workloads, and building the data-center capacity to deliver them. The clearest evidence is in three linked numbers: RPO (order backlog) more than doubling, quarterly capital expenditure running far above quarterly operating cash flow, and total debt rising to fund the gap. This is a capital-intensive bet that current bookings convert into cloud revenue on schedule.",
+    "what_it_is_es": "Desde el año fiscal 2026, Oracle ha estado firmando contratos de infraestructura de nube (OCI) muy grandes y multianuales ligados a cargas de trabajo de IA, y construyendo la capacidad de centros de datos para entregarlos. La evidencia más clara está en tres cifras vinculadas: el RPO (cartera de pedidos) más que duplicándose, el gasto de capital trimestral corriendo muy por encima del flujo operativo trimestral, y la deuda total aumentando para financiar la brecha. Es una apuesta intensiva en capital a que las contrataciones actuales se conviertan en ingreso de nube según lo previsto.",
+    "fact_grid": [
+      { "k_en": "RPO, Q1 FY2027", "k_es": "RPO, 1T AF2027", "v": "$664bn", "source": "S-10Q-FY2027Q1" },
+      { "k_en": "RPO YoY change", "k_es": "Variación RPO interanual", "v": "+$209bn", "source": "S-8K-FY2027Q1" },
+      { "k_en": "Capex, Q1 FY2027", "k_es": "Capex, 1T AF2027", "v": "$28.5bn", "source": "S-10Q-FY2027Q1" },
+      { "k_en": "Operating cash flow, Q1 FY2027", "k_es": "Flujo operativo, 1T AF2027", "v": "$23.1bn", "source": "S-8K-FY2027Q1" },
+      { "k_en": "Free cash flow, Q1 FY2027", "k_es": "Flujo libre, 1T AF2027", "v": "$(5.4)bn", "source": "S-8K-FY2027Q1" },
+      { "k_en": "Total debt, Aug 31 2026", "k_es": "Deuda total, 31 ago 2026", "v": "$125.3bn", "source": "S-8K-FY2027Q1" },
+      { "k_en": "Total debt, May 31 2026", "k_es": "Deuda total, 31 may 2026", "v": "$122.3bn", "source": "S-8K-FY2027Q1" },
+      { "k_en": "FY2027 revenue guidance", "k_es": "Guía de ingresos AF2027", "v": "at least $90bn", "source": "S-8K-FY2027Q1" }
+    ],
+    "model_impact_en": [
+      "DCF (Section 05): capex and D&A assumptions for the projection years should be anchored to this buildout, not to Oracle's historical (pre-2026) capital intensity — using the old capex/revenue ratio would understate near-term free-cash-flow pressure.",
+      "Leverage (Section 07): net debt/EBITDA is rising mechanically as debt funds capex ahead of the RPO converting to revenue; watch the maturity profile and coupon on any new issuance.",
+      "Guidance tracking (Section 02): the FY2027 “at least $90bn” revenue guidance and the cloud-growth ranges are the number to reconcile actual quarters against — a miss here is the single most important early-warning signal for the buildout thesis."
+    ],
+    "model_impact_es": [
+      "DCF (Sección 05): los supuestos de capex y D&A de los años de proyección deben anclarse a esta expansión, no a la intensidad de capital histórica de Oracle (previa a 2026) — usar la razón capex/ingresos anterior subestimaría la presión sobre el flujo libre de efectivo de corto plazo.",
+      "Apalancamiento (Sección 07): la deuda neta/EBITDA sube mecánicamente porque la deuda financia el capex antes de que el RPO se convierta en ingreso; vigilar el perfil de vencimientos y el cupón de cualquier nueva emisión.",
+      "Seguimiento de guía (Sección 02): la guía de ingresos AF2027 de “al menos $90,000 millones” y los rangos de crecimiento de nube son la cifra contra la que hay que conciliar los trimestres reales — un incumplimiento aquí es la señal de alerta temprana más importante para la tesis de la expansión."
+    ],
+    "pending_enrichment_en": "Named-counterparty contract terms (e.g. specific customer agreements) are not yet sourced to a citable public filing and are deliberately omitted; the 10-K's customer-concentration risk factor and any earnings-call transcript, once supplied, would be the right sources to enrich this section.",
+    "pending_enrichment_es": "Los términos de contratos con contrapartes nombradas (p. ej. acuerdos con clientes específicos) aún no están sustentados en un documento público citable y se omiten deliberadamente; el factor de riesgo de concentración de clientes del 10-K y cualquier transcripción de llamada de resultados, una vez proporcionada, serían las fuentes adecuadas para enriquecer esta sección."
+  }
+}

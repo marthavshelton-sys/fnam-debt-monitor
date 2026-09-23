@@ -30,6 +30,10 @@
 /gentera/data/*
   Cache-Control: no-store
 
+# Oracle model data files: same daily / after-each-release refresh under fixed URLs.
+/oracle/data/*
+  Cache-Control: no-store
+
 # Mexico fiscal monitor: same daily-commit / monthly-PR pattern as /fiscal/.
 /mx/fiscal/data.js
   Cache-Control: no-store

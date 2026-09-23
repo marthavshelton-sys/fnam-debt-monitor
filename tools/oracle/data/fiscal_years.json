@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "currency": "USD",
+    "units": "millions, except per-share",
+    "fiscal_year_end": "May 31",
+    "note_en": "Annual figures from the Q4 release's full-year columns / the 10-K. net_income is net income available to common shareholders where preferred dividends exist.",
+    "note_es": "Cifras anuales de las columnas de año completo del reporte del 4T / el 10-K. La utilidad neta es la disponible para accionistas comunes cuando existen dividendos preferentes."
+  },
+  "fiscal_years": {
+    "FY2025": {
+      "source": "S-8K-FY2025Q4",
+      "gaap": {
+        "revenue_total": 57399,
+        "operating_income": 17678,
+        "net_income": 12443,
+        "diluted_eps": 4.34,
+        "operating_cash_flow": 20821,
+        "capex": -21215
+      },
+      "non_gaap": {
+        "operating_income": 25033,
+        "net_income": 17284,
+        "diluted_eps": 6.03
+      },
+      "da": {
+        "depreciation": 3867,
+        "amortization_of_intangibles": 2307,
+        "total_da": 6174
+      },
+      "revenue_recast_fy2026_basis": {
+        "cloud": 24506,
+        "software": 24724,
+        "hardware": 2936,
+        "services": 5233,
+        "total": 57399,
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
+      }
+    },
+    "FY2026": {
+      "source": "S-8K-FY2026Q4",
+      "gaap": {
+        "revenue_total": 67357,
+        "operating_income": 20606,
+        "net_income": 16984,
+        "diluted_eps": 5.83,
+        "operating_cash_flow": 31977,
+        "capex": -55663
+      },
+      "non_gaap": {
+        "operating_income": 28926,
+        "net_income": 22234,
+        "diluted_eps": 7.63
+      },
+      "da": {
+        "depreciation": 7623,
+        "amortization_of_intangibles": 1671,
+        "total_da": 9294
+      }
+    },
+    "FY2024": {
+      "source": "S-8K-FY2024Q4",
+      "gaap": {
+        "revenue_total": 52961,
+        "operating_income": 15353,
+        "net_income": 10467,
+        "diluted_eps": 3.71,
+        "operating_cash_flow": 18673,
+        "capex": -6866
+      },
+      "non_gaap": {
+        "operating_income": 23055,
+        "net_income": 15710,
+        "diluted_eps": 5.56
+      },
+      "da": {
+        "depreciation": 3129,
+        "amortization_of_intangibles": 3010,
+        "total_da": 6139
+      }
+    },
+    "FY2022": {
+      "source": "S-8K-FY2022Q4",
+      "gaap": {
+        "revenue_total": 42440,
+        "operating_income": 10926,
+        "net_income": 6717,
+        "diluted_eps": 2.41,
+        "operating_cash_flow": 9539,
+        "capex": -4511
+      },
+      "non_gaap": {
+        "operating_income": 19593,
+        "net_income": 13661,
+        "diluted_eps": 4.9
+      },
+      "da": {
+        "depreciation": 1972,
+        "amortization_of_intangibles": 1150,
+        "total_da": 3122,
+        "_note": "Taken directly from the Year Ended May 31, 2022 cash flow statement lines 'Depreciation' ($1,972M) and 'Amortization of intangible assets' ($1,150M) in the Q4/FY2022 exhibit. Equals the sum of the Q1 reference plus the three derived quarterly 'da' figures."
+      }
+    },
+    "FY2023": {
+      "source": "S-8K-FY2023Q4",
+      "gaap": {
+        "revenue_total": 49954,
+        "operating_income": 13093,
+        "net_income": 8503,
+        "diluted_eps": 3.07,
+        "operating_cash_flow": 17165,
+        "capex": -8695
+      },
+      "non_gaap": {
+        "operating_income": 20902,
+        "net_income": 14176,
+        "diluted_eps": 5.12
+      },
+      "da": {
+        "depreciation": 2526,
+        "amortization_of_intangibles": 3582,
+        "total_da": 6108,
+        "_note": "From the Year Ended May 31, 2023 Condensed Consolidated Statement of Cash Flows ('Depreciation' $2,526M; 'Amortization of intangible assets' $3,582M). Equals the sum of the four discrete quarters (depreciation 547+591+672+716; amortization 919+907+886+870) exactly. Amortization agrees with the Year Ended May 31, 2023 income-statement line of $3,582M."
+      }
+    }
+  }
+}

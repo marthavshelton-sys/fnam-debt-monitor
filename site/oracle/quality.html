@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Oracle model — data quality</title>
+<script src="data/quality.js"></script>
+<style>
+:root{--page:#f9f9f7;--surface:#fcfcfb;--text:#0b0b0b;--muted:#898781;--border:rgba(11,11,11,.1);--good:#006300;--bad:#d03b3b;--accent:#1b4332;}
+@media (prefers-color-scheme:dark){:root{--page:#0d0d0d;--surface:#1a1a19;--text:#fff;--muted:#918f88;--border:rgba(255,255,255,.1);--good:#0ca30c;--bad:#e66767;--accent:#4f9a76;}}
+body{margin:0;background:var(--page);color:var(--text);font:14px/1.5 Inter,system-ui,sans-serif;}
+.wrap{max-width:1000px;margin:0 auto;padding:40px 24px;}
+h1{font-family:"Source Serif 4",Georgia,serif;font-size:28px;margin:0 0 6px;}
+h2{font-family:"Source Serif 4",Georgia,serif;font-size:18px;margin:28px 0 8px;}
+.muted{color:var(--muted);} .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
+.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0;}
+.strip div{background:var(--surface);padding:12px 14px;} .strip .l{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);} .strip .v{font-size:22px;font-weight:700;}
+ul{margin:0;padding-left:18px;font-size:12.5px;line-height:1.8;} .ok{color:var(--good);} .bad{color:var(--bad);}
+</style>
+</head>
+<body><div class="wrap">
+<h1>Data quality — Oracle board model</h1>
+<p class="muted" id="meta">Every tie-out check, warning and stale series from the last build, plus the automation state. Unlinked page for the owner.</p>
+<div class="strip" id="strip"></div>
+<h2>Failures</h2><div class="card" id="failures"></div>
+<h2>Stale series &amp; warnings</h2><div class="card" id="warnings"></div>
+<h2>Automation state</h2><div class="card" id="state"></div>
+<h2>Checks passed</h2><div class="card" id="passed"></div>
+<script>
+(function(){
+  const Qy = window.ORCL_QUALITY || {}; const rep = Qy.report, st = Qy.state;
+  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const list = (arr, empty, cls) => (arr && arr.length ? `<ul>${arr.map((x) => `<li class="${cls || ''}">${esc(x)}</li>`).join('')}</ul>` : `<p class="muted" style="margin:0">${empty}</p>`);
+  if (!rep) { document.getElementById('meta').textContent = 'No quality report — run node scripts/oracle/validate-data.mjs && node scripts/oracle/build-data.mjs.'; return; }
+  document.getElementById('meta').textContent = `Generated ${rep.generated}`;
+  const tiles = [['Checks', rep.summary.checks], ['Failed', rep.summary.failed], ['Warnings', rep.summary.warnings], ['Stale', rep.summary.stale], ['Status', rep.summary.failed ? 'BUILD FAILED' : 'OK']];
+  document.getElementById('strip').innerHTML = tiles.map(([l, v]) => `<div><div class="l">${l}</div><div class="v ${l === 'Status' ? (rep.summary.failed ? 'bad' : 'ok') : ''}">${esc(v)}</div></div>`).join('');
+  document.getElementById('failures').innerHTML = list(rep.failures, 'None.', 'bad');
+  document.getElementById('warnings').innerHTML = list([...(rep.stale || []).map((s) => 'STALE — ' + s), ...(rep.warnings || [])], 'None.');
+  document.getElementById('passed').innerHTML = list(rep.passed, 'None recorded.', 'ok');
+  if (st) document.getElementById('state').innerHTML = `<p style="margin:0 0 8px">Last harvest: <b>${esc(st.last_harvest ?? '—')}</b> · last review: <b>${esc(st.last_review ?? '—')}</b> · filings seen: <b>${st.seen}</b> · pending extraction: <b>${(st.pending || []).length}</b></p>` + list((st.pending || []).map((p) => `${p.form} ${p.report_date} — ${p.url}`), 'Nothing pending.') + '<h2 style="font-size:14px;margin:12px 0 4px">Log</h2>' + list((st.log || []).slice().reverse().map((l) => `${l.date} — ${l.event}${l.note ? ': ' + l.note : ''}${l.quarter ? ' (' + l.quarter + ')' : ''}`), 'Empty.');
+})();
+</script>
+</div></body>
+</html>

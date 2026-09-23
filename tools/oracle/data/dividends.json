@@ -1,0 +1,148 @@
+{
+  "meta": {
+    "note_en": "Quarterly cash dividends declared by the board, as announced in each earnings release.",
+    "note_es": "Dividendos trimestrales en efectivo declarados por el consejo, según se anuncian en cada reporte de resultados."
+  },
+  "dividends": [
+    {
+      "declared_date": "2026-09-10",
+      "amount_per_share": 0.5,
+      "record_date": "2026-10-09",
+      "payment_date": "2026-10-23",
+      "source": "S-8K-FY2027Q1"
+    },
+    {
+      "declared_date": "2026-06-10",
+      "amount_per_share": 0.5,
+      "record_date": "2026-07-10",
+      "payment_date": "2026-07-24",
+      "source": "S-8K-FY2026Q4"
+    },
+    {
+      "declared_date": "2026-03-10",
+      "amount_per_share": 0.5,
+      "record_date": "2026-04-09",
+      "payment_date": "2026-04-24",
+      "source": "S-8K-FY2026Q3"
+    },
+    {
+      "declared_date": "2025-12-10",
+      "amount_per_share": 0.5,
+      "record_date": "2026-01-09",
+      "payment_date": "2026-01-23",
+      "source": "S-8K-FY2026Q2"
+    },
+    {
+      "declared_date": "2025-09-09",
+      "amount_per_share": 0.5,
+      "record_date": "2025-10-09",
+      "payment_date": "2025-10-23",
+      "source": "S-8K-FY2026Q1"
+    },
+    {
+      "declared_date": "2025-06-11",
+      "amount_per_share": 0.5,
+      "record_date": "2025-07-10",
+      "payment_date": "2025-07-24",
+      "source": "S-8K-FY2025Q4"
+    },
+    {
+      "declared_date": "2025-03-10",
+      "amount_per_share": 0.5,
+      "record_date": "2025-04-10",
+      "payment_date": "2025-04-23",
+      "source": "S-8K-FY2025Q3"
+    },
+    {
+      "declared_date": "2024-12-09",
+      "amount_per_share": 0.4,
+      "record_date": "2025-01-09",
+      "payment_date": "2025-01-23",
+      "source": "S-8K-FY2025Q2"
+    },
+    {
+      "declared_date": "2024-09-09",
+      "amount_per_share": 0.4,
+      "record_date": "2024-10-10",
+      "payment_date": "2024-10-24",
+      "source": "S-8K-FY2025Q1"
+    },
+    {
+      "declared_date": "2024-06-11",
+      "amount_per_share": 0.4,
+      "record_date": "2024-07-11",
+      "payment_date": "2024-07-25",
+      "source": "S-8K-FY2024Q4"
+    },
+    {
+      "declared_date": "2024-03-11",
+      "amount_per_share": 0.4,
+      "record_date": "2024-04-10",
+      "payment_date": "2024-04-24",
+      "source": "S-8K-FY2024Q3"
+    },
+    {
+      "declared_date": "2023-12-11",
+      "amount_per_share": 0.4,
+      "record_date": "2024-01-11",
+      "payment_date": "2024-01-25",
+      "source": "S-8K-FY2024Q2"
+    },
+    {
+      "declared_date": "2023-09-11",
+      "amount_per_share": 0.4,
+      "record_date": "2023-10-12",
+      "payment_date": "2023-10-26",
+      "source": "S-8K-FY2024Q1"
+    },
+    {
+      "declared_date": "2023-06-12",
+      "amount_per_share": 0.4,
+      "record_date": "2023-07-12",
+      "payment_date": "2023-07-26",
+      "source": "S-8K-FY2023Q4"
+    },
+    {
+      "declared_date": "2023-03-09",
+      "amount_per_share": 0.4,
+      "record_date": "2023-04-11",
+      "payment_date": "2023-04-24",
+      "source": "S-8K-FY2023Q3"
+    },
+    {
+      "declared_date": "2022-12-12",
+      "amount_per_share": 0.32,
+      "record_date": "2023-01-10",
+      "payment_date": "2023-01-24",
+      "source": "S-8K-FY2023Q2"
+    },
+    {
+      "declared_date": "2022-09-12",
+      "amount_per_share": 0.32,
+      "record_date": "2022-10-12",
+      "payment_date": "2022-10-25",
+      "source": "S-8K-FY2023Q1"
+    },
+    {
+      "declared_date": "2022-06-13",
+      "amount_per_share": 0.32,
+      "record_date": "2022-07-12",
+      "payment_date": "2022-07-26",
+      "source": "S-8K-FY2022Q4"
+    },
+    {
+      "declared_date": "2022-03-10",
+      "amount_per_share": 0.32,
+      "record_date": "2022-04-08",
+      "payment_date": "2022-04-21",
+      "source": "S-8K-FY2022Q3"
+    },
+    {
+      "declared_date": "2021-12-09",
+      "amount_per_share": 0.32,
+      "record_date": "2022-01-07",
+      "payment_date": "2022-01-19",
+      "source": "S-8K-FY2022Q2"
+    }
+  ]
+}

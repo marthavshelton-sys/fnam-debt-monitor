@@ -1,0 +1,6 @@
+{
+  "_comment": "Owner-set alert thresholds read by tools/oracle/ROUTINE.md. Any breach triggers the owner email in addition to calendar events (new filing, new quarter, guidance change).",
+  "share_move_pct_1d": 8,
+  "net_debt_to_ltm_ebitda_max": 3.0,
+  "guidance_tracking": true
+}

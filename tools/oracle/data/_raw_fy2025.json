@@ -1,0 +1,425 @@
+{
+  "_extraction_notes": {
+    "revenue_line_mapping": "Oracle's GAAP income statement reports four revenue lines: 'Cloud services and license support' (combined cloud services + on-premise license support), 'Cloud license and on-premise license' (new license revenue), 'Hardware', and 'Services'. In this schema they are mapped as revenue.cloud = 'Cloud services and license support' and revenue.software = 'Cloud license and on-premise license', using Oracle's own reported figures verbatim (no re-allocation or estimation).",
+    "capex_sign_convention": "capex_quarter and capex figures are stored as positive magnitudes (spend), consistent with the source press releases' Free Cash Flow tables. free_cash_flow_quarter = operating_cash_flow_quarter - capex_quarter.",
+    "quarterly_cash_flow_derivation": "Oracle's Q2, Q3, and Q4 (and full-year) press releases present GAAP cash flow statements on a year-to-date (cumulative fiscal-year) basis, not discrete-quarter. Discrete quarterly operating cash flow and capex for Q2-Q4 were derived by subtracting the prior cumulative period (from the prior quarter's own 8-K Exhibit 99.1) from the current cumulative period, both sourced from Oracle's own SEC filings. Q1 figures are reported directly on a discrete 3-month basis. Cross-check: sum of the four derived/reported quarterly operating cash flows (7,427+1,304+5,933+6,157=20,821) equals the FY2025 full-year GAAP operating cash flow of $20,821M exactly, and sum of quarterly capex (2,303+3,970+5,862+9,080=21,215) equals FY2025 full-year capex of $21,215M exactly, and the resulting FY FCF of -394 matches the free-cash-flow trailing-4-quarter table printed in the Q4 exhibit ($(394)M) -- validating the derivation.",
+    "rpo_disclosure": "Remaining Performance Obligations (RPO) totals are disclosed in each press release only as rounded headline figures (e.g. '$99 billion'), not to the exact million, and no exact-dollar RPO figure appears elsewhere in the Exhibit 99.1 press releases. Values below are recorded in $ millions at the rounded precision disclosed (e.g. 99000 for '$99 billion') with the YoY % change as stated.",
+    "guidance_disclosure": "Oracle's Exhibit 99.1 earnings press releases for Q1-Q3 FY2025 do not contain a quantified forward-guidance table (no next-quarter revenue growth %, cloud growth %, or non-GAAP EPS range). Quantified guidance of this kind is typically given verbally on the earnings conference call (a separate document, not part of this 8-K exhibit) and was NOT extracted here to preserve strict SEC-filing sourcing. The Q4/FY2025 release contains only qualitative FY2026 outlook commentary from the CEO (quoted in guidance_issued._note for FY2025Q4), not a quantified guidance table.",
+    "preferred_dividends": "Oracle has no preferred stock outstanding in FY2025; preferred_dividends is 0 in all periods and net_income_common equals net_income."
+  },
+  "quarters": [
+    {
+      "id": "FY2025Q1",
+      "fiscal_year": 2025,
+      "fiscal_quarter": 1,
+      "period_end": "2024-08-31",
+      "period_label_en": "Q1 FY2025 (Jun-Aug 2024)",
+      "period_label_es": "1T AF2025 (jun-ago 2024)",
+      "release_date": "2024-09-09",
+      "source": {
+        "title": "Oracle Q1 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104753/orcl-ex99_1.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 10519,
+          "software": 870,
+          "hardware": 655,
+          "services": 1263,
+          "total": 13307,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 2597,
+          "hardware_cost": 162,
+          "services_cost": 1147,
+          "sales_and_marketing": 2036,
+          "research_and_development": 2306,
+          "general_and_administrative": 358,
+          "amortization_of_intangibles": 624,
+          "restructuring_and_other": 86,
+          "total": 9316,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($13M) + 'Restructuring' ($73M), Oracle's two separate GAAP lines, combined per schema."
+        },
+        "operating_income": 3991,
+        "interest_expense": -842,
+        "nonoperating_income_net": 20,
+        "pretax_income": 3169,
+        "tax_provision": -240,
+        "net_income": 2929,
+        "preferred_dividends": 0,
+        "net_income_common": 2929,
+        "diluted_eps": 1.03,
+        "diluted_shares": 2851
+      },
+      "non_gaap": {
+        "operating_income": 5708,
+        "net_income_common": 3964,
+        "diluted_eps": 1.39,
+        "reconciling_items": {
+          "stock_based_compensation": 1007,
+          "amortization_of_intangibles": 624,
+          "restructuring_and_other": 86,
+          "tax_effect_of_adjustments": -682
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 10616,
+        "marketable_securities": 295,
+        "cash_and_investments_total": 10911,
+        "total_assets": 144214,
+        "current_deferred_revenue": 11455,
+        "short_term_debt": 9201,
+        "long_term_debt": 75314,
+        "total_debt": 84515,
+        "stockholders_equity": 11269
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 7427,
+        "capex_quarter": 2303,
+        "free_cash_flow_quarter": 5124,
+        "_note": "Reported directly on a discrete three-months-ended basis in the Q1 exhibit."
+      },
+      "rpo": {
+        "total": 99000,
+        "yoy_change": 53,
+        "note_en": "Total Remaining Performance Obligations up 53% year-over-year to a record $99 billion, as stated in the press release headline (not disclosed to the exact million in the exhibit).",
+        "note_es": "Las Obligaciones de Desempeno Restantes totales aumentaron 53% interanual a un record de $99 mil millones, segun se indica en el titular del comunicado (no se revela al millon exacto en el anexo)."
+      },
+      "dividend_declared_per_share": 0.40,
+      "dividend_record_date": "2024-10-10",
+      "dividend_payment_date": "2024-10-24",
+      "guidance_issued": {
+        "for_period": "Q2 FY2025",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified forward guidance is contained in this Exhibit 99.1 press release; Oracle communicates quarterly guidance verbally on its earnings conference call, which is a separate document not part of this 8-K exhibit."
+      }
+    },
+    {
+      "id": "FY2025Q2",
+      "fiscal_year": 2025,
+      "fiscal_quarter": 2,
+      "period_end": "2024-11-30",
+      "period_label_en": "Q2 FY2025 (Sep-Nov 2024)",
+      "period_label_es": "2T AF2025 (sep-nov 2024)",
+      "release_date": "2024-12-09",
+      "source": {
+        "title": "Oracle Q2 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134537/orcl-ex99_1.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 10806,
+          "software": 1195,
+          "hardware": 728,
+          "services": 1330,
+          "total": 14059,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 2746,
+          "hardware_cost": 172,
+          "services_cost": 1167,
+          "sales_and_marketing": 2190,
+          "research_and_development": 2471,
+          "general_and_administrative": 387,
+          "amortization_of_intangibles": 591,
+          "restructuring_and_other": 115,
+          "total": 9839,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($31M) + 'Restructuring' ($84M)."
+        },
+        "operating_income": 4220,
+        "interest_expense": -866,
+        "nonoperating_income_net": 36,
+        "pretax_income": 3390,
+        "tax_provision": -239,
+        "net_income": 3151,
+        "preferred_dividends": 0,
+        "net_income_common": 3151,
+        "diluted_eps": 1.10,
+        "diluted_shares": 2869
+      },
+      "non_gaap": {
+        "operating_income": 6096,
+        "net_income_common": 4207,
+        "diluted_eps": 1.47,
+        "reconciling_items": {
+          "stock_based_compensation": 1170,
+          "amortization_of_intangibles": 591,
+          "restructuring_and_other": 115,
+          "tax_effect_of_adjustments": -820
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 10941,
+        "marketable_securities": 370,
+        "cash_and_investments_total": 11311,
+        "total_assets": 148483,
+        "current_deferred_revenue": 9430,
+        "short_term_debt": 8162,
+        "long_term_debt": 80462,
+        "total_debt": 88624,
+        "stockholders_equity": 14236
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 1304,
+        "capex_quarter": 3970,
+        "free_cash_flow_quarter": -2666,
+        "_note": "Derived: Q2 exhibit reports cash flow on a six-months-ended Nov 30, 2024 cumulative basis (OCF $8,731M; capex $6,273M). Q2-only = six-month cumulative minus Q1's reported three-month figures (OCF $7,427M; capex $2,303M) from the Q1 8-K Exhibit 99.1."
+      },
+      "rpo": {
+        "total": 97000,
+        "yoy_change": 49,
+        "note_en": "Total Remaining Performance Obligations $97 billion, up 49% in USD and 50% in constant currency, as stated in the press release headline (not disclosed to the exact million in the exhibit).",
+        "note_es": "Las Obligaciones de Desempeno Restantes totales fueron $97 mil millones, un aumento de 49% en USD y 50% en moneda constante, segun el titular del comunicado (no se revela al millon exacto en el anexo)."
+      },
+      "dividend_declared_per_share": 0.40,
+      "dividend_record_date": "2025-01-09",
+      "dividend_payment_date": "2025-01-23",
+      "guidance_issued": {
+        "for_period": "Q3 FY2025",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified forward guidance is contained in this Exhibit 99.1 press release. The CEO commented qualitatively that 'This fiscal year, total Oracle Cloud revenue should top $25 billion,' but no quarterly revenue growth %, cloud growth %, or non-GAAP EPS range was disclosed in the exhibit itself."
+      }
+    },
+    {
+      "id": "FY2025Q3",
+      "fiscal_year": 2025,
+      "fiscal_quarter": 3,
+      "period_end": "2025-02-28",
+      "period_label_en": "Q3 FY2025 (Dec 2024-Feb 2025)",
+      "period_label_es": "3T AF2025 (dic 2024-feb 2025)",
+      "release_date": "2025-03-10",
+      "source": {
+        "title": "Oracle Q3 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025036295/orcl-ex99_1.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 11007,
+          "software": 1129,
+          "hardware": 703,
+          "services": 1291,
+          "total": 14130,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 2882,
+          "hardware_cost": 197,
+          "services_cost": 1116,
+          "sales_and_marketing": 2119,
+          "research_and_development": 2429,
+          "general_and_administrative": 390,
+          "amortization_of_intangibles": 548,
+          "restructuring_and_other": 91,
+          "total": 9772,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($28M) + 'Restructuring' ($63M)."
+        },
+        "operating_income": 4358,
+        "interest_expense": -892,
+        "nonoperating_income_net": -18,
+        "pretax_income": 3448,
+        "tax_provision": -512,
+        "net_income": 2936,
+        "preferred_dividends": 0,
+        "net_income_common": 2936,
+        "diluted_eps": 1.02,
+        "diluted_shares": 2874
+      },
+      "non_gaap": {
+        "operating_income": 6195,
+        "net_income_common": 4231,
+        "diluted_eps": 1.47,
+        "reconciling_items": {
+          "stock_based_compensation": 1198,
+          "amortization_of_intangibles": 548,
+          "restructuring_and_other": 91,
+          "tax_effect_of_adjustments": -542
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 17406,
+        "marketable_securities": 417,
+        "cash_and_investments_total": 17823,
+        "total_assets": 161378,
+        "current_deferred_revenue": 9019,
+        "short_term_debt": 8167,
+        "long_term_debt": 88109,
+        "total_debt": 96276,
+        "stockholders_equity": 17261
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 5933,
+        "capex_quarter": 5862,
+        "free_cash_flow_quarter": 71,
+        "_note": "Derived: Q3 exhibit reports cash flow on a nine-months-ended Feb 28, 2025 cumulative basis (OCF $14,664M; capex $12,135M). Q3-only = nine-month cumulative minus Q2's cumulative six-month figures (OCF $8,731M; capex $6,273M) from the Q2 8-K Exhibit 99.1."
+      },
+      "rpo": {
+        "total": 130000,
+        "yoy_change": 62,
+        "note_en": "Total Remaining Performance Obligations up 62% year-over-year in USD (63% constant currency) to over $130 billion; CEO noted $48 billion of sales contracts signed in Q3. Not disclosed to the exact million in the exhibit.",
+        "note_es": "Las Obligaciones de Desempeno Restantes totales aumentaron 62% interanual en USD (63% en moneda constante) a mas de $130 mil millones; la CEO senalo $48 mil millones en contratos de venta firmados en el 3T. No se revela al millon exacto en el anexo."
+      },
+      "dividend_declared_per_share": 0.50,
+      "dividend_record_date": "2025-04-10",
+      "dividend_payment_date": "2025-04-23",
+      "guidance_issued": {
+        "for_period": "Q4 FY2025",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified forward guidance is contained in this Exhibit 99.1 press release. The CEO commented qualitatively that the ~$130 billion RPO backlog 'will help drive a 15% increase in Oracle's overall revenue in our next fiscal year beginning this June' (i.e. FY2026, not a specific quarter), but no quantified next-quarter revenue growth %, cloud growth %, or non-GAAP EPS range was disclosed in the exhibit itself. Also announced: dividend increased 25% from $0.40 to $0.50/share."
+      }
+    },
+    {
+      "id": "FY2025Q4",
+      "fiscal_year": 2025,
+      "fiscal_quarter": 4,
+      "period_end": "2025-05-31",
+      "period_label_en": "Q4 FY2025 (Mar-May 2025)",
+      "period_label_es": "4T AF2025 (mar-may 2025)",
+      "release_date": "2025-06-11",
+      "source": {
+        "title": "Oracle Q4 & Full Year FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 11698,
+          "software": 2007,
+          "hardware": 850,
+          "services": 1348,
+          "total": 15903,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 3343,
+          "hardware_cost": 252,
+          "services_cost": 1145,
+          "sales_and_marketing": 2306,
+          "research_and_development": 2654,
+          "general_and_administrative": 467,
+          "amortization_of_intangibles": 544,
+          "restructuring_and_other": 83,
+          "total": 10794,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($4M) + 'Restructuring' ($79M)."
+        },
+        "operating_income": 5109,
+        "interest_expense": -978,
+        "nonoperating_income_net": 20,
+        "pretax_income": 4151,
+        "tax_provision": -724,
+        "net_income": 3427,
+        "preferred_dividends": 0,
+        "net_income_common": 3427,
+        "diluted_eps": 1.19,
+        "diluted_shares": 2871
+      },
+      "non_gaap": {
+        "operating_income": 7035,
+        "net_income_common": 4881,
+        "diluted_eps": 1.70,
+        "reconciling_items": {
+          "stock_based_compensation": 1299,
+          "amortization_of_intangibles": 544,
+          "restructuring_and_other": 83,
+          "tax_effect_of_adjustments": -472
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 10786,
+        "marketable_securities": 417,
+        "cash_and_investments_total": 11203,
+        "total_assets": 168361,
+        "current_deferred_revenue": 9387,
+        "short_term_debt": 7271,
+        "long_term_debt": 85297,
+        "total_debt": 92568,
+        "stockholders_equity": 20969
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 6157,
+        "capex_quarter": 9080,
+        "free_cash_flow_quarter": -2923,
+        "operating_cash_flow_fy": 20821,
+        "capex_fy": 21215,
+        "free_cash_flow_fy": -394,
+        "_note": "Q4-only quarterly figures derived: FY2025 full-year cumulative (OCF $20,821M; capex $21,215M) minus Q3's cumulative nine-month figures (OCF $14,664M; capex $12,135M) from the Q3 8-K Exhibit 99.1. Full-year figures are reported directly in the Q4/FY exhibit's Year Ended May 31, 2025 cash flow statement. Cross-check: sum of all four quarters' operating cash flow (7,427+1,304+5,933+6,157) = 20,821 = FY total; sum of all four quarters' capex (2,303+3,970+5,862+9,080) = 21,215 = FY total; resulting FY free cash flow of $(394)M matches the Free Cash Flow - Trailing 4-Quarters table printed in this same exhibit exactly."
+      },
+      "rpo": {
+        "total": 138000,
+        "yoy_change": 41,
+        "note_en": "Q4 Remaining Performance Obligations up 41% year-over-year to $138 billion, as stated in the press release headline (not disclosed to the exact million in the exhibit).",
+        "note_es": "Las Obligaciones de Desempeno Restantes del 4T aumentaron 41% interanual a $138 mil millones, segun el titular del comunicado (no se revela al millon exacto en el anexo)."
+      },
+      "dividend_declared_per_share": 0.50,
+      "dividend_record_date": "2025-07-10",
+      "dividend_payment_date": "2025-07-24",
+      "guidance_issued": {
+        "for_period": "Q1 FY2026",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified next-quarter (Q1 FY2026) guidance table is contained in this Exhibit 99.1 press release. Initial FY2026 full-year outlook IS given, but only qualitatively (as direct CEO quotes), not as specific $ revenue or EPS figures: CEO Safra Catz stated Oracle expects 'total cloud growth rate -- applications plus infrastructure -- will increase from 24% in FY25 to over 40% in FY26,' 'Cloud Infrastructure growth rate is expected to increase from 50% in FY25 to over 70% in FY26,' and 'RPO is likely to grow more than 100% in FY26.' Chairman/CTO Larry Ellison added that MultiCloud database revenue grew 115% quarter-over-quarter and that 'triple-digit MultiCloud revenue growth' is expected to continue in FY26, and that Oracle Cloud Infrastructure consumption revenue 'grew 62% in Q4' with growth expected to accelerate further in FY26. These are the only FY2026 guidance-related statements in the exhibit; fy_total_revenue_at_least and fy_non_gaap_eps were not quantified and are left null per instructions rather than estimated.",
+        "fy2026_qualitative_guidance_en": {
+          "total_cloud_growth_fy25_pct": 24,
+          "total_cloud_growth_fy26_guidance": "over 40%",
+          "cloud_infrastructure_growth_fy25_pct": 50,
+          "cloud_infrastructure_growth_fy26_guidance": "over 70%",
+          "rpo_growth_fy26_guidance": "more than 100%"
+        }
+      }
+    }
+  ],
+  "fiscal_year_annual": {
+    "FY2025": {
+      "source": {
+        "title": "Oracle Q4 & Full Year FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K), Year Ended May 31, 2025 statements",
+        "form": "8-K",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue_total": 57399,
+        "operating_income": 17678,
+        "net_income": 12443,
+        "diluted_eps": 4.34,
+        "operating_cash_flow": 20821,
+        "capex": 21215
+      },
+      "non_gaap": {
+        "operating_income": 25033,
+        "net_income": 17284,
+        "diluted_eps": 6.03
+      }
+    }
+  }
+}

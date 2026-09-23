@@ -1,3 +1,8 @@
 # Downloaded PDFs are converted to text under tools/<company>/raw/releases and the text is committed instead.
 tools/asur/raw/pdf/
 tools/oma/raw/pdf/
+
+# Oracle: the owner-supplied earnings-call transcripts are licensed PDFs. They stay in the private
+# oracle-model repository; only short attributed quotes (tools/oracle/data/transcripts.json) are published.
+tools/oracle/transcripts/
+tools/oracle/data/_raw_transcripts_*.json
