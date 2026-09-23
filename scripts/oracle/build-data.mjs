@@ -124,10 +124,13 @@ const finQuarters = quarters.map((q) => {
 });
 const years = Object.entries(fiscalYears).map(([id, y]) => {
   const fy = Number(id.replace("FY", "")); const g = y.gaap, ng = y.non_gaap || {}, da = y.da || {};
+  if (!g.revenue_total || g.operating_income == null) throw new Error(`fiscal_years.json ${id}: revenue_total and operating_income are required`);
   const ebitda = g.operating_income != null && da.total_da != null ? g.operating_income + da.total_da : null;
   const qs = finQuarters.filter((q) => q.fy === fy);
   const sum = (k) => (qs.length === 4 && qs.every((q) => q.is[k] != null) ? qs.reduce((a, q) => a + q.is[k], 0) : null);
-  const is = { revTotal: g.revenue_total, revCloud: sum("revCloud"), revSoftware: sum("revSoftware"), revHardware: sum("revHardware"), revServices: sum("revServices"), totalOpex: sum("totalOpex"), opIncome: g.operating_income, opMargin: pct(g.operating_income, g.revenue_total), netIncomeCommon: g.net_income, epsDiluted: g.diluted_eps, ngOpIncome: ng.operating_income ?? null, ngOpMargin: pct(ng.operating_income, g.revenue_total), ngNetIncomeCommon: ng.net_income ?? null, ngEpsDiluted: ng.diluted_eps ?? null, da: da.total_da ?? null, ebitda, ebitdaMargin: pct(ebitda, g.revenue_total), interestExpense: sum("interestExpense"), incomeTax: sum("incomeTax"), pretaxIncome: sum("pretaxIncome"), netIncome: sum("netIncome") };
+  // Years without four captured quarters (the FY2017-FY2021 backfill from the 10-Ks) carry their lines at year level.
+  const gr = g.revenue || {};
+  const is = { revTotal: g.revenue_total, revCloud: sum("revCloud") ?? gr.cloud ?? null, revSoftware: sum("revSoftware") ?? gr.software ?? null, revHardware: sum("revHardware") ?? gr.hardware ?? null, revServices: sum("revServices") ?? gr.services ?? null, totalOpex: sum("totalOpex") ?? g.opex_total ?? null, opIncome: g.operating_income, opMargin: pct(g.operating_income, g.revenue_total), netIncomeCommon: g.net_income, epsDiluted: g.diluted_eps, dilutedShares: qs.length === 4 ? null : (g.diluted_shares ?? null), ngOpIncome: ng.operating_income ?? null, ngOpMargin: pct(ng.operating_income, g.revenue_total), ngNetIncomeCommon: ng.net_income ?? null, ngEpsDiluted: ng.diluted_eps ?? null, da: da.total_da ?? null, ebitda, ebitdaMargin: pct(ebitda, g.revenue_total), interestExpense: sum("interestExpense") ?? g.interest_expense ?? null, nonOpIncome: g.nonoperating_income_net ?? null, incomeTax: sum("incomeTax") ?? g.tax_provision ?? null, pretaxIncome: sum("pretaxIncome") ?? g.pretax_income ?? null, netIncome: sum("netIncome") ?? g.net_income ?? null };
   const cf = { cfo: g.operating_cash_flow, capex: g.capex, fcf: g.operating_cash_flow != null && g.capex != null ? g.operating_cash_flow + g.capex : null, depreciation: da.depreciation ?? null, amortization: da.amortization_of_intangibles ?? null, da: da.total_da ?? null, capexToRevenue: pct(-g.capex, g.revenue_total) };
   const q4 = qs.find((q) => q.q === 4);
   const rc = y.revenue_recast_fy2026_basis;
@@ -211,7 +214,10 @@ emit("guidance.js", "ORCL_GUIDANCE", { generatedAt: now, basis: { en: gd.meta?.b
 
 // ---------- comments.js / summary.js ----------
 const cm = load("comments.json", { by_quarter: {} });
-const KEYMAP = { total_revenue: "revTotal", cloud: "revCloud", software: "revSoftware", hardware: "revHardware", services: "revServices", cloud_and_software_cost: "costCloudSoftware", hardware_cost: "costHardware", services_cost: "costServices", sales_and_marketing: "sm", research_and_development: "rd", general_and_administrative: "ga", amortization_of_intangibles: "amortIntangibles", restructuring_and_other: "restructuringOther", operating_income: "opIncome", interest_expense: "interestExpense", nonoperating_income_net: "nonOpIncome", tax_provision: "incomeTax", pretax_income: "pretaxIncome", net_income_common: "netIncomeCommon", diluted_eps: "epsDiluted", total_opex: "totalOpex", net_income: "netIncome" };
+const KEYMAP = { total_revenue: "revTotal", cloud: "revCloud", software: "revSoftware", hardware: "revHardware", services: "revServices", cloud_and_software_cost: "costCloudSoftware", hardware_cost: "costHardware", services_cost: "costServices", sales_and_marketing: "sm", research_and_development: "rd", general_and_administrative: "ga", amortization_of_intangibles: "amortIntangibles", restructuring_and_other: "restructuringOther", operating_income: "opIncome", interest_expense: "interestExpense", nonoperating_income_net: "nonOpIncome", tax_provision: "incomeTax", pretax_income: "pretaxIncome", net_income_common: "netIncomeCommon", diluted_eps: "epsDiluted", total_opex: "totalOpex", net_income: "netIncome",
+  // balance sheet and cash-flow rows (the same comments object; keys are unique across the three statements)
+  cash: "cash", marketable_securities: "marketableSecurities", total_assets: "totalAssets", deferred_revenue: "deferredRevenueCurrent", debt_current: "debtCurrent", debt_long_term: "debtLT", total_debt: "totalDebt", net_debt: "netDebt", equity: "equity",
+  operating_cash_flow: "cfo", capex: "capex", free_cash_flow: "fcf", da: "da", depreciation: "depreciation", amortization: "amortization" };
 // Operating-metrics card rows: raw comment key → ops row key (operating_income and diluted_eps reuse the statement comments).
 const OPSMAP = { rpo: "rpo", operating_cash_flow: "cfo", capex: "capex", cloud: "cloudRev", operating_income: "ngOpMargin", diluted_eps: "epsNg", ebitda_margin: "ebitdaMargin", da: "daPct", free_cash_flow: "fcf", dividend: "dps", diluted_shares: "shares" };
 const TRANSCRIPTS = load("transcripts.json", { calls: {} }).calls;
@@ -247,6 +253,21 @@ emit("summary.js", "ORCL_SUMMARY", {
     { k: "watch", title: { es: "Qué observar en los próximos reportes", en: "What to watch in the next releases" }, es: sum.watch?.es || [], en: sum.watch?.en || [] },
   ] : [],
 }, "Executive summary — rewritten by the reviewing routine when new results, guidance or events land.");
+
+// ---------- buildout.js ----------
+// Oracle's AI-infrastructure buildout as disclosed: capacity delivered, GPU metrics, secured capacity, named sites.
+const bo = load("buildout.json", null);
+if (bo) {
+  const withSrc = (o) => ({ ...o, sourceRef: o.source ? src(o.source) : null });
+  emit("buildout.js", "ORCL_BUILDOUT", {
+    updated: bo.updated,
+    capacity: { ...bo.capacity, quarters: (bo.capacity.quarters || []).map(withSrc), fiscal_years: (bo.capacity.fiscal_years || []).map(withSrc), secured: bo.capacity.secured ? withSrc(bo.capacity.secured) : null },
+    gpu: { utilization: (bo.gpu.utilization || []).map(withSrc), renewals: (bo.gpu.renewals || []).map(withSrc), delivered: (bo.gpu.delivered || []).map(withSrc) },
+    sites: (bo.sites || []).map((s) => ({ ...s, sources: (s.sources || []).map((r) => (r.key ? { title: r.title, url: src(r.key)?.url || null, key: r.key } : r)) })),
+    rpoSchedule: bo.rpo_schedule ? withSrc(bo.rpo_schedule) : null,
+    funding: bo.funding ? { ...bo.funding, items: (bo.funding.items || []).map(withSrc) } : null,
+  }, "Oracle AI-infrastructure buildout — capacity delivered, GPU fleet metrics, secured capacity and named sites, from the earnings calls, Oracle press releases, partner releases and wire reports (tools/oracle/data/buildout.json).");
+}
 
 // ---------- cds.js ----------
 const cds = load("cds.json", { tenor: 5, recoveryPct: 40, points: [], source: "FactSet (pending authorisation)", updatedAt: null });

@@ -1,9 +1,9 @@
 {
-  "generated": "2026-09-23T13:48:16.747Z",
+  "generated": "2026-09-23T15:13:47.615Z",
   "summary": {
     "checks": 329,
     "failed": 0,
-    "warnings": 1,
+    "warnings": 6,
     "stale": 0
   },
   "passed": [
@@ -255,6 +255,14 @@
     "FY2022Q2: free cash flow = operating cash flow + capex",
     "FY2022Q2: total D&A = depreciation + amortization",
     "FY2022Q2: cash-flow amortization ≈ income-statement amortization of intangibles",
+    "FY2023: sum of 4 quarters' revenue = annual revenue",
+    "FY2023: sum of 4 quarters' operating cash flow = annual",
+    "FY2023: sum of 4 quarters' capex = annual",
+    "FY2023: sum of 4 quarters' D&A = annual D&A",
+    "FY2024: sum of 4 quarters' revenue = annual revenue",
+    "FY2024: sum of 4 quarters' operating cash flow = annual",
+    "FY2024: sum of 4 quarters' capex = annual",
+    "FY2024: sum of 4 quarters' D&A = annual D&A",
     "FY2025: sum of 4 quarters' revenue = annual revenue",
     "FY2025: sum of 4 quarters' operating cash flow = annual",
     "FY2025: sum of 4 quarters' capex = annual",
@@ -263,14 +271,6 @@
     "FY2026: sum of 4 quarters' operating cash flow = annual",
     "FY2026: sum of 4 quarters' capex = annual",
     "FY2026: sum of 4 quarters' D&A = annual D&A",
-    "FY2024: sum of 4 quarters' revenue = annual revenue",
-    "FY2024: sum of 4 quarters' operating cash flow = annual",
-    "FY2024: sum of 4 quarters' capex = annual",
-    "FY2024: sum of 4 quarters' D&A = annual D&A",
-    "FY2023: sum of 4 quarters' revenue = annual revenue",
-    "FY2023: sum of 4 quarters' operating cash flow = annual",
-    "FY2023: sum of 4 quarters' capex = annual",
-    "FY2023: sum of 4 quarters' D&A = annual D&A",
     "FY2027Q1 guidance total_revenue_growth_pct: well-formed range",
     "FY2027Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
     "FY2027Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
@@ -339,6 +339,11 @@
   ],
   "failures": [],
   "warnings": [
+    "FY2017: fewer than 4 quarters captured yet — annual roll-up check skipped",
+    "FY2018: fewer than 4 quarters captured yet — annual roll-up check skipped",
+    "FY2019: fewer than 4 quarters captured yet — annual roll-up check skipped",
+    "FY2020: fewer than 4 quarters captured yet — annual roll-up check skipped",
+    "FY2021: fewer than 4 quarters captured yet — annual roll-up check skipped",
     "FY2022: fewer than 4 quarters captured yet — annual roll-up check skipped"
   ],
   "stale": []

@@ -42,16 +42,27 @@ function saveState(s) { writeFileSync(join(DATA, "state.json"), JSON.stringify(s
 // Fallback when EDGAR refuses the client (it blocks GitHub-hosted runners whatever the User-Agent): Oracle's IR
 // press-release feed (Q4 platform) is public and reachable. A new results release is recorded as pending so the
 // reviewing routine, which runs from a workstation, harvests the 8-K exhibit itself.
+// The RSS view answers 403 to scripted clients; the Q4 JSON endpoint behind the same list answers normally.
+const IR_JSON = (year) => `https://investor.oracle.com/feed/PressRelease.svc/GetPressReleaseList?LanguageId=1&pageSize=25&pageNumber=0&year=${year}`;
 const IR_FEED = "https://investor.oracle.com/rss/pressrelease.aspx";
-async function checkIrFeed(state) {
+async function irItems() {
+  try {
+    const j = await getJSON(IR_JSON(new Date().getUTCFullYear()));
+    const list = j.GetPressReleaseListResult || j.Items || [];
+    if (list.length) return list.map((x) => ({ guid: x.LinkToDetailPage || x.Headline, title: x.Headline || "", link: x.LinkToDetailPage ? (x.LinkToDetailPage.startsWith("http") ? x.LinkToDetailPage : "https://investor.oracle.com" + x.LinkToDetailPage) : "", pub: x.PressReleaseDate || "" }));
+  } catch (e) { console.error(`IR JSON feed failed (${e.message}); trying RSS.`); }
   const xml = await getText(IR_FEED);
   const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
   const pick = (s, tag) => { const m = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`).exec(s); return m ? m[1].trim() : ""; };
+  return items.map((it) => ({ guid: pick(it, "guid"), title: pick(it, "title"), link: pick(it, "link"), pub: pick(it, "pubDate") }));
+}
+async function checkIrFeed(state) {
+  const items = await irItems();
   state.ir_feed_seen ??= [];
   const seenGuids = new Set(state.ir_feed_seen);
   let added = 0;
   for (const it of items) {
-    const guid = pick(it, "guid"), title = pick(it, "title"), link = pick(it, "link"), pub = pick(it, "pubDate");
+    const { guid, title, link, pub } = it;
     if (!guid || seenGuids.has(guid)) continue;
     state.ir_feed_seen.push(guid);
     const date = pub && !isNaN(new Date(pub)) ? new Date(pub).toISOString().slice(0, 10) : today;

@@ -137,6 +137,31 @@
           "en": "Stock-based compensation outpaced buybacks of $150m (1.3m shares).",
           "es": "La compensación en acciones superó recompras de US$150 M (1.3 M de acciones).",
           "src": "call p.5 (Catz)"
+        },
+        "cash": {
+          "en": "Free cash flow of $5.7bn less dividends and small buybacks; no debt raised.",
+          "es": "Flujo libre de US$5.7 mil M menos dividendos y recompras pequeñas; sin deuda nueva.",
+          "src": "release balance sheet; cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Modest growth: datacenter build still paced to bookings (capex $1.3bn in the quarter).",
+          "es": "Crecimiento moderado: la construcción de centros de datos aún al ritmo de las contrataciones (capex US$1.3 mil M).",
+          "src": "release balance sheet; call p.4 (Catz)"
+        },
+        "deferred_revenue": {
+          "en": "Seasonal Q1 peak from annual support renewals; short-term deferred revenue $11.1bn, +5% (Catz).",
+          "es": "Pico estacional del 1T por renovaciones anuales de soporte; ingresos diferidos de corto plazo US$11.1 mil M, +5% (Catz).",
+          "src": "call p.4 (Catz)"
+        },
+        "total_debt": {
+          "en": "Slight reduction as notes were repaid; no new issuance.",
+          "es": "Leve reducción por pago de bonos; sin nuevas emisiones.",
+          "src": "release balance sheet"
+        },
+        "equity": {
+          "en": "Back to positive: net income of $2.4bn exceeded dividends ($1.1bn) and buybacks ($150m).",
+          "es": "De vuelta en positivo: utilidad neta de US$2.4 mil M superó dividendos (US$1.1 mil M) y recompras (US$150 M).",
+          "src": "release balance sheet; call p.5 (Catz)"
         }
       },
       "drafted": "2026-09-23",
@@ -278,6 +303,31 @@
           "en": "Stock-based compensation outpaced buybacks of $450m (4m shares).",
           "es": "La compensación en acciones superó recompras de US$450 M (4 M de acciones).",
           "src": "call p.4 (Catz)"
+        },
+        "cash": {
+          "en": "Seasonally weak operating cash flow and $450m of buybacks; no debt raised.",
+          "es": "Flujo operativo estacionalmente débil y US$450 M de recompras; sin deuda nueva.",
+          "src": "release balance sheet; cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Little change; capex $1.1bn in the quarter.",
+          "es": "Poco cambio; capex US$1.1 mil M en el trimestre.",
+          "src": "release balance sheet"
+        },
+        "deferred_revenue": {
+          "en": "Normal Q2 run-off of the Q1 renewal peak; short-term deferred revenue $8.9bn, +1% (Catz).",
+          "es": "Desgaste normal del 2T tras el pico del 1T; ingresos diferidos de corto plazo US$8.9 mil M, +1% (Catz).",
+          "src": "call p.4 (Catz)"
+        },
+        "total_debt": {
+          "en": "Slightly lower; repayments, no new issuance.",
+          "es": "Ligeramente menor; pagos sin nuevas emisiones.",
+          "src": "release balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $2.5bn exceeded dividends and $450m of buybacks.",
+          "es": "Utilidad neta de US$2.5 mil M superó dividendos y US$450 M de recompras.",
+          "src": "release balance sheet; call p.4 (Catz)"
         }
       },
       "drafted": "2026-09-23",
@@ -419,6 +469,31 @@
           "en": "Stock-based compensation outpaced buybacks of $450m (4m shares).",
           "es": "La compensación en acciones superó recompras de US$450 M (4 M de acciones).",
           "src": "call p.5 (Catz)"
+        },
+        "cash": {
+          "en": "Operating cash flow of $5.5bn less capex, dividends and $450m of buybacks.",
+          "es": "Flujo operativo de US$5.5 mil M menos capex, dividendos y US$450 M de recompras.",
+          "src": "release cash-flow statement; call p.5 (Catz)"
+        },
+        "total_assets": {
+          "en": "Cash build; capex $1.7bn in the quarter.",
+          "es": "Acumulación de efectivo; capex US$1.7 mil M en el trimestre.",
+          "src": "release balance sheet"
+        },
+        "deferred_revenue": {
+          "en": "Short-term deferred revenue $8.9bn, +4% (Catz).",
+          "es": "Ingresos diferidos de corto plazo US$8.9 mil M, +4% (Catz).",
+          "src": "call p.4 (Catz)"
+        },
+        "total_debt": {
+          "en": "Lower after note repayments; no new issuance.",
+          "es": "Menor tras pagos de bonos; sin nuevas emisiones.",
+          "src": "release balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $2.4bn exceeded dividends and buybacks.",
+          "es": "Utilidad neta de US$2.4 mil M superó dividendos y recompras.",
+          "src": "release balance sheet"
         }
       },
       "drafted": "2026-09-23",
@@ -560,6 +635,31 @@
           "en": "Stock-based compensation outpaced buybacks of $150m (1.25m shares).",
           "es": "La compensación en acciones superó recompras de US$150 M (1.25 M de acciones).",
           "src": "call p.5 (Catz)"
+        },
+        "cash": {
+          "en": "Operating cash flow of $6.1bn less capex of $2.8bn, dividends and $150m of buybacks.",
+          "es": "Flujo operativo de US$6.1 mil M menos capex de US$2.8 mil M, dividendos y US$150 M de recompras.",
+          "src": "release cash-flow statement; call p.5 (Catz)"
+        },
+        "total_assets": {
+          "en": "Capex stepping up ($2.8bn) as the datacenter build begins.",
+          "es": "Capex al alza (US$2.8 mil M) al iniciar la expansión de centros de datos.",
+          "src": "release balance sheet; cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Short-term deferred revenue $9.3bn, +4% (Catz).",
+          "es": "Ingresos diferidos de corto plazo US$9.3 mil M, +4% (Catz).",
+          "src": "call p.5 (Catz)"
+        },
+        "total_debt": {
+          "en": "Lowest of the year after repayments; new issuance began the following quarter.",
+          "es": "Mínimo del año tras pagos; las nuevas emisiones empezaron el trimestre siguiente.",
+          "src": "release balance sheet"
+        },
+        "equity": {
+          "en": "FY24 net income of $10.5bn against $4.4bn of dividends and $1.2bn of buybacks.",
+          "es": "Utilidad neta AF24 de US$10.5 mil M frente a US$4.4 mil M de dividendos y US$1.2 mil M de recompras.",
+          "src": "release balance sheet; call p.5 (Catz)"
         }
       },
       "drafted": "2026-09-23",
@@ -701,6 +801,31 @@
           "en": "Stock-based compensation with buybacks reduced to about $150m a quarter.",
           "es": "Compensación en acciones con recompras reducidas a ~US$150 M por trimestre.",
           "src": "release cash-flow statement"
+        },
+        "cash": {
+          "en": "$7.6bn of notes and loans repaid against $5.6bn of new term loans; capex doubled.",
+          "es": "US$7.6 mil M de bonos y créditos pagados contra US$5.6 mil M de nuevos créditos; el capex se duplicó.",
+          "src": "release cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Datacenter build ramping; capex $2.3bn in the quarter.",
+          "es": "Expansión de centros de datos en marcha; capex US$2.3 mil M.",
+          "src": "release cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Seasonal Q1 renewal peak; $2.3bn deferred-revenue build in the quarter.",
+          "es": "Pico estacional de renovaciones del 1T; alza de US$2.3 mil M en ingresos diferidos.",
+          "src": "release cash-flow statement"
+        },
+        "total_debt": {
+          "en": "Net repayment: $7.6bn repaid, $5.6bn of term loans drawn.",
+          "es": "Pago neto: US$7.6 mil M pagados, US$5.6 mil M de créditos dispuestos.",
+          "src": "release cash-flow statement"
+        },
+        "equity": {
+          "en": "Net income of $2.9bn exceeded dividends and buybacks.",
+          "es": "Utilidad neta de US$2.9 mil M superó dividendos y recompras.",
+          "src": "release balance sheet"
         }
       },
       "exec_summary": {
@@ -898,6 +1023,31 @@
           "en": "Stock-based compensation with buybacks of about $150m a quarter.",
           "es": "Compensación en acciones con recompras de ~US$150 M por trimestre.",
           "src": "release cash-flow statement"
+        },
+        "cash": {
+          "en": "Year-to-date $11.8bn of notes and loans issued against $9.7bn repaid; capex $4.0bn in the quarter.",
+          "es": "En el año, US$11.8 mil M de bonos y créditos emitidos contra US$9.7 mil M pagados; capex US$4.0 mil M en el trimestre.",
+          "src": "release cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Capex $4.0bn in the quarter, first half $6.3bn vs $2.4bn.",
+          "es": "Capex US$4.0 mil M en el trimestre, semestre US$6.3 mil M vs US$2.4 mil M.",
+          "src": "release cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Normal run-off of the Q1 peak; up 6% y/y with cloud subscriptions.",
+          "es": "Desgaste normal del pico del 1T; +6% a/a con las suscripciones de nube.",
+          "src": "release balance sheet"
+        },
+        "total_debt": {
+          "en": "Flat: $11.8bn issued and $9.7bn repaid year-to-date.",
+          "es": "Plana: US$11.8 mil M emitidos y US$9.7 mil M pagados en el año.",
+          "src": "release cash-flow statement"
+        },
+        "equity": {
+          "en": "Net income of $3.2bn exceeded dividends and buybacks.",
+          "es": "Utilidad neta de US$3.2 mil M superó dividendos y recompras.",
+          "src": "release balance sheet"
         }
       },
       "exec_summary": {
@@ -1096,6 +1246,31 @@
           "en": "Stock-based compensation with buybacks of about $150m a quarter.",
           "es": "Compensación en acciones con recompras de ~US$150 M por trimestre.",
           "src": "release cash-flow statement"
+        },
+        "cash": {
+          "en": "New notes issued in the quarter (year-to-date issuance $19.5bn) ahead of the capex ramp.",
+          "es": "Nuevos bonos emitidos en el trimestre (emisión acumulada US$19.5 mil M) antes del arranque del capex.",
+          "src": "release cash-flow statement; balance sheet"
+        },
+        "total_assets": {
+          "en": "Cash from new debt plus capex of $5.9bn in the quarter.",
+          "es": "Efectivo de nueva deuda más capex de US$5.9 mil M en el trimestre.",
+          "src": "release balance sheet; cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Little change; up 1% y/y.",
+          "es": "Poco cambio; +1% a/a.",
+          "src": "release balance sheet"
+        },
+        "total_debt": {
+          "en": "Up to $96.3bn: $19.5bn issued year-to-date against $9.8bn repaid.",
+          "es": "Sube a US$96.3 mil M: US$19.5 mil M emitidos en el año contra US$9.8 mil M pagados.",
+          "src": "release cash-flow statement"
+        },
+        "equity": {
+          "en": "Net income of $2.9bn exceeded dividends and buybacks.",
+          "es": "Utilidad neta de US$2.9 mil M superó dividendos y recompras.",
+          "src": "release balance sheet"
         }
       },
       "exec_summary": {
@@ -1294,6 +1469,31 @@
           "en": "Stock-based compensation outpaced buybacks of $150m (\"a little over 1 million shares\").",
           "es": "La compensación en acciones superó recompras de US$150 M (\"poco más de 1 millón de acciones\").",
           "src": "call p.5 (Catz)"
+        },
+        "cash": {
+          "en": "Capex of $9.1bn absorbed operating cash flow and the Q3 cash build; year-end cash $11.2bn incl. investments (Catz).",
+          "es": "Capex de US$9.1 mil M absorbió el flujo operativo y el efectivo acumulado en el 3T; efectivo e inversiones de cierre US$11.2 mil M (Catz).",
+          "src": "release cash-flow statement; call p.4 (Catz)"
+        },
+        "total_assets": {
+          "en": "FY25 capex $21.2bn, mostly revenue-generating datacenter equipment (Catz).",
+          "es": "Capex AF25 US$21.2 mil M, sobre todo equipo generador de ingresos en centros de datos (Catz).",
+          "src": "call p.4 (Catz)"
+        },
+        "deferred_revenue": {
+          "en": "Short-term deferred revenue $9.4bn (Catz).",
+          "es": "Ingresos diferidos de corto plazo US$9.4 mil M (Catz).",
+          "src": "call p.4 (Catz)"
+        },
+        "total_debt": {
+          "en": "FY issuance $19.5bn of notes and loans plus $1.9bn of commercial paper, net of repayments.",
+          "es": "Emisión anual de US$19.5 mil M en bonos y créditos más US$1.9 mil M de papel comercial, neto de pagos.",
+          "src": "release cash-flow statement"
+        },
+        "equity": {
+          "en": "FY25 net income of $12.4bn against $4.7bn of dividends and $0.6bn of buybacks.",
+          "es": "Utilidad neta AF25 de US$12.4 mil M frente a US$4.7 mil M de dividendos y US$0.6 mil M de recompras.",
+          "src": "release balance sheet; call p.5 (Catz)"
         }
       },
       "exec_summary": {

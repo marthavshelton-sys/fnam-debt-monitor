@@ -23,6 +23,7 @@
 <script src="data/summary.js"></script>
 <script src="data/peers.js"></script>
 <script src="data/cds.js"></script>
+<script src="data/buildout.js"></script>
 
 <style>
 :root{
@@ -92,6 +93,17 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .kpi .val{font-family:var(--sans); font-size:clamp(19px,2vw,26px); font-weight:700; margin-top:6px; line-height:1.15; overflow-wrap:normal;}
 .kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
 @media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
+/* Section 09: contracts → capacity → spend → funding → revenue flow (HTML so it stays legible on a phone) */
+.flow{display:grid; grid-template-columns:repeat(5,1fr); gap:22px 26px; margin-top:12px; align-items:stretch;}
+.flow .step{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 12px 10px; position:relative; min-width:0;}
+.flow .step .k{font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent);}
+.flow .step .big{font-family:var(--sans); font-size:21px; font-weight:800; margin:4px 0 2px; line-height:1.15; overflow-wrap:anywhere;}
+.flow .step .sub{font-size:11.5px; color:var(--muted); margin-bottom:4px;}
+.flow .step ul{margin:6px 0 0; padding-left:15px; font-size:12.5px; line-height:1.45; color:var(--text-secondary);}
+.flow .step li{margin:2px 0;}
+.flow .step:not(:last-child)::after{content:'→'; position:absolute; right:-22px; top:50%; transform:translateY(-50%); font-size:18px; color:var(--muted); pointer-events:none;}
+@media (max-width:1000px){.flow{grid-template-columns:repeat(2,1fr);} .flow .step:not(:last-child)::after{content:'';}}
+@media (max-width:560px){.flow{grid-template-columns:1fr; gap:22px;} .flow .step:not(:last-child)::after{content:'↓'; right:auto; left:50%; top:auto; bottom:-20px; transform:translateX(-50%);}}
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
@@ -425,6 +437,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <div class="grid-2 eq">
       <div class="card">
         <h3><span class="es">Ingresos por tipo</span><span class="en" hidden>Revenue by type</span></h3>
+        <div class="seg" id="segRevMix" style="margin-top:8px">
+          <button type="button" data-v="q" class="active"><span class="es">Últimos 12 trimestres</span><span class="en" hidden>Last 12 quarters</span></button>
+          <button type="button" data-v="fy"><span class="es">10 años fiscales + UDM</span><span class="en" hidden>10 fiscal years + LTM</span></button>
+        </div>
         <p class="cap" id="revMixCap"></p>
         <div class="chart-wrap"><canvas id="chartRevMix"></canvas></div>
         <p class="chart-src" id="revMixSrc"></p>
@@ -519,6 +535,37 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="cap" id="opsTblCap"></p>
         <div class="tblwrap" id="opsQTable"></div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">RPO frente a capacidad entregada y capacidad pendiente</span><span class="en" hidden>RPO versus capacity delivered and capacity pending</span></h3>
+      <p class="cap" id="buildCapCap"></p>
+      <div class="grid-2 eq">
+        <div><div class="chart-wrap"><canvas id="chartCapacity"></canvas></div></div>
+        <div><div class="tblwrap" id="capacityTable"></div></div>
+      </div>
+      <div class="callout" id="buildCapNote"></div>
+      <p class="chart-src" id="buildCapSrc"></p>
+    </div>
+    <div class="grid-2 eq" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">GPU entregadas</span><span class="en" hidden>GPUs delivered</span></h3>
+        <p class="cap" id="gpuDelCap"></p>
+        <div class="chart-wrap short"><canvas id="chartGpuDelivered"></canvas></div>
+        <p class="chart-src" id="gpuDelSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Utilización y renovación de GPU</span><span class="en" hidden>GPU utilization and renewal rate</span></h3>
+        <p class="cap" id="gpuUtilCap"></p>
+        <div class="chart-wrap short"><canvas id="chartGpuUtil"></canvas></div>
+        <div class="stat-row" id="gpuStats"></div>
+        <p class="chart-src" id="gpuUtilSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Sitios de centros de datos divulgados</span><span class="en" hidden>Disclosed data-center sites</span></h3>
+      <p class="cap" id="sitesCap"></p>
+      <div class="tblwrap" id="sitesTable"></div>
+      <p class="chart-src" id="sitesSrc"></p>
     </div>
   </section>
 
@@ -685,6 +732,18 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="chart-src" id="aiSrc"></p>
       </div>
     </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">De los contratos a los ingresos: cómo funciona la expansión</span><span class="en" hidden>From contracts to revenue: how the buildout works</span></h3>
+      <p class="cap" id="flowCap"></p>
+      <div class="flow" id="buildoutFlow"></div>
+      <p class="chart-src" id="flowSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Seguimiento de la expansión por trimestre</span><span class="en" hidden>Buildout tracker by quarter</span></h3>
+      <p class="cap" id="trackerCap"></p>
+      <div class="chart-wrap tall"><canvas id="chartBuildout"></canvas></div>
+      <p class="chart-src" id="trackerSrc"></p>
+    </div>
   </section>
 
   <!-- 10 RPO EXPLAINED -->
@@ -712,7 +771,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <p class="sec-meta" id="creditMeta"></p>
     <div class="grid-2 eq">
       <div class="card">
-        <h3><span class="es">Calendario de vencimientos por año fiscal</span><span class="en" hidden>Maturity schedule by fiscal year</span></h3>
+        <h3><span class="es">Calendario de vencimientos</span><span class="en" hidden>Maturity schedule</span></h3>
+        <div class="stat-row" id="schedStats"></div>
         <p class="cap" id="schedCap"></p>
         <div class="tblwrap" id="schedTable"></div>
         <p class="chart-src" id="schedSrc"></p>
@@ -729,7 +789,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Deuda vigente por instrumento</span><span class="en" hidden>Outstanding debt by instrument</span></h3>
       <p class="cap" id="bookCap"></p>
-      <div class="tblwrap" id="bookTable"></div>
+      <details class="tbl"><summary id="bookSummary"></summary><div class="tblwrap" id="bookTable"></div></details>
       <p class="chart-src" id="bookSrc"></p>
     </div>
   </section>

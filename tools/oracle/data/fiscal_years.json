@@ -7,6 +7,236 @@
     "note_es": "Cifras anuales de las columnas de año completo del reporte del 4T / el 10-K. La utilidad neta es la disponible para accionistas comunes cuando existen dividendos preferentes."
   },
   "fiscal_years": {
+    "FY2017": {
+      "source": "S-10K-FY2019",
+      "revenue_basis": "legacy_lines",
+      "gaap": {
+        "revenue_total": 37792,
+        "revenue": {
+          "cloud": 23758,
+          "software": 6523,
+          "hardware": 4152,
+          "services": 3359
+        },
+        "opex_total": 24879,
+        "operating_income": 12913,
+        "interest_expense": -1798,
+        "nonoperating_income_net": 565,
+        "pretax_income": 11680,
+        "tax_provision": 2228,
+        "net_income": 9452,
+        "diluted_eps": 2.24,
+        "diluted_shares": 4217,
+        "operating_cash_flow": 14126,
+        "capex": -2021
+      },
+      "non_gaap": null,
+      "da": {
+        "depreciation": 1000,
+        "amortization_of_intangibles": 1451,
+        "total_da": 2451
+      },
+      "_note": "Backfilled 2026-09-23 from the 10-K consolidated statements (no Non-GAAP figures in a 10-K); revenue lines on Oracle's pre-FY2026 captions: cloud = cloud services and license support, software = cloud license and on-premise license. tax_provision negative = benefit."
+    },
+    "FY2018": {
+      "source": "S-10K-FY2019",
+      "revenue_basis": "legacy_lines",
+      "gaap": {
+        "revenue_total": 39383,
+        "revenue": {
+          "cloud": 26222,
+          "software": 5772,
+          "hardware": 3994,
+          "services": 3395
+        },
+        "opex_total": 26119,
+        "operating_income": 13264,
+        "interest_expense": -2025,
+        "nonoperating_income_net": 1185,
+        "pretax_income": 12424,
+        "tax_provision": 8837,
+        "net_income": 3587,
+        "diluted_eps": 0.85,
+        "diluted_shares": 4238,
+        "operating_cash_flow": 15386,
+        "capex": -1736
+      },
+      "non_gaap": null,
+      "da": {
+        "depreciation": 1165,
+        "amortization_of_intangibles": 1620,
+        "total_da": 2785
+      },
+      "_note": "Backfilled 2026-09-23 from the 10-K consolidated statements (no Non-GAAP figures in a 10-K); revenue lines on Oracle's pre-FY2026 captions: cloud = cloud services and license support, software = cloud license and on-premise license. tax_provision negative = benefit."
+    },
+    "FY2019": {
+      "source": "S-10K-FY2019",
+      "revenue_basis": "legacy_lines",
+      "gaap": {
+        "revenue_total": 39506,
+        "revenue": {
+          "cloud": 26707,
+          "software": 5855,
+          "hardware": 3704,
+          "services": 3240
+        },
+        "opex_total": 25971,
+        "operating_income": 13535,
+        "interest_expense": -2082,
+        "nonoperating_income_net": 815,
+        "pretax_income": 12268,
+        "tax_provision": 1185,
+        "net_income": 11083,
+        "diluted_eps": 2.97,
+        "diluted_shares": 3732,
+        "operating_cash_flow": 14551,
+        "capex": -1660
+      },
+      "non_gaap": null,
+      "da": {
+        "depreciation": 1230,
+        "amortization_of_intangibles": 1689,
+        "total_da": 2919
+      },
+      "_note": "Backfilled 2026-09-23 from the 10-K consolidated statements (no Non-GAAP figures in a 10-K); revenue lines on Oracle's pre-FY2026 captions: cloud = cloud services and license support, software = cloud license and on-premise license. tax_provision negative = benefit."
+    },
+    "FY2020": {
+      "source": "S-10K-FY2021",
+      "revenue_basis": "legacy_lines",
+      "gaap": {
+        "revenue_total": 39068,
+        "revenue": {
+          "cloud": 27392,
+          "software": 5127,
+          "hardware": 3443,
+          "services": 3106
+        },
+        "opex_total": 25172,
+        "operating_income": 13896,
+        "interest_expense": -1995,
+        "nonoperating_income_net": 162,
+        "pretax_income": 12063,
+        "tax_provision": 1928,
+        "net_income": 10135,
+        "diluted_eps": 3.08,
+        "diluted_shares": 3294,
+        "operating_cash_flow": 13139,
+        "capex": -1564
+      },
+      "non_gaap": null,
+      "da": {
+        "depreciation": 1382,
+        "amortization_of_intangibles": 1586,
+        "total_da": 2968
+      },
+      "_note": "Backfilled 2026-09-23 from the 10-K consolidated statements (no Non-GAAP figures in a 10-K); revenue lines on Oracle's pre-FY2026 captions: cloud = cloud services and license support, software = cloud license and on-premise license. tax_provision negative = benefit."
+    },
+    "FY2021": {
+      "source": "S-10K-FY2021",
+      "revenue_basis": "legacy_lines",
+      "gaap": {
+        "revenue_total": 40479,
+        "revenue": {
+          "cloud": 28700,
+          "software": 5399,
+          "hardware": 3359,
+          "services": 3021
+        },
+        "opex_total": 25266,
+        "operating_income": 15213,
+        "interest_expense": -2496,
+        "nonoperating_income_net": 282,
+        "pretax_income": 12999,
+        "tax_provision": -747,
+        "net_income": 13746,
+        "diluted_eps": 4.55,
+        "diluted_shares": 3022,
+        "operating_cash_flow": 15887,
+        "capex": -2135
+      },
+      "non_gaap": null,
+      "da": {
+        "depreciation": 1537,
+        "amortization_of_intangibles": 1379,
+        "total_da": 2916
+      },
+      "_note": "Backfilled 2026-09-23 from the 10-K consolidated statements (no Non-GAAP figures in a 10-K); revenue lines on Oracle's pre-FY2026 captions: cloud = cloud services and license support, software = cloud license and on-premise license. tax_provision negative = benefit."
+    },
+    "FY2022": {
+      "source": "S-8K-FY2022Q4",
+      "gaap": {
+        "revenue_total": 42440,
+        "operating_income": 10926,
+        "net_income": 6717,
+        "diluted_eps": 2.41,
+        "operating_cash_flow": 9539,
+        "capex": -4511,
+        "revenue": {
+          "cloud": 30174,
+          "software": 5878,
+          "hardware": 3183,
+          "services": 3205
+        },
+        "opex_total": 31514
+      },
+      "non_gaap": {
+        "operating_income": 19593,
+        "net_income": 13661,
+        "diluted_eps": 4.9
+      },
+      "da": {
+        "depreciation": 1972,
+        "amortization_of_intangibles": 1150,
+        "total_da": 3122,
+        "_note": "Taken directly from the Year Ended May 31, 2022 cash flow statement lines 'Depreciation' ($1,972M) and 'Amortization of intangible assets' ($1,150M) in the Q4/FY2022 exhibit. Equals the sum of the Q1 reference plus the three derived quarterly 'da' figures."
+      },
+      "revenue_basis": "legacy_lines",
+      "revenue_lines_source": "S-10K-FY2024",
+      "_note": "Revenue lines by type and total operating expenses from the FY2024 Form 10-K (three-year statement of operations), added 2026-09-23; only three FY2022 quarters are loaded so the annual lines cannot be rolled up from quarters. The FY2023 quarter sums exceed the 10-K annual lines by US$1 M (cloud services and total): rounding in Oracle's own quarterly releases."
+    },
+    "FY2023": {
+      "source": "S-8K-FY2023Q4",
+      "gaap": {
+        "revenue_total": 49954,
+        "operating_income": 13093,
+        "net_income": 8503,
+        "diluted_eps": 3.07,
+        "operating_cash_flow": 17165,
+        "capex": -8695
+      },
+      "non_gaap": {
+        "operating_income": 20902,
+        "net_income": 14176,
+        "diluted_eps": 5.12
+      },
+      "da": {
+        "depreciation": 2526,
+        "amortization_of_intangibles": 3582,
+        "total_da": 6108,
+        "_note": "From the Year Ended May 31, 2023 Condensed Consolidated Statement of Cash Flows ('Depreciation' $2,526M; 'Amortization of intangible assets' $3,582M). Equals the sum of the four discrete quarters (depreciation 547+591+672+716; amortization 919+907+886+870) exactly. Amortization agrees with the Year Ended May 31, 2023 income-statement line of $3,582M."
+      }
+    },
+    "FY2024": {
+      "source": "S-8K-FY2024Q4",
+      "gaap": {
+        "revenue_total": 52961,
+        "operating_income": 15353,
+        "net_income": 10467,
+        "diluted_eps": 3.71,
+        "operating_cash_flow": 18673,
+        "capex": -6866
+      },
+      "non_gaap": {
+        "operating_income": 23055,
+        "net_income": 15710,
+        "diluted_eps": 5.56
+      },
+      "da": {
+        "depreciation": 3129,
+        "amortization_of_intangibles": 3010,
+        "total_da": 6139
+      }
+    },
     "FY2025": {
       "source": "S-8K-FY2025Q4",
       "gaap": {
@@ -55,71 +285,6 @@
         "depreciation": 7623,
         "amortization_of_intangibles": 1671,
         "total_da": 9294
-      }
-    },
-    "FY2024": {
-      "source": "S-8K-FY2024Q4",
-      "gaap": {
-        "revenue_total": 52961,
-        "operating_income": 15353,
-        "net_income": 10467,
-        "diluted_eps": 3.71,
-        "operating_cash_flow": 18673,
-        "capex": -6866
-      },
-      "non_gaap": {
-        "operating_income": 23055,
-        "net_income": 15710,
-        "diluted_eps": 5.56
-      },
-      "da": {
-        "depreciation": 3129,
-        "amortization_of_intangibles": 3010,
-        "total_da": 6139
-      }
-    },
-    "FY2022": {
-      "source": "S-8K-FY2022Q4",
-      "gaap": {
-        "revenue_total": 42440,
-        "operating_income": 10926,
-        "net_income": 6717,
-        "diluted_eps": 2.41,
-        "operating_cash_flow": 9539,
-        "capex": -4511
-      },
-      "non_gaap": {
-        "operating_income": 19593,
-        "net_income": 13661,
-        "diluted_eps": 4.9
-      },
-      "da": {
-        "depreciation": 1972,
-        "amortization_of_intangibles": 1150,
-        "total_da": 3122,
-        "_note": "Taken directly from the Year Ended May 31, 2022 cash flow statement lines 'Depreciation' ($1,972M) and 'Amortization of intangible assets' ($1,150M) in the Q4/FY2022 exhibit. Equals the sum of the Q1 reference plus the three derived quarterly 'da' figures."
-      }
-    },
-    "FY2023": {
-      "source": "S-8K-FY2023Q4",
-      "gaap": {
-        "revenue_total": 49954,
-        "operating_income": 13093,
-        "net_income": 8503,
-        "diluted_eps": 3.07,
-        "operating_cash_flow": 17165,
-        "capex": -8695
-      },
-      "non_gaap": {
-        "operating_income": 20902,
-        "net_income": 14176,
-        "diluted_eps": 5.12
-      },
-      "da": {
-        "depreciation": 2526,
-        "amortization_of_intangibles": 3582,
-        "total_da": 6108,
-        "_note": "From the Year Ended May 31, 2023 Condensed Consolidated Statement of Cash Flows ('Depreciation' $2,526M; 'Amortization of intangible assets' $3,582M). Equals the sum of the four discrete quarters (depreciation 547+591+672+716; amortization 919+907+886+870) exactly. Amortization agrees with the Year Ended May 31, 2023 income-statement line of $3,582M."
       }
     }
   }

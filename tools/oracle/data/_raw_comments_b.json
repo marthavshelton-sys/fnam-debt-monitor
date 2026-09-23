@@ -137,6 +137,31 @@
           "en": "Stock-based compensation with minimal buybacks.",
           "es": "Compensación en acciones con recompras mínimas.",
           "src": "release cash-flow statement"
+        },
+        "cash": {
+          "en": "Capex of $8.5bn absorbed a record $8.1bn of operating cash flow; no large raise in the quarter.",
+          "es": "Capex de US$8.5 mil M absorbió un flujo operativo récord de US$8.1 mil M; sin colocación grande en el trimestre.",
+          "src": "release cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Capex $8.5bn in the quarter, nearly four times a year earlier.",
+          "es": "Capex US$8.5 mil M en el trimestre, casi cuatro veces el año previo.",
+          "src": "release cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Seasonal Q1 renewal peak; $2.55bn build in the quarter.",
+          "es": "Pico estacional de renovaciones del 1T; alza de US$2.55 mil M en el trimestre.",
+          "src": "release cash-flow statement"
+        },
+        "total_debt": {
+          "en": "Borrowings funding the datacenter build; $91.3bn vs $84.5bn a year earlier.",
+          "es": "Deuda que financia los centros de datos; US$91.3 mil M vs US$84.5 mil M un año antes.",
+          "src": "release balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $2.9bn exceeded dividends; the OBBBA tax charge held net income flat.",
+          "es": "Utilidad neta de US$2.9 mil M superó dividendos; el cargo fiscal OBBBA dejó plana la utilidad.",
+          "src": "release balance sheet; income statement fn 2"
         }
       },
       "exec_summary": {
@@ -334,6 +359,31 @@
           "en": "Stock-based compensation with minimal buybacks.",
           "es": "Compensación en acciones con recompras mínimas.",
           "src": "release cash-flow statement"
+        },
+        "cash": {
+          "en": "$17.9bn of net new notes and term loans in the half plus the Ampere sale proceeds, ahead of capex of $12.0bn.",
+          "es": "US$17.9 mil M netos de nuevos bonos y créditos en el semestre más lo recibido por Ampere, antes de capex de US$12.0 mil M.",
+          "src": "release cash-flow statement"
+        },
+        "total_assets": {
+          "en": "Capex $12.0bn in the quarter (three times last year) plus the cash from new debt.",
+          "es": "Capex US$12.0 mil M en el trimestre (tres veces el año previo) más el efectivo de nueva deuda.",
+          "src": "release cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Normal Q2 run-off; up 5% y/y.",
+          "es": "Desgaste normal del 2T; +5% a/a.",
+          "src": "release balance sheet"
+        },
+        "total_debt": {
+          "en": "$17.9bn of net new senior notes and term loans in the half; $108.1bn vs $88.6bn.",
+          "es": "US$17.9 mil M netos de nuevos bonos senior y créditos en el semestre; US$108.1 mil M vs US$88.6 mil M.",
+          "src": "release cash-flow statement; balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $6.1bn, lifted by the ~$2.7bn Ampere gain, exceeded dividends.",
+          "es": "Utilidad neta de US$6.1 mil M, impulsada por la ganancia de ~US$2.7 mil M de Ampere, superó dividendos.",
+          "src": "release balance sheet; p.1 Kehring quote"
         }
       },
       "exec_summary": {
@@ -531,6 +581,31 @@
           "en": "Stock-based compensation; the February mandatory convertible preferred is not yet in the diluted count.",
           "es": "Compensación en acciones; las preferentes convertibles de febrero aún no entran en el conteo diluido.",
           "src": "release income statement; 'Capital Funding'"
+        },
+        "cash": {
+          "en": "February's $30bn raise (senior notes plus $5bn of mandatory convertible preferred) landed before the capex it funds.",
+          "es": "La colocación de US$30 mil M de febrero (bonos senior más US$5 mil M de preferentes convertibles) llegó antes del capex que financia.",
+          "src": "release 'Capital Funding'; balance sheet"
+        },
+        "total_assets": {
+          "en": "Cash from the February raise plus capex of $18.6bn in the quarter.",
+          "es": "Efectivo de la colocación de febrero más capex de US$18.6 mil M en el trimestre.",
+          "src": "release balance sheet; cash-flow statement"
+        },
+        "deferred_revenue": {
+          "en": "Up 10% y/y with cloud subscriptions and early customer prepayments.",
+          "es": "+10% a/a con las suscripciones de nube y los primeros prepagos de clientes.",
+          "src": "release balance sheet"
+        },
+        "total_debt": {
+          "en": "$44.5bn of new notes and term loans year-to-date, including February's raise; $134.6bn vs $96.3bn.",
+          "es": "US$44.5 mil M de nuevos bonos y créditos en el año, incluida la colocación de febrero; US$134.6 mil M vs US$96.3 mil M.",
+          "src": "release 'Capital Funding'; balance sheet"
+        },
+        "equity": {
+          "en": "$5bn of mandatory convertible preferred issued in February plus net income of $3.7bn.",
+          "es": "US$5 mil M de preferentes convertibles obligatorias emitidas en febrero más utilidad neta de US$3.7 mil M.",
+          "src": "release 'Capital Funding'; balance sheet"
         }
       },
       "exec_summary": {
@@ -728,6 +803,31 @@
           "en": "Stock-based compensation; preferred stock and the $20bn at-the-market equity program announced for FY27.",
           "es": "Compensación en acciones; preferentes y programa de emisión ATM de US$20 mil M anunciado para el AF27.",
           "src": "release 'Capital Investment Program and Capital Funding'"
+        },
+        "cash": {
+          "en": "Record $14.6bn of operating cash flow (incl. $4.6bn of customer prepayments) less capex of $16.5bn and debt repayments.",
+          "es": "Flujo operativo récord de US$14.6 mil M (incl. US$4.6 mil M de prepagos) menos capex de US$16.5 mil M y pagos de deuda.",
+          "src": "release cash-flow statement; net-cash-outlay table"
+        },
+        "total_assets": {
+          "en": "FY26 capex of $55.7bn: property, plant and equipment roughly doubled over the year.",
+          "es": "Capex AF26 de US$55.7 mil M: propiedades, planta y equipo casi se duplicaron en el año.",
+          "src": "release balance sheet; net-cash-outlay table"
+        },
+        "deferred_revenue": {
+          "en": "Up 6% y/y; customer prepayments with a financing component are booked separately.",
+          "es": "+6% a/a; los prepagos de clientes con componente financiero se registran aparte.",
+          "src": "release balance sheet; net-cash-outlay table"
+        },
+        "total_debt": {
+          "en": "$43bn of debt raised in FY26, partly repaid in Q4; $129.5bn vs $92.6bn a year earlier.",
+          "es": "US$43 mil M de deuda levantados en el AF26, pagados en parte en el 4T; US$129.5 mil M vs US$92.6 mil M un año antes.",
+          "src": "release 'Capital Investment Program and Capital Funding'; balance sheet"
+        },
+        "equity": {
+          "en": "FY26 net income of $17.0bn plus the $5bn preferred, less $5.4bn of dividends.",
+          "es": "Utilidad neta AF26 de US$17.0 mil M más los US$5 mil M de preferentes, menos US$5.4 mil M de dividendos.",
+          "src": "release balance sheet; 'Capital Funding'"
         }
       },
       "exec_summary": {
@@ -925,6 +1025,31 @@
           "en": "$20bn at-the-market equity issuance plus stock-based compensation.",
           "es": "Emisión ATM de US$20 mil M más compensación en acciones.",
           "src": "release 'Capital Investment Program'"
+        },
+        "cash": {
+          "en": "$19.9bn net from the at-the-market equity issuance and $11.4bn of customer prepayments, less capex of $28.5bn and $4.2bn of repayments.",
+          "es": "US$19.9 mil M netos de la emisión ATM y US$11.4 mil M de prepagos de clientes, menos capex de US$28.5 mil M y US$4.2 mil M de pagos.",
+          "src": "release cash-flow statement; 'Capital Investment Program'"
+        },
+        "total_assets": {
+          "en": "Property, plant and equipment $127.8bn vs $100.0bn at May after $28.5bn of capex; cash from the ATM issuance.",
+          "es": "Propiedades, planta y equipo US$127.8 mil M vs US$100.0 mil M en mayo tras US$28.5 mil M de capex; efectivo de la emisión ATM.",
+          "src": "release balance sheet"
+        },
+        "deferred_revenue": {
+          "en": "Customer prepayments: $11.4bn with a significant financing component plus the seasonal renewal peak.",
+          "es": "Prepagos de clientes: US$11.4 mil M con componente financiero significativo más el pico estacional de renovaciones.",
+          "src": "release cash-flow statement; net-cash-outlay table"
+        },
+        "total_debt": {
+          "en": "$4.2bn repaid in the quarter; no new issuance; $125.3bn vs $129.5bn at May.",
+          "es": "US$4.2 mil M pagados en el trimestre; sin nuevas emisiones; US$125.3 mil M vs US$129.5 mil M en mayo.",
+          "src": "release cash-flow statement; balance sheet"
+        },
+        "equity": {
+          "en": "$19.9bn net from the completed $20bn at-the-market program plus net income of $4.8bn.",
+          "es": "US$19.9 mil M netos del programa ATM de US$20 mil M completado más utilidad neta de US$4.8 mil M.",
+          "src": "release 'Capital Investment Program'; balance sheet"
         }
       },
       "exec_summary": {

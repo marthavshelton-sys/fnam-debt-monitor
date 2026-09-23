@@ -13,7 +13,10 @@
 
 ## Data backfill (public information, no owner input needed)
 
-- Fiscal years FY2016–FY2021 from the 10-Ks (FY2022–FY2026 and 20 quarters 2Q22–1Q27 are loaded).
+- Quarters before 2Q22 (the 20 quarters 2Q22–1Q27 are loaded; fiscal years now run FY2017–FY2026, the
+  FY2017–FY2021 years at year level from the 10-Ks without Non-GAAP figures).
+- Buildout: 1Q26 megawatts delivered were never stated; 4Q26 MW and Abilene 4Q26 GPUs are derived from
+  management's ratios — replace with stated figures if Oracle publishes them (the IR slide decks from 4Q26 on).
 - Price history before September 2021 (five years loaded).
 - Headcount (10-K, annual) for the operating block.
 - Full balance sheets (total liabilities, working-capital lines) and full cash-flow statements from the

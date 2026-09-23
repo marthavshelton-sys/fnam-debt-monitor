@@ -97,6 +97,31 @@
           "en": "Buybacks of about $1.2bn did not offset stock-based compensation.",
           "es": "Recompras de ~US$1.2 mil M no compensaron la compensación en acciones.",
           "src": "FY2024 quarterly calls (Catz)"
+        },
+        "cash": {
+          "en": "Free cash flow of $11.8bn less $4.4bn of dividends, $1.2bn of buybacks and net debt repayment.",
+          "es": "Flujo libre de US$11.8 mil M menos US$4.4 mil M de dividendos, US$1.2 mil M de recompras y pago neto de deuda.",
+          "src": "4Q24 release cash-flow statement; 4Q24 call p.5 (Catz)"
+        },
+        "total_assets": {
+          "en": "Modest growth; capex $6.9bn, below FY23.",
+          "es": "Crecimiento moderado; capex US$6.9 mil M, menor al AF23.",
+          "src": "4Q24 release balance sheet"
+        },
+        "deferred_revenue": {
+          "en": "Short-term deferred revenue $9.3bn, +4% (Catz).",
+          "es": "Ingresos diferidos de corto plazo US$9.3 mil M, +4% (Catz).",
+          "src": "4Q24 call p.5 (Catz)"
+        },
+        "total_debt": {
+          "en": "Repayments through the year; no new issuance.",
+          "es": "Pagos durante el año; sin nuevas emisiones.",
+          "src": "4Q24 release balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $10.5bn against $4.4bn of dividends and $1.2bn of buybacks.",
+          "es": "Utilidad neta de US$10.5 mil M frente a US$4.4 mil M de dividendos y US$1.2 mil M de recompras.",
+          "src": "4Q24 release balance sheet; 4Q24 call p.5 (Catz)"
         }
       },
       "drafted": "2026-09-23"
@@ -197,6 +222,31 @@
           "en": "Buybacks cut to about $150m a quarter; stock-based compensation adds ~1-2% a year.",
           "es": "Recompras reducidas a ~US$150 M por trimestre; la compensación en acciones suma ~1-2% anual.",
           "src": "4Q25 call p.5 (Catz)"
+        },
+        "cash": {
+          "en": "Capex of $21.2bn absorbed operating cash flow of $20.8bn; new debt funded dividends and repayments.",
+          "es": "Capex de US$21.2 mil M absorbió el flujo operativo de US$20.8 mil M; la nueva deuda financió dividendos y pagos.",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "total_assets": {
+          "en": "Capex tripled to $21.2bn, mostly datacenter equipment.",
+          "es": "El capex se triplicó a US$21.2 mil M, sobre todo equipo de centros de datos.",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "deferred_revenue": {
+          "en": "Short-term deferred revenue $9.4bn (Catz).",
+          "es": "Ingresos diferidos de corto plazo US$9.4 mil M (Catz).",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "total_debt": {
+          "en": "$19.5bn of notes and loans plus $1.9bn of commercial paper issued, net of repayments.",
+          "es": "US$19.5 mil M de bonos y créditos más US$1.9 mil M de papel comercial emitidos, netos de pagos.",
+          "src": "4Q25 release cash-flow statement"
+        },
+        "equity": {
+          "en": "Net income of $12.4bn against $4.7bn of dividends and $0.6bn of buybacks.",
+          "es": "Utilidad neta de US$12.4 mil M frente a US$4.7 mil M de dividendos y US$0.6 mil M de recompras.",
+          "src": "4Q25 release balance sheet; 4Q25 call p.5 (Catz)"
         }
       },
       "drafted": "2026-09-23"
@@ -297,6 +347,31 @@
           "en": "Stock-based compensation; $5bn of mandatory convertible preferred issued in February, $20bn ATM equity announced for FY27.",
           "es": "Compensación en acciones; US$5 mil M de preferentes convertibles en febrero y programa ATM de US$20 mil M anunciado para el AF27.",
           "src": "4Q26 release 'Capital Investment Program and Capital Funding'"
+        },
+        "cash": {
+          "en": "$43bn of debt and $5bn of preferred raised, record operating cash flow of $32bn, capex of $55.7bn.",
+          "es": "US$43 mil M de deuda y US$5 mil M de preferentes levantados, flujo operativo récord de US$32 mil M, capex de US$55.7 mil M.",
+          "src": "4Q26 release 'Capital Funding'; 4Q26 call p.4 (Maxson)"
+        },
+        "total_assets": {
+          "en": "Property, plant and equipment roughly doubled on $55.7bn of capex.",
+          "es": "Propiedades, planta y equipo casi se duplicaron con US$55.7 mil M de capex.",
+          "src": "4Q26 release balance sheet"
+        },
+        "deferred_revenue": {
+          "en": "Up 6% y/y; customer prepayments with a financing component are booked separately.",
+          "es": "+6% a/a; los prepagos de clientes con componente financiero se registran aparte.",
+          "src": "4Q26 release balance sheet"
+        },
+        "total_debt": {
+          "en": "$43bn raised in the year, including February's $30bn; $129.5bn vs $92.6bn.",
+          "es": "US$43 mil M levantados en el año, incluidos los US$30 mil M de febrero; US$129.5 mil M vs US$92.6 mil M.",
+          "src": "4Q26 release 'Capital Funding'; balance sheet"
+        },
+        "equity": {
+          "en": "Net income of $17.0bn plus $5bn of mandatory convertible preferred, less $5.4bn of dividends.",
+          "es": "Utilidad neta de US$17.0 mil M más US$5 mil M de preferentes convertibles, menos US$5.4 mil M de dividendos.",
+          "src": "4Q26 release balance sheet; 'Capital Funding'"
         }
       },
       "drafted": "2026-09-23"

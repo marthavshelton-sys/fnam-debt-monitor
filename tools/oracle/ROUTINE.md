@@ -35,9 +35,12 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > `_raw_fy2026.json` (GAAP statement, Non-GAAP reconciliation, balance-sheet highlights, cash flow — Q2–Q4
 > cash flows are cumulative in Oracle's release and must be made discrete by subtracting the previous
 > cumulative release — RPO, dividend declared, guidance issued, D&A), then run `node scripts/oracle/merge-raw.mjs`.
-> Draft the Comments column and the executive-summary bullets for the quarter (bilingual, one line per
-> statement line, sourced to the release page) into `tools/oracle/data/_raw_comments_c.json` in the shape of
-> `_raw_comments_b.json`, then run `node scripts/oracle/merge-comments.mjs`. Mark the filing `done` in
+> Draft the Comments column and the executive-summary bullets for the quarter (bilingual, driver-only, one clause
+> per line of the income statement, balance sheet, cash-flow statement and operating-metrics card, sourced to
+> the release page or the call page and speaker) into `tools/oracle/data/_raw_comments_c.json` in the shape of
+> `_raw_comments_b.json`, then run `node scripts/oracle/merge-comments.mjs`. When the call transcript is available,
+> also add the quarter's buildout disclosures (megawatts delivered, GPU utilization, renewals, GPUs delivered, new
+> or updated sites) to `tools/oracle/data/buildout.json` with page and speaker, marking any computed figure `derived`. Mark the filing `done` in
 > `state.json`. Run `node scripts/oracle/build.mjs`; it must print "0 failed" for both the tie-out and the
 > parser tests — if not, fix the transcription (a failure is almost always a typo, not an Oracle error) and
 > re-run. Open a pull request from a branch named `oracle/<fy>q<n>-results` with title

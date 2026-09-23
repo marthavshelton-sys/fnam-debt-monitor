@@ -41,6 +41,38 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
   securities. Preferred stock is **not** treated as debt (it is mandatory convertible).
 - Enterprise value = market cap + net debt. LTM = sum of the four most recent quarters.
 
+## Fiscal years FY2017–FY2021 (backfilled from the 10-Ks)
+
+- FY2017–FY2019 come from the FY2019 Form 10-K and FY2020–FY2021 from the FY2021 Form 10-K (three-year
+  consolidated statements). They carry GAAP lines only (revenue by type on the pre-FY2026 captions, operating
+  expenses, operating income, interest, non-operating income, tax, net income, diluted EPS and share count),
+  cash flow from operations, capital expenditures and D&A. A 10-K contains no Non-GAAP figures, so those rows
+  are blank before FY2022. FY2022's revenue lines come from the FY2024 10-K (only three FY2022 quarters are loaded).
+- The FY2023 quarter sums exceed the 10-K annual revenue lines by US$ 1 M (cloud services and total): rounding
+  in Oracle's own quarterly releases, tolerated like the FY2026 artefact.
+
+## Buildout data (sections 03 and 09)
+
+- Megawatts delivered, GPU utilization, renewals and GPU deliveries are the figures management stated on the
+  calls (page and speaker cited). Figures marked *derived* are computed from ratios management gave (4Q26 MW
+  = 1Q27's 850 MW ÷ "almost three"; Abilene 4Q26 GPUs = 131,000 ÷ 1.9). 1Q26 deliveries were not disclosed.
+- "Capacity pending" is not an Oracle figure: it is the "more than 10 GW secured through partners over the
+  next three years" (3Q26 call) less the megawatts delivered since that call. It is labelled derived on the page.
+- Sites: capacity, customer and financing come from Oracle where disclosed; otherwise from the developer's own
+  release (Crusoe, Vantage/DigitalBridge, Related) or a wire report (DCD, CNBC, Construction Dive), each linked
+  in the row. "Not disclosed" means Oracle has not said. Press figures for third-party financing are reported,
+  not verified.
+- The section-09 flow graphic shows the latest quarter's figures from the model's data files (RPO, capex,
+  operating cash flow, cloud and total revenue, guidance) and the buildout file (MW, secured capacity,
+  funding items); nothing in it is typed into the page.
+
+## Maturity buckets (sections 07 and 11)
+
+- Principal is grouped by calendar year of maturity: 2026 (the July-2026 note, greyed until the 10-Q confirms
+  repayment), 2027 to 2031 one by one, 2032–2036, and after 2036. Commercial paper has no fixed maturity and
+  sits outside the buckets. Average coupons are principal-weighted over the fixed-rate notes; the second headline
+  rate also includes the term loan and commercial paper at their effective rates; floating-rate notes are excluded.
+
 ## Debt detail and credit risk (section 11)
 
 - Instruments are the 58 lines of the FY2026 10-K debt footnote (senior notes, floating-rate notes, term loan,
