@@ -178,8 +178,8 @@ function findHeader(lines, start, maxAhead = 10, ctx = {}) {
     const groups = years.length / 2;
     const above = lines.slice(Math.max(0, i - 4), i).join(' ');
     const kinds = [];
-    for (const m of above.matchAll(/(\d{1,2})M\b|(\d)Q\b|\b(first|second|third|fourth) quarter|\b(three|six|nine|twelve)[- ]months?|\b(?:full year|FY|year)\b/gi)) {
-      if (m[1]) kinds.push({ months: +m[1] }); else if (m[2]) kinds.push({ q: +m[2] }); else if (m[3]) kinds.push({ q: QWORDS[m[3].toLowerCase()] }); else if (m[4]) kinds.push({ months: MWORDS[m[4].toLowerCase()] }); else kinds.push({ months: 12 });
+    for (const m of above.matchAll(/(\d{1,2})M\b|(\d)Q\b|\b(first|second|third|fourth) quarter|\b(primer|segundo|tercer|cuarto) trimestre|\b(three|six|nine|twelve)[-\s]*months?|\b(?:full year|FY|year)\b/gi)) {
+      if (m[1]) kinds.push({ months: +m[1] }); else if (m[2]) kinds.push({ q: +m[2] }); else if (m[3]) kinds.push({ q: QWORDS[m[3].toLowerCase()] }); else if (m[4]) kinds.push({ q: { primer: 1, segundo: 2, tercer: 3, cuarto: 4 }[m[4].toLowerCase()] }); else if (m[5]) kinds.push({ months: MWORDS[m[5].toLowerCase()] }); else kinds.push({ months: 12 });
     }
     // "3M 3M % 1Q 1Q %" repeats each kind twice; collapse consecutive duplicates
     const kk = kinds.filter((k, j) => !(j && JSON.stringify(kinds[j - 1]) === JSON.stringify(k)));
@@ -296,7 +296,7 @@ function parseResults(text, meta) {
       const hd = findHeader(lines, i + 1, 8, { q }); if (!hd) continue;
       let e = hd.line + 1; while (e < end && e < hd.line + 25 && !/^Table \d+:|^Figures in|^For the purposes|^\d Represents|^\d Adjusted|^<<page/.test(lines[e])) e++;
       const { out } = parseRows(pdfRows(lines, hd.line + 1, e, { footnoteFix: true }), SEG_ROWS, hd.groups, 3);
-      out.forEach((vals, g) => { const p0 = hd.periods[g * 2], p1 = hd.periods[g * 2 + 1]; for (const [p, k] of [[p0, 0], [p1, 1]]) { const key = p.q ? qid(p.fy, p.q) : `${p.fy}M${p.months}`; const o = (acc[key] ??= {}); for (const [kk, pair] of Object.entries(vals)) if (pair[k] != null && !(kk in o)) o[kk] = pair[k]; } });
+      out.forEach((vals, g) => { if (seg.code === 'US') for (const kk of Object.keys(vals)) { const pr = vals[kk]; if (pr && pr[0] && !pr[1]) vals[kk] = [null, pr[0]]; } /* first-year tables print the value, then n/a for the missing comparative */ const p0 = hd.periods[g * 2], p1 = hd.periods[g * 2 + 1]; for (const [p, k] of [[p0, 0], [p1, 1]]) { const key = p.q ? qid(p.fy, p.q) : `${p.fy}M${p.months}`; const o = (acc[key] ??= {}); for (const [kk, pair] of Object.entries(vals)) if (pair[k] != null && !(kk in o)) o[kk] = pair[k]; } });
     }
     for (const [key, o] of Object.entries(acc)) (rel.segments[key] ??= {})[seg.code] = o;
   }

@@ -34,7 +34,7 @@
     pax: { es: 'Pasajeros (miles)', en: 'Passengers (thousands)' }, revPerPax: { es: 'Ingreso por pasajero (Ps.)', en: 'Revenue per passenger (Ps.)' }, capex: { es: 'Capex', en: 'Capex' }, cfo: { es: 'Flujo operativo', en: 'Operating cash flow' },
     total: { es: 'Total', en: 'Total' }, dom: { es: 'Nacional', en: 'Domestic' }, intl: { es: 'Internacional', en: 'International' },
     monthly: { es: 'mensual', en: 'monthly' }, quarterly: { es: 'trimestral', en: 'quarterly' }, annual: { es: 'anual', en: 'annual' },
-    airport: { es: 'Aeropuerto', en: 'Airport' }, yoy: { es: 'a/a', en: 'y/y' }, ytdShort: { es: 'Acum.', en: 'YTD' }, group: CFG.groupLabel,
+    airport: { es: 'Aeropuerto', en: 'Airport' }, yoy: { es: 'a/a', en: 'y/y' }, ytdShort: { es: 'Acum.', en: 'YTD' }, group: { es: 'Grupo', en: 'Group' },
     latestMonth: { es: 'Último mes', en: 'Latest month' }, share: { es: '% del total', en: '% of total' },
     price: { es: 'Precio', en: 'Price' }, close: { es: 'cierre', en: 'close' }, high52: { es: 'Máx. 52 sem.', en: '52-wk high' }, low52: { es: 'Mín. 52 sem.', en: '52-wk low' }, ytdChg: { es: 'Var. en el año', en: 'YTD change' }, oneY: { es: 'Var. 1 año', en: '1-yr change' }, mktCap: { es: 'Capitalización', en: 'Market cap' }, ev: { es: 'Valor de la empresa (VE)', en: 'Enterprise value (EV)' },
     period: { es: 'Periodo', en: 'Period' }, ret: { es: 'Rendimiento', en: 'Return' },
