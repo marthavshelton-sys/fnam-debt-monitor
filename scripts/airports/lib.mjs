@@ -156,7 +156,7 @@ export function assignValues(toks, groups, per = 3) {
   };
   const loose = (tk) => {
     const nonPct = tk.filter((t) => !t.pct).map((t) => t.v);
-    if (nonPct.length === groups) return Array.from({ length: groups }, (_, g) => [null, nonPct[g]]);
+    if (nonPct.length === groups && !tk.some((t) => t.dash)) return Array.from({ length: groups }, (_, g) => [null, nonPct[g]]);
     if (groups === 1 && nonPct.length >= 2) return [[nonPct[0], nonPct[1]]];
     return null;
   };
