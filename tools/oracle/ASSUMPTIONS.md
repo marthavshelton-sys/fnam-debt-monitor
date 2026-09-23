@@ -90,9 +90,11 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 
 ## Comments column and executive summary
 
-- Drafted from the results release and, where supplied, the earnings-call transcript; each entry cites its
-  source. Percentages quoted are Oracle's. The column fills only when period A is compared with the same period
-  a year earlier. Coverage: 1Q25–1Q27 (the nine most recent quarters).
+- Drafted from the results release and the earnings-call transcript; each entry cites its source (release page,
+  or call page and speaker). Comments are driver-only: one clause naming the cause of the change the table already
+  quantifies, and "no driver given" where management offered none. Percentages quoted are Oracle's. The column
+  fills when a quarter is compared with the same quarter a year earlier (13 quarters, 1Q24–1Q27) or a fiscal
+  year with the prior one (FY2024–FY2026, written from the 4Q call); YTD and LTM modes carry no comments.
 
 ## Peers
 

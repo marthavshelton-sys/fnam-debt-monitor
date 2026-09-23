@@ -16,10 +16,12 @@ export function mergeComments() {
   const out = existsSync(join(DATA, "comments.json")) ? load("comments.json") : { _comment: "", by_quarter: {} };
   out._comment = "Comments-column entries (one line per income-statement line, year-over-year) and executive-summary bullets drafted from the archived releases and the owner-supplied call transcripts; each entry cites its source. Reviewed by the owner before publishing.";
   out.by_quarter = out.by_quarter || {};
+  out.by_year = out.by_year || {};
   let n = 0;
   for (const f of files) {
     const raw = load(f);
     for (const [qid, entry] of Object.entries(raw.by_quarter || {})) { out.by_quarter[qid] = entry; n++; }
+    for (const [yid, entry] of Object.entries(raw.by_year || {})) { out.by_year[yid] = entry; n++; }
     if (raw._notes) { out.notes = out.notes || {}; out.notes[f] = raw._notes; }
   }
   out.updatedAt = new Date().toISOString().slice(0, 10);
