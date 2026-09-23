@@ -1,0 +1,418 @@
+{
+  "_extraction_notes": {
+    "revenue_line_mapping": "Oracle's GAAP income statement reports four revenue lines: 'Cloud services and license support' (combined cloud services + on-premise license support), 'Cloud license and on-premise license' (new license revenue), 'Hardware', and 'Services'. In this schema they are mapped as revenue.cloud = 'Cloud services and license support' and revenue.software = 'Cloud license and on-premise license', using Oracle's own reported figures verbatim (no re-allocation or estimation).",
+    "capex_sign_convention": "capex_quarter and capex figures are stored as positive magnitudes (spend), consistent with the source press releases' Free Cash Flow tables. free_cash_flow_quarter = operating_cash_flow_quarter - capex_quarter.",
+    "quarterly_cash_flow_derivation": "Oracle's Q2, Q3, and Q4 (and full-year) press releases present GAAP cash flow statements on a year-to-date (cumulative fiscal-year) basis, not discrete-quarter. Discrete quarterly operating cash flow and capex for Q2-Q4 FY2022 were derived by subtracting the prior cumulative period (from the prior quarter's own 8-K Exhibit 99.1) from the current cumulative period, all sourced from Oracle's own SEC filings. The Q1 FY2022 three-month figures (OCF $5,391M; capex $1,062M, from the Q1 FY2022 8-K Exhibit 99.1, accession 0001564590-21-047736) were used only as the subtrahend for Q2 and are recorded under _fy2022q1_cash_flow_reference; no full Q1 record is produced. Cross-check: Q1 reference + three derived quarters of operating cash flow (5,391 + (-3,682) + 3,845 + 3,985 = 9,539) equals the FY2022 Year Ended May 31, 2022 GAAP operating cash flow of $9,539M exactly; capex (1,062 + 925 + 1,101 + 1,423 = 4,511) equals FY2022 capex of $4,511M exactly; resulting FY free cash flow of $5,028M matches the Free Cash Flow - Trailing 4-Quarters table printed in the Q4 exhibit ($5,028M) exactly. Secondary cross-check: combining these discrete quarters with the FY2021 quarterly figures printed in the prior-year columns reproduces the trailing-4-quarter OCF/capex printed in the Q2 exhibit (10,255 / 3,118) and the Q3 exhibit (10,396 / 3,805) exactly.",
+    "da_derivation": "Each quarter's 'da' object is taken from the two GAAP cash-flow-statement adjustment lines 'Depreciation' and 'Amortization of intangible assets'. Because Q2-Q4 exhibits print these cumulatively (six, nine and twelve months), discrete quarters were derived by the same subtraction method as operating cash flow; the cumulative figures as printed are retained in da.cumulative_as_printed. Cross-check: depreciation 454 + 459 + 496 + 563 = 1,972 = FY2022 Year Ended May 31, 2022 depreciation; amortization 303 + 300 + 279 + 268 = 1,150 = FY2022 amortization of intangible assets (which also equals the FY2022 income-statement 'Amortization of intangible assets' line of $1,150M). Note: the derived Q2 amortization from the cash-flow statement (300) differs by $1M from the Q2 three-month income-statement line (299) because Oracle's cumulative six-month figure (603) does not equal the sum of the two discrete income-statement quarters (303 + 299 = 602) due to rounding; the cash-flow-derived figure is recorded in 'da' and the income-statement figure in 'opex', each as printed/derived from its own statement.",
+    "rpo_disclosure": "None of the FY2022 Exhibit 99.1 earnings press releases (Q2, Q3, Q4) discloses Remaining Performance Obligations, in any precision. rpo.total and rpo.yoy_change are therefore null for all three quarters (not estimated).",
+    "guidance_disclosure": "Oracle's Exhibit 99.1 earnings press releases for Q2-Q4 FY2022 do not contain a quantified forward-guidance table (no next-quarter revenue growth %, cloud growth %, or non-GAAP EPS range). Quantified guidance was given verbally on the earnings conference calls (separate documents, not part of these 8-K exhibits) and was NOT extracted here to preserve strict SEC-filing sourcing. Qualitative forward-looking CEO commentary contained in each exhibit is quoted in guidance_issued._note.",
+    "preferred_dividends": "Oracle has no preferred stock outstanding in FY2022; preferred_dividends is 0 in all periods and net_income_common equals net_income.",
+    "litigation_charge_fy2022": "The large FY2022 litigation-related charge was recorded in Q2 FY2022 (three months ended November 30, 2021), NOT Q3. Oracle printed it in the GAAP operating-expense line 'Acquisition related and other' ($4,667M for the quarter), with footnote (2) stating the line 'included the impact of litigation related charges totaling $4.7 billion'; the release text attributes it to 'the payment of a judgment related to a ten year old dispute surrounding former CEO Mark Hurd's employment'. It produced a Q2 GAAP operating loss of $(824)M, a net loss of $(1,247)M and a diluted loss per share of $(0.46); it was excluded from non-GAAP measures (Appendix A). In this schema it sits inside opex.restructuring_and_other for FY2022Q2 (4,667 + 32 restructuring = 4,699), and the components are broken out in the quarter's top-level 'restructuring_and_other' object. Q3 FY2022 contains no litigation charge in operating expenses (Acquisition related and other = $20M); Q3's notable non-recurring item was a $(315)M GAAP 'Non-operating expenses, net', which the release attributes primarily to a decline in the share price of Oxford Nanopore and an operating loss at Ampere (stated to have lowered Q3 EPS by about $0.05). Recorded as printed.",
+    "stockholders_equity_sign": "Oracle reported a stockholders' deficit at every FY2022 quarter-end shown here, driven by share repurchases ($16.2B in FY2022) and the Q2 litigation loss: balance_sheet.stockholders_equity is recorded with the sign as printed, i.e. negative: (9,658) at Nov 30, 2021; (8,211) at Feb 28, 2022; (5,768) at May 31, 2022. The balance sheet caption is 'Stockholders' (Deficit) Equity'.",
+    "tax_provision_sign": "tax_provision is negative when Oracle records a provision for income taxes and positive when it records a benefit. FY2022Q2 shows a GAAP income tax BENEFIT of $249M (printed as 'Benefit from (provision for) income taxes 249'), so tax_provision = +249 for that quarter; Q3 and Q4 are provisions and are negative.",
+    "diluted_shares_fy2022q2": "Because Q2 FY2022 was a GAAP net loss, GAAP diluted weighted-average shares equal basic shares (2,694M); footnote (6) states 91 million shares related to employee stock plans were excluded as anti-dilutive. Oracle's non-GAAP diluted EPS of $1.21 was computed on 2,785M diluted shares (2,694 + 91), as printed in the reconciliation table. gaap.diluted_shares records the GAAP figure (2,694); the non-GAAP share count is recorded in non_gaap._note for that quarter.",
+    "quarterly_vs_annual_rounding": "fiscal_year_annual.FY2022 is taken verbatim from the Year Ended May 31, 2022 columns of the Q4 exhibit, not summed from quarters. For reference, the four discrete GAAP income-statement quarters (Q1 as printed in the Q1 exhibit: revenue 9,728 / operating income 3,427 / net income 2,457; plus Q2-Q4 above) sum to revenue 42,441, operating income 10,928 and net income 6,718, i.e. $1-2M above the printed annual figures (42,440 / 10,926 / 6,717). This is Oracle's own rounding of each quarter to the nearest $ million; the exhibits state 'The sum of the quarterly information presented may vary from the year-to-date information presented due to rounding.' Non-GAAP net income sums exactly (2,944 + 3,380 + 3,102 + 4,235 = 13,661). The cash-flow and D&A quarterly derivations sum to the annual figures exactly by construction.",
+    "july_2022_item_2_02_8k":"An additional Item 2.02 8-K dated July 8, 2022 (accession 0001193125-22-191296, Exhibit 99.1 d331231dex991.htm) was inspected: it is an Oracle CloudWorld press release restating Q4 FY2022 cloud revenue growth headline figures (total cloud $2.9B, IaaS $792M, Fusion ERP $569M, NetSuite ERP $574M) and does not revise any financial statement figure; it was not used as a source for any value here."
+  },
+  "quarters": [
+    {
+      "id": "FY2022Q2",
+      "fiscal_year": 2022,
+      "fiscal_quarter": 2,
+      "period_end": "2021-11-30",
+      "period_label_en": "Q2 FY2022 (Sep-Nov 2021)",
+      "period_label_es": "2T AF2022 (sep-nov 2021)",
+      "release_date": "2021-12-09",
+      "source": {
+        "title": "Oracle Q2 FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "accession": "0001564590-21-059893",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459021059893/orcl-ex991_6.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 7554,
+          "software": 1237,
+          "hardware": 767,
+          "services": 802,
+          "total": 10360,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 1259,
+          "hardware_cost": 229,
+          "services_cost": 671,
+          "sales_and_marketing": 1954,
+          "research_and_development": 1754,
+          "general_and_administrative": 319,
+          "amortization_of_intangibles": 299,
+          "restructuring_and_other": 4699,
+          "total": 11184,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($4,667M, which per footnote (2) 'included the impact of litigation related charges totaling $4.7 billion' - the judgment payment in the former-CEO Mark Hurd employment dispute) + 'Restructuring' ($32M), Oracle's two separate GAAP lines, combined per schema. The litigation charge drove the GAAP operating loss of $(824)M."
+        },
+        "operating_income": -824,
+        "interest_expense": -679,
+        "nonoperating_income_net": 7,
+        "pretax_income": -1496,
+        "tax_provision": 249,
+        "net_income": -1247,
+        "preferred_dividends": 0,
+        "net_income_common": -1247,
+        "diluted_eps": -0.46,
+        "diluted_shares": 2694,
+        "_note": "GAAP quarter is a loss: 'OPERATING (LOSS) INCOME (824)', '(LOSS) INCOME BEFORE INCOME TAXES (1,496)', 'Benefit from (provision for) income taxes 249' (a benefit, hence positive tax_provision), 'NET (LOSS) INCOME (1,247)', diluted loss per share $(0.46) on 2,694M shares (anti-dilutive 91M shares excluded)."
+      },
+      "non_gaap": {
+        "operating_income": 4855,
+        "net_income_common": 3380,
+        "diluted_eps": 1.21,
+        "reconciling_items": {
+          "stock_based_compensation": 681,
+          "amortization_of_intangibles": 299,
+          "restructuring_and_other": 4699,
+          "tax_effect_of_adjustments": -1052
+        },
+        "_note": "Non-GAAP diluted EPS of $1.21 is computed on 2,785M diluted shares (GAAP 2,694M + 91M dilutive shares that were anti-dilutive for the GAAP loss), as printed in the reconciliation table. Check: 3,380 / 2,785 = 1.214."
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 17938,
+        "marketable_securities": 4900,
+        "cash_and_investments_total": 22838,
+        "total_assets": 106897,
+        "current_deferred_revenue": 7937,
+        "short_term_debt": 4998,
+        "long_term_debt": 73433,
+        "total_debt": 78431,
+        "stockholders_equity": -9658,
+        "_note": "short_term_debt = 'Notes payable, current'; long_term_debt = 'Notes payable and other borrowings, non-current'. stockholders_equity is a deficit, printed as 'Stockholders' (Deficit) Equity (9,658)'."
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": -3682,
+        "capex_quarter": 925,
+        "free_cash_flow_quarter": -4607,
+        "_note": "Derived: Q2 exhibit reports cash flow on a six-months-ended Nov 30, 2021 cumulative basis (OCF $1,709M; capex $1,987M). Q2-only = six-month cumulative minus Q1's reported three-month figures (OCF $5,391M; capex $1,062M) from the Q1 FY2022 8-K Exhibit 99.1 (accession 0001564590-21-047736). The negative Q2 operating cash flow reflects the $4.7B litigation judgment payment. Cross-check: trailing-4-quarter OCF printed in this exhibit ($10,255M) = FY2021 OCF 15,887 - Q1 FY2021 5,953 - Q2 FY2021 1,388 + Q1 FY2022 5,391 + Q2 FY2022 (3,682), reconciles exactly."
+      },
+      "da": {
+        "depreciation": 459,
+        "amortization_of_intangibles": 300,
+        "total_da": 759,
+        "cumulative_as_printed": {
+          "months": 6,
+          "depreciation": 913,
+          "amortization_of_intangibles": 603
+        },
+        "_note": "Derived from the cash-flow statement: six months ended Nov 30, 2021 (Depreciation $913M; Amortization of intangible assets $603M) minus Q1 FY2022 three-month figures (Depreciation $454M; Amortization $303M) from the Q1 8-K Exhibit 99.1. Derived Q2 amortization (300) differs by $1M from the Q2 income-statement amortization line (299) due to rounding in Oracle's cumulative figure (303 + 299 = 602 vs 603 printed)."
+      },
+      "restructuring_and_other": {
+        "acquisition_related_and_other": 4667,
+        "restructuring": 32,
+        "total": 4699,
+        "_note": "Acquisition related and other ($4,667M) includes the $4.7 billion litigation related charges per footnote (2) of the income statement; Restructuring ($32M) is employee severance and other exit costs. Both excluded from non-GAAP measures."
+      },
+      "rpo": {
+        "total": null,
+        "yoy_change": null,
+        "note_en": "Remaining Performance Obligations are not disclosed anywhere in the Q2 FY2022 Exhibit 99.1 press release; left null rather than estimated.",
+        "note_es": "Las Obligaciones de Desempeno Restantes no se revelan en ninguna parte del comunicado de resultados del 2T AF2022 (Anexo 99.1); se deja en nulo en lugar de estimarse."
+      },
+      "dividend_declared_per_share": 0.32,
+      "dividend_record_date": "2022-01-07",
+      "dividend_payment_date": "2022-01-19",
+      "guidance_issued": {
+        "for_period": "Q3 FY2022",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified forward guidance is contained in this Exhibit 99.1 press release. The only forward-looking commentary is qualitative: CEO Safra Catz said the infrastructure and applications cloud businesses (growing 22%) 'are approaching $11 billion in annualized revenue' and that the Gen2 infrastructure businesses 'are growing even faster - and accelerating'; backward-looking remarks note Q2 non-GAAP EPS beat guidance by $0.10 and constant-currency revenue beat guidance by $200 million. Also announced: the board increased the share repurchase authorization by $10 billion."
+      }
+    },
+    {
+      "id": "FY2022Q3",
+      "fiscal_year": 2022,
+      "fiscal_quarter": 3,
+      "period_end": "2022-02-28",
+      "period_label_en": "Q3 FY2022 (Dec 2021-Feb 2022)",
+      "period_label_es": "3T AF2022 (dic 2021-feb 2022)",
+      "release_date": "2022-03-10",
+      "source": {
+        "title": "Oracle Q3 FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "accession": "0001564590-22-009640",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022009640/orcl-ex991_6.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 7637,
+          "software": 1289,
+          "hardware": 798,
+          "services": 789,
+          "total": 10513,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 1305,
+          "hardware_cost": 244,
+          "services_cost": 669,
+          "sales_and_marketing": 2004,
+          "research_and_development": 1816,
+          "general_and_administrative": 335,
+          "amortization_of_intangibles": 279,
+          "restructuring_and_other": 39,
+          "total": 6691,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($20M) + 'Restructuring' ($19M). No litigation-related charge appears in Q3 FY2022 operating expenses; the $4.7B litigation charge was a Q2 FY2022 item (see _extraction_notes.litigation_charge_fy2022)."
+        },
+        "operating_income": 3822,
+        "interest_expense": -667,
+        "nonoperating_income_net": -315,
+        "pretax_income": 2840,
+        "tax_provision": -521,
+        "net_income": 2319,
+        "preferred_dividends": 0,
+        "net_income_common": 2319,
+        "diluted_eps": 0.84,
+        "diluted_shares": 2754,
+        "_note": "nonoperating_income_net of $(315)M is printed as 'Non-operating expenses, net (315)'; the release states Q3 EPS 'was lowered by $0.05 primarily because of a decline in the share price of ... Oxford Nanopore, and an operating loss at Ampere' (Oracle's equity investments). This is a non-operating item, not an operating-expense charge."
+      },
+      "non_gaap": {
+        "operating_income": 4814,
+        "net_income_common": 3102,
+        "diluted_eps": 1.13,
+        "reconciling_items": {
+          "stock_based_compensation": 674,
+          "amortization_of_intangibles": 279,
+          "restructuring_and_other": 39,
+          "tax_effect_of_adjustments": -209
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 22682,
+        "marketable_securities": 707,
+        "cash_and_investments_total": 23389,
+        "total_assets": 108644,
+        "current_deferred_revenue": 7871,
+        "short_term_debt": 6248,
+        "long_term_debt": 72165,
+        "total_debt": 78413,
+        "stockholders_equity": -8211,
+        "_note": "short_term_debt = 'Notes payable, current'; long_term_debt = 'Notes payable and other borrowings, non-current'. stockholders_equity is a deficit, printed as 'Stockholders' (Deficit) Equity (8,211)'."
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 3845,
+        "capex_quarter": 1101,
+        "free_cash_flow_quarter": 2744,
+        "_note": "Derived: Q3 exhibit reports cash flow on a nine-months-ended Feb 28, 2022 cumulative basis (OCF $5,554M; capex $3,088M). Q3-only = nine-month cumulative minus Q2's cumulative six-month figures (OCF $1,709M; capex $1,987M) from the Q2 FY2022 8-K Exhibit 99.1. Cross-check: trailing-4-quarter OCF printed in this exhibit ($10,396M) = prior TTM 10,255 - Q3 FY2021 3,704 + Q3 FY2022 3,845, reconciles exactly; TTM capex $3,805M = 3,118 - 414 + 1,101, reconciles exactly."
+      },
+      "da": {
+        "depreciation": 496,
+        "amortization_of_intangibles": 279,
+        "total_da": 775,
+        "cumulative_as_printed": {
+          "months": 9,
+          "depreciation": 1409,
+          "amortization_of_intangibles": 882
+        },
+        "_note": "Derived from the cash-flow statement: nine months ended Feb 28, 2022 (Depreciation $1,409M; Amortization of intangible assets $882M) minus six months ended Nov 30, 2021 (Depreciation $913M; Amortization $603M) from the Q2 8-K Exhibit 99.1. Derived Q3 amortization (279) equals the Q3 income-statement amortization line (279)."
+      },
+      "restructuring_and_other": {
+        "acquisition_related_and_other": 20,
+        "restructuring": 19,
+        "total": 39,
+        "_note": "Both lines as printed in the Q3 FY2022 GAAP income statement; both excluded from non-GAAP measures."
+      },
+      "rpo": {
+        "total": null,
+        "yoy_change": null,
+        "note_en": "Remaining Performance Obligations are not disclosed anywhere in the Q3 FY2022 Exhibit 99.1 press release; left null rather than estimated.",
+        "note_es": "Las Obligaciones de Desempeno Restantes no se revelan en ninguna parte del comunicado de resultados del 3T AF2022 (Anexo 99.1); se deja en nulo en lugar de estimarse."
+      },
+      "dividend_declared_per_share": 0.32,
+      "dividend_record_date": "2022-04-08",
+      "dividend_payment_date": "2022-04-21",
+      "guidance_issued": {
+        "for_period": "Q4 FY2022",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified forward guidance is contained in this Exhibit 99.1 press release. Qualitative commentary only: CEO Safra Catz stated that Q3's 7% constant-currency revenue growth was 'our highest quarterly organic revenue growth rate since we began our transition to the cloud' and that 'Total Cloud revenue which includes Cloud Infrastructure and Cloud Applications is now over $11 billion a year'; management also said it remains 'confident that our investments in [Oxford Nanopore and Ampere] will deliver very strong returns for Oracle'. Chairman/CTO Larry Ellison said MySQL HeatWave would be available on AWS and Microsoft Azure 'in a few weeks'."
+      }
+    },
+    {
+      "id": "FY2022Q4",
+      "fiscal_year": 2022,
+      "fiscal_quarter": 4,
+      "period_end": "2022-05-31",
+      "period_label_en": "Q4 FY2022 (Mar-May 2022)",
+      "period_label_es": "4T AF2022 (mar-may 2022)",
+      "release_date": "2022-06-13",
+      "source": {
+        "title": "Oracle Q4 & Full Year FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+        "form": "8-K",
+        "accession": "0001564590-22-023099",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022023099/orcl-ex991_6.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue": {
+          "cloud": 7612,
+          "software": 2539,
+          "hardware": 856,
+          "services": 833,
+          "total": 11840,
+          "_note": "cloud = 'Cloud services and license support'; software = 'Cloud license and on-premise license' (Oracle's own line labels)."
+        },
+        "opex": {
+          "cloud_and_software_cost": 1435,
+          "hardware_cost": 254,
+          "services_cost": 707,
+          "sales_and_marketing": 2238,
+          "research_and_development": 1965,
+          "general_and_administrative": 364,
+          "amortization_of_intangibles": 268,
+          "restructuring_and_other": 106,
+          "total": 7337,
+          "_note": "restructuring_and_other = 'Acquisition related and other' ($6M) + 'Restructuring' ($100M)."
+        },
+        "operating_income": 4503,
+        "interest_expense": -704,
+        "nonoperating_income_net": -175,
+        "pretax_income": 3624,
+        "tax_provision": -435,
+        "net_income": 3189,
+        "preferred_dividends": 0,
+        "net_income_common": 3189,
+        "diluted_eps": 1.16,
+        "diluted_shares": 2742
+      },
+      "non_gaap": {
+        "operating_income": 5590,
+        "net_income_common": 4235,
+        "diluted_eps": 1.54,
+        "reconciling_items": {
+          "stock_based_compensation": 713,
+          "amortization_of_intangibles": 268,
+          "restructuring_and_other": 106,
+          "tax_effect_of_adjustments": -41
+        }
+      },
+      "balance_sheet": {
+        "cash_and_equivalents": 21383,
+        "marketable_securities": 519,
+        "cash_and_investments_total": 21902,
+        "total_assets": 109297,
+        "current_deferred_revenue": 8357,
+        "short_term_debt": 3749,
+        "long_term_debt": 72110,
+        "total_debt": 75859,
+        "stockholders_equity": -5768,
+        "_note": "short_term_debt = 'Notes payable, current'; long_term_debt = 'Notes payable and other borrowings, non-current'. stockholders_equity is a deficit, printed as 'Stockholders' (Deficit) Equity (5,768)'. Balance sheet is as of May 31, 2022, i.e. before the Cerner acquisition closed (June 8, 2022)."
+      },
+      "cash_flow": {
+        "operating_cash_flow_quarter": 3985,
+        "capex_quarter": 1423,
+        "free_cash_flow_quarter": 2562,
+        "operating_cash_flow_fy": 9539,
+        "capex_fy": 4511,
+        "free_cash_flow_fy": 5028,
+        "_note": "Q4-only quarterly figures derived: FY2022 full-year cumulative (OCF $9,539M; capex $4,511M) minus Q3's cumulative nine-month figures (OCF $5,554M; capex $3,088M) from the Q3 FY2022 8-K Exhibit 99.1. Full-year figures are reported directly in the Q4/FY exhibit's Year Ended May 31, 2022 cash flow statement. Cross-check: Q1 reference + three derived quarters of operating cash flow (5,391 + (-3,682) + 3,845 + 3,985) = 9,539 = FY total; capex (1,062 + 925 + 1,101 + 1,423) = 4,511 = FY total; resulting FY free cash flow of $5,028M matches the Free Cash Flow - Trailing 4-Quarters table printed in this same exhibit exactly."
+      },
+      "da": {
+        "depreciation": 563,
+        "amortization_of_intangibles": 268,
+        "total_da": 831,
+        "cumulative_as_printed": {
+          "months": 12,
+          "depreciation": 1972,
+          "amortization_of_intangibles": 1150
+        },
+        "_note": "Derived from the cash-flow statement: Year Ended May 31, 2022 (Depreciation $1,972M; Amortization of intangible assets $1,150M) minus nine months ended Feb 28, 2022 (Depreciation $1,409M; Amortization $882M) from the Q3 8-K Exhibit 99.1. Derived Q4 amortization (268) equals the Q4 income-statement amortization line (268). Cross-check: 454 + 459 + 496 + 563 = 1,972 and 303 + 300 + 279 + 268 = 1,150, both equal to the FY2022 figures."
+      },
+      "restructuring_and_other": {
+        "acquisition_related_and_other": 6,
+        "restructuring": 100,
+        "total": 106,
+        "_note": "Both lines as printed in the Q4 FY2022 GAAP income statement; both excluded from non-GAAP measures."
+      },
+      "rpo": {
+        "total": null,
+        "yoy_change": null,
+        "note_en": "Remaining Performance Obligations are not disclosed anywhere in the Q4/FY2022 Exhibit 99.1 press release; left null rather than estimated.",
+        "note_es": "Las Obligaciones de Desempeno Restantes no se revelan en ninguna parte del comunicado de resultados del 4T/AF2022 (Anexo 99.1); se deja en nulo en lugar de estimarse."
+      },
+      "dividend_declared_per_share": 0.32,
+      "dividend_record_date": "2022-07-12",
+      "dividend_payment_date": "2022-07-26",
+      "guidance_issued": {
+        "for_period": "Q1 FY2023",
+        "total_revenue_growth_pct": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "_note": "No quantified next-quarter (Q1 FY2023) or FY2023 guidance table is contained in this Exhibit 99.1 press release. Qualitative outlook only: CEO Safra Catz stated that the Q4 infrastructure cloud growth of 39% in constant currency 'indicates that our infrastructure business has now entered a hyper-growth phase' and that, coupled with 'the newly acquired Cerner applications business', 'Oracle finds itself in position to deliver stellar revenue growth over the next several quarters'. No revenue growth %, cloud growth %, or EPS figures were given in the exhibit; all quantified fields are left null rather than estimated."
+      }
+    }
+  ],
+  "fiscal_year_annual": {
+    "FY2022": {
+      "source": {
+        "title": "Oracle Q4 & Full Year FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K), Year Ended May 31, 2022 statements",
+        "form": "8-K",
+        "accession": "0001564590-22-023099",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022023099/orcl-ex991_6.htm",
+        "accessed": "2026-09-22"
+      },
+      "gaap": {
+        "revenue_total": 42440,
+        "operating_income": 10926,
+        "net_income": 6717,
+        "diluted_eps": 2.41,
+        "operating_cash_flow": 9539,
+        "capex": 4511
+      },
+      "non_gaap": {
+        "operating_income": 19593,
+        "net_income": 13661,
+        "diluted_eps": 4.90
+      },
+      "da": {
+        "depreciation": 1972,
+        "amortization_of_intangibles": 1150,
+        "total_da": 3122,
+        "_note": "Taken directly from the Year Ended May 31, 2022 cash flow statement lines 'Depreciation' ($1,972M) and 'Amortization of intangible assets' ($1,150M) in the Q4/FY2022 exhibit. Equals the sum of the Q1 reference plus the three derived quarterly 'da' figures."
+      },
+      "_note": "FY2022 GAAP figures include the Q2 $4.7B litigation related charge (FY2022 'Acquisition related and other' = $4,713M per the Year Ended May 31, 2022 income statement, footnote (2)). FY2022 diluted weighted-average shares: 2,786M. FY2022 free cash flow = 9,539 - 4,511 = 5,028, matching the trailing-4-quarter table in the exhibit."
+    }
+  },
+  "_fy2022q1_cash_flow_reference": {
+    "purpose": "Reference figures only, used as the subtrahend to derive the FY2022Q2 discrete-quarter cash-flow and D&A figures. Not a full FY2022Q1 record.",
+    "id": "FY2022Q1",
+    "period": "Three months ended 2021-08-31 (reported directly on a discrete three-month basis)",
+    "release_date": "2021-09-13",
+    "source": {
+      "title": "Oracle Q1 FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+      "form": "8-K",
+      "accession": "0001564590-21-047736",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459021047736/orcl-ex991_6.htm",
+      "accessed": "2026-09-22"
+    },
+    "operating_cash_flow": 5391,
+    "capex": 1062,
+    "free_cash_flow": 4329,
+    "depreciation": 454,
+    "amortization_of_intangibles": 303,
+    "total_da": 757,
+    "_note": "From the Q1 FY2022 Condensed Consolidated Statements of Cash Flows, Three Months Ended August 31, 2021: 'Net cash provided by operating activities 5,391'; 'Capital expenditures (1,062)' (stored as positive magnitude); 'Depreciation 454'; 'Amortization of intangible assets 303'. free_cash_flow = 5,391 - 1,062 = 4,329. Cross-check: the Q1 exhibit's trailing-4-quarter table shows TTM OCF of $15,325M = FY2021 15,887 - Q1 FY2021 5,953 + Q1 FY2022 5,391, reconciling exactly."
+  }
+}

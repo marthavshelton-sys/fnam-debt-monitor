@@ -1,0 +1,2083 @@
+{
+  "meta": {
+    "note_en": "Earnings-call transcripts supplied by the owner as PDFs (not SEC filings; not republished). Quotes are short verbatim excerpts with speaker, date and page. Where the press release printed no quantified guidance, the ranges stated in the CFO's prepared remarks are used and marked 'transcript'.",
+    "note_es": "Transcripciones de llamadas de resultados proporcionadas por el responsable en PDF (no son reportes ante la SEC; no se republican). Las citas son extractos textuales breves con orador, fecha y página. Donde el comunicado no imprimió guía cuantificada, se usan los rangos expresados en los comentarios preparados del CFO y se marcan como 'transcripción'.",
+    "merged": "2026-09-23"
+  },
+  "calls": {
+    "FY2024Q1": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2024 Earnings Call 11September2023 500-ET-PM-10-09-2023-2023-09-10-2.pdf",
+      "call_date": "2023-09-11",
+      "event": "Q1 FY2024 earnings call",
+      "guidance_issued": {
+        "for_period": "Q2 FY2024",
+        "total_revenue_growth_pct_cc": [
+          3,
+          5
+        ],
+        "total_revenue_growth_pct_usd": [
+          5,
+          7
+        ],
+        "total_revenue_ex_cerner_growth_pct_cc": [
+          6,
+          8
+        ],
+        "total_revenue_ex_cerner_growth_pct_usd": [
+          8,
+          10
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          27,
+          29
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          29,
+          31
+        ],
+        "cloud_guidance_basis": "total cloud revenue excluding Cerner",
+        "non_gaap_eps_usd_cc": [
+          1.27,
+          1.31
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.3,
+          1.34
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          5,
+          9
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          7,
+          11
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have a 2% positive effect on total revenue and a $0.03 positive effect on EPS in Q2",
+        "fy_label": "FY2024",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "similar to this past year's CapEx",
+        "fy_cloud_growth_note": "excluding Cerner, I remain committed to accelerating our total revenue growth rate this fiscal year as well as maintaining our current high cloud growth rate for the year (p5); in Q&A (p12) confirmed FY cloud plan of 29%, maybe better",
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Quarterly guidance on p5. FY2024 capex statement on p4 (trailing-four-quarter capex was $8.3 billion, Q1 capex $1.3 billion). Also on p5: 'we remain firmly committed to our fiscal 2026 financial goals'. Total-revenue fields = including Cerner."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "In Q1, our remaining performance obligations or RPO climbed to nearly $65 billion with the portion excluding Cerner up 11%.",
+          "page": 3
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "We have now signed several deals for OCI greater than $1 billion in total value.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Excluding legacy hosting services, Gen 2 infrastructure cloud services revenue grew 72%, with an annualized revenue of $5.6 billion. OCI consumption revenue was up 91%.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were $0.8 billion, down 11%, following an amazing Q1 last year of 19% growth, which made it a tough compare this year.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So in all, total revenue for the quarter were $12.4 billion, up 8% including Cerner, up 9% excluding Cerner.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Non-GAAP operating income was $5.1 billion, up 12% from last year. The operating margin was 41%, up from 39% last year.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "And while we've continued to build datacenter capacity, we've also seen our IaaS margins go higher as these new cloud regions fill up.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Given the demand we have and see in the pipeline, I expect the fiscal year 2024 CapEx will be similar to this past year's CapEx.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Because we have far more demand than we can supply, our biggest challenge is building data centers as quickly as possible.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Again, excluding Cerner, I remain committed to accelerating our total revenue growth rate this fiscal year as well as maintaining our current high cloud growth rate for the year.",
+          "page": 5
+        },
+        {
+          "topic": "debt",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "As we've said many, many times before, we're committed to returning value to our shareholders through technical innovation, strategic acquisitions, stock repurchases, prudent use of debt and dividend.",
+          "page": 5
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "As of today, AI development companies have signed contracts to purchase more than $4 billion of AI training capacity in Oracle's Generation 2 Cloud.",
+          "page": 6
+        }
+      ],
+      "source": "S-CALL-FY2024Q1"
+    },
+    "FY2024Q2": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2024 Earnings Call 11December2023 500-ET-PM-11-12-2023-2023-12-11-1.pdf",
+      "call_date": "2023-12-11",
+      "event": "Q2 FY2024 earnings call",
+      "guidance_issued": {
+        "for_period": "Q3 FY2024",
+        "total_revenue_growth_pct_cc": [
+          6,
+          8
+        ],
+        "total_revenue_growth_pct_usd": [
+          6,
+          8
+        ],
+        "total_revenue_ex_cerner_growth_pct_cc": [
+          8,
+          10
+        ],
+        "total_revenue_ex_cerner_growth_pct_usd": [
+          8,
+          10
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          26,
+          28
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          26,
+          28
+        ],
+        "cloud_guidance_basis": "total cloud revenue excluding Cerner",
+        "non_gaap_eps_usd_cc": [
+          1.35,
+          1.39
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.35,
+          1.39
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          10,
+          14
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          10,
+          14
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have little effect on total revenue and EPS; all the numbers I give you are the same for constant currency and USD",
+        "fy_label": "FY2024",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "somewhere around $8 billion this fiscal year",
+        "fy_cloud_growth_note": null,
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Quarterly guidance on p5; only one set of numbers was given because Safra stated CC and USD were the same. FY2024 capex statement on p4 (Q2 capex $1.1 billion; second-half capex 'considerably higher'). p5: 'I remain firmly committed to our fiscal 2026 financial goals for revenue, operating margin, and EPS growth.' Q&A p13: Cerner expected to be a negative 1 to 2 point drag on FY2024 growth, ending this fiscal year. Q&A p7 (Ellison): OCI growth rate expected over 50% for a few years. Total-revenue fields = including Cerner."
+      },
+      "quotes": [
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "The largest number, cloud services and license support, is now 74% of the revenue, and it's recurring revenue and it's the one growing by $1 billion this quarter.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Excluding legacy hosting services, Gen2 infrastructure cloud services revenue grew 55% with an annualized revenue of $6 billion. OCI consumption revenue was up 71%.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were $1.2 billion, down 19% in a tough comparison to last year where it was up 23%.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So, all-in, total revenues for the quarter were $12.9 billion, up 4% including Cerner, actually up 6% excluding Cerner.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Non-GAAP operating income was $5.5 billion, up 7% from last year. The operating margin was 43%, up from 41% last year.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our remaining performance obligation, or RPO, is now over $65 billion with the portion excluding Cerner up 11% in constant currency.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Given the enormity of our pipeline and backlog, I expect CapEx will be somewhere around $8 billion this fiscal year",
+          "page": 4
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "We have to build 100 additional cloud datacenters because there are billions of dollars more in contracted demand than we currently can supply.",
+          "page": 5
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "This quarter alone we're talking about hundreds of millions of dollars that we would have been able to recognize if our capacity was available.",
+          "page": 7
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "We can build the datacenters relatively fast, and I expect the OCI growth rate to be over 50% for a few years.",
+          "page": 7
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our SaaS cloud business is very profitable, and our IaaS, our OCI business is improving profitability as it grows.",
+          "page": 8
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I think for the year, for the full fiscal year, Cerner will be sort of negative 1 to 2 points, but that will be it.",
+          "page": 13
+        }
+      ],
+      "source": "S-CALL-FY2024Q2"
+    },
+    "FY2024Q3": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2024 Earnings Call 11March2024 500-ET-PM-10-03-2024-2024-03-10-0.pdf",
+      "call_date": "2024-03-11",
+      "event": "Q3 FY2024 earnings call",
+      "guidance_issued": {
+        "for_period": "Q4 FY2024",
+        "total_revenue_growth_pct_cc": [
+          4,
+          6
+        ],
+        "total_revenue_growth_pct_usd": [
+          4,
+          6
+        ],
+        "total_revenue_ex_cerner_growth_pct_cc": [
+          6,
+          8
+        ],
+        "total_revenue_ex_cerner_growth_pct_usd": [
+          6,
+          8
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          22,
+          24
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          22,
+          24
+        ],
+        "cloud_guidance_basis": "total cloud revenue excluding Cerner",
+        "non_gaap_eps_usd_cc": [
+          1.62,
+          1.66
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.62,
+          1.66
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          -2,
+          0
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          -2,
+          0
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have little effect on total revenue and EPS; all the numbers are the same for constant currency and USD",
+        "fy_label": "FY2024",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "somewhere around $7 billion to $7.5 billion this fiscal year",
+        "next_fy_capex_note": "FY2025 CapEx about $10 billion (Q&A, p10)",
+        "fy_cloud_growth_note": null,
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Revenue and cloud guidance on p5; EPS guidance on p6 ('down 2% to flat'), with Safra noting the compare is affected by a 9.2% Q4 tax rate last year. FY2024 capex on p5 (Q3 capex $2.1 billion spent vs $1.7 billion in cash flow statement due to payment timing; Q4 capex 'considerably higher'). p5 outlook: FY2024 total revenue ex-Cerner will accelerate from last year and will likely be significantly higher in FY2025; Cerner expected to return to growth next year; firmly committed to FY2026 goals, some of which 'might prove to be too conservative'. Total-revenue fields = including Cerner."
+      },
+      "quotes": [
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "OCI has emerged as the largest driver of our overall revenue acceleration growing much, much faster than our Cloud competitors.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "OCI consumption revenue was up 63%. Were it not for some continuing supply constraints, consumption growth would have been even higher.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were $1.3 billion, down 3%. So all-in, total revenues for the quarter were $13.3 billion, up 7% including Cerner and up 9% excluding Cerner.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Operating margin was 44%, up from 42% last year as we continue to drive more efficiencies in our operating expenses which continue to trend down as a percentage of revenue.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "While we continue to build data center capacity, overall gross margins will go higher as more of our cloud regions fill up.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "The $80 billion RPO is quite an acceleration of demand, so demand is not slowing down. It's actually increasing quite a bit.",
+          "page": 8
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect the CapEx will be somewhere around $7 billion to $7.5 billion this fiscal year, meaning our Q4 CapEx should be considerably higher.",
+          "page": 5
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So for fiscal year 2025, I'm looking at about $10 billion in CapEx because it's also involved, not only some big centers but it also involves expansion of existing centers.",
+          "page": 10
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "As our supply constraints ease, revenue growth rates will accelerate higher as our capacity expands and we get into fiscal year 2025.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I remain firmly committed to our FY 2026 financial goals for revenue, operating margin, and EPS growth. However, some of these goals might prove to be too conservative",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "The EPS growth rate will be affected by the compare as our Q4 tax rate last year was 9.2%",
+          "page": 6
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "We've got at least 40 new AI bookings that are over $1 billion that haven't come online yet.",
+          "page": 7
+        }
+      ],
+      "source": "S-CALL-FY2024Q3"
+    },
+    "FY2025Q2": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2025 Earnings Call 9December2024 500-ET-PM-08-12-2024-2024-12-08-9.pdf",
+      "call_date": "2024-12-09",
+      "event": "Q2 FY2025 earnings call",
+      "guidance_issued": {
+        "for_period": "Q3 FY2025",
+        "total_revenue_growth_pct_cc": [
+          9,
+          11
+        ],
+        "total_revenue_growth_pct_usd": [
+          7,
+          9
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          25,
+          27
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          23,
+          25
+        ],
+        "cloud_guidance_basis": "total cloud revenue",
+        "non_gaap_eps_usd_cc": [
+          1.5,
+          1.54
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.47,
+          1.51
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          7,
+          9
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          4,
+          6
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have a $0.03 negative effect on EPS and a 2% negative effect on revenue",
+        "fy_label": "FY2025",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "double what it was in fiscal year FY 2024",
+        "fy_cloud_growth_note": "We expect cloud revenue to reach $25 billion this fiscal year (p3); committed to full year total revenue growing double-digit and full year total Cloud Infrastructure growing faster than the 50% reported last year (p5)",
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Quarterly guidance on p5. USD EPS range was misspoken ('$1.47 and $1.41 (sic) [$1.51]') and corrected by Ken Bond on p8 to $1.47-$1.51; corrected range recorded. Q3 EPS guidance is negatively impacted by $0.05 due to an investment loss in another company Oracle partly owns (p5). FY2025 capex statement on p4 (Q2 capex $4 billion; free cash flow negative $2.7 billion). No FY total-revenue dollar figure was given, only 'double-digit' growth."
+      },
+      "quotes": [
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "We expect cloud revenue to reach $25 billion this fiscal year.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Total cloud revenue, that's SaaS and IaaS was up 24% at $5.9 billion. With SaaS revenue of $3.5 billion, up 10% and IaaS revenue of $2.4 billion, up 52%",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "OCI consumption revenue was up 58% as demand continues to outstrip supply.",
+          "page": 4
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "GPU consumption was up 336% in the quarter, and we delivered the world's largest and fastest AI supercomputer, scaling up to 65,000 NVIDIA H200 GPUs.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were up 3% to $1.2 billion, including Java, which saw excellent growth.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So all in total revenues for the quarter were $14.1 billion, up 9% from last year.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "As our cloud businesses continue to scale, the gross margins of both cloud applications and cloud infrastructure have each been trending higher.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "With CapEx at $4 billion for the quarter, free cash flow was negative $2.7 billion and operating cash flow was positive $1.3 billion.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect fiscal year 2025 CapEx will be double what it was in fiscal year FY 2024.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our remaining performance obligation or RPO, is now at $97.3 billion, up 50% in constant currency and reflects the growing trend of customers wanting larger and longer contracts",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "we remain very confident and committed to full year total revenue growing double-digit and full year total Cloud Infrastructure growing, faster than the 50% reported last year.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I should mention that my Q3 EPS guidance is negatively impacted by $0.05 due to an investment loss in another company that we are a partial owner of.",
+          "page": 5
+        }
+      ],
+      "source": "S-CALL-FY2025Q2"
+    },
+    "FY2025Q3": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2025 Earnings Call 10March2025 500-ET-PM-09-03-2025-2025-03-09-8.pdf",
+      "call_date": "2025-03-10",
+      "event": "Q3 FY2025 earnings call",
+      "guidance_issued": {
+        "for_period": "Q4 FY2025",
+        "total_revenue_growth_pct_cc": [
+          9,
+          11
+        ],
+        "total_revenue_growth_pct_usd": [
+          8,
+          10
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          24,
+          28
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          25,
+          27
+        ],
+        "cloud_guidance_basis": "total cloud revenue",
+        "non_gaap_eps_usd_cc": [
+          1.62,
+          1.66
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.61,
+          1.65
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          0,
+          2
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          -1,
+          1
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have $0.01 to $0.02 negative effect on EPS and a 1% negative effect on revenue",
+        "fy_label": "FY2025",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "a little more than double what it was last year at around $16 billion",
+        "fy_cloud_growth_note": "total cloud infrastructure revenue for fiscal year 2025 growing faster than the 50% reported last year and it will be even faster for fiscal year 2026, likely a lot faster (p5)",
+        "next_fy_total_revenue_target_usd_bn": 66,
+        "next_fy_note": "$66 billion revenue target for FY 2026 represents around a 15% growth rate; FY 2027 growth rate now expected around 20%, higher than previously guided (p5)",
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Quarterly guidance on p5. Cloud range recorded exactly as spoken (24%-28% CC vs 25%-27% USD). Q4 EPS guidance is negatively impacted by '$0.03 plus' due to losses recognized from an investment in another company (p5). FY2025 capex statement on p4 (Q3 capex $5.9 billion, front-loaded). p4: component delays that slowed cloud capacity expansion should ease in Q1 FY2026. p3: available power capacity expected to double this calendar year and triple by end of next fiscal year."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our RPO balance is now $130 billion, up from $97 billion last quarter and up from $80 billion last year. That's a growth of 63% year-over-year",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Record-level AI demand drove Oracle Cloud Infrastructure revenue up 51% in Q3 and that's 54% when you exclude our legacy hosting",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "we do expect that the component delays that have slowed cloud capacity expansion this year should ease in Q1 FY 2026.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were down 8% to $1.1 billion. So, all in, total revenues for the quarter were $14.1 billion, up 8% from last year.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "The Q3 operating income grew 9% and the operating margin was 44%, up slightly from last year.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Operating cash flow for Q3 was $5.9 billion, slightly more than our $5.9 billion in CapEx as we front-loaded some purchases into the quarter.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect fiscal year 2025 CapEx will be a little more than double what it was last year at around $16 billion.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our confidence in meeting our $66 billion revenue target for FY 2026 is now stronger than ever and represents around a 15% growth rate.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I now expect that our fiscal year 2027 growth rate will be around 20%, which is even higher than I previously guided.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "total cloud infrastructure revenue for fiscal year 2025 growing faster than the 50% reported last year and it will be even faster for fiscal year 2026, likely a lot faster",
+          "page": 5
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "In Q3, we signed a multi-billion dollar contract with AMD to build a cluster of 30,000 of their latest MI355X GPUs.",
+          "page": 5
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "We got to over $130 billion in RPO without any transactions from Stargate.",
+          "page": 6
+        }
+      ],
+      "source": "S-CALL-FY2025Q3"
+    },
+    "FY2025Q4": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2025 Earnings Call 11June2025 500-ET-PM-10-06-2025-2025-06-10-7.pdf",
+      "call_date": "2025-06-11",
+      "event": "Q4 FY2025 earnings call",
+      "guidance_issued": {
+        "for_period": "Q1 FY2026",
+        "total_revenue_growth_pct_cc": [
+          11,
+          13
+        ],
+        "total_revenue_growth_pct_usd": [
+          12,
+          14
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          26,
+          30
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          26,
+          30
+        ],
+        "cloud_guidance_basis": "total cloud revenue",
+        "non_gaap_eps_usd_cc": [
+          1.44,
+          1.48
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.46,
+          1.5
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          4,
+          6
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          5,
+          7
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have a $0.02 positive effect on EPS and a flat to 1% positive effect on revenues",
+        "fy_label": "FY2026",
+        "fy_total_revenue_at_least": 67,
+        "fy_total_revenue_growth_pct_cc": 16,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "over $25 billion",
+        "fy_cloud_growth_note": "total cloud revenue will grow over 40% in constant currency, up from 24% in FY 2025; cloud infrastructure revenue will grow over 70%, up from 51% in FY 2025; RPO is likely to grow more than 100% in fiscal 2026 (p5)",
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Quarterly guidance on p5; cloud guidance stated as 26%-30% 'in constant currency and US dollars'. FY2026 revenue raised to over $67 billion (p3) / at least $67 billion, up 16% CC and up more than $1 billion from prior guidance (p5). FY2026 capex 'over $25 billion' on p4; in Q&A (p10) Safra said the $25 billion 'may turn out to be understated'. p5: expect to exceed the previously provided FY2027 revenue growth target and likely exceed FY2029 targets; fuller update promised at the October Financial Analyst Meeting. FY2025 actuals stated on p4: total revenue $57.4 billion (+9%), non-GAAP EPS $6.00 (+9%), capex $21.2 billion, free cash flow negative $400 million."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our remaining performance obligations now stand at $138 billion, up $8 billion from last quarter and up 41% from last year, and yet the best is still to come.",
+          "page": 3
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "OCI has seen exceptional demand for infrastructure services, and those contracted, non-cancelable bookings in RPO give us confidence that OCI revenue will grow over 70% this current year",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "IaaS revenue was $3 billion, up 52% on top of the 42% growth reported last year.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were up 8% to $2 billion. So, all in, total revenues for the quarter were $15.9 billion, up 11% from last year. Operating income grew 7%.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "You should understand that when our customers are buying more licenses, that actually means often that they want to use the bring-your-own-license pricing to go to the cloud.",
+          "page": 12
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "For the year, operating cash flow was up 12% at $20.8 billion, and free cash flow was a negative $400 million, with $21.2 billion of CapEx.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect that FY 2026 CapEx will be higher, at over $25 billion, as we work to meet demand from our backlog.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So for fiscal year 2026, I expect that total cloud revenue will grow over 40% in constant currency, up from 24% in FY 2025.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect total revenue will be at least $67 billion, up 16% in constant currency, and up more than $1 billion from our prior guidance.",
+          "page": 5
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "RPO is likely to grow more than 100% in fiscal 2026.",
+          "page": 5
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I do believe that the $25 billion next year may turn out to be understated. So, it is all to meet demand.",
+          "page": 10
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Larry Ellison",
+          "role": "Chairman & CTO",
+          "quote": "If Stargate turns out to be, everything is advertised, then we've understated our RPO growth.",
+          "page": 10
+        }
+      ],
+      "source": "S-CALL-FY2025Q4"
+    },
+    "FY2026Q1": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2026 Earnings Call 9September2025 500-ET-PM-08-09-2025-2025-09-08-6.pdf",
+      "call_date": "2025-09-09",
+      "event": "Q1 FY2026 earnings call",
+      "guidance_issued": {
+        "for_period": "Q2 FY2026",
+        "total_revenue_growth_pct_cc": [
+          12,
+          14
+        ],
+        "total_revenue_growth_pct_usd": [
+          14,
+          16
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          32,
+          36
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          33,
+          37
+        ],
+        "non_gaap_eps_usd_cc": [
+          1.58,
+          1.62
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.61,
+          1.65
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          8,
+          10
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          10,
+          12
+        ],
+        "currency_assumption": "Currency expected to have a $0.03 positive impact on EPS and a 1% positive effect on revenue (p4)",
+        "tax_rate_assumption": "'assumes a base tax rate of 90%' as printed (p4); likely transcription error for 19%",
+        "fy_total_revenue_at_least": null,
+        "fy_total_revenue_growth_pct_cc": 16,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "around $35 billion for fiscal year 2026 (p4); in Q&A 'it could be a little higher' (p11)",
+        "fy_cloud_growth_note": "Oracle Cloud Infrastructure expected to grow 77% to $18 billion in FY2026 (p4)",
+        "fy_operating_income_note": "Operating income expected to grow mid-teens in FY2026 and 'higher still in FY 2027' (p3)",
+        "multi_year_targets": {
+          "oci_revenue_usd_bn": {
+            "FY2026": 18,
+            "FY2027": 32,
+            "FY2028": 73,
+            "FY2029": 114,
+            "FY2030": 144
+          },
+          "oci_fy2026_growth_pct": 77,
+          "rpo_expectation": "RPO will likely grow to exceed $0.5 trillion (p4)",
+          "source_page": 4,
+          "note": "Long-range targets to be updated at the Financial Analyst Meeting at Oracle AI World in October (p4)"
+        },
+        "speaker": "Safra A. Catz",
+        "speaker_role": "Chief Executive Officer & Director",
+        "page": 4,
+        "_note": "Guidance given on a non-GAAP basis assuming currency rates unchanged. Q1 actuals: RPO $455B (+359%), total revenue $14.9B (+11% CC), cloud $7.2B (+27%), OCI $3.3B (+54%), software $5.7B (-2%), non-GAAP EPS $1.47, capex $8.5B, FCF -$362M (p3)."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "At the end of Q1, remaining performance obligations, or RPO, now top $455 billion. This is up 359% from last year and up $317 billion from the end of Q4.",
+          "page": 3
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We have signed significant cloud contracts with the who's who of AI, including OpenAI, xAI, Meta, NVIDIA, AMD and many others.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "OCI consumption revenue was up 57%, and demand continues to dramatically outstrip supply.",
+          "page": 3
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Total software revenue for the quarter was $5.7 billion, down 2%.",
+          "page": 3
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "So all in, total revenues for the quarter were $14.9 billion, up 11% from last year and higher than the 8% growth reported in Q1 last year.",
+          "page": 3
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "I expect our operating income will grow mid-teens this year and higher still in FY 2027.",
+          "page": 3
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Given our RPO growth, I now expect fiscal year 2026 CapEx will be around $35 billion.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "As a reminder, the vast majority of our CapEx investments are for revenue-generating equipment that is going into the data centers and not from land or buildings.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "I expect we will sign additional multibillion-dollar customers and that RPO will likely grow to exceed $0.5 trillion.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Oracle Cloud Infrastructure will grow 77% to $18 billion this fiscal year, and then increase to $32 billion, $73 billion, $114 billion, and $144 billion over the following four years.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra A. Catz",
+          "role": "Chief Executive Officer & Director",
+          "quote": "For fiscal year 2026, we remain confident and committed to full year total revenue growth of 16% in constant currency.",
+          "page": 4
+        },
+        {
+          "topic": "debt",
+          "speaker": "Lawrence Joseph Ellison",
+          "role": "Chairman, Chief Technology Officer & Co-Founder",
+          "quote": "Because we are a very large consumer, we are able, I think, to get – made better financing terms from the vendors than some other people.",
+          "page": 12
+        }
+      ],
+      "source": "S-CALL-FY2026Q1"
+    },
+    "FY2026Q2": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2026 Earnings Call 10December2025 500-ET-PM-09-12-2025-2025-12-09-3.pdf",
+      "call_date": "2025-12-10",
+      "event": "Q2 FY2026 earnings call",
+      "guidance_issued": {
+        "for_period": "Q3 FY2026",
+        "total_revenue_growth_pct_cc": [
+          16,
+          18
+        ],
+        "total_revenue_growth_pct_usd": [
+          19,
+          21
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          37,
+          41
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          40,
+          44
+        ],
+        "non_gaap_eps_usd_cc": [
+          1.64,
+          1.68
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.7,
+          1.74
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          12,
+          14
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          16,
+          18
+        ],
+        "currency_assumption": "For Q3 currency should have a 2% to 3% positive effect on revenue and a $0.06 positive effect on EPS (p3)",
+        "fy_total_revenue_at_least": 67,
+        "fy_total_revenue_note": "'Our full year FY 2026 revenue expectation of $67 billion remains unchanged' (p4) – stated as an expectation, in USD billions",
+        "fy_non_gaap_eps": null,
+        "fy_capex": "FY2026 CapEx expected to be about $15 billion higher than forecasted after Q1 (p4); the post-Q1 forecast was around $35 billion",
+        "fy_cloud_growth_note": null,
+        "multi_year_targets": {
+          "fy2027_additional_revenue_usd_bn": 4,
+          "note": "'we now expect $4 billion of additional revenue in FY 2027' from Q2 RPO additions with near-term capacity (p4)",
+          "source_page": 4
+        },
+        "speaker": "Douglas Kehring",
+        "speaker_role": "Principal Financial Officer, Executive Vice President & Head-Operations",
+        "page": 4,
+        "_note": "Q2 actuals: RPO $523.3B (+433%), total revenue $16.1B (+13% CC), cloud $8.0B (+33%), OCI $4.1B (+66%), cloud apps $3.9B (+11%), non-GAAP EPS $2.26 (+51%) incl. $2.7B pre-tax Ampere gain, OCF $2.1B, FCF -$10B, capex $12B (p3). Financing commentary: bring-your-own-chips and supplier chip leasing reduce borrowing; committed to investment-grade rating (p4); Clay: will need 'less, if not substantially less' than the ~$100B some analysts model (p9)."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "RPO ended the quarter at $523.3 billion, up 433% from last year and up $68 billion since the end of August, driven by contract signed with Meta, NVIDIA and others",
+          "page": 3
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "RPO expected to be recognized in the next 12 months, grew 40% year-over-year, compared with 25% last quarter and 21% last year.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Cloud Infrastructure revenue was $4.1 billion, up 66% with GPU related revenue growing 177%.",
+          "page": 3
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "total revenues for the quarter were $16.1 billion, up 13% and higher than the 9% growth reported in Q2 last year, continuing our trend of accelerating total revenue growth.",
+          "page": 3
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Operating income grew 8% to $6.7 billion. Non-GAAP EPS was $2.26 up 51%, while GAAP EPS was $2.10 up 86%.",
+          "page": 3
+        },
+        {
+          "topic": "capex",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "free cash flow was a negative $10 billion and CapEx was $12 billion, reflecting the investments being made to support our accelerating growth.",
+          "page": 3
+        },
+        {
+          "topic": "debt",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Both of these options enable Oracle to synchronize our payments with our receipts and borrow substantially less than most people are modeling.",
+          "page": 4
+        },
+        {
+          "topic": "debt",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "As a foundational principle, we expect and are committed to maintaining our investment grade debt rating.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "The result is we now expect $4 billion of additional revenue in FY 2027.",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Douglas Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "we now expect fiscal 2026 CapEx will be about $15 billion higher than we forecasted after Q1.",
+          "page": 4
+        },
+        {
+          "topic": "debt",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "we expect we will need less, if not substantially less money raised than that amount to go and fund this build out.",
+          "page": 9
+        },
+        {
+          "topic": "software",
+          "speaker": "Michael D. Sicilia",
+          "role": "Chief Executive Officer & Director",
+          "quote": "The cloud application deferred revenue is up 14%. That is higher than the cloud apps revenue growth of 11%.",
+          "page": 8
+        }
+      ],
+      "source": "S-CALL-FY2026Q2"
+    },
+    "FY2026Q3": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2026 Earnings Call 10March2026 500-ET-PM-09-03-2026-2026-03-09-2.pdf",
+      "call_date": "2026-03-10",
+      "event": "Q3 FY2026 earnings call",
+      "guidance_issued": {
+        "for_period": "Q4 FY2026",
+        "total_revenue_growth_pct_cc": null,
+        "total_revenue_growth_pct_usd": null,
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": null,
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": null,
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": null,
+        "fy_cloud_growth_note": null,
+        "multi_year_targets": null,
+        "speaker": "Douglas A. Kehring",
+        "speaker_role": "Principal Financial Officer, Executive Vice President & Head-Operations",
+        "page": 3,
+        "_note": "No quantified guidance was spoken on this call. Kehring: 'In the press release, we have laid out clearly and explicitly the supplemental financial metrics that we otherwise would have provided on the earnings call' (p3); Ken Bond noted the press release includes 'guidance for our future results' (p2). FY2027 CapEx deferred: 'we'll get back to everyone after the end of the fiscal year' (p9). Financing: intent announced in February to raise up to $50 billion in debt and equity with no additional bonds beyond that in calendar 2026; $30 billion raised via investment-grade bonds and mandatory convertible preferred; ATM equity not yet initiated (p3). Q3 datapoints: RPO $553B (p6); Multicloud DB revenue +531%, AI Infrastructure revenue +243% (p6); >10 GW of power/DC capacity secured over three years, >90% funded via partners (p6); >$29B of BYOH/prepay contracts signed since prior call (p6); AI capacity gross margin 32% vs 30% guidance (p7); cloud apps +11% CC to $16.1B run rate, apps deferred revenue +14% (p4-5); TikTok US 15% equity stake, equity-method, non-operating (p3)."
+      },
+      "quotes": [
+        {
+          "topic": "total_revenue",
+          "speaker": "Douglas A. Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Q3 being the first quarter in over 15 years, where both organic total revenue and organic non-GAAP EPS grew at 20% or better in USD",
+          "page": 3
+        },
+        {
+          "topic": "debt",
+          "speaker": "Douglas A. Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Within days of the announcement, we raised $30 billion through a combination of investment-grade bonds and mandatory convertible preferred stock, with a record order book that was substantially oversubscribed.",
+          "page": 3
+        },
+        {
+          "topic": "software",
+          "speaker": "Michael D. Sicilia",
+          "role": "Chief Executive Officer & Director",
+          "quote": "In constant currency, cloud applications revenue was up 11% in the quarter, reaching an annualized run rate of $16.1 billion.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Michael D. Sicilia",
+          "role": "Chief Executive Officer & Director",
+          "quote": "In constant currency, cloud applications deferred revenue was up 14% versus in-quarter cloud applications revenue growth of 11%, which further supports our acceleration thesis.",
+          "page": 5
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Multicloud Database revenue grew 531% year-over-year. AI Infrastructure revenue grew 243% year-over-year.",
+          "page": 6
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Demand for AI infrastructure, both GPU and CPU, continues to exceed supply. This is directly visible in our $553 billion RPO.",
+          "page": 6
+        },
+        {
+          "topic": "capex",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Through our partners, we have secured more than 10 gigawatts of power and data center capacity coming online over the next three years.",
+          "page": 6
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We have signed more than $29 billion of contracts since then across multiple customers using that new model.",
+          "page": 6
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Looking at the AI capacity we delivered in Q3, our gross margin for that remained above our 30% guidance at 32%.",
+          "page": 7
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We are overdelivering on FY 2026 revenue and earnings, and we are constantly raising our FY 2027 forecast.",
+          "page": 7
+        },
+        {
+          "topic": "capex",
+          "speaker": "Douglas A. Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "the most interesting thing that you should start thinking about is the uncoupling of CapEx with capital requirements from Oracle.",
+          "page": 9
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We gave guidance in the past that we see gross margin in the 30% to 40% range on that. That continues to hold for us.",
+          "page": 11
+        }
+      ],
+      "source": "S-CALL-FY2026Q3"
+    },
+    "FY2026Q4": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2026 Earnings Call 10June2026 500-ET-PM-09-06-2026-2026-06-09-1.pdf",
+      "call_date": "2026-06-10",
+      "event": "Q4 FY2026 earnings call",
+      "guidance_issued": {
+        "for_period": "Q1 FY2027",
+        "total_revenue_growth_pct_cc": null,
+        "total_revenue_growth_pct_usd": [
+          27,
+          29
+        ],
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": [
+          58,
+          64
+        ],
+        "cloud_revenue_growth_basis_note": "Stated as 'Of that, we expect growth in cloud revenues of between 58% and 64%' immediately after the USD total-revenue sentence; basis not separately stated (p8)",
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": [
+          1.72,
+          1.76
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          17,
+          20
+        ],
+        "fy_total_revenue_at_least": null,
+        "fy_total_revenue_growth_pct_cc": 34,
+        "fy_non_gaap_eps": 8.05,
+        "fy_non_gaap_eps_note": "$8.05 for FY2027, up 18% in constant currency, excluding net one-time investment gains booked in FY2026 from Ampere and Bloom Energy (p8)",
+        "fy_capex": "FY2027 net cash outlay for capital expenditures of around $70 billion; customer prepayments and timing impacts of around $20-25 billion mean reported CapEx will be higher by that amount (p8)",
+        "fy_cloud_growth_note": "Gross margins to step down in FY2027 due to data-center ramp timing and mix; Infrastructure margins expected to improve rapidly at full contractual revenue; operating costs slightly negative YoY in dollars (p8)",
+        "fy_financing_note": "Expect to raise around $40 billion in debt and equity in FY2027, including the already announced $20 billion at-the-market equity issuance; no additional debt funding anticipated in calendar 2026 (p8)",
+        "multi_year_targets": {
+          "revenue_cagr_pct_through_fy2030": 31,
+          "eps_cagr_pct_through_fy2030": 28,
+          "note": "Long-term outlook from Analyst Day reconfirmed: 'plus 31% revenue CAGR and plus 28% EPS CAGR through our fiscal year 2030' (p8); 'full reconfirmation from my side on the long-term targets' (p10). Project-level ROIC 'in the high 20s at a steady state' (p10). Revenues and earnings expected to accelerate in 2H FY2027 (p8). Next Investor Day October 28 in Las Vegas (p8).",
+          "source_page": 8
+        },
+        "speaker": "Hilary Maxson",
+        "speaker_role": "Chief Financial Officer",
+        "page": 8,
+        "_note": "Q4 actuals: revenue $19.2B (+21% USD), OCI +93%, cloud apps +10%, non-GAAP op income $8.6B (+22%), non-GAAP EPS $2.11 (+24%; +20% ex one-time gain) (p3). FY2026: revenue surpassed $67B, non-GAAP op income $29B (+16%), non-GAAP EPS $7.63 ($6.83 ex gains), gross margin down ~5 points, OCF $32B (+54%), net cash capex $48B after ~$8B prepayments/timing (p3-4). RPO $638B (+363%); 12% recognized in next 12 months, 34% in months 13-36 (p4). Q4 AI contracts $67B, majority BYOH or prepaid; BYOH/prepaid total $75B with no margin degradation (p6); four customers each >$8B this quarter (p7); GPU utilization 97.5% (p7)."
+      },
+      "quotes": [
+        {
+          "topic": "total_revenue",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Revenue was $19.2 billion, up 21% in US dollars. Cloud Infrastructure revenue grew 93%, reflecting strong demand for both AI workloads and our database services.",
+          "page": 3
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "For the full year, our gross margin stepped down around 5 points as expected as we start to see the impacts from the build-out of our Infrastructure business",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Our net cash outlay for capital expenditures for the full year was $48 billion, taking into account prepayments and timing impacts of around $8 billion.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "And our remaining performance obligations, or RPO, finished at $638 billion, up 363%.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "we expect 12% to be recognized in the next 12 months, and another 34% between 13 and 36 months.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Michael D. Sicilia",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Oracle Cloud Applications generated revenues of $4.1 billion, which was up 10% and our SaaS deferred revenue was up 16% in the quarter.",
+          "page": 4
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We signed $67 billion in AI infrastructure contracts this quarter, the majority of which were either Bring-Your-Own-Hardware or prepaid.",
+          "page": 6
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "In Q4, 35,000 GPUs from 59 separate customers were up for renewal. 49% of those customers renewed for 92% of those GPUs.",
+          "page": 7
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "We'll continue those investments in our fiscal year 2027 with an expected net cash outlay for capital expenditures of around $70 billion.",
+          "page": 8
+        },
+        {
+          "topic": "debt",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "we expect to raise around $40 billion in debt and equity in our fiscal year 2027, and that includes our already announced $20 billion at-the-market equity issuance.",
+          "page": 8
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "we expect our non-GAAP EPS for the year to be $8.05, up 18% in constant currency, excluding the net one-time investment gains",
+          "page": 8
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "what we see is return on invested capital in the high 20s at a steady state, so once the revenues have ramped for large projects at the project level.",
+          "page": 10
+        }
+      ],
+      "source": "S-CALL-FY2026Q4"
+    },
+    "FY2027Q1": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2027 Earnings Call 10September2026 500-ET-PM-09-09-2026-2026-09-09-0.pdf",
+      "call_date": "2026-09-10",
+      "event": "Q1 FY2027 earnings call",
+      "guidance_issued": {
+        "for_period": "Q2 FY2027",
+        "total_revenue_growth_pct_cc": null,
+        "total_revenue_growth_pct_usd": [
+          30,
+          34
+        ],
+        "cloud_revenue_growth_pct_cc": null,
+        "cloud_revenue_growth_pct_usd": [
+          65,
+          71
+        ],
+        "non_gaap_eps_usd_cc": null,
+        "non_gaap_eps_usd_reported": [
+          1.85,
+          1.93
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          21,
+          25
+        ],
+        "non_gaap_eps_note": "EPS growth excludes the Ampere gains booked in Q2 of FY2026 (p7)",
+        "fy_total_revenue_at_least": 90,
+        "fy_total_revenue_growth_pct": 34,
+        "fy_non_gaap_eps": 8.1,
+        "fy_capex": "$90 billion to $95 billion in CapEx for FY2027, with not more than $70 billion in net cash CapEx (p4)",
+        "fy_cloud_growth_note": "Cloud Infrastructure acceleration expected to continue through the remainder of FY2027 as more RPO converts to revenue (p3); around half of RPO expected to convert into sales over the next 36 months (p3)",
+        "fy_financing_note": "Completed the $20 billion at-the-market equity issuance in its entirety during Q1 (p4)",
+        "multi_year_targets": {
+          "note": "No new multi-year figures; FY2027 revenue guidance raised to at least $90 billion (+34%) and non-GAAP EPS to $8.10 (p7). New Q1 RPO (mostly Pre-Pay/BYOH) will not affect CapEx or revenues until FY2028 or beyond (p3). Gross margin expected to flatten over the next couple of years after the ramp (p14). New Mexico and Wisconsin sites: no impact on previously stated FY2027 revenue or earnings guidance (p10). More detail promised at Investor Day in October (p8, p14).",
+          "source_page": 7
+        },
+        "speaker": "Hilary Maxson",
+        "speaker_role": "Chief Financial Officer",
+        "page": 7,
+        "_note": "Q1 actuals: revenue $19.3B (+30% USD; first sequential Q1 growth), OCI $7.4B (+121%), cloud apps +10%, non-GAAP op income $8.2B (+31%), op margin ~42%, non-GAAP EPS $1.92 (+30%), RPO +$26B vs Q4, OCF $23B, capex $28B, FCF -$5B, net cash capex $18B (p3-4). Clay: 850 MW / >300,000 GPUs delivered since Q4; >$30B additional AI contracts in Q1 without Oracle capital; GPU utilization 97.9%; renewals at 20% premium (p6)."
+      },
+      "quotes": [
+        {
+          "topic": "total_revenue",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Total revenue was a record $19.3 billion, up 30% year-over-year in US dollars, and for the first time, Q1 total revenue grew sequentially",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Cloud Infrastructure revenue for Q1 was $7.4 billion, up 121%, reflecting strong execution as we brought record levels of new megawatt capacity online",
+          "page": 3
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Net-net, our operating margin remained around flat for the quarter at 42% on a non-GAAP basis.",
+          "page": 3
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "the vast majority of those new contracts were via Pre-Pay or Bring-Your-Own-Hardware or similar mechanic, so won't require incremental capital from Oracle.",
+          "page": 3
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "We now expect around half of our RPO to convert into sales over the next 36 months.",
+          "page": 3
+        },
+        {
+          "topic": "capex",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "We continue to anticipate $90 billion to 95 billion in CapEx for the full year, with not more than $70 billion in net cash CapEx.",
+          "page": 4
+        },
+        {
+          "topic": "debt",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "we're quite pleased to announce that we completed our previously disclosed $20 billion at-the-market equity issuance in entirety during the Q1.",
+          "page": 4
+        },
+        {
+          "topic": "software",
+          "speaker": "Michael D. Sicilia",
+          "role": "Chief Executive Officer & Director",
+          "quote": "our SaaS business grew 10%, with Fusion growing at 14%, our Oracle Health business continued to accelerate",
+          "page": 5
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "We closed more than $30 billion of additional AI contracts in Q1, without requiring additional capital from Oracle.",
+          "page": 6
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Chief Executive Officer & Director",
+          "quote": "Of all the GPUs that came up for renewal in Q1, that capacity was renewed or resold at a 20% premium to prior contracts.",
+          "page": 6
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "we're upgrading our guidance to at least $90 billion in total revenues. That's a year-over-year increase of plus 34% and to $8.10 for our non-GAAP EPS.",
+          "page": 7
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Hilary Maxson",
+          "role": "Chief Financial Officer",
+          "quote": "Over the next couple of years, as we finish the ramp up, you can reasonably expect that gross margin would flatten, I would say.",
+          "page": 14
+        }
+      ],
+      "source": "S-CALL-FY2027Q1"
+    },
+    "BUSINESS_UPDATE_2025_09": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Business Update Call 22September2025 900-ET-AM-21-09-2025-2025-09-21-5.pdf",
+      "call_date": "2025-09-22",
+      "event": "Business update call ('AI Changes Everything') announcing leadership changes",
+      "event_notes": "Safra Catz becomes Executive Vice Chair; Clay Magouyrk and Mike Sicilia promoted to CEO; Doug Kehring assumes Principal Financial Officer duties; Mark Hura promoted to President; Larry Ellison continues as Chairman & CTO (p3). No quantified financial targets were stated on this call.",
+      "long_range_targets": [
+        {
+          "metric": "Qualitative: Q2 FY2026 momentum",
+          "period": "Q2 FY2026",
+          "value": "'We're off to a strong start in Q2' – bigger, multi-pillar deals 'multiple times larger than what we experienced in the past'",
+          "speaker": "Mike Sicilia",
+          "role": "Co-Chief Executive Officer",
+          "page": 4
+        },
+        {
+          "metric": "Qualitative: pipeline of large AI infrastructure deals",
+          "period": "n/a",
+          "value": "'we expected more large deals. And we still feel that way'; details to be expanded at the Financial Analyst Day at AI World",
+          "speaker": "Mike Sicilia",
+          "role": "Co-Chief Executive Officer",
+          "page": 8
+        },
+        {
+          "metric": "Qualitative: OCI demand",
+          "period": "n/a",
+          "value": "'we see very strong demand across the entire base' from existing and new customers for training and inferencing; no specific deal discussed",
+          "speaker": "Clay Magouyrk",
+          "role": "Co-Chief Executive Officer",
+          "page": 8
+        }
+      ],
+      "quotes": [
+        {
+          "topic": "cloud",
+          "speaker": "Clay Magouyrk",
+          "role": "Co-Chief Executive Officer",
+          "quote": "Oracle Cloud Infrastructure has entered a phase of hyper-growth, powered by AI and the rapid adoption of our cloud by Oracle's diverse set of enterprise customers.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Clay Magouyrk",
+          "role": "Co-Chief Executive Officer",
+          "quote": "We are the only cloud provider that can embed our cloud into our partners' clouds, providing the full suite of our data platform to all cloud customers everywhere.",
+          "page": 3
+        },
+        {
+          "topic": "capex",
+          "speaker": "Lawrence Joseph Ellison",
+          "role": "Chairman, Chief Technology Officer & Co-Founder",
+          "quote": "Oracle's job is not to imagine gigawatt-scale data centers, Oracle's job is to build them.",
+          "page": 3
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Mike Sicilia",
+          "role": "Co-Chief Executive Officer",
+          "quote": "this also creates much bigger deals that are multiple times larger than what we experienced in the past. We're off to a strong start in Q2",
+          "page": 4
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clay Magouyrk",
+          "role": "Co-Chief Executive Officer",
+          "quote": "OCI is quickly becoming the place that those customers turn to for both their training and inferencing needs.",
+          "page": 8
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Mike Sicilia",
+          "role": "Co-Chief Executive Officer",
+          "quote": "On the last earnings call, we mentioned that we expected more large deals. And we still feel that way",
+          "page": 8
+        }
+      ],
+      "source": "S-CALL-BUSINESS_UPDATE_2025_09"
+    },
+    "ANALYST_MEETING_2025_10": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Analyst Meeting 16October2025 1245-ET-PM-16-10-2025-2025-10-16-4.pdf",
+      "call_date": "2025-10-16",
+      "event": "Financial analyst meeting at Oracle AI World, Las Vegas",
+      "long_range_targets": [
+        {
+          "metric": "Total revenue target",
+          "period": "FY2030",
+          "value": "$225 billion; CAGR of over 31% over the next five years",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 57
+        },
+        {
+          "metric": "Non-GAAP EPS target",
+          "period": "FY2030",
+          "value": "$21 of EPS; CAGR of 28% over the next five years; revenue and EPS 'growing nearly 4x over the next five years'",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 57
+        },
+        {
+          "metric": "Prior long-range target (superseded)",
+          "period": "FY2029",
+          "value": "Over $100 billion total revenue by FY2029, as announced at the prior year's Financial Analyst Meeting",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 56
+        },
+        {
+          "metric": "Total revenue growth forecast",
+          "period": "FY2026",
+          "value": "16% growth rate; 'the last time Oracle grew this fast organically was over 15 years ago'",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 56
+        },
+        {
+          "metric": "RPO",
+          "period": "Q1 FY2026 / early Q2 FY2026",
+          "value": "RPO exceeds $455 billion (+359% YoY); several additional large contracts in the first month and a half of Q2 put RPO over the $0.5 trillion mark; RPO up nearly 10x since FY2022",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 56
+        },
+        {
+          "metric": "New infrastructure contract commitments",
+          "period": "30 contiguous days in Q2 FY2026",
+          "value": "$65 billion of additional commitment across seven contracts from four customers, none of them OpenAI; one is Meta",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 16
+        },
+        {
+          "metric": "Cloud Infrastructure (OCI) revenue long-range plan",
+          "period": "FY2026-FY2030",
+          "value": "Long-range plan updated (shown on slide) and described by Kehring as 'even higher than we shared on our Q1 earnings call' (Sept-9 figures were $18B/$32B/$73B/$114B/$144B); updated dollar figures were not read aloud. Business described as supply-constrained, not demand-constrained",
+          "speaker": "Clayton Magouyrk; Doug Kehring",
+          "role": "Co-CEO; Principal Financial Officer",
+          "page": 16
+        },
+        {
+          "metric": "AI Database / AI Data Platform revenue",
+          "period": "FY2030",
+          "value": "$20 billion (slide figure raised by analyst Tyler Radke; Magouyrk: 'I signed this up for $20 billion'; Ellison: 'a pretty solid growth rate over the next five years')",
+          "speaker": "Clayton Magouyrk; Lawrence Joseph Ellison",
+          "role": "Co-CEO; Chairman & CTO",
+          "page": 60
+        },
+        {
+          "metric": "AI infrastructure gross margin",
+          "period": "Life of contract",
+          "value": "30% to 40% gross margin range; illustrative ~1 GW deal of six years at $10 billion/year ($60 billion TCV) at 35% margin, inclusive of start-up costs; land/data center/power ~35% of cost, compute/networking/storage ~65%; Oracle does not pay for land, data center and power until delivered",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 10
+        },
+        {
+          "metric": "Enterprise segment gross margin and growth",
+          "period": "Q1 FY2026 vs Q1 FY2025",
+          "value": "65% to 80% gross margin range depending on service mix; segment revenue +33% YoY; multicloud database business >1,500% growth",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 5
+        },
+        {
+          "metric": "Distributed Cloud (Dedicated Region / Alloy) gross margin and growth",
+          "period": "Q1 FY2026 vs Q1 FY2025",
+          "value": "40% to 60% gross margin range; +77% YoY; average deal size $67 million; 60+ Dedicated and Alloy regions globally",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 6
+        },
+        {
+          "metric": "Cloud natives segment gross margin and growth",
+          "period": "Q1 FY2026 vs Q1 FY2025",
+          "value": "40% to 60% gross margin range; +49% YoY; average deal size almost $100 million",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 8
+        },
+        {
+          "metric": "AI Infrastructure segment growth",
+          "period": "Q1 FY2026 vs Q1 FY2025",
+          "value": "117% YoY growth in annualized consumed revenue; more than 700 AI infrastructure customers",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 9
+        },
+        {
+          "metric": "Cloud as % of total revenue",
+          "period": "FY2020-FY2025",
+          "value": "20% in FY2020 to 44% in FY2025; crossing 50% accelerates total revenue growth",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 56
+        },
+        {
+          "metric": "Abilene, Texas campus",
+          "period": "May 2024 - mid calendar 2026",
+          "value": "1,100 acres, eight buildings; existing substation plus new 1 gigawatt substation; 300 megawatts of gas turbines; construction began May 2024, campus complete mid-2026; OpenAI workloads live less than a year after construction start",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "page": 11
+        },
+        {
+          "metric": "Customer spend multiplier by number of product pillars",
+          "period": "n/a",
+          "value": "55% of customers own one pillar (1x spend); two pillars spend 8x; three pillars 25x; full-suite customers (2% of base) 150x on average",
+          "speaker": "Mark Hura",
+          "role": "President-Global Field Operations",
+          "page": 28
+        },
+        {
+          "metric": "Investment posture",
+          "period": "n/a",
+          "value": "Figures are as of this moment in time; if additional demand enables faster revenue and profit growth, Oracle will accelerate near-term investments, so long as it fits profitability expectations",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "page": 57
+        }
+      ],
+      "quotes": [
+        {
+          "topic": "guidance",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "Our updated revenue target is to reach $225 billion by fiscal year 2030. This represents a CAGR of over 31% over the next five years.",
+          "page": 57
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "we forecast reaching $21 of EPS by fiscal year 2030. This represents a CAGR of 28% over the next five years",
+          "page": 57
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "already through the first month and a half of Q2, we've signed several additional large contracts as Clay mentioned during his presentation, which put us over the $0.5 trillion mark.",
+          "page": 56
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "quote": "in 30 days during this quarter, 30 contiguous days, we contracted for $65 billion of additional commitment across infrastructure contracts.",
+          "page": 16
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "quote": "it was across seven different contracts from four different customers, none of those customers are OpenAI.",
+          "page": 16
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "quote": "this example deal of $60 billion, I've written down here, okay, a 35% margin deal right in the middle of that 30% to 40% margin range.",
+          "page": 10
+        },
+        {
+          "topic": "capex",
+          "speaker": "Clayton Magouyrk",
+          "role": "Co-Chief Executive Officer & Director",
+          "quote": "We don't pay for land, data center and power until it's actually delivered to us.",
+          "page": 10
+        },
+        {
+          "topic": "debt",
+          "speaker": "Doug Kehring",
+          "role": "Principal Financial Officer",
+          "quote": "We pay careful attention to our cash flow, our debt ratings, our debt capacity, and the various funding mechanisms that are at our disposal.",
+          "page": 56
+        }
+      ],
+      "source": "S-CALL-ANALYST_MEETING_2025_10"
+    },
+    "FY2024Q4": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2024 Earnings Call 11June2024 500-ET-PM-10-06-2024-2024-06-10-0.pdf",
+      "call_date": "2024-06-11",
+      "event": "Q4 FY2024 earnings call",
+      "guidance_issued": {
+        "for_period": "Q1 FY2025",
+        "total_revenue_growth_pct_cc": [
+          6,
+          8
+        ],
+        "total_revenue_growth_pct_usd": [
+          5,
+          7
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          21,
+          23
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          20,
+          22
+        ],
+        "non_gaap_eps_usd_cc": [
+          1.33,
+          1.37
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.31,
+          1.35
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          11,
+          15
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          10,
+          14
+        ],
+        "assumed_tax_rate_pct": 20,
+        "fx_assumption": "currency should have a negative 1% effect on my revenue and either $0.01 or $0.02 negative on EPS in Q1",
+        "fy_label": "FY2025",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "CapEx in fiscal year 2025 will probably be double what it was in fiscal year 2024",
+        "fy_cloud_growth_note": "Throughout fiscal year 2025, I expect continued strong cloud demand to push Oracle sales and RPO even higher and result in double-digit revenue growth this fiscal year. I also expect that each successive quarter should grow faster than the previous quarter, as OCI capacity increases to meet demand. I expect fiscal year 2025 Cloud Infrastructure services to grow faster than the 50% we reported this year. (p6)",
+        "speaker": "Safra Catz",
+        "page": 6,
+        "_note": "Q1 FY2025 quarterly guidance and FY2025 outlook both on p6. FY2024 actuals for reference (p5): total revenue $53 billion up 6%; capex $6.9 billion; non-GAAP EPS $5.56. Also p6: 'I remain firmly committed to our fiscal year 2026 financial goals for revenue, operating margins and EPS growth. However, given our strong bookings results, I believe some of these goals might prove to be too conservative'. Safra stated on p6 she would no longer break out Cerner and that Oracle exited the advertising business (about $300 million FY2024 revenue) in Q4."
+      },
+      "quotes": [
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "RPO was $98 billion, up $18 billion from Q3 and up 44% year-over-year from $68 billion last year.",
+          "page": 3
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "we are trading one-time non-recurring license revenue in returns for much bigger strategic customer commitments from multiyear cloud revenue from which we expect to further accelerate our revenue growth rates",
+          "page": 3
+        },
+        {
+          "topic": "ai_contracts",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "In total, we signed over 30 AI contracts for over $12 billion this quarter, and nearly $17 billion this year.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Total cloud revenue, that is SaaS plus IaaS, excluding Cerner, was $4.7 billion, up 23%; including Cerner, total cloud revenue was up 20% at $5.3 billion",
+          "page": 4
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "OCI consumption revenue was up 53%. Were it not for continuing supply constraints, consumption growth would have been even higher.",
+          "page": 4
+        },
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So all in, total revenues for the quarter were $14.3 billion. That's up 4% if you include Cerner; up 5% excluding Cerner.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "The operating margin was 47%, up from 44% last year as we continue to drive more efficiencies in our business.",
+          "page": 5
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Throughout fiscal year 2025, I expect continued strong cloud demand to push Oracle sales and RPO even higher and result in double-digit revenue growth this fiscal year.",
+          "page": 6
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I also expect that each successive quarter should grow faster than the previous quarter, as OCI capacity increases to meet demand.",
+          "page": 6
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect fiscal year 2025 Cloud Infrastructure services to grow faster than the 50% we reported this year.",
+          "page": 6
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "CapEx in fiscal year 2025 will probably be double what it was in fiscal year 2024.",
+          "page": 6
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "It's all about capacity. It is, as we bring the capacity online, wherever it's going online around the world, is when those workloads are coming over.",
+          "page": 7
+        }
+      ],
+      "source": "S-CALL-FY2024Q4"
+    },
+    "FY2025Q1": {
+      "file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2025 Earnings Call 9September2024 500-ET-PM-08-09-2024-2024-09-08-1.pdf",
+      "call_date": "2024-09-09",
+      "event": "Q1 FY2025 earnings call",
+      "guidance_issued": {
+        "for_period": "Q2 FY2025",
+        "total_revenue_growth_pct_cc": [
+          7,
+          9
+        ],
+        "total_revenue_growth_pct_usd": [
+          8,
+          10
+        ],
+        "cloud_revenue_growth_pct_cc": [
+          23,
+          25
+        ],
+        "cloud_revenue_growth_pct_usd": [
+          24,
+          26
+        ],
+        "non_gaap_eps_usd_cc": [
+          1.42,
+          1.46
+        ],
+        "non_gaap_eps_usd_reported": [
+          1.45,
+          1.49
+        ],
+        "non_gaap_eps_growth_pct_cc": [
+          6,
+          10
+        ],
+        "non_gaap_eps_growth_pct_usd": [
+          8,
+          12
+        ],
+        "assumed_tax_rate_pct": 19,
+        "fx_assumption": "currency should have about a 1% positive effect on total revenue, and as much as a $0.03 positive effect on EPS",
+        "fy_label": "FY2025",
+        "fy_total_revenue_at_least": null,
+        "fy_non_gaap_eps": null,
+        "fy_capex": "I expect the fiscal year 2025 CapEx will be double what it was in fiscal 2024",
+        "fy_cloud_growth_note": "For fiscal 2025, we remain very confident and committed to full year total revenue growth growing double digits, and full year total Cloud Infrastructure revenue growing faster than last year. (p5)",
+        "speaker": "Safra Catz",
+        "page": 5,
+        "_note": "Q2 FY2025 quarterly guidance on p5; FY2025 revenue/cloud-infrastructure reaffirmation on p5; FY2025 capex statement on p4 (Q1 capex $2.3 billion). Q1 actuals (p3-p4): total revenue $13.3 billion up 8%; total cloud revenue $5.6 billion up 22%; non-GAAP EPS $1.39 (above the high end of prior guidance by $0.04); RPO $99 billion up 52% CC. p4: server/networking useful-life change from five to six years reduced Q1 operating expenses by about $197 million (already included in prior guidance). Safra said further FY2025-and-beyond detail would be given at the financial analyst meeting that Thursday."
+      },
+      "quotes": [
+        {
+          "topic": "total_revenue",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So, all in, total revenue for the quarter were $13.3 billion, up 8% from last year.",
+          "page": 4
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Total cloud revenue, that's SaaS and IaaS, was up 22% at $5.6 billion, with SaaS revenue up $3.5 billion, up 10%, and IaaS revenue of $2.2 billion, up 46%",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "As a reminder, we exited the advertising business last quarter, which had the effect of lowering the total Cloud Applications revenue by 2% this quarter.",
+          "page": 3
+        },
+        {
+          "topic": "cloud",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our infrastructure cloud services now have an annualized revenue of $8.6 billion. OCI consumption revenue was up 56% as demand continued to outstrip supply.",
+          "page": 3
+        },
+        {
+          "topic": "software",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Software license revenues were up 8% to $870 million, including Java, which saw excellent growth.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "We continue to display operating expense discipline with Q1 operating income growing 14% and the operating margin was 43%.",
+          "page": 4
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "This change in accounting estimate reduced Q1 operating expenses by about $197 million.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Our remaining performance obligations, or RPO, is now $99 billion, up 52% in constant currency.",
+          "page": 4
+        },
+        {
+          "topic": "rpo",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "Further, our cloud RPO grew more than 80% and now represents nearly three-fourths of total RPO",
+          "page": 4
+        },
+        {
+          "topic": "capex",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "I expect the fiscal year 2025 CapEx will be double what it was in fiscal 2024.",
+          "page": 4
+        },
+        {
+          "topic": "guidance",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "For fiscal 2025, we remain very confident and committed to full year total revenue growth growing double digits, and full year total Cloud Infrastructure revenue growing faster than last year.",
+          "page": 5
+        },
+        {
+          "topic": "operating_income",
+          "speaker": "Safra Catz",
+          "role": "CEO",
+          "quote": "So, that you know, gross margins even this quarter as a percentage increased regardless of the fact that we have a lot more OCI.",
+          "page": 6
+        }
+      ],
+      "source": "S-CALL-FY2025Q1"
+    }
+  }
+}

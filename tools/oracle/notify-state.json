@@ -1,0 +1,10 @@
+{
+  "lastQuarter": "FY2027Q1",
+  "lastFilingSeen": "0001193125-26-389274",
+  "lastGuidanceIssuedIn": "FY2027Q1",
+  "lastReferenceSha": null,
+  "lastMarketClose": null,
+  "lastNotifiedAt": null,
+  "lastFailureNote": null,
+  "note": "Updated by the Oracle weekday reviewing routine (tools/oracle/ROUTINE.md). Compared against tools/oracle/data/state.json, guidance.json and market_reference.json to decide whether a day is material."
+}

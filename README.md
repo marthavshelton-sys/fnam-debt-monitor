@@ -13,6 +13,7 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 | `/gap/` | GAP interactive financial model | `gap-refresh.yml` |
 | `/qualitas/` | Quálitas interactive financial model | `qualitas-refresh.yml` |
 | `/gentera/` | Gentera interactive financial model (runbook: `tools/gentera/README.md`; pipeline health: `/gentera/quality.html`) | `gentera-refresh.yml` |
+| `/oracle/` | Oracle Corporation (NYSE: ORCL) interactive financial model, the first US-listed company on the site (runbook: `tools/oracle/README.md`; pipeline health: `/oracle/quality.html`) | `oracle-refresh.yml` (market + EDGAR harvest) + weekday reviewing routine (`tools/oracle/ROUTINE.md`) |
 
 ## Mexico fiscal monitor (`site/mx/fiscal/`)
 

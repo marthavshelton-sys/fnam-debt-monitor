@@ -1,0 +1,361 @@
+{
+  "_comment": "Automation state written by scripts/oracle/harvest-filings.mjs and tools/oracle/ROUTINE.md. seen_accessions: filings already archived. pending_extraction: archived filings whose figures still need to enter quarters.json. reviewed_quarters: quarters whose Comments-column entries have been drafted (the first review run drafts the newest quarter, FY2027Q1).",
+  "seen_accessions": [
+    "0000950170-24-071916",
+    "0000950170-24-104753",
+    "0000950170-24-104905",
+    "0000950170-24-134537",
+    "0000950170-24-134973",
+    "0000950170-25-036295",
+    "0000950170-25-037143",
+    "0000950170-25-084831",
+    "0000950170-25-087926",
+    "0001193125-25-199175",
+    "0001193125-25-200095",
+    "0001193125-25-314207",
+    "0001193125-25-315925",
+    "0001193125-26-100148",
+    "0001193125-26-101045",
+    "0001193125-26-265848",
+    "0001193125-26-277521",
+    "0001193125-26-387905",
+    "0001193125-26-389274"
+  ],
+  "pending_extraction": [
+    {
+      "form": "8-K",
+      "accession": "0000950170-24-071916",
+      "report_date": "2024-06-11",
+      "filing_date": "2024-06-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024071916/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2024-06-11_8K_0000950170-24-071916_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done",
+      "extracted_into": "quarters.json",
+      "done_on": "2026-09-22"
+    },
+    {
+      "form": "8-K",
+      "accession": "0000950170-24-104753",
+      "report_date": "2024-09-09",
+      "filing_date": "2024-09-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104753/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2024-09-09_8K_0000950170-24-104753_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0000950170-24-104905",
+      "report_date": "2024-08-31",
+      "filing_date": "2024-09-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0000950170-24-134537",
+      "report_date": "2024-12-09",
+      "filing_date": "2024-12-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134537/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2024-12-09_8K_0000950170-24-134537_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0000950170-24-134973",
+      "report_date": "2024-11-30",
+      "filing_date": "2024-12-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0000950170-25-036295",
+      "report_date": "2025-03-10",
+      "filing_date": "2025-03-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025036295/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2025-03-10_8K_0000950170-25-036295_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0000950170-25-037143",
+      "report_date": "2025-02-28",
+      "filing_date": "2025-03-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0000950170-25-084831",
+      "report_date": "2025-06-11",
+      "filing_date": "2025-06-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2025-06-11_8K_0000950170-25-084831_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-K",
+      "accession": "0000950170-25-087926",
+      "report_date": "2025-05-31",
+      "filing_date": "2025-06-18",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0001193125-25-199175",
+      "report_date": "2025-09-09",
+      "filing_date": "2025-09-09",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2025-09-09_8K_0001193125-25-199175_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0001193125-25-200095",
+      "report_date": "2025-08-31",
+      "filing_date": "2025-09-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0001193125-25-314207",
+      "report_date": "2025-12-10",
+      "filing_date": "2025-12-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2025-12-10_8K_0001193125-25-314207_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0001193125-25-315925",
+      "report_date": "2025-11-30",
+      "filing_date": "2025-12-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0001193125-26-100148",
+      "report_date": "2026-03-10",
+      "filing_date": "2026-03-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2026-03-10_8K_0001193125-26-100148_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0001193125-26-101045",
+      "report_date": "2026-02-28",
+      "filing_date": "2026-03-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0001193125-26-265848",
+      "report_date": "2026-06-10",
+      "filing_date": "2026-06-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2026-06-10_8K_0001193125-26-265848_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-K",
+      "accession": "0001193125-26-277521",
+      "report_date": "2026-05-31",
+      "filing_date": "2026-06-22",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "reference"
+    },
+    {
+      "form": "8-K",
+      "accession": "0001193125-26-387905",
+      "report_date": "2026-09-10",
+      "filing_date": "2026-09-10",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+      "archived": "tools/oracle/raw/8k/2026-09-10_8K_0001193125-26-387905_orcl-ex99_1.htm",
+      "harvested": "2026-09-22",
+      "status": "done"
+    },
+    {
+      "form": "10-Q",
+      "accession": "0001193125-26-389274",
+      "report_date": "2026-08-31",
+      "filing_date": "2026-09-11",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "archived": null,
+      "harvested": "2026-09-22",
+      "status": "done"
+    }
+  ],
+  "reviewed_quarters": [
+    "FY2025Q1",
+    "FY2025Q2",
+    "FY2025Q3",
+    "FY2025Q4",
+    "FY2026Q1",
+    "FY2026Q2",
+    "FY2026Q3",
+    "FY2026Q4"
+  ],
+  "last_harvest": "2026-09-22",
+  "last_review": null,
+  "log": [
+    {
+      "date": "2026-09-22",
+      "event": "initial_build",
+      "note": "Nine quarters (FY2025Q1–FY2027Q1) extracted from 8-K Exhibit 99.1 releases; tie-out 92/92 checks passed."
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0000950170-24-071916"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0000950170-24-104753"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0000950170-24-104905"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0000950170-24-134537"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0000950170-24-134973"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0000950170-25-036295"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0000950170-25-037143"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0000950170-25-084831"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-K",
+      "accession": "0000950170-25-087926"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0001193125-25-199175"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0001193125-25-200095"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0001193125-25-314207"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0001193125-25-315925"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0001193125-26-100148"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0001193125-26-101045"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0001193125-26-265848"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-K",
+      "accession": "0001193125-26-277521"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "8-K",
+      "accession": "0001193125-26-387905"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvested",
+      "form": "10-Q",
+      "accession": "0001193125-26-389274"
+    },
+    {
+      "date": "2026-09-22",
+      "event": "harvest_reconciled",
+      "note": "Archived releases matched to extracted quarters; 10-Q/10-K recorded by URL as references."
+    },
+    {
+      "date": "2026-09-22",
+      "event": "marked backfilled filings done",
+      "count": 1
+    }
+  ]
+}

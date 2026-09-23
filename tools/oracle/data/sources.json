@@ -1,0 +1,353 @@
+{
+  "_comment": "Registry of every primary source cited elsewhere in /data. Other JSON files reference sources by key (e.g. \"source\": \"S-8K-FY2027Q1\") instead of repeating the URL. Every entry must be a public filing, official press release, or official market-data source.",
+  "S-8K-FY2027Q1": {
+    "title": "Oracle Q1 FY2027 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q1 FY2027",
+    "period_end": "2026-08-31",
+    "filing_date": "2026-09-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+    "accession": "0001193125-26-387905",
+    "accessed": "2026-09-22"
+  },
+  "S-10Q-FY2027Q1": {
+    "title": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+    "form": "10-Q",
+    "fiscal_period": "Q1 FY2027",
+    "period_end": "2026-08-31",
+    "filing_date": "2026-09-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+    "accession": "0001193125-26-389274",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2026Q1": {
+    "title": "Oracle Q1 FY2026 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q1 FY2026",
+    "period_end": "2025-08-31",
+    "filing_date": "2025-09-09",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm",
+    "accession": "0001193125-25-199175",
+    "accessed": "2026-09-22"
+  },
+  "S-EDGAR-CIK": {
+    "title": "Oracle Corporation SEC EDGAR filer page (CIK 0001341439)",
+    "url": "https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001341439&type=10-K",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2025Q1": {
+    "title": "Oracle Q1 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q1 FY2025",
+    "period_end": "2024-08-31",
+    "filing_date": "2024-09-09",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104753/orcl-ex99_1.htm",
+    "accession": "0000950170-24-104753",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2025Q2": {
+    "title": "Oracle Q2 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q2 FY2025",
+    "period_end": "2024-11-30",
+    "filing_date": "2024-12-09",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134537/orcl-ex99_1.htm",
+    "accession": "0000950170-24-134537",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2025Q3": {
+    "title": "Oracle Q3 FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q3 FY2025",
+    "period_end": "2025-02-28",
+    "filing_date": "2025-03-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025036295/orcl-ex99_1.htm",
+    "accession": "0000950170-25-036295",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2025Q4": {
+    "title": "Oracle Q4 & Full Year FY2025 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q4 FY2025",
+    "period_end": "2025-05-31",
+    "filing_date": "2025-06-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm",
+    "accession": "0000950170-25-084831",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2026Q2": {
+    "title": "Oracle Q2 FY2026 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q2 FY2026",
+    "period_end": "2025-11-30",
+    "filing_date": "2025-12-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm",
+    "accession": "0001193125-25-314207",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2026Q3": {
+    "title": "Oracle Q3 FY2026 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q3 FY2026",
+    "period_end": "2026-02-28",
+    "filing_date": "2026-03-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm",
+    "accession": "0001193125-26-100148",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2026Q4": {
+    "title": "Oracle Q4 & Full Year FY2026 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q4 FY2026",
+    "period_end": "2026-05-31",
+    "filing_date": "2026-06-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+    "accession": "0001193125-26-265848",
+    "accessed": "2026-09-22"
+  },
+  "S-CALL-FY2024Q1": {
+    "title": "Q1 FY2024 earnings call — earnings-call transcript (owner-supplied PDF, 2023-09-11)",
+    "form": "earnings-call transcript",
+    "filing_date": "2023-09-11",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2024 Earnings Call 11September2023 500-ET-PM-10-09-2023-2023-09-10-2.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2024Q2": {
+    "title": "Q2 FY2024 earnings call — earnings-call transcript (owner-supplied PDF, 2023-12-11)",
+    "form": "earnings-call transcript",
+    "filing_date": "2023-12-11",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2024 Earnings Call 11December2023 500-ET-PM-11-12-2023-2023-12-11-1.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2024Q3": {
+    "title": "Q3 FY2024 earnings call — earnings-call transcript (owner-supplied PDF, 2024-03-11)",
+    "form": "earnings-call transcript",
+    "filing_date": "2024-03-11",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2024 Earnings Call 11March2024 500-ET-PM-10-03-2024-2024-03-10-0.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2025Q2": {
+    "title": "Q2 FY2025 earnings call — earnings-call transcript (owner-supplied PDF, 2024-12-09)",
+    "form": "earnings-call transcript",
+    "filing_date": "2024-12-09",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2025 Earnings Call 9December2024 500-ET-PM-08-12-2024-2024-12-08-9.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2025Q3": {
+    "title": "Q3 FY2025 earnings call — earnings-call transcript (owner-supplied PDF, 2025-03-10)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-03-10",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2025 Earnings Call 10March2025 500-ET-PM-09-03-2025-2025-03-09-8.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2025Q4": {
+    "title": "Q4 FY2025 earnings call — earnings-call transcript (owner-supplied PDF, 2025-06-11)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-06-11",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2025 Earnings Call 11June2025 500-ET-PM-10-06-2025-2025-06-10-7.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2026Q1": {
+    "title": "Q1 FY2026 earnings call — earnings-call transcript (owner-supplied PDF, 2025-09-09)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-09-09",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2026 Earnings Call 9September2025 500-ET-PM-08-09-2025-2025-09-08-6.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2026Q2": {
+    "title": "Q2 FY2026 earnings call — earnings-call transcript (owner-supplied PDF, 2025-12-10)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-12-10",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q2 2026 Earnings Call 10December2025 500-ET-PM-09-12-2025-2025-12-09-3.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2026Q3": {
+    "title": "Q3 FY2026 earnings call — earnings-call transcript (owner-supplied PDF, 2026-03-10)",
+    "form": "earnings-call transcript",
+    "filing_date": "2026-03-10",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q3 2026 Earnings Call 10March2026 500-ET-PM-09-03-2026-2026-03-09-2.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2026Q4": {
+    "title": "Q4 FY2026 earnings call — earnings-call transcript (owner-supplied PDF, 2026-06-10)",
+    "form": "earnings-call transcript",
+    "filing_date": "2026-06-10",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2026 Earnings Call 10June2026 500-ET-PM-09-06-2026-2026-06-09-1.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2027Q1": {
+    "title": "Q1 FY2027 earnings call — earnings-call transcript (owner-supplied PDF, 2026-09-10)",
+    "form": "earnings-call transcript",
+    "filing_date": "2026-09-10",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2027 Earnings Call 10September2026 500-ET-PM-09-09-2026-2026-09-09-0.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-BUSINESS_UPDATE_2025_09": {
+    "title": "Business update call ('AI Changes Everything') announcing leadership changes — earnings-call transcript (owner-supplied PDF, 2025-09-22)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-09-22",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Business Update Call 22September2025 900-ET-AM-21-09-2025-2025-09-21-5.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-ANALYST_MEETING_2025_10": {
+    "title": "Financial analyst meeting at Oracle AI World, Las Vegas — earnings-call transcript (owner-supplied PDF, 2025-10-16)",
+    "form": "earnings-call transcript",
+    "filing_date": "2025-10-16",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Analyst Meeting 16October2025 1245-ET-PM-16-10-2025-2025-10-16-4.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2024Q4": {
+    "title": "Q4 FY2024 earnings call — earnings-call transcript (owner-supplied PDF, 2024-06-11)",
+    "form": "earnings-call transcript",
+    "filing_date": "2024-06-11",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q4 2024 Earnings Call 11June2024 500-ET-PM-10-06-2024-2024-06-10-0.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-CALL-FY2025Q1": {
+    "title": "Q1 FY2025 earnings call — earnings-call transcript (owner-supplied PDF, 2024-09-09)",
+    "form": "earnings-call transcript",
+    "filing_date": "2024-09-09",
+    "url": null,
+    "local_file": "Transcripts/ORCL-US-Oracle CorpORCLUS Q1 2025 Earnings Call 9September2024 500-ET-PM-08-09-2024-2024-09-08-1.pdf",
+    "accessed": "2026-09-23",
+    "note": "Hand-supplied by the owner; not an SEC filing and not republished on the page."
+  },
+  "S-8K-FY2024Q1": {
+    "title": "Oracle Q1 FY2024 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q1 FY2024",
+    "period_end": "2023-08-31",
+    "filing_date": "2023-09-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017023047471/orcl-ex99_1.htm",
+    "accession": "0000950170-23-047471",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2024Q2": {
+    "title": "Oracle Q2 FY2024 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q2 FY2024",
+    "period_end": "2023-11-30",
+    "filing_date": "2023-12-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017023069410/orcl-ex99_1.htm",
+    "accession": "0000950170-23-069410",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2024Q3": {
+    "title": "Oracle Q3 FY2024 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q3 FY2024",
+    "period_end": "2024-02-29",
+    "filing_date": "2024-03-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024029250/orcl-ex99_1.htm",
+    "accession": "0000950170-24-029250",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2024Q4": {
+    "title": "Oracle Q4 & Full Year FY2024 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q4 FY2024",
+    "period_end": "2024-05-31",
+    "filing_date": "2024-06-11",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024071916/orcl-ex99_1.htm",
+    "accession": "0000950170-24-071916",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2022Q2": {
+    "title": "Oracle Q2 FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q2 FY2022",
+    "period_end": "2021-11-30",
+    "filing_date": "2021-12-09",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459021059893/orcl-ex991_6.htm",
+    "accession": "0001564590-21-059893",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2022Q3": {
+    "title": "Oracle Q3 FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q3 FY2022",
+    "period_end": "2022-02-28",
+    "filing_date": "2022-03-10",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022009640/orcl-ex991_6.htm",
+    "accession": "0001564590-22-009640",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2022Q4": {
+    "title": "Oracle Q4 & Full Year FY2022 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q4 FY2022",
+    "period_end": "2022-05-31",
+    "filing_date": "2022-06-13",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022023099/orcl-ex991_6.htm",
+    "accession": "0001564590-22-023099",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2023Q1": {
+    "title": "Oracle Q1 FY2023 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q1 FY2023",
+    "period_end": "2022-08-31",
+    "filing_date": "2022-09-12",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022031466/orcl-ex991_6.htm",
+    "accession": "0001564590-22-031466",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2023Q2": {
+    "title": "Oracle Q2 FY2023 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q2 FY2023",
+    "period_end": "2022-11-30",
+    "filing_date": "2022-12-12",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459022039236/orcl-ex991_6.htm",
+    "accession": "0001564590-22-039236",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2023Q3": {
+    "title": "Oracle Q3 FY2023 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q3 FY2023",
+    "period_end": "2023-02-28",
+    "filing_date": "2023-03-09",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000156459023003362/orcl-ex991_6.htm",
+    "accession": "0001564590-23-003362",
+    "accessed": "2026-09-22"
+  },
+  "S-8K-FY2023Q4": {
+    "title": "Oracle Q4 & Full Year FY2023 Earnings Press Release (Exhibit 99.1 to Form 8-K)",
+    "form": "8-K",
+    "fiscal_period": "Q4 FY2023",
+    "period_end": "2023-05-31",
+    "filing_date": "2023-06-12",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017023027490/orcl-ex99_1.htm",
+    "accession": "0000950170-23-027490",
+    "accessed": "2026-09-22"
+  }
+}

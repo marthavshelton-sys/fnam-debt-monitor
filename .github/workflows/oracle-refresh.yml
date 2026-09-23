@@ -1,0 +1,106 @@
+# Keeps the Oracle financial model (site/oracle) current.
+#
+#   market   weekdays after the NYSE close: ORCL daily closes (Nasdaq → Yahoo → Stooq, first that answers),
+#            S&P 500 and the 10-year Treasury from FRED -> tools/oracle/data/*.csv + market_reference.json
+#            -> site/oracle/data/market.js
+#   filings  weekday mornings (Oracle reports after the close in the 2nd week of Sep / Dec / Mar / Jun and
+#            files the 8-K the same evening): harvests new 8-K (Item 2.02) / 10-Q / 10-K filings from SEC EDGAR
+#            into tools/oracle/raw/ and marks them "pending extraction" in tools/oracle/data/state.json.
+#            Figures enter quarters.json only through the reviewed extraction step (the weekday routine, see
+#            tools/oracle/ROUTINE.md), guarded by the tie-out and the parser tests. If EDGAR refuses the
+#            GitHub runner (it has for other models), the harvester falls back to Oracle's IR press-release feed
+#            and still records that a new results release exists.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). On the oracle-model branch the workflow runs
+# when its scripts change (bootstrap) or on manual dispatch. Bot commits carry [skip actions] so they never
+# re-trigger the workflow. Cloudflare Pages deploys the commit. The hand-curated files (quarters, fiscal years,
+# guidance, comments, reference facts, peers, cds) are never rewritten by this workflow.
+name: Refresh Oracle model data
+
+on:
+  schedule:
+    - cron: "45 21 * * 1-5"      # market, weekdays 21:45 UTC (NYSE closes 20:00 UTC in summer, 21:00 in winter)
+    - cron: "30 13 * * 1-5"      # filings + market, weekdays 13:30 UTC (≈ 09:30 ET, after the evening-before 8-K)
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "market | filings | all"
+        default: "all"
+  push:
+    branches: ["main", "oracle-model"]
+    paths:
+      - "scripts/oracle/**"
+      - ".github/workflows/oracle-refresh.yml"
+
+concurrency:
+  group: oracle-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Decide what to run
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'all' }}"
+          # The 21:45 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "45 21 * * 1-5" ]; then MODE=market; fi
+          echo "mode=$MODE" >> "$GITHUB_OUTPUT"
+          echo "Running mode: $MODE"
+
+      - name: Fetch market data (ORCL, S&P 500, 10-year Treasury)
+        if: steps.plan.outputs.mode != 'filings'
+        run: node scripts/oracle/fetch-market.mjs
+
+      - name: Harvest new filings (SEC EDGAR, IR feed fallback)
+        if: steps.plan.outputs.mode != 'market'
+        env:
+          # The SEC asks for a descriptive User-Agent with a contact; set the repository variable EDGAR_USER_AGENT
+          # to "<name> <email>" (Settings → Secrets and variables → Actions → Variables).
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx oracle-model (contact via repository)' }}
+        run: node scripts/oracle/harvest-filings.mjs
+
+      # The steps below run even if a fetch failed, so whatever did refresh still gets committed
+      # (the job itself stays red so the failure is visible in the Actions tab).
+      - name: Validate model data (tie-outs; writes quality_report.json)
+        if: always()
+        run: node scripts/oracle/validate-data.mjs
+
+      - name: Parser tests against the archived releases
+        if: always()
+        run: node scripts/oracle/test-parsers.mjs
+
+      - name: Regenerate the page's data files
+        if: always()
+        run: node scripts/oracle/build-data.mjs
+
+      - name: Commit if anything changed
+        if: always()
+        shell: bash
+        run: |
+          git config user.name "oracle-refresh[bot]"
+          git config user.email "oracle-refresh@users.noreply.github.com"
+          git add site/oracle/data tools/oracle/data tools/oracle/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "oracle: refresh ${{ steps.plan.outputs.mode }} data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1

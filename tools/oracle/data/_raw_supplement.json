@@ -1,0 +1,338 @@
+{
+  "_extraction_notes": {
+    "company": "Oracle Corporation (NYSE: ORCL); fiscal year ends May 31.",
+    "extracted_on": "2026-09-22",
+    "units": "USD millions, as printed in the source tables (no rescaling).",
+    "method": "Each of the nine Exhibit 99.1 earnings press releases (attached to Form 8-K) was downloaded as raw HTML directly from SEC EDGAR (User-Agent 'Talipot Research marthavshelton@gmail.com'), every HTML table was converted to a plain-text grid with a dependency-free parser, and the figures below were read from the resulting rows and their table headers. No third-party aggregators, no estimates.",
+    "da_source_table": "Part A figures come from each release's table captioned 'CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS ($ in millions)', 'Cash Flows From Operating Activities' section, 'Adjustments to reconcile net income to net cash provided by operating activities': the 'Depreciation' line and the separate 'Amortization of intangible assets' line. None of the nine releases prints a combined 'Depreciation and amortization' line, so total_da is always depreciation + amortization_of_intangibles (computed, not printed).",
+    "da_cumulative_convention": "Q1 releases present three months directly. Q2, Q3 and Q4/full-year releases present the cash-flow statement on a cumulative fiscal-year-to-date basis (Six Months Ended, Nine Months Ended, Year Ended). cumulative_as_printed holds the figure exactly as printed; the top-level depreciation / amortization_of_intangibles / total_da fields are the DISCRETE quarter, derived for Q2-Q4 by subtracting the prior quarter's cumulative figure taken from the prior quarter's own release (subtraction shown in each 'derivation' object).",
+    "da_cross_check_fy2025": "PASS. Discrete depreciation 804 + 908 + 1,003 + 1,152 = 3,867 = 'Year Ended May 31, 2025' depreciation in the Q4 FY2025 release; discrete amortization 624 + 591 + 548 + 544 = 2,307 = twelve-month amortization in the same release; total D&A 6,174.",
+    "da_cross_check_fy2026": "PASS. Discrete depreciation 1,351 + 1,704 + 2,153 + 2,415 = 7,623 = 'Year Ended May 31, 2026' depreciation in the Q4 FY2026 release; discrete amortization 420 + 406 + 413 + 432 = 1,671 = twelve-month amortization in the same release; total D&A 9,294.",
+    "da_prior_year_columns_consistent": "Every release's prior-year comparative column for Depreciation and Amortization of intangible assets equals the figure printed in the corresponding prior-year release (e.g., the Q1 FY2026 release shows 804 / 624 for the three months ended August 31, 2024, identical to the Q1 FY2025 release; the Q4 FY2026 release shows 3,867 / 2,307 for FY2025, identical to the Q4 FY2025 release; the Q1 FY2027 release shows 1,351 / 420 for Q1 FY2026). No restatements were found.",
+    "da_vs_income_statement_amortization": "Secondary check against the 'Amortization of intangible assets' operating-expense line printed in each release's GAAP-to-non-GAAP reconciliation (three-month columns): FY2025 Q1-Q4 = 624 / 591 / 548 / 544, identical to the discrete cash-flow amortization derived here. FY2026 Q1-Q4 income-statement line = 420 / 407 / 413 / 431 versus derived cash-flow discrete 420 / 406 / 413 / 432: the Q2 and Q4 values differ by $1M each (offsetting) because the six-month (826) and twelve-month (1,671) cumulative cash-flow figures are independently rounded; the cumulative figures, not the income-statement line, are the basis for the derived values recorded here, as required. FY2027 Q1 = 202 in both.",
+    "revenue_recast_source_table": "Part B quarterly figures come from the prior-year comparative column of the headline GAAP results table (the first financial table of each FY2026 release, captioned 'ORACLE CORPORATION - Q# FISCAL 2026 FINANCIAL RESULTS - CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS ($ in millions, except per share data)', 'Three Months Ended ...', REVENUES block: 'Cloud', 'Software', 'Hardware', 'Services', 'Total revenues'). The FY2025 full-year figures come from the 'Year Ended May 31, 2025' column of the table captioned 'FISCAL 2026 YEAR TO DATE FINANCIAL RESULTS - CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS' in the Q4 FY2026 release. The FY2026Q1 continuity check comes from the prior-year column of the 'Q1 FISCAL 2027 FINANCIAL RESULTS' table in the Q1 FY2027 release.",
+    "revenue_recast_mapping": "Reconciliation to the original FY2025 captions (verified quarter by quarter against the 'REVENUES BY OFFERINGS' trailing-quarter tables in the FY2025 and FY2026 releases): new 'Cloud' = the former 'Cloud services' sub-line; new 'Software' = former 'Cloud license and on-premise license' (now 'Software license') + former 'License support' (now 'Software support'); 'Hardware' and 'Services' are unchanged. E.g., Q1 FY2025: Software 5,766 = 870 + 4,896; Cloud 5,623 = Cloud services 5,623. FY2025: Software 24,724 = 5,201 + 19,523; Cloud 24,506.",
+    "revenue_recast_total_check": "PASS for all five periods. Recast totals equal the originally reported totals: Q1 FY2025 13,307; Q2 14,059; Q3 14,130; Q4 15,903; FY2025 57,399. In each period the four recast lines also sum exactly to the printed total.",
+    "revenue_recast_rounding_artifact": "Oracle's own tables carry a $1M independent-rounding artifact across the quarterly recast lines: the four quarterly Cloud figures sum to 24,507 versus the printed FY2025 Cloud figure of 24,506, and the four quarterly Services figures sum to 5,232 versus the printed 5,233 (offsetting; Software 24,724, Hardware 2,936 and Total 57,399 sum exactly). The same +1/-1 pattern appears in Oracle's own 'REVENUES BY OFFERINGS' trailing tables and in the six- and nine-month cumulative columns (six-month Cloud 11,559 vs 5,623 + 5,937 = 11,560). All figures are recorded as printed; nothing was adjusted.",
+    "fy2026q1_basis_continuity_check": "PASS. The prior-year column of the Q1 FY2027 release shows Cloud 7,186 / Software 5,721 / Hardware 670 / Services 1,349 / Total 14,926, exactly the expected values and identical to the current-period column of the Q1 FY2026 release itself, so the FY2026 caption basis carries forward unchanged into FY2027.",
+    "nulls": "None. Every requested figure was present in the source releases."
+  },
+  "da_by_quarter": {
+    "FY2025Q1": {
+      "period_end": "2024-08-31",
+      "depreciation": 804,
+      "amortization_of_intangibles": 624,
+      "total_da": 1428,
+      "cumulative_as_printed": {
+        "months": 3,
+        "period_caption": "Three Months Ended August 31, 2024",
+        "depreciation": 804,
+        "amortization_of_intangibles": 624
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Three Months Ended August 31, 2023",
+        "depreciation": 712,
+        "amortization_of_intangibles": 763
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104753/orcl-ex99_1.htm",
+      "_note": "Q1 release reports three months directly; discrete quarter = figure as printed. total_da = 804 + 624 = 1,428 (computed; no combined D&A line is printed)."
+    },
+    "FY2025Q2": {
+      "period_end": "2024-11-30",
+      "depreciation": 908,
+      "amortization_of_intangibles": 591,
+      "total_da": 1499,
+      "cumulative_as_printed": {
+        "months": 6,
+        "period_caption": "Six Months Ended November 30, 2024",
+        "depreciation": 1712,
+        "amortization_of_intangibles": 1215
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Six Months Ended November 30, 2023",
+        "depreciation": 1510,
+        "amortization_of_intangibles": 1518
+      },
+      "derivation": {
+        "depreciation": "1,712 (six months, Q2 FY2025 release) - 804 (three months, Q1 FY2025 release) = 908",
+        "amortization_of_intangibles": "1,215 (six months, Q2 FY2025 release) - 624 (three months, Q1 FY2025 release) = 591",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104753/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134537/orcl-ex99_1.htm",
+      "_note": "Release prints cumulative six-month figures; discrete Q2 derived by subtracting the Q1 FY2025 three-month figures. total_da = 908 + 591 = 1,499 (cumulative six-month total 2,927)."
+    },
+    "FY2025Q3": {
+      "period_end": "2025-02-28",
+      "depreciation": 1003,
+      "amortization_of_intangibles": 548,
+      "total_da": 1551,
+      "cumulative_as_printed": {
+        "months": 9,
+        "period_caption": "Nine Months Ended February 28, 2025",
+        "depreciation": 2715,
+        "amortization_of_intangibles": 1763
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Nine Months Ended February 29, 2024",
+        "depreciation": 2318,
+        "amortization_of_intangibles": 2267
+      },
+      "derivation": {
+        "depreciation": "2,715 (nine months, Q3 FY2025 release) - 1,712 (six months, Q2 FY2025 release) = 1,003",
+        "amortization_of_intangibles": "1,763 (nine months, Q3 FY2025 release) - 1,215 (six months, Q2 FY2025 release) = 548",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134537/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025036295/orcl-ex99_1.htm",
+      "_note": "Release prints cumulative nine-month figures; discrete Q3 derived by subtracting the Q2 FY2025 six-month figures. total_da = 1,003 + 548 = 1,551 (cumulative nine-month total 4,478)."
+    },
+    "FY2025Q4": {
+      "period_end": "2025-05-31",
+      "depreciation": 1152,
+      "amortization_of_intangibles": 544,
+      "total_da": 1696,
+      "cumulative_as_printed": {
+        "months": 12,
+        "period_caption": "Year Ended May 31, 2025",
+        "depreciation": 3867,
+        "amortization_of_intangibles": 2307
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Year Ended May 31, 2024",
+        "depreciation": 3129,
+        "amortization_of_intangibles": 3010
+      },
+      "derivation": {
+        "depreciation": "3,867 (twelve months, Q4 FY2025 release) - 2,715 (nine months, Q3 FY2025 release) = 1,152",
+        "amortization_of_intangibles": "2,307 (twelve months, Q4 FY2025 release) - 1,763 (nine months, Q3 FY2025 release) = 544",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025036295/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm",
+      "_note": "Release prints full-year (twelve-month) figures; discrete Q4 derived by subtracting the Q3 FY2025 nine-month figures. total_da = 1,152 + 544 = 1,696. Cross-check: four discrete FY2025 quarters sum to 3,867 / 2,307, equal to the twelve-month figures printed here."
+    },
+    "FY2026Q1": {
+      "period_end": "2025-08-31",
+      "depreciation": 1351,
+      "amortization_of_intangibles": 420,
+      "total_da": 1771,
+      "cumulative_as_printed": {
+        "months": 3,
+        "period_caption": "Three Months Ended August 31, 2025",
+        "depreciation": 1351,
+        "amortization_of_intangibles": 420
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Three Months Ended August 31, 2024",
+        "depreciation": 804,
+        "amortization_of_intangibles": 624
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm",
+      "_note": "Q1 release reports three months directly; discrete quarter = figure as printed. total_da = 1,351 + 420 = 1,771. Prior-year column (804 / 624) matches the Q1 FY2025 release."
+    },
+    "FY2026Q2": {
+      "period_end": "2025-11-30",
+      "depreciation": 1704,
+      "amortization_of_intangibles": 406,
+      "total_da": 2110,
+      "cumulative_as_printed": {
+        "months": 6,
+        "period_caption": "Six Months Ended November 30, 2025",
+        "depreciation": 3055,
+        "amortization_of_intangibles": 826
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Six Months Ended November 30, 2024",
+        "depreciation": 1712,
+        "amortization_of_intangibles": 1215
+      },
+      "derivation": {
+        "depreciation": "3,055 (six months, Q2 FY2026 release) - 1,351 (three months, Q1 FY2026 release) = 1,704",
+        "amortization_of_intangibles": "826 (six months, Q2 FY2026 release) - 420 (three months, Q1 FY2026 release) = 406",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm",
+      "_note": "Release prints cumulative six-month figures; discrete Q2 derived by subtracting the Q1 FY2026 three-month figures. total_da = 1,704 + 406 = 2,110 (cumulative six-month total 3,881). The same release's three-month income-statement 'Amortization of intangible assets' line prints 407; the $1M difference versus the derived 406 is an independent-rounding artifact of the cumulative cash-flow presentation."
+    },
+    "FY2026Q3": {
+      "period_end": "2026-02-28",
+      "depreciation": 2153,
+      "amortization_of_intangibles": 413,
+      "total_da": 2566,
+      "cumulative_as_printed": {
+        "months": 9,
+        "period_caption": "Nine Months Ended February 28, 2026",
+        "depreciation": 5208,
+        "amortization_of_intangibles": 1239
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Nine Months Ended February 28, 2025",
+        "depreciation": 2715,
+        "amortization_of_intangibles": 1763
+      },
+      "derivation": {
+        "depreciation": "5,208 (nine months, Q3 FY2026 release) - 3,055 (six months, Q2 FY2026 release) = 2,153",
+        "amortization_of_intangibles": "1,239 (nine months, Q3 FY2026 release) - 826 (six months, Q2 FY2026 release) = 413",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm",
+      "_note": "Release prints cumulative nine-month figures; discrete Q3 derived by subtracting the Q2 FY2026 six-month figures. total_da = 2,153 + 413 = 2,566 (cumulative nine-month total 6,447)."
+    },
+    "FY2026Q4": {
+      "period_end": "2026-05-31",
+      "depreciation": 2415,
+      "amortization_of_intangibles": 432,
+      "total_da": 2847,
+      "cumulative_as_printed": {
+        "months": 12,
+        "period_caption": "Year Ended May 31, 2026",
+        "depreciation": 7623,
+        "amortization_of_intangibles": 1671
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Year Ended May 31, 2025",
+        "depreciation": 3867,
+        "amortization_of_intangibles": 2307
+      },
+      "derivation": {
+        "depreciation": "7,623 (twelve months, Q4 FY2026 release) - 5,208 (nine months, Q3 FY2026 release) = 2,415",
+        "amortization_of_intangibles": "1,671 (twelve months, Q4 FY2026 release) - 1,239 (nine months, Q3 FY2026 release) = 432",
+        "prior_cumulative_source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm"
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "_note": "Release prints full-year (twelve-month) figures; discrete Q4 derived by subtracting the Q3 FY2026 nine-month figures. total_da = 2,415 + 432 = 2,847. Cross-check: four discrete FY2026 quarters sum to 7,623 / 1,671, equal to the twelve-month figures printed here. The same release's three-month income-statement 'Amortization of intangible assets' line prints 431; the $1M difference versus the derived 432 offsets the Q2 rounding difference (cumulative basis is authoritative here)."
+    },
+    "FY2027Q1": {
+      "period_end": "2026-08-31",
+      "depreciation": 3156,
+      "amortization_of_intangibles": 202,
+      "total_da": 3358,
+      "cumulative_as_printed": {
+        "months": 3,
+        "period_caption": "Three Months Ended August 31, 2026",
+        "depreciation": 3156,
+        "amortization_of_intangibles": 202
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Three Months Ended August 31, 2025",
+        "depreciation": 1351,
+        "amortization_of_intangibles": 420
+      },
+      "combined_da_line_present": false,
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+      "_note": "Q1 release reports three months directly; discrete quarter = figure as printed. total_da = 3,156 + 202 = 3,358. Prior-year column (1,351 / 420) matches the Q1 FY2026 release."
+    }
+  },
+  "fiscal_year_da": {
+    "FY2025": {
+      "period_caption": "Year Ended May 31, 2025",
+      "depreciation": 3867,
+      "amortization_of_intangibles": 2307,
+      "total_da": 6174,
+      "sum_of_discrete_quarters": {
+        "depreciation": 3867,
+        "amortization_of_intangibles": 2307,
+        "total_da": 6174,
+        "cross_check": "PASS: 804 + 908 + 1,003 + 1,152 = 3,867; 624 + 591 + 548 + 544 = 2,307"
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Year Ended May 31, 2024",
+        "depreciation": 3129,
+        "amortization_of_intangibles": 3010
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025084831/orcl-ex99_1.htm"
+    },
+    "FY2026": {
+      "period_caption": "Year Ended May 31, 2026",
+      "depreciation": 7623,
+      "amortization_of_intangibles": 1671,
+      "total_da": 9294,
+      "sum_of_discrete_quarters": {
+        "depreciation": 7623,
+        "amortization_of_intangibles": 1671,
+        "total_da": 9294,
+        "cross_check": "PASS: 1,351 + 1,704 + 2,153 + 2,415 = 7,623; 420 + 406 + 413 + 432 = 1,671"
+      },
+      "prior_year_comparative_as_printed": {
+        "period_caption": "Year Ended May 31, 2025",
+        "depreciation": 3867,
+        "amortization_of_intangibles": 2307
+      },
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm"
+    }
+  },
+  "revenue_recast_fy2026_basis": {
+    "FY2025Q1": {
+      "cloud": 5623,
+      "software": 5766,
+      "hardware": 655,
+      "services": 1263,
+      "total": 13307,
+      "originally_reported_total": 13307,
+      "total_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Three Months Ended August 31, 2024') of the Q1 FY2026 release's headline GAAP results table. Reconciles to the original Q1 FY2025 release: Cloud 5,623 = former 'Cloud services' sub-line; Software 5,766 = former 'Cloud license and on-premise license' 870 + 'License support' 4,896; Hardware 655 and Services 1,263 unchanged."
+    },
+    "FY2025Q2": {
+      "cloud": 5937,
+      "software": 6064,
+      "hardware": 728,
+      "services": 1330,
+      "total": 14059,
+      "originally_reported_total": 14059,
+      "total_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Three Months Ended November 30, 2024') of the Q2 FY2026 release's headline GAAP results table. Reconciles to the original Q2 FY2025 release: Cloud 5,937 = former 'Cloud services'; Software 6,064 = 1,195 + 4,869; Hardware 728 and Services 1,330 unchanged."
+    },
+    "FY2025Q3": {
+      "cloud": 6210,
+      "software": 5926,
+      "hardware": 703,
+      "services": 1291,
+      "total": 14130,
+      "originally_reported_total": 14130,
+      "total_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Three Months Ended February 28, 2025') of the Q3 FY2026 release's headline GAAP results table. Reconciles to the original Q3 FY2025 release: Cloud 6,210 = former 'Cloud services'; Software 5,926 = 1,129 + 4,797; Hardware 703 and Services 1,291 unchanged."
+    },
+    "FY2025Q4": {
+      "cloud": 6737,
+      "software": 6968,
+      "hardware": 850,
+      "services": 1348,
+      "total": 15903,
+      "originally_reported_total": 15903,
+      "total_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Three Months Ended May 31, 2025') of the Q4 FY2026 release's headline GAAP results table. Reconciles to the original Q4 FY2025 release: Cloud 6,737 = former 'Cloud services'; Software 6,968 = 2,007 + 4,961; Hardware 850 and Services 1,348 unchanged."
+    },
+    "FY2025": {
+      "cloud": 24506,
+      "software": 24724,
+      "hardware": 2936,
+      "services": 5233,
+      "total": 57399,
+      "originally_reported_total": 57399,
+      "total_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Year Ended May 31, 2025') of the Q4 FY2026 release's table captioned 'FISCAL 2026 YEAR TO DATE FINANCIAL RESULTS - CONDENSED CONSOLIDATED STATEMENTS OF OPERATIONS'. Reconciles to the original FY2025 release: Cloud 24,506 = former 'Cloud services'; Software 24,724 = 5,201 + 19,523; Hardware 2,936 and Services 5,233 unchanged. Rounding artifact in Oracle's own tables: the four recast quarters sum to Cloud 24,507 and Services 5,232 (+1 / -1 versus these printed annual figures; Software, Hardware and Total sum exactly)."
+    },
+    "FY2026Q1_check": {
+      "cloud": 7186,
+      "software": 5721,
+      "hardware": 670,
+      "services": 1349,
+      "total": 14926,
+      "expected": { "cloud": 7186, "software": 5721, "hardware": 670, "services": 1349, "total": 14926 },
+      "continuity_check": "PASS",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
+      "_note": "prior-year comparative column ('Three Months Ended August 31, 2025') of the Q1 FY2027 release's headline GAAP results table; equals the expected values and the current-period column of the Q1 FY2026 release, confirming the FY2026 caption basis continues unchanged into FY2027."
+    }
+  }
+}
