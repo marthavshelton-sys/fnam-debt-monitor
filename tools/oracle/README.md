@@ -43,8 +43,11 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `quality_report.json` | Last tie-out: checks, failures, warnings, stale series | Written by `validate-data.mjs`. |
 
 `tools/oracle/raw/{8k,10q,10k}/` keeps the full HTML of every earnings exhibit the model uses (one file per
-filing, accession in the name). It is the audit trail: `test-parsers.mjs` re-reads each exhibit and checks the
-printed totals against `quarters.json` on every build.
+filing, accession in the name). It is the audit trail: on every build `test-parsers.mjs` re-reads each exhibit and
+checks 26 printed figures per quarter against `quarters.json` (the four revenue lines and total, the nine
+operating-expense lines and total, operating income, interest expense, pretax and net income, diluted EPS and
+share count, and the balance-sheet cash, marketable securities, total assets, current and non-current borrowings
+and current deferred revenue). 338 checks across the 13 archived quarters; any mismatch fails the build.
 
 Conventions: nominal USD as reported; thousands shown as millions; outflows stored negative
 (`capex_quarter: -28499`); ISO dates; one decimal on percentages applied at render time, never in the data.

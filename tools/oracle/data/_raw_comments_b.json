@@ -112,6 +112,31 @@
           "en": "$8.5bn vs $2.3bn turned free cash flow negative (-$362m); FY26 capex raised to \"around $35 billion\" (Catz).",
           "es": "US$8.5 mil M vs US$2.3 mil M volvieron negativo el flujo libre (-US$362 M); capex AF26 elevado a \"~US$35 mil M\" (Catz).",
           "src": "release cash-flow statement; call p.4 (Catz)"
+        },
+        "ebitda_margin": {
+          "en": "$402m restructuring charge and cloud costs; D&A +24% as depreciation +68%.",
+          "es": "Cargo de reestructuración de US$402 M y costos de nube; D&A +24% con depreciación +68%.",
+          "src": "release income statement; cash-flow statement"
+        },
+        "da": {
+          "en": "Depreciation +68% on new capacity; amortization of acquired intangibles -33%.",
+          "es": "Depreciación +68% por nueva capacidad; amortización de intangibles -33%.",
+          "src": "release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Capex $6.2bn higher than a year ago turned FCF negative despite operating cash flow +10%.",
+          "es": "Capex US$6.2 mil M mayor que hace un año volvió negativo el flujo libre pese a flujo operativo +10%.",
+          "src": "release cash-flow statement"
+        },
+        "dividend": {
+          "en": "$0.50 after the 25% increase of March 2025.",
+          "es": "US$0.50 tras el aumento de 25% de marzo de 2025.",
+          "src": "release p.1"
+        },
+        "diluted_shares": {
+          "en": "Stock-based compensation with minimal buybacks.",
+          "es": "Compensación en acciones con recompras mínimas.",
+          "src": "release cash-flow statement"
         }
       },
       "exec_summary": {
@@ -284,6 +309,31 @@
           "en": "Three times last year, \"reflecting the investments being made to support our accelerating growth\"; FY26 plan about $15bn above $35bn.",
           "es": "Tres veces el año previo, \"reflejando las inversiones para sostener nuestro crecimiento acelerado\"; plan AF26 ~US$15 mil M sobre los US$35 mil M.",
           "src": "call p.3-4 (Kehring)"
+        },
+        "ebitda_margin": {
+          "en": "$406m restructuring charge and datacenter costs; D&A +41% as depreciation +88%.",
+          "es": "Cargo de reestructuración de US$406 M y costos de centros de datos; D&A +41% con depreciación +88%.",
+          "src": "release income statement; cash-flow statement"
+        },
+        "da": {
+          "en": "Depreciation +88% on new capacity; amortization of acquired intangibles -31%.",
+          "es": "Depreciación +88% por nueva capacidad; amortización de intangibles -31%.",
+          "src": "release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Capex three times last year's ($12.0bn) against seasonally weak operating cash flow.",
+          "es": "Capex tres veces el del año previo (US$12.0 mil M) frente a flujo operativo estacionalmente débil.",
+          "src": "release cash-flow statement; call p.3-4 (Kehring)"
+        },
+        "dividend": {
+          "en": "$0.50 after the 25% increase of March 2025.",
+          "es": "US$0.50 tras el aumento de 25% de marzo de 2025.",
+          "src": "release p.1"
+        },
+        "diluted_shares": {
+          "en": "Stock-based compensation with minimal buybacks.",
+          "es": "Compensación en acciones con recompras mínimas.",
+          "src": "release cash-flow statement"
         }
       },
       "exec_summary": {
@@ -456,6 +506,31 @@
           "en": "Three times last year; FCF -$11.5bn; FY26 guidance held at $50bn; Kehring flags \"the uncoupling of CapEx with capital requirements\".",
           "es": "Tres veces el año previo; flujo libre -US$11.5 mil M; guía AF26 mantenida en US$50 mil M; Kehring destaca \"el desacople entre capex y necesidades de capital\".",
           "src": "release guidance section; call p.9 (Kehring)"
+        },
+        "ebitda_margin": {
+          "en": "Revenue +22% with opex efficiencies; D&A +65% as depreciation more than doubled.",
+          "es": "Ingresos +22% con eficiencias en gastos; D&A +65% al más que duplicarse la depreciación.",
+          "src": "release income statement; cash-flow statement"
+        },
+        "da": {
+          "en": "Depreciation +115% as AI capacity ramps; amortization of acquired intangibles -25%.",
+          "es": "Depreciación +115% por el arranque de capacidad de IA; amortización de intangibles -25%.",
+          "src": "release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Capex $12.8bn higher than a year ago; \"the uncoupling of CapEx with capital requirements\" (Kehring).",
+          "es": "Capex US$12.8 mil M mayor que hace un año; \"el desacople entre capex y necesidades de capital\" (Kehring).",
+          "src": "release cash-flow statement; call p.9 (Kehring)"
+        },
+        "dividend": {
+          "en": "Unchanged at $0.50.",
+          "es": "Sin cambio en US$0.50.",
+          "src": "release p.1"
+        },
+        "diluted_shares": {
+          "en": "Stock-based compensation; the February mandatory convertible preferred is not yet in the diluted count.",
+          "es": "Compensación en acciones; las preferentes convertibles de febrero aún no entran en el conteo diluido.",
+          "src": "release income statement; 'Capital Funding'"
         }
       },
       "exec_summary": {
@@ -628,6 +703,31 @@
           "en": "FY26 capex $55.7bn, net cash outlay $47.7bn after prepayments and vendor financing; FY27 net cash capex ~$70bn (Maxson).",
           "es": "Capex AF26 US$55.7 mil M, desembolso neto US$47.7 mil M tras prepagos y financiamiento de proveedores; capex neto AF27 ~US$70 mil M (Maxson).",
           "src": "release net-cash-outlay table; call p.4, p.8 (Maxson)"
+        },
+        "ebitda_margin": {
+          "en": "Efficiency actions offset the gross-margin step-down; D&A +45% as depreciation +110%.",
+          "es": "Las acciones de eficiencia compensaron la baja del margen bruto; D&A +45% con depreciación +110%.",
+          "src": "release income statement; call p.4 (Maxson)"
+        },
+        "da": {
+          "en": "Depreciation +110% on the infrastructure build-out; amortization of acquired intangibles -21%.",
+          "es": "Depreciación +110% por la expansión de infraestructura; amortización de intangibles -21%.",
+          "src": "release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Customer prepayments lifted operating cash flow to $14.6bn against capex of $16.5bn; FY26 FCF -$23.7bn.",
+          "es": "Prepagos de clientes elevaron el flujo operativo a US$14.6 mil M frente a capex de US$16.5 mil M; flujo libre AF26 -US$23.7 mil M.",
+          "src": "release cash-flow statement; net-cash-outlay table"
+        },
+        "dividend": {
+          "en": "Unchanged at $0.50.",
+          "es": "Sin cambio en US$0.50.",
+          "src": "release p.1"
+        },
+        "diluted_shares": {
+          "en": "Stock-based compensation; preferred stock and the $20bn at-the-market equity program announced for FY27.",
+          "es": "Compensación en acciones; preferentes y programa de emisión ATM de US$20 mil M anunciado para el AF27.",
+          "src": "release 'Capital Investment Program and Capital Funding'"
         }
       },
       "exec_summary": {
@@ -800,6 +900,31 @@
           "en": "Net cash outlay $18.0bn after $11.4bn of prepayments; FCF -$5.4bn; FY27 capex \"$90 billion to 95 billion\", net cash at most $70bn (Maxson).",
           "es": "Desembolso neto US$18.0 mil M tras US$11.4 mil M de prepagos; flujo libre -US$5.4 mil M; capex AF27 \"US$90-95 mil M\", neto en efectivo máximo US$70 mil M (Maxson).",
           "src": "release net-cash-outlay table; call p.4 (Maxson)"
+        },
+        "ebitda_margin": {
+          "en": "Revenue +30% with opex down; D&A +90% as depreciation of new capacity more than doubled.",
+          "es": "Ingresos +30% con gastos a la baja; D&A +90% al más que duplicarse la depreciación de la nueva capacidad.",
+          "src": "release income statement; cash-flow statement"
+        },
+        "da": {
+          "en": "Depreciation +134% after 850MW came online; amortization of acquired intangibles -52%.",
+          "es": "Depreciación +134% tras entrar 850 MW; amortización de intangibles -52%.",
+          "src": "release cash-flow statement; call p.3 (Maxson)"
+        },
+        "free_cash_flow": {
+          "en": "Record operating cash flow ($11.4bn of prepayments) against capex of $28.5bn; net cash outlay $18.0bn.",
+          "es": "Flujo operativo récord (US$11.4 mil M de prepagos) frente a capex de US$28.5 mil M; desembolso neto US$18.0 mil M.",
+          "src": "release cash-flow statement; net-cash-outlay table"
+        },
+        "dividend": {
+          "en": "Unchanged at $0.50.",
+          "es": "Sin cambio en US$0.50.",
+          "src": "release p.1"
+        },
+        "diluted_shares": {
+          "en": "$20bn at-the-market equity issuance plus stock-based compensation.",
+          "es": "Emisión ATM de US$20 mil M más compensación en acciones.",
+          "src": "release 'Capital Investment Program'"
         }
       },
       "exec_summary": {

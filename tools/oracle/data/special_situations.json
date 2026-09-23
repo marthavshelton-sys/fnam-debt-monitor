@@ -6,14 +6,54 @@
     "what_it_is_en": "Since fiscal 2026, Oracle has been signing very large, multi-year cloud infrastructure (OCI) contracts tied to AI workloads, and building the data-center capacity to deliver them. The clearest evidence is in three linked numbers: RPO (order backlog) more than doubling, quarterly capital expenditure running far above quarterly operating cash flow, and total debt rising to fund the gap. This is a capital-intensive bet that current bookings convert into cloud revenue on schedule.",
     "what_it_is_es": "Desde el año fiscal 2026, Oracle ha estado firmando contratos de infraestructura de nube (OCI) muy grandes y multianuales ligados a cargas de trabajo de IA, y construyendo la capacidad de centros de datos para entregarlos. La evidencia más clara está en tres cifras vinculadas: el RPO (cartera de pedidos) más que duplicándose, el gasto de capital trimestral corriendo muy por encima del flujo operativo trimestral, y la deuda total aumentando para financiar la brecha. Es una apuesta intensiva en capital a que las contrataciones actuales se conviertan en ingreso de nube según lo previsto.",
     "fact_grid": [
-      { "k_en": "RPO, Q1 FY2027", "k_es": "RPO, 1T AF2027", "v": "$664bn", "source": "S-10Q-FY2027Q1" },
-      { "k_en": "RPO YoY change", "k_es": "Variación RPO interanual", "v": "+$209bn", "source": "S-8K-FY2027Q1" },
-      { "k_en": "Capex, Q1 FY2027", "k_es": "Capex, 1T AF2027", "v": "$28.5bn", "source": "S-10Q-FY2027Q1" },
-      { "k_en": "Operating cash flow, Q1 FY2027", "k_es": "Flujo operativo, 1T AF2027", "v": "$23.1bn", "source": "S-8K-FY2027Q1" },
-      { "k_en": "Free cash flow, Q1 FY2027", "k_es": "Flujo libre, 1T AF2027", "v": "$(5.4)bn", "source": "S-8K-FY2027Q1" },
-      { "k_en": "Total debt, Aug 31 2026", "k_es": "Deuda total, 31 ago 2026", "v": "$125.3bn", "source": "S-8K-FY2027Q1" },
-      { "k_en": "Total debt, May 31 2026", "k_es": "Deuda total, 31 may 2026", "v": "$122.3bn", "source": "S-8K-FY2027Q1" },
-      { "k_en": "FY2027 revenue guidance", "k_es": "Guía de ingresos AF2027", "v": "at least $90bn", "source": "S-8K-FY2027Q1" }
+      {
+        "k_en": "RPO, Q1 FY2027",
+        "k_es": "RPO, 1T AF2027",
+        "v": "$664bn",
+        "source": "S-10Q-FY2027Q1"
+      },
+      {
+        "k_en": "RPO YoY change",
+        "k_es": "Variación RPO interanual",
+        "v": "+$209bn",
+        "source": "S-8K-FY2027Q1"
+      },
+      {
+        "k_en": "Capex, Q1 FY2027",
+        "k_es": "Capex, 1T AF2027",
+        "v": "$28.5bn",
+        "source": "S-10Q-FY2027Q1"
+      },
+      {
+        "k_en": "Operating cash flow, Q1 FY2027",
+        "k_es": "Flujo operativo, 1T AF2027",
+        "v": "$23.1bn",
+        "source": "S-8K-FY2027Q1"
+      },
+      {
+        "k_en": "Free cash flow, Q1 FY2027",
+        "k_es": "Flujo libre, 1T AF2027",
+        "v": "$(5.4)bn",
+        "source": "S-8K-FY2027Q1"
+      },
+      {
+        "k_en": "Total debt, Aug 31 2026",
+        "k_es": "Deuda total, 31 ago 2026",
+        "v": "$125.3bn",
+        "source": "S-8K-FY2027Q1"
+      },
+      {
+        "k_en": "Total debt, May 31 2026",
+        "k_es": "Deuda total, 31 may 2026",
+        "v": "$129.5bn",
+        "source": "S-8K-FY2027Q1"
+      },
+      {
+        "k_en": "FY2027 revenue guidance",
+        "k_es": "Guía de ingresos AF2027",
+        "v": "at least $90bn",
+        "source": "S-8K-FY2027Q1"
+      }
     ],
     "model_impact_en": [
       "DCF (Section 05): capex and D&A assumptions for the projection years should be anchored to this buildout, not to Oracle's historical (pre-2026) capital intensity — using the old capex/revenue ratio would understate near-term free-cash-flow pressure.",

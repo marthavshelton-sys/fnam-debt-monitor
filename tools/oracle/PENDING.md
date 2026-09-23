@@ -21,6 +21,10 @@
 - Non-GAAP reconciling items for the FY2022–FY2024 quarters where the release printed them differently.
 - Debt: confirm from the 1Q27 10-Q that the July-2026 notes (US$ 3,000 M) were repaid and drop them from
   `market_reference.json` → `debt_instruments`; add any issuance after 31 May 2026.
+- Ratings: the Moody's (Jul-2025) and Fitch (Feb-2026) actions are cited to press articles (investing.com,
+  StreetInsider); replace with the agencies' own rating-action releases when accessible (Moody's requires a login).
+- Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
+  source-cited but not machine-checked; the 338 parser checks and 329 tie-outs cover the statements only.
 
 ## Page features still to build
 

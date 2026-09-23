@@ -212,22 +212,25 @@ emit("guidance.js", "ORCL_GUIDANCE", { generatedAt: now, basis: { en: gd.meta?.b
 // ---------- comments.js / summary.js ----------
 const cm = load("comments.json", { by_quarter: {} });
 const KEYMAP = { total_revenue: "revTotal", cloud: "revCloud", software: "revSoftware", hardware: "revHardware", services: "revServices", cloud_and_software_cost: "costCloudSoftware", hardware_cost: "costHardware", services_cost: "costServices", sales_and_marketing: "sm", research_and_development: "rd", general_and_administrative: "ga", amortization_of_intangibles: "amortIntangibles", restructuring_and_other: "restructuringOther", operating_income: "opIncome", interest_expense: "interestExpense", nonoperating_income_net: "nonOpIncome", tax_provision: "incomeTax", pretax_income: "pretaxIncome", net_income_common: "netIncomeCommon", diluted_eps: "epsDiluted", total_opex: "totalOpex", net_income: "netIncome" };
-const OPSMAP = { rpo: "rpo", operating_cash_flow: "cfo", capex: "capex", cloud: "cloudRev" };
+// Operating-metrics card rows: raw comment key → ops row key (operating_income and diluted_eps reuse the statement comments).
+const OPSMAP = { rpo: "rpo", operating_cash_flow: "cfo", capex: "capex", cloud: "cloudRev", operating_income: "ngOpMargin", diluted_eps: "epsNg", ebitda_margin: "ebitdaMargin", da: "daPct", free_cash_flow: "fcf", dividend: "dps", diluted_shares: "shares" };
+const TRANSCRIPTS = load("transcripts.json", { calls: {} }).calls;
+const quotesOf = (qid) => (TRANSCRIPTS[qid]?.quotes || []).map((x) => ({ quote: x.quote, speaker: x.speaker, role: x.role || null, page: x.page ?? null, topic: x.topic || null }));
 const periods = {};
 for (const [qid, entry] of Object.entries(cm.by_quarter || {})) {
   const m = /^FY(\d{4})Q(\d)$/.exec(qid); if (!m) continue;
   const id = `${m[1]}Q${m[2]}`; const lines = {}, ops = {};
   for (const [k, c] of Object.entries(entry.comments || {})) { if (KEYMAP[k]) lines[KEYMAP[k]] = { es: c.es, en: c.en, src: c.src || null }; if (OPSMAP[k]) ops[OPSMAP[k]] = { es: c.es, en: c.en, src: c.src || null }; }
-  const q = quarters.find((x) => gid(x) === id); const tr = load("transcripts.json", { calls: {} }).calls[qid];
-  periods[id] = { lines, ops, call: tr ? { date: tr.call_date, es: `conferencia de resultados del ${m[2]}T${m[1].slice(2)} (${tr.call_date}, transcripción)`, en: `${m[2]}Q${m[1].slice(2)} earnings call (${tr.call_date}, transcript)` } : null, release: q ? src(q.source) : null, drafted: entry.drafted || null };
+  const q = quarters.find((x) => gid(x) === id); const tr = TRANSCRIPTS[qid];
+  periods[id] = { lines, ops, quotes: quotesOf(qid), call: tr ? { date: tr.call_date, es: `conferencia de resultados del ${m[2]}T${m[1].slice(2)} (${tr.call_date}, transcripción)`, en: `${m[2]}Q${m[1].slice(2)} earnings call (${tr.call_date}, transcript)` } : null, release: q ? src(q.source) : null, drafted: entry.drafted || null };
 }
 // Fiscal-year comments (keyed "FY2026"), written from the 4Q release and call; shown in FY mode for consecutive years.
 for (const [yid, entry] of Object.entries(cm.by_year || {})) {
   const m = /^FY(\d{4})$/.exec(yid); if (!m || !fiscalYears[yid]) continue;
   const lines = {}, ops = {};
   for (const [k, c] of Object.entries(entry.comments || {})) { if (KEYMAP[k]) lines[KEYMAP[k]] = { es: c.es, en: c.en, src: c.src || null }; if (OPSMAP[k]) ops[OPSMAP[k]] = { es: c.es, en: c.en, src: c.src || null }; }
-  const tr = load("transcripts.json", { calls: {} }).calls[`${yid}Q4`];
-  periods[yid] = { lines, ops, call: tr ? { date: tr.call_date, es: `conferencia de resultados del 4T${m[1].slice(2)} (${tr.call_date}, transcripción)`, en: `4Q${m[1].slice(2)} earnings call (${tr.call_date}, transcript)` } : null, release: src(fiscalYears[yid].source), drafted: entry.drafted || null };
+  const tr = TRANSCRIPTS[`${yid}Q4`];
+  periods[yid] = { lines, ops, quotes: quotesOf(`${yid}Q4`), call: tr ? { date: tr.call_date, es: `conferencia de resultados del 4T${m[1].slice(2)} (${tr.call_date}, transcripción)`, en: `4Q${m[1].slice(2)} earnings call (${tr.call_date}, transcript)` } : null, release: src(fiscalYears[yid].source), drafted: entry.drafted || null };
 }
 emit("comments.js", "ORCL_COMMENTS", { updatedAt: cm.updatedAt || now.slice(0, 10), periods }, "One-line explanations for the income-statement comparison (year-over-year), drafted from Oracle's releases and the owner-supplied call transcripts; reviewed before publishing.");
 

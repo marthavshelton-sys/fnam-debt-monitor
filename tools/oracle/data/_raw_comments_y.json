@@ -72,6 +72,31 @@
           "en": "$6.9bn vs $8.7bn, paced to bookings; Catz: FY25 capex \"will probably be double\".",
           "es": "US$6.9 mil M vs US$8.7 mil M, al ritmo de las contrataciones; Catz: el capex del AF25 \"probablemente será el doble\".",
           "src": "4Q24 call p.5-6 (Catz)"
+        },
+        "ebitda_margin": {
+          "en": "Opex +2% on revenue +6%; D&A flat as depreciation +24% offset amortization -16%.",
+          "es": "Gastos +2% con ingresos +6%; D&A plana: depreciación +24% compensó amortización -16%.",
+          "src": "quarterly income statements; cash-flow statements"
+        },
+        "da": {
+          "en": "Depreciation +24% on datacenter capacity; amortization of acquired intangibles -16%.",
+          "es": "Depreciación +24% por capacidad de centros de datos; amortización de intangibles -16%.",
+          "src": "4Q24 release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Operating cash flow +9% and capex $1.8bn lower: FCF +39% to $11.8bn.",
+          "es": "Flujo operativo +9% y capex US$1.8 mil M menor: flujo libre +39% a US$11.8 mil M.",
+          "src": "4Q24 release p.1; 4Q24 call p.5 (Catz)"
+        },
+        "dividend": {
+          "en": "$1.60 for the year ($0.40 a quarter) after the March 2023 increase.",
+          "es": "US$1.60 en el año (US$0.40 por trimestre) tras el aumento de marzo de 2023.",
+          "src": "quarterly releases"
+        },
+        "diluted_shares": {
+          "en": "Buybacks of about $1.2bn did not offset stock-based compensation.",
+          "es": "Recompras de ~US$1.2 mil M no compensaron la compensación en acciones.",
+          "src": "FY2024 quarterly calls (Catz)"
         }
       },
       "drafted": "2026-09-23"
@@ -147,6 +172,31 @@
           "en": "Tripled to $21.2bn, \"the vast majority\" revenue-generating datacenter equipment; FY26 seen over $25bn.",
           "es": "Se triplicó a US$21.2 mil M, \"la gran mayoría\" equipo generador de ingresos en centros de datos; AF26 visto sobre US$25 mil M.",
           "src": "4Q25 call p.4 (Catz)"
+        },
+        "ebitda_margin": {
+          "en": "Opex +6% on revenue +8%; D&A flat as depreciation +24% offset amortization -23%.",
+          "es": "Gastos +6% con ingresos +8%; D&A plana: depreciación +24% compensó amortización -23%.",
+          "src": "quarterly income statements; cash-flow statements"
+        },
+        "da": {
+          "en": "Depreciation +24% as capacity ramps; amortization of acquired intangibles -23%.",
+          "es": "Depreciación +24% por la expansión de capacidad; amortización de intangibles -23%.",
+          "src": "4Q25 release cash-flow statement"
+        },
+        "free_cash_flow": {
+          "en": "Capex tripled to $21.2bn; FCF -$0.4bn (Catz).",
+          "es": "El capex se triplicó a US$21.2 mil M; flujo libre -US$0.4 mil M (Catz).",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "dividend": {
+          "en": "$1.80 for the year: raised 25% to $0.50 in March 2025.",
+          "es": "US$1.80 en el año: aumentado 25% a US$0.50 en marzo de 2025.",
+          "src": "quarterly releases"
+        },
+        "diluted_shares": {
+          "en": "Buybacks cut to about $150m a quarter; stock-based compensation adds ~1-2% a year.",
+          "es": "Recompras reducidas a ~US$150 M por trimestre; la compensación en acciones suma ~1-2% anual.",
+          "src": "4Q25 call p.5 (Catz)"
         }
       },
       "drafted": "2026-09-23"
@@ -222,6 +272,31 @@
           "en": "$55.7bn reported, $47.7bn net cash outlay after prepayments and vendor financing; free cash flow -$23.7bn; FY27 net cash capex ~$70bn.",
           "es": "US$55.7 mil M reportados, US$47.7 mil M de desembolso neto tras prepagos y financiamiento de proveedores; flujo libre -US$23.7 mil M; capex neto AF27 ~US$70 mil M.",
           "src": "4Q26 release net-cash-outlay table; 4Q26 call p.4, p.8 (Maxson)"
+        },
+        "ebitda_margin": {
+          "en": "Gross-margin step-down and $1.84bn of restructuring offset by lower opex; D&A +51% as depreciation nearly doubled.",
+          "es": "Baja del margen bruto y US$1.84 mil M de reestructuración compensados por menores gastos; D&A +51% al casi duplicarse la depreciación.",
+          "src": "4Q26 call p.3-4 (Maxson); quarterly cash-flow statements"
+        },
+        "da": {
+          "en": "Depreciation +97% with 1.2 gigawatts delivered; amortization of acquired intangibles -28%.",
+          "es": "Depreciación +97% con 1.2 gigavatios entregados; amortización de intangibles -28%.",
+          "src": "4Q26 release cash-flow statement; 4Q26 call p.7 (Magouyrk)"
+        },
+        "free_cash_flow": {
+          "en": "Capex $55.7bn against record operating cash flow of $32bn: FCF -$23.7bn; net cash outlay $47.7bn.",
+          "es": "Capex US$55.7 mil M frente a flujo operativo récord de US$32 mil M: flujo libre -US$23.7 mil M; desembolso neto US$47.7 mil M.",
+          "src": "4Q26 call p.4 (Maxson); net-cash-outlay table"
+        },
+        "dividend": {
+          "en": "$2.00 for the year ($0.50 a quarter).",
+          "es": "US$2.00 en el año (US$0.50 por trimestre).",
+          "src": "quarterly releases"
+        },
+        "diluted_shares": {
+          "en": "Stock-based compensation; $5bn of mandatory convertible preferred issued in February, $20bn ATM equity announced for FY27.",
+          "es": "Compensación en acciones; US$5 mil M de preferentes convertibles en febrero y programa ATM de US$20 mil M anunciado para el AF27.",
+          "src": "4Q26 release 'Capital Investment Program and Capital Funding'"
         }
       },
       "drafted": "2026-09-23"
