@@ -12,9 +12,9 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 | `operations.js` | `G_OPS` | workflow, after each report | flat per-quarter operating record (same `ops` fields plus loans, stage-3 balance, allowance, write-offs and subsidiary P&L/balance figures) and `monthly` (`cnbv`: Banco Compartamos loans, IMOR, deposits, YTD result; `sbs`: Compartamos Banco Perú balance, delinquency, write-offs) once `fetch-regulators.py` has run. |
 | `quality.js` | `G_QUALITY` | workflow | parse log (origin per quarter, warnings) and the validator's result. |
 | `market.js` | `G_MARKET` | workflow, daily | daily closes for GENTERA.MX, ^MXX, GFNORTEO.MX, RA.MX, BBAJIOO.MX, BAP; GENTERA cash dividends; USD/MXN (FRED DEXMXUS); MX 10-year (Banxico SIE `SF44071`, Bono M 10-year auction yield; FRED monthly fallback) and US 10-year (DGS10). Placeholder until the first run. |
-| `reference.js` | `G_REF` | reviewed commit | company facts, shares, subsidiaries, dividends approved at each AGM, `adjust` (the 4Q25 Ps. 328 M ConCrédito deferred-tax write-down that drives the accounting switch), ConCrédito and Perú sections, group-lending facts, glossary, valuation defaults, sources. Ratings and analysts are empty until transcribed. |
-| `guidance.js` | `G_GUIDANCE` | reviewed commit, each quarter | guidance vintages (`fy`, `kind`, `date`, `quarter`, `items{eps, loanGrowth, opexGrowth, npl}` with `lo`/`hi`/`text`, `notes`, `source`). Dates flagged `dateApprox` are to be replaced with the release date once harvested. |
-| `comments.js` | `G_COMMENTS` | reviewed commit, each quarter | one-line y/y explanations keyed by period (`2026Q2`, `2026M6`, `FY2025`): `lines` (income-statement rows), `bs`, `ops`, `call` (Gentera publishes no transcripts; the field holds that note or, if a transcript is supplied by hand, its quotes). |
+| `reference.js` | `G_REF` | reviewed commit | company facts, shares, subsidiaries, dividends approved at each AGM, `adjust` (the 4Q25 Ps. 328 M ConCrédito deferred-tax write-down that drives the accounting switch), ConCrédito and Perú sections (timelines now carry the call facts), `management` changes, `ratings` (from the 3Q24 corporate presentation), `coverage` (brokers seen on the calls), group-lending facts, glossary, valuation defaults, sources. `analysts` (targets) stay empty until FactSet. |
+| `guidance.js` | `G_GUIDANCE` | reviewed commit, each quarter | guidance vintages (`fy`, `kind`, `date` = release date, `call` = call date, `quarter`, `items{eps, loanGrowth, opexGrowth, cor, npl, roe}` with `lo`/`hi`/`text`, `notes`, `source` incl. the transcript path). 2023Q3–2025Q4 vintages are transcribed from the earnings calls; 2026 vintages from the 4T25/1T26/2T26 releases. `lo = hi` means "around"; a null bound means not given. |
+| `comments.js` | `G_COMMENTS` | reviewed commit, each quarter | one-line y/y explanations keyed by period (`2026Q2`, `2026M6`, `FY2025`): `lines` (income-statement rows), `bs`, `ops`, and `call` = the earnings-call block of the quarter that closes the period (`es`/`en` note, `date`, `file`, `quotes{rowKey: {who, en, es}}`; one `CALLS` entry per call, shared by the quarter, YTD and FY periods). Periods that only have a call block (2023Q3–2025Q4) show mechanical comments plus the quotes (💬, expandable; open in print mode). |
 | `summary.js` | `G_SUMMARY` | reviewed commit, each quarter | executive summary: `basis` + four sections (operations, guidance, asset quality/funding/capital, what to watch), ES and EN. |
 | `peers.js` | `G_PEERS` | pending (FactSet) | peer multiples schema (GFNORTEO, RA, BBAJIOO, BAP as placeholders) and the consensus contract; all null until the connector is authorised. |
 
@@ -25,9 +25,12 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
    parser did not recognise a table or a tie-out failed — fix the templates in `scripts/gentera/build_data.py`
    (`IS_TPL`, `BS_TPL`, `IND_TPL`, `parse_release`) and re-run `workflow_dispatch` with mode `filings`.
    While a quarter is not parsed the page keeps showing the seed / previous values and `quality.html` says so.
-2. Read the release. Then edit by reviewed commit:
-   - `comments.js`: add the quarter (`YYYYQn`) and the YTD period (`YYYYMm`); for a 4Q add `FYyyyy`.
-   - `guidance.js`: add a vintage (`initial` in February, `reaffirmed`/`revised` otherwise) with the wording.
+2. Read the release. Drop the call transcript (and the deck, if any) into `tools/gentera/raw/transcripts/` and run
+   `python scripts/gentera/ingest-transcripts.py`. Then edit by reviewed commit:
+   - `comments.js`: add the quarter (`YYYYQn`) and the YTD period (`YYYYMm`); for a 4Q add `FYyyyy`; add the
+     `CALLS` entry with the quotes per row (EN as spoken, ES translated) and point the three periods to it.
+   - `guidance.js`: add a vintage (`initial` in February, `reaffirmed`/`revised` otherwise) with the wording,
+     the release date and the call date.
    - `summary.js`: rewrite the four sections; update `basis`.
    - `reference.js`: AGM dividend (April), ratings, share count, timeline events, `updatedAt`.
    - `tools/gentera/raw/seed/quarters.json`: optional — append the quarter's transcription so the seed stays
@@ -90,11 +93,15 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   deposit lines of B-2201 did not read consistently and are not shown; the loans-by-type (B-2334) and
   write-off (B-2369) tables list banks differently and are not mapped yet. A structure summary of each table
   is saved under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
-- Guidance vintage dates are approximate (`dateApprox`) until transcribed from the releases.
-- Gentera does not post call transcripts on the IR page; hand-supplied transcripts and presentations go in
-  `tools/gentera/raw/transcripts/` (see its README) and are converted by `scripts/gentera/ingest-transcripts.py`
-  for the reviewing routine to quote in `comments.js`.
-- Peer multiples and consensus wait for the FactSet connector. Ratings and analyst targets are not transcribed.
+- Gentera does not post call transcripts on the IR page. Ten FactSet CallStreet transcripts (3T23–4T25) and the
+  3T24 corporate presentation were supplied by hand (`tools/gentera/raw/transcripts/`, converted by
+  `scripts/gentera/ingest-transcripts.py`); their quotes, guidance vintages, ratings and management facts are in
+  the data files. The 1T26 and 2T26 calls are not supplied yet, so those periods show release comments only and
+  their guidance vintages carry only what the releases print (cost of risk / ROE marked "no change communicated").
+- The initial 2023 guidance (February 2023) is not transcribed; the FY2023 record uses the October 2023 revision.
+  The 2025 initial EPS range (Ps. 4.56–4.71) is derived from the guided +20% to +24% on Ps. 3.80.
+- Quote translations to Spanish are ours; the English text is the transcript wording, trimmed with [..].
+- Peer multiples, consensus and analyst targets wait for the FactSet connector.
 
 ## Local run
 

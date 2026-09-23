@@ -58,8 +58,9 @@ window.G_REF = {
     timeline: [
       { date: "2019-01-01", es: "Gentera consolida ConCrédito con 57.53% tras la compra inicial (cierre 2018–19).", en: "Gentera consolidates ConCrédito with 57.53% after the initial purchase (closed 2018–19)." },
       { date: "2022-08-15", es: "Compra de 17.38% adicional por Ps. 1,991.7 M: 74.91%. La participación no controladora baja de Ps. 3,187 M (2T22) a Ps. 1,953 M (3T22); la prima pagada de Ps. 747.1 M se carga a prima en venta de acciones.", en: "Purchase of a further 17.38% for Ps. 1,991.7 M: 74.91%. Non-controlling interest falls from Ps. 3,187 M (2Q22) to Ps. 1,953 M (3Q22); the Ps. 747.1 M premium is charged to share premium." },
-      { date: "2024-12-31", es: "Reestructura corporativa de ConCrédito durante 2024 (origen de la cancelación del impuesto diferido del 4T25).", en: "ConCrédito corporate restructuring during 2024 (the origin of the 4Q25 deferred-tax write-down)." },
-      { date: "2025-06-30", es: "Compra del ~25.1% restante: 100%. La participación no controladora cae de Ps. 2,419 M (1T25) a Ps. 234 M (2T25); prima en venta de acciones de Ps. −455 M a Ps. −1,030 M. Desde el 3T25 el resultado de ConCrédito es 100% controlador.", en: "Purchase of the remaining ~25.1%: 100%. Non-controlling interest drops from Ps. 2,419 M (1Q25) to Ps. 234 M (2Q25); share premium from Ps. −455 M to Ps. −1,030 M. From 3Q25 ConCrédito's result is fully attributable to the controlling interest." },
+      { date: "2024-09-30", es: "3T24: reestructura corporativa de ConCrédito (Fincrementar y Fin Útil como originadores para las empresarias); CrediTienda inicia en Perú. En el 4T24 se amortizan anticipadamente Ps. 200 M del intangible de la base de clientes original (conferencias 3T24 y 4T24).", en: "3Q24: ConCrédito corporate restructuring (Fincrementar and Fin Útil as originators for the empresarias); CrediTienda starts in Peru. In 4Q24 Ps. 200 M of the original client-base intangible is amortised early (3Q24 and 4Q24 calls)." },
+      { date: "2024-12-31", es: "La reestructura de 2024 es el origen de la reserva y posterior cancelación del impuesto diferido del 4T25.", en: "The 2024 restructuring is the origin of the deferred-tax reserve and its 4Q25 cancellation." },
+      { date: "2025-06-30", es: "Compra del ~25.1% restante: 100%, fondeada con dividendos de subsidiarias y fondeo externo; prima de ≈Ps. 575 M cargada a prima en venta de acciones (conferencia 2T25). La participación no controladora cae de Ps. 2,419 M (1T25) a Ps. 234 M (2T25); desde el 3T25 el resultado de ConCrédito es 100% controlador.", en: "Purchase of the remaining ~25.1%: 100%, funded with subsidiary dividends and external funding; ≈Ps. 575 M premium charged to share premium (2Q25 call). Non-controlling interest drops from Ps. 2,419 M (1Q25) to Ps. 234 M (2Q25); from 3Q25 ConCrédito's result is fully attributable to the controlling interest." },
       { date: "2025-12-31", es: "4T25: cancelación de Ps. 328 M de activo por impuesto diferido; pérdida trimestral de Ps. 72 M; utilidad 2025 de Ps. 676 M vs Ps. 1,038 M en 2024.", en: "4Q25: Ps. 328 M deferred-tax write-down; Ps. 72 M quarterly loss; 2025 net income Ps. 676 M vs Ps. 1,038 M in 2024." },
       { date: "2026-06-30", es: "2T26: cartera récord de Ps. 6,472 M (+14.9% a/a), etapa 3 en la zona de 2–3%, ROE 26.5%; CrediTienda Ps. 1,144 M de cuentas por cobrar (+26.9%).", en: "2Q26: record loan book of Ps. 6,472 M (+14.9% y/y), stage 3 in the 2–3% zone, ROE 26.5%; CrediTienda receivables Ps. 1,144 M (+26.9%)." },
     ],
@@ -74,14 +75,22 @@ window.G_REF = {
       { v: 26.2, fmt: "pct", label_es: "ROE al 2T26", label_en: "ROE at 2Q26" },
     ],
     timeline: [
-      { date: "2023-12-31", es: "Deterioro de la cartera peruana tras el sobreendeudamiento del mercado y el fenómeno de El Niño; provisiones elevadas durante 2024.", en: "Deterioration of the Peruvian book after market over-indebtedness and El Niño; elevated provisions through 2024." },
-      { date: "2024-12-31", es: "Año de limpieza: originación más estricta, castigos y menor crecimiento; utilidad anual de Ps. 397 M.", en: "Clean-up year: tighter origination, write-offs and slower growth; annual net income Ps. 397 M." },
-      { date: "2025-01-01", es: "Compartamos Financiera se convierte en Compartamos Banco (banca múltiple bajo la SBS).", en: "Compartamos Financiera becomes Compartamos Banco (a full bank supervised by the SBS)." },
+      { date: "2023-03-31", es: "1T23: movimientos sociales y lluvias de El Niño golpean la cartera, sobre todo grupal; la morosidad mejora desde julio de 2023 (conferencia 3T23).", en: "1Q23: social unrest and El Niño rains hit the book, mostly group loans; delinquency improves from July 2023 (3Q23 call)." },
+      { date: "2024-04-30", es: "Abril de 2024: \"acciones decididas\" ante el repunte de morosidad (originación más estricta, menores saldos por cliente, más gestores de cobranza, reprecio); ROE esperado ~15% en soles para 2024 y > 20% en un año (conferencias 1T24–2T24).", en: "April 2024: \"bold actions\" on the delinquency pickup (tighter origination, lower balances per client, more collection agents, repricing); ROE expected ~15% in soles for 2024 and > 20% within a year (1Q24–2Q24 calls)." },
+      { date: "2024-12-31", es: "Año de limpieza: cartera +1.5% y clientes +3.6% en moneda local; utilidad anual de Ps. 397 M (≈6% del grupo). Licencia bancaria recibida en enero de 2025.", en: "Clean-up year: loans +1.5% and clients +3.6% in local currency; annual net income Ps. 397 M (≈6% of the group). Banking licence received in January 2025." },
+      { date: "2025-01-01", es: "Compartamos Financiera se convierte en Compartamos Banco (banca múltiple bajo la SBS). Adolfo Peniche asume la dirección general el 1 de abril de 2025 tras el retiro de Ralph Guerra.", en: "Compartamos Financiera becomes Compartamos Banco (a full bank supervised by the SBS). Adolfo Peniche becomes CEO on 1 April 2025 after Ralph Guerra's retirement." },
+      { date: "2025-07-23", es: "Conferencia 2T25: objetivo de ROE 2025 subido de 15% a ~20% en soles; utilidad de nueve meses 189 M de soles vs 45 M en 2024 (conferencia 3T25).", en: "2Q25 call: 2025 ROE objective lifted from 15% to ~20% in soles; nine-month net income 189 M soles vs 45 M in 2024 (3Q25 call)." },
       { date: "2025-12-31", es: "Recuperación: resultado de la operación +257%, utilidad de Ps. 1,440 M con mayor margen y menores provisiones.", en: "Turnaround: operating result +257%, net income Ps. 1,440 M on a wider margin and lower provisions." },
       { date: "2026-06-30", es: "2T26: cartera +14.5% en soles (+10.9% en pesos), utilidad +30.3% a/a, etapa 3 3.25%, costo de fondeo 4.8%.", en: "2Q26: loans +14.5% in soles (+10.9% in pesos), net income +30.3% y/y, stage 3 3.25%, cost of funds 4.8%." },
     ],
-    sources: ["Press releases 4T24, 4T25 y 2T26 (Gentera IR)"],
+    sources: ["Press releases 4T24, 4T25 y 2T26 (Gentera IR)", "Earnings-call transcripts 3T23–4T25 (FactSet CallStreet, hand-supplied)"],
   },
+  // Management and board changes mentioned on the calls.
+  management: [
+    { date: "2024-09-17", es: "Iván Mancillas (cofundador) nombrado director general de Banco Compartamos; Patricio Diez de Bonilla deja el grupo tras 16 años.", en: "Iván Mancillas (co-founder) appointed CEO of Banco Compartamos; Patricio Diez de Bonilla leaves after 16 years." },
+    { date: "2025-04-01", es: "Adolfo Peniche director general de Compartamos Banco Perú (Ralph Guerra se retira tras 32 años).", en: "Adolfo Peniche CEO of Compartamos Banco Perú (Ralph Guerra retires after 32 years)." },
+    { date: "2025-04-24", es: "Consejo: salen John Santa María (desde 2008) y Luis Nicolau (desde 2019); entran Ignacio Echevarría y Gerardo Esquivel (subgobernador de Banxico 2019–2024).", en: "Board: John Santa María (since 2008) and Luis Nicolau (since 2019) step down; Ignacio Echevarría and Gerardo Esquivel (Banxico deputy governor 2019–2024) join." },
+  ],
   // Section 10: group lending and stage-3 provisioning explainer facts.
   groupLending: {
     facts: [
@@ -94,9 +103,20 @@ window.G_REF = {
     ],
     sources: ["Press release 2T26 (Gentera IR)", "CNBV, Disposiciones de carácter general aplicables a las instituciones de crédito (Anexo 33, criterio B-6 Cartera de crédito)"],
   },
-  ratings: [],
-  ratingsNote: { es: "Las calificaciones de Banco Compartamos y de Gentera no se transcriben en esta versión: se completan desde el informe trimestral o los eventos relevantes en el primer pase de la rutina de revisión.", en: "Ratings for Banco Compartamos and Gentera are not transcribed in this version: to be completed from the quarterly release or material-event notices on the reviewing routine's first pass." },
+  // Ratings as printed in the 3Q24 corporate presentation (hand-supplied, tools/gentera/raw/transcripts); the
+  // routine updates them from material-event notices when an agency acts.
+  ratings: [
+    { agency: "Fitch Ratings", entity: "Banco Compartamos", rating: "AA(mex) / F1+(mex) · BB+ / B (global)", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
+    { agency: "S&P Global Ratings", entity: "Banco Compartamos", rating: "mxAA / mxA-1+ · BB+ / B (global)", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
+    { agency: "Moody's", entity: "Banco Compartamos", rating: "AA.mx / ML A-1.mx", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
+    { agency: "Apoyo & Asociados", entity: "Compartamos Financiera (Perú)", rating: "A-", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
+    { agency: "Moody's Local PE", entity: "Compartamos Financiera (Perú)", rating: "A-", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
+    { agency: "JCR", entity: "Compartamos Financiera (Perú)", rating: "A", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
+  ],
+  ratingsNote: { es: "Calificaciones tomadas de la presentación corporativa del 3T24 (octubre de 2024), la más reciente suministrada; Gentera (tenedora) no aparece calificada en ella. Se actualizan con los eventos relevantes.", en: "Ratings taken from the 3Q24 corporate presentation (October 2024), the latest one supplied; Gentera (the holding company) is not rated in it. Updated from material-event notices." },
+  // Sell-side coverage seen on the 2023–2025 calls (no targets or recommendations transcribed; FactSet pending).
   analysts: [],
+  coverage: ["BofA Securities", "Citi", "Goldman Sachs", "JPMorgan", "HSBC", "UBS", "Bradesco BBI", "Santander", "BBVA", "GBM", "Barclays", "BTG Pactual"],
   // Valuation defaults (excess-return model on book value). Live inputs (risk-free, beta) come from market.js.
   valuation: {
     years: 5, erpPct: 6.0, betaFloor: 0.5, betaCap: 1.4, rfFallbackPct: 9.0, terminalGrowthPct: 5.0, exitPbv: 2.0, payoutPct: 40, loanGrowthPct: 8.0,

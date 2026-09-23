@@ -27,7 +27,8 @@
     total: { es: 'Total', en: 'Total' }, metric: { es: 'Métrica', en: 'Metric' }, value: { es: 'Valor', en: 'Value' },
     block: { es: 'Bloque', en: 'Block' }, cadence: { es: 'Cadencia', en: 'Cadence' }, mechanism: { es: 'Mecanismo', en: 'Mechanism' }, lastUpdate: { es: 'Última actualización', en: 'Last update' },
     ops: { es: 'Métricas operativas y por subsidiaria', en: 'Operating and segment metrics' }, comments: { es: 'Comentarios', en: 'Comments' }, items: { es: 'conceptos', en: 'items' },
-    cmtNote: { es: 'Comentarios (a/a) elaborados a partir de la discusión de la administración en los informes trimestrales; Gentera no publica transcripciones.', en: 'Comments (y/y) written from the management discussion in the quarterly releases; Gentera publishes no transcripts.' },
+    cmtNote: { es: 'Comentarios (a/a) elaborados a partir de la discusión de la administración en los informes trimestrales. Las citas (💬) provienen de las transcripciones FactSet CallStreet de las conferencias de resultados suministradas a mano (original en inglés; traducción al español propia).', en: 'Comments (y/y) written from the management discussion in the quarterly releases. Quotes (💬) come from the hand-supplied FactSet CallStreet transcripts of the earnings calls (English original; Spanish translation ours).' },
+    quoteOpen: { es: 'Cita de la conferencia', en: 'Call quote' }, quoteNone: { es: 'sin transcripción para este periodo', en: 'no transcript for this period' },
     cmtAuto: { es: 'Comentarios generados mecánicamente a partir de los impulsores (cartera, tasa, costo de fondeo, provisiones, gastos) porque este par no es una comparación a/a comentada.', en: 'Comments generated mechanically from the drivers (loans, yield, funding cost, provisions, opex) because this pair is not a commented y/y comparison.' },
     provisional: { es: 'Datos de mercado pendientes: la primera corrida del flujo de actualización llenará precios, tipo de cambio y tasas. Las cifras de los estados financieros están completas.', en: 'Market data pending: the first run of the refresh workflow fills prices, FX and yields. Statement figures are complete.' },
     pending: { es: 'Pendiente (conector FactSet)', en: 'Pending (FactSet connector)' }, pendingMk: { es: 'pendiente (datos de mercado)', en: 'pending (market data)' }, na: { es: 'n/d', en: 'n/a' },
@@ -36,7 +37,7 @@
     initial: { es: 'Inicial', en: 'Initial' }, revised: { es: 'Revisada', en: 'Revised' }, reaffirmed: { es: 'Reafirmada', en: 'Reaffirmed' }, unchanged: { es: 'Sin cambios', en: 'Unchanged' },
     actual: { es: 'Real', en: 'Actual' }, tracking: { es: 'Seguimiento', en: 'Tracking' }, within: { es: 'En rango', en: 'In range' }, above: { es: 'Por encima', en: 'Above' }, below: { es: 'Por debajo', en: 'Below' }, better: { es: 'Mejor que el rango', en: 'Better than range' }, worse: { es: 'Peor que el rango', en: 'Worse than range' },
     guideFy: { es: 'Año', en: 'Year' }, guideStatus: { es: 'Estatus', en: 'Status' }, range: { es: 'Rango', en: 'Range' }, words: { es: 'En palabras de la administración', en: "In management's words" }, hits: { es: 'En rango o mejor', en: 'In range or better' },
-    eps: { es: 'UPA', en: 'EPS' }, loanGrowth: { es: 'Crecimiento de cartera', en: 'Loan growth' }, opexGrowth: { es: 'Crecimiento de gastos', en: 'Opex growth' }, npl: { es: 'Índice de etapa 3', en: 'Stage-3 ratio' },
+    eps: { es: 'UPA', en: 'EPS' }, loanGrowth: { es: 'Crecimiento de cartera', en: 'Loan growth' }, opexGrowth: { es: 'Crecimiento de gastos', en: 'Opex growth' }, npl: { es: 'Índice de etapa 3', en: 'Stage-3 ratio' }, roeCtrl: { es: 'ROE controlador', en: 'Controlling ROE' },
     netIncome: { es: 'Utilidad neta', en: 'Net income' }, niCtrl: { es: 'Utilidad controladora', en: 'Controlling net income' }, loans: { es: 'Cartera bruta', en: 'Gross loans' }, clients: { es: 'Clientes de crédito', en: 'Credit clients' }, people: { es: 'Personas atendidas', en: 'People served' },
     roe: 'ROAE', roa: 'ROAA', nim: { es: 'MIN', en: 'NIM' }, cor: { es: 'Costo de riesgo', en: 'Cost of risk' }, coverage: { es: 'Cobertura', en: 'Coverage' }, effic: { es: 'Índice de eficiencia', en: 'Efficiency ratio' }, icap: 'ICAP',
     pe: { es: 'P/U', en: 'P/E' }, pbv: { es: 'P/VL', en: 'P/BV' }, bvps: { es: 'Valor en libros por acción', en: 'Book value per share' }, ltmS: { es: 'UDM', en: 'LTM' },
@@ -284,8 +285,16 @@
     const P = CM.periods || {};
     const ck = st.mode === 'q' ? A.qid : st.mode === 'ytd' ? `${A.fy}M${A.months}` : st.mode === 'fy' ? A.id : null;
     const c = yoy && ck ? P[ck] || null : null;
-    if (c) return { lines: c.lines || {}, ops: c.ops || {}, bs: c.bs || {}, call: c.call, any: true, auto: false };
-    return { lines: autoComments(A, B), ops: {}, bs: {}, any: true, auto: true };
+    const hasLines = !!(c && c.lines && Object.keys(c.lines).length);
+    // Call quotes belong to the period shown in column A whatever the comparison (they describe that period).
+    const cq = ck && P[ck] && P[ck].call && P[ck].call.quotes ? P[ck].call : null;
+    if (c) return { lines: hasLines ? c.lines : autoComments(A, B), ops: c.ops || {}, bs: c.bs || {}, call: c.call, quotes: cq ? cq.quotes : null, callMeta: cq, any: true, auto: !hasLines };
+    return { lines: autoComments(A, B), ops: {}, bs: {}, quotes: cq ? cq.quotes : null, callMeta: cq, any: true, auto: true };
+  }
+  // Expandable management quote under a comment cell (open in print mode so the PDF carries the words).
+  function quoteHtml(C, k) {
+    const qd = C && C.quotes && C.quotes[k]; if (!qd) return '';
+    return `<details class="quote"${PRINT ? ' open' : ''}><summary>💬 ${esc(qd.who)}${C.callMeta && C.callMeta.date ? ` · ${fmtDate(C.callMeta.date)}` : ''}</summary><blockquote>${esc(L(qd))}</blockquote></details>`;
   }
   // Mechanical comments from the drivers for pairs without a hand-written block.
   function autoComments(A, B) {
@@ -348,7 +357,7 @@
       const f = (v) => (v == null ? '—' : isPct ? fmtPct(v, def.k === 'npl' || def.k === 'nplCalc' ? 2 : 1) : isPs ? fmtN(v, 2) : isX ? fmtX(v, 2) : fmtN(v, st.usd ? 1 : 0));
       const fd = d == null ? '—' : isPct ? fmtPp(d) : isPs ? fmtN(d, 2) : isX ? fmtN(d, 2) + 'x' : fmtN(d, st.usd ? 1 : 0);
       const isHead = !!groups[def.k];
-      const cmt = `<td class="cmt">${cmap && cmap[def.k] ? L(cmap[def.k]) : ''}</td>`;
+      const cmt = `<td class="cmt">${cmap && cmap[def.k] ? L(cmap[def.k]) : ''}${quoteHtml(C, def.k)}</td>`;
       const first = isHead ? `<td data-g="${def.k}"><span class="grp">${st.open[def.k] ? '▾' : '▸'}</span>${L(def)}<span class="cnt">${groups[def.k].length} ${t('items')}</span></td>` : `<td>${L(def)}</td>`;
       const costRatio = def.kpi && ['cor', 'effCalc', 'effPre', 'efficOp', 'taxRate', 'npl', 'nplCalc', 'leverage'].includes(def.k);
       const dcls = costRatio ? clsInv(d) : cls(d);
@@ -362,7 +371,7 @@
     const es = LANG === 'es';
     el('stmtCap').textContent = `${unit}${st.stmt === 'is' ? ' · ' + (st.exAdj ? t('exAdj') : t('reported')) : ''}${st.usd ? (es ? ' · convertido con el tipo de cambio promedio (flujos) o de cierre (balance) de la Fed H.10' + (fxPts.length ? '' : ' — sin serie de tipo de cambio todavía') : ' · converted at the Fed H.10 average (flows) or period-end (balance sheet) rate' + (fxPts.length ? '' : ' — no FX series yet')) : ''}${(A && A.derived) || (B && B.derived) ? (es ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''} · ${C && C.auto ? t('cmtAuto') : t('cmtNote')}`;
     const srcs = [A, B].filter(Boolean).map((o) => o.sources && o.sources[key === 'bs' ? 'bs' : 'is']).filter(Boolean);
-    html('stmtSrc', `${t('src')}: ` + [...new Map(srcs.map((s) => [s.url + (s.title || ''), s])).values()].map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${s.seed ? t('seed') : t('release')}${s.title ? ` — ${s.title}` : ''}${s.date ? ` (${fmtDate(s.date)})` : ''}</a>`).join(' · ') + (C && C.call && !C.auto ? ' · ' + L(C.call) : ''));
+    html('stmtSrc', `${t('src')}: ` + [...new Map(srcs.map((s) => [s.url + (s.title || ''), s])).values()].map((s) => `<a href="${s.url}" target="_blank" rel="noopener">${s.seed ? t('seed') : t('release')}${s.title ? ` — ${s.title}` : ''}${s.date ? ` (${fmtDate(s.date)})` : ''}</a>`).join(' · ') + (C && C.callMeta ? ' · 💬 ' + L(C.callMeta) : C && C.call && !C.auto ? ' · ' + L(C.call) : ''));
     const first = Q[0];
     html('stmtMeta', es
       ? `Cobertura: ${Q.length} trimestres (${qLabel(first)} → ${qLabel(lastQ)}), ${Y.length} años fiscales (${Y[0] ? 'FY' + Y[0].fy : ''} → ${Y.length ? 'FY' + Y[Y.length - 1].fy : ''}). Cifras en pesos nominales tal como las reporta Gentera (criterios CNBV), en millones. Origen de cada trimestre en <a href="quality.html">quality.html</a>.`
@@ -387,7 +396,7 @@
       const f = (v) => (v == null ? '—' : opt.pct ? fmtPct(v, opt.dec != null ? opt.dec : 1) : opt.money ? fmtN(v, st.usd ? 1 : 0) : fmtN(v, opt.dec || 0));
       const fd = d == null ? '—' : opt.pct ? fmtPp(d) : opt.money ? fmtN(d, st.usd ? 1 : 0) : fmtN(d, opt.dec || 0);
       const dcls = opt.inv ? clsInv(d) : cls(d);
-      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td title="${esc(opt.page ? `${t('release')} · ${t('page')} ${opt.page}` : t('derived'))}">${f(va)}</td><td>${f(vb)}</td><td class="${dcls}">${fd}</td><td class="${dcls}">${opt.pct ? '' : fmtPct(pct, 1, true)}</td><td class="cmt">${ops[k] ? L(ops[k]) : ''}</td></tr>`);
+      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td title="${esc(opt.page ? `${t('release')} · ${t('page')} ${opt.page}` : t('derived'))}">${f(va)}</td><td>${f(vb)}</td><td class="${dcls}">${fd}</td><td class="${dcls}">${opt.pct ? '' : fmtPct(pct, 1, true)}</td><td class="cmt">${ops[k] ? L(ops[k]) : ''}${quoteHtml(C, k)}</td></tr>`);
     };
     const mny = st.usd ? t('usdM') : t('mxnM');
     head(`${t('loans')} (${mny})`);
@@ -469,19 +478,20 @@
   // ================= 02 GUIDANCE =================
   const gs = { metric: 'eps' };
   const G_METRICS = GD.metrics || ['eps', 'loanGrowth', 'opexGrowth', 'npl'];
-  const gLabel = (m) => t(m);
-  const gIsCost = (m) => m === 'npl' || m === 'opexGrowth';
+  const gLabel = (m) => t(m === 'roe' ? 'roeCtrl' : m);
+  const gIsCost = (m) => m === 'npl' || m === 'opexGrowth' || m === 'cor';
   const gFmt = (m, v, sign) => (m === 'eps' ? 'Ps. ' + fmtN(v, 2) : fmtPct(v, m === 'npl' ? 2 : 1, sign));
   const gRangeTxt = (it) => (it && it.lo != null && it.hi != null ? (it.lo === it.hi ? gFmt(gsMetricOf(it), it.lo) : `${gFmt(gsMetricOf(it), it.lo)}–${gFmt(gsMetricOf(it), it.hi)}`) : it && it.lo != null ? `≥ ${gFmt(gsMetricOf(it), it.lo)}` : it && it.hi != null ? `≤ ${gFmt(gsMetricOf(it), it.hi)}` : '—');
   const gsMetricOf = (it) => it._m || 'x';
   const vintagesSorted = () => (GD.vintages || []).slice().sort((a, b) => a.date.localeCompare(b.date)).map((v) => ({ ...v, items: Object.fromEntries(Object.entries(v.items || {}).map(([m, it]) => [m, { ...it, _m: m }])) }));
   function gActual(fy) {
     const y = Y.find((yy) => yy.fy === fy), yp = Y.find((yy) => yy.fy === fy - 1);
-    if (y && y.is) return { closed: true, label: 'FY' + fy, eps: y.kpi.eps, loanGrowth: yp && yp.bs && yp.bs.loans ? 100 * (y.bs.loans / yp.bs.loans - 1) : null, opexGrowth: yp && yp.is ? 100 * (y.is.opex / yp.is.opex - 1) : null, npl: y.kpi.npl };
+    const roeOf = (o) => (o && o.kpi ? (o.kpi.roeCtrl != null ? o.kpi.roeCtrl : o.kpi.roe) : null);
+    if (y && y.is) return { closed: true, label: 'FY' + fy, eps: y.kpi.eps, loanGrowth: yp && yp.bs && yp.bs.loans ? 100 * (y.bs.loans / yp.bs.loans - 1) : null, opexGrowth: yp && yp.is ? 100 * (y.is.opex / yp.is.opex - 1) : null, npl: y.kpi.npl, cor: y.kpi.cor, roe: roeOf(y) };
     const qs = Q.filter((q) => q.fy === fy); if (!qs.length) return null;
     const last = qs[qs.length - 1], cur = ytdFor(last), prev = ytdById[`${last.q * 3}M${String(fy - 1).slice(2)}`] || (last.q === 1 ? qById[`${fy - 1}Q1`] : null), pq = qById[yoyQid(last)];
     if (!cur) return null;
-    return { closed: false, label: cur.label, eps: cur.kpi.eps, loanGrowth: pq && pq.bs.loans ? 100 * (last.bs.loans / pq.bs.loans - 1) : null, opexGrowth: prev && prev.is ? 100 * (cur.is.opex / prev.is.opex - 1) : null, npl: last.kpi.npl };
+    return { closed: false, label: cur.label, eps: cur.kpi.eps, loanGrowth: pq && pq.bs.loans ? 100 * (last.bs.loans / pq.bs.loans - 1) : null, opexGrowth: prev && prev.is ? 100 * (cur.is.opex / prev.is.opex - 1) : null, npl: last.kpi.npl, cor: cur.kpi.cor, roe: roeOf(cur) };
   }
   function gStatus(m, it, v) {
     if (!it || v == null || (it.lo == null && it.hi == null)) return null;
@@ -505,10 +515,10 @@
     const hist = vs.slice(-8).reverse();
     const hrows = hist.map((v) => { const prev = vs.filter((x) => x.fy === v.fy && x.date < v.date).pop(); const cells = G_METRICS.map((m) => { const it = v.items[m], pit = prev && prev.items[m]; const txt = gRangeTxt(it); const ptxt = gRangeTxt(pit); const changed = prev && txt !== ptxt; return `<td class="${changed ? 'chg' : ''}">${txt}${changed ? `<span class="was">${ptxt}</span>` : ''}</td>`; }).join(''); return `<tr><td>${v.source && v.source.dateApprox ? '≈' : ''}${fmtDate(v.date)}<span class="sub">${v.quarter ? qLabel({ fy: +v.quarter.slice(0, 4), q: +v.quarter.slice(5) }) : ''} · ${t(v.kind)}</span></td><td>${v.fy}</td>${cells}</tr>`; });
     html('guideHistory', `<table class="guide-table"><thead><tr><th>${t('date')}</th><th>${t('guideFy')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}</tr></thead><tbody>${hrows.join('')}</tbody></table>`);
-    html('guideHistSrc', `${t('src')}: ${es ? 'informes trimestrales de Gentera (data/guidance.js); ≈ = fecha aproximada hasta cosechar el PDF' : 'Gentera quarterly releases (data/guidance.js); ≈ = approximate date until the PDF is harvested'}`);
+    html('guideHistSrc', `${t('src')}: ${es ? 'informes trimestrales y transcripciones de las conferencias de resultados de Gentera (data/guidance.js); ≈ = fecha aproximada' : 'Gentera quarterly releases and earnings-call transcripts (data/guidance.js); ≈ = approximate date'}`);
     const closed = [...new Set(vs.map((v) => v.fy))].filter((fy) => { const a = gActual(fy); return a && a.closed; });
     const rrows = closed.map((fy) => { const fin = vs.filter((v) => v.fy === fy).pop(); const a = gActual(fy); const cells = G_METRICS.map((m) => { const it = fin.items[m] && { ...fin.items[m], _closed: true }; if (!it || (it.lo == null && it.hi == null)) return '<td>—</td>'; const v = a[m]; return `<td>${gRangeTxt(it)}<span class="sub">${t('actual')}: ${v == null ? '—' : gFmt(m, v)}</span> ${chip(gStatus(m, it, v))}</td>`; }).join(''); const n = G_METRICS.filter((m) => fin.items[m] && (fin.items[m].lo != null || fin.items[m].hi != null) && a[m] != null).length, hits = G_METRICS.filter((m) => ['within', 'better', 'above'].includes(gStatus(m, fin.items[m] && { ...fin.items[m], _closed: true }, a[m]))).length; return `<tr><td>FY${fy}<span class="sub">${fmtDate(fin.date)}</span></td>${cells}<td>${hits}/${n}</td></tr>`; });
-    html('guideRecord', rrows.length ? `<table class="guide-table"><thead><tr><th>${t('guideFy')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}<th>${t('hits')}</th></tr></thead><tbody>${rrows.join('')}</tbody></table>` : `<p class="muted small">${es ? 'Aún no hay años cerrados con guía registrada: las guías 2023–2025 se transcribirán de los informes 4T22–4T24 cuando el cosechador los convierta.' : 'No closed years with recorded guidance yet: the 2023–2025 guidance will be transcribed from the 4Q22–4Q24 releases once the harvester converts them.'}</p>`);
+    html('guideRecord', rrows.length ? `<table class="guide-table"><thead><tr><th>${t('guideFy')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}<th>${t('hits')}</th></tr></thead><tbody>${rrows.join('')}</tbody></table><p class="cap">${es ? 'Última guía vigente de cada año cerrado contra el dato reportado (la guía 2023 es la revisada en octubre de 2023; la inicial no está transcrita).' : 'Last guidance in force for each closed year against the reported figure (the 2023 guidance is the October 2023 revision; the initial one is not transcribed).'}</p>` : `<p class="muted small">${es ? 'Aún no hay años cerrados con guía registrada.' : 'No closed years with recorded guidance yet.'}</p>`);
     html('guideAll', `<table class="guide-table"><thead><tr><th>${t('date')}</th><th>${t('guideFy')}</th><th>${t('type')}</th>${G_METRICS.map((m) => `<th>${gLabel(m)}</th>`).join('')}<th>${t('src')}</th></tr></thead><tbody>${vs.slice().reverse().map((v) => `<tr><td>${fmtDate(v.date)}</td><td>${v.fy}</td><td>${t(v.kind)}</td>${G_METRICS.map((m) => `<td class="txt">${gRangeTxt(v.items[m])}${v.items[m] && v.items[m].text ? `<span class="sub">${L(v.items[m].text)}</span>` : ''}</td>`).join('')}<td><a href="${v.source.url}" target="_blank" rel="noopener">${L(v.source.title)}</a></td></tr>`).join('')}</tbody></table>`);
     // consensus placeholder
     const cs = PEERS.consensus || {};

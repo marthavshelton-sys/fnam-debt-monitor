@@ -26,9 +26,14 @@ def norm(s):
 
 
 def pdf_text(data):
-    from pypdf import PdfReader
-    r = PdfReader(io.BytesIO(data))
-    return '\n'.join('=== PAGE %d ===\n%s' % (i + 1, pg.extract_text() or '') for i, pg in enumerate(r.pages))
+    try:
+        from pypdf import PdfReader
+        r = PdfReader(io.BytesIO(data))
+        return '\n'.join('=== PAGE %d ===\n%s' % (i + 1, pg.extract_text() or '') for i, pg in enumerate(r.pages))
+    except BaseException:  # noqa: BLE001 — pypdf missing or its crypto backend panicking (not an Exception): pypdfium2 fallback
+        import pypdfium2 as pdfium
+        doc = pdfium.PdfDocument(data)
+        return '\n'.join('=== PAGE %d ===\n%s' % (i + 1, doc[i].get_textpage().get_text_range()) for i in range(len(doc)))
 
 
 def xml_text(xml):
