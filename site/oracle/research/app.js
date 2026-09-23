@@ -15,7 +15,12 @@
   const esc = (v) => String(v ?? '').replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
   const src = (key, page) => { const s = R.sources[key]; return s ? `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title)}">${esc(s.type)} · ${esc(s.date)}${page ? ` · p.${page}` : ''}</a>` : ''; };
   const sourceOf = (r, section) => r?.sources?.[section] || null;
-  const financialSource = (r, section) => { const s = sourceOf(r, section); return s?.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title || '')}">${esc(s.title || s.url)}${s.accession ? ` · ${esc(s.accession)}` : ''}</a>` : ''; };
+  const financialSource = (r, section) => {
+    if (r?.derived && r.members?.length && section !== 'bs') return r.members.map((m) => {
+      const s=sourceOf(m,section); return s?.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title||'')}">${esc(m.id)} · ${esc(s.accession || 'release')}</a>` : '';
+    }).filter(Boolean).join(' · ');
+    const s=sourceOf(r,section);return s?.url ? `<a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer" title="${esc(s.title || '')}">${esc(s.title || s.url)}${s.accession ? ` · ${esc(s.accession)}` : ''}</a>` : '';
+  };
   const labels = (r) => r.id.startsWith('FY') ? r.id : `${r.q}${tr('T', 'Q')}${String(r.fy).slice(2)}`;
   function factCard(f) { const s=R.sources[f.source]; return `<div class="card"><p class="small muted">${esc(f.label[lang])}</p><strong class="num">${esc(f.value)}</strong><p class="small">${esc(f.note?.[lang] || '')}</p><details class="source-line"><summary>${tr('Fuente y fecha', 'Source and date')}</summary>${src(f.source, f.page)}<br>${tr('Periodo:', 'Period:')} ${esc(R.quarter)} · ${tr('Revisado:', 'Reviewed:')} ${esc(R.reviewedAt)}${s?.accession ? ` · ${tr('Acceso:', 'Accession:')} ${esc(s.accession)}` : ''}<br>${tr('Tipo:', 'Type:')} ${esc(s?.type || '')}; ${tr('divulgación directa', 'direct disclosure')}</details></div>`; }
   const facts = (group) => R.facts.filter((f) => f.group === group).map(factCard).join('');
@@ -25,7 +30,7 @@
   function renderOverview() {
     const l = latest, prior = byId[`${l.fy}Q${l.q - 1}`] || byId[`${l.fy - 1}Q4`];
     const source = financialSource(l, 'is');
-    $('asofRow').innerHTML = `<span><b>${tr('Resultado:', 'Results:')}</b> ${esc(l.periodEnd)} · ${source}</span><span><b>${tr('Hechos revisados:', 'Evidence reviewed:')}</b> ${esc(R.reviewedAt)}</span><span><b>${tr('EDGAR comprobado:', 'EDGAR checked:')}</b> ${esc(R.filingCheck || tr('sin registro', 'not recorded'))}</span>`;
+    $('asofRow').innerHTML = `<span><b>${tr('Resultado:', 'Results:')}</b> ${esc(l.periodEnd)} · ${source}</span><span><b>${tr('Hechos revisados:', 'Evidence reviewed:')}</b> ${esc(R.reviewedAt)}</span><span><b>${tr('EDGAR comprobado:', 'EDGAR checked:')}</b> ${esc(R.filingCheck || tr('sin registro', 'not recorded'))}</span><span><b>${tr('Archivo financiero generado:', 'Financial file built:')}</b> ${esc(F.generatedAt?.slice(0,16).replace('T',' ') || '—')} UTC</span>`;
     const stale = R.quarter !== l.id || (R.pending || []).length;
     $('freshness').classList.toggle('warn', !!stale);
     $('freshness').textContent = stale ? tr('Hay reportes por revisar o el registro operativo no coincide con el último periodo financiero. Consulte los enlaces antes de usar estas cifras.', 'Filings await review or the operating evidence does not match the latest financial period. Check the source links before using these figures.') : tr('Datos financieros del último trimestre incorporado; los hechos operativos fueron revisados por última vez en la fecha indicada. No representan datos en tiempo real.', 'Financial data reflect the latest incorporated quarter; operating facts were last reviewed on the stated date. These are not real-time data.');
