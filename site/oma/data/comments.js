@@ -2,7 +2,7 @@
 // operating metric (`ops`), ES and EN. Keys: quarter `2026Q2`, year-to-date `2026M6`, fiscal year `FY2025`.
 // Written from OMA's 2Q26 report (27-Jul-2026); OMA does not publish call transcripts. Percentages are OMA's.
 window.OMA_COMMENTS = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-09-23",
   periods: {
     "2026Q2": {
       call: { date: "2026-07-28", es: "conferencia de resultados del 2T26 (28 jul 2026; sin transcripción pública, comentarios tomados del informe)", en: "2Q26 earnings call (28 Jul 2026; no public transcript, comments taken from the report)" },
@@ -21,7 +21,7 @@ window.OMA_COMMENTS = {
         occupancyPct: { es: "96.4% de ocupación de locales comerciales al 30 de junio.", en: "96.4% commercial-space occupancy at 30 June." }
       },
       lines: {
-        revTotal: { es: "+2.6%: aeronáuticos + no aeronáuticos +5.4% (Ps. 3,622 M); construcción −7.8% (IFRIC 12, sin efecto en EBITDA ajustado).", en: "+2.6%: aeronautical + non-aeronautical +5.4% (Ps. 3,622 M); construction −7.8% (IFRIC 12, no effect on Adjusted EBITDA)." },
+        revTotal: { es: "Reportados +2.6% a Ps. 4,466 M (construcción −7.8%, IFRIC 12); sin construcción +5.4% a Ps. 3,622 M.", en: "Reported +2.6% to Ps. 4,466 M (construction −7.8%, IFRIC 12); ex-construction +5.4% to Ps. 3,622 M." },
         revExConstruction: { es: "+5.4% a Ps. 3,622 M: aeronáuticos +3.9%, no aeronáuticos +9.8%.", en: "+5.4% to Ps. 3,622 M: aeronautical +3.9%, non-aeronautical +9.8%." },
         revAero: { es: "+3.9%: TUA doméstica +7.7% por tarifas máximas 2026; TUA internacional −8.7% (peso fuerte, −1.2% pasajeros).", en: "+3.9%: domestic TUA +7.7% on the 2026 maximum tariffs; international TUA −8.7% (strong peso, −1.2% passengers)." },
         paxChargesDom: { es: "+7.7%: tarifas máximas 2026 y tráfico doméstico +0.6%.", en: "+7.7%: 2026 maximum tariffs and domestic traffic +0.6%." },
@@ -60,7 +60,7 @@ window.OMA_COMMENTS = {
         total: { es: "+2.4% a 13.96 M en el semestre (1T26 +4.6%, 2T26 +0.4%).", en: "+2.4% to 13.96 M in the half (1Q26 +4.6%, 2Q26 +0.4%)." },
         revPerPaxAll: { es: "Ps. 495.8 (+2.3%) en el semestre.", en: "Ps. 495.8 (+2.3%) in the half." },
         costPerPax: { es: "Ps. 77.9 (+6.4%) en el semestre: nómina +9.4%, servicios contratados +15.5%, otros +18.9%.", en: "Ps. 77.9 (+6.4%) in the half: payroll +9.4%, contracted services +15.5%, other +18.9%." },
-        capexMdpM: { es: "Ps. 2,709 M (−21.7%) en el semestre frente a un 1S25 con más obra.", en: "Ps. 2,709 M (−21.7%) in the half versus a heavier 1H25." }
+        capexMdpM: { es: "Ps. 1,554 M en el semestre (1T26 605 + 2T26 949), +5.2% vs. 1,477 en 6M25.", en: "Ps. 1,554 M in the half (1Q26 605 + 2Q26 949), +5.2% vs. 1,477 in 6M25." }
       },
       lines: {
         revTotal: { es: "+4.6%: aeronáuticos + no aeronáuticos +4.8% (Ps. 6,919 M); construcción +3.4%.", en: "+4.6%: aeronautical + non-aeronautical +4.8% (Ps. 6,919 M); construction +3.4%." },

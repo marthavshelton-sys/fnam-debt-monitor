@@ -96,7 +96,10 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
-nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
+nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none; padding-right:300px;}
+@media (max-width:640px){nav.jump .wrap{padding-right:110px;} .lang-btn .print-btn{display:none;}}
+@media (max-width:640px){table.stack-sm, table.stack-sm tbody, table.stack-sm tr, table.stack-sm td{display:block; width:100%; box-sizing:border-box;} table.stack-sm thead{display:none;} table.stack-sm tr{padding:8px 0; border-bottom:1px solid var(--border);} table.stack-sm td{border:none; padding:2px 0; text-align:left !important;} table.stack-sm td:first-child{font-weight:600; color:var(--text-primary);}}
+#instrTable table{min-width:760px;} #instrTable td:first-child{min-width:220px;}
 nav.jump .wrap::-webkit-scrollbar{display:none;}
 nav.jump a{flex:0 0 auto; padding:12px 13px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
@@ -546,7 +549,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <button type="button" data-v="1y"><span class="es">1 año</span><span class="en" hidden>1 yr</span></button>
           <button type="button" data-v="3y" class="active"><span class="es">3 años</span><span class="en" hidden>3 yrs</span></button>
           <button type="button" data-v="5y"><span class="es">5 años</span><span class="en" hidden>5 yrs</span></button>
-          <button type="button" data-v="max">Máx</button>
+          <button type="button" data-v="max"><span class="es">Máx</span><span class="en" hidden>Max</span></button>
         </div>
       </div>
       <div class="ctl"><label class="lbl"><span class="es">Listado</span><span class="en" hidden>Listing</span></label>
@@ -689,7 +692,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Cronología</span><span class="en" hidden>Timeline</span></h3>
         <ul class="timeline" id="evTimeline"></ul>
-        <p class="chart-src" id="evSrc"></p>
+        <p class="chart-src" id="eventSrc"></p>
       </div>
     </div>
   </section>
@@ -738,7 +741,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <h3><span class="es">Fuentes</span><span class="en" hidden>Sources</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
-      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, comunicados y transcripciones de conferencias de ASUR; Formas 20-F; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. Las proyecciones del DCF son ilustrativas y dependen de los supuestos elegidos por la persona usuaria; no constituyen una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span id="genStamp"></span>.</span><span class="en" hidden>This model is built exclusively from public information (ASUR's quarterly reports, releases and earnings-call transcripts; Forms 20-F; market prices; FRED series). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span id="genStamp"></span>.</span>
+      <span class="es">Este modelo se elabora exclusivamente con información pública (informes trimestrales, comunicados y transcripciones de conferencias de ASUR; Formas 20-F; precios de mercado; series de FRED). No contiene ni debe alimentarse con información privilegiada. Las proyecciones del DCF son ilustrativas y dependen de los supuestos elegidos por la persona usuaria; no constituyen una recomendación de inversión. Cifras en pesos mexicanos nominales salvo indicación. Última generación de datos: <span class="genStamp"></span>.</span><span class="en" hidden>This model is built exclusively from public information (ASUR's quarterly reports, releases and earnings-call transcripts; Forms 20-F; market prices; FRED series). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal Mexican pesos unless stated. Data last generated: <span class="genStamp"></span>.</span>
     </p>
   </div>
 </footer>

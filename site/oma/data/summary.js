@@ -1,7 +1,7 @@
 // Executive summary shown at the top of the page. Rewritten when results, traffic or an event land;
 // each bullet cites its source period. Basis periods drive the "as of" line.
 window.OMA_SUMMARY = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-09-23",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-27", trafficMonth: "2026-08", guidanceDate: null },
   sections: [
     { k: "ops", title: { es: "Operación", en: "Operations" },
@@ -19,12 +19,12 @@ window.OMA_SUMMARY = {
       es: [
         "OMA no publica guía anual. El PMD 2026–2030 (aprobado 18-dic-2025) compromete Ps. 16,005 M (pesos de dic-2024): 1,152 / 2,466 / 3,904 / 4,280 / 4,203 M por año; Monterrey concentra Ps. 7,969 M (50%).",
         "Tarifas máximas por unidad de tráfico fijadas hasta 2030 con factor de eficiencia de 0.8% real anual (bajan en términos reales, se indexan a inflación).",
-        "Inversiones PMD y estratégicas: Ps. 949 M en el 2T26 y Ps. 2,709 M en el semestre (−21.7%); saldo de la provisión de mantenimiento mayor Ps. 2,912 M."
+        "Inversiones PMD y estratégicas: Ps. 949 M en el 2T26 y Ps. 1,554 M en el semestre (suma de trimestres, +5.2%); saldo de la provisión de mantenimiento mayor Ps. 2,912 M."
       ],
       en: [
         "OMA publishes no annual guidance. The 2026–2030 MDP (approved 18-Dec-2025) commits Ps. 16,005 M (Dec-2024 pesos): 1,152 / 2,466 / 3,904 / 4,280 / 4,203 M per year; Monterrey takes Ps. 7,969 M (50%).",
         "Maximum tariffs per workload unit are set to 2030 with a 0.8% real annual efficiency factor (they fall in real terms and are indexed to inflation).",
-        "MDP and strategic investments: Ps. 949 M in 2Q26 and Ps. 2,709 M in the half (−21.7%); major-maintenance provision balance Ps. 2,912 M."
+        "MDP and strategic investments: Ps. 949 M in 2Q26 and Ps. 1,554 M in the half (sum of the quarters, +5.2%); major-maintenance provision balance Ps. 2,912 M."
       ] },
     { k: "debt", title: { es: "Deuda y dividendos", en: "Debt and dividends" },
       es: [

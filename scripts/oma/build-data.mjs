@@ -421,6 +421,14 @@ async function main() {
   const finish = (e) => { const is = e.parts.is, cf = e.parts.cf; if (cf && cf.capex == null && (cf.capexPpe != null || cf.capexConcessions != null)) cf.capex = (cf.capexPpe || 0) + (cf.capexConcessions || 0); if (is && is.revExConstruction == null && is.revAero != null && is.revNonAero != null) is.revExConstruction = is.revAero + is.revNonAero; if (is && is.ebitda != null && is.revExConstruction) is.ebitdaMarginExIfric = +(100 * is.ebitda / is.revExConstruction).toFixed(1); if (is && is.ebitdaReported != null && is.revTotal) is.ebitdaMarginReported = +(100 * is.ebitdaReported / is.revTotal).toFixed(1); if (is && is.opIncome != null && is.revTotal) is.opMargin = +(100 * is.opIncome / is.revTotal).toFixed(1); };
   for (const e of Object.values(quarters)) finish(e);
   for (const e of Object.values(ytd)) finish(e);
+  // MDP and strategic investments: the quarterly figure is primary; the YTD column is recomputed as the sum of the
+  // quarters when the printed YTD equals the prior full year (the 2Q26 summary table repeats the 2024/2025 annual amounts in its 6M columns).
+  for (const [id, e] of Object.entries(ytd)) {
+    const fy = +id.slice(0, 4), n = +id.split('M')[1] / 3; if (!e.parts.kpi) continue;
+    const qs = Array.from({ length: n }, (_, i) => quarters[`${fy}Q${i + 1}`]?.parts.kpi?.capexMdpM);
+    const prevFy = ytd[`${fy - 1}M12`]?.parts.kpi?.capexMdpM;
+    if (n < 4 && qs.every((v) => v != null) && prevFy != null && e.parts.kpi.capexMdpM != null && Math.abs(e.parts.kpi.capexMdpM - prevFy) < 1) { const sum = +qs.reduce((a, b) => a + b, 0).toFixed(1); console.warn(`${id}: MDP investments YTD ${e.parts.kpi.capexMdpM} equals the prior full year; replaced by the sum of quarters ${sum}`); e.parts.kpi.capexMdpM = sum; }
+  }
   // the cash balance at the end of the period is the same for a quarter and the YTD ending with it
   for (const [id, e] of Object.entries(ytd)) { const qq = quarters[`${id.slice(0, 4)}Q${+id.split('M')[1] / 3}`]; const a = e.parts.cf, b = qq?.parts.cf; if (a && b) { if (a.cashEnd == null && b.cashEnd != null) a.cashEnd = b.cashEnd; if (b.cashEnd == null && a.cashEnd != null) b.cashEnd = a.cashEnd; } }
   const qList = Object.values(quarters).filter((e) => e.parts.is || e.parts.bs).sort((a, b) => a.id.localeCompare(b.id)).map((e) => ({

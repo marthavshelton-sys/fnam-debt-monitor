@@ -71,7 +71,7 @@
   const fmtM = (vThousands, d = 0) => fmtN(vThousands / 1000, d);
   const fmtPct = (v, d = 1, sign = false) => (v == null || !isFinite(v) ? '—' : (sign && v > 0 ? '+' : '') + v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + '%');
   const fmtX = (v, d = 1) => (v == null || !isFinite(v) ? '—' : v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + 'x');
-  const fmtDate = (iso) => { if (!iso) return '—'; const d = new Date(iso + (iso.length === 10 ? 'T12:00:00Z' : '')); return d.toLocaleDateString(locale(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); };
+  const fmtDate = (iso) => { if (!iso) return '—'; if (/^\d{4}$/.test(iso)) return iso; if (/^\d{4}-\d{2}$/.test(iso)) return new Date(iso + '-15T12:00:00Z').toLocaleDateString(locale(), { month: 'short', year: 'numeric', timeZone: 'UTC' }); const d = new Date(iso + (iso.length === 10 ? 'T12:00:00Z' : '')); return d.toLocaleDateString(locale(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); };
   const qLabel = (q) => (LANG === 'es' ? `${q.q}T${String(q.fy).slice(2)}` : `${q.q}Q${String(q.fy).slice(2)}`);
   const ytdLabel = (fy, months) => `${months}M${String(fy).slice(2)}`;
   const ymLabel = (ym) => { const [y, m] = ym.split('-'); const d = new Date(Date.UTC(+y, +m - 1, 1)); return d.toLocaleDateString(locale(), { month: 'short', year: '2-digit', timeZone: 'UTC' }); };
@@ -203,7 +203,7 @@
     if (nd && lastLTM && lastLTM.is) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} Ps. ${fmtM(nd.net)} M` });
     if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + nciOf(lastQ); k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: niCtrl(lastLTM.is) ? `P/U ${fmtX(lastPx[1] * sharesNow / 1000 / niCtrl(lastLTM.is))}` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
-    txt('genStamp', fmtDate((FIN.generatedAt || MK.generatedAt || '').slice(0, 10)));
+    document.querySelectorAll('#genStamp, .genStamp').forEach((e) => { e.textContent = fmtDate((FIN.generatedAt || MK.generatedAt || '').slice(0, 10)); });
   }
 
   // ================= 00 EXECUTIVE SUMMARY =================
@@ -467,7 +467,7 @@
     if (!GV.length) { // no formal guidance table: explain, show the investment programme facts from reference.js
       const reg = REF.regulation || {};
       const rows = (reg.facts || []).map((f) => `<tr><td>${L(f.label)}</td><td>${LS(f.value)}</td><td class="muted small">${LS(f.source)}</td></tr>`).join('');
-      html('guideCurrent', `<div class="callout">${L(CFG.noGuidance || { es: GD.basis, en: GD.basis })}</div>${rows ? `<div class="tblwrap" style="margin-top:14px"><table><thead><tr><th>${t('metric')}</th><th>${t('value')}</th><th>${t('src')}</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}`);
+      html('guideCurrent', `<div class="callout">${L(CFG.noGuidance || { es: GD.basis, en: GD.basis })}</div>${rows ? `<div class="tblwrap" style="margin-top:14px"><table class="stack-sm"><thead><tr><th>${t('metric')}</th><th>${t('value')}</th><th>${t('src')}</th></tr></thead><tbody>${rows}</tbody></table></div>` : ''}`);
       txt('guideCurTitle', L(CFG.noGuidanceTitle || { es: 'Sin guía formal', en: 'No formal guidance' }));
       txt('guideCurCap', reg.updatedAt ? `${t('src')}: reference.js · ${fmtDate(reg.updatedAt)}` : '');
       document.querySelectorAll('#guidance .only-with-guidance').forEach((e) => { e.hidden = true; });
@@ -830,9 +830,9 @@
     const E = REF.event || {};
     html('evTimeline', (E.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
     html('evFacts', (E.facts || []).map((f) => `<div class="fact"><div class="v">${fmtFact(f)}</div><div class="l">${L(f.label)}${f.source ? ` · <span class="muted">${LS(f.source)}</span>` : ''}</div></div>`).join(''));
-    html('evSrc', E.sources ? `${t('src')}: ${(LS(E.sources) || []).join(' · ')}` : '');
+    html('eventSrc', E.sources ? `${t('src')}: ${(LS(E.sources) || []).join(' · ')}` : '');
     const X = REF.explainer || {};
-    html('exTable', `<table><tbody>${(X.rows || []).map((r) => `<tr><td>${L(r.label)}</td><td>${LS(r.value) || '—'}</td></tr>`).join('')}</tbody></table>`);
+    html('exTable', `<table class="stack-sm"><tbody>${(X.rows || []).map((r) => `<tr><td>${L(r.label)}</td><td>${LS(r.value) || '—'}</td></tr>`).join('')}</tbody></table>`);
     if (X.status) html('exStatus', `<b>${LANG === 'es' ? 'Estatus' : 'Status'}.</b> ${L(X.status)}`);
     html('exSrc', X.sources ? `${t('src')}: ${(LS(X.sources) || []).join(' · ')}` : '');
   }
