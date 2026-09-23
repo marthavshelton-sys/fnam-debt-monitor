@@ -5,7 +5,7 @@
   const $ = (id) => document.getElementById(id);
   if (!F?.quarters?.length || !R?.sources) { $('freshness').textContent = 'Financial or research data unavailable / Datos no disponibles'; return; }
   let lang = localStorage.getItem('orcl-lang') === 'en' ? 'en' : 'es';
-  const state = { stmt: 'is', mode: 'q', preset: 'yoy', a: '', b: '', ng: false };
+  const state = { stmt: 'is', mode: 'q', preset: 'yoy', trend: 'rpo', a: '', b: '', ng: false };
   const q = F.quarters.filter((r) => r.is).sort((a, b) => a.id.localeCompare(b.id));
   const latest = q.at(-1);
   const byId = Object.fromEntries(q.map((x) => [x.id, x]));
@@ -69,6 +69,20 @@
     $('siteTable').innerHTML = `<table class="research-table"><thead><tr>${[tr('Sitio', 'Site'),tr('Capacidad', 'Capacity'),tr('Cliente', 'Customer'),tr('Rampa', 'Ramp'),tr('Electricidad', 'Power'),tr('Permisos', 'Permits'),tr('Financiamiento', 'Financing'),tr('Fuente', 'Source')].map((h) => `<th>${h}</th>`).join('')}</tr></thead><tbody>${R.sites.map((s) => `<tr>${['name','capacity','customer','ramp','power','permit','financing'].map((k) => `<td>${esc(s[k])}</td>`).join('')}<td>${src(s.source, s.page)}${s.secondary ? ` · ${src(s.secondary)}` : ''}</td></tr>`).join('')}</tbody></table>`;
     $('partnerFacts').innerHTML = R.counterparties.map((f) => `<div class="card"><h3>${esc(f.name)}</h3><p>${esc(f.detail[lang])}</p><div class="source-line">${src(f.source)}</div></div>`).join('');
     $('sourcesList').innerHTML = Object.values(R.sources).map((s) => `<p class="source-line"><a href="${esc(s.url)}" target="_blank" rel="noopener noreferrer">${esc(s.title)}</a> · ${esc(s.type)} · ${esc(s.date)}${s.accession ? ` · ${esc(s.accession)}` : ''}</p>`).join('');
+    renderTrend();
+  }
+
+  function renderTrend() {
+    const series = state.trend;
+    const points = q.map((x) => ({ q:x, value:series==='rpo'?x.kpi?.rpo:series==='cloud'?(x.basis==='fy2026_lines'?x.kpi?.cloudRev:null):x.cf?.capex == null ? null : -x.cf.capex })).filter((x)=>x.value!=null).slice(-8);
+    if (!points.length) { $('trendChart').textContent='—'; return; }
+    const peak=Math.max(...points.map((p)=>p.value)), width=760, unit=width/points.length, h=112;
+    $('trendChart').innerHTML=`<svg viewBox="0 0 760 175" style="width:100%;height:auto" aria-label="${esc(series)} trend"><line x1="15" x2="745" y1="135" y2="135" stroke="currentColor" opacity=".25"/>${points.map(({q:quarter,value},i)=>{
+      const barH=peak ? h*value/peak:0, px=15+i*unit+unit*.18, py=135-barH;
+      const url=quarter.sources?.[series==='rpo'?'kpi':series==='capex'?'cf':'is']?.url || '';
+      return `<a href="${esc(url)}" target="_blank" rel="noopener noreferrer"><rect x="${px}" y="${py}" width="${unit*.64}" height="${barH}" rx="3" fill="var(--accent)"/><title>${esc(labels(quarter))}: ${esc(bn(value))}</title></a><text x="${px+unit*.32}" y="153" text-anchor="middle" fill="currentColor" font-size="11">${esc(labels(quarter))}</text>`;
+    }).join('')}</svg>`;
+    $('trendSource').innerHTML=`${tr('US$ millones; clic en cada barra para ver el documento de origen. Trimestres anteriores al cambio de presentación de AF2026 omitidos en la serie de nube.', 'US$ million; click a bar for its source document. Pre-FY2026 quarters are excluded from the cloud series because the presentation changed.')} ${financialSource(points.at(-1).q,series==='rpo'?'kpi':series==='capex'?'cf':'is')}`;
   }
 
   function renderGuidance() {
@@ -146,9 +160,16 @@
     ['discount', 'Descuento %', 'Discount rate %', 12, 1, 50, .5],
     ['terminal', 'Múltiplo de flujo terminal', 'Terminal cash-flow multiple', 10, 0, 30, .5]
   ];
+  const cases = {
+    slow:{mw:500,ramp:60,unit:6,margin:25,capex:24,discount:14,terminal:8},
+    reference:{mw:850,ramp:75,unit:8,margin:35,capex:18,discount:12,terminal:10},
+    fast:{mw:1200,ramp:90,unit:10,margin:42,capex:14,discount:10,terminal:12}
+  };
   function renderScenario() {
     $('scenarioInputs').innerHTML=scenario.map(([key,es,en,defaultValue,min,max,step])=>`<label>${tr(es,en)}<input type="number" id="s_${key}" value="${defaultValue}" min="${min}" max="${max}" step="${step}"></label>`).join('');
-    document.querySelectorAll('#scenarioInputs input').forEach((e)=>e.addEventListener('input',calculate)); calculate();
+    document.querySelectorAll('#scenarioInputs input').forEach((e)=>e.addEventListener('input',()=>{
+      $('segScenario').querySelectorAll('button').forEach((b)=>b.classList.remove('active'));calculate();
+    })); calculate();
   }
   function calculate() {
     const v=Object.fromEntries(scenario.map(([key])=>[key,Number($(`s_${key}`).value)]));
@@ -173,6 +194,8 @@
   }
   function bindSeg(id,key) { $(id).addEventListener('click',(event)=>{const btn=event.target.closest('button[data-v]');if(!btn)return;state[key]=btn.dataset.v;$(id).querySelectorAll('button').forEach((x)=>x.classList.toggle('active',x===btn));if(key==='mode'||key==='preset'){state.b='';options();}else renderStatement();}); }
   bindSeg('segStmt','stmt');bindSeg('segMode','mode');bindSeg('segPreset','preset');
+  $('segTrend').addEventListener('click',(event)=>{const b=event.target.closest('button[data-v]');if(!b)return;state.trend=b.dataset.v;$('segTrend').querySelectorAll('button').forEach((x)=>x.classList.toggle('active',x===b));renderTrend();});
+  $('segScenario').addEventListener('click',(event)=>{const b=event.target.closest('button[data-v]');if(!b)return;for(const [k,v] of Object.entries(cases[b.dataset.v]))$(`s_${k}`).value=v;$('segScenario').querySelectorAll('button').forEach((x)=>x.classList.toggle('active',x===b));calculate();});
   $('selA').addEventListener('change',(e)=>{state.a=e.target.value;state.b='';options();});$('selB').addEventListener('change',(e)=>{state.b=e.target.value;renderStatement();});
   $('chkNg').addEventListener('change',(e)=>{state.ng=e.target.checked;renderStatement();});
   $('btnLangEs').addEventListener('click',()=>language('es'));$('btnLangEn').addEventListener('click',()=>language('en'));

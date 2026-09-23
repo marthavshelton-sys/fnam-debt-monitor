@@ -28,6 +28,11 @@ assert.match(element('guidanceTable').innerHTML, /30–34%/);
 assert.match(element('statementTable').innerHTML, /850 MW/); // latest y/y comments
 assert.match(element('statementTable').innerHTML, /2027Q1|1T27/);
 assert.match(element('scenarioOutput').innerHTML, /Valor presente incremental/);
+assert.match(element('trendChart').innerHTML, /<svg/);
+element('segTrend').onclick({target:{closest:()=>({dataset:{v:'cloud'}})}});
+assert.match(element('trendSource').innerHTML, /AF2026/);
+element('segScenario').onclick({target:{closest:()=>({dataset:{v:'slow'}})}});
+assert.equal(element('s_mw').value,500);
 element('btnLangEn').onclick();
 assert.match(element('statementTable').innerHTML, /850MW/);
 element('segMode').onclick({target:{closest:()=>({dataset:{v:'ytd'}})}});
