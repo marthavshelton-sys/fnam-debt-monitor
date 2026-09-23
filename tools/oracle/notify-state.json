@@ -7,6 +7,6 @@
   "lastMarketClose": "2026-09-22",
   "lastNotifiedAt": null,
   "lastFailureNote": null,
-  "checkedAt": "2026-09-22",
-  "note": "Updated by the Oracle weekday reviewing routine (tools/oracle/ROUTINE.md). Compared against tools/oracle/data/state.json, guidance.json and market_reference.json to decide whether a day is material."
+  "checkedAt": "2026-09-23",
+  "note": "Updated by the Oracle weekday reviewing routine (tools/oracle/ROUTINE.md). Compared against tools/oracle/data/state.json, guidance.json and market_reference.json to decide whether a day is material. investor.oracle.com/rss/pressrelease.aspx answers HTTP 403 (Cloudflare challenge) to curl, Invoke-WebRequest and node fetch; the same feed is readable as JSON at investor.oracle.com/feed/PressRelease.svc/GetPressReleaseList?LanguageId=1&pageSize=20&pageNumber=0&year=2026 — the routine uses that endpoint as the fallback."
 }
