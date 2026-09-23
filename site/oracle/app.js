@@ -42,8 +42,8 @@
     actual: { es: 'Real', en: 'Actual' }, tracking: { es: 'Seguimiento', en: 'Tracking' }, outcome: { es: 'Resultado', en: 'Outcome' }, within: { es: 'En rango', en: 'In range' }, above: { es: 'Por encima', en: 'Above' }, below: { es: 'Por debajo', en: 'Below' },
     date: { es: 'Fecha', en: 'Date' }, type: { es: 'Tipo', en: 'Type' }, hits: { es: 'En rango o mejor', en: 'In range or better' }, fromCall: { es: 'de la llamada', en: 'from the call' }, fromRelease: { es: 'del comunicado', en: 'from the release' },
     comments: { es: 'Comentarios', en: 'Comments' }, prefGroup: { es: 'Entre utilidad neta y utilidad a comunes', en: 'Between net income and income to common' }, items: { es: 'conceptos', en: 'items' },
-    cmtNote: { es: 'Comentarios (a/a) elaborados a partir de los comunicados de resultados y las transcripciones de las llamadas; disponibles para los trimestres con comentarios redactados.', en: 'Comments (y/y) written from the earnings releases and the call transcripts; available for quarters with drafted comments.' },
-    cmtOnlyYoy: { es: 'Los comentarios se muestran al comparar un periodo con el mismo periodo del año fiscal anterior.', en: 'Comments appear when a period is compared with the same period of the prior fiscal year.' },
+    cmtNote: { es: 'Comentarios (a/a) elaborados a partir de los comunicados de resultados y las transcripciones de las llamadas de resultados; cubren del 1T24 al trimestre más reciente y los años fiscales AF2024–AF2026.', en: 'Comments (y/y) written from the earnings releases and the earnings-call transcripts; they cover 1Q24 to the latest quarter and fiscal years FY2024–FY2026.' },
+    cmtOnlyYoy: { es: 'Los comentarios se muestran al comparar un trimestre con el mismo trimestre del año fiscal anterior, o un año fiscal con el anterior (desde el 1T24 / AF2024).', en: 'Comments appear when a quarter is compared with the same quarter of the prior fiscal year, or a fiscal year with the prior one (from 1Q24 / FY2024).' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute node scripts/oracle/build-data.mjs.', en: 'Provisional: data files missing. Run node scripts/oracle/build-data.mjs.' },
     rpo: { es: 'RPO (US$ M)', en: 'RPO (US$ M)' }, cloudRev: { es: 'Ingresos de nube (US$ M, base AF2026)', en: 'Cloud revenue (US$ M, FY2026 basis)' }, cloudShare: { es: 'Nube como % de los ingresos', en: 'Cloud as % of revenue' },
     basisDiffers: { es: 'base distinta', en: 'basis differs' }, recastNote: { es: 'Los rubros de ingresos de los trimestres anteriores al AF2026 se muestran como Oracle los reexpresó en la base Nube / Software (columna del año anterior del reporte posterior); los totales no cambian.', en: 'Revenue lines for pre-FY2026 quarters are shown as Oracle recast them on the Cloud / Software basis (prior-year column of the later release); totals are unchanged.' },
@@ -217,7 +217,8 @@
     if (st.mode === 'ytd') return B.fy === A.fy - 1 && B.months === A.months;
     return false;
   }
-  function yoyCommentsFor(A, B) { if (!isYoY(A, B) || st.mode !== 'q') return null; return CM.periods && CM.periods[A.id] ? CM.periods[A.id] : null; }
+  // Comments exist for year-over-year quarter pairs (keyed "2027Q1") and consecutive fiscal years (keyed "FY2026").
+  function yoyCommentsFor(A, B) { if (!isYoY(A, B) || (st.mode !== 'q' && st.mode !== 'fy')) return null; return CM.periods && CM.periods[A.id] ? CM.periods[A.id] : null; }
   // Revenue lines: when one side is on the pre-FY2026 basis and the other on the current one, use Oracle's recast.
   function revValue(obj, other, k) {
     if (!obj || !obj.is) return null;

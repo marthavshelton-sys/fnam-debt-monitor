@@ -1,0 +1,230 @@
+{
+  "_notes": "Fiscal-year comments (FY mode, consecutive years) written from the 4Q release and call of each year; keys follow the FY layout (revenue lines, total opex, operating income, interest, tax, net income to common, EPS, RPO, OCF, capex).",
+  "by_year": {
+    "FY2024": {
+      "comments": {
+        "total_revenue": {
+          "en": "Cloud services and license support +12% to $39.4bn (three-quarters of revenue) while license fell 12%; Cerner a headwind all year.",
+          "es": "Servicios de nube y soporte +12% a US$39.4 mil M (tres cuartos de los ingresos) mientras licencias cayeron 12%; Cerner fue un lastre todo el año.",
+          "src": "4Q24 release p.1; 4Q24 call p.5 (Catz)"
+        },
+        "cloud": {
+          "en": "Cloud services +26% to $17.2bn ex-Cerner: OCI +50% to $6.8bn (consumption +66%), SaaS +13%; support low single digits.",
+          "es": "Servicios de nube +26% a US$17.2 mil M sin Cerner: OCI +50% a US$6.8 mil M (consumo +66%), SaaS +13%; soporte de un dígito bajo.",
+          "src": "4Q24 call p.5 (Catz)"
+        },
+        "software": {
+          "en": "Customers trading one-time licenses for multiyear cloud commitments; tough compares against FY23's license growth.",
+          "es": "Los clientes cambian licencias únicas por compromisos multianuales de nube; bases difíciles frente al crecimiento de licencias del AF23.",
+          "src": "4Q24 call p.3-4 (Catz)"
+        },
+        "hardware": {
+          "en": "No driver given by management.",
+          "es": "La administración no da una explicación.",
+          "src": "quarterly releases"
+        },
+        "services": {
+          "en": "No driver given by management.",
+          "es": "La administración no da una explicación.",
+          "src": "quarterly releases"
+        },
+        "total_opex": {
+          "en": "Opex +2% on revenue +6%: expense discipline; amortization of acquired intangibles down 16%; depreciation up 24% on datacenter build.",
+          "es": "Gastos +2% con ingresos +6%: disciplina de gastos; amortización de intangibles -16%; depreciación +24% por centros de datos.",
+          "src": "quarterly income statements; cash-flow statements"
+        },
+        "operating_income": {
+          "en": "Non-GAAP margin 44% vs 42% on cloud scale economies and Cerner brought to Oracle margins; GAAP margin 29%.",
+          "es": "Margen No-GAAP 44% vs 42% por economías de escala en la nube y Cerner llevado a márgenes de Oracle; margen GAAP 29%.",
+          "src": "4Q24 release p.1; 4Q24 call p.5 (Catz)"
+        },
+        "interest_expense": {
+          "en": "Flat: higher rates early in the year offset by note repayments later.",
+          "es": "Plano: tasas más altas a inicio de año compensadas por pagos de bonos después.",
+          "src": "quarterly income statements; balance sheets"
+        },
+        "tax_provision": {
+          "en": "Doubled because FY23 carried large one-time benefits (4Q23 non-GAAP rate 9.2%); FY24 normalised near 19-20%.",
+          "es": "Se duplicó porque el AF23 tuvo grandes beneficios únicos (tasa No-GAAP 4T23 de 9.2%); el AF24 se normalizó cerca de 19-20%.",
+          "src": "4Q24 call p.5 (Catz)"
+        },
+        "net_income_common": {
+          "en": "Operating income +17% less the tax normalisation; non-GAAP net income +11%.",
+          "es": "Utilidad de operación +17% menos la normalización fiscal; utilidad neta No-GAAP +11%.",
+          "src": "4Q24 release p.1"
+        },
+        "diluted_eps": {
+          "en": "Non-GAAP $5.56, +9%; GAAP $3.71, +21% on lower amortization and restructuring; buybacks modest (~$1.2bn).",
+          "es": "No-GAAP US$5.56, +9%; GAAP US$3.71, +21% por menor amortización y reestructuración; recompras modestas (~US$1.2 mil M).",
+          "src": "4Q24 release p.1; 4Q24 call p.5 (Catz)"
+        },
+        "rpo": {
+          "en": "$98bn, +44%: the largest contracts in Oracle's history, nearly $17bn of AI deals in the year; 39% recognisable within 12 months.",
+          "es": "US$98 mil M, +44%: los mayores contratos en la historia de Oracle, casi US$17 mil M de acuerdos de IA en el año; 39% reconocible en 12 meses.",
+          "src": "4Q24 release p.1; 4Q24 call p.3, p.5 (Catz)"
+        },
+        "operating_cash_flow": {
+          "en": "Cloud subscription growth; free cash flow $11.8bn, +39%, as capex fell.",
+          "es": "Crecimiento de suscripciones de nube; flujo libre US$11.8 mil M, +39%, al bajar el capex.",
+          "src": "4Q24 release p.1; 4Q24 call p.5 (Catz)"
+        },
+        "capex": {
+          "en": "$6.9bn vs $8.7bn, paced to bookings; Catz: FY25 capex \"will probably be double\".",
+          "es": "US$6.9 mil M vs US$8.7 mil M, al ritmo de las contrataciones; Catz: el capex del AF25 \"probablemente será el doble\".",
+          "src": "4Q24 call p.5-6 (Catz)"
+        }
+      },
+      "drafted": "2026-09-23"
+    },
+    "FY2025": {
+      "comments": {
+        "total_revenue": {
+          "en": "Cloud services +24% to $24.5bn drove growth; cloud services and license support now 77% of revenue; license roughly flat.",
+          "es": "Servicios de nube +24% a US$24.5 mil M impulsaron el crecimiento; nube y soporte ya 77% de los ingresos; licencias casi planas.",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "cloud": {
+          "en": "OCI +51% to $10.2bn (consumption +59%), SaaS +10% to $14.3bn; support low single digits.",
+          "es": "OCI +51% a US$10.2 mil M (consumo +59%), SaaS +10% a US$14.3 mil M; soporte de un dígito bajo.",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "software": {
+          "en": "Java growth early in the year and bring-your-own-license purchases for cloud migrations offset the structural decline.",
+          "es": "El crecimiento de Java a inicio de año y compras bring-your-own-license para migrar a la nube compensaron la caída estructural.",
+          "src": "1Q25, 2Q25 and 4Q25 calls (Catz)"
+        },
+        "hardware": {
+          "en": "No driver given by management.",
+          "es": "La administración no da una explicación.",
+          "src": "quarterly releases"
+        },
+        "services": {
+          "en": "No driver given by management.",
+          "es": "La administración no da una explicación.",
+          "src": "quarterly releases"
+        },
+        "total_opex": {
+          "en": "Opex +6% on revenue +8%: cloud costs up with capacity, R&D and stock-based compensation higher, amortization down 23%.",
+          "es": "Gastos +6% con ingresos +8%: costos de nube al alza con la capacidad, I+D y compensación en acciones mayores, amortización -23%.",
+          "src": "quarterly income statements"
+        },
+        "operating_income": {
+          "en": "Non-GAAP margin held at 44% as cloud gross margins trended higher; GAAP margin 31% vs 29% on lower amortization.",
+          "es": "Margen No-GAAP se mantuvo en 44% con márgenes brutos de nube al alza; margen GAAP 31% vs 29% por menor amortización.",
+          "src": "4Q25 call p.4 (Catz); 2Q25 call p.4 (Catz)"
+        },
+        "interest_expense": {
+          "en": "Borrowings rose to $92.6bn late in the year ($19.5bn of notes and loans plus commercial paper) to fund capex.",
+          "es": "La deuda subió a US$92.6 mil M a fin de año (US$19.5 mil M de bonos y créditos más papel comercial) para financiar el capex.",
+          "src": "4Q25 release balance sheet; cash-flow statement"
+        },
+        "tax_provision": {
+          "en": "Higher pretax income and a higher GAAP rate (prior year had legal-entity realignment benefits); non-GAAP rate ~20%.",
+          "es": "Mayor utilidad antes de impuestos y mayor tasa GAAP (el año previo tuvo beneficios por reorganización de entidades); tasa No-GAAP ~20%.",
+          "src": "quarterly reconciliation fn 5"
+        },
+        "net_income_common": {
+          "en": "Operating income +15% with interest and tax rising less; non-GAAP net income +10%.",
+          "es": "Utilidad de operación +15% con intereses e impuestos creciendo menos; utilidad neta No-GAAP +10%.",
+          "src": "4Q25 release p.1"
+        },
+        "diluted_eps": {
+          "en": "Non-GAAP $6.03, +9%; GAAP $4.34, +17%; share count up ~1% as buybacks slowed to $150m a quarter.",
+          "es": "No-GAAP US$6.03, +9%; GAAP US$4.34, +17%; acciones +~1% al bajar las recompras a US$150 M por trimestre.",
+          "src": "4Q25 release p.1; 4Q25 call p.4-5 (Catz)"
+        },
+        "rpo": {
+          "en": "$138bn, +41%; cloud RPO +56% to nearly 80% of the total after $48bn of Q3 contracts; Catz: to more than double in FY26.",
+          "es": "US$138 mil M, +41%; RPO de nube +56% a casi 80% del total tras US$48 mil M de contratos del 3T; Catz: más que se duplicará en el AF26.",
+          "src": "4Q25 call p.4-5 (Catz)"
+        },
+        "operating_cash_flow": {
+          "en": "Cloud subscription growth; free cash flow -$0.4bn after $21.2bn of capex (Catz).",
+          "es": "Crecimiento de suscripciones de nube; flujo libre -US$0.4 mil M tras US$21.2 mil M de capex (Catz).",
+          "src": "4Q25 call p.4 (Catz)"
+        },
+        "capex": {
+          "en": "Tripled to $21.2bn, \"the vast majority\" revenue-generating datacenter equipment; FY26 seen over $25bn.",
+          "es": "Se triplicó a US$21.2 mil M, \"la gran mayoría\" equipo generador de ingresos en centros de datos; AF26 visto sobre US$25 mil M.",
+          "src": "4Q25 call p.4 (Catz)"
+        }
+      },
+      "drafted": "2026-09-23"
+    },
+    "FY2026": {
+      "comments": {
+        "total_revenue": {
+          "en": "First year above $67bn: Cloud +39% on OCI roughly +80% as 1.2 gigawatts came online; Software -1%.",
+          "es": "Primer año sobre US$67 mil M: Nube +39% con OCI ~+80% al entrar 1.2 gigavatios; Software -1%.",
+          "src": "4Q26 call p.3 (Maxson), p.7 (Magouyrk); quarterly releases"
+        },
+        "cloud": {
+          "en": "OCI accelerated each quarter (+55% to +93%) on AI workloads and database services; SaaS +11%; multicloud database up several hundred percent.",
+          "es": "OCI aceleró cada trimestre (+55% a +93%) por cargas de IA y base de datos; SaaS +11%; base de datos multinube creció varios cientos por ciento.",
+          "src": "quarterly releases; 4Q26 call p.3 (Maxson)"
+        },
+        "software": {
+          "en": "\"Customers' continuing migration from on-premise software to the Cloud\": license down, support flat.",
+          "es": "\"Migración continua de los clientes del software local a la nube\": licencias a la baja, soporte plano.",
+          "src": "4Q26 release p.1"
+        },
+        "hardware": {
+          "en": "Grew every quarter; no driver given by management.",
+          "es": "Creció cada trimestre; sin explicación de la administración.",
+          "src": "quarterly releases"
+        },
+        "services": {
+          "en": "Returned to growth; no driver given by management.",
+          "es": "Volvió a crecer; sin explicación de la administración.",
+          "src": "quarterly releases"
+        },
+        "total_opex": {
+          "en": "Opex +18%: gross margin down ~5 points on the datacenter ramp (depreciation nearly doubled), $1.84bn of restructuring; S&M, R&D and G&A cut by efficiency actions.",
+          "es": "Gastos +18%: margen bruto -~5 puntos por el arranque de centros de datos (depreciación casi se duplicó), US$1.84 mil M de reestructuración; ventas, I+D y administración recortados por eficiencias.",
+          "src": "4Q26 call p.3-4 (Maxson); 4Q26 release Appendix A"
+        },
+        "operating_income": {
+          "en": "Non-GAAP +16% with margin 43% vs 44%: lower operating costs \"primarily offset\" the gross-margin step-down (Maxson).",
+          "es": "No-GAAP +16% con margen 43% vs 44%: menores gastos operativos \"compensaron en su mayoría\" la baja del margen bruto (Maxson).",
+          "src": "4Q26 call p.3-4 (Maxson)"
+        },
+        "interest_expense": {
+          "en": "$43bn of debt raised in the year (including February's $30bn); total debt $129.5bn vs $92.6bn.",
+          "es": "US$43 mil M de deuda levantados en el año (incluidos los US$30 mil M de febrero); deuda total US$129.5 mil M vs US$92.6 mil M.",
+          "src": "4Q26 release 'Capital Funding'; balance sheet"
+        },
+        "tax_provision": {
+          "en": "Includes the $958m One Big Beautiful Bill Act deferred-tax charge (1Q) and tax on the investment gains; non-GAAP rate ~19%.",
+          "es": "Incluye el cargo de US$958 M por la One Big Beautiful Bill Act (1T) e impuestos sobre las ganancias de inversión; tasa No-GAAP ~19%.",
+          "src": "1Q26 and 4Q26 releases, reconciliation fn 5"
+        },
+        "net_income_common": {
+          "en": "Lifted by the ~$2.7bn Ampere gain and Bloom Energy gains, net of the OBBBA charge and restructuring; $103m of preferred dividends deducted.",
+          "es": "Impulsada por la ganancia de ~US$2.7 mil M de Ampere y las de Bloom Energy, netas del cargo OBBBA y la reestructuración; US$103 M de dividendos preferentes deducidos.",
+          "src": "4Q26 call p.3 (Maxson); 2Q26 and 4Q26 releases"
+        },
+        "diluted_eps": {
+          "en": "Non-GAAP $7.63, +27%, or $6.83 (+13%) excluding one-time investment gains (Maxson); GAAP $5.83.",
+          "es": "No-GAAP US$7.63, +27%, o US$6.83 (+13%) sin las ganancias únicas de inversión (Maxson); GAAP US$5.83.",
+          "src": "4Q26 call p.3 (Maxson)"
+        },
+        "rpo": {
+          "en": "$638bn, +363%, on multi-billion AI contracts (OpenAI, Meta, NVIDIA and others); $75bn prepaid or bring-your-own-hardware; 12% recognisable within 12 months.",
+          "es": "US$638 mil M, +363%, por contratos multimillonarios de IA (OpenAI, Meta, NVIDIA y otros); US$75 mil M prepagados o con hardware del cliente; 12% reconocible en 12 meses.",
+          "src": "4Q26 call p.4 (Maxson), p.6 (Magouyrk)"
+        },
+        "operating_cash_flow": {
+          "en": "Record $32bn, +54%, including customer prepayments with a significant financing component and deferred-revenue growth.",
+          "es": "Récord de US$32 mil M, +54%, incluidos prepagos de clientes con componente financiero significativo y crecimiento de ingresos diferidos.",
+          "src": "4Q26 call p.4 (Maxson); 4Q26 release cash-flow statement"
+        },
+        "capex": {
+          "en": "$55.7bn reported, $47.7bn net cash outlay after prepayments and vendor financing; free cash flow -$23.7bn; FY27 net cash capex ~$70bn.",
+          "es": "US$55.7 mil M reportados, US$47.7 mil M de desembolso neto tras prepagos y financiamiento de proveedores; flujo libre -US$23.7 mil M; capex neto AF27 ~US$70 mil M.",
+          "src": "4Q26 release net-cash-outlay table; 4Q26 call p.4, p.8 (Maxson)"
+        }
+      },
+      "drafted": "2026-09-23"
+    }
+  }
+}
