@@ -89,8 +89,8 @@ python scripts/qualitas/validate_data.py` locally, add a test case for the new l
 
 ## Reviewing routine and alerts
 
-`tools/qualitas/ROUTINE.md` is the prompt for the weekday routine (Claude Code scheduled task with repository
-access): it compares the live data with `tools/qualitas/notify-state.json`, updates the curated files when a
+`tools/qualitas/ROUTINE.md` is the prompt of the weekday cloud Routine (Claude Code routine with repository
+access, commits directly to `main`): it compares the live data with `tools/qualitas/notify-state.json`, updates the curated files when a
 quarter, expectation or event lands, evaluates `data/alerts.js`, and ends with a concise note (headline
 figure, what changed with links, why it matters, what to watch, link to the model) that the platform emails
 to the owner on material days only. Hand-supplied transcripts and old PDFs are requested in that note.
@@ -135,5 +135,6 @@ python -m http.server 8080 --directory site      # then open http://localhost:80
   (YTD statements and fiscal years are complete). A text-layer copy or the CNSF/BMV XBRL would fill them.
 * Pre-2019 quarters come from the IR workbook (main lines only, rounded to millions).
 * Consensus and peer tables wait for a market-data connector; the transcript for each new quarter is hand-
-  supplied; password protection is off until `QUALITAS_PASSWORD` is set; the reviewing routine needs to be
-  created as a scheduled task by the owner (the prompt is `ROUTINE.md`).
+  supplied; password protection is off until `QUALITAS_PASSWORD` is set. The reviewing routine runs as the
+  cloud Routine "FNAM Quálitas: review and email material changes" (weekdays 15:50 UTC; prompt in `ROUTINE.md`;
+  manage it at https://claude.ai/code/routines).

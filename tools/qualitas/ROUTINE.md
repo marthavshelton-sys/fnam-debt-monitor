@@ -1,9 +1,10 @@
-﻿# Quálitas model — weekday reviewing routine
+# Quálitas model — weekday reviewing routine
 
 This is the prompt for the reviewing routine that keeps the *curated* half of the Quálitas model current
 (the automatic half is `.github/workflows/qualitas-refresh.yml`). It is meant to run as a Claude Code
-scheduled task / Routine with access to the repository `marthavshelton-sys/fnam-debt-monitor`, each weekday
-at 09:00 Mexico City time (≈ 15:00 UTC, forty minutes after the 14:35 UTC filings refresh), and to end with
+cloud Routine ("FNAM Quálitas: review and email material changes") with access to the repository
+`marthavshelton-sys/fnam-debt-monitor`, each weekday at 15:50 UTC (09:50 Mexico City, after the 14:35 UTC
+filings refresh), and to end with
 a short note that the platform emails to the owner only when something material happened.
 
 ## What to check (in this order)
@@ -29,8 +30,8 @@ a short note that the platform emails to the owner only when something material 
 
 ## What to do when a new quarter lands
 
-Work on a branch, then open a pull request against `main` (the owner merges it) unless the owner has
-enabled direct commits for this routine.
+Commit directly to `main` (the owner asked for a hands-off routine; Cloudflare Pages deploys the push).
+Commit messages must carry `[skip actions]` so the data workflow does not re-run on curated changes.
 
 * **Comments** (`site/qualitas/data/comments.js`): add the quarter (`YYYYQn`), the year-to-date period
   (`YYYYMm`, m = 3n) and, for a 4Q, the fiscal year (`FYYYYY`). One line per income-statement key
