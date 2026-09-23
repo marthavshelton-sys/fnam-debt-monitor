@@ -263,8 +263,9 @@ if (bo) {
     updated: bo.updated,
     capacity: { ...bo.capacity, quarters: (bo.capacity.quarters || []).map(withSrc), fiscal_years: (bo.capacity.fiscal_years || []).map(withSrc), secured: bo.capacity.secured ? withSrc(bo.capacity.secured) : null },
     gpu: { utilization: (bo.gpu.utilization || []).map(withSrc), renewals: (bo.gpu.renewals || []).map(withSrc), delivered: (bo.gpu.delivered || []).map(withSrc) },
-    sites: (bo.sites || []).map((s) => ({ ...s, sources: (s.sources || []).map((r) => (r.key ? { title: r.title, url: src(r.key)?.url || null, key: r.key } : r)) })),
+    sites: (bo.sites || []).map((s) => ({ ...s, sources: (s.sources || []).map((r) => (r.key ? { title: r.title, short: r.short || null, url: src(r.key)?.url || null, key: r.key } : r)) })),
     rpoSchedule: bo.rpo_schedule ? withSrc(bo.rpo_schedule) : null,
+    promises: bo.promises ? { ...bo.promises, items: (bo.promises.items || []).map(withSrc) } : null,
     funding: bo.funding ? { ...bo.funding, items: (bo.funding.items || []).map(withSrc) } : null,
   }, "Oracle AI-infrastructure buildout — capacity delivered, GPU fleet metrics, secured capacity and named sites, from the earnings calls, Oracle press releases, partner releases and wire reports (tools/oracle/data/buildout.json).");
 }

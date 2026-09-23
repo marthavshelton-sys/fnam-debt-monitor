@@ -40,7 +40,10 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > the release page or the call page and speaker) into `tools/oracle/data/_raw_comments_c.json` in the shape of
 > `_raw_comments_b.json`, then run `node scripts/oracle/merge-comments.mjs`. When the call transcript is available,
 > also add the quarter's buildout disclosures (megawatts delivered, GPU utilization, renewals, GPUs delivered, new
-> or updated sites) to `tools/oracle/data/buildout.json` with page and speaker, marking any computed figure `derived`. Mark the filing `done` in
+> or updated sites) to `tools/oracle/data/buildout.json` with page and speaker, marking any computed figure `derived`,
+> and refresh `promises` (what management said it will deliver: capacity, sites, timing, capex) — newest call first,
+> set `promises.as_of` to the quarter, and add an `outcome_en/es` to any earlier promise the new call resolved. The
+> page shows the block as stale whenever `as_of` is older than the latest quarter. Mark the filing `done` in
 > `state.json`. Run `node scripts/oracle/build.mjs`; it must print "0 failed" for both the tie-out and the
 > parser tests — if not, fix the transcription (a failure is almost always a typo, not an Oracle error) and
 > re-run. Open a pull request from a branch named `oracle/<fy>q<n>-results` with title
