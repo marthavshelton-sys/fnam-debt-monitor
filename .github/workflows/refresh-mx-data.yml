@@ -21,6 +21,11 @@ on:
 permissions:
   contents: write
 
+# One run at a time; other pages' refresh workflows have their own groups and never touch these paths.
+concurrency:
+  group: mx-fiscal-refresh
+  cancel-in-progress: false
+
 jobs:
   refresh:
     runs-on: ubuntu-latest
@@ -45,17 +50,32 @@ jobs:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
         run: node scripts/mx-fiscal/fetch.mjs ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
-      - name: Commit updated data.js if it changed
+      # Official documents (CGPE, PAF, LIF, PEF, Banxico announcements, Pemex IR…) mirrored as text
+      # into tools/mx-fiscal/docs/ so the document routine reads primary sources. Never fails the job.
+      - name: Mirror official documents as text
+        if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
+        run: |
+          command -v pdftotext >/dev/null || sudo apt-get install -y -qq poppler-utils >/dev/null
+          node scripts/mx-fiscal/mirror-docs.mjs
+
+      - name: Commit data.js and document mirrors if they changed
         if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name "fnam-data-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add site/mx/fiscal/data.js
+          git add site/mx/fiscal/data.js tools/mx-fiscal/docs/
           if git diff --cached --quiet; then
             echo "No data changes."
-          else
-            # [skip actions] instead of [skip ci]: Cloudflare Pages treats [skip ci] as a skip
-            # marker too, so these data commits were never deploying (same fix as refresh-data.yml).
-            git commit -m "chore: refresh Mexico fiscal data [skip actions]"
-            git push
+            exit 0
           fi
+          # [skip actions] instead of [skip ci]: Cloudflare Pages treats [skip ci] as a skip
+          # marker too, so these data commits were never deploying (same fix as refresh-data.yml).
+          git commit -m "chore: refresh Mexico fiscal data [skip actions]"
+          # main receives commits from the other pages' refresh jobs at any time: rebase onto the
+          # newest main and retry, and fail loudly (owner gets GitHub's e-mail) if it never lands.
+          pushed=0
+          for i in 1 2 3 4; do
+            if git pull --rebase --autostash origin "${GITHUB_REF_NAME}" && git push origin "HEAD:${GITHUB_REF_NAME}"; then pushed=1; break; fi
+            echo "push attempt $i failed; retrying in 20s"; sleep 20
+          done
+          if [ "$pushed" != "1" ]; then echo "::error::data refreshed but could not be pushed after 4 attempts"; exit 1; fi
