@@ -31,6 +31,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `sources.json` | Registry of every source: title, form, URL, accession, `accessed` date | Every other file cites sources by key (`"source": "S-8K-FY2027Q1"`; transcripts `S-CALL-<id>`). Add the source here first. |
 | `quarters.json` | Quarterly GAAP + Non-GAAP income statement, balance-sheet highlights, cash flow, D&A, RPO, dividend declared, guidance issued | USD millions as printed; per-share in USD; `diluted_shares` in millions. The first record is the schema — copy it exactly. `null` = not disclosed, never 0. `revenue_basis` = `legacy_lines` \| `fy2026_lines`; FY2025 quarters carry `revenue_recast_fy2026_basis`. |
 | `fiscal_years.json` | Annual figures per fiscal year: FY2022→FY2026 from the 4Q releases (with Non-GAAP, D&A and the FY2025 recast); FY2017→FY2021 from the FY2019 and FY2021 10-Ks (`gaap.revenue` lines, opex, interest, tax, net income, EPS, shares, cash flow, D&A; `non_gaap: null`); FY2022 revenue lines from the FY2024 10-K | Same conventions; the tie-out sums the four quarters against it where all four exist. |
+| `calendar.json` | Investor calendar: upcoming and last-6-months events (earnings calls, analyst days, conferences) with webcast, release and announcement links; `estimates` = derived windows for the next results date, labelled `derived`; `manual_events` = hand-curated entries with a source (a date named on a call before the IR page lists it), preserved by the script | Written every weekday by `scripts/oracle/fetch-calendar.mjs` from the Oracle IR events list and the date-setting releases; emitted as `data/calendar.js` (`window.ORCL_CALENDAR`) for section 12 and the presentation |
 | `buildout.json` | Capacity delivered (MW) per quarter and fiscal year, capacity secured, GPU utilization / renewals / deliveries, named sites, RPO recognition schedule, funding items; each with source key or URL, page and speaker; `derived: true` marks figures computed from ratios management gave; each free-text site field (`capacity_text`, `customer`, `developer`, `financing`, `oracle_status`, `contracted`, `first_delivery`) has an `_es` counterpart | Curated after each call from the transcript; partner releases and wire reports only for site details Oracle has not disclosed. |
 | `dividends.json` | Each declaration: declared, amount, record, payment, source | Board declares quarterly; no AGM step. |
 | `market_reference.json` | Price snapshot, 10-year Treasury, credit ratings, `debt_instruments` (58 lines from the 10-K footnote) | `price_snapshot` is rewritten by `fetch-market.mjs`; ratings and instruments are curated from agency releases and the 10-K/8-K. |
@@ -171,10 +172,12 @@ generation (ten fiscal years), 09 AI buildout (five-step flow and tracker), 10 R
 credit risk (landscape) · sources and methodology. Sections 04–06 (share price, DCF, relative valuation) are excluded
 on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
 
-Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, source }` once Oracle announces it
-(emitted to `reference.js` → `calendar.nextResults`, shown as *confirmed*); while it is `null` the PDF assumes the
-median lag between quarter-end and release for the same fiscal quarter over the previous three years and labels it
-*assumed*. Clear the date back to `null` after the results are out (the build ignores a date in the past).
+Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, time, timezone, fiscal_period, source }`,
+filled automatically by `scripts/oracle/fetch-calendar.mjs` (weekday workflow) from Oracle IR's events list and the
+"Oracle Sets the Date" release, and emitted to `reference.js` → `calendar.nextResults` (shown as *confirmed*); it is
+`null` until Oracle announces the date and again after the call has taken place, so the PDF then assumes the median lag
+between quarter-end and release for the same fiscal quarter over the previous three years and labels it *assumed*.
+Never hand-edit it. The same file feeds section 12 (Investor calendar) with the full event list and its estimates.
 
 Layout rules the engine enforces: tables shrink their font until they fit (`fitTable`), notes are pushed up rather
 than over the footer (`noteAbove`), a table that would still spill is logged in the console, and glyphs Helvetica lacks

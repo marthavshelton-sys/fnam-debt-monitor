@@ -115,6 +115,7 @@ The material-day email lists every merged PR with its link, so the owner can rev
 |---|---|---|---|
 | Share price, S&P 500, 10-year Treasury, market cap, multiples, DCF price inputs | GitHub Actions `oracle-refresh.yml` → Cloudflare Pages deploy | weekdays 13:30 and 21:45 UTC | No |
 | Filing archive (8-K, 10-Q, 10-K) and `state.json` | same workflow (EDGAR, IR JSON feed fallback) | weekdays 13:30 UTC | No |
+| Investor calendar (section 12): earnings calls, analyst days, conferences, estimated next-results window | same workflow, `scripts/oracle/fetch-calendar.mjs` → `tools/oracle/data/calendar.json` → `data/calendar.js` | weekdays 13:30 UTC | No; a newly announced date is reported in the routine's email |
 | Statements, guidance, Comments, summary, buildout, debt, ratings, events | the cloud routine (`ROUTINE-CLOUD.md`), committing to main under the merge policy above, or pushing a branch when the condition fails | weekdays 14:35 UTC (08:35 Mexico City), from the cloud, no workstation needed | Only for press-sourced facts or a failed guard (the email names the branch) |
 | Transcript-based blocks (call quotes, MW delivered, promises, call-page comments) | this routine once the PDF is in the private `oracle-model` repo | after each call | Yes: supply the transcript PDF |
 | Peers, CDS, consensus | FactSet connector | daily once connected | Yes: authorise the connector |
