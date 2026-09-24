@@ -247,17 +247,17 @@
     const rate = st.stmt === 'bs' ? (obj.fxEop || fxAt(qEndDate(obj))) : ((obj.fxAvg && obj.fxAvg.rate) || avgFx(obj));
     return rate ? v / rate : null;
   }
-  function avgFx(obj) {
+  function avgFx(obj, mode = st.mode) {
     const end = obj.q ? qEndDate(obj) : `${obj.fy}-12-31`;
-    const months = obj.months || (obj.q && st.mode === 'q' ? 3 : st.mode === 'ltm' ? 12 : st.mode === 'fy' ? 12 : obj.q * 3);
+    const months = obj.months || (obj.q && mode === 'q' ? 3 : mode === 'ltm' ? 12 : mode === 'fy' ? 12 : obj.q * 3);
     const start = addDays(end, -30 * months);
     const pts = fxPts.filter((p) => p[0] > start && p[0] <= end);
     return pts.length ? pts.reduce((a, p) => a + p[1], 0) / pts.length : null;
   }
-  function yoyCommentsFor(A, B) {
+  function yoyCommentsFor(A, B, mode = st.mode) {
     if (!A || !B) return null;
-    const yoy = st.mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : st.mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : st.mode === 'fy' ? (B.fy === A.fy - 1) : false;
-    const ck = st.mode === 'q' ? A.id : st.mode === 'ytd' ? `${A.fy}M${A.months}` : st.mode === 'fy' ? A.id : null;
+    const yoy = mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false;
+    const ck = mode === 'q' ? A.id : mode === 'ytd' ? `${A.fy}M${A.months}` : mode === 'fy' ? A.id : null;
     return yoy && ck && CM.periods && CM.periods[ck] ? CM.periods[ck] : null;
   }
   function renderStatements() {
@@ -314,14 +314,14 @@
   }
   // ---- Operating metrics: passengers from the monthly traffic reports; unit revenues = income-statement lines / passengers
   const trByYm = Object.fromEntries(TR.months.map((m) => [m.ym, m]));
-  function periodYms(obj) {
-    const endM = st.mode === 'fy' ? 12 : (obj.q || 4) * 3;
-    const n = st.mode === 'q' ? 3 : st.mode === 'ytd' ? (obj.months || endM) : 12;
+  function periodYms(obj, mode = st.mode) {
+    const endM = mode === 'fy' ? 12 : (obj.q || 4) * 3;
+    const n = mode === 'q' ? 3 : mode === 'ytd' ? (obj.months || endM) : 12;
     const out = []; for (let i = n - 1; i >= 0; i--) { let m = endM - i, y = obj.fy; while (m <= 0) { m += 12; y--; } out.push(`${y}-${String(m).padStart(2, '0')}`); } return out;
   }
-  function opsFor(obj) {
+  function opsFor(obj, mode = st.mode) {
     if (!obj) return null;
-    const ms = periodYms(obj).map((ym) => trByYm[ym]);
+    const ms = periodYms(obj, mode).map((ym) => trByYm[ym]);
     const full = ms.length > 0 && ms.every(Boolean);
     const sum = (f) => (full ? ms.reduce((a, m) => a + (f(m) || 0), 0) : null);
     const dom = sum((m) => m.dom && m.dom.TOTAL), intl = sum((m) => m.intl && m.intl.TOTAL);
@@ -904,7 +904,8 @@
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
   window.addEventListener('afterprint', () => setPrintMode(false));
-  if (el('btnPrint')) el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
+  // The button builds the board presentation PDF (/assets/airport-present.js); the browser print path stays as a fallback.
+  if (el('btnPrint')) el('btnPrint').addEventListener('click', () => { const pr = window[P + '_PRESENT']; if (pr && pr.build) { pr.build(); return; } setPrintMode(true); setTimeout(() => window.print(), 250); });
   if (el('stmtTable')) el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
@@ -924,6 +925,15 @@
   sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
+  // Read-only view of the model for the presentation builder (/assets/airport-present.js): the same data, helpers and
+  // calculations the page renders, so the PDF and the screen can never disagree.
+  window[P + '_MODEL'] = {
+    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays, cls,
+    CFG, FIN, TR, MK, REF, PEERS, GD, CM, SUM, HOME, ADS,
+    Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, sumParts, exRev, fixRatios, niCtrl, ytdFor, ltmFor, lastLTM,
+    px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, homePx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt, nciOf,
+    avgFx, yoyCommentsFor, trByYm, periodYms, opsFor, opsForMode, AIR, CTRY, GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual, fmtFact, betaFromMarket, kdFromDebt,
+  };
   let initial = 'es'; try { initial = localStorage.getItem(CFG.slug + '-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');
   setLang(initial);

@@ -90,11 +90,30 @@ label variant to the regex (or a new row to the catalogue), run
 is set in the Cloudflare Pages project (Settings → Variables and Secrets, Production and Preview);
 optional `OMA_SESSION_SECRET`, `OMA_SESSION_DAYS`; `?logout` ends a session.
 
-## Print as presentation
+## Board presentation (PDF) — the "Presentación (PDF)" button
 
-The 🖨 button next to the language toggle switches the page to print mode (cover with the basis
-dates, one section per page, tables trimmed to the last 8 quarters, closing slide with the sources)
-and opens the print dialog; choose "Save as PDF", landscape.
+The button builds a Letter-size PDF in the browser in one click. The builder is shared by the airport pages
+(`site/assets/airport-present.js`) and extends the generic engine `site/assets/present-core.js` (jsPDF +
+jsPDF-AutoTable vendored in `site/assets/vendor/`; off-screen Chart.js charts; cover, footers, fit-to-page tables,
+`**bold**` runs, Title Case, next-results rule). It reads `window.OMA_MODEL`, the read-only API that
+`airport-model.js` exposes at the end of its IIFE, so every figure is the same calculation the page shows; the prose
+of sections 09 and 10 is read from the page itself. Language follows the ES/EN toggle; the file is named
+`OMA_<ADS ticker>_presentacion_<date>.pdf` / `..._board_presentation_<date>.pdf`. Ctrl/Cmd+P still prints the page.
+
+Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
+their lead clause emphasised) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
+IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBITDA, EV/EBITDA, P/E, passengers,
+next results) · operating metrics and income statement for the latest quarter, LTM and fiscal year (portrait, ex-IFRIC
+12, with the `data/comments.js` comments) · outlook, tariffs and investment commitments (`reference.js` → `regulation`,
+`concessions`; the formal guidance layout switches on automatically when `guidance.js` carries vintages) · traffic by
+airport (latest month with country subtotals, LTM, next traffic report from the median release day) · OMA vs Mexico
+from AFAC (`/aeropuertos/data/traffic.js`, two axes; Mexican airports only for a multi-country group) · 07 leverage,
+08 dividends (with the annual cash-flow table), 09 and 10 (facts, timeline, fact sheet, the page's prose and a
+company chart) · sources and methodology. Sections 04–06 are excluded on purpose.
+
+Next results date: `reference.js` → `calendar.nextResults` once OMA announces it (shown as *confirmed*); otherwise
+assumed from the median lag between quarter-end and release for the same quarter over the previous three years.
+To review the output headlessly, open the page with Playwright, click `#btnPrint`, save the download and rasterise it.
 
 ## Local preview
 
