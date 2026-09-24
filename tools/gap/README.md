@@ -161,6 +161,11 @@ the PDF assumes the median lag between quarter-end and release for the same quar
 labels it *assumed*. The authorship line reads "Powered by <name>"; the name defaults to "Claude (Anthropic)" and can be
 overridden by defining `window.FNAM_MODEL_NAME` before `present.js` loads.
 
+Conventions the data files feed the PDF with: `summary.js` bullets may wrap their two to four most important words in
+`**double asterisks**` (rendered bold on the page and in the PDF) and English section titles are written in Title Case;
+`reference.js` → `fibra.placed` (with `placedDate`) flips the FIBRA page title from "(Not Yet Placed)" once the offering
+completes; timestamps in the PDF are shown in Mexico City time.
+
 Layout rules the builder enforces: tables shrink their font until they fit the page (`fitTable`), notes are pushed up
 rather than over the footer (`noteAbove`), and a table that would still spill is logged in the console. Glyphs that
 Helvetica lacks (−, ≈, →, Δ…) are swapped before drawing. To review the output headlessly, open the page with Playwright,

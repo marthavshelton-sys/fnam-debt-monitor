@@ -22,6 +22,20 @@
   const SWAP = { '−': '-', '≈': '~', '→': '->', '↗': '', 'Δ': 'Chg', '≥': '>=', '≤': '<=', '‑': '-', ' ': ' ', ' ': ' ', '₂': '2', '₆': '6', '⁵': '5', 'β': 'beta', ' ': ' ', ' ': ' ', '…': '...', '✓': 'v', '✘': 'x', '▸': '', '▾': '', '↑': '+', '↓': '-' };
   const tx = (s) => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/[−≈→↗Δ≥≤‑  ₂₆⁵β  …✓✘▸▾↑↓]/g, (c) => SWAP[c]).replace(/\s+/g, ' ').trim();
 
+  // Title Case for English headings: every word capitalised except short connectors; tokens that already carry
+  // capitals (EBITDA, LTM, FY2026, GAP) or digits are left as they are.
+  const SMALL = new Set(['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'from', 'in', 'into', 'nor', 'of', 'on', 'or', 'per', 'the', 'to', 'vs', 'vs.', 'with', 'over', 'onto', 'up', 'y/y']);
+  function titleCase(str) {
+    const words = String(str).split(' ');
+    return words.map((w, i) => {
+      if (!w) return w;
+      const core = w.replace(/^[^A-Za-zÀ-ÿ]+|[^A-Za-zÀ-ÿ]+$/g, '');
+      if (!core || /[A-Z]/.test(core) || /\d/.test(core)) return w;
+      if (i > 0 && i < words.length - 1 && SMALL.has(core.toLowerCase())) return w;
+      return w.replace(/[a-zà-ÿ]/, (c) => c.toUpperCase()).replace(/-([a-z])/g, (m, c) => (SMALL.has(c) ? m : '-' + c.toUpperCase()));
+    }).join(' ');
+  }
+
   function loadScript(src) { return new Promise((res, rej) => { if (document.querySelector(`script[data-src="${src}"]`)) return res(); const s = document.createElement('script'); s.src = src; s.dataset.src = src; s.onload = res; s.onerror = () => rej(new Error('cannot load ' + src)); document.head.appendChild(s); }); }
 
   // ---------- builder ----------
@@ -61,7 +75,7 @@
       this.pages.push(this.cur);
       let y = this.cur.y0;
       if (title) {
-        this.font('bold', 17, ACCENT); this.pdf.text(tx(title), this.cur.x0, y + 15);
+        this.font('bold', 17, ACCENT); this.pdf.text(tx(this.es ? title : titleCase(title)), this.cur.x0, y + 15);
         y += 21;
         if (subtitle) { this.font('normal', 9.5, MUTED); const lines = this.pdf.splitTextToSize(tx(subtitle), this.cur.x1 - this.cur.x0); this.pdf.text(lines, this.cur.x0, y + 10); y += 12 * lines.length + 1; }
         this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.8); this.pdf.line(this.cur.x0, y + 5, this.cur.x1, y + 5); y += 14;
@@ -74,18 +88,29 @@
     text(str, x, y, w, size, style, color, lh) {
       this.font(style, size, color); const lines = this.pdf.splitTextToSize(tx(str), w); this.pdf.text(lines, x, y + size * 0.85); return y + lines.length * size * (lh || 1.3) + 1;
     }
+    // Word-wrap text that may contain **bold** runs into lines of [{ t, b }] words.
+    richLines(text, w, size, style) {
+      const runs = []; let b = false;
+      for (const seg of String(text).split('**')) { if (seg) { const words = tx(seg).split(' ').filter(Boolean); if (words.length && /^[,;.:)]/.test(words[0]) && runs.length) { runs[runs.length - 1] = { ...runs[runs.length - 1], tail: words[0] }; words.shift(); } for (const word of words) runs.push({ t: word, b }); } b = !b; }
+      const width = (r) => { this.pdf.setFont('helvetica', r.b ? 'bold' : style || 'normal'); this.pdf.setFontSize(size); let w2 = this.pdf.getTextWidth(r.t); if (r.tail) { this.pdf.setFont('helvetica', style || 'normal'); w2 += this.pdf.getTextWidth(r.tail); } return w2; };
+      this.pdf.setFont('helvetica', style || 'normal'); this.pdf.setFontSize(size); const sp = this.pdf.getTextWidth(' ');
+      const lines = []; let line = [], used = 0;
+      for (const r of runs) { const rw = width(r); if (line.length && used + sp + rw > w) { lines.push(line); line = []; used = 0; } line.push(r); used += (line.length > 1 ? sp : 0) + rw; }
+      if (line.length) lines.push(line);
+      return { lines, sp };
+    }
     bullets(items, x, y, w, size, opts = {}) {
       const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap;
       for (const it of items) {
-        this.font(opts.style || 'normal', size, opts.color || INK);
-        const lines = this.pdf.splitTextToSize(tx(it), w - ind);
-        this.pdf.text('•', x, y + size * 0.85); this.pdf.text(lines, x + ind, y + size * 0.85);
+        const { lines, sp } = this.richLines(it, w - ind, size, opts.style);
+        this.font(opts.style || 'normal', size, opts.color || INK); this.pdf.text('•', x, y + size * 0.85);
+        lines.forEach((ln, li) => { let cx = x + ind; const yy = y + size * 0.85 + li * size * lh; for (const r of ln) { this.pdf.setFont('helvetica', r.b ? 'bold' : opts.style || 'normal'); this.pdf.setFontSize(size); this.pdf.setTextColor(...(r.b ? INK : opts.color || INK)); this.pdf.text(r.t, cx, yy); cx += this.pdf.getTextWidth(r.t); if (r.tail) { this.pdf.setFont('helvetica', opts.style || 'normal'); this.pdf.setTextColor(...(opts.color || INK)); this.pdf.text(r.tail, cx, yy); cx += this.pdf.getTextWidth(r.tail); } cx += sp; } });
         y += lines.length * size * lh + gap;
       }
       return y;
     }
-    measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; this.font(opts.style || 'normal', size); let h = 0; for (const it of items) h += this.pdf.splitTextToSize(tx(it), w - ind).length * size * lh + gap; return h; }
-    heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(str), x, y + size * 0.85); return y + size * 1.5; }
+    measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
+    heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(this.es ? str : titleCase(str)), x, y + size * 0.85); return y + size * 1.5; }
     note(str, y, size = 7.5, x, w) { return this.text(str, x == null ? this.cur.x0 : x, y, w == null ? this.width() : w, size, 'normal', MUTED, 1.25); }
     measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w).length * size * (lh || 1.3) + 1; }
     // A note that must sit above the footer: placed at `y`, or higher if it would not fit.
@@ -140,7 +165,7 @@
     // ----- shared formatting -----
     n(v, d) { return this.M.fmtN(v, d); } m(v, d) { return this.M.fmtM(v, d); } pct(v, d, s) { return this.M.fmtPct(v, d, s); } x(v, d) { return this.M.fmtX(v, d); } date(iso) { return this.M.fmtDate(iso); }
     longDate(d) { return d.toLocaleDateString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric' }); }
-    stamp(iso) { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'UTC' }) + ' UTC'; }
+    stamp(iso) { if (!iso) return '—'; const d = new Date(iso); return d.toLocaleString(this.es ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'America/Mexico_City' }) + this.T(' hora CDMX', ' CDMX time'); }
     cls(v) { return v == null ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : ''; }
     qlab(q) { return this.M.qLabel(q); }
     // Next results date: confirmed from reference.js (calendar.nextResults) when GAP has announced it; otherwise
@@ -521,8 +546,8 @@
         this.T('La emisión de marzo de 2026 (GAP 26 / GAP 26-2, Ps. 10,718 M) financió el 25% restante de CBX y el capex del PMD 2025–2029; en septiembre se contrataron líneas bancarias por Ps. 8,000 M.', 'The March 2026 issuance (GAP 26 / GAP 26-2, Ps. 10,718 M) funded the remaining 25% of CBX and PMD 2025–2029 capex; Ps. 8,000 M of bank facilities were signed in September.'),
       ], this.cur.x0, yl, wl, 8, { gap: 3, color: MUTED });
       let yr = this.heading(this.T('Instrumentos vigentes', 'Outstanding instruments'), xr, y, 10);
-      const rows = (D2.instruments || []).map((i) => [M.LS(i.name), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
-      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), this.T('Principal (Ps. M)', 'Principal (Ps. M)'), M.t('rate')], body: rows, meta: rows.map(() => ['left', '', '', 'left']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.38 }, 3: { halign: 'left', cellWidth: wr * 0.28 } } });
+      const rows = (D2.instruments || []).map((i) => [M.LS(i.name).replace(/\s*\(Ps\.\s*[\d,.]+\s*M\)\s*$/, ''), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), this.T('Principal (Ps. M)', 'Principal (Ps. M)'), M.t('rate')], body: rows, meta: rows.map(() => ['left', '', '', 'left']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.36 }, 1: { cellWidth: wr * 0.2 }, 2: { cellWidth: wr * 0.17 }, 3: { halign: 'left', cellWidth: wr * 0.27 } }, pad: { top: 2.6, bottom: 2.6, left: 3, right: 3 } });
       yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.instrumentsNote ? '. ' + M.LS(D2.instrumentsNote) : ''), yr + 3, 7, xr, wr);
       const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
@@ -556,15 +581,15 @@
       // ten fiscal years of cash generation and distributions (annual cash-flow statement)
       const fys = M.Y.filter((fy) => fy.cf && fy.cf.cfo != null).slice(-10);
       const z = (v) => (v || 0) + 0;
-      const cf = fys.map((fy) => { const c = fy.cf; const z = (v) => (v || 0) + 0; const cfo = c.cfo / 1000, capex = z(-(c.capex || 0) / 1000), div = z(-(c.dividendsPaid || 0) / 1000), cr = z(-(c.capitalReduction || 0) / 1000), buy = z(-(c.buybacks || 0) / 1000); return { fy: fy.fy, cfo, capex, fcf: cfo - capex, div, cr, buy }; });
-      const cfRows = cf.map((r) => ['FY' + r.fy, this.n(r.cfo), this.n(-r.capex), this.n(r.fcf), this.n(r.div), this.n(r.cr), this.n(r.buy), r.fcf ? this.pct(z(100 * (r.div + r.cr + r.buy) / r.fcf), 0) : '—']);
-      const cfMeta = cf.map((r) => ['left', '', 'neg', 'bold', '', 'muted', '', r.div + r.cr + r.buy > r.fcf ? 'neg' : '']);
+      const cf = fys.map((fy) => { const c = fy.cf; const z = (v) => (v || 0) + 0; const cfo = c.cfo / 1000, capex = z(-(c.capex || 0) / 1000), div = z(-(c.dividendsPaid || 0) / 1000), cr = z(-(c.capitalReduction || 0) / 1000), buy = z(-(c.buybacks || 0) / 1000), pay = z(-((c.bondsPaid || 0) + (c.loansPaid || 0)) / 1000); return { fy: fy.fy, cfo, capex, fcf: cfo - capex, pay, div, cr, buy }; });
+      const cfRows = cf.map((r) => ['FY' + r.fy, this.n(r.cfo), this.n(-r.capex), this.n(r.fcf), this.n(r.pay), this.n(r.div), this.n(r.cr), this.n(r.buy), r.fcf ? this.pct(z(100 * (r.div + r.cr + r.buy) / r.fcf), 0) : '—']);
+      const cfMeta = cf.map((r) => ['left', '', 'neg', 'bold', '', '', 'muted', '', r.div + r.cr + r.buy > r.fcf ? 'neg' : '']);
       const yb = Math.max(yl + h + 6, yr) + 12;
       let y2 = this.heading(this.T(`Flujo operativo, capex, flujo libre y distribuciones · últimos ${cf.length} años fiscales (Ps. millones)`, `Operating cash flow, capex, free cash flow and distributions · last ${cf.length} fiscal years (Ps. million)`), this.cur.x0, yb, 10);
       const W = this.width();
-      const cfNote = this.T('Estado de flujos de efectivo anual de GAP (informe del 4T de cada año): flujo operativo después de impuestos; capex = adquisiciones de mejoras a bienes concesionados y activos fijos; FCF = flujo operativo − capex. Reembolsos de capital: usados en lugar de dividendos en 2021 y 2024. Distribuciones = dividendos + reembolsos + recompras.', 'GAP annual cash-flow statement (4Q report of each year): operating cash flow after taxes; capex = additions to concession improvements and fixed assets; FCF = operating cash flow − capex. Capital reductions were used instead of dividends in 2021 and 2024. Distributions = dividends + capital reductions + buybacks.');
+      const cfNote = this.T('Estado de flujos de efectivo anual de GAP (informe del 4T de cada año): flujo operativo después de impuestos; capex = adquisiciones de mejoras a bienes concesionados y activos fijos; FCF = flujo operativo − capex; pago de deuda = certificados bursátiles y préstamos bancarios amortizados en el año (bruto, sin restar emisiones). Reembolsos de capital: usados en lugar de dividendos en 2021 y 2024. Distribuciones = dividendos + reembolsos + recompras.', 'GAP annual cash-flow statement (4Q report of each year): operating cash flow after taxes; capex = additions to concession improvements and fixed assets; FCF = operating cash flow − capex; debt paydown = certificados bursátiles and bank loans repaid in the year (gross, before new issuance). Capital reductions were used instead of dividends in 2021 and 2024. Distributions = dividends + capital reductions + buybacks.');
       const cfH = this.measureText(cfNote, W, 7.5, 1.25);
-      y2 = this.fitTable({ y: y2, head: [this.T('Año fiscal', 'Fiscal year'), this.T('Flujo operativo', 'Operating cash flow'), this.T('Capex', 'Capital expenditures'), this.T('Flujo libre (FCF)', 'Free cash flow (FCF)'), this.T('Dividendos pagados', 'Dividends paid'), this.T('Reembolsos de capital', 'Capital reductions'), this.T('Recompras', 'Share buybacks'), this.T('Distribuciones / FCF', 'Distributions / FCF')], body: cfRows, meta: cfMeta, cols: { 0: { halign: 'left', cellWidth: W * 0.1 } }, pad: { top: 2, bottom: 2, left: 4, right: 4 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - cfH - 6);
+      y2 = this.fitTable({ y: y2, head: [this.T('Año fiscal', 'Fiscal year'), this.T('Flujo operativo', 'Operating cash flow'), this.T('Capex', 'Capital expenditures'), this.T('Flujo libre (FCF)', 'Free cash flow (FCF)'), this.T('Pago de deuda', 'Debt paydown'), this.T('Dividendos pagados', 'Dividends paid'), this.T('Reembolsos de capital', 'Capital reductions'), this.T('Recompras', 'Share buybacks'), this.T('Distribuciones / FCF', 'Distributions / FCF')], body: cfRows, meta: cfMeta, cols: { 0: { halign: 'left', cellWidth: W * 0.1 } }, pad: { top: 2, bottom: 2, left: 4, right: 4 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - cfH - 6);
       this.noteAbove(cfNote, y2 + 4);
     }
 
@@ -626,7 +651,8 @@
     // ================= 14. 10 FIBRA GAP =================
     fibraPage() {
       const M = this.M, F = M.REF.fibra || {}, R = M.REF.regulation || {};
-      let y = this.page('L', this.T('10 · FIBRA GAP explicada', '10 · FIBRA GAP Explained'), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
+      const placedTag = F.placed ? '' : this.T(' (aún no colocada)', ' (Not Yet Placed)');
+      let y = this.page('L', this.T('10 · FIBRA GAP explicada' + placedTag, '10 · FIBRA GAP Explained' + placedTag), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
       const gap = 24, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       const rows = [[this.T('Vehículo', 'Vehicle'), F.name], [this.T('Clave', 'Ticker'), F.ticker], [this.T('Bolsa', 'Exchange'), F.exchange], [this.T('Monto objetivo', 'Target size'), 'Ps. ' + this.n(F.targetMxnM) + ' M'], ['CBFEs', this.n(F.certificates) + ' × Ps. ' + this.n(F.priceMxn)], [this.T('Participación en cada concesionaria mexicana', 'Stake in each Mexican concessionaire'), this.pct(F.stakePct)], [this.T('Uso de recursos', 'Use of proceeds'), this.T(`PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), principalmente Guadalajara`, `2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), mainly Guadalajara`)]];
       let yl = this.heading(this.T('Ficha', 'Fact sheet'), this.cur.x0, y, 10.5);
