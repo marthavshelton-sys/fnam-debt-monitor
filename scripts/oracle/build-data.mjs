@@ -259,6 +259,9 @@ emit("summary.js", "ORCL_SUMMARY", {
 
 // ---------- buildout.js ----------
 // Oracle's AI-infrastructure buildout as disclosed: capacity delivered, GPU metrics, secured capacity, named sites.
+// Investor calendar: upcoming and recent investor events from Oracle IR, plus labelled estimates (tools/oracle/data/calendar.json).
+const cal = load("calendar.json", null);
+if (cal) emit("calendar.js", "ORCL_CALENDAR", { generated: cal.generated, pastMonths: cal.past_months, sources: cal.sources, events: cal.events, estimates: cal.estimates, manualEvents: cal.manual_events }, "Oracle investor calendar — earnings calls, analyst days and conferences from the IR events page and date-setting releases; estimated windows are labelled derived (tools/oracle/data/calendar.json).");
 const bo = load("buildout.json", null);
 if (bo) {
   const withSrc = (o) => ({ ...o, sourceRef: o.source ? src(o.source) : null });

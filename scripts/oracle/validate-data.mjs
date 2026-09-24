@@ -151,6 +151,8 @@ if (q?.quarters?.length) {
   const latest = q.quarters.slice().sort((a, b) => (a.period_end < b.period_end ? 1 : -1))[0];
   if (daysSince(latest.release_date) > 100) stale.push(`Latest quarter ${latest.id} released ${latest.release_date} — a newer release is likely due`);
 }
+const cal = loadJSON("calendar.json");
+if (cal?.generated && daysSince(cal.generated) > 10) stale.push(`Investor calendar last refreshed ${cal.generated}`);
 const st = loadJSON("state.json");
 const pendingCount = (st?.pending_extraction || []).filter((p) => p.status === "pending").length;
 if (pendingCount) stale.push(`${pendingCount} archived filing(s) pending extraction (tools/oracle/data/state.json)`);

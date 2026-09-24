@@ -12,6 +12,7 @@
   const CM = window.ORCL_COMMENTS || { periods: {} };
   const SUM = window.ORCL_SUMMARY || { sections: [] };
   const CDS = window.ORCL_CDS || { tenor: 5, recoveryPct: 40, points: [] };
+  const CAL = window.ORCL_CALENDAR || null;
 
   // ---------------- i18n ----------------
   let LANG = 'es';
@@ -185,6 +186,7 @@
         const tr = /^10-year Treasury as of (\S+)/.exec(s);
         if (m) out.push(es ? `${m[1]} reporte(s) nuevo(s) archivado(s), pendiente(s) de extracción (siguiente corrida de la rutina)` : `${m[1]} new filing(s) archived, pending extraction (next routine run)`);
         else if (tr) out.push(es ? `Tesoro a 10 años al ${fmtDate(tr[1])}` : `10-year Treasury as of ${fmtDate(tr[1])}`);
+        else if (/^Investor calendar last refreshed (\S+)/.test(s)) { const d = /^Investor calendar last refreshed (\S+)/.exec(s)[1]; out.push(es ? `calendario del inversionista sin actualizar desde el ${fmtDate(d)}` : `investor calendar not refreshed since ${fmtDate(d)}`); }
         // "Share price" and "Latest quarter" are already covered by the client-side checks above.
       }
     }
@@ -1074,7 +1076,37 @@
     html('rpoSrc', `${t('src')}: ${R.quoteSource ? link(R.quoteSource, (LANG === 'es' ? `Formulario 10-Q de Oracle (${fmtDate(R.quoteSource.date)})` : R.quoteSource.title) + ' ↗') : ''} · ${relLink()} (RPO) · ${R.latestQuarter ? `${LANG === 'es' ? 'al' : 'as of'} ${R.latestQuarter}` : asOfQ()}`);
   }
 
-  // ================= 11 METHOD / SOURCES =================
+  // ================= 12 INVESTOR CALENDAR =================
+  function renderCalendar() {
+    if (!CAL || !el('calUpcoming')) return;
+    const es = LANG === 'es';
+    const todayIso = new Date().toISOString().slice(0, 10);
+    const fmtDT = (iso, tz) => { const d = new Date(iso); if (isNaN(d)) return { date: '—', ct: '', mx: '' }; const z = tz || 'America/Chicago'; return { date: d.toLocaleDateString(locale(), { weekday: 'short', day: 'numeric', month: 'short', year: 'numeric', timeZone: z }), ct: d.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit', timeZone: z }), mx: d.toLocaleTimeString(locale(), { hour: '2-digit', minute: '2-digit', timeZone: 'America/Mexico_City' }) }; };
+    const tzShort = { 'America/Chicago': 'CT', 'America/New_York': 'ET', 'America/Los_Angeles': 'PT', 'America/Denver': 'MT' };
+    const typeLabel = { earnings_call: es ? 'Llamada de resultados' : 'Earnings call', analyst_day: es ? 'Día del analista / inversionista' : 'Analyst / investor day', conference: es ? 'Conferencia' : 'Conference', annual_meeting: es ? 'Asamblea anual' : 'Annual meeting', other: es ? 'Evento' : 'Event' };
+    const dateCell = (e) => { if (e.all_day || !String(e.start).includes('T')) return `<b>${fmtDate(String(e.start).slice(0, 10))}</b><span class="sub">${es ? 'hora por anunciar' : 'time to be announced'}</span>`; const t = fmtDT(e.start, e.timezone); return `<b>${t.date}</b><span class="sub">${t.ct} ${tzShort[e.timezone] || ''} · ${t.mx} ${es ? 'CDMX' : 'Mexico City'}</span>`; };
+    const linkCell = (e) => { const Lk = e.links || {}; const parts = []; if (Lk.webcast) parts.push(extLink(Lk.webcast, 'Webcast')); if (Lk.event) parts.push(extLink(Lk.event, es ? 'evento (RI)' : 'event (IR)')); if (Lk.announcement) parts.push(extLink(Lk.announcement, es ? 'anuncio de la fecha' : 'date announcement')); if (Lk.release) parts.push(extLink(Lk.release, es ? 'comunicado' : 'release')); for (const d of Lk.documents || []) parts.push(extLink(d.url, d.title)); if (Lk.transcript_in_model) parts.push(`<span class="muted">${es ? 'transcripción en el modelo' : 'transcript in the model'}</span>`); if (!Lk.webcast && !Lk.event && !Lk.release && e.source && e.source.title) parts.push(`<span class="muted" title="${String(e.source.note || '').replace(/"/g, '&quot;')}">${e.source.title}</span>`); return parts.join(' · ') || '—'; };
+    const row = (e, cls) => `<tr class="${cls || ''}"><td>${dateCell(e)}</td><td><b>${es ? (e.title_es || e.title) : e.title}</b>${e.location ? `<span class="sub">${e.location}</span>` : ''}${e.fiscal_period ? `<span class="sub">${qLabelId(e.fiscal_period.replace(/^FY/, ''))}</span>` : ''}</td><td>${typeLabel[e.type] || typeLabel.other}${e.status === 'announced_on_call' ? `<span class="sub">${es ? 'anunciado en la llamada; aún no publicado en la página de eventos de RI' : 'announced on the call; not yet on the IR events page'}</span>` : ''}</td><td class="small">${linkCell(e)}</td></tr>`;
+    const manual = (CAL.manualEvents || []).filter((m) => m.start && !m.superseded_by).map((m) => ({ ...m, status: m.status || 'announced_on_call', all_day: m.all_day || !String(m.start).includes('T') }));
+    const upcoming = [...(CAL.events || []).filter((e) => e.status === 'confirmed'), ...manual.filter((m) => String(m.start).slice(0, 10) >= todayIso)].sort((a, b) => String(a.start).localeCompare(String(b.start)));
+    const past = [...(CAL.events || []).filter((e) => e.status === 'past'), ...manual.filter((m) => String(m.start).slice(0, 10) < todayIso)].sort((a, b) => String(b.start).localeCompare(String(a.start)));
+    const ests = CAL.estimates || [];
+    const estRows = ests.map((s) => `<tr class="est"><td><b>${fmtDate(s.window_start)} – ${fmtDate(s.window_end)}</b><span class="sub">${es ? 'ventana estimada' : 'estimated window'}</span></td><td><b>${es ? s.label_es : s.label_en}</b><span class="sub">${es ? s.basis_es : s.basis_en}</span></td><td>${typeLabel.earnings_call}<span class="sub">${es ? 'estimación, no anunciada por Oracle' : 'estimate, not announced by Oracle'}</span></td><td class="small">${extLink(s.source.url, es ? 'comunicados de Oracle (RI)' : 'Oracle press releases (IR)')}</td></tr>`).join('');
+    const head = `<thead><tr><th>${es ? 'Fecha' : 'Date'}</th><th>${es ? 'Evento' : 'Event'}</th><th>${es ? 'Tipo' : 'Type'}</th><th>${es ? 'Enlaces' : 'Links'}</th></tr></thead>`;
+    html('calUpcoming', upcoming.length || estRows ? `<table class="cal">${head}<tbody>${upcoming.map((e) => row(e)).join('')}${estRows}</tbody></table>` : `<div class="notice">${es ? 'Oracle no ha publicado eventos próximos.' : 'Oracle has not posted upcoming events.'}</div>`);
+    html('calPast', past.length ? `<table class="cal">${head}<tbody>${past.map((e) => row(e, 'past')).join('')}</tbody></table>` : `<div class="notice">${es ? 'Sin eventos en los últimos seis meses.' : 'No events in the last six months.'}</div>`);
+    const next = upcoming[0]; const nextEarn = upcoming.find((e) => e.type === 'earnings_call'); const est = ests[0];
+    const dateOf = (e) => (e.all_day || !String(e.start).includes('T') ? fmtDate(String(e.start).slice(0, 10)) : fmtDT(e.start, e.timezone).date);
+    html('calStats', [
+      next && { v: dateOf(next), l: `${es ? 'próximo evento' : 'next event'} · ${es ? (next.title_es || next.title) : next.title}` },
+      nextEarn ? { v: dateOf(nextEarn), l: `${es ? 'próximos resultados' : 'next results'} · ${qLabelId(String(nextEarn.fiscal_period || '').replace(/^FY/, ''))}` } : est && { v: `${fmtDate(est.window_start)} – ${fmtDate(est.window_end)}`, l: `${es ? 'próximos resultados, ventana estimada' : 'next results, estimated window'} · ${es ? est.label_es : est.label_en}` },
+      { v: String(past.length), l: es ? 'eventos en los últimos seis meses' : 'events in the last six months' },
+    ].filter(Boolean).map((s) => `<div class="stat"><div class="v">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
+    el('calCap').textContent = es ? `Horas en la zona del evento (CT = Chicago) y en la Ciudad de México. Fuente: página de eventos de Relación con Inversionistas de Oracle y comunicados de fijación de fecha, consultados el ${fmtDate(CAL.generated)}; se actualiza cada día hábil con la cosecha de EDGAR.` : `Times in the event's zone (CT = Chicago) and in Mexico City. Source: Oracle's Investor Relations events page and date-setting releases, fetched ${fmtDate(CAL.generated)}; refreshed every weekday with the EDGAR harvest.`;
+    html('calSrc', `${t('src')}: ${(CAL.sources || []).map((s) => extLink(s.url, s.title)).join(' · ')} · ${es ? 'consultado el' : 'fetched'} ${fmtDate(CAL.generated)} · ${es ? 'las ventanas estimadas se derivan de las fechas de publicación de años anteriores (data/quarters.json) y se sustituyen por la fecha confirmada en cuanto Oracle la anuncia' : 'estimated windows derive from prior years\' release dates (data/quarters.json) and are replaced by the confirmed date as soon as Oracle announces it'}`);
+  }
+
+  // ================= 13 METHOD / SOURCES =================
   function renderMethod() {
     const rows = [
       [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'días hábiles, tras cada 8-K' : 'weekdays, after each 8-K', LANG === 'es' ? 'GitHub Actions cosecha los 8-K de SEC EDGAR; las cifras entran a tools/oracle/data/quarters.json y pasan scripts/oracle/validate-data.mjs antes de publicarse' : 'GitHub Actions harvests the 8-Ks from SEC EDGAR; figures enter tools/oracle/data/quarters.json and pass scripts/oracle/validate-data.mjs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
@@ -1085,6 +1117,7 @@
       [LANG === 'es' ? 'Referencia: acciones, deuda, calificaciones, expansión de IA, RPO, supuestos DCF' : 'Reference: shares, debt, ratings, AI buildout, RPO, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
       [LANG === 'es' ? 'CDS a 5 años (riesgo de crédito)' : '5-year CDS (credit risk)', LANG === 'es' ? 'pendiente · diario cuando esté conectado' : 'pending · daily once connected', 'FactSet → data/cds.js', CDS.updatedAt ? fmtDate(CDS.updatedAt) : '—'],
+      [LANG === 'es' ? 'Calendario del inversionista' : 'Investor calendar', LANG === 'es' ? 'días hábiles, con la cosecha de EDGAR' : 'weekdays, with the EDGAR harvest', LANG === 'es' ? 'página de eventos de RI y comunicados de fecha → data/calendar.js' : 'IR events page and date-setting releases → data/calendar.js', CAL && CAL.generated ? fmtDate(CAL.generated) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th>${t('block')}</th><th>${t('cadence')}</th><th>${t('mechanism')}</th><th>${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     const srcs = [
@@ -1102,7 +1135,7 @@
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b)); onChange(b.dataset.v); })); }
   function renderAll() {
     chartDefaults();
-    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderAi(); renderBuildoutFlow(); renderCredit(); renderMethod();
+    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderAi(); renderBuildoutFlow(); renderCredit(); renderCalendar(); renderMethod();
   }
   function setLang(lang) {
     LANG = lang;
