@@ -1,0 +1,54 @@
+{
+  "_comment": "Registry of Mexican carriers as they appear in AFAC's monthly airline statistics (sheet PAXREG etc.). `match` is a case-insensitive regex tested against the AFAC row label; `hubs` drive the estimated route view when an airline publishes no route feed; `wiki` names the English Wikipedia page whose destination table lists the airports served; `color` is the chart/map colour (light, dark).",
+  "carriers": [
+    {"id": "AM",  "name": "Aeroméxico",          "short": "Aeroméxico",    "match": "^aerom[eé]xico\\s*\\(aerov[ií]as|^aerom[eé]xico\\s*$", "iata": "AM", "type": "pax", "hubs": ["MEX"], "focus": ["MTY", "GDL"], "wiki": "List_of_Aeroméxico_destinations", "wikiTable": 0, "ir": "am", "color": ["#0b2b5b", "#6f9be0"]},
+    {"id": "AMC", "name": "Aeroméxico Connect",  "short": "AM Connect",    "match": "aerolitoral|aerom[eé]xico\\s*connect", "iata": "5D", "type": "pax", "hubs": ["MEX", "MTY"], "focus": ["GDL"], "wiki": "List_of_Aeroméxico_destinations", "wikiTable": 1, "color": ["#4a6fa5", "#9db8ea"]},
+    {"id": "VOI", "name": "Volaris",             "short": "Volaris",       "match": "^volaris\\s*\\(conces|^volaris\\s*$", "iata": "Y4", "type": "pax", "hubs": ["GDL", "TIJ", "MEX", "CUN"], "feed": "volaris", "ir": "voi", "color": ["#7a1fa2", "#c48be0"]},
+    {"id": "VIV", "name": "Viva",                "short": "Viva",          "match": "viva\\s*aerobus|aeroenlaces|^viva\\b", "iata": "VB", "type": "pax", "hubs": ["MTY", "MEX", "CUN", "GDL"], "feed": "viva", "wiki": "List_of_Viva_destinations", "wikiTable": 0, "ir": "viv", "color": ["#0f8a5f", "#5fc9a0"]},
+    {"id": "MXA", "name": "Mexicana de Aviación", "short": "Mexicana",     "match": "mexicana\\s*\\(aerol[ií]nea del estado|^mexicana\\b", "iata": "MXA", "type": "pax", "hubs": ["NLU"], "wiki": "Mexicana_de_Aviación_(2023–present)", "wikiTable": 0, "color": ["#b3261e", "#f08a80"]},
+    {"id": "TAR", "name": "TAR Aerolíneas",      "short": "TAR",           "match": "transportes a[eé]reos regionales|\\(tar\\)", "iata": "YQ", "type": "pax", "hubs": ["QRO"], "wiki": "TAR_Aerolíneas", "wikiTable": 1, "color": ["#c2661e", "#f0995a"]},
+    {"id": "AER", "name": "Aerus",               "short": "Aerus",         "match": "^aerus\\b", "iata": "6R", "type": "pax", "hubs": ["MTY"], "wiki": "Aerus_(airline)", "wikiTable": 0, "color": ["#1f6f8b", "#5cb3d1"]},
+    {"id": "GMT", "name": "Magnicharters",       "short": "Magnicharters", "match": "magnicharters|grupo a[eé]reo monterrey", "iata": "UJ", "type": "pax", "hubs": ["MEX", "MTY"], "wiki": "Magnicharters", "wikiTable": 1, "color": ["#b8912a", "#e2c15f"]},
+    {"id": "4O",  "name": "Interjet",            "short": "Interjet",      "match": "^interjet|abc aerol[ií]neas", "iata": "4O", "type": "pax", "active": false, "color": ["#6b6b6b", "#b0b0b0"]},
+    {"id": "VW",  "name": "Aeromar",             "short": "Aeromar",       "match": "^aeromar\\b", "iata": "VW", "type": "pax", "active": false, "color": ["#8a8a8a", "#c8c8c8"]},
+    {"id": "A7",  "name": "Calafia Airlines",    "short": "Calafia",       "match": "calafia", "iata": "A7", "type": "pax", "active": false, "color": ["#9a9a9a", "#d0d0d0"]},
+    {"id": "6R",  "name": "Aerounión",           "short": "Aerounión",     "match": "aerouni[oó]n|aerotransportes de carga", "iata": "6R", "type": "cargo", "color": ["#777", "#aaa"]},
+    {"id": "E7",  "name": "Estafeta Carga Aérea","short": "Estafeta",      "match": "^estafeta", "iata": "E7", "type": "cargo", "color": ["#777", "#aaa"]},
+    {"id": "M7",  "name": "Mas Air",             "short": "Mas Air",       "match": "^mas air|m[aá]s de carga", "iata": "M7", "type": "cargo", "color": ["#777", "#aaa"]}
+  ],
+  "regions": {
+    "Estadounidenses": {"id": "US",    "es": "Estados Unidos",          "en": "United States"},
+    "Canadienses":     {"id": "CA",    "es": "Canadá",                  "en": "Canada"},
+    "Centro y Sudamericanas": {"id": "LATAM", "es": "Centro y Sudamérica", "en": "Central and South America"},
+    "Europeas":        {"id": "EU",    "es": "Europa",                  "en": "Europe"},
+    "Asiaticas":       {"id": "ASIA",  "es": "Asia y Medio Oriente",    "en": "Asia and Middle East"},
+    "Africanas":       {"id": "AFR",   "es": "África",                  "en": "Africa"}
+  },
+  "odNames": {
+    "_comment": "Origin-destination city names in AFAC's sase workbooks -> IATA code, where the automatic match against airports.json fails.",
+    "MEXICO": "MEX", "SANTA LUCIA": "NLU", "SANTA LUCÍA": "NLU", "DEL BAJIO": "BJX", "SAN JOSE DEL CABO": "SJD", "SAN JOSÉ DEL CABO": "SJD",
+    "IXTAPA ZIHUATANEJO": "ZIH", "IXTEPEC, OAXACA": "IZT", "CIUDAD JUAREZ": "CJS", "CIUDAD OBREGON": "CEN", "CIUDAD VICTORIA": "CVM",
+    "CIUDAD DEL CARMEN": "CME", "TULUM": "TQO", "SALTILLO": "SLW", "PIEDRAS NEGRAS": "PDS", "CHICHEN ITZA": "CZA", "LAZARO CARDENAS": "LZC",
+    "PUERTO PENASCO": "PPE", "SAN CRISTOBAL DE LAS CASAS": "SZT", "TUXTLA GUTIERREZ": "TGZ", "MERIDA": "MID", "CANCUN": "CUN", "CULIACAN": "CUL",
+    "MAZATLAN": "MZT", "TORREON": "TRC", "QUERETARO": "QRO", "LEON": "BJX", "GUANAJUATO": "BJX"
+  },
+  "extraAirports": [
+    {"code": "SLW", "es": "Saltillo", "en": "Saltillo", "st": "CO", "lat": 25.5495, "lon": -100.9287},
+    {"code": "PDS", "es": "Piedras Negras", "en": "Piedras Negras", "st": "CO", "lat": 28.6274, "lon": -100.5353},
+    {"code": "LZC", "es": "Lázaro Cárdenas", "en": "Lázaro Cárdenas", "st": "MI", "lat": 18.0017, "lon": -102.2206}
+  ],
+  "wikiCities": {
+    "_comment": "Wikipedia city/airport names -> IATA for Mexican airports whose names do not match airports.json automatically.",
+    "mexico city": "MEX", "ciudad de mexico": "MEX", "zumpango": "NLU", "santa lucia": "NLU", "felipe angeles": "NLU", "los cabos": "SJD", "san jose del cabo": "SJD",
+    "leon": "BJX", "guanajuato": "BJX", "bajio": "BJX", "silao": "BJX", "ixtapa": "ZIH", "zihuatanejo": "ZIH", "ixtapa-zihuatanejo": "ZIH", "ixtapa/zihuatanejo": "ZIH",
+    "tuxtla gutierrez": "TGZ", "angel albino corzo": "TGZ", "ciudad juarez": "CJS", "ciudad obregon": "CEN", "ciudad del carmen": "CME", "ciudad victoria": "CVM",
+    "nuevo laredo": "NLD", "san luis potosi": "SLP", "puerto vallarta": "PVR", "la paz": "LAP", "los mochis": "LMM", "san cristobal de las casas": "SZT",
+    "puerto escondido": "PXM", "puerto penasco": "PPE", "monterrey": "MTY", "del norte": "NTR", "chichen itza": "CZA", "chichen-itza": "CZA", "tulum": "TQO",
+    "toluca": "TLC", "queretaro": "QRO", "puebla": "PBC", "saltillo": "SLW", "piedras negras": "PDS", "lazaro cardenas": "LZC", "guadalajara": "GDL",
+    "cancun": "CUN", "merida": "MID", "tijuana": "TIJ", "mexicali": "MXL", "hermosillo": "HMO", "chihuahua": "CUU", "culiacan": "CUL", "mazatlan": "MZT",
+    "durango": "DGO", "torreon": "TRC", "zacatecas": "ZCL", "aguascalientes": "AGU", "morelia": "MLM", "uruapan": "UPN", "manzanillo": "ZLO", "colima": "CLQ",
+    "tepic": "TPQ", "acapulco": "ACA", "oaxaca": "OAX", "huatulco": "HUX", "veracruz": "VER", "minatitlan": "MTT", "villahermosa": "VSA", "tapachula": "TAP",
+    "campeche": "CPE", "chetumal": "CTM", "cozumel": "CZM", "palenque": "PQM", "reynosa": "REX", "matamoros": "MAM", "tampico": "TAM", "loreto": "LTO",
+    "guaymas": "GYM", "nogales": "NOG", "poza rica": "PAZ", "tamuin": "TSL", "tehuacan": "TCN", "cuernavaca": "CVJ", "ixtepec": "IZT", "creel": "CEL"
+  }
+}
