@@ -148,11 +148,38 @@ the Pages project → **Settings → Variables and Secrets**, for **Production a
 | `ORACLE_SESSION_SECRET` | no | Random string signing the session cookie; defaults to a hash of the password. |
 | `ORACLE_SESSION_DAYS` | no | Session length in days (default 30). Append `?logout` to any /oracle URL to end a session. |
 
-## Print as presentation
+## Board presentation (PDF) — the "Presentación (PDF)" button
 
-The 🖨 button next to the language toggle switches the page into print mode (light theme, tables trimmed to the
-last 8 quarters, fixed-size charts, a cover with the basis dates and a confidentiality line, a closing slide with
-the sources) and opens the browser's print dialog; choose "Save as PDF", Letter landscape. Ctrl/Cmd+P does the same.
+`site/oracle/present.js` builds a Letter-size PDF in the browser in one click. It extends the shared engine
+`site/assets/present-core.js` (jsPDF + jsPDF-AutoTable vendored in `site/assets/vendor/`; charts drawn off-screen with
+the page's Chart.js; cover, footers, tables, `**bold**` runs, Title Case, next-results rule) and reads
+`window.ORCL_MODEL`, the read-only API that `app.js` exposes at the end of its IIFE, so every figure is the same
+calculation the page shows. Language follows the ES/EN toggle; the file is named
+`Oracle_ORCL_presentacion_<date>.pdf` / `Oracle_ORCL_board_presentation_<date>.pdf`. The browser print path
+(Ctrl/Cmd+P) still works as a fallback.
+
+Pages (16): cover (landscape, unnumbered) · executive summary (`data/summary.js`, two columns auto-fitted to one page;
+bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with fetch timestamp in CDMX
+time, market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
+margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
+500 rebased and 3-year price) · operating metrics, income statement of the latest quarter, LTM and latest fiscal year
+(portrait, GAAP with the Non-GAAP and EBITDA blocks, revenue lines on the FY2026 basis via Oracle's recast, with the
+`data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
+FY targets initial vs latest, track record and vintages (landscape) · RPO, capex and cash flow by quarter (portrait) ·
+AI buildout sites and capacity (portrait, `data/buildout.js`) · sections 07 leverage, 08 dividends and cash
+generation (ten fiscal years), 09 AI buildout (five-step flow and tracker), 10 RPO explained, 11 debt detail and
+credit risk (landscape) · sources and methodology. Sections 04–06 (share price, DCF, relative valuation) are excluded
+on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
+
+Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, source }` once Oracle announces it
+(emitted to `reference.js` → `calendar.nextResults`, shown as *confirmed*); while it is `null` the PDF assumes the
+median lag between quarter-end and release for the same fiscal quarter over the previous three years and labels it
+*assumed*. Clear the date back to `null` after the results are out (the build ignores a date in the past).
+
+Layout rules the engine enforces: tables shrink their font until they fit (`fitTable`), notes are pushed up rather
+than over the footer (`noteAbove`), a table that would still spill is logged in the console, and glyphs Helvetica lacks
+(−, ≈, →, ≥…) are swapped before drawing. To review the output headlessly, open the page with Playwright, click
+`#btnPrint`, save the download and rasterise it (PyMuPDF).
 
 ## Data quality page
 

@@ -1,0 +1,8 @@
+{
+  "_comment": "Oracle's announced date for its next earnings release, once the company posts it on investor.oracle.com or in an 8-K. Leave nextResults null until announced; the page and the board presentation then assume the date from the median release lag of the same fiscal quarter in the last three years and label it 'assumed'. Clear it back to null after the results are out (the build only uses a date that is still in the future).",
+  "nextResults": null,
+  "example": {
+    "date": "2026-12-10",
+    "source": "https://investor.oracle.com/events-and-presentations/default.aspx"
+  }
+}

@@ -143,9 +143,11 @@ claude.ai/code.
 
 ## Board presentation (PDF) — the "Presentación (PDF)" button
 
-`site/gap/present.js` builds a Letter-size PDF in the browser in one click (jsPDF + jsPDF-AutoTable, vendored in
-`site/assets/vendor/`; charts drawn off-screen with the page's Chart.js). It reads `window.GAP_MODEL`, the read-only API
-that `app.js` exposes at the end of its IIFE, so every figure is the same calculation the page shows. Language follows
+`site/gap/present.js` builds a Letter-size PDF in the browser in one click. It extends the shared engine
+`site/assets/present-core.js` (jsPDF + jsPDF-AutoTable vendored in `site/assets/vendor/`; charts drawn off-screen with
+the page's Chart.js; cover, footers, tables, `**bold**` runs, Title Case, next-results rule — the same engine every
+company presentation uses) and reads `window.GAP_MODEL`, the read-only API that `app.js` exposes at the end of its
+IIFE, so every figure is the same calculation the page shows. Language follows
 the ES/EN toggle; the file is named `GAP_PAC_presentacion_<date>.pdf` / `GAP_PAC_board_presentation_<date>.pdf`.
 
 Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · tear sheet
