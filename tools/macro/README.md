@@ -7,8 +7,11 @@ One page, two languages; the page is served at `site/macro/index.html`.
 
 ## How it stays current
 
-`.github/workflows/macro-refresh.yml` runs at 12:50, 14:05 and 20:05 UTC on
-weekdays (and on demand from the Actions tab). It:
+`.github/workflows/macro-refresh.yml` runs every day: at 12:50, 14:05 and
+20:05 UTC on weekdays, at 15:05 UTC on Saturday and Sunday (the agencies
+publish nothing on weekends, so those runs almost always commit nothing, but
+they catch corrections and late postings), and on demand from the Actions
+tab. It:
 
 1. runs every `process_*.ps1` here, pulling fresh data from BLS, BEA, FRED,
    Census, Treasury FiscalData, the University of Michigan, and the New York
