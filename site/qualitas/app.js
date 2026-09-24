@@ -390,18 +390,18 @@
     const rate = st.stmt === 'bs' ? fxAt(qEndDate(obj)) : avgFx(obj);
     return rate ? v / rate : null;
   }
-  function avgFx(obj) {
+  function avgFx(obj, mode = st.mode) {
     const end = qEndDate(obj);
-    const months = st.mode === 'q' ? 3 : st.mode === 'ytd' ? (obj.months || obj.q * 3) : 12;
+    const months = mode === 'q' ? 3 : mode === 'ytd' ? (obj.months || obj.q * 3) : 12;
     const start = addDays(end, -30 * months);
     const pts = fxPts.filter((p) => p[0] > start && p[0] <= end);
     return pts.length ? pts.reduce((a, p) => a + p[1], 0) / pts.length : null;
   }
-  function commentsFor(A, B) {
+  function commentsFor(A, B, mode = st.mode) {
     if (!A || !B) return null;
-    const yoy = st.mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : st.mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : st.mode === 'fy' ? (B.fy === A.fy - 1) : false;
+    const yoy = mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false;
     if (!yoy) return null;
-    const ck = st.mode === 'q' ? A.id : st.mode === 'ytd' ? `${A.fy}M${A.months}` : A.id;
+    const ck = mode === 'q' ? A.id : mode === 'ytd' ? `${A.fy}M${A.months}` : A.id;
     const P = CM.periods || {};
     const c = P[ck] || null;
     // balance-sheet comments are keyed by the period-end quarter
@@ -457,14 +457,14 @@
     renderOps(A, B, C); renderPremMix(); renderCombinedChart(); renderMargins(); renderKpiTable(); updateHash();
   }
   // ---- Operating metrics: insured units (period-end) and written premiums by line from the reports.
-  function opsFor(obj) {
+  function opsFor(obj, mode = st.mode) {
     if (!obj) return null;
     const end = opsById[obj.qid]; if (!end && !obj.is) return null;
     const units = (end && end.units) || {};
     let prem = null;
-    if (st.mode === 'q') prem = end && end.premiums;
-    else if (st.mode === 'ytd') prem = end && (obj.months === 3 ? end.premiums : end.premiumsYtd);
-    else if (st.mode === 'fy') prem = end && end.premiumsYtd;
+    if (mode === 'q') prem = end && end.premiums;
+    else if (mode === 'ytd') prem = end && (obj.months === 3 ? end.premiums : end.premiumsYtd);
+    else if (mode === 'fy') prem = end && end.premiumsYtd;
     else { const es = (obj.covers || []).map((id) => opsById[id]); if (es.every((e) => e && e.premiums && e.premiums.total)) prem = sumParts(es.map((e) => e.premiums)); }
     prem = prem || {};
     const u = units.total || (obj.kpi && obj.kpi.units) || null;
@@ -1124,7 +1124,8 @@
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
   window.addEventListener('afterprint', () => setPrintMode(false));
-  el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
+  // The button builds the board presentation PDF (present.js); the browser print path stays as a fallback.
+  el('btnPrint').addEventListener('click', () => { if (window.Q_PRESENT && window.Q_PRESENT.build) { window.Q_PRESENT.build(); return; } setPrintMode(true); setTimeout(() => window.print(), 250); });
   const toggleGroup = (g) => { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); const again = el('stmtTable').querySelector(`[data-g="${g.dataset.g}"]`); if (again) again.focus(); };
   el('stmtTable').addEventListener('click', (e) => { if (e.target.closest('.gl')) return; const g = e.target.closest('[data-g]'); if (g) toggleGroup(g); });
   el('stmtTable').addEventListener('keydown', (e) => { if (e.key !== 'Enter' && e.key !== ' ') return; const g = e.target.closest && e.target.closest('[data-g]'); if (g && e.target === g) { e.preventDefault(); toggleGroup(g); } });
@@ -1145,6 +1146,15 @@
   if ('IntersectionObserver' in window) { const io = new IntersectionObserver((ents) => { for (const en of ents) if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }, { rootMargin: '-40% 0px -55% 0px' }); sections.forEach((s) => io.observe(s)); }
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
+  // Read-only view of the model for the presentation builder (present.js): the same data, helpers and
+  // calculations the page renders, so the PDF and the screen can never disagree.
+  window.Q_MODEL = {
+    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtPp, fmtX, fmtDate, qLabel, ytdLabel, cls, clsInv, addDays,
+    FIN, OPS, MK, REF, PEERS, GD, CM, SUM, CONS, GL, TICK,
+    Q, Y, YTD, lastQ, qById, ytdById, opsById, prevQid, yoyQid, sumParts, ratiosFrom, pointKpi, sharesOf, quarterObj, ytdFor, ltmFor, fyObj, exVat, lastLTM, lastYTD,
+    px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, qPx, lastPx, sharesIssued, sharesOut, qEndDate, bvps, divs12m, epsLtm, opsLast,
+    avgFx, commentsFor, quotesFor, opsFor, G_METRICS, gLabel, gIsCost, gRangeTxt, vintagesSorted, gActual, gStatus, betaFromMarket,
+  };
   // ---------------- init ----------------
   let initLang = 'es';
   try { initLang = localStorage.getItem('q-lang') || 'es'; } catch (e) { /* ignore */ }

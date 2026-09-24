@@ -293,11 +293,11 @@
     const rate = st.stmt === 'bs' || def.ops ? fxAt(qEndDate(obj)) : avgFx(obj);
     return rate ? v / rate : null;
   }
-  function commentsFor(A, B) {
+  function commentsFor(A, B, mode = st.mode) {
     if (!A || !B) return null;
-    const yoy = st.mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : st.mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : st.mode === 'fy' ? (B.fy === A.fy - 1) : false;
+    const yoy = mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false;
     const P = CM.periods || {};
-    const ck = st.mode === 'q' ? A.qid : st.mode === 'ytd' ? `${A.fy}M${A.months}` : st.mode === 'fy' ? A.id : null;
+    const ck = mode === 'q' ? A.qid : mode === 'ytd' ? `${A.fy}M${A.months}` : mode === 'fy' ? A.id : null;
     const c = yoy && ck ? P[ck] || null : null;
     const hasLines = !!(c && c.lines && Object.keys(c.lines).length);
     // Call quotes belong to the period shown in column A whatever the comparison (they describe that period).
@@ -1000,7 +1000,8 @@
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
   window.addEventListener('afterprint', () => setPrintMode(false));
-  el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
+  // The button builds the board presentation PDF (present.js); the browser print path stays as a fallback.
+  el('btnPrint').addEventListener('click', () => { if (window.G_PRESENT && window.G_PRESENT.build) { window.G_PRESENT.build(); return; } setPrintMode(true); setTimeout(() => window.print(), 250); });
   el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   el('stmtTable').addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { const g = e.target.closest('[data-g]'); if (g) { e.preventDefault(); st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); updateUrl(); });
@@ -1019,6 +1020,15 @@
   if ('IntersectionObserver' in window) { const io = new IntersectionObserver((ents) => { for (const en of ents) if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }, { rootMargin: '-40% 0px -55% 0px' }); sections.forEach((s) => io.observe(s)); }
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
+  // Read-only view of the model for the presentation builder (present.js): the same data, helpers and
+  // calculations the page renders, so the PDF and the screen can never disagree.
+  window.G_MODEL = {
+    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtPct, fmtPp, fmtX, fmtDate, qLabel, ytdLabel, cls, clsInv, addDays,
+    FIN, OPS, MK, REF, PEERS, GD, CM, SUM, QL, TICK,
+    Q, Y, YTD, lastQ, qById, ytdById, opsById, prevQid, yoyQid, sumParts, sharesOf, quarterObj, ytdFor, ltmFor, fyObj, exAdj, lastLTM, lastYTD,
+    px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, qPx, lastPx, sharesM, sharesOut, qEndDate, bvps, epsLtm, divsApproved, dpsOf,
+    avgFx, commentsFor, autoComments, G_METRICS, gLabel, gIsCost, gFmt, gRangeTxt, vintagesSorted, gActual, gStatus, betaFromMarket,
+  };
   // ---------------- init ----------------
   let initLang = 'es';
   try { initLang = localStorage.getItem('g-lang') || 'es'; } catch (e) { /* ignore */ }

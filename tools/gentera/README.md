@@ -147,8 +147,35 @@ node scripts/gentera/fetch-market.mjs
 python -m http.server 8765   # then open http://localhost:8765/site/gentera/
 ```
 
-## Print as presentation
+## Board presentation (PDF) — the "Presentación (PDF)" button
 
-The 🖨 button next to the language toggle switches the page into print mode (light theme, tables trimmed to
-the last 8 quarters, fixed-size charts, a cover with the basis dates and a confidentiality line, a closing
-slide with the sources) and opens the browser's print dialog; choose "Save as PDF", Letter landscape.
+The button builds a Letter-size PDF in the browser in one click. `site/gentera/present.js` (`GenteraDoc`) extends
+the generic engine `site/assets/present-core.js` (jsPDF + jsPDF-AutoTable vendored in `site/assets/vendor/`;
+off-screen Chart.js charts; cover, footers, fit-to-page tables, `**bold**` runs, Title Case, next-results rule).
+It reads `window.G_MODEL`, the read-only API that `app.js` exposes at the end of its IIFE, so every figure is the
+same calculation the page shows; the prose of sections 09 and 10 is read from the page itself. Language follows
+the ES/EN toggle; the file is named `Gentera_GENTERA_presentacion_<date>.pdf` / `..._board_presentation_<date>.pdf`.
+Ctrl/Cmd+P still prints the page (print mode: light theme, tables trimmed to the last 8 quarters, fixed-size charts).
+
+Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted) · tear sheet (price, market cap
+in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, gross loans, financial
+margin LTM and quarter with NIM, cost of risk, stage 3, coverage, efficiency, controlling net income LTM with a memo
+without the 4Q25 item, EPS, P/E, P/BV, ROAE, ICAP, clients, guidance in force, next results; 12-month chart vs the
+IPC and 3-year price) · operating and segment metrics (loans, clients and network, interest income, margin and net
+income by subsidiary, stage 3, NIM, cost of funds and capital, with the `comments.js` ops comments) · income
+statement quarter, LTM and fiscal year (levels 0–1 plus the ratio rows, cost ratios coloured inversely, "memo" rows
+without the 4Q25 deferred-tax write-down, FY chart; mechanical comments when a pair has none) · management guidance
+(table in force with status, notes, EPS and loan-growth range-vs-actual charts, history of vintages, track record of
+closed years) · loan book and clients (stacked loans by subsidiary with y/y, latest-quarter tables, CNBV and SBS
+monthly tables when the feed has them) · asset quality (stage 3 by subsidiary, write-offs with cost of risk,
+8-quarter detail) · 07 funding, capital and ratings (tiles, funding mix with loans/deposits, capital and cost of
+funds by subsidiary, 6-quarter table, ratings, reading) · 08 dividends (AGM bullets, DPS approved by AGM, table with
+payout on the prior year's controlling income, 10-fiscal-year earnings/returns/dividend table) · 09 ConCrédito and
+Perú (facts, page prose, Perú in figures, both timelines) · 10 group lending and stage 3 (facts, page prose,
+stage-3 loans and allowance with coverage) · sources and methodology.
+
+Next results: `reference.js → calendar.nextResults` when Gentera has announced the date (marked "confirmed");
+otherwise assumed from the median lag between quarter-end and release for the same quarter in the last three years.
+
+Headless check: serve `site/` locally, open `/gentera/`, pick the language and click `#btnPrint`; the download
+event yields the PDF (see the GAP runbook for the Playwright snippet).
