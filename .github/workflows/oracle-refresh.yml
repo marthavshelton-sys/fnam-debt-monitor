@@ -6,8 +6,9 @@
 #   filings  weekday mornings (Oracle reports after the close in the 2nd week of Sep / Dec / Mar / Jun and
 #            files the 8-K the same evening): harvests new 8-K (Item 2.02) / 10-Q / 10-K filings from SEC EDGAR
 #            into tools/oracle/raw/ and marks them "pending extraction" in tools/oracle/data/state.json.
-#            Figures enter quarters.json only through the reviewed extraction step (the weekday routine, see
-#            tools/oracle/ROUTINE.md), guarded by the tie-out and the parser tests. If EDGAR refuses the
+#            Figures enter quarters.json only through the verified extraction step (the weekday routine, see
+#            tools/oracle/ROUTINE.md), guarded by the tie-out and the parser tests, which the routine merges
+#            itself when both guards pass. If EDGAR refuses the
 #            GitHub runner (it has for other models), the harvester falls back to Oracle's IR press-release feed
 #            and still records that a new results release exists.
 #

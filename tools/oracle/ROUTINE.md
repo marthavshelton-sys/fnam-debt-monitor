@@ -17,9 +17,11 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 
 > This is a fully autonomous weekday check for the Oracle financial model at https://fnam.mx/oracle
 > (repository marthavshelton-sys/fnam-debt-monitor, folder `site/oracle` + `tools/oracle` + `scripts/oracle`).
-> No user is present — do not ask questions; make reasonable judgment calls and proceed. Never push to `main`:
-> every change goes through a pull request. Use public information only (SEC filings, Oracle's investor site,
-> official market data); never seek or use non-public information.
+> No user is present — do not ask questions; make reasonable judgment calls and proceed. Never push straight to
+> `main`: every change goes through a pull request, which the routine merges itself when the merge condition of
+> the step is met (self-merge policy approved by the owner on 2026-09-24; see "Merge policy" below). Use public
+> information only (SEC filings, Oracle's investor site, official market data); never seek or use non-public
+> information.
 >
 > STEP 1 — Sync. Work only in the routine's own clone `C:\Users\MARTH\OneDrive\Desktop\Talipot\fnam-oracle-routine`
 > (never in the shared `fnam-debt-monitor` clone or the `fnam-oracle-wt` worktree, which other sessions and the
@@ -52,7 +54,9 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > `state.json`. Run `node scripts/oracle/build.mjs`; it must print "0 failed" for both the tie-out and the
 > parser tests — if not, fix the transcription (a failure is almost always a typo, not an Oracle error) and
 > re-run. Open a pull request from a branch named `oracle/<fy>q<n>-results` with title
-> "oracle: <nQyy> results" and a body listing the headline figures with the exhibit URL. Never merge it.
+> "oracle: <nQyy> results" and a body listing the headline figures with the exhibit URL. Merge condition: both
+> guards reported 0 failed → merge it yourself (`gh pr merge <n> --squash --delete-branch`); otherwise leave it
+> open and say so in the email.
 >
 > STEP 4 — New 10-Q / 10-K. Read the filing on EDGAR. From a 10-K, update `fiscal_years.json` (annual
 > statement, D&A) and the debt footnote into `market_reference.json` → `debt_instruments` (every note,
@@ -90,13 +94,28 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > when one was opened, otherwise as a small PR of its own only if a value changed. If the harvest, the build
 > or the fetch fails, do not email about it; set lastFailureNote and stop so the next run retries.
 
+## Merge policy (approved by the owner on 2026-09-24)
+
+The routine merges its own pull requests when a machine check stands behind the change, so the page updates
+with no action by the owner:
+
+* **Results and 10-Q/10-K PRs** are merged when `node scripts/oracle/build.mjs` reports 0 failed for both the
+  tie-out (329 accounting identities) and the parser tests (26 printed figures per quarter re-read from the
+  archived exhibit). A failure leaves the PR open and is reported in the email.
+* **Event PRs** are merged when every new fact carries a primary source (SEC filing, Oracle IR release, the
+  agency's own rating release, the developer's or partner's own release). A fact that rests only on press
+  reports leaves the PR open for the owner and is flagged in the email and in `PENDING.md`.
+* **notify-state PRs** are merged immediately; they only record the routine's state.
+
+The material-day email lists every merged PR with its link, so the owner can revert any commit after the fact.
+
 ## What updates by itself, and what does not
 
 | Element | Mechanism | Cadence | Needs the owner? |
 |---|---|---|---|
 | Share price, S&P 500, 10-year Treasury, market cap, multiples, DCF price inputs | GitHub Actions `oracle-refresh.yml` → Cloudflare Pages deploy | weekdays 13:30 and 21:45 UTC | No |
 | Filing archive (8-K, 10-Q, 10-K) and `state.json` | same workflow (EDGAR, IR JSON feed fallback) | weekdays 13:30 UTC | No |
-| Statements, guidance, Comments, summary, buildout, debt, ratings, events | this routine, via a pull request | weekdays 08:30 local | Yes: merge the PR (the email links it) |
+| Statements, guidance, Comments, summary, buildout, debt, ratings, events | this routine, via a pull request it merges itself (merge policy above) | weekdays 08:30 local | Only for press-sourced facts or a failed guard (the email says which) |
 | Transcript-based blocks (call quotes, MW delivered, promises, call-page comments) | this routine once the PDF is in the private `oracle-model` repo | after each call | Yes: supply the transcript PDF |
 | Peers, CDS, consensus | FactSet connector | daily once connected | Yes: authorise the connector |
 
@@ -111,6 +130,6 @@ From Claude Code (desktop app or claude.ai/code → Routines): "create a schedul
 *FNAM Oracle: weekday review*, weekdays at 08:30, with the prompt in tools/oracle/ROUTINE.md". The desktop
 task runs while the app is open (and on next launch if it was closed); a claude.ai/code routine runs in the
 cloud. Either way the email is sent by the routine's own Gmail connector, and every repository change is a
-pull request for the owner to merge. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
+pull request the routine merges under the policy above. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
 the project's `.claude/settings.local.json` under `additionalDirectories` and in an `Edit(...)` allow rule, so it
 never prompts and never touches the working copies other sessions use.
