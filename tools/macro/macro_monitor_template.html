@@ -979,6 +979,7 @@
       <div class="meta-block">
         <div class="as-of" id="cutsAsOfLine">—</div>
         <div id="cutsReleasedLine">—</div>
+        <div id="cutsNextReleaseLine">—</div>
         <div class="manual-badge" data-i18n="manualBadge">Manually updated</div>
         <div><a href="https://www.challengergray.com/blog/category/job-cut-reports/" target="_blank" rel="noopener" data-i18n="sourceChallenger">Source: Challenger, Gray &amp; Christmas</a></div>
       </div>
@@ -2710,6 +2711,13 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El excess CAPE yield (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con el Tesoro a 10 años en " + gs10 + "%.",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
     exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el excess CAPE yield —el colchón que ofrecen las acciones sobre el rendimiento real de los bonos— y si las utilidades alcanzan a los precios.",
+    sprNext: d => "Próximo informe semanal de la EIA: previsto el " + d + " (miércoles, 10:30 ET; un día después si hay feriado)",
+    fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
+    scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
+    capeNext: m => "Próxima actualización de Shiller: prevista a principios de " + m + " (mensual, sin fecha fija)",
+    fiNext: (m, d) => "Próximo estado mensual del Tesoro (datos de " + m + "): previsto el " + d + " (8.º día hábil, 2 PM ET)",
+    cutsNext: (m, d) => "Próximo informe (recortes de " + m + "): previsto el " + d + " (el día hábil anterior al informe de empleo)",
+    cutsNextEst: m => "Próximo informe (recortes de " + m + "): previsto en la primera semana del mes siguiente",
     mapM1: "Último mes",
     mapM3: "Últimos 3 meses",
     mapM6: "Últimos 6 meses",
@@ -3664,6 +3672,13 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year Treasury at " + gs10 + "%.",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
+    sprNext: d => "Next EIA weekly report: expected " + d + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
+    fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
+    scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
+    capeNext: m => "Next Shiller update: expected early " + m + " (monthly, no fixed date)",
+    fiNext: (m, d) => "Next Monthly Treasury Statement (" + m + " data): expected " + d + " (8th business day, 2 PM ET)",
+    cutsNext: (m, d) => "Next report (" + m + " cuts): expected " + d + " (the business day before the jobs report)",
+    cutsNextEst: m => "Next report (" + m + " cuts): expected in the first week of the following month",
     mapM1: "Last month",
     mapM3: "Trailing 3 months",
     mapM6: "Trailing 6 months",
@@ -5791,7 +5806,7 @@ function renderFinCond() {
   const pctFmt = v => v.toFixed(2) + "%";
 
   document.getElementById("fcAsOfLine").textContent = T.dataAsOf(fmtDay(cur.d));
-  document.getElementById("fcNextReleaseLine").textContent = T.fcUpdated;
+  document.getElementById("fcNextReleaseLine").textContent = T.fcNext(fmtDateDMY(nextWeeklyRelease(cur.d, 3, 5)));
   document.getElementById("fcRefreshedLine").textContent = freshnessLabel(FINCOND_SOURCE, FINCOND.fetchedAt, "FRED");
 
   // ---- KPI tiles: level now, change over four weeks ----
@@ -5967,7 +5982,7 @@ function renderSupply() {
   })();
 
   document.getElementById("scAsOfLine").textContent = T.dataAsOf(fmtMonthYear(g.d));
-  document.getElementById("scNextReleaseLine").textContent = T.scUpdated;
+  document.getElementById("scNextReleaseLine").textContent = T.scNext(fmtDateDMY(nextMonthlyRelease(g.d, 2, 4)), fmtMonthYear(nextMonthOf(g.d)));
   document.getElementById("scRefreshedLine").textContent = freshnessLabel(SUPPLY_SOURCE, SUPPLY.fetchedAt, "NY Fed / FRED / BLS");
 
   // ---- KPIs ----
@@ -6083,7 +6098,7 @@ function renderFiscal() {
 
   // ---- header ----
   document.getElementById("fiAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d));
-  document.getElementById("fiNextReleaseLine").textContent = T.fiNextRelease(fmtMonthYear(nextMonthOf(cur.d)));
+  document.getElementById("fiNextReleaseLine").textContent = T.fiNext(fmtMonthYear(nextMonthOf(cur.d)), fmtDateDMY(nextMonthlyRelease(cur.d, 2, 8)));
   document.getElementById("fiRefreshedLine").textContent = freshnessLabel(FISCAL_SOURCE, FISCAL.fetchedAt, "Treasury");
 
   // ---- KPIs ----
@@ -7227,7 +7242,7 @@ function renderSpr() {
   const termName = id => ({ obama: T.sprTermObama, trump1: T.sprTermTrump1, biden: T.sprTermBiden, trump2: T.sprTermTrump2 })[id];
 
   document.getElementById("sprAsOfLine").textContent = T.dataAsOf(fmtDateDMY(cur.d));
-  document.getElementById("sprNextReleaseLine").textContent = T.sprUpdated;
+  document.getElementById("sprNextReleaseLine").textContent = T.sprNext(fmtDateDMY(nextWeeklyRelease(cur.d, 3, 12)));
   document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
 
   // ---- KPIs ----
@@ -7342,7 +7357,7 @@ function renderCape() {
   const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
 
   document.getElementById("capeAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d)) + (CAPE.partialMonth ? " " + T.capeMtd : "");
-  document.getElementById("capeNextReleaseLine").textContent = T.capeUpdated;
+  document.getElementById("capeNextReleaseLine").textContent = T.capeNext(fmtMonthYear(nextMonthOf(cur.d)));
   document.getElementById("capeRefreshedLine").textContent = freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
 
   // ---- KPIs ----
@@ -7401,6 +7416,46 @@ function renderCape() {
     "<div>" + T.capePeaksNote(withR.length, avgPeaks === null ? "—" : pctf(avgPeaks), avgAll === null ? "—" : pctf(avgAll), recent.length, recent.map(pk => fmtMonthYear(pk.d)).join(", ")) + "</div>";
 }
 
+
+// ---------- expected release dates for sources without a published calendar ----------
+// EIA, the Chicago Fed, the NY Fed, Treasury and Challenger publish on a cadence
+// rather than a calendar the pipeline can read, so their "next" dates are
+// computed from the cadence and labelled as expected. US federal holidays
+// (observed) are taken into account for the business-day rules.
+function fmtYmd(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
+function usHolidays(y) {
+  const out = new Set();
+  const obs = (mm, dd) => { const d = new Date(y, mm, dd); if (d.getDay() === 6) d.setDate(dd - 1); else if (d.getDay() === 0) d.setDate(dd + 1); out.add(fmtYmd(d)); };
+  const nth = (mm, wd, n) => { const first = new Date(y, mm, 1); out.add(fmtYmd(new Date(y, mm, 1 + ((wd - first.getDay() + 7) % 7) + 7 * (n - 1)))); };
+  const lastMonMay = () => { const d = new Date(y, 4, 31); d.setDate(31 - ((d.getDay() + 6) % 7)); out.add(fmtYmd(d)); };
+  obs(0, 1); nth(0, 1, 3); nth(1, 1, 3); lastMonMay(); obs(5, 19); obs(6, 4); nth(8, 1, 1); nth(9, 1, 2); obs(10, 11); nth(10, 4, 4); obs(11, 25);
+  return out;
+}
+function isBusinessDay(d) { const wd = d.getDay(); return wd !== 0 && wd !== 6 && !usHolidays(d.getFullYear()).has(fmtYmd(d)); }
+function nthBusinessDay(y, monthIdx, n) { const d = new Date(y, monthIdx, 1); let c = 0; for (let i = 0; i < 45; i++) { if (isBusinessDay(d)) { c++; if (c === n) return d; } d.setDate(d.getDate() + 1); } return d; }
+function businessDayBefore(d) { const x = new Date(d); do { x.setDate(x.getDate() - 1); } while (!isBusinessDay(x)); return x; }
+function todayLocal() { const d = new Date(); d.setHours(0, 0, 0, 0); return d; }
+// Weekly series dated to a Friday and published daysAfter later on the given weekday (3 = Wednesday).
+function nextWeeklyRelease(lastDateStr, weekday, daysAfter) {
+  let nx = new Date(lastDateStr + "T00:00:00"); nx.setDate(nx.getDate() + daysAfter);
+  const today = todayLocal();
+  if (nx < today) { nx = new Date(today); nx.setDate(nx.getDate() + ((weekday - nx.getDay() + 7) % 7)); }
+  return nx;
+}
+// Monthly series for month "YYYY-MM", published on the Nth business day monthsAhead months later.
+function nextMonthlyRelease(lastMonth, monthsAhead, nthDay) {
+  const [y, m] = lastMonth.split("-").map(Number);
+  let nx = nthBusinessDay(y, (m - 1) + monthsAhead, nthDay);
+  if (nx < todayLocal()) nx = nthBusinessDay(y, (m - 1) + monthsAhead + 1, nthDay);
+  return nx;
+}
+function calendarNextDate(key) {
+  const c = CALENDAR && CALENDAR.releases && CALENDAR.releases[key]; if (!c) return null;
+  const today = todayLocal();
+  const cands = [c.next].concat(c.upcoming || []).filter(Boolean).map(s => new Date(s + "T00:00:00")).filter(d => d >= today).sort((a, b) => a - b);
+  return cands.length ? cands[0] : null;
+}
+
 function renderCuts() {
   if (!LABOR_STATIC || !LABOR_STATIC.challenger) return;
   const C = LABOR_STATIC.challenger;
@@ -7414,6 +7469,8 @@ function renderCuts() {
   const rel = new Date(C.releasedOn + "T00:00:00");
   document.getElementById("cutsReleasedLine").textContent =
     T.releasedOn(fmtDateDMY(rel));
+  (function () { const j = calendarNextDate("jobs"); const nm = fmtMonthYear(nextMonthOf(C.asOfMonth));
+    document.getElementById("cutsNextReleaseLine").textContent = j ? T.cutsNext(nm, fmtDateDMY(businessDayBefore(j))) : T.cutsNextEst(nm); })();
   document.getElementById("cutsNotice").innerHTML = "<div>" + T.cutsNotice + "</div>";
 
   const nf = v => Math.round(v).toLocaleString(T.dateLocale);
