@@ -159,6 +159,8 @@ calculation the page shows. Language follows the ES/EN toggle; the file is named
 `Oracle_ORCL_presentacion_<date>.pdf` / `Oracle_ORCL_board_presentation_<date>.pdf`. The browser print path
 (Ctrl/Cmd+P) still works as a fallback.
 
+Deep link: `/oracle/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
+
 Pages (16): cover (landscape, unnumbered) · executive summary (`data/summary.js`, two columns auto-fitted to one page;
 bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with fetch timestamp in CDMX
 time, market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP

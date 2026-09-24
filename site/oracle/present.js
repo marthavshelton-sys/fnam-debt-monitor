@@ -591,4 +591,5 @@
   }
 
   window.ORCL_PRESENT = { build };
+  P.autoRun(build);
 })();

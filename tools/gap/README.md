@@ -150,6 +150,8 @@ company presentation uses) and reads `window.GAP_MODEL`, the read-only API that 
 IIFE, so every figure is the same calculation the page shows. Language follows
 the ES/EN toggle; the file is named `GAP_PAC_presentacion_<date>.pdf` / `GAP_PAC_board_presentation_<date>.pdf`.
 
+Deep link: `/gap/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
+
 Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · tear sheet
 (market data with fetch timestamp, LTM and quarter EBITDA, net debt/EBITDA, GAP B vs IPC rebased, 3-year price) ·
 operating metrics and income statement of the latest quarter, latest fiscal year and LTM (portrait, with the

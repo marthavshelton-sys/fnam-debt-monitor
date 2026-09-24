@@ -499,4 +499,5 @@
 
   window[PREFIX + '_PRESENT'] = { build };
   window.FNAM_AIRPORT_PRESENT = { AirportDoc, build };
+  P.autoRun(build);
 })();

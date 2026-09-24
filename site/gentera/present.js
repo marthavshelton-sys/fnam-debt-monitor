@@ -496,4 +496,5 @@
   }
 
   window.G_PRESENT = { build, GenteraDoc };
+  P.autoRun(build);
 })();

@@ -534,4 +534,5 @@
   }
 
   window.GAP_PRESENT = { build };
+  P.autoRun(build);
 })();
