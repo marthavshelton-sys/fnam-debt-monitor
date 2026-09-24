@@ -1,0 +1,134 @@
+{
+ "at": "2026-09-24T17:12:52.239Z",
+ "steps": [
+  {
+   "step": "plain",
+   "name": "afac-plain",
+   "url": "https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404",
+   "status": 200,
+   "type": "text/html",
+   "bytes": 1881,
+   "head": "<!DOCTYPE html><html lang=\"en\"><head><meta charset=\"utf-8\"><meta name=\"viewport\" content=\"width=device-width, initial-scale=1, shrink-to-fit=no\"><title>Challenge Validation</title><link rel=\"styleshee"
+  },
+  {
+   "step": "visit",
+   "name": "afac",
+   "url": "https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404",
+   "status": 200,
+   "title": "Challenge Validation",
+   "textChars": 0,
+   "challenge": true
+  },
+  {
+   "step": "afac-links",
+   "links": []
+  },
+  {
+   "step": "plain",
+   "name": "aicm-plain",
+   "url": "https://www.aicm.com.mx/categoria/estadisticas",
+   "status": 200,
+   "type": "text/html; charset=UTF-8",
+   "bytes": 74554,
+   "head": " <!doctype html> <html dir=\"ltr\" lang=\"es\" prefix=\"og: https://ogp.me/ns#\" > <head> <!-- Google tag (gtag.js) --> <script async src=\"https://www.googletagmanager.com/gtag/js?id=G-W01K4DR3HY\"></scrip"
+  },
+  {
+   "step": "visit",
+   "name": "aicm",
+   "url": "https://www.aicm.com.mx/categoria/estadisticas",
+   "status": 200,
+   "title": "Estadísticas | Aeropuerto Internacional de la Ciudad de México",
+   "textChars": 2022,
+   "challenge": false
+  },
+  {
+   "step": "aicm-pdfs",
+   "n": 25,
+   "first": [
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasJul2026.pdf",
+     "text": "Estadísticas del AICM a Julio de 2026"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2025.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2025"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasDici2024.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2024"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2023.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2023"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasDiciembre2022.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2022"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2021.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2021"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2020Dic.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2020"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2019Dic.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2019"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2018.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2018"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2017.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2017"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2016.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2016"
+    },
+    {
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2015.pdf",
+     "text": "Estadísticas del AICM a Diciembre de 2015"
+    }
+   ]
+  },
+  {
+   "step": "plain",
+   "name": "aicm-pdf-plain",
+   "url": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasJul2026.pdf",
+   "status": 200,
+   "type": "application/pdf",
+   "bytes": 1224675,
+   "head": "%PDF-1.6 %���� 404 0 obj <</Linearized 1/L 1224675/O 406/E 233341/N 14/T 1224129/H [ 489 453]>> endobj 420 0 obj <</DecodeParms<</Columns 5/Predictor 12>>/Filter/FlateDecode/ID[<863896706"
+  },
+  {
+   "step": "plain",
+   "name": "aifa-plain",
+   "url": "https://www.aifa.aero/",
+   "status": 200,
+   "type": "text/html; charset=UTF-8",
+   "bytes": 179419,
+   "head": "<!DOCTYPE html> <html lang=\"es-MX\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edg"
+  },
+  {
+   "step": "visit",
+   "name": "aifa",
+   "url": "https://www.aifa.aero/",
+   "status": 200,
+   "title": "AIFA_Aeropuerto Internacional Felipe Ángeles",
+   "textChars": 2603,
+   "challenge": false
+  },
+  {
+   "step": "aifa-counters",
+   "snippets": [
+    "fue seleccionado por Prix Versailles como uno de los seis aeropuertos más hermosos del mundo. Ver más Operador de Base Fija El AIFA cuenta con un Operador de Base Fija (FBO por sus siglas en inglés). Ver más Capilla En Salas de Última Espera, se cuenta con un espacio religioso, disponible a los pasajeros y usuarios del AIFA. Ver más Baños Temáticos En el AIFA podrás encontrar 36 sanitarios que, además de tener diseños temáticos mexicanos, cuentan con equipos que permiten un ahorro de agua de hasta el 50% con respecto de sanitarios de uso convencional. Ver más Seguridad El aeropuerto cuenta con ",
+    "Puestos de Inspección de Pasajeros y Equipaje (PIPE), que permiten conservar tus dispositivos electrónicos, como laptops, celulares y cámaras dentro de tu equipaje. Ver más Sala de Lactancia El AIFA, pensando en sus pasajeras y usuarias, cuenta con un espacio en Sala de Última Espera destinando a la lactancia. Ver más AIFA Inform",
+    "a Ver más Tu Aeropuerto, Tu Experiencia Estadísticas Fecha de los datos: 21 Mar. 2022 - 31 Ago. 2026 224,153 Operaciones Aéreas 22,049,814 Pasajeros Transportados 1,316,615.32 Toneladas Transportadas Circuito Exterior Mexiquense km 33 Santa Lucía, 55640 Zumpango de Ocampo Estado de México AIFA Corporativo Instalaciones e Infraestructura Legal y Finanzas Tecnología Contacto AIFA Informa GUÍA DEL PASAJERO Preguntas Frecuentes Asistencia Documentación y Equipaje Informac"
+   ]
+  }
+ ]
+}

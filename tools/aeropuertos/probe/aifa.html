@@ -1,0 +1,5205 @@
+<!DOCTYPE html><html lang="es-MX" class="force--consent show--consent hydrated"><head>
+    <meta charset="UTF-8"><style data-styles="">ion-icon{visibility:hidden}.hydrated{visibility:inherit}</style>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="description" content="Logisti ">
+    <link href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/favicon/favicon.png" rel="icon">
+    <title>AIFA_Aeropuerto Internacional Felipe Ángeles</title>    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,700%7cWork+Sans:400,600,700&amp;display=swap">
+    <link rel="stylesheet" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/css/libraries.css">
+    <link rel="stylesheet" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/css/style.css">
+    <link rel="stylesheet" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/css/footer.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Tus estilos CSS originales -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <link rel="stylesheet" id="float-menu-css" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/css/floatmenu.style.min.css" type="text/css" media="all">
+    <!-- Incluir CSS de Slider Revolution -->
+    <link rel="stylesheet" type="text/css" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/revolution/css/settings.css">
+    <link rel="stylesheet" type="text/css" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/revolution/css/layers.css">
+    <link rel="stylesheet" type="text/css" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/revolution/css/navigation.css">
+
+    <!-- Incluir jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="icon" type="image/jpg" href="https://aifa-website.s3.amazonaws.com/lib/img/home/aifa.png">
+    <!-- Incluir JS de Slider Revolution -->
+    <script src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/revolution/js/jquery.themepunch.tools.min.js">
+    </script>
+    <script src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/revolution/js/jquery.themepunch.revolution.min.js">
+    </script>
+
+    <!-- UIkit CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/css/uikit.min.css">
+
+    <!-- UIkit JS -->
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/uikit@3.21.13/dist/js/uikit-icons.min.js"></script>
+
+        
+    <link rel="stylesheet" href="https://www.aifa.aero/assets/css/cust_global.css">
+    
+    <style type="text/css">
+    /* --- Estilos Generales y Layout --- */
+    .header {
+        position: absolute !important;
+        z-index: 1010;
+        width: 100% !important;
+    }
+
+    #HomeSlider {
+        height: 100vh;
+        display: grid;
+        /*place-items: center;*/
+        overflow: hidden;
+    }
+
+    video {
+        overflow: auto;
+        object-fit: cover;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        border-radius: 0px;
+    }
+
+    main {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- Animaciones y Clases de Entrada --- */
+    .home-b {
+        font-size: 4.6666rem !important;
+        /*padding-left: 20% !important;*/
+        animation: slideIn 2s ease-out forwards;
+        opacity: 0;
+    }
+
+    .conoceaifa {
+        animation: slideder 2s ease-out forwards;
+        opacity: 0;
+    }
+
+    .aifainforma {
+        animation: slideIn2 2s ease-out forwards;
+        opacity: 0;
+    }
+
+    @keyframes slideIn {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideIn2 {
+        0% {
+            transform: translateX(-100%);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideder {
+        0% {
+            transform: translateX(100%);
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 0.5;
+        }
+
+        100% {
+            transform: translateX(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes show {
+        0% {
+            filter: blur(5px);
+            transform: translateY(calc(-50% + 75px));
+        }
+
+        100% {
+            opacity: 1;
+            filter: blur(0);
+        }
+    }
+
+    /* --- Items del Slider --- */
+    .item {
+        width: 200px;
+        height: 300px;
+        list-style-type: none;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 1;
+        background-position: center;
+        background-size: cover;
+        border-radius: 20px;
+        transition: transform 0.1s, left 0.75s, top 0.75s, width 0.75s, height 0.75s;
+    }
+
+    .item:nth-child(1),
+    .item:nth-child(2) {
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        transform: none;
+        border-radius: 0;
+        box-shadow: none;
+        opacity: 1;
+    }
+
+    .item:nth-child(3) {
+        left: 50%;
+    }
+
+    .item:nth-child(4) {
+        left: calc(50% + 220px);
+    }
+
+    .item:nth-child(5) {
+        left: calc(50% + 440px);
+    }
+
+    .item:nth-child(6) {
+        left: calc(50% + 660px);
+        opacity: 0;
+    }
+
+    /* --- Contenido de los Items --- */
+    .content {
+        width: min(30vw, 400px);
+        position: absolute;
+        top: 50%;
+        left: 3rem;
+        transform: translateY(-50%);
+        font: 400 0.85rem helvetica, sans-serif;
+        color: white;
+        text-shadow: 0 3px 8px rgba(0, 0, 0, 0.5);
+        display: block;
+    }
+
+    .content .description {
+        line-height: 1.7;
+        margin: 1rem 0 1.5rem;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+
+    .content button {
+        width: fit-content;
+        background-color: rgba(0, 0, 0, 0.1);
+        color: white;
+        border: 2px solid white;
+        border-radius: 0.25rem;
+        padding: 0.75rem;
+        cursor: pointer;
+    }
+
+    h2.title {
+        color: white;
+        font-weight: bold;
+        text-shadow: 2px 2px 7px #000 !important;
+    }
+
+    h1.title {
+        color: white;
+        font-weight: bold;
+        text-shadow: 2px 2px 7px #000 !important;
+    }
+
+    .item:nth-of-type(2) .content {
+        display: block;
+        animation: show 0.75s ease-in-out 0.3s forwards;
+    }
+
+    /* --- Navegación --- */
+    .navi {
+        position: absolute;
+        bottom: 2rem;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 5;
+        user-select: none;
+    }
+
+    .navi .btn {
+        background-color: rgba(255, 255, 255, 0.5);
+        color: rgba(0, 0, 0, 0.7);
+        border: 2px solid rgba(0, 0, 0, 0.6);
+        margin: 0 6.25rem;
+        padding: 0.75rem;
+        border-radius: 50%;
+        cursor: pointer;
+        z-index: 20;
+    }
+
+    .navi .btn:hover {
+        background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    /* --- Media Queries Desktop --- */
+    @media (min-width: 1601px) {
+        .header__top-right {
+            position: static;
+            margin-bottom: -10px !important;
+        }
+    }
+
+    @media (min-width: 1250px) {
+        .header__top-right {
+            position: static !important;
+            margin-bottom: -15px !important;
+        }
+    }
+
+    /* --- Media Queries Tablets y Mobile --- */
+    @media (max-width: 900px) and (min-width: 651px) {
+        .content .title {
+            font-size: 1rem;
+        }
+
+        .content .description,
+        .content button {
+            font-size: 0.7rem;
+        }
+
+        .item {
+            width: 160px;
+            height: 270px;
+        }
+
+        .item:nth-child(4) {
+            left: calc(50% + 170px);
+        }
+
+        .item:nth-child(5) {
+            left: calc(50% + 340px);
+        }
+
+        .item:nth-child(6) {
+            left: calc(50% + 510px);
+        }
+    }
+
+    @media (max-width: 650px) {
+        .content {
+            width: min(48vw, 200px);
+            left: 4rem;
+            text-align: left;
+        }
+
+        .content .title {
+            font-size: 2.3rem !important;
+        }
+
+        .content .description {
+            font-size: 0.65rem;
+        }
+
+        .item {
+            width: 130px;
+            height: 220px;
+        }
+
+        .item:nth-child(4) {
+            left: calc(50% + 140px);
+        }
+
+        .item:nth-child(5) {
+            left: calc(50% + 280px);
+        }
+
+        .item:nth-child(6) {
+            left: calc(50% + 420px);
+        }
+
+        .vuelo-banner {
+            position: absolute;
+            top: -210px !important;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+    }
+
+    @media (max-width: 500px) {
+        .navi {
+            display: none;
+        }
+    }
+
+    /* Estilos de búsqueda de vuelos (Consolidados) */
+    .vuelo-search-container {
+        width: 100%;
+        z-index: 1001;
+    }
+
+    .vuelo-transport-buttons {
+        display: flex;
+        justify-content: center;
+        width: 90%;
+        margin: 0 auto;
+    }
+
+    .vuelo-transport-label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 33.33%;
+        cursor: pointer;
+        padding: 10px 30px;
+        color: white !important;
+        background-color: rgba(35, 83, 107, 0.60);
+        border-radius: 14px 14px 0 0;
+    }
+
+    .vuelo-transport-option:checked+.vuelo-transport-label {
+        background-color: rgba(1, 122, 97, 1);
+    }
+
+    .vuelo-search-row {
+        background: linear-gradient(180deg, rgba(35, 83, 107, 1) 0%, rgba(26, 66, 87, 1) 35%, rgba(9, 33, 47, 1) 100%);
+        padding: 1.5rem;
+        border-radius: 10px;
+    }
+
+
+    /* ESTILODEL MENÚ*/
+    /* Estilos base para los enlaces del menú */
+    /*.nav__item-link {
+        color: #ffffff;
+        position: relative;
+        text-decoration: none;
+    }*/
+
+    /* Estilos para el contenedor del submenú */
+    /*.dropdown-menu {
+        padding: 20px 0;
+
+    }*/
+
+    /* Estilos para los elementos del submenú */
+    /*.dropdown-menu .nav__item {
+        margin-bottom: 25px;
+    }*/
+
+    /*.dropdown-menu .nav__item:last-child {
+        margin-bottom: 0;
+    }*/
+
+    /*.dropdown-menu .nav__item a {
+        color: #666666;
+        position: relative;
+        text-decoration: none;
+        padding: 12px 0;*/
+    /* Aumentado el padding vertical para separar el texto de las líneas */
+    /*transition: color 0.3s ease;
+        display: block;*/
+    /* Asegura que el elemento tome todo el ancho disponible */
+    /*}*/
+
+    /* Línea base debajo de los elementos del submenú */
+    /*.dropdown-menu .nav__item a::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 1px;
+        background-color: #dddddd;
+    }*/
+
+    /* Línea de hover con efecto de transición */
+    /*.dropdown-menu .nav__item a::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #00a651;
+        transition: width 0.3s ease;
+    }*/
+
+    /* Efecto hover para el texto y la línea */
+    /*.dropdown-menu .nav__item a:hover {
+        color: #00a651;
+    }*/
+
+    /*.dropdown-menu .nav__item a:hover::before {
+        width: 100%;
+    }*/
+
+    /* Estilos para los encabezados padres */
+    /*.nav__item.with-dropdown>.nav__item-link {
+        color: aliceblue;
+        padding: 12px 0;/*
+        /* Mismo padding para los encabezados */
+    /*}*/
+
+    /* Línea blanca para los encabezados padres en hover */
+    /*.nav__item.with-dropdown>.nav__item-link::before {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #ffffff;
+        transition: width 0.3s ease;
+    }*/
+
+    /*.nav__item.with-dropdown>.nav__item-link:hover::before {
+        width: 100%;
+    }*/
+
+    /*Estilo para centrar background banner*/
+    /*#page-title {
+        background-position: 0px -250px !important;
+    }*/
+
+
+    * {
+        box-sizing: border-box;
+    }
+
+    .button-container {
+        position: relative;
+        width: 200px;
+        height: 200px;
+        margin-right: 20px;
+    }
+
+    .wayfinding-button {
+        position: absolute;
+        right: 0;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        background-color: #017a61;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding-right: 14px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+    }
+
+    .wayfinding-button:nth-child(1) {
+        top: 0;
+    }
+
+    .wayfinding-button:nth-child(2) {
+        top: 70px;
+    }
+
+    .wayfinding-button:nth-child(3) {
+        top: 140px;
+    }
+
+    .wayfinding-button.expanded {
+        width: 200px;
+        border-radius: 30px;
+        justify-content: space-between;
+        padding-left: 20px;
+        z-index: 10;
+    }
+
+    .button-icon {
+        font-style: normal;
+        font-size: 24px;
+        color: white;
+    }
+
+    .button-text {
+        color: white;
+        display: none;
+        white-space: nowrap;
+        font-family: Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    .section_cards_title {
+        color: white;
+        font-size: 2.8rem !important;
+        font-weight: 700;
+        padding-left: 1.7rem;
+    }
+
+    .slide-left {
+        animation: slideLeft 0.3s ease-out;
+        padding-left: 20px;
+        margin: 0 10px;
+
+    }
+
+    @keyframes slideLeft {
+        from {
+            opacity: 0;
+            transform: translateX(300px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .card-news-overlay {
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(0, 27, 44, 0.3) 60%,
+                rgba(0, 27, 44, 0.6) 100%);
+    }
+
+    .section_card_title_center {
+        color: #000;
+        font-size: 2.8rem !important;
+        font-weight: 700;
+        display: flow-root !important;
+    }
+
+    .heading-center {
+        text-align: center !important;
+    }
+
+    .divider__theme::after {
+        width: 40px !important;
+    }
+
+    .slide-right {
+        animation: slideRight 0.3s ease-out;
+    }
+
+    @keyframes slideRight {
+        from {
+            opacity: 0;
+            transform: translateX(-300px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateX(0);
+        }
+    }
+
+    .wayfinding-button.expanded .button-text {
+        display: inline;
+
+        .video-background {
+            background: #000;
+            position: relative;
+            z-index: -99;
+        }
+
+        .video-foreground,
+        .video-background iframe {
+            position: relative;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        #vidtop-content {
+            top: 0;
+            color: #fff;
+        }
+
+        @media(min-aspect-ratio: 16/9) {
+            .video-foreground {
+                height: 300%;
+                top: -100%;
+            }
+        }
+
+        @media(max-aspect-ratio: 16/9) {
+            .video-foreground {
+                width: 300%;
+                left: -100%;
+            }
+        }
+    }
+
+
+    /*=========================================*/
+
+    /*----------------------
+    Carousel
+-----------------------*/
+    /*[data-nav=false] .owl-nav,
+[data-dots=false] .owl-dots { q
+  display: none;
+}*/
+
+    .owl-nav {
+        text-align: center !important;
+    }
+
+    .services .owl-carousel {
+        align-items: center;
+    }
+
+    .services .owl-carousel .owl-item img {
+        width: 100%;
+        max-width: 48px;
+    }
+
+    .owl-carousel .owl-item img {
+        width: 100%;
+    }
+
+    .carousel-dots .owl-dots {
+        margin-top: 10px;
+    }
+
+    .carousel-dots .owl-dots .owl-dot {
+        margin: 0 3px;
+    }
+
+    .carousel-dots .owl-dots .owl-dot span {
+        position: relative;
+        height: 10px;
+        width: 10px;
+        border-radius: 50%;
+        background-color: #a4a4a4;
+        border: 3px solid #a4a4a4;
+        margin: 0;
+        display: inline-block;
+    }
+
+    .carousel-dots .owl-dots .owl-dot.active span {
+        background-color: transparent;
+        border-color: #017a61;
+    }
+
+    .carousel-dots-white .owl-dots .owl-dot span {
+        background-color: #ffffff;
+        border-color: #ffffff;
+    }
+
+    .carousel-dots-white .owl-dots .owl-dot.active span {
+        border-color: #ffffff;
+    }
+
+    .carousel-dots-white .owl-dots .owl-dot.active span:before {
+        background-color: #ffffff;
+    }
+
+    /*.owl-carousel .owl-nav .owl-prev,
+.owl-carousel .owl-nav .owl-next {
+  font-size: 34px;
+  margin: 10px;
+  text-align: center;
+}*/
+    /*.carousel-arrows .owl-nav .owl-prev,
+.carousel-arrows .owl-nav .owl-next {
+  position: absolute;
+  top: 50%;
+  width: 50px;
+  height: 50px;
+  line-height: 50px;
+  color: #999999;
+  font-size: 0;
+  font-weight: 400;
+  text-align: center;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 0;
+  border-radius: 0;
+  transition: all 0.3s ease;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transform: translateY(-50%);
+}
+
+.carousel-arrows .owl-nav .owl-prev:hover,
+.carousel-arrows .owl-nav .owl-next:hover {
+  color: #017a61;
+  background-color: transparent;
+}
+
+.carousel-arrows .owl-nav .owl-prev {
+  left: 0;
+}
+
+.carousel-arrows .owl-nav .owl-prev:before {
+  font-family: FontAwesome;
+  content: "";
+  font-size: 60px;
+}
+
+.carousel-arrows .owl-nav .owl-next {
+  right: 0;
+}
+
+.carousel-arrows .owl-nav .owl-next:before {
+  font-family: FontAwesome;
+  content: "";
+  font-size: 60px;
+}
+
+.carousel-arrows .owl-dots {
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  line-height: 1;
+}*/
+
+
+    /*.slider .carousel-arrows .owl-nav .owl-prev,
+  .slider .carousel-arrows .owl-nav .owl-next {
+    display: none;
+  }*/
+
+
+    .project-item .project__desc {
+        font-weight: bold;
+    }
+
+    /*-----------------------
+    project-news
+------------------------*/
+    .project-news .projects-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 100%;
+        /*min-height: 664px;*/
+    }
+
+    .project-news {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .project-news .heading__title {
+        font-weight: 700;
+    }
+
+    .project-news .project__img {
+        position: relative;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-news .project__img:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 99%;
+        height: 100%;
+        opacity: 0.7;
+        display: block;
+        background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+
+    .project-news .project__img img {
+        width: 100%;
+    }
+
+    .project-news .project__content {
+        padding: 30px;
+        background-color: #ffffff;
+    }
+
+    .project-news .project-item {
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .project-news .project-item .project__content {
+        background-color: transparent;
+        position: absolute;
+        top: -20px;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .project-news .project-item .project__cat {
+        background-color: #017a61;
+        display: inline-block;
+        padding: 7px 9px;
+        border-radius: 2px;
+    }
+
+    .project-news .project__cat {
+        line-height: 1;
+        margin-bottom: 11px;
+    }
+
+    .project-news .project__cat a {
+        position: relative;
+        font-family: "Roboto", sans-serif;
+        font-size: 13px;
+        color: #017a61;
+        padding-right: 7px;
+    }
+
+    .project-news .project-item .btn__link {
+        margin-top: 20px;
+        padding-bottom: 5px;
+        opacity: 0;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-news .project-item .btn__link:hover {
+        color: #ffffff;
+    }
+
+    .project-news .project-item .btn__link:hover:after {
+        background-color: #ffffff;
+    }
+
+    .project-news .project-item .btn__link:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #017a61;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-news .project-item .project__content-inner {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        padding: 30px 30px 0;
+        -webkit-transition: all 0.6s ease;
+        -moz-transition: all 0.6s ease;
+        -ms-transition: all 0.6s ease;
+        -o-transition: all 0.6s ease;
+        transition: all 0.6s ease;
+    }
+
+    .project-news .project-item:hover .project__content-inner {
+        -webkit-transform: translateY(-30px);
+        -moz-transform: translateY(-30px);
+        -ms-transform: translateY(-30px);
+        -o-transform: translateY(-30px);
+        transform: translateY(-30px);
+    }
+
+    .project-news .project-item:hover .btn__link {
+        opacity: 1;
+    }
+
+    .project-news .project__cat a:hover {
+        color: #222222;
+    }
+
+    .project-news .project__cat a::after {
+        content: ",";
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    .project-news .project__cat a:last-child:after {
+        display: none;
+    }
+
+    .project-news .project__title {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+
+    .project-news .project__title a {
+        color: #fff !important;
+    }
+
+    .project-news .project__title a:hover {
+        color: #017a61 !important;
+    }
+
+    .project-news .project__desc {
+        color: #fff !important;
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+
+    .project-news .project__link {
+        color: #222222;
+        line-height: 1;
+    }
+
+    .project-news .zoom__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        z-index: 2;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+    }
+
+    .project-news .zoom__icon:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1px;
+        height: 20px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-news .zoom__icon:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 1px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-news:hover .zoom__icon {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .project-news .owl-nav .owl-prev,
+    .project-news .owl-nav .owl-next {
+        font-family: FontAwesome !important;
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        border-radius: 50px;
+        line-height: 50px;
+        color: #999999;
+        font-weight: 400;
+        text-align: center;
+        background-color: #a4a4a4;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 0;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+
+    .project-news .owl-nav .owl-prev {
+        top: -50px;
+        left: 0;
+        width: 20px;
+        border-radius: 50px;
+    }
+
+    .project-news .owl-nav .owl-next {
+        top: -50px;
+        width: 20px;
+        border-radius: 50px;
+    }
+
+    .project-news .owl-nav .owl-prev:hover,
+    .project-news .owl-nav .owl-next:hover {
+        color: #017a61;
+        background-color: #017a61 !important;
+    }
+
+    .project-news .owl-nav .owl-prev:before,
+    .project-news .owl-nav .owl-next:before {
+        font-family: FontAwesome;
+        content: "";
+        font-size: 30px;
+    }
+
+    .project-news .owl-dots {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        line-height: 1;
+    }
+
+    /*-----------------------
+    project-info
+------------------------*/
+    .project-info .projects-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 664px;
+    }
+
+    .project-info {
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    .project-info .heading__title {
+        font-weight: 700;
+    }
+
+    .project-info .project__img {
+        position: relative;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-info .project__img:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.7;
+        display: block;
+        background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+
+    .project-info .project__img img {
+        width: 100%;
+    }
+
+    .project-info .project__content {
+        padding: 30px;
+
+    }
+
+    .project-info .project-item {
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .project-info .project-item .project__cat {
+        background-color: #017a61;
+        display: inline-block;
+        padding: 7px 9px;
+        border-radius: 2px;
+    }
+
+    .project-info .project__cat {
+        line-height: 1;
+        margin-bottom: 11px;
+    }
+
+    .project-info .project__cat a {
+        position: relative;
+        font-family: "Roboto", sans-serif;
+        font-size: 13px;
+        color: #017a61;
+        padding-right: 7px;
+    }
+
+    .project-info .project-item .btn__link {
+        margin-top: 20px;
+        padding-bottom: 5px;
+        opacity: 0;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-info .project-item .btn__link:hover {
+        color: #017a61;
+    }
+
+    .project-info .project-item .btn__link:hover:after {
+        background-color: #017a61;
+    }
+
+    .project-info .project-item:hover .btn__link {
+        opacity: 1;
+    }
+
+    .project-info .project__cat a:hover {
+        color: #222222;
+    }
+
+    .project-info .project__cat a::after {
+        content: ",";
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    .project-info .project__cat a:last-child:after {
+        display: none;
+    }
+
+    .project-info .project__title {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+
+    .project-info .project__title a {
+        color: #000 !important;
+    }
+
+    .project-info .project__title a:hover {
+        color: #017a61 !important;
+    }
+
+    .project-info .project__desc {
+        color: #9b9b9b !important;
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+
+    .project-info .project__link {
+        color: #222222;
+        line-height: 1;
+    }
+
+    .project-info .zoom__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        z-index: 2;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+    }
+
+    .project-info .zoom__icon:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1px;
+        height: 20px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-info .zoom__icon:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 1px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-info:hover .zoom__icon {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+
+    .project-info .owl-nav .owl-prev,
+    .project-info .owl-nav .owl-next {
+        font-family: FontAwesome !important;
+        position: absolute;
+        height: 20px;
+        width: 20px;
+        border-radius: 50px;
+        line-height: 50px;
+        color: #999999;
+        font-weight: 400;
+        text-align: center;
+        background-color: #a4a4a4;
+        cursor: pointer;
+        padding: 0;
+        border-radius: 0;
+        transition: all 0.3s ease;
+        -webkit-transition: all 0.3s ease;
+        -moz-transition: all 0.3s ease;
+        -ms-transition: all 0.3s ease;
+        -o-transition: all 0.3s ease;
+        transform: translateY(-50%);
+    }
+
+    .project-info .owl-nav .owl-prev {
+        top: -50px;
+        left: 0;
+        width: 20px;
+        border-radius: 50px;
+    }
+
+    .project-info .owl-nav .owl-next {
+        top: -50px;
+        right: 0;
+        width: 20px;
+        border-radius: 50px;
+    }
+
+    .project-info .owl-nav .owl-prev:hover,
+    .project-info .owl-nav .owl-next:hover {
+        color: #017a61;
+        background-color: #017a61 !important;
+    }
+
+    .project-info .owl-nav .owl-prev:before {
+        content: "";
+        font-size: 30px;
+    }
+
+    .project-info .owl-nav .owl-next:before {
+        content: "";
+        font-size: 30px;
+    }
+
+    .project-info .owl-dots {
+        position: absolute;
+        bottom: 20px;
+        width: 100%;
+        line-height: 1;
+    }
+
+    /*-----------------------
+    projects
+------------------------*/
+    .project-item {
+        position: relative;
+        /*margin-bottom: 30px;*/
+        margin-bottom: 0;
+        box-shadow: 0px 5px 83px 0px rgba(40, 40, 40, 0.12);
+    }
+
+    .project-item:hover .project__img:after {
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .project-item .project__img {
+        position: relative;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .project-item .project__img:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        display: block;
+        background-image: -webkit-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -moz-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -ms-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: -o-linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        background-image: linear-gradient(top, rgba(0, 0, 0, 0), #1b1a1a 100%);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+    }
+
+    .project-item .project__img img {
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .project-item .project__content {
+        padding: 20px;
+        background-color: #ffffff;
+    }
+
+    .project-item .project__cat {
+        line-height: 1;
+        margin-bottom: 11px;
+    }
+
+    .project-item .project__cat a {
+        position: relative;
+        font-family: "Roboto", sans-serif;
+        font-size: 13px;
+        color: #017a61;
+        padding-right: 7px;
+    }
+
+    .project-item .project__cat a:hover {
+        color: #222222;
+    }
+
+    .project-item .project__cat a::after {
+        content: ",";
+        position: absolute;
+        top: 2px;
+        right: 2px;
+    }
+
+    .project-item .project__cat a:last-child:after {
+        display: none;
+    }
+
+    .project-item .project__title {
+        font-size: 20px;
+        font-weight: 600;
+        line-height: 28px;
+        margin-bottom: 0;
+    }
+
+    .project-item .project__title a {
+        color: #222222;
+    }
+
+    .project-item .project__title a:hover {
+        color: #017a61;
+    }
+
+    .project-item .project__desc {
+        margin-top: 15px;
+        margin-bottom: 0;
+    }
+
+    .project-item .project__link {
+        color: #222222;
+        line-height: 1;
+    }
+
+    .project-item .zoom__icon {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        display: block;
+        width: 20px;
+        height: 20px;
+        opacity: 0;
+        z-index: 2;
+        -webkit-transform: scale(0);
+        -moz-transform: scale(0);
+        -ms-transform: scale(0);
+        -o-transform: scale(0);
+        transform: scale(0);
+        -webkit-transition: all 0.4s linear;
+        -moz-transition: all 0.4s linear;
+        -ms-transition: all 0.4s linear;
+        -o-transition: all 0.4s linear;
+        transition: all 0.4s linear;
+    }
+
+    .project-item .zoom__icon:before {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 1px;
+        height: 20px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-item .zoom__icon:after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 20px;
+        height: 1px;
+        -webkit-transform: translate(-50%, -50%);
+        -moz-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        -o-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        background-color: #ffffff;
+    }
+
+    .project-item:hover .zoom__icon {
+        opacity: 1;
+        -webkit-transform: scale(1);
+        -moz-transform: scale(1);
+        -ms-transform: scale(1);
+        -o-transform: scale(1);
+        transform: scale(1);
+    }
+
+    .projects-filter {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .projects-filter li {
+        margin-bottom: 20px;
+        margin-right: 30px;
+    }
+
+    .projects-filter li:last-child {
+        margin-right: 0;
+    }
+
+    .projects-filter li a {
+        position: relative;
+        color: #222222;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        text-transform: capitalize;
+        display: block;
+        padding-bottom: 4px;
+    }
+
+    .projects-filter li a:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: #017a61;
+        -webkit-transition: all 0.7s linear;
+        -moz-transition: all 0.7s linear;
+        -ms-transition: all 0.7s linear;
+        -o-transition: all 0.7s linear;
+        transition: all 0.7s linear;
+    }
+
+    .projects-filter li a:hover,
+    .projects-filter li a.active {
+        color: #017a61;
+    }
+
+    .projects-filter li a:hover:after,
+    .projects-filter li a.active:after {
+        width: 100%;
+    }
+
+    /* projects-carousel*/
+    .projects-carousel .projects-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 664px;
+    }
+
+    .projects-carousel .projects-filter li a {
+        color: #ffffff;
+    }
+
+    .projects-carousel .projects-filter li a:after {
+        background-color: #ffffff;
+    }
+
+    .projects-carousel .project-item {
+        box-shadow: none;
+        overflow: hidden;
+    }
+
+    .projects-carousel .project-item .project__content {
+        background-color: transparent;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .projects-carousel .project-item .project__cat {
+        background-color: #017a61;
+        display: inline-block;
+        padding: 7px 9px;
+        border-radius: 2px;
+    }
+
+    .projects-carousel .project-item .project__cat a {
+        color: #ffffff;
+    }
+
+    .projects-carousel .project-item .project__cat a:hover {
+        color: #222222;
+    }
+
+    .projects-carousel .project-item .project__cat a:after {
+        color: #ffffff;
+    }
+
+    .projects-carousel .project-item .project__title {
+        margin-bottom: 15px;
+    }
+
+    .projects-carousel .project-item .project__desc {
+        max-width: 70%;
+    }
+
+    .projects-carousel .project-item .project__title a,
+    .projects-carousel .project-item .project__desc {
+        color: #ffffff;
+    }
+
+    .projects-carousel .project-item .btn__link {
+        margin-top: 20px;
+        padding-bottom: 5px;
+        opacity: 0;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .projects-carousel .project-item .btn__link:hover {
+        color: #ffffff;
+    }
+
+    .projects-carousel .project-item .btn__link:hover:after {
+        background-color: #ffffff;
+    }
+
+    .projects-carousel .project-item .btn__link:after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: #017a61;
+        -webkit-transition: all 0.6s linear;
+        -moz-transition: all 0.6s linear;
+        -ms-transition: all 0.6s linear;
+        -o-transition: all 0.6s linear;
+        transition: all 0.6s linear;
+    }
+
+    .projects-carousel .project-item .project__content-inner {
+        position: absolute;
+        bottom: -10px;
+        left: 0;
+        width: 100%;
+        padding: 30px 30px 0;
+        -webkit-transition: all 0.6s ease;
+        -moz-transition: all 0.6s ease;
+        -ms-transition: all 0.6s ease;
+        -o-transition: all 0.6s ease;
+        transition: all 0.6s ease;
+    }
+
+    .projects-carousel .project-item:hover .project__content-inner {
+        -webkit-transform: translateY(-30px);
+        -moz-transform: translateY(-30px);
+        -ms-transform: translateY(-30px);
+        -o-transform: translateY(-30px);
+        transform: translateY(-30px);
+    }
+
+    .projects-carousel .project-item:hover .btn__link {
+        opacity: 1;
+    }
+
+    .projects-carousel .owl-nav .owl-prev,
+    .projects-carousel .owl-nav .owl-next {
+        top: auto;
+        bottom: 30%;
+        width: auto;
+        left: -70px;
+        right: auto;
+        color: #fff;
+    }
+
+    .projects-carousel .owl-nav .owl-prev:hover,
+    .projects-carousel .owl-nav .owl-next:hover {
+        color: #333333;
+    }
+
+    .projects-carousel .owl-nav .owl-next {
+        bottom: 10%;
+        color: #333333;
+    }
+
+    .projects-carousel .owl-nav .owl-next:hover {
+        color: #017a61;
+    }
+
+    @media(min-width: 992px) {
+        .projects-carousel .owl-carousel {
+            width: 130%;
+        }
+
+        .projects-carousel-2.owl-carousel {
+            width: 150%;
+        }
+    }
+
+    .projects-carousel-2 .owl-stage-outer,
+    .projects-carousel-3 .owl-stage-outer {
+        margin: -15px;
+        padding: 15px;
+    }
+
+    .projects-carousel-2 .project-item,
+    .projects-carousel-3 .project-item {
+        box-shadow: 0 0 15px 0 rgba(40, 40, 40, 0.15);
+    }
+
+    .projects-carousel-2 .project-item .project__content,
+    .projects-carousel-3 .project-item .project__content {
+        padding: 30px 25px 30px 30px;
+    }
+
+    .carousel-tabs .pricing-bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 0;
+        width: 100%;
+        height: 636px;
+    }
+
+    .carousel-tabs .owl-dots {
+        text-align: center;
+    }
+
+    /* project single */
+    .projects-single .project__single-title {
+        font-size: 30px;
+        font-weight: 600;
+    }
+
+    .projects-single .divider__line {
+        margin-bottom: 21px;
+    }
+
+    .projects-single .project__single-desc {
+        margin-bottom: 40px;
+    }
+
+    .projects-single .project__single-desc p {
+        margin-bottom: 27px;
+    }
+
+    .projects-single .project__single-desc p:last-of-type {
+        margin-bottom: 0;
+    }
+
+    /* project gallery */
+    .projects-gallery .project-item {
+        box-shadow: none;
+    }
+
+    .mix {
+        display: none;
+    }
+
+    .project-hidden>.project-item {
+        display: none;
+    }
+
+    /* Large Size Screens */
+    @media only screen and (min-width: 992px) and (max-width: 1200px) {
+
+        .projects-carousel .owl-nav .owl-prev,
+        .projects-carousel .owl-nav .owl-next {
+            left: -30px;
+        }
+
+        .projects-carousel .owl-nav .owl-prev:before,
+        .projects-carousel .owl-nav .owl-next:before {
+            font-size: 30px;
+        }
+    }
+
+    /* Medium Size Screens */
+    @media only screen and (min-width: 768px) and (max-width: 991px) {
+
+        .project-item .project__content,
+        .projects-carousel-2 .project-item .project__content,
+        .projects-carousel-3 .project-item .project__content {
+            padding: 20px;
+        }
+
+        .projects-carousel .owl-nav .owl-prev,
+        .projects-carousel .owl-nav .owl-next {
+            left: -40px;
+        }
+
+        .projects-filter li {
+            margin-right: 23px;
+        }
+    }
+
+    /*  Small Screens and tablets  */
+    @media only screen and (min-width: 576px) and (max-width: 767px) {
+        .projects-filter li {
+            margin-right: 20px;
+        }
+
+        .projects-grid .container {
+            max-width: none;
+        }
+
+        .projects-carousel .owl-nav .owl-prev,
+        .projects-carousel .owl-nav .owl-next {
+            left: -40px;
+        }
+    }
+
+    /* Mobile Phones and tablets */
+    @media only screen and (min-width: 320px) and (max-width: 767px) {
+        .projects-carousel .projects-bg {
+            height: 580px;
+        }
+
+        .projects-carousel-2 .project-item .project__content,
+        .projects-carousel-3 .project-item .project__content,
+        .project-item .project__content {
+            padding: 20px;
+        }
+
+        .project-item .project__desc {
+            margin-top: 5px;
+        }
+
+        .projects-single .project__title {
+            font-size: 24px;
+        }
+
+        .projects-gallery .container {
+            max-width: none;
+        }
+
+        .projects-carousel .project-item .project__content-inner {
+            padding: 20px 20px 0;
+        }
+
+        .projects-carousel .project-item .project__desc {
+            max-width: none;
+            margin: 0;
+            font-size: 13px;
+            line-height: 21px;
+        }
+
+        .text__block-2 .text__block-title {
+            position: static;
+        }
+
+        .text__block-2 .text__block-desc {
+            padding-left: 0;
+        }
+
+        .projects__nav {
+            display: block;
+        }
+
+        .projects__nav .projects__nav-content h6 {
+            font-size: 14px;
+            line-height: 24px;
+        }
+    }
+
+    /* Extra Small Devices */
+    @media only screen and (min-width: 320px) and (max-width: 575px) {
+        .projects-filter li {
+            margin-right: 15px;
+            margin-bottom: 15px;
+        }
+
+        .projects-filter li a {
+            font-size: 13px;
+        }
+
+        .project-item .project__title {
+            font-size: 18px;
+            line-height: 25px;
+        }
+
+        .projects-carousel .owl-nav {
+            text-align: center;
+        }
+
+        .projects-carousel .project-item .project__cat {
+            margin-bottom: 0;
+        }
+
+        .projects-carousel .project-item .project__content-inner {
+            padding: 15px 15px 0;
+        }
+
+        .projects-carousel .project-item .project__content {
+            padding: 15px;
+        }
+
+        .projects-carousel .project-item .project__title {
+            margin-bottom: 10px;
+        }
+
+        /*.carousel-arrows .owl-nav .owl-prev,
+  .carousel-arrows .owl-nav .owl-next {
+    position: static;
+    color: #333333;
+    margin: 0 15px;
+    transform: translateY(0);
+  }
+
+  .carousel-arrows .owl-nav .owl-prev:before,
+  .carousel-arrows .owl-nav .owl-next:before {
+    font-size: 30px;*/
+    }
+
+
+    .carrusel-container {
+        display: flex;
+        width: 100%;
+        height: auto;
+        max-height: 40vh;
+        /* Máximo 40% de la altura de la ventana */
+    }
+
+    .carrusel-imagen {
+        border-radius: 5px;
+        position: relative;
+        width: 80%;
+        /* 80% del ancho total */
+    }
+
+    .imagen img {
+        width: 100%;
+        /* Ajusta el tamaño según el contenedor */
+        max-height: 100%;
+        /* Limita la altura de las imágenes al 100% del contenedor */
+        object-fit: cover;
+        /* Mantiene la proporción sin deformarse */
+        border-radius: 5px;
+    }
+
+    .texto-carrusel {
+        position: absolute;
+        bottom: 10%;
+        /* Ajusta la posición del texto */
+        left: 5%;
+        /* Ajusta la posición del texto */
+        color: white;
+        /* Cambia el color según tu diseño */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        /* Mejora la legibilidad */
+    }
+
+    .botones {
+        position: absolute;
+        top: 50%;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        /* Coloca los botones en los extremos izquierdo y derecho */
+        transform: translateY(-50%);
+        opacity: 0;
+        /* Oculta los botones inicialmente */
+        transition: opacity 0.3s ease;
+        /* Transición suave para mostrar/ocultar */
+    }
+
+    .boton-prev,
+    .boton-next {
+        background: rgba(0, 0, 0, 0);
+        /* Fondo semitransparente */
+        color: white;
+        border: none;
+        padding: 20px;
+        /* Aumenta el padding para hacer los botones más grandes */
+        font-size: 24px;
+        /* Aumenta el tamaño de la fuente */
+        cursor: pointer;
+        border-radius: 10px;
+        /* Ajusta el radio de los bordes */
+        width: 50px;
+        /* Aumenta el ancho del botón */
+        height: 50px;
+        /* Aumenta la altura del botón */
+    }
+
+
+    .carrusel-imagen:hover .botones {
+        opacity: 1;
+        /* Muestra los botones al hacer hover en el carrusel */
+    }
+
+    .boton-prev {
+        margin-left: 10px;
+        /* Separación del borde izquierdo */
+    }
+
+    .boton-next {
+        margin-right: 10px;
+        /* Separación del borde derecho */
+    }
+
+    .carrusel-vertical {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+        width: 20%;
+        /* 20% del ancho total */
+        max-height: 40vh;
+        /* Limita la altura máxima del contenedor al 40% de la ventana */
+        overflow-y: auto;
+        /* Habilita el scroll en caso de que las imágenes excedan el contenedor */
+    }
+
+    .imagen-vertical {
+        position: relative;
+        margin-bottom: 10px;
+        /* Espaciado entre las imágenes del carrusel vertical */
+        cursor: pointer;
+        text-align: center;
+        height: calc(40vh / 5 - 10px);
+        /* Divide el alto máximo entre 5 imágenes */
+        border-radius: 5px;
+    }
+
+    .imagen-vertical img {
+        width: 100%;
+        /* Ajusta el ancho de las imágenes al contenedor */
+        height: 100%;
+        /* Hace que la imagen llene el espacio disponible */
+        object-fit: cover;
+        /* Mantiene la proporción de la imagen sin deformarse */
+        opacity: 0.5;
+        transition: opacity 0.3s ease;
+        border-radius: 5px;
+    }
+
+    .imagen-vertical img:hover {
+        opacity: 1;
+    }
+
+    .imagen-vertical h3 {
+        position: absolute;
+        /* Posiciona el título sobre la imagen */
+        top: 10%;
+        /* Ajusta la posición superior */
+        left: 50%;
+        transform: translateX(-50%);
+        color: white;
+        /* Color del título */
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+        /* Mejora la legibilidad */
+    }
+
+    .carrusel-imagen .imagen {
+        transition: opacity 0.5s ease-in-out;
+        /* Suaviza la transición de opacidad */
+        opacity: 0;
+        /* Oculta la imagen inicialmente */
+    }
+
+    .carrusel-imagen .imagen img {
+        width: 100%;
+        /* Asegura que ocupe todo el ancho del contenedor */
+        height: 100%;
+        /* Establece la altura al 100% del contenedor */
+        object-fit: cover;
+        /* Asegura que la imagen cubra todo el contenedor sin deformarse */
+        max-height: 40vh;
+        /* Asegura que la imagen no exceda el 40% de la altura de la ventana */
+    }
+
+    .titulo-formal {
+        font-family: 'Georgia', serif;
+        /* Cambia a una fuente serif para un estilo más formal */
+        font-size: 34px;
+        /* Tamaño de fuente adecuado para títulos */
+        font-weight: bold;
+        /* Negrita para destacar el título */
+        color: white;
+        /* Color oscuro para buena legibilidad */
+        margin-bottom: 8px;
+        /* Espacio debajo del título */
+    }
+
+    .titulo-formal-vertial {
+        font-family: 'Georgia', serif;
+        /* Cambia a una fuente serif para un estilo más formal */
+        font-size: 15px !important;
+        /* Tamaño de fuente adecuado para títulos */
+        font-weight: bold;
+        /* Negrita para destacar el título */
+        color: white;
+        /* Color oscuro para buena legibilidad */
+        margin-bottom: 8px;
+        /* Espacio debajo del título */
+    }
+
+    .resumen-formal {
+        font-family: 'Arial', sans-serif;
+        /* Fuente sans-serif para una apariencia limpia */
+        font-size: 26px;
+        /* Tamaño de fuente adecuado para resúmenes */
+        color: white;
+        /* Color gris para un contraste suave */
+        line-height: 1.5;
+        /* Mejora la legibilidad del texto */
+    }
+
+    .video .heading__title {
+        font-weight: 700;
+    }
+
+    .video ::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-image: url('https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/imagen.jpg');
+        background-size: cover;
+        opacity: 1.5;
+        /* Solo afecta la imagen */
+        z-index: -1;
+        /* Mantiene el fondo detrás del contenido */
+    }
+
+    .fm-icon:hover .fm-label {
+        opacity: 1 !important;
+    }
+
+    .infodato {
+        align-content: center;
+        align-items: center;
+        text-align: center;
+    }
+
+    .infodato .counter {
+        font-size: clamp(2rem, 2.2rem, 2.8rem);
+    }
+
+
+
+    /*=============================*/
+
+    @media screen and (max-width: 500px) {
+        .social__icons {
+            padding-left: 14px;
+        }
+
+        .footer-top {
+            padding-top: 1px !important;
+        }
+
+        .footer__widget {
+            margin-bottom: 0px !important;
+        }
+
+        .footer-bottom {
+            padding-top: 20px !important;
+            padding-bottom: 50px !important;
+        }
+
+        .footer__copyright p {
+            font-size: 10px !important;
+        }
+    }
+
+    #video1 {
+        position: relative;
+        overflow: hidden;
+        width: 100%;
+        /*min-height: 100vh;*/
+    }
+
+    .bg-video {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+    }
+
+    /*.bg-video::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        /* Overlay oscuro para mejorar legibilidad */
+    /*z-index: 1;
+    }*/
+
+
+    .overlay-video {
+        content: '';
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 1;
+    }
+
+    .video-heading {
+        margin-bottom: 1rem;
+        color: #ffffff !important;
+    }
+
+    .video-heading p {
+        color: #ffffff !important;
+    }
+
+    .video-heading h3 {
+        color: #ffffff !important;
+    }
+
+    .bg-video iframe {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 150vw;
+        /* Zoom para eliminar bordes */
+        height: 150vh;
+        transform: translate(-50%, -50%) scale(1.2);
+        /* Scale adicional para zoom */
+        pointer-events: none;
+        border: none;
+    }
+
+    /* Asegurar que el contenido esté por encima del video */
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    /* Ajustes adicionales para los contadores */
+    .counter-item {
+        margin: 1rem;
+        overflow-wrap: break-word;
+        position: relative;
+        z-index: 2;
+    }
+
+    .counter-item .counter-icon {
+        margin-bottom: 1rem;
+    }
+
+    /*====================================================*/
+    /*====== HOME - SECCIÓN DE SERVICIOS RELEVANTES ======*/
+    /*====================================================*/
+
+    .card-relevantes {
+        border: none;
+        border-radius: 5px;
+        overflow: hidden;
+        position: relative;
+        height: 500px;
+        transition: all 0.4s ease;
+    }
+
+    .card-relevantes .card-img-wrapper {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .card-relevantes .card-img-wrapper img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+    }
+
+    .card-relevantes:hover .card-img-wrapper img {
+        transform: scale(1.1);
+    }
+
+    .card-relevantes .card-overlay {
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(to bottom,
+                transparent 0%,
+                rgba(0, 27, 44, 0.5) 60%,
+                rgba(0, 27, 44, 0.9) 100%);
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: center;
+        padding: clamp(15px, 20px, 30px);
+        /*transition: background 0.3s ease;*/
+    }
+
+    .service-item .service__overlay {
+        bottom: -150px;
+    }
+
+    .service-item .service__img:before {
+        background: linear-gradient(to bottom, transparent 0%, rgba(0, 27, 44, 0.5) 60%, rgba(0, 27, 44, 0.9) 100%);
+    }
+
+    .card-relevantes:hover .card-overlay {
+        /*background: linear-gradient(to bottom, rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.9));*/
+        /*background: linear-gradient(to bottom, rgba(0, 27, 44, 0.1), rgba(0, 27, 44, 0.8)) !important;*/
+    }
+
+    .card-relevantes .logo-wrapper {
+        display: flex;
+        align-items: end;
+        justify-content: center;
+        width: 44px;
+        flex-shrink: 0;
+    }
+
+    .card-relevantes .logo-wrapper img {
+        width: clamp(1.8rem, 2.2rem, 2.6rem);
+        height: auto;
+        object-fit: contain;
+        filter: brightness(0) invert(1);
+        margin-bottom: 0px;
+    }
+
+    .card-relevantes .card-title {
+        color: #fff;
+        font-size: clamp(1.2rem, 1.5rem, 1.8rem);
+        font-weight: 700;
+    }
+
+    .card-relevantes .card-description {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: clamp(.8rem, 1rem, 1.2rem);
+        line-height: 1.6;
+        margin-bottom: clamp(.5rem, 1.5rem, 1.6rem);
+        text-align: center;
+    }
+
+    .card-title-service {
+        display: grid;
+        grid-template-columns: 44px 1fr 44px;
+        align-items: center;
+        min-height: 60px;
+        width: 100%;
+        padding: 0 8px;
+        margin-bottom: clamp(.9rem, 1.5rem, 1.6rem);
+        align-content: end;
+    }
+
+    .card-title-service::after {
+        content: '';
+        display: block;
+        width: 44px;
+    }
+
+    .card-title-service h2 {
+        margin-bottom: 0;
+        text-align: center;
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        padding: 25px;
+        text-align: center;
+    }
+
+    .btn-read-more {
+        color: #fff;
+        border: none;
+        padding: 0.5rem 0;
+        font-weight: 600;
+        font-size: clamp(0.8rem, 1rem, 1.2rem);
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: visible;
+        background: transparent;
+        cursor: pointer;
+    }
+
+    .btn-read-more span {
+        position: relative;
+        z-index: 1;
+        color: #fff;
+    }
+
+    .btn-read-more::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: #17a697;
+        transition: width 0.4s ease;
+    }
+
+    .btn-read-more:hover::after,
+    .btn-read-more:active::after {
+        width: 100%;
+    }
+
+    .btn-read-more:hover,
+    .btn-read-more:active {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    /* Responsive service__img*/
+    @media (max-width: 768px) {
+        .card-relevantes {
+            height: 350px;
+        }
+    }
+
+    /* Tablet: cards*/
+    @media (min-width: 576px) and (max-width: 991px) {
+        .card-title-service {
+            grid-template-columns: 32px 1fr 32px;
+            padding: 0 4px;
+        }
+
+        .card-title-service::after {
+            width: 32px;
+        }
+
+        .card-relevantes .logo-wrapper {
+            width: 32px;
+        }
+
+        .card-relevantes .logo-wrapper img {
+            width: 1.6rem;
+        }
+
+        .card-title-service h2 {
+            font-size: 1rem !important;
+            margin-left: .5rem;
+            margin-right: .5rem;
+        }
+
+        .service-item .service__overlay {
+            bottom: -220px;
+        }
+    }
+
+    /*====================================================*/
+    /*  ====== AIFA INFORMA - CARRUSEL NOTICIAS ======    */
+    /*====================================================*/
+
+    .aifa-carousel-wrapper {
+        margin-top: 2rem;
+    }
+
+    .carousel-bootstrap {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .carousel-inner {
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        display: block;
+        height: auto !important;
+    }
+
+    .carousel-item {
+        position: relative;
+        display: none;
+        float: left;
+        width: 100%;
+        margin-right: -100%;
+        backface-visibility: hidden;
+        transition: transform .6s ease-in-out;
+        height: auto !important;
+    }
+
+    .carousel-item.active {
+        display: block !important;
+    }
+
+
+    .aifa-carousel-container {
+        display: flex;
+        gap: 20px;
+        align-items: stretch;
+        width: 100%;
+        height: auto;
+    }
+
+    .aifa-main-view {
+        flex: 3;
+        min-width: 0;
+    }
+
+
+    .aifa-slide-content {
+        width: 100%;
+        aspect-ratio: 1024 / 383;
+        background-color: transparent;
+        overflow: hidden;
+        border-radius: 8px;
+    }
+
+    .aifa-slide-content img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+
+    .aifa-slide-content a {
+        display: block;
+        width: 100%;
+        height: auto;
+    }
+
+    .aifa-thumbnails {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0 30px;
+        overflow-y: auto;
+        min-height: 200px;
+        height: 0;
+    }
+
+    .aifa-thumb-card {
+        width: 100%;
+        /*aspect-ratio: 16 / 9;*/
+        aspect-ratio: 1024 / 383;
+        flex-shrink: 0;
+        border-radius: 4px;
+        overflow: hidden;
+        border: 3px solid transparent;
+        cursor: pointer;
+        transition: all 0.4s ease;
+        opacity: 0.5;
+        filter: grayscale(30%);
+    }
+
+    .aifa-thumb-card img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .aifa-thumb-card:hover img {
+        opacity: 0.9;
+        ilter: grayscale(0%);
+    }
+
+    .aifa-thumb-card.active {
+        /*border-color: #017a61;*/
+        opacity: 1 !important;
+        filter: grayscale(0%) !important;
+
+    }
+
+    .aifa-thumb-card.active img {
+        opacity: 1;
+    }
+
+    /* 6. Controles (Flechas) */
+    .carousel-control-prev,
+    .carousel-control-next {
+        z-index: 99 !important;
+        pointer-events: auto !important;
+        cursor: pointer !important;
+        opacity: 0.8;
+        background: rgba(0, 0, 0, 0.1);
+        width: 50px;
+        height: 50px;
+        top: 50%;
+        transform: translateY(-50%);
+        border-radius: 50%;
+        margin: 0 10px;
+    }
+
+    .carousel-control-prev:hover,
+    .carousel-control-next:hover {
+        opacity: 1;
+        background: rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-slide-news {
+        background: #017a61;
+        border: none;
+        color: #fff;
+        padding: 8px 20px;
+        font-weight: 600;
+        font-size: 1rem;
+        text-decoration: none;
+        align-content: center;
+        transition: all 0.4s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .btn-slide-news span {
+        position: relative;
+        z-index: 1;
+    }
+
+
+    .btn-slide-news:hover::before {
+        left: 0;
+    }
+
+    .btn-slide-news:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 15px rgba(1, 122, 97, 0.2);
+        color: #fff;
+        background-color: var(--shadow-color-primary);
+        border-color: var(--shadow-color-primary);
+        text-decoration: none;
+    }
+
+    @media (max-width: 992px) {
+        .aifa-carousel-container {
+            flex-direction: column;
+        }
+
+        .aifa-thumbnails {
+            flex-direction: row !important;
+            height: auto !important;
+            min-height: auto !important;
+            overflow-x: auto;
+        }
+
+        .aifa-thumb-card {
+            width: 200px;
+            flex: 0 0 200px;
+        }
+    }
+
+    /*INFORMACIÓN ÚTIL*/
+    .services .client h3 {
+        font-size: 1.2rem;
+    }
+</style>
+    <style type="text/css">
+* {
+    box-sizing: border-box;
+}
+.button-container {
+    position: relative;
+    width: 200px;
+    height: 200px;
+    margin-right: 20px;
+}
+.wayfinding-button {
+    position: absolute;
+    right: 0;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #017a61;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 14px;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+.wayfinding-button:nth-child(1) {
+    top: 0;
+}
+.wayfinding-button:nth-child(2) {
+    top: 70px;
+}
+.wayfinding-button:nth-child(3) {
+    top: 140px;
+}
+.wayfinding-button.expanded {
+    width: 200px;
+    border-radius: 30px;
+    justify-content: space-between;
+    padding-left: 20px;
+    z-index: 10;
+}
+.button-icon {
+    font-style: normal;
+    font-size: 24px;
+    color: white;
+}
+.button-text {
+    color: white;
+    display: none;
+    white-space: nowrap;
+    font-family: Arial, sans-serif;
+    font-size: 16px;
+}
+.wayfinding-button.expanded .button-text {
+    display: inline;
+}
+.video-background {
+    background: #000;
+    position: relative;
+    z-index: -99;
+}
+.video-foreground, .video-background iframe {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+#vidtop-content {
+    top: 0;
+    color: #fff;
+}
+
+/* Media query adjustments */
+@media (min-aspect-ratio: 16/9) {
+    .video-foreground {
+        height: 300%;
+        top: -100%;
+    }
+}
+
+@media (max-aspect-ratio: 16/9) {
+    .video-foreground {
+        width: 300%;
+        left: -100%;
+    }
+}
+
+/* ... Other CSS rules (cleaned) ... */
+.vuelo-banner {
+    position: absolute;
+
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1;
+}
+
+#services {
+    /*margin-top: 80px;*/ /* Ajusta este valor según la altura de tu vuelo-banner */
+    position: relative;
+    z-index: 0;
+}
+.vuelo-transport-label img{
+    width: 80px !important;
+}
+
+.vuelo-transport-option:checked + .vuelo-transport-label {
+    background-color: #017a61 !important;
+}
+
+@media (min-width: 769px) {
+    .vuelo-banner {
+        top: -20px;
+    }
+}
+</style>    <style type="text/css">
+.card-container {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.card-container.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Aseguramos que las cards están ocultas inicialmente pero no parpadean */
+.card-container:not(.show) {
+    visibility: hidden;
+}
+    .service__title{
+        text-shadow: 2px 2px 7px #000 !important;
+    }
+</style>    <style type="text/css">
+.services .owl-carousel .owl-item img {
+    width: 100% !important;
+    max-width: 107px !important;
+}
+
+#services .border-top {
+    border-top: 0px solid #dee2e6 !important;
+}
+
+.btn__white.btn__underlined:hover {
+    color: #fff;
+}
+
+@media (min-width: 1250px) {
+    .navbar .container {
+        max-width: 1200px;
+    }
+}
+</style>
+    <style type="text/css">
+    .slider-container_aifa {
+        width: 100%;
+        max-width: 100%;
+        position: relative;
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .slider_aifa {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+        cursor: grab;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        width: 100%;
+    }
+
+    .slider_aifa.dragging_aifa {
+        cursor: grabbing;
+        transition: none;
+    }
+
+    .slide_aifa {
+        min-width: calc(40% - 20px);
+        /* 2.5 slides para desktop */
+        margin: 0 10px;
+        position: relative;
+        border-radius: 5px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        user-select: none;
+        transition: transform 0.3s ease;
+        cursor: pointer;
+        /*background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0.9) 100%);*/
+        /*background: linear-gradient(to top, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7), transparent);*/
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%);
+    }
+
+    .slide_aifa:hover {
+        /*transform: scale(1.05);*/
+    }
+
+    .slide_aifa:hover img {
+        transform: scale(1.05);
+    }
+
+    /*.slide_aifa::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 50%;*/
+    /* Ajusta la altura según tus necesidades */
+    /* background-color: rgba(0, 27, 44, 0.6);*/
+    /* Gris casi transparente */
+    /*z-index: 1;*/
+    /* Asegura que el div esté por encima de la imagen */
+    /*}*/
+
+    /* Media query para móviles */
+    @media (max-width: 768px) {
+        .slide_aifa {
+            min-width: calc(100% - 20px);
+            /* 1 slide para móvil */
+        }
+    }
+
+    .slide_aifa img {
+        width: 100%;
+        height: 400px;
+        object-fit: cover;
+        transition: transform 0.3s ease-in-out;
+        pointer-events: none;
+    }
+
+    /* Ajustar altura de imagen para móviles */
+    @media (max-width: 768px) {
+        .slide_aifa img {
+            height: 300px;
+        }
+    }
+
+    /*.slide_aifa:hover img {
+        transform: scale(1.05);
+    }*/
+
+    .overlay_aifa {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        /*background: rgba(0, 0, 0, 0.3);*/
+        background-color: rgba(0, 0, 0, 0);
+        /*transform: scale(0);*/
+        transition: transform 0.3s ease-out;
+        /*transform-origin: center;*/
+    }
+
+    .slide_aifa:hover .overlay_aifa {
+        /*transform: scale(1);*/
+        background-color: rgba(0, 0, 0, 0.7);
+
+    }
+
+    .slide-content_aifa {
+        /*position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        padding: 20px;
+        color: white;
+        z-index: 2;
+        transition: transform 0.3s ease-in-out;*/
+        /*background-color: rgba(0, 27, 44, 0.6);*/
+        /*background-color: rgba(0, 27, 44, 0.6);
+        background: transparent;
+        bottom: -40px;*/
+        position: absolute;
+        bottom: 0;
+        color: #ffffff;
+        left: 0;
+        right: 0;
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.9), rgba(0, 0, 0, 0.7), transparent);
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        z-index: 2;
+        transition: transform 0.5s ease-in-out, background 0.5s ease;
+    }
+
+    .slide_aifa:hover .slide-content_aifa {
+        /*transform: translateY(-50px);*/
+        /*background: transparent;*/
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 80%, transparent);
+        transform: translateY(0);
+        /* Quitamos el -50px para que el texto crezca hacia arriba naturalmente */
+    }
+
+    .slide-title_aifa {
+        /*color: white;
+        font-size: clamp(1rem, 1.4rem, 1.6rem);
+        margin-bottom: 10px;
+        display: block;
+        position: relative;
+        z-index: 3;
+        text-decoration: underline;
+        text-decoration-color: white;
+        text-shadow: 2px 2px 7px #000 !important;
+        transition: color 0.3s ease, text-decoration-color 0.3s ease;
+        font-weight: 700;*/
+        color: white;
+        font-size: clamp(1rem, 1.5rem, 2rem);
+        font-weight: bold;
+        margin: 0 0 12px 0;
+        line-height: 1.3;
+    }
+
+    /* Ajustar tamaño de título para móviles */
+    @media (max-width: 768px) {
+        .project-news .projects-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 0;
+            width: 100%;
+            /*min-height: 514px;*/
+        }
+
+        .slide-description_aifa {
+            /*font-size: .9rem;
+            opacity: 1;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 3;
+            font-weight: 400;*/
+        }
+    }
+
+    .slide-title_aifa:hover {
+        color: #017a61;
+        text-decoration-color: #017a61;
+        text-decoration: none;
+    }
+
+    .slide-description_aifa {
+        /*font-size: clamp(0.9rem, 1rem, 1.2rem);
+        opacity: 1;
+        margin-bottom: clamp(.9rem, 1rem, 1.2rem);
+        position: relative;
+        z-index: 3;
+        font-weight: 400;*/
+        color: rgba(255, 255, 255, 0.9);
+        font-size: clamp(0.8rem, 1rem, 1.2rem);
+        line-height: 1.5;
+        margin: 0;
+        max-height: 0;
+        /* Cerrado por defecto */
+        overflow: hidden;
+        transition: max-height 0.5s ease;
+        /* Transición más suave */
+        z-index: 3;
+    }
+
+    .slide_aifa:hover .slide-description_aifa {
+        /*max-height: 80px;*/
+        max-height: 500px;
+        /* Un valor alto para que nunca se corte */
+        margin-bottom: 15px;
+        /* Crea el espacio para el botón "Ver más" */
+    }
+
+    .see-more_aifa {
+        display: inline-block;
+        text-decoration: none;
+        color: #66b292;
+        font-size: 14px;
+        font-weight: 500;
+        position: relative;
+        opacity: 1;
+        transform: translateY(0);
+        transition: all 0.3s ease;
+        z-index: 3;
+        align-self: flex-start;
+    }
+
+    .slide_aifa:hover .see-more_aifa {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .see-more_aifa::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 50%;
+        width: 0;
+        height: 2px;
+        background: #66b292;
+        transition: all 0.3s ease;
+        transform: translateX(-50%);
+    }
+
+    .see-more_aifa:hover::after {
+        width: 100%;
+    }
+
+    .see-more_aifa:hover {
+        color: white;
+    }
+
+    .slider-buttons_aifa {
+        display: none !important;
+        position: relative;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        gap: 20px;
+        padding-bottom: 25px;
+        z-index: 10;
+    }
+
+    .slider-button_aifa {
+        background: rgba(255, 255, 255, 0.8);
+        border: none;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        color: #333;
+        transition: background-color 0.3s;
+        pointer-events: auto;
+    }
+
+    .slider-button_aifa:hover {
+        background: white;
+    }
+
+    .slide-content_aifa a {
+        color: white !important;
+        text-decoration: none !important;
+        /* Opcional: quita el subrayado del enlace */
+    }
+
+    .slide-content_aifa a:visited,
+    .slide-content_aifa a:hover,
+    .slide-content_aifa a:active,
+    .slide-content_aifa a:focus {
+        color: white !important;
+    }
+
+    #video1 .container {
+        padding: 0 15px;
+    }
+
+    .uk-card-body {
+        padding: 0px !important;
+    }
+
+    .uk-card-title {
+        font-size: 2.8rem !important;
+    }
+
+    .uk-card-title p {
+        margin: 15px 0;
+    }
+
+    .uk-card-title p:last-child {
+        font-size: 1rem;
+    }
+
+    @media (max-width: 480px) {
+        .uk-card-title {
+            font-size: 2.2rem !important;
+        }
+
+        #video1 .container {
+            padding: 0 30px;
+        }
+
+        .counter-item .counter__icon {
+            max-width: 48px;
+        }
+    }
+
+    @media (max-width: 992px) {
+        .counter-item .infodato h4 {
+            font-size: 2.5rem;
+        }
+    }
+
+    .slider_aifa::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+        background: transparent;
+    }
+
+    .slider_aifa::-webkit-scrollbar-thumb {
+        background-color: white;
+        border-radius: 4px;
+    }
+
+    .slider_aifa {
+        scrollbar-color: white transparent;
+        scrollbar-width: thin;
+    }
+</style>
+    <style type="text/css">
+.project-news {
+    margin-bottom: 0px !important;
+}
+
+.carrusel-container {
+    display: flex;
+    width: 100%;
+    height: 40vh;
+    margin-top: 3rem;
+}
+
+.carrusel-imagen {
+    position: relative;
+    width: 80%;
+    height: 100%;
+}
+
+.imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/*.imagen::after,
+.imagen-vertical::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 49%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}*/
+
+/*.imagen-vertical::after {
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}*/
+
+.texto-carrusel {
+    position: absolute;
+    bottom: 10%;
+    left: 5%;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    z-index: 3;
+}
+
+.botones {
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    transform: translateY(-50%);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    display: none !important;
+}
+
+.boton-prev,
+.boton-next {
+    background: rgba(0, 0, 0, 0);
+    color: #fff;
+    border: none;
+    padding: 20px;
+    font-size: 100px;
+    cursor: pointer;
+    border-radius: 10px;
+    width: 50px;
+    height: 50px;
+}
+
+.carrusel-imagen:hover .botones {
+    opacity: 1;
+}
+
+.carrusel-vertical {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    width: 20%;
+    height: 100%;
+    overflow-y: auto;
+    margin-top: 5px;
+}
+
+.imagen-vertical {
+    position: relative;
+    margin-bottom: 10px;
+    cursor: pointer;
+    text-align: center;
+    height: calc(40vh / 3 - 10px);
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: background-color 0.3s ease, opacity 0.3s ease;
+}
+
+.imagen-vertical img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.imagen-vertical img:hover {
+    opacity: 1;
+}
+
+.imagen-vertical h3 {
+    display: flex;
+    position: absolute;
+    left: 130px;
+    width: 60%;
+    padding: 5px 0;
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    z-index: 2;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    display: none;
+}
+
+.carrusel-imagen .imagen {
+    height: 100%;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 0;
+}
+
+.carrusel-imagen .imagen.visible {
+    opacity: 1;
+}
+
+.titulo-formal {
+    font-family: 'Georgia', serif;
+    font-size: 30px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    display: none;
+}
+
+.titulo-formal-vertical {
+    font-family: 'Georgia', serif;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 8px;
+    display: none !important;
+}
+
+.resumen-formal {
+    font-family: 'Arial', sans-serif;
+    font-size: 20px;
+    color: white;
+    line-height: 1.5;
+}
+
+.carrusel-imagen .imagen img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain !important;
+    max-height: 40vh;
+}
+/* Responsividad */
+
+/* Pantallas medianas (tabletas) */
+@media (max-width: 768px) {
+    .carrusel-imagen .imagen img {
+        object-fit: contain !important;
+    }
+    .imagen-vertical img {
+        object-fit: fill;
+    }
+    .carrusel-vertical {
+        flex-direction: row; /* Mantén el carrusel vertical en una fila para pantallas grandes */
+        width: 100%; /* Asegura que ocupe todo el ancho */
+        margin-left: -130px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: auto;
+    }
+    .carrusel-container {
+        flex-direction: column; /* Coloca el carrusel principal encima */
+        height: auto; /* Deja que el contenedor se ajuste a la altura */
+        margin-top: 1.5rem; /* Ajusta el margen superior */
+    }
+
+    .carrusel-imagen {
+        width: 100%; /* Asegúrate de que ocupe el 100% del espacio disponible */
+        height: 100%; /* Ajusta el carrusel principal */
+    }
+
+    .carrusel-vertical {
+        flex-direction: column; /* Coloca las imágenes verticales debajo del carrusel principal */
+        width: 100%; /* Asegúrate de que el carrusel vertical ocupe todo el ancho */
+        height: auto; /* Deja que se ajuste al contenido */
+        margin-top: 20px; /* Espacio entre el carrusel principal y el vertical */
+    }
+
+    .imagen-vertical {
+        height: auto; /* Ajuste de altura para las imágenes verticales */
+        width: 100%; /* Asegura que las imágenes verticales ocupen todo el ancho */
+        margin-bottom: 10px; /* Espacio entre las imágenes */
+    }
+
+    .imagen-vertical h3 {
+        display: flex;
+        position: absolute;
+        left: 0; /* Ajusta la posición del título para tabletas */
+        width: 100%;
+        padding: 5px 0;
+        color: white;
+        font-size: 16px; /* Ajuste del tamaño del texto */
+        text-align: center;
+        z-index: 2;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        display: none;
+    }
+}
+
+/* Ajustes para pantallas grandes (hasta 1024px) */
+@media (max-width: 1024px) {
+    .carrusel-imagen .imagen img {
+        object-fit: contain !important;
+    }
+    .imagen-vertical img {
+        object-fit: fill;
+    }
+    .carrusel-container {
+        flex-direction: column; /* Coloca el carrusel principal encima */
+        height: auto; /* Ajusta el contenedor */
+    }
+
+    .carrusel-imagen {
+        width: 100%; /* Asegura que el carrusel principal ocupe el 100% */
+    }
+
+    .carrusel-vertical {
+        flex-direction: row; /* Mantén el carrusel vertical en una fila para pantallas grandes */
+        width: 100%; /* Asegura que ocupe todo el ancho */
+        margin-left: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: auto;
+    }
+
+    .imagen-vertical {
+        width: calc(100% / 3); /* Ajusta el ancho de las imágenes para que se distribuyan en 3 columnas */
+        height: calc(40vh / 3 - 10px); /* Ajusta la altura de las imágenes */
+        margin: 0 5px; /* Agrega márgenes entre las imágenes */
+    }
+
+    .titulo-formal {
+        font-size: 20px; /* Ajuste del tamaño de fuente */
+        display: none;
+    }
+
+    .resumen-formal {
+        font-size: 14px; /* Ajuste del tamaño de la fuente */
+    }
+
+    .imagen-vertical h3 {
+        font-size: 18px; /* Ajuste del tamaño del texto */
+        display: none;
+    }
+}
+
+/* Ajustes para pantallas pequeñas (teléfonos) */
+@media (max-width: 480px) {
+    .carrusel-vertical {
+        flex-direction: row; /* Mantén el carrusel vertical en una fila para pantallas grandes */
+        width: 100%; /* Asegura que ocupe todo el ancho */
+        margin-left: 0;
+        overflow-x: auto;
+        overflow-y: hidden;
+        height: auto;
+    }
+    .titulo-formal {
+        font-size: 16px !important;
+        display: none;
+    }
+
+    .titulo-formal-vertical {
+        font-size: 10px !important;
+        display: none;
+    }
+
+    .imagen-vertical h3 {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-size: 8px !important;
+        width: 90%;
+        text-align: center;
+        padding: 0;
+        display: none;
+    }
+
+    .resumen-formal {
+        font-size: 12px;
+        line-height: 1.2;
+    }
+
+    .imagen-vertical {
+        width: calc(100% / 2); /* Ajuste para pantallas más pequeñas */
+        height: auto;
+    }
+
+    .imagen-vertical img {
+        opacity: 0.7;
+    }
+}
+
+
+/*estadisticas*/
+@media (min-width: 480px) {
+    .col-md-12 {
+        flex: 0 0 auto;
+        width: 100%;
+    }
+}
+</style>
+    <style type="text/css">
+.videoestadistica{
+    overflow: auto;
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 0px;
+}
+</style>
+    <style type="text/css">
+@media screen and (max-width: 500px) {
+.counter-item{
+  display: flex;
+  justify-content: center;
+  align-items: first baseline;
+  gap:10px;
+}
+
+.infodato{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.infodato * + p{
+    margin:0px !important;
+}
+
+    .bg-video iframe {
+    transform: translate(-90%, -50%) scale(2.5);
+}}
+
+.infodato p{
+    text-align:center !important;
+}
+</style>
+    <link rel="stylesheet" href="https://www.aifa.aero/js/CookieConsent/cookieconsent.css">
+
+    
+</head>
+
+<body>
+    
+    <div id="ifrChat" style="transform: translateZ(0px);overflow:hidden;display:none;position:fixed;z-index:500000;bottom:0px;right:20px;width:400px;height:530px;border-radius:15px 15px 0px 0px;background:#FFF;border:1px solid #000">
+    <div style="background:#000;display:block;height:40px;text-align:right;padding-right:10px;padding-top:10px;font-weight:bold;;">
+        <a href="javascript:;" style="color:#FFF !important;" onclick="$('#ifrChat').hide();">X</a>
+    </div>
+</div><div class="hvr-floating-nav-wrapper">    <link rel="stylesheet" href="https://www.aifa.aero/assets/css/menuLateral.css">
+<script src="https://www.aifa.aero/assets/js/menuLateral.js"></script>
+
+
+<script>
+    // Configuración global del chatbot
+    window.chatConfig = {
+        url: 'https://www.aifa.aero/api/Stor002GetChat',
+        token: 'Kcf9FjjSiF3hw3jS8XezYuq4oJwihLqEDvCPDoMr',
+        messages: {
+            greeting1: '¡Hola! 😊 Bienvenido al sistema de asistencia del AIFA 🛩',
+            greeting2: '¿En que le puedo ayudar el día de hoy? 😊',
+            regresar: 'Regresar',
+            irAlMenuPrincipal: 'Ir al menú principal',
+            salir: 'Salir',
+            contactanos: 'Contáctanos'
+        }
+    };
+</script>
+
+<div class="bubble">
+    <div class="lateral-icon-container">
+        <a aria-label="Mapa interactivo" href="https://www.aifa.aero/wayfinding" class="icon-link">
+            <i class="fas fa-map-location-dot lateral-icon"></i>
+        </a>
+    </div>
+    <div class="hvr-floating-nav-label-wrapper">
+        <!--<i class="fas fa-map-location-dot"></i>-->
+        <span>Mapa interactivo</span>
+    </div>
+</div>
+
+<div class="bubble">
+    <div class="lateral-icon-container">
+        <button type="button" class="icon-link" onclick="openChat(true);" aria-label="ChatBot">
+            <i class="fas fa-robot lateral-icon" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="hvr-floating-nav-label-wrapper">
+        <span>ChatBot</span>
+    </div>
+</div>
+
+<div class="bubble">
+    <div class="lateral-icon-container">
+        <a class="icon-link" href="https://www.aifa.aero/contacto" aria-label="Contacto">
+            <i class="fas fa-headset lateral-icon"></i>
+        </a>
+    </div>
+    <div class="hvr-floating-nav-label-wrapper">
+        <span>Contacto</span>
+        <!--<i class="fas fa-headset"></i>-->
+    </div>
+</div></div>
+
+    <!-- =========================
+      Header
+  =========================== -->
+            <header id="header" class="header header-transparent">
+    <nav class="navbar navbar-expand-lg fixed-navbar">
+        <div class="container container-navbar">
+            <a class="navbar-brand" href="https://www.aifa.aero">
+                <img src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/logo-aifa-full-color-white.png" width="360" class="logo-light" alt="Aeropuerto Internacional Felipe Ángeles">
+                <img src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/logo-aifa-full-color-white.png" width="360" class="logo-dark" alt="Aeropuerto Internacional Felipe Ángeles">
+            </a>
+            <div class="collapse navbar-collapse" id="mainNavigation">
+                 <ul class="navbar-nav ml-auto">
+       <li class="nav__item with-dropdown">
+        <a class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -23px;"><span>Destinos</span></a>
+                    <ul class="dropdown-menu " style="">
+                <li class="nav__item">
+                    <div class=" mx-0">
+                        <div class=" dropdown-menu-col">    <a href="/destinos-nacionales" style="cursor:pointer;" class=""><p class="menu-title" style="">Destinos Nacionales</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="/destinos-internacionales" style="cursor:pointer;" class=""><p class="menu-title" style="">Destinos Internacionales</p></a>    <ul class="nav flex-column">            </ul></div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -37px;"><span>Conectividad Terrestre</span></a>
+                    <ul class="dropdown-menu wide-dropdown-menu" style="">
+                <li class="nav__item">
+                    <div class="row mx-0">
+                        <div class=" dropdown-menu-col">    <a href="javascript:;" style="cursor:pointer;" class=""><p class="menu-title" style="font-weight:bold; padding-left:10px;">Automóvil</p></a>    <ul class="nav flex-column">        <li class="nav__item"><a href="/vialidades">Vialidades</a></li><li class="nav__item"><a href="/estacionamiento">Estacionamiento</a></li><li class="nav__item"><a href="/renta-autos">Renta de Autos</a></li><li class="nav__item"><a href="/noticias-aifa/15">Conecta AIFA</a></li>    </ul></div><div class=" dropdown-menu-col">    <a href="javascript:;" style="cursor:pointer;" class=""><p class="menu-title" style="font-weight:bold; padding-left:10px;">Terminal Intermodal</p></a>    <ul class="nav flex-column">        <li class="nav__item"><a href="/conectividad/mexibus">Mexibús</a></li><li class="nav__item"><a href="/conectividad/cdmx">CDMX y Zona Metropolitana</a></li><li class="nav__item"><a href="/conectividad/foraneas">Foráneas</a></li><li class="nav__item"><a href="/conectividad/taxis">Taxis</a></li><li class="nav__item"><a href="/conectividad/tren">Tren Felipe Ángeles</a></li>    </ul></div><div class=" dropdown-menu-col">    <a href="javascript:;" style="cursor:pointer;" class=""><p class="menu-title" style="font-weight:bold; padding-left:10px;">Transporte Local</p></a>    <ul class="nav flex-column">        <li class="nav__item"><a href="/transporte/aifa-real-granada">AIFA-Real Granada</a></li><li class="nav__item"><a href="/transporte/aifa-puente-fierro">AIFA - Puente de Fierro</a></li><li class="nav__item"><a href="/transporte/aifa-zumpango">AIFA - Zumpango</a></li><li class="nav__item"><a href="/transporte/aifa-tizayuca">AIFA - Tizayuca</a></li><li class="nav__item"><a href="/transporte/aifa-atizapan">AIFA - Atizapán</a></li>    </ul></div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -23px;"><span>Servicios</span></a>
+                    <ul class="dropdown-menu wide-dropdown-menu2" style="">
+                <li class="nav__item">
+                    <div class="row mx-0">
+                        <div class=" dropdown-menu-col">    <a href="javascript:;" style="cursor:pointer;" class=""><p class="menu-title" style="font-weight:bold; padding-left:10px;">Comerciales</p></a>    <ul class="nav flex-column">        <li class="nav__item"><a href="/servicios/comida">Comida</a></li><li class="nav__item"><a href="/servicios/tienda">Tiendas de Conveniencia</a></li><li class="nav__item"><a href="/servicios/productos">Productos</a></li><li class="nav__item"><a href="/servicios/salas-vip">Salas VIP</a></li>    </ul></div><div class=" dropdown-menu-col">    <a href="javascript:;" style="cursor:pointer;" class=""><p class="menu-title" style="font-weight:bold; padding-left:10px;">Servicios Generales</p></a>    <ul class="nav flex-column">        <li class="nav__item"><a href="/servicios/financieros">Financieros</a></li><li class="nav__item"><a href="/servicios/dependencias">Dependencias</a></li><li class="nav__item"><a href="/servicios/amenidades">Amenidades</a></li><li class="nav__item"><a href="/servicios/entretenimiento-cultura">Entretenimiento y Cultura</a></li><li class="nav__item"><a href="/servicios/hospedaje">Hospedaje</a></li>    </ul></div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -31px;"><span>Guía del Pasajero</span></a>
+                    <ul class="dropdown-menu " style="">
+                <li class="nav__item">
+                    <div class=" mx-0">
+                        <div class=" dropdown-menu-col">    <a href="/preguntas-frecuentes" style="cursor:pointer;" class=""><p class="menu-title" style="">Preguntas Frecuentes</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="/asistencia" style="cursor:pointer;" class=""><p class="menu-title" style="">Asistencia</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="" style="cursor:pointer;" class=""><p class="menu-title" style="">Documentos y Equipaje</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="/asistencia/informacion" style="cursor:pointer;" class=""><p class="menu-title" style="">Información</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="/asistencia/recomendaciones" style="cursor:pointer;" class=""><p class="menu-title" style="">Recomendaciones</p></a>    <ul class="nav flex-column">            </ul></div><div class=" dropdown-menu-col">    <a href="/asistencia/sitios-de-interes" style="cursor:pointer;" class=""><p class="menu-title" style="">Sitios de Interés</p></a>    <ul class="nav flex-column">            </ul></div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -19px;"><span>AIFA</span></a>
+                    <ul class="dropdown-menu wide-dropdown-menu2" style="padding-left:10px;">
+                <li class="nav__item">
+                    <div class="row mx-0">
+                        <div class=" dropdown-menu-col">        <ul class="nav flex-column">        <li class="nav__item"><a href="/corporativo">Corporativo</a></li><li class="nav__item"><a href="/instalaciones">Instalaciones e Infraestructura</a></li><li class="nav__item"><a href="/legal-y-finanzas">Legal y Finanzas</a></li><li class="nav__item"><a href="/tecnologia">Tecnología</a></li><li class="nav__item"><a href="/arrendamiento">Arrendamiento</a></li>    </ul></div><div class=" dropdown-menu-col">        <ul class="nav flex-column">        <li class="nav__item"><a href="/contacto">Contacto</a></li><li class="nav__item"><a href="/noticias-aifa">AIFA Informa</a></li><li class="nav__item"><a href="/normateca">Normateca</a></li><li class="nav__item"><a href="/aeropuerto-sustentable">Aeropuerto Sustentable</a></li>    </ul></div>
+                    </div>
+                </li>
+            </ul>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a href="/transparencia" class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -28px;"><span>Transparencia</span></a>
+            </li>
+      <li class="nav__item with-dropdown">
+        <a href="/proteccion-datos-personales" class="menu-trigger nav__item-link has-overflow" style="--overflow-amount: -31px;"><span>Datos Personales</span></a>
+            </li>
+      </ul>
+            </div>
+            <div class="navbar-modules-group">
+                <div class="navbar-modules">
+                    <button class="navbar-toggler" type="button" aria-label="Abrir menú de navegación">
+                        <span class="menu-lines"><span></span></span>
+                    </button>
+                </div>
+                <div class="navbar-modules">
+                    <a href="https://www.aifa.aero/buscador" class="custome-globe" aria-label="Buscar">
+                        <i class="fas fa-search"></i>
+                    </a>
+                </div>
+                <div class="navbar-modules">
+                    <a href="javascript:;" onclick="if($('#divGlobo').length) $('#divGlobo').toggle();" class="custome-globe" aria-label="Cambiar idioma">
+                        <i class="fas fa-globe"></i>
+                    </a>
+                    <div id="divGlobo" style="display:none;">
+                        <button type="button" class="btn-lang" onclick="document.cookie='lang=en-US;path=/;';location=location.href;">
+    English
+</button>
+
+<button type="button" class="btn-lang" onclick="document.cookie='lang=es-MX;path=/;';location=location.href;">
+    Español
+</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+</header>
+    
+    <div>
+            <main id="HomeSlider">
+            <ul class="slider overlay-video">
+                <li class="item" style="background-image: url('/api/Embe002SliderHome/eyJpdiI6InYwZDkxY01rZzQwZUNwSEpBYUZWOUE9PSIsInZhbHVlIjoiM2JRMm5GM1ZqdzdUaFdpdGFxWGUwQT09IiwibWFjIjoiNzlmZWNkZmNiOWQxOTI2Njk0ODZlMDJiNGMwOTFjYTI0YTcwMWEzZjI1ZGJiNjFjMWM0ZjMwYzBiNTFlZGMyYSIsInRhZyI6IiJ9')">
+
+              <video autoplay="" loop="" muted="" playsinline="" webkit-playsinline="">
+
+                <source src="/api/Down001DescargarVideo/eyJpdiI6IjNOWTZTZjRnM1lJakVXRy8wS2orTXc9PSIsInZhbHVlIjoibXRlTG1ySGp2U3BFQlU4dlJXUXUrQT09IiwibWFjIjoiNDhjMDg3MjAxODM1ZDNlNzNiY2VlMGYxODAyZjI4NzRkNDk2NzQyYmJhNzA0ZDYxZDNlNmY2ZjMxYzVjYjk0NyIsInRhZyI6IiJ9" type="video/mp4">
+
+              </video>
+
+              <div class="content">
+
+                <h1 class="title home-b">Bienvenidos <br>  al AIFA</h1>
+
+                <p class="description"></p>
+
+                <!--<button style="background-color: #017a61;color: #ffffff;border: 2px solid #017a61;">Leer más</button>-->
+
+             </div>
+
+        </li>
+
+              </ul>
+        <!--<navi class='navi'>
+            <ion-icon class='btn prev' name="arrow-back-outline"></ion-icon>
+            <ion-icon class='btn next' name="arrow-forward-outline"></ion-icon>
+        </navi>-->
+    </main>
+
+
+    
+    <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule="" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    </div>
+
+    <!-- =========================
+            cta 1
+    =========================  -->
+    <!--<section id="cta1" class="cta pt-20 pb-20" style="background-color: #23536b !important; color: #fff;">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12 ">
+              <div class="d-flex align-items-center">
+                <i class="icon-airplane" style="padding: 10px; font-size: 36px; color: #fff;"></i>
+                <h3 class="contact__panel-title" style="font-size: 24px; color: #fff;">Localizador de vuelos</h3>
+              </div>
+            </div>-->
+    <!-- /.col-lg-4 -->
+    <!--</div>-->
+    <!-- /.row -->
+    <!--</div>-->
+    <!-- /.container -->
+    <!--</section>-->
+    <!-- /.cta1 -->
+
+    <!-- =========================
+                cta 1
+        =========================  -->
+    <section id="cta1" class="cta cta-1 border-top pt-0 pb-0">
+            <div class="vuelo-banner">
+        <div class="">
+            <div class="vuelo-banner-title"><i class="plane"><img src="assets/icons/Todos-los-vuelos-02.png" width="40" alt=""></i>
+                Localizador de vuelos
+            </div>
+        </div>
+        <div class="vuelo-search-container">
+            <div class="">
+                <fieldset class="vuelo-transport-buttons">
+                    <legend>Seleccione el tipo de vuelo: Llegadas o Salidas</legend>
+                    <input type="radio" class="vuelo-transport-option" name="tipo" value="arrivals" id="arrivals">
+                    <label class="vuelo-transport-label" for="arrivals"> <i class="plane-arrival"><img src="/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/icons/Llegadas-07.png" alt=""></i>
+                        <span>LLEGADAS</span> </label>
+                    <input type="radio" class="vuelo-transport-option" name="tipo" value="departures" id="departures">
+                    <label class="vuelo-transport-label" for="departures"> <i class="plane-departure"><img src="/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/icons/Salidas-07.png" alt=""></i>
+                        <span>SALIDAS</span> </label>
+                    <input type="radio" class="vuelo-transport-option" name="tipo" value="all" id="all" checked="checked">
+                    <label class="vuelo-transport-label" for="all"> <i class="plane"><img src="/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/icons/Todos-los-vuelos-07.png" alt=""></i>
+                        <span>TODOS</span> </label>
+                </fieldset>
+                <div class="vuelo-search-row">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-8 col-lg-8">
+                            <input id="numerovuelo" type="text" class="vuelo-form-control" placeholder="Número de vuelo" aria-label="Número de vuelo">
+                        </div>
+                        <div class="col-sm-12 col-md-4 col-lg-4 text-center text-md-end">
+                            <button type="button" class="vuelo-btn__primary btn__hover3 w-100" onclick="location='/vuelos/'+$('input[name=\'tipo\']:checked').val()+'/'+$('#numerovuelo').val()">Buscar Vuelo</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </section>
+    <!-- /.cta1 -->
+    <!-- =========================
+    Start Section
+    =========================== -->
+    <section style="background-color: #f4f4f4;" id="font-size">
+            <div class="w-100 d-flex justify-content-end">
+    <div class="font-controls" style="font-size: 0.9rem;">
+        <button class="font-btn" id="decrease-font" title="Disminuir tamaño de texto" style="font-size: .7rem; transform: scale(1);">A-
+        </button>
+        <span class="font-size-indicator" id="font-indicator" style="font-size: 0.9rem;">Normal</span>
+        <button class="font-btn" id="increase-font" title="Aumentar tamaño de texto" style="font-size: .7rem; transform: scale(1);">A+
+        </button>
+    </div>
+</div>
+    </section>
+    <section id="services" class="services bg-gray">
+            <div class="container">
+        <div class="row uk-child-width-1-3@m uk-grid" uk-grid="">
+
+            <div class="col-sm-12 col-md-4 col-lg-4 card-container uk-first-column">
+        <div class="service-item card card-relevantes">
+            <div class="service__img card-img-wrapper">
+                <img src="/api/Embe003BannerImg/eyJpdiI6IkU2UG1VTjVKR3pDQ29xZXl2ZW9wdVE9PSIsInZhbHVlIjoiRjQ3eVhxZlZVOFNWeDRlcFovaCtpUT09IiwibWFjIjoiMWUwNWIwNmZkNmE0ZGIwNmE5YjhjOWI5NGMwZGQ1NzA3YjQwMzE0MmIwYTc5NzFkMTljOWNlMmViMWI1M2Y5ZiIsInRhZyI6IiJ9" alt="Conectividad Terrestre" class="img-fluid">
+            </div>
+
+            <div class="service__overlay card-overlay">
+                <div class="card-title-service">
+                    <div class="logo-wrapper">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImRnYWY5REtodGVHKzNzRW5wZ1RqSVE9PSIsInZhbHVlIjoiWWhGQ2xPNmsyRXFvYW5WQ1l1WEFWQT09IiwibWFjIjoiMDNlM2U0YWUxNjZmNWEwOWM1OGJmZTEwNTI4MjFlYjRkM2JjYjM3MWU2Y2QwNTM3OTJjNTA5YTY2NDdkZWMwYiIsInRhZyI6IiJ9" alt="Img - Conectividad Terrestre" class="img-fluid">
+                    </div>
+                    <h2 class="card-title">
+                        Conectividad Terrestre
+                    </h2>
+                </div>
+
+                <p class="service__desc card-description text-center">Accede al AIFA de manera cómoda y rápida con múltiples opciones de transporte disponibles para cada tipo de viajero.</p>
+                <div class="text-center">
+                    <a href="/conectividad/cdmx" class="btn-read-more">Leer más</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 card-container">
+        <div class="service-item card card-relevantes">
+            <div class="service__img card-img-wrapper">
+                <img src="/api/Embe003BannerImg/eyJpdiI6IktJMWttdFZBcWMyTVU1Kyt3Tm4zOVE9PSIsInZhbHVlIjoidnNEQkpmV2l3V3pBa3p4cld5QWNwdz09IiwibWFjIjoiODVjODAwMjFiZWZiOTBhZTE4MzRkYzJiMTc0YjUzNDAzNTA3ZDM3MTI0ZDcyMTc3YTFlNWI2Njc1YWRjYTMxNyIsInRhZyI6IiJ9" alt="Servicios" class="img-fluid">
+            </div>
+
+            <div class="service__overlay card-overlay">
+                <div class="card-title-service">
+                    <div class="logo-wrapper">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkF5QnJaSHkzTFdVWnNLNjZ6NzVUT0E9PSIsInZhbHVlIjoiNUF3S0JnRVNiRXpqSFlBSHFHc214UT09IiwibWFjIjoiNWZiYmE2MWJiYjU0ZGU0OWI1MTc5OTVkZDBjYzQ2N2Y4ZjdlYjEzODg5NTkwYWNhMDk5OTJlNTc4OGY1YjQyNyIsInRhZyI6IiJ9" alt="Img - Servicios" class="img-fluid">
+                    </div>
+                    <h2 class="card-title">
+                        Servicios
+                    </h2>
+                </div>
+
+                <p class="service__desc card-description text-center">Todo lo que necesitas en un solo lugar: tiendas, restaurantes, entretenimiento y servicios exclusivos en el AIFA.</p>
+                <div class="text-center">
+                    <a href="/servicios/comida" class="btn-read-more">Leer más</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-4 col-lg-4 card-container">
+        <div class="service-item card card-relevantes">
+            <div class="service__img card-img-wrapper">
+                <img src="/api/Embe003BannerImg/eyJpdiI6IjM3b0NKbGtJTGFtZFdPcVEyWEF4N3c9PSIsInZhbHVlIjoiQU1qbWJqMnhkYi9pOS8zNEtaZHN3QT09IiwibWFjIjoiZjM1ODlhZmNlNjczYjQxOGQyYmUyNGY5OGQzNDQ4YTVlYmZmYjI5YjdkNzkxYjhkNGI2Y2M4N2Y4OTM3NTdkNyIsInRhZyI6IiJ9" alt="Destinos" class="img-fluid">
+            </div>
+
+            <div class="service__overlay card-overlay">
+                <div class="card-title-service">
+                    <div class="logo-wrapper">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkRFN0twU2dMT2JzYUFhUFRRMVpmUEE9PSIsInZhbHVlIjoibGMvaUZmNmRQT3BUS1BNQVlzRHhFUT09IiwibWFjIjoiOTc2YTU1ZGMxZWJmYzdjYTQwNzhkNjNjOTFkZmRmZGM1ZDYzMTYzNTI5MDVjNGFlMWJlOTE0MjU5ODQzODI5ZSIsInRhZyI6IiJ9" alt="Img - Destinos" class="img-fluid">
+                    </div>
+                    <h2 class="card-title">
+                        Destinos
+                    </h2>
+                </div>
+
+                <p class="service__desc card-description text-center">Explora destinos Nacionales e Internacionales con vuelos directos desde el AIFA. Tu próxima aventura comienza aquí</p>
+                <div class="text-center">
+                    <a href="/destinos-nacionales" class="btn-read-more">Leer más</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+        </div>
+    </div>
+    </section>
+    <!-- /.Services -->
+    <!-- =========================
+    End Section
+    =========================== -->
+    <!-- =========================
+    Start Section
+    =========================== -->
+    <section id="services" class="services ">
+            <div id="cms-heading" class="cms-heading layout2 wpb_animate_when_almost_visible wpb_bounceInUp bounceInUp wpb_start_animation animated" style="text-align:center !important">
+        <div class="title-heading">
+            <h2 class="heading-tag title-underline uk-card-title" style="color:#09212e;font-weight:700; text-aling:center">
+                Información Útil </h2>
+        </div>
+    </div>
+    <div class="vc_empty_space" style="height: 70px">
+        <span class="vc_empty_space_inner"></span>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-12 col-lg-12">
+                <div class="carousel owl-carousel owl-loaded owl-drag" data-slide="6" data-slide-md="4" data-slide-sm="2" data-autoplay="true" data-nav="true" data-dots="false" data-space="20" data-loop="true" data-speed="700">
+
+                    
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+                <div class="owl-stage-outer"><div class="owl-stage" style="transform: translate3d(-1099px, 0px, 0px); transition: all; width: 4217px;"><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/hospedaje"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImRlNjB4Uk5kOXJ5SDR4Q1JJazlLc3c9PSIsInZhbHVlIjoiekFtS0N4Z1FTMTY3L1o4SWI2MVNPQT09IiwibWFjIjoiOTliYzIyNTRhZDIwOGIzYzAxZmVhMjg4ZGViNWY0YjA2MTk3MjZkMTRiNDVhNTFkMWZmMzA0MzkxODBhZWYxMyIsInRhZyI6IiJ9" alt="logotipo-Hospedaje"></a>
+    <h3 class="pt-20">Hospedaje</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/conectividad/taxis"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InQ1SXhzZHZyaUVPYU96YVlaTjFKN1E9PSIsInZhbHVlIjoiN0xKVUFyK1VQelNiUUhtYUVuUkVFZz09IiwibWFjIjoiNWU2MGM2Yzg4M2Y0ZjFjMDFhYTIzM2Q4M2I2YzdkYmFjOWE1MzY3MjUxZWU5MzEwNjlmMDVkOTc1ZjM4ZDI5ZSIsInRhZyI6IiJ9" alt="logotipo-Taxis"></a>
+    <h3 class="pt-20">Taxis</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://aifa.servicioenlinea.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkZMR1NXOU5QdWxYUzlLamxVM3pkeUE9PSIsInZhbHVlIjoiTXlkZ3A4UFJjeTl4c1dEd1grVGRXUT09IiwibWFjIjoiZTFlYTY1MDMzNDU5ODNmNzU1OTc4Y2FlMmI3OGFmZjgzYjA3OWNhYjIxZjJjZTUyMmYwNGE5YzU1MTJkYTk3MCIsInRhZyI6IiJ9" alt="logotipo-Facturación"></a>
+    <h3 class="pt-20">Facturación</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://sites.google.com/view/gerenciadeidentificacin/p%C3%A1gina-principal"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjlwSnpVS0Y2aG9QSEp0UkNmcExMeXc9PSIsInZhbHVlIjoiNStYUndLeGJONytpc3JrZ2V0bjd4dz09IiwibWFjIjoiZWY0NTMxODdiNzc4Y2Y5Y2E5NzFiZjJlM2Y1ODVlZGYwMGQ1NDdhYmZkMTA2MWQ5NWRjN2MxYTE5NjdhN2U4YyIsInRhZyI6IiJ9" alt="logotipo-Trámite TIA"></a>
+    <h3 class="pt-20">Trámite TIA</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/legal-y-finanzas/informacion-financiera"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkhNTDZ0VVhMTFlBR1hkSFNZSDNWcHc9PSIsInZhbHVlIjoiTDFBWGV1TkVGVXozRk9tL3pCSlMvQT09IiwibWFjIjoiYTJmYTZmNjg5YWJiYTNkY2JmOTE0NjAxMjA5M2NkZGNhZmUwN2NlYjFlNTVhYjk1NTI2YjE2Yjc0NTIzODhiZiIsInRhZyI6IiJ9" alt="logotipo-Información Financiera"></a>
+    <h3 class="pt-20">Información Financiera</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://conectaifa.com.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IlEvU2hybnkxOG5zSVV4KzNmUDcxYmc9PSIsInZhbHVlIjoic0VlYklDcVZKR3ZMWlA4d0JYWEFnQT09IiwibWFjIjoiOWU3ZWVjODE1ZGJmMjE1MTYxNDhjNzRhZWIyODEzODZkMTg1ZTMyMDY5MTZkNzQyNzIzYTEyYWEzMDYyM2MxNiIsInRhZyI6IiJ9" alt="logotipo-Conecta AIFA"></a>
+    <h3 class="pt-20">Conecta AIFA</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/financieros"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik83SHhTb21IMUh3aEdZUU96M2l5VlE9PSIsInZhbHVlIjoiRG00aFovYnkxVFZKM3pCb1Y1TmQ0UT09IiwibWFjIjoiNWRiZmQ4NzBiMTkyYjM5NDk2YTk1MTA1NmQ5MGIwZDIzYjMzZmJjNWNlOTdhMTBiZDc2YmZhZDk1NTRmM2Q0NyIsInRhZyI6IiJ9" alt="logotipo-Servicios Financieros"></a>
+    <h3 class="pt-20">Servicios Financieros</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/conectividad/cdmx"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkI1R05hNndIelRFUzVkdVBlazd5Y1E9PSIsInZhbHVlIjoiMEgySzlQc1B4a01jb1FxWnRPZ2x2QT09IiwibWFjIjoiZGE2YTVjZjE5YzRjYTRiZjJiMjkwZGYyMzNiOThkMDc2MTliNGM1MmU1OWMyY2NmNjY5ZTNiYmQ5YmQzZjlmOCIsInRhZyI6IiJ9" alt="logotipo-Terminal de Autobuses"></a>
+    <h3 class="pt-20">Terminal de Autobuses</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/wayfinding"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRWNE1yQlhGeTVvc01uQURkM3Naa3c9PSIsInZhbHVlIjoiNWVLMHVuOVRHclNPdW5sbkhNRkw0dz09IiwibWFjIjoiYWJlNTM4NzViOTdjZTMxZDg1M2Q5NmYwYzAyMzhmZjdhYjY3OWE1NjRmMWZmNzYwNjkyOGE2NDEzOTQ0MGJiYyIsInRhZyI6IiJ9" alt="logotipo-Mapa Interactivo"></a>
+    <h3 class="pt-20">Mapa Interactivo</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/estacionamiento"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRVS1h2RzZmd0ZHaDJUVXBzZVczUVE9PSIsInZhbHVlIjoiTmd1RUwzUzlEZDZKZTZBZ2VMZ0NUQT09IiwibWFjIjoiNDBjNWU5MjQ0NDVmM2FkODdmYjViZTMzNjcwZjFjODljNTMyNmYyMDc4ZDVhZTcwODk4MzlhMmZjZjcwYTIzMSIsInRhZyI6IiJ9" alt="logotipo-Estacionamiento"></a>
+    <h3 class="pt-20">Estacionamiento</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/comida"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkJxM3cvMGF0RnI4U0ZBQnFUbVl3clE9PSIsInZhbHVlIjoiNElpV1hrUFdmLy9EUmMzMVdKYWZxdz09IiwibWFjIjoiY2QwNzdkMzllOWI0NWQ1NmFhYmE0ZTcwNjU5MTgyNmQ5MDZhMmFiMmI4MmYzNTk5YWRiNzliODBiYjYyMDA5MyIsInRhZyI6IiJ9" alt="logotipo-Comida"></a>
+    <h3 class="pt-20">Comida</h3>
+</div></div><div class="owl-item active" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/hospedaje"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImRlNjB4Uk5kOXJ5SDR4Q1JJazlLc3c9PSIsInZhbHVlIjoiekFtS0N4Z1FTMTY3L1o4SWI2MVNPQT09IiwibWFjIjoiOTliYzIyNTRhZDIwOGIzYzAxZmVhMjg4ZGViNWY0YjA2MTk3MjZkMTRiNDVhNTFkMWZmMzA0MzkxODBhZWYxMyIsInRhZyI6IiJ9" alt="logotipo-Hospedaje"></a>
+    <h3 class="pt-20">Hospedaje</h3>
+</div></div><div class="owl-item" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/conectividad/taxis"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InQ1SXhzZHZyaUVPYU96YVlaTjFKN1E9PSIsInZhbHVlIjoiN0xKVUFyK1VQelNiUUhtYUVuUkVFZz09IiwibWFjIjoiNWU2MGM2Yzg4M2Y0ZjFjMDFhYTIzM2Q4M2I2YzdkYmFjOWE1MzY3MjUxZWU5MzEwNjlmMDVkOTc1ZjM4ZDI5ZSIsInRhZyI6IiJ9" alt="logotipo-Taxis"></a>
+    <h3 class="pt-20">Taxis</h3>
+</div></div><div class="owl-item" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://aifa.servicioenlinea.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkZMR1NXOU5QdWxYUzlLamxVM3pkeUE9PSIsInZhbHVlIjoiTXlkZ3A4UFJjeTl4c1dEd1grVGRXUT09IiwibWFjIjoiZTFlYTY1MDMzNDU5ODNmNzU1OTc4Y2FlMmI3OGFmZjgzYjA3OWNhYjIxZjJjZTUyMmYwNGE5YzU1MTJkYTk3MCIsInRhZyI6IiJ9" alt="logotipo-Facturación"></a>
+    <h3 class="pt-20">Facturación</h3>
+</div></div><div class="owl-item" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://sites.google.com/view/gerenciadeidentificacin/p%C3%A1gina-principal"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjlwSnpVS0Y2aG9QSEp0UkNmcExMeXc9PSIsInZhbHVlIjoiNStYUndLeGJONytpc3JrZ2V0bjd4dz09IiwibWFjIjoiZWY0NTMxODdiNzc4Y2Y5Y2E5NzFiZjJlM2Y1ODVlZGYwMGQ1NDdhYmZkMTA2MWQ5NWRjN2MxYTE5NjdhN2U4YyIsInRhZyI6IiJ9" alt="logotipo-Trámite TIA"></a>
+    <h3 class="pt-20">Trámite TIA</h3>
+</div></div><div class="owl-item" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/legal-y-finanzas/informacion-financiera"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkhNTDZ0VVhMTFlBR1hkSFNZSDNWcHc9PSIsInZhbHVlIjoiTDFBWGV1TkVGVXozRk9tL3pCSlMvQT09IiwibWFjIjoiYTJmYTZmNjg5YWJiYTNkY2JmOTE0NjAxMjA5M2NkZGNhZmUwN2NlYjFlNTVhYjk1NTI2YjE2Yjc0NTIzODhiZiIsInRhZyI6IiJ9" alt="logotipo-Información Financiera"></a>
+    <h3 class="pt-20">Información Financiera</h3>
+</div></div><div class="owl-item" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="https://conectaifa.com.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IlEvU2hybnkxOG5zSVV4KzNmUDcxYmc9PSIsInZhbHVlIjoic0VlYklDcVZKR3ZMWlA4d0JYWEFnQT09IiwibWFjIjoiOWU3ZWVjODE1ZGJmMjE1MTYxNDhjNzRhZWIyODEzODZkMTg1ZTMyMDY5MTZkNzQyNzIzYTEyYWEzMDYyM2MxNiIsInRhZyI6IiJ9" alt="logotipo-Conecta AIFA"></a>
+    <h3 class="pt-20">Conecta AIFA</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/financieros"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik83SHhTb21IMUh3aEdZUU96M2l5VlE9PSIsInZhbHVlIjoiRG00aFovYnkxVFZKM3pCb1Y1TmQ0UT09IiwibWFjIjoiNWRiZmQ4NzBiMTkyYjM5NDk2YTk1MTA1NmQ5MGIwZDIzYjMzZmJjNWNlOTdhMTBiZDc2YmZhZDk1NTRmM2Q0NyIsInRhZyI6IiJ9" alt="logotipo-Servicios Financieros"></a>
+    <h3 class="pt-20">Servicios Financieros</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/conectividad/cdmx"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkI1R05hNndIelRFUzVkdVBlazd5Y1E9PSIsInZhbHVlIjoiMEgySzlQc1B4a01jb1FxWnRPZ2x2QT09IiwibWFjIjoiZGE2YTVjZjE5YzRjYTRiZjJiMjkwZGYyMzNiOThkMDc2MTliNGM1MmU1OWMyY2NmNjY5ZTNiYmQ5YmQzZjlmOCIsInRhZyI6IiJ9" alt="logotipo-Terminal de Autobuses"></a>
+    <h3 class="pt-20">Terminal de Autobuses</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/wayfinding"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRWNE1yQlhGeTVvc01uQURkM3Naa3c9PSIsInZhbHVlIjoiNWVLMHVuOVRHclNPdW5sbkhNRkw0dz09IiwibWFjIjoiYWJlNTM4NzViOTdjZTMxZDg1M2Q5NmYwYzAyMzhmZjdhYjY3OWE1NjRmMWZmNzYwNjkyOGE2NDEzOTQ0MGJiYyIsInRhZyI6IiJ9" alt="logotipo-Mapa Interactivo"></a>
+    <h3 class="pt-20">Mapa Interactivo</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/estacionamiento"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRVS1h2RzZmd0ZHaDJUVXBzZVczUVE9PSIsInZhbHVlIjoiTmd1RUwzUzlEZDZKZTZBZ2VMZ0NUQT09IiwibWFjIjoiNDBjNWU5MjQ0NDVmM2FkODdmYjViZTMzNjcwZjFjODljNTMyNmYyMDc4ZDVhZTcwODk4MzlhMmZjZjcwYTIzMSIsInRhZyI6IiJ9" alt="logotipo-Estacionamiento"></a>
+    <h3 class="pt-20">Estacionamiento</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/comida"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkJxM3cvMGF0RnI4U0ZBQnFUbVl3clE9PSIsInZhbHVlIjoiNElpV1hrUFdmLy9EUmMzMVdKYWZxdz09IiwibWFjIjoiY2QwNzdkMzllOWI0NWQ1NmFhYmE0ZTcwNjU5MTgyNmQ5MDZhMmFiMmI4MmYzNTk5YWRiNzliODBiYjYyMDA5MyIsInRhZyI6IiJ9" alt="logotipo-Comida"></a>
+    <h3 class="pt-20">Comida</h3>
+</div></div><div class="owl-item cloned" style="width: 163.333px; margin-right: 20px;"><div class="client">
+    <a href="/servicios/hospedaje"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImRlNjB4Uk5kOXJ5SDR4Q1JJazlLc3c9PSIsInZhbHVlIjoiekFtS0N4Z1FTMTY3L1o4SWI2MVNPQT09IiwibWFjIjoiOTliYzIyNTRhZDIwOGIzYzAxZmVhMjg4ZGViNWY0YjA2MTk3MjZkMTRiNDVhNTFkMWZmMzA0MzkxODBhZWYxMyIsInRhZyI6IiJ9" alt="logotipo-Hospedaje"></a>
+    <h3 class="pt-20">Hospedaje</h3>
+</div></div></div></div><div class="owl-nav"><button type="button" role="presentation" class="owl-prev"><span aria-label="Previous">‹</span></button><button type="button" role="presentation" class="owl-next"><span aria-label="Next">›</span></button></div><div class="owl-dots disabled"></div><div class="owl-thumbs"></div></div><!-- /.carousel -->
+            </div><!-- /.col-lg-12 -->
+        </div><!-- /.row -->
+    </div><!-- /.container -->
+    </section>
+    <!-- /.clients 1 -->
+    <!-- =========================
+    End Section
+    =========================== -->
+    <!-- =========================
+    Start Section
+    =========================== -->
+    <section id="news" class="section news project-news pt-60 pb-60">
+        <div class="projects-bg bg-img">
+            
+        </div>
+        <div class="card-news-overlay">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- <div class="heading scroll-animate" data-animation="slide-left">-->
+                    <div class="heading uk-scrollspy-inview" uk-scrollspy="cls: uk-animation-slide-right; repeat: true">
+                        <h2 class="section_cards_title">
+                                Conoce más del AIFA
+                        </h2>
+                        <div class="divider__line divider__white divider__center mb-0"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-content">
+                    <div class="slider-container_aifa">
+        <div class="slider-buttons_aifa">
+            <button class="slider-button_aifa prev_aifa">&lt;</button>
+            <button class="slider-button_aifa next_aifa">&gt;</button>
+        </div>
+        <div class="slider_aifa">
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6Ilp2UlBNNVh6MU9yTXNTQndPRFR1VGc9PSIsInZhbHVlIjoiWHkzZEFiaVQvN0V0VFExTElSWk50UT09IiwibWFjIjoiY2EyOTU0OGM4OTdkZjJiYzk3MmViZWVlZmM2MDAwZTA0NTMxYmI3MDQ1MGRlMjRlZDVmOTQ2MmQ0ZjQ1YTk3NSIsInRhZyI6IiJ9" alt="Prix Versailles">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Prix Versailles</a>
+                <p class="slide-description_aifa">El AIFA fue seleccionado por Prix Versailles como uno de los seis aeropuertos más hermosos del mundo. </p>
+                <a href="/noticias-aifa" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6IlRpODRBSUdQR1lINVBjOEl0ekhmRVE9PSIsInZhbHVlIjoielpsMjJid3BGNU1YMENXTU9GVk0wQT09IiwibWFjIjoiNjk1OWUwMzdjYTQ1ZjAxNzBkNzRlZWU3MjY5NDRhNGUyNmE2ZWMwMDRlNjZiOTdmNWNlZGYxZTUzNDA3MWZkZiIsInRhZyI6IiJ9" alt="Operador de Base Fija">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Operador de Base Fija</a>
+                <p class="slide-description_aifa">El AIFA cuenta con un Operador de Base Fija (FBO por sus siglas en inglés).</p>
+                <a href="/infraestructura/fbo" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6IjRVV05wT3F3anZmUTZmWkUwMWxnMUE9PSIsInZhbHVlIjoia3cxK1RFRGV6MG9IVHQ4UnhKb1dXZz09IiwibWFjIjoiN2QzYmRmZDI3YjllYmM2YjMwMjk3MWE0N2YwMTdjMzhlOTliNmEwZTRlMDk5NmExNmYxZGZmNjU2NjBjNzZjNiIsInRhZyI6IiJ9" alt="Capilla">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Capilla</a>
+                <p class="slide-description_aifa">En Salas de Última Espera, se cuenta con un espacio religioso, disponible a los pasajeros y usuarios del AIFA.</p>
+                <a href="/amenidades/capilla" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6ImN0WWd5c24wYnhMWXZ4QUZyM3NjNGc9PSIsInZhbHVlIjoiWjVKRkVpMDJyUHdMNk1WSk1HOGFMdz09IiwibWFjIjoiNDMxNjExNDU5MzdmM2JmZGI2NDZhNGY3NDQzNWYyMmQ3ZGE3MjFkNDNiOGEyMjY3YmNkOWU4ZTdmNTM3Mzc5MSIsInRhZyI6IiJ9" alt="Baños Temáticos">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Baños Temáticos</a>
+                <p class="slide-description_aifa">En el AIFA podrás encontrar 36 sanitarios que, además de tener diseños temáticos mexicanos, cuentan con equipos que permiten un ahorro de agua de hasta el 50% con respecto de sanitarios de uso convencional.</p>
+                <a href="/amenidades/banos-tematicos" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6IldXa0RVR0ZXbk13cVRHUXBiRmhxL3c9PSIsInZhbHVlIjoidnY4Wk1CSUZGdTJPOFRtYmsxbGJBUT09IiwibWFjIjoiNTA2NjEyNTZjZTMyNmE4YmQ5ODg3YWQ1MmQyMjI4YTY3Y2UwODQ4NDUyNTQ5NWRkNjE2N2FjOGU4OWYxNzAzZCIsInRhZyI6IiJ9" alt="Seguridad">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Seguridad</a>
+                <p class="slide-description_aifa">El aeropuerto cuenta con Puestos de Inspección de Pasajeros y Equipaje (PIPE), que permiten conservar tus dispositivos electrónicos, como laptops, celulares y cámaras dentro de tu equipaje.</p>
+                <a href="/asistencia/recomendaciones" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            <div class="slide_aifa">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6Ik83dnlZNzZkVlZmMFpCZ0g3Rk8yY2c9PSIsInZhbHVlIjoiSytyWnZQM2toZTVYVXlTbGJkWklKdz09IiwibWFjIjoiNjgwNGRkZDE3ZDBmYzdkNGEwZDBhZjNjOTNiOWJhOGIzMmIxMTA2NTMyNjU4NTIyMTRkMmJjMGU0NzJjMzE5ZCIsInRhZyI6IiJ9" alt="Sala de Lactancia">
+            <div class="overlay_aifa"></div>
+            <div class="slide-content_aifa">
+                <a class="slide-title_aifa">Sala de Lactancia</a>
+                <p class="slide-description_aifa">El AIFA, pensando en sus pasajeras y usuarias, cuenta con un espacio en Sala de Última Espera destinando a la lactancia.</p>
+                <a href="/amenidades/sala-lactancia" class="see-more_aifa">Ver más</a>
+            </div>
+        </div>
+            </div>
+    </div>
+            </div>
+            <!-- /.tab-content -->
+        </div>
+        <!-- /.col-lg-12 -->
+
+        <!-- /.row -->
+
+        <!-- /.container -->
+    </section>
+    <!-- =========================
+    End Section
+    =========================== -->
+
+    <section id="info" class="section project-info pb-60 pt-60">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 col-md-12 col-lg-6">
+                    <!-- <div class="heading-center scroll-animate-center" data-animation="slide-right">-->
+                    <div class="heading heading-center uk-scrollspy-inview" uk-scrollspy="cls: uk-animation-slide-left; repeat: true">
+                        <h2 class="section_card_title_center">
+                                AIFA Informa
+                        </h2>
+                        <div class="divider__line divider__theme divider__center mb-0"></div>
+                    </div>
+                    <!-- /.heading -->
+                </div>
+                <!-- /.col-lg-6 -->
+            </div>
+            <!-- /.row -->
+            <div class="row">
+                    <div class="aifa-carousel-wrapper">
+        
+
+        <div class="aifa-carousel-container">
+            <div class="aifa-main-view">
+                <div id="carouselAifa" class="carousel-bootstrap slide">
+                    <div class="carousel-inner">
+                        <div class="carousel-item active" data-index="0">
+             <div class="aifa-slide-content">
+                 <a href="https://www.aifa.aero/noticias-aifa/33">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6InYva2QwcTlKVURLbytybEhFQjZyZmc9PSIsInZhbHVlIjoiYlRTczEwQTF0VG8zN3BxSjJaVk9qdz09IiwibWFjIjoiZDBkMTUxYjMxZGQ0MTc1ZGJjODg0MTE0ZTIwNjZiNTYzYzI1NWM4MzA3YzZlMWE2Y2IzYzg2ZmE5NzZkZDY3OSIsInRhZyI6IiJ9" class="d-block w-100" alt="Terminal de Aviación General y FBO">
+                 </a>
+             </div>
+         </div>
+              <div class="carousel-item " data-index="1">
+             <div class="aifa-slide-content">
+                 <a href="https://www.aifa.aero/noticias-aifa/32">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6InBhdHZ4d3RLZUNlNXRXb2wzOVBBcHc9PSIsInZhbHVlIjoiY2V5bVEyd3Z4MjFCZy9uNXFuYjdOUT09IiwibWFjIjoiOTk5MTg2ZTRhNGE5NGM1ZWFmZGNhMjEyN2M0ZTFjMmJkYmJjNDY2YTcxODQzNGNmNWFiZWUzNTU5MzVkM2ZmNCIsInRhZyI6IiJ9" class="d-block w-100" alt="Evita ser víctima de fraude">
+                 </a>
+             </div>
+         </div>
+              <div class="carousel-item " data-index="2">
+             <div class="aifa-slide-content">
+                 <a href="https://www.aifa.aero/noticias-aifa/15">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6Ik9abXN5SVBuZE5wbVlFbzRlUHhnTVE9PSIsInZhbHVlIjoibkM4NHNuaHdiT0VwaUVuYjNvUk1PQT09IiwibWFjIjoiODc1NDA4YzAxZDcxYWU0YzM5OGRkNDMzZDk3YzEzMGVjM2NhMzgyN2Y1YzJjMTE3OTdlN2M3MGZlMGY2MDUxYiIsInRhZyI6IiJ9" class="d-block w-100" alt="CONECTA AIFA">
+                 </a>
+             </div>
+         </div>
+     
+
+                     </div>
+
+                    <button id="btn-prev" class="carousel-control-prev" type="button" aria-label="Siguiente noticia">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    </button>
+                    <button id="btn-next" class="carousel-control-next" type="button" aria-label="Noticia anteriorr">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="aifa-thumbnails" style="height: 297px !important;">
+                                    <div class="aifa-thumb-card active" data-slide-to="0">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6InYva2QwcTlKVURLbytybEhFQjZyZmc9PSIsInZhbHVlIjoiYlRTczEwQTF0VG8zN3BxSjJaVk9qdz09IiwibWFjIjoiZDBkMTUxYjMxZGQ0MTc1ZGJjODg0MTE0ZTIwNjZiNTYzYzI1NWM4MzA3YzZlMWE2Y2IzYzg2ZmE5NzZkZDY3OSIsInRhZyI6IiJ9" alt="Terminal de Aviación General y FBO">
+                    </div>
+                                    <div class="aifa-thumb-card " data-slide-to="1">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6InBhdHZ4d3RLZUNlNXRXb2wzOVBBcHc9PSIsInZhbHVlIjoiY2V5bVEyd3Z4MjFCZy9uNXFuYjdOUT09IiwibWFjIjoiOTk5MTg2ZTRhNGE5NGM1ZWFmZGNhMjEyN2M0ZTFjMmJkYmJjNDY2YTcxODQzNGNmNWFiZWUzNTU5MzVkM2ZmNCIsInRhZyI6IiJ9" alt="Evita ser víctima de fraude">
+                    </div>
+                                    <div class="aifa-thumb-card " data-slide-to="2">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6Ik9abXN5SVBuZE5wbVlFbzRlUHhnTVE9PSIsInZhbHVlIjoibkM4NHNuaHdiT0VwaUVuYjNvUk1PQT09IiwibWFjIjoiODc1NDA4YzAxZDcxYWU0YzM5OGRkNDMzZDk3YzEzMGVjM2NhMzgyN2Y1YzJjMTE3OTdlN2M3MGZlMGY2MDUxYiIsInRhZyI6IiJ9" alt="CONECTA AIFA">
+                    </div>
+                            </div>
+        </div>
+    </div>
+
+    <div class="mt-4 d-flex justify-content-center">
+        <a href="https://www.aifa.aero/noticias-aifa" class="btn btn-slide-news">
+            Ver más
+        </a>
+    </div>
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container -->
+    </section> <!-- /.blog Grid -->
+    <!-- =========================
+    End Section
+    =========================== -->
+    <!-- =========================
+    Start Section
+    =========================== -->
+    <section id="video1" class="video overlay-video bg-parallax counters-white pt-60 pb-60">
+        <div class="bg-video">
+                <video class="videoestadistica" data-lazy-video="" muted="" playsinline="" loop="" webkit-playsinline="">
+
+    <source data-src="/api/Down001DescargarVideoEstadistica/eyJpdiI6Im5WOGFIN0JnRGRONjJ1RmJxdGUwTVE9PSIsInZhbHVlIjoiZGFjZXFpYVdPZEhLSGlEaGdtU1lpZz09IiwibWFjIjoiYzk2OWY3OTQxNzc2ZGNlYWU1MGNkNTlhMTYyNWJjZDliMmFhNjNmNzFhMjYyNTQ3ODRiMmNhN2MwNTE5YmYwOCIsInRhZyI6IiJ9" type="video/mp4">
+
+</video>
+
+
+          </div>
+        <div class="">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="heading video-heading">
+                                <span class="heading__subtitle color-white">Tu Aeropuerto, Tu Experiencia</span>
+<div class="heading__title color-white uk-card-title estadistica-titulo">
+   <p style="font-weight: bold;">Estadísticas</p><p style="font-size: 1rem !important;">Fecha de los datos: 21 Mar. 2022 - 31 Ago. 2026</p>
+</div>
+                          </div>
+                    </div>
+                    <div class="col-12 ">
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="counter-item">
+                                        <div class="counter__icon">
+	<i class="icon-worldwide">
+        <img class="estadistics-icon" decoding="async" src="/api/Embe002Icono1/eyJpdiI6IlNkTUVRZXRmS0w1WWltMG9hRDV6dmc9PSIsInZhbHVlIjoiUVN2VTl1VldQTGJEeWJCcEFLWGJ5Zz09IiwibWFjIjoiY2M3NjE2ZmI0NDA3NjRhMjVjN2QwMWI0NmM1ZjNhNWI0ZDk4MjM3NzNiMTAxNDIzNzc4MmZhNWYzM2VlOTZlMCIsInRhZyI6IiJ9" alt="Operaciones Aéreas">
+    </i>
+</div>
+<div class="infodato">
+
+    <h4><span class="counter">224,153</span></h4>
+    <p class="counter__desc">Operaciones Aéreas</p>
+</div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="counter-item">
+                                        <div class="counter__icon">
+	<i class="icon-trolley">
+    	<img class="estadistics-icon" decoding="async" src="/api/Embe003Icono2/eyJpdiI6IkNqQ1JaaFYzZXZaWWljRTZNdmdraFE9PSIsInZhbHVlIjoiRFBKWGh0TWNjTWhPZHQwT2tNMmwrUT09IiwibWFjIjoiYTA3MTM2OGM3ZjI5NWQ4OWUwOTNhYmEyZTcwNGNiNWUzNTk5NTE5Njk0M2IyNDlkZWVmN2I3ZmNhMzYwMTU4YyIsInRhZyI6IiJ9" alt="Pasajeros Transportados">
+    </i>
+</div>
+<div class="infodato">
+    <h4><span class="counter">22,049,814</span></h4>
+    <p class="counter__desc">Pasajeros Transportados</p>
+</div>
+                                  </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-lg-4">
+                                <div class="counter-item">
+                                        <div class="counter__icon">
+    <i class="icon-truck">
+        <img class="estadistics-icon" decoding="async" src="/api/Embe004Icono3/eyJpdiI6IlozZUM2ZC9OMXdLeXlhMnJpdTNGZEE9PSIsInZhbHVlIjoiclN1NGF1L0VZUCtjY2JJWXpLbXEwZz09IiwibWFjIjoiYmRkYzBjZjBjOTAyMTRjNDY0ZDJkYzBmNDFkMDc3ODBmN2RlM2VmOGM5NmNkMTJlODhmNDE3ZjQzMmQ4ZGRkNyIsInRhZyI6IiJ9" alt="Toneladas Transportadas">
+    </i>
+</div>
+<div class="infodato">
+    <h4><span class="counter">1,316,615.32</span></h4>
+    <p class="counter__desc">Toneladas Transportadas</p>
+</div>
+                                  </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- =========================
+    End Section
+    =========================== -->
+    <!-- ========================
+          Footer
+        ========================== -->
+    <link rel="stylesheet" href="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/css/footer.css">
+<footer id="footer" class="footer footer-1">
+    <div class="footer-top">
+        <div class="column-1"> <img src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/LOGO_AIFA.png" width="400" alt="Aeropuerto Internacional Felipe Ángeles" class="">
+            <p>Circuito Exterior Mexiquense km 33<br>
+                Santa Lucía, 55640<br>
+                Zumpango de Ocampo<br>
+                Estado de México</p>
+            <div class="social__icons_footer">
+                <a href="https://www.facebook.com/aifaaero" target="_blank" aria-label="Facebook del AIFA"><i class="fa-brands fa-facebook-f" style="color:#ffffff; font-size:32px;"></i></a>
+                <a href="https://www.youtube.com/channel/UCokgeUZ33SaD65nMVQHkOLg/videos" target="_blank" aria-label="YouTube del AIFA"><i class="fa-brands fa-youtube" style="color:#ffffff; font-size:32px;"></i></a>
+                <a href="https://x.com/aifaaero" target="_blank" aria-label="Twitter del AIFA"><i class="fa-brands fa-x-twitter" style="color:#ffffff; font-size:32px;"></i></a>
+                <a href="https://www.instagram.com/aifa_aeropuerto/" target="_blank" aria-label="Instagram del AIFA"><i class="fa-brands fa-instagram" style="color:#ffffff; font-size:32px;"></i></a>
+                <a href="https://www.tiktok.com/@aifaaero" target="_blank" aria-label="TikTok del AIFA"><i class="fa-brands fa-tiktok" style="color:#ffffff; font-size:32px;"></i></a>
+            </div>
+        </div>
+        <!-- /.col-lg-5 -->
+        <div class="column-2"> <p style="font-weight:bold"><a href="" class="aifafoot">AIFA</a></p>
+  <p style=""><a href="" class="aifafoot">Corporativo</a></p>
+  <p style=""><a href="/instalaciones" class="aifafoot">Instalaciones e Infraestructura</a></p>
+  <p style=""><a href="/legal-y-finanzas" class="aifafoot">Legal y Finanzas</a></p>
+  <p style=""><a href="/tecnologia" class="aifafoot">Tecnología</a></p>
+  <p style=""><a href="/contacto" class="aifafoot">Contacto</a></p>
+  <p style=""><a href="/noticias-aifa" class="aifafoot">AIFA Informa</a></p>
+  
+            </div>
+    <!-- /.col-lg-2 -->
+    <div class="column-3"><p style="font-weight:bold"><a href="" class="aifafoot">GUÍA DEL PASAJERO</a></p>
+  <p style=""><a href="/preguntas-frecuentes" class="aifafoot">Preguntas Frecuentes</a></p>
+  <p style=""><a href="" class="aifafoot">Asistencia</a></p>
+  <p style=""><a href="" class="aifafoot">Documentación y Equipaje</a></p>
+  <p style=""><a href="" class="aifafoot">Información</a></p>
+  <p style=""><a href="/asistencia/recomendaciones" class="aifafoot">Recomendaciones</a></p>
+      </div>
+<!-- /.col-lg-2 -->
+<div class="column-4">
+    <div class="footer__widget-content">
+                <figure class="">
+            <img loading="lazy" decoding="async" width="220" height="66" src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/banner-footer-transparencia-1.png" alt="Plataforma Nacional de Transparencia" class="wp-image-2009" style="width:220px">
+
+        </figure>
+        <figure class="">
+            <img loading="lazy" decoding="async" width="220" height="66" src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/images/banner-footer-transparencia-3.png" alt="Consulta de obligaciones de Transparencia" class="wp-image-2009" style="width:220px">
+        </figure>
+    </div>
+    <!-- /.footer-widget-content -->
+</div>
+<!-- /.col-lg-2 -->
+</div>
+<hr class="footer-hr">
+<div class="footer-down">
+<div class="terminoAviso-container">
+    <span class="termino-terminos">
+        <a href="#" class="abrir-modal">Términos de Uso</a>
+<div class="modal-terminos-uso modal-contenedor" id="myModal">
+    <div class="modal-contenido">
+        <span class="cerrar-modal">×</span>
+        <h2>Términos de Uso</h2>
+        <p></p><p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>Términos de Uso del Sitio Web del Aeropuerto Internacional Felipe Ángeles</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Fecha de entrada en vigor: 1-Enero-2025</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Bienvenido al sitio web oficial del Aeropuerto Internacional Felipe Ángeles (en adelante, "el Sitio Web"). Al acceder y utilizar este Sitio Web, usted acepta cumplir con los siguientes Términos de Uso. Si no está de acuerdo con estos términos, le recomendamos que no utilice el Sitio Web.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>1.&nbsp;Aceptación de los Términos</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Al utilizar el Sitio Web, usted confirma que ha leído, entendido y aceptado estos Términos de Uso, así como nuestra <a href="https://chat.deepseek.com/a/chat/s/345ee6e7-2bbe-420b-a21c-680da97c7bcf" target="_blank"><span style="color:windowtext;text-decoration:none;">Política de Privacidad</span></a> y <a href="https://chat.deepseek.com/a/chat/s/345ee6e7-2bbe-420b-a21c-680da97c7bcf" target="_blank"><span style="color:windowtext;text-decoration:none;">Política de Cookies</span></a>. Estos documentos rigen su interacción con el Sitio Web.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>2.&nbsp;Uso del Sitio Web</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">El Sitio Web tiene como objetivo proporcionar información general sobre los servicios, horarios, instalaciones y noticias relacionadas con el Aeropuerto Internacional Felipe Ángeles. Usted acepta utilizar el Sitio Web únicamente para fines legales y de acuerdo con estos Términos de Uso.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>Prohibiciones:</strong></p>
+<ul style="margin-bottom:0cm;margin-top:0cm;" type="disc">
+    <li style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Utilizar el Sitio Web de manera que pueda dañar, deshabilitar o sobrecargar su funcionalidad.</li>
+    <li style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Acceder o intentar acceder a áreas restringidas del Sitio Web sin autorización.</li>
+    <li style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Extraer datos o contenido del Sitio Web con fines comerciales sin autorización expresa.</li>
+    <li style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Realizar actividades que puedan interferir con la operatividad del Sitio Web o afectar a otros usuarios.</li>
+</ul>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>3.&nbsp;Propiedad Intelectual</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Todo el contenido del Sitio Web, incluyendo textos, gráficos, logotipos, imágenes, software y demás material, está protegido por derechos de autor, marcas registradas y otras leyes de propiedad intelectual. Usted acepta respetar estos derechos y no reproducir, distribuir, modificar o crear obras derivadas sin autorización expresa.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>4.&nbsp;Información Proporcionada por el Usuario</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Si el Sitio Web le permite enviar comentarios, preguntas o cualquier otro tipo de información, usted garantiza que dicha información es precisa, veraz y no infringe derechos de terceros. El Aeropuerto Internacional Felipe Ángeles se reserva el derecho de eliminar o modificar cualquier contenido que considere inapropiado o que viole estos Términos de Uso.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>5.&nbsp;Enlaces a Terceros</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">El Sitio Web puede contener enlaces a sitios web de terceros. Estos enlaces se proporcionan únicamente para su conveniencia. El Aeropuerto Internacional Felipe Ángeles no tiene control sobre el contenido de estos sitios y no se hace responsable de su exactitud, legalidad o disponibilidad. El acceso a estos enlaces es bajo su propio riesgo.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>6.&nbsp;Limitación de Responsabilidad</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">El Aeropuerto Internacional Felipe Ángeles se esfuerza por mantener la información en el Sitio Web actualizada y precisa. Sin embargo, no garantiza la exactitud, integridad o actualidad de la información proporcionada. El uso del Sitio Web es bajo su propio riesgo.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">En ningún caso el Aeropuerto Internacional Felipe Ángeles será responsable por daños directos, indirectos, incidentales, consecuentes o especiales derivados del uso o la imposibilidad de uso del Sitio Web.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>7.&nbsp;Modificaciones</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">El Aeropuerto Internacional Felipe Ángeles se reserva el derecho de modificar estos Términos de Uso en cualquier momento. Las modificaciones entrarán en vigor inmediatamente después de su publicación en el Sitio Web. Le recomendamos revisar periódicamente estos términos para estar al tanto de cualquier cambio.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>8.&nbsp;Ley Aplicable y Jurisdicción</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Estos Términos de Uso se rigen por las leyes de [País/Estado]. Cualquier disputa relacionada con el uso del Sitio Web estará sujeta a la jurisdicción exclusiva de los tribunales de la CDMX, México.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;"><strong>9.&nbsp;Contacto</strong></p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Si tiene alguna pregunta o inquietud sobre estos Términos de Uso, puede contactarnos a través de los medios de comunicación establecidos.</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">&nbsp;</p>
+<p style="margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;line-height:115%;font-size:16px;font-family:&quot;Aptos&quot;,sans-serif;">Gracias por utilizar el Sitio Web del Aeropuerto Internacional Felipe Ángeles. Esperamos que su experiencia sea satisfactoria y segura.</p><p></p>
+    </div>
+</div>
+      </span> | <span class="aviso-terminos">
+        <a href="#" class="abrir-modal2">Aviso de Privacidad</a>
+<div class="modal-contenedor2" id="myModal2">
+    <div class="modal-contenido2">
+        <span class="cerrar-modal2">×</span>
+        <p></p><div class="container">
+<div style="text-align: center;"><strong>“2026, Año de Margarita Maza Parada.”</strong></div>
+<br>
+<div style="text-align: center;"><strong>AVISO DE PRIVACIDAD INTEGRAL</strong></div>
+<div style="text-align: center;"><strong>Buzón de Comentarios del “Aeropuerto Internacional Felipe Ángeles”, S.A. de C.V.</strong><br><strong>(Página web)</strong></div>
+<br><strong>I. <u>Denominación y domicilio del responsable.</u></strong> <br>La Empresa de Participación Estatal Mayoritaria denominada “Aeropuerto Internacional Felipe Ángeles”, S.A. de C.V., a través de la Gerencia de Calidad adscrita a la Subdirección de Coordinación y Seguimiento de Acuerdos con domicilio en Circuito Exterior Mexiquense Km. 33 Zumpango, Estado de México, C.P. 55640, Piso 2, Nivel (5.25) del Edificio Terminal de Pasajeros, es responsable del tratamiento de los Datos Personales que proporcionan los titulares los cuales serán tutelados conforme a lo dispuesto en el artículo 6/o, apartado A y 16, segundo párrafo, de la Constitución Política de los Estados Unidos Mexicanos, artículo 3/o, fracción III, 19, 20, 21 y 22 de la Ley General de Protección de Datos Personales en Posesión de Sujetos Obligados (LGPDPPSO).<br><br><br><strong>II. <u>Datos Personales que serán sometidos a tratamiento.</u></strong> <br>
+<ul style="list-style-type: disc; padding-left: 20px;">
+<li>Nombre y apellido.</li>
+<li>Correo Electrónico.</li>
+<li>Teléfono.</li>
+</ul>
+<br><strong>III. <u>El fundamento legal para el tratamiento de Datos Personales.</u></strong> <br>El Aeropuerto Internacional Felipe Ángeles S. A de C. V, a través de la Gerencia Calidad, trata los Datos Personales señalados con fundamento en los artículos 46 y 62, fracciones VII, VIII y IX de la Ley de Aeropuertos y 127, fracción II incisos a, e, f y artículo 132 del Reglamento de la Ley de Aeropuertos; y en cumplimiento a lo establecido en las atribuciones correspondientes a la Gerencia de Calidad, mismas que se encuentran en el Manual de Organización General del AIFA.<br><br><strong>IV. <u>Finalidad del tratamiento de Datos Personales.</u></strong> <br>Atender y dar seguimiento a los comentarios emitidos por pasajeros, clientes y usuarios del Aeropuerto Internacional, notificados a través del Buzón que se encuentra en la página web de esta Empresa, con el objetivo de brindar solución a las problemáticas y/o solicitudes presentadas, así como detectar áreas de oportunidad para la mejora continua de los procesos y servicios.</div>
+<div class="container" style="text-align: justify;"><br><strong>V. <u>Mecanismos, medios y procedimientos disponibles para el ejercicio de los Derechos de Acceso, Rectificación, Cancelación y Oposición.</u></strong> <br>Usted podrá ejercer sus ARCO de sus Datos Personales, mediante las siguientes modalidades:</div>
+<div class="container">
+<ul style="list-style-type: disc; padding-left: 20px;">
+<ul style="list-style-type: disc; padding-left: 20px;">
+<li style="text-align: justify;">Presencialmente o mediante un escrito presentado ante la Unidad de Transparencia del Aeropuerto Internacional Felipe Ángeles, S.A. de C.V., en un horario de atención de lunes a viernes de 08:00 a 16:00 horas o comunicarse al 55 57 98 98 00, Ext. 12016, o bien escribirnos a través del correo electrónico: <a style="color: #169179; text-decoration: none;" href="mailto:transparencia@aifa.aero"> transparencia@aifa.aero </a></li>
+<li style="text-align: justify;">A través de la Plataforma Nacional de Transparencia, disponible en la siguiente dirección electrónica <a style="color: #169179; text-decoration: none;" href="https://www.plataformadetransparencia.org.mx" target="_blank" rel="noopener noreferrer">https://www.plataformadetransparencia.org.mx</a> en el apartado de solicitudes.</li>
+</ul>
+</ul>
+Lo anterior, de conformidad en lo dispuesto por los artículos 3/o. fracciones III, VIII, IX, XI, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49 y 50 de la LGPDPPSO.<br><br>La protección de Datos Personales es un derecho humano que da a los individuos el poder de controlar la información que comparte con terceros, así como el derecho a que esta se utilice de forma adecuada.<br><br><strong>VI. <u>Domicilio de la Unidad de Transparencia.</u></strong> <br>La Unidad de Transparencia de esta Empresa de Participación Estatal Mayoritaria, denominada “Aeropuerto Internacional Felipe Ángeles”, S.A. de C.V., se encuentra en Circuito Exterior Mexiquense Km. 33, Zumpango, Estado de México, C.P. 55640, Piso 3, Nivel 10.50 del Edificio Terminal de Pasajeros, con número de teléfono es <a style="color: #169179; text-decoration: none;" href="tel:5557989800">5557989800 </a>, Ext. 12016, o a través del correo electrónico: <a style="color: #169179; text-decoration: none;" href="mailto:transparencia@aifa.aero"> transparencia@aifa.aero</a><br><br><strong>VII. <u>Transferencia de Datos Personales.</u></strong> <br>Se informa que la Gerencia de Calidad adscrita a la Subdirección de Coordinación y Seguimiento de Acuerdos, a través de su tratamiento, <strong>No realizará transferencias</strong> de Datos Personales a terceros, con excepción de aquellas que sean necesarias para atender requerimientos de información de autoridades competentes, que estén debidamente fundadas y motivadas, cuando se haya solicitado previamente por escrito, o bien se actualice alguno de los supuestos señalados en los artículos 16, 60 y 64 de la LGPDPPSO.<br><br><strong>VIII. <span style="text-decoration: underline;">Mecanismos y medios disponibles para que la persona titular, en su caso, pueda manifestar su negativa para el tratamiento de sus Datos Personales.</span></strong></div>
+<div class="container">En caso de que no desees que tus Datos Personales sean tratados para las finalidades antes descritas, indíquelo a continuación o a través del correo <a style="color: #169179; text-decoration: none;" href="mailto:transparencia@aifa.aero">transparencia@aifa.aero</a><br><br>De conformidad con la normativa en materia de Protección de Datos Personales, se informa que, salvo que usted manifieste lo contrario, se entenderá que otorga su consentimiento tácito para el tratamiento de sus Datos Personales.<br><br><strong>IX. <u>Los medios y/o fuentes de obtención de los Datos Personales.</u></strong></div>
+<div class="container">Los Datos Personales recabados por la Gerencia de Calidad se obtienen mediante el Buzón digital de Comentarios, que se encuentra la página web del AIFA, en el apartado virtual denominado AIFA “Contacto”: <a style="color: #169179; text-decoration: none;" href="https://aifa.aero/contacto" target="_blank" rel="noopener noreferrer"> https://aifa.aero/contacto</a></div>
+<div class="container"><br><strong>X. <u>Medios a través de los cuales el responsable comunicará a la persona titular de los Datos Personales los cambios realizados al Aviso de Privacidad.</u></strong> <br>En caso de que exista un cambio de este aviso de privacidad, lo haremos de su conocimiento a través de la página web de este Aeropuerto Internacional Felipe Ángeles en el apartado de Datos personales – Avisos de Privacidad <a style="color: #169179; text-decoration: none;" href="https://www.aifa.aero/proteccion-datos-personales" target="_blank" rel="noopener">https://www.aifa.aero/proteccion-datos-personales</a><br><br><strong>Fecha de elaboración:</strong> 30 de abril de 2026.</div><p></p>
+    </div>
+</div>
+      </span>
+</div>
+<div class="copyright-text">
+    © 2024 Copyright Aeropuerto Internacional Felipe Ángeles
+</div>
+</div>
+<!-- /.container -->
+</footer>
+<!-- /.Footer -->
+
+    <button id="scrollTopBtn" aria-label="Desplazarse hacia arriba"><i class="fa fa-long-arrow-up"></i></button>
+    <div class="module__search-container"> <i class="fa fa-times close-search"></i>
+        <form class="module__search-form">
+            <input type="text" class="search__input" placeholder="Buscar aquí" aria-label="Buscar aquí">
+            <button class="module__search-btn" aria-label="Botón de búsqueda"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
+    <!-- /.module-search-container -->
+
+
+    <!-- /.wrapper -->
+
+
+    <script src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/js/plugins.js"></script>
+    <script src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/js/main.js"></script>
+    <script src="https://www.aifa.aero/Rm1wZXpOSWJaVkRBOXlOeDc0N0VEdz09/HTMLs/modulos/assets/js/floatMenu.min.js" id="float-menu-js"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script type="text/javascript">
+        var antiforgeryToken = "Kcf9FjjSiF3hw3jS8XezYuq4oJwihLqEDvCPDoMr";
+    </script>
+    <script src="https://www.aifa.aero/js/CookieConsent/cookieconsent.js"></script>
+<script type="text/javascript">
+var cookieConsent = initCookieConsent();
+cookieConsent.run({
+  autorun: true,
+  current_lang: 'en',
+  force_consent: true,
+  languages: {
+    en : {
+      consent_modal : {
+        title :  'Aceptación de cookies',
+        description :  'Este sitio utiliza cookies para mejorar su experiencia, analizar el uso del sitio y personalizar contenido. Usted puede aceptar, rechazar o configurar las cookies según sus preferencias.  De acuerdo con la Ley Federal de Protección de Datos Personales, puede ejercer sus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) enviando una solicitud a [correo de contacto].  Para más detalles, consulte nuestra Política de Privacidad y Cookies.',
+        primary_btn: {
+          text: 'Aceptar',
+          role: 'accept_all'
+        },
+        secondary_btn: {
+          text : 'No aceptar',
+          role : 'accept_necessary'
+        }
+      },
+      settings_modal : {
+        title : '[[00000000-0000-0000-0000-000000000000]]',
+        save_settings_btn : '[[00000000-0000-0000-0000-000000000000]]',
+        accept_all_btn : '[[00000000-0000-0000-0000-000000000000]]',
+        blocks : [
+            {
+              title : '[[00000000-0000-0000-0000-000000000000]]',
+              description: '[[00000000-0000-0000-0000-000000000000]]',
+              toggle : {
+                value : 'essential',
+                enabled : true,
+                readonly: true
+              }
+            }
+        ]
+      }
+    }
+  }, 
+  gui_options: {
+    consent_modal : {
+      layout : 'cloud',
+      position : 'bottom center',
+      transition: 'slide'
+    },
+
+  }
+});
+</script><div id="cc--main" style="position: fixed; z-index: 1000000;" class="c--anim"><!--[if lt IE 9 ]><div id="cc_div" class="cc_div ie"></div><![endif]--><!--[if (gt IE 8)|!(IE)]><!--><div id="cc_div" class="cc_div"><div id="cm" role="dialog" aria-modal="true" aria-hidden="false" aria-labelledby="c-ttl" aria-describedby="c-txt" class="cloud bottom center slide" style="visibility: hidden;"><div id="c-inr"><div id="c-inr-i"><div id="c-ttl" role="heading" aria-level="2">Aceptación de cookies</div><div id="c-txt">Este sitio utiliza cookies para mejorar su experiencia, analizar el uso del sitio y personalizar contenido. Usted puede aceptar, rechazar o configurar las cookies según sus preferencias.  De acuerdo con la Ley Federal de Protección de Datos Personales, puede ejercer sus derechos ARCO (Acceso, Rectificación, Cancelación y Oposición) enviando una solicitud a [correo de contacto].  Para más detalles, consulte nuestra Política de Privacidad&nbsp;y&nbsp;Cookies.</div></div><div id="c-bns"><button type="button" id="c-p-bn" class="c-bn">Aceptar</button><button type="button" id="c-s-bn" class="c-bn c_link">No aceptar</button></div></div></div><div id="cm-ov" style="visibility: hidden; opacity: 0;"></div><div id="s-cnt" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="s-ttl" style="visibility: hidden;"><div id="c-vln"><div id="cs"><div id="c-s-in"><div id="s-inr"><div id="s-hdr"><div id="s-ttl" role="heading">[[00000000-0000-0000-0000-000000000000]]</div><div id="s-c-bnc"><button type="button" id="s-c-bn" class="c-bn" aria-label="Close"></button></div></div><div id="s-bl"><div class="c-bl b-ex"><div class="title b-bn"><button type="button" class="b-tl" aria-expanded="false" aria-controls="c-ac-0">[[00000000-0000-0000-0000-000000000000]]</button><label class="b-tg"><input class="c-tgl" type="checkbox" value="essential" disabled=""><span class="c-tg c-ro" aria-hidden="true"><span class="on-i"></span><span class="off-i"></span></span><span class="t-lb">[[00000000-0000-0000-0000-000000000000]]</span></label></div><div class="desc b-acc" id="c-ac-0" aria-hidden="true"><div class="p">[[00000000-0000-0000-0000-000000000000]]</div></div></div></div><div id="s-bns"><button type="button" id="s-all-bn" class="c-bn">[[00000000-0000-0000-0000-000000000000]]</button><button type="button" id="s-sv-bn" class="c-bn">[[00000000-0000-0000-0000-000000000000]]</button></div></div></div></div></div></div><div id="cs-ov" style="visibility: hidden; opacity: 0;"></div></div><!--<![endif]--></div>    <script>
+
+            // Variables para controlar el tamaño de fuente
+            let currentFontLevel = 0; // 0 = normal, positivo = más grande, negativo = más pequeño
+            const maxFontLevel = 3;
+            const minFontLevel = -2;
+            const fontStep = 0.1; // 10% de incremento/decremento
+            const fontLevels = new Map([
+               [-2, 12],
+               [-1, 13.5],
+               [0, 15],
+               [1, 16.5],
+               [2, 18],
+               [3, 19.5],
+            ]);
+
+            // Elementos que se van a escalar
+            const textElements = 'body, p, li, span, a, button, input, textarea, label, td, th, div';
+            const headingElements = 'h1, h2, h3, h4, h5, h6';
+
+            // Elementos excluidos (no se escalarán)
+            const excludedSelectors = 'ul.dropdown-menu *, ul.nav.flex-column *';
+
+            // Función para actualizar el indicador
+            function updateIndicator() {
+                let indicatorText = '';
+                if (currentFontLevel === 0) {
+                    indicatorText = 'Normal';
+                } else if (currentFontLevel > 0) {
+                    indicatorText = 'Grande ' + ` +${currentFontLevel}`;
+                } else {
+                    indicatorText = 'Pequeño ' + ` ${currentFontLevel}`;
+                }
+                $('#font-indicator').text(indicatorText);
+            }
+
+            // Función para aplicar el cambio de tamaño
+            function applyFontSize() {
+                const root = document.documentElement;
+                root.style.setProperty('--body-font-size', `${fontLevels.get(currentFontLevel)}px`);
+
+                // Guardar preferencia en localStorage (si está disponible)
+                try {
+                    localStorage.setItem('airport-font-level', currentFontLevel);
+                } catch(e) {
+                    // localStorage no disponible, continuar sin guardar
+                }
+
+                updateIndicator();
+
+                // Re-check nav overflow after the CSS variable reflows
+                requestAnimationFrame(() => {
+                    console.log(typeof checkTextOverflow);
+                    if (typeof checkTextOverflow === 'function') checkTextOverflow();
+                });
+            }
+
+            // Función para cargar preferencias guardadas
+            function loadSavedFontSize() {
+                try {
+                    const savedLevel = localStorage.getItem('airport-font-level');
+                    if (savedLevel !== null) {
+                        currentFontLevel = parseInt(savedLevel);
+                        applyFontSize();
+                    }
+                } catch(e) {
+                    // localStorage no disponible, usar valores por defecto
+                }
+            }
+
+            // Event listeners para los botones
+            $('#increase-font').click(function() {
+                if (currentFontLevel < maxFontLevel) {
+                    currentFontLevel++;
+                    applyFontSize();
+                }
+            });
+
+            $('#decrease-font').click(function() {
+                if (currentFontLevel > minFontLevel) {
+                    currentFontLevel--;
+                    applyFontSize();
+                }
+            });
+
+            $('#reset-font').click(function() {
+                currentFontLevel = 0;
+                applyFontSize();
+            });
+
+            // Atajos de teclado para accesibilidad
+            $(document).keydown(function(e) {
+                // Ctrl + Plus para aumentar
+                if (e.ctrlKey && (e.key === '+' || e.key === '=')) {
+                    e.preventDefault();
+                    $('#increase-font').click();
+                }
+                // Ctrl + Minus para disminuir
+                else if (e.ctrlKey && e.key === '-') {
+                    e.preventDefault();
+                    $('#decrease-font').click();
+                }
+                // Ctrl + 0 para reset
+                else if (e.ctrlKey && e.key === '0') {
+                    e.preventDefault();
+                    $('#reset-font').click();
+                }
+            });
+
+            // Cargar configuración guardada al inicializar
+            loadSavedFontSize();
+
+            // Actualizar indicador inicial
+            updateIndicator();
+
+            // Animación suave para los botones
+            $('.font-btn').hover(
+                function() {
+                    $(this).css('transform', 'scale(1.05)');
+                },
+                function() {
+                    $(this).css('transform', 'scale(1)');
+                }
+            );
+</script>
+    <script>
+$(document).ready(function() {
+    $(document).on('show.bs.collapse', function (e) {
+        $(e.target).parent().find('.accordion__item-header').addClass('opened').removeClass('collapsed');
+    });
+
+    $(document).on('hide.bs.collapse', function (e) {
+        $(e.target).parent().find('.accordion__item-header').removeClass('opened').addClass('collapsed');
+    });
+
+    $('.accordion__item-title').on('click', function (e) {
+        e.preventDefault();
+    });
+});
+
+
+</script>    <script>
+$(document).ready(function() {
+    $('.menu-trigger').on('click', function() {
+        if ($(window).width() < 768) {
+            const $el = $(this);
+            const $target = $(this).next('.dropdown-menu');
+            const isOpen = $target.is(':visible');
+
+            $('.dropdown-menu').slideUp(400, function() {
+                $(this).removeClass('show').css('display', '');
+            });
+
+            if (!isOpen) {
+                $target.slideDown(400, function() {
+                    $(this).addClass('show').css('display', '');
+
+                    const $nav = $('#mainNavigation');
+                    $nav.animate({
+                        scrollTop: $nav.scrollTop() + $el.offset().top - $nav.offset().top
+                    }, 500);
+                });
+            }
+        } else {
+            const $menu = $(this).siblings('.dropdown-menu');
+            $('.dropdown-menu').not($menu).removeClass('show');
+            $menu.toggleClass('show');
+        }
+    });
+
+    // Cerrar dropdown si se hace clic fuera
+    $(document).on('click', function(event) {
+        if (!$('.navbar-collapse').hasClass('menu-opened') && !$(event.target).closest('.nav__item').length) {
+            $('.dropdown-menu').removeClass('show').css('display', '');
+        }
+    });
+});
+
+$('.dropdown-menu-col a.subnull').remove();
+</script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    const videos = document.querySelectorAll('video');
+    
+    videos.forEach(video => {
+        // Script de reproducción de video
+        video.setAttribute('playsinline', '');
+        video.setAttribute('webkit-playsinline', '');
+        video.loop = true;
+        
+        const playVideo = () => {
+            video.muted = true;
+            const playPromise = video.play();
+            
+            if (playPromise !== undefined) {
+                playPromise.catch(error => {
+                    console.log('Autoplay bloqueado', error);
+                    
+                    document.addEventListener('touchstart', () => {
+                        video.play();
+                    }, {once: true});
+                });
+            }
+        };
+        
+        video.addEventListener('ended', () => {
+            video.play();
+        });
+        
+        playVideo();
+        
+        video.addEventListener('pause', playVideo);
+    });
+
+    // Slider original
+    const slider = document.querySelector('.slider');
+    function activateAuto() {
+        const items = document.querySelectorAll('.item');
+        slider.append(items[0]);
+    }
+    
+    // Mantener el intervalo de cambio de slider
+    setInterval(activateAuto, 15000);	
+});
+</script>    <script>
+$('#llegadas_filtro').click(function() {
+    $('.vuelo-transport-option').prop('checked', false);
+    $('#arrivals').prop('checked', true);
+});
+$('#salidas_filtro').click(function() {
+    $('.vuelo-transport-option').prop('checked', false);
+$('#departures').prop('checked', true);
+});
+$('#todos_filtro').click(function() {
+    $('.vuelo-transport-option').prop('checked', false);
+$('#all').prop('checked', true);
+});
+</script>    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Seleccionamos todos los contenedores de cards
+    const cards = document.querySelectorAll('.card-container');
+    
+    // Configuramos el Intersection Observer
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Cuando la card entre en el viewport
+                entry.target.style.visibility = 'visible'; // Aseguramos que es visible
+                // Pequeño delay para asegurar una transición suave
+                setTimeout(() => {
+                    entry.target.classList.add('show');
+                }, 100);
+                // Dejamos de observar una vez que se ha mostrado
+                observer.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1, // La animación comenzará cuando el 10% de la card sea visible
+        rootMargin: '0px 0px -50px 0px' // Ajusta el punto de activación
+    });
+    
+    // Comenzamos a observar cada card
+    cards.forEach(card => {
+        observer.observe(card);
+    });
+});
+</script>    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const slider = document.querySelector('.slider_aifa');
+    const slides = document.querySelectorAll('.slide_aifa');
+    const prevButton = document.querySelector('.prev_aifa');
+    const nextButton = document.querySelector('.next_aifa');
+
+    let isDragging = false;
+    let startX;
+    let startScrollLeft;
+    let currentIndex = 0;
+
+    // Calculate slide width considering gaps
+    function getSlideWidth() {
+        const firstSlide = slides[0];
+        const slideWidth = firstSlide.getBoundingClientRect().width;
+        const gap = parseFloat(getComputedStyle(slider).gap) || 20;
+        return slideWidth + gap;
+    }
+
+    // Update slider position
+    function updateSlider() {
+        const slideWidth = getSlideWidth();
+        slider.scrollTo({
+            left: slideWidth * currentIndex,
+            behavior: 'smooth'
+        });
+    }
+
+    // Navigation functions
+    function nextSlide() {
+        const maxIndex = window.innerWidth <= 768 ? slides.length - 1 : slides.length - 3;
+        currentIndex = currentIndex < maxIndex ? currentIndex + 1 : 0;
+        updateSlider();
+    }
+
+    function prevSlide() {
+        const maxIndex = window.innerWidth <= 768 ? slides.length - 1 : slides.length - 3;
+        currentIndex = currentIndex > 0 ? currentIndex - 1 : maxIndex;
+        updateSlider();
+    }
+
+    // Drag interaction
+    function startDragging(e) {
+        isDragging = true;
+        slider.classList.add('dragging_aifa');
+        startX = e.pageX - slider.offsetLeft;
+        startScrollLeft = slider.scrollLeft;
+    }
+
+    function stopDragging() {
+        isDragging = false;
+        slider.classList.remove('dragging_aifa');
+        
+        // Snap to nearest slide
+        const slideWidth = getSlideWidth();
+        currentIndex = Math.round(slider.scrollLeft / slideWidth);
+        updateSlider();
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        const x = e.pageX - slider.offsetLeft;
+        const walk = (x - startX) * 2; // Multiplier for faster/slower drag
+        slider.scrollLeft = startScrollLeft - walk;
+    }
+
+    // Event Listeners
+    prevButton.addEventListener('click', prevSlide);
+    nextButton.addEventListener('click', nextSlide);
+
+    // Drag events
+    slider.addEventListener('mousedown', startDragging);
+    slider.addEventListener('mouseleave', stopDragging);
+    slider.addEventListener('mouseup', stopDragging);
+    slider.addEventListener('mousemove', drag);
+
+    // Touch events for mobile
+    slider.addEventListener('touchstart', (e) => {
+        startDragging(e.touches[0]);
+    }, { passive: false });
+
+    slider.addEventListener('touchmove', (e) => {
+        drag(e.touches[0]);
+    }, { passive: false });
+
+    slider.addEventListener('touchend', stopDragging);
+
+    // Auto-slide
+    let autoSlideInterval = setInterval(nextSlide, 4000);
+
+    slider.addEventListener('mouseenter', () => {
+        clearInterval(autoSlideInterval);
+    });
+
+    slider.addEventListener('mouseleave', () => {
+        autoSlideInterval = setInterval(nextSlide, 4000);
+    });
+
+    // Resize handler
+    window.addEventListener('resize', updateSlider);
+});
+</script>    <script>
+    /*let indiceActual = 0;
+    const intervalTime = 5000;
+
+    function generarEnlace(idNoticia, idAnterior, idSiguiente) {
+        return `https://aifa.aero/page_027_noticias_aifa_modal/${idNoticia}/${idSiguiente}/${idAnterior}/noticias`;
+    }
+
+    function mostrarImagen(indice) {
+        const imagen = document.getElementById('carrusel-imagen');
+        //const titulo = document.getElementById('carrusel-titulo');
+
+        const idActual = imagenes[indice].id;
+
+        const idAnterior = idActual - 1;
+        const idSiguiente = idActual + 1;
+
+        imagen.parentElement.classList.remove('visible');
+
+        setTimeout(() => {
+            imagen.src = imagenes[indice].src;
+            //titulo && (titulo.textContent = imagenes[indice]?''.titulo);
+
+            imagen.dataset.link = generarEnlace(
+                imagenes[indice].id,
+                idAnterior,
+                idSiguiente
+            );
+
+            imagen.parentElement.classList.add('visible');
+        }, 500);
+
+        const imagenesVerticales = document.querySelectorAll('.imagen-vertical img');
+        const titulosVerticales = document.querySelectorAll('.imagen-vertical h3');
+
+        imagenesVerticales.forEach((img, index) => {
+            img.src = imagenes[index].src;
+            titulosVerticales[index].textContent = imagenes[index].corto;
+
+            if (index === indice) {
+                img.style.opacity = '1';
+                img.parentElement.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+            } else {
+                img.style.opacity = '0.5';
+                img.parentElement.style.backgroundColor = 'rgba(0, 0, 0, 0.5)';
+            }
+        });
+    }
+
+    function cambiarImagen(direccion) {
+        indiceActual += direccion;
+        if (indiceActual < 0) {
+            indiceActual = imagenes.length - 1;
+        } else if (indiceActual >= imagenes.length) {
+            indiceActual = 0;
+        }
+        mostrarImagen(indiceActual);
+    }
+
+    window.onload = function () {
+        mostrarImagen(indiceActual);
+        setInterval(() => cambiarImagen(1), intervalTime);
+
+        const imagenPrincipal = document.getElementById('carrusel-imagen');
+        imagenPrincipal.addEventListener('click', () => {
+            const link = imagenPrincipal.dataset.link;
+            if (link) {
+                window.location.href = link;
+            }
+        });
+
+        const imagenesVerticales = document.querySelectorAll('.imagen-vertical');
+        imagenesVerticales.forEach((imgContainer, index) => {
+            imgContainer.addEventListener('click', () => {
+                indiceActual = index;
+                mostrarImagen(indiceActual);
+            });
+        });
+
+        const botonPrev = document.querySelector('.boton-prev');
+        const botonNext = document.querySelector('.boton-next');
+
+        botonPrev.addEventListener('click', () => cambiarImagen(-1));
+        botonNext.addEventListener('click', () => cambiarImagen(1));
+    };*/
+
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const carouselElement = document.getElementById('carouselAifa');
+        const mainView = document.querySelector('.aifa-main-view');
+        const thumbColumn = document.querySelector('.aifa-thumbnails');
+        const mainImg = document.querySelector('.aifa-slide-content img');
+
+        var carouselInstance = new bootstrap.Carousel(carouselElement, {
+            interval: 5000,
+            pause: 'hover'
+        });
+
+        function adjustColumnHeight() {
+            if (window.innerWidth > 992) {
+                const alturaReal = mainView.offsetHeight || mainImg.clientHeight;
+                if (alturaReal > 50) {
+                    thumbColumn.style.setProperty('height', alturaReal + "px", 'important');
+                }
+            } else {
+                thumbColumn.style.height = "auto";
+            }
+        }
+
+        adjustColumnHeight();
+        window.addEventListener('load', adjustColumnHeight);
+        window.addEventListener('resize', adjustColumnHeight);
+
+        if (mainImg && mainImg.complete) {
+            adjustColumnHeight();
+        } else if (mainImg) {
+            mainImg.onload = adjustColumnHeight;
+        }
+
+        const btnNext = document.getElementById('btn-next') || document.querySelector('.carousel-control-next');
+        const btnPrev = document.getElementById('btn-prev') || document.querySelector('.carousel-control-prev');
+
+        if (btnNext) {
+            btnNext.addEventListener('click', function(e) {
+                e.preventDefault();
+                carouselInstance.next();
+            });
+        }
+
+        if (btnPrev) {
+            btnPrev.addEventListener('click', function(e) {
+                e.preventDefault();
+                carouselInstance.prev();
+            });
+        }
+
+        document.querySelectorAll('.aifa-thumb-card').forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                const index = parseInt(this.getAttribute('data-slide-to'));
+                carouselInstance.to(index);
+            });
+        });
+
+        carouselElement.addEventListener('slid.bs.carousel', function(e) {
+            adjustColumnHeight();
+
+            document.querySelectorAll('.aifa-thumb-card').forEach(t => t.classList.remove('active'));
+            const activeThumb = document.querySelector(`.aifa-thumb-card[data-slide-to="${e.to}"]`);
+
+            if (activeThumb) {
+                activeThumb.classList.add('active');
+
+                const container = thumbColumn;
+
+                const thumbTop = activeThumb.offsetTop;
+                const thumbHeight = activeThumb.offsetHeight;
+                const containerHeight = container.offsetHeight;
+                const containerScroll = container.scrollTop;
+
+                if (thumbTop < containerScroll) {
+                    container.scrollTo({
+                        top: thumbTop,
+                        behavior: 'smooth'
+                    });
+                } else if (thumbTop + thumbHeight > containerScroll + containerHeight) {
+                    container.scrollTo({
+                        top: thumbTop - containerHeight + thumbHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+        });
+    });
+</script>
+    <script>
+
+
+
+const abrirModal = document.querySelector('.abrir-modal');
+const modal1 = document.getElementById('myModal');
+const cerrarModal = document.querySelector('.cerrar-modal');
+
+abrirModal.addEventListener('click', (e) => {
+    e.preventDefault(); // Prevenir comportamiento por defecto del enlace
+    modal1.style.display = 'flex'; // Usar flex en lugar de block
+});
+
+cerrarModal.addEventListener('click', () => {
+    modal1.style.display = 'none';
+});
+
+window.addEventListener('click', (event) => {
+    if (event.target === modal1) {
+        modal1.style.display = 'none';
+    }
+});
+</script>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const abrirModal2 = document.querySelector('.abrir-modal2');
+    const modal2 = document.getElementById('myModal2');
+    const cerrarModal2 = document.querySelector('.cerrar-modal2');
+
+    abrirModal2.addEventListener('click', (e) => {
+        e.preventDefault();
+        modal2.style.display = 'flex';
+    });
+
+    cerrarModal2.addEventListener('click', () => {
+        modal2.style.display = 'none';
+    });
+
+    window.addEventListener('click', (event) => {
+        if (event.target === modal2) {
+            modal2.style.display = 'none';
+        }
+    });
+});
+</script>    <script>
+(function () {
+    var videos = document.querySelectorAll('video[data-lazy-video]');
+    if (!videos.length) return;
+
+    var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+            if (!entry.isIntersecting) return;
+            var video = entry.target;
+            var source = video.querySelector('source[data-src]');
+            if (source) {
+                source.src = source.getAttribute('data-src');
+                source.removeAttribute('data-src');
+                video.load();
+                video.play().catch(function () {});
+            }
+            observer.unobserve(video);
+        });
+    }, { rootMargin: '0px 0px 200px 0px' });
+
+    videos.forEach(function (video) {
+        observer.observe(video);
+    });
+})();
+</script>
+    <script>
+    function checkTextOverflow() {
+        const nav = document.querySelector('.navbar-nav');
+        const navStyle = window.getComputedStyle(nav);
+
+        const isVertical = navStyle.flexDirection === 'column';
+
+        if (isVertical) {
+            nav.classList.add('is-vertical');
+        } else {
+            nav.classList.remove('is-vertical');
+        }
+
+        document.querySelectorAll('.nav__item-link').forEach(link => {
+            if (!isVertical && link.scrollWidth > link.clientWidth) {
+                link.classList.add('has-overflow');
+                link.style.setProperty('--overflow-amount', `-${link.scrollWidth - link.clientWidth}px`);
+            } else {
+                link.classList.remove('has-overflow');
+                link.style.removeProperty('--overflow-amount');
+            }
+        });
+    }
+
+    window.addEventListener('load', checkTextOverflow);
+    window.addEventListener('resize', checkTextOverflow);
+
+    /*const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-left');
+            } else {
+                entry.target.classList.remove('slide-left');
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    document.querySelectorAll('.scroll-animate').forEach(el => {
+        observer.observe(el);
+    });
+
+
+    const observerCenter = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('slide-right');
+            } else {
+                entry.target.classList.remove('slide-right');
+            }
+        });
+    }, {
+        threshold: 0.5
+    });
+
+    document.querySelectorAll('.scroll-animate-center').forEach(el => {
+        observerCenter.observe(el);
+    });*/
+</script>
+<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&amp;ns=2&amp;cb=1118640779" async=""></script>
+
+
+</body></html>
