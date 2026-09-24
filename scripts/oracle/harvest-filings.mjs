@@ -43,14 +43,18 @@ function saveState(s) { writeFileSync(join(DATA, "state.json"), JSON.stringify(s
 // press-release feed (Q4 platform) is public and reachable. A new results release is recorded as pending so the
 // reviewing routine, which runs from a workstation, harvests the 8-K exhibit itself.
 // The RSS view answers 403 to scripted clients; the Q4 JSON endpoint behind the same list answers normally.
+// Two parameter sets: the full one the IR page itself sends (the short one started returning an empty list on
+// 2026-09-24) and the short one as a second try, in case Q4 changes the category id.
+const IR_JSON_FULL = (year) => `https://investor.oracle.com/feed/PressRelease.svc/GetPressReleaseList?LanguageId=1&bodyType=0&pressReleaseDateFilter=3&categoryId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0&pageSize=25&pageNumber=0&tagList=&includeTags=true&year=${year}&excludeSelection=1`;
 const IR_JSON = (year) => `https://investor.oracle.com/feed/PressRelease.svc/GetPressReleaseList?LanguageId=1&pageSize=25&pageNumber=0&year=${year}`;
 const IR_FEED = "https://investor.oracle.com/rss/pressrelease.aspx";
 async function irItems() {
-  try {
-    const j = await getJSON(IR_JSON(new Date().getUTCFullYear()));
+  for (const mk of [IR_JSON_FULL, IR_JSON]) try {
+    const j = await getJSON(mk(new Date().getUTCFullYear()));
     const list = j.GetPressReleaseListResult || j.Items || [];
     if (list.length) return list.map((x) => ({ guid: x.LinkToDetailPage || x.Headline, title: x.Headline || "", link: x.LinkToDetailPage ? (x.LinkToDetailPage.startsWith("http") ? x.LinkToDetailPage : "https://investor.oracle.com" + x.LinkToDetailPage) : "", pub: x.PressReleaseDate || "" }));
-  } catch (e) { console.error(`IR JSON feed failed (${e.message}); trying RSS.`); }
+    console.error("IR JSON feed returned an empty list; trying the next parameter set.");
+  } catch (e) { console.error(`IR JSON feed failed (${e.message}); trying the next source.`); }
   const xml = await getText(IR_FEED);
   const items = [...xml.matchAll(/<item>([\s\S]*?)<\/item>/g)].map((m) => m[1]);
   const pick = (s, tag) => { const m = new RegExp(`<${tag}>([\\s\\S]*?)<\\/${tag}>`).exec(s); return m ? m[1].trim() : ""; };

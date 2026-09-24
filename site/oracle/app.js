@@ -165,6 +165,31 @@
   function addDays(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
   const GV = (GD.vintages || []).slice().sort((a, b) => a.date.localeCompare(b.date));
 
+  // ---------------- freshness: what the automation has not yet delivered ----------------
+  // Client-side checks (price age, quarter age) work even if the pipeline stopped regenerating quality.js;
+  // the report adds pending extractions, failed tie-outs and its own age.
+  const QR = (window.ORCL_QUALITY && window.ORCL_QUALITY.report) || null;
+  const daysSince = (d) => (d ? Math.floor((Date.now() - new Date(String(d).slice(0, 10) + 'T00:00:00Z').getTime()) / 86400000) : null);
+  function pendingUpdates() {
+    const out = [];
+    const es = LANG === 'es';
+    if (lastPx && daysSince(lastPx[0]) > 5) out.push(es ? `precio de la acción: último cierre ${fmtDate(lastPx[0])} (la actualización diaria no ha corrido)` : `share price: last close ${fmtDate(lastPx[0])} (the daily refresh has not run)`);
+    if (lastQ && lastQ.releaseDate && daysSince(lastQ.releaseDate) > 100) out.push(es ? `último trimestre publicado ${qLabel(lastQ)} (${fmtDate(lastQ.releaseDate)}); el siguiente reporte está por llegar y entra al modelo el día hábil posterior al 8-K` : `latest quarter ${qLabel(lastQ)} (reported ${fmtDate(lastQ.releaseDate)}); the next release is due and enters the model the weekday after the 8-K`);
+    if (QR) {
+      const gen = QR.generated || QR.generatedAt;
+      if (gen && daysSince(gen) > 4) out.push(es ? `el proceso de datos no ha corrido desde el ${fmtDate(String(gen).slice(0, 10))}` : `the data pipeline has not run since ${fmtDate(String(gen).slice(0, 10))}`);
+      if (QR.summary && QR.summary.failed > 0) out.push(es ? `${QR.summary.failed} verificación(es) contable(s) fallida(s); cifras en revisión` : `${QR.summary.failed} tie-out check(s) failed; figures under review`);
+      for (const s of QR.stale || []) {
+        const m = /^(\d+) archived filing/.exec(s);
+        const tr = /^10-year Treasury as of (\S+)/.exec(s);
+        if (m) out.push(es ? `${m[1]} reporte(s) nuevo(s) archivado(s), pendiente(s) de extracción (siguiente corrida de la rutina)` : `${m[1]} new filing(s) archived, pending extraction (next routine run)`);
+        else if (tr) out.push(es ? `Tesoro a 10 años al ${fmtDate(tr[1])}` : `10-year Treasury as of ${fmtDate(tr[1])}`);
+        // "Share price" and "Latest quarter" are already covered by the client-side checks above.
+      }
+    }
+    return out;
+  }
+
   // ================= HEADER =================
   function renderHeader() {
     const asof = [];
@@ -174,7 +199,10 @@
     if (FIN.generatedAt) asof.push(`<span><b>${LANG === 'es' ? 'Datos generados' : 'Data generated'}:</b> ${fmtDate(FIN.generatedAt.slice(0, 10))}</span>`);
     html('asofRow', asof.join(''));
     const notice = el('dataNotice');
-    if (!Q.length) { notice.hidden = false; notice.className = 'notice warn'; notice.textContent = t('provisional'); } else notice.hidden = true;
+    const pend = pendingUpdates();
+    if (!Q.length) { notice.hidden = false; notice.className = 'notice warn'; notice.textContent = t('provisional'); }
+    else if (pend.length) { notice.hidden = false; notice.className = 'notice warn'; notice.innerHTML = `<b>${LANG === 'es' ? 'Actualización automática pendiente' : 'Automatic update pending'}:</b> ${pend.join(' · ')} <span class="muted small">(${LANG === 'es' ? 'detalle en' : 'details on'} <a href="quality.html">quality.html</a>)</span>`; }
+    else notice.hidden = true;
     const k = [];
     if (lastPx) { const yAgo = pointAtOrBefore(orclPx, addDays(lastPx[0], -365)); k.push({ l: 'ORCL (NYSE)', v: 'US$ ' + fmtN(lastPx[1], 2), d: yAgo ? `${fmtPct(100 * (lastPx[1] / yAgo[1] - 1), 1, true)} ${t('oneY')}` : '' }); }
     if (lastPx && sharesNow) { const mc = lastPx[1] * sharesNow; k.push({ l: t('mktCap'), v: 'US$ ' + fmtN(mc / 1e9, 1) + ' ' + (LANG === 'es' ? 'mil M' : 'bn'), d: `${fmtN(sharesNow / 1e6, 1)} M ${LANG === 'es' ? 'acciones' : 'shares'}` }); }

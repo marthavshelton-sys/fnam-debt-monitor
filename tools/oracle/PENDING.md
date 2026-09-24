@@ -4,12 +4,16 @@
 
 | Item | Why | What to do |
 |---|---|---|
-| Merge the `oracle-model` pull request | Publishes `/oracle/` on fnam.mx; GitHub only runs schedules on `main`, so the market/filings workflow starts with the merge | Review the PR (the Cloudflare Pages preview deployment of the branch shows the page), merge |
-| `EDGAR_USER_AGENT` repository variable | The SEC asks every automated client for a descriptive User-Agent with a contact | GitHub → Settings → Secrets and variables → Actions → Variables → `EDGAR_USER_AGENT` = `Your Name your@email` |
-| Create the weekday reviewing routine | Extracts new quarters into the model, drafts the Comments column, updates reference facts, emails on material days — all via pull requests | `tools/oracle/ROUTINE.md` (a Claude scheduled task; no API key or mail provider needed) |
-| Password | Internal working model | Cloudflare → Workers & Pages → the Pages project → Settings → Variables and Secrets: `ORACLE_PASSWORD` (Production and Preview). Dormant until set; see runbook §Access |
+| Merge the routine's pull requests | The weekday routine extracts new quarters, filings and events into the model and opens a PR; the page updates when it is merged (the material-day email links it). Prices, filings archive and everything derived from them update without a merge | Merge from the email link or `gh pr merge <n> --squash --delete-branch`. To remove this step, give the routine a self-merge rule (proposal in the routine's session notes: merge results/filings PRs when both guards report 0 failed; merge event PRs only when every fact has a primary source) |
+| Routine clone in the permission allowlist | The routine now works in its own clone `Talipot\fnam-oracle-routine` so it never touches the working copies other sessions use; the Claude sandbox would not let a session edit its own permission file | In `Talipot\Oracle\.claude\settings.local.json` add `"C:\\Users\\MARTH\\OneDrive\\Desktop\\Talipot\\fnam-oracle-routine"` to `permissions.additionalDirectories` and `"Edit(//c/Users/MARTH/OneDrive/Desktop/Talipot/fnam-oracle-routine/**)"` to `permissions.allow` |
+| Keep the desktop app open on weekday mornings, or move the routine to the cloud | The scheduled task runs on this machine while the Claude desktop app is open (or at the next launch); a claude.ai/code cloud routine would run regardless (environment `marthavshelton-sys/fnam-debt-monitor` already exists) | Either habit, or create the cloud routine from the same prompt with the Gmail connector attached and disable the local task |
+| Earnings-call transcripts | Management quotes, call-page comments, megawatts delivered, promises, quantified guidance before 3Q26 | Supplied for 1Q24–1Q27 plus the Sept-2025 business update and the Oct-2025 analyst meeting (private `oracle-model` repository, `Transcripts/`). After each results call, drop the new PDF into that folder; the routine's next run picks it up |
 | FactSet connector | Section 06 peer multiples, section 04 peer rebasing, section 11 CDS spread, consensus next to guidance | Authorise the connector; data contracts: `tools/oracle/data/peers.json` (fields in `site/oracle/data/peers.js` header), `tools/oracle/data/cds.json` (`points` = [date, 5-year senior CDS mid in bp]), `tools/oracle/data/consensus.json` (revenue, EBITDA, EPS, target price, date) |
-| Earnings-call transcripts | Quantified guidance before 3Q26; management quotes per line item | Supplied for 1Q24–1Q27 plus the Sept-2025 business update and the Oct-2025 analyst meeting (private `oracle-model` repository, `Transcripts/`). Missing: the 4Q24 (June 2024) and 1Q25 (September 2024) calls. After each results call, give the PDF to the routine's next run or to a Claude session |
+| Password (optional) | Internal working model | Cloudflare → Workers & Pages → the Pages project → Settings → Variables and Secrets: `ORACLE_PASSWORD` (Production and Preview). Dormant until set; see runbook §Access |
+
+Done: `/oracle/` published from `main` (PR #32, 2026-09-23); `EDGAR_USER_AGENT` repository variable set; the
+market/filings workflow runs twice every weekday and has succeeded on every run; the weekday routine exists and
+has run daily since 2026-09-23.
 
 ## Data backfill (public information, no owner input needed)
 

@@ -21,8 +21,10 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > every change goes through a pull request. Use public information only (SEC filings, Oracle's investor site,
 > official market data); never seek or use non-public information.
 >
-> STEP 1 — Sync. In the local clone `C:\Users\MARTH\OneDrive\Desktop\Talipot\fnam-debt-monitor`, run
-> `git fetch origin` and `git checkout main && git pull --ff-only`. Read `tools/oracle/notify-state.json`.
+> STEP 1 — Sync. Work only in the routine's own clone `C:\Users\MARTH\OneDrive\Desktop\Talipot\fnam-oracle-routine`
+> (never in the shared `fnam-debt-monitor` clone or the `fnam-oracle-wt` worktree, which other sessions and the
+> other pages' work use). Run `git fetch --prune origin` and `git checkout main && git pull --ff-only`. Read
+> `tools/oracle/notify-state.json`.
 >
 > STEP 2 — Harvest. Run `node scripts/oracle/harvest-filings.mjs` (EDGAR is reachable from this machine even
 > when it refuses GitHub's runners). Then read `tools/oracle/data/state.json`. If `pending_extraction` has an
@@ -58,11 +60,14 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > the cover; from a 10-Q, update the shares outstanding on the cover and any new or retired debt. Run the
 > build and open a PR as in STEP 3 (branch `oracle/<form>-<period>`).
 >
-> STEP 5 — Events. Check https://investor.oracle.com/rss/pressrelease.aspx for items newer than
+> STEP 5 — Events. Fetch Oracle's press-release list from the Q4 JSON endpoint with the full parameter set
+> `investor.oracle.com/feed/PressRelease.svc/GetPressReleaseList?LanguageId=1&bodyType=0&pressReleaseDateFilter=3&categoryId=1cb807d2-208f-4bc3-9133-6a9ad45ac3b0&pageSize=20&pageNumber=0&tagList=&includeTags=true&year=<year>&excludeSelection=1`
+> (the short query without `categoryId` returns an empty list since 2026-09-24; the RSS view answers HTTP 403 to
+> scripts) and list Oracle's EDGAR submissions (`data.sec.gov/submissions/CIK0001341439.json`) for items newer than
 > `notify-state.lastEventDate`: debt issuances or redemptions, dividend changes, rating actions (also check
-> the three agencies' Oracle pages), buybacks, major contracts or capex announcements. Record facts with
-> their source in `market_reference.json` (ratings, instruments) or `special_situations.json` (AI buildout
-> timeline) and open a PR if anything changed.
+> the three agencies' Oracle pages), buybacks, major contracts, capex or data-center announcements. Record facts with
+> their source in `market_reference.json` (ratings, instruments), `buildout.json` (sites) or `special_situations.json`
+> (AI buildout timeline) and open a PR if anything changed.
 >
 > STEP 6 — Materiality. Read `tools/oracle/data/alerts.json`. A day is material if any of: a new quarter or
 > 10-Q/10-K was filed; a guidance range changed (compare `guidance.json` vintages with
@@ -85,10 +90,27 @@ alert). Thresholds live in `tools/oracle/data/alerts.json`.
 > when one was opened, otherwise as a small PR of its own only if a value changed. If the harvest, the build
 > or the fetch fails, do not email about it; set lastFailureNote and stop so the next run retries.
 
+## What updates by itself, and what does not
+
+| Element | Mechanism | Cadence | Needs the owner? |
+|---|---|---|---|
+| Share price, S&P 500, 10-year Treasury, market cap, multiples, DCF price inputs | GitHub Actions `oracle-refresh.yml` → Cloudflare Pages deploy | weekdays 13:30 and 21:45 UTC | No |
+| Filing archive (8-K, 10-Q, 10-K) and `state.json` | same workflow (EDGAR, IR JSON feed fallback) | weekdays 13:30 UTC | No |
+| Statements, guidance, Comments, summary, buildout, debt, ratings, events | this routine, via a pull request | weekdays 08:30 local | Yes: merge the PR (the email links it) |
+| Transcript-based blocks (call quotes, MW delivered, promises, call-page comments) | this routine once the PDF is in the private `oracle-model` repo | after each call | Yes: supply the transcript PDF |
+| Peers, CDS, consensus | FactSet connector | daily once connected | Yes: authorise the connector |
+
+The page shows an "automatic update pending" notice (`dataNotice`, from `data/quality.js` and the page's own
+data) whenever the share price is older than five days, the latest quarter is older than 100 days, an archived
+filing awaits extraction, a tie-out failed or the data pipeline has not run for four days, so a stale element is
+never silent.
+
 ## Creating it
 
 From Claude Code (desktop app or claude.ai/code → Routines): "create a scheduled task named
 *FNAM Oracle: weekday review*, weekdays at 08:30, with the prompt in tools/oracle/ROUTINE.md". The desktop
 task runs while the app is open (and on next launch if it was closed); a claude.ai/code routine runs in the
 cloud. Either way the email is sent by the routine's own Gmail connector, and every repository change is a
-pull request for the owner to merge.
+pull request for the owner to merge. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
+the project's `.claude/settings.local.json` under `additionalDirectories` and in an `Edit(...)` allow rule, so it
+never prompts and never touches the working copies other sessions use.
