@@ -1,0 +1,25 @@
+# One-off source probe for the airports traffic hub (removed once the refresh workflow exists).
+name: Probe airport traffic sources
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: aeropuertos-probe
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with: { ref: "${{ github.ref_name }}" }
+      - uses: actions/setup-node@v4
+        with: { node-version: 22 }
+      - run: npm init -y >/dev/null && npm i --no-audit --no-fund playwright@1.49.1 && npx playwright install --with-deps chromium
+      - run: node scripts/aeropuertos/probe.mjs
+      - name: Commit the probe output
+        run: |
+          rm -f package.json package-lock.json; rm -rf node_modules
+          git config user.name "fnam-data-bot" && git config user.email "actions@users.noreply.github.com"
+          git add tools/aeropuertos/probe && git commit -m "aeropuertos: source probe $(date -u '+%Y-%m-%d %H:%M') UTC [skip actions]" && git pull --rebase origin "${{ github.ref_name }}" && git push origin HEAD:"${{ github.ref_name }}"
