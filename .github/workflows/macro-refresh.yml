@@ -32,6 +32,12 @@ jobs:
   refresh:
     runs-on: windows-latest
     steps:
+      # Windows git defaults to core.autocrlf=true, which makes files that other
+      # tools committed with CRLF show as modified the moment they are checked
+      # out - and a dirty tree blocks the rebase before pushing. Keep bytes as
+      # committed instead.
+      - run: git config --global core.autocrlf false
+        shell: bash
       - uses: actions/checkout@v4
 
       - uses: actions/setup-python@v5
@@ -87,6 +93,9 @@ jobs:
             # refuse to run. A push that never lands must fail the run, not
             # hide behind a green check.
             git status --short | head -20
+            # Everything this run produced is already committed; anything else
+            # left modified in the tree is checkout noise and must not block the rebase.
+            git checkout -- . 2>/dev/null || true
             pushed=0
             for i in 1 2 3; do
               if git pull --rebase --autostash origin main && git push; then pushed=1; break; fi
