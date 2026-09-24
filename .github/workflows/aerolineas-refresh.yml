@@ -1,0 +1,97 @@
+# Keeps the airline traffic dashboard (/aeropuertos/aerolineas/) current without manual input.
+#
+#   Every day it re-reads the sources and rebuilds site/aeropuertos/data/{airlines,routes}.js:
+#     AFAC       "Estadistica mensual por aerolinea" and "origen-destino" workbooks (gob.mx; the page sits behind a proof-of-work
+#                bot challenge, so headless Chromium lets the challenge run and downloads the files in that session)
+#     Airlines   Aeromexico, Volaris and Viva monthly traffic reports (PDF / history workbook)
+#     Networks   Volaris and Viva route feeds; Wikipedia destination tables for the other Mexican carriers
+#   A source that cannot be read keeps its stored input (tools/aeropuertos/raw/airlines), so a bad day never blanks the page;
+#   the validator refuses implausible figures and regressions before anything is committed.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). Bot commits carry [skip actions] so they never re-trigger any
+# workflow. Cloudflare Pages deploys the commit. This workflow touches only site/aeropuertos/data/{airlines,routes}.js and
+# tools/aeropuertos/raw/airlines; the airports hub has its own workflow (aeropuertos-refresh.yml).
+name: Refresh airline traffic data
+
+on:
+  schedule:
+    - cron: "20 18 * * *"        # daily 18:20 UTC (12:20 Mexico City): after AFAC's morning postings and the airlines' reports
+  workflow_dispatch:
+    inputs:
+      flags:
+        description: "Flags for airlines-refresh.mjs, e.g. --skip-afac --full"
+        default: ""
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/aeropuertos/airlines-refresh.mjs"
+      - "scripts/aeropuertos/airlines-validate.mjs"
+      - "tools/aeropuertos/airlines-lib.mjs"
+      - "tools/aeropuertos/airlines.json"
+      - "tools/aeropuertos/cities.json"
+      - "tools/aeropuertos/parse_airline_pdfs.py"
+      - ".github/workflows/aerolineas-refresh.yml"
+
+concurrency:
+  group: aerolineas-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools (SheetJS, Playwright Chromium, pypdf, virtual display)
+        run: |
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund xlsx@0.18.5 playwright@1.49.1
+          npx playwright install --with-deps chromium
+          pip install --quiet pypdf
+          sudo apt-get install -y -qq xvfb >/dev/null 2>&1 || true
+          google-chrome --version || echo "no system Chrome"
+
+      - name: Keep the previous data file for the regression check
+        run: git show HEAD:site/aeropuertos/data/airlines.js > /tmp/airlines-prev.js 2>/dev/null || echo "" > /tmp/airlines-prev.js
+
+      # The airline sites (Aeromexico IR, Viva's API) reject headless browsers, so the script gets a virtual display and opens
+      # a headed Chrome for them; gob.mx is fetched with plain headless Chromium. Every source falls back to its cached input.
+      - name: Refresh from AFAC, the airlines and the route feeds, then rebuild the site data
+        env:
+          HEADED: "1"
+        run: xvfb-run -a --server-args="-screen 0 1366x900x24" node scripts/aeropuertos/airlines-refresh.mjs ${{ github.event.inputs.flags }}
+
+      - name: Validate (contiguous months, plausible totals, no regressions)
+        run: node scripts/aeropuertos/airlines-validate.mjs site/aeropuertos/data/airlines.js site/aeropuertos/data/routes.js /tmp/airlines-prev.js
+
+      - name: Commit if anything changed
+        shell: bash
+        run: |
+          rm -f package.json package-lock.json; rm -rf node_modules tools/aeropuertos/tmp
+          git config user.name "aerolineas-refresh[bot]"
+          git config user.email "aerolineas-refresh@users.noreply.github.com"
+          git add site/aeropuertos/data/airlines.js site/aeropuertos/data/routes.js site/aeropuertos/data/airlines-summary.js tools/aeropuertos/raw/airlines
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "aerolineas: refresh airline traffic data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
