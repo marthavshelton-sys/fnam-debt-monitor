@@ -9,7 +9,7 @@
   const VENDOR = ['/assets/vendor/jspdf.umd.min.js', '/assets/vendor/jspdf.plugin.autotable.min.js'];
   const MX_TRAFFIC = '/aeropuertos/data/traffic.js';               // national series (AFAC) for the GAP-vs-Mexico chart
   const POWERED_BY = window.FNAM_MODEL_NAME || 'Claude (Anthropic)';
-  const PROMPTED_BY = 'Martha V. Shelton, CFA – Talipot Research & Analysis';
+  const PROMPTED_BY = 'Martha V. Shelton, CFA', PROMPTED_ROLE = 'Director, Talipot Research & Analysis';
 
   // ---------- page geometry (points; Letter) ----------
   const PAGE = { L: { w: 792, h: 612 }, P: { w: 612, h: 792 } };
@@ -165,6 +165,21 @@
       if (n.kind === 'assumed') return this.T(`Próximos resultados (${q}): ~${this.date(n.date)}, fecha supuesta según el historial de publicación de GAP`, `Next results (${q}): ~${this.date(n.date)}, assumed from GAP's release history`);
       return this.T(`Próximos resultados (${q}): fecha por confirmar`, `Next results (${q}): date to be confirmed`);
     }
+    // Next monthly traffic report: the month after the latest one, on GAP's usual day (median of the last twelve releases).
+    nextTraffic() {
+      const M = this.M, ms = M.TR.months; if (!ms.length) return null;
+      const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b);
+      const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5;
+      const last = ms[ms.length - 1].ym; const y = +last.slice(0, 4), mo = +last.slice(5, 7);
+      const rel = new Date(Date.UTC(y, mo - 1 + 2, day)); // data month = last + 1, released the month after that
+      return { day, date: rel.toISOString().slice(0, 10), month: rel.toLocaleDateString(this.es ? 'es-MX' : 'en-US', { month: 'long', timeZone: 'UTC' }) };
+    }
+    // "(≈5th)" / "(≈día 5)" placeholders in the curated summary become the actual expected date.
+    liveDates(text) {
+      const n = this.nextTraffic(); if (!n) return text;
+      const ord = (d) => (this.es ? String(d) : d + ([, 'st', 'nd', 'rd'][(d % 100 >> 3 ^ 1 && d % 10) || 0] || 'th'));
+      return String(text).replace(/\((?:~|≈)\s*(?:día\s*)?\d{1,2}(?:st|nd|rd|th)?\)/g, this.es ? `(hacia el ${n.day} de ${n.month})` : `(around ${n.month} ${ord(n.day)})`);
+    }
     basisLine() {
       const M = this.M, lastQ = M.lastQ, lastM = M.TR.months[M.TR.months.length - 1], gv = M.GV[M.GV.length - 1];
       return this.T(`Base: resultados del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · tráfico de ${M.ymLabel(lastM.ym)} (${this.date(lastM.source && lastM.source.date)}) · guía del ${this.date(gv.date)} · mercado al cierre del ${this.date(M.lastPx[0])}`,
@@ -182,7 +197,8 @@
       this.font('normal', 15, INK); this.pdf.text(tx(this.longDate(this.today)), cx, y); y += 46;
       this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.8); this.pdf.line(cx, y, cx + 300, y); y += 26;
       this.font('normal', 12, INK); this.pdf.text(tx(`Powered by ${POWERED_BY}`), cx, y); y += 20;
-      this.pdf.text(tx(`Prompted by ${PROMPTED_BY}`), cx, y); y += 20;
+      this.pdf.text(tx(`Prompted by ${PROMPTED_BY}`), cx, y); y += 18;
+      this.pdf.text(tx(PROMPTED_ROLE), cx, y); y += 20;
       const lastQ = M.lastQ, lastM = M.TR.months[M.TR.months.length - 1];
       this.font('normal', 10, MUTED);
       const basis = [this.T(`Datos: resultados del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}), tráfico de ${M.ymLabel(lastM.ym)}, mercado al ${this.date(M.lastPx[0])}.`, `Data: ${this.qlab(lastQ)} results (${this.date(lastQ.sources.is.date)}), ${M.ymLabel(lastM.ym)} traffic, market as of ${this.date(M.lastPx[0])}.`),
@@ -194,8 +210,8 @@
 
     // ================= 2. EXECUTIVE SUMMARY =================
     execSummary() {
-      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []) }));
-      let y = this.page('L', this.T('Resumen ejecutivo', 'Executive summary'), this.basisLine() + this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`));
+      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.liveDates(x)) }));
+      let y = this.page('L', this.T('Resumen ejecutivo', 'Executive Summary'), this.basisLine() + this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`));
       const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4;
       // two columns, largest font at which both columns fit
       const half = Math.ceil(secs.length / 2), cols = [secs.slice(0, half), secs.slice(half)];
@@ -217,7 +233,7 @@
     tearSheet() {
       const M = this.M, lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ), px = M.lastPx, gap = M.gapPx;
       const sub = this.T(`Mercado: cierre del ${this.date(px[0])} (datos obtenidos ${this.stamp(M.MK.prices['GAPB.MX'].fetchedAt || M.MK.generatedAt)}) · Financieros: ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)})`, `Market: close of ${this.date(px[0])} (data fetched ${this.stamp(M.MK.prices['GAPB.MX'].fetchedAt || M.MK.generatedAt)}) · Financials: ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)})`);
-      let y = this.page('L', this.T('Ficha técnica', 'Tear sheet'), sub);
+      let y = this.page('L', this.T('Ficha técnica', 'Tear Sheet'), sub);
       const colW = this.width() * 0.5 - 10, xr = this.cur.x0 + colW + 20;
       const yAgo = M.pointAtOrBefore(gap, M.addDays(px[0], -365)), yStart = M.pointAtOrBefore(gap, `${px[0].slice(0, 4)}-01-01`);
       const ipc = M.px('^MXX'), ipcLast = M.lastPoint(ipc), ipcAgo = ipcLast && M.pointAtOrBefore(ipc, M.addDays(ipcLast[0], -365)), ipcStart = ipcLast && M.pointAtOrBefore(ipc, `${ipcLast[0].slice(0, 4)}-01-01`);
@@ -375,7 +391,7 @@
       const M = this.M; if (!M.GV.length) return;
       const fy = Math.max(...M.GV.map((v) => v.fy)), cur = M.GV.filter((v) => v.fy === fy), last = cur[cur.length - 1];
       const act = M.gActual(fy), closed = !!(act && act.kind === 'fy');
-      let y = this.page('L', this.T(`Guía de la administración · FY${fy} y su historial`, `Management guidance · FY${fy} and its history`), this.nextText());
+      let y = this.page('L', this.T(`Guía de la administración · FY${fy} y su historial`, `Management Guidance · FY${fy} and Its History`), this.nextText());
       const gap = 20, wl = this.width() * 0.46 - gap / 2, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       // ---- left: guidance in force vs actual
       let yl = this.heading(this.T(`Guía FY${fy} · ${cur.length > 1 ? 'revisada el' : 'emitida el'} ${this.date(last.date)} · vs ${act ? act.label : '—'}`, `FY${fy} guidance · ${cur.length > 1 ? 'revised' : 'issued'} ${this.date(last.date)} · vs ${act ? act.label : '—'}`), this.cur.x0, y, 10);
@@ -419,7 +435,7 @@
     // ================= 9. TRAFFIC TABLES =================
     trafficTables() {
       const M = this.M, ms = M.TR.months, lastM = ms[ms.length - 1], AIR = M.AIR;
-      let y = this.page('P', this.T(`Tráfico por aeropuerto · ${M.ymLabel(lastM.ym)} y últimos doce meses`, `Traffic by airport · ${M.ymLabel(lastM.ym)} and last twelve months`), this.T(`Miles de pasajeros terminales · reporte mensual de tráfico de GAP del ${this.date(lastM.source && lastM.source.date)} · cifras preliminares; CBX en Tijuana se clasifica como internacional`, `Thousand terminal passengers · GAP monthly traffic report of ${this.date(lastM.source && lastM.source.date)} · preliminary figures; CBX users at Tijuana count as international`));
+      let y = this.page('P', this.T(`Tráfico por aeropuerto · ${M.ymLabel(lastM.ym)} y últimos doce meses`, `Traffic by Airport · ${M.ymLabel(lastM.ym)} and Last Twelve Months`), this.T(`Miles de pasajeros terminales · reporte mensual de tráfico de GAP del ${this.date(lastM.source && lastM.source.date)} · cifras preliminares; CBX en Tijuana se clasifica como internacional`, `Thousand terminal passengers · GAP monthly traffic report of ${this.date(lastM.source && lastM.source.date)} · preliminary figures; CBX users at Tijuana count as international`));
       const prev = ms.find((m) => m.ym === `${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
       const ytdOf = (ym, code) => ms.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + (m.total[code] || 0), 0);
       const name = (code) => (code === 'TOTAL' ? this.T('Total GAP (14 aeropuertos)', 'Total GAP (14 airports)') : `${code} · ${(AIR.find((a) => a.code === code) || {})[M.LANG] || code}`);
@@ -453,7 +469,7 @@
       const yoyG = gapM.map((m) => { const p = ms.find((x) => x.ym === `${+m.ym.slice(0, 4) - 1}${m.ym.slice(4)}`); return p ? 100 * (m.total.TOTAL / p.total.TOTAL - 1) : null; });
       const yoyM = labels.map((ym) => { const a = mxAt(ym), b = mxAt(`${+ym.slice(0, 4) - 1}${ym.slice(4)}`); return a != null && b ? 100 * (a / b - 1) : null; });
       const mxLast = MX ? MX.lastMonth : null;
-      let y = this.page('P', this.T('Tráfico de GAP frente al total de México · enero 2023 en adelante', 'GAP traffic versus Mexico total · January 2023 onwards'), this.T(`GAP: pasajeros terminales de los 14 aeropuertos (reportes mensuales, hasta ${M.ymLabel(ms[ms.length - 1].ym)}) · México: pasajeros de todos los aeropuertos comerciales según la AFAC (hasta ${mxLast ? M.ymLabel(mxLast) : '—'})`, `GAP: terminal passengers at its 14 airports (monthly reports, to ${M.ymLabel(ms[ms.length - 1].ym)}) · Mexico: passengers at every commercial airport per AFAC (to ${mxLast ? M.ymLabel(mxLast) : '—'})`));
+      let y = this.page('P', this.T('Tráfico de GAP frente al total de México · enero 2023 en adelante', 'GAP Traffic Versus Mexico Total · January 2023 Onwards'), this.T(`GAP: pasajeros terminales de los 14 aeropuertos (reportes mensuales, hasta ${M.ymLabel(ms[ms.length - 1].ym)}) · México: pasajeros de todos los aeropuertos comerciales según la AFAC (hasta ${mxLast ? M.ymLabel(mxLast) : '—'})`, `GAP: terminal passengers at its 14 airports (monthly reports, to ${M.ymLabel(ms[ms.length - 1].ym)}) · Mexico: passengers at every commercial airport per AFAC (to ${mxLast ? M.ymLabel(mxLast) : '—'})`));
       const W = this.width(); const tick = (v, i) => (labels[i] && labels[i].slice(5) === '01' ? labels[i].slice(0, 4) : labels[i] && labels[i].slice(5) === '07' ? this.T('jul', 'Jul') : '');
       y = this.heading(this.T('Pasajeros por mes (millones): GAP en el eje izquierdo, México en el eje derecho', 'Passengers per month (million): GAP on the left axis, Mexico on the right axis'), this.cur.x0, y, 10.5);
       const h1 = 215;
@@ -472,40 +488,46 @@
     }
 
     // ================= 11. 07 LEVERAGE AND DEBT =================
+    tiles(items, y, h = 50) {
+      const n = items.length, gap = 10, tw = (this.width() - (n - 1) * gap) / n;
+      items.forEach((f, i) => { const x = this.cur.x0 + i * (tw + gap); this.pdf.setFillColor(...HEAD); this.pdf.roundedRect(x, y, tw, h, 4, 4, 'F'); this.font('bold', f.size || 14, ACCENT); this.pdf.text(tx(f.v), x + 8, y + 21); this.font('normal', 7.6, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(f.l), tw - 14), x + 8, y + 33); });
+      return y + h + 14;
+    }
     debtPage() {
       const M = this.M, qs = M.Q.slice(-8), lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ);
       const nds = qs.map((q) => ({ q, nd: M.netDebt(q), l: M.ltmFor(q) })); const est = nds.map((x) => x.nd && x.nd.basis === 'est');
-      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and debt profile'), this.T(`Ps. millones al cierre de cada trimestre · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según comunicados de GAP (referencia actualizada ${this.date(M.REF.updatedAt)})`, `Ps. million at each quarter-end · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per GAP releases (reference updated ${this.date(M.REF.updatedAt)})`));
-      const gap = 20, wl = this.width() * 0.52, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
-      // key facts
-      const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => `${r.agency} ${r.rating}`).join(' · ');
-      const facts = [];
-      if (nd && L) facts.push(this.T(`Deuda neta de Ps. ${this.m(nd.net)} M al ${this.date(M.qEndDate(lastQ))} (bruta Ps. ${this.m(nd.gross)} M, efectivo Ps. ${this.m(nd.cash)} M): ${this.x(nd.net / L.is.ebitda, 2)} el EBITDA de los últimos doce meses.`, `Net debt of Ps. ${this.m(nd.net)} M at ${this.date(M.qEndDate(lastQ))} (gross Ps. ${this.m(nd.gross)} M, cash Ps. ${this.m(nd.cash)} M): ${this.x(nd.net / L.is.ebitda, 2)} last-twelve-month EBITDA.`));
-      if (rat) facts.push(this.T(`Certificados bursátiles en pesos calificados ${rat} (escala nacional); la emisión de marzo de 2026 (GAP 26 / GAP 26-2, Ps. 10,718 M) financió el 25% restante de CBX y el capex del PMD 2025–2029.`, `Peso-denominated certificados bursátiles rated ${rat} (national scale); the March 2026 issuance (GAP 26 / GAP 26-2, Ps. 10,718 M) funded the remaining 25% of CBX and PMD 2025–2029 capex.`));
-      const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
-      facts.push(this.T(`Deuda bruta = préstamos bancarios + certificados bursátiles del balance publicado (detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}); las barras translúcidas y la línea punteada son estimaciones obtenidas de los flujos de financiamiento de cada trimestre.`, `Gross debt = bank loans + certificados bursátiles from the published balance sheet (itemised from ${firstBs ? this.qlab(firstBs.q) : '—'}); translucent bars and the dashed line are estimates rolled back through each quarter's financing flows.`));
-      let yl = this.bullets(facts, this.cur.x0, y, wl, 8.8, { gap: 3 });
+      const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => `${r.agency.replace("Moody's Local MX", "Moody's").replace('S&P Global Ratings', 'S&P')} ${r.rating}`).join(' · ');
+      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según comunicados de GAP al ${this.date(M.REF.updatedAt)}`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per GAP releases as of ${this.date(M.REF.updatedAt)}`));
+      const asOf = this.date(M.qEndDate(lastQ));
+      y = this.tiles([
+        { v: nd ? `Ps. ${this.m(nd.net)} M` : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
+        { v: nd ? `Ps. ${this.m(nd.gross)} M` : '—', l: this.T('Deuda bruta (préstamos + certificados)', 'Gross debt (loans + certificados)') },
+        { v: nd ? `Ps. ${this.m(nd.cash)} M` : '—', l: this.T('Efectivo y equivalentes', 'Cash and equivalents') },
+        { v: nd && L ? this.x(nd.net / L.is.ebitda, 2) : '—', l: this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA') },
+        { v: rat || '—', l: this.T('Calificación de los certificados (escala nacional)', 'Rating of the certificados (national scale)'), size: 11 },
+      ], y);
+      const gap = 24, wl = this.width() * 0.54, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
+      let yl = this.heading(this.T('Deuda neta (barras, Ps. millones) y deuda neta / EBITDA UDM (línea, eje derecho)', 'Net debt (bars, Ps. million) and net debt / LTM EBITDA (line, right axis)'), this.cur.x0, y, 10);
       const alpha = (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2, '0');
-      yl = this.heading(this.T('Deuda bruta, efectivo y deuda neta (Ps. millones)', 'Gross debt, cash and net debt (Ps. million)'), this.cur.x0, yl + 4, 10);
-      const h1 = 165;
-      const img1 = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ label: this.T('Deuda bruta', 'Gross debt'), data: nds.map((x) => (x.nd ? x.nd.gross / 1000 : null)), backgroundColor: nds.map((_, i) => alpha(PALETTE[0], est[i] ? 0.45 : 1)), stack: 'a', maxBarThickness: 30 }, { label: this.T('− Efectivo', '− Cash'), data: nds.map((x) => (x.q.bs && x.q.bs.cash != null ? -x.q.bs.cash / 1000 : null)), backgroundColor: PALETTE[2], stack: 'a', maxBarThickness: 30 }, { label: this.T('Deuda neta', 'Net debt'), type: 'line', data: nds.map((x) => (x.nd ? x.nd.net / 1000 : null)), borderColor: PALETTE[4], backgroundColor: PALETTE[4], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
+      const h1 = 235;
+      const img1 = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [
+        { type: 'line', label: this.T('Deuda neta / EBITDA UDM (eje der.)', 'Net debt / LTM EBITDA (right axis)'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [5, 4] : undefined) } },
+        { type: 'bar', label: this.T('Deuda neta (eje izq.)', 'Net debt (left axis)'), data: nds.map((x) => (x.nd ? x.nd.net / 1000 : null)), backgroundColor: nds.map((_, i) => alpha(PALETTE[0], est[i] ? 0.45 : 1)), maxBarThickness: 38, order: 1 }] },
+        options: { scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, min: 1.8, ticks: { stepSize: 0.1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
-      yl = this.heading(this.T('Deuda neta / EBITDA de los últimos doce meses (veces)', 'Net debt / last-twelve-month EBITDA (times)'), this.cur.x0, yl, 10);
-      const h2 = Math.max(90, Math.min(200, this.cur.y1 - yl - 8));
-      const img2 = this.chart({ type: 'line', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ label: this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: PALETTE[1], backgroundColor: PALETTE[1], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { scales: { x: { grid: { display: false } }, y: { min: 1.5, ticks: { stepSize: 0.1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h2 * 1.6));
-      this.image(img2, this.cur.x0, yl, wl, h2);
-      // right: instruments and ratings
-      let yr = this.heading(this.T('Instrumentos vigentes y calificaciones', 'Outstanding instruments and ratings'), xr, y, 10);
-      const rows = (D2.instruments || []).map((i) => [M.LS(i.name) + (i.note ? ` — ${M.LS(i.note)}` : ''), M.LS(i.type), this.date(i.issued), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
-      const meta = rows.map(() => ['left small', 'left', '', '', '', 'left small']);
-      for (const r of D2.ratings || []) { rows.push([`${r.agency}: ${r.rating} (${M.LS(r.outlook)}) · ${M.LS(r.scope)}`, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); }
-      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('instrument'), this.T('Tipo', 'Type'), this.T('Emisión', 'Issued'), M.t('matures'), this.T('Principal (Ps. M)', 'Principal (Ps. M)'), M.t('rate')], body: rows, meta, size: 7.8, cols: { 0: { halign: 'left', cellWidth: wr * 0.34 }, 1: { cellWidth: wr * 0.1 }, 5: { halign: 'left', cellWidth: wr * 0.2 } }, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) });
-      if (D2.instrumentsNote) yr = this.note(M.LS(D2.instrumentsNote), yr + 4, 7.2, xr, wr);
-      // quarterly table of the same series as the charts
-      const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.gross) : '—', x.q.bs && x.q.bs.cash != null ? this.m(x.q.bs.cash) : '—', x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
+      const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
+      yl = this.bullets([
+        this.T(`Deuda neta = préstamos bancarios + certificados bursátiles − efectivo, del balance publicado (detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}). Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento de cada trimestre.`, `Net debt = bank loans + certificados bursátiles − cash, from the published balance sheet (itemised from ${firstBs ? this.qlab(firstBs.q) : '—'}). Translucent bars and dashed line: estimated from each quarter's financing flows.`),
+        this.T('La emisión de marzo de 2026 (GAP 26 / GAP 26-2, Ps. 10,718 M) financió el 25% restante de CBX y el capex del PMD 2025–2029; en septiembre se contrataron líneas bancarias por Ps. 8,000 M.', 'The March 2026 issuance (GAP 26 / GAP 26-2, Ps. 10,718 M) funded the remaining 25% of CBX and PMD 2025–2029 capex; Ps. 8,000 M of bank facilities were signed in September.'),
+      ], this.cur.x0, yl, wl, 8, { gap: 3, color: MUTED });
+      let yr = this.heading(this.T('Instrumentos vigentes', 'Outstanding instruments'), xr, y, 10);
+      const rows = (D2.instruments || []).map((i) => [M.LS(i.name), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), this.T('Principal (Ps. M)', 'Principal (Ps. M)'), M.t('rate')], body: rows, meta: rows.map(() => ['left', '', '', 'left']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.38 }, 3: { halign: 'left', cellWidth: wr * 0.28 } } });
+      yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.instrumentsNote ? '. ' + M.LS(D2.instrumentsNote) : ''), yr + 3, 7, xr, wr);
+      const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
-      yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda bruta', 'Gross debt'), this.T('Efectivo', 'Cash'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('Deuda neta / EBITDA', 'Net debt / EBITDA')], body: qr, meta: qr.map(() => ['left', '', '', 'bold', '', 'bold']), size: 8, cols: { 0: { halign: 'left' } } });
-      this.note(this.T(`* estimación (ver nota a la izquierda). Fuentes: balances trimestrales de GAP; comunicados de emisión y de calificación (reference.js, actualizado ${this.date(M.REF.updatedAt)}).`, `* estimate (see note on the left). Sources: GAP quarterly balance sheets; issuance and rating releases (reference.js, updated ${this.date(M.REF.updatedAt)}).`), yr + 4, 7.2, xr, wr);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('Deuda neta / EBITDA', 'Net debt / EBITDA')], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), size: 8, cols: { 0: { halign: 'left' } } });
+      this.note(this.T(`* estimación. Fuentes: balances trimestrales de GAP; comunicados de emisión y de calificación (referencia actualizada ${this.date(M.REF.updatedAt)}).`, `* estimate. Sources: GAP quarterly balance sheets; issuance and rating releases (reference updated ${this.date(M.REF.updatedAt)}).`), yr + 4, 7, xr, wr);
     }
 
     // ================= 12. 08 DIVIDENDS =================
@@ -521,53 +543,90 @@
       if (last && px) ag.push(this.T(`Rendimiento del DPS aprobado en ${last.agmYear} sobre el precio actual (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * last.dps / px[1])}.`, `Yield of the DPS approved in ${last.agmYear} on the current price (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * last.dps / px[1])}.`));
       let yl = this.bullets(ag, this.cur.x0, y, wl, 8.6, { gap: 3 });
       yl = this.heading(this.T('Dividendo por acción por año de pago (Ps.)', 'Dividend per share by payment year (Ps.)'), this.cur.x0, yl + 4, 10);
-      const h = Math.min(230, this.cur.y1 - yl - 10);
+      const h = 150;
       const img = this.chart({ type: 'bar', data: { labels: years, datasets: [{ label: M.t('dps'), data: years.map((yv) => byYear[yv]), backgroundColor: PALETTE[0], maxBarThickness: 30 }] }, options: { scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(wl * 1.6), Math.round(h * 1.6));
       this.image(img, this.cur.x0, yl, wl, h);
       // right: table
       const rows = [], meta = [];
       for (const yv of years) { const fy = M.Y.find((yy) => yy.fy === +yv); const ni = fy && fy.is ? (fy.is.comprehensiveControlling || fy.is.netIncome) / 1000 : null; const sh2 = M.sharesAt(`${yv}-12-31`); const eps = ni && sh2 ? ni * 1e6 / sh2 : null; const pEnd = M.pointAtOrBefore(M.gapPx, `${yv}-12-31`); const cf = fy && fy.cf; const paid = cf ? -(cf.dividendsPaid || 0) / 1000 : null; const capred = cf && cf.capitalReduction != null ? -cf.capitalReduction / 1000 : 0; const buy = cf && cf.buybacks != null ? -cf.buybacks / 1000 : 0; const dist = paid != null ? paid + capred + buy : null;
         rows.push([yv, this.n(byYear[yv], 2), paid != null ? this.n(paid) : '—', paid != null ? this.n(capred) : '—', paid != null ? this.n(buy) : '—', dist != null ? this.n(dist) : '—', eps ? this.pct(100 * byYear[yv] / eps, 0) : '—', pEnd && byYear[yv] ? this.pct(100 * byYear[yv] / pEnd[1]) : '—']); meta.push(['left', 'bold', '', '', '', '', '', '']); }
-      let yr = this.table({ y, x: xr, w: wr, head: [M.t('year'), this.T('DPS (Ps.)', 'DPS (Ps.)'), this.T('Dividendos pagados (Ps. M)', 'Dividends paid (Ps. M)'), this.T('Reembolsos de capital', 'Capital reductions'), this.T('Recompras', 'Buybacks'), this.T('Distribuciones', 'Distributions'), M.t('payout'), M.t('yield')], body: rows, meta, size: 8.2, cols: { 0: { halign: 'left' } } });
-      const dist = years.map((yv) => { const fy = M.Y.find((yy) => yy.fy === +yv); const cf = fy && fy.cf; return cf ? { d: -(cf.dividendsPaid || 0) / 1000, c: cf.capitalReduction != null ? -cf.capitalReduction / 1000 : 0, b: cf.buybacks != null ? -cf.buybacks / 1000 : 0 } : null; });
-      const remR = this.cur.y1 - yr - 70;
-      if (remR > 100 && dist.some(Boolean)) {
-        yr = this.heading(this.T('Distribuciones a accionistas por año fiscal (Ps. millones, estado de flujos)', 'Shareholder distributions by fiscal year (Ps. million, cash-flow statement)'), xr, yr + 8, 10);
-        const hd = Math.min(remR - 20, 170);
-        const imgD = this.chart({ type: 'bar', data: { labels: years, datasets: [{ label: this.T('Dividendos', 'Dividends'), data: dist.map((x) => (x ? x.d : null)), backgroundColor: PALETTE[0], stack: 's', maxBarThickness: 26 }, { label: this.T('Reembolsos de capital', 'Capital reductions'), data: dist.map((x) => (x ? x.c : null)), backgroundColor: PALETTE[1], stack: 's', maxBarThickness: 26 }, { label: this.T('Recompras', 'Buybacks'), data: dist.map((x) => (x ? x.b : null)), backgroundColor: PALETTE[2], stack: 's', maxBarThickness: 26 }] }, options: { scales: { x: { grid: { display: false }, stacked: true }, y: { stacked: true, beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(wr * 1.6), Math.round(hd * 1.6));
-        yr = this.image(imgD, xr, yr, wr, hd);
-      }
-      this.note(this.T('DPS = efectivo por acción registrado en bolsa (Yahoo Finance, GAPB.MX), sumado por año de pago; incluye los reembolsos de capital que GAP usó en lugar de dividendos en 2021 y 2024. Flujos en Ps. millones del estado de flujos anual. Razón de pago = DPS / utilidad por acción del año fiscal; rendimiento sobre el cierre del año. Los pagos del año en curso aparecen cuando la bolsa los registra. Fuentes: Yahoo Finance; informes anuales de GAP; resoluciones de asamblea.', 'DPS = exchange-recorded cash per share (Yahoo Finance, GAPB.MX), summed by payment year; includes the capital reductions GAP used instead of dividends in 2021 and 2024. Flows in Ps. million from the annual cash-flow statement. Payout = DPS / fiscal-year EPS; yield on the year-end close. Current-year instalments appear once the exchange records them. Sources: Yahoo Finance; GAP annual reports; AGM resolutions.'), yr + 6, 7.5, xr, wr);
+      const rows2 = rows.map((r) => [r[0], r[1], r[6], r[7]]);
+      let yr = this.table({ y, x: xr, w: wr, head: [M.t('year'), this.T('DPS (Ps. por acción)', 'DPS (Ps. per share)'), M.t('payout'), M.t('yield')], body: rows2, meta: rows2.map(() => ['left', 'bold', '', '']), size: 8.2, cols: { 0: { halign: 'left' } } });
+      yr = this.note(this.T('DPS = efectivo por acción registrado en bolsa (Yahoo Finance, GAPB.MX) por año de pago, incluidos reembolsos de capital. Razón de pago = DPS / utilidad por acción del año fiscal; rendimiento sobre el cierre del año.', 'DPS = exchange-recorded cash per share (Yahoo Finance, GAPB.MX) by payment year, including capital reductions. Payout = DPS / fiscal-year EPS; yield on the year-end close.'), yr + 3, 7.2, xr, wr);
+      // ten fiscal years of cash generation and distributions (annual cash-flow statement)
+      const fys = M.Y.filter((fy) => fy.cf && fy.cf.cfo != null).slice(-10);
+      const z = (v) => (v || 0) + 0;
+      const cf = fys.map((fy) => { const c = fy.cf; const z = (v) => (v || 0) + 0; const cfo = c.cfo / 1000, capex = z(-(c.capex || 0) / 1000), div = z(-(c.dividendsPaid || 0) / 1000), cr = z(-(c.capitalReduction || 0) / 1000), buy = z(-(c.buybacks || 0) / 1000); return { fy: fy.fy, cfo, capex, fcf: cfo - capex, div, cr, buy }; });
+      const cfRows = cf.map((r) => ['FY' + r.fy, this.n(r.cfo), this.n(-r.capex), this.n(r.fcf), this.n(r.div), this.n(r.cr), this.n(r.buy), r.fcf ? this.pct(z(100 * (r.div + r.cr + r.buy) / r.fcf), 0) : '—']);
+      const cfMeta = cf.map((r) => ['left', '', 'neg', 'bold', '', 'muted', '', r.div + r.cr + r.buy > r.fcf ? 'neg' : '']);
+      const yb = Math.max(yl + h + 6, yr) + 12;
+      let y2 = this.heading(this.T(`Flujo operativo, capex, flujo libre y distribuciones · últimos ${cf.length} años fiscales (Ps. millones)`, `Operating cash flow, capex, free cash flow and distributions · last ${cf.length} fiscal years (Ps. million)`), this.cur.x0, yb, 10);
+      const W = this.width();
+      const cfNote = this.T('Estado de flujos de efectivo anual de GAP (informe del 4T de cada año): flujo operativo después de impuestos; capex = adquisiciones de mejoras a bienes concesionados y activos fijos; FCF = flujo operativo − capex. Reembolsos de capital: usados en lugar de dividendos en 2021 y 2024. Distribuciones = dividendos + reembolsos + recompras.', 'GAP annual cash-flow statement (4Q report of each year): operating cash flow after taxes; capex = additions to concession improvements and fixed assets; FCF = operating cash flow − capex. Capital reductions were used instead of dividends in 2021 and 2024. Distributions = dividends + capital reductions + buybacks.');
+      const cfH = this.measureText(cfNote, W, 7.5, 1.25);
+      y2 = this.fitTable({ y: y2, head: [this.T('Año fiscal', 'Fiscal year'), this.T('Flujo operativo', 'Operating cash flow'), this.T('Capex', 'Capital expenditures'), this.T('Flujo libre (FCF)', 'Free cash flow (FCF)'), this.T('Dividendos pagados', 'Dividends paid'), this.T('Reembolsos de capital', 'Capital reductions'), this.T('Recompras', 'Share buybacks'), this.T('Distribuciones / FCF', 'Distributions / FCF')], body: cfRows, meta: cfMeta, cols: { 0: { halign: 'left', cellWidth: W * 0.1 } }, pad: { top: 2, bottom: 2, left: 4, right: 4 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - cfH - 6);
+      this.noteAbove(cfNote, y2 + 4);
     }
 
     // ================= 13. 09 CBX =================
+    // rounded box with a bold title and a muted subtitle; returns nothing
+    box(x, y, w, h, title, sub, fill) {
+      this.pdf.setFillColor(...(fill || HEAD)); this.pdf.setDrawColor(...GRID); this.pdf.roundedRect(x, y, w, h, 4, 4, 'FD');
+      this.font('bold', 9.2, ACCENT); const tl = this.pdf.splitTextToSize(tx(title), w - 12); this.pdf.text(tl, x + 6, y + 13);
+      this.font('normal', 7.4, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(sub), w - 12), x + 6, y + 13 + tl.length * 10.5 + 2);
+    }
+    arrow(x1, x2, yy, label, above, color) {
+      this.pdf.setDrawColor(...(color || ACCENT)); this.pdf.setLineWidth(0.9); this.pdf.line(x1, yy, x2, yy);
+      const dir = x2 > x1 ? 1 : -1; this.pdf.line(x2, yy, x2 - dir * 5, yy - 3); this.pdf.line(x2, yy, x2 - dir * 5, yy + 3);
+      if (label) { this.font('normal', 7.2, color || ACCENT); const ls = this.pdf.splitTextToSize(tx(label), Math.abs(x2 - x1) - 6); this.pdf.text(ls, (x1 + x2) / 2, yy + (above ? -5 - (ls.length - 1) * 8 : 10), { align: 'center' }); }
+    }
     cbxPage() {
-      const M = this.M, C = M.REF.cbx || {};
-      let y = this.page('L', this.T('09 · Adquisición de Cross Border Xpress (CBX)', '09 · The Cross Border Xpress (CBX) acquisition'), this.T(`Consolidado desde ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · cifras de los comunicados de GAP (Form 6-K)`, `Consolidated from ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · figures from GAP's releases (Form 6-K)`));
-      // fact tiles
-      const facts = (C.facts || []).slice(0, 6); const tw = (this.width() - (facts.length - 1) * 10) / Math.max(1, facts.length), th = 52;
-      const fmtFact = (f) => (f.fmt === 'int' ? this.n(f.v) : f.fmt === 'usdM' ? 'US$ ' + this.n(f.v, 1) + ' M' : f.fmt === 'pct' ? this.pct(100 * f.v) : f.fmt === 'M' ? this.n(f.v, 1) + ' M' : this.n(f.v));
-      facts.forEach((f, i) => { const x = this.cur.x0 + i * (tw + 10); this.pdf.setFillColor(...HEAD); this.pdf.roundedRect(x, y, tw, th, 4, 4, 'F'); this.font('bold', 14, ACCENT); this.pdf.text(tx(fmtFact(f)), x + 8, y + 22); this.font('normal', 7.6, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(this.es ? f.label_es : f.label_en), tw - 14), x + 8, y + 35); });
-      y += th + 14;
-      const gap = 24, wl = this.width() * 0.5 - gap / 2, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
-      const cash = (C.facts || []).find((f) => f.k === 'cash25'), sh = (C.facts || []).find((f) => f.k === 'newShares'), dil = (C.facts || []).find((f) => f.k === 'dilution');
-      const b = [
-        this.T('Qué es: terminal «lado tierra» en Otay Mesa (San Diego) unida al aeropuerto de Tijuana por un puente peatonal de 120 m que cruza la frontera; los pasajeros con boleto cruzan directamente pagando una cuota por cruce. Convirtió a Tijuana en un aeropuerto binacional de facto (de 4.8 M de pasajeros en 2015 a unos 13 M en 2025).', 'What it is: a ground-side terminal in Otay Mesa (San Diego) linked to Tijuana airport by a 120 m pedestrian bridge across the border; ticketed passengers cross directly for a per-crossing fee. It made Tijuana a de facto binational airport (from 4.8 M passengers in 2015 to about 13 M in 2025).'),
-        this.T(`La operación: el 75% de CBX y el negocio de asistencia técnica de AMP (socio estratégico controlado por el grupo CMA y Aena) se pagaron fusionando AMP en GAP con ${sh ? this.n(sh.v) : '—'} acciones netas nuevas; el 25% restante se compró en efectivo por US$ ${cash ? this.n(cash.v, 1) : '—'} M, financiado con los certificados GAP 26 / GAP 26-2. Aprobada por ~96% de los votos en diciembre de 2025.`, `The deal: 75% of CBX and AMP's technical-assistance business (the strategic partner controlled by the CMA group and Aena) were paid for by merging AMP into GAP with ${sh ? this.n(sh.v) : '—'} net new shares; the remaining 25% was bought for US$ ${cash ? this.n(cash.v, 1) : '—'} M in cash, funded by the GAP 26 / GAP 26-2 certificados. Approved by ~96% of votes in December 2025.`),
-        this.T(`Qué cambia en el modelo: desde el 2T26 GAP consolida el 100% de CBX (ingreso por cruce, no regulado) y deja de pagar la cuota de asistencia técnica (costo fijo ligado al EBITDA); a cambio, ${dil ? this.pct(100 * dil.v) : '—'} de dilución y más deuda por el 25%. Aena pasó a un 6.55% directo. Al comparar trimestres: el 2T26 incluye dos meses de CBX y ningún trimestre anterior lo incluye.`, `What changes in the model: from 2Q26 GAP consolidates 100% of CBX (per-crossing revenue, not tariff-regulated) and no longer pays the technical-assistance fee (a fixed cost tied to EBITDA); in exchange, ${dil ? this.pct(100 * dil.v) : '—'} dilution and more debt for the 25%. Aena became a direct 6.55% holder. When comparing quarters: 2Q26 includes two months of CBX and no earlier quarter does.`),
+      const M = this.M, C = M.REF.cbx || {}, lastQ = M.lastQ;
+      let y = this.page('L', this.T('09 · Adquisición de Cross Border Xpress (CBX)', '09 · The Cross Border Xpress (CBX) Acquisition'), this.T(`Consolidado desde ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · cifras de los comunicados de GAP (Form 6-K) y del informe del ${this.qlab(lastQ)}`, `Consolidated from ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'} · figures from GAP's releases (Form 6-K) and the ${this.qlab(lastQ)} report`));
+      const facts = (C.facts || []).slice(0, 6); const fmtFact = (f) => (f.fmt === 'int' ? this.n(f.v) : f.fmt === 'usdM' ? 'US$ ' + this.n(f.v, 1) + ' M' : f.fmt === 'pct' ? this.pct(100 * f.v) : f.fmt === 'M' ? this.n(f.v, 1) + ' M' : this.n(f.v));
+      y = this.tiles(facts.map((f) => ({ v: fmtFact(f), l: this.es ? f.label_es : f.label_en })), y, 48);
+      const gap = 22, wl = this.width() * 0.58, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
+      const F = (k) => (C.facts || []).find((f) => f.k === k); const sh = F('newShares'), cash = F('cash25'), dil = F('dilution'), tij = F('tijPax2025');
+      const ops = M.opsFor(lastQ, 'q'); const perUser = ops && ops.cbxPerUser;
+      // ---- diagram A: what CBX is (two boxes joined by a bridge across a dashed border line)
+      let yl = this.heading(this.T('Qué es: una terminal en EE. UU. unida a Tijuana por un puente fronterizo', 'What it is: a US terminal linked to Tijuana by a bridge over the border'), this.cur.x0, y, 10) + 4;
+      const bw = wl * 0.34, bh = 56, mid = this.cur.x0 + wl / 2, xa = this.cur.x0, xb = this.cur.x0 + wl - bw;
+      this.box(xa, yl, bw, bh, this.T('San Diego, EE. UU. · terminal CBX (Otay Mesa)', 'San Diego, USA · CBX terminal (Otay Mesa)'), this.T('Estacionamiento, documentación y aduana/migración de EE. UU.', 'Parking, check-in and US customs/immigration'), [232, 236, 240]);
+      this.box(xb, yl, bw, bh, this.T('Tijuana, México · Aeropuerto Internacional (TIJ)', 'Tijuana, Mexico · Tijuana International Airport (TIJ)'), this.T(`Aeropuerto de GAP${tij ? ' · ' + this.n(tij.v, 1) + ' M de pasajeros en 2025' : ''}`, `GAP airport${tij ? ' · ' + this.n(tij.v, 1) + ' M passengers in 2025' : ''}`), HEAD);
+      this.pdf.setFillColor(...ACCENT); this.pdf.rect(xa + bw, yl + bh / 2 - 4, xb - xa - bw, 8, 'F');
+      this.font('normal', 7.4, ACCENT); this.pdf.text(tx(this.T('puente peatonal de 120 m', '120 m pedestrian bridge')), mid, yl + bh / 2 - 8, { align: 'center' });
+      this.font('normal', 7.2, ACCENT); this.pdf.text(tx(this.T('cruce en ambos sentidos', 'crossing both ways')), mid, yl + bh / 2 + 14, { align: 'center' });
+      this.pdf.setFillColor(...ACCENT); const by = yl + bh / 2; this.pdf.triangle(xa + bw + 1, by, xa + bw + 9, by - 8, xa + bw + 9, by + 8, 'F'); this.pdf.triangle(xb - 1, by, xb - 9, by - 8, xb - 9, by + 8, 'F');
+      this.pdf.setDrawColor(...NEG); this.pdf.setLineWidth(0.8); this.pdf.setLineDashPattern([3, 2], 0); this.pdf.line(mid, yl - 3, mid, yl + bh + 10); this.pdf.setLineDashPattern([], 0);
+      this.font('bold', 7.2, NEG); this.pdf.text(tx(this.T('frontera EE. UU.–México', 'US–Mexico border')), mid, yl + bh + 18, { align: 'center' });
+      yl += bh + 26;
+      yl = this.text(this.T(`Los pasajeros con boleto de avión cruzan directamente entre Estados Unidos y la terminal de Tijuana pagando una cuota por cruce (Ps. ${perUser ? this.n(perUser, 0) : '—'} por usuario en el ${this.qlab(lastQ)}). Es ingreso no aeronáutico, sin tarifa regulada.`, `Ticketed passengers cross directly between the United States and the Tijuana terminal for a per-crossing fee (Ps. ${perUser ? this.n(perUser, 0) : '—'} per user in ${this.qlab(lastQ)}). It is non-aeronautical revenue, not tariff-regulated.`), this.cur.x0, yl, wl, 8.2, 'normal', MUTED) + 8;
+      // ---- diagram B: the transaction (two sources on top, GAP below)
+      yl = this.heading(this.T('La operación: GAP pasó de socio a dueño del 100% de CBX', 'The deal: GAP went from partner to 100% owner of CBX'), this.cur.x0, yl, 10) + 4;
+      const b2 = wl * 0.46, bh2 = 64, xr2 = this.cur.x0 + wl - b2;
+      this.box(this.cur.x0, yl, b2, bh2, this.T('AMP + 75% de CBX', 'AMP + 75% of CBX'), this.T(`Asistencia técnica (cobrada a GAP desde 1999) y 75% de CBX, del grupo CMA y Aena; fusionados en GAP por ${sh ? this.n(sh.v) : '—'} acciones nuevas (${dil ? this.pct(100 * dil.v) : '—'} de dilución)`, `Technical assistance (charged to GAP since 1999) and 75% of CBX, held by the CMA group and Aena; merged into GAP for ${sh ? this.n(sh.v) : '—'} new shares (${dil ? this.pct(100 * dil.v) : '—'} dilution)`), [232, 236, 240]);
+      this.box(xr2, yl, b2, bh2, this.T('25% restante de CBX', 'Remaining 25% of CBX'), this.T(`Comprado por US$ ${cash ? this.n(cash.v, 1) : '—'} M en efectivo, financiado con los certificados GAP 26 / GAP 26-2 (Ps. 10,718 M, marzo de 2026)`, `Bought for US$ ${cash ? this.n(cash.v, 1) : '—'} M in cash, funded by the GAP 26 / GAP 26-2 certificados (Ps. 10,718 M, March 2026)`), [232, 236, 240]);
+      const gw = wl * 0.5, gx = this.cur.x0 + (wl - gw) / 2, gy = yl + bh2 + 22, gh = 44;
+      this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.9);
+      for (const cx0 of [this.cur.x0 + b2 / 2, xr2 + b2 / 2]) { const ex = cx0 < mid ? gx + gw * 0.25 : gx + gw * 0.75; this.pdf.line(cx0, yl + bh2, cx0, yl + bh2 + 11); this.pdf.line(cx0, yl + bh2 + 11, ex, yl + bh2 + 11); this.pdf.line(ex, yl + bh2 + 11, ex, gy); this.pdf.line(ex, gy, ex - 3, gy - 5); this.pdf.line(ex, gy, ex + 3, gy - 5); }
+      this.box(gx, gy, gw, gh, this.T('GAP · 100% de CBX', 'GAP · 100% of CBX'), this.T(`Consolida CBX desde ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'}; la cuota de asistencia técnica desaparece`, `Consolidates CBX from ${C.consolidatedFrom ? M.ymLabel(C.consolidatedFrom) : '—'}; the technical-assistance fee ends`), [226, 234, 228]);
+      yl = gy + gh + 12;
+      const bl = [
+        this.T(`Ingresos de CBX en su primer periodo consolidado (${this.qlab(lastQ)}, dos meses): Ps. ${this.m(lastQ.is.revCbx)} M, dentro de los no aeronáuticos. Aprobado por ~96% de los votos en diciembre de 2025.`, `CBX revenue in its first consolidated period (${this.qlab(lastQ)}, two months): Ps. ${this.m(lastQ.is.revCbx)} M, within non-aeronautical revenue. Approved by ~96% of votes in December 2025.`),
+        this.T(`Al comparar: el ${this.qlab(lastQ)} incluye dos meses de CBX y ningún trimestre anterior lo incluye; las acciones en circulación subieron ${dil ? this.pct(100 * dil.v / (1 - dil.v)) : '—'} y la deuda aumentó por el 25%.`, `When comparing: ${this.qlab(lastQ)} includes two months of CBX and no earlier quarter does; shares outstanding rose ${dil ? this.pct(100 * dil.v / (1 - dil.v)) : '—'} and debt increased for the 25%.`),
       ];
-      const cm = M.CM.periods && M.CM.periods[M.lastQ.id]; if (cm && cm.lines && cm.lines.revCbx) b.push(this.T(`${this.qlab(M.lastQ)}: ${M.L(cm.lines.revCbx)} Ingresos de CBX Ps. ${this.m(M.lastQ.is.revCbx)} M.`, `${this.qlab(M.lastQ)}: ${M.L(cm.lines.revCbx)} CBX revenue Ps. ${this.m(M.lastQ.is.revCbx)} M.`));
-      let yl = this.bullets(b, this.cur.x0, y, wl, 9.6, { gap: 5 });
+      yl = this.bullets(bl, this.cur.x0, yl, wl, 8.2, { gap: 3, color: MUTED });
+      // ---- right: timeline
       let yr = this.heading(this.T('Cronología', 'Timeline'), xr, y, 10);
       const rows = (C.timeline || []).map((e) => [this.date(e.date), M.L(e)]);
-      yr = this.table({ y: yr, x: xr, w: wr, head: null, body: rows, meta: rows.map(() => ['bold left', 'left']), size: 8.6, cols: { 0: { cellWidth: 64, halign: 'left' }, 1: { halign: 'left' } }, pad: { top: 3.2, bottom: 3.2, left: 4, right: 4 } });
-      this.note(this.T('Fuentes: ', 'Sources: ') + (M.LS(C.sources) || []).join(' · '), Math.max(yl, yr) + 6, 7.2);
+      yr = this.fitTable({ y: yr, x: xr, w: wr, head: null, body: rows, meta: rows.map(() => ['bold left', 'left']), cols: { 0: { cellWidth: 58, halign: 'left' }, 1: { halign: 'left' } }, pad: { top: 2.6, bottom: 2.6, left: 4, right: 4 } }, [8.2, 7.8, 7.4, 7], this.cur.y1 - 40);
+      this.noteAbove(this.T('Fuentes: ', 'Sources: ') + (M.LS(C.sources) || []).join(' · '), Math.max(yl, yr) + 6, 7);
     }
 
     // ================= 14. 10 FIBRA GAP =================
     fibraPage() {
       const M = this.M, F = M.REF.fibra || {}, R = M.REF.regulation || {};
-      let y = this.page('L', this.T('10 · FIBRA GAP explicada', '10 · FIBRA GAP explained'), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', this.T('10 · FIBRA GAP explicada', '10 · FIBRA GAP Explained'), this.T(`Fibra E constituida por GAP para cofinanciar el Programa Maestro de Desarrollo 2025–2029 · estatus al ${this.date(M.REF.updatedAt)}`, `Fibra E set up by GAP to co-fund the 2025–2029 Master Development Program · status as of ${this.date(M.REF.updatedAt)}`));
       const gap = 24, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       const rows = [[this.T('Vehículo', 'Vehicle'), F.name], [this.T('Clave', 'Ticker'), F.ticker], [this.T('Bolsa', 'Exchange'), F.exchange], [this.T('Monto objetivo', 'Target size'), 'Ps. ' + this.n(F.targetMxnM) + ' M'], ['CBFEs', this.n(F.certificates) + ' × Ps. ' + this.n(F.priceMxn)], [this.T('Participación en cada concesionaria mexicana', 'Stake in each Mexican concessionaire'), this.pct(F.stakePct)], [this.T('Uso de recursos', 'Use of proceeds'), this.T(`PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), principalmente Guadalajara`, `2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M), mainly Guadalajara`)]];
       let yl = this.heading(this.T('Ficha', 'Fact sheet'), this.cur.x0, y, 10.5);
@@ -612,7 +671,7 @@
     // ================= 15. SOURCES AND METHODOLOGY =================
     sourcesPage() {
       const M = this.M;
-      let y = this.page('L', this.T('Fuentes y metodología', 'Sources and methodology'), this.T('Todo el contenido proviene de información pública; cada bloque de datos se actualiza automáticamente con la cadencia indicada', 'All content comes from public information; each data block refreshes automatically at the cadence shown'));
+      let y = this.page('L', this.T('Fuentes y metodología', 'Sources and Methodology'), this.T('Todo el contenido proviene de información pública; cada bloque de datos se actualiza automáticamente con la cadencia indicada', 'All content comes from public information; each data block refreshes automatically at the cadence shown'));
       const gap = 24, wl = this.width() * 0.5 - gap / 2, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       const d = (iso) => this.date((iso || '').slice(0, 10));
       const rows = [
