@@ -143,12 +143,16 @@ main{flex:1; padding-top:12px;}
 .section-head{display:flex; align-items:baseline; justify-content:space-between; gap:16px; padding-bottom:12px; margin-bottom:16px; border-bottom:1px solid var(--grid);}
 .section-head h2{font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;}
 .section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
+@media (max-width:640px){ .section-head{flex-wrap:wrap;} .section-head .count{white-space:normal;} }
 .panel{background:var(--surface); border:1px solid var(--border); border-radius:14px; box-shadow:var(--shadow); padding:18px;}
 .panel + .panel{margin-top:16px;}
 .panel-head{display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px; align-items:baseline; margin-bottom:10px;}
 .panel-head h3{font-family:var(--serif); font-size:20px; margin:0; font-weight:700;}
 .panel-head .note{font-size:12.5px; color:var(--muted);}
 .panel-foot{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5;}
+.next-release{font-size:13.5px; color:var(--text-secondary); margin:14px 0 0; line-height:1.55; padding:10px 14px; border:1px solid var(--grid); border-radius:10px;}
+.next-release b{color:var(--text-primary); font-weight:600;}
+.next-release .late{color:#b45309;}
 @media (max-width:640px){ .panel{padding:14px 12px;} }
 
 /* controls */
@@ -193,6 +197,8 @@ main{flex:1; padding-top:12px;}
 /* airport section */
 .two{display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:16px; align-items:start;}
 @media (max-width:920px){ .two{grid-template-columns:1fr;} }
+.two > *{min-width:0;}
+.sel{max-width:100%; min-width:0;}
 select.sel{font:inherit; font-size:14px; padding:8px 34px 8px 10px; border-radius:10px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); max-width:100%;}
 .tbl-wrap{max-height:560px; overflow:auto; border:1px solid var(--grid); border-radius:10px;}
 table.tbl{width:100%; border-collapse:separate; border-spacing:0; font-size:13px;}
@@ -267,6 +273,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <span class="count" id="snap-asof"></span>
       </div>
       <div class="kpis" id="kpis"></div>
+      <p class="next-release" id="next-release" aria-live="polite"></p>
     </div>
   </section>
 
@@ -570,6 +577,45 @@ window.addEventListener("DOMContentLoaded", function(){
       k(T("Operaciones, ", "Movements, ") + ml, fmtN(ops), '<span class="' + cls(ops / opsP - 1) + '">' + pct(ops / opsP - 1) + '</span> ' + T("a/a", "y/y")) +
       k(T("Carga, ", "Cargo, ") + ml, fmtT(cg), '<span class="' + cls(cg / cgP - 1) + '">' + pct(cg / cgP - 1) + '</span> ' + T("a/a", "y/y"));
     document.getElementById("snap-asof").textContent = T("AFAC · datos a ", "AFAC · data to ") + ml;
+    renderNextRelease();
+  }
+
+  // ---------- 1b. next expected data releases ----------
+  // Derived from the data files, so the line moves on its own each time the data is refreshed:
+  //  - AFAC / AICM: the month after the latest one loaded, expected one month after the previous file's publication date
+  //    (sources.afac.published / sources.aicm.updated in traffic.js);
+  //  - GAP / OMA / ASUR: the month after each group's latest monthly report, published the following month on that group's
+  //    usual day (median day of its last twelve traffic releases, from /<group>/data/traffic.js).
+  function addMonths(ym, n){ var p = ym.split("-"); var d = new Date(+p[0], +p[1] - 1 + n, 1); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"); }
+  function dateOn(ym, day){ var p = ym.split("-"); var dim = new Date(+p[0], +p[1], 0).getDate(); return new Date(+p[0], +p[1] - 1, Math.min(day, dim)); }
+  function fmtDay(d){ return d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric"}); }
+  function isoDay(iso){ var p = iso.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function dueText(d){ var today = new Date(); today.setHours(0,0,0,0); var late = d < today; return '<span class="' + (late ? "late" : "") + '">' + (late ? T("esperada desde el ", "expected since ") : T("esperada hacia el ", "expected around ")) + fmtDay(d) + (late ? T(" (pendiente)", " (pending)") : "") + "</span>"; }
+  function renderNextRelease(){
+    var el = document.getElementById("next-release"); if (!el) return;
+    var parts = [];
+    var src = D.sources || {};
+    if (src.afac && src.afac.published) {
+      var nextM = addMonths(months[last], 1), pub = isoDay(src.afac.published), exp = new Date(pub.getFullYear(), pub.getMonth() + 1, pub.getDate());
+      parts.push("<b>AFAC</b> " + T("(nacional): estadística de ", "(national): statistics for ") + monthLabel(nextM, true) + ", " + dueText(exp) + T(" — la de ", " — the ") + monthLabel(months[last], true) + T(" se publicó el ", " one was published on ") + fmtDay(pub) + ".");
+    }
+    if (src.aicm && src.aicm.updated && D.aicm && D.aicm.months && D.aicm.months.length) {
+      var am = D.aicm.months[D.aicm.months.length - 1], up = isoDay(src.aicm.updated), expA = new Date(up.getFullYear(), up.getMonth() + 1, up.getDate());
+      parts.push("<b>AICM</b>: " + monthLabel(addMonths(am, 1), true) + ", " + dueText(expA) + ".");
+    }
+    if (companies && companies.src) {
+      var cos = [];
+      [["GAP", window.GAP_TRAFFIC], ["OMA", window.OMA_TRAFFIC], ["ASUR", window.ASUR_TRAFFIC]].forEach(function(pair){
+        var Tm = pair[1]; if (!Tm || !Tm.months || !Tm.months.length) return;
+        var lastYm = Tm.months[Tm.months.length - 1].ym;
+        var days = Tm.months.slice(-12).map(function(m){ if (!m.source || !m.source.date) return null; var d = isoDay(m.source.date); var lag = (d.getFullYear() - +m.ym.slice(0,4)) * 12 + d.getMonth() - (+m.ym.slice(5,7) - 1); return lag === 1 ? d.getDate() : null; }).filter(function(x){ return x != null; }).sort(function(a,b){ return a - b; });
+        if (!days.length) return;
+        var med = days[Math.floor(days.length / 2)];
+        cos.push(pair[0] + T(": datos de ", ": ") + monthLabel(addMonths(lastYm, 1)) + T(" ", " data, ") + dueText(dateOn(addMonths(lastYm, 2), med)));
+      });
+      if (cos.length) parts.push("<b>" + T("Reportes mensuales de los grupos", "Groups' monthly reports") + "</b>: " + cos.join(" · ") + ".");
+    }
+    el.innerHTML = parts.length ? "<b>" + T("Próxima publicación de datos", "Next data release") + "</b> · " + parts.join(" ") : "";
   }
 
   // ---------- 2. main chart ----------
@@ -847,6 +893,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
   function renderAll(){ renderKpis(); renderOpChips(); renderMain(); renderTblChips(); renderTable(); renderApSelect(); renderAirport(); renderAicm(); renderAifa(); renderSources(); }
   renderAll();
+  loadCompanies().then(function(){ renderNextRelease(); }); // the groups' release calendar, once their traffic files arrive
   if (q.get("airport")) { var sec = document.getElementById("aeropuertos"); if (sec) setTimeout(function(){ sec.scrollIntoView({block:"start"}); }, 50); }
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
   var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", function(){ renderAll(); });
