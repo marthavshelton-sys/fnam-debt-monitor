@@ -117,12 +117,36 @@ gate. It is dormant until `QUALITAS_PASSWORD` exists in the Pages project's vari
 Preview); optional `QUALITAS_SESSION_SECRET`, `QUALITAS_SESSION_DAYS`; `?logout` ends a session. While the
 password is unset the page is served openly with `noindex` / `no-store` headers.
 
-## Print as presentation
+## Board presentation (PDF) — the "Presentación (PDF)" button
 
-The 🖨 button (or Ctrl/Cmd+P) switches to print mode: Letter landscape, white background, black text, charts
-keep their colours (fixed size), body 14 pt and titles 28 pt, tables trimmed to the last 8 quarters, a cover
-with the basis dates and a confidentiality line, a closing slide with the sources, page numbers via CSS
-page-margin boxes; cards never split and headings stay with their first card.
+The button builds a Letter-size PDF in the browser in one click. `site/qualitas/present.js` (`QualitasDoc`) extends
+the generic engine `site/assets/present-core.js` (jsPDF + jsPDF-AutoTable vendored in `site/assets/vendor/`;
+off-screen Chart.js charts; cover, footers, fit-to-page tables, `**bold**` runs, Title Case, next-results rule).
+It reads `window.Q_MODEL`, the read-only API that `app.js` exposes at the end of its IIFE, so every figure is the
+same calculation the page shows; the prose of sections 09 and 10 is read from the page itself. Language follows
+the ES/EN toggle; the file is named `Qualitas_Q_presentacion_<date>.pdf` / `..._board_presentation_<date>.pdf`.
+Ctrl/Cmd+P still prints the page (print mode: light theme, tables trimmed to the last 8 quarters, fixed-size charts).
+
+Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted) · tear sheet (price, market cap
+in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, written premiums LTM and
+quarter, loss and combined ratios, RIF, net income LTM with an ex-VAT memo, EPS, P/E, P/BV, 12M ROE, solvency, float,
+insured units, expectations in force, next results; 12-month chart vs the IPC and 3-year price) · operating metrics
+(units by region, premiums by line, per-unit metrics with the `comments.js` ops comments; written premiums and
+combined ratio by quarter) · income statement quarter, LTM and fiscal year (levels 0–1 plus the ratio rows, cost
+ratios coloured inversely, "memo" rows without the 4Q25 VAT charge, FY chart) · management expectations (table in
+force with status, management notes, long-term targets, range-vs-actual charts, history of vintages, track record of
+closed years) · insured units and premiums by line (16-quarter charts, latest-quarter tables) · combined ratio and
+profitability (stacked ratio chart with the 92–94% target band, 8-quarter KPI table with y/y) · 07 capital, solvency
+and portfolio (tiles, solvency chart, reserves/float/equity, portfolio table, ratings, no-debt note) · 08 dividends
+and buybacks (AGM bullets, DPS chart and table, net income/CFO/distributions by fiscal year) · 09 VAT on claims
+(facts, page prose, loss-ratio chart with the 4Q25 charge highlighted, timeline) · 10 international subsidiaries
+(page prose, premiums by subsidiary, timeline) · sources and methodology.
+
+Next results: `reference.js → calendar.nextResults` when Quálitas has announced the date (marked "confirmed");
+otherwise assumed from the median lag between quarter-end and release for the same quarter in the last three years.
+
+Headless check: serve `site/` locally, open `/qualitas/`, pick the language and click `#btnPrint`; the download
+event yields the PDF (see the GAP runbook for the Playwright snippet).
 
 ## Local preview
 

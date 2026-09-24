@@ -80,6 +80,9 @@
       this.y = y; return y;
     }
     font(style, size, color) { this.pdf.setFont('helvetica', style || 'normal'); this.pdf.setFontSize(size || 10); this.pdf.setTextColor(...(color || INK)); }
+    // Width of a string as the PDF renders it: jsPDF's getTextWidth applies kerning pairs (VA, AT, LA...) that the
+    // written page does not, so word-by-word placement must add up glyph advances instead.
+    tw(str) { let w = 0; for (const ch of String(str)) w += this.pdf.getTextWidth(ch); return w; }
     width() { return this.cur.x1 - this.cur.x0; }
     // Paragraph. Returns the y after the block.
     text(str, x, y, w, size, style, color, lh) {
@@ -89,8 +92,8 @@
     richLines(text, w, size, style) {
       const runs = []; let b = false;
       for (const seg of String(text).split('**')) { if (seg) { const words = tx(seg).split(' ').filter(Boolean); if (words.length && /^[,;.:)]/.test(words[0]) && runs.length) { runs[runs.length - 1] = { ...runs[runs.length - 1], tail: words[0] }; words.shift(); } for (const word of words) runs.push({ t: word, b }); } b = !b; }
-      const width = (r) => { this.pdf.setFont('helvetica', r.b ? 'bold' : style || 'normal'); this.pdf.setFontSize(size); let w2 = this.pdf.getTextWidth(r.t); if (r.tail) { this.pdf.setFont('helvetica', style || 'normal'); w2 += this.pdf.getTextWidth(r.tail); } return w2; };
-      this.pdf.setFont('helvetica', style || 'normal'); this.pdf.setFontSize(size); const sp = this.pdf.getTextWidth(' ');
+      const width = (r) => { this.pdf.setFont('helvetica', r.b ? 'bold' : style || 'normal'); this.pdf.setFontSize(size); let w2 = this.tw(r.t); if (r.tail) { this.pdf.setFont('helvetica', style || 'normal'); w2 += this.tw(r.tail); } return w2; };
+      this.pdf.setFont('helvetica', style || 'normal'); this.pdf.setFontSize(size); const sp = this.tw(' ');
       const lines = []; let line = [], used = 0;
       for (const r of runs) { const rw = width(r); if (line.length && used + sp + rw > w) { lines.push(line); line = []; used = 0; } line.push(r); used += (line.length > 1 ? sp : 0) + rw; }
       if (line.length) lines.push(line);
@@ -101,7 +104,7 @@
       for (const it of items) {
         const { lines, sp } = this.richLines(it, w - ind, size, opts.style);
         this.font(opts.style || 'normal', size, opts.color || INK); this.pdf.text('•', x, y + size * 0.85);
-        lines.forEach((ln, li) => { let cx = x + ind; const yy = y + size * 0.85 + li * size * lh; for (const r of ln) { this.pdf.setFont('helvetica', r.b ? 'bold' : opts.style || 'normal'); this.pdf.setFontSize(size); this.pdf.setTextColor(...(r.b ? INK : opts.color || INK)); this.pdf.text(r.t, cx, yy); cx += this.pdf.getTextWidth(r.t); if (r.tail) { this.pdf.setFont('helvetica', opts.style || 'normal'); this.pdf.setTextColor(...(opts.color || INK)); this.pdf.text(r.tail, cx, yy); cx += this.pdf.getTextWidth(r.tail); } cx += sp; } });
+        lines.forEach((ln, li) => { let cx = x + ind; const yy = y + size * 0.85 + li * size * lh; for (const r of ln) { this.pdf.setFont('helvetica', r.b ? 'bold' : opts.style || 'normal'); this.pdf.setFontSize(size); this.pdf.setTextColor(...(r.b ? INK : opts.color || INK)); this.pdf.text(r.t, cx, yy); cx += this.tw(r.t); if (r.tail) { this.pdf.setFont('helvetica', opts.style || 'normal'); this.pdf.setTextColor(...(opts.color || INK)); this.pdf.text(r.tail, cx, yy); cx += this.tw(r.tail); } cx += sp; } });
         y += lines.length * size * lh + gap;
       }
       return y;
