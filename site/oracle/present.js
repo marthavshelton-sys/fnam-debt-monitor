@@ -38,6 +38,16 @@
       return this.T(`Base: resultados del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · guía del ${gv ? this.date(gv.date) : '—'} · mercado al cierre del ${this.date(M.lastPx[0])}`,
         `Basis: ${this.qlab(lastQ)} results (${this.date(this.rel(lastQ))}) · guidance of ${gv ? this.date(gv.date) : '—'} · market close ${this.date(M.lastPx[0])}`);
     }
+    // Emphasis for management wording that carries no **markers**: amounts with their qualifier ("at least $90 billion",
+    // "$90 billion to $95 billion"), percentages, and the decisive words (raised, lowered, Investor Day…).
+    boldKeys(text) {
+      const s = String(text); if (s.includes('**')) return s;
+      const amt = '(?:US\\$|\\$)\\s?\\d[\\d,.]*(?:\\s?(?:billion|million|bn|mil millones|mil M|millones))?';
+      const pct = '[+-]?\\d+(?:[.,]\\d+)?%';
+      const qual = '(?:(?:at least|not more than|no more than|more than|al menos|no más de|más de|between|entre)\\s+)?';
+      const re = new RegExp(`\\(?${qual}(?:${amt}|${pct})(?:\\s?(?:to|and|a|y|-|–)\\s?(?:${amt}|${pct}))?\\)?|\\b(?:raised|lowered|cut|reaffirmed|reconfirmed|Investor Day|Analyst Day|CAGR|elevada|elevó|reducida|recortada|reafirmada|Día del Inversionista|Día del Analista|TCAC)\\b`, 'gi');
+      return s.replace(re, (m) => `**${m}**`);
+    }
     // Revenue lines compare on Oracle's FY2026 basis (Cloud / Software) using the company's own recast; when neither
     // side can be recast the totals compare and the split is blanked, exactly as on screen.
     mismatch(A, B) { const onNew = (o) => o && o.basis === 'fy2026_lines'; const can = (o) => o && (onNew(o) || o.recast); return A && B && onNew(A) !== onNew(B) && !(can(A) && can(B)); }
@@ -213,7 +223,7 @@
       const M = this.M, rem = this.cur.y1 - y - 46; if (rem < 92) return y;
       const h = Math.min(rem - 20, 190), W = this.width(), ys = M.Y.slice(-6);
       y = this.heading(this.T('Ingresos, EBITDA (US$ mil millones) y margen EBITDA por año fiscal', 'Revenue, EBITDA (US$ billion) and EBITDA margin by fiscal year'), this.cur.x0, y + 8, 10);
-      const img = this.chart({ type: 'bar', data: { labels: ys.map((o) => M.fyLabel(o.fy)), datasets: [{ type: 'bar', label: this.T('Ingresos (eje izq.)', 'Revenue (left axis)'), data: ys.map((o) => o.is.revTotal / 1000), backgroundColor: '#c9c6bd', maxBarThickness: 34 }, { type: 'bar', label: 'EBITDA (' + this.T('eje izq.', 'left axis') + ')', data: ys.map((o) => o.is.ebitda / 1000), backgroundColor: PALETTE[0], maxBarThickness: 34 }, { type: 'line', label: this.T('Margen EBITDA, % (eje der.)', 'EBITDA margin, % (right axis)'), data: ys.map((o) => o.is.ebitdaMargin), borderColor: PALETTE[1], backgroundColor: PALETTE[1], yAxisID: 'y2', pointRadius: 3 }] }, options: { scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, suggestedMin: 30, suggestedMax: 55, ticks: { callback: (v) => v + '%' } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+      const img = this.chart({ type: 'bar', data: { labels: ys.map((o) => M.fyLabel(o.fy)), datasets: [{ type: 'bar', label: this.T('Ingresos (eje izq.)', 'Revenue (left axis)'), data: ys.map((o) => o.is.revTotal / 1000), backgroundColor: '#c9c6bd', maxBarThickness: 34, order: 2 }, { type: 'bar', label: 'EBITDA (' + this.T('eje izq.', 'left axis') + ')', data: ys.map((o) => o.is.ebitda / 1000), backgroundColor: PALETTE[0], maxBarThickness: 34, order: 1 }, { type: 'line', label: this.T('Margen EBITDA, % (eje der.)', 'EBITDA margin, % (right axis)'), data: ys.map((o) => o.is.ebitdaMargin), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0 }] }, options: { scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, suggestedMin: 30, suggestedMax: 55, ticks: { callback: (v) => v + '%' } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
       return this.image(img, this.cur.x0, y, W, h) + 4;
     }
 
@@ -244,9 +254,9 @@
         yl = this.table({ y: yl, w: wl, head: [this.T('Objetivo anual', 'Full-year target'), M.t('initial'), cur.length > 1 ? M.t('revised') : M.t('initial'), this.T('Cambio', 'Change'), M.t('actual'), this.T('Avance', 'Pace')], body, meta: body.map((r) => ['left', '', 'bold', this.cls(parseFloat(r[3].replace(/[^\d.-]/g, ''))), 'bold', 'muted small']), size: 7.8, cols: { 0: { halign: 'left', cellWidth: wl * 0.3 } } });
         const capex = [...cur].reverse().find((v) => v.items.fyCapexNote);
         const quotes = [];
-        if (capex) quotes.push(`**${this.T('Capex (palabras de la administración): ', 'Capex (management\'s words): ')}**${M.gCapexNote(capex)}`);
-        for (const v of [last, ...cur.filter((v) => v !== last)]) { if (M.gNote(v)) quotes.push(M.gNote(v)); if (v.multiYear && v.multiYear.note) quotes.push(this.T(v.multiYear.note_es || v.multiYear.note, v.multiYear.note)); }
-        const clip = (q) => (q.length > 420 ? q.slice(0, q.lastIndexOf(' ', 420)) + '…' : q);
+        if (capex) quotes.push(`**${this.T('Capex (palabras de la administración): ', 'Capex (management\'s words): ')}**${this.boldKeys(M.gCapexNote(capex))}`);
+        for (const v of [last, ...cur.filter((v) => v !== last)]) { if (M.gNote(v)) quotes.push(this.boldKeys(M.gNote(v))); if (v.multiYear && v.multiYear.note) quotes.push(this.boldKeys(this.T(v.multiYear.note_es || v.multiYear.note, v.multiYear.note))); }
+        const clip = (q) => { if (q.length <= 460) return q; let c = q.slice(0, q.lastIndexOf(' ', 460)); if ((c.split('**').length - 1) % 2) c += '**'; return c + '…'; };
         if (quotes.length) { yl = this.heading(this.T('En palabras de la administración', 'In management\'s words'), this.cur.x0, yl + 8, 10); yl = this.bullets(quotes.slice(0, 3).map(clip), this.cur.x0, yl, wl, 7.6, { gap: 3, color: MUTED }); }
       }
       // ---- right: track record by quarter
@@ -285,6 +295,43 @@
     }
 
     // ================= 10. AI BUILDOUT: SITES AND CAPACITY (portrait) =================
+    // Schematic outline of the contiguous United States (lon, lat), drawn once and reused for the site map. Lake Michigan is
+    // drawn as a hole so the Michigan and Wisconsin campuses read correctly. Approximate by design: a locator, not a map.
+    static get US_OUTLINE() {
+      return [[-124.7, 48.4], [-124.1, 46.3], [-124.0, 43.5], [-124.3, 42.0], [-124.2, 40.4], [-123.8, 39.0], [-122.5, 37.8], [-121.9, 36.6], [-120.6, 34.6], [-118.4, 34.0], [-117.3, 33.0], [-117.1, 32.5],
+        [-114.7, 32.7], [-111.1, 31.3], [-108.2, 31.3], [-108.2, 31.8], [-106.5, 31.8], [-104.9, 30.6], [-104.0, 29.5], [-102.8, 29.8], [-101.4, 29.8], [-100.3, 28.3], [-99.1, 26.4], [-97.4, 25.9],
+        [-97.2, 27.8], [-96.4, 28.6], [-94.8, 29.4], [-93.8, 29.7], [-92.0, 29.6], [-90.9, 29.1], [-89.4, 29.0], [-89.6, 30.2], [-88.0, 30.4], [-86.5, 30.4], [-85.3, 29.7], [-84.0, 30.1], [-82.9, 29.1], [-82.7, 27.7], [-82.2, 26.4], [-81.8, 25.9], [-81.1, 25.2], [-80.4, 25.2], [-80.1, 26.5], [-80.5, 28.0], [-81.2, 29.5], [-81.5, 30.7], [-81.0, 31.8], [-80.0, 32.7], [-79.0, 33.7], [-77.9, 34.0], [-76.5, 34.7], [-75.7, 35.6], [-75.9, 36.9], [-76.0, 37.9], [-75.1, 38.4], [-74.9, 39.2], [-74.1, 39.8], [-74.0, 40.6], [-72.9, 41.2], [-71.4, 41.5], [-70.0, 41.7], [-70.7, 42.7], [-70.6, 43.1], [-69.8, 43.8], [-68.8, 44.4], [-67.0, 44.8],
+        [-67.8, 45.7], [-67.8, 47.1], [-69.2, 47.4], [-70.3, 46.1], [-71.5, 45.0], [-74.7, 45.0], [-76.2, 44.1], [-76.8, 43.6], [-79.1, 43.3], [-79.0, 42.6], [-80.5, 42.3], [-81.7, 41.5], [-82.9, 41.7], [-83.1, 42.1],
+        [-82.5, 43.0], [-83.3, 43.9], [-83.9, 43.6], [-83.4, 44.3], [-83.3, 45.0], [-84.2, 45.6], [-84.7, 45.8],
+        [-84.6, 46.4], [-85.0, 46.8], [-86.5, 46.6], [-87.4, 46.5], [-88.0, 46.9], [-88.4, 47.3], [-89.5, 46.9], [-90.4, 46.6], [-92.1, 46.7], [-90.0, 47.7], [-89.5, 48.0],
+        [-92.0, 48.6], [-95.2, 49.0], [-104.0, 49.0], [-117.0, 49.0], [-123.0, 49.0]];
+    }
+    static get LAKE_MICHIGAN() { return [[-85.0, 45.7], [-85.6, 45.1], [-86.4, 44.0], [-86.5, 43.0], [-86.3, 42.0], [-86.8, 41.7], [-87.6, 41.7], [-87.9, 42.9], [-87.8, 43.4], [-87.5, 44.0], [-87.3, 44.7], [-86.8, 45.3], [-86.0, 45.6], [-85.4, 45.9]]; }
+    // Draws the locator map in the box (x, y, w, h) and the numbered site markers; returns the y below the box.
+    siteMap(x, y, w, h, sites, legendX) {
+      const lonMin = -125.5, lonMax = -66, latMin = 24, latMax = 50, kx = Math.cos(38 * Math.PI / 180);
+      const sc = Math.min(w / ((lonMax - lonMin) * kx), h / (latMax - latMin));
+      const mw2 = (lonMax - lonMin) * kx * sc, mh = (latMax - latMin) * sc, ox = x + (w - mw2) / 2, oy = y + (h - mh) / 2;
+      const P = (lon, lat) => [ox + (lon - lonMin) * kx * sc, oy + (latMax - lat) * sc];
+      const poly = (pts, fill, stroke) => { const p = pts.map(([lo, la]) => P(lo, la)); this.pdf.setFillColor(...fill); this.pdf.setDrawColor(...stroke); this.pdf.setLineWidth(0.6); this.pdf.lines(p.slice(1).map((q, i) => [q[0] - p[i][0], q[1] - p[i][1]]), p[0][0], p[0][1], [1, 1], 'FD', true); };
+      poly(OracleDoc.US_OUTLINE, [240, 240, 236], [180, 178, 170]);
+      poly(OracleDoc.LAKE_MICHIGAN, [255, 255, 255], [180, 178, 170]);
+      const placed = [];
+      sites.forEach((s, i) => {
+        if (s.lat == null || s.lon == null) return;
+        const [px0, py0] = P(s.lon, s.lat); let px = px0, py = py0; const r = 5.5 + 2.5 * Math.sqrt((s.capacity_mw || 1000) / 1000);
+        for (const q of placed) { if (Math.hypot(px - q[0], py - q[1]) < r + q[2] + 2) { px = px0 + 16; py = py0 - 16; } }
+        if (px !== px0) { this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.7); this.pdf.line(px0, py0, px, py); }
+        this.pdf.setFillColor(...ACCENT); this.pdf.setDrawColor(255, 255, 255); this.pdf.setLineWidth(1); this.pdf.circle(px, py, r, 'FD');
+        this.font('bold', 8, [255, 255, 255]); this.pdf.text(String(i + 1), px, py + 2.8, { align: 'center' });
+        placed.push([px, py, r]);
+      });
+      // legend beside the map (or in the empty Pacific corner when no column is given)
+      const lx = legendX != null ? legendX : ox; let ly = legendX != null ? y + 14 : oy + mh * 0.6;
+      sites.forEach((s, i) => { this.pdf.setFillColor(...ACCENT); this.pdf.circle(lx + 5, ly - 2.6, 4, 'F'); this.font('bold', 6.6, [255, 255, 255]); this.pdf.text(String(i + 1), lx + 5, ly - 0.2, { align: 'center' }); this.font('bold', 8, INK); this.pdf.text(tx(s.short || s.name.split(' (')[0]), lx + 13, ly); this.font('normal', 7.6, MUTED); this.pdf.text(tx(`${this.n(s.capacity_mw)} MW`), lx + 13, ly + 9); ly += 22; });
+      this.font('normal', 6.6, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(this.T('Mapa esquemático; ubicaciones aproximadas; tamaño del marcador = capacidad planeada', 'Schematic map; approximate locations; marker size = planned capacity')), legendX != null ? this.cur.x1 - legendX : w), lx, ly + 2);
+      return y + h;
+    }
     sitesPage() {
       const M = this.M, BO = M.BO; if (!BO) return;
       const cap = BO.capacity || {}, cq = cap.quarters || [], last = cq[cq.length - 1], fy = (cap.fiscal_years || [])[0], sec = cap.secured, sites = BO.sites || [];
@@ -298,14 +345,19 @@
         { v: u ? this.pct(u.pct) : '—', l: this.T(`utilización de GPU (${u ? M.boLabel(u.id) : '—'})`, `GPU utilization (${u ? M.boLabel(u.id) : '—'})`) },
         { v: r && r.gpus_renewed_pct != null ? this.pct(r.gpus_renewed_pct, 0) : '—', l: this.T(`GPU renovadas o revendidas al vencer (${r ? M.boLabel(r.id) : '—'})${r && r.price_premium_pct != null ? ` · +${r.price_premium_pct}% precio` : ''}`, `GPUs renewed or resold at expiry (${r ? M.boLabel(r.id) : '—'})${r && r.price_premium_pct != null ? ` · +${r.price_premium_pct}% price` : ''}`) },
       ], y, 46);
+      y = this.heading(this.T(`Los ${sites.length} campus nombrados por Oracle · capacidad planeada ≈ ${this.n(sitesMw / 1000, 1)} GW`, `The ${sites.length} campuses Oracle has named · planned capacity ≈ ${this.n(sitesMw / 1000, 1)} GW`), this.cur.x0, y, 10);
+      const mapW = Math.round(W * 0.7), mapH = Math.round(mapW * 0.56);
+      y = this.siteMap(this.cur.x0, y + 2, mapW, mapH, sites, this.cur.x0 + mapW + 14) + 10;
+      // concise table: one line per campus, first clause of each disclosure
       const sf = (s, k) => (this.es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
-      y = this.heading(this.T(`Los ${sites.length} campus nombrados por Oracle (capacidad planeada ≈ ${this.n(sitesMw / 1000, 1)} GW)`, `The ${sites.length} campuses Oracle has named (planned capacity ≈ ${this.n(sitesMw / 1000, 1)} GW)`), this.cur.x0, y, 10);
-      const rows = sites.map((s) => [`${s.name}\n${s.location}`, s.capacity_mw ? `${this.n(s.capacity_mw)} MW` : '—', [sf(s, 'customer'), sf(s, 'developer'), sf(s, 'financing')].filter(Boolean).join(' · '), sf(s, 'oracle_status')]);
+      const first = (t, n = 60) => { let c = String(t).split(/;|\.\s/).map((x) => x.trim()).filter((x) => x && !/^(Contracted|Contratad[oa])/i.test(x))[0] || String(t).split(';')[0]; c = c.replace(/\s*\([^)]*\)\s*$/, '').trim(); if (c.length > n) c = c.slice(0, c.lastIndexOf(' ', n)) + '…'; return c; };
+      const short = (t) => String(t).replace(/\s+(via|vía|a través de)\s+.*$/i, '').replace(/\s*\([^)]*\)/g, '').split(';')[0].trim();
+      const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], this.n(s.capacity_mw), short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), first(sf(s, 'oracle_status'), 62)]);
       const promises = ((BO.promises && BO.promises.items) || []).slice(0, 4).map((x) => `**${M.boLabel(x.id)}** · ${M.L(x)}`);
-      const noteStr = this.T('Capacidad, cliente y financiamiento provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (enlaces por fila en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Capacity, customer and financing come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (links per row at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
+      const noteStr = this.T('Mapa esquemático con ubicaciones aproximadas (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Schematic map with approximate locations (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
       const noteH = this.measureText(noteStr, W, 7.5, 1.25);
       const promH = promises.length ? 16 + this.measureBullets(promises, W, 7.8, { gap: 3 }) : 0;
-      y = this.fitTable({ y, head: [this.T('Sitio', 'Site'), this.T('Capacidad', 'Capacity'), this.T('Cliente · desarrollador · financiamiento', 'Customer · developer · financing'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold left', 'bold', 'left small', 'left small']), cols: { 0: { halign: 'left', cellWidth: W * 0.2 }, 1: { cellWidth: W * 0.1 }, 2: { halign: 'left', cellWidth: W * 0.3 }, 3: { halign: 'left', cellWidth: W * 0.4 } } }, [8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - noteH - promH - 16);
+      y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), 'MW', this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
       if (promises.length && y + promH + noteH + 12 < this.cur.y1) { y = this.heading(this.T('Lo que Oracle ha prometido entregar (llamada más reciente primero)', 'What Oracle has committed to deliver (latest call first)'), this.cur.x0, y + 8, 10); y = this.bullets(promises, this.cur.x0, y, W, 7.8, { gap: 3 }); }
       this.noteAbove(noteStr, y + 6);
     }
