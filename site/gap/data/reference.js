@@ -149,6 +149,12 @@ window.GAP_REF = {
       ],
     },
   },
+  // Results calendar. The presentation PDF marks the next results date "confirmed" only when GAP has announced
+  // it; set nextResults when the company publishes its calendar (date, plus the release it came from) and clear
+  // it after the results are out. Without it the date is assumed from GAP's own release-lag history.
+  calendar: {
+    nextResults: null,   // e.g. { date: "2026-10-21", source: { title: "GAP announces 3Q26 results date", url: "https://...", date: "2026-10-01" } }
+  },
   // Default DCF assumptions (editable in the page). Rates in %, money in Ps. million.
   dcf: {
     horizonYears: 5,
