@@ -22,6 +22,7 @@
 <!-- Data for the map and the traffic tile (generated from AFAC / AICM / AIFA public statistics). -->
 <script src="/aeropuertos/data/map.js" defer></script>
 <script src="/aeropuertos/data/summary.js" defer></script>
+<script src="/aeropuertos/data/airlines-summary.js" defer></script>
 
 <style>
 :root{
@@ -425,6 +426,13 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 @media (prefers-reduced-motion: reduce){
   .legend button, .mx-airport circle.dot, .tooltip{transition:none;}
 }
+
+/* airline tile: market-share bar */
+.card.wide .sharebar{height:14px; border-radius:7px; overflow:hidden; display:flex; background:var(--surface-2); margin:4px 0 6px;}
+.card.wide .sharebar span{display:block; height:100%;}
+.card.wide .al-legend{display:flex; flex-wrap:wrap; gap:3px 12px; font-size:12px; color:var(--text-secondary);}
+.card.wide .al-legend i{display:inline-block; width:9px; height:9px; border-radius:50%; margin-right:5px; vertical-align:-1px;}
+.card.wide .al-legend b{color:var(--text-primary); font-variant-numeric:tabular-nums; margin-left:3px;}
 </style>
 </head>
 <body>
@@ -659,6 +667,42 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <div class="kpi"><span id="sk-label"></span><b id="sk-val"></b></div>
             <svg id="spark" viewBox="0 0 320 100" preserveAspectRatio="none"></svg>
             <div class="kpi"><span id="sk-sub"></span><b id="sk-yoy"></b></div>
+          </div>
+        </a>
+
+        <a class="card wide" href="/aeropuertos/aerolineas/">
+          <div class="card-main">
+            <div class="card-top">
+              <span class="kicker">
+                <span class="en">By airline · routes and networks · market shares</span>
+                <span class="es">Por aerolínea · rutas y redes · participación de mercado</span>
+              </span>
+              <span class="pill live">
+                <span class="en">Live</span>
+                <span class="es">En vivo</span>
+              </span>
+            </div>
+            <h3>
+              <span class="en">Mexico's airport traffic by airline</span>
+              <span class="es">Tráfico aéreo de México por aerolínea</span>
+            </h3>
+            <p>
+              <span class="en">Who carries the passengers: monthly passengers, flights and cargo per airline since 2016 — Aeroméxico, Volaris, Viva, Mexicana, the regional carriers and every foreign airline by region — with a map that switches between the busiest corridors and each Mexican airline's network, plus the load factor and capacity that Aeroméxico, Volaris and Viva report themselves.</span>
+              <span class="es">Quién transporta a los pasajeros: pasajeros, vuelos y carga mensuales por aerolínea desde 2016 — Aeroméxico, Volaris, Viva, Mexicana, las regionales y cada aerolínea extranjera por región — con un mapa que alterna entre los corredores más transitados y la red de cada aerolínea mexicana, más el factor de ocupación y la capacidad que reportan Aeroméxico, Volaris y Viva.</span>
+            </p>
+            <div class="card-foot">
+              <span class="cta">
+                <span class="en">Open the dashboard</span>
+                <span class="es">Abrir el panel</span>
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
+              </span>
+              <span class="src">AFAC · Aeroméxico · Volaris · Viva</span>
+            </div>
+          </div>
+          <div class="spark" aria-hidden="true">
+            <div class="kpi"><span id="al-label"></span><b id="al-val"></b></div>
+            <div class="sharebar" id="al-bar"></div>
+            <div class="al-legend" id="al-legend"></div>
           </div>
         </a>
       </div>
@@ -1012,6 +1056,29 @@ window.addEventListener("DOMContentLoaded", function(){
     });
   });
 })();
+</script>
+<script>
+/* Airline tile: latest-month market shares from /aeropuertos/data/airlines-summary.js (rendered after the deferred data scripts). */
+window.addEventListener("DOMContentLoaded", function(){
+  var S = window.MX_AIRLINES_SUMMARY, bar = document.getElementById("al-bar"), leg = document.getElementById("al-legend");
+  if (!S || !S.months || !bar) return;
+  var dark = function(){ var t = document.documentElement.getAttribute("data-theme"); return t ? t === "dark" : (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches); };
+  function draw(){
+    var es = document.documentElement.getAttribute("lang") !== "en", loc = es ? "es-MX" : "en-US";
+    var last = S.months.length - 1, all = S.all[last] || 1, p = S.months[last].split("-");
+    var ml = new Date(+p[0], +p[1] - 1, 1).toLocaleDateString(loc, {month:"short", year:"numeric"}).replace(".", "");
+    document.getElementById("al-label").textContent = (es ? "Participación, " : "Market share, ") + ml;
+    document.getElementById("al-val").textContent = new Intl.NumberFormat(loc, {maximumFractionDigits:1, minimumFractionDigits:1}).format(all / 1e6) + (es ? " M pasajeros" : " M passengers");
+    var items = S.carriers.slice(0, 5).map(function(c){ return {name:c.name, v:c.pax[last] || 0, color:c.color ? c.color[dark() ? 1 : 0] : "#999"}; });
+    var rest = S.carriers.slice(5).reduce(function(a, c){ return a + (c.pax[last] || 0); }, 0);
+    if (rest > 0) items.push({name:es ? "Otras mexicanas" : "Other Mexican", v:rest, color:"#b5b1a8"});
+    items.push({name:es ? "Extranjeras" : "Foreign", v:S.foreign[last] || 0, color:"#777"});
+    bar.innerHTML = items.map(function(it){ return '<span style="width:' + (it.v / all * 100).toFixed(2) + '%;background:' + it.color + '"></span>'; }).join("");
+    leg.innerHTML = items.slice(0, 5).map(function(it){ return '<span><i style="background:' + it.color + '"></i>' + it.name + '<b>' + new Intl.NumberFormat(loc, {maximumFractionDigits:1, minimumFractionDigits:1}).format(it.v / all * 100) + '%</b></span>'; }).join("");
+  }
+  draw();
+  new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:["lang", "data-theme"]});
+});
 </script>
 </body>
 </html>
