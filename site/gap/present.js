@@ -33,7 +33,7 @@
       for (const v of VENDOR) await loadScript(v);
       if (!window.MX_AIRPORTS) { try { await loadScript(MX_TRAFFIC); } catch (e) { /* chart falls back to GAP only */ } }
       const doc = new Doc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('fy'); doc.incomePage('ltm');
+      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
       doc.guidancePage(); doc.trafficTables(); doc.trafficCharts(); doc.debtPage(); doc.dividendPage(); doc.cbxPage(); doc.fibraPage(); doc.sourcesPage();
       doc.finish();
     } catch (e) { console.error(e); alert((M.LANG === 'es' ? 'No se pudo generar el PDF: ' : 'The PDF could not be built: ') + (e.message || e)); }
@@ -102,6 +102,7 @@
         didParseCell: (d) => {
           const m = o.meta && d.section === 'body' && o.meta[d.row.index] ? o.meta[d.row.index][d.column.index] : null;
           if (m) { if (m.includes('pos')) d.cell.styles.textColor = POS; if (m.includes('neg')) d.cell.styles.textColor = NEG; if (m.includes('bold')) d.cell.styles.fontStyle = 'bold'; if (m.includes('muted')) d.cell.styles.textColor = MUTED; if (m.includes('sub')) d.cell.styles.cellPadding = { top: 2.2, bottom: 2.2, left: 12, right: 3.5 }; if (m.includes('head')) { d.cell.styles.fillColor = [242, 244, 242]; d.cell.styles.fontStyle = 'bold'; d.cell.styles.textColor = ACCENT; } if (m.includes('small')) d.cell.styles.fontSize = (o.size || 8.5) - 1; if (m.includes('left')) d.cell.styles.halign = 'left'; }
+          if (d.section === 'head' && o.cols && o.cols[d.column.index] && o.cols[d.column.index].halign) d.cell.styles.halign = o.cols[d.column.index].halign;
           if (d.section === 'body' && o.rowSpan && o.rowSpan[d.row.index] && d.column.index === 0) d.cell.colSpan = o.rowSpan[d.row.index];
         },
       };
@@ -160,8 +161,8 @@
     nextText() {
       const n = this.next; if (!n) return '';
       const q = this.qlab(n.q);
-      if (n.kind === 'confirmed') return this.T(`Próximos resultados (${q}): ${this.date(n.date)} · fecha confirmada por comunicado de GAP${n.source && n.source.date ? ' del ' + this.date(n.source.date) : ''}`, `Next results (${q}): ${this.date(n.date)} · date confirmed by GAP press release${n.source && n.source.date ? ' of ' + this.date(n.source.date) : ''}`);
-      if (n.kind === 'assumed') return this.T(`Próximos resultados (${q}): ~${this.date(n.date)} · fecha supuesta (mediana del rezago de publicación del ${n.q.q}T en ${n.years[0]}–${n.years[1]}); GAP no ha publicado el calendario`, `Next results (${q}): ~${this.date(n.date)} · assumed date (median release lag for ${n.q.q}Q in ${n.years[0]}–${n.years[1]}); GAP has not announced the calendar`);
+      if (n.kind === 'confirmed') return this.T(`Próximos resultados (${q}): ${this.date(n.date)}, confirmada por GAP`, `Next results (${q}): ${this.date(n.date)}, confirmed by GAP`);
+      if (n.kind === 'assumed') return this.T(`Próximos resultados (${q}): ~${this.date(n.date)}, fecha supuesta según el historial de publicación de GAP`, `Next results (${q}): ~${this.date(n.date)}, assumed from GAP's release history`);
       return this.T(`Próximos resultados (${q}): fecha por confirmar`, `Next results (${q}): date to be confirmed`);
     }
     basisLine() {
@@ -175,7 +176,6 @@
       const M = this.M; this.page('L');
       const c = this.cur, cx = c.x0 + 30;
       this.pdf.setFillColor(...ACCENT); this.pdf.rect(0, 0, 14, c.h, 'F');
-      this.font('normal', 11, MUTED); this.pdf.text(tx(this.T('Presentación para el consejo · Modelo financiero interactivo', 'Board presentation · Interactive financial model')), cx, 96);
       this.font('bold', 30, INK); const name = M.REF.company ? M.REF.company.name : 'Grupo Aeroportuario del Pacífico'; const lines = this.pdf.splitTextToSize(tx(name), c.x1 - cx); this.pdf.text(lines, cx, 150);
       let y = 150 + lines.length * 36;
       this.font('bold', 17, ACCENT); this.pdf.text(tx(`BMV: ${(M.REF.company && M.REF.company.short) || 'GAP'}  ·  NYSE: PAC`), cx, y); y += 34;
@@ -300,7 +300,7 @@
       const M = this.M, A = M.lastQ, B = M.qById[M.yoyQid(A)];
       const oa = M.opsFor(A, 'q'), ob = M.opsFor(B, 'q'), C = M.yoyCommentsFor(A, B, 'q'), ops = C && C.ops;
       const la = this.qlab(A), lb = this.qlab(B);
-      let y = this.page('P', this.T(`Métricas operativas · ${la} vs ${lb}`, `Operating metrics · ${la} vs ${lb}`), this.nextText());
+      let y = this.page('P', this.T(`Métricas operativas de GAP · ${la} vs ${lb}`, `GAP Operating Metrics · ${la} vs ${lb}`), this.nextText());
       const rows = [], meta = [];
       const head = (l) => { rows.push([l, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); };
       const row = (l, k, o = {}) => { const va = oa && oa[k], vb = ob && ob[k]; if (va == null && vb == null) return; const d = va != null && vb != null ? va - vb : null, p = d != null && vb ? 100 * d / Math.abs(vb) : null; const dec = o.money ? 1 : 1; rows.push([l, va == null ? '—' : this.n(va, dec), vb == null ? '—' : this.n(vb, dec), d == null ? '—' : this.n(d, dec), this.pct(p, 1, true), ops && ops[k] ? M.L(ops[k]) : '']); meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', this.cls(d), this.cls(p), 'left small']); };
@@ -313,8 +313,8 @@
       const remaining = this.cur.y1 - y - 30;
       if (remaining > 110) {
         const h = Math.min(remaining - 26, 200);
-        y = this.heading(this.T('Pasajeros terminales por trimestre (millones) y variación anual', 'Terminal passengers by quarter (million) and year-on-year change'), this.cur.x0, y + 10, 10);
-        const img = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ type: 'bar', label: this.T('Pasajeros (millones, eje izq.)', 'Passengers (million, left axis)'), data: qs.map((q) => { const o = M.opsFor(q, 'q'); return o && o.total ? o.total / 1000 : null; }), backgroundColor: PALETTE[0], yAxisID: 'y', maxBarThickness: 40 }, { type: 'line', label: this.T('Variación a/a % (eje der.)', 'Y/y change % (right axis)'), data: qs.map(yoy), borderColor: PALETTE[1], backgroundColor: PALETTE[1], yAxisID: 'y2', pointRadius: 3 }] }, options: { scales: { x: { grid: { display: false } }, y: { position: 'left', beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, ticks: { callback: (v) => this.n(v, 0) + '%' } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
+        y = this.heading(this.T('Pasajeros terminales por trimestre (millones) y variación a/a', 'Terminal passengers by quarter (million) and YoY change'), this.cur.x0, y + 10, 10);
+        const img = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ type: 'line', label: this.T('Variación a/a, % (eje der.)', 'YoY change, % (right axis)'), data: qs.map(yoy), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0 }, { type: 'bar', label: this.T('Pasajeros (millones, eje izq.)', 'Passengers (million, left axis)'), data: qs.map((q) => { const o = M.opsFor(q, 'q'); return o && o.total ? o.total / 1000 : null; }), backgroundColor: PALETTE[0], yAxisID: 'y', maxBarThickness: 40, order: 1 }] }, options: { scales: { x: { grid: { display: false } }, y: { position: 'left', beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, ticks: { callback: (v) => this.n(v, 0) + '%' } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
         y = this.image(img, this.cur.x0, y, W, h) + 4;
       }
       const cap = this.T(`Pasajeros de los reportes mensuales de tráfico (CBX en Tijuana se clasifica como internacional); ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo. CBX se consolida desde ${M.REF.cbx && M.REF.cbx.consolidatedFrom ? M.ymLabel(M.REF.cbx.consolidatedFrom) : '—'}. Carga, WLU y los tres últimos renglones siguen el Exhibit F del informe trimestral. Fuentes: informe trimestral ${la} (${this.date(A.sources.is.date)})${C && C.call ? ' · ' + M.L(C.call) : ''} · reportes mensuales de tráfico de GAP.`,
@@ -329,7 +329,7 @@
       else if (mode === 'fy') { A = M.Y[M.Y.length - 1]; B = M.Y[M.Y.length - 2]; C = M.yoyCommentsFor(A, B, 'fy'); la = 'FY' + A.fy; lb = 'FY' + B.fy; }
       else { A = M.ltmFor(M.lastQ); const bq = M.qById[M.yoyQid(M.lastQ)]; B = bq && M.ltmFor(bq); C = M.yoyCommentsFor(M.lastQ, bq, 'q'); la = A.id; lb = B ? B.id : '—'; cmtNote = this.T(` · Los comentarios corresponden al ${this.qlab(M.lastQ)} vs ${this.qlab(bq)} (último trimestre reportado)`, ` · Comments refer to ${this.qlab(M.lastQ)} vs ${this.qlab(bq)} (latest reported quarter)`); }
       if (!A || !B) return;
-      const title = mode === 'q' ? this.T('Estado de resultados · último trimestre', 'Income statement · latest quarter') : mode === 'fy' ? this.T('Estado de resultados · último año fiscal', 'Income statement · latest fiscal year') : this.T('Estado de resultados · últimos doce meses', 'Income statement · last twelve months');
+      const title = this.T('Estado de resultados de GAP', 'GAP Income Statement');
       let y = this.page('P', `${title} · ${la} vs ${lb}`, this.nextText());
       const layout = M.FIN.layout.is; const rows = [], meta = [];
       const OCI = new Set(); { let on = false; for (const d of layout) { if (d.k === 'comprehensiveControlling') on = false; if (on) OCI.add(d.k); if (d.k === 'netIncome') on = true; } }
@@ -348,8 +348,8 @@
         meta.push([c + ' left', c, c, this.cls(d) + ' ' + c, this.cls(p) + ' ' + c, 'left small']);
       }
       const W = this.width(), cw = { 0: { cellWidth: W * 0.245, halign: 'left' }, 1: { cellWidth: W * 0.085 }, 2: { cellWidth: W * 0.085 }, 3: { cellWidth: W * 0.08 }, 4: { cellWidth: W * 0.085 }, 5: { cellWidth: W * 0.42, halign: 'left' } };
-      y = this.fitTable({ y, head: [M.t('line'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (informe trimestral y conferencia)', 'Comments (quarterly report and earnings call)')], body: rows, meta, cols: cw }, [8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - 40);
-      y = this.isFiller(mode, y);
+      y = this.fitTable({ y, head: [this.T('Cifras en MXN millones', 'Figures in MXN mn'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (informe trimestral y conferencia)', 'Comments (quarterly report and earnings call)')], body: rows, meta, cols: cw }, [8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - 40);
+      if (mode === 'fy') y = this.isFiller(mode, y);
       const srcs = [A, B].map((o) => o.sources && o.sources.is).filter(Boolean);
       const cap = this.T(`Ps. millones, sin IFRIC 12 (ingresos y costos de construcción excluidos; el EBITDA no cambia). Detalle del costo de servicios y otros resultados integrales omitidos${(A.derived || B.derived) ? '; periodos UDM calculados a partir de trimestres reportados' : ''}. Fuentes: ${[...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `informe trimestral de GAP (${this.date(s.date)})`).join(' · ')}${C && C.call ? ' · ' + M.L(C.call) : ''}${cmtNote}.`,
         `Ps. million, ex-IFRIC 12 (construction revenue and cost excluded; EBITDA is unchanged). Cost-of-services detail and other comprehensive income omitted${(A.derived || B.derived) ? '; LTM periods computed from reported quarters' : ''}. Sources: ${[...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `GAP quarterly report (${this.date(s.date)})`).join(' · ')}${C && C.call ? ' · ' + M.L(C.call) : ''}${cmtNote}.`);
@@ -416,10 +416,6 @@
       yb = this.fitTable({ y: yb, head: [M.t('date'), M.t('year'), M.t('type'), ...M.GM.map((m) => M.L(m))], body: ar, meta: am, cols: vc, pad: { top: 2.2, bottom: 2.2, left: 3, right: 3 } }, [8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - vh - 8);
       this.noteAbove(vnote, yb + 4);
     }
-    guidanceNoteUnused() {
-      this.noteAbove(this.T('Fuente: tablas de guía en los comunicados de resultados de GAP (GlobeNewswire / Form 6-K); real de los informes trimestrales y anuales. Rangos como los publica GAP: crecimiento % vs el año anterior, margen EBITDA en nivel (sin IFRIC 12), capex en Ps. millones.', 'Source: guidance tables in GAP\'s results releases (GlobeNewswire / Form 6-K); actuals from the quarterly and annual reports. Ranges as GAP publishes them: % growth vs prior year, EBITDA margin as a level (ex-IFRIC 12), capex in Ps. million.'), yb + 4);
-    }
-
     // ================= 9. TRAFFIC TABLES =================
     trafficTables() {
       const M = this.M, ms = M.TR.months, lastM = ms[ms.length - 1], AIR = M.AIR;
@@ -496,7 +492,7 @@
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       yl = this.heading(this.T('Deuda neta / EBITDA de los últimos doce meses (veces)', 'Net debt / last-twelve-month EBITDA (times)'), this.cur.x0, yl, 10);
       const h2 = Math.max(90, Math.min(200, this.cur.y1 - yl - 8));
-      const img2 = this.chart({ type: 'line', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ label: this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: PALETTE[1], backgroundColor: PALETTE[1], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { scales: { x: { grid: { display: false } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h2 * 1.6));
+      const img2 = this.chart({ type: 'line', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ label: this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA'), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: PALETTE[1], backgroundColor: PALETTE[1], pointRadius: 3, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [4, 4] : undefined) } }] }, options: { scales: { x: { grid: { display: false } }, y: { min: 1.5, ticks: { stepSize: 0.1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h2 * 1.6));
       this.image(img2, this.cur.x0, yl, wl, h2);
       // right: instruments and ratings
       let yr = this.heading(this.T('Instrumentos vigentes y calificaciones', 'Outstanding instruments and ratings'), xr, y, 10);
@@ -586,8 +582,10 @@
       let yr = this.heading(this.T('Qué es, cómo se estructura y qué implica', 'What it is, how it is structured and what it implies'), xr, y, 10.5);
       yr = this.bullets(b, xr, yr, wr, 9.6, { gap: 6 });
       // structure diagram (drawn, not data): who owns what and where the money flows
-      const top = Math.max(yl, yr) + 14, availH = this.cur.y1 - top - 26;
-      if (availH > 120) {
+      const srcStr = this.T('Fuentes: ', 'Sources: ') + (M.LS(F.sources) || []).join(' · ');
+      const srcH = this.measureText(srcStr, this.width(), 7.2, 1.25);
+      const top = Math.max(yl, yr) + 14, availH = this.cur.y1 - top - srcH - 10; let yEnd = top;
+      if (availH > 150) {
         const dy = this.heading(this.T('Estructura: quién es dueño de qué y hacia dónde fluye el dinero', 'Structure: who owns what and where the money flows'), this.cur.x0, top, 10.5);
         const W = this.width(), bh = 52, y0 = dy + 10, bw = W * 0.175, pad = (W - 4 * bw) / 3;
         const boxes = [
@@ -603,9 +601,9 @@
         arrow(cx(1) + bw + 2, cx(2) - 2, mid - 8, this.T(`~${this.pct(100 - F.stakePct)} del capital`, `~${this.pct(100 - F.stakePct)} of equity`), true); arrow(cx(2) - 2, cx(1) + bw + 2, mid + 8, this.T('dividendos', 'dividends'), false);
         arrow(cx(3) - 2, cx(2) + bw + 2, mid - 8, this.T(`~${this.pct(F.stakePct)} del capital: Ps. ${this.n(F.targetMxnM)} M`, `~${this.pct(F.stakePct)} of equity: Ps. ${this.n(F.targetMxnM)} M`), true); arrow(cx(2) + bw + 2, cx(3) - 2, mid + 8, this.T('dividendos (~4.2%)', 'dividends (~4.2%)'), false);
         const yy2 = y0 + bh + 34; this.font('normal', 8.4, MUTED);
-        this.pdf.text(this.pdf.splitTextToSize(tx(this.T(`Los recursos que la Fibra aporta a las concesionarias financian el PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). En los estados consolidados de GAP la participación de la Fibra es participación no controladora: el EBITDA no cambia, ~${this.pct(F.stakePct)} de la utilidad de las concesionarias mexicanas pasa a los tenedores de CBFEs.`, `The cash the trust puts into the concessionaires funds the 2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). In GAP's consolidated statements the trust's stake is non-controlling interest: EBITDA is unchanged, ~${this.pct(F.stakePct)} of the Mexican concessionaires' profit goes to CBFE holders.`)), W), this.cur.x0, yy2);
+        const capLines = this.pdf.splitTextToSize(tx(this.T(`Los recursos que la Fibra aporta a las concesionarias financian el PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). En los estados consolidados de GAP la participación de la Fibra es participación no controladora: el EBITDA no cambia, ~${this.pct(F.stakePct)} de la utilidad de las concesionarias mexicanas pasa a los tenedores de CBFEs.`, `The cash the trust puts into the concessionaires funds the 2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). In GAP's consolidated statements the trust's stake is non-controlling interest: EBITDA is unchanged, ~${this.pct(F.stakePct)} of the Mexican concessionaires' profit goes to CBFE holders.`)), W); this.pdf.text(capLines, this.cur.x0, yy2); yEnd = yy2 + capLines.length * 8.4 * 1.15;
       }
-      this.noteAbove(this.T('Fuentes: ', 'Sources: ') + (M.LS(F.sources) || []).join(' · '), this.cur.y1 - 20, 7.2);
+      this.noteAbove(srcStr, Math.max(yEnd + 8, this.cur.y1 - srcH - 4), 7.2);
     }
 
     // ================= 15. SOURCES AND METHODOLOGY =================
