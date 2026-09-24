@@ -127,6 +127,8 @@ window.GAP_REF = {
     },
   },
   fibra: {
+    placed: false,           // set to true (and placedDate) when the offering completes; the presentation title says "(Not Yet Placed)" until then
+    placedDate: null,
     name: "FIBRA GAP (Fibra E)",
     ticker: "FGAP 26",
     exchange: "BIVA (Bolsa Institucional de Valores)",
