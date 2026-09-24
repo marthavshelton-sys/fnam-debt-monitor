@@ -228,7 +228,11 @@
     html('sumMeta', LANG === 'es'
       ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}), el tráfico de ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} y la guía del ${fmtDate(b.guidanceDate)} · redactado el ${fmtDate(SUM.updatedAt)}; se reescribe con cada reporte nuevo. Las cifras de mercado del encabezado son diarias.`
       : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}), ${b.trafficMonth ? ymLabel(b.trafficMonth) : '—'} traffic and the guidance of ${fmtDate(b.guidanceDate)} · written ${fmtDate(SUM.updatedAt)}; rewritten with each new report. Market figures in the header are daily.`);
-    html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
+    // "(≈5th)" / "(≈día 5)" in the curated text becomes the expected date of the next monthly traffic report
+    const nextTraffic = (() => { const ms = TR.months; if (!ms.length) return null; const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b); const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5; const last = ms[ms.length - 1].ym; const rel = new Date(Date.UTC(+last.slice(0, 4), +last.slice(5, 7) - 1 + 2, day)); return { day, month: rel.toLocaleDateString(locale(), { month: 'long', timeZone: 'UTC' }) }; })();
+    const ord = (d) => d + ([, 'st', 'nd', 'rd'][(d % 100 >> 3 ^ 1 && d % 10) || 0] || 'th');
+    const live = (x) => (nextTraffic ? String(x).replace(/\((?:~|≈)\s*(?:día\s*)?\d{1,2}(?:st|nd|rd|th)?\)/g, LANG === 'es' ? `(hacia el ${nextTraffic.day} de ${nextTraffic.month})` : `(around ${nextTraffic.month} ${ord(nextTraffic.day)})`) : x);
+    html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${live(x)}</li>`).join('')}</ul></div>`).join(''));
   }
 
   // ================= 01 STATEMENTS =================
