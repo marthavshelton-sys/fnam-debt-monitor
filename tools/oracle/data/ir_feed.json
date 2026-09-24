@@ -1,0 +1,54 @@
+{
+  "note": "Oracle investor-relations press-release list (Q4 JSON feed, full parameter set), refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read it without network access.",
+  "fetched": "2026-09-24",
+  "items": [
+    {
+      "guid": "/investor-news/news-details/2026/Larry-Ellison-Cancels-His-Plan-to-Sell-Oracle-Stock/default.aspx",
+      "title": "Larry Ellison Cancels His Plan to Sell Oracle Stock",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Larry-Ellison-Cancels-His-Plan-to-Sell-Oracle-Stock/default.aspx",
+      "pub": "09/12/2026 12:16:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+      "title": "Oracle Announces Q1 Results Driven by Triple Digit Growth in Cloud Infrastructure Revenues",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Q1-Results-Driven-by-Triple-Digit-Growth-in-Cloud-Infrastructure-Revenues/default.aspx",
+      "pub": "09/10/2026 16:10:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-First-Quarter-Fiscal-Year-2027-Earnings-Announcement/default.aspx",
+      "title": "Oracle Sets the Date for its First Quarter Fiscal Year 2027 Earnings Announcement",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-First-Quarter-Fiscal-Year-2027-Earnings-Announcement/default.aspx",
+      "pub": "09/02/2026 16:00:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Announces-Record-Q4-and-FY-2026-Results-Driven-by-Cloud-Infrastructure--Cloud-Applications/default.aspx",
+      "title": "Oracle Announces Record Q4 and FY 2026 Results Driven by Cloud Infrastructure & Cloud Applications",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Record-Q4-and-FY-2026-Results-Driven-by-Cloud-Infrastructure--Cloud-Applications/default.aspx",
+      "pub": "06/10/2026 16:05:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-Fourth-Quarter-Fiscal-Year-2026-Earnings-Announcement/default.aspx",
+      "title": "Oracle Sets the Date for its Fourth Quarter Fiscal Year 2026 Earnings Announcement",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-Fourth-Quarter-Fiscal-Year-2026-Earnings-Announcement/default.aspx",
+      "pub": "06/01/2026 16:01:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Announces-Fiscal-Year-2026-Third-Quarter-Financial-Results/default.aspx",
+      "title": "Oracle Announces Fiscal Year 2026 Third Quarter Financial Results",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Announces-Fiscal-Year-2026-Third-Quarter-Financial-Results/default.aspx",
+      "pub": "03/10/2026 16:05:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-Third-Quarter-Fiscal-Year-2026-Earnings-Announcement/default.aspx",
+      "title": "Oracle Sets the Date for its Third Quarter Fiscal Year 2026 Earnings Announcement",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-Third-Quarter-Fiscal-Year-2026-Earnings-Announcement/default.aspx",
+      "pub": "03/03/2026 16:00:00"
+    },
+    {
+      "guid": "/investor-news/news-details/2026/Oracle-announces-Equity-and-Debt-Financing-Plan-for-Calendar-Year-2026/default.aspx",
+      "title": "Oracle announces Equity and Debt Financing Plan for Calendar Year 2026",
+      "link": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-announces-Equity-and-Debt-Financing-Plan-for-Calendar-Year-2026/default.aspx",
+      "pub": "02/01/2026 00:00:00"
+    }
+  ]
+}

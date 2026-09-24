@@ -82,6 +82,20 @@ async function checkIrFeed(state) {
   if (!added) console.log("IR feed: no new results release.");
 }
 
+// Snapshots for the cloud routine, which cannot reach EDGAR or investor.oracle.com: the recent EDGAR submissions
+// (all forms, so non-earnings 8-Ks, FWP and 424B prospectuses are visible) and the IR press-release list.
+async function snapshotFeeds(sub) {
+  try {
+    const r = sub.filings.recent; const out = [];
+    for (let i = 0; i < Math.min(r.form.length, 60); i++) out.push({ form: r.form[i], filing_date: r.filingDate[i], report_date: r.reportDate[i] || null, accession: r.accessionNumber[i], items: r.items[i] || "", primary_document: r.primaryDocument[i], url: `https://www.sec.gov/Archives/edgar/data/${CIK_NUM}/${r.accessionNumber[i].replace(/-/g, "")}/${r.primaryDocument[i]}` });
+    writeFileSync(join(DATA, "edgar_recent.json"), JSON.stringify({ note: "Most recent EDGAR submissions for Oracle (CIK 1341439), all forms, refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read them without network access.", cik: CIK, fetched: today, filings: out }, null, 2) + "\n", "utf8");
+  } catch (e) { console.error(`EDGAR snapshot failed (${e.message}).`); }
+  try {
+    const items = await irItems();
+    writeFileSync(join(DATA, "ir_feed.json"), JSON.stringify({ note: "Oracle investor-relations press-release list (Q4 JSON feed, full parameter set), refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read it without network access.", fetched: today, items: items.slice(0, 25) }, null, 2) + "\n", "utf8");
+  } catch (e) { console.error(`IR feed snapshot failed (${e.message}).`); }
+}
+
 async function main() {
   const state = loadState();
   const seen = new Set(state.seen_accessions);
@@ -95,6 +109,7 @@ async function main() {
     saveState(state);
     return;
   }
+  await snapshotFeeds(sub);
   const r = sub.filings.recent;
   const candidates = [];
   for (let i = 0; i < r.form.length; i++) {
