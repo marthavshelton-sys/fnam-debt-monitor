@@ -40,11 +40,21 @@ no hand-typed figures.
   - Diagnostics from the Actions tab: run the workflow with `dry_run` (fetch, validate, write nothing)
     or with a `probe` string (see `scripts/mx-fiscal/probe.mjs`: `banxico-cuadro`, `banxico-range`,
     `shcp-index`, `shcp-concepts`, `shcp-concept`, `tls`, …).
-- **`docs-data.js` — weekly, via a Claude routine that opens a PR.** `window.MX_DOCS` holds the
+- **`tools/mx-fiscal/docs/` — official documents mirrored as text, daily.** The same workflow runs
+  `scripts/mx-fiscal/mirror-docs.mjs` (sources in `tools/mx-fiscal/docs.json`: CGPE and PAF PDFs found on
+  SHCP's Paquete Económico page, the Informes and Deuda index pages, SHCP press releases, Banxico's
+  announcements and survey pages, Pemex investor relations, LIF and PEF PDFs) so the document routine,
+  which runs where gob.mx is unreachable, reads primary text. Failures never fail the job.
+- **`docs-data.js` — every weekday, via a Claude routine that commits directly to `main`.** `window.MX_DOCS` holds the
   figures that exist only in documents — CGPE/Paquete Económico estimates and macro assumptions, the
   Plan Anual de Financiamiento (maturities, amortization profile), Ley de Ingresos and PEF totals,
   sovereign ratings, Pemex's reported debt and support, the analysts' survey, Banxico's decision
   calendar — each block with the document's `asOf` date, which the page prints next to the figures.
+  The routine reads the mirrors first, cites a mirror or URL for every changed value, and pushes with
+  rebase-and-retry; nothing in the pipeline needs a human step.
+- The daily job has its own concurrency group, touches only `site/mx/fiscal/data.js` and
+  `tools/mx-fiscal/docs/`, and pushes with rebase-and-retry so it never collides with the other pages'
+  refresh workflows.
 - Ratios to GDP use INEGI's nominal GDP (average of the last four quarters), so they differ by tenths
   of a point from SHCP's own ratios, which use its annual GDP estimate; the page says so.
 
