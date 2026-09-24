@@ -1,0 +1,91 @@
+# Keeps the Mexico airport traffic hub (site/aeropuertos, /aeropuertos/trafico/) current without manual input.
+#
+#   Every day it re-reads the three public sources and rebuilds site/aeropuertos/data/{traffic,summary,map}.js:
+#     AFAC  "Estadistica operativa de aeropuertos" workbook (gob.mx; the page sits behind a proof-of-work bot
+#           challenge, so headless Chromium lets the challenge run and downloads the file in that session)
+#     AICM  "AICM en Cifras" monthly PDF + year-end PDFs (aicm.com.mx)
+#     AIFA  numeralia counters on aifa.aero
+#   A source that cannot be read keeps its stored input (tools/aeropuertos/raw), so a bad day never blanks the page;
+#   the validator refuses regressions and implausible figures before anything is committed.
+#
+# Scheduled runs only happen on the default branch (GitHub rule). On other branches the workflow runs when its
+# scripts change (bootstrap) or on manual dispatch. Bot commits carry [skip actions] so they never re-trigger any
+# workflow. Cloudflare Pages deploys the commit. This workflow touches only site/aeropuertos/data and
+# tools/aeropuertos/raw; the group models (GAP / OMA / ASUR) have their own workflows and are read by the page at runtime.
+name: Refresh airport traffic hub data
+
+on:
+  schedule:
+    - cron: "30 17 * * *"        # daily 17:30 UTC (11:30 Mexico City): after AFAC's and AICM's usual morning postings
+  workflow_dispatch:
+    inputs:
+      skip:
+        description: "Sources to skip, e.g. --skip-afac (space-separated flags)"
+        default: ""
+  push:
+    branches: ["main", "claude/gap-financial-model-vfypi1"]
+    paths:
+      - "scripts/aeropuertos/refresh.mjs"
+      - "scripts/aeropuertos/validate.mjs"
+      - "tools/aeropuertos/compile.mjs"
+      - "tools/aeropuertos/parse_aicm.py"
+      - "tools/aeropuertos/airports.json"
+      - ".github/workflows/aeropuertos-refresh.yml"
+
+concurrency:
+  group: aeropuertos-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install tools (SheetJS, Playwright Chromium, pypdf)
+        run: |
+          npm init -y >/dev/null
+          npm i --no-audit --no-fund xlsx@0.18.5 playwright@1.49.1
+          npx playwright install --with-deps chromium
+          pip install --quiet pypdf
+
+      - name: Keep the previous data files for the regression check
+        run: git show HEAD:site/aeropuertos/data/traffic.js > /tmp/traffic-prev.js
+
+      - name: Refresh from AFAC, AICM and AIFA and rebuild the site data
+        run: node scripts/aeropuertos/refresh.mjs ${{ github.event.inputs.skip }}
+
+      - name: Validate (contiguous months, plausible totals, no regressions)
+        run: node scripts/aeropuertos/validate.mjs site/aeropuertos/data/traffic.js /tmp/traffic-prev.js
+
+      - name: Commit if anything changed
+        shell: bash
+        run: |
+          rm -f package.json package-lock.json; rm -rf node_modules tools/aeropuertos/tmp
+          git config user.name "aeropuertos-refresh[bot]"
+          git config user.email "aeropuertos-refresh@users.noreply.github.com"
+          git add site/aeropuertos/data tools/aeropuertos/raw
+          if git diff --cached --quiet; then
+            echo "No data change; nothing to commit."
+            exit 0
+          fi
+          git commit -m "aeropuertos: refresh traffic data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
