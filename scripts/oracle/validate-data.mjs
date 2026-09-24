@@ -140,6 +140,33 @@ if (gd) {
   }
 }
 
+// ---------- obligations.json: leases, purchase obligations, preferred stock (section 11 / dividends) ----------
+const ob = loadJSON("obligations.json");
+if (ob) {
+  const bs = ob.balance_sheet || {}, Lz = ob.leases || {}, po = ob.purchase_obligations || {}, pf = ob.preferred || {}, un = Lz.uncommenced || {};
+  check("obligations: notes payable current + non-current = total", near(bs.notes_payable_current + bs.notes_payable_noncurrent, bs.notes_payable_total, TOL));
+  check("obligations: cash + marketable securities = cash and investments", near(bs.cash_and_equivalents + bs.marketable_securities, bs.cash_and_investments, TOL));
+  check("obligations: net debt = notes payable − cash and investments", near(bs.notes_payable_total - bs.cash_and_investments, bs.net_debt_reported, TOL));
+  check("obligations: operating lease liabilities current + non-current = total", near(Lz.operating_liabilities_current + Lz.operating_liabilities_noncurrent, Lz.operating_liabilities_total, TOL));
+  check("obligations: finance lease liabilities current + non-current = total", near(Lz.finance_liabilities_current + Lz.finance_liabilities_noncurrent, Lz.finance_liabilities_total, TOL));
+  check("obligations: purchase-obligation schedule sums to the total", near((po.schedule || []).reduce((a, x) => a + x.usd_m, 0), po.total, TOL));
+  check("obligations: preferred quarterly dividend = 6.50% × US$5 bn ÷ 4", near(pf.gross_proceeds_usd_m * pf.dividend_rate_pct / 100 / 4, pf.dividend_quarterly_usd_m, 0.5));
+  check("obligations: preferred conversion rates = liquidation preference ÷ threshold and initial prices", near(pf.liquidation_preference_per_share_usd / pf.threshold_appreciation_price_usd, pf.min_conversion_rate, 0.05) && near(pf.liquidation_preference_per_share_usd / pf.initial_price_usd, pf.max_conversion_rate, 0.05));
+  check("obligations: uncommenced-lease history ends at the current figure and period", Array.isArray(un.history) && un.history.length > 0 && un.history[un.history.length - 1].usd_bn === un.usd_bn && un.history[un.history.length - 1].as_of === ob.as_of);
+  const qq = (q?.quarters || []).find((x) => x.period_end === ob.as_of);
+  check("obligations: cash and investments tie to quarters.json for the same period end", qq?.balance_sheet ? near(bs.cash_and_investments, qq.balance_sheet.cash_and_investments_total, TOL) : null);
+  check("obligations: notes payable tie to quarters.json total debt for the same period end", qq?.balance_sheet ? near(bs.notes_payable_total, qq.balance_sheet.total_debt, TOL) : null);
+}
+
+// ---------- press.json: market concerns (window, links, themes) ----------
+const prs = loadJSON("press.json");
+if (prs) {
+  const items = prs.items || [];
+  check("press: every item has a date, outlet, title, https link, theme and both summaries", items.length > 0 && items.every((x) => /^\d{4}-\d{2}-\d{2}$/.test(x.date) && x.outlet && x.title && /^https:\/\//.test(x.url) && x.theme && x.en && x.es));
+  check("press: every theme used is declared", items.every((x) => (prs.themes || []).some((t) => t.id === x.theme)));
+  check("press: no item is dated after as_of", items.every((x) => x.date <= prs.as_of));
+}
+
 // ---------- stale-series detection ----------
 const today = new Date();
 const daysSince = (iso) => (iso ? Math.round((today - new Date(iso + "T00:00:00")) / 864e5) : null);
@@ -153,6 +180,9 @@ if (q?.quarters?.length) {
 }
 const cal = loadJSON("calendar.json");
 if (cal?.generated && daysSince(cal.generated) > 10) stale.push(`Investor calendar last refreshed ${cal.generated}`);
+if (prs?.as_of && daysSince(prs.as_of) > 10) stale.push(`Press sweep (market concerns) last run ${prs.as_of}`);
+const plv = loadJSON("peer_leverage.json");
+if (plv?.fetched && daysSince(plv.fetched) > 10) stale.push(`Peer leverage (SEC XBRL) last fetched ${plv.fetched}`);
 const st = loadJSON("state.json");
 const pendingCount = (st?.pending_extraction || []).filter((p) => p.status === "pending").length;
 if (pendingCount) stale.push(`${pendingCount} archived filing(s) pending extraction (tools/oracle/data/state.json)`);

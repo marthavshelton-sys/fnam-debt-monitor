@@ -17,8 +17,8 @@
     const M = window.ORCL_MODEL;
     await P.run(M, ['/assets/us-map.js'], async () => {
       const doc = new OracleDoc(M);
-      doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.rpoCloudPage(); doc.sitesPage(); doc.debtPage(); doc.dividendPage(); doc.buildoutPage(); doc.rpoPage(); doc.creditPage(); doc.sourcesPage();
+      doc.cover(); doc.execSummary(); doc.pressPage(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
+      doc.guidancePage(); doc.rpoCloudPage(); doc.sitesPage(); doc.debtPage(); doc.obligationsPage(); doc.dividendPage(); doc.buildoutPage(); doc.rpoPage(); doc.creditPage(); doc.sourcesPage();
       doc.finish();
     });
   }
@@ -64,6 +64,19 @@
       super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''));
     }
 
+    // ================= 2b. MARKET CONCERNS (credible press and analysts) =================
+    pressPage() {
+      const M = this.M, PR = M.PRESS; if (!PR || !(PR.items || []).length) return;
+      let y = this.page('L', this.T('Lo que preocupa al mercado', 'What the Market Is Worried About'), this.T(`Prensa y analistas, últimos ${PR.windowDays} días · al ${this.date(PR.asOf)} · cada resumen se limita a lo que reporta la pieza; enlaces en fnam.mx/oracle (sección 00)`, `Press and analysts, last ${PR.windowDays} days · as of ${this.date(PR.asOf)} · each summary is limited to what the piece reports; links at fnam.mx/oracle (section 00)`));
+      const themes = (PR.themes || []).map((th) => ({ th, items: PR.items.filter((x) => x.theme === th.id) })).filter((x) => x.items.length);
+      const rows = [], meta = [];
+      for (const { th, items } of themes) { rows.push([this.T(th.es, th.en), '', '', '']); meta.push(['head left', 'head', 'head', 'head']); for (const x of items) { rows.push([this.date(x.date), x.outlet, x.title, this.es ? x.es : x.en]); meta.push(['left', 'left', 'left bold', 'left small']); } }
+      const W = this.width();
+      y = this.fitTable({ y, head: [M.t('date'), this.T('Medio', 'Outlet'), this.T('Titular', 'Headline'), this.T('Qué reporta', 'What it reports')], body: rows, meta, cols: { 0: { cellWidth: W * 0.09, halign: 'left' }, 1: { cellWidth: W * 0.13, halign: 'left' }, 2: { cellWidth: W * 0.26, halign: 'left' }, 3: { cellWidth: W * 0.52, halign: 'left' } }, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 4 : 0)) }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - 30);
+      const outlets = [...new Set(PR.items.map((x) => x.outlet))].join(', ');
+      this.noteAbove(this.T(`Fuentes: ${outlets}; los enlaces a cada artículo están en la página. Las declaraciones de Oracle se citan cuando la pieza las incluye. Barrido semanal (lunes).`, `Sources: ${outlets}; links to each article are on the page. Oracle's statements are quoted where the piece includes them. Weekly sweep (Mondays).`), y + 6);
+    }
+
     // ================= 3. TEAR SHEET =================
     tearSheet() {
       const M = this.M, lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ), px = M.lastPx, orcl = M.orclPx, meta = M.MK.prices.ORCL || {};
@@ -73,7 +86,7 @@
       const yAgo = M.pointAtOrBefore(orcl, M.addDays(px[0], -365)), yStart = M.pointAtOrBefore(orcl, `${px[0].slice(0, 4)}-01-01`);
       const spx = M.px('^GSPC'), spxLast = M.lastPoint(spx), spxAgo = spxLast && M.pointAtOrBefore(spx, M.addDays(spxLast[0], -365)), spxStart = spxLast && M.pointAtOrBefore(spx, `${spxLast[0].slice(0, 4)}-01-01`);
       const chg = (a, b) => (a && b ? 100 * (a[1] / b[1] - 1) : null);
-      const w52 = orcl.filter((p) => p[0] >= M.addDays(px[0], -365)); const hi = Math.max(...w52.map((p) => p[1])), lo = Math.min(...w52.map((p) => p[1]));
+      const r52 = M.MK.range52 || null; const w52 = orcl.filter((p) => p[0] > M.addDays(px[0], -365) && p[0] <= px[0]); const hi = r52 ? r52.high : Math.max(...w52.map((p) => p[1])), lo = r52 ? r52.low : Math.min(...w52.map((p) => p[1]));
       const mc = px[1] * M.sharesNow; const ev = mc / 1e6 + (nd ? nd.net : 0);
       const prevQ = M.qById[M.yoyQid(lastQ)], prevL = prevQ ? M.ltmFor(prevQ) : null;
       const g = (a, b) => (a != null && b ? 100 * (a / b - 1) : null);
@@ -89,7 +102,7 @@
       R(this.T('Acciones en circulación (portada del 10-Q)', 'Shares outstanding (10-Q cover page)'), `${this.n(M.sharesNow)}  ·  ${M.MK.sharesOutstanding ? this.date(M.MK.sharesOutstanding.asOf) : ''}`, 'muted');
       R(this.T('Variación en el año (ORCL · S&P 500)', 'Year-to-date change (ORCL · S&P 500)'), `${pm(chg(px, yStart))}  ·  S&P ${pm(chg(spxLast, spxStart))}`, this.cls(chg(px, yStart)));
       R(this.T('Variación 12 meses (ORCL · S&P 500)', '12-month change (ORCL · S&P 500)'), `${pm(chg(px, yAgo))}  ·  S&P ${pm(chg(spxLast, spxAgo))}`, this.cls(chg(px, yAgo)));
-      R(this.T('Máximo / mínimo 52 semanas', '52-week high / low'), `US$ ${this.n(hi, 2)}  /  US$ ${this.n(lo, 2)}`);
+      R(this.T(r52 ? 'Máximo / mínimo 52 semanas (intradía)' : 'Máximo / mínimo 52 semanas (cierres)', r52 ? '52-week high / low (intraday)' : '52-week high / low (closes)'), `US$ ${this.n(hi, 2)}${r52 ? ` (${this.date(r52.highDate)})` : ''}  /  US$ ${this.n(lo, 2)}${r52 ? ` (${this.date(r52.lowDate)})` : ''}`);
       if (decl) R(this.T(`Dividendo trimestral declarado (${this.date(decl.declared)}) · anualizado · rendimiento`, `Quarterly dividend declared (${this.date(decl.declared)}) · annualised · yield`), `US$ ${this.n(decl.dps, 2)}  ·  US$ ${this.n(decl.dps * 4, 2)}  ·  ${this.pct(100 * decl.dps * 4 / px[1])}`);
       H(this.T(`Financieros (${this.qlab(lastQ)} · US$ millones)`, `Financials (${this.qlab(lastQ)} · US$ million)`));
       if (L) R(this.T('EBITDA últimos 12 meses · margen', 'EBITDA last twelve months · margin'), `${this.usdM(L.is.ebitda)}  ·  ${this.pct(L.is.ebitdaMargin)}${prevL ? `  ·  ${pm(g(L.is.ebitda, prevL.is.ebitda))} ${yy}` : ''}`);
@@ -99,6 +112,8 @@
       if (L) R(this.T('Utilidad neta a comunes últimos 12 meses (GAAP)', 'Net income to common last twelve months (GAAP)'), `${this.usdM(L.is.netIncomeCommon)}${prevL ? `  ·  ${pm(g(L.is.netIncomeCommon, prevL.is.netIncomeCommon))} ${yy}` : ''}`);
       if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `${this.usdM(nd.net)}  ·  ${this.T('bruta', 'gross')} ${this.usdM(nd.gross)}  ·  ${this.T('efectivo e inv.', 'cash & inv.')} ${this.usdM(nd.cash)}`);
       if (nd && L) R(this.T('Deuda neta / EBITDA UDM', 'Net debt / LTM EBITDA'), this.x(nd.net / L.is.ebitda, 2), 'bold');
+      const OS = M.obligStats ? M.obligStats() : null;
+      if (OS) R(this.T('Ajustado por arrendamientos / EBITDAR UDM  ·  incl. arrendamientos no iniciados', 'Lease-adjusted / LTM EBITDAR  ·  incl. uncommenced leases'), `${this.x(OS.leaseAdj, 2)}  ·  ${this.x(OS.commit, 1)} (US$ ${this.n(OS.unc / 1000, 0)} ${this.T('mil M nominal', 'bn nominal')})`);
       if (L) R(this.T('VE / EBITDA UDM  ·  P/U UDM GAAP · No-GAAP', 'EV / LTM EBITDA  ·  LTM P/E GAAP · Non-GAAP'), `${this.x(ev / L.is.ebitda)}  ·  ${L.is.epsDiluted ? this.x(px[1] / L.is.epsDiluted) : '—'} · ${L.is.ngEpsDiluted ? this.x(px[1] / L.is.ngEpsDiluted) : '—'}`);
       if (L && L.cf) R(this.T('Flujo operativo · capex · flujo libre, últimos 12 meses', 'Operating cash flow · capex · free cash flow, last twelve months'), `${this.usdM(L.cf.cfo)}  ·  ${this.usdM(-L.cf.capex)}  ·  ${this.usdM(L.cf.fcf)}`, this.cls(L.cf.fcf));
       H(this.T('Operación', 'Operations'));
@@ -144,11 +159,11 @@
       const head = (l) => { rows.push([l, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); };
       const row = (l, k, o = {}) => {
         const va = oa && oa[k], vb = ob && ob[k]; if (va == null && vb == null) return;
-        const d = va != null && vb != null ? va - vb : null, p = o.pct ? null : (d != null && vb ? 100 * d / Math.abs(vb) : null);
+        const d = va != null && vb != null ? va - vb : null, p = o.pct || d == null ? null : M.pctChange(va, vb);
         const f = (v) => (v == null ? '—' : o.pct ? this.pct(v) : o.d != null ? this.n(v, o.d) : this.m(v));
         const fd = d == null ? '—' : o.pct ? this.n(d, 1) + ' pp' : o.d != null ? this.n(d, o.d) : this.m(d);
         rows.push([l, f(va), f(vb), fd, o.pct ? '' : this.pct(p, 1, true), ops && ops[o.ck || k] ? M.L(ops[o.ck || k]) : '']);
-        meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', this.cls(d) + ' ' + (o.cls || ''), this.cls(p) + ' ' + (o.cls || ''), 'left small']);
+        meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', this.cls(d) + ' ' + (o.cls || ''), this.cls(d) + ' ' + (o.cls || ''), 'left small']);
       };
       head(this.T('Cartera y nube (US$ millones)', 'Backlog and cloud (US$ million)'));
       row(this.T('RPO (obligaciones de desempeño restantes)', 'RPO (remaining performance obligations)'), 'rpo', { cls: 'bold' });
@@ -168,7 +183,7 @@
       row(this.T('Dividendo declarado por acción (US$)', 'Dividend declared per share (US$)'), 'dps', { d: 2 });
       row(this.T('Acciones diluidas (millones)', 'Diluted shares (millions)'), 'shares', { d: 0 });
       const W = this.width(), cw = { 0: { cellWidth: W * 0.24, halign: 'left' }, 1: { cellWidth: W * 0.085 }, 2: { cellWidth: W * 0.085 }, 3: { cellWidth: W * 0.085 }, 4: { cellWidth: W * 0.085 }, 5: { cellWidth: W * 0.42, halign: 'left' } };
-      y = this.fitTable({ y, head: [M.t('metric'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (comunicado y llamada de resultados)', 'Comments (earnings release and call)')], body: rows, meta, cols: cw, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) }, [8.6, 8.2, 7.8, 7.4, 7], this.cur.y1 - 150);
+      y = this.fitTable({ y, head: [M.t('metric'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T(`Comentarios · comunicado y llamada del ${la}`, `Comments · ${la} release and call`)], body: rows, meta, cols: cw, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) }, [8.6, 8.2, 7.8, 7.4, 7], this.cur.y1 - 150);
       // cloud revenue by quarter on the FY2026 basis in the remaining space
       const qs = M.Q.filter((q) => M.revOnNewBasis(q)).slice(-10);
       const remaining = this.cur.y1 - y - 30;
@@ -203,15 +218,16 @@
         if (M.REV_LINES.includes(def.k) && ((va != null && va !== A.is[def.k]) || (vb != null && vb !== B.is[def.k]))) usedRecast = true;
         if (va == null && vb == null) continue;
         const sp = mis && (def.k === 'revCloud' || def.k === 'revSoftware'); if (sp) split = true;
-        const d = !sp && va != null && vb != null ? va - vb : null, p = d != null && vb ? 100 * d / Math.abs(vb) : null;
+        const d = !sp && va != null && vb != null ? va - vb : null, p = d == null ? null : M.pctChange(va, vb);
         const f = (v) => (v == null ? '—' : def.pct ? this.pct(v) : def.perShare ? this.n(v, 2) : def.count ? this.n(v, 0) : this.m(v));
         const fd = sp ? '†' : d == null ? '—' : def.pct ? this.n(d, 1) + ' pp' : def.perShare ? this.n(d, 2) : def.count ? this.n(d, 0) : this.m(d);
         const c = def.level === 0 ? 'bold' : '';
         rows.push([M.L(def) + (sp ? ' †' : ''), f(va), f(vb), fd, def.pct || sp ? '' : this.pct(p, 1, true), C && C.lines && C.lines[def.k] ? M.L(C.lines[def.k]) : '']);
-        meta.push([c + ' left', c, c, this.cls(d) + ' ' + c, this.cls(p) + ' ' + c, 'left small']);
+        meta.push([c + ' left', c, c, this.cls(d) + ' ' + c, this.cls(d) + ' ' + c, 'left small']);
       }
+      const cq = mode === 'fy' ? la : this.qlab(mode === 'ltm' ? M.lastQ : A);
       const W = this.width(), cw = { 0: { cellWidth: W * 0.25, halign: 'left' }, 1: { cellWidth: W * 0.085 }, 2: { cellWidth: W * 0.085 }, 3: { cellWidth: W * 0.08 }, 4: { cellWidth: W * 0.075 }, 5: { cellWidth: W * 0.425, halign: 'left' } };
-      y = this.fitTable({ y, head: [this.T('Cifras en US$ millones', 'Figures in US$ mn'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (comunicado y llamada de resultados)', 'Comments (earnings release and call)')], body: rows, meta, cols: cw, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 40);
+      y = this.fitTable({ y, head: [this.T('Cifras en US$ millones', 'Figures in US$ mn'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T(`Comentarios · comunicado y llamada del ${cq}${mode === 'ltm' ? ' (último trimestre reportado)' : ''}`, `Comments · ${cq} release and call${mode === 'ltm' ? ' (latest reported quarter)' : ''}`)], body: rows, meta, cols: cw, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 40);
       if (mode === 'fy') y = this.isFiller(y);
       const srcs = [A, B].map((o) => o.sources && o.sources.is).filter(Boolean);
       const cap = this.T(`US$ millones, GAAP salvo el bloque No-GAAP; detalle del costo de ingresos y de la conciliación No-GAAP omitido${(A.derived || B.derived) ? '; periodos UDM calculados a partir de trimestres reportados' : ''}${usedRecast ? '; líneas de ingresos en la base AF2026 (Nube / Software) usando la reexpresión de Oracle' : ''}${split ? '; † bases de presentación distintas sin reexpresión: se muestran las cifras, no la variación' : ''}. Fuentes: ${[...new Map(srcs.map((s) => [s.url, s])).values()].map((s) => `comunicado de resultados de Oracle (${this.date(s.date)})`).join(' · ')}${C && C.call ? ' · ' + M.L(C.call) : ''}${cmtNote}.`,
@@ -351,12 +367,12 @@
       const sf = (s, k) => (this.es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
       const first = (t, n = 60) => { let c = String(t).split(/;|\.\s/).map((x) => x.trim()).filter((x) => x && !/^(Contracted|Contratad[oa])/i.test(x))[0] || String(t).split(';')[0]; c = c.replace(/\s*\([^)]*\)\s*$/, '').trim(); if (c.length > n) c = c.slice(0, c.lastIndexOf(' ', n)) + '…'; return c; };
       const short = (t) => String(t).replace(/\s+(via|vía|a través de)\s+.*$/i, '').replace(/\s*\([^)]*\)/g, '').split(';')[0].trim();
-      const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], this.n(s.capacity_mw), short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), first(sf(s, 'oracle_status'), 62)]);
+      const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], `${this.n(s.nameplate_mw || s.capacity_mw)} / ${s.energized_mw != null ? this.n(s.energized_mw) : '—'}`, short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), (s.issues_en && !/^None reported/i.test(s.issues_en) ? `${this.date(s.status_date)}: ${first(sf(s, 'issues'), 70)}` : first(sf(s, 'oracle_status'), 62))]);
       const promises = ((BO.promises && BO.promises.items) || []).slice(0, 4).map((x) => `**${M.boLabel(x.id)}** · ${M.L(x)}`);
       const noteStr = this.T('Ubicaciones aproximadas en el mapa (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Map locations are approximate (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
       const noteH = this.measureText(noteStr, W, 7.5, 1.25);
       const promH = promises.length ? 16 + this.measureBullets(promises, W, 7.8, { gap: 3 }) : 0;
-      y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), 'MW', this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
+      y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), this.T('MW plan / en línea', 'MW plan / live'), this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
       if (promises.length && y + promH + noteH + 12 < this.cur.y1) { y = this.heading(this.T('Lo que Oracle ha prometido entregar (llamada más reciente primero)', 'What Oracle has committed to deliver (latest call first)'), this.cur.x0, y + 8, 10); y = this.bullets(promises, this.cur.x0, y, W, 7.8, { gap: 3 }); }
       this.noteAbove(noteStr, y + 6);
     }
@@ -436,6 +452,46 @@
         this.T('Flujo libre = flujo operativo − capex; el flujo operativo de los últimos trimestres incluye prepagos de clientes por contratos de nube (sección 03). Los dividendos pagados y las recompras en efectivo no forman parte del modelo (las líneas del estado de flujos anual no se cosechan del 10-K); el dividendo por acción es el declarado, sumado por año fiscal.', 'Free cash flow = operating cash flow − capex; recent quarters\' operating cash flow includes customer prepayments on cloud contracts (section 03). Cash dividends paid and buybacks are not part of the model (the annual cash-flow lines are not harvested from the 10-K); dividend per share is the declared amount summed by fiscal year.'),
       ], xr, yr + 6, wr, 7.6, { gap: 2, color: MUTED });
       this.noteAbove(this.T(`* años parciales (menos de cuatro trimestres declarados). Razón de pago = dividendo del año ÷ UPA diluida GAAP del año fiscal; rendimiento sobre el cierre del 31 de mayo. El consejo declara el dividendo con cada reporte trimestral. Fuentes: comunicados de resultados (dividendos); Formularios 10-K (UPA, flujos); ${M.MK.prices.ORCL ? M.MK.prices.ORCL.source : 'Nasdaq'} (precios).`, `* partial years (fewer than four quarters declared). Payout = year's dividend ÷ GAAP diluted EPS of the fiscal year; yield on the 31 May close. The board declares the dividend with each quarterly report. Sources: earnings releases (dividends); Forms 10-K (EPS, cash flows); ${M.MK.prices.ORCL ? M.MK.prices.ORCL.source : 'Nasdaq'} (prices).`), Math.max(yl, yr) + 6);
+    }
+
+    // ================= 11b. OFF-BALANCE-SHEET FINANCING =================
+    obligationsPage() {
+      const M = this.M, OB = M.OB, S = M.obligStats ? M.obligStats() : null; if (!OB || !S) return;
+      const Lz = OB.leases || {}, bs = OB.balance_sheet || {}, po = OB.purchase_obligations || {}, un = Lz.uncommenced || {}, ga = OB.guarantees || {};
+      let y = this.page('L', this.T('11 · Financiamiento fuera de balance', '11 · Off-Balance-Sheet Financing'), this.T(`Formulario 10-Q al ${this.date(OB.as_of)} (notas de arrendamientos y compromisos) · deuda neta y EBITDA UDM del modelo (${M.lastLTM ? M.lastLTM.id : ''}) · razones derivadas`, `Form 10-Q at ${this.date(OB.as_of)} (leases and commitments notes) · model net debt and LTM EBITDA (${M.lastLTM ? M.lastLTM.id : ''}) · derived ratios`));
+      const bn = (m) => this.n(m / 1000, 1);
+      y = this.tiles([
+        { v: M.fmtX(S.ndEbitda, 2), l: this.T('deuda neta / EBITDA UDM, como se reporta', 'net debt / LTM EBITDA, as reported') },
+        { v: M.fmtX(S.leaseAdj, 2), l: this.T(`ajustado: (deuda neta + arrendamientos operativos ${bn(S.opL)} + financieros ${bn(S.finL)} mil M) / EBITDAR ${bn(S.ebitdar)} mil M`, `lease-adjusted: (net debt + operating leases ${bn(S.opL)} + finance leases ${bn(S.finL)} bn) / EBITDAR ${bn(S.ebitdar)} bn`) },
+        { v: M.fmtX(S.commit, 1), l: this.T(`incluyendo compromisos: + US$ ${this.n(S.unc / 1000, 0)} mil M de arrendamientos no iniciados, nominal, sin descontar`, `commitment-inclusive: + US$ ${this.n(S.unc / 1000, 0)} bn of uncommenced leases, nominal, undiscounted`) },
+        { v: `US$ ${bn(po.total)} ${this.T('mil M', 'bn')}`, l: this.T('obligaciones de compra (energía, equipo y otros), no canceladas', 'purchase obligations (power, equipment and other), non-cancelable') },
+      ], y, 48);
+      const gap = 24, wl = this.width() * 0.56, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
+      const rows = [
+        [this.T('Notas por pagar y otros préstamos', 'Notes payable and other borrowings'), bn(bs.notes_payable_total), this.T('en balance', 'on balance sheet')],
+        [this.T('Pasivos por arrendamientos operativos', 'Operating lease liabilities'), bn(S.opL), this.T(`en balance · activo por derecho de uso ${bn(Lz.operating_rou_assets)}`, `on balance sheet · right-of-use asset ${bn(Lz.operating_rou_assets)}`)],
+        [this.T('Pasivos por arrendamientos financieros', 'Finance lease liabilities'), bn(S.finL), this.T(`en balance · activo por derecho de uso ${bn(Lz.finance_rou_assets)}`, `on balance sheet · right-of-use asset ${bn(Lz.finance_rou_assets)}`)],
+        [this.T('Arrendamientos firmados, aún no iniciados', 'Leases signed, not yet commenced'), this.n(un.usd_bn, 0), this.T(`fuera de balance · ${un.term_years_min}–${un.term_years_max} años · inician 2T27–AF2029`, `off balance sheet · ${un.term_years_min}–${un.term_years_max} years · commence 2Q27–FY2029`)],
+        [this.T('Obligaciones de compra', 'Purchase obligations'), bn(po.total), this.T('fuera de balance · calendario a la derecha', 'off balance sheet · schedule at right')],
+        [this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('ni el 10-Q ni el 10-K revelan garantías fuera de balance', 'neither the 10-Q nor the 10-K discloses off-balance-sheet guarantees')],
+        [this.T('Efectivo e inversiones negociables', 'Cash and marketable securities'), '(' + bn(bs.cash_and_investments) + ')', this.T('en balance · se resta para la deuda neta', 'on balance sheet · netted for net debt')],
+      ];
+      let yl = this.heading(this.T('Lo que Oracle debe, dentro y fuera del balance (US$ mil millones)', 'What Oracle owes, on and off the balance sheet (US$ billion)'), this.cur.x0, y, 10);
+      yl = this.table({ y: yl, w: wl, head: [this.T('Partida', 'Item'), this.T('US$ mil M', 'US$ bn'), this.T('Dónde está', 'Where it sits')], body: rows, meta: rows.map(() => ['left', 'bold', 'left small']), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.38 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });
+      const hist = un.history || [];
+      const rr = hist.map((h) => [this.date(h.as_of), this.n(h.usd_bn, h.usd_bn < 100 ? 1 : 0), h.note || '']);
+      yl = this.heading(this.T('Arrendamientos no iniciados en cada reporte (US$ mil millones, nominal)', 'Uncommenced leases at each report (US$ billion, nominal)'), this.cur.x0, yl + 10, 10);
+      yl = this.table({ y: yl, w: wl, head: [this.T('Al', 'As of'), this.T('US$ mil M', 'US$ bn'), this.T('Según la nota de arrendamientos', 'Per the leases note')], body: rr, meta: rr.map(() => ['left', 'bold', 'left small muted']), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.22 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });
+      let yr = this.heading(this.T('Obligaciones de compra por año fiscal (US$ millones)', 'Purchase obligations by fiscal year (US$ million)'), xr, y, 10);
+      const pr = (po.schedule || []).map((x) => [this.es ? x.period_es : x.period_en, this.m(x.usd_m)]); pr.push(['Total', this.m(po.total)]);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Periodo', 'Period'), 'US$ M'], body: pr, meta: pr.map((r, i) => [i === pr.length - 1 ? 'left bold' : 'left', i === pr.length - 1 ? 'bold' : '']), size: 8, cols: { 0: { halign: 'left' } } });
+      const peers = M.peerLeverage ? M.peerLeverage() : [];
+      if (peers.length) {
+        yr = this.heading(this.T('Frente a pares (derivado de sus reportes en la SEC)', 'Versus peers (derived from their SEC filings)'), xr, yr + 10, 10);
+        const prw = peers.map((p) => [p.name + (p.basis === 'pretax_plus_interest' ? ' *' : ''), p.ndEbitda != null ? M.fmtX(p.ndEbitda, 2) : '—', p.leaseAdj != null ? M.fmtX(p.leaseAdj, 2) : '—', p.opL != null ? bn(p.opL + (p.finL || 0)) : '—']);
+        yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Emisor', 'Issuer'), this.T('Deuda neta / EBITDA', 'Net debt / EBITDA'), this.T('Ajustado / EBITDAR', 'Lease-adj. / EBITDAR'), this.T('Arrend. US$ mil M', 'Leases US$ bn')], body: prw, meta: prw.map((r, i) => [i === 0 ? 'left bold' : 'left', i === 0 ? 'bold' : '', i === 0 ? 'bold' : '', '']), size: 7.8, cols: { 0: { halign: 'left' } } });
+      }
+      this.noteAbove(this.T(`EBITDAR = EBITDA UDM (US$ ${this.m(S.ebitda)} M) + costo de arrendamientos operativos UDM (US$ ${this.m(S.olc)} M). La razón "incluyendo compromisos" suma el valor nominal de los arrendamientos no iniciados sin descontar ni proyectar EBITDA futuro: mide exposición, no deuda actual. Pares elegidos por el responsable; saldos al último balance y flujos del último año fiscal según sus datos XBRL en la SEC (* IBM no reporta utilidad de operación: EBIT = utilidad antes de impuestos + intereses). Garantías: ${ga.text_es || ''} Fuentes: Formulario 10-Q 1T27, 10-K AF2026, SEC XBRL.`, `EBITDAR = LTM EBITDA (US$ ${this.m(S.ebitda)} M) + LTM operating lease cost (US$ ${this.m(S.olc)} M). The commitment-inclusive ratio adds the nominal value of uncommenced leases without discounting or projecting future EBITDA: it measures exposure, not current debt. Peer set chosen by the owner; latest balance sheet and latest fiscal-year flows per their SEC XBRL data (* IBM reports no operating income: EBIT = pre-tax income + interest). Guarantees: ${ga.text_en || ''} Sources: 1Q27 Form 10-Q, FY2026 10-K, SEC XBRL.`), Math.max(yl, yr) + 8);
     }
 
     // ================= 13. 09 AI CLOUD INFRASTRUCTURE BUILDOUT =================

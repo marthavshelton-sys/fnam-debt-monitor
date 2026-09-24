@@ -32,6 +32,13 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
   source-cited but not machine-checked; the 338 parser checks and 329 tie-outs cover the statements only.
 
+- Peer ratings (section 11): the peer table shows leverage only; add each agency's rating with its release URL to
+  `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
+- Press sweep: `press.json` is refreshed by the desktop task "FNAM Oracle: weekly press sweep" on Mondays while the
+  app is open; a cloud version would need the outbound network the cloud sandbox lacks.
+- Unit economics (section 09): revenue per energized MW and the prepaid / BYOH / Oracle-funded split are marked
+  "not derivable" / "not disclosed"; fill them only if Oracle discloses total energized MW or the RPO split by funding type.
+
 ## Page features still to build
 
 - Segment / geography statements with the A-vs-B controls (Oracle reports segments in the 10-Q/10-K, not in the release).

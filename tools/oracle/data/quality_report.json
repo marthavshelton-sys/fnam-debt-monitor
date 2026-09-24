@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-24T21:46:37.593Z",
+  "generated": "2026-09-24T22:19:46.096Z",
   "summary": {
-    "checks": 329,
+    "checks": 343,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -335,7 +335,21 @@
     "FY2024Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
     "FY2024Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
     "FY2024Q1 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2024Q1 guidance non_gaap_eps_usd_reported: well-formed range"
+    "FY2024Q1 guidance non_gaap_eps_usd_reported: well-formed range",
+    "obligations: notes payable current + non-current = total",
+    "obligations: cash + marketable securities = cash and investments",
+    "obligations: net debt = notes payable − cash and investments",
+    "obligations: operating lease liabilities current + non-current = total",
+    "obligations: finance lease liabilities current + non-current = total",
+    "obligations: purchase-obligation schedule sums to the total",
+    "obligations: preferred quarterly dividend = 6.50% × US$5 bn ÷ 4",
+    "obligations: preferred conversion rates = liquidation preference ÷ threshold and initial prices",
+    "obligations: uncommenced-lease history ends at the current figure and period",
+    "obligations: cash and investments tie to quarters.json for the same period end",
+    "obligations: notes payable tie to quarters.json total debt for the same period end",
+    "press: every item has a date, outlet, title, https link, theme and both summaries",
+    "press: every theme used is declared",
+    "press: no item is dated after as_of"
   ],
   "failures": [],
   "warnings": [

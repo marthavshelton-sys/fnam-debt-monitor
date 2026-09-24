@@ -1,6 +1,6 @@
 {
   "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
-  "updated": "2026-09-23",
+  "updated": "2026-09-24",
   "capacity": {
     "unit": "MW",
     "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -186,7 +186,22 @@
       "first_delivery_es": "En operación desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025",
       "lat": 32.45,
       "lon": -99.73,
-      "short": "Abilene, TX"
+      "short": "Abilene, TX",
+      "nameplate_mw": 1200,
+      "nameplate_src": "Crusoe",
+      "energized_mw": 618,
+      "energized_as_of": "FY2027Q1",
+      "energized_text_en": "618 MW delivered, 6 of 8 buildings live, about 75% of the campus (Oracle, 1Q27 call p.6)",
+      "energized_text_es": "618 MW entregados, 6 de 8 edificios operando, cerca del 75% del campus (Oracle, llamada 1T27 p.6)",
+      "power_en": "Not disclosed by Oracle or in the Crusoe release",
+      "power_es": "No divulgado por Oracle ni en el comunicado de Crusoe",
+      "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
+      "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
+      "first_revenue_en": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, 30 Sep 2025)",
+      "first_revenue_es": "Genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe, 30 sep 2025)",
+      "status_date": "2026-09-10",
+      "issues_en": "None reported in the sources tracked",
+      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
     },
     {
       "name": "Shackelford County, Texas (Vantage 'Frontier')",
@@ -230,7 +245,22 @@
       "first_delivery_es": "Primer semestre de 2027 (Oracle); primer edificio en servicio 2S 2026, terminación en 2028 (Vantage)",
       "lat": 32.73,
       "lon": -99.35,
-      "short": "Shackelford Co., TX"
+      "short": "Shackelford Co., TX",
+      "nameplate_mw": 1400,
+      "nameplate_src": "Vantage",
+      "energized_mw": 115,
+      "energized_as_of": "FY2026Q4",
+      "energized_text_en": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7); first Vera Rubin systems to customers in 2Q27",
+      "energized_text_es": "115 MW de potencia en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7); primeros sistemas Vera Rubin a clientes en el 2T27",
+      "power_en": "On-site natural-gas microgrid per press reports; not detailed by Oracle",
+      "power_es": "Microrred de gas natural en sitio según la prensa; sin detalle de Oracle",
+      "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
+      "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
+      "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call)",
+      "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
+      "status_date": "2026-09-10",
+      "issues_en": "None reported in the sources tracked",
+      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
     },
     {
       "name": "Doña Ana County, New Mexico ('Project Jupiter')",
@@ -238,7 +268,7 @@
       "capacity_mw": 1000,
       "capacity_text": "About 1 GW per Oracle ('around 1 gigawatt a piece'); four buildings on ~1,400 acres, powered by up to 2.45 GW of Bloom Energy fuel cells in a single microgrid (Oracle press release)",
       "customer": "Not disclosed by Oracle",
-      "developer": "BorderPlex Digital Assets (developer); Oracle (operator)",
+      "developer": "BorderPlex Digital Assets with Stack Infrastructure (a Blue Owl Capital unit); financed with US$18 bn of loans (FT, 18 Sep 2026) under a US$165 bn industrial revenue bond authorisation",
       "financing": "Not disclosed by Oracle; press reports describe a project loan facility. Oracle reports nearly US$1 bn of contracts with New Mexico suppliers and ~US$100 m of gross-receipts taxes paid (Jul 2026)",
       "oracle_status": "Contracted September 2025; power design switched from gas turbines to Bloom fuel cells (Apr 2026); construction 26% complete (Jul 2026); Oracle: 'some sites are ahead of schedule, some are more difficult' — no impact on FY2027 guidance (1Q27 Q&A)",
       "contracted": "September 2025",
@@ -268,18 +298,61 @@
           "title": "DCD: Oracle to deploy up to 2.45 GW of Bloom fuel cells at New Mexico data center",
           "url": "https://www.datacenterdynamics.com/en/news/oracle-to-deploy-up-to-245gw-of-bloom-fuel-cells-at-new-mexico-data-center/",
           "short": "DCD"
+        },
+        {
+          "title": "Bloomberg, 24 Sep 2026: Oracle Cites “Force Majeure” to Shield Itself on Controversial Data Center",
+          "short": "Bloomberg 24 Sep 2026",
+          "url": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
+        },
+        {
+          "title": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
+          "short": "TechCrunch 24 Sep 2026",
+          "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
+        },
+        {
+          "title": "Albuquerque Journal, 24 Sep 2026: Oracle invokes force majeure on Project Jupiter, but says data center still on track",
+          "short": "ABQ Journal 24 Sep 2026",
+          "url": "https://www.abqjournal.com/business/oracle-invokes-force-majeure-on-project-jupiter-but-says-data-center-still-on-track/3127907"
+        },
+        {
+          "title": "Albuquerque Journal, 23 Sep 2025: Doña Ana County’s Project Jupiter joins $500 billion Stargate initiative (18-year Oracle lease, OpenAI primary client)",
+          "short": "ABQ Journal 23 Sep 2025",
+          "url": "https://www.abqjournal.com/business/doa-ana-countys-project-jupiter-joins-500-billion-stargate-initiative-led-by-openai-oracle/493927"
+        },
+        {
+          "title": "Financial Times via Reuters, 18 Sep 2026: Oracle’s $18 billion data center debt under pressure",
+          "short": "FT 18 Sep 2026",
+          "url": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
         }
       ],
       "capacity_text_es": "Cerca de 1 GW según Oracle (“around 1 gigawatt a piece”); cuatro edificios en ~1,400 acres, alimentados por hasta 2.45 GW de celdas de combustible Bloom Energy en una sola microrred (comunicado de Oracle)",
       "customer_es": "No divulgado por Oracle",
-      "developer_es": "BorderPlex Digital Assets (desarrollador); Oracle (operador)",
+      "developer_es": "BorderPlex Digital Assets con Stack Infrastructure (unidad de Blue Owl Capital); financiado con US$18 mil millones de préstamos (FT, 18 sep 2026) bajo una autorización de bonos de ingresos industriales de US$165 mil millones",
       "financing_es": "No divulgado por Oracle; la prensa describe un crédito de proyecto. Oracle reporta casi US$1 mil M en contratos con proveedores de Nuevo México y ~US$100 M de impuestos pagados (jul 2026)",
       "oracle_status_es": "Contratado en septiembre de 2025; diseño de energía cambiado de turbinas de gas a celdas Bloom (abr 2026); construcción 26% completa (jul 2026); Oracle: “algunos sitios van adelantados, otros son más difíciles”, sin impacto en la guía del AF2027 (Q&A 1T27)",
       "contracted_es": "Septiembre de 2025",
       "first_delivery_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
       "lat": 31.95,
       "lon": -106.75,
-      "short": "Doña Ana Co., NM"
+      "short": "Doña Ana Co., NM",
+      "nameplate_mw": 1000,
+      "nameplate_src": "Oracle",
+      "nameplate_note_en": "About 1 GW of IT capacity per Oracle (4Q26 call); the campus is designed for 2.45 GW of on-site generation (Bloom Energy fuel cells), which is the figure most press reports quote",
+      "nameplate_note_es": "Cerca de 1 GW de capacidad de TI según Oracle (llamada 4T26); el campus está diseñado para 2.45 GW de generación en sitio (celdas Bloom Energy), la cifra que cita la mayoría de la prensa",
+      "generation_mw": 2450,
+      "energized_mw": 0,
+      "energized_as_of": "FY2027Q1",
+      "energized_text_en": "Under construction; nothing energized yet. Oracle, 1Q27 Q&A: \"some sites are ahead of schedule, some are more difficult\"; construction 26% complete in July 2026; 3,600+ workers on site (Albuquerque Journal, 24 Sep 2026)",
+      "energized_text_es": "En construcción; nada energizado aún. Oracle, Q&A 1T27: \"algunos sitios van adelantados, otros son más difíciles\"; obra 26% completa en julio de 2026; más de 3,600 trabajadores en sitio (Albuquerque Journal, 24 sep 2026)",
+      "power_en": "Bloom Energy gas-fed fuel cells, up to 2.45 GW in a single microgrid (Oracle release, 27 Apr 2026; design changed from gas turbines). Gas supply: Energy Transfer pipeline delayed to Feb 1, 2027 after repeated permit denials and an August reroute; air-quality permit for the fuel cells pending, decision due Nov 23, 2026 (TechCrunch, 24 Sep 2026)",
+      "power_es": "Celdas de combustible a gas de Bloom Energy, hasta 2.45 GW en una sola microrred (comunicado de Oracle, 27 abr 2026; diseño cambiado desde turbinas de gas). Suministro de gas: gasoducto de Energy Transfer pospuesto al 1 feb 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto; permiso de calidad del aire de las celdas pendiente, decisión el 23 nov 2026 (TechCrunch, 24 sep 2026)",
+      "tenant_en": "Oracle Cloud Infrastructure, 18-year lease, with OpenAI as primary client (Albuquerque Journal, 23 Sep 2025); Oracle has not named the customer",
+      "tenant_es": "Oracle Cloud Infrastructure, arrendamiento a 18 años, con OpenAI como cliente principal (Albuquerque Journal, 23 sep 2025); Oracle no ha nombrado al cliente",
+      "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, 24 Sep 2026)",
+      "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26); objetivo de operación plena en 2028 (Bloomberg, 24 sep 2026)",
+      "status_date": "2026-09-24",
+      "issues_en": "Force majeure notice sent by Oracle to the developer on 24 Sep 2026 (Bloomberg): it would let Oracle delay payments if the campus misses its 2028 online date. Oracle: \"Project Jupiter remains on our planned schedule\"; VP Michael Egbert: such notices \"do not, by themselves, establish a project delay\". Blue Owl: the notice \"does not change the financial commitments\". The US$18 bn project loans were quoted at 89–91 cents (FT, 18 Sep 2026).",
+      "issues_es": "Aviso de fuerza mayor enviado por Oracle al desarrollador el 24 sep 2026 (Bloomberg): le permitiría diferir pagos si el campus no entra en operación en 2028. Oracle: \"el Proyecto Júpiter sigue en el calendario previsto\"; Michael Egbert, VP: estos avisos \"no establecen por sí mismos un retraso del proyecto\". Blue Owl: el aviso \"no cambia los compromisos financieros\". Los US$18 mil millones de préstamos del proyecto se cotizaban a 89–91 centavos (FT, 18 sep 2026)."
     },
     {
       "name": "Saline Township, Michigan (Stargate 'The Barn')",
@@ -323,7 +396,22 @@
       "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)",
       "lat": 42.1,
       "lon": -83.8,
-      "short": "Saline Twp., MI"
+      "short": "Saline Twp., MI",
+      "nameplate_mw": 1000,
+      "nameplate_src": "OpenAI/Oracle/Related release",
+      "energized_mw": 0,
+      "energized_as_of": "FY2027Q1",
+      "energized_text_en": "Under construction since about March 2026 (Walbridge); nothing energized yet",
+      "energized_text_es": "En construcción desde marzo de 2026 aproximadamente (Walbridge); nada energizado aún",
+      "power_en": "Not disclosed by Oracle",
+      "power_es": "No divulgado por Oracle",
+      "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
+      "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
+      "first_revenue_en": "Second half of calendar 2027 (Oracle, 4Q26 call)",
+      "first_revenue_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)",
+      "status_date": "2026-06-01",
+      "issues_en": "None reported in the sources tracked",
+      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
     },
     {
       "name": "Port Washington, Wisconsin (Vantage 'Lighthouse')",
@@ -367,7 +455,22 @@
       "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)",
       "lat": 43.39,
       "lon": -87.88,
-      "short": "Port Washington, WI"
+      "short": "Port Washington, WI",
+      "nameplate_mw": 1000,
+      "nameplate_src": "Vantage (\"close to a gigawatt\")",
+      "energized_mw": 0,
+      "energized_as_of": "FY2027Q1",
+      "energized_text_en": "Ground broken December 2025; nothing energized yet",
+      "energized_text_es": "Primera piedra en diciembre de 2025; nada energizado aún",
+      "power_en": "Grid-supplied (\"we're not doing on-site generation\", 1Q27 Q&A) with new zero-emission capacity per Vantage",
+      "power_es": "Suministro de la red (\"no estamos haciendo generación en sitio\", Q&A 1T27) con nueva capacidad sin emisiones según Vantage",
+      "tenant_en": "Oracle Cloud Infrastructure for OpenAI (Stargate)",
+      "tenant_es": "Oracle Cloud Infrastructure para OpenAI (Stargate)",
+      "first_revenue_en": "Second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage)",
+      "first_revenue_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)",
+      "status_date": "2026-09-10",
+      "issues_en": "None reported in the sources tracked",
+      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
     }
   ],
   "rpo_schedule": {
@@ -500,5 +603,217 @@
   },
   "_notes": {
     "sites_coordinates": "lat/lon are approximate campus locations (county seat or township), used only for the schematic map in the board presentation; short is the map label."
+  },
+  "rpo_recognition": {
+    "note_en": "Share of remaining performance obligations Oracle expects to recognise as revenue over the next twelve months, months 13–36 and months 37–60, as stated in each 10-Q and 10-K. The implied 12-month revenue is RPO × the 12-month share (derived).",
+    "note_es": "Porción del RPO que Oracle espera reconocer como ingreso en los próximos doce meses, en los meses 13–36 y en los meses 37–60, según cada 10-Q y 10-K. El ingreso implícito a 12 meses es RPO × la porción a 12 meses (derivado).",
+    "series": [
+      {
+        "quarter": "FY2025Q1",
+        "as_of": "2024-08-31",
+        "rpo_bn": 99.1,
+        "m12_pct": 38,
+        "m13_36_pct": 38,
+        "m37_60_pct": 19,
+        "source": {
+          "title": "10-Q, quarter ended August 31, 2024",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm"
+        }
+      },
+      {
+        "quarter": "FY2025Q2",
+        "as_of": "2024-11-30",
+        "rpo_bn": 97.3,
+        "m12_pct": 39,
+        "m13_36_pct": 39,
+        "m37_60_pct": 19,
+        "source": {
+          "title": "10-Q, quarter ended November 30, 2024",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm"
+        }
+      },
+      {
+        "quarter": "FY2025Q3",
+        "as_of": "2025-02-28",
+        "rpo_bn": 130.2,
+        "m12_pct": 31,
+        "m13_36_pct": 40,
+        "m37_60_pct": 25,
+        "source": {
+          "title": "10-Q, quarter ended February 28, 2025",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm"
+        }
+      },
+      {
+        "quarter": "FY2025Q4",
+        "as_of": "2025-05-31",
+        "rpo_bn": 137.8,
+        "m12_pct": 33,
+        "m13_36_pct": 41,
+        "m37_60_pct": 23,
+        "source": {
+          "title": "10-K, fiscal year ended May 31, 2025",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025087926/orcl-20250531.htm"
+        }
+      },
+      {
+        "quarter": "FY2026Q1",
+        "as_of": "2025-08-31",
+        "rpo_bn": 455.3,
+        "m12_pct": 10,
+        "m13_36_pct": 25,
+        "m37_60_pct": 34,
+        "source": {
+          "title": "10-Q, quarter ended August 31, 2025",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm"
+        }
+      },
+      {
+        "quarter": "FY2026Q2",
+        "as_of": "2025-11-30",
+        "rpo_bn": 523.3,
+        "m12_pct": 10,
+        "m13_36_pct": 30,
+        "m37_60_pct": 35,
+        "source": {
+          "title": "10-Q, quarter ended November 30, 2025",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm"
+        }
+      },
+      {
+        "quarter": "FY2026Q3",
+        "as_of": "2026-02-28",
+        "rpo_bn": 552.6,
+        "m12_pct": 12,
+        "m13_36_pct": 31,
+        "m37_60_pct": 35,
+        "source": {
+          "title": "10-Q, quarter ended February 28, 2026",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm"
+        }
+      },
+      {
+        "quarter": "FY2026Q4",
+        "as_of": "2026-05-31",
+        "rpo_bn": 638,
+        "m12_pct": 12,
+        "m13_36_pct": 34,
+        "m37_60_pct": 34,
+        "source": {
+          "title": "10-K, fiscal year ended May 31, 2026",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      },
+      {
+        "quarter": "FY2027Q1",
+        "as_of": "2026-08-31",
+        "rpo_bn": 664,
+        "m12_pct": 13,
+        "m13_36_pct": 37,
+        "m37_60_pct": 34,
+        "source": {
+          "title": "10-Q, quarter ended August 31, 2026",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
+        }
+      }
+    ]
+  },
+  "unit_economics": {
+    "gpu_list_prices": {
+      "as_of": "2026-09-24",
+      "source": {
+        "title": "Oracle Cloud price list API (public), USD, pay-as-you-go, per GPU per hour",
+        "url": "https://apexapps.oracle.com/pls/apex/cetools/api/v1/products/?currencyCode=USD"
+      },
+      "items": [
+        {
+          "gpu": "NVIDIA GB300 (OCI)",
+          "usd_per_gpu_hour": 18,
+          "sku": "B112140"
+        },
+        {
+          "gpu": "NVIDIA GB200 (OCI)",
+          "usd_per_gpu_hour": 16,
+          "sku": "B110979"
+        },
+        {
+          "gpu": "NVIDIA B300 (OCI)",
+          "usd_per_gpu_hour": 15,
+          "sku": "B112237"
+        },
+        {
+          "gpu": "NVIDIA B200 (OCI)",
+          "usd_per_gpu_hour": 14,
+          "sku": "B110978"
+        },
+        {
+          "gpu": "NVIDIA H200 (OCI)",
+          "usd_per_gpu_hour": 10,
+          "sku": "B110519"
+        },
+        {
+          "gpu": "NVIDIA H100 (OCI)",
+          "usd_per_gpu_hour": 10,
+          "sku": "B98415"
+        },
+        {
+          "gpu": "AMD MI355X (OCI)",
+          "usd_per_gpu_hour": 8.6,
+          "sku": "B111758"
+        },
+        {
+          "gpu": "AMD MI300X (OCI)",
+          "usd_per_gpu_hour": 6,
+          "sku": "B109485"
+        },
+        {
+          "gpu": "NVIDIA A100 v2",
+          "usd_per_gpu_hour": 4,
+          "sku": "B95907"
+        }
+      ],
+      "note_en": "Public list prices; large AI contracts are negotiated and Oracle does not disclose realised GPU-hour prices.",
+      "note_es": "Precios de lista públicos; los grandes contratos de IA se negocian y Oracle no divulga precios realizados por GPU-hora."
+    },
+    "gpu_life": {
+      "useful_life_years": 6,
+      "text_en": "Servers and networking equipment are depreciated over an estimated useful life of six years (10-Q, Note 3, August 31, 2026).",
+      "text_es": "Servidores y equipo de red se deprecian en una vida útil estimada de seis años (10-Q, nota 3, 31 de agosto de 2026).",
+      "source": {
+        "title": "10-Q, quarter ended August 31, 2026, Note 3 Property, plant and equipment",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
+      },
+      "renewal_premium_pct": 20,
+      "renewal_text_en": "Of all the GPUs that came up for renewal in Q1, that capacity was renewed or resold at a 20% premium to prior pricing (1Q27 call, Magouyrk, p.6).",
+      "renewal_text_es": "De todas las GPU cuyo contrato venció en el 1T, esa capacidad se renovó o revendió con una prima de 20% sobre el precio anterior (llamada 1T27, Magouyrk, p.6)."
+    },
+    "funding_mix": {
+      "prepayments_1q27_usd_m": 11363,
+      "prepayments_text_en": "Cash inflow from customer prepayments with a significant financing component, 1Q27 (cash-flow statement); Oracle: the vast majority of new Q1 contracts were prepaid or bring-your-own-hardware and will not require incremental Oracle capital (1Q27 call p.3).",
+      "prepayments_text_es": "Entrada de efectivo por prepagos de clientes con componente de financiamiento significativo, 1T27 (estado de flujos); Oracle: la gran mayoría de los contratos nuevos del 1T fueron prepagados o con hardware del cliente y no requerirán capital incremental de Oracle (llamada 1T27 p.3).",
+      "split_disclosed": false,
+      "split_text_en": "Oracle does not disclose the split of RPO between prepaid, bring-your-own-hardware and Oracle-funded capacity; the cumulative figure it gave at 4Q26 was about US$75 bn of prepayments and BYOH contracts (4Q26 call).",
+      "split_text_es": "Oracle no divulga la división del RPO entre prepagado, hardware del cliente y capacidad financiada por Oracle; la cifra acumulada que dio en el 4T26 fue de unos US$75 mil millones en prepagos y contratos BYOH (llamada 4T26)."
+    },
+    "concentration": {
+      "oracle_text_en": "No single customer accounted for 10% or more of total revenues in fiscal 2026, 2025 or 2024 (FY2026 10-K). Oracle does not disclose customer concentration within RPO.",
+      "oracle_text_es": "Ningún cliente representó 10% o más de los ingresos totales en los AF2026, 2025 o 2024 (10-K AF2026). Oracle no divulga la concentración de clientes dentro del RPO.",
+      "third_party_text_en": "S&P Global Ratings estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (rating action, 9 Jul 2026).",
+      "third_party_text_es": "S&P Global Ratings estima que cerca de la mitad de los US$638 mil millones de RPO al 31 de mayo de 2026 corresponde a OpenAI (acción de calificación, 9 jul 2026).",
+      "source": {
+        "title": "S&P Global Ratings, Oracle Corp. downgraded to BBB-/A-3, 9 July 2026",
+        "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609"
+      }
+    },
+    "contract_terms": {
+      "definition_en": "Remaining performance obligations represent contracted revenues that had not yet been recognized, and include deferred revenues; invoices that have been issued to customers but were uncollected and have not been recognized as revenues; and amounts that will be invoiced and recognized as revenues in future periods (FY2026 10-K, Note 1).",
+      "definition_es": "Las obligaciones de desempeño restantes representan ingresos contratados aún no reconocidos e incluyen ingresos diferidos; facturas emitidas a clientes, no cobradas y no reconocidas como ingreso; y montos que se facturarán y reconocerán como ingreso en periodos futuros (10-K AF2026, nota 1).",
+      "cancellation_en": "Oracle does not disclose cancellation or modification terms for the large cloud contracts in its filings; the 10-K only notes that it elects not to disclose variable consideration allocated to wholly unsatisfied performance obligations.",
+      "cancellation_es": "Oracle no divulga en sus reportes los términos de cancelación o modificación de los grandes contratos de nube; el 10-K solo señala que opta por no revelar la contraprestación variable asignada a obligaciones aún no satisfechas.",
+      "source": {
+        "title": "10-K, fiscal year ended May 31, 2026, Note 1",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+      }
+    }
   }
 }
