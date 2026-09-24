@@ -102,7 +102,8 @@
      drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
   @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; }
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    main { min-width: 0; padding: 20px 16px 48px; }
     .rail { display: none; }
     .mobilebar {
       display: flex; align-items: center; gap: 10px;
@@ -532,6 +533,13 @@
     line-height: 1.7;
   }
   footer a { color: var(--text-secondary); }
+  /* phones: nothing below 11 px, and the category grid must not force the page wider than the screen */
+  @media (max-width: 860px) {
+    .kpi-foot, .mstat-sub, .donut-center .s, .stable th, .note-sm, .tooltip .t-date, .exec-title, .cat-subset-tag, .soon-pill, .manual-badge, .stale-pill { font-size: 11px; }
+    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cat-card { min-width: 0; }
+    .cat-card-head { flex-wrap: wrap; gap: 2px 8px; }
+  }
 </style>
 
 </head>
@@ -6015,7 +6023,7 @@ function renderDualLineChart(cfg) {
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", ML - 8); label.setAttribute("y", yVal(v)+3.5);
     label.setAttribute("text-anchor","end");
-    label.setAttribute("font-size","10"); label.setAttribute("font-family","IBM Plex Mono, monospace");
+    label.setAttribute("font-size","11"); label.setAttribute("font-family","IBM Plex Mono, monospace");
     label.setAttribute("fill","var(--text-muted)");
     label.textContent = axisFmt(v);
     svg.appendChild(label);
@@ -6033,7 +6041,7 @@ function renderDualLineChart(cfg) {
     const targetLabel = document.createElementNS(ns,"text");
     targetLabel.setAttribute("x", ML + 4); targetLabel.setAttribute("y", targetY - 5);
     targetLabel.setAttribute("text-anchor","start");
-    targetLabel.setAttribute("font-size","9.5"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
+    targetLabel.setAttribute("font-size","11"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
     targetLabel.setAttribute("fill","var(--text-muted)");
     targetLabel.textContent = T.fedTarget;
     svg.appendChild(targetLabel);
@@ -6047,7 +6055,7 @@ function renderDualLineChart(cfg) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xt); tick.setAttribute("y", H - 8);
       tick.setAttribute("text-anchor","middle");
-      tick.setAttribute("font-size","10"); tick.setAttribute("font-family","IBM Plex Mono, monospace");
+      tick.setAttribute("font-size","11"); tick.setAttribute("font-family","IBM Plex Mono, monospace");
       tick.setAttribute("fill","var(--text-muted)");
       tick.textContent = d.slice(0,4);
       svg.appendChild(tick);
@@ -6108,7 +6116,7 @@ function renderDualLineChart(cfg) {
     svg.appendChild(flag);
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", flagX + flagW/2); label.setAttribute("y", flagY + 11);
-    label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","9.5"); label.setAttribute("font-weight","600");
+    label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","11"); label.setAttribute("font-weight","600");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-secondary)");
     label.textContent = ann.label;
     svg.appendChild(label);
@@ -6218,7 +6226,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
   [minV, 0, maxV].forEach(v => {
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", padL - 6); label.setAttribute("y", yOf(v) + 3);
-    label.setAttribute("text-anchor","end"); label.setAttribute("font-size","9");
+    label.setAttribute("text-anchor","end"); label.setAttribute("font-size","11");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-muted)");
     label.textContent = opts.fmt ? opts.fmt(v) : (v.toFixed(adec) + "%");
     svg.appendChild(label);
@@ -6242,7 +6250,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     if (i === points.length - 1) {
       const val = document.createElementNS(ns,"text");
       val.setAttribute("x", xOf(i)); val.setAttribute("y", (p.mom >= 0 ? top - 4 : top + h + 11));
-      val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","10"); val.setAttribute("font-weight","600");
+      val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","11"); val.setAttribute("font-weight","600");
       val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill","var(--text-primary)");
       val.textContent = vfmt(p.mom);
       svg.appendChild(val);
@@ -6268,7 +6276,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     if (i % 6 === 0 || i === points.length - 1) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xOf(i)); tick.setAttribute("y", H - 4);
-      tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","8.5");
+      tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","11");
       tick.setAttribute("font-family","IBM Plex Mono, monospace"); tick.setAttribute("fill","var(--text-muted)");
       tick.textContent = opts.labelFmt ? opts.labelFmt(p.d) : p.d.slice(2);
       svg.appendChild(tick);
@@ -7135,7 +7143,7 @@ function renderDivergingTileMap(containerId, legendId, valueFn, decimals) {
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns, "text");
     val.setAttribute("x", x+cell/2); val.setAttribute("y", y+cell/2+10);
-    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "8");
+    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "11");
     val.setAttribute("font-family", "IBM Plex Mono, monospace"); val.setAttribute("fill", ink);
     val.textContent = (v === null || v === undefined) ? "—" : disp(v); svg.appendChild(val);
   });
@@ -8283,7 +8291,7 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     ln.setAttribute("stroke-width","1"); svg.appendChild(ln);
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",ML-7); tx.setAttribute("y",y(gv)+3.5);
-    tx.setAttribute("text-anchor","end"); tx.setAttribute("font-size","10");
+    tx.setAttribute("text-anchor","end"); tx.setAttribute("font-size","11");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
     tx.textContent = axisFmt(gv); svg.appendChild(tx);
   }
@@ -8294,7 +8302,7 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     if (i === n-1 && i % tickStep !== 0 && (i % tickStep) < tickStep / 2) return;
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",x(i)); tx.setAttribute("y",H-6);
-    tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","9.5");
+    tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","11");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
     tx.textContent = tickFmt(lb);
     svg.appendChild(tx);
@@ -8388,7 +8396,7 @@ function renderTileMap(containerId, legendId, rateFn, decimals) {
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns,"text");
     val.setAttribute("x",x+cell/2); val.setAttribute("y",y+cell/2+10);
-    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","8");
+    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","11");
     val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill",ink);
     val.textContent = v > 0 ? disp(v) : "—"; svg.appendChild(val);
   });

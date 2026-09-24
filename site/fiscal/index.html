@@ -201,9 +201,9 @@ footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:
 footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch; line-height:1.6;}
 
 /* ---------- Part divider ---------- */
-.part-divider{padding:38px 0 6px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:16px;}
+.part-divider{padding:38px 0 6px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;}
 .part-divider .tag{font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); padding:4px 10px; border-radius:100px; flex:0 0 auto;}
-.part-divider .txt{font-size:13.5px; color:var(--text-secondary); line-height:1.55; max-width:78ch;}
+.part-divider .txt{font-size:13.5px; color:var(--text-secondary); line-height:1.55; max-width:78ch; min-width:0;}
 
 /* ---------- Balance-sheet mini T-account ---------- */
 .tacct{display:grid; grid-template-columns:1fr 1fr; gap:0 16px; margin-top:14px;}
@@ -258,6 +258,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
 @media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+/* phones: stat tiles and instrument cards may shrink below their desktop minimum */
+@media (max-width:640px){.instr .pill, .pill.since{font-size:11px;} .stat{min-width:0;} .card{min-width:0;} .instr-grid{grid-template-columns:minmax(0,1fr);} .instr{min-width:0;} .instr .ihead{flex-wrap:wrap;}}
 </style>
 </head>
 <body>

@@ -156,9 +156,9 @@ section.block:first-of-type{border-top:none;}
 
 .grid-2{display:grid; grid-template-columns:1.15fr 1fr; gap:20px; margin-top:22px;}
 .grid-2.rev{grid-template-columns:1fr 1.15fr;}
-@media (max-width:860px){.grid-2,.grid-2.rev{grid-template-columns:1fr;}}
+@media (max-width:860px){.grid-2,.grid-2.rev{grid-template-columns:minmax(0,1fr);}}
 
-.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow);}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:20px 20px 16px; box-shadow:var(--shadow); min-width:0;}
 .card h3{font-size:13.5px; font-weight:700; color:var(--text-primary); font-family:Inter,sans-serif;}
 .card .cap{font-size:12px; color:var(--muted); margin-top:2px;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
@@ -209,9 +209,9 @@ footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:
 footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch; line-height:1.6;}
 
 /* ---------- Part divider ---------- */
-.part-divider{padding:38px 0 6px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:16px;}
+.part-divider{padding:38px 0 6px; border-top:1px solid var(--border); display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;}
 .part-divider .tag{font-size:11.5px; font-weight:700; letter-spacing:.09em; text-transform:uppercase; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); padding:4px 10px; border-radius:100px; flex:0 0 auto;}
-.part-divider .txt{font-size:13.5px; color:var(--text-secondary); line-height:1.55; max-width:78ch;}
+.part-divider .txt{font-size:13.5px; color:var(--text-secondary); line-height:1.55; max-width:78ch; min-width:0;}
 
 /* ---------- Mini T-account ---------- */
 .tacct{display:grid; grid-template-columns:1fr 1fr; gap:0 16px; margin-top:14px;}
@@ -275,6 +275,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .docstamp{color:var(--muted);}
 .nodata{display:flex; align-items:center; justify-content:center; height:100%; min-height:120px; color:var(--muted); font-size:13px; border:1px dashed var(--border); border-radius:8px;}
 .stat .l{max-width:260px;}
+/* phones: stat tiles and instrument cards may shrink below their desktop minimum */
+@media (max-width:640px){.instr .pill, .pill.since{font-size:11px;} .stat{min-width:0;} .instr-grid{grid-template-columns:minmax(0,1fr);} .instr{min-width:0;} .instr .ihead{flex-wrap:wrap;}}
 </style>
 </head>
 <body>
