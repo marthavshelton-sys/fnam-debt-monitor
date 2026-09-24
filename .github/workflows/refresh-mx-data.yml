@@ -1,11 +1,22 @@
-name: Refresh Banxico data (Mexico fiscal monitor)
+name: Refresh Mexico fiscal data
 
 on:
   schedule:
     # 19:30 UTC (13:30 Mexico City) on weekdays — after Banxico's 12:00 FIX fixing, the weekly
-    # Tuesday reserves statement, and the Thursday 13:00 policy announcements.
+    # Tuesday reserves statement, the Thursday 13:00 policy announcements, and SHCP's monthly
+    # public-finance release (30 days after month end, published in the afternoon).
     - cron: '30 19 * * 1-5'
-  workflow_dispatch: {}   # lets you trigger a manual run from the Actions tab
+  workflow_dispatch:        # manual run from the Actions tab; fill "probe" to run diagnostics instead
+    inputs:
+      probe:
+        description: 'Diagnostics only (nothing written), e.g. "banxico-cuadro CG2 9; shcp-index" — see scripts/mx-fiscal/probe.mjs'
+        required: false
+        default: ''
+      dry_run:
+        description: 'Fetch and validate every series, print the summary, write and commit nothing'
+        required: false
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -16,12 +27,26 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Fetch latest Banxico SIE figures
+      - name: Probe (diagnostics only)
+        if: ${{ github.event.inputs.probe != '' }}
         env:
           BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
-        run: node scripts/fetch-mx-data.mjs
+        run: node scripts/mx-fiscal/probe.mjs "${{ github.event.inputs.probe }}"
+
+      # Every series in tools/mx-fiscal/series.json: Banxico SIE (rates, FX, reserves, balance
+      # sheet, government-securities holdings, SHCP public-finance flows republished in the SIE)
+      # and SHCP's Estadísticas Oportunas open-data CSVs (SHRFSP, RFSP, public debt stocks).
+      # A series that fails validation keeps its last good values and is flagged stale on the
+      # page; the step fails (and GitHub emails the repository owner) only when a `required`
+      # series has no usable data at all.
+      - name: Fetch and validate every series
+        if: ${{ github.event.inputs.probe == '' }}
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
+        run: node scripts/mx-fiscal/fetch.mjs ${{ github.event.inputs.dry_run == 'true' && '--dry-run' || '' }}
 
       - name: Commit updated data.js if it changed
+        if: ${{ github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
         run: |
           git config user.name "fnam-data-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -31,6 +56,6 @@ jobs:
           else
             # [skip actions] instead of [skip ci]: Cloudflare Pages treats [skip ci] as a skip
             # marker too, so these data commits were never deploying (same fix as refresh-data.yml).
-            git commit -m "chore: refresh live Banxico data [skip actions]"
+            git commit -m "chore: refresh Mexico fiscal data [skip actions]"
             git push
           fi
