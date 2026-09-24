@@ -7,11 +7,8 @@ One page, two languages; the page is served at `site/macro/index.html`.
 
 ## How it stays current
 
-`.github/workflows/macro-refresh.yml` runs every day: at 12:50, 14:05 and
-20:05 UTC on weekdays, at 15:05 UTC on Saturday and Sunday (the agencies
-publish nothing on weekends, so those runs almost always commit nothing, but
-they catch corrections and late postings), and on demand from the Actions
-tab. It:
+`.github/workflows/macro-refresh.yml` runs at 12:50 UTC on weekdays and at
+14:05 and 20:05 UTC every day (and on demand from the Actions tab). It:
 
 1. runs every `process_*.ps1` here, pulling fresh data from BLS, BEA, FRED,
    Census, Treasury FiscalData, the University of Michigan, and the New York
@@ -91,6 +88,16 @@ source has failed three runs in a row, or a staleness warning has lasted that
 long, `refresh_all.ps1` reports it and the workflow fails its run after
 committing, so GitHub sends its standard "run failed" email to the repository
 owner. No other monitoring exists or is needed.
+
+## Sharing the repository with other pages
+
+Several other dashboards live in this repository with their own workflows.
+This job stays in its lane: it reads only `tools/macro/**`, writes only
+`site/macro/index.html`, `site/macro/spr-inventory.jpg` and
+`tools/macro/data/**`, and rebases onto whatever the other jobs pushed before
+pushing its own commit. Files another job leaves "modified" in the checkout
+(line-ending normalisation) are marked skip-worktree for the duration of the
+run and are never committed here. Nothing in this folder alters another page.
 
 ## Editing the page
 
