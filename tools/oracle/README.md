@@ -172,10 +172,12 @@ generation (ten fiscal years), 09 AI buildout (five-step flow and tracker), 10 R
 credit risk (landscape) · sources and methodology. Sections 04–06 (share price, DCF, relative valuation) are excluded
 on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
 
-Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, source }` once Oracle announces it
-(emitted to `reference.js` → `calendar.nextResults`, shown as *confirmed*); while it is `null` the PDF assumes the
-median lag between quarter-end and release for the same fiscal quarter over the previous three years and labels it
-*assumed*. Clear the date back to `null` after the results are out (the build ignores a date in the past).
+Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, time, timezone, fiscal_period, source }`,
+filled automatically by `scripts/oracle/fetch-calendar.mjs` (weekday workflow) from Oracle IR's events list and the
+"Oracle Sets the Date" release, and emitted to `reference.js` → `calendar.nextResults` (shown as *confirmed*); it is
+`null` until Oracle announces the date and again after the call has taken place, so the PDF then assumes the median lag
+between quarter-end and release for the same fiscal quarter over the previous three years and labels it *assumed*.
+Never hand-edit it. The same file feeds section 12 (Investor calendar) with the full event list and its estimates.
 
 Layout rules the engine enforces: tables shrink their font until they fit (`fitTable`), notes are pushed up rather
 than over the footer (`noteAbove`), a table that would still spill is logged in the console, and glyphs Helvetica lacks
