@@ -467,6 +467,12 @@
   .comp-foot-item b { color: var(--text-primary); font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
 
   /* ---------- derby (ranked bar) panel ---------- */
+  .stable { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px; }
+  .stable th, .stable td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
+  .stable th { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); font-weight: 600; }
+  .stable .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .stable tr.tot td { font-weight: 600; border-bottom: none; }
+  @media (max-width: 600px) { .stable { font-size: 11px; } .stable th, .stable td { padding: 4px 5px; } }
   .derby-list { display: flex; flex-direction: column; gap: 8px; }
   .derby-row { display: grid; grid-template-columns: 176px 1fr 58px; align-items: center; gap: 12px; }
   @media (max-width: 640px) { .derby-row { grid-template-columns: 110px 1fr 50px; gap: 8px; } }
@@ -2131,6 +2137,7 @@
         <span class="note"><span data-i18n="sprSecSitesNote">Authorized capacity per site, million barrels (DOE)</span> &middot; <span id="sprSitesAsOf"></span></span>
       </div>
       <div class="panel">
+        <div id="sprSitesTable"></div>
         <div class="derby-list" id="sprSitesList"></div>
         <div class="callout" id="sprSitesCallout"></div>
       </div>
@@ -2665,13 +2672,19 @@ const I18N = {
     legSprWeekly: "Inventario semanal",
     sprWeeklyNote: (chg52, from, to, bigChg, bigDate) => "En las últimas 52 semanas la reserva cambió " + chg52 + " millones de barriles, de " + from + " a " + to + "; el mayor movimiento de una semana en la ventana fue " + bigChg + " en la semana del " + bigDate + ".",
     sprSecSites: "Sitios de almacenamiento",
-    sprSecSitesNote: "Capacidad autorizada por sitio, millones de barriles (DOE)",
+    sprSecSitesNote: "Inventario por sitio (DOE, SPR Quick Facts) y capacidad autorizada, millones de barriles",
+    sprSitesAsOf: (d, c) => "inventario al " + d + " · capacidad leída el " + c,
+    sprSiteCols: ["Sitio", "Inventario", "Dulce", "Amargo", "Capacidad", "Ocupación"],
+    sprTotalRow: "Total",
     sprCaverns: n => n + " cavernas",
-    sprSitesNote: (n, caverns, cap, fill, cur) => n + " sitios y " + caverns + " cavernas de sal pueden guardar hasta " + cap + " millones de barriles; con " + cur + " millones la reserva está al " + fill + "%. El DOE reporta el inventario de la reserva en conjunto (crudo dulce y amargo), no por sitio, así que la capacidad es la medida por sitio disponible.",
-    sprSecReport: "Informe diario de inventario del DOE",
+    sprSitesNote: (n, caverns, cap, fill, cur, d) => n + " sitios y " + caverns + " cavernas de sal pueden guardar hasta " + cap + " millones de barriles; con " + cur + " millones (EIA, " + d + ") la reserva está al " + fill + "%.",
+    sprSitesBySiteNote: (asOf, tot) => "El DOE publica el inventario por sitio en su página SPR Quick Facts según su propio calendario; la tabla más reciente es al " + asOf + " (" + tot + " millones en total), por lo que va detrás del dato semanal de la EIA. El DOE no publica series históricas por sitio; el tablero conserva cada tabla nueva conforme aparece.",
+    sprSitesHist: "Tablas anteriores del DOE por sitio:",
+    sprSitesHistRow: (d, parts, tot) => d + ": " + parts + " · total " + tot,
+    sprSecReport: "Informe de inventario del DOE",
     sprSecReportNote: "Tal como lo publica la Oficina de Reservas de Petróleo: división dulce/amargo y compras y liberaciones mes por mes",
-    sprReportPublished: d => "publicado el " + d,
-    sprReportNote: "Las cifras entre paréntesis son barriles liberados. El DOE actualiza este informe al cierre de cada día; la copia mostrada se guardó en la última actualización del tablero, así que la fecha de arriba es la del propio DOE.",
+    sprReportPublished: (d, c) => "publicado por el DOE el " + d + " · verificado el " + c + ": es la versión más reciente",
+    sprReportNote: nx => "Las cifras entre paréntesis son barriles liberados; la fecha «al» de la tabla está impresa en la propia imagen. Últimamente el DOE publica este informe los lunes con el inventario al viernes anterior; el tablero lo vuelve a descargar en cada actualización y la fecha de arriba es la del archivo del DOE. Próximo: previsto el " + nx + ".",
     footerSpr: "Datos: Administración de Información Energética de EE. UU. (EIA), inventarios semanales (serie WCSSTUS1) y mensuales (MCSSTUS1) de crudo en la SPR (miles de barriles), vía los libros de historia de la EIA en eia.gov; Departamento de Energía, Oficina de Reservas de Petróleo: capacidades por sitio (energy.gov/ceser/spr-storage-sites) e informe diario de inventario (spr.doe.gov). Las comparaciones por periodo presidencial usan la serie semanal entre fechas de toma de posesión; las liberaciones y compras citadas provienen de los comunicados del DOE enlazados arriba.",
     exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "La reserva tenía " + level + " millones de barriles el " + d + ", " + ({up:"" + wkAbs + " más", down:"" + wkAbs + " menos", flat:"sin cambio"})[wkDir] + " que la semana previa y " + chg52 + " (" + pct52 + "%) en 52 semanas" + (fill !== null ? "; es el " + fill + "% de su capacidad autorizada" : "") + (lowYear ? " y el nivel más bajo desde " + lowYear + "." : "."),
     exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Desde que Trump asumió en ene 2025 la reserva ha pasado de " + from + " a " + to + " (" + chg + ")" + (fell ? ", con un máximo de " + peakV + " en " + peakM + " y una caída de " + since + " desde entonces por las liberaciones de crudo" : "") + ". Con Biden cambió " + bidenChg + " en cuatro años, sobre todo por la liberación de emergencia de 2022.",
@@ -3627,13 +3640,19 @@ const I18N = {
     legSprWeekly: "Weekly inventory",
     sprWeeklyNote: (chg52, from, to, bigChg, bigDate) => "Over the last 52 weeks the reserve changed by " + chg52 + " million barrels, from " + from + " to " + to + "; the largest single-week move in the window was " + bigChg + " in the week of " + bigDate + ".",
     sprSecSites: "Storage sites",
-    sprSecSitesNote: "Authorized capacity per site, million barrels (DOE)",
+    sprSecSitesNote: "Inventory per site (DOE, SPR Quick Facts) and authorized capacity, million barrels",
+    sprSitesAsOf: (d, c) => "inventory as of " + d + " · capacity read " + c,
+    sprSiteCols: ["Site", "Inventory", "Sweet", "Sour", "Capacity", "Full"],
+    sprTotalRow: "Total",
     sprCaverns: n => n + " caverns",
-    sprSitesNote: (n, caverns, cap, fill, cur) => n + " sites and " + caverns + " salt caverns can hold up to " + cap + " million barrels; at " + cur + " million the reserve is " + fill + "% full. DOE reports inventory for the reserve as a whole (sweet and sour crude), not per site, so capacity is the by-site measure available.",
-    sprSecReport: "DOE daily inventory report",
+    sprSitesNote: (n, caverns, cap, fill, cur, d) => n + " sites and " + caverns + " salt caverns can hold up to " + cap + " million barrels; at " + cur + " million (EIA, " + d + ") the reserve is " + fill + "% full.",
+    sprSitesBySiteNote: (asOf, tot) => "DOE publishes inventory per site on its SPR Quick Facts page on its own schedule; the latest table is as of " + asOf + " (" + tot + " million in total), so it lags EIA's weekly figure. DOE publishes no history by site; the dashboard keeps each new table as it appears.",
+    sprSitesHist: "Earlier DOE tables by site:",
+    sprSitesHistRow: (d, parts, tot) => d + ": " + parts + " · total " + tot,
+    sprSecReport: "DOE inventory report",
     sprSecReportNote: "As published by the Office of Petroleum Reserves: sweet/sour split and month-by-month purchases and releases",
-    sprReportPublished: d => "published " + d,
-    sprReportNote: "Figures in parentheses are barrels released. DOE updates this report as each day's inventory closes; the copy shown was saved on the dashboard's last refresh, so the date above is DOE's own.",
+    sprReportPublished: (d, c) => "posted by DOE " + d + " · checked " + c + ": this is the latest version",
+    sprReportNote: nx => "Figures in parentheses are barrels released; the table's own 'as of' date is printed in the image. DOE has lately posted this report on Mondays with inventory as of the preceding Friday; the dashboard re-downloads it on every refresh and the date above is DOE's own file date. Next: expected " + nx + ".",
     footerSpr: "Data: U.S. Energy Information Administration, weekly (series WCSSTUS1) and monthly (MCSSTUS1) ending stocks of crude oil in the SPR (thousand barrels), via EIA's history workbooks at eia.gov; U.S. Department of Energy, Office of Petroleum Reserves — storage-site capacities (energy.gov/ceser/spr-storage-sites) and the daily inventory report (spr.doe.gov). Presidential-term comparisons use the weekly series between inauguration dates; the releases and purchases cited come from the DOE announcements linked above.",
     exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "The reserve held " + level + " million barrels on " + d + ", " + ({up:"up " + wkAbs, down:"down " + wkAbs, flat:"unchanged"})[wkDir] + " on the week and " + chg52 + " (" + pct52 + "%) over 52 weeks" + (fill !== null ? "; that is " + fill + "% of its authorized capacity" : "") + (lowYear ? " and the lowest level since " + lowYear + "." : "."),
     exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Since Trump took office in Jan 2025 the reserve has gone from " + from + " to " + to + " (" + chg + ")" + (fell ? ", peaking at " + peakV + " in " + peakM + " and falling " + since + " since as crude was released" : "") + ". Under Biden it changed by " + bidenChg + " over four years, mostly the 2022 emergency release.",
@@ -4343,7 +4362,7 @@ function clearTargets() {
     "cutsHiringChart","cutsHiringLegend","cutsHiringCallout","mapM1","mapM3","mapM6","mapM12",
     "legM1","legM3","legM6","legM12","cutsStatesCallout","cutsNotice",
     "sprKpiRow","sprHistChart","sprHistLegend","sprHistCallout","sprAdminList","sprAdminCallout","sprWeeklyChart","sprWeeklyCallout",
-    "sprSitesList","sprSitesCallout","sprReportCallout","capeKpiRow","capeChart","capeLegend","capeCallout","capePeaksList","capePeaksCallout",
+    "sprSitesTable","sprSitesList","sprSitesCallout","sprReportCallout","capeKpiRow","capeChart","capeLegend","capeCallout","capePeaksList","capePeaksCallout",
     "gdpKpiRow","gdpGrowthChart","gdpGrowthCallout","gdpContribList","gdpContribCallout",
     "gdpTrendChart","gdpTrendLegend","incKpiRow","incSavingChart","incSavingLegend",
     "incSavingCallout","incDispList","incDispCallout","incSourceList","incSourceCallout",
@@ -7323,21 +7342,35 @@ function renderSpr() {
   document.getElementById("sprWeeklyCallout").innerHTML =
     "<div>" + T.sprWeeklyNote(s1(mb(cur.v - w52.v)), f1(mb(w52.v)), f1(mb(cur.v)), s1(mb(big.c)), fmtDateDMY(big.d)) + "</div>";
 
-  // ---- sites (capacity; DOE does not publish inventory per site) ----
+  // ---- sites: DOE inventory per site (Quick Facts table) + authorized capacity ----
   if (SPR.capacity && SPR.capacity.sites) {
     const sites = SPR.capacity.sites.slice().sort((a, b) => b.cap - a.cap);
-    document.getElementById("sprSitesAsOf").textContent = fmtDateDMY(SPR.capacity.fetchedAt);
+    const bs = SPR.bySite && SPR.bySite.sites && SPR.bySite.sites.length ? SPR.bySite : null;
+    const invOf = n => bs ? bs.sites.find(s => s.name === n) : null;
+    document.getElementById("sprSitesAsOf").textContent = bs ? T.sprSitesAsOf(fmtDateDMY(bs.asOf), fmtDateDMY(SPR.capacity.fetchedAt)) : fmtDateDMY(SPR.capacity.fetchedAt);
+    const tbl = document.getElementById("sprSitesTable");
+    if (bs) {
+      const cell = (c, j) => "<td" + (j ? " class=\"num\"" : "") + ">" + c + "</td>";
+      const rows = sites.map(s => { const r = invOf(s.name); return r ? [s.name + " · " + s.location, f1(r.total), f1(r.sweet), f1(r.sour), f1(s.cap), Math.round(r.total / s.cap * 100) + "%"] : null; }).filter(Boolean);
+      rows.push([T.sprTotalRow, f1(bs.total), f1(bs.sites.reduce((a, r) => a + (r.sweet || 0), 0)), f1(bs.sites.reduce((a, r) => a + (r.sour || 0), 0)), f1(SPR.capacity.total), Math.round(bs.total / SPR.capacity.total * 100) + "%"]);
+      tbl.innerHTML = "<table class=\"stable\"><thead><tr>" + T.sprSiteCols.map((c, j) => "<th" + (j ? " class=\"num\"" : "") + ">" + c + "</th>").join("") + "</tr></thead><tbody>" +
+        rows.map((r, i) => "<tr" + (i === rows.length - 1 ? " class=\"tot\"" : "") + ">" + r.map(cell).join("") + "</tr>").join("") + "</tbody></table>";
+    } else tbl.innerHTML = "";
     renderBarList("sprSitesList", sites.map((s, i) => ({ name: s.name + " · " + s.location + " · " + T.sprCaverns(s.caverns), value: s.cap, color: "--cat-" + ((i % 10) + 1) })), v => f1(v) + " " + T.sprMb);
     const caverns = sites.reduce((a, s) => a + s.caverns, 0);
-    document.getElementById("sprSitesCallout").innerHTML = "<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v))) + "</div>";
+    const parts = ["<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v)), fmtDateDMY(cur.d)) + "</div>"];
+    if (bs) parts.push("<div>" + T.sprSitesBySiteNote(fmtDateDMY(bs.asOf), f1(bs.total)) + "</div>");
+    const hist = (SPR.bySiteHistory || []).filter(h => h && h.asOf && (!bs || h.asOf !== bs.asOf)).sort((a, b) => b.asOf < a.asOf ? -1 : 1);
+    if (hist.length) parts.push("<div>" + T.sprSitesHist + "</div>" + hist.map(h => "<div>" + T.sprSitesHistRow(fmtDateDMY(h.asOf), h.sites.map(s => s.name + " " + f1(s.total)).join(" · "), f1(h.total)) + "</div>").join(""));
+    document.getElementById("sprSitesCallout").innerHTML = parts.join("");
   }
 
-  // ---- DOE daily report, as published ----
+  // ---- DOE inventory report, as published ----
   if (SPR.image && SPR.image.file) {
     const img = document.getElementById("sprImage");
     img.src = SPR.image.file + "?v=" + (SPR.image.published || "").replace(/-/g, "");
-    document.getElementById("sprReportAsOf").textContent = T.sprReportPublished(fmtDateDMY(SPR.image.published));
-    document.getElementById("sprReportCallout").innerHTML = "<div>" + T.sprReportNote + "</div>";
+    document.getElementById("sprReportAsOf").textContent = T.sprReportPublished(fmtDateDMY(SPR.image.published), fmtDateDMY(SPR.image.fetchedAt || SPR.fetchedAt));
+    document.getElementById("sprReportCallout").innerHTML = "<div>" + T.sprReportNote(fmtDateDMY(nextWeeklyRelease(SPR.image.published, 1, 7))) + "</div>";
   }
 }
 

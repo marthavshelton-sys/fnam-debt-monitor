@@ -120,8 +120,11 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `process_umich.ps1`, `process_ppi.ps1`, `process_retail.ps1`,
   `process_fincond.ps1`, `process_supply.ps1`, `process_fiscal.ps1` — one per section
 - `process_spr.ps1` — EIA weekly/monthly SPR stocks (keyless history workbooks),
-  DOE capacity per site (scraped from the storage-sites page) and DOE's daily
-  inventory report, which exists only as an image and is saved as
+  DOE capacity per site (scraped from the storage-sites page), DOE's inventory
+  per site (the "Crude Oil Inventory by Site (as of ...)" table on the SPR
+  Quick Facts page; each new as-of date is appended to `bySiteHistory`), and
+  DOE's inventory report, which exists only as an image (posted weekly on
+  Mondays of late, for the prior Friday) and is saved as
   `data/spr-inventory.jpg` then copied beside the page
 - `process_challenger.ps1` + `challenger_pdf.py` — the Challenger job-cut report
   (see above); `process_weights.ps1` — BLS probe for the weights tables

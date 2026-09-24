@@ -4,9 +4,11 @@
 #   DOE   authorized capacity and cavern count per storage site, read from the
 #         SPR storage-sites page; and the daily inventory report, which DOE
 #         publishes only as an image (sweet/sour split, monthly movements) -
-#         saved alongside the data so the page can show it as published.
-# DOE does not publish inventory per site as data, so "by site" on the page is
-# capacity per site against the reserve's total holdings.
+#         saved alongside the data so the page can show it as published; and
+#         inventory per site (sweet/sour/combined and caverns) from the table
+#         on DOE's SPR Quick Facts page, which carries its own "as of" date.
+#         DOE publishes no history per site, so each new table is appended to
+#         bySiteHistory as it appears.
 . "$PSScriptRoot\common.ps1"
 $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 $prevFile = Join-Path $data "spr_processed.json"
@@ -72,5 +74,44 @@ try {
   if ($prev -and $prev.image) { $image = $prev.image; Write-Output "  keeping previous image record" }
 }
 
-$obj = [ordered]@{ weekly = $weekly; monthly = $monthly; capacity = $capacity; image = $image; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
+# ---- DOE: inventory per site (SPR Quick Facts table) ----
+function Get-FirstNumber([string]$s) { $m = [regex]::Match($s, '-?\d+(\.\d+)?'); if ($m.Success) { [double]$m.Value } else { $null } }
+$bySite = $null
+try {
+  $r = Invoke-Retry { Invoke-WebRequest -Uri "https://www.energy.gov/ceser/spr-quick-facts" -UserAgent $ua -UseBasicParsing -TimeoutSec 60 }
+  $h = [System.Net.WebUtility]::HtmlDecode($r.Content)
+  $hm = [regex]::Match($h, 'Crude Oil Inventory by Site[\s\u00A0]*\([\s\u00A0]*as of[\s\u00A0]+([A-Za-z]+[\s\u00A0]+\d{1,2},[\s\u00A0]*\d{4})[\s\u00A0]*\)')
+  if (-not $hm.Success) { throw "'Crude Oil Inventory by Site (as of ...)' heading not found" }
+  $asOfText = $hm.Groups[1].Value -replace '[\s\u00A0]+', ' '
+  $asOf = ([datetime]::ParseExact($asOfText, "MMMM d, yyyy", [System.Globalization.CultureInfo]::InvariantCulture)).ToString("yyyy-MM-dd")
+  $tm = [regex]::Match($h.Substring($hm.Index), '<table[\s\S]*?</table>')
+  if (-not $tm.Success) { throw "table after the heading not found" }
+  $rows = New-Object System.Collections.ArrayList
+  foreach ($tr in [regex]::Matches($tm.Value, '<tr[\s\S]*?</tr>')) {
+    $cells = @([regex]::Matches($tr.Value, '<t[dh][^>]*>([\s\S]*?)</t[dh]>') | ForEach-Object { ([regex]::Replace($_.Groups[1].Value, '<[^>]+>', ' ') -replace '[\s\u00A0]+', ' ').Trim() })
+    if ($cells.Count -lt 5) { continue }
+    if ($cells[0] -notmatch '^(Bayou Choctaw|Big Hill|Bryan Mound|West Hackberry|Total)$') { continue }
+    [void]$rows.Add([ordered]@{ name = $cells[0]; sweet = (Get-FirstNumber $cells[1]); sour = (Get-FirstNumber $cells[2]); total = (Get-FirstNumber $cells[3]); caverns = [int](Get-FirstNumber $cells[4]) })
+  }
+  $siteRows = @($rows | Where-Object { $_.name -ne "Total" })
+  $totRow = @($rows | Where-Object { $_.name -eq "Total" }) | Select-Object -First 1
+  if ($siteRows.Count -ne 4) { throw "expected 4 site rows, parsed $($siteRows.Count)" }
+  $sum = 0.0; foreach ($s in $siteRows) { if ($null -eq $s.total) { throw "site $($s.name) has no combined volume" }; $sum += $s.total }
+  $total = if ($totRow -and $null -ne $totRow.total) { $totRow.total } else { [math]::Round($sum, 1) }
+  if ([math]::Abs($sum - $total) -gt 0.3) { throw "site volumes sum to $sum but DOE's total row says $total" }
+  $bySite = [ordered]@{ asOf = $asOf; sites = $siteRows; total = $total; source = "https://www.energy.gov/ceser/spr-quick-facts"; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
+  Write-Output ("DOE by site (as of $asOf): " + (($siteRows | ForEach-Object { "$($_.name) $($_.total)" }) -join ", ") + " | total $total")
+} catch {
+  Write-Output "DOE quick-facts page failed: $($_.Exception.Message)"
+  if ($prev -and $prev.bySite) { $bySite = $prev.bySite; Write-Output "  keeping previous by-site data" }
+}
+# Growing history: one entry per distinct "as of" date DOE has published.
+$bySiteHistory = New-Object System.Collections.ArrayList
+if ($prev -and $prev.bySiteHistory) { foreach ($e in $prev.bySiteHistory) { [void]$bySiteHistory.Add($e) } }
+if ($bySite -and -not ($bySiteHistory | Where-Object { $_.asOf -eq $bySite.asOf })) {
+  [void]$bySiteHistory.Add([ordered]@{ asOf = $bySite.asOf; total = $bySite.total; sites = $bySite.sites })
+  Write-Output "  by-site history: $($bySiteHistory.Count) snapshot(s)"
+}
+
+$obj = [ordered]@{ weekly = $weekly; monthly = $monthly; capacity = $capacity; image = $image; bySite = $bySite; bySiteHistory = $bySiteHistory; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
 Save-Json $obj "spr_processed.json" 6
