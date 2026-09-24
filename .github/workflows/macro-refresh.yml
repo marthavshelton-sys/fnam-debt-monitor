@@ -9,8 +9,9 @@
 # catches afternoon releases and same-day revisions. Weekend runs pick up
 # anything posted off-cycle (Shiller's file, DOE's inventory report).
 #
-# This job only ever writes site/macro/index.html, site/macro/spr-inventory.jpg
-# and tools/macro/data/**; it never touches another page's files or workflow.
+# This job only ever writes site/macro/index.html, site/macro/spr-inventory.jpg,
+# site/macro/status.json and tools/macro/data/**; it never touches another
+# page's files or workflow.
 name: Refresh macro dashboard
 
 on:
@@ -90,7 +91,7 @@ jobs:
           git config user.email "macro-refresh@users.noreply.github.com"
           # The data folder is committed in full: each processed file is the
           # last-good copy a later run falls back to if that source is down.
-          git add site/macro/index.html site/macro/spr-inventory.jpg tools/macro/data
+          git add site/macro/index.html site/macro/spr-inventory.jpg site/macro/status.json tools/macro/data
           if git diff --cached --quiet; then
             echo "No data change since the last build; nothing to commit."
           else
