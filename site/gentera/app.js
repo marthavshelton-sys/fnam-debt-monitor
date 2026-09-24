@@ -196,12 +196,23 @@
     const es = LANG === 'es';
     const asof = [];
     if (lastQ) { const s = lastQ.sources && lastQ.sources.is; asof.push(`<span><b>${t('quarter')}:</b> ${qLabel(lastQ)}${s && s.date ? ' · ' + fmtDate(s.date) : ''}</span>`); }
-    const nx = REF.company && REF.company.nextResults; if (nx) asof.push(`<span><b>${es ? 'Próximo informe' : 'Next release'}:</b> ${nx.quarter ? qLabel({ fy: +nx.quarter.slice(0, 4), q: +nx.quarter.slice(5) }) : ''} · ${fmtDate(nx.date)}</span>`);
+    const today = new Date().toISOString().slice(0, 10);
+    const nx = REF.company && REF.company.nextResults;
+    if (nx) { const past = nx.date && nx.date < today && (!lastQ || nx.quarter !== lastQ.id); asof.push(`<span><b>${es ? 'Próximo informe' : 'Next release'}:</b> ${nx.quarter ? qLabel({ fy: +nx.quarter.slice(0, 4), q: +nx.quarter.slice(5) }) : ''} · ${past ? (es ? 'fecha por confirmar (la anunciada, ' + fmtDate(nx.date) + ', ya pasó)' : 'date to be confirmed (the announced ' + fmtDate(nx.date) + ' has passed)') : fmtDate(nx.date)}</span>`); }
     asof.push(`<span><b>${t('price')}:</b> ${lastPx ? fmtDate(lastPx[0]) : t('pendingMk')}</span>`);
     asof.push(`<span><b>${es ? 'Datos generados' : 'Data generated'}:</b> ${fmtDate((FIN.generatedAt || '').slice(0, 10))}</span>`);
     html('asofRow', asof.join(''));
+    // Freshness guard: the workflow refreshes prices every weekday and rebuilds the statements every weekday;
+    // if either stamp is older than a week the page says so instead of showing stale data as current.
     const notice = el('dataNotice');
-    if (!qPx.length) { notice.hidden = false; notice.className = 'notice warn'; notice.textContent = t('provisional'); } else notice.hidden = true;
+    const ageDays = (iso) => (iso ? Math.round((Date.parse(today) - Date.parse(iso.slice(0, 10))) / 864e5) : null);
+    const mkAge = lastPx ? ageDays(lastPx[0]) : null, finAge = ageDays(FIN.generatedAt);
+    const stale = [];
+    if (mkAge != null && mkAge > 7) stale.push(es ? `los precios no se han actualizado desde el ${fmtDate(lastPx[0])}` : `prices have not refreshed since ${fmtDate(lastPx[0])}`);
+    if (finAge != null && finAge > 10) stale.push(es ? `los estados financieros no se han regenerado desde el ${fmtDate(FIN.generatedAt.slice(0, 10))}` : `the statements have not been regenerated since ${fmtDate(FIN.generatedAt.slice(0, 10))}`);
+    if (!qPx.length) { notice.hidden = false; notice.className = 'notice warn'; notice.textContent = t('provisional'); }
+    else if (stale.length && !PRINT) { notice.hidden = false; notice.className = 'notice warn'; notice.textContent = (es ? 'Aviso de actualización: ' : 'Refresh notice: ') + stale.join('; ') + (es ? '. Revise el flujo gentera-refresh en GitHub Actions.' : '. Check the gentera-refresh workflow in GitHub Actions.'); }
+    else notice.hidden = true;
     const k = [];
     if (lastPx) { const yAgo = pointAtOrBefore(qPx, addDays(lastPx[0], -365)); k.push({ l: 'GENTERA (BMV)', v: 'Ps. ' + fmtN(lastPx[1], 2), d: yAgo ? `<span class="${cls(lastPx[1] - yAgo[1])}">${fmtPct(100 * (lastPx[1] / yAgo[1] - 1), 1, true)}</span> ${t('oneY')}` : '' }); }
     else k.push({ l: 'GENTERA (BMV)', v: '—', d: t('pendingMk') });

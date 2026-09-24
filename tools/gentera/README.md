@@ -50,7 +50,30 @@ rewrites the affected executive-summary cards, records what it did in the state 
 message is a concise note (headline figure, what changed with source links, why it matters, what to watch,
 link to the model) that the platform emails to the repository owner. On quiet days the note is the single line
 "No material change in Gentera data today" and nothing is emailed. Enabled since 22 Sep 2026; pause or edit it
-from the Routines list in claude.ai/code.
+from the Routines list in claude.ai/code. The routine attaches the repository with push access and always
+writes `lastCheckedAt` to the state file, so a day without a state commit means the routine did not run or
+could not push (its first run on 24 Sep 2026 finished without pushing; the prompt now requires the push and
+reports a refusal).
+
+## What updates by itself, and what does not
+
+| Element | Updates | Depends on |
+|---|---|---|
+| Statements, ratios, subsidiary tables, quality page | every weekday 14:35 UTC (new quarter parsed the day it appears on the IR page) | Gentera IR site reachable; parser recognising the release layout (test_parser + validate gate the commit) |
+| Prices, index, peers' prices, FX, MX and US 10-year | every weekday 22:45 UTC and 14:35 UTC | Yahoo Finance (Stooq fallback), FRED, Banxico SIE (`BANXICO_TOKEN`) |
+| CNBV and SBS monthly tables | every weekday, best effort (new month when the regulator publishes it) | CNBV portal and SBS site reachable; values pass the plausibility gates |
+| Valuation, multiples, header tiles, charts | at render time from the files above | — |
+| Comments, guidance vintage, summary, reference facts (dividend, ratings, next report date) | the reviewing routine, the weekday after a new release or event | routine pushes to `main`; Gentera's release wording |
+| Call quotes | only when a transcript is dropped in `tools/gentera/raw/transcripts/` (Gentera publishes none) | hand-supplied file |
+| Peer multiples and consensus | not yet: waits for the FactSet connector (shown as "pending") | FactSet |
+
+The page shows a yellow refresh notice when prices are older than 7 days or the statements older than 10 days,
+and marks the next-report date as "to be confirmed" once it has passed.
+
+Isolation from the other pages: the workflow has its own concurrency group, its bot commits touch only
+`site/gentera/data` and `tools/gentera/raw`, carry `[skip actions]` (so no other workflow is triggered) and are
+pushed with pull-rebase retries; the routine is told to stay inside `site/gentera`, `tools/gentera` and
+`scripts/gentera`.
 
 ## Access (password)
 
@@ -110,6 +133,8 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   The 2025 initial EPS range (Ps. 4.56–4.71) is derived from the guided +20% to +24% on Ps. 3.80.
 - Quote translations to Spanish are ours; the English text is the transcript wording, trimmed with [..].
 - Peer multiples, consensus and analyst targets wait for the FactSet connector.
+- Share prices come from Yahoo Finance's chart API (Stooq as fallback), not from the BMV directly; FX from the
+  Federal Reserve (FRED DEXMXUS, published with a few days' lag); the risk-free rate from Banxico's weekly auction.
 
 ## Local run
 
