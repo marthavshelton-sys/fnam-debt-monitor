@@ -179,6 +179,12 @@ filled automatically by `scripts/oracle/fetch-calendar.mjs` (weekday workflow) f
 between quarter-end and release for the same fiscal quarter over the previous three years and labels it *assumed*.
 Never hand-edit it. The same file feeds section 12 (Investor calendar) with the full event list and its estimates.
 
+The sites page draws a locator map from `site/assets/us-map.js` (contiguous-US outline and state borders from the U.S.
+Census Bureau boundary files in the `us-atlas` package, pre-projected with the US Albers equal-area conic and
+simplified; rebuild with `tools/assets/build-us-map.mjs`). Each campus in `tools/oracle/data/buildout.json` carries
+approximate `lat`/`lon` (county or township) and a `short` label for the map; the builder projects them with the same
+formula, so a new campus only needs its row.
+
 Layout rules the engine enforces: tables shrink their font until they fit (`fitTable`), notes are pushed up rather
 than over the footer (`noteAbove`), a table that would still spill is logged in the console, and glyphs Helvetica lacks
 (−, ≈, →, ≥…) are swapped before drawing. To review the output headlessly, open the page with Playwright, click

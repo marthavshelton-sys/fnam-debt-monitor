@@ -15,7 +15,7 @@
   // ---------- builder ----------
   async function build() {
     const M = window.ORCL_MODEL;
-    await P.run(M, [], async () => {
+    await P.run(M, ['/assets/us-map.js'], async () => {
       const doc = new OracleDoc(M);
       doc.cover(); doc.execSummary(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
       doc.guidancePage(); doc.rpoCloudPage(); doc.sitesPage(); doc.debtPage(); doc.dividendPage(); doc.buildoutPage(); doc.rpoPage(); doc.creditPage(); doc.sourcesPage();
@@ -295,41 +295,40 @@
     }
 
     // ================= 10. AI BUILDOUT: SITES AND CAPACITY (portrait) =================
-    // Schematic outline of the contiguous United States (lon, lat), drawn once and reused for the site map. Lake Michigan is
-    // drawn as a hole so the Michigan and Wisconsin campuses read correctly. Approximate by design: a locator, not a map.
-    static get US_OUTLINE() {
-      return [[-124.7, 48.4], [-124.1, 46.3], [-124.0, 43.5], [-124.3, 42.0], [-124.2, 40.4], [-123.8, 39.0], [-122.5, 37.8], [-121.9, 36.6], [-120.6, 34.6], [-118.4, 34.0], [-117.3, 33.0], [-117.1, 32.5],
-        [-114.7, 32.7], [-111.1, 31.3], [-108.2, 31.3], [-108.2, 31.8], [-106.5, 31.8], [-104.9, 30.6], [-104.0, 29.5], [-102.8, 29.8], [-101.4, 29.8], [-100.3, 28.3], [-99.1, 26.4], [-97.4, 25.9],
-        [-97.2, 27.8], [-96.4, 28.6], [-94.8, 29.4], [-93.8, 29.7], [-92.0, 29.6], [-90.9, 29.1], [-89.4, 29.0], [-89.6, 30.2], [-88.0, 30.4], [-86.5, 30.4], [-85.3, 29.7], [-84.0, 30.1], [-82.9, 29.1], [-82.7, 27.7], [-82.2, 26.4], [-81.8, 25.9], [-81.1, 25.2], [-80.4, 25.2], [-80.1, 26.5], [-80.5, 28.0], [-81.2, 29.5], [-81.5, 30.7], [-81.0, 31.8], [-80.0, 32.7], [-79.0, 33.7], [-77.9, 34.0], [-76.5, 34.7], [-75.7, 35.6], [-75.9, 36.9], [-76.0, 37.9], [-75.1, 38.4], [-74.9, 39.2], [-74.1, 39.8], [-74.0, 40.6], [-72.9, 41.2], [-71.4, 41.5], [-70.0, 41.7], [-70.7, 42.7], [-70.6, 43.1], [-69.8, 43.8], [-68.8, 44.4], [-67.0, 44.8],
-        [-67.8, 45.7], [-67.8, 47.1], [-69.2, 47.4], [-70.3, 46.1], [-71.5, 45.0], [-74.7, 45.0], [-76.2, 44.1], [-76.8, 43.6], [-79.1, 43.3], [-79.0, 42.6], [-80.5, 42.3], [-81.7, 41.5], [-82.9, 41.7], [-83.1, 42.1],
-        [-82.5, 43.0], [-83.3, 43.9], [-83.9, 43.6], [-83.4, 44.3], [-83.3, 45.0], [-84.2, 45.6], [-84.7, 45.8],
-        [-84.6, 46.4], [-85.0, 46.8], [-86.5, 46.6], [-87.4, 46.5], [-88.0, 46.9], [-88.4, 47.3], [-89.5, 46.9], [-90.4, 46.6], [-92.1, 46.7], [-90.0, 47.7], [-89.5, 48.0],
-        [-92.0, 48.6], [-95.2, 49.0], [-104.0, 49.0], [-117.0, 49.0], [-123.0, 49.0]];
+    // Locator map of the contiguous United States. Geometry comes from /assets/us-map.js (U.S. Census Bureau boundaries via
+    // us-atlas, pre-projected with the US Albers equal-area conic); the site markers use the same projection here.
+    static albers(lon, lat) {
+      const D = Math.PI / 180, p1 = 29.5 * D, p2 = 45.5 * D, l0 = -96 * D, f0 = 23 * D;
+      const n = (Math.sin(p1) + Math.sin(p2)) / 2, C = Math.cos(p1) ** 2 + 2 * n * Math.sin(p1), r0 = Math.sqrt(C - 2 * n * Math.sin(f0)) / n;
+      const r = Math.sqrt(C - 2 * n * Math.sin(lat * D)) / n, th = n * (lon * D - l0);
+      return [r * Math.sin(th) * 1000, (r * Math.cos(th) - r0) * 1000];
     }
-    static get LAKE_MICHIGAN() { return [[-85.0, 45.7], [-85.6, 45.1], [-86.4, 44.0], [-86.5, 43.0], [-86.3, 42.0], [-86.8, 41.7], [-87.6, 41.7], [-87.9, 42.9], [-87.8, 43.4], [-87.5, 44.0], [-87.3, 44.7], [-86.8, 45.3], [-86.0, 45.6], [-85.4, 45.9]]; }
-    // Draws the locator map in the box (x, y, w, h) and the numbered site markers; returns the y below the box.
+    // Draws the map in the box (x, y, w, h) with numbered site markers and a legend at legendX; returns the y below the box.
     siteMap(x, y, w, h, sites, legendX) {
-      const lonMin = -125.5, lonMax = -66, latMin = 24, latMax = 50, kx = Math.cos(38 * Math.PI / 180);
-      const sc = Math.min(w / ((lonMax - lonMin) * kx), h / (latMax - latMin));
-      const mw2 = (lonMax - lonMin) * kx * sc, mh = (latMax - latMin) * sc, ox = x + (w - mw2) / 2, oy = y + (h - mh) / 2;
-      const P = (lon, lat) => [ox + (lon - lonMin) * kx * sc, oy + (latMax - lat) * sc];
-      const poly = (pts, fill, stroke) => { const p = pts.map(([lo, la]) => P(lo, la)); this.pdf.setFillColor(...fill); this.pdf.setDrawColor(...stroke); this.pdf.setLineWidth(0.6); this.pdf.lines(p.slice(1).map((q, i) => [q[0] - p[i][0], q[1] - p[i][1]]), p[0][0], p[0][1], [1, 1], 'FD', true); };
-      poly(OracleDoc.US_OUTLINE, [240, 240, 236], [180, 178, 170]);
-      poly(OracleDoc.LAKE_MICHIGAN, [255, 255, 255], [180, 178, 170]);
+      const map = window.FNAM_US_MAP; if (!map) { this.note(this.T('Mapa no disponible (assets/us-map.js).', 'Map not available (assets/us-map.js).'), y); return y + 14; }
+      const all = map.outline.flat(); const xs = all.map((p) => p[0]), ys = all.map((p) => p[1]);
+      const bx0 = Math.min(...xs), bx1 = Math.max(...xs), by0 = Math.min(...ys), by1 = Math.max(...ys);
+      const sc = Math.min(w / (bx1 - bx0), h / (by1 - by0)), mw2 = (bx1 - bx0) * sc, mh = (by1 - by0) * sc, ox = x + (w - mw2) / 2, oy = y + (h - mh) / 2;
+      const P = ([px, py]) => [ox + (px - bx0) * sc, oy + (py - by0) * sc];
+      const path = (pts, style) => { const p = pts.map(P); this.pdf.lines(p.slice(1).map((q, i) => [q[0] - p[i][0], q[1] - p[i][1]]), p[0][0], p[0][1], [1, 1], style, style !== 'S'); };
+      this.pdf.setFillColor(238, 238, 233); this.pdf.setDrawColor(150, 148, 140); this.pdf.setLineWidth(0.7);
+      for (const ring of map.outline) path(ring, 'FD');
+      this.pdf.setDrawColor(255, 255, 255); this.pdf.setLineWidth(0.6);
+      for (const line of map.borders) path(line, 'S');
       const placed = [];
       sites.forEach((s, i) => {
         if (s.lat == null || s.lon == null) return;
-        const [px0, py0] = P(s.lon, s.lat); let px = px0, py = py0; const r = 5.5 + 2.5 * Math.sqrt((s.capacity_mw || 1000) / 1000);
-        for (const q of placed) { if (Math.hypot(px - q[0], py - q[1]) < r + q[2] + 2) { px = px0 + 16; py = py0 - 16; } }
-        if (px !== px0) { this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.7); this.pdf.line(px0, py0, px, py); }
-        this.pdf.setFillColor(...ACCENT); this.pdf.setDrawColor(255, 255, 255); this.pdf.setLineWidth(1); this.pdf.circle(px, py, r, 'FD');
-        this.font('bold', 8, [255, 255, 255]); this.pdf.text(String(i + 1), px, py + 2.8, { align: 'center' });
+        const [px0, py0] = P(OracleDoc.albers(s.lon, s.lat)); let px = px0, py = py0; const r = 6 + 2.6 * Math.sqrt((s.capacity_mw || 1000) / 1000);
+        for (const q of placed) { if (Math.hypot(px - q[0], py - q[1]) < r + q[2] + 3) { px = px0 + 18; py = py0 - 18; } }
+        if (px !== px0) { this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.8); this.pdf.line(px0, py0, px, py); this.pdf.setFillColor(...ACCENT); this.pdf.circle(px0, py0, 1.6, 'F'); }
+        this.pdf.setFillColor(...ACCENT); this.pdf.setDrawColor(255, 255, 255); this.pdf.setLineWidth(1.2); this.pdf.circle(px, py, r, 'FD');
+        this.font('bold', 9.5, [255, 255, 255]); this.pdf.text(String(i + 1), px, py + 3.4, { align: 'center' });
         placed.push([px, py, r]);
       });
-      // legend beside the map (or in the empty Pacific corner when no column is given)
-      const lx = legendX != null ? legendX : ox; let ly = legendX != null ? y + 14 : oy + mh * 0.6;
-      sites.forEach((s, i) => { this.pdf.setFillColor(...ACCENT); this.pdf.circle(lx + 5, ly - 2.6, 4, 'F'); this.font('bold', 6.6, [255, 255, 255]); this.pdf.text(String(i + 1), lx + 5, ly - 0.2, { align: 'center' }); this.font('bold', 8, INK); this.pdf.text(tx(s.short || s.name.split(' (')[0]), lx + 13, ly); this.font('normal', 7.6, MUTED); this.pdf.text(tx(`${this.n(s.capacity_mw)} MW`), lx + 13, ly + 9); ly += 22; });
-      this.font('normal', 6.6, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(this.T('Mapa esquemático; ubicaciones aproximadas; tamaño del marcador = capacidad planeada', 'Schematic map; approximate locations; marker size = planned capacity')), legendX != null ? this.cur.x1 - legendX : w), lx, ly + 2);
+      // legend beside the map: numbered badge, campus, planned capacity
+      const lx = legendX != null ? legendX : ox; let ly = legendX != null ? y + 16 : oy + mh * 0.6;
+      sites.forEach((s, i) => { this.pdf.setFillColor(...ACCENT); this.pdf.circle(lx + 7, ly - 3.2, 6.2, 'F'); this.font('bold', 8.6, [255, 255, 255]); this.pdf.text(String(i + 1), lx + 7, ly - 0.2, { align: 'center' }); this.font('bold', 9, INK); this.pdf.text(tx(s.short || s.name.split(' (')[0]), lx + 18, ly); this.font('normal', 8, MUTED); this.pdf.text(tx(`${this.n(s.capacity_mw)} MW ${this.T('planeados', 'planned')}`), lx + 18, ly + 10); ly += 26; });
+      this.font('normal', 6.8, MUTED); this.pdf.text(this.pdf.splitTextToSize(tx(this.T('Ubicaciones aproximadas (condado o municipio); tamaño del marcador = capacidad planeada. Límites: U.S. Census Bureau (us-atlas), proyección Albers.', 'Approximate locations (county or township); marker size = planned capacity. Boundaries: U.S. Census Bureau (us-atlas), Albers projection.')), legendX != null ? this.cur.x1 - legendX : w), lx, ly + 2);
       return y + h;
     }
     sitesPage() {
@@ -346,7 +345,7 @@
         { v: r && r.gpus_renewed_pct != null ? this.pct(r.gpus_renewed_pct, 0) : '—', l: this.T(`GPU renovadas o revendidas al vencer (${r ? M.boLabel(r.id) : '—'})${r && r.price_premium_pct != null ? ` · +${r.price_premium_pct}% precio` : ''}`, `GPUs renewed or resold at expiry (${r ? M.boLabel(r.id) : '—'})${r && r.price_premium_pct != null ? ` · +${r.price_premium_pct}% price` : ''}`) },
       ], y, 46);
       y = this.heading(this.T(`Los ${sites.length} campus nombrados por Oracle · capacidad planeada ≈ ${this.n(sitesMw / 1000, 1)} GW`, `The ${sites.length} campuses Oracle has named · planned capacity ≈ ${this.n(sitesMw / 1000, 1)} GW`), this.cur.x0, y, 10);
-      const mapW = Math.round(W * 0.7), mapH = Math.round(mapW * 0.56);
+      const mapW = Math.round(W * 0.68), mapH = Math.round(mapW * 0.62);
       y = this.siteMap(this.cur.x0, y + 2, mapW, mapH, sites, this.cur.x0 + mapW + 14) + 10;
       // concise table: one line per campus, first clause of each disclosure
       const sf = (s, k) => (this.es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
@@ -354,7 +353,7 @@
       const short = (t) => String(t).replace(/\s+(via|vía|a través de)\s+.*$/i, '').replace(/\s*\([^)]*\)/g, '').split(';')[0].trim();
       const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], this.n(s.capacity_mw), short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), first(sf(s, 'oracle_status'), 62)]);
       const promises = ((BO.promises && BO.promises.items) || []).slice(0, 4).map((x) => `**${M.boLabel(x.id)}** · ${M.L(x)}`);
-      const noteStr = this.T('Mapa esquemático con ubicaciones aproximadas (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Schematic map with approximate locations (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
+      const noteStr = this.T('Ubicaciones aproximadas en el mapa (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Map locations are approximate (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
       const noteH = this.measureText(noteStr, W, 7.5, 1.25);
       const promH = promises.length ? 16 + this.measureBullets(promises, W, 7.8, { gap: 3 }) : 0;
       y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), 'MW', this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
