@@ -17,6 +17,21 @@ $m = [regex]::Match($page.Content, 'href="([^"]*ie_data\.xls[^"]*)"')
 if (-not $m.Success) { throw "ie_data.xls link not found on shillerdata.com" }
 $url = $m.Groups[1].Value; if ($url.StartsWith("//")) { $url = "https:" + $url }
 Invoke-Retry { Invoke-WebRequest -Uri $url -OutFile $xls -UserAgent $ua -TimeoutSec 120 }
+# Shiller's file date: the host's Last-Modified header (a HEAD request; -PassThru
+# with -OutFile prompts under NonInteractive), else the ms-epoch version token
+# in the link (the upload time). Shown on the page next to the check date so
+# the freshness of the data is visible.
+$fileDate = $null
+try {
+  $head = Invoke-WebRequest -Uri $url -Method Head -UseBasicParsing -UserAgent $ua -TimeoutSec 60
+  $lm = $head.Headers["Last-Modified"]
+  if ($lm) { $fileDate = ([datetime]$lm).ToUniversalTime().ToString("yyyy-MM-dd") }
+} catch { Write-Output "  HEAD for Last-Modified failed: $($_.Exception.Message)" }
+if (-not $fileDate) {
+  $vm = [regex]::Match($url, 'ver=(\d{13})')
+  if ($vm.Success) { $fileDate = ([datetime]'1970-01-01Z').AddMilliseconds([double]$vm.Groups[1].Value).ToUniversalTime().ToString("yyyy-MM-dd") }
+}
+Write-Output ("Shiller file dated {0}" -f $(if ($fileDate) { $fileDate } else { "unknown" }))
 Convert-XlsSheetToCsv $xls "Data" $csv @()
 
 $pts = New-Object System.Collections.ArrayList
@@ -42,5 +57,5 @@ foreach ($line in (Get-Content $csv)) {
 if ($pts.Count -lt 1500) { throw "CAPE parsed only $($pts.Count) rows" }
 $last = $pts[-1]
 Write-Output ("CAPE: {0} months, {1} .. {2} = {3} (real S&P {4}, excess CAPE yield {5}%)" -f $pts.Count, $pts[0].d, $last.d, $last.cape, $last.real, $last.ecy)
-$obj = [ordered]@{ monthly = $pts; asOfMonth = $last.d; partialMonth = $true; source = $url; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
+$obj = [ordered]@{ monthly = $pts; asOfMonth = $last.d; partialMonth = $true; source = $url; fileDate = $fileDate; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
 Save-Json $obj "cape_processed.json" 4

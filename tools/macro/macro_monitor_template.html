@@ -2731,6 +2731,7 @@ const I18N = {
     fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
     capeNext: m => "Próxima actualización de Shiller: prevista a principios de " + m + " (mensual, sin fecha fija)",
+    capeFileDated: (f, c) => "Archivo de Shiller con fecha " + f + " · verificado el " + c + ": es la versión más reciente",
     fiNext: (m, d) => "Próximo estado mensual del Tesoro (datos de " + m + "): previsto el " + d + " (8.º día hábil, 2 PM ET)",
     cutsNext: (m, d) => "Próximo informe (recortes de " + m + "): previsto el " + d + " (el día hábil anterior al informe de empleo)",
     cutsNextEst: m => "Próximo informe (recortes de " + m + "): previsto en la primera semana del mes siguiente",
@@ -3699,6 +3700,7 @@ const I18N = {
     fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
     capeNext: m => "Next Shiller update: expected early " + m + " (monthly, no fixed date)",
+    capeFileDated: (f, c) => "Shiller's file dated " + f + " · checked " + c + ": this is the latest version",
     fiNext: (m, d) => "Next Monthly Treasury Statement (" + m + " data): expected " + d + " (8th business day, 2 PM ET)",
     cutsNext: (m, d) => "Next report (" + m + " cuts): expected " + d + " (the business day before the jobs report)",
     cutsNextEst: m => "Next report (" + m + " cuts): expected in the first week of the following month",
@@ -7395,7 +7397,9 @@ function renderCape() {
 
   document.getElementById("capeAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d)) + (CAPE.partialMonth ? " " + T.capeMtd : "");
   document.getElementById("capeNextReleaseLine").textContent = T.capeNext(fmtMonthYear(nextMonthOf(cur.d)));
-  document.getElementById("capeRefreshedLine").textContent = freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
+  document.getElementById("capeRefreshedLine").textContent = CAPE.fileDate
+    ? T.capeFileDated(fmtDateDMY(CAPE.fileDate), fmtDateDMY(CAPE.fetchedAt))
+    : freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
 
   // ---- KPIs ----
   const tiles = [
