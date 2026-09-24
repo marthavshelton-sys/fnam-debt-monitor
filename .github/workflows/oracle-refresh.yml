@@ -78,6 +78,12 @@ jobs:
           EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx oracle-model (contact via repository)' }}
         run: node scripts/oracle/fetch-calendar.mjs
 
+      - name: Peer leverage inputs (SEC XBRL company facts, for the off-balance-sheet section)
+        if: steps.plan.outputs.mode != 'market'
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx oracle-model (contact via repository)' }}
+        run: node scripts/oracle/fetch-peer-leverage.mjs
+
       # The steps below run even if a fetch failed, so whatever did refresh still gets committed
       # (the job itself stays red so the failure is visible in the Actions tab).
       - name: Validate model data (tie-outs; writes quality_report.json)

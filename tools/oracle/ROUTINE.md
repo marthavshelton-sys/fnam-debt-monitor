@@ -142,3 +142,10 @@ next launch if it was closed); the email is sent by the routine's own Gmail conn
 change is a pull request the routine merges under the policy above. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
 the project's `.claude/settings.local.json` under `additionalDirectories` and in an `Edit(...)` allow rule, so it
 never prompts and never touches the working copies other sessions use.
+
+## Weekly press sweep (desktop task)
+
+The executive-summary block "What the market is worried about" and the deck page after it read `tools/oracle/data/press.json`.
+A separate desktop task, **FNAM Oracle: weekly press sweep** (Mondays 08:00 Mexico City, prompt in `PRESS-SWEEP-PROMPT.md`),
+refreshes that one file from the credible outlets listed there, runs the build and pushes to `main`. It edits nothing else;
+the weekday routine above owns every other block, and STEP 4 now also refreshes `obligations.json` with each 10-Q/10-K.

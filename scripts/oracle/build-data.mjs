@@ -151,6 +151,10 @@ emit("financials.js", "ORCL_FIN", {
 const mref = load("market_reference.json", {});
 const csv = (name) => { const p = join(DATA, name); if (!existsSync(p)) return []; const lines = readFileSync(p, "utf8").replace(/^﻿/, "").trim().split(/\r?\n/); const h = lines[0].split(","); const di = h.findIndex((x) => /^(date|observation_date)$/i.test(x.trim())); let ci = h.findIndex((x) => /^close$/i.test(x.trim())); if (ci < 0) ci = 1; return lines.slice(1).map((l) => { const c = l.split(","); const v = parseFloat(c[ci]); return Number.isNaN(v) ? null : [c[di], v]; }).filter(Boolean).sort((a, b) => (a[0] < b[0] ? -1 : 1)); };
 const orclPts = csv("prices_orcl_daily.csv"), spxPts = csv("prices_spx_daily.csv"), tsyPts = csv("treasury_10y.csv");
+// 52-week range from the daily intraday highs and lows (the closes-only range understated both ends): the window is the
+// 52 weeks ending at the latest close, excluding the same calendar date a year earlier.
+const ohlc = (() => { const p = join(DATA, "prices_orcl_daily.csv"); if (!existsSync(p)) return []; const lines = readFileSync(p, "utf8").replace(/^\uFEFF/, "").trim().split(/\r?\n/); const h = lines[0].split(",").map((x) => x.trim().toLowerCase()); const di = h.indexOf("date"), hi = h.indexOf("high"), lo = h.indexOf("low"), ci = h.indexOf("close"); if (di < 0 || hi < 0 || lo < 0) return []; return lines.slice(1).map((l) => { const c = l.split(","); return { d: c[di], h: parseFloat(c[hi]), l: parseFloat(c[lo]), c: parseFloat(c[ci]) }; }).filter((x) => x.d && Number.isFinite(x.h) && Number.isFinite(x.l)).sort((a, b) => (a.d < b.d ? -1 : 1)); })();
+const range52 = (() => { if (!ohlc.length) return null; const last = ohlc[ohlc.length - 1]; const from = new Date(last.d + "T00:00:00Z"); from.setUTCDate(from.getUTCDate() - 365); const fromIso = from.toISOString().slice(0, 10); const w = ohlc.filter((x) => x.d > fromIso && x.d <= last.d); if (!w.length) return null; const H = w.reduce((a, x) => (x.h > a.h ? x : a)), Lo = w.reduce((a, x) => (x.l < a.l ? x : a)); return { high: H.h, highDate: H.d, low: Lo.l, lowDate: Lo.d, from: w[0].d, to: last.d, basis: "intraday", source: mref.price_snapshot?.orcl?.source_name || null, note: "52-week high and low from daily intraday highs and lows over the 52 weeks ending at the latest close (window excludes the same date a year earlier)." }; })();
 const divs = (load("dividends.json", { dividends: [] }).dividends || []).filter((d) => d.payment_date && d.amount_per_share != null).map((d) => [d.payment_date, d.amount_per_share]).sort((a, b) => (a[0] < b[0] ? -1 : 1));
 emit("market.js", "ORCL_MARKET", {
   generatedAt: mref.as_of ? mref.as_of + "T00:00:00Z" : now,
@@ -161,7 +165,8 @@ emit("market.js", "ORCL_MARKET", {
   dividends: { ORCL: { source: "Quarterly dividends declared in each 8-K earnings release (tools/oracle/data/dividends.json); dated by payment date", points: divs } },
   rates: { US10Y: { name: "US Treasury 10-year (%)", source: mref.treasury_10y?.source_name || "FRED DGS10 / U.S. Treasury daily par yield curve", points: tsyPts.length ? tsyPts : (mref.treasury_10y?.yield_pct != null ? [[mref.treasury_10y.as_of_date, mref.treasury_10y.yield_pct]] : []) } },
   sharesOutstanding: mref.price_snapshot?.orcl?.shares_outstanding_millions ? { shares: Math.round(mref.price_snapshot.orcl.shares_outstanding_millions * 1e6), asOf: "2026-09-07", source: "Form 10-Q cover page (quarter ended 2026-08-31)", url: "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" } : null,
-}, "Oracle market data — daily closes, dividends by payment date, 10-year Treasury.");
+  range52,
+}, "Oracle market data — daily closes, intraday 52-week range, dividends by payment date, 10-year Treasury.");
 
 // ---------- reference.js ----------
 const ss = load("special_situations.json", {}).ai_cloud_buildout || {};
@@ -273,8 +278,27 @@ if (bo) {
     rpoSchedule: bo.rpo_schedule ? withSrc(bo.rpo_schedule) : null,
     promises: bo.promises ? { ...bo.promises, items: (bo.promises.items || []).map(withSrc) } : null,
     funding: bo.funding ? { ...bo.funding, items: (bo.funding.items || []).map(withSrc) } : null,
+    rpoRecognition: bo.rpo_recognition || null,
+    unitEconomics: bo.unit_economics || null,
   }, "Oracle AI-infrastructure buildout — capacity delivered, GPU fleet metrics, secured capacity and named sites, from the earnings calls, Oracle press releases, partner releases and wire reports (tools/oracle/data/buildout.json).");
 }
+
+// ---------- press.js (market concerns from credible press and analysts, executive summary) ----------
+// tools/oracle/data/press.json is refreshed weekly by the desktop task; only items inside the window are published.
+const prs = load("press.json", null);
+if (prs) {
+  const cut = new Date((prs.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (prs.window_days || 90)); const cutIso = cut.toISOString().slice(0, 10);
+  const items = (prs.items || []).filter((x) => x.date && x.url && x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, prs.max_items || 8);
+  emit("press.js", "ORCL_PRESS", { asOf: prs.as_of, windowDays: prs.window_days || 90, maxItems: prs.max_items || 8, themes: prs.themes || [], items }, "Market concerns as stated in credible press and analyst publications (last 90 days, up to 8 items, grouped by theme) — tools/oracle/data/press.json, refreshed weekly by the desktop task.");
+}
+
+// ---------- obligations.js (off-balance-sheet financing, preferred stock, funding plan) ----------
+const obl = load("obligations.json", null);
+if (obl) emit("obligations.js", "ORCL_OBLIG", obl, "Off-balance-sheet financing and capital-structure facts from the 10-Q/10-K leases and commitments notes, the preferred-stock prospectus and the calls (tools/oracle/data/obligations.json); ratios are computed on the page.");
+
+// ---------- peer_leverage.js (Baa-range technology issuers, SEC XBRL) ----------
+const plv = load("peer_leverage.json", null);
+if (plv) emit("peer_leverage.js", "ORCL_PEER_LEV", plv, "Lease-adjusted leverage inputs for peer issuers from SEC XBRL company facts (scripts/oracle/fetch-peer-leverage.mjs); ratios are computed on the page and labelled derived.");
 
 // ---------- cds.js ----------
 const cds = load("cds.json", { tenor: 5, recoveryPct: 40, points: [], source: "FactSet (pending authorisation)", updatedAt: null });

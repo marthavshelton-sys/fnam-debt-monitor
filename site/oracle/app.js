@@ -59,6 +59,9 @@
   const fmtN = (v, d = 0) => (v == null || !isFinite(v) ? '—' : (Math.abs(v) < Math.pow(10, -d) / 2 ? 0 : v).toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }));
   const fmtM = (v, d = 0) => fmtN(v, d); // statements are already in US$ millions
   // "US$ 451.1" stays together; a line may break only before "mil M" / "bn" so a narrow tile wraps tidily.
+  // Percentage change that respects sign: lines stored as negatives (costs, expenses, capex) grow when they become
+  // more negative, so both-negative → change in magnitude; mixed signs or a zero base → not meaningful (null).
+  const pctChange = (a, b) => (a == null || b == null || !b || (a > 0 && b < 0) || (a < 0 && b > 0) ? null : 100 * (a - b) / b);
   const fmtBn = (vM, d = 1) => (vM == null || !isFinite(vM) ? '—' : 'US$ ' + fmtN(vM / 1000, d) + (LANG === 'es' ? ' mil M' : ' bn'));
   const fmtPct = (v, d = 1, sign = false) => (v == null || !isFinite(v) ? '—' : (sign && v > 0 ? '+' : '') + v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + '%');
   const fmtX = (v, d = 1) => (v == null || !isFinite(v) ? '—' : v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + 'x');
@@ -219,6 +222,7 @@
 
   // ================= 00 EXECUTIVE SUMMARY =================
   function renderSummary() {
+    renderPress();
     const b = SUM.basis || {};
     const qq = b.quarter && (qById[b.quarter] || { fy: +b.quarter.slice(0, 4), q: +b.quarter.slice(5) });
     html('sumMeta', LANG === 'es'
@@ -227,6 +231,18 @@
     if (!(SUM.sections || []).length) { html('sumGrid', `<div class="notice warn">${LANG === 'es' ? 'El resumen ejecutivo se redacta a partir del comunicado y la transcripción del último trimestre; pendiente de la primera corrida de la rutina de revisión.' : 'The executive summary is drafted from the latest release and call transcript; pending the first run of the reviewing routine.'}</div>`); return; }
     html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
     html('sumSrc', `${t('src')}: ${relLink()} · ${LANG === 'es' ? 'transcripción de la llamada de resultados' : 'earnings-call transcript'} · ${irLink()} · ${asOfQ()}${SUM.updatedAt ? ` · ${LANG === 'es' ? 'redactado el' : 'drafted'} ${fmtDate(SUM.updatedAt)}` : ''}`);
+  }
+
+  // ---- market concerns as stated in credible press and analyst publications (tools/oracle/data/press.json; weekly sweep) ----
+  const PRESS = window.ORCL_PRESS || null;
+  function renderPress() {
+    const box = el('sumPress'); if (!box) return;
+    if (!PRESS || !(PRESS.items || []).length) { box.hidden = true; return; }
+    box.hidden = false; const es = LANG === 'es';
+    const themes = (PRESS.themes || []).map((th) => ({ ...th, items: PRESS.items.filter((x) => x.theme === th.id) })).filter((th) => th.items.length);
+    const item = (x) => `<li><b>${fmtDate(x.date)} · ${x.outlet}</b> — ${extLink(x.url, x.title)}<br>${es ? x.es : x.en}${(x.also || []).length ? ` <span class="muted small">${es ? 'También' : 'Also'}: ${x.also.map((a) => extLink(a.url, a.outlet) + (a.note_en ? ` (${es ? a.note_es : a.note_en})` : '')).join(' · ')}</span>` : ''}</li>`;
+    const outlets = [...new Set(PRESS.items.map((x) => x.outlet))].join(', ');
+    html('sumPress', `<h3>${es ? 'Lo que preocupa al mercado' : 'What the market is worried about'} <span class="muted small" style="font-weight:400">(${es ? `prensa y analistas, últimos ${PRESS.windowDays} días, agrupado por tema` : `press and analysts, last ${PRESS.windowDays} days, grouped by theme`})</span></h3><div class="grid-2">${themes.map((th) => `<div><h4 class="press-h">${es ? th.es : th.en}</h4><ul class="press">${th.items.map(item).join('')}</ul></div>`).join('')}</div><p class="chart-src">${t('src')}: ${es ? 'enlaces en cada punto' : 'links on each item'} (${outlets}) · ${es ? 'cada resumen se limita a lo que reporta la pieza, sin inferencias; las declaraciones de Oracle se citan cuando la pieza las incluye' : 'each summary is limited to what the piece reports, no inference; Oracle\'s statements are quoted where the piece includes them'} · ${es ? 'barrido semanal (lunes) por la rutina de escritorio · al' : 'weekly sweep (Mondays) by the desktop routine · as of'} ${fmtDate(PRESS.asOf)}</p>`);
   }
 
   // ---------------- uniform source / timestamp pieces (every chart and table footer uses these) ----------------
@@ -285,6 +301,13 @@
   }
   // Comments exist for year-over-year quarter pairs (keyed "2027Q1") and consecutive fiscal years (keyed "FY2026").
   function yoyCommentsFor(A, B, mode = st.mode) { if (!isYoY(A, B, mode) || (mode !== 'q' && mode !== 'fy')) return null; return CM.periods && CM.periods[A.id] ? CM.periods[A.id] : null; }
+  // Comments-column header: names the period whose release and call the comments come from (comments exist for
+  // quarter-vs-same-quarter and fiscal-year comparisons only), so an LTM or YTD toggle cannot be misread.
+  function cmtHead(A, C) {
+    if (!C) return LANG === 'es' ? 'Comentarios (solo en comparaciones a/a de trimestre o de año fiscal)' : 'Comments (quarter y/y and fiscal-year comparisons only)';
+    const per = A && A.label ? A.label : (lastQ ? qLabel(lastQ) : '');
+    return LANG === 'es' ? `Comentarios · comunicado y llamada del ${per}` : `Comments · ${per} release and call`;
+  }
   // Revenue lines: when one side is on the pre-FY2026 basis and the other on the current one, use Oracle's recast.
   function revValue(obj, other, k) {
     if (!obj || !obj.is) return null;
@@ -338,9 +361,9 @@
       if (def.group) { // group head: cost of revenues shows its own total; the Non-GAAP recon head is a label only
         const count = layout.slice(i + 1).findIndex((d) => d.level !== 2); const n = count < 0 ? layout.length - i - 1 : count;
         let va = get(A, B, def, 'a'), vb = get(B, A, def, 'b');
-        const d = va != null && vb != null ? va - vb : null, pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
+        const d = va != null && vb != null ? va - vb : null, pct = pctChange(va, vb);
         const f = (v) => (v == null ? '' : fmtM(v));
-        rows.push(`<tr class="grp-head sub"><td data-g="${def.group}"><span class="grp">${st.open[def.group] ? '▾' : '▸'}</span>${L(def)}<span class="cnt">${n} ${itemsWord(n)}</span></td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '' : fmtM(d)}</td><td class="${cls(pct)}">${pct == null ? '' : fmtPct(pct, 1, true)}</td>${withCmt ? `<td class="cmt">${C && C.lines[def.k] ? L(C.lines[def.k]) : ''}</td>` : ''}</tr>`);
+        rows.push(`<tr class="grp-head sub"><td data-g="${def.group}"><span class="grp">${st.open[def.group] ? '▾' : '▸'}</span>${L(def)}<span class="cnt">${n} ${itemsWord(n)}</span></td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '' : fmtM(d)}</td><td class="${cls(d)}">${pct == null ? '' : fmtPct(pct, 1, true)}</td>${withCmt ? `<td class="cmt">${C && C.lines[def.k] ? L(C.lines[def.k]) : ''}</td>` : ''}</tr>`);
         inGroup = def.group; continue;
       }
       if (inGroup && !st.open[inGroup]) continue;
@@ -348,7 +371,7 @@
       if (va == null && vb == null) continue;
       const split = mismatch && (def.k === 'revCloud' || def.k === 'revSoftware');
       const d = !split && va != null && vb != null ? va - vb : null;
-      const pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
+      const pct = d == null ? null : pctChange(va, vb);
       const isPct = def.pct, isPs = def.perShare, isCount = def.count;
       const f = (v) => (v == null ? '—' : isPct ? fmtPct(v) : isPs ? fmtN(v, 2) : isCount ? fmtN(v, 0) : fmtM(v));
       const fd = split ? `<span class="muted small">${t('basisDiffers')}</span>` : d == null ? '—' : isPct ? fmtN(d, 1) + ' pp' : isPs ? fmtN(d, 2) : fmtM(d);
@@ -356,10 +379,10 @@
       const cmtKey = st.ng && def.ngAlt ? def.ngAlt : def.k;
       const cmtObj = cmtOf(cmtKey) || cmtOf(def.k);
       const cmt = withCmt ? `<td class="cmt">${cmtObj ? L(cmtObj) : ''}</td>` : '';
-      rows.push(`<tr class="${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${isPct ? '' : fmtPct(pct, 1, true)}</td>${cmt}</tr>`);
+      rows.push(`<tr class="${def.level === 0 ? 'bold' : def.level === 2 ? 'sub2' : def.level === 1 ? 'sub' : ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(d)}">${isPct ? '' : fmtPct(pct, 1, true)}</td>${cmt}</tr>`);
     }
     const la = A ? A.label : '—', lb = B ? B.label : '—';
-    html('stmtTable', `<table class="stmt-table"><thead><tr><th>${t('line')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th>${withCmt ? `<th class="cmt">${t('comments')}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('stmtTable', `<table class="stmt-table"><thead><tr><th>${t('line')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th>${withCmt ? `<th class="cmt">${cmtHead(A, C)}</th>` : ''}</tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('stmtTitle').textContent = `${t(st.stmt)} · ${la} vs ${lb}`;
     let cap = `${t('usdM')}${st.stmt === 'is' ? ' · ' + (st.ng ? t('ng') : t('gaap')) : ''}${(A && A.derived) || (B && B.derived) ? (LANG === 'es' ? ' · periodos acumulados/UDM calculados a partir de trimestres reportados' : ' · YTD/LTM periods computed from reported quarters') : ''}`;
     if (withCmt) cap += ' · ' + (C ? t('cmtNote') : t('cmtOnlyYoy'));
@@ -403,10 +426,10 @@
       const va = oa ? oa[k] : null, vb = ob ? ob[k] : null;
       if (va == null && vb == null) return;
       const d = va != null && vb != null ? va - vb : null;
-      const pct = opt.pct ? null : (d != null && vb ? 100 * d / Math.abs(vb) : null);
+      const pct = opt.pct || d == null ? null : pctChange(va, vb);
       const f = (v) => (v == null ? '—' : opt.pct ? fmtPct(v) : opt.d != null ? fmtN(v, opt.d) : fmtM(v));
       const fd = d == null ? '—' : opt.pct ? fmtN(d, 1) + ' pp' : opt.d != null ? fmtN(d, opt.d) : fmtM(d);
-      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(pct)}">${opt.pct ? '' : fmtPct(pct, 1, true)}</td><td class="cmt">${ops && ops[opt.ck || k] ? L(ops[opt.ck || k]) : ''}</td></tr>`);
+      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${fd}</td><td class="${cls(d)}">${opt.pct ? '' : fmtPct(pct, 1, true)}</td><td class="cmt">${ops && ops[opt.ck || k] ? L(ops[opt.ck || k]) : ''}</td></tr>`);
     };
     head(LANG === 'es' ? 'Cartera y nube' : 'Backlog and cloud');
     row(t('rpo'), 'rpo', { cls: 'bold' });
@@ -426,7 +449,7 @@
     row(LANG === 'es' ? 'Dividendo declarado por acción (US$)' : 'Dividend declared per share (US$)', 'dps', { d: 2 });
     row(LANG === 'es' ? 'Acciones diluidas (millones)' : 'Diluted shares (millions)', 'shares', { d: 0 });
     const la = A ? A.label : '—', lb = B ? B.label : '—';
-    html('opsTable', `<table class="stmt-table"><thead><tr><th>${t('metric')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th><th class="cmt">${t('comments')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    html('opsTable', `<table class="stmt-table"><thead><tr><th>${t('metric')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th><th class="cmt">${cmtHead(A, C)}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('opsTitle').textContent = `${t('ops')} · ${la} vs ${lb}`;
     el('opsCap').textContent = LANG === 'es'
       ? `RPO como lo publica Oracle en cada comunicado (redondeado a miles de millones). Ingresos de nube en la base de presentación del AF2026 (Nube / Software): nativos desde el 1T26, reexpresados por Oracle para el AF2025 y no disponibles antes. EBITDA = utilidad de operación GAAP + D&A del flujo de efectivo. ${C ? t('cmtNote') : t('cmtOnlyYoy')}`
@@ -686,9 +709,12 @@
     const sites = BO.sites || [];
     const sf = (s, k) => (LANG === 'es' && s[k + '_es'] ? s[k + '_es'] : s[k] || ''); // bilingual site field
     const srcShort = (r) => { let label = r.short || r.title; if (LANG === 'es') label = label.replace(/\b(\d)Q(\d\d)\b/g, '$1T$2').replace(/\bcall\b/g, 'llamada').replace(/\bpress release\b/gi, 'comunicado').replace(/ and /g, ' y '); return r.url ? `<a href="${r.url}" target="_blank" rel="noopener" title="${(r.title || '').replace(/"/g, '&quot;')}">${label}</a>` : `<span title="${(r.title || '').replace(/"/g, '&quot;')}">${label}</span>`; };
-    html('sitesTable', `<table class="sites"><thead><tr><th>${LANG === 'es' ? 'Sitio' : 'Site'}</th><th>${LANG === 'es' ? 'Capacidad' : 'Capacity'}</th><th>${LANG === 'es' ? 'Cliente · desarrollador · financiamiento' : 'Customer · developer · financing'}</th><th>${LANG === 'es' ? 'Estado según Oracle' : 'Oracle\'s status'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.name}</b><span class="sub">${s.location}</span></td><td><b>${s.capacity_mw ? fmtN(s.capacity_mw) + ' MW' : '—'}</b><span class="sub">${sf(s, 'capacity_text')}</span></td><td><b>${sf(s, 'customer') || '—'}</b><span class="sub">${sf(s, 'developer') || '—'}</span><span class="sub">${sf(s, 'financing')}</span></td><td>${sf(s, 'oracle_status')}<span class="sub">${LANG === 'es' ? 'Contratado' : 'Contracted'}: ${sf(s, 'contracted') || '—'}</span><span class="sub">${LANG === 'es' ? 'Primera entrega' : 'First delivery'}: ${sf(s, 'first_delivery') || '—'}</span></td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
-    el('sitesCap').textContent = LANG === 'es' ? `Los ${sites.length} campus que Oracle ha nombrado en sus llamadas (capacidad planeada ≈ ${fmtN(sitesMw / 1000, 1)} GW). Capacidad, cliente y financiamiento provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de reportes de prensa citados en cada fila. "No divulgado" significa que Oracle no lo ha dicho.` : `The ${sites.length} campuses Oracle has named on its calls (planned capacity ≈ ${fmtN(sitesMw / 1000, 1)} GW). Capacity, customer and financing come from Oracle where it disclosed them, otherwise from the developers' releases or press reports linked in each row. "Not disclosed" means Oracle has not said.`;
-    html('sitesSrc', `${t('src')}: ${LANG === 'es' ? 'transcripciones de las llamadas 4T26 y 1T27, comunicados de Oracle, comunicados de Crusoe, Vantage/DigitalBridge y Related, DCD, CNBC, Construction Dive (enlaces por fila)' : '4Q26 and 1Q27 call transcripts, Oracle press releases, Crusoe, Vantage/DigitalBridge and Related releases, DCD, CNBC, Construction Dive (links per row)'} · ${irLink()} · ${LANG === 'es' ? 'al' : 'as of'} ${BO.promises ? boLabel(BO.promises.as_of) : (lastQ ? qLabel(lastQ) : '')}${BO.updatedAt ? ` (${LANG === 'es' ? 'revisado el' : 'reviewed'} ${fmtDate(BO.updatedAt)})` : ''}`);
+    const noIssue = (s) => !s.issues_en || /^None reported/i.test(s.issues_en);
+    const mwCell = (s) => `<b>${s.nameplate_mw || s.capacity_mw ? fmtN(s.nameplate_mw || s.capacity_mw) + ' MW' : '—'}</b><span class="sub">${LANG === 'es' ? 'planeados' : 'nameplate'}${s.nameplate_src ? ` (${s.nameplate_src})` : ''}${s.generation_mw ? ` · ${fmtN(s.generation_mw)} MW ${LANG === 'es' ? 'de generación en sitio' : 'on-site generation'}` : ''}</span><span class="sub"><b>${s.energized_mw != null ? fmtN(s.energized_mw) + ' MW' : '—'}</b> ${LANG === 'es' ? 'energizados' : 'energized'}${s.energized_as_of ? ` · ${boLabel(s.energized_as_of)}` : ''}</span>${sf(s, 'nameplate_note') ? `<span class="sub">${sf(s, 'nameplate_note')}</span>` : ''}`;
+    html('sitesTable', `<table class="sites"><thead><tr><th>${LANG === 'es' ? 'Sitio' : 'Site'}</th><th>${LANG === 'es' ? 'MW planeados · energizados' : 'MW nameplate · energized'}</th><th>${LANG === 'es' ? 'Energía' : 'Power source'}</th><th>${LANG === 'es' ? 'Desarrollador · inquilino · financiamiento' : 'Developer · tenant · financing'}</th><th>${LANG === 'es' ? 'Primeros ingresos' : 'First revenue'}</th><th>${LANG === 'es' ? 'Estado (con fecha) e incidencias' : 'Status (dated) and issues'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.name}</b><span class="sub">${s.location}</span></td><td>${mwCell(s)}</td><td>${sf(s, 'power') || '—'}</td><td><b>${sf(s, 'developer') || '—'}</b><span class="sub">${LANG === 'es' ? 'Inquilino' : 'Tenant'}: ${sf(s, 'tenant') || sf(s, 'customer') || '—'}</span>${sf(s, 'financing') ? `<span class="sub">${sf(s, 'financing')}</span>` : ''}</td><td>${sf(s, 'first_revenue') || sf(s, 'first_delivery') || '—'}</td><td>${s.status_date ? `<b>${fmtDate(s.status_date)}</b>: ` : ''}${sf(s, 'energized_text') || sf(s, 'oracle_status')}<span class="sub ${noIssue(s) ? '' : 'neg'}">${LANG === 'es' ? 'Incidencias' : 'Issues'}: ${sf(s, 'issues') || '—'}</span></td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
+    const energized = sites.reduce((a, s) => a + (s.energized_mw || 0), 0), statusMax = sites.map((s) => s.status_date || '').sort().slice(-1)[0];
+    el('sitesCap').textContent = LANG === 'es' ? `Los ${sites.length} campus que Oracle ha nombrado en sus llamadas: capacidad planeada ≈ ${fmtN(sitesMw / 1000, 1)} GW, energizados ${fmtN(energized)} MW según la última llamada. MW, fuente de energía, inquilino y primeros ingresos provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa enlazada en cada fila. El estado lleva fecha e incluye avisos de fuerza mayor, interconexiones y gasoductos. "No divulgado" significa que Oracle no lo ha dicho.` : `The ${sites.length} campuses Oracle has named on its calls: nameplate ≈ ${fmtN(sitesMw / 1000, 1)} GW, energized ${fmtN(energized)} MW per the latest call. MW, power source, tenant and first-revenue timing come from Oracle where it disclosed them, otherwise from the developers' releases or the press linked in each row. The status field is dated and carries force-majeure, interconnect and pipeline items. "Not disclosed" means Oracle has not said.`;
+    html('sitesSrc', `${t('src')}: ${LANG === 'es' ? 'transcripciones de las llamadas 4T26 y 1T27, comunicados de Oracle, de Crusoe, Vantage/DigitalBridge y Related, Bloomberg, TechCrunch, Financial Times vía Reuters, Albuquerque Journal, DCD, CNBC, Construction Dive (enlaces por fila)' : '4Q26 and 1Q27 call transcripts, Oracle, Crusoe, Vantage/DigitalBridge and Related releases, Bloomberg, TechCrunch, Financial Times via Reuters, Albuquerque Journal, DCD, CNBC, Construction Dive (links per row)'} · ${irLink()} · ${LANG === 'es' ? 'estado al' : 'status as of'} ${statusMax ? fmtDate(statusMax) : (lastQ ? qLabel(lastQ) : '')}${BO.updated ? ` (${LANG === 'es' ? 'revisado el' : 'reviewed'} ${fmtDate(BO.updated)})` : ''}`);
   }
   // ================= 09b BUILDOUT FLOW + TRACKER =================
   function renderBuildoutFlow() {
@@ -736,12 +762,12 @@
     el('priceChartCap').textContent = `${t('close')} ${fmtDate(win[0][0])} → ${fmtDate(cur[0])}`;
     html('priceSrc', `${t('src')}: ${extLink(NASDAQ_URL, meta.source)} (${LANG === 'es' ? 'cierres diarios' : 'daily closes'}) · ${closeStamp()}${meta.fetchedAt ? ` · ${LANG === 'es' ? 'descargado el' : 'fetched'} ${fmtDate(meta.fetchedAt)}` : ''}`);
     const yAgo = pointAtOrBefore(pts, addDays(cur[0], -365)); const yStart = pointAtOrBefore(pts, `${cur[0].slice(0, 4)}-01-01`);
-    const w52 = pts.filter((p) => p[0] >= addDays(cur[0], -365)); const hi = Math.max(...w52.map((p) => p[1])), lo = Math.min(...w52.map((p) => p[1]));
+    const r52 = MK.range52 || null; const w52 = pts.filter((p) => p[0] > addDays(cur[0], -365) && p[0] <= cur[0]); const hi = r52 ? r52.high : Math.max(...w52.map((p) => p[1])), lo = r52 ? r52.low : Math.min(...w52.map((p) => p[1]));
     const stats = [
       { v: `US$ ${fmtN(cur[1], 2)}`, l: `${t('close')} ${fmtDate(cur[0])}` },
       { v: fmtPct(yStart ? 100 * (cur[1] / yStart[1] - 1) : null, 1, true), l: t('ytdChg'), c: cls(yStart ? cur[1] - yStart[1] : null) },
       { v: fmtPct(yAgo ? 100 * (cur[1] / yAgo[1] - 1) : null, 1, true), l: t('oneY'), c: cls(yAgo ? cur[1] - yAgo[1] : null) },
-      { v: fmtN(hi, 2), l: t('high52') }, { v: fmtN(lo, 2), l: t('low52') },
+      { v: fmtN(hi, 2), l: `${t('high52')} · ${r52 ? `${LANG === 'es' ? 'intradía' : 'intraday'} ${fmtDate(r52.highDate)}` : t('close')}` }, { v: fmtN(lo, 2), l: `${t('low52')} · ${r52 ? `${LANG === 'es' ? 'intradía' : 'intraday'} ${fmtDate(r52.lowDate)}` : t('close')}` },
     ];
     if (sharesNow) stats.push({ v: 'US$ ' + fmtN(cur[1] * sharesNow / 1e9, 1) + (LANG === 'es' ? ' mil M' : ' bn'), l: t('mktCap') });
     html('shareStats', stats.map((s) => `<div class="stat"><div class="v ${s.c || ''}">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
@@ -1076,6 +1102,121 @@
     html('rpoSrc', `${t('src')}: ${R.quoteSource ? link(R.quoteSource, (LANG === 'es' ? `Formulario 10-Q de Oracle (${fmtDate(R.quoteSource.date)})` : R.quoteSource.title) + ' ↗') : ''} · ${relLink()} (RPO) · ${R.latestQuarter ? `${LANG === 'es' ? 'al' : 'as of'} ${R.latestQuarter}` : asOfQ()}`);
   }
 
+  // ================= 09c UNIT ECONOMICS + RPO RECOGNITION PACE =================
+  function renderUnitEconomics() {
+    if (!BO || !BO.unitEconomics || !el('aiUnitTable')) return; const U = BO.unitEconomics, es = LANG === 'es';
+    const L4 = lastLTM, cq = (BO.capacity && BO.capacity.quarters) || [], ltmIds = L4 ? L4.quarters : [];
+    const mwRows = cq.filter((x) => { const q = boQ(x.id); return q && ltmIds.includes(`${q.fy}Q${q.q}`); });
+    const mwLtm = mwRows.reduce((a, x) => a + x.mw, 0), mwFull = mwRows.length === ltmIds.length;
+    const capexLtm = L4 && L4.cf && L4.cf.capex != null ? Math.abs(L4.cf.capex) : null;
+    const capexPerMw = capexLtm && mwLtm ? capexLtm / mwLtm : null;
+    const gl = U.gpu_life || {}, fm = U.funding_mix || {}, cn = U.concentration || {}, ct = U.contract_terms || {}, gu = (BO.gpu && BO.gpu.utilization) || [], u = gu[gu.length - 1];
+    const rows = [
+      [es ? 'Capex UDM (US$ M)' : 'LTM capex (US$ M)', capexLtm != null ? fmtM(capexLtm) : '—', es ? 'estado de flujos, cuatro trimestres sumados' : 'cash-flow statement, four quarters summed', L4 ? L4.id : ''],
+      [es ? 'MW entregados en los mismos cuatro trimestres' : 'MW delivered over the same four quarters', mwLtm ? fmtN(mwLtm) + (mwFull ? '' : ' *') : '—', es ? 'llamadas de resultados (sección 03)' : 'earnings calls (section 03)', L4 ? L4.id : ''],
+      [es ? 'Capex por MW entregado (US$ M por MW, derivado)' : 'Capex per MW delivered (US$ M per MW, derived)', capexPerMw ? fmtN(capexPerMw, 1) : '—', es ? 'Oracle no separa el capex ni los MW entre sitios propios y arrendados: todo el capex sobre todos los MW entregados' : 'Oracle does not split capex or MW between owned and leased sites: total capex over total MW delivered', L4 ? L4.id : ''],
+      [es ? 'Ingresos por MW energizado' : 'Revenue per energized MW', es ? 'no derivable' : 'not derivable', es ? 'Oracle no divulga los MW energizados totales (solo las entregas desde el 2T26) ni ingresos por sitio' : 'Oracle discloses neither total energized MW (only deliveries since 2Q26) nor revenue by site', ''],
+      [es ? 'Utilización de la flota de GPU' : 'GPU-fleet utilization', u ? fmtPct(u.pct) : '—', es ? 'según la llamada (sección 03)' : 'per the call (section 03)', u ? boLabel(u.id) : ''],
+      [es ? 'Vida útil de servidores y GPU' : 'Servers and GPUs, useful life', `${gl.useful_life_years} ${es ? 'años' : 'years'}`, es ? gl.text_es : gl.text_en, lastQ ? qLabel(lastQ) : ''],
+      [es ? 'Prima de precio en renovaciones de GPU' : 'GPU renewal price premium', `+${gl.renewal_premium_pct}%`, es ? gl.renewal_text_es : gl.renewal_text_en, boLabel('FY2027Q1')],
+      [es ? 'Prepagos de clientes recibidos (US$ M)' : 'Customer prepayments received (US$ M)', fmtM(fm.prepayments_1q27_usd_m), es ? fm.prepayments_text_es : fm.prepayments_text_en, boLabel('FY2027Q1')],
+      [es ? 'Prepagado · BYOH · financiado por Oracle' : 'Prepaid · BYOH · Oracle-funded', es ? 'no divulgado' : 'not disclosed', es ? fm.split_text_es : fm.split_text_en, boLabel('FY2026Q4')],
+      [es ? 'Efecto en capital invertido y ROIC' : 'Effect on invested capital and ROIC', es ? 'no cuantificable' : 'not quantifiable', es ? 'Los contratos prepagados y BYOH reducen el capex que financia Oracle; sin la división del RPO por tipo de financiamiento no puede calcularse un ROIC por tipo con datos públicos' : 'Prepaid and BYOH contracts reduce Oracle-funded capex; without the RPO split by funding type, a ROIC by type cannot be computed from public data', ''],
+      [es ? 'Exposición a clientes nombrados' : 'Named-customer exposure', es ? 'ningún cliente ≥ 10% de ingresos' : 'no customer ≥ 10% of revenue', `${es ? cn.oracle_text_es : cn.oracle_text_en} ${es ? cn.third_party_text_es : cn.third_party_text_en}`, fyLabel(2026)],
+      [es ? 'Términos de cancelación' : 'Cancellation terms', es ? 'no divulgados' : 'not disclosed', es ? ct.cancellation_es : ct.cancellation_en, fyLabel(2026)],
+    ];
+    html('aiUnitTable', `<table><thead><tr><th>${t('metric')}</th><th>${es ? 'Valor' : 'Value'}</th><th>${es ? 'Base' : 'Basis'}</th><th>${es ? 'Al' : 'As of'}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td class="small muted">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
+    el('aiUnitCap').textContent = (es ? 'Lo que Oracle divulga sobre la economía unitaria de la expansión y lo que puede derivarse; las filas marcadas "derivado" se calculan a partir de cifras publicadas y las marcadas "no divulgado" o "no derivable" indican lo que la información pública no permite calcular.' : 'What Oracle discloses about the unit economics of the buildout and what can be derived; rows marked "derived" are computed from published figures and rows marked "not disclosed" or "not derivable" flag what public information does not support.') + (mwFull ? '' : (es ? ' * algún trimestre sin cifra de MW.' : ' * a quarter without an MW figure.'));
+    html('aiUnitSrc', `${t('src')}: ${relLink()} · ${gl.source ? extLink(gl.source.url, es ? '10-Q 1T27 (nota 3)' : '1Q27 10-Q (Note 3)') : ''} · ${cn.source ? extLink(cn.source.url, 'S&P Global Ratings, 9 Jul 2026') : ''} · ${ct.source ? extLink(ct.source.url, es ? '10-K AF2026 (nota 1)' : 'FY2026 10-K (Note 1)') : ''} · ${irLink()} · ${asOfQ()}`);
+    const gp = U.gpu_list_prices || { items: [] };
+    html('aiGpuPrices', `<table><thead><tr><th>GPU</th><th>US$ / GPU-${es ? 'hora' : 'hour'}</th></tr></thead><tbody>${(gp.items || []).map((g) => `<tr><td>${g.gpu}</td><td><b>${fmtN(g.usd_per_gpu_hour, 2)}</b></td></tr>`).join('')}</tbody></table>`);
+    html('aiGpuSrc', `${t('src')}: ${gp.source ? extLink(gp.source.url, es ? 'lista de precios pública de OCI (API)' : 'public OCI price list (API)') : ''} · ${es ? gp.note_es : gp.note_en} · ${es ? 'consultado el' : 'fetched'} ${fmtDate(gp.as_of)}`);
+  }
+  function renderRpoRecognition() {
+    if (!BO || !BO.rpoRecognition || !el('rpoRecTable')) return; const R = BO.rpoRecognition, es = LANG === 'es', ser = R.series || [];
+    html('rpoRecTable', `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>RPO (US$ ${es ? 'mil M' : 'bn'})</th><th>${es ? '≤ 12 meses' : '≤ 12 months'}</th><th>${es ? 'Ingreso implícito a 12 meses (US$ mil M, derivado)' : 'Implied 12-month revenue (US$ bn, derived)'}</th><th>${es ? 'Meses 13–36' : 'Months 13–36'}</th><th>${es ? 'Meses 37–60' : 'Months 37–60'}</th><th>${t('src')}</th></tr></thead><tbody>${ser.map((x) => `<tr><td><b>${boLabel(x.quarter)}</b></td><td>${fmtN(x.rpo_bn, 1)}</td><td><b>${x.m12_pct}%</b></td><td>${fmtN(x.rpo_bn * x.m12_pct / 100, 1)}</td><td>${x.m13_36_pct}%</td><td>${x.m37_60_pct}%</td><td class="small">${x.source ? extLink(x.source.url, x.source.title.replace(/^10-(Q|K), (quarter|fiscal year) ended /, '10-$1, ')) : ''}</td></tr>`).join('')}</tbody></table>`);
+    el('rpoRecCap').textContent = es ? R.note_es : R.note_en;
+    const f = ser[0], l = ser[ser.length - 1];
+    html('rpoRecSrc', `${t('src')}: ${es ? 'Formularios 10-Q y 10-K de Oracle, nota de ingresos (enlaces por fila)' : 'Oracle Forms 10-Q and 10-K, revenue note (links per row)'}${f && l ? ` · ${boLabel(f.quarter)} → ${boLabel(l.quarter)}` : ''} · ${asOfQ()}`);
+  }
+
+  // ================= 08b PREFERRED STOCK, FUNDING PLAN, PURCHASE OBLIGATIONS =================
+  const OB = window.ORCL_OBLIG || null;
+  const PL = window.ORCL_PEER_LEV || null;
+  const obSrc = (k) => (OB && OB.sources && OB.sources[k]) || null;
+  function renderCapital() {
+    if (!OB || !el('dpsCapital')) return; const es = LANG === 'es', pf = OB.preferred || {}, fp = OB.funding_plan || {}, po = OB.purchase_obligations || {};
+    const items = (fp.items || []).map((x) => { const S = obSrc(x.source); return `<tr class="${x.kind === 'plan' ? 'sub' : ''}"><td>${x.when}</td><td>${es ? x.es : x.en}${x.note_en ? `<span class="sub">${es ? x.note_es : x.note_en}</span>` : ''}</td><td><b>${fmtN(x.usd_bn, 1)}</b></td><td>${x.kind === 'plan' ? (es ? 'plan' : 'plan') : (es ? 'ejecutado' : 'done')}</td><td class="small">${S ? extLink(S.url, S.title.replace(/^Oracle /, '').replace(/ for the quarter ended /, ' ')) : ''}</td></tr>`; }).join('');
+    const conv = pf.shares_if_converted_m || {};
+    html('dpsCapital', `<div class="grid-2"><div><h4>${es ? 'Acciones preferentes convertibles obligatorias' : 'Mandatory convertible preferred stock'}</h4><p class="small">${es ? pf.text_es : pf.text_en}</p><div class="stat-row">${[
+      { v: `US$ ${fmtN(pf.dividend_quarterly_usd_m, 2)} M`, l: es ? `dividendo preferente trimestral (6.50% × US$5 mil M ÷ 4); US$ ${fmtN(pf.dividend_paid_1q27_usd_m)} M en el estado de resultados del 1T27` : `quarterly preferred dividend (6.50% × US$5 bn ÷ 4); US$ ${fmtN(pf.dividend_paid_1q27_usd_m)} M in the 1Q27 income statement` },
+      { v: fmtDate(pf.mandatory_conversion_date), l: es ? `conversión obligatoria en ${fmtN(conv.min, 1)}–${fmtN(conv.max, 1)} millones de acciones comunes (a ≥ US$ ${fmtN(pf.threshold_appreciation_price_usd, 2)} / ≤ US$ ${fmtN(pf.initial_price_usd, 2)})` : `mandatory conversion into ${fmtN(conv.min, 1)}–${fmtN(conv.max, 1)} million common shares (at ≥ US$ ${fmtN(pf.threshold_appreciation_price_usd, 2)} / ≤ US$ ${fmtN(pf.initial_price_usd, 2)})` },
+    ].map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join('')}</div></div><div><h4>${es ? 'Plan de financiamiento: anunciado y ejecutado (US$ mil M)' : 'Funding plan: announced and executed (US$ bn)'}</h4><div class="tblwrap"><table><thead><tr><th>${es ? 'Cuándo' : 'When'}</th><th>${es ? 'Qué' : 'What'}</th><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${t('src')}</th></tr></thead><tbody>${items}</tbody></table></div><div class="callout"><b>${es ? 'Conciliación.' : 'Reconciliation.'}</b> ${es ? fp.reconciliation_es : fp.reconciliation_en}</div><p class="small muted">${es ? `Obligaciones de compra de energía, equipo y otros: US$ ${fmtN(po.total / 1000, 1)} mil M no cancelables, calendario por año fiscal en la sección 11.` : `Purchase obligations for power, equipment and other: US$ ${fmtN(po.total / 1000, 1)} bn non-cancelable, schedule by fiscal year in section 11.`}</p></div></div>`);
+    const s424 = obSrc(pf.source), s10q = obSrc('10q_1q27');
+    html('dpsCapitalSrc', `${t('src')}: ${s424 ? extLink(s424.url, es ? 'prospecto 424B5 de las preferentes (feb 2026)' : 'preferred-stock prospectus 424B5 (Feb 2026)') : ''} · ${s10q ? extLink(s10q.url, es ? '10-Q 1T27 (capital y flujos)' : '1Q27 10-Q (equity and cash flows)') : ''} · ${es ? 'transcripciones de las llamadas 3T26 y 4T26' : '3Q26 and 4Q26 call transcripts'} · ${irLink()} · ${asOfQ()}`);
+  }
+
+  // ================= 11 OFF-BALANCE-SHEET FINANCING =================
+  // Lease-adjusted leverage from the model's own net debt and LTM EBITDA plus the 10-Q lease note; shared with the deck.
+  function obligStats() {
+    if (!OB || !lastLTM || !lastQ) return null;
+    const nd = netDebt(lastQ); if (!nd || !lastLTM.is.ebitda) return null;
+    const Lz = OB.leases || {}, cost = Lz.cost || {};
+    const olc = cost.operating_lease_cost_ltm != null ? cost.operating_lease_cost_ltm : (cost.operating_lease_cost_fy2026 || 0) - (cost.operating_lease_cost_1q26 || 0) + (cost.operating_lease_cost_1q27 || 0);
+    const eb = lastLTM.is.ebitda, opL = Lz.operating_liabilities_total || 0, finL = Lz.finance_liabilities_total || 0, unc = ((Lz.uncommenced && Lz.uncommenced.usd_bn) || 0) * 1000;
+    const ebitdar = eb + olc, adjDebt = nd.net + opL + finL;
+    return { net: nd.net, gross: nd.gross, cash: nd.cash, ebitda: eb, olc, ebitdar, opL, finL, unc, adjDebt, ndEbitda: nd.net / eb, leaseAdj: adjDebt / ebitdar, commit: (adjDebt + unc) / ebitdar };
+  }
+  // Oracle first, then the peers, with the same two ratios derived from each peer's SEC XBRL facts.
+  function peerLeverage() {
+    const S = obligStats(); const rows = [];
+    if (S) rows.push({ name: 'Oracle', ticker: 'ORCL', bs: qEndDate(lastQ), fy: lastLTM.id, net: S.net, opL: S.opL, finL: S.finL, ebitda: S.ebitda, olc: S.olc, ndEbitda: S.ndEbitda, leaseAdj: S.leaseAdj, basis: 'operating_income', self: true });
+    for (const p of (PL && PL.peers) || []) {
+      if (p.error || !p.balance_sheet) continue; const b = p.balance_sheet, f = p.fiscal_year || {}; const v = (x) => (x ? x.usd_m : null);
+      const debt = (v(b.debt_noncurrent) || 0) + (v(b.debt_current) || 0), cash = (v(b.cash) || 0) + (v(b.short_term_investments) || 0), net = debt - cash;
+      const opL = v(b.operating_lease_liabilities), finL = v(b.finance_lease_liabilities) || 0, ebitda = f.ebit && f.depreciation_amortization ? f.ebit.usd_m + f.depreciation_amortization.usd_m : null, olc = v(f.operating_lease_cost);
+      rows.push({ name: p.name, ticker: p.ticker, bs: p.balance_sheet_date, fy: p.fiscal_year_end, net, opL, finL, ebitda, olc, basis: f.ebit ? f.ebit.basis : null, ndEbitda: ebitda > 0 ? net / ebitda : null, leaseAdj: ebitda > 0 && opL != null && olc != null ? (net + opL + finL) / (ebitda + olc) : null, src: p.source });
+    }
+    return rows;
+  }
+  function renderObligations() {
+    if (!OB || !el('obTable')) return; const es = LANG === 'es', c = SERIES(), S = obligStats(); const Lz = OB.leases || {}, bs = OB.balance_sheet || {}, un = Lz.uncommenced || {}, po = OB.purchase_obligations || {}, ga = OB.guarantees || {};
+    const q10 = obSrc(Lz.source || '10q_1q27'); const tenQ = q10 ? extLink(q10.url, es ? '10-Q 1T27' : '1Q27 10-Q') : '';
+    html('obMeta', es ? `Notas de arrendamientos y de compromisos del Formulario 10-Q al ${fmtDate(OB.as_of)}${q10 && q10.filed ? ` (presentado el ${fmtDate(q10.filed)})` : ''}; deuda neta y EBITDA UDM del modelo (${lastLTM ? lastLTM.id : ''}). Las tres razones son derivadas.` : `Leases and commitments notes of the Form 10-Q at ${fmtDate(OB.as_of)}${q10 && q10.filed ? ` (filed ${fmtDate(q10.filed)})` : ''}; net debt and LTM EBITDA from the model (${lastLTM ? lastLTM.id : ''}). All three ratios are derived.`);
+    if (S) html('obStats', [
+      { v: fmtX(S.ndEbitda, 2), l: es ? `deuda neta / EBITDA UDM, como se reporta (US$ ${fmtN(S.net / 1000, 1)} mil M ÷ US$ ${fmtN(S.ebitda / 1000, 1)} mil M)` : `net debt / LTM EBITDA, as reported (US$ ${fmtN(S.net / 1000, 1)} bn ÷ US$ ${fmtN(S.ebitda / 1000, 1)} bn)` },
+      { v: fmtX(S.leaseAdj, 2), l: es ? `ajustado por arrendamientos: (deuda neta + arrend. operativos US$ ${fmtN(S.opL / 1000, 1)} + financieros US$ ${fmtN(S.finL / 1000, 1)} mil M) ÷ EBITDAR US$ ${fmtN(S.ebitdar / 1000, 1)} mil M` : `lease-adjusted: (net debt + operating leases US$ ${fmtN(S.opL / 1000, 1)} bn + finance leases US$ ${fmtN(S.finL / 1000, 1)} bn) ÷ EBITDAR US$ ${fmtN(S.ebitdar / 1000, 1)} bn` },
+      { v: fmtX(S.commit, 1), l: es ? `incluyendo compromisos: suma los US$ ${fmtN(S.unc / 1000, 0)} mil M de arrendamientos no iniciados a valor nominal, sin descontar ni proyectar EBITDA; mide exposición, no deuda actual` : `commitment-inclusive: adds the US$ ${fmtN(S.unc / 1000, 0)} bn of uncommenced leases at nominal value, undiscounted and without projecting EBITDA; measures exposure, not current debt` },
+    ].map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join(''));
+    const items = [
+      { l: es ? 'Notas por pagar y otros préstamos' : 'Notes payable and other borrowings', v: bs.notes_payable_total, on: true, n: es ? `corto plazo ${fmtM(bs.notes_payable_current)} · largo plazo ${fmtM(bs.notes_payable_noncurrent)} (US$ M)` : `current ${fmtM(bs.notes_payable_current)} · non-current ${fmtM(bs.notes_payable_noncurrent)} (US$ M)` },
+      { l: es ? 'Pasivos por arrendamientos operativos' : 'Operating lease liabilities', v: Lz.operating_liabilities_total, on: true, n: es ? `activo por derecho de uso ${fmtM(Lz.operating_rou_assets)} (US$ M)` : `right-of-use asset ${fmtM(Lz.operating_rou_assets)} (US$ M)` },
+      { l: es ? 'Pasivos por arrendamientos financieros' : 'Finance lease liabilities', v: Lz.finance_liabilities_total, on: true, n: es ? `activo por derecho de uso ${fmtM(Lz.finance_rou_assets)} (US$ M)` : `right-of-use asset ${fmtM(Lz.finance_rou_assets)} (US$ M)` },
+      { l: es ? 'Arrendamientos firmados, aún no iniciados' : 'Leases signed, not yet commenced', v: (un.usd_bn || 0) * 1000, on: false, n: es ? `casi todos de centros de datos · plazos de ${un.term_years_min}–${un.term_years_max} años · inician entre el 2T27 y el AF2029 · nominal` : `substantially all data centers · ${un.term_years_min}–${un.term_years_max}-year terms · commence between 2Q27 and FY2029 · nominal` },
+      { l: es ? 'Obligaciones de compra (energía, equipo y otros)' : 'Purchase obligations (power, equipment and other)', v: po.total, on: false, n: es ? 'no cancelables · calendario por año fiscal abajo' : 'non-cancelable · schedule by fiscal year below' },
+      { l: es ? 'Garantías a arrendadores u otras' : 'Lessor or other guarantees', v: null, on: false, n: es ? ga.text_es : ga.text_en },
+      { l: es ? 'Efectivo e inversiones negociables' : 'Cash and marketable securities', v: -(bs.cash_and_investments || 0), on: true, n: es ? 'se resta para la deuda neta' : 'netted for net debt' },
+    ];
+    html('obTable', `<table><thead><tr><th>${es ? 'Partida' : 'Item'}</th><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Balance' : 'Balance sheet'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${items.map((x) => `<tr><td>${x.l}</td><td><b>${x.v == null ? (es ? 'no divulgadas' : 'not disclosed') : fmtN(x.v / 1000, 1)}</b></td><td>${x.on ? (es ? 'dentro' : 'on') : (es ? 'fuera' : 'off')}</td><td class="small muted">${x.n}</td></tr>`).join('')}</tbody></table>`);
+    const bars = items.filter((x) => x.v != null && x.v > 0);
+    mkChart('chartOblig', { type: 'bar', data: { labels: bars.map((x) => x.l), datasets: [{ label: 'US$ bn', data: bars.map((x) => x.v / 1000), backgroundColor: bars.map((x) => (x.on ? c[0] : alpha(c[0], 0.45))) }] }, options: { indexAxis: 'y', plugins: { legend: { display: false }, tooltip: { callbacks: { label: (x) => `US$ ${fmtN(x.parsed.x, 1)} ${es ? 'mil M' : 'bn'} · ${bars[x.dataIndex].on ? (es ? 'en balance' : 'on balance sheet') : (es ? 'fuera de balance' : 'off balance sheet')}` } } }, scales: { x: { ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true }, y: { grid: { display: false }, ticks: { font: { size: 11 } } } }, datasets: { bar: { maxBarThickness: 26, borderWidth: 0 } } } });
+    el('obCap').textContent = es ? 'US$ mil millones al 31 de agosto de 2026. Barras sólidas: pasivos en el balance; barras claras: compromisos fuera de balance, a valor nominal. Los arrendamientos no iniciados pasarán al balance (pasivo y activo por derecho de uso) conforme cada centro de datos se entregue a Oracle.' : 'US$ billion at August 31, 2026. Solid bars: liabilities on the balance sheet; light bars: off-balance-sheet commitments at nominal value. Uncommenced leases move onto the balance sheet (liability and right-of-use asset) as each data center is handed over to Oracle.';
+    html('obSrc', `${t('src')}: ${tenQ} (${es ? 'balance, nota de arrendamientos, nota de compromisos' : 'balance sheet, leases note, commitments note'}) · ${es ? 'deuda neta y EBITDA UDM: modelo (sección 07)' : 'net debt and LTM EBITDA: model (section 07)'} · ${asOfQ()}`);
+    const hist = un.history || [];
+    mkChart('chartUncommenced', { type: 'bar', data: { labels: hist.map((h) => fmtDate(h.as_of)), datasets: [{ label: 'US$ bn', data: hist.map((h) => h.usd_bn), backgroundColor: c[1] }] }, options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (x) => `US$ ${fmtN(x.parsed.y, x.parsed.y < 100 ? 1 : 0)} ${es ? 'mil M' : 'bn'}${hist[x.dataIndex].note ? ' · ' + hist[x.dataIndex].note : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 44, borderWidth: 0 } } } });
+    el('uncCap').textContent = es ? 'Compromisos de arrendamiento firmados que aún no están en el balance, según la nota de arrendamientos de cada 10-Q y 10-K (US$ mil millones, valor nominal).' : 'Signed lease commitments not yet on the balance sheet, per the leases note of each 10-Q and 10-K (US$ billion, nominal value).';
+    html('uncNote', `<b>${es ? 'Texto del 10-Q' : '10-Q wording'}${es ? ' (cita en inglés, tal como aparece en el reporte)' : ''}.</b> <i>${un.text_en || ''}</i>`);
+    html('uncSrc', `${t('src')}: ${hist.map((h) => { const S2 = obSrc(h.source); return S2 ? extLink(S2.url, fmtDate(h.as_of)) : fmtDate(h.as_of); }).join(' · ')} · ${asOfQ()}`);
+    html('poTable', `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>US$ M</th></tr></thead><tbody>${(po.schedule || []).map((x) => `<tr><td>${es ? x.period_es : x.period_en}</td><td>${fmtM(x.usd_m)}</td></tr>`).join('')}<tr class="bold"><td>Total</td><td>${fmtM(po.total)}</td></tr></tbody></table>`);
+    el('poCap').textContent = es ? (po.text_es || '') : (po.text_en || '');
+    html('poSrc', `${t('src')}: ${tenQ} (${es ? 'nota de compromisos' : 'commitments note'}) · ${asOfQ()}`);
+    const pr = peerLeverage();
+    html('peerLevTable', `<table><thead><tr><th>${es ? 'Emisor' : 'Issuer'}</th><th>${es ? 'Balance · año fiscal' : 'Balance sheet · fiscal year'}</th><th>${es ? 'Deuda neta' : 'Net debt'}</th><th>${es ? 'Arrend. op. + fin.' : 'Op. + fin. leases'}</th><th>EBITDA</th><th>${es ? 'Deuda neta ÷ EBITDA' : 'Net debt ÷ EBITDA'}</th><th>${es ? 'Ajustado ÷ EBITDAR' : 'Lease-adj. ÷ EBITDAR'}</th><th>${t('src')}</th></tr></thead><tbody>${pr.map((x) => `<tr class="${x.self ? 'bold' : ''}"><td>${x.name}${x.basis === 'pretax_plus_interest' ? ' *' : ''}</td><td class="small">${fmtDate(x.bs)} · ${x.self ? x.fy : fmtDate(x.fy)}</td><td>${fmtN(x.net / 1000, 1)}</td><td>${x.opL != null ? fmtN((x.opL + (x.finL || 0)) / 1000, 1) : '—'}</td><td>${x.ebitda != null ? fmtN(x.ebitda / 1000, 1) : '—'}</td><td>${fmtX(x.ndEbitda, 2)}</td><td>${fmtX(x.leaseAdj, 2)}</td><td class="small">${x.self ? tenQ : (x.src ? extLink(x.src.filings, 'EDGAR') : '')}</td></tr>`).join('')}</tbody></table>`);
+    mkChart('chartPeerLev', { type: 'bar', data: { labels: pr.map((x) => x.ticker), datasets: [{ label: es ? 'Deuda neta ÷ EBITDA' : 'Net debt ÷ EBITDA', data: pr.map((x) => x.ndEbitda), backgroundColor: c[0] }, { label: es ? 'Ajustado por arrendamientos ÷ EBITDAR' : 'Lease-adjusted ÷ EBITDAR', data: pr.map((x) => x.leaseAdj), backgroundColor: c[1] }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y, 2)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtX(v, 1) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 28, borderWidth: 0 } } } });
+    el('peerLevCap').textContent = es ? 'US$ mil millones. Pares elegidos por el responsable como emisores tecnológicos del rango Baa/BBB; saldos al último balance y flujos del último año fiscal según sus datos XBRL en la SEC; razones derivadas. EBITDA = utilidad de operación + depreciación y amortización (* IBM no reporta utilidad de operación: utilidad antes de impuestos + intereses). "—" = el emisor no etiqueta esa partida en XBRL. Las calificaciones no están en XBRL y se agregarán con el comunicado de cada agencia.' : 'US$ billion. Peer set chosen by the owner as Baa/BBB-range technology issuers; latest balance sheet and latest fiscal-year flows per their SEC XBRL data; ratios derived. EBITDA = operating income + depreciation and amortisation (* IBM reports no operating income: pre-tax income + interest). "—" = the issuer does not tag that item in XBRL. Ratings are not in XBRL and will be added with each agency\'s release.';
+    html('peerLevSrc', `${t('src')}: ${extLink('https://www.sec.gov/search-filings/edgar-application-programming-interfaces', es ? 'API de datos XBRL de la SEC (company facts)' : 'SEC XBRL company-facts API')} · ${es ? 'obtenido el' : 'fetched'} ${PL ? fmtDate(PL.fetched) : '—'} · Oracle: ${tenQ} · ${asOfQ()}`);
+  }
+
   // ================= 12 INVESTOR CALENDAR =================
   function renderCalendar() {
     if (!CAL || !el('calUpcoming')) return;
@@ -1118,6 +1259,9 @@
       [LANG === 'es' ? 'Referencia: acciones, deuda, calificaciones, expansión de IA, RPO, supuestos DCF' : 'Reference: shares, debt, ratings, AI buildout, RPO, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
       [LANG === 'es' ? 'CDS a 5 años (riesgo de crédito)' : '5-year CDS (credit risk)', LANG === 'es' ? 'pendiente · diario cuando esté conectado' : 'pending · daily once connected', 'FactSet → data/cds.js', CDS.updatedAt ? fmtDate(CDS.updatedAt) : '—'],
+      [LANG === 'es' ? 'Preocupaciones del mercado (prensa y analistas)' : 'Market concerns (press and analysts)', LANG === 'es' ? 'semanal (lunes), rutina de escritorio' : 'weekly (Mondays), desktop routine', 'tools/oracle/data/press.json → data/press.js', PRESS && PRESS.asOf ? fmtDate(PRESS.asOf) : '—'],
+      [LANG === 'es' ? 'Financiamiento fuera de balance, preferentes, plan de financiamiento' : 'Off-balance-sheet financing, preferred stock, funding plan', LANG === 'es' ? 'con cada 10-Q / 10-K (rutina)' : 'with each 10-Q / 10-K (routine)', 'tools/oracle/data/obligations.json → data/obligations.js', OB && OB.updated ? fmtDate(OB.updated) : '—'],
+      [LANG === 'es' ? 'Apalancamiento de pares (XBRL de la SEC)' : 'Peer leverage (SEC XBRL)', LANG === 'es' ? 'días hábiles, con la cosecha de EDGAR' : 'weekdays, with the EDGAR harvest', 'scripts/oracle/fetch-peer-leverage.mjs → data/peer_leverage.js', PL && PL.fetched ? fmtDate(PL.fetched) : '—'],
       [LANG === 'es' ? 'Calendario del inversionista' : 'Investor calendar', LANG === 'es' ? 'días hábiles, con la cosecha de EDGAR' : 'weekdays, with the EDGAR harvest', LANG === 'es' ? 'página de eventos de RI y comunicados de fecha → data/calendar.js' : 'IR events page and date-setting releases → data/calendar.js', CAL && CAL.generated ? fmtDate(CAL.generated) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th>${t('block')}</th><th>${t('cadence')}</th><th>${t('mechanism')}</th><th>${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
@@ -1136,7 +1280,7 @@
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b)); onChange(b.dataset.v); })); }
   function renderAll() {
     chartDefaults();
-    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderAi(); renderBuildoutFlow(); renderCredit(); renderCalendar(); renderMethod();
+    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderCredit(); renderCalendar(); renderMethod();
   }
   function setLang(lang) {
     LANG = lang;
@@ -1203,6 +1347,7 @@
     px, lastPoint, pointAtOrBefore, us10, orclPx, lastPx, sharesNow, sharesAt, qEndDate, netDebt,
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
+    pctChange, PRESS, OB, PL, obligStats, peerLeverage,
   };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');
