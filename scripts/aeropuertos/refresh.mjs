@@ -33,7 +33,9 @@ function parseAfacWorkbook(buf, fileName, XLSX) {
   while ((m = fre.exec(def))) { const shared = []; const sre = /<([sn]) v="([^"]*)"/g; let s; while ((s = sre.exec(m[2]))) shared.push(unesc(s[2])); fields.push({ name: unesc(m[1]), shared }); }
   const rows = []; const rre = /<r>([\s\S]*?)<\/r>/g; const cre = /<([xnsmbde])(?: v="([^"]*)")?\/>/g;
   while ((m = rre.exec(rec))) { const cells = []; let c, i = 0; cre.lastIndex = 0; while ((c = cre.exec(m[1]))) { const t = c[1], v = c[2]; if (t === 'x') cells.push(fields[i].shared[+v]); else if (t === 'm') cells.push(''); else cells.push(unesc(v || '')); i++; } rows.push(cells); }
-  const meta = new Map(JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'aeropuertos', 'airports.json'), 'utf8')).map((a) => [a.afac, { code: a.code, grp: a.grp }]));
+  // TGZ0 (Tuxtla's Teran airport, closed in 2006 when Angel Albino Corzo opened) is folded into TGZ, as extract-afac-browser.js does
+  const MERGE = { TGZ0: 'TGZ' };
+  const meta = new Map(JSON.parse(fs.readFileSync(path.join(ROOT, 'tools', 'aeropuertos', 'airports.json'), 'utf8')).map((a) => [a.afac, { code: MERGE[a.code] || a.code, grp: a.grp }]));
   const OPT = { 'OPERACIONES/ FLIGHTS': 'ops', 'PASAJEROS/PASSENGERS': 'pax', 'CARGA/ CARGO': 'cargo' }, TYPE = { 'NACIONAL/DOMESTIC': 'dom', 'INTERNACIONAL/ INTERNATIONAL': 'intl' };
   const Y0 = 2006; let Y1 = Y0; rows.forEach((r) => { Y1 = Math.max(Y1, +r[2] || Y0); });
   const N = (Y1 - Y0 + 1) * 12, idx = (y, mo) => (y - Y0) * 12 + mo - 1;
