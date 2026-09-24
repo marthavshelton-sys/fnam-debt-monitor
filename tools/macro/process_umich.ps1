@@ -11,6 +11,8 @@
 # than quietly presenting it as final.
 . "$PSScriptRoot\common.ps1"
 function Get-UmichCsv([string]$name) {
+  # Michigan regenerates these CSVs (Last-Modified is the generation time, not a
+  # data date), so no file date is recorded; the page shows the check date only.
   $r = Invoke-WebRequest -Uri "https://www.sca.isr.umich.edu/files/$name" -UseBasicParsing -TimeoutSec 60
   $c = $r.Content
   if ($c -is [byte[]]) { return [System.Text.Encoding]::UTF8.GetString($c) }

@@ -79,6 +79,20 @@ whole delivery mechanism (no mail server, no credentials). The subject starts
 with MATERIAL when a threshold in `alerts.ps1` is crossed. The state file is
 seeded from the current data on first run and committed with the data.
 
+## Freshness lines for file-based sources
+
+Sections fed by a downloaded file rather than an API show "<file> dated D ·
+checked C". D is the source's own Last-Modified date, recorded by the
+processor (`Get-RemoteFileDate` in `common.ps1`) for the files that change
+only when the data does: Shiller's `ie_data.xls`, EIA's SPR workbooks, the
+Challenger PDF. Michigan and Census regenerate their CSVs on a schedule (the
+stamp is the generation time) and the NY Fed sends no date, so those sections
+show "checked C" only. C comes from `site/macro/status.json`, which
+`refresh_all.ps1` writes on every run (run time plus the processors that fell
+back to last-good data) - the page reads it at load, so C moves every run even
+though the page itself is only rewritten when data changes. A source that
+failed on the last run shows its last successful download date instead.
+
 ## When something breaks
 
 Every run writes `data/health.json`: which processors failed, for how many
@@ -93,9 +107,9 @@ owner. No other monitoring exists or is needed.
 
 Several other dashboards live in this repository with their own workflows.
 This job stays in its lane: it reads only `tools/macro/**`, writes only
-`site/macro/index.html`, `site/macro/spr-inventory.jpg` and
-`tools/macro/data/**`, and rebases onto whatever the other jobs pushed before
-pushing its own commit. Files another job leaves "modified" in the checkout
+`site/macro/index.html`, `site/macro/spr-inventory.jpg`,
+`site/macro/status.json` and `tools/macro/data/**`, and rebases onto whatever
+the other jobs pushed before pushing its own commit. Files another job leaves "modified" in the checkout
 (line-ending normalisation) are marked skip-worktree for the duration of the
 run and are never committed here. Nothing in this folder alters another page.
 

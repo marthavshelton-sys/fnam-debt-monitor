@@ -71,3 +71,13 @@ if ($env:GITHUB_OUTPUT) { "stuck=$(($stuck -join '; ') -replace '[\r\n]', ' ')" 
 
 Write-Output "=============== build"
 if ($OutFile) { & "$here\build.ps1" -Target web -OutFile $OutFile } else { & "$here\build.ps1" -Target art }
+
+# ---- status.json beside the page: when the pipeline last checked its sources ----
+# The page itself is rewritten only when data changes (build.ps1 hashes the
+# inputs), so the "checked" dates in its headers are read from this small file,
+# which every run writes and commits: the run time and the processors that fell
+# back to last-good data on this run.
+if ($OutFile) {
+  $status = [ordered]@{ runAt = $health.runAt; failed = @($failed) }
+  [System.IO.File]::WriteAllText((Join-Path (Split-Path $OutFile) "status.json"), ($status | ConvertTo-Json -Compress), (New-Object System.Text.UTF8Encoding($false)))
+}

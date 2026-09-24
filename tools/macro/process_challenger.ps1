@@ -25,6 +25,7 @@ if ($C.reportUrl -eq $pdfUrl) { Write-Output "Challenger: $($C.asOfMonth) alread
 # ---- read the PDF ----
 $pdf = Join-Path $scratch "challenger_latest.pdf"; $out = Join-Path $scratch "challenger_latest.json"
 Invoke-Retry { Invoke-WebRequest -Uri $pdfUrl -OutFile $pdf -UserAgent $ua -TimeoutSec 120 }
+$pdfDate = Get-RemoteFileDate $pdfUrl   # the PDF's own file date, shown on the page
 $py = Get-Python
 & $py "$PSScriptRoot\challenger_pdf.py" $pdf $out
 if ($LASTEXITCODE -ne 0) { throw "challenger_pdf.py failed (exit $LASTEXITCODE): the report's tables did not parse or did not reconcile - see the lines above" }
@@ -37,6 +38,7 @@ function SetKey($obj, [string]$key, $val) { if ($obj.PSObject.Properties[$key]) 
 SetKey $C "asOfMonth" $target
 SetKey $C "releasedOn" $(if ($r.releasedOn) { $r.releasedOn } elseif ($published) { $published.Substring(0, 10) } else { (Get-Date -Format "yyyy-MM-dd") })
 SetKey $C "reportUrl" $pdfUrl
+SetKey $C "reportFileDate" $pdfDate
 if (-not ($C.monthly | Where-Object { $_.d -eq $target })) { $C.monthly = @($C.monthly) + @([PSCustomObject]@{ d = $target; v = [int]$r.headline }) }
 $C.industry = @($r.industry.PSObject.Properties | Where-Object { [int]$_.Value -gt 0 } | Sort-Object { -[int]$_.Value } | ForEach-Object { [PSCustomObject]@{ name = $_.Name; v = [int]$_.Value } })
 SetKey $C "hiringThisYear" @($r.hiringThisYear | ForEach-Object { [int]$_ })

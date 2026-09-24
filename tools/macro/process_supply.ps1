@@ -16,9 +16,13 @@ $xlsx = "$scratch\gscpi_data.xlsx"; $xls = "$scratch\gscpi_data.xls"; $csv = "$d
 # workbook and the fresh CSV stay in the scratch folder, out of the repo.
 $fresh = "$scratch\gscpi_fresh.csv"
 $converted = $false
+$gscpiUrl = "https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx"
+$gscpiFileDate = $null
 try {
-  Invoke-WebRequest -Uri "https://www.newyorkfed.org/medialibrary/research/interactives/gscpi/downloads/gscpi_data.xlsx" -OutFile $xlsx -UserAgent "Mozilla/5.0" -TimeoutSec 60
+  Invoke-WebRequest -Uri $gscpiUrl -OutFile $xlsx -UserAgent "Mozilla/5.0" -TimeoutSec 60
   Copy-Item $xlsx $xls -Force
+  $gscpiFileDate = Get-RemoteFileDate $gscpiUrl   # the NY Fed's file date, shown on the page
+  Write-Output "GSCPI workbook dated $gscpiFileDate"
 } catch { Write-Output "GSCPI download failed: $($_.Exception.Message)" }
 # The file is a legacy .xls. Excel COM converts it where Excel exists (this
 # machine); the GitHub runner has no Excel, so it falls back to Python + xlrd.
@@ -100,5 +104,5 @@ foreach ($s in $r.Results.series) {
   "{0,-17} {1,4} pts  {2} yoy {3}" -f $s.seriesID, $arr.Count, $arr[-1].d, $arr[-1].yoy
 }
 
-$obj = [ordered]@{ gscpi = $gscpi; fred = $fred; diesel = $diesel; freight = $bls; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
+$obj = [ordered]@{ gscpi = $gscpi; gscpiFileDate = $gscpiFileDate; fred = $fred; diesel = $diesel; freight = $bls; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
 Save-Json $obj "supply_processed.json" 6

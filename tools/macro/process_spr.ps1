@@ -31,6 +31,9 @@ $weekly = Get-EiaHistory "WCSSTUS1" "w"
 $monthlyRaw = Get-EiaHistory "MCSSTUS1" "m"
 $monthly = New-Object System.Collections.ArrayList
 foreach ($p in $monthlyRaw) { [void]$monthly.Add([ordered]@{ d = $p.d.Substring(0,7); v = $p.v }) }
+# EIA's file dates (Last-Modified), shown on the page next to the check date.
+$eiaFiles = [ordered]@{ weekly = (Get-RemoteFileDate "https://www.eia.gov/dnav/pet/hist_xls/WCSSTUS1w.xls"); monthly = (Get-RemoteFileDate "https://www.eia.gov/dnav/pet/hist_xls/MCSSTUS1m.xls") }
+Write-Output ("EIA workbooks dated: weekly {0}, monthly {1}" -f $eiaFiles.weekly, $eiaFiles.monthly)
 Write-Output ("SPR weekly : {0} pts  {1} = {2:N0} thousand bbl" -f $weekly.Count, $weekly[-1].d, $weekly[-1].v)
 Write-Output ("SPR monthly: {0} pts  {1} = {2:N0} thousand bbl" -f $monthly.Count, $monthly[-1].d, $monthly[-1].v)
 
@@ -113,5 +116,5 @@ if ($bySite -and -not ($bySiteHistory | Where-Object { $_.asOf -eq $bySite.asOf 
   Write-Output "  by-site history: $($bySiteHistory.Count) snapshot(s)"
 }
 
-$obj = [ordered]@{ weekly = $weekly; monthly = $monthly; capacity = $capacity; image = $image; bySite = $bySite; bySiteHistory = $bySiteHistory; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
+$obj = [ordered]@{ weekly = $weekly; monthly = $monthly; files = $eiaFiles; capacity = $capacity; image = $image; bySite = $bySite; bySiteHistory = $bySiteHistory; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
 Save-Json $obj "spr_processed.json" 6

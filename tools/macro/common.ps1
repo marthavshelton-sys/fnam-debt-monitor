@@ -39,6 +39,21 @@ function Invoke-Retry([scriptblock]$call, [int]$tries = 3, [int]$waitSec = 20) {
   }
 }
 
+# Date of a remote file (its Last-Modified header, as yyyy-MM-dd UTC) from a
+# HEAD request; $null when the host does not say or refuses HEAD, in which case
+# the page shows only the check date. Only meaningful for files that change
+# when the data does (Shiller, EIA, the Challenger PDF) - hosts that regenerate
+# a file on a schedule stamp it with the generation time, which says nothing.
+# Write-Host for the note: output from here would become the return value.
+function Get-RemoteFileDate([string]$url, [int]$timeoutSec = 60) {
+  try {
+    $h = Invoke-WebRequest -Uri $url -Method Head -UseBasicParsing -UserAgent "Mozilla/5.0 (Windows NT 10.0; Win64; x64)" -TimeoutSec $timeoutSec
+    $lm = $h.Headers["Last-Modified"]
+    if ($lm) { return ([datetime]$lm).ToUniversalTime().ToString("yyyy-MM-dd") }
+  } catch { Write-Host ("  no Last-Modified for {0} ({1})" -f $url, $_.Exception.Message.Split([char]10)[0]) }
+  return $null
+}
+
 # Python for the steps that need it (xlrd on the runner, pdfplumber for the
 # Challenger report). On the runner setup-python puts it on PATH; on Windows
 # desktops the Store's "python" alias answers to the name but is not Python.

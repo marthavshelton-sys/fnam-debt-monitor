@@ -987,6 +987,7 @@
       <div class="meta-block">
         <div class="as-of" id="cutsAsOfLine">—</div>
         <div id="cutsReleasedLine">—</div>
+        <div id="cutsFileLine"></div>
         <div id="cutsNextReleaseLine">—</div>
         <div class="manual-badge" data-i18n="manualBadge">Manually updated</div>
         <div><a href="https://www.challengergray.com/blog/category/job-cut-reports/" target="_blank" rel="noopener" data-i18n="sourceChallenger">Source: Challenger, Gray &amp; Christmas</a></div>
@@ -2731,7 +2732,14 @@ const I18N = {
     fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
     capeNext: m => "Próxima actualización de Shiller: prevista a principios de " + m + " (mensual, sin fecha fija)",
-    capeFileDated: (f, c) => "Archivo de Shiller con fecha " + f + " · verificado el " + c + ": es la versión más reciente",
+    fileDated: (what, f, c) => what + " con fecha " + f + " · verificado el " + c + ": es la versión más reciente",
+    fileChecked: (what, c) => what + " · verificado el " + c + ": es la versión más reciente",
+    fileShiller: "Archivo de Shiller",
+    fileEia: "Libro de datos de la EIA",
+    fileGscpi: "Archivo GSCPI de la Fed de Nueva York",
+    fileUmich: "Archivos de datos de Michigan",
+    fileChallenger: "PDF del informe de Challenger",
+    fileCensusState: "archivo estatal del Census",
     fiNext: (m, d) => "Próximo estado mensual del Tesoro (datos de " + m + "): previsto el " + d + " (8.º día hábil, 2 PM ET)",
     cutsNext: (m, d) => "Próximo informe (recortes de " + m + "): previsto el " + d + " (el día hábil anterior al informe de empleo)",
     cutsNextEst: m => "Próximo informe (recortes de " + m + "): previsto en la primera semana del mes siguiente",
@@ -3700,7 +3708,14 @@ const I18N = {
     fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
     capeNext: m => "Next Shiller update: expected early " + m + " (monthly, no fixed date)",
-    capeFileDated: (f, c) => "Shiller's file dated " + f + " · checked " + c + ": this is the latest version",
+    fileDated: (what, f, c) => what + " dated " + f + " · checked " + c + ": this is the latest version",
+    fileChecked: (what, c) => what + " · checked " + c + ": this is the latest version",
+    fileShiller: "Shiller's file",
+    fileEia: "EIA data workbook",
+    fileGscpi: "NY Fed GSCPI file",
+    fileUmich: "Michigan data files",
+    fileChallenger: "Challenger report PDF",
+    fileCensusState: "Census state file",
     fiNext: (m, d) => "Next Monthly Treasury Statement (" + m + " data): expected " + d + " (8th business day, 2 PM ET)",
     cutsNext: (m, d) => "Next report (" + m + " cuts): expected " + d + " (the business day before the jobs report)",
     cutsNextEst: m => "Next report (" + m + " cuts): expected in the first week of the following month",
@@ -7397,9 +7412,7 @@ function renderCape() {
 
   document.getElementById("capeAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d)) + (CAPE.partialMonth ? " " + T.capeMtd : "");
   document.getElementById("capeNextReleaseLine").textContent = T.capeNext(fmtMonthYear(nextMonthOf(cur.d)));
-  document.getElementById("capeRefreshedLine").textContent = CAPE.fileDate
-    ? T.capeFileDated(fmtDateDMY(CAPE.fileDate), fmtDateDMY(CAPE.fetchedAt))
-    : freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
+  document.getElementById("capeRefreshedLine").textContent = freshnessLabel("snapshot", CAPE.fetchedAt, "Shiller");
 
   // ---- KPIs ----
   const tiles = [
@@ -8095,8 +8108,39 @@ renderFiscal();
 renderSpr();
 renderCape();
 renderExecSummaries();
+renderFileDateLines();
 
 } // end renderAll
+
+// ---------- "file dated D · checked C" for the file-based sources ----------
+// D is the source's own Last-Modified date, recorded by the processor. C is the
+// last pipeline run that downloaded the file successfully: status.json (written
+// on every run) gives the run time and the processors that fell back to
+// last-good data; without it, the download date stored with the data is used.
+let STATUS = null;
+function checkedDate(proc, fallback) {
+  if (STATUS && STATUS.runAt && !(STATUS.failed || []).some(f => String(f).indexOf(proc) === 0)) return STATUS.runAt.slice(0, 10);
+  return fallback;
+}
+// A host that regenerates a file on a schedule (Michigan, Census) or sends no
+// date (the NY Fed) gets the "checked" form only; a date there would be noise.
+function fileDateText(proc, fileDate, fallbackChecked, label) {
+  const c = fmtDateDMY(checkedDate(proc, fallbackChecked));
+  return fileDate ? T.fileDated(label, fmtDateDMY(fileDate), c) : T.fileChecked(label, c);
+}
+function fileDateLine(id, proc, fileDate, fallbackChecked, label) {
+  const el = document.getElementById(id); if (el) el.textContent = fileDateText(proc, fileDate, fallbackChecked, label);
+}
+function renderFileDateLines() {
+  if (CAPE) fileDateLine("capeRefreshedLine", "process_cape", CAPE.fileDate, CAPE.fetchedAt, T.fileShiller);
+  if (SPR) fileDateLine("sprRefreshedLine", "process_spr", SPR.files && SPR.files.weekly, SPR.fetchedAt, T.fileEia);
+  if (SUPPLY) fileDateLine("scRefreshedLine", "process_supply", SUPPLY.gscpiFileDate, SUPPLY.fetchedAt, T.fileGscpi);
+  if (UMICH) fileDateLine("confRefreshedLine", "process_umich", null, UMICH_REFRESHED_AT, T.fileUmich);
+  const C = LABOR_STATIC && LABOR_STATIC.challenger;
+  if (C && C.releasedOn) fileDateLine("cutsFileLine", "process_challenger", C.reportFileDate || C.releasedOn, C.releasedOn, T.fileChallenger);
+  const GEO = RETAIL && RETAIL.states;
+  if (GEO && GEO.asOf) { const el = document.getElementById("rtStatesAsOf"); if (el) el.textContent = fmtMonthYear(GEO.asOf) + " · " + fileDateText("process_retail", null, REFRESHED_AT, T.fileCensusState); }
+}
 
 // ================================================================
 // Live data layer
@@ -8335,5 +8379,11 @@ if (LIVE_DATA) goLive();
   const v = new URLSearchParams(location.search).get("view");
   const item = v && document.querySelector('.rail-item[data-view="' + v.replace(/[^a-z]/g, "") + '"]');
   if (item) item.click();
+})();
+// status.json sits beside the page on the site (not in previews); see renderFileDateLines.
+(function () {
+  try {
+    fetch("status.json", { cache: "no-store" }).then(r => r.ok ? r.json() : null).then(s => { if (s && s.runAt) { STATUS = s; renderFileDateLines(); } }).catch(() => {});
+  } catch (e) { /* file: or no fetch */ }
 })();
 </script>

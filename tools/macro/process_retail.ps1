@@ -50,6 +50,8 @@ if ([math]::Abs($sumSubs - $retail) -gt 1 -or [math]::Abs($sumSubs + $food - $gr
 
 # ---- MSRS (state) ----
 $rs = Invoke-WebRequest -Uri "https://www.census.gov/retail/mrts/www/statedata/state_retail_yy.csv" -UseBasicParsing -TimeoutSec 90 -UserAgent "Mozilla/5.0"
+# Census regenerates this CSV (its Last-Modified is the generation time, not a
+# data date), so no file date is recorded; the page shows the check date only.
 $csv = $rs.Content; if ($csv -is [byte[]]) { $csv = [System.Text.Encoding]::UTF8.GetString($csv) }
 $lines = ($csv -split "\r?\n") | Where-Object { $_ }
 $hdr = $lines[0] -split ','
