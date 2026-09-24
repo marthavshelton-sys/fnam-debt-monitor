@@ -1,9 +1,9 @@
-# Quálitas model — weekday reviewing routine
+# Quálitas model — daily reviewing routine
 
 This is the prompt for the reviewing routine that keeps the *curated* half of the Quálitas model current
 (the automatic half is `.github/workflows/qualitas-refresh.yml`). It is meant to run as a Claude Code
 cloud Routine ("FNAM Quálitas: review and email material changes") with access to the repository
-`marthavshelton-sys/fnam-debt-monitor`, each weekday at 15:50 UTC (09:50 Mexico City, after the 14:35 UTC
+`marthavshelton-sys/fnam-debt-monitor`, every day at 15:50 UTC (09:50 Mexico City, after the 14:50 UTC
 filings refresh), and to end with
 a short note that the platform emails to the owner only when something material happened.
 
@@ -25,8 +25,12 @@ a short note that the platform emails to the owner only when something material 
      metric tracking outside its range on the reported year-to-date, a ±50 bp week in the 10-year M bond.
    * **Pipeline health**: `Q_QUALITY.ok === false`, a stale series (`Q_QUALITY.stale[].status === "warn"`
      for the price/FX series), a workflow run that failed, or `curated[]` items behind the latest quarter.
-3. If nothing above is true, finish with the single line `No material change in Quálitas data today.`
-   and do not edit anything. (The platform does not email on that line.)
+3. Every run, material or not, ends by rewriting `site/qualitas/data/review.js` (`lastRunAt`, `result` =
+   quiet | material | pipeline, `lastQuarterChecked`, a one-line bilingual note) and `lastCheckedAt` /
+   `lastCheckResult` in `tools/qualitas/notify-state.json`, committed to `main` with `[skip actions]` (pull
+   with rebase before pushing). The header of the page shows that stamp as "Last review". If nothing above
+   is true, that stamp is the only change: finish with the single line `No material change in Quálitas data
+   today.` (The platform does not email on that line.)
 
 ## What to do when a new quarter lands
 

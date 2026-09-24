@@ -15,7 +15,8 @@ called out below.
 | `financials.js` (`Q_FIN`) | CNSF-format income statement, balance sheet, cash-flow statement, reported ratios and per-quarter KPIs for every quarter since 1Q13, the year-to-date columns Quálitas prints (3M/6M/9M/12M) and fiscal years FY2013→. Thousands of pesos; `layout` drives the rows; `sources.{is,bs,cf}` per period (URL, date, kind, comparative/derived flags) feed the provenance tooltips | **Automatic.** `qualitas-refresh.yml` → `harvest.py` → `build_data.py` → `validate_data.py` |
 | `operations.js` (`Q_OPS`) | Insured units by country/type (period-end), written premiums by line of business (quarter and YTD), subsidiaries and verticals, solvency (RCS, margin, index), portfolio facts, per quarter since 3Q20 | **Automatic** (same pipeline) |
 | `quality.js` (`Q_QUALITY`) | Every tie-out evaluated (ok / warn / fail), stale-series checks, curated-file freshness, parse warnings from `tools/qualitas/raw/build-log.json` | **Automatic.** Written by `validate_data.py`; rendered by `quality.html` |
-| `market.js` (`Q_MARKET`) | Daily closes Q.MX, ^MXX, PGR, ALL, PSSA3.SA, MAP.MC; Q.MX cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:45 UTC) |
+| `review.js` (`Q_REVIEW`) | Stamp of the last reviewing-routine run (`lastRunAt`, `result` = quiet / material / pipeline, `lastQuarterChecked`, one-line bilingual note); the header shows it as "Last review" and `validate_data.py` warns when it is older than two days | **Automatic, daily** (reviewing routine) |
+| `market.js` (`Q_MARKET`) | Daily closes Q.MX, ^MXX, PGR, ALL, PSSA3.SA, MAP.MC; Q.MX cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, every day 23:00 UTC) |
 | `guidance.js` (`Q_GUIDANCE`) | Management expectations by vintage (`fy, kind, date, quarter, source, items{written, earned, lossRatio, combined, rif, roe}, notes`) plus the long-term references (loss ratio 62–65 %, combined 92–94 %, ROE 20–25 %, payout 40–90 %). Quálitas gives no formal guidance table: the ranges are the model's numeric reading of the words, kept in `text` | **Reviewing routine** after each 4Q report/call (initial) and each quarterly call (reaffirmed/revised) |
 | `comments.js` (`Q_COMMENTS`) | One-line explanations per statement line, ratio, balance-sheet, cash-flow and operating key for year-over-year pairs (`2026Q2`, `2026M6`, `FY2025`), ES/EN, from the report and the call; `quotes` = verbatim management quotes per key (speaker, role, ES translation) from the transcripts | **Reviewing routine** (report) + hand-supplied transcripts |
 | `summary.js` (`Q_SUMMARY`) | Executive summary: four cards × three bullets (operations; expectations and why they changed; capital and shareholder returns; what to watch) and the `basis` periods | **Reviewing routine** with each report |
@@ -45,7 +46,7 @@ scripts/qualitas/validate_data.py   tie-outs (exit 1 blocks the commit) + qualit
 git commit "[skip actions]" + push  Cloudflare Pages deploys; the marker keeps GitHub Actions from re-running
 ```
 
-* Schedules: weekdays 22:45 UTC (market only) and 14:35 UTC (filings + market). Quálitas publishes results
+* Schedules: every day 23:00 UTC (market only) and 14:50 UTC (filings + market); weekend runs normally find nothing new and only refresh the build stamp. Quálitas publishes results
   in the 3rd/4th week of January, April, July and October and the SIFIC filing a few days later.
   `workflow_dispatch` inputs: `mode` = market | filings | all, `full` = re-download everything, `years` =
   years to scan on the IR site (default 2023 → current; pass `2020 2021 2022` to backfill).
@@ -89,7 +90,7 @@ python scripts/qualitas/validate_data.py` locally, add a test case for the new l
 
 ## Reviewing routine and alerts
 
-`tools/qualitas/ROUTINE.md` is the prompt of the weekday cloud Routine (Claude Code routine with repository
+`tools/qualitas/ROUTINE.md` is the prompt of the daily cloud Routine (Claude Code routine with repository
 access, commits directly to `main`): it compares the live data with `tools/qualitas/notify-state.json`, updates the curated files when a
 quarter, expectation or event lands, evaluates `data/alerts.js`, and ends with a concise note (headline
 figure, what changed with links, why it matters, what to watch, link to the model) that the platform emails
@@ -136,5 +137,5 @@ python -m http.server 8080 --directory site      # then open http://localhost:80
 * Pre-2019 quarters come from the IR workbook (main lines only, rounded to millions).
 * Consensus and peer tables wait for a market-data connector; the transcript for each new quarter is hand-
   supplied; password protection is off until `QUALITAS_PASSWORD` is set. The reviewing routine runs as the
-  cloud Routine "FNAM Quálitas: review and email material changes" (weekdays 15:50 UTC; prompt in `ROUTINE.md`;
+  cloud Routine "FNAM Quálitas: review and email material changes" (every day 15:50 UTC; prompt in `ROUTINE.md`;
   manage it at https://claude.ai/code/routines).

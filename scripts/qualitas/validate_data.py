@@ -201,6 +201,13 @@ try:
 except Exception as ex:
     STALE.append({'series': 'market.js', 'lastDate': None, 'ageDays': None, 'limitDays': None, 'status': 'warn', 'note': 'unreadable: %s' % ex})
 
+# daily reviewing routine: review.js is rewritten at the end of every run (tools/qualitas/ROUTINE.md)
+try:
+    rv = load('review.js')
+    stale('reviewing routine (review.js)', (rv.get('lastRunAt') or '')[:10] or None, 2, 'last result: %s' % rv.get('result'))
+except Exception as ex:
+    STALE.append({'series': 'reviewing routine (review.js)', 'lastDate': None, 'ageDays': None, 'limitDays': 2, 'status': 'warn', 'note': 'unreadable: %s' % ex})
+
 # latest quarter vs the results calendar: Quálitas reports ~3-4 weeks after quarter-end
 def expected_quarter(today):
     qe = [(today.year, 3, 31), (today.year, 6, 30), (today.year, 9, 30), (today.year, 12, 31), (today.year - 1, 12, 31), (today.year - 1, 9, 30), (today.year - 1, 6, 30)]
