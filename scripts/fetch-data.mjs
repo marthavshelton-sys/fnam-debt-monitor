@@ -2,10 +2,13 @@
 // Treasury Fiscal Data (no key required) and FRED's public CSV export (no key required)
 // and writes site/data.js as `window.LIVE_DATA = {...}`.
 //
-// This script intentionally does NOT touch the slow-moving, hand-researched CBO
-// projection tables baked into site/index.html (cboGdpRow, cboCategoryTable, cboProjection,
-// the "why debt/GDP rose" table) — CBO publishes no API, and those figures are refreshed
-// on a separate, monthly cadence by a scheduled research pass, not by this daily job.
+// Everything Treasury or FRED publishes in machine-readable form is fetched here, including
+// the monthly series (MTS revenue/outlays and cash interest, accrual interest expense, the
+// Treasury Bulletin ownership table, the MSPD-derived average maturity) — daily re-checks of
+// a monthly source are harmless no-ops until Treasury republishes. Only two things are left
+// to the monthly research routine that maintains site/fiscal/monthly-data.js: the CBO
+// projection tables (CBO publishes no API and blocks automated fetches) and the CME FedWatch
+// snapshot (no free feed). Both are date-stamped on the page.
 //
 // Runs on GitHub Actions' ubuntu-latest runner, which ships Node 20+ with a global `fetch`.
 // No npm install / package.json needed.
@@ -141,6 +144,179 @@ async function getForeignHolders() {
   return { date: latestMonth, top10: countries.slice(0, 10), grandTotalB: grandTotal };
 }
 
+// ---------------------------------------------------------------------------------------------
+// Monthly Treasury Statement (MTS), Table 3 — "Summary of Receipts, Outlays, and the Deficit".
+// This one table feeds the revenue-by-source and outlay-by-agency sections, the cash-basis
+// interest KPI and the fiscal-year labels. Categories map to Treasury's own line items (checked
+// to the dollar against the previously hand-entered Jul-2026 YTD and FY2025 figures when wired):
+//   revenue  Individual Income Taxes | Social Insurance and Retirement Receipts (sum of children) |
+//            Corporation Income Taxes | Customs Duties | Excise Taxes | Estate and Gift Taxes |
+//            Miscellaneous Receipts
+//   outlays  Social Security Administration | Department of Health and Human Services |
+//            Department of Defense--Military Programs | Department of the Treasury (= "Interest
+//            on Treasury Debt Securities (Gross)" + its "Other" child) | Department of Veterans
+//            Affairs | all other agencies = Total Outlays minus those five
+//   cash-basis interest = "Interest on Treasury Debt Securities (Gross)", fiscal year to date
+// Published monthly for the prior month; the September record is the completed fiscal year,
+// which is where the prior-FY column comes from.
+const MTS3 = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_3';
+const MTS3_FIELDS = 'record_date,classification_desc,current_fytd_rcpt_outly_amt,prior_fytd_rcpt_outly_amt,parent_id,classification_id,record_fiscal_year';
+
+function mtsExtract(rows) {
+  const num = (v) => (v == null || v === 'null') ? null : Number(v);
+  const one = (desc) => {
+    const m = rows.filter((r) => r.classification_desc === desc);
+    if (m.length !== 1) throw new Error(`MTS table 3: expected one "${desc}" row, found ${m.length}`);
+    return m[0];
+  };
+  const childrenOf = (desc) => { const p = one(desc); return rows.filter((r) => r.parent_id === p.classification_id); };
+  const treasury = childrenOf('Department of the Treasury:');
+  const gross = treasury.find((r) => r.classification_desc === 'Interest on Treasury Debt Securities (Gross)');
+  const treasuryOther = treasury.find((r) => r.classification_desc === 'Other');
+  if (!gross || !treasuryOther) throw new Error('MTS table 3: Treasury interest/other sub-lines not found');
+  const payroll = childrenOf('Social Insurance and Retirement Receipts:');
+  const r2 = (x) => Math.round(x * 100) / 100;
+  const build = (field) => {
+    const v = (r) => {
+      const x = num(r[field]);
+      if (x == null || Number.isNaN(x)) throw new Error(`MTS table 3: null ${field} for "${r.classification_desc}"`);
+      return x / 1e9; // $ -> $B
+    };
+    const rev = [
+      v(one('Individual Income Taxes')),
+      payroll.reduce((s, r) => s + v(r), 0),
+      v(one('Corporation Income Taxes')),
+      v(one('Customs Duties')),
+      v(one('Excise Taxes')),
+      v(one('Estate and Gift Taxes')),
+      v(one('Miscellaneous Receipts')),
+    ];
+    const five = [
+      v(one('Social Security Administration')),
+      v(one('Department of Health and Human Services')),
+      v(one('Department of Defense--Military Programs')),
+      v(gross) + v(treasuryOther),
+      v(one('Department of Veterans Affairs')),
+    ];
+    const totalOutlays = v(one('Total Outlays'));
+    return {
+      rev: rev.map(r2),
+      out: five.concat([totalOutlays - five.reduce((s, x) => s + x, 0)]).map(r2),
+      totalReceiptsB: r2(v(one('Total Receipts'))),
+      totalOutlaysB: r2(totalOutlays),
+      cashInterestB: r2(v(gross)),
+    };
+  };
+  return { cur: build('current_fytd_rcpt_outly_amt'), pri: build('prior_fytd_rcpt_outly_amt') };
+}
+
+async function getMtsSummary() {
+  const latest = await fetchJSON(`${MTS3}?sort=-record_date&page[size]=1&fields=record_date,record_fiscal_year`);
+  const date = latest.data[0].record_date;
+  const fyCur = Number(latest.data[0].record_fiscal_year);
+  const fyPrev = fyCur - 1;
+  const ytd = mtsExtract((await fetchJSON(`${MTS3}?filter=record_date:eq:${date}&page[size]=200&fields=${MTS3_FIELDS}`)).data);
+  const full = mtsExtract((await fetchJSON(`${MTS3}?filter=record_date:eq:${fyPrev}-09-30&page[size]=200&fields=${MTS3_FIELDS}`)).data);
+  return {
+    date, fyCur, fyPrev,
+    revYTDcur: ytd.cur.rev, revYTDpri: ytd.pri.rev, outYTDcur: ytd.cur.out, outYTDpri: ytd.pri.out,
+    revFYprev: full.cur.rev, outFYprev: full.cur.out,
+    totalReceiptsB: ytd.cur.totalReceiptsB, totalOutlaysB: ytd.cur.totalOutlaysB, cashInterestB: ytd.cur.cashInterestB,
+  };
+}
+
+// Interest Expense on the Debt Outstanding — Treasury's accrual-basis figure. The published FYTD
+// total is every line item's fytd_expense_amt for the latest month summed (all expense groups,
+// public issues and Government Account Series alike): that reproduces Treasury's own total to
+// the dollar ($1,267.8B for Aug-2026, the figure that used to be hand-entered on the page).
+const IE = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/interest_expense';
+async function getAccruedInterest() {
+  const latest = await fetchJSON(`${IE}?sort=-record_date&page[size]=1&fields=record_date`);
+  const date = latest.data[0].record_date;
+  const j = await fetchJSON(`${IE}?filter=record_date:eq:${date}&page[size]=500&fields=fytd_expense_amt`);
+  const total = j.data.reduce((s, r) => s + Number(r.fytd_expense_amt || 0), 0);
+  if (j.data.length < 20 || !(total > 0)) throw new Error(`interest_expense: implausible result (${j.data.length} rows, total ${total})`);
+  return { date, fytdT: Math.round(total / 1e9) / 1000, lineItems: j.data.length };
+}
+
+// Treasury Bulletin table OFS-2, "Estimated Ownership of U.S. Treasury Securities" — quarterly,
+// ~2-quarter lag. The newest quarter appears with only the totals filled in, so the page uses the
+// latest quarter in which every investor class is reported. OFS-2 lumps the Fed together with the
+// government trust funds; Debt to the Penny's intragovernmental holdings at that quarter-end split
+// them (Fed = combined - intragovernmental), which is exactly how the page's figures were built.
+const OFS2 = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/tb/ofs2_estimated_ownership_treasury_securities';
+const DTP = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny';
+const OFS2_OWNERS = {
+  total: 'Total Public Debt', fedAndGovt: 'Federal Reserve And Government Accounts',
+  depository: 'Depository Institutions', savings: 'U.S. Savings Bonds', pensionPrivate: 'Pension Funds - Private',
+  pensionStateLocal: 'Pension Funds - State And Local Governments', insurance: 'Insurance Companies',
+  mutual: 'Mutual Funds', stateLocal: 'State And Local Governments', foreign: 'Foreign And International',
+  other: 'Other Investors',
+};
+async function getHolders() {
+  const j = await fetchJSON(`${OFS2}?sort=-end_of_month,-record_date&page[size]=600&fields=record_date,end_of_month,securities_owner,securities_bil_amt`);
+  const byMonth = new Map();
+  for (const r of j.data) {
+    if (!byMonth.has(r.end_of_month)) byMonth.set(r.end_of_month, {});
+    const m = byMonth.get(r.end_of_month);
+    if (!(r.securities_owner in m)) m[r.securities_owner] = r.securities_bil_amt === 'null' ? null : Number(r.securities_bil_amt); // first seen = latest bulletin revision
+  }
+  const names = Object.values(OFS2_OWNERS);
+  const months = [...byMonth.keys()].sort().reverse();
+  const asOf = months.find((mo) => names.every((n) => byMonth.get(mo)[n] != null));
+  if (!asOf) throw new Error('OFS-2: no fully reported quarter among the latest rows');
+  const o = byMonth.get(asOf);
+  const dtp = await fetchJSON(`${DTP}?filter=record_date:lte:${asOf}&sort=-record_date&page[size]=1&fields=record_date,intragov_hold_amt`);
+  const intragovB = Number(dtp.data[0].intragov_hold_amt) / 1e9;
+  const yearAgo = `${Number(asOf.slice(0, 4)) - 1}${asOf.slice(4)}`;
+  const ya = byMonth.get(yearAgo);
+  const r1 = (x) => Math.round(x * 10) / 10;
+  return {
+    asOf, intragovAsOfDate: dtp.data[0].record_date, totalPublicDebtB: o[OFS2_OWNERS.total],
+    // Same labels and group codes the page has always used (g: 0 intragovernmental, 1 Fed, 2 private domestic, 9 foreign).
+    holders: [
+      { g: 9, label: 'Foreign & international', value: r1(o[OFS2_OWNERS.foreign]) },
+      { g: 2, label: 'Other U.S. investors', value: r1(o[OFS2_OWNERS.other]) },
+      { g: 0, label: 'Intragovernmental (trust funds)', value: r1(intragovB) },
+      { g: 1, label: 'Federal Reserve (SOMA)', value: r1(o[OFS2_OWNERS.fedAndGovt] - intragovB) },
+      { g: 2, label: 'Mutual funds', value: r1(o[OFS2_OWNERS.mutual]) },
+      { g: 2, label: 'Depository institutions', value: r1(o[OFS2_OWNERS.depository]) },
+      { g: 2, label: 'State & local governments', value: r1(o[OFS2_OWNERS.stateLocal]) },
+      { g: 2, label: 'Private pension funds', value: r1(o[OFS2_OWNERS.pensionPrivate]) },
+      { g: 2, label: 'Insurance companies', value: r1(o[OFS2_OWNERS.insurance]) },
+      { g: 2, label: 'State/local pension funds', value: r1(o[OFS2_OWNERS.pensionStateLocal]) },
+      { g: 2, label: 'Savings bonds (individuals)', value: r1(o[OFS2_OWNERS.savings]) },
+    ],
+    foreignYearAgoB: ya && ya[OFS2_OWNERS.foreign] != null ? r1(ya[OFS2_OWNERS.foreign]) : null,
+    yearAgoEndOfMonth: ya ? yearAgo : null,
+  };
+}
+
+// Weighted-average maturity of marketable Treasury debt, computed from the MSPD's security-level
+// table (every outstanding bill, note, bond, TIPS and FRN with its maturity date and amount).
+// This is the statistic TBAC reports each quarter ("weighted average maturity of marketable debt
+// outstanding"); computed here it reproduced TBAC's ~70 months for Dec-2025 (70.4) and now
+// updates every month instead of waiting for the next refunding deck.
+const MSPD3 = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/debt/mspd/mspd_table_3_market';
+async function getAvgMaturity() {
+  const latest = await fetchJSON(`${MSPD3}?sort=-record_date&page[size]=1&fields=record_date`);
+  const date = latest.data[0].record_date;
+  const j = await fetchJSON(`${MSPD3}?filter=record_date:eq:${date}&page[size]=10000&fields=security_class1_desc,maturity_date,outstanding_amt`);
+  const utc = (d) => { const [y, m, dd] = d.split('-').map(Number); return Date.UTC(y, m - 1, dd); };
+  const ref = utc(date);
+  let w = 0, wy = 0, n = 0;
+  for (const r of j.data) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(r.maturity_date || '')) continue;
+    if (/total/i.test(r.security_class1_desc || '')) continue;
+    const amt = Number(r.outstanding_amt); // $ millions; null on a bill's partial-issue rows -> skipped
+    if (!(amt > 0)) continue;
+    const yrs = Math.max(0, (utc(r.maturity_date) - ref) / (365.25 * 864e5));
+    w += amt; wy += amt * yrs; n += 1;
+  }
+  if (n < 100 || !(w > 0)) throw new Error(`MSPD table 3: implausible result (${n} securities)`);
+  return { date, months: Math.round((wy / w) * 12 * 10) / 10, marketableB: Math.round(w / 1000), securities: n };
+}
+
 // FRED series pulled via the public, key-free CSV export.
 const FRED_SERIES = {
   walcl: 'WALCL',          // Fed total assets, weekly, $B
@@ -173,6 +349,10 @@ async function main() {
     ['avgRate', getAvgInterestRate],
     ['composition', getDebtComposition],
     ['foreignHolders', getForeignHolders],
+    ['mts', getMtsSummary],
+    ['accruedInterest', getAccruedInterest],
+    ['holders', getHolders],
+    ['avgMaturity', getAvgMaturity],
     ...Object.entries(FRED_SERIES).map(([k, id]) => [k, () => getFred(id)]),
   ];
 
@@ -217,6 +397,10 @@ async function main() {
     rrpVolume: results.rrpvol,    // {date, value} — $B, ON RRP take-up
     gdp: results.gdp,             // {date, value} — nominal GDP, $B SAAR; date is the quarter's first day (2026-04-01 = Q2 2026)
     debtGdpAnnual: results.debtGdpAnnual, // {date, value} — gross federal debt, % of GDP, annual (date = Jan 1 of that year)
+    mts: results.mts,                     // MTS table 3: {date, fyCur, fyPrev, revYTDcur/pri, outYTDcur/pri, revFYprev, outFYprev, cashInterestB, totalReceiptsB, totalOutlaysB} — $B
+    accruedInterest: results.accruedInterest, // {date, fytdT, lineItems} — accrual-basis interest expense, FYTD $T
+    holders: results.holders,             // OFS-2 + Debt to the Penny: {asOf, holders[], totalPublicDebtB, foreignYearAgoB, yearAgoEndOfMonth}
+    avgMaturity: results.avgMaturity,     // MSPD security-level: {date, months, marketableB, securities}
   };
 
   const js = `// AUTO-GENERATED by scripts/fetch-data.mjs — do not hand-edit.

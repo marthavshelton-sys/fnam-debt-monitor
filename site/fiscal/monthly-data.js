@@ -1,25 +1,21 @@
-// Refreshed monthly by a scheduled research task, which opens a pull request for human
-// review rather than publishing directly — these series either have no live API (CBO,
-// CME FedWatch odds, TBAC maturity statistics) or need hierarchy-aware aggregation
-// Treasury's raw tables don't hand you directly (holders, revenue/outlay by category).
-// Initial values below mirror the snapshot baked into index.html, so this file is a no-op
-// until the first monthly PR is reviewed and merged.
+// Research-only figures with no machine-readable primary source. Everything else the page shows
+// (debt, rates, holders, revenue/outlays, interest, maturity, TIC, GDP) is fetched from Treasury,
+// the Fed and FRED every day into data.js by scripts/fetch-data.mjs, and data.js always wins.
+//
+// This file is maintained by the cloud routine "FNAM US Fiscal: monthly CBO/FedWatch research",
+// which commits directly to main on the 5th of each month, only when it can cite the primary
+// publisher (or, for CBO figures, two independent reputable outlets quoting CBO), and records
+// its sources in the `sources` block below and in the commit message. Rules of the road:
+//   - valid JSON inside the assignment (double-quoted keys, no trailing commas, no comments here)
+//   - keep every key; update values in place; never publish a figure you could not source
+//   - cboCategoryTable / cboGdpRow: direct:true = CBO's own published number for that exact year,
+//     direct:false = interpolation between CBO's nearest published anchor years
+//   - fedWatch: probs rows align to buckets, inner arrays to meetings; buckets are centred on the
+//     current FOMC target range (data.js rates.onrrp.value = range floor); calloutEn/calloutEs are
+//     finished dashboard prose (HTML, <b> only) that replace the page's callout verbatim
+//   - tbac.history: the first two entries are fixed TBAC anchors; the LAST entry is overwritten
+//     every day by the page from the MSPD-computed average maturity, so leave it alone
 window.MONTHLY_DATA = {
-  "asOf": "Mar 31, 2026",
-  "revOutAsOf": "Jul 31, 2026",
-  "holders": [
-    { "g": 9, "label": "Foreign & international", "value": 9355.0 },
-    { "g": 2, "label": "Other U.S. investors", "value": 6824.7 },
-    { "g": 0, "label": "Intragovernmental (trust funds)", "value": 7634.2 },
-    { "g": 1, "label": "Federal Reserve (SOMA)", "value": 4390.1 },
-    { "g": 2, "label": "Mutual funds", "value": 5122.8 },
-    { "g": 2, "label": "Depository institutions", "value": 2169.5 },
-    { "g": 2, "label": "State & local governments", "value": 1641.6 },
-    { "g": 2, "label": "Private pension funds", "value": 607.0 },
-    { "g": 2, "label": "Insurance companies", "value": 597.9 },
-    { "g": 2, "label": "State/local pension funds", "value": 573.9 },
-    { "g": 2, "label": "Savings bonds (individuals)", "value": 148.8 }
-  ],
   "cboGdpRow": { "label": "Nominal GDP ($ trillions)", "vals": [
     {"v":30.0,"direct":false},{"v":36.7,"direct":false},{"v":43.9,"direct":true},{"v":54.5,"direct":false} ] },
   "cboCategoryTable": [
@@ -42,15 +38,6 @@ window.MONTHLY_DATA = {
     "labels": ["2025","2026","2027","2028","2029","2030","2031","2032","2033","2034","2035","2036","2037","2038","2039","2040"],
     "values": [99, 101, null, null, null, 108, null, null, null, null, null, 120, null, null, null, 129]
   },
-  "revFY2025": [2656.04,1748.29,452.09,194.87,105.94,29.46,47.92],
-  "revYTDcur": [2368.96,1522.75,292.91,154.47,84.62,34.01,27.71],
-  "revYTDpri": [2204.49,1480.32,387.11,135.69,84.93,24.09,30.01],
-  "outFY2025": [1646.52,1884.28,868.41,1458.91,376.59,775.26],
-  "outYTDcur": [1444.99,1724.89,764.71,1407.36,360.05,582.24],
-  "outYTDpri": [1368.38,1557.01,718.94,1266.66,309.56,754.60],
-  "cashInterestT": 1.170,
-  "accruedInterestT": 1.268,
-  "accruedInterestAsOf": "2026-08-31",
   "fedWatch": {
     "asOf": "2026-09-10",
     "meetings": ["16-Sep-2026","28-Oct-2026","09-Dec-2026","27-Jan-2027"],
@@ -66,12 +53,15 @@ window.MONTHLY_DATA = {
     "calloutEs": null
   },
   "tbac": {
-    "asOf": "2025-12",
-    "avgMaturityMonths": 70,
     "history": [
       { "label": "Dec 2020", "labelEs": "dic. 2020", "months": 65 },
       { "label": "May 2023 peak", "labelEs": "máximo de mayo 2023", "months": 75 },
       { "label": "Dec 2025", "labelEs": "dic. 2025", "months": 70 }
     ]
+  },
+  "sources": {
+    "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026) and The Long-Term Budget Outlook: 2025 to 2055 (March 2025), as carried on the page's Section 06 links",
+    "fedWatch": "CME Group FedWatch methodology, odds as reported by Investing.com's Fed Rate Monitor on 2026-09-10",
+    "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };

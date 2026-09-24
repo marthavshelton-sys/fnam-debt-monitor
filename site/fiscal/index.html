@@ -383,12 +383,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>Aproximadamente una quinta parte de la deuda la debe el gobierno a sí mismo (Seguro Social, Medicare y otros fondos fiduciarios). Del resto, la Reserva Federal, los inversionistas extranjeros, y los fondos mutuos, bancos, pensiones y aseguradoras de EE. UU. son los mayores tenedores.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: U.S. Treasury Bulletin, <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2)</a> · latest fully reported quarter: 31-Mar-2026</span>
-      <span class="es" hidden>Fuente: Treasury Bulletin de EE. UU., <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2)</a> · último trimestre reportado en su totalidad: 31 de marzo de 2026</span>
+      <span class="en">Source: U.S. Treasury Bulletin, <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2)</a> · latest fully reported quarter: <span data-bind="holdersAsOfEn">31-Mar-2026</span></span>
+      <span class="es" hidden>Fuente: Treasury Bulletin de EE. UU., <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2)</a> · último trimestre reportado en su totalidad: <span data-bind="holdersAsOfEs">31 de marzo de 2026</span></span>
     </p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="en">Who owns the $39.1T in debt outstanding (31-Mar-2026)</span><span class="es" hidden>Quién posee los $39.1 billones de deuda pendiente (31 de marzo de 2026)</span></h3>
+        <h3><span class="en">Who owns the $<span data-bind="holdersTotalT">39.1</span>T in debt outstanding (<span data-bind="holdersAsOfEn">31-Mar-2026</span>)</span><span class="es" hidden>Quién posee los $<span data-bind="holdersTotalT">39.1</span> billones de deuda pendiente (<span data-bind="holdersAsOfEs">31 de marzo de 2026</span>)</span></h3>
         <p class="cap"><span class="en">By major holder category, $ billions</span><span class="es" hidden>Por categoría principal de tenedor, miles de millones de USD</span></p>
         <div class="chart-wrap" style="height:440px"><canvas id="chartHolders"></canvas></div>
         <p class="chart-src"><span class="en">Source: Treasury Bulletin, <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2) ↗</a></span><span class="es" hidden>Fuente: Treasury Bulletin, <a href="https://fiscaldata.treasury.gov/datasets/treasury-bulletin/" target="_blank" rel="noopener">Estimated Ownership of U.S. Treasury Securities (OFS-2) ↗</a></span></p>
@@ -401,17 +401,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="card">
         <h3><span class="en">How the pie splits</span><span class="es" hidden>Cómo se divide el total</span></h3>
         <div class="stat-row">
-          <div class="stat"><div class="v num">30.8%</div><div class="l"><span class="en">Foreign &amp; official (Fed + trust funds)</span><span class="es" hidden>Extranjero y oficial (Fed + fondos fiduciarios)</span></div></div>
-          <div class="stat"><div class="v num">24.0%</div><div class="l"><span class="en">Foreign &amp; international investors</span><span class="es" hidden>Inversionistas extranjeros e internacionales</span></div></div>
-          <div class="stat"><div class="v num">69.2%</div><div class="l"><span class="en">Held domestically</span><span class="es" hidden>En manos nacionales</span></div></div>
+          <div class="stat"><div class="v num" data-bind="pieOfficialPct">30.8%</div><div class="l"><span class="en">Official (Fed + trust funds)</span><span class="es" hidden>Oficial (Fed + fondos fiduciarios)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="pieForeignPct">24.0%</div><div class="l"><span class="en">Foreign &amp; international investors</span><span class="es" hidden>Inversionistas extranjeros e internacionales</span></div></div>
+          <div class="stat"><div class="v num" data-bind="piePrivatePct">69.2%</div><div class="l"><span class="en">Privately held (domestic + foreign)</span><span class="es" hidden>En manos privadas (nacionales + extranjeras)</span></div></div>
         </div>
         <div class="callout">
           <span class="en">The Federal Reserve's own portfolio (SOMA) holds an estimated <b data-bind="fedSomaT">$4.39T</b>, down from a 2022 peak near $5.8T as the Fed continues to let securities roll off (quantitative tightening).</span>
           <span class="es" hidden>La propia cartera de la Reserva Federal (SOMA) posee un estimado de <b data-bind="fedSomaTEs">$4.39 billones</b>, por debajo de un máximo de 2022 cercano a $5.8 billones, conforme la Fed sigue dejando vencer valores sin reinvertir (ajuste cuantitativo).</span>
         </div>
         <div class="callout">
-          <span class="en">Foreign &amp; international holdings have grown from $9.05T (Mar 2025) to <b data-bind="foreignCurT">$9.36T</b> (<span data-bind="holdersShortEn">Mar 2026</span>) — up in dollar terms even as their share of total debt has drifted down over the past decade.</span>
-          <span class="es" hidden>Las tenencias extranjeras e internacionales crecieron de $9.05 billones (mar. 2025) a <b data-bind="foreignCurTEs">$9.36 billones</b> (<span data-bind="holdersShortEs">mar. 2026</span>) — un aumento en dólares aunque su participación en la deuda total ha ido bajando en la última década.</span>
+          <span class="en">Foreign &amp; international holdings have grown from <span data-bind="foreignPrevT">$9.05T</span> (<span data-bind="foreignPrevShortEn">Mar 2025</span>) to <b data-bind="foreignCurT">$9.36T</b> (<span data-bind="holdersShortEn">Mar 2026</span>) — up in dollar terms even as their share of total debt has drifted down over the past decade.</span>
+          <span class="es" hidden>Las tenencias extranjeras e internacionales crecieron de <span data-bind="foreignPrevTEs">$9.05 billones</span> (<span data-bind="foreignPrevShortEs">mar. 2025</span>) a <b data-bind="foreignCurTEs">$9.36 billones</b> (<span data-bind="holdersShortEs">mar. 2026</span>) — un aumento en dólares aunque su participación en la deuda total ha ido bajando en la última década.</span>
         </div>
         <details class="tbl"><summary><span class="en">View data table</span><span class="es" hidden>Ver tabla de datos</span></summary>
           <div class="tblwrap" id="tblHolders"></div>
@@ -437,13 +437,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>El Tesoro toma deuda en plazos que van de letras (bills) a 4 semanas a bonos a 30 años. Un vencimiento promedio más corto implica que más deuda debe refinanciarse — y reajustarse a las tasas vigentes — más pronto.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: Treasury <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt</a> and TBAC presentations · composition as of 31-Jul-2026; maturity statistics as of Q1 FY2026 (Dec 2025)</span>
-      <span class="es" hidden>Fuente: <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt</a> del Tesoro y presentaciones del TBAC · composición al 31 de julio de 2026; estadísticas de vencimiento al 1er trimestre del AF2026 (dic. 2025)</span>
+      <span class="en">Source: Treasury <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt</a> (security-level detail, Table 3) · composition as of <span data-bind="compAsOfEn">31-Jul-2026</span>; average maturity computed from every outstanding marketable security as of <span data-bind="tbacAsOfEn">Dec 2025</span> (historical anchors from TBAC presentations)</span>
+      <span class="es" hidden>Fuente: <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt</a> del Tesoro (detalle por valor, Tabla 3) · composición al <span data-bind="compAsOfEs">31 de julio de 2026</span>; vencimiento promedio calculado a partir de cada valor negociable pendiente al <span data-bind="tbacAsOfEs">dic. 2025</span> (referencias históricas de las presentaciones del TBAC)</span>
     </p>
     <div class="grid-2">
       <div class="card">
         <h3><span class="en">Outstanding marketable debt by original maturity class</span><span class="es" hidden>Deuda negociable pendiente por clase de vencimiento original</span></h3>
-        <p class="cap"><span class="en">$ billions, 31-Jul-2026</span><span class="es" hidden>Miles de millones de USD, 31 de julio de 2026</span></p>
+        <p class="cap"><span class="en">$ billions, <span data-bind="compAsOfEn">31-Jul-2026</span></span><span class="es" hidden>Miles de millones de USD, <span data-bind="compAsOfEs">31 de julio de 2026</span></span></p>
         <div class="chart-wrap"><canvas id="chartMaturityMix"></canvas></div>
         <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1 ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1 ↗</a></span></p>
       </div>
@@ -467,8 +467,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <div class="card" style="margin-top:20px">
       <h3><span class="en">When today's marketable debt comes due</span><span class="es" hidden>Cuándo vence la deuda negociable actual</span></h3>
       <p class="cap">
-        <span class="en">Outstanding principal by calendar year of maturity, $ billions, as of 31-Jul-2026 — built from every individual outstanding Treasury security, not an estimate</span>
-        <span class="es" hidden>Principal pendiente por año calendario de vencimiento, miles de millones de USD, al 31 de julio de 2026 — construido a partir de cada valor del Tesoro pendiente, no es una estimación</span>
+        <span class="en">Outstanding principal by calendar year of maturity, $ billions, as of <span data-bind="compAsOfEn">31-Jul-2026</span> — built from every individual outstanding Treasury security, not an estimate</span>
+        <span class="es" hidden>Principal pendiente por año calendario de vencimiento, miles de millones de USD, al <span data-bind="compAsOfEs">31 de julio de 2026</span> — construido a partir de cada valor del Tesoro pendiente, no es una estimación</span>
       </p>
       <div class="chart-wrap tall"><canvas id="chartMaturitySchedule"></canvas></div>
       <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 3</a> — aggregated from CUSIP-level security data by maturity date</span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 3</a> — agregado a partir de datos por CUSIP según fecha de vencimiento</span></p>
@@ -507,7 +507,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <div class="stat"><div class="v num">3.56%</div><div class="l"><span class="en">Avg. rate, non-marketable debt</span><span class="es" hidden>Tasa promedio, deuda no negociable</span></div></div>
         </div>
         <div class="stat-row">
-          <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Accrued interest expense, FY2026 YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto de interés devengado, AF2026 a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Accrued interest expense, FY<span data-bind="fyCur">2026</span> YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto de interés devengado, AF<span data-bind="fyCur">2026</span> a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
           <div class="stat"><div class="v num">$1.220T</div><div class="l"><span class="en">Accrued interest expense, full FY2025</span><span class="es" hidden>Gasto de interés devengado, AF2025 completo</span></div></div>
         </div>
         <div class="callout">
@@ -525,12 +525,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>Alrededor de cuatro quintas partes de la deuda federal es negociable — comprada y vendida por inversionistas — dividida sobre todo entre notas y letras del Tesoro. El resto es no negociable, dominado por los valores de emisión especial que se mantienen dentro de los fondos fiduciarios del gobierno.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: Treasury <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1</a> · as of 31-Jul-2026 ($39.77T total)</span>
-      <span class="es" hidden>Fuente: <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1</a> del Tesoro · al 31 de julio de 2026 ($39.77 billones en total)</span>
+      <span class="en">Source: Treasury <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1</a> · as of <span data-bind="compAsOfEn">31-Jul-2026</span> (<span data-bind="compTotalT">$39.77T</span> total)</span>
+      <span class="es" hidden>Fuente: <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1</a> del Tesoro · al <span data-bind="compAsOfEs">31 de julio de 2026</span> (<span data-bind="compTotalTEs">$39.77 billones</span> en total)</span>
     </p>
     <div class="card">
       <h3><span class="en">Debt outstanding by security type</span><span class="es" hidden>Deuda pendiente por tipo de valor</span></h3>
-      <p class="cap"><span class="en">$ billions, 31-Jul-2026</span><span class="es" hidden>Miles de millones de USD, 31 de julio de 2026</span></p>
+      <p class="cap"><span class="en">$ billions, <span data-bind="compAsOfEn">31-Jul-2026</span></span><span class="es" hidden>Miles de millones de USD, <span data-bind="compAsOfEs">31 de julio de 2026</span></span></p>
       <div class="leader-pie-wrap" id="pieComposition"></div>
       <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1 ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1 ↗</a></span></p>
       <details class="tbl"><summary><span class="en">View data table</span><span class="es" hidden>Ver tabla de datos</span></summary>
@@ -657,8 +657,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>El impuesto sobre la renta de las personas y los impuestos a la nómina (seguridad social) juntos aportan aproximadamente siete de cada ocho dólares de ingreso federal. El impuesto sobre la renta corporativa queda muy por detrás en tercer lugar.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4</a> · FY2025 = full fiscal year (Oct '24–Sep '25); FY2026 YTD = <span class="fyr-long-en">Oct '25–Jul '26</span> (<span class="fyn-en">10</span> months) vs. the same <span class="fyn-en">10</span> months a year earlier</span>
-      <span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4</a> · AF2025 = año fiscal completo (oct. '24–sep. '25); AF2026 a la fecha = <span class="fyr-long-es">oct. '25–jul. '26</span> (<span class="fyn-es">10</span> meses) vs. los mismos <span class="fyn-es">10</span> meses del año anterior</span>
+      <span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4</a> · FY<span data-bind="fyPrev">2025</span> = full fiscal year (Oct '<span data-bind="fyPrevStartYY">24</span>–Sep '<span data-bind="fyPrevYY">25</span>); FY<span data-bind="fyCur">2026</span> YTD =<span class="fyr-long-en">Oct '25–Jul '26</span> (<span class="fyn-en">10</span> months) vs. the same <span class="fyn-en">10</span> months a year earlier</span>
+      <span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 4</a> · AF<span data-bind="fyPrev">2025</span> = año fiscal completo (oct. '<span data-bind="fyPrevStartYY">24</span>–sep. '<span data-bind="fyPrevYY">25</span>); AF<span data-bind="fyCur">2026</span> a la fecha =<span class="fyr-long-es">oct. '25–jul. '26</span> (<span class="fyn-es">10</span> meses) vs. los mismos <span class="fyn-es">10</span> meses del año anterior</span>
     </p>
     <div class="card">
       <h3><span class="en">Federal Revenues: FY2025 full-year receipts</span><span class="es" hidden>Ingresos Federales: recaudación del AF2025 completo</span></h3>
@@ -701,8 +701,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>El Monthly Treasury Statement del Tesoro reporta el gasto por departamento y dependencia, no por "función presupuestal", así que las categorías de abajo son los totales reales publicados por el Tesoro para las dependencias de mayor gasto, con todo lo demás agrupado como "todo lo demás".</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5</a> · FY2025 = full fiscal year; FY2026 YTD = <span class="fyr-long-en">Oct '25–Jul '26</span> (<span class="fyn-en">10</span> months) vs. the same period a year earlier</span>
-      <span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5</a> · AF2025 = año fiscal completo; AF2026 a la fecha = <span class="fyr-long-es">oct. '25–jul. '26</span> (<span class="fyn-es">10</span> meses) vs. el mismo periodo del año anterior</span>
+      <span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5</a> · FY<span data-bind="fyPrev">2025</span> = full fiscal year; FY<span data-bind="fyCur">2026</span> YTD =<span class="fyr-long-en">Oct '25–Jul '26</span> (<span class="fyn-en">10</span> months) vs. the same period a year earlier</span>
+      <span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5</a> · AF<span data-bind="fyPrev">2025</span> = año fiscal completo; AF<span data-bind="fyCur">2026</span> a la fecha =<span class="fyr-long-es">oct. '25–jul. '26</span> (<span class="fyn-es">10</span> meses) vs. el mismo periodo del año anterior</span>
     </p>
     <div class="card">
       <h3><span class="en">Federal Outlays: FY2025 full-year outlays</span><span class="es" hidden>Gasto Federal: gasto del AF2025 completo</span></h3>
@@ -1184,6 +1184,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // fresh below instead of hand-typed, so a monthly data update (which changes this date)
   // can never leave a stale month-count or date-range behind again.
   var revOutAsOf = "Jul 31, 2026";
+  // Fiscal-year labels, holders totals and source dates that used to be typed into the markup.
+  // All reassigned by applyLiveData() from data.js (MTS table 3, OFS-2, MSPD, Debt to the Penny).
+  var fyCur = 2026, fyPrev = 2025;
+  var holdersTotalB = 39065.4;                       // OFS-2 "Total Public Debt" at holdersAsOf, $B
+  var foreignYearAgoB = 9050, foreignYearAgoYm = "2025-03"; // OFS-2 foreign & international one year earlier
+  var compAsOf = "2026-07-31";                       // MSPD table 1 record date behind the composition figures
+  var liveMts = false, liveAccrued = false, liveHolders = false, liveMaturity = false; // set when data.js supplied the series (the monthly file then leaves them alone)
 
   var fedM2 = {
     labels:["2003","2007","2008","2009","2012","2014","2017","2019","2020","2022","2023","2024","2026"],
@@ -1350,6 +1357,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         setVal(maturityMix, "TIPS", dc.tips);
         setVal(maturityMix, "FRNs", dc.frns);
         asof[2][1] = fmtDateEn(dc.date)+" (monthly)";
+        compAsOf = dc.date;
       }
       if(LD.foreignHolders && LD.foreignHolders.top10 && LD.foreignHolders.top10.length){
         foreignHolders = LD.foreignHolders.top10.map(function(c){
@@ -1371,6 +1379,32 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       if(LD.rates && LD.rates.onrrp && LD.rates.onrrp.value != null){
         targetRangeLo = LD.rates.onrrp.value;
         targetRangeHi = Math.round((targetRangeLo + 0.25)*100)/100;
+      }
+      // Monthly Treasury series, now fetched daily by scripts/fetch-data.mjs (no-ops until Treasury
+      // republishes). Each one flips a flag so applyMonthlyData() below leaves it alone.
+      if(LD.mts && LD.mts.revYTDcur && LD.mts.revYTDcur.length === 7 && LD.mts.outYTDcur && LD.mts.outYTDcur.length === 6){
+        var M = LD.mts;
+        revYTDcur = M.revYTDcur; revYTDpri = M.revYTDpri; outYTDcur = M.outYTDcur; outYTDpri = M.outYTDpri;
+        revFY2025 = M.revFYprev; outFY2025 = M.outFYprev; // the "FY2025" variables mean "the completed prior fiscal year"
+        fyCur = M.fyCur; fyPrev = M.fyPrev;
+        revOutAsOf = monDDYYYY(M.date);
+        cashInterestT = M.cashInterestB/1000;
+        liveMts = true;
+      }
+      if(LD.accruedInterest && LD.accruedInterest.fytdT){
+        accruedInterestT = LD.accruedInterest.fytdT; accruedInterestAsOf = LD.accruedInterest.date; liveAccrued = true;
+      }
+      if(LD.holders && LD.holders.holders && LD.holders.holders.length){
+        holders.length = 0; LD.holders.holders.forEach(function(h){ holders.push(h); });
+        holdersAsOf = monDDYYYY(LD.holders.asOf);
+        if(LD.holders.totalPublicDebtB) holdersTotalB = LD.holders.totalPublicDebtB;
+        if(LD.holders.foreignYearAgoB && LD.holders.yearAgoEndOfMonth){ foreignYearAgoB = LD.holders.foreignYearAgoB; foreignYearAgoYm = LD.holders.yearAgoEndOfMonth.slice(0,7); }
+        liveHolders = true;
+      }
+      if(LD.avgMaturity && LD.avgMaturity.months){
+        tbacAvgMonths = LD.avgMaturity.months; tbacAsOf = LD.avgMaturity.date.slice(0,7);
+        tbacHistory[tbacHistory.length-1] = { label: fmtMonthYearEn(tbacAsOf), labelEs: fmtMonthYearEs(tbacAsOf), months: Math.round(tbacAvgMonths) };
+        liveMaturity = true;
       }
     } catch(e){
       // A malformed/partial data.js should never break the page — fall back silently to the snapshot.
@@ -1409,6 +1443,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var mon=["ene.","feb.","mar.","abr.","may.","jun.","jul.","ago.","sep.","oct.","nov.","dic."];
     var p=ym.split('-'); return mon[Number(p[1])-1]+' '+p[0];
   }
+  // ISO "YYYY-MM-DD" <-> "Mon DD, YYYY", the form the older fiscal-year helpers (fyInfo,
+  // holdersShortEn, reformatEnDate) parse. Pure string work, no Date objects, no timezone drift.
+  function monDDYYYY(iso){
+    var mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var p=iso.split('-'); return mon[Number(p[1])-1]+' '+Number(p[2])+', '+p[0];
+  }
+  function isoFromMonDDYYYY(s){
+    var mon=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    var parts = s.replace(',','').split(' '); var m = mon.indexOf(parts[0])+1;
+    return parts[2]+'-'+(m<10?'0':'')+m+'-'+(parts[1].length===1?'0':'')+parts[1];
+  }
 
   // Total debt / M2, annual calendar year-end $B, 1995–2026 — five years of pure history
   // (sourced once from Treasury Debt to the Penny / FRED M2SL, never changes) prepended onto
@@ -1442,26 +1487,31 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var MD = window.MONTHLY_DATA;
     if(!MD) return;
     try{
-      if(MD.holders && MD.holders.length){
+      // Holders, revenue/outlays and interest are fetched daily into data.js (see applyLiveData);
+      // any copies still in the monthly file are only honoured when that daily fetch failed.
+      if(!liveHolders && MD.holders && MD.holders.length){
         holders.length = 0;
         MD.holders.forEach(function(h){ holders.push(h); });
         if(holders[0]) holders[0].g = 9;
         if(MD.asOf) holdersAsOf = MD.asOf;
-        asof[1][1] = (MD.asOf ? reformatEnDate(MD.asOf) : asof[1][1].split(' (')[0])+" (quarterly, ~2Q lag)";
       }
       if(MD.cboGdpRow) cboGdpRow = MD.cboGdpRow;
       if(MD.cboCategoryTable) cboCategoryTable = MD.cboCategoryTable;
       if(MD.cboProjection) cboProjection = MD.cboProjection;
-      if(MD.revFY2025) revFY2025 = MD.revFY2025;
-      if(MD.revYTDcur) revYTDcur = MD.revYTDcur;
-      if(MD.revYTDpri) revYTDpri = MD.revYTDpri;
-      if(MD.outFY2025) outFY2025 = MD.outFY2025;
-      if(MD.outYTDcur) outYTDcur = MD.outYTDcur;
-      if(MD.outYTDpri) outYTDpri = MD.outYTDpri;
-      if(MD.revOutAsOf){ revOutAsOf = MD.revOutAsOf; asof[4][1] = reformatEnDate(MD.revOutAsOf)+" YTD; FY2025 full year"; }
-      if(MD.cashInterestT) cashInterestT = MD.cashInterestT; // .val/.delta set below once revOutInfo (same MTS vintage) is computed
-      if(MD.accruedInterestT) accruedInterestT = MD.accruedInterestT;
-      if(MD.accruedInterestAsOf) accruedInterestAsOf = MD.accruedInterestAsOf;
+      if(!liveMts){
+        if(MD.revFY2025) revFY2025 = MD.revFY2025;
+        if(MD.revYTDcur) revYTDcur = MD.revYTDcur;
+        if(MD.revYTDpri) revYTDpri = MD.revYTDpri;
+        if(MD.outFY2025) outFY2025 = MD.outFY2025;
+        if(MD.outYTDcur) outYTDcur = MD.outYTDcur;
+        if(MD.outYTDpri) outYTDpri = MD.outYTDpri;
+        if(MD.revOutAsOf) revOutAsOf = MD.revOutAsOf;
+        if(MD.cashInterestT) cashInterestT = MD.cashInterestT;
+      }
+      if(!liveAccrued){
+        if(MD.accruedInterestT) accruedInterestT = MD.accruedInterestT;
+        if(MD.accruedInterestAsOf) accruedInterestAsOf = MD.accruedInterestAsOf;
+      }
       if(MD.fedWatch){
         var fw = MD.fedWatch;
         if(fw.meetings && fw.meetings.length) fedWatch.meetings = fw.meetings;
@@ -1472,9 +1522,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         if(fw.calloutEs) fedWatchCalloutEs = fw.calloutEs;
       }
       if(MD.tbac){
-        if(MD.tbac.avgMaturityMonths != null) tbacAvgMonths = MD.tbac.avgMaturityMonths;
-        if(MD.tbac.asOf) tbacAsOf = MD.tbac.asOf;
-        if(MD.tbac.history && MD.tbac.history.length) tbacHistory = MD.tbac.history;
+        // The current average maturity is computed daily from the MSPD (applyLiveData); the monthly
+        // file only supplies the fixed historical anchors, so its last history entry never wins.
+        if(!liveMaturity && MD.tbac.avgMaturityMonths != null) tbacAvgMonths = MD.tbac.avgMaturityMonths;
+        if(!liveMaturity && MD.tbac.asOf) tbacAsOf = MD.tbac.asOf;
+        if(MD.tbac.history && MD.tbac.history.length){
+          tbacHistory = liveMaturity ? MD.tbac.history.slice(0, -1).concat([tbacHistory[tbacHistory.length-1]]) : MD.tbac.history;
+        }
       }
     } catch(e){
       console.warn("MONTHLY_DATA overlay skipped:", e);
@@ -1504,7 +1558,24 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var revOutInfo = fyInfo(revOutAsOf);
   var accruedInfo = fyInfo(accruedInterestAsOf);
   kpis[3].val = "$"+cashInterestT.toFixed(3)+"T";
-  kpis[3].delta = revOutInfo.months+" mo. · ≈4.3% of GDP, ann.";
+  // Annualized cash interest as a share of the latest-quarter nominal GDP (was a typed-in "≈4.3%").
+  var interestPctGdp = (cashInterestT*12/revOutInfo.months)/(gdpB/1000)*100;
+  kpis[3].lbl = 'FY'+String(fyCur).slice(-2)+' YTD interest cost';
+  ES_STR[kpis[3].lbl] = 'Costo de interés AF'+String(fyCur).slice(-2)+' a la fecha';
+  kpis[3].delta = revOutInfo.months+' mo. · ≈'+interestPctGdp.toFixed(1)+'% of GDP, ann.';
+  ES_STR[kpis[3].delta] = revOutInfo.months+' meses · ≈'+interestPctGdp.toFixed(1)+'% del PIB, anualizado';
+  // "As of" row + fiscal-year labels, rebuilt from whichever source won above (data.js, or the
+  // monthly file as fallback) so the exact-string L() lookup keeps resolving as dates roll forward.
+  var revOutIso = isoFromMonDDYYYY(revOutAsOf), holdersIso = isoFromMonDDYYYY(holdersAsOf);
+  asof[1][1] = fmtDateEn(holdersIso)+" (quarterly, ~2Q lag)";
+  ES_STR[asof[1][1]] = fmtDateEs(holdersIso)+" (trimestral, ~2 trim. de rezago)";
+  asof[4][1] = fmtDateEn(revOutIso)+" YTD; FY"+fyPrev+" full year";
+  ES_STR[asof[4][1]] = fmtDateEs(revOutIso)+" a la fecha; AF"+fyPrev+" completo";
+  var fyCurYtd = 'FY'+fyCur+' YTD', fyPrevYtd = 'FY'+fyPrev+' YTD', fyPrevFull = 'FY'+fyPrev+' full year';
+  ES_STR[fyCurYtd] = 'AF'+fyCur+' a la fecha'; ES_STR[fyPrevYtd] = 'AF'+fyPrev+' a la fecha'; ES_STR[fyPrevFull] = 'AF'+fyPrev+' completo';
+  var holdersOfficialB = holders.filter(function(h){return h.g===0||h.g===1;}).reduce(function(s,h){return s+h.value;},0);
+  var holdersForeignB = holders.filter(function(h){return h.g===9;}).reduce(function(s,h){return s+h.value;},0);
+  var compTotalB = composition.reduce(function(s,c){return s+c.value;},0); // the MSPD classes sum to total public debt at compAsOf
   [].forEach.call(document.querySelectorAll('.fyn-en'),        function(el){ el.textContent = revOutInfo.months; });
   [].forEach.call(document.querySelectorAll('.fyn-es'),        function(el){ el.textContent = revOutInfo.months; });
   [].forEach.call(document.querySelectorAll('.fyr-long-en'),   function(el){ el.textContent = revOutInfo.rangeLongEn; });
@@ -1575,7 +1646,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     tbacAsOfEn: fmtMonthYearEn(tbacAsOf), tbacAsOfEs: fmtMonthYearEs(tbacAsOf),
     tbacHistoryVals: tbacHistory.map(function(h){ return h.months; }).join(' → '),
     tbacHistoryLabelsEn: tbacHistory.map(function(h){ return h.label; }).join(' → '),
-    tbacHistoryLabelsEs: tbacHistory.map(function(h){ return h.labelEs || h.label; }).join(' → ')
+    tbacHistoryLabelsEs: tbacHistory.map(function(h){ return h.labelEs || h.label; }).join(' → '),
+    holdersAsOfEn: fmtDateEn(holdersIso), holdersAsOfEs: fmtDateEs(holdersIso),
+    holdersTotalT: (holdersTotalB/1000).toFixed(1),
+    pieOfficialPct: (holdersOfficialB/holdersTotalB*100).toFixed(1)+'%',
+    pieForeignPct: (holdersForeignB/holdersTotalB*100).toFixed(1)+'%',
+    piePrivatePct: (100-holdersOfficialB/holdersTotalB*100).toFixed(1)+'%',
+    foreignPrevT: '$'+(foreignYearAgoB/1000).toFixed(2)+'T', foreignPrevTEs: '$'+(foreignYearAgoB/1000).toFixed(2)+' billones',
+    foreignPrevShortEn: fmtMonthYearEn(foreignYearAgoYm), foreignPrevShortEs: fmtMonthYearEs(foreignYearAgoYm),
+    compAsOfEn: fmtDateEn(compAsOf), compAsOfEs: fmtDateEs(compAsOf),
+    compTotalT: '$'+(compTotalB/1000).toFixed(2)+'T', compTotalTEs: '$'+(compTotalB/1000).toFixed(2)+' billones',
+    fyCur: String(fyCur), fyPrev: String(fyPrev), fyPrevStartYY: String(fyPrev-1).slice(-2), fyPrevYY: String(fyPrev).slice(-2)
   };
   Object.keys(BIND).forEach(function(k){
     [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; });
@@ -1911,9 +1992,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   (function(){
     var cols = [getVar('--series-1'),getVar('--series-2'),getVar('--series-3'),getVar('--series-6'),getVar('--series-4'),getVar('--series-5')];
     renderLeaderPie('pieComposition', composition.map(function(c){return {label:L(c.label), value:c.value};}), cols,
-      { fmt: fmtB, centerTitle:'$39.77T', centerSub:L('total public debt') });
-    var rows = composition.map(function(c){ return '<tr><td>'+L(c.label)+'</td><td class="num">'+fmtB(c.value)+'</td><td class="num">'+pct(c.value,39771.62)+'</td></tr>'; }).join('');
-    document.getElementById('tblComposition').innerHTML = '<table><thead><tr><th>'+L('Security type')+'</th><th>'+L('Amount')+'</th><th>'+L('% of total')+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total public debt')+'</td><td class="num">$39,771.6B</td><td class="num">100.0%</td></tr></tbody></table>';
+      { fmt: fmtB, centerTitle:'$'+(compTotalB/1000).toFixed(2)+'T', centerSub:L('total public debt') });
+    var rows = composition.map(function(c){ return '<tr><td>'+L(c.label)+'</td><td class="num">'+fmtB(c.value)+'</td><td class="num">'+pct(c.value,compTotalB)+'</td></tr>'; }).join('');
+    document.getElementById('tblComposition').innerHTML = '<table><thead><tr><th>'+L('Security type')+'</th><th>'+L('Amount')+'</th><th>'+L('% of total')+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total public debt')+'</td><td class="num">'+fmtB(compTotalB)+'</td><td class="num">100.0%</td></tr></tbody></table>';
   })();
 
   // ---------------- 06 GDP ----------------
@@ -1970,8 +2051,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     new Chart(document.getElementById('chartRevYTD'), {
       type:'bar',
       data:{ labels: (LANG==='es' ? revCats.map(function(c){return wrapTick(L(c),16);}) : revCatsWrapped), datasets:[
-        { label:L('FY2026 YTD'), data:revYTDcur, backgroundColor:getVar('--series-1'), borderRadius:3, maxBarThickness:20 },
-        { label:L('FY2025 YTD'), data:revYTDpri, backgroundColor:getVar('--muted')+'80', borderRadius:3, maxBarThickness:20 }
+        { label:L(fyCurYtd), data:revYTDcur, backgroundColor:getVar('--series-1'), borderRadius:3, maxBarThickness:20 },
+        { label:L(fyPrevYtd), data:revYTDpri, backgroundColor:getVar('--muted')+'80', borderRadius:3, maxBarThickness:20 }
       ]},
       options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
         layout:{ padding:{ left:4, top:4 } },
@@ -2015,9 +2096,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
     var rows = revCats.map(function(c,i){ return '<tr><td>'+L(c)+'</td><td class="num">'+fmtB(revFY2025[i])+'</td><td class="num">'+fmtB(revYTDcur[i])+'</td><td class="num">'+fmtB(revYTDpri[i])+'</td></tr>'; }).join('');
     var ytdCurTotal = revYTDcur.reduce(function(a,b){return a+b;},0), ytdPriTotal = revYTDpri.reduce(function(a,b){return a+b;},0);
-    var ytdCurLabel = LANG==='es' ? ('AF2026 a la fecha ('+revOutInfo.months+' meses)') : ('FY2026 YTD ('+revOutInfo.months+' mo.)');
-    var ytdPriLabel = LANG==='es' ? ('AF2025 a la fecha ('+revOutInfo.months+' meses)') : ('FY2025 YTD ('+revOutInfo.months+' mo.)');
-    document.getElementById('tblRevenues').innerHTML = '<table><thead><tr><th>'+L('Category')+'</th><th>'+L('FY2025 full year')+'</th><th>'+ytdCurLabel+'</th><th>'+ytdPriLabel+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total receipts')+'</td><td class="num">'+fmtB(fy25total)+'</td><td class="num">'+fmtB(ytdCurTotal)+'</td><td class="num">'+fmtB(ytdPriTotal)+'</td></tr></tbody></table>';
+    var ytdCurLabel = LANG==='es' ? ('AF'+fyCur+' a la fecha ('+revOutInfo.months+' meses)') : ('FY'+fyCur+' YTD ('+revOutInfo.months+' mo.)');
+    var ytdPriLabel = LANG==='es' ? ('AF'+fyPrev+' a la fecha ('+revOutInfo.months+' meses)') : ('FY'+fyPrev+' YTD ('+revOutInfo.months+' mo.)');
+    document.getElementById('tblRevenues').innerHTML = '<table><thead><tr><th>'+L('Category')+'</th><th>'+L(fyPrevFull)+'</th><th>'+ytdCurLabel+'</th><th>'+ytdPriLabel+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total receipts')+'</td><td class="num">'+fmtB(fy25total)+'</td><td class="num">'+fmtB(ytdCurTotal)+'</td><td class="num">'+fmtB(ytdPriTotal)+'</td></tr></tbody></table>';
   })();
 
   // ---------------- 08 Outlays ----------------
@@ -2030,8 +2111,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     new Chart(document.getElementById('chartOutYTD'), {
       type:'bar',
       data:{ labels: (LANG==='es' ? outCats.map(function(c){return wrapTick(L(c),16);}) : outCatsWrapped), datasets:[
-        { label:L('FY2026 YTD'), data:outYTDcur, backgroundColor:getVar('--series-1'), borderRadius:3, maxBarThickness:20 },
-        { label:L('FY2025 YTD'), data:outYTDpri, backgroundColor:getVar('--muted')+'80', borderRadius:3, maxBarThickness:20 }
+        { label:L(fyCurYtd), data:outYTDcur, backgroundColor:getVar('--series-1'), borderRadius:3, maxBarThickness:20 },
+        { label:L(fyPrevYtd), data:outYTDpri, backgroundColor:getVar('--muted')+'80', borderRadius:3, maxBarThickness:20 }
       ]},
       options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
         layout:{ padding:{ left:4, top:4 } },
@@ -2045,9 +2126,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     });
     var rows = outCats.map(function(c,i){ return '<tr><td>'+L(c)+'</td><td class="num">'+fmtB(outFY2025[i])+'</td><td class="num">'+fmtB(outYTDcur[i])+'</td><td class="num">'+fmtB(outYTDpri[i])+'</td></tr>'; }).join('');
     var ytdCurTotal = outYTDcur.reduce(function(a,b){return a+b;},0), ytdPriTotal = outYTDpri.reduce(function(a,b){return a+b;},0);
-    var ytdCurLabel = LANG==='es' ? ('AF2026 a la fecha ('+revOutInfo.months+' meses)') : ('FY2026 YTD ('+revOutInfo.months+' mo.)');
-    var ytdPriLabel = LANG==='es' ? ('AF2025 a la fecha ('+revOutInfo.months+' meses)') : ('FY2025 YTD ('+revOutInfo.months+' mo.)');
-    document.getElementById('tblOutlays').innerHTML = '<table><thead><tr><th>'+L('Category')+'</th><th>'+L('FY2025 full year')+'</th><th>'+ytdCurLabel+'</th><th>'+ytdPriLabel+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total outlays')+'</td><td class="num">'+fmtB(fy25total)+'</td><td class="num">'+fmtB(ytdCurTotal)+'</td><td class="num">'+fmtB(ytdPriTotal)+'</td></tr></tbody></table>';
+    var ytdCurLabel = LANG==='es' ? ('AF'+fyCur+' a la fecha ('+revOutInfo.months+' meses)') : ('FY'+fyCur+' YTD ('+revOutInfo.months+' mo.)');
+    var ytdPriLabel = LANG==='es' ? ('AF'+fyPrev+' a la fecha ('+revOutInfo.months+' meses)') : ('FY'+fyPrev+' YTD ('+revOutInfo.months+' mo.)');
+    document.getElementById('tblOutlays').innerHTML = '<table><thead><tr><th>'+L('Category')+'</th><th>'+L(fyPrevFull)+'</th><th>'+ytdCurLabel+'</th><th>'+ytdPriLabel+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total outlays')+'</td><td class="num">'+fmtB(fy25total)+'</td><td class="num">'+fmtB(ytdCurTotal)+'</td><td class="num">'+fmtB(ytdPriTotal)+'</td></tr></tbody></table>';
   })();
 
   // ---------------- 09 Fed balance sheet vs M2 ----------------
