@@ -160,6 +160,7 @@ main{flex:1; padding-top:12px;}
   font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
 }
 .section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
+@media (max-width:640px){ .section-head{flex-wrap:wrap; gap:4px 16px;} .section-head .count{white-space:normal;} }
 
 .grid{
   display:grid; gap:16px;
@@ -213,7 +214,7 @@ a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shado
   display:flex; align-items:center; justify-content:space-between; gap:10px;
   font-size:13px; font-weight:600;
 }
-.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px;}
+.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px; white-space:nowrap;}
 .card-foot .cta svg{width:14px; height:14px; transition:transform .18s ease;}
 a.card:hover .cta svg{transform:translateX(3px);}
 .card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
@@ -399,6 +400,16 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .card.wide .spark .line{fill:none; stroke:var(--accent); stroke-width:2; stroke-linejoin:round;}
 .card.wide .spark .kpi{display:flex; justify-content:space-between; gap:10px; font-size:12px; color:var(--muted);}
 .card.wide .spark .kpi b{color:var(--text-primary); font-variant-numeric:tabular-nums; font-size:13px;}
+.map-scroll-hint{display:none; font-size:12px; color:var(--muted); margin:6px 0 0;}
+@media (max-width:640px){
+  .map-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;}
+  .map-wrap svg{min-width:760px;}
+  .mx-label{font-size:13px;}
+  .mx-label.major{font-size:15px;}
+  .mx-label.minor{display:none;}
+  .map-scroll-hint{display:block;}
+  .tooltip{display:none;} /* on phones the tap selects the airport and its figures show in the panel under the map */
+}
 @media (max-width:760px){
   .card.wide{flex-direction:column;}
   .card.wide .spark{flex-basis:auto; border-left:0; padding-left:0; border-top:1px solid var(--grid); padding-top:12px;}
@@ -465,6 +476,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             <span class="es">Área del círculo = pasajeros de los últimos 12 meses (AFAC). Pasa el cursor para ver detalles y haz clic para fijar un aeropuerto; usa las fichas para mostrar u ocultar un operador.</span>
           </span>
         </div>
+        <p class="map-scroll-hint"><span class="es">Desliza el mapa hacia los lados para verlo completo y toca un aeropuerto para ver sus cifras debajo del mapa; en pantallas pequeñas solo se etiquetan los aeropuertos con más de un millón de pasajeros.</span><span class="en">Swipe the map sideways to see all of it and tap an airport to see its figures under the map; on small screens only airports above one million passengers are labelled.</span></p>
         <div class="map-wrap" id="mapwrap">
           <svg id="mxmap" viewBox="0 0 1000 620" role="img" aria-labelledby="mxmap-title">
             <title id="mxmap-title">Mapa de los aeropuertos comerciales de México por operador / Map of Mexico's commercial airports by operator</title>
@@ -816,7 +828,7 @@ window.addEventListener("DOMContentLoaded", function(){
       var listed = r.grp !== "OTROS";
       if (!listed && r.ttm < 450000) return;
       var pos = LABELPOS[r.code] || [1, 4], side = pos[0] < 0 ? -1 : 1;
-      var t = el("text", {x:(r.x + side * (n.rad + 4) + (pos[2] || 0)).toFixed(1), y:(r.y + pos[1]).toFixed(1), "class":"mx-label" + (r.ttm >= 3e6 ? " major" : "") + (active[r.grp] ? "" : " dim"), "text-anchor":side < 0 ? "end" : "start"}, gL);
+      var t = el("text", {x:(r.x + side * (n.rad + 4) + (pos[2] || 0)).toFixed(1), y:(r.y + pos[1]).toFixed(1), "class":"mx-label" + (r.ttm >= 3e6 ? " major" : r.ttm < 1e6 ? " minor" : "") + (active[r.grp] ? "" : " dim"), "text-anchor":side < 0 ? "end" : "start"}, gL);
       t.textContent = L({es:r.a.es, en:r.a.en});
       t.__ttm = r.ttm; t.__ax = r.x; t.__side = side;
       labels[r.code] = t;
@@ -837,11 +849,16 @@ window.addEventListener("DOMContentLoaded", function(){
           var mover = a.__ttm >= b.__ttm ? b : a, other = mover === a ? b : a, bm = mover.getBBox(), bo = other.getBBox();
           var down = (bm.y + bm.height / 2) >= (bo.y + bo.height / 2);
           var shift = down ? (bo.y + bo.height + 1 - bm.y) : (bo.y - 1 - (bm.y + bm.height));
+          if (!down && bm.y + shift < 1) { down = true; shift = bo.y + bo.height + 1 - bm.y; }            // would leave the canvas at the top: go below instead
+          else if (down && bm.y + bm.height + shift > M.viewBox[3] - 1) { shift = bo.y - 1 - (bm.y + bm.height); } // ... or at the bottom: go above
           mover.setAttribute("y", (parseFloat(mover.getAttribute("y")) + shift).toFixed(1)); moved = true;
         }
       }
       if (!moved) break;
     }
+    // finally keep every label inside the canvas (Mexicali / Tijuana sit on the top edge, Tapachula near the bottom)
+    var H = M.viewBox[3];
+    items.forEach(function(t){ var b = t.getBBox(); if (!b.width) return; var dy = b.y < 1 ? 1 - b.y : (b.y + b.height > H - 1 ? H - 1 - (b.y + b.height) : 0); if (dy) t.setAttribute("y", (parseFloat(t.getAttribute("y")) + dy).toFixed(1)); });
   }
 
   // ---- tooltip ---------------------------------------------------------------
@@ -966,6 +983,7 @@ window.addEventListener("DOMContentLoaded", function(){
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ drawLabels(); });
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
   window.addEventListener("resize", function(){ if (selected) showTip(nodes[selected].r, nodes[selected].g); });
+  var narrowMq = window.matchMedia("(max-width:640px)"); if (narrowMq.addEventListener) narrowMq.addEventListener("change", function(){ drawLabels(); });
   document.addEventListener("keydown", function(ev){ if (ev.key === "Escape" && selected) select(selected); });
 });
 </script>
