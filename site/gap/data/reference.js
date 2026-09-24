@@ -3,7 +3,7 @@
 // something (see tools/gap/README.md "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-09-13",
+  updatedAt: "2026-09-24",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -134,18 +134,22 @@ window.GAP_REF = {
     certificates: 101950000,
     priceMxn: 100,
     stakePct: 4.2,
-    status_en: "Announced May-2026; first placement targeted for 25-Jun-2026, then guided to 3Q26 while authorisations completed. As of 12-Sep-2026 no completion notice had been located — verify in GAP's material events before quoting it as closed.",
-    status_es: "Anunciada en mayo de 2026; primera colocación prevista para el 25-Jun-2026 y después guiada al 3T26 mientras concluían las autorizaciones. Al 12-Sep-2026 no se localizó aviso de cierre: verificar en los eventos relevantes de GAP antes de darla por colocada.",
+    status_en: "Not yet placed as of 24-Sep-2026. Announced 8-May-2026; the first placement, planned for 25-Jun-2026 on BIVA, was postponed on 25-Jun-2026 with no new date. On 22-Sep-2026 the financial press reported that GAP now expects to place it in October 2026 (FGAP 26, about Ps. 10,200 M for 4.2% of each of the 12 Mexican concessionaires; roughly Ps. 3,680 M, 36% of the proceeds, earmarked for Guadalajara). No completion notice appears on GAP's material-events page or in its Form 6-K filings through 14-Sep-2026.",
+    status_es: "Aún no colocada al 24-Sep-2026. Anunciada el 8-May-2026; la primera colocación, prevista para el 25-Jun-2026 en BIVA, se pospuso el 25-Jun-2026 sin nueva fecha. El 22-Sep-2026 la prensa financiera informó que GAP prevé colocarla en octubre de 2026 (FGAP 26, unos Ps. 10,200 M por el 4.2% de cada una de las 12 concesionarias mexicanas; cerca de Ps. 3,680 M, 36% de los recursos, para Guadalajara). No hay aviso de cierre en los eventos relevantes de GAP ni en sus Formas 6-K hasta el 14-Sep-2026.",
     sources: {
       en: [
         "GAP, material event on the constitution of FIBRA GAP, BMV eventemi 1558742 (May-2026)",
         "El Universal, 'GAP inicia proceso para crear fideicomiso; prevé inversiones por 40 mil mdp'",
         "El Cronista, Axis Negocios and El CEO, coverage of the FGAP 26 offering (Jun–Jul 2026)",
+        "Financial press via Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-Jun-2026) and 'En octubre saldrá la Fibra E de GAP' (22-Sep-2026)",
+        "GAP material events page and SEC EDGAR filing index, checked 24-Sep-2026 (no completion notice)",
       ],
       es: [
         "GAP, evento relevante sobre la constitución de FIBRA GAP, BMV eventemi 1558742 (may-2026)",
         "El Universal, 'GAP inicia proceso para crear fideicomiso; prevé inversiones por 40 mil mdp'",
         "El Cronista, Axis Negocios y El CEO, cobertura de la oferta de FGAP 26 (jun–jul 2026)",
+        "Prensa financiera vía Yahoo Noticias, 'GAP pospone colocación de fibra E planeada para el 25 de junio' (25-jun-2026) y 'En octubre saldrá la Fibra E de GAP' (22-sep-2026)",
+        "Página de eventos relevantes de GAP e índice de la SEC (EDGAR), revisados el 24-sep-2026 (sin aviso de cierre)",
       ],
     },
   },
