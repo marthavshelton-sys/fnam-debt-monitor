@@ -97,7 +97,8 @@
      drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
   @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; }
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    main { min-width: 0; padding: 20px 16px 48px; }
     .rail { display: none; }
     .mobilebar {
       display: flex; align-items: center; gap: 10px;
@@ -541,6 +542,13 @@
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
   .sub-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  /* phones: nothing below 11 px, and the category grid must not force the page wider than the screen */
+  @media (max-width: 860px) {
+    .kpi-foot, .mstat-sub, .donut-center .s, .stable th, .note-sm, .tooltip .t-date, .exec-title, .cat-subset-tag, .soon-pill, .manual-badge, .stale-pill { font-size: 11px; }
+    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cat-card { min-width: 0; }
+    .cat-card-head { flex-wrap: wrap; gap: 2px 8px; }
+  }
 </style>
 
 <div class="mobilebar" id="mobileBar">
@@ -1741,7 +1749,7 @@ function execSummary(prefix, lines) {
 // ================================================================
 const NS = "http://www.w3.org/2000/svg";
 function svgEl(tag, attrs, text) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (text !== undefined) e.textContent = text; return e; }
-function axisText(x, y, anchor, size, txt) { return svgEl("text", {x, y, "text-anchor": anchor, "font-size": size, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, txt); }
+function axisText(x, y, anchor, size, txt) { return svgEl("text", {x, y, "text-anchor": anchor, "font-size": Math.max(11, size), "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, txt); }
 function niceStep(span, target) {
   const raw = span / (target || 5); const p = Math.pow(10, Math.floor(Math.log10(raw)));
   for (const m of [1, 2, 2.5, 5, 10]) if (m * p >= raw) return m * p;
@@ -1809,7 +1817,7 @@ function lineChart(svgId, series, opts) {
   if (opts.target) {
     const ty = y(opts.target.value);
     svg.appendChild(svgEl("line", {x1: ML, x2: W - MR, y1: ty, y2: ty, stroke: "var(--text-muted)", "stroke-width": 1, "stroke-dasharray": "3,3"}));
-    svg.appendChild(svgEl("text", {x: ML + 4, y: ty - 5, "font-size": 9.5, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, opts.target.label));
+    svg.appendChild(svgEl("text", {x: ML + 4, y: ty - 5, "font-size": 11, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-muted)"}, opts.target.label));
   }
   // one x tick per year, at the first date of each year present
   let prevYear = null;
@@ -1832,7 +1840,7 @@ function lineChart(svgId, series, opts) {
     svg.appendChild(svgEl("line", {x1: ax, x2: ax, y1: MT, y2: MT + plotH, stroke: "var(--text-secondary)", "stroke-width": 1, "stroke-dasharray": "2,2"}));
     const fw = a.label.length * 5.6 + 12, fx = Math.min(Math.max(ax - fw / 2, ML), W - MR - fw);
     svg.appendChild(svgEl("rect", {x: fx, y: MT - 2, width: fw, height: 15, rx: 3, fill: "var(--surface-1)", stroke: "var(--border)"}));
-    svg.appendChild(svgEl("text", {x: fx + fw / 2, y: MT + 9, "text-anchor": "middle", "font-size": 9.5, "font-weight": 600, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-secondary)"}, a.label));
+    svg.appendChild(svgEl("text", {x: fx + fw / 2, y: MT + 9, "text-anchor": "middle", "font-size": 11, "font-weight": 600, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-secondary)"}, a.label));
     if (a.detail) callouts.push(fmtAny(a.d) + ": " + a.detail);
   });
   if (opts.legendId) { const lg = document.getElementById(opts.legendId); if (lg) lg.innerHTML = series.map(s => `<div class="legend-item"><span class="legend-swatch" style="background:var(${s.color})${s.dashed ? ";height:0;border-top:2px dashed var(" + s.color + ")" : ""}"></span>${esc(s.label)}</div>`).join(""); }
@@ -1874,7 +1882,7 @@ function columns(svgId, pts, colorVar, opts) {
   pts.forEach((p, i) => {
     const y0 = yOf(0), y1 = yOf(p.v), top = Math.min(y0, y1), h = Math.max(1, Math.abs(y1 - y0));
     svg.appendChild(svgEl("rect", {x: (xOf(i) - bw / 2).toFixed(1), y: top.toFixed(1), width: bw.toFixed(1), height: h.toFixed(1), rx: 2, fill: `var(${opts.colorFn ? opts.colorFn(p.v) : colorVar})`}));
-    if (i === pts.length - 1) svg.appendChild(svgEl("text", {x: xOf(i), y: p.v >= 0 ? top - 4 : top + h + 11, "text-anchor": "middle", "font-size": 10, "font-weight": 600, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-primary)"}, vfmt(p.v)));
+    if (i === pts.length - 1) svg.appendChild(svgEl("text", {x: xOf(i), y: p.v >= 0 ? top - 4 : top + h + 11, "text-anchor": "middle", "font-size": 11, "font-weight": 600, "font-family": "IBM Plex Mono, monospace", fill: "var(--text-primary)"}, vfmt(p.v)));
     const hit = svgEl("rect", {x: (xOf(i) - plotW / pts.length / 2).toFixed(1), y: padT, width: (plotW / pts.length).toFixed(1), height: plotH, fill: "transparent"});
     hit.addEventListener("mousemove", () => { const r = svg.getBoundingClientRect(), inv = r.width / W; tooltip.style.left = (xOf(i) * inv) + "px"; tooltip.style.top = (top * inv - 8) + "px"; tooltip.style.opacity = "1"; tooltip.innerHTML = `<div class="t-date">${esc((opts.labelFmt || fmtAny)(p.d))}</div><div class="t-row"><span class="t-dot" style="background:var(${colorVar})"></span>${esc(vfmt(p.v))}</div>`; });
     hit.addEventListener("mouseleave", () => { tooltip.style.opacity = "0"; });

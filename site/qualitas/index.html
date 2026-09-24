@@ -361,6 +361,33 @@ body.nav-stuck .lang-btn{top:6px;}
   #printClose .fine{font-size:11.5pt; margin-top:14pt;}
   #printClose .conf{margin-top:14pt; font-weight:600;}
 }
+
+/* ---------- phones (≤640px): compact statements, scroll cue, type floor, tap targets ---------- */
+@media (max-width:640px){
+  /* Statements and operating metrics: line item · latest period · y/y change, with the comment beneath the row.
+     The prior-period and absolute-change columns are hidden; ratio rows (empty Δ%) show their change in pp instead. */
+  .stmt-table, .stmt-table thead, .stmt-table tbody{display:block;}
+  .stmt-table tr{display:grid; grid-template-columns:minmax(0,1fr) auto auto; column-gap:10px; align-items:baseline; padding:7px 0; border-bottom:1px solid var(--grid);}
+  .stmt-table thead tr{border-bottom:1px solid var(--baseline); padding-top:0;}
+  .stmt-table th, .stmt-table td{display:block; padding:0; border:0; min-width:0 !important; max-width:none !important; white-space:normal !important; position:static !important; box-shadow:none !important; background:transparent !important;}
+  .stmt-table th:nth-child(3), .stmt-table td:nth-child(3), .stmt-table th:nth-child(4), .stmt-table td:nth-child(4), .stmt-table th.cmt{display:none;}
+  .stmt-table tr:has(td:nth-child(5):empty) td:nth-child(4){display:block;}
+  .stmt-table tr:has(td:nth-child(5):empty) td:nth-child(5){display:none;}
+  .stmt-table td:not(:first-child):not(.cmt){text-align:right; white-space:nowrap !important;}
+  .stmt-table td.cmt{grid-column:1 / -1; margin-top:3px; font-size:12px; line-height:1.4; color:var(--text-secondary);}
+  .stmt-table td.cmt:empty{display:none;} .stmt-table tr td.cmt{font-weight:400;}
+  .stmt-table tr.head{border-bottom:0;} .stmt-table tr.head td{grid-column:1 / -1; padding-top:10px;}
+  .stmt-table tr.sub td:first-child{padding-left:14px;} .stmt-table tr.sub2 td:first-child{padding-left:26px;}
+  .stmt-table tr.total td{border-top:0;}
+  /* Other wide tables and the section nav still scroll sideways: shade the edges so the reader knows */
+  .tblwrap{background:linear-gradient(to right, var(--surface) 40%, rgba(0,0,0,0)) left/36px 100% no-repeat local, linear-gradient(to left, var(--surface) 40%, rgba(0,0,0,0)) right/36px 100% no-repeat local, linear-gradient(to right, rgba(0,0,0,.12), rgba(0,0,0,0)) left/14px 100% no-repeat scroll, linear-gradient(to left, rgba(0,0,0,.12), rgba(0,0,0,0)) right/14px 100% no-repeat scroll;}
+  nav.jump .wrap{background:linear-gradient(to left, var(--page) 40%, rgba(0,0,0,0)) right/36px 100% no-repeat local, linear-gradient(to left, rgba(0,0,0,.2), rgba(0,0,0,0)) right/22px 100% no-repeat scroll;}
+  /* nothing below 11 px */
+  .guide-chip, table th, .guide-table th, .kpi .lbl, .stmt-table tr.grp-head .cnt{font-size:11px;}
+  /* thumb-sized hit areas for source links (inline padding widens the hit box without moving the text) */
+  a[target="_blank"], .guide-quote a, .chart-src a, .cap a{padding:8px 0;}
+  .gl{border-bottom:none;}
+}
 </style>
 </head>
 <body>
