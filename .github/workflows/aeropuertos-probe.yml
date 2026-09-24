@@ -2,6 +2,11 @@
 name: Probe airport traffic sources
 on:
   workflow_dispatch:
+  push:
+    branches: ["claude/gap-financial-model-vfypi1"]
+    paths:
+      - "scripts/aeropuertos/probe.mjs"
+      - ".github/workflows/aeropuertos-probe.yml"
 permissions:
   contents: write
 concurrency:
