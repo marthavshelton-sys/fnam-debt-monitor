@@ -34,5 +34,16 @@ jobs:
             # made Pages silently drop every one of these deploys, so the live site only
             # refreshed when some unrelated commit happened to land and rebuild it.
             git commit -m "chore: refresh live Treasury/Fed data [skip actions]"
-            git push
+            # Several other dashboards' bots push to this repo throughout the day. If one of them
+            # lands between our checkout and push, rebase (this commit only touches
+            # site/fiscal/data.js, so it never conflicts) and try again rather than failing the run.
+            # Pushes to whichever branch the run checked out (main on schedule; a feature branch when
+            # dispatched from one, which is how changes to this pipeline get a preview deployment).
+            for i in 1 2 3 4; do
+              if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
+              echo "push rejected (another workflow pushed first); rebasing and retrying ($i)"
+              git pull --rebase origin "${GITHUB_REF_NAME}" || true
+              sleep $((i * 5))
+            done
+            exit 1
           fi
