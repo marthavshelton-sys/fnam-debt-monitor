@@ -160,7 +160,8 @@
   const orclPx = px('ORCL'); const lastPx = lastPoint(orclPx);
   const sharesNow = (MK.sharesOutstanding && MK.sharesOutstanding.shares) || (REF.shares && REF.shares.total) || (lastQ && lastQ.shares && lastQ.shares.current) || null;
   const sharesAt = (date) => { const h = (REF.shares && REF.shares.history) || []; let v = null; for (const e of h) if (e.asOf <= date) v = e.total; return v || sharesNow; };
-  const qEndDate = (q) => q.periodEnd || `${q.fy}-${String(((q.q * 3 + 5) % 12) || 12).padStart(2, '0')}-28`;
+  // Fiscal year ends 31 May: Q1 ends 31 Aug and Q2 30 Nov of the previous calendar year, Q3 28 Feb, Q4 31 May.
+  const qEndDate = (q) => q.periodEnd || (q.q === 1 ? `${q.fy - 1}-08-31` : q.q === 2 ? `${q.fy - 1}-11-30` : q.q === 3 ? `${q.fy}-02-28` : `${q.fy}-05-31`);
   const netDebt = (q) => (q && q.bs && q.bs.totalDebt != null ? { gross: q.bs.totalDebt, cash: q.bs.cashAndInvestments || 0, net: q.bs.totalDebt - (q.bs.cashAndInvestments || 0), basis: 'bs' } : null);
   function addDays(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
   const GV = (GD.vintages || []).slice().sort((a, b) => a.date.localeCompare(b.date));
@@ -273,15 +274,15 @@
     if (preset || !st.b || !opts.find((o) => o.id === st.b)) st.b = paired || (opts[opts.length - 2] || {}).id;
     mk(el('selA'), opts.find((o) => o.id === st.a)); mk(el('selB'), opts.find((o) => o.id === st.b));
   }
-  function isYoY(A, B) {
+  function isYoY(A, B, mode = st.mode) {
     if (!A || !B) return false;
-    if (st.mode === 'fy') return B.fy === A.fy - 1;
-    if (st.mode === 'q') return B.fy === A.fy - 1 && B.q === A.q;
-    if (st.mode === 'ytd') return B.fy === A.fy - 1 && B.months === A.months;
+    if (mode === 'fy') return B.fy === A.fy - 1;
+    if (mode === 'q') return B.fy === A.fy - 1 && B.q === A.q;
+    if (mode === 'ytd') return B.fy === A.fy - 1 && B.months === A.months;
     return false;
   }
   // Comments exist for year-over-year quarter pairs (keyed "2027Q1") and consecutive fiscal years (keyed "FY2026").
-  function yoyCommentsFor(A, B) { if (!isYoY(A, B) || (st.mode !== 'q' && st.mode !== 'fy')) return null; return CM.periods && CM.periods[A.id] ? CM.periods[A.id] : null; }
+  function yoyCommentsFor(A, B, mode = st.mode) { if (!isYoY(A, B, mode) || (mode !== 'q' && mode !== 'fy')) return null; return CM.periods && CM.periods[A.id] ? CM.periods[A.id] : null; }
   // Revenue lines: when one side is on the pre-FY2026 basis and the other on the current one, use Oracle's recast.
   function revValue(obj, other, k) {
     if (!obj || !obj.is) return null;
@@ -1140,7 +1141,8 @@
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
   window.addEventListener('afterprint', () => setPrintMode(false));
-  el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
+  // The button builds the board presentation PDF (present.js); the browser print path stays as a fallback.
+  el('btnPrint').addEventListener('click', () => { if (window.ORCL_PRESENT && window.ORCL_PRESENT.build) { window.ORCL_PRESENT.build(); return; } setPrintMode(true); setTimeout(() => window.print(), 250); });
   el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
@@ -1158,6 +1160,16 @@
   sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
+  // Read-only view of the model for the presentation builder (present.js): the same data, helpers and
+  // calculations the page renders, so the PDF and the screen can never disagree.
+  window.ORCL_MODEL = {
+    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtBn, fmtPct, fmtX, fmtDate, qLabel, qLabelId, ytdLabel, fyLabel, cls, addDays,
+    FIN, MK, REF, PEERS, GD, CM, SUM, CDS, BO,
+    Q, Y, lastQ, qById, prevQid, yoyQid, REV_LINES, revOnNewBasis, sumParts, fixRatios, combine, ytdFor, ltmFor, lastLTM,
+    px, lastPoint, pointAtOrBefore, us10, orclPx, lastPx, sharesNow, sharesAt, qEndDate, netDebt,
+    GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
+    boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
+  };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');
   setLang(initial === 'en' ? 'en' : 'es');
