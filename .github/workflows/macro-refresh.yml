@@ -2,20 +2,21 @@
 # when the data changed. Cloudflare Pages deploys the commit automatically,
 # the same way it does for the fiscal monitor.
 #
-# Schedule: every day. 12:50, 14:05 and 20:05 UTC on weekdays - most US
-# releases land at 08:30 ET; the 12:50 run is 20 minutes after that during
+# Schedule: 12:50 UTC on weekdays, 14:05 and 20:05 UTC every day. Most US
+# releases land at 08:30 ET. The 12:50 run is 20 minutes after that during
 # daylight time (and harmlessly before it in winter - nothing changes, nothing
 # is committed); the 14:05 run is the safety net in either season; 20:05
-# catches afternoon releases and same-day revisions. 15:05 UTC on Saturday and
-# Sunday - the agencies publish nothing on weekends, so those runs almost
-# always commit nothing, but they catch corrections and late postings.
+# catches afternoon releases and same-day revisions. Weekend runs pick up
+# anything posted off-cycle (Shiller's file, DOE's inventory report).
+#
+# This job only ever writes site/macro/index.html, site/macro/spr-inventory.jpg
+# and tools/macro/data/**; it never touches another page's files or workflow.
 name: Refresh macro dashboard
 
 on:
   schedule:
     - cron: "50 12 * * 1-5"
-    - cron: "5 14,20 * * 1-5"
-    - cron: "5 15 * * 0,6"
+    - cron: "5 14,20 * * *"
   workflow_dispatch:
   push:
     branches: [main]
