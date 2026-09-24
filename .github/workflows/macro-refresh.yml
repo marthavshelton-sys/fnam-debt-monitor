@@ -96,6 +96,12 @@ jobs:
             # Everything this run produced is already committed; anything else
             # left modified in the tree is checkout noise and must not block the rebase.
             git checkout -- . 2>/dev/null || true
+            # Files another project committed with one line ending and rewrites to
+            # another on checkout stay "modified" no matter what; mark whatever is
+            # still dirty as skip-worktree so the rebase ignores it. Nothing outside
+            # the paths added above is ever committed by this job.
+            dirty=$(git diff --name-only)
+            if [ -n "$dirty" ]; then echo "$dirty" | xargs -r git update-index --skip-worktree; echo "skip-worktree: $dirty"; fi
             pushed=0
             for i in 1 2 3; do
               if git pull --rebase --autostash origin main && git push; then pushed=1; break; fi
