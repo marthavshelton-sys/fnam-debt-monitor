@@ -584,8 +584,8 @@
       // structure diagram (drawn, not data): who owns what and where the money flows
       const srcStr = this.T('Fuentes: ', 'Sources: ') + (M.LS(F.sources) || []).join(' · ');
       const srcH = this.measureText(srcStr, this.width(), 7.2, 1.25);
-      const top = Math.max(yl, yr) + 14, availH = this.cur.y1 - top - srcH - 10; let yEnd = top;
-      if (availH > 150) {
+      const top = Math.max(yl, yr) + 12, availH = this.cur.y1 - top - srcH - 10; let yEnd = top;
+      if (availH > 95) {
         const dy = this.heading(this.T('Estructura: quién es dueño de qué y hacia dónde fluye el dinero', 'Structure: who owns what and where the money flows'), this.cur.x0, top, 10.5);
         const W = this.width(), bh = 52, y0 = dy + 10, bw = W * 0.175, pad = (W - 4 * bw) / 3;
         const boxes = [
@@ -600,8 +600,11 @@
         arrow(cx(0) + bw + 2, cx(1) - 2, mid - 8, this.T('capital', 'equity'), true); arrow(cx(1) - 2, cx(0) + bw + 2, mid + 8, this.T('dividendos', 'dividends'), false);
         arrow(cx(1) + bw + 2, cx(2) - 2, mid - 8, this.T(`~${this.pct(100 - F.stakePct)} del capital`, `~${this.pct(100 - F.stakePct)} of equity`), true); arrow(cx(2) - 2, cx(1) + bw + 2, mid + 8, this.T('dividendos', 'dividends'), false);
         arrow(cx(3) - 2, cx(2) + bw + 2, mid - 8, this.T(`~${this.pct(F.stakePct)} del capital: Ps. ${this.n(F.targetMxnM)} M`, `~${this.pct(F.stakePct)} of equity: Ps. ${this.n(F.targetMxnM)} M`), true); arrow(cx(2) + bw + 2, cx(3) - 2, mid + 8, this.T('dividendos (~4.2%)', 'dividends (~4.2%)'), false);
+        yEnd = y0 + bh + 22;
+        if (availH > 150) {
         const yy2 = y0 + bh + 34; this.font('normal', 8.4, MUTED);
         const capLines = this.pdf.splitTextToSize(tx(this.T(`Los recursos que la Fibra aporta a las concesionarias financian el PMD 2025–2029 (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). En los estados consolidados de GAP la participación de la Fibra es participación no controladora: el EBITDA no cambia, ~${this.pct(F.stakePct)} de la utilidad de las concesionarias mexicanas pasa a los tenedores de CBFEs.`, `The cash the trust puts into the concessionaires funds the 2025–2029 MDP (> Ps. ${this.n((R.mdp && R.mdp.capexMxnBn) || 52)},000 M). In GAP's consolidated statements the trust's stake is non-controlling interest: EBITDA is unchanged, ~${this.pct(F.stakePct)} of the Mexican concessionaires' profit goes to CBFE holders.`)), W); this.pdf.text(capLines, this.cur.x0, yy2); yEnd = yy2 + capLines.length * 8.4 * 1.15;
+        }
       }
       this.noteAbove(srcStr, Math.max(yEnd + 8, this.cur.y1 - srcH - 4), 7.2);
     }
