@@ -100,6 +100,10 @@ async function main() {
       try { data = await stooq(s.stooq, s.since); data.note = `Yahoo failed (${e1.message}); Stooq fallback`; }
       catch (e2) { err = `${e1.message} | ${e2.message}`; }
     }
+    // Closed sessions only: during trading hours Yahoo's last daily bar is the session in progress, not a close.
+    // Every exchange here (BMV, NYSE, B3, BME) has closed by 22:00 UTC, so a run before that drops the current day's bar;
+    // the 23:00 UTC run adds the real close.
+    if (data && data.points && new Date(out.generatedAt).getUTCHours() < 22) { const today = out.generatedAt.slice(0, 10); data.points = data.points.filter((p) => p[0] !== today); }
     if (data && data.points.length > 50) {
       ok++;
       out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, points: data.points };
