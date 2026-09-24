@@ -6,8 +6,10 @@ const agg = JSON.parse(fs.readFileSync(W + "/afac-agg.json", "utf8"));
 const airportsMeta = JSON.parse(fs.readFileSync(path.join(HERE, "airports.json"), "utf8"));
 const mapData = JSON.parse(fs.readFileSync(path.join(HERE, "mexico-map.json"), "utf8"));
 const aicm = JSON.parse(fs.readFileSync(W + "/aicm.json", "utf8"));
-const aifa = JSON.parse(fs.readFileSync(W + "/aifa.json", "utf8"));      // portal counters, written by refresh.mjs
-const sources = JSON.parse(fs.readFileSync(W + "/sources.json", "utf8")); // file names and publication dates, written by refresh.mjs
+// fetchedAt (the day of the last check) stays out of the published data so the data stamp only moves when figures change; status.js carries it
+const noFetch = o => { const c = { ...o }; delete c.fetchedAt; return c; };
+const aifa = noFetch(JSON.parse(fs.readFileSync(W + "/aifa.json", "utf8")));      // portal counters, written by refresh.mjs
+const sources = Object.fromEntries(Object.entries(JSON.parse(fs.readFileSync(W + "/sources.json", "utf8"))).map(([k, v]) => [k, noFetch(v)])); // file names and dates, written by refresh.mjs
 const xy = new Map(mapData.airports.map(a => [a.code, [a.x, a.y]]));
 const Y0 = agg.Y0, last = agg.lastIndex;
 const months = []; for (let i = 0; i <= last; i++) months.push((Y0 + Math.floor(i / 12)) + "-" + String(i % 12 + 1).padStart(2, "0"));
