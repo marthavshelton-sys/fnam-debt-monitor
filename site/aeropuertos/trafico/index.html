@@ -182,6 +182,7 @@ main{flex:1; padding-top:12px;}
 .chart-box.sm{height:320px;}
 .chart-box .msg{position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); font-size:14px; text-align:center; padding:20px;}
 @media (max-width:760px){ .chart-box{height:330px;} .chart-box.sm{height:260px;} }
+.only-sm{display:none;} @media (max-width:640px){ .only-sm{display:inline;} }
 
 /* KPI cards */
 .kpis{display:grid; grid-template-columns:repeat(auto-fit, minmax(165px, 1fr)); gap:12px;}
@@ -358,7 +359,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <div class="panel">
           <div class="panel-head">
             <h3><span class="en">Ranking, last 12 months</span><span class="es">Ranking, últimos 12 meses</span></h3>
-            <span class="note"><span class="en">Click a row to chart it</span><span class="es">Haz clic en una fila para graficarla</span></span>
+            <span class="note"><span class="en">Click a row to chart it<span class="only-sm">; swipe the table sideways to see every column</span></span><span class="es">Haz clic en una fila para graficarla<span class="only-sm">; desliza la tabla hacia los lados para ver todas las columnas</span></span></span>
           </div>
           <div class="controls" style="margin-bottom:10px"><div class="chips" id="tblchips"></div></div>
           <div class="tbl-wrap"><table class="tbl" id="tbl"><thead></thead><tbody></tbody></table></div>
@@ -554,7 +555,11 @@ window.addEventListener("DOMContentLoaded", function(){
                 tooltip:{backgroundColor:cssVar("--surface"), titleColor:cssVar("--text-primary"), bodyColor:cssVar("--text-secondary"), borderColor:cssVar("--border-strong"), borderWidth:1, padding:10, boxPadding:4, usePointStyle:true} },
       scales:{ x:{grid:{display:false}, ticks:{color:cssVar("--muted"), maxRotation:0, autoSkip:false}}, y:{grid:{color:cssVar("--grid")}, ticks:{color:cssVar("--muted")}, border:{display:false}} } };
   }
-  function yearTicks(labels){ return function(v){ var ym = labels[v]; if (!ym) return ""; return ym.slice(5) === "01" ? ym.slice(0, 4) : ""; }; }
+  // Year labels on the x axis: one per January, thinned to every 2nd / 3rd year when the canvas is too narrow for all of them
+  function yearTicks(labels, id){
+    var first = labels.length ? +labels[0].slice(0, 4) : 0, years = labels.filter(function(m){ return m.slice(5) === "01"; }).length || 1;
+    return function(v){ var ym = labels[v]; if (!ym || ym.slice(5) !== "01") return ""; var el = id && document.getElementById(id), w = el && el.clientWidth || 900; var step = Math.max(1, Math.ceil(years * 46 / w)); return (+ym.slice(0, 4) - first) % step === 0 ? ym.slice(0, 4) : ""; };
+  }
   function axisFmt(measure, mode){
     return function(v){ if (mode === "pct") return nf(v, 0) + "%"; if (measure === "cargo") return Math.abs(v) >= 1e6 ? nf(v / 1e6, 1) + " Mt" : (Math.abs(v) >= 1000 ? nf(v / 1e3, 0) + " kt" : nf(v, 0)); return Math.abs(v) >= 1e6 ? nf(v / 1e6, v % 1e6 ? 1 : 0) + " M" : (Math.abs(v) >= 1e3 ? nf(v / 1e3, 0) + " k" : nf(v, 0)); };
   }
@@ -680,7 +685,7 @@ window.addEventListener("DOMContentLoaded", function(){
       });
       if (S.total && S.view !== "share") datasets.push({label:T("Total nacional (AFAC)", "National total (AFAC)"), data:tf(natFull).slice(startIdx), borderColor:cssVar("--text-primary"), backgroundColor:cssVar("--text-primary"), borderWidth:1.5, borderDash:S.view === "yoy" ? [5, 3] : [], pointRadius:0, pointHitRadius:6, tension:.15, fill:false, stack:"nat", order:0});
       opts.scales.y.stacked = stacked;
-      opts.scales.x.ticks.callback = yearTicks(labels);
+      opts.scales.x.ticks.callback = yearTicks(labels, "mainchart");
       opts.scales.y.ticks.callback = axisFmt(measure, isPct ? "pct" : null);
       if (S.view === "share") { opts.scales.y.min = 0; if (sel.length === GROUPS.length && stacked) opts.scales.y.max = 100; }
       opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true); },
@@ -762,7 +767,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var yy12 = yoy(tot).slice(s0);
     var opts = baseOpts();
     opts.scales.x.stacked = true; opts.scales.y.stacked = true;
-    opts.scales.x.ticks.callback = yearTicks(labels);
+    opts.scales.x.ticks.callback = yearTicks(labels, "apchart");
     opts.scales.y.ticks.callback = axisFmt("pax");
     opts.scales.y2 = {position:"right", grid:{display:false}, ticks:{color:cssVar("--muted"), callback:function(v){ return nf(v, 0) + "%"; }}, border:{display:false}, suggestedMin:-30, suggestedMax:30};
     opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true); }, label:function(cx){ var v = cx.parsed.y; if (v == null) return null; return " " + cx.dataset.label + ": " + (cx.dataset.yAxisID === "y2" ? pct(v / 100) : fmtN(v)); }, footer:function(items){ var t = 0; items.forEach(function(it){ if (it.dataset.yAxisID !== "y2") t += it.parsed.y || 0; }); return T("Total: ", "Total: ") + fmtN(t); }};
@@ -796,7 +801,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var kk = S.aicm, c = col("AICM"), c2 = cssVar("--accent");
     var opts = baseOpts();
     opts.scales.x.stacked = true; opts.scales.y.stacked = true;
-    opts.scales.x.ticks.callback = yearTicks(am);
+    opts.scales.x.ticks.callback = yearTicks(am, "aicmchart");
     opts.scales.y.ticks.callback = axisFmt(kk === "cargo" ? "cargo" : "pax");
     opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true); }, label:function(cx){ var v = cx.parsed.y; return v == null ? null : " " + cx.dataset.label + ": " + (kk === "cargo" ? fmtT(v) : fmtN(v)); }, footer:function(items){ var t = 0; items.forEach(function(it){ t += it.parsed.y || 0; }); return T("Total: ", "Total: ") + (kk === "cargo" ? fmtT(t) : fmtN(t)); }};
     mount("aicmchart", {type:"bar", data:{labels:am, datasets:[
@@ -828,7 +833,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var shareN = sN.map(function(v, i){ var t = (sM[i] || 0) + (sN[i] || 0) + (sT[i] || 0); return t ? v / t * 100 : null; });
     var opts = baseOpts();
     opts.scales.y.stacked = true;
-    opts.scales.x.ticks.callback = yearTicks(labels);
+    opts.scales.x.ticks.callback = yearTicks(labels, "vmchart");
     opts.scales.y.ticks.callback = axisFmt("pax");
     opts.scales.y2 = {position:"right", grid:{display:false}, min:0, suggestedMax:40, ticks:{color:cssVar("--muted"), callback:function(v){ return nf(v, 0) + "%"; }}, border:{display:false}};
     opts.plugins.tooltip.callbacks = {title:function(items){ return monthLabel(items[0].label, true); }, label:function(cx){ var v = cx.parsed.y; return v == null ? null : " " + cx.dataset.label + ": " + (cx.dataset.yAxisID === "y2" ? nf(v, 1) + "%" : fmtN(v)); }};
@@ -843,6 +848,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var lab = yrs.map(function(y){ return y === yearNow && lastM < 12 ? y + " (" + monName(1) + "–" + monName(lastM) + ")" : String(y); });
     function ann(code){ var r = byCode[code]; return yrs.map(function(y){ return r && r.a.annual && r.a.annual.cargo ? (r.a.annual.cargo[y] == null ? null : r.a.annual.cargo[y]) : null; }); }
     var o2 = baseOpts();
+    o2.scales.x.ticks.maxRotation = 45; // "2026 (ene–jul)" needs the room on phones
     o2.scales.y.ticks.callback = axisFmt("cargo");
     o2.plugins.tooltip.callbacks = {label:function(cx){ var v = cx.parsed.y; return v == null ? null : " " + cx.dataset.label + ": " + fmtT(v); }};
     mount("cargochart", {type:"bar", data:{labels:lab, datasets:[
