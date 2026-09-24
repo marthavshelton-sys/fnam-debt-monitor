@@ -183,7 +183,10 @@
       "financing_es": "Financiamiento de proyecto de Crusoe respaldado por la plataforma de activos reales de Blue Owl Capital y Primary Digital Infrastructure; ~US$15 mil M levantados para el campus (Crusoe)",
       "oracle_status_es": "42% de la capacidad entregada al 4T26 y otro 35% previsto en 90 días; 131,000 GPU entregadas en el 1T27 (1.9x el 4T26); aceptación del cliente reducida a 24 horas; GPT-6 Astra se entrenó en el sitio",
       "contracted_es": "2024 (construcción iniciada en junio de 2024)",
-      "first_delivery_es": "En operación desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025"
+      "first_delivery_es": "En operación desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025",
+      "lat": 32.45,
+      "lon": -99.73,
+      "short": "Abilene, TX"
     },
     {
       "name": "Shackelford County, Texas (Vantage 'Frontier')",
@@ -224,7 +227,10 @@
       "financing_es": "Desarrollo respaldado por Vantage / DigitalBridge; Oracle no ha divulgado su compromiso más allá del contrato de capacidad",
       "oracle_status_es": "Contratado en agosto de 2025; 115 MW de potencia ya en línea un mes antes de lo previsto (4T26); primeros sistemas NVIDIA Vera Rubin a clientes en el 2T27; microrred de gas en sitio según la prensa",
       "contracted_es": "Agosto de 2025",
-      "first_delivery_es": "Primer semestre de 2027 (Oracle); primer edificio en servicio 2S 2026, terminación en 2028 (Vantage)"
+      "first_delivery_es": "Primer semestre de 2027 (Oracle); primer edificio en servicio 2S 2026, terminación en 2028 (Vantage)",
+      "lat": 32.73,
+      "lon": -99.35,
+      "short": "Shackelford Co., TX"
     },
     {
       "name": "Doña Ana County, New Mexico ('Project Jupiter')",
@@ -270,7 +276,10 @@
       "financing_es": "No divulgado por Oracle; la prensa describe un crédito de proyecto. Oracle reporta casi US$1 mil M en contratos con proveedores de Nuevo México y ~US$100 M de impuestos pagados (jul 2026)",
       "oracle_status_es": "Contratado en septiembre de 2025; diseño de energía cambiado de turbinas de gas a celdas Bloom (abr 2026); construcción 26% completa (jul 2026); Oracle: “algunos sitios van adelantados, otros son más difíciles”, sin impacto en la guía del AF2027 (Q&A 1T27)",
       "contracted_es": "Septiembre de 2025",
-      "first_delivery_es": "Primer semestre de 2027 (Oracle, llamada 4T26)"
+      "first_delivery_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
+      "lat": 31.95,
+      "lon": -106.75,
+      "short": "Doña Ana Co., NM"
     },
     {
       "name": "Saline Township, Michigan (Stargate 'The Barn')",
@@ -311,7 +320,10 @@
       "financing_es": "Related Digital con Blackstone (nombrado por Oracle en el evento de construcción de junio de 2026); compromiso propio de Oracle no divulgado",
       "oracle_status_es": "Contratado en octubre de 2025; construcción en marcha desde ~marzo de 2026 (Walbridge, mano de obra sindicalizada); la mayor inversión económica individual en la historia de Michigan según el comunicado",
       "contracted_es": "Octubre de 2025",
-      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)"
+      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)",
+      "lat": 42.1,
+      "lon": -83.8,
+      "short": "Saline Twp., MI"
     },
     {
       "name": "Port Washington, Wisconsin (Vantage 'Lighthouse')",
@@ -352,7 +364,10 @@
       "financing_es": "Desarrollo respaldado por Vantage / DigitalBridge con nueva capacidad de energía sin emisiones (solar, eólica, almacenamiento); compromiso propio de Oracle no divulgado",
       "oracle_status_es": "Contratado en septiembre de 2025 (anunciado el 22 oct 2025); primera piedra en diciembre de 2025; energía de la red (“no estamos haciendo generación en sitio”) según el Q&A del 1T27",
       "contracted_es": "Septiembre de 2025",
-      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)"
+      "first_delivery_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)",
+      "lat": 43.39,
+      "lon": -87.88,
+      "short": "Port Washington, WI"
     }
   ],
   "rpo_schedule": {
@@ -482,5 +497,8 @@
         "speaker": "Clay Magouyrk"
       }
     ]
+  },
+  "_notes": {
+    "sites_coordinates": "lat/lon are approximate campus locations (county seat or township), used only for the schematic map in the board presentation; short is the map label."
   }
 }
