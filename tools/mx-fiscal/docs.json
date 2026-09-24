@@ -6,16 +6,52 @@
     "page whose href matches the regex (case-insensitive); `maxChars` caps the stored text (PDFs go through pdftotext)."
   ],
   "sources": {
-    "shcp-paquete-index": { "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto", "maxChars": 40000 },
-    "shcp-cgpe": { "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto", "find": "cgpe|criterios[^\"']*\\.pdf", "maxChars": 400000 },
-    "shcp-paf": { "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto", "find": "paf[^\"']*\\.pdf", "maxChars": 250000 },
-    "shcp-informes-index": { "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Informes_al_Congreso_de_la_Union", "maxChars": 40000 },
-    "shcp-prensa": { "url": "https://www.gob.mx/shcp/archivo/prensa", "maxChars": 60000 },
-    "shcp-deuda-index": { "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Deuda_Publica", "maxChars": 40000 },
-    "banxico-anuncios": { "url": "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html", "maxChars": 60000 },
-    "banxico-expectativas": { "url": "https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html", "maxChars": 40000 },
-    "pemex-ri": { "url": "https://www.pemex.com/ri/finanzas/Paginas/default.aspx", "maxChars": 60000 },
-    "diputados-lif": { "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2026.pdf", "maxChars": 200000 },
-    "diputados-pef": { "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/PEF_2026.pdf", "maxChars": 200000 }
+    "shcp-paquete-index": {
+      "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
+      "maxChars": 40000
+    },
+    "shcp-cgpe": {
+      "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
+      "find": "/cgpe/cgpe_\\d{4}\\.pdf",
+      "maxChars": 400000
+    },
+    "shcp-precriterios": {
+      "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
+      "find": "/precgpe/precgpe_\\d{4}\\.pdf",
+      "maxChars": 250000
+    },
+    "shcp-paf": {
+      "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
+      "find": "/paf/paf_\\d{4}\\.pdf",
+      "maxChars": 250000
+    },
+    "shcp-informes-index": {
+      "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Informes_al_Congreso_de_la_Union",
+      "maxChars": 40000
+    },
+    "shcp-prensa": {
+      "url": "https://www.gob.mx/shcp/archivo/prensa",
+      "maxChars": 60000
+    },
+    "banxico-anuncios": {
+      "url": "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html",
+      "maxChars": 60000
+    },
+    "banxico-expectativas": {
+      "url": "https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html",
+      "maxChars": 40000
+    },
+    "pemex-ri": {
+      "url": "https://www.pemex.com/ri/finanzas/Paginas/default.aspx",
+      "maxChars": 60000
+    },
+    "diputados-lif": {
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2026.pdf",
+      "maxChars": 200000
+    },
+    "diputados-pef": {
+      "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/PEF_2026.pdf",
+      "maxChars": 200000
+    }
   }
 }
