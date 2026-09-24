@@ -115,7 +115,7 @@ The material-day email lists every merged PR with its link, so the owner can rev
 |---|---|---|---|
 | Share price, S&P 500, 10-year Treasury, market cap, multiples, DCF price inputs | GitHub Actions `oracle-refresh.yml` → Cloudflare Pages deploy | weekdays 13:30 and 21:45 UTC | No |
 | Filing archive (8-K, 10-Q, 10-K) and `state.json` | same workflow (EDGAR, IR JSON feed fallback) | weekdays 13:30 UTC | No |
-| Statements, guidance, Comments, summary, buildout, debt, ratings, events | this routine, via a pull request it merges itself (merge policy above) | weekdays 08:30 local | Only for press-sourced facts or a failed guard (the email says which) |
+| Statements, guidance, Comments, summary, buildout, debt, ratings, events | the cloud routine (`ROUTINE-CLOUD.md`), committing to main under the merge policy above, or pushing a branch when the condition fails | weekdays 14:35 UTC (08:35 Mexico City), from the cloud, no workstation needed | Only for press-sourced facts or a failed guard (the email names the branch) |
 | Transcript-based blocks (call quotes, MW delivered, promises, call-page comments) | this routine once the PDF is in the private `oracle-model` repo | after each call | Yes: supply the transcript PDF |
 | Peers, CDS, consensus | FactSet connector | daily once connected | Yes: authorise the connector |
 
@@ -124,12 +124,20 @@ data) whenever the share price is older than five days, the latest quarter is ol
 filing awaits extraction, a tie-out failed or the data pipeline has not run for four days, so a stale element is
 never silent.
 
-## Creating it
+## Where it runs
 
-From Claude Code (desktop app or claude.ai/code → Routines): "create a scheduled task named
-*FNAM Oracle: weekday review*, weekdays at 08:30, with the prompt in tools/oracle/ROUTINE.md". The desktop
-task runs while the app is open (and on next launch if it was closed); a claude.ai/code routine runs in the
-cloud. Either way the email is sent by the routine's own Gmail connector, and every repository change is a
-pull request the routine merges under the policy above. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
+Since 2026-09-24 the active runner is the **cloud routine** "FNAM Oracle: weekday review (cloud)"
+(claude.ai/code/routines, id `trig_01DyGkmYcX5gxPnEEaX4eHje`, weekdays 14:35 UTC), whose prompt and
+differences are in `ROUTINE-CLOUD.md`; it needs no workstation, mounts this repository and the private
+`oracle-model` repository (transcripts), and its final message is emailed to the owner by the platform. The
+desktop task "FNAM Oracle: weekday review" (prompt in `ROUTINE-PROMPT.md`, `gh`-based pull requests) is kept
+**disabled** as a fallback: re-enable it only if the cloud routine is paused, never run both on the same day.
+
+## Creating the desktop fallback
+
+From Claude Code (desktop app): "create a scheduled task named *FNAM Oracle: weekday review*, weekdays at
+08:30, with the prompt in tools/oracle/ROUTINE-PROMPT.md". The desktop task runs while the app is open (and on
+next launch if it was closed); the email is sent by the routine's own Gmail connector, and every repository
+change is a pull request the routine merges under the policy above. The routine needs its own clone (`Talipot\fnam-oracle-routine`) listed in
 the project's `.claude/settings.local.json` under `additionalDirectories` and in an `Edit(...)` allow rule, so it
 never prompts and never touches the working copies other sessions use.

@@ -6,6 +6,11 @@ Quálitas and US-fiscal routines use); sources: `marthavshelton-sys/fnam-debt-mo
 `marthavshelton-sys/oracle-model` (transcripts); schedule weekdays 14:35 UTC (08:35 Mexico City), one hour after
 the 13:30 UTC harvest; notifications: the run's final message is emailed to the owner.
 
+Status: routine id `trig_01DyGkmYcX5gxPnEEaX4eHje`, enabled 2026-09-24; the first test run (session
+`cse_018akCfCGyky4TW2RaFAtZGP`) mounted both repositories, synced main, read the snapshots, evaluated the
+thresholds and finished in 193 s with "No material change in Oracle data today." The desktop task was disabled
+the same day so the two never run on the same day.
+
 Differences from the workstation task (`ROUTINE-PROMPT.md`), all forced by the cloud sandbox:
 
 * No network: EDGAR, Oracle IR and the rating agencies are unreachable, so the GitHub workflow leaves snapshots
