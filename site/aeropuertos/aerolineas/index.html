@@ -165,6 +165,9 @@ main{flex:1; padding-top:12px;}
 .ap:hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
 .ap-label{font-family:var(--sans); font-size:11px; font-weight:600; fill:var(--text-secondary); pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
 .ap-label.off{opacity:.2;}
+.rt.net{stroke-opacity:.8;}
+.rt.est, .spoke.est{stroke-dasharray:3 3; stroke-opacity:.65;}
+.rt.net:hover, .spoke.net:hover{stroke-opacity:1; stroke-dasharray:none;}
 .tooltip{position:absolute; left:0; top:0; pointer-events:none; z-index:5; background:var(--surface); border:1px solid var(--border-strong); border-radius:10px; box-shadow:var(--shadow-hover); padding:10px 12px; font-size:12.5px; line-height:1.4; width:max-content; max-width:280px; min-width:200px; opacity:0; transform:translate(-50%, calc(-100% - 12px)); transition:opacity .12s;}
 .tooltip.show{opacity:1;}
 .tooltip b{font-family:var(--serif); font-size:15px;}
@@ -570,6 +573,40 @@ window.addEventListener("DOMContentLoaded", function(){
           tx.textContent = titleCase(d.city) + " · " + (d.tot >= 1e6 ? nf(d.tot / 1e6, 1) + " M" : nf(d.tot / 1e3, 0) + " k");
         });
       }
+    } else if (net) {
+      // network view: the airline's own routes — domestic pairs as arcs, international pairs as spokes toward the foreign city
+      var nw = net.n, est = !!nw.estimated, who = car ? car.short : "", domByKey = {}, intlByKey = {};
+      R.domestic.forEach(function(d){ domByKey[d.key] = d; });
+      R.international.forEach(function(d){ var k = d.mx + ">" + d.cityKey; if (!intlByKey[k]) intlByKey[k] = d; });
+      var kind = est ? T(" · ruta estimada", " · estimated route") : T(" · ruta publicada", " · published route");
+      var others = function(list){ return tags(list.filter(function(c){ return c.id !== sel; })); };
+      var corridorRows = function(d, missing){ return d ? row(T("Pasajeros del corredor, 12 m (todas las aerolíneas)", "Corridor passengers, 12 m (all airlines)"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(d.prev ? d.tot / d.prev - 1 : null)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) : row(T("Corredor", "Corridor"), missing); };
+      var nd = (nw.domRoutes || []).map(function(r){ var key = r.slice().sort().join("-"); return {a:r[0], b:r[1], key:key, d:domByKey[key] || null}; }).filter(function(x){ return apXY[x.a] && apXY[x.b]; }).sort(function(x, y){ return (x.d ? x.d.tot : 0) - (y.d ? y.d.tot : 0); });
+      nd.forEach(function(x){
+        var p = el("path", {d:arcPath(apXY[x.a], apXY[x.b]), "class":"rt on net" + (est ? " est" : ""), "stroke-width":(x.d ? 0.8 + 5 * Math.sqrt(x.d.tot / maxDom) : 0.9).toFixed(2)}, gR);
+        p.style.setProperty("--c", col);
+        p.addEventListener("mousemove", function(ev){ var pos = posOf(ev); showTip('<b>' + esc(apName(x.a)) + ' ↔ ' + esc(apName(x.b)) + '</b><div class="op">' + esc(who) + kind + '</div>' + corridorRows(x.d, T("sin tráfico regular registrado en 12 meses", "no scheduled traffic recorded in 12 months")) + '<div class="row" style="margin-top:4px"><span>' + T("Otras aerolíneas mexicanas en la ruta", "Other Mexican airlines on the route") + '</span></div>' + others(airlinesOnDom(x.key)), pos[0], pos[1]); });
+        p.addEventListener("mouseleave", hideTip);
+      });
+      var ni = (nw.intlRoutes || []).map(function(r){ var key = r.mx + ">" + String(r.city).toUpperCase(), d = intlByKey[key] || null; return {mx:r.mx, key:key, d:d, lat:d ? d.lat : r.lat, lon:d ? d.lon : r.lon, city:d ? d.city : String(r.city), country:d ? d.country : (r.country || "")}; }).filter(function(x){ return apXY[x.mx] && x.lat != null; }).sort(function(x, y){ return (y.d ? y.d.tot : 0) - (x.d ? x.d.tot : 0); });
+      ni.slice().reverse().forEach(function(x){
+        var a = R.airports[x.mx], p0 = apXY[x.mx], ang = bearing(a.lat, a.lon, x.lat, x.lon), p1 = edgePoint(p0[0], p0[1], ang);
+        var ln = el("line", {x1:p0[0].toFixed(1), y1:p0[1].toFixed(1), x2:p1[0].toFixed(1), y2:p1[1].toFixed(1), "class":"spoke on net" + (est ? " est" : ""), "stroke-width":(x.d ? 0.6 + 4 * Math.sqrt(x.d.tot / maxIntl) : 0.8).toFixed(2)}, gK);
+        ln.style.setProperty("--c", col);
+        ln.addEventListener("mousemove", function(ev){ var pos = posOf(ev); showTip('<b>' + esc(apName(x.mx)) + ' ↔ ' + esc(titleCase(x.city)) + '</b><div class="op">' + (x.country ? esc(titleCase(x.country)) + " · " : "") + esc(who) + kind + '</div>' + corridorRows(x.d, T("fuera de los 400 mayores de la AFAC", "outside AFAC's 400 largest")) + '<div class="row" style="margin-top:4px"><span>' + T("Otras aerolíneas mexicanas en la ruta", "Other Mexican airlines on the route") + '</span></div>' + others(airlinesOnIntl(x.mx, x.key.split(">")[1])), pos[0], pos[1]); });
+        ln.addEventListener("mouseleave", hideTip);
+      });
+      // one label per foreign city, largest corridors first, nudged apart along the frame
+      var placedN = [], seenCity = {};
+      ni.forEach(function(x){
+        var ck = String(x.city).toUpperCase(); if (seenCity[ck] || placedN.length >= 26) return; seenCity[ck] = true;
+        var a = R.airports[x.mx], p0 = apXY[x.mx], ang = bearing(a.lat, a.lon, x.lat, x.lon), p1 = edgePoint(p0[0], p0[1], ang);
+        var lx = p1[0], ly = p1[1], anchor = lx > W * 0.6 ? "end" : (lx < W * 0.4 ? "start" : "middle"); if (anchor === "end") lx -= 6; if (anchor === "start") lx += 6; if (ly < 20) ly += 12; if (ly > H - 10) ly -= 6;
+        for (var t2 = 0; t2 < 12; t2++) { var clash = placedN.some(function(pp){ return Math.abs(pp[1] - ly) < 12 && Math.abs(pp[0] - lx) < 90; }); if (!clash) break; ly += 12; if (ly > H - 6) ly = 14 + t2 * 3; }
+        placedN.push([lx, ly]);
+        var tx = el("text", {x:lx.toFixed(1), y:ly.toFixed(1), "class":"spoke-label", "text-anchor":anchor}, gL);
+        tx.textContent = titleCase(x.city) + (x.d ? " · " + (x.d.tot >= 1e6 ? nf(x.d.tot / 1e6, 1) + " M" : nf(x.d.tot / 1e3, 0) + " k") : "");
+      });
     }
     // airports
     var codes = Object.keys(apXY).filter(function(c){ return apTraffic[c]; }).sort(function(a, b){ return apTraffic[b] - apTraffic[a]; });
@@ -597,7 +634,7 @@ window.addEventListener("DOMContentLoaded", function(){
   function renderLegend(){
     var e = document.getElementById("maplegend"), sel = S.airline, net = netFor(sel), car = carrierFor(sel);
     if (S.mapview === "routes") e.innerHTML = T("Arcos = corredores nacionales; líneas punteadas = corredores internacionales, trazados desde el aeropuerto mexicano en la dirección de la ciudad extranjera hasta el borde del mapa. Grosor = pasajeros de los últimos 12 meses en el corredor, todas las aerolíneas (AFAC). ", "Arcs = domestic corridors; dashed lines = international corridors, drawn from the Mexican airport toward the foreign city up to the edge of the map. Width = passengers over the last 12 months on the corridor, all airlines (AFAC). ") + (car && net ? (T("En color: los corredores que vuela ", "In colour: the corridors flown by ") + esc(car.short) + (net.n.estimated ? T(" (red estimada a partir de sus aeropuertos y hubs)", " (network estimated from its airports and hubs)") : T(" (rutas publicadas por la aerolínea)", " (routes published by the airline)")) + ".") : T("Elige una aerolínea para resaltar su red.", "Pick an airline to highlight its network."));
-    else e.innerHTML = car && net ? (T("Aeropuertos que sirve ", "Airports served by ") + esc(car.short) + T("; anillo = base o hub. Tamaño = pasajeros de los corredores del aeropuerto, todas las aerolíneas (AFAC). ", "; ring = base or hub. Size = the airport's corridor passengers, all airlines (AFAC). ") + (net.n.estimated ? T("Fuente de la red: ", "Network source: ") + esc(net.n.source) : T("Fuente: rutas publicadas por la aerolínea.", "Source: routes published by the airline."))) : T("Sin aerolínea seleccionada: el color indica cuántas aerolíneas mexicanas sirven cada aeropuerto (más oscuro = más aerolíneas).", "No airline selected: colour shows how many Mexican airlines serve each airport (darker = more airlines).");
+    else e.innerHTML = car && net ? (T("Red de ", "Network of ") + esc(car.short) + T(": arcos = rutas nacionales; líneas hacia el borde = rutas internacionales, en la dirección de la ciudad extranjera; puntos = aeropuertos que sirve; anillo = base o hub. Grosor = pasajeros del corredor en 12 meses, todas las aerolíneas (AFAC). ", ": arcs = domestic routes; lines toward the edge = international routes, in the direction of the foreign city; dots = airports served; ring = base or hub. Width = corridor passengers over 12 months, all airlines (AFAC). ") + (net.n.estimated ? T("Red estimada a partir de sus destinos y bases (líneas punteadas). Fuente: ", "Network estimated from its destinations and hubs (dotted lines). Source: ") + esc(net.n.source) : T("Fuente: rutas publicadas por la aerolínea.", "Source: routes published by the airline."))) : T("Sin aerolínea seleccionada: el color indica cuántas aerolíneas mexicanas sirven cada aeropuerto (más oscuro = más aerolíneas). Elige una para ver su red.", "No airline selected: colour shows how many Mexican airlines serve each airport (darker = more airlines). Pick one to see its network.");
   }
   function renderSide(){
     var side = document.getElementById("side"), sel = S.airline, car = carrierFor(sel), net = netFor(sel);
