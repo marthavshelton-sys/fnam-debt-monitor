@@ -1,5 +1,5 @@
 {
- "at": "2026-09-24T17:12:52.239Z",
+ "at": "2026-09-24T17:15:29.446Z",
  "steps": [
   {
    "step": "plain",
@@ -14,14 +14,80 @@
    "step": "visit",
    "name": "afac",
    "url": "https://www.gob.mx/afac/acciones-y-programas/estadisticas-280404",
-   "status": 200,
-   "title": "Challenge Validation",
-   "textChars": 0,
-   "challenge": true
+   "title": "Estadísticas | Agencia Federal de Aviación Civil | Gobierno | gob.mx",
+   "textChars": 3073,
+   "challenge": false,
+   "waitedMs": 25442,
+   "cookies": [
+    "akaas_production",
+    "UID",
+    "XID",
+    "_ga",
+    "_gid",
+    "_gat",
+    "_gat_GobTracker",
+    "sec_cpt",
+    "__cf_bm",
+    "_ga_QN9MRLM8H8",
+    "_cb",
+    "_chartbeat2",
+    "_cb_svref"
+   ]
   },
   {
    "step": "afac-links",
-   "links": []
+   "links": [
+    "https://www.gob.mx/cms/uploads/attachment/file/1100275/producto-aeropuerto-2006-2026-jul-27082026.xlsx",
+    "https://www.gob.mx/cms/uploads/attachment/file/1100277/producto-aeropuertos-es-jul-26-27082026.pdf",
+    "https://www.gob.mx/cms/uploads/attachment/file/1100276/producto-aeropuertos-en-jul-26-27082026.pdf",
+    "https://www.gob.mx/cms/uploads/attachment/file/1100280/sase-julio-2026-27082026.xlsx",
+    "https://www.gob.mx/cms/uploads/attachment/file/1100279/resumen-julio-2026-27082026.xlsx"
+   ]
+  },
+  {
+   "step": "afac-xlsx-in-browser",
+   "link": "https://www.gob.mx/cms/uploads/attachment/file/1100275/producto-aeropuerto-2006-2026-jul-27082026.xlsx",
+   "status": 200,
+   "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+   "lastModified": "Thu, 27 Aug 2026 16:29:40 GMT",
+   "bytes": 702219,
+   "head": [
+    80,
+    75,
+    3,
+    4
+   ]
+  },
+  {
+   "step": "afac-xlsx-ctx",
+   "status": 200,
+   "type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+   "lastModified": "Thu, 27 Aug 2026 16:29:40 GMT",
+   "bytes": 702219,
+   "head": [
+    80,
+    75,
+    3,
+    4
+   ]
+  },
+  {
+   "step": "plain",
+   "name": "ckan-search",
+   "url": "https://datos.gob.mx/busca/api/3/action/package_search?q=estadistica+operativa+aeropuertos&rows=5",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "bytes": 14347,
+   "head": " <!DOCTYPE html> <!--[if IE 9]> <html lang=\"es\" class=\"ie9\"> <![endif]--> <!--[if gt IE 8]><!--> <html lang=\"es\" > <!--<![endif]--> <head> <meta charset=\"utf-8\" /> <meta name=\"csrf_field_nam"
+  },
+  {
+   "step": "plain",
+   "name": "ckan-afac",
+   "url": "https://datos.gob.mx/busca/api/3/action/package_search?fq=organization:afac&rows=20",
+   "status": 404,
+   "type": "text/html; charset=utf-8",
+   "bytes": 14347,
+   "head": " <!DOCTYPE html> <!--[if IE 9]> <html lang=\"es\" class=\"ie9\"> <![endif]--> <!--[if gt IE 8]><!--> <html lang=\"es\" > <!--<![endif]--> <head> <meta charset=\"utf-8\" /> <meta name=\"csrf_field_nam"
   },
   {
    "step": "plain",
@@ -38,7 +104,7 @@
    "url": "https://www.aicm.com.mx/categoria/estadisticas",
    "status": 200,
    "title": "Estadísticas | Aeropuerto Internacional de la Ciudad de México",
-   "textChars": 2022,
+   "textChars": 2023,
    "challenge": false
   },
   {
@@ -46,8 +112,8 @@
    "n": 25,
    "first": [
     {
-     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasJul2026.pdf",
-     "text": "Estadísticas del AICM a Julio de 2026"
+     "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasAgo2026.pdf",
+     "text": "Estadísticas del AICM a Agosto de 2026"
     },
     {
      "href": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/Estadisticas2025.pdf",
@@ -96,13 +162,10 @@
    ]
   },
   {
-   "step": "plain",
-   "name": "aicm-pdf-plain",
-   "url": "https://www.aicm.com.mx/acercadelaicm/archivos/files/Estadisticas/EstadisticasJul2026.pdf",
+   "step": "aicm-pdf-head",
    "status": 200,
-   "type": "application/pdf",
-   "bytes": 1224675,
-   "head": "%PDF-1.6 %���� 404 0 obj <</Linearized 1/L 1224675/O 406/E 233341/N 14/T 1224129/H [ 489 453]>> endobj 420 0 obj <</DecodeParms<</Columns 5/Predictor 12>>/Filter/FlateDecode/ID[<863896706"
+   "lastModified": "Thu, 24 Sep 2026 17:05:02 GMT",
+   "length": "1210496"
   },
   {
    "step": "plain",
@@ -110,25 +173,12 @@
    "url": "https://www.aifa.aero/",
    "status": 200,
    "type": "text/html; charset=UTF-8",
-   "bytes": 179419,
+   "bytes": 179418,
    "head": "<!DOCTYPE html> <html lang=\"es-MX\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\"> <meta http-equiv=\"X-UA-Compatible\" content=\"ie=edg"
   },
   {
-   "step": "visit",
-   "name": "aifa",
-   "url": "https://www.aifa.aero/",
-   "status": 200,
-   "title": "AIFA_Aeropuerto Internacional Felipe Ángeles",
-   "textChars": 2603,
-   "challenge": false
-  },
-  {
-   "step": "aifa-counters",
-   "snippets": [
-    "fue seleccionado por Prix Versailles como uno de los seis aeropuertos más hermosos del mundo. Ver más Operador de Base Fija El AIFA cuenta con un Operador de Base Fija (FBO por sus siglas en inglés). Ver más Capilla En Salas de Última Espera, se cuenta con un espacio religioso, disponible a los pasajeros y usuarios del AIFA. Ver más Baños Temáticos En el AIFA podrás encontrar 36 sanitarios que, además de tener diseños temáticos mexicanos, cuentan con equipos que permiten un ahorro de agua de hasta el 50% con respecto de sanitarios de uso convencional. Ver más Seguridad El aeropuerto cuenta con ",
-    "Puestos de Inspección de Pasajeros y Equipaje (PIPE), que permiten conservar tus dispositivos electrónicos, como laptops, celulares y cámaras dentro de tu equipaje. Ver más Sala de Lactancia El AIFA, pensando en sus pasajeras y usuarias, cuenta con un espacio en Sala de Última Espera destinando a la lactancia. Ver más AIFA Inform",
-    "a Ver más Tu Aeropuerto, Tu Experiencia Estadísticas Fecha de los datos: 21 Mar. 2022 - 31 Ago. 2026 224,153 Operaciones Aéreas 22,049,814 Pasajeros Transportados 1,316,615.32 Toneladas Transportadas Circuito Exterior Mexiquense km 33 Santa Lucía, 55640 Zumpango de Ocampo Estado de México AIFA Corporativo Instalaciones e Infraestructura Legal y Finanzas Tecnología Contacto AIFA Informa GUÍA DEL PASAJERO Preguntas Frecuentes Asistencia Documentación y Equipaje Informac"
-   ]
+   "step": "aifa-counters-html",
+   "found": true
   }
  ]
 }

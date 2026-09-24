@@ -3629,7 +3629,7 @@
     // Configuración global del chatbot
     window.chatConfig = {
         url: 'https://www.aifa.aero/api/Stor002GetChat',
-        token: 'X4fbqJLvjFFQ2YFvwiUSgLt2n7M5OdU4gd9qZB2G',
+        token: 'uRVyQ0i0tC3zfaPOLwEM3Ro1xXFw0FLAyiSgKOSy',
         messages: {
             greeting1: '¡Hola! 😊 Bienvenido al sistema de asistencia del AIFA 🛩',
             greeting2: '¿En que le puedo ayudar el día de hoy? 😊',
@@ -3782,11 +3782,11 @@
     <div>
             <main id="HomeSlider">
             <ul class='slider overlay-video'>
-                <li class="item" style="background-image: url('/api/Embe002SliderHome/eyJpdiI6Ikp4RzIzcTdNWmtnM3ZSVUtUbHJia0E9PSIsInZhbHVlIjoiUmY0VGFNMEJIaFlpTFM4bDMxaHM2QT09IiwibWFjIjoiNTI5ZjNjOWIzNjFhZDgzNzkzNjgzZjUwODM0NjdhYmViZjM4NjQ3NmI3ODJmZmY2NWNhZmU1NThlYjFjNzhmOCIsInRhZyI6IiJ9')">
+                <li class="item" style="background-image: url('/api/Embe002SliderHome/eyJpdiI6IjBBRWpXTVNnaUt0VGI1VzllaThkaHc9PSIsInZhbHVlIjoiWjEyaEl6Z0Z4a3J5V3IxTkZ2Y3l3QT09IiwibWFjIjoiNWE2MGE0ZWRkNzJmM2EyZTYwNWYwMTUxZGFlN2JkMmQyOGU1MjIyZTI5Mjc5ODUxMzRmMjRlYzA3MTczNTUyNSIsInRhZyI6IiJ9')">
 
               <video autoplay loop muted playsinline>
 
-                <source src="/api/Down001DescargarVideo/eyJpdiI6IitxUkVNZnBMR2dyRU1OQVFaZzVkL3c9PSIsInZhbHVlIjoiME9jZ1k1aEdyRGpHenlieHlTNFI0UT09IiwibWFjIjoiYTQ2MTlmOWVhZTQxMDAzZTRlM2U0NzU5NGY4NDQ0M2U2MWU1NTAxMjFkYmJhZGRlNzcxNGUwOWUyYzkzZjMyNSIsInRhZyI6IiJ9" type="video/mp4">
+                <source src="/api/Down001DescargarVideo/eyJpdiI6IkFzaldkTTZxQzlLTW45dXhFMEpDS2c9PSIsInZhbHVlIjoiSGpGSVB2eC8zVGhmNFdza01sSFpCZz09IiwibWFjIjoiZWM1OGZjMzFlNmIxY2NmZWJjNjVjNTc1N2MzOTZkY2EyZTQzZGE0YTAzM2YyNjdkMzRjODIxOTRiMjljNDU1MiIsInRhZyI6IiJ9" type="video/mp4">
 
               </video>
 
@@ -3904,13 +3904,13 @@
             <div class="col-sm-12 col-md-4 col-lg-4 card-container">
         <div class="service-item card card-relevantes">
             <div class="service__img card-img-wrapper">
-                <img src="/api/Embe003BannerImg/eyJpdiI6InpVTWxPTThOVjRLdE5BOHNIRmdPS1E9PSIsInZhbHVlIjoiaGNtSnFYUUh0NzVIU0pmTFJYWi9RZz09IiwibWFjIjoiNWM4OGFiYWVkZmM2MWI4NmFhM2FiOWRmZDFkZjZiYWZlMDQ2YmExY2RhZmVkZGNmYzEzZWRhODg4ZGUzODg2MSIsInRhZyI6IiJ9" alt="Conectividad Terrestre" class="img-fluid">
+                <img src="/api/Embe003BannerImg/eyJpdiI6ImppbWE0aHZqM1owTmx2SXpnNmFTVGc9PSIsInZhbHVlIjoicTJJUnlpUFlVN1VMSlVDUi95WEtKdz09IiwibWFjIjoiZWVjNGIzMmQ4NmY2Y2EwNTMzNjlmN2IzOGJmNDAwNzIyZTgzOTU4ZjRkY2UyYWE4NTIwOWE3MWI2MGEwM2I1YSIsInRhZyI6IiJ9" alt="Conectividad Terrestre" class="img-fluid">
             </div>
 
             <div class="service__overlay card-overlay">
                 <div class="card-title-service">
                     <div class="logo-wrapper">
-                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkZjZjhDaVJuK0NkZU02VkdoOTIySUE9PSIsInZhbHVlIjoicURPTjZxRVVhVmlDUm5Zcm90OHBOZz09IiwibWFjIjoiZjk4ZjFiNzU1NWQyNGU4MDU4NDk3MzE0NWRkMDJhZTIyMWRhZjQ4YWU4ZmFhYTViODBhYjRjYmRjYWY5NTZiMSIsInRhZyI6IiJ9" alt="Img - Conectividad Terrestre" class="img-fluid">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik1uREtaazl1WHZoTTU2aTNDR1VjYnc9PSIsInZhbHVlIjoicWQwcU96Y09Hb2JRVkpMUnN1RkVNUT09IiwibWFjIjoiOTljYzJlNWM3YzY5NTc3OWM2OWE2ZTI1NTkxNzY2NDQ0NDE1ZGIyMGNjZTMwYjc0YTcwZWZmODA4ZWU4M2M5ZCIsInRhZyI6IiJ9" alt="Img - Conectividad Terrestre" class="img-fluid">
                     </div>
                     <h2 class="card-title">
                         Conectividad Terrestre
@@ -3928,13 +3928,13 @@
     <div class="col-sm-12 col-md-4 col-lg-4 card-container">
         <div class="service-item card card-relevantes">
             <div class="service__img card-img-wrapper">
-                <img src="/api/Embe003BannerImg/eyJpdiI6ImJZSTlkYjNhYzZ5MGtKaFk0dVB6dWc9PSIsInZhbHVlIjoid01udXpnTzdQWXZLTC94cUhHdFZEZz09IiwibWFjIjoiYmE3Y2U5MmMwZGYxODYwNmJmNzg5OTY5Y2Q0YWJhZDJhMDUwYzlhZDZlNzNkNTlhOGQ2ZDQ4MmY1NmNiZDMyOCIsInRhZyI6IiJ9" alt="Servicios" class="img-fluid">
+                <img src="/api/Embe003BannerImg/eyJpdiI6InFCeno0UHg2alBBcEhFVnRoNHBNdEE9PSIsInZhbHVlIjoicU9yU2Fuand0YS9JdEdONHRHbExpQT09IiwibWFjIjoiZTM1NDQxMjBkZjE0MTc2OGY0NzZjMjYzZDE1NzU2Y2RmYWFmYzIyOWRlZTE3ZGM3NmQxN2MzODNmMGNkZmIzYyIsInRhZyI6IiJ9" alt="Servicios" class="img-fluid">
             </div>
 
             <div class="service__overlay card-overlay">
                 <div class="card-title-service">
                     <div class="logo-wrapper">
-                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IldEMmNxeHcxNWN6R2VVZEhnR2N5NlE9PSIsInZhbHVlIjoiSkZGbGZ2QitjUVZCNE90T1NjbTNpUT09IiwibWFjIjoiMWM0NjE4YTY3NTZjNTE4YjRmMTZiYWIzMTQyZTEyZGJhMjQ5MmJiMzRjOTgwMDQ0MmIxY2VlZDQwNGRlYjMwNiIsInRhZyI6IiJ9" alt="Img - Servicios" class="img-fluid">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InV4OGhrQVdtUW9rMlFVYkk2T0R2ckE9PSIsInZhbHVlIjoiMVp4QWY0SVEyQitDM0pvS1MyM3ZDQT09IiwibWFjIjoiNjJhM2ZkN2I2NTNjM2IxMzIzMzc1MjVjYWU4YmM3Y2UxNDcxNDE1NTM3YzI5N2MyN2Y0M2MwZTRkNTllOTJlYSIsInRhZyI6IiJ9" alt="Img - Servicios" class="img-fluid">
                     </div>
                     <h2 class="card-title">
                         Servicios
@@ -3952,13 +3952,13 @@
     <div class="col-sm-12 col-md-4 col-lg-4 card-container">
         <div class="service-item card card-relevantes">
             <div class="service__img card-img-wrapper">
-                <img src="/api/Embe003BannerImg/eyJpdiI6IlBwY1BacDJsejlHQjAyTHExSkI2VHc9PSIsInZhbHVlIjoiV1dXVmw1Z1k5M0VHcWlTamxZRDJIdz09IiwibWFjIjoiMTY1NGRmMzkyMWI3NGUyNjY5ZTFjZDcxYzAzODEzODljM2I1NDllN2Y0NTUzMmVkNjM3NDM3ZWU5ZmM3ZTRjZCIsInRhZyI6IiJ9" alt="Destinos" class="img-fluid">
+                <img src="/api/Embe003BannerImg/eyJpdiI6IldsenpWa3JRN3VRS1hmZHdXWk5DMFE9PSIsInZhbHVlIjoiNElqc3BWRVNFdWYzS2xOQ3krRU56QT09IiwibWFjIjoiNDMyNGFlMzk4MjBhZGVlMGU3MmQwMTkwYzUwNThiYWZjZjg3MjRmMmQ1ZjBhMTM4NjQ2ODVhMWEyNDEzMDkxNiIsInRhZyI6IiJ9" alt="Destinos" class="img-fluid">
             </div>
 
             <div class="service__overlay card-overlay">
                 <div class="card-title-service">
                     <div class="logo-wrapper">
-                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InE0ZGpxS1lZTytkT2dXRDN0ZDA5Y3c9PSIsInZhbHVlIjoiMmlydW1SOEtEc0FFU0pXMGhsbzRGUT09IiwibWFjIjoiMjQ1YjZiZTA1ZDE4ZDY1MjJiMWJkMDgzNTBjYTA0MjQ3MzRkNWNhMmMyNDU0MjU5ODBmMWI3OGIyODU4OWI4OSIsInRhZyI6IiJ9" alt="Img - Destinos" class="img-fluid">
+                        <img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InVnR3BWVXNtaXJRS1NkQ2FnNy81aVE9PSIsInZhbHVlIjoiak1WcEVzOXVEWWlqRmJjbWdSVkpCdz09IiwibWFjIjoiNzdjMTdlM2M5YmZlMzA3Y2MzMDJkYWEyZmM5ODgzYmI0YzNmNGM2MTlhMDI4NWJlODc0M2U1ZWM5MGZiYWExNyIsInRhZyI6IiJ9" alt="Img - Destinos" class="img-fluid">
                     </div>
                     <h2 class="card-title">
                         Destinos
@@ -4003,47 +4003,47 @@
                     data-nav="true" data-dots="false" data-space="20" data-loop="true" data-speed="700">
 
                     <div class="client">
-    <a href="/servicios/financieros"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IlFmRkRVeWg5RnYyd01lOWdvZ1VPeVE9PSIsInZhbHVlIjoiSHpmZ0d4Rk9nZk9FSkh3RHBlWXNUUT09IiwibWFjIjoiM2QyNjZlZTlhYzJjMjdjZjQyNDgwNzRkMjUxNzM0MDNiNTNiOTZiNDc3NTQyYTM0ZTMyY2VhMWJiOGJlNjJjMyIsInRhZyI6IiJ9" alt="logotipo-Servicios Financieros"></a>
+    <a href="/servicios/financieros"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRKeDM1R0dRK084K2xxSWxLVGRnWlE9PSIsInZhbHVlIjoiV0JiZTZaZ1RJaGNuZlZjd213KzJzZz09IiwibWFjIjoiMzA5NWE0MjFmZjM5NTA0NTA1YTRmNjc2YzMyZTVhNjQ5NDNlNTM1ZTUyMGNmMGJjOWE5ZDI1YTc4NzYxN2JkNSIsInRhZyI6IiJ9" alt="logotipo-Servicios Financieros"></a>
     <h3 class="pt-20">Servicios Financieros</h3>
 </div>
   <div class="client">
-    <a href="/conectividad/cdmx"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImY4OGtENlJjWXlnRUZqU1h3QWhtcWc9PSIsInZhbHVlIjoicFY2cHJyZzV6RnUwMzNWVHZBeVZ0dz09IiwibWFjIjoiMGY2ODJjMDQyZTY3N2UzNWJlMjM2NDcyNTllNzY5MGI0MmQ1ZWUzZWYxNGUwZjI5OThiOTI3OTg4NjIxMTljYiIsInRhZyI6IiJ9" alt="logotipo-Terminal de Autobuses"></a>
+    <a href="/conectividad/cdmx"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InQwQno0QXRaRzJqWExzM21rK2tBcVE9PSIsInZhbHVlIjoiQ3UwVVM3WnBSbzA0K3k1OHBuMWpEZz09IiwibWFjIjoiZTk1NWQ2YTc1ZDVjNzQ4ZmRmZDAxZmZmZWMyZjU2NGJhNWZkOWM2ZjQzMzIzZDIzYzdhMGJlMWFjNDk0MmM3OCIsInRhZyI6IiJ9" alt="logotipo-Terminal de Autobuses"></a>
     <h3 class="pt-20">Terminal de Autobuses</h3>
 </div>
   <div class="client">
-    <a href="/wayfinding"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImVrOWVwbkFoaEJSOVdJbnVVOExpbUE9PSIsInZhbHVlIjoiS2ZodHdJOWh5TzM1VGZMaW0yK3dHUT09IiwibWFjIjoiMzY0ZTUyZGNkMDEwYTUxNmEzMGFiZjBlYjQyYWFjNmI4MTQzNDUyNGY4NWU2OGFmMTk5MjI1OGU3ODczY2Y3YSIsInRhZyI6IiJ9" alt="logotipo-Mapa Interactivo"></a>
+    <a href="/wayfinding"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IlNsT01ERmJJZ2todUlWRGh6WnBINEE9PSIsInZhbHVlIjoiZmFaSkRidDQ4WmErZDNSZDRtc1pYUT09IiwibWFjIjoiYTc4OTBiZDg2MTg4MjVlNDBhMjNjYWYxYTRiNDBkMDIwZDcxMzdjNWQ5NWIyMjcyNTQzZjI3ZDRlNzk5YWJiNCIsInRhZyI6IiJ9" alt="logotipo-Mapa Interactivo"></a>
     <h3 class="pt-20">Mapa Interactivo</h3>
 </div>
   <div class="client">
-    <a href="/estacionamiento"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik5IZUkvYnVxamRFRjZmNDVZenQrRUE9PSIsInZhbHVlIjoiZWlYUld1RExSdEtMeDRuUFNmQTl0Zz09IiwibWFjIjoiYmY5MGQxZTdmZjY1NzAzMGFkZTQ5ZDllMGY0Mjk1ZDRjNmFkMTIxMzIxMjNmMGE2NzE1YzExZGRkOTgxNzJmZiIsInRhZyI6IiJ9" alt="logotipo-Estacionamiento"></a>
+    <a href="/estacionamiento"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImVPT082aXN2K0hscTVoNG1COTI4R0E9PSIsInZhbHVlIjoicTRRdGhDY29FTXpjeklScUlJYlVtdz09IiwibWFjIjoiOTZmZTFlNzJmYjkxMTE3NjJmMjZhMDgxNmNiNmI1NzM3OWVmNWExYzBmZDY1ZDk0MGE5ZWUxM2RhYjIwMmU4NCIsInRhZyI6IiJ9" alt="logotipo-Estacionamiento"></a>
     <h3 class="pt-20">Estacionamiento</h3>
 </div>
   <div class="client">
-    <a href="/servicios/comida"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ii9sMjBubFRCZEpXV3B0NXFpaWNIV0E9PSIsInZhbHVlIjoiMEJ3QnJOOVFWdGlkSllTNE1LYUhiQT09IiwibWFjIjoiNDk1MDQ5NDc2ODk4OWIzMmQ3YTNiNGU1NTMxNGE1ZTNjNjBkNTBmMWQ3Yzk2NDA1ZWUzYzA0NWVmYjQyNDJjZSIsInRhZyI6IiJ9" alt="logotipo-Comida"></a>
+    <a href="/servicios/comida"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkNFekZvaG9VTllONzlJRGF1ZTU3ZHc9PSIsInZhbHVlIjoiN1ZYQkdONW94MXBJcnZ4QkdVSGd4QT09IiwibWFjIjoiMGFjOTU3NTVkZDNkZDRiNDA3ODQ2MmQ5NzI1NmIwYTZlZDdmNWI4MzNjOWY4M2UzMGQ2ZmVkYTY0MzQ3NjViYyIsInRhZyI6IiJ9" alt="logotipo-Comida"></a>
     <h3 class="pt-20">Comida</h3>
 </div>
   <div class="client">
-    <a href="/servicios/hospedaje"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjRWOTRyaGZNQVYwTlRyeDFtVWpiRFE9PSIsInZhbHVlIjoiVFc4dmxJdUR1T201UUllbVV6WEJkdz09IiwibWFjIjoiMTRlMjZjYmE4MGJiY2RlNzJkZDY0YWFjZDRiNzIyNmY5ODU2ODQyODkxNDY1OGNmM2U0MjRkN2ExMGFjZjUxMSIsInRhZyI6IiJ9" alt="logotipo-Hospedaje"></a>
+    <a href="/servicios/hospedaje"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ild6N0cwb2dEZVpNM3JNdVpYNTczaVE9PSIsInZhbHVlIjoiaFN1TklRakphbHRUcnlTdVU4eENYUT09IiwibWFjIjoiNGEyY2Q2MmNjNmE0ZWY1MTgwYjRjM2Y5OTZiOTIxMjk4NjAyYzk2MjQ2YWJjMTJlM2JlMTg2NDA3ZDAwZjRhZSIsInRhZyI6IiJ9" alt="logotipo-Hospedaje"></a>
     <h3 class="pt-20">Hospedaje</h3>
 </div>
   <div class="client">
-    <a href="/conectividad/taxis"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6InFCMFl5NlByRVk0ZDFKL09IZVBsMWc9PSIsInZhbHVlIjoidHZveWJuYlhTTFdBR3lUUkZkTFA2QT09IiwibWFjIjoiNmZiOWRlODRlODA4MWM2MTcxMmU3YTcwYTFjMzhhODhiZjllNTU1MjZhNTBjZmQyNzMyNjY0Njc4MzY5YTVkOSIsInRhZyI6IiJ9" alt="logotipo-Taxis"></a>
+    <a href="/conectividad/taxis"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Imp5NkI3Sm5xNnlWTVcvbE5HTXBFMWc9PSIsInZhbHVlIjoicFdGbGk0RFJ0eVh5NGRuNDFmZElrZz09IiwibWFjIjoiYzE5NWM1NjljY2E1NzU0MThmYzNmOWNiZjFlYjkwYmM0ZTM4ZjBmOTgwYzA0Njk2OTYwZTU1YjI0NzIyMDE3OSIsInRhZyI6IiJ9" alt="logotipo-Taxis"></a>
     <h3 class="pt-20">Taxis</h3>
 </div>
   <div class="client">
-    <a href="https://aifa.servicioenlinea.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik9Za3Y3ekQ1aFFFampKak9TcnVhN0E9PSIsInZhbHVlIjoicjZtL3JlaFFFV3hJOGYzNjBkNG9NZz09IiwibWFjIjoiOWMxZWNiZTY2ZDRlMGIyNTRmZjViNGIyMTcxYzJiZTI2MzQ3ZWIyZjUyMjVkODMxYjMxODMwYjZiYTQxM2Y3NCIsInRhZyI6IiJ9" alt="logotipo-Facturación"></a>
+    <a href="https://aifa.servicioenlinea.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Im4wQXMycnpEeUgyODE0SlM5WHhaNWc9PSIsInZhbHVlIjoib3orNXJhdkZ4U0REdHQ1bEZFODZhQT09IiwibWFjIjoiMGZmOGFkMjQ0NjczNjJlMDBmYzVjNTk0ZGZmNTNlNjc1NzZhYTMwNmE0MzRiOWFiYThiMGMxNzY4NGU1MDI4NSIsInRhZyI6IiJ9" alt="logotipo-Facturación"></a>
     <h3 class="pt-20">Facturación</h3>
 </div>
   <div class="client">
-    <a href="https://sites.google.com/view/gerenciadeidentificacin/p%C3%A1gina-principal"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Inp4M3MzZ0F6dWMwYi9DZ0U1OVI5Y0E9PSIsInZhbHVlIjoicE1IUG51c0kwclgyZnNCU3VrbkxJUT09IiwibWFjIjoiZDY0OWQ4MWYyYjg4NGYxZmM4MDEwZjQ5MjBiNTI2ZjAwOGM1ZGFjNmNjMmY0MTI2YmFhNzQ2YjhiZDUyNDIyOSIsInRhZyI6IiJ9" alt="logotipo-Trámite TIA"></a>
+    <a href="https://sites.google.com/view/gerenciadeidentificacin/p%C3%A1gina-principal"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6ImR6WDdiYndlYm9MRzRabW5ycmVlRkE9PSIsInZhbHVlIjoiMXU3cnpPTTFET2VoV0ZtaHNEbWEzdz09IiwibWFjIjoiNWE0NDhhYzgzYThjMGU5MjQ1NTRkOWVmN2E3MTdiMzFlYzVkZTg2N2QyYWFjNmMzYjc4MGIyZWNmYzJiZWJmYiIsInRhZyI6IiJ9" alt="logotipo-Trámite TIA"></a>
     <h3 class="pt-20">Trámite TIA</h3>
 </div>
   <div class="client">
-    <a href="/legal-y-finanzas/informacion-financiera"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6Ik15RHVpa0ZrYkxLaTRvWVBScDBIMEE9PSIsInZhbHVlIjoiWjZ1bUttcDVoRHVFQ0lIaHNOeXZyZz09IiwibWFjIjoiNzk4YjVjZDViZWZiNTdmNjcwNmE4YTAzZjk3YjZkYTY5YjdiZGMxN2U1OGY2ZGI4NDUyMzc1MDI3MzJmN2NkMyIsInRhZyI6IiJ9" alt="logotipo-Información Financiera"></a>
+    <a href="/legal-y-finanzas/informacion-financiera"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IjlaTlp4ZWEzSkZDVlgvMlM4WENoY2c9PSIsInZhbHVlIjoiWUI5VjNZZWtmWm5EaHpud3dmRmVYUT09IiwibWFjIjoiMmI5NGIzYzE1MzJjODViNjE2NmRlMWJlYmYwZTViYzFjMGM1MjMxYjFlYTZkMDVjNDM0YzgzZTVjZDAzOWFlNyIsInRhZyI6IiJ9" alt="logotipo-Información Financiera"></a>
     <h3 class="pt-20">Información Financiera</h3>
 </div>
   <div class="client">
-    <a href="https://conectaifa.com.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IkxJc3gyQ0tjZWdUb09yYkFrNlNoRlE9PSIsInZhbHVlIjoiaXhQbjFQME5FSzRQMkpzbkRQdG0wdz09IiwibWFjIjoiMjAwYzhhMDMzMDgzYzUyMjhlNjE4NmVlOTYxZTc5ZWNhYTA4ODdjZWI1YTk5MjQ2MTYwNDVkMDEwOWYzZmIzMSIsInRhZyI6IiJ9" alt="logotipo-Conecta AIFA"></a>
+    <a href="https://conectaifa.com.mx/"><img src="/api/Embe001InformacionUtilIcono/eyJpdiI6IlNtbkpKZ2h0eEE3ODl5YXlZT3RqYnc9PSIsInZhbHVlIjoiZmFFbkpOaVVzMkJHUFlYS0JnK3dadz09IiwibWFjIjoiMTNkZmJkNTc3MjNkYWJkNzM1ZWVkYjRiMzg2NWEyOTc1NTNjODcyZjY1OTk3MDMwYzJkNmNjZjZlMWI5NGU5ZCIsInRhZyI6IiJ9" alt="logotipo-Conecta AIFA"></a>
     <h3 class="pt-20">Conecta AIFA</h3>
 </div>
   
@@ -4086,7 +4086,7 @@
         </div>
         <div class="slider_aifa">
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6IkdIUDVxWjRlMjd1NjJ4WmE0SDlrT2c9PSIsInZhbHVlIjoiOWFFM1MvclBILzVicDFZeDJsbjJvUT09IiwibWFjIjoiNDMwMDg0Nzg5Zjc3ZDgwZGExMTkyOGVkZjg1MzhhODQzNzM1MmJiYzA2NzNjNDc5ZmFiMjgyMTlhZDgzZmEyYyIsInRhZyI6IiJ9" alt="Prix Versailles">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6IlJxQjNuYzRyZmhRSUJVRCtmTlNXYnc9PSIsInZhbHVlIjoiZFlKTjQ3MnVET2p2OGZ0SGpWbTdZUT09IiwibWFjIjoiYTU4YzZjYWUzNWZlMTc1YWMwZWE3YTZmY2U2YmZmN2U2MmU2OGMxZmUzZTI5YzY0YWJiZWNlOWJlZWI3NTgxNyIsInRhZyI6IiJ9" alt="Prix Versailles">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Prix Versailles</a>
@@ -4095,7 +4095,7 @@
             </div>
         </div>
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6IjlFb1FUSC9WQ3JNNGFSYnFhYjVpcFE9PSIsInZhbHVlIjoiSnVhYWsybzNRZUJtMzhVSGtvMFJzQT09IiwibWFjIjoiMDZiYWE0MWNmMmQzODNkZjRmZTQxMjg4YTFhMTM0NzNhNTRmYWZiZjM3ZDhlMGJhZWUwZmMyZjNmNDIwZWNiZCIsInRhZyI6IiJ9" alt="Operador de Base Fija">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6InFURVpaTC9paVFjRGZLMkxqbjhoMHc9PSIsInZhbHVlIjoidTN0V0EweE9tbFQ1a3RnaSt4Q0RGZz09IiwibWFjIjoiZjA3MDJiYmEwZTc0NjU2NzFiNTUyYmQ4YWVmZDdkMWIzNzA4MjdiNDIwOTQzOGExNjE1NzY3MTk5MTkxODQyMSIsInRhZyI6IiJ9" alt="Operador de Base Fija">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Operador de Base Fija</a>
@@ -4104,7 +4104,7 @@
             </div>
         </div>
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6IkxzMnJ3VmI1N3hXVDhLUnhON21Cb0E9PSIsInZhbHVlIjoiOUVuTnRaaWdLYitXMVF2WUFZcFRKdz09IiwibWFjIjoiN2Q1ZDNkNWNjNTYwNjAzZThjZDJlYzAxMWUzZmFlYmI3YTI5NmNlNWViNmRiYjA1NzJlM2RkMjBmZTU5NGU3OCIsInRhZyI6IiJ9" alt="Capilla">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6InJDYnFBMGFLWmJmaHFZS2IzWkpnakE9PSIsInZhbHVlIjoiZENJQ3NtVlBVMGtrTzEwaytCNlFWZz09IiwibWFjIjoiMjJhOTY2ZDE2YTAwNTc5MWY4NzhkZDc5ZTA3OGIxYmQ4ZTZmNzkwNTg0ZTI0MjU2MmM1MmFkYTI3NWMxYzg2NCIsInRhZyI6IiJ9" alt="Capilla">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Capilla</a>
@@ -4113,7 +4113,7 @@
             </div>
         </div>
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6ImJrMUwwUVJvbmlGeTRFT0lTU0NKNnc9PSIsInZhbHVlIjoiM2ZjVkQvOVRhQjRRSGtEeWIzeVlvQT09IiwibWFjIjoiZGI1ZTQ4MWVhYTk0NGYzYjQzM2ZmODQwY2M5MTI4NzY4OWM4OWQyNzk5MTdhNzBmZjhmMWJmMmI0NmJlZTQ0MyIsInRhZyI6IiJ9" alt="Baños Temáticos">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6InRVd3l5Z3VwV0pDR0NTM1VzU3B3V1E9PSIsInZhbHVlIjoid0NYNzdoQ1BQcUo1UzRaUUpCZ0RUUT09IiwibWFjIjoiOTIxYmZjNTAwN2VlZmVlMzFhNjE5N2E5NjJiMDVhM2Q5NzUzZDcwZDAwMzI1ZWUyMDI2YTNkNjJjZGFmYjIzMyIsInRhZyI6IiJ9" alt="Baños Temáticos">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Baños Temáticos</a>
@@ -4122,7 +4122,7 @@
             </div>
         </div>
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6IjhrZGVxcytzRkUxSGRIcXhRU0NYcmc9PSIsInZhbHVlIjoibGtvQVhad1VDeDQwVUpKN1lBVVdWUT09IiwibWFjIjoiMzY3YmZjOWJkZGE0Y2RkZDYyNzI0OTAyN2Y3OTVkOTUyN2RkYjdjYzQ4Y2U3NTExMmM0YTAwZDZiNTZlOTVlMyIsInRhZyI6IiJ9" alt="Seguridad">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6IklzdGNBWGxlVXhhOG9aQm5pYkd3UGc9PSIsInZhbHVlIjoiSytBSHRMS3c1UFVvd2FhVC9EZW44QT09IiwibWFjIjoiNmE2MTQ0ZWI3ZTZiZjM2OGE5NWEwZDBjMzcyMWE4M2NjNDg5MmJlZDRiMDExZDJiZmEwYjM5MDVhY2RiY2E2NyIsInRhZyI6IiJ9" alt="Seguridad">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Seguridad</a>
@@ -4131,7 +4131,7 @@
             </div>
         </div>
             <div class="slide_aifa">
-            <img src="/api/Embe001ConoceAifa/eyJpdiI6IkVYSEIrbVBNM3dWVnJ2bnQ4QjB0Nmc9PSIsInZhbHVlIjoiU3BIV2VwcjlBSEVDOXBJWndWL3Nhdz09IiwibWFjIjoiYTAyYmJkM2E4MDQ4Nzc5YTBjZDQxM2I1YThhOWQzYmE1YTJkNmFlZjk0YTBkMTc5M2M3MTljZGUwNWRjNDcxOSIsInRhZyI6IiJ9" alt="Sala de Lactancia">
+            <img src="/api/Embe001ConoceAifa/eyJpdiI6InB1Umc1Um9CQ29pR0paQ1RLenBmM3c9PSIsInZhbHVlIjoicDN2R1NVUWszeVBtV2FSNnJNeU1zUT09IiwibWFjIjoiNWQxZTJmYTA3Mjg3NDNmMDkxZDNmODk4ZmViYzMwNjBhMTc0MTYxYjYyODk1YTYyZDEzZmUxNDVkZDNmNjFlZSIsInRhZyI6IiJ9" alt="Sala de Lactancia">
             <div class="overlay_aifa"></div>
             <div class="slide-content_aifa">
                 <a  class="slide-title_aifa">Sala de Lactancia</a>
@@ -4182,21 +4182,21 @@
                         <div class="carousel-item active" data-index="0">
              <div class="aifa-slide-content">
                  <a href="https://www.aifa.aero/noticias-aifa/33">
-                     <img src="/api/Embe001ImgNoticia/eyJpdiI6Ikd3SkVQa1g1dTYrT05OTnBqL2dUS0E9PSIsInZhbHVlIjoiTlFXbFVRQUkzTFRYam5wVUE3bSs5UT09IiwibWFjIjoiYWUwOGM0ZDRjNjI5NGZlYmIzMjg4YjliMzQyNjFlZDE5NDFiNzliMzJkZjU2ZGJkYjA1ZDlhZDA5YmVlYzI1NCIsInRhZyI6IiJ9" class="d-block w-100" alt="Terminal de Aviación General y FBO">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6IlRFV0RTdHJKL1dBWkkxT3kya01Ec0E9PSIsInZhbHVlIjoiSmRZVzArUXRraGZTdW5VM1pjbXNOdz09IiwibWFjIjoiYzU1YmZiZjc4NjRiZGFmZjI5NTEwNDQ2YzkzZGYzZDhiNzA0NzcyODc2MDU5NDFjNzBkYmY1YzRmNDg0NDIwNyIsInRhZyI6IiJ9" class="d-block w-100" alt="Terminal de Aviación General y FBO">
                  </a>
              </div>
          </div>
               <div class="carousel-item " data-index="1">
              <div class="aifa-slide-content">
                  <a href="https://www.aifa.aero/noticias-aifa/32">
-                     <img src="/api/Embe001ImgNoticia/eyJpdiI6Im9GOUhMdVFtb1FTU1FlVzh2YTNlWGc9PSIsInZhbHVlIjoid1hDdGJCZkZZUUFhZHpWSktDbW9sQT09IiwibWFjIjoiN2MwZWNjYmI4YjVmNzI0ZjgxZWVlNDVmZTM1MjA1MDZkOGYwNGZmNTRmZDQ4YWUyYjM1NjU2OTBiYWQxZjFmNiIsInRhZyI6IiJ9" class="d-block w-100" alt="Evita ser víctima de fraude">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6ImpNNVE2M2JMWUNKS3ZRVlNhTUd6cmc9PSIsInZhbHVlIjoic1R4ZlVhK255MDg2WlNENi9ZMVNYQT09IiwibWFjIjoiYzllYjBmYTMzYThkY2EyNDVmYzRmZmUyODg1ZGY0ODhmYWZmODE2Mjc5ZDhhMGRhNzQ0MGNlOGRjNmFmNzc3YSIsInRhZyI6IiJ9" class="d-block w-100" alt="Evita ser víctima de fraude">
                  </a>
              </div>
          </div>
               <div class="carousel-item " data-index="2">
              <div class="aifa-slide-content">
                  <a href="https://www.aifa.aero/noticias-aifa/15">
-                     <img src="/api/Embe001ImgNoticia/eyJpdiI6IktvOEpHZ3NwRmJrZTB2WnhQMkxNSGc9PSIsInZhbHVlIjoiRWlKMTBHS3pXVEpKVXR6dFZPdzU4QT09IiwibWFjIjoiOTZkNWM5YWVjYWZjNDE0NmQ2NWM0M2FmZjZmMGUzYzExYjlmMDFmNmUwNmQ0NjYwNzFhOGIxMGJkYmQ1NTU0MiIsInRhZyI6IiJ9" class="d-block w-100" alt="CONECTA AIFA">
+                     <img src="/api/Embe001ImgNoticia/eyJpdiI6IjFnbDZUTEMzT1JNNk1ib3NMS3FuY3c9PSIsInZhbHVlIjoiTzVoeWNrQzhjSVdaOG1tVG1GQ3RpUT09IiwibWFjIjoiMzcwNmU2MTk3ODE0YjcwNjI4YmZkYWEwODg4MDA2MTc1NjBjYzg0ZGNlYzBhYTQ4Mjg0ZjViOWEwOTJjMjU1OCIsInRhZyI6IiJ9" class="d-block w-100" alt="CONECTA AIFA">
                  </a>
              </div>
          </div>
@@ -4217,13 +4217,13 @@
 
             <div class="aifa-thumbnails">
                                     <div class="aifa-thumb-card active" data-slide-to="0">
-                        <img src="/api/Embe001ImgNoticia/eyJpdiI6Ikd3SkVQa1g1dTYrT05OTnBqL2dUS0E9PSIsInZhbHVlIjoiTlFXbFVRQUkzTFRYam5wVUE3bSs5UT09IiwibWFjIjoiYWUwOGM0ZDRjNjI5NGZlYmIzMjg4YjliMzQyNjFlZDE5NDFiNzliMzJkZjU2ZGJkYjA1ZDlhZDA5YmVlYzI1NCIsInRhZyI6IiJ9" alt="Terminal de Aviación General y FBO">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6IlRFV0RTdHJKL1dBWkkxT3kya01Ec0E9PSIsInZhbHVlIjoiSmRZVzArUXRraGZTdW5VM1pjbXNOdz09IiwibWFjIjoiYzU1YmZiZjc4NjRiZGFmZjI5NTEwNDQ2YzkzZGYzZDhiNzA0NzcyODc2MDU5NDFjNzBkYmY1YzRmNDg0NDIwNyIsInRhZyI6IiJ9" alt="Terminal de Aviación General y FBO">
                     </div>
                                     <div class="aifa-thumb-card " data-slide-to="1">
-                        <img src="/api/Embe001ImgNoticia/eyJpdiI6Im9GOUhMdVFtb1FTU1FlVzh2YTNlWGc9PSIsInZhbHVlIjoid1hDdGJCZkZZUUFhZHpWSktDbW9sQT09IiwibWFjIjoiN2MwZWNjYmI4YjVmNzI0ZjgxZWVlNDVmZTM1MjA1MDZkOGYwNGZmNTRmZDQ4YWUyYjM1NjU2OTBiYWQxZjFmNiIsInRhZyI6IiJ9" alt="Evita ser víctima de fraude">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6ImpNNVE2M2JMWUNKS3ZRVlNhTUd6cmc9PSIsInZhbHVlIjoic1R4ZlVhK255MDg2WlNENi9ZMVNYQT09IiwibWFjIjoiYzllYjBmYTMzYThkY2EyNDVmYzRmZmUyODg1ZGY0ODhmYWZmODE2Mjc5ZDhhMGRhNzQ0MGNlOGRjNmFmNzc3YSIsInRhZyI6IiJ9" alt="Evita ser víctima de fraude">
                     </div>
                                     <div class="aifa-thumb-card " data-slide-to="2">
-                        <img src="/api/Embe001ImgNoticia/eyJpdiI6IktvOEpHZ3NwRmJrZTB2WnhQMkxNSGc9PSIsInZhbHVlIjoiRWlKMTBHS3pXVEpKVXR6dFZPdzU4QT09IiwibWFjIjoiOTZkNWM5YWVjYWZjNDE0NmQ2NWM0M2FmZjZmMGUzYzExYjlmMDFmNmUwNmQ0NjYwNzFhOGIxMGJkYmQ1NTU0MiIsInRhZyI6IiJ9" alt="CONECTA AIFA">
+                        <img src="/api/Embe001ImgNoticia/eyJpdiI6IjFnbDZUTEMzT1JNNk1ib3NMS3FuY3c9PSIsInZhbHVlIjoiTzVoeWNrQzhjSVdaOG1tVG1GQ3RpUT09IiwibWFjIjoiMzcwNmU2MTk3ODE0YjcwNjI4YmZkYWEwODg4MDA2MTc1NjBjYzg0ZGNlYzBhYTQ4Mjg0ZjViOWEwOTJjMjU1OCIsInRhZyI6IiJ9" alt="CONECTA AIFA">
                     </div>
                             </div>
         </div>
@@ -4249,7 +4249,7 @@
         <div class="bg-video">
                 <video class="videoestadistica" data-lazy-video muted playsinline loop>
 
-    <source data-src="/api/Down001DescargarVideoEstadistica/eyJpdiI6ImFHdlc3RFVKZlArajJlK0ViempnelE9PSIsInZhbHVlIjoiWE9XZzVEQktmbUFIdGFiWDJoWWlUdz09IiwibWFjIjoiMDdhOThiYTdiZDE3MWY0MzIwZTY5MTQ4OWI3ZjcyYTE3YzRlNzFkMTFlMmE2ZDkzNjJhZDVlY2FiNDhlYWM3NiIsInRhZyI6IiJ9" type="video/mp4">
+    <source data-src="/api/Down001DescargarVideoEstadistica/eyJpdiI6ImhDMncvNE5FdEg0Qzg1M201V2tJakE9PSIsInZhbHVlIjoieG91VXAvWnA4OUZDL2taVXhseDNFUT09IiwibWFjIjoiY2IwODg5ODhhMjZjNzVlZWJjZTBhODU2NzU2ZjhlMjlkY2RiMTllZTRjMGQ2MzFmN2VhYWZmMzE3MmRjMDdjNCIsInRhZyI6IiJ9" type="video/mp4">
 
 </video>
 
@@ -4272,7 +4272,7 @@
                                 <div class="counter-item">
                                         <div class="counter__icon">
 	<i class="icon-worldwide">
-        <img class="estadistics-icon" decoding="async" src="/api/Embe002Icono1/eyJpdiI6IjJGaGs5TGg4c3VyS1NlcGNlWjI0SEE9PSIsInZhbHVlIjoiRU1aU3o4QVpyZGNUM2U4ek5WVGFhdz09IiwibWFjIjoiOGU3MWJkZTUwNTAyZWFkYmM0ZjY3M2IxYzFhNmU2NDM1ZWIzY2VkNzgyYmQ0NzRhZjA4Zjg2MmIxNjM2ZjQ1MCIsInRhZyI6IiJ9" alt="Operaciones Aéreas">
+        <img class="estadistics-icon" decoding="async" src="/api/Embe002Icono1/eyJpdiI6ImJPdldqcjdRYi9HRm1TTnVXRm5GbGc9PSIsInZhbHVlIjoiS05QckszdTNON1pSV3JMTjV0R2RFUT09IiwibWFjIjoiOWFkYjMzOTU0YWVmMzY4MDg5MGNjZmEzMGYyMjg2ZjgzYWEwNzVkYWI4YmQ1MzZjMTY4NzM4MzcyODQ3YjlhYyIsInRhZyI6IiJ9" alt="Operaciones Aéreas">
     </i>
 </div>
 <div class="infodato">
@@ -4286,7 +4286,7 @@
                                 <div class="counter-item">
                                         <div class="counter__icon">
 	<i class="icon-trolley">
-    	<img class="estadistics-icon" decoding="async" src="/api/Embe003Icono2/eyJpdiI6IndXdVNwMWNyYlhrVTQxczlPNWZMd3c9PSIsInZhbHVlIjoielUzbW1sT3JGTHVyZ2VvaGxjcUFtZz09IiwibWFjIjoiNWI0YTY2MDc0Yzc2MTA3NDkxYTBhNGUwMGZjOTcxMDE4YTJlZDkxYmU0Zjg2YTliNGRkOGQ1OWZjM2Q1OGUyOSIsInRhZyI6IiJ9" alt="Pasajeros Transportados">
+    	<img class="estadistics-icon" decoding="async" src="/api/Embe003Icono2/eyJpdiI6ImhTQkNaVy90blpwM3ovZTEvZlBCOVE9PSIsInZhbHVlIjoiNitaZVREQk8xbDBEcFo2NzF3c3ZMUT09IiwibWFjIjoiYjhiZGNhN2QwYjRiMTYyMjZhMzZmNDQwZTE1ZWM4Y2I0ZWM0ZTE5OTQzNmRlYjg1ZDMwYzk3YjE1N2Q2NGVhOSIsInRhZyI6IiJ9" alt="Pasajeros Transportados">
     </i>
 </div>
 <div class="infodato">
@@ -4299,7 +4299,7 @@
                                 <div class="counter-item">
                                         <div class="counter__icon">
     <i class="icon-truck">
-        <img class="estadistics-icon"  decoding="async" src="/api/Embe004Icono3/eyJpdiI6Ik9PMWVQaDhTUWdVRytNcC9HTnhXWEE9PSIsInZhbHVlIjoiTzZ2VklQSzRYMWgzWUk5dzltbTlVUT09IiwibWFjIjoiNGYyM2U4NWZhNDcyZDQ0NTE2MGJlODk2ODU4YWE1NjYxMDBkYzVhMjQzMTM4MjljZTM5MDQyYjI3YWZiN2E3OCIsInRhZyI6IiJ9" alt="Toneladas Transportadas">
+        <img class="estadistics-icon"  decoding="async" src="/api/Embe004Icono3/eyJpdiI6Im1tK1Boc3hpZlhrQ1Y3S3ZOWnNXWVE9PSIsInZhbHVlIjoiYTF2QlRsMXNmS1h5VVkxMEN6N25LUT09IiwibWFjIjoiYjc4M2QwNGY5MWIxNjA2ZGMzMmRkODYwM2VlZGM0N2E5Y2Q2OWM4ZTk0ZTY0NzE2ODQ3NDU2NTY0ZmU1M2RkNCIsInRhZyI6IiJ9" alt="Toneladas Transportadas">
     </i>
 </div>
 <div class="infodato">
@@ -4486,7 +4486,7 @@ Lo anterior, de conformidad en lo dispuesto por los art&iacute;culos 3/o. fracci
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
         <script type="text/javascript">
-        var antiforgeryToken = "X4fbqJLvjFFQ2YFvwiUSgLt2n7M5OdU4gd9qZB2G";
+        var antiforgeryToken = "uRVyQ0i0tC3zfaPOLwEM3Ro1xXFw0FLAyiSgKOSy";
     </script>
     <script src="https://www.aifa.aero/js/CookieConsent/cookieconsent.js"></script>
 <script type="text/javascript">
@@ -5208,6 +5208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         observerCenter.observe(el);
     });*/
 </script>
-<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=1624721914" async></script></body>
+<script type="text/javascript" src="/_Incapsula_Resource?SWJIYLWA=719d34d31c8e3a6e6fffd425f7e032f3&ns=1&cb=403166312" async></script></body>
 
 </html>

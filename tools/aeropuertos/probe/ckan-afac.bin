@@ -1,0 +1,400 @@
+
+<!DOCTYPE html>
+<!--[if IE 9]> <html lang="es" class="ie9"> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="es" > <!--<![endif]-->
+  <head>
+    <meta charset="utf-8" />
+    <meta name="csrf_field_name" content="_csrf_token" />
+    <meta name="_csrf_token" content="IjY2MDExNTI2MmFmZDkxNTQ0ZTE3ODI0ODFjYzZhMzRjY2JmZGI1MWQi.arVazA.fN74_fRif394H5ngLkNm8318Ph4" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="description" content="Visualiza las base de datos abiertas del Gobierno de México" />
+    <meta property="og:description" content="Visualiza las base de datos abiertas del Gobierno de México" />
+    <meta name="keywords" content="Datos, Abiertos, GobMX, Gobierno, México" />
+
+    <meta property="og:title" content="Plataforma Nacional de Datos Abiertos" />
+    <meta property="og:url" content="https://www.datos.gob.mx" />
+    <meta property="og:image" content="/base/images/screenshot.png" />
+    
+    <meta name="generator" content="ckan 2.11.6" />
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"><script src="https://cdn.jsdelivr.net/npm/pace-js@latest/pace.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/pace-js@latest/pace-theme-default.min.css">
+    
+    
+    <title>
+  Página no encontrada
+ - datos.gob.mx</title>
+
+    
+    <link rel="shortcut icon" href="/base/images/favicon.png" />
+    
+    
+    
+    
+    
+    
+    <link href="/webassets/ckanext-atdt/a480fdb5-atdt.css" rel="stylesheet"/>
+    
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-R1V0DG3C17"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('set', 'cookie_flags', 'SameSite=Strict;Secure');
+      gtag('config', 'G-R1V0DG3C17');
+    </script>
+    
+
+</head>
+
+
+  <body data-site-root="https://www.datos.gob.mx/"
+    data-locale-root="https://www.datos.gob.mx/" >
+
+    
+<div class="visually-hidden-focusable"><a href="#content">Saltar al contenido principal</a></div>
+
+
+
+
+
+
+
+
+  
+    
+  
+
+  <header class="masthead">
+    <div class="container">
+      <!-- 
+        
+      -->
+      <nav class="navbar navbar-expand-lg navbar-light">
+        <hgroup class="header-image navbar-left">
+          
+            
+              <a class="logo" href="https://www.gob.mx">
+                <img src="/base/images/gobmx/logo_gob_mx.svg" alt="datos.gob.mx" title="datos.gob.mx" />
+              </a>
+            
+          
+        </hgroup>
+
+        <div class="main-navbar collapse navbar-collapse mt-2 mt-lg-0" id="main-navigation-toggle">
+          <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+            
+              <li>
+                <a href="https://www.gob.mx/tramites" target="_self" title="Ir a trámites del gobierno">Trámites</a>
+              </li>
+              <li>
+                <a href="https://www.gob.mx/gobierno" target="_self" title="Ir a gobierno">Gobierno</a>
+              </li>
+              <li>
+                <a href="https://www.gob.mx/busqueda" target="_self" title="Haz búsquedas en gobierno"><i class="fa fa-search"></i></a>
+              </li>
+            
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Nueva barra blanca debajo de la principal (visible solo en pantallas grandes) -->
+    <nav class="custom-navbar navbar-light bg-white d-none d-lg-block">
+      <div class="container">
+        <ul class="navbar-nav flex-row justify-content-center w-100">
+          <li class="nav-item mx-3">
+            <a href="/" class="nav-link">
+              Inicio
+            </a>
+          </li>
+          <li class="nav-item mx-3">
+            <a href="/dataset/" class="nav-link">
+              Bases de datos
+            </a>
+          </li>
+          <li class="nav-item mx-3">
+            <a href="/organization/" class="nav-link">
+              Instituciones
+            </a>
+          </li>
+          <li class="nav-item mx-3">
+            <a href="/group/" class="nav-link">
+              Categorías
+            </a>
+          </li>
+          <li class="nav-item mx-3">
+            <a href="/visualizador" class="nav-link">
+              Visualizaciones de datos
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+   <!-- Nueva barra de navegación SOLO para móviles con nuevo estilo -->
+    <nav class="navbar navbar-dark bg-custom d-lg-none">
+      <div class="container">
+        <!-- Menú hamburguesa -->
+        <span class="menu-text">Menú</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobile-menu">
+          
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Menú colapsable -->
+        <div class="collapse navbar-collapse" id="mobile-menu">
+          <ul class="navbar-nav w-100">
+            <li class="nav-item"><a href="https://www.gob.mx/tramites" class="nav-link">Trámites</a></li>
+            <li class="nav-item"><a href="https://www.gob.mx/gobierno" class="nav-link">Gobierno</a></li>
+            <li class="nav-item"><a href="/" class="nav-link">Inicio</a></li>
+            <li class="nav-item"><a href="/dataset/" class="nav-link">Bases de datos</a></li>
+            <li class="nav-item"><a href="/organization/" class="nav-link">Instituciones</a></li>
+            <li class="nav-item"><a href="/group/" class="nav-link">Categorías</a></li>
+            <li class="nav-item"><a href="/visualizador" class="nav-link">Visualizaciones de datos</a></li>
+            
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+
+  </header>
+
+
+
+
+
+
+
+<div class="main">
+  <div id="content" class="container">
+    
+    
+
+    
+    <div class="toolbar" role="navigation" aria-label="Miga de pan">
+      
+    </div>
+    
+
+    <div
+      class="row  no-nav">
+      
+      
+      
+
+      
+
+      
+<article class="module">
+  <div class="module-content" style="padding: 2em; max-width: 800px; margin: 0 auto;">
+    <h1 style="font-size: 2.2em; margin-bottom: 0.8em; font-weight: 600; color: #333;">
+      Error 404 – Página no encontrada
+    </h1>
+
+    <p style="font-size: 1em; color: #555; margin-bottom: 1em;">
+      La página que estás buscando no está disponible o no existe. 
+      Es posible que haya sido eliminada, actualizada o escrita incorrectamente.
+    </p>
+
+    <p style="font-size: 1em; color: #555; margin-bottom: 1em;">
+      Puedes explorar las bases de datos disponibles en el sitio principal de la Plataforma Nacional de Datos Abiertos o visitar el portal histórico para consultar versiones anteriores.
+    </p>
+
+    <p style="font-size: 1em; color: #555; margin-bottom: 2em;">
+      También puedes intentar una <a href="/dataset" style="color: #73003c; font-weight: bold;">búsqueda directa de datos</a> desde este portal.
+    </p>
+
+    <div style="display: flex; gap: 1em; flex-wrap: wrap;">
+      <a href="https://www.datos.gob.mx" class="btn" style="background-color: #73003c; color: white; padding: 0.8em 1.5em; border-radius: 4px; text-decoration: none;">
+        Explorar datos.gob.mx
+      </a>
+      <a href="https://historico.datos.gob.mx" referrerpolicy="no-referrer" class="btn" style="background-color: #f1f1f1; color: #333; padding: 0.8em 1.5em; border: 1px solid #ccc; border-radius: 4px; text-decoration: none;">
+        Consultar portal histórico
+      </a>
+    </div>
+  </div>
+</article>
+
+    </div>
+    
+  </div>
+</div>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="row">
+      <!-- Columna 1: Logo -->
+      <div class="col-12 col-md-2 mb-3 mb-md-0">
+        <img src="/base/images/gobmx/logo_gob_mx.svg" alt="Gobierno de México" class="img-fluid"
+          style="max-width:250px; width:85%;">
+      </div>
+
+      <!-- Columna 2: Enlaces -->
+      <div class="col-12 col-md-3 mb-3 mb-md-0">
+        <h2 class="mb-3 text-white" style="font-size: 20px;">Enlaces</h2>
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://datos.gob.mx/" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Datos
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/publicaciones" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Publicaciones
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://consultapublicamx.plataformadetransparencia.org.mx/vut-web/faces/view/consultaPublica.xhtml?idEntidad=MzM=&idSujetoObligado=MTAwMDE=#inicio"
+              target="_blank" class="text-white text-decoration-none" style="font-size: 14px;">
+              Portal de Obligaciones de Transparencia
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://consultapublicamx.plataformadetransparencia.org.mx" target="_blank"
+              class="text-white text-decoration-none" style="font-size: 14px;">
+              PNT
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="http://www.inai.org.mx/" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              INAI
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://alertadores.funcionpublica.gob.mx/" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Alerta
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://sidec.funcionpublica.gob.mx/#!/" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Denuncia
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 3: ¿Qué es gob.mx? y enlaces adicionales -->
+      <div class="col-12 col-md-4 mb-3 mb-md-0">
+        <h2 class="mb-3 text-white" style="font-size: 20px;">¿Qué es gob.mx?</h2>
+        <p class="text-white" style="font-size: 16px;">
+          Es el portal único de trámites, información y participación ciudadana.
+          <a href="https://www.gob.mx/que-es-gobmx" target="_blank" class="text-white text-decoration-none"
+            style="font-size: 16px;">
+            Leer más
+          </a>
+        </p>
+        <hr class="my-2">
+        <ul class="list-unstyled">
+          <li>
+            <a href="https://www.gob.mx/amlo" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Administraciones anteriores
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/accesibilidad" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Declaración de Accesibilidad
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="http://www.ordenjuridico.gob.mx/" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Marco jurídico
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/terminos#medidas-seguridad-informacion" target="_blank"
+              class="text-white text-decoration-none" style="font-size: 14px;">
+              Política de seguridad
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/terminos" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Términos y Condiciones
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/aviso_de_privacidad" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Aviso de privacidad
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/privacidadsimplificado" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Aviso de privacidad simplificado
+            </a>
+          </li>
+          <hr class="my-1">
+          <li>
+            <a href="https://www.gob.mx/sitemap" target="_blank" class="text-white text-decoration-none"
+              style="font-size: 14px;">
+              Mapa de sitio
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Columna 4: Denuncia y redes sociales -->
+      <div class="col-12 col-md-3">
+        <a href="https://www.gob.mx/accesibilidad" target="_blank" class="d-block mb-3 text-white"
+          style="font-size: 16px; text-decoration: underline !important;">
+          Denuncia contra servidores públicos
+        </a>
+        <p class="mb-2 text-white" style="font-size: 14px;">Síguenos en</p>
+        <div class="d-flex" style="max-width: 100px;">
+          <a href="https://www.facebook.com/gobmexico" target="_blank" class="me-2">
+            <img src="/base/images/gobmx/footer/ic_facebook.svg?pfdrid_c=true" style="max-width: 18px; width: 100%;">
+          </a>
+          <a href="https://x.com/GobiernoMX" target="_blank">
+            <img src="/base/images/gobmx/footer/ic_twitter.svg?pfdrid_c=true" style="max-width: 18px; width: 100%;">
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+
+
+
+    
+
+
+    
+    <link href="/webassets/vendor/f3b8236b_select2.css" rel="stylesheet"/>
+<link href="/webassets/vendor/53df638c_fontawesome.css" rel="stylesheet"/>
+    <script src="/webassets/vendor/240e5086_jquery.js" type="text/javascript"></script>
+<script src="/webassets/vendor/71bc2bbc_vendor.js" type="text/javascript"></script>
+<script src="/webassets/vendor/6d1ad7e6_bootstrap.js" type="text/javascript"></script>
+<script src="/webassets/vendor/529a0eb7_htmx.js" type="text/javascript"></script>
+<script src="/webassets/base/ebc2f0b9_main.js" type="text/javascript"></script>
+<script src="/webassets/base/78ac888d_ckan.js" type="text/javascript"></script>
+<script src="/webassets/ckanext-atdt/05a2dc50-atdt.js" type="text/javascript"></script>
+</body>
+
+</html>
