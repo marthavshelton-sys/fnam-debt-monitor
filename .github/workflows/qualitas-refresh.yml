@@ -2,7 +2,7 @@
 #
 #   market   daily after the BMV close: Q.MX, IPC and peer prices, Q.MX dividends, USD/MXN, 10-year yields
 #            -> site/qualitas/data/market.js
-#   filings  every weekday morning (Quálitas publishes quarterly results in the 3rd/4th week of Jan, Apr,
+#   filings  every morning (Quálitas publishes quarterly results in the 3rd/4th week of Jan, Apr,
 #            Jul, Oct and the SIFIC filings a few days later): harvests new quarterly reports and SIFIC
 #            filings from the IR site into tools/qualitas/raw/, re-parses them into
 #            site/qualitas/data/financials.js + operations.js and validates the tie-outs before committing.
@@ -14,8 +14,8 @@ name: Refresh Quálitas model data
 
 on:
   schedule:
-    - cron: "45 22 * * 1-5"      # market, weekdays 22:45 UTC (after the BMV close)
-    - cron: "35 14 * * 1-5"      # filings + market, weekdays 14:35 UTC
+    - cron: "0 23 * * *"         # market, every day 23:00 UTC (after the BMV close; a minute no other model uses)
+    - cron: "50 14 * * *"        # filings + market, every day 14:50 UTC (60 minutes before the reviewing routine)
   workflow_dispatch:
     inputs:
       mode:
@@ -63,8 +63,8 @@ jobs:
         shell: bash
         run: |
           MODE="${{ github.event.inputs.mode || 'all' }}"
-          # The 22:45 schedule refreshes market data only; every other trigger does both.
-          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "45 22 * * 1-5" ]; then MODE=market; fi
+          # The 23:00 schedule refreshes market data only; every other trigger does both.
+          if [ "${{ github.event_name }}" = "schedule" ] && [ "${{ github.event.schedule }}" = "0 23 * * *" ]; then MODE=market; fi
           echo "mode=$MODE" >> "$GITHUB_OUTPUT"
           echo "Running mode: $MODE"
 
