@@ -139,3 +139,29 @@ the alert in the state file on `main`. If nothing changed the note is the single
 change in GAP data today." If the data files fail to load or `validate-data.mjs` fails, it reports a
 one-line pipeline alert once per distinct failure. Manage or pause it from the Routines list in
 claude.ai/code.
+
+
+## Board presentation (PDF) — the "Presentación (PDF)" button
+
+`site/gap/present.js` builds a Letter-size PDF in the browser in one click (jsPDF + jsPDF-AutoTable, vendored in
+`site/assets/vendor/`; charts drawn off-screen with the page's Chart.js). It reads `window.GAP_MODEL`, the read-only API
+that `app.js` exposes at the end of its IIFE, so every figure is the same calculation the page shows. Language follows
+the ES/EN toggle; the file is named `GAP_PAC_presentacion_<date>.pdf` / `GAP_PAC_board_presentation_<date>.pdf`.
+
+Pages: cover (landscape, unnumbered) · executive summary (`data/summary.js`, font auto-fitted to one page) · tear sheet
+(market data with fetch timestamp, LTM and quarter EBITDA, net debt/EBITDA, GAP B vs IPC rebased, 3-year price) ·
+operating metrics and income statement of the latest quarter, latest fiscal year and LTM (portrait, with the
+`data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
+track record and every vintage (landscape) · traffic by airport (latest month and LTM) · GAP vs Mexico (AFAC, from
+`/aeropuertos/data/traffic.js`, two axes) · sections 07 leverage, 08 dividends, 09 CBX, 10 FIBRA GAP (landscape, bullets
+and charts) · sources and methodology. Every page after the cover carries the confidentiality footer and "Page X of Y".
+
+Next results date: `reference.js` → `calendar.nextResults` when GAP has announced it (shown as *confirmed*); otherwise
+the PDF assumes the median lag between quarter-end and release for the same quarter over the previous three years and
+labels it *assumed*. The authorship line reads "Powered by <name>"; the name defaults to "Claude (Anthropic)" and can be
+overridden by defining `window.FNAM_MODEL_NAME` before `present.js` loads.
+
+Layout rules the builder enforces: tables shrink their font until they fit the page (`fitTable`), notes are pushed up
+rather than over the footer (`noteAbove`), and a table that would still spill is logged in the console. Glyphs that
+Helvetica lacks (−, ≈, →, Δ…) are swapped before drawing. To review the output headlessly, open the page with Playwright,
+click `#btnPrint`, save the download and rasterise it (PyMuPDF) — see the session notes.

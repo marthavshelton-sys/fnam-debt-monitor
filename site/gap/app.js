@@ -262,17 +262,17 @@
     const rate = st.stmt === 'bs' ? (obj.fxEop || fxAt(obj.bs && obj.bsDate || qEndDate(obj)) ) : ((obj.fxAvg && obj.fxAvg.rate) || avgFx(obj));
     return rate ? v / rate : null;
   }
-  function avgFx(obj) { // average USD/MXN over the period from FRED
+  function avgFx(obj, mode = st.mode) { // average USD/MXN over the period from FRED
     const end = obj.q ? qEndDate(obj) : `${obj.fy}-12-31`;
-    const months = obj.months || (obj.q && st.mode === 'q' ? 3 : st.mode === 'ltm' ? 12 : st.mode === 'fy' ? 12 : obj.q * 3);
+    const months = obj.months || (obj.q && mode === 'q' ? 3 : mode === 'ltm' ? 12 : mode === 'fy' ? 12 : obj.q * 3);
     const start = addDays(end, -30 * months);
     const pts = fxPts.filter((p) => p[0] > start && p[0] <= end);
     return pts.length ? pts.reduce((a, p) => a + p[1], 0) / pts.length : null;
   }
-  function yoyCommentsFor(A, B) {
+  function yoyCommentsFor(A, B, mode = st.mode) {
     if (!A || !B) return null;
-    const yoy = st.mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : st.mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : st.mode === 'fy' ? (B.fy === A.fy - 1) : false;
-    const ck = st.mode === 'q' ? A.id : st.mode === 'ytd' ? `${A.fy}M${A.months}` : st.mode === 'fy' ? A.id : null;
+    const yoy = mode === 'q' ? (B.fy === A.fy - 1 && B.q === A.q) : mode === 'ytd' ? (B.fy === A.fy - 1 && B.months === A.months) : mode === 'fy' ? (B.fy === A.fy - 1) : false;
+    const ck = mode === 'q' ? A.id : mode === 'ytd' ? `${A.fy}M${A.months}` : mode === 'fy' ? A.id : null;
     return yoy && ck && CM.periods && CM.periods[ck] ? CM.periods[ck] : null;
   }
   function renderStatements() {
@@ -336,14 +336,14 @@
   // ---- Operating metrics: passengers from the monthly traffic reports (which tie to the quarterly
   // report's passenger total within rounding), unit revenues = income-statement revenue / passengers.
   const trByYm = Object.fromEntries(TR.months.map((m) => [m.ym, m]));
-  function periodYms(obj) { // calendar months covered by a period object in the current mode
-    const endM = st.mode === 'fy' ? 12 : (obj.q || 4) * 3;
-    const n = st.mode === 'q' ? 3 : st.mode === 'ytd' ? (obj.months || endM) : 12;
+  function periodYms(obj, mode = st.mode) { // calendar months covered by a period object in the given mode
+    const endM = mode === 'fy' ? 12 : (obj.q || 4) * 3;
+    const n = mode === 'q' ? 3 : mode === 'ytd' ? (obj.months || endM) : 12;
     const out = []; for (let i = n - 1; i >= 0; i--) { let m = endM - i, y = obj.fy; while (m <= 0) { m += 12; y--; } out.push(`${y}-${String(m).padStart(2, '0')}`); } return out;
   }
-  function opsFor(obj) {
+  function opsFor(obj, mode = st.mode) {
     if (!obj) return null;
-    const ms = periodYms(obj).map((ym) => trByYm[ym]);
+    const ms = periodYms(obj, mode).map((ym) => trByYm[ym]);
     const full = ms.length > 0 && ms.every(Boolean);
     const sum = (f) => (full ? ms.reduce((a, m) => a + (f(m) || 0), 0) : null);
     const dom = sum((m) => m.dom && m.dom.TOTAL), intl = sum((m) => m.intl && m.intl.TOTAL);
@@ -957,7 +957,7 @@
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
   window.addEventListener('afterprint', () => setPrintMode(false));
-  el('btnPrint').addEventListener('click', () => { setPrintMode(true); setTimeout(() => window.print(), 250); });
+  el('btnPrint').addEventListener('click', () => { if (window.GAP_PRESENT && window.GAP_PRESENT.build) { window.GAP_PRESENT.build(); return; } setPrintMode(true); setTimeout(() => window.print(), 250); });
   el('stmtTable').addEventListener('click', (e) => { const g = e.target.closest('[data-g]'); if (g) { st.open[g.dataset.g] = !st.open[g.dataset.g]; renderStatements(); } });
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
@@ -977,6 +977,17 @@
   const io = new IntersectionObserver((entries) => { entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }); }, { rootMargin: '-40% 0px -55% 0px' });
   sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
+
+  // ---------------- model API for the presentation builder (present.js) ----------------
+  // Read-only view of the same calculations the page renders, so the PDF and the screen never disagree.
+  window.GAP_MODEL = {
+    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays,
+    FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
+    px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
+    avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
+    GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual,
+    betaFromMarket, kdFromDebt,
+  };
 
   let initial = 'es'; try { initial = localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');
