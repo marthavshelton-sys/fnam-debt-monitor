@@ -51,6 +51,19 @@
     finally { if (btn) { btn.disabled = false; btn.innerHTML = label; } }
   }
 
+  // Deep link: /<slug>/?present=1[&lang=es|en] opens the page, sets the language and builds the PDF at once
+  // (the landing pages link to it). The build starts after load so the page's own model is ready.
+  function autoRun(buildFn) {
+    let q; try { q = new URLSearchParams(location.search); } catch (e) { return; }
+    if (!q.has('present')) return;
+    const go = () => {
+      const lang = q.get('lang'); const b = lang === 'en' ? document.getElementById('btnLangEn') : lang === 'es' ? document.getElementById('btnLangEs') : null;
+      if (b && !b.classList.contains('active')) b.click();
+      setTimeout(buildFn, 700);
+    };
+    if (document.readyState === 'complete') setTimeout(go, 300); else window.addEventListener('load', () => setTimeout(go, 300));
+  }
+
   class Doc {
     // cfg: { slug, short, name, tickerLine, url, fileStem, confidential: {es,en} (optional) }
     constructor(M, cfg) {
@@ -270,5 +283,5 @@
     }
   }
 
-  window.FNAM_PRESENT = { Doc, run, tx, titleCase, loadScript, C, PALETTE, MARGIN, PAGE };
+  window.FNAM_PRESENT = { Doc, run, autoRun, tx, titleCase, loadScript, C, PALETTE, MARGIN, PAGE };
 })();

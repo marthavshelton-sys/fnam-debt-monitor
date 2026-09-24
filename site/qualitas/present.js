@@ -503,4 +503,5 @@
   }
 
   window.Q_PRESENT = { build, QualitasDoc };
+  P.autoRun(build);
 })();

@@ -127,6 +127,8 @@ same calculation the page shows; the prose of sections 09 and 10 is read from th
 the ES/EN toggle; the file is named `Qualitas_Q_presentacion_<date>.pdf` / `..._board_presentation_<date>.pdf`.
 Ctrl/Cmd+P still prints the page (print mode: light theme, tables trimmed to the last 8 quarters, fixed-size charts).
 
+Deep link: `/qualitas/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
+
 Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted) · tear sheet (price, market cap
 in MXN and USD, YTD and 12-month change vs the IPC, 52-week range, AGM dividend and yield, written premiums LTM and
 quarter, loss and combined ratios, RIF, net income LTM with an ex-VAT memo, EPS, P/E, P/BV, 12M ROE, solvency, float,

@@ -100,6 +100,8 @@ jsPDF-AutoTable vendored in `site/assets/vendor/`; off-screen Chart.js charts; c
 of sections 09 and 10 is read from the page itself. Language follows the ES/EN toggle; the file is named
 `OMA_<ADS ticker>_presentacion_<date>.pdf` / `..._board_presentation_<date>.pdf`. Ctrl/Cmd+P still prints the page.
 
+Deep link: `/oma/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
+
 Pages (15): cover · executive summary (`data/summary.js`, two columns auto-fitted; bullets without `**markers**` get
 their lead clause emphasised) · tear sheet (price and ADS, market cap in MXN and USD, YTD and 12-month change vs the
 IPC, 52-week range, AGM dividend and yield, LTM and quarter EBITDA, net debt/EBITDA, EV/EBITDA, P/E, passengers,

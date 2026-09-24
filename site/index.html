@@ -215,6 +215,13 @@ a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shado
 a.card:hover .cta svg{transform:translateX(3px);}
 .card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
 
+/* board presentation links (one click builds the PDF on the model page) */
+.decks{margin-top:18px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; font-size:13px; color:var(--text-secondary);}
+.decks .decks-label{font-weight:600; color:var(--muted); margin-right:2px;}
+.decks a{color:var(--accent-ink); font-weight:600; text-decoration:none; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:4px 11px; white-space:nowrap; transition:border-color .18s ease, transform .18s ease;}
+.decks a:hover, .decks a:focus-visible{border-color:var(--accent); transform:translateY(-1px); outline:none;}
+.decks .hint{flex-basis:100%; font-size:12px; color:var(--muted); margin:0;}
+
 .card.planned{
   background:transparent;
   border-style:dashed;
@@ -581,6 +588,16 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         </a>
 
       </div>
+        <div class="decks">
+          <span class="decks-label"><span class="en">Board presentations (PDF)</span><span class="es">Presentaciones para el consejo (PDF)</span></span>
+          <a data-base="/gap/" href="/gap/?present=1">GAP</a>
+          <a data-base="/oma/" href="/oma/?present=1">OMA</a>
+          <a data-base="/asur/" href="/asur/?present=1">ASUR</a>
+          <a data-base="/qualitas/" href="/qualitas/?present=1">Quálitas</a>
+          <a data-base="/gentera/" href="/gentera/?present=1">Gentera</a>
+          <a data-base="/oracle/" href="/oracle/?present=1">Oracle</a>
+          <p class="hint"><span class="en">Each link opens the model and builds a 15–16 page Letter PDF in the current language: cover, executive summary, tear sheet, statements, guidance, sections 07–10 and sources. Figures are the ones on the page at that moment.</span><span class="es">Cada enlace abre el modelo y genera un PDF tamaño carta de 15–16 páginas en el idioma actual: portada, resumen ejecutivo, ficha técnica, estados financieros, guía, secciones 07–10 y fuentes. Las cifras son las de la página en ese momento.</span></p>
+        </div>
     </div>
   </section>
 </main>
@@ -636,6 +653,18 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
   });
 
   document.getElementById("year").textContent = new Date().getFullYear();
+})();
+</script>
+
+<script>
+(function(){
+  // The deck links carry the current page language into the model page, which builds the PDF on arrival.
+  document.querySelectorAll(".decks a[data-base]").forEach(function(a){
+    a.addEventListener("click", function(){
+      var lang = document.documentElement.getAttribute("lang") === "en" ? "en" : "es";
+      a.href = a.getAttribute("data-base") + "?present=1&lang=" + lang;
+    });
+  });
 })();
 </script>
 </body>
