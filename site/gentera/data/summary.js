@@ -36,12 +36,14 @@ window.G_SUMMARY = {
       es: [
         "Cobertura 219.5% (estimación ÷ etapa 3, definición vigente desde el 4T25, recalculada para todos los trimestres); castigos consolidados del trimestre Ps. 3,095 M, de los cuales Ps. 2,324 M en el banco (castiga a 180 días).",
         "Fondeo: captación +17.3% a/a y sólo 7.2% de los pasivos del banco a tasa fija, por lo que cada recorte de Banxico se transmite rápido; Perú fondea a 4.8%.",
-        "ICAP de Banco Compartamos 32.1% y solvencia de Perú 22.5%; capital ÷ activos consolidado 30.4%. Dividendo 2026 de Ps. 3,285.9 M (Ps. 2.08 por acción, 40% de la utilidad 2025); política de hasta 45% propuesta en abril.",
+        "ICAP de Banco Compartamos 32.1% y solvencia de Perú 22.5%; capital ÷ activos consolidado 30.4%. Dividendo 2026 de Ps. 3,285.9 M (Ps. 2.08 por acción, 40% de la utilidad 2025), aprobado en la asamblea anual del 10 de abril de 2026.",
+        "La propuesta de elevar la política de dividendos hasta 45% (y la aportación a Fundación Compartamos hasta 3%) no obtuvo los votos necesarios en esa asamblea. Motivo dado por el director general en la conferencia del 23 de abril: la empresa 'no la comunicó lo suficiente' a los accionistas. El cambio exige reformar la cláusula estatutaria sobre aplicación de resultados, por lo que el consejo convocó una asamblea extraordinaria para junio (informe 1T26, 22 de abril). En la conferencia del 23 de julio la administración dijo que volverá a presentarla en la asamblea de 2027. Supuesto nuestro: la asamblea de junio no adoptó el cambio; ni el informe 2T26 ni la conferencia informan su resultado. Política vigente: 40%.",
       ],
       en: [
         "Coverage 219.5% (allowance ÷ stage 3, the definition in force since 4Q25, recomputed for every quarter); consolidated write-offs of Ps. 3,095 M in the quarter, of which Ps. 2,324 M at the bank (writes off at 180 days).",
         "Funding: deposits +17.3% y/y and only 7.2% of the bank's liabilities at fixed rates, so each Banxico cut passes through quickly; Perú funds at 4.8%.",
-        "Banco Compartamos ICAP 32.1% and Perú solvency 22.5%; consolidated equity ÷ assets 30.4%. 2026 dividend Ps. 3,285.9 M (Ps. 2.08 per share, 40% of 2025 income); a policy of up to 45% proposed in April.",
+        "Banco Compartamos ICAP 32.1% and Perú solvency 22.5%; consolidated equity ÷ assets 30.4%. 2026 dividend Ps. 3,285.9 M (Ps. 2.08 per share, 40% of 2025 income), approved at the 10 April 2026 annual meeting.",
+        "The proposal to lift the dividend policy to up to 45% (and the Fundación Compartamos contribution to up to 3%) did not obtain the required votes at that meeting. Reason given by the CEO on the 23 April call: the proposals were 'not communicated enough on our part'. The change requires amending the bylaw clause on the application of results, so the board called an extraordinary meeting for June (1Q26 release, 22 April). On the 23 July call management said it will present the proposal again at the 2027 meeting. Our assumption: the June meeting did not adopt the change; neither the 2Q26 release nor the call reports its outcome. Policy in force: 40%.",
       ],
     },
     {
