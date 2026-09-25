@@ -41,7 +41,20 @@
 /mx/fiscal/docs-data.js
   Cache-Control: no-store
 
-# Airports hub and airline dashboard: AFAC and airline-report data files are rewritten daily by workflows under the
-# same URLs (airlines.js, routes.js, airlines-summary.js, traffic.js, summary.js). Revalidate on every request (ETag -> 304).
-/aeropuertos/data/*
-  Cache-Control: public, max-age=0, must-revalidate
+# Airports hub and airline dashboard: these data files are rewritten daily by workflows under fixed URLs. no-store, as for
+# the other dashboards: the zone's Browser Cache TTL (4 h) overrides a max-age=0 from the origin, but never caches no-store.
+# The base maps (map.js, map-wide.js) are static and stay cacheable.
+/aeropuertos/data/airlines.js
+  Cache-Control: no-store
+
+/aeropuertos/data/routes.js
+  Cache-Control: no-store
+
+/aeropuertos/data/airlines-summary.js
+  Cache-Control: no-store
+
+/aeropuertos/data/traffic.js
+  Cache-Control: no-store
+
+/aeropuertos/data/summary.js
+  Cache-Control: no-store
