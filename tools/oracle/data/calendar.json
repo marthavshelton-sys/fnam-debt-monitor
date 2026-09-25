@@ -1,6 +1,6 @@
 {
   "_comment": "Investor calendar written by scripts/oracle/fetch-calendar.mjs (weekday filings workflow). nextResults: the next earnings date once Oracle announces it (read by the board presentation through reference.js), null until then. events: from Oracle's IR events list and date-setting releases, upcoming plus the last 6 months; estimates: derived windows, never Oracle-announced dates; manual_events: hand-curated entries with a source (a date named on a call before the IR site lists it), preserved by the script. Times carry the zone offset; timezone names the IANA zone.",
-  "generated": "2026-09-24",
+  "generated": "2026-09-25",
   "feed_ok": true,
   "past_months": 6,
   "sources": [
@@ -38,7 +38,7 @@
       "source": {
         "title": "Oracle Sets the Date for its Fourth Quarter Fiscal Year 2026 Earnings Announcement",
         "url": "https://investor.oracle.com/investor-news/news-details/2026/Oracle-Sets-the-Date-for-its-Fourth-Quarter-Fiscal-Year-2026-Earnings-Announcement/default.aspx",
-        "fetched": "2026-09-24",
+        "fetched": "2026-09-25",
         "note": null
       },
       "first_seen": "2026-09-24",
@@ -65,7 +65,7 @@
       "source": {
         "title": "Oracle Investor Relations — Events & Presentations",
         "url": "https://investor.oracle.com/events-and-presentations/default.aspx",
-        "fetched": "2026-09-24"
+        "fetched": "2026-09-25"
       },
       "first_seen": "2026-09-24",
       "status": "past"
@@ -91,7 +91,7 @@
       "source": {
         "title": "Oracle Investor Relations — Events & Presentations",
         "url": "https://investor.oracle.com/events-and-presentations/default.aspx",
-        "fetched": "2026-09-24"
+        "fetched": "2026-09-25"
       },
       "first_seen": "2026-09-24",
       "status": "past"

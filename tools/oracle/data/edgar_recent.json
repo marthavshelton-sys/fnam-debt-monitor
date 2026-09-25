@@ -1,7 +1,7 @@
 {
   "note": "Most recent EDGAR submissions for Oracle (CIK 1341439), all forms, refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read them without network access.",
   "cik": "0001341439",
-  "fetched": "2026-09-24",
+  "fetched": "2026-09-25",
   "filings": [
     {
       "form": "4",

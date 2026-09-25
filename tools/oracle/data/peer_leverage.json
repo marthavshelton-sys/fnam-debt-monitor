@@ -1,13 +1,13 @@
 {
   "_comment": "Lease-adjusted leverage inputs for Baa-range technology issuers from SEC XBRL company facts (scripts/oracle/fetch-peer-leverage.mjs). Stocks at each company's latest balance-sheet date; flows for its latest fiscal year; a tag is accepted only when its period matches that date. Ratios (net debt / EBITDA; lease-adjusted net debt / EBITDAR) are computed on the page and labelled derived. EBIT basis is operating income, or pre-tax income + interest expense where the company does not report operating income. Ratings are not in XBRL.",
-  "fetched": "2026-09-24",
+  "fetched": "2026-09-25",
   "peers": [
     {
       "name": "Broadcom",
       "ticker": "AVGO",
       "cik": "0001730168",
       "entity": "Broadcom Inc.",
-      "fetched": "2026-09-24",
+      "fetched": "2026-09-25",
       "balance_sheet_date": "2026-08-02",
       "fiscal_year_end": "2025-11-02",
       "source": {
@@ -92,7 +92,7 @@
       "ticker": "DELL",
       "cik": "0001571996",
       "entity": "Dell Technologies Inc.",
-      "fetched": "2026-09-24",
+      "fetched": "2026-09-25",
       "balance_sheet_date": "2026-07-31",
       "fiscal_year_end": "2026-01-30",
       "source": {
@@ -177,7 +177,7 @@
       "ticker": "INTC",
       "cik": "0000050863",
       "entity": "INTEL CORP",
-      "fetched": "2026-09-24",
+      "fetched": "2026-09-25",
       "balance_sheet_date": "2026-06-27",
       "fiscal_year_end": "2025-12-27",
       "source": {
@@ -262,7 +262,7 @@
       "ticker": "IBM",
       "cik": "0000051143",
       "entity": "INTERNATIONAL BUSINESS MACHINES CORP",
-      "fetched": "2026-09-24",
+      "fetched": "2026-09-25",
       "balance_sheet_date": "2026-06-30",
       "fiscal_year_end": "2025-12-31",
       "source": {
@@ -354,7 +354,7 @@
       "ticker": "HPE",
       "cik": "0001645590",
       "entity": "HEWLETT PACKARD ENTERPRISE COMPANY",
-      "fetched": "2026-09-24",
+      "fetched": "2026-09-25",
       "balance_sheet_date": "2026-07-31",
       "fiscal_year_end": "2025-10-31",
       "source": {
