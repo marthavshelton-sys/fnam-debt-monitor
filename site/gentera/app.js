@@ -198,7 +198,7 @@
     if (lastQ) { const s = lastQ.sources && lastQ.sources.is; asof.push(`<span><b>${t('quarter')}:</b> ${qLabel(lastQ)}${s && s.date ? ' · ' + fmtDate(s.date) : ''}</span>`); }
     const today = new Date().toISOString().slice(0, 10);
     const nx = REF.company && REF.company.nextResults;
-    if (nx) { const past = nx.date && nx.date < today && (!lastQ || nx.quarter !== lastQ.id); asof.push(`<span><b>${es ? 'Próximo informe' : 'Next release'}:</b> ${nx.quarter ? qLabel({ fy: +nx.quarter.slice(0, 4), q: +nx.quarter.slice(5) }) : ''} · ${past ? (es ? 'fecha por confirmar (la anunciada, ' + fmtDate(nx.date) + ', ya pasó)' : 'date to be confirmed (the announced ' + fmtDate(nx.date) + ' has passed)') : fmtDate(nx.date)}</span>`); }
+    if (nx) { const past = nx.date && nx.date < today && (!lastQ || nx.quarter !== lastQ.id); asof.push(`<span title="${esc(L(nx.note))}"><b>${es ? 'Próximo informe' : 'Next release'}:</b> ${nx.quarter ? qLabel({ fy: +nx.quarter.slice(0, 4), q: +nx.quarter.slice(5) }) : ''} · ${past ? (es ? 'fecha por confirmar (la prevista, ' + fmtDate(nx.date) + ', ya pasó)' : 'date to be confirmed (the expected ' + fmtDate(nx.date) + ' has passed)') : (nx.assumed ? '≈' : '') + fmtDate(nx.date) + (nx.assumed ? (es ? ' (supuesta por el historial de publicación)' : ' (assumed from the release history)') : (es ? ' (anunciada)' : ' (announced)'))}</span>`); }
     asof.push(`<span><b>${t('price')}:</b> ${lastPx ? fmtDate(lastPx[0]) : t('pendingMk')}</span>`);
     asof.push(`<span><b>${es ? 'Datos generados' : 'Data generated'}:</b> ${fmtDate((FIN.generatedAt || '').slice(0, 10))}</span>`);
     html('asofRow', asof.join(''));
