@@ -11,7 +11,7 @@
 //             Connect, Mexicana, TAR, Aerus, Magnicharters); routes for the latter are estimated from their hubs.
 //
 // Every raw input is cached in tools/aeropuertos/raw/airlines; a source that cannot be read today keeps yesterday's input, so a
-// bad day never blanks the page. Flags: --skip-afac --skip-ir --skip-networks --full (ignore caches).
+// bad day never blanks the page. Flags: --skip-afac --skip-ir --skip-networks --full (ignore caches) --dump-ir-text.
 import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
 import { parseResumen, parseSase, parseVolarisHistory, parseVolarisStations, parseVivaStations, parseWikiDestinations, makeCodeMaps, compile, irFromMonthly, mergeIrSeries, fileMeta, MESES } from '../../tools/aeropuertos/airlines-lib.mjs';
 
@@ -19,6 +19,7 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '.
 const TOOLS = path.join(ROOT, 'tools', 'aeropuertos'), RAW = path.join(TOOLS, 'raw', 'airlines'), TMP = path.join(TOOLS, 'tmp', 'airlines'), OUT = path.join(ROOT, 'site', 'aeropuertos', 'data');
 fs.mkdirSync(RAW, { recursive: true }); fs.mkdirSync(TMP, { recursive: true }); fs.mkdirSync(OUT, { recursive: true });
 const args = new Set(process.argv.slice(2)); const FULL = args.has('--full');
+if (args.has('--dump-ir-text')) process.env.IR_TEXT_DIR = path.join(RAW, 'ir-text');   // keep the extracted text of every airline PDF (layout debugging)
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 const today = new Date().toISOString().slice(0, 10);
 const FIRST_YEAR = 2016;
