@@ -9,8 +9,8 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - Live at https://fnam.mx/gentera/ (hidden data-quality page at `/gentera/quality.html`; board deck via
   `/gentera/?present=1&lang=es|en`). Reached from the landing page through the "Otras Empresas Mexicanas" hub.
 - Data: 58 press releases 1T12–2T26 parsed (62 quarters incl. 2011 comparatives, 15 fiscal years), CNBV and
-  SBS monthly series to July 2026, prices/FX/yields refreshed every weekday, 10 earnings-call transcripts
-  (3T23–4T25) and the 3T24 corporate deck ingested.
+  SBS monthly series to July 2026, prices/FX/yields refreshed every weekday, 12 earnings-call transcripts
+  (3T23–2T26) and the 3T24 corporate deck ingested.
 - Automation verified: `gentera-refresh.yml` scheduled runs green since 22 Sep (14:35 and 22:45 UTC weekdays);
   bot commits `gentera: refresh … [skip actions]` touch only `site/gentera/data` and `tools/gentera/raw`.
 - Reviewing routine `trig_01EndNB4dYX8tWUuGeYh8DdE` ("FNAM Gentera: review and email material changes",
@@ -34,8 +34,10 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - Email only on material days: daily move ≥ 5%, consolidated stage 3 > 4.5%, guided metric outside range, or a
   new quarter / monthly table / guidance vintage / reference event.
 - No password yet; Cloudflare Access (one-time PIN) is the recommended option, documented in the runbook.
-- Gentera publishes no call transcripts: quotes come only from FactSet CallStreet files the owner drops in
-  `tools/gentera/raw/transcripts/`; Spanish translations are ours and the page says so.
+- Gentera publishes no call transcripts: quotes come only from transcript files (FactSet CallStreet, Bloomberg)
+  the owner drops in `tools/gentera/raw/transcripts/`; Spanish translations are ours and the page says so.
+- The 45% payout policy was NOT approved (10 Apr 2026 AGM, short of votes); policy in force is 40% and management
+  will re-propose in 2027. Do not describe 45% as adopted.
 
 ## Things that bite
 
@@ -83,7 +85,8 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 
 - FactSet connector (peers, consensus, analyst targets).
 - Access decision (Cloudflare Access recommended) — nothing in the repo changes for option 1.
-- Transcripts for 1T26 and 2T26 (and 4T22–2T23 for the initial 2023 guidance); decks other than 3T24.
+- Transcripts for 4T22–2T23 (initial 2023 guidance); decks other than 3T24. (1T26 and 2T26 Bloomberg transcripts
+  ingested 25 Sep 2026.)
 - Confirm the routine's emails arrive and that `lastCheckedAt` appears in the state file after 25 Sep 15:35 UTC.
 
 ## Open items (technical)

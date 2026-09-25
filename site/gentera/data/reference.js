@@ -4,7 +4,7 @@
 // reviewed commit when an event lands (AGM, rating action, material event). Figures quoted come from Gentera's
 // quarterly press releases (IR site) unless a source says otherwise.
 window.G_REF = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-09-25",
   company: {
     name: "Gentera, S.A.B. de C.V.", short: "Gentera", ticker: "GENTERA", bmv: "GENTERA", bloomberg: "GENTERA* MM", exchange: "BMV", yahoo: "GENTERA.MX",
     sector: { es: "Microfinanzas y servicios financieros de inclusión", en: "Microfinance and inclusion financial services" },
@@ -34,7 +34,7 @@ window.G_REF = {
     { k: "aterna", name: { es: "Aterna", en: "Aterna" }, country: "México / Perú", note: { es: "Intermediario de microseguros: 16.4 millones de pólizas activas y Ps. 2,486 M de primas en el 2T26; ≈88% de las comisiones cobradas del banco.", en: "Micro-insurance broker: 16.4 million active policies and Ps. 2,486 M of premiums in 2Q26; ≈88% of the bank's fees charged." } },
   ],
   // Dividends approved at each April AGM (total Ps. M) — 40% of the prior year's controlling net income since 2023.
-  dividendPolicy: { pct: 40, proposed: 45, note: { es: "Política vigente: 40% de la utilidad neta controladora del año anterior. La asamblea extraordinaria convocada el 22 de abril de 2026 recibió la propuesta de subir la distribución hasta 45%.", en: "Current policy: 40% of the prior year's controlling net income. The extraordinary shareholders' meeting called on 22 April 2026 received a proposal to lift the distribution to up to 45%." } },
+  dividendPolicy: { pct: 40, proposed: 45, note: { es: "Política vigente: 40% de la utilidad neta controladora del año anterior. La propuesta de subir la distribución hasta 45% (y la contribución a Fundación Compartamos hasta 3%) no alcanzó los votos necesarios en la asamblea del 10 de abril de 2026; el consejo convocó una asamblea extraordinaria para junio y en la conferencia del 2T26 (23 de julio) la administración dijo que la presentará de nuevo en la asamblea del próximo año.", en: "Current policy: 40% of the prior year's controlling net income. The proposal to lift the distribution to up to 45% (and the Fundación Compartamos contribution to up to 3%) did not obtain the required votes at the 10 April 2026 AGM; the board called an extraordinary meeting for June and on the 2Q26 call (23 July) management said it will present it again at next year's meeting." } },
   dividends: [
     { agmYear: 2022, totalMxnM: 469.4, shares: 1582743876, source: "Press release 1T22 / AGM abril 2022" },
     { agmYear: 2023, totalMxnM: 1821.6, shares: 1579943876, source: "AGM abril 2023 (press release 1T23)" },
@@ -75,7 +75,7 @@ window.G_REF = {
       { v: 1440, fmt: "mxnM", label_es: "Utilidad neta 2025 (Ps. 397 M en 2024)", label_en: "2025 net income (Ps. 397 M in 2024)" },
       { v: 3.25, fmt: "pct", label_es: "Índice de etapa 3 al 2T26 (3.72% un año antes)", label_en: "Stage-3 ratio at 2Q26 (3.72% a year earlier)" },
       { v: 22.5, fmt: "pct", label_es: "Índice de solvencia al 2T26", label_en: "Solvency ratio at 2Q26" },
-      { v: 26.2, fmt: "pct", label_es: "ROE al 2T26", label_en: "ROE at 2Q26" },
+      { v: 26.2, fmt: "pct", label_es: "ROE al 2T26 (sostenible 20–23% según la administración)", label_en: "ROE at 2Q26 (20–23% sustainable per management)" },
     ],
     timeline: [
       { date: "2023-03-31", es: "1T23: movimientos sociales y lluvias de El Niño golpean la cartera, sobre todo grupal; la morosidad mejora desde julio de 2023 (conferencia 3T23).", en: "1Q23: social unrest and El Niño rains hit the book, mostly group loans; delinquency improves from July 2023 (3Q23 call)." },
@@ -93,18 +93,19 @@ window.G_REF = {
     { date: "2024-09-17", es: "Iván Mancillas (cofundador) nombrado director general de Banco Compartamos; Patricio Diez de Bonilla deja el grupo tras 16 años.", en: "Iván Mancillas (co-founder) appointed CEO of Banco Compartamos; Patricio Diez de Bonilla leaves after 16 years." },
     { date: "2025-04-01", es: "Adolfo Peniche director general de Compartamos Banco Perú (Ralph Guerra se retira tras 32 años).", en: "Adolfo Peniche CEO of Compartamos Banco Perú (Ralph Guerra retires after 32 years)." },
     { date: "2025-04-24", es: "Consejo: salen John Santa María (desde 2008) y Luis Nicolau (desde 2019); entran Ignacio Echevarría y Gerardo Esquivel (subgobernador de Banxico 2019–2024).", en: "Board: John Santa María (since 2008) and Luis Nicolau (since 2019) step down; Ignacio Echevarría and Gerardo Esquivel (Banxico deputy governor 2019–2024) join." },
+    { date: "2026-04-23", es: "Consejo de Gentera (11 miembros): salen Antonio Rallo Verdugo (11 años) y Juan Carlos Torres Cisneros (cofundador y presidente de ConCrédito). Consejo de Compartamos Banco Perú: entran Silvia Tapia Navarro y Santiago Casanueva Pérez (conferencia 1T26).", en: "Gentera board (11 members): Antonio Rallo Verdugo (11 years) and Juan Carlos Torres Cisneros (ConCrédito co-founder and chairman) step down. Compartamos Banco Perú board: Silvia Tapia Navarro and Santiago Casanueva Pérez join (1Q26 call)." },
   ],
   // Section 10: group lending and stage-3 provisioning explainer facts.
   groupLending: {
     facts: [
       { v: 60.5, fmt: "pct", label_es: "Cartera del banco con metodología grupal (2T26)", label_en: "Bank loan book under the group methodology (2Q26)" },
       { v: 4.59, fmt: "pct", label_es: "Etapa 3 de Banco Compartamos (2T26)", label_en: "Banco Compartamos stage-3 ratio (2Q26)" },
-      { v: 6.12, fmt: "pct", label_es: "Etapa 3 del crédito individual del banco (3.79% grupal)", label_en: "Stage 3 of the bank's individual loans (3.79% group)" },
+      { v: 6.12, fmt: "pct", label_es: "Etapa 3 del crédito individual del banco (3.79% grupal); picos previos 7.9% en 2011–12 y 5.8% en 2014–16", label_en: "Stage 3 of the bank's individual loans (3.79% group); earlier peaks 7.9% in 2011–12 and 5.8% in 2014–16" },
       { v: 180, fmt: "days", label_es: "Días de atraso a los que Banco Compartamos castiga", label_en: "Days past due at which Banco Compartamos writes off" },
       { v: 219.5, fmt: "pct", label_es: "Cobertura consolidada (estimación ÷ etapa 3, 2T26)", label_en: "Consolidated coverage (allowance ÷ stage 3, 2Q26)" },
       { v: 14.5, fmt: "pct", label_es: "Costo de riesgo consolidado 2T26 (12.7% un año antes)", label_en: "Consolidated cost of risk 2Q26 (12.7% a year earlier)" },
     ],
-    sources: ["Press release 2T26 (Gentera IR)", "CNBV, Disposiciones de carácter general aplicables a las instituciones de crédito (Anexo 33, criterio B-6 Cartera de crédito)"],
+    sources: ["Press release 2T26 (Gentera IR)", "Earnings call 2T26 (23 Jul 2026)", "CNBV, Disposiciones de carácter general aplicables a las instituciones de crédito (Anexo 33, criterio B-6 Cartera de crédito)"],
   },
   // Ratings as printed in the 3Q24 corporate presentation (hand-supplied, tools/gentera/raw/transcripts); the
   // routine updates them from material-event notices when an agency acts.
@@ -123,7 +124,7 @@ window.G_REF = {
   // Valuation defaults (excess-return model on book value). Live inputs (risk-free, beta) come from market.js.
   valuation: {
     years: 5, erpPct: 6.0, betaFloor: 0.5, betaCap: 1.4, rfFallbackPct: 9.0, terminalGrowthPct: 5.0, exitPbv: 2.0, payoutPct: 40, loanGrowthPct: 8.0,
-    notes: { es: "Tasa libre de riesgo = bono M a 10 años (Banxico o FRED/OCDE); beta = rendimientos semanales de dos años de GENTERA contra el IPC, acotada; prima de riesgo 6%. Impulsores iniciales = últimos doce meses reportados; crecimiento de cartera 8% (guía 2026: 6–9%); pago de dividendos 40% (política; 45% propuesto).", en: "Risk-free = 10-year M bond (Banxico or FRED/OECD); beta = two years of weekly GENTERA returns against the IPC, clipped; equity risk premium 6%. Starting drivers = last twelve reported months; loan growth 8% (2026 guidance 6–9%); payout 40% (policy; 45% proposed)." },
+    notes: { es: "Tasa libre de riesgo = bono M a 10 años (Banxico o FRED/OCDE); beta = rendimientos semanales de dos años de GENTERA contra el IPC, acotada; prima de riesgo 6%. Impulsores iniciales = últimos doce meses reportados; crecimiento de cartera 8% (guía 2026: 6–9%); pago de dividendos 40% (política vigente; el 45% se propondrá de nuevo en 2027).", en: "Risk-free = 10-year M bond (Banxico or FRED/OECD); beta = two years of weekly GENTERA returns against the IPC, clipped; equity risk premium 6%. Starting drivers = last twelve reported months; loan growth 8% (2026 guidance 6–9%); payout 40% (policy in force; 45% to be proposed again in 2027)." },
   },
   peers: { note: { es: "Pares provisionales: bancos mexicanos listados (Banorte, Regional, BanBajío) y Credicorp (dueño de Mibanco, mayor microfinanciera de Perú); ninguno es una microfinanciera pura. Se sustituyen por la lista de FactSet cuando el conector esté autorizado.", en: "Placeholder peers: listed Mexican banks (Banorte, Regional, BanBajío) and Credicorp (owner of Mibanco, Peru's largest microlender); none is a pure microfinance comparable. Replaced by the FactSet list once the connector is authorised." } },
   glossary: {

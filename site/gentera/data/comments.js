@@ -879,10 +879,192 @@ const CALLS = {
     "es": "Con el capital que acumulamos la guía es clara: uno, crecimiento orgánico; dos, nuevas iniciativas e inversiones; tres, si vemos una oportunidad de fusiones y adquisiciones podríamos tomarla, pero no la vemos cerca; y por último, compartir parte del valor con los accionistas, proponiendo subir el pago de dividendos a 45%."
    }
   }
+ },
+ "2026Q1": {
+  "date": "2026-04-23",
+  "quarter": "2026Q1",
+  "kind": "transcript",
+  "file": "tools/gentera/raw/text/transcripts/2026Q1-transcript-Gentera_1T26_earnings_call_transcript_2026-04-23.txt",
+  "note": "Bloomberg final transcript",
+  "es": "Conferencia de resultados 1T26 (23 de abril de 2026; transcripción final de Bloomberg en inglés, citas traducidas)",
+  "en": "1Q26 earnings call (23 April 2026; Bloomberg final transcript, quotes in the original English)",
+  "quotes": {
+   "loans": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Our loan portfolio has grown 14.7% annually compared to 1Q '26, reaching a historic amount of Ps. 94.8 billion. Our three credit subsidiaries delivered double-digit annual growth in local currency. We maintain our objective to deliver an annual portfolio growth between 13% to 16%.",
+    "es": "La cartera creció 14.7% anual contra el 1T25, a un monto histórico de Ps. 94.8 mil millones. Las tres subsidiarias de crédito crecieron a doble dígito en moneda local. Mantenemos el objetivo de crecer la cartera entre 13% y 16% en el año."
+   },
+   "loansMX": {
+    "who": "Enrique Majós (CEO)",
+    "en": "2025 was a year of strong growth: we grew 33% the [individual lending] portfolio. As a result, we are now seeing, as a natural effect, that growth now needs a more strict control. So we are adjusting our origination rules. New loan officers are still gaining experience. [..] We expect to start reversing the trend by the third quarter and normalize these levels by the end of the year.",
+    "es": "2025 fue un año de fuerte crecimiento: la cartera [individual] creció 33%. Como efecto natural, ese crecimiento ahora exige un control más estricto, así que ajustamos las reglas de originación. Los nuevos oficiales de crédito siguen ganando experiencia. [..] Esperamos revertir la tendencia hacia el tercer trimestre y normalizar los niveles al cierre del año."
+   },
+   "intInc": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Gentera's interest income had a 13.4% growth in 1Q '26 compared to 1Q '25, amounting to Ps. 12.7 billion, following the growth of our portfolio and our clients. Financing expenses decreased 6.7% following the reductions in reference rates. Therefore, net interest income grew 15.7% to Ps. 10.8 billion. NIM amounted to 40% and we expect NIM to be around 41% by the end of the year.",
+    "es": "Los ingresos por intereses crecieron 13.4% en el 1T26 contra el 1T25, a Ps. 12.7 mil millones, siguiendo el crecimiento de cartera y clientes. Los gastos de financiamiento bajaron 6.7% por las reducciones de tasas de referencia. Así, el margen financiero creció 15.7% a Ps. 10.8 mil millones. La MIN fue 40% y esperamos alrededor de 41% al cierre del año."
+   },
+   "finMargin": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Part of [the NIM pressure] has to do with the seasonality and the cash position that we have today. [..] The two drivers [of net interest income] are portfolio growth and the mix, and we will also be observing a little better performance of interest expenses given the recent reduction of Banxico.",
+    "es": "Parte de [la presión en la MIN] tiene que ver con la estacionalidad y la posición de efectivo que tenemos hoy. [..] Los dos impulsores [del margen financiero] son el crecimiento de la cartera y la mezcla, y también veremos un mejor desempeño de los gastos por intereses por la reciente baja de Banxico."
+   },
+   "prov": {
+    "who": "Mario Langarica (CFO)",
+    "en": "We have observed a higher level of 4.13% consolidated NPLs, driven by an increase in NPLs to 4.86% at Banco Compartamos Mexico. These effects resulted from our last year's decision to accelerate our clients and portfolio growth. [..] Provisions for loan losses amounted to Ps. 3.03 billion, 26.1% growth, in line with the growth of the portfolio, its asset quality and its mix. NIM after provisions amounted to 28.8%, and we maintain our view that this KPI will be around 30% by the end of the year.",
+    "es": "Observamos una cartera vencida consolidada más alta, 4.13%, por el aumento a 4.86% en Banco Compartamos México, efecto de la decisión del año pasado de acelerar el crecimiento en clientes y cartera. [..] Las provisiones fueron Ps. 3.03 mil millones, +26.1%, en línea con el crecimiento, la calidad y la mezcla de la cartera. La MIN después de provisiones fue 28.8% y mantenemos la expectativa de alrededor de 30% al cierre del año."
+   },
+   "cor": {
+    "who": "Mario Langarica (CFO)",
+    "en": "At this moment, we expect to consolidate levels of NPLs around 4% and cost of risk to be moving closer to the high end of the 13% to 13.5% range that we consider normal by the end of 2026. [..] Part of the improvement in provisions this quarter has to do with the better early NPLs that we're observing in the new placements.",
+    "es": "En este momento esperamos consolidar niveles de cartera vencida alrededor de 4% y un costo de riesgo más cerca del techo del rango de 13% a 13.5% que consideramos normal al cierre de 2026. [..] Parte de la mejora en provisiones este trimestre se debe a la mejor mora temprana que observamos en las nuevas colocaciones."
+   },
+   "coverage": {
+    "who": "Enrique Majós (CEO)",
+    "en": "There is a factor in the numerator and denominator, allowances and NPLs. The NPLs that we have at the bank level are now increasing because they are old NPLs. Once we start to write off those NPLs, and with the additional provisions that we will make in the coming quarters, the coverage ratio at the bank level will reach around 200%, which will take Gentera to 210% to 220%.",
+    "es": "Hay un factor en el numerador y en el denominador, reservas y cartera vencida. La cartera vencida del banco está subiendo porque es mora antigua. Cuando empecemos a castigarla, y con las provisiones adicionales de los próximos trimestres, la cobertura del banco llegará a alrededor de 200%, lo que llevará a Gentera a 210%–220%."
+   },
+   "netFees": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Net fees amounted to Ps. 1.587 billion in 1Q '26, growing 18.3% compared to the same quarter last year, mostly driven by the growth of our insurance business. [..] We expect that growth to normalize, following the growth of clients, which is somewhere around 12%.",
+    "es": "Las comisiones netas fueron Ps. 1,587 millones en el 1T26, +18.3% contra el mismo trimestre del año pasado, impulsadas por el negocio de seguros. [..] Esperamos que ese crecimiento se normalice hacia el crecimiento de clientes, alrededor de 12%."
+   },
+   "opex": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Operational expenses for 1Q '26 amounted to Ps. 6 billion, representing a 10.5% [increase] compared to 1Q '25. We expect that by the end of the year we will maintain the range guided between 12% to 13% for this line. [..] EM: This quarter we reached the best efficiency ratio we have had in the past eight years.",
+    "es": "Los gastos de operación del 1T26 fueron Ps. 6 mil millones, +10.5% contra el 1T25. Esperamos cerrar el año dentro del rango guiado de 12% a 13% para esta línea. [..] EM: Este trimestre alcanzamos el mejor índice de eficiencia de los últimos ocho años."
+   },
+   "tax": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Regarding the deferred taxes compared to last year, there will not be an additional effect this year. And we feel comfortable with the Ps. 500 million reserve [for legal and tax contingencies] that we created at the bank after changing the methodology; we will see by the end of the year if there is a need to move it up or down.",
+    "es": "Sobre los impuestos diferidos del año pasado, no habrá un efecto adicional este año. Y nos sentimos cómodos con la reserva de Ps. 500 millones [por contingencias legales y fiscales] que creamos en el banco al cambiar la metodología; al cierre del año veremos si hay que moverla."
+   },
+   "netInc": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Net income reached another historic quarter record amounting to Ps. 2.494 billion, growing 12.3% compared to last year, and Gentera's controlling participation amounted to Ps. 2.429 billion, growing 15.3%, implying an EPS for the quarter of Ps. 1.54, 15% above 1Q '25 EPS.",
+    "es": "La utilidad neta alcanzó otro récord trimestral: Ps. 2,494 millones, +12.3% contra el año pasado; la participación controladora fue Ps. 2,429 millones, +15.3%, una UPA trimestral de Ps. 1.54, 15% arriba del 1T25."
+   },
+   "eps": {
+    "who": "Enrique Majós (CEO)",
+    "en": "Our performance is in line with the guidance we set for the year. [..] We reaffirm our commitment to our business plan and we expect to deliver on our guidance and growth targets for 2026. [..] The proposals presented at the April 10 meeting regarding the increase up to 45% of the dividend payout and up to 3% of the contribution to Fundación Compartamos did not obtain the necessary votes; our Board resolved to call an Extraordinary Shareholders Meeting this coming June.",
+    "es": "Nuestro desempeño está en línea con la guía del año. [..] Reafirmamos el compromiso con el plan de negocio y esperamos cumplir la guía y las metas de crecimiento de 2026. [..] Las propuestas presentadas en la asamblea del 10 de abril de subir el pago de dividendos hasta 45% y la contribución a Fundación Compartamos hasta 3% no obtuvieron los votos necesarios; el consejo resolvió convocar una asamblea extraordinaria en junio."
+   },
+   "roe": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Gentera's controlling ROE stood at 26.5%, above our original expectation for the year and the best ROE for a quarter since 2017. For 2026, we should expect Gentera's controlling ROE to move around 25%.",
+    "es": "El ROE controlador fue 26.5%, por encima de la expectativa original y el mejor ROE trimestral desde 2017. Para 2026 esperamos un ROE controlador alrededor de 25%."
+   },
+   "niPE": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Banco Compartamos Peru and ConCrédito have shown very good levels of asset quality. [..] EM: In Peru, since 2024 we had already deployed the digital platform and we have had very good results there.",
+    "es": "Banco Compartamos Perú y ConCrédito muestran muy buenos niveles de calidad de activos. [..] EM: En Perú la plataforma digital está desplegada desde 2024 y ha dado muy buenos resultados."
+   },
+   "clientsCred": {
+    "who": "Mario Langarica (CFO)",
+    "en": "In 1Q '26, we reached a new milestone of 6.6 million people actively using our financial services, adding 674,000 people, representing 11.4% growth compared to 1Q '25. [..] EM: Our client retention rate is above 85%. [..] For individual lending we are in Mexico at 155 customers per loan officer and we expect to get to around 200; for group lending we are around 350 and we believe we can get over 400.",
+    "es": "En el 1T26 alcanzamos 6.6 millones de personas usando activamente nuestros servicios, 674,000 más, +11.4% contra el 1T25. [..] EM: La retención de clientes supera 85%. [..] En crédito individual en México estamos en 155 clientes por oficial y esperamos llegar a unos 200; en grupal estamos en unos 350 y creemos que podemos superar 400."
+   },
+   "avgBal": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Group lending has lower risk but higher costs, and vice versa with individual lending. [..] NIM is a little better in group lending.",
+    "es": "El crédito grupal tiene menor riesgo pero mayores costos, y viceversa en el individual. [..] La MIN es un poco mejor en grupal."
+   }
+  }
+ },
+ "2026Q2": {
+  "date": "2026-07-23",
+  "quarter": "2026Q2",
+  "kind": "transcript",
+  "file": "tools/gentera/raw/text/transcripts/2026Q2-transcript-Gentera_2T26_earnings_call_transcript_2026-07-23.txt",
+  "note": "Bloomberg final transcript",
+  "es": "Conferencia de resultados 2T26 (23 de julio de 2026; transcripción final de Bloomberg en inglés, citas traducidas)",
+  "en": "2Q26 earnings call (23 July 2026; Bloomberg final transcript, quotes in the original English)",
+  "quotes": {
+   "loans": {
+    "who": "Enrique Majós (CEO)",
+    "en": "After incorporating the impact of these adjustments into our projections, we are revising Gentera's loan portfolio growth guidance, and now we expect to close the year with a portfolio growth in the range of 6% to 9%. [..] These adjustments primarily reflect the slowdown in the consumer economy in Mexico, which could affect our customers' payment capacity, and the stabilization of the quality of our individual loan portfolio in Mexico after a long period of sustained growth. [..] ML: Very important to note is that Gentera's average portfolio for the year will be around 10% higher than in 2025.",
+    "es": "Tras incorporar el impacto de estos ajustes en las proyecciones, revisamos la guía de crecimiento de cartera y ahora esperamos cerrar el año con un crecimiento de 6% a 9%. [..] Los ajustes reflejan sobre todo la desaceleración del consumo en México, que podría afectar la capacidad de pago de nuestros clientes, y la estabilización de la calidad de la cartera individual en México tras un largo periodo de crecimiento. [..] ML: Es muy importante notar que la cartera promedio del año será alrededor de 10% mayor que en 2025."
+   },
+   "loansMX": {
+    "who": "Enrique Majós (CEO)",
+    "en": "Four years ago, we were around Ps. 3 billion in the [individual] portfolio. Today, we are around Ps. 19 billion, and yet we have a market share of a little bit less than 40%. [..] Between 2011 and 2012 our individual portfolio grew like three times, and between 2014 and 2016 it doubled; in both cases NPL levels increased, to 7.9% and 5.8%. Today, after growing this portfolio approximately five times since 2021, our ratio stands at 6.5%. Consequently, we have decided to moderate the growth while implementing the corrective measures. [..] ML: Banco Compartamos Mexico growing single digits [in 2026]; group lending grew almost 17% in the first semester.",
+    "es": "Hace cuatro años la cartera [individual] era de unos Ps. 3 mil millones; hoy ronda Ps. 19 mil millones y aun así tenemos una participación de poco menos de 40%. [..] Entre 2011 y 2012 la cartera individual se triplicó y entre 2014 y 2016 se duplicó; en ambos casos la cartera vencida subió, a 7.9% y 5.8%. Hoy, tras multiplicarla por cinco desde 2021, el índice está en 6.5%. Por eso decidimos moderar el crecimiento mientras aplicamos las medidas correctivas. [..] ML: Banco Compartamos México crecerá a un dígito [en 2026]; el crédito grupal creció casi 17% en el primer semestre."
+   },
+   "loansPE": {
+    "who": "Enrique Barrera (IR)",
+    "en": "Year-to-year growth in the individual lending in Peru has been 12% with a 3.2% NPLs, and our group lending portfolio has experienced a growth of 7% with a 3.3% NPL. [..] El Niño is something that we are very aware of; we have provisions considered. ML: We have voluntary provisions in Peru above IFRS provisions that we feel comfortable with. [..] In Peru, double digit [growth] is [maintained].",
+    "es": "El crédito individual en Perú creció 12% anual con 3.2% de cartera vencida, y el grupal 7% con 3.3%. [..] El Niño es algo que tenemos muy presente; tenemos provisiones consideradas. ML: En Perú tenemos provisiones voluntarias por encima de las de IFRS con las que nos sentimos cómodos. [..] En Perú se mantiene el [crecimiento de] doble dígito."
+   },
+   "loansCC": {
+    "who": "Enrique Majós (CEO)",
+    "en": "ConCrédito is really performing very well and as expected; this 15% [growth] is in line with projections. We want our empresarias to become more mature; the loans that more mature empresarias disburse are better loans in terms of quality, and they are increasing the ticket. [..] EB: CrediTienda is growing around 27% year-on-year.",
+    "es": "ConCrédito va muy bien y como esperábamos; ese 15% [de crecimiento] está en línea con las proyecciones. Queremos empresarias más maduras: sus créditos son de mejor calidad y con mayor ticket. [..] EB: CrediTienda crece alrededor de 27% anual."
+   },
+   "intInc": {
+    "who": "Mario Langarica (CFO)",
+    "en": "In 2Q26, Gentera's interest income grew 9.8% compared to 2Q25, amounting to Ps. 12.96 billion following the observed growth in portfolio and clients. Given the fact that the average portfolio for the year will be above 10%, we expect that NII should also grow at the same rate.",
+    "es": "En el 2T26 los ingresos por intereses crecieron 9.8% contra el 2T25, a Ps. 12.96 mil millones, siguiendo el crecimiento de cartera y clientes. Como la cartera promedio del año crecerá más de 10%, esperamos que el margen financiero crezca a ese mismo ritmo."
+   },
+   "intExp": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Financing expenses decreased 9.9%, mainly driven by the reduction in reference interest rates in Mexico. Therefore, net interest income grew 13.9% to around Ps. 11.1 billion. NIM amounted to 41.2% in 2Q26. For year-end, we expect NIM to move around 41%.",
+    "es": "Los gastos de financiamiento bajaron 9.9%, sobre todo por la reducción de las tasas de referencia en México. Así, el margen financiero creció 13.9% a unos Ps. 11.1 mil millones. La MIN fue 41.2% en el 2T26. Para el cierre esperamos una MIN alrededor de 41%."
+   },
+   "prov": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Gentera's 2Q provision for loan losses amounted to Ps. 2.43 billion [sic; Ps. 3.44 billion in the release], a 29.7% growth, in line with its current asset quality and its loan portfolio mix and growth. NIM after provisions amounted to 28.5%, similar to the 28.8% of 1Q26; we expect this ratio to be between 29% and 30% by the end of the year. [..] Write-offs will continue being higher, but we hope stable in the next quarters, until we empty all of the write-offs we have to empty because of the increased risk observed in these quarters.",
+    "es": "Las provisiones del 2T fueron Ps. 2.43 mil millones [sic; Ps. 3.44 mil millones en el informe], +29.7%, en línea con la calidad de activos y la mezcla y crecimiento de la cartera. La MIN después de provisiones fue 28.5%, similar al 28.8% del 1T26; esperamos entre 29% y 30% al cierre. [..] Los castigos seguirán altos, aunque esperamos que estables en los próximos trimestres, hasta vaciar los que corresponden al mayor riesgo observado en estos trimestres."
+   },
+   "cor": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Gentera's cost of risk for the first semester amounted to 13.7%. We have seen stabilization trends due to the actions deployed particularly in Banco Compartamos Mexico: reinforcing origination, monitoring and collection processes, adjusting the incentives program, strengthening our sales force, fine-tuning training and targeting strategies. [..] For year end, we expect that consolidated NPLs should be moving around 4%, maybe a little higher, and consolidated cost of risk around 13.5%. It obviously has a lag; in two quarters we're going to be seeing things normalized.",
+    "es": "El costo de riesgo del primer semestre fue 13.7%. Vemos tendencias de estabilización por las acciones desplegadas sobre todo en Banco Compartamos México: reforzar originación, monitoreo y cobranza, ajustar incentivos, fortalecer la fuerza de ventas, afinar capacitación y focalización. [..] Para el cierre esperamos cartera vencida consolidada alrededor de 4%, quizá un poco más, y costo de riesgo alrededor de 13.5%. Tiene rezago; en dos trimestres veremos las cosas normalizadas."
+   },
+   "netFees": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Net fees amounted to Ps. 1.6 billion in 2Q, growing 14.2% compared to 2Q25, mostly driven by the growth of our insurance business. [..] EB: More or less 90% of the fee income line comes from the insurance business; fee expenses come mostly from the use of third-party channels. In ConCrédito the insurance business is reflected in other operating income.",
+    "es": "Las comisiones netas fueron Ps. 1.6 mil millones en el 2T, +14.2% contra el 2T25, impulsadas por el negocio de seguros. [..] EB: Alrededor de 90% de las comisiones cobradas viene de seguros; las comisiones pagadas provienen sobre todo del uso de canales de terceros. En ConCrédito el negocio de seguros se refleja en otros ingresos de la operación."
+   },
+   "opex": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Operational expenses for 2Q26 amounted to Ps. 6.19 billion, representing a 7.7% increase compared to 2Q25. The modernization initiatives and investments in technology have allowed the adjustment of the operational expenses growth for the year to move around 10%. [..] Our plans are to bring the efficiency ratio below 60% in a couple of years, hopefully.",
+    "es": "Los gastos de operación del 2T26 fueron Ps. 6.19 mil millones, +7.7% contra el 2T25. Las iniciativas de modernización e inversiones en tecnología permiten ajustar el crecimiento de gastos del año a alrededor de 10%. [..] El plan es llevar el índice de eficiencia por debajo de 60% en un par de años."
+   },
+   "netInc": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Net income reached the second-best quarter ever, amounting to Ps. 2.353 billion in 2Q26, growing 11.6% compared to the same period last year. Controlling net income amounted to Ps. 2.284 billion, growing 8.5%, implying an EPS of Ps. 1.45. The net income Gentera generated in the first six months of '26 was the best first half ever.",
+    "es": "La utilidad neta fue el segundo mejor trimestre de la historia: Ps. 2,353 millones en el 2T26, +11.6% contra el mismo periodo del año pasado. La utilidad controladora fue Ps. 2,284 millones, +8.5%, una UPA de Ps. 1.45. La utilidad de los primeros seis meses de 2026 es la mejor de cualquier primer semestre."
+   },
+   "eps": {
+    "who": "Enrique Majós (CEO)",
+    "en": "The good news is that we are maintaining our EPS growth guidance of 13% to 16%. We expect to achieve this by maintaining the expected growth of our other products and subsidiaries, together with the efficiencies captured and the strong expense discipline. [..] ML: When we decided to increase the payout from 40 to 45, that was a medium-term strategy; for next year, we will present to our shareholders' meeting again the proposal to increase to 45.",
+    "es": "La buena noticia es que mantenemos la guía de crecimiento de UPA de 13% a 16%. Esperamos lograrlo con el crecimiento esperado de los demás productos y subsidiarias, las eficiencias capturadas y la disciplina de gastos. [..] ML: Subir el pago de dividendos de 40 a 45 era una estrategia de mediano plazo; el próximo año presentaremos de nuevo la propuesta de 45% a la asamblea."
+   },
+   "roe": {
+    "who": "Mario Langarica (CFO)",
+    "en": "Gentera's controlling ROE for 2Q26 stood at 24.5%, in line with our original expectation for the year. For the full year of '26, we should expect Gentera's controlling ROE to move between 24% and 25%. [..] Double-digit growth in portfolio, double-digit growth in earnings with ROEs above 23%, 23%–24%, and still with a very strong capitalization: as you described it, is exactly what we're thinking.",
+    "es": "El ROE controlador del 2T26 fue 24.5%, en línea con la expectativa original. Para todo 2026 esperamos un ROE controlador entre 24% y 25%. [..] Crecimiento de doble dígito en cartera y utilidades con ROE por encima de 23%, 23%–24%, y capitalización muy fuerte: tal como lo describió, es exactamente lo que pensamos."
+   },
+   "niPE": {
+    "who": "Mario Langarica (CFO)",
+    "en": "We should aim to have an ROE above 20% [in Peru]; 25% was a great period, but something between 20% and around 23% should be sustainable. [..] Even though there has been a little pickup [in Peru's NPLs], it's performing better than expected; for the year end we should expect NPLs around 5% or so and cost of risk around 8.8%, below our original expectations for the year.",
+    "es": "Debemos aspirar a un ROE por encima de 20% [en Perú]; 25% fue un gran periodo, pero algo entre 20% y alrededor de 23% debería ser sostenible. [..] Aunque hubo un ligero repunte [en la cartera vencida de Perú], se comporta mejor de lo esperado; para el cierre esperamos cartera vencida alrededor de 5% y costo de riesgo alrededor de 8.8%, por debajo de la expectativa original."
+   },
+   "clientsCred": {
+    "who": "Mario Langarica (CFO)",
+    "en": "In 2Q26, we reached a new record of 6.79 million people actively using our financial services, adding 657,000 people and growing 10.7% compared to 2Q25. [..] EM: We have observed that our customers are renewing their loans more cautiously and requesting smaller loan amounts, recognizing a more challenging economic environment; we see this as a positive sign.",
+    "es": "En el 2T26 alcanzamos un récord de 6.79 millones de personas usando activamente nuestros servicios, 657,000 más, +10.7% contra el 2T25. [..] EM: Observamos que nuestros clientes renuevan sus créditos con más cautela y piden montos menores ante un entorno más difícil; lo vemos como una señal positiva."
+   },
+   "avgBal": {
+    "who": "Mario Langarica (CFO)",
+    "en": "The P&L equation is basically the same: individual lending starts with higher tickets, rates are typically lower than group lending, risk is higher, but at the expense level it can be more efficiently managed. Both products are very profitable.",
+    "es": "La ecuación del estado de resultados es básicamente la misma: el crédito individual parte de tickets mayores, tasas típicamente menores que el grupal, mayor riesgo, pero un manejo más eficiente en gastos. Ambos productos son muy rentables."
+   }
+  }
  }
 };
 return {
- "updatedAt": "2026-09-22",
+ "updatedAt": "2026-09-25",
  "periods": {
   "2023M9": {
    "call": CALLS["2023Q3"],
@@ -1054,6 +1236,10 @@ return {
    "call": CALLS["2025Q4"],
    "source": "Press release 4T25"
   },
+  "2026M3": {
+   "call": CALLS["2026Q1"],
+   "source": "Earnings call 2026Q1"
+  },
   "2026M6": {
    "lines": {
     "intInc": {
@@ -1141,11 +1327,146 @@ return {
      "en": "Period-end book +13.1% YoY; management trimmed 2026 growth guidance to 6–9% after a flat second quarter at the Bank."
     }
    },
-   "call": {
-    "es": "Comentarios elaborados a partir de la discusión de la administración en el informe trimestral; la transcripción de la conferencia de este trimestre no se ha suministrado todavía (tools/gentera/raw/transcripts).",
-    "en": "Comments written from the management discussion in the quarterly release; the transcript of this quarter's call has not been supplied yet (tools/gentera/raw/transcripts)."
-   },
+   "call": CALLS["2026Q2"],
    "source": "Press releases 1T26 y 2T26"
+  },
+  "2026Q1": {
+   "lines": {
+    "intInc": {
+     "es": "+13.4% anual por una cartera 14.7% mayor; −2.0% secuencial por estacionalidad y un trimestre más corto en días de interés.",
+     "en": "+13.4% YoY on a 14.7% larger book; −2.0% QoQ on seasonality and fewer interest days."
+    },
+    "intExp": {
+     "es": "+1.8% anual: gastos por financiamiento −6.7% con los recortes de Banxico (costo de fondeo del Banco 7.5% vs 9.8%), compensados por más costos de originación y arrendamiento.",
+     "en": "+1.8% YoY: funding expense −6.7% on Banxico cuts (Bank cost of funds 7.5% vs 9.8%), offset by higher origination and lease charges."
+    },
+    "fundExp": {
+     "es": "−6.7% anual: menores tasas de referencia; la administración espera un mejor desempeño de esta línea con el recorte reciente de Banxico.",
+     "en": "−6.7% YoY: lower reference rates; management expects this line to keep improving after Banxico's latest cut."
+    },
+    "finMargin": {
+     "es": "+15.7% anual; MIN 40.0% vs 39.5%, presionada en el trimestre por estacionalidad y una mayor posición de efectivo; la administración reitera ~41% al cierre.",
+     "en": "+15.7% YoY; NIM 40.0% vs 39.5%, held back in the quarter by seasonality and a larger cash position; management reiterates ~41% at year-end."
+    },
+    "prov": {
+     "es": "+26.1% anual, en línea con crecimiento y mezcla; costo de riesgo 12.9% vs 11.6%; etapa 3 consolidada 4.13% vs 3.73% por el crédito individual del Banco (Banco 4.86%; individual 6.33%, grupal 3.90%). Cobertura 207.6%; la administración espera regresar a 210–220%.",
+     "en": "+26.1% YoY, in line with growth and mix; cost of risk 12.9% vs 11.6%; consolidated stage 3 4.13% vs 3.73% on the Bank's individual loans (Bank 4.86%; individual 6.33%, group 3.90%). Coverage 207.6%; management expects to return to 210–220%."
+    },
+    "finMarginAdj": {
+     "es": "+10.9% anual; MIN después de provisiones 28.8% vs 29.3%; guía ~30% al cierre.",
+     "en": "+10.9% YoY; NIM after provisions 28.8% vs 29.3%; guided ~30% at year-end."
+    },
+    "feesCh": {
+     "es": "+18.0% anual por seguros (16.2M de pólizas activas de Aterna); comisiones pagadas +10.3%.",
+     "en": "+18.0% YoY on insurance (16.2M active Aterna policies); fees paid +10.3%."
+    },
+    "netFees": {
+     "es": "+18.7% anual a Ps. 1,587M; la administración espera que el crecimiento converja al de clientes (~12%).",
+     "en": "+18.7% YoY to Ps. 1,587M; management expects growth to converge to client growth (~12%)."
+    },
+    "otherInc": {
+     "es": "Ps. 243M vs Ps. 364M (−33%): el 1T25 incluyó ganancias no recurrentes; CrediTienda sigue creciendo por debajo.",
+     "en": "Ps. 243M vs Ps. 364M (−33%): 1Q25 carried non-recurring gains; CrediTienda keeps growing underneath."
+    },
+    "totOpInc": {
+     "es": "+14.4% anual: margen +15.7%, comisiones netas +18.7%, otros ingresos menores.",
+     "en": "+14.4% YoY: margin +15.7%, net fees +18.7%, other income lower."
+    },
+    "opIncAfterProv": {
+     "es": "+10.9% anual: las provisiones (+26.1%) crecieron más que los ingresos.",
+     "en": "+10.9% YoY: provisions (+26.1%) outgrew revenue."
+    },
+    "opex": {
+     "es": "+10.5% anual, −6.2% secuencial (el 4T25 traía Ps. 500M de contingencias fiscales); índice de eficiencia 62.4% vs 62.8%, el mejor en ocho años según la administración; guía 12–13% mantenida en abril.",
+     "en": "+10.5% YoY, −6.2% QoQ (4Q25 carried Ps. 500M of tax contingencies); efficiency ratio 62.4% vs 62.8%, the best in eight years per management; 12–13% guide kept in April."
+    },
+    "opRes": {
+     "es": "+12.4% anual: ingresos +14% contra gastos +10.5% y provisiones +26%.",
+     "en": "+12.4% YoY: revenue +14% against opex +10.5% and provisions +26%."
+    },
+    "tax": {
+     "es": "+12.8% anual; tasa efectiva 31.0% vs 30.9%. Sin efectos adicionales de impuestos diferidos en 2026, según la administración.",
+     "en": "+12.8% YoY; effective rate 31.0% vs 30.9%. No further deferred-tax effects in 2026, per management."
+    },
+    "netInc": {
+     "es": "+12.3% anual a Ps. 2,494M, récord trimestral; +22.6% secuencial sobre un 4T25 cargado de partidas. ROAE 26.9%, ROAA 8.2%.",
+     "en": "+12.3% YoY to Ps. 2,494M, a quarterly record; +22.6% QoQ on a 4Q25 laden with one-offs. ROAE 26.9%, ROAA 8.2%."
+    },
+    "niMX": {
+     "es": "+7.2% anual a Ps. 1,656M: margen +14% absorbido por provisiones con etapa 3 en 4.86%; ICAP 32.3%.",
+     "en": "+7.2% YoY to Ps. 1,656M: margin +14% absorbed by provisions with stage 3 at 4.86%; ICAP 32.3%."
+    },
+    "niPE": {
+     "es": "+49.2% anual a Ps. 436M: la recuperación de Perú continúa con etapa 3 en 2.85%.",
+     "en": "+49.2% YoY to Ps. 436M: Perú's recovery continues with stage 3 at 2.85%."
+    },
+    "niCC": {
+     "es": "+0.4% anual a Ps. 257M: cartera +14.1% con etapa 3 en 1.81%, compensada por más provisiones y gastos.",
+     "en": "+0.4% YoY to Ps. 257M: loans +14.1% with stage 3 at 1.81%, offset by higher provisions and opex."
+    },
+    "niCtrl": {
+     "es": "+15.3% anual a Ps. 2,429M contra +12.3% consolidado: la participación minoritaria bajó a Ps. 65M desde Ps. 115M tras la compra del 25.1% de ConCrédito (junio de 2025).",
+     "en": "+15.3% YoY to Ps. 2,429M vs +12.3% consolidated: minority interest fell to Ps. 65M from Ps. 115M after the June 2025 purchase of ConCrédito's 25.1%."
+    },
+    "niMin": {
+     "es": "Ps. 65M vs Ps. 115M: ConCrédito es 100% propia desde junio de 2025; resta sobre todo el socio al 50% de Aterna.",
+     "en": "Ps. 65M vs Ps. 115M: ConCrédito fully owned since June 2025; mostly the 50% Aterna partner remains."
+    },
+    "oci": {
+     "es": "−Ps. 293M vs −Ps. 153M: mayor pérdida por conversión de la inversión en Perú.",
+     "en": "−Ps. 293M vs −Ps. 153M: larger translation loss on the Perú investment."
+    },
+    "eps": {
+     "es": "Ps. 1.54 vs Ps. 1.33 (+15.3%) con acciones sin cambio; guía anual Ps. 5.88–6.03 reiterada.",
+     "en": "Ps. 1.54 vs Ps. 1.33 (+15.3%) on an unchanged share count; annual guidance Ps. 5.88–6.03 reaffirmed."
+    }
+   },
+   "bs": {
+    "loans": {
+     "es": "+14.7% anual a Ps. 94,863M (+1.4% secuencial); guía 13–16% reiterada en abril, recortada a 6–9% en julio.",
+     "en": "+14.7% YoY to Ps. 94,863M (+1.4% QoQ); 13–16% guide reaffirmed in April, cut to 6–9% in July."
+    },
+    "loansMX": {
+     "es": "+18.8% anual, +2.6% secuencial; crecimiento del individual moderado desde marzo por la etapa 3 de 6.33%.",
+     "en": "+18.8% YoY, +2.6% QoQ; individual-loan growth moderated from March on its 6.33% stage 3."
+    },
+    "loansPE": {
+     "es": "+5.8% en pesos con un peso más fuerte; doble dígito en soles según la administración.",
+     "en": "+5.8% in pesos with a stronger peso; double digits in soles per management."
+    },
+    "loansCC": {
+     "es": "+14.1% anual a Ps. 6,066M; etapa 3 1.81%.",
+     "en": "+14.1% YoY to Ps. 6,066M; stage 3 1.81%."
+    }
+   },
+   "ops": {
+    "clientsCred": {
+     "es": "4.66M de clientes de crédito (+7.5%); 6.61M de personas atendidas (+13.7%).",
+     "en": "4.66M credit clients (+7.5%); 6.61M people served (+13.7%)."
+    },
+    "employees": {
+     "es": "+3.1% anual: contratación moderada tras el crecimiento de 2025.",
+     "en": "+3.1% YoY: hiring moderated after 2025's expansion."
+    },
+    "loans": {
+     "es": "+14.7% anual a Ps. 94,863M (+1.4% secuencial); guía 13–16% reiterada en abril, recortada a 6–9% en julio.",
+     "en": "+14.7% YoY to Ps. 94,863M (+1.4% QoQ); 13–16% guide reaffirmed in April, cut to 6–9% in July."
+    },
+    "loansMX": {
+     "es": "+18.8% anual, +2.6% secuencial; crecimiento del individual moderado desde marzo por la etapa 3 de 6.33%.",
+     "en": "+18.8% YoY, +2.6% QoQ; individual-loan growth moderated from March on its 6.33% stage 3."
+    },
+    "loansPE": {
+     "es": "+5.8% en pesos con un peso más fuerte; doble dígito en soles según la administración.",
+     "en": "+5.8% in pesos with a stronger peso; double digits in soles per management."
+    },
+    "loansCC": {
+     "es": "+14.1% anual a Ps. 6,066M; etapa 3 1.81%.",
+     "en": "+14.1% YoY to Ps. 6,066M; stage 3 1.81%."
+    }
+   },
+   "source": "Press release 1T26; earnings call 23 Apr 2026",
+   "call": CALLS["2026Q1"]
   },
   "2026Q2": {
    "lines": {
@@ -1314,10 +1635,7 @@ return {
      "en": "Record Ps. 6,472M, +14.9% YoY and +6.7% QoQ; CrediTienda receivables (outside the loan book) +26.9% to Ps. 1,144M."
     }
    },
-   "call": {
-    "es": "Comentarios elaborados a partir de la discusión de la administración en el informe trimestral; la transcripción de la conferencia de este trimestre no se ha suministrado todavía (tools/gentera/raw/transcripts).",
-    "en": "Comments written from the management discussion in the quarterly release; the transcript of this quarter's call has not been supplied yet (tools/gentera/raw/transcripts)."
-   },
+   "call": CALLS["2026Q2"],
    "source": "Press release 2T26"
   }
  },
