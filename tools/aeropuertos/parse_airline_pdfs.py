@@ -5,8 +5,11 @@ Usage:  python parse_airline_pdfs.py <dir> <out.json>
   https://ir.aeromexico.com). Requires: pip install pypdf
 
 Output: {"viv": {"2026-08": {"pax": {"dom":..,"intl":..,"total":..}, "lf": {...}, "rpm": {...}, "asm": {...}}, ...}, "am": {...}}
-Units as published: passengers in thousands, RPMs/ASMs in millions, load factor in percent. The first number on each
-row is the reported month and the second the same month a year earlier; only the reported month is kept.
+Units in the output: passengers in thousands, RPMs/ASMs in millions of miles, load factor in percent. The first number
+on each row is the reported month and the second the same month a year earlier; only the reported month is kept.
+Layout quirks handled: table headers split over several lines ("Load" / "Factor" / "(RPM/ASM)" / "89.5% ..."),
+raw passenger counts instead of thousands (older Viva reports), and kilometre-based RPKs/ASKs (converted to miles).
+Set IR_TEXT_DIR to also write the extracted text of every PDF there (for debugging layouts).
 """
 import glob, json, os, re, sys
 import pypdf
@@ -42,15 +45,44 @@ SECTION = [
     ('lf', re.compile(r'^\s*load\s*factor', re.I)),
     ('rpm', re.compile(r'^\s*rpm', re.I)),
     ('asm', re.compile(r'^\s*asm', re.I)),
+    ('rpk', re.compile(r'^\s*rpk', re.I)),
+    ('ask', re.compile(r'^\s*ask', re.I)),
 ]
-ROW = re.compile(r'^\s*(domestic|international|total|\(rpm/asm\)|\(scheduled)', re.I)
+ROW = re.compile(r'^\s*(domestic|international|total|\(rpm/asm\)|\(rpk/ask\)|\(scheduled)', re.I)
+KM_TO_MI = 0.621371
+# a line that is only a piece of a table header (the numbers follow on a later line)
+HEADER_FRAG = re.compile(r"^\s*(passengers?|pasajeros|load|factor|load\s*factor\*?|rpm'?s?|asm'?s?|rpk'?s?|ask'?s?|"
+                         r"\(\s*(thousands?|millions?|rpm\s*/\s*asm|rpk\s*/\s*ask|miles|km)\s*\)|\(?\s*(thousands?|millions?)\s*\)?)\s*$", re.I)
+UNIT_LINE = re.compile(r'^\(\s*(thousands?|millions?|rpm\s*/\s*asm|rpk\s*/\s*ask)', re.I)
+
+
+def join_headers(txt):
+    """Re-joins table headers that pdf text extraction split over several lines, so that
+    "Load / Factor / (RPM/ASM) / 89.5% 88.0% ..." on four lines becomes one line the section scanner understands."""
+    out, buf = [], []
+    for raw in txt.split('\n'):
+        line = raw.strip()
+        if HEADER_FRAG.match(line):
+            buf.append(line)
+            continue
+        if buf:
+            if re.match(r'^\(?-?\d', line) or UNIT_LINE.match(line):
+                out.append(' '.join(buf + [line]))
+                buf = []
+                continue
+            out.append(' '.join(buf))
+            buf = []
+        out.append(line)
+    if buf:
+        out.append(' '.join(buf))
+    return '\n'.join(out)
 
 
 def parse_generic(txt):
     """Section-and-row scanner shared by both formats. Returns {measure: {dom, intl, total}}."""
     out = {}
     section = None
-    for raw in txt.split('\n'):
+    for raw in join_headers(txt).split('\n'):
         line = fix_spaced_digits(raw.strip())
         if not line:
             continue
@@ -59,7 +91,7 @@ def parse_generic(txt):
         if sec:
             section = sec
             # Aeromexico puts the first row on the same line: "Passengers Domestic 1,378 1,394 ..."
-            m = re.match(r'^\s*(?:passengers?|load\s*factor|rpms?|asms?)\s*(?:\([^)]*\))?\s*(domestic|international|total)\b(.*)$', line, re.I)
+            m = re.match(r'^\s*(?:passengers?|load\s*factor|rpms?|asms?|rpks?|asks?)\s*(?:\([^)]*\))?\s*(domestic|international|total)\b(.*)$', line, re.I)
             if m:
                 key = {'domestic': 'dom', 'international': 'intl', 'total': 'total'}[m.group(1).lower()]
                 nums = numbers(m.group(2))
@@ -68,14 +100,14 @@ def parse_generic(txt):
                 continue
             # Viva puts the total on the header line when numbers follow the label directly:
             # "PASSENGERS (THOUSAND) 1,678 1,158 44.9% ..." (but not the headline "Passengers increased 16.6%").
-            m = re.match(r'^\s*(?:passengers?|load\s*factor\*?|rpm\S*|asm\S*)\s*(?:\([^)]*\))?\s*(\(?-?\d.*)$', line, re.I)
+            m = re.match(r'^\s*(?:passengers?|load\s*factor\*?|rpm\S*|asm\S*|rpk\S*|ask\S*)\s*(?:\([^)]*\))?\s*(\(?-?\d.*)$', line, re.I)
             if m:
                 nums = numbers(m.group(1))
                 if len(nums) >= 2:
                     out.setdefault(section, {})['total'] = nums[0]
             continue
         if section and ROW.search(line):
-            rest = re.sub(r'^\s*(domestic|international|total|\(rpm/asm\)|\([^)]*\))\s*', '', line, flags=re.I)
+            rest = re.sub(r'^\s*(domestic|international|total|\(rpm/asm\)|\(rpk/ask\)|\([^)]*\))\s*', '', line, flags=re.I)
             if not re.match(r'^\(?-?\d', rest):
                 continue  # prose such as "Domestically, Viva grew ..." rather than a table row
             nums = numbers(rest)
@@ -87,6 +119,16 @@ def parse_generic(txt):
                 out.setdefault(section, {})['intl'] = nums[0]
             else:
                 out.setdefault(section, {})['total'] = nums[0]
+    # kilometre-based reports -> miles, so every month is comparable
+    for km, mi in (('rpk', 'rpm'), ('ask', 'asm')):
+        if km in out:
+            conv = {kk: round(vv * KM_TO_MI, 1) for kk, vv in out.pop(km).items()}
+            out.setdefault(mi, conv)
+    # raw passenger counts (older reports) -> thousands
+    p = out.get('pax')
+    if p and max(p.values()) > 50000:
+        for kk in list(p):
+            p[kk] = round(p[kk] / 1000.0, 1)
     # derive totals where the report gives only the split (or an implausible header number)
     for k, v in out.items():
         if 'dom' in v and 'intl' in v and k != 'lf':
@@ -104,13 +146,20 @@ def plausible(d):
 def main(src, dest):
     result = {'viv': {}, 'am': {}, 'voi': {}}
     problems = []
+    text_dir = os.environ.get('IR_TEXT_DIR')
+    if text_dir:
+        os.makedirs(text_dir, exist_ok=True)
     for f in sorted(glob.glob(os.path.join(src, '*.pdf'))):
         m = re.match(r'(viv|am|voi)-(\d{4}-\d{2})\.pdf$', os.path.basename(f))
         if not m:
             continue
         who, ym = m.group(1), m.group(2)
         try:
-            d = parse_generic(text_of(f))
+            txt = text_of(f)
+            if text_dir:
+                with open(os.path.join(text_dir, '%s-%s.txt' % (who, ym)), 'w', encoding='utf-8') as fh:
+                    fh.write(txt[:30000])
+            d = parse_generic(txt)
         except Exception as e:  # noqa: BLE001
             problems.append(f'{os.path.basename(f)}: {e}')
             continue
