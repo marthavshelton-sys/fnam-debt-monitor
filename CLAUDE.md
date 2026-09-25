@@ -41,6 +41,48 @@ dashboards, everything built from public data by GitHub Actions.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
+## Scheduled refreshes — rules that apply to every pipeline
+
+- Bot/data commits use the marker `[skip actions]`, never `[skip ci]`: Cloudflare Pages treats
+  `[skip ci]` as its own skip marker, so pages silently stop deploying while commits keep landing
+  (this bit fiscal, GAP and both macro dashboards before it was fixed).
+- Never write the literal skip-ci string inside a commit message either, even to describe it —
+  GitHub Actions skips the push's workflow runs if it appears anywhere in the head commit message.
+- Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
+  sources publish weekdays). A run commits only when data changed.
+- When working on one page, do not touch another page's workflow or scripts.
+- The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…) and fnam.mx
+  itself. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
+  read the run log; verify deploys via Actions history and committed files, not by fetching the site.
+
+## The macro dashboards
+
+- `site/mx/macro` (Node, `scripts/mx-macro/` + `tools/mx-macro/`, ubuntu runner). `series.json` is a
+  manifest of candidates per series; every candidate is verified against a title regex before it is
+  accepted, so a wrong ID never reaches the page. Secrets: `BANXICO_TOKEN`, `INEGI_TOKEN`,
+  `FRED_API_KEY`. INEGI's public developer API answers "No se encontraron resultados" for every BIE
+  id — BIE series come from the query-builder service `interna_v1_3/API.svc/ExportacionBancoInformacion`
+  (tematica "3", areasGeograficas "null", whole-year dates); details in `tools/mx-macro/README.md`.
+  Diagnostics run on the runner via workflow_dispatch inputs (`probe`, `search`, `url`, `post`,
+  `xlsx`); nothing is fetched or committed in that mode. After each refresh `health.mjs` flags any
+  series no provider has answered for in 7 days and the workflow opens/closes an issue labeled
+  `mx-macro-health`.
+- `site/macro` (US; Windows PowerShell, `tools/macro/`). The two yearly BLS weights tables arrive as
+  PRs from scheduled browser tasks because BLS answers scripted requests with 403
+  (`process_weights.ps1` probes every run in case that changes). Challenger job cuts are read from
+  the report PDF and only published when the figures reconcile against the report's own totals.
+  `alerts.ps1` mails material updates as a GitHub issue; a source down three runs fails the run.
+- Both templates open every section with an executive-summary card ("En resumen / At a glance":
+  latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
+  from the same data as the charts — never hand-write summary text, it would go stale by the next run.
+- Both builds enforce locale parity (identical I18N keys in es/en) and that every referenced string
+  exists; a page builds only when 100% of strings resolve.
+- To test a template change: build against the committed data
+  (`node scripts/mx-macro/build.mjs --out /tmp/t.html --force`), open it in Playwright Chromium at
+  1280px and 390px in both languages, click through every view, and check for `undefined`/`NaN`,
+  hidden-section regressions and horizontal overflow. The MX pipeline can also be exercised fully
+  offline by preloading a mock `fetch` with `node --import`.
+
 ## Board presentations (PDF)
 
 - Shared engine `site/assets/present-core.js` (`window.FNAM_PRESENT`: `Doc`, `run`, `autoRun`, Title Case,
