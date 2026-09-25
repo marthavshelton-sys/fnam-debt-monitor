@@ -15,7 +15,10 @@ window.G_REF = {
       en: "Mexico's largest microfinance group: Banco Compartamos (group and individual loans to micro-entrepreneurs, deposits, insurance through Aterna, Yastás correspondent network), Compartamos Banco Perú (a bank since 2025, formerly Compartamos Financiera) and ConCrédito (consumer credit through ~84 thousand women distributors and the CrediTienda online store). 4.68 million credit clients and 6.79 million people served at 2Q26.",
     },
     ir: "https://www.gentera.com.mx/gentera/relacion-inversionistas/informacion_trimestral",
-    nextResults: { date: "2026-10-21", quarter: "2026Q3", note: { es: "Fecha anunciada por Gentera para los resultados del 3T26.", en: "Date announced by Gentera for 3Q26 results." } },
+    // Assumed date: median lag between quarter-end and the 3Q release in 2023–2025 (25, 23 and 22 Oct → 23 days);
+    // Gentera has not announced the 3T26 date in its releases. When it does, set `assumed: false` here and add
+    // `calendar: { nextResults: { date, source } }` (the board deck reads that key for confirmed dates).
+    nextResults: { date: "2026-10-23", quarter: "2026Q3", assumed: true, note: { es: "Fecha supuesta: mediana del rezago de publicación del tercer trimestre en 2023–2025 (22–25 de octubre); Gentera no la ha anunciado.", en: "Assumed date: median release lag of the third quarter in 2023–2025 (22–25 October); not announced by Gentera." } },
   },
   // Shares outstanding as printed in each release (millions). No ADR. Buybacks are not disclosed in the releases.
   shares: {

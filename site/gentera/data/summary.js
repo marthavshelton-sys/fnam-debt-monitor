@@ -47,12 +47,12 @@ window.G_SUMMARY = {
     {
       k: "watch", title: { es: "Qué vigilar", en: "What to watch" },
       es: [
-        "3T26 (21 de octubre de 2026): si la cartera del banco vuelve a crecer y si la etapa 3 individual se estabiliza; el costo de riesgo debería moderarse si la originación estricta funciona.",
+        "3T26 (≈23 de octubre de 2026, fecha supuesta por el historial de publicación): si la cartera del banco vuelve a crecer y si la etapa 3 individual se estabiliza; el costo de riesgo debería moderarse si la originación estricta funciona.",
         "Perú: sostenibilidad del ROE de 26% y del crecimiento de doble dígito en soles; efecto del tipo de cambio sobre la cifra en pesos y sobre 'otros resultados integrales'.",
         "Fondeo y valuación: nuevos recortes de Banxico bajan el costo de fondeo pero también la tasa libre de riesgo del modelo; la asamblea extraordinaria sobre el 45% de pago y el primer llenado de FactSet (pares, consenso).",
       ],
       en: [
-        "3Q26 (21 October 2026): whether the bank's book resumes growth and individual-loan stage 3 stabilises; cost of risk should ease if tighter origination works.",
+        "3Q26 (≈23 October 2026, assumed from the release history): whether the bank's book resumes growth and individual-loan stage 3 stabilises; cost of risk should ease if tighter origination works.",
         "Perú: sustainability of the 26% ROE and double-digit sol growth; FX effect on the peso figure and on 'other comprehensive income'.",
         "Funding and valuation: further Banxico cuts lower funding cost but also the model's risk-free rate; the extraordinary meeting on the 45% payout and the first FactSet fill (peers, consensus).",
       ],

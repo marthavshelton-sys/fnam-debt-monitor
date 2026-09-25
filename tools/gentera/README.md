@@ -18,7 +18,7 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 | `summary.js` | `G_SUMMARY` | reviewed commit, each quarter | executive summary: `basis` + four sections (operations, guidance, asset quality/funding/capital, what to watch), ES and EN. |
 | `peers.js` | `G_PEERS` | pending (FactSet) | peer multiples schema (GFNORTEO, RA, BBAJIOO, BAP as placeholders) and the consensus contract; all null until the connector is authorised. |
 
-## After each quarterly report (≈ 3rd/4th week of Jan–Feb, Apr, Jul, Oct; 3Q26 = 21 Oct 2026)
+## After each quarterly report (≈ 3rd/4th week of Jan–Feb, Apr, Jul, Oct; 3Q26 ≈ 23 Oct 2026, assumed)
 
 1. The 14:35 UTC weekday workflow harvests the new press release from the IR page, rebuilds
    `financials.js`/`operations.js`/`quality.js` and validates. Check the Actions log: a red run means the
