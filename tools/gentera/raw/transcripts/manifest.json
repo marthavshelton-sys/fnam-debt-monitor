@@ -16,6 +16,14 @@
    "sha256": "4fa5474164574e4403092b301527df96558e7e90336586836229798c8c50fa9b",
    "text": "tools/gentera/raw/text/transcripts/2025Q1-transcript-Gentera_1T25_earnings_call_transcript_2025-04-24.txt"
   },
+  "Gentera 1T26 earnings call transcript 2026-04-23.pdf": {
+   "chars": 41786,
+   "convertedAt": "2026-09-25T03:30:00+00:00",
+   "kind": "transcript",
+   "quarter": "2026Q1",
+   "sha256": "725621b31f53712a925e1ba4f0f13ffc02e37c93e4b4ba62373917c97a5c1fc0",
+   "text": "tools/gentera/raw/text/transcripts/2026Q1-transcript-Gentera_1T26_earnings_call_transcript_2026-04-23.txt"
+  },
   "Gentera 2T24 earnings call transcript 2024-07-24.pdf": {
    "chars": 62969,
    "convertedAt": "2026-09-22T23:42:04+00:00",
@@ -31,6 +39,14 @@
    "quarter": "2025Q2",
    "sha256": "bd65002b9937af1c355b44c5a45a5a8e67ff4fd59c14bc976b7bf2ec43693cc4",
    "text": "tools/gentera/raw/text/transcripts/2025Q2-transcript-Gentera_2T25_earnings_call_transcript_2025-07-23.txt"
+  },
+  "Gentera 2T26 earnings call transcript 2026-07-23.pdf": {
+   "chars": 67962,
+   "convertedAt": "2026-09-25T03:30:00+00:00",
+   "kind": "transcript",
+   "quarter": "2026Q2",
+   "sha256": "22b463ca8006940ed10681951f1ebb02c9e760ab0c4ba95909c91e64fa7c387c",
+   "text": "tools/gentera/raw/text/transcripts/2026Q2-transcript-Gentera_2T26_earnings_call_transcript_2026-07-23.txt"
   },
   "Gentera 3T23 earnings call transcript 2023-10-25.pdf": {
    "chars": 50921,

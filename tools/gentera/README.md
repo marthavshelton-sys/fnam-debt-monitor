@@ -116,11 +116,10 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   deposit lines of B-2201 did not read consistently and are not shown; the loans-by-type (B-2334) and
   write-off (B-2369) tables list banks differently and are not mapped yet. A structure summary of each table
   is saved under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
-- Gentera does not post call transcripts on the IR page. Ten FactSet CallStreet transcripts (3T23–4T25) and the
-  3T24 corporate presentation were supplied by hand (`tools/gentera/raw/transcripts/`, converted by
-  `scripts/gentera/ingest-transcripts.py`); their quotes, guidance vintages, ratings and management facts are in
-  the data files. The 1T26 and 2T26 calls are not supplied yet, so those periods show release comments only and
-  their guidance vintages carry only what the releases print (cost of risk / ROE marked "no change communicated").
+- Gentera does not post call transcripts on the IR page. Twelve transcripts (FactSet CallStreet 3T23–4T25,
+  Bloomberg 1T26–2T26) and the 3T24 corporate presentation were supplied by hand (`tools/gentera/raw/transcripts/`,
+  converted by `scripts/gentera/ingest-transcripts.py`); their quotes, guidance vintages, ratings and management
+  facts are in the data files.
 - Release dates come from the PDF dateline ("Ciudad de México, 22 de julio 2026"), which is the call day or the day
   before; they stamp the header, the statement sources and the guidance vintages.
 - Fiscal-year and year-to-date NIM / NIM after provisions are averages of the quarterly ratios (Gentera prints its

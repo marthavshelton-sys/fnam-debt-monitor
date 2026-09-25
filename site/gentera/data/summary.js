@@ -2,7 +2,7 @@
 // press releases; rewritten by the reviewing routine with each new report. Figures quoted are as of the `basis`
 // periods (not live market data — the header strip is daily).
 window.G_SUMMARY = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-09-25",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-22", guidanceDate: "2026-07-22", note: { es: "Informe 2T26 fechado el 22 de julio de 2026 (línea de fecha del PDF).", en: "2Q26 release dated 22 July 2026 (PDF dateline)." } },
   sections: [
     {
@@ -22,12 +22,12 @@ window.G_SUMMARY = {
       k: "guidance", title: { es: "Guía y qué cambió", en: "Guidance and what changed" },
       es: [
         "UPA 2026 reiterada en Ps. 5.88–6.03 (+13% a +16%); el semestre lleva Ps. 2.98, 50% del punto medio.",
-        "Crecimiento de cartera recortado a 6–9% con el informe del 2T26: la administración prefiere calidad a volumen en el banco (etapa 3 individual 6.12%). Gastos ahora 'por debajo de ~12%' (antes 12–13%).",
+        "Crecimiento de cartera recortado a 6–9% (cierre contra cierre; cartera promedio ~+10%) con el informe del 2T26: desaceleración del consumo en México y estabilización del crédito individual (etapa 3 6.12%, ~Ps. 19 mil M, cinco veces la cartera de 2021). Gastos ahora ~+10% (antes 12–13%); MIN ~41%; costo de riesgo ~13.5% con normalización en dos trimestres (conferencia del 23 de julio).",
         "Etapa 3 consolidada 4.04%, dentro del 'alrededor de 4%' guiado; costo de riesgo 14.5% (12.7% hace un año) por Perú y ConCrédito en crecimiento y el mayor peso del crédito individual.",
       ],
       en: [
         "2026 EPS reaffirmed at Ps. 5.88–6.03 (+13% to +16%); the half delivered Ps. 2.98, 50% of the midpoint.",
-        "Loan growth trimmed to 6–9% with the 2Q26 release: management prefers quality to volume at the bank (individual-loan stage 3 at 6.12%). Opex now 'below ~12%' (was 12–13%).",
+        "Loan growth cut to 6–9% (year-end to year-end; average book ~+10%) with the 2Q26 release: Mexican consumer slowdown and stabilisation of individual loans (stage 3 6.12%, ~Ps. 19 bn, five times the 2021 book). Opex now ~+10% (was 12–13%); NIM ~41%; cost of risk ~13.5% with normalisation within two quarters (23 July call).",
         "Consolidated stage 3 at 4.04%, inside the 'around 4%' guide; cost of risk 14.5% (12.7% a year ago) on growth in Perú and ConCrédito and a heavier individual-loan mix.",
       ],
     },
@@ -49,12 +49,12 @@ window.G_SUMMARY = {
       es: [
         "3T26 (≈23 de octubre de 2026, fecha supuesta por el historial de publicación): si la cartera del banco vuelve a crecer y si la etapa 3 individual se estabiliza; el costo de riesgo debería moderarse si la originación estricta funciona.",
         "Perú: sostenibilidad del ROE de 26% y del crecimiento de doble dígito en soles; efecto del tipo de cambio sobre la cifra en pesos y sobre 'otros resultados integrales'.",
-        "Fondeo y valuación: nuevos recortes de Banxico bajan el costo de fondeo pero también la tasa libre de riesgo del modelo; la asamblea extraordinaria sobre el 45% de pago y el primer llenado de FactSet (pares, consenso).",
+        "Fondeo y valuación: nuevos recortes de Banxico bajan el costo de fondeo pero también la tasa libre de riesgo del modelo; la propuesta de pago de 45% (rechazada en abril por falta de votos) volverá a la asamblea de 2027; el primer llenado de FactSet (pares, consenso).",
       ],
       en: [
         "3Q26 (≈23 October 2026, assumed from the release history): whether the bank's book resumes growth and individual-loan stage 3 stabilises; cost of risk should ease if tighter origination works.",
         "Perú: sustainability of the 26% ROE and double-digit sol growth; FX effect on the peso figure and on 'other comprehensive income'.",
-        "Funding and valuation: further Banxico cuts lower funding cost but also the model's risk-free rate; the extraordinary meeting on the 45% payout and the first FactSet fill (peers, consensus).",
+        "Funding and valuation: further Banxico cuts lower funding cost but also the model's risk-free rate; the 45% payout proposal (short of votes in April) returns to the 2027 meeting; the first FactSet fill (peers, consensus).",
       ],
     },
   ],

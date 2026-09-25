@@ -29,5 +29,7 @@ the guidance vintage in `guidance.js` (release date, call date, ranges and wordi
 | 2T25 | `Gentera 2T25 earnings call transcript 2025-07-23.pdf` | FactSet CallStreet, raw | EPS guidance raised, competition map |
 | 3T25 | `Gentera 3T25 earnings call transcript 2025-10-22.pdf` | FactSet CallStreet, NRT (automated) | wording garbled in places; quotes lightly cleaned |
 | 4T25 | `Gentera 4T25 earnings call transcript 2026-02-25.pdf` | FactSet CallStreet, corrected | 2026 guidance, three value-sharing initiatives |
+| 1T26 | `Gentera 1T26 earnings call transcript 2026-04-23.pdf` | Bloomberg, final transcript (25 Sep 2026) | individual-loan NPLs, 45% payout vote, board changes |
+| 2T26 | `Gentera 2T26 earnings call transcript 2026-07-23.pdf` | Bloomberg, final transcript (25 Sep 2026) | loan guidance cut to 6–9%, opex ~10%, cost of risk ~13.5% |
 
-Missing: the 1T26 and 2T26 calls, the 4T22–2T23 calls (initial 2023 guidance) and the decks other than 3T24.
+Missing: the 4T22–2T23 calls (initial 2023 guidance) and the decks other than 3T24.
