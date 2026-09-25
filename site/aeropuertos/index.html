@@ -330,10 +330,13 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .legend button .n{color:var(--muted); font-weight:500;}
 .legend button.reset{padding:6px 12px; color:var(--text-secondary); font-weight:500;}
 .map-wrap{position:relative;}
-.map-wrap svg{width:100%; height:auto; display:block;}
+.map-wrap svg{width:100%; height:auto; display:block; background:var(--map-sea); border-radius:10px; border:1px solid var(--border);}
+:root{--map-sea:#eaf0f2; --map-land:#dcd8cd; --map-land-2:#e9e6df; --map-line:#ffffff;}
+@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){--map-sea:#0f1214; --map-land:#33332f; --map-land-2:#232322; --map-line:#0d0d0d;} }
+:root[data-theme="dark"]{--map-sea:#0f1214; --map-land:#33332f; --map-land-2:#232322; --map-line:#0d0d0d;}
 .map-fallback{padding:40px 16px; text-align:center; color:var(--muted); font-size:14px;}
-.mx-state{fill:var(--surface-2); stroke:var(--page); stroke-width:.9;}
-.mx-neighbor{fill:color-mix(in srgb, var(--surface-2) 50%, var(--page)); stroke:var(--page); stroke-width:.9;}
+.mx-state{fill:var(--map-land); stroke:var(--map-line); stroke-width:.8;}
+.mx-neighbor{fill:var(--map-land-2); stroke:var(--map-line); stroke-width:.8;}
 .mx-airport{cursor:pointer; outline:none;}
 .mx-airport circle.dot{fill:var(--c); fill-opacity:.82; stroke:var(--surface); stroke-width:1.2; transition:fill-opacity .15s;}
 .mx-airport circle.hit{fill:transparent; stroke:none;}
@@ -475,8 +478,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     <div class="wrap">
       <div class="section-head">
         <h2>
-          <span class="en">Where they operate</span>
-          <span class="es">Dónde operan</span>
+          <span class="en">Where They Operate</span>
+          <span class="es">Dónde Operan</span>
         </h2>
         <span class="count">
           <span class="en"><span class="apcount">67</span> commercial airports · AFAC</span>
@@ -518,8 +521,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     <div class="wrap">
       <div class="section-head">
         <h2>
-          <span class="en">The three groups</span>
-          <span class="es">Los tres grupos</span>
+          <span class="en">The Three Groups</span>
+          <span class="es">Los Tres Grupos</span>
         </h2>
         <span class="count">
           <span class="en">3 live</span>
@@ -628,8 +631,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     <div class="wrap">
       <div class="section-head">
         <h2>
-          <span class="en">Passenger traffic</span>
-          <span class="es">Tráfico de pasajeros</span>
+          <span class="en">Passenger Traffic</span>
+          <span class="es">Tráfico de Pasajeros</span>
         </h2>
         <span class="count">AFAC · AICM · AIFA</span>
       </div>
@@ -647,8 +650,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
               </span>
             </div>
             <h3>
-              <span class="en">Mexico's airport traffic by airport</span>
-              <span class="es">Tráfico aéreo de México por aeropuerto</span>
+              <span class="en">Mexico's Airport Traffic by Airport</span>
+              <span class="es">Tráfico Aéreo de México por Aeropuerto</span>
             </h3>
             <p>
               <span class="en">Passengers, aircraft movements and cargo across the country's commercial airports since 2006, split by operator — GAP, OMA, ASUR, AICM, AIFA and the rest — and by airport. Pick the operators you want to see, compare them with the national total, switch between monthly, trailing-twelve-month, year-over-year and market-share views, and follow AICM and AIFA on their own monthly figures.</span>
@@ -683,8 +686,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
               </span>
             </div>
             <h3>
-              <span class="en">Mexico's airport traffic by airline</span>
-              <span class="es">Tráfico aéreo de México por aerolínea</span>
+              <span class="en">Mexico's Airport Traffic by Airline</span>
+              <span class="es">Tráfico Aéreo de México por Aerolínea</span>
             </h3>
             <p>
               <span class="en">Who carries the passengers: monthly passengers, flights and cargo per airline since 2016 — Aeroméxico, Volaris, Viva, Mexicana, the regional carriers and every foreign airline by region — with a map that switches between the busiest corridors and each Mexican airline's network, plus the load factor and capacity that Aeroméxico, Volaris and Viva report themselves.</span>
