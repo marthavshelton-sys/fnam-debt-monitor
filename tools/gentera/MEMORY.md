@@ -37,7 +37,11 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - Gentera publishes no call transcripts: quotes come only from transcript files (FactSet CallStreet, Bloomberg)
   the owner drops in `tools/gentera/raw/transcripts/`; Spanish translations are ours and the page says so.
 - The 45% payout policy was NOT approved (10 Apr 2026 AGM, short of votes); policy in force is 40% and management
-  will re-propose in 2027. Do not describe 45% as adopted.
+  will re-propose in 2027. Do not describe 45% as adopted. Reason on record (CEO, 23 Apr 2026 call): the proposals
+  were "not communicated enough on our part"; the change amends the bylaw clause on application of results, so the
+  board called an extraordinary meeting for June (1Q26 release). Its outcome is not reported anywhere we hold; the
+  summary and reference note state as an assumption that June did not adopt it. Replace the assumption with the
+  fact if the owner supplies the June minutes or a BMV notice.
 
 ## Things that bite
 
