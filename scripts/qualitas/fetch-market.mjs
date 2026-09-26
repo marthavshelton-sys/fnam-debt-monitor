@@ -5,7 +5,10 @@
 //              peers used for the rebased comparison: Progressive (PGR, NYSE, USD), Allstate (ALL, NYSE, USD),
 //              Porto Seguro (PSSA3.SA, B3, BRL) and Mapfre (MAP.MC, BME, EUR) — Yahoo Finance chart API, Stooq fallback.
 //   dividends  cash dividends per Q.MX share as recorded by Yahoo (cross-checked against the AGM resolutions in reference.js).
-//   fx         USD/MXN — FRED DEXMXUS (Federal Reserve H.10, no key required).
+//   fx         USD/MXN — FRED DEXMXUS (Federal Reserve H.10, no key required) as the series of record;
+//              when its last point is more than 4 days old (the H.10 release itself has stalled — seen for
+//              several days running in September 2026), Banxico SIE SF43718 (Tipo de cambio FIX, needs
+//              BANXICO_TOKEN) fills only the missing newer dates, flagged with a note.
 //   rates      Mexico 10-year government bond yield (FRED IRLTLT01MXM156N, OECD, monthly) and
 //              US 10-year Treasury (FRED DGS10, daily) — cost-of-equity inputs for the valuation section.
 //
@@ -26,11 +29,17 @@ const PRICE_SERIES = [
   { id: 'PSSA3.SA', name: 'Porto Seguro (B3)', currency: 'BRL', exchange: 'B3', since: '2019-01-01', stooq: 'pssa3.br' },
   { id: 'MAP.MC', name: 'Mapfre (BME)', currency: 'EUR', exchange: 'BME', since: '2019-01-01', stooq: 'map.es' },
 ];
+const FX_USDMXN = { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' };
 const FRED_SERIES = [
-  { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' },
   { key: 'rates', id: 'MX10Y', fred: 'IRLTLT01MXM156N', name: 'México bono 10 años (OECD, mensual, %)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
+// Banxico SIE SF43718: "Tipo de cambio Pesos por dólar E.U.A. FIX", published daily. Fills only the dates
+// newer than FRED's last point when the H.10 release has stalled; a wrong id never reaches the page because
+// the title is checked before any point is used.
+const BANXICO_FX_SERIES = process.env.BANXICO_SERIES_USDMXN || 'SF43718';
+const FX_STALE_DAYS = 4;
+const isFixRate = (title) => /tipo de cambio/i.test(title) && /(fix|d[oó]lar)/i.test(title) && !/udis?\b/i.test(title);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const toUnix = (d) => Math.floor(new Date(d + 'T00:00:00Z').getTime() / 1000);
@@ -38,14 +47,14 @@ const isoDate = (unix) => new Date(unix * 1000).toISOString().slice(0, 10);
 const r2 = (x) => Math.round(x * 100) / 100;
 const r4 = (x) => Math.round(x * 10000) / 10000;
 
-async function getText(url, { tries = 3 } = {}) {
+async function getText(url, { tries = 3, headers = {} } = {}) {
   let lastErr;
   for (let i = 1; i <= tries; i++) {
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: '*/*' } });
+      const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: '*/*', ...headers } });
       if (res.ok) return res.text();
-      lastErr = new Error(`${url} -> HTTP ${res.status}`);
-      if (res.status === 404) break;
+      lastErr = new Error(`${url.replace(/token=[^&]+/, 'token=…')} -> HTTP ${res.status}`);
+      if (res.status === 404 || res.status === 401 || res.status === 403) break;
     } catch (e) { lastErr = e; }
     await sleep(1200 * i);
   }
@@ -79,6 +88,25 @@ async function fred(id, since) {
   const points = rows.filter((r) => r[0] >= since && r[1] && r[1] !== '.' && Number.isFinite(Number(r[1]))).map((r) => [r[0], r4(Number(r[1]))]);
   if (!points.length) throw new Error(`FRED ${id}: no points`);
   return { points, source: `FRED ${id}` };
+}
+
+// USD/MXN fallback for when FRED's H.10 mirror has stalled: Banxico SIE FIX rate, dates after `since` only.
+async function banxicoFx(since) {
+  const token = process.env.BANXICO_TOKEN;
+  if (!token) throw new Error('BANXICO_TOKEN not set');
+  const url = `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${BANXICO_FX_SERIES}/datos/${since}/${new Date().toISOString().slice(0, 10)}?token=${token}`;
+  const body = JSON.parse(await getText(url, { headers: { Accept: 'application/json' } }));
+  const s = body?.bmx?.series?.[0];
+  if (!s) throw new Error(`Banxico ${BANXICO_FX_SERIES}: no series in response`);
+  const title = (s.titulo || '').replace(/\s+/g, ' ');
+  if (!isFixRate(title)) throw new Error(`Banxico ${BANXICO_FX_SERIES}: title does not look like the FIX rate (${title.slice(0, 100)})`);
+  const points = (s.datos || [])
+    .map((d) => { const [dd, mm, yy] = d.fecha.split('/'); return [`${yy}-${mm}-${dd}`, Number(String(d.dato).replace(',', ''))]; })
+    .filter((p) => Number.isFinite(p[1]))
+    .map((p) => [p[0], r4(p[1])])
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  if (!points.length) throw new Error(`Banxico ${BANXICO_FX_SERIES}: no points since ${since}`);
+  return { points, source: `Banxico SIE ${BANXICO_FX_SERIES} (${title.slice(0, 90)})` };
 }
 
 async function loadPrevious() {
@@ -124,6 +152,38 @@ async function main() {
       out[s.key][s.id] = { name: s.name, source: data.source, fetchedAt: out.generatedAt, points: data.points };
       ok++;
       console.log(`${s.id}: ${data.points.length} points (last ${data.points.at(-1)})`);
+    } catch (e) {
+      failed++;
+      const stale = prev?.[s.key]?.[s.id];
+      out[s.key][s.id] = stale ? { ...stale, error: e.message, staleSince: stale.fetchedAt } : { name: s.name, error: e.message, points: [] };
+      console.error(`${s.id}: FAILED ${e.message}`);
+    }
+  }
+
+  // USD/MXN: FRED DEXMXUS is the series of record; when its last point has gone stale (the H.10 release
+  // itself has stopped publishing, not a fetch error — seen for several days running in September 2026),
+  // Banxico's daily FIX rate fills only the dates FRED is missing so the page isn't left days behind.
+  {
+    const s = FX_USDMXN;
+    try {
+      const data = await fred(s.fred, s.since);
+      let points = data.points, source = data.source, note;
+      const lastDate = points.at(-1)?.[0];
+      const ageDays = lastDate ? Math.floor((Date.now() - new Date(lastDate + 'T00:00:00Z').getTime()) / 86400000) : Infinity;
+      if (ageDays > FX_STALE_DAYS) {
+        try {
+          const bx = await banxicoFx(lastDate);
+          const gap = bx.points.filter((p) => p[0] > lastDate);
+          if (gap.length) {
+            points = [...points, ...gap];
+            note = `FRED ${s.fred} stalled at ${lastDate} (${ageDays}d); ${gap.length} newer point(s) filled from ${bx.source}`;
+            source = `${data.source} + ${bx.source}`;
+          }
+        } catch (eBx) { note = `FRED ${s.fred} stalled at ${lastDate} (${ageDays}d); Banxico fallback failed: ${eBx.message}`; }
+      }
+      out[s.key][s.id] = { name: s.name, source, note, fetchedAt: out.generatedAt, points };
+      ok++;
+      console.log(`${s.id}: ${points.length} points (last ${points.at(-1)})${note ? ` — ${note}` : ''}`);
     } catch (e) {
       failed++;
       const stale = prev?.[s.key]?.[s.id];
