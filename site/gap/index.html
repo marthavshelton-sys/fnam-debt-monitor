@@ -147,6 +147,10 @@ table tr.sub2 td:first-child{padding-left:36px; color:var(--text-secondary);}
 table tr.head td{font-weight:700; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.03em; padding-top:14px;}
 table td.est{color:var(--text-secondary); font-style:italic;}
 .tblwrap{overflow-x:auto; -webkit-overflow-scrolling:touch;}
+.lead{font-size:13.5px; line-height:1.5; margin-top:8px;}
+table.peers th, table.peers td{padding:6px 7px; white-space:nowrap;}
+table.peers tr.head td{padding-top:12px;}
+@media (max-width:640px){ table.peers th:nth-child(2), table.peers td:nth-child(2), table.peers th:nth-child(3), table.peers td:nth-child(3){display:none;} table.peers th:first-child, table.peers td:first-child{position:sticky; left:0; background:var(--surface); z-index:1; box-shadow:2px 0 0 var(--grid);} table.peers td:first-child .small{display:none;} }
 .stmt-table td:first-child{min-width:200px; max-width:420px;}
 .stmt-table th.cmt, .stmt-table td.cmt{text-align:left; font-size:12px; color:var(--text-secondary); min-width:280px; max-width:440px; white-space:normal; line-height:1.4; font-variant-numeric:normal;}
 .stmt-table td:not(.cmt):not(:first-child){white-space:nowrap;}
@@ -633,8 +637,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de GAP calculados en vivo con el precio más reciente, las acciones en circulación posteriores a la fusión con CBX y las cifras de los últimos doce meses. La tabla de pares (ASUR, OMA, Aena, Fraport, Zúrich, Auckland) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span>
-      <span class="en" hidden>GAP multiples computed live from the latest price, post-CBX share count and last-twelve-month figures. The peer table (ASUR, OMA, Aena, Fraport, Zurich, Auckland) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
+      <span class="es">Múltiplos de GAP calculados en vivo con el precio más reciente, las acciones en circulación posteriores a la fusión con CBX y las cifras de los últimos doce meses; los múltiplos a doce meses (PDM) usan el consenso de FactSet como denominador. La tabla de pares (ASUR, OMA, Aena, Fraport, Zúrich, Auckland) y el consenso de analistas provienen de una foto fechada del conector de FactSet, con los múltiplos a futuro (VE/EBITDA y P/U PDM) al frente.</span>
+      <span class="en" hidden>GAP multiples computed live from the latest price, post-CBX share count and last-twelve-month figures; the forward (NTM) multiples use FactSet consensus as the denominator. The peer table (ASUR, OMA, Aena, Fraport, Zurich, Auckland) and the analyst consensus come from a dated FactSet connector snapshot, with forward multiples (NTM EV/EBITDA and P/E) first.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -650,9 +654,24 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
+      <h3><span class="es">Pares: múltiplos a futuro y actuales</span><span class="en" hidden>Peers: forward and trailing multiples</span></h3>
       <p class="cap" id="peersCap"></p>
+      <p class="lead" id="peersLead"></p>
       <div class="tblwrap" id="peersTable"></div>
+      <p class="chart-src" id="peersNote"></p>
+    </div>
+    <div class="grid-2 rev">
+      <div class="card">
+        <h3><span class="es">Consenso de analistas: GAP</span><span class="en" hidden>Analyst consensus: GAP</span></h3>
+        <p class="cap"><span class="es">FactSet · precio objetivo, recomendaciones y próximos doce meses</span><span class="en" hidden>FactSet · price target, ratings and next twelve months</span></p>
+        <div class="stat-row" id="consTiles"></div>
+      </div>
+      <div class="card">
+        <h3><span class="es">Consenso por año fiscal frente a la guía</span><span class="en" hidden>Fiscal-year consensus versus guidance</span></h3>
+        <p class="cap"><span class="es">Ps. millones · media de los analistas</span><span class="en" hidden>Ps. million · analyst mean</span></p>
+        <div class="tblwrap" id="consTable"></div>
+        <p class="chart-src" id="consNote"></p>
+      </div>
     </div>
   </section>
 

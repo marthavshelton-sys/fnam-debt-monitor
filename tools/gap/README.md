@@ -13,7 +13,7 @@ one of five data files in `site/gap/data/`; nothing is hard-coded in the page.
 | `summary.js` (`window.GAP_SUMMARY`) | Executive summary at the top of the page: operations, guidance and why it changed, debt ratios, what to watch; four bilingual bullet sections plus the basis periods | **Rewritten by the alert routine** when results, traffic, guidance or an event land |
 | `market.js` (`window.GAP_MARKET`) | Daily closes GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX; GAPB cash dividends; USD/MXN; MX and US 10-year yields | **Automatic, daily** (`fetch-market.mjs`, weekdays 22:40 UTC) |
 | `reference.js` (`window.GAP_REF`) | Slow-moving facts with sources: shares outstanding, concessions, PMD/tariffs, AGM dividends, debt instruments and ratings, CBX timeline and facts, FIBRA GAP fact sheet, DCF fallback assumptions | **Automatic via the alert routine.** Each weekday it reads any new event release (dividends, bond issuances or repayments, credit facilities, ratings, CBX / FIBRA GAP milestones, share-count changes) and edits this file on `main`, describing the change in the alert email. Shares outstanding also come from the latest results release once it is newer. Beta and cost of debt in the DCF are derived at render time (two years of weekly GAPB vs IPC returns; latest fixed-rate bond coupon); the values here are fallbacks. |
-| `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland) | **Placeholder** until the FactSet connector is authorised; the page renders the schema with "pending" |
+| `peers.js` (`window.GAP_PEERS`) | Peer multiples (ASUR, OMA, Aena, Fraport, Zürich, Auckland): prices, USD market caps, EV, LTM and NTM EV/EBITDA and P/E, dividend yield, leverage, USD returns; GAP consensus (NTM, FY2026–28, price targets, ratings) | **On request** from the FactSet connector in a Claude session: the pull is saved as `tools/gap/raw/factset/<date>.json` and `scripts/gap/build-peers.mjs` writes the file. No FactSet credentials in GitHub Actions, so it does not refresh on a schedule; every figure carries its snapshot dates |
 
 The **operating metrics** card at the top of section 01 (domestic / international / total terminal
 passengers, CBX users, aeronautical and non-aeronautical revenue per passenger, CBX revenue per CBX user)
@@ -42,6 +42,7 @@ scripts/gap/fetch-market.mjs      Yahoo Finance + FRED  -> site/gap/data/market.
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit
+scripts/gap/build-peers.mjs       tools/gap/raw/factset/*.json (FactSet snapshot, on request) -> site/gap/data/peers.js
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the marker keeps GitHub Actions from re-running
 ```
 
@@ -88,8 +89,17 @@ to the regex (or a new row to the catalogue, which also adds it to the page), ru
 * CBX or FIBRA GAP milestones → `cbx.timeline[]`, `fibra.status_es/en`;
 * the PMD / maximum-tariff cycle is renewed → `regulation`, and the DCF `capexMxnM` profile.
 
-**`site/gap/data/peers.js`** — populate from FactSet (field contract in the file header). The page
-shows GAP's own multiples computed live and each peer's row once values are non-null.
+**`site/gap/data/peers.js`** — never hand-edit. To refresh (a Claude session with the FactSet
+AI-Ready Data connector): pull, for GAPB-MX and the six peers, GlobalPrices (`prices` in local and
+USD for the last close, `market_value`, `annualized_dividends`, `returns_range` YTD and 1-year in
+USD), Fundamentals (`FF_SALES`, `FF_EBITDA_OPER`, `FF_NET_INC`, `FF_EBITDA_OPER_MGN`, `FF_PE`
+with periodicity LTM — LTM_SEMI for Zürich, ANN for Auckland — and `FF_NET_DEBT`,
+`FF_MIN_INT_ACCUM` at the latest balance sheet) and EstimatesConsensus (`consensus_rolling`
+NTMA for SALES, EBITDA, EPS; `PRICE_TGT` FY1; `ratings`; for GAP also `consensus_fixed`
+FY2026–FY2028). Write the values into `tools/gap/raw/factset/<YYYY-MM-DD>.json` following the
+previous file, then `node scripts/gap/build-peers.mjs` (it takes the newest snapshot by name).
+The page computes GAP's own row live and uses the FactSet consensus only as the NTM denominator;
+the peer rows, medians and the consensus cards come from the snapshot.
 
 ## Access (password)
 
