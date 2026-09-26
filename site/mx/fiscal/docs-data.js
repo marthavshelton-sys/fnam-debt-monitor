@@ -7,27 +7,26 @@
 // document's date) and the page prints it next to the figures. `approx: true` marks values taken
 // from press coverage rather than the official table; the page shows them with "~".
 window.MX_DOCS = {
-  "updatedAt": "2026-09-24",
+  "updatedAt": "2026-09-26",
   "cgpe": {
     "title": "Criterios Generales de Política Económica 2027",
     "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
     "asOf": "2026-09-08",
-    "approx": true,
     "shrfspPct": { "2026": 54.0, "2027": 55.0 },
     "rfspPct": { "2026": 4.1, "2027": 3.9 },
-    "budgetDeficitPct": { "2026": 3.0, "2027": 3.4 },
-    "gdpNominalBn": { "2026": 37.2, "2027": 39.7 },
+    "budgetDeficitPct": { "2026": 3.6, "2027": 3.4 },
+    "gdpNominalBn": { "2026": 37.2, "2027": 39.4 },
     "taxRevenuePct": { "2027": 15.9 },
     "analystsSource": { "es": "Encuesta Citi, 22 sep. 2026", "en": "Citi survey, 22 Sep 2026" },
     "rows": [
       { "es": "Crecimiento del PIB real", "en": "Real GDP growth", "shcp2026": "1.0–2.0%", "analysts2026": "1.4%", "shcp2027": "1.5–2.5%", "analysts2027": "1.8%" },
       { "es": "Inflación, cierre de año", "en": "Inflation, year-end", "shcp2026": "3.5%", "analysts2026": "3.93%", "shcp2027": "3.0%", "analysts2027": "3.83%" },
-      { "es": "Tipo de cambio, cierre de año", "en": "Exchange rate, year-end", "shcp2026": "—", "analysts2026": "17.50", "shcp2027": "18.0", "analysts2027": "18.00" },
+      { "es": "Tipo de cambio, cierre de año", "en": "Exchange rate, year-end", "shcp2026": "17.8", "analysts2026": "17.50", "shcp2027": "18.0", "analysts2027": "18.00" },
       { "es": "Tasa objetivo, cierre de año", "en": "Target rate, year-end", "shcp2026": "—", "analysts2026": "6.50%", "shcp2027": "—", "analysts2027": "6.50%" },
       { "es": "Cetes 28 días, promedio", "en": "28-day Cetes, average", "shcp2026": "—", "analysts2026": "—", "shcp2027": "6.00%", "analysts2027": "—" },
-      { "es": "Mezcla mexicana, US$/barril", "en": "Mexican crude basket, USD/bbl", "shcp2026": "—", "analysts2026": "—", "shcp2027": "61.8", "analysts2027": "—" },
+      { "es": "Mezcla mexicana, US$/barril", "en": "Mexican crude basket, USD/bbl", "shcp2026": "78.4", "analysts2026": "—", "shcp2027": "61.8", "analysts2027": "—" },
       { "es": "RFSP, % del PIB", "en": "RFSP, % of GDP", "shcp2026": "4.1%", "analysts2026": "—", "shcp2027": "3.9%", "analysts2027": "—" },
-      { "es": "Déficit presupuestario, % del PIB", "en": "Budget deficit, % of GDP", "shcp2026": "3.0%", "analysts2026": "—", "shcp2027": "3.4%", "analysts2027": "—" }
+      { "es": "Déficit presupuestario, % del PIB", "en": "Budget deficit, % of GDP", "shcp2026": "3.6%", "analysts2026": "—", "shcp2027": "3.4%", "analysts2027": "—" }
     ]
   },
   "paf": {
