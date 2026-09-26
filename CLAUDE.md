@@ -38,6 +38,10 @@ dashboards, everything built from public data by GitHub Actions.
   and `tools/mx-macro/template.html` — edit the template and the page together. `site/fiscal`, `site/mx/fiscal`.
 - Harvesters, parsers and validators live in `scripts/<slug>/`; raw files, reference data and runbooks in
   `tools/<slug>/`; schedules in `.github/workflows/<slug>-refresh.yml`.
+- FactSet is available only as a connector inside a Claude session (no credentials in GitHub Actions).
+  Peer multiples and consensus for GAP are a dated snapshot: save the pull as
+  `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
+  Forward multiples (NTM EV/EBITDA, NTM P/E) go first; the owner asked for them.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
