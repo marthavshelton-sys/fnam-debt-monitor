@@ -140,6 +140,23 @@ change in GAP data today." If the data files fail to load or `validate-data.mjs`
 one-line pipeline alert once per distinct failure. Manage or pause it from the Routines list in
 claude.ai/code.
 
+**Known failure mode:** the routine's container persists between runs, so its STEP 0 checkout is a
+reused clone, not a fresh one. If `main`'s published history is ever rewritten upstream (a force-push,
+not something any workflow in this repo does — see the `git pull --rebase` retries in
+`.github/workflows/*-refresh.yml`, which only rebase a run's own unpushed commit and never rewrite
+published history), the cached local `main` stops being a fast-forward of `origin/main` and a plain
+`git pull --ff-only` aborts. STEP 0 must fall back to resetting local `main` onto `origin/main` when
+the fast-forward pull fails — the routine never carries uncommitted work between runs, so this is safe:
+
+```
+git fetch origin main && git checkout main && (git pull --ff-only origin main || git reset --hard origin/main)
+```
+
+Without the fallback, a rewrite silently kills that day's run before it ever compares data — no
+failure note, nothing to email. This happened 2026-09-25 (see `notify-state.json` history). If any
+other scheduled routine on this repo reuses the plain `git pull --ff-only` STEP 0, it carries the same
+exposure and should get the same fallback.
+
 
 ## Board presentation (PDF) — the "Presentación (PDF)" button
 
