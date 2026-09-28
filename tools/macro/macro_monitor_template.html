@@ -97,8 +97,7 @@
      drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
   @media (max-width: 860px) {
-    .shell { grid-template-columns: minmax(0, 1fr); }
-    main { min-width: 0; padding: 20px 16px 48px; }
+    .shell { grid-template-columns: 1fr; }
     .rail { display: none; }
     .mobilebar {
       display: flex; align-items: center; gap: 10px;
@@ -528,13 +527,6 @@
     line-height: 1.7;
   }
   footer a { color: var(--text-secondary); }
-  /* phones: nothing below 11 px, and the category grid must not force the page wider than the screen */
-  @media (max-width: 860px) {
-    .kpi-foot, .mstat-sub, .donut-center .s, .stable th, .note-sm, .tooltip .t-date, .exec-title, .cat-subset-tag, .soon-pill, .manual-badge, .stale-pill { font-size: 11px; }
-    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    .cat-card { min-width: 0; }
-    .cat-card-head { flex-wrap: wrap; gap: 2px 8px; }
-  }
 </style>
 
 <div class="mobilebar" id="mobileBar">
@@ -2736,7 +2728,9 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El excess CAPE yield (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con el Tesoro a 10 años en " + gs10 + "%.",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
     exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el excess CAPE yield —el colchón que ofrecen las acciones sobre el rendimiento real de los bonos— y si las utilidades alcanzan a los precios.",
-    sprNext: d => "Próximo informe semanal de la EIA: previsto el " + d + " (miércoles, 10:30 ET; un día después si hay feriado)",
+    sprNext: (d, w) => "Próximo informe semanal de la EIA: previsto el " + d + ", con la semana que termina el " + w + " (miércoles, 10:30 ET; un día después si hay feriado)",
+    sprAsOfWeek: (w, r) => "Última lectura semanal: semana que terminó el " + w + " (publicada por la EIA el " + r + ")",
+    fcAsOfWeek: (w, r) => "NFCI: semana que terminó el " + w + " (publicado por la Fed de Chicago el " + r + "); tasas y diferenciales, al último día disponible",
     fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
     capeNext: m => "Próxima actualización de Shiller: prevista a principios de " + m + " (mensual, sin fecha fija)",
@@ -3712,7 +3706,9 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year Treasury at " + gs10 + "%.",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
-    sprNext: d => "Next EIA weekly report: expected " + d + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
+    sprNext: (d, w) => "Next EIA weekly report: expected " + d + ", covering the week ending " + w + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
+    sprAsOfWeek: (w, r) => "Latest weekly reading: week ending " + w + " (released by EIA " + r + ")",
+    fcAsOfWeek: (w, r) => "NFCI: week ending " + w + " (released by the Chicago Fed " + r + "); yields and spreads through the latest available day",
     fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
     capeNext: m => "Next Shiller update: expected early " + m + " (monthly, no fixed date)",
@@ -4546,7 +4542,7 @@ function renderDualLineChart(cfg) {
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", ML - 8); label.setAttribute("y", yVal(v)+3.5);
     label.setAttribute("text-anchor","end");
-    label.setAttribute("font-size","11"); label.setAttribute("font-family","IBM Plex Mono, monospace");
+    label.setAttribute("font-size","10"); label.setAttribute("font-family","IBM Plex Mono, monospace");
     label.setAttribute("fill","var(--text-muted)");
     label.textContent = axisFmt(v);
     svg.appendChild(label);
@@ -4564,7 +4560,7 @@ function renderDualLineChart(cfg) {
     const targetLabel = document.createElementNS(ns,"text");
     targetLabel.setAttribute("x", ML + 4); targetLabel.setAttribute("y", targetY - 5);
     targetLabel.setAttribute("text-anchor","start");
-    targetLabel.setAttribute("font-size","11"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
+    targetLabel.setAttribute("font-size","9.5"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
     targetLabel.setAttribute("fill","var(--text-muted)");
     targetLabel.textContent = T.fedTarget;
     svg.appendChild(targetLabel);
@@ -4578,7 +4574,7 @@ function renderDualLineChart(cfg) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xt); tick.setAttribute("y", H - 8);
       tick.setAttribute("text-anchor","middle");
-      tick.setAttribute("font-size","11"); tick.setAttribute("font-family","IBM Plex Mono, monospace");
+      tick.setAttribute("font-size","10"); tick.setAttribute("font-family","IBM Plex Mono, monospace");
       tick.setAttribute("fill","var(--text-muted)");
       tick.textContent = d.slice(0,4);
       svg.appendChild(tick);
@@ -4639,7 +4635,7 @@ function renderDualLineChart(cfg) {
     svg.appendChild(flag);
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", flagX + flagW/2); label.setAttribute("y", flagY + 11);
-    label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","11"); label.setAttribute("font-weight","600");
+    label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","9.5"); label.setAttribute("font-weight","600");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-secondary)");
     label.textContent = ann.label;
     svg.appendChild(label);
@@ -4749,7 +4745,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
   [minV, 0, maxV].forEach(v => {
     const label = document.createElementNS(ns,"text");
     label.setAttribute("x", padL - 6); label.setAttribute("y", yOf(v) + 3);
-    label.setAttribute("text-anchor","end"); label.setAttribute("font-size","11");
+    label.setAttribute("text-anchor","end"); label.setAttribute("font-size","9");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-muted)");
     label.textContent = opts.fmt ? opts.fmt(v) : (v.toFixed(adec) + "%");
     svg.appendChild(label);
@@ -4773,7 +4769,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     if (i === points.length - 1) {
       const val = document.createElementNS(ns,"text");
       val.setAttribute("x", xOf(i)); val.setAttribute("y", (p.mom >= 0 ? top - 4 : top + h + 11));
-      val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","11"); val.setAttribute("font-weight","600");
+      val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","10"); val.setAttribute("font-weight","600");
       val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill","var(--text-primary)");
       val.textContent = vfmt(p.mom);
       svg.appendChild(val);
@@ -4799,7 +4795,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     if (i % 6 === 0 || i === points.length - 1) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xOf(i)); tick.setAttribute("y", H - 4);
-      tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","11");
+      tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","8.5");
       tick.setAttribute("font-family","IBM Plex Mono, monospace"); tick.setAttribute("fill","var(--text-muted)");
       tick.textContent = opts.labelFmt ? opts.labelFmt(p.d) : p.d.slice(2);
       svg.appendChild(tick);
@@ -5666,7 +5662,7 @@ function renderDivergingTileMap(containerId, legendId, valueFn, decimals) {
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns, "text");
     val.setAttribute("x", x+cell/2); val.setAttribute("y", y+cell/2+10);
-    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "11");
+    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "8");
     val.setAttribute("font-family", "IBM Plex Mono, monospace"); val.setAttribute("fill", ink);
     val.textContent = (v === null || v === undefined) ? "—" : disp(v); svg.appendChild(val);
   });
@@ -5853,7 +5849,9 @@ function renderFinCond() {
   const fmtWeek = d => fmtDateDMY(d);
   const pctFmt = v => v.toFixed(2) + "%";
 
-  document.getElementById("fcAsOfLine").textContent = T.dataAsOf(fmtDay(cur.d));
+  // The NFCI is dated to the Friday its week ends and published the following Wednesday.
+  (function () { const rel = new Date(cur.d + "T00:00:00"); rel.setDate(rel.getDate() + 5);
+    document.getElementById("fcAsOfLine").textContent = T.fcAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel)); })();
   document.getElementById("fcNextReleaseLine").textContent = T.fcNext(fmtDateDMY(nextWeeklyRelease(cur.d, 3, 5)));
   document.getElementById("fcRefreshedLine").textContent = freshnessLabel(FINCOND_SOURCE, FINCOND.fetchedAt, "FRED");
 
@@ -6814,7 +6812,7 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     ln.setAttribute("stroke-width","1"); svg.appendChild(ln);
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",ML-7); tx.setAttribute("y",y(gv)+3.5);
-    tx.setAttribute("text-anchor","end"); tx.setAttribute("font-size","11");
+    tx.setAttribute("text-anchor","end"); tx.setAttribute("font-size","10");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
     tx.textContent = axisFmt(gv); svg.appendChild(tx);
   }
@@ -6825,7 +6823,7 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     if (i === n-1 && i % tickStep !== 0 && (i % tickStep) < tickStep / 2) return;
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",x(i)); tx.setAttribute("y",H-6);
-    tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","11");
+    tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","9.5");
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
     tx.textContent = tickFmt(lb);
     svg.appendChild(tx);
@@ -6919,7 +6917,7 @@ function renderTileMap(containerId, legendId, rateFn, decimals) {
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns,"text");
     val.setAttribute("x",x+cell/2); val.setAttribute("y",y+cell/2+10);
-    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","11");
+    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","8");
     val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill",ink);
     val.textContent = v > 0 ? disp(v) : "—"; svg.appendChild(val);
   });
@@ -7289,8 +7287,16 @@ function renderSpr() {
   const lastBefore = d => { let r = null; for (const p of W) { if (p.d < d) r = p; else break; } return r; };
   const termName = id => ({ obama: T.sprTermObama, trump1: T.sprTermTrump1, biden: T.sprTermBiden, trump2: T.sprTermTrump2 })[id];
 
-  document.getElementById("sprAsOfLine").textContent = T.dataAsOf(fmtDateDMY(cur.d));
-  document.getElementById("sprNextReleaseLine").textContent = T.sprNext(fmtDateDMY(nextWeeklyRelease(cur.d, 3, 12)));
+  // EIA's weekly stocks are dated to the Friday the week ends and published the
+  // following Wednesday: say both, so the reference date and the later
+  // publication/check dates on this page do not read as a mismatch.
+  (function () {
+    const rel = (SPR.files && SPR.files.weekly) ? new Date(SPR.files.weekly + "T00:00:00") : new Date(cur.d + "T00:00:00");
+    if (!(SPR.files && SPR.files.weekly)) rel.setDate(rel.getDate() + 5);
+    document.getElementById("sprAsOfLine").textContent = T.sprAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel));
+    const nx = nextWeeklyRelease(cur.d, 3, 12); const cover = new Date(nx); cover.setDate(cover.getDate() - 5);
+    document.getElementById("sprNextReleaseLine").textContent = T.sprNext(fmtDateDMY(nx), fmtDateDMY(cover));
+  })();
   document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
 
   // ---- KPIs ----
@@ -7372,7 +7378,7 @@ function renderSpr() {
     const sites = SPR.capacity.sites.slice().sort((a, b) => b.cap - a.cap);
     const bs = SPR.bySite && SPR.bySite.sites && SPR.bySite.sites.length ? SPR.bySite : null;
     const invOf = n => bs ? bs.sites.find(s => s.name === n) : null;
-    document.getElementById("sprSitesAsOf").textContent = bs ? T.sprSitesAsOf(fmtDateDMY(bs.asOf), fmtDateDMY(SPR.capacity.fetchedAt)) : fmtDateDMY(SPR.capacity.fetchedAt);
+    // The "read on" date is filled by renderFileDateLines (live check date).
     const tbl = document.getElementById("sprSitesTable");
     if (bs) {
       const cell = (c, j) => "<td" + (j ? " class=\"num\"" : "") + ">" + c + "</td>";
@@ -7394,7 +7400,7 @@ function renderSpr() {
   if (SPR.image && SPR.image.file) {
     const img = document.getElementById("sprImage");
     img.src = SPR.image.file + "?v=" + (SPR.image.published || "").replace(/-/g, "");
-    document.getElementById("sprReportAsOf").textContent = T.sprReportPublished(fmtDateDMY(SPR.image.published), fmtDateDMY(SPR.image.fetchedAt || SPR.fetchedAt));
+    // The "posted · checked" line is filled by renderFileDateLines (live check date).
     document.getElementById("sprReportCallout").innerHTML = "<div>" + T.sprReportNote(fmtDateDMY(nextWeeklyRelease(SPR.image.published, 1, 7))) + "</div>";
   }
 }
@@ -8141,7 +8147,17 @@ function fileDateLine(id, proc, fileDate, fallbackChecked, label) {
 }
 function renderFileDateLines() {
   if (CAPE) fileDateLine("capeRefreshedLine", "process_cape", CAPE.fileDate, CAPE.fetchedAt, T.fileShiller);
-  if (SPR) fileDateLine("sprRefreshedLine", "process_spr", SPR.files && SPR.files.weekly, SPR.fetchedAt, T.fileEia);
+  if (SPR) {
+    fileDateLine("sprRefreshedLine", "process_spr", SPR.files && SPR.files.weekly, SPR.fetchedAt, T.fileEia);
+    // Every "checked" date on the SPR page comes from the same run, so they agree.
+    if (SPR.image && SPR.image.file) document.getElementById("sprReportAsOf").textContent =
+      T.sprReportPublished(fmtDateDMY(SPR.image.published), fmtDateDMY(checkedDate("process_spr", SPR.image.fetchedAt || SPR.fetchedAt)));
+    if (SPR.capacity) {
+      const bs = SPR.bySite && SPR.bySite.sites && SPR.bySite.sites.length ? SPR.bySite : null;
+      const c = fmtDateDMY(checkedDate("process_spr", SPR.capacity.fetchedAt || SPR.fetchedAt));
+      document.getElementById("sprSitesAsOf").textContent = bs ? T.sprSitesAsOf(fmtDateDMY(bs.asOf), c) : c;
+    }
+  }
   if (SUPPLY) fileDateLine("scRefreshedLine", "process_supply", SUPPLY.gscpiFileDate, SUPPLY.fetchedAt, T.fileGscpi);
   if (UMICH) fileDateLine("confRefreshedLine", "process_umich", null, UMICH_REFRESHED_AT, T.fileUmich);
   const C = LABOR_STATIC && LABOR_STATIC.challenger;
