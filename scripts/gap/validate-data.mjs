@@ -120,7 +120,22 @@ while (cur <= months.at(-1)) {
 
 // ---- data health (never fails the build)
 const mk = await load('../../site/gap/data/market.js');
-Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: { 'GAPB.MX': 400 } });
+const rf = await loadJs('../../site/gap/data/reference.js', 'GAP_REF');
+const TODAY_ISO = new Date().toISOString().slice(0, 10);
+Q.marketStale(mk, { prices: { '*': 5 }, fx: { USDMXN: 7 }, rates: { MX10Y: 45, US10Y: 7 }, dividends: {} });
+// Dividends: the exchange record is compared with the latest AGM resolution, so an instalment not yet paid
+// inside its 12-month window reads as an outstanding balance, not as a stalled feed.
+{
+  const pts = (((mk.dividends || {})['GAPB.MX'] || {}).points) || [];
+  const agm = (rf.dividends || []).slice(-1)[0];
+  const since = agm ? pts.filter((p) => p[0] >= agm.agmDate) : [];
+  const paid = since.reduce((a, p) => a + p[1], 0);
+  const lastPt = pts.length ? pts[pts.length - 1][0] : null;
+  const open = agm ? Math.max(0, agm.dps - paid) : 0;
+  const inWindow = agm && agm.payableUntil && TODAY_ISO <= agm.payableUntil;
+  Q.R.stale.push({ series: 'dividends GAPB.MX (vs AGM resolution)', lastDate: lastPt, ageDays: ageDays(lastPt), limitDays: null, status: !agm || open < 0.01 || inWindow ? 'ok' : 'warn',
+    note: agm ? { es: `asamblea ${agm.agmYear}: pagados Ps. ${paid.toFixed(2)} de Ps. ${agm.dps.toFixed(2)}${open >= 0.01 ? `; saldo Ps. ${open.toFixed(2)} pagadero hasta ${agm.payableUntil}${inWindow ? '' : ' (plazo vencido)'}` : ''}`, en: `${agm.agmYear} AGM: Ps. ${paid.toFixed(2)} of Ps. ${agm.dps.toFixed(2)} paid${open >= 0.01 ? `; balance Ps. ${open.toFixed(2)} payable until ${agm.payableUntil}${inWindow ? '' : ' (window expired)'}` : ''}` } : null });
+}
 const expQ = expectedQuarter(35), expM = expectedMonth(12);
 Q.period('latest quarter (financials.js)', last.id, expQ, ageDays(((last.sources || {}).is || {}).date));
 const lastM = traffic.months.at(-1);
@@ -130,7 +145,6 @@ try { const ns = JSON.parse(await readFile(new URL('../../tools/gap/notify-state
 
 const cm = await loadJs('../../site/gap/data/comments.js', 'GAP_COMMENTS');
 const sm = await loadJs('../../site/gap/data/summary.js', 'GAP_SUMMARY');
-const rf = await loadJs('../../site/gap/data/reference.js', 'GAP_REF');
 const ytdId = `${last.fy}M${last.q * 3}`;
 const has = (p) => !!(cm.periods && cm.periods[p]);
 Q.curated('comments.js', has(last.id), { es: `comentarios de ${last.id} ${has(last.id) ? 'presentes' : 'AUSENTES'}`, en: `comments for ${last.id} ${has(last.id) ? 'present' : 'MISSING'}` });

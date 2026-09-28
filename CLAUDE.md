@@ -135,5 +135,8 @@ dashboards, everything built from public data by GitHub Actions.
 - Guidance basis strings in `data/guidance.js` are English; the pages and decks carry their own Spanish wording.
 - USD/MXN in every company model is Banxico's FIX rate (SIE SF43718, `BANXICO_TOKEN`) with FRED DEXMXUS only as
   fallback: the FRED mirror stalled for over a week in September 2026. Shared reader `scripts/lib/banxico-fx.mjs`.
+- GAP dividends: the AGM approves one amount per share payable in instalments over the following 12 months
+  (`REF.dividends[].payableUntil`); the exchange record in `market.js` shows only what has gone ex. Compare the
+  two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.

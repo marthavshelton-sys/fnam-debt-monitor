@@ -369,9 +369,18 @@
       let y = this.page('L', this.T('08 · Dividendos', '08 · Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa, incluye reembolsos de capital) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share, including capital reductions) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
       const gap = 20, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       // AGM bullets
-      const ag = (M.REF.dividends || []).map((d) => this.T(`Asamblea ${d.agmYear} (${this.date(d.agmDate)}): Ps. ${this.n(d.dps, 2)} por acción. ${M.LS(d.note)}`, `AGM ${d.agmYear} (${this.date(d.agmDate)}): Ps. ${this.n(d.dps, 2)} per share. ${M.LS(d.note)}`));
-      const px = M.lastPx; const last = (M.REF.dividends || []).slice(-1)[0];
-      if (last && px) ag.push(this.T(`Rendimiento del DPS aprobado en ${last.agmYear} sobre el precio actual (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * last.dps / px[1])}.`, `Yield of the DPS approved in ${last.agmYear} on the current price (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * last.dps / px[1])}.`));
+      // One bullet per AGM: the approved amount and the instalments the exchange has recorded since that AGM
+      // (the page carries the full notes); the latest AGM adds the unpaid balance and the yield on the current price.
+      const px = M.lastPx; const agms = M.REF.dividends || []; const recTo = this.date(px ? px[0] : M.MK.generatedAt);
+      const ag = agms.map((d, i) => {
+        const next = agms[i + 1]; const since = divs.filter((x) => x[0] >= d.agmDate && (!next || x[0] < next.agmDate)); const paid = since.reduce((a, x) => a + x[1], 0);
+        const inst = since.map((x) => `Ps. ${this.n(x[1], 2)} ex ${this.date(x[0])}`).join(', ');
+        const isLast = i === agms.length - 1; const open = Math.max(0, d.dps - paid);
+        const head = this.T(`Asamblea ${d.agmYear} (${this.date(d.agmDate)}): **Ps. ${this.n(d.dps, 2)} por acción**`, `${d.agmYear} AGM (${this.date(d.agmDate)}): **Ps. ${this.n(d.dps, 2)} per share**`);
+        const paidTxt = this.T(since.length ? ` · pagado: ${inst}` : ' · sin exhibiciones registradas en bolsa', since.length ? ` · paid: ${inst}` : ' · no instalment recorded on the exchange');
+        const tail = isLast ? this.T(`${open >= 0.01 ? `; saldo Ps. ${this.n(open, 2)} pagadero hasta el ${this.date(d.payableUntil)}` : ''} (registro al ${recTo})${px ? ` · rendimiento sobre el precio actual (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * d.dps / px[1])}` : ''}.`, `${open >= 0.01 ? `; balance Ps. ${this.n(open, 2)} payable until ${this.date(d.payableUntil)}` : ''} (record to ${recTo})${px ? ` · yield on the current price (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * d.dps / px[1])}` : ''}.`) : '.';
+        return head + paidTxt + tail;
+      });
       let yl = this.bullets(ag, this.cur.x0, y, wl, 8.6, { gap: 3 });
       yl = this.heading(this.T('Dividendo por acción por año de pago (Ps.)', 'Dividend per share by payment year (Ps.)'), this.cur.x0, yl + 4, 10);
       const h = 150;
