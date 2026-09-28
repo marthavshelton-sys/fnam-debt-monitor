@@ -81,12 +81,15 @@ committed with the data.
 The issue is only a queue: the owner does not receive GitHub's own notification
 emails (she turned them off to avoid the noise). Delivery is the Claude Routine
 "FNAM US Macro: email material changes" (cloud, daily at 14:45 and 20:45 UTC,
-right after the two refresh runs). It reads the open issues opened by
-github-actions[bot], emails the owner the body of every "MATERIAL: " issue in
-one message (the routine's final message is what the Routines service emails,
-the same mechanism the GAP/OMA/ASUR routines use), then closes the issues it
-delivered and the non-material "Macro update: " ones without emailing them.
-A "MATERIAL: " issue still open a day later means the routine did not run;
+right after the two refresh runs). It is read-only: it reads the issues
+opened by github-actions[bot] through the public GitHub API and emails the
+owner the body of every "MATERIAL: " issue created since the previous scheduled
+run (14:45 run: since 20:45 the day before; 20:45 run: since 14:45), in one
+message. The routine's final message is what the Routines service emails, the
+same mechanism the GAP/OMA/ASUR routines use. A manual run outside those hours
+covers the last 7 days. "Macro update: " issues are never emailed. The routine
+does not close issues, so they accumulate harmlessly; close them by hand when
+convenient. A missing alert usually means the routine did not run at its time;
 check the Routines page before touching `alerts.ps1`.
 
 ## Freshness lines for file-based sources
