@@ -2,7 +2,7 @@
   "_comment": "FactSet consensus snapshot for the valuation section (06), the header tile, the DCF seed and the deck. Written by the FactSet refresh routine through the FactSet AI-Ready Data connector (tools/oracle/FACTSET-PROMPT.md lists the exact calls); GitHub Actions cannot reach FactSet. US$ millions unless stated; per-share in US$. Ratios are computed on the page, never stored here. Keep the schema: build-data.mjs reads it into data/factset.js and data/peers.js and validate-data.mjs checks it.",
   "as_of": "2026-09-28",
   "price_date": "2026-09-25",
-  "fetched": "2026-09-27",
+  "fetched": "2026-09-28",
   "source": { "title": "FactSet Estimates (consensus), FactSet Global Prices and FactSet Fundamentals via the FactSet AI-Ready Data connector", "url": "https://www.factset.com/" },
   "fiscal_year_note": "FactSet labels Oracle's fiscal year by the calendar year in which it starts (FactSet fiscalYear 2026 = year ending 2027-05-31 = Oracle's fiscal 2027). Records below carry Oracle's own label (fy) and the fiscal end date.",
   "basis_note": "Consensus EPS follows the brokers' majority basis (non-GAAP for Oracle). Consensus EBITDA is broker-adjusted, not the model's GAAP operating income + D&A. FactSet net debt (FF_NET_DEBT) includes lease liabilities: Oracle 132,066 at 2026-08-31 versus the model's reported 88,260 (notes payable minus cash and marketable securities); the 43,806 difference is the operating and finance lease liabilities.",
@@ -49,7 +49,7 @@
         "fcf": { "mean": -5985, "median": -4127, "high": 30189, "low": -49081, "count": 13, "up": 4, "down": 5 } },
       { "fy": "FY2030", "fiscal_end": "2030-05-31", "factset_fiscal_year": 2029,
         "sales": { "mean": 217684, "median": 224621, "high": 233746, "low": 169677, "count": 9, "up": 2, "down": 0 },
-        "eps": null,
+        "eps": { "mean": 19.760, "median": 20.47, "high": 22.13, "low": 12.67, "count": 10, "up": 4, "down": 2 },
         "ebitda": { "mean": 131971, "median": 137730, "high": 158589, "low": 93834, "count": 4, "up": 4, "down": 0 },
         "capex": { "mean": 73075, "median": 79217, "high": 85549, "low": 45510, "count": 5, "up": 3, "down": 1 },
         "fcf": { "mean": 18064, "median": 22359, "high": 53727, "low": -29552, "count": 6, "up": 3, "down": 3 } }
@@ -84,7 +84,7 @@
   "peers": [
     { "ticker": "MSFT-US", "name": "Microsoft", "group": "software", "price": 516.17, "price_date": "2026-09-25", "market_cap_usd_m": 3832844, "shares_m": 7425.545, "net_debt_usd_m": 51970, "net_debt_date": "2026-06-30", "iad_usd": 3.92,
       "ntm": { "eps": 20.659, "ebitda": 255246, "sales": 409332 }, "fy1": { "end": "2027-06-30", "eps": 19.734 }, "fy2": { "end": "2028-06-30", "eps": 23.482 } },
-    { "ticker": "SAP-US", "name": "SAP", "group": "software", "price": 210.68, "price_date": "2026-09-25", "market_cap_usd_m": 243168, "market_cap_note": "ADR price in USD × 1,154.2 M shares (FactSet market value is reported in EUR for SAP)", "shares_m": 1154.204, "net_debt_usd_m": -654, "net_debt_date": "2026-06-30", "iad_usd": 2.9407,
+    { "ticker": "SAP-US", "name": "SAP", "group": "software", "price": 210.68, "price_date": "2026-09-25", "market_cap_usd_m": 243168, "market_cap_note": "ADR price in USD × 1,154.2 M shares (FactSet market value is reported in EUR for SAP)", "shares_m": 1154.204, "net_debt_usd_m": -654, "net_debt_date": "2026-06-30", "iad_usd": 2.941,
       "ntm": { "eps": 9.106, "ebitda": 16464, "sales": 50039 }, "fy1": { "end": "2026-12-31", "eps": 8.073 }, "fy2": { "end": "2027-12-31", "eps": 9.464 } },
     { "ticker": "CRM-US", "name": "Salesforce", "group": "software", "price": 234.02, "price_date": "2026-09-25", "market_cap_usd_m": 192598, "shares_m": 823.0, "net_debt_usd_m": 30973, "net_debt_date": "2026-07-31", "iad_usd": 1.76,
       "ntm": { "eps": 16.305, "ebitda": 20277, "sales": 49300 }, "fy1": { "end": "2027-01-31", "eps": 16.753 }, "fy2": { "end": "2028-01-31", "eps": 16.072 } },
