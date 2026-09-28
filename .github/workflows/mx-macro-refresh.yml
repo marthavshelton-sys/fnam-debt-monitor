@@ -15,8 +15,11 @@
 #
 # Health alarm: after every refresh, scripts/mx-macro/health.mjs flags any series no provider
 # has answered for in 7 days (the page silently keeps old data in that case), and the last step
-# opens - or comments on - a GitHub issue labeled mx-macro-health when the run failed or a
-# series is stale. The first healthy run afterwards closes the issue.
+# opens - or comments on - a GitHub issue labeled mx-macro-health ("SOURCE DOWN: MX macro - ...")
+# when the run failed or a series is stale. The first healthy run afterwards closes the issue.
+# Material-change alerts: scripts/mx-macro/alerts.mjs (see its header). The owner does not get
+# GitHub notification mail; the Claude Routine "FNAM US Macro: email material changes" emails
+# newly opened MATERIAL (MX) and SOURCE DOWN issues (tools/mx-macro/README.md).
 #
 # Required repository secrets: BANXICO_TOKEN (free, https://www.banxico.org.mx/SieAPIRest/service/v1/token)
 # and INEGI_TOKEN (free registration, https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify)
@@ -121,6 +124,18 @@ jobs:
         if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         run: node scripts/mx-macro/build.mjs
 
+      # Material-change alerts: new releases that cross a threshold in scripts/mx-macro/alerts.mjs
+      # become ONE "MATERIAL (MX): ..." issue per run; the Claude Routine "FNAM US Macro: email
+      # material changes" emails it (the owner does not get GitHub notification mail). State lives
+      # in tools/mx-macro/data/alerts_state.json and is committed with the data. main only, so a
+      # branch run never alerts.
+      - name: Queue material-change alerts (GitHub issue)
+        id: alerts
+        if: always() && github.ref == 'refs/heads/main' && steps.build.outcome == 'success' && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/mx-macro/alerts.mjs
+
       - name: Commit if anything changed
         id: commit
         if: always() && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
@@ -180,7 +195,7 @@ jobs:
                 }
               } else {
                 try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Mexico macro dashboard refresh needs attention' }); } catch (e) { /* exists */ }
-                await github.rest.issues.create({ ...context.repo, title: 'Mexico macro dashboard: refresh needs attention', labels: [label], body });
+                await github.rest.issues.create({ ...context.repo, title: 'SOURCE DOWN: MX macro - refresh needs attention', labels: [label], body });
               }
             } else if (issue) {
               await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Healthy again: every series answered by a provider in ${runUrl}. Closing.` });

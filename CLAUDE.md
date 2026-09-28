@@ -71,7 +71,8 @@ dashboards, everything built from public data by GitHub Actions.
   Diagnostics run on the runner via workflow_dispatch inputs (`probe`, `search`, `url`, `post`,
   `xlsx`); nothing is fetched or committed in that mode. After each refresh `health.mjs` flags any
   series no provider has answered for in 7 days and the workflow opens/closes an issue labeled
-  `mx-macro-health`.
+  `mx-macro-health` (title "SOURCE DOWN: MX macro - ..."). `alerts.mjs` opens one "MATERIAL (MX): ..."
+  issue per run when a release crosses its thresholds; the US macro alert routine emails both kinds.
 - `site/macro` (US; Windows PowerShell, `tools/macro/`). The two yearly BLS weights tables arrive as
   PRs from scheduled browser tasks because BLS answers scripted requests with 403
   (`process_weights.ps1` probes every run in case that changes). Challenger job cuts are read from

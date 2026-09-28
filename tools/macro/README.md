@@ -95,7 +95,9 @@ end to end on 28-Sep-2026 (issue #63 delivered). A manual run outside those hour
 covers the last 7 days. "Macro update: " issues are never emailed. The routine
 does not close issues, so they accumulate harmlessly; close them by hand when
 convenient. A missing alert usually means the routine did not run at its time;
-check the Routines page before touching `alerts.ps1`.
+check the Routines page before touching `alerts.ps1`. The same routine also
+emails the Mexico macro dashboard's "MATERIAL (MX): " and "SOURCE DOWN: MX macro"
+issues (tools/mx-macro/README.md).
 
 ## Freshness lines for file-based sources
 
