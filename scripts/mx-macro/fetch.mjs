@@ -73,7 +73,9 @@ async function banxico(cand, spec) {
     const [dd, mm, yyyy] = o.fecha.split('/');
     points.push([normDate(`${yyyy}-${mm}-${dd}`, spec.freq), r4(v)]);
   }
-  return { title: s.titulo || '', points, url: `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${cand.id}/datos/oportuno` };
+  // The page links the series to its public SIE table (cand.page, from the manifest): the API
+  // endpoint below needs a token and shows 'Token invalido' to anyone who clicks it.
+  return { title: s.titulo || '', points, url: cand.page || `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${cand.id}/datos/oportuno` };
 }
 
 // ---------------- FRED ----------------
