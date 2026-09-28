@@ -85,8 +85,10 @@ right after the two refresh runs). It is read-only: it reads the issues
 opened by github-actions[bot] through the public GitHub API and emails the
 owner the body of every "MATERIAL: " issue created since the previous scheduled
 run (14:45 run: since 20:45 the day before; 20:45 run: since 14:45), in one
-message. The routine's final message is what the Routines service emails, the
-same mechanism the GAP/OMA/ASUR routines use. A manual run outside those hours
+message sent with the Gmail connector from the owner's fnam.mx account to her
+gmail.com address, the same path the US fiscal alerts use. The routine must
+have the Gmail connector attached (claude.ai, Routines); without it the run
+ends with "Gmail connector missing" and nothing is sent. A manual run outside those hours
 covers the last 7 days. "Macro update: " issues are never emailed. The routine
 does not close issues, so they accumulate harmlessly; close them by hand when
 convenient. A missing alert usually means the routine did not run at its time;
