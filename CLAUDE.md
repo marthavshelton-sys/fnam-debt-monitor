@@ -9,7 +9,8 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
   translations and Spanish copy follow Mexican usage.
 - Answers: brief, clear, fact- and data-driven. Cite the data source. State every assumption explicitly.
 - Never put a model identifier in anything pushed to the repository (code, comments, data, PR text). Commit
-  trailers requested by the harness are the only exception.
+  trailers requested by the harness and the default-model setting in `.claude/settings.json` (owner-approved)
+  are the only exceptions.
 - Her email is identity only; never send it anywhere.
 
 ## Workflow she has approved
