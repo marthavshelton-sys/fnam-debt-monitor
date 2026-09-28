@@ -97,6 +97,6 @@
     { "ticker": "AMZN-US", "name": "Amazon", "group": "hyperscaler", "price": 249.67, "price_date": "2026-09-25", "market_cap_usd_m": 2693019, "shares_m": 10786.314, "net_debt_usd_m": 118724, "net_debt_date": "2026-06-30", "iad_usd": null,
       "ntm": { "eps": 11.178, "ebitda": 266061, "sales": 918622 }, "fy1": { "end": "2026-12-31", "eps": 12.772 }, "fy2": { "end": "2027-12-31", "eps": 10.625 } },
     { "ticker": "GOOGL-US", "name": "Alphabet", "group": "hyperscaler", "price": 343.92, "price_date": "2026-09-25", "market_cap_usd_m": 3903272, "shares_m": 5868.0, "shares_note": "Class A only; market value covers all classes", "net_debt_usd_m": -125126, "net_debt_date": "2026-06-30", "iad_usd": 0.88,
-      "ntm": { "eps": 16.537, "ebitda": 279699, "sales": 583081 }, "fy1": { "end": "2026-12-31", "eps": 20.601 }, "fy2": { "end": "2027-12-31", "eps": 15.128 } }
+      "ntm": { "eps": 16.562, "ebitda": 280085, "sales": 583603 }, "fy1": { "end": "2026-12-31", "eps": 20.613 }, "fy2": { "end": "2027-12-31", "eps": 15.157 } }
   ]
 }
