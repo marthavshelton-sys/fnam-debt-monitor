@@ -87,8 +87,11 @@ owner the body of every "MATERIAL: " and "SOURCE DOWN: " issue created since the
 run (14:45 run: since 20:45 the day before; 20:45 run: since 14:45), in one
 message sent with the Gmail connector from the owner's fnam.mx account to her
 gmail.com address, the same path the US fiscal alerts use. The routine must
-have the Gmail connector attached (claude.ai, Routines); without it the run
-ends with "Gmail connector missing" and nothing is sent. A manual run outside those hours
+have both the Gmail connector and the repository marthavshelton-sys/fnam-debt-monitor
+attached (claude.ai, Routines): the cloud environment refuses GitHub API calls
+for repositories not attached to the session, and without Gmail nothing is sent.
+Either gap makes the run end with a one-line reason and no email. Verified
+end to end on 28-Sep-2026 (issue #63 delivered). A manual run outside those hours
 covers the last 7 days. "Macro update: " issues are never emailed. The routine
 does not close issues, so they accumulate harmlessly; close them by hand when
 convenient. A missing alert usually means the routine did not run at its time;
