@@ -32,7 +32,7 @@ They are the audit trail: any number on the page can be traced to a line in one 
 ## Pipeline (`.github/workflows/asur-refresh.yml`)
 
 ```
-scripts/airports/fetch-market.mjs --company=asur   Yahoo Finance + Banxico SIE (USD/MXN FIX, BANXICO_TOKEN; FRED fallback) + FRED (yields) -> site/asur/data/market.js
+scripts/airports/fetch-market.mjs --company=asur   Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; BANXICO_TOKEN; FRED fallbacks) + FRED (US 10y) -> site/asur/data/market.js
 scripts/asur/harvest-releases.mjs                  PR Newswire organisation pages + keyword search (traffic, results, events)
                                                    asur.com.mx "Información financiera" (quarterly report and transcript PDFs;
                                                    URL pattern guessed for quarters the page does not link)

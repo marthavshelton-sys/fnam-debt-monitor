@@ -38,7 +38,7 @@ weekly returns vs the IPC, clipped 0.5–1.2), Gordon or exit-multiple terminal 
 ## Pipeline (`.github/workflows/qualitas-refresh.yml`)
 
 ```
-scripts/qualitas/fetch-market.mjs   Yahoo Finance + FRED     -> site/qualitas/data/market.js
+scripts/qualitas/fetch-market.mjs   Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; FRED fallbacks) + FRED (US 10y) -> site/qualitas/data/market.js
 scripts/qualitas/harvest.py         IR site (informes, SIFIC) -> tools/qualitas/raw/text/{reports,sific}/*.txt + manifest.json
 scripts/qualitas/test_parsers.py    parser unit tests on archived releases; a failure stops the build
 scripts/qualitas/build_data.py      raw text + workbook       -> financials.js, operations.js, raw/build-log.json
