@@ -1,8 +1,26 @@
 {
   "note": "Most recent EDGAR submissions for Oracle (CIK 1341439), all forms, refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read them without network access.",
   "cik": "0001341439",
-  "fetched": "2026-09-25",
+  "fetched": "2026-09-28",
   "filings": [
+    {
+      "form": "DEFA14A",
+      "filing_date": "2026-09-25",
+      "report_date": null,
+      "accession": "0001193125-26-402831",
+      "items": "",
+      "primary_document": "orcl-defa14a-2026_notice.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402831/orcl-defa14a-2026_notice.htm"
+    },
+    {
+      "form": "DEF 14A",
+      "filing_date": "2026-09-25",
+      "report_date": "2026-11-18",
+      "accession": "0001193125-26-402816",
+      "items": "",
+      "primary_document": "orcl-20260925.htm",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526402816/orcl-20260925.htm"
+    },
     {
       "form": "4",
       "filing_date": "2026-09-23",
@@ -524,24 +542,6 @@
       "items": "",
       "primary_document": "d24013dfwp.htm",
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526034351/d24013dfwp.htm"
-    },
-    {
-      "form": "FWP",
-      "filing_date": "2026-02-02",
-      "report_date": null,
-      "accession": "0001193125-26-033882",
-      "items": "",
-      "primary_document": "d44245dfwp.htm",
-      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm"
-    },
-    {
-      "form": "424B5",
-      "filing_date": "2026-02-02",
-      "report_date": null,
-      "accession": "0001193125-26-032756",
-      "items": "",
-      "primary_document": "d77737d424b5.htm",
-      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526032756/d77737d424b5.htm"
     }
   ]
 }
