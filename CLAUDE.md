@@ -76,7 +76,10 @@ dashboards, everything built from public data by GitHub Actions.
   PRs from scheduled browser tasks because BLS answers scripted requests with 403
   (`process_weights.ps1` probes every run in case that changes). Challenger job cuts are read from
   the report PDF and only published when the figures reconcile against the report's own totals.
-  `alerts.ps1` mails material updates as a GitHub issue; a source down three runs fails the run.
+  `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed);
+  the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
+  changes" (14:45 and 20:45 UTC) emails her the MATERIAL issues and closes them (see `tools/macro/README.md`).
+  A source down three runs fails the run.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
