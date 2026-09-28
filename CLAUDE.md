@@ -79,8 +79,8 @@ dashboards, everything built from public data by GitHub Actions.
   `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed);
   the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
   changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues created since its previous run
-  (see `tools/macro/README.md`).
-  A source down three runs fails the run.
+  (see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue (closed on
+  recovery), which the same routine emails, and fails the run.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
