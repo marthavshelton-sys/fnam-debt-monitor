@@ -5,14 +5,18 @@
   "lastOpsQuarter": "2026Q2",
   "lastGuidanceDate": "2026-07-21",
   "lastReferenceUpdatedAt": "2026-09-22",
-  "lastReferenceSha": "5c1a9e0ab93dc32fd0cb7f800f84ce6716bb8e75",
+  "lastReferenceSha": "01bb83da9278bb41aa481ec453c3e8c4668bd175",
   "lastCommentsUpdatedAt": "2026-09-22",
   "lastSummaryUpdatedAt": "2026-09-22",
   "lastMarketDate": "2026-09-25",
   "lastAlertKeys": [],
-  "lastNotifiedAt": "2026-09-26T15:56:32Z",
-  "lastFailureNote": "fx USDMXN stale: last point 2026-09-18, 8 days old (limit 7); price Q.MX and US10Y kept updating through 2026-09-25/24, so only the USDMXN feed in fetch-market.mjs looks stuck.",
-  "lastCheckedAt": "2026-09-27T15:53:25Z",
-  "lastCheckResult": "quiet",
-  "pendingFromOwner": ["earnings-call transcript for 3Q26 once available", "consensus / peer connector authorisation", "password decision (QUALITAS_PASSWORD)"]
+  "lastNotifiedAt": "2026-09-28T15:51:52Z",
+  "lastFailureNote": null,
+  "lastCheckedAt": "2026-09-28T15:51:52Z",
+  "lastCheckResult": "material",
+  "pendingFromOwner": [
+    "earnings-call transcript for 3Q26 once available",
+    "consensus / peer connector authorisation",
+    "password decision (QUALITAS_PASSWORD)"
+  ]
 }
