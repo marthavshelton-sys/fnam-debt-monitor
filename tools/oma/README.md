@@ -33,7 +33,7 @@ line in one of these files.
 ## Pipeline (`.github/workflows/oma-refresh.yml`)
 
 ```
-scripts/airports/fetch-market.mjs --company=oma    Yahoo Finance + Banxico SIE (USD/MXN FIX, BANXICO_TOKEN; FRED fallback) + FRED (yields) -> site/oma/data/market.js
+scripts/airports/fetch-market.mjs --company=oma    Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; BANXICO_TOKEN; FRED fallbacks) + FRED (US 10y) -> site/oma/data/market.js
 scripts/oma/harvest-releases.mjs                   A. ir.oma.aero (WordPress listings: earnings reports, traffic reports, news;
                                                       needs a browser User-Agent and retries on the captcha interstitial)
                                                    B. miranda-newswire.com (?s=OMA; each post links its PDF)

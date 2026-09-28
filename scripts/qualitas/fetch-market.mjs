@@ -9,7 +9,8 @@
 //              own daily print and more timely than FRED's H.10 mirror (DEXMXUS), which has been seen to
 //              stall for a week or more (last observed September 2026); FRED is the fallback when Banxico
 //              is unavailable (no token, bad response, wrong series title).
-//   rates      Mexico 10-year government bond yield (FRED IRLTLT01MXM156N, OECD, monthly) and
+//   rates      Mexico 10-year M bono: Banxico SIE SF44071 (primary-auction yield, about every four weeks, published the
+//              same day; scripts/lib/banxico-mx10y.mjs) with the OECD monthly series on FRED (IRLTLT01MXM156N) as fallback, and
 //              US 10-year Treasury (FRED DGS10, daily) — cost-of-equity inputs for the valuation section.
 //
 // A series that fails to download keeps its previous points (stale but present) and records the
@@ -17,6 +18,7 @@
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
 
 const OUT = new URL('../../site/qualitas/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -31,7 +33,6 @@ const PRICE_SERIES = [
 ];
 const FX_USDMXN = { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Banxico FIX)', since: '2015-01-01' };
 const FRED_SERIES = [
-  { key: 'rates', id: 'MX10Y', fred: 'IRLTLT01MXM156N', name: 'México bono 10 años (OECD, mensual, %)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
 // Banxico SIE SF43718: "Tipo de cambio Pesos por dólar E.U.A. FIX", published daily — the series of record
@@ -158,6 +159,8 @@ async function main() {
     }
   }
 
+  // MX 10-year: Banxico auction yield first, FRED/OECD monthly as the fallback (scripts/lib/banxico-mx10y.mjs)
+  { const r = await fetchMx10y({ fred, prev, fetchedAt: out.generatedAt }); out.rates.MX10Y = r.entry; if (r.ok) ok++; else failed++; }
   // USD/MXN: Banxico's daily FIX rate first (Banco de México's own print, more timely than FRED's H.10
   // mirror); FRED DEXMXUS is the fallback when Banxico is unavailable (no token, bad response, wrong title).
   {

@@ -3,11 +3,13 @@
 //   prices     home listing (BMV, MXN), the US ADS, the two Mexican airport peers, the S&P/BMV IPC — Yahoo
 //              Finance chart API with a Stooq fallback; dividends = cash dividends per home share (Yahoo).
 //   fx         USD/MXN — Banxico SIE SF43718 (FIX rate, needs BANXICO_TOKEN; scripts/lib/banxico-fx.mjs), FRED DEXMXUS as fallback.
-//   rates      Mexico 10-year (FRED IRLTLT01MXM156N, OECD, monthly) and US 10-year (FRED DGS10) — DCF inputs.
+//   rates      Mexico 10-year M bono (Banxico SIE SF44071 auction yield, FRED/OECD monthly as fallback; scripts/lib/banxico-mx10y.mjs)
+//              and US 10-year (FRED DGS10) — DCF inputs.
 // A series that fails keeps its previous points and records the error; exit code non-zero only if all failed.
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fetchUsdMxn } from '../lib/banxico-fx.mjs';
+import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
 
 const COMPANY = (process.argv.find((a) => a.startsWith('--company=')) || '').split('=')[1];
 const CONFIG = {
@@ -37,7 +39,6 @@ if (!cfg) { console.error('usage: fetch-market.mjs --company=asur|oma'); process
 const OUT = new URL(cfg.out, import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
 const FRED_SERIES = [
-  { key: 'rates', id: 'MX10Y', fred: 'IRLTLT01MXM156N', name: 'México bono 10 años (OECD, mensual, %)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
@@ -111,6 +112,8 @@ async function main() {
     try { const data = await fred(s.fred, s.since); out[s.key][s.id] = { name: s.name, source: data.source, fetchedAt: out.generatedAt, points: data.points }; ok++; console.log(`${s.id}: ${data.points.length} points`); }
     catch (e) { failed++; const stale = prev?.[s.key]?.[s.id]; out[s.key][s.id] = stale ? { ...stale, error: e.message, staleSince: stale.fetchedAt } : { name: s.name, error: e.message, points: [] }; console.error(`${s.id}: FAILED ${e.message}`); }
   }
+  // MX 10-year: Banxico auction yield first, FRED/OECD monthly as the fallback (scripts/lib/banxico-mx10y.mjs)
+  { const r = await fetchMx10y({ fred, prev, fetchedAt: out.generatedAt }); out.rates.MX10Y = r.entry; if (r.ok) ok++; else failed++; }
   // USD/MXN: Banxico FIX first, FRED DEXMXUS as the fallback (scripts/lib/banxico-fx.mjs)
   { const r = await fetchUsdMxn({ fred, prev, fetchedAt: out.generatedAt }); out.fx.USDMXN = r.entry; if (r.ok) ok++; else failed++; }
   await mkdir(new URL('./', OUT), { recursive: true });
