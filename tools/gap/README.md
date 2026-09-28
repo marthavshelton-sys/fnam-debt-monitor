@@ -41,7 +41,7 @@ page can be traced to a line in one of these files.
 scripts/gap/fetch-market.mjs      Yahoo Finance + FRED  -> site/gap/data/market.js
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
-scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit
+scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit; also writes site/gap/data/quality.js for the hidden data-quality page
 scripts/gap/build-peers.mjs       tools/gap/raw/factset/*.json (FactSet snapshot, on request) -> site/gap/data/peers.js
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the marker keeps GitHub Actions from re-running
 ```
@@ -64,6 +64,12 @@ git commit "[skip actions]" + push  Cloudflare Pages deploys the commit; the mar
   header) into the same pipe-delimited text format under `tools/gap/raw/6k/` (`*_pdfNQyy_en.txt`).
   To add another PDF report, drop it in `tools/gap/raw/pdf/` named `<YYYY-MM>_<nQyy>_….pdf`, run the
   converter, then `build-data.mjs` + `validate-data.mjs`.
+* Data-quality page: https://fnam.mx/gap/quality.html (hidden, linked from section 10 of the model) renders
+  `site/gap/data/quality.js`, which `validate-data.mjs` writes on every run: every identity evaluated with its
+  status, series freshness (prices, FX, yields, latest quarter and traffic month against the calendar), the
+  curated files against the latest quarter, the origin of every quarter and the parse warnings
+  `build-data.mjs` leaves in `tools/gap/raw/build-log.json`. Same design and renderer as the Quálitas page
+  (`site/assets/quality-page.js`, `site/assets/quality.css`).
 * Validation (`validate-data.mjs`): revenue components = total; EBT + tax = net income; assets =
   liabilities + equity; cash begin + net change = cash end; CF cash end = BS cash; YTD = sum of
   quarters for revenue / net income / EBITDA; domestic + international = total per airport; airports

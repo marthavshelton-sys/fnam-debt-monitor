@@ -39,6 +39,10 @@ dashboards, everything built from public data by GitHub Actions.
   and `tools/mx-macro/template.html` — edit the template and the page together. `site/fiscal`, `site/mx/fiscal`.
 - Harvesters, parsers and validators live in `scripts/<slug>/`; raw files, reference data and runbooks in
   `tools/<slug>/`; schedules in `.github/workflows/<slug>-refresh.yml`.
+- Hidden data-quality pages `site/<slug>/quality.html` (GAP, OMA, ASUR, Quálitas, Gentera) share one design:
+  `site/assets/quality.css` + `site/assets/quality-page.js` render `data/quality.js`, which each validator writes
+  (JS validators through `scripts/lib/quality-report.mjs`; Quálitas and Gentera in Python). The JS builders leave
+  parse warnings in `tools/<slug>/raw/build-log.json`. Write new checks in the record/identity form so they show up.
 - FactSet is available only as a connector inside a Claude session (no credentials in GitHub Actions).
   Peer multiples and consensus for GAP are a dated snapshot: save the pull as
   `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
