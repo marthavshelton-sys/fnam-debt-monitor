@@ -1,7 +1,7 @@
 {
-  "generated": "2026-09-25T21:49:08.550Z",
+  "generated": "2026-09-28T05:05:25.150Z",
   "summary": {
-    "checks": 343,
+    "checks": 349,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -349,7 +349,13 @@
     "obligations: notes payable tie to quarters.json total debt for the same period end",
     "press: every item has a date, outlet, title, https link, theme and both summaries",
     "press: every theme used is declared",
-    "press: no item is dated after as_of"
+    "press: no item is dated after as_of",
+    "factset: as_of, price_date and fetched are ISO dates",
+    "factset: Oracle NTM EPS, EBITDA and sales are positive",
+    "factset: every fiscal-year record ends on 31 May and carries Oracle's own label",
+    "factset: NTM history is dated and ascending",
+    "factset: rating counts add up to the total",
+    "factset: at least six peers with price, market cap and NTM EPS"
   ],
   "failures": [],
   "warnings": [

@@ -22,6 +22,7 @@
 <script src="data/comments.js"></script>
 <script src="data/summary.js"></script>
 <script src="data/peers.js"></script>
+<script src="data/factset.js"></script>
 <script src="data/cds.js"></script>
 <script src="data/buildout.js"></script>
 <script src="data/quality.js"></script>
@@ -690,8 +691,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de Oracle calculados en vivo con el precio más reciente, las acciones en circulación de la portada del último 10-Q y las cifras de los últimos doce meses. La tabla de pares (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span>
-      <span class="en" hidden>Oracle multiples computed live from the latest price, the share count on the latest 10-Q cover and last-twelve-month figures. The peer table (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
+      <span class="es">Múltiplos <b>a doce meses</b> (NTM): el precio y el valor de la empresa de Oracle sobre el consenso de analistas de FactSet para los próximos doce meses, con los múltiplos por año fiscal y los de los últimos doce meses como referencia. La tabla de pares usa la misma base para seis emisores de software (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) y dos hiperescaladores (Amazon, Alphabet). El consenso de UPA sigue la base mayoritaria de los brokers (No-GAAP para Oracle) y el EBITDA es el ajustado por los brokers; la deuda neta de los pares es la del último trimestre reportado. Al final, la visión del mercado: precio objetivo y recomendaciones; no constituye una recomendación de inversión.</span>
+      <span class="en" hidden><b>Forward</b> (next-twelve-month) multiples: Oracle's price and enterprise value over FactSet's analyst consensus for the next twelve months, with fiscal-year multiples and the last-twelve-month figures kept as a reference. The peer table uses the same basis for six software issuers (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) and two hyperscalers (Amazon, Alphabet). Consensus EPS follows the brokers' majority basis (non-GAAP for Oracle) and EBITDA is broker-adjusted; peers' net debt is the latest reported quarter. At the end, the Street view: price target and recommendations; not investment advice.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -701,17 +702,24 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="chart-src" id="multSrc"></p>
       </div>
       <div class="card">
-        <h3><span class="es">VE/EBITDA UDM histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
-        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal, con la deuda neta reportada</span><span class="en" hidden>At each fiscal quarter-end, with reported net debt</span></p>
+        <h3><span class="es">VE/EBITDA y P/U a doce meses, históricos</span><span class="en" hidden>Historical forward EV/EBITDA and P/E</span></h3>
+        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal: VE con la deuda neta reportada, sobre el consenso NTM de FactSet vigente ese día</span><span class="en" hidden>At each fiscal quarter-end: EV with reported net debt, over the FactSet NTM consensus in force that day</span></p>
         <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
         <p class="chart-src" id="evSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
+      <h3><span class="es">Pares: múltiplos a doce meses (consenso FactSet)</span><span class="en" hidden>Peers: forward multiples (FactSet consensus)</span></h3>
       <p class="cap" id="peersCap"></p>
       <div class="tblwrap" id="peersTable"></div>
       <p class="chart-src" id="peersSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Visión del mercado: precio objetivo y recomendaciones</span><span class="en" hidden>Street view: price target and recommendations</span></h3>
+      <div class="stat-row" id="streetStats"></div>
+      <div class="tblwrap" id="streetTable"></div>
+      <div class="notice" id="streetNote"></div>
+      <p class="chart-src" id="streetSrc"></p>
     </div>
   </section>
 

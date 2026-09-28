@@ -32,6 +32,10 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
   source-cited but not machine-checked; the 338 parser checks and 329 tie-outs cover the statements only.
 
+- FactSet (connected 2026-09-27): consensus, prices, market values and peers' net debt now flow through `factset.json`
+  (cloud routine "FNAM Oracle: FactSet refresh"). **CDS still pending**: the connector exposes Estimates, Global Prices,
+  Fundamentals, Debt Capital Structure and Terms & Conditions, but no CDS or bond-price endpoint; ask FactSet whether the
+  Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine.
 - Peer ratings (section 11): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
 - Press sweep: `press.json` is refreshed by the desktop task "FNAM Oracle: weekly press sweep" on Mondays while the

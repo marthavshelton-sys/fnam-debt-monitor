@@ -304,10 +304,27 @@ if (plv) emit("peer_leverage.js", "ORCL_PEER_LEV", plv, "Lease-adjusted leverage
 const cds = load("cds.json", { tenor: 5, recoveryPct: 40, points: [], source: "FactSet (pending authorisation)", updatedAt: null });
 emit("cds.js", "ORCL_CDS", cds, "Oracle 5-year CDS spread — FactSet connector contract; placeholder until authorised.");
 
-// ---------- peers.js ----------
-emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet connector (pending authorisation)", peers: [
-  ["MSFT-US", "Microsoft", "NASDAQ"], ["SAP-DE", "SAP", "XETRA"], ["CRM-US", "Salesforce", "NYSE"], ["NOW-US", "ServiceNow", "NYSE"], ["IBM-US", "IBM", "NYSE"], ["WDAY-US", "Workday", "NASDAQ"],
-].map(([ticker, name, exchange]) => ({ ticker, name, exchange, currency: "USD", asOf: null, price: null, mktCapUsdM: null, evUsdM: null, evEbitdaLtm: null, evEbitdaNtm: null, peLtm: null, peNtm: null, evSalesLtm: null, divYieldPct: null, netDebtEbitda: null, ebitdaMarginPct: null })) }, "Peer multiples — placeholder until the FactSet connector is authorised; Oracle's own row is computed live in the page.");
+// ---------- factset.js + peers.js ----------
+// FactSet consensus (Oracle) and peer forward multiples from tools/oracle/data/factset.json, written by the FactSet
+// refresh routine through the FactSet AI-Ready Data connector (GitHub Actions cannot reach FactSet). Ratios are
+// computed here from the snapshot's own price, market value, net debt and NTM consensus; Oracle's row is computed
+// live on the page from the model's price and net debt.
+const fsd = load("factset.json", null);
+if (fsd) {
+  const o = fsd.oracle || {};
+  emit("factset.js", "ORCL_FACTSET", { asOf: fsd.as_of, priceDate: fsd.price_date, fetched: fsd.fetched, source: fsd.source, fiscalYearNote: fsd.fiscal_year_note, basisNote: fsd.basis_note, oracle: o }, "FactSet consensus for Oracle — NTM and fiscal-year estimates, point-in-time NTM history, price target and ratings (FactSet Estimates via the FactSet AI-Ready Data connector; tools/oracle/data/factset.json).");
+  const peers = (fsd.peers || []).map((p) => {
+    const mc = p.market_cap_usd_m ?? null, nd = p.net_debt_usd_m ?? null, ev = mc != null && nd != null ? mc + nd : null; const n = p.ntm || {}, f1 = p.fy1 || {}, f2 = p.fy2 || {};
+    return { ticker: p.ticker, name: p.name, group: p.group, currency: "USD", priceDate: p.price_date || fsd.price_date, price: p.price ?? null, marketCapUsdM: mc, netDebtUsdM: nd, netDebtDate: p.net_debt_date || null, evUsdM: ev,
+      ntmEps: n.eps ?? null, ntmEbitda: n.ebitda ?? null, ntmSales: n.sales ?? null,
+      peNtm: p.price && n.eps > 0 ? p.price / n.eps : null, evEbitdaNtm: ev != null && n.ebitda > 0 ? ev / n.ebitda : null, evSalesNtm: ev != null && n.sales > 0 ? ev / n.sales : null,
+      fy1: f1, fy2: f2, epsGrowthFy2Pct: f1.eps > 0 && f2.eps != null ? 100 * (f2.eps / f1.eps - 1) : null,
+      iadUsd: p.iad_usd ?? null, divYieldPct: p.iad_usd != null && p.price ? 100 * p.iad_usd / p.price : null };
+  });
+  emit("peers.js", "ORCL_PEERS", { updatedAt: fsd.as_of, priceDate: fsd.price_date, source: fsd.source, groups: fsd.peer_groups || null, peers }, "Peer forward multiples — FactSet consensus (NTM EPS, EBITDA, sales; FY1/FY2 EPS) with FactSet prices, market values and latest reported net debt; Oracle's own row is computed live in the page.");
+} else {
+  emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until tools/oracle/data/factset.json exists.");
+}
 
 // ---------- quality (for the hidden data-quality page) ----------
 const qr = load("quality_report.json", null), st = load("state.json", null);

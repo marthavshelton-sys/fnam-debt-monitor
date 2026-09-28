@@ -167,6 +167,18 @@ if (prs) {
   check("press: no item is dated after as_of", items.every((x) => x.date <= prs.as_of));
 }
 
+// ---------- factset.json: consensus snapshot (valuation section, peers, DCF seed) ----------
+const fsj = loadJSON("factset.json");
+if (fsj) {
+  const o = fsj.oracle || {}, n = o.ntm || {}, r = o.ratings;
+  check("factset: as_of, price_date and fetched are ISO dates", [fsj.as_of, fsj.price_date, fsj.fetched].every((d) => /^\d{4}-\d{2}-\d{2}$/.test(d || "")));
+  check("factset: Oracle NTM EPS, EBITDA and sales are positive", n.eps?.mean > 0 && n.ebitda?.mean > 0 && n.sales?.mean > 0);
+  check("factset: every fiscal-year record ends on 31 May and carries Oracle's own label", (o.fiscal || []).length > 0 && (o.fiscal || []).every((f) => /-05-31$/.test(f.fiscal_end) && /^FY\d{4}$/.test(f.fy) && +f.fy.slice(2) === +f.fiscal_end.slice(0, 4)));
+  check("factset: NTM history is dated and ascending", Array.isArray(o.ntm_history) && o.ntm_history.length > 4 && o.ntm_history.every((h, i, a) => /^\d{4}-\d{2}-\d{2}$/.test(h.date) && (i === 0 || a[i - 1].date < h.date)));
+  check("factset: rating counts add up to the total", !r || r.buy + r.overweight + r.hold + r.underweight + r.sell === r.total);
+  check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
+}
+
 // ---------- stale-series detection ----------
 const today = new Date();
 const daysSince = (iso) => (iso ? Math.round((today - new Date(iso + "T00:00:00")) / 864e5) : null);
@@ -181,6 +193,7 @@ if (q?.quarters?.length) {
 const cal = loadJSON("calendar.json");
 if (cal?.generated && daysSince(cal.generated) > 10) stale.push(`Investor calendar last refreshed ${cal.generated}`);
 if (prs?.as_of && daysSince(prs.as_of) > 10) stale.push(`Press sweep (market concerns) last run ${prs.as_of}`);
+if (fsj?.fetched && daysSince(fsj.fetched) > 7) stale.push(`FactSet consensus snapshot last fetched ${fsj.fetched}`);
 const plv = loadJSON("peer_leverage.json");
 if (plv?.fetched && daysSince(plv.fetched) > 10) stale.push(`Peer leverage (SEC XBRL) last fetched ${plv.fetched}`);
 const st = loadJSON("state.json");
