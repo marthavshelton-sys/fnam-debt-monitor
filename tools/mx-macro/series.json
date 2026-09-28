@@ -12,7 +12,8 @@
   "INEGI catalog and set title to null).",
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
   "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog.",
-  "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean)."
+  "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean).",
+    "banxico candidates carry `page`: the public SIE table (consultarCuadro) that holds the series, used as the source link on the page because the API endpoint the fetcher reads needs a token and shows an error to a reader. Mapped by hand on 2026-09-28 from the SIE directory; a new banxico candidate needs one too."
  ],
  "series": {
   "inpc": {
@@ -23,6 +24,7 @@
     {
      "provider": "banxico",
      "id": "SP1",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "^(?!.*subyacente).*(i\\s*n\\s*d\\s*i\\s*c\\s*e\\s+g\\s*e\\s*n\\s*e\\s*r\\s*a\\s*l|precios al consumidor|INPC)"
     },
     {
@@ -45,6 +47,7 @@
     {
      "provider": "banxico",
      "id": "SP74625",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s*$"
     },
     {
@@ -66,6 +69,7 @@
     {
      "provider": "banxico",
      "id": "SP74630",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "no subyacente\\s*$"
     }
    ]
@@ -78,6 +82,7 @@
     {
      "provider": "banxico",
      "id": "SP74626",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s+mercanc(í|i)as\\s*$"
     }
    ]
@@ -90,6 +95,7 @@
     {
      "provider": "banxico",
      "id": "SP74627",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "mercanc(í|i)as no alimenticias"
     }
    ]
@@ -102,6 +108,7 @@
     {
      "provider": "banxico",
      "id": "SP74628",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s+servicios\\s*$"
     }
    ]
@@ -114,6 +121,7 @@
     {
      "provider": "banxico",
      "id": "SP74629",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "otros servicios"
     }
    ]
@@ -126,6 +134,7 @@
     {
      "provider": "banxico",
      "id": "SP74631",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "energ(é|e)ticos y tarifas"
     }
    ]
@@ -138,6 +147,7 @@
     {
      "provider": "banxico",
      "id": "SP74639",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "tarifas autorizadas por el gobierno\\s+tarifas autorizadas"
     }
    ]
@@ -186,6 +196,7 @@
     {
      "provider": "banxico",
      "id": "SR16734",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR376&locale=es",
      "title": "actividad econ(ó|o)mica"
     }
    ]
@@ -310,6 +321,7 @@
     {
      "provider": "banxico",
      "id": "SE27803",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE81&locale=es",
      "title": "remesas"
     }
    ]
@@ -354,6 +366,7 @@
     {
      "provider": "banxico",
      "id": "SF43718",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=6&accion=consultarCuadro&idCuadro=CF102&locale=es",
      "title": "tipo de cambio"
     },
     {
@@ -375,6 +388,7 @@
     {
      "provider": "banxico",
      "id": "SF43707",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=3&accion=consultarCuadro&idCuadro=CF106&locale=es",
      "title": "reserva"
     },
     {
@@ -397,6 +411,7 @@
     {
      "provider": "banxico",
      "id": "SF61745",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=18&accion=consultarCuadro&idCuadro=CF101&locale=es",
      "title": "objetivo"
     },
     {
@@ -419,6 +434,7 @@
     {
      "provider": "banxico",
      "id": "SF43783",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=18&accion=consultarCuadro&idCuadro=CF101&locale=es",
      "title": "TIIE.*28"
     }
    ]
@@ -431,6 +447,7 @@
     {
      "provider": "banxico",
      "id": "SF43936",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=22&accion=consultarCuadro&idCuadro=CF107&locale=es",
      "title": "cetes.*28"
     }
    ]
@@ -459,6 +476,7 @@
     {
      "provider": "banxico",
      "id": "SR14195",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=24&accion=consultarCuadro&idCuadro=CR155&locale=es",
      "title": "expectativas de inflaci(ó|o)n.*12 meses.*mediana",
      "note": {
       "es": "Encuesta de Banxico a especialistas del sector privado, mediana",
