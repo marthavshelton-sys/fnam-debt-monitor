@@ -63,6 +63,8 @@ jobs:
 
       - name: Fetch market data
         if: steps.plan.outputs.mode != 'filings'
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
         run: node scripts/airports/fetch-market.mjs --company=oma
 
       - uses: actions/setup-python@v5
