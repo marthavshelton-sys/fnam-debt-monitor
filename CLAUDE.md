@@ -133,5 +133,7 @@ dashboards, everything built from public data by GitHub Actions.
 - Next results dates: `REF.calendar.nextResults` when the company announced it (confirmed); otherwise the median
   lag of the same quarter over the last three years (assumed). Always say which.
 - Guidance basis strings in `data/guidance.js` are English; the pages and decks carry their own Spanish wording.
+- USD/MXN in every company model is Banxico's FIX rate (SIE SF43718, `BANXICO_TOKEN`) with FRED DEXMXUS only as
+  fallback: the FRED mirror stalled for over a week in September 2026. Shared reader `scripts/lib/banxico-fx.mjs`.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.

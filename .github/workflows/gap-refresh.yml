@@ -1,6 +1,6 @@
 # Keeps the GAP financial model (site/gap) current.
 #
-#   market   daily after the BMV close: share prices, dividends, USD/MXN, 10-year yields
+#   market   daily after the BMV close: share prices, dividends, USD/MXN (Banxico FIX, FRED fallback), 10-year yields
 #            -> site/gap/data/market.js
 #   filings  every weekday morning (GAP files monthly traffic around the 5th and quarterly results
 #            in the 3rd/4th week of Jan, Apr, Jul, Oct): harvests new releases from
@@ -60,6 +60,8 @@ jobs:
 
       - name: Fetch market data
         if: steps.plan.outputs.mode != 'filings'
+        env:
+          BANXICO_TOKEN: ${{ secrets.BANXICO_TOKEN }}
         run: node scripts/gap/fetch-market.mjs
 
       - name: Harvest press releases (GlobeNewswire)

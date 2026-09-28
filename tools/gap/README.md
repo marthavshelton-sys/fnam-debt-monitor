@@ -38,7 +38,7 @@ page can be traced to a line in one of these files.
 ## Pipeline (`.github/workflows/gap-refresh.yml`)
 
 ```
-scripts/gap/fetch-market.mjs      Yahoo Finance + FRED  -> site/gap/data/market.js
+scripts/gap/fetch-market.mjs      Yahoo Finance + Banxico SIE (USD/MXN FIX, BANXICO_TOKEN; FRED fallback) + FRED (yields) -> site/gap/data/market.js
 scripts/gap/harvest-releases.mjs  GlobeNewswire listing -> tools/gap/raw/6k/*.txt (+ manifest.json)
 scripts/gap/build-data.mjs        raw releases          -> site/gap/data/financials.js, traffic.js, guidance.js
 scripts/gap/validate-data.mjs     tie-outs; non-zero exit blocks the commit; also writes site/gap/data/quality.js for the hidden data-quality page

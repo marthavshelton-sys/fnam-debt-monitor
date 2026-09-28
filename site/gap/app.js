@@ -267,7 +267,7 @@
     const rate = st.stmt === 'bs' ? (obj.fxEop || fxAt(obj.bs && obj.bsDate || qEndDate(obj)) ) : ((obj.fxAvg && obj.fxAvg.rate) || avgFx(obj));
     return rate ? v / rate : null;
   }
-  function avgFx(obj, mode = st.mode) { // average USD/MXN over the period from FRED
+  function avgFx(obj, mode = st.mode) { // average USD/MXN over the period (Banxico FIX in market.js)
     const end = obj.q ? qEndDate(obj) : `${obj.fy}-12-31`;
     const months = obj.months || (obj.q && mode === 'q' ? 3 : mode === 'ltm' ? 12 : mode === 'fy' ? 12 : obj.q * 3);
     const start = addDays(end, -30 * months);
@@ -977,7 +977,7 @@
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'misma corrida' : 'same run', LANG === 'es' ? 'tabla de guía en los comunicados (enero, 4T, revisiones)' : 'guidance table in the releases (January, 4Q, revisions)', fmtDate((GD.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
-      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · FRED (DEXMXUS, DGS10, IRLTLT01MXM156N)', fmtDate((MK.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Precios, dividendos, tipo de cambio, tasas' : 'Prices, dividends, FX, yields', LANG === 'es' ? 'diario, después del cierre de la BMV' : 'daily after the BMV close', 'Yahoo Finance · Banxico SIE (SF43718) · FRED (DGS10, IRLTLT01MXM156N)', fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, concesiones, deuda, CBX, FIBRA, supuestos DCF' : 'Reference: shares, concessions, debt, CBX, FIBRA, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Pares, múltiplos y consenso' : 'Peers, multiples and consensus', LANG === 'es' ? 'a solicitud (foto fechada del conector FactSet)' : 'on request (dated snapshot from the FactSet connector)', 'FactSet → tools/gap/raw/factset → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
     ];
@@ -988,7 +988,8 @@
       { t: LANG === 'es' ? 'GAP — Relación con inversionistas' : 'GAP — Investor relations', d: LANG === 'es' ? 'Reportes trimestrales en PDF, eventos relevantes, asambleas, PMD y tarifas máximas.' : 'PDF quarterly reports, material events, shareholder meetings, PMD and maximum tariffs.', u: 'https://www.aeropuertosgap.com.mx/en/investors' },
       { t: 'Yahoo Finance', d: LANG === 'es' ? 'Cierres diarios GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX y dividendos en efectivo.' : 'Daily closes for GAPB.MX, PAC, ASURB.MX, OMAB.MX, ^MXX and cash dividends.', u: 'https://finance.yahoo.com/quote/GAPB.MX/' },
       { t: 'FactSet', d: LANG === 'es' ? 'Precios y capitalización de los pares, fundamentales UDM, deuda neta, consenso de estimaciones (PDM y por año fiscal), precios objetivo y recomendaciones; conector FactSet AI-Ready Data.' : 'Peer prices and market caps, LTM fundamentals, net debt, consensus estimates (NTM and by fiscal year), price targets and ratings; FactSet AI-Ready Data connector.', u: 'https://www.factset.com/' },
-      { t: 'FRED — Federal Reserve Bank of St. Louis', d: 'USD/MXN (DEXMXUS), US 10-yr (DGS10), México 10-yr (IRLTLT01MXM156N, OECD).', u: 'https://fred.stlouisfed.org/series/DEXMXUS' },
+      { t: LANG === 'es' ? 'Banxico — tipo de cambio FIX' : 'Banxico — FIX exchange rate', d: LANG === 'es' ? 'USD/MXN diario (SIE SF43718), la serie de referencia; FRED DEXMXUS como respaldo.' : 'Daily USD/MXN (SIE SF43718), the series of record; FRED DEXMXUS as the fallback.', u: 'https://www.banxico.org.mx/SieAPIRest/service/v1/' },
+      { t: 'FRED — Federal Reserve Bank of St. Louis', d: 'US 10-yr (DGS10), México 10-yr (IRLTLT01MXM156N, OECD); USD/MXN (DEXMXUS) only as fallback.', u: 'https://fred.stlouisfed.org/series/DGS10' },
       { t: LANG === 'es' ? 'BMV / BIVA — eventos relevantes' : 'BMV / BIVA — material events', d: LANG === 'es' ? 'Constitución de FIBRA GAP, emisiones de certificados bursátiles, asambleas.' : 'FIBRA GAP constitution, certificados bursátiles issuances, shareholder meetings.', u: 'https://www.bmv.com.mx/' },
     ];
     html('srcGrid', srcs.map((s) => `<div class="item"><div class="t"><a href="${s.u}" target="_blank" rel="noopener">${s.t} ↗</a></div><div class="d">${s.d}</div></div>`).join(''));
