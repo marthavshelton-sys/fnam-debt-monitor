@@ -3,7 +3,7 @@
 // something (see tools/gap/README.md "Reference data"). Numbers here are NEVER derived from the
 // auto-parsed statements; those live in financials.js / traffic.js / market.js.
 window.GAP_REF = {
-  updatedAt: "2026-09-24",
+  updatedAt: "2026-09-28",
   company: {
     name: "Grupo Aeroportuario del Pacífico, S.A.B. de C.V.",
     short: "GAP",
@@ -63,11 +63,12 @@ window.GAP_REF = {
     tua2026: { avgIncreasePct: 5, tijuanaPct: 2, note: { en: "Average +5% TUA (passenger charge) increase in 2026, +2% in Tijuana.", es: "Aumento promedio de 5% en la TUA (tarifa de uso de aeropuerto) en 2026, 2% en Tijuana." }, source: { en: "Milenio, Feb-2026 (CEO Raúl Revuelta)", es: "Milenio, feb-2026 (director general Raúl Revuelta)" } },
   },
   // Dividends approved at the Annual General Meeting (AGM), Ps. per share, paid in instalments over the
-  // following 12 months. Older years are shown from the exchange-recorded cash dividends in market.js
+  // following 12 months (payableUntil). The page and the validator compare dps with the exchange-recorded
+  // instalments in market.js since agmDate, so an unpaid balance is stated rather than read as a missing feed. Older years are shown from the exchange-recorded cash dividends in market.js
   // (Yahoo Finance) — cross-check against the 20-F Item 8 before quoting them.
   dividends: [
-    { agmYear: 2025, agmDate: "2025-04-24", dps: 16.84, note: { en: "Paid in two instalments (Jul-2025, Dec-2025).", es: "Pagado en dos exhibiciones (jul-2025 y dic-2025)." }, source: { en: "GAP release 24-Apr-2025 (AGM resolutions)", es: "Comunicado de GAP, 24-abr-2025 (resoluciones de la asamblea)" } },
-    { agmYear: 2026, agmDate: "2026-04-22", dps: 20.80, note: { en: "Board proposal of Ps. 20.80 per share for the 22-Apr-2026 AGM (≈5% yield on the 9-Mar-2026 price of Ps. 415.73); confirm the approved amount in the AGM resolutions.", es: "Propuesta del consejo de Ps. 20.80 por acción para la asamblea del 22-abr-2026 (≈5% de rendimiento sobre el precio de Ps. 415.73 del 9-mar-2026); confirmar el monto aprobado en las resoluciones de la asamblea." }, source: { en: "GAP AGM call, Mar-2026 (Axis Negocios)", es: "Convocatoria a la asamblea de GAP, mar-2026 (Axis Negocios)" } },
+    { agmYear: 2025, agmDate: "2025-04-24", dps: 16.84, payableUntil: "2026-04-24", note: { en: "Paid in two instalments of Ps. 8.42: ex-dates 27-May-2025 and 13-Aug-2025 (exchange record; Ps. 4,254 M each in the 2Q25 and 3Q25 cash-flow statements).", es: "Pagado en dos exhibiciones de Ps. 8.42: fechas ex 27-may-2025 y 13-ago-2025 (registro de bolsa; Ps. 4,254 M en cada uno de los flujos de efectivo del 2T25 y 3T25)." }, source: { en: "GAP release 25-Apr-2025 (AGM resolutions, item V); exchange dividend record", es: "Comunicado de GAP, 25-abr-2025 (resoluciones de la asamblea, punto V); registro de dividendos de la bolsa" }, sourceUrl: "https://www.globenewswire.com/news-release/2025/04/25/3068046/0/en/resolutions-adopted-at-the-annual-general-ordinary-and-extraordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-24-2025.html" },
+    { agmYear: 2026, agmDate: "2026-04-22", dps: 20.80, payableUntil: "2027-04-22", note: { en: "Approved (item V): payable in one or more instalments within the 12 months following 22-Apr-2026, to shares outstanding on each payment date. Declared in full in 2Q26 (Ps. 12,376 M, dividends payable at 30-Jun-2026); no instalment had gone ex on the exchange as of the last market refresh.", es: "Aprobado (punto V): pagadero en una o más exhibiciones dentro de los 12 meses siguientes al 22-abr-2026, a las acciones en circulación en cada fecha de pago. Declarado íntegro en el 2T26 (Ps. 12,376 M en dividendos por pagar al 30-jun-2026); ninguna exhibición había pasado por la bolsa al último refresco de mercado." }, source: { en: "GAP release 24-Apr-2026 (AGM resolutions, item V); 2Q26 report (balance sheet and cash-flow statement)", es: "Comunicado de GAP, 24-abr-2026 (resoluciones de la asamblea, punto V); informe 2T26 (balance y flujo de efectivo)" }, sourceUrl: "https://www.globenewswire.com/news-release/2026/04/24/3280487/0/en/resolutions-adopted-at-the-annual-general-ordinary-shareholders-meeting-for-grupo-aeroportuario-del-pacifico-on-april-22-2026.html" },
   ],
   // Debt instruments — long-term certificados bursátiles (local bonds) and bank facilities. Fill /
   // refresh from the "Debt" table of the latest quarterly report; principal in Ps. million.
