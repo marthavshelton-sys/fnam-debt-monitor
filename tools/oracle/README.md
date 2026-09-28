@@ -200,10 +200,21 @@ than over the footer (`noteAbove`), a table that would still spill is logged in 
 
 ## Data quality page
 
-`https://fnam.mx/oracle/quality.html` (unlinked) lists every tie-out check, warning and stale series from the
-last build and the automation state (filings seen, pending extraction, last harvest). Same layout as
-`/gentera/quality.html`.
+`site/oracle/quality.html` (hidden, linked from section 14 Methodology; https://fnam.mx/oracle/quality.html) renders `data/quality.js`,
+which `build-data.mjs` assembles from four files after every build:
 
+* `tools/oracle/data/quality_report.json` (written by `validate-data.mjs`): every tie-out as a structured record
+  `{tag, check, status ok|warn|fail, diff, tol, note}`, the freshness of each market series and snapshot (last date,
+  age, limit, how it refreshes), whether each curated file covers the latest quarter, tolerances, coverage, and the
+  legacy `passed / failures / warnings / stale` lists.
+* `tools/oracle/data/parser_report.json` (written by `test-parsers.mjs`): figures re-read from the archived 8-K
+  exhibits, per quarter, with any mismatch and the quarters that predate the archive.
+* `tools/oracle/data/state.json` (harvest state: pending extraction, references, log) and `tools/oracle/notify-state.json`
+  (the weekday routine's last check, last email, last failure).
+
+The page has the same layout as the Qualitas quality page: summary cards, freshness table, curated files, automation
+(what runs, when it last ran, what is pending), parser tests and the tie-outs with status and period filters; ES/EN toggle.
+Check names and validator notes appear in English as the validator writes them.
 ## Local preview
 
 ```

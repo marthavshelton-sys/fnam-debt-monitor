@@ -327,7 +327,13 @@ if (fsd) {
 }
 
 // ---------- quality (for the hidden data-quality page) ----------
-const qr = load("quality_report.json", null), st = load("state.json", null);
-emit("quality.js", "ORCL_QUALITY", { report: qr, state: st ? { last_harvest: st.last_harvest, last_review: st.last_review, seen: (st.seen_accessions || []).length, pending: (st.pending_extraction || []).filter((p) => p.status === "pending"), log: (st.log || []).slice(-20) } : null }, "Tie-out report and automation state for the hidden data-quality page.");
+const qr = load("quality_report.json", null), st = load("state.json", null), prp = load("parser_report.json", null);
+const nsPath = join(DATA, "..", "notify-state.json"); const ns = existsSync(nsPath) ? JSON.parse(readFileSync(nsPath, "utf8")) : null;
+emit("quality.js", "ORCL_QUALITY", {
+  generatedAt: now, report: qr, parser: prp,
+  state: st ? { last_harvest: st.last_harvest, last_review: st.last_review, seen: (st.seen_accessions || []).length, pending: (st.pending_extraction || []).filter((p) => p.status === "pending"), references: (st.pending_extraction || []).filter((p) => p.status === "reference").length, done: (st.pending_extraction || []).filter((p) => p.status === "done").length, log: (st.log || []).slice(-12) } : null,
+  notify: ns ? { lastQuarter: ns.lastQuarter, lastFilingSeen: ns.lastFilingSeen, lastEventDate: ns.lastEventDate, lastMarketClose: ns.lastMarketClose, lastNotifiedAt: ns.lastNotifiedAt, lastFailureNote: ns.lastFailureNote, checkedAt: ns.checkedAt } : null,
+  routines: { factsetFetched: fsd ? fsd.fetched : null, pressAsOf: prs ? prs.as_of : null, peerLeverageFetched: plv ? plv.fetched : null, calendarGenerated: calAll ? calAll.generated : null, marketGeneratedAt: mref.as_of || null },
+}, "Data-quality report for the hidden quality page: structured tie-outs, parser tests, freshness, curated-file coverage and automation state (tools/oracle/data/quality_report.json, parser_report.json, state.json, notify-state.json).");
 
 console.log(`site/data: financials (${finQuarters.length} quarters, ${years.length} years), market (${orclPts.length} ORCL closes, ${spxPts.length} S&P closes, ${tsyPts.length} yield points), guidance (${vint.length} vintages), comments (${Object.keys(periods).length} periods), instruments ${(mref.debt_instruments || []).length}.`);

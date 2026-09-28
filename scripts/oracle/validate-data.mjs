@@ -22,13 +22,20 @@ function loadJSON(name) {
   return JSON.parse(readFileSync(p, "utf8"));
 }
 
+let lastNear = null; // difference and tolerance of the most recent near() call, attached to the next check()
+const results = [];   // structured record of every check, rendered by site/oracle/quality.html
 function near(a, b, tol) {
   if (a === null || a === undefined || b === null || b === undefined) return null;
+  lastNear = { diff: Math.round((a - b) * 1e4) / 1e4, tol };
   return Math.abs(a - b) <= tol;
 }
 
 function check(label, cond) {
   checks++;
+  const m = lastNear; lastNear = null;
+  const i = label.indexOf(": "); const tag = i > 0 ? label.slice(0, i) : "general", name = i > 0 ? label.slice(i + 2) : label;
+  const status = cond === null ? "warn" : cond ? "ok" : "fail";
+  results.push({ tag, check: name, status, diff: status === "warn" || !m ? null : m.diff, tol: m ? m.tol : null, note: status === "warn" ? "insufficient data, skipped" : null });
   if (cond === null) {
     warnings.push(`WARN  ${label} — insufficient data, skipped`);
     return;
@@ -135,7 +142,7 @@ if (gd) {
     for (const k of ["total_revenue_growth_pct", "cloud_revenue_growth_pct_cc", "cloud_revenue_growth_pct_usd", "non_gaap_eps_usd_cc", "non_gaap_eps_usd_reported"]) {
       const r = v[k];
       if (r == null) continue;
-      check(`${v.issued_in} guidance ${k}: well-formed range`, Array.isArray(r) && r.length === 2 && typeof r[0] === "number" && typeof r[1] === "number" && r[0] <= r[1]);
+      check(`${v.issued_in}: guidance ${k} is a well-formed range`, Array.isArray(r) && r.length === 2 && typeof r[0] === "number" && typeof r[1] === "number" && r[0] <= r[1]);
     }
   }
 }
@@ -179,31 +186,58 @@ if (fsj) {
   check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
 }
 
-// ---------- stale-series detection ----------
+// ---------- freshness of series and snapshots, curated-file coverage ----------
 const today = new Date();
-const daysSince = (iso) => (iso ? Math.round((today - new Date(iso + "T00:00:00")) / 864e5) : null);
-const stale = [];
-const mref = loadJSON("market_reference.json");
-if (mref?.price_snapshot?.orcl?.close_date != null && daysSince(mref.price_snapshot.orcl.close_date) > 5) stale.push(`Share price last close ${mref.price_snapshot.orcl.close_date} (${daysSince(mref.price_snapshot.orcl.close_date)} days ago)`);
-if (mref?.treasury_10y?.as_of_date != null && daysSince(mref.treasury_10y.as_of_date) > 5) stale.push(`10-year Treasury as of ${mref.treasury_10y.as_of_date}`);
-if (q?.quarters?.length) {
-  const latest = q.quarters.slice().sort((a, b) => (a.period_end < b.period_end ? 1 : -1))[0];
-  if (daysSince(latest.release_date) > 100) stale.push(`Latest quarter ${latest.id} released ${latest.release_date} — a newer release is likely due`);
-}
-const cal = loadJSON("calendar.json");
-if (cal?.generated && daysSince(cal.generated) > 10) stale.push(`Investor calendar last refreshed ${cal.generated}`);
-if (prs?.as_of && daysSince(prs.as_of) > 10) stale.push(`Press sweep (market concerns) last run ${prs.as_of}`);
-if (fsj?.fetched && daysSince(fsj.fetched) > 7) stale.push(`FactSet consensus snapshot last fetched ${fsj.fetched}`);
-const plv = loadJSON("peer_leverage.json");
-if (plv?.fetched && daysSince(plv.fetched) > 10) stale.push(`Peer leverage (SEC XBRL) last fetched ${plv.fetched}`);
-const st = loadJSON("state.json");
+const daysSince = (iso) => (iso ? Math.round((today - new Date(String(iso).slice(0, 10) + "T00:00:00Z")) / 864e5) : null);
+const mref = loadJSON("market_reference.json"), cal = loadJSON("calendar.json"), plv = loadJSON("peer_leverage.json"), st = loadJSON("state.json");
+const cm = loadJSON("comments.json"), tr = loadJSON("transcripts.json"), bo = loadJSON("buildout.json"), fyj = loadJSON("fiscal_years.json"), edg = loadJSON("edgar_recent.json"), irf = loadJSON("ir_feed.json");
+const sortedQ = q?.quarters?.length ? q.quarters.slice().sort((a, b) => (a.period_end < b.period_end ? -1 : 1)) : [];
+const latest = sortedQ.length ? sortedQ[sortedQ.length - 1] : null, first = sortedQ[0] || null;
+const latestId = latest ? latest.id : null;
+const nextRes = cal?.nextResults?.date || null, est = (cal?.estimates || [])[0] || null;
+const freshness = [];
+const fresh = (series, lastDate, limitDays, note) => { const age = daysSince(lastDate); freshness.push({ series, lastDate: lastDate ? String(lastDate).slice(0, 10) : null, ageDays: age, limitDays, status: lastDate == null || age > limitDays ? "warn" : "ok", note: note || null }); };
+fresh("Share price (ORCL close)", mref?.price_snapshot?.orcl?.close_date, 5, "fetch-market.mjs, weekdays 13:30 and 21:45 UTC");
+fresh("10-year Treasury (FRED DGS10)", mref?.treasury_10y?.as_of_date, 5, "fetch-market.mjs");
+fresh("Latest quarter release", latest?.release_date, 100, latest ? `${latest.id}${nextRes ? `; next results confirmed for ${nextRes}` : est ? `; next results estimated ${est.window_start} to ${est.window_end}` : ""}` : null);
+fresh("EDGAR submissions snapshot", edg?.fetched, 4, "harvest-filings.mjs, weekdays 13:30 UTC");
+fresh("Oracle IR press-release snapshot", irf?.fetched, 4, "harvest-filings.mjs");
+fresh("Investor calendar", cal?.generated, 10, "fetch-calendar.mjs");
+fresh("Peer leverage (SEC XBRL)", plv?.fetched, 10, "fetch-peer-leverage.mjs");
+fresh("FactSet consensus snapshot", fsj?.fetched, 7, "cloud routine FactSet refresh, weekdays 14:20 UTC");
+fresh("Market concerns (press sweep)", prs?.as_of, 10, "desktop task, Mondays");
 const pendingCount = (st?.pending_extraction || []).filter((p) => p.status === "pending").length;
-if (pendingCount) stale.push(`${pendingCount} archived filing(s) pending extraction (tools/oracle/data/state.json)`);
+freshness.push({ series: "Filings pending extraction", lastDate: st?.last_harvest ? String(st.last_harvest).slice(0, 10) : null, ageDays: null, limitDays: null, status: pendingCount ? "warn" : "ok", note: pendingCount ? `${pendingCount} archived filing(s) waiting for the routine (state.json)` : "nothing pending (last harvest date shown)" });
+const stale = freshness.filter((f) => f.status === "warn").map((f) => `${f.series}: ${f.lastDate || "—"}${f.ageDays != null ? ` (${f.ageDays} days)` : ""}${f.note ? " — " + f.note : ""}`);
+
+const curated = [];
+const cur = (file, ok, detail) => curated.push({ file, status: ok ? "ok" : "warn", detail });
+const cmQ = latestId ? cm?.by_quarter?.[latestId] : null; const cmN = cmQ ? Object.keys(cmQ.comments || {}).length : 0;
+cur("comments.json", !!(cmQ && cmN && cmQ.exec_summary), cmQ ? `${latestId}: ${cmN} line comments; executive summary ${cmQ.exec_summary ? "present" : "missing"}; drafted ${cmQ.drafted || "—"}` : `${latestId || "latest quarter"} has no comments yet`);
+const gv = (gd?.vintages || []).slice().sort((a, b) => String(a.issued_on).localeCompare(String(b.issued_on))).pop();
+cur("guidance.json", !!(gv && gv.issued_in === latestId), gv ? `latest vintage issued in ${gv.issued_in} (${gv.issued_on}); ${(gd.vintages || []).length} vintages` : "no vintages");
+cur("transcripts.json", !!(latestId && tr?.calls?.[latestId]), latestId && tr?.calls?.[latestId] ? `${latestId} call on file (${tr.calls[latestId].call_date}); ${Object.keys(tr.calls).length} calls` : `${latestId || "latest"} call transcript not merged`);
+cur("buildout.json", !!(bo && bo.promises?.as_of === latestId), bo ? `promises through ${bo.promises?.as_of || "—"}; ${(bo.sites || []).length} sites; reviewed ${bo.updated || "—"}` : "missing");
+cur("obligations.json", !!(ob && latest && ob.as_of === latest.period_end), ob ? `as of ${ob.as_of} (10-Q notes); updated ${ob.updated}` : "missing");
+const fyKeys = Object.keys(fyj?.fiscal_years || {}).sort(); const lastFy = fyKeys[fyKeys.length - 1] || null; const expFy = latest ? `FY${latest.fiscal_quarter === 4 ? latest.fiscal_year : latest.fiscal_year - 1}` : null;
+cur("fiscal_years.json", !!(lastFy && lastFy === expFy), `${fyKeys[0] || "—"} to ${lastFy || "—"}; expected through ${expFy || "—"}`);
+cur("market_reference.json", !!(mref?.price_snapshot?.orcl?.shares_outstanding_millions && daysSince(mref?.price_snapshot?.orcl?.close_date) <= 5), mref ? `shares ${mref.price_snapshot?.orcl?.shares_outstanding_millions} M; price ${mref.price_snapshot?.orcl?.close_date}; ${(mref.credit_ratings || []).length} ratings; ${(mref.debt_instruments || []).length} debt instruments` : "missing");
+cur("calendar.json", !!cal, cal ? `${(cal.events || []).length} events; next results ${nextRes || (est ? `estimated ${est.window_start} to ${est.window_end}` : "—")}; ${(cal.manual_events || []).length} manual` : "missing");
+cur("press.json", !!(prs && (prs.items || []).length && daysSince(prs.as_of) <= 10), prs ? `${(prs.items || []).length} items, as of ${prs.as_of}` : "missing");
+cur("factset.json", !!(fsj && daysSince(fsj.fetched) <= 7), fsj ? `consensus ${fsj.as_of}; prices ${fsj.price_date}; ${(fsj.peers || []).length} peers; fetched ${fsj.fetched}` : "missing");
+cur("peer_leverage.json", !!(plv && (plv.peers || []).some((p) => !p.error)), plv ? `${(plv.peers || []).filter((p) => !p.error).length} peers; fetched ${plv.fetched}` : "missing");
 
 // ---------- report ----------
+const warnOnly = warnings.map((w) => w.replace(/^WARN\s+/, "")).filter((w) => !/ — insufficient data, skipped$/.test(w)).map((w) => { const i = w.indexOf(": "); return { tag: i > 0 ? w.slice(0, i) : "general", check: i > 0 ? w.slice(i + 2) : w, status: "warn", diff: null, tol: null, note: null }; });
 writeFileSync(join(DATA, "quality_report.json"), JSON.stringify({
   generated: today.toISOString(),
   summary: { checks, failed: failures.length, warnings: warnings.length, stale: stale.length },
+  latestQuarter: latestId, latestPeriodEnd: latest?.period_end || null, latestReleaseDate: latest?.release_date || null,
+  nextResults: nextRes, nextResultsEstimate: est ? { start: est.window_start, end: est.window_end } : null,
+  tolerances: { usdM: TOL, eps: EPS_TOL },
+  coverage: { quarters: [first?.id || null, latestId], years: [fyKeys[0] || null, lastFy] },
+  checks: [...results, ...warnOnly],
+  freshness, curated,
   passed,
   failures: failures.map((f) => f.replace(/^FAIL\s+/, "")),
   warnings: warnings.map((w) => w.replace(/^WARN\s+/, "")),
