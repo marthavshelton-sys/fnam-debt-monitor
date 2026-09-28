@@ -41,7 +41,10 @@ scripts/oma/harvest-releases.mjs                   A. ir.oma.aero (WordPress lis
                                                    -> tools/oma/raw/releases/*.txt (+ manifest.json); PDFs converted with
                                                    scripts/airports/pdf2text.py (pdfplumber), PDFs themselves are not committed
 scripts/oma/build-data.mjs                         raw text -> financials.js, traffic.js, guidance.js
-scripts/oma/validate-data.mjs                      tie-outs (scripts/airports/validate.mjs); a failure blocks the commit
+scripts/oma/validate-data.mjs                     tie-outs (scripts/airports/validate.mjs); a failure blocks the commit; also writes
+                                                   site/oma/data/quality.js for the hidden data-quality page https://fnam.mx/oma/quality.html
+                                                   (identities, series freshness, curated files, origin of every quarter, parse warnings
+                                                   from tools/oma/raw/build-log.json; renderer site/assets/quality-page.js)
 git commit "[skip actions]" + push                 Cloudflare Pages deploys; the marker keeps Actions from re-running
 ```
 

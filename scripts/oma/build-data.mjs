@@ -8,7 +8,7 @@
 // OMA's Adjusted EBITDA (EBITDA − construction revenue + construction cost + major-maintenance provision) and
 // `ebitdaMarginExIfric` its margin over aeronautical + non-aeronautical revenue, OMA's own headline metrics;
 // the reported EBITDA is kept as `ebitdaReported`.
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { writeData, header, norm, normLabel, tokenizeRow, qid, pdfRows, parseRows, mapPair, MONTHS_EN } from '../airports/lib.mjs';
 
 const RAW = new URL('../../tools/oma/raw/releases/', import.meta.url);
@@ -390,6 +390,7 @@ function parseTraffic(text, meta) {
 
 // ---------------------------------------------------------------------------------------------
 async function main() {
+  const BUILD_LOG = []; const warn0 = console.warn.bind(console); console.warn = (...a) => { BUILD_LOG.push(a.join(' ')); warn0(...a); };
   const files = (await readdir(RAW)).filter((f) => f.endsWith('.txt')).sort();
   const results = [], traffic = [];
   for (const f of files) {
@@ -481,5 +482,7 @@ async function main() {
   const gd = { generatedAt: new Date().toISOString(), basis: 'OMA does not publish a formal annual guidance table; it discloses the five-year Master Development Program (MDP) investment commitments and qualitative outlook on the earnings calls.', metrics: [], vintages: [] };
   const gdChanged = await writeData(OUT('guidance.js'), 'OMA_GUIDANCE', gd, GEN);
   console.log(`guidance.js${gdChanged ? '' : ' (unchanged)'}: ${gd.vintages.length} vintages`);
+  await writeFile(new URL('../../tools/oma/raw/build-log.json', import.meta.url), JSON.stringify({ generatedAt: new Date().toISOString(), warnings: BUILD_LOG.map((msg) => ({ file: (msg.match(/\(([^()]*\.txt)\)/) || [])[1] || '', msg })) }, null, 1) + '\n', 'utf8');
+  console.log(`build-log.json: ${BUILD_LOG.length} parse warnings`);
 }
 main().catch((e) => { console.error(e); process.exit(1); });

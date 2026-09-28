@@ -1,0 +1,117 @@
+{
+ "generatedAt": "2026-09-28T16:14:23.128Z",
+ "warnings": [
+  {
+   "file": "2019-04-24_ir1Q19_en.txt",
+   "msg": "2019Q1 (2019-04-24_ir1Q19_en.txt): IS unmatched: provision for asset tax | asur 1q19 page 22 of ; ^Table 1: Financial and Operating Highlights: header not found ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets"
+  },
+  {
+   "file": "2019-07-22_ir2Q19_en.txt",
+   "msg": "2019Q2 (2019-07-22_ir2Q19_en.txt): IS unmatched: provision for asset tax | exchange rate per dollar ps | asur 2q19 page 22 of ; ^Table 1: Financial and Operating Highlights: header not found ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets | investments in associates | increase in capital"
+  },
+  {
+   "file": "2019-10-23_ir3Q19_en.txt",
+   "msg": "2019Q3 (2019-10-23_ir3Q19_en.txt): IS unmatched: provision for asset tax | exchange rate per dollar ps | asur 3q19 page 21 of ; ^Table 1: Financial and Operating Highlights: header not found ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets | investments in associates | increase in capital"
+  },
+  {
+   "file": "2020-02-24_ir4Q19_en.txt",
+   "msg": "2019Q4 (2020-02-24_ir4Q19_en.txt): IS unmatched: provision for asset tax | exchange rate per dollar ps | asur 4q19 page 22 of ; ^Table 1: Financial and Operating Highlights: header not found ; BS exhibit not found ; CF unmatched: investments in associates | paid for the non-controlling interest of airplan"
+  },
+  {
+   "file": "2020-07-22_ir2Q20_en.txt",
+   "msg": "2020Q2 (2020-07-22_ir2Q20_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q20 page 26 of ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets"
+  },
+  {
+   "file": "2020-10-22_ir3Q20_en.txt",
+   "msg": "2020Q3 (2020-10-22_ir3Q20_en.txt): IS unmatched: exchange rate per dollar ps | asur 3q20 page 25 of ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets"
+  },
+  {
+   "file": "2021-02-24_ir4Q20_en.txt",
+   "msg": "2020Q4 (2021-02-24_ir4Q20_en.txt): IS unmatched: exchange rate per dollar ps | asur 4q20 page 25 of ; ^Table 1: Financial and Operating Highlights: header not found ; BS exhibit not found ; CF unmatched: increase in trade receivables | decrease in recoverable taxes and other current assets"
+  },
+  {
+   "file": "2021-04-22_ir1Q21_en.txt",
+   "msg": "2021Q1 (2021-04-22_ir1Q21_en.txt): IS unmatched: exchange rate per dollar ps | asur 1q21 page 25 of"
+  },
+  {
+   "file": "2021-07-22_ir2Q21_en.txt",
+   "msg": "2021Q2 (2021-07-22_ir2Q21_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q21 page 25 of ; ^Table 1: Financial and Operating Highlights: header not found ; CF unmatched: proceeds for cancellation of land acquisition contract"
+  },
+  {
+   "file": "2022-02-24_ir4Q21_en.txt",
+   "msg": "2021Q4 (2022-02-24_ir4Q21_en.txt): IS unmatched: exchange rate per dollar ps | asur 4q21 page 24 of ; BS unmatched: assets ; CF unmatched: 2.855.692 | depreciation and amortization | equity method | interest income | interest payables | foreign exchange gain , net unearned"
+  },
+  {
+   "file": "2022-04-25_ir1Q22_en.txt",
+   "msg": "2022Q1 (2022-04-25_ir1Q22_en.txt): IS unmatched: exchange rate per u.s. dollar ps | asur 1q22 page 23 of"
+  },
+  {
+   "file": "2022-07-25_ir2Q22_en.txt",
+   "msg": "2022Q2 (2022-07-25_ir2Q22_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q22 page 24 of ; BS unmatched: assets"
+  },
+  {
+   "file": "2022-10-24_ir3Q22_en.txt",
+   "msg": "2022Q3 (2022-10-24_ir3Q22_en.txt): IS unmatched: exchange rate per dollar ps | asur 3q22 page 24 of ; BS unmatched: assets ; CF unmatched: bank loans net"
+  },
+  {
+   "file": "2023-02-23_ir4Q22_en.txt",
+   "msg": "2022Q4 (2023-02-23_ir4Q22_en.txt): IS unmatched: exchange rate per dollar ps | asur 4q22 page 23 of ; BS unmatched: assets ; CF unmatched: loss on disposal of land"
+  },
+  {
+   "file": "2023-04-24_ir1Q23_en.txt",
+   "msg": "2023Q1 (2023-04-24_ir1Q23_en.txt): IS unmatched: exchange rate per dollar ps | asur 1q23 page 23 of"
+  },
+  {
+   "file": "2023-07-24_ir2Q23_en.txt",
+   "msg": "2023Q2 (2023-07-24_ir2Q23_en.txt): IS unmatched: asur 2q23 page 22 of"
+  },
+  {
+   "file": "2023-10-23_ir3Q23_en.txt",
+   "msg": "2023Q3 (2023-10-23_ir3Q23_en.txt): IS unmatched: asur 3q23 page 22 of ; BS unmatched: assets"
+  },
+  {
+   "file": "2024-02-26_ir4Q23_en.txt",
+   "msg": "2023Q4 (2024-02-26_ir4Q23_en.txt): IS unmatched: asur 4q23 page 23 of ; BS unmatched: assets ; CF unmatched: restricted cash"
+  },
+  {
+   "file": "2024-04-22_ir1Q24_en.txt",
+   "msg": "2024Q1 (2024-04-22_ir1Q24_en.txt): IS unmatched: exchange rate per dollar ps | asur 1q24 page 23 of ; BS unmatched: asur 1q24 page 24 of"
+  },
+  {
+   "file": "2024-07-23_ir2Q24_en.txt",
+   "msg": "2024Q2 (2024-07-23_ir2Q24_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q24 page 24 of ; CF unmatched: income from investment results accounted by the equity method"
+  },
+  {
+   "file": "2024-10-22_ir3Q24_en.txt",
+   "msg": "2024Q3 (2024-10-22_ir3Q24_en.txt): IS unmatched: exchange rate per dollar ps | asur 3q24 page 23 of ; BS unmatched: assets ; CF unmatched: income from investment results accounted by the equity met"
+  },
+  {
+   "file": "2025-02-24_ir4Q24_en.txt",
+   "msg": "2024Q4 (2025-02-24_ir4Q24_en.txt): IS unmatched: exchange rate per dollar ps | asur 4q24 page 25 of ; BS unmatched: assets ; CF unmatched: income from investment results accounted by the equity method | restricted cash"
+  },
+  {
+   "file": "2025-04-22_ir1Q25_en.txt",
+   "msg": "2025Q1 (2025-04-22_ir1Q25_en.txt): IS unmatched: exchange rate per dollar ps | asur 1q25 page 24 of ; BS unmatched: assets | asur 1q25 page 23 of"
+  },
+  {
+   "file": "2025-07-22_ir2Q25_en.txt",
+   "msg": "2025Q2 (2025-07-22_ir2Q25_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q25 page 23 of"
+  },
+  {
+   "file": "2025-10-22_ir3Q25_en.txt",
+   "msg": "2025Q3 (2025-10-22_ir3Q25_en.txt): IS unmatched: exchange rate per dollar ps | asur 3q25 page 24 of ; BS unmatched: assets"
+  },
+  {
+   "file": "2026-02-24_ir4Q25_en.txt",
+   "msg": "2025Q4 (2026-02-24_ir4Q25_en.txt): IS unmatched: exchange rate per dollar ps | asur 4q25 page 24 of ; BS unmatched: assets ; CF unmatched: restricted cash"
+  },
+  {
+   "file": "2026-04-22_ir1Q26_en.txt",
+   "msg": "2026Q1 (2026-04-22_ir1Q26_en.txt): IS unmatched: exchange rate per dollar ps | asur 1q26 page 27 of"
+  },
+  {
+   "file": "2026-07-23_ir2Q26_en.txt",
+   "msg": "2026Q2 (2026-07-23_ir2Q26_en.txt): IS unmatched: exchange rate per dollar ps | asur 2q26 page 27 of"
+  }
+ ]
+}

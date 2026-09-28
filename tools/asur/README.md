@@ -39,7 +39,10 @@ scripts/asur/harvest-releases.mjs                  PR Newswire organisation page
                                                    -> tools/asur/raw/releases/*.txt (+ manifest.json); PDFs converted with
                                                    scripts/airports/pdf2text.py (pdfplumber), PDFs themselves are not committed
 scripts/asur/build-data.mjs                        raw text -> financials.js, traffic.js, guidance.js
-scripts/asur/validate-data.mjs                     tie-outs (scripts/airports/validate.mjs); a failure blocks the commit
+scripts/asur/validate-data.mjs                     tie-outs (scripts/airports/validate.mjs); a failure blocks the commit; also writes
+                                                   site/asur/data/quality.js for the hidden data-quality page https://fnam.mx/asur/quality.html
+                                                   (identities, series freshness, curated files, origin of every quarter, parse warnings
+                                                   from tools/asur/raw/build-log.json; renderer site/assets/quality-page.js)
 git commit "[skip actions]" + push                 Cloudflare Pages deploys; the marker keeps Actions from re-running
 ```
 
