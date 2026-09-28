@@ -27,6 +27,10 @@ if (!pages.length) { console.error('usage: node scripts/check-links.mjs <page.ht
 const OWN = /(^|\.)fnam\.mx$/i;
 const SKIP_HOST = /(^|\.)(googleapis\.com|gstatic\.com|cdnjs\.cloudflare\.com|jsdelivr\.net|unpkg\.com|w3\.org|schema\.org|localhost)$/i;
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor link check; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
+// Some sites answer HEAD, or a non-browser user agent, with 404 for pages that exist
+// (aeropuertosgap.com.mx, GlobeNewswire): a 404 is confirmed with a GET and then with a
+// browser user agent before it counts as broken.
+const BROWSER_UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 const ignoreFile = resolve('tools/link-check-ignore.txt');
 const ignore = existsSync(ignoreFile)
   ? readFileSync(ignoreFile, 'utf8').split(/\r?\n/).map(s => s.trim()).filter(s => s && !s.startsWith('#'))
@@ -70,12 +74,12 @@ console.log(`${urls.length} distinct external links across ${pages.length} page(
 
 // ---- check ----
 const BROKEN_STATUS = new Set([404, 410]);
-async function probe(url, method) {
+async function probe(url, method, ua = UA) {
   const ctl = new AbortController();
   const timer = setTimeout(() => ctl.abort(), 25000);
   try {
     const res = await fetch(url.replace(/ /g, '%20'), { method, redirect: 'follow', signal: ctl.signal,
-      headers: { 'User-Agent': UA, Accept: 'text/html,application/xhtml+xml,application/pdf,*/*;q=0.8' } });
+      headers: { 'User-Agent': ua, Accept: 'text/html,application/xhtml+xml,application/pdf,*/*;q=0.8', 'Accept-Language': 'es-MX,es;q=0.9,en;q=0.8' } });
     try { await res.body?.cancel(); } catch {}
     return { status: res.status };
   } catch (e) {
@@ -88,7 +92,8 @@ async function classify(url) {
   for (let attempt = 0; attempt < 3; attempt++) {
     if (attempt) await new Promise(r => setTimeout(r, 4000 * attempt));
     let r = await probe(url, 'HEAD');
-    if (r.status === 405 || r.status === 403 || r.status === 400 || r.status === 0) r = await probe(url, 'GET');
+    if (r.status === 405 || r.status === 403 || r.status === 400 || r.status === 0 || BROKEN_STATUS.has(r.status)) r = await probe(url, 'GET');
+    if (BROKEN_STATUS.has(r.status)) r = await probe(url, 'GET', BROWSER_UA);
     last = r;
     if (r.status >= 200 && r.status < 400) return { verdict: 'ok', ...r };
     if (r.status === 0 && /ENOTFOUND|ECONNREFUSED|CERT|ERR_TLS/i.test(r.code || '')) {
