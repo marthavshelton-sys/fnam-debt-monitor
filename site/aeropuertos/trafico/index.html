@@ -224,6 +224,8 @@ table.tbl{width:100%; border-collapse:separate; border-spacing:0; font-size:13px
 .defs{font-size:13px; color:var(--text-secondary); line-height:1.6;}
 .defs dt{font-weight:600; color:var(--text-primary); margin-top:8px;}
 .defs dd{margin:0;}
+.defs dd ul{margin:4px 0 0; padding-left:18px;}
+.defs dd li{margin-bottom:3px;}
 
 /* footer */
 footer{border-top:1px solid var(--border); padding:24px 0 32px; color:var(--muted); font-size:13px;}
@@ -264,7 +266,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <span class="es">Tráfico Aéreo de México por Aeropuerto</span>
       </h1>
       <p class="sub">
-        <span class="en">Passengers, aircraft movements and cargo across the country's commercial airports, as reported to the civil aviation authority (AFAC) since 2006 — consolidated, by operator and by airport. Pick the operators you want to see, change the view, and follow Mexico City's AICM and the new AIFA on their own monthly figures.</span>
+        <span class="en">Passengers, aircraft operations and cargo across the country's commercial airports, as reported to the civil aviation authority (AFAC) since 2006 — consolidated, by operator and by airport. Pick the operators you want to see, change the view, and follow Mexico City's AICM and the new AIFA on their own monthly figures.</span>
         <span class="es">Pasajeros, operaciones y carga de los aeropuertos comerciales del país, según lo reportado a la autoridad de aviación civil (AFAC) desde 2006 — consolidado, por operador y por aeropuerto. Elige los operadores que quieres ver, cambia la vista y sigue al AICM de la Ciudad de México y al nuevo AIFA con sus propias cifras mensuales.</span>
       </p>
     </div>
@@ -295,7 +297,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="ctl"><span class="lbl"><span class="en">Measure</span><span class="es">Medida</span></span>
             <div class="seg" id="seg-measure">
               <button type="button" data-v="pax" aria-pressed="true"><span class="en">Passengers</span><span class="es">Pasajeros</span></button>
-              <button type="button" data-v="ops" aria-pressed="false"><span class="en">Movements</span><span class="es">Operaciones</span></button>
+              <button type="button" data-v="ops" aria-pressed="false"><span class="en">Operations</span><span class="es">Operaciones</span></button>
               <button type="button" data-v="cargo" aria-pressed="false"><span class="en">Cargo (t)</span><span class="es">Carga (t)</span></button>
             </div>
           </div>
@@ -366,6 +368,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           </div>
           <div class="controls" style="margin-bottom:10px"><div class="chips" id="tblchips"></div></div>
           <div class="tbl-wrap"><table class="tbl" id="tbl"><thead></thead><tbody></tbody></table></div>
+          <div class="panel-foot" id="tblfoot"></div>
         </div>
         <div class="panel">
           <div class="panel-head">
@@ -504,18 +507,42 @@ window.addEventListener("DOMContentLoaded", function(){
   function cls(x){ return x == null || !isFinite(x) ? "" : (x >= 0 ? "up" : "dn"); }
   function monthLabel(ym, longM){ var p = ym.split("-"); var dt = new Date(+p[0], +p[1] - 1, 1); return dt.toLocaleDateString(es() ? "es-MX" : "en-US", {month:longM ? "long" : "short", year:"numeric"}).replace(".", ""); }
   function monName(m){ var dt = new Date(2026, m - 1, 1); return dt.toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short"}).replace(".", ""); }
+  function span12(){ return monthLabel(months[last - 11]) + "–" + monthLabel(months[last]); }   // "sep 2025–ago 2026"
+  function ytdSpan(y){ return monName(1) + "–" + monName(lastM) + " " + y; }                     // "ene–ago 2026"
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
   function cssVar(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim(); }
   function alpha(hex, a){ var h = hex.replace("#", ""); if (h.length === 3) h = h.split("").map(function(c){ return c + c; }).join(""); var r = parseInt(h.slice(0, 2), 16), g = parseInt(h.slice(2, 4), 16), b = parseInt(h.slice(4, 6), 16); return "rgba(" + r + "," + g + "," + b + "," + a + ")"; }
 
   var GROUPS = ["GAP","OMA","ASUR","AICM","AIFA","OTROS"];
   var GSHORT = {GAP:"GAP", OMA:"OMA", ASUR:"ASUR", AICM:"AICM", AIFA:"AIFA", OTROS:{es:"Otros", en:"Others"}};
-  var GNAME = {GAP:{es:"GAP · Pacífico", en:"GAP · Pacific"}, OMA:{es:"OMA · Centro-Norte", en:"OMA · Central-north"}, ASUR:{es:"ASUR · Sureste", en:"ASUR · Southeast"}, AICM:{es:"AICM · Ciudad de México", en:"AICM · Mexico City"}, AIFA:{es:"AIFA · Felipe Ángeles", en:"AIFA · Felipe Ángeles"}, OTROS:{es:"Otros operadores", en:"Other operators"}};
-  var OPLABEL = {"ASA":{es:"ASA", en:"ASA"}, "GACM":{es:"GACM", en:"GACM"}, "GAFSACOMM":{es:"GAFSACOMM (Marina)", en:"GAFSACOMM (Navy)"}, "SOCIEDADES/PARTNERSHIPS":{es:"Sociedad estatal-privada", en:"State-private partnership"}, "PRIVADOS/PRIVATE":{es:"Privado", en:"Private"}, "GATM":{es:"GATM", en:"GATM"}};
+  var GNAME = {GAP:{es:"GAP · Pacífico", en:"GAP · Pacific"}, OMA:{es:"OMA · Centro Norte", en:"OMA · Central North"}, ASUR:{es:"ASUR · Sureste", en:"ASUR · Southeast"}, AICM:{es:"AICM · Ciudad de México", en:"AICM · Mexico City"}, AIFA:{es:"AIFA · Felipe Ángeles", en:"AIFA · Felipe Ángeles"}, OTROS:{es:"Otros operadores", en:"Other operators"}};
+  // AFAC's operator labels for the airports outside the five groups: the short label goes in the table, the full definition in
+  // the note under the table and in "Sources and Definitions" (with the airports AFAC assigns to each, computed from the data).
+  var OPLABEL = {"ASA":{es:"ASA", en:"ASA"}, "GACM":{es:"GACM (Marina)", en:"GACM (Navy)"}, "GAFSACOMM":{es:"GAFSACOMM (Defensa)", en:"GAFSACOMM (Defense)"}, "SOCIEDADES/PARTNERSHIPS":{es:"Sociedad estatal-privada", en:"State-private partnership"}, "PRIVADOS/PRIVATE":{es:"Privado", en:"Private"}, "GATM":{es:"GATM (SICT)", en:"GATM (SICT)"}};
+  var OPDEF = {
+    "ASA": {es:"Aeropuertos y Servicios Auxiliares, organismo federal de la SICT (Secretaría de Infraestructura, Comunicaciones y Transportes)", en:"Aeropuertos y Servicios Auxiliares, the federal airport agency under SICT (Ministry of Infrastructure, Communications and Transportation)"},
+    "GACM": {es:"Grupo Aeroportuario de la Ciudad de México, empresa de la Secretaría de Marina; el 30 de junio de 2025 se fusionó en el AICM, que opera sus aeropuertos como Grupo Aeroportuario Marina", en:"Grupo Aeroportuario de la Ciudad de México, the Navy's airport company; merged into AICM on June 30, 2025, which now runs its airports as Grupo Aeroportuario Marina"},
+    "GAFSACOMM": {es:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, empresa de la Secretaría de la Defensa Nacional", en:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, a company of the Defense Ministry (SEDENA)"},
+    "GATM": {es:"Grupo Aeroportuario Turístico Mexicano, empresa de participación estatal mayoritaria del sector de la SICT (el Gobierno Federal, por medio de la SICT y ASA, tiene al menos el 51%), con Mota-Engil Aeropuertos como socio", en:"Grupo Aeroportuario Turístico Mexicano, a majority state-owned company in the SICT sector (the federal government holds at least 51%, through SICT and ASA), with Mota-Engil Aeropuertos as partner"},
+    "SOCIEDADES/PARTNERSHIPS": {es:"etiqueta de la AFAC para aeropuertos operados por sociedades con participación de gobiernos estatales y otros socios", en:"AFAC's label for airports run by companies with state-government and other partners"},
+    "PRIVADOS/PRIVATE": {es:"operadores privados", en:"private operators"}
+  };
+  var OPORDER = ["ASA", "GACM", "GAFSACOMM", "GATM", "SOCIEDADES/PARTNERSHIPS", "PRIVADOS/PRIVATE"];
+  function opDefHtml(key, withAirports){
+    var list = withAirports ? aps.filter(function(r){ return r.a.op === key && r.ttm > 0; }).map(function(r){ return L({es:r.a.es, en:r.a.en}); }).sort(function(x, y){ return x.localeCompare(y, es() ? "es" : "en"); }) : [];
+    var short = key === "SOCIEDADES/PARTNERSHIPS" ? T("Sociedades estatales", "State partnerships") : key === "PRIVADOS/PRIVATE" ? T("Privados", "Private") : key;
+    return "<b>" + esc(short) + "</b>: " + esc(L(OPDEF[key])) + "." + (list.length ? " " + T("Aeropuertos: ", "Airports: ") + esc(list.join(", ")) + "." : "");
+  }
   var STATES = {AG:"Aguascalientes",BC:"Baja California",BS:"Baja California Sur",CM:"Campeche",CS:"Chiapas",CH:"Chihuahua",CO:"Coahuila",CL:"Colima",DF:"Ciudad de México",DG:"Durango",GJ:"Guanajuato",GR:"Guerrero",HG:"Hidalgo",JA:"Jalisco",MX:"Estado de México",MI:"Michoacán",MO:"Morelos",NA:"Nayarit",NL:"Nuevo León",OA:"Oaxaca",PU:"Puebla",QT:"Querétaro",QR:"Quintana Roo",SL:"San Luis Potosí",SI:"Sinaloa",SO:"Sonora",TB:"Tabasco",TM:"Tamaulipas",TL:"Tlaxcala",VE:"Veracruz",YU:"Yucatán",ZA:"Zacatecas"};
+  // English names where they differ (American usage); every other state keeps its name
+  var STATES_EN = {DF:"Mexico City", MX:"State of Mexico"};
+  function stateName(code){ return (lang() === "en" && STATES_EN[code]) || STATES[code] || code; }
   function col(g){ return cssVar("--c-" + g.toLowerCase()); }
   function gshort(g){ return L(GSHORT[g]); }
   function opName(a){ if (a.grp !== "OTROS") return L(GNAME[a.grp]); var o = OPLABEL[a.op]; return o ? L(o) : (a.op || ""); }
+  function opFull(a){ return a.grp === "OTROS" && OPDEF[a.op] ? L(OPDEF[a.op]) : ""; }
+  // the ranking table's Operator column is narrow: group codes (the dot carries the group color) and short AFAC labels
+  function opShort(a){ if (a.grp !== "OTROS") return gshort(a.grp); if (a.op === "SOCIEDADES/PARTNERSHIPS") return T("Sociedad estatal", "State partnership"); return opName(a); }
 
   // ---------- data ----------
   var months = D.months, N = months.length, last = N - 1;
@@ -581,13 +608,15 @@ window.addEventListener("DOMContentLoaded", function(){
     var ops = natOps[last], opsP = natOps[last - 12], cg = natCargo[last], cgP = natCargo[last - 12];
     var ml = monthLabel(months[last]);
     function k(kk, v, s){ return '<div class="kpi"><div class="k">' + kk + '</div><div class="v">' + v + '</div><div class="s">' + s + '</div></div>'; }
+    // every card names its basis: one month (vs. the same month a year earlier), year to date (vs. the same months a year
+    // earlier) or the last 12 months (vs. the prior 12)
     document.getElementById("kpis").innerHTML =
       k(T("Pasajeros, ", "Passengers, ") + ml, fmtM(cur), '<span class="' + cls(cur / prev - 1) + '">' + pct(cur / prev - 1) + '</span> ' + T("vs. mismo mes de ", "vs. same month of ") + (yearNow - 1)) +
       k(T("Acumulado ", "Year to date ") + yearNow + " (" + monName(1) + "–" + monName(lastM) + ")", fmtM(ytd), '<span class="' + cls(ytd / ytdP - 1) + '">' + pct(ytd / ytdP - 1) + '</span> ' + T("vs. mismo periodo de ", "vs. same period of ") + (yearNow - 1)) +
-      k(T("Últimos 12 meses", "Last 12 months"), fmtM(natTtm), '<span class="' + cls(natTtm / ttmP - 1) + '">' + pct(natTtm / ttmP - 1) + '</span> ' + T("vs. 12 meses previos", "vs. prior 12 months")) +
-      k(T("Internacional, 12 meses", "International, 12 months"), nf(intlS * 100, 1) + "%", '<span class="' + cls(intlS - intlSP) + '">' + (intlS - intlSP >= 0 ? "+" : "−") + nf(Math.abs(intlS - intlSP) * 100, 1) + " pp</span> " + T("vs. 12 meses previos", "vs. prior 12 months")) +
-      k(T("Operaciones, ", "Movements, ") + ml, fmtN(ops), '<span class="' + cls(ops / opsP - 1) + '">' + pct(ops / opsP - 1) + '</span> ' + T("a/a", "y/y")) +
-      k(T("Carga, ", "Cargo, ") + ml, fmtT(cg), '<span class="' + cls(cg / cgP - 1) + '">' + pct(cg / cgP - 1) + '</span> ' + T("a/a", "y/y"));
+      k(T("Pasajeros, últimos 12 meses", "Passengers, last 12 months"), fmtM(natTtm), '<span class="' + cls(natTtm / ttmP - 1) + '">' + pct(natTtm / ttmP - 1) + '</span> ' + T("vs. 12 meses previos · ", "vs. prior 12 months · ") + span12()) +
+      k(T("Internacional, últimos 12 meses", "International, last 12 months"), nf(intlS * 100, 1) + "%", '<span class="' + cls(intlS - intlSP) + '">' + (intlS - intlSP >= 0 ? "+" : "−") + nf(Math.abs(intlS - intlSP) * 100, 1) + " pp</span> " + T("vs. 12 meses previos", "vs. prior 12 months")) +
+      k(T("Operaciones, ", "Operations, ") + ml, fmtN(ops), '<span class="' + cls(ops / opsP - 1) + '">' + pct(ops / opsP - 1) + '</span> ' + T("vs. mismo mes de ", "vs. same month of ") + (yearNow - 1)) +
+      k(T("Carga, ", "Cargo, ") + ml, fmtT(cg), '<span class="' + cls(cg / cgP - 1) + '">' + pct(cg / cgP - 1) + '</span> ' + T("vs. mismo mes de ", "vs. same month of ") + (yearNow - 1));
     document.getElementById("snap-asof").textContent = T("AFAC · datos a ", "AFAC · data to ") + ml;
     renderNextRelease();
   }
@@ -602,18 +631,19 @@ window.addEventListener("DOMContentLoaded", function(){
   function dateOn(ym, day){ var p = ym.split("-"); var dim = new Date(+p[0], +p[1], 0).getDate(); return new Date(+p[0], +p[1] - 1, Math.min(day, dim)); }
   function fmtDay(d){ return d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric"}); }
   function isoDay(iso){ var p = iso.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
-  function dueText(d){ var today = new Date(); today.setHours(0,0,0,0); var late = d < today; return '<span class="' + (late ? "late" : "") + '">' + (late ? T("esperada desde el ", "expected since ") : T("esperada hacia el ", "expected around ")) + fmtDay(d) + (late ? T(" (pendiente)", " (pending)") : "") + "</span>"; }
+  // every item reads "datos de <mes>, esperados …" so the participle always agrees with "datos"
+  function dueText(d){ var today = new Date(); today.setHours(0,0,0,0); var late = d < today; return '<span class="' + (late ? "late" : "") + '">' + (late ? T("esperados desde el ", "expected since ") : T("esperados hacia el ", "expected around ")) + fmtDay(d) + (late ? T(" (pendientes)", " (pending)") : "") + "</span>"; }
   function renderNextRelease(){
     var el = document.getElementById("next-release"); if (!el) return;
     var parts = [];
     var src = D.sources || {};
     if (src.afac && src.afac.published) {
       var nextM = addMonths(months[last], 1), pub = isoDay(src.afac.published), exp = new Date(pub.getFullYear(), pub.getMonth() + 1, pub.getDate());
-      parts.push("<b>AFAC</b> " + T("(nacional): estadística de ", "(national): statistics for ") + monthLabel(nextM, true) + ", " + dueText(exp) + T(" — la de ", " — the ") + monthLabel(months[last], true) + T(" se publicó el ", " one was published on ") + fmtDay(pub) + ".");
+      parts.push("<b>AFAC</b> " + T("(nacional): datos de ", "(national): data for ") + monthLabel(nextM, true) + ", " + dueText(exp) + T(" — los de ", " — the ") + monthLabel(months[last], true) + T(" se publicaron el ", " data came out on ") + fmtDay(pub) + ".");
     }
     if (src.aicm && src.aicm.updated && D.aicm && D.aicm.months && D.aicm.months.length) {
       var am = D.aicm.months[D.aicm.months.length - 1], up = isoDay(src.aicm.updated), expA = new Date(up.getFullYear(), up.getMonth() + 1, up.getDate());
-      parts.push("<b>AICM</b>: " + monthLabel(addMonths(am, 1), true) + ", " + dueText(expA) + ".");
+      parts.push("<b>AICM</b>: " + T("datos de ", "data for ") + monthLabel(addMonths(am, 1), true) + ", " + dueText(expA) + ".");
     }
     if (companies && companies.src) {
       var cos = [];
@@ -623,7 +653,7 @@ window.addEventListener("DOMContentLoaded", function(){
         var days = Tm.months.slice(-12).map(function(m){ if (!m.source || !m.source.date) return null; var d = isoDay(m.source.date); var lag = (d.getFullYear() - +m.ym.slice(0,4)) * 12 + d.getMonth() - (+m.ym.slice(5,7) - 1); return lag === 1 ? d.getDate() : null; }).filter(function(x){ return x != null; }).sort(function(a,b){ return a - b; });
         if (!days.length) return;
         var med = days[Math.floor(days.length / 2)];
-        cos.push(pair[0] + T(": datos de ", ": ") + monthLabel(addMonths(lastYm, 1)) + T(" ", " data, ") + dueText(dateOn(addMonths(lastYm, 2), med)));
+        cos.push(pair[0] + T(": datos de ", ": data for ") + monthLabel(addMonths(lastYm, 1)) + ", " + dueText(dateOn(addMonths(lastYm, 2), med)));
       });
       if (cos.length) parts.push("<b>" + T("Reportes mensuales de los grupos", "Groups' monthly reports") + "</b>: " + cos.join(" · ") + ".");
     }
@@ -671,7 +701,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var isPct = S.view === "yoy" || S.view === "share";
     var datasets = [], labels, type = "line";
     var opts = baseOpts();
-    var unitLabel = measure === "cargo" ? T("toneladas", "tons") : measure === "ops" ? T("operaciones", "movements") : T("pasajeros", "passengers");
+    var unitLabel = measure === "cargo" ? T("toneladas", "tons") : measure === "ops" ? T("operaciones", "aircraft operations") : T("pasajeros", "passengers");
     if (S.view === "annual") {
       type = "bar";
       var yrs = []; for (var y = S.from; y <= yearNow; y++) yrs.push(y);
@@ -708,7 +738,7 @@ window.addEventListener("DOMContentLoaded", function(){
           T("La línea de total nacional sigue siendo la de la AFAC. Las definiciones difieren ligeramente de las de la AFAC (tránsitos, aviación general), así que las series no son exactamente comparables.", "The national total line is still AFAC's. Definitions differ slightly from AFAC's (transit, general aviation), so the series are not exactly comparable.");
     } else {
       f = T("Base: AFAC, estadística operativa de aeropuertos, ", "Basis: AFAC airport operating statistics, ") + unitLabel + T(" por mes hasta ", " per month to ") + monthLabel(months[last]) + ". " +
-          T("Los pasajeros se cuentan en cada aeropuerto (llegadas y salidas), por lo que un viaje nacional suma en origen y destino. “Otros” agrupa ASA, GAFSACOMM, sociedades estatales y operadores privados; los aeropuertos que cambiaron de operador se clasifican por su operador actual.", "Passengers are counted at each airport (arrivals and departures), so a domestic trip counts at both ends. “Others” groups ASA, GAFSACOMM, state partnerships and private operators; airports that changed hands are classified by their current operator.") +
+          T("Los pasajeros se cuentan en cada aeropuerto (llegadas y salidas), por lo que un viaje nacional suma en origen y destino. «Otros» agrupa los aeropuertos de ASA, GACM, GAFSACOMM y GATM, las sociedades estatales y los privados (siglas definidas en «Fuentes y Definiciones»); los aeropuertos que cambiaron de operador se clasifican por su operador actual.", "Passengers are counted at each airport (arrivals and departures), so a domestic trip counts at both ends. “Others” groups the airports of ASA, GACM, GAFSACOMM and GATM, the state partnerships and private operators (abbreviations defined under “Sources and Definitions”); airports that changed hands are classified by their current operator.") +
           (S.view === "yoy" ? T(" Variación anual = mismo mes del año anterior.", " Y/y change = versus the same month a year earlier.") : "") +
           (S.view === "ttm" ? T(" Doce meses móviles = suma de los últimos doce meses.", " Trailing 12 m = sum of the latest twelve months.") : "") +
           (S.view === "share" ? T(" Participación = porcentaje del total nacional de la AFAC.", " Market share = percentage of AFAC's national total.") : "");
@@ -720,17 +750,19 @@ window.addEventListener("DOMContentLoaded", function(){
   }
 
   // ---------- 3. airports ----------
+  // Column labels say their basis; the note under the table spells the periods out (12 m = the last 12 months; the change
+  // columns compare with the prior 12 months and with the same months of the previous year).
   var COLS = [
     {k:"rank", l:{es:"#", en:"#"}, cls:"l"},
     {k:"name", l:{es:"Aeropuerto", en:"Airport"}, cls:"l name"},
     {k:"op", l:{es:"Operador", en:"Operator"}, cls:"l"},
-    {k:"ttm", l:{es:"Últimos 12 m", en:"Last 12 m"}},
-    {k:"yoy", l:{es:"Var. a/a", en:"Y/y"}},
-    {k:"ytdyoy", l:{es:"Acum. " + yearNow, en:"YTD " + yearNow}},
-    {k:"intl", l:{es:"Internac.", en:"Intl."}},
-    {k:"shareN", l:{es:"Del total", en:"Of total"}}
+    {k:"ttm", l:{es:"Pasajeros", en:"Passengers"}, t:{es:"Pasajeros de los últimos 12 meses", en:"Passengers over the last 12 months"}},
+    {k:"yoy", l:{es:"Var.", en:"Chg."}, t:{es:"Últimos 12 meses contra los 12 meses previos", en:"Last 12 months versus the prior 12 months"}},
+    {k:"ytdyoy", l:{es:"Var. acum.", en:"Chg. YTD"}, t:{es:"Acumulado del año contra los mismos meses del año anterior", en:"Year to date versus the same months a year earlier"}},
+    {k:"intl", l:{es:"Internac.", en:"Intl."}, t:{es:"Internacional, últimos 12 meses", en:"International share, last 12 months"}},
+    {k:"shareN", l:{es:"Del total", en:"Of total"}, t:{es:"Participación en el total nacional, últimos 12 meses", en:"Share of the national total, last 12 months"}}
   ];
-  function rowVals(r){ return {rank:0, name:L({es:r.a.es, en:r.a.en}), op:opName(r.a), ttm:r.ttm, yoy:r.prev ? r.ttm / r.prev - 1 : null, ytdyoy:r.ytdPrev ? r.ytd / r.ytdPrev - 1 : null, intl:r.intlShare, shareN:natTtm ? r.ttm / natTtm : 0}; }
+  function rowVals(r){ return {rank:0, name:L({es:r.a.es, en:r.a.en}), op:opShort(r.a), ttm:r.ttm, yoy:r.prev ? r.ttm / r.prev - 1 : null, ytdyoy:r.ytdPrev ? r.ytd / r.ytdPrev - 1 : null, intl:r.intlShare, shareN:natTtm ? r.ttm / natTtm : 0}; }
   function renderTblChips(){
     document.getElementById("tblchips").innerHTML = '<button type="button" class="plain" data-f="" aria-pressed="' + (S.tblFilter == null) + '">' + T("Todos", "All") + '</button>' + GROUPS.map(function(g){ return '<button type="button" data-f="' + g + '" aria-pressed="' + (S.tblFilter === g) + '" style="--c:' + col(g) + '"><span class="sw"></span>' + gshort(g) + '</button>'; }).join("");
   }
@@ -739,10 +771,15 @@ window.addEventListener("DOMContentLoaded", function(){
     var k = S.sort.k, d = S.sort.d;
     rows.sort(function(a, b){ var x = a[k], y = b[k]; if (typeof x === "string") return d * x.localeCompare(y, es() ? "es" : "en"); x = x == null ? -Infinity : x; y = y == null ? -Infinity : y; return d * (x - y); });
     var byTtm = rows.slice().sort(function(a, b){ return b.ttm - a.ttm; }); byTtm.forEach(function(v, i){ v.rank = i + 1; });
-    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '">' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</th>"; }).join("") + "</tr>";
+    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '"' + (c.t ? ' title="' + esc(L(c.t)) + '"' : "") + '>' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</th>"; }).join("") + "</tr>";
     document.querySelector("#tbl tbody").innerHTML = rows.map(function(v){
-      return '<tr data-code="' + v.r.code + '" class="' + (v.r.code === S.airport ? "sel" : "") + '"><td class="l">' + v.rank + '</td><td class="l name"><span class="dot" style="--c:' + col(v.r.grp) + '"></span>' + esc(v.name) + '<span class="code">' + v.r.code + '</span></td><td class="l">' + esc(v.op) + '</td><td>' + fmtN(v.ttm) + '</td><td class="' + cls(v.yoy) + '">' + pct(v.yoy) + '</td><td class="' + cls(v.ytdyoy) + '">' + pct(v.ytdyoy) + '</td><td>' + nf(v.intl * 100, 0) + '%</td><td>' + nf(v.shareN * 100, 1) + '%</td></tr>';
+      var full = opFull(v.r.a) || (v.r.grp !== "OTROS" ? L(GNAME[v.r.grp]) : "");
+      return '<tr data-code="' + v.r.code + '" class="' + (v.r.code === S.airport ? "sel" : "") + '"><td class="l">' + v.rank + '</td><td class="l name"><span class="dot" style="--c:' + col(v.r.grp) + '"></span>' + esc(v.name) + '<span class="code">' + v.r.code + '</span></td><td class="l"' + (full ? ' title="' + esc(full) + '"' : "") + '>' + esc(v.op) + '</td><td>' + fmtN(v.ttm) + '</td><td class="' + cls(v.yoy) + '">' + pct(v.yoy) + '</td><td class="' + cls(v.ytdyoy) + '">' + pct(v.ytdyoy) + '</td><td>' + nf(v.intl * 100, 0) + '%</td><td>' + nf(v.shareN * 100, 1) + '%</td></tr>';
     }).join("");
+    // periods behind the columns, and the operator abbreviations that appear in this view of the table
+    var shown = OPORDER.filter(function(key){ return key !== "SOCIEDADES/PARTNERSHIPS" && key !== "PRIVADOS/PRIVATE" && rows.some(function(v){ return v.r.grp === "OTROS" && v.r.a.op === key; }); });
+    document.getElementById("tblfoot").innerHTML = esc(T("Pasajeros, Var., Internac. y Del total: últimos 12 meses (" + span12() + "); Var. = contra los 12 meses previos. Var. acum. = " + ytdSpan(yearNow) + " contra " + ytdSpan(yearNow - 1) + ".", "Passengers, Chg., Intl. and Of total: last 12 months (" + span12() + "); Chg. = versus the prior 12 months. Chg. YTD = " + ytdSpan(yearNow) + " versus " + ytdSpan(yearNow - 1) + ".")) +
+      (shown.length ? " " + shown.map(function(key){ return opDefHtml(key, false); }).join(" ") : "");
   }
   function renderApSelect(){
     var sel = document.getElementById("apsel");
@@ -760,12 +797,13 @@ window.addEventListener("DOMContentLoaded", function(){
     var an = a.annual || {pax:{}, ops:{}, cargo:{}};
     var lastFullYear = lastM === 12 ? yearNow : yearNow - 1;
     function k(kk, v, s){ return '<div class="kpi"><div class="k">' + kk + '</div><div class="v">' + v + '</div>' + (s ? '<div class="s">' + s + "</div>" : "") + "</div>"; }
+    var full = opFull(a);
     document.getElementById("apkpis").innerHTML =
-      k(T("Operador", "Operator"), '<span style="font-size:16px">' + esc(opName(a)) + "</span>", esc(STATES[a.st] || a.st)) +
-      k(T("Pasajeros, 12 meses", "Passengers, 12 months"), fmtN(r.ttm), '<span class="' + cls(yoyv) + '">' + pct(yoyv) + "</span> " + T("vs. 12 m previos", "vs. prior 12 m")) +
-      k(T("Acumulado ", "YTD ") + yearNow, fmtN(r.ytd), '<span class="' + cls(yy) + '">' + pct(yy) + "</span> " + T("a/a", "y/y")) +
-      k(T("Internacional", "International"), nf(r.intlShare * 100, 0) + "%", T("de los pasajeros, 12 m", "of passengers, 12 m")) +
-      k(T("Operaciones ", "Movements ") + lastFullYear, fmtN(an.ops[lastFullYear]), T("Carga: ", "Cargo: ") + fmtT(an.cargo[lastFullYear]));
+      k(T("Operador", "Operator"), '<span style="font-size:16px">' + esc(opName(a)) + "</span>", (full ? esc(full) + " · " : "") + esc(stateName(a.st))) +
+      k(T("Pasajeros, últimos 12 meses", "Passengers, last 12 months"), fmtN(r.ttm), '<span class="' + cls(yoyv) + '">' + pct(yoyv) + "</span> " + T("vs. 12 meses previos", "vs. prior 12 months")) +
+      k(T("Acumulado ", "Year to date ") + yearNow + " (" + monName(1) + "–" + monName(lastM) + ")", fmtN(r.ytd), '<span class="' + cls(yy) + '">' + pct(yy) + "</span> " + T("vs. ", "vs. ") + ytdSpan(yearNow - 1)) +
+      k(T("Internacional, últimos 12 meses", "International, last 12 months"), nf(r.intlShare * 100, 0) + "%", T("de los pasajeros", "of passengers")) +
+      k(T("Operaciones ", "Operations ") + lastFullYear, fmtN(an.ops[lastFullYear]), T("Carga: ", "Cargo: ") + fmtT(an.cargo[lastFullYear]));
     var dom = a.pax.dom || [], intl = a.pax.intl || [];
     var startYm = Math.max(A0, months.indexOf("2015-01")), s0 = startYm - A0;
     var labels = months.slice(startYm);
@@ -800,7 +838,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var py = ytdA("pax", yr), pyP = ytdA("pax", yr - 1), intlS = A.pax.intl[al] / pax;
     document.getElementById("aicmkpis").innerHTML =
       k(T("Pasajeros comerciales, ", "Commercial passengers, ") + ml, fmtM(pax), '<span class="' + cls(pax / paxP - 1) + '">' + pct(pax / paxP - 1) + "</span> " + T("a/a", "y/y") + " · " + nf(intlS * 100, 0) + "% " + T("internacional", "international")) +
-      k(T("Acumulado ", "YTD ") + yr, fmtM(py), '<span class="' + cls(py / pyP - 1) + '">' + pct(py / pyP - 1) + "</span> " + T("vs. mismo periodo de ", "vs. same period of ") + (yr - 1)) +
+      k(T("Acumulado ", "Year to date ") + yr + " (" + monName(1) + "–" + monName(lm) + ")", fmtM(py), '<span class="' + cls(py / pyP - 1) + '">' + pct(py / pyP - 1) + "</span> " + T("vs. mismo periodo de ", "vs. same period of ") + (yr - 1)) +
       k(T("Operaciones, ", "Operations, ") + ml, fmtN(ops), '<span class="' + cls(ops / opsP - 1) + '">' + pct(ops / opsP - 1) + "</span> " + T("a/a · comerciales y aviación general", "y/y · commercial and general aviation")) +
       k(T("Carga, ", "Cargo, ") + ml, fmtT(cg), '<span class="' + cls(cg / cgP - 1) + '">' + pct(cg / cgP - 1) + "</span> " + T("a/a", "y/y"));
     document.getElementById("aicm-asof").textContent = T("AICM en Cifras · datos a ", "AICM en Cifras · data to ") + ml;
@@ -814,8 +852,10 @@ window.addEventListener("DOMContentLoaded", function(){
       {label:T("Nacional", "Domestic"), data:A[kk].dom, backgroundColor:alpha(c, .85), stack:"a"},
       {label:T("Internacional", "International"), data:A[kk].intl, backgroundColor:alpha(c2, .75), stack:"a"}
     ]}, options:opts});
-    document.getElementById("aicmfoot").textContent = T("Fuente: AICM, «AICM en Cifras» (PDF mensual y cierres anuales 2019–2025): pasajeros comerciales, operaciones totales (comerciales + aviación general) y carga en toneladas, nacional e internacional, enero 2018 – ", "Source: AICM, “AICM en Cifras” (monthly PDF and 2019–2025 year-end editions): commercial passengers, total operations (commercial + general aviation) and cargo in tons, domestic and international, January 2018 – ") + ml + ". " +
-      T("El AICM opera con un tope de 43 operaciones por hora desde 2024 y sin carga exclusiva desde 2023, lo que explica la caída de operaciones y de carga frente al AIFA.", "AICM has operated under a 43-movements-per-hour cap since 2024 and without dedicated freighters since 2023, which explains the drop in operations and cargo versus AIFA.");
+    // Coverage is stated once, from the data (the same wording as the Sources list): the series starts in the first month loaded,
+    // because each year-end edition also carries the year before it.
+    document.getElementById("aicmfoot").textContent = T("Fuente: AICM, «AICM en Cifras» (PDF mensual más reciente y ediciones de cierre de año; cada edición trae también el año anterior): pasajeros comerciales, operaciones totales (comerciales + aviación general) y carga en toneladas, nacional e internacional, de ", "Source: AICM, “AICM en Cifras” (latest monthly PDF and the year-end editions; each edition also carries the year before): commercial passengers, total operations (commercial + general aviation) and cargo in tons, domestic and international, ") + monthLabel(am[0], true) + T(" a ", " to ") + monthLabel(am[al], true) + ". " +
+      T("El AICM opera con un tope de 43 operaciones por hora desde 2024 y sin carga exclusiva desde 2023, lo que explica la caída de operaciones y de carga frente al AIFA.", "AICM has operated under a cap of 43 operations per hour since 2024 and without dedicated freighters since 2023, which explains the drop in operations and cargo versus AIFA.");
   }
 
   // ---------- 5. AIFA / Valle de México ----------
@@ -827,11 +867,11 @@ window.addEventListener("DOMContentLoaded", function(){
     var since = F.since ? new Date(F.since + "T00:00:00").toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"long", year:"numeric"}) : "";
     var asOf = F.asOf ? new Date(F.asOf + "T00:00:00").toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"long", year:"numeric"}) : "";
     document.getElementById("aifakpis").innerHTML =
-      k(T("Pasajeros desde la apertura", "Passengers since opening"), fmtM(F.pax || 0), T("Numeralia AIFA, ", "AIFA numeralia, ") + since + " – " + asOf) +
+      k(T("Pasajeros desde la apertura", "Passengers since opening"), fmtM(F.pax || 0), T("Numeralia del AIFA, ", "AIFA's own counters, ") + since + " – " + asOf) +
       k(T("Operaciones desde la apertura", "Operations since opening"), fmtN(F.ops || 0), T("Carga acumulada: ", "Cumulative cargo: ") + fmtT(F.cargoTons || 0)) +
-      k(T("Pasajeros, últimos 12 meses (AFAC)", "Passengers, last 12 months (AFAC)"), nlu ? fmtM(nlu.ttm) : "—", nlu ? '<span class="' + cls(nlu.prev ? nlu.ttm / nlu.prev - 1 : null) + '">' + pct(nlu.prev ? nlu.ttm / nlu.prev - 1 : null) + "</span> " + T("vs. 12 m previos", "vs. prior 12 m") : "") +
-      k(T("Del sistema Valle de México", "Of the Valley of Mexico system"), nlu && sys ? nf(nlu.ttm / sys * 100, 1) + "%" : "—", T("AICM + AIFA + Toluca, 12 m", "AICM + AIFA + Toluca, 12 m"));
-    document.getElementById("aifa-asof").textContent = T("AIFA · AFAC · numeralia al ", "AIFA · AFAC · numeralia as of ") + asOf;
+      k(T("Pasajeros, últimos 12 meses (AFAC)", "Passengers, last 12 months (AFAC)"), nlu ? fmtM(nlu.ttm) : "—", nlu ? '<span class="' + cls(nlu.prev ? nlu.ttm / nlu.prev - 1 : null) + '">' + pct(nlu.prev ? nlu.ttm / nlu.prev - 1 : null) + "</span> " + T("vs. 12 meses previos", "vs. prior 12 months") : "") +
+      k(T("Del sistema Valle de México, 12 meses", "Of the Valley of Mexico system, 12 months"), nlu && sys ? nf(nlu.ttm / sys * 100, 1) + "%" : "—", T("AICM + AIFA + Toluca, últimos 12 meses", "AICM + AIFA + Toluca, last 12 months"));
+    document.getElementById("aifa-asof").textContent = T("AIFA · AFAC · numeralia al ", "AIFA · AFAC · counters as of ") + asOf;
     // Valley of Mexico monthly stack
     var start = months.indexOf("2021-01"), s0 = start - A0, labels = months.slice(start);
     function ser(code){ var r = byCode[code]; if (!r) return labels.map(function(){ return null; }); var d = r.a.pax.dom || [], n = r.a.pax.intl || []; var out = []; for (var i = s0; i <= last - A0; i++) out.push((d[i] || 0) + (n[i] || 0)); return out; }
@@ -861,7 +901,7 @@ window.addEventListener("DOMContentLoaded", function(){
       {label:"AICM", data:ann("MEX"), backgroundColor:alpha(col("AICM"), .85)},
       {label:"AIFA", data:ann("NLU"), backgroundColor:alpha(col("AIFA"), .9)}
     ]}, options:o2});
-    document.getElementById("aifafoot").textContent = T("El AIFA (Santa Lucía, Estado de México) abrió el 21 de marzo de 2022. La numeralia acumulada es la que publica el propio aeropuerto en su portal; las series mensuales y la carga anual son de la AFAC (aeropuerto «Santa Lucía»). En 2023 la carga exclusiva se trasladó del AICM al AIFA por decreto, y desde 2024 el AICM opera con tope de 43 operaciones por hora.", "AIFA (Santa Lucía, State of Mexico) opened on 21 March 2022. The cumulative numeralia is the airport's own, published on its portal; the monthly series and annual cargo come from AFAC (airport “Santa Lucía”). In 2023 dedicated freighters were moved from AICM to AIFA by decree, and since 2024 AICM has operated under a 43-movements-per-hour cap.");
+    document.getElementById("aifafoot").textContent = T("El AIFA (Santa Lucía, Estado de México) abrió el 21 de marzo de 2022. La numeralia acumulada es la que publica el propio aeropuerto en su portal; las series mensuales y la carga anual son de la AFAC (aeropuerto «Santa Lucía»). En 2023 la carga exclusiva se trasladó del AICM al AIFA por decreto, y desde 2024 el AICM opera con tope de 43 operaciones por hora.", "AIFA (Santa Lucía, State of Mexico) opened on March 21, 2022. The cumulative counters are the airport's own, published on its website; the monthly series and annual cargo come from AFAC (airport “Santa Lucía”). In 2023 dedicated freighters were moved from AICM to AIFA by decree, and since 2024 AICM has operated under a cap of 43 operations per hour.");
   }
 
   // ---------- 6. sources ----------
@@ -869,20 +909,26 @@ window.addEventListener("DOMContentLoaded", function(){
     var s = D.sources || {};
     var li = [];
     var y0 = (D.months[0] || "").slice(0, 4), y1 = (D.lastMonth || "").slice(0, 4);
-    var aicmM = D.aicm && D.aicm.months || [], aicmLast = aicmM[aicmM.length - 1] || "", aicmYears = {}; aicmM.forEach(function(m){ aicmYears[m.slice(0, 4)] = (aicmYears[m.slice(0, 4)] || 0) + 1; });
-    var full = Object.keys(aicmYears).filter(function(y){ return aicmYears[y] === 12; }).sort(), yearEnds = full.length ? full[0] + "–" + full[full.length - 1] : "";
+    var aicmM = D.aicm && D.aicm.months || [], aicmFirst = aicmM[0] || "", aicmLast = aicmM[aicmM.length - 1] || "";
     var mesLargo = function(ym){ var d = ym ? new Date(+ym.slice(0, 4), +ym.slice(5, 7) - 1, 1) : null; return d ? d.toLocaleDateString(es() ? "es-MX" : "en-US", {month:"long", year:"numeric"}) : ""; };
-    if (s.afac) li.push('<li><a href="' + s.afac.url + '" target="_blank" rel="noopener">' + T("AFAC — Estadística operativa de aeropuertos " + y0 + "–" + y1, "AFAC — Airport operating statistics " + y0 + "–" + y1) + "</a> (" + esc(s.afac.file || "") + T(", publicado el ", ", published ") + esc(s.afac.published || "") + "). " + T("Pasajeros, operaciones y carga por aeropuerto y mes, nacional e internacional, con el operador de cada aeropuerto por año.", "Passengers, aircraft movements and cargo by airport and month, domestic and international, with each airport's operator by year.") + "</li>");
-    if (s.aicm) li.push('<li><a href="' + s.aicm.url + '" target="_blank" rel="noopener">' + T("AICM — «AICM en Cifras»", "AICM — “AICM en Cifras”") + "</a> (" + T("PDF mensual de " + mesLargo(aicmLast) + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", detectado el ", mesLargo(aicmLast) + " monthly PDF" + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", first seen ") + esc(s.aicm.updated || "") + T(", y cierres anuales " + yearEnds, ", and the " + yearEnds + " year-end editions") + "). " + T("Pasajeros comerciales, llegadas y salidas, operaciones y carga.", "Commercial passengers, arrivals and departures, operations and cargo.") + "</li>");
-    if (s.aifa) li.push('<li><a href="' + s.aifa.url + '" target="_blank" rel="noopener">' + T("AIFA — numeralia del portal", "AIFA — portal numeralia") + "</a>: " + T("acumulado de operaciones, pasajeros y toneladas desde la apertura, al ", "cumulative operations, passengers and tons since opening, as of ") + esc(D.aifa && D.aifa.asOf || "") + ".</li>");
+    var day = function(iso){ var d = iso ? new Date(iso + "T12:00:00Z") : null; return d && !isNaN(d) ? esc(d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "")) : esc(iso || ""); };
+    var a = function(url, text){ return '<a href="' + esc(url) + '" target="_blank" rel="noopener">' + text + "</a>"; };
+    if (s.afac) li.push("<li>" + a(s.afac.url, T("AFAC — Estadística operativa de aeropuertos " + y0 + "–" + y1, "AFAC — Airport operating statistics " + y0 + "–" + y1)) + " (" + esc(s.afac.file || "") + T(", publicado el ", ", published ") + day(s.afac.published) + "). " + T("Pasajeros, operaciones y carga por aeropuerto y mes, nacional e internacional, con el operador de cada aeropuerto por año.", "Passengers, aircraft operations and cargo by airport and month, domestic and international, with each airport's operator by year.") + "</li>");
+    // AICM coverage is stated from the data, in the same words as the note under the AICM chart
+    if (s.aicm) li.push("<li>" + a(s.aicm.url, T("AICM — «AICM en Cifras»", "AICM — “AICM en Cifras”")) + " (" + T("PDF mensual de " + mesLargo(aicmLast) + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", detectado el ", mesLargo(aicmLast) + " monthly PDF" + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", first seen ") + day(s.aicm.updated) + T(", y ediciones de cierre de año, que traen también el año anterior; serie mensual de " + mesLargo(aicmFirst) + " a " + mesLargo(aicmLast), ", and the year-end editions, which also carry the year before; monthly series from " + mesLargo(aicmFirst) + " to " + mesLargo(aicmLast)) + "). " + T("Pasajeros comerciales, operaciones y carga, nacional e internacional.", "Commercial passengers, operations and cargo, domestic and international.") + "</li>");
+    if (s.aifa) li.push("<li>" + a(s.aifa.url, T("AIFA — numeralia de su sitio", "AIFA — counters on its website")) + ": " + T("acumulado de operaciones, pasajeros y toneladas desde la apertura, al ", "cumulative operations, passengers and tons since opening, as of ") + day(D.aifa && D.aifa.asOf) + ".</li>");
     li.push("<li>" + T("Reportes mensuales de tráfico de GAP, OMA y ASUR (base «Reportes de las empresas»), tomados de los modelos de cada grupo en este sitio.", "GAP, OMA and ASUR monthly traffic reports (the “Company reports” basis), taken from each group's model on this site.") + "</li>");
+    li.push("<li>" + T("Operadores: clasificación de la AFAC por año. Fusión del GACM en el AICM (Grupo Aeroportuario Marina): ", "Operators: AFAC's classification by year. GACM's merger into AICM (Grupo Aeroportuario Marina): ") + a("https://www.aicm.com.mx/concluye-proceso-de-fusion-para-el-surgimiento-de-grupo-aeroportuario-marina/30-06-2025", T("comunicado del AICM, 30 de junio de 2025", "AICM release, June 30, 2025")) + T(". GAFSACOMM (Sedena) y GATM (SICT): Cuenta Pública 2024, SHCP — ", ". GAFSACOMM (SEDENA) and GATM (SICT): 2024 Public Accounts, Finance Ministry (SHCP) — ") + a("https://www.cuentapublica.hacienda.gob.mx/work/models/CP/2024/tomo/VII/MAT_Print.7H0C.01.INTRO.pdf", "GAFSACOMM") + ", " + a("https://www.cuentapublica.hacienda.gob.mx/work/models/CP/2024/tomo/VII/MAT_Print.9KDI.02.NEF.pdf", "GATM") + ".</li>");
     var ST = window.MX_AIRPORTS_STATUS || {}, fmtTs = function(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? esc(d.toLocaleString(es() ? "es-MX" : "en-US", {dateStyle:"medium", timeStyle:"short", timeZone:"America/Mexico_City"})) : "—"; };
     var failed = ["afac","aicm","aifa"].filter(function(k){ return /^failed/.test(String(ST[k] || "")); }).map(function(k){ return k.toUpperCase(); });
     li.push("<li>" + T("Actualización automática: las tres fuentes se consultan cada día. Última consulta: ", "Automatic update: the three sources are checked every day. Last check: ") + fmtTs(ST.checkedAt) + T("; datos generados: ", "; data generated: ") + fmtTs(D.generatedAt) + T(" (hora de la Ciudad de México).", " (Mexico City time).") + (failed.length ? " " + T("En la última consulta no respondió: " + failed.join(", ") + "; se conservan los datos anteriores de esa fuente.", "Not reachable in the last check: " + failed.join(", ") + "; that source's previous data is kept.") : "") + "</li>");
     document.getElementById("srclist").innerHTML = li.join("");
+    // "Operator": every AFAC label used for "Others", spelled out, with the airports AFAC assigns to it today (computed from the data)
+    var ops = OPORDER.filter(function(key){ return aps.some(function(r){ return r.a.op === key && r.ttm > 0; }); });
     document.getElementById("defs").innerHTML =
       "<dt>" + T("Pasajeros (AFAC)", "Passengers (AFAC)") + "</dt><dd>" + T("Pasajeros atendidos por cada aeropuerto en servicio regular y fletamento, llegadas más salidas. Un pasajero de un vuelo nacional cuenta en el aeropuerto de origen y en el de destino; los totales nacionales, por tanto, no equivalen a viajes.", "Passengers handled by each airport on scheduled and charter services, arrivals plus departures. A domestic passenger counts at both the origin and destination airport, so national totals are not trips.") + "</dd>" +
-      "<dt>" + T("Operador", "Operator") + "</dt><dd>" + T("Clasificación de la AFAC por grupo aeroportuario. GAP, OMA y ASUR son los tres grupos listados; AICM y AIFA se muestran por separado; «Otros» agrupa a ASA, GAFSACOMM (Marina), las sociedades estatales (Toluca, Querétaro, Tuxtla Gutiérrez, Cuernavaca) y los operadores privados.", "AFAC's classification by airport group. GAP, OMA and ASUR are the three listed groups; AICM and AIFA are shown separately; “Others” groups ASA, GAFSACOMM (Navy), the state partnerships (Toluca, Querétaro, Tuxtla Gutiérrez, Cuernavaca) and private operators.") + "</dd>" +
+      "<dt>" + T("Operador", "Operator") + "</dt><dd>" + T("Clasificación de la AFAC por grupo aeroportuario. GAP, OMA y ASUR son los tres grupos listados; AICM y AIFA se muestran por separado; «Otros» agrupa al resto, con estas siglas:", "AFAC's classification by airport group. GAP, OMA and ASUR are the three listed groups; AICM and AIFA are shown separately; “Others” groups the rest, under these labels:") +
+        "<ul>" + ops.map(function(key){ return "<li>" + opDefHtml(key, true) + "</li>"; }).join("") + "</ul></dd>" +
       "<dt>" + T("Cifras de las empresas", "Company figures") + "</dt><dd>" + T("Pasajeros terminales según los reportes mensuales de cada grupo; excluyen tránsitos y, en general, aviación general, por lo que difieren ligeramente de la AFAC. GAP clasifica como internacionales a los pasajeros de Tijuana que cruzan por CBX.", "Terminal passengers per each group's monthly report; they exclude transit and, in general, general aviation, so they differ slightly from AFAC. GAP classifies Tijuana passengers using the CBX bridge as international.") + "</dd>" +
       "<dt>" + T("Actualización", "Updates") + "</dt><dd>" + T("La AFAC publica el mes anterior hacia la última semana del mes; el AICM, a mediados de mes. Los datos de esta página se regeneran a partir de esas publicaciones.", "AFAC publishes the previous month in the last week of the month; AICM around mid-month. This page's data is regenerated from those releases.") + "</dd>";
   }

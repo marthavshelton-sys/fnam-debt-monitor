@@ -63,7 +63,7 @@ for (const page of pages) {
   harvest(html, page);
   const dir = dirname(page);
   for (const m of html.matchAll(/<script[^>]+src="([^"]+)"/g)) {
-    const src = m[1];
+    const src = m[1].split(/[?#]/)[0]; // a cache-buster (regulation.js?v=2) is not part of the file name
     if (/^https?:/i.test(src)) continue;
     const file = src.startsWith('/') ? join('site', src) : join(dir, src);
     if (existsSync(file)) harvest(readFileSync(file, 'utf8'), page);

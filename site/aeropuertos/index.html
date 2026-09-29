@@ -25,7 +25,7 @@
 <script src="/aeropuertos/data/airlines-summary.js" defer></script>
 <script src="/aeropuertos/data/status.js" defer></script>
 <!-- Tariffs and regulation table: hand-curated from the companies' filings (see the file header). -->
-<script src="/aeropuertos/data/regulation.js?v=2" defer></script>
+<script src="/aeropuertos/data/regulation.js?v=3" defer></script>
 
 <style>
 :root{
@@ -275,7 +275,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 }
 </style>
 <style>
-/* ---------- operator colours (shared with /aeropuertos/trafico/) ---------- */
+/* ---------- operator colors (shared with /aeropuertos/trafico/) ---------- */
 :root{
   --c-gap:#1f6f8b; --c-oma:#c2661e; --c-asur:#6a4c93;
   --c-aicm:#3a3a38; --c-aifa:#b8912a; --c-otros:#9a968e;
@@ -329,11 +329,14 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .map-fallback{padding:40px 16px; text-align:center; color:var(--muted); font-size:14px;}
 .mx-state{fill:var(--map-land); stroke:var(--map-line); stroke-width:.8;}
 .mx-neighbor{fill:var(--map-land-2); stroke:var(--map-line); stroke-width:.8;}
-.mx-airport{cursor:pointer; outline:none;}
+/* Markers overlap (AICM and AIFA, Monterrey and Del Norte), so the pointer is resolved on the svg by pickAt(), not by the
+   markers themselves: the airport whose marker the pointer sits most centrally in wins. Keyboard focus stays on each marker. */
+.mx-airports{pointer-events:none;}
+#mxmap.hovering{cursor:pointer;}
+.mx-airport{outline:none;}
 .mx-airport circle.dot{fill:var(--c); fill-opacity:.82; stroke:var(--surface); stroke-width:1.2; transition:fill-opacity .15s;}
-.mx-airport circle.hit{fill:transparent; stroke:none;}
-.mx-airport.dim{opacity:.1; pointer-events:none;}
-.mx-airport:hover circle.dot, .mx-airport.selected circle.dot, .mx-airport:focus-visible circle.dot{fill-opacity:1; stroke:var(--text-primary); stroke-width:1.6;}
+.mx-airport.dim{opacity:.1;}
+.mx-airport.hover circle.dot, .mx-airport.selected circle.dot, .mx-airport:focus-visible circle.dot{fill-opacity:1; stroke:var(--text-primary); stroke-width:1.6;}
 .mx-label{
   font-family:var(--sans); font-size:11px; font-weight:600; fill:var(--text-secondary);
   pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;
@@ -353,14 +356,15 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .tooltip .code, .apanel .code{font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--muted); margin-left:4px;}
 .tooltip .op, .apanel .op{font-size:12px; color:var(--text-secondary); margin-bottom:6px;}
 .tooltip .row{display:flex; justify-content:space-between; gap:12px;}
-.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;}
+.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap;}
 .map-foot{
   display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px;
   margin-top:10px; font-size:12px; color:var(--muted);
 }
 
-/* operator strip under the map */
-.gstrip{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-top:14px;}
+/* operator strip under the map: one basis for every card (last 12 months, change vs. the prior 12), stated once above it */
+.gstrip-cap{margin:14px 0 0; font-size:12.5px; line-height:1.45; color:var(--text-secondary);}
+.gstrip{display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:10px; margin-top:8px;}
 .gstrip .g{
   border:1px solid var(--border); border-left:4px solid var(--c); border-radius:10px;
   padding:10px 12px; background:var(--surface);
@@ -611,8 +615,8 @@ table.reg .ref a:hover{text-decoration:underline;}
           <span class="es">Dónde Operan</span>
         </h2>
         <span class="count">
-          <span class="en"><span class="apcount">67</span> commercial airports · AFAC</span>
-          <span class="es"><span class="apcount">67</span> aeropuertos comerciales · AFAC</span>
+          <span class="en"><span class="apcount">65</span> airports with passengers, last 12 months · AFAC</span>
+          <span class="es"><span class="apcount">65</span> aeropuertos con pasajeros, últimos 12 meses · AFAC</span>
         </span>
       </div>
       <div class="map-card">
@@ -630,6 +634,7 @@ table.reg .ref a:hover{text-decoration:underline;}
           </svg>
           <div class="tooltip" id="tip" role="status" aria-live="polite"></div>
         </div>
+        <p class="gstrip-cap" id="gstrip-cap"></p>
         <div class="gstrip" id="gstrip" aria-label="Resumen por operador / Summary by operator"></div>
         <div class="apanel" id="apanel"></div>
         <div class="map-foot">
@@ -641,6 +646,7 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="en">Not on the map: GAP's Montego Bay and Kingston (Jamaica); ASUR's San Juan (Puerto Rico) and six airports in Colombia.</span>
             <span class="es">Fuera del mapa: Montego Bay y Kingston (Jamaica) de GAP; San Juan (Puerto Rico) y seis aeropuertos en Colombia de ASUR.</span>
           </span>
+          <span id="mapcount-note"></span>
         </div>
         <div class="stamp" id="map-stamp"></div>
       </div>
@@ -665,8 +671,8 @@ table.reg .ref a:hover{text-decoration:underline;}
           <div class="reg-src-title"><span class="en">Sources</span><span class="es">Fuentes</span></div>
           <ol class="reg-sources" id="reg-sources"></ol>
           <p>
-            <span class="en">Each period is stated in the constant pesos its filing uses (December 2022, 2023 or 2024), so levels are not comparable across groups without re-indexing. Full regulation, guidance and dividend blocks: section 07 of each model.</span>
-            <span class="es">Cada periodo está en los pesos constantes que usa su documento (diciembre de 2022, 2023 o 2024), así que los niveles no son comparables entre grupos sin actualizarlos. Bloques completos de regulación, guía y dividendos: sección 07 de cada modelo.</span>
+            <span class="en">The tariff row shows the 2026 cap for all three groups, each in the constant pesos of its own filing (GAP December 2023, OMA December 2024, ASUR December 2022); investments are in December 2022 pesos for GAP and ASUR and December 2024 pesos for OMA. Levels are therefore not comparable across groups without re-indexing. ASUR publishes only its 2024 caps, so its 2026 caps are computed with its 0.80% annual efficiency factor. Full regulation, guidance and dividend blocks: section 07 of each model.</span>
+            <span class="es">La fila de tarifas muestra el tope de 2026 de los tres grupos, cada uno en los pesos constantes de su propio documento (GAP diciembre de 2023, OMA diciembre de 2024, ASUR diciembre de 2022); las inversiones están en pesos de diciembre de 2022 para GAP y ASUR y de diciembre de 2024 para OMA. Por eso los niveles no son comparables entre grupos sin actualizarlos. ASUR publica solo sus topes de 2024, así que los de 2026 se calculan con su factor de eficiencia de 0.80% anual. Bloques completos de regulación, guía y dividendos: sección 07 de cada modelo.</span>
           </p>
         </div>
       </div>
@@ -696,7 +702,7 @@ table.reg .ref a:hover{text-decoration:underline;}
               <span class="es">Tráfico Aéreo de México por Aeropuerto</span>
             </h3>
             <p>
-              <span class="en">Passengers, aircraft movements and cargo across the country's commercial airports since 2006, split by operator — GAP, OMA, ASUR, AICM, AIFA and the rest — and by airport. Pick the operators you want to see, compare them with the national total, switch between monthly, trailing-twelve-month, year-over-year and market-share views, and follow AICM and AIFA on their own monthly figures.</span>
+              <span class="en">Passengers, aircraft operations and cargo across the country's commercial airports since 2006, split by operator — GAP, OMA, ASUR, AICM, AIFA and the rest — and by airport. Pick the operators you want to see, compare them with the national total, switch between monthly, trailing-twelve-month, year-over-year and market-share views, and follow AICM and AIFA on their own monthly figures.</span>
               <span class="es">Pasajeros, operaciones y carga de los aeropuertos comerciales del país desde 2006, desglosados por operador — GAP, OMA, ASUR, AICM, AIFA y el resto — y por aeropuerto. Elige los operadores que quieres ver, compáralos contra el consolidado nacional, cambia entre vistas mensual, doce meses móviles, variación anual y participación de mercado, y sigue al AICM y al AIFA con sus propias cifras mensuales.</span>
             </p>
             <div class="card-foot">
@@ -826,21 +832,25 @@ window.addEventListener("DOMContentLoaded", function(){
   var LISTED = {GAP:"/gap/", OMA:"/oma/", ASUR:"/asur/"};
   var GNAME = {
     GAP:  {es:"GAP · Pacífico",          en:"GAP · Pacific",        long:{es:"Grupo Aeroportuario del Pacífico",              en:"Grupo Aeroportuario del Pacífico"}},
-    OMA:  {es:"OMA · Centro-Norte",      en:"OMA · Central-north",  long:{es:"Grupo Aeroportuario del Centro Norte",          en:"Grupo Aeroportuario del Centro Norte"}},
+    OMA:  {es:"OMA · Centro Norte",      en:"OMA · Central North",  long:{es:"Grupo Aeroportuario del Centro Norte",          en:"Grupo Aeroportuario del Centro Norte"}},
     ASUR: {es:"ASUR · Sureste",          en:"ASUR · Southeast",     long:{es:"Grupo Aeroportuario del Sureste",               en:"Grupo Aeroportuario del Sureste"}},
     AICM: {es:"AICM · Ciudad de México", en:"AICM · Mexico City",   long:{es:"Aeropuerto Internacional de la Ciudad de México", en:"Mexico City International Airport"}},
     AIFA: {es:"AIFA · Felipe Ángeles",   en:"AIFA · Felipe Ángeles",long:{es:"Aeropuerto Internacional Felipe Ángeles",        en:"Felipe Ángeles International Airport"}},
-    OTROS:{es:"Otros operadores",        en:"Other operators",      long:{es:"ASA, GAFSACOMM, sociedades estatales y privados", en:"ASA, GAFSACOMM, state partnerships and private operators"}}
+    OTROS:{es:"Otros operadores",        en:"Other operators",      long:{es:"ASA, GACM, GAFSACOMM, GATM, sociedades estatales y privados", en:"ASA, GACM, GAFSACOMM, GATM, state partnerships and private operators"}}
   };
+  // AFAC's operator labels for the airports outside the five groups (same definitions as /aeropuertos/trafico/, "Sources and Definitions").
   var OPLABEL = {
-    "ASA": {es:"ASA (Aeropuertos y Servicios Auxiliares)", en:"ASA (Aeropuertos y Servicios Auxiliares)"},
-    "GACM": {es:"GACM (Grupo Aeroportuario de la Ciudad de México)", en:"GACM (Grupo Aeroportuario de la Ciudad de México)"},
-    "GAFSACOMM": {es:"GAFSACOMM (Marina)", en:"GAFSACOMM (Navy)"},
+    "ASA": {es:"ASA (Aeropuertos y Servicios Auxiliares, SICT)", en:"ASA (Aeropuertos y Servicios Auxiliares, federal agency under SICT)"},
+    "GACM": {es:"GACM (Grupo Aeroportuario de la Ciudad de México, Secretaría de Marina)", en:"GACM (Grupo Aeroportuario de la Ciudad de México, Navy)"},
+    "GAFSACOMM": {es:"GAFSACOMM (Olmeca-Maya-Mexica, Secretaría de la Defensa)", en:"GAFSACOMM (Olmeca-Maya-Mexica, Defense Ministry)"},
     "SOCIEDADES/PARTNERSHIPS": {es:"Sociedad estatal-privada", en:"State-private partnership"},
     "PRIVADOS/PRIVATE": {es:"Operador privado", en:"Private operator"},
-    "GATM": {es:"GATM", en:"GATM"}
+    "GATM": {es:"GATM (Grupo Aeroportuario Turístico Mexicano, estatal con Mota-Engil)", en:"GATM (Grupo Aeroportuario Turístico Mexicano, state-owned with Mota-Engil)"}
   };
   var STATES = {AG:"Aguascalientes",BC:"Baja California",BS:"Baja California Sur",CM:"Campeche",CS:"Chiapas",CH:"Chihuahua",CO:"Coahuila",CL:"Colima",DF:"Ciudad de México",DG:"Durango",GJ:"Guanajuato",GR:"Guerrero",HG:"Hidalgo",JA:"Jalisco",MX:"Estado de México",MI:"Michoacán",MO:"Morelos",NA:"Nayarit",NL:"Nuevo León",OA:"Oaxaca",PU:"Puebla",QT:"Querétaro",QR:"Quintana Roo",SL:"San Luis Potosí",SI:"Sinaloa",SO:"Sonora",TB:"Tabasco",TM:"Tamaulipas",TL:"Tlaxcala",VE:"Veracruz",YU:"Yucatán",ZA:"Zacatecas"};
+  // English names where they differ (American usage); every other state keeps its name
+  var STATES_EN = {DF:"Mexico City", MX:"State of Mexico"};
+  function stateName(code){ return (lang() === "en" && STATES_EN[code]) || STATES[code] || code; }
   // Label placement [dx, dy, anchor] — hand-tuned for the crowded clusters (Valle de México, Bajío, Riviera Maya, border).
   var LABELPOS = {
     MEX:[-1,16], NLU:[1,-8], TLC:[-1,-2,-14], CVJ:[-1,12], PBC:[1,10], QRO:[1,-5],
@@ -873,6 +883,10 @@ window.addEventListener("DOMContentLoaded", function(){
     return parts.join(" · ");
   }
   function monthLabel(ym){ var p = ym.split("-"); var dt = new Date(+p[0], +p[1] - 1, 1); return dt.toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short", year:"numeric"}).replace(".", ""); }
+  function mon(m){ return new Date(2026, m - 1, 1).toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short"}).replace(".", ""); }
+  // The two bases used on this page, spelled out wherever a figure appears: the last 12 months, and year to date vs. the same months a year earlier.
+  function span12(){ return monthLabel(months[last - 11]) + "–" + monthLabel(months[last]); }
+  function ytdVs(){ var y = +yearNow, m = mon(1) + "–" + mon(lastMonthNum); return m.charAt(0).toUpperCase() + m.slice(1) + " " + y + " vs. " + (y - 1); }   // "Ene–ago 2026 vs. 2025"
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
   // ---- metrics -------------------------------------------------------------
@@ -901,7 +915,10 @@ window.addEventListener("DOMContentLoaded", function(){
     var s = D.byGroup[g].pax, t = window12(s.dom, s.intl, 0), y = ytd(s.dom, s.intl, 0);
     groups[g] = {ttm:t.tot, prev:t.prev, ytd:y.tot, ytdPrev:y.prev, n:aps.filter(function(r){ return r.grp === g && r.ttm > 0; }).length};
   });
+  // The count is the airports with passengers in the last 12 months. AFAC's workbook lists more (idle ones stay in it with zeros);
+  // those are left off the map and named in the note under it, so the header, the chips, the strip and the map all agree.
   var activeCount = aps.filter(function(r){ return r.ttm > 0; }).length;
+  var idle = aps.filter(function(r){ return !(r.ttm > 0); });
   Array.prototype.forEach.call(document.querySelectorAll(".apcount"), function(el){ el.textContent = activeCount; });
 
   // ---- SVG -----------------------------------------------------------------
@@ -919,20 +936,43 @@ window.addEventListener("DOMContentLoaded", function(){
   var selected = null;
 
   aps.slice().sort(function(p, q){ return q.ttm - p.ttm; }).forEach(function(r){
-    if (r.x == null || r.y == null) return;
-    var rad = r.ttm > 0 ? 2.6 + 24 * Math.sqrt(r.ttm / maxTtm) : 2;
+    if (r.x == null || r.y == null || !(r.ttm > 0)) return;
+    var rad = 2.6 + 24 * Math.sqrt(r.ttm / maxTtm);
     var g = el("g", {"class":"mx-airport", "data-code":r.code, "data-grp":r.grp, tabindex:"0", role:"button"}, gA);
     g.style.setProperty("--c", "var(--c-" + r.grp.toLowerCase() + ")");
     el("circle", {cx:r.x, cy:r.y, r:rad.toFixed(1), "class":"dot"}, g);
-    el("circle", {cx:r.x, cy:r.y, r:Math.max(rad, 9).toFixed(1), "class":"hit"}, g);
     nodes[r.code] = {g:g, r:r, rad:rad};
-    g.addEventListener("mouseenter", function(){ showTip(r, g); });
-    g.addEventListener("mouseleave", function(){ if (selected !== r.code) hideTip(); else showTip(nodes[selected].r, nodes[selected].g); });
     g.addEventListener("focus", function(){ showTip(r, g); });
     g.addEventListener("blur", function(){ if (selected !== r.code) hideTip(); });
-    g.addEventListener("click", function(ev){ ev.preventDefault(); select(r.code); });
     g.addEventListener("keydown", function(ev){ if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); select(r.code); } });
   });
+
+  // ---- pointer → airport ---------------------------------------------------------
+  // Bigger airports are drawn first, so a smaller marker sits on top and used to swallow its neighbor: AIFA's covers AICM's
+  // center and Del Norte's sat inside Monterrey's. The pointer now picks the marker it is most centrally in (distance / radius,
+  // with small markers counted as 9 units wide so they stay reachable inside their own dot); outside every marker, the nearest
+  // one within 9 map units.
+  function pickAt(ev){
+    var ctm = svg.getScreenCTM(); if (!ctm) return null;
+    var pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(ctm.inverse());
+    var best = null, score = Infinity, codes = Object.keys(nodes);
+    codes.forEach(function(c){ var n = nodes[c]; if (!active[n.r.grp]) return; var d = Math.hypot(p.x - n.r.x, p.y - n.r.y), s = d / Math.max(n.rad, 9); if (d <= n.rad && s < score) { score = s; best = n; } });
+    if (best) return best;
+    codes.forEach(function(c){ var n = nodes[c]; if (!active[n.r.grp]) return; var d = Math.hypot(p.x - n.r.x, p.y - n.r.y); if (d <= Math.max(n.rad, 9) && d - n.rad < score) { score = d - n.rad; best = n; } });
+    return best;
+  }
+  var hovered = null;
+  function setHover(n){
+    if (hovered === n) return;
+    if (hovered) hovered.g.classList.remove("hover");
+    hovered = n; svg.classList.toggle("hovering", !!n);
+    if (n) { n.g.classList.add("hover"); showTip(n.r, n.g); }
+    else if (selected && nodes[selected]) showTip(nodes[selected].r, nodes[selected].g);
+    else hideTip();
+  }
+  svg.addEventListener("mousemove", function(ev){ setHover(pickAt(ev)); });
+  svg.addEventListener("mouseleave", function(){ setHover(null); });
+  svg.addEventListener("click", function(ev){ var n = pickAt(ev); if (n) { ev.preventDefault(); select(n.r.code); } });
 
   function drawLabels(){
     gL.replaceChildren(); labels = {};
@@ -985,11 +1025,11 @@ window.addEventListener("DOMContentLoaded", function(){
     var yoy = r.ttmPrev ? r.ttm / r.ttmPrev - 1 : null, yy = r.ytdPrev ? r.ytd / r.ytdPrev - 1 : null;
     return '<b>' + esc(L({es:r.a.es, en:r.a.en})) + '</b><span class="code">' + r.code + '</span>' +
       '<div class="op">' + esc(opName(r)) + '</div>' +
-      row(es() ? "Últimos 12 meses" : "Last 12 months", r.ttm ? fmtN(r.ttm) : "—") +
-      row(es() ? "vs. 12 meses previos" : "vs. prior 12 months", pct(yoy)) +
-      row((es() ? "Acumulado " : "YTD ") + yearNow, pct(yy)) +
-      row(es() ? "Internacional" : "International", r.ttm ? nf(r.intlShare * 100, 0) + "%" : "—") +
-      row(es() ? "Del total nacional" : "Share of national", nat.tot && r.ttm ? nf(r.ttm / nat.tot * 100, 1) + "%" : "—");
+      row(es() ? "Pasajeros, últimos 12 meses" : "Passengers, last 12 months", r.ttm ? fmtN(r.ttm) : "—") +
+      row(es() ? "Var. vs. 12 meses previos" : "Change vs. prior 12 months", pct(yoy)) +
+      row(esc(ytdVs()), pct(yy)) +
+      row(es() ? "Internacional, 12 meses" : "International, 12 months", r.ttm ? nf(r.intlShare * 100, 0) + "%" : "—") +
+      row(es() ? "Del total nacional, 12 meses" : "Share of national, 12 months", nat.tot && r.ttm ? nf(r.ttm / nat.tot * 100, 1) + "%" : "—");
   }
   function showTip(r, g){
     tip.innerHTML = tipHtml(r); tip.classList.add("show");
@@ -1024,20 +1064,20 @@ window.addEventListener("DOMContentLoaded", function(){
     panel.style.setProperty("--c", "var(--c-" + r.grp.toLowerCase() + ")");
     panel.innerHTML =
       '<div class="ap-head"><div><b>' + esc(L({es:a.es, en:a.en})) + '</b><span class="code">' + r.code + '</span>' +
-      '<div class="op">' + esc(opName(r)) + ' · ' + esc(STATES[a.st] || a.st) + '</div></div><div class="ap-actions">' + acts + '</div></div>' +
+      '<div class="op">' + esc(opName(r)) + ' · ' + esc(stateName(a.st)) + '</div></div><div class="ap-actions">' + acts + '</div></div>' +
       '<div class="ap-grid">' +
         kpi(es() ? "Pasajeros, últimos 12 meses" : "Passengers, last 12 months", r.ttm ? fmtN(r.ttm) : "—") +
-        kpi(es() ? "vs. 12 meses previos" : "vs. prior 12 months", '<span class="' + (yoy >= 0 ? "up" : "dn") + '">' + pct(yoy) + '</span>') +
-        kpi((es() ? "Acumulado " : "YTD ") + yearNow + (es() ? " a/a" : " y/y"), '<span class="' + (yy >= 0 ? "up" : "dn") + '">' + pct(yy) + '</span>') +
-        kpi(es() ? "Internacional" : "International", r.ttm ? nf(r.intlShare * 100, 0) + "%" : "—") +
-        kpi(es() ? "Del total nacional" : "Share of national", nat.tot && r.ttm ? nf(r.ttm / nat.tot * 100, 1) + "%" : "—") +
+        kpi(es() ? "Var. vs. 12 meses previos" : "Change vs. prior 12 months", '<span class="' + (yoy >= 0 ? "up" : "dn") + '">' + pct(yoy) + '</span>') +
+        kpi(esc(ytdVs()), '<span class="' + (yy >= 0 ? "up" : "dn") + '">' + pct(yy) + '</span>') +
+        kpi(es() ? "Internacional, 12 meses" : "International, 12 months", r.ttm ? nf(r.intlShare * 100, 0) + "%" : "—") +
+        kpi(es() ? "Del total nacional, 12 meses" : "Share of national, 12 months", nat.tot && r.ttm ? nf(r.ttm / nat.tot * 100, 1) + "%" : "—") +
       '</div>' +
       '<svg class="ap-spark" viewBox="0 0 600 84" preserveAspectRatio="none" aria-hidden="true">' + sparkSvg(vals) + '</svg>' +
       '<div class="ap-foot">' + (es() ? "Pasajeros mensuales, últimos 36 meses hasta " : "Monthly passengers, last 36 months to ") + monthLabel(months[last]) + " (AFAC)</div>";
     panel.classList.add("show");
   }
   function select(code){
-    if (selected === code) { nodes[code].g.classList.remove("selected"); selected = null; hideTip(); panel.classList.remove("show"); return; }
+    if (selected === code) { nodes[code].g.classList.remove("selected"); selected = null; if (hovered) showTip(hovered.r, hovered.g); else hideTip(); panel.classList.remove("show"); return; }
     if (selected && nodes[selected]) nodes[selected].g.classList.remove("selected");
     selected = code; var n = nodes[code]; n.g.classList.add("selected");
     showTip(n.r, n.g); renderPanel(n.r);
@@ -1062,11 +1102,14 @@ window.addEventListener("DOMContentLoaded", function(){
     renderLegend(); applyActive();
   });
   function renderStrip(){
+    document.getElementById("gstrip-cap").textContent = es()
+      ? "Pasajeros de los últimos 12 meses (" + span12() + "), participación en el total nacional y variación contra los 12 meses previos."
+      : "Passengers over the last 12 months (" + span12() + "), share of the national total and change versus the prior 12 months.";
     strip.innerHTML = GROUPS.map(function(g){
-      var s = groups[g], yoy = s.ytdPrev ? s.ytd / s.ytdPrev - 1 : null;
+      var s = groups[g], chg = s.prev ? s.ttm / s.prev - 1 : null;
       var n = s.n + " " + (es() ? (s.n === 1 ? "aeropuerto" : "aeropuertos") : (s.n === 1 ? "airport" : "airports"));
       return '<div class="g" style="--c:var(--c-' + g.toLowerCase() + ')"><div class="k">' + esc(L(GNAME[g])) + '</div><div class="v">' + fmtM(s.ttm) + '</div>' +
-        '<div class="s">' + nf(nat.tot ? s.ttm / nat.tot * 100 : 0, 1) + '% ' + (es() ? "del total" : "of total") + ' · ' + (es() ? "acum. " : "YTD ") + yearNow + ' <span class="' + (yoy >= 0 ? "up" : "dn") + '">' + pct(yoy) + '</span> · ' + n + '</div></div>';
+        '<div class="s">' + nf(nat.tot ? s.ttm / nat.tot * 100 : 0, 1) + '% ' + (es() ? "del total" : "of total") + ' · <span class="' + (chg >= 0 ? "up" : "dn") + '">' + pct(chg) + '</span> · ' + n + '</div></div>';
     }).join("");
   }
   var srcEl = document.getElementById("mapsrc");
@@ -1074,7 +1117,15 @@ window.addEventListener("DOMContentLoaded", function(){
     var st = document.getElementById("map-stamp");
     if (st) st.innerHTML = stampHtml({ src: "AFAC", to: monthLabel(months[last]), published: D.sources && D.sources.afac && D.sources.afac.published, generated: D.generatedAt, checked: ST.checkedAt });
     srcEl.textContent = (es() ? "Fuente: AFAC, estadística operativa de aeropuertos, datos a " : "Source: AFAC, airport operating statistics, data to ") + monthLabel(months[last]) +
-      (es() ? " (pasajeros contados en cada aeropuerto, llegadas y salidas). Últimos 12 meses = " : " (passengers counted at each airport, arriving and departing). Last 12 months = ") + fmtM(nat.tot) + (es() ? " en total." : " in total.");
+      (es() ? " (pasajeros contados en cada aeropuerto, llegadas y salidas). Últimos 12 meses (" + span12() + ") = " : " (passengers counted at each airport, arriving and departing). Last 12 months (" + span12() + ") = ") + fmtM(nat.tot) + (es() ? " en total." : " in total.");
+    // how the airport count is built (header, chips and strip all use it)
+    var cn = document.getElementById("mapcount-note");
+    if (cn) {
+      var names = idle.map(function(r){ return L({es:r.a.es, en:r.a.en}) + " (" + r.code + ")"; });
+      cn.textContent = es()
+        ? "Se cuentan y se dibujan los " + activeCount + " aeropuertos con pasajeros en los últimos 12 meses. La estadística de la AFAC incluye " + aps.length + (names.length ? "; " + names.join(", ") + (names.length === 1 ? " no registró pasajeros comerciales en el periodo." : " no registraron pasajeros comerciales en el periodo.") : ".")
+        : "The count and the map cover the " + activeCount + " airports with passengers in the last 12 months. AFAC's statistics list " + aps.length + (names.length ? "; " + names.join(", ") + " recorded no commercial passengers in the period." : ".");
+    }
   }
 
   // ---- traffic tile sparkline ------------------------------------------------------
@@ -1095,7 +1146,11 @@ window.addEventListener("DOMContentLoaded", function(){
     if (st) st.innerHTML = stampHtml({ src: "AFAC", to: monthLabel(months[last]), published: D.sources && D.sources.afac && D.sources.afac.published, generated: D.generatedAt, checked: ST.checkedAt });
   }
 
-  function renderAll(){ renderLegend(); renderStrip(); renderSrc(); drawLabels(); renderTile(); if (selected) { renderPanel(nodes[selected].r); showTip(nodes[selected].r, nodes[selected].g); } }
+  function renderAll(){
+    renderLegend(); renderStrip(); renderSrc(); drawLabels(); renderTile();
+    Object.keys(nodes).forEach(function(c){ var a = nodes[c].r.a; nodes[c].g.setAttribute("aria-label", L({es:a.es, en:a.en}) + " (" + c + ")"); });
+    if (selected) { renderPanel(nodes[selected].r); showTip(nodes[selected].r, nodes[selected].g); }
+  }
   renderAll();
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(function(){ drawLabels(); });
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});

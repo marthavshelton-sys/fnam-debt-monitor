@@ -201,6 +201,23 @@ export function afacCity(city, country) {
 // airline feed IATA codes for foreign airports -> AFAC city names
 export const FOREIGN_IATA = { LAX: 'LOS ANGELES', ONT: 'ONTARIO', SNA: 'SANTA ANA, CALIFORNIA', SAN: 'SAN DIEGO', SFO: 'SAN FRANCISCO', OAK: 'OAKLAND', SJC: 'SAN JOSE, CALIFORNIA', SMF: 'SACRAMENTO', FAT: 'FRESNO', LAS: 'LAS VEGAS', PHX: 'PHOENIX', DEN: 'DENVER', SLC: 'SALT LAKE CITY', SEA: 'SEATTLE', PDX: 'PORTLAND, OREGON', ORD: 'CHICAGO', MDW: 'CHICAGO', DFW: 'DALLAS-FORT WORTH', DAL: 'DALLAS-FORT WORTH', IAH: 'HOUSTON', HOU: 'HOUSTON', AUS: 'AUSTIN', SAT: 'SAN ANTONIO', MIA: 'MIAMI', FLL: 'FORT LAUDERDALE', MCO: 'ORLANDO', TPA: 'TAMPA', ATL: 'ATLANTA', CLT: 'CHARLOTTE', JFK: 'NUEVA YORK', LGA: 'NUEVA YORK', EWR: 'NEWARK', BOS: 'BOSTON', PHL: 'PHILADELPHIA', BWI: 'BALTIMORE', IAD: 'WASHINGTON', DCA: 'WASHINGTON', DTW: 'DETROIT', MSP: 'MINNEAPOLIS', STL: 'ST. LOUIS', MCI: 'KANSAS CITY', BNA: 'NASHVILLE', RDU: 'RALEIGH/DURHAM', CVG: 'COVINGTON', CLE: 'CLEVELAND', IND: 'INDIANAPOLIS', MKE: 'MILWAUKEE', CMH: 'COLUMBUS, OHIO', TUL: 'TULSA', MSY: 'NUEVA ORLEANS', RNO: 'RENO', ELP: 'EL PASO', TUS: 'TUCSON', ABQ: 'ALBUQUERQUE', OKC: 'OKLAHOMA CITY', JAX: 'JACKSONVILLE', HRL: 'HARLINGEN TEXAS', ORF: 'NORFOLK', PIT: 'PITTSBURGH', MEM: 'MEMPHIS', YYZ: 'TORONTO', YUL: 'MONTREAL', YVR: 'VANCOUVER', YYC: 'CALGARY', YEG: 'EDMONTON', YWG: 'WINNIPEG', YOW: 'OTTAWA', YQB: 'QUEBEC', YHZ: 'HALIFAX', YLW: 'KELOWNA', YQR: 'REGINA, CANADA', YXE: 'SASKATOON', YYJ: 'VICTORIA, COLUMBIA', YHM: 'HAMILTON', YQM: 'MONCTON', YXU: 'LONDON, ONTARIO', YFC: 'FREDERICTON, CANADA', YQT: 'THUNDER BAY', YQQ: 'COMOX', BOG: 'BOGOTA', MDE: 'MEDELLIN', CLO: 'CALI', CTG: 'CARTAGENA DE INDIAS', LIM: 'LIMA', SJO: 'SAN JOSE, COSTA RICA', GUA: 'GUATEMALA', SAL: 'SAN SALVADOR', PTY: 'PANAMA', HAV: 'LA HABANA', CMW: 'CAMAGUEY', PUJ: 'PUNTA CANA', SDQ: 'SANTO DOMINGO,REP DOM', SAP: 'SAN PEDRO SULA', XPL: 'COMAYAGUA', MGA: 'MANAGUA', UIO: 'QUITO', GYE: 'GUAYAQUIL', CCS: 'CARACAS', SCL: 'SANTIAGO DE CHILE', EZE: 'BUENOS AIRES', GRU: 'SAO PAULO', BSB: 'BRASILIA', GIG: 'RIO DE JANEIRO', MVD: 'MONTEVIDEO', MAD: 'MADRID', BCN: 'BARCELONA, ESPAÑA', CDG: 'PARIS', ORY: 'PARIS', LHR: 'LONDRES', LGW: 'LONDRES', MAN: 'MANCHESTER', BHX: 'BIRMINGHAM, INGLATERRA', GLA: 'GLASGOW', NCL: 'NEWCASTLE', AMS: 'AMSTERDAM', FRA: 'FRANKFURT', MUC: 'MUNICH', DUS: 'DUSSELDORF', ZRH: 'ZURICH', FCO: 'ROMA', MXP: 'MILAN', LIS: 'LISBON', IST: 'ESTAMBUL (ARNAVUTKOY)', DXB: 'DUBAI', DOH: 'DOHA', NRT: 'TOKYO', HND: 'TOKYO', ICN: 'SEOUL', SZX: 'SHENZHEN', PEK: 'BEIJING', PVG: 'SHANGHAI', HEL: 'HELSINKI', BRU: 'BRUSELAS', VIE: 'VIENA', DUB: 'DUBLIN', SJU: 'SAN JUAN', BZE: 'BELICE', FRS: 'FLORES', TGU: 'TEGUCIGALPA', RTB: 'ROATAN', KIN: 'KINGSTON', MBJ: 'MONTEGO BAY', NAS: 'NASSAU', AUA: 'ARUBA' };
 
+// ---------------------------------------------------------------- carrier display names
+// AFAC labels carriers by legal or former names ("Lanperu", "K L M", "Delta Airlines", "United Airlines, Inc."). The page shows
+// the name the airline flies under: the registry's foreignNames first, else the label cleaned (trailing parenthesis and legal
+// suffix dropped, all-capital labels recased). Accents are kept (AFAC's "Aerolíneas Argentinas", not "Aerolineas").
+export function cleanCarrierName(label) {
+  let s = String(label ?? '').replace(/\s+/g, ' ').trim().replace(/\s*\*+\s*$/, '');
+  s = s.replace(/\s*\([^()]*\)\s*$/, '');
+  s = s.replace(/,?\s+(?:Inc\.?|Ltd\.?|Limited|S\.?\s?A\.?(?:\s+de\s+C\.?\s?V\.?)?|S\.?\s?P\.?\s?A\.?|AG|LLC|Corp\.?|Corporation)$/i, '');
+  if (s === s.toUpperCase() && /[A-Z]{3,}/.test(s)) s = s.toLowerCase().replace(/(^|[\s\-/])(\p{L})/gu, (m, p, c) => p + c.toUpperCase());
+  return s.trim();
+}
+export function carrierName(label, registry) {
+  const plain = strip(label);
+  for (const [re, name] of ((registry && registry.foreignNames && registry.foreignNames.list) || [])) if (new RegExp(re, 'i').test(plain)) return name;
+  return cleanCarrierName(label);
+}
+
 // ---------------------------------------------------------------- compiler
 export function compile(input) {
   const { registry, airportsMeta, cities, resumenes, sases, ir = {}, networks = {}, sources = {} } = input;
@@ -219,8 +236,9 @@ export function compile(input) {
   for (const r of resumenes) {
     for (const [name, c] of Object.entries(r.carriers)) {
       let id, base;
-      if (c.scope === 'MX') { const reg = matchReg(name); id = reg ? reg.id : 'MX_' + slug(name).toUpperCase(); base = reg ? { name: reg.name, short: reg.short, group: 'mx', type: reg.type || 'pax', iata: reg.iata || null, active: reg.active !== false, color: reg.color } : { name: strip(name).replace(/\s*\(.*$/, ''), short: strip(name).replace(/\s*\(.*$/, ''), group: 'mx', type: 'pax', active: true }; }
-      else { id = 'F_' + slug(name).toUpperCase(); base = { name: strip(name).replace(/\s*\((?!.*\)$).*$/, '').replace(/\s*\(.*\)\s*$/, ''), short: strip(name).replace(/\s*\(.*$/, ''), group: 'foreign', type: 'pax', region: regionId(c.region), active: true }; }
+      // `ceased` (registry): why a Mexican carrier stopped flying, shown next to its figures on the page
+      if (c.scope === 'MX') { const reg = matchReg(name); id = reg ? reg.id : 'MX_' + slug(name).toUpperCase(); base = reg ? { name: reg.name, short: reg.short, group: 'mx', type: reg.type || 'pax', iata: reg.iata || null, active: reg.active !== false, color: reg.color, ...(reg.ceased ? { ceased: reg.ceased } : {}) } : { name: cleanCarrierName(name), short: cleanCarrierName(name), group: 'mx', type: 'pax', active: true }; }
+      else { const disp = carrierName(name, registry); id = 'F_' + slug(disp).toUpperCase(); base = { name: disp, short: disp, group: 'foreign', type: 'pax', region: regionId(c.region), active: true }; }
       const k = rec(id, base); if (!k.aliases.includes(name)) k.aliases.push(name);
       for (const [measure, key] of [['pax', 'pax'], ['flights', 'flights'], ['cargo', 'cargoT']]) for (const sec of ['dom', 'intl']) {
         const vals = c[measure] && c[measure][sec]; if (!vals) continue;
@@ -330,7 +348,10 @@ export function compile(input) {
     sources, units: { pax: 'passengers (scheduled service, persons)', flights: 'flights', cargoT: 'metric tons' },
   };
   const airportIndex = {}; for (const a of airportsMeta.concat(registry.extraAirports || [])) airportIndex[a.code] = { es: a.es, en: a.en, st: a.st, lat: a.lat, lon: a.lon, grp: a.grp || null };
-  const routes = { generatedAt: airlines.generatedAt, window: { from: win[0], to: win[win.length - 1] }, prevWindow: { from: prev[0], to: prev[prev.length - 1] }, months: win, airports: airportIndex, domestic, international: international.slice(0, 400), unmatched: [...unmatched], sources: { afac: sources.afacOd || null } };
+  // display names of foreign cities (keyed like the corridors: accents stripped, upper case) and countries (ISO code), from cities.json
+  const cityNames = {}; for (const [k, v] of Object.entries(cities)) if (!k.startsWith('_') && v && v.es) cityNames[norm(k)] = { es: v.es, en: v.en };
+  const names = { city: cityNames, country: cities._countryNames || {} };
+  const routes = { generatedAt: airlines.generatedAt, window: { from: win[0], to: win[win.length - 1] }, prevWindow: { from: prev[0], to: prev[prev.length - 1] }, months: win, airports: airportIndex, names, domestic, international: international.slice(0, 400), unmatched: [...unmatched], sources: { afac: sources.afacOd || null } };
   // slim summary for the hub tile: last 24 months, passengers by Mexican carrier (Aeromexico grouped) and foreign total
   const K = 24, s0 = Math.max(0, N - K);
   const tot2 = (c) => c.pax.dom.map((v, i) => v + c.pax.intl[i]);
