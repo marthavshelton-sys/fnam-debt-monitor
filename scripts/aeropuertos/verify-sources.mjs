@@ -31,7 +31,7 @@ const TR = load('traffic.js', 'MX_AIRPORTS');
 for (const [k, s] of Object.entries(TR.sources || {})) add(s.url, `trafico, sources (${k})`, s.title);
 const AL = load('airlines.js', 'MX_AIRLINES');
 for (const k of ['aeromexico', 'volaris', 'viva']) if (AL.sources && AL.sources[k]) add(AL.sources[k].url, `aerolineas, sources (${k})`, AL.sources[k].title);
-for (const c of AL.carriers || []) if (c.ceased && c.ceased.url) add(c.ceased.url, `aerolineas, ${c.name} status note`, c.ceased.source);
+for (const c of AL.carriers || []) if (c.ceased && c.ceased.url) add(c.ceased.url, `aerolineas, ${c.name} status note`, typeof c.ceased.source === 'object' ? c.ceased.source.en : c.ceased.source);
 const SKIP = /(^|\.)(fnam\.mx|googleapis\.com|gstatic\.com|cdnjs\.cloudflare\.com|jsdelivr\.net|unpkg\.com|w3\.org)$/i;
 for (const page of ['index.html', 'trafico/index.html', 'aerolineas/index.html']) {
   const html = fs.readFileSync(path.join(SITE, page), 'utf8');
@@ -125,7 +125,9 @@ async function visit(url) {
 const results = new Map();
 // PDF text often splits a number around its comma ("16 ,005"); rejoin before searching
 const clean = (text) => String(text || '').replace(/(\d) +,(\d)/g, '$1,$2').replace(/(\d), +(\d{3})\b/g, '$1,$2');
-const has = (text, n) => { const t = clean(text); return t.includes(n) || t.replace(/(\d),(\d{3})/g, '$1$2').includes(n.replace(/,/g, '')); };
+const has = (text, n) => { const t = clean(text); return t.includes(n) || t.replace(/(\d),(\d{3})/g, '$1$2').includes(n.replace(/,/g, '')) || fromThousands(t, n); };
+// GAP's and OMA's investment tables are in thousands of pesos; the table quotes millions (43,184,959 -> 43,185)
+const fromThousands = (t, n) => { if (/\./.test(n)) return false; const v = +n.replace(/,/g, ''); for (const m of t.matchAll(/\d{1,3}(?:,\d{3}){2,}/g)) if (Math.round(+m[0].replace(/,/g, '') / 1000) === v) return true; return false; };
 // a figure not found as written: numbers in the document within 0.1% of it (as written, or in thousands), with context
 const near = (text, n) => {
   const t = clean(text), v = +n.replace(/,/g, ''), out = [];
