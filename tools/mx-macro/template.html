@@ -1078,6 +1078,7 @@ const I18N = {
     sumAcWhy: "El IGAE es el avance mensual del PIB: muestra el rumbo de la economía antes del dato trimestral.",
     sumAcNext: (q, m) => "PIB de " + q + " (estimación oportuna) e IGAE de " + m + ". La señal: si los servicios sostienen el crecimiento.",
     sumLbLatest: (m, u, d) => "La tasa de desocupación fue de " + u + " en " + m + " (" + d + " vs. el mes previo).",
+    sumLbImss: (m, n, d) => "El IMSS registró " + n + " millones de puestos de trabajo en " + m + " (" + d + " en el mes).",
     sumLbDriver: (ago, avg) => "Hace un año era " + ago + "; el promedio de los últimos cinco años es " + avg + ".",
     sumLbWhy: "Una desocupación baja sostiene el consumo, pero también puede presionar salarios y la inflación de servicios.",
     sumLbNext: "ENOE del mes siguiente unas 4 semanas después de cerrar el mes. La señal: un cambio sostenido de tendencia.",
@@ -1154,6 +1155,7 @@ const I18N = {
       "igaeSecondary": "IGAE, actividades secundarias",
       "igaeTertiary": "IGAE, actividades terciarias",
       "unemployment": "Tasa de desocupación",
+      "imssJobs": "Puestos de trabajo IMSS",
       "consumerConfidence": "Confianza del consumidor",
       "remittances": "Remesas",
       "exports": "Exportaciones",
@@ -1166,7 +1168,7 @@ const I18N = {
       "mbono10": "Bono M 10 años",
       "inflExp12m": "Inflación esperada a 12 meses"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (vía Banxico)", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
 
     // ---- Activity ----
     acTitle: "Actividad económica: PIB e IGAE",
@@ -1211,7 +1213,7 @@ const I18N = {
     lbSecImssNote: "Puestos de trabajo afiliados, cambio vs. mes anterior",
     lbSecImssYoy: "Empleo formal (IMSS): variación anual",
     lbSecImssYoyNote: "% vs. mismo mes del año anterior",
-    footerLabor: "Tasa de desocupación: ENOE (INEGI); cuando se muestra la serie de la OCDE está desestacionalizada. Puestos de trabajo afiliados al IMSS: permanentes y eventuales urbanos, cifra al cierre de mes (IMSS, distribuida por Banxico). La afiliación al IMSS no incluye el empleo informal, que en México ronda el 55% de la ocupación.",
+    footerLabor: "Tasa de desocupación: ENOE (INEGI); cuando se muestra la serie de la OCDE está desestacionalizada. Puestos de trabajo registrados ante el IMSS: total de puestos permanentes y eventuales al cierre de mes, tomado del comunicado mensual del IMSS (serie curada; se actualiza con cada comunicado). La afiliación al IMSS no incluye el empleo informal, que en México ronda el 55% de la ocupación.",
     kpiUnRate: "Tasa de desocupación",
     kpiUnYearAgo: "Hace un año",
     kpiImssLevel: "Puestos IMSS",
@@ -1375,6 +1377,7 @@ const I18N = {
     sumAcWhy: "IGAE is the monthly proxy for GDP: it shows where the economy is heading before the quarterly print.",
     sumAcNext: (q, m) => q + " GDP (flash estimate) and " + m + " IGAE. Watch whether services keep carrying growth.",
     sumLbLatest: (m, u, d) => "The unemployment rate was " + u + " in " + m + " (" + d + " vs. the prior month).",
+    sumLbImss: (m, n, d) => "IMSS-registered jobs stood at " + n + " million in " + m + " (" + d + " on the month).",
     sumLbDriver: (ago, avg) => "A year ago it was " + ago + "; the five-year average is " + avg + ".",
     sumLbWhy: "Low unemployment supports consumption, but it can also pressure wages and services inflation.",
     sumLbNext: "Next month's ENOE lands about 4 weeks after month end. Watch for a sustained change in trend.",
@@ -1451,6 +1454,7 @@ const I18N = {
       "igaeSecondary": "IGAE, secondary activities",
       "igaeTertiary": "IGAE, tertiary activities",
       "unemployment": "Unemployment rate",
+      "imssJobs": "IMSS-registered jobs",
       "consumerConfidence": "Consumer confidence",
       "remittances": "Remittances",
       "exports": "Exports",
@@ -1463,7 +1467,7 @@ const I18N = {
       "mbono10": "10-year M bond",
       "inflExp12m": "Expected inflation, 12 months ahead"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (via Banxico)", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
 
     // ---- Activity ----
     acTitle: "Economic Activity: GDP & IGAE",
@@ -1508,7 +1512,7 @@ const I18N = {
     lbSecImssNote: "Registered jobs, change vs. prior month",
     lbSecImssYoy: "Formal employment (IMSS): annual change",
     lbSecImssYoyNote: "% vs. same month a year earlier",
-    footerLabor: "Unemployment rate: ENOE (INEGI); when the OECD series is shown it is seasonally adjusted. IMSS-registered jobs: permanent and temporary urban positions at month-end (IMSS, distributed by Banxico). IMSS registrations exclude informal employment, which is roughly 55% of total employment in Mexico.",
+    footerLabor: "Unemployment rate: ENOE (INEGI); when the OECD series is shown it is seasonally adjusted. IMSS-registered jobs: total permanent and temporary positions at month-end, taken from IMSS's monthly press release (curated series, updated with each release). IMSS registrations exclude informal employment, which is roughly 55% of total employment in Mexico.",
     kpiUnRate: "Unemployment rate",
     kpiUnYearAgo: "A year ago",
     kpiImssLevel: "IMSS jobs",
@@ -1696,7 +1700,7 @@ function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").
 
 // ---------- provenance ----------
 const ORIGIN = {
-  gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS"},
+  gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS", imss: "IMSS"},
   consumerConfidence: {fred: "OECD"}, remittances: {banxico: "Banxico"}, exports: {fred: "OECD"}, imports: {fred: "OECD"},
   usdmxn: {banxico: "Banxico", fred: "Fed"}, reserves: {banxico: "Banxico", fred: "IMF"}, policyRate: {banxico: "Banxico", fred: "OECD"},
   tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"}
@@ -2108,7 +2112,7 @@ function renderActivity() {
 //  View: labor
 // ================================================================
 function renderLabor() {
-  if (!gate("lb", [], ["unemployment"])) return;
+  if (!gate("lb", [], ["unemployment", "imssJobs"])) return;
   const U = S("unemployment") ? withChanges(P("unemployment")) : null, J = S("imssJobs") ? withChanges(P("imssJobs")) : null;
   const uL = U ? last(U) : null, jL = J ? last(J) : null;
   headerMeta("lb", [uL && fmtMonthYear(uL.d), jL && (T.legImssYoy.split(",")[0] + " " + fmtMonthYear(jL.d))].filter(Boolean).join(" · "), T.lbNext, ["unemployment", "imssJobs"]);
@@ -2141,7 +2145,7 @@ function renderLabor() {
   if (U) {
     const agoU = atOrBefore(U, prevYearKey(uL.d)), w5 = U.slice(-60), avg5 = w5.reduce((a, p) => a + p.v, 0) / w5.length;
     execSummary("lb", [
-      [T.sumLatest, T.sumLbLatest(fmtMonthYear(uL.d), fmtLevelPct(uL.v, 1), fmtPP(uL.dMom, 1))],
+      [T.sumLatest, T.sumLbLatest(fmtMonthYear(uL.d), fmtLevelPct(uL.v, 1), fmtPP(uL.dMom, 1)) + (jL ? " " + T.sumLbImss(fmtMonthYear(jL.d), (jL.v / 1e6).toFixed(2), fmtSigned(jL.dMom, 0)) : "")],
       agoU ? [T.sumDriver, T.sumLbDriver(fmtLevelPct(agoU.v, 1), fmtLevelPct(avg5, 1))] : null,
       [T.sumWhy, T.sumLbWhy],
       [T.sumNext, T.sumLbNext]
