@@ -1289,7 +1289,7 @@ const I18N = {
     bxSecCurveNote: "%, promedio mensual",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
@@ -1586,7 +1586,7 @@ const I18N = {
     bxSecCurveNote: "%, monthly average",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
@@ -1699,7 +1699,7 @@ const ORIGIN = {
   gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS"},
   consumerConfidence: {fred: "OECD"}, remittances: {banxico: "Banxico"}, exports: {fred: "OECD"}, imports: {fred: "OECD"},
   usdmxn: {banxico: "Banxico", fred: "Fed"}, reserves: {banxico: "Banxico", fred: "IMF"}, policyRate: {banxico: "Banxico", fred: "OECD"},
-  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {fred: "OECD"}
+  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
