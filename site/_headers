@@ -58,3 +58,10 @@
 
 /aeropuertos/data/summary.js
   Cache-Control: no-store
+
+/aeropuertos/data/status.js
+  Cache-Control: no-store
+
+# Hand-curated tariffs table: edited with the page, so it must never outlive the page in a cache.
+/aeropuertos/data/regulation.js
+  Cache-Control: no-store
