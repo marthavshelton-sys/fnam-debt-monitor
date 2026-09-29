@@ -107,6 +107,8 @@ main{flex:1; padding-top:12px;}
 .panel-head h3{font-family:var(--serif); font-size:20px; margin:0; font-weight:700;}
 .panel-head .note{font-size:12.5px; color:var(--muted);}
 .panel-foot{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5;}
+.stamp{font-size:11.5px; line-height:1.45; color:var(--muted); margin-top:6px; padding-top:6px; border-top:1px dashed var(--grid); font-variant-numeric:tabular-nums;}
+.stamp b{font-weight:600; color:var(--text-secondary);}
 @media (max-width:640px){ .panel{padding:14px 12px;} }
 
 .controls{display:flex; flex-wrap:wrap; gap:10px 18px; align-items:center; margin-bottom:12px;}
@@ -302,6 +304,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
             </div>
             <p class="map-scroll-hint"><span class="en">Swipe sideways to see the whole map; pinch to zoom.</span><span class="es">Desliza hacia los lados para ver todo el mapa; pellizca para acercar.</span></p>
             <div class="legend-note" id="maplegend"></div>
+            <div class="stamp" id="stamp-map"></div>
           </div>
           <aside class="side" id="side"></aside>
         </div>
@@ -359,6 +362,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         </div>
         <div class="chart-box"><canvas id="alchart"></canvas><div class="msg" id="almsg" hidden></div></div>
         <div class="panel-foot" id="alfoot"></div>
+        <div class="stamp" id="stamp-al"></div>
       </div>
     </div>
   </section>
@@ -373,6 +377,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <div class="panel">
           <div class="panel-head"><h3><span class="en">By Region of the Carrier</span><span class="es">Por Región de la Aerolínea</span></h3><span class="note"><span class="en">Monthly, AFAC</span><span class="es">Mensual, AFAC</span></span></div>
           <div class="chart-box sm"><canvas id="regchart"></canvas></div>
+          <div class="stamp" id="stamp-reg"></div>
         </div>
         <div class="panel">
           <div class="panel-head"><h3><span class="en">Largest Foreign Airlines</span><span class="es">Mayores Aerolíneas Extranjeras</span></h3><span class="note" id="fo-note"></span></div>
@@ -401,6 +406,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           </div>
         </div>
         <div class="panel-foot" id="irfoot"></div>
+        <div class="stamp" id="stamp-ir"></div>
       </div>
     </div>
   </section>
@@ -875,7 +881,19 @@ window.addEventListener("DOMContentLoaded", function(){
   seg("seg-mapview", "mapview", renderMap); seg("seg-scope", "scope", function(){ if (S.scope === "intl") setFrame("na"); else if (S.scope === "dom") setFrame("mx"); renderMap(); }); seg("seg-top", "top", renderMap, Number); seg("seg-frame", "frame", renderMap);
   if (!FR.na) { var nb = document.querySelector('#seg-frame [data-v="na"]'); nb.disabled = true; nb.title = "map-wide.js"; } setFrame(S.frame);
   seg("seg-measure", "measure", renderAl); seg("seg-seg", "seg", renderAl); seg("seg-view", "view", renderAl); seg("seg-from", "from", renderAl, Number); seg("seg-display", "display", renderAl);
-  function renderAll(){ renderKpis(); renderMapChips(); renderMap(); renderAlChips(); renderAl(); renderForeign(); renderIr(); renderSources(); }
+  // One stamp under every chart: data month, when the source published it, when the data file was generated, last daily check.
+  function renderStamps(){
+    var src = A.sources || {}, checked = A.status && A.status.checkedAt;
+    var day = function(iso){ var d = iso ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(String(iso)) ? iso + "T12:00:00Z" : iso) : null; return d && !isNaN(d) ? d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "") : null; };
+    var line = function(o){ return [T("Datos ", "Data ") + esc(o.src) + T(" hasta ", " to ") + "<b>" + esc(o.to) + "</b>", o.published ? T("publicados el ", "published ") + esc(day(o.published)) : null, o.generated ? T("archivo generado el ", "file generated ") + esc(day(o.generated)) : null, o.checked ? T("última verificación ", "last check ") + esc(day(o.checked)) : null].filter(Boolean).join(" · "); };
+    var put = function(id, html){ var e = document.getElementById(id); if (e) e.innerHTML = html; };
+    var last = A.months.length - 1, afac = { src: "AFAC", to: monthLabel(A.months[last]), published: src.afac && src.afac.published, generated: A.generatedAt, checked: checked };
+    put("stamp-al", line(afac)); put("stamp-reg", line(afac));
+    put("stamp-map", line({ src: "AFAC (" + T("corredores", "corridors") + ")", to: monthLabel(R.window.to), published: src.afac && src.afac.published, generated: R.generatedAt, checked: checked }));
+    var ir = A.ir || {}, ids = Object.keys(ir).filter(function(k){ return ir[k] && ir[k].months && ir[k].months.length; });
+    put("stamp-ir", line({ src: T("de las aerolíneas (IR)", "from the airlines (IR)"), to: ids.length ? monthLabel(ids.map(function(k){ return ir[k].months[ir[k].months.length - 1]; }).sort()[ids.length - 1]) : "—", generated: A.generatedAt, checked: checked }));
+  }
+  function renderAll(){ renderKpis(); renderMapChips(); renderMap(); renderAlChips(); renderAl(); renderForeign(); renderIr(); renderSources(); renderStamps(); }
   renderAll();
   new MutationObserver(function(){ renderAll(); }).observe(document.documentElement, {attributes:true, attributeFilter:["lang", "data-theme"]});
   var mq = window.matchMedia("(prefers-color-scheme: dark)"); if (mq.addEventListener) mq.addEventListener("change", renderAll);

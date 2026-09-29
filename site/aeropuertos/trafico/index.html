@@ -151,6 +151,8 @@ main{flex:1; padding-top:12px;}
 .panel-head h3{font-family:var(--serif); font-size:20px; margin:0; font-weight:700;}
 .panel-head .note{font-size:12.5px; color:var(--muted);}
 .panel-foot{font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5;}
+.stamp{font-size:11.5px; line-height:1.45; color:var(--muted); margin-top:6px; padding-top:6px; border-top:1px dashed var(--grid); font-variant-numeric:tabular-nums;}
+.stamp b{font-weight:600; color:var(--text-secondary);}
 .next-release{font-size:13.5px; color:var(--text-secondary); margin:14px 0 0; line-height:1.55; padding:10px 14px; border:1px solid var(--grid); border-radius:10px;}
 .next-release b{color:var(--text-primary); font-weight:600;}
 .next-release .late{color:#b45309;}
@@ -345,6 +347,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         </div>
         <div class="chart-box"><canvas id="mainchart" role="img" aria-label="Gráfica de tráfico por operador / Traffic by operator chart"></canvas><div class="msg" id="mainmsg" hidden></div></div>
         <div class="panel-foot" id="mainfoot"></div>
+        <div class="stamp" id="stamp-main"></div>
       </div>
     </div>
   </section>
@@ -372,6 +375,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <div class="kpis inpanel" id="apkpis"></div>
           <div class="chart-box sm"><canvas id="apchart"></canvas></div>
           <div class="panel-foot" id="apfoot"></div>
+          <div class="stamp" id="stamp-ap"></div>
         </div>
       </div>
     </div>
@@ -396,6 +400,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         </div>
         <div class="chart-box sm"><canvas id="aicmchart"></canvas></div>
         <div class="panel-foot" id="aicmfoot"></div>
+        <div class="stamp" id="stamp-aicm"></div>
       </div>
     </div>
   </section>
@@ -419,6 +424,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           </div>
         </div>
         <div class="panel-foot" id="aifafoot"></div>
+        <div class="stamp" id="stamp-aifa"></div>
       </div>
     </div>
   </section>
@@ -905,7 +911,20 @@ window.addEventListener("DOMContentLoaded", function(){
   document.querySelector("#tbl tbody").addEventListener("click", function(ev){ var tr = ev.target.closest("tr"); if (!tr) return; S.airport = tr.dataset.code; renderAirport(); });
   document.getElementById("apsel").addEventListener("change", function(ev){ S.airport = ev.target.value; renderAirport(); });
 
-  function renderAll(){ renderKpis(); renderOpChips(); renderMain(); renderTblChips(); renderTable(); renderApSelect(); renderAirport(); renderAicm(); renderAifa(); renderSources(); }
+  // One stamp under every chart: data month, when the source published it, when the data file was generated, last daily check.
+  function renderStamps(){
+    var ST = window.MX_AIRPORTS_STATUS || {}, src = D.sources || {};
+    var day = function(iso){ var d = iso ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(String(iso)) ? iso + "T12:00:00Z" : iso) : null; return d && !isNaN(d) ? d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "") : null; };
+    var ts = function(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? d.toLocaleString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit", hour12:false, timeZone:"America/Mexico_City"}).replace(".", "") + " CDMX" : null; };
+    var line = function(o){ return [T("Datos ", "Data ") + esc(o.src) + T(" hasta ", " to ") + "<b>" + esc(o.to) + "</b>", o.published ? T("publicados el ", "published ") + esc(day(o.published)) : null, o.generated ? T("archivo generado el ", "file generated ") + esc(day(o.generated)) : null, o.checked ? T("última verificación ", "last check ") + esc(ts(o.checked)) : null].filter(Boolean).join(" · "); };
+    var put = function(id, html){ var e = document.getElementById(id); if (e) e.innerHTML = html; };
+    var afac = { src: "AFAC", to: monthLabel(months[last]), published: src.afac && src.afac.published, generated: D.generatedAt, checked: ST.checkedAt };
+    put("stamp-main", line(afac)); put("stamp-ap", line(afac));
+    var aicmM = D.aicm && D.aicm.months || [];
+    put("stamp-aicm", line({ src: "AICM", to: aicmM.length ? monthLabel(aicmM[aicmM.length - 1]) : "—", published: src.aicm && src.aicm.updated, generated: D.generatedAt, checked: ST.checkedAt }));
+    put("stamp-aifa", line({ src: "AIFA / AFAC", to: D.aifa && D.aifa.asOf ? day(D.aifa.asOf + "T12:00:00Z") : monthLabel(months[last]), generated: D.generatedAt, checked: ST.checkedAt }));
+  }
+  function renderAll(){ renderKpis(); renderOpChips(); renderMain(); renderTblChips(); renderTable(); renderApSelect(); renderAirport(); renderAicm(); renderAifa(); renderSources(); renderStamps(); }
   renderAll();
   loadCompanies().then(function(){ renderNextRelease(); }); // the groups' release calendar, once their traffic files arrive
   if (q.get("airport")) { var sec = document.getElementById("aeropuertos"); if (sec) setTimeout(function(){ sec.scrollIntoView({block:"start"}); }, 50); }

@@ -47,6 +47,10 @@ dashboards, everything built from public data by GitHub Actions.
   Peer multiples and consensus for GAP are a dated snapshot: save the pull as
   `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
   Forward multiples (NTM EV/EBITDA, NTM P/E) go first; the owner asked for them.
+- The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
+  "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
+  and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
+  `tools/aeropuertos/README.md`). Only official filings go into that table, never press.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
