@@ -226,7 +226,7 @@ function isDiscontinued(lastDate, freq) {
 async function fetchOne(key, spec, log) {
   const tried = [];
   for (const cand of spec.candidates) {
-    const cspec = cand.freq ? { ...spec, freq: cand.freq } : spec;
+    const cspec = { ...spec, ...(cand.freq ? { freq: cand.freq } : {}), ...(cand.unit ? { unit: cand.unit } : {}) };
     try {
       const r = await PROVIDERS[cand.provider](cand, cspec);
       if (cand.title && r.title !== null && !new RegExp(cand.title, 'i').test(r.title)) {
@@ -246,7 +246,7 @@ async function fetchOne(key, spec, log) {
       }
       return {
         provider: cand.provider, providerLabel: PROVIDER_LABEL[cand.provider], id: cand.id, title: r.title, url: r.url,
-        note: cand.note || null, freq: cspec.freq, unit: spec.unit, fetchedAt: today(), points: r.points, tried,
+        note: cand.note || null, freq: cspec.freq, unit: cspec.unit, fetchedAt: today(), points: r.points, tried,
       };
     } catch (e) {
       tried.push(`${cand.provider}:${cand.id} ${e.message}`);

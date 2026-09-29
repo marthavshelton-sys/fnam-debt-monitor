@@ -150,6 +150,17 @@ tertiary, seasonally adjusted), consumer confidence `454186` (seasonally
 adjusted balance; `454168` original). `SR14195` (Banxico survey, median
 expected inflation 12 months ahead) feeds the ex ante real rate.
 
+Official-source policy: every series' first candidate is an official Mexican
+source (INEGI or Banxico); international mirrors (OECD/IMF via FRED) remain
+only as fallbacks. Ids confirmed with the BIE search / Banxico titles on
+2026-09-29: unemployment `444884` (ENOE national rate, seasonally adjusted),
+GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
+exports `65649` / imports `65651` (merchandise trade FOB, seasonally
+adjusted, millions of USD; originals `33860`/`33861` as first fallback),
+10-year M bond `SF44071` (Banxico primary auction yield; auction months
+only). The BIE carries no IMSS-jobs level series (only its cyclical
+component), so formal employment still needs a source.
+
 Not yet sourced: IMSS jobs, industrial production and the INPC
 spending-purpose groups.
 
