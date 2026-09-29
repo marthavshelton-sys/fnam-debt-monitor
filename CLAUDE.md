@@ -145,6 +145,18 @@ dashboards, everything built from public data by GitHub Actions.
 - The 10-year M bono is Banxico's primary-auction yield (SIE SF44071, about every four weeks, published the same
   day; `scripts/lib/banxico-mx10y.mjs`, FRED/OECD monthly IRLTLT01MXM156N as fallback). Banxico's SIE has no daily
   secondary-market 10-year yield (its daily vector CF300 carries prices and coupons only; checked 2026-09-28).
+- Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
+  `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
+  (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,
+  ND via `evL()/peL()/ndL()`), Spanish keeps VE, P/U, DN.
+- Share prices: the market fetchers keep only completed sessions (`completedSessions()` in `scripts/gap/fetch-market.mjs`
+  and `scripts/airports/fetch-market.mjs`), so the 14:30 UTC run never publishes an intraday bar as a "close"; the
+  header shows the close date and the fetch time in CDMX. FactSet cannot run in GitHub Actions, so it is only an
+  in-session cross-check. Quálitas, Gentera and Oracle fetchers still take Yahoo's partial bar (not yet fixed).
+- Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
+  release-lag rule (`nextResults()` in the model, reused by the deck), never a hand-written date.
+- `?lang=en|es` on a model page overrides the stored language; `document.title` follows the language.
+- OMA's net debt includes lease liabilities (`debtExtraItems` in `site/oma/config.js`), matching OMA's own definition.
 - GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a
   FactSet Debt Capital Structure snapshot (`REF.debt.instrumentsAsOf`) with series names from the 6-Ks, refreshed
   in-session after each quarterly report; `REF.noGuidance` explains the years without guidance (2020, 2021).

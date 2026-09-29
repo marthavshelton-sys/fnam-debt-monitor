@@ -223,3 +223,12 @@ Layout rules the builder enforces: tables shrink their font until they fit the p
 rather than over the footer (`noteAbove`), and a table that would still spill is logged in the console. Glyphs that
 Helvetica lacks (−, ≈, →, Δ…) are swapped before drawing. To review the output headlessly, open the page with Playwright,
 click `#btnPrint`, save the download and rasterise it (PyMuPDF) — see the session notes.
+
+
+## Conventions and pipeline notes (29-Sep-2026)
+
+- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). FactSet is available only inside a Claude session, not in Actions.
+- Headings are Title Case in both languages; the English view uses American English and EV / P/E / ND.
+- The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
+- `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
+- Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.

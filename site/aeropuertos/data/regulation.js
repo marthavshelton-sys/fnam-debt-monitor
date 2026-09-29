@@ -12,7 +12,7 @@ window.MX_AIRPORTS_REG = {
   ],
   intro: {
     es: "Concesiones federales reguladas por la SICT a través de la AFAC: cada cinco años se aprueban el Programa Maestro de Desarrollo (PMD, inversiones comprometidas) y las tarifas máximas por unidad de tráfico (un pasajero o 100 kg de carga) de cada aeropuerto. Cifras vigentes según las propias empresas; los números entre corchetes remiten a las fuentes al pie.",
-    en: "Federal concessions regulated by SICT through AFAC: every five years each airport's Master Development Programme (MDP, committed investments) and maximum tariffs per workload unit (one passenger or 100 kg of cargo) are approved. Figures in force as the companies report them; bracketed numbers point to the sources below the table."
+    en: "Federal concessions regulated by SICT through AFAC: every five years each airport's Master Development Program (MDP, committed investments) and maximum tariffs per workload unit (one passenger or 100 kg of cargo) are approved. Figures in force as the companies report them; bracketed numbers point to the sources below the table."
   },
   sources: {
     gapMdp:  { label: { es: "GAP, comunicado 27-ago-2024 (6-K): PMD y tarifas máximas 2025–2029", en: "GAP release 27-Aug-2024 (6-K): MDP and maximum tariffs 2025–2029" }, url: "https://www.globenewswire.com/news-release/2024/08/27/2936661/0/en/grupo-aeroportuario-del-pacifico-announces-master-development-program-and-maximum-tariffs-for-its-mexican-airports-for-the-2025-2029-period.html" },

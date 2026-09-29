@@ -13,7 +13,7 @@ window.ASUR_SUMMARY = {
       en: [
         "2Q26: revenue ex-construction −0.3% (Ps. 7,408 M) and EBITDA −8.7% (Ps. 4,590 M; adjusted margin 62.0%, −5.6 pp) on traffic −2.7%. The drags were Cancún (−7.8%, international −9.1%), a 10% stronger peso on dollar-linked charges and the consolidation of ASUR US (Ps. 444 M revenue, Ps. 20 M EBITDA, ≈9% margin). Majority net income +7.1% on a smaller FX loss and lower taxes.",
         "January–August traffic −0.8% (domestic +1.2%, international −4.0%): Mexico −2.8%, Puerto Rico −3.4%, Colombia +6.6%. August −2.1% (international −10.7%). Management expects a similar 3Q26 and improvement in 4Q26 with more winter-season seats.",
-        "Commercial revenue per passenger Ps. 153.0 (+12.6%) on ASUR US; Mexico down 8.1% to Ps. 145.7. 2Q26 capex Ps. 1,950 M (+40%): Cancún Terminal 1 remodelling, opening expected in 4Q26."
+        "Commercial revenue per passenger Ps. 153.0 (+12.6%) on ASUR US; Mexico down 8.1% to Ps. 145.7. 2Q26 capex Ps. 1,950 M (+40%): Cancún Terminal 1 remodeling, opening expected in 4Q26."
       ] },
     { k: "guidance", title: { es: "Expansión y capital", en: "Expansion and capital" },
       es: [
@@ -23,7 +23,7 @@ window.ASUR_SUMMARY = {
       ],
       en: [
         "Motiva closed on 1-Sep-2026: 100% of CPC for R$5.1 bn (US$992 M), implied EV US$2,566 M at signing; 20 airports in Brazil, Ecuador, Costa Rica and Curaçao with ≈45 M passengers (ASUR had 71 M in 2024) and proportionate LTM EBITDA of US$243 M. Debt-financed; consolidates from 3Q26 and management expects no meaningful synergies.",
-        "ITA merger approved on 20-Aug-2026: ASUR internalises technical assistance (Ps. 401 M fee in 2025) by issuing ≈7.2 M net new shares (≈2.4%; 300 M → ≈307.2 M).",
+        "ITA merger approved on 20-Aug-2026: ASUR internalizes technical assistance (Ps. 401 M fee in 2025) by issuing ≈7.2 M net new shares (≈2.4%; 300 M → ≈307.2 M).",
         "ASUR publishes no guidance. Qualitative targets from the call: maximum-tariff compliance ≈99% by end-2026; JFK Terminal 8 transformed (US$125 M) and New Terminal One around 1Q27; LAX works ahead of the 2027 Super Bowl and 2028 Olympics."
       ] },
     { k: "debt", title: { es: "Deuda y dividendos", en: "Debt and dividends" },

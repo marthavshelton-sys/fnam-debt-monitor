@@ -169,7 +169,7 @@
   const qEndDate = (q) => `${q.fy}-${String(q.q * 3).padStart(2, '0')}-${q.q === 1 || q.q === 4 ? '31' : '30'}`;
 
   // Gross / net debt at each quarter-end (thousands of pesos).
-  //  basis 'bs'  — itemised in the published balance sheet (bank loans + certificados bursátiles); from 2Q26.
+  //  basis 'bs'  — itemized in the published balance sheet (bank loans + certificados bursátiles); from 2Q26.
   //  basis 'ref' — hand-curated in reference.js (debt.history) from the PDF quarterly report / 20-F.
   //  basis 'est' — rolled back from the nearest reported figure using the quarter's financing cash flows
   //                (bonds and loans issued less repaid); ignores FX revaluation of USD debt and accrued
@@ -211,13 +211,41 @@
     }).join(' ');
   }
 
+  // English finance abbreviations in the English view (EV, P/E, ND); Spanish keeps VE, P/U, DN.
+  const evL = () => (LANG === 'es' ? 'VE' : 'EV'), peL = () => (LANG === 'es' ? 'P/U' : 'P/E'), ndL = () => (LANG === 'es' ? 'DN' : 'ND');
+  // Fetch time of the market file in Mexico City time, for the price stamp.
+  const fmtTsCdmx = (iso) => { const d = iso ? new Date(iso) : null; return d && !isNaN(d) ? d.toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', hour12: false, timeZone: 'America/Mexico_City' }).replace('.', '') + ' CDMX' : ''; };
+  // Next results date: confirmed when the company announced it (REF.calendar.nextResults); otherwise assumed from the
+  // median lag between quarter-end and release for the same quarter over the last three years. The deck reuses this.
+  function nextResults() {
+    if (!lastQ) return null;
+    const nq = lastQ.q === 4 ? { fy: lastQ.fy + 1, q: 1 } : { fy: lastQ.fy, q: lastQ.q + 1 };
+    const cal = REF.calendar && REF.calendar.nextResults, today = new Date().toISOString().slice(0, 10);
+    if (cal && cal.date && cal.date >= today) return { q: nq, date: cal.date, kind: 'confirmed', source: cal.source || null };
+    const dayOf = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5;
+    // a quarter parsed from a later report's comparative columns carries that report's date, so it is skipped
+    const relDate = (q) => q.releaseDate || (q.sources && q.sources.is && q.sources.is.primary !== false && q.sources.is.date);
+    const lags = [], yrs = [];
+    for (let y = nq.fy - 1; y >= nq.fy - 3; y--) { const q = qById[`${y}Q${nq.q}`]; if (q && relDate(q)) { lags.push(dayOf(relDate(q)) - dayOf(qEndDate(q))); yrs.push(y); } }
+    if (!lags.length) return { q: nq, date: null, kind: 'unknown' };
+    lags.sort((a, b) => a - b); const med = lags[Math.floor((lags.length - 1) / 2)];
+    const d = new Date(qEndDate(nq) + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + med);
+    return { q: nq, date: d.toISOString().slice(0, 10), kind: 'assumed', years: [Math.min(...yrs), Math.max(...yrs)] };
+  }
+  // Text for the {{nextResults}} token in the executive summary, so the summary never hand-writes a date the deck disagrees with.
+  function nextResultsText() {
+    const n = nextResults(); if (!n || !n.date) return LANG === 'es' ? 'fecha por confirmar' : 'date to be confirmed';
+    return n.kind === 'confirmed' ? `${fmtDate(n.date)}${LANG === 'es' ? ', confirmada' : ', confirmed'}` : `≈${fmtDate(n.date)}${LANG === 'es' ? ', fecha supuesta' : ', assumed'}`;
+  }
+  const liveTokens = (x) => String(x).replace(/\{\{nextResults\}\}/g, nextResultsText());
+  const TITLE_TAIL = (document.title.split(' | ')[1] || '').trim();
   // ================= HEADER =================
   function renderHeader() {
     const asof = [];
     if (lastQ) asof.push(`<span><b>${t('quarter')}:</b> ${qLabel(lastQ)} · ${fmtDate(lastQ.sources && lastQ.sources.is && lastQ.sources.is.date)}</span>`);
     const lastM = TR.months[TR.months.length - 1];
     if (lastM) asof.push(`<span><b>${LANG === 'es' ? 'Tráfico' : 'Traffic'}:</b> ${ymLabel(lastM.ym)} · ${fmtDate(lastM.source && lastM.source.date)}</span>`);
-    if (lastPx) asof.push(`<span><b>${t('price')}:</b> ${fmtDate(lastPx[0])}</span>`);
+    if (lastPx) { const fa = (MK.prices && MK.prices['GAPB.MX'] && MK.prices['GAPB.MX'].fetchedAt) || MK.generatedAt; asof.push(`<span><b>${t('price')}:</b> ${t('close')} ${fmtDate(lastPx[0])}${fa ? ` · ${LANG === 'es' ? 'obtenido' : 'fetched'} ${fmtTsCdmx(fa)}` : ''}</span>`); }
     const genParts = [];
     if (FIN.generatedAt) genParts.push(`${LANG === 'es' ? 'estados financieros' : 'statements'} ${fmtDate(FIN.generatedAt.slice(0, 10))}`);
     if (MK.generatedAt) genParts.push(`${LANG === 'es' ? 'mercado' : 'market'} ${fmtDate(MK.generatedAt.slice(0, 10))}`);
@@ -232,7 +260,7 @@
     if (lastLTM && lastLTM.is) k.push({ l: 'EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: 'Ps. ' + fmtM(lastLTM.is.ebitda) + ' M', d: `${t('margin')} ${fmtPct(lastLTM.is.ebitdaMarginExIfric)} ${t('exIfric')}` });
     const nd = netDebt(lastQ);
     if (nd && lastLTM && lastLTM.is) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} Ps. ${fmtM(nd.net)} M` });
-    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + (lastQ.bs.nci || 0); k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.comprehensiveControlling ? `P/U ${fmtX(lastPx[1] * sharesNow / 1000 / lastLTM.is.comprehensiveControlling)}` : '' }); }
+    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is) { const ev = lastPx[1] * sharesNow / 1000 + nd.net + (lastQ.bs.nci || 0); k.push({ l: evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.comprehensiveControlling ? `${peL()} ${fmtX(lastPx[1] * sharesNow / 1000 / lastLTM.is.comprehensiveControlling)}` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
     el('genStamp').textContent = genParts.join(' · ');
   }
@@ -249,7 +277,7 @@
     const nextTraffic = (() => { const ms = TR.months; if (!ms.length) return null; const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b); const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5; const last = ms[ms.length - 1].ym; const rel = new Date(Date.UTC(+last.slice(0, 4), +last.slice(5, 7) - 1 + 2, day)); return { day, month: rel.toLocaleDateString(locale(), { month: 'long', timeZone: 'UTC' }) }; })();
     const ord = (d) => d + ([, 'st', 'nd', 'rd'][(d % 100 >> 3 ^ 1 && d % 10) || 0] || 'th');
     const live = (x) => (nextTraffic ? String(x).replace(/\((?:~|≈)\s*(?:día\s*)?\d{1,2}(?:st|nd|rd|th)?\)/g, LANG === 'es' ? `(hacia el ${nextTraffic.day} de ${nextTraffic.month})` : `(around ${nextTraffic.month} ${ord(nextTraffic.day)})`) : x);
-    const bold = (x) => String(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
+    const bold = (x) => liveTokens(x).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>');
     html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${tc(L(sec.title))}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${bold(live(x))}</li>`).join('')}</ul></div>`).join(''));
   }
 
@@ -759,7 +787,7 @@
   function renderDcf(reset) {
     if (reset || !dcfState.s) dcfState.s = dcfDefaults();
     const s = dcfState.s;
-    const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s);
+    const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s); box.querySelectorAll('.inp').forEach((r, ri) => { const name = ((r.querySelector('.name') || {}).textContent || '').replace(/\s+/g, ' ').trim(); const yrs = [...r.querySelectorAll('.row5 span')].map((x) => x.textContent.trim()); r.querySelectorAll('input').forEach((inp, i) => { inp.id = inp.id || `dcf-${ri}-${i}`; inp.setAttribute('aria-label', yrs.length ? `${name} ${yrs[i] || ''}`.trim() : name); }); });
     box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; renderDcfOutputs(); }));
     el('dcfReset').addEventListener('click', () => renderDcf(true));
     renderDcfOutputs();
@@ -821,11 +849,11 @@
       const fcf = lastLTM.cf && lastLTM.cf.cfo != null && lastLTM.cf.capex != null ? (lastLTM.cf.cfo + lastLTM.cf.capex) / 1000 : null;
       rows.push([t('mktCap'), 'Ps. ' + fmtN(mcM, 0) + ' M', `${fmtN(sharesNow)} × Ps. ${fmtN(price, 2)}`]);
       if (evM != null) rows.push([t('ev'), 'Ps. ' + fmtN(evM, 0) + ' M', `${t('mktCap')} + ${t('nd')} ${fmtM(nd.net)} + NCI ${fmtM(lastQ.bs.nci || 0)}`]);
-      if (evM != null) rows.push(['VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(evM / (ltm.ebitda / 1000)), `EBITDA ${fmtM(ltm.ebitda)} M`]);
-      if (evM != null) rows.push(['VE / ' + (LANG === 'es' ? 'ingresos UDM sin IFRIC 12' : 'LTM revenue ex-IFRIC 12'), fmtX(evM / revEx), `${fmtN(revEx)} M`]);
-      rows.push(['P / U ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(mcM / ni), `${LANG === 'es' ? 'utilidad integral controladora' : 'comprehensive income, controlling'} ${fmtN(ni)} M`]);
+      if (evM != null) rows.push([evL() + ' / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(evM / (ltm.ebitda / 1000)), `EBITDA ${fmtM(ltm.ebitda)} M`]);
+      if (evM != null) rows.push([evL() + ' / ' + (LANG === 'es' ? 'ingresos UDM sin IFRIC 12' : 'LTM revenue ex-IFRIC 12'), fmtX(evM / revEx), `${fmtN(revEx)} M`]);
+      rows.push([peL() + ' ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(mcM / ni), `${LANG === 'es' ? 'utilidad integral controladora' : 'comprehensive income, controlling'} ${fmtN(ni)} M`]);
       const cg = PEERS.gap && PEERS.gap.ntm;
-      if (cg && evM != null && cg.ebitda) rows.push(['VE / EBITDA ' + ntmLbl(), fmtX(evM / cg.ebitda.mean), `${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} EBITDA ${fmtN(cg.ebitda.mean)} M (${fmtDate(cg.estimateDate)})`]);
+      if (cg && evM != null && cg.ebitda) rows.push([evL() + ' / EBITDA ' + ntmLbl(), fmtX(evM / cg.ebitda.mean), `${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} EBITDA ${fmtN(cg.ebitda.mean)} M (${fmtDate(cg.estimateDate)})`]);
       if (cg && cg.eps) rows.push(['P / U ' + ntmLbl(), fmtX(price / cg.eps.mean), `${LANG === 'es' ? 'consenso FactSet UPA' : 'FactSet consensus EPS'} Ps. ${fmtN(cg.eps.mean, 2)}`]);
       if (fcf != null) rows.push([LANG === 'es' ? 'Rendimiento FCF (CFO − capex) / cap.' : 'FCF yield (CFO − capex) / mkt cap', fmtPct(100 * fcf / mcM), `${fmtN(fcf)} M`]);
       if (dpsLatest) rows.push([LANG === 'es' ? 'Rendimiento por dividendo' : 'Dividend yield', fmtPct(100 * dpsLatest.dps / price), `Ps. ${fmtN(dpsLatest.dps, 2)} ${t('agm')} ${dpsLatest.agmYear}`]);
@@ -838,7 +866,7 @@
     const hist = Q.slice(-12).map((q) => { const l = ltmFor(q); const p = pointAtOrBefore(gapPx, qEndDate(q)); const nd2 = netDebt(q); if (!l || !p || !nd2 || !l.is.ebitda) return null; const sh2 = (q.shares && q.shares.current) || sharesAt(qEndDate(q)); const ev = p[1] * sh2 / 1000 + nd2.net + (q.bs.nci || 0); return { q, v: ev / l.is.ebitda, est: nd2.basis === 'est', pe: l.is.comprehensiveControlling ? p[1] * sh2 / 1000 / l.is.comprehensiveControlling : null }; }).filter(Boolean);
     const c = SERIES();
     const alpha = (hex, a) => hex + (a < 1 ? Math.round(a * 255).toString(16).padStart(2, '0') : '');
-    if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: 'VE/EBITDA', data: hist.map((h) => h.v), backgroundColor: hist.map((h) => alpha(c[0], h.est ? 0.45 : 1)) }, { label: 'P/U', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}${hist[x.dataIndex].est && x.dataset.label !== 'P/U' ? ' (' + estTag() + ')' : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + 'x' }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
+    if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: evL() + '/EBITDA', data: hist.map((h) => h.v), backgroundColor: hist.map((h) => alpha(c[0], h.est ? 0.45 : 1)) }, { label: 'P/U', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}${hist[x.dataIndex].est && x.dataset.label !== 'P/U' ? ' (' + estTag() + ')' : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + 'x' }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     html('evSrc', LANG === 'es' ? `Cierre del trimestre × acciones vigentes + deuda neta + minoritarios, sobre EBITDA UDM; P/U sobre utilidad integral controladora UDM. Barras translúcidas: deuda neta estimada (véase la sección Deuda).` : `Quarter-end close × shares then outstanding + net debt + minorities, over LTM EBITDA; P/E on LTM comprehensive income to controlling interest. Translucent bars: estimated net debt (see the Debt section).`);
     // peers (FactSet snapshot in data/peers.js; GAP row from this model, NTM denominators from consensus)
     renderPeers(price, sharesNow, ltm, nd);
@@ -851,8 +879,8 @@
     if (!PEERS.updatedAt || !ps.length) { html('peersTable', ''); el('peersCap').textContent = t('pending'); return; }
     const cols = [
       ['name', LANG === 'es' ? 'Empresa' : 'Company'], ['price', LANG === 'es' ? 'Precio' : 'Price'], ['mktCapUsdM', LANG === 'es' ? 'Cap. US$ M' : 'Mkt cap US$ M'],
-      ['evEbitdaNtm', 'VE/EBITDA ' + ntmLbl()], ['evEbitdaLtm', 'VE/EBITDA ' + ltmLbl()], ['peNtm', 'P/U ' + ntmLbl()], ['peLtm', 'P/U ' + ltmLbl()],
-      ['divYieldPct', LANG === 'es' ? 'Div.' : 'Div. yield'], ['netDebtEbitda', 'DN/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin'], ['retYtd', LANG === 'es' ? 'Ret. US$ 2026' : 'US$ ret. YTD'],
+      ['evEbitdaNtm', evL() + '/EBITDA ' + ntmLbl()], ['evEbitdaLtm', evL() + '/EBITDA ' + ltmLbl()], ['peNtm', peL() + ' ' + ntmLbl()], ['peLtm', peL() + ' ' + ltmLbl()],
+      ['divYieldPct', LANG === 'es' ? 'Div.' : 'Div. yield'], ['netDebtEbitda', ndL() + '/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin'], ['retYtd', LANG === 'es' ? 'Ret. US$ 2026' : 'US$ ret. YTD'],
     ];
     const cell = (k, p) => {
       const v = k === 'retYtd' ? (p.returnsUsdPct ? p.returnsUsdPct.ytd : null) : p[k];
@@ -927,7 +955,7 @@
     const vsG = c26 != null && gE && y25 && y25.is ? 100 * (c26 / (y25.is.ebitda / 1000) - 1) : null;
     html('consNote', LANG === 'es'
       ? `Consenso de FactSet al ${fmtDate(PEERS.estimateDate)}, en Ps. millones (media). EBITDA de FactSet = utilidad de operación + depreciación y amortización; los ingresos siguen la definición de FactSet (pueden incluir ingresos por construcción IFRIC 12), por lo que sólo el EBITDA se compara con la guía. ${vsG != null ? `El consenso 2026 implica ${fmtPct(vsG, 1, true)} sobre el EBITDA 2025 reportado, contra la guía vigente de ${fmtPct(gE.lo, 0, true)} a ${fmtPct(gE.hi, 0, true)}.` : ''} Cierre de referencia: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`
-      : `FactSet consensus as of ${fmtDate(PEERS.estimateDate)}, Ps. million (mean). FactSet EBITDA = operating income + depreciation and amortisation; revenue follows FactSet's definition (it may include IFRIC 12 construction revenue), so only EBITDA is compared with guidance. ${vsG != null ? `The 2026 consensus implies ${fmtPct(vsG, 1, true)} on reported 2025 EBITDA, against guidance of ${fmtPct(gE.lo, 0, true)} to ${fmtPct(gE.hi, 0, true)}.` : ''} Reference close: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`);
+      : `FactSet consensus as of ${fmtDate(PEERS.estimateDate)}, Ps. million (mean). FactSet EBITDA = operating income + depreciation and amortization; revenue follows FactSet's definition (it may include IFRIC 12 construction revenue), so only EBITDA is compared with guidance. ${vsG != null ? `The 2026 consensus implies ${fmtPct(vsG, 1, true)} on reported 2025 EBITDA, against guidance of ${fmtPct(gE.lo, 0, true)} to ${fmtPct(gE.hi, 0, true)}.` : ''} Reference close: Ps. ${fmtN(px0, 2)} (${fmtDate(lastPx ? lastPx[0] : PEERS.pricesAsOf)}).`);
   }
 
   // ================= 06 DEBT =================
@@ -946,7 +974,7 @@
     const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
     html('debtSrc', LANG === 'es'
       ? `Deuda bruta = préstamos bancarios + certificados bursátiles (corto y largo plazo) del balance publicado; efectivo del mismo balance. Sólido = balance detallado (desde ${firstBs ? qLabel(firstBs.q) : '—'}); <b>translúcido / punteado = estimación</b> obtenida restando a la deuda reportada los flujos de financiamiento de cada trimestre (emisiones y pagos de certificados y préstamos), sin revaluación cambiaria de la deuda en dólares ni intereses devengados. Sustituya las estimaciones con las cifras del reporte trimestral en PDF vía reference.js (debt.history).`
-      : `Gross debt = bank loans + certificados bursátiles (current and long-term) from the published balance sheet; cash from the same balance sheet. Solid = itemised balance sheet (from ${firstBs ? qLabel(firstBs.q) : '—'}); <b>translucent / dashed = estimate</b> obtained by rolling reported debt back through each quarter's financing flows (bond and loan issues less repayments), ignoring FX revaluation of USD debt and accrued interest. Replace estimates with the PDF quarterly report figures via reference.js (debt.history).`);
+      : `Gross debt = bank loans + certificados bursátiles (current and long-term) from the published balance sheet; cash from the same balance sheet. Solid = itemized balance sheet (from ${firstBs ? qLabel(firstBs.q) : '—'}); <b>translucent / dashed = estimate</b> obtained by rolling reported debt back through each quarter's financing flows (bond and loan issues less repayments), ignoring FX revaluation of USD debt and accrued interest. Replace estimates with the PDF quarterly report figures via reference.js (debt.history).`);
     const D2 = REF.debt || {};
     const isCb = (i) => i.type === 'CB';
     const instRow = (i) => `<tr><td>${LS(i.name)}${i.inferred ? '*' : ''}${i.note ? `<br><span class="muted small">${LS(i.note)}</span>` : ''}</td><td class="col-type">${isCb(i) ? 'CB' : LS(i.type)}</td><td>${i.issued ? fmtDate(i.issued) : '—'}</td><td>${i.matures ? fmtDate(i.matures) : '—'}</td><td>${fmtN(i.principalMxn, i.principalMxn % 1 ? 1 : 0)}</td><td>${LS(i.rate) || '—'}${i.source ? `<br><span class="muted small">${i.source}</span>` : ''}</td></tr>`;
@@ -983,7 +1011,7 @@
       return `<tr><td>${y}</td><td>${fmtN(byYear[y], 2)}</td><td>${paid != null ? fmtN(paid) : '—'}</td><td>${paid != null ? fmtN(capred) : '—'}</td><td>${paid != null ? fmtN(buy) : '—'}</td><td>${dist != null ? fmtN(dist) : '—'}</td><td>${eps ? fmtPct(100 * byYear[y] / eps, 0) : '—'}</td><td>${pEnd && byYear[y] ? fmtPct(100 * byYear[y] / pEnd[1]) : '—'}</td></tr>`; });
     html('dpsTable', `<table><thead><tr><th>${LANG === 'es' ? 'Año' : 'Year'}</th><th>${t('dps')}</th><th>${LANG === 'es' ? 'Dividendos (Ps. M)' : 'Dividends (Ps. M)'}</th><th>${LANG === 'es' ? 'Reembolsos de capital' : 'Capital reductions'}</th><th>${LANG === 'es' ? 'Recompras' : 'Buybacks'}</th><th>${LANG === 'es' ? 'Distribuciones' : 'Distributions'}</th><th>${t('payout')}</th><th>${t('yield')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     el('dpsCap').textContent = LANG === 'es' ? 'DPS = efectivo por acción registrado en bolsa (incluye reembolsos de capital, que GAP ha usado en lugar de dividendos en 2021 y 2024). Flujos en Ps. millones del estado de flujos anual. Razón de pago = DPS / utilidad por acción del año fiscal; rendimiento sobre el cierre del año.' : 'DPS = exchange-recorded cash per share (includes capital reductions, which GAP used instead of dividends in 2021 and 2024). Flows in Ps. million from the annual cash-flow statement. Payout = DPS / EPS of the fiscal year; yield on the year-end close.';
-    const ag = (REF.dividends || []).map((d) => `<b>${t('agm')} ${d.agmYear}</b> (${fmtDate(d.agmDate)}): Ps. ${fmtN(d.dps, 2)} ${LANG === 'es' ? 'por acción' : 'per share'}. ${LS(d.note)} <span class="muted">(${LS(d.source)})</span>`).join('<br>') + `<br><span class="muted">${LANG === 'es' ? 'Las exhibiciones aparecen en la tabla cuando la bolsa las registra (Yahoo Finance, cotejado con FactSet); el saldo pendiente de la última asamblea se indica arriba.' : 'Instalments appear in the table once the exchange records them (Yahoo Finance, cross-checked with FactSet); the balance outstanding from the latest AGM is stated above.'}</span>`;
+    const ag = (REF.dividends || []).map((d) => `<b>${t('agm')} ${d.agmYear}</b> (${fmtDate(d.agmDate)}): Ps. ${fmtN(d.dps, 2)} ${LANG === 'es' ? 'por acción' : 'per share'}. ${LS(d.note)} <span class="muted">(${LS(d.source)})</span>`).join('<br>') + `<br><span class="muted">${LANG === 'es' ? 'Las exhibiciones aparecen en la tabla cuando la bolsa las registra (Yahoo Finance, cotejado con FactSet); el saldo pendiente de la última asamblea se indica arriba.' : 'Installments appear in the table once the exchange records them (Yahoo Finance, cross-checked with FactSet); the balance outstanding from the latest AGM is stated above.'}</span>`;
     const agmLast = (REF.dividends || []).slice(-1)[0];
     if (agmLast) {
       const since = divs.filter((d) => d[0] >= agmLast.agmDate); const paid = since.reduce((a, d) => a + d[1], 0); const lastRec = lastPx ? lastPx[0] : (MK.generatedAt || '').slice(0, 10);
@@ -1045,6 +1073,7 @@
     LANG = lang;
     el('btnLangEs').classList.toggle('active', lang === 'es'); el('btnLangEn').classList.toggle('active', lang === 'en');
     document.documentElement.setAttribute('lang', lang === 'es' ? 'es-MX' : 'en');
+    document.title = `${'GAP'} · ${lang === 'es' ? 'Modelo Financiero Interactivo' : 'Interactive Financial Model'} | ${TITLE_TAIL}`;
     document.querySelectorAll('.es').forEach((e) => { e.hidden = lang !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = lang !== 'en'; });
     try { localStorage.setItem('gap-lang', lang); } catch (e) { /* ignore */ }
     fillSelects(); renderAll();
@@ -1093,8 +1122,10 @@
   seg('segStmt', (v) => { st.stmt = v; renderStatements(); });
   seg('segMode', (v) => { st.mode = v; fillSelects('yoy'); renderStatements(); });
   seg('segPreset', (v) => { fillSelects(v); renderStatements(); });
-  el('selA').addEventListener('change', (e) => { st.a = e.target.value; renderStatements(); });
-  el('selB').addEventListener('change', (e) => { st.b = e.target.value; renderStatements(); });
+  // The two periods can never be the same: when one selector lands on the other's value, the other steps to its neighbour.
+  const avoidSame = (changed) => { if (st.a !== st.b) return; const opts = periodOptions(); const i = opts.findIndex((o) => o.id === st[changed]); const n = (opts[i - 1] || opts[i + 1] || {}).id; if (changed === 'a') st.b = n; else st.a = n; fillSelects(); };
+  el('selA').addEventListener('change', (e) => { st.a = e.target.value; avoidSame('a'); renderStatements(); });
+  el('selB').addEventListener('change', (e) => { st.b = e.target.value; avoidSame('b'); renderStatements(); });
   el('chkIfric').addEventListener('change', (e) => { st.exIfric = e.target.checked; renderStatements(); });
   el('chkUsd').addEventListener('change', (e) => { st.usd = e.target.checked; renderStatements(); });
   seg('segGuideMetric', (v) => { gs.metric = v; renderGuideChart(); });
@@ -1112,7 +1143,7 @@
   // ---------------- model API for the presentation builder (present.js) ----------------
   // Read-only view of the same calculations the page renders, so the PDF and the screen never disagree.
   window.GAP_MODEL = {
-    get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays,
+    get LANG() { return LANG; }, nextResults, t, L, LS, locale, fmtN, fmtM, fmtPct, fmtX, fmtDate, qLabel, ytdLabel, ymLabel, addDays,
     FIN, TR, MK, REF, GD, CM, SUM, Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, ytdFor, ltmFor, lastLTM, fixRatios, sumParts,
     px, lastPoint, pointAtOrBefore, fxAt, fxPts, mx10, gapPx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt,
     avgFx, yoyCommentsFor, periodYms, opsFor, trByYm, AIR,
@@ -1121,6 +1152,7 @@
   };
 
   let initial = 'es'; try { initial = localStorage.getItem('gap-lang') || 'es'; } catch (e) { /* ignore */ }
+  { const qp = new URLSearchParams(location.search).get('lang'); if (qp === 'en' || qp === 'es') initial = qp; } // ?lang=en|es wins over the stored choice
   fillSelects('yoy');
   setLang(initial);
 })();

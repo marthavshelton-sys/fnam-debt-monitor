@@ -35,18 +35,18 @@ window.OMA_SUMMARY = {
       en: [
         "At 30-Jun-2026: total debt plus leases Ps. 14,272 M (65.7% fixed rate), cash Ps. 2,577 M, net debt Ps. 11,695 M = 1.13× LTM Adjusted EBITDA (1.04× a year earlier); no derivatives.",
         "July 2026: Ps. 3,000 M issued (OMA 26 Ps. 420 M at TIIE de fondeo + 39 bp, 2029; OMA 26-2 Ps. 2,580 M at 9.17% fixed, 2033; demand 3.2×), refinancing OMA 23L (Ps. 640 M, Jul-2026) and the Ps. 1,700 M short-term loans (Sep-2026) drawn in April to repay OMA 21V.",
-        "2026 dividend: Ps. 4,900 M (+8.9% vs. 2025) in two instalments (Ps. 2,450 M in May, Ps. 6.28 per share; Ps. 2,450 M by 30-Nov) plus a Ps. 1,500 M buyback reserve. VINCI Airports holds 29.99%."
+        "2026 dividend: Ps. 4,900 M (+8.9% vs. 2025) in two installments (Ps. 2,450 M in May, Ps. 6.28 per share; Ps. 2,450 M by 30-Nov) plus a Ps. 1,500 M buyback reserve. VINCI Airports holds 29.99%."
       ] },
     { k: "watch", title: { es: "Qué vigilar", en: "What to watch" },
       es: [
-        "Tráfico de septiembre (≈5-oct) y resultados del 3T26 (≈23-oct): Monterrey (≈55% del tráfico) frente a capacidad de las aerolíneas y rutas a EE. UU.; efecto del peso en la TUA internacional.",
+        "Tráfico de septiembre (≈5-oct) y resultados del 3T26 ({{nextResults}}): Monterrey (≈55% del tráfico) frente a capacidad de las aerolíneas y rutas a EE. UU.; efecto del peso en la TUA internacional.",
         "Ejecución del PMD 2026–2030 (Ps. 1,152 M comprometidos en 2026) y ritmo de la provisión de mantenimiento mayor; margen ajustado sostenido ≈75%.",
         "Segunda exhibición del dividendo (≤30-nov) y recompras; vencimiento de OMA 22L (Ps. 1,700 M, mar-2027)."
       ],
       en: [
-        "September traffic (≈5-Oct) and 3Q26 results (≈23-Oct): Monterrey (≈55% of traffic) versus airline capacity and US routes; peso effect on international TUA.",
+        "September traffic (≈5-Oct) and 3Q26 results ({{nextResults}}): Monterrey (≈55% of traffic) versus airline capacity and US routes; peso effect on international TUA.",
         "Execution of the 2026–2030 MDP (Ps. 1,152 M committed for 2026) and the pace of the major-maintenance provision; adjusted margin holding ≈75%.",
-        "Second dividend instalment (by 30-Nov) and buybacks; OMA 22L maturity (Ps. 1,700 M, Mar-2027)."
+        "Second dividend installment (by 30-Nov) and buybacks; OMA 22L maturity (Ps. 1,700 M, Mar-2027)."
       ] }
   ]
 };

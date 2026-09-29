@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>OMA · Modelo financiero interactivo | Grupo Aeroportuario del Centro Norte</title>
+<title>OMA · Modelo Financiero Interactivo | Grupo Aeroportuario del Centro Norte</title>
 <meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Centro Norte (OMA): estados financieros comparables por trimestre, tráfico de pasajeros en 13 aeropuertos, acción, DCF y valuación relativa. Datos públicos.">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
@@ -29,7 +29,7 @@
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec;
-  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#66655f;
   --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10); --border-strong:rgba(11,11,11,0.18);
   --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --accent-soft-border:rgba(27,67,50,0.22);
   --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --series-5:#e87ba4; --series-6:#008300; --series-7:#4a3aa7; --series-8:#e34948;
@@ -43,7 +43,7 @@
   :root:not([data-theme="light"]){
     color-scheme: dark;
     --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
     --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
     --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
     --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -53,7 +53,7 @@
 :root[data-theme="dark"]{
   color-scheme: dark;
   --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
   --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
   --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
   --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -183,22 +183,22 @@ table td.est{color:var(--text-secondary); font-style:italic;}
 .controls select{max-width:100%;}
 .controls label.lbl{font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
 .seg{display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface); max-width:100%;}
-.seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; white-space:nowrap;}
+.seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:9px 12px; min-height:36px; cursor:pointer; white-space:nowrap;}
 .seg button + button{border-left:1px solid var(--border);}
 .seg button.active{background:var(--accent); color:#fff;}
 .seg button:hover:not(.active){background:var(--surface-2); color:var(--text-primary);}
 select, input[type=number], input[type=text]{font:inherit; font-size:13px; color:var(--text-primary); background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:6px 9px; min-width:0;}
 input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nums;}
 .switch{display:inline-flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
-.switch input{appearance:none; width:34px; height:20px; border-radius:20px; background:var(--baseline); position:relative; outline:none; cursor:pointer; transition:background .15s; margin:0;}
-.switch input:after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:left .15s;}
+.switch input{appearance:none; width:44px; height:24px; border-radius:20px; background:var(--baseline); position:relative; outline:none; cursor:pointer; transition:background .15s; margin:0;}
+.switch input:after{content:""; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; transition:left .15s;}
 .switch input:checked{background:var(--accent);}
-.switch input:checked:after{left:16px;}
+.switch input:checked:after{left:22px;}
 .chips{display:flex; flex-wrap:wrap; gap:6px;}
-.chip{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:100px; cursor:pointer;}
+.chip{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:100px; cursor:pointer; min-height:32px;}
 .chip.active{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .chip .sw{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; vertical-align:middle;}
-.btn{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:8px; cursor:pointer;}
+.btn{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); font:inherit; font-size:12.5px; font-weight:600; padding:9px 14px; min-height:36px; border-radius:8px; cursor:pointer;}
 .btn:hover{background:var(--surface-2);}
 .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
 
@@ -215,7 +215,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .inp.years{grid-template-columns:1fr; }
 .inp.years .row5{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; margin-top:4px;}
 .inp.years .row5 input{width:100%; min-width:0; padding:4px 3px; font-size:11.5px; text-align:center;}
-.inp.years .row5 span{font-size:10.5px; color:var(--muted); text-align:center;}
+.inp.years .row5 span{font-size:11px; color:var(--muted); text-align:center;}
 .hero{margin-top:6px;}
 .hero .v{font-family:var(--sans); font-size:clamp(34px,6vw,48px); font-weight:800; letter-spacing:-0.02em; line-height:1;}
 .hero .l{font-size:12.5px; color:var(--muted); margin-top:6px;}
@@ -235,7 +235,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sum-grid li{margin:6px 0;}
 .sum-grid li b{color:var(--text-primary);}
 @media (max-width:760px){.sum-grid{grid-template-columns:1fr;}}
-.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
+.guide-chip{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
 .guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .guide-chip.above{color:var(--good); border-color:var(--good);}
 .guide-chip.below{color:var(--critical); border-color:var(--critical);}
@@ -271,9 +271,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
 /* ---------- Language toggle ---------- */
 .lang-btn{position:fixed; top:16px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
-.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:10px 16px; min-height:40px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
-@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:10px 13px; min-height:44px; font-size:12px;}}
 
 /* ---------- Print as presentation (Letter landscape, one slide per section) ---------- */
 .print-only{display:none;}
@@ -414,14 +414,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 00 EXECUTIVE SUMMARY -->
   <section class="block" id="summary">
-    <div class="sec-head"><span class="sec-num">00</span><h2><span class="es">Resumen ejecutivo</span><span class="en" hidden>Executive summary</span></h2></div>
+    <div class="sec-head"><span class="sec-num">00</span><h2><span class="es">Resumen Ejecutivo</span><span class="en" hidden>Executive Summary</span></h2></div>
     <p class="sec-meta" id="sumMeta"></p>
     <div class="sum-grid" id="sumGrid"></div>
   </section>
 
   <!-- 01 STATEMENTS -->
   <section class="block" id="statements">
-    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Estados financieros comparables</span><span class="en" hidden>Comparable financial statements</span></h2></div>
+    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Estados Financieros Comparables</span><span class="en" hidden>Comparable Financial Statements</span></h2></div>
     <p class="sec-desc">
       <span class="es">Elija dos periodos y compare el estado de resultados, el balance o el flujo de efectivo con variación absoluta y porcentual. Los modos <b>acumulado del año</b> y <b>últimos doce meses</b> se construyen a partir de las cifras trimestrales reportadas. El interruptor IFRIC 12 excluye los ingresos y costos por construcción de activos concesionados (a margen cero). OMA reporta un <b>EBITDA ajustado</b> (EBITDA reportado − ingresos por construcción + costos de construcción + provisión de mantenimiento mayor) y su margen sobre ingresos aeronáuticos + no aeronáuticos; esa es la medida que usa este modelo, con el EBITDA reportado como renglón adicional. Los ingresos aeronáuticos (TUA nacional e internacional), los no aeronáuticos (comerciales, diversificación, complementarios) y los costos de servicios se desglosan en grupos plegables.</span><span class="en" hidden>Pick two periods and compare the income statement, balance sheet or cash-flow statement with absolute and percentage variances. The <b>year-to-date</b> and <b>last-twelve-months</b> modes are built from the reported quarterly figures. The IFRIC 12 switch strips out construction revenue and cost on concession assets (zero margin). OMA reports an <b>Adjusted EBITDA</b> (reported EBITDA − construction revenue + construction cost + major-maintenance provision) and its margin over aeronautical + non-aeronautical revenue; that is the measure this model uses, with reported EBITDA as an extra line. Aeronautical revenue (domestic and international TUA), non-aeronautical revenue (commercial, diversification, complementary) and the cost of services are broken down in collapsible groups.</span>
     </p>
@@ -470,20 +470,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
     <div class="grid-2 eq">
       <div class="card">
-        <h3><span class="es">Ingresos por tipo</span><span class="en" hidden>Revenue by type</span></h3>
+        <h3><span class="es">Ingresos por Tipo</span><span class="en" hidden>Revenue by Type</span></h3>
         <p class="cap"><span class="es">Ps. millones por trimestre, últimos 12 trimestres</span><span class="en" hidden>Ps. million per quarter, last 12 quarters</span></p>
-        <div class="chart-wrap"><canvas id="chartRevMix"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartRevMix" role="img" aria-label="Ingresos por Tipo / Revenue by Type"></canvas></div>
         <p class="chart-src" id="revMixSrc"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Margen EBITDA ajustado</span><span class="en" hidden>Adjusted EBITDA margin</span></h3>
+        <h3><span class="es">Margen EBITDA Ajustado</span><span class="en" hidden>Adjusted EBITDA Margin</span></h3>
         <p class="cap"><span class="es">EBITDA ajustado / (ingresos aeronáuticos + no aeronáuticos), %</span><span class="en" hidden>Adjusted EBITDA / (aeronautical + non-aeronautical revenue), %</span></p>
-        <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartMargin" role="img" aria-label="Margen EBITDA Ajustado / Adjusted EBITDA Margin"></canvas></div>
         <p class="chart-src"><span class="es">Fuente: informes trimestrales de OMA (margen reportado)</span><span class="en" hidden>Source: OMA quarterly reports (reported margin)</span></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Indicadores por trimestre</span><span class="en" hidden>Quarterly indicators</span></h3>
+      <h3><span class="es">Indicadores por Trimestre</span><span class="en" hidden>Quarterly Indicators</span></h3>
       <p class="cap"><span class="es">Últimos 12 trimestres reportados · variación contra el mismo trimestre del año anterior</span><span class="en" hidden>Last 12 reported quarters · change vs. the same quarter a year earlier</span></p>
       <div class="tblwrap" id="kpiTable"></div>
     </div>
@@ -491,7 +491,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 02 GUIDANCE -->
   <section class="block" id="guidance">
-    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Guía de la administración</span><span class="en" hidden>Management guidance</span></h2></div>
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Guía de la Administración</span><span class="en" hidden>Management Guidance</span></h2></div>
     <p class="sec-desc">
       <span class="es">OMA no publica una tabla formal de guía anual. Lo que sí comunica son los compromisos de inversión del Programa Maestro de Desarrollo (PMD) 2026–2030 aprobado en diciembre de 2025, la tarifa máxima por unidad de tráfico para el quinquenio y comentarios cualitativos sobre tráfico, márgenes y capex en cada conferencia de resultados. Esta sección muestra esos compromisos con su fuente; si OMA empezara a publicar guía numérica, el flujo de datos la extraería automáticamente.</span><span class="en" hidden>OMA does not publish a formal annual guidance table. It does communicate the 2026–2030 Master Development Program (MDP) investment commitments approved in December 2025, the maximum tariff per traffic unit for the five-year period and qualitative comments on traffic, margins and capex on each earnings call. This section shows those commitments with their source; if OMA started publishing numerical guidance, the data pipeline would extract it automatically.</span>
     </p>
@@ -505,14 +505,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
 
     <div class="card only-with-guidance" style="margin-top:20px">
-      <h3><span class="es">Historial: últimos seis trimestres</span><span class="en" hidden>History: last six quarters</span></h3>
+      <h3><span class="es">Historial: Últimos Seis Trimestres</span><span class="en" hidden>History: Last Six Quarters</span></h3>
       <p class="cap"><span class="es">Guía en vigor después del informe de cada trimestre · las celdas sombreadas cambiaron respecto al trimestre anterior (se muestra el valor previo tachado)</span><span class="en" hidden>Guidance in force after each quarter's report · shaded cells changed versus the prior quarter (the previous value is struck through)</span></p>
       <div class="tblwrap" id="guideHistory"></div>
       <p class="chart-src" id="guideHistSrc"></p>
     </div>
 
     <div class="card only-with-guidance" style="margin-top:20px">
-        <h3><span class="es">Guía vs. real por año</span><span class="en" hidden>Guidance vs. actual by year</span></h3>
+        <h3><span class="es">Guía vs. Real por Año</span><span class="en" hidden>Guidance vs. Actual by Year</span></h3>
         <p class="cap"><span class="es">Barras = rango guiado (inicial y última revisión); punto = resultado real; el año en curso muestra el acumulado reportado</span><span class="en" hidden>Bars = guided range (initial and latest revision); dot = actual; the current year shows the reported year-to-date figure</span></p>
         <div style="margin-top:12px">
             <div class="seg" id="segGuideMetric">
@@ -525,12 +525,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
               <button type="button" data-v="capex">Capex</button>
             </div>
         </div>
-        <div class="chart-wrap"><canvas id="chartGuide"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartGuide" role="img" aria-label="Guía vs. Real por Año / Guidance vs. Actual by Year"></canvas></div>
         <p class="chart-src" id="guideChartSrc"></p>
     </div>
     <div class="card only-with-guidance" style="margin-top:20px">
-        <h3><span class="es">Cumplimiento por año</span><span class="en" hidden>Track record by year</span></h3>
-        <p class="cap"><span class="es">Resultado real frente a la última guía de cada año cerrado · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Actual outcome versus the final guidance of each closed year · green = above the range, grey = within, red = below</span></p>
+        <h3><span class="es">Cumplimiento por Año</span><span class="en" hidden>Track Record by Year</span></h3>
+        <p class="cap"><span class="es">Resultado real frente a la última guía de cada año cerrado · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Actual outcome versus the final guidance of each closed year · green = above the range, gray = within, red = below</span></p>
         <div class="tblwrap" id="guideRecord"></div>
     </div>
 
@@ -539,7 +539,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 02 TRAFFIC -->
   <section class="block" id="traffic">
-    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Tráfico de pasajeros</span><span class="en" hidden>Passenger traffic</span></h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Tráfico de Pasajeros</span><span class="en" hidden>Passenger Traffic</span></h2></div>
     <p class="sec-desc">
       <span class="es">Pasajeros terminales (nacionales e internacionales) por aeropuerto, según los reportes mensuales de tráfico de OMA: 13 aeropuertos en nueve estados del centro y norte de México, con Monterrey como eje (más de la mitad del tráfico), tres destinos turísticos (Acapulco, Mazatlán y Zihuatanejo) y nueve ciudades regionales y fronterizas. Incluye aviación comercial, chárter y general; excluye pasajeros en tránsito. Vea la serie mensual, trimestral o anual y compare contra el mismo periodo del año anterior.</span><span class="en" hidden>Terminal passengers (domestic and international) by airport, from OMA's monthly traffic reports: 13 airports in nine states of central and northern Mexico, with Monterrey as the hub (over half of traffic), three tourist destinations (Acapulco, Mazatlán and Zihuatanejo) and nine regional and border cities. Includes commercial, charter and general aviation; excludes transit passengers. View the monthly, quarterly or annual series and compare with the same period a year earlier.</span>
     </p>
@@ -565,7 +565,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3 id="trafficChartTitle"></h3>
         <p class="cap" id="trafficChartCap"></p>
-        <div class="chart-wrap tall"><canvas id="chartTraffic"></canvas></div>
+        <div class="chart-wrap tall"><canvas id="chartTraffic" role="img" aria-label="Tráfico de pasajeros por periodo / Passenger traffic by period"></canvas></div>
         <p class="chart-src" id="trafficSrc"></p>
         <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en" hidden>View data table</span></summary><div class="tblwrap" id="trafficSeriesTable"></div></details>
       </div>
@@ -579,7 +579,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 03 SHARE PRICE -->
   <section class="block" id="share">
-    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Desempeño de la acción</span><span class="en" hidden>Share-price performance</span></h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Desempeño de la Acción</span><span class="en" hidden>Share-Price Performance</span></h2></div>
     <p class="sec-desc">
       <span class="es">OMA cotiza como serie B en la BMV (pesos) y como ADS en el Nasdaq (OMAB, dólares; 1 ADS = 8 acciones B). Desde diciembre de 2022 OMA forma parte de VINCI Airports, que tiene una participación indirecta de 29.99%. El comparativo reindexa cada serie a 100 al inicio del periodo elegido para verla contra el S&amp;P/BMV IPC y los pares mexicanos GAP y ASUR. Precios de cierre diarios; se actualizan cada día hábil.</span><span class="en" hidden>OMA trades as series B shares on the BMV (pesos) and as ADSs on Nasdaq (OMAB, dollars; 1 ADS = 8 B shares). Since December 2022 OMA is part of VINCI Airports, which holds an indirect 29.99% stake. The comparison rebases every series to 100 at the start of the chosen window to see it against the S&amp;P/BMV IPC and Mexican peers GAP and ASUR. Daily closes, refreshed every business day.</span>
     </p>
@@ -605,13 +605,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3 id="priceChartTitle"></h3>
         <p class="cap" id="priceChartCap"></p>
-        <div class="chart-wrap"><canvas id="chartPrice"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartPrice" role="img" aria-label="Precio de la acción / Share price"></canvas></div>
         <p class="chart-src" id="priceSrc"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Rendimiento relativo (base 100)</span><span class="en" hidden>Relative performance (rebased to 100)</span></h3>
+        <h3><span class="es">Rendimiento Relativo (Base 100)</span><span class="en" hidden>Relative Performance (Rebased to 100)</span></h3>
         <p class="cap"><span class="es">OMA B vs. S&amp;P/BMV IPC, GAP B y ASUR B, precio en pesos</span><span class="en" hidden>OMA B vs. S&amp;P/BMV IPC, GAP B and ASUR B, peso prices</span></p>
-        <div class="chart-wrap"><canvas id="chartRebased"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartRebased" role="img" aria-label="Rendimiento Relativo (Base 100) / Relative Performance (Rebased to 100)"></canvas></div>
         <p class="chart-src" id="rebasedSrc"></p>
         <div class="tblwrap" id="rebasedTable"></div>
       </div>
@@ -620,7 +620,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 04 DCF -->
   <section class="block" id="dcf">
-    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por Flujos Descontados (DCF)</span><span class="en" hidden>Discounted-Cash-Flow Valuation</span></h2></div>
     <p class="sec-desc">
       <span class="es">Flujo de efectivo libre a la firma en pesos nominales durante cinco años explícitos, descontado a un WACC construido con CAPM sobre el bono mexicano a 10 años. Como las 13 concesiones vencen en 2048, el valor terminal por defecto es una <b>anualidad hasta el fin de la concesión</b>, no una perpetuidad; puede cambiarlo a perpetuidad o a múltiplo de salida. El EBITDA base es el ajustado (excluye la provisión de mantenimiento mayor, que sí es un desembolso futuro: el capex del modelo debe incluirla). Todos los supuestos son editables.</span><span class="en" hidden>Unlevered free cash flow in nominal pesos over five explicit years, discounted at a CAPM-based WACC built on the Mexican 10-year bond. Because the 13 concessions expire in 2048, the default terminal value is an <b>annuity to the end of the concession</b>, not a perpetuity; switch to perpetuity or an exit multiple if you prefer. The base EBITDA is the adjusted one (it excludes the major-maintenance provision, which is a real future outlay: the model's capex should include it). Every assumption is editable.</span>
     </p>
@@ -634,12 +634,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
           <div class="callout" id="dcfNote"></div>
         </div>
         <div class="card" style="margin-top:20px">
-          <h3><span class="es">Proyección de flujos</span><span class="en" hidden>Cash-flow projection</span></h3>
+          <h3><span class="es">Proyección de Flujos</span><span class="en" hidden>Cash-Flow Projection</span></h3>
           <p class="cap"><span class="es">Ps. millones, nominales</span><span class="en" hidden>Ps. million, nominal</span></p>
           <div class="tblwrap" id="dcfTable"></div>
         </div>
         <div class="card" style="margin-top:20px">
-          <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
+          <h3><span class="es">Sensibilidad: Valor por Acción</span><span class="en" hidden>Sensitivity: Value per Share</span></h3>
           <p class="cap" id="sensCap"></p>
           <div class="tblwrap" id="dcfSens"></div>
         </div>
@@ -649,20 +649,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 05 RELATIVE -->
   <section class="block" id="relative">
-    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación Relativa</span><span class="en" hidden>Relative Valuation</span></h2></div>
     <p class="sec-desc">
       <span class="es">Múltiplos de OMA calculados en vivo con el precio más reciente, las 386.2 millones de acciones en circulación y las cifras de los últimos doce meses (EBITDA ajustado). La tabla de pares (GAP, ASUR, Aena, Fraport, Zúrich, Auckland) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span><span class="en" hidden>OMA multiples computed live from the latest price, the 386.2 million shares outstanding and last-twelve-month figures (Adjusted EBITDA). The peer table (GAP, ASUR, Aena, Fraport, Zurich, Auckland) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
-        <h3><span class="es">OMA: múltiplos actuales</span><span class="en" hidden>OMA: current multiples</span></h3>
+        <h3><span class="es">OMA: Múltiplos Actuales</span><span class="en" hidden>OMA: Current Multiples</span></h3>
         <p class="cap" id="multCap"></p>
         <div class="tblwrap" id="multTable"></div>
       </div>
       <div class="card">
-        <h3><span class="es">VE/EBITDA UDM histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
+        <h3><span class="es">VE/EBITDA UDM Histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
         <p class="cap"><span class="es">Al cierre de cada trimestre, con deuda neta reportada</span><span class="en" hidden>At each quarter-end, with reported net debt</span></p>
-        <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartEvEbitda" role="img" aria-label="VE/EBITDA UDM Histórico / Historical EV/EBITDA (LTM)"></canvas></div>
         <p class="chart-src" id="evSrc"></p>
       </div>
     </div>
@@ -675,20 +675,20 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 06 DEBT -->
   <section class="block" id="debt">
-    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Apalancamiento y perfil de deuda</span><span class="en" hidden>Leverage and debt profile</span></h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Apalancamiento y Perfil de Deuda</span><span class="en" hidden>Leverage and Debt Profile</span></h2></div>
     <p class="sec-desc">
       <span class="es">Deuda neta (deuda financiera menos efectivo) y su relación con el EBITDA ajustado de los últimos doce meses, más los instrumentos vigentes: certificados bursátiles en pesos a tasa fija y variable (varios ligados a sostenibilidad), tomados directamente de la tabla de deuda que OMA publica cada trimestre, y líneas bancarias de corto plazo. La emisión de Ps. 3,000 millones de julio de 2026 refinanció el crédito de Ps. 1,700 millones y el OMA 23L.</span><span class="en" hidden>Net debt (financial debt less cash) and its ratio to last-twelve-month Adjusted EBITDA, plus the outstanding instruments: peso certificados bursátiles at fixed and floating rates (several sustainability-linked), taken directly from the debt table OMA publishes every quarter, and short-term bank lines. The Ps. 3,000 million issuance of July 2026 refinanced the Ps. 1,700 million loan and OMA 23L.</span>
     </p>
     <div class="grid-2 eq">
       <div class="card">
-        <h3><span class="es">Deuda neta y apalancamiento</span><span class="en" hidden>Net debt and leverage</span></h3>
+        <h3><span class="es">Deuda Neta y Apalancamiento</span><span class="en" hidden>Net Debt and Leverage</span></h3>
         <p class="cap"><span class="es">Ps. millones al cierre del trimestre; deuda neta / EBITDA UDM</span><span class="en" hidden>Ps. million at quarter-end; net debt / LTM EBITDA</span></p>
-        <div class="chart-wrap short"><canvas id="chartNetDebt"></canvas></div>
-        <div class="chart-wrap short"><canvas id="chartLeverage"></canvas></div>
+        <div class="chart-wrap short"><canvas id="chartNetDebt" role="img" aria-label="Deuda Neta y Apalancamiento / Net Debt and Leverage"></canvas></div>
+        <div class="chart-wrap short"><canvas id="chartLeverage" role="img" aria-label="Deuda Neta y Apalancamiento / Net Debt and Leverage"></canvas></div>
         <p class="chart-src" id="debtSrc"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Instrumentos y calificaciones</span><span class="en" hidden>Instruments and ratings</span></h3>
+        <h3><span class="es">Instrumentos y Calificaciones</span><span class="en" hidden>Instruments and Ratings</span></h3>
         <p class="cap" id="instrCap"></p>
         <div class="tblwrap" id="instrTable"></div>
         <div class="callout" id="instrNote"></div>
@@ -700,13 +700,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="dividends">
     <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente (Ps. 4,900 millones en abril de 2026, en dos exhibiciones: la de mayo se registró en bolsa a Ps. 6.28 por acción); razón de pago contra la utilidad neta de la participación controladora y rendimiento sobre el precio de cierre del año.</span><span class="en" hidden>Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM (Ps. 4,900 million in April 2026, in two instalments: the May one was recorded by the exchange at Ps. 6.28 per share); payout ratio against net income of the controlling interest and yield on the year-end price.</span>
+      <span class="es">Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa) y el aprobado por la asamblea más reciente (Ps. 4,900 millones en abril de 2026, en dos exhibiciones: la de mayo se registró en bolsa a Ps. 6.28 por acción); razón de pago contra la utilidad neta de la participación controladora y rendimiento sobre el precio de cierre del año.</span><span class="en" hidden>Dividend per share paid each year (exchange-recorded cash per share) and the amount approved at the latest AGM (Ps. 4,900 million in April 2026, in two installments: the May one was recorded by the exchange at Ps. 6.28 per share); payout ratio against net income of the controlling interest and yield on the year-end price.</span>
     </p>
     <div class="grid-2 eq">
       <div class="card">
-        <h3><span class="es">Dividendo por acción, por año de pago</span><span class="en" hidden>Dividend per share, by payment year</span></h3>
+        <h3><span class="es">Dividendo por Acción, por Año de Pago</span><span class="en" hidden>Dividend per Share, by Payment Year</span></h3>
         <p class="cap"><span class="es">Ps. por acción serie B</span><span class="en" hidden>Ps. per series B share</span></p>
-        <div class="chart-wrap"><canvas id="chartDps"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartDps" role="img" aria-label="Dividendo por Acción, por Año de Pago / Dividend per Share, by Payment Year"></canvas></div>
         <p class="chart-src" id="dpsSrc"></p>
       </div>
       <div class="card">
@@ -720,12 +720,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 09 SPECIAL SITUATION -->
   <section class="block" id="event">
-    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Programa Maestro de Desarrollo 2026–2030 y tarifa máxima</span><span class="en" hidden>Master Development Program 2026–2030 and maximum tariff</span></h2></div>
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Programa Maestro de Desarrollo 2026–2030 y Tarifa Máxima</span><span class="en" hidden>Master Development Program 2026–2030 and Maximum Tariff</span></h2></div>
     <div class="grid-2">
       <div>
         <div class="prose">
           <p><span class="es"><b>Qué es.</b> Cada cinco años la Secretaría de Infraestructura, Comunicaciones y Transportes (SICT) y la Agencia Federal de Aviación Civil aprueban para cada aeropuerto concesionado un Programa Maestro de Desarrollo (PMD): el plan de inversiones y mantenimiento mayor que el concesionario se compromete a ejecutar, y la <b>tarifa máxima</b> por unidad de tráfico que puede cobrar por los servicios regulados (TUA, aterrizajes, estacionamiento de aeronaves, arrendamientos regulados). La tarifa se fija en pesos constantes y se ajusta por inflación y por un factor de eficiencia; el cumplimiento se revisa anualmente.</span><span class="en" hidden><b>What it is.</b> Every five years the Ministry of Infrastructure, Communications and Transport (SICT) and the Federal Civil Aviation Agency approve, for each concessioned airport, a Master Development Program (MDP): the investment and major-maintenance plan the concessionaire commits to execute, and the <b>maximum tariff</b> per traffic unit it may charge for regulated services (TUA, landings, aircraft parking, regulated leases). The tariff is set in constant pesos and adjusted for inflation and an efficiency factor; compliance is reviewed annually.</span></p>
-          <p><span class="es"><b>El PMD 2026–2030.</b> Aprobado por la SICT/AFAC el 18 de diciembre de 2025 para los 13 aeropuertos de OMA: Ps. 16,005 millones en pesos de diciembre de 2024, la mitad en Monterrey, con prioridad en la ampliación y modernización de terminales, infraestructura aeronáutica, equipo y tecnología y sostenibilidad; incluye el mantenimiento mayor (que OMA provisiona en resultados y reversa en el EBITDA ajustado). El monto comprometido por año y aeropuerto y las tarifas máximas 2026–2030 se toman del comunicado de OMA del 18 de diciembre de 2025 (ficha y cronología abajo).</span><span class="en" hidden><b>The 2026–2030 MDP.</b> Approved by SICT/AFAC on 18 December 2025 for OMA's 13 airports: Ps. 16,005 million in December-2024 pesos, half of it at Monterrey, prioritising terminal expansion and modernisation, airfield infrastructure, equipment and technology and sustainability; it includes major maintenance (which OMA provisions through the income statement and adds back in Adjusted EBITDA). The committed amount by year and airport and the 2026–2030 maximum tariffs are taken from OMA's 18 December 2025 release (fact sheet and timeline below).</span></p>
+          <p><span class="es"><b>El PMD 2026–2030.</b> Aprobado por la SICT/AFAC el 18 de diciembre de 2025 para los 13 aeropuertos de OMA: Ps. 16,005 millones en pesos de diciembre de 2024, la mitad en Monterrey, con prioridad en la ampliación y modernización de terminales, infraestructura aeronáutica, equipo y tecnología y sostenibilidad; incluye el mantenimiento mayor (que OMA provisiona en resultados y reversa en el EBITDA ajustado). El monto comprometido por año y aeropuerto y las tarifas máximas 2026–2030 se toman del comunicado de OMA del 18 de diciembre de 2025 (ficha y cronología abajo).</span><span class="en" hidden><b>The 2026–2030 MDP.</b> Approved by SICT/AFAC on 18 December 2025 for OMA's 13 airports: Ps. 16,005 million in December-2024 pesos, half of it at Monterrey, prioritizing terminal expansion and modernisation, airfield infrastructure, equipment and technology and sustainability; it includes major maintenance (which OMA provisions through the income statement and adds back in Adjusted EBITDA). The committed amount by year and airport and the 2026–2030 maximum tariffs are taken from OMA's 18 December 2025 release (fact sheet and timeline below).</span></p>
           <p><span class="es"><b>Qué cambia en el modelo.</b> El capex del DCF sigue el perfil del PMD; los ingresos por construcción (IFRIC 12) subirán con la ejecución de obra sin afectar el EBITDA ajustado; la provisión de mantenimiento mayor crece con el nuevo programa (Ps. 99 millones en el 2T26 frente a Ps. 50 millones un año antes). Las tarifas máximas bajan 0.8% real al año (factor de eficiencia), así que el crecimiento de la TUA por pasajero depende de la inflación y de la mezcla doméstico/internacional.</span><span class="en" hidden><b>What changes in the model.</b> DCF capex follows the MDP profile; construction revenue (IFRIC 12) will rise with execution without affecting Adjusted EBITDA; the major-maintenance provision grows with the new program (Ps. 99 million in 2Q26 versus Ps. 50 million a year earlier). Maximum tariffs fall 0.8% a year in real terms (efficiency factor), so TUA growth per passenger depends on inflation and the domestic/international mix.</span></p>
         </div>
         <div class="fact-grid" id="evFacts"></div>
@@ -740,7 +740,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 10 EXPLAINER -->
   <section class="block" id="explainer">
-    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">VINCI Airports y los bonos ligados a sostenibilidad</span><span class="en" hidden>VINCI Airports and the sustainability-linked bonds</span></h2></div>
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">VINCI Airports y los Bonos Ligados a Sostenibilidad</span><span class="en" hidden>VINCI Airports and the Sustainability-Linked Bonds</span></h2></div>
     <div class="grid-2">
       <div class="prose">
           <p><span class="es"><b>El accionista estratégico.</b> El 31 de julio de 2022 Fintech Advisory anunció la venta de su participación indirecta de 29.99% en OMA a VINCI Airports; el cierre se comunicó el 7 de diciembre de 2022 (informe 4T22). Desde entonces OMA se describe como parte de VINCI Airports y paga a su socio estratégico una cuota de asistencia técnica calculada sobre el EBITDA (Ps. 69.0 millones en el 2T26, +2.9%). El resto del capital cotiza en la BMV (serie B) y como ADS en el Nasdaq (1 ADS = 8 acciones).</span><span class="en" hidden><b>The strategic shareholder.</b> On 31 July 2022 Fintech Advisory announced the sale of its indirect 29.99% stake in OMA to VINCI Airports; the closing was reported on 7 December 2022 (4Q22 report). Since then OMA describes itself as part of VINCI Airports and pays its strategic partner a technical-assistance fee computed on EBITDA (Ps. 69.0 million in 2Q26, +2.9%). The rest of the capital trades on the BMV (series B) and as ADSs on Nasdaq (1 ADS = 8 shares).</span></p>
@@ -749,7 +749,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <div class="notice warn" id="exStatus"></div>
       </div>
       <div class="card">
-        <h3><span class="es">Ficha</span><span class="en" hidden>Fact sheet</span></h3>
+        <h3><span class="es">Ficha</span><span class="en" hidden>Fact Sheet</span></h3>
         <div class="tblwrap" id="exTable"></div>
         <p class="chart-src" id="exSrc"></p>
       </div>
@@ -758,7 +758,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
   <!-- 10 METHOD -->
   <section class="block" id="method">
-    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Metodología y actualización</span><span class="en" hidden>Methodology and refresh</span></h2></div>
+    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Metodología y Actualización</span><span class="en" hidden>Methodology and Refresh</span></h2></div>
     <div class="grid-2 eq">
       <div class="prose">
         <p><span class="es"><b>IFRIC 12 y EBITDA ajustado.</b> Bajo IFRS, el operador de una concesión registra las obras que construye para el concedente como ingreso por construcción y como costo por el mismo importe (margen cero) y como activo intangible. OMA además reconoce en resultados la provisión de mantenimiento mayor. Su EBITDA ajustado = EBITDA − ingresos por construcción + costos de construcción + provisión de mantenimiento mayor, con margen sobre ingresos aeronáuticos + no aeronáuticos (2T26: 75.2% ajustado frente a 58.7% reportado). Es la medida de este modelo.</span><span class="en" hidden><b>IFRIC 12 and Adjusted EBITDA.</b> Under IFRS, a concession operator books the works it builds for the grantor as construction revenue and as cost for the same amount (zero margin) and as an intangible asset. OMA also expenses the major-maintenance provision. Its Adjusted EBITDA = EBITDA − construction revenue + construction cost + major-maintenance provision, with the margin over aeronautical + non-aeronautical revenue (2Q26: 75.2% adjusted versus 58.7% reported). It is the measure this model uses.</span></p>
@@ -766,7 +766,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p><span class="es"><b>DCF.</b> FCF = EBITDA ajustado − impuestos sobre la utilidad operativa − capex (incluido mantenimiento mayor) − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = bono M a 10 años, β calculada con dos años de rendimientos semanales de OMA B contra el IPC y Kd = cupón del último certificado a tasa fija. Valor terminal por anualidad hasta 2048, por perpetuidad o por múltiplo. Valor del capital = VE − deuda neta − participación no controladora. Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = Adjusted EBITDA − taxes on operating profit − capex (including major maintenance) − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year M bond, β computed from two years of weekly OMA B returns against the IPC and Kd = the coupon of the latest fixed-rate bond. Terminal value by annuity to 2048, perpetuity or multiple. Equity value = EV − net debt − non-controlling interest. It is a sensitivity tool, not a recommendation.</span></p>
       </div>
       <div class="card">
-        <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
+        <h3><span class="es">Cómo Se Actualiza Cada Bloque</span><span class="en" hidden>How Each Block Is Refreshed</span></h3>
         <div class="tblwrap" id="refreshTable"></div>
         <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oma/*</code>, <code>scripts/airports/*</code> y <code>.github/workflows/oma-refresh.yml</code> en el repositorio; runbook en <code>tools/oma/README.md</code>. Estado del pipeline (cuadres, avisos de parseo, series vencidas): <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: <code>scripts/oma/*</code>, <code>scripts/airports/*</code> and <code>.github/workflows/oma-refresh.yml</code> in the repository; runbook in <code>tools/oma/README.md</code>. Pipeline health (tie-outs, parse warnings, stale series): <a href="quality.html">data-quality page</a>.</span></p>
       </div>
@@ -775,7 +775,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
 </main>
 
-<section class="block print-only" id="printClose"><div class="sec-head"><h2><span class="es">Fuentes y metodología</span><span class="en" hidden>Sources and method</span></h2></div><div id="printCloseBody"></div></section>
+<section class="block print-only" id="printClose"><div class="sec-head"><h2><span class="es">Fuentes y Metodología</span><span class="en" hidden>Sources and Method</span></h2></div><div id="printCloseBody"></div></section>
 
 <footer id="sources">
   <div class="wrap">
