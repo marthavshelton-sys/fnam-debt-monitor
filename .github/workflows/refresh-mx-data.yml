@@ -79,3 +79,10 @@ jobs:
             echo "push attempt $i failed; retrying in 20s"; sleep 20
           done
           if [ "$pushed" != "1" ]; then echo "::error::data refreshed but could not be pushed after 4 attempts"; exit 1; fi
+
+      # Document-sourced figures (docs-data.js) checked against the mirrored LIF, PEF, CGPE and PAF text.
+      # Runs after the data commit so a drift never blocks the daily series; a mismatch fails the job,
+      # which e-mails the owner, and the daily document routine corrects the value.
+      - name: Cross-check docs-data.js against the mirrored documents
+        if: ${{ github.event.inputs.probe == '' }}
+        run: node scripts/mx-fiscal/check-docs.mjs
