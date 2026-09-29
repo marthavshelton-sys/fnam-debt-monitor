@@ -1,6 +1,6 @@
 // Executive summary shown at the top of the GAP page. Narrative is curated from the data files and the
 // releases; the change-alert routine rewrites the affected section when new results, traffic, guidance
-// or events land. Figures quoted are as of the `basis` periods (not live market data).
+// or events land. Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
 window.GAP_SUMMARY = {
   updatedAt: "2026-09-29",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-08", guidanceDate: "2026-07-14" },
@@ -19,7 +19,7 @@ window.GAP_SUMMARY = {
       ]
     },
     {
-      k: "guidance", title: { es: "Guía 2026 y por qué cambió", en: "2026 Guidance and Why It Changed" },
+      k: "guidance", title: { es: "Guía 2026 y Por Qué Cambió", en: "2026 Guidance and Why It Changed" },
       es: [
         "**Revisada el 14 de julio: tráfico −3% a 0%** (antes +2% a +5%), ingresos aeronáuticos +1% a +4% (antes +9% a +12%), no aeronáuticos +21% a +24% (antes +6% a +9%), ingresos totales +7% a +10% (antes +8% a +11%), **EBITDA +10% a +12%** (antes +8% a +11%), margen EBITDA 67% ±1 (antes 65% ±1), capex Ps. 12.0 mil M (antes 13.5).",
         "Por qué: **la guía de febrero excluía CBX**; la revisión incorpora su consolidación desde mayo y la internalización de la asistencia técnica (más EBITDA y margen) y recorta tráfico e ingresos aeronáuticos por Melissa en Jamaica, la seguridad en Puerto Vallarta, el combustible y las tarifas aéreas, y un peso 10.9% más fuerte.",
@@ -32,7 +32,7 @@ window.GAP_SUMMARY = {
       ]
     },
     {
-      k: "debt", title: { es: "Deuda y razones", en: "Debt and Ratios" },
+      k: "debt", title: { es: "Deuda y Razones", en: "Debt and Ratios" },
       es: [
         "Al 30 de junio de 2026: deuda bruta Ps. 65.7 mil M, efectivo Ps. 19.8 mil M, **deuda neta Ps. 45.9 mil M = 2.1x el EBITDA UDM** (Ps. 22.2 mil M); deuda bruta 3.0x; el EBITDA cubre 6.4x el costo financiero neto UDM.",
         "El apalancamiento subió con los **Ps. 10.7 mil M de certificados bursátiles de marzo** (GAP 26 a TIIE + 45 pb y GAP 26-2 a 9.87% fija a 2036) para pagar US$487.5 M por el 25% de CBX y el capex del PMD, más el crédito de Ps. 1.3 mil M asumido de CBX; en septiembre se contrataron líneas bancarias por Ps. 8.0 mil M. Calificación Aaa.mx / mxAAA, perspectiva estable.",
@@ -45,7 +45,7 @@ window.GAP_SUMMARY = {
       ]
     },
     {
-      k: "watch", title: { es: "Qué observar en los próximos reportes", en: "What to Watch in the Next Releases" },
+      k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
       es: [
         "**Tráfico mensual** (≈día 5): **si se sostiene el giro de julio–agosto**; Puerto Vallarta internacional, la recuperación de asientos en Montego Bay para el invierno y Tijuana/CBX.",
         "**3T26** (última semana de octubre): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
