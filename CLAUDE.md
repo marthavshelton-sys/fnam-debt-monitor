@@ -50,7 +50,9 @@ dashboards, everything built from public data by GitHub Actions.
 - The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
   "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
   and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
-  `tools/aeropuertos/README.md`). Only official filings go into that table, never press.
+  `tools/aeropuertos/README.md`). Only official filings go into that table, never press. Each row shows one year for
+  all three groups; a figure computed from a filing is listed in the cell's `calc`. To confirm the pages' source links
+  and the table's figures, dispatch `aeropuertos-refresh.yml` with `verify_links` (browser check on the runner, no commit).
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 

@@ -39,6 +39,39 @@ at runtime and needs no step here.
   tariffs / Dec-2022 investments, OMA Dec-2024, ASUR Dec-2022), so do not compare levels across groups. Update the
   cells when a new MDP is approved (GAP 2030, ASUR 2029, OMA 2031) or a quarterly report changes the "latest reading"
   row, and bump `updatedAt` (shown as "Reviewed <date>" in the section header).
+  Every row shows the same year for the three groups (the tariff row says 2026). GAP and OMA publish a cap per year;
+  ASUR publishes only its 2024 caps plus a 0.80% annual real efficiency factor, so its 2026 caps are 2024 × 0.992²,
+  listed in the cell's `calc` and described in the bullet. Roll the row to 2027 in January. GAP's and OMA's investment
+  tables are in thousands of pesos; the cells round them to millions.
+- Airport count: the header, the chips, the operator strip and the map all use the airports with passengers in the last
+  12 months (65 at Aug-2026). AFAC's workbook lists 66 (San Cristóbal de las Casas, idle since 2010, stays in it with
+  zeros); idle airports are left off the map and named in the note under it. `airports.json` also holds the closed Terán
+  airport (TGZ0), which only maps old AFAC rows onto Tuxtla (TGZ) and is never published.
+- Map pointer: markers overlap (AICM and AIFA, Monterrey and Del Norte), so neither map uses per-marker hit circles.
+  The pointer is resolved on the svg: the marker it sits most centrally in wins (distance / radius, small markers counted
+  at their minimum reach); outside every marker, the nearest within that reach. Keyboard focus stays on each marker.
+
+## Source links (`scripts/aeropuertos/verify-sources.mjs`)
+
+`scripts/check-links.mjs` runs after every refresh but can only call gob.mx, GlobeNewswire, the airline IR sites and
+SiteGround-protected PDFs (ir.oma.aero) "unverifiable", because they refuse plain scripts. To confirm them, dispatch
+*Refresh airport traffic hub data* with `verify_links` ticked (nothing is refreshed or committed in that mode). The
+script opens every external link of the three pages and of their data files in Chromium (then a headed Chrome under
+xvfb), prints status, final URL and title (or the PDF check), and checks that each figure a tariffs-table cell quotes
+appears in one of the filings the cell cites, showing the closest figure when it does not. `verify_args` takes `--dump`,
+`--grep=[url-part::]regex` (no spaces or brackets) and extra document URLs to print in full. Last run 2026-09-29: all
+links resolved; the check caught OMA's 1H26 MDP and strategic investments (Ps. 2,709 M, not 1,554 M).
+
+## Airline page names and notes (`/aerolineas/`)
+
+- Foreign cities and countries arrive from AFAC without accents and half in Spanish; `cities.json` gives each one its
+  Mexican Spanish and American English name (`es`/`en`, `_countryNames` by ISO code), published in `routes.js`.
+- Foreign carriers are shown by the name they fly under (`airlines.json` → `foreignNames`: regex on AFAC's label → name;
+  unmatched labels are cleaned but keep AFAC's accents). Labels that map to one name are merged (MN Airlines is Sun
+  Country's legal name); the page shows AFAC's label on hover.
+- A Mexican carrier with no AFAC passengers in the latest month is marked (†) wherever it appears, with the month it
+  stopped; `airlines.json` → `ceased` adds the reason, a one-line `brief` and the source (Magnicharters: AFAC suspension
+  on Apr 14, 2026 and revocation on Jun 29, 2026).
 - Every chart on the hub and on `/trafico/` and `/aerolineas/` carries a stamp: data month, when the source published the
   file (`sources.afac.published`, written by `compile.mjs` into `summary.js` and by `airlines-lib.mjs` into
   `airlines-summary.js`), when the data file was generated (`generatedAt`) and the last daily check (`status.js`).
