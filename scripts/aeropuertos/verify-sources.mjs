@@ -64,6 +64,8 @@ function pdfText(buf) {
   const f = path.join(os.tmpdir(), `verify-${process.pid}-${Math.random().toString(36).slice(2)}.pdf`); fs.writeFileSync(f, buf);
   try { return JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c', PY, f], { maxBuffer: 256e6 }).toString()); } finally { fs.rmSync(f, { force: true }); }
 }
+// every wait is bounded: a slow server gets reported as a failure instead of stalling the run
+const withTimeout = (p, ms, msg) => Promise.race([p, new Promise((_, rej) => setTimeout(() => rej(new Error(msg)), ms))]);
 // A server that sends an incomplete certificate chain (cuentapublica.hacienda.gob.mx) fails Node's TLS check but opens in a
 // browser, which fetches the missing intermediate itself. TLS verification stays on: the file is fetched by the browser's own
 // network stack as a download, the way a reader's browser gets it.
@@ -71,7 +73,7 @@ async function viaDownload(ctx, url) {
   const page = await ctx.newPage();
   try {
     const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 90000 }), page.goto(url, { timeout: 90000 }).catch(() => null)]);
-    const f = await dl.path(); return { status: 200, url: dl.url(), type: 'download', buf: fs.readFileSync(f) };
+    const f = await withTimeout(dl.path(), 120000, 'download did not finish in 120 s'); return { status: 200, url: dl.url(), type: 'download', buf: fs.readFileSync(f) };
   } finally { await page.close().catch(() => null); }
 }
 async function openPdf(ctx, url) {
@@ -112,7 +114,7 @@ async function visit(url) {
   let best = null;
   for (let i = 0; i < launchers.length; i++) {
     const ctx = await ctxFor(i); if (!ctx) continue;
-    let res; try { res = /\.pdf(\?|#|$)/i.test(url) ? await openPdf(ctx, url) : await openHtml(ctx, url); } catch (e) { res = { error: e.message.split('\n')[0] }; }
+    let res; try { res = await withTimeout(/\.pdf(\?|#|$)/i.test(url) ? openPdf(ctx, url) : openHtml(ctx, url), 240000, 'no answer within 240 s'); } catch (e) { res = { error: e.message.split('\n')[0] }; }
     res.browser = launchers[i].label; best = best && good(best) ? best : res;
     if (good(res)) { best = res; break; }
   }
