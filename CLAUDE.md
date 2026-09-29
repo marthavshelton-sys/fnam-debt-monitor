@@ -145,6 +145,9 @@ dashboards, everything built from public data by GitHub Actions.
 - The 10-year M bono is Banxico's primary-auction yield (SIE SF44071, about every four weeks, published the same
   day; `scripts/lib/banxico-mx10y.mjs`, FRED/OECD monthly IRLTLT01MXM156N as fallback). Banxico's SIE has no daily
   secondary-market 10-year yield (its daily vector CF300 carries prices and coupons only; checked 2026-09-28).
+- GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a
+  FactSet Debt Capital Structure snapshot (`REF.debt.instrumentsAsOf`) with series names from the 6-Ks, refreshed
+  in-session after each quarterly report; `REF.noGuidance` explains the years without guidance (2020, 2021).
 - GAP dividends: the AGM approves one amount per share payable in instalments over the following 12 months
   (`REF.dividends[].payableUntil`); the exchange record in `market.js` shows only what has gone ex. Compare the
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
