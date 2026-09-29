@@ -25,9 +25,9 @@ function docYear(text, re) { const m = text.match(re); return m ? m[1] : null; }
 
 const findings = []; // { block, field, docs, document, source, note }
 const ok = [];
-function compare(block, field, docsVal, docVal, source, note) {
+function compare(block, field, docsVal, docVal, source, note, tol) {
   if (docVal == null) { findings.push({ block, field, docs: docsVal, document: null, source, note: `${note || ''} (not found in mirror)`.trim(), severity: 'warn' }); return; }
-  if (near(docsVal, docVal)) ok.push(`${block}.${field} = ${docsVal}`);
+  if (near(docsVal, docVal, tol)) ok.push(`${block}.${field} = ${docsVal}`);
   else findings.push({ block, field, docs: docsVal, document: docVal, source, note, severity: 'error' });
 }
 
@@ -102,6 +102,27 @@ async function main() {
         const v = rowD[`shcp${y}`]; if (v == null || v === '—') continue;
         compare('cgpe', `rows[${label}].shcp${y}`, pct(v), rowDoc ? rowDoc[i] : null, src, label);
       }
+    }
+  }
+
+  // ---- Banxico survey: Cuadro 1 medians (last column = current month) and Cuadro 2's next-12-months median.
+  // Only checked when the mirror is the same survey the block cites (a newer mirror means the routine is due to update).
+  const enc = await mirror('banxico-encuesta');
+  if (enc && D.banxicoSurvey) {
+    const src = sourceOf(enc), B = D.banxicoSurvey;
+    if (B.url && src && decodeURIComponent(B.url) !== decodeURIComponent(src)) {
+      findings.push({ block: 'banxicoSurvey', field: 'url', docs: B.url, document: src, note: 'a newer Banxico survey is mirrored; the document routine should update the block', severity: 'warn' });
+    } else {
+      const block = (label) => { const i = enc.search(new RegExp(label, 'i')); return i < 0 ? '' : enc.slice(i, i + 400); };
+      const med = (label, y) => { const m = block(label).match(new RegExp(`Expectativa para ${y}\\s+[\\d.]+\\s+[\\d.]+\\s+[\\d.]+\\s+([\\d.]+)`)); return m ? num(m[1]) : null; };
+      for (const y of Object.keys(B.inflationEnd || {})) compare('banxicoSurvey', `inflationEnd.${y}`, B.inflationEnd[y], med('Inflaci[oó]n General \\(dic', y), src, 'Cuadro 1, mediana', 0.005);
+      for (const y of Object.keys(B.gdpGrowth || {})) compare('banxicoSurvey', `gdpGrowth.${y}`, B.gdpGrowth[y], med('Crecimiento del PIB', y), src, 'Cuadro 1, mediana', 0.005);
+      for (const y of Object.keys(B.fxEnd || {})) compare('banxicoSurvey', `fxEnd.${y}`, B.fxEnd[y], med('Tipo de Cambio Pesos/D[oó]lar', y), src, 'Cuadro 1, mediana', 0.005);
+      for (const y of Object.keys(B.rateEnd || {})) compare('banxicoSurvey', `rateEnd.${y}`, B.rateEnd[y], med('Tasa de fondeo interbancario', y), src, 'Cuadro 1, mediana (tasa de fondeo)', 0.005);
+      const n12 = enc.match(/Para los pr[oó]ximos 12 meses[\s\S]{0,800}?Mediana\s+[\d.]+\s+([\d.]+)/);
+      if (B.inflationNext12m != null) compare('banxicoSurvey', 'inflationNext12m', B.inflationNext12m, n12 ? num(n12[1]) : null, src, 'Cuadro 2, inflación general, próximos 12 meses, mediana', 0.005);
+      const inst = enc.match(/(\d+) grupos de an[aá]lisis/);
+      if (B.institutions != null) compare('banxicoSurvey', 'institutions', B.institutions, inst ? num(inst[1]) : null, src, 'número de instituciones', 0.5);
     }
   }
 

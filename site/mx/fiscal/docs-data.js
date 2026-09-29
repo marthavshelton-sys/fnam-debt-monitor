@@ -90,7 +90,20 @@ window.MX_DOCS = {
     "nextMove": { "hold": 25, "hike": 6, "cut": 5 },
     "rateEnd": { "2026": 6.50, "2027": 6.50 },
     "inflationEnd": { "2026": 3.93, "2027": 3.83 },
-    "fxEnd": { "2026": 17.50, "2027": 18.00 }
+    "fxEnd": { "2026": 17.50, "2027": 18.00 },
+    "gdpGrowth": { "2026": 1.4, "2027": 1.8 }
+  },
+  "banxicoSurvey": {
+    "title": { "es": "Encuesta de Banxico sobre las expectativas de los especialistas", "en": "Banxico survey of private-sector forecasters" },
+    "period": { "es": "agosto de 2026", "en": "August 2026" },
+    "url": "https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/%7BDBEDE82C-824D-BDDA-D119-53A2B28E2C25%7D.pdf",
+    "asOf": "2026-09-01",
+    "institutions": 41,
+    "rateEnd": { "2026": 6.50, "2027": 6.50 },
+    "inflationEnd": { "2026": 3.90, "2027": 3.84 },
+    "inflationNext12m": 4.13,
+    "fxEnd": { "2026": 17.50, "2027": 18.05 },
+    "gdpGrowth": { "2026": 1.30, "2027": 1.80 }
   },
   "banxico": {
     "calendarUrl": "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html",
