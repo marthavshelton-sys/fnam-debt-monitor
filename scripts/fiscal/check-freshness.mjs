@@ -45,40 +45,51 @@ const isoFromDMY = (s) => {
   return mi < 0 ? null : `${m[3]}-${String(mi + 1).padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 };
 
-// ---- cadence table: every data point, its date field, the allowance in days and where it comes from ----
-// The allowance is measured from the date stamped on the data point (a period-end for monthly
-// Treasury tables, the first of the period for FRED monthly/quarterly series), and covers the
-// publisher's normal lag plus a margin for holidays: a data point older than that means the
-// publisher has released a newer figure that the fetch has failed to pick up.
+// ---- cadence table: every data point, what its date stamp means, and its allowance ----
+// `period` says what the stamped date is: 'obs' = the observation day itself (daily/weekly series and
+// Treasury's month-end tables), 'month' / 'quarter' / 'year' = the FIRST day of the period (how FRED
+// stamps monthly, quarterly and annual series; TIC stamps "YYYY-MM"). Age is measured from the END of
+// that period, and the allowance is the number of days after which the publisher's NEXT release
+// should have replaced the data point (normal lag plus a margin for holidays and late postings): a
+// data point older than that means a newer figure exists that the fetch has failed to pick up.
 const POINTS = [
-  ['Debt to the Penny (total, public, intragovernmental)', 'debt.date', 5, 'Treasury Fiscal Data, daily (business days)'],
-  ['FOMC target range (DFEDTARU/DFEDTARL)', 'targetRange.date', 6, 'Federal Reserve Board via FRED, daily'],
-  ['Effective federal funds rate (EFFR)', 'rates.effr.date', 6, 'New York Fed via FRED, daily'],
-  ['Interest on reserve balances (IORB)', 'rates.iorb.date', 6, 'Federal Reserve Board via FRED, daily'],
-  ['ON RRP award rate', 'rates.onrrp.date', 6, 'New York Fed via FRED, daily'],
-  ['Discount rate (primary credit)', 'rates.discount.date', 6, 'Federal Reserve Board via FRED, daily'],
-  ['ON RRP take-up', 'rrpVolume.date', 6, 'New York Fed via FRED, daily'],
-  ['10-year Treasury yield', 'macroActuals.tenYear.date', 7, 'Treasury via FRED, daily'],
-  ['Fed total assets (WALCL)', 'fed.walcl.date', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
-  ['Fed balance-sheet lines (H.4.1)', 'fedBalanceSheet.date', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
-  ['Average interest rates on the debt', 'avgRate.date', 45, 'Treasury Fiscal Data, monthly, about a week after month-end'],
-  ['Debt composition (MSPD table 1)', 'debtComposition.date', 45, 'Treasury MSPD, monthly, about a week after month-end'],
-  ['Average maturity and schedule (MSPD table 3)', 'avgMaturity.date', 45, 'Treasury MSPD, monthly, about a week after month-end'],
-  ['Monthly Treasury Statement (receipts, outlays, interest)', 'mts.date', 50, 'Treasury MTS, monthly, 8th business day of the next month'],
-  ['Accrued interest expense', 'accruedInterest.date', 50, 'Treasury Fiscal Data, monthly, with the MTS'],
-  ['M2 money stock', 'fed.m2.date', 60, 'Federal Reserve H.6 via FRED, monthly, fourth week of the next month'],
-  ['CPI inflation (y/y)', 'macroActuals.cpiYoY.date', 50, 'BLS via FRED, monthly, around the 12th of the next month'],
-  ['Unemployment rate', 'macroActuals.unemployment.date', 45, 'BLS via FRED, monthly, first Friday of the next month'],
-  ['Major foreign holders (TIC table 5)', 'foreignHolders.date', 95, 'Treasury TIC, monthly, about seven weeks after month-end'],
-  ['Nominal GDP (BEA)', 'gdp.date', 215, 'BEA via FRED, quarterly, four weeks after quarter-end (date = quarter start)'],
-  ['Real GDP growth (BEA)', 'macroActuals.realGdpGrowth.date', 215, 'BEA via FRED, quarterly (date = quarter start)'],
-  ['Ownership of Treasury securities (OFS-2)', 'holders.asOf', 290, 'Treasury Bulletin, quarterly, about two quarters after quarter-end'],
-  ['Gross federal debt, % of GDP (annual)', 'debtGdpAnnual.date', 640, 'FRED GFDGDPA188S, annual (date = Jan 1 of the year)'],
-  ['CME FedWatch snapshot', 'fedWatch.asOf', 14, 'monthly-data.js (research routine), refreshed twice a week and after every FOMC decision', MD],
+  ['Debt to the Penny (total, public, intragovernmental)', 'debt.date', 'obs', 5, 'Treasury Fiscal Data, daily (business days)'],
+  ['FOMC target range (DFEDTARU/DFEDTARL)', 'targetRange.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
+  ['Effective federal funds rate (EFFR)', 'rates.effr.date', 'obs', 6, 'New York Fed via FRED, daily'],
+  ['Interest on reserve balances (IORB)', 'rates.iorb.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
+  ['ON RRP award rate', 'rates.onrrp.date', 'obs', 6, 'New York Fed via FRED, daily'],
+  ['Discount rate (primary credit)', 'rates.discount.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
+  ['ON RRP take-up', 'rrpVolume.date', 'obs', 6, 'New York Fed via FRED, daily'],
+  ['10-year Treasury yield', 'macroActuals.tenYear.date', 'obs', 7, 'Treasury via FRED, daily'],
+  ['Fed total assets (WALCL)', 'fed.walcl.date', 'obs', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
+  ['Fed balance-sheet lines (H.4.1)', 'fedBalanceSheet.date', 'obs', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
+  ['Average interest rates on the debt', 'avgRate.date', 'obs', 45, 'Treasury Fiscal Data, monthly, about a week after month-end'],
+  ['Debt composition (MSPD table 1)', 'debtComposition.date', 'obs', 45, 'Treasury MSPD, monthly, about a week after month-end'],
+  ['Average maturity and schedule (MSPD table 3)', 'avgMaturity.date', 'obs', 45, 'Treasury MSPD, monthly, about a week after month-end'],
+  ['Monthly Treasury Statement (receipts, outlays, interest)', 'mts.date', 'obs', 55, 'Treasury MTS, monthly, 8th business day of the next month (later for September)'],
+  ['Accrued interest expense', 'accruedInterest.date', 'obs', 55, 'Treasury Fiscal Data, monthly, with the MTS'],
+  ['M2 money stock', 'fed.m2.date', 'month', 65, 'Federal Reserve H.6 via FRED, monthly, fourth week of the next month'],
+  ['CPI inflation (y/y)', 'macroActuals.cpiYoY.date', 'month', 55, 'BLS via FRED, monthly, around the 12th of the next month'],
+  ['Unemployment rate', 'macroActuals.unemployment.date', 'month', 45, 'BLS via FRED, monthly, first Friday of the next month'],
+  ['Major foreign holders (TIC table 5)', 'foreignHolders.date', 'month', 80, 'Treasury TIC, monthly, about seven weeks after month-end'],
+  ['Nominal GDP (BEA)', 'gdp.date', 'quarter', 135, 'BEA via FRED, quarterly, four weeks after quarter-end'],
+  ['Real GDP growth (BEA)', 'macroActuals.realGdpGrowth.date', 'quarter', 135, 'BEA via FRED, quarterly, four weeks after quarter-end'],
+  ['Ownership of Treasury securities (OFS-2)', 'holders.asOf', 'obs', 290, 'Treasury Bulletin, quarterly, fully reported about two quarters after quarter-end'],
+  ['Gross federal debt, % of GDP (annual)', 'debtGdpAnnual.date', 'year', 470, 'FRED GFDGDPA188S, annual, the next year posts in the first quarter'],
+  ['CME FedWatch snapshot', 'fedWatch.asOf', 'obs', 14, 'monthly-data.js (research routine), refreshed twice a week and after every FOMC decision', MD],
 ];
+// Last day of the period that starts on `iso` ('month', 'quarter' or 'year'), else the date itself.
+function periodEnd(iso, period) {
+  const y = Number(iso.slice(0, 4)), m = Number(iso.slice(5, 7));
+  const last = (yy, mm) => new Date(Date.UTC(yy, mm, 0)).toISOString().slice(0, 10); // day 0 of the next month
+  if (period === 'month') return last(y, m);
+  if (period === 'quarter') return last(y, m + 2);
+  if (period === 'year') return `${y}-12-31`;
+  return iso;
+}
 
 const rows = [], problems = [];
-for (const [label, path, allowance, source, obj] of POINTS) {
+for (const [label, path, period, allowance, source, obj] of POINTS) {
   let d = get(obj || LD, path);
   if (d && /^\d{4}-\d{2}$/.test(d)) d += '-01';
   if (!d || !/^\d{4}-\d{2}-\d{2}$/.test(String(d))) {
@@ -86,10 +97,12 @@ for (const [label, path, allowance, source, obj] of POINTS) {
     problems.push(`${label}: no value in the data file (${source})`);
     continue;
   }
-  const age = days(d);
+  const end = periodEnd(d, period);
+  const age = days(end);
   const ok = age <= allowance;
-  rows.push([label, d, `${age} d (allowance ${allowance})`, ok ? 'ok' : 'STALE', source]);
-  if (!ok) problems.push(`${label}: latest ${d} is ${age} days old, allowance ${allowance} (${source})`);
+  const shown = period === 'obs' ? d : `${d.slice(0, 7)}${period === 'quarter' ? ' (quarter)' : period === 'year' ? ' (year)' : ''}`;
+  rows.push([label, shown, `${age} d after ${period === 'obs' ? 'obs.' : 'period end'} (allowance ${allowance})`, ok ? 'ok' : 'STALE', source]);
+  if (!ok) problems.push(`${label}: latest ${shown} is ${age} days past its ${period === 'obs' ? 'date' : 'period end'}, allowance ${allowance} (${source})`);
 }
 
 // ---- consistency: figures that must agree with each other ----
@@ -139,7 +152,7 @@ if (m && Array.isArray(m.revYTDcur) && m.totalReceiptsB != null) {
 // ---- report ----
 const pad = (s, n) => String(s).padEnd(n);
 console.log(`US fiscal monitor freshness, evaluated ${nowIso} (data.js generated ${LD.generatedAt || '?'})`);
-for (const [label, d, age, status, source] of rows) console.log(`  ${pad(status, 6)} ${pad(label, 58)} ${pad(d, 11)} ${pad(age, 22)} ${source}`);
+for (const [label, d, age, status, source] of rows) console.log(`  ${pad(status, 6)} ${pad(label, 58)} ${pad(d, 18)} ${pad(age, 40)} ${source}`);
 console.log(problems.length ? `\nPROBLEMS (${problems.length}):\n` + problems.map((p) => '  ' + p).join('\n') : '\nhealthy: every data point is within its allowance and the rates are consistent');
 if (process.env.GITHUB_STEP_SUMMARY) {
   const md = [`### US fiscal monitor freshness (${nowIso})`, '', '| Data point | Latest | Age | Status |', '|---|---|---|---|',

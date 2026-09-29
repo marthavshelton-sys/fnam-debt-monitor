@@ -143,3 +143,9 @@ dashboards, everything built from public data by GitHub Actions.
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
+- US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
+  (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
+  runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's
+  cadence or the rates disagree with the FOMC target range. CME FedWatch and Investing.com refuse
+  scripts, so the FedWatch odds come from named outlets quoting FedWatch, one to four meetings, and the
+  page composes the prose. Probe a blocked source from the runner with the workflow's `url` input.

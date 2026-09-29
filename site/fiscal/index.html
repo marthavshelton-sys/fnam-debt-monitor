@@ -219,7 +219,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .corridor .band{position:absolute; top:0; bottom:0; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px;}
 .corridor .pt{position:absolute; top:50%; width:14px; height:14px; border-radius:50%; border:2.5px solid var(--surface); transform:translate(-50%,-50%); box-shadow:0 0 0 1px var(--border); cursor:default;}
 .corridor .axis{position:relative; height:14px; margin:0 11px;}
-.corridor .axis span{position:absolute; transform:translateX(-50%); font-size:10.5px; color:var(--muted);}
+.corridor .axis span{position:absolute; transform:translateX(-50%); font-size:11px; color:var(--muted);}
 .corridor .legend{display:flex; flex-direction:column; gap:7px; margin-top:18px;}
 .corridor .legend .item{display:flex; align-items:baseline; gap:9px; font-size:12.5px;}
 .corridor .legend .sw{flex:0 0 auto; width:10px; height:10px; border-radius:50%; border:1.5px solid var(--surface); box-shadow:0 0 0 1px var(--border);}
@@ -833,8 +833,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <div class="card" style="margin-top:20px">
       <h3><span class="en">What markets expect next</span><span class="es" hidden>Qué esperan los mercados a continuación</span></h3>
       <p class="cap">
-        <span class="en">Odds of each target-range outcome at the next four FOMC meetings, implied by fed funds futures prices — the same methodology behind the <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch Tool</a></span>
-        <span class="es" hidden>Probabilidad de cada resultado de rango objetivo en las próximas cuatro reuniones del FOMC, implícita en los precios de futuros de fondos federales — la misma metodología detrás de la <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch Tool</a></span>
+        <span class="en">Odds of each target-range outcome at the upcoming FOMC meetings, implied by fed funds futures prices — the methodology behind the <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch Tool</a>; only meetings with published odds are shown</span>
+        <span class="es" hidden>Probabilidad de cada resultado de rango objetivo en las próximas reuniones del FOMC, implícita en los precios de futuros de fondos federales — la metodología detrás de la <a href="https://www.cmegroup.com/markets/interest-rates/cme-fedwatch-tool.html" target="_blank" rel="noopener">CME FedWatch Tool</a>; solo se muestran las reuniones con probabilidades publicadas</span>
       </p>
       <div class="callout" id="fedWatchStale" hidden>
         <span class="en" id="fedWatchStaleEn"></span>
@@ -842,8 +842,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </div>
       <div class="chart-wrap tall" id="fedWatchChartWrap"><canvas id="chartFedWatch"></canvas></div>
       <p class="chart-src">
-        <span class="en">Source: CME Group FedWatch methodology (fed funds futures); figures as reported by Investing.com's Fed Rate Monitor, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, snapshot taken <span data-bind="fedWatchAsOfEn">10-Sep-2026</span> — CME's own tool updates live intraday and is not directly embeddable here; check it directly for the current reading</span>
-        <span class="es" hidden>Fuente: metodología FedWatch de CME Group (futuros de fondos federales); cifras reportadas por el Fed Rate Monitor de Investing.com, <a href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">investing.com/central-banks/fed-rate-monitor ↗</a>, captura del <span data-bind="fedWatchAsOfEs">10 de sep. de 2026</span> — la propia herramienta de CME se actualiza en vivo intradía y no puede incrustarse aquí directamente; consúltela directamente para la lectura actual</span>
+        <span class="en">Source: CME Group FedWatch methodology (fed funds futures); figures as reported by <a id="fedWatchSrcEn" href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">Investing.com's Fed Rate Monitor ↗</a> on <span data-bind="fedWatchAsOfEn">10-Sep-2026</span> — CME's own tool updates live intraday and refuses automated access; check it directly for the current reading</span>
+        <span class="es" hidden>Fuente: metodología FedWatch de CME Group (futuros de fondos federales); cifras reportadas por <a id="fedWatchSrcEs" href="https://www.investing.com/central-banks/fed-rate-monitor" target="_blank" rel="noopener">el Fed Rate Monitor de Investing.com ↗</a> el <span data-bind="fedWatchAsOfEs">10 de sep. de 2026</span> — la propia herramienta de CME se actualiza en vivo intradía y rechaza el acceso automatizado; consúltela directamente para la lectura actual</span>
       </p>
       <div class="callout">
         <span class="en" id="fedWatchCalloutEn"></span>
@@ -1289,7 +1289,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // page's last hand-entered snapshot. The FedWatch callout prose is only replaced when the
   // monthly file supplies it (calloutEn/calloutEs), otherwise the markup below stands.
   var fedWatchAsOf = "2026-09-10"; // ISO, date the odds were captured
-  var fedWatchCalloutEn = null, fedWatchCalloutEs = null; // HTML strings (may contain <b>)
+  var fedWatchSource = null; // {name, nameEs, url}: the outlet the odds were taken from (monthly file); Investing.com wording stands otherwise
+  var fedWatchCalloutEn = null, fedWatchCalloutEs = null; // no longer used: the page composes the callout from the odds themselves
   var tbacAvgMonths = 70, tbacAsOf = "2025-12"; // "YYYY-MM"
   var tbacHistory = [
     {label:"Dec 2020", labelEs:"dic. 2020", months:65},
@@ -1631,8 +1632,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         if(fw.buckets && fw.buckets.length) fedWatch.buckets = fw.buckets;
         if(fw.probs && fw.probs.length) fedWatch.probs = fw.probs;
         if(fw.asOf) fedWatchAsOf = fw.asOf;
-        if(fw.calloutEn) fedWatchCalloutEn = fw.calloutEn;
-        if(fw.calloutEs) fedWatchCalloutEs = fw.calloutEs;
+        if(fw.sourceName && fw.sourceUrl) fedWatchSource = { name: fw.sourceName, nameEs: fw.sourceNameEs || fw.sourceName, url: fw.sourceUrl };
       }
       if(MD.tbac){
         // The current average maturity is computed daily from the MSPD (applyLiveData); the monthly
@@ -1949,6 +1949,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     }
     return out;
   })();
+  if(fedWatchSource){
+    var srcEn = document.getElementById('fedWatchSrcEn'), srcEs = document.getElementById('fedWatchSrcEs');
+    srcEn.href = fedWatchSource.url; srcEn.textContent = fedWatchSource.name+' ↗';
+    srcEs.href = fedWatchSource.url; srcEs.textContent = fedWatchSource.nameEs+' ↗';
+  }
   document.getElementById('fedWatchCalloutEn').innerHTML = fedWatchView.calloutEn;
   document.getElementById('fedWatchCalloutEs').innerHTML = fedWatchView.calloutEs;
   document.getElementById('fedWatchStaleEn').innerHTML = fedWatchView.noticeEn;
