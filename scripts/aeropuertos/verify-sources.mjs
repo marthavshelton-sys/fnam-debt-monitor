@@ -95,7 +95,19 @@ async function visit(url) {
 
 // ---------------------------------------------------------------- run
 const results = new Map();
-const has = (text, n) => { const t = String(text || ''); return t.includes(n) || t.replace(/(\d),(\d{3})/g, '$1$2').includes(n.replace(/,/g, '')); };
+// PDF text often splits a number around its comma ("16 ,005"); rejoin before searching
+const clean = (text) => String(text || '').replace(/(\d) +,(\d)/g, '$1,$2').replace(/(\d), +(\d{3})\b/g, '$1,$2');
+const has = (text, n) => { const t = clean(text); return t.includes(n) || t.replace(/(\d),(\d{3})/g, '$1$2').includes(n.replace(/,/g, '')); };
+// a figure not found as written: numbers in the document within 0.1% of it (as written, or in thousands), with context
+const near = (text, n) => {
+  const t = clean(text), v = +n.replace(/,/g, ''), out = [];
+  for (const m of t.matchAll(/\d{1,3}(?:,\d{3})+(?:\.\d+)?|\d+(?:\.\d+)?/g)) {
+    const d = +m[0].replace(/,/g, ''); if (!d) continue;
+    if (Math.abs(d - v) / v <= 0.001 || Math.abs(d / 1000 - v) / v <= 0.001) out.push(`${m[0]} … "${t.slice(Math.max(0, m.index - 60), m.index + m[0].length + 20).replace(/\s+/g, ' ')}"`);
+    if (out.length >= 2) break;
+  }
+  return out;
+};
 const KEY = /(maximum|m[aá]xim[ao]s?)\s+(rate|tariff|tarifa)|workload|unidad(es)? de (carga|tr[aá]fico)|efficiency|eficiencia|master development|programa maestro/i;
 console.log(`Verifying ${links.size} external source links of the airport pages (${launchers.map((l) => l.label).join(', then ')})\n`);
 for (const [url, meta] of links) {
@@ -129,6 +141,7 @@ for (const c of cells) {
   const missing = c.nums.filter((n) => !texts.some((t) => has(t, n)));
   missingAll += missing.length;
   console.log(`  ${missing.length ? 'MISSING' : 'ok     '} ${c.row}/${c.co} [${c.src.join(', ')}]: ${c.nums.length - missing.length}/${c.nums.length} found${missing.length ? ' · not found: ' + missing.join(', ') : ''}${c.calc.length ? ' · computed, not searched: ' + c.calc.join(', ') : ''}`);
+  for (const n of missing) { const cand = texts.flatMap((t) => near(t, n)); console.log(`            ${n}: ${cand.length ? 'closest in the filing: ' + cand.join(' | ') : 'nothing within 0.1% in the cited filing(s)'}`); }
 }
 const failed = [...results.entries()].filter(([, r]) => !good(r));
 console.log(`\n${links.size - failed.length}/${links.size} links answered with the expected document; ${failed.length} did not${failed.length ? ': ' + failed.map(([u]) => u).join(' ; ') : ''}. Tariff-table figures not found: ${missingAll}.`);
