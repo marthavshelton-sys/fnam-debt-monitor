@@ -19,7 +19,8 @@
 # when the run failed or a series is stale. The first healthy run afterwards closes the issue.
 # Material-change alerts: scripts/mx-macro/alerts.mjs (see its header). The owner does not get
 # GitHub notification mail; the Claude Routine "FNAM US Macro: email material changes" emails
-# newly opened MATERIAL (MX) and SOURCE DOWN issues (tools/mx-macro/README.md).
+# newly opened MATERIAL (MX) and SOURCE DOWN issues (tools/mx-macro/README.md). MATERIAL alerts
+# also go to WhatsApp when the WHATSAPP_* secrets are set (Meta Cloud API; whatsapp-test.yml).
 #
 # Required repository secrets: BANXICO_TOKEN (free, https://www.banxico.org.mx/SieAPIRest/service/v1/token)
 # and INEGI_TOKEN (free registration, https://www.inegi.org.mx/app/desarrolladores/generatoken/Usuarios/token_Verify)
@@ -134,6 +135,10 @@ jobs:
         if: always() && github.ref == 'refs/heads/main' && steps.build.outcome == 'success' && github.event.inputs.probe == '' && github.event.inputs.catalog == '' && github.event.inputs.url == '' && github.event.inputs.xlsx == '' && github.event.inputs.search == '' && github.event.inputs.post == ''
         env:
           GITHUB_TOKEN: ${{ github.token }}
+          # Optional WhatsApp copy of each MATERIAL alert (scripts/lib/whatsapp.mjs); skipped when unset.
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
         run: node scripts/mx-macro/alerts.mjs
 
       - name: Commit if anything changed

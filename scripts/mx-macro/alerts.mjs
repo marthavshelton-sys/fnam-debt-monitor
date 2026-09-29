@@ -8,7 +8,9 @@
 // page by exec_extract.mjs, so the wording is written once, in the template). Non-material new
 // periods only advance the state. The owner does not receive GitHub's notification mail: the
 // Claude Routine "FNAM US Macro: email material changes" emails these issues (see
-// tools/mx-macro/README.md). A missing state file is seeded from the current data without
+// tools/mx-macro/README.md). Once the issue is open, the same headlines also go to WhatsApp
+// through scripts/lib/whatsapp.mjs when its secrets are set (best effort: a failed WhatsApp send
+// is a warning and never holds back the state). A missing state file is seeded from the current data without
 // sending anything.
 //
 //   node scripts/mx-macro/alerts.mjs            -> opens the issue (needs GITHUB_TOKEN, GITHUB_REPOSITORY)
@@ -17,6 +19,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { extractSummaries } from './exec_extract.mjs';
+import { sendWhatsAppAlert, whatsappConfigured } from '../lib/whatsapp.mjs';
 
 const ROOT = new URL('../../', import.meta.url);
 const argv = process.argv.slice(2);
@@ -181,7 +184,11 @@ for (const r of toSend) {
 lines.push('---', 'Automated alert from the Mexico macro pipeline (scripts/mx-macro/alerts.mjs); thresholds in that file. This issue is the queue for the email - nothing to do with it.');
 const body = lines.join('\n');
 
-if (DRY) { console.log(`\n[dry run] would open issue:\n${title}\n\n${body}`); process.exit(0); }
+// WhatsApp: headline figures plus the Spanish link to the first affected section.
+const waText = toSend.map((r) => r.headline).join(' | ');
+const waLink = `https://fnam.mx/mx/macro/?lang=es&view=${VIEW_PARAM[toSend[0].views[0]]}`;
+
+if (DRY) { console.log(`\n[dry run] would open issue:\n${title}\n\n${body}\n\n[dry run] would send WhatsApp (${whatsappConfigured() ? 'configured' : 'secrets not set'}):\n${waText}\n${waLink}`); process.exit(0); }
 const repo = process.env.GITHUB_REPOSITORY, token = process.env.GITHUB_TOKEN;
 if (!repo || !token) { console.log(`alerts: no GITHUB_TOKEN/GITHUB_REPOSITORY - printing instead (state not advanced)\n${title}\n\n${body}`); process.exit(0); }
 let ok = false;
@@ -195,5 +202,9 @@ for (let i = 1; i <= 3 && !ok; i++) {
   else { console.log(`alerts: issue create failed (${res.status}), attempt ${i}`); await new Promise((r) => setTimeout(r, 5000 * i)); }
 }
 // Advance the state only once the alert is queued, so a failed post is retried next run.
-if (ok) await writeFile(STATE, JSON.stringify(next, null, 2) + '\n', 'utf8');
-else process.exitCode = 1;
+if (ok) {
+  await writeFile(STATE, JSON.stringify(next, null, 2) + '\n', 'utf8');
+  const wa = await sendWhatsAppAlert(waText, waLink);
+  if (wa.skipped) console.log(`whatsapp: ${wa.skipped}; not sent`);
+  else if (wa.failed) console.log(`::warning::WhatsApp alert failed for ${wa.failed} recipient(s); the issue was opened and will still be emailed`);
+} else process.exitCode = 1;
