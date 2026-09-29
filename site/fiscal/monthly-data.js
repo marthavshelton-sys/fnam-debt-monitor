@@ -4,7 +4,8 @@
 // twice a day into data.js by scripts/fetch-data.mjs, and data.js always wins.
 //
 // This file is maintained by the cloud routine "FNAM US Fiscal: CBO / FedWatch research", which
-// commits directly to main on Mondays and Thursdays (the morning after an FOMC decision), only when
+// commits directly to main on Mondays, Wednesdays and Fridays (Friday is the first run after a
+// Wednesday FOMC decision), only when
 // it can cite the primary publisher (or, for CBO figures, two independent reputable outlets quoting
 // CBO), and records its sources in the `sources` block below and in the commit message. Rules:
 //   - valid JSON inside the assignment (double-quoted keys, no trailing commas, no comments here)

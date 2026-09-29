@@ -7,7 +7,7 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 |---|---|---|
 | `/` | Landing page (Spanish default, ES/EN toggle) | static |
 | `/macro/` | U.S. macro dashboard | `macro-refresh.yml` |
-| `/fiscal/` | U.S. fiscal debt monitor (runbook: `tools/fiscal/README.md`) | twice-daily `refresh-data.yml` (Treasury/Fed/FRED → `data.js`, then a per-data-point freshness check that opens a `fiscal-health` issue) + twice-weekly research routine committing `monthly-data.js` (CBO, FedWatch) |
+| `/fiscal/` | U.S. fiscal debt monitor (runbook: `tools/fiscal/README.md`) | twice-daily `refresh-data.yml` (Treasury/Fed/FRED → `data.js`, then a per-data-point freshness check that opens a `fiscal-health` issue) + Mon/Wed/Fri research routine committing `monthly-data.js` (CBO, FedWatch) |
 | `/mx/macro/` | Mexico macro dashboard | `mx-macro-refresh.yml` (Banxico SIE, FRED, INEGI) |
 | `/mx/fiscal/` | Mexico fiscal monitor (SHRFSP, holders, maturities, financial cost, revenue, spending, Pemex, CGPE; Banxico balance sheet, policy rate, instruments) | daily `refresh-mx-data.yml` (Banxico SIE + SHCP open data → `data.js`) + weekly routine PR to `docs-data.js` |
 | `/gap/` | GAP interactive financial model | `gap-refresh.yml` |
