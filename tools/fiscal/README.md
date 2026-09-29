@@ -122,6 +122,15 @@ CME and Investing.com refuse scripts, so the odds come from outlets that quote F
 Reuters, Bloomberg); when an outlet only quotes part of the distribution, the routine records
 only the meetings it can complete (the chart shows however many meetings the file holds).
 
+### A machine-readable alternative for market odds (not wired yet)
+
+The Federal Reserve Bank of Atlanta's Market Probability Tracker publishes its model's output as
+`https://www.atlantafed.org/-/media/Project/Atlanta/FRBA/Documents/research-and-data/data/market-probability-tracker/mpt_histdata.xlsx`
+(probabilities of rate ranges implied by options on three-month SOFR futures, updated daily; the
+runner can fetch it). It is not CME FedWatch (a different instrument and methodology), but it is a
+Federal Reserve source that would let the daily workflow refresh market-implied odds without a
+research step. Wiring it means parsing the workbook on the runner and presenting it as what it is.
+
 ## Data facts that trip people up
 
 - FRED publishes WRESBAL in $ millions like the other H.4.1 lines (2,930,193 = $2.93T on
