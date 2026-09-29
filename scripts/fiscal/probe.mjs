@@ -12,6 +12,8 @@
 //                 body has line breaks; otherwise each match with ~250 characters of context
 //   URL##regex    force the match-with-context form even on a body with many lines
 //   raw:URL...    keep the HTML instead of stripping tags (to find an href target, say)
+//   a PDF answer is converted with pdftotext -layout when the runner has it (ubuntu-latest does),
+//                 so a regex can target a report's text (CBO publishes its outlook as PDF)
 // HTML tags are stripped before matching so a regex can target the visible text. FRED and
 // Treasury answer the fetch script's own user agent and stall on a browser one, so those hosts
 // are requested the way scripts/fetch-data.mjs requests them. Nothing is written and no secret
@@ -45,8 +47,21 @@ for (const item0 of (argv[urlIdx + 1] || '').split(/\s+/).filter(Boolean)) {
   const timer = setTimeout(() => ctrl.abort(), TIMEOUT_MS);
   try {
     const scriptHost = /(^|\.)(stlouisfed\.org|treasury\.gov)$/i.test(new URL(raw).hostname);
-    const res = await fetch(raw, { headers: { 'User-Agent': scriptHost ? 'fnam-debt-monitor-bot/1.0' : UA, Accept: 'text/html,application/json,text/csv,*/*', 'Accept-Language': 'en-US,en;q=0.9' }, signal: ctrl.signal, redirect: 'follow' });
-    const bodyRaw = await res.text();
+    const res = await fetch(raw, { headers: { 'User-Agent': scriptHost ? 'fnam-debt-monitor-bot/1.0' : UA, Accept: 'text/html,application/pdf,application/json,text/csv,*/*', 'Accept-Language': 'en-US,en;q=0.9' }, signal: ctrl.signal, redirect: 'follow' });
+    let bodyRaw;
+    if (/application\/pdf/i.test(res.headers.get('content-type') || '') || /\.pdf(\?|$)/i.test(raw)) {
+      const { writeFileSync, mkdtempSync } = await import('node:fs');
+      const { execFileSync } = await import('node:child_process');
+      const { tmpdir } = await import('node:os');
+      const { join } = await import('node:path');
+      const buf = Buffer.from(await res.arrayBuffer());
+      const dir = mkdtempSync(join(tmpdir(), 'probe-')); const pdf = join(dir, 'doc.pdf');
+      writeFileSync(pdf, buf);
+      try { bodyRaw = execFileSync('pdftotext', ['-layout', pdf, '-'], { maxBuffer: 64 * 1024 * 1024 }).toString('utf8'); }
+      catch (e) { bodyRaw = `(PDF, ${buf.length} bytes; pdftotext unavailable: ${e.message})`; }
+    } else {
+      bodyRaw = await res.text();
+    }
     const isHtml = !keepHtml && (/text\/html/i.test(res.headers.get('content-type') || '') || /^\s*<!doctype html|^\s*<html/i.test(bodyRaw));
     const body = isHtml ? stripHtml(bodyRaw) : bodyRaw;
     console.log(`${raw}\n  -> HTTP ${res.status} ${res.headers.get('content-type') || ''} ${bodyRaw.length} bytes${res.url && res.url !== raw ? ` (final URL ${res.url})` : ''}`);

@@ -6,7 +6,8 @@
 // FedWatch research". Each has a known publication cadence. This script reads both files, works
 // out how old every data point is against the allowance for its cadence, and cross-checks the
 // figures that must agree with each other (the administered rates against the FOMC target range,
-// the FedWatch snapshot against the latest FOMC decision, category sums against Treasury totals).
+// the FedWatch snapshot against the latest FOMC decision, category sums against Treasury totals, the
+// CBO research blocks against each other: column count, deficit = outlays - revenue, the record year).
 //
 //   node scripts/fiscal/check-freshness.mjs [--now YYYY-MM-DD] [--data path] [--monthly path]
 //
@@ -77,6 +78,7 @@ const POINTS = [
   ['Ownership of Treasury securities (OFS-2)', 'holders.asOf', 'obs', 290, 'Treasury Bulletin, quarterly, fully reported about two quarters after quarter-end'],
   ['Gross federal debt, % of GDP (annual)', 'debtGdpAnnual.date', 'year', 470, 'FRED GFDGDPA188S, annual, the next year posts in the first quarter'],
   ['CME FedWatch snapshot', 'fedWatch.asOf', 'obs', 14, 'monthly-data.js (research routine), refreshed Mondays, Wednesdays and Fridays', MD],
+  ['CBO baseline (publication date)', 'cboPublished', 'obs', 420, 'monthly-data.js (research routine); CBO publishes a new baseline each January or February', MD],
 ];
 // Last day of the period that starts on `iso` ('month', 'quarter' or 'year'), else the date itself.
 function periodEnd(iso, period) {
@@ -147,6 +149,51 @@ if (m && Array.isArray(m.revYTDcur) && m.totalReceiptsB != null) {
   if (!near(s, m.totalReceiptsB, 1)) problems.push(`MTS receipt categories sum to $${s.toFixed(2)}B but total receipts are $${m.totalReceiptsB.toFixed(2)}B (${m.date})`);
   const o = m.outYTDcur.reduce((a, b) => a + b, 0);
   if (!near(o, m.totalOutlaysB, 1)) problems.push(`MTS outlay categories sum to $${o.toFixed(2)}B but total outlays are $${m.totalOutlaysB.toFixed(2)}B (${m.date})`);
+}
+
+// ---- CBO research blocks: the page composes Section 06 (the record-year sentence, the table headers, the
+// stat cards, the source links) from these keys, so they must agree with each other and with the projection ----
+{
+  const years = Array.isArray(MD.cboYears) ? MD.cboYears.map(Number) : [];
+  const tbl = Array.isArray(MD.cboCategoryTable) ? MD.cboCategoryTable : [];
+  const rowOf = (label) => tbl.find((r) => r && r.label === label);
+  const vals = (r) => (r && Array.isArray(r.vals) ? r.vals.map((x) => (x && x.v != null ? Number(x.v) : null)) : []);
+  if (years.length < 2 || years.some((y, i) => !Number.isInteger(y) || (i > 0 && y <= years[i - 1]))) problems.push(`CBO cboYears [${years.join(', ')}] must be two or more ascending years`);
+  for (const r of [...tbl, MD.cboGdpRow].filter(Boolean)) {
+    if (!Array.isArray(r.vals) || r.vals.length !== years.length) problems.push(`CBO row "${r.label}" has ${Array.isArray(r.vals) ? r.vals.length : 0} values for ${years.length} years in cboYears`);
+  }
+  const rev = vals(rowOf('Total revenue')), out = vals(rowOf('Total outlays')), def = vals(rowOf('Deficit (outlays − revenue)'));
+  if (!rev.length || !out.length || !def.length) problems.push('CBO category table is missing its "Total revenue", "Total outlays" or "Deficit (outlays − revenue)" row');
+  const sum = (a) => a.reduce((s, v) => s + v, 0);
+  years.forEach((y, i) => {
+    if (rev[i] != null && out[i] != null && def[i] != null && !near(def[i], out[i] - rev[i], 0.15)) problems.push(`CBO ${y}: deficit ${def[i]}% of GDP is not outlays ${out[i]}% minus revenue ${rev[i]}% (${(out[i] - rev[i]).toFixed(1)}%)`);
+    const parts = tbl.filter((r) => r && /^—/.test(r.label)).map((r) => vals(r)[i]).filter((v) => v != null);
+    if (parts.length && out[i] != null && !near(sum(parts), out[i], 0.15 * parts.length)) problems.push(`CBO ${y}: the outlay components sum to ${sum(parts).toFixed(1)}% of GDP, not total outlays ${out[i]}%`);
+    const gdp = MD.cboGdpRow && Array.isArray(MD.cboGdpRow.vals) && MD.cboGdpRow.vals[i] ? Number(MD.cboGdpRow.vals[i].v) : null;
+    const outT = MD.cboOutlaysT ? MD.cboOutlaysT[String(y)] : null;
+    if (gdp != null && outT != null && out[i] != null && !near(gdp, outT / (out[i] / 100), 0.5)) problems.push(`CBO ${y}: nominal GDP $${gdp}T is not outlays $${outT}T ÷ ${out[i]}% of GDP (= $${(outT / (out[i] / 100)).toFixed(1)}T)`);
+  });
+  const pj = MD.cboProjection || {};
+  const labels = Array.isArray(pj.labels) ? pj.labels.map(String) : [], values = Array.isArray(pj.values) ? pj.values : [];
+  if (!labels.length || labels.length !== values.length) problems.push('CBO cboProjection labels and values are empty or differ in length');
+  const at = (y) => { const i = labels.indexOf(String(y)); return i >= 0 ? values[i] : null; };
+  const rec = Number(MD.cboRecordYear);
+  const firstAbove = labels.find((l, i) => values[i] != null && values[i] > 106);
+  if (!Number.isInteger(rec)) problems.push('CBO cboRecordYear (the year debt passes the 1946 record) is missing');
+  else if (at(rec) == null) problems.push(`CBO cboRecordYear ${rec} has no value in cboProjection`);
+  else if (!(at(rec) > 106)) problems.push(`CBO cboRecordYear ${rec} shows ${at(rec)}% of GDP, not above the 1946 record of 106%`);
+  else if (firstAbove && Number(firstAbove) !== rec) problems.push(`CBO cboProjection first exceeds 106% of GDP in ${firstAbove}, but cboRecordYear is ${rec}`);
+  if (years.length && at(years[years.length - 1]) == null) problems.push(`CBO cboProjection has no value for the baseline's last year ${years[years.length - 1]}`);
+  if (years.length && !labels.includes(String(years[0]))) problems.push(`CBO cboProjection does not cover the baseline's first year ${years[0]}`);
+  const a = MD.cboAssumptions || {};
+  for (const k of ['realGdp', 'cpi', 'tenYear', 'unemployment']) {
+    if (!a[k] || typeof a[k].first !== 'number' || typeof a[k].avg !== 'number') problems.push(`CBO cboAssumptions.${k} needs numeric "first" (first projection year) and "avg" (10-year average)`);
+  }
+  if (MD.cboPublished && years.length && Number(String(MD.cboPublished).slice(0, 4)) !== years[0]) problems.push(`CBO baseline published ${MD.cboPublished} but its first projection year is ${years[0]}`);
+  if (!MD.cboUrl || !/^https:\/\/www\.cbo\.gov\/publication\/\d+/.test(String(MD.cboUrl))) problems.push('CBO cboUrl must be a cbo.gov publication link');
+  if (!MD.cboTitle) problems.push('CBO cboTitle is missing');
+  const src = MD.sources && MD.sources.cbo ? String(MD.sources.cbo) : '';
+  if (MD.cboTitle && !src.includes(String(MD.cboTitle))) problems.push('CBO sources.cbo does not name the baseline in cboTitle');
 }
 
 // ---- report ----

@@ -171,3 +171,7 @@ dashboards, everything built from public data by GitHub Actions.
   cadence or the rates disagree with the FOMC target range. CME FedWatch and Investing.com refuse
   scripts, so the FedWatch odds come from named outlets quoting FedWatch, one to four meetings, and the
   page composes the prose. Probe a blocked source from the runner with the workflow's `url` input.
+  Section 06 (CBO) is composed entirely from the research file's CBO keys (years, record year, vintage,
+  links); never type a CBO year or figure into the page. Before pushing a page change run
+  `scripts/fiscal/render-check.mjs` (Playwright, eight configurations: tab-bar hit test, table scroll
+  hints, SVG label size, heading case) and look at its `--shots` crops of the canvas charts.
