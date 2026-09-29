@@ -555,6 +555,22 @@
      }
     }
    ]
+  },
+  "imssJobs": {
+   "freq": "M",
+   "unit": "jobs",
+   "since": "2012-01-01",
+   "candidates": [
+    {
+     "provider": "imss",
+     "id": "comunicado-mensual",
+     "title": "Puestos de trabajo registrados",
+     "note": {
+      "es": "Total de puestos de trabajo registrados ante el IMSS al cierre de mes (IMSS, comunicado mensual; serie curada, se actualiza por PR)",
+      "en": "Total jobs registered with IMSS at month-end (IMSS monthly press release; curated series updated by PR)"
+     }
+    }
+   ]
   }
  }
 }
