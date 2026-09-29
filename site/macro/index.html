@@ -102,7 +102,8 @@
      drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
   @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; }
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    main { min-width: 0; }
     .rail { display: none; }
     .mobilebar {
       display: flex; align-items: center; gap: 10px;
@@ -113,6 +114,7 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
     .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+    .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
     .mobilebar select {
       flex: 1 1 auto; min-width: 0;
       font-family: inherit; font-size: 15px; font-weight: 600;
@@ -137,7 +139,7 @@
     .momentum-charts { gap: 18px; }
     .derby-row { grid-template-columns: 96px 1fr 52px; gap: 6px; }
     .derby-label { font-size: 11.5px; }
-    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .fiscal-link-card { flex-direction: column; align-items: flex-start; }
     /* Tile maps keep a readable size and scroll sideways inside their panel
        rather than shrinking until the state values become unreadable. */
@@ -158,6 +160,18 @@
     height: 100vh;
     overflow-y: auto;
   }
+  .rail-home {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rail-home:hover { color: var(--text-primary); }
   .rail-brand {
     font-weight: 800;
     font-size: 15px;
@@ -395,10 +409,10 @@
   /* ---------- category grid ---------- */
   .cat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
   }
-  @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .cat-card {
     background: var(--surface-1);
     border: 1px solid var(--border);
@@ -537,12 +551,14 @@
 </head>
 <body>
 <div class="mobilebar" id="mobileBar">
+  <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
   <div class="brand" data-i18n="brand">Macro Monitor</div>
   <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
 </div>
 <div class="shell">
   <nav class="rail">
+    <a class="rail-home" href="/" data-i18n="railHome">← FNAM · All dashboards</a>
     <div class="rail-brand" data-i18n="brand">Macro Monitor</div>
     <div class="rail-sub" data-i18n="railSub">U.S. economic indicators</div>
 
@@ -3767,6 +3783,7 @@ const I18N = {
 
     brand: "Macro Monitor",
     railSub: "Indicadores económicos de Estados Unidos",
+    railHome: "← FNAM · Todos los paneles",
     groupPrices: "Inflación",
     groupLabor: "Empleo",
     groupGrowth: "Crecimiento y gasto",
@@ -4745,6 +4762,7 @@ const I18N = {
 
     brand: "Macro Monitor",
     railSub: "U.S. economic indicators",
+    railHome: "← FNAM · All dashboards",
     groupPrices: "Inflation",
     groupLabor: "Labor",
     groupGrowth: "Growth & Spending",

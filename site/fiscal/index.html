@@ -107,6 +107,15 @@ a{color:var(--series-1);}
 
 /* ---------- Header ---------- */
 header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
+/* FNAM brand row: wordmark + back link, mirroring the airports hub topbar. */
+.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
+.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
+.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
+.fnam-mark svg{width:13px; height:13px; display:block;}
+.fnam-word{font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:.04em;}
+.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
+.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
+.fnam-back svg{width:13px; height:13px; flex:none;}
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
   font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
@@ -271,6 +280,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
 <header class="top">
   <div class="wrap">
+    <div class="fnam-bar">
+      <a class="fnam-brand" href="/" aria-label="FNAM">
+        <span class="fnam-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg></span>
+        <span class="fnam-word">FNAM</span>
+      </a>
+      <a class="fnam-back" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="en">All dashboards</span><span class="es" hidden>Todos los paneles</span>
+      </a>
+    </div>
     <span class="eyebrow">
       <span class="en">Live snapshot · U.S. Treasury &amp; Federal Reserve data</span>
       <span class="es" hidden>Panorama en vivo · Datos del Tesoro de EE. UU. y la Reserva Federal</span>
