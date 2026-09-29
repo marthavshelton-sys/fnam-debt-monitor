@@ -158,8 +158,18 @@ GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
 exports `65649` / imports `65651` (merchandise trade FOB, seasonally
 adjusted, millions of USD; originals `33860`/`33861` as first fallback),
 10-year M bond `SF44071` (Banxico primary auction yield; auction months
-only). The BIE carries no IMSS-jobs level series (only its cyclical
-component), so formal employment still needs a source.
+only). IMSS formal employment (puestos de trabajo registrados) has NO scriptable
+official source — full audit on 2026-09-29, all from the runner:
+INEGI BIE carries only the series' cyclical component (214301/214302), not
+the level; INEGI BISE / Banco de Indicadores searches return empty; Banxico
+retired its IMSS cuadro (labor sector 10 lists none; the old SL series
+answer 404); datos.imss.gob.mx sits behind an Incapsula WAF that blocks
+non-browser clients (and its datasets are per-person microdata CSVs);
+STPS publishes only interactive Cognos / Power BI viewers; Data México's
+API (Secretaría de Economía) no longer resolves. The only viable path is
+the BLS-weights pattern: a scheduled browser task reading IMSS's monthly
+press release and opening a PR — a monthly owner touchpoint, so it needs
+her sign-off before building.
 
 Not yet sourced: IMSS jobs, industrial production and the INPC
 spending-purpose groups.

@@ -90,6 +90,9 @@ dashboards, everything built from public data by GitHub Actions.
   changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues created since its previous run
   (see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue (closed on
   recovery), which the same routine emails, and fails the run.
+- IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
+  IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
+  `tools/mx-macro/README.md`); do not re-hunt without a new lead.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
