@@ -1,74 +1,36 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Gentera · Data quality</title>
-<meta name="description" content="Pipeline health for the Gentera model: origin of every quarter, parse warnings, tie-out results, stale series.">
+<title>Gentera · Calidad de datos | Data quality</title>
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
-<script src="data/market.js"></script>
-<script src="data/financials.js"></script>
-<script src="data/operations.js"></script>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f9f9f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%23f9f9f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/quality.css">
+<!-- Hidden owner page: not linked from the navigation; reachable from the section 11 of the model. Reads
+     data/quality.js, written by scripts/gentera/validate_data.py after every data build. Same design as the
+     Quálitas page; the renderer is shared (assets/quality-page.js). -->
 <script src="data/quality.js"></script>
-<script src="data/guidance.js"></script>
-<script src="data/comments.js"></script>
-<script src="data/summary.js"></script>
-<script src="data/reference.js"></script>
-<style>
-:root{color-scheme:light; --page:#f9f9f7; --surface:#fcfcfb; --text:#0b0b0b; --muted:#898781; --border:rgba(11,11,11,.12); --good:#006300; --bad:#d03b3b; --warn:#8a5a00; --accent:#1b4332;}
-@media (prefers-color-scheme: dark){ :root:not([data-theme="light"]){color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --text:#fff; --muted:#918f88; --border:rgba(255,255,255,.14); --good:#0ca30c; --bad:#e66767; --warn:#f0d58a; --accent:#4f9a76;} }
-:root[data-theme="dark"]{color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --text:#fff; --muted:#918f88; --border:rgba(255,255,255,.14); --good:#0ca30c; --bad:#e66767; --warn:#f0d58a; --accent:#4f9a76;}
-body{margin:0; background:var(--page); color:var(--text); font:14px/1.5 Inter, system-ui, sans-serif;}
-.wrap{max-width:1000px; margin:0 auto; padding:32px 16px 60px;}
-h1{font-size:22px; margin:0 0 4px;} h2{font-size:15px; margin:28px 0 8px;}
-.muted{color:var(--muted);} .ok{color:var(--good); font-weight:700;} .bad{color:var(--bad); font-weight:700;} .warn{color:var(--warn);}
-table{width:100%; border-collapse:collapse; font-size:13px; background:var(--surface); border:1px solid var(--border); border-radius:8px;}
-th,td{padding:6px 9px; border-bottom:1px solid var(--border); text-align:left; vertical-align:top;} th{font-size:11px; text-transform:uppercase; letter-spacing:.04em; color:var(--muted);}
-td.num{text-align:right; font-variant-numeric:tabular-nums;}
-#origins{overflow-x:auto; -webkit-overflow-scrolling:touch;}
-.pill{display:inline-block; padding:1px 8px; border-radius:100px; font-size:11px; font-weight:700; border:1px solid var(--border);}
-.pill.release{background:rgba(27,67,50,.12); color:var(--accent);} .pill.seed{color:var(--warn);} .pill.comparative{color:var(--muted);}
-a{color:var(--accent);}
-ul{padding-left:20px;} li{margin:3px 0;}
-</style>
 </head>
 <body>
+<div class="lang"><button type="button" id="es" class="active">ES</button><button type="button" id="en">EN</button></div>
 <div class="wrap">
-  <a href="./" class="muted">← Gentera model</a>
-  <h1>Gentera model · data quality</h1>
-  <p class="muted" id="meta"></p>
-  <h2>Validation</h2><div id="validation"></div>
-  <h2>Origin of every quarter</h2><div id="origins"></div>
-  <h2>Parse warnings</h2><div id="warnings"></div>
-  <h2>Series freshness</h2><div id="fresh"></div>
-  <h2>Curated files</h2><div id="curated"></div>
+  <div class="eyebrow"><span class="es">Gentera · página oculta del propietario</span><span class="en" hidden>Gentera · hidden owner page</span></div>
+  <h1><span class="es">Calidad de datos del modelo</span><span class="en" hidden>Model data quality</span></h1>
+  <p class="sub" id="meta"></p>
+  <div class="cards" id="cards"></div>
+  <section><h2><span class="es">Series y periodos: vigencia</span><span class="en" hidden>Series and periods: freshness</span></h2><p class="sub"><span class="es">Última fecha de cada serie de mercado y de datos operativos, y el último trimestre frente al calendario de resultados.</span><span class="en" hidden>Last date of each market and operating series, and the latest quarter against the results calendar.</span></p><div class="tblwrap" id="stale"></div></section>
+  <section><h2><span class="es">Archivos curados</span><span class="en" hidden>Curated files</span></h2><p class="sub"><span class="es">¿Comentarios, guía, resumen y referencia cubren el último trimestre?</span><span class="en" hidden>Do comments, guidance, summary and reference cover the latest quarter?</span></p><div class="tblwrap" id="curated"></div></section>
+  <section><h2><span class="es">Origen de cada trimestre</span><span class="en" hidden>Origin of every quarter</span></h2><p class="sub"><span class="es">De qué informe salió cada trimestre y qué partes (estado de resultados, balance, flujo) se parsearon de él.</span><span class="en" hidden>Which report each quarter came from and which parts (income statement, balance sheet, cash flow) were parsed from it.</span></p><div class="tblwrap" id="origins"></div><p class="more" id="originsMore"></p></section>
+  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por build_data.py: tablas no reconocidas, trimestres tomados de la columna comparativa o de la semilla manual.</span><span class="en" hidden>Written by build_data.py: tables not recognised, quarters taken from a comparative column or from the hand seed.</span></p><div class="tblwrap" id="parse"></div></section>
+  <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/gentera-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
 </div>
-<script>
-(function () {
-  const Q = window.G_QUALITY || {}, F = window.G_FIN || { quarters: [] }, O = window.G_OPS || {}, M = window.G_MARKET || {};
-  const el = (id) => document.getElementById(id);
-  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-  el('meta').textContent = `Data generated ${Q.generatedAt || F.generatedAt || '—'} · ${F.quarters.length} quarters · market ${M.generatedAt || 'pending first workflow run'}`;
-  const v = Q.validation;
-  el('validation').innerHTML = !v ? '<p class="warn">validate_data.py has not run on this build.</p>' : `<p class="${v.ok ? 'ok' : 'bad'}">${v.ok ? 'All tie-outs pass' : v.failures.length + ' failure(s)'} · ${v.checks} identities checked · ${v.warnings.length} warning(s)</p>` + (v.failures.length ? '<ul>' + v.failures.map((x) => `<li class="bad">${esc(x)}</li>`).join('') + '</ul>' : '') + (v.warnings.length ? '<ul>' + v.warnings.map((x) => `<li class="warn">${esc(x)}</li>`).join('') + '</ul>' : '');
-  el('origins').innerHTML = '<table><thead><tr><th>Quarter</th><th>Origin</th><th>Source</th><th class="num">Net income</th><th class="num">Total assets</th><th class="num">Stage 3</th></tr></thead><tbody>' + F.quarters.slice().reverse().map((q) => { const s = q.sources && q.sources.is || {}; return `<tr><td>${q.label}</td><td><span class="pill ${q.origin}">${q.origin}</span></td><td>${s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${esc(s.title || s.url)}</a>${s.date ? ' · ' + s.date : ''}${s.page ? ' · p. ' + s.page : ''}` : '—'}</td><td class="num">${q.is.netInc != null ? q.is.netInc.toLocaleString('en-US') : '—'}</td><td class="num">${q.bs.totAssets != null ? q.bs.totAssets.toLocaleString('en-US') : '—'}</td><td class="num">${q.kpi.npl != null ? q.kpi.npl.toFixed(2) + '%' : '—'}</td></tr>`; }).join('') + '</tbody></table>' + `<p class="muted">release = parsed from the quarter's own press release · comparative = comparative column of a later release · seed = hand transcription in tools/gentera/raw/seed/quarters.json (the parser has not yet run against the PDF).</p>`;
-  const w = Q.warnings || [];
-  el('warnings').innerHTML = w.length ? '<ul>' + w.map((x) => `<li class="warn">${esc(x)}</li>`).join('') + '</ul>' : '<p class="ok">None</p>';
-  const rows = [];
-  const last = (pts) => (pts && pts.length ? pts[pts.length - 1][0] : null);
-  const ageDays = (d) => (d ? Math.round((Date.now() - new Date(d + 'T12:00:00Z').getTime()) / 864e5) : null);
-  for (const [k, s] of Object.entries(M.prices || {})) rows.push(['price ' + k, last(s.points), s.error]);
-  for (const [k, s] of Object.entries(M.fx || {})) rows.push(['fx ' + k, last(s.points), s.error]);
-  for (const [k, s] of Object.entries(M.rates || {})) rows.push(['rate ' + k, last(s.points), s.error]);
-  const mo = (O.monthly || {});
-  for (const k of ['cnbv', 'sbs']) { const ser = (mo[k] && mo[k].series) || []; rows.push([k.toUpperCase() + ' monthly', ser.length ? ser[ser.length - 1].month : null, ser.length ? null : (mo[k] && mo[k].note) || 'not fetched']); }
-  rows.push(['quarterly statements', F.quarters.length ? F.quarters[F.quarters.length - 1].label : null, null]);
-  el('fresh').innerHTML = rows.length ? '<table><thead><tr><th>Series</th><th>Last point</th><th>Age</th><th>Status</th></tr></thead><tbody>' + rows.map(([n, d, e]) => { const a = /^\d{4}-\d{2}-\d{2}$/.test(d || '') ? ageDays(d) : null; const stale = a != null && a > 7; return `<tr><td>${esc(n)}</td><td>${d || '—'}</td><td>${a != null ? a + ' d' : ''}</td><td class="${e ? 'bad' : stale ? 'warn' : 'ok'}">${e ? esc(e) : stale ? 'stale' : d ? 'ok' : 'pending'}</td></tr>`; }).join('') + '</tbody></table>' : '<p class="muted">No series yet.</p>';
-  const cur = [['guidance.js', (window.G_GUIDANCE || {}).updatedAt, ((window.G_GUIDANCE || {}).vintages || []).length + ' vintages'], ['comments.js', (window.G_COMMENTS || {}).updatedAt, Object.keys((window.G_COMMENTS || {}).periods || {}).join(', ')], ['summary.js', (window.G_SUMMARY || {}).updatedAt, 'basis ' + (((window.G_SUMMARY || {}).basis || {}).quarter || '—')], ['reference.js', (window.G_REF || {}).updatedAt, ((window.G_REF || {}).dividends || []).length + ' AGM dividends']];
-  el('curated').innerHTML = '<table><thead><tr><th>File</th><th>Updated</th><th>Contents</th></tr></thead><tbody>' + cur.map((r) => `<tr><td>${r[0]}</td><td>${r[1] || '—'}</td><td>${esc(r[2])}</td></tr>`).join('') + '</tbody></table>';
-})();
-</script>
+<script>window.QUALITY_PAGE = {"key":"G_QUALITY","name":"Gentera","workflow":"gentera-refresh.yml","validator":"scripts/gentera/validate_data.py","lang":"g-lang"};</script>
+<script src="../assets/quality-page.js"></script>
 </body>
 </html>

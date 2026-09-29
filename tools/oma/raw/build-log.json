@@ -1,0 +1,357 @@
+{
+ "generatedAt": "2026-09-29T15:04:40.967Z",
+ "warnings": [
+  {
+   "file": "",
+   "msg": "results: could not identify period in 2021-10-15_omaOMA-Results-4Q-2014_en.txt"
+  },
+  {
+   "file": "2016-02-29_omaOMA-4Q15-Results-vf-1_en.txt",
+   "msg": "2015Q4 (2016-02-29_omaOMA-4Q15-Results-vf-1_en.txt): IS exhibit not found ; BS header not found ; CF unmatched: consolidated net income | income tax | fair value of the mayor maintenance provision | changes in | other long term liabilities | -"
+  },
+  {
+   "file": "2016-04-25_omaOMA-1Q16-Results-vf_en.txt",
+   "msg": "2016Q1 (2016-04-25_omaOMA-1Q16-Results-vf_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | changes in | other long term liabilities | - | land, building, machinery and equipment acquisition"
+  },
+  {
+   "file": "2016-07-25_omaOMA-2Q16-Results-vf-1_en.txt",
+   "msg": "2016Q2 (2016-07-25_omaOMA-2Q16-Results-vf-1_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | changes in | - | land, building, machinery and equipment acquisition | other assets"
+  },
+  {
+   "file": "2016-07-25_omaOMA-2Q16-Results-vf_en.txt",
+   "msg": "2016Q2 (2016-07-25_omaOMA-2Q16-Results-vf_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | changes in | - | land, building, machinery and equipment acquisition | other assets"
+  },
+  {
+   "file": "2016-10-25_omaOMA-3Q16-Results-vf-1_en.txt",
+   "msg": "2016Q3 (2016-10-25_omaOMA-3Q16-Results-vf-1_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | changes in | - | land, building, machinery and equipment acquisition | other assets"
+  },
+  {
+   "file": "2016-10-25_omaOMA-3Q16-Results-vf_en.txt",
+   "msg": "2016Q3 (2016-10-25_omaOMA-3Q16-Results-vf_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | changes in | - | land, building, machinery and equipment acquisition | other assets"
+  },
+  {
+   "file": "2017-02-27_omaOMA-4Q16-Results-vf-1_en.txt",
+   "msg": "2016Q4 (2017-02-27_omaOMA-4Q16-Results-vf-1_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | net present value of major maintenance provision | changes in | - | land, building, machinery and equipment acquisition"
+  },
+  {
+   "file": "2017-02-27_omaOMA-4Q16-Results-vf_en.txt",
+   "msg": "2016Q4 (2017-02-27_omaOMA-4Q16-Results-vf_en.txt): IS exhibit not found ; CF unmatched: consolidated net income | income tax | net present value of major maintenance provision | changes in | - | land, building, machinery and equipment acquisition"
+  },
+  {
+   "file": "2017-05-03_omaOMA-1Q17-Results-vf-1_en.txt",
+   "msg": "2017Q1 (2017-05-03_omaOMA-1Q17-Results-vf-1_en.txt): IS exhibit not found ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | land, building, machinery and equipment acquisition | other assets | loans - paid"
+  },
+  {
+   "file": "2017-05-03_omaOMA-1Q17-Results-vf_en.txt",
+   "msg": "2017Q1 (2017-05-03_omaOMA-1Q17-Results-vf_en.txt): IS exhibit not found ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | land, building, machinery and equipment acquisition | other assets | loans - paid"
+  },
+  {
+   "file": "2017-07-20_omaOMA-2Q17-Results-vf-1_en.txt",
+   "msg": "2017Q2 (2017-07-20_omaOMA-2Q17-Results-vf-1_en.txt): IS exhibit not found ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | loans - paid | effect of change for fair value of cash and equivalents | -"
+  },
+  {
+   "file": "2017-07-20_omaOMA-2Q17-Results-vf_en.txt",
+   "msg": "2017Q2 (2017-07-20_omaOMA-2Q17-Results-vf_en.txt): IS exhibit not found ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | loans - paid | effect of change for fair value of cash and equivalents | -"
+  },
+  {
+   "file": "2017-10-17_omaOMA-3Q17-Results-vf_en.txt",
+   "msg": "2017Q3 (2017-10-17_omaOMA-3Q17-Results-vf_en.txt): IS unmatched:  ; BS header not found ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | other investments held to maturity | loans - paid | -"
+  },
+  {
+   "file": "2018-02-22_oma1-OMA-4Q17-Results-vf_en.txt",
+   "msg": "2017Q4 (2018-02-22_oma1-OMA-4Q17-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents | -"
+  },
+  {
+   "file": "2018-02-22_omaOMA-4Q17-Results-vf_en.txt",
+   "msg": "2017Q4 (2018-02-22_omaOMA-4Q17-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents | -"
+  },
+  {
+   "file": "2018-04-17_omaOMA-announces-First-Quarter-2018-Operational-and-Financial-R_en.txt",
+   "msg": "2018Q1 (2018-04-17_omaOMA-announces-First-Quarter-2018-Operational-and-Financial-R_en.txt): IS unmatched: exchange - net ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | - | other investments held to maturity | loans - paid | -"
+  },
+  {
+   "file": "2018-07-18_omaOMA-Announces-Second-Quarter-2018-Operating-and-Financial-Re_en.txt",
+   "msg": "2018Q2 (2018-07-18_omaOMA-Announces-Second-Quarter-2018-Operating-and-Financial-Re_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2018-10-24_omaOMA-3Q18-Results-vf-1_en.txt",
+   "msg": "2018Q3 (2018-10-24_omaOMA-3Q18-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2018-10-24_omaOMA-3Q18-Results-vf_en.txt",
+   "msg": "2018Q3 (2018-10-24_omaOMA-3Q18-Results-vf_en.txt): IS unmatched:  ; CF unmatched: change in the value of cash and cash equivalents for fair value | changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-02-11_omaOMA-4Q18-Results-vf-1_en.txt",
+   "msg": "2018Q4 (2019-02-11_omaOMA-4Q18-Results-vf-1_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-02-11_omaOMA-4Q18-Results-vf_en.txt",
+   "msg": "2018Q4 (2019-02-11_omaOMA-4Q18-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-04-24_omaOMA-1Q19-Results-vf-1-1_en.txt",
+   "msg": "2019Q1 (2019-04-24_omaOMA-1Q19-Results-vf-1-1_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-04-24_omaOMA-1Q19-Results-vf_en.txt",
+   "msg": "2019Q1 (2019-04-24_omaOMA-1Q19-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-07-24_omaOMA-2Q19-Results-vf-1-1_en.txt",
+   "msg": "2019Q2 (2019-07-24_omaOMA-2Q19-Results-vf-1-1_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-07-24_omaOMA-2Q19-Results-vf_en.txt",
+   "msg": "2019Q2 (2019-07-24_omaOMA-2Q19-Results-vf_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-10-17_omaOMA-3Q19-Results-vf-3_en.txt",
+   "msg": "2019Q3 (2019-10-17_omaOMA-3Q19-Results-vf-3_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2019-10-17_omaOMA-3Q19-Results-vf_en.txt",
+   "msg": "2019Q3 (2019-10-17_omaOMA-3Q19-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-02-13_omaOMA-4Q19-Results-vf-3_en.txt",
+   "msg": "2019Q4 (2020-02-13_omaOMA-4Q19-Results-vf-3_en.txt): IS unmatched: total financing income (layout) | actuarial gains (losses) | deferred tax effect ; CF unmatched: unrealized exchange fluctuation | changes in | other investments held to maturity | loans - obteined | loans - paid | interest paid"
+  },
+  {
+   "file": "2020-02-13_omaOMA-4Q19-Results-vf_en.txt",
+   "msg": "2019Q4 (2020-02-13_omaOMA-4Q19-Results-vf_en.txt): IS unmatched: total financing income (layout) | actuarial gains (losses) | deferred tax effect ; CF unmatched: unrealized exchange fluctuation | changes in | other investments held to maturity | loans - obteined | loans - paid | interest paid"
+  },
+  {
+   "file": "2020-04-28_omaOMA-1Q20-Results-vf-2_en.txt",
+   "msg": "2020Q1 (2020-04-28_omaOMA-1Q20-Results-vf-2_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-04-28_omaOMA-1Q20-Results-vf_en.txt",
+   "msg": "2020Q1 (2020-04-28_omaOMA-1Q20-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-07-22_oma2-OMA-2Q20-Results-vf-1_en.txt",
+   "msg": "2020Q2 (2020-07-22_oma2-OMA-2Q20-Results-vf-1_en.txt): IS unmatched: total financing income (layout) | income tax (layout) ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-07-22_oma2-OMA-2Q20-Results-vf_en.txt",
+   "msg": "2020Q2 (2020-07-22_oma2-OMA-2Q20-Results-vf_en.txt): IS unmatched: total financing income (layout) | income tax (layout) ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-10-20_omaOMA-3Q20-Results-vf-1_en.txt",
+   "msg": "2020Q3 (2020-10-20_omaOMA-3Q20-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2020-10-20_omaOMA-3Q20-Results-vf-2_en.txt",
+   "msg": "2020Q3 (2020-10-20_omaOMA-3Q20-Results-vf-2_en.txt): IS unmatched:  ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-02-15_omaOMA-4Q20-Results-vf-1_en.txt",
+   "msg": "2020Q4 (2021-02-15_omaOMA-4Q20-Results-vf-1_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-02-15_omaOMA-4Q20-Results-vf-2_en.txt",
+   "msg": "2020Q4 (2021-02-15_omaOMA-4Q20-Results-vf-2_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in | other investments held to maturity | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-04-27_omaOMA-1Q21-Results-vf-1_en.txt",
+   "msg": "2021Q1 (2021-04-27_omaOMA-1Q21-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-04-27_omaOMA-1Q21-Results-vf-2_en.txt",
+   "msg": "2021Q1 (2021-04-27_omaOMA-1Q21-Results-vf-2_en.txt): IS unmatched:  ; CF unmatched: changes in | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-07-27_omaOMA-2Q21-Results-vf-1_en.txt",
+   "msg": "2021Q2 (2021-07-27_omaOMA-2Q21-Results-vf-1_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | payments of expenses related to securities debt | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-07-27_omaOMA-2Q21-Results-vf-2_en.txt",
+   "msg": "2021Q2 (2021-07-27_omaOMA-2Q21-Results-vf-2_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | payments of expenses related to securities debt | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-10-15_oma1Q16-Earnings-Results_en.txt",
+   "msg": "2016Q1 (2021-10-15_oma1Q16-Earnings-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma1Q17-Earning-Resultsvf_en.txt",
+   "msg": "2017Q1 (2021-10-15_oma1Q17-Earning-Resultsvf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma1Q18-Earnings-Results_en.txt",
+   "msg": "2018Q1 (2021-10-15_oma1Q18-Earnings-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma2Q14-Earnings-Results_en.txt",
+   "msg": "2014Q2 (2021-10-15_oma2Q14-Earnings-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma2Q16-Earning-Resultsvf_en.txt",
+   "msg": "2016Q2 (2021-10-15_oma2Q16-Earning-Resultsvf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma2Q17-Earning-Results_en.txt",
+   "msg": "2017Q2 (2021-10-15_oma2Q17-Earning-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma2Q18-Earning-Results-v30jul18_en.txt",
+   "msg": "2018Q2 (2021-10-15_oma2Q18-Earning-Results-v30jul18_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma3Q16-Earning-Results-vf_en.txt",
+   "msg": "2016Q3 (2021-10-15_oma3Q16-Earning-Results-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma3Q17-Earning-Results-vf_en.txt",
+   "msg": "2017Q2 (2021-10-15_oma3Q17-Earning-Results-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma3Q18-Earning-Results-vf_en.txt",
+   "msg": "2018Q3 (2021-10-15_oma3Q18-Earning-Results-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma4Q16-Earning-Results_en.txt",
+   "msg": "2016Q4 (2021-10-15_oma4Q16-Earning-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma4Q17-Earnings-Results_en.txt",
+   "msg": "2017Q4 (2021-10-15_oma4Q17-Earnings-Results_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_oma4Q18-Earning-Resultsvf_en.txt",
+   "msg": "2018Q4 (2021-10-15_oma4Q18-Earning-Resultsvf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_omaOMA-Resultados-1Q-2014-vf_en.txt",
+   "msg": "2014Q1 (2021-10-15_omaOMA-Resultados-1Q-2014-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_omaOMA-Results-1Q-2015-vf_en.txt",
+   "msg": "2015Q1 (2021-10-15_omaOMA-Results-1Q-2015-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_omaOMA-Results-3Q-2014-vf_en.txt",
+   "msg": "2014Q3 (2021-10-15_omaOMA-Results-3Q-2014-vf_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_omaOMA-Results-3Q2015-v4_en.txt",
+   "msg": "2015Q3 (2021-10-15_omaOMA-Results-3Q2015-v4_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-15_omaOMA-Results-4Q2015-v3_en.txt",
+   "msg": "2015Q4 (2021-10-15_omaOMA-Results-4Q2015-v3_en.txt): IS exhibit not found ; BS exhibit not found ; CF exhibit not found"
+  },
+  {
+   "file": "2021-10-26_omaOMA-3Q21-Results-vf-1_en.txt",
+   "msg": "2021Q3 (2021-10-26_omaOMA-3Q21-Results-vf-1_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | payments of expenses related to securities debt | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2021-10-26_omaOMA-3Q21-Results-vf-3_en.txt",
+   "msg": "2021Q3 (2021-10-26_omaOMA-3Q21-Results-vf-3_en.txt): IS unmatched: total financing income (layout) ; CF unmatched: changes in | payments of expenses related to securities debt | loans - paid | payment of loans related to financial leases | effect of change for fair value of cash and equivalents"
+  },
+  {
+   "file": "2022-02-22_omaOMA-4T21-Results-vf_en.txt",
+   "msg": "2021Q4 (2022-02-22_omaOMA-4T21-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in | bank loans - drawdown | bank loans - repayment"
+  },
+  {
+   "file": "2022-04-25_omaOMA-1T22-Results-vf_en.txt",
+   "msg": "2022Q1 (2022-04-25_omaOMA-1T22-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2022-07-26_omaOMA-2T22-Results-vf_en.txt",
+   "msg": "2022Q2 (2022-07-26_omaOMA-2T22-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2022-10-28_omaOMA-3T22-Results-vf_en.txt",
+   "msg": "2022Q3 (2022-10-28_omaOMA-3T22-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2023-02-16_omaOMA-4T22-Results-vf_en.txt",
+   "msg": "2022Q4 (2023-02-16_omaOMA-4T22-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in"
+  },
+  {
+   "file": "2023-04-26_omaOMA-1T23-Results-vf_en.txt",
+   "msg": "2023Q1 (2023-04-26_omaOMA-1T23-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2023-07-28_oma2EOMA-2T23-Results-vf-1_en.txt",
+   "msg": "2023Q2 (2023-07-28_oma2EOMA-2T23-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2023-10-27_omaOMA-2T23-Results-vf-1_en.txt",
+   "msg": "2023Q3 (2023-10-27_omaOMA-2T23-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2023-10-27_omaOMA-3T23-Results-vf-1_en.txt",
+   "msg": "2023Q3 (2023-10-27_omaOMA-3T23-Results-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2024-02-22_omaOMA-4T23-Results-vf1_en.txt",
+   "msg": "2023Q4 (2024-02-22_omaOMA-4T23-Results-vf1_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in"
+  },
+  {
+   "file": "2024-04-24_omaOMA-1T24-Results-vf1_en.txt",
+   "msg": "2024Q1 (2024-04-24_omaOMA-1T24-Results-vf1_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2024-07-25_omaOMA-2T24-Results-vf_en.txt",
+   "msg": "2024Q2 (2024-07-25_omaOMA-2T24-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2025-02-24_omaOMA-3T24-Results-vf_en.txt",
+   "msg": "2024Q4 (2025-02-24_omaOMA-3T24-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2025-02-24_omaOMA-4Q24-Results-vf_en.txt",
+   "msg": "2024Q4 (2025-02-24_omaOMA-4Q24-Results-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in"
+  },
+  {
+   "file": "2025-04-28_omaOMA-1Q25-Results-vf_en.txt",
+   "msg": "2025Q1 (2025-04-28_omaOMA-1Q25-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2025-07-28_omaOMA-2Q25-Results-vf_en.txt",
+   "msg": "2025Q2 (2025-07-28_omaOMA-2Q25-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2025-10-23_omaOMA-3Q25-Results-vf_en.txt",
+   "msg": "2025Q3 (2025-10-23_omaOMA-3Q25-Results-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2026-02-23_omaResults-4Q25-vf-1_en.txt",
+   "msg": "2025Q4 (2026-02-23_omaResults-4Q25-vf-1_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in"
+  },
+  {
+   "file": "2026-02-23_omaResults-4Q25-vf_en.txt",
+   "msg": "2025Q4 (2026-02-23_omaResults-4Q25-vf_en.txt): IS unmatched: actuarial gains (losses) | deferred tax effect ; CF unmatched: changes in"
+  },
+  {
+   "file": "2026-04-27_omaResults-1Q26-vf-1_en.txt",
+   "msg": "2026Q1 (2026-04-27_omaResults-1Q26-vf-1_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2026-04-27_omaResults-1Q26-vf_en.txt",
+   "msg": "2026Q1 (2026-04-27_omaResults-1Q26-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "2026-07-27_omaResults-2Q26-vf_en.txt",
+   "msg": "2026Q2 (2026-07-27_omaResults-2Q26-vf_en.txt): IS unmatched:  ; CF unmatched: changes in"
+  },
+  {
+   "file": "",
+   "msg": "2026M6: MDP investments YTD 2709 equals the prior full year; replaced by the sum of quarters 1554"
+  },
+  {
+   "file": "2016-10-05_omaOMA-reports-a-15-5-increase-in-September-2016-passenger-traf_en.txt",
+   "msg": "traffic 2016-09: no rows (2016-10-05_omaOMA-reports-a-15-5-increase-in-September-2016-passenger-traf_en.txt)"
+  },
+  {
+   "file": "2025-12-05_omaOMA-November-2025-Traffic-Report-v2-1_en.txt",
+   "msg": "traffic 2025-11: no rows (2025-12-05_omaOMA-November-2025-Traffic-Report-v2-1_en.txt)"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2025-11: derived from 2025Q4 less the other two months"
+  }
+ ]
+}

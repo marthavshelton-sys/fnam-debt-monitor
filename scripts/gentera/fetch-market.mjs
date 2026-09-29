@@ -7,7 +7,8 @@
 //              largest Peruvian microlender) — Yahoo Finance chart API, Stooq fallback.
 //   dividends  cash dividends per GENTERA share as recorded by Yahoo (cross-checked against the AGM
 //              resolutions in reference.js).
-//   fx         USD/MXN — FRED DEXMXUS (Federal Reserve H.10, no key required).
+//   fx         USD/MXN — Banxico SIE SF43718 (Tipo de cambio FIX, needs BANXICO_TOKEN; scripts/lib/banxico-fx.mjs),
+//              FRED DEXMXUS (Fed H.10) as the fallback.
 //   rates      Mexico 10-year government bond: Banxico SIE weekly auction yield (needs BANXICO_TOKEN; the series
 //              id is found by title among candidate ids, or pinned with BANXICO_SERIES_MX10Y) with the FRED/OECD
 //              monthly series (IRLTLT01MXM156N) as fallback; US 10-year Treasury (FRED DGS10, daily).
@@ -18,6 +19,7 @@
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { fetchUsdMxn } from '../lib/banxico-fx.mjs';
 
 const OUT = new URL('../../site/gentera/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -31,7 +33,6 @@ const PRICE_SERIES = [
   { id: 'BAP', name: 'Credicorp (NYSE: BAP)', currency: 'USD', exchange: 'NYSE', since: '2019-01-01', stooq: 'bap.us' },
 ];
 const FRED_SERIES = [
-  { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
 const BANXICO_MX10Y = process.env.BANXICO_SERIES_MX10Y || 'SF44071';  // Bono tasa fija 10 años, tasa de rendimiento, subasta semanal (found by the title scan on 2026-09-22)
@@ -166,6 +167,8 @@ async function main() {
       console.error(`${s.id}: FAILED ${e.message}`);
     }
   }
+  // USD/MXN: Banxico FIX first, FRED DEXMXUS as the fallback (scripts/lib/banxico-fx.mjs)
+  { const r = await fetchUsdMxn({ fred, prev, fetchedAt: out.generatedAt }); out.fx.USDMXN = r.entry; if (r.ok) ok++; else failed++; }
   // MX 10-year: Banxico daily first, FRED/OECD monthly as fallback
   try {
     const data = await banxico(BANXICO_MX10Y || prev?.rates?.MX10Y?.seriesId || null, '2015-01-01');

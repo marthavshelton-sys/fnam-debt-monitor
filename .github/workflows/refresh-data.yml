@@ -7,10 +7,18 @@ on:
     # instead of waiting for the next morning). Each run only commits if something changed.
     - cron: '15 13 * * *'
     - cron: '30 21 * * *'
-  workflow_dispatch: {}   # lets you trigger a manual run from the Actions tab
+  workflow_dispatch:
+    inputs:
+      url:
+        # The Claude cloud session cannot reach Treasury, FRED, the Fed, CME or Investing.com
+        # (egress policy), so a live endpoint is probed from this runner and read from the log.
+        # scripts/fiscal/probe.mjs documents the URL / URL#regex / URL##regex forms.
+        description: "Diagnostics only: whitespace-separated URLs to fetch and print (URL#regex prints matching lines). Nothing is fetched into data.js or committed."
+        default: ""
 
 permissions:
   contents: write
+  issues: write
 
 jobs:
   refresh:
@@ -18,10 +26,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Diagnostics (probe URLs, write nothing)
+        if: github.event.inputs.url != ''
+        env:
+          URLS: ${{ github.event.inputs.url }}
+        run: node scripts/fiscal/probe.mjs --url "$URLS"
+
       - name: Fetch latest Treasury + FRED figures
+        id: fetch
+        if: github.event.inputs.url == ''
         run: node scripts/fetch-data.mjs
 
       - name: Commit updated data.js if it changed
+        id: commit
+        if: github.event.inputs.url == ''
         run: |
           git config user.name "fnam-data-bot"
           git config user.email "actions@users.noreply.github.com"
@@ -47,3 +65,64 @@ jobs:
             done
             exit 1
           fi
+
+      # Every data point on the page has an expected publication cadence. This step reads the
+      # committed data.js / monthly-data.js and flags any series older than its allowance, any
+      # policy rate inconsistent with the FOMC target range, and a FedWatch snapshot that predates
+      # the latest FOMC decision or whose first meeting has passed. Script: scripts/fiscal/check-freshness.mjs.
+      - name: Data freshness check
+        id: freshness
+        if: always() && github.event.inputs.url == ''
+        run: node scripts/fiscal/check-freshness.mjs
+
+      # Same mechanism as the macro dashboards: one issue labeled fiscal-health, titled
+      # "SOURCE DOWN: US fiscal - ...", opened when something is stale or the run failed, commented
+      # at most once every ~20h while it persists, and closed by the first clean run. The Claude
+      # Routine "FNAM US Fiscal: email material changes" emails Martha when it opens.
+      - name: Open, update or close the fiscal-health issue
+        if: always() && github.ref == 'refs/heads/main' && github.event.inputs.url == ''
+        uses: actions/github-script@v7
+        env:
+          PROBLEMS: ${{ steps.freshness.outputs.problems }}
+          RUN_FAILED: ${{ steps.fetch.conclusion == 'failure' || steps.commit.conclusion == 'failure' || steps.freshness.conclusion == 'failure' }}
+        with:
+          script: |
+            const label = 'fiscal-health';
+            const problems = (process.env.PROBLEMS || '').trim();
+            const failed = process.env.RUN_FAILED === 'true';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            try { await github.rest.issues.getLabel({ ...context.repo, name: label }); }
+            catch (e) { if (e.status === 404) await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'b60205', description: 'US fiscal monitor: a source is stale or a refresh failed' }); else throw e; }
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (failed || problems) {
+              const body = [
+                failed ? `A refresh run failed: ${runUrl}` : `A refresh run succeeded but some data points are stale or inconsistent: ${runUrl}`,
+                problems ? '\n```\n' + problems + '\n```' : '',
+                '\nThe page keeps its last good value for each affected series meanwhile. To probe a source from the runner, dispatch this workflow with the "url" input (see scripts/fiscal/probe.mjs).',
+              ].join('\n');
+              if (issue) {
+                const { data: comments } = await github.rest.issues.listComments({ ...context.repo, issue_number: issue.number, per_page: 100 });
+                const lastTouched = Date.parse(comments.length ? comments[comments.length - 1].created_at : issue.created_at);
+                if (Date.now() - lastTouched > 20 * 3600 * 1000) {
+                  await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
+                } else {
+                  core.info('Open issue already updated recently; not commenting again.');
+                }
+              } else {
+                const first = problems.split('\n').find(Boolean) || 'refresh failed';
+                await github.rest.issues.create({ ...context.repo, title: `SOURCE DOWN: US fiscal - ${first.slice(0, 90)}`, body, labels: [label] });
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Every data point is within its freshness allowance again: ${runUrl}` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed', state_reason: 'completed' });
+            }
+
+      # Source links. Every external link on the page (and in the data files it loads) is
+      # requested once; a link that answers 404/410 or whose host no longer resolves fails the
+      # run - after the commit above, so the refresh itself still lands - and GitHub e-mails the
+      # owner. Hosts that refuse scripts (Bloomberg, BLS, FRED, GlobeNewswire ...) are listed as
+      # notices and never fail the run. Script: scripts/check-links.mjs.
+      - name: Check source links
+        if: always() && github.event.inputs.url == ''
+        run: node scripts/check-links.mjs site/fiscal/index.html

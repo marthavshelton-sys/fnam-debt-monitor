@@ -149,3 +149,11 @@ The executive-summary block "What the market is worried about" and the deck page
 A separate desktop task, **FNAM Oracle: weekly press sweep** (Mondays 08:00 Mexico City, prompt in `PRESS-SWEEP-PROMPT.md`),
 refreshes that one file from the credible outlets listed there, runs the build and pushes to `main`. It edits nothing else;
 the weekday routine above owns every other block, and STEP 4 now also refreshes `obligations.json` with each 10-Q/10-K.
+
+## FactSet refresh (cloud routine)
+
+Section 06 (forward multiples, peers, Street view), the header tile and the DCF consensus seed read `tools/oracle/data/factset.json`.
+A separate cloud routine, **FNAM Oracle: FactSet refresh (cloud)** (trig_01QQ7kxnQVSPQTZnzviJCwUq, weekdays 14:20 UTC, prompt in
+`FACTSET-PROMPT.md`, FactSet connector attached, no email), rewrites that one file from FactSet Estimates, Global Prices and
+Fundamentals, runs the build and pushes to `main`. GitHub Actions cannot reach FactSet, so this is the only path. Valuation
+multiples across the page are forward (NTM consensus); leverage ratios stay on reported LTM figures by credit convention.

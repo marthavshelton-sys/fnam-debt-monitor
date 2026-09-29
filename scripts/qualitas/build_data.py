@@ -208,8 +208,10 @@ def parse_report(qid, txt):
     P = pages_of(txt)
     fy, q = qid_parts(qid)
     res = {'qid': qid, 'fy': fy, 'q': q}
-    m = re.search(r'SOURCE:\s*(\S+)', txt)
-    res['url'] = m.group(1) if m else None
+    # the URL runs to the end of the SOURCE line: Qualitas names files with spaces, and a
+    # whitespace-bounded match cut them off, so the page linked to 404s
+    m = re.search(r'SOURCE:[ \t]*(.+)', txt)
+    res['url'] = m.group(1).strip().replace(' ', '%20') if m else None
     for n, t in sorted(P.items()):
         m = re.search(r'Ciudad de M.xico,\s*(\d{1,2})\s*de\s*(\w+)\s*de\s*(\d{4})', t)
         if m and 'date' not in res:
@@ -337,8 +339,10 @@ def parse_report(qid, txt):
 def parse_sific(qid, txt):
     P = pages_of(txt)
     out = {'qid': qid, 'bs': {}, 'is_ytd': {}, 'cf_ytd': {}}
-    m = re.search(r'SOURCE:\s*(\S+)', txt)
-    out['url'] = m.group(1) if m else None
+    # the URL runs to the end of the SOURCE line: Qualitas names files with spaces, and a
+    # whitespace-bounded match cut them off, so the page linked to 404s
+    m = re.search(r'SOURCE:[ \t]*(.+)', txt)
+    out['url'] = m.group(1).strip().replace(' ', '%20') if m else None
     NUM = r'-?\(?[\d,]+\)?'
     for n, t in sorted(P.items()):
         head = t[:400].upper()

@@ -74,10 +74,30 @@ of 3 M bbl or more) with `data/alerts_state.json`. For anything new it opens
 one GitHub issue whose body is the page's own "At a glance" text for the
 affected sections - `exec_extract.js` runs the built page under Node with a
 stand-in DOM and reads the summaries out, so the wording is written once, in
-the template. GitHub emails the repository owner about the issue; that is the
-whole delivery mechanism (no mail server, no credentials). The subject starts
-with MATERIAL when a threshold in `alerts.ps1` is crossed. The state file is
-seeded from the current data on first run and committed with the data.
+the template. The subject starts with MATERIAL when a threshold in `alerts.ps1`
+is crossed. The state file is seeded from the current data on first run and
+committed with the data.
+
+The issue is only a queue: the owner does not receive GitHub's own notification
+emails (she turned them off to avoid the noise). Delivery is the Claude Routine
+"FNAM US Macro: email material changes" (cloud, daily at 14:45 and 20:45 UTC,
+right after the two refresh runs). It is read-only: it reads the issues
+opened by github-actions[bot] through the public GitHub API and emails the
+owner the body of every "MATERIAL: " and "SOURCE DOWN: " issue created since the previous scheduled
+run (14:45 run: since 20:45 the day before; 20:45 run: since 14:45), in one
+message sent with the Gmail connector from the owner's fnam.mx account to her
+gmail.com address, the same path the US fiscal alerts use. The routine must
+have both the Gmail connector and the repository marthavshelton-sys/fnam-debt-monitor
+attached (claude.ai, Routines): the cloud environment refuses GitHub API calls
+for repositories not attached to the session, and without Gmail nothing is sent.
+Either gap makes the run end with a one-line reason and no email. Verified
+end to end on 28-Sep-2026 (issue #63 delivered). A manual run outside those hours
+covers the last 7 days. "Macro update: " issues are never emailed. The routine
+does not close issues, so they accumulate harmlessly; close them by hand when
+convenient. A missing alert usually means the routine did not run at its time;
+check the Routines page before touching `alerts.ps1`. The same routine also
+emails the Mexico macro dashboard's "MATERIAL (MX): " and "SOURCE DOWN: MX macro"
+issues (tools/mx-macro/README.md).
 
 ## Freshness lines for file-based sources
 
@@ -99,9 +119,12 @@ Every run writes `data/health.json`: which processors failed, for how many
 consecutive runs, the staleness warnings and how long they have persisted.
 One failed run is silent (feeds hiccup; the page keeps last-good data). When a
 source has failed three runs in a row, or a staleness warning has lasted that
-long, `refresh_all.ps1` reports it and the workflow fails its run after
-committing, so GitHub sends its standard "run failed" email to the repository
-owner. No other monitoring exists or is needed.
+long, `refresh_all.ps1` reports it (`stuck` output) and the workflow opens one
+issue titled "SOURCE DOWN: US macro - <what>" labeled `macro-source-down`
+(never a second while one is open), then fails the run so the outage shows in
+the Actions history. The alert routine below emails the SOURCE DOWN issue in
+the same way as a MATERIAL one. The first healthy run comments and closes the
+issue; the recovery itself is not emailed.
 
 ## Sharing the repository with other pages
 

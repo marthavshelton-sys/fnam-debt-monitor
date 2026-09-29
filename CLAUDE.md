@@ -9,7 +9,8 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
   translations and Spanish copy follow Mexican usage.
 - Answers: brief, clear, fact- and data-driven. Cite the data source. State every assumption explicitly.
 - Never put a model identifier in anything pushed to the repository (code, comments, data, PR text). Commit
-  trailers requested by the harness are the only exception.
+  trailers requested by the harness and the default-model setting in `.claude/settings.json` (owner-approved)
+  are the only exceptions.
 - Her email is identity only; never send it anywhere.
 
 ## Workflow she has approved
@@ -38,6 +39,18 @@ dashboards, everything built from public data by GitHub Actions.
   and `tools/mx-macro/template.html` — edit the template and the page together. `site/fiscal`, `site/mx/fiscal`.
 - Harvesters, parsers and validators live in `scripts/<slug>/`; raw files, reference data and runbooks in
   `tools/<slug>/`; schedules in `.github/workflows/<slug>-refresh.yml`.
+- Hidden data-quality pages `site/<slug>/quality.html` (GAP, OMA, ASUR, Quálitas, Gentera) share one design:
+  `site/assets/quality.css` + `site/assets/quality-page.js` render `data/quality.js`, which each validator writes
+  (JS validators through `scripts/lib/quality-report.mjs`; Quálitas and Gentera in Python). The JS builders leave
+  parse warnings in `tools/<slug>/raw/build-log.json`. Write new checks in the record/identity form so they show up.
+- FactSet is available only as a connector inside a Claude session (no credentials in GitHub Actions).
+  Peer multiples and consensus for GAP are a dated snapshot: save the pull as
+  `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
+  Forward multiples (NTM EV/EBITDA, NTM P/E) go first; the owner asked for them.
+- The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
+  "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
+  and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
+  `tools/aeropuertos/README.md`). Only official filings go into that table, never press.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
@@ -66,12 +79,20 @@ dashboards, everything built from public data by GitHub Actions.
   Diagnostics run on the runner via workflow_dispatch inputs (`probe`, `search`, `url`, `post`,
   `xlsx`); nothing is fetched or committed in that mode. After each refresh `health.mjs` flags any
   series no provider has answered for in 7 days and the workflow opens/closes an issue labeled
-  `mx-macro-health`.
+  `mx-macro-health` (title "SOURCE DOWN: MX macro - ..."). `alerts.mjs` opens one "MATERIAL (MX): ..."
+  issue per run when a release crosses its thresholds; the US macro alert routine emails both kinds.
 - `site/macro` (US; Windows PowerShell, `tools/macro/`). The two yearly BLS weights tables arrive as
   PRs from scheduled browser tasks because BLS answers scripted requests with 403
   (`process_weights.ps1` probes every run in case that changes). Challenger job cuts are read from
   the report PDF and only published when the figures reconcile against the report's own totals.
-  `alerts.ps1` mails material updates as a GitHub issue; a source down three runs fails the run.
+  `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed);
+  the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
+  changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues created since its previous run
+  (see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue (closed on
+  recovery), which the same routine emails, and fails the run.
+- IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
+  IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
+  `tools/mx-macro/README.md`); do not re-hunt without a new lead.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
@@ -119,5 +140,34 @@ dashboards, everything built from public data by GitHub Actions.
 - Next results dates: `REF.calendar.nextResults` when the company announced it (confirmed); otherwise the median
   lag of the same quarter over the last three years (assumed). Always say which.
 - Guidance basis strings in `data/guidance.js` are English; the pages and decks carry their own Spanish wording.
+- USD/MXN in every company model is Banxico's FIX rate (SIE SF43718, `BANXICO_TOKEN`) with FRED DEXMXUS only as
+  fallback: the FRED mirror stalled for over a week in September 2026. Shared reader `scripts/lib/banxico-fx.mjs`.
+- The 10-year M bono is Banxico's primary-auction yield (SIE SF44071, about every four weeks, published the same
+  day; `scripts/lib/banxico-mx10y.mjs`, FRED/OECD monthly IRLTLT01MXM156N as fallback). Banxico's SIE has no daily
+  secondary-market 10-year yield (its daily vector CF300 carries prices and coupons only; checked 2026-09-28).
+- Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
+  `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
+  (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,
+  ND via `evL()/peL()/ndL()`), Spanish keeps VE, P/U, DN.
+- Share prices: the market fetchers keep only completed sessions (`completedSessions()` in `scripts/gap/fetch-market.mjs`
+  and `scripts/airports/fetch-market.mjs`), so the 14:30 UTC run never publishes an intraday bar as a "close"; the
+  header shows the close date and the fetch time in CDMX. FactSet cannot run in GitHub Actions, so it is only an
+  in-session cross-check. Quálitas, Gentera and Oracle fetchers still take Yahoo's partial bar (not yet fixed).
+- Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
+  release-lag rule (`nextResults()` in the model, reused by the deck), never a hand-written date.
+- `?lang=en|es` on a model page overrides the stored language; `document.title` follows the language.
+- OMA's net debt includes lease liabilities (`debtExtraItems` in `site/oma/config.js`), matching OMA's own definition.
+- GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a
+  FactSet Debt Capital Structure snapshot (`REF.debt.instrumentsAsOf`) with series names from the 6-Ks, refreshed
+  in-session after each quarterly report; `REF.noGuidance` explains the years without guidance (2020, 2021).
+- GAP dividends: the AGM approves one amount per share payable in instalments over the following 12 months
+  (`REF.dividends[].payableUntil`); the exchange record in `market.js` shows only what has gone ex. Compare the
+  two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
+- US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
+  (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
+  runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's
+  cadence or the rates disagree with the FOMC target range. CME FedWatch and Investing.com refuse
+  scripts, so the FedWatch odds come from named outlets quoting FedWatch, one to four meetings, and the
+  page composes the prose. Probe a blocked source from the runner with the workflow's `url` input.

@@ -12,7 +12,8 @@
   "INEGI catalog and set title to null).",
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
   "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog.",
-  "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean)."
+  "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean).",
+  "banxico candidates carry `page`: the public SIE table (consultarCuadro) that holds the series, used as the source link on the page because the API endpoint the fetcher reads needs a token and shows an error to a reader. Mapped by hand on 2026-09-28 from the SIE directory; a new banxico candidate needs one too."
  ],
  "series": {
   "inpc": {
@@ -23,6 +24,7 @@
     {
      "provider": "banxico",
      "id": "SP1",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "^(?!.*subyacente).*(i\\s*n\\s*d\\s*i\\s*c\\s*e\\s+g\\s*e\\s*n\\s*e\\s*r\\s*a\\s*l|precios al consumidor|INPC)"
     },
     {
@@ -45,6 +47,7 @@
     {
      "provider": "banxico",
      "id": "SP74625",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s*$"
     },
     {
@@ -66,6 +69,7 @@
     {
      "provider": "banxico",
      "id": "SP74630",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "no subyacente\\s*$"
     }
    ]
@@ -78,6 +82,7 @@
     {
      "provider": "banxico",
      "id": "SP74626",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s+mercanc(í|i)as\\s*$"
     }
    ]
@@ -90,6 +95,7 @@
     {
      "provider": "banxico",
      "id": "SP74627",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "mercanc(í|i)as no alimenticias"
     }
    ]
@@ -102,6 +108,7 @@
     {
      "provider": "banxico",
      "id": "SP74628",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "subyacente\\s+servicios\\s*$"
     }
    ]
@@ -114,6 +121,7 @@
     {
      "provider": "banxico",
      "id": "SP74629",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "otros servicios"
     }
    ]
@@ -126,6 +134,7 @@
     {
      "provider": "banxico",
      "id": "SP74631",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "energ(é|e)ticos y tarifas"
     }
    ]
@@ -138,6 +147,7 @@
     {
      "provider": "banxico",
      "id": "SP74639",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=8&accion=consultarCuadro&idCuadro=CP154&locale=es",
      "title": "tarifas autorizadas por el gobierno\\s+tarifas autorizadas"
     }
    ]
@@ -147,6 +157,16 @@
    "unit": "level",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "736181",
+     "search": "producto interno bruto a precios de 2018 serie desestacionalizada total",
+     "title": "Producto interno bruto trimestral, base 2018.*A precios de 2018.*Total.*Serie desestacionalizada.*Valores absolutos$",
+     "note": {
+      "es": "PIB real trimestral, base 2018, serie desestacionalizada, millones de pesos a precios de 2018 (INEGI)",
+      "en": "Quarterly real GDP, base 2018, seasonally adjusted, millions of 2018 pesos (INEGI)"
+     }
+    },
     {
      "provider": "fred",
      "id": "NGDPRSAXDCMXQ",
@@ -186,6 +206,7 @@
     {
      "provider": "banxico",
      "id": "SR16734",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=2&accion=consultarCuadro&idCuadro=CR376&locale=es",
      "title": "actividad econ(ó|o)mica"
     }
    ]
@@ -246,6 +267,16 @@
    "unit": "pct",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "444884",
+     "search": "tasa de desocupación nacional serie desestacionalizada",
+     "title": "Tasas de ocupaci(ó|o)n, desocupaci(ó|o)n y subocupaci(ó|o)n.*ENOE.*Nacional.*Tasa de desocupaci(ó|o)n.*Total.*Serie desestacionalizada.*(Í|I)ndice$",
+     "note": {
+      "es": "Tasa de desocupación nacional, ENOE (INEGI), serie desestacionalizada, % de la PEA",
+      "en": "National unemployment rate, ENOE survey (INEGI), seasonally adjusted, % of the labor force"
+     }
+    },
     {
      "provider": "fred",
      "id": "LRHUTTTTMXM156S",
@@ -310,15 +341,36 @@
     {
      "provider": "banxico",
      "id": "SE27803",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=1&accion=consultarCuadro&idCuadro=CE81&locale=es",
      "title": "remesas"
     }
    ]
   },
   "exports": {
    "freq": "M",
-   "unit": "usd",
+   "unit": "usd_mn",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "65649",
+     "search": "exportaciones totales balanza comercial de mercancías",
+     "title": "Balanza comercial de mercanc(í|i)as de M(é|e)xico.*Exportaciones \\(FOB\\).*Total.*Serie desestacionalizada.*Valores absolutos$",
+     "note": {
+      "es": "Exportaciones totales FOB, millones de dólares, serie desestacionalizada (INEGI, balanza comercial de mercancías)",
+      "en": "Total exports FOB, millions of US dollars, seasonally adjusted (INEGI merchandise trade balance)"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "33860",
+     "search": "exportaciones totales balanza comercial de mercancías",
+     "title": "Sector externo.*Exportaciones totales FOB$",
+     "note": {
+      "es": "Exportaciones totales FOB, millones de dólares, serie original (INEGI)",
+      "en": "Total exports FOB, millions of US dollars, original series (INEGI)"
+     }
+    },
     {
      "provider": "fred",
      "id": "XTEXVA01MXM667S",
@@ -326,15 +378,36 @@
      "note": {
       "es": "Serie OCDE desestacionalizada",
       "en": "OECD seasonally adjusted series"
-     }
+     },
+     "unit": "usd"
     }
    ]
   },
   "imports": {
    "freq": "M",
-   "unit": "usd",
+   "unit": "usd_mn",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "inegi",
+     "id": "65651",
+     "search": "importaciones totales balanza comercial de mercancías",
+     "title": "Balanza comercial de mercanc(í|i)as de M(é|e)xico.*Importaciones \\(FOB\\).*Total.*Serie desestacionalizada.*Valores absolutos$",
+     "note": {
+      "es": "Importaciones totales FOB, millones de dólares, serie desestacionalizada (INEGI, balanza comercial de mercancías)",
+      "en": "Total imports FOB, millions of US dollars, seasonally adjusted (INEGI merchandise trade balance)"
+     }
+    },
+    {
+     "provider": "inegi",
+     "id": "33861",
+     "search": "importaciones totales balanza comercial de mercancías",
+     "title": "Sector externo.*Importaciones totales FOB$",
+     "note": {
+      "es": "Importaciones totales FOB, millones de dólares, serie original (INEGI)",
+      "en": "Total imports FOB, millions of US dollars, original series (INEGI)"
+     }
+    },
     {
      "provider": "fred",
      "id": "XTIMVA01MXM667S",
@@ -342,7 +415,8 @@
      "note": {
       "es": "Serie OCDE desestacionalizada",
       "en": "OECD seasonally adjusted series"
-     }
+     },
+     "unit": "usd"
     }
    ]
   },
@@ -354,6 +428,7 @@
     {
      "provider": "banxico",
      "id": "SF43718",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=6&accion=consultarCuadro&idCuadro=CF102&locale=es",
      "title": "tipo de cambio"
     },
     {
@@ -375,6 +450,7 @@
     {
      "provider": "banxico",
      "id": "SF43707",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=3&accion=consultarCuadro&idCuadro=CF106&locale=es",
      "title": "reserva"
     },
     {
@@ -397,6 +473,7 @@
     {
      "provider": "banxico",
      "id": "SF61745",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=18&accion=consultarCuadro&idCuadro=CF101&locale=es",
      "title": "objetivo"
     },
     {
@@ -419,6 +496,7 @@
     {
      "provider": "banxico",
      "id": "SF43783",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=18&accion=consultarCuadro&idCuadro=CF101&locale=es",
      "title": "TIIE.*28"
     }
    ]
@@ -431,6 +509,7 @@
     {
      "provider": "banxico",
      "id": "SF43936",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=22&accion=consultarCuadro&idCuadro=CF107&locale=es",
      "title": "cetes.*28"
     }
    ]
@@ -440,6 +519,15 @@
    "unit": "pct",
    "since": "2010-01-01",
    "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SF44071",
+     "title": "subasta semanal.*Tasa de rendimiento.*Bono tasa fija 10",
+     "note": {
+      "es": "Bono M a 10 años, tasa de rendimiento en subasta primaria (Banxico); los meses sin subasta no tienen dato",
+      "en": "10-year M bond, primary auction yield (Banxico); months without an auction have no data point"
+     }
+    },
     {
      "provider": "fred",
      "id": "IRLTLT01MXM156N",
@@ -459,10 +547,27 @@
     {
      "provider": "banxico",
      "id": "SR14195",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=24&accion=consultarCuadro&idCuadro=CR155&locale=es",
      "title": "expectativas de inflaci(ó|o)n.*12 meses.*mediana",
      "note": {
       "es": "Encuesta de Banxico a especialistas del sector privado, mediana",
       "en": "Banxico survey of private-sector economists, median"
+     }
+    }
+   ]
+  },
+  "imssJobs": {
+   "freq": "M",
+   "unit": "jobs",
+   "since": "2012-01-01",
+   "candidates": [
+    {
+     "provider": "imss",
+     "id": "comunicado-mensual",
+     "title": "Puestos de trabajo registrados",
+     "note": {
+      "es": "Total de puestos de trabajo registrados ante el IMSS al cierre de mes (IMSS, comunicado mensual; serie curada, se actualiza por PR)",
+      "en": "Total jobs registered with IMSS at month-end (IMSS monthly press release; curated series updated by PR)"
      }
     }
    ]

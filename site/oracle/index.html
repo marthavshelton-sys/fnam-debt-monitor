@@ -22,6 +22,7 @@
 <script src="data/comments.js"></script>
 <script src="data/summary.js"></script>
 <script src="data/peers.js"></script>
+<script src="data/factset.js"></script>
 <script src="data/cds.js"></script>
 <script src="data/buildout.js"></script>
 <script src="data/quality.js"></script>
@@ -81,6 +82,15 @@ code{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; ba
 
 /* ---------- Header ---------- */
 header.top{padding:54px 0 26px; border-bottom:1px solid var(--border); background:var(--surface);}
+/* FNAM brand row: wordmark + back link, mirroring the airports hub topbar. */
+.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
+.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
+.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
+.fnam-mark svg{width:13px; height:13px; display:block;}
+.fnam-word{font-family:var(--serif); font-size:16.5px; font-weight:700; letter-spacing:.04em;}
+.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
+.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
+.fnam-back svg{width:13px; height:13px; flex:none;}
 .eyebrow{display:inline-flex; align-items:center; gap:8px; font-size:12px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink);}
 .eyebrow .live{width:8px; height:8px; border-radius:50%; background:var(--good); box-shadow:0 0 0 3px rgba(12,163,12,.18);}
 header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; line-height:1.08; overflow-wrap:anywhere;}
@@ -297,7 +307,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   html, body{background:#fff !important; color:#000 !important;}
   body{font-size:14pt; line-height:1.45; padding:0 !important;}
   .print-only{display:block;}
-  nav.jump, .lang-btn, .controls, .seg, .btn, .chips, #dataNotice, footer#sources, section#method, .sec-meta, .chart-src, details.tbl, .eyebrow .live, .notice{display:none !important;}
+  nav.jump, .lang-btn, .controls, .seg, .btn, .chips, #dataNotice, footer#sources, section#method, .sec-meta, .chart-src, details.tbl, .eyebrow .live, .notice, .fnam-bar{display:none !important;}
   header{padding:0 !important; min-height:0 !important; break-after:page; page-break-after:always;}
   header .wrap, .block, .wrap{max-width:none !important; padding-left:0 !important; padding-right:0 !important;}
   header h1{font-size:34pt; margin-top:6pt;}
@@ -385,6 +395,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
 <header class="top">
   <div class="wrap">
+    <div class="fnam-bar">
+      <a class="fnam-brand" href="/" aria-label="FNAM">
+        <span class="fnam-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg></span>
+        <span class="fnam-word">FNAM</span>
+      </a>
+      <a class="fnam-back" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="es">Todos los paneles</span><span class="en" hidden>All dashboards</span>
+      </a>
+    </div>
     <span class="eyebrow"><span class="live"></span>
       <span class="es">Modelo financiero interactivo · Datos públicos (SEC EDGAR)</span>
       <span class="en" hidden>Interactive financial model · Public data (SEC EDGAR)</span>
@@ -690,8 +710,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="relative">
     <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos de Oracle calculados en vivo con el precio más reciente, las acciones en circulación de la portada del último 10-Q y las cifras de los últimos doce meses. La tabla de pares (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) se llenará automáticamente con el conector de FactSet cuando esté autorizado; mientras tanto muestra la estructura vacía.</span>
-      <span class="en" hidden>Oracle multiples computed live from the latest price, the share count on the latest 10-Q cover and last-twelve-month figures. The peer table (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) will be filled automatically by the FactSet connector once it is authorised; until then it shows the empty structure.</span>
+      <span class="es">Múltiplos <b>a doce meses</b> (NTM): el precio y el valor de la empresa de Oracle sobre el consenso de analistas de FactSet para los próximos doce meses, con los múltiplos por año fiscal y los de los últimos doce meses como referencia. La tabla de pares usa la misma base para seis emisores de software (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) y dos hiperescaladores (Amazon, Alphabet). El consenso de UPA sigue la base mayoritaria de los brokers (No-GAAP para Oracle) y el EBITDA es el ajustado por los brokers; la deuda neta de los pares es la del último trimestre reportado. Al final, la visión del mercado: precio objetivo y recomendaciones; no constituye una recomendación de inversión.</span>
+      <span class="en" hidden><b>Forward</b> (next-twelve-month) multiples: Oracle's price and enterprise value over FactSet's analyst consensus for the next twelve months, with fiscal-year multiples and the last-twelve-month figures kept as a reference. The peer table uses the same basis for six software issuers (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) and two hyperscalers (Amazon, Alphabet). Consensus EPS follows the brokers' majority basis (non-GAAP for Oracle) and EBITDA is broker-adjusted; peers' net debt is the latest reported quarter. At the end, the Street view: price target and recommendations; not investment advice.</span>
     </p>
     <div class="grid-2 rev">
       <div class="card">
@@ -701,17 +721,24 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <p class="chart-src" id="multSrc"></p>
       </div>
       <div class="card">
-        <h3><span class="es">VE/EBITDA UDM histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
-        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal, con la deuda neta reportada</span><span class="en" hidden>At each fiscal quarter-end, with reported net debt</span></p>
+        <h3><span class="es">VE/EBITDA y P/U a doce meses, históricos</span><span class="en" hidden>Historical forward EV/EBITDA and P/E</span></h3>
+        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal: VE con la deuda neta reportada, sobre el consenso NTM de FactSet vigente ese día</span><span class="en" hidden>At each fiscal quarter-end: EV with reported net debt, over the FactSet NTM consensus in force that day</span></p>
         <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
         <p class="chart-src" id="evSrc"></p>
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares</span><span class="en" hidden>Peers</span></h3>
+      <h3><span class="es">Pares: múltiplos a doce meses (consenso FactSet)</span><span class="en" hidden>Peers: forward multiples (FactSet consensus)</span></h3>
       <p class="cap" id="peersCap"></p>
       <div class="tblwrap" id="peersTable"></div>
       <p class="chart-src" id="peersSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Visión del mercado: precio objetivo y recomendaciones</span><span class="en" hidden>Street view: price target and recommendations</span></h3>
+      <div class="stat-row" id="streetStats"></div>
+      <div class="tblwrap" id="streetTable"></div>
+      <div class="notice" id="streetNote"></div>
+      <p class="chart-src" id="streetSrc"></p>
     </div>
   </section>
 
@@ -950,7 +977,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
         <div class="tblwrap" id="refreshTable"></div>
-        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oracle/*</code> y <code>.github/workflows/oracle-refresh.yml</code> en el repositorio; runbook en <code>tools/oracle/README.md</code>; cada cifra se valida con <code>scripts/oracle/validate-data.mjs</code> antes de publicarse.</span><span class="en" hidden>Data flow: <code>scripts/oracle/*</code> and <code>.github/workflows/oracle-refresh.yml</code> in the repository; runbook in <code>tools/oracle/README.md</code>; every figure passes <code>scripts/oracle/validate-data.mjs</code> before publishing.</span></p>
+        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oracle/*</code> y <code>.github/workflows/oracle-refresh.yml</code> en el repositorio; runbook en <code>tools/oracle/README.md</code>; cada cifra se valida con <code>scripts/oracle/validate-data.mjs</code> antes de publicarse. <a href="quality.html">Página de calidad de datos ↗</a></span><span class="en" hidden>Data flow: <code>scripts/oracle/*</code> and <code>.github/workflows/oracle-refresh.yml</code> in the repository; runbook in <code>tools/oracle/README.md</code>; every figure passes <code>scripts/oracle/validate-data.mjs</code> before publishing. <a href="quality.html">Data-quality page ↗</a></span></p>
       </div>
     </div>
   </section>

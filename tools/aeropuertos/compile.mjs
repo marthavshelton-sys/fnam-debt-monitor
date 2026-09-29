@@ -59,7 +59,8 @@ console.log("op labels:", airports.filter(a => a.grp === "OTROS").map(a => a.cod
     months: months.slice(s0), lastMonth: out.lastMonth, airportsFrom: months[s0], groups: GROUPS,
     national: { pax: slicePax(agg.national.pax) },
     byGroup: Object.fromEntries(GROUPS.map(g => [g, { pax: slicePax(agg.byGroup[g].pax) }])),
-    airports: airports.map(a => ({ code: a.code, es: a.es, en: a.en, st: a.st, grp: a.grp, op: a.op, x: a.x, y: a.y, pax: { dom: (a.pax.dom || []).slice(s0 - a0), intl: (a.pax.intl || []).slice(s0 - a0) } }))
+    airports: airports.map(a => ({ code: a.code, es: a.es, en: a.en, st: a.st, grp: a.grp, op: a.op, x: a.x, y: a.y, pax: { dom: (a.pax.dom || []).slice(s0 - a0), intl: (a.pax.intl || []).slice(s0 - a0) } })),
+    sources: { afac: sources.afac || null } // the hub's chart stamps say when AFAC published the file
   };
   const sumJs = g => "// AUTO-GENERATED slim summary (last 36 months) for /aeropuertos/ - do not hand-edit. Generated " + g + "\nwindow.MX_AIRPORTS = " + JSON.stringify({ generatedAt: g, ...sum }) + ";\n";
   const prevSum = fs.existsSync(OUT + "/summary.js") ? fs.readFileSync(OUT + "/summary.js", "utf8") : "", prevSumGen = (prevSum.match(/"generatedAt":"([^"]+)"/) || [])[1];

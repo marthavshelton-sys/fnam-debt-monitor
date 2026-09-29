@@ -8,6 +8,9 @@
   const MK = window.ORCL_MARKET || { prices: {}, dividends: {}, rates: {} };
   const REF = window.ORCL_REF || {};
   const PEERS = window.ORCL_PEERS || { peers: [] };
+  const FS = window.ORCL_FACTSET || null; // FactSet consensus snapshot (tools/oracle/data/factset.json)
+  const fsNtm = () => (FS && FS.oracle && FS.oracle.ntm) || {};
+  const fsFiscal = () => (FS && FS.oracle && FS.oracle.fiscal) || [];
   const GD = window.ORCL_GUIDANCE || { vintages: [] };
   const CM = window.ORCL_COMMENTS || { periods: {} };
   const SUM = window.ORCL_SUMMARY || { sections: [] };
@@ -215,7 +218,7 @@
     if (lastLTM && lastLTM.is && lastLTM.is.ebitda != null) k.push({ l: 'EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtBn(lastLTM.is.ebitda), d: `${t('margin')} ${fmtPct(lastLTM.is.ebitdaMargin)}` });
     const nd = netDebt(lastQ);
     if (nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} ${fmtBn(nd.net)}` });
-    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP · ${lastLTM.is.ngEpsDiluted ? fmtX(lastPx[1] / lastLTM.is.ngEpsDiluted) + ' ' + t('ng') : ''}` : '' }); }
+    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; const fn = fsNtm(); if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}` }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
     el('genStamp').textContent = fmtDate((FIN.generatedAt || MK.generatedAt || '').slice(0, 10));
   }
@@ -807,18 +810,31 @@
     return pick ? { name: pick.name, rate: pick.ratePct, issued: pick.issued } : null;
   }
   const BETA = betaFromMarket(), KD = kdFromDebt();
-  function dcfDefaults() {
+  // Consensus path for the explicit years: revenue growth and capex from FactSet's fiscal-year means where they exist
+  // (labelled by Oracle fiscal year), tapering afterwards (growth halves each year, floor 4%; capex −15% a year).
+  function consensusPath() {
+    const fy = fsFiscal(); if (!fy.length || !lastLTM || !lastLTM.is || !lastQ) return null;
+    const byFy = {}; for (const f of fy) byFy[+f.fy.slice(2)] = f;
+    const revG = [], capex = [], years = [], margins = []; let prevRev = lastLTM.is.revTotal;
+    const base0 = lastQ.q === 4 ? lastQ.fy : lastQ.fy - 1;
+    for (let i = 0; i < 5; i++) { const f = byFy[base0 + 1 + i]; if (f && f.sales && f.sales.mean > 0 && prevRev) { revG.push(Math.round(10 * 100 * (f.sales.mean / prevRev - 1)) / 10); prevRev = f.sales.mean; years.push(f.fy); if (f.ebitda && f.ebitda.mean) margins.push(Math.round(10 * 100 * f.ebitda.mean / f.sales.mean) / 10); } else revG.push(null); capex.push(f && f.capex && f.capex.mean != null ? Math.round(f.capex.mean) : null); }
+    if (!years.length) return null;
+    for (let i = 0; i < 5; i++) { if (revG[i] == null) revG[i] = Math.max(4, Math.round(10 * (revG[i - 1] != null ? revG[i - 1] / 2 : 10)) / 10); if (capex[i] == null) capex[i] = Math.round((capex[i - 1] || 60000) * 0.85); }
+    return { revG, capex, years, margins };
+  }
+  function dcfDefaults(basis) {
     const ltm = lastLTM && lastLTM.is ? lastLTM.is : {};
     const rev = ltm.revTotal || 0, ebitda = ltm.ebitda || 0, da = ltm.da || 0;
     const nd = netDebt(lastQ); const mc = lastPx && sharesNow ? lastPx[1] * sharesNow / 1e6 : 0;
+    const cp = consensusPath(); const useCons = cp && basis !== 'guidance'; const fn = fsNtm();
     return {
-      baseRev: rev, baseEbitda: ebitda,
-      revG: (D.revenueGrowthPct || [30, 25, 20, 15, 10]).slice(),
-      margin: D.ebitdaMarginPct ?? (rev ? Math.round(10 * 100 * ebitda / rev) / 10 : 35), capex: (D.capexUsdM || [70000, 60000, 50000, 40000, 35000]).slice(),
+      baseRev: rev, baseEbitda: ebitda, ntmEbitda: fn.ebitda && fn.ebitda.mean > 0 ? fn.ebitda.mean : null, basis: useCons ? 'consensus' : 'guidance',
+      revG: useCons ? cp.revG.slice() : (D.revenueGrowthPct || [30, 25, 20, 15, 10]).slice(),
+      margin: D.ebitdaMarginPct ?? (rev ? Math.round(10 * 100 * ebitda / rev) / 10 : 35), capex: useCons ? cp.capex.slice() : (D.capexUsdM || [70000, 60000, 50000, 40000, 35000]).slice(),
       daPct: D.daPctRevenue ?? (rev ? Math.round(10 * 100 * da / rev) / 10 : 10), tax: D.taxRatePct ?? (ltm.taxRate != null ? Math.round(10 * ltm.taxRate) / 10 : 15), nwc: D.nwcPctDeltaRevenue ?? 0,
       rf: D.riskFreePct ?? (us10.length ? us10[us10.length - 1][1] : 4.5), erp: D.erpPct ?? 4.5, beta: BETA ? BETA.beta : (D.beta ?? 1.0), kd: KD ? KD.rate : (D.costOfDebtPct ?? 5.5), dw: D.targetDebtPct ?? (nd && mc ? Math.round(10 * 100 * nd.net / (nd.net + mc)) / 10 : 15),
       method: D.terminalMethod || 'perpetuity', g: D.terminalGrowthPct ?? 3, mult: D.exitMultiple ?? 12,
-      baseYear: lastQ ? lastQ.fy : new Date().getFullYear(),
+      baseYear: lastQ ? (lastQ.q === 4 ? lastQ.fy : lastQ.fy - 1) : new Date().getFullYear(),
     };
   }
   function dcfInputsHtml(s) {
@@ -829,8 +845,9 @@
     const ltmM = lastLTM && lastLTM.is ? lastLTM.is.ebitdaMargin : null;
     return `
       <h4>${LANG === 'es' ? 'Operación' : 'Operations'}</h4>
+      ${consensusPath() ? row(LANG === 'es' ? 'Base de la proyección' : 'Projection basis', LANG === 'es' ? `ingresos y capex de ${consensusPath().years.join(', ')} del consenso de FactSet (${fmtDate(FS.asOf)}), después desaceleración` : `${consensusPath().years.join(', ')} revenue and capex from FactSet consensus (${fmtDate(FS.asOf)}), then taper`, `<select data-k="basis"><option value="consensus"${s.basis !== 'guidance' ? ' selected' : ''}>${LANG === 'es' ? 'Consenso FactSet' : 'FactSet consensus'}</option><option value="guidance"${s.basis === 'guidance' ? ' selected' : ''}>${LANG === 'es' ? 'Guía de la administración + desaceleración' : 'Management guidance + taper'}</option></select>`) : ''}
       ${arr('revG', 0.5, LANG === 'es' ? 'Crecimiento de ingresos (%)' : 'Revenue growth (%)')}
-      ${row(LANG === 'es' ? 'Margen EBITDA (%)' : 'EBITDA margin (%)', `${LANG === 'es' ? 'UDM' : 'LTM'}: ${fmtPct(ltmM)}`, num('margin', 0.5, 5, 80))}
+      ${row(LANG === 'es' ? 'Margen EBITDA (%)' : 'EBITDA margin (%)', `${LANG === 'es' ? 'UDM' : 'LTM'}: ${fmtPct(ltmM)}${consensusPath() && consensusPath().margins.length ? ` · ${LANG === 'es' ? 'consenso (EBITDA ajustado)' : 'consensus (adjusted EBITDA)'}: ${consensusPath().margins.map((m) => fmtPct(m, 0)).join(' / ')}` : ''}`, num('margin', 0.5, 5, 80))}
       ${arr('capex', 1000, 'Capex (US$ M)')}
       ${row(LANG === 'es' ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', '', num('daPct', 0.5))}
       ${row(LANG === 'es' ? 'Tasa de impuestos (%)' : 'Tax rate (%)', LANG === 'es' ? 'tasa efectiva UDM por defecto' : 'LTM effective rate by default', num('tax', 1, 0, 60))}
@@ -863,20 +880,21 @@
     const pvTv = tv * last.df; const ev = pv + pvTv;
     const nd = netDebt(lastQ); const netDebtM = nd ? nd.net : 0;
     const eq = ev - netDebtM; const perShare = sharesNow ? eq * 1e6 / sharesNow : null;
-    return { wacc, rows, tv, pvTv, pvExplicit: pv, ev, netDebtM, eq, perShare, impliedMult: p.baseEbitda ? ev / p.baseEbitda : null };
+    return { wacc, rows, tv, pvTv, pvExplicit: pv, ev, netDebtM, eq, perShare, impliedMult: p.ntmEbitda ? ev / p.ntmEbitda : (p.baseEbitda ? ev / p.baseEbitda : null), impliedBasis: p.ntmEbitda ? 'ntm' : 'ltm' };
   }
-  const URL_KEYS = ['revG', 'margin', 'capex', 'daPct', 'tax', 'nwc', 'rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult'];
+  const URL_KEYS = ['revG', 'margin', 'capex', 'daPct', 'tax', 'nwc', 'rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult', 'basis'];
   function dcfFromUrl(base) { try { const p = new URLSearchParams(location.search).get('dcf'); if (!p) return base; const o = JSON.parse(decodeURIComponent(escape(atob(p.replace(/-/g, '+').replace(/_/g, '/'))))); for (const k of URL_KEYS) if (o[k] != null) base[k] = o[k]; } catch (e) { /* ignore */ } return base; }
   function dcfToUrl(s) { const o = {}; for (const k of URL_KEYS) o[k] = s[k]; const enc = btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); const u = new URL(location.href); u.searchParams.set('dcf', enc); u.searchParams.set('lang', LANG); history.replaceState(null, '', u.toString()); return u.toString(); }
   function renderDcf(reset) {
     if (reset || !dcfState.s) dcfState.s = reset ? dcfDefaults() : dcfFromUrl(dcfDefaults());
     const s = dcfState.s;
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s);
-    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; dcfToUrl(s); renderDcfOutputs(); }));
+    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (k === 'basis') { const d = dcfDefaults(v); s.basis = d.basis; s.revG = d.revG; s.capex = d.capex; dcfToUrl(s); renderDcf(); return; } if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; dcfToUrl(s); renderDcfOutputs(); }));
     el('dcfReset').addEventListener('click', () => { const u = new URL(location.href); u.searchParams.delete('dcf'); history.replaceState(null, '', u.toString()); renderDcf(true); });
     el('dcfCopy').addEventListener('click', async () => { const u = dcfToUrl(s); try { await navigator.clipboard.writeText(u); el('dcfCopy').textContent = LANG === 'es' ? 'Enlace copiado' : 'Link copied'; } catch (e) { /* ignore */ } });
     renderDcfOutputs();
-    html('dcfMeta', LANG === 'es' ? `Base: ingresos y EBITDA de los últimos doce meses al ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); deuda neta al cierre del mismo trimestre; ${fmtN(sharesNow)} acciones en circulación.` : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); net debt at the same quarter-end; ${fmtN(sharesNow)} shares outstanding.`);
+    const cpm = consensusPath();
+    html('dcfMeta', (LANG === 'es' ? `Base: ingresos y EBITDA de los últimos doce meses al ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); deuda neta al cierre del mismo trimestre; ${fmtN(sharesNow)} acciones en circulación.` : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); net debt at the same quarter-end; ${fmtN(sharesNow)} shares outstanding.`) + (s.basis === 'consensus' && cpm ? (LANG === 'es' ? ` Años ${cpm.years.join(', ')}: crecimiento de ingresos y capex del consenso de FactSet (${fmtDate(FS.asOf)}), después desaceleración; el margen EBITDA parte del UDM GAAP del modelo (el consenso, sobre EBITDA ajustado por los brokers, implica ${cpm.margins.map((m) => fmtPct(m, 0)).join(' / ')}) y es editable.` : ` Years ${cpm.years.join(', ')}: revenue growth and capex from FactSet consensus (${fmtDate(FS.asOf)}), then taper; the EBITDA margin starts from the model's GAAP LTM (consensus, on broker-adjusted EBITDA, implies ${cpm.margins.map((m) => fmtPct(m, 0)).join(' / ')}) and is editable.`) : ''));
   }
   function renderDcfOutputs() {
     const s = dcfState.s; const r = dcfCompute(s);
@@ -890,7 +908,7 @@
       { v: fmtBn(r.ev), l: t('ev') },
       { v: fmtBn(r.eq), l: LANG === 'es' ? 'Valor del capital' : 'Equity value' },
       { v: fmtPct(100 * r.pvTv / r.ev, 0), l: LANG === 'es' ? 'VP del valor terminal / VE' : 'PV of terminal value / EV' },
-      { v: fmtX(r.impliedMult), l: LANG === 'es' ? 'VE / EBITDA UDM implícito' : 'Implied EV / LTM EBITDA' },
+      { v: fmtX(r.impliedMult), l: r.impliedBasis === 'ntm' ? (LANG === 'es' ? 'VE / EBITDA NTM implícito (consenso)' : 'Implied EV / NTM EBITDA (consensus)') : (LANG === 'es' ? 'VE / EBITDA UDM implícito' : 'Implied EV / LTM EBITDA') },
       { v: fmtBn(r.netDebtM), l: t('nd') },
     ];
     html('dcfOutputs', outs.map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
@@ -921,40 +939,76 @@
 
   // ================= 06 RELATIVE =================
   function renderRelative() {
-    const nd = netDebt(lastQ); const ltm = lastLTM && lastLTM.is; const price = lastPx ? lastPx[1] : null;
+    const es = LANG === 'es'; const nd = netDebt(lastQ); const ltm = lastLTM && lastLTM.is; const price = lastPx ? lastPx[1] : null;
+    const fo = FS && FS.oracle ? FS.oracle : null, fn = fsNtm(); const fsStamp = FS ? `${es ? 'consenso FactSet al' : 'FactSet consensus as of'} ${fmtDate(FS.asOf)}` : '';
+    const fsLink = FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet Estimates';
     const rows = [];
     if (price && sharesNow && ltm) {
       const mcM = price * sharesNow / 1e6; const evM = nd ? mcM + nd.net : null;
-      const fcf = lastLTM.cf && lastLTM.cf.fcf != null ? lastLTM.cf.fcf : null;
-      const dpsLtm = lastLTM.kpi && lastLTM.kpi.dps != null ? lastLTM.kpi.dps : null;
       rows.push([t('mktCap'), fmtBn(mcM), `${fmtN(sharesNow)} × US$ ${fmtN(price, 2)}`]);
       if (evM != null) rows.push([t('ev'), fmtBn(evM), `${t('mktCap')} + ${t('nd')} ${fmtN(nd.net)} M`]);
-      if (evM != null && ltm.ebitda) rows.push(['VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), fmtX(evM / ltm.ebitda), `EBITDA ${fmtN(ltm.ebitda)} M`]);
-      if (evM != null) rows.push(['VE / ' + (LANG === 'es' ? 'ingresos UDM' : 'LTM revenue'), fmtX(evM / ltm.revTotal), `${fmtN(ltm.revTotal)} M`]);
-      if (ltm.epsDiluted) rows.push(['P / U ' + (LANG === 'es' ? 'UDM GAAP' : 'LTM GAAP'), fmtX(price / ltm.epsDiluted), `${LANG === 'es' ? 'UPA UDM' : 'LTM EPS'} US$ ${fmtN(ltm.epsDiluted, 2)}`]);
-      if (ltm.ngEpsDiluted) rows.push(['P / U ' + (LANG === 'es' ? 'UDM No-GAAP' : 'LTM Non-GAAP'), fmtX(price / ltm.ngEpsDiluted), `US$ ${fmtN(ltm.ngEpsDiluted, 2)}`]);
-      if (fcf != null) rows.push([LANG === 'es' ? 'Rendimiento FCF / cap.' : 'FCF yield / mkt cap', fmtPct(100 * fcf / mcM), `${fmtN(fcf)} M ${LANG === 'es' ? 'UDM' : 'LTM'}`]);
-      if (dpsLtm) rows.push([LANG === 'es' ? 'Rendimiento por dividendo' : 'Dividend yield', fmtPct(100 * dpsLtm / price), `US$ ${fmtN(dpsLtm, 2)} ${LANG === 'es' ? 'declarados en 4 trimestres' : 'declared over 4 quarters'}`]);
-      if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), LANG === 'es' ? 'balance del trimestre' : "quarter's balance sheet"]);
-      rows.push([LANG === 'es' ? 'Margen EBITDA UDM' : 'LTM EBITDA margin', fmtPct(ltm.ebitdaMargin), LANG === 'es' ? 'UDM' : 'LTM']);
+      if (fn.eps && fn.eps.mean > 0) rows.push([`<b>${es ? 'P / U' : 'P / E'} NTM</b>`, `<b>${fmtX(price / fn.eps.mean)}</b>`, `${es ? 'UPA NTM' : 'NTM EPS'} US$ ${fmtN(fn.eps.mean, 2)} (${es ? 'No-GAAP, base del consenso' : 'non-GAAP, consensus basis'}) · ${fsStamp}`]);
+      for (const f of fsFiscal()) if (f.eps && f.eps.mean > 0) rows.push([`${es ? 'P / U' : 'P / E'} ${f.fy}E`, fmtX(price / f.eps.mean), `${es ? 'UPA' : 'EPS'} US$ ${fmtN(f.eps.mean, 2)} · ${f.eps.count} ${es ? 'analistas' : 'analysts'} · ${es ? 'año fiscal al' : 'fiscal year to'} ${fmtDate(f.fiscal_end)}`]);
+      if (evM != null && fn.ebitda && fn.ebitda.mean > 0) rows.push([`<b>${es ? 'VE' : 'EV'} / EBITDA NTM</b>`, `<b>${fmtX(evM / fn.ebitda.mean)}</b>`, `EBITDA NTM ${fmtN(fn.ebitda.mean)} M (${es ? 'EBITDA ajustado según los brokers' : 'broker-adjusted EBITDA'}) · ${fsStamp}`]);
+      if (evM != null && fn.sales && fn.sales.mean > 0) rows.push([(es ? 'VE / ingresos NTM' : 'EV / NTM revenue'), fmtX(evM / fn.sales.mean), `${fmtN(fn.sales.mean)} M · ${fsStamp}`]);
+      if (fn.fcf && fn.fcf.mean != null) rows.push([es ? 'Rendimiento FCF NTM / capitalización' : 'NTM FCF yield / market cap', fmtPct(100 * fn.fcf.mean / mcM), `${fmtN(fn.fcf.mean)} M ${es ? 'consenso NTM (negativo: capex de la expansión)' : 'NTM consensus (negative: buildout capex)'}`]);
+      const declLast = (REF.dividends || []).slice(-1)[0];
+      if (declLast) rows.push([es ? 'Rendimiento por dividendo (anualizado)' : 'Dividend yield (annualised)', fmtPct(100 * declLast.dps * 4 / price), `US$ ${fmtN(declLast.dps, 2)} × 4 (${es ? 'último declarado' : 'latest declared'})`]);
+      const ref = es ? 'referencia UDM' : 'LTM reference';
+      if (evM != null && ltm.ebitda) rows.push([`<span class="muted">${es ? 'VE / EBITDA UDM' : 'EV / EBITDA LTM'}</span>`, `<span class="muted">${fmtX(evM / ltm.ebitda)}</span>`, `${ref} · EBITDA ${fmtN(ltm.ebitda)} M (GAAP + D&A)`]);
+      if (ltm.epsDiluted) rows.push([`<span class="muted">${es ? 'P / U UDM GAAP' : 'P / E LTM GAAP'}</span>`, `<span class="muted">${fmtX(price / ltm.epsDiluted)}</span>`, `${ref} · ${es ? 'UPA' : 'EPS'} US$ ${fmtN(ltm.epsDiluted, 2)}`]);
+      if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), es ? 'UDM reportado (convención de crédito, secciones 07 y 11)' : 'reported LTM (credit convention, sections 07 and 11)']);
     }
     html('multTable', `<table><thead><tr><th>${t('metric')}</th><th>${t('value')}</th><th>${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
-    el('multCap').textContent = lastPx ? `${t('price')} ORCL ${fmtDate(lastPx[0])} · ${LANG === 'es' ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
-    html('multSrc', `${t('src')}: ${relLink()} (${LANG === 'es' ? 'UDM, deuda neta, dividendos' : 'LTM, net debt, dividends'} ${asOfQ()}) · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${MK.sharesOutstanding && MK.sharesOutstanding.url ? extLink(MK.sharesOutstanding.url, LANG === 'es' ? 'acciones: portada del 10-Q' : 'shares: 10-Q cover') + ` ${fmtDate(MK.sharesOutstanding.asOf)}` : ''}`);
-    const hist = Q.slice(-lastN()).map((q) => { const l = ltmFor(q); const p = pointAtOrBefore(orclPx, qEndDate(q)); const nd2 = netDebt(q); if (!l || !p || !nd2 || !l.is.ebitda) return null; const sh2 = q.shares ? q.shares.current : sharesNow; const ev = p[1] * sh2 / 1e6 + nd2.net; return { q, v: ev / l.is.ebitda, pe: l.is.epsDiluted ? p[1] / l.is.epsDiluted : null }; }).filter(Boolean);
+    el('multCap').textContent = lastPx ? `${t('price')} ORCL ${fmtDate(lastPx[0])} · ${es ? 'múltiplos a doce meses sobre el consenso de FactSet' : 'forward multiples on FactSet consensus'}${FS ? ` (${fmtDate(FS.asOf)})` : ''} · ${es ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
+    html('multSrc', `${t('src')}: ${fsLink} (${es ? 'consenso NTM y por año fiscal' : 'NTM and fiscal-year consensus'}${FS ? ', ' + fmtDate(FS.asOf) : ''}) · ${relLink()} (${es ? 'deuda neta, UDM' : 'net debt, LTM'} ${asOfQ()}) · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${MK.sharesOutstanding && MK.sharesOutstanding.url ? extLink(MK.sharesOutstanding.url, es ? 'acciones: portada del 10-Q' : 'shares: 10-Q cover') + ` ${fmtDate(MK.sharesOutstanding.asOf)}` : ''}`);
+    // history: forward multiples at each fiscal quarter-end, on the NTM consensus in force that day (point in time)
+    const hh = (fo && fo.ntm_history) || [];
+    const histAt = (iso) => { let best = null; for (const h of hh) if (h.date <= iso && (!best || h.date > best.date)) best = h; return best && (new Date(iso) - new Date(best.date)) / 864e5 <= 45 ? best : null; };
+    const hist = Q.slice(-lastN()).map((q) => { const end = qEndDate(q); const pt = pointAtOrBefore(orclPx, end); const nd2 = netDebt(q); const h = histAt(end); if (!pt || !nd2 || !h) return null; const sh2 = q.shares ? q.shares.current : sharesNow; const ev = pt[1] * sh2 / 1e6 + nd2.net; return { q, v: h.ebitda ? ev / h.ebitda : null, pe: h.eps ? pt[1] / h.eps : null }; }).filter(Boolean);
     const c = SERIES();
-    if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: 'VE/EBITDA', data: hist.map((h) => h.v), backgroundColor: c[0] }, { label: 'P/U GAAP', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + 'x' }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
-    html('evSrc', `${t('src')}: ${LANG === 'es' ? 'comunicados de resultados (balance y acciones diluidas de cada trimestre)' : 'earnings releases (each quarter\'s balance sheet and diluted shares)'} · ${relLink()} · ${extLink(NASDAQ_URL, 'Nasdaq')} (${LANG === 'es' ? 'historial desde' : 'history from'} ${orclPx.length ? fmtDate(orclPx[0][0]) : '—'}) · ${asOfQ()}<br>${LANG === 'es' ? 'Cierre del trimestre fiscal × acciones diluidas del trimestre + deuda neta reportada, sobre EBITDA UDM; P/U sobre UPA GAAP UDM.' : 'Fiscal quarter-end close × diluted shares of the quarter + reported net debt, over LTM EBITDA; P/E on LTM GAAP EPS.'}`);
-    const cols = [['name', LANG === 'es' ? 'Empresa' : 'Company'], ['evEbitdaLtm', 'VE/EBITDA LTM'], ['evEbitdaNtm', 'VE/EBITDA NTM'], ['peLtm', 'P/U LTM'], ['peNtm', 'P/U NTM'], ['divYieldPct', LANG === 'es' ? 'Div. %' : 'Div. yield'], ['netDebtEbitda', 'DN/EBITDA'], ['ebitdaMarginPct', LANG === 'es' ? 'Margen EBITDA' : 'EBITDA margin']];
-    const fmtCell = (k, v) => (v == null ? `<span class="muted">${t('na')}</span>` : /Pct/.test(k) ? fmtPct(v) : fmtX(v));
-    const own = price && sharesNow && ltm && nd ? { name: 'Oracle (' + (LANG === 'es' ? 'calculado' : 'computed') + ')', evEbitdaLtm: ltm.ebitda ? (price * sharesNow / 1e6 + nd.net) / ltm.ebitda : null, peLtm: ltm.epsDiluted ? price / ltm.epsDiluted : null, divYieldPct: lastLTM.kpi && lastLTM.kpi.dps ? 100 * lastLTM.kpi.dps / price : null, netDebtEbitda: ltm.ebitda ? nd.net / ltm.ebitda : null, ebitdaMarginPct: ltm.ebitdaMargin } : null;
-    const all = [own, ...PEERS.peers].filter(Boolean);
-    html('peersTable', `<table><thead><tr>${cols.map((c2) => `<th>${c2[1]}</th>`).join('')}</tr></thead><tbody>${all.map((p) => `<tr class="${p === own ? 'bold' : ''}">${cols.map((c2) => `<td>${c2[0] === 'name' ? p.name : fmtCell(c2[0], p[c2[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
-    el('peersCap').textContent = PEERS.updatedAt ? `${LANG === 'es' ? 'Múltiplos de pares al' : 'Peer multiples as of'} ${fmtDate(PEERS.updatedAt)}` : `${t('pending')} · ${LANG === 'es' ? 'estructura lista en data/peers.js; autorice el conector de FactSet para poblarla' : 'schema ready in data/peers.js; authorise the FactSet connector to populate it'}`;
-    html('peersSrc', `${t('src')}: ${LANG === 'es' ? 'pares' : 'peers'}: ${PEERS.updatedAt ? `${PEERS.source} · ${fmtDate(PEERS.updatedAt)}` : (LANG === 'es' ? 'FactSet (pendiente de autorización)' : 'FactSet (pending authorisation)')} · ${LANG === 'es' ? 'fila de Oracle calculada con' : 'Oracle row computed from'} ${relLink()} (${asOfQ()}) ${LANG === 'es' ? 'y' : 'and'} ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()}`);
+    if (hist.length) mkChart('chartEvEbitda', { type: 'bar', data: { labels: hist.map((h) => qLabel(h.q)), datasets: [{ label: (es ? 'VE' : 'EV') + '/EBITDA NTM', data: hist.map((h) => h.v), backgroundColor: c[0] }, { label: es ? 'P/U NTM' : 'P/E NTM', type: 'line', data: hist.map((h) => h.pe), borderColor: c[1], backgroundColor: c[1], pointRadius: 3 }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtX(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + 'x' }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
+    else html('chartEvEbitda', '');
+    html('evSrc', `${t('src')}: ${es ? 'comunicados de resultados (balance y acciones diluidas de cada trimestre)' : 'earnings releases (each quarter\'s balance sheet and diluted shares)'} · ${fsLink} (${es ? 'consenso NTM punto en el tiempo, muestreado al cierre de cada trimestre fiscal' : 'point-in-time NTM consensus sampled at each fiscal quarter-end'}) · ${extLink(NASDAQ_URL, 'Nasdaq')} · ${asOfQ()}<br>${es ? 'Cierre del trimestre fiscal × acciones diluidas del trimestre + deuda neta reportada, sobre el EBITDA NTM del consenso en esa fecha; P/U sobre la UPA NTM del consenso.' : 'Fiscal quarter-end close × diluted shares of the quarter + reported net debt, over consensus NTM EBITDA on that date; P/E on consensus NTM EPS.'}`);
+    // peers
+    const cols = [['name', es ? 'Empresa' : 'Company'], ['group', es ? 'Grupo' : 'Group'], ['marketCapUsdM', es ? 'Cap. US$ mil M' : 'Mkt cap US$ bn'], ['evUsdM', es ? 'VE US$ mil M' : 'EV US$ bn'], ['evSalesNtm', es ? 'VE/Ventas NTM' : 'EV/Sales NTM'], ['evEbitdaNtm', 'VE/EBITDA NTM'.replace('VE', es ? 'VE' : 'EV')], ['peNtm', es ? 'P/U NTM' : 'P/E NTM'], ['divYieldPct', es ? 'Div. %' : 'Div. yield']];
+    const grpLabel = (g) => (g === 'hyperscaler' ? (es ? 'Hiperescala' : 'Hyperscaler') : g === 'software' ? 'Software' : g === 'oracle' ? 'Oracle' : g || '');
+    const fmtCell = (k, v) => (v == null ? `<span class="muted">${t('na')}</span>` : /Pct$/.test(k) ? fmtPct(v) : /UsdM$/.test(k) ? fmtN(v / 1000, 0) : fmtX(v));
+    const own = peersOwnRow();
+    const all = [own, ...(PEERS.peers || [])].filter(Boolean);
+    html('peersTable', `<table><thead><tr>${cols.map((c2) => `<th>${c2[1]}</th>`).join('')}</tr></thead><tbody>${all.map((pr) => `<tr class="${pr.own ? 'bold' : ''}">${cols.map((c2) => `<td>${c2[0] === 'name' ? pr.name : c2[0] === 'group' ? grpLabel(pr.group) : fmtCell(c2[0], pr[c2[0]])}</td>`).join('')}</tr>`).join('')}</tbody></table>`);
+    el('peersCap').textContent = PEERS.updatedAt ? (es ? `Múltiplos a doce meses sobre el consenso de FactSet al ${fmtDate(PEERS.updatedAt)}; precios y valor de mercado de FactSet al ${fmtDate(PEERS.priceDate)}; VE = valor de mercado + deuda neta del último trimestre reportado. La fila de Oracle usa la misma base de FactSet (incluida la deuda neta con arrendamientos, US$ ${FS && FS.oracle && FS.oracle.net_debt_usd_m ? fmtN(FS.oracle.net_debt_usd_m / 1000, 1) : '—'} mil M) para que las columnas sean comparables; los múltiplos de Oracle con la deuda neta reportada están en la tabla superior.` : `Forward multiples on FactSet consensus as of ${fmtDate(PEERS.updatedAt)}; FactSet prices and market values as of ${fmtDate(PEERS.priceDate)}; EV = market value + net debt of the latest reported quarter. Oracle's row uses the same FactSet basis (including lease-inclusive net debt of US$ ${FS && FS.oracle && FS.oracle.net_debt_usd_m ? fmtN(FS.oracle.net_debt_usd_m / 1000, 1) : '—'} bn) so the columns compare like for like; Oracle's multiples on reported net debt are in the table above.`) : (es ? 'Pendiente: sin instantánea de FactSet en tools/oracle/data/factset.json.' : 'Pending: no FactSet snapshot in tools/oracle/data/factset.json.');
+    html('peersSrc', `${t('src')}: ${fsLink}, FactSet Global Prices, FactSet Fundamentals (${es ? 'deuda neta' : 'net debt'}) · ${es ? 'precios y valores de mercado de FactSet al' : 'FactSet prices and market values as of'} ${PEERS.priceDate ? fmtDate(PEERS.priceDate) : '—'} · ${es ? 'consenso al' : 'consensus as of'} ${PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'}`);
+    renderStreet();
+  }
+  // Oracle's own row of the peer table: model price, shares and net debt over FactSet's NTM consensus.
+  function peersOwnRow() {
+    const fo = FS && FS.oracle; const ndM = netDebt(lastQ), fn = fsNtm();
+    // same basis as the peers: FactSet price and market value, FactSet net debt (includes lease liabilities); model values only as a fallback
+    const price = fo && fo.price ? fo.price : (lastPx ? lastPx[1] : null); if (!price) return null;
+    const mc = fo && fo.market_cap_usd_m ? fo.market_cap_usd_m : (sharesNow ? price * sharesNow / 1e6 : null); const ndv = fo && fo.net_debt_usd_m != null ? fo.net_debt_usd_m : (ndM ? ndM.net : null); if (mc == null || ndv == null) return null;
+    const ev = mc + ndv; const fy = fsFiscal(); const f1 = fy[0], f2 = fy[1]; const decl = (REF.dividends || []).slice(-1)[0];
+    return { own: true, name: 'Oracle', ticker: 'ORCL-US', group: 'oracle', price, marketCapUsdM: mc, netDebtUsdM: ndv, evUsdM: ev, ntmEps: fn.eps ? fn.eps.mean : null, ntmEbitda: fn.ebitda ? fn.ebitda.mean : null, ntmSales: fn.sales ? fn.sales.mean : null,
+      peNtm: fn.eps && fn.eps.mean > 0 ? price / fn.eps.mean : null, evEbitdaNtm: fn.ebitda && fn.ebitda.mean > 0 ? ev / fn.ebitda.mean : null, evSalesNtm: fn.sales && fn.sales.mean > 0 ? ev / fn.sales.mean : null,
+      epsGrowthFy2Pct: f1 && f2 && f1.eps && f2.eps && f1.eps.mean > 0 ? 100 * (f2.eps.mean / f1.eps.mean - 1) : null, divYieldPct: decl ? 100 * decl.dps * 4 / price : null };
+  }
+  // Street view: consensus price target and rating counts (FactSet); informational, not a recommendation.
+  function renderStreet() {
+    if (!el('streetStats')) return; const es = LANG === 'es'; const fo = FS && FS.oracle; const pt = fo && fo.price_target, rt = fo && fo.ratings; const price = lastPx ? lastPx[1] : null;
+    if (!pt && !rt) { html('streetStats', ''); html('streetTable', ''); html('streetNote', es ? 'Pendiente de la instantánea de FactSet.' : 'Pending the FactSet snapshot.'); html('streetSrc', ''); return; }
+    html('streetStats', [
+      pt && { v: `US$ ${fmtN(pt.mean, 0)}`, l: `${es ? 'precio objetivo, media de' : 'price target, mean of'} ${pt.count} ${es ? 'analistas' : 'analysts'}${price ? ` · ${fmtPct(100 * (pt.mean / price - 1), 0, true)} ${es ? 'frente al precio' : 'vs price'}` : ''}` },
+      pt && { v: `US$ ${fmtN(pt.median, 0)}`, l: `${es ? 'mediana · rango' : 'median · range'} US$ ${fmtN(pt.low, 0)}–${fmtN(pt.high, 0)}` },
+      pt && { v: `${pt.up} ↑ · ${pt.down} ↓`, l: es ? 'objetivos revisados al alza y a la baja en el último mes' : 'targets raised and lowered in the last month' },
+      rt && { v: rt.noteText ? (es ? ({ BUY: 'Compra', OVERWEIGHT: 'Sobreponderar', HOLD: 'Mantener', UNDERWEIGHT: 'Subponderar', SELL: 'Venta' })[rt.noteText] || rt.noteText : rt.noteText.charAt(0) + rt.noteText.slice(1).toLowerCase()) : '—', l: `${es ? 'recomendación media de' : 'average rating of'} ${rt.total} ${es ? 'analistas' : 'analysts'}` },
+    ].filter(Boolean).map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join(''));
+    if (rt) { const items = [[es ? 'Compra' : 'Buy', rt.buy], [es ? 'Sobreponderar' : 'Overweight', rt.overweight], [es ? 'Mantener' : 'Hold', rt.hold], [es ? 'Subponderar' : 'Underweight', rt.underweight], [es ? 'Venta' : 'Sell', rt.sell]]; const mx = Math.max(1, ...items.map((x) => x[1]));
+      html('streetTable', `<table><thead><tr><th>${es ? 'Recomendación' : 'Rating'}</th><th>${es ? 'Analistas' : 'Analysts'}</th><th>${es ? 'Participación' : 'Share'}</th></tr></thead><tbody>${items.map((x) => `<tr><td>${x[0]}</td><td>${x[1]}</td><td><div style="display:flex;align-items:center;gap:8px"><div style="height:10px;width:${Math.round(160 * x[1] / mx)}px;background:var(--series-1);border-radius:3px"></div><span class="small muted">${fmtPct(100 * x[1] / rt.total, 0)}</span></div></td></tr>`).join('')}</tbody></table>`); } else html('streetTable', '');
+    html('streetNote', `<b>${es ? 'Lectura.' : 'Reading it.'}</b> ${es ? 'Consenso de analistas del lado vendedor compilado por FactSet; describe lo que el mercado espera, no lo que la página recomienda. Esta página no emite recomendaciones de inversión.' : 'Sell-side analyst consensus compiled by FactSet; it describes what the market expects, not what this page recommends. This page does not issue investment advice.'}`);
+    html('streetSrc', `${t('src')}: ${FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet Estimates'} (${es ? 'precio objetivo y recomendaciones al' : 'price target and ratings as of'} ${fmtDate(FS.asOf)}) · ${es ? 'precio' : 'price'}: ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()}`);
   }
 
-  // ================= 11 DEBT DETAIL & CREDIT RISK =================
+  // ================= 11 DEBT DETAIL & CREDIT RISK =================  // ================= 11 DEBT DETAIL & CREDIT RISK =================
   // Oracle's fiscal year runs June–May: a note maturing in July 2026 falls in FY2027.
   const fyOfDate = (iso) => { const y = +iso.slice(0, 4), m = +iso.slice(5, 7); return m >= 6 ? y + 1 : y; };
   function renderCredit() {
@@ -1257,7 +1311,7 @@
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
       [LANG === 'es' ? 'Precios, dividendos, tasas' : 'Prices, dividends, yields', LANG === 'es' ? 'diario, después del cierre de la NYSE' : 'daily after the NYSE close', `${MK.prices.ORCL ? MK.prices.ORCL.source : ''} · FRED (SP500, DGS10)`, fmtDate((MK.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Referencia: acciones, deuda, calificaciones, expansión de IA, RPO, supuestos DCF' : 'Reference: shares, debt, ratings, AI buildout, RPO, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
-      [LANG === 'es' ? 'Múltiplos de pares' : 'Peer multiples', LANG === 'es' ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
+      [LANG === 'es' ? 'Consenso FactSet: múltiplos a doce meses, pares, precio objetivo, semilla del DCF' : 'FactSet consensus: forward multiples, peers, price target, DCF seed', LANG === 'es' ? 'días hábiles (rutina con el conector de FactSet)' : 'weekdays (routine with the FactSet connector)', 'tools/oracle/data/factset.json → data/factset.js, data/peers.js', FS && FS.fetched ? fmtDate(FS.fetched) : '—'],
       [LANG === 'es' ? 'CDS a 5 años (riesgo de crédito)' : '5-year CDS (credit risk)', LANG === 'es' ? 'pendiente · diario cuando esté conectado' : 'pending · daily once connected', 'FactSet → data/cds.js', CDS.updatedAt ? fmtDate(CDS.updatedAt) : '—'],
       [LANG === 'es' ? 'Preocupaciones del mercado (prensa y analistas)' : 'Market concerns (press and analysts)', LANG === 'es' ? 'semanal (lunes), rutina de escritorio' : 'weekly (Mondays), desktop routine', 'tools/oracle/data/press.json → data/press.js', PRESS && PRESS.asOf ? fmtDate(PRESS.asOf) : '—'],
       [LANG === 'es' ? 'Financiamiento fuera de balance, preferentes, plan de financiamiento' : 'Off-balance-sheet financing, preferred stock, funding plan', LANG === 'es' ? 'con cada 10-Q / 10-K (rutina)' : 'with each 10-Q / 10-K (routine)', 'tools/oracle/data/obligations.json → data/obligations.js', OB && OB.updated ? fmtDate(OB.updated) : '—'],
@@ -1271,6 +1325,7 @@
       { t: LANG === 'es' ? 'Transcripciones de llamadas de resultados' : 'Earnings-call transcripts', d: LANG === 'es' ? 'Aportadas por el responsable (FactSet CallStreet); citas breves con orador y página. No se republican.' : 'Supplied by the owner (FactSet CallStreet); short quotes with speaker and page. Not republished.', u: 'https://investor.oracle.com/' },
       { t: LANG === 'es' ? 'Precios diarios' : 'Daily prices', d: `${MK.prices.ORCL ? MK.prices.ORCL.source : ''}; ${LANG === 'es' ? 'S&P 500 de FRED (SP500)' : 'S&P 500 from FRED (SP500)'}.`, u: MK.prices.ORCL && MK.prices.ORCL.sourceUrl ? MK.prices.ORCL.sourceUrl : 'https://www.nasdaq.com/market-activity/stocks/orcl/historical' },
       { t: 'FRED — Federal Reserve Bank of St. Louis', d: LANG === 'es' ? 'Tesoro a 10 años (DGS10) para la tasa libre de riesgo del DCF.' : '10-year Treasury (DGS10) for the DCF risk-free rate.', u: 'https://fred.stlouisfed.org/series/DGS10' },
+      { t: 'FactSet', d: LANG === 'es' ? 'Estimaciones de consenso (UPA, ventas, EBITDA, flujo libre, precio objetivo, recomendaciones), precios, valores de mercado y deuda neta de los pares, a través del conector FactSet AI-Ready Data. Base de la UPA: mayoritaria de los brokers.' : 'Consensus estimates (EPS, sales, EBITDA, free cash flow, price target, ratings), prices, market values and peers\' net debt, through the FactSet AI-Ready Data connector. EPS basis: brokers\' majority.', u: 'https://www.factset.com/' },
       { t: LANG === 'es' ? 'Agencias calificadoras' : 'Rating agencies', d: LANG === 'es' ? "Moody's, S&P Global Ratings y Fitch: comunicados de acción de calificación." : "Moody's, S&P Global Ratings and Fitch: rating-action releases.", u: 'https://www.spglobal.com/ratings/' },
     ];
     html('srcGrid', srcs.map((s) => `<div class="item"><div class="t"><a href="${s.u}" target="_blank" rel="noopener">${s.t} ↗</a></div><div class="d">${s.d}</div></div>`).join(''));
@@ -1348,6 +1403,7 @@
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
     pctChange, PRESS, OB, PL, obligStats, peerLeverage,
+    FS, fsNtm, fsFiscal, peersOwnRow, consensusPath,
   };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');

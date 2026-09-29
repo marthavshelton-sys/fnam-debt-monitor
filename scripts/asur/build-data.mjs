@@ -6,7 +6,7 @@
 //   site/asur/data/guidance.js   — ASUR publishes no formal guidance table; the file records that fact
 // Figures stay in the units ASUR prints: thousands of pesos (statements); passengers are converted from
 // persons to thousands so the page shares one convention with the other airport models.
-import { readdir, readFile } from 'node:fs/promises';
+import { readdir, readFile, writeFile } from 'node:fs/promises';
 import { writeData, header, norm, normLabel, tokenizeRow, qid, pdfRows, parseRows, mapPair, repipe, MONTHS_EN } from '../airports/lib.mjs';
 
 const RAW = new URL('../../tools/asur/raw/releases/', import.meta.url);
@@ -390,6 +390,7 @@ function finishTraffic(rel) {
 
 // ---------------------------------------------------------------------------------------------
 async function main() {
+  const BUILD_LOG = []; const warn0 = console.warn.bind(console); console.warn = (...a) => { BUILD_LOG.push(a.join(' ')); warn0(...a); };
   const files = (await readdir(RAW)).filter((f) => f.endsWith('.txt')).sort();
   const results = [], traffic = [];
   for (const f of files) {
@@ -472,5 +473,7 @@ async function main() {
   const gd = { generatedAt: new Date().toISOString(), basis: 'ASUR does not publish a formal annual guidance table; it discloses Master Development Program (PMD) capex commitments and qualitative outlook on the earnings calls.', metrics: [], vintages: [] };
   const gdChanged = await writeData(OUT('guidance.js'), 'ASUR_GUIDANCE', gd, GEN);
   console.log(`guidance.js${gdChanged ? '' : ' (unchanged)'}: ${gd.vintages.length} vintages`);
+  await writeFile(new URL('../../tools/asur/raw/build-log.json', import.meta.url), JSON.stringify({ generatedAt: new Date().toISOString(), warnings: BUILD_LOG.map((msg) => ({ file: (msg.match(/\(([^()]*\.txt)\)/) || [])[1] || '', msg })) }, null, 1) + '\n', 'utf8');
+  console.log(`build-log.json: ${BUILD_LOG.length} parse warnings`);
 }
 main().catch((e) => { console.error(e); process.exit(1); });

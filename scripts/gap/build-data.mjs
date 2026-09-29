@@ -555,6 +555,7 @@ function header(text) {
 }
 
 async function main() {
+  const BUILD_LOG = []; const warn0 = console.warn.bind(console); console.warn = (...a) => { BUILD_LOG.push(a.join(' ')); warn0(...a); };
   const files = (await readdir(RAW)).filter((f) => f.endsWith('.txt')).sort();
   const results = [], traffic = [], guidance = [];
   for (const f of files) {
@@ -688,6 +689,8 @@ async function main() {
   };
   const gdChanged = await writeData(OUT_GUIDANCE, 'GAP_GUIDANCE', gd);
   console.log(`guidance.js${gdChanged ? '' : ' (unchanged)'}: ${vintages.length} vintages (${vintages.map((v) => `${v.fy} ${v.kind} ${v.date}`).join('; ')})`);
+  await writeFile(new URL('../../tools/gap/raw/build-log.json', import.meta.url), JSON.stringify({ generatedAt: new Date().toISOString(), warnings: BUILD_LOG.map((msg) => ({ file: (msg.match(/\(([^()]*\.txt)\)/) || [])[1] || '', msg })) }, null, 1) + '\n', 'utf8');
+  console.log(`build-log.json: ${BUILD_LOG.length} parse warnings`);
 }
 function addDaysIso(iso, n) { const d = new Date(iso + 'T12:00:00Z'); d.setUTCDate(d.getUTCDate() + n); return d.toISOString().slice(0, 10); }
 

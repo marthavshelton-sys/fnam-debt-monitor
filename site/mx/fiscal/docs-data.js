@@ -16,7 +16,7 @@ window.MX_DOCS = {
     "asOf": "2026-09-08",
     "shrfspPct": { "2026": 54.0, "2027": 55.0 },
     "rfspPct": { "2026": 4.1, "2027": 3.9 },
-    "budgetDeficitPct": { "2026": 3.0, "2027": 3.4 },
+    "budgetDeficitPct": { "2026": 3.6, "2027": 3.4 },
     "gdpNominalBn": { "2026": 37.2, "2027": 39.4 },
     "taxRevenuePct": { "2027": 15.9 },
     "ilif2027": { "domesticBn": 1700, "externalUsdBn": 13.5 },
@@ -30,7 +30,7 @@ window.MX_DOCS = {
       { "es": "Cetes 28 días, promedio anual", "en": "28-day Cetes, annual average", "shcp2026": "6.5%", "analysts2026": "—", "shcp2027": "6.1%", "analysts2027": "—" },
       { "es": "Mezcla mexicana, US$/barril, promedio", "en": "Mexican crude basket, USD/bbl, average", "shcp2026": "78.4", "analysts2026": "—", "shcp2027": "61.8", "analysts2027": "—" },
       { "es": "RFSP, % del PIB", "en": "RFSP, % of GDP", "shcp2026": "4.1%", "analysts2026": "—", "shcp2027": "3.9%", "analysts2027": "—" },
-      { "es": "Déficit presupuestario, % del PIB", "en": "Budget deficit, % of GDP", "shcp2026": "3.0%", "analysts2026": "—", "shcp2027": "3.4%", "analysts2027": "—" }
+      { "es": "Déficit presupuestario, % del PIB", "en": "Budget deficit, % of GDP", "shcp2026": "3.6%", "analysts2026": "—", "shcp2027": "3.4%", "analysts2027": "—" }
     ]
   },
   "paf": {
@@ -65,7 +65,7 @@ window.MX_DOCS = {
   },
   "ratings": {
     "asOf": "2026-05-20",
-    "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Deuda_Publica",
+    "url": "https://www.gob.mx/shcp/archivo/prensa",
     "items": [
       { "agency": "Moody's", "rating": "Baa3", "outlook": { "es": "estable", "en": "stable" }, "date": "2026-05-20", "note": { "es": "rebaja desde Baa2", "en": "cut from Baa2" }, "url": "https://www.moodys.com/credit-ratings/Mexico-Government-of-credit-rating-499500" },
       { "agency": "S&P Global", "rating": "BBB", "outlook": { "es": "negativa", "en": "negative" }, "date": "2026-05-12", "url": "https://www.spglobal.com/ratings/en/" },

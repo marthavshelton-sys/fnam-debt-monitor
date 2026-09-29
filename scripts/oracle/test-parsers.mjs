@@ -5,7 +5,7 @@
 // If Oracle changes the release format, this fails the build — the page never sees a mis-parsed number.
 // Run: node scripts/oracle/test-parsers.mjs
 
-import { readFileSync, readdirSync, existsSync } from "node:fs";
+import { readFileSync, readdirSync, existsSync, writeFileSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { join } from "node:path";
 
@@ -47,11 +47,12 @@ function main() {
   const sources = JSON.parse(readFileSync(join(DATA, "sources.json"), "utf8"));
   const files = readdirSync(ARCHIVE);
   let tested = 0, failed = 0;
+  const skipped = [], mismatches = [], perQuarter = []; // persisted to tools/oracle/data/parser_report.json for the quality page
   const near = (a, b, tol = 0) => a != null && b != null && Math.abs(a - b) <= tol;
   for (const q of quarters) {
     const acc = sources[q.source]?.accession;
     const file = acc && files.find((f) => f.includes(acc));
-    if (!file) { console.log(`SKIP ${q.id}: no archived release for ${acc ?? q.source}`); continue; }
+    if (!file) { console.log(`SKIP ${q.id}: no archived release for ${acc ?? q.source}`); skipped.push({ quarter: q.id, reason: `no archived release for ${acc ?? q.source}` }); continue; }
     const text = htmlToText(readFileSync(join(ARCHIVE, file), "utf8"));
     const ops = section(text, /STATEMENTS OF OPERATIONS/i, /RECONCILIATION OF SELECTED GAAP/i);
     const rev = section(ops, /\bREVENUES\b/, /OPERATING EXPENSES/);
@@ -91,14 +92,17 @@ function main() {
       ["BS: notes payable, non-current", numAfter(bs, "Notes payable and other borrowings, non-current"), b.long_term_debt],
       ["BS: deferred revenues (current)", numAfter(section(bs, /Current Liabilities/, /Total Current Liabilities/), "Deferred revenues"), b.current_deferred_revenue],
     ];
+    let qChecks = 0, qFailed = 0;
     for (const [label, parsed, expected] of checks) {
       if (expected == null) continue; // not captured in quarters.json (older quarters carry fewer balance-sheet lines)
-      tested++;
+      tested++; qChecks++;
       const tol = /EPS/.test(label) ? 0.005 : 0;
-      if (!near(parsed, expected, tol)) { failed++; console.log(`FAIL ${q.id} ${label}: parsed ${parsed} vs quarters.json ${expected} (${file})`); }
+      if (!near(parsed, expected, tol)) { failed++; qFailed++; mismatches.push({ quarter: q.id, check: label, parsed, expected, file }); console.log(`FAIL ${q.id} ${label}: parsed ${parsed} vs quarters.json ${expected} (${file})`); }
       else console.log(`OK   ${q.id} ${label}: ${parsed}`);
     }
+    perQuarter.push({ quarter: q.id, file, checks: qChecks, failed: qFailed });
   }
+  writeFileSync(join(DATA, "parser_report.json"), JSON.stringify({ generated: new Date().toISOString(), checks: tested, failed, quartersTested: perQuarter.length, perQuarter, skipped, mismatches }, null, 2) + "\n", "utf8");
   console.log(`\nParser tests: ${tested} checks, ${failed} failed.`);
   if (failed) process.exit(1);
 }

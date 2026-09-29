@@ -133,3 +133,13 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 - Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday. Multiples to be filled by the FactSet connector
   (`tools/oracle/data/peers.json`); until then the table shows the schema and "pending". Oracle's own row is
   computed live from the latest close, the 10-Q share count and LTM figures.
+
+## Consensus and forward multiples (FactSet, since 2026-09-27)
+
+- Valuation multiples are forward: price or EV over FactSet's NTM consensus (mean). LTM multiples appear only as a labelled reference. Leverage (net debt / EBITDA) stays on reported LTM figures.
+- Consensus EPS follows the brokers' majority basis, which for Oracle is non-GAAP; consensus EBITDA is broker-adjusted (not the model's GAAP operating income + D&A). Both are labelled wherever shown.
+- Oracle's own multiples use the model's price, shares and reported net debt (notes payable − cash and marketable securities). The peer table uses FactSet's basis for every row, including Oracle: FactSet price and market value, and FactSet net debt (FF_NET_DEBT), which includes lease liabilities. The two Oracle EV figures therefore differ by the lease liabilities; the captions say so.
+- FactSet labels Oracle's fiscal year by the calendar year in which it starts (FactSet 2026 = Oracle FY2027, ending 2027-05-31). `factset.json` stores Oracle's label and the fiscal end date; `validate-data.mjs` checks the mapping.
+- Historical forward multiples: point-in-time NTM consensus sampled at each Oracle fiscal quarter-end (FactSet consensus_rolling, NTMA, quarterly from 2021-08-31), against the quarter-end close, diluted shares and reported net debt.
+- DCF "consensus" basis: revenue growth and capex for the projection years covered by FactSet fiscal-year means (currently FY2028–FY2030 against the LTM base), then a taper (growth halves each year with a 4% floor; capex −15% a year). The EBITDA margin keeps the model's GAAP LTM default and shows the consensus (adjusted) margins for reference; the implied exit multiple is quoted on NTM consensus EBITDA. "Guidance" basis restores the previous management-guidance path.
+- Price target and ratings are FactSet's sell-side consensus, shown as information with a not-a-recommendation note.

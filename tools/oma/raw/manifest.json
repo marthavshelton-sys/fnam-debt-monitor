@@ -2,11 +2,11 @@
  "entity": "Grupo Aeroportuario del Centro Norte, S.A.B. de C.V.",
  "since": "2016-01-01",
  "otherSince": "2024-01-01",
- "updatedAt": "2026-09-25T14:56:26.409Z",
+ "updatedAt": "2026-09-29T15:04:40.333Z",
  "kept": {
   "traffic": 144,
   "results": 116,
-  "other": 40
+  "other": 41
  },
  "filings": [
   {
@@ -6620,6 +6620,15 @@
    "title": "OMA responds to Mexican Stock Exchange's request regarding today's trading volume",
    "class": "other",
    "path": "tools/oma/raw/releases/2026-09-18_omaOMAparameter-vf-SEP_en.txt"
+  },
+  {
+   "source": "miranda",
+   "id": "Organizational-change-RI-vf",
+   "url": "https://miranda-newswire.com/wp-content/uploads/2026/09/Organizational_change_RI_vf.pdf",
+   "date": "2026-09-28",
+   "title": "OMA Announces Change in Investor Relation Officer",
+   "class": "other",
+   "path": "tools/oma/raw/releases/2026-09-28_omaOrganizational-change-RI-vf_en.txt"
   }
  ]
 }

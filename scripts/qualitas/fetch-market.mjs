@@ -5,8 +5,12 @@
 //              peers used for the rebased comparison: Progressive (PGR, NYSE, USD), Allstate (ALL, NYSE, USD),
 //              Porto Seguro (PSSA3.SA, B3, BRL) and Mapfre (MAP.MC, BME, EUR) — Yahoo Finance chart API, Stooq fallback.
 //   dividends  cash dividends per Q.MX share as recorded by Yahoo (cross-checked against the AGM resolutions in reference.js).
-//   fx         USD/MXN — FRED DEXMXUS (Federal Reserve H.10, no key required).
-//   rates      Mexico 10-year government bond yield (FRED IRLTLT01MXM156N, OECD, monthly) and
+//   fx         USD/MXN — Banxico SIE SF43718 (Tipo de cambio FIX, needs BANXICO_TOKEN), Banco de México's
+//              own daily print and more timely than FRED's H.10 mirror (DEXMXUS), which has been seen to
+//              stall for a week or more (last observed September 2026); FRED is the fallback when Banxico
+//              is unavailable (no token, bad response, wrong series title).
+//   rates      Mexico 10-year M bono: Banxico SIE SF44071 (primary-auction yield, about every four weeks, published the
+//              same day; scripts/lib/banxico-mx10y.mjs) with the OECD monthly series on FRED (IRLTLT01MXM156N) as fallback, and
 //              US 10-year Treasury (FRED DGS10, daily) — cost-of-equity inputs for the valuation section.
 //
 // A series that fails to download keeps its previous points (stale but present) and records the
@@ -14,6 +18,7 @@
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
+import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
 
 const OUT = new URL('../../site/qualitas/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -26,11 +31,14 @@ const PRICE_SERIES = [
   { id: 'PSSA3.SA', name: 'Porto Seguro (B3)', currency: 'BRL', exchange: 'B3', since: '2019-01-01', stooq: 'pssa3.br' },
   { id: 'MAP.MC', name: 'Mapfre (BME)', currency: 'EUR', exchange: 'BME', since: '2019-01-01', stooq: 'map.es' },
 ];
+const FX_USDMXN = { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Banxico FIX)', since: '2015-01-01' };
 const FRED_SERIES = [
-  { key: 'fx', id: 'USDMXN', fred: 'DEXMXUS', name: 'USD/MXN (Fed H.10, noon buying rate)', since: '2015-01-01' },
-  { key: 'rates', id: 'MX10Y', fred: 'IRLTLT01MXM156N', name: 'México bono 10 años (OECD, mensual, %)', since: '2015-01-01' },
   { key: 'rates', id: 'US10Y', fred: 'DGS10', name: 'US Treasury 10 años (%)', since: '2015-01-01' },
 ];
+// Banxico SIE SF43718: "Tipo de cambio Pesos por dólar E.U.A. FIX", published daily — the series of record
+// for USD/MXN. A wrong id never reaches the page because the title is checked before any point is used.
+const BANXICO_FX_SERIES = process.env.BANXICO_SERIES_USDMXN || 'SF43718';
+const isFixRate = (title) => /tipo de cambio/i.test(title) && /(fix|d[oó]lar)/i.test(title) && !/udis?\b/i.test(title);
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const toUnix = (d) => Math.floor(new Date(d + 'T00:00:00Z').getTime() / 1000);
@@ -38,14 +46,14 @@ const isoDate = (unix) => new Date(unix * 1000).toISOString().slice(0, 10);
 const r2 = (x) => Math.round(x * 100) / 100;
 const r4 = (x) => Math.round(x * 10000) / 10000;
 
-async function getText(url, { tries = 3 } = {}) {
+async function getText(url, { tries = 3, headers = {} } = {}) {
   let lastErr;
   for (let i = 1; i <= tries; i++) {
     try {
-      const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: '*/*' } });
+      const res = await fetch(url, { headers: { 'User-Agent': UA, Accept: '*/*', ...headers } });
       if (res.ok) return res.text();
-      lastErr = new Error(`${url} -> HTTP ${res.status}`);
-      if (res.status === 404) break;
+      lastErr = new Error(`${url.replace(/token=[^&]+/, 'token=…')} -> HTTP ${res.status}`);
+      if (res.status === 404 || res.status === 401 || res.status === 403) break;
     } catch (e) { lastErr = e; }
     await sleep(1200 * i);
   }
@@ -79,6 +87,25 @@ async function fred(id, since) {
   const points = rows.filter((r) => r[0] >= since && r[1] && r[1] !== '.' && Number.isFinite(Number(r[1]))).map((r) => [r[0], r4(Number(r[1]))]);
   if (!points.length) throw new Error(`FRED ${id}: no points`);
   return { points, source: `FRED ${id}` };
+}
+
+// USD/MXN series of record: Banxico SIE FIX rate.
+async function banxicoFx(since) {
+  const token = process.env.BANXICO_TOKEN;
+  if (!token) throw new Error('BANXICO_TOKEN not set');
+  const url = `https://www.banxico.org.mx/SieAPIRest/service/v1/series/${BANXICO_FX_SERIES}/datos/${since}/${new Date().toISOString().slice(0, 10)}?token=${token}`;
+  const body = JSON.parse(await getText(url, { headers: { Accept: 'application/json' } }));
+  const s = body?.bmx?.series?.[0];
+  if (!s) throw new Error(`Banxico ${BANXICO_FX_SERIES}: no series in response`);
+  const title = (s.titulo || '').replace(/\s+/g, ' ');
+  if (!isFixRate(title)) throw new Error(`Banxico ${BANXICO_FX_SERIES}: title does not look like the FIX rate (${title.slice(0, 100)})`);
+  const points = (s.datos || [])
+    .map((d) => { const [dd, mm, yy] = d.fecha.split('/'); return [`${yy}-${mm}-${dd}`, Number(String(d.dato).replace(',', ''))]; })
+    .filter((p) => Number.isFinite(p[1]))
+    .map((p) => [p[0], r4(p[1])])
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  if (!points.length) throw new Error(`Banxico ${BANXICO_FX_SERIES}: no points since ${since}`);
+  return { points, source: `Banxico SIE ${BANXICO_FX_SERIES} (${title.slice(0, 90)})` };
 }
 
 async function loadPrevious() {
@@ -129,6 +156,32 @@ async function main() {
       const stale = prev?.[s.key]?.[s.id];
       out[s.key][s.id] = stale ? { ...stale, error: e.message, staleSince: stale.fetchedAt } : { name: s.name, error: e.message, points: [] };
       console.error(`${s.id}: FAILED ${e.message}`);
+    }
+  }
+
+  // MX 10-year: Banxico auction yield first, FRED/OECD monthly as the fallback (scripts/lib/banxico-mx10y.mjs)
+  { const r = await fetchMx10y({ fred, prev, fetchedAt: out.generatedAt }); out.rates.MX10Y = r.entry; if (r.ok) ok++; else failed++; }
+  // USD/MXN: Banxico's daily FIX rate first (Banco de México's own print, more timely than FRED's H.10
+  // mirror); FRED DEXMXUS is the fallback when Banxico is unavailable (no token, bad response, wrong title).
+  {
+    const s = FX_USDMXN;
+    try {
+      const data = await banxicoFx(s.since);
+      out[s.key][s.id] = { name: s.name, source: data.source, fetchedAt: out.generatedAt, points: data.points };
+      ok++;
+      console.log(`${s.id}: ${data.points.length} points via Banxico (last ${data.points.at(-1)})`);
+    } catch (e1) {
+      try {
+        const data = await fred(s.fred, s.since);
+        out[s.key][s.id] = { name: s.name, source: data.source, note: `Banxico unavailable (${e1.message}); FRED fallback`, fetchedAt: out.generatedAt, points: data.points };
+        ok++;
+        console.log(`${s.id}: ${data.points.length} points via FRED fallback (${e1.message})`);
+      } catch (e2) {
+        failed++;
+        const stale = prev?.[s.key]?.[s.id];
+        out[s.key][s.id] = stale ? { ...stale, error: `${e1.message} | ${e2.message}`, staleSince: stale.fetchedAt } : { name: s.name, error: `${e1.message} | ${e2.message}`, points: [] };
+        console.error(`${s.id}: FAILED ${e1.message} | ${e2.message}`);
+      }
     }
   }
 

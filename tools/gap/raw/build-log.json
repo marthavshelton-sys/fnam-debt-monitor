@@ -1,0 +1,337 @@
+{
+ "generatedAt": "2026-09-29T19:30:05.031Z",
+ "warnings": [
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2019-01-10_gnw1685891_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2019-05-17_gnw1827118_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2019-08-29_gnw1908780_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2019-11-08_gnw1944330_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2019-11-21_gnw1950475_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2020-03-26_gnw2006676_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2020-04-24_gnw2021993_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2020-05-07_gnw2029012_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2020-07-02_gnw2056627_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-02-27_gnw2183770_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-05-12_gnw2228798_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-05-27_gnw2237881_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-05-28_gnw2238499_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-09-15_gnw2297976_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-09-28_gnw2304927_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2021-11-09_gnw2329867_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-03-25_gnw2409999_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-04-22_gnw2427339_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-04-28_gnw2432110_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-05-17_gnw2444486_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-11-01_gnw2546070_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-11-04_gnw2548468_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-11-17_gnw2558704_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2022-12-09_gnw2571320_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-01-10_gnw2586672_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-01-17_gnw2589525_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-04-13_gnw2646636_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-05-05_gnw2662202_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-05-18_gnw2672293_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-06-22_gnw2693359_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-06-30_gnw2698111_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-07-13_gnw2704780_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-09-28_gnw2751692_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-10-05_gnw2755031_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-10-12_gnw2759710_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-11-08_gnw2775747_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2023-11-30_gnw2789019_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-01-19_gnw2812529_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-06-07_gnw2895599_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-06-20_gnw2902067_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-07-31_gnw2921516_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-09-26_gnw2954185_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-10-18_gnw2965742_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2024-11-08_gnw2977874_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-03-21_gnw3047370_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-04-01_gnw3052950_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-05-06_gnw3074657_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-05-14_gnw3081724_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-05-30_gnw3091347_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-06-07_gnw3095504_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-06-07_gnw3095512_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-07-05_gnw3110520_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-07-30_gnw3124579_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2025-10-29_gnw3176080_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-01-20_gnw3222349_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-03-20_gnw3259530_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-03-23_gnw3260910_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-04-17_gnw3276536_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-05-04_gnw3287245_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-05-07_gnw3289938_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-06-09_gnw3308511_en.txt"
+  },
+  {
+   "file": "",
+   "msg": "traffic: could not identify month in 2026-08-06_gnw3340873_en.txt"
+  },
+  {
+   "file": "2016-02-01_pdf4Q15_en.txt",
+   "msg": "2015Q4 (2016-02-01_pdf4Q15_en.txt): IS unmatched: ('vantage'). the accumulated figures include revenues from the montego bay airport for the nine months of april 1 to december | gap fourth quarter 2015 report page 21 of ; CF unmatched: recoverable income tax on dividends"
+  },
+  {
+   "file": "2017-02-01_pdf4Q16_en.txt",
+   "msg": "2016Q4 (2017-02-01_pdf4Q16_en.txt): IS unmatched: 4q16 earnings page 20 of"
+  },
+  {
+   "file": "2019-02-21_gnw1739349_en.txt",
+   "msg": "2018Q4 (2019-02-21_gnw1739349_en.txt): BS table not found ; CF table not found"
+  },
+  {
+   "file": "2019-04-25_gnw1810210_en.txt",
+   "msg": "2019Q1 (2019-04-25_gnw1810210_en.txt): BS table not found ; CF table not found"
+  },
+  {
+   "file": "2019-07-29_gnw1893252_en.txt",
+   "msg": "2019Q2 (2019-07-29_gnw1893252_en.txt): BS table not found ; CF table not found"
+  },
+  {
+   "file": "2021-10-28_gnw2322255_en.txt",
+   "msg": "2021Q3 (2021-10-28_gnw2322255_en.txt): CF unmatched:  (layout)"
+  },
+  {
+   "file": "2025-04-29_gnw3069808_en.txt",
+   "msg": "2025Q1 (2025-04-29_gnw3069808_en.txt): IS unmatched: balance as of january 1, 2024 | foreign currency translation reserve | reserve for cash flow hedges - net of income tax | balance as of march 31, 2024 | balance as of january 1, 2025 | foreign currency translation reserve"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2025-05: PVR: dom 278.2 + intl 367.3 != total 612.3 in the release; domestic rebuilt as total − international ; SJD: dom 245 + intl 236.1 != total 514.3 in the release; domestic rebuilt as total − international"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-01: no own release harvested; filled from the 2019-01 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-02: no own release harvested; filled from the 2019-02 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-03: no own release harvested; filled from the 2019-03 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-04: no own release harvested; filled from the 2019-04 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-05: no own release harvested; filled from the 2019-05 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-06: no own release harvested; filled from the 2019-06 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-07: no own release harvested; filled from the 2019-07 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-08: no own release harvested; filled from the 2019-08 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-09: no own release harvested; filled from the 2019-09 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-10: no own release harvested; filled from the 2019-10 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2018-11: no own release harvested; filled from the 2019-11 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2022-06: no own release harvested; filled from the 2023-06 release's comparative column"
+  },
+  {
+   "file": "",
+   "msg": "traffic 2023-04: no own release harvested; filled from the 2024-04 release's comparative column"
+  }
+ ]
+}

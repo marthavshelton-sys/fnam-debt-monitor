@@ -1,11 +1,3014 @@
 {
-  "generated": "2026-09-25T21:49:08.550Z",
+  "generated": "2026-09-29T15:20:48.473Z",
   "summary": {
-    "checks": 343,
+    "checks": 349,
     "failed": 0,
     "warnings": 6,
     "stale": 0
   },
+  "latestQuarter": "FY2027Q1",
+  "latestPeriodEnd": "2026-08-31",
+  "latestReleaseDate": "2026-09-10",
+  "nextResults": null,
+  "nextResultsEstimate": {
+    "start": "2026-12-09",
+    "end": "2026-12-11"
+  },
+  "tolerances": {
+    "usdM": 1,
+    "eps": 0.02
+  },
+  "coverage": {
+    "quarters": [
+      "FY2022Q2",
+      "FY2027Q1"
+    ],
+    "years": [
+      "FY2017",
+      "FY2026"
+    ]
+  },
+  "checks": [
+    {
+      "tag": "FY2027Q1",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0003,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0013,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 1,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.0003,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0004,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": -1,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0038,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.0037,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "recast revenue lines sum to recast total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "recast total = originally reported total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.0016,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "recast revenue lines sum to recast total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "recast total = originally reported total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0017,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "recast revenue lines sum to recast total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "recast total = originally reported total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0026,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "recast revenue lines sum to recast total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "recast total = originally reported total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.001,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.0017,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0015,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0028,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0029,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q4",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.003,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q3",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.004,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q2",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.0035,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2023Q1",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.003,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q4",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": 0.002,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q3",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "revenue components sum to total revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "opex components sum to total opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "operating income = revenue − opex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "pretax income = operating income + interest + non-operating",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "net income = pretax income − tax",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "net income to common = net income − preferred dividends",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "diluted EPS ≈ net income to common / diluted shares",
+      "status": "ok",
+      "diff": -0.0029,
+      "tol": 0.02,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "total debt = short-term + long-term debt",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "cash + investments = cash & equivalents + marketable securities",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "free cash flow = operating cash flow + capex",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "total D&A = depreciation + amortization",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2022Q2",
+      "check": "cash-flow amortization ≈ income-statement amortization of intangibles",
+      "status": "ok",
+      "diff": 1,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2023",
+      "check": "sum of 4 quarters' revenue = annual revenue",
+      "status": "ok",
+      "diff": 1,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2023",
+      "check": "sum of 4 quarters' operating cash flow = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2023",
+      "check": "sum of 4 quarters' capex = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2023",
+      "check": "sum of 4 quarters' D&A = annual D&A",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "sum of 4 quarters' revenue = annual revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "sum of 4 quarters' operating cash flow = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "sum of 4 quarters' capex = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "sum of 4 quarters' D&A = annual D&A",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "sum of 4 quarters' revenue = annual revenue",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "sum of 4 quarters' operating cash flow = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "sum of 4 quarters' capex = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "sum of 4 quarters' D&A = annual D&A",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "sum of 4 quarters' revenue = annual revenue",
+      "status": "ok",
+      "diff": 1,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "sum of 4 quarters' operating cash flow = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "sum of 4 quarters' capex = annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "sum of 4 quarters' D&A = annual D&A",
+      "status": "ok",
+      "diff": 0,
+      "tol": 4,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "guidance total_revenue_growth_pct is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "guidance cloud_revenue_growth_pct_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "guidance cloud_revenue_growth_pct_usd is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "guidance non_gaap_eps_usd_cc is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "guidance non_gaap_eps_usd_reported is a well-formed range",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "notes payable current + non-current = total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "cash + marketable securities = cash and investments",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "net debt = notes payable − cash and investments",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "operating lease liabilities current + non-current = total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "finance lease liabilities current + non-current = total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "purchase-obligation schedule sums to the total",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "preferred quarterly dividend = 6.50% × US$5 bn ÷ 4",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.5,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "preferred conversion rates = liquidation preference ÷ threshold and initial prices",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "uncommenced-lease history ends at the current figure and period",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "cash and investments tie to quarters.json for the same period end",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations",
+      "check": "notes payable tie to quarters.json total debt for the same period end",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "press",
+      "check": "every item has a date, outlet, title, https link, theme and both summaries",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "press",
+      "check": "every theme used is declared",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "press",
+      "check": "no item is dated after as_of",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "as_of, price_date and fetched are ISO dates",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "Oracle NTM EPS, EBITDA and sales are positive",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "every fiscal-year record ends on 31 May and carries Oracle's own label",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "NTM history is dated and ascending",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "rating counts add up to the total",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "at least six peers with price, market cap and NTM EPS",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2017",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2018",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2019",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2020",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2021",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "FY2022",
+      "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
+      "status": "warn",
+      "diff": null,
+      "tol": null,
+      "note": null
+    }
+  ],
+  "freshness": [
+    {
+      "series": "Share price (ORCL close)",
+      "lastDate": "2026-09-28",
+      "ageDays": 2,
+      "limitDays": 5,
+      "status": "ok",
+      "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
+    },
+    {
+      "series": "10-year Treasury (FRED DGS10)",
+      "lastDate": "2026-09-25",
+      "ageDays": 5,
+      "limitDays": 5,
+      "status": "ok",
+      "note": "fetch-market.mjs"
+    },
+    {
+      "series": "Latest quarter release",
+      "lastDate": "2026-09-10",
+      "ageDays": 20,
+      "limitDays": 100,
+      "status": "ok",
+      "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
+    },
+    {
+      "series": "EDGAR submissions snapshot",
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
+      "limitDays": 4,
+      "status": "ok",
+      "note": "harvest-filings.mjs, weekdays 13:30 UTC"
+    },
+    {
+      "series": "Oracle IR press-release snapshot",
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
+      "limitDays": 4,
+      "status": "ok",
+      "note": "harvest-filings.mjs"
+    },
+    {
+      "series": "Investor calendar",
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
+      "limitDays": 10,
+      "status": "ok",
+      "note": "fetch-calendar.mjs"
+    },
+    {
+      "series": "Peer leverage (SEC XBRL)",
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
+      "limitDays": 10,
+      "status": "ok",
+      "note": "fetch-peer-leverage.mjs"
+    },
+    {
+      "series": "FactSet consensus snapshot",
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
+      "limitDays": 7,
+      "status": "ok",
+      "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
+    },
+    {
+      "series": "Market concerns (press sweep)",
+      "lastDate": "2026-09-27",
+      "ageDays": 3,
+      "limitDays": 10,
+      "status": "ok",
+      "note": "desktop task, Mondays"
+    },
+    {
+      "series": "Filings pending extraction",
+      "lastDate": "2026-09-29",
+      "ageDays": null,
+      "limitDays": null,
+      "status": "ok",
+      "note": "nothing pending (last harvest date shown)"
+    }
+  ],
+  "curated": [
+    {
+      "file": "comments.json",
+      "status": "ok",
+      "detail": "FY2027Q1: 32 line comments; executive summary present; drafted 2026-09-23"
+    },
+    {
+      "file": "guidance.json",
+      "status": "ok",
+      "detail": "latest vintage issued in FY2027Q1 (2026-09-10); 20 vintages"
+    },
+    {
+      "file": "transcripts.json",
+      "status": "ok",
+      "detail": "FY2027Q1 call on file (2026-09-10); 15 calls"
+    },
+    {
+      "file": "buildout.json",
+      "status": "ok",
+      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-09-24"
+    },
+    {
+      "file": "obligations.json",
+      "status": "ok",
+      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-09-24"
+    },
+    {
+      "file": "fiscal_years.json",
+      "status": "ok",
+      "detail": "FY2017 to FY2026; expected through FY2026"
+    },
+    {
+      "file": "market_reference.json",
+      "status": "ok",
+      "detail": "shares 3023.736 M; price 2026-09-28; undefined ratings; 58 debt instruments"
+    },
+    {
+      "file": "calendar.json",
+      "status": "ok",
+      "detail": "3 events; next results estimated 2026-12-09 to 2026-12-11; 1 manual"
+    },
+    {
+      "file": "press.json",
+      "status": "ok",
+      "detail": "8 items, as of 2026-09-27"
+    },
+    {
+      "file": "factset.json",
+      "status": "ok",
+      "detail": "consensus 2026-09-29; prices 2026-09-28; 8 peers; fetched 2026-09-29"
+    },
+    {
+      "file": "peer_leverage.json",
+      "status": "ok",
+      "detail": "5 peers; fetched 2026-09-29"
+    }
+  ],
   "passed": [
     "FY2027Q1: revenue components sum to total revenue",
     "FY2027Q1: opex components sum to total opex",
@@ -271,71 +3274,71 @@
     "FY2026: sum of 4 quarters' operating cash flow = annual",
     "FY2026: sum of 4 quarters' capex = annual",
     "FY2026: sum of 4 quarters' D&A = annual D&A",
-    "FY2027Q1 guidance total_revenue_growth_pct: well-formed range",
-    "FY2027Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2027Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2027Q1 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2027Q1 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2026Q4 guidance total_revenue_growth_pct: well-formed range",
-    "FY2026Q4 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2026Q4 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2026Q4 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2026Q4 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2026Q3 guidance total_revenue_growth_pct: well-formed range",
-    "FY2026Q3 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2026Q3 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2026Q3 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2026Q3 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2026Q2 guidance total_revenue_growth_pct: well-formed range",
-    "FY2026Q2 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2026Q2 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2026Q2 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2026Q2 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2026Q1 guidance total_revenue_growth_pct: well-formed range",
-    "FY2026Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2026Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2026Q1 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2026Q1 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2025Q4 guidance total_revenue_growth_pct: well-formed range",
-    "FY2025Q4 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2025Q4 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2025Q4 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2025Q4 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2025Q3 guidance total_revenue_growth_pct: well-formed range",
-    "FY2025Q3 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2025Q3 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2025Q3 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2025Q3 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2025Q2 guidance total_revenue_growth_pct: well-formed range",
-    "FY2025Q2 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2025Q2 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2025Q2 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2025Q2 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2025Q1 guidance total_revenue_growth_pct: well-formed range",
-    "FY2025Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2025Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2025Q1 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2025Q1 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2024Q4 guidance total_revenue_growth_pct: well-formed range",
-    "FY2024Q4 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2024Q4 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2024Q4 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2024Q4 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2024Q3 guidance total_revenue_growth_pct: well-formed range",
-    "FY2024Q3 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2024Q3 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2024Q3 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2024Q3 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2024Q2 guidance total_revenue_growth_pct: well-formed range",
-    "FY2024Q2 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2024Q2 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2024Q2 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2024Q2 guidance non_gaap_eps_usd_reported: well-formed range",
-    "FY2024Q1 guidance total_revenue_growth_pct: well-formed range",
-    "FY2024Q1 guidance cloud_revenue_growth_pct_cc: well-formed range",
-    "FY2024Q1 guidance cloud_revenue_growth_pct_usd: well-formed range",
-    "FY2024Q1 guidance non_gaap_eps_usd_cc: well-formed range",
-    "FY2024Q1 guidance non_gaap_eps_usd_reported: well-formed range",
+    "FY2027Q1: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2027Q1: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2027Q1: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2027Q1: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2027Q1: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2026Q4: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2026Q4: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2026Q4: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2026Q4: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2026Q4: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2026Q3: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2026Q3: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2026Q3: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2026Q3: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2026Q3: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2026Q2: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2026Q2: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2026Q2: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2026Q2: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2026Q2: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2026Q1: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2026Q1: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2026Q1: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2026Q1: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2026Q1: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2025Q4: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2025Q4: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2025Q4: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2025Q4: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2025Q4: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2025Q3: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2025Q3: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2025Q3: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2025Q3: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2025Q3: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2025Q2: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2025Q2: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2025Q2: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2025Q2: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2025Q2: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2025Q1: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2025Q1: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2025Q1: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2025Q1: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2025Q1: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2024Q4: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2024Q4: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2024Q4: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2024Q4: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2024Q4: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2024Q3: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2024Q3: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2024Q3: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2024Q3: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2024Q3: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2024Q2: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2024Q2: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2024Q2: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2024Q2: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2024Q2: guidance non_gaap_eps_usd_reported is a well-formed range",
+    "FY2024Q1: guidance total_revenue_growth_pct is a well-formed range",
+    "FY2024Q1: guidance cloud_revenue_growth_pct_cc is a well-formed range",
+    "FY2024Q1: guidance cloud_revenue_growth_pct_usd is a well-formed range",
+    "FY2024Q1: guidance non_gaap_eps_usd_cc is a well-formed range",
+    "FY2024Q1: guidance non_gaap_eps_usd_reported is a well-formed range",
     "obligations: notes payable current + non-current = total",
     "obligations: cash + marketable securities = cash and investments",
     "obligations: net debt = notes payable − cash and investments",
@@ -349,7 +3352,13 @@
     "obligations: notes payable tie to quarters.json total debt for the same period end",
     "press: every item has a date, outlet, title, https link, theme and both summaries",
     "press: every theme used is declared",
-    "press: no item is dated after as_of"
+    "press: no item is dated after as_of",
+    "factset: as_of, price_date and fetched are ISO dates",
+    "factset: Oracle NTM EPS, EBITDA and sales are positive",
+    "factset: every fiscal-year record ends on 31 May and carries Oracle's own label",
+    "factset: NTM history is dated and ascending",
+    "factset: rating counts add up to the total",
+    "factset: at least six peers with price, market cap and NTM EPS"
   ],
   "failures": [],
   "warnings": [

@@ -86,3 +86,12 @@ jobs:
       - name: Cross-check docs-data.js against the mirrored documents
         if: ${{ github.event.inputs.probe == '' }}
         run: node scripts/mx-fiscal/check-docs.mjs
+
+      # Source links. Every external link on the page (and in the data files it loads) is
+      # requested once; a link that answers 404/410 or whose host no longer resolves fails the
+      # run - after the commit above, so the refresh itself still lands - and GitHub e-mails the
+      # owner. Hosts that refuse scripts (Bloomberg, BLS, FRED, GlobeNewswire ...) are listed as
+      # notices and never fail the run. Script: scripts/check-links.mjs.
+      - name: Check source links
+        if: always()
+        run: node scripts/check-links.mjs site/mx/fiscal/index.html

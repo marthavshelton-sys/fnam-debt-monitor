@@ -4,11 +4,15 @@
 //
 // Everything Treasury or FRED publishes in machine-readable form is fetched here, including
 // the monthly series (MTS revenue/outlays and cash interest, accrual interest expense, the
-// Treasury Bulletin ownership table, the MSPD-derived average maturity) — daily re-checks of
-// a monthly source are harmless no-ops until Treasury republishes. Only two things are left
-// to the monthly research routine that maintains site/fiscal/monthly-data.js: the CBO
-// projection tables (CBO publishes no API and blocks automated fetches) and the CME FedWatch
-// snapshot (no free feed). Both are date-stamped on the page.
+// Treasury Bulletin ownership table, the MSPD-derived average maturity and maturity schedule)
+// — daily re-checks of a monthly source are harmless no-ops until Treasury republishes. The
+// FOMC target range comes from FRED's DFEDTARU/DFEDTARL (the Board's own series) together with
+// the date the current range took effect; the H.4.1 balance-sheet lines, the WALCL and ON RRP
+// peaks and the four "most recent actual" macro readings in the CBO table are FRED series too.
+// Only two things are left to the research routine that maintains site/fiscal/monthly-data.js:
+// the CBO projection tables (CBO publishes no API and blocks automated fetches) and the CME
+// FedWatch snapshot (no free feed). Both are date-stamped on the page, and
+// scripts/fiscal/check-freshness.mjs flags either when it falls behind.
 //
 // Runs on GitHub Actions' ubuntu-latest runner, which ships Node 20+ with a global `fetch`.
 // No npm install / package.json needed.
@@ -57,26 +61,88 @@ function latestFredPoint(rows) {
   }
   return null;
 }
-
-async function getDebtToThePenny() {
-  const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny' +
-    '?sort=-record_date&page[size]=1';
-  const j = await fetchJSON(url);
-  const r = j.data[0];
-  return {
-    date: r.record_date,
-    totalDebtT: Number(r.tot_pub_debt_out_amt) / 1e12,
-    heldByPublicT: Number(r.debt_held_public_amt) / 1e12,
-    intragovT: Number(r.intragov_hold_amt) / 1e12,
-  };
+// All observations of a FRED CSV as [{date, value}], missing values dropped, oldest first.
+function fredPoints(rows) {
+  const out = [];
+  for (let i = 1; i < rows.length; i++) {
+    const [date, val] = rows[i];
+    if (date && val && val.trim() !== '.' && !Number.isNaN(Number(val))) out.push({ date: date.trim(), value: Number(val) });
+  }
+  return out;
+}
+// The observation on `date`, else the last one on or before it (weekly series are all stamped
+// the same Wednesday, but a series that FRED has not yet extended to this week falls back to
+// its latest point, which is what the H.4.1 table itself would show).
+function fredPointAt(points, date) {
+  let best = null;
+  for (const p of points) { if (p.date <= date) best = p; else break; }
+  return best;
+}
+function fredMax(points) {
+  let best = null;
+  for (const p of points) if (!best || p.value > best.value) best = p;
+  return best;
 }
 
+const DTP_URL = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/debt_to_penny';
+const DTP_FIELDS = 'record_date,tot_pub_debt_out_amt,debt_held_public_amt,intragov_hold_amt';
+const dtpRow = (r) => ({
+  date: r.record_date,
+  totalDebtT: Number(r.tot_pub_debt_out_amt) / 1e12,
+  heldByPublicT: Number(r.debt_held_public_amt) / 1e12,
+  intragovT: Number(r.intragov_hold_amt) / 1e12,
+});
+// Fiscal year of an ISO date (FY runs Oct 1 - Sep 30, named for the calendar year it ends in).
+const fiscalYearOf = (iso) => Number(iso.slice(0, 4)) + (Number(iso.slice(5, 7)) >= 10 ? 1 : 0);
+async function getDebtToThePenny() {
+  const latest = dtpRow((await fetchJSON(`${DTP_URL}?sort=-record_date&page[size]=1&fields=${DTP_FIELDS}`)).data[0]);
+  // The last completed fiscal year-end (Sep 30, or the last business day before it): the anchor for
+  // "debt has risen $X since fiscal year-end" and the newest bar of the fiscal-year chart. Rolls over by
+  // itself on the first October refresh.
+  const fyPrev = fiscalYearOf(latest.date) - 1;
+  const fyEndRow = (await fetchJSON(`${DTP_URL}?filter=record_date:lte:${fyPrev}-09-30&sort=-record_date&page[size]=1&fields=${DTP_FIELDS}`)).data[0];
+  const fyEnd = Object.assign({ fy: fyPrev }, dtpRow(fyEndRow));
+  // Latest whole-trillion milestone and the first day the total closed above it ("first crossed
+  // $40 trillion on ..." in the Section 01 prose). One request, keyed off the latest total.
+  const trillions = Math.floor(latest.totalDebtT);
+  const cross = (await fetchJSON(`${DTP_URL}?filter=tot_pub_debt_out_amt:gte:${trillions}000000000000&sort=record_date&page[size]=1&fields=record_date,tot_pub_debt_out_amt`)).data[0];
+  const milestone = cross ? { trillions, date: cross.record_date } : null;
+  // Last completed calendar year-end (Dec 31 or the last business day before it): the newest
+  // fixed bar of the calendar-year charts in Section 01, so a new year never repeats the old one.
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const calRow = (await fetchJSON(`${DTP_URL}?filter=record_date:lte:${calYear}-12-31&sort=-record_date&page[size]=1&fields=${DTP_FIELDS}`)).data[0];
+  const calEnd = Object.assign({ year: calYear }, dtpRow(calRow));
+  return Object.assign(latest, { fyEnd, milestone, calEnd });
+}
+
+// Average Interest Rates on U.S. Treasury Securities: the three summary rows Treasury publishes
+// each month (all interest-bearing debt, marketable, non-marketable) plus the prior fiscal
+// year-end value of the all-debt rate, which becomes the newest fiscal-year point on the
+// Section 04 chart. avgRatePct keeps its original meaning (Total Marketable) for the KPI strip.
+const AIR = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/avg_interest_rates';
+const AIR_FIELDS = 'record_date,security_type_desc,security_desc,avg_interest_rate_amt';
+const AIR_ROWS = { total: 'Total Interest-bearing Debt', marketable: 'Total Marketable', nonmarketable: 'Total Non-marketable' };
+function airPick(rows, date) {
+  const out = {};
+  for (const [k, desc] of Object.entries(AIR_ROWS)) {
+    const r = rows.find((x) => x.record_date === date && x.security_desc === desc);
+    out[k] = r ? Number(r.avg_interest_rate_amt) : null;
+  }
+  return out;
+}
 async function getAvgInterestRate() {
-  const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/avg_interest_rates' +
-    '?filter=security_desc:eq:' + encodeURIComponent('Total Marketable') + '&sort=-record_date&page[size]=1';
-  const j = await fetchJSON(url);
-  const r = j.data[0];
-  return { date: r.record_date, avgRatePct: Number(r.avg_interest_rate_amt) };
+  const latest = (await fetchJSON(`${AIR}?sort=-record_date&page[size]=1&fields=record_date`)).data[0].record_date;
+  const rows = (await fetchJSON(`${AIR}?filter=record_date:eq:${latest}&page[size]=60&fields=${AIR_FIELDS}`)).data;
+  const cur = airPick(rows, latest);
+  if (cur.marketable == null || cur.total == null) throw new Error(`avg_interest_rates: summary rows missing for ${latest}`);
+  const fyPrev = fiscalYearOf(latest) - 1;
+  let fyEnd = null;
+  try {
+    const fyRows = (await fetchJSON(`${AIR}?filter=record_date:eq:${fyPrev}-09-30&page[size]=60&fields=${AIR_FIELDS}`)).data;
+    const p = airPick(fyRows, `${fyPrev}-09-30`);
+    if (p.total != null) fyEnd = { fy: fyPrev, date: `${fyPrev}-09-30`, totalPct: p.total };
+  } catch (e) { console.warn('avg_interest_rates: prior fiscal year-end row unavailable:', e.message); }
+  return { date: latest, avgRatePct: cur.marketable, totalPct: cur.total, marketablePct: cur.marketable, nonmarketablePct: cur.nonmarketable, fyEnd };
 }
 
 // Debt outstanding by security class, from Treasury's Monthly Statement of the Public
@@ -85,7 +151,7 @@ async function getAvgInterestRate() {
 // Treasury publishes a new figure.
 async function getDebtComposition() {
   const url = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/debt/mspd/mspd_table_1' +
-    '?sort=-record_date&page[size]=14';
+    '?sort=-record_date&page[size]=40&fields=record_date,security_type_desc,security_class_desc,total_mil_amt';
   const j = await fetchJSON(url);
   const rows = j.data;
   const date = rows[0].record_date;
@@ -93,18 +159,33 @@ async function getDebtComposition() {
   // Nonmarketable, Total Public Debt Outstanding) — key those by security_type_desc instead.
   const byClass = {};
   rows.forEach((r) => {
-    if (r.record_date !== date) return; // only the latest date's 14 rows
+    if (r.record_date !== date) return; // only the latest month's rows (about 15)
     const key = r.security_class_desc === '_' ? r.security_type_desc : r.security_class_desc;
     byClass[key] = Number(r.total_mil_amt) / 1000; // $M -> $B
   });
+  const num = (k) => (byClass[k] == null || Number.isNaN(byClass[k]) ? null : byClass[k]);
+  const nm = {
+    // The four pieces the Section 05 card explains; "other" is everything else non-marketable
+    // (Domestic Series, Foreign Series and Treasury's own "Other" line), so the four sum to the total.
+    gas: num('Government Account Series'),
+    savings: num('United States Savings Securities'),
+    slgs: num('State and Local Government Series'),
+  };
+  const nonmarketable = num('Total Nonmarketable');
+  nm.other = nonmarketable != null && nm.gas != null && nm.savings != null && nm.slgs != null
+    ? Math.round((nonmarketable - nm.gas - nm.savings - nm.slgs) * 1e6) / 1e6 : null;
   return {
     date,
-    notes: byClass['Notes'],
-    bills: byClass['Bills'],
-    bonds: byClass['Bonds'],
-    tips: byClass['Treasury Inflation-Protected Securities'],
-    frns: byClass['Floating Rate Notes'],
-    nonmarketable: byClass['Total Nonmarketable']
+    notes: num('Notes'),
+    bills: num('Bills'),
+    bonds: num('Bonds'),
+    tips: num('Treasury Inflation-Protected Securities'),
+    frns: num('Floating Rate Notes'),
+    nonmarketable,
+    marketable: num('Total Marketable'),       // Treasury's own subtotal (includes any Federal Financing Bank line)
+    total: num('Total Public Debt Outstanding'),
+    nonmarketableDetail: nm,
+    classes: byClass,                           // every MSPD table 1 line at this date, $B, for reference
   };
 }
 
@@ -222,6 +303,9 @@ async function getMtsSummary() {
     revYTDcur: ytd.cur.rev, revYTDpri: ytd.pri.rev, outYTDcur: ytd.cur.out, outYTDpri: ytd.pri.out,
     revFYprev: full.cur.rev, outFYprev: full.cur.out,
     totalReceiptsB: ytd.cur.totalReceiptsB, totalOutlaysB: ytd.cur.totalOutlaysB, cashInterestB: ytd.cur.cashInterestB,
+    cashInterestPriB: ytd.pri.cashInterestB,        // same months of the prior fiscal year (the Section 04 comparison)
+    cashInterestFYprevB: full.cur.cashInterestB,    // the completed prior fiscal year
+    totalReceiptsFYprevB: full.cur.totalReceiptsB, totalOutlaysFYprevB: full.cur.totalOutlaysB,
   };
 }
 
@@ -230,13 +314,24 @@ async function getMtsSummary() {
 // public issues and Government Account Series alike): that reproduces Treasury's own total to
 // the dollar ($1,267.8B for Aug-2026, the figure that used to be hand-entered on the page).
 const IE = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v2/accounting/od/interest_expense';
+async function accruedTotalAt(date) {
+  const j = await fetchJSON(`${IE}?filter=record_date:eq:${date}&page[size]=500&fields=fytd_expense_amt`);
+  const total = j.data.reduce((s, r) => s + Number(r.fytd_expense_amt || 0), 0);
+  if (j.data.length < 20 || !(total > 0)) throw new Error(`interest_expense: implausible result for ${date} (${j.data.length} rows, total ${total})`);
+  return { total, lineItems: j.data.length };
+}
 async function getAccruedInterest() {
   const latest = await fetchJSON(`${IE}?sort=-record_date&page[size]=1&fields=record_date`);
   const date = latest.data[0].record_date;
-  const j = await fetchJSON(`${IE}?filter=record_date:eq:${date}&page[size]=500&fields=fytd_expense_amt`);
-  const total = j.data.reduce((s, r) => s + Number(r.fytd_expense_amt || 0), 0);
-  if (j.data.length < 20 || !(total > 0)) throw new Error(`interest_expense: implausible result (${j.data.length} rows, total ${total})`);
-  return { date, fytdT: Math.round(total / 1e9) / 1000, lineItems: j.data.length };
+  const cur = await accruedTotalAt(date);
+  // September's record is the completed fiscal year: the "full FY" comparison stat in Section 04.
+  const fyPrev = fiscalYearOf(date) - 1;
+  let fyEnd = null;
+  try {
+    const p = await accruedTotalAt(`${fyPrev}-09-30`);
+    fyEnd = { fy: fyPrev, date: `${fyPrev}-09-30`, totalT: Math.round(p.total / 1e9) / 1000 };
+  } catch (e) { console.warn('interest_expense: prior fiscal year total unavailable:', e.message); }
+  return { date, fytdT: Math.round(cur.total / 1e9) / 1000, lineItems: cur.lineItems, fyEnd };
 }
 
 // Treasury Bulletin table OFS-2, "Estimated Ownership of U.S. Treasury Securities" — quarterly,
@@ -304,23 +399,106 @@ async function getAvgMaturity() {
   const j = await fetchJSON(`${MSPD3}?filter=record_date:eq:${date}&page[size]=10000&fields=security_class1_desc,maturity_date,outstanding_amt`);
   const utc = (d) => { const [y, m, dd] = d.split('-').map(Number); return Date.UTC(y, m - 1, dd); };
   const ref = utc(date);
-  let w = 0, wy = 0, n = 0;
+  const oneYear = new Date(ref); oneYear.setUTCFullYear(oneYear.getUTCFullYear() + 1);
+  let w = 0, wy = 0, n = 0, within12mo = 0;
+  const byYear = {}; // principal maturing in each calendar year, $M — the Section 03 schedule chart
   for (const r of j.data) {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(r.maturity_date || '')) continue;
     if (/total/i.test(r.security_class1_desc || '')) continue;
     const amt = Number(r.outstanding_amt); // $ millions; null on a bill's partial-issue rows -> skipped
     if (!(amt > 0)) continue;
-    const yrs = Math.max(0, (utc(r.maturity_date) - ref) / (365.25 * 864e5));
+    const mat = utc(r.maturity_date);
+    const yrs = Math.max(0, (mat - ref) / (365.25 * 864e5));
     w += amt; wy += amt * yrs; n += 1;
+    if (mat <= oneYear.getTime()) within12mo += amt;
+    const y = r.maturity_date.slice(0, 4);
+    byYear[y] = (byYear[y] || 0) + amt;
   }
   if (n < 100 || !(w > 0)) throw new Error(`MSPD table 3: implausible result (${n} securities)`);
-  return { date, months: Math.round((wy / w) * 12 * 10) / 10, marketableB: Math.round(w / 1000), securities: n };
+  const years = Object.keys(byYear).sort();
+  return {
+    date, months: Math.round((wy / w) * 12 * 10) / 10, marketableB: Math.round(w / 1000), securities: n,
+    within12moB: Math.round(within12mo / 1000), within12moPct: Math.round(within12mo / w * 1000) / 10,
+    schedule: { years, valuesB: years.map((y) => Math.round(byYear[y] / 1000 * 100) / 100) },
+  };
+}
+
+// FOMC target range, from the Board's own daily series (upper and lower limits) mirrored on FRED,
+// with the date the current range took effect - so the page can say "since 17-Sep-2026" and the
+// freshness check can tell whether the FedWatch snapshot predates the latest decision. Both CSVs
+// are fetched whole (a few hundred KB) because the "since" date needs the history.
+async function getTargetRange() {
+  const [up, lo] = await Promise.all([fetchCSV(fredUrl('DFEDTARU')), fetchCSV(fredUrl('DFEDTARL'))]);
+  const ups = fredPoints(up), los = fredPoints(lo);
+  if (!ups.length || !los.length) throw new Error('DFEDTARU/DFEDTARL: empty');
+  const upper = ups[ups.length - 1], lower = los[los.length - 1];
+  let since = upper.date;
+  for (let i = ups.length - 1; i >= 0 && ups[i].value === upper.value; i--) since = ups[i].date;
+  return { date: upper.date, upper: upper.value, lower: lower.value, since };
+}
+
+// H.4.1 lines behind the Section 09 T-account, all at the Wednesday of the latest WALCL point:
+// securities held outright (Treasuries, MBS), reserve balances, currency in circulation and the
+// Treasury General Account; "other" on each side is the residual to total assets. FRED carries
+// all six in $ millions (checked against the H.4.1 release on 2026-09-29: WRESBAL 2,930,193 =
+// $2.93T); everything is returned in $B. Also the WALCL peak (for the QT runoff figures) and the
+// ON RRP take-up peak (RRPONTSYD, which FRED publishes in $ billions).
+const FED_WEEKLY = { walcl: 'WALCL', treast: 'TREAST', mbs: 'WSHOMCB', reserves: 'WRESBAL', currency: 'WCURCIR', tga: 'WTREGEN' };
+async function getFedBalanceSheet() {
+  const csvs = await Promise.all(Object.values(FED_WEEKLY).map((id) => fetchCSV(fredUrl(id))));
+  const series = {};
+  Object.keys(FED_WEEKLY).forEach((k, i) => { series[k] = fredPoints(csvs[i]); });
+  const latest = series.walcl[series.walcl.length - 1];
+  if (!latest) throw new Error('WALCL: empty');
+  const at = (k) => { const p = fredPointAt(series[k], latest.date); return p ? { date: p.date, value: p.value / 1000 } : null; };
+  const peak = fredMax(series.walcl);
+  const rrpRows = await fetchCSV(fredUrl('RRPONTSYD'));
+  const rrpPeak = fredMax(fredPoints(rrpRows));
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const walclCal = fredPointAt(series.walcl, `${calYear}-12-31`);
+  const res2019 = fredPointAt(series.reserves, '2019-12-31'); // pre-pandemic comparison in the Section 09 prose
+  return {
+    date: latest.date,
+    walclB: latest.value / 1000,
+    treasuriesB: at('treast'), mbsB: at('mbs'), reservesB: at('reserves'), currencyB: at('currency'), tgaB: at('tga'),
+    walclPeak: peak ? { date: peak.date, valueB: peak.value / 1000 } : null,
+    walclCalEnd: walclCal ? { year: calYear, date: walclCal.date, valueB: walclCal.value / 1000 } : null,
+    reservesEnd2019B: res2019 ? { date: res2019.date, value: res2019.value / 1000 } : null,
+    rrpPeak: rrpPeak ? { date: rrpPeak.date, valueB: rrpPeak.value } : null,
+  };
+}
+
+// M2 money stock: the latest month plus the last completed calendar year-end (December value),
+// the newest fixed point of the Section 01 calendar-year M2 chart.
+async function getM2() {
+  const pts = fredPoints(await fetchCSV(fredUrl('M2SL')));
+  const latest = pts[pts.length - 1];
+  if (!latest) throw new Error('M2SL: empty');
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const dec = pts.find((p) => p.date === `${calYear}-12-01`);
+  return { date: latest.date, value: latest.value, calEnd: dec ? { year: calYear, date: dec.date, value: dec.value } : null };
+}
+
+// "Most recent actual" column of the CBO-assumptions table in Section 06: real GDP growth (BEA,
+// q/q annualised), CPI inflation y/y (BLS index, computed against the same month a year earlier),
+// the 10-year Treasury yield (daily) and the unemployment rate - all via FRED.
+async function getMacroActuals() {
+  const [gdp, cpi, dgs10, unrate] = await Promise.all(['A191RL1Q225SBEA', 'CPIAUCSL', 'DGS10', 'UNRATE'].map((id) => fetchCSV(fredUrl(id))));
+  const g = latestFredPoint(gdp), u = latestFredPoint(unrate), y = latestFredPoint(dgs10);
+  const cp = fredPoints(cpi);
+  const c = cp[cp.length - 1];
+  const yearAgo = c ? cp.find((p) => p.date === `${Number(c.date.slice(0, 4)) - 1}${c.date.slice(4)}`) : null;
+  return {
+    realGdpGrowth: g,                                             // {date: quarter start, value: % SAAR}
+    cpiYoY: c && yearAgo ? { date: c.date, value: Math.round((c.value / yearAgo.value - 1) * 1000) / 10 } : null,
+    tenYear: y,                                                   // {date, value: %}
+    unemployment: u,                                              // {date: month, value: %}
+  };
 }
 
 // FRED series pulled via the public, key-free CSV export.
 const FRED_SERIES = {
   walcl: 'WALCL',          // Fed total assets, weekly, $B
-  m2: 'M2SL',               // M2 money stock, monthly, $B
   effr: 'EFFR',             // Effective federal funds rate, daily
   iorb: 'IORB',             // Interest on reserve balances, daily
   onrrp: 'RRPONTSYAWARD',   // ON RRP award rate, daily
@@ -330,9 +508,9 @@ const FRED_SERIES = {
   debtGdpAnnual: 'GFDGDPA188S', // Gross federal debt as % of GDP, annual -- extends the 1939- chart when a new year posts
 };
 
+const fredUrl = (seriesId) => `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
 async function getFred(seriesId) {
-  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
-  const rows = await fetchCSV(url);
+  const rows = await fetchCSV(fredUrl(seriesId));
   return latestFredPoint(rows);
 }
 
@@ -353,6 +531,10 @@ async function main() {
     ['accruedInterest', getAccruedInterest],
     ['holders', getHolders],
     ['avgMaturity', getAvgMaturity],
+    ['m2', getM2],
+    ['targetRange', getTargetRange],
+    ['fedBalanceSheet', getFedBalanceSheet],
+    ['macroActuals', getMacroActuals],
     ...Object.entries(FRED_SERIES).map(([k, id]) => [k, () => getFred(id)]),
   ];
 
@@ -384,7 +566,7 @@ async function main() {
     avgRate: results.avgRate,     // {date, avgRatePct}
     fed: {
       walcl: walclB,               // {date, value} — $B (converted from FRED's $M)
-      m2: results.m2,             // {date, value} — $B
+      m2: results.m2,             // {date, value, calEnd} — $B
     },
     debtComposition: results.composition, // {date, notes, bills, bonds, tips, frns, nonmarketable} — all $B
     foreignHolders: results.foreignHolders, // {date: "YYYY-MM", top10: [{country, valueB}], grandTotalB}
@@ -400,7 +582,10 @@ async function main() {
     mts: results.mts,                     // MTS table 3: {date, fyCur, fyPrev, revYTDcur/pri, outYTDcur/pri, revFYprev, outFYprev, cashInterestB, totalReceiptsB, totalOutlaysB} — $B
     accruedInterest: results.accruedInterest, // {date, fytdT, lineItems} — accrual-basis interest expense, FYTD $T
     holders: results.holders,             // OFS-2 + Debt to the Penny: {asOf, holders[], totalPublicDebtB, foreignYearAgoB, yearAgoEndOfMonth}
-    avgMaturity: results.avgMaturity,     // MSPD security-level: {date, months, marketableB, securities}
+    avgMaturity: results.avgMaturity,     // MSPD security-level: {date, months, marketableB, securities, within12moB, within12moPct, schedule{years, valuesB}}
+    targetRange: results.targetRange,     // FRED DFEDTARU/DFEDTARL: {date, upper, lower, since} — the FOMC's target range and when it took effect
+    fedBalanceSheet: results.fedBalanceSheet, // H.4.1 via FRED, $B at the latest WALCL Wednesday: {date, walclB, treasuriesB, mbsB, reservesB, currencyB, tgaB, walclPeak, walclCalEnd, reservesEnd2019B, rrpPeak}
+    macroActuals: results.macroActuals,   // FRED: {realGdpGrowth, cpiYoY, tenYear, unemployment} — the "most recent actual" column of the CBO table
   };
 
   const js = `// AUTO-GENERATED by scripts/fetch-data.mjs — do not hand-edit.

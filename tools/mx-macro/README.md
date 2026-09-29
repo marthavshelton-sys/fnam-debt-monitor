@@ -27,7 +27,76 @@ answered for every series within the last 7 days (`fetchedAt` only advances on
 a successful fetch). If not - or if the run itself failed - the workflow opens
 a GitHub issue labeled `mx-macro-health` (or comments on the open one, at most
 once every ~20 hours), so a dead token or a changed API cannot make the page go
-stale silently. The first healthy run afterwards closes the issue.
+stale silently. The first healthy run afterwards closes the issue. Its title
+starts with "SOURCE DOWN: MX macro", which is what the email routine below
+looks for; only the opening of the issue is emailed, not the later comments.
+
+## Material-change email alerts
+
+After the build, `scripts/mx-macro/alerts.mjs` (main only) compares the latest
+period of each tracked release with `data/alerts_state.json`. New periods that
+cross a threshold become ONE issue per run titled "MATERIAL (MX): ...". Its body
+reuses the page's own "At a glance" lines (English) for the affected views:
+`scripts/mx-macro/exec_extract.mjs` runs the built page under Node with a
+stand-in DOM and reads what `execSummary()` composes, so the wording is written
+once, in the template. Non-material new periods only advance the state; a
+missing state file is seeded from the data without sending anything.
+
+Thresholds (edit them in `alerts.mjs`):
+
+| Release | Material if… |
+|---|---|
+| INPC | headline or core y/y moves ≥0.2 pp, or headline crosses the 2–4% band |
+| IGAE | m/m ≥1.0% either way, or y/y changes sign |
+| GDP (FRED) | q/q negative, or q/q differs from the prior quarter by ≥1.0 pp |
+| Unemployment | moves ≥0.3 pp |
+| Consumer confidence | moves ≥2.0 points |
+| Remittances | y/y ≥10% either way |
+| Trade | monthly balance changes sign, or export y/y shifts ≥10 pp |
+| Banxico policy rate | any change |
+| Peso (FIX) | USD/MXN ≥2% in a day or ≥4% in 5 sessions (one alert per 7 days) |
+| 10-year M bono | moves ≥50 bp month on month |
+| 12-month inflation expectations | move ≥0.3 pp |
+
+Delivery: the owner does not receive GitHub notification mail. The Claude
+Routine "FNAM US Macro: email material changes" (14:45 and 20:45 UTC; Gmail
+connector and this repository attached) emails every "MATERIAL (MX): " and
+"SOURCE DOWN: MX macro" issue created since its previous run, in the same
+message as the U.S. alerts. Test offline:
+`node scripts/mx-macro/alerts.mjs --dry-run --state /tmp/s.json` (first run
+seeds; edit the data copy passed with `--data` to simulate a release).
+
+### WhatsApp alerts
+
+Once the MATERIAL issue is open, `alerts.mjs` also sends the headline figures
+and the Spanish link to the first affected section to WhatsApp through
+`scripts/lib/whatsapp.mjs` (Meta WhatsApp Cloud API). It is best effort: without
+the secrets nothing is sent, and a failed send is a run warning that never holds
+back the state or the issue (the email still goes out). Only MATERIAL alerts are
+sent; SOURCE DOWN issues are not.
+
+One-time setup (Meta; https://developers.facebook.com/docs/whatsapp/cloud-api/get-started):
+
+1. Meta Business account and a Meta developer app with the WhatsApp product.
+   Register a sending number that is not in use on a personal WhatsApp account.
+2. In WhatsApp Manager create a **Utility** template named
+   `fnam_alerta_material`, language **Spanish (MEX)** (`es_MX`), body:
+   `Alerta FNAM (macro México): {{1}}. Ver el tablero: {{2}} Mensaje automático.`
+   Sample values: `Banxico policy rate 6.50% (-25 bp)` and
+   `https://fnam.mx/mx/macro/?lang=es&view=banxico`. A body may not start or
+   end with a variable. Wait for approval.
+3. Create a System User with a permanent token that has
+   `whatsapp_business_messaging` (the token shown on the API setup page expires
+   in 24 hours).
+4. Repository secrets: `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID` (API setup
+   page, not the phone number) and `WHATSAPP_TO` (recipient digits with country
+   code, e.g. `52` + 10 digits; comma-separate several).
+5. Actions > "Test WhatsApp alert" > Run workflow. A failure prints Meta's error
+   message in the log.
+
+Optional overrides (secrets or workflow env): `WHATSAPP_TEMPLATE`,
+`WHATSAPP_TEMPLATE_LANG`, `WHATSAPP_API_VERSION` (default `v23.0`). The
+headline figures are the English ones used in the issue title.
 
 A series that fails on a run keeps its last committed points (the page marks
 that source "sin actualizar desde …"); a series that has never been obtained
@@ -80,6 +149,34 @@ by activity group `737226` / `737233` / `737268` (primary, secondary,
 tertiary, seasonally adjusted), consumer confidence `454186` (seasonally
 adjusted balance; `454168` original). `SR14195` (Banxico survey, median
 expected inflation 12 months ahead) feeds the ex ante real rate.
+
+Official-source policy: every series' first candidate is an official Mexican
+source (INEGI or Banxico); international mirrors (OECD/IMF via FRED) remain
+only as fallbacks. Ids confirmed with the BIE search / Banxico titles on
+2026-09-29: unemployment `444884` (ENOE national rate, seasonally adjusted),
+GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
+exports `65649` / imports `65651` (merchandise trade FOB, seasonally
+adjusted, millions of USD; originals `33860`/`33861` as first fallback),
+10-year M bond `SF44071` (Banxico primary auction yield; auction months
+only). IMSS formal employment (`imssJobs`) is a curated series: the owner's
+scheduled browser task (prompt in `imss-task-prompt.md`) reads the monthly
+IMSS comunicado and opens a PR updating `data/imss.json` — the one series
+that arrives by PR instead of an API, because IMSS formal employment has NO
+scriptable official source — full audit on 2026-09-29, all from the runner:
+INEGI BIE carries only the series' cyclical component (214301/214302), not
+the level; INEGI BISE / Banco de Indicadores searches return empty; Banxico
+retired its IMSS cuadro (labor sector 10 lists none; the old SL series
+answer 404); datos.imss.gob.mx sits behind an Incapsula WAF that blocks
+non-browser clients (and its datasets are per-person microdata CSVs);
+STPS publishes only interactive Cognos / Power BI viewers; Data México's
+API (Secretaría de Economía) no longer resolves. The only viable path is
+the BLS-weights pattern, now built: the `imss` provider in `fetch.mjs`
+validates `data/imss.json` (months strictly ascending, values 15–40 million,
+month-over-month change ≤ 2 million) and rejects a bad file while the page
+keeps its previous data; the page shows the IMSS panels once the file holds
+24+ months; `health.mjs` flags the series when its last data month is more
+than 75 days old (one missed comunicado), instead of the fetchedAt rule that
+would never fire for a local file.
 
 Not yet sourced: IMSS jobs, industrial production and the INPC
 spending-purpose groups.
@@ -156,3 +253,7 @@ published indices, so nothing derived is stored.
 - `data/series.json` — last-good data, committed by the workflow
 - `../../scripts/mx-macro/fetch.mjs` — fetcher (Banxico SIE, FRED, INEGI)
 - `../../scripts/mx-macro/build.mjs` — template + data → page, with the locale guards
+- `../../scripts/mx-macro/alerts.mjs` — material-change alerts (issue queue for the email routine)
+- `../../scripts/lib/whatsapp.mjs` — WhatsApp copy of MATERIAL alerts (Meta Cloud API); `.github/workflows/whatsapp-test.yml` sends a test
+- `../../scripts/mx-macro/exec_extract.mjs` — reads the page's "At a glance" lines for the alerts
+- `data/alerts_state.json` — last period evaluated per release, committed by the workflow

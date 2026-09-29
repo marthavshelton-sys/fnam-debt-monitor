@@ -40,10 +40,11 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `transcripts.json` | Per call: date, quantified guidance from the CFO's remarks, short attributed quotes | Built by `merge-transcripts.mjs` from the owner-supplied PDFs, which live only in the private `oracle-model` repository (licensed material). Without the raw extractions the merge keeps the existing file. |
 | `comments.json` | Comments per quarter (`by_quarter.FY2027Q1.comments.<key>.{en,es,src}`), executive summary, headline | Merged from `_raw_comments_*.json` by `merge-comments.mjs`; reviewed before publishing. |
 | `special_situations.json`, `explainers.json`, `glossary.json` | Bilingual narrative for sections 09 and 10 and the glossary | These files narrate; figures quoted must already exist in `quarters.json`. |
-| `peers.json`, `cds.json` | FactSet data contracts (schema documented in each file) | Empty until the connector is authorised. |
+| `cds.json` | FactSet CDS contract (schema documented in the file) | Still empty: the FactSet connector exposes no CDS or bond-price endpoint (see `PENDING.md`). `peers.json` is no longer curated; `data/peers.js` is generated from `factset.json`. |
 | `press.json` | Market concerns as stated in credible press and analyst publications: last 90 days, up to 8 items, four themes, bilingual one-line summaries, links | Refreshed weekly (Mondays) by the desktop task "FNAM Oracle: weekly press sweep" (`PRESS-SWEEP-PROMPT.md`); each summary states only what the piece reports. Feeds the executive-summary block and the deck page after it. |
 | `obligations.json` | Off-balance-sheet financing (section 11) and the dividends capital card: notes payable, operating and finance leases, uncommenced lease commitments with their history, purchase obligations by fiscal year, guarantees, prepayments, the 6.50% mandatory convertible preferred, the funding plan | Every figure transcribed from the 10-Q/10-K, the 424B5 or the call named in `source`; updated with each 10-Q/10-K (routine STEP 4); totals tie out in `validate-data.mjs`. Ratios (as reported, lease-adjusted / EBITDAR, commitment-inclusive) are computed on the page and labelled derived. |
 | `peer_leverage.json` | Lease-adjusted leverage inputs for the owner's Baa-range peer set (Broadcom, Dell, Intel, IBM, HPE) from SEC XBRL company facts | Written by `fetch-peer-leverage.mjs` on weekdays: latest balance sheet for stocks, latest fiscal year for flows, a tag accepted only when its period matches; each value carries accession and tag. Ratings are not in XBRL and are not shown. |
+| `factset.json` | FactSet consensus snapshot: Oracle NTM and fiscal-year estimates (EPS, sales, EBITDA, capex, FCF), point-in-time NTM history, price target and ratings; eight peers with FactSet price, market value, lease-inclusive net debt and NTM consensus | Written on weekdays by the cloud routine "FNAM Oracle: FactSet refresh" through the FactSet AI-Ready Data connector (`FACTSET-PROMPT.md` lists the calls); feeds `data/factset.js` and `data/peers.js`; the page computes every ratio. FactSet labels Oracle's fiscal year by its starting calendar year; records carry Oracle's label. |
 | `alerts.json` | Owner thresholds for the routine's email (1-day share move, max net debt / LTM EBITDA, guidance tracking) | Read by the reviewing routine. |
 | `state.json` | Automation state: accessions seen, filings pending extraction, log | Written by `harvest-filings.mjs`; the routine marks extractions `done`. |
 | `quality_report.json` | Last tie-out: checks, failures, warnings, stale series | Written by `validate-data.mjs`. |
@@ -199,10 +200,21 @@ than over the footer (`noteAbove`), a table that would still spill is logged in 
 
 ## Data quality page
 
-`https://fnam.mx/oracle/quality.html` (unlinked) lists every tie-out check, warning and stale series from the
-last build and the automation state (filings seen, pending extraction, last harvest). Same layout as
-`/gentera/quality.html`.
+`site/oracle/quality.html` (hidden, linked from section 14 Methodology; https://fnam.mx/oracle/quality.html) renders `data/quality.js`,
+which `build-data.mjs` assembles from four files after every build:
 
+* `tools/oracle/data/quality_report.json` (written by `validate-data.mjs`): every tie-out as a structured record
+  `{tag, check, status ok|warn|fail, diff, tol, note}`, the freshness of each market series and snapshot (last date,
+  age, limit, how it refreshes), whether each curated file covers the latest quarter, tolerances, coverage, and the
+  legacy `passed / failures / warnings / stale` lists.
+* `tools/oracle/data/parser_report.json` (written by `test-parsers.mjs`): figures re-read from the archived 8-K
+  exhibits, per quarter, with any mismatch and the quarters that predate the archive.
+* `tools/oracle/data/state.json` (harvest state: pending extraction, references, log) and `tools/oracle/notify-state.json`
+  (the weekday routine's last check, last email, last failure).
+
+The page has the same layout as the Qualitas quality page: summary cards, freshness table, curated files, automation
+(what runs, when it last ran, what is pending), parser tests and the tie-outs with status and period filters; ES/EN toggle.
+Check names and validator notes appear in English as the validator writes them.
 ## Local preview
 
 ```

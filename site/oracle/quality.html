@@ -1,47 +1,126 @@
 <!doctype html>
-<html lang="en">
+<html lang="es-MX">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>Oracle model — data quality</title>
+<title>Oracle · Calidad de datos | Data quality</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f9f9f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%23f9f9f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- Hidden owner page: not linked from the navigation; reachable from section 14 (Methodology) of the model. Reads
+     data/quality.js, written by scripts/oracle/build-data.mjs from quality_report.json (validate-data.mjs),
+     parser_report.json (test-parsers.mjs), state.json and notify-state.json after every data build. -->
 <script src="data/quality.js"></script>
 <style>
-:root{--page:#f9f9f7;--surface:#fcfcfb;--text:#0b0b0b;--muted:#898781;--border:rgba(11,11,11,.1);--good:#006300;--bad:#d03b3b;--accent:#1b4332;}
-@media (prefers-color-scheme:dark){:root{--page:#0d0d0d;--surface:#1a1a19;--text:#fff;--muted:#918f88;--border:rgba(255,255,255,.1);--good:#0ca30c;--bad:#e66767;--accent:#4f9a76;}}
-body{margin:0;background:var(--page);color:var(--text);font:14px/1.5 Inter,system-ui,sans-serif;}
-.wrap{max-width:1000px;margin:0 auto;padding:40px 24px;}
-h1{font-family:"Source Serif 4",Georgia,serif;font-size:28px;margin:0 0 6px;}
-h2{font-family:"Source Serif 4",Georgia,serif;font-size:18px;margin:28px 0 8px;}
-.muted{color:var(--muted);} .card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px 18px;}
-.strip{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:18px 0;}
-.strip div{background:var(--surface);padding:12px 14px;} .strip .l{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);} .strip .v{font-size:22px;font-weight:700;}
-@media (max-width:640px){.strip{grid-template-columns:repeat(auto-fit,minmax(110px,1fr));}}
-ul{margin:0;padding-left:18px;font-size:12.5px;line-height:1.8;} .ok{color:var(--good);} .bad{color:var(--bad);}
+:root{color-scheme:light; --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec; --text:#0b0b0b; --text-2:#52514e; --muted:#6f6e69; --border:rgba(11,11,11,.12); --grid:#e1e0d9; --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --good:#006300; --warn:#8a5a00; --warn-bg:#fff3d6; --bad:#b32828; --bad-bg:#fde5e5; --good-bg:#e4f3e4;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c; --text:#fff; --text-2:#c3c2b7; --muted:#a3a19a; --border:rgba(255,255,255,.12); --grid:#2c2c2a; --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --good:#5fcf5f; --warn:#f0c060; --warn-bg:#2a2410; --bad:#ff8a8a; --bad-bg:#3a1a1a; --good-bg:#16261e;}}
+:root[data-theme="dark"]{color-scheme:dark; --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c; --text:#fff; --text-2:#c3c2b7; --muted:#a3a19a; --border:rgba(255,255,255,.12); --grid:#2c2c2a; --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --good:#5fcf5f; --warn:#f0c060; --warn-bg:#2a2410; --bad:#ff8a8a; --bad-bg:#3a1a1a; --good-bg:#16261e;}
+*{box-sizing:border-box} body{margin:0; background:var(--page); color:var(--text); font:14px/1.5 Inter,system-ui,sans-serif; -webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px; margin:0 auto; padding:28px 16px 60px}
+h1{font-family:"Source Serif 4",Georgia,serif; font-size:28px; margin:6px 0 4px} h2{font-family:"Source Serif 4",Georgia,serif; font-size:19px; margin:0 0 4px}
+.eyebrow{font-size:11.5px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--accent-ink)}
+.sub{color:var(--text-2); font-size:13px} a{color:var(--accent-ink)}
+.badge{display:inline-block; padding:3px 10px; border-radius:100px; font-size:12px; font-weight:700; letter-spacing:.03em}
+.badge.ok{background:var(--good-bg); color:var(--good)} .badge.warn{background:var(--warn-bg); color:var(--warn)} .badge.fail{background:var(--bad-bg); color:var(--bad)}
+.cards{display:grid; grid-template-columns:repeat(4,1fr); gap:12px; margin:18px 0} @media(max-width:760px){.cards{grid-template-columns:1fr 1fr}}
+.card{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px; min-width:0}
+.card .v{font-size:24px; font-weight:700; font-variant-numeric:tabular-nums; overflow-wrap:anywhere} .card .v.small{font-size:16px; line-height:1.3; padding-top:4px} .card .l{font-size:11.5px; color:var(--muted); text-transform:uppercase; letter-spacing:.04em; margin-top:2px}
+section{margin-top:26px} .tblwrap{overflow-x:auto; border:1px solid var(--border); border-radius:12px; background:var(--surface)}
+table{width:100%; border-collapse:collapse; font-size:12.8px} th{position:sticky; top:0; background:var(--surface-2); text-align:left; font-size:11px; text-transform:uppercase; letter-spacing:.03em; color:var(--muted); padding:8px 10px; border-bottom:1px solid var(--grid)}
+td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; font-variant-numeric:tabular-nums} tr:last-child td{border-bottom:none} td.n{text-align:right; white-space:nowrap} td.mono{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:12px}
+.st{font-weight:700} .st.ok{color:var(--good)} .st.warn{color:var(--warn)} .st.fail{color:var(--bad)}
+.filters{display:flex; flex-wrap:wrap; gap:8px; margin:10px 0; align-items:center} .filters button{font:inherit; font-size:12.5px; font-weight:600; padding:6px 12px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--text-2); cursor:pointer}
+.filters button.active{background:var(--accent); border-color:var(--accent); color:#fff} .filters button:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.filters select{font:inherit; font-size:12.5px; padding:6px 10px; border-radius:100px; border:1px solid var(--border); background:var(--surface); color:var(--text-2)}
+@media (max-width:640px){h1{padding-right:110px;}}
+.lang{position:fixed; top:12px; right:12px; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; overflow:hidden; z-index:5}
+.lang button{border:0; background:transparent; font:inherit; font-size:12px; font-weight:700; padding:7px 12px; color:var(--text-2); cursor:pointer} .lang button.active{background:var(--accent); color:#fff}
+.empty{padding:14px; color:var(--muted); font-size:13px} .stack{display:grid; gap:12px} h3{font-size:13px; margin:14px 0 6px; color:var(--text-2); text-transform:uppercase; letter-spacing:.04em}
 </style>
 </head>
-<body><div class="wrap">
-<h1>Data quality — Oracle board model</h1>
-<p class="muted" id="meta">Every tie-out check, warning and stale series from the last build, plus the automation state. Unlinked page for the owner.</p>
-<div class="strip" id="strip"></div>
-<h2>Failures</h2><div class="card" id="failures"></div>
-<h2>Stale series &amp; warnings</h2><div class="card" id="warnings"></div>
-<h2>Automation state</h2><div class="card" id="state"></div>
-<h2>Checks passed</h2><div class="card" id="passed"></div>
+<body>
+<div class="lang"><button type="button" id="es" class="active">ES</button><button type="button" id="en">EN</button></div>
+<div class="wrap">
+  <div class="eyebrow"><span class="es">Oracle · página oculta del propietario</span><span class="en" hidden>Oracle · hidden owner page</span></div>
+  <h1><span class="es">Calidad de datos del modelo</span><span class="en" hidden>Model data quality</span></h1>
+  <p class="sub" id="meta"></p>
+  <div class="cards" id="cards"></div>
+  <section><h2><span class="es">Series e instantáneas: vigencia</span><span class="en" hidden>Series and snapshots: freshness</span></h2><p class="sub"><span class="es">Última fecha de cada serie de mercado, de cada instantánea que alimenta la página y del último trimestre frente al calendario de resultados. El límite es la antigüedad máxima antes de que la página muestre el aviso de actualización pendiente.</span><span class="en" hidden>Last date of each market series, of each snapshot that feeds the page, and of the latest quarter against the results calendar. The limit is the maximum age before the page shows its "update pending" notice.</span></p><div class="tblwrap" id="stale"></div></section>
+  <section><h2><span class="es">Archivos curados</span><span class="en" hidden>Curated files</span></h2><p class="sub"><span class="es">¿Comentarios, guía, transcripción, expansión, obligaciones, calendario, prensa y consenso cubren el último trimestre?</span><span class="en" hidden>Do comments, guidance, transcript, buildout, obligations, calendar, press and consensus cover the latest quarter?</span></p><div class="tblwrap" id="curated"></div></section>
+  <section><h2><span class="es">Automatización</span><span class="en" hidden>Automation</span></h2><p class="sub"><span class="es">Qué corre, cuándo corrió por última vez y qué dejó pendiente. Las fechas salen de los propios archivos de datos, no de un registro aparte.</span><span class="en" hidden>What runs, when it last ran and what it left pending. Dates come from the data files themselves, not from a separate log.</span></p><div class="stack"><div class="tblwrap" id="auto"></div><div><h3><span class="es">Presentaciones pendientes de extracción</span><span class="en" hidden>Filings pending extraction</span></h3><div class="tblwrap" id="pending"></div></div><div><h3><span class="es">Bitácora de la cosecha (últimas entradas)</span><span class="en" hidden>Harvest log (latest entries)</span></h3><div class="tblwrap" id="log"></div></div></div></section>
+  <section><h2><span class="es">Pruebas del parser: cifras releídas de los comunicados archivados</span><span class="en" hidden>Parser tests: figures re-read from the archived releases</span></h2><p class="sub"><span class="es">En cada corrida, <code>test-parsers.mjs</code> vuelve a leer cada Anexo 99.1 archivado en <code>tools/oracle/raw/8k/</code> y compara 26 cifras impresas por trimestre (líneas de ingresos y gastos, utilidad de operación, intereses, utilidad antes y después de impuestos, UPA y acciones diluidas, efectivo, inversiones, activos, deuda e ingresos diferidos) con <code>quarters.json</code>. Cualquier diferencia detiene la publicación.</span><span class="en" hidden>On every run, <code>test-parsers.mjs</code> re-reads each Exhibit 99.1 archived in <code>tools/oracle/raw/8k/</code> and compares 26 printed figures per quarter (revenue and expense lines, operating income, interest, pretax and net income, diluted EPS and shares, cash, investments, assets, debt and deferred revenue) with <code>quarters.json</code>. Any mismatch blocks publication.</span></p><div class="stack"><div class="tblwrap" id="parser"></div><div class="tblwrap" id="parserQ"></div></div></section>
+  <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/oracle-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/blob/main/tools/oracle/data/quality_report.json" target="_blank" rel="noopener">quality_report.json ↗</a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/blob/main/tools/oracle/README.md" target="_blank" rel="noopener">README ↗</a></p>
+</div>
 <script>
-(function(){
-  const Qy = window.ORCL_QUALITY || {}; const rep = Qy.report, st = Qy.state;
-  const esc = (s) => String(s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
-  const list = (arr, empty, cls) => (arr && arr.length ? `<ul>${arr.map((x) => `<li class="${cls || ''}">${esc(x)}</li>`).join('')}</ul>` : `<p class="muted" style="margin:0">${empty}</p>`);
-  if (!rep) { document.getElementById('meta').textContent = 'No quality report — run node scripts/oracle/validate-data.mjs && node scripts/oracle/build-data.mjs.'; return; }
-  document.getElementById('meta').textContent = `Generated ${rep.generated}`;
-  const tiles = [['Checks', rep.summary.checks], ['Failed', rep.summary.failed], ['Warnings', rep.summary.warnings], ['Stale', rep.summary.stale], ['Status', rep.summary.failed ? 'BUILD FAILED' : 'OK']];
-  document.getElementById('strip').innerHTML = tiles.map(([l, v]) => `<div><div class="l">${l}</div><div class="v ${l === 'Status' ? (rep.summary.failed ? 'bad' : 'ok') : ''}">${esc(v)}</div></div>`).join('');
-  document.getElementById('failures').innerHTML = list(rep.failures, 'None.', 'bad');
-  document.getElementById('warnings').innerHTML = list([...(rep.stale || []).map((s) => 'STALE — ' + s), ...(rep.warnings || [])], 'None.');
-  document.getElementById('passed').innerHTML = list(rep.passed, 'None recorded.', 'ok');
-  if (st) document.getElementById('state').innerHTML = `<p style="margin:0 0 8px">Last harvest: <b>${esc(st.last_harvest ?? '—')}</b> · last review: <b>${esc(st.last_review ?? '—')}</b> · filings seen: <b>${st.seen}</b> · pending extraction: <b>${(st.pending || []).length}</b></p>` + list((st.pending || []).map((p) => `${p.form} ${p.report_date} — ${p.url}`), 'Nothing pending.') + '<h2 style="font-size:14px;margin:12px 0 4px">Log</h2>' + list((st.log || []).slice().reverse().map((l) => `${l.date} — ${l.event}${l.note ? ': ' + l.note : ''}${l.quarter ? ' (' + l.quarter + ')' : ''}`), 'Empty.');
+(function () {
+  const Q = window.ORCL_QUALITY || null;
+  let LANG = 'es'; try { LANG = localStorage.getItem('orcl-lang') || 'es'; } catch (e) {}
+  const T = { ok: { es: 'OK', en: 'OK' }, warn: { es: 'Aviso', en: 'Warning' }, fail: { es: 'Falla', en: 'Fail' }, all: { es: 'Todos', en: 'All' } };
+  const t = (k) => (T[k] ? T[k][LANG] : k);
+  const esc = (s) => String(s == null ? '' : s).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]));
+  const fmtDate = (iso) => (iso && /^\d{4}-\d{2}-\d{2}/.test(String(iso)) ? new Date(String(iso).slice(0, 10) + 'T12:00:00Z').toLocaleDateString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }) : (iso || '—'));
+  const fmtStamp = (iso) => (iso ? new Date(iso).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { day: 'numeric', month: 'short', year: 'numeric', hour: '2-digit', minute: '2-digit', timeZone: 'UTC' }) + ' UTC' : '—');
+  const num = (v) => (v == null ? '—' : Math.abs(v) >= 1 || v === 0 ? Number(v).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { maximumFractionDigits: 2 }) : Number(v).toLocaleString(LANG === 'es' ? 'es-MX' : 'en-US', { maximumFractionDigits: 4 }));
+  const st = (s) => `<span class="st ${s}">${t(s)}</span>`;
+  const qLabel = (id) => { const m = /^FY(\d{4})Q(\d)$/.exec(id || ''); return m ? (LANG === 'es' ? `${m[2]}T${m[1].slice(2)}` : `${m[2]}Q${m[1].slice(2)}`) : id || '—'; };
+  const days = (iso) => (iso ? Math.round((Date.now() - new Date(String(iso).slice(0, 10) + 'T00:00:00Z')) / 864e5) : null);
+  let filter = 'all', period = 'all';
+  function render() {
+    document.querySelectorAll('.es').forEach((e) => { e.hidden = LANG !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = LANG !== 'en'; });
+    document.getElementById('es').classList.toggle('active', LANG === 'es'); document.getElementById('en').classList.toggle('active', LANG === 'en');
+    document.documentElement.lang = LANG === 'es' ? 'es-MX' : 'en';
+    const es = LANG === 'es';
+    if (!Q || !Q.report) { document.getElementById('meta').textContent = es ? 'data/quality.js no existe todavía: ejecute node scripts/oracle/build.mjs.' : 'data/quality.js does not exist yet: run node scripts/oracle/build.mjs.'; return; }
+    const R = Q.report, P = Q.parser || null, S = Q.state || null, N = Q.notify || null, RT = Q.routines || {};
+    const ok = !R.summary.failed && !(P && P.failed);
+    document.getElementById('meta').innerHTML = `${es ? 'Validado' : 'Validated'} ${fmtStamp(R.generated)} · ${es ? 'datos de la página generados' : 'page data generated'} ${fmtStamp(Q.generatedAt)} · <span class="badge ${ok ? 'ok' : 'fail'}">${ok ? (es ? 'sin fallas: publicado' : 'no failures: published') : (es ? 'con fallas: no se publicó' : 'failures: not published')}</span>`;
+    const c = R.summary || {}; const nOk = (R.checks || []).filter((x) => x.status === 'ok').length, nWarn = (R.checks || []).filter((x) => x.status === 'warn').length, nFail = (R.checks || []).filter((x) => x.status === 'fail').length;
+    const next = R.nextResults ? fmtDate(R.nextResults) : R.nextResultsEstimate ? `${fmtDate(R.nextResultsEstimate.start)} – ${fmtDate(R.nextResultsEstimate.end)}` : '—';
+    document.getElementById('cards').innerHTML = [
+      [c.checks, es ? 'identidades verificadas' : 'identities checked'], [nOk, 'OK'], [nWarn, es ? 'avisos' : 'warnings'], [nFail, es ? 'fallas' : 'failures'],
+      [P ? P.checks : '—', es ? 'cifras releídas de los comunicados' : 'figures re-read from releases'], [P ? P.failed : '—', es ? 'diferencias del parser' : 'parser mismatches'],
+      [qLabel(R.latestQuarter), es ? `último trimestre · publicado ${fmtDate(R.latestReleaseDate)}` : `latest quarter · released ${fmtDate(R.latestReleaseDate)}`],
+      [next, R.nextResults ? (es ? 'próximos resultados (confirmado)' : 'next results (confirmed)') : (es ? 'próximos resultados (estimado)' : 'next results (estimated)')],
+    ].map(([v, l]) => `<div class="card"><div class="v ${String(v).length > 8 ? 'small' : ''}">${v == null ? '—' : esc(v)}</div><div class="l">${l}</div></div>`).join('');
+    document.getElementById('stale').innerHTML = `<table><thead><tr><th>${es ? 'Serie' : 'Series'}</th><th>${es ? 'Última fecha' : 'Last date'}</th><th>${es ? 'Antigüedad (días)' : 'Age (days)'}</th><th>${es ? 'Límite' : 'Limit'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Cómo se actualiza' : 'How it refreshes'}</th></tr></thead><tbody>${(R.freshness || []).map((s) => `<tr><td>${esc(s.series)}</td><td>${fmtDate(s.lastDate)}</td><td class="n">${s.ageDays == null ? '—' : s.ageDays}</td><td class="n">${s.limitDays == null ? '—' : s.limitDays}</td><td>${st(s.status)}</td><td>${esc(s.note || '')}</td></tr>`).join('')}</tbody></table>`;
+    document.getElementById('curated').innerHTML = `<table><thead><tr><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${(R.curated || []).map((s) => `<tr><td class="mono">${esc(s.file)}</td><td>${st(s.status)}</td><td>${esc(s.detail)}</td></tr>`).join('')}</tbody></table>`;
+    const lim = (iso, limit) => (iso == null ? 'warn' : days(iso) > limit ? 'warn' : 'ok');
+    const auto = [
+      [es ? 'Actualización de datos (GitHub Actions)' : 'Data refresh (GitHub Actions)', es ? 'días hábiles 13:30 y 21:45 UTC' : 'weekdays 13:30 and 21:45 UTC', RT.marketGeneratedAt, lim(RT.marketGeneratedAt, 5), es ? `precios, cosecha de EDGAR (${fmtDate(S && S.last_harvest)}), calendario, apalancamiento de pares` : `prices, EDGAR harvest (${fmtDate(S && S.last_harvest)}), calendar, peer leverage`],
+      [es ? 'Revisión diaria (rutina en la nube)' : 'Weekday review (cloud routine)', es ? 'días hábiles 14:35 UTC' : 'weekdays 14:35 UTC', N && N.checkedAt, lim(N && N.checkedAt, 4), N ? (es ? `último trimestre revisado ${qLabel(N.lastQuarter)}; último correo ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'ninguno (días sin novedades)'}${N.lastFailureNote ? '; falla: ' + esc(N.lastFailureNote) : ''}` : `last quarter reviewed ${qLabel(N.lastQuarter)}; last email ${N.lastNotifiedAt ? fmtDate(N.lastNotifiedAt) : 'none (quiet days)'}${N.lastFailureNote ? '; failure: ' + esc(N.lastFailureNote) : ''}`) : '—'],
+      [es ? 'Consenso FactSet (rutina en la nube)' : 'FactSet consensus (cloud routine)', es ? 'días hábiles 14:20 UTC' : 'weekdays 14:20 UTC', RT.factsetFetched, lim(RT.factsetFetched, 7), es ? 'estimaciones, precios, valor de mercado y deuda neta de los pares → factset.json' : 'estimates, prices, market values and peers\' net debt → factset.json'],
+      [es ? 'Barrido de prensa (tarea de escritorio)' : 'Press sweep (desktop task)', es ? 'lunes' : 'Mondays', RT.pressAsOf, lim(RT.pressAsOf, 10), es ? 'preocupaciones del mercado → press.json' : 'market concerns → press.json'],
+      [es ? 'Calendario del inversionista' : 'Investor calendar', es ? 'con la cosecha' : 'with the harvest', RT.calendarGenerated, lim(RT.calendarGenerated, 10), 'fetch-calendar.mjs → calendar.json'],
+      [es ? 'Apalancamiento de pares (XBRL)' : 'Peer leverage (XBRL)', es ? 'con la cosecha' : 'with the harvest', RT.peerLeverageFetched, lim(RT.peerLeverageFetched, 10), 'fetch-peer-leverage.mjs → peer_leverage.json'],
+    ];
+    document.getElementById('auto').innerHTML = `<table><thead><tr><th>${es ? 'Proceso' : 'Process'}</th><th>${es ? 'Cadencia' : 'Cadence'}</th><th>${es ? 'Última corrida' : 'Last run'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Qué produce' : 'What it produces'}</th></tr></thead><tbody>${auto.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td>${fmtDate(r[2])}</td><td>${st(r[3])}</td><td>${r[4]}</td></tr>`).join('')}</tbody></table>`;
+    const pend = (S && S.pending) || [];
+    document.getElementById('pending').innerHTML = pend.length ? `<table><thead><tr><th>${es ? 'Formulario' : 'Form'}</th><th>${es ? 'Fecha del reporte' : 'Report date'}</th><th>${es ? 'Archivo' : 'File'}</th></tr></thead><tbody>${pend.map((p) => `<tr><td>${esc(p.form)}</td><td>${fmtDate(p.report_date || p.filed)}</td><td class="mono">${p.url ? `<a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.archived || p.url)}</a>` : esc(p.archived || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">${es ? `Nada pendiente. ${S ? `${S.done} presentaciones extraídas, ${S.references} 10-Q/10-K registrados por URL, ${S.seen} accesiones vistas.` : ''}` : `Nothing pending. ${S ? `${S.done} filings extracted, ${S.references} 10-Q/10-K recorded by URL, ${S.seen} accessions seen.` : ''}`}</div>`;
+    const log = ((S && S.log) || []).slice().reverse();
+    document.getElementById('log').innerHTML = log.length ? `<table><thead><tr><th>${es ? 'Fecha' : 'Date'}</th><th>${es ? 'Evento' : 'Event'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${log.map((l) => `<tr><td>${fmtDate(l.date)}</td><td class="mono">${esc(l.event)}${l.quarter ? ' (' + qLabel(l.quarter) + ')' : ''}${l.count != null ? ' ×' + l.count : ''}</td><td>${esc(l.note || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
+    if (P) {
+      document.getElementById('parser').innerHTML = `<table><thead><tr><th>${es ? 'Corrida' : 'Run'}</th><th>${es ? 'Trimestres con comunicado archivado' : 'Quarters with an archived release'}</th><th>${es ? 'Cifras comparadas' : 'Figures compared'}</th><th>${es ? 'Diferencias' : 'Mismatches'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody><tr><td>${fmtStamp(P.generated)}</td><td class="n">${P.quartersTested}</td><td class="n">${P.checks}</td><td class="n">${P.failed}</td><td>${st(P.failed ? 'fail' : 'ok')}</td></tr></tbody></table>`;
+      const mm = P.mismatches || [], sk = P.skipped || [];
+      document.getElementById('parserQ').innerHTML = mm.length ? `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Leída del comunicado' : 'Parsed from release'}</th><th>quarters.json</th><th>${es ? 'Archivo' : 'File'}</th></tr></thead><tbody>${mm.map((m) => `<tr><td>${qLabel(m.quarter)}</td><td>${esc(m.check)}</td><td class="n">${num(m.parsed)}</td><td class="n">${num(m.expected)}</td><td class="mono">${esc(m.file)}</td></tr>`).join('')}</tbody></table>` : `<table><thead><tr><th>${es ? 'Trimestre' : 'Quarter'}</th><th>${es ? 'Cifras' : 'Figures'}</th><th>${es ? 'Diferencias' : 'Mismatches'}</th><th>${es ? 'Comunicado archivado' : 'Archived release'}</th></tr></thead><tbody>${(P.perQuarter || []).slice().reverse().map((r) => `<tr><td>${qLabel(r.quarter)}</td><td class="n">${r.checks}</td><td class="n">${r.failed}</td><td class="mono">${esc(r.file)}</td></tr>`).join('')}${sk.map((s) => `<tr><td>${qLabel(s.quarter)}</td><td class="n">—</td><td class="n">—</td><td class="mono">${es ? 'sin comunicado archivado (trimestre anterior al archivo)' : 'no archived release (quarter predates the archive)'}</td></tr>`).join('')}</tbody></table>`;
+    } else { document.getElementById('parser').innerHTML = `<div class="empty">${es ? 'Sin reporte del parser todavía.' : 'No parser report yet.'}</div>`; document.getElementById('parserQ').innerHTML = ''; }
+    const tol = R.tolerances || {};
+    document.getElementById('tolNote').textContent = es ? `Tolerancias: US$ ${tol.usdM ?? 1} millón en las identidades de los estados financieros (redondeo de los comunicados); ${tol.eps ?? 0.02} en la UPA diluida (las acciones se imprimen redondeadas). Los cuadres de fechas, enlaces y formatos no tienen diferencia numérica. Una falla detiene la publicación; un aviso significa que aún no hay datos suficientes para verificar. Los nombres de los cuadres se muestran tal como los escribe el validador.` : `Tolerances: US$ ${tol.usdM ?? 1} million on the financial-statement identities (release rounding); ${tol.eps ?? 0.02} on diluted EPS (share counts are printed rounded). Date, link and format checks carry no numeric difference. A failure blocks publication; a warning means there is not enough data to check yet. Check names appear as the validator writes them.`;
+    const checks = R.checks || [];
+    const counts = { all: checks.length, fail: checks.filter((x) => x.status === 'fail').length, warn: checks.filter((x) => x.status === 'warn').length, ok: checks.filter((x) => x.status === 'ok').length };
+    const tags = [...new Set(checks.map((x) => x.tag))].sort((a, b) => b.localeCompare(a));
+    document.getElementById('filters').innerHTML = ['all', 'fail', 'warn', 'ok'].map((k) => `<button type="button" data-f="${k}" class="${filter === k ? 'active' : ''}" aria-pressed="${filter === k}">${t(k)} (${counts[k]})</button>`).join('') + `<select id="period"><option value="all">${es ? 'Todos los periodos' : 'All periods'}</option>${tags.map((g) => `<option value="${esc(g)}" ${period === g ? 'selected' : ''}>${/^FY\d{4}Q\d$/.test(g) ? qLabel(g) : esc(g)}</option>`).join('')}</select>`;
+    document.querySelectorAll('#filters button').forEach((b) => b.addEventListener('click', () => { filter = b.dataset.f; render(); }));
+    document.getElementById('period').addEventListener('change', (e) => { period = e.target.value; render(); });
+    const rank = { fail: 0, warn: 1, ok: 2 };
+    const rows = checks.filter((x) => (filter === 'all' || x.status === filter) && (period === 'all' || x.tag === period)).slice().sort((a, b) => (rank[a.status] - rank[b.status]) || b.tag.localeCompare(a.tag));
+    document.getElementById('checks').innerHTML = rows.length ? `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Cuadre' : 'Check'}</th><th>${es ? 'Diferencia' : 'Difference'}</th><th>${es ? 'Tolerancia' : 'Tolerance'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${es ? 'Nota' : 'Note'}</th></tr></thead><tbody>${rows.map((x) => `<tr><td>${/^FY\d{4}Q\d$/.test(x.tag) ? qLabel(x.tag) : esc(x.tag)}</td><td>${esc(x.check)}</td><td class="n">${x.diff == null ? '—' : num(x.diff)}</td><td class="n">${x.tol == null ? '—' : num(x.tol)}</td><td>${st(x.status)}</td><td>${esc(x.note || '')}</td></tr>`).join('')}</tbody></table>` : `<div class="empty">—</div>`;
+  }
+  document.getElementById('es').addEventListener('click', () => { LANG = 'es'; try { localStorage.setItem('orcl-lang', 'es'); } catch (e) {} render(); });
+  document.getElementById('en').addEventListener('click', () => { LANG = 'en'; try { localStorage.setItem('orcl-lang', 'en'); } catch (e) {} render(); });
+  render();
 })();
 </script>
-</div></body>
+</body>
 </html>

@@ -36,7 +36,6 @@
   --accent-ink:#0f2c20;
   --accent-soft:#e6ede8;
   --accent-soft-border:rgba(27,67,50,0.22);
-  --live:#0ca30c;
   --shadow: 0 1px 2px rgba(11,11,11,0.04);
   --shadow-hover: 0 6px 20px rgba(11,11,11,0.08);
   --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
@@ -58,7 +57,6 @@
     --accent-ink:#bfe3cf;
     --accent-soft:#16261e;
     --accent-soft-border:rgba(79,154,118,0.32);
-    --live:#3ec43e;
     --shadow: 0 1px 2px rgba(0,0,0,0.3);
     --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
   }
@@ -78,7 +76,6 @@
   --accent-ink:#bfe3cf;
   --accent-soft:#16261e;
   --accent-soft-border:rgba(79,154,118,0.32);
-  --live:#3ec43e;
   --shadow: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
 }
@@ -156,25 +153,23 @@ main{flex:1; padding-top:12px;}
 .section-head h2{
   font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
 }
-.section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
 
 .grid{
-  display:grid; gap:16px;
-  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  display:grid; gap:14px;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
 }
 @media (max-width:360px){ .grid{grid-template-columns:1fr;} }
 
 .card{
   position:relative;
-  display:flex; flex-direction:column; gap:10px;
+  display:flex; flex-direction:column; gap:6px;
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:14px;
-  padding:22px 22px 18px;
+  border-radius:12px;
+  padding:18px 18px 16px;
   box-shadow:var(--shadow);
   text-decoration:none;
   color:inherit;
-  min-height:196px;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 a.card:hover, a.card:focus-visible{
@@ -184,36 +179,30 @@ a.card:hover, a.card:focus-visible{
   outline:none;
 }
 a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shadow-hover);}
-.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .kicker{
-  font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--muted);
 }
-.pill{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-  padding:4px 9px; border-radius:999px; white-space:nowrap;
-}
-.pill.live{background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-soft-border);}
-.pill.live::before{
-  content:""; width:7px; height:7px; border-radius:50%; background:var(--live);
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent);
-}
-.pill.soon{background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border);}
 .card h3{
-  font-family:var(--serif); font-weight:700; font-size:22px; line-height:1.2;
-  margin:2px 0 0; letter-spacing:-0.01em;
+  font-family:var(--serif); font-weight:700; font-size:19px; line-height:1.25;
+  margin:0; letter-spacing:-0.01em;
 }
-.card p{margin:0; color:var(--text-secondary); font-size:14.5px; line-height:1.5;}
+.card p{margin:0; color:var(--text-secondary); font-size:14px; line-height:1.45;}
 .card-foot{
-  margin-top:auto; padding-top:10px;
+  margin-top:auto; padding-top:12px;
   display:flex; align-items:center; justify-content:space-between; gap:10px;
-  font-size:13px; font-weight:600;
 }
-.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px;}
+.card-foot .src{color:var(--muted); font-size:12px; font-weight:500; line-height:1.3;}
+/* the arrow is the only call to action: the whole card is the link */
+.card-foot .cta{
+  flex:none; width:28px; height:28px; border-radius:50%;
+  display:inline-grid; place-items:center;
+  background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink);
+  transition:background .18s ease, color .18s ease, border-color .18s ease;
+}
 .card-foot .cta svg{width:14px; height:14px; transition:transform .18s ease;}
-a.card:hover .cta svg{transform:translateX(3px);}
-.card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
+a.card:hover .cta, a.card:focus-visible .cta{background:var(--accent); border-color:var(--accent); color:#fff;}
+a.card:hover .cta svg{transform:translateX(2px);}
 
 /* board presentation links (one click builds the PDF on the model page) */
 .decks{margin-top:18px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; font-size:13px; color:var(--text-secondary);}
@@ -221,16 +210,6 @@ a.card:hover .cta svg{transform:translateX(3px);}
 .decks a{color:var(--accent-ink); font-weight:600; text-decoration:none; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:4px 11px; white-space:nowrap; transition:border-color .18s ease, transform .18s ease;}
 .decks a:hover, .decks a:focus-visible{border-color:var(--accent); transform:translateY(-1px); outline:none;}
 .decks .hint{flex-basis:100%; font-size:12px; color:var(--muted); margin:0;}
-
-.card.planned{
-  background:transparent;
-  border-style:dashed;
-  border-color:var(--border-strong);
-  box-shadow:none;
-}
-.card.planned h3{color:var(--text-secondary);}
-.card.planned p{color:var(--muted);}
-.card.planned .cta{color:var(--muted);}
 
 /* ---------- footer ---------- */
 footer{
@@ -305,8 +284,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       </a>
       <h1><span class="en">Other Mexican Companies</span><span class="es">Otras Empresas Mexicanas</span></h1>
       <p class="sub">
-        <span class="en">Other Mexican listed companies, one interactive financial model per name — the same structure as the rest of the site: statements, guidance vs. actuals, valuation, capital and dividends, and each company's key themes explained.</span>
-        <span class="es">Otras emisoras mexicanas, con un modelo financiero interactivo por empresa — la misma estructura que el resto del sitio: estados financieros, guía vs. real, valuación, capital y dividendos, y los temas clave de cada compañía explicados.</span>
+        <span class="en">One interactive financial model per company. For now: Quálitas and Gentera.</span>
+        <span class="es">Un modelo financiero interactivo por emisora. Por ahora: Quálitas y Gentera.</span>
       </p>
     </div>
   </section>
@@ -318,67 +297,37 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="en">Companies</span>
           <span class="es">Empresas</span>
         </h2>
-        <span class="count">
-          <span class="en">2 live</span>
-          <span class="es">2 en vivo</span>
-        </span>
       </div>
       <div class="grid">
 
         <a class="card" href="/qualitas/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Company research · insurance</span>
-              <span class="es">Análisis de empresa · seguros</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
-          <h3>
-            <span class="en">Quálitas — Quálitas Controladora</span>
-            <span class="es">Quálitas — Quálitas Controladora</span>
-          </h3>
+          <span class="kicker">
+            <span class="en">Insurance · BMV: Q*</span>
+            <span class="es">Seguros · BMV: Q*</span>
+          </span>
+          <h3>Quálitas</h3>
           <p>
-            <span class="en">Interactive financial model for Mexico's largest auto insurer (BMV: Q*): quarter-by-quarter, year-to-date, LTM and fiscal-year statements in CNSF format with a commentary column, insured units and premiums by line, management expectations vs. actuals, share performance vs. IPC and global peers, an editable residual-income (P/BV–ROE) valuation, multiples, solvency and dividends, plus the VAT matter and the international subsidiaries explained.</span>
-            <span class="es">Modelo financiero interactivo de la mayor aseguradora de autos de México (BMV: Q*): estados financieros por trimestre, acumulado, UDM y año fiscal en formato CNSF con columna de comentarios, unidades aseguradas y primas por línea, expectativas de la administración vs. real, desempeño de la acción vs. IPC y pares globales, valuación por ingreso residual (P/VL–ROE) con supuestos editables, múltiplos, solvencia y dividendos, más el tema del IVA y las subsidiarias internacionales explicados.</span>
+            <span class="en">Mexico's largest auto insurer: statements, premiums by line and valuation.</span>
+            <span class="es">La mayor aseguradora de autos de México: estados, primas por línea y valuación.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open model</span>
-              <span class="es">Abrir modelo</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">Quálitas IR · BMV / CNSF · FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
         <a class="card" href="/gentera/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Company research · microfinance</span>
-              <span class="es">Análisis de empresa · microfinanzas</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
-          <h3>
-            <span class="en">Gentera — Compartamos Banco</span>
-            <span class="es">Gentera — Compartamos Banco</span>
-          </h3>
+          <span class="kicker">
+            <span class="en">Microfinance · BMV: GENTERA</span>
+            <span class="es">Microfinanzas · BMV: GENTERA</span>
+          </span>
+          <h3>Gentera</h3>
           <p>
-            <span class="en">Interactive financial model for Mexico's largest microfinance group (BMV: GENTERA): quarter-by-quarter, year-to-date, LTM and fiscal-year statements in CNBV format with a commentary column, loan book and clients by subsidiary (Banco Compartamos, Perú, ConCrédito), guidance vs. actuals, share performance vs. IPC and listed banks, an editable excess-return valuation on book equity, multiples, stage-3 loans, coverage, funding and capital, dividends, plus the ConCrédito buyouts, the Perú turnaround and group lending explained.</span>
-            <span class="es">Modelo financiero interactivo del mayor grupo de microfinanzas de México (BMV: GENTERA): estados financieros por trimestre, acumulado, UDM y año fiscal en formato CNBV con columna de comentarios, cartera y clientes por subsidiaria (Banco Compartamos, Perú, ConCrédito), guía vs. real, desempeño de la acción vs. IPC y bancos listados, valuación por retorno en exceso sobre el capital con supuestos editables, múltiplos, cartera etapa 3, cobertura, fondeo y capital, dividendos, más las compras de ConCrédito, la recuperación de Perú y el crédito grupal explicados.</span>
+            <span class="en">Mexico's largest microfinance group: statements, loan book and valuation.</span>
+            <span class="es">El mayor grupo de microfinanzas de México: estados, cartera y valuación.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open model</span>
-              <span class="es">Abrir modelo</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">Gentera IR · CNBV / SBS · Banxico / FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 

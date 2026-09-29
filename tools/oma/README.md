@@ -33,7 +33,7 @@ line in one of these files.
 ## Pipeline (`.github/workflows/oma-refresh.yml`)
 
 ```
-scripts/airports/fetch-market.mjs --company=oma    Yahoo Finance + FRED + Banxico -> site/oma/data/market.js
+scripts/airports/fetch-market.mjs --company=oma    Yahoo Finance + Banxico SIE (USD/MXN FIX SF43718, bono M 10y auction SF44071; BANXICO_TOKEN; FRED fallbacks) + FRED (US 10y) -> site/oma/data/market.js
 scripts/oma/harvest-releases.mjs                   A. ir.oma.aero (WordPress listings: earnings reports, traffic reports, news;
                                                       needs a browser User-Agent and retries on the captcha interstitial)
                                                    B. miranda-newswire.com (?s=OMA; each post links its PDF)
@@ -41,7 +41,10 @@ scripts/oma/harvest-releases.mjs                   A. ir.oma.aero (WordPress lis
                                                    -> tools/oma/raw/releases/*.txt (+ manifest.json); PDFs converted with
                                                    scripts/airports/pdf2text.py (pdfplumber), PDFs themselves are not committed
 scripts/oma/build-data.mjs                         raw text -> financials.js, traffic.js, guidance.js
-scripts/oma/validate-data.mjs                      tie-outs (scripts/airports/validate.mjs); a failure blocks the commit
+scripts/oma/validate-data.mjs                     tie-outs (scripts/airports/validate.mjs); a failure blocks the commit; also writes
+                                                   site/oma/data/quality.js for the hidden data-quality page https://fnam.mx/oma/quality.html
+                                                   (identities, series freshness, curated files, origin of every quarter, parse warnings
+                                                   from tools/oma/raw/build-log.json; renderer site/assets/quality-page.js)
 git commit "[skip actions]" + push                 Cloudflare Pages deploys; the marker keeps Actions from re-running
 ```
 
@@ -132,3 +135,13 @@ changed it drafts the comments for a new quarter, updates `reference.js` for eve
 bonds, MDP, VINCI), rewrites the affected sections of `summary.js`, commits to `main`, and its final
 message is a concise note delivered by email. If nothing changed the note is the single line "No
 material change in OMA data today."
+
+
+## Conventions and pipeline notes (29-Sep-2026)
+
+- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). FactSet is available only inside a Claude session, not in Actions.
+- Headings are Title Case in both languages; the English view uses American English and EV / P/E / ND.
+- The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
+- `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
+- Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.
+- Net debt includes lease liabilities (`debtExtraItems`), the definition OMA reports (Ps. 11,695 M, 1.13× at 30-Jun-2026).
