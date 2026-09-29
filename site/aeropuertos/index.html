@@ -492,17 +492,28 @@ table.reg thead th.co a{color:inherit; text-decoration:none;}
 table.reg thead th.co a:hover{color:var(--accent);}
 table.reg th[scope="row"]{width:20%; font-weight:600; color:var(--text-primary); background:var(--surface-2);}
 table.reg td{color:var(--text-secondary);}
-table.reg td .src{display:block; margin-top:6px; font-size:11.5px; color:var(--muted);}
-table.reg td .src a{color:var(--accent-ink); text-decoration:none; border-bottom:1px dotted var(--accent-soft-border);}
-table.reg td .src a:hover{color:var(--accent); border-bottom-style:solid;}
-.reg-foot{margin:12px 0 0; font-size:12px; line-height:1.5; color:var(--muted);}
+table.reg td ul{margin:0; padding-left:16px;}
+table.reg td li{margin:0 0 4px; padding-left:2px;}
+table.reg td li:last-child{margin-bottom:0;}
+table.reg td li::marker{color:var(--c); font-size:12px;}
+table.reg .ref{font-size:11px; line-height:0; color:var(--muted); white-space:nowrap;}
+table.reg .ref a{color:var(--accent-ink); text-decoration:none;}
+table.reg .ref a:hover{text-decoration:underline;}
+.reg-foot{margin:14px 0 0; padding-top:12px; border-top:1px solid var(--grid); font-size:12px; line-height:1.5; color:var(--muted);}
+.reg-src-title{font-size:11px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); margin-bottom:4px;}
+.reg-sources{margin:0 0 10px; padding-left:22px; columns:2; column-gap:28px;}
+.reg-sources li{margin:0 0 3px; break-inside:avoid; padding-left:2px;}
+.reg-sources a{color:var(--text-secondary); text-decoration:none; border-bottom:1px dotted var(--border-strong);}
+.reg-sources a:hover{color:var(--accent); border-bottom-style:solid;}
+.reg-foot p{margin:0;}
+@media (max-width:760px){ .reg-sources{columns:1;} }
 @media (max-width:760px){
   .reg-card{padding:14px 12px 10px;}
   table.reg, table.reg tbody, table.reg tr, table.reg td, table.reg th[scope="row"]{display:block; width:auto;}
   table.reg thead{display:none;}
   table.reg tr{border:1px solid var(--border); border-radius:10px; margin-bottom:10px; overflow:hidden;}
   table.reg th[scope="row"]{border-top:0; padding:9px 12px; font-family:var(--serif); font-size:15px;}
-  table.reg td{padding:9px 12px 10px 12px; border-top:1px solid var(--grid); border-left:4px solid var(--c);}
+  table.reg td{padding:9px 12px 10px 10px; border-top:1px solid var(--grid); border-left:4px solid var(--c);}
   table.reg td::before{content:attr(data-co); display:block; font-size:11.5px; font-weight:700; letter-spacing:0.05em; text-transform:uppercase; color:var(--text-primary); margin-bottom:3px;}
 }
 @media (prefers-reduced-motion: reduce){ .tile, .tile-foot .cta svg, .tile-foot .deck{transition:none;} .tile:hover{transform:none;} }
@@ -659,10 +670,14 @@ table.reg td .src a:hover{color:var(--accent); border-bottom-style:solid;}
         <div class="reg-wrap">
           <table class="reg" id="regtbl" aria-describedby="reg-intro"></table>
         </div>
-        <p class="reg-foot">
-          <span class="en">Every cell links to the filing it was read from (BMV/SEC releases and quarterly reports). Each regulatory period is quoted in the constant pesos of the date the authority set (December 2022, 2023 or 2024), so tariff and investment levels are not comparable across groups without re-indexing. Full regulation blocks, guidance and dividends: in each model's section 07.</span>
-          <span class="es">Cada celda enlaza al documento del que se tomó (comunicados a la BMV/SEC e informes trimestrales). Cada periodo regulatorio está en pesos constantes de la fecha que fijó la autoridad (diciembre de 2022, 2023 o 2024), así que los niveles de tarifa e inversión no son comparables entre grupos sin actualizarlos. Los bloques completos de regulación, guía y dividendos están en la sección 07 de cada modelo.</span>
-        </p>
+        <div class="reg-foot">
+          <div class="reg-src-title"><span class="en">Sources</span><span class="es">Fuentes</span></div>
+          <ol class="reg-sources" id="reg-sources"></ol>
+          <p>
+            <span class="en">Each period is stated in the constant pesos its filing uses (December 2022, 2023 or 2024), so levels are not comparable across groups without re-indexing. Full regulation, guidance and dividend blocks: section 07 of each model.</span>
+            <span class="es">Cada periodo está en los pesos constantes que usa su documento (diciembre de 2022, 2023 o 2024), así que los niveles no son comparables entre grupos sin actualizarlos. Bloques completos de regulación, guía y dividendos: sección 07 de cada modelo.</span>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -1145,25 +1160,29 @@ window.addEventListener("DOMContentLoaded", function(){
 });
 </script>
 <script>
-/* Tariffs and regulation table, rendered from /aeropuertos/data/regulation.js in the current language. */
+/* Tariffs and regulation table, rendered from /aeropuertos/data/regulation.js in the current language.
+   Cells are short bullet lists; sources are numbered once under the table and cited as [n] in the cells. */
 window.addEventListener("DOMContentLoaded", function(){
   var G = window.MX_AIRPORTS_REG, tbl = document.getElementById("regtbl"); if (!G || !tbl) return;
   var esc = function(x){ return String(x == null ? "" : x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+  var ids = Object.keys(G.sources || {}), num = function(id){ return ids.indexOf(id) + 1; };
   function draw(){
     var es = document.documentElement.getAttribute("lang") !== "en", L = function(o){ return o ? (es ? o.es : o.en) : ""; };
     document.getElementById("reg-intro").textContent = L(G.intro);
     var upd = G.updatedAt ? new Date(G.updatedAt + "T12:00:00Z") : null;
-    document.getElementById("reg-upd").textContent = (es ? "Revisado el " : "Reviewed ") + (upd && !isNaN(upd) ? upd.toLocaleDateString(es ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "") : G.updatedAt) + (es ? " · fuentes en cada celda" : " · sources in every cell");
+    document.getElementById("reg-upd").textContent = (es ? "Revisado el " : "Reviewed ") + (upd && !isNaN(upd) ? upd.toLocaleDateString(es ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "") : G.updatedAt);
     var head = '<thead><tr><th scope="col">' + (es ? "Tema" : "Topic") + '</th>' + G.companies.map(function(c){
       return '<th scope="col" class="co" style="--c:var(--c-' + c.key.toLowerCase() + ')"><a href="' + esc(c.href) + '">' + esc(c.name) + '</a><small>' + esc(c.full) + '</small></th>';
     }).join("") + '</tr></thead>';
     var body = '<tbody>' + G.rows.map(function(r){
       return '<tr><th scope="row">' + esc(L(r.label)) + '</th>' + G.companies.map(function(c){
-        var cell = r.cells[c.key] || {}, src = (cell.src || []).map(function(x){ return '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(L(x.label)) + '</a>'; }).join(" · ");
-        return '<td data-co="' + esc(c.name) + '" style="--c:var(--c-' + c.key.toLowerCase() + ')">' + esc(L(cell)) + (src ? '<span class="src">' + (es ? "Fuente: " : "Source: ") + src + '</span>' : "") + '</td>';
+        var cell = r.cells[c.key] || {}, items = L(cell) || [], refs = (cell.src || []).map(num).filter(Boolean);
+        var cite = refs.length ? ' <sup class="ref">[' + refs.map(function(n){ return '<a href="#reg-src-' + n + '">' + n + '</a>'; }).join(", ") + ']</sup>' : "";
+        return '<td data-co="' + esc(c.name) + '" style="--c:var(--c-' + c.key.toLowerCase() + ')"><ul>' + items.map(function(t, i){ return '<li>' + esc(t) + (i === items.length - 1 ? cite : "") + '</li>'; }).join("") + '</ul></td>';
       }).join("") + '</tr>';
     }).join("") + '</tbody>';
     tbl.innerHTML = head + body;
+    document.getElementById("reg-sources").innerHTML = ids.map(function(id, i){ var x = G.sources[id]; return '<li id="reg-src-' + (i + 1) + '"><a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(L(x.label)) + '</a></li>'; }).join("");
   }
   draw();
   new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});

@@ -30,7 +30,8 @@ at runtime and needs no step here.
 - The three company tiles sit at the top of the page (compact: name, ticker, one-line footprint, "Open model" and the
   board-PDF link). The full description of what each model contains lives on the model pages, not on the tiles.
 - **Tariffs and regulation** (`site/aeropuertos/data/regulation.js`) is hand-curated from the companies' own BMV/SEC
-  releases and quarterly reports; every cell carries the filing it was read from (label + URL) and the page links it.
+  releases and quarterly reports. Cells are short bullet lists (`es`/`en` arrays) and cite their filings by id
+  (`src`); the filings are numbered once in `sources` and printed under the table with the `[n]` marks.
   Figures are quoted exactly as the filings state them, in the constant pesos of each regulatory period (GAP Dec-2023
   tariffs / Dec-2022 investments, OMA Dec-2024, ASUR Dec-2022), so do not compare levels across groups. Update the
   cells when a new MDP is approved (GAP 2030, ASUR 2029, OMA 2031) or a quarterly report changes the "latest reading"
