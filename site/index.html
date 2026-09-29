@@ -36,7 +36,6 @@
   --accent-ink:#0f2c20;
   --accent-soft:#e6ede8;
   --accent-soft-border:rgba(27,67,50,0.22);
-  --live:#0ca30c;
   --shadow: 0 1px 2px rgba(11,11,11,0.04);
   --shadow-hover: 0 6px 20px rgba(11,11,11,0.08);
   --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
@@ -58,7 +57,6 @@
     --accent-ink:#bfe3cf;
     --accent-soft:#16261e;
     --accent-soft-border:rgba(79,154,118,0.32);
-    --live:#3ec43e;
     --shadow: 0 1px 2px rgba(0,0,0,0.3);
     --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
   }
@@ -78,7 +76,6 @@
   --accent-ink:#bfe3cf;
   --accent-soft:#16261e;
   --accent-soft-border:rgba(79,154,118,0.32);
-  --live:#3ec43e;
   --shadow: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
 }
@@ -156,25 +153,23 @@ main{flex:1; padding-top:12px;}
 .section-head h2{
   font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
 }
-.section-head .count{font-size:13px; color:var(--muted); white-space:nowrap;}
 
 .grid{
-  display:grid; gap:16px;
-  grid-template-columns:repeat(auto-fill, minmax(300px, 1fr));
+  display:grid; gap:14px;
+  grid-template-columns:repeat(auto-fill, minmax(280px, 1fr));
 }
 @media (max-width:360px){ .grid{grid-template-columns:1fr;} }
 
 .card{
   position:relative;
-  display:flex; flex-direction:column; gap:10px;
+  display:flex; flex-direction:column; gap:6px;
   background:var(--surface);
   border:1px solid var(--border);
-  border-radius:14px;
-  padding:22px 22px 18px;
+  border-radius:12px;
+  padding:18px 18px 16px;
   box-shadow:var(--shadow);
   text-decoration:none;
   color:inherit;
-  min-height:196px;
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 a.card:hover, a.card:focus-visible{
@@ -184,36 +179,30 @@ a.card:hover, a.card:focus-visible{
   outline:none;
 }
 a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shadow-hover);}
-.card-top{display:flex; align-items:center; justify-content:space-between; gap:10px;}
 .kicker{
-  font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
+  font-size:11px; font-weight:600; letter-spacing:0.08em; text-transform:uppercase;
   color:var(--muted);
 }
-.pill{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-  padding:4px 9px; border-radius:999px; white-space:nowrap;
-}
-.pill.live{background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-soft-border);}
-.pill.live::before{
-  content:""; width:7px; height:7px; border-radius:50%; background:var(--live);
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent);
-}
-.pill.soon{background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border);}
 .card h3{
-  font-family:var(--serif); font-weight:700; font-size:22px; line-height:1.2;
-  margin:2px 0 0; letter-spacing:-0.01em;
+  font-family:var(--serif); font-weight:700; font-size:19px; line-height:1.25;
+  margin:0; letter-spacing:-0.01em;
 }
-.card p{margin:0; color:var(--text-secondary); font-size:14.5px; line-height:1.5;}
+.card p{margin:0; color:var(--text-secondary); font-size:14px; line-height:1.45;}
 .card-foot{
-  margin-top:auto; padding-top:10px;
+  margin-top:auto; padding-top:12px;
   display:flex; align-items:center; justify-content:space-between; gap:10px;
-  font-size:13px; font-weight:600;
 }
-.card-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:6px;}
+.card-foot .src{color:var(--muted); font-size:12px; font-weight:500; line-height:1.3;}
+/* the arrow is the only call to action: the whole card is the link */
+.card-foot .cta{
+  flex:none; width:28px; height:28px; border-radius:50%;
+  display:inline-grid; place-items:center;
+  background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink);
+  transition:background .18s ease, color .18s ease, border-color .18s ease;
+}
 .card-foot .cta svg{width:14px; height:14px; transition:transform .18s ease;}
-a.card:hover .cta svg{transform:translateX(3px);}
-.card-foot .src{color:var(--muted); font-weight:500; font-size:12px; text-align:right;}
+a.card:hover .cta, a.card:focus-visible .cta{background:var(--accent); border-color:var(--accent); color:#fff;}
+a.card:hover .cta svg{transform:translateX(2px);}
 
 /* board presentation links (one click builds the PDF on the model page) */
 .decks{margin-top:18px; display:flex; flex-wrap:wrap; align-items:center; gap:8px 12px; font-size:13px; color:var(--text-secondary);}
@@ -221,16 +210,6 @@ a.card:hover .cta svg{transform:translateX(3px);}
 .decks a{color:var(--accent-ink); font-weight:600; text-decoration:none; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:4px 11px; white-space:nowrap; transition:border-color .18s ease, transform .18s ease;}
 .decks a:hover, .decks a:focus-visible{border-color:var(--accent); transform:translateY(-1px); outline:none;}
 .decks .hint{flex-basis:100%; font-size:12px; color:var(--muted); margin:0;}
-
-.card.planned{
-  background:transparent;
-  border-style:dashed;
-  border-color:var(--border-strong);
-  box-shadow:none;
-}
-.card.planned h3{color:var(--text-secondary);}
-.card.planned p{color:var(--muted);}
-.card.planned .cta{color:var(--muted);}
 
 /* ---------- footer ---------- */
 footer{
@@ -276,103 +255,69 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="en">United States</span>
           <span class="es">Estados Unidos</span>
         </h2>
-        <span class="count">
-          <span class="en">3 live · 2 in development</span>
-          <span class="es">3 en vivo · 2 en desarrollo</span>
-        </span>
       </div>
       <div class="grid">
 
         <a class="card" href="/macro/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Economy</span>
-              <span class="es">Economía</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">
+            <span class="en">Economy</span>
+            <span class="es">Economía</span>
+          </span>
           <h3>
             <span class="en">U.S. Macro Dashboard</span>
             <span class="es">Panel Macro de EE. UU.</span>
           </h3>
           <p>
-            <span class="en">Inflation (CPI, PCE, PPI), the labor market, real GDP, personal income and saving, retail sales, and consumer sentiment — each with release history and the next scheduled print.</span>
-            <span class="es">Inflación (CPI, PCE, PPI), mercado laboral, PIB real, ingreso y ahorro personal, ventas minoristas y confianza del consumidor — cada uno con su historial y la próxima publicación programada.</span>
+            <span class="en">Inflation, jobs, GDP, consumer spending and sentiment.</span>
+            <span class="es">Inflación, empleo, PIB, consumo y confianza del consumidor.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open dashboard</span>
-              <span class="es">Abrir panel</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">BLS · BEA · FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
         <a class="card" href="/fiscal/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Public finance</span>
-              <span class="es">Finanzas públicas</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">
+            <span class="en">Public finance</span>
+            <span class="es">Finanzas públicas</span>
+          </span>
           <h3>
             <span class="en">U.S. Fiscal Debt Monitor</span>
             <span class="es">Monitor de la Deuda Fiscal de EE. UU.</span>
           </h3>
           <p>
-            <span class="en">Federal debt and who holds it, maturity structure, interest cost, revenue and spending, the deficit — plus the Federal Reserve's balance sheet, money supply, and policy rates.</span>
-            <span class="es">Deuda federal y quién la posee, estructura de vencimientos, costo de intereses, ingresos y gasto, el déficit — más el balance de la Reserva Federal, la oferta monetaria y las tasas de política.</span>
+            <span class="en">Federal debt, its holders and cost, the deficit and the Fed's balance sheet.</span>
+            <span class="es">Deuda federal, quién la posee y su costo, el déficit y el balance de la Fed.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open dashboard</span>
-              <span class="es">Abrir panel</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">
               <span class="en">Treasury · Federal Reserve</span>
               <span class="es">Tesoro · Reserva Federal</span>
             </span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
         <a class="card" href="/macro/?view=fiscal">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Public finance</span>
-              <span class="es">Finanzas públicas</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">
+            <span class="en">Public finance</span>
+            <span class="es">Finanzas públicas</span>
+          </span>
           <h3>
             <span class="en">Fiscal Deficit</span>
             <span class="es">Déficit Fiscal</span>
           </h3>
           <p>
-            <span class="en">What the federal government takes in, what it spends, and the gap between them — receipts, outlays and the deficit by fiscal year (October to September), from the Monthly Treasury Statement.</span>
-            <span class="es">Lo que el gobierno federal recauda, lo que gasta y la brecha entre ambos — ingresos, gasto y déficit por año fiscal (octubre a septiembre), con la Declaración Mensual del Tesoro.</span>
+            <span class="en">Federal receipts, outlays and the deficit by fiscal year.</span>
+            <span class="es">Ingresos, gasto y déficit del gobierno federal por año fiscal.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open dashboard</span>
-              <span class="es">Abrir panel</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">
               <span class="en">Treasury · MTS</span>
               <span class="es">Tesoro · MTS</span>
             </span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
@@ -388,68 +333,44 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="en">Mexico</span>
           <span class="es">México</span>
         </h2>
-        <span class="count">
-          <span class="en">2 live</span>
-          <span class="es">2 en vivo</span>
-        </span>
       </div>
       <div class="grid">
 
         <a class="card" href="/mx/macro/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Economy</span>
-              <span class="es">Economía</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">
+            <span class="en">Economy</span>
+            <span class="es">Economía</span>
+          </span>
           <h3>
             <span class="en">Mexico Macro Dashboard</span>
             <span class="es">Panel Macro de México</span>
           </h3>
           <p>
-            <span class="en">INPC inflation and its components, GDP and IGAE activity, unemployment and IMSS jobs, consumer confidence, remittances, trade, the peso, and Banxico's policy and market rates.</span>
-            <span class="es">Inflación INPC y sus componentes, PIB e IGAE, desocupación y empleo IMSS, confianza del consumidor, remesas, comercio exterior, el peso y las tasas de Banxico y de mercado.</span>
+            <span class="en">Inflation, activity, jobs, remittances, trade, the peso and Banxico's rates.</span>
+            <span class="es">Inflación, actividad, empleo, remesas, comercio, el peso y las tasas de Banxico.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open dashboard</span>
-              <span class="es">Abrir panel</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">INEGI · Banxico</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
         <a class="card" href="/mx/fiscal/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Public finance</span>
-              <span class="es">Finanzas públicas</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">
+            <span class="en">Public finance</span>
+            <span class="es">Finanzas públicas</span>
+          </span>
           <h3>
             <span class="en">Mexico Fiscal Monitor</span>
             <span class="es">Monitor Fiscal de México</span>
           </h3>
           <p>
-            <span class="en">Broad public debt (SHRFSP) and who holds it, maturity structure, financial cost, revenue and spending, Pemex, the 2027 Economic Package projections — plus Banxico's balance sheet, reserves, exchange rate and policy rate.</span>
-            <span class="es">Deuda pública amplia (SHRFSP) y quién la tiene, plazos, costo financiero, ingresos y gasto, Pemex, las proyecciones del Paquete Económico 2027 — más el balance de Banxico, las reservas, el tipo de cambio y la tasa objetivo.</span>
+            <span class="en">Public debt and its cost, revenue and spending, Pemex and Banxico.</span>
+            <span class="es">Deuda pública y su costo, ingresos y gasto, Pemex y el balance de Banxico.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">Open dashboard</span>
-              <span class="es">Abrir panel</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">SHCP · Banxico</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
@@ -465,100 +386,56 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
           <span class="en">Companies</span>
           <span class="es">Empresas</span>
         </h2>
-        <span class="count">
-          <span class="en">6 live</span>
-          <span class="es">6 en vivo</span>
-        </span>
       </div>
       <div class="grid">
 
         <a class="card" href="/aeropuertos/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Company research · airports</span>
-              <span class="es">Análisis de empresa · aeropuertos</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">GAP · OMA · ASUR</span>
           <h3>
-            <span class="en">Mexican Airports — GAP, OMA, ASUR</span>
-            <span class="es">Aeropuertos Mexicanos — GAP, OMA, ASUR</span>
+            <span class="en">Mexican Airports</span>
+            <span class="es">Aeropuertos Mexicanos</span>
           </h3>
           <p>
-            <span class="en">The three listed airport groups — GAP (Pacific), OMA (central-north) and ASUR (southeast) — one interactive financial model each, built on the same structure so they can be read side by side.</span>
-            <span class="es">Los tres grupos aeroportuarios listados — GAP (Pacífico), OMA (Centro-Norte) y ASUR (Sureste) — un modelo financiero interactivo por grupo y con la misma estructura, para leerlos en paralelo.</span>
+            <span class="en">One interactive financial model per group, built to be read side by side.</span>
+            <span class="es">Un modelo financiero interactivo por grupo, para leerlos en paralelo.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">See the three groups</span>
-              <span class="es">Ver los tres grupos</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">BMV / SEC · FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
         <a class="card" href="/otras-empresas/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Company research · other listed companies</span>
-              <span class="es">Análisis de empresa · otras emisoras</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">Quálitas · Gentera</span>
           <h3>
             <span class="en">Other Mexican Companies</span>
             <span class="es">Otras Empresas Mexicanas</span>
           </h3>
           <p>
-            <span class="en">Interactive financial models for other Mexican listed companies, built on the same structure as the rest of the site. Today: Quálitas (BMV: Q*), Mexico's largest auto insurer, and Gentera (BMV: GENTERA), its largest microfinance group — statements, guidance vs. actuals, valuation, capital and each company's key themes explained.</span>
-            <span class="es">Modelos financieros interactivos de otras emisoras mexicanas, con la misma estructura que el resto del sitio. Hoy: Quálitas (BMV: Q*), la mayor aseguradora de autos de México, y Gentera (BMV: GENTERA), su mayor grupo de microfinanzas — estados financieros, guía vs. real, valuación, capital y los temas clave de cada compañía explicados.</span>
+            <span class="en">Statements, guidance vs. actuals, valuation and capital.</span>
+            <span class="es">Estados financieros, guía vs. real, valuación y capital.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">See the companies</span>
-              <span class="es">Ver las empresas</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">BMV · CNSF / CNBV · FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
 
         <a class="card" href="/mauricio/">
-          <div class="card-top">
-            <span class="kicker">
-              <span class="en">Company research · coverage</span>
-              <span class="es">Análisis de empresa · cobertura</span>
-            </span>
-            <span class="pill live">
-              <span class="en">Live</span>
-              <span class="es">En vivo</span>
-            </span>
-          </div>
+          <span class="kicker">Oracle</span>
           <h3>
             <span class="en">Mauricio's Companies</span>
             <span class="es">Empresas de Mauricio</span>
           </h3>
           <p>
-            <span class="en">The companies Mauricio covers, one interactive financial model each, built on the same structure as the rest of the site. First up: Oracle (NYSE: ORCL) — GAAP statements with a Non-GAAP switch, RPO and cloud revenue, guidance vs. actuals, an editable DCF, debt by instrument, and the AI infrastructure buildout explained.</span>
-            <span class="es">Las empresas que cubre Mauricio, un modelo financiero interactivo por emisora y con la misma estructura que el resto del sitio. La primera: Oracle (NYSE: ORCL) — estados financieros GAAP con conmutador No-GAAP, RPO e ingresos de nube, guía vs. real, DCF editable, deuda por instrumento y la expansión de infraestructura de IA explicada.</span>
+            <span class="en">GAAP and Non-GAAP statements, RPO, guidance, an editable DCF and debt.</span>
+            <span class="es">Estados GAAP y No-GAAP, RPO, guía, DCF editable y deuda.</span>
           </p>
           <div class="card-foot">
-            <span class="cta">
-              <span class="en">See the coverage</span>
-              <span class="es">Ver la cobertura</span>
-              <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg>
-            </span>
             <span class="src">SEC EDGAR · Oracle IR · FRED</span>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </a>
-
 
       </div>
         <div class="decks">
