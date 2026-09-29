@@ -136,8 +136,13 @@ header.top .sub{margin-top:10px; max-width:62ch; color:var(--text-secondary); fo
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
-nav.jump .wrap{display:flex; gap:4px; overflow-x:auto; padding:0 24px; scrollbar-width:none;}
-nav.jump .wrap::-webkit-scrollbar{display:none;}
+/* The tab strip scrolls sideways on its own; the language toggle sits beside it, never over it. */
+nav.jump .wrap{display:flex; align-items:center; gap:10px; padding:0 24px;}
+.jump-scroll{flex:1 1 auto; min-width:0; position:relative;}
+.jump-scroll::after{content:""; position:absolute; top:0; bottom:0; right:0; width:44px; background:linear-gradient(90deg, transparent, var(--page)); pointer-events:none; opacity:0; transition:opacity .15s;}
+.jump-scroll.more::after{opacity:1;}
+.jump-links{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
+.jump-links::-webkit-scrollbar{display:none;}
 nav.jump a{flex:0 0 auto; padding:12px 14px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
 nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
@@ -269,10 +274,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .leader-pie-wrap .center-sub{font-family:Inter,sans-serif; font-size:11px; fill:var(--muted);}
 
 /* ---------- Language toggle (segmented, like the landing page) ---------- */
-.lang-btn{position:fixed; top:16px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
-.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
+.lang-btn{flex:none; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:Inter,sans-serif; font-size:12px; font-weight:700; padding:6px 12px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
-@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+@media (max-width:640px){.lang-btn button{padding:5px 10px; font-size:11.5px;}}
 
 /* ---------- Data freshness ---------- */
 .stale{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.02em; color:#6b4b00; background:color-mix(in srgb, var(--warning) 22%, var(--surface)); border:1px solid var(--warning); border-radius:100px; padding:1px 8px; vertical-align:middle; cursor:help;}
@@ -287,11 +292,6 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 </style>
 </head>
 <body>
-
-<div class="lang-btn" role="group" aria-label="Idioma / Language">
-  <button type="button" id="btnLangEs" class="active" lang="es">ES</button>
-  <button type="button" id="btnLangEn" lang="en">EN</button>
-</div>
 
 <header class="top">
   <div class="wrap">
@@ -324,7 +324,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 </header>
 
 <nav class="jump">
-  <div class="wrap" id="jumpNav">
+  <div class="wrap">
+    <div class="jump-scroll"><div class="jump-links" id="jumpNav">
     <a href="#outstanding"><span class="es">Deuda</span><span class="en">Debt Outstanding</span></a>
     <a href="#holders"><span class="es">Tenedores</span><span class="en">Holders</span></a>
     <a href="#maturity"><span class="es">Plazos</span><span class="en">Maturity</span></a>
@@ -338,6 +339,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <a href="#policyrates"><span class="es">Tasa objetivo</span><span class="en">Policy Rate</span></a>
     <a href="#instruments"><span class="es">Instrumentos</span><span class="en">Instruments</span></a>
     <a href="#sources"><span class="es">Fuentes</span><span class="en">Sources</span></a>
+    </div></div>
+    <div class="lang-btn" role="group" aria-label="Idioma / Language">
+      <button type="button" id="btnLangEs" class="active" lang="es">ES</button>
+      <button type="button" id="btnLangEn" lang="en">EN</button>
+    </div>
   </div>
 </nav>
 
@@ -1430,7 +1436,18 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // ---------------- Nav scroll-spy ----------------
   var links = Array.prototype.slice.call(document.querySelectorAll('nav.jump a'));
   var secs = links.map(function(l){ return document.querySelector(l.getAttribute('href')); });
-  window.addEventListener('scroll', function(){ var y = window.scrollY + 90, idx = 0; secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; }); links.forEach(function(l,i){ l.classList.toggle('active', i===idx); }); }, { passive:true });
+  window.addEventListener('scroll', function(){ var y = window.scrollY + 90, idx = 0; secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; }); links.forEach(function(l,i){ l.classList.toggle('active', i===idx); }); keepTabInView(links[idx]); }, { passive:true });
+  // The strip scrolls sideways: fade its edge while more tabs are off to the right, and keep the active tab in view.
+  var strip = document.getElementById('jumpNav'), holder = strip.parentElement;
+  function hintMore(){ holder.classList.toggle('more', strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 2); }
+  function keepTabInView(a){
+    if(!a) return;
+    var target = Math.max(0, a.offsetLeft - (strip.clientWidth - a.offsetWidth)/2);
+    if(Math.abs(strip.scrollLeft - target) > 4) strip.scrollTo({left:target, behavior:'smooth'});
+  }
+  strip.addEventListener('scroll', hintMore, {passive:true});
+  window.addEventListener('resize', hintMore);
+  hintMore();
 })();
 </script>
 </body>
