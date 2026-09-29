@@ -15,7 +15,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
 <!-- data.js: every time series, refreshed each business day by .github/workflows/refresh-mx-data.yml (scripts/mx-fiscal/fetch.mjs) → window.MX_DATA. -->
 <script src="data.js"></script>
-<!-- docs-data.js: figures that exist only in documents (CGPE, PAF, LIF, PEF, Pemex reports, ratings, survey), refreshed weekly by a Claude routine → window.MX_DOCS. -->
+<!-- docs-data.js: figures that exist only in documents (CGPE, PAF, LIF, PEF, Pemex reports, ratings, survey), refreshed every business day by a Claude routine that reads the document mirrors in tools/mx-fiscal/docs/ → window.MX_DOCS. -->
 <script src="docs-data.js"></script>
 
 <style>
@@ -114,15 +114,6 @@ html[lang="en"] .es{display:none !important;}
 
 /* ---------- Header ---------- */
 header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
-/* FNAM brand row: wordmark + back link, mirroring the airports hub topbar. */
-.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
-.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
-.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
-.fnam-mark svg{width:13px; height:13px; display:block;}
-.fnam-word{font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:.04em;}
-.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
-.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
-.fnam-back svg{width:13px; height:13px; flex:none;}
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
   font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
@@ -133,19 +124,40 @@ header.top h1{font-size:clamp(28px,4vw,42px); font-weight:700; margin-top:14px; 
 header.top .sub{margin-top:10px; max-width:62ch; color:var(--text-secondary); font-size:15.5px; line-height:1.55;}
 .asof-row{display:flex; flex-wrap:wrap; gap:10px 22px; margin-top:20px; font-size:13px; color:var(--muted);}
 .asof-row b{color:var(--text-primary); font-weight:600;}
+/* FNAM brand row: wordmark + back link, mirroring the airports hub topbar. */
+.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
+.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
+.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
+.fnam-mark svg{width:13px; height:13px; display:block;}
+.fnam-word{font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:.04em;}
+.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
+.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
+.fnam-back svg{width:13px; height:13px; flex:none;}
 
 /* ---------- Nav ---------- */
 nav.jump{position:sticky; top:0; z-index:20; background:var(--page); border-bottom:1px solid var(--border); backdrop-filter:blur(6px);}
-/* The tab strip scrolls sideways on its own; the language toggle sits beside it, never over it. */
-nav.jump .wrap{display:flex; align-items:center; gap:10px; padding:0 24px;}
-.jump-scroll{flex:1 1 auto; min-width:0; position:relative;}
-.jump-scroll::after{content:""; position:absolute; top:0; bottom:0; right:0; width:44px; background:linear-gradient(90deg, transparent, var(--page)); pointer-events:none; opacity:0; transition:opacity .15s;}
-.jump-scroll.more::after{opacity:1;}
-.jump-links{display:flex; gap:4px; overflow-x:auto; scrollbar-width:none;}
-.jump-links::-webkit-scrollbar{display:none;}
-nav.jump a{flex:0 0 auto; padding:12px 14px; font-size:13px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
+/* Desktop: every link visible, wrapping onto a second row when the viewport is narrow; nothing is ever clipped. */
+nav.jump .wrap{display:flex; align-items:flex-start; gap:10px; padding:0 24px;}
+nav.jump .jump-main{flex:1 1 auto; min-width:0;}
+nav.jump .jump-list{display:flex; flex-wrap:wrap; gap:0 2px;}
+nav.jump .lang-btn{flex:none; margin:7px 0;}
+nav.jump a{flex:0 0 auto; padding:11px 7px; font-size:12px; font-weight:600; color:var(--text-secondary); text-decoration:none; border-bottom:2px solid transparent; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
 nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
+nav.jump .jump-toggle{display:none;}
+/* Phones and small tablets: a sticky "Sections" button that opens the full list as a two-column grid. */
+@media (max-width:820px){
+  nav.jump .wrap{padding:0 16px;}
+  nav.jump .jump-main{display:block;}
+  nav.jump .jump-toggle{display:flex; align-items:center; justify-content:space-between; width:100%; padding:11px 0; background:none; border:none; font:600 13px Inter,sans-serif; color:var(--text-primary); cursor:pointer; text-align:left;}
+  nav.jump .jump-toggle .cur{color:var(--accent-ink); font-weight:700; margin-left:8px; flex:1; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;}
+  nav.jump .jump-toggle .chev{margin-left:8px; transition:transform .15s;}
+  nav.jump.open .jump-toggle .chev{transform:rotate(180deg);}
+  nav.jump .jump-list{display:none; grid-template-columns:1fr 1fr; gap:2px 12px; padding:2px 0 12px; border-top:1px solid var(--border);}
+  nav.jump.open .jump-list{display:grid;}
+  nav.jump a{padding:9px 4px; font-size:13px; white-space:normal; border-bottom:none;}
+  nav.jump a.active{background:var(--accent-soft); border-radius:6px; padding-left:8px;}
+}
 
 /* ---------- KPI strip ---------- */
 .kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
@@ -239,7 +251,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .corridor .band{position:absolute; top:0; bottom:0; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px;}
 .corridor .pt{position:absolute; top:50%; width:14px; height:14px; border-radius:50%; border:2.5px solid var(--surface); transform:translate(-50%,-50%); box-shadow:0 0 0 1px var(--border); cursor:default;}
 .corridor .axis{position:relative; height:14px; margin:0 11px;}
-.corridor .axis span{position:absolute; transform:translateX(-50%); font-size:10.5px; color:var(--muted);}
+.corridor .axis span{position:absolute; transform:translateX(-50%); font-size:11px; color:var(--muted);}
 .corridor .legend{display:flex; flex-direction:column; gap:7px; margin-top:18px;}
 .corridor .legend .item{display:flex; align-items:baseline; gap:9px; font-size:12.5px;}
 .corridor .legend .sw{flex:0 0 auto; width:10px; height:10px; border-radius:50%; border:1.5px solid var(--surface); box-shadow:0 0 0 1px var(--border);}
@@ -323,34 +335,37 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </div>
 </header>
 
-<nav class="jump">
+<nav class="jump" aria-label="Secciones / Sections">
   <div class="wrap">
-    <div class="jump-scroll"><div class="jump-links" id="jumpNav">
-    <a href="#outstanding"><span class="es">Deuda</span><span class="en">Debt Outstanding</span></a>
+   <div class="jump-main">
+   <button type="button" class="jump-toggle" id="jumpToggle" aria-expanded="false" aria-controls="jumpNav"><span><span class="es">Secciones</span><span class="en">Sections</span></span><span class="cur" id="jumpCur"></span><span class="chev">▾</span></button>
+   <div class="jump-list" id="jumpNav">
+    <a href="#outstanding"><span class="es">Deuda</span><span class="en">Debt</span></a>
     <a href="#holders"><span class="es">Tenedores</span><span class="en">Holders</span></a>
     <a href="#maturity"><span class="es">Plazos</span><span class="en">Maturity</span></a>
-    <a href="#cost"><span class="es">Costo financiero</span><span class="en">Cost of Debt</span></a>
+    <a href="#cost"><span class="es">Costo</span><span class="en">Cost</span></a>
     <a href="#composition"><span class="es">Composición</span><span class="en">Composition</span></a>
-    <a href="#gdp"><span class="es">Deuda vs. PIB</span><span class="en">Debt vs GDP</span></a>
+    <a href="#gdp"><span class="es">Deuda/PIB</span><span class="en">Debt/GDP</span></a>
     <a href="#revenues"><span class="es">Ingresos</span><span class="en">Revenues</span></a>
     <a href="#outlays"><span class="es">Gasto</span><span class="en">Spending</span></a>
     <a href="#pemex">Pemex</a>
-    <a href="#banxico"><span class="es">Balance de Banxico</span><span class="en">Banxico Balance Sheet</span></a>
+    <a href="#banxico"><span class="es">Banxico</span><span class="en">Banxico</span></a>
     <a href="#policyrates"><span class="es">Tasa objetivo</span><span class="en">Policy Rate</span></a>
     <a href="#instruments"><span class="es">Instrumentos</span><span class="en">Instruments</span></a>
     <a href="#sources"><span class="es">Fuentes</span><span class="en">Sources</span></a>
-    </div></div>
-    <div class="lang-btn" role="group" aria-label="Idioma / Language">
-      <button type="button" id="btnLangEs" class="active" lang="es">ES</button>
-      <button type="button" id="btnLangEn" lang="en">EN</button>
-    </div>
+   </div>
+   </div>
+   <div class="lang-btn" role="group" aria-label="Idioma / Language">
+    <button type="button" id="btnLangEs" class="active" lang="es">ES</button>
+    <button type="button" id="btnLangEn" lang="en">EN</button>
+   </div>
   </div>
 </nav>
 
 <main class="wrap">
 
   <section class="block" id="outstanding">
-    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Deuda pendiente</span><span class="en">Debt outstanding</span></h2></div>
+    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Deuda pendiente</span><span class="en">Debt Outstanding</span></h2></div>
     <p class="sec-desc">
       <span class="es">México reporta su deuda con varias medidas anidadas. La más amplia es el <b>Saldo Histórico de los Requerimientos Financieros del Sector Público (SHRFSP)</b>, que suma la deuda del Gobierno Federal, Pemex, CFE, la banca de desarrollo, el IPAB, los Pidiregas y los pasivos por el rescate carretero, netos de activos financieros. La <b>deuda neta del sector público federal</b> excluye esos pasivos "extra-presupuestarios"; la <b>deuda bruta del Gobierno Federal</b> es la más estrecha y no descuenta activos.</span>
       <span class="en">Mexico reports its debt with several nested measures. The broadest is the <b>Historical Balance of Public Sector Borrowing Requirements (SHRFSP)</b>, which adds up the debt of the Federal Government, Pemex, CFE, the development banks, the deposit-insurance agency IPAB, Pidiregas and the highway-rescue liabilities, net of financial assets. The <b>net debt of the federal public sector</b> leaves out those "off-budget" liabilities; the <b>gross debt of the Federal Government</b> is the narrowest and does not net out assets.</span>
@@ -358,7 +373,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-debt"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Deuda amplia (SHRFSP), porcentaje del PIB</span><span class="en">Broad public debt (SHRFSP), percent of GDP</span></h3>
+        <h3><span class="es">Deuda amplia (SHRFSP), porcentaje del PIB</span><span class="en">Broad Public Debt (SHRFSP), Percent of GDP</span></h3>
         <p class="cap"><span class="es">Saldo mensual ÷ PIB nominal promedio de los últimos cuatro trimestres (INEGI, base 2018) · la SHCP calcula su propia razón con su estimación del PIB anual</span><span class="en">Monthly balance ÷ average nominal GDP of the last four quarters (INEGI, 2018 base) · SHCP computes its own ratio with its annual GDP estimate</span></p>
         <div class="chart-wrap tall"><canvas id="chartShrfspPct"></canvas></div>
         <p class="chart-src" id="src-shrfsp"></p>
@@ -367,7 +382,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         </details>
       </div>
       <div class="card">
-        <h3><span class="es">Panorama al último corte</span><span class="en">Snapshot at the latest reading</span></h3>
+        <h3><span class="es">Panorama al último corte</span><span class="en">Snapshot at the Latest Reading</span></h3>
         <p class="cap" id="cap-debt-snapshot"></p>
         <div class="stat-row" id="stats-debt"></div>
         <div class="callout" id="co-debt-1"></div>
@@ -376,13 +391,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="grid-2" style="margin-top:20px">
       <div class="card">
-        <h3><span class="es">Déficit amplio (RFSP), porcentaje del PIB</span><span class="en">Broad deficit (RFSP), percent of GDP</span></h3>
+        <h3><span class="es">Déficit amplio (RFSP), porcentaje del PIB</span><span class="en">Broad Deficit (RFSP), Percent of GDP</span></h3>
         <p class="cap" id="cap-rfsp"></p>
         <div class="chart-wrap"><canvas id="chartRfsp"></canvas></div>
         <p class="chart-src" id="src-rfsp"></p>
       </div>
       <div class="card">
-        <h3><span class="es">La deuda por sexenio</span><span class="en">Debt by presidential term</span></h3>
+        <h3><span class="es">La deuda por sexenio</span><span class="en">Debt by Presidential Term</span></h3>
         <p class="cap"><span class="es">SHRFSP al cierre de cada administración, % del PIB (mismo denominador que la gráfica)</span><span class="en">SHRFSP at the end of each administration, % of GDP (same denominator as the chart)</span></p>
         <div class="tblwrap" id="tblSexenios"></div>
         <div class="callout" id="co-sexenios"></div>
@@ -391,7 +406,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="holders">
-    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Tenedores de la deuda</span><span class="en">Holders of the debt</span></h2></div>
+    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Tenedores de la deuda</span><span class="en">Holders of the Debt</span></h2></div>
     <p class="sec-desc">
       <span class="es">Banxico publica cada día quién tiene los valores gubernamentales en circulación (Cetes, Bondes, Bonos M, Udibonos). El ahorro para el retiro (Siefores) y los fondos de inversión son, por mucho, los mayores tenedores; los residentes en el extranjero, que llegaron a tener cerca de un tercio hace una década, tienen hoy una fracción mucho menor.</span>
       <span class="en">Banxico publishes daily who holds the government securities outstanding (Cetes, Bondes, Bonos M, Udibonos). Retirement savings (Siefores) and mutual funds are by far the largest holders; non-residents, who held close to a third a decade ago, now hold a much smaller share.</span>
@@ -402,6 +417,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <h3 id="h-holders"></h3>
         <p class="cap"><span class="es">Por sector tenedor, miles de millones de pesos a valor nominal · Banxico = reportos, garantías recibidas y valores adquiridos por el banco central</span><span class="en">By holder sector, MXN billions at nominal value · Banxico = repos, collateral received and securities bought by the central bank</span></p>
         <div class="chart-wrap" style="height:320px"><canvas id="chartHolders"></canvas></div>
+        <p class="chart-src" id="src-holders"></p>
         <div class="legend-row">
           <span><span class="dot" style="background:var(--series-2)"></span><span class="es">Residentes en el extranjero</span><span class="en">Non-residents</span></span>
           <span><span class="dot" style="background:var(--series-3)"></span><span class="es">Residentes en México</span><span class="en">Mexican residents</span></span>
@@ -411,9 +427,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         </details>
       </div>
       <div class="card">
-        <h3><span class="es">Los extranjeros, en detalle</span><span class="en">Non-residents, in detail</span></h3>
+        <h3><span class="es">Los extranjeros, en detalle</span><span class="en">Non-Residents, in Detail</span></h3>
         <div class="stat-row" id="stats-foreign"></div>
         <div class="chart-wrap short"><canvas id="chartForeignShare"></canvas></div>
+        <p class="chart-src" id="src-foreign"></p>
         <div class="callout" id="co-foreign"></div>
         <div class="callout">
           <span class="es">Por qué importa: una base de tenedores dominada por Siefores y fondos locales, que reciben flujos obligatorios de ahorro cada mes, hace que la deuda en pesos sea mucho menos sensible a salidas de capital de lo que era en 2013 o 2020. La contraparte es que el mercado depende de que ese ahorro siga creciendo.</span>
@@ -424,7 +441,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="maturity">
-    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Plazos y vencimientos</span><span class="en">Maturity structure</span></h2></div>
+    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Plazos y vencimientos</span><span class="en">Maturity Structure</span></h2></div>
     <p class="sec-desc">
       <span class="es">El Gobierno Federal se financia en el mercado local con cuatro instrumentos — Cetes (descuento, hasta 2 años), Bondes F (tasa revisable), Bonos M (tasa fija nominal, 3 a 30 años) y Udibonos (tasa fija real, indexados a la UDI) — y en el exterior con bonos "UMS" en dólares, euros y yenes y créditos de organismos multilaterales. Un plazo promedio largo y una mayoría a tasa fija son lo que amortigua el impacto de las alzas de tasas sobre el costo financiero.</span>
       <span class="en">The Federal Government funds itself locally with four instruments — Cetes (discount bills up to 2 years), Bondes F (floating rate), Bonos M (nominal fixed rate, 3 to 30 years) and Udibonos (real fixed rate, indexed to the UDI) — and abroad with "UMS" bonds in dollars, euros and yen plus multilateral loans. A long average maturity and a fixed-rate majority are what cushion the cost of debt when rates rise.</span>
@@ -432,7 +449,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-maturity"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Plazo promedio de los valores gubernamentales</span><span class="en">Average maturity of government securities</span></h3>
+        <h3><span class="es">Plazo promedio de los valores gubernamentales</span><span class="en">Average Maturity of Government Securities</span></h3>
         <p class="cap"><span class="es">Años, promedio ponderado de los valores en circulación, mensual</span><span class="en">Years, weighted average of securities outstanding, monthly</span></p>
         <div class="chart-wrap"><canvas id="chartAvgMaturity"></canvas></div>
         <p class="chart-src" id="src-avgmat"></p>
@@ -441,20 +458,22 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <h3 id="h-instr-out"></h3>
         <p class="cap"><span class="es">Valores gubernamentales en circulación por instrumento, miles de millones de pesos a valor nominal</span><span class="en">Government securities outstanding by instrument, MXN billions at nominal value</span></p>
         <div class="leader-pie-wrap" id="pieInstruments"></div>
+        <p class="chart-src" id="src-instr-out"></p>
         <div class="callout" id="co-maturity"></div>
       </div>
     </div>
     <div class="grid-2" style="margin-top:20px">
       <div class="card">
-        <h3><span class="es">Cuándo vence la deuda interna del Gobierno Federal</span><span class="en">When the Federal Government's domestic debt comes due</span></h3>
+        <h3><span class="es">Cuándo vence la deuda interna del Gobierno Federal</span><span class="en">When the Federal Government's Domestic Debt Comes Due</span></h3>
         <p class="cap" id="cap-amort"></p>
         <div class="chart-wrap"><canvas id="chartMaturity"></canvas></div>
         <p class="chart-src" id="src-amort"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Estructura del portafolio según el Plan Anual de Financiamiento</span><span class="en">Portfolio structure per the Annual Financing Plan</span></h3>
+        <h3><span class="es">Estructura del portafolio según el Plan Anual de Financiamiento</span><span class="en">Portfolio Structure per the Annual Financing Plan</span></h3>
         <p class="cap" id="cap-paf"></p>
         <div class="stat-row" id="stats-paf"></div>
+        <p class="cap" id="fn-paf"></p>
         <div class="callout">
           <span class="es">Que la mayor parte de la deuda interna sea a tasa fija de más de un año significa que el costo financiero (Sección 04) reacciona con rezago a los movimientos de la tasa objetivo de Banxico: cada baja o alza llega al presupuesto conforme se renuevan los vencimientos.</span>
           <span class="en">With most domestic debt at fixed rates beyond one year, the cost of debt (Section 04) responds with a lag to moves in Banxico's policy rate: each cut or hike reaches the budget as maturities are rolled over.</span>
@@ -465,7 +484,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="cost">
-    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Costo financiero de la deuda</span><span class="en">Cost of the debt</span></h2></div>
+    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Costo financiero de la deuda</span><span class="en">Cost of the Debt</span></h2></div>
     <p class="sec-desc">
       <span class="es">El costo financiero — intereses, comisiones y apoyos a ahorradores y deudores — es una de las partidas que más rápido crecen en el presupuesto y compite directamente con la inversión y los programas. Con la deuda a tasa fija de largo plazo, los recortes de la tasa objetivo de Banxico llegan al presupuesto con lentitud.</span>
       <span class="en">The financial cost — interest, fees and support to savers and debtors — is one of the fastest-growing budget lines and competes directly with investment and programs. With debt mostly at long fixed rates, Banxico's rate cuts reach the budget only slowly.</span>
@@ -473,7 +492,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-cost"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Costo financiero del sector público, porcentaje del PIB</span><span class="en">Public-sector financial cost, percent of GDP</span></h3>
+        <h3><span class="es">Costo financiero del sector público, porcentaje del PIB</span><span class="en">Public-Sector Financial Cost, Percent of GDP</span></h3>
         <p class="cap"><span class="es">Suma de los últimos doce meses ÷ PIB promedio de los últimos cuatro trimestres, mensual</span><span class="en">Trailing twelve-month sum ÷ average GDP of the last four quarters, monthly</span></p>
         <div class="chart-wrap tall"><canvas id="chartCostPct"></canvas></div>
         <p class="chart-src" id="src-cost"></p>
@@ -482,7 +501,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         </details>
       </div>
       <div class="card">
-        <h3><span class="es">Lo que cuesta, ahora mismo</span><span class="en">What it costs, right now</span></h3>
+        <h3><span class="es">Lo que cuesta, ahora mismo</span><span class="en">What It Costs, Right Now</span></h3>
         <div class="stat-row" id="stats-cost"></div>
         <div class="stat-row" id="stats-cost-2"></div>
         <div class="callout" id="co-cost"></div>
@@ -492,7 +511,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="composition">
-    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Composición de la deuda</span><span class="en">Composition of the debt</span></h2></div>
+    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Composición de la deuda</span><span class="en">Composition of the Debt</span></h2></div>
     <p class="sec-desc">
       <span class="es">La mayor parte de la deuda del sector público federal es interna, en pesos, y el resto es externa, en moneda extranjera. Esa proporción es una decisión de política: desde la crisis de 1994–95 México ha privilegiado el mercado local para evitar que una depreciación del peso dispare el saldo de la deuda.</span>
       <span class="en">Most federal public-sector debt is domestic, in pesos, and the rest is external, in foreign currency. That mix is a policy choice: since the 1994–95 crisis Mexico has favored the local market so that a peso depreciation cannot balloon the debt stock.</span>
@@ -500,7 +519,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-composition"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Deuda bruta del sector público federal: interna vs. externa</span><span class="en">Gross federal public-sector debt: domestic vs. external</span></h3>
+        <h3><span class="es">Deuda bruta del sector público federal: interna vs. externa</span><span class="en">Gross Federal Public-Sector Debt: Domestic vs. External</span></h3>
         <p class="cap" id="cap-composition"></p>
         <div class="leader-pie-wrap" id="pieComposition"></div>
         <p class="chart-src" id="src-composition"></p>
@@ -509,7 +528,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         </details>
       </div>
       <div class="card">
-        <h3><span class="es">Endeudamiento autorizado</span><span class="en">Authorized borrowing</span></h3>
+        <h3><span class="es">Endeudamiento autorizado</span><span class="en">Authorized Borrowing</span></h3>
         <p class="cap" id="cap-lif"></p>
         <div class="stat-row" id="stats-lif"></div>
         <div class="callout" id="co-external"></div>
@@ -519,7 +538,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="gdp">
-    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">La deuda frente al PIB y las proyecciones oficiales</span><span class="en">Debt relative to GDP and the official projections</span></h2></div>
+    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">La deuda frente al PIB y las proyecciones oficiales</span><span class="en">Debt Relative to GDP and the Official Projections</span></h2></div>
     <p class="sec-desc">
       <span class="es">Cada septiembre la SHCP entrega al Congreso los Criterios Generales de Política Económica (CGPE), el equivalente mexicano de las proyecciones de la CBO estadounidense: supuestos macro y la trayectoria esperada del déficit y de la deuda.</span>
       <span class="en">Every September SHCP delivers the General Economic Policy Criteria (CGPE) to Congress, Mexico's equivalent of the U.S. CBO baseline: macro assumptions and the expected path of the deficit and the debt.</span>
@@ -527,14 +546,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-gdp"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Trayectoria de la deuda amplia y estimaciones oficiales</span><span class="en">Broad-debt path and official estimates</span></h3>
+        <h3><span class="es">Trayectoria de la deuda amplia y estimaciones oficiales</span><span class="en">Broad-Debt Path and Official Estimates</span></h3>
         <p class="cap" id="cap-cgpe"></p>
         <div class="chart-wrap"><canvas id="chartCgpeProjection"></canvas></div>
         <p class="chart-src" id="src-cgpe"></p>
         <div class="callout" id="co-cgpe"></div>
       </div>
       <div class="card">
-        <h3><span class="es">Los supuestos macro detrás del Paquete Económico</span><span class="en">The macro assumptions behind the Economic Package</span></h3>
+        <h3><span class="es">Los supuestos macro detrás del Paquete Económico</span><span class="en">The Macro Assumptions Behind the Economic Package</span></h3>
         <p class="cap" id="cap-cgpe-table"></p>
         <div class="tblwrap"><table id="tblCgpe"></table></div>
         <div class="stat-row" id="stats-cgpe" style="margin-top:16px"></div>
@@ -543,7 +562,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="revenues">
-    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Ingresos públicos por fuente</span><span class="en">Public revenue by source</span></h2></div>
+    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Ingresos públicos por fuente</span><span class="en">Public Revenue by Source</span></h2></div>
     <p class="sec-desc">
       <span class="es">El ISR y el IVA aportan la mayor parte de la recaudación tributaria; el IEPS (gasolinas, tabaco, alcohol, refrescos) es un lejano tercero. Los ingresos petroleros, que hace dos décadas eran un tercio de todos los ingresos, hoy son una fracción pequeña. La recaudación tributaria de México sigue siendo de las más bajas de la OCDE.</span>
       <span class="en">Income tax (ISR) and VAT (IVA) supply most tax revenue; excise taxes (IEPS on fuel, tobacco, alcohol, soft drinks) are a distant third. Oil revenue, a third of all revenue two decades ago, is now a small fraction. Mexico's tax take remains among the lowest in the OECD.</span>
@@ -551,7 +570,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-revenues"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Ingresos presupuestarios de los últimos doce meses</span><span class="en">Budget revenue over the last twelve months</span></h3>
+        <h3><span class="es">Ingresos presupuestarios de los últimos doce meses</span><span class="en">Budget Revenue over the Last Twelve Months</span></h3>
         <p class="cap" id="cap-rev-pie"></p>
         <div class="leader-pie-wrap" id="pieRevenue"></div>
         <p class="chart-src" id="src-rev-pie"></p>
@@ -565,7 +584,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="callout" id="co-revenues" style="margin-top:20px"></div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Ingresos tributarios vs. petroleros, porcentaje del PIB</span><span class="en">Tax vs. oil revenue, percent of GDP</span></h3>
+      <h3><span class="es">Ingresos tributarios vs. petroleros, porcentaje del PIB</span><span class="en">Tax vs. Oil Revenue, Percent of GDP</span></h3>
       <p class="cap"><span class="es">Sector público, total de cada año ÷ PIB promedio del año · el año en curso no se muestra hasta cerrar</span><span class="en">Public sector, each year's total ÷ the year's average GDP · the current year is shown once it closes</span></p>
       <div class="chart-wrap tall"><canvas id="chartRevMix"></canvas></div>
       <p class="chart-src" id="src-rev-mix"></p>
@@ -576,7 +595,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="outlays">
-    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Gasto público por rubro</span><span class="en">Public spending by category</span></h2></div>
+    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Gasto público por rubro</span><span class="en">Public Spending by Category</span></h2></div>
     <p class="sec-desc">
       <span class="es">El presupuesto distingue el gasto <b>programable</b> (lo que el gobierno decide cada año: programas sociales, salud, educación, inversión, Pemex y CFE) del <b>no programable</b> (obligaciones fijas: costo financiero, participaciones a estados y municipios, y adeudos de años anteriores). Pensiones, costo financiero y participaciones — tres rubros que el Ejecutivo casi no puede tocar — absorben una parte creciente del gasto total.</span>
       <span class="en">The budget separates <b>programmable</b> spending (what the government chooses each year: social programs, health, education, investment, Pemex and CFE) from <b>non-programmable</b> spending (fixed obligations: financial cost, revenue-sharing transfers to states and municipalities, and prior-year liabilities). Pensions, financial cost and transfers — three lines the Executive can barely touch — absorb a growing share of total spending.</span>
@@ -602,7 +621,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="pemex">
-    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Pemex: el pasivo contingente</span><span class="en">Pemex: the contingent liability</span></h2></div>
+    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">Pemex: el pasivo contingente</span><span class="en">Pemex: The Contingent Liability</span></h2></div>
     <p class="sec-desc">
       <span class="es">Petróleos Mexicanos es la petrolera más endeudada del mundo y, desde 2019, el mayor riesgo para las finanzas públicas: el Gobierno Federal le transfiere recursos cada año para sostenerla y las calificadoras citan ese apoyo en sus decisiones sobre la calificación soberana. Las transferencias y el balance de Pemex se leen aquí directamente de las cifras mensuales de la SHCP.</span>
       <span class="en">Petróleos Mexicanos is the world's most indebted oil company and, since 2019, the biggest risk to public finances: the Federal Government transfers resources every year to keep it afloat, and rating agencies cite that support in their sovereign decisions. Transfers and Pemex's balance are read here straight from SHCP's monthly figures.</span>
@@ -610,13 +629,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-pemex"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Balance financiero de Pemex por año</span><span class="en">Pemex financial balance by year</span></h3>
+        <h3><span class="es">Balance financiero de Pemex por año</span><span class="en">Pemex Financial Balance by Year</span></h3>
         <p class="cap"><span class="es">Ingresos menos gasto en flujo de caja (negativo = déficit), miles de millones de pesos · el año en curso = acumulado a la fecha</span><span class="en">Cash-flow revenue minus spending (negative = deficit), MXN billions · current year = year to date</span></p>
         <div class="chart-wrap"><canvas id="chartPemexTransfers"></canvas></div>
         <p class="chart-src" id="src-pemex-transfers"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Pemex en el año, en cifras</span><span class="en">Pemex this year, in numbers</span></h3>
+        <h3><span class="es">Pemex en el año, en cifras</span><span class="en">Pemex This Year, in Numbers</span></h3>
         <div class="stat-row" id="stats-pemex"></div>
         <div class="stat-row" id="stats-pemex-2"></div>
         <div class="callout" id="co-pemex"></div>
@@ -624,13 +643,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="grid-2" style="margin-top:20px">
       <div class="card">
-        <h3><span class="es">Deuda financiera de Pemex</span><span class="en">Pemex financial debt</span></h3>
+        <h3><span class="es">Deuda financiera de Pemex</span><span class="en">Pemex Financial Debt</span></h3>
         <p class="cap" id="cap-pemex-debt"></p>
         <div class="chart-wrap"><canvas id="chartPemex"></canvas></div>
         <p class="chart-src" id="src-pemex-debt"></p>
       </div>
       <div class="card">
-        <h3><span class="es">El apoyo fiscal según los documentos</span><span class="en">The fiscal support per the documents</span></h3>
+        <h3><span class="es">El apoyo fiscal según los documentos</span><span class="en">The Fiscal Support per the Documents</span></h3>
         <p class="cap" id="cap-pemex-docs"></p>
         <div class="stat-row" id="stats-pemex-docs"></div>
         <div class="callout">
@@ -650,7 +669,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </div>
 
   <section class="block" id="banxico">
-    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">El balance del Banco de México</span><span class="en">Banco de México's balance sheet</span></h2></div>
+    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">El balance del Banco de México</span><span class="en">Banco de México's Balance Sheet</span></h2></div>
     <p class="sec-desc">
       <span class="es">El activo de Banxico es, casi por completo, la reserva internacional: dólares, oro y otros activos externos que respaldan al peso. Del lado del pasivo están la base monetaria (billetes y monedas más los depósitos de los bancos en Banxico), los depósitos de regulación monetaria y la cuenta del Gobierno Federal. Cada semana el banco publica su estado de cuenta.</span>
       <span class="en">Banxico's assets are almost entirely the international reserve: dollars, gold and other external assets backing the peso. On the liability side sit the monetary base (notes and coins plus banks' deposits at Banxico), monetary-regulation deposits and the Federal Government's account. The bank publishes its statement every week.</span>
@@ -658,13 +677,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-banxico"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Reserva internacional</span><span class="en">International reserve</span></h3>
+        <h3><span class="es">Reserva internacional</span><span class="en">International Reserve</span></h3>
         <p class="cap"><span class="es">Miles de millones de dólares, cierre de cada mes y último dato semanal</span><span class="en">USD billions, end of each month plus the latest weekly reading</span></p>
         <div class="chart-wrap tall"><canvas id="chartReserves"></canvas></div>
         <p class="chart-src" id="src-reserves"></p>
       </div>
       <div class="card">
-        <h3><span class="es">El balance hoy</span><span class="en">The balance sheet today</span></h3>
+        <h3><span class="es">El balance hoy</span><span class="en">The Balance Sheet Today</span></h3>
         <p class="cap" id="cap-tacct"></p>
         <div class="tacct">
           <div class="side" id="tacctAssets"></div>
@@ -679,7 +698,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Tipo de cambio FIX, pesos por dólar</span><span class="en">FIX exchange rate, pesos per dollar</span></h3>
+      <h3><span class="es">Tipo de cambio FIX, pesos por dólar</span><span class="en">FIX Exchange Rate, Pesos per Dollar</span></h3>
       <p class="cap"><span class="es">Cierre de cada mes y último dato diario</span><span class="en">End of each month plus the latest daily reading</span></p>
       <div class="chart-wrap"><canvas id="chartFx"></canvas></div>
       <p class="chart-src" id="src-fx"></p>
@@ -688,7 +707,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="policyrates">
-    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">La tasa objetivo y su corredor</span><span class="en">The policy rate and its corridor</span></h2></div>
+    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">La tasa objetivo y su corredor</span><span class="en">The Policy Rate and Its Corridor</span></h2></div>
     <p class="sec-desc">
       <span class="es">Desde 2008 Banxico opera con un <b>objetivo para la Tasa de Interés Interbancaria a un día</b>. La Junta de Gobierno (cinco miembros) lo revisa ocho veces al año, en fechas alineadas con la Reserva Federal. La gráfica y la tabla de decisiones se construyen directamente con la serie diaria de la tasa objetivo.</span>
       <span class="en">Since 2008 Banxico has operated with a <b>target for the overnight interbank rate</b>. The five-member Board reviews it eight times a year, on dates aligned with the Federal Reserve. The chart and the decisions table are built directly from the daily target-rate series.</span>
@@ -696,13 +715,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <p class="sec-meta" id="meta-rates"></p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="es">Tasa objetivo de Banxico</span><span class="en">Banxico target rate</span></h3>
+        <h3><span class="es">Tasa objetivo de Banxico</span><span class="en">Banxico Target Rate</span></h3>
         <p class="cap"><span class="es">Porcentaje, cierre de cada mes y nivel actual</span><span class="en">Percent, end of each month and current level</span></p>
         <div class="chart-wrap"><canvas id="chartPolicyRate"></canvas></div>
         <p class="chart-src" id="src-policy"></p>
       </div>
       <div class="card">
-        <h3><span class="es">El corredor de tasas hoy</span><span class="en">Today's rate corridor</span></h3>
+        <h3><span class="es">El corredor de tasas hoy</span><span class="en">Today's Rate Corridor</span></h3>
         <p class="cap"><span class="es">Dónde se ubica cada tasa de corto plazo, porcentaje</span><span class="en">Where each short-term rate sits, percent</span></p>
         <div class="corridor" id="corridorWrap"></div>
         <div class="callout" id="co-corridor"></div>
@@ -710,13 +729,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     </div>
     <div class="grid-2" style="margin-top:20px">
       <div class="card">
-        <h3><span class="es">Las decisiones del año</span><span class="en">This year's decisions</span></h3>
+        <h3><span class="es">Las decisiones del año</span><span class="en">This Year's Decisions</span></h3>
         <p class="cap"><span class="es">Calendario oficial de anuncios; el resultado de cada reunión se lee de la serie diaria de la tasa objetivo</span><span class="en">Official announcement calendar; each meeting's outcome is read from the daily target-rate series</span></p>
         <div class="tblwrap" id="tblDecisions"></div>
         <p class="chart-src" id="src-decisions"></p>
       </div>
       <div class="card">
-        <h3><span class="es">Qué esperan los analistas</span><span class="en">What analysts expect</span></h3>
+        <h3><span class="es">Qué esperan los analistas</span><span class="en">What Analysts Expect</span></h3>
         <p class="cap" id="cap-survey"></p>
         <div class="chart-wrap short"><canvas id="chartExpectations"></canvas></div>
         <div class="stat-row" id="stats-survey"></div>
@@ -726,7 +745,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   </section>
 
   <section class="block" id="instruments">
-    <div class="sec-head"><span class="sec-num">12</span><h2><span class="es">Instrumentos de política monetaria</span><span class="en">Monetary policy instruments</span></h2></div>
+    <div class="sec-head"><span class="sec-num">12</span><h2><span class="es">Instrumentos de política monetaria</span><span class="en">Monetary Policy Instruments</span></h2></div>
     <p class="sec-desc">
       <span class="es">Banxico opera con un esquema de "saldos cero": cada día compensa la liquidez del sistema para que las cuentas corrientes de los bancos cierren en cero y la tasa de fondeo se ubique en el objetivo. Las herramientas se resumen aquí, junto con las líneas de defensa del peso; las cifras salen del estado de cuenta semanal.</span>
       <span class="en">Banxico runs a "zero-balance" framework: every day it offsets system liquidity so that banks' current accounts close at zero and the funding rate settles at the target. The tools are summarized here, together with the peso's lines of defense; the figures come from the weekly statement.</span>
@@ -739,7 +758,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
 <footer id="sources">
   <div class="wrap">
-    <h3><span class="es">Fuentes y fecha de los datos</span><span class="en">Sources &amp; data vintage</span></h3>
+    <h3><span class="es">Fuentes y fecha de los datos</span><span class="en">Sources &amp; Data Vintage</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
       <span class="es">Este panel combina dos cadencias. Las series de tiempo (Banxico SIE y bases abiertas de la SHCP) se descargan y validan cada día hábil: cada serie se publica solo si el título que reporta la fuente coincide con el esperado y si su último valor pasa una prueba de plausibilidad; si no, la sección conserva el último dato bueno y muestra la etiqueta "sin actualizar desde…". Las cifras que solo existen en documentos (Paquete Económico, Plan Anual de Financiamiento, reportes de Pemex, calificaciones, encuestas) se revisan cada semana y llevan la fecha del documento. Las razones respecto al PIB usan el PIB nominal de INEGI (promedio de los últimos cuatro trimestres), por lo que pueden diferir por décimas de las que publica la SHCP con su estimación anual. "Billones" sigue el uso mexicano (10¹²) y "mmdp" significa miles de millones de pesos. Esta página es informativa y no es material oficial del Gobierno de México ni del Banco de México.</span>
@@ -804,7 +823,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   function trailing12(k, endYm){ var m = monthlyFromYtd(k); var idx = -1; for(var i=0;i<m.length;i++){ if(m[i][0] <= (endYm||'9999')) idx = i; } if(idx < 11) return null; for(var j=idx-11;j<=idx;j++){ if(monthsBetween(m[j][0], m[idx][0]) !== idx-j) return null; } var s = 0; for(var q=idx-11;q<=idx;q++) s += m[q][1]; return s; }
   function annualTotals(k){ var out = {}; pts(k).forEach(function(q){ var y = q[0].slice(0,4); out[y] = { month: +q[0].slice(5,7), v: q[1] }; }); return out; }
   function sumRange(points, fromYm, toYm){ var s = 0, n = 0; points.forEach(function(q){ var m = ym(q[0]); if(m >= fromYm && m <= toYm){ s += q[1]; n++; } }); return n ? s : null; }
-  // Nominal GDP (INEGI, annualised quarterly levels): average of the four quarters ending at or before the month's quarter.
+  // Nominal GDP (INEGI, annualized quarterly levels): average of the four quarters ending at or before the month's quarter.
   function quarterKey(y_m){ return y_m.slice(0,4) + '-Q' + Math.ceil(+y_m.slice(5,7)/3); }
   function gdp4Q(y_m){ var p = pts('pibNominal'); if(!p.length) return null; var q = quarterKey(y_m), idx = -1; for(var i=0;i<p.length;i++){ if(p[i][0] <= q) idx = i; } if(idx < 3) return null; var s = 0; for(var j=idx-3;j<=idx;j++) s += p[j][1]; return s/4; }
   function gdpYear(y){ var p = pts('pibNominal').filter(function(q){ return q[0].slice(0,4) === String(y); }); if(p.length < 4) return null; return p.reduce(function(a,b){ return a+b[1]; }, 0)/4; }
@@ -845,10 +864,18 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     if(mi.length && mi.length < keys.length) out += ' <span class="stale miss">'+mi.length+' '+T('series sin datos','series without data')+'</span>';
     return out;
   }
+  // Every chart and table carries a timestamp: the latest observation among its series and the day it was downloaded.
+  function dkey(d){ var q = String(d).match(/^(\d{4})-Q([1-4])$/); return q ? q[1]+'-'+String(+q[2]*3).padStart(2,'0')+'-99' : String(d); }
+  function dataStamp(keys){
+    var lastD = '', fetched = '';
+    keys.forEach(function(k){ var s = S(k); if(!s || !s.last) return; if(!lastD || dkey(s.last[0]) > dkey(lastD)) lastD = s.last[0]; if((s.fetchedAt||'') > fetched) fetched = s.fetchedAt; });
+    if(!lastD) return '';
+    return T('datos al ','data through ')+(lastD.length > 7 ? fmtDate(lastD) : fmtMonth(lastD))+(fetched ? T(' · descargados el ',' · downloaded ')+fmtDate(fetched) : '');
+  }
   function srcLine(keys, extra){
-    var seen = {}, parts = [];
+    var seen = {}, parts = [], stamp = dataStamp(keys);
     keys.forEach(function(k){ var s = S(k); if(!s) return; var label = (s.provider==='shcp' ? 'SHCP' : 'Banxico SIE')+' '+(s.id||''); if(seen[label]) return; seen[label] = 1; parts.push('<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(label)+'</a>'); });
-    return T('Fuente: ','Source: ')+(parts.length ? parts.join(', ') : '—')+(extra ? ' · '+extra : '')+staleBadge(keys);
+    return T('Fuente: ','Source: ')+(parts.length ? parts.join(', ') : '—')+(extra ? ' · '+extra : '')+(stamp ? ' · '+stamp : '')+staleBadge(keys);
   }
   function docStamp(block){ if(!block || !block.asOf) return '<span class="stale miss">'+T('documento no cargado','document not loaded')+'</span>'; return '<span class="docstamp">'+esc(typeof block.title==='object' ? (block.title[LANG]||block.title.es) : (block.title||''))+(block.title?' · ':'')+T('con fecha ','dated ')+fmtDate(block.asOf)+(block.approx?' · ~':'')+'</span>'; }
   function metaLine(id, keys, docBlocks, note){
@@ -1054,7 +1081,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var keys = ['vgTotal','vgResidentes','vgExtranjero','vgSiefores','vgSocInversion','vgBancos','vgAseguradoras','vgOtrosRes','vgReportosBanxico','vgGarantiasBanxico','vgBanxico','vgCetesExt','vgBonosExt','vgUdibonosExt','vgBondesFExt'];
     var d = lastDate('vgTotal'), tot = lastVal('vgTotal');
     metaLine('meta-holders', keys, [], d ? T('saldos al ','balances as of ')+fmtDate(d)+T(' (diario, valor nominal)',' (daily, nominal value)') : '');
-    setHTML('h-holders', d ? T('Quién tiene los '+fmtBn(tot,2)+' en valores gubernamentales ('+fmtDate(d)+')','Who holds the '+fmtBn(tot,2)+' in government securities ('+fmtDate(d)+')') : T('Tenedores de valores gubernamentales','Holders of government securities'));
+    setHTML('h-holders', d ? T('Quién tiene los '+fmtBn(tot,2)+' en valores gubernamentales ('+fmtDate(d)+')','Who Holds the '+fmtBn(tot,2)+' in Government Securities ('+fmtDate(d)+')') : T('Tenedores de valores gubernamentales','Holders of Government Securities'));
+    setHTML('src-holders', srcLine(['vgTotal','vgExtranjero','vgSiefores','vgSocInversion','vgBancos','vgAseguradoras','vgOtrosRes','vgReportosBanxico','vgGarantiasBanxico','vgBanxico']));
+    setHTML('src-foreign', srcLine(['vgExtranjero','vgTotal']));
     var banx = (lastVal('vgReportosBanxico')||0)+(lastVal('vgGarantiasBanxico')||0)+(lastVal('vgBanxico')||0);
     var sectors = [
       { g:9, es:'Residentes en el extranjero', en:'Non-residents', v:lastVal('vgExtranjero') },
@@ -1097,11 +1126,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     lineChart('chartAvgMaturity', pm.map(function(q){ return monYY(ym(q[0])); }), pm.map(function(q){ return Math.round(q[1]/365*100)/100; }), C.s1, { fmt:function(v){ return n(v,2)+' '+T('años','years'); }, tick:function(v){ return v; }, min:0, maxTicks:12, fill:false });
     setHTML('src-avgmat', srcLine(['vgPlazoPromedio']));
     var d = lastDate('vgCetes');
-    setHTML('h-instr-out', T('Qué está en circulación','What is outstanding')+(d ? ' ('+fmtDate(d)+')' : ''));
+    setHTML('h-instr-out', T('Qué está en circulación','What Is Outstanding')+(d ? ' ('+fmtDate(d)+')' : ''));
     var items = [ { label:'Bonos M', v:lastVal('vgBonos') }, { label:'Udibonos', v:lastVal('vgUdibonos') }, { label:'Bondes F', v:lastVal('vgBondesF') }, { label:'Cetes', v:lastVal('vgCetes') }, { label:'Bondes G', v:lastVal('vgBondesG') }, { label:'Bondes D', v:lastVal('vgBondesD') } ];
     var totI = items.reduce(function(s,i){ return s+(i.v||0); }, 0);
     renderLeaderPie('pieInstruments', items.map(function(i){ return { label:i.label, value:i.v }; }), [C.s1, C.s5, C.s3, C.s4, C.s6, C.s7], { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBn(totI,2), centerSub:T('en circulación','outstanding') });
-    var pmV = lastVal('vgPlazoPromedio'), pmPrev = lastDate('vgPlazoPromedio') ? valAt('vgPlazoPromedio', addMonths(ym(lastDate('vgPlazoPromedio')),-12)+'-99') : null;
+    setHTML('src-instr-out', srcLine(['vgBonos','vgUdibonos','vgBondesF','vgCetes','vgBondesD','vgBondesG']));
+    var pmV = lastVal('vgPlazoPromedio'), pmPrev =lastDate('vgPlazoPromedio') ? valAt('vgPlazoPromedio', addMonths(ym(lastDate('vgPlazoPromedio')),-12)+'-99') : null;
     var fixedShare = totI ? ((lastVal('vgBonos')||0)+(lastVal('vgUdibonos')||0))/totI*100 : null;
     if(pmV!=null) setHTML('co-maturity', T('El plazo promedio de los valores gubernamentales en circulación era de <b>'+n(pmV/365,1)+' años</b> en '+fmtMonthLong(ym(lastDate('vgPlazoPromedio')))+(pmPrev!=null ? ' ('+n(pmPrev/365,1)+' un año antes)' : '')+'. Los instrumentos a tasa fija de largo plazo — Bonos M y Udibonos — representan <b>'+fmtPct(fixedShare)+'</b> del saldo; los Cetes, '+pctOf(lastVal('vgCetes'), totI)+', y los Bondes F a tasa revisable, '+pctOf(lastVal('vgBondesF'), totI)+'.',
       'The average maturity of government securities outstanding was <b>'+n(pmV/365,1)+' years</b> in '+fmtMonthLong(ym(lastDate('vgPlazoPromedio')))+(pmPrev!=null ? ' ('+n(pmPrev/365,1)+' a year earlier)' : '')+'. Long-dated fixed-rate instruments — Bonos M and Udibonos — make up <b>'+fmtPct(fixedShare)+'</b> of the stock; Cetes '+pctOf(lastVal('vgCetes'), totI)+', and floating-rate Bondes F '+pctOf(lastVal('vgBondesF'), totI)+'.'));
@@ -1117,15 +1147,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       paf.avgMaturityDomesticYears!=null ? [n(paf.avgMaturityDomesticYears,1)+' '+T('años','yrs'), T('Plazo promedio, deuda interna','Avg. maturity, domestic debt')] : null,
       paf.avgMaturityExternalYears!=null ? [n(paf.avgMaturityExternalYears,1)+' '+T('años','yrs'), T('Plazo promedio, deuda externa','Avg. maturity, external debt')] : null,
       paf.fixedRateSharePct!=null ? [fmtPct(paf.fixedRateSharePct), T('De la deuda interna a tasa fija con plazo mayor a un año','Of domestic debt at fixed rate with maturity over one year')] : null,
-      paf.externalCapPct!=null ? [fmtPct(paf.externalCapPct), T('Tope de deuda externa como % del total','External-debt cap as % of total')] : null
+      paf.externalShareEstPct!=null ? [fmtPct(paf.externalShareEstPct), T('Deuda externa neta como % de la deuda neta total, estimación para el cierre de 2026¹','Net external debt as % of total net debt, estimate for end-2026¹')] : null
     ]);
+    setHTML('fn-paf', paf.externalShareEstPct!=null ? T('¹ Estimación del PAF 2026, no un tope legal: el plan proyecta que la deuda externa neta "se ubique" en '+fmtPct(paf.externalShareEstPct)+' del total al cierre de 2026 (16.0% en 2025 y 13.1% en 2031). Los únicos techos con fuerza de ley son los del artículo 2 de la Ley de Ingresos (Sección 05).','¹ A PAF 2026 estimate, not a legal cap: the plan projects that net external debt "will stand at" '+fmtPct(paf.externalShareEstPct)+' of the total at end-2026 (16.0% in 2025 and 13.1% in 2031). The only ceilings with force of law are those in article 2 of the Revenue Law (Section 05).') : '');
     // Instrument cards: timeless descriptions, live metrics
     var cards = [
       ['Cetes', T('Desde 1978','Since 1978'), T('Certificados de la Tesorería: se venden a descuento a 28, 91, 182, 364 y 728 días; son el instrumento de referencia de corto plazo y el que compra el público en Cetesdirecto.','Treasury certificates sold at a discount for 28, 91, 182, 364 and 728 days; the short-term benchmark and what the public buys on Cetesdirecto.'), has('cetes28') ? fmtPct(lastVal('cetes28'),2) : '—', T('Cetes a 28 días, subasta del ','28-day Cetes, auction of ')+fmtDate(lastDate('cetes28'))],
       ['Bondes F', T('Desde 2021 (Bondes D desde 2006)','Since 2021 (Bondes D since 2006)'), T('Bonos de desarrollo con cupón que se revisa cada día con la tasa de fondeo; también los emite Banxico con fines de regulación monetaria. Casi sin riesgo de tasa para el tenedor, pero trasladan de inmediato cualquier cambio de la tasa objetivo al costo del gobierno.','Development bonds whose coupon resets daily with the funding rate; Banxico also issues them for monetary regulation. Almost no rate risk for the holder, but they pass any change in the target rate straight through to the government\'s cost.'), fmtMMDP(lastVal('vgBondesF'),0), T('en circulación, ','outstanding, ')+fmtDate(lastDate('vgBondesF'))],
       ['Bonos M', T('Desde 2000','Since 2000'), T('Bonos a tasa fija en pesos de 3 a 30 años, la columna vertebral del mercado local y el instrumento que Siefores y extranjeros más tienen. Su rendimiento a 10 años es la referencia del costo de la deuda de largo plazo.','Fixed-rate peso bonds from 3 to 30 years, the backbone of the local market and the instrument Siefores and foreigners hold most. The 10-year yield is the benchmark for long-term borrowing costs.'), fmtMMDP(lastVal('vgBonos'),0), T('en circulación, ','outstanding, ')+fmtDate(lastDate('vgBonos'))],
       ['Udibonos', T('Desde 1996','Since 1996'), T('Bonos indexados a la inflación (UDI) de 3 a 30 años: pagan una tasa real fija y el principal se ajusta con el INPC. Protegen a los fondos de pensiones y trasladan al gobierno el riesgo de inflación.','Inflation-linked (UDI) bonds from 3 to 30 years: they pay a fixed real rate and the principal adjusts with the CPI. They protect pension funds and shift inflation risk to the government.'), fmtMMDP(lastVal('vgUdibonos'),0), T('en circulación (pesos), ','outstanding (pesos), ')+fmtDate(lastDate('vgUdibonos'))],
-      [T('Bonos UMS (mercado externo)','UMS bonds (external market)'), T('Desde los años 90','Since the 1990s'), T('Bonos de los Estados Unidos Mexicanos en dólares, euros y yenes, más créditos del Banco Mundial, el BID y otros organismos. El Plan Anual de Financiamiento fija cada año un tope a su peso en la deuda total.','United Mexican States bonds in dollars, euros and yen, plus loans from the World Bank, IDB and other agencies. The Annual Financing Plan caps their share of total debt every year.'), fmtUSDbn(lastVal('deudaGFExternaBruta'),1), T('deuda externa bruta del Gobierno Federal, ','Federal Government gross external debt, ')+fmtMonth(lastDate('deudaGFExternaBruta')||'')]
+      [T('Bonos UMS (mercado externo)','UMS bonds (external market)'), T('Desde los años 90','Since the 1990s'), T('Bonos de los Estados Unidos Mexicanos en dólares, euros y yenes, más créditos del Banco Mundial, el BID y otros organismos. El monto que puede contratarse cada año lo fija la Ley de Ingresos; el Plan Anual de Financiamiento solo estima su peso en la deuda total.','United Mexican States bonds in dollars, euros and yen, plus loans from the World Bank, IDB and other agencies. The amount that can be contracted each year is set by the Revenue Law; the Annual Financing Plan only estimates their share of total debt.'), fmtUSDbn(lastVal('deudaGFExternaBruta'),1), T('deuda externa bruta del Gobierno Federal, ','Federal Government gross external debt, ')+fmtMonth(lastDate('deudaGFExternaBruta')||'')]
     ];
     setHTML('debtInstrGrid', cards.map(function(c){ return '<div class="instr"><div class="ihead"><h4>'+c[0]+'</h4><span class="pill since">'+c[1]+'</span></div><p>'+c[2]+'</p><div class="metric"><span class="v num">'+c[3]+'</span><span class="l">'+c[4]+'</span></div></div>'; }).join(''));
   })();
@@ -1175,11 +1206,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     renderLeaderPie('pieComposition', [ { label:T('Deuda interna','Domestic debt'), value:intB }, { label:T('Deuda externa','External debt'), value:extB } ], [C.s1, C.s2], { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBn(tot,2), centerSub:T('deuda bruta del sector público','gross public-sector debt') });
     setHTML('src-composition', srcLine(['deudaInternaBrutaSP','deudaExternaBrutaSP','fix']));
     simpleTable('tblComposition', [T('Componente','Component'), T('Monto','Amount'), T('% del total','% of total')], tot ? [ [T('Deuda interna','Domestic debt'), fmtMMDP(intB,0), pctOf(intB,tot)], [T('Deuda externa','External debt')+' ('+fmtUSDbn(extUsd,1)+' × '+n(fxEom,2)+')', fmtMMDP(extB,0), pctOf(extB,tot)] ] : [], [T('Deuda bruta del sector público federal','Gross federal public-sector debt'), fmtMMDP(tot,0), '100.0%']);
-    setHTML('cap-lif', lif.asOf ? esc(lif.title)+T(', techos de endeudamiento neto (','; net borrowing ceilings (')+fmtDate(lif.asOf)+')' : T('Ley de Ingresos no cargada','Revenue Law not loaded'));
+    // Ceilings are the ones in force (LIF art. 2, as published in the DOF); the ILIF proposal for the coming year is shown apart and labeled as a proposal.
+    var il = (DOCS.cgpe||{}).ilif2027, cgDoc = DOCS.cgpe || {};
+    setHTML('cap-lif', lif.asOf ? esc(lif.title)+T(', artículo 2: techos de endeudamiento neto del Gobierno Federal vigentes (DOF ','; article 2: Federal Government net borrowing ceilings in force (Official Gazette ')+fmtDate(lif.asOf)+')' : T('Ley de Ingresos no cargada','Revenue Law not loaded'));
     stats('stats-lif', [
-      lif.netBorrowingBn!=null ? [fmtBn(lif.netBorrowingBn*1000,2), T('Endeudamiento neto total autorizado','Total authorized net borrowing')] : null,
-      lif.domesticBn!=null ? [fmtBn(lif.domesticBn*1000,2), T('Interno','Domestic')] : null,
-      lif.externalUsdBn!=null ? [fmtUSDbn(lif.externalUsdBn*1000,1), T('Externo','External')] : null
+      lif.domesticBn!=null ? [fmtBn(lif.domesticBn*1000,2), T('Endeudamiento neto interno autorizado, 2026','Authorized net domestic borrowing, 2026')] : null,
+      lif.externalUsdBn!=null ? [fmtUSDbn(lif.externalUsdBn*1000,1), T('Endeudamiento neto externo autorizado, 2026 (incluye organismos financieros internacionales)','Authorized net external borrowing, 2026 (includes international financial institutions)')] : null,
+      il && il.domesticBn!=null ? [fmtBn(il.domesticBn*1000,2)+(il.externalUsdBn!=null ? ' · '+fmtUSDbn(il.externalUsdBn*1000,1) : ''), T('Propuesta de la ILIF 2027 (interno · externo), pendiente de aprobación · ','ILIF 2027 proposal (domestic · external), pending approval · ')+esc(cgDoc.title||'')+(cgDoc.asOf ? ', '+fmtDate(cgDoc.asOf) : '')] : null
     ]);
     var extPrev = dM ? valAt('deudaExternaBrutaSP', addMonths(dM,-12)+'-99') : null, fxPrev = dM ? valAt('fix', addMonths(dM,-12)+'-99') : null;
     if(extUsd!=null && fxEom){
@@ -1227,7 +1260,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     setHTML('src-rev-pie', srcLine(['spIngresos','spIngTributarios','spIngPetroleros','spIngNoTributarios','spIngOrganismos']));
     var cats = [ { k:'gfISR', es:'ISR', en:'Income tax (ISR)' }, { k:'gfIVA', es:'IVA', en:'VAT (IVA)' }, { k:'gfIEPS', es:'IEPS', en:'Excise (IEPS)' }, { k:'gfImportacion', es:'Importación', en:'Import duties' } ];
     var cur = cats.map(function(c){ return flowM ? ytdAt(c.k, flowM) : null; }), pri = cats.map(function(c){ return flowM ? ytdAt(c.k, flowPrevM) : null; });
-    setHTML('h-rev-ytd', flowM ? T('Recaudación por impuesto, '+fmtJanTo(flowM)+' vs. '+(flowY-1), 'Collection by tax, '+fmtJanTo(flowM)+' vs. '+(flowY-1)) : T('Recaudación por impuesto','Collection by tax'));
+    setHTML('h-rev-ytd', flowM ? T('Recaudación por impuesto, '+fmtJanTo(flowM)+' vs. '+(flowY-1), 'Collection by Tax, '+fmtJanTo(flowM)+' vs. '+(flowY-1)) : T('Recaudación por impuesto','Collection by Tax'));
     barChart('chartRevYTD', cats.map(function(c){ return T(c.es,c.en); }), [ { label:flowM ? fmtJanTo(flowM) : '', data:cur.map(function(v){ return v==null?null:v/1000; }), backgroundColor:C.s1, maxBarThickness:22 }, { label:flowPrevM ? fmtJanTo(flowPrevM) : '', data:pri.map(function(v){ return v==null?null:v/1000; }), backgroundColor:C.muted+'80', maxBarThickness:22 } ],
       { horizontal:true, legend:true, labelWidth:120, fmt:function(v){ return fmtMMDP(v*1000,1); }, tick:function(v){ return '$'+n(v); } });
     setHTML('src-rev-ytd', srcLine(['gfISR','gfIVA','gfIEPS','gfImportacion']));
@@ -1258,11 +1291,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     function y(k){ return flowM ? ytdAt(k, flowM) : null; } function yp(k){ return flowM ? ytdAt(k, flowPrevM) : null; }
     var g = y('spGasto'), gp = yp('spGasto'), cf = y('spCostoFinanciero'), pa = y('gfParticipaciones'), pe = y('spPensiones'), ad = y('spAdefas'), inv = y('spInversionFisica');
     var resto = (g!=null) ? g - (cf||0) - (pa||0) - (pe||0) - (ad||0) - (inv||0) : null;
-    setHTML('h-out-pie', flowM ? T('Gasto presupuestario, '+fmtJanTo(flowM), 'Budget spending, '+fmtJanTo(flowM)) : T('Gasto presupuestario','Budget spending'));
+    setHTML('h-out-pie', flowM ? T('Gasto presupuestario, '+fmtJanTo(flowM), 'Budget Spending, '+fmtJanTo(flowM)) : T('Gasto presupuestario','Budget Spending'));
     renderLeaderPie('pieOutlays', [ { label:T('Pensiones y jubilaciones','Pensions'), value:pe }, { label:T('Costo financiero','Financial cost'), value:cf }, { label:T('Participaciones a estados y municipios','Transfers to states & municipalities'), value:pa }, { label:T('Inversión física','Physical investment'), value:inv }, { label:T('ADEFAS y otros','ADEFAS & other'), value:ad }, { label:T('Resto del gasto programable','Rest of programmable spending'), value:resto } ], [C.s1, C.s2, C.s3, C.s5, C.s4, C.s6], { fmt:function(v){ return fmtMMDP(v,0); }, centerTitle:fmtBn(g,2), centerSub:T('gasto total','total spending') });
     setHTML('src-out-pie', srcLine(['spGasto','spCostoFinanciero','gfParticipaciones','spPensiones','spAdefas','spInversionFisica']));
     var realG = realChange(g, gp, flowY, flowMo), rfspYtd = flowM ? sumRange(pts('rfsp'), flowY+'-01', flowM) : null, rfspYtdP = flowM ? sumRange(pts('rfsp'), (flowY-1)+'-01', flowPrevM) : null;
-    setHTML('h-out-track', flowM ? T('Cómo va el gasto en '+flowY, 'How spending is tracking in '+flowY) : T('Cómo va el gasto','How spending is tracking'));
+    setHTML('h-out-track', flowM ? T('Cómo va el gasto en '+flowY, 'How Spending Is Tracking in '+flowY) : T('Cómo va el gasto','How Spending Is Tracking'));
     stats('stats-out', [
       [fmtMMDP(g), T('Gasto presupuestario, ','Budget spending, ')+(flowM ? fmtJanTo(flowM) : '—')+(realG!=null ? ' ('+fmtSigned(realG,1,'%')+' '+T('real','real')+')' : '')],
       [fmtMMDP(pe), T('Pensiones y jubilaciones','Pensions')+(realChange(pe, yp('spPensiones'), flowY, flowMo)!=null ? ' ('+fmtSigned(realChange(pe, yp('spPensiones'), flowY, flowMo),1,'%')+' real)' : '')],
@@ -1359,7 +1392,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     lineChart('chartPolicyRate', ml.map(monYY), ml.map(function(m){ return byM[m]; }), C.s1, { fmt:function(v){ return fmtPct(v,2); }, tick:function(v){ return v+'%'; }, min:0, maxTicks:12, fill:true });
     setHTML('src-policy', srcLine(['tasaObjetivo']));
     var corridor = [ { es:'Cetes 28 días', en:'28-day Cetes', sub:T('subasta primaria','primary auction'), val:lastVal('cetes28'), color:C.s3 }, { es:'Tasa objetivo', en:'Target rate', sub:T('objetivo de Banxico','Banxico target'), val:target, color:C.s1 }, { es:'TIIE 28 días', en:'28-day TIIE', sub:T('referencia de créditos','loan benchmark'), val:lastVal('tiie28'), color:C.s8 }, { es:'Cetes 91 días', en:'91-day Cetes', sub:T('subasta primaria','primary auction'), val:lastVal('cetes91'), color:C.s6 }, { es:'Cetes 182 días', en:'182-day Cetes', sub:T('seis meses','six months'), val:lastVal('cetes182'), color:C.s5 }, { es:'Cetes 364 días', en:'364-day Cetes', sub:T('un año','one year'), val:lastVal('cetes364'), color:C.s4 } ].filter(function(c){ return c.val!=null; });
+    // Real rate: ex post deflates the target with the last observed annual inflation; ex ante (Banxico's own
+    // definition in its policy statements) uses expected inflation over the next 12 months, which exists only
+    // when the survey block carries `inflationNext12m`.
     var infl = lastVal('inpcAnual'), inflM = lastDate('inpcAnual'), realRate = (target!=null && infl!=null) ? ((1+target/100)/(1+infl/100)-1)*100 : null, ff = bx.fedFunds || {};
+    var exp12 = sv.inflationNext12m!=null ? Number(sv.inflationNext12m) : null, realExAnte = (target!=null && exp12!=null) ? ((1+target/100)/(1+exp12/100)-1)*100 : null;
     if(corridor.length){
       var vals = corridor.map(function(c){ return c.val; }), lo = Math.floor((Math.min.apply(null,vals)-0.3)*4)/4, hi = Math.ceil((Math.max.apply(null,vals)+0.3)*4)/4;
       var toPct = function(v){ return ((v-lo)/(hi-lo)*100).toFixed(2)+'%'; }, html = '<div class="track">';
@@ -1367,15 +1404,16 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       corridor.forEach(function(c){ html += '<div class="pt" style="left:'+toPct(c.val)+'; background:'+c.color+';" title="'+T(c.es,c.en)+': '+fmtPct(c.val,2)+'"></div>'; });
       html += '</div><div class="axis">'; for(var v=lo; v<=hi+0.001; v+=0.25) html += '<span style="left:'+toPct(v)+'">'+v.toFixed(2)+'%</span>'; html += '</div><div class="legend">';
       corridor.slice().sort(function(a,b){ return b.val-a.val; }).forEach(function(c){ html += '<div class="item"><span class="sw" style="background:'+c.color+'"></span><span class="nm">'+T(c.es,c.en)+'</span><span class="sub">— '+c.sub+'</span><span class="val">'+fmtPct(c.val,2)+'</span></div>'; });
-      if(realRate!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex ante','Real ex-ante rate')+'</span><span class="sub">— '+T('objetivo vs. inflación de ','target vs. inflation of ')+fmtMonth(inflM)+' ('+fmtPct(infl,2)+')</span><span class="val">'+fmtPct(realRate,2)+'</span></div>';
+      if(realRate!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex post','Ex post real rate')+'</span><span class="sub">— '+T('objetivo deflactado con la inflación observada de ','target deflated by observed inflation for ')+fmtMonth(inflM)+' ('+fmtPct(infl,2)+')</span><span class="val">'+fmtPct(realRate,2)+'</span></div>';
+      if(realExAnte!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex ante','Ex ante real rate')+'</span><span class="sub">— '+T('objetivo deflactado con la inflación esperada a 12 meses ','target deflated by expected 12-month inflation ')+'('+fmtPct(exp12,2)+', '+esc((sv.title||{})[LANG]||'')+')</span><span class="val">'+fmtPct(realExAnte,2)+'</span></div>';
       if(ff.value!=null && target!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Diferencial vs. fondos federales de EE. UU.','Spread vs. U.S. fed funds')+'</span><span class="sub">— '+fmtPct(ff.value,2)+' ('+fmtDate(ff.asOf)+')</span><span class="val">'+Math.round((target-ff.value)*100)+' pb</span></div>';
       html += '</div>'; setHTML('corridorWrap', html);
     } else setHTML('corridorWrap', '<div class="nodata">'+T('Sin datos','No data')+'</div>');
     if(target!=null){
       var cuts12 = rateChanges.filter(function(c){ return c.date >= addMonths(ym(lastDate('tasaObjetivo')),-24)+'-01'; });
       var totalMove = cuts12.length ? Math.round((cuts12[cuts12.length-1].to - cuts12[0].from)*100) : 0;
-      setHTML('co-corridor', T('Banxico no defiende un rango, sino un <b>nivel puntual</b> (hoy <b>'+fmtPct(target,2)+'</b>'+(lastChange ? ', vigente desde el '+fmtDate(lastChange.date) : '')+'): inyecta o retira liquidez cada día para que la tasa de fondeo interbancario cierre en el objetivo. La <b>TIIE a 28 días</b>, referencia de la mayoría de los créditos, y los <b>Cetes a 28 días</b> orbitan ese nivel.'+(realRate!=null ? ' Con inflación de '+fmtPct(infl,2)+' ('+fmtMonth(inflM)+'), la tasa real ex ante ronda '+fmtPct(realRate,1)+'.' : '')+(cuts12.length ? ' En los últimos 24 meses la tasa se movió '+cuts12.length+' veces, '+fmtSigned(totalMove,0,' pb')+' en total.' : ''),
-        'Banxico defends a <b>single level</b> rather than a range (today <b>'+fmtPct(target,2)+'</b>'+(lastChange ? ', in force since '+fmtDate(lastChange.date) : '')+'): it injects or drains liquidity daily so the interbank funding rate settles at the target. The <b>28-day TIIE</b>, the benchmark for most loans, and <b>28-day Cetes</b> orbit that level.'+(realRate!=null ? ' With inflation at '+fmtPct(infl,2)+' ('+fmtMonth(inflM)+'), the ex-ante real rate is about '+fmtPct(realRate,1)+'.' : '')+(cuts12.length ? ' Over the last 24 months the rate moved '+cuts12.length+' times, '+fmtSigned(totalMove,0,' bp')+' in total.' : '')));
+      setHTML('co-corridor', T('Banxico no defiende un rango, sino un <b>nivel puntual</b> (hoy <b>'+fmtPct(target,2)+'</b>'+(lastChange ? ', vigente desde el '+fmtDate(lastChange.date) : '')+'): inyecta o retira liquidez cada día para que la tasa de fondeo interbancario cierre en el objetivo. La <b>TIIE a 28 días</b>, referencia de la mayoría de los créditos, y los <b>Cetes a 28 días</b> orbitan ese nivel.'+(realRate!=null ? ' Con la inflación observada de '+fmtPct(infl,2)+' ('+fmtMonth(inflM)+'), la tasa real <b>ex post</b> ronda '+fmtPct(realRate,1)+(realExAnte!=null ? '; la tasa real <b>ex ante</b>, con la inflación esperada a 12 meses ('+fmtPct(exp12,2)+'), '+fmtPct(realExAnte,1) : '')+'. Banxico evalúa su postura con la tasa real ex ante, que deflacta la tasa objetivo con la inflación <i>esperada</i> a 12 meses, no con la observada; el dato observado da la tasa ex post (<a href="'+esc(bx.calendarUrl||'#')+'" target="_blank" rel="noopener">anuncios de política monetaria de Banxico</a>).' : '')+(cuts12.length ? ' En los últimos 24 meses la tasa se movió '+cuts12.length+' veces, '+fmtSigned(totalMove,0,' pb')+' en total.' : ''),
+        'Banxico defends a <b>single level</b> rather than a range (today <b>'+fmtPct(target,2)+'</b>'+(lastChange ? ', in force since '+fmtDate(lastChange.date) : '')+'): it injects or drains liquidity daily so the interbank funding rate settles at the target. The <b>28-day TIIE</b>, the benchmark for most loans, and <b>28-day Cetes</b> orbit that level.'+(realRate!=null ? ' With observed inflation at '+fmtPct(infl,2)+' ('+fmtMonth(inflM)+'), the <b>ex post</b> real rate is about '+fmtPct(realRate,1)+(realExAnte!=null ? '; the <b>ex ante</b> real rate, using expected 12-month inflation ('+fmtPct(exp12,2)+'), is '+fmtPct(realExAnte,1) : '')+'. Banxico assesses its stance with the ex ante real rate, which deflates the target by <i>expected</i> 12-month inflation rather than observed inflation; the observed figure gives the ex post rate (<a href="'+esc(bx.calendarUrl||'#')+'" target="_blank" rel="noopener">Banxico monetary policy statements</a>).' : '')+(cuts12.length ? ' Over the last 24 months the rate moved '+cuts12.length+' times, '+fmtSigned(totalMove,0,' bp')+' in total.' : '')));
     } else setHTML('co-corridor', T('Sin datos de la tasa objetivo.','No target-rate data.'));
     // Decisions: calendar dates from docs, outcome from the daily series
     var today = (MX.generatedAt || new Date().toISOString()).slice(0,10), drows = [];
@@ -1424,8 +1462,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     if(groups.shcp) items.push([T('SHCP — Estadísticas Oportunas de Finanzas Públicas (datos abiertos)','SHCP — Timely Public Finance Statistics (open data)'), groups.shcp.ids.length+' '+T('series: SHRFSP y sus componentes, RFSP, deuda interna y externa del sector público y del Gobierno Federal','series: SHRFSP and its components, RFSP, domestic and external debt of the public sector and the Federal Government')+' · '+T('descargadas el ','fetched ')+fmtDate(groups.shcp.last), 'https://www.secciones.hacienda.gob.mx/es/estadisticas_oportunas/base_de_datos']);
     items.push([T('INEGI — PIB nominal (vía SIE)','INEGI — Nominal GDP (via SIE)'), T('Producto Interno Bruto a precios corrientes, base 2018, trimestral; denominador de todas las razones respecto al PIB.','GDP at current prices, 2018 base, quarterly; denominator of every ratio to GDP.')+(S('pibNominal') ? ' · '+fmtMonth(lastDate('pibNominal')) : ''), 'https://www.inegi.org.mx/temas/pib/']);
     [ ['cgpe','SHCP — Criterios Generales de Política Económica','SHCP — General Economic Policy Criteria'], ['paf','SHCP — Plan Anual de Financiamiento','SHCP — Annual Financing Plan'], ['lif','Ley de Ingresos de la Federación','Federal Revenue Law'], ['pef','Presupuesto de Egresos de la Federación','Federal Expenditure Budget'], ['pemex','Pemex — Relación con Inversionistas','Pemex — Investor Relations'] ].forEach(function(r){ var b = DOCS[r[0]]; if(b) items.push([T(r[1],r[2]), esc(b.title||'')+' · '+T('con fecha ','dated ')+fmtDate(b.asOf), b.url||'#']); });
-    if(DOCS.ratings) items.push([T('Calificadoras — Moody\'s, S&P Global, Fitch','Rating agencies — Moody\'s, S&P Global, Fitch'), T('Calificación soberana y perspectivas · revisado ','Sovereign rating and outlooks · reviewed ')+fmtDate(DOCS.ratings.asOf), 'https://www.gob.mx/shcp/archivo/prensa']);
-    if(DOCS.banxico) items.push([T('Banco de México — Anuncios de política monetaria','Banco de México — Monetary policy announcements'), T('Calendario de decisiones de la Junta de Gobierno.','Calendar of the Board\'s decisions.'), DOCS.banxico.calendarUrl||'#']);
+    if(DOCS.ratings) items.push([T('Calificadoras — Moody\'s, S&P Global, Fitch','Rating agencies — Moody\'s, S&P Global, Fitch'), T('Calificación soberana y perspectivas · revisado ','Sovereign rating and outlooks · reviewed ')+fmtDate(DOCS.ratings.asOf)+(DOCS.ratings.items ? ' · '+DOCS.ratings.items.filter(function(r){ return r.url; }).map(function(r){ return '<a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.agency)+'</a>'; }).join(', ') : ''), DOCS.ratings.url||'https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Deuda_Publica']);
+    if(DOCS.banxico) items.push([T('Banco de México — Anuncios de política monetaria','Banco de México — Monetary Policy Announcements'), T('Calendario de decisiones de la Junta de Gobierno; definición de la tasa real ex ante.','Calendar of the Board\'s decisions; definition of the ex ante real rate.'), DOCS.banxico.calendarUrl||'#']);
+    var svd = DOCS.survey || {}; if(svd.asOf) items.push([esc((svd.title||{})[LANG]||svd.title||''), T('Expectativas de tasa, inflación y tipo de cambio · encuesta del ','Rate, inflation and exchange-rate expectations · survey of ')+fmtDate(svd.asOf)+(svd.url ? '' : T(' · Citi no publica una liga; la liga lleva a la encuesta oficial comparable del Banco de México',' · Citi publishes no link; the link goes to Banco de México\'s comparable official survey')), svd.url||'https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html']);
+    var ffd = (DOCS.banxico||{}).fedFunds; if(ffd && ffd.value!=null) items.push([T('Reserva Federal de EE. UU. — Tasa de fondos federales','U.S. Federal Reserve — Federal Funds Rate'), T('Límite superior del rango objetivo del FOMC, ','Upper bound of the FOMC target range, ')+fmtPct(ffd.value,2)+' ('+fmtDate(ffd.asOf)+')', ffd.url||'https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm']);
+    var fcd = (DOCS.banxico||{}).fclUsdBn; if(fcd && fcd.value!=null) items.push([T('SHCP y Banco de México — Comisión de Cambios','SHCP and Banco de México — Foreign Exchange Commission'), T('Renovación de la Línea de Crédito Flexible del FMI, ','Renewal of the IMF Flexible Credit Line, ')+fmtUSDbn(fcd.value*1000,0)+' ('+fmtDate(fcd.asOf)+')', fcd.url||'https://www.gob.mx/shcp/prensa']);
     setHTML('srcGrid', items.map(function(s){ var host = s[2].replace(/^https?:\/\//,'').split('/')[0]; return '<div class="item"><div class="t">'+s[0]+'</div><div class="d">'+s[1]+'</div><a href="'+esc(s[2])+'" target="_blank" rel="noopener">'+esc(host)+' ↗</a></div>'; }).join(''));
     setHTML('builtLine', T('Elaborado por Claude para FNAM · series actualizadas el ','Built by Claude for FNAM · series refreshed ')+(MX.generatedAt ? fmtDate(MX.generatedAt.slice(0,10)) : '—')+T(' · documentos revisados el ',' · documents reviewed ')+(DOCS.updatedAt ? fmtDate(DOCS.updatedAt) : '—'));
   })();
@@ -1436,18 +1477,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // ---------------- Nav scroll-spy ----------------
   var links = Array.prototype.slice.call(document.querySelectorAll('nav.jump a'));
   var secs = links.map(function(l){ return document.querySelector(l.getAttribute('href')); });
-  window.addEventListener('scroll', function(){ var y = window.scrollY + 90, idx = 0; secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; }); links.forEach(function(l,i){ l.classList.toggle('active', i===idx); }); keepTabInView(links[idx]); }, { passive:true });
-  // The strip scrolls sideways: fade its edge while more tabs are off to the right, and keep the active tab in view.
-  var strip = document.getElementById('jumpNav'), holder = strip.parentElement;
-  function hintMore(){ holder.classList.toggle('more', strip.scrollLeft + strip.clientWidth < strip.scrollWidth - 2); }
-  function keepTabInView(a){
-    if(!a) return;
-    var target = Math.max(0, a.offsetLeft - (strip.clientWidth - a.offsetWidth)/2);
-    if(Math.abs(strip.scrollLeft - target) > 4) strip.scrollTo({left:target, behavior:'smooth'});
-  }
-  strip.addEventListener('scroll', hintMore, {passive:true});
-  window.addEventListener('resize', hintMore);
-  hintMore();
+  var nav = document.querySelector('nav.jump'), toggle = document.getElementById('jumpToggle'), cur = document.getElementById('jumpCur');
+  function spy(){ var y = window.scrollY + 90, idx = 0; secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; }); links.forEach(function(l,i){ l.classList.toggle('active', i===idx); }); if(cur) cur.textContent = (links[idx] ? (links[idx].querySelector('.'+(LANG==='en'?'en':'es')) || links[idx]).textContent : ''); }
+  window.addEventListener('scroll', spy, { passive:true }); spy();
+  // Phone menu: the toggle opens the list; picking a section closes it. (On desktop the button is hidden and the list always shows.)
+  if(toggle){ toggle.addEventListener('click', function(){ var open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', open ? 'true' : 'false'); }); links.forEach(function(l){ l.addEventListener('click', function(){ nav.classList.remove('open'); toggle.setAttribute('aria-expanded','false'); }); }); }
 })();
 </script>
 </body>

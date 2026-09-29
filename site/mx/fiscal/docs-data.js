@@ -2,29 +2,33 @@
 // press releases (Paquete Económico / CGPE, Plan Anual de Financiamiento, Ley de Ingresos,
 // Presupuesto de Egresos, Pemex quarterly reports, rating actions, Banxico's decision calendar,
 // the analysts' survey). Everything with a time series lives in data.js and is refreshed daily by
-// scripts/mx-fiscal/fetch.mjs; this file is refreshed by a weekly Claude routine that re-reads the
-// documents and opens a pull request when a value changed. Every block carries `asOf` (the
-// document's date) and the page prints it next to the figures. `approx: true` marks values taken
-// from press coverage rather than the official table; the page shows them with "~".
+// scripts/mx-fiscal/fetch.mjs; this file is refreshed by a daily Claude routine that re-reads the
+// document mirrors in tools/mx-fiscal/docs/ and commits when a value changed. Every block carries
+// `asOf` (the document's date) and `url` (the official source the footer links to); the page prints
+// the date next to the figures. `approx: true` marks values taken from press coverage rather than
+// the official table; the page shows them with "~". scripts/mx-fiscal/check-docs.mjs cross-checks
+// the values below against the mirrored documents on every workflow run.
 window.MX_DOCS = {
-  "updatedAt": "2026-09-26",
+  "updatedAt": "2026-09-29",
   "cgpe": {
     "title": "Criterios Generales de Política Económica 2027",
-    "url": "https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Paquete_Economico_y_Presupuesto",
+    "url": "https://www.finanzaspublicas.hacienda.gob.mx/work/models/Finanzas_Publicas/docs/paquete_economico/cgpe/cgpe_2027.pdf",
     "asOf": "2026-09-08",
     "shrfspPct": { "2026": 54.0, "2027": 55.0 },
     "rfspPct": { "2026": 4.1, "2027": 3.9 },
     "budgetDeficitPct": { "2026": 3.6, "2027": 3.4 },
     "gdpNominalBn": { "2026": 37.2, "2027": 39.4 },
     "taxRevenuePct": { "2027": 15.9 },
+    "ilif2027": { "domesticBn": 1700, "externalUsdBn": 13.5 },
     "analystsSource": { "es": "Encuesta Citi, 22 sep. 2026", "en": "Citi survey, 22 Sep 2026" },
     "rows": [
       { "es": "Crecimiento del PIB real", "en": "Real GDP growth", "shcp2026": "1.0–2.0%", "analysts2026": "1.4%", "shcp2027": "1.5–2.5%", "analysts2027": "1.8%" },
       { "es": "Inflación, cierre de año", "en": "Inflation, year-end", "shcp2026": "3.5%", "analysts2026": "3.93%", "shcp2027": "3.0%", "analysts2027": "3.83%" },
       { "es": "Tipo de cambio, cierre de año", "en": "Exchange rate, year-end", "shcp2026": "17.8", "analysts2026": "17.50", "shcp2027": "18.0", "analysts2027": "18.00" },
       { "es": "Tasa objetivo, cierre de año", "en": "Target rate, year-end", "shcp2026": "—", "analysts2026": "6.50%", "shcp2027": "—", "analysts2027": "6.50%" },
-      { "es": "Cetes 28 días, promedio", "en": "28-day Cetes, average", "shcp2026": "—", "analysts2026": "—", "shcp2027": "6.00%", "analysts2027": "—" },
-      { "es": "Mezcla mexicana, US$/barril", "en": "Mexican crude basket, USD/bbl", "shcp2026": "78.4", "analysts2026": "—", "shcp2027": "61.8", "analysts2027": "—" },
+      { "es": "Cetes 28 días, cierre de año", "en": "28-day Cetes, year-end", "shcp2026": "6.5%", "analysts2026": "—", "shcp2027": "6.0%", "analysts2027": "—" },
+      { "es": "Cetes 28 días, promedio anual", "en": "28-day Cetes, annual average", "shcp2026": "6.5%", "analysts2026": "—", "shcp2027": "6.1%", "analysts2027": "—" },
+      { "es": "Mezcla mexicana, US$/barril, promedio", "en": "Mexican crude basket, USD/bbl, average", "shcp2026": "78.4", "analysts2026": "—", "shcp2027": "61.8", "analysts2027": "—" },
       { "es": "RFSP, % del PIB", "en": "RFSP, % of GDP", "shcp2026": "4.1%", "analysts2026": "—", "shcp2027": "3.9%", "analysts2027": "—" },
       { "es": "Déficit presupuestario, % del PIB", "en": "Budget deficit, % of GDP", "shcp2026": "3.6%", "analysts2026": "—", "shcp2027": "3.4%", "analysts2027": "—" }
     ]
@@ -36,22 +40,20 @@ window.MX_DOCS = {
     "avgMaturityDomesticYears": 7.9,
     "avgMaturityExternalYears": 15.6,
     "fixedRateSharePct": 79.4,
-    "externalCapPct": 15.8,
+    "externalShareEstPct": 15.8,
     "amortizations": { "asOf": "2025-12-31", "labels": ["2026", "2027", "2028", "2029", "2030", "2031"], "values": [3163.1, 1934.8, 1048.3, 1150.7, 398.7, 1074.0] }
   },
   "lif": {
     "title": "Ley de Ingresos de la Federación 2026",
     "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/LIF_2026.pdf",
-    "asOf": "2025-11-30",
-    "netBorrowingBn": 1780,
-    "domesticBn": 1700,
-    "externalUsdBn": 15.5,
-    "revenueBn": { "tributarios": 5839.0, "petroleros": 1204.2, "otros": 1677.8 }
+    "asOf": "2025-11-07",
+    "domesticBn": 1780,
+    "externalUsdBn": 15.5
   },
   "pef": {
     "title": "Presupuesto de Egresos de la Federación 2026",
     "url": "https://www.diputados.gob.mx/LeyesBiblio/pdf/PEF_2026.pdf",
-    "asOf": "2025-11-30",
+    "asOf": "2025-11-21",
     "totalBn": 10193.7,
     "costoFinancieroBn": 1572.1,
     "costoFinancieroPctGdp": 4.1,
@@ -63,15 +65,16 @@ window.MX_DOCS = {
   },
   "ratings": {
     "asOf": "2026-05-20",
+    "url": "https://www.gob.mx/shcp/archivo/prensa",
     "items": [
-      { "agency": "Moody's", "rating": "Baa3", "outlook": { "es": "estable", "en": "stable" }, "date": "2026-05-20", "note": { "es": "rebaja desde Baa2", "en": "cut from Baa2" } },
-      { "agency": "S&P Global", "rating": "BBB", "outlook": { "es": "negativa", "en": "negative" }, "date": "2026-05-12" },
-      { "agency": "Fitch", "rating": "BBB−", "outlook": { "es": "estable", "en": "stable" }, "date": "2026-04-10" }
+      { "agency": "Moody's", "rating": "Baa3", "outlook": { "es": "estable", "en": "stable" }, "date": "2026-05-20", "note": { "es": "rebaja desde Baa2", "en": "cut from Baa2" }, "url": "https://www.moodys.com/credit-ratings/Mexico-Government-of-credit-rating-499500" },
+      { "agency": "S&P Global", "rating": "BBB", "outlook": { "es": "negativa", "en": "negative" }, "date": "2026-05-12", "url": "https://www.spglobal.com/ratings/en/" },
+      { "agency": "Fitch", "rating": "BBB−", "outlook": { "es": "estable", "en": "stable" }, "date": "2026-04-10", "url": "https://www.fitchratings.com/entity/mexico-80442222" }
     ]
   },
   "pemex": {
     "title": "Pemex, reporte trimestral 2T26",
-    "url": "https://www.pemex.com/ri/finanzas/Paginas/default.aspx",
+    "url": "https://www.pemex.com/ri/finanzas/Reporte%20de%20Resultados%20no%20Dictaminados/Reporte%202T26.pdf",
     "asOf": "2026-07-31",
     "debtUsdBn": { "labels": ["2018", "2020", "2022", "2024", "2025", "jun '26"], "values": [105.8, 110.3, 107.7, 97.6, 84.5, 77.5], "est": [false, true, true, false, false, false] },
     "supportBn": { "2025": 396 },
@@ -92,7 +95,7 @@ window.MX_DOCS = {
   "banxico": {
     "calendarUrl": "https://www.banxico.org.mx/publicaciones-y-prensa/anuncios-de-las-decisiones-de-politica-monetaria/anuncios-politica-monetaria-t.html",
     "decisionDates": ["2026-02-05", "2026-03-26", "2026-05-07", "2026-06-25", "2026-08-06", "2026-09-24", "2026-11-05", "2026-12-17"],
-    "fedFunds": { "asOf": "2026-09-16", "value": 4.00 },
-    "fclUsdBn": { "asOf": "2025-11-14", "value": 24 }
+    "fedFunds": { "asOf": "2026-09-16", "value": 4.00, "url": "https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm" },
+    "fclUsdBn": { "asOf": "2025-11-13", "value": 24, "url": "https://www.gob.mx/shcp/prensa/anuncio-de-la-comision-de-cambios-el-fondo-monetario-internacional-renovo-la-linea-de-credito-flexible-para-mexico-por-dos-anos-mas" }
   }
 };
