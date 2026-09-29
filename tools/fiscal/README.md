@@ -10,7 +10,7 @@ browser from two data files; the page has no hand-typed figures left in it.
 | File | What it holds | Who writes it | When |
 |---|---|---|---|
 | `site/fiscal/data.js` (`window.LIVE_DATA`) | every Treasury, Federal Reserve and FRED series the page shows | `scripts/fetch-data.mjs`, run by `.github/workflows/refresh-data.yml` | 13:15 and 21:30 UTC daily |
-| `site/fiscal/monthly-data.js` (`window.MONTHLY_DATA`) | the figures with no machine-readable source: CBO projection tables, the CME FedWatch snapshot, the two fixed TBAC maturity anchors | the Claude routine "FNAM US Fiscal: CBO / FedWatch research", which commits to `main` (prompts in `ROUTINES.md`) | Mondays, Wednesdays and Fridays 14:58 UTC (Friday = the first run after a Wednesday FOMC decision) |
+| `site/fiscal/monthly-data.js` (`window.MONTHLY_DATA`) | the figures with no machine-readable source: the CBO baseline (its date, title and link, the column years, the record year, the projection, the category table, the economic assumptions), the CME FedWatch snapshot, the two fixed TBAC maturity anchors | the Claude routine "FNAM US Fiscal: CBO / FedWatch research", which commits to `main` (prompts in `ROUTINES.md`) | Mondays, Wednesdays and Fridays 14:58 UTC (Friday = the first run after a Wednesday FOMC decision) |
 
 `data.js` always wins; the monthly file is only read where `data.js` has nothing. If a series
 fails to fetch it is `null` for that run and the page keeps its last baked value for it, so the
@@ -46,7 +46,10 @@ date, age and the allowance for its publication cadence, and cross-checks the fi
 agree: ON RRP = target-range floor, discount rate = ceiling, IORB and EFFR inside the range,
 the FedWatch snapshot dated on or after the latest FOMC decision with its first meeting still
 ahead and its columns summing to ~100, MSPD classes summing to Treasury's total, MTS categories
-summing to total receipts and outlays. Problems go to the run summary and, on `main`, to one
+summing to total receipts and outlays, and the CBO blocks against each other (one value per year in
+`cboYears`, deficit = outlays − revenue, the "—" outlay rows summing to total outlays, implied GDP =
+outlays ÷ outlays-to-GDP, `cboRecordYear` the first labelled year above 106% in `cboProjection`,
+`cboPublished` at most ~14 months old). Problems go to the run summary and, on `main`, to one
 GitHub issue labeled `fiscal-health` titled "SOURCE DOWN: US fiscal - ..." (commented at most
 every ~20 h, closed by the first clean run). The routine "FNAM US Fiscal: email material
 changes" emails the owner when that issue opens.
@@ -86,7 +89,11 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
   MTS table 3's "Interest on Treasury Debt Securities (Gross)": it is described as gross interest,
   not "net interest" (CBO's net interest is lower because it nets what the trust funds receive).
 - Section 06: the "most recent actual" column of the CBO table (real GDP growth, CPI y/y, 10-year
-  yield, unemployment) from FRED with its period. The CBO columns come from the research file.
+  yield, unemployment) from FRED with its period. Everything else in the section comes from the
+  research file's CBO keys: the record-year sentence (`cboRecordYear` looked up in `cboProjection`),
+  the table headers (`cboYears`), the stat cards, the assumptions columns, the vintage ("February
+  2026" from `cboPublished`) and the source links (`cboTitle`, `cboUrl`). No year or figure in the
+  section is typed into the page.
 - Section 09: T-account, composition column, WALCL peak and QT runoff, reserves against end-2019.
 - FedWatch (Section 10): meetings already held are dropped at render time; a notice appears when
   the snapshot predates the latest FOMC decision (its date comes from `targetRange.since`); the
@@ -97,18 +104,32 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
 ## Verifying a change
 
 ```
-node --check scripts/fetch-data.mjs scripts/fiscal/check-freshness.mjs scripts/fiscal/probe.mjs
+node --check scripts/fetch-data.mjs scripts/fiscal/check-freshness.mjs scripts/fiscal/probe.mjs scripts/fiscal/render-check.mjs
 node scripts/fiscal/check-freshness.mjs
 setsid nohup python3 -m http.server 8123 --directory site >/dev/null 2>&1 &
+node scripts/fiscal/render-check.mjs --shots /tmp/fiscal-shots --chart path/to/chart.umd.js
 ```
 
-Then open http://localhost:8123/fiscal/ in Playwright Chromium at 1280 px and 390 px, in both
-languages, light and dark: route the Chart.js CDN to a local `chart.js@4.4.0` copy, stub Google
-Fonts, and check for `undefined`/`NaN`, empty `[data-bind]` spans, horizontal overflow and text
-below 11 px. To exercise the FedWatch guards, freeze "today" with a Date shim that keeps time
-advancing (Chart.js animates on `Date.now()`; a frozen clock leaves every chart at frame zero).
-The real fetch cannot run in the cloud session: push the branch and dispatch the workflow on it
-(no inputs); it commits the refreshed `data.js` to that branch, which is the data to test against.
+`render-check.mjs` opens the page in Playwright Chromium at 1280 px and 390 px, in both languages,
+light and dark (eight configurations), with the Chart.js CDN answered from a local `chart.js@4.4.0`
+copy and Google Fonts stubbed. It fails on console errors, `undefined`/`NaN` in the text, empty
+`[data-bind]` spans, horizontal overflow, DOM text below 11 px, a section tab or language button that
+a tap would not reach (`elementFromPoint` at its centre, the tab strip scrolled to each tab), the
+language buttons overlapping the tab strip, a table that overflows sideways without scrolling and a
+scroll hint, SVG donut labels below 11 px after the viewBox scale, an English heading or tab label
+that is not in Title Case, or a Spanish one in Title Case instead of sentence case. `--now
+YYYY-MM-DD` installs a Date shim that keeps time advancing (Chart.js animates on `Date.now()`; a
+frozen clock leaves every chart at frame zero) to exercise the FedWatch meeting filter for a chosen
+day. Canvas charts are outside the DOM: with `--shots` the script also crops the holders chart, the
+donuts, the outlay bars, the CBO tables and the FedWatch chart in both languages — look at every
+crop for overlapping or clipped labels before merging. The real fetch cannot run in the cloud
+session: push the branch and dispatch the workflow on it (no inputs); it commits the refreshed
+`data.js` to that branch, which is the data to test against.
+
+Conventions the check enforces: English headings in Title Case (the site's deck convention in
+`site/assets/present-core.js`: connectors such as of, the, vs., over stay lower case; tokens with
+digits or capitals are left alone), Spanish headings in sentence case (Mexican usage: only the first
+word and proper nouns capitalised).
 
 ## The research routine (monthly-data.js)
 
@@ -121,6 +142,17 @@ decision, and leaves the odds untouched (the page then shows the stale notice) r
 CME and Investing.com refuse scripts, so the odds come from outlets that quote FedWatch (CNBC,
 Reuters, Bloomberg); when an outlet only quotes part of the distribution, the routine records
 only the meetings it can complete (the chart shows however many meetings the file holds).
+
+### Adopting a new CBO baseline
+
+CBO publishes its baseline each January or February (occasionally a mid-year update). The routine
+changes every CBO key together — `cboPublished`, `cboTitle`, `cboUrl`, `cboYears`, `cboRecordYear`,
+`cboOutlaysT`, `cboGdpRow`, `cboCategoryTable`, `cboProjection`, `cboAssumptions` — and the page
+recomposes Section 06 from them. The interpolated middle column and the "everything else" outlay row
+are derived, marked `direct:false`, and shown in italics with a ~. cbo.gov answers 403 to the runner
+and to the cloud session, so the figures come from two independent outlets quoting the report (the
+February 2026 vintage: CRFB and the American Action Forum, with The Hill for the record year), and
+`sources.cbo` lists which figure came from which.
 
 ### A machine-readable alternative for market odds (not wired yet)
 
