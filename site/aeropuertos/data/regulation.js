@@ -1,8 +1,10 @@
 // CURATED by hand from the companies' own filings (BMV/SEC releases and quarterly reports) — not generated.
 // Each cell is a short list of bullets plus the ids of the sources it was read from (`src`); the sources
 // themselves are numbered in `sources` and printed once under the table. Figures are quoted as the filings
-// state them, in the constant pesos of each regulatory period. Re-read the latest quarterly report and the
-// next MDP approval before changing a cell; update `updatedAt` when you do.
+// state them, in the constant pesos of each regulatory period. A figure computed from a filing (not quoted)
+// is listed in the cell's `calc` and the bullet says how it was computed; scripts/aeropuertos/verify-sources.mjs
+// searches every other figure in the cited filings. Every row shows the same year for the three groups.
+// Re-read the latest quarterly report and the next MDP approval before changing a cell; update `updatedAt`.
 window.MX_AIRPORTS_REG = {
   updatedAt: "2026-09-29",
   companies: [
@@ -28,7 +30,7 @@ window.MX_AIRPORTS_REG = {
   rows: [
     {
       id: "period",
-      label: { es: "Periodo regulatorio vigente", en: "Regulatory period in force" },
+      label: { es: "Periodo Regulatorio Vigente", en: "Regulatory Period in Force" },
       cells: {
         GAP:  { es: ["PMD y tarifas máximas 2025–2029, 12 aeropuertos", "Aprobado por la SICT/AFAC, 27-ago-2024", "Bases tarifarias del Anexo 7 vigentes desde 19-oct-2023"],
                 en: ["MDP and maximum tariffs 2025–2029, 12 airports", "Approved by SICT/AFAC, 27-Aug-2024", "Annex 7 tariff rules in force since 19-Oct-2023"], src: ["gapMdp"] },
@@ -40,7 +42,7 @@ window.MX_AIRPORTS_REG = {
     },
     {
       id: "capex",
-      label: { es: "Inversiones comprometidas (PMD)", en: "Committed investments (MDP)" },
+      label: { es: "Inversiones Comprometidas (PMD)", en: "Committed Investments (MDP)" },
       cells: {
         GAP:  { es: ["Ps. 43,185 M en 2025–2029 (pesos de dic-2022)", "Guadalajara 18,884 M (44%), Tijuana 7,971 M, Los Cabos 5,614 M", "Por año: 10,947 / 7,361 / 8,788 / 6,852 / 9,237 M"],
                 en: ["Ps. 43,185 M over 2025–2029 (Dec-2022 pesos)", "Guadalajara 18,884 M (44%), Tijuana 7,971 M, Los Cabos 5,614 M", "By year: 10,947 / 7,361 / 8,788 / 6,852 / 9,237 M"], src: ["gapMdp"] },
@@ -52,19 +54,20 @@ window.MX_AIRPORTS_REG = {
     },
     {
       id: "tariff",
-      label: { es: "Tarifa máxima por unidad de tráfico", en: "Maximum tariff per workload unit" },
+      label: { es: "Tarifa Máxima por Unidad de Tráfico, 2026", en: "Maximum Tariff per Workload Unit, 2026" },
       cells: {
         GAP:  { es: ["2026, pesos de dic-2023: Guadalajara Ps. 346.65, Tijuana 264.31, Los Cabos 520.01", "Rango: Mexicali 250.43 – Los Cabos 520.01", "−0.8% real al año (factor de eficiencia)", "Se actualiza con el INPP sin petróleo"],
                 en: ["2026, Dec-2023 pesos: Guadalajara Ps. 346.65, Tijuana 264.31, Los Cabos 520.01", "Range: Mexicali 250.43 – Los Cabos 520.01", "−0.8% a year in real terms (efficiency factor)", "Updated by the producer price index ex-petroleum"], src: ["gapMdp"] },
         OMA:  { es: ["2026, pesos de dic-2024: Monterrey Ps. 354.23, Culiacán 378.34, Chihuahua 373.04", "Rango: San Luis Potosí 338.13 – Zihuatanejo 456.39", "−0.8% real al año (Monterrey 343.03 en 2030)"],
                 en: ["2026, Dec-2024 pesos: Monterrey Ps. 354.23, Culiacán 378.34, Chihuahua 373.04", "Range: San Luis Potosí 338.13 – Zihuatanejo 456.39", "−0.8% a year in real terms (Monterrey 343.03 by 2030)"], src: ["omaMdp"] },
-        ASUR: { es: ["2024, pesos de dic-2022: Cancún Ps. 332.41, Mérida 283.23, Oaxaca 335.13", "Rango: Veracruz 266.28 – Minatitlán 502.34", "−0.80% real al año hasta 2028", "Tarifa implícita cobrada 1S26: Ps. 353.8 (pesos de dic-2025)"],
-                en: ["2024, Dec-2022 pesos: Cancún Ps. 332.41, Mérida 283.23, Oaxaca 335.13", "Range: Veracruz 266.28 – Minatitlán 502.34", "−0.80% a year in real terms through 2028", "Implicit tariff charged 1H26: Ps. 353.8 (Dec-2025 pesos)"], src: ["asur4q23", "asur2q26"] }
+        ASUR: { es: ["2026, pesos de dic-2022: Cancún Ps. 327.11, Mérida 278.72, Oaxaca 329.79", "Rango: Veracruz 262.04 – Minatitlán 494.33", "Calculadas: ASUR publica solo las tarifas de 2024 (Cancún 332.41, Veracruz 266.28, Minatitlán 502.34) y −0.80% real al año hasta 2028; 2026 = 2024 × 0.992²", "Tarifa implícita cobrada 1S26: Ps. 353.8 (pesos de dic-2025)"],
+                en: ["2026, Dec-2022 pesos: Cancún Ps. 327.11, Mérida 278.72, Oaxaca 329.79", "Range: Veracruz 262.04 – Minatitlán 494.33", "Computed: ASUR publishes only the 2024 tariffs (Cancún 332.41, Veracruz 266.28, Minatitlán 502.34) and −0.80% a year in real terms through 2028; 2026 = 2024 × 0.992²", "Implicit tariff charged 1H26: Ps. 353.8 (Dec-2025 pesos)"],
+                calc: ["327.11", "278.72", "329.79", "262.04", "494.33", "0.992"], src: ["asur4q23", "asur2q26"] }
       }
     },
     {
       id: "fee",
-      label: { es: "Derecho de concesión", en: "Concession fee" },
+      label: { es: "Derecho de Concesión", en: "Concession Fee" },
       cells: {
         GAP:  { es: ["9% de los ingresos desde 1-ene-2024 (antes 5%)", "Costo adicional 2024: Ps. 148.8 M"],
                 en: ["9% of revenue since 1-Jan-2024 (5% before)", "Extra cost in 2024: Ps. 148.8 M"], src: ["gap4q24"] },
@@ -76,7 +79,7 @@ window.MX_AIRPORTS_REG = {
     },
     {
       id: "latest",
-      label: { es: "Última lectura (2T26)", en: "Latest reading (2Q26)" },
+      label: { es: "Última Lectura (2T26)", en: "Latest Reading (2Q26)" },
       cells: {
         GAP:  { es: ["Ingresos aeronáuticos en México −0.7% a/a (tráfico −4.2%, peso +10.9%)", "Compensado en parte por las tarifas máximas 2025–2029", "1S26: +4.4% por la misma razón"],
                 en: ["Mexican aeronautical revenue −0.7% YoY (traffic −4.2%, peso +10.9%)", "Partly offset by the 2025–2029 maximum tariffs", "1H26: +4.4% for the same reason"], src: ["gap2q26"] },
@@ -88,7 +91,7 @@ window.MX_AIRPORTS_REG = {
     },
     {
       id: "abroad",
-      label: { es: "Fuera de México", en: "Outside Mexico" },
+      label: { es: "Fuera de México", en: "Outside Mexico" }, // already Title Case in both languages
       cells: {
         GAP:  { es: ["Jamaica (Montego Bay, Kingston): contraprestación proporcional a los ingresos", "2T26: −20.8% por menores ingresos en Montego Bay"],
                 en: ["Jamaica (Montego Bay, Kingston): fee is a share of revenue", "2Q26: −20.8% on lower revenue at Montego Bay"], src: ["gap2q26"] },

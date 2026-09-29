@@ -7,8 +7,10 @@
 // in at least one of the documents the cell cites; figures a cell marks as computed (`calc`) are listed, not searched.
 // Nothing is written to the repository. On the runner: workflow_dispatch input `verify_links` of aeropuertos-refresh.yml.
 //
-//   node scripts/aeropuertos/verify-sources.mjs [--dump] [extra-url ...]
+//   node scripts/aeropuertos/verify-sources.mjs [--dump] [--grep=[url-part::]regex ...] [extra-url ...]
 //     --dump      also print the lines of each document that mention maximum tariffs / workload units (reading aid)
+//     --grep      print the lines matching regex (case-insensitive) of every document, or only of those whose URL contains
+//                 url-part; avoid spaces and [ ] in the workflow input (it is word-split by the shell)
 //     extra-url   any other document to open; its full text is printed (e.g. a filing considered for the table)
 import fs from 'node:fs'; import path from 'node:path'; import vm from 'node:vm'; import os from 'node:os';
 import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
@@ -16,6 +18,7 @@ import { execFileSync } from 'node:child_process'; import { fileURLToPath } from
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const SITE = path.join(ROOT, 'site', 'aeropuertos');
 const argv = process.argv.slice(2), DUMP = argv.includes('--dump'), EXTRA = argv.filter((a) => /^https?:\/\//i.test(a));
+const GREPS = argv.filter((a) => a.startsWith('--grep=')).map((a) => { const v = a.slice(7), i = v.indexOf('::'); return i < 0 ? { url: '', re: new RegExp(v, 'i') } : { url: v.slice(0, i), re: new RegExp(v.slice(i + 2), 'i') }; });
 const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36';
 const load = (file, name) => { const w = {}; vm.runInNewContext(fs.readFileSync(path.join(SITE, 'data', file), 'utf8'), { window: w }); return w[name]; };
 
@@ -61,8 +64,15 @@ function pdfText(buf) {
   try { return JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c', PY, f], { maxBuffer: 256e6 }).toString()); } finally { fs.rmSync(f, { force: true }); }
 }
 async function openPdf(ctx, url) {
-  const r = await ctx.request.get(url, { timeout: 120000 });
-  const buf = Buffer.from(await r.body());
+  let r = await ctx.request.get(url, { timeout: 120000 });
+  let buf = Buffer.from(await r.body());
+  // Some hosts (ir.oma.aero: SiteGround) answer repeat visitors with a JavaScript challenge page instead of the file. Let the
+  // challenge run in a real page (it sets a cookie in this context), then ask for the file again.
+  if (buf.subarray(0, 4).toString() !== '%PDF' && /sgcaptcha|http-equiv="refresh"|challenge/i.test(buf.subarray(0, 2000).toString())) {
+    const page = await ctx.newPage();
+    try { await page.goto(url, { waitUntil: 'load', timeout: 60000 }).catch(() => null); await page.waitForTimeout(8000); } finally { await page.close().catch(() => null); }
+    r = await ctx.request.get(url, { timeout: 120000 }); buf = Buffer.from(await r.body());
+  }
   const out = { kind: 'pdf', status: r.status(), finalUrl: r.url(), type: r.headers()['content-type'] || '', bytes: buf.length, isPdf: buf.subarray(0, 4).toString() === '%PDF' };
   if (out.isPdf) { try { out.pages = pdfText(buf); } catch (e) { out.pdfError = e.message.split('\n')[0]; out.pages = []; } out.text = out.pages.join('\n'); out.title = (out.pages[0] || '').split('\n').map((s) => s.trim()).filter(Boolean).slice(0, 2).join(' | '); }
   else out.title = buf.subarray(0, 200).toString().replace(/\s+/g, ' ');
@@ -129,6 +139,12 @@ for (const [url, meta] of links) {
     const cap = full ? 600 : 80;
     console.log(`       ---- ${full ? 'full text' : 'tariff lines'} (${Math.min(lines.length, cap)} of ${lines.length}) ----`);
     lines.slice(0, cap).forEach((l) => console.log(`       ${l}`));
+  }
+  for (const g of GREPS) {
+    if (!r || !r.text || (g.url && !url.includes(g.url))) continue;
+    const hits = []; (r.pages || [r.text]).forEach((p, i) => clean(p).split('\n').forEach((l) => { const s = l.replace(/\s+/g, ' ').trim(); if (s && g.re.test(s)) hits.push(`p.${i + 1}: ${s.slice(0, 300)}`); }));
+    console.log(`       ---- lines matching /${g.re.source}/i (${Math.min(hits.length, 60)} of ${hits.length}) ----`);
+    hits.slice(0, 60).forEach((l) => console.log(`       ${l}`));
   }
   console.log('');
 }
