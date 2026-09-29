@@ -94,7 +94,7 @@
       H(this.T('Mercado', 'Market'));
       R(this.T('Precio GAP B (BMV)', 'GAP B share price (BMV)'), `Ps. ${this.n(px[1], 2)}  ·  ${this.date(px[0])}`);
       if (ads) R(this.T('ADS PAC (NYSE) · 1 ADS = 10 acciones', 'PAC ADS (NYSE) · 1 ADS = 10 shares'), `US$ ${this.n(ads[1], 2)}  ·  ${this.date(ads[0])}`);
-      R(this.T('Capitalización de mercado', 'Market capitalisation'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
+      R(this.T('Capitalización de mercado', 'Market capitalization'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
       if (fx) R(this.T('Tipo de cambio usado (Fed H.10)', 'FX rate used (Fed H.10)'), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted');
       R(this.T('Acciones en circulación', 'Shares outstanding'), `${this.n(M.sharesNow)}  ·  ${M.REF.shares ? this.date(M.REF.shares.asOf) : ''}`, 'muted');
       R(this.T('Variación en el año (GAP B · IPC)', 'Year-to-date change (GAP B · IPC)'), `${pm(chg(px, yStart))}  ·  IPC ${pm(chg(ipcLast, ipcStart))}`, this.cls(chg(px, yStart)));
@@ -328,7 +328,7 @@
       const M = this.M, qs = M.Q.slice(-8), lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ);
       const nds = qs.map((q) => ({ q, nd: M.netDebt(q), l: M.ltmFor(q) })); const est = nds.map((x) => x.nd && x.nd.basis === 'est');
       const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => `${r.agency.replace("Moody's Local MX", "Moody's").replace('S&P Global Ratings', 'S&P')} ${r.rating}`).join(' · ');
-      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según comunicados de GAP al ${this.date(M.REF.updatedAt)}`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per GAP releases as of ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`Ps. millones · balance del ${this.qlab(lastQ)} (${this.date(lastQ.sources.is.date)}) · instrumentos según FactSet al 30-jun-2026 y comunicados de GAP (referencia del ${this.date(M.REF.updatedAt)})`, `Ps. million · ${this.qlab(lastQ)} balance sheet (${this.date(lastQ.sources.is.date)}) · instruments per FactSet at 30-Jun-2026 and GAP releases (reference of ${this.date(M.REF.updatedAt)})`));
       const asOf = this.date(M.qEndDate(lastQ));
       y = this.tiles([
         { v: nd ? `Ps. ${this.m(nd.net)} M` : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
@@ -348,13 +348,18 @@
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
       yl = this.bullets([
-        this.T(`Deuda neta = préstamos bancarios + certificados bursátiles − efectivo, del balance publicado (detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}). Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento de cada trimestre.`, `Net debt = bank loans + certificados bursátiles − cash, from the published balance sheet (itemised from ${firstBs ? this.qlab(firstBs.q) : '—'}). Translucent bars and dashed line: estimated from each quarter's financing flows.`),
+        this.T(`Deuda neta = préstamos bancarios + certificados bursátiles − efectivo, del balance publicado (detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}). Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento de cada trimestre.`, `Net debt = bank loans + certificados bursátiles − cash, from the published balance sheet (itemized from ${firstBs ? this.qlab(firstBs.q) : '—'}). Translucent bars and dashed line: estimated from each quarter's financing flows.`),
         this.T('La emisión de marzo de 2026 (GAP 26 / GAP 26-2, Ps. 10,718 M) financió el 25% restante de CBX y el capex del PMD 2025–2029; en septiembre se contrataron líneas bancarias por Ps. 8,000 M.', 'The March 2026 issuance (GAP 26 / GAP 26-2, Ps. 10,718 M) funded the remaining 25% of CBX and PMD 2025–2029 capex; Ps. 8,000 M of bank facilities were signed in September.'),
       ], this.cur.x0, yl, wl, 8, { gap: 3, color: MUTED });
-      let yr = this.heading(this.T('Instrumentos vigentes', 'Outstanding instruments'), xr, y, 10);
-      const rows = (D2.instruments || []).map((i) => [M.LS(i.name).replace(/\s*\(Ps\.\s*[\d,.]+\s*M\)\s*$/, ''), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
-      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), this.T('Principal (Ps. M)', 'Principal (Ps. M)'), M.t('rate')], body: rows, meta: rows.map(() => ['left', '', '', 'left']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.36 }, 1: { cellWidth: wr * 0.2 }, 2: { cellWidth: wr * 0.17 }, 3: { halign: 'left', cellWidth: wr * 0.27 } }, pad: { top: 2.6, bottom: 2.6, left: 3, right: 3 } });
-      yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.instrumentsNote ? '. ' + M.LS(D2.instrumentsNote) : ''), yr + 3, 7, xr, wr);
+      let yr = this.heading(this.T('Vencimientos de los instrumentos vigentes (30-jun-2026)', 'Maturity profile of outstanding instruments (30-Jun-2026)'), xr, y, 10);
+      // One row per maturity year (the page lists every instrument; the deck shows the maturity profile).
+      const byYear = new Map();
+      for (const i of D2.instruments || []) { const y = i.matures ? i.matures.slice(0, 4) : '—'; const g = byYear.get(y) || { y, n: 0, cb: 0, loan: 0, fixed: 0 }; if (i.type === 'CB') { g.n++; g.cb += i.principalMxn || 0; if (/fij|fixed/i.test(M.LS(i.rate) || '')) g.fixed += i.principalMxn || 0; } else g.loan += i.principalMxn || 0; byYear.set(y, g); }
+      const rows = [...byYear.values()].sort((a, b) => a.y.localeCompare(b.y)).map((g) => [g.y, g.n ? String(g.n) : '—', g.cb ? this.n(g.cb) : '—', g.loan ? this.n(g.loan) : '—', this.n(g.cb + g.loan), g.cb + g.loan ? this.n(100 * g.fixed / (g.cb + g.loan), 0) + '%' : '—']);
+      const tot = [...byYear.values()].reduce((x, g) => ({ n: x.n + g.n, cb: x.cb + g.cb, loan: x.loan + g.loan, fixed: x.fixed + g.fixed }), { n: 0, cb: 0, loan: 0, fixed: 0 });
+      rows.push([this.T('Total', 'Total'), String(tot.n), this.n(tot.cb), this.n(tot.loan), this.n(tot.cb + tot.loan), this.n(100 * tot.fixed / (tot.cb + tot.loan), 0) + '%']);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [M.t('matures'), this.T('CB (n)', 'CB (n)'), this.T('CB (Ps. M)', 'CB (Ps. M)'), this.T('Préstamos (Ps. M)', 'Loans (Ps. M)'), this.T('Total (Ps. M)', 'Total (Ps. M)'), this.T('% fija', '% fixed')], body: rows, meta: rows.map((r, i) => (i === rows.length - 1 ? ['bold', 'bold', 'bold', 'bold', 'bold', 'bold'] : ['left', '', '', '', '', ''])), size: 8, cols: { 0: { halign: 'left' } } });
+      yr = this.note((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)})`).join(' · ') + (D2.events && D2.events.length ? '. ' + this.date(D2.events[D2.events.length - 1].date) + ': ' + M.L(D2.events[D2.events.length - 1]) : '') + this.T(' Detalle por instrumento en la página del modelo (sección 07).', ' Instrument-level detail on the model page (section 07).'), yr + 3, 7, xr, wr);
       const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
       yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('Deuda neta / EBITDA', 'Net debt / EBITDA')], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), size: 8, cols: { 0: { halign: 'left' } } });
@@ -369,7 +374,7 @@
       let y = this.page('L', this.T('08 · Dividendos', '08 · Dividends'), this.T('Dividendo por acción pagado cada año (efectivo por acción registrado en bolsa, incluye reembolsos de capital) y el aprobado por la asamblea más reciente · razón de pago sobre la utilidad por acción del año fiscal · rendimiento sobre el cierre del año', 'Dividend per share paid each year (exchange-recorded cash per share, including capital reductions) and the amount approved at the latest AGM · payout on fiscal-year EPS · yield on the year-end close'));
       const gap = 20, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       // AGM bullets
-      // One bullet per AGM: the approved amount and the instalments the exchange has recorded since that AGM
+      // One bullet per AGM: the approved amount and the installments the exchange has recorded since that AGM
       // (the page carries the full notes); the latest AGM adds the unpaid balance and the yield on the current price.
       const px = M.lastPx; const agms = M.REF.dividends || []; const recTo = this.date(px ? px[0] : M.MK.generatedAt);
       const ag = agms.map((d, i) => {
@@ -377,7 +382,7 @@
         const inst = since.map((x) => `Ps. ${this.n(x[1], 2)} ex ${this.date(x[0])}`).join(', ');
         const isLast = i === agms.length - 1; const open = Math.max(0, d.dps - paid);
         const head = this.T(`Asamblea ${d.agmYear} (${this.date(d.agmDate)}): **Ps. ${this.n(d.dps, 2)} por acción**`, `${d.agmYear} AGM (${this.date(d.agmDate)}): **Ps. ${this.n(d.dps, 2)} per share**`);
-        const paidTxt = this.T(since.length ? ` · pagado: ${inst}` : ' · sin exhibiciones registradas en bolsa', since.length ? ` · paid: ${inst}` : ' · no instalment recorded on the exchange');
+        const paidTxt = this.T(since.length ? ` · pagado: ${inst}` : ' · sin exhibiciones registradas en bolsa', since.length ? ` · paid: ${inst}` : ' · no installment recorded on the exchange');
         const tail = isLast ? this.T(`${open >= 0.01 ? `; saldo Ps. ${this.n(open, 2)} pagadero hasta el ${this.date(d.payableUntil)}` : ''} (registro al ${recTo})${px ? ` · rendimiento sobre el precio actual (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * d.dps / px[1])}` : ''}.`, `${open >= 0.01 ? `; balance Ps. ${this.n(open, 2)} payable until ${this.date(d.payableUntil)}` : ''} (record to ${recTo})${px ? ` · yield on the current price (Ps. ${this.n(px[1], 2)}): ${this.pct(100 * d.dps / px[1])}` : ''}.`) : '.';
         return head + paidTxt + tail;
       });

@@ -107,6 +107,15 @@ a{color:var(--series-1);}
 
 /* ---------- Header ---------- */
 header.top{border-bottom:1px solid var(--border); background:var(--surface); padding:40px 0 28px;}
+/* FNAM brand row: wordmark + back link, mirroring the airports hub topbar. */
+.fnam-bar{display:flex; align-items:center; flex-wrap:wrap; gap:10px 14px; margin-bottom:22px;}
+.fnam-brand{display:inline-flex; align-items:center; gap:8px; text-decoration:none; color:var(--text-primary);}
+.fnam-mark{width:22px; height:22px; border-radius:6px; background:var(--accent); display:inline-flex; align-items:center; justify-content:center;}
+.fnam-mark svg{width:13px; height:13px; display:block;}
+.fnam-word{font-family:"Source Serif 4",Georgia,serif; font-size:16.5px; font-weight:700; letter-spacing:.04em;}
+.fnam-back{display:inline-flex; align-items:center; gap:6px; font-size:12.5px; font-weight:600; color:var(--text-secondary); text-decoration:none; padding-left:14px; border-left:1px solid var(--border);}
+.fnam-back:hover{color:var(--text-primary); text-decoration:underline;}
+.fnam-back svg{width:13px; height:13px; flex:none;}
 .eyebrow{
   display:inline-flex; align-items:center; gap:8px;
   font-size:12px; font-weight:700; letter-spacing:.09em; text-transform:uppercase;
@@ -287,6 +296,35 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 </head>
 <body>
 
+<header class="top">
+  <div class="wrap">
+    <div class="fnam-bar">
+      <a class="fnam-brand" href="/" aria-label="FNAM">
+        <span class="fnam-mark" aria-hidden="true"><svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><path d="M16 46V18h26v6H23v6h16v6H23v10z" fill="#f9f9f7"/></svg></span>
+        <span class="fnam-word">FNAM</span>
+      </a>
+      <a class="fnam-back" href="/">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
+        <span class="en">All dashboards</span><span class="es" hidden>Todos los paneles</span>
+      </a>
+    </div>
+    <span class="eyebrow">
+      <span class="en">Live snapshot · U.S. Treasury &amp; Federal Reserve data</span>
+      <span class="es" hidden>Panorama en vivo · Datos del Tesoro de EE. UU. y la Reserva Federal</span>
+    </span>
+    <h1>
+      <span class="en">U.S. Fiscal Debt Monitor</span>
+      <span class="es" hidden>Monitor de la Deuda Fiscal de EE. UU.</span>
+    </h1>
+    <p class="sub">
+      <span class="en">The federal debt, who holds it and what it costs, plus the Federal Reserve's balance sheet and policy rates.</span>
+      <span class="es" hidden>La deuda federal, quién la posee y cuánto cuesta, más el balance y las tasas de política de la Reserva Federal.</span>
+    </p>
+    <div class="asof-row" id="asofRow"></div>
+    <div class="kpi-strip" id="kpiStrip"></div>
+  </div>
+</header>
+
 <nav class="jump" aria-label="Sections">
   <div class="wrap jump-bar">
     <div class="jump-strip-wrap">
@@ -305,31 +343,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <a href="#sources"><span class="en">Sources</span><span class="es" hidden>Fuentes</span></a>
       </div>
     </div>
-    <div class="lang-btn" role="group" aria-label="Language">
+    <div class="lang-btn" role="group" aria-label="Language / Idioma">
       <button type="button" id="btnLangEn" class="active">EN</button>
       <button type="button" id="btnLangEs">ES</button>
     </div>
   </div>
 </nav>
-
-<header class="top">
-  <div class="wrap">
-    <span class="eyebrow">
-      <span class="en">Live snapshot · U.S. Treasury &amp; Federal Reserve data</span>
-      <span class="es" hidden>Panorama en vivo · Datos del Tesoro de EE. UU. y la Reserva Federal</span>
-    </span>
-    <h1>
-      <span class="en">U.S. Fiscal Debt Monitor</span>
-      <span class="es" hidden>Monitor de la Deuda Fiscal de EE. UU.</span>
-    </h1>
-    <p class="sub">
-      <span class="en">The federal debt, who holds it, how it's structured, what it costs, and how revenue and spending break down — then the monetary side: the Federal Reserve's own balance sheet, the money supply, and the policy tools that set the interest rate the debt above gets charged. Pulled directly from Treasury's Fiscal Data API, the Monthly Treasury Statement, the Fed's H.4.1 release, and FRED/BEA.</span>
-      <span class="es" hidden>La deuda federal, quién la posee, cómo está estructurada, cuánto cuesta y cómo se desglosan los ingresos y el gasto — y después el lado monetario: el propio balance de la Reserva Federal, la oferta monetaria y las herramientas de política que fijan la tasa de interés que paga la deuda anterior. Tomado directamente de la Fiscal Data API del Tesoro, el Monthly Treasury Statement, el reporte H.4.1 de la Fed, y FRED/BEA.</span>
-    </p>
-    <div class="asof-row" id="asofRow"></div>
-    <div class="kpi-strip" id="kpiStrip"></div>
-  </div>
-</header>
 
 <main class="wrap">
 
@@ -786,7 +805,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <div class="stat-row">
           <div class="stat"><div class="v num" data-bind="walclT">$6.74T</div><div class="l"><span class="en">Total Fed assets, <span data-bind="walclAsOfEn">02-Sep-2026</span></span><span class="es" hidden>Activos totales de la Fed, <span data-bind="walclAsOfEs">2 de sep. de 2026</span></span></div></div>
           <div class="stat"><div class="v num" data-bind="m2T">$23.22T</div><div class="l"><span class="en">M2 money stock, <span data-bind="m2MonthEn">Jul 2026</span></span><span class="es" hidden>Oferta monetaria M2, <span data-bind="m2MonthEs">jul. 2026</span></span></div></div>
-          <div class="stat"><div class="v num">~$0.9T</div><div class="l"><span class="en">Fed assets, end of 2007 (pre-crisis)</span><span class="es" hidden>Activos de la Fed, fin de 2007 (antes de la crisis)</span></div></div>
+          <div class="stat"><div class="v num"><span class="en">~$0.9T</span><span class="es" hidden>~$0.9 billones</span></div><div class="l"><span class="en">Fed assets, end of 2007 (pre-crisis)</span><span class="es" hidden>Activos de la Fed, fin de 2007 (antes de la crisis)</span></div></div>
         </div>
         <div class="callout"><span class="en"><b>2008–2015 (QE1–QE3):</b> &lt;$1T → $4.5T, buying Treasuries and MBS after rates hit zero.</span><span class="es" hidden><b>2008–2015 (QE1–QE3):</b> &lt;$1 billón → $4.5 billones, comprando bonos del Tesoro y MBS tras llegar las tasas a cero.</span></div>
         <div class="callout"><span class="en"><b>2020 (pandemic QE):</b> $4.17T → <span data-bind="walclPeakT">$8.94T</span> peak, <span data-bind="walclPeakMonthEn">Apr 2022</span> — nearly 10× the 2007 level.</span><span class="es" hidden><b>2020 (QE pandémico):</b> $4.17 billones → máximo de <span data-bind="walclPeakTEs">$8.94 billones</span>, <span data-bind="walclPeakMonthEs">abr. 2022</span> — casi 10× el nivel de 2007.</span></div>
@@ -1048,6 +1067,15 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
   document.getElementById('btnLangEn').addEventListener('click', function(){ setLang('en'); });
   document.getElementById('btnLangEs').addEventListener('click', function(){ setLang('es'); });
+  function flagWideTables(root){
+    [].forEach.call(root.querySelectorAll('.tblwrap'), function(t){
+      var old = t.parentNode.querySelector(':scope > .scroll-hint'); if(old) old.remove();
+      var wide = t.scrollWidth > t.clientWidth + 1;
+      t.classList.toggle('can-scroll', wide);
+      if(wide){ var h = document.createElement('div'); h.className = 'scroll-hint'; h.textContent = L('Scroll sideways to see every column') + ' →'; t.parentNode.insertBefore(h, t.nextSibling); }
+    });
+  }
+  document.addEventListener('toggle', function(e){ if(e.target && e.target.tagName === 'DETAILS' && e.target.open) flagWideTables(e.target); }, true);
   function setLang(lang){
     LANG = lang;
     document.getElementById('btnLangEn').classList.toggle('active', lang==='en');
@@ -1376,9 +1404,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         return at;
       };
       if(LD.debt){
-        kpis[0].val = "$"+LD.debt.totalDebtT.toFixed(2)+"T";
+        kpis[0].val = "$"+LD.debt.totalDebtT.toFixed(2)+sfxT();
         kpis[0].delta = "as of "+fmtDateEn(LD.debt.date); // fmtDateEn is a hoisted function decl, safe to call before its own line runs
-        kpis[1].val = "$"+LD.debt.heldByPublicT.toFixed(2)+"T";
+        kpis[1].val = "$"+LD.debt.heldByPublicT.toFixed(2)+sfxT();
         kpis[1].delta = (LD.debt.heldByPublicT/LD.debt.totalDebtT*100).toFixed(1)+"% of total";
         debtAsOf = LD.debt.date; debtTotalT = LD.debt.totalDebtT; debtPublicT = LD.debt.heldByPublicT; debtIntragovT = LD.debt.intragovT;
         if(LD.debt.fyEnd && LD.debt.fyEnd.fy){
@@ -1727,7 +1755,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   ES_STR[asof[3][1]] = fmtDateEs(avgRateDate)+" (mensual)";
   if(fedBS) ES_STR[asof[6][1]] = fmtDateEs(fedBS.date)+" (semanal)"; else if(window.LIVE_DATA && window.LIVE_DATA.fed && window.LIVE_DATA.fed.walcl) ES_STR[asof[6][1]] = fmtDateEs(window.LIVE_DATA.fed.walcl.date)+" (semanal)";
   if(ratesAsOf.effr) ES_STR[asof[7][1]] = fmtDateEs(ratesAsOf.effr)+" (diario)";
-  kpis[3].val = "$"+cashInterestT.toFixed(3)+"T";
+  kpis[3].val = "$"+cashInterestT.toFixed(3)+sfxT();
   // Annualized cash interest as a share of the latest-quarter nominal GDP (was a typed-in "≈4.3%").
   var interestPctGdp = (cashInterestT*12/revOutInfo.months)/(gdpB/1000)*100;
   kpis[3].lbl = 'FY'+String(fyCur).slice(-2)+' YTD interest cost';
@@ -1778,7 +1806,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var debtGdpPct = debtTotalT*1000/gdpB*100;
   var gdpQ = 'Q'+(Math.floor(Number(gdpDate.split('-')[1])/3)+1)+' '+gdpDate.slice(0,4); // "2026-04-01" -> "Q2 2026"
   var gdpQEs = gdpQ.replace('Q','T');
-  var gdpTStr = '$'+(gdpB/1000).toFixed(2)+'T';
+  var gdpTStr = '$'+(gdpB/1000).toFixed(2)+sfxT();
   kpis[2].val = debtGdpPct.toFixed(1)+'%';
   kpis[2].delta = 'GDP ≈ '+gdpTStr+' ('+gdpQ+')';
   ES_STR[kpis[2].delta] = 'PIB ≈ $'+(gdpB/1000).toFixed(2)+' billones ('+gdpQEs+')';
@@ -1788,31 +1816,31 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var gdpTrendEndYear = gdpTrend.labels[gdpTrend.labels.length-1];
   var BIND = {
     debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
-    debtTotalT: '$'+debtTotalT.toFixed(2)+'T', debtPublicT: '$'+debtPublicT.toFixed(2)+'T', debtIntragovT: '$'+debtIntragovT.toFixed(2)+'T',
+    debtTotalT: '$'+debtTotalT.toFixed(2)+sfxT(), debtPublicT: '$'+debtPublicT.toFixed(2)+sfxT(), debtIntragovT: '$'+debtIntragovT.toFixed(2)+sfxT(),
     debtPublicPct: (debtPublicT/debtTotalT*100).toFixed(1), debtIntragovPct: (debtIntragovT/debtTotalT*100).toFixed(1),
     debtSinceFYT: debtSinceFYT.toFixed(1), debtMonthlyPaceB: Math.round(debtMonthlyPaceB),
-    fyEndYear: String(fyEndDebt.fy), fyEndDebtT: '$'+fyEndDebt.totalDebtT.toFixed(2)+'T', fyEndDebtTEs: '$'+fyEndDebt.totalDebtT.toFixed(2)+' billones',
+    fyEndYear: String(fyEndDebt.fy), fyEndDebtT: '$'+fyEndDebt.totalDebtT.toFixed(2)+sfxT(), fyEndDebtTEs: '$'+fyEndDebt.totalDebtT.toFixed(2)+' billones',
     fyEndDateEn: fmtDateEn(fyEndDebt.date), fyEndDateEs: fmtDateEs(fyEndDebt.date),
     milestoneT: milestone ? '$'+milestone.trillions+' trillion' : '$40 trillion', milestoneTEs: milestone ? '$'+milestone.trillions+' billones' : '$40 billones',
     milestoneDateEn: milestone ? fmtDateEn(milestone.date) : '18-Aug-2026', milestoneDateEs: milestone ? fmtDateEs(milestone.date) : '18 de ago. de 2026',
     curYear: curYear,
-    rrpValB: '$'+rrpVal.toFixed(1)+'B', rrpAsOfEn: fmtDateEn(rrpAsOf), rrpAsOfEs: fmtDateEs(rrpAsOf),
+    rrpValB: '$'+rrpVal.toFixed(1)+sfxB(), rrpAsOfEn: fmtDateEn(rrpAsOf), rrpAsOfEs: fmtDateEs(rrpAsOf),
     fedMult: fedMultiplier.toFixed(1)+'×', debtMult: debtMultiplier.toFixed(1)+'×', m2Mult: m2Multiplier.toFixed(1)+'×',
-    fedSomaT: '$'+fedSomaT.toFixed(2)+'T', foreignCurT: '$'+foreignCurT.toFixed(2)+'T',
+    fedSomaT: '$'+fedSomaT.toFixed(2)+sfxT(), foreignCurT: '$'+foreignCurT.toFixed(2)+sfxT(),
     fedSomaTEs: '$'+fedSomaT.toFixed(2)+' billones', foreignCurTEs: '$'+foreignCurT.toFixed(2)+' billones',
     holdersShortEn: holdersShortEn, holdersShortEs: holdersShortEs,
-    revYtdDeltaB: '$'+Math.abs(revYtdDeltaB).toFixed(0)+'B', revYtdDeltaPct: Math.abs(revYtdDeltaPct).toFixed(1),
+    revYtdDeltaB: '$'+Math.abs(revYtdDeltaB).toFixed(0)+sfxB(), revYtdDeltaPct: Math.abs(revYtdDeltaPct).toFixed(1),
     revYtdDeltaBEs: '$'+Math.abs(revYtdDeltaB).toFixed(0)+' mil millones',
     revYtdDirEn: revYtdDeltaB>=0?'up':'down', revYtdDirEs: revYtdDeltaB>=0?'por encima de':'por debajo de',
-    revCorpDeltaB: '$'+Math.abs(revCorpDeltaB).toFixed(0)+'B', revCorpDeltaBEs: '$'+Math.abs(revCorpDeltaB).toFixed(0)+' mil millones',
+    revCorpDeltaB: '$'+Math.abs(revCorpDeltaB).toFixed(0)+sfxB(), revCorpDeltaBEs: '$'+Math.abs(revCorpDeltaB).toFixed(0)+' mil millones',
     revCorpDirEn: revCorpDeltaB>=0?'up':'down', revCorpDirEs: revCorpDeltaB>=0?'por encima':'por debajo',
-    customsYtdB: '$'+revYTDcur[3].toFixed(1)+'B', customsYtdBEs: '$'+revYTDcur[3].toFixed(1)+' mil millones',
-    outYtdTreasuryT: '$'+(outYtdTreasuryB/1000).toFixed(3)+'T', outYtdTreasuryTEs: '$'+(outYtdTreasuryB/1000).toFixed(3)+' billones',
-    cashInterestT: '$'+cashInterestT.toFixed(3)+'T', cashInterestTEs: '$'+cashInterestT.toFixed(3)+' billones',
-    accruedInterestT: '$'+accruedInterestT.toFixed(3)+'T', accruedMonths: accruedInfo.months,
+    customsYtdB: '$'+revYTDcur[3].toFixed(1)+sfxB(), customsYtdBEs: '$'+revYTDcur[3].toFixed(1)+' mil millones',
+    outYtdTreasuryT: '$'+(outYtdTreasuryB/1000).toFixed(3)+sfxT(), outYtdTreasuryTEs: '$'+(outYtdTreasuryB/1000).toFixed(3)+' billones',
+    cashInterestT: '$'+cashInterestT.toFixed(3)+sfxT(), cashInterestTEs: '$'+cashInterestT.toFixed(3)+' billones',
+    accruedInterestT: '$'+accruedInterestT.toFixed(3)+sfxT(), accruedMonths: accruedInfo.months,
     accruedRangeLongEn: accruedInfo.rangeLongEn, accruedRangeLongEs: accruedInfo.rangeLongEs,
     foreignHoldersAsOfEn: fmtMonthYearEn(foreignHoldersAsOf), foreignHoldersAsOfEs: fmtMonthYearEs(foreignHoldersAsOf),
-    caymanValB: '$'+caymanValB.toFixed(0)+'B', caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones',
+    caymanValB: '$'+caymanValB.toFixed(0)+sfxB(), caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones',
     debtGdpPct: debtGdpPct.toFixed(1)+'%', debtGdpQtrEn: gdpQ, debtGdpQtrEs: gdpQEs,
     debtGdpAnnualPct: debtGdpAnnualPct.toFixed(1)+'%', debtGdpAnnualYear: debtGdpAnnualYear,
     gdpTrendEndYear: gdpTrendEndYear, targetRange: targetRangeStr,
@@ -1827,10 +1855,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     pieOfficialPct: (holdersOfficialB/holdersTotalB*100).toFixed(1)+'%',
     pieForeignPct: (holdersForeignB/holdersTotalB*100).toFixed(1)+'%',
     piePrivatePct: (100-holdersOfficialB/holdersTotalB*100).toFixed(1)+'%',
-    foreignPrevT: '$'+(foreignYearAgoB/1000).toFixed(2)+'T', foreignPrevTEs: '$'+(foreignYearAgoB/1000).toFixed(2)+' billones',
+    foreignPrevT: '$'+(foreignYearAgoB/1000).toFixed(2)+sfxT(), foreignPrevTEs: '$'+(foreignYearAgoB/1000).toFixed(2)+' billones',
     foreignPrevShortEn: fmtMonthYearEn(foreignYearAgoYm), foreignPrevShortEs: fmtMonthYearEs(foreignYearAgoYm),
     compAsOfEn: fmtDateEn(compAsOf), compAsOfEs: fmtDateEs(compAsOf),
-    compTotalT: '$'+(compTotalB/1000).toFixed(2)+'T', compTotalTEs: '$'+(compTotalB/1000).toFixed(2)+' billones',
+    compTotalT: '$'+(compTotalB/1000).toFixed(2)+sfxT(), compTotalTEs: '$'+(compTotalB/1000).toFixed(2)+' billones',
     fyCur: String(fyCur), fyPrev: String(fyPrev), fyPrevStartYY: String(fyPrev-1).slice(-2), fyPrevYY: String(fyPrev).slice(-2)
   };
   // ---- Section 03: bills share, 12-month roll-over and the maturity-schedule prose ----
@@ -1843,7 +1871,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   BIND.billsVsGuideEn = billsPctMkt > 20 ? 'above' : (billsPctMkt < 15 ? 'below' : 'within');
   BIND.billsVsGuideEs = billsPctMkt > 20 ? 'por encima de' : (billsPctMkt < 15 ? 'por debajo de' : 'dentro de');
   BIND.within12moPct = within12moPct != null ? within12moPct.toFixed(1)+'%' : '~33%';
-  BIND.within12moT = within12moB != null ? '$'+(within12moB/1000).toFixed(1)+'T' : '$—';
+  BIND.within12moT = within12moB != null ? '$'+(within12moB/1000).toFixed(1)+sfxT() : '$—';
   BIND.within12moTEs = within12moB != null ? '$'+(within12moB/1000).toFixed(1)+' billones' : '$—';
   (function(){
     var asOf = maturitySchedule.asOf || compAsOf; var y0 = Number(asOf.slice(0,4)); var m0 = Number(asOf.slice(5,7));
@@ -1851,19 +1879,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var sumThrough = function(yEnd){ var s=0; maturitySchedule.labels.forEach(function(l,i){ if(Number(l) <= yEnd) s += maturitySchedule.values[i]; }); return s; };
     var thisYear = sumThrough(y0), y5 = sumThrough(y0+4), y8 = sumThrough(y0+7);
     BIND.matThisYear = String(y0); BIND.matMonthsLeft = String(12-m0);
-    BIND.matThisYearT = '$'+(thisYear/1000).toFixed(1)+'T'; BIND.matThisYearTEs = '$'+(thisYear/1000).toFixed(1)+' billones';
-    BIND.mat5yT = '$'+(y5/1000).toFixed(1)+'T'; BIND.mat5yTEs = '$'+(y5/1000).toFixed(1)+' billones'; BIND.mat5yPct = Math.round(y5/total*100)+'%'; BIND.mat5yEnd = String(y0+4);
-    BIND.mat8yT = '$'+(y8/1000).toFixed(1)+'T'; BIND.mat8yTEs = '$'+(y8/1000).toFixed(1)+' billones'; BIND.mat8yPct = Math.round(y8/total*100)+'%'; BIND.mat8yEnd = String(y0+7);
+    BIND.matThisYearT = '$'+(thisYear/1000).toFixed(1)+sfxT(); BIND.matThisYearTEs = '$'+(thisYear/1000).toFixed(1)+' billones';
+    BIND.mat5yT = '$'+(y5/1000).toFixed(1)+sfxT(); BIND.mat5yTEs = '$'+(y5/1000).toFixed(1)+' billones'; BIND.mat5yPct = Math.round(y5/total*100)+'%'; BIND.mat5yEnd = String(y0+4);
+    BIND.mat8yT = '$'+(y8/1000).toFixed(1)+sfxT(); BIND.mat8yTEs = '$'+(y8/1000).toFixed(1)+' billones'; BIND.mat8yPct = Math.round(y8/total*100)+'%'; BIND.mat8yEnd = String(y0+7);
   })();
   // ---- Section 04: average rates, accrued and cash interest ----
   BIND.avgRateAsOfEn = fmtDateEn(avgRateDate); BIND.avgRateAsOfEs = fmtDateEs(avgRateDate);
   BIND.avgRateMonthEn = fmtMonthYearEn(avgRateDate.slice(0,7)); BIND.avgRateMonthEs = fmtMonthYearEs(avgRateDate.slice(0,7));
   BIND.rateTrendEndYear = avgRateDate.slice(0,4);
   BIND.avgRateTotal = avgRateTotal.toFixed(2)+'%'; BIND.avgRateMarketable = avgRateMarketable.toFixed(2)+'%'; BIND.avgRateNonmarketable = avgRateNonmarketable.toFixed(2)+'%';
-  BIND.accruedFYprev = String(accruedFYprev); BIND.accruedFYprevT = '$'+accruedFYprevT.toFixed(3)+'T';
-  BIND.cashInterestPriT = '$'+cashInterestPriT.toFixed(3)+'T'; BIND.cashInterestPriTEs = '$'+cashInterestPriT.toFixed(3)+' billones';
+  BIND.accruedFYprev = String(accruedFYprev); BIND.accruedFYprevT = '$'+accruedFYprevT.toFixed(3)+sfxT();
+  BIND.cashInterestPriT = '$'+cashInterestPriT.toFixed(3)+sfxT(); BIND.cashInterestPriTEs = '$'+cashInterestPriT.toFixed(3)+' billones';
   BIND.cashInterestDirEn = cashInterestT >= cashInterestPriT ? 'above' : 'below'; BIND.cashInterestDirEs = cashInterestT >= cashInterestPriT ? 'por encima de' : 'por debajo de';
-  BIND.cashInterestFYprevT = cashInterestFYprevT != null ? '$'+cashInterestFYprevT.toFixed(3)+'T' : '—';
+  BIND.cashInterestFYprevT = cashInterestFYprevT != null ? '$'+cashInterestFYprevT.toFixed(3)+sfxT() : '—';
   BIND.cashInterestFYprevTEs = cashInterestFYprevT != null ? '$'+cashInterestFYprevT.toFixed(3)+' billones' : '—';
   (function(){
     // Rank of cash interest among the outlay lines of Section 08 (Treasury itself excluded, interest is inside it).
@@ -1884,10 +1912,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var nmB = (composition.filter(function(c){ return c.label==="Non-marketable"; })[0] || {}).value || 0;
     var mktB = totalDebtCompB - nmB;
     BIND.marketablePct = (mktB/totalDebtCompB*100).toFixed(1)+'%'; BIND.nonmarketablePct = (nmB/totalDebtCompB*100).toFixed(1)+'%';
-    BIND.marketableT = '$'+(mktB/1000).toFixed(2)+'T'; BIND.marketableTEs = '$'+(mktB/1000).toFixed(2)+' billones';
-    BIND.nonmarketableT = '$'+(nmB/1000).toFixed(2)+'T'; BIND.nonmarketableTEs = '$'+(nmB/1000).toFixed(2)+' billones';
+    BIND.marketableT = '$'+(mktB/1000).toFixed(2)+sfxT(); BIND.marketableTEs = '$'+(mktB/1000).toFixed(2)+' billones';
+    BIND.nonmarketableT = '$'+(nmB/1000).toFixed(2)+sfxT(); BIND.nonmarketableTEs = '$'+(nmB/1000).toFixed(2)+' billones';
     if(nmDetail){
-      BIND.nmGasT = '$'+(nmDetail.gas/1000).toFixed(2)+'T'; BIND.nmSavingsB = fmtB(nmDetail.savings); BIND.nmSlgsB = fmtB(nmDetail.slgs); BIND.nmOtherB = fmtB(nmDetail.other);
+      BIND.nmGasT = '$'+(nmDetail.gas/1000).toFixed(2)+sfxT(); BIND.nmSavingsB = fmtB(nmDetail.savings); BIND.nmSlgsB = fmtB(nmDetail.slgs); BIND.nmOtherB = fmtB(nmDetail.other);
     }
   })();
   // ---- Section 06: "most recent actual" column ----
@@ -1906,8 +1934,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // ---- Sections 07-08: full prior-fiscal-year totals ----
   (function(){
     var r = revFY2025.reduce(function(a,b){ return a+b; }, 0), o = outFY2025.reduce(function(a,b){ return a+b; }, 0);
-    BIND.revFYprevT = '$'+(r/1000).toFixed(3)+'T'; BIND.revFYprevTEs = '$'+(r/1000).toFixed(3)+' billones';
-    BIND.outFYprevT = '$'+(o/1000).toFixed(3)+'T'; BIND.outFYprevTEs = '$'+(o/1000).toFixed(3)+' billones';
+    BIND.revFYprevT = '$'+(r/1000).toFixed(3)+sfxT(); BIND.revFYprevTEs = '$'+(r/1000).toFixed(3)+' billones';
+    BIND.outFYprevT = '$'+(o/1000).toFixed(3)+sfxT(); BIND.outFYprevTEs = '$'+(o/1000).toFixed(3)+' billones';
   })();
   // ---- Section 09: balance-sheet dates, peak, runoff, MBS and reserves ----
   (function(){
@@ -1916,17 +1944,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var peakB = fedBS && fedBS.walclPeak ? fedBS.walclPeak.valueB : 8940, peakDate = fedBS && fedBS.walclPeak ? fedBS.walclPeak.date : '2022-04-13';
     var runoff = peakB - walclB;
     BIND.walclAsOfEn = fmtDateEn(walclDate); BIND.walclAsOfEs = fmtDateEs(walclDate);
-    BIND.walclT = '$'+(walclB/1000).toFixed(2)+'T'; BIND.walclTEs = '$'+(walclB/1000).toFixed(2)+' billones';
+    BIND.walclT = '$'+(walclB/1000).toFixed(2)+sfxT(); BIND.walclTEs = '$'+(walclB/1000).toFixed(2)+' billones';
     BIND.m2MonthEn = fmtMonthYearEn(m2Date.slice(0,7)); BIND.m2MonthEs = fmtMonthYearEs(m2Date.slice(0,7));
-    BIND.m2T = '$'+(tripleIndex.m2[tripleIndex.m2.length-1]/1000).toFixed(2)+'T';
-    BIND.walclPeakT = '$'+(peakB/1000).toFixed(2)+'T'; BIND.walclPeakTEs = '$'+(peakB/1000).toFixed(2)+' billones';
+    BIND.m2T = '$'+(tripleIndex.m2[tripleIndex.m2.length-1]/1000).toFixed(2)+sfxT();
+    BIND.walclPeakT = '$'+(peakB/1000).toFixed(2)+sfxT(); BIND.walclPeakTEs = '$'+(peakB/1000).toFixed(2)+' billones';
     BIND.walclPeakMonthEn = fmtMonthYearEn(peakDate.slice(0,7)); BIND.walclPeakMonthEs = fmtMonthYearEs(peakDate.slice(0,7));
-    BIND.runoffT = '~$'+(runoff/1000).toFixed(2)+'T'; BIND.runoffTEs = '~$'+(runoff/1000).toFixed(2)+' billones'; BIND.runoffTNeg = '−$'+(runoff/1000).toFixed(2)+'T';
+    BIND.runoffT = '~$'+(runoff/1000).toFixed(2)+sfxT(); BIND.runoffTEs = '~$'+(runoff/1000).toFixed(2)+' billones'; BIND.runoffTNeg = '−$'+(runoff/1000).toFixed(2)+sfxT();
     var mbs = tAccount.assets[1][1]/1e6, res = tAccount.liab[0][1]/1e6;
-    BIND.mbsT = '$'+mbs.toFixed(2)+'T'; BIND.mbsTEs = '$'+mbs.toFixed(2)+' billones';
-    BIND.reservesT = '$'+res.toFixed(2)+'T'; BIND.reservesTEs = '$'+res.toFixed(2)+' billones';
+    BIND.mbsT = '$'+mbs.toFixed(2)+sfxT(); BIND.mbsTEs = '$'+mbs.toFixed(2)+' billones';
+    BIND.reservesT = '$'+res.toFixed(2)+sfxT(); BIND.reservesTEs = '$'+res.toFixed(2)+' billones';
     var r19 = fedBS && fedBS.reservesEnd2019B && fedBS.reservesEnd2019B.value != null ? fedBS.reservesEnd2019B.value/1000 : null;
-    BIND.reserves2019T = r19 != null ? '$'+r19.toFixed(2)+'T' : '$1.7T'; BIND.reserves2019TEs = r19 != null ? '$'+r19.toFixed(2)+' billones' : '$1.7 billones';
+    BIND.reserves2019T = r19 != null ? '$'+r19.toFixed(2)+sfxT() : '$1.7T'; BIND.reserves2019TEs = r19 != null ? '$'+r19.toFixed(2)+' billones' : '$1.7 billones';
     BIND.reservesVs2019 = r19 != null ? (res/r19).toFixed(1)+'×' : '1.7×';
   })();
   // ---- Sections 10-11: rate dates, target range, peaks ----
@@ -1944,7 +1972,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     BIND.iorbRate = iorb.val.toFixed(2)+'%'; BIND.discountRate = disc.val.toFixed(2)+'%';
     BIND.targetSinceEn = targetSince ? fmtDateEn(targetSince) : '—'; BIND.targetSinceEs = targetSince ? fmtDateEs(targetSince) : '—';
     var rp = fedBS && fedBS.rrpPeak ? fedBS.rrpPeak : { valueB: 2553.7, date: '2022-12-30' };
-    BIND.rrpPeakT = '$'+(rp.valueB/1000).toFixed(2)+'T'; BIND.rrpPeakTEs = '$'+(rp.valueB/1000).toFixed(2)+' billones';
+    BIND.rrpPeakT = '$'+(rp.valueB/1000).toFixed(2)+sfxT(); BIND.rrpPeakTEs = '$'+(rp.valueB/1000).toFixed(2)+' billones';
     BIND.rrpPeakDateEn = fmtMonthYearEn(rp.date.slice(0,7)); BIND.rrpPeakDateEs = fmtMonthYearEs(rp.date.slice(0,7));
   })();
   // ---- Section 06: the CBO card, composed from the research file (never hand-typed years or figures) ----
@@ -1962,7 +1990,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var row = function(label){ return cboCategoryTable.filter(function(r){ return r.label === label; })[0]; };
     var fmtPath = function(r){ return r ? r.vals[0].v.toFixed(1)+'%→'+r.vals[r.vals.length-1].v.toFixed(1)+'%' : '—'; };
     BIND.cboDeficitPath = fmtPath(row('Deficit (outlays − revenue)')); BIND.cboInterestPath = fmtPath(row('— Net interest'));
-    BIND.cboGdpFirstT = '≈$'+cboGdpRow.vals[0].v.toFixed(1)+'T'; BIND.cboGdpLastT = '≈$'+cboGdpRow.vals[cboGdpRow.vals.length-1].v.toFixed(1)+'T';
+    BIND.cboGdpFirstT = '≈$'+cboGdpRow.vals[0].v.toFixed(1)+sfxT(); BIND.cboGdpLastT = '≈$'+cboGdpRow.vals[cboGdpRow.vals.length-1].v.toFixed(1)+sfxT();
     var out = row('Total outlays');
     if(cboOutlaysT && out){
       BIND.cboGdpNoteEn = '$'+cboOutlaysT[first]+'T ÷ '+out.vals[0].v.toFixed(1)+'% in '+first+'; $'+cboOutlaysT[last]+'T ÷ '+out.vals[out.vals.length-1].v.toFixed(1)+'% in '+last;
@@ -2215,8 +2243,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
     el.innerHTML=''; el.appendChild(svg);
   }
-  function fmtB(v){ return "$" + v.toLocaleString('en-US',{maximumFractionDigits:0}) + "B"; }
-  function fmtT(v){ return "$" + v.toFixed(2) + "T"; }
+  // Money suffixes follow the page language: "B"/"T" in English; "mmd" (miles de millones de
+  // dólares) and "billones" in Spanish, the convention the Mexico fiscal monitor uses.
+  function sfxB(){ return LANG==='es' ? ' mmd' : 'B'; }
+  function sfxT(){ return LANG==='es' ? ' billones' : 'T'; }
+  function fmtB(v){ return "$" + v.toLocaleString('en-US',{maximumFractionDigits:0}) + sfxB(); }
+  function fmtT(v){ return "$" + v.toFixed(2) + sfxT(); }
   function pct(v,total){ return (100*v/total).toFixed(1) + "%"; }
 
   var isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -2264,12 +2296,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     options:{
       responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{display:true, position:'top', align:'end', labels:{boxWidth:9, boxHeight:9, usePointStyle:true, pointStyle:'rect', font:{size:11.5}}},
-        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+'T'; }, footer:function(items){ var s=0; items.forEach(function(i){s+=i.parsed.y;}); return L('Total')+': $'+s.toFixed(2)+'T'; } } } },
-      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+sfxT(); }, footer:function(items){ var s=0; items.forEach(function(i){s+=i.parsed.y;}); return L('Total')+': $'+s.toFixed(2)+sfxT(); } } } },
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxT();}}) } }
     }
   });
   (function(){
-    var rows = debtTrend.labels.map(function(l,i){ return '<tr><td>'+l+'</td><td class="num">$'+debtTrend.public[i].toFixed(2)+'T</td><td class="num">$'+debtTrend.intragov[i].toFixed(2)+'T</td><td class="num">$'+(debtTrend.public[i]+debtTrend.intragov[i]).toFixed(2)+'T</td></tr>'; }).join('');
+    var rows = debtTrend.labels.map(function(l,i){ return '<tr><td>'+l+'</td><td class="num">$'+debtTrend.public[i].toFixed(2)+sfxT()+'</td><td class="num">$'+debtTrend.intragov[i].toFixed(2)+sfxT()+'</td><td class="num">$'+(debtTrend.public[i]+debtTrend.intragov[i]).toFixed(2)+sfxT()+'</td></tr>'; }).join('');
     document.getElementById('tblDebtTrend').innerHTML = '<table><thead><tr><th>'+L('Period')+'</th><th>'+L('Held by public')+'</th><th>'+L('Intragovernmental')+'</th><th>'+L('Total')+'</th></tr></thead><tbody>'+rows+'</tbody></table>';
   })();
 
@@ -2294,9 +2326,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       { data: debtHistory1995.values.map(function(v){return v/1000;}), borderColor:getVar('--series-1'), backgroundColor:getVar('--series-1')+'1a', fill:true, tension:.2, pointRadius:0, pointHoverRadius:4, borderWidth:2.5 }
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+'T'; } } } },
+      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+sfxT(); } } } },
       scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) },
-        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxT();}}) } }
     }
   });
 
@@ -2306,9 +2338,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       { data: m2History1995.values.map(function(v){return v/1000;}), borderColor:getVar('--series-7'), backgroundColor:getVar('--series-7')+'1a', fill:true, tension:.2, pointRadius:0, pointHoverRadius:4, borderWidth:2.5 }
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+'T'; } } } },
+      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(2)+sfxT(); } } } },
       scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}, autoSkip:true, maxTicksLimit:14, maxRotation:0}) },
-        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+        y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxT();}}) } }
     }
   });
 
@@ -2352,7 +2384,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false,
         layout:{ padding:{ left:4 } },
         plugins:{ tooltip:{ callbacks:{ label:function(c){ return fmtB(c.parsed.x); } } } },
-        scales:{ x:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+(v/1000).toFixed(0)+'T';}}) }, y:{ grid:{display:false}, afterFit:function(scale){ scale.width = labelW; }, ticks:{ color:ink, font:{size:11.5}, autoSkip:false, padding:6 } } }
+        scales:{ x:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+(v/1000).toFixed(0)+sfxT();}}) }, y:{ grid:{display:false}, afterFit:function(scale){ scale.width = labelW; }, ticks:{ color:ink, font:{size:11.5}, autoSkip:false, padding:6 } } }
     }
     });
     var total = holders.reduce(function(s,h){return s+h.value;},0);
@@ -2378,7 +2410,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     data:{ labels: maturityMix.map(function(m){return L(m.label);}), datasets:[{ data:maturityMix.map(function(m){return m.value;}), backgroundColor:getVar('--series-1'), borderRadius:4, maxBarThickness:44 }] },
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ tooltip:{ callbacks:{ label:function(c){ return fmtB(c.parsed.y); } } } },
-      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+(v/1000).toFixed(0)+'T';}}) } }
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+(v/1000).toFixed(0)+sfxT();}}) } }
     }
   });
 
@@ -2387,7 +2419,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     data:{ labels: maturitySchedule.labels, datasets:[{ data: maturitySchedule.values, backgroundColor: maturitySchedule.labels.map(function(l){ return l<='2030' ? getVar('--series-1') : getVar('--series-1')+'80'; }), borderRadius:2, maxBarThickness:26 }] },
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toFixed(0)+'B '+L('matures in')+' '+c.label; } } } },
-      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10}, autoSkip:true, maxTicksLimit:20, maxRotation:0}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'B';}}) } }
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10}, autoSkip:true, maxTicksLimit:20, maxRotation:0}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxB();}}) } }
     }
   });
 
@@ -2406,7 +2438,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   (function(){
     var cols = [getVar('--series-1'),getVar('--series-2'),getVar('--series-3'),getVar('--series-6'),getVar('--series-4'),getVar('--series-5')];
     renderLeaderPie('pieComposition', composition.map(function(c){return {label:L(c.label), value:c.value};}), cols,
-      { fmt: fmtB, centerTitle:'$'+(compTotalB/1000).toFixed(2)+'T', centerSub:L('total public debt') });
+      { fmt: fmtB, centerTitle:'$'+(compTotalB/1000).toFixed(2)+sfxT(), centerSub:L('total public debt') });
     var rows = composition.map(function(c){ return '<tr><td>'+L(c.label)+'</td><td class="num">'+fmtB(c.value)+'</td><td class="num">'+pct(c.value,compTotalB)+'</td></tr>'; }).join('');
     document.getElementById('tblComposition').innerHTML = '<table><thead><tr><th>'+L('Security type')+'</th><th>'+L('Amount')+'</th><th>'+L('% of total')+'</th></tr></thead><tbody>'+rows+'<tr class="total"><td>'+L('Total public debt')+'</td><td class="num">'+fmtB(compTotalB)+'</td><td class="num">100.0%</td></tr></tbody></table>';
   })();
@@ -2439,7 +2471,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var gdpCells = cboGdpRow.vals.map(function(c){
       var cls = c.direct ? '' : ' class="est"';
       var mark = c.direct ? '' : '~';
-      return '<td'+cls+'>'+mark+'$'+c.v.toFixed(1)+'T</td>';
+      return '<td'+cls+'>'+mark+'$'+c.v.toFixed(1)+sfxT()+'</td>';
     }).join('');
     var gdpRow = '<tr class="total"><td style="text-align:left">'+L(cboGdpRow.label)+'</td>'+gdpCells+'</tr>';
     var rows = cboCategoryTable.map(function(r){
@@ -2459,7 +2491,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var fy25total = revFY2025.reduce(function(a,b){return a+b;},0);
     var revSub = 'FY'+fyPrev+' receipts'; ES_STR[revSub] = 'ingresos del AF'+fyPrev;
     renderLeaderPie('pieRevFY', revCats.map(function(c,i){return {label:L(c), value:revFY2025[i]};}), cols,
-      { fmt: fmtB, centerTitle: '$'+(fy25total/1000).toFixed(2)+'T', centerSub:L(revSub) });
+      { fmt: fmtB, centerTitle: '$'+(fy25total/1000).toFixed(2)+sfxT(), centerSub:L(revSub) });
 
     new Chart(document.getElementById('chartRevYTD'), {
       type:'bar',
@@ -2483,10 +2515,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       data:{ labels: tariffTrend.labels, datasets:[{ data: tariffTrend.values, borderColor:getVar('--series-2'), backgroundColor:getVar('--series-2')+'1c', fill:true, tension:.15, pointRadius:0, pointHoverRadius:4, pointBackgroundColor:getVar('--series-2'), borderWidth:2 }] },
       options:{ responsive:true, maintainAspectRatio:false,
         interaction:{ mode:'index', intersect:false },
-        plugins:{ tooltip:{ callbacks:{ title:function(items){ return items[0].label; }, label:function(c){ return '$'+c.parsed.y.toFixed(1)+'B'; } } } },
+        plugins:{ tooltip:{ callbacks:{ title:function(items){ return items[0].label; }, label:function(c){ return '$'+c.parsed.y.toFixed(1)+sfxB(); } } } },
         scales:{
           x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10}, autoSkip:true, maxTicksLimit:16, maxRotation:0}) },
-          y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'B';}}) }
+          y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxB();}}) }
         }
       },
       plugins:[{
@@ -2520,7 +2552,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var fy25total = outFY2025.reduce(function(a,b){return a+b;},0);
     var outSub = 'FY'+fyPrev+' outlays'; ES_STR[outSub] = 'gasto del AF'+fyPrev;
     renderLeaderPie('pieOutFY', outCats.map(function(c,i){return {label:L(c), value:outFY2025[i]};}), cols,
-      { fmt: fmtB, centerTitle: '$'+(fy25total/1000).toFixed(2)+'T', centerSub:L(outSub) });
+      { fmt: fmtB, centerTitle: '$'+(fy25total/1000).toFixed(2)+sfxT(), centerSub:L(outSub) });
 
     new Chart(document.getElementById('chartOutYTD'), {
       type:'bar',
@@ -2554,11 +2586,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{display:true, position:'top', align:'end', labels:{boxWidth:9,boxHeight:9,usePointStyle:true,pointStyle:'rect',font:{size:11.5}}},
-        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+'T'; } } } },
+        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+sfxT(); } } } },
       scales:{
         x:{ grid:{display:false}, ticks:axisTicks },
-        y:{ position:'left', grid:axisGrid, title:{display:true, text:L('M2, $T'), color:getVar('--series-7'), font:{size:11}}, ticks:Object.assign({},axisTicks,{color:getVar('--series-7'), callback:function(v){return '$'+v+'T';}}) },
-        y1:{ position:'right', grid:{display:false}, title:{display:true, text:L("Fed assets, $T"), color:getVar('--series-1'), font:{size:11}}, ticks:Object.assign({},axisTicks,{color:getVar('--series-1'), callback:function(v){return '$'+v+'T';}}) }
+        y:{ position:'left', grid:axisGrid, title:{display:true, text:L('M2, $T'), color:getVar('--series-7'), font:{size:11}}, ticks:Object.assign({},axisTicks,{color:getVar('--series-7'), callback:function(v){return '$'+v+sfxT();}}) },
+        y1:{ position:'right', grid:{display:false}, title:{display:true, text:L("Fed assets, $T"), color:getVar('--series-1'), font:{size:11}}, ticks:Object.assign({},axisTicks,{color:getVar('--series-1'), callback:function(v){return '$'+v+sfxT();}}) }
       }
     }
   });
@@ -2572,8 +2604,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     ]},
     options:{ responsive:true, maintainAspectRatio:false,
       plugins:{ legend:{display:true, position:'top', align:'end', labels:{boxWidth:9,boxHeight:9,usePointStyle:true,pointStyle:'rect',font:{size:11}}},
-        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+'T'; }, footer:function(items){ var s=0; items.forEach(function(i){s+=i.parsed.y;}); return L('Total')+': $'+s.toFixed(2)+'T'; } } } },
-      scales:{ x:{ stacked:true, grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}}) }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+'T';}}) } }
+        tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': $'+c.parsed.y.toFixed(2)+sfxT(); }, footer:function(items){ var s=0; items.forEach(function(i){s+=i.parsed.y;}); return L('Total')+': $'+s.toFixed(2)+sfxT(); } } } },
+      scales:{ x:{ stacked:true, grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:10.5}}) }, y:{ stacked:true, grid:axisGrid, ticks:Object.assign({},axisTicks,{callback:function(v){return '$'+v+sfxT();}}) } }
     }
   });
 
@@ -2655,18 +2687,15 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     type:'line',
     data:{ labels: rrpTrend.labels, datasets:[{ data: rrpTrend.values, borderColor:getVar('--series-2'), backgroundColor:getVar('--series-2')+'22', fill:true, tension:.3, pointRadius:0, borderWidth:2.25 }] },
     options:{ responsive:true, maintainAspectRatio:false,
-      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toLocaleString('en-US',{maximumFractionDigits:1})+'B'; } } } },
-      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:9.5}, maxRotation:0}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{font:{size:10}, callback:function(v){return '$'+v+'B';}}) } }
+      plugins:{ tooltip:{ callbacks:{ label:function(c){ return '$'+c.parsed.y.toLocaleString('en-US',{maximumFractionDigits:1})+sfxB(); } } } },
+      scales:{ x:{ grid:{display:false}, ticks:Object.assign({},axisTicks,{font:{size:9.5}, maxRotation:0}) }, y:{ grid:axisGrid, ticks:Object.assign({},axisTicks,{font:{size:10}, callback:function(v){return '$'+v+sfxB();}}) } }
     }
   });
 
   // ---------------- Tables wider than their box: shadowed edges + a hint ----------------
-  [].forEach.call(document.querySelectorAll('.tblwrap'), function(t){
-    var old = t.parentNode.querySelector(':scope > .scroll-hint'); if(old) old.remove();
-    var wide = t.scrollWidth > t.clientWidth + 1;
-    t.classList.toggle('can-scroll', wide);
-    if(wide){ var h = document.createElement('div'); h.className = 'scroll-hint'; h.textContent = L('Scroll sideways to see every column') + ' →'; t.parentNode.insertBefore(h, t.nextSibling); }
-  });
+  // Re-run for the tables inside a <details> when it opens: while it is closed they have no layout, so
+  // the measurement taken here would leave a table that overflows on a phone without its hint.
+  flagWideTables(document);
 
   // ---------------- Sources ----------------
   var srcEl = document.getElementById('srcGrid'); srcEl.innerHTML = '';

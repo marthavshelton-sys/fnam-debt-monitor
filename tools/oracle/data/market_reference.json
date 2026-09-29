@@ -1,30 +1,30 @@
 {
-  "as_of": "2026-09-28",
+  "as_of": "2026-09-29",
   "price_snapshot": {
     "orcl": {
-      "close": 137.1,
-      "close_date": "2026-09-25",
+      "close": 132.6,
+      "close_date": "2026-09-28",
       "week52_high": 313,
       "week52_high_date": "2025-10-16",
       "week52_low": 114.99,
       "week52_low_date": "2026-07-24",
       "shares_outstanding_millions": 3023.736,
-      "market_cap_millions": 414554.21,
-      "one_day_change_pct": -1.75,
-      "one_year_change_pct": -52.94,
-      "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-09-28&todate=2026-09-28&limit=10000",
-      "accessed": "2026-09-28",
+      "market_cap_millions": 400947.39,
+      "one_day_change_pct": -3.28,
+      "one_year_change_pct": -53.22,
+      "source_url": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-09-29&todate=2026-09-29&limit=10000",
+      "accessed": "2026-09-29",
       "_note": "Close/52-week high-low/market cap/1-day change cross-checked against stockanalysis.com (accessed 2026-09-22). 52-week high/low dates, 1-day and 1-year pct changes computed directly from daily OHLC series in prices_orcl_daily.csv (source: Yahoo Finance chart API, used as a stooq.com substitute -- see notes). Shares outstanding (3,023,736,000) is the more authoritative figure, taken from Oracle's 10-Q cover page as of 2026-09-07 (source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm, accessed 2026-09-22); market_cap_millions = close price x that share count. WSJ and Google Finance quote pages could not be fetched in this environment (see notes).",
       "source_name": "Nasdaq"
     },
     "sp500": {
-      "close": 7743.41,
-      "close_date": "2026-09-25",
-      "one_day_change_pct": 0.51,
-      "one_year_change_pct": 17.24,
+      "close": 7683.69,
+      "close_date": "2026-09-28",
+      "one_day_change_pct": -0.77,
+      "one_year_change_pct": 15.65,
       "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
       "source_name": "FRED SP500",
-      "accessed": "2026-09-28"
+      "accessed": "2026-09-29"
     }
   },
   "treasury_10y": {
@@ -32,7 +32,7 @@
     "as_of_date": "2026-09-25",
     "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
     "source_name": "FRED DGS10",
-    "accessed": "2026-09-28"
+    "accessed": "2026-09-29"
   },
   "credit_ratings": {
     "moodys": {

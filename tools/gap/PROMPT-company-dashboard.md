@@ -180,3 +180,9 @@ report completion.
     owner can see the pipeline's health without reading logs.
 12. **Peer set with the same model**: once the peer connector is live, render the same statement
     comparison for any peer with one click.
+
+
+## Conventions added 29-Sep-2026
+
+- Write the next-results date in `summary.js` as the token `{{nextResults}}` (the page fills it from the release-lag rule the deck also uses); never type a date or a phrase such as "last week of October".
+- Section titles in Title Case in both languages; American English in the English text (installment, amortization, program, itemized, canceled, gray); EV, P/E and ND in English, VE, P/U and DN in Spanish.

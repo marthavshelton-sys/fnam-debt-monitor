@@ -90,9 +90,24 @@ to the regex (or a new row to the catalogue, which also adds it to the page), ru
 * the AGM approves a dividend → `dividends[]` (Ps. per share, date, source);
 * shares outstanding change (buyback cancellation, issuance) → `shares` + `shares.history[]`;
 * a bond / loan is issued or repaid, or a rating changes → `debt.instruments[]`, `debt.ratings[]`.
+  The instrument list is a dated snapshot: FactSet Debt Capital Structure (`details`, GAPB-MX, quarterly, the
+  quarter-end in `debt.instrumentsAsOf`) gives every outstanding bond and loan with amount, coupon and maturity;
+  series names come from GAP's issuance and repayment 6-Ks (`source` per row; `inferred: true` marks a name taken
+  from the issuance pattern, shown with an asterisk). Refresh it in a Claude session after each quarterly report:
+  pull the DCS detail at the new quarter-end, replace the rows, reconcile the principal subtotals against bank loans
+  plus bonds on the balance sheet (the page prints both), and log post-quarter issues or repayments in
+  `debt.events[]` until the next snapshot absorbs them. Only the page shows the full list; the deck shows the
+  maturity profile by year.
   Optional: `debt.history[] = [{ q: "2025Q4", grossDebtMxnM: … }]` extends the net-debt chart to
   quarters whose published balance sheet only shows total liabilities (before 2Q26);
-* CBX or FIBRA GAP milestones → `cbx.timeline[]`, `fibra.status_es/en`;
+* the AGM sets a repurchase authorisation → `buyback[]` (max amount, 12-month window, item VI of the resolutions);
+* `noGuidance[]` lists fiscal years for which GAP published no guidance (2020, 2021: nothing in its GlobeNewswire
+  feed, which the harvester keeps in full for "guidance" titles, and no guidance table in the 4Q19 / 4Q20 reports);
+  the track-record table prints them as rows so the gap is explained rather than silent;
+* CBX or FIBRA GAP milestones → `cbx.timeline[]`, `fibra.status_es/en`. Quote one revenue basis in the CBX
+  timeline (ex-IFRIC 12, as the summary does; total in parentheses). In the FIBRA status, facts from filings come
+  first and anything press-only is labelled as such; the "not placed as of" date is the date of the last harvested
+  release check, not a claim about EDGAR (blocked from the session);
 * the PMD / maximum-tariff cycle is renewed → `regulation`, and the DCF `capexMxnM` profile.
 
 **`site/gap/data/peers.js`** — never hand-edit. To refresh (a Claude session with the FactSet
@@ -199,7 +214,8 @@ labels it *assumed*. The authorship line reads "Powered by <name>"; the name def
 overridden by defining `window.FNAM_MODEL_NAME` before `present.js` loads.
 
 Conventions the data files feed the PDF with: `summary.js` bullets may wrap their two to four most important words in
-`**double asterisks**` (rendered bold on the page and in the PDF) and English section titles are written in Title Case;
+`**double asterisks**` (rendered bold on the page and in the PDF) and section titles are written in Title Case in both
+languages (the page's `tc()` enforces it on every heading, static and dynamic; the owner's convention site-wide);
 `reference.js` → `fibra.placed` (with `placedDate`) flips the FIBRA page title from "(Not Yet Placed)" once the offering
 completes; timestamps in the PDF are shown in Mexico City time.
 
@@ -207,3 +223,12 @@ Layout rules the builder enforces: tables shrink their font until they fit the p
 rather than over the footer (`noteAbove`), and a table that would still spill is logged in the console. Glyphs that
 Helvetica lacks (−, ≈, →, Δ…) are swapped before drawing. To review the output headlessly, open the page with Playwright,
 click `#btnPrint`, save the download and rasterise it (PyMuPDF) — see the session notes.
+
+
+## Conventions and pipeline notes (29-Sep-2026)
+
+- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). FactSet is available only inside a Claude session, not in Actions.
+- Headings are Title Case in both languages; the English view uses American English and EV / P/E / ND.
+- The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
+- `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
+- Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.

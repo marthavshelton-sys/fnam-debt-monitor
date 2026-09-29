@@ -210,8 +210,32 @@ function unzip(buf) {
   return files;
 }
 
-const PROVIDERS = { banxico, fred, inegi };
-const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI' };
+// ---------------- IMSS (curated monthly file) ----------------
+// IMSS publishes puestos de trabajo only behind WAF-protected portals (audit in the README), so
+// the series arrives as a PR from the owner's scheduled browser task into data/imss.json. The
+// provider validates the file instead of trusting it: month keys well-formed and strictly
+// increasing, values inside a sane national band, and no implausible month-over-month jump.
+async function imssCurated(cand, spec) {
+  const body = JSON.parse(await readFile(new URL('tools/mx-macro/data/imss.json', ROOT), 'utf8'));
+  const rows = body.series || [];
+  if (!rows.length) throw new Error('curated file has no data yet (run the IMSS browser task)');
+  const points = [];
+  let prev = null, prevV = null;
+  for (const p of rows) {
+    if (!/^\d{4}-(0[1-9]|1[0-2])$/.test(p.d)) throw new Error(`bad month key ${p.d}`);
+    if (prev && p.d <= prev) throw new Error(`months out of order at ${p.d}`);
+    const v = Number(p.v);
+    if (!Number.isFinite(v) || v < 15e6 || v > 40e6) throw new Error(`implausible value ${p.v} at ${p.d}`);
+    if (prevV !== null && Math.abs(v - prevV) > 2e6) throw new Error(`implausible monthly jump at ${p.d}`);
+    if (p.d >= spec.since.slice(0, 7)) points.push([p.d, v]);
+    prev = p.d; prevV = v;
+  }
+  return { title: String(body.title || ''), points, url: body.sourceUrl || 'https://www.imss.gob.mx/prensa',
+           meta: { unit: body.unit, updatedAt: body.updatedAt, comunicado: body.comunicado } };
+}
+
+const PROVIDERS = { banxico, fred, inegi, imss: imssCurated };
+const PROVIDER_LABEL = { banxico: 'Banxico SIE', fred: 'FRED', inegi: 'INEGI', imss: 'IMSS' };
 
 function minPoints(freq) { return freq === 'Q' ? 8 : freq === 'M' ? 24 : 50; }
 // A provider that stopped updating a series (FRED's OECD mirrors do this) must not put
@@ -226,7 +250,7 @@ function isDiscontinued(lastDate, freq) {
 async function fetchOne(key, spec, log) {
   const tried = [];
   for (const cand of spec.candidates) {
-    const cspec = cand.freq ? { ...spec, freq: cand.freq } : spec;
+    const cspec = { ...spec, ...(cand.freq ? { freq: cand.freq } : {}), ...(cand.unit ? { unit: cand.unit } : {}) };
     try {
       const r = await PROVIDERS[cand.provider](cand, cspec);
       if (cand.title && r.title !== null && !new RegExp(cand.title, 'i').test(r.title)) {
@@ -246,7 +270,7 @@ async function fetchOne(key, spec, log) {
       }
       return {
         provider: cand.provider, providerLabel: PROVIDER_LABEL[cand.provider], id: cand.id, title: r.title, url: r.url,
-        note: cand.note || null, freq: cspec.freq, unit: spec.unit, fetchedAt: today(), points: r.points, tried,
+        note: cand.note || null, freq: cspec.freq, unit: cspec.unit, fetchedAt: today(), points: r.points, tried,
       };
     } catch (e) {
       tried.push(`${cand.provider}:${cand.id} ${e.message}`);

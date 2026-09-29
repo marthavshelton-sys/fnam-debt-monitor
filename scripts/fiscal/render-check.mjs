@@ -7,8 +7,9 @@
 //   - horizontal overflow of the page, and DOM text below 11 px
 //   - the section tab bar: every tab and both language buttons must be hit-testable at their centre
 //     (elementFromPoint), the language buttons must not overlap the tab strip
-//   - every table wrapper that overflows sideways must scroll (overflow-x) and carry the "can-scroll"
-//     class plus the scroll hint the page inserts, so a phone reader knows there are more columns
+//   - every table wrapper that overflows sideways (collapsed <details> tables opened first) must scroll
+//     (overflow-x) and carry the "can-scroll" class plus the scroll hint the page inserts, so a phone
+//     reader knows there are more columns
 //   - SVG text (the donut labels) must render at 11 px or more once the viewBox scale is applied
 //   - English headings and tab labels in Title Case, Spanish ones in sentence case (Mexican usage)
 // Canvas charts (Chart.js) cannot be inspected from the DOM: pass --shots DIR and look at the crops of
@@ -77,6 +78,8 @@ for (const scheme of ['light', 'dark']) {
       page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
       await page.goto(BASE, { waitUntil: 'load' });
       if (lang === 'es') await page.click('#btnLangEs');
+      // open every collapsed data table so it is measured the way a reader sees it after opening it
+      await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { d.open = true; }));
       await page.waitForTimeout(600);
       const r = await page.evaluate(() => {
         const vis = (el) => !!(el.getClientRects().length) && getComputedStyle(el).visibility !== 'hidden';
@@ -92,20 +95,22 @@ for (const scheme of ['light', 'dark']) {
         const inter = (a, b) => !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top);
         const nav = { overlap: false, misses: [] };
         if (strip && langBox) {
-          const prev = strip.style.scrollBehavior; strip.style.scrollBehavior = 'auto'; window.scrollTo(0, 0);
+          // the bar sits under the page header and sticks to the top once reached: bring it there first
+          const prev = strip.style.scrollBehavior; strip.style.scrollBehavior = 'auto';
+          const bar = strip.closest('nav'); window.scrollTo({ top: bar.offsetTop + 1, behavior: 'instant' });
           nav.overlap = inter(strip.parentElement.getBoundingClientRect(), langBox.getBoundingClientRect());
           for (const a of strip.querySelectorAll('a')) {
             strip.scrollLeft = Math.max(0, a.offsetLeft - 12);
             const rc = a.getBoundingClientRect();
             const el = document.elementFromPoint(rc.left + rc.width / 2, rc.top + rc.height / 2);
-            if (!el || el.closest('#jumpNav a') !== a) nav.misses.push(`${a.textContent.trim()} -> ${el ? name(el) : 'nothing'}`);
+            if (!el || el.closest('#jumpNav a') !== a) nav.misses.push(`${a.innerText.trim()} -> ${el ? name(el) : 'nothing'}`);
           }
           for (const b of langBox.querySelectorAll('button')) {
             const rc = b.getBoundingClientRect();
             const el = document.elementFromPoint(rc.left + rc.width / 2, rc.top + rc.height / 2);
             if (!el || el.closest('button') !== b) nav.misses.push(`${b.textContent.trim()} button -> ${el ? name(el) : 'nothing'}`);
           }
-          strip.scrollLeft = 0; strip.style.scrollBehavior = prev;
+          strip.scrollLeft = 0; strip.style.scrollBehavior = prev; window.scrollTo({ top: 0, behavior: 'instant' });
         } else nav.misses.push('tab bar or language buttons not found');
         // tables that overflow sideways must scroll and say so
         const tables = [...document.querySelectorAll('.tblwrap')].filter(vis).map((t) => {

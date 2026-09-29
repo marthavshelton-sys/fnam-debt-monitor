@@ -88,7 +88,7 @@
 
   .shell {
     display: grid;
-    grid-template-columns: 216px 1fr;
+    grid-template-columns: 216px minmax(0, 1fr);
     min-height: 100vh;
   }
   /* Phone layout: the sidebar gives way to a sticky bar carrying the two
@@ -97,7 +97,8 @@
      drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
   @media (max-width: 860px) {
-    .shell { grid-template-columns: 1fr; }
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    main { min-width: 0; }
     .rail { display: none; }
     .mobilebar {
       display: flex; align-items: center; gap: 10px;
@@ -108,6 +109,7 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
     .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+    .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
     .mobilebar select {
       flex: 1 1 auto; min-width: 0;
       font-family: inherit; font-size: 15px; font-weight: 600;
@@ -132,7 +134,7 @@
     .momentum-charts { gap: 18px; }
     .derby-row { grid-template-columns: 96px 1fr 52px; gap: 6px; }
     .derby-label { font-size: 11.5px; }
-    .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
     .fiscal-link-card { flex-direction: column; align-items: flex-start; }
     /* Tile maps keep a readable size and scroll sideways inside their panel
        rather than shrinking until the state values become unreadable. */
@@ -153,6 +155,18 @@
     height: 100vh;
     overflow-y: auto;
   }
+  .rail-home {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rail-home:hover { color: var(--text-primary); }
   .rail-brand {
     font-weight: 800;
     font-size: 15px;
@@ -353,7 +367,7 @@
     border-radius: 10px;
     padding: 20px 22px;
   }
-  .legend { display: flex; gap: 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
+  .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 14px; height: 2px; border-radius: 1px; }
   .chart-wrap { position: relative; }
@@ -390,10 +404,10 @@
   /* ---------- category grid ---------- */
   .cat-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
   }
-  @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
   .cat-card {
     background: var(--surface-1);
     border: 1px solid var(--border);
@@ -402,6 +416,7 @@
   }
   .cat-card-head {
     display: flex;
+    flex-wrap: wrap;
     align-items: baseline;
     justify-content: space-between;
     margin-bottom: 4px;
@@ -433,22 +448,26 @@
   .mstat-label { font-size: 11.5px; font-weight: 600; color: var(--text-secondary); margin-bottom: 4px; }
   .mstat-value { font-size: 20px; font-weight: 700; letter-spacing: -0.01em; }
   .mstat-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 2px; }
-  .momentum-charts { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .momentum-charts { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
   @media (max-width: 700px) { .momentum-charts { grid-template-columns: 1fr; } }
   .momentum-chart-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
   .momentum-chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
 
   /* ---------- composition panel (donut) ---------- */
-  .comp-body { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: center; }
+  .comp-body { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; align-items: center; }
   @media (max-width: 760px) { .comp-body { grid-template-columns: 1fr; justify-items: center; } }
+  /* Inside the two-column momentum grid each donut cell is half the panel (main caps at
+     1180px), which never leaves room for a legend beside the donut: stack them instead. */
+  .momentum-charts .comp-body { grid-template-columns: 1fr; justify-items: center; gap: 16px; }
+  .momentum-charts .comp-legend { width: 100%; max-width: 520px; }
   .donut-wrap { position: relative; width: 100%; max-width: 260px; }
   .donut-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
   .donut-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; pointer-events: none; text-align: center; }
   .donut-center .n { font-size: 12px; font-weight: 600; color: var(--text-primary); }
   .donut-center .s { font-size: 10.5px; color: var(--text-muted); max-width: 90px; line-height: 1.3; }
   .comp-legend { display: flex; flex-direction: column; gap: 9px; }
-  .comp-row { display: grid; grid-template-columns: 16px 1fr 62px 68px; align-items: center; gap: 10px; }
-  @media (max-width: 420px) { .comp-row { grid-template-columns: 14px 1fr 52px 58px; gap: 6px; } }
+  .comp-row { display: grid; grid-template-columns: 16px minmax(0, 1fr) 62px 68px; align-items: center; gap: 10px; }
+  @media (max-width: 420px) { .comp-row { grid-template-columns: 14px minmax(0, 1fr) 52px 58px; gap: 6px; } }
   .comp-dot { width: 10px; height: 10px; border-radius: 3px; flex: none; }
   .comp-name { font-size: 12.5px; font-weight: 500; color: var(--text-primary); }
   .comp-weight { font-family: "IBM Plex Mono", monospace; font-size: 12px; text-align: right; font-variant-numeric: tabular-nums; }
@@ -467,6 +486,9 @@
   .comp-foot-item b { color: var(--text-primary); font-family: "IBM Plex Mono", monospace; font-variant-numeric: tabular-nums; }
 
   /* ---------- derby (ranked bar) panel ---------- */
+  /* The by-site table keeps its nowrap cells readable and scrolls sideways inside the
+     panel whenever the panel is narrower than the table, like the tile maps on mobile. */
+  #sprSitesTable { overflow-x: auto; -webkit-overflow-scrolling: touch; }
   .stable { width: 100%; border-collapse: collapse; font-size: 12px; margin-bottom: 14px; }
   .stable th, .stable td { padding: 5px 8px; border-bottom: 1px solid var(--border); text-align: left; white-space: nowrap; }
   .stable th { font-size: 10.5px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-muted); font-weight: 600; }
@@ -530,12 +552,14 @@
 </style>
 
 <div class="mobilebar" id="mobileBar">
+  <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
   <div class="brand" data-i18n="brand">Macro Monitor</div>
   <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
 </div>
 <div class="shell">
   <nav class="rail">
+    <a class="rail-home" href="/" data-i18n="railHome">← FNAM · All dashboards</a>
     <div class="rail-brand" data-i18n="brand">Macro Monitor</div>
     <div class="rail-sub" data-i18n="railSub">U.S. economic indicators</div>
 
@@ -2290,6 +2314,7 @@ const I18N = {
 
     brand: "Macro Monitor",
     railSub: "Indicadores económicos de Estados Unidos",
+    railHome: "← FNAM · Todos los paneles",
     groupPrices: "Inflación",
     groupLabor: "Empleo",
     groupGrowth: "Crecimiento y gasto",
@@ -2433,6 +2458,8 @@ const I18N = {
 
     navIncome: "Ingreso personal y ahorro",
     quarterPrefix: "T",
+    sfxB: " mmd",          // miles de millones de dólares
+    sfxT: " billones",
     gdpTitle: "Crecimiento del PIB real",
     gdpDesc: "Crecimiento trimestral del producto y de dónde viene: consumo, inversión, gobierno y comercio exterior. Tasa anualizada, ajustada por estacionalidad.",
     sourceGDP: "Fuente: cuentas nacionales del BEA ↗",
@@ -3268,6 +3295,7 @@ const I18N = {
 
     brand: "Macro Monitor",
     railSub: "U.S. economic indicators",
+    railHome: "← FNAM · All dashboards",
     groupPrices: "Inflation",
     groupLabor: "Labor",
     groupGrowth: "Growth & Spending",
@@ -3411,6 +3439,8 @@ const I18N = {
 
     navIncome: "Personal Income & Saving",
     quarterPrefix: "Q",
+    sfxB: "B",
+    sfxT: "T",
     gdpTitle: "Real GDP Growth",
     gdpDesc: "Quarterly output growth and where it comes from — consumption, investment, government and trade. Annualized rate, seasonally adjusted.",
     sourceGDP: "Source: BEA national accounts ↗",
@@ -4272,6 +4302,18 @@ function setLang(lang) {
   clearTargets();
   renderAll();
 }
+// Redraw when the width changes enough to change the chart layout (rotation, window resize).
+(function () {
+  let last = window.innerWidth, timer = null;
+  window.addEventListener("resize", () => {
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      if (Math.abs(window.innerWidth - last) < 40) return;
+      last = window.innerWidth;
+      clearTargets(); renderAll();
+    }, 250);
+  });
+})();
 
 // ---------- view switcher ----------
 document.querySelectorAll(".rail-item[data-view]").forEach(item => {
@@ -4279,6 +4321,8 @@ document.querySelectorAll(".rail-item[data-view]").forEach(item => {
     const v = item.getAttribute("data-view");
     document.querySelectorAll(".rail-item[data-view]").forEach(i => i.classList.toggle("active", i === item));
     document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === "view-" + v));
+    // Keep the address bar on the section, so a copied link opens the same view.
+    const url = new URL(location.href); url.searchParams.set("view", v); history.replaceState(null, "", url);
     window.scrollTo({top: 0, behavior: "instant"});
   });
 });
@@ -4296,7 +4340,8 @@ const MAJOR_GROUPS = [
 
 function fmtMonthYear(d) {
   if (!d) return "";
-  const [y,m] = d.split("-");
+  const [y,m] = String(d).split("-");
+  if (!m) return y;                       // annual series carry the year alone
   return T.months[parseInt(m,10)-1] + " " + y;
 }
 // Every day-level date on the page renders as dd-MMM-yyyy in both languages:
@@ -4313,7 +4358,9 @@ function fmtDateDMY(d) {
 function applyStaticStrings() {
   document.querySelectorAll("[data-i18n]").forEach(el => {
     const val = T[el.getAttribute("data-i18n")];
-    if (typeof val === "string") el.textContent = val;
+    if (typeof val !== "string") return;
+    // A few source notes carry inline emphasis; everything else is plain text.
+    if (/<\/?(i|b|em|strong)>/.test(val)) el.innerHTML = val; else el.textContent = val;
   });
   document.querySelectorAll(".lang-switch").forEach(b => b.setAttribute("aria-label", T.switchAria));
 }
@@ -4411,7 +4458,24 @@ function clearTargets() {
   ids.forEach(id => { const el = document.getElementById(id); if (el) el.innerHTML = ""; });
 }
 
+// The SVG charts are laid out in viewBox units and scaled to their container. On a phone a
+// 920-unit chart would shrink to a third, labels included; instead the viewBox is narrowed
+// to the container's width (height kept in units), so text keeps its nominal size and the
+// chart a readable height. Hidden views are shown for the measurement only.
+function fitChartViewBoxes() {
+  const hidden = Array.from(document.querySelectorAll(".view:not(.active)"));
+  hidden.forEach(v => { v.style.display = "block"; v.style.visibility = "hidden"; });
+  document.querySelectorAll(".chart-wrap > svg[viewBox], .momentum-chart-wrap > svg[viewBox]").forEach(svg => {
+    if (!svg.dataset.vb) svg.dataset.vb = svg.getAttribute("viewBox");
+    const parts = svg.dataset.vb.split(" ").map(Number);
+    const cw = svg.parentElement.clientWidth;
+    svg.setAttribute("viewBox", cw > 0 && cw < parts[2] ? "0 0 " + Math.round(cw) + " " + parts[3] : svg.dataset.vb);
+  });
+  hidden.forEach(v => { v.style.display = ""; v.style.visibility = ""; });
+}
+
 function renderAll() {
+fitChartViewBoxes();
 
 // ---------- header meta ----------
 (function initHeader(){
@@ -4567,7 +4631,10 @@ function renderDualLineChart(cfg) {
   }
 
   // x-axis year ticks (January of each year; every Nth year on century-long series)
-  const tickEvery = cfg.tickEvery || 1;
+  // January of each year, thinned to every Nth year when the year labels would collide
+  // (four mono digits are about 24 units wide, plus spacing).
+  const januaries = allDates.filter(d => d.endsWith("-01")).length;
+  const tickEvery = Math.max(cfg.tickEvery || 1, Math.ceil(januaries * 34 / plotW));
   allDates.forEach((d,i) => {
     if (d.endsWith("-01") && (+d.slice(0,4)) % tickEvery === 0) {
       const xt = xIdx(i);
@@ -4790,9 +4857,13 @@ function drawMomColumns(svg, points, colorVar, opts) {
     svg.appendChild(hit);
   });
 
-  // x-axis: label every 6th month
+  // x-axis: every 6th point plus the last one; the regular label just before the last is
+  // dropped when the two would overlap (a label is about 5.3 units per character at 8.5).
+  const n = points.length, lastRegular = Math.floor((n - 1) / 6) * 6;
+  const labelUnits = points.reduce((m, p) => Math.max(m, String(opts.labelFmt ? opts.labelFmt(p.d) : p.d.slice(2)).length), 1) * 5.3 + 6;
+  const skipRegular = (n - 1) % 6 !== 0 && ((n - 1) - lastRegular) / n * plotW < labelUnits ? lastRegular : -1;
   points.forEach((p,i) => {
-    if (i % 6 === 0 || i === points.length - 1) {
+    if ((i % 6 === 0 && i !== skipRegular) || i === n - 1) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xOf(i)); tick.setAttribute("y", H - 4);
       tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","8.5");
@@ -5992,7 +6063,7 @@ function renderFinCond() {
   small("fcDollarChart", "fcDollarTooltip", "DTWEXBGS", T.fcDollarTitle, "--series-services", v => v.toFixed(1), false);
   small("fcVixChart",    "fcVixTooltip",    "VIXCLS",   T.fcVixTitle,    "--series-energy",   v => v.toFixed(1), true);
   small("fcSpxChart",    "fcSpxTooltip",    "SP500",    T.fcSpxTitle,    "--series-goods",    v => v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}), false);
-  small("fcFedBsChart",  "fcFedBsTooltip",  "WALCL",    T.fcFedBsTitle,  "--cat-5",           v => "$" + v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}) + "B", false);
+  small("fcFedBsChart",  "fcFedBsTooltip",  "WALCL",    T.fcFedBsTitle,  "--cat-5",           v => "$" + v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}) + T.sfxB, false);
   const dxyL = last("DTWEXBGS"), vixL = last("VIXCLS"), spxL = last("SP500"), bsL = last("WALCL");
   document.getElementById("fcMarketsCallout").innerHTML =
     "<div>" + T.fcMarketsNote(dxyL.v.toFixed(1), vixL.v.toFixed(1), spxL.v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}), (bsL.v/1000).toFixed(2)) + "</div>" +
@@ -6037,7 +6108,7 @@ function renderSupply() {
   const kpis = [
     {label:T.scKpiGscpi,   value:g.v.toFixed(2) + " " + T.scKpiSd, dlt:g.v - G[G.length-2].v, unit:"", sub:T.scKpiDeltaMo, foot:fmtMonthYear(g.d), spark:G.slice(-36).map(p => p.v), color:"--series-headline"},
     {label:T.scKpiIsRatio, value:lastOf(F.ISRATIO).v.toFixed(2) + " " + T.scKpiMonths, dlt:lastOf(F.ISRATIO).v - F.ISRATIO[F.ISRATIO.length-2].v, unit:"", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.ISRATIO).d), spark:F.ISRATIO.slice(-36).map(p => p.v), color:"--series-services"},
-    {label:T.scKpiBalance, value:"−$" + bn(-lastOf(F.BOPGSTB).v) + "B", dlt:(lastOf(F.BOPGSTB).v - F.BOPGSTB[F.BOPGSTB.length-2].v)/1000, unit:"B", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.BOPGSTB).d), spark:F.BOPGSTB.slice(-36).map(p => p.v), color:"--series-core"},
+    {label:T.scKpiBalance, value:"−$" + bn(-lastOf(F.BOPGSTB).v) + T.sfxB, dlt:(lastOf(F.BOPGSTB).v - F.BOPGSTB[F.BOPGSTB.length-2].v)/1000, unit:T.sfxB, sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.BOPGSTB).d), spark:F.BOPGSTB.slice(-36).map(p => p.v), color:"--series-core"},
     {label:T.scKpiFreight, value:fmtPct(lastOf(fr).yoy), dlt:lastOf(fr).yoy - fr[fr.length-2].yoy, unit:"pp", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(fr).d), spark:fr.slice(-36).map(p => p.yoy), color:"--series-energy"},
     {label:T.scKpiDiesel,  value:"$" + dsl.v.toFixed(2), dlt:dsl.v - dslAgo.v, unit:"", sub:T.scKpiDeltaWk, foot:fmtWeek(dsl.d), spark:dieselPts.slice(-52).map(p => p.v), color:"--cat-7"},
     {label:T.scKpiImport,  value:fmtPct(lastOf(irY).v), dlt:lastOf(irY).v - irY[irY.length-2].v, unit:"pp", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(irY).d), spark:irY.slice(-36).map(p => p.v), color:"--series-goods"}
@@ -6103,9 +6174,9 @@ function renderSupply() {
   plotSeries("scTradeChart", "scTradeTooltip", "scTradeLegend", exp.map(p => p.d), [
     {name:T.legExports, color:"--series-goods",  data:exp.map(p => p.v/1000)},
     {name:T.legImports, color:"--series-energy", data:exp.map(p => { const m = pick(imp, p.d); return m === null ? null : m/1000; })}
-  ], {fmt: v => "$" + v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}) + "B", labelFmt: d => fmtMonthYear(d), zeroBase:false});
+  ], {fmt: v => "$" + v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}) + T.sfxB, labelFmt: d => fmtMonthYear(d), zeroBase:false});
   drawMomColumns(document.getElementById("scBalanceChart"), bal.slice(-36).map(p => ({d:p.d, mom:p.v/1000})), "--series-core",
-    {fmt: v => "$" + Math.round(v) + "B", decimals:0});
+    {fmt: v => "$" + Math.round(v) + T.sfxB, decimals:0});
   const irYoY = yoyOf(F.IR), iqYoY = yoyOf(F.IQ);
   plotSeries("scPricesChart", "scPricesTooltip", "scPricesLegend", irYoY.map(p => p.d), [
     {name:T.legImportPrices, color:"--series-energy",   data:irYoY.map(p => p.v)},
@@ -6127,6 +6198,9 @@ function renderFiscal() {
   const M = FISCAL.monthly;
   const cur = M[M.length-1];
   const bn = v => Math.abs(v).toLocaleString(T.dateLocale, {maximumFractionDigits:0});
+  const sB = T.sfxB, sT = T.sfxT;
+  // A signed change in $ billions; a value that rounds to zero carries no sign.
+  const sgnB = v => (Math.round(Math.abs(v)) === 0 ? "$" : v > 0 ? "+$" : "−$") + bn(v) + sB;
   const signed = v => (v >= 0 ? "+" : "−") + T.currencySym + bn(v);
   const byD = {}; M.forEach(p => byD[p.d] = p);
   const yearAgo = d => { const [y, m] = d.split("-").map(Number); return byD[(y-1) + "-" + String(m).padStart(2,"0")]; };
@@ -6150,12 +6224,12 @@ function renderFiscal() {
   // ---- KPIs ----
   const curAgo = yearAgo(cur.d);
   const tiles = [
-    {label:T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + "B", dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
-    {label:T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + "B", dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
-    {label:T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + "B", dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
-    {label:T.fiKpiInterest,    value:"$" + bn(interest.fytd) + "B", dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
-    {label:T.fiKpiRolling,     value:"$" + (r12.v/1000).toFixed(2) + "T", dlt:pct(r12.v, r12ago.v), sub:T.fiKpiVsPy, spark:roll12.slice(-24).map(p => -p.v), color:"--cat-7"},
-    {label:T.fiKpiMonth,       value:(cur.dfct >= 0 ? "$" : "+$") + bn(cur.dfct) + "B", dlt:curAgo ? pct(cur.dfct, curAgo.dfct) : null, sub:T.fiKpiVsPm, spark:M.slice(-24).map(p => -p.dfct), color:"--cat-5"}
+    {label:T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + sB, dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
+    {label:T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + sB, dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
+    {label:T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + sB, dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
+    {label:T.fiKpiInterest,    value:"$" + bn(interest.fytd) + sB, dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
+    {label:T.fiKpiRolling,     value:"$" + (r12.v/1000).toFixed(2) + sT, dlt:pct(r12.v, r12ago.v), sub:T.fiKpiVsPy, spark:roll12.slice(-24).map(p => -p.v), color:"--cat-7"},
+    {label:T.fiKpiMonth,       value:(cur.dfct >= 0 ? "$" : "+$") + bn(cur.dfct) + sB, dlt:curAgo ? pct(cur.dfct, curAgo.dfct) : null, sub:T.fiKpiVsPm, spark:M.slice(-24).map(p => -p.dfct), color:"--cat-5"}
   ];
   const row = document.getElementById("fiKpiRow");
   tiles.forEach((t2, i) => {
@@ -6176,13 +6250,13 @@ function renderFiscal() {
   plotSeries("fiMonthlyChart", "fiMonthlyTooltip", "fiMonthlyLegend", last36.map(p => p.d), [
     {name:T.legReceipts, color:"--series-goods",    data:last36.map(p => p.rcpt)},
     {name:T.legOutlays,  color:"--series-headline", data:last36.map(p => p.outly)}
-  ], {fmt: v => "$" + bn(v) + "B", labelFmt: d => fmtMonthYear(d)});
+  ], {fmt: v => "$" + bn(v) + sB, labelFmt: d => fmtMonthYear(d)});
   // Deficit drawn as negative so "down" reads as red ink, the convention readers expect.
   drawMomColumns(document.getElementById("fiDeficitChart"), last36.map(p => ({d:p.d, mom:-p.dfct})), "--series-core",
-    {fmt: v => (v >= 0 ? "+$" : "−$") + bn(v) + "B", decimals:0});
+    {fmt: v => sgnB(v), decimals:0});
   plotSeries("fiRollingChart", "fiRollingTooltip", null, roll12.map(p => p.d),
     [{name:T.legRolling12, color:"--cat-7", data:roll12.map(p => p.v/1000)}],
-    {fmt: v => "$" + v.toFixed(2) + "T", labelFmt: d => fmtMonthYear(d)});
+    {fmt: v => "$" + v.toFixed(2) + sT, labelFmt: d => fmtMonthYear(d)});
   document.getElementById("fiMonthlyCallout").innerHTML =
     "<div>" + T.fiMonthlyNote(fmtMonthYear(cur.d), bn(cur.rcpt), bn(cur.outly), bn(cur.dfct), cur.dfct >= 0 ? "deficit" : "surplus") + "</div>" +
     "<div>" + T.fiMonthlySeason + "</div>";
@@ -6190,7 +6264,7 @@ function renderFiscal() {
   // ---- fiscal year to date ----
   document.getElementById("fiFytdAsOf").textContent = fmtMonthYear(cur.d);
   const stat = (label, v, py) =>
-    `<div><div class="mstat-label">${label}</div><div class="mstat-value">$${bn(v)}B</div><div class="mstat-sub">${T.fiStatVsPy(fmtPct(pct(v, py)))}</div></div>`;
+    `<div><div class="mstat-label">${label}</div><div class="mstat-value">$${bn(v)}${sB}</div><div class="mstat-sub">${T.fiStatVsPy(fmtPct(pct(v, py)))}</div></div>`;
   document.getElementById("fiFytdStats").innerHTML =
     stat(T.fiStatReceipts, fytd.rcpt, pytd.rcpt) + stat(T.fiStatOutlays, fytd.outly, pytd.outly) +
     stat(T.fiStatDeficit, fytd.dfct, pytd.dfct) + stat(T.fiStatInterest, interest.fytd, interest.pyfytd);
@@ -6204,7 +6278,7 @@ function renderFiscal() {
   document.getElementById("fiSrcAsOf").textContent = fmtMonthYear(cur.d);
   const srcItems = FISCAL.sources.filter(s => s.name !== "Total").map((s, i) =>
     ({name:nameOf(s.name), value:s.fytd - s.pyfytd, color:"--cat-" + ((i % 10) + 1)})).sort((a,b) => b.value - a.value);
-  renderBarList("fiSourceList", srcItems, v => (v >= 0 ? "+$" : "−$") + bn(v) + "B");
+  renderBarList("fiSourceList", srcItems, v => sgnB(v));
   const sTop = srcItems[0], sWorst = srcItems[srcItems.length-1];
   const soc = srcByName["Employment and General Retirement"].fytd + srcByName["Unemployment Insurance"].fytd + srcByName["Other Retirement"].fytd;
   document.getElementById("fiSourceCallout").innerHTML =
@@ -6217,7 +6291,7 @@ function renderFiscal() {
   document.getElementById("fiFnAsOf").textContent = fmtMonthYear(cur.d);
   const fnItems = FISCAL.functions.filter(f => f.name !== "Total").map((f, i) =>
     ({name:nameOf(f.name), value:f.fytd - f.pyfytd, color:"--cat-" + ((i % 10) + 1)})).sort((a,b) => b.value - a.value);
-  renderBarList("fiFunctionList", fnItems, v => (v >= 0 ? "+$" : "−$") + bn(v) + "B");
+  renderBarList("fiFunctionList", fnItems, v => sgnB(v));
   const defense = fnByName["National Defense"];
   document.getElementById("fiFunctionCallout").innerHTML =
     "<div>" + T.fiFunctionNote(fnItems[0].name, signed(fnItems[0].value), fnItems[1].name, signed(fnItems[1].value)) + " " +
@@ -6816,11 +6890,19 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     tx.setAttribute("font-family","IBM Plex Mono, monospace"); tx.setAttribute("fill","var(--text-muted)");
     tx.textContent = axisFmt(gv); svg.appendChild(tx);
   }
-  const tickStep = Math.max(1, Math.round(n/7));
+  // Up to seven ticks, fewer when the labels would run into each other at this width
+  // (a monospace glyph at 9.5 units is about 6.3 units wide, plus breathing room).
+  const tickChars = labels.reduce((m, lb) => Math.max(m, String(tickFmt(lb)).length), 1);
+  const maxTicks = Math.max(2, Math.floor(plotW / (tickChars * 6.3 + 16)));
+  const tickStep = Math.max(1, Math.ceil(Math.max(1, n - 1) / Math.min(7, maxTicks)));
+  // The final tick always shows; the regular tick before it is dropped when the two would
+  // overlap (the final label is right-aligned, the others centred).
+  const lastRegular = Math.floor((n - 1) / tickStep) * tickStep;
+  const finalGap = ((n - 1) - lastRegular) / Math.max(1, n - 1) * plotW;
+  const skipTick = (n - 1) !== lastRegular && finalGap < 1.5 * tickChars * 6.3 + 6 ? lastRegular : -1;
   labels.forEach((lb,i) => {
     if (i % tickStep !== 0 && i !== n-1) return;
-    // The final tick is dropped when it would sit on top of the previous one.
-    if (i === n-1 && i % tickStep !== 0 && (i % tickStep) < tickStep / 2) return;
+    if (i === skipTick) return;
     const tx = document.createElementNS(ns,"text");
     tx.setAttribute("x",x(i)); tx.setAttribute("y",H-6);
     tx.setAttribute("text-anchor", i === n-1 ? "end" : i === 0 ? "start" : "middle"); tx.setAttribute("font-size","9.5");
@@ -7648,8 +7730,8 @@ function renderCuts() {
 // BEA reports these in millions of dollars; render them at human scale.
 function fmtMoney(v) {
   const a = Math.abs(v);
-  if (a >= 1000000) return "$" + (v/1000000).toFixed(2) + "T";
-  if (a >= 1000)    return "$" + Math.round(v/1000).toLocaleString(T.dateLocale) + "B";
+  if (a >= 1000000) return "$" + (v/1000000).toFixed(2) + T.sfxT;
+  if (a >= 1000)    return "$" + Math.round(v/1000).toLocaleString(T.dateLocale) + T.sfxB;
   return "$" + Math.round(v).toLocaleString(T.dateLocale) + "M";
 }
 function fmtPP(v) { return (v >= 0 ? "+" : "") + v.toFixed(2) + " pp"; }

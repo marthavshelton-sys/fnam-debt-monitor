@@ -150,6 +150,34 @@ tertiary, seasonally adjusted), consumer confidence `454186` (seasonally
 adjusted balance; `454168` original). `SR14195` (Banxico survey, median
 expected inflation 12 months ahead) feeds the ex ante real rate.
 
+Official-source policy: every series' first candidate is an official Mexican
+source (INEGI or Banxico); international mirrors (OECD/IMF via FRED) remain
+only as fallbacks. Ids confirmed with the BIE search / Banxico titles on
+2026-09-29: unemployment `444884` (ENOE national rate, seasonally adjusted),
+GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
+exports `65649` / imports `65651` (merchandise trade FOB, seasonally
+adjusted, millions of USD; originals `33860`/`33861` as first fallback),
+10-year M bond `SF44071` (Banxico primary auction yield; auction months
+only). IMSS formal employment (`imssJobs`) is a curated series: the owner's
+scheduled browser task (prompt in `imss-task-prompt.md`) reads the monthly
+IMSS comunicado and opens a PR updating `data/imss.json` — the one series
+that arrives by PR instead of an API, because IMSS formal employment has NO
+scriptable official source — full audit on 2026-09-29, all from the runner:
+INEGI BIE carries only the series' cyclical component (214301/214302), not
+the level; INEGI BISE / Banco de Indicadores searches return empty; Banxico
+retired its IMSS cuadro (labor sector 10 lists none; the old SL series
+answer 404); datos.imss.gob.mx sits behind an Incapsula WAF that blocks
+non-browser clients (and its datasets are per-person microdata CSVs);
+STPS publishes only interactive Cognos / Power BI viewers; Data México's
+API (Secretaría de Economía) no longer resolves. The only viable path is
+the BLS-weights pattern, now built: the `imss` provider in `fetch.mjs`
+validates `data/imss.json` (months strictly ascending, values 15–40 million,
+month-over-month change ≤ 2 million) and rejects a bad file while the page
+keeps its previous data; the page shows the IMSS panels once the file holds
+24+ months; `health.mjs` flags the series when its last data month is more
+than 75 days old (one missed comunicado), instead of the fetchedAt rule that
+would never fire for a local file.
+
 Not yet sourced: IMSS jobs, industrial production and the INPC
 spending-purpose groups.
 

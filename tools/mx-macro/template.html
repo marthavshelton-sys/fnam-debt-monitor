@@ -109,6 +109,7 @@
       box-shadow: 0 1px 6px rgba(0,0,0,0.08);
     }
     .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
+    .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
     .mobilebar select {
       flex: 1 1 auto; min-width: 0;
       font-family: inherit; font-size: 15px; font-weight: 600;
@@ -154,6 +155,18 @@
     height: 100vh;
     overflow-y: auto;
   }
+  .rail-home {
+    display: block;
+    font-size: 11.5px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-bottom: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .rail-home:hover { color: var(--text-primary); }
   .rail-brand {
     font-weight: 800;
     font-size: 15px;
@@ -552,12 +565,14 @@
 </style>
 
 <div class="mobilebar" id="mobileBar">
+  <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
   <div class="brand" data-i18n="brand">Monitor Macro México</div>
   <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">English</span></button>
 </div>
 <div class="shell">
   <nav class="rail">
+    <a class="rail-home" href="/" data-i18n="railHome">← FNAM · Todos los paneles</a>
     <div class="rail-brand" data-i18n="brand">Monitor Macro México</div>
     <div class="rail-sub" data-i18n="railSub">Indicadores económicos de México</div>
 
@@ -1023,6 +1038,7 @@ const I18N = {
     switchAria: "Cambiar el idioma de la página",
     brand: "Monitor Macro México",
     railSub: "Indicadores económicos de México",
+    railHome: "← FNAM · Todos los paneles",
     groupPrices: "Precios",
     navInpc: "Inflación (INPC)",
     groupActivity: "Actividad",
@@ -1070,25 +1086,29 @@ const I18N = {
     sumInpcWhyIn: "Está dentro del rango objetivo de Banxico (3% ±1 pp), la referencia para sus decisiones de tasa.",
     sumInpcWhyAbove: "Está por arriba del rango objetivo de Banxico (3% ±1 pp), lo que limita el espacio para bajar la tasa.",
     sumInpcWhyBelow: "Está por debajo del rango objetivo de Banxico (3% ±1 pp), lo que abre espacio para bajar la tasa.",
-    sumInpcNext: (m) => "INPC de " + m + " alrededor del día 9. La clave es la inflación de servicios, la más persistente.",
+    estOn: (day, my) => "hacia el " + day + " de " + my + " (estimado)",
+    estEarly: (my) => "primeros días de " + my + " (estimado)",
+    estLate: (my) => "finales de " + my + " (estimado)",
+    sumInpcTail: "La clave es la inflación de servicios, la más persistente.",
     sumAcGdp: (q, qoq, yoy) => "PIB: " + qoq + " trimestral en " + q + " (" + yoy + " anual).",
     sumAcIgae: (m, yoy, mom) => "IGAE: " + yoy + " anual en " + m + " (" + mom + " mensual).",
     sumSectors: ["el agro", "la industria", "los servicios"],
     sumAcDriver: (sn, sv, wn, wv) => "Por sectores: mejor desempeño, " + sn + " (" + sv + " anual); peor, " + wn + " (" + wv + ").",
     sumAcWhy: "El IGAE es el avance mensual del PIB: muestra el rumbo de la economía antes del dato trimestral.",
-    sumAcNext: (q, m) => "PIB de " + q + " (estimación oportuna) e IGAE de " + m + ". La señal: si los servicios sostienen el crecimiento.",
+    sumAcNextTail: "La señal: si los servicios sostienen el crecimiento.",
     sumLbLatest: (m, u, d) => "La tasa de desocupación fue de " + u + " en " + m + " (" + d + " vs. el mes previo).",
+    sumLbImss: (m, n, d) => "El IMSS registró " + n + " millones de puestos de trabajo en " + m + " (" + d + " en el mes).",
     sumLbDriver: (ago, avg) => "Hace un año era " + ago + "; el promedio de los últimos cinco años es " + avg + ".",
     sumLbWhy: "Una desocupación baja sostiene el consumo, pero también puede presionar salarios y la inflación de servicios.",
-    sumLbNext: "ENOE del mes siguiente unas 4 semanas después de cerrar el mes. La señal: un cambio sostenido de tendencia.",
+    sumLbNext: (m, p) => "ENOE de " + m + ": " + p + ". La señal: un cambio sostenido de tendencia.",
     sumCcLatest: (m, v, dm) => "La confianza del consumidor se ubicó en " + v + " puntos en " + m + " (" + dm + " puntos vs. el mes previo).",
     sumCcDriver: (dy, pct) => "Frente a hace un año: " + dy + " puntos. El nivel actual supera el " + pct + " de las lecturas históricas.",
     sumCcWhy: "Anticipa la disposición de los hogares a gastar, y el consumo es el principal motor de la economía.",
-    sumCcNext: "Próxima ENCO en la primera semana del mes. La señal: la brecha frente a su promedio histórico.",
+    sumCcTail: "La señal: la brecha frente a su promedio histórico.",
     sumExLatest: (m, r, ry, fx, fd) => "Remesas: " + r + " mdd en " + m + " (" + ry + " anual). Peso: " + fx + " por dólar al " + fd + ".",
     sumExDriver: (xy, my, b) => "Exportaciones " + xy + " e importaciones " + my + " anual; la balanza acumula " + b + " mmd en 12 meses.",
     sumExWhy: "Remesas y exportaciones son las mayores fuentes de dólares del país: sostienen el consumo y respaldan al peso.",
-    sumExNext: (m) => "Remesas de " + m + " en los primeros días hábiles (Banxico); balanza comercial cerca del día 27. La señal: la tendencia anual de las remesas.",
+    sumExNextTail: "La señal: la tendencia anual de las remesas.",
     sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
     sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
     sumBxNoChange: "sin cambios",
@@ -1105,7 +1125,7 @@ const I18N = {
     // ---- INPC ----
     inpcTitle: "Inflación al consumidor (INPC)",
     inpcDesc: "Índice general, subyacente y los componentes detrás de cada dato. INEGI publica el INPC mensual alrededor del día 9 del mes siguiente.",
-    inpcNext: (m) => "Próximo INPC: " + m + ", alrededor del día 9",
+    inpcNext: (m, p) => "Próximo INPC: " + m + ", " + p,
     inpcSecTrend: "Inflación general vs. subyacente",
     inpcSecCoreSplit: "Subyacente: mercancías vs. servicios",
     inpcSecNonCore: "No subyacente vs. energéticos y tarifas",
@@ -1154,6 +1174,7 @@ const I18N = {
       "igaeSecondary": "IGAE, actividades secundarias",
       "igaeTertiary": "IGAE, actividades terciarias",
       "unemployment": "Tasa de desocupación",
+      "imssJobs": "Puestos de trabajo IMSS",
       "consumerConfidence": "Confianza del consumidor",
       "remittances": "Remesas",
       "exports": "Exportaciones",
@@ -1166,12 +1187,13 @@ const I18N = {
       "mbono10": "Bono M 10 años",
       "inflExp12m": "Inflación esperada a 12 meses"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (vía Banxico)", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
 
     // ---- Activity ----
     acTitle: "Actividad económica: PIB e IGAE",
     acDesc: "Crecimiento trimestral del PIB y el pulso mensual de la actividad. INEGI publica la estimación oportuna del PIB unas 4 semanas después de cerrar el trimestre y el IGAE con unas 7 semanas de rezago.",
-    acNext: (q) => "Próximo PIB: " + q + " (estimación oportuna ~4 semanas tras cerrar el trimestre)",
+    acNextGdp: (q, p) => "Próximo PIB: " + q + " (estimación oportuna), " + p,
+    acNextIgae: (m, p) => "Próximo IGAE: " + m + ", " + p,
     acSecGdp: "PIB real: variación trimestral",
     acSecGdpNote: "Cifras desestacionalizadas, % vs. trimestre anterior",
     acSecGdpYoy: "PIB real: variación anual",
@@ -1204,14 +1226,14 @@ const I18N = {
     // ---- Labor ----
     lbTitle: "Empleo",
     lbDesc: "Tasa de desocupación (ENOE) y puestos de trabajo registrados ante el IMSS, la medida más oportuna del empleo formal.",
-    lbNext: "INEGI publica la ENOE mensual unas 4 semanas después de cerrar el mes; el IMSS reporta la afiliación en los primeros días hábiles del mes siguiente.",
+    lbNext: (m, p) => "Próxima ENOE: " + m + ", " + p + ". IMSS: comunicado hacia el día 12 del mes siguiente al mes de referencia.",
     lbSecUn: "Tasa de desocupación",
     lbSecUnNote: "% de la población económicamente activa",
     lbSecImss: "Empleo formal (IMSS): variación mensual",
     lbSecImssNote: "Puestos de trabajo afiliados, cambio vs. mes anterior",
     lbSecImssYoy: "Empleo formal (IMSS): variación anual",
     lbSecImssYoyNote: "% vs. mismo mes del año anterior",
-    footerLabor: "Tasa de desocupación: ENOE (INEGI); cuando se muestra la serie de la OCDE está desestacionalizada. Puestos de trabajo afiliados al IMSS: permanentes y eventuales urbanos, cifra al cierre de mes (IMSS, distribuida por Banxico). La afiliación al IMSS no incluye el empleo informal, que en México ronda el 55% de la ocupación.",
+    footerLabor: "Tasa de desocupación: ENOE (INEGI); cuando se muestra la serie de la OCDE está desestacionalizada. Puestos de trabajo registrados ante el IMSS: total de puestos permanentes y eventuales al cierre de mes, tomado del comunicado mensual del IMSS (serie curada; se actualiza con cada comunicado). La afiliación al IMSS no incluye el empleo informal, que en México ronda el 55% de la ocupación.",
     kpiUnRate: "Tasa de desocupación",
     kpiUnYearAgo: "Hace un año",
     kpiImssLevel: "Puestos IMSS",
@@ -1228,7 +1250,7 @@ const I18N = {
     // ---- Confidence ----
     ccTitle: "Confianza del consumidor",
     ccDesc: "Cómo ven los hogares su situación y la del país. INEGI publica el indicador en la primera semana de cada mes.",
-    ccNext: "Próximo dato: primera semana del mes siguiente (INEGI)",
+    ccNext: (m, p) => "Próxima ENCO: " + m + ", " + p,
     ccSecTrend: "Confianza del consumidor en el tiempo",
     ccSecContext: "¿Qué tan alto o bajo está el dato actual?",
     footerConfidence: "Indicador de Confianza del Consumidor (INEGI y Banxico, Encuesta Nacional sobre Confianza del Consumidor), balance en puntos: promedio de los cinco componentes sobre la situación económica del hogar y del país, presente y esperada. Serie desestacionalizada por INEGI.",
@@ -1251,7 +1273,8 @@ const I18N = {
     // ---- External ----
     exTitle: "Sector externo: remesas, comercio y tipo de cambio",
     exDesc: "Los dólares que entran y salen, y el precio del peso. Banxico publica las remesas con dos meses de rezago; INEGI la balanza comercial con uno.",
-    exNext: "Remesas: primeros días hábiles del mes, con dos meses de rezago (Banxico). Balanza comercial: cerca del día 27 (INEGI).",
+    exNextRem: (m, p) => "Próximas remesas: " + m + ", " + p,
+    exNextBal: (m, p) => "Próxima balanza comercial: " + m + ", " + p,
     exSecRem: "Remesas familiares",
     exSecRemNote: "Millones de dólares por mes y promedio móvil de 12 meses",
     exSecTrade: "Exportaciones e importaciones de mercancías",
@@ -1289,7 +1312,7 @@ const I18N = {
     bxSecCurveNote: "%, promedio mensual",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: rendimiento mensual reportado por la OCDE vía FRED. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
@@ -1320,6 +1343,7 @@ const I18N = {
     switchAria: "Switch the page language",
     brand: "Mexico Macro Monitor",
     railSub: "Mexican economic indicators",
+    railHome: "← FNAM · All dashboards",
     groupPrices: "Prices",
     navInpc: "Inflation (INPC)",
     groupActivity: "Activity",
@@ -1367,25 +1391,29 @@ const I18N = {
     sumInpcWhyIn: "It is inside Banxico's target range (3% ±1 pp), the benchmark for its rate decisions.",
     sumInpcWhyAbove: "It is above Banxico's target range (3% ±1 pp), which limits the room to cut rates.",
     sumInpcWhyBelow: "It is below Banxico's target range (3% ±1 pp), which opens room to cut rates.",
-    sumInpcNext: (m) => m + " INPC around the 9th. The key is services inflation, the stickiest part.",
+    estOn: (day, my) => { const s = my.split(" "); return "around " + s[0] + " " + day + ", " + s[1] + " (estimated)"; },
+    estEarly: (my) => "early " + my + " (estimated)",
+    estLate: (my) => "late " + my + " (estimated)",
+    sumInpcTail: "The key is services inflation, the stickiest part.",
     sumAcGdp: (q, qoq, yoy) => "GDP: " + qoq + " quarter over quarter in " + q + " (" + yoy + " year over year).",
     sumAcIgae: (m, yoy, mom) => "IGAE: " + yoy + " year over year in " + m + " (" + mom + " on the month).",
     sumSectors: ["agriculture", "industry", "services"],
     sumAcDriver: (sn, sv, wn, wv) => "By sector: strongest, " + sn + " (" + sv + " year over year); weakest, " + wn + " (" + wv + ").",
     sumAcWhy: "IGAE is the monthly proxy for GDP: it shows where the economy is heading before the quarterly print.",
-    sumAcNext: (q, m) => q + " GDP (flash estimate) and " + m + " IGAE. Watch whether services keep carrying growth.",
+    sumAcNextTail: "Watch whether services keep carrying growth.",
     sumLbLatest: (m, u, d) => "The unemployment rate was " + u + " in " + m + " (" + d + " vs. the prior month).",
+    sumLbImss: (m, n, d) => "IMSS-registered jobs stood at " + n + " million in " + m + " (" + d + " on the month).",
     sumLbDriver: (ago, avg) => "A year ago it was " + ago + "; the five-year average is " + avg + ".",
     sumLbWhy: "Low unemployment supports consumption, but it can also pressure wages and services inflation.",
-    sumLbNext: "Next month's ENOE lands about 4 weeks after month end. Watch for a sustained change in trend.",
+    sumLbNext: (m, p) => "The " + m + " ENOE lands " + p + ". Watch for a sustained change in trend.",
     sumCcLatest: (m, v, dm) => "Consumer confidence stood at " + v + " points in " + m + " (" + dm + " points vs. the prior month).",
     sumCcDriver: (dy, pct) => "Versus a year ago: " + dy + " points. The current level is above " + pct + " of all historical readings.",
     sumCcWhy: "It anticipates households' willingness to spend, and consumption is the economy's main engine.",
-    sumCcNext: "Next ENCO in the first week of the month. Watch the gap versus its historical average.",
+    sumCcTail: "Watch the gap versus its historical average.",
     sumExLatest: (m, r, ry, fx, fd) => "Remittances: " + r + " million dollars in " + m + " (" + ry + " year over year). Peso: " + fx + " per dollar as of " + fd + ".",
     sumExDriver: (xy, my, b) => "Exports " + xy + " and imports " + my + " year over year; the 12-month trade balance is " + b + " billion dollars.",
     sumExWhy: "Remittances and exports are Mexico's largest sources of dollars: they support consumption and back the peso.",
-    sumExNext: (m) => m + " remittances in the first business days (Banxico); trade balance around the 27th. Watch the annual trend in remittances.",
+    sumExNextTail: "Watch the annual trend in remittances.",
     sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
     sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
     sumBxNoChange: "unchanged",
@@ -1402,7 +1430,7 @@ const I18N = {
     // ---- INPC ----
     inpcTitle: "Consumer Price Inflation (INPC)",
     inpcDesc: "Headline, core, and the components behind each print. INEGI publishes the monthly INPC around the 9th of the following month.",
-    inpcNext: (m) => "Next INPC: " + m + ", around the 9th",
+    inpcNext: (m, p) => "Next INPC: " + m + ", " + p,
     inpcSecTrend: "Headline vs. core inflation",
     inpcSecCoreSplit: "Core: goods vs. services",
     inpcSecNonCore: "Non-core vs. energy and government tariffs",
@@ -1451,6 +1479,7 @@ const I18N = {
       "igaeSecondary": "IGAE, secondary activities",
       "igaeTertiary": "IGAE, tertiary activities",
       "unemployment": "Unemployment rate",
+      "imssJobs": "IMSS-registered jobs",
       "consumerConfidence": "Consumer confidence",
       "remittances": "Remittances",
       "exports": "Exports",
@@ -1463,12 +1492,13 @@ const I18N = {
       "mbono10": "10-year M bond",
       "inflExp12m": "Expected inflation, 12 months ahead"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS (via Banxico)", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
 
     // ---- Activity ----
     acTitle: "Economic Activity: GDP & IGAE",
     acDesc: "Quarterly GDP growth and the monthly pulse of activity. INEGI publishes the flash GDP estimate about 4 weeks after quarter-end and the IGAE with a lag of about 7 weeks.",
-    acNext: (q) => "Next GDP: " + q + " (flash estimate ~4 weeks after quarter-end)",
+    acNextGdp: (q, p) => "Next GDP: " + q + " (flash estimate), " + p,
+    acNextIgae: (m, p) => "Next IGAE: " + m + ", " + p,
     acSecGdp: "Real GDP: quarterly change",
     acSecGdpNote: "Seasonally adjusted, % vs. prior quarter",
     acSecGdpYoy: "Real GDP: annual change",
@@ -1501,14 +1531,14 @@ const I18N = {
     // ---- Labor ----
     lbTitle: "Labor Market",
     lbDesc: "Unemployment rate (ENOE survey) and jobs registered with IMSS, the timeliest measure of formal employment.",
-    lbNext: "INEGI publishes the monthly ENOE about 4 weeks after month-end; IMSS reports registrations in the first business days of the following month.",
+    lbNext: (m, p) => "Next ENOE: " + m + ", " + p + ". IMSS: release around the 12th of the month after the reference month.",
     lbSecUn: "Unemployment rate",
     lbSecUnNote: "% of the economically active population",
     lbSecImss: "Formal employment (IMSS): monthly change",
     lbSecImssNote: "Registered jobs, change vs. prior month",
     lbSecImssYoy: "Formal employment (IMSS): annual change",
     lbSecImssYoyNote: "% vs. same month a year earlier",
-    footerLabor: "Unemployment rate: ENOE (INEGI); when the OECD series is shown it is seasonally adjusted. IMSS-registered jobs: permanent and temporary urban positions at month-end (IMSS, distributed by Banxico). IMSS registrations exclude informal employment, which is roughly 55% of total employment in Mexico.",
+    footerLabor: "Unemployment rate: ENOE (INEGI); when the OECD series is shown it is seasonally adjusted. IMSS-registered jobs: total permanent and temporary positions at month-end, taken from IMSS's monthly press release (curated series, updated with each release). IMSS registrations exclude informal employment, which is roughly 55% of total employment in Mexico.",
     kpiUnRate: "Unemployment rate",
     kpiUnYearAgo: "A year ago",
     kpiImssLevel: "IMSS jobs",
@@ -1525,7 +1555,7 @@ const I18N = {
     // ---- Confidence ----
     ccTitle: "Consumer Confidence",
     ccDesc: "How households see their own situation and the country's. INEGI publishes the indicator in the first week of each month.",
-    ccNext: "Next print: first week of the following month (INEGI)",
+    ccNext: (m, p) => "Next ENCO: " + m + ", " + p,
     ccSecTrend: "Consumer confidence over time",
     ccSecContext: "How high or low is the current reading?",
     footerConfidence: "Consumer Confidence Indicator (INEGI and Banxico, National Consumer Confidence Survey), balance in points: the average of five components on the household's and the country's economic situation, current and expected. Seasonally adjusted by INEGI.",
@@ -1548,7 +1578,8 @@ const I18N = {
     // ---- External ----
     exTitle: "External Sector: Remittances, Trade & Exchange Rate",
     exDesc: "The dollars flowing in and out, and the price of the peso. Banxico publishes remittances with a two-month lag; INEGI publishes the trade balance with a one-month lag.",
-    exNext: "Remittances: first business days of the month, two months after the reference month (Banxico). Trade balance: around the 27th (INEGI).",
+    exNextRem: (m, p) => "Next remittances: " + m + ", " + p,
+    exNextBal: (m, p) => "Next trade balance: " + m + ", " + p,
     exSecRem: "Family remittances",
     exSecRemNote: "Millions of US dollars per month and 12-month moving average",
     exSecTrade: "Merchandise exports and imports",
@@ -1586,7 +1617,7 @@ const I18N = {
     bxSecCurveNote: "%, monthly average",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: monthly yield as reported by the OECD via FRED. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
@@ -1671,6 +1702,7 @@ function rolling(pts, n, mode) {
   return pts.map((p, i) => { if (i < n - 1) return {d: p.d, v: null}; let s = 0; for (let k = i - n + 1; k <= i; k++) s += pts[k].v; return {d: p.d, v: mode === "sum" ? s : s / n}; });
 }
 function nextMonthOf(d) { const [y, m] = d.split("-").map(Number); return (m === 12 ? y + 1 : y) + "-" + String(m === 12 ? 1 : m + 1).padStart(2, "0"); }
+function plusMonths(d, n) { let [y, m] = d.split("-").map(Number); m += n; while (m > 12) { m -= 12; y++; } return y + "-" + String(m).padStart(2, "0"); }
 function nextQuarterOf(d) { const y = +d.slice(0, 4), q = +d.slice(6); return q === 4 ? (y + 1) + "-Q1" : y + "-Q" + (q + 1); }
 function quarterToMonth(d) { const y = d.slice(0, 4), q = +d.slice(6); return y + "-" + String(q * 3 - 1).padStart(2, "0"); }
 
@@ -1696,10 +1728,10 @@ function esc(s) { return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").
 
 // ---------- provenance ----------
 const ORIGIN = {
-  gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS"},
+  gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS", imss: "IMSS"},
   consumerConfidence: {fred: "OECD"}, remittances: {banxico: "Banxico"}, exports: {fred: "OECD"}, imports: {fred: "OECD"},
   usdmxn: {banxico: "Banxico", fred: "Fed"}, reserves: {banxico: "Banxico", fred: "IMF"}, policyRate: {banxico: "Banxico", fred: "OECD"},
-  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {fred: "OECD"}
+  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
@@ -1949,7 +1981,8 @@ function renderInpc() {
   if (!gate("inpc", ["inpc"], optional)) return;
   const C = {}; ["inpc"].concat(optional, INPC_COMPONENTS.map(c => c.key)).forEach(k => { if (S(k)) C[k] = withChanges(P(k)); });
   const H = C.inpc, hL = lastWith(H, "yoy");
-  headerMeta("inpc", fmtMonthYear(hL.d), T.inpcNext(fmtMonthYear(nextMonthOf(hL.d))), ["inpc"].concat(S("inpcCore") && S("inpcCore").provider !== S("inpc").provider ? ["inpcCore"] : []));
+  const inpcNx = nextMonthOf(hL.d);
+  headerMeta("inpc", fmtMonthYear(hL.d), T.inpcNext(fmtMonthYear(inpcNx), T.estOn(9, fmtMonthYear(nextMonthOf(inpcNx)))), ["inpc"].concat(S("inpcCore") && S("inpcCore").provider !== S("inpc").provider ? ["inpcCore"] : []));
 
   // KPI tiles: 12-month inflation, with the change vs the prior month in pp
   const row = document.getElementById("inpcKpiRow");
@@ -2025,7 +2058,7 @@ function renderInpc() {
     [T.sumLatest, T.sumInpcLatest(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1), fmtPct(hLm.mom, 2), cL ? fmtLevelPct(cL.yoy, 1) : "—")],
     sy && gy && ny ? [T.sumDriver, T.sumInpcDriver(fmtLevelPct(sy.yoy, 1), fmtLevelPct(gy.yoy, 1), fmtLevelPct(ny.yoy, 1))] : null,
     [T.sumWhy, T["sumInpcWhy" + tgtState]],
-    [T.sumNext, T.sumInpcNext(fmtMonthYear(nextMonthOf(hL.d)))]
+    [T.sumNext, T.inpcNext(fmtMonthYear(inpcNx), T.estOn(9, fmtMonthYear(nextMonthOf(inpcNx)))) + ". " + T.sumInpcTail]
   ]);
 }
 
@@ -2037,7 +2070,13 @@ function renderActivity() {
   const G = S("gdp") ? withChanges(P("gdp")) : null, I = S("igae") ? withChanges(P("igae")) : null;
   const gL = G ? lastWith(G, "mom") : null, iL = I ? lastWith(I, "yoy") : null;
   const asOf = gL ? fmtMonthYear(gL.d) + (iL ? " · " + T.legIgae + " " + fmtMonthYear(iL.d) : "") : (iL ? fmtMonthYear(iL.d) : "");
-  headerMeta("ac", asOf, gL ? T.acNext(fmtMonthYear(nextQuarterOf(gL.d))) : "", ["gdp", "igae", "igaePrimary", "igaeSecondary", "igaeTertiary"]);
+  // Publication estimates: INEGI's flash GDP lands ~30 days after quarter-end; the IGAE for
+  // month M lands late in M+2. Both are labeled "(estimado)" by the strings themselves.
+  const qEndMonth = (q) => q.slice(0, 4) + "-" + String(+q.slice(6) * 3).padStart(2, "0");
+  const acNextParts = [];
+  if (gL) { const nq = nextQuarterOf(gL.d); acNextParts.push(T.acNextGdp(fmtMonthYear(nq), T.estOn(30, fmtMonthYear(nextMonthOf(qEndMonth(nq)))))); }
+  if (iL) { const ni = nextMonthOf(iL.d); acNextParts.push(T.acNextIgae(fmtMonthYear(ni), T.estLate(fmtMonthYear(plusMonths(ni, 2))))); }
+  headerMeta("ac", asOf, acNextParts.join(" · "), ["gdp", "igae", "igaePrimary", "igaeSecondary", "igaeTertiary"]);
 
   const row = document.getElementById("acKpiRow");
   if (G) {
@@ -2100,7 +2139,7 @@ function renderActivity() {
     latestTxt ? [T.sumLatest, latestTxt] : null,
     drv,
     [T.sumWhy, T.sumAcWhy],
-    (gq || iL) ? [T.sumNext, T.sumAcNext(gq ? fmtMonthYear(nextQuarterOf(gq.d)) : "—", iL ? fmtMonthYear(nextMonthOf(iL.d)) : "—")] : null
+    acNextParts.length ? [T.sumNext, acNextParts.join(". ") + ". " + T.sumAcNextTail] : null
   ]);
 }
 
@@ -2108,10 +2147,12 @@ function renderActivity() {
 //  View: labor
 // ================================================================
 function renderLabor() {
-  if (!gate("lb", [], ["unemployment"])) return;
+  if (!gate("lb", [], ["unemployment", "imssJobs"])) return;
   const U = S("unemployment") ? withChanges(P("unemployment")) : null, J = S("imssJobs") ? withChanges(P("imssJobs")) : null;
   const uL = U ? last(U) : null, jL = J ? last(J) : null;
-  headerMeta("lb", [uL && fmtMonthYear(uL.d), jL && (T.legImssYoy.split(",")[0] + " " + fmtMonthYear(jL.d))].filter(Boolean).join(" · "), T.lbNext, ["unemployment", "imssJobs"]);
+  // The ENOE for month M lands late in M+1; labeled "(estimado)" by the string.
+  const lbNextTxt = uL ? T.lbNext(fmtMonthYear(nextMonthOf(uL.d)), T.estLate(fmtMonthYear(nextMonthOf(nextMonthOf(uL.d))))) : "";
+  headerMeta("lb", [uL && fmtMonthYear(uL.d), jL && (T.legImssYoy.split(",")[0] + " " + fmtMonthYear(jL.d))].filter(Boolean).join(" · "), lbNextTxt, ["unemployment", "imssJobs"]);
   const row = document.getElementById("lbKpiRow");
   if (U) {
     const ago = atOrBefore(U, prevYearKey(uL.d));
@@ -2141,10 +2182,10 @@ function renderLabor() {
   if (U) {
     const agoU = atOrBefore(U, prevYearKey(uL.d)), w5 = U.slice(-60), avg5 = w5.reduce((a, p) => a + p.v, 0) / w5.length;
     execSummary("lb", [
-      [T.sumLatest, T.sumLbLatest(fmtMonthYear(uL.d), fmtLevelPct(uL.v, 1), fmtPP(uL.dMom, 1))],
+      [T.sumLatest, T.sumLbLatest(fmtMonthYear(uL.d), fmtLevelPct(uL.v, 1), fmtPP(uL.dMom, 1)) + (jL ? " " + T.sumLbImss(fmtMonthYear(jL.d), (jL.v / 1e6).toFixed(2), fmtSigned(jL.dMom, 0)) : "")],
       agoU ? [T.sumDriver, T.sumLbDriver(fmtLevelPct(agoU.v, 1), fmtLevelPct(avg5, 1))] : null,
       [T.sumWhy, T.sumLbWhy],
-      [T.sumNext, T.sumLbNext]
+      [T.sumNext, T.sumLbNext(fmtMonthYear(nextMonthOf(uL.d)), T.estLate(fmtMonthYear(nextMonthOf(nextMonthOf(uL.d)))))]
     ]);
   } else execSummary("lb", []);
 }
@@ -2155,7 +2196,10 @@ function renderLabor() {
 function renderConfidence() {
   if (!gate("cc", ["consumerConfidence"])) return;
   const s = S("consumerConfidence"), C = withChanges(P("consumerConfidence")), l = last(C);
-  headerMeta("cc", fmtMonthYear(l.d), T.ccNext, ["consumerConfidence"]);
+  // The ENCO for month M lands in the first days of M+1; labeled "(estimado)" by the string.
+  const ccNx = nextMonthOf(l.d);
+  const ccNextTxt = T.ccNext(fmtMonthYear(ccNx), T.estEarly(fmtMonthYear(nextMonthOf(ccNx))));
+  headerMeta("cc", fmtMonthYear(l.d), ccNextTxt, ["consumerConfidence"]);
   document.getElementById("ccTrendNote").textContent = s.provider === "fred" ? T.ccTrendNoteOecd : T.ccTrendNoteInegi;
   // INEGI's indicator is a balance in points (one decimal); the OECD fallback is an index around 100.
   const row = document.getElementById("ccKpiRow"), dg = s.provider === "fred" ? 2 : 1;
@@ -2180,7 +2224,7 @@ function renderConfidence() {
     [T.sumLatest, T.sumCcLatest(fmtMonthYear(l.d), l.v.toFixed(dg), fmtSigned(l.dMom, dg))],
     l.dYoy !== null && l.dYoy !== undefined ? [T.sumDriver, T.sumCcDriver(fmtSigned(l.dYoy, dg), Math.round(below / C.length * 100) + "%")] : null,
     [T.sumWhy, T.sumCcWhy],
-    [T.sumNext, T.sumCcNext]
+    [T.sumNext, ccNextTxt + ". " + T.sumCcTail]
   ]);
 }
 
@@ -2194,7 +2238,12 @@ function renderExternal() {
   const FX = S("usdmxn") ? P("usdmxn") : null;
   const rL = R ? last(R) : null, xL = X ? last(X) : null, fL = FX ? last(FX) : null;
   const scaleUsd = s => (s && s.unit === "usd") ? 1e-6 : 1;   // FRED trade series are in dollars; Banxico's in millions
-  headerMeta("ex", [rL && nameOf("remittances") + " " + fmtMonthYear(rL.d), xL && T.legExports + " " + fmtMonthYear(xL.d), fL && "FIX " + fmtDateDMY(fL.d)].filter(Boolean).join(" · "), T.exNext, ["remittances", "exports", "imports", "usdmxn"], true);
+  // Banxico posts remittances for month M in the first days of M+2; INEGI's trade balance for
+  // month M lands around the 27th of M+1. Both labeled "(estimado)" by the strings.
+  const exNextParts = [];
+  if (rL) { const nr = nextMonthOf(rL.d); exNextParts.push(T.exNextRem(fmtMonthYear(nr), T.estEarly(fmtMonthYear(plusMonths(nr, 2))))); }
+  if (xL) { const nb = nextMonthOf(xL.d); exNextParts.push(T.exNextBal(fmtMonthYear(nb), T.estOn(27, fmtMonthYear(nextMonthOf(nb))))); }
+  headerMeta("ex", [rL && nameOf("remittances") + " " + fmtMonthYear(rL.d), xL && T.legExports + " " + fmtMonthYear(xL.d), fL && "FIX " + fmtDateDMY(fL.d)].filter(Boolean).join(" · "), exNextParts.join(" · "), ["remittances", "exports", "imports", "usdmxn"], true);
 
   const row = document.getElementById("exKpiRow");
   if (R) {
@@ -2249,7 +2298,7 @@ function renderExternal() {
     R && FX ? [T.sumLatest, T.sumExLatest(fmtMonthYear(rL.d), fmtNum(rL.v), fmtPct(rL.yoy), fL.v.toFixed(2), fmtDateDMY(fL.d))] : null,
     exDrv,
     [T.sumWhy, T.sumExWhy],
-    R ? [T.sumNext, T.sumExNext(fmtMonthYear(nextMonthOf(rL.d)))] : null
+    exNextParts.length ? [T.sumNext, exNextParts.join(". ") + ". " + T.sumExNextTail] : null
   ]);
 }
 function balanceSeries(X, M, kx, km) { const m = new Map(M.map(p => [p.d, p.v])); return X.filter(p => m.has(p.d)).map(p => ({d: p.d, v: p.v * kx - m.get(p.d) * km})); }

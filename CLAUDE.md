@@ -47,6 +47,10 @@ dashboards, everything built from public data by GitHub Actions.
   Peer multiples and consensus for GAP are a dated snapshot: save the pull as
   `tools/gap/raw/factset/<date>.json` and run `scripts/gap/build-peers.mjs`; never hand-edit `peers.js`.
   Forward multiples (NTM EV/EBITDA, NTM P/E) go first; the owner asked for them.
+- The airports hub `site/aeropuertos/` opens with the three compact company tiles, then the map, then a hand-curated
+  "Tariffs and regulation" table (`site/aeropuertos/data/regulation.js`, every cell sourced to a filing with its URL)
+  and the traffic tiles; every chart there and on `trafico/` and `aerolineas/` carries a data stamp (see
+  `tools/aeropuertos/README.md`). Only official filings go into that table, never press.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
@@ -86,6 +90,9 @@ dashboards, everything built from public data by GitHub Actions.
   changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues created since its previous run
   (see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue (closed on
   recovery), which the same routine emails, and fails the run.
+- IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
+  IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
+  `tools/mx-macro/README.md`); do not re-hunt without a new lead.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.
@@ -138,6 +145,21 @@ dashboards, everything built from public data by GitHub Actions.
 - The 10-year M bono is Banxico's primary-auction yield (SIE SF44071, about every four weeks, published the same
   day; `scripts/lib/banxico-mx10y.mjs`, FRED/OECD monthly IRLTLT01MXM156N as fallback). Banxico's SIE has no daily
   secondary-market 10-year yield (its daily vector CF300 carries prices and coupons only; checked 2026-09-28).
+- Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
+  `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
+  (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,
+  ND via `evL()/peL()/ndL()`), Spanish keeps VE, P/U, DN.
+- Share prices: the market fetchers keep only completed sessions (`completedSessions()` in `scripts/gap/fetch-market.mjs`
+  and `scripts/airports/fetch-market.mjs`), so the 14:30 UTC run never publishes an intraday bar as a "close"; the
+  header shows the close date and the fetch time in CDMX. FactSet cannot run in GitHub Actions, so it is only an
+  in-session cross-check. Quálitas, Gentera and Oracle fetchers still take Yahoo's partial bar (not yet fixed).
+- Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
+  release-lag rule (`nextResults()` in the model, reused by the deck), never a hand-written date.
+- `?lang=en|es` on a model page overrides the stored language; `document.title` follows the language.
+- OMA's net debt includes lease liabilities (`debtExtraItems` in `site/oma/config.js`), matching OMA's own definition.
+- GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a
+  FactSet Debt Capital Structure snapshot (`REF.debt.instrumentsAsOf`) with series names from the 6-Ks, refreshed
+  in-session after each quarterly report; `REF.noGuidance` explains the years without guidance (2020, 2021).
 - GAP dividends: the AGM approves one amount per share payable in instalments over the following 12 months
   (`REF.dividends[].payableUntil`); the exchange record in `market.js` shows only what has gone ex. Compare the
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.

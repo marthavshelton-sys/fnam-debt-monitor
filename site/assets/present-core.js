@@ -23,17 +23,20 @@
   const SWAP = { '−': '-', '≈': '~', '→': '->', '↗': '', 'Δ': 'Chg', '≥': '>=', '≤': '<=', '‑': '-', ' ': ' ', ' ': ' ', '₂': '2', '₆': '6', '⁵': '5', 'β': 'beta', ' ': ' ', ' ': ' ', '…': '...', '✓': 'v', '✘': 'x', '▸': '', '▾': '', '↑': '+', '↓': '-', '◀': '<', '▶': '>', '▲': '^' };
   const tx = (s) => String(s == null ? '' : s).replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&nbsp;/g, ' ').replace(/[−≈→↗Δ≥≤‑  ₂₆⁵β  …✓✘▸▾↑↓◀▶▲]/g, (c) => SWAP[c]).replace(/\s+/g, ' ').trim();
 
-  // Title Case for English headings: every word capitalised except short connectors; tokens that already carry
+  // Title Case for English headings: every word capitalized except short connectors; tokens that already carry
   // capitals (EBITDA, LTM, FY2026, GAP) or digits are left as they are.
-  const SMALL = new Set(['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'from', 'in', 'into', 'nor', 'of', 'on', 'or', 'per', 'the', 'to', 'vs', 'vs.', 'with', 'over', 'onto', 'up', 'y/y']);
-  function titleCase(str) {
-    const words = String(str).split(' ');
+  const SMALL = { en: new Set(['a', 'an', 'and', 'as', 'at', 'but', 'by', 'for', 'from', 'in', 'into', 'nor', 'of', 'on', 'or', 'per', 'the', 'to', 'vs', 'vs.', 'with', 'over', 'onto', 'up', 'y/y', 'ex']),
+    es: new Set(['a', 'al', 'ante', 'bajo', 'con', 'contra', 'de', 'del', 'desde', 'durante', 'e', 'el', 'en', 'entre', 'hacia', 'hasta', 'la', 'las', 'lo', 'los', 'mediante', 'ni', 'o', 'para', 'por', 'que', 'según', 'sin', 'sobre', 'tras', 'u', 'un', 'una', 'unas', 'unos', 'y', 'vs', 'vs.', 'a/a']) };
+  // Title Case in both languages (the owner's convention across the site): small words stay lower case except first
+  // and last, words with capitals or digits are left alone (acronyms, tickers, dates), hyphenated parts are capitalized.
+  function titleCase(str, es) {
+    const small = SMALL[es ? 'es' : 'en'], words = String(str).split(' ');
     return words.map((w, i) => {
-      if (!w) return w;
       const core = w.replace(/^[^A-Za-zÀ-ÿ]+|[^A-Za-zÀ-ÿ]+$/g, '');
-      if (!core || /[A-Z]/.test(core) || /\d/.test(core)) return w;
-      if (i > 0 && i < words.length - 1 && SMALL.has(core.toLowerCase())) return w;
-      return w.replace(/[a-zà-ÿ]/, (c) => c.toUpperCase()).replace(/-([a-z])/g, (m, c) => (SMALL.has(c) ? m : '-' + c.toUpperCase()));
+      const hy = (x) => x.replace(/-([a-zà-ÿ])/g, (m, c) => (small.has(c) ? m : '-' + c.toUpperCase()));
+      if (!w || !core || /[A-ZÀ-Þ]/.test(core) || /\d/.test(core)) return hy(w);
+      if (i > 0 && i < words.length - 1 && small.has(core.toLowerCase()) && !(core.toLowerCase() === 'por' && /^qué/i.test(words[i + 1] || ''))) return w;
+      return hy(w.replace(/^([^A-Za-zÀ-ÿ]*)([a-zà-ÿ])/, (m, pre, c) => pre + c.toUpperCase()));
     }).join(' ');
   }
   function loadScript(src) { return new Promise((res, rej) => { if (document.querySelector(`script[data-src="${src}"]`)) return res(); const s = document.createElement('script'); s.src = src; s.dataset.src = src; s.onload = res; s.onerror = () => rej(new Error('cannot load ' + src)); document.head.appendChild(s); }); }
@@ -85,7 +88,7 @@
       this.pages.push(this.cur);
       let y = this.cur.y0;
       if (title) {
-        this.font('bold', 17, ACCENT); this.pdf.text(tx(this.es ? title : titleCase(title)), this.cur.x0, y + 15);
+        this.font('bold', 17, ACCENT); this.pdf.text(tx(titleCase(title, this.es)), this.cur.x0, y + 15);
         y += 21;
         if (subtitle) { this.font('normal', 9.5, MUTED); const lines = this.pdf.splitTextToSize(tx(subtitle), this.cur.x1 - this.cur.x0); this.pdf.text(lines, this.cur.x0, y + 10); y += 12 * lines.length + 1; }
         this.pdf.setDrawColor(...ACCENT); this.pdf.setLineWidth(0.8); this.pdf.line(this.cur.x0, y + 5, this.cur.x1, y + 5); y += 14;
@@ -123,7 +126,7 @@
       return y;
     }
     measureBullets(items, w, size, opts = {}) { const ind = opts.indent == null ? 9 : opts.indent; const lh = opts.lh || 1.3; const gap = opts.gap == null ? size * 0.45 : opts.gap; let h = 0; for (const it of items) h += this.richLines(it, w - ind, size, opts.style).lines.length * size * lh + gap; return h; }
-    heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(this.es ? str : titleCase(str)), x, y + size * 0.85); return y + size * 1.5; }
+    heading(str, x, y, size = 11) { this.font('bold', size, ACCENT); this.pdf.text(tx(titleCase(str, this.es)), x, y + size * 0.85); return y + size * 1.5; }
     note(str, y, size = 7.5, x, w) { return this.text(str, x == null ? this.cur.x0 : x, y, w == null ? this.width() : w, size, 'normal', MUTED, 1.25); }
     measureText(str, w, size, lh) { this.font('normal', size); return this.pdf.splitTextToSize(tx(str), w).length * size * (lh || 1.3) + 1; }
     // A note that must sit above the footer: placed at `y`, or higher if it would not fit.
@@ -212,11 +215,14 @@
     // otherwise assumed from the median lag between quarter-end and release for the same quarter in the last three years.
     nextResults() {
       const M = this.M, lastQ = M.lastQ; if (!lastQ) return null;
+      if (typeof M.nextResults === 'function') { const n = M.nextResults(); if (n) return n; } // the page computes the same rule; one implementation feeds page and deck
       const nq = lastQ.q === 4 ? { fy: lastQ.fy + 1, q: 1 } : { fy: lastQ.fy, q: lastQ.q + 1 };
       const cal = M.REF.calendar && M.REF.calendar.nextResults;
       if (cal && cal.date && cal.date >= this.todayIso) return { q: nq, date: cal.date, kind: 'confirmed', source: cal.source || null };
       const dayOf = (iso) => Date.UTC(+iso.slice(0, 4), +iso.slice(5, 7) - 1, +iso.slice(8, 10)) / 864e5;
-      const relDate = (q) => q.releaseDate || (q.sources && q.sources.is && q.sources.is.date);
+      // A quarter parsed from a later report's comparative columns (sources.is.primary === false) carries that later
+      // report's date, so it cannot feed the release-lag history.
+      const relDate = (q) => q.releaseDate || (q.sources && q.sources.is && q.sources.is.primary !== false && q.sources.is.date);
       const lags = [], yrs = [];
       for (let y = nq.fy - 1; y >= nq.fy - 3; y--) { const q = M.qById[`${y}Q${nq.q}`]; if (q && relDate(q)) { lags.push(dayOf(relDate(q)) - dayOf(M.qEndDate(q))); yrs.push(y); } }
       if (!lags.length) return { q: nq, date: null, kind: 'unknown' };

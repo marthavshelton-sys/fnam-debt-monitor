@@ -23,7 +23,22 @@ const now = Date.now();
 const problems = [];
 for (const key of Object.keys(manifest.series)) {
   const s = data.series[key];
-  if (!s) { problems.push(`${key}: no data at all (every candidate failing, nothing kept)`); continue; }
+  const curated = (manifest.series[key].candidates || []).every((c) => c.provider === 'imss');
+  if (!s) {
+    // A curated series with no data yet is awaiting its first PR, not a failing source.
+    if (curated) console.log(`note: ${key} awaits its first curated data PR (see the IMSS runbook)`);
+    else problems.push(`${key}: no data at all (every candidate failing, nothing kept)`);
+    continue;
+  }
+  if (curated || s.provider === 'imss') {
+    // The curated file is local, so fetchedAt is always fresh; staleness is the last DATA month.
+    // IMSS publishes month M around the 12th of M+1, so >75 days past the 1st of the last data
+    // month means the next comunicado came and went without a PR.
+    const last = s.points[s.points.length - 1][0];
+    const dataAge = Math.floor((now - Date.parse(last + '-01T00:00:00Z')) / 86400000);
+    if (dataAge > 75) problems.push(`${key}: curated IMSS file's last month is ${last} (${dataAge} days old); run the IMSS browser task and merge its PR`);
+    continue;
+  }
   const age = Math.floor((now - Date.parse(s.fetchedAt + 'T00:00:00Z')) / 86400000);
   if (!(age <= MAX_AGE_DAYS)) {
     problems.push(`${key}: ${s.providerLabel || s.provider} ${s.id} last answered ${s.fetchedAt}` +
