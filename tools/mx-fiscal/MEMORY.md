@@ -40,7 +40,9 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
 
 ## Open items
 
-- The analysts' survey is Citi's (not a government source). Banxico's own survey is now mirrored
-  (`tools/mx-fiscal/docs/banxico-encuesta.txt`); switching the `survey` block to it is the owner's call.
+- Surveys (owner's decision, 29-Sep-2026): show BOTH. `survey` = Citi (every two weeks; chart, CGPE analysts
+  column); `banxicoSurvey` = Banco de México's monthly survey (mirror `banxico-encuesta.txt`, official PDF link;
+  supplies `inflationNext12m` for the ex ante real rate). The page prints them side by side.
+- Fed funds and the rating agencies stay (owner's decision, 29-Sep-2026), linked to their own sites.
 - Rating actions and Pemex quarterly figures are not in any mirror; the routine cites the agencies' and Pemex's own
   releases (Pemex 2T26 report URL is in `pemex.url`).

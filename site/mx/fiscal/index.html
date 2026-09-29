@@ -740,6 +740,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         <div class="chart-wrap short"><canvas id="chartExpectations"></canvas></div>
         <div class="stat-row" id="stats-survey"></div>
         <p class="chart-src" id="src-survey"></p>
+        <p class="cap" id="cap-survey-cmp" style="margin-top:16px"></p>
+        <div class="tblwrap" id="tblSurveyCmp"></div>
+        <p class="chart-src" id="src-survey-cmp"></p>
       </div>
     </div>
   </section>
@@ -1394,9 +1397,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var corridor = [ { es:'Cetes 28 días', en:'28-day Cetes', sub:T('subasta primaria','primary auction'), val:lastVal('cetes28'), color:C.s3 }, { es:'Tasa objetivo', en:'Target rate', sub:T('objetivo de Banxico','Banxico target'), val:target, color:C.s1 }, { es:'TIIE 28 días', en:'28-day TIIE', sub:T('referencia de créditos','loan benchmark'), val:lastVal('tiie28'), color:C.s8 }, { es:'Cetes 91 días', en:'91-day Cetes', sub:T('subasta primaria','primary auction'), val:lastVal('cetes91'), color:C.s6 }, { es:'Cetes 182 días', en:'182-day Cetes', sub:T('seis meses','six months'), val:lastVal('cetes182'), color:C.s5 }, { es:'Cetes 364 días', en:'364-day Cetes', sub:T('un año','one year'), val:lastVal('cetes364'), color:C.s4 } ].filter(function(c){ return c.val!=null; });
     // Real rate: ex post deflates the target with the last observed annual inflation; ex ante (Banxico's own
     // definition in its policy statements) uses expected inflation over the next 12 months, which exists only
-    // when the survey block carries `inflationNext12m`.
+    // when a survey block carries `inflationNext12m` (Banxico's monthly survey first, Citi as fallback).
     var infl = lastVal('inpcAnual'), inflM = lastDate('inpcAnual'), realRate = (target!=null && infl!=null) ? ((1+target/100)/(1+infl/100)-1)*100 : null, ff = bx.fedFunds || {};
-    var exp12 = sv.inflationNext12m!=null ? Number(sv.inflationNext12m) : null, realExAnte = (target!=null && exp12!=null) ? ((1+target/100)/(1+exp12/100)-1)*100 : null;
+    var bxs = DOCS.banxicoSurvey || {}, expSrc = bxs.inflationNext12m!=null ? bxs : (sv.inflationNext12m!=null ? sv : null), exp12 = expSrc ? Number(expSrc.inflationNext12m) : null, realExAnte = (target!=null && exp12!=null) ? ((1+target/100)/(1+exp12/100)-1)*100 : null;
     if(corridor.length){
       var vals = corridor.map(function(c){ return c.val; }), lo = Math.floor((Math.min.apply(null,vals)-0.3)*4)/4, hi = Math.ceil((Math.max.apply(null,vals)+0.3)*4)/4;
       var toPct = function(v){ return ((v-lo)/(hi-lo)*100).toFixed(2)+'%'; }, html = '<div class="track">';
@@ -1405,7 +1408,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       html += '</div><div class="axis">'; for(var v=lo; v<=hi+0.001; v+=0.25) html += '<span style="left:'+toPct(v)+'">'+v.toFixed(2)+'%</span>'; html += '</div><div class="legend">';
       corridor.slice().sort(function(a,b){ return b.val-a.val; }).forEach(function(c){ html += '<div class="item"><span class="sw" style="background:'+c.color+'"></span><span class="nm">'+T(c.es,c.en)+'</span><span class="sub">— '+c.sub+'</span><span class="val">'+fmtPct(c.val,2)+'</span></div>'; });
       if(realRate!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex post','Ex post real rate')+'</span><span class="sub">— '+T('objetivo deflactado con la inflación observada de ','target deflated by observed inflation for ')+fmtMonth(inflM)+' ('+fmtPct(infl,2)+')</span><span class="val">'+fmtPct(realRate,2)+'</span></div>';
-      if(realExAnte!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex ante','Ex ante real rate')+'</span><span class="sub">— '+T('objetivo deflactado con la inflación esperada a 12 meses ','target deflated by expected 12-month inflation ')+'('+fmtPct(exp12,2)+', '+esc((sv.title||{})[LANG]||'')+')</span><span class="val">'+fmtPct(realExAnte,2)+'</span></div>';
+      if(realExAnte!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Tasa real ex ante','Ex ante real rate')+'</span><span class="sub">— '+T('objetivo deflactado con la inflación esperada a 12 meses ','target deflated by expected 12-month inflation ')+'('+fmtPct(exp12,2)+', '+esc((expSrc&&expSrc.title||{})[LANG]||'')+', '+fmtDate(expSrc&&expSrc.asOf)+')</span><span class="val">'+fmtPct(realExAnte,2)+'</span></div>';
       if(ff.value!=null && target!=null) html += '<div class="item"><span class="sw" style="background:'+C.muted+'"></span><span class="nm">'+T('Diferencial vs. fondos federales de EE. UU.','Spread vs. U.S. fed funds')+'</span><span class="sub">— '+fmtPct(ff.value,2)+' ('+fmtDate(ff.asOf)+')</span><span class="val">'+Math.round((target-ff.value)*100)+' pb</span></div>';
       html += '</div>'; setHTML('corridorWrap', html);
     } else setHTML('corridorWrap', '<div class="nodata">'+T('Sin datos','No data')+'</div>');
@@ -1434,6 +1437,21 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       stats('stats-survey', [ [fmtPct(sv.rateEnd['2026'],2)+' → '+fmtPct(sv.rateEnd['2027'],2), T('Tasa esperada al cierre de 2026 → 2027 (mediana)','Expected rate at end-2026 → 2027 (median)')], [fmtPct(sv.inflationEnd['2026'],2)+' → '+fmtPct(sv.inflationEnd['2027'],2), T('Inflación esperada, cierre 2026 → 2027','Expected inflation, end-2026 → 2027')], [n(sv.fxEnd['2026'],2)+' → '+n(sv.fxEnd['2027'],2), T('Tipo de cambio esperado, cierre 2026 → 2027','Expected exchange rate, end-2026 → 2027')] ]);
     } else { setHTML('cap-survey', T('Encuesta no cargada','Survey not loaded')); emptyChart('chartExpectations', T('Documento no cargado','Document not loaded')); stats('stats-survey', []); }
     setHTML('src-survey', T('Fuente: ','Source: ')+docStamp(sv)+T(' · a diferencia del FedWatch de CME, no hay una probabilidad implícita en futuros de libre acceso para México; la encuesta es el sustituto más cercano',' · unlike CME\'s FedWatch there is no freely available futures-implied probability for Mexico; the survey is the closest substitute'));
+    // Two surveys side by side: Citi (every two weeks) and Banco de México's own monthly survey (official, linked).
+    var bs = DOCS.banxicoSurvey || {};
+    if(bs.asOf || sv.asOf){
+      var pc = function(o,y,d){ return o && o[y]!=null ? fmtPct(o[y],d==null?2:d) : '—'; }, fx = function(o,y){ return o && o[y]!=null ? n(o[y],2) : '—'; };
+      var yrs = ['2026','2027'], rows = [];
+      yrs.forEach(function(y){ rows.push([T('Tasa objetivo, cierre ','Target rate, end-')+y, pc(sv.rateEnd,y), pc(bs.rateEnd,y)]); });
+      yrs.forEach(function(y){ rows.push([T('Inflación general, cierre ','Headline inflation, end-')+y, pc(sv.inflationEnd,y), pc(bs.inflationEnd,y)]); });
+      yrs.forEach(function(y){ rows.push([T('Tipo de cambio, cierre ','Exchange rate, end-')+y, fx(sv.fxEnd,y), fx(bs.fxEnd,y)]); });
+      yrs.forEach(function(y){ if((sv.gdpGrowth||{})[y]!=null || (bs.gdpGrowth||{})[y]!=null) rows.push([T('Crecimiento del PIB real, ','Real GDP growth, ')+y, pc(sv.gdpGrowth,y), pc(bs.gdpGrowth,y)]); });
+      if(bs.inflationNext12m!=null) rows.push([T('Inflación esperada, próximos 12 meses','Expected inflation, next 12 months'), '—', fmtPct(bs.inflationNext12m,2)]);
+      setHTML('cap-survey-cmp', T('Medianas de las dos encuestas: Citi ('+(sv.asOf ? fmtDate(sv.asOf) : '—')+') y Banco de México ('+(bs.period ? esc(bs.period.es) : '—')+', publicada el '+(bs.asOf ? fmtDate(bs.asOf) : '—')+')',
+        'Medians from both surveys: Citi ('+(sv.asOf ? fmtDate(sv.asOf) : '—')+') and Banco de México ('+(bs.period ? esc(bs.period.en) : '—')+', published '+(bs.asOf ? fmtDate(bs.asOf) : '—')+')'));
+      simpleTable('tblSurveyCmp', [T('Variable','Variable'), 'Citi', 'Banxico'], rows);
+      setHTML('src-survey-cmp', T('Fuente: ','Source: ')+docStamp(sv)+(bs.asOf ? ' · <a href="'+esc(bs.url||'#')+'" target="_blank" rel="noopener">'+esc((bs.title||{})[LANG]||'')+'</a> · '+T('con fecha ','dated ')+fmtDate(bs.asOf)+(bs.institutions ? ' · '+bs.institutions+' '+T('instituciones','institutions') : '') : ' · '+T('encuesta de Banxico no cargada','Banxico survey not loaded')));
+    }
   })();
   function addDays(iso, k){ var d = new Date(iso+'T12:00:00Z'); d.setUTCDate(d.getUTCDate()+k); return d.toISOString().slice(0,10); }
 
@@ -1465,6 +1483,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     if(DOCS.ratings) items.push([T('Calificadoras — Moody\'s, S&P Global, Fitch','Rating agencies — Moody\'s, S&P Global, Fitch'), T('Calificación soberana y perspectivas · revisado ','Sovereign rating and outlooks · reviewed ')+fmtDate(DOCS.ratings.asOf)+(DOCS.ratings.items ? ' · '+DOCS.ratings.items.filter(function(r){ return r.url; }).map(function(r){ return '<a href="'+esc(r.url)+'" target="_blank" rel="noopener">'+esc(r.agency)+'</a>'; }).join(', ') : ''), DOCS.ratings.url||'https://www.finanzaspublicas.hacienda.gob.mx/es/Finanzas_Publicas/Deuda_Publica']);
     if(DOCS.banxico) items.push([T('Banco de México — Anuncios de política monetaria','Banco de México — Monetary Policy Announcements'), T('Calendario de decisiones de la Junta de Gobierno; definición de la tasa real ex ante.','Calendar of the Board\'s decisions; definition of the ex ante real rate.'), DOCS.banxico.calendarUrl||'#']);
     var svd = DOCS.survey || {}; if(svd.asOf) items.push([esc((svd.title||{})[LANG]||svd.title||''), T('Expectativas de tasa, inflación y tipo de cambio · encuesta del ','Rate, inflation and exchange-rate expectations · survey of ')+fmtDate(svd.asOf)+(svd.url ? '' : T(' · Citi no publica una liga; la liga lleva a la encuesta oficial comparable del Banco de México',' · Citi publishes no link; the link goes to Banco de México\'s comparable official survey')), svd.url||'https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html']);
+    var bsd = DOCS.banxicoSurvey || {}; if(bsd.asOf) items.push([T('Banco de México — Encuesta sobre las expectativas de los especialistas','Banco de México — Survey of Private-Sector Forecasters'), esc((bsd.period||{})[LANG]||'')+T(' · publicada el ',' · published ')+fmtDate(bsd.asOf)+(bsd.institutions ? ' · '+bsd.institutions+' '+T('instituciones','institutions') : '')+T(' · fuente de la inflación esperada a 12 meses (tasa real ex ante)',' · source of expected 12-month inflation (ex ante real rate)'), bsd.url||'https://www.banxico.org.mx/publicaciones-y-prensa/encuestas-sobre-las-expectativas-de-los-especialis/encuestas-expectativas-del-se.html']);
     var ffd = (DOCS.banxico||{}).fedFunds; if(ffd && ffd.value!=null) items.push([T('Reserva Federal de EE. UU. — Tasa de fondos federales','U.S. Federal Reserve — Federal Funds Rate'), T('Límite superior del rango objetivo del FOMC, ','Upper bound of the FOMC target range, ')+fmtPct(ffd.value,2)+' ('+fmtDate(ffd.asOf)+')', ffd.url||'https://www.federalreserve.gov/monetarypolicy/fomccalendars.htm']);
     var fcd = (DOCS.banxico||{}).fclUsdBn; if(fcd && fcd.value!=null) items.push([T('SHCP y Banco de México — Comisión de Cambios','SHCP and Banco de México — Foreign Exchange Commission'), T('Renovación de la Línea de Crédito Flexible del FMI, ','Renewal of the IMF Flexible Credit Line, ')+fmtUSDbn(fcd.value*1000,0)+' ('+fmtDate(fcd.asOf)+')', fcd.url||'https://www.gob.mx/shcp/prensa']);
     setHTML('srcGrid', items.map(function(s){ var host = s[2].replace(/^https?:\/\//,'').split('/')[0]; return '<div class="item"><div class="t">'+s[0]+'</div><div class="d">'+s[1]+'</div><a href="'+esc(s[2])+'" target="_blank" rel="noopener">'+esc(host)+' ↗</a></div>'; }).join(''));
