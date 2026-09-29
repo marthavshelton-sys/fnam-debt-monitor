@@ -275,7 +275,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 }
 </style>
 <style>
-/* ---------- operator colours (shared with /aeropuertos/trafico/) ---------- */
+/* ---------- operator colors (shared with /aeropuertos/trafico/) ---------- */
 :root{
   --c-gap:#1f6f8b; --c-oma:#c2661e; --c-asur:#6a4c93;
   --c-aicm:#3a3a38; --c-aifa:#b8912a; --c-otros:#9a968e;
@@ -946,13 +946,14 @@ window.addEventListener("DOMContentLoaded", function(){
 
   // ---- pointer → airport ---------------------------------------------------------
   // Bigger airports are drawn first, so a smaller marker sits on top and used to swallow its neighbour: AIFA's covers AICM's
-  // centre and Del Norte's sat inside Monterrey's. The pointer now picks the marker it is most centrally in (distance / radius);
-  // outside every marker, the nearest one within 9 map units (so small airports stay easy to reach).
+  // centre and Del Norte's sat inside Monterrey's. The pointer now picks the marker it is most centrally in (distance / radius,
+  // with small markers counted as 9 units wide so they stay reachable inside their own dot); outside every marker, the nearest
+  // one within 9 map units.
   function pickAt(ev){
     var ctm = svg.getScreenCTM(); if (!ctm) return null;
     var pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(ctm.inverse());
     var best = null, score = Infinity, codes = Object.keys(nodes);
-    codes.forEach(function(c){ var n = nodes[c]; if (!active[n.r.grp]) return; var d = Math.hypot(p.x - n.r.x, p.y - n.r.y); if (d <= n.rad && d / n.rad < score) { score = d / n.rad; best = n; } });
+    codes.forEach(function(c){ var n = nodes[c]; if (!active[n.r.grp]) return; var d = Math.hypot(p.x - n.r.x, p.y - n.r.y), s = d / Math.max(n.rad, 9); if (d <= n.rad && s < score) { score = s; best = n; } });
     if (best) return best;
     codes.forEach(function(c){ var n = nodes[c]; if (!active[n.r.grp]) return; var d = Math.hypot(p.x - n.r.x, p.y - n.r.y); if (d <= Math.max(n.rad, 9) && d - n.rad < score) { score = d - n.rad; best = n; } });
     return best;

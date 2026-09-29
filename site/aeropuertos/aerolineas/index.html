@@ -154,7 +154,8 @@ main{flex:1; padding-top:12px;}
 .mx-state{fill:var(--map-land); stroke:var(--map-line); stroke-width:.8;}
 .mx-neighbor{fill:var(--map-land-2); stroke:var(--map-line); stroke-width:.8;}
 svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); stroke-width:.5; stroke-opacity:.9;}
-.fc{cursor:pointer;} .fc circle.dot{fill:var(--c); fill-opacity:.85; stroke:var(--surface); stroke-width:1;} .fc.off circle.dot{fill-opacity:.15;} .fc circle.hit{fill:transparent; stroke:none;} .fc:hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
+.layer-airports{pointer-events:none;} #mxmap.hovering{cursor:pointer;}   /* markers are picked on the svg (pickNode), not by hit circles */
+.fc circle.dot{fill:var(--c); fill-opacity:.85; stroke:var(--surface); stroke-width:1;} .fc.off circle.dot{fill-opacity:.15;} .fc.hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
 .rt{fill:none; stroke:var(--muted); stroke-opacity:.45; stroke-linecap:round; transition:stroke-opacity .15s;}
 .rt.on{stroke:var(--c); stroke-opacity:.9;}
 .rt.off{stroke-opacity:.08;}
@@ -164,13 +165,11 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .spoke.off{stroke-opacity:.08;}
 .spoke-label{font-family:var(--sans); font-size:calc(10.5px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round; pointer-events:none;}
 .spoke-label.off{opacity:.15;}
-.ap{cursor:pointer;}
 .ap circle.dot{fill:var(--muted); fill-opacity:.55; stroke:var(--surface); stroke-width:1; transition:fill-opacity .15s;}
 .ap.on circle.dot{fill:var(--c); fill-opacity:.9;}
 .ap.hub circle.ring{fill:none; stroke:var(--c); stroke-width:calc(2px * var(--k, 1));}
 .ap.off circle.dot{fill-opacity:.12;}
-.ap circle.hit{fill:transparent; stroke:none;}
-.ap:hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
+.ap.hover circle.dot{fill-opacity:1; stroke:var(--text-primary);}
 .ap-label{font-family:var(--sans); font-size:calc(11px * var(--k, 1)); font-weight:600; fill:var(--text-secondary); pointer-events:none; paint-order:stroke; stroke:var(--surface); stroke-width:3px; stroke-linejoin:round;}
 .ap-label.off{opacity:.2;}
 .rt.net{stroke-opacity:.8;}
@@ -194,6 +193,10 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .side .card ul{margin:6px 0 0; padding-left:18px; font-size:12.5px; color:var(--text-secondary);}
 .side .card a.btn{display:inline-flex; margin-top:10px; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:999px; background:var(--accent); color:#fff; text-decoration:none;}
 .legend-note{font-size:12px; color:var(--muted); margin-top:8px; line-height:1.5;}
+/* a carrier that stopped flying: note on its card and in the market-share card, hollow swatch on its chips */
+.side .card .warn{margin-top:8px; padding:6px 9px; border-left:3px solid #b45309; border-radius:6px; background:color-mix(in srgb, #b45309 10%, transparent); font-size:12px; line-height:1.45; color:var(--text-primary);}
+.side .card .warn a{color:inherit;}
+.chips button.ceased .sw{background:transparent; box-shadow:inset 0 0 0 2px var(--c);}
 .legend-note .lg{display:inline-flex; align-items:center; gap:4px; font-weight:600; color:var(--text-primary);} .legend-note .lg i{width:9px; height:9px; border-radius:50%; background:var(--c); display:inline-block;}
 .ctl .hint{font-size:12px; color:var(--muted); flex-basis:100%;}
 .side .card.compact h4{font-size:16px;} .side .card.compact .v{font-size:17px;} .side .card.compact .k{margin-top:6px;}
@@ -475,6 +478,12 @@ window.addEventListener("DOMContentLoaded", function(){
   function dark(){ var t = document.documentElement.getAttribute("data-theme"); if (t) return t === "dark"; return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches; }
   function alpha(hex, a){ var h = (hex || "#888").replace("#", ""); if (h.length === 3) h = h.split("").map(function(c){ return c + c; }).join(""); return "rgba(" + parseInt(h.slice(0, 2), 16) + "," + parseInt(h.slice(2, 4), 16) + "," + parseInt(h.slice(4, 6), 16) + "," + a + ")"; }
   function titleCase(s){ return String(s || "").toLowerCase().replace(/(^|[\s\-\/(,])([a-záéíóúñ])/g, function(m, p, c){ return p + c.toUpperCase(); }).replace(/\bDe\b/g, "de").replace(/\bDel\b/g, "del").replace(/\bY\b/g, "y"); }
+  // Foreign cities and countries come from AFAC without accents and half in Spanish ("BOGOTA", "NUEVA YORK", "MUNICH", "Espana");
+  // routes.js carries their display names (tools/aeropuertos/cities.json). nk() is the key both sides use: no accents, upper case.
+  function nk(s){ return String(s == null ? "" : s).normalize("NFD").replace(/[̀-ͯ]/g, "").toUpperCase().replace(/\s+/g, " ").trim(); }
+  var NAMES = (window.MX_ROUTES && window.MX_ROUTES.names) || {city:{}, country:{}};
+  function cityName(city){ var n = NAMES.city[nk(city)]; return n ? (es() ? n.es : n.en) : titleCase(city); }
+  function countryName(cc, fallback){ var n = cc && NAMES.country[cc]; return n ? (es() ? n.es : n.en) : titleCase(fallback || ""); }
 
   // ---------- data ----------
   var months = A.months, N = months.length, last = N - 1, lastM = +months[last].slice(5), yearNow = +months[last].slice(0, 4);
@@ -496,6 +505,15 @@ window.addEventListener("DOMContentLoaded", function(){
   mxCarriers.forEach(function(c){ c.t12 = ttm12(tot(c), last); c.t12prev = ttm12(tot(c), last - 12); c.lastPax = tot(c)[last]; });
   mxCarriers.sort(function(a, b){ return b.t12 - a.t12; });
   var activeMx = mxCarriers.filter(function(c){ return c.t12 > 0; });
+  // A Mexican carrier with no AFAC passengers in the latest month keeps its 12-month figures and last network on the page as
+  // history, so every place that shows it says since when it has not flown and, when airlines.json records it (`ceased`), why.
+  function stopMonth(c){ if (!c || c.members || !c.lastActive || c.lastActive >= months[last]) return null; var p = c.lastActive.split("-"), d = new Date(+p[0], +p[1], 1); return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0"); }
+  function stopNote(c, withSource){
+    var m = stopMonth(c); if (!m) return "";
+    var t = esc(T("Sin pasajeros reportados a la AFAC desde " + monthLabel(m, true) + ".", "No passengers reported to AFAC since " + monthLabel(m, true) + "."));
+    if (c.ceased) t += " " + esc(es() ? c.ceased.es : c.ceased.en) + (withSource && c.ceased.url ? ' <a href="' + esc(c.ceased.url) + '" target="_blank" rel="noopener">' + esc(T("Fuente", "Source")) + ": " + esc(c.ceased.source || "") + "</a>" : "");
+    return t;
+  }
   var foreign = A.carriers.filter(function(c){ return c.group === "foreign" && c.pax; }).map(function(c){ c.t12 = ttm12(c.pax.intl, last); c.t12prev = ttm12(c.pax.intl, last - 12); return c; }).sort(function(a, b){ return b.t12 - a.t12; });
   var totalAll = A.totals.all, totalT12 = ttm12(totalAll, last);
   var REG = {US:{es:"Estados Unidos", en:"United States", v:"--r-us"}, CA:{es:"Canadá", en:"Canada", v:"--r-ca"}, LATAM:{es:"Centro y Sudamérica", en:"Central and South America", v:"--r-latam"}, EU:{es:"Europa", en:"Europe", v:"--r-eu"}, ASIA:{es:"Asia y Medio Oriente", en:"Asia and Middle East", v:"--r-asia"}, AFR:{es:"África", en:"Africa", v:"--r-afr"}};
@@ -528,7 +546,7 @@ window.addEventListener("DOMContentLoaded", function(){
   // corridor metrics
   var sum = function(a){ return a.reduce(function(x, y){ return x + y; }, 0); };
   R.domestic.forEach(function(d){ d.tot = sum(d.pax); d.key = [d.a, d.b].sort().join("-"); });
-  R.international.forEach(function(d){ d.tot = sum(d.pax); d.cityKey = d.city.toUpperCase(); d.ikey = d.mx + ">" + d.cityKey; });
+  R.international.forEach(function(d){ d.tot = sum(d.pax); d.cityKey = nk(d.city); d.ikey = d.mx + ">" + d.cityKey; });
   var maxDom = R.domestic.length ? R.domestic[0].tot : 1, maxIntl = R.international.length ? R.international[0].tot : 1;
   // airport traffic proxy = sum of corridor passengers touching the airport
   var apTraffic = {}; R.domestic.forEach(function(d){ apTraffic[d.a] = (apTraffic[d.a] || 0) + d.tot; apTraffic[d.b] = (apTraffic[d.b] || 0) + d.tot; }); R.international.forEach(function(d){ apTraffic[d.mx] = (apTraffic[d.mx] || 0) + d.tot; });
@@ -536,7 +554,7 @@ window.addEventListener("DOMContentLoaded", function(){
   var domByKey = {}; R.domestic.forEach(function(d){ domByKey[d.key] = d; });
   var intlByKey = {}; R.international.forEach(function(d){ if (!intlByKey[d.ikey]) intlByKey[d.ikey] = d; });
   // networks: sets per airline id
-  var NET = {}; Object.keys(A.networks || {}).forEach(function(id){ var n = A.networks[id]; NET[id] = {n:n, dom:{}, intl:{}, ap:{}}; (n.domRoutes || []).forEach(function(r){ NET[id].dom[r.slice().sort().join("-")] = true; }); (n.intlRoutes || []).forEach(function(r){ if (r.city) NET[id].intl[r.mx + ">" + String(r.city).toUpperCase()] = true; }); (n.airports || []).forEach(function(c){ NET[id].ap[c] = true; }); });
+  var NET = {}; Object.keys(A.networks || {}).forEach(function(id){ var n = A.networks[id]; NET[id] = {n:n, dom:{}, intl:{}, ap:{}}; (n.domRoutes || []).forEach(function(r){ NET[id].dom[r.slice().sort().join("-")] = true; }); (n.intlRoutes || []).forEach(function(r){ if (r.city) NET[id].intl[r.mx + ">" + nk(r.city)] = true; }); (n.airports || []).forEach(function(c){ NET[id].ap[c] = true; }); });
   function netFor(id){ if (!id) return null; if (NET[id]) return NET[id]; var g = GROUPS[id]; if (g) { for (var i = 0; i < g.members.length; i++) if (NET[g.members[i]]) return NET[g.members[i]]; } return null; }
   function carrierFor(id){ if (!id) return null; return mxCarriers.filter(function(c){ return c.id === id; })[0] || byId[id] || null; }
   function airlinesOnDom(key){ return activeMx.filter(function(c){ var n = netFor(c.id); return n && n.dom[key]; }); }
@@ -572,6 +590,28 @@ window.addEventListener("DOMContentLoaded", function(){
   function arcPath(p1, p2, k){ k = k == null ? 0.16 : k; var mx = (p1[0] + p2[0]) / 2, my = (p1[1] + p2[1]) / 2, dx = p2[0] - p1[0], dy = p2[1] - p1[1]; var cx = mx - dy * k, cy = my + dx * k; return "M" + p1[0].toFixed(1) + " " + p1[1].toFixed(1) + " Q" + cx.toFixed(1) + " " + cy.toFixed(1) + " " + p2[0].toFixed(1) + " " + p2[1].toFixed(1); }
   function showTip(html, x, y){ tip.innerHTML = html; tip.classList.add("show"); var w = wrap.getBoundingClientRect(); var tw = tip.offsetWidth, half = tw / 2 + 4; if (x < half) x = half; if (x > w.width - half) x = w.width - half; tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.transform = (y < tip.offsetHeight + 16) ? "translate(-50%, 14px)" : ""; }
   function hideTip(){ tip.classList.remove("show"); }
+  // Pointer → marker (airports and foreign cities). Markers overlap (AICM and AIFA, Monterrey and Del Norte), and the smaller
+  // one, drawn on top, used to swallow the larger one's centre. The pointer now picks the marker it is most centrally in
+  // (distance / radius, small markers counted at their minimum reach so they stay reachable inside their own dot); outside every
+  // marker, the nearest within that reach. Routes keep their own hover underneath.
+  var pickNodes = [], hoverNode = null;
+  function pickNode(ev){
+    var ctm = svg.getScreenCTM(); if (!ctm || !pickNodes.length) return null;
+    var pt = svg.createSVGPoint(); pt.x = ev.clientX; pt.y = ev.clientY; var p = pt.matrixTransform(ctm.inverse());
+    var best = null, score = Infinity;
+    pickNodes.forEach(function(n){ var d = Math.hypot(p.x - n.x, p.y - n.y), s = d / n.reach; if (d <= n.r && s < score) { score = s; best = n; } });
+    if (best) return best;
+    pickNodes.forEach(function(n){ var d = Math.hypot(p.x - n.x, p.y - n.y); if (d <= n.reach && d - n.r < score) { score = d - n.r; best = n; } });
+    return best;
+  }
+  svg.addEventListener("mousemove", function(ev){
+    var n = pickNode(ev);
+    if (hoverNode && hoverNode !== n) hoverNode.g.classList.remove("hover");
+    if (n) { n.g.classList.add("hover"); n.show(ev); }
+    else if (hoverNode && !(ev.target && ev.target.closest && ev.target.closest(".rt, .spoke"))) hideTip();
+    svg.classList.toggle("hovering", !!n); hoverNode = n;
+  });
+  svg.addEventListener("mouseleave", function(){ if (hoverNode) hoverNode.g.classList.remove("hover"); hoverNode = null; svg.classList.remove("hovering"); hideTip(); });
   function posOf(ev){ var w = wrap.getBoundingClientRect(); return [ev.clientX - w.left, ev.clientY - w.top]; }
   function row(k, v){ return '<div class="row"><span>' + k + '</span><span>' + v + '</span></div>'; }
   function tags(list){ if (!list.length) return ""; return '<div class="tags">' + list.map(function(c){ return '<span class="tag" style="--c:' + colorOf(c) + '">' + esc(c.short) + '</span>'; }).join("") + "</div>"; }
@@ -579,14 +619,15 @@ window.addEventListener("DOMContentLoaded", function(){
 
   // tooltips shared by both views
   function domTip(d, ev, who){ var pos = posOf(ev); var yoy = d.prev ? d.tot / d.prev - 1 : null; showTip('<b>' + esc(apName(d.a)) + ' ↔ ' + esc(apName(d.b)) + '</b>' + (who ? '<div class="op">' + who + '</div>' : "") + row(T("Pasajeros, 12 meses", "Passengers, 12 months"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(yoy)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) + row(T("Pasajeros por vuelo", "Passengers per flight"), d.flights ? nf(d.tot / d.flights, 0) : "—") + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que la vuelan", "Mexican airlines flying it") + '</span></div>' + tags(airlinesOnDom(d.key)), pos[0], pos[1]); }
-  function intlTip(d, ev, who){ var pos = posOf(ev); var yoy = d.prev ? d.tot / d.prev - 1 : null; showTip('<b>' + esc(apName(d.mx)) + ' ↔ ' + esc(titleCase(d.city)) + '</b><div class="op">' + esc(titleCase(d.country)) + (d.approx ? T(" · posición aproximada", " · approximate position") : "") + (who ? " · " + who : "") + '</div>' + row(T("Pasajeros, 12 meses", "Passengers, 12 months"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(yoy)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que la vuelan", "Mexican airlines flying it") + '</span></div>' + tags(airlinesOnIntl(d.mx, d.cityKey)), pos[0], pos[1]); }
+  function intlTip(d, ev, who){ var pos = posOf(ev); var yoy = d.prev ? d.tot / d.prev - 1 : null; showTip('<b>' + esc(apName(d.mx)) + ' ↔ ' + esc(cityName(d.city)) + '</b><div class="op">' + esc(countryName(d.cc, d.country)) + (d.approx ? T(" · posición aproximada", " · approximate position") : "") + (who ? " · " + who : "") + '</div>' + row(T("Pasajeros, 12 meses", "Passengers, 12 months"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(yoy)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que la vuelan", "Mexican airlines flying it") + '</span></div>' + tags(airlinesOnIntl(d.mx, d.cityKey)), pos[0], pos[1]); }
   function netDomTip(x, sel, est, ev){ var pos = posOf(ev), d = x.d; showTip('<b>' + esc(apName(x.a)) + ' ↔ ' + esc(apName(x.b)) + '</b><div class="op">' + esc(sel.car.short) + (est ? T(" · ruta estimada", " · estimated route") : T(" · ruta publicada", " · published route")) + '</div>' + (d ? row(T("Pasajeros del corredor, 12 m (todas las aerolíneas)", "Corridor passengers, 12 m (all airlines)"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(d.prev ? d.tot / d.prev - 1 : null)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) : row(T("Corredor", "Corridor"), T("sin tráfico regular registrado en 12 meses", "no scheduled traffic recorded in 12 months"))) + '<div class="row" style="margin-top:4px"><span>' + T("Otras aerolíneas mexicanas en la ruta", "Other Mexican airlines on the route") + '</span></div>' + tags(airlinesOnDom(x.key).filter(function(c){ return c.id !== sel.id; })), pos[0], pos[1]); }
-  function netIntlTip(x, sel, est, ev){ var pos = posOf(ev), d = x.d; showTip('<b>' + esc(apName(x.mx)) + ' ↔ ' + esc(titleCase(x.city)) + '</b><div class="op">' + (x.country ? esc(titleCase(x.country)) + " · " : "") + esc(sel.car.short) + (est ? T(" · ruta estimada", " · estimated route") : T(" · ruta publicada", " · published route")) + '</div>' + (d ? row(T("Pasajeros del corredor, 12 m (todas las aerolíneas)", "Corridor passengers, 12 m (all airlines)"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(d.prev ? d.tot / d.prev - 1 : null)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) : row(T("Corredor", "Corridor"), T("fuera de los 400 mayores de la AFAC", "outside AFAC's 400 largest"))) + '<div class="row" style="margin-top:4px"><span>' + T("Otras aerolíneas mexicanas en la ruta", "Other Mexican airlines on the route") + '</span></div>' + tags(airlinesOnIntl(x.mx, x.key.split(">")[1]).filter(function(c){ return c.id !== sel.id; })), pos[0], pos[1]); }
-  function cityTip(c, ev){ var pos = posOf(ev); showTip('<b>' + esc(titleCase(c.city)) + '</b><div class="op">' + esc(titleCase(c.country || "")) + '</div>' + row(T("Pasajeros con México, 12 m", "Passengers with Mexico, 12 m"), fmtN(c.tot)) + row(T("Aeropuertos mexicanos conectados", "Mexican airports connected"), c.n) + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que la sirven", "Mexican airlines serving it") + '</span></div>' + tags(c.airlines), pos[0], pos[1]); }
+  function netIntlTip(x, sel, est, ev){ var pos = posOf(ev), d = x.d; showTip('<b>' + esc(apName(x.mx)) + ' ↔ ' + esc(cityName(x.city)) + '</b><div class="op">' + (x.country || x.cc ? esc(countryName(x.cc, x.country)) + " · " : "") + esc(sel.car.short) + (est ? T(" · ruta estimada", " · estimated route") : T(" · ruta publicada", " · published route")) + '</div>' + (d ? row(T("Pasajeros del corredor, 12 m (todas las aerolíneas)", "Corridor passengers, 12 m (all airlines)"), fmtN(d.tot)) + row(T("vs. 12 meses previos", "vs. prior 12 months"), pct(d.prev ? d.tot / d.prev - 1 : null)) + row(T("Vuelos", "Flights"), fmtN(d.flights)) : row(T("Corredor", "Corridor"), T("fuera de los 400 mayores de la AFAC", "outside AFAC's 400 largest"))) + '<div class="row" style="margin-top:4px"><span>' + T("Otras aerolíneas mexicanas en la ruta", "Other Mexican airlines on the route") + '</span></div>' + tags(airlinesOnIntl(x.mx, x.key.split(">")[1]).filter(function(c){ return c.id !== sel.id; })), pos[0], pos[1]); }
+  function cityTip(c, ev){ var pos = posOf(ev); showTip('<b>' + esc(cityName(c.city)) + '</b><div class="op">' + esc(countryName(c.cc, c.country)) + '</div>' + row(T("Pasajeros con México, 12 m", "Passengers with Mexico, 12 m"), fmtN(c.tot)) + row(T("Aeropuertos mexicanos conectados", "Mexican airports connected"), c.n) + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que la sirven", "Mexican airlines serving it") + '</span></div>' + tags(c.airlines), pos[0], pos[1]); }
 
   function renderMap(){
     var f = frameOf(); drawBase(f);
     gR.replaceChildren(); gK.replaceChildren(); gA.replaceChildren(); gL.replaceChildren(); hideTip();
+    pickNodes = []; hoverNode = null; svg.classList.remove("hovering");
     var apXY = f.apXY, W = f.W, H = f.H, wide = f.id === "na", K = symbolScale(); svg.style.setProperty("--k", K);
     var sel = selList(), anySel = sel.length > 0, routesView = S.mapview === "routes";
     var wscale = (wide ? 0.7 : 1) * K, few = K > 1.5 || window.innerWidth <= 640;            // thinner lines on the wide frame; bigger symbols and fewer labels on phones
@@ -595,7 +636,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var fs = 11 * K, lh = fs * 1.15; function textW(t, size){ return String(t).length * size * 0.56 + 6; }
     function collides(b){ for (var i = 0; i < boxes.length; i++) { var o = boxes[i]; if (b.x < o.x + o.w && b.x + b.w > o.x && b.y < o.y + o.h && b.y + b.h > o.y) return true; } return false; }
     function place(x, y, anchor, w, h, force){ var bx = anchor === "end" ? x - w : anchor === "middle" ? x - w / 2 : x; var b = {x:bx, y:y - h * 0.8, w:w, h:h}; if (!force && collides(b)) return false; boxes.push(b); return true; }
-    function addCity(d, on, airline){ var pc = f.proj(d.lon, d.lat); if (!wide || !inFrame(f, pc, 4)) return null; var c = fcity[d.cityKey] || (fcity[d.cityKey] = {city:d.city, country:d.country, key:d.cityKey, p:pc, tot:0, n:0, on:false, col:null, airlines:[]}); c.tot += d.tot; c.n++; if (on) { c.on = true; if (airline && !c.col) c.col = airline.col; } airlinesOnIntl(d.mx, d.cityKey).forEach(function(a){ if (c.airlines.indexOf(a) < 0) c.airlines.push(a); }); return c; }
+    function addCity(d, on, airline){ var pc = f.proj(d.lon, d.lat); if (!wide || !inFrame(f, pc, 4)) return null; var c = fcity[d.cityKey] || (fcity[d.cityKey] = {city:d.city, country:d.country, cc:d.cc, key:d.cityKey, p:pc, tot:0, n:0, on:false, col:null, airlines:[]}); c.tot += d.tot; c.n++; if (on) { c.on = true; if (airline && !c.col) c.col = airline.col; } airlinesOnIntl(d.mx, d.cityKey).forEach(function(a){ if (c.airlines.indexOf(a) < 0) c.airlines.push(a); }); return c; }
     function edgeLabel(d, off, text){ edgeReq.push({d:d, off:off, text:text}); }
     function spokeTo(d, cls, width, col, angOff, onTip){ var a = R.airports[d.mx], p0 = apXY[d.mx], ang = bearing(a.lat, a.lon, d.lat, d.lon) + (angOff || 0), p1 = edgePoint(f, p0[0], p0[1], ang); var ln = el("line", {x1:p0[0].toFixed(1), y1:p0[1].toFixed(1), x2:p1[0].toFixed(1), y2:p1[1].toFixed(1), "class":cls, "stroke-width":width.toFixed(2)}, gK); if (col) ln.style.setProperty("--c", col); ln.addEventListener("mousemove", onTip); ln.addEventListener("mouseleave", hideTip); return ln; }
     function arcTo(p1, p2, cls, width, col, k, onTip, layer){ var p = el("path", {d:arcPath(p1, p2, k), "class":cls, "stroke-width":width.toFixed(2)}, layer || gR); if (col) p.style.setProperty("--c", col); p.addEventListener("mousemove", onTip); p.addEventListener("mouseleave", hideTip); return p; }
@@ -627,7 +668,7 @@ window.addEventListener("DOMContentLoaded", function(){
           }
         });
         // edge labels for the largest (or highlighted) out-of-frame corridors
-        ishown.filter(function(d){ return !(anySel) || ifl(d).length; }).filter(function(d){ return !(wide && inFrame(f, f.proj(d.lon, d.lat), 4)); }).forEach(function(d){ edgeLabel(d, false, titleCase(d.city) + " · " + trafficLabel(d.tot)); });
+        ishown.filter(function(d){ return !(anySel) || ifl(d).length; }).filter(function(d){ return !(wide && inFrame(f, f.proj(d.lon, d.lat), 4)); }).forEach(function(d){ edgeLabel(d, false, cityName(d.city) + " · " + trafficLabel(d.tot)); });
       }
     } else if (anySel) {
       // network view: each selected airline's own routes — domestic pairs as arcs, international pairs as arcs (wide frame) or spokes
@@ -636,14 +677,14 @@ window.addEventListener("DOMContentLoaded", function(){
         var nw = x.net.n, est = !!nw.estimated, n = sel.length;
         var nd = (nw.domRoutes || []).map(function(r){ var key = r.slice().sort().join("-"); return {a:r[0], b:r[1], key:key, d:domByKey[key] || null}; }).filter(function(y){ return apXY[y.a] && apXY[y.b]; }).sort(function(p, q){ return (p.d ? p.d.tot : 0) - (q.d ? q.d.tot : 0); });
         nd.forEach(function(y){ arcTo(apXY[y.a], apXY[y.b], "rt on net" + (est ? " est" : ""), (y.d ? 0.8 + 5 * Math.sqrt(y.d.tot / maxDom) : 0.9) * wscale * (n > 1 ? 0.85 : 1), x.col, offsetK(j, n), function(ev){ netDomTip(y, x, est, ev); }); });
-        var ni = (nw.intlRoutes || []).map(function(r){ var key = r.mx + ">" + String(r.city).toUpperCase(), d = intlByKey[key] || null; return {mx:r.mx, key:key, d:d, lat:d ? d.lat : r.lat, lon:d ? d.lon : r.lon, city:d ? d.city : String(r.city), cityKey:key.split(">")[1], country:d ? d.country : (r.country || ""), tot:d ? d.tot : 0}; }).filter(function(y){ return apXY[y.mx] && y.lat != null; }).sort(function(p, q){ return q.tot - p.tot; });
+        var ni = (nw.intlRoutes || []).map(function(r){ var key = r.mx + ">" + nk(r.city), d = intlByKey[key] || null; return {mx:r.mx, key:key, d:d, lat:d ? d.lat : r.lat, lon:d ? d.lon : r.lon, city:d ? d.city : String(r.city), cityKey:key.split(">")[1], country:d ? d.country : (r.country || ""), cc:d ? d.cc : (r.cc || null), tot:d ? d.tot : 0}; }).filter(function(y){ return apXY[y.mx] && y.lat != null; }).sort(function(p, q){ return q.tot - p.tot; });
         ni.slice().reverse().forEach(function(y){
           var width = (y.d ? 0.6 + 4 * Math.sqrt(y.d.tot / maxIntl) : 0.8) * wscale * (n > 1 ? 0.85 : 1), pc = f.proj(y.lon, y.lat);
-          if (wide && inFrame(f, pc, 4)) { addCity({cityKey:y.cityKey, city:y.city, country:y.country, lon:y.lon, lat:y.lat, tot:y.tot, mx:y.mx}, true, x); arcTo(apXY[y.mx], pc, "rt intl on net" + (est ? " est" : ""), width, x.col, offsetK(j, n) - 0.02, function(ev){ netIntlTip(y, x, est, ev); }); }
+          if (wide && inFrame(f, pc, 4)) { addCity({cityKey:y.cityKey, city:y.city, country:y.country, cc:y.cc, lon:y.lon, lat:y.lat, tot:y.tot, mx:y.mx}, true, x); arcTo(apXY[y.mx], pc, "rt intl on net" + (est ? " est" : ""), width, x.col, offsetK(j, n) - 0.02, function(ev){ netIntlTip(y, x, est, ev); }); }
           else spokeTo(y, "spoke on net" + (est ? " est" : ""), width, x.col, (j - (n - 1) / 2) * 0.035, function(ev){ netIntlTip(y, x, est, ev); });
         });
         var seenCity = {};
-        ni.forEach(function(y){ if (seenCity[y.cityKey]) return; seenCity[y.cityKey] = true; if (!(wide && inFrame(f, f.proj(y.lon, y.lat), 4))) edgeLabel(y, false, titleCase(y.city) + (y.d ? " · " + trafficLabel(y.tot) : "")); });
+        ni.forEach(function(y){ if (seenCity[y.cityKey]) return; seenCity[y.cityKey] = true; if (!(wide && inFrame(f, f.proj(y.lon, y.lat), 4))) edgeLabel(y, false, cityName(y.city) + (y.d ? " · " + trafficLabel(y.tot) : "")); });
       });
     }
     // ----- symbols and labels: labels avoid each other (hubs and the largest airports first, then foreign cities, then the rest, then edge labels) -----
@@ -663,9 +704,8 @@ window.addEventListener("DOMContentLoaded", function(){
       var r = (2 + 9 * Math.sqrt(c.tot / maxCity)) * Math.sqrt(K), g = el("g", {"class":"fc" + (c.on ? " on" : "") + (anySel && !c.on ? " off" : "")}, gA);
       g.style.setProperty("--c", c.col || cssVar("--accent"));
       el("circle", {cx:c.p[0].toFixed(1), cy:c.p[1].toFixed(1), r:r.toFixed(1), "class":"dot"}, g);
-      el("circle", {cx:c.p[0].toFixed(1), cy:c.p[1].toFixed(1), r:Math.max(r, 7 * K).toFixed(1), "class":"hit"}, g);
-      g.addEventListener("mousemove", function(ev){ cityTip(c, ev); }); g.addEventListener("mouseleave", hideTip);
-      if (cityLabels < (few ? 6 : 20) && (!anySel || c.on) && labelAt(c.p, r, titleCase(c.city), "ap-label fc-label", false)) cityLabels++;
+      pickNodes.push({x:c.p[0], y:c.p[1], r:r, reach:Math.max(r, 7 * K), g:g, show:function(ev){ cityTip(c, ev); }});
+      if (cityLabels < (few ? 6 : 20) && (!anySel || c.on) && labelAt(c.p, r, cityName(c.city), "ap-label fc-label", false)) cityLabels++;
     });
     // Mexican airports
     var countBy = {}; if (!anySel && !routesView) { activeMx.forEach(function(c){ var n = netFor(c.id); if (n) Object.keys(n.ap).forEach(function(k){ countBy[k] = (countBy[k] || 0) + 1; }); }); }
@@ -677,9 +717,7 @@ window.addEventListener("DOMContentLoaded", function(){
       if (!anySel && !routesView && countBy[c]) { var k = countBy[c]; g.classList.add("on"); g.style.setProperty("--c", k >= 5 ? cssVar("--accent") : (k >= 3 ? "#5f8f7a" : (k >= 2 ? "#9dbaa9" : "#c5cfc9"))); }
       hubOf.forEach(function(x, j){ var ring = el("circle", {cx:p[0], cy:p[1], r:(r + 4 + j * 3.5).toFixed(1), "class":"ring"}, g); ring.style.stroke = x.col; });
       el("circle", {cx:p[0], cy:p[1], r:r.toFixed(1), "class":"dot"}, g);
-      el("circle", {cx:p[0], cy:p[1], r:Math.max(r, 8 * K).toFixed(1), "class":"hit"}, g);
-      g.addEventListener("mousemove", function(ev){ var pos = posOf(ev); var lst = activeMx.filter(function(x){ var n = netFor(x.id); return n && n.ap[c]; }); showTip('<b>' + esc(apName(c)) + '</b><span style="color:var(--muted);font-size:11px;margin-left:4px">' + c + '</span>' + row(T("Pasajeros en corredores, 12 m", "Corridor passengers, 12 m"), fmtN(apTraffic[c])) + (hubOf.length ? row(T("Base / hub de", "Hub of"), esc(hubOf.map(function(x){ return x.car.short; }).join(", "))) : "") + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que lo sirven", "Mexican airlines serving it") + '</span></div>' + tags(lst), pos[0], pos[1]); });
-      g.addEventListener("mouseleave", hideTip);
+      pickNodes.push({x:p[0], y:p[1], r:r, reach:Math.max(r, 8 * K), g:g, show:function(ev){ var pos = posOf(ev); var lst = activeMx.filter(function(x){ var n = netFor(x.id); return n && n.ap[c]; }); showTip('<b>' + esc(apName(c)) + '</b><span style="color:var(--muted);font-size:11px;margin-left:4px">' + c + '</span>' + row(T("Pasajeros en corredores, 12 m", "Corridor passengers, 12 m"), fmtN(apTraffic[c])) + (hubOf.length ? row(T("Base / hub de", "Hub of"), esc(hubOf.map(function(x){ return x.car.short; }).join(", "))) : "") + '<div class="row" style="margin-top:4px"><span>' + T("Aerolíneas mexicanas que lo sirven", "Mexican airlines serving it") + '</span></div>' + tags(lst), pos[0], pos[1]); }});
     });
     var more = codes.slice(0, few ? 6 : (wide ? 10 : 16)); if (anySel && !few) more = more.concat(codes.filter(function(c){ return servedBy(c).length; }).slice(0, wide ? 14 : 26));
     more.forEach(function(c){ apLabel(c, false); });
@@ -695,22 +733,25 @@ window.addEventListener("DOMContentLoaded", function(){
     });
     renderSide(); renderLegend();
   }
-  function netNote(x){ return x.net ? (x.net.n.estimated ? T(" (red estimada a partir de sus destinos y bases, líneas punteadas)", " (network estimated from its destinations and hubs, dotted lines)") : T(" (rutas publicadas por la aerolínea)", " (routes published by the airline)")) : T(" (sin datos de red)", " (no network data)"); }
+  function netNote(x){ var stop = stopMonth(x.car); return (stop ? T(" (sin vuelos desde " + monthLabel(stop, true) + "; se muestra su última red conocida)", " (not flying since " + monthLabel(stop, true) + "; its last known network is shown)") : "") + netNoteBase(x); }
+  function netNoteBase(x){ return x.net ? (x.net.n.estimated ? T(" (red estimada a partir de sus destinos y bases, líneas punteadas)", " (network estimated from its destinations and hubs, dotted lines)") : T(" (rutas publicadas por la aerolínea)", " (routes published by the airline)")) : T(" (sin datos de red)", " (no network data)"); }
   function renderLegend(){
     var e = document.getElementById("maplegend"), sel = selList(), wide = frameOf().id === "na";
     var names = sel.map(function(x){ return '<span class="lg" style="--c:' + x.col + '"><i></i>' + esc(x.car.short) + '</span>'; }).join(" ");
     var intlHow = wide ? T("líneas hacia ciudades fuera del mapa = corredores internacionales lejanos, en la dirección real de la ciudad", "lines toward cities outside the map = distant international corridors, in the true direction of the city") : T("líneas punteadas = corredores internacionales, trazados desde el aeropuerto mexicano en la dirección de la ciudad extranjera hasta el borde del mapa", "dashed lines = international corridors, drawn from the Mexican airport toward the foreign city up to the edge of the map");
-    if (S.mapview === "routes") e.innerHTML = T("Arcos = corredores nacionales" + (wide ? " e internacionales dentro del mapa" : "") + "; ", "Arcs = domestic corridors" + (wide ? " and international corridors inside the map" : "") + "; ") + intlHow + T(". Grosor = pasajeros de los últimos 12 meses en el corredor, todas las aerolíneas (AFAC). ", ". Width = passengers over the last 12 months on the corridor, all airlines (AFAC). ") + (sel.length ? T("En color, los corredores que vuela ", "In colour, the corridors flown by ") + names + (sel.length > 1 ? T(" — cuando varias vuelan la misma ruta, sus líneas van en paralelo", " — when several fly the same route their lines run side by side") : "") + ": " + sel.map(function(x){ return esc(x.car.short) + netNote(x); }).join("; ") + "." : T("Elige una o varias aerolíneas para resaltar sus redes.", "Pick one or several airlines to highlight their networks."));
-    else e.innerHTML = sel.length ? (T("Red de ", "Network of ") + names + T(": arcos = rutas nacionales" + (wide ? " e internacionales dentro del mapa" : "") + "; ", ": arcs = domestic routes" + (wide ? " and international routes inside the map" : "") + "; ") + intlHow.replace(/corredores|corridors/g, function(m){ return m === "corredores" ? "rutas" : "routes"; }) + T("; puntos = aeropuertos que sirve; anillo = base o hub. Grosor = pasajeros del corredor en 12 meses, todas las aerolíneas (AFAC). ", "; dots = airports served; ring = base or hub. Width = corridor passengers over 12 months, all airlines (AFAC). ") + sel.map(function(x){ return esc(x.car.short) + netNote(x) + (x.net ? T(". Fuente: ", ". Source: ") + esc(x.net.n.source) : ""); }).join("; ") + ".") : T("Sin aerolínea seleccionada: el color indica cuántas aerolíneas mexicanas sirven cada aeropuerto (más oscuro = más aerolíneas). Elige una o varias para ver sus redes.", "No airline selected: colour shows how many Mexican airlines serve each airport (darker = more airlines). Pick one or several to see their networks.");
+    if (S.mapview === "routes") e.innerHTML = T("Arcos = corredores nacionales" + (wide ? " e internacionales dentro del mapa" : "") + "; ", "Arcs = domestic corridors" + (wide ? " and international corridors inside the map" : "") + "; ") + intlHow + T(". Grosor = pasajeros de los últimos 12 meses en el corredor, todas las aerolíneas (AFAC). ", ". Width = passengers over the last 12 months on the corridor, all airlines (AFAC). ") + (sel.length ? T("En color, los corredores que vuela ", "In color, the corridors flown by ") + names + (sel.length > 1 ? T(" — cuando varias vuelan la misma ruta, sus líneas van en paralelo", " — when several fly the same route their lines run side by side") : "") + ": " + sel.map(function(x){ return esc(x.car.short) + netNote(x); }).join("; ") + "." : T("Elige una o varias aerolíneas para resaltar sus redes.", "Pick one or several airlines to highlight their networks."));
+    else e.innerHTML = sel.length ? (T("Red de ", "Network of ") + names + T(": arcos = rutas nacionales" + (wide ? " e internacionales dentro del mapa" : "") + "; ", ": arcs = domestic routes" + (wide ? " and international routes inside the map" : "") + "; ") + intlHow.replace(/corredores|corridors/g, function(m){ return m === "corredores" ? "rutas" : "routes"; }) + T("; puntos = aeropuertos que sirve; anillo = base o hub. Grosor = pasajeros del corredor en 12 meses, todas las aerolíneas (AFAC). ", "; dots = airports served; ring = base or hub. Width = corridor passengers over 12 months, all airlines (AFAC). ") + sel.map(function(x){ return esc(x.car.short) + netNote(x) + (x.net ? T(". Fuente: ", ". Source: ") + esc(x.net.n.source) : ""); }).join("; ") + ".") : T("Sin aerolínea seleccionada: el color indica cuántas aerolíneas mexicanas sirven cada aeropuerto (más oscuro = más aerolíneas). Elige una o varias para ver sus redes.", "No airline selected: color shows how many Mexican airlines serve each airport (darker = more airlines). Pick one or several to see their networks.");
   }
   function airlineCard(x, compact){
     var car = x.car, net = x.net, t12 = c12(car), prev = ttm12(tot(car), last - 12), dom12 = ttm12(car.pax.dom, last), intl12 = ttm12(car.pax.intl, last);
     var mxTot = ttm12(A.totals.mxDom, last) + ttm12(A.totals.mxIntl, last);
     var ir = irFor(x.id), irLast = ir && ir.months.length ? ir.months.length - 1 : -1;
+    var stop = stopMonth(car);
     var html = '<div class="card' + (compact ? " compact" : "") + '" style="--c:' + x.col + '"><h4><span class="swatch"></span>' + esc(car.name) + '</h4>' + (compact ? "" : '<div class="s">' + esc((car.members ? car.members.map(function(m){ return m.name; }).join(" + ") : car.name)) + '</div>') +
+      (stop ? '<div class="warn">' + stopNote(car, !compact) + '</div>' : "") +
       '<div class="k">' + T("Pasajeros, últimos 12 meses (AFAC)", "Passengers, last 12 months (AFAC)") + '</div><div class="v">' + fmtM(t12) + '</div><div class="s"><span class="' + cls(prev ? t12 / prev - 1 : null) + '">' + pct(prev ? t12 / prev - 1 : null) + '</span> ' + T("vs. 12 m previos · ", "vs. prior 12 m · ") + nf(t12 / totalT12 * 100, 1) + T("% del mercado, ", "% of the market, ") + nf(t12 / mxTot * 100, 1) + T("% de las aerolíneas mexicanas", "% of Mexican airlines") + '</div>';
     if (!compact) html += '<div class="k">' + T("Nacional / internacional", "Domestic / international") + '</div><div class="v">' + nf(dom12 / (t12 || 1) * 100, 0) + '% / ' + nf(intl12 / (t12 || 1) * 100, 0) + '%</div>';
-    if (net) { var n = net.n; html += '<div class="k">' + T("Red", "Network") + '</div><div class="v">' + n.counts.airportsMx + '</div><div class="s">' + T("aeropuertos en México · ", "airports in Mexico · ") + n.counts.foreign + T(" destinos en el extranjero · ", " destinations abroad · ") + n.counts.domRoutes + T(" rutas nacionales", " domestic routes") + (n.counts.intlRoutes ? T(" y ", " and ") + n.counts.intlRoutes + T(" internacionales", " international") : "") + (n.estimated ? T(" (estimadas)", " (estimated)") : "") + '</div>' + (n.hubs && n.hubs.length ? '<div class="s">' + T("Bases: ", "Hubs: ") + n.hubs.map(apName).join(", ") + '</div>' : "") + (compact ? "" : '<div class="s">' + T("Fuente: ", "Source: ") + esc(n.source) + (n.asOf ? " · " + n.asOf : "") + '</div>'); }
+    if (net) { var n = net.n; html += '<div class="k">' + (stop ? T("Última red conocida (hasta " + monthLabel(car.lastActive, true) + ")", "Last known network (through " + monthLabel(car.lastActive, true) + ")") : T("Red", "Network")) + '</div><div class="v">' + n.counts.airportsMx + '</div><div class="s">' + T("aeropuertos en México · ", "airports in Mexico · ") + n.counts.foreign + T(" destinos en el extranjero · ", " destinations abroad · ") + n.counts.domRoutes + T(" rutas nacionales", " domestic routes") + (n.counts.intlRoutes ? T(" y ", " and ") + n.counts.intlRoutes + T(" internacionales", " international") : "") + (n.estimated ? T(" (estimadas)", " (estimated)") : "") + '</div>' + (n.hubs && n.hubs.length ? '<div class="s">' + T("Bases: ", "Hubs: ") + n.hubs.map(apName).join(", ") + '</div>' : "") + (compact ? "" : '<div class="s">' + T("Fuente: ", "Source: ") + esc(n.source) + (n.asOf ? " · " + n.asOf : "") + '</div>'); }
     if (ir && irLast >= 0) html += '<div class="k">' + T("Reportado por la aerolínea, ", "Reported by the airline, ") + monthLabel(ir.months[irLast]) + '</div><div class="v">' + (ir.lf.total[irLast] != null ? nf(ir.lf.total[irLast], 1) + "%" : "—") + '</div><div class="s">' + T("factor de ocupación · ", "load factor · ") + (ir.pax.total[irLast] != null ? nf(ir.pax.total[irLast] / 1000, 2) + T(" M pasajeros", " M passengers") : "") + '</div>';
     if (!compact) html += '<a class="btn" href="#aerolineas">' + T("Ver series y participación", "See series and share") + '</a>';
     return html + '</div>';
@@ -718,7 +759,8 @@ window.addEventListener("DOMContentLoaded", function(){
   function renderSide(){
     var side = document.getElementById("side"), sel = selList();
     if (!sel.length) {
-      side.innerHTML = '<div class="card"><h4>' + T("Participación del Mercado Mexicano", "Mexican Market Share") + '</h4><div class="s">' + T("Porcentaje de todos los pasajeros regulares (aerolíneas mexicanas y extranjeras), últimos 12 meses a ", "Share of all scheduled passengers (Mexican and foreign airlines), last 12 months to ") + monthLabel(months[last]) + '</div>' + activeMx.slice(0, 7).map(function(c){ return '<div class="k"><span class="swatch" style="--c:' + colorOf(c) + '"></span>' + esc(c.short) + '</div><div class="v">' + nf(c.t12 / totalT12 * 100, 1) + '% <span class="s">' + fmtM(c.t12) + '</span></div>'; }).join("") + '<div class="k">' + T("Aerolíneas extranjeras", "Foreign airlines") + '</div><div class="v">' + nf(ttm12(A.totals.foreignIntl, last) / totalT12 * 100, 1) + '% <span class="s">' + fmtM(ttm12(A.totals.foreignIntl, last)) + '</span></div></div>';
+      side.innerHTML = '<div class="card"><h4>' + T("Participación del Mercado Mexicano", "Mexican Market Share") + '</h4><div class="s">' + T("Porcentaje de todos los pasajeros regulares (aerolíneas mexicanas y extranjeras), últimos 12 meses a ", "Share of all scheduled passengers (Mexican and foreign airlines), last 12 months to ") + monthLabel(months[last]) + '</div>' + activeMx.slice(0, 7).map(function(c){ return '<div class="k"><span class="swatch" style="--c:' + colorOf(c) + '"></span>' + esc(c.short) + (stopMonth(c) ? " †" : "") + '</div><div class="v">' + nf(c.t12 / totalT12 * 100, 1) + '% <span class="s">' + fmtM(c.t12) + '</span></div>'; }).join("") + '<div class="k">' + T("Aerolíneas extranjeras", "Foreign airlines") + '</div><div class="v">' + nf(ttm12(A.totals.foreignIntl, last) / totalT12 * 100, 1) + '% <span class="s">' + fmtM(ttm12(A.totals.foreignIntl, last)) + '</span></div>' +
+        activeMx.slice(0, 7).filter(function(c){ return stopMonth(c); }).map(function(c){ return '<div class="warn">† ' + esc(c.short) + ": " + stopNote(c, false) + "</div>"; }).join("") + '</div>';
       return;
     }
     side.innerHTML = sel.map(function(x){ return airlineCard(x, sel.length > 1); }).join("");
@@ -729,8 +771,8 @@ window.addEventListener("DOMContentLoaded", function(){
   // map chips: several airlines can be combined; "All" clears the selection
   function renderMapChips(){
     var none = !S.airlines.length;
-    document.getElementById("mapchips").innerHTML = '<button type="button" class="plain' + (none ? " on" : "") + '" data-a="" aria-pressed="' + none + '">' + T("Todas", "All") + '</button>' + activeMx.map(function(c){ var has = !!netFor(c.id), on = S.airlines.indexOf(c.id) >= 0; return '<button type="button" data-a="' + c.id + '" class="' + (on ? "on" : "") + '" aria-pressed="' + on + '" style="--c:' + colorOf(c) + '"' + (has ? "" : ' title="' + T("sin datos de red", "no network data") + '"') + '><span class="sw"></span>' + esc(c.short) + (has ? "" : " ·") + '</button>'; }).join("");
-    document.getElementById("chips-hint").textContent = S.airlines.length > 1 ? T("Comparando " + S.airlines.length + " aerolíneas: cada una con su color; pulsa una para quitarla.", "Comparing " + S.airlines.length + " airlines, each in its own colour; tap one to remove it.") : T("Pulsa varias aerolíneas para superponer sus rutas.", "Tap several airlines to overlay their routes.");
+    document.getElementById("mapchips").innerHTML = '<button type="button" class="plain' + (none ? " on" : "") + '" data-a="" aria-pressed="' + none + '">' + T("Todas", "All") + '</button>' + activeMx.map(function(c){ var has = !!netFor(c.id), on = S.airlines.indexOf(c.id) >= 0; var stop = stopMonth(c), tip = stop ? stopNote(c, false).replace(/<[^>]+>/g, "") : (has ? "" : T("sin datos de red", "no network data")); return '<button type="button" data-a="' + c.id + '" class="' + (on ? "on" : "") + (stop ? " ceased" : "") + '" aria-pressed="' + on + '" style="--c:' + colorOf(c) + '"' + (tip ? ' title="' + esc(tip) + '"' : "") + '><span class="sw"></span>' + esc(c.short) + (has ? "" : " ·") + (stop ? " †" : "") + '</button>'; }).join("");
+    document.getElementById("chips-hint").textContent = S.airlines.length > 1 ? T("Comparando " + S.airlines.length + " aerolíneas, cada una con su color; toca una para quitarla.", "Comparing " + S.airlines.length + " airlines, each in its own color; tap one to remove it.") : T("Toca varias aerolíneas para superponer sus rutas.", "Tap several airlines to overlay their routes.");
   }
   document.getElementById("mapchips").addEventListener("click", function(ev){ var b = ev.target.closest("button"); if (!b) return; var id = b.dataset.a; if (!id) S.airlines = []; else { var i = S.airlines.indexOf(id); if (i >= 0) S.airlines.splice(i, 1); else S.airlines.push(id); } renderMapChips(); renderMap(); });
   S.airlines = S.airlines.filter(function(id){ return !!carrierFor(id); });
@@ -768,7 +810,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
   // ---------- 2. airline chart ----------
   function renderAlChips(){
-    document.getElementById("alchips").innerHTML = activeMx.map(function(c){ return '<button type="button" data-id="' + c.id + '" aria-pressed="' + !!S.sel[c.id] + '" style="--c:' + colorOf(c) + '"><span class="sw"></span>' + esc(c.short) + '</button>'; }).join("") + '<button type="button" data-id="FOREIGN" aria-pressed="' + !!S.sel.FOREIGN + '" style="--c:' + cssVar("--muted") + '"><span class="sw"></span>' + T("Extranjeras", "Foreign") + '</button><button type="button" class="plain" data-all="1">' + T("Todas", "All") + '</button><button type="button" class="plain" data-none="1">' + T("Ninguna", "None") + '</button>';
+    document.getElementById("alchips").innerHTML = activeMx.map(function(c){ var stop = stopMonth(c); return '<button type="button" data-id="' + c.id + '" class="' + (stop ? "ceased" : "") + '" aria-pressed="' + !!S.sel[c.id] + '" style="--c:' + colorOf(c) + '"' + (stop ? ' title="' + esc(stopNote(c, false).replace(/<[^>]+>/g, "")) + '"' : "") + '><span class="sw"></span>' + esc(c.short) + (stop ? " †" : "") + '</button>'; }).join("") + '<button type="button" data-id="FOREIGN" aria-pressed="' + !!S.sel.FOREIGN + '" style="--c:' + cssVar("--muted") + '"><span class="sw"></span>' + T("Extranjeras", "Foreign") + '</button><button type="button" class="plain" data-all="1">' + T("Todas", "All") + '</button><button type="button" class="plain" data-none="1">' + T("Ninguna", "None") + '</button>';
   }
   document.getElementById("alchips").addEventListener("click", function(ev){ var b = ev.target.closest("button"); if (!b) return; if (b.dataset.all) { activeMx.forEach(function(c){ S.sel[c.id] = true; }); S.sel.FOREIGN = true; } else if (b.dataset.none) { Object.keys(S.sel).forEach(function(k){ S.sel[k] = false; }); } else S.sel[b.dataset.id] = !S.sel[b.dataset.id]; renderAlChips(); renderAl(); });
   function renderAl(){
@@ -801,7 +843,8 @@ window.addEventListener("DOMContentLoaded", function(){
     opts.plugins.legend.display = datasets.length > 1;
     mount("alchart", {type:type, data:{labels:labels, datasets:datasets}, options:opts});
     var msg = document.getElementById("almsg"); msg.hidden = datasets.length > 0; if (!datasets.length) msg.textContent = T("Selecciona al menos una aerolínea.", "Select at least one airline.");
-    document.getElementById("alfoot").textContent = T("AFAC, estadística mensual por aerolínea: ", "AFAC, monthly statistics by airline: ") + unit + T(" en servicio regular (excluye fletamento y carga pura), hasta ", " on scheduled service (charter and all-cargo excluded), to ") + monthLabel(months[last]) + ". " + T("Aeroméxico incluye Aeroméxico Connect. Las aerolíneas extranjeras solo operan servicio internacional. La participación es sobre el mercado total (mexicanas + extranjeras) del segmento elegido.", "Aeroméxico includes Aeroméxico Connect. Foreign airlines only operate international service. Market share is over the whole market (Mexican + foreign) of the chosen segment.") + (S.view === "yoy" ? T(" Variación anual = mismo mes del año anterior.", " Y/y change = versus the same month a year earlier.") : "") + (S.view === "ttm" ? T(" Doce meses móviles = suma de los últimos doce meses.", " Trailing 12 m = sum of the latest twelve months.") : "");
+    document.getElementById("alfoot").textContent = T("AFAC, estadística mensual por aerolínea: ", "AFAC, monthly statistics by airline: ") + unit + T(" en servicio regular (excluye fletamento y carga pura), hasta ", " on scheduled service (charter and all-cargo excluded), to ") + monthLabel(months[last]) + ". " + T("Aeroméxico incluye Aeroméxico Connect. Las aerolíneas extranjeras solo operan servicio internacional. La participación es sobre el mercado total (mexicanas + extranjeras) del segmento elegido.", "Aeroméxico includes Aeroméxico Connect. Foreign airlines only operate international service. Market share is over the whole market (Mexican + foreign) of the chosen segment.") + (S.view === "yoy" ? T(" Variación anual = mismo mes del año anterior.", " Y/y change = versus the same month a year earlier.") : "") + (S.view === "ttm" ? T(" Doce meses móviles = suma de los últimos doce meses.", " Trailing 12 m = sum of the latest twelve months.") : "") +
+      activeMx.filter(function(c){ return S.sel[c.id] && stopMonth(c); }).map(function(c){ return " † " + c.short + ": " + stopNote(c, false).replace(/<[^>]+>/g, "").replace(/&amp;/g, "&"); }).join("");
   }
 
   // ---------- 3. foreign ----------
@@ -813,9 +856,9 @@ window.addEventListener("DOMContentLoaded", function(){
     mount("regchart", {type:"line", data:{labels:labels, datasets:regs.map(function(r, i){ return {label:regName(r.id), data:r.pax.slice(startIdx), borderColor:regColor(r.id), backgroundColor:alpha(regColor(r.id), .6), fill:i === 0 ? "origin" : "-1", stack:"r", borderWidth:1.2, pointRadius:0, pointHitRadius:6, tension:.15}; })}, options:opts});
     var foT12 = ttm12(A.totals.foreignIntl, last), intlT12 = foT12 + ttm12(A.totals.mxIntl, last);
     var rows = foreign.filter(function(c){ return c.t12 > 0; }).slice(0, 25);
-    document.querySelector("#fotbl thead").innerHTML = "<tr><th class=\"l\">#</th><th class=\"l\">" + T("Aerolínea", "Airline") + "</th><th class=\"l\">" + T("Región", "Region") + "</th><th>" + T("Últimos 12 m", "Last 12 m") + "</th><th>" + T("Var. a/a", "Y/y") + "</th><th>" + T("Del tráfico internacional", "Of international traffic") + "</th></tr>";
-    document.querySelector("#fotbl tbody").innerHTML = rows.map(function(c, i){ var yoy = c.t12prev ? c.t12 / c.t12prev - 1 : null; return "<tr><td class=\"l\">" + (i + 1) + "</td><td class=\"l\"><span class=\"dot\" style=\"--c:" + regColor(c.region) + "\"></span>" + esc(c.short) + "</td><td class=\"l\">" + esc(regName(c.region)) + "</td><td>" + fmtN(c.t12) + "</td><td class=\"" + cls(yoy) + "\">" + pct(yoy) + "</td><td>" + nf(c.t12 / intlT12 * 100, 1) + "%</td></tr>"; }).join("");
-    document.getElementById("fo-note").textContent = T("Pasajeros regulares internacionales, 12 meses a ", "Scheduled international passengers, 12 months to ") + monthLabel(months[last]) + T(". Las aerolíneas extranjeras transportan ", ". Foreign airlines carry ") + nf(foT12 / intlT12 * 100, 0) + T("% del tráfico internacional de México.", "% of Mexico's international traffic.");
+    document.querySelector("#fotbl thead").innerHTML = "<tr><th class=\"l\">#</th><th class=\"l\">" + T("Aerolínea", "Airline") + "</th><th class=\"l\">" + T("Región", "Region") + "</th><th>" + T("Pasajeros 12 m", "Passengers, 12 m") + "</th><th>" + T("Var. 12 m", "Chg., 12 m") + "</th><th>" + T("Del tráfico internacional, 12 m", "Of international traffic, 12 m") + "</th></tr>";
+    document.querySelector("#fotbl tbody").innerHTML = rows.map(function(c, i){ var yoy = c.t12prev ? c.t12 / c.t12prev - 1 : null; return "<tr><td class=\"l\">" + (i + 1) + "</td><td class=\"l\"" + (c.aliases && c.aliases.length && c.aliases[0] !== c.short ? " title=\"" + esc(T("Nombre en la AFAC: ", "AFAC label: ") + c.aliases.join(" / ")) + "\"" : "") + "><span class=\"dot\" style=\"--c:" + regColor(c.region) + "\"></span>" + esc(c.short) + "</td><td class=\"l\">" + esc(regName(c.region)) + "</td><td>" + fmtN(c.t12) + "</td><td class=\"" + cls(yoy) + "\">" + pct(yoy) + "</td><td>" + nf(c.t12 / intlT12 * 100, 1) + "%</td></tr>"; }).join("");
+    document.getElementById("fo-note").textContent = T("Pasajeros regulares internacionales, últimos 12 meses (" + monthLabel(months[last - 11]) + "–" + monthLabel(months[last]) + "); Var. 12 m = contra los 12 meses previos. Las aerolíneas extranjeras transportan ", "Scheduled international passengers, last 12 months (" + monthLabel(months[last - 11]) + "–" + monthLabel(months[last]) + "); Chg., 12 m = versus the prior 12 months. Foreign airlines carry ") + nf(foT12 / intlT12 * 100, 0) + T("% del tráfico internacional de México. Nombres comerciales; pasa el cursor sobre uno para ver el de la AFAC.", "% of Mexico's international traffic. Names are the ones the airlines fly under; hover over one for AFAC's label.");
   }
 
   // ---------- 4. IR ----------

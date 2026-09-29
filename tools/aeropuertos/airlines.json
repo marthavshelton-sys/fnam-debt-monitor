@@ -8,7 +8,8 @@
     {"id": "MXA", "name": "Mexicana de Aviación", "short": "Mexicana",     "match": "mexicana\\s*\\(aerol[ií]nea del estado|^mexicana\\b", "iata": "MXA", "type": "pax", "hubs": ["NLU"], "wiki": "Mexicana_de_Aviación_(2023–present)", "wikiTable": 0, "color": ["#b3261e", "#f08a80"]},
     {"id": "TAR", "name": "TAR Aerolíneas",      "short": "TAR",           "match": "transportes a[eé]reos regionales|\\(tar\\)", "iata": "YQ", "type": "pax", "hubs": ["QRO"], "wiki": "TAR_Aerolíneas", "wikiTable": 1, "color": ["#c2661e", "#f0995a"]},
     {"id": "AER", "name": "Aerus",               "short": "Aerus",         "match": "^aerus\\b", "iata": "6R", "type": "pax", "hubs": ["MTY"], "wiki": "Aerus_(airline)", "wikiTable": 0, "color": ["#1f6f8b", "#5cb3d1"]},
-    {"id": "GMT", "name": "Magnicharters",       "short": "Magnicharters", "match": "magnicharters|grupo a[eé]reo monterrey", "iata": "UJ", "type": "pax", "hubs": ["MEX", "MTY"], "wiki": "Magnicharters", "wikiTable": 1, "color": ["#b8912a", "#e2c15f"]},
+    {"id": "GMT", "name": "Magnicharters",       "short": "Magnicharters", "match": "magnicharters|grupo a[eé]reo monterrey", "iata": "UJ", "type": "pax", "active": false, "hubs": ["MEX", "MTY"], "wiki": "Magnicharters", "wikiTable": 1, "color": ["#b8912a", "#e2c15f"],
+     "ceased": {"since": "2026-04-14", "es": "La AFAC suspendió sus operaciones de forma preventiva el 14 de abril de 2026 y revocó su certificado de explotador de servicios aéreos el 29 de junio de 2026.", "en": "AFAC suspended its operations as a preventive measure on April 14, 2026, and revoked its air operator certificate on June 29, 2026.", "source": "La Jornada, 2-jul-2026 (comunicado de la AFAC)", "url": "https://www.jornada.com.mx/noticia/2026/07/02/economia/afac-revoca-certificado-de-operador-aereo-a-magnicharters"}},
     {"id": "4O",  "name": "Interjet",            "short": "Interjet",      "match": "^interjet|abc aerol[ií]neas", "iata": "4O", "type": "pax", "active": false, "color": ["#6b6b6b", "#b0b0b0"]},
     {"id": "VW",  "name": "Aeromar",             "short": "Aeromar",       "match": "^aeromar\\b", "iata": "VW", "type": "pax", "active": false, "color": ["#8a8a8a", "#c8c8c8"]},
     {"id": "A7",  "name": "Calafia Airlines",    "short": "Calafia",       "match": "calafia", "iata": "A7", "type": "pax", "active": false, "color": ["#9a9a9a", "#d0d0d0"]},
@@ -16,6 +17,21 @@
     {"id": "E7",  "name": "Estafeta Carga Aérea","short": "Estafeta",      "match": "^estafeta", "iata": "E7", "type": "cargo", "color": ["#777", "#aaa"]},
     {"id": "M7",  "name": "Mas Air",             "short": "Mas Air",       "match": "^mas air|m[aá]s de carga", "iata": "M7", "type": "cargo", "color": ["#777", "#aaa"]}
   ],
+  "foreignNames": {
+    "_comment": "Display names for foreign carriers. AFAC labels them by legal or former names ('Lanperu', 'K L M', 'Delta Airlines', 'West Jet', 'Emirates Arabes'); each pair is [regex tested case-insensitively against the label without accents, name the airline flies under]. A label with no match is cleaned instead (legal suffixes and the trailing parenthesis dropped, all-capital labels recased) and keeps AFAC's accents. Labels mapping to the same name are merged (MN Airlines is Sun Country's legal name). The page shows AFAC's label on hover.",
+    "list": [
+      ["^delta air", "Delta Air Lines"], ["^west ?jet", "WestJet"], ["^jet ?blue", "JetBlue"], ["^k ?l ?m\\b", "KLM"], ["^emirates", "Emirates"],
+      ["^lanperu|^lan peru", "LATAM Perú"], ["^lan chile", "LATAM Chile"], ["^tam linhas", "LATAM Brasil"], ["^lan colombia", "LATAM Colombia"],
+      ["^taca peru", "Avianca Perú (TACA Perú)"], ["^taca\\b", "Avianca El Salvador (TACA)"], ["^lacsa", "Avianca Costa Rica (LACSA)"],
+      ["^aerorepublica", "Wingo (Aerorepública)"], ["^all nippon", "ANA (All Nippon Airways)"], ["^neos", "Neos"], ["^world ?2 ?fly", "World2fly"],
+      ["^tui nederland", "TUI fly Netherlands"], ["^tui belgium", "TUI fly Belgium"], ["^tui ?fly nordic", "TUI fly Nordic"], ["^thomson ?fly", "Thomsonfly"],
+      ["^thomas cook", "Thomas Cook Airlines"], ["^aeroflot", "Aeroflot"], ["^finn ?air", "Finnair"], ["^us air\\b", "US Airways"], ["^air berlin", "Air Berlin"],
+      ["^boston maine", "Boston-Maine Airways"], ["^continental express", "Continental Express (ExpressJet)"], ["^mn airlines|^sun country", "Sun Country Airlines"],
+      ["^frontier", "Frontier Airlines"], ["^copa \\(compa|^copa$", "Copa Airlines"], ["^skywest", "SkyWest Airlines"], ["^jetlines", "Canada Jetlines"], ["^tropic air", "Tropic Air"],
+      ["^transportes aereos guatemaltecos", "TAG Airlines"], ["^swoop", "Swoop"], ["^sunwing", "Sunwing Airlines"], ["^cubana", "Cubana de Aviación"],
+      ["^edelweiss", "Edelweiss"], ["^nordwind", "Nordwind Airlines"], ["^sky airline peru", "SKY Airline Perú"]
+    ]
+  },
   "regions": {
     "Estadounidenses": {"id": "US",    "es": "Estados Unidos",          "en": "United States"},
     "Canadienses":     {"id": "CA",    "es": "Canadá",                  "en": "Canada"},

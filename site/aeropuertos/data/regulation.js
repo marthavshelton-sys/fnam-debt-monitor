@@ -83,8 +83,8 @@ window.MX_AIRPORTS_REG = {
       cells: {
         GAP:  { es: ["Ingresos aeronáuticos en México −0.7% a/a (tráfico −4.2%, peso +10.9%)", "Compensado en parte por las tarifas máximas 2025–2029", "1S26: +4.4% por la misma razón"],
                 en: ["Mexican aeronautical revenue −0.7% YoY (traffic −4.2%, peso +10.9%)", "Partly offset by the 2025–2029 maximum tariffs", "1H26: +4.4% for the same reason"], src: ["gap2q26"] },
-        OMA:  { es: ["Inversiones PMD y estratégicas 1S26: Ps. 1,554 M (+5.2% a/a)", "De ellas, Ps. 949 M en el 2T26"],
-                en: ["MDP and strategic investments 1H26: Ps. 1,554 M (+5.2% YoY)", "Of which Ps. 949 M in 2Q26"], src: ["oma2q26"] },
+        OMA:  { es: ["Inversiones PMD y estratégicas 1S26: Ps. 2,709 M (−21.7% a/a)", "2T26: Ps. 949 M (−2.7% a/a): 844 M en mejoras a bienes concesionados, 21 M en mantenimiento mayor y 84 M estratégicas"],
+                en: ["MDP and strategic investments 1H26: Ps. 2,709 M (−21.7% YoY)", "2Q26: Ps. 949 M (−2.7% YoY): 844 M improvements to concession assets, 21 M major maintenance and 84 M strategic"], src: ["oma2q26"] },
         ASUR: { es: ["Ingreso regulado acumulado en México: Ps. 7,458.9 M al 30-jun-2026", "≈69.4% de los ingresos sin construcción", "Cumplimiento revisado por la SICT cada cierre de año", "Capex México 1S26: Ps. 2,173.1 M"],
                 en: ["Accumulated regulated revenue in Mexico: Ps. 7,458.9 M at 30-Jun-2026", "≈69.4% of revenue ex-construction", "Compliance reviewed by SICT at each year-end", "Mexico capex 1H26: Ps. 2,173.1 M"], src: ["asur2q26"] }
       }

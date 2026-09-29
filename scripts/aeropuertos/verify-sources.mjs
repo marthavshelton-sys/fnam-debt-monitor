@@ -31,6 +31,7 @@ const TR = load('traffic.js', 'MX_AIRPORTS');
 for (const [k, s] of Object.entries(TR.sources || {})) add(s.url, `trafico, sources (${k})`, s.title);
 const AL = load('airlines.js', 'MX_AIRLINES');
 for (const k of ['aeromexico', 'volaris', 'viva']) if (AL.sources && AL.sources[k]) add(AL.sources[k].url, `aerolineas, sources (${k})`, AL.sources[k].title);
+for (const c of AL.carriers || []) if (c.ceased && c.ceased.url) add(c.ceased.url, `aerolineas, ${c.name} status note`, c.ceased.source);
 const SKIP = /(^|\.)(fnam\.mx|googleapis\.com|gstatic\.com|cdnjs\.cloudflare\.com|jsdelivr\.net|unpkg\.com|w3\.org)$/i;
 for (const page of ['index.html', 'trafico/index.html', 'aerolineas/index.html']) {
   const html = fs.readFileSync(path.join(SITE, page), 'utf8');
@@ -63,9 +64,24 @@ function pdfText(buf) {
   const f = path.join(os.tmpdir(), `verify-${process.pid}-${Math.random().toString(36).slice(2)}.pdf`); fs.writeFileSync(f, buf);
   try { return JSON.parse(execFileSync(process.env.PYTHON || 'python3', ['-c', PY, f], { maxBuffer: 256e6 }).toString()); } finally { fs.rmSync(f, { force: true }); }
 }
+// A server that sends an incomplete certificate chain (cuentapublica.hacienda.gob.mx) fails Node's TLS check but opens in a
+// browser, which fetches the missing intermediate itself. TLS verification stays on: the file is fetched by the browser's own
+// network stack as a download, the way a reader's browser gets it.
+async function viaDownload(ctx, url) {
+  const page = await ctx.newPage();
+  try {
+    const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 90000 }), page.goto(url, { timeout: 90000 }).catch(() => null)]);
+    const f = await dl.path(); return { status: 200, url: dl.url(), type: 'download', buf: fs.readFileSync(f) };
+  } finally { await page.close().catch(() => null); }
+}
 async function openPdf(ctx, url) {
-  let r = await ctx.request.get(url, { timeout: 120000 });
-  let buf = Buffer.from(await r.body());
+  let r, buf;
+  try { r = await ctx.request.get(url, { timeout: 120000 }); buf = Buffer.from(await r.body()); }
+  catch (e) {
+    if (!/certificate|SSL|TLS/i.test(e.message)) throw e;
+    const d = await viaDownload(ctx, url); buf = d.buf;
+    r = { status: () => d.status, url: () => d.url, headers: () => ({ 'content-type': 'application/pdf (browser download; Node rejected the server certificate chain)' }), body: async () => buf };
+  }
   // Some hosts (ir.oma.aero: SiteGround) answer repeat visitors with a JavaScript challenge page instead of the file. Let the
   // challenge run in a real page (it sets a cookie in this context), then ask for the file again.
   if (buf.subarray(0, 4).toString() !== '%PDF' && /sgcaptcha|http-equiv="refresh"|challenge/i.test(buf.subarray(0, 2000).toString())) {
