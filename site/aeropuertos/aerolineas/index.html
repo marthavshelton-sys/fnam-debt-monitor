@@ -591,7 +591,7 @@ window.addEventListener("DOMContentLoaded", function(){
   function showTip(html, x, y){ tip.innerHTML = html; tip.classList.add("show"); var w = wrap.getBoundingClientRect(); var tw = tip.offsetWidth, half = tw / 2 + 4; if (x < half) x = half; if (x > w.width - half) x = w.width - half; tip.style.left = x + "px"; tip.style.top = y + "px"; tip.style.transform = (y < tip.offsetHeight + 16) ? "translate(-50%, 14px)" : ""; }
   function hideTip(){ tip.classList.remove("show"); }
   // Pointer → marker (airports and foreign cities). Markers overlap (AICM and AIFA, Monterrey and Del Norte), and the smaller
-  // one, drawn on top, used to swallow the larger one's centre. The pointer now picks the marker it is most centrally in
+  // one, drawn on top, used to swallow the larger one's center. The pointer now picks the marker it is most centrally in
   // (distance / radius, small markers counted at their minimum reach so they stay reachable inside their own dot); outside every
   // marker, the nearest within that reach. Routes keep their own hover underneath.
   var pickNodes = [], hoverNode = null;
@@ -693,8 +693,8 @@ window.addEventListener("DOMContentLoaded", function(){
     var hubs = []; sel.forEach(function(x){ if (x.net && x.net.n.hubs) x.net.n.hubs.forEach(function(h){ if (hubs.indexOf(h) < 0 && apXY[h]) hubs.push(h); }); });
     var apR = function(c){ return (2.4 + 16 * Math.sqrt((apTraffic[c] || 0) / maxAp)) * (wide ? 0.75 : 1) * Math.sqrt(K); };
     function labelAt(p, r, text, cls, force){ var w = textW(text, fs), cand = [[p[0] + r + 3, p[1] + fs * 0.35, "start"], [p[0] - r - 3, p[1] + fs * 0.35, "end"], [p[0], p[1] - r - 4, "middle"], [p[0], p[1] + r + fs, "middle"]]; for (var i = 0; i < cand.length; i++) { if (place(cand[i][0], cand[i][1], cand[i][2], w, lh, force && i === cand.length - 1)) { el("text", {x:cand[i][0].toFixed(1), y:cand[i][1].toFixed(1), "class":cls, "text-anchor":cand[i][2]}, gL).textContent = text; return true; } } return false; }
-    var labelled = {};
-    function apLabel(c, force){ if (labelled[c] || !apXY[c]) return; labelled[c] = true; labelAt(apXY[c], apR(c), apName(c), "ap-label" + (anySel && !servedBy(c).length ? " off" : ""), force); }
+    var labeled = {};
+    function apLabel(c, force){ if (labeled[c] || !apXY[c]) return; labeled[c] = true; labelAt(apXY[c], apR(c), apName(c), "ap-label" + (anySel && !servedBy(c).length ? " off" : ""), force); }
     hubs.forEach(function(h){ apLabel(h, true); });
     codes.slice(0, few ? 4 : (wide ? 5 : 7)).forEach(function(c){ apLabel(c, true); });
     // foreign cities inside the wide frame

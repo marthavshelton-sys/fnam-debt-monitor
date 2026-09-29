@@ -948,8 +948,8 @@ window.addEventListener("DOMContentLoaded", function(){
   });
 
   // ---- pointer → airport ---------------------------------------------------------
-  // Bigger airports are drawn first, so a smaller marker sits on top and used to swallow its neighbour: AIFA's covers AICM's
-  // centre and Del Norte's sat inside Monterrey's. The pointer now picks the marker it is most centrally in (distance / radius,
+  // Bigger airports are drawn first, so a smaller marker sits on top and used to swallow its neighbor: AIFA's covers AICM's
+  // center and Del Norte's sat inside Monterrey's. The pointer now picks the marker it is most centrally in (distance / radius,
   // with small markers counted as 9 units wide so they stay reachable inside their own dot); outside every marker, the nearest
   // one within 9 map units.
   function pickAt(ev){
