@@ -34,17 +34,20 @@ function pdfToText(buf) {
   finally { execFileSync('rm', ['-f', tmp]); }
 }
 // Newest link on an index page whose href matches `find`: the last four-digit year in the href wins, then document order.
-function findLink(html, base, re) {
+// `pick: "first"` takes the first match in document order instead, for index pages that list the newest item first
+// and whose hrefs carry GUIDs (Banxico's "{4EF7B064-67FE-2095-…}.pdf" would otherwise read as the year 2095).
+function findLink(html, base, re, pick) {
   const rx = new RegExp(re, 'i'), hits = [];
   for (const m of html.matchAll(/href=["']([^"']+)["']/gi)) { const href = m[1]; if (rx.test(href)) hits.push(new URL(href, base).href); }
   if (!hits.length) throw new Error(`no link matches /${re}/ on ${base}`);
+  if (pick === 'first') return hits[0];
   const year = (u) => { const ys = u.match(/20\d\d/g); return ys ? +ys[ys.length - 1] : 0; };
   return [...new Set(hits)].sort((a, b) => year(b) - year(a))[0];
 }
 async function mirror(key, spec) {
   let url = spec.url, res = await get(url, { tries: 2 });
   let body = res.body, ctype = String(res.headers['content-type'] || '');
-  if (spec.find) { url = findLink(body.toString('utf8'), spec.url, spec.find); res = await get(url, { tries: 2 }); body = res.body; ctype = String(res.headers['content-type'] || ''); }
+  if (spec.find) { url = findLink(body.toString('utf8'), spec.url, spec.find, spec.pick); res = await get(url, { tries: 2 }); body = res.body; ctype = String(res.headers['content-type'] || ''); }
   const isPdf = /pdf/i.test(ctype) || body.slice(0, 5).toString() === '%PDF-' || /\.pdf(\?|$)/i.test(url);
   let text = isPdf ? pdfToText(body) : htmlToText(body.toString('utf8').includes('�') ? body.toString('latin1') : body.toString('utf8'));
   if (spec.maxChars && text.length > spec.maxChars) text = text.slice(0, spec.maxChars) + `\n\n[… truncated at ${spec.maxChars} characters]`;
