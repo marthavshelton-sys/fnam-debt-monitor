@@ -1,0 +1,25 @@
+# Sends one test WhatsApp alert with the WHATSAPP_* secrets, to confirm the Meta Cloud API setup
+# (token, phone number ID, recipient, approved template) before a real MATERIAL alert needs it.
+# Manual only: Actions > "Test WhatsApp alert" > Run workflow. Setup: tools/mx-macro/README.md.
+name: Test WhatsApp alert
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Send test message
+        env:
+          WHATSAPP_TOKEN: ${{ secrets.WHATSAPP_TOKEN }}
+          WHATSAPP_PHONE_NUMBER_ID: ${{ secrets.WHATSAPP_PHONE_NUMBER_ID }}
+          WHATSAPP_TO: ${{ secrets.WHATSAPP_TO }}
+        run: node scripts/lib/whatsapp.mjs --test

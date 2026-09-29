@@ -66,6 +66,38 @@ message as the U.S. alerts. Test offline:
 `node scripts/mx-macro/alerts.mjs --dry-run --state /tmp/s.json` (first run
 seeds; edit the data copy passed with `--data` to simulate a release).
 
+### WhatsApp alerts
+
+Once the MATERIAL issue is open, `alerts.mjs` also sends the headline figures
+and the Spanish link to the first affected section to WhatsApp through
+`scripts/lib/whatsapp.mjs` (Meta WhatsApp Cloud API). It is best effort: without
+the secrets nothing is sent, and a failed send is a run warning that never holds
+back the state or the issue (the email still goes out). Only MATERIAL alerts are
+sent; SOURCE DOWN issues are not.
+
+One-time setup (Meta; https://developers.facebook.com/docs/whatsapp/cloud-api/get-started):
+
+1. Meta Business account and a Meta developer app with the WhatsApp product.
+   Register a sending number that is not in use on a personal WhatsApp account.
+2. In WhatsApp Manager create a **Utility** template named
+   `fnam_alerta_material`, language **Spanish (MEX)** (`es_MX`), body:
+   `Alerta FNAM (macro México): {{1}}. Ver el tablero: {{2}} Mensaje automático.`
+   Sample values: `Banxico policy rate 6.50% (-25 bp)` and
+   `https://fnam.mx/mx/macro/?lang=es&view=banxico`. A body may not start or
+   end with a variable. Wait for approval.
+3. Create a System User with a permanent token that has
+   `whatsapp_business_messaging` (the token shown on the API setup page expires
+   in 24 hours).
+4. Repository secrets: `WHATSAPP_TOKEN`, `WHATSAPP_PHONE_NUMBER_ID` (API setup
+   page, not the phone number) and `WHATSAPP_TO` (recipient digits with country
+   code, e.g. `52` + 10 digits; comma-separate several).
+5. Actions > "Test WhatsApp alert" > Run workflow. A failure prints Meta's error
+   message in the log.
+
+Optional overrides (secrets or workflow env): `WHATSAPP_TEMPLATE`,
+`WHATSAPP_TEMPLATE_LANG`, `WHATSAPP_API_VERSION` (default `v23.0`). The
+headline figures are the English ones used in the issue title.
+
 A series that fails on a run keeps its last committed points (the page marks
 that source "sin actualizar desde …"); a series that has never been obtained
 is simply absent and the page hides the panels that depend on it, showing a
@@ -194,5 +226,6 @@ published indices, so nothing derived is stored.
 - `../../scripts/mx-macro/fetch.mjs` — fetcher (Banxico SIE, FRED, INEGI)
 - `../../scripts/mx-macro/build.mjs` — template + data → page, with the locale guards
 - `../../scripts/mx-macro/alerts.mjs` — material-change alerts (issue queue for the email routine)
+- `../../scripts/lib/whatsapp.mjs` — WhatsApp copy of MATERIAL alerts (Meta Cloud API); `.github/workflows/whatsapp-test.yml` sends a test
 - `../../scripts/mx-macro/exec_extract.mjs` — reads the page's "At a glance" lines for the alerts
 - `data/alerts_state.json` — last period evaluated per release, committed by the workflow
