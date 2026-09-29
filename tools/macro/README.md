@@ -82,7 +82,10 @@ and state nonfarm employment behind the job-cut maps.
   abbreviations are lowercase (`28-sep-2026`), thousands read "mil" and
   millions "M", dollar amounts "mmd" (miles de millones de dólares) with a units
   note under the fiscal tiles. Words with a Spain-only flavour (hostelería,
-  derbi) are avoided.
+  derbi) are avoided, and Spanish copy carries no English glosses; only proper
+  names stay in English (DOE's "SPR Quick Facts" page, Shiller's “Irrational
+  Exuberance” data set). A term whose sign is in the verb ("restó", "subtracted")
+  takes the absolute value.
 - **Addresses and metadata.** Every section is a real link (`?view=`,
   `&lang=`), the browser history follows it, and the document title,
   description, canonical, hreflang and Open Graph tags are rewritten per

@@ -2511,7 +2511,7 @@ const I18N = {
     gdpKpiImports: "Importaciones",
     gdpKpiImportsFoot: "restan cuando aumentan",
     gdpGrowthNote: (v, q, avg) => "El PIB real creció " + v + "% a tasa anualizada en " + q + "; el promedio de los últimos cuatro trimestres es " + avg + "%.",
-    gdpContribNote: (pce, nx, total) => "El consumo aportó " + pce + " y el comercio exterior neto restó " + nx + ", para un crecimiento total de " + total + "%.",
+    gdpContribNote: (pce, nx, nxNeg, total) => "El consumo aportó " + pce + " y el comercio exterior neto " + (nxNeg ? "restó " : "sumó ") + nx + ", para un crecimiento total de " + total + "%.",
     gdpContribMethod: (sum, total) => "Consumo, inversión, comercio exterior neto y gobierno suman " + sum + " pp frente al " + total + "% publicado; la diferencia es redondeo. Las importaciones aparecen con signo negativo porque un aumento de importaciones resta del PIB por construcción.",
     footerGDP: "Datos: Oficina de Análisis Económico de EE. UU. (BEA), cuentas nacionales de ingreso y producto, tablas 1.1.1 y 1.1.2, vía la API NIPA del BEA. El PIB es trimestral, a diferencia del resto del panel, que es mensual. Cada trimestre se publica primero como estimación anticipada y se revisa dos veces en los meses siguientes, por lo que el dato más reciente es provisional. Las contribuciones están expresadas en puntos porcentuales del crecimiento anualizado del trimestre.",
     incTitle: "Ingreso personal y ahorro",
@@ -2763,7 +2763,7 @@ const I18N = {
     capeKpiPct: "Meses por debajo de hoy",
     capeKpiPctFoot: "parte de la historia más barata que ahora",
     capeKpiEcy: "Rendimiento excedente del CAPE",
-    capeKpiEcyFoot: "1/CAPE menos la tasa real a 10 años (excess CAPE yield)",
+    capeKpiEcyFoot: "1/CAPE menos la tasa real a 10 años",
     capeKpiGs10: "Tesoro a 10 años (archivo de Shiller)",
     capeKpiGs10Foot: partial => partial ? "nominal; una lectura diaria al publicarse, no promedio mensual" : "nominal, promedio del mes",
     capeSecChart: "CAPE desde 1881",
@@ -2777,7 +2777,7 @@ const I18N = {
     capeSecPeaksNote: "Rendimiento real (ajustado por inflación) del S&P en los diez años posteriores a cada máximo, % anual, según los cálculos de Shiller",
     capePerYear: " anual",
     capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "En los " + n + " máximos con historial de diez años, el rendimiento real de la década siguiente promedió " + avgPeaks + " anual, frente a " + avgAll + " anual para todos los meses desde 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " es demasiado reciente" : " son demasiado recientes") + " para tener todavía un resultado a diez años." : "."),
-    footerCape: "Datos: Robert J. Shiller, base de datos de 'Irrational Exuberance' (precio mensual del S&P Composite, dividendos, utilidades, CPI y tasas largas, 1871 a la fecha), mantenida en shillerdata.com. CAPE = precio real ÷ promedio de diez años de utilidades reales; el rendimiento excedente del CAPE (excess CAPE yield) y los rendimientos reales de los diez años posteriores son columnas del propio Shiller.",
+    footerCape: "Datos: Robert J. Shiller, base de datos de “Irrational Exuberance” (precio mensual del S&P Composite, dividendos, utilidades, CPI y tasas largas, 1871 a la fecha), mantenida en shillerdata.com. CAPE = precio real ÷ promedio de diez años de utilidades reales; el rendimiento excedente del CAPE y los rendimientos reales de los diez años posteriores son columnas del propio Shiller.",
     exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE de " + v + " en " + m + (partial ? " (mes en curso)" : "") + ", contra " + prev + " el mes previo; el promedio desde 1881 es " + mean + " y solo el " + pctAbove + "% de los meses han sido más altos.",
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El rendimiento excedente del CAPE (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con la tasa a 10 años del archivo de Shiller en " + gs10 + "%" + (daily ? " (una lectura diaria al publicarse; " + daily + "% diario al " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
@@ -2936,7 +2936,7 @@ const I18N = {
     confInflAnchor: (px5, gap) => "La expectativa a cinco años, de " + px5 + ", es la que vigila la Reserva Federal: mientras se mantenga cerca de su rango histórico, se considera que las expectativas siguen ancladas. Está " + gap + " puntos porcentuales por encima de su promedio de la última década.",
     confContextNote: (v, avg, pct) => "Con " + v + ", el índice se ubica por debajo del " + pct + "% de todos los meses desde 1952 y " + avg + " puntos por debajo de su promedio histórico.",
     confContextMethod: "Los puntos de referencia se calculan a partir de la propia serie: el máximo, el promedio de 1952 en adelante, el promedio de 2019 y los mínimos de cada episodio se derivan de los datos mostrados, no se capturan a mano.",
-    footerUMich: "Datos: Encuestas a Consumidores de la Universidad de Michigan (Surveys of Consumers), vía los archivos públicos del Instituto de Investigación Social. El Índice de Confianza del Consumidor se construye con cinco preguntas de la encuesta y está normalizado al primer trimestre de 1966 = 100; el Índice de Condiciones Actuales usa dos de ellas y el de Expectativas las otras tres. Las expectativas de inflación son la mediana de las respuestas, no el promedio, lo que reduce la influencia de contestaciones extremas. Cada mes se publica primero una lectura preliminar de mitad de mes y después una definitiva a fin de mes; la serie no está ajustada por estacionalidad porque el índice se construye sobre respuestas relativas.",
+    footerUMich: "Datos: Encuestas a Consumidores de la Universidad de Michigan, vía los archivos públicos del Instituto de Investigación Social. El Índice de Confianza del Consumidor se construye con cinco preguntas de la encuesta y está normalizado al primer trimestre de 1966 = 100; el Índice de Condiciones Actuales usa dos de ellas y el de Expectativas las otras tres. Las expectativas de inflación son la mediana de las respuestas, no el promedio, lo que reduce la influencia de contestaciones extremas. Cada mes se publica primero una lectura preliminar de mitad de mes y después una definitiva a fin de mes; la serie no está ajustada por estacionalidad porque el índice se construye sobre respuestas relativas.",
 
     ppiTitle: "Índice de Precios al Productor",
     ppiDesc: "Los precios que reciben los productores por su producción: la tubería que alimenta la inflación al consumidor. Demanda final e intermedia, según la estructura FD-ID del BLS.",
@@ -3507,7 +3507,7 @@ const I18N = {
     gdpKpiImports: "Imports",
     gdpKpiImportsFoot: "subtract when they rise",
     gdpGrowthNote: (v, q, avg) => "Real GDP grew " + v + "% at an annual rate in " + q + "; the trailing four-quarter average is " + avg + "%.",
-    gdpContribNote: (pce, nx, total) => "Consumption contributed " + pce + " while net trade subtracted " + nx + ", for total growth of " + total + "%.",
+    gdpContribNote: (pce, nx, nxNeg, total) => "Consumption contributed " + pce + " while net trade " + (nxNeg ? "subtracted " : "added ") + nx + ", for total growth of " + total + "%.",
     gdpContribMethod: (sum, total) => "Consumption, investment, net trade and government sum to " + sum + " pp against the published " + total + "% — the difference is rounding. Imports carry a negative sign because rising imports subtract from GDP by construction.",
     footerGDP: "Data: U.S. Bureau of Economic Analysis, National Income and Product Accounts, Tables 1.1.1 and 1.1.2, via the BEA NIPA API. GDP is quarterly, unlike the rest of this dashboard, which is monthly. Each quarter is first published as an advance estimate and revised twice in the following months, so the most recent figure is provisional. Contributions are expressed in percentage points of the quarter's annualized growth.",
     incTitle: "Personal Income & Saving",
@@ -3773,7 +3773,7 @@ const I18N = {
     capeSecPeaksNote: "Real (inflation-adjusted) S&P return over the ten years after each peak, % a year, as computed in Shiller's data",
     capePerYear: "/yr",
     capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "Across the " + n + " peaks with a ten-year record, real returns over the following decade averaged " + avgPeaks + " a year, against " + avgAll + " a year for all months since 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " is" : " are") + " too recent to have a ten-year result yet." : "."),
-    footerCape: "Data: Robert J. Shiller, 'Irrational Exuberance' data set (monthly S&P Composite price, dividends, earnings, CPI and long rates, 1871–present), as maintained at shillerdata.com. CAPE = real price ÷ ten-year average real earnings; the excess CAPE yield and the ten-year subsequent real returns are Shiller's own columns.",
+    footerCape: "Data: Robert J. Shiller, “Irrational Exuberance” data set (monthly S&P Composite price, dividends, earnings, CPI and long rates, 1871–present), as maintained at shillerdata.com. CAPE = real price ÷ ten-year average real earnings; the excess CAPE yield and the ten-year subsequent real returns are Shiller's own columns.",
     exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE " + v + " in " + m + (partial ? " (month to date)" : "") + ", vs. " + prev + " the month before; the average since 1881 is " + mean + " and only " + pctAbove + "% of months have been higher.",
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year rate in Shiller's file at " + gs10 + "%" + (daily ? " (one daily reading at posting; " + daily + "% daily as of " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
@@ -7647,7 +7647,7 @@ function fmtMoney(v, html) {
   return "$" + Math.round(v).toLocaleString(T.dateLocale) + u("M");
 }
 function unitHtml(u) { return '<span class="kpi-unit">' + u + "</span>"; }
-function fmtPP(v) { return (v >= 0 ? "+" : "") + v.toFixed(2) + " pp"; }
+function fmtPP(v) { const a = Math.abs(v).toFixed(2); return (+a === 0 ? "" : v > 0 ? "+" : "−") + a + " pp"; }
 function fmtQuarter(d) {
   if (!d) return "";
   const [y, q] = d.split("-");
@@ -7757,7 +7757,7 @@ function renderGDP() {
   if (pce && inv && nx && gov) {
     const sum = pce.v + inv.v + nx.v + gov.v;
     document.getElementById("gdpContribCallout").innerHTML =
-      "<div>" + T.gdpContribNote(fmtPP(pce.v), fmtPP(nx.v), latest.v.toFixed(1)) + "</div>" +
+      "<div>" + T.gdpContribNote(fmtPP(pce.v), Math.abs(nx.v).toFixed(2) + " pp", nx.v < 0, latest.v.toFixed(1)) + "</div>" +
       "<div>" + T.gdpContribMethod(sum.toFixed(2), latest.v.toFixed(1)) + "</div>";
   }
 
