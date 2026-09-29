@@ -511,7 +511,7 @@ window.addEventListener("DOMContentLoaded", function(){
   function stopNote(c, withSource){
     var m = stopMonth(c); if (!m) return "";
     var t = esc(T("Sin pasajeros reportados a la AFAC desde " + monthLabel(m, true) + ".", "No passengers reported to AFAC since " + monthLabel(m, true) + "."));
-    if (c.ceased) t += " " + esc(es() ? c.ceased.es : c.ceased.en) + (withSource && c.ceased.url ? ' <a href="' + esc(c.ceased.url) + '" target="_blank" rel="noopener">' + esc(T("Fuente", "Source")) + ": " + esc(c.ceased.source || "") + "</a>" : "");
+    if (c.ceased) t += " " + esc(es() ? c.ceased.es : c.ceased.en) + (withSource && c.ceased.url ? ' <a href="' + esc(c.ceased.url) + '" target="_blank" rel="noopener">' + esc(T("Fuente", "Source")) + ": " + esc(typeof c.ceased.source === "object" && c.ceased.source ? (es() ? c.ceased.source.es : c.ceased.source.en) : (c.ceased.source || "")) + "</a>" : "");
     return t;
   }
   var foreign = A.carriers.filter(function(c){ return c.group === "foreign" && c.pax; }).map(function(c){ c.t12 = ttm12(c.pax.intl, last); c.t12prev = ttm12(c.pax.intl, last - 12); return c; }).sort(function(a, b){ return b.t12 - a.t12; });
@@ -733,7 +733,13 @@ window.addEventListener("DOMContentLoaded", function(){
     });
     renderSide(); renderLegend();
   }
-  function netNote(x){ var stop = stopMonth(x.car); return (stop ? T(" (sin vuelos desde " + monthLabel(stop, true) + "; se muestra su última red conocida)", " (not flying since " + monthLabel(stop, true) + "; its last known network is shown)") : "") + netNoteBase(x); }
+  function netNote(x){
+    var stop = stopMonth(x.car); if (!stop || !x.net) return netNoteBase(x);
+    var since = monthLabel(stop, true);
+    return x.net.n.estimated
+      ? T(" (sin vuelos desde " + since + "; se muestra su última red conocida, estimada a partir de sus destinos y bases, líneas punteadas)", " (not flying since " + since + "; its last known network is shown, estimated from its destinations and hubs, dotted lines)")
+      : T(" (sin vuelos desde " + since + "; se muestra su última red publicada)", " (not flying since " + since + "; its last published network is shown)");
+  }
   function netNoteBase(x){ return x.net ? (x.net.n.estimated ? T(" (red estimada a partir de sus destinos y bases, líneas punteadas)", " (network estimated from its destinations and hubs, dotted lines)") : T(" (rutas publicadas por la aerolínea)", " (routes published by the airline)")) : T(" (sin datos de red)", " (no network data)"); }
   function renderLegend(){
     var e = document.getElementById("maplegend"), sel = selList(), wide = frameOf().id === "na";
@@ -747,7 +753,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var mxTot = ttm12(A.totals.mxDom, last) + ttm12(A.totals.mxIntl, last);
     var ir = irFor(x.id), irLast = ir && ir.months.length ? ir.months.length - 1 : -1;
     var stop = stopMonth(car);
-    var html = '<div class="card' + (compact ? " compact" : "") + '" style="--c:' + x.col + '"><h4><span class="swatch"></span>' + esc(car.name) + '</h4>' + (compact ? "" : '<div class="s">' + esc((car.members ? car.members.map(function(m){ return m.name; }).join(" + ") : car.name)) + '</div>') +
+    var html = '<div class="card' + (compact ? " compact" : "") + '" style="--c:' + x.col + '"><h4><span class="swatch"></span>' + esc(car.name) + '</h4>' + (compact || !car.members ? "" : '<div class="s">' + esc(car.members.map(function(m){ return m.name; }).join(" + ")) + '</div>') +
       (stop ? '<div class="warn">' + stopNote(car, !compact) + '</div>' : "") +
       '<div class="k">' + T("Pasajeros, últimos 12 meses (AFAC)", "Passengers, last 12 months (AFAC)") + '</div><div class="v">' + fmtM(t12) + '</div><div class="s"><span class="' + cls(prev ? t12 / prev - 1 : null) + '">' + pct(prev ? t12 / prev - 1 : null) + '</span> ' + T("vs. 12 m previos · ", "vs. prior 12 m · ") + nf(t12 / totalT12 * 100, 1) + T("% del mercado, ", "% of the market, ") + nf(t12 / mxTot * 100, 1) + T("% de las aerolíneas mexicanas", "% of Mexican airlines") + '</div>';
     if (!compact) html += '<div class="k">' + T("Nacional / internacional", "Domestic / international") + '</div><div class="v">' + nf(dom12 / (t12 || 1) * 100, 0) + '% / ' + nf(intl12 / (t12 || 1) * 100, 0) + '%</div>';
@@ -760,7 +766,7 @@ window.addEventListener("DOMContentLoaded", function(){
     var side = document.getElementById("side"), sel = selList();
     if (!sel.length) {
       side.innerHTML = '<div class="card"><h4>' + T("Participación del Mercado Mexicano", "Mexican Market Share") + '</h4><div class="s">' + T("Porcentaje de todos los pasajeros regulares (aerolíneas mexicanas y extranjeras), últimos 12 meses a ", "Share of all scheduled passengers (Mexican and foreign airlines), last 12 months to ") + monthLabel(months[last]) + '</div>' + activeMx.slice(0, 7).map(function(c){ return '<div class="k"><span class="swatch" style="--c:' + colorOf(c) + '"></span>' + esc(c.short) + (stopMonth(c) ? " †" : "") + '</div><div class="v">' + nf(c.t12 / totalT12 * 100, 1) + '% <span class="s">' + fmtM(c.t12) + '</span></div>'; }).join("") + '<div class="k">' + T("Aerolíneas extranjeras", "Foreign airlines") + '</div><div class="v">' + nf(ttm12(A.totals.foreignIntl, last) / totalT12 * 100, 1) + '% <span class="s">' + fmtM(ttm12(A.totals.foreignIntl, last)) + '</span></div>' +
-        activeMx.slice(0, 7).filter(function(c){ return stopMonth(c); }).map(function(c){ return '<div class="warn">† ' + esc(c.short) + ": " + stopNote(c, false) + "</div>"; }).join("") + '</div>';
+        activeMx.slice(0, 7).filter(function(c){ return stopMonth(c); }).map(function(c){ var b = c.ceased && c.ceased.brief; return '<div class="warn">† ' + esc(c.short) + ": " + esc(T("sin vuelos desde ", "not flying since ") + monthLabel(stopMonth(c), true)) + (b ? "; " + esc(es() ? b.es : b.en) : "") + ".</div>"; }).join("") + '</div>';
       return;
     }
     side.innerHTML = sel.map(function(x){ return airlineCard(x, sel.length > 1); }).join("");

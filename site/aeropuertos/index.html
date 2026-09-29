@@ -356,7 +356,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 .tooltip .code, .apanel .code{font-size:11px; font-weight:700; letter-spacing:.06em; color:var(--muted); margin-left:4px;}
 .tooltip .op, .apanel .op{font-size:12px; color:var(--text-secondary); margin-bottom:6px;}
 .tooltip .row{display:flex; justify-content:space-between; gap:12px;}
-.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;}
+.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600; white-space:nowrap;}
 .map-foot{
   display:flex; flex-wrap:wrap; justify-content:space-between; gap:6px 16px;
   margin-top:10px; font-size:12px; color:var(--muted);
@@ -848,6 +848,9 @@ window.addEventListener("DOMContentLoaded", function(){
     "GATM": {es:"GATM (Grupo Aeroportuario Turístico Mexicano, empresa de ASA)", en:"GATM (Grupo Aeroportuario Turístico Mexicano, an ASA company)"}
   };
   var STATES = {AG:"Aguascalientes",BC:"Baja California",BS:"Baja California Sur",CM:"Campeche",CS:"Chiapas",CH:"Chihuahua",CO:"Coahuila",CL:"Colima",DF:"Ciudad de México",DG:"Durango",GJ:"Guanajuato",GR:"Guerrero",HG:"Hidalgo",JA:"Jalisco",MX:"Estado de México",MI:"Michoacán",MO:"Morelos",NA:"Nayarit",NL:"Nuevo León",OA:"Oaxaca",PU:"Puebla",QT:"Querétaro",QR:"Quintana Roo",SL:"San Luis Potosí",SI:"Sinaloa",SO:"Sonora",TB:"Tabasco",TM:"Tamaulipas",TL:"Tlaxcala",VE:"Veracruz",YU:"Yucatán",ZA:"Zacatecas"};
+  // English names where they differ (American usage); every other state keeps its name
+  var STATES_EN = {DF:"Mexico City", MX:"State of Mexico"};
+  function stateName(code){ return (lang() === "en" && STATES_EN[code]) || STATES[code] || code; }
   // Label placement [dx, dy, anchor] — hand-tuned for the crowded clusters (Valle de México, Bajío, Riviera Maya, border).
   var LABELPOS = {
     MEX:[-1,16], NLU:[1,-8], TLC:[-1,-2,-14], CVJ:[-1,12], PBC:[1,10], QRO:[1,-5],
@@ -883,7 +886,7 @@ window.addEventListener("DOMContentLoaded", function(){
   function mon(m){ return new Date(2026, m - 1, 1).toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short"}).replace(".", ""); }
   // The two bases used on this page, spelled out wherever a figure appears: the last 12 months, and year to date vs. the same months a year earlier.
   function span12(){ return monthLabel(months[last - 11]) + "–" + monthLabel(months[last]); }
-  function ytdVs(){ var y = +yearNow, m = mon(1) + "–" + mon(lastMonthNum); return m + " " + y + " vs. " + m + " " + (y - 1); }
+  function ytdVs(){ var y = +yearNow, m = mon(1) + "–" + mon(lastMonthNum); return m.charAt(0).toUpperCase() + m.slice(1) + " " + y + " vs. " + (y - 1); }   // "Ene–ago 2026 vs. 2025"
   function esc(s){ return String(s).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
 
   // ---- metrics -------------------------------------------------------------
@@ -1061,7 +1064,7 @@ window.addEventListener("DOMContentLoaded", function(){
     panel.style.setProperty("--c", "var(--c-" + r.grp.toLowerCase() + ")");
     panel.innerHTML =
       '<div class="ap-head"><div><b>' + esc(L({es:a.es, en:a.en})) + '</b><span class="code">' + r.code + '</span>' +
-      '<div class="op">' + esc(opName(r)) + ' · ' + esc(STATES[a.st] || a.st) + '</div></div><div class="ap-actions">' + acts + '</div></div>' +
+      '<div class="op">' + esc(opName(r)) + ' · ' + esc(stateName(a.st)) + '</div></div><div class="ap-actions">' + acts + '</div></div>' +
       '<div class="ap-grid">' +
         kpi(es() ? "Pasajeros, últimos 12 meses" : "Passengers, last 12 months", r.ttm ? fmtN(r.ttm) : "—") +
         kpi(es() ? "Var. vs. 12 meses previos" : "Change vs. prior 12 months", '<span class="' + (yoy >= 0 ? "up" : "dn") + '">' + pct(yoy) + '</span>') +

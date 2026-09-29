@@ -531,13 +531,18 @@ window.addEventListener("DOMContentLoaded", function(){
   function opDefHtml(key, withAirports){
     var list = withAirports ? aps.filter(function(r){ return r.a.op === key && r.ttm > 0; }).map(function(r){ return L({es:r.a.es, en:r.a.en}); }).sort(function(x, y){ return x.localeCompare(y, es() ? "es" : "en"); }) : [];
     var short = key === "SOCIEDADES/PARTNERSHIPS" ? T("Sociedades estatales", "State partnerships") : key === "PRIVADOS/PRIVATE" ? T("Privados", "Private") : key;
-    return "<b>" + esc(short) + "</b>: " + esc(L(OPDEF[key])) + (list.length ? " (" + esc(list.join(", ")) + ")" : "") + ".";
+    return "<b>" + esc(short) + "</b>: " + esc(L(OPDEF[key])) + "." + (list.length ? " " + T("Aeropuertos: ", "Airports: ") + esc(list.join(", ")) + "." : "");
   }
   var STATES = {AG:"Aguascalientes",BC:"Baja California",BS:"Baja California Sur",CM:"Campeche",CS:"Chiapas",CH:"Chihuahua",CO:"Coahuila",CL:"Colima",DF:"Ciudad de México",DG:"Durango",GJ:"Guanajuato",GR:"Guerrero",HG:"Hidalgo",JA:"Jalisco",MX:"Estado de México",MI:"Michoacán",MO:"Morelos",NA:"Nayarit",NL:"Nuevo León",OA:"Oaxaca",PU:"Puebla",QT:"Querétaro",QR:"Quintana Roo",SL:"San Luis Potosí",SI:"Sinaloa",SO:"Sonora",TB:"Tabasco",TM:"Tamaulipas",TL:"Tlaxcala",VE:"Veracruz",YU:"Yucatán",ZA:"Zacatecas"};
+  // English names where they differ (American usage); every other state keeps its name
+  var STATES_EN = {DF:"Mexico City", MX:"State of Mexico"};
+  function stateName(code){ return (lang() === "en" && STATES_EN[code]) || STATES[code] || code; }
   function col(g){ return cssVar("--c-" + g.toLowerCase()); }
   function gshort(g){ return L(GSHORT[g]); }
   function opName(a){ if (a.grp !== "OTROS") return L(GNAME[a.grp]); var o = OPLABEL[a.op]; return o ? L(o) : (a.op || ""); }
   function opFull(a){ return a.grp === "OTROS" && OPDEF[a.op] ? L(OPDEF[a.op]) : ""; }
+  // the ranking table's Operator column is narrow: group codes (the dot carries the group color) and short AFAC labels
+  function opShort(a){ if (a.grp !== "OTROS") return gshort(a.grp); if (a.op === "SOCIEDADES/PARTNERSHIPS") return T("Sociedad estatal", "State partnership"); return opName(a); }
 
   // ---------- data ----------
   var months = D.months, N = months.length, last = N - 1;
@@ -751,13 +756,13 @@ window.addEventListener("DOMContentLoaded", function(){
     {k:"rank", l:{es:"#", en:"#"}, cls:"l"},
     {k:"name", l:{es:"Aeropuerto", en:"Airport"}, cls:"l name"},
     {k:"op", l:{es:"Operador", en:"Operator"}, cls:"l"},
-    {k:"ttm", l:{es:"Pasajeros 12 m", en:"Passengers, 12 m"}},
-    {k:"yoy", l:{es:"Var. 12 m", en:"Chg., 12 m"}},
-    {k:"ytdyoy", l:{es:"Var. acum.", en:"Chg., YTD"}},
-    {k:"intl", l:{es:"Internac., 12 m", en:"Intl., 12 m"}},
-    {k:"shareN", l:{es:"Del total, 12 m", en:"Of total, 12 m"}}
+    {k:"ttm", l:{es:"Pasajeros", en:"Passengers"}, t:{es:"Pasajeros de los últimos 12 meses", en:"Passengers over the last 12 months"}},
+    {k:"yoy", l:{es:"Var.", en:"Chg."}, t:{es:"Últimos 12 meses contra los 12 meses previos", en:"Last 12 months versus the prior 12 months"}},
+    {k:"ytdyoy", l:{es:"Var. acum.", en:"Chg. YTD"}, t:{es:"Acumulado del año contra los mismos meses del año anterior", en:"Year to date versus the same months a year earlier"}},
+    {k:"intl", l:{es:"Internac.", en:"Intl."}, t:{es:"Internacional, últimos 12 meses", en:"International share, last 12 months"}},
+    {k:"shareN", l:{es:"Del total", en:"Of total"}, t:{es:"Participación en el total nacional, últimos 12 meses", en:"Share of the national total, last 12 months"}}
   ];
-  function rowVals(r){ return {rank:0, name:L({es:r.a.es, en:r.a.en}), op:opName(r.a), ttm:r.ttm, yoy:r.prev ? r.ttm / r.prev - 1 : null, ytdyoy:r.ytdPrev ? r.ytd / r.ytdPrev - 1 : null, intl:r.intlShare, shareN:natTtm ? r.ttm / natTtm : 0}; }
+  function rowVals(r){ return {rank:0, name:L({es:r.a.es, en:r.a.en}), op:opShort(r.a), ttm:r.ttm, yoy:r.prev ? r.ttm / r.prev - 1 : null, ytdyoy:r.ytdPrev ? r.ytd / r.ytdPrev - 1 : null, intl:r.intlShare, shareN:natTtm ? r.ttm / natTtm : 0}; }
   function renderTblChips(){
     document.getElementById("tblchips").innerHTML = '<button type="button" class="plain" data-f="" aria-pressed="' + (S.tblFilter == null) + '">' + T("Todos", "All") + '</button>' + GROUPS.map(function(g){ return '<button type="button" data-f="' + g + '" aria-pressed="' + (S.tblFilter === g) + '" style="--c:' + col(g) + '"><span class="sw"></span>' + gshort(g) + '</button>'; }).join("");
   }
@@ -766,14 +771,14 @@ window.addEventListener("DOMContentLoaded", function(){
     var k = S.sort.k, d = S.sort.d;
     rows.sort(function(a, b){ var x = a[k], y = b[k]; if (typeof x === "string") return d * x.localeCompare(y, es() ? "es" : "en"); x = x == null ? -Infinity : x; y = y == null ? -Infinity : y; return d * (x - y); });
     var byTtm = rows.slice().sort(function(a, b){ return b.ttm - a.ttm; }); byTtm.forEach(function(v, i){ v.rank = i + 1; });
-    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '">' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</th>"; }).join("") + "</tr>";
+    document.querySelector("#tbl thead").innerHTML = "<tr>" + COLS.map(function(c){ return '<th class="' + (c.cls || "") + (S.sort.k === c.k ? " on" : "") + '" data-k="' + c.k + '"' + (c.t ? ' title="' + esc(L(c.t)) + '"' : "") + '>' + esc(L(c.l)) + (S.sort.k === c.k ? (d < 0 ? " ↓" : " ↑") : "") + "</th>"; }).join("") + "</tr>";
     document.querySelector("#tbl tbody").innerHTML = rows.map(function(v){
-      var full = opFull(v.r.a);
+      var full = opFull(v.r.a) || (v.r.grp !== "OTROS" ? L(GNAME[v.r.grp]) : "");
       return '<tr data-code="' + v.r.code + '" class="' + (v.r.code === S.airport ? "sel" : "") + '"><td class="l">' + v.rank + '</td><td class="l name"><span class="dot" style="--c:' + col(v.r.grp) + '"></span>' + esc(v.name) + '<span class="code">' + v.r.code + '</span></td><td class="l"' + (full ? ' title="' + esc(full) + '"' : "") + '>' + esc(v.op) + '</td><td>' + fmtN(v.ttm) + '</td><td class="' + cls(v.yoy) + '">' + pct(v.yoy) + '</td><td class="' + cls(v.ytdyoy) + '">' + pct(v.ytdyoy) + '</td><td>' + nf(v.intl * 100, 0) + '%</td><td>' + nf(v.shareN * 100, 1) + '%</td></tr>';
     }).join("");
     // periods behind the columns, and the operator abbreviations that appear in this view of the table
     var shown = OPORDER.filter(function(key){ return key !== "SOCIEDADES/PARTNERSHIPS" && key !== "PRIVADOS/PRIVATE" && rows.some(function(v){ return v.r.grp === "OTROS" && v.r.a.op === key; }); });
-    document.getElementById("tblfoot").innerHTML = esc(T("12 m = últimos 12 meses (" + span12() + "). Var. 12 m = contra los 12 meses previos. Var. acum. = " + ytdSpan(yearNow) + " contra " + ytdSpan(yearNow - 1) + ".", "12 m = last 12 months (" + span12() + "). Chg., 12 m = versus the prior 12 months. Chg., YTD = " + ytdSpan(yearNow) + " versus " + ytdSpan(yearNow - 1) + ".")) +
+    document.getElementById("tblfoot").innerHTML = esc(T("Pasajeros, Var., Internac. y Del total: últimos 12 meses (" + span12() + "); Var. = contra los 12 meses previos. Var. acum. = " + ytdSpan(yearNow) + " contra " + ytdSpan(yearNow - 1) + ".", "Passengers, Chg., Intl. and Of total: last 12 months (" + span12() + "); Chg. = versus the prior 12 months. Chg. YTD = " + ytdSpan(yearNow) + " versus " + ytdSpan(yearNow - 1) + ".")) +
       (shown.length ? " " + shown.map(function(key){ return opDefHtml(key, false); }).join(" ") : "");
   }
   function renderApSelect(){
@@ -794,7 +799,7 @@ window.addEventListener("DOMContentLoaded", function(){
     function k(kk, v, s){ return '<div class="kpi"><div class="k">' + kk + '</div><div class="v">' + v + '</div>' + (s ? '<div class="s">' + s + "</div>" : "") + "</div>"; }
     var full = opFull(a);
     document.getElementById("apkpis").innerHTML =
-      k(T("Operador", "Operator"), '<span style="font-size:16px">' + esc(opName(a)) + "</span>", (full ? esc(full) + " · " : "") + esc(STATES[a.st] || a.st)) +
+      k(T("Operador", "Operator"), '<span style="font-size:16px">' + esc(opName(a)) + "</span>", (full ? esc(full) + " · " : "") + esc(stateName(a.st))) +
       k(T("Pasajeros, últimos 12 meses", "Passengers, last 12 months"), fmtN(r.ttm), '<span class="' + cls(yoyv) + '">' + pct(yoyv) + "</span> " + T("vs. 12 meses previos", "vs. prior 12 months")) +
       k(T("Acumulado ", "Year to date ") + yearNow + " (" + monName(1) + "–" + monName(lastM) + ")", fmtN(r.ytd), '<span class="' + cls(yy) + '">' + pct(yy) + "</span> " + T("vs. ", "vs. ") + ytdSpan(yearNow - 1)) +
       k(T("Internacional, últimos 12 meses", "International, last 12 months"), nf(r.intlShare * 100, 0) + "%", T("de los pasajeros", "of passengers")) +
