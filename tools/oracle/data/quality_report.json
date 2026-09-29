@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29T15:20:48.473Z",
+  "generated": "2026-09-29T21:49:54.613Z",
   "summary": {
     "checks": 349,
     "failed": 0,
@@ -2881,8 +2881,8 @@
     },
     {
       "series": "10-year Treasury (FRED DGS10)",
-      "lastDate": "2026-09-25",
-      "ageDays": 5,
+      "lastDate": "2026-09-28",
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"

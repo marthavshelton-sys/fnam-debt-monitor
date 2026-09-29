@@ -28,8 +28,8 @@
     }
   },
   "treasury_10y": {
-    "yield_pct": 5.17,
-    "as_of_date": "2026-09-25",
+    "yield_pct": 5.24,
+    "as_of_date": "2026-09-28",
     "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
     "source_name": "FRED DGS10",
     "accessed": "2026-09-29"
