@@ -197,17 +197,6 @@ a.card:focus-visible{box-shadow:0 0 0 3px var(--accent-soft-border), var(--shado
   font-size:12px; font-weight:600; letter-spacing:0.06em; text-transform:uppercase;
   color:var(--muted);
 }
-.pill{
-  display:inline-flex; align-items:center; gap:6px;
-  font-size:11px; font-weight:700; letter-spacing:0.06em; text-transform:uppercase;
-  padding:4px 9px; border-radius:999px; white-space:nowrap;
-}
-.pill.live{background:var(--accent-soft); color:var(--accent-ink); border:1px solid var(--accent-soft-border);}
-.pill.live::before{
-  content:""; width:7px; height:7px; border-radius:50%; background:var(--live);
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--live) 22%, transparent);
-}
-.pill.soon{background:var(--surface-2); color:var(--text-secondary); border:1px solid var(--border);}
 .card h3{
   font-family:var(--serif); font-weight:700; font-size:22px; line-height:1.2;
   margin:2px 0 0; letter-spacing:-0.01em;
@@ -446,24 +435,30 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 @media (max-width:860px){ .tiles{grid-template-columns:repeat(2, minmax(0, 1fr));} }
 @media (max-width:560px){ .tiles{grid-template-columns:1fr; gap:12px;} }
 .tile{
-  position:relative; display:flex; flex-direction:column; gap:6px; min-width:0;
-  background:var(--surface); border:1px solid var(--border); border-left:5px solid var(--c);
-  border-radius:12px; padding:14px 16px 12px; box-shadow:var(--shadow);
+  position:relative; display:flex; flex-direction:column; gap:4px; min-width:0;
+  background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--c);
+  border-radius:12px; padding:12px 14px 10px; box-shadow:var(--shadow);
   transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 .tile:hover, .tile:focus-within{transform:translateY(-2px); box-shadow:var(--shadow-hover); border-color:var(--c); border-left-color:var(--c);}
 .tile-top{display:flex; align-items:center; gap:8px 10px; flex-wrap:wrap;}
-.tile-name{font-family:var(--serif); font-size:24px; font-weight:700; line-height:1; letter-spacing:-0.01em; color:var(--text-primary);}
-.tile-tick{font-size:11.5px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+.tile-name{font-family:var(--serif); font-size:20px; font-weight:700; line-height:1; letter-spacing:-0.01em; color:var(--text-primary);}
+.tile-tick{font-size:11px; font-weight:600; letter-spacing:0.05em; text-transform:uppercase; color:var(--muted); flex:1 1 auto; min-width:0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
 .tile-link{text-decoration:none; color:inherit; outline:none;}
 .tile-link::after{content:""; position:absolute; inset:0; border-radius:12px;}
 .tile-link:focus-visible::after{box-shadow:0 0 0 3px var(--accent-soft-border); border:1px solid var(--accent);}
-.tile-full{display:block; font-size:13.5px; font-weight:600; color:var(--text-primary); line-height:1.3;}
-.tile p{margin:0; font-size:13px; line-height:1.45; color:var(--text-secondary);}
-.tile-foot{margin-top:auto; padding-top:8px; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12.5px; font-weight:600;}
-.tile-foot .cta{color:var(--accent); display:inline-flex; align-items:center; gap:5px; white-space:nowrap;}
-.tile-foot .cta svg{width:13px; height:13px; transition:transform .18s ease;}
-.tile:hover .cta svg{transform:translateX(3px);}
+.tile-full{display:block; font-size:13px; font-weight:600; color:var(--text-primary); line-height:1.3;}
+.tile p{margin:0; font-size:12.5px; line-height:1.45; color:var(--text-secondary);}
+.tile-foot{margin-top:auto; padding-top:6px; display:flex; align-items:center; justify-content:space-between; gap:10px; font-size:12.5px; font-weight:600;}
+/* the arrow is the only call to action: the whole tile is the link */
+.tile-foot .cta{
+  flex:none; width:24px; height:24px; border-radius:50%; display:inline-grid; place-items:center;
+  background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink);
+  transition:background .18s ease, color .18s ease, border-color .18s ease;
+}
+.tile-foot .cta svg{width:12px; height:12px; transition:transform .18s ease;}
+.tile:hover .cta, .tile:focus-within .cta{background:var(--accent); border-color:var(--accent); color:#fff;}
+.tile:hover .cta svg{transform:translateX(2px);}
 .tile-foot .deck{
   position:relative; z-index:1; color:var(--accent-ink); text-decoration:none; white-space:nowrap;
   background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:3px 10px; font-size:11.5px;
@@ -549,8 +544,8 @@ table.reg .ref a:hover{text-decoration:underline;}
         <span class="es">Aeropuertos Mexicanos</span>
       </h1>
       <p class="sub">
-        <span class="en">Mexico's airport concessions are split among three listed groups, each with its own region, hub and international footprint. Below: one interactive financial model per group — built on the same structure so the three can be read side by side — a map of where each group operates, the tariff regulation each one works under, and the country's consolidated air traffic.</span>
-        <span class="es">Las concesiones aeroportuarias de México se reparten entre tres grupos listados, cada uno con su región, su hub y su presencia internacional. Abajo: un modelo financiero interactivo por grupo — con la misma estructura, para poder leerlos en paralelo —, el mapa de dónde opera cada uno, la regulación tarifaria de cada grupo y el tráfico aéreo consolidado del país.</span>
+        <span class="en">One interactive model per group, a map of their networks, tariff regulation and the country's air traffic.</span>
+        <span class="es">Un modelo interactivo por grupo, el mapa de sus redes, la regulación tarifaria y el tráfico aéreo del país.</span>
       </p>
     </div>
   </section>
@@ -562,10 +557,6 @@ table.reg .ref a:hover{text-decoration:underline;}
           <span class="en">The Three Groups</span>
           <span class="es">Los Tres Grupos</span>
         </h2>
-        <span class="count">
-          <span class="en">3 live interactive models · BMV / NYSE / Nasdaq</span>
-          <span class="es">3 modelos interactivos en vivo · BMV / NYSE / Nasdaq</span>
-        </span>
       </div>
       <div class="tiles">
         <article class="tile" style="--c:var(--c-gap)">
@@ -574,10 +565,10 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="tile-tick">BMV: GAP · NYSE: PAC</span>
           </div>
           <a class="tile-link" href="/gap/"><span class="tile-full">Grupo Aeroportuario del Pacífico</span></a>
-          <p><span class="en">12 airports in the Pacific and the northwest — Guadalajara, Tijuana, Los Cabos, Puerto Vallarta — plus Montego Bay and Kingston (Jamaica) and the CBX border crossing.</span><span class="es">12 aeropuertos en el Pacífico y el noroeste — Guadalajara, Tijuana, Los Cabos, Puerto Vallarta — más Montego Bay y Kingston (Jamaica) y el cruce fronterizo CBX.</span></p>
+          <p><span class="en">12 airports · Pacific and northwest · Jamaica · CBX</span><span class="es">12 aeropuertos · Pacífico y noroeste · Jamaica · CBX</span></p>
           <div class="tile-foot">
-            <span class="cta"><span class="en">Open model</span><span class="es">Abrir modelo</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
             <a class="deck" data-base="/gap/" href="/gap/?present=1" title="Presentación para el consejo (PDF) / Board presentation (PDF)"><span class="en">Board PDF</span><span class="es">PDF consejo</span></a>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </article>
         <article class="tile" style="--c:var(--c-oma)">
@@ -586,10 +577,10 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="tile-tick">BMV: OMA · Nasdaq: OMAB</span>
           </div>
           <a class="tile-link" href="/oma/"><span class="tile-full">Grupo Aeroportuario del Centro Norte</span></a>
-          <p><span class="en">13 airports across central and northern Mexico anchored by Monterrey, plus hotels and an industrial park at the terminals.</span><span class="es">13 aeropuertos en el centro y el norte del país anclados en Monterrey, más hoteles y un parque industrial en las terminales.</span></p>
+          <p><span class="en">13 airports · central and northern Mexico · Monterrey</span><span class="es">13 aeropuertos · centro y norte del país · Monterrey</span></p>
           <div class="tile-foot">
-            <span class="cta"><span class="en">Open model</span><span class="es">Abrir modelo</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
             <a class="deck" data-base="/oma/" href="/oma/?present=1" title="Presentación para el consejo (PDF) / Board presentation (PDF)"><span class="en">Board PDF</span><span class="es">PDF consejo</span></a>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </article>
         <article class="tile" style="--c:var(--c-asur)">
@@ -598,16 +589,16 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="tile-tick">BMV: ASUR · NYSE: ASR</span>
           </div>
           <a class="tile-link" href="/asur/"><span class="tile-full">Grupo Aeroportuario del Sureste</span></a>
-          <p><span class="en">9 airports in the southeast led by Cancún; San Juan (Puerto Rico), six airports in Colombia, US retail concessions and, from September 2026, Motiva's 20 airports.</span><span class="es">9 aeropuertos en el sureste encabezados por Cancún; San Juan (Puerto Rico), seis aeropuertos en Colombia, concesiones comerciales en EE. UU. y, desde septiembre de 2026, los 20 aeropuertos de Motiva.</span></p>
+          <p><span class="en">9 airports · southeast, Cancún · Puerto Rico · Colombia · Motiva's 20 from Sep-2026</span><span class="es">9 aeropuertos · sureste, Cancún · Puerto Rico · Colombia · 20 de Motiva desde sep-2026</span></p>
           <div class="tile-foot">
-            <span class="cta"><span class="en">Open model</span><span class="es">Abrir modelo</span><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
             <a class="deck" data-base="/asur/" href="/asur/?present=1" title="Presentación para el consejo (PDF) / Board presentation (PDF)"><span class="en">Board PDF</span><span class="es">PDF consejo</span></a>
+            <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
           </div>
         </article>
       </div>
       <p class="tiles-note">
-        <span class="en">Each model has the same structure — quarterly, year-to-date and fiscal-year statements, monthly traffic by airport, share performance against the IPC and the other two groups, an editable DCF, multiples, debt and dividends — so the three read side by side. "Board PDF" opens the model and builds the 15–16 page presentation in the current language from the figures on the page at that moment.</span>
-        <span class="es">Los tres modelos tienen la misma estructura — estados financieros por trimestre, acumulado y año fiscal, tráfico mensual por aeropuerto, desempeño de la acción frente al IPC y a los otros dos grupos, DCF editable, múltiplos, deuda y dividendos — para leerlos en paralelo. «PDF consejo» abre el modelo y genera la presentación de 15–16 páginas en el idioma actual con las cifras de la página en ese momento.</span>
+        <span class="en">The three models share one structure so they read side by side; "Board PDF" builds the presentation from the figures on the page.</span>
+        <span class="es">Los tres modelos comparten estructura para leerlos en paralelo; «PDF consejo» genera la presentación con las cifras de la página.</span>
       </p>
     </div>
   </section>
@@ -699,10 +690,6 @@ table.reg .ref a:hover{text-decoration:underline;}
                 <span class="en">National total · by operator · by airport</span>
                 <span class="es">Consolidado nacional · por operador · por aeropuerto</span>
               </span>
-              <span class="pill live">
-                <span class="en">Live</span>
-                <span class="es">En vivo</span>
-              </span>
             </div>
             <h3>
               <span class="en">Mexico's Airport Traffic by Airport</span>
@@ -735,10 +722,6 @@ table.reg .ref a:hover{text-decoration:underline;}
               <span class="kicker">
                 <span class="en">By airline · routes and networks · market shares</span>
                 <span class="es">Por aerolínea · rutas y redes · participación de mercado</span>
-              </span>
-              <span class="pill live">
-                <span class="en">Live</span>
-                <span class="es">En vivo</span>
               </span>
             </div>
             <h3>
