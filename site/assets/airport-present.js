@@ -98,7 +98,7 @@
       H(this.T('Mercado', 'Market'));
       R(this.T(`Precio ${CFG.homeLabel}`, `${CFG.homeLabel} share price`), `Ps. ${this.n(px[1], 2)}  ·  ${this.date(px[0])}`);
       if (ads) R(this.T(`ADS ${M.ADS} · 1 ADS = ${ratio} acciones`, `${M.ADS} ADS · 1 ADS = ${ratio} shares`), `US$ ${this.n(ads[1], 2)}  ·  ${this.date(ads[0])}`);
-      R(this.T('Capitalización de mercado', 'Market capitalisation'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
+      R(this.T('Capitalización de mercado', 'Market capitalization'), `Ps. ${this.n(mc / 1e9, 1)} ${this.T('mil M', 'bn')}${fx ? `  ·  US$ ${this.n(mc / fx / 1e9, 1)} ${this.T('mil M', 'bn')}` : ''}`);
       if (fx) R(this.T('Tipo de cambio usado (Fed H.10)', 'FX rate used (Fed H.10)'), `${this.n(fx, 4)} MXN/USD  ·  ${this.date(fxP[0])}`, 'muted');
       R(this.T('Acciones en circulación', 'Shares outstanding'), `${this.n(M.sharesNow)}  ·  ${M.REF.shares ? this.date(M.REF.shares.asOf) : ''}`, 'muted');
       R(this.T(`Variación en el año (${this.cfg.short} B · IPC)`, `Year-to-date change (${this.cfg.short} B · IPC)`), `${pm(chg(px, yStart))}  ·  IPC ${pm(chg(ipcLast, ipcStart))}`, this.cls(chg(px, yStart)));
@@ -351,11 +351,22 @@
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
       const bl = [M.L(CFG.debtNote) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemised balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
+      if (D2.events && D2.events.length) bl.push(D2.events.map((e) => `${this.date(e.date)}: ${M.L(e)}`).join(' '));
       if (D2.instrumentsNote) bl.push(M.LS(D2.instrumentsNote));
       yl = this.bullets(bl, this.cur.x0, yl, wl, 7.8, { gap: 3, color: MUTED });
-      let yr = this.heading(this.T('Instrumentos vigentes (Ps. millones)', 'Outstanding instruments (Ps. million)'), xr, y, 10);
-      const ins = (D2.instruments || []).map((i) => [M.LS(i.name), i.matures ? this.date(i.matures) : '—', this.n(i.principalMxn), M.LS(i.rate) || '—']);
-      yr = this.fitTable({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), M.t('principal'), M.t('rate')], body: ins, meta: ins.map(() => ['left', '', '', 'left']), cols: { 0: { halign: 'left', cellWidth: wr * 0.36 }, 1: { cellWidth: wr * 0.2 }, 2: { cellWidth: wr * 0.17 }, 3: { halign: 'left', cellWidth: wr * 0.27 } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 136);
+      const asOfI = D2.instrumentsAsOf ? this.date(D2.instrumentsAsOf) : this.qlab(lastQ);
+      let yr = this.heading(this.T(`Vencimientos de los instrumentos vigentes (${asOfI}, Ps. millones)`, `Maturity profile of outstanding instruments (${asOfI}, Ps. million)`), xr, y, 10);
+      // One row per maturity year; the page lists every instrument. Keeps the table short enough for the page.
+      const byYear = new Map();
+      for (const i of D2.instruments || []) { const yk = i.matures ? String(i.matures).slice(0, 4) : '—'; const g = byYear.get(yk) || { y: yk, n: 0, cb: 0, loan: 0, fixed: 0 }; if (i.type === 'CB') { g.n++; g.cb += i.principalMxn || 0; if (/fij|fixed/i.test(M.LS(i.rate) || '')) g.fixed += i.principalMxn || 0; } else g.loan += i.principalMxn || 0; byYear.set(yk, g); }
+      const ins = [...byYear.values()].sort((a, b) => a.y.localeCompare(b.y)).map((g) => [g.y, g.n ? String(g.n) : '—', g.cb ? this.n(g.cb) : '—', g.loan ? this.n(g.loan) : '—', this.n(g.cb + g.loan), g.cb + g.loan ? this.n(100 * g.fixed / (g.cb + g.loan), 0) + '%' : '—']);
+      const tot = [...byYear.values()].reduce((x, g) => ({ n: x.n + g.n, cb: x.cb + g.cb, loan: x.loan + g.loan, fixed: x.fixed + g.fixed }), { n: 0, cb: 0, loan: 0, fixed: 0 });
+      if (ins.length) ins.push(['Total', String(tot.n), this.n(tot.cb), this.n(tot.loan), this.n(tot.cb + tot.loan), tot.cb + tot.loan ? this.n(100 * tot.fixed / (tot.cb + tot.loan), 0) + '%' : '—']);
+      const hasCb = tot.n > 0, hasFixed = tot.fixed > 0;
+      const keep = [true, hasCb, hasCb, true, true, hasFixed]; // drop the CB and fixed-rate columns when the company has none (ASUR: loans and notes only)
+      const insK = ins.map((r) => r.filter((_, k) => keep[k]));
+      const headK = [M.t('matures'), 'CB (n)', 'CB (Ps. M)', hasCb ? this.T('Préstamos (Ps. M)', 'Loans (Ps. M)') : this.T('Préstamos y bonos (Ps. M)', 'Loans and notes (Ps. M)'), 'Total (Ps. M)', this.T('% fija', '% fixed')].filter((_, k) => keep[k]);
+      yr = this.fitTable({ y: yr, x: xr, w: wr, head: headK, body: insK, meta: insK.map((r, k) => (k === insK.length - 1 ? r.map(() => 'bold') : r.map((_, c) => (c === 0 ? 'left' : '')))), cols: { 0: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 136);
       const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), `${this.ebitdaL} UDM`, this.T(`Deuda neta / ${this.ebitdaL}`, `Net debt / ${this.ebitdaL}`)], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), cols: { 0: { halign: 'left' } } }, [8, 7.6, 7.2, 6.8], this.cur.y1 - 26);

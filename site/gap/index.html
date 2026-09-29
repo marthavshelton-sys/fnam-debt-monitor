@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
-<title>GAP · Modelo financiero interactivo | Grupo Aeroportuario del Pacífico</title>
+<title>GAP · Modelo Financiero Interactivo | Grupo Aeroportuario del Pacífico</title>
 <meta name="description" content="Modelo financiero interactivo de Grupo Aeroportuario del Pacífico (GAP): estados financieros comparables por trimestre, tráfico de pasajeros, acción, DCF y valuación relativa. Datos públicos.">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
@@ -28,7 +28,7 @@
 :root{
   color-scheme: light;
   --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec;
-  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#898781;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --muted:#66655f;
   --grid:#e1e0d9; --baseline:#c3c2b7; --border:rgba(11,11,11,0.10); --border-strong:rgba(11,11,11,0.18);
   --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --accent-soft-border:rgba(27,67,50,0.22);
   --series-1:#2a78d6; --series-2:#eb6834; --series-3:#1baf7a; --series-4:#eda100; --series-5:#e87ba4; --series-6:#008300; --series-7:#4a3aa7; --series-8:#e34948;
@@ -42,7 +42,7 @@
   :root:not([data-theme="light"]){
     color-scheme: dark;
     --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+    --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
     --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
     --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
     --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -52,7 +52,7 @@
 :root[data-theme="dark"]{
   color-scheme: dark;
   --page:#0d0d0d; --surface:#1a1a19; --surface-2:#221f1c;
-  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#918f88;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --muted:#a3a19a;
   --grid:#2c2c2a; --baseline:#383835; --border:rgba(255,255,255,0.10); --border-strong:rgba(255,255,255,0.22);
   --accent:#4f9a76; --accent-ink:#bfe3cf; --accent-soft:#16261e; --accent-soft-border:rgba(79,154,118,0.32);
   --series-1:#3987e5; --series-2:#d95926; --series-3:#199e70; --series-4:#c98500; --series-5:#d55181; --series-6:#008300; --series-7:#9085e9; --series-8:#e66767;
@@ -185,22 +185,22 @@ table.peers tr.head td{padding-top:12px;}
 .controls select{max-width:100%;}
 .controls label.lbl{font-weight:600; color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.04em;}
 .seg{display:inline-flex; flex-wrap:wrap; border:1px solid var(--border-strong); border-radius:8px; overflow:hidden; background:var(--surface); max-width:100%;}
-.seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; cursor:pointer; white-space:nowrap;}
+.seg button{border:0; background:transparent; color:var(--text-secondary); font:inherit; font-size:12.5px; font-weight:600; padding:9px 12px; min-height:36px; cursor:pointer; white-space:nowrap;}
 .seg button + button{border-left:1px solid var(--border);}
 .seg button.active{background:var(--accent); color:#fff;}
 .seg button:hover:not(.active){background:var(--surface-2); color:var(--text-primary);}
 select, input[type=number], input[type=text]{font:inherit; font-size:13px; color:var(--text-primary); background:var(--surface); border:1px solid var(--border-strong); border-radius:8px; padding:6px 9px; min-width:0;}
 input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nums;}
 .switch{display:inline-flex; align-items:center; gap:8px; cursor:pointer; user-select:none;}
-.switch input{appearance:none; width:34px; height:20px; border-radius:20px; background:var(--baseline); position:relative; outline:none; cursor:pointer; transition:background .15s; margin:0;}
-.switch input:after{content:""; position:absolute; top:2px; left:2px; width:16px; height:16px; border-radius:50%; background:#fff; transition:left .15s;}
+.switch input{appearance:none; width:44px; height:24px; border-radius:20px; background:var(--baseline); position:relative; outline:none; cursor:pointer; transition:background .15s; margin:0;}
+.switch input:after{content:""; position:absolute; top:2px; left:2px; width:20px; height:20px; border-radius:50%; background:#fff; transition:left .15s;}
 .switch input:checked{background:var(--accent);}
-.switch input:checked:after{left:16px;}
+.switch input:checked:after{left:22px;}
 .chips{display:flex; flex-wrap:wrap; gap:6px;}
-.chip{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:100px; cursor:pointer;}
+.chip{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:inherit; font-size:12px; font-weight:600; padding:5px 10px; border-radius:100px; cursor:pointer; min-height:32px;}
 .chip.active{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .chip .sw{display:inline-block; width:8px; height:8px; border-radius:2px; margin-right:6px; vertical-align:middle;}
-.btn{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); font:inherit; font-size:12.5px; font-weight:600; padding:7px 12px; border-radius:8px; cursor:pointer;}
+.btn{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); font:inherit; font-size:12.5px; font-weight:600; padding:9px 14px; min-height:36px; border-radius:8px; cursor:pointer;}
 .btn:hover{background:var(--surface-2);}
 .btn.primary{background:var(--accent); color:#fff; border-color:var(--accent);}
 
@@ -217,7 +217,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .inp.years{grid-template-columns:1fr; }
 .inp.years .row5{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:4px; margin-top:4px;}
 .inp.years .row5 input{width:100%; min-width:0; padding:4px 3px; font-size:11.5px; text-align:center;}
-.inp.years .row5 span{font-size:10.5px; color:var(--muted); text-align:center;}
+.inp.years .row5 span{font-size:11px; color:var(--muted); text-align:center;}
 .hero{margin-top:6px;}
 .hero .v{font-family:var(--sans); font-size:clamp(34px,6vw,48px); font-weight:800; letter-spacing:-0.02em; line-height:1;}
 .hero .l{font-size:12.5px; color:var(--muted); margin-top:6px;}
@@ -237,7 +237,7 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sum-grid li{margin:6px 0;}
 .sum-grid li b{color:var(--text-primary);}
 @media (max-width:760px){.sum-grid{grid-template-columns:1fr;}}
-.guide-chip{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
+.guide-chip{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; padding:3px 8px; border-radius:100px; border:1px solid var(--border-strong); color:var(--text-secondary); background:var(--surface); white-space:nowrap;}
 .guide-chip.within{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .guide-chip.above{color:var(--good); border-color:var(--good);}
 .guide-chip.below{color:var(--critical); border-color:var(--critical);}
@@ -273,9 +273,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 
 /* ---------- Language toggle ---------- */
 .lang-btn{position:fixed; top:16px; right:16px; z-index:50; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
-.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:8px 14px; cursor:pointer;}
+.lang-btn button{border:none; background:transparent; color:var(--text-secondary); font-family:var(--sans); font-size:12.5px; font-weight:700; padding:10px 16px; min-height:40px; cursor:pointer;}
 .lang-btn button.active{background:var(--accent); color:#fff;}
-@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:7px 11px; font-size:11.5px;}}
+@media (max-width:640px){.lang-btn{top:8px; right:8px;} .lang-btn button{padding:10px 13px; min-height:44px; font-size:12px;}}
 
 /* ---------- Print as presentation (Letter landscape, one slide per section) ---------- */
 .print-only{display:none;}
@@ -475,13 +475,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Ingresos por Tipo</span><span class="en" hidden>Revenue by Type</span></h3>
         <p class="cap"><span class="es">Ps. millones por trimestre, últimos 12 trimestres</span><span class="en" hidden>Ps. million per quarter, last 12 quarters</span></p>
-        <div class="chart-wrap"><canvas id="chartRevMix"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartRevMix" role="img" aria-label="Ingresos por Tipo / Revenue by Type"></canvas></div>
         <p class="chart-src" id="revMixSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Margen EBITDA sin IFRIC 12</span><span class="en" hidden>EBITDA Margin ex-IFRIC 12</span></h3>
         <p class="cap"><span class="es">EBITDA / (ingresos − ingresos por construcción), %</span><span class="en" hidden>EBITDA / (revenue − construction revenue), %</span></p>
-        <div class="chart-wrap"><canvas id="chartMargin"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartMargin" role="img" aria-label="Margen EBITDA sin IFRIC 12 / EBITDA Margin ex-IFRIC 12"></canvas></div>
         <p class="chart-src"><span class="es">Fuente: informes trimestrales de GAP (margen reportado)</span><span class="en" hidden>Source: GAP quarterly reports (reported margin)</span></p>
       </div>
     </div>
@@ -529,12 +529,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
               <button type="button" data-v="capex">Capex</button>
             </div>
         </div>
-        <div class="chart-wrap"><canvas id="chartGuide"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartGuide" role="img" aria-label="Guía vs. Real por Año / Guidance vs. Actual by Year"></canvas></div>
         <p class="chart-src" id="guideChartSrc"></p>
     </div>
     <div class="card" style="margin-top:20px">
         <h3><span class="es">Cumplimiento por Año</span><span class="en" hidden>Track Record by Year</span></h3>
-        <p class="cap"><span class="es">Resultado real frente a la última guía de cada año cerrado · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Actual outcome versus the final guidance of each closed year · green = above the range, grey = within, red = below</span></p>
+        <p class="cap"><span class="es">Resultado real frente a la última guía de cada año cerrado · verde = por encima del rango, gris = dentro, rojo = por debajo</span><span class="en" hidden>Actual outcome versus the final guidance of each closed year · green = above the range, gray = within, red = below</span></p>
         <div class="tblwrap" id="guideRecord"></div>
     </div>
 
@@ -570,7 +570,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3 id="trafficChartTitle"></h3>
         <p class="cap" id="trafficChartCap"></p>
-        <div class="chart-wrap tall"><canvas id="chartTraffic"></canvas></div>
+        <div class="chart-wrap tall"><canvas id="chartTraffic" role="img" aria-label="Tráfico de pasajeros por periodo / Passenger traffic by period"></canvas></div>
         <p class="chart-src" id="trafficSrc"></p>
         <details class="tbl"><summary><span class="es">Ver tabla de datos</span><span class="en" hidden>View data table</span></summary><div class="tblwrap" id="trafficSeriesTable"></div></details>
       </div>
@@ -611,13 +611,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3 id="priceChartTitle"></h3>
         <p class="cap" id="priceChartCap"></p>
-        <div class="chart-wrap"><canvas id="chartPrice"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartPrice" role="img" aria-label="Precio de la acción / Share price"></canvas></div>
         <p class="chart-src" id="priceSrc"></p>
       </div>
       <div class="card">
         <h3><span class="es">Rendimiento Relativo (Base 100)</span><span class="en" hidden>Relative Performance (Rebased to 100)</span></h3>
         <p class="cap"><span class="es">GAP B vs. S&amp;P/BMV IPC, ASUR B y OMA B, precio en pesos</span><span class="en" hidden>GAP B vs. S&amp;P/BMV IPC, ASUR B and OMA B, peso prices</span></p>
-        <div class="chart-wrap"><canvas id="chartRebased"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartRebased" role="img" aria-label="Rendimiento Relativo (Base 100) / Relative Performance (Rebased to 100)"></canvas></div>
         <p class="chart-src" id="rebasedSrc"></p>
         <div class="tblwrap" id="rebasedTable"></div>
       </div>
@@ -670,7 +670,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">VE/EBITDA UDM Histórico</span><span class="en" hidden>Historical EV/EBITDA (LTM)</span></h3>
         <p class="cap"><span class="es">Al cierre de cada trimestre, con deuda neta reportada</span><span class="en" hidden>At each quarter-end, with reported net debt</span></p>
-        <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartEvEbitda" role="img" aria-label="VE/EBITDA UDM Histórico / Historical EV/EBITDA (LTM)"></canvas></div>
         <p class="chart-src" id="evSrc"></p>
       </div>
     </div>
@@ -707,8 +707,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <h3><span class="es">Deuda Neta y Apalancamiento</span><span class="en" hidden>Net Debt and Leverage</span></h3>
       <p class="cap"><span class="es">Ps. millones al cierre del trimestre; deuda neta / EBITDA UDM</span><span class="en" hidden>Ps. million at quarter-end; net debt / LTM EBITDA</span></p>
       <div class="grid-2 eq" style="margin-top:8px">
-        <div class="chart-wrap short"><canvas id="chartNetDebt"></canvas></div>
-        <div class="chart-wrap short"><canvas id="chartLeverage"></canvas></div>
+        <div class="chart-wrap short"><canvas id="chartNetDebt" role="img" aria-label="Deuda Neta y Apalancamiento / Net Debt and Leverage"></canvas></div>
+        <div class="chart-wrap short"><canvas id="chartLeverage" role="img" aria-label="Deuda Neta y Apalancamiento / Net Debt and Leverage"></canvas></div>
       </div>
       <p class="chart-src" id="debtSrc"></p>
     </div>
@@ -731,7 +731,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Dividendo por Acción, por Año de Pago</span><span class="en" hidden>Dividend per Share, by Payment Year</span></h3>
         <p class="cap"><span class="es">Ps. por acción serie B</span><span class="en" hidden>Ps. per series B share</span></p>
-        <div class="chart-wrap"><canvas id="chartDps"></canvas></div>
+        <div class="chart-wrap"><canvas id="chartDps" role="img" aria-label="Dividendo por Acción, por Año de Pago / Dividend per Share, by Payment Year"></canvas></div>
         <p class="chart-src" id="dpsSrc"></p>
       </div>
       <div class="card">

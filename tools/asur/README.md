@@ -139,3 +139,13 @@ changed it drafts the comments for a new quarter, updates `reference.js` for eve
 acquisitions, share count), rewrites the affected sections of `summary.js`, commits to `main`, and its
 final message is a concise note delivered by email. If nothing changed the note is the single line "No
 material change in ASUR data today."
+
+
+## Conventions and pipeline notes (29-Sep-2026)
+
+- Prices: `fetch-market` keeps only completed sessions, so the 14:30 UTC run publishes the previous close and the 22:40/22:55 UTC run the day's close; the page header prints the close date and the fetch time (CDMX). FactSet is available only inside a Claude session, not in Actions.
+- Headings are Title Case in both languages; the English view uses American English and EV / P/E / ND.
+- The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
+- `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
+- Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.
+- Leverage: the page's 0.78× divides net debt by consolidated LTM EBITDA; ASUR's Table 6 prints 0.9× on the same net debt with a denominator it does not itemize; both are shown. The country-review passenger figures include transit and general aviation (the report's own note), the traffic tables do not; the page footnotes both bases. Motiva: only ASUR's filings feed the page (US$936 M JPMorgan loan, R$5.1 bn price); press-only figures are named in the status text and not used.

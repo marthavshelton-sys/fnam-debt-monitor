@@ -1,6 +1,7 @@
 // Executive summary shown at the top of the GAP page. Narrative is curated from the data files and the
 // releases; the change-alert routine rewrites the affected section when new results, traffic, guidance
-// or events land. Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
+// or events land. Write the next-results date as the token {{nextResults}}: the page fills it from the same
+// release-lag rule the deck uses, so the two never disagree. Section titles are in Title Case in both languages (the page enforces it too). Figures quoted are as of the `basis` periods (not live market data).
 window.GAP_SUMMARY = {
   updatedAt: "2026-09-29",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-14", trafficMonth: "2026-08", guidanceDate: "2026-07-14" },
@@ -27,7 +28,7 @@ window.GAP_SUMMARY = {
       ],
       en: [
         "**Revised on 14 July: traffic −3% to 0%** (was +2% to +5%), aeronautical revenue +1% to +4% (was +9% to +12%), non-aeronautical +21% to +24% (was +6% to +9%), total revenue +7% to +10% (was +8% to +11%), **EBITDA +10% to +12%** (was +8% to +11%), EBITDA margin 67% ±1 (was 65% ±1), capex Ps. 12.0 bn (was 13.5).",
-        "Why: **the February guidance excluded CBX**; the revision adds its consolidation from May and the internalised technical assistance (more EBITDA and margin) and cuts traffic and aeronautical revenue for Melissa in Jamaica, security in Puerto Vallarta, fuel and airfares, and a 10.9% stronger peso.",
+        "Why: **the February guidance excluded CBX**; the revision adds its consolidation from May and the internalized technical assistance (more EBITDA and margin) and cuts traffic and aeronautical revenue for Melissa in Jamaica, security in Puerto Vallarta, fuel and airfares, and a 10.9% stronger peso.",
         "Tracking at 6M26: traffic −5.6%, aero +0.4%, non-aero +15.1%, **EBITDA +7.4%, margin 68.8%**. Management counts on a better second half (19 new routes, seat recovery in Jamaica, easier comparisons). Track record: FY2025 missed on traffic (+2.5% vs 4–6%), aero and EBITDA; FY2024 and FY2022 beat on every metric."
       ]
     },
@@ -41,20 +42,20 @@ window.GAP_SUMMARY = {
       en: [
         "At 30 June 2026: gross debt Ps. 65.7 bn, cash Ps. 19.8 bn, **net debt Ps. 45.9 bn = 2.1x LTM EBITDA** (Ps. 22.2 bn); gross debt 3.0x; EBITDA covers the LTM net financial cost 6.4x.",
         "Leverage rose with the **Ps. 10.7 bn of certificados bursátiles issued in March** (GAP 26 at TIIE + 45 bp and GAP 26-2 at 9.87% fixed to 2036) to pay US$487.5 M for the remaining 25% of CBX and MDP capex, plus the Ps. 1.3 bn loan assumed from CBX; Ps. 8.0 bn of bank facilities were signed in September. Rated Aaa.mx / mxAAA, stable outlook.",
-        "**2026 dividend approved: Ps. 20.80 per share** (≈5.4% on the 29 Sep 2026 close of Ps. 383.84), payable in one or more instalments until 22 Apr 2027; declared in full in 2Q26 (Ps. 12,376 M payable) and **no instalment paid** yet. Guided capex Ps. 12.0 bn, 41% spent by June."
+        "**2026 dividend approved: Ps. 20.80 per share** (≈5.4% on the 29 Sep 2026 close of Ps. 383.84), payable in one or more installments until 22 Apr 2027; declared in full in 2Q26 (Ps. 12,376 M payable) and **no installment paid** yet. Guided capex Ps. 12.0 bn, 41% spent by June."
       ]
     },
     {
       k: "watch", title: { es: "Qué Observar en los Próximos Reportes", en: "What to Watch in the Next Releases" },
       es: [
         "**Tráfico mensual** (≈día 5): **si se sostiene el giro de julio–agosto**; Puerto Vallarta internacional, la recuperación de asientos en Montego Bay para el invierno y Tijuana/CBX.",
-        "**3T26** (última semana de octubre): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
+        "**3T26** ({{nextResults}}): **primer trimestre completo de CBX** (≈Ps. 700 M de ingresos si se repite el ritmo de mayo–junio), margen sin cuota de asistencia técnica, cumplimiento de la tarifa máxima (≈95% a fin de año), avance del capex y de la deuda neta.",
         "**FIBRA GAP: colocación prevista para octubre de 2026** según la prensa (22 sep), tras posponerse en junio. También: fusión Viva–Volaris, combustible y tarifas aéreas, fecha del primer pago del dividendo 2026, guía 2027 en enero–febrero con el incremento de tarifa de enero, y el 20-F en abril."
       ],
       en: [
         "**Monthly traffic** (≈5th): **whether the July–August turn holds**; Puerto Vallarta international, seat recovery at Montego Bay for the winter, and Tijuana/CBX.",
-        "**3Q26** (last week of October): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
-        "**FIBRA GAP: placement expected in October 2026** per the press (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend instalment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
+        "**3Q26** ({{nextResults}}): **first full quarter of CBX** (≈Ps. 700 M revenue if the May–June pace repeats), margin without the technical-assistance fee, maximum-tariff compliance (≈95% by year-end), capex and net-debt progression.",
+        "**FIBRA GAP: placement expected in October 2026** per the press (22 Sep), after the June postponement. Also: the Viva–Volaris merger, fuel and airfares, the date of the first 2026 dividend installment, 2027 guidance in January–February with the January tariff increase, and the 20-F in April."
       ]
     }
   ]
