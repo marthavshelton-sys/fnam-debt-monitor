@@ -31,9 +31,69 @@ written to the repo or the page.
 Everything on the page except the four items below, including: all series
 from BLS, BEA, FRED, Census, Treasury, Michigan and the NY Fed; every "next
 release" date (pulled from FRED's mirror of each agency's official calendar,
-so no date tables live in the code); the first-print payroll figures behind
-the revisions chart (recorded on the first run after each jobs report); and
-state nonfarm employment behind the job-cut maps.
+so no date tables live in the code, plus the last six dates that published,
+which name the GDP estimate on the page); the first-print payroll figures behind
+the revisions chart (recorded on the first run after each jobs report) and every
+published value of the last two years of payrolls (ALFRED vintages, see below);
+and state nonfarm employment behind the job-cut maps.
+
+## Conventions the page derives from the data
+
+- **Payroll revisions have two bases, and the page names the one it uses.** The
+  chart "How the first estimate held up" is today's change for each month minus
+  what that month's own jobs report first said. BLS's release text ("June and
+  July were revised +55K in total") compares each month with the *previous*
+  report instead, and the two figures differ. `process_core.ps1` therefore rebuilds
+  the change for each month as it stood at every release from ALFRED (the St.
+  Louis Fed's archive of FRED vintages: `series/vintagedates` and
+  `series/observations` with `realtime_start`/`realtime_end` for PAYEMS) into
+  `labor_static.json` as `payrollVintages` `{ "2026-06": [[release, change], ...] }`
+  (latest 24 months; `ConvertTo-PayrollVintages` in `common.ps1` keeps a pair only
+  when the value moved). The "At a glance" card quotes BLS's basis when that block
+  is current and says "against their first estimates" otherwise; the chart's
+  first prints come from the vintages when present, else from `payrollInitial`.
+- **Financial conditions quote the freshest print with its real date.** The
+  charts stay weekly (FRED's end-of-week aggregation), but each daily series
+  (spreads, rates, dollar, VIX, S&P 500) also carries `latest`, its newest native
+  observation dated no later than the run day, so a Monday high-yield spread no
+  longer waits for Friday. FRED dates an unfinished week to its Friday, which can
+  lie in the future; the processor drops that point and the page ignores any
+  point dated after today. The FRED calls are paced (FRED allows 120 a minute
+  per key).
+- **GDP estimate names.** BEA publishes each quarter three times; the page
+  counts the release dates after the quarter's end (`calendar.json` `recent`, an
+  explicit 13-month look-back) to label the figure "advance / second / third
+  estimate (BEA, date)" and to say which estimate the next release brings. BEA's
+  own "last revised" date for table 1.1.1 (`gdp_processed.json` `vintage.gdp`,
+  from the API's table note) caps and completes that list, so a run between BEA's
+  release and FRED's calendar update still names the estimate the figures come
+  from. With only `last` available it infers the same from the month gap.
+- **Shiller's 10-year rate.** For finished months it is the monthly average;
+  for the current (partial) month Shiller's file carries a single daily reading
+  from when the file was posted (September 2026: 4.75%, the 31-Aug H.15 value).
+  The CAPE view labels it "one daily reading at posting, not a month average"
+  and shows FRED's latest daily yield beside it.
+- **SPR cavern counts** follow DOE's storage-sites page (the capacity source).
+  DOE's SPR Quick Facts table carries its own cavern column and, for West
+  Hackberry, a different count (22 vs 21); the page keeps one source and
+  prints a note whenever the two disagree, rather than showing both numbers.
+- **Language.** English headings are Title Case (applied to the rendered text,
+  so dynamic headings follow); Spanish headings keep sentence case, month
+  abbreviations are lowercase (`28-sep-2026`), thousands read "mil" and
+  millions "M", dollar amounts "mmd" (miles de millones de dólares) with a units
+  note under the fiscal tiles. Words with a Spain-only flavour (hostelería,
+  derbi) are avoided.
+- **Addresses and metadata.** Every section is a real link (`?view=`,
+  `&lang=`), the browser history follows it, and the document title,
+  description, canonical, hreflang and Open Graph tags are rewritten per
+  section and language. An unknown `?view=` opens the first section and says so.
+- `labor_static.json` is written compact (it is baked into the page; the
+  pretty-printed form was 65 KB of whitespace).
+- **Phones.** No text below 11 px: chart SVGs narrower than their drawing are
+  refitted (`fitChartViewBoxes` shrinks the viewBox so the smallest chart text
+  renders at 11 px) and axis margins, tick spacing and annotation labels adapt to
+  the width. The phone `@media` blocks sit at the end of the stylesheet; placed
+  earlier, later base rules silently override them.
 
 ## The Challenger report (no API, handled on the runner)
 
@@ -143,6 +203,32 @@ in the `I18N` block in both languages; the build refuses to run if the two
 locales don't have identical keys, or if the code references a string that
 doesn't exist. After editing, push — the workflow rebuilds and deploys.
 
+The published page is written by `build-page.mjs`, which `build.ps1` runs whenever
+Node is available (the runner has it): the same substitution, wrap and guards,
+plus two things that take the page from about 1.8 MB to about 1.0 MB without
+changing what it shows:
+
+- every data block is packed losslessly (arrays of identical rows as columns,
+  regular date sequences as ranges, irregular ones as steps); the page's
+  `unpack()`, between the `// @unpack-begin` and `// @unpack-end` markers, restores
+  them, and a block is packed only if that same function gives back exactly the
+  original and the template reads the placeholder through `unpack()`;
+- developer comments are left out of the published copy, only if the stripped
+  script still parses and keeps every code character.
+
+If Node is missing or the script fails, `build.ps1` builds the page itself, unpacked
+and with comments (identical in rendering), and the run logs a warning.
+`node tools/macro/build-page.mjs --plain` reproduces that output byte for byte.
+
+In a Linux session, `node tools/macro/build-page.mjs` builds `site/macro/index.html`
+from the committed data, so a template change can be opened in a browser (serve
+`site/` locally) and committed with the template; the workflow rebuilds the page on
+merge either way. `node tools/macro/exec_extract.js site/macro/index.html en`
+checks that the alert extractor still reads every section. PowerShell 7 (`pwsh`)
+can be installed in a session to parse-check the scripts and run them against a
+mocked `Invoke-RestMethod`; the data providers themselves are not reachable from
+there.
+
 To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 
 ```powershell
@@ -172,5 +258,6 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
   runner (no Excel there); locally `common.ps1` uses Excel COM first
 - `alerts.ps1` + `exec_extract.js` — new-release emails via GitHub issues (see above)
-- `build.ps1` — template + data → page, with the locale guards
+- `build.ps1` — template + data → page, with the locale guards; `build-page.mjs` —
+  writes the published page (packed data, no comments) when Node is available
 - `refresh_all.ps1` — runs everything in order; what the workflow calls

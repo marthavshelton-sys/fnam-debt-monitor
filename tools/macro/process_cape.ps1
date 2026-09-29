@@ -7,7 +7,9 @@
 # column F), B price, D earnings, E CPI, G 10-year yield, H real price, M CAPE,
 # Q excess CAPE yield, T 10-year annualized real stock return (only for months
 # at least ten years old). The last row is the current month, whose price is
-# the average of the month so far.
+# the average of the month so far and whose 10-year rate is a single daily reading
+# (the latest available when Shiller posts the file), not a month average. The
+# nominal price column is not kept: the page reads the real price only.
 . "$PSScriptRoot\common.ps1"
 $ua = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"
 $xls = Join-Path $scratch "ie_data.xls"; $csv = Join-Path $scratch "ie_data.csv"
@@ -41,7 +43,6 @@ foreach ($line in (Get-Content $csv)) {
   [void]$pts.Add([ordered]@{
     d = ("{0}-{1:D2}" -f [int]$year, $month)
     cape = [math]::Round($cape, 2)
-    price = [math]::Round((& $num $p[1]), 2)
     real = [math]::Round((& $num $p[7]), 0)
     gs10 = [math]::Round((& $num $p[6]), 2)
     ecy = $(if ((& $num $p[16]) -ne $null) { [math]::Round((& $num $p[16]) * 100, 2) } else { $null })

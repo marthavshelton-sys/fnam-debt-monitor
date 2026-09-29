@@ -3,6 +3,7 @@
 # up on one axis and the page carries ~1,000 points per series instead of 5,000.
 . "$PSScriptRoot\common.ps1"
 $key = Get-ApiKey "FRED_API_KEY"
+$today = (Get-Date).ToString("yyyy-MM-dd")
 
 $series = [ordered]@{
   # composites
@@ -51,8 +52,10 @@ foreach ($id in $series.Keys) {
   $from = if ($id -match '^(NFCI|ANFCI|STLFSI4|KCFSI)') { "2007-01-01" } else { "2012-01-01" }
   $dec = if ($id -eq "WALCL") { 0 } elseif ($id -match '^(DTWEXBGS|VIXCLS|SP500)$') { 1 } elseif ($id -match '^(NFCI|ANFCI|STLFSI4|KCFSI)') { 3 } else { 2 }
   $pts = New-Object System.Collections.ArrayList
+  # FRED dates an unfinished week to its Friday, which can lie in the future; that
+  # point is dropped so no chart or tile shows a date that has not happened yet.
   foreach ($o in $r.observations) {
-    if ($o.value -eq "." -or $o.date -lt $from) { continue }
+    if ($o.value -eq "." -or $o.date -lt $from -or $o.date -gt $today) { continue }
     $v = [double]$o.value
     if ($id -eq "WALCL") { $v = $v / 1000 }   # $ millions -> $ billions
     [void]$pts.Add([ordered]@{ d = $o.date; v = [math]::Round($v, $dec) })
@@ -69,9 +72,26 @@ foreach ($id in $series.Keys) {
   } else {
     $out[$id] = [ordered]@{ points = $pts }
   }
+  # The daily series also carry their newest observation with its real date: tiles
+  # and text quote it, so a Monday print no longer waits for Friday or carries a
+  # Friday date; the charts stay weekly. (The weekly and monthly series' last point
+  # already is their newest.) Missing on a failed call; the page then falls back to
+  # the weekly point.
+  $latest = $null
+  if ($id -match '^(BAML|DFF|DFEDTAR|DGS|T10Y|DTWEXBGS|VIXCLS|SP500)') {
+    Start-Sleep -Milliseconds 400
+    try {
+      $r2 = Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=$id&api_key=$key&file_type=json&sort_order=desc&limit=12" -TimeoutSec 60
+      $o2 = @($r2.observations | Where-Object { $_.value -ne "." -and $_.date -le $today }) | Select-Object -First 1
+      if ($o2) { $v2 = [double]$o2.value; if ($id -eq "WALCL") { $v2 = $v2 / 1000 }; $latest = [ordered]@{ d = $o2.date; v = [math]::Round($v2, $dec) } }
+    } catch { Write-Host ("  latest observation for {0} unavailable ({1})" -f $id, $_.Exception.Message.Split([char]10)[0]) }
+  }
+  if ($latest) { $out[$id]["latest"] = $latest }
   $lastP = $pts[$pts.Count-1]
-  "{0,-13} {1,5} pts  {2} = {3,-10}  {4}" -f $id, $pts.Count, $lastP.d, $lastP.v, $series[$id]
-  Start-Sleep -Milliseconds 150
+  "{0,-13} {1,5} pts  {2} = {3,-10}  {4}{5}" -f $id, $pts.Count, $lastP.d, $lastP.v, $series[$id], $(if ($latest) { "  (latest " + $latest.d + " = " + $latest.v + ")" } else { "" })
+  # FRED allows 120 requests a minute per key: 23 series and 14 second calls, paced
+  # to stay well under it even when the calendar and supply steps run close by.
+  Start-Sleep -Milliseconds 800
 }
 
 $obj = [ordered]@{ series = $out; fetchedAt = (Get-Date -Format "yyyy-MM-dd") }
