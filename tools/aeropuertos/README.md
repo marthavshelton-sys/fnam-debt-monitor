@@ -25,6 +25,21 @@ Notes: AFAC counts passengers at each airport (arrivals + departures), so domest
 not "trips". The dashboard's "Company reports" basis reads `/gap/data/traffic.js`, `/oma/data/traffic.js` and `/asur/data/traffic.js`
 at runtime and needs no step here.
 
+## Hub page `/aeropuertos/` — tiles, tariffs table and chart stamps
+
+- The three company tiles sit at the top of the page (compact: name, ticker, one-line footprint, "Open model" and the
+  board-PDF link). The full description of what each model contains lives on the model pages, not on the tiles.
+- **Tariffs and regulation** (`site/aeropuertos/data/regulation.js`) is hand-curated from the companies' own BMV/SEC
+  releases and quarterly reports; every cell carries the filing it was read from (label + URL) and the page links it.
+  Figures are quoted exactly as the filings state them, in the constant pesos of each regulatory period (GAP Dec-2023
+  tariffs / Dec-2022 investments, OMA Dec-2024, ASUR Dec-2022), so do not compare levels across groups. Update the
+  cells when a new MDP is approved (GAP 2030, ASUR 2029, OMA 2031) or a quarterly report changes the "latest reading"
+  row, and bump `updatedAt` (shown as "Reviewed <date>" in the section header).
+- Every chart on the hub and on `/trafico/` and `/aerolineas/` carries a stamp: data month, when the source published the
+  file (`sources.afac.published`, written by `compile.mjs` into `summary.js` and by `airlines-lib.mjs` into
+  `airlines-summary.js`), when the data file was generated (`generatedAt`) and the last daily check (`status.js`).
+  Dates are shown in CDMX time; ISO dates are parsed at noon UTC so they never shift a day.
+
 ## Daily automatic refresh (`.github/workflows/aeropuertos-refresh.yml`)
 
 `scripts/aeropuertos/refresh.mjs` runs every day at 17:30 UTC on GitHub Actions (also on manual dispatch, and on pushes that

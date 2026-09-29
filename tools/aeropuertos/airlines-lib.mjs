@@ -339,6 +339,7 @@ export function compile(input) {
   for (const c of mxList) { const gid = ['AM', 'AMC'].includes(c.id) ? 'AMG' : c.id; const g = grouped.get(gid) || { id: gid, name: gid === 'AMG' ? 'Aeroméxico' : c.short, color: gid === 'AMG' ? (carriersReg.find((x) => x.id === 'AM') || {}).color : c.color, pax: zeros() }; tot2(c).forEach((v, i) => (g.pax[i] += v)); grouped.set(gid, g); }
   const summary = { generatedAt: airlines.generatedAt, months: months.slice(s0), lastMonth: to,
     carriers: [...grouped.values()].map((g) => ({ ...g, pax: g.pax.slice(s0) })).filter((g) => g.pax.some((v) => v)).sort((a, b) => b.pax[b.pax.length - 1] - a.pax[a.pax.length - 1]),
-    foreign: totals.foreignIntl.slice(s0), all: totals.all.slice(s0) };
+    foreign: totals.foreignIntl.slice(s0), all: totals.all.slice(s0),
+    sources: { afac: airlines.sources && airlines.sources.afac ? { published: airlines.sources.afac.published || null, lastMonth: airlines.sources.afac.lastMonth || null } : null } }; // hub chart stamp: when AFAC published the file
   return { airlines, routes, summary };
 }
