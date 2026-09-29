@@ -32,6 +32,9 @@ at runtime and needs no step here.
 - **Tariffs and regulation** (`site/aeropuertos/data/regulation.js`) is hand-curated from the companies' own BMV/SEC
   releases and quarterly reports. Cells are short bullet lists (`es`/`en` arrays) and cite their filings by id
   (`src`); the filings are numbered once in `sources` and printed under the table with the `[n]` marks.
+  `regulation.js` and `status.js` are `no-store` in `site/_headers`; still, bump the `?v=` on the hub's
+  `<script src="/aeropuertos/data/regulation.js?v=N">` tag whenever the file's shape changes, so a phone that
+  cached the old file under the zone's 4-hour browser TTL loads the new one with the new page.
   Figures are quoted exactly as the filings state them, in the constant pesos of each regulatory period (GAP Dec-2023
   tariffs / Dec-2022 investments, OMA Dec-2024, ASUR Dec-2022), so do not compare levels across groups. Update the
   cells when a new MDP is approved (GAP 2030, ASUR 2029, OMA 2031) or a quarterly report changes the "latest reading"
