@@ -107,7 +107,12 @@ async function getDebtToThePenny() {
   const trillions = Math.floor(latest.totalDebtT);
   const cross = (await fetchJSON(`${DTP_URL}?filter=tot_pub_debt_out_amt:gte:${trillions}000000000000&sort=record_date&page[size]=1&fields=record_date,tot_pub_debt_out_amt`)).data[0];
   const milestone = cross ? { trillions, date: cross.record_date } : null;
-  return Object.assign(latest, { fyEnd, milestone });
+  // Last completed calendar year-end (Dec 31 or the last business day before it): the newest
+  // fixed bar of the calendar-year charts in Section 01, so a new year never repeats the old one.
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const calRow = (await fetchJSON(`${DTP_URL}?filter=record_date:lte:${calYear}-12-31&sort=-record_date&page[size]=1&fields=${DTP_FIELDS}`)).data[0];
+  const calEnd = Object.assign({ year: calYear }, dtpRow(calRow));
+  return Object.assign(latest, { fyEnd, milestone, calEnd });
 }
 
 // Average Interest Rates on U.S. Treasury Securities: the three summary rows Treasury publishes
@@ -448,13 +453,29 @@ async function getFedBalanceSheet() {
   const peak = fredMax(series.walcl);
   const rrpRows = await fetchCSV(fredUrl('RRPONTSYD'));
   const rrpPeak = fredMax(fredPoints(rrpRows));
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const walclCal = fredPointAt(series.walcl, `${calYear}-12-31`);
+  const res2019 = fredPointAt(series.reserves, '2019-12-31'); // pre-pandemic comparison in the Section 09 prose
   return {
     date: latest.date,
     walclB: latest.value / 1000,
     treasuriesB: at('treast'), mbsB: at('mbs'), reservesB: at('reserves'), currencyB: at('currency'), tgaB: at('tga'),
     walclPeak: peak ? { date: peak.date, valueB: peak.value / 1000 } : null,
+    walclCalEnd: walclCal ? { year: calYear, date: walclCal.date, valueB: walclCal.value / 1000 } : null,
+    reservesEnd2019B: res2019 ? { date: res2019.date, value: res2019.value } : null,
     rrpPeak: rrpPeak ? { date: rrpPeak.date, valueB: rrpPeak.value } : null,
   };
+}
+
+// M2 money stock: the latest month plus the last completed calendar year-end (December value),
+// the newest fixed point of the Section 01 calendar-year M2 chart.
+async function getM2() {
+  const pts = fredPoints(await fetchCSV(fredUrl('M2SL')));
+  const latest = pts[pts.length - 1];
+  if (!latest) throw new Error('M2SL: empty');
+  const calYear = Number(latest.date.slice(0, 4)) - 1;
+  const dec = pts.find((p) => p.date === `${calYear}-12-01`);
+  return { date: latest.date, value: latest.value, calEnd: dec ? { year: calYear, date: dec.date, value: dec.value } : null };
 }
 
 // "Most recent actual" column of the CBO-assumptions table in Section 06: real GDP growth (BEA,
@@ -477,7 +498,6 @@ async function getMacroActuals() {
 // FRED series pulled via the public, key-free CSV export.
 const FRED_SERIES = {
   walcl: 'WALCL',          // Fed total assets, weekly, $B
-  m2: 'M2SL',               // M2 money stock, monthly, $B
   effr: 'EFFR',             // Effective federal funds rate, daily
   iorb: 'IORB',             // Interest on reserve balances, daily
   onrrp: 'RRPONTSYAWARD',   // ON RRP award rate, daily
@@ -510,6 +530,7 @@ async function main() {
     ['accruedInterest', getAccruedInterest],
     ['holders', getHolders],
     ['avgMaturity', getAvgMaturity],
+    ['m2', getM2],
     ['targetRange', getTargetRange],
     ['fedBalanceSheet', getFedBalanceSheet],
     ['macroActuals', getMacroActuals],
@@ -544,7 +565,7 @@ async function main() {
     avgRate: results.avgRate,     // {date, avgRatePct}
     fed: {
       walcl: walclB,               // {date, value} — $B (converted from FRED's $M)
-      m2: results.m2,             // {date, value} — $B
+      m2: results.m2,             // {date, value, calEnd} — $B
     },
     debtComposition: results.composition, // {date, notes, bills, bonds, tips, frns, nonmarketable} — all $B
     foreignHolders: results.foreignHolders, // {date: "YYYY-MM", top10: [{country, valueB}], grandTotalB}
@@ -562,7 +583,7 @@ async function main() {
     holders: results.holders,             // OFS-2 + Debt to the Penny: {asOf, holders[], totalPublicDebtB, foreignYearAgoB, yearAgoEndOfMonth}
     avgMaturity: results.avgMaturity,     // MSPD security-level: {date, months, marketableB, securities, within12moB, within12moPct, schedule{years, valuesB}}
     targetRange: results.targetRange,     // FRED DFEDTARU/DFEDTARL: {date, upper, lower, since} — the FOMC's target range and when it took effect
-    fedBalanceSheet: results.fedBalanceSheet, // H.4.1 via FRED, $B at the latest WALCL Wednesday: {date, walclB, treasuriesB, mbsB, reservesB, currencyB, tgaB, walclPeak, rrpPeak}
+    fedBalanceSheet: results.fedBalanceSheet, // H.4.1 via FRED, $B at the latest WALCL Wednesday: {date, walclB, treasuriesB, mbsB, reservesB, currencyB, tgaB, walclPeak, walclCalEnd, reservesEnd2019B, rrpPeak}
     macroActuals: results.macroActuals,   // FRED: {realGdpGrowth, cpiYoY, tenYear, unemployment} — the "most recent actual" column of the CBO table
   };
 
