@@ -10,7 +10,7 @@ browser from two data files; the page has no hand-typed figures left in it.
 | File | What it holds | Who writes it | When |
 |---|---|---|---|
 | `site/fiscal/data.js` (`window.LIVE_DATA`) | every Treasury, Federal Reserve and FRED series the page shows | `scripts/fetch-data.mjs`, run by `.github/workflows/refresh-data.yml` | 13:15 and 21:30 UTC daily |
-| `site/fiscal/monthly-data.js` (`window.MONTHLY_DATA`) | the figures with no machine-readable source: CBO projection tables, the CME FedWatch snapshot, the two fixed TBAC maturity anchors | the Claude routine "FNAM US Fiscal: CBO / FedWatch research", which commits to `main` | Mondays and Thursdays 15:00 UTC (Thursday = the morning after an FOMC decision) |
+| `site/fiscal/monthly-data.js` (`window.MONTHLY_DATA`) | the figures with no machine-readable source: CBO projection tables, the CME FedWatch snapshot, the two fixed TBAC maturity anchors | the Claude routine "FNAM US Fiscal: CBO / FedWatch research", which commits to `main` (prompts in `ROUTINES.md`) | Mondays, Wednesdays and Fridays 14:58 UTC (Friday = the first run after a Wednesday FOMC decision) |
 
 `data.js` always wins; the monthly file is only read where `data.js` has nothing. If a series
 fails to fetch it is `null` for that run and the page keeps its last baked value for it, so the
