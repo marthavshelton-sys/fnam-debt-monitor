@@ -439,9 +439,10 @@ async function getTargetRange() {
 
 // H.4.1 lines behind the Section 09 T-account, all at the Wednesday of the latest WALCL point:
 // securities held outright (Treasuries, MBS), reserve balances, currency in circulation and the
-// Treasury General Account; "other" on each side is the residual to total assets. WRESBAL is
-// published in $ billions, the rest in $ millions; everything is returned in $B. Also the WALCL
-// peak (for the QT runoff figures) and the ON RRP take-up peak.
+// Treasury General Account; "other" on each side is the residual to total assets. FRED carries
+// all six in $ millions (checked against the H.4.1 release on 2026-09-29: WRESBAL 2,930,193 =
+// $2.93T); everything is returned in $B. Also the WALCL peak (for the QT runoff figures) and the
+// ON RRP take-up peak (RRPONTSYD, which FRED publishes in $ billions).
 const FED_WEEKLY = { walcl: 'WALCL', treast: 'TREAST', mbs: 'WSHOMCB', reserves: 'WRESBAL', currency: 'WCURCIR', tga: 'WTREGEN' };
 async function getFedBalanceSheet() {
   const csvs = await Promise.all(Object.values(FED_WEEKLY).map((id) => fetchCSV(fredUrl(id))));
@@ -449,7 +450,7 @@ async function getFedBalanceSheet() {
   Object.keys(FED_WEEKLY).forEach((k, i) => { series[k] = fredPoints(csvs[i]); });
   const latest = series.walcl[series.walcl.length - 1];
   if (!latest) throw new Error('WALCL: empty');
-  const at = (k) => { const p = fredPointAt(series[k], latest.date); return p ? { date: p.date, value: k === 'reserves' ? p.value : p.value / 1000 } : null; };
+  const at = (k) => { const p = fredPointAt(series[k], latest.date); return p ? { date: p.date, value: p.value / 1000 } : null; };
   const peak = fredMax(series.walcl);
   const rrpRows = await fetchCSV(fredUrl('RRPONTSYD'));
   const rrpPeak = fredMax(fredPoints(rrpRows));
@@ -462,7 +463,7 @@ async function getFedBalanceSheet() {
     treasuriesB: at('treast'), mbsB: at('mbs'), reservesB: at('reserves'), currencyB: at('currency'), tgaB: at('tga'),
     walclPeak: peak ? { date: peak.date, valueB: peak.value / 1000 } : null,
     walclCalEnd: walclCal ? { year: calYear, date: walclCal.date, valueB: walclCal.value / 1000 } : null,
-    reservesEnd2019B: res2019 ? { date: res2019.date, value: res2019.value } : null,
+    reservesEnd2019B: res2019 ? { date: res2019.date, value: res2019.value / 1000 } : null,
     rrpPeak: rrpPeak ? { date: rrpPeak.date, valueB: rrpPeak.value } : null,
   };
 }
