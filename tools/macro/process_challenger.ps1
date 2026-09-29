@@ -66,5 +66,6 @@ if ($unmatched.Count) { throw "state names not recognised: $($unmatched -join ',
 if ($matched -ne 51) { throw "expected 51 states, matched $matched" }
 if ($monthN -eq 12) { SetKey $C.stateYearTotals $year ([PSCustomObject]$yearTotals) }
 
-[System.IO.File]::WriteAllText($lsPath, ($ls | ConvertTo-Json -Depth 10), (New-Object System.Text.UTF8Encoding($false)))
+# Compact: the file is baked into the page (pretty-printing it cost 65 KB of whitespace).
+[System.IO.File]::WriteAllText($lsPath, ($ls | ConvertTo-Json -Depth 10 -Compress), (New-Object System.Text.UTF8Encoding($false)))
 Write-Output ("Challenger: applied {0} - {1:N0} cuts, YTD {2:N0}, {3} industries, {4} states, hiring YTD {5:N0}; released {6}" -f $target, $r.headline, $r.ytdCuts, $C.industry.Count, $matched, $r.ytdHiring, $C.releasedOn)

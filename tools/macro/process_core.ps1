@@ -61,6 +61,39 @@ if ($null -ne $latestM.v -and $null -ne $priorM.v) {
   }
 }
 
+# (a2) Every published value of the last two years, from ALFRED (FRED's archive
+# of vintages). BLS's own "revised" sentence compares each month with the
+# previous release, not with its first print, and the two figures differ, so the
+# page needs the history: two calls rebuild, release by release, the monthly
+# change as it stood at that release (ConvertTo-PayrollVintages in common.ps1).
+# Stored as, e.g.,
+#   payrollVintages: { "2026-06": [["2026-07-02",57],["2026-08-07",20],["2026-09-04",31]], ... }
+# (release date, change in thousands; first print, then each revision) for the
+# latest 24 months. A failure here keeps the previous block and never blocks the run.
+try {
+  $fredKey = Get-ApiKey "FRED_API_KEY"
+  $obsStart = (Get-Date).AddMonths(-30).ToString("yyyy-MM-01")
+  $rtStart  = (Get-Date).AddMonths(-27).ToString("yyyy-MM-dd")
+  $vd = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/vintagedates?series_id=PAYEMS&api_key=$fredKey&file_type=json&realtime_start=$rtStart&realtime_end=9999-12-31" -TimeoutSec 60 }
+  $vintDates = @($vd.vintage_dates | Sort-Object -Unique)
+  $ob = Invoke-Retry { Invoke-RestMethod -Uri "https://api.stlouisfed.org/fred/series/observations?series_id=PAYEMS&api_key=$fredKey&file_type=json&observation_start=$obsStart&realtime_start=$rtStart&realtime_end=9999-12-31" -TimeoutSec 120 }
+  $obsRows = @($ob.observations | Where-Object { $_.value -ne "." })
+  if ($vintDates.Count -lt 2 -or $obsRows.Count -lt 24) { throw "ALFRED returned $($vintDates.Count) vintages and $($obsRows.Count) rows" }
+  $pv = ConvertTo-PayrollVintages $vintDates $obsRows 24
+  $keep = @($pv.Keys)
+  # Rewrite the file only when a value moved: a signature "month=release:change,..." on
+  # both sides, so an unchanged block never produces a new page and a new commit.
+  $sig = @($keep | ForEach-Object { $mth = $_; $mth + "=" + (@($pv[$mth] | ForEach-Object { [string]$_[0] + ":" + [string]$_[1] }) -join ",") }) -join ";"
+  $prevSig = ""
+  if ($ls.PSObject.Properties["payrollVintages"]) {
+    $prevSig = @($ls.payrollVintages.PSObject.Properties | ForEach-Object { $_.Name + "=" + (@($_.Value | ForEach-Object { [string]$_[0] + ":" + [string]$_[1] }) -join ",") }) -join ";"
+  }
+  if ($sig -ne $prevSig) {
+    if ($ls.PSObject.Properties["payrollVintages"]) { $ls.payrollVintages = $pv } else { $ls | Add-Member -NotePropertyName payrollVintages -NotePropertyValue $pv }
+    Write-Output ("payroll vintages: {0} months, {1} releases from {2} to {3}" -f $keep.Count, $vintDates.Count, $vintDates[0], $vintDates[-1]); $changed = $true
+  } else { Write-Output "payroll vintages unchanged ($($keep.Count) months)" }
+} catch { Write-Host "::warning::payroll vintages (ALFRED) not updated: $($_.Exception.Message.Split([char]10)[0])" }
+
 # (b) State nonfarm employment (BLS CES state series), the denominator for the
 # job-cut maps. 51 series, two API calls.
 $fips = @{ AL="01";AK="02";AZ="04";AR="05";CA="06";CO="08";CT="09";DE="10";DC="11";FL="12";GA="13";HI="15";ID="16";IL="17";IN="18";IA="19";KS="20";KY="21";LA="22";ME="23";MD="24";MA="25";MI="26";MN="27";MS="28";MO="29";MT="30";NE="31";NV="32";NH="33";NJ="34";NM="35";NY="36";NC="37";ND="38";OH="39";OK="40";OR="41";PA="42";RI="44";SC="45";SD="46";TN="47";TX="48";UT="49";VT="50";VA="51";WA="53";WV="54";WI="55";WY="56" }
@@ -80,7 +113,8 @@ if ($stEmp.Count -eq 51 -and $stMonth -ne $ls.challenger.stateEmploymentAsOf) {
 } elseif ($stEmp.Count -ne 51) { Write-Host "::warning::state employment: only $($stEmp.Count) of 51 states returned; kept previous values" }
 else { Write-Output "state employment already at $stMonth" }
 
-if ($changed) { ($ls | ConvertTo-Json -Depth 6) | Set-Content $lsPath -Encoding utf8; Write-Output "labor_static.json updated" }
+# Compact: this file is baked into the page, and pretty-printing it was 65 KB of whitespace.
+if ($changed) { ($ls | ConvertTo-Json -Depth 6 -Compress) | Set-Content $lsPath -Encoding utf8; Write-Output "labor_static.json updated" }
 
 # ---------------- PCE prices + weights (BEA T20804 / T20805) ----------------
 $pceLines = @{
@@ -150,6 +184,14 @@ $gdp = [ordered]@{
   income        = BeaSeries "T20600" "M" $qYears @(1,2,9,12,13,16,25,26,27,28,29,34,35,37) ${function:BeaMonth} "2016-01"
   realPce       = BeaSeries "T20806" "M" $qYears @(1,2,3,8,13,15,16,17,18,19,20,21,22) ${function:BeaMonth} "2016-01"
 }
+# The release each block comes from, as BEA dates it: the page names the GDP estimate
+# it shows from this (advance, second or third), so a run that lands between BEA's
+# release and FRED's calendar update still labels the figures correctly.
+$vintage = [ordered]@{}
+if ($script:beaRevised["T10101"]) { $vintage["gdp"] = $script:beaRevised["T10101"] }
+if ($script:beaRevised["T20600"]) { $vintage["income"] = $script:beaRevised["T20600"] }
+if ($vintage.Count) { $gdp["vintage"] = $vintage }
+Write-Output ("BEA last revised: GDP {0}, personal income {1}" -f $(if ($vintage["gdp"]) { $vintage["gdp"] } else { "not reported" }), $(if ($vintage["income"]) { $vintage["income"] } else { "not reported" }))
 $gq = $gdp.growth.L1.points[-1]; $gi = $gdp.income.L1.points[-1]
 Write-Output ("GDP: growth {0} = {1}%   income {2} = {3:N0}   saving rate {4}%" -f $gq.d, $gq.v, $gi.d, $gi.v, $gdp.income.L35.points[-1].v)
 # Identity: income - taxes = DPI (BEA nets social insurance inside personal income)

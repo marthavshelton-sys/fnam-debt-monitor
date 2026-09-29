@@ -141,14 +141,23 @@ if ($Target -eq "both" -or $Target -eq "art") {
 # Site build: same snapshot page, written wherever the caller asks (the
 # workflow passes site/macro/index.html). Data is refreshed by rebuilding on a
 # schedule, so no live-fetch layer and no proxy functions are needed.
+#
+# The published page comes from build-page.mjs whenever Node is available (the
+# GitHub runner has it): the same substitution and guards as here, plus lossless
+# packing of the data and no developer comments in the published copy (the page
+# drops from about 1.8 MB to about 1.0 MB). Without Node, or if that script fails,
+# the page is built below, unpacked; the two render identically.
 if ($Target -eq "both" -or $Target -eq "web") {
   if (-not $OutFile) { $OutFile = Join-Path $base "macrodash\index.html" }
+  $builder = Join-Path $base "build-page.mjs"
+  $builderSrc = if (Test-Path $builder) { Get-Content $builder -Raw -Encoding UTF8 } else { "" }
 
   # Skip the write when nothing changed, so the scheduled job doesn't commit a
-  # 1.4 MB page twice a day just to move a "refreshed" date. The hash covers the
-  # template and every data file (pull-date stamps stripped), so either a data
-  # release or an edit to the page triggers a rebuild, and nothing else does.
-  $payload = ($template + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
+  # 1 MB page twice a day just to move a "refreshed" date. The hash covers the
+  # template, the Node builder and every data file (pull-date stamps stripped), so a
+  # data release or an edit to the page or its builder triggers a rebuild, and
+  # nothing else does.
+  $payload = ($template + $builderSrc + $cpiJson + $weightsJson + $pceJson + $pceWeights + $laborJson + $laborStatic + $gdpJson +
               $umichJson + $ppiJson + $ppiWeights + $retailJson + $fincondJson + $supplyJson + $fiscalJson + $calendarJson +
               $sprJson + $capeJson) -replace '"fetchedAt":"\d{4}-\d{2}-\d{2}"', ''
   $sha = [System.Security.Cryptography.SHA256]::Create()
@@ -158,20 +167,37 @@ if ($Target -eq "both" -or $Target -eq "web") {
     Write-Output "site build     : data unchanged since last build; page not rewritten"
     return
   }
-  $page = Build-Page "false"
-  # The artifact host wraps pages in its own <html>/<head>/<body>; the site gets
-  # no such help, and without a viewport meta an iPhone renders it as a shrunken
-  # desktop page. Split at the shell so the title/fonts/styles land in <head>.
-  $cut = $page.IndexOf('<div class="mobilebar"')
-  if ($cut -lt 0) { throw "could not find the page body to wrap" }
-  $page = "<!doctype html>`n<html lang=`"es`">`n<head>`n<meta charset=`"utf-8`">`n<meta name=`"viewport`" content=`"width=device-width, initial-scale=1`">`n" +
-          $page.Substring(0, $cut) + "</head>`n<body>`n" + $page.Substring($cut) + "`n</body>`n</html>`n"
   New-Item -ItemType Directory -Force -Path (Split-Path $OutFile) | Out-Null
-  [System.IO.File]::WriteAllText($OutFile, $page, $utf8NoBom)
+  $built = $false
+  $node = Get-Command node -ErrorAction SilentlyContinue
+  if ($node -and $builderSrc) {
+    # Windows PowerShell turns a native command's stderr into errors, which "Stop"
+    # would make fatal; here they are only printed, and the exit code decides.
+    $eap = $ErrorActionPreference; $ErrorActionPreference = "Continue"
+    try {
+      & $node.Source $builder --out $OutFile --data $data --date $refreshedAt.Trim('"') 2>&1 | ForEach-Object { "$_" }
+      $code = $LASTEXITCODE
+    } finally { $ErrorActionPreference = $eap }
+    # A failure is surfaced as a workflow warning, not hidden: the fallback page works
+    # but weighs about 1.8 MB.
+    if ($code -eq 0) { $built = $true } else { Write-Output "::warning::build-page.mjs failed (exit $code); publishing the unpacked page built by build.ps1" }
+  }
+  if (-not $built) {
+    $page = Build-Page "false"
+    # The artifact host wraps pages in its own <html>/<head>/<body>; the site gets
+    # no such help, and without a viewport meta an iPhone renders it as a shrunken
+    # desktop page. Split at the shell so the title/fonts/styles land in <head>.
+    $cut = $page.IndexOf('<div class="mobilebar"')
+    if ($cut -lt 0) { throw "could not find the page body to wrap" }
+    $page = "<!doctype html>`n<html lang=`"es`">`n<head>`n<meta charset=`"utf-8`">`n<meta name=`"viewport`" content=`"width=device-width, initial-scale=1`">`n" +
+            $page.Substring(0, $cut) + "</head>`n<body>`n" + $page.Substring($cut) + "`n</body>`n</html>`n"
+    [System.IO.File]::WriteAllText($OutFile, $page, $utf8NoBom)
+  }
   # DOE's SPR daily report is an image; the page shows the copy the last refresh
   # saved next to the data, served beside the page.
   $sprImg = Join-Path $data "spr-inventory.jpg"
   if (Test-Path $sprImg) { Copy-Item $sprImg (Join-Path (Split-Path $OutFile) "spr-inventory.jpg") -Force }
   [System.IO.File]::WriteAllText($hashFile, $hash, $utf8NoBom)
-  Write-Output ("site build     : {0:N0} bytes -> {1}" -f (Get-Item $OutFile).Length, $OutFile)
+  # build-page.mjs reports its own size.
+  if (-not $built) { Write-Output ("site build     : {0:N0} bytes -> {1}" -f (Get-Item $OutFile).Length, $OutFile) }
 }

@@ -1,4 +1,17 @@
-<title>Macro Monitor</title>
+<title>Monitor Macro de Estados Unidos · FNAM</title>
+<meta name="description" content="Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.">
+<link rel="canonical" href="https://fnam.mx/macro/">
+<link rel="alternate" hreflang="es-MX" href="https://fnam.mx/macro/">
+<link rel="alternate" hreflang="en" href="https://fnam.mx/macro/?lang=en">
+<link rel="alternate" hreflang="x-default" href="https://fnam.mx/macro/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="FNAM">
+<meta property="og:title" content="Monitor Macro de Estados Unidos · FNAM">
+<meta property="og:description" content="Indicadores económicos de Estados Unidos con datos públicos, en español e inglés.">
+<meta property="og:url" content="https://fnam.mx/macro/">
+<meta property="og:locale" content="es_MX">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -91,59 +104,7 @@
     grid-template-columns: 216px minmax(0, 1fr);
     min-height: 100vh;
   }
-  /* Phone layout: the sidebar gives way to a sticky bar carrying the two
-     controls a visitor cannot do without - the language button and a native
-     section picker built from the same nav as the sidebar, so the two can't
-     drift apart. Content is identical to desktop, only reflowed. */
   .mobilebar { display: none; }
-  @media (max-width: 860px) {
-    .shell { grid-template-columns: minmax(0, 1fr); }
-    main { min-width: 0; }
-    .rail { display: none; }
-    .mobilebar {
-      display: flex; align-items: center; gap: 10px;
-      position: sticky; top: 0; z-index: 20;
-      padding: 10px 14px;
-      background: var(--surface-1);
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
-    }
-    .mobilebar .brand { font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; }
-    .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
-    .mobilebar select {
-      flex: 1 1 auto; min-width: 0;
-      font-family: inherit; font-size: 15px; font-weight: 600;
-      padding: 9px 10px;
-      color: var(--text-primary); background: var(--page-plane);
-      border: 1px solid var(--baseline); border-radius: 8px;
-    }
-    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
-    main { padding: 16px 14px 48px; }
-    .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
-    .page-header h1 { font-size: 20px; }
-    .meta-block { text-align: left; }
-    .panel { padding: 14px 12px; }
-    .kpi-value { font-size: 22px; }
-    .kpi-value-row { flex-wrap: wrap; gap: 2px 8px; }
-    .kpi-delta { white-space: nowrap; flex-basis: 100%; }
-    .page-header > * { flex-basis: 100%; }
-    .meta-block, .meta-block * { text-align: left; }
-    .section-head { flex-wrap: wrap; }
-    .section-head .note { font-size: 11px; }
-    .momentum-stats { grid-template-columns: repeat(2, 1fr); gap: 14px; }
-    .momentum-charts { gap: 18px; }
-    .derby-row { grid-template-columns: 96px 1fr 52px; gap: 6px; }
-    .derby-label { font-size: 11.5px; }
-    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
-    .fiscal-link-card { flex-direction: column; align-items: flex-start; }
-    /* Tile maps keep a readable size and scroll sideways inside their panel
-       rather than shrinking until the state values become unreadable. */
-    #rtMap, .map-grid > div { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-    #rtMap svg, .map-grid svg { min-width: 520px; }
-  }
-  @media (max-width: 420px) {
-    .mobilebar .brand { display: none; }
-  }
 
   /* ---------- left rail ---------- */
   .rail {
@@ -225,8 +186,11 @@
   }
   .lang-switch:hover { filter: brightness(1.12); }
   .lang-switch:focus-visible { outline: 2px solid var(--series-single); outline-offset: 2px; }
-  .rail-item[data-view] { cursor: pointer; }
+  /* Section links are real anchors: keyboard-reachable, and the address bar follows them. */
+  .rail-item[data-view] { cursor: pointer; color: var(--text-secondary); text-decoration: none; }
+  .rail-item[data-view].active { color: var(--text-primary); }
   .rail-item[data-view]:hover:not(.active) { background: var(--soon-bg); }
+  .rail-item[data-view]:focus-visible { outline: 2px solid var(--series-single); outline-offset: 2px; }
   /* External link in the rail: same row styling, plus an arrow so it reads as leaving the page. */
   a.rail-link { color: inherit; text-decoration: none; cursor: pointer; }
   a.rail-link:hover { background: var(--soon-bg); }
@@ -349,6 +313,9 @@
     letter-spacing: -0.01em;
     font-variant-numeric: proportional-nums;
   }
+  /* A unit set smaller than its figure ("$6,811 mmd"), so a long Spanish unit does
+     not push the figure onto a second line. */
+  .kpi-unit { font-size: 0.62em; font-weight: 600; letter-spacing: 0; }
   .kpi-delta {
     font-size: 11.5px;
     font-weight: 600;
@@ -387,6 +354,9 @@
     transition: opacity 0.08s;
     z-index: 5;
   }
+  /* Chart tooltips are positioned by placeTooltip(): beside the crosshair, inside the
+     chart, so they never cover the legend above it. The transform is for the donuts. */
+  .tooltip.t-inside { transform: none; }
   .tooltip .t-date { color: var(--text-muted); font-size: 10.5px; margin-bottom: 2px; }
   .tooltip .t-row { display: flex; align-items: center; gap: 6px; }
   .tooltip .t-dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
@@ -407,7 +377,15 @@
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 14px;
   }
-  @media (max-width: 900px) { .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  /* Column counts that divide the card counts (CPI 9, PCE 10, PPI 7), so no card is
+     left alone on the last row; a leftover card on a two-column phone grid spans both. */
+  #catGrid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  #pceCatGrid { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+  @media (max-width: 1100px) { #pceCatGrid { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  @media (max-width: 900px) {
+    .cat-grid, #catGrid, #pceCatGrid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .cat-grid > .cat-card:last-child:nth-child(2n+1) { grid-column: span 2; }
+  }
   .cat-card {
     background: var(--surface-1);
     border: 1px solid var(--border);
@@ -464,7 +442,7 @@
   .donut-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
   .donut-center { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; flex-direction: column; pointer-events: none; text-align: center; }
   .donut-center .n { font-size: 12px; font-weight: 600; color: var(--text-primary); }
-  .donut-center .s { font-size: 10.5px; color: var(--text-muted); max-width: 90px; line-height: 1.3; }
+  .donut-center .s { font-size: 10.5px; color: var(--text-muted); max-width: 132px; line-height: 1.3; }
   .comp-legend { display: flex; flex-direction: column; gap: 9px; }
   .comp-row { display: grid; grid-template-columns: 16px minmax(0, 1fr) 62px 68px; align-items: center; gap: 10px; }
   @media (max-width: 420px) { .comp-row { grid-template-columns: 14px minmax(0, 1fr) 52px 58px; gap: 6px; } }
@@ -496,8 +474,8 @@
   .stable tr.tot td { font-weight: 600; border-bottom: none; }
   @media (max-width: 600px) { .stable { font-size: 11px; } .stable th, .stable td { padding: 4px 5px; } }
   .derby-list { display: flex; flex-direction: column; gap: 8px; }
-  .derby-row { display: grid; grid-template-columns: 176px 1fr 58px; align-items: center; gap: 12px; }
-  @media (max-width: 640px) { .derby-row { grid-template-columns: 110px 1fr 50px; gap: 8px; } }
+  .derby-row { display: grid; grid-template-columns: 176px 1fr 64px; align-items: center; gap: 12px; }
+  @media (max-width: 640px) { .derby-row { grid-template-columns: 110px 1fr 56px; gap: 8px; } }
   .derby-label { display: flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 500; color: var(--text-primary); }
   .derby-label .dot { width: 8px; height: 8px; border-radius: 50%; flex: none; }
   .derby-track { position: relative; height: 20px; }
@@ -530,6 +508,7 @@
     font-size: 12.5px; color: var(--text-secondary); line-height: 1.55;
   }
   .notice b { color: var(--text-primary); }
+  .notice:empty { display: none; }
   .heat-legend { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 11.5px; color: var(--text-secondary); flex-wrap: wrap; }
   .heat-ramp { flex: 0 0 200px; height: 9px; border-radius: 5px; background: linear-gradient(to right, #1b8a3a, #eda100, #d03b3b); }
   .heat-none { color: var(--text-muted); }
@@ -549,16 +528,79 @@
     line-height: 1.7;
   }
   footer a { color: var(--text-secondary); }
+
+  /* Phone layout: the sidebar gives way to a sticky bar carrying the two
+     controls a visitor cannot do without - the language button and a native
+     section picker built from the same nav as the sidebar, so the two can't
+     drift apart. Content is identical to desktop, only reflowed. This block sits
+     at the end of the sheet on purpose: its rules must outrank the base rules
+     above, which have the same specificity. */
+  @media (max-width: 860px) {
+    .shell { grid-template-columns: minmax(0, 1fr); }
+    main { min-width: 0; }
+    .rail { display: none; }
+    /* Two rows: brand and language toggle on the first, the section picker on its own
+       full-width row so a long section name is never truncated. */
+    .mobilebar {
+      display: flex; flex-wrap: wrap; align-items: center; gap: 8px 10px;
+      position: sticky; top: 0; z-index: 20;
+      padding: 10px 14px;
+      background: var(--surface-1);
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 1px 6px rgba(0,0,0,0.08);
+    }
+    .mobilebar .brand { flex: 1 1 0; min-width: 0; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .mobilebar .mb-home { flex: none; font-weight: 800; font-size: 15px; letter-spacing: -0.01em; color: var(--text-primary); text-decoration: none; padding-right: 10px; border-right: 1px solid var(--border); }
+    .mobilebar select {
+      flex: 1 1 100%; min-width: 0; order: 2;
+      font-family: inherit; font-size: 15px; font-weight: 600;
+      padding: 9px 10px;
+      color: var(--text-primary); background: var(--page-plane);
+      border: 1px solid var(--baseline); border-radius: 8px;
+    }
+    .mobilebar .lang-switch { width: auto; margin: 0; padding: 9px 10px; font-size: 13px; flex: none; }
+    main { padding: 16px 14px 48px; }
+    .page-header { gap: 10px; margin-bottom: 18px; padding-bottom: 14px; }
+    .page-header h1 { font-size: 20px; }
+    .meta-block { text-align: left; }
+    .panel { padding: 14px 12px; }
+    .kpi-value { font-size: 20px; }
+    .kpi-value-row { flex-wrap: wrap; gap: 2px 8px; }
+    .kpi-delta { flex-basis: 100%; }
+    .page-header > * { flex-basis: 100%; }
+    .meta-block, .meta-block * { text-align: left; }
+    .section-head { flex-wrap: wrap; }
+    .section-head .note { font-size: 11px; }
+    .momentum-stats { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+    .momentum-charts { gap: 18px; }
+    .derby-label { font-size: 11.5px; }
+    .cat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .fiscal-link-card { flex-direction: column; align-items: flex-start; }
+    /* Tile maps keep a readable size and scroll sideways inside their panel
+       rather than shrinking until the state values become unreadable. */
+    #rtMap, .map-grid > div { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+    #rtMap svg, .map-grid svg { min-width: 640px; }
+  }
+  @media (max-width: 420px) {
+    .mobilebar .brand { font-size: 14px; }
+  }
+
+  /* Phones: no text below 11 px. Last in the sheet so it outranks the base sizes above;
+     the tile maps scroll sideways at a size where their 9.5-unit values render at 11 px. */
+  @media (max-width: 860px) {
+    .kpi-foot, .mstat-sub, .note-sm, .donut-center .s, .stable th, .cat-subset-tag,
+    .manual-badge, .tooltip, .tooltip .t-date, .comp-foot-item, .soon-pill { font-size: 11px; }
+  }
 </style>
 
 <div class="mobilebar" id="mobileBar">
   <a class="mb-home" href="/" aria-label="FNAM">FNAM</a>
   <div class="brand" data-i18n="brand">Macro Monitor</div>
-  <select id="mobileNav" aria-label="Section"></select>
   <button class="lang-switch" type="button"><span data-i18n="switchTo">Espa&ntilde;ol</span></button>
+  <select id="mobileNav" aria-label="Secciones"></select>
 </div>
 <div class="shell">
-  <nav class="rail">
+  <nav class="rail" id="rail" aria-label="Secciones">
     <a class="rail-home" href="/" data-i18n="railHome">← FNAM · All dashboards</a>
     <div class="rail-brand" data-i18n="brand">Macro Monitor</div>
     <div class="rail-sub" data-i18n="railSub">U.S. economic indicators</div>
@@ -566,39 +608,40 @@
     <button class="lang-switch" id="langSwitch" type="button"><span data-i18n="switchTo">Español</span></button>
 
     <div class="rail-group-label" data-i18n="groupPrices">Inflation</div>
-    <div class="rail-item active" data-view="cpi"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCPI">Consumer Price Index</span></span></div>
-    <div class="rail-item" data-view="pce"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPCE">PCE Price Index</span></span></div>
-    <div class="rail-item" data-view="ppi"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPPI">Producer Price Index</span></span></div>
+    <a class="rail-item active" data-view="cpi" href="?view=cpi" aria-current="page"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCPI">Consumer Price Index</span></span></a>
+    <a class="rail-item" data-view="pce" href="?view=pce"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPCE">PCE Price Index</span></span></a>
+    <a class="rail-item" data-view="ppi" href="?view=ppi"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPPI">Producer Price Index</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupLabor">Labor</div>
-    <div class="rail-item" data-view="unemployment"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUnemployment">Unemployment Rate</span></span></div>
-    <div class="rail-item" data-view="payrolls"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPayrolls">Nonfarm Payrolls</span></span></div>
-    <div class="rail-item" data-view="cuts"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCuts">Announced Job Cuts</span></span></div>
+    <a class="rail-item" data-view="unemployment" href="?view=unemployment"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUnemployment">Unemployment Rate</span></span></a>
+    <a class="rail-item" data-view="payrolls" href="?view=payrolls"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navPayrolls">Nonfarm Payrolls</span></span></a>
+    <a class="rail-item" data-view="cuts" href="?view=cuts"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCuts">Announced Job Cuts</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupGrowth">Growth &amp; Spending</div>
-    <div class="rail-item" data-view="gdp"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navGDP">Real GDP Growth</span></span></div>
-    <div class="rail-item" data-view="income"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIncome">Personal Income &amp; Saving</span></span></div>
-    <div class="rail-item" data-view="retail"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navRetail">Retail Sales</span></span></div>
+    <a class="rail-item" data-view="gdp" href="?view=gdp"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navGDP">Real GDP Growth</span></span></a>
+    <a class="rail-item" data-view="income" href="?view=income"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navIncome">Personal Income &amp; Saving</span></span></a>
+    <a class="rail-item" data-view="retail" href="?view=retail"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navRetail">Retail Sales</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupFiscal">US Fiscal Overview</div>
     <a class="rail-item rail-link" href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMonitor">US Fiscal Debt Monitor</span></span><span class="ext-mark">↗</span></a>
-    <div class="rail-item" data-view="fiscal"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalDeficit">Fiscal Deficit</span></span></div>
+    <a class="rail-item" data-view="fiscal" href="?view=fiscal"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalDeficit">Fiscal Deficit</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupHouseholds">Households</div>
-    <div class="rail-item" data-view="confidence"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navConfidence">Consumer Sentiment</span></span></div>
+    <a class="rail-item" data-view="confidence" href="?view=confidence"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navConfidence">Consumer Sentiment</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupMarkets">Markets &amp; Conditions</div>
-    <div class="rail-item"><span data-i18n="navFedFunds">Federal Funds Rate</span> <span class="soon-pill" data-i18n="soon">Soon</span></div>
-    <div class="rail-item" data-view="fincond"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFinConditions">Financial Conditions</span></span></div>
-    <div class="rail-item" data-view="supply"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSupplyChain">Supply Chain</span></span></div>
-    <div class="rail-item" data-view="cape"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCape">Shiller CAPE Ratio</span></span></div>
+    <div class="rail-item" aria-disabled="true"><span data-i18n="navFedFunds">Federal Funds Rate</span> <span class="soon-pill" data-i18n="soon">Soon</span></div>
+    <a class="rail-item" data-view="fincond" href="?view=fincond"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFinConditions">Financial Conditions</span></span></a>
+    <a class="rail-item" data-view="supply" href="?view=supply"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSupplyChain">Supply Chain</span></span></a>
+    <a class="rail-item" data-view="cape" href="?view=cape"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navCape">Shiller CAPE Ratio</span></span></a>
 
     <div class="rail-group-label" data-i18n="groupEnergy">Energy</div>
-    <div class="rail-item" data-view="spr"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSpr">Strategic Petroleum Reserve</span></span></div>
+    <a class="rail-item" data-view="spr" href="?view=spr"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navSpr">Strategic Petroleum Reserve</span></span></a>
   </nav>
 
-  <main>
+  <main id="main">
   <div id="artNotice"></div>
+  <div class="notice" id="viewNotice" role="status"></div>
   <div class="view active" id="view-cpi">
     <div class="page-header">
       <div>
@@ -706,7 +749,7 @@
         <div class="comp-body">
           <div class="donut-wrap">
             <svg id="donutChart" viewBox="0 0 200 200"></svg>
-            <div class="donut-center"><div class="n" data-i18n="donutCpiN">8 groups</div><div class="s" data-i18n="donutCpiS">of the CPI-U basket</div></div>
+            <div class="donut-center"><div class="n" data-i18n="donutCpiN">8 groups</div><div class="s" data-i18n="donutCpiS">of the CPI&#8209;U basket</div></div>
             <div class="tooltip" id="donutTooltip"></div>
           </div>
           <div class="comp-legend" id="compList"></div>
@@ -1073,7 +1116,7 @@
         <span data-i18n="heatLow">Fewer cuts</span>
         <span class="heat-ramp"></span>
         <span data-i18n="heatHigh">More cuts</span>
-        <span class="heat-none" data-i18n="heatNone">(grey = none reported)</span>
+        <span class="heat-none" data-i18n="heatNone">(gray = none reported)</span>
       </div>
       <div class="map-grid">
         <div class="panel"><div class="momentum-chart-title" data-i18n="mapM1">Last month</div><div id="mapM1"></div><div class="note-sm" id="legM1"></div></div>
@@ -1638,6 +1681,7 @@
       </div>
       <div class="meta-block">
         <div class="as-of" id="rtAsOfLine">—</div>
+        <div id="rtReleasedLine"></div>
         <div id="rtNextReleaseLine">—</div>
         <div id="rtRefreshedLine">—</div>
         <div><a href="https://www.census.gov/retail/index.html" target="_blank" rel="noopener" data-i18n="sourceCensusRetail">Source: Census Bureau Monthly Retail Trade</a></div>
@@ -2026,7 +2070,7 @@
       <a href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span data-i18n="fiLinkText">US Fiscal Debt Monitor</span> ↗</a>
     </div>
 
-    <section><div class="kpi-row" id="fiKpiRow"></div></section>
+    <section><div class="kpi-row" id="fiKpiRow"></div><div class="note-sm" id="fiUnitsNote"></div></section>
 
     <section>
       <div class="section-head">
@@ -2242,39 +2286,66 @@
 </div>
 
 <script>
+// Data blocks can arrive packed: the build stores arrays of identical rows as columns,
+// regular date sequences as ranges and irregular ones as steps from the first date,
+// and unpack() restores the plain rows. Plain data passes through unchanged. The build runs this same code to check that every
+// packed block unpacks to exactly the original before it ships one.
+// @unpack-begin
+function unpack(x) {
+  if (Array.isArray(x)) return x.map(unpack);
+  if (!x || typeof x !== "object") return x;
+  if (Array.isArray(x.$p) && Array.isArray(x.$c)) {
+    const cols = x.$c.map(unpackColumn), n = cols.length ? cols[0].length : 0, rows = new Array(n);
+    for (let i = 0; i < n; i++) { const r = {}; for (let k = 0; k < x.$p.length; k++) r[x.$p[k]] = cols[k][i]; rows[i] = r; }
+    return rows;
+  }
+  const o = {};
+  for (const k of Object.keys(x)) o[k] = unpack(x[k]);
+  return o;
+}
+function unpackColumn(c) {
+  if (Array.isArray(c)) return c;
+  const out = [];
+  if (c.$m) { const t0 = +c.$m.slice(0, 4) * 12 + (+c.$m.slice(5, 7) - 1); for (let i = 0; i < c.n; i++) { const t = t0 + i; out.push(Math.floor(t / 12) + "-" + String(t % 12 + 1).padStart(2, "0")); } }
+  else if (c.$q) { const t0 = +c.$q.slice(0, 4) * 4 + (+c.$q.slice(6, 7) - 1); for (let i = 0; i < c.n; i++) { const t = t0 + i; out.push(Math.floor(t / 4) + "-Q" + (t % 4 + 1)); } }
+  else if (c.$d) { const y = +c.$d.slice(0, 4), m = +c.$d.slice(5, 7) - 1, d = +c.$d.slice(8, 10); for (let i = 0; i < c.n; i++) out.push(new Date(Date.UTC(y, m, d + i * c.s)).toISOString().slice(0, 10)); }
+  else if (c.$mk) { let t = +c.$mk.slice(0, 4) * 12 + (+c.$mk.slice(5, 7) - 1); out.push(c.$mk); for (const k of c.k) { t += k; out.push(Math.floor(t / 12) + "-" + String(t % 12 + 1).padStart(2, "0")); } }
+  else if (c.$dk) { let t = Date.UTC(+c.$dk.slice(0, 4), +c.$dk.slice(5, 7) - 1, +c.$dk.slice(8, 10)); out.push(c.$dk); for (const k of c.k) { t += k * 864e5; out.push(new Date(t).toISOString().slice(0, 10)); } }
+  return out;
+}
+// @unpack-end
+
 // Baked-in snapshot: the page paints from this instantly, then tries to refresh
 // itself from the live APIs below. If a fetch fails, the snapshot is what you see.
-let CPI = /*__CPI_DATA__*/ null;
-let WEIGHTS = /*__WEIGHTS_DATA__*/ null;
-// Set by whatever process last published this page (build script or the weekly
-// refresh routine) — NOT computed client-side, so this reflects when the DATA was
-// actually pulled, not whenever a viewer happens to open the page.
+let CPI = unpack(/*__CPI_DATA__*/ null);
+let WEIGHTS = unpack(/*__WEIGHTS_DATA__*/ null);
+// Stamped when the data was pulled, never computed client-side, so it says when
+// the DATA was refreshed, not when a viewer happened to open the page.
 const REFRESHED_AT = /*__REFRESHED_AT__*/ null;
-let LABOR = /*__LABOR_DATA__*/ null;
-const LABOR_STATIC = /*__LABOR_STATIC__*/ null;
-let GDP = /*__GDP_DATA__*/ null;
+let LABOR = unpack(/*__LABOR_DATA__*/ null);
+const LABOR_STATIC = unpack(/*__LABOR_STATIC__*/ null);
+let GDP = unpack(/*__GDP_DATA__*/ null);
 let GDP_SOURCE = "snapshot";
-let PCE = /*__PCE_DATA__*/ null;
-let PCE_WEIGHTS = /*__PCE_WEIGHTS__*/ null;
+let PCE = unpack(/*__PCE_DATA__*/ null);
+let PCE_WEIGHTS = unpack(/*__PCE_WEIGHTS__*/ null);
 const PCE_REFRESHED_AT = /*__PCE_REFRESHED_AT__*/ null;
-let UMICH = /*__UMICH_DATA__*/ null;
+let UMICH = unpack(/*__UMICH_DATA__*/ null);
 const UMICH_REFRESHED_AT = /*__UMICH_REFRESHED_AT__*/ null;
-let PPI = /*__PPI_DATA__*/ null;
-let PPI_WEIGHTS = /*__PPI_WEIGHTS__*/ null;
+let PPI = unpack(/*__PPI_DATA__*/ null);
+let PPI_WEIGHTS = unpack(/*__PPI_WEIGHTS__*/ null);
 let PPI_SOURCE = "snapshot";
-let RETAIL = /*__RETAIL_DATA__*/ null;
+let RETAIL = unpack(/*__RETAIL_DATA__*/ null);
 let RETAIL_SOURCE = "snapshot";
-let FINCOND = /*__FINCOND_DATA__*/ null;
+let FINCOND = unpack(/*__FINCOND_DATA__*/ null);
 let FINCOND_SOURCE = "snapshot";
-let SUPPLY = /*__SUPPLY_DATA__*/ null;
+let SUPPLY = unpack(/*__SUPPLY_DATA__*/ null);
 let SUPPLY_SOURCE = "snapshot";
-let FISCAL = /*__FISCAL_DATA__*/ null;
-let SPR = /*__SPR_DATA__*/ null;
-let CAPE = /*__CAPE_DATA__*/ null;
-// Release dates come from FRED at build time (process_calendar.ps1), which
-// carries each agency's official schedule including future dates. No
-// hand-typed date tables remain in this file.
-const CALENDAR = /*__CALENDAR__*/ null;
+let FISCAL = unpack(/*__FISCAL_DATA__*/ null);
+let SPR = unpack(/*__SPR_DATA__*/ null);
+let CAPE = unpack(/*__CAPE_DATA__*/ null);
+// Release dates come from FRED, which carries each agency's official schedule
+// including future dates. No hand-typed date tables remain in this file.
+const CALENDAR = unpack(/*__CALENDAR__*/ null);
 let FISCAL_SOURCE = "snapshot";
 
 // Set to "live" once a background fetch succeeds; drives the freshness line.
@@ -2311,8 +2382,22 @@ const I18N = {
     months: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
     switchTo: "Change to English",
     switchAria: "Change to English",
+    docTitle: v => v + " · Monitor Macro de Estados Unidos · FNAM",
+    metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
+    navAria: "Secciones",
+    unknownView: v => "No existe una sección llamada «" + v + "»; se muestra el Índice de Precios al Consumidor.",
+    chartAria: (title, series) => "Gráfica: " + title + (series ? " (" + series + ")" : ""),
+    mapAria: title => "Mapa esquemático por estado: " + title,
+    exPyRevFirstOnly: (n, net) => "Frente a sus primeras estimaciones, los " + n + " meses previos suman ahora " + net + " en conjunto. ",
+    pyRevisionVsPrev: (rel, a, b, net) => "El BLS compara cada mes con el informe anterior: en el informe del " + rel + ", " + a + " y " + b + " se revisaron " + net + " en conjunto sobre esa base.",
+    gdpEstimateName: n => ({1:"estimación anticipada", 2:"segunda estimación", 3:"tercera estimación"})[n] || "estimación",
+    gdpVintageLine: (q, name, d) => q + ": " + name + " (BEA, " + d + "); sujeta a revisión",
+    rtReleasedLine: d => "Última publicación del Censo: " + d,
+    capeGs10Note: (v, m, daily, d) => "El archivo de Shiller registra " + v + "% como tasa a 10 años para " + m + ": para el mes en curso es una sola lectura diaria, tomada al publicarse el archivo, no el promedio del mes." + (daily ? " El rendimiento diario más reciente es " + daily + "% (" + d + ", FRED; véase Condiciones financieras)." : ""),
+    sprCavernsNote: (site, a, b, d) => "El conteo de cavernas sigue la página de sitios de almacenamiento del DOE; su tabla SPR Quick Facts (al " + d + ") registra " + b + " cavernas para " + site + " en vez de " + a + ". El tablero usa una sola fuente para que las cifras coincidan.",
+    fiUnitsNote: "Unidades: mmd = miles de millones de dólares (10⁹); billones = millones de millones de dólares (10¹²).",
 
-    brand: "Macro Monitor",
+    brand: "Monitor Macro",
     railSub: "Indicadores económicos de Estados Unidos",
     railHome: "← FNAM · Todos los paneles",
     groupPrices: "Inflación",
@@ -2427,11 +2512,12 @@ const I18N = {
     mstatSub: "impulso, no variación anual",
 
     donutCpiN: "8 grupos",
-    donutCpiS: "de la canasta CPI-U",
+    donutCpiS: "de la canasta CPI‑U",
     donutPceN: "10 grupos",
     donutPceS: "del PCE nominal",
     subsetHousing: "Subconjunto de Vivienda",
 
+    annCallout: (m, detail) => "En " + m + ": " + detail,
     gapNoteCPI: m => "Hueco en " + m + ": el BLS no publicó reporte de CPI ese mes.",
     gapNotePCE: m => "Hueco en " + m + ": el BEA no publicó índice de precios PCE ese mes.",
 
@@ -2463,7 +2549,7 @@ const I18N = {
     gdpTitle: "Crecimiento del PIB real",
     gdpDesc: "Crecimiento trimestral del producto y de dónde viene: consumo, inversión, gobierno y comercio exterior. Tasa anualizada, ajustada por estacionalidad.",
     sourceGDP: "Fuente: cuentas nacionales del BEA ↗",
-    gdpNextRelease: d => "Pr\u00f3xima publicaci\u00f3n del PIB: " + d,
+    gdpNextRelease: (d, what) => "Próxima publicación del PIB: " + d + (what ? " (" + what + ")" : ""),
     gdpNextReleaseWas: d => "La publicaci\u00f3n del PIB fue el " + d,
     gdpVintage: "Estimación sujeta a revisión",
     gdpSecGrowth: "Crecimiento trimestral",
@@ -2559,13 +2645,13 @@ const I18N = {
     realBehind: "por debajo de",
     realNote: (pct, m, dir) => "Desde enero de 2021 el ingreso semanal va " + dir + " los precios por " + pct + "% acumulado (hasta " + m + "). Donde la línea de ingreso corre arriba de la del CPI, el poder adquisitivo crece; donde cae por debajo, la inflación lo erosiona.",
     pyRevisionNote: (revised, total, down, net) => "De los últimos " + total + " meses, " + revised + " ya fueron revisados y " + down + " se ajustaron a la baja. El efecto neto de todas las revisiones es " + net + ".",
-    pyRevisionMethod: "Cada barra es el cambio publicado hoy para ese mes menos la cifra que el BLS reportó por primera vez. El mes más reciente aún no se ha revisado, así que marca cero. Las primeras estimaciones provienen del texto de cada publicación del reporte de empleo.",
+    pyRevisionMethod: "Cada barra es el cambio publicado hoy para ese mes menos la cifra que el BLS reportó por primera vez. El mes más reciente aún no se ha revisado, así que marca cero. Las primeras estimaciones son las de la publicación original de cada mes, registradas en su momento y archivadas en ALFRED (Fed de San Luis).",
     cutsTitle: "Despidos anunciados",
     cutsDesc: "Reporte Challenger: recortes e intenciones de contratación anunciados por empresas. Es un indicador adelantado de intenciones, no de separaciones ya ocurridas, y no es una serie del BLS.",
     sourceChallenger: "Fuente: Challenger, Gray & Christmas ↗",
-    manualBadge: "Del informe mensual de Challenger",
+    manualBadge: "Del informe mensual de Challenger (PDF)",
     releasedOn: d => "Publicado el " + d,
-    cutsNotice: "<b>Esta sección no se actualiza sola.</b> Challenger es un proveedor privado sin API pública, así que estas cifras se cargan a mano con cada reporte mensual. El resto del panel se actualiza automáticamente desde el BLS y el BEA.",
+    cutsNotice: "<b>Challenger no ofrece API.</b> El tablero lee el PDF de cada reporte mensual y lo aplica solo cuando sus tablas cuadran con los totales del propio reporte; el resto del panel se actualiza desde las API del BLS, el BEA, el Censo, el Tesoro y FRED.",
     cutsSecMonthly: "Recortes anunciados por mes",
     cutsSecMonthlyNote: "Total mensual y promedio de tres meses",
     cutsSecIndustry: "Qué industrias están recortando",
@@ -2600,7 +2686,7 @@ const I18N = {
     exRelPce: m => "PCE de " + m + " (con ingreso y gasto)",
     exRelPpi: m => "PPI de " + m,
     exRelJobs: m => "informe de empleo de " + m,
-    exRelGdp: "estimación del PIB",
+    exRelGdp: (name, q) => name ? name + " del PIB de " + q : "estimación del PIB",
     exRelRetail: m => "ventas minoristas de " + m,
     exRelUmichFinal: m => "confianza final de " + m,
     exRelUmichPrelim: m => "confianza preliminar de " + m,
@@ -2619,7 +2705,7 @@ const I18N = {
     exUnWhy: (sahm, band) => "Es la mitad del mandato de la Fed. La brecha de Sahm (promedio de 3 meses contra su mínimo de 12 meses) es de " + sahm + " pp, " + ({over:"por encima del 0.5 pp que ha marcado cada recesión desde 1970", near:"acercándose al 0.5 pp que ha marcado las recesiones pasadas", under:"bien por debajo del 0.5 pp que ha marcado las recesiones pasadas"})[band] + ".",
     exUnWatch: "Seguir la tendencia del número de desempleados y del desempleo de larga duración más que la tasa de un solo mes; una participación a la baja puede maquillar el dato principal.",
     exPyLatest: (chg, m, a3, rev, ahe) => "Nómina no agrícola: " + chg + " en " + m + "; promedio de 3 meses de " + a3 + ". " + rev + "Salario promedio por hora: " + ahe + " anual.",
-    exPyRev: (net, n) => "Los " + n + " meses previos se revisaron " + net + " en conjunto. ",
+    exPyRev: (a, b, netPrev, netFirst) => "Las cifras de " + a + " y " + b + " se revisaron " + netPrev + " en conjunto respecto al informe anterior (" + netFirst + " frente a sus primeras estimaciones). ",
     exPyDrivers: (a, av, b, bv, neg, negv) => a + " (" + av + ") y " + b + " (" + bv + ") lideraron las alzas" + (neg ? "; " + neg + " perdió empleos (" + negv + ")." : "; ningún sector mayor perdió empleos."),
     exPyWhy: (a3, a12, pace, ahe, cpi, real) => "El empleo impulsa el ingreso y el gasto. El promedio de 3 meses (" + a3 + ") está " + ({up:"por encima del", down:"por debajo del", flat:"en línea con el"})[pace] + " promedio de 12 meses (" + a12 + "), así que la contratación " + ({up:"se acelera", down:"se desacelera", flat:"es estable"})[pace] + ". Salarios de " + ahe + " contra inflación de " + cpi + ": el salario real " + (real === "up" ? "sube" : "baja") + ".",
     exPyWatch: (jolts, jm) => "Seguir las revisiones y la tendencia de 3 meses más que el dato principal; las vacantes (" + jolts + " millones en " + jm + ") muestran cuánta demanda de trabajadores queda.",
@@ -2650,7 +2736,7 @@ const I18N = {
     exScDrivers: (isr, d, bal, bm) => "Los inventarios de las empresas cubren " + isr + " meses de ventas (" + ({up:"al alza", down:"a la baja", flat:"estables"})[d] + "); el déficit comercial de bienes y servicios fue de $" + bal + " mil millones en " + bm + ".",
     exScWhy: (state, looser) => "La presión en las cadenas de suministro se traslada a los precios de los bienes con unos meses de rezago. " + ({tight:"La presión está por encima de lo normal", loose:"La presión está por debajo de lo normal", normal:"La presión está cerca de lo normal"})[state] + ": el " + looser + "% de los meses desde 1998 han sido más holgados que este.",
     exScWatch: (fr, ir) => "Se actualiza cada mes (GSCPI en la primera semana). Seguir el flete (" + fr + "%) y los precios de importación (" + ir + "%) por su traslado a la inflación de bienes.",
-    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => m + ": ingresos $" + r + " mil millones, gastos $" + o + " mil millones, " + (kind === "deficit" ? "déficit" : "superávit") + " de $" + d + " mil millones" + (vs ? " (" + vs + " contra el mismo mes del año pasado)" : "") + ". En lo que va del año fiscal " + fy + " el déficit es de $" + fytd + " mil millones, " + fyPct + " " + (wid === "wider" ? "mayor" : "menor") + " que hace un año.",
+    exFiLatest: (m, r, o, kind, d, vs, fy, fytd, fyPct, wid) => "En " + m + ": ingresos $" + r + " mil millones, gastos $" + o + " mil millones, " + (kind === "deficit" ? "déficit" : "superávit") + " de $" + d + " mil millones" + (vs ? " (" + vs + " contra el mismo mes del año pasado)" : "") + ". En lo que va del año fiscal " + fy + " el déficit es de $" + fytd + " mil millones, " + fyPct + " " + (wid === "wider" ? "mayor" : "menor") + " que hace un año.",
     exFiDrivers: (r, o, intr, intrPct, cmp, def) => "Ingresos " + r + " y gastos " + o + " frente a los mismos meses del año pasado. Interés neto de $" + intr + " mil millones en el año fiscal (" + intrPct + ")" + (cmp ? ", " + (cmp === "more" ? "más" : "menos") + " que defensa ($" + def + " mil millones)." : "."),
     exFiWhy: (pg, y, debt, r12, r12dir) => "El déficit fue " + pg + "% del PIB en el año fiscal " + y + " y la deuda federal ronda el " + debt + "% del PIB" + (r12 === null ? "." : "; el déficit de 12 meses móviles es de $" + r12 + " billones, " + (r12dir === "up" ? "más" : "menos") + " que hace un año.") + " Déficits persistentes implican más emisión del Tesoro y una factura de intereses creciente.",
     exFiWatch: (dm, rm, faster) => "Próximo Estado Mensual del Tesoro (datos de " + dm + ") alrededor del octavo día hábil de " + rm + ". Seguir la factura de intereses y si los ingresos siguen creciendo " + (faster === "faster" ? "más rápido" : "más lento") + " que los gastos.",
@@ -2680,7 +2766,7 @@ const I18N = {
     annSprPeak: v => "Máximo " + v,
     annSprPeakDetail: v => "el nivel más alto de la reserva, " + v + " millones de barriles",
     annSprRelease2022: "Liberación 2022",
-    annSprRelease2022Detail: (from, to, toMonth, chg) => "la reserva cayó de " + from + " en mar 2022 a " + to + " en " + toMonth + " (" + chg + " millones de barriles), incluida la liberación de emergencia de 180 millones anunciada el 31-Mar-2022 (un millón de barriles al día durante seis meses)",
+    annSprRelease2022Detail: (from, to, toMonth, chg) => "la reserva cayó de " + from + " en mar 2022 a " + to + " en " + toMonth + " (" + chg + " millones de barriles), incluida la liberación de emergencia de 180 millones anunciada el 31-mar-2022 (un millón de barriles al día durante seis meses)",
     annTermBiden: "Biden",
     annTermTrump: "Trump",
     sprHistNote: (curV, curD, peakV, peakM, pct) => "La reserva tiene " + curV + " millones de barriles (" + curD + "), " + pct + "% por debajo de su máximo de " + peakV + " millones en " + peakM + ".",
@@ -2691,10 +2777,10 @@ const I18N = {
     sprTermBiden: "Biden",
     sprTermTrump2: "Trump (2do periodo)",
     sprNow: "hoy",
-    sprAdminBiden: (from, to, chg, largest) => "Con Biden (ene 2021 – ene 2025) la reserva pasó de " + from + " a " + to + " millones de barriles (" + chg + ")" + (largest ? ", el mayor cambio de los cuatro periodos mostrados" : "") + ". La mayor parte fue la liberación de emergencia anunciada el 31-Mar-2022 —un millón de barriles al día durante seis meses, 180 millones en total, la mayor en la historia de la reserva— además de ventas ya ordenadas por el Congreso; el rellenado empezó en 2023, cuando la reserva tocó su nivel más bajo desde 1983.",
-    sprAdminTrump: (from, to, chg, asOf, peakV, peakM, since, fell) => "Con el segundo periodo de Trump (desde ene 2025) ha pasado de " + from + " a " + to + " (" + chg + ") al " + asOf + ". Llegó al cargo prometiendo rellenar la reserva y el DOE adjudicó los primeros contratos de rellenado en nov 2025; el 11-Mar-2026 autorizó una liberación de 172 millones de barriles en unos 120 días, como parte de una liberación coordinada de la Agencia Internacional de Energía. " + (fell ? "La reserva llegó a " + peakV + " en " + peakM + " y ha caído " + since + " desde entonces: " : "La serie muestra un cambio neto de " + chg + " hasta ahora: ") + "las compras y liberaciones mes por mes están en el informe del DOE más abajo.",
+    sprAdminBiden: (from, to, chg, largest) => "Con Biden (ene 2021 – ene 2025) la reserva pasó de " + from + " a " + to + " millones de barriles (" + chg + ")" + (largest ? ", el mayor cambio de los cuatro periodos mostrados" : "") + ". La mayor parte fue la liberación de emergencia anunciada el 31-mar-2022 —un millón de barriles al día durante seis meses, 180 millones en total, la mayor en la historia de la reserva— además de ventas ya ordenadas por el Congreso; el rellenado empezó en 2023, cuando la reserva tocó su nivel más bajo desde 1983.",
+    sprAdminTrump: (from, to, chg, asOf, peakV, peakM, since, fell) => "Con el segundo periodo de Trump (desde ene 2025) ha pasado de " + from + " a " + to + " (" + chg + ") al " + asOf + ". Llegó al cargo prometiendo rellenar la reserva y el DOE adjudicó los primeros contratos de rellenado en nov 2025; el 11-mar-2026 autorizó una liberación de 172 millones de barriles en unos 120 días, como parte de una liberación coordinada de la Agencia Internacional de Energía. " + (fell ? "La reserva llegó a " + peakV + " en " + peakM + " y ha caído " + since + " desde entonces: " : "La serie muestra un cambio neto de " + chg + " hasta ahora: ") + "las compras y liberaciones mes por mes están en el informe del DOE más abajo.",
     sprAdminMethod: "Cada periodo va de la primera lectura semanal a partir del 20 de enero a la última antes de la siguiente toma de posesión; el periodo actual llega a la lectura más reciente.",
-    sprAdminSources: "Fuentes: Departamento de Energía de EE. UU.: <a href=\"https://www.energy.gov/articles/biden-harris-administration-makes-final-purchase-strategic-petroleum-reserve-secures-200\" target=\"_blank\" rel=\"noopener\">compra final para la SPR, 8-Nov-2024</a> (la venta de 180 millones de barriles de 2022 y los 200 millones recomprados); <a href=\"https://www.energy.gov/articles/energy-department-awards-contracts-begin-refilling-strategic-petroleum-reserve\" target=\"_blank\" rel=\"noopener\">primeros contratos de rellenado, 12-Nov-2025</a>; <a href=\"https://www.energy.gov/articles/united-states-release-172-million-barrels-oil-strategic-petroleum-reserve\" target=\"_blank\" rel=\"noopener\">liberación de 172 millones de barriles, 11-Mar-2026</a>; <a href=\"https://www.energy.gov/topics/strategic-petroleum-reserve-spr\" target=\"_blank\" rel=\"noopener\">panorama de la SPR</a>. Inventarios: <a href=\"https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&amp;s=WCSSTUS1&amp;f=W\" target=\"_blank\" rel=\"noopener\">serie semanal WCSSTUS1 de la EIA</a>.",
+    sprAdminSources: "Fuentes: Departamento de Energía de EE. UU.: <a href=\"https://www.energy.gov/articles/biden-harris-administration-makes-final-purchase-strategic-petroleum-reserve-secures-200\" target=\"_blank\" rel=\"noopener\">compra final para la SPR, 8-nov-2024</a> (la venta de 180 millones de barriles de 2022 y los 200 millones recomprados); <a href=\"https://www.energy.gov/articles/energy-department-awards-contracts-begin-refilling-strategic-petroleum-reserve\" target=\"_blank\" rel=\"noopener\">primeros contratos de rellenado, 12-nov-2025</a>; <a href=\"https://www.energy.gov/articles/united-states-release-172-million-barrels-oil-strategic-petroleum-reserve\" target=\"_blank\" rel=\"noopener\">liberación de 172 millones de barriles, 11-mar-2026</a>; <a href=\"https://www.energy.gov/topics/strategic-petroleum-reserve-spr\" target=\"_blank\" rel=\"noopener\">panorama de la SPR</a>. Inventarios: <a href=\"https://www.eia.gov/dnav/pet/hist/LeafHandler.ashx?n=PET&amp;s=WCSSTUS1&amp;f=W\" target=\"_blank\" rel=\"noopener\">serie semanal WCSSTUS1 de la EIA</a>.",
     sprSecRecent: "Los últimos tres años, semana a semana",
     sprSecRecentNote: "Millones de barriles, semanal (EIA, inventario del viernes)",
     legSprWeekly: "Inventario semanal",
@@ -2735,10 +2821,10 @@ const I18N = {
     capeKpiMedianFoot: "la mitad de la historia arriba, la mitad abajo",
     capeKpiPct: "Meses por debajo de hoy",
     capeKpiPctFoot: "parte de la historia más barata que ahora",
-    capeKpiEcy: "Excess CAPE yield",
-    capeKpiEcyFoot: "1/CAPE menos la tasa real a 10 años",
-    capeKpiGs10: "Tesoro a 10 años",
-    capeKpiGs10Foot: "rendimiento nominal, promedio del mes",
+    capeKpiEcy: "Rendimiento excedente del CAPE",
+    capeKpiEcyFoot: "1/CAPE menos la tasa real a 10 años (excess CAPE yield)",
+    capeKpiGs10: "Tesoro a 10 años (archivo de Shiller)",
+    capeKpiGs10Foot: partial => partial ? "nominal; una lectura diaria al publicarse, no promedio mensual" : "nominal, promedio del mes",
     capeSecChart: "CAPE desde 1881",
     capeSecChartNote: thr => "Mensual; las banderas marcan las lecturas por encima de " + thr + " (el percentil 90 de toda la historia) que fueron las más altas en tres años a cada lado",
     legCape: "CAPE",
@@ -2750,11 +2836,11 @@ const I18N = {
     capeSecPeaksNote: "Rendimiento real (ajustado por inflación) del S&P en los diez años posteriores a cada máximo, % anual, según los cálculos de Shiller",
     capePerYear: " anual",
     capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "En los " + n + " máximos con historial de diez años, el rendimiento real de la década siguiente promedió " + avgPeaks + " anual, frente a " + avgAll + " anual para todos los meses desde 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " es demasiado reciente" : " son demasiado recientes") + " para tener todavía un resultado a diez años." : "."),
-    footerCape: "Datos: Robert J. Shiller, base de datos de 'Irrational Exuberance' (precio mensual del S&P Composite, dividendos, utilidades, CPI y tasas largas, 1871 a la fecha), mantenida en shillerdata.com. CAPE = precio real ÷ promedio de diez años de utilidades reales; el excess CAPE yield y los rendimientos reales de los diez años posteriores son columnas del propio Shiller.",
+    footerCape: "Datos: Robert J. Shiller, base de datos de 'Irrational Exuberance' (precio mensual del S&P Composite, dividendos, utilidades, CPI y tasas largas, 1871 a la fecha), mantenida en shillerdata.com. CAPE = precio real ÷ promedio de diez años de utilidades reales; el rendimiento excedente del CAPE (excess CAPE yield) y los rendimientos reales de los diez años posteriores son columnas del propio Shiller.",
     exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE de " + v + " en " + m + (partial ? " (mes en curso)" : "") + ", contra " + prev + " el mes previo; el promedio desde 1881 es " + mean + " y solo el " + pctAbove + "% de los meses han sido más altos.",
-    exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El excess CAPE yield (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con el Tesoro a 10 años en " + gs10 + "%.",
+    exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El rendimiento excedente del CAPE (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con la tasa a 10 años del archivo de Shiller en " + gs10 + "%" + (daily ? " (una lectura diaria al publicarse; " + daily + "% diario al " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
-    exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el excess CAPE yield —el colchón que ofrecen las acciones sobre el rendimiento real de los bonos— y si las utilidades alcanzan a los precios.",
+    exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el rendimiento excedente del CAPE, el colchón que ofrecen las acciones sobre el rendimiento real de los bonos, y si las utilidades alcanzan a los precios.",
     sprNext: (d, w) => "Próximo informe semanal de la EIA: previsto el " + d + ", con la semana que termina el " + w + " (miércoles, 10:30 ET; un día después si hay feriado)",
     sprAsOfWeek: (w, r) => "Última lectura semanal: semana que terminó el " + w + " (publicada por la EIA el " + r + ")",
     fcAsOfWeek: (w, r) => "NFCI: semana que terminó el " + w + " (publicado por la Fed de Chicago el " + r + "); tasas y diferenciales, al último día disponible",
@@ -2769,7 +2855,7 @@ const I18N = {
     fileUmich: "Archivos de datos de Michigan",
     fileChallenger: "PDF del informe de Challenger",
     fileCensusState: "archivo estatal del Census",
-    fiNext: (m, d) => "Próximo estado mensual del Tesoro (datos de " + m + "): previsto el " + d + " (8.º día hábil, 2 PM ET)",
+    fiNext: (m, d) => "Próximo Estado Mensual del Tesoro (datos de " + m + "): previsto el " + d + " (8.º día hábil, 2 PM ET)",
     cutsNext: (m, d) => "Próximo informe (recortes de " + m + "): previsto el " + d + " (el día hábil anterior al informe de empleo)",
     cutsNextEst: m => "Próximo informe (recortes de " + m + "): previsto en la primera semana del mes siguiente",
     mapM1: "Último mes",
@@ -2780,7 +2866,7 @@ const I18N = {
     heatLow: "Menos recortes",
     heatHigh: "Más recortes",
     heatNone: "(gris = sin reportes)",
-    footerChallenger: "Datos: Challenger, Gray & Christmas, Inc., reportes mensuales de anuncios de recortes de empleo. Las cifras cuentan <i>anuncios</i> de las empresas, no despidos confirmados ni una semana de referencia fija como en las encuestas del BLS: un solo anuncio grande puede abarcar varios meses futuros, y la ubicación se registra según la sede de la empresa salvo que el anuncio indique otra cosa. Conviene leerlo como un indicador de intenciones que se adelanta y puede divergir de los conteos de nóminas del BLS, no como sustituto de ellos. Esta sección se actualiza manualmente.",    unTitle: "Desempleo",
+    footerChallenger: "Datos: Challenger, Gray & Christmas, Inc., reportes mensuales de anuncios de recortes de empleo. Las cifras cuentan <i>anuncios</i> de las empresas, no despidos confirmados ni una semana de referencia fija como en las encuestas del BLS: un solo anuncio grande puede abarcar varios meses futuros, y la ubicación se registra según la sede de la empresa salvo que el anuncio indique otra cosa. Conviene leerlo como un indicador de intenciones que se adelanta y puede divergir de los conteos de nóminas del BLS, no como sustituto de ellos. Las cifras se leen del PDF de cada informe y se validan contra sus propios totales antes de publicarse.",    unTitle: "Desempleo",
     unDesc: "Encuesta de hogares: tasa de desempleo, subempleo, participación en la fuerza laboral y cuánto tiempo lleva la gente sin trabajo. Ajustado por estacionalidad.",
     sourceCPS: "Fuente: Encuesta de Población Actual del BLS ↗",
     unSecRates: "Tasa de desempleo vs. U-6",
@@ -2897,13 +2983,13 @@ const I18N = {
     ctxLow1980: "Mínimo de 1980",
     andWord: "y",
     confTrendNote: (v, m, avg, gap) => "El índice está en " + v + " en " + m + ", " + gap + " puntos por debajo de su promedio de " + avg + " desde 1952.",
-    confTrendEpisodes: (thr, n, list) => "Lecturas por debajo de " + thr + " sólo se han visto en " + n + " episodios de la historia de la encuesta: " + list + ".",
+    confTrendEpisodes: (thr, n, list) => "Lecturas por debajo de " + thr + " solo se han visto en " + n + " episodios de la historia de la encuesta: " + list + ".",
     confTrendRank: (n, total, low, lowM) => n === 0
       ? "Es la lectura más baja de los " + total + " meses de la encuesta."
-      : "Sólo " + (n === 1 ? "un mes" : n + " meses") + " de los " + total + " de la encuesta " + (n === 1 ? "registró" : "registraron") + " una cifra menor; el mínimo histórico es " + low + " (" + lowM + ").",
+      : "Solo " + (n === 1 ? "un mes" : n + " meses") + " de los " + total + " de la encuesta " + (n === 1 ? "registró" : "registraron") + " una cifra menor; el mínimo histórico es " + low + " (" + lowM + ").",
     confCompNote: (cc, ce, m) => "En " + m + ", las condiciones actuales están en " + cc + " y las expectativas en " + ce + ".",
     confCompGap: (gap, which) => which === "expect"
-      ? "Los hogares ven el futuro peor que el presente por " + gap + " puntos: el pesimismo es sobre lo que viene, no sólo sobre lo que ya pasó."
+      ? "Los hogares ven el futuro peor que el presente por " + gap + " puntos: el pesimismo es sobre lo que viene, no solo sobre lo que ya pasó."
       : "Los hogares califican su situación actual peor que lo que esperan hacia adelante por " + gap + " puntos: el malestar es sobre el presente.",
     confInflNote: (px1, px5, cpi, m) => "Los hogares esperan una inflación de " + px1 + " el próximo año y de " + px5 + " anual a cinco años (" + m + "), frente a un CPI general observado de " + cpi + ".",
     confInflAnchor: (px5, gap) => "La expectativa a cinco años, de " + px5 + ", es la que vigila la Reserva Federal: mientras se mantenga cerca de su rango histórico, se considera que las expectativas siguen ancladas. Está " + gap + " puntos porcentuales por encima de su promedio de la última década.",
@@ -2937,7 +3023,7 @@ const I18N = {
     ppiSecCategoryNote: "Variación % a 12 meses · mismo periodo",
     ppiSecDriving: "Qué impulsa la inflación al productor",
     ppiSecDrivingNote: "Contribución a la variación anual de demanda final, puntos porcentuales",
-    ppiSecDerby: "El derbi del PPI",
+    ppiSecDerby: "La carrera del PPI",
     ppiSecDerbyNote: "Variación anual por categoría, de mayor a menor",
     ppiSecComposition: "Composición de la demanda final",
     ppiSecCompositionNote: "Importancia relativa,",
@@ -2974,19 +3060,19 @@ const I18N = {
     navFiscalMonitor: "Monitor de deuda fiscal",
     navFiscalDeficit: "Déficit fiscal",
     fiTitle: "Déficit fiscal",
-    fiDesc: "Lo que el gobierno federal recauda, lo que gasta y la brecha entre ambos. Declaración Mensual del Tesoro, año fiscal de octubre a septiembre.",
-    sourceMTS: "Fuente: Tesoro de EE. UU., Declaración Mensual del Tesoro ↗",
+    fiDesc: "Lo que el gobierno federal recauda, lo que gasta y la brecha entre ambos. Estado Mensual del Tesoro, año fiscal de octubre a septiembre.",
+    sourceMTS: "Fuente: Tesoro de EE. UU., Estado Mensual del Tesoro ↗",
     fiLinkBlurb: "Para el lado de la deuda (deuda pública total, tenedores, vencimientos e intereses) consulta el monitor complementario.",
     fiLinkText: "Monitor de deuda fiscal de EE. UU.",
-    fiNextRelease: (m) => "Próxima publicación: declaración de " + m + ", ~octavo día hábil del mes siguiente (Tesoro)",
+    fiNextRelease: (m) => "Próxima publicación: Estado Mensual del Tesoro de " + m + ", ~octavo día hábil del mes siguiente",
     fiKpiDeficitFytd: "Déficit del año fiscal a la fecha",
     fiKpiReceipts: "Ingresos, año fiscal a la fecha",
     fiKpiOutlays: "Gastos, año fiscal a la fecha",
     fiKpiInterest: "Interés neto, año fiscal a la fecha",
     fiKpiRolling: "Déficit, últimos 12 meses",
     fiKpiMonth: "Déficit del mes",
-    fiKpiVsPy: "vs. mismo periodo del año anterior",
-    fiKpiVsPm: "vs. mismo mes del año anterior",
+    fiKpiVsPy: "vs. un año antes",
+    fiKpiVsPm: "vs. el mismo mes, un año antes",
     fiSecMonthly: "Ingresos vs. gastos",
     fiSecMonthlyNote: "Miles de millones de dólares, mensual, sin ajuste estacional · últimos 36 meses",
     fiDeficitMonthlyTitle: "Déficit (−) o superávit (+) mensual, miles de millones de dólares",
@@ -3017,7 +3103,7 @@ const I18N = {
     fiFunctionInterestBelow: (int, def) => "El interés neto (" + int + " mil millones) se acerca al gasto en defensa nacional (" + def + " mil millones).",
     fiGdpNote: (fy, pct, avg, debt, dy) => "En el año fiscal " + fy + " el déficit fue de " + pct + "% del PIB, frente a un promedio de " + avg + "% desde 1970. La deuda pública total equivale a " + debt + "% del PIB (" + dy + ").",
     fiGdpMethod: (n, list) => "Como porcentaje del PIB, el déficit ha superado el 5% en " + n + " años fiscales desde 1970: " + list + ". Antes de 2022, cada uno de ellos fue un año de recesión o de su resaca inmediata; los años recientes son los primeros en que ocurre con la economía en expansión.",
-    footerFiscal: "Datos: Departamento del Tesoro de EE. UU., Declaración Mensual del Tesoro (MTS), tablas 1 y 9, vía la API de FiscalData (sin clave); déficit y deuda como porcentaje del PIB de la Oficina de Administración y Presupuesto y la Reserva Federal vía FRED. Cifras en dólares corrientes, sin ajuste estacional. El año fiscal federal va del 1 de octubre al 30 de septiembre. Las cifras mensuales se revisan en declaraciones posteriores; esta página toma siempre la versión más reciente publicada de cada mes.",
+    footerFiscal: "Datos: Departamento del Tesoro de EE. UU., Estado Mensual del Tesoro (MTS), tablas 1 y 9, vía la API de FiscalData (sin clave); déficit y deuda como porcentaje del PIB de la Oficina de Administración y Presupuesto y la Reserva Federal vía FRED. Cifras en dólares corrientes, sin ajuste estacional. El año fiscal federal va del 1 de octubre al 30 de septiembre. Las cifras mensuales se revisan en declaraciones posteriores; esta página toma siempre la versión más reciente publicada de cada mes.",
 
     scTitle: "Cadena de suministro",
     scDesc: "Presión global, inventarios, flujos comerciales y el costo de mover mercancías. Cuatro fuentes: la Fed de Nueva York, el Censo y el BEA vía FRED, y el BLS.",
@@ -3125,7 +3211,7 @@ const I18N = {
     fcStressNote: (stl, d, kc, m) => "El índice de San Luis está en " + stl + " (" + d + ") y el de Kansas City en " + kc + " (" + m + ").",
     fcStressMethod: "Ambos índices están construidos para promediar cero: valores positivos indican tensión superior a la normal. Sus picos coinciden con 2008, marzo de 2020 y la crisis bancaria regional de marzo de 2023.",
     fcSpreadNote: (hy, ig, d) => "El diferencial de alto rendimiento está en " + hy + " puntos porcentuales y el de grado de inversión en " + ig + " (" + d + ").",
-    fcSpreadMethod: "El diferencial es lo que el mercado cobra de más, sobre el Tesoro, por prestar a empresas: se amplía cuando crece el temor a impagos. Los índices ICE BofA sólo están disponibles en FRED para los últimos tres años, de ahí la ventana corta.",
+    fcSpreadMethod: "El diferencial es lo que el mercado cobra de más, sobre el Tesoro, por prestar a empresas: se amplía cuando crece el temor a impagos. Los índices ICE BofA solo están disponibles en FRED para los últimos tres años, de ahí la ventana corta.",
     fcYieldNote: (y10, y2, s102, d) => "El Tesoro a 10 años rinde " + y10 + " y el de 2 años " + y2 + " (" + d + "); la pendiente 10−2 es de " + s102 + " puntos porcentuales.",
     fcYieldSlope: (dir) => dir === "inverted" ? "La curva está invertida: el corto plazo rinde más que el largo. Históricamente ha precedido a las recesiones, aunque con rezagos largos y variables." : "La curva tiene pendiente positiva, la forma normal: los inversionistas exigen más por prestar a plazos largos.",
     fcPolicyNote: (target, eff, mort, d) => "El rango objetivo de la Fed tiene tope en " + target + "; la tasa efectiva es " + eff + " y la hipoteca a 30 años promedia " + mort + " (" + d + ").",
@@ -3151,7 +3237,7 @@ const I18N = {
     rtSecMomentumNote: "Variación % mes a mes, ajustada por estacionalidad",
     rtMomTotalTitle: "Total minorista y restaurantes, m/m",
     rtMomControlTitle: "Grupo de control, m/m",
-    rtSecDerby: "El derbi minorista",
+    rtSecDerby: "La carrera minorista",
     rtSecDerbyNote: "Variación % a 12 meses por tipo de tienda, de mayor a menor",
     rtSecContrib: "De dónde viene el crecimiento",
     rtSecContribNote: "Contribución al crecimiento total a 12 meses, puntos porcentuales",
@@ -3172,7 +3258,7 @@ const I18N = {
     legRetailTotal: "Total",
     legRetailStore: "Tipo de tienda",
     rtTrendNote: (nom, real, cpi, m) => "Las ventas minoristas crecen " + nom + " anual en términos nominales (" + m + "); descontando una inflación de " + cpi + ", el volumen real crece " + real + ".",
-    rtTrendReal: (dir) => dir === "up" ? "Los estadounidenses compran más cosas, no sólo cosas más caras." : "Los estadounidenses gastan más dólares pero se llevan menos a casa: el crecimiento nominal es inflación, no volumen.",
+    rtTrendReal: (dir) => dir === "up" ? "Los estadounidenses compran más cosas, no solo cosas más caras." : "Los estadounidenses gastan más dólares pero se llevan menos a casa: el crecimiento nominal es inflación, no volumen.",
     rtMstatTotal: "Total m/m",
     rtMstatControl: "Grupo de control m/m",
     rtMstat3m: "Total, 3 m anualizado",
@@ -3246,7 +3332,7 @@ const I18N = {
       "manuf": "Manufactura", "trade": "Comercio, transporte y servicios públicos",
       "info": "Información", "finance": "Actividades financieras",
       "profbus": "Servicios profesionales y empresariales", "eduhealth": "Educación y salud",
-      "leisure": "Ocio y hostelería", "othersvc": "Otros servicios", "govt": "Gobierno",      "CUUR0000SA0": "General (todos los rubros)",
+      "leisure": "Esparcimiento y hospitalidad", "othersvc": "Otros servicios", "govt": "Gobierno",      "CUUR0000SA0": "General (todos los rubros)",
       "CUUR0000SA0L1E": "Subyacente (excl. alimentos y energía)",
       "CUUR0000SA0E": "Energía",
       "CUUR0000SAF": "Alimentos y bebidas",
@@ -3292,6 +3378,20 @@ const I18N = {
     months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
     switchTo: "Cambiar a español",
     switchAria: "Cambiar a español",
+    docTitle: v => v + " · U.S. Macro Monitor · FNAM",
+    metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
+    navAria: "Sections",
+    unknownView: v => "There is no section called “" + v + "”; showing the Consumer Price Index.",
+    chartAria: (title, series) => "Chart: " + title + (series ? " (" + series + ")" : ""),
+    mapAria: title => "Schematic state map: " + title,
+    exPyRevFirstOnly: (n, net) => "Against their first estimates, the prior " + n + " months now read " + net + " in total. ",
+    pyRevisionVsPrev: (rel, a, b, net) => "BLS compares each month with the previous report: in the " + rel + " report, " + a + " and " + b + " were revised " + net + " in total on that basis.",
+    gdpEstimateName: n => ({1:"advance estimate", 2:"second estimate", 3:"third estimate"})[n] || "estimate",
+    gdpVintageLine: (q, name, d) => q + ": " + name + " (BEA, " + d + "); subject to revision",
+    rtReleasedLine: d => "Latest Census release: " + d,
+    capeGs10Note: (v, m, daily, d) => "Shiller's file carries " + v + "% as the 10-year rate for " + m + ": for the current month it is one daily reading, taken when the file was posted, not a monthly average." + (daily ? " The latest daily yield is " + daily + "% (" + d + ", FRED; see Financial Conditions)." : ""),
+    sprCavernsNote: (site, a, b, d) => "Cavern counts follow DOE's storage-sites page; its SPR Quick Facts table (as of " + d + ") lists " + b + " caverns for " + site + " rather than " + a + ". The dashboard uses one source so the figures agree.",
+    fiUnitsNote: "Units: B = billions of dollars (10⁹); T = trillions (10¹²).",
 
     brand: "Macro Monitor",
     railSub: "U.S. economic indicators",
@@ -3408,11 +3508,12 @@ const I18N = {
     mstatSub: "momentum, not YoY",
 
     donutCpiN: "8 groups",
-    donutCpiS: "of the CPI-U basket",
+    donutCpiS: "of the CPI‑U basket",
     donutPceN: "10 groups",
     donutPceS: "of nominal PCE",
     subsetHousing: "Subset of Housing",
 
+    annCallout: (m, detail) => m + ": " + detail,
     gapNoteCPI: m => "Gap at " + m + ": BLS did not publish a CPI report for that month.",
     gapNotePCE: m => "Gap at " + m + ": BEA did not publish a PCE price index for that month.",
 
@@ -3444,7 +3545,7 @@ const I18N = {
     gdpTitle: "Real GDP Growth",
     gdpDesc: "Quarterly output growth and where it comes from — consumption, investment, government and trade. Annualized rate, seasonally adjusted.",
     sourceGDP: "Source: BEA national accounts ↗",
-    gdpNextRelease: d => "Next GDP release: " + d,
+    gdpNextRelease: (d, what) => "Next GDP release: " + d + (what ? " (" + what + ")" : ""),
     gdpNextReleaseWas: d => "Next GDP release was " + d,
     gdpVintage: "Estimate subject to revision",
     gdpSecGrowth: "Quarterly growth",
@@ -3540,13 +3641,13 @@ const I18N = {
     realBehind: "behind",
     realNote: (pct, m, dir) => "Since January 2021 weekly earnings are running " + dir + " prices by " + pct + "% cumulatively (through " + m + "). Where the earnings line sits above CPI, purchasing power is rising; where it dips below, inflation is eroding it.",
     pyRevisionNote: (revised, total, down, net) => "Of the last " + total + " months, " + revised + " have already been revised and " + down + " were marked down. The net effect of all revisions is " + net + ".",
-    pyRevisionMethod: "Each bar is the change published today for that month minus what BLS first reported for it. The most recent month has not been revised yet, so it reads zero. First estimates come from each month's own Employment Situation release.",
+    pyRevisionMethod: "Each bar is the change published today for that month minus what BLS first reported for it. The most recent month has not been revised yet, so it reads zero. First estimates are each month's own Employment Situation release, as recorded at the time and archived in ALFRED (St. Louis Fed).",
     cutsTitle: "Announced Job Cuts",
     cutsDesc: "Challenger report — employer-announced layoffs and hiring intentions. A leading indicator of intentions rather than realized separations, and not a BLS series.",
     sourceChallenger: "Source: Challenger, Gray & Christmas ↗",
-    manualBadge: "From Challenger's monthly report",
+    manualBadge: "From Challenger's monthly report (PDF)",
     releasedOn: d => "Released " + d,
-    cutsNotice: "<b>This section does not update itself.</b> Challenger is a private vendor with no public API, so these figures are entered by hand from each monthly report. Everything else on this dashboard refreshes automatically from BLS and BEA.",
+    cutsNotice: "<b>Challenger publishes no API.</b> The dashboard reads each monthly report PDF and applies it only when its tables reconcile with the report's own totals; the rest of the dashboard refreshes from the BLS, BEA, Census, Treasury and FRED APIs.",
     cutsSecMonthly: "Announced cuts by month",
     cutsSecMonthlyNote: "Monthly total and three-month average",
     cutsSecIndustry: "Which industries are cutting",
@@ -3581,7 +3682,7 @@ const I18N = {
     exRelPce: m => m + " PCE (with income and spending)",
     exRelPpi: m => m + " PPI",
     exRelJobs: m => m + " jobs report",
-    exRelGdp: "GDP estimate",
+    exRelGdp: (name, q) => name ? name + " of " + q + " GDP" : "GDP estimate",
     exRelRetail: m => m + " retail sales",
     exRelUmichFinal: m => "final " + m + " sentiment",
     exRelUmichPrelim: m => "preliminary " + m + " sentiment",
@@ -3600,7 +3701,7 @@ const I18N = {
     exUnWhy: (sahm, band) => "Half of the Fed's mandate. The Sahm gap (3-month average vs. its 12-month low) is " + sahm + " pp, " + ({over:"past the 0.5 pp level that has marked every recession since 1970", near:"approaching the 0.5 pp level that has marked past recessions", under:"well inside the 0.5 pp level that has marked past recessions"})[band] + ".",
     exUnWatch: "Watch the trend in the unemployed count and long-term unemployment rather than one month's rate; a falling participation rate can flatter the headline.",
     exPyLatest: (chg, m, a3, rev, ahe) => "Payrolls " + chg + " in " + m + "; 3-month average " + a3 + ". " + rev + "Average hourly earnings " + ahe + " year over year.",
-    exPyRev: (net, n) => "The prior " + n + " months were revised " + net + " in total. ",
+    exPyRev: (a, b, netPrev, netFirst) => a + " and " + b + " were revised " + netPrev + " in total from the previous report (" + netFirst + " against their first estimates). ",
     exPyDrivers: (a, av, b, bv, neg, negv) => a + " (" + av + ") and " + b + " (" + bv + ") led the gains" + (neg ? "; " + neg + " lost jobs (" + negv + ")." : "; no major sector lost jobs."),
     exPyWhy: (a3, a12, pace, ahe, cpi, real) => "Jobs drive income and spending. The 3-month average (" + a3 + ") is " + ({up:"above", down:"below", flat:"in line with"})[pace] + " the 12-month average (" + a12 + "), so hiring is " + ({up:"picking up", down:"slowing", flat:"steady"})[pace] + ". Wages at " + ahe + " vs. inflation of " + cpi + " mean real pay is " + (real === "up" ? "rising" : "falling") + ".",
     exPyWatch: (jolts, jm) => "Watch revisions and the 3-month trend more than the headline; job openings (" + jolts + " million in " + jm + ") show how much demand for workers is left.",
@@ -3718,8 +3819,8 @@ const I18N = {
     capeKpiPctFoot: "share of history cheaper than now",
     capeKpiEcy: "Excess CAPE yield",
     capeKpiEcyFoot: "1/CAPE minus the real 10-year yield",
-    capeKpiGs10: "10-year Treasury",
-    capeKpiGs10Foot: "nominal yield, month average",
+    capeKpiGs10: "10-year Treasury (Shiller's file)",
+    capeKpiGs10Foot: partial => partial ? "nominal; one daily reading at posting, not a month average" : "nominal yield, month average",
     capeSecChart: "CAPE since 1881",
     capeSecChartNote: thr => "Monthly; flags mark readings above " + thr + " (the 90th percentile of the whole history) that were the highest within three years either way",
     legCape: "CAPE",
@@ -3733,7 +3834,7 @@ const I18N = {
     capePeaksNote: (n, avgPeaks, avgAll, nRecent, list) => "Across the " + n + " peaks with a ten-year record, real returns over the following decade averaged " + avgPeaks + " a year, against " + avgAll + " a year for all months since 1881" + (nRecent ? ". " + list + (nRecent === 1 ? " is" : " are") + " too recent to have a ten-year result yet." : "."),
     footerCape: "Data: Robert J. Shiller, 'Irrational Exuberance' data set (monthly S&P Composite price, dividends, earnings, CPI and long rates, 1871–present), as maintained at shillerdata.com. CAPE = real price ÷ ten-year average real earnings; the excess CAPE yield and the ten-year subsequent real returns are Shiller's own columns.",
     exCapeLatest: (v, m, partial, prev, mean, pctAbove) => "CAPE " + v + " in " + m + (partial ? " (month to date)" : "") + ", vs. " + prev + " the month before; the average since 1881 is " + mean + " and only " + pctAbove + "% of months have been higher.",
-    exCapeDrivers: (real, earn, cape, dir, ecy, gs10) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year Treasury at " + gs10 + "%.",
+    exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year rate in Shiller's file at " + gs10 + "%" + (daily ? " (one daily reading at posting; " + daily + "% daily as of " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
     sprNext: (d, w) => "Next EIA weekly report: expected " + d + ", covering the week ending " + w + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
@@ -3760,8 +3861,8 @@ const I18N = {
     mapLegend: (worst, wv, best, bv) => "Most cuts: " + worst + " (" + wv + ") · Fewest: " + best + " (" + bv + ")",
     heatLow: "Fewer cuts",
     heatHigh: "More cuts",
-    heatNone: "(grey = none reported)",
-    footerChallenger: "Data: Challenger, Gray & Christmas, Inc., monthly Job Cut Announcement Reports. Figures count company <i>announcements</i>, not confirmed layoffs or a fixed reference week as in BLS surveys — a single large announcement can span several future months, and location is recorded as company headquarters unless the announcement specifies otherwise. Read it as a forward-looking indicator of intentions that can diverge sharply from BLS's realized payroll counts, not a substitute for them. This section is maintained manually.",    unTitle: "Unemployment",
+    heatNone: "(gray = none reported)",
+    footerChallenger: "Data: Challenger, Gray & Christmas, Inc., monthly Job Cut Announcement Reports. Figures count company <i>announcements</i>, not confirmed layoffs or a fixed reference week as in BLS surveys — a single large announcement can span several future months, and location is recorded as company headquarters unless the announcement specifies otherwise. Read it as a forward-looking indicator of intentions that can diverge sharply from BLS's realized payroll counts, not a substitute for them. Figures are read from each report's PDF and checked against its own totals before they are published.",    unTitle: "Unemployment",
     unDesc: "Household survey — the unemployment rate, underemployment, labor force participation, and how long people are out of work. Seasonally adjusted.",
     sourceCPS: "Source: BLS Current Population Survey ↗",
     unSecRates: "Unemployment rate vs. U-6",
@@ -3964,8 +4065,8 @@ const I18N = {
     fiKpiInterest: "Net interest, fiscal year to date",
     fiKpiRolling: "Deficit, trailing 12 months",
     fiKpiMonth: "Deficit this month",
-    fiKpiVsPy: "vs. same period a year ago",
-    fiKpiVsPm: "vs. same month a year ago",
+    fiKpiVsPy: "vs. a year earlier",
+    fiKpiVsPm: "vs. same month a year earlier",
     fiSecMonthly: "Receipts vs. outlays",
     fiSecMonthlyNote: "$ billions, monthly, not seasonally adjusted · last 36 months",
     fiDeficitMonthlyTitle: "Monthly deficit (−) or surplus (+), $ billions",
@@ -4296,36 +4397,95 @@ function setLang(lang) {
   document.documentElement.setAttribute("lang", T.htmlLang);
   const url = new URL(location.href);
   url.searchParams.set("lang", lang);
-  history.replaceState(null, "", url);
+  history.replaceState(history.state, "", url);
   applyStaticStrings();
+  syncNavLinks();
   buildMobileNav();
   clearTargets();
   renderAll();
+  updateMeta(currentView());
 }
-// Redraw when the width changes enough to change the chart layout (rotation, window resize).
+// Redraw when the content column changes width enough to change the chart layout
+// (rotation, window resize, split screen). The charts are laid out in the units of
+// the width they were measured at, so a refit keeps their text at its nominal size.
 (function () {
-  let last = window.innerWidth, timer = null;
-  window.addEventListener("resize", () => {
-    clearTimeout(timer);
-    timer = setTimeout(() => {
-      if (Math.abs(window.innerWidth - last) < 40) return;
-      last = window.innerWidth;
-      clearTargets(); renderAll();
-    }, 250);
-  });
+  let timer = null;
+  const refit = () => { clearTimeout(timer); timer = setTimeout(() => { clearTargets(); renderAll(); }, 250); };
+  const main = document.getElementById("main");
+  if (typeof ResizeObserver !== "undefined" && main) {
+    let last = null;
+    new ResizeObserver(entries => {
+      const w = Math.round(entries[0].contentRect.width);
+      if (last !== null && Math.abs(w - last) >= 40) refit();
+      if (last === null || Math.abs(w - last) >= 40) last = w;
+    }).observe(main);
+  } else {
+    let last = window.innerWidth;
+    window.addEventListener("resize", () => { if (Math.abs(window.innerWidth - last) < 40) return; last = window.innerWidth; refit(); });
+  }
 })();
 
 // ---------- view switcher ----------
+// Every section is a real link (?view=...): the address bar, the browser history,
+// the document title and the page metadata all follow it, so a copied address or
+// a shared link opens the same section in the same language.
+const VIEW_IDS = Array.from(document.querySelectorAll(".rail-item[data-view]")).map(el => el.getAttribute("data-view"));
+const DEFAULT_VIEW = VIEW_IDS[0];
+function currentView() { const a = document.querySelector(".view.active"); return a && a.id ? String(a.id).replace(/^view-/, "") : DEFAULT_VIEW; }
+function viewTitle(v) { const h = document.querySelector("#view-" + v + " h1"); return h ? String(h.textContent).trim() : T.brand; }
+function viewDesc(v) { const d = document.querySelector("#view-" + v + " .desc"); return d ? String(d.textContent).trim() : T.metaDescDefault; }
+// The public address of a section: the first section in Spanish is the bare page.
+function publicUrl(v, lang) {
+  const q = [];
+  if (v !== DEFAULT_VIEW) q.push("view=" + v);
+  if (lang === "en") q.push("lang=en");
+  return "https://fnam.mx/macro/" + (q.length ? "?" + q.join("&") : "");
+}
+function setMeta(sel, attr, value) { const el = document.querySelector(sel); if (el) el.setAttribute(attr, value); }
+function updateMeta(v) {
+  const title = T.docTitle(viewTitle(v)), desc = viewDesc(v);
+  document.title = title;
+  setMeta('meta[name="description"]', "content", desc);
+  setMeta('meta[property="og:title"]', "content", title);
+  setMeta('meta[property="og:description"]', "content", desc);
+  setMeta('meta[property="og:url"]', "content", publicUrl(v, LANG));
+  setMeta('meta[property="og:locale"]', "content", LANG === "en" ? "en_US" : "es_MX");
+  setMeta('meta[property="og:locale:alternate"]', "content", LANG === "en" ? "es_MX" : "en_US");
+  setMeta('link[rel="canonical"]', "href", publicUrl(v, LANG));
+  setMeta('link[hreflang="es-MX"]', "href", publicUrl(v, "es"));
+  setMeta('link[hreflang="en"]', "href", publicUrl(v, "en"));
+  setMeta('link[hreflang="x-default"]', "href", publicUrl(v, "es"));
+}
+// Section links carry the current language, so a middle-click or a copied link keeps it.
+function syncNavLinks() {
+  document.querySelectorAll(".rail-item[data-view]").forEach(a => a.setAttribute("href", "?view=" + a.getAttribute("data-view") + "&lang=" + LANG));
+}
+function showView(requested, push) {
+  const raw = String(requested || "");
+  const v = VIEW_IDS.indexOf(raw) >= 0 ? raw : DEFAULT_VIEW;
+  const notice = document.getElementById("viewNotice");
+  if (notice) notice.textContent = raw && v !== raw ? T.unknownView(raw.replace(/[^\w-]/g, "").slice(0, 40)) : "";
+  document.querySelectorAll(".rail-item[data-view]").forEach(i => {
+    const on = i.getAttribute("data-view") === v;
+    i.classList.toggle("active", on);
+    if (on) i.setAttribute("aria-current", "page"); else i.removeAttribute("aria-current");
+  });
+  document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === "view-" + v));
+  const url = new URL(location.href);
+  url.searchParams.set("view", v);
+  if (push && url.href !== location.href) history.pushState({ view: v }, "", url); else history.replaceState({ view: v }, "", url);
+  updateMeta(v);
+  buildMobileNav();
+  if (push && typeof window.scrollTo === "function") window.scrollTo({ top: 0, behavior: "instant" });
+}
 document.querySelectorAll(".rail-item[data-view]").forEach(item => {
-  item.addEventListener("click", () => {
-    const v = item.getAttribute("data-view");
-    document.querySelectorAll(".rail-item[data-view]").forEach(i => i.classList.toggle("active", i === item));
-    document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === "view-" + v));
-    // Keep the address bar on the section, so a copied link opens the same view.
-    const url = new URL(location.href); url.searchParams.set("view", v); history.replaceState(null, "", url);
-    window.scrollTo({top: 0, behavior: "instant"});
+  item.addEventListener("click", e => {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return;   // a modifier click opens the plain link in a new tab
+    e.preventDefault();
+    showView(item.getAttribute("data-view"), true);
   });
 });
+window.addEventListener("popstate", () => showView(new URLSearchParams(location.search).get("view") || DEFAULT_VIEW, false));
 
 const MAJOR_GROUPS = [
   {id:"SAH", key:"CUUR0000SAH", color:"--cat-1"},
@@ -4345,12 +4505,12 @@ function fmtMonthYear(d) {
   return T.months[parseInt(m,10)-1] + " " + y;
 }
 // Every day-level date on the page renders as dd-MMM-yyyy in both languages:
-// unambiguous between the US month-first and Mexican day-first conventions.
+// unambiguous between the US month-first and Mexican day-first conventions
+// ("28-Sep-2026"; "28-sep-2026" in Spanish, whose month abbreviations are lowercase).
 // Accepts a Date or a "YYYY-MM-DD" string. Month-only references keep fmtMonthYear.
 function fmtDateDMY(d) {
   const dt = d instanceof Date ? d : new Date(d + "T00:00:00");
-  const mon = T.months[dt.getMonth()];
-  return String(dt.getDate()).padStart(2, "0") + "-" + mon.charAt(0).toUpperCase() + mon.slice(1) + "-" + dt.getFullYear();
+  return String(dt.getDate()).padStart(2, "0") + "-" + T.months[dt.getMonth()] + "-" + dt.getFullYear();
 }
 
 // Fills every element carrying data-i18n from the active dictionary. Runs on load
@@ -4363,6 +4523,8 @@ function applyStaticStrings() {
     if (/<\/?(i|b|em|strong)>/.test(val)) el.innerHTML = val; else el.textContent = val;
   });
   document.querySelectorAll(".lang-switch").forEach(b => b.setAttribute("aria-label", T.switchAria));
+  const rail = document.getElementById("rail"); if (rail) rail.setAttribute("aria-label", T.navAria);
+  const picker = document.getElementById("mobileNav"); if (picker) picker.setAttribute("aria-label", T.navAria);
 }
 function fmtPct(v, digits) {
   if (v === null || v === undefined) return "—";
@@ -4376,6 +4538,21 @@ function lastReal(points) {
   return null;
 }
 
+
+// Places a chart tooltip beside the crosshair, inside the chart's own box, flipping
+// to the left near the right edge: it never covers the legend above the chart.
+// clientX/clientY are the pointer; anchorX (host px) pins it to the crosshair.
+function placeTooltip(tip, clientX, clientY, anchorX) {
+  const host = tip.parentElement; if (!host) return;
+  const hr = host.getBoundingClientRect();
+  const xPx = anchorX !== undefined ? anchorX : clientX - hr.left, yPx = clientY - hr.top;
+  tip.classList.add("t-inside");
+  tip.style.opacity = "1";
+  const hw = host.clientWidth, hh = host.clientHeight, tw = tip.offsetWidth, th = tip.offsetHeight;
+  let left = xPx + 14; if (left + tw > hw - 2) left = xPx - 14 - tw; if (left < 2) left = 2;
+  let top = yPx - th / 2; if (top + th > hh - 2) top = hh - 2 - th; if (top < 2) top = 2;
+  tip.style.left = left + "px"; tip.style.top = top + "px";
+}
 
 // "Live from BLS · just now" once a fetch succeeds; otherwise names the snapshot date,
 // so a stale page can never quietly pass itself off as current.
@@ -4459,9 +4636,12 @@ function clearTargets() {
 }
 
 // The SVG charts are laid out in viewBox units and scaled to their container. On a phone a
-// 920-unit chart would shrink to a third, labels included; instead the viewBox is narrowed
-// to the container's width (height kept in units), so text keeps its nominal size and the
-// chart a readable height. Hidden views are shown for the measurement only.
+// 920-unit chart would shrink to a third, labels included. Instead, wherever a container is
+// narrower than the chart's design width, the viewBox is narrowed to the width available
+// and scaled so the chart's smallest text renders at 11 px (column charts label their axis
+// at 8.5 units, line charts at 9.5), keeping the chart's design height in pixels. Hidden
+// views are shown for the measurement only.
+const MIN_TEXT_PX = 11;
 function fitChartViewBoxes() {
   const hidden = Array.from(document.querySelectorAll(".view:not(.active)"));
   hidden.forEach(v => { v.style.display = "block"; v.style.visibility = "hidden"; });
@@ -4469,7 +4649,10 @@ function fitChartViewBoxes() {
     if (!svg.dataset.vb) svg.dataset.vb = svg.getAttribute("viewBox");
     const parts = svg.dataset.vb.split(" ").map(Number);
     const cw = svg.parentElement.clientWidth;
-    svg.setAttribute("viewBox", cw > 0 && cw < parts[2] ? "0 0 " + Math.round(cw) + " " + parts[3] : svg.dataset.vb);
+    if (cw > 0 && cw < parts[2]) {
+      const k = Math.max(1, MIN_TEXT_PX / (svg.parentElement.classList.contains("momentum-chart-wrap") ? 8.5 : 9.5));
+      svg.setAttribute("viewBox", "0 0 " + Math.round(cw / k) + " " + Math.round(parts[3] / k));
+    } else svg.setAttribute("viewBox", svg.dataset.vb);
   });
   hidden.forEach(v => { v.style.display = ""; v.style.visibility = ""; });
 }
@@ -4511,7 +4694,7 @@ const KPI_DEFS = [
       <div class="kpi-label">${def.label}</div>
       <div class="kpi-value-row">
         <div class="kpi-value">${fmtPct(latest.yoy)}</div>
-        <div class="kpi-delta">${delta >= 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div>
+        <div class="kpi-delta">${Math.abs(delta) < 0.05 ? "—" : delta > 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div>
       </div>
       <svg class="kpi-spark" id="${sparkId}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>
       <div class="kpi-foot">${fmtMonthYear(latest.d)}</div>
@@ -4554,8 +4737,8 @@ function drawSparkline(svg, values, colorVar) {
 function renderDualLineChart(cfg) {
   const svg = document.getElementById(cfg.svgId);
   const vb = svg.getAttribute("viewBox").split(" ").map(Number);
-  const W = vb[2], H = vb[3], ML = 34, MR = 16, MT = 16, MB = 28;
-  const plotW = W - ML - MR, plotH = H - MT - MB;
+  const W = vb[2], H = vb[3], MR = 16, MT = 16, MB = 28;
+  const plotH = H - MT - MB;
   const ns = "http://www.w3.org/2000/svg";
 
   const dataset = cfg.data || CPI;
@@ -4574,8 +4757,21 @@ function renderDualLineChart(cfg) {
   const allVals = aPts.map(p=>p[F]).concat(bPts.map(p=>p[F])).concat(cfg.showTarget ? [2] : []);
   let minV = Math.min(...allVals), maxV = Math.max(...allVals);
   const pad = (maxV - minV) * 0.12;
-  if (cfg.niceAxis === false) { minV = minV - pad; maxV = maxV + pad; }
+  if (cfg.niceAxis === false) { minV = (minV >= 0 ? Math.max(0, minV - pad) : minV - pad); maxV = maxV + pad; }
   else { minV = Math.floor(minV - pad); maxV = Math.ceil(maxV + pad); }
+
+  // gridlines
+  const gY = [];
+  const span = maxV - minV;
+  const step = cfg.gridStep || (span > 8 ? 2 : 1);
+  if (cfg.niceAxis === false) {
+    for (let k = 0; k <= 3; k++) gY.push(minV + span * k / 3);
+  } else {
+    for (let v = Math.ceil(minV/step)*step; v <= maxV; v += step) gY.push(v);
+  }
+  // The left margin fits the widest axis label (IBM Plex Mono: 6 units per character at 10).
+  const ML = Math.max(34, Math.ceil(Math.max(...gY.map(v => String(axisFmt(v)).length)) * 6 + 10));
+  const plotW = W - ML - MR;
 
   const xIdx = i => ML + (i / (n - 1)) * plotW;
   const yVal = v => MT + plotH - ((v - minV) / (maxV - minV)) * plotH;
@@ -4587,15 +4783,6 @@ function renderDualLineChart(cfg) {
     }).join(" ");
   }
 
-  // gridlines
-  const gY = [];
-  const span = maxV - minV;
-  const step = cfg.gridStep || (span > 8 ? 2 : 1);
-  if (cfg.niceAxis === false) {
-    for (let k = 0; k <= 3; k++) gY.push(minV + span * k / 3);
-  } else {
-    for (let v = Math.ceil(minV/step)*step; v <= maxV; v += step) gY.push(v);
-  }
   gY.forEach(v => {
     const line = document.createElementNS(ns,"line");
     line.setAttribute("x1", ML); line.setAttribute("x2", W-MR);
@@ -4621,13 +4808,6 @@ function renderDualLineChart(cfg) {
     targetLine.setAttribute("stroke-width","1");
     targetLine.setAttribute("stroke-dasharray","3,3");
     svg.appendChild(targetLine);
-    const targetLabel = document.createElementNS(ns,"text");
-    targetLabel.setAttribute("x", ML + 4); targetLabel.setAttribute("y", targetY - 5);
-    targetLabel.setAttribute("text-anchor","start");
-    targetLabel.setAttribute("font-size","9.5"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
-    targetLabel.setAttribute("fill","var(--text-muted)");
-    targetLabel.textContent = T.fedTarget;
-    svg.appendChild(targetLabel);
   }
 
   // x-axis year ticks (January of each year; every Nth year on century-long series)
@@ -4672,14 +4852,50 @@ function renderDualLineChart(cfg) {
   drawSeries(aPts, cfg.seriesA.colorVar);
   if (cfg.seriesB) drawSeries(bPts, cfg.seriesB.colorVar);
 
+  // The target's label goes on whichever end of the line the series leave clearer,
+  // after the series and on a small backing, so a line never runs through it.
+  if (cfg.showTarget) {
+    const targetY = yVal(2), lw = T.fedTarget.length * 5.9 + 8, lh = 13;
+    // Candidate spots every 20 units across the plot, above and below the line; the
+    // one the series stay farthest from wins (ties go to the right, near the latest data).
+    const pts = aPts.concat(bPts).map(p => { const xi = allDates.indexOf(p.d); return xi < 0 ? null : { x: xIdx(xi), y: yVal(p[F]) }; }).filter(Boolean);
+    let best = { score: -Infinity, x: W - MR - lw - 2, above: true };
+    for (let x0 = ML + 4; x0 <= W - MR - lw - 2; x0 += 20) {
+      [true, false].forEach(above => {
+        const cy = above ? targetY - 8 : targetY + 9;
+        let m = Infinity;
+        pts.forEach(p => { if (p.x >= x0 - 2 && p.x <= x0 + lw + 2) m = Math.min(m, Math.abs(p.y - cy)); });
+        if (m >= best.score) best = { score: m, x: x0, above: above };
+      });
+    }
+    const lx = best.x, ly = best.above ? targetY - 5 : targetY + 12;
+    const back = document.createElementNS(ns,"rect");
+    back.setAttribute("x", lx - 2); back.setAttribute("y", ly - 10); back.setAttribute("width", lw); back.setAttribute("height", lh); back.setAttribute("rx", 3);
+    back.setAttribute("fill", "var(--surface-1)"); back.setAttribute("opacity", "0.9");
+    svg.appendChild(back);
+    const targetLabel = document.createElementNS(ns,"text");
+    targetLabel.setAttribute("x", lx + 2); targetLabel.setAttribute("y", ly);
+    targetLabel.setAttribute("text-anchor","start");
+    targetLabel.setAttribute("font-size","9.5"); targetLabel.setAttribute("font-family","IBM Plex Mono, monospace");
+    targetLabel.setAttribute("fill","var(--text-secondary)");
+    targetLabel.textContent = T.fedTarget;
+    svg.appendChild(targetLabel);
+  }
+
   // event annotations (vertical marker + top label). Flags that would overlap
-  // an earlier one drop to the next row instead of drawing on top of it.
+  // an earlier one drop to the next row instead of drawing on top of it. On a narrow
+  // chart where the labels cannot share one row, long labels become numbers and the
+  // notes under the chart carry the same numbers.
   const callouts = [];
   const placedFlags = [];
-  (cfg.annotations || []).slice().sort((a, b) => a.date < b.date ? -1 : 1).forEach(ann => {
+  const anns = (cfg.annotations || []).slice().sort((a, b) => a.date < b.date ? -1 : 1).filter(a => allDates.indexOf(a.date) !== -1);
+  const flagWidth = s => s.length * 5.6 + 12;
+  const compact = W < 600 && anns.reduce((s, a) => s + flagWidth(a.label) + 4, 0) > plotW;
+  let flagNo = 0;
+  anns.forEach(ann => {
     const idx = allDates.indexOf(ann.date);
-    if (idx === -1) return;
     const x = xIdx(idx);
+    const text = compact && ann.label.length > 8 ? String(++flagNo) : ann.label;
     const line = document.createElementNS(ns,"line");
     line.setAttribute("x1", x); line.setAttribute("x2", x);
     line.setAttribute("y1", MT); line.setAttribute("y2", MT + plotH);
@@ -4687,7 +4903,7 @@ function renderDualLineChart(cfg) {
     line.setAttribute("stroke-width", "1");
     line.setAttribute("stroke-dasharray", "2,2");
     svg.appendChild(line);
-    const flagW = ann.label.length * 5.6 + 12;
+    const flagW = flagWidth(text);
     const flagX = Math.min(Math.max(x - flagW/2, ML), W - MR - flagW);
     let rowN = 0;
     while (placedFlags.some(f => f.row === rowN && flagX < f.x + f.w + 4 && f.x < flagX + flagW + 4)) rowN++;
@@ -4704,9 +4920,9 @@ function renderDualLineChart(cfg) {
     label.setAttribute("x", flagX + flagW/2); label.setAttribute("y", flagY + 11);
     label.setAttribute("text-anchor","middle"); label.setAttribute("font-size","9.5"); label.setAttribute("font-weight","600");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-secondary)");
-    label.textContent = ann.label;
+    label.textContent = text;
     svg.appendChild(label);
-    if (ann.detail) callouts.push(fmtMonthYear(ann.date) + ": " + ann.detail);
+    if (ann.detail) callouts.push((text !== ann.label ? text + " · " : "") + T.annCallout(fmtMonthYear(ann.date), ann.detail));
   });
 
   // legend
@@ -4746,14 +4962,12 @@ function renderDualLineChart(cfg) {
     hoverLine.style.opacity = "1";
     hoverLine.setAttribute("x1", xIdx(i)); hoverLine.setAttribute("x2", xIdx(i));
     const scaleXInv = rect.width / W;
-    tooltip.style.left = (xIdx(i) * scaleXInv) + "px";
-    tooltip.style.top = (MT * scaleXInv) + "px";
-    tooltip.style.opacity = "1";
     tooltip.innerHTML = `
       <div class="t-date">${fmtMonthYear(d)}</div>
       ${ap ? `<div class="t-row"><span class="t-dot" style="background:var(${cfg.seriesA.colorVar})"></span>${cfg.seriesA.label} ${fmtV(ap[F])}</div>` : ""}
       ${bp ? `<div class="t-row"><span class="t-dot" style="background:var(${cfg.seriesB.colorVar})"></span>${cfg.seriesB.label} ${fmtV(bp[F])}</div>` : ""}
     `;
+    placeTooltip(tooltip, e.clientX, e.clientY, xIdx(i) * scaleXInv);
   });
   svg.addEventListener("mouseleave", () => { hoverLine.style.opacity = "0"; tooltip.style.opacity = "0"; });
 }
@@ -4792,12 +5006,15 @@ function drawMomColumns(svg, points, colorVar, opts) {
   const adec = opts.decimals === undefined ? 1 : opts.decimals;
   const ns = "http://www.w3.org/2000/svg";
   const vb = svg.getAttribute("viewBox").split(" ").map(Number);
-  const W = vb[2], H = vb[3], padL = 30, padR = 6, padT = 10, padB = 18;
-  const plotW = W - padL - padR, plotH = H - padT - padB;
+  const W = vb[2], H = vb[3], padR = 6, padT = 10, padB = 18;
   const vals = points.map(p => p.mom);
   let minV = Math.min(0, ...vals), maxV = Math.max(0, ...vals);
   const pad = (maxV - minV) * 0.15 || 0.2;
   minV -= pad; maxV += pad;
+  const yLabel = v => opts.fmt ? opts.fmt(v) : (v.toFixed(adec) + "%");
+  // The left margin fits the widest axis label (IBM Plex Mono: 5.4 units per character at 9).
+  const padL = Math.max(30, Math.ceil(Math.max(...[minV, 0, maxV].map(v => String(yLabel(v)).length)) * 5.4 + 8));
+  const plotW = W - padL - padR, plotH = H - padT - padB;
   const zeroY = padT + plotH - ((0 - minV) / (maxV - minV)) * plotH;
   const yOf = v => padT + plotH - ((v - minV) / (maxV - minV)) * plotH;
   const bw = Math.min(14, (plotW / points.length) * 0.6);
@@ -4814,7 +5031,7 @@ function drawMomColumns(svg, points, colorVar, opts) {
     label.setAttribute("x", padL - 6); label.setAttribute("y", yOf(v) + 3);
     label.setAttribute("text-anchor","end"); label.setAttribute("font-size","9");
     label.setAttribute("font-family","IBM Plex Mono, monospace"); label.setAttribute("fill","var(--text-muted)");
-    label.textContent = opts.fmt ? opts.fmt(v) : (v.toFixed(adec) + "%");
+    label.textContent = yLabel(v);
     svg.appendChild(label);
   });
 
@@ -4834,8 +5051,15 @@ function drawMomColumns(svg, points, colorVar, opts) {
     rect.setAttribute("fill", `var(${colorVar})`);
     svg.appendChild(rect);
     if (i === points.length - 1) {
+      // Centred on the bar but kept inside the chart (6 units per character at 10), and set
+      // above (or below) every neighbouring bar it spans, so it never crosses one.
+      const half = String(vfmt(p.mom)).length * 3;
+      const cx = Math.max(padL + half, Math.min(xOf(i), W - half));
+      const near = points.filter((q, j) => Math.abs(xOf(j) - cx) < half + bw / 2);
+      const ly = p.mom >= 0 ? Math.max(10, Math.min(top, ...near.filter(q => q.mom > 0).map(q => yOf(q.mom))) - 4)
+                            : Math.max(top + h, ...near.filter(q => q.mom < 0).map(q => yOf(q.mom))) + 11;
       const val = document.createElementNS(ns,"text");
-      val.setAttribute("x", xOf(i)); val.setAttribute("y", (p.mom >= 0 ? top - 4 : top + h + 11));
+      val.setAttribute("x", cx); val.setAttribute("y", ly);
       val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","10"); val.setAttribute("font-weight","600");
       val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill","var(--text-primary)");
       val.textContent = vfmt(p.mom);
@@ -4846,24 +5070,23 @@ function drawMomColumns(svg, points, colorVar, opts) {
     hit.setAttribute("width", (plotW/points.length).toFixed(1)); hit.setAttribute("height", plotH);
     hit.setAttribute("fill", "transparent");
     hit.addEventListener("mousemove", (e) => {
-      const rect2 = svg.getBoundingClientRect();
-      const scaleInv = rect2.width / W;
-      tooltip.style.left = (xOf(i) * scaleInv) + "px";
-      tooltip.style.top = (Math.min(y0,y1) * scaleInv - 8) + "px";
-      tooltip.style.opacity = "1";
       tooltip.innerHTML = `<div class="t-date">${fmtMonthYear(p.d)}</div><div class="t-row"><span class="t-dot" style="background:var(${colorVar})"></span>${vfmt(p.mom)}</div>`;
+      placeTooltip(tooltip, e.clientX, e.clientY);
     });
     hit.addEventListener("mouseleave", () => { tooltip.style.opacity = "0"; });
     svg.appendChild(hit);
   });
 
-  // x-axis: every 6th point plus the last one; the regular label just before the last is
-  // dropped when the two would overlap (a label is about 5.3 units per character at 8.5).
-  const n = points.length, lastRegular = Math.floor((n - 1) / 6) * 6;
+  // x-axis: every 6th point (every 12th, 18th... when the labels would collide at this
+  // width) plus the last one; the regular label just before the last is dropped when the
+  // two would overlap (a label is about 5.3 units per character at 8.5).
+  const n = points.length;
   const labelUnits = points.reduce((m, p) => Math.max(m, String(opts.labelFmt ? opts.labelFmt(p.d) : p.d.slice(2)).length), 1) * 5.3 + 6;
-  const skipRegular = (n - 1) % 6 !== 0 && ((n - 1) - lastRegular) / n * plotW < labelUnits ? lastRegular : -1;
+  let every = 6; while (every < n && every / n * plotW < labelUnits) every += 6;
+  const lastRegular = Math.floor((n - 1) / every) * every;
+  const skipRegular = (n - 1) % every !== 0 && ((n - 1) - lastRegular) / n * plotW < labelUnits ? lastRegular : -1;
   points.forEach((p,i) => {
-    if ((i % 6 === 0 && i !== skipRegular) || i === n - 1) {
+    if ((i % every === 0 && i !== skipRegular) || i === n - 1) {
       const tick = document.createElementNS(ns,"text");
       tick.setAttribute("x", xOf(i)); tick.setAttribute("y", H - 4);
       tick.setAttribute("text-anchor","middle"); tick.setAttribute("font-size","8.5");
@@ -4958,11 +5181,8 @@ function addCatCard(grid, cardId, name, pts, colorVar, subsetTag) {
     const mx = (e.clientX-rect.left)*scaleX;
     let i = Math.round((mx-pad)/(W-pad*2)*(vals.length-1));
     i = Math.max(0,Math.min(vals.length-1,i));
-    const scaleXInv = rect.width/W;
-    tip.style.left = (x(i)*scaleXInv) + "px";
-    tip.style.top = (y(vals[i])*scaleXInv - 34) + "px";
-    tip.style.opacity = "1";
     tip.innerHTML = `<div class="t-date">${fmtMonthYear(dates[i])}</div><div class="t-row"><span class="t-dot" style="background:var(${colorVar})"></span>${fmtPct(vals[i])}</div>`;
+    placeTooltip(tip, e.clientX, e.clientY);
   });
   svg.addEventListener("mouseleave",()=>{ tip.style.opacity="0"; });
 }
@@ -5200,7 +5420,7 @@ const PCE_KPI_DEFS = [
       <div class="kpi-label">${def.label}</div>
       <div class="kpi-value-row">
         <div class="kpi-value">${fmtPct(latest.yoy)}</div>
-        <div class="kpi-delta">${delta >= 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div>
+        <div class="kpi-delta">${Math.abs(delta) < 0.05 ? "—" : delta > 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div>
       </div>
       <svg class="kpi-spark" id="${sparkId}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>
       <div class="kpi-foot">${fmtMonthYear(latest.d)}</div>
@@ -5558,7 +5778,7 @@ function renderPPI() {
     tile.innerHTML =
       `<div class="kpi-label">${def.label}</div>` +
       `<div class="kpi-value-row"><div class="kpi-value">${fmtPct(latest.yoy)}</div>` +
-      `<div class="kpi-delta">${delta >= 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div></div>` +
+      `<div class="kpi-delta">${Math.abs(delta) < 0.05 ? "—" : delta > 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)} ${T.kpiDelta}</div></div>` +
       `<svg class="kpi-spark" id="${sparkId}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` +
       `<div class="kpi-foot">${fmtMonthYear(latest.d)}</div>`;
     row.appendChild(tile);
@@ -5694,7 +5914,7 @@ const RETAIL_CATS = [
   {key:"722", color:"--cat-5"}
 ];
 
-// Tile map with a diverging scale: red below zero, green above, grey at zero.
+// Tile map with a diverging scale: red below zero, green above, gray at zero.
 // The job-cuts map is one-sided (more cuts = redder); retail growth needs both
 // directions, so this is a sibling rather than a flag on that function.
 function renderDivergingTileMap(containerId, legendId, valueFn, decimals) {
@@ -5728,12 +5948,12 @@ function renderDivergingTileMap(containerId, legendId, valueFn, decimals) {
     svg.appendChild(rect);
     const code = document.createElementNS(ns, "text");
     code.setAttribute("x", x+cell/2); code.setAttribute("y", y+cell/2-2);
-    code.setAttribute("text-anchor", "middle"); code.setAttribute("font-size", "11.5");
+    code.setAttribute("text-anchor", "middle"); code.setAttribute("font-size", "12");
     code.setAttribute("font-weight", "700"); code.setAttribute("fill", ink);
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns, "text");
     val.setAttribute("x", x+cell/2); val.setAttribute("y", y+cell/2+10);
-    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "8");
+    val.setAttribute("text-anchor", "middle"); val.setAttribute("font-size", "9.5");
     val.setAttribute("font-family", "IBM Plex Mono, monospace"); val.setAttribute("fill", ink);
     val.textContent = (v === null || v === undefined) ? "—" : disp(v); svg.appendChild(val);
   });
@@ -5781,6 +6001,7 @@ function renderRetail() {
   // ---- header ----
   document.getElementById("rtAsOfLine").textContent = T.dataAsOf(fmtMonthYear(total.d));
   document.getElementById("rtRefreshedLine").textContent = freshnessLabel(RETAIL_SOURCE, REFRESHED_AT, "Census");
+  (function () { const rc = CALENDAR && CALENDAR.releases && CALENDAR.releases.retail; const el = document.getElementById("rtReleasedLine"); if (el) el.textContent = rc && rc.last ? T.rtReleasedLine(fmtDateDMY(rc.last)) : ""; })();
   document.getElementById("rtNextReleaseLine").textContent = nextReleaseText("retail", fmtMonthYear(nextMonthOf(total.d)), T.nextReleaseEstRetail);
 
   // ---- KPI tiles: YoY headline with MoM as the delta ----
@@ -5897,23 +6118,36 @@ function renderRetail() {
 // ================================================================
 
 // Series ship either as {points:[{d,v}]} or, for regular weekly data, as
-// {d0, step, v:[...]} with the dates rebuilt here (see process_fincond.ps1).
+// {d0, step, v:[...]} with the dates rebuilt here. An optional "latest" holds the
+// newest native observation (a day, for the market series) with its real date.
 function fcPts(id) {
   const s = FINCOND && FINCOND.series && FINCOND.series[id];
   if (!s) return [];
-  if (s.points) return s.points;
+  // FRED dates an unfinished week to its Friday, which can lie ahead of today; such a
+  // point never shows (the freshest print travels as "latest", with its real date).
+  const today = fmtYmd(new Date());
+  if (s.points) return s.points.filter(p => p.d <= today);
   const out = [];
   const d = new Date(s.d0 + "T00:00:00Z");
   for (let i = 0; i < s.v.length; i++) {
-    out.push({d: d.toISOString().slice(0,10), v: s.v[i]});
+    const ds = d.toISOString().slice(0,10);
+    if (ds <= today) out.push({d: ds, v: s.v[i]});
     d.setUTCDate(d.getUTCDate() + s.step);
   }
   return out;
 }
 
+// The newest reading of a series: its latest native observation when the data carries
+// one and it is newer than the last weekly point, else that weekly point.
+function fcLast(id) {
+  const s = FINCOND && FINCOND.series && FINCOND.series[id]; if (!s) return null;
+  const p = fcPts(id); const w = p.length ? p[p.length-1] : null;
+  return (s.latest && s.latest.d && (!w || s.latest.d > w.d)) ? { d: s.latest.d, v: s.latest.v } : w;
+}
+
 function renderFinCond() {
   if (!FINCOND || !FINCOND.series) return;
-  const last = id => { const p = fcPts(id); return p.length ? p[p.length-1] : null; };
+  const last = id => fcLast(id);
   const nfci = fcPts("NFCI");
   const cur = nfci[nfci.length-1];
   const fmtDay = d => fmtDateDMY(d);
@@ -5938,7 +6172,7 @@ function renderFinCond() {
   const row = document.getElementById("fcKpiRow");
   kpi.forEach((k, i) => {
     const p = fcPts(k.id); if (!p.length) return;
-    const c = p[p.length-1], ago = p[Math.max(0, p.length-5)];
+    const c = fcLast(k.id) || p[p.length-1], ago = p[Math.max(0, p.length-5)];
     const dlt = c.v - ago.v;
     const tile = document.createElement("div");
     tile.className = "kpi-tile";
@@ -6037,9 +6271,12 @@ function renderFinCond() {
   // quote the slope for the same date as the two yields it sits next to;
   // otherwise the sentence can show 4.78 and 4.37 with a slope that isn't 0.41.
   const s102L = s102.find(p => p.d === y10L.d) || s102[s102.length-1];
+  // The sentence quotes the newest day on which both yields exist, else the last common week.
+  const L10 = fcLast("DGS10"), L2 = fcLast("DGS2");
+  const yN = (L10 && L2 && L10.d === L2.d) ? { y10: L10.v, y2: L2.v, d: L10.d, s: L10.v - L2.v } : { y10: y10L.v, y2: pick(y2, y10L.d), d: y10L.d, s: s102L.v };
   document.getElementById("fcYieldCallout").innerHTML =
-    "<div>" + T.fcYieldNote(pctFmt(y10L.v), pctFmt(pick(y2, y10L.d)), s102L.v.toFixed(2), fmtDay(y10L.d)) + " " +
-              T.fcYieldSlope(s102L.v < 0 ? "inverted" : "normal") + "</div>";
+    "<div>" + T.fcYieldNote(pctFmt(yN.y10), yN.y2 === null ? "—" : pctFmt(yN.y2), yN.s.toFixed(2), fmtDay(yN.d)) + " " +
+              T.fcYieldSlope(yN.s < 0 ? "inverted" : "normal") + "</div>";
 
   // ---- policy ----
   const tgt = fcPts("DFEDTARU"), dff = yBy("DFF"), mort = yBy("MORTGAGE30US");
@@ -6108,7 +6345,7 @@ function renderSupply() {
   const kpis = [
     {label:T.scKpiGscpi,   value:g.v.toFixed(2) + " " + T.scKpiSd, dlt:g.v - G[G.length-2].v, unit:"", sub:T.scKpiDeltaMo, foot:fmtMonthYear(g.d), spark:G.slice(-36).map(p => p.v), color:"--series-headline"},
     {label:T.scKpiIsRatio, value:lastOf(F.ISRATIO).v.toFixed(2) + " " + T.scKpiMonths, dlt:lastOf(F.ISRATIO).v - F.ISRATIO[F.ISRATIO.length-2].v, unit:"", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.ISRATIO).d), spark:F.ISRATIO.slice(-36).map(p => p.v), color:"--series-services"},
-    {label:T.scKpiBalance, value:"−$" + bn(-lastOf(F.BOPGSTB).v) + T.sfxB, dlt:(lastOf(F.BOPGSTB).v - F.BOPGSTB[F.BOPGSTB.length-2].v)/1000, unit:T.sfxB, sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.BOPGSTB).d), spark:F.BOPGSTB.slice(-36).map(p => p.v), color:"--series-core"},
+    {label:T.scKpiBalance, value:"−$" + bn(-lastOf(F.BOPGSTB).v) + unitHtml(T.sfxB), dlt:(lastOf(F.BOPGSTB).v - F.BOPGSTB[F.BOPGSTB.length-2].v)/1000, unit:T.sfxB, sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(F.BOPGSTB).d), spark:F.BOPGSTB.slice(-36).map(p => p.v), color:"--series-core"},
     {label:T.scKpiFreight, value:fmtPct(lastOf(fr).yoy), dlt:lastOf(fr).yoy - fr[fr.length-2].yoy, unit:"pp", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(fr).d), spark:fr.slice(-36).map(p => p.yoy), color:"--series-energy"},
     {label:T.scKpiDiesel,  value:"$" + dsl.v.toFixed(2), dlt:dsl.v - dslAgo.v, unit:"", sub:T.scKpiDeltaWk, foot:fmtWeek(dsl.d), spark:dieselPts.slice(-52).map(p => p.v), color:"--cat-7"},
     {label:T.scKpiImport,  value:fmtPct(lastOf(irY).v), dlt:lastOf(irY).v - irY[irY.length-2].v, unit:"pp", sub:T.scKpiDeltaMo, foot:fmtMonthYear(lastOf(irY).d), spark:irY.slice(-36).map(p => p.v), color:"--series-goods"}
@@ -6176,7 +6413,7 @@ function renderSupply() {
     {name:T.legImports, color:"--series-energy", data:exp.map(p => { const m = pick(imp, p.d); return m === null ? null : m/1000; })}
   ], {fmt: v => "$" + v.toLocaleString(T.dateLocale, {maximumFractionDigits:0}) + T.sfxB, labelFmt: d => fmtMonthYear(d), zeroBase:false});
   drawMomColumns(document.getElementById("scBalanceChart"), bal.slice(-36).map(p => ({d:p.d, mom:p.v/1000})), "--series-core",
-    {fmt: v => "$" + Math.round(v) + T.sfxB, decimals:0});
+    {fmt: v => (Math.round(v) < 0 ? "−$" : "$") + Math.abs(Math.round(v)) + T.sfxB, decimals:0});
   const irYoY = yoyOf(F.IR), iqYoY = yoyOf(F.IQ);
   plotSeries("scPricesChart", "scPricesTooltip", "scPricesLegend", irYoY.map(p => p.d), [
     {name:T.legImportPrices, color:"--series-energy",   data:irYoY.map(p => p.v)},
@@ -6224,14 +6461,15 @@ function renderFiscal() {
   // ---- KPIs ----
   const curAgo = yearAgo(cur.d);
   const tiles = [
-    {label:T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + sB, dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
-    {label:T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + sB, dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
-    {label:T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + sB, dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
-    {label:T.fiKpiInterest,    value:"$" + bn(interest.fytd) + sB, dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
-    {label:T.fiKpiRolling,     value:"$" + (r12.v/1000).toFixed(2) + sT, dlt:pct(r12.v, r12ago.v), sub:T.fiKpiVsPy, spark:roll12.slice(-24).map(p => -p.v), color:"--cat-7"},
-    {label:T.fiKpiMonth,       value:(cur.dfct >= 0 ? "$" : "+$") + bn(cur.dfct) + sB, dlt:curAgo ? pct(cur.dfct, curAgo.dfct) : null, sub:T.fiKpiVsPm, spark:M.slice(-24).map(p => -p.dfct), color:"--cat-5"}
+    {label:T.fiKpiDeficitFytd, value:"$" + bn(fytd.dfct) + unitHtml(sB), dlt:pct(fytd.dfct, pytd.dfct), sub:T.fiKpiVsPy, spark:fyMonths.map(p => -p.dfct), color:"--series-core"},
+    {label:T.fiKpiReceipts,    value:"$" + bn(fytd.rcpt) + unitHtml(sB), dlt:pct(fytd.rcpt, pytd.rcpt), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.rcpt), color:"--series-goods"},
+    {label:T.fiKpiOutlays,     value:"$" + bn(fytd.outly) + unitHtml(sB), dlt:pct(fytd.outly, pytd.outly), sub:T.fiKpiVsPy, spark:fyMonths.map(p => p.outly), color:"--series-headline"},
+    {label:T.fiKpiInterest,    value:"$" + bn(interest.fytd) + unitHtml(sB), dlt:pct(interest.fytd, interest.pyfytd), sub:T.fiKpiVsPy, spark:null, color:"--series-energy"},
+    {label:T.fiKpiRolling,     value:"$" + (r12.v/1000).toFixed(2) + unitHtml(sT), dlt:pct(r12.v, r12ago.v), sub:T.fiKpiVsPy, spark:roll12.slice(-24).map(p => -p.v), color:"--cat-7"},
+    {label:T.fiKpiMonth,       value:(cur.dfct >= 0 ? "$" : "+$") + bn(cur.dfct) + unitHtml(sB), dlt:curAgo ? pct(cur.dfct, curAgo.dfct) : null, sub:T.fiKpiVsPm, spark:M.slice(-24).map(p => -p.dfct), color:"--cat-5"}
   ];
   const row = document.getElementById("fiKpiRow");
+  (function () { const el = document.getElementById("fiUnitsNote"); if (el) el.textContent = T.fiUnitsNote; })();
   tiles.forEach((t2, i) => {
     const tile = document.createElement("div"); tile.className = "kpi-tile";
     const id = "fispark-" + i;
@@ -6365,9 +6603,48 @@ function lbYoY(key) {
     return {d: x.d, v: prior ? +(((x.v - prior)/prior)*100).toFixed(2) : null};
   }).filter(x => x.v !== null);
 }
-function fmtK(v) { return (v >= 0 ? "+" : "") + Math.round(v).toLocaleString(T.dateLocale) + "K"; }
-function fmtLevelK(v) { return Math.round(v).toLocaleString(T.dateLocale) + "K"; }
+// Thousands: "+162K" in English. Spanish spells the unit out ("+162 mil") and reads a
+// level of a million or more in millions ("7.38 M"), the Mexican convention.
+function fmtK(v) { const r = Math.round(v); return r === 0 ? "0" : (r > 0 ? "+" : "") + r.toLocaleString(T.dateLocale) + (LANG === "es" ? " mil" : "K"); }
+function fmtLevelK(v) {
+  if (LANG !== "es") return Math.round(v).toLocaleString(T.dateLocale) + "K";
+  if (Math.abs(v) < 1000) return Math.round(v).toLocaleString(T.dateLocale) + " mil";
+  const m = v / 1000, dec = Math.abs(m) >= 100 ? 1 : 2;
+  return m.toLocaleString(T.dateLocale, { minimumFractionDigits: dec, maximumFractionDigits: dec }) + " M";
+}
 function fmtRate(v, d) { return v.toFixed(d === undefined ? 1 : d) + "%"; }
+
+// Payroll revisions on two bases, kept apart because they answer different questions:
+//  - against the first estimate: today's change for a month minus what its own jobs
+//    report first said (the chart; first prints from the archived vintages, else from
+//    the pipeline's own record of each release);
+//  - against the previous report: what BLS's release text calls "revised", read
+//    from the archived vintages (every published value, release by release).
+function payrollRevisions() {
+  const chg = lbDiff(LB.nonfarm); if (chg.length < 3) return null;
+  const cur = {}; chg.forEach(p => cur[p.d] = p.v);
+  const V = (LABOR_STATIC && LABOR_STATIC.payrollVintages) || null;
+  const initial = (LABOR_STATIC && LABOR_STATIC.payrollInitial) || {};
+  const firstOf = d => (V && V[d] && V[d].length) ? V[d][0][1] : (initial[d] !== undefined ? initial[d] : null);
+  const months = Object.keys(cur).filter(d => firstOf(d) !== null).sort().slice(-24);
+  const vsFirst = months.map(d => ({ d: d, mom: +(cur[d] - firstOf(d)).toFixed(1) }));
+  const latest = chg[chg.length - 1];
+  const prior = chg.slice(-3, -1).map(p => p.d);        // the two months before the latest
+  let vsPrev = null;
+  // The report that first printed the latest month (rLast) against the one before it,
+  // which first printed the month before (rPrev): the comparison BLS's release text makes.
+  // Each month's entries are its first print and then its revisions, so the value a
+  // month had at a given report is its last entry dated on or before that report.
+  if (V && prior.length === 2 && V[latest.d] && V[latest.d].length && V[prior[1]] && V[prior[1]].length) {
+    const rLast = V[latest.d][0][0], rPrev = V[prior[1]][0][0];
+    const at = (d, r) => { const e = (V[d] || []).filter(x => x[0] <= r); return e.length ? e[e.length - 1][1] : null; };
+    const parts = prior.map(d => { const a = at(d, rLast), b = at(d, rPrev); return a !== null && b !== null ? a - b : null; });
+    if (rPrev < rLast && parts[0] !== null && parts[1] !== null) vsPrev = { months: prior, net: parts[0] + parts[1], release: rLast };
+  }
+  const priorFirst = prior.filter(d => firstOf(d) !== null);
+  const netFirst = priorFirst.length ? priorFirst.reduce((a, d) => a + (cur[d] - firstOf(d)), 0) : null;
+  return { vsFirst: vsFirst, vsPrev: vsPrev, priorFirst: priorFirst, netFirst: netFirst, latest: latest };
+}
 
 // Shared header block for both labor views (same release, same cadence).
 function laborHeader(prefix) {
@@ -6544,7 +6821,7 @@ function renderPayrolls() {
   const tiles = [
     {label:T.kpiPayrollChg, value: latestChg ? fmtK(latestChg.v) : "—", spark: chg.slice(-24).map(p=>p.v), color:"--series-headline", foot: latestChg ? fmtMonthYear(latestChg.d) : ""},
     {label:T.kpiPayroll3mo, value: avg3 !== null ? fmtK(avg3) : "—", spark: chg.slice(-24).map(p=>p.v), color:"--series-core", foot:T.kpi3moFoot},
-    {label:T.kpiPayrollLevel, value: nf ? (nf.v/1000).toFixed(1)+"M" : "—", spark: lbPts(LB.nonfarm).slice(-24).map(p=>p.v), color:"--series-services", foot: nf ? fmtMonthYear(nf.d) : ""},
+    {label:T.kpiPayrollLevel, value: nf ? (LANG === "es" ? fmtLevelK(nf.v) : (nf.v/1000).toFixed(1)+"M") : "—", spark: lbPts(LB.nonfarm).slice(-24).map(p=>p.v), color:"--series-services", foot: nf ? fmtMonthYear(nf.d) : ""},
     {label:T.kpiAHE, value: aheYoYLatest ? fmtPct(aheYoYLatest.v) : "—", spark: aheYoY.slice(-24).map(p=>p.v), color:"--series-goods", foot: ahe ? "$"+ahe.v.toFixed(2)+"/"+T.hourAbbr : ""},
     {label:T.kpiHours, value: hrs ? hrs.v.toFixed(1) : "—", spark: lbPts(LB.hours).slice(-24).map(p=>p.v), color:"--cat-5", foot:T.kpiHoursFoot},
     {label:T.kpiOpenings, value: jolts ? fmtLevelK(jolts.v) : "—", spark: lbPts(LB.jolts).slice(-24).map(p=>p.v), color:"--series-energy", foot: jolts ? fmtMonthYear(jolts.d) : ""}
@@ -6635,24 +6912,18 @@ function renderPayrolls() {
     renderBarList("pyBroadList", broad, fmtK);
   }
 
-  // Revisions: current published change minus each month's first print. The first
-  // prints are fixed history; current values come from the live series, so this
-  // stays accurate as BLS revises.
-  if (LABOR_STATIC && LABOR_STATIC.payrollInitial) {
-    const initial = LABOR_STATIC.payrollInitial;
-    const curByDate = {}; chg.forEach(p => curByDate[p.d] = p.v);
-    const revMonths = Object.keys(initial).filter(d => curByDate[d] !== undefined).sort();
-    const revs = revMonths.map(d => ({d, mom: +(curByDate[d] - initial[d]).toFixed(1)}));
-    if (revs.length) {
-      drawMomColumns(document.getElementById("pyRevisionChart"), revs, "--series-core",
-                     {fmt: v => (v>=0?"+":"") + Math.round(v) + "K", decimals:0});
-      const revised = revs.filter(r => Math.abs(r.mom) > 0.5);
-      const down = revised.filter(r => r.mom < 0).length;
-      const netRev = revs.reduce((a,b) => a + b.mom, 0);
-      document.getElementById("pyRevisionCallout").innerHTML =
-        "<div>" + T.pyRevisionNote(revised.length, revs.length, down, fmtK(netRev)) + "</div>" +
-        "<div>" + T.pyRevisionMethod + "</div>";
-    }
+  // Revisions: current published change minus each month's first print (the chart),
+  // and BLS's own basis, against the previous report, when the archive carries it.
+  const PR = payrollRevisions();
+  if (PR && PR.vsFirst.length) {
+    drawMomColumns(document.getElementById("pyRevisionChart"), PR.vsFirst, "--series-core", {fmt: v => fmtK(v), decimals:0});
+    const revised = PR.vsFirst.filter(r => Math.abs(r.mom) > 0.5);
+    const down = revised.filter(r => r.mom < 0).length;
+    const netRev = PR.vsFirst.reduce((a,b) => a + b.mom, 0);
+    const lines = ["<div>" + T.pyRevisionNote(revised.length, PR.vsFirst.length, down, fmtK(netRev)) + "</div>"];
+    if (PR.vsPrev) lines.push("<div>" + T.pyRevisionVsPrev(fmtDateDMY(PR.vsPrev.release), fmtMonthYear(PR.vsPrev.months[0]), fmtMonthYear(PR.vsPrev.months[1]), fmtK(PR.vsPrev.net)) + "</div>");
+    lines.push("<div>" + T.pyRevisionMethod + "</div>");
+    document.getElementById("pyRevisionCallout").innerHTML = lines.join("");
   }
 
   // Earned income proxy = AHE x weekly hours. Reproduces BLS average weekly earnings.
@@ -6855,8 +7126,8 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
   if (!svg) return;
   const ns = "http://www.w3.org/2000/svg";
   const vb = svg.getAttribute("viewBox").split(" ").map(Number);
-  const W = vb[2], H = vb[3], ML = 46, MR = 16, MT = 12, MB = 26;
-  const plotW = W - ML - MR, plotH = H - MT - MB;
+  const W = vb[2], H = vb[3], MR = 16, MT = 12, MB = 26;
+  const plotH = H - MT - MB;
   const fmtV = (opts && opts.fmt) || (v => Math.round(v).toLocaleString(T.dateLocale));
   // Axis labels have 40px of margin; a tooltip value like "285.0 M bbl" does
   // not, so callers with units pass a bare-number axisFmt.
@@ -6871,8 +7142,15 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
   // a third of the plot flattening the movement the chart exists to show, so
   // those callers pass zeroBase:false and get an axis fitted to the data.
   const zeroBase = !opts || opts.zeroBase !== false;
-  let lo = zeroBase ? Math.min(0, ...all) : Math.min(...all), hi = Math.max(...all);
+  const minAll = Math.min(...all);
+  let lo = zeroBase ? Math.min(0, minAll) : minAll, hi = Math.max(...all);
   const pad = (hi - lo) * 0.12 || 1; lo -= pad; hi += pad;
+  // A zero-based chart of amounts that never go negative (dollars, counts) stops at
+  // zero instead of padding into negative values the axis would print unsigned.
+  if (zeroBase && minAll >= 0) lo = 0;
+  // The left margin fits the widest axis label (IBM Plex Mono: 6 units per character at 10).
+  const ML = Math.max(46, Math.ceil(Math.max(...[0, 1, 2, 3].map(k => String(axisFmt(lo + (hi - lo) * k / 3)).length)) * 6 + 9));
+  const plotW = W - ML - MR;
   const n = labels.length;
   const x = i => ML + (n === 1 ? plotW/2 : (i/(n-1))*plotW);
   const y = v => MT + plotH - ((v - lo)/(hi - lo))*plotH;
@@ -6952,11 +7230,10 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
       hover.style.opacity = "1";
       hover.setAttribute("x1",x(i)); hover.setAttribute("x2",x(i));
       const inv = r.width/W;
-      tooltip.style.left = (x(i)*inv)+"px"; tooltip.style.top = (MT*inv)+"px";
-      tooltip.style.opacity = "1";
       tooltip.innerHTML = `<div class="t-date">${(opts && opts.labelFmt) ? opts.labelFmt(labels[i]) : labels[i]}</div>` +
         series.map(s => s.data[i] === null || s.data[i] === undefined ? "" :
           `<div class="t-row"><span class="t-dot" style="background:var(${s.color})"></span>${s.name} ${fmtV(s.data[i])}</div>`).join("");
+      placeTooltip(tooltip, e.clientX, e.clientY, x(i)*inv);
     });
     svg.addEventListener("mouseleave", () => { hover.style.opacity="0"; tooltip.style.opacity="0"; });
   }
@@ -6994,12 +7271,12 @@ function renderTileMap(containerId, legendId, rateFn, decimals) {
     const ink = v <= 0 ? "var(--text-primary)" : (light ? "#fff" : "#1a1a19");
     const code = document.createElementNS(ns,"text");
     code.setAttribute("x",x+cell/2); code.setAttribute("y",y+cell/2-2);
-    code.setAttribute("text-anchor","middle"); code.setAttribute("font-size","11.5");
+    code.setAttribute("text-anchor","middle"); code.setAttribute("font-size","12");
     code.setAttribute("font-weight","700"); code.setAttribute("fill",ink);
     code.textContent = s.code; svg.appendChild(code);
     const val = document.createElementNS(ns,"text");
     val.setAttribute("x",x+cell/2); val.setAttribute("y",y+cell/2+10);
-    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","8");
+    val.setAttribute("text-anchor","middle"); val.setAttribute("font-size","9.5");
     val.setAttribute("font-family","IBM Plex Mono, monospace"); val.setAttribute("fill",ink);
     val.textContent = v > 0 ? disp(v) : "—"; svg.appendChild(val);
   });
@@ -7133,11 +7410,9 @@ function renderExecSummaries() {
     const items = SECTORS.map(s => { const d = lbDiff(s.key); return d.length ? { name: nameOf(s.id), value: d[d.length - 1].v } : null; }).filter(Boolean);
     const tb = topBottom(items);
     let revText = "";
-    if (LABOR_STATIC && LABOR_STATIC.payrollInitial) {
-      const by = {}; chg.forEach(p => by[p.d] = p.v);
-      const revs = Object.keys(LABOR_STATIC.payrollInitial).filter(d => by[d] !== undefined && d !== last.d).sort().slice(-2).map(d => by[d] - LABOR_STATIC.payrollInitial[d]);
-      if (revs.length) revText = T.exPyRev(fmtK(revs.reduce((a, b) => a + b, 0)), revs.length);
-    }
+    const PR = payrollRevisions();
+    if (PR && PR.vsPrev) revText = T.exPyRev(fmtMonthYear(PR.vsPrev.months[0]), fmtMonthYear(PR.vsPrev.months[1]), fmtK(PR.vsPrev.net), PR.netFirst === null ? "—" : fmtK(PR.netFirst));
+    else if (PR && PR.netFirst !== null) revText = T.exPyRevFirstOnly(PR.priorFirst.length, fmtK(PR.netFirst));
     const pace = a3 > a12 + 25 ? "up" : a3 < a12 - 25 ? "down" : "flat";
     const jolts = lbLatest(LB.jolts);
     card("exec-payrolls",
@@ -7178,7 +7453,7 @@ function renderExecSummaries() {
       T.exGdpLatest(lv(cur.v), fmtQuarter(cur.d), lv(prev.v), fmtQuarter(prev.d), lv(avg4)),
       T.exGdpDrivers(pp(pce, 2), pp(inv, 2), pp(gov, 2), pp(nx, 2)),
       T.exGdpWhy(cur.v > avg4 + 0.3 ? "above" : cur.v < avg4 - 0.3 ? "below" : "near", share, pp(pce, 2)),
-      nextLine("gdp", T.exRelGdp) + " " + T.exGdpWatch(pp(nx, 2)));
+      nextLine("gdp", (function () { const e = gdpNextEstimate(cur.d); return e ? T.exRelGdp(e.name, e.q) : T.exRelGdp(); })()) + " " + T.exGdpWatch(pp(nx, 2)));
   });
 
   // ---- Income & saving ----
@@ -7248,7 +7523,7 @@ function renderExecSummaries() {
   // ---- Financial conditions ----
   section("exec-fincond", () => {
     if (!FINCOND || !FINCOND.series) return;
-    const L = id => { const p = fcPts(id); return p.length ? p[p.length - 1] : null; };
+    const L = id => fcLast(id);
     const nf = fcPts("NFCI"); if (nf.length < 6) return;
     const cur = nf[nf.length - 1], ago = nf[nf.length - 5];
     const y10 = L("DGS10"), y2 = L("DGS2"), hy = L("BAMLH0A0HYM2"), ff = L("DFEDTARU"), mtg = L("MORTGAGE30US");
@@ -7298,7 +7573,7 @@ function renderExecSummaries() {
     const gl = FISCAL.pctGdp[FISCAL.pctGdp.length - 1];
     const vsAgo = ago && cur.dfct * ago.dfct > 0 ? sg(pc(cur.dfct, ago.dfct), 0) + "%" : null;
     card("exec-fiscal",
-      T.exFiLatest(fmtMonthYear(cur.d).charAt(0).toUpperCase() + fmtMonthYear(cur.d).slice(1), bn(cur.rcpt), bn(cur.outly), cur.dfct >= 0 ? "deficit" : "surplus", bn(cur.dfct), vsAgo, cur.fy, bn(fytd.d), Math.abs(pc(fytd.d, pytd.d)).toFixed(1) + "%", fytd.d >= pytd.d ? "wider" : "narrower"),
+      T.exFiLatest(fmtMonthYear(cur.d), bn(cur.rcpt), bn(cur.outly), cur.dfct >= 0 ? "deficit" : "surplus", bn(cur.dfct), vsAgo, cur.fy, bn(fytd.d), Math.abs(pc(fytd.d, pytd.d)).toFixed(1) + "%", fytd.d >= pytd.d ? "wider" : "narrower"),
       T.exFiDrivers(sg(pc(fytd.r, pytd.r)) + "%", sg(pc(fytd.o, pytd.o)) + "%", intr ? bn(intr.fytd) : "—", intr ? sg(pc(intr.fytd, intr.pyfytd)) + "%" : "—", intr && def ? (intr.fytd > def.fytd ? "more" : "less") : null, def ? bn(def.fytd) : null),
       T.exFiWhy(Math.abs(gl.v).toFixed(1), gl.y, FISCAL.debtPctGdp.v.toFixed(0), r12 === null ? null : (r12 / 1000).toFixed(2), r12 === null ? null : (r12 >= r12a ? "up" : "down")),
       T.exFiWatch(fmtMonthYear(nextMonthOf(cur.d)), fmtMonthYear(monthsAgoKey(cur.d, -2)), pc(fytd.r, pytd.r) > pc(fytd.o, pytd.o) ? "faster" : "slower"));
@@ -7336,7 +7611,9 @@ function renderExecSummaries() {
     const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
     card("exec-cape",
       T.exCapeLatest(f1(cur.cape), fmtMonthYear(cur.d), CAPE.partialMonth, f1(prev.cape), f1(mean), pctAbove),
-      T.exCapeDrivers(Math.round(cur.real).toLocaleString(T.dateLocale), Math.round(cur.real / cur.cape).toLocaleString(T.dateLocale), f1(cur.cape), dir(cur.cape - prev.cape, 0.05), cur.ecy === null ? "—" : pctf(cur.ecy), f1(cur.gs10)),
+      T.exCapeDrivers(Math.round(cur.real).toLocaleString(T.dateLocale), Math.round(cur.real / cur.cape).toLocaleString(T.dateLocale), f1(cur.cape), dir(cur.cape - prev.cape, 0.05), cur.ecy === null ? "—" : pctf(cur.ecy), cur.gs10.toFixed(2),
+        (function () { const d = CAPE.partialMonth && typeof fcLast === "function" ? fcLast("DGS10") : null; return d ? d.v.toFixed(2) : null; })(),
+        (function () { const d = CAPE.partialMonth && typeof fcLast === "function" ? fcLast("DGS10") : null; return d ? fmtDateDMY(d.d) : null; })()),
       T.exCapeWhy(pk1929 && pk1929.r10 !== null ? pctf(pk1929.r10) : null, pk1999 && pk1999.r10 !== null ? pctf(pk1999.r10) : null),
       T.exCapeWatch);
   });
@@ -7473,6 +7750,7 @@ function renderSpr() {
     const caverns = sites.reduce((a, s) => a + s.caverns, 0);
     const parts = ["<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v)), fmtDateDMY(cur.d)) + "</div>"];
     if (bs) parts.push("<div>" + T.sprSitesBySiteNote(fmtDateDMY(bs.asOf), f1(bs.total)) + "</div>");
+    if (bs) sites.forEach(s => { const r = invOf(s.name); if (r && r.caverns && r.caverns !== s.caverns) parts.push("<div>" + T.sprCavernsNote(s.name, s.caverns, r.caverns, fmtDateDMY(bs.asOf)) + "</div>"); });
     const hist = (SPR.bySiteHistory || []).filter(h => h && h.asOf && (!bs || h.asOf !== bs.asOf)).sort((a, b) => b.asOf < a.asOf ? -1 : 1);
     if (hist.length) parts.push("<div>" + T.sprSitesHist + "</div>" + hist.map(h => "<div>" + T.sprSitesHistRow(fmtDateDMY(h.asOf), h.sites.map(s => s.name + " " + f1(s.total)).join(" · "), f1(h.total)) + "</div>").join(""));
     document.getElementById("sprSitesCallout").innerHTML = parts.join("");
@@ -7517,7 +7795,7 @@ function renderCape() {
     { label: T.capeKpiMedian, value: f1(median), foot: T.capeKpiMedianFoot, spark: null, color: "--series-services" },
     { label: T.capeKpiPct, value: Math.round(pctBelow) + "%", foot: T.capeKpiPctFoot, spark: null, color: "--cat-5" },
     { label: T.capeKpiEcy, value: cur.ecy === null ? "—" : pctf(cur.ecy), foot: T.capeKpiEcyFoot, spark: P.slice(-120).map(p => p.ecy), color: "--series-goods" },
-    { label: T.capeKpiGs10, value: f1(cur.gs10) + "%", foot: T.capeKpiGs10Foot, spark: P.slice(-120).map(p => p.gs10), color: "--series-energy" }
+    { label: T.capeKpiGs10, value: cur.gs10.toFixed(2) + "%", foot: T.capeKpiGs10Foot(!!CAPE.partialMonth), spark: P.slice(-120).map(p => p.gs10), color: "--series-energy" }
   ];
   const row = document.getElementById("capeKpiRow");
   tiles.forEach((t2, i) => {
@@ -7553,7 +7831,9 @@ function renderCape() {
     seriesB: { key: "avg", label: T.legCapeAvg(f1(mean)), colorVar: "--text-muted" }
   });
   const cc = document.getElementById("capeCallout");
-  cc.innerHTML = "<div>" + T.capeChartNote(f1(cur.cape), fmtMonthYear(cur.d), f1(hi.cape), fmtMonthYear(hi.d), f1(lo.cape), fmtMonthYear(lo.d), Math.round(100 - pctBelow)) + "</div>" + cc.innerHTML;
+  const dly = (typeof fcLast === "function") ? fcLast("DGS10") : null;
+  cc.innerHTML = "<div>" + T.capeChartNote(f1(cur.cape), fmtMonthYear(cur.d), f1(hi.cape), fmtMonthYear(hi.d), f1(lo.cape), fmtMonthYear(lo.d), Math.round(100 - pctBelow)) + "</div>" + cc.innerHTML +
+    (CAPE.partialMonth ? "<div>" + T.capeGs10Note(cur.gs10.toFixed(2), fmtMonthYear(cur.d), dly ? dly.v.toFixed(2) : null, dly ? fmtDateDMY(dly.d) : null) + "</div>" : "");
 
   // ---- what followed each peak ----
   const withR = peaks.filter(pk => pk.r10 !== null && pk.r10 !== undefined);
@@ -7625,11 +7905,16 @@ function renderCuts() {
 
   const nf = v => Math.round(v).toLocaleString(T.dateLocale);
   const pctChg = (a,b) => b ? Math.round(((a-b)/b)*100) : null;
+  // Year-to-date tiles carry the running total through the year, so the last point is the tile's own figure.
+  const yr = C.asOfMonth.slice(0, 4);
+  const runSum = arr => { let s = 0; return arr.map(v => (s += v)); };
+  const ytdCutsSpark = runSum(monthly.filter(p => p.d.slice(0, 4) === yr).map(p => p.v));
+  const ytdHireSpark = runSum((C.hiringThisYear || []).map(v => +v || 0));
   const tiles = [
-    {label:T.cutsKpiMonth, value:nf(latest.v), foot:T.cutsVsPrev(pctChg(latest.v, prev.v), pctChg(latest.v, yearAgo.v)), color:"--cat-8"},
-    {label:T.cutsKpi3mo, value:nf(avg3), foot:T.cutsKpi3moFoot, color:"--series-core"},
-    {label:T.cutsKpiYtd, value:nf(C.ytdCuts), foot:T.cutsYtdFoot(pctChg(C.ytdCuts, C.ytdCutsLastYear), nf(C.ytdCutsLastYear)), color:"--cat-5"},
-    {label:T.cutsKpiHiring, value:nf(C.ytdHiring), foot:T.cutsHiringFoot(pctChg(C.ytdHiring, C.ytdHiringLastYear), nf(C.ytdHiringLastYear)), color:"--series-category"}
+    {label:T.cutsKpiMonth, value:nf(latest.v), foot:T.cutsVsPrev(pctChg(latest.v, prev.v), pctChg(latest.v, yearAgo.v)), color:"--cat-8", spark:monthly.slice(-24).map(p=>p.v)},
+    {label:T.cutsKpi3mo, value:nf(avg3), foot:T.cutsKpi3moFoot, color:"--series-core", spark:monthly.slice(-24).map(p=>p.v)},
+    {label:T.cutsKpiYtd, value:nf(C.ytdCuts), foot:T.cutsYtdFoot(pctChg(C.ytdCuts, C.ytdCutsLastYear), nf(C.ytdCutsLastYear)), color:"--cat-5", spark:ytdCutsSpark},
+    {label:T.cutsKpiHiring, value:nf(C.ytdHiring), foot:T.cutsHiringFoot(pctChg(C.ytdHiring, C.ytdHiringLastYear), nf(C.ytdHiringLastYear)), color:"--series-category", spark:ytdHireSpark}
   ];
   const row = document.getElementById("cutsKpiRow");
   tiles.forEach((t2,i) => {
@@ -7642,7 +7927,7 @@ function renderCuts() {
       `<svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` +
       `<div class="kpi-foot">${t2.foot}</div>`;
     row.appendChild(tile);
-    if (i === 0 || i === 1) drawSparkline(document.getElementById(id), monthly.slice(-24).map(p=>p.v), t2.color);
+    if (t2.spark && t2.spark.length > 1) drawSparkline(document.getElementById(id), t2.spark, t2.color);
   });
 
   // monthly cuts, with a 3-month average overlaid
@@ -7728,12 +8013,14 @@ function renderCuts() {
 // ================================================================
 
 // BEA reports these in millions of dollars; render them at human scale.
-function fmtMoney(v) {
-  const a = Math.abs(v);
-  if (a >= 1000000) return "$" + (v/1000000).toFixed(2) + T.sfxT;
-  if (a >= 1000)    return "$" + Math.round(v/1000).toLocaleString(T.dateLocale) + T.sfxB;
-  return "$" + Math.round(v).toLocaleString(T.dateLocale) + "M";
+// With html set (KPI tiles), the unit is set smaller than the figure.
+function fmtMoney(v, html) {
+  const u = s => html ? unitHtml(s) : s, a = Math.abs(v);
+  if (a >= 1000000) return "$" + (v/1000000).toFixed(2) + u(T.sfxT);
+  if (a >= 1000)    return "$" + Math.round(v/1000).toLocaleString(T.dateLocale) + u(T.sfxB);
+  return "$" + Math.round(v).toLocaleString(T.dateLocale) + u("M");
 }
+function unitHtml(u) { return '<span class="kpi-unit">' + u + "</span>"; }
 function fmtPP(v) { return (v >= 0 ? "+" : "") + v.toFixed(2) + " pp"; }
 function fmtQuarter(d) {
   if (!d) return "";
@@ -7745,6 +8032,36 @@ function gdpPts(group, key) {
   return s ? s.points.filter(p => p.v !== null && p.v !== undefined) : [];
 }
 function gdpLatest(group, key) { const p = gdpPts(group, key); return p.length ? p[p.length-1] : null; }
+
+// Which estimate of a quarter the page shows. BEA publishes each quarter three times
+// (advance, second, third): counted from the release dates that fell after the
+// quarter's end when the calendar carries them, else inferred from the month gap
+// between the quarter's end and the latest release.
+function gdpEstimateInfo(q) {
+  const c = CALENDAR && CALENDAR.releases && CALENDAR.releases.gdp; if (!c || !q) return null;
+  const m = /^(\d{4})-Q([1-4])$/.exec(q); if (!m) return null;
+  const qEnd = new Date(+m[1], +m[2] * 3, 0);
+  const listed = c.recent && c.recent.length;
+  let known = listed ? c.recent.slice() : (c.last ? [c.last] : []);
+  // BEA dates the figures themselves: releases after that date are not in them, and
+  // that date is one of the releases even if FRED's calendar has not listed it yet.
+  const v = GDP && GDP.vintage && GDP.vintage.gdp;
+  if (v) { known = known.filter(s => s <= v); if (known.indexOf(v) < 0) known.push(v); }
+  const after = known.map(s => new Date(s + "T00:00:00")).filter(d => d > qEnd).sort((a, b) => b - a);
+  if (!after.length) return null;
+  let n = after.length;
+  if (!listed) n = (after[0].getFullYear() - qEnd.getFullYear()) * 12 + after[0].getMonth() - qEnd.getMonth();
+  if (n < 1 || n > 3) return null;
+  return { n: n, name: T.gdpEstimateName(n), date: after[0] };
+}
+// The estimate the next GDP release will bring: the quarter's next one, or the advance estimate of the following quarter.
+function gdpNextEstimate(q) {
+  const est = gdpEstimateInfo(q); if (!est) return null;
+  if (est.n < 3) return { name: T.gdpEstimateName(est.n + 1), q: fmtQuarter(q) };
+  const m = /^(\d{4})-Q([1-4])$/.exec(q);
+  const nq = +m[2] === 4 ? (+m[1] + 1) + "-Q1" : m[1] + "-Q" + (+m[2] + 1);
+  return { name: T.gdpEstimateName(1), q: fmtQuarter(nq) };
+}
 
 // 12-month change of a monthly level series held in the GDP dataset.
 function gdpYoY(group, key) {
@@ -7773,10 +8090,11 @@ function renderGDP() {
   const latest = growth[growth.length-1];
 
   document.getElementById("gdpAsOfLine").textContent = T.dataAsOf(fmtQuarter(latest.d));
-  document.getElementById("gdpVintageLine").textContent = T.gdpVintage;
+  const est = gdpEstimateInfo(latest.d), nxEst = gdpNextEstimate(latest.d);
+  document.getElementById("gdpVintageLine").textContent = est ? T.gdpVintageLine(fmtQuarter(latest.d), est.name, fmtDateDMY(est.date)) : T.gdpVintage;
   (function(){ const c = CALENDAR && CALENDAR.releases && CALENDAR.releases.gdp;
     const el = document.getElementById("gdpNextReleaseLine");
-    if (c && c.next) { const dt = new Date(c.next + "T00:00:00"); el.textContent = (dt < new Date() ? T.gdpNextReleaseWas : T.gdpNextRelease)(fmtDateDMY(dt)); }
+    if (c && c.next) { const dt = new Date(c.next + "T00:00:00"); el.textContent = (dt < new Date() ? T.gdpNextReleaseWas : T.gdpNextRelease)(fmtDateDMY(dt), nxEst ? T.exRelGdp(nxEst.name, nxEst.q) : ""); }
     else el.textContent = ""; })();
   document.getElementById("gdpRefreshedLine").textContent = freshnessLabel(GDP_SOURCE, REFRESHED_AT, "BEA");
 
@@ -7868,12 +8186,12 @@ function renderIncome() {
   const L = k => gdpLatest("income", k);
   const savingRate = L(INC.savingRate);
   const tiles = [
-    {label:T.incKpiIncome,  value: fmtMoney(L(INC.income).v),  color:"--series-headline", key:INC.income},
-    {label:T.incKpiDPI,     value: fmtMoney(L(INC.dpi).v),     color:"--series-services", key:INC.dpi},
-    {label:T.incKpiOutlays, value: fmtMoney(L(INC.outlays).v), color:"--series-core",     key:INC.outlays},
-    {label:T.incKpiSaving,  value: fmtMoney(L(INC.saving).v),  color:"--cat-3",           key:INC.saving},
+    {label:T.incKpiIncome,  value: fmtMoney(L(INC.income).v, true),  color:"--series-headline", key:INC.income},
+    {label:T.incKpiDPI,     value: fmtMoney(L(INC.dpi).v, true),     color:"--series-services", key:INC.dpi},
+    {label:T.incKpiOutlays, value: fmtMoney(L(INC.outlays).v, true), color:"--series-core",     key:INC.outlays},
+    {label:T.incKpiSaving,  value: fmtMoney(L(INC.saving).v, true),  color:"--cat-3",           key:INC.saving},
     {label:T.incKpiRate,    value: savingRate.v.toFixed(1)+"%", color:"--cat-5",          key:INC.savingRate},
-    {label:T.incKpiRealDPI, value: fmtMoney(L(INC.realDpi).v), color:"--series-goods",    key:INC.realDpi}
+    {label:T.incKpiRealDPI, value: fmtMoney(L(INC.realDpi).v, true), color:"--series-goods",    key:INC.realDpi}
   ];
   const row = document.getElementById("incKpiRow");
   tiles.forEach((t2,i) => {
@@ -8205,8 +8523,52 @@ renderSpr();
 renderCape();
 renderExecSummaries();
 renderFileDateLines();
+labelCharts();
+titleCaseHeadings();
 
 } // end renderAll
+
+// ---------- accessibility: every chart is an image with a name ----------
+// Each SVG chart carries role="img" and a label built from its section heading,
+// its chart title and its legend. Sparklines repeat the figure printed beside them
+// and are hidden from assistive technology; tooltips are hover-only.
+function labelCharts() {
+  const text = el => el ? String(el.textContent).replace(/\s+/g, " ").trim() : "";
+  document.querySelectorAll("svg").forEach(svg => {
+    if (svg.classList.contains("kpi-spark") || svg.classList.contains("cat-spark")) { svg.setAttribute("aria-hidden", "true"); svg.setAttribute("focusable", "false"); return; }
+    const sec = svg.closest("section");
+    const cell = svg.closest(".momentum-charts > div, .map-grid > .panel");
+    const parts = [text(sec && sec.querySelector(".section-head h2")), cell ? text(cell.querySelector(".momentum-chart-title")) : ""].filter(Boolean);
+    const wrap = svg.parentElement, before = wrap && wrap.previousElementSibling;
+    const series = before && before.classList && before.classList.contains("legend") ? Array.from(before.querySelectorAll(".legend-item")).map(text).join(", ") : "";
+    const isMap = !!svg.closest(".map-grid, #rtMap");
+    svg.setAttribute("role", "img");
+    svg.setAttribute("aria-label", isMap ? T.mapAria(parts.join(" · ")) : T.chartAria(parts.join(" · ") || T.brand, series));
+  });
+  document.querySelectorAll(".tooltip").forEach(t => t.setAttribute("aria-hidden", "true"));
+}
+
+// ---------- typography: Title Case for English headings ----------
+// The owner's convention for English; Spanish headings keep sentence case, as
+// Spanish typography does. Applied to the rendered text, so dynamic headings follow.
+const TC_SMALL = new Set(["a", "an", "and", "as", "at", "but", "by", "for", "from", "in", "into", "nor", "of", "on", "onto", "or", "per", "the", "to", "vs", "vs.", "with", "over", "via"]);
+function tc(str) {
+  const words = String(str).split(" ");
+  return words.map((w, i) => {
+    const core = w.replace(/^[^A-Za-z]+|[^A-Za-z]+$/g, "");
+    const hy = x => x.replace(/-([a-z])/g, (m, c) => "-" + c.toUpperCase());
+    if (!w || !core || /[A-Z]/.test(core) || /\d/.test(core)) return hy(w);
+    if (i > 0 && i < words.length - 1 && TC_SMALL.has(core.toLowerCase())) return w;
+    return hy(w.replace(/^([^A-Za-z]*)([a-z])/, (m, pre, c) => pre + c.toUpperCase()));
+  }).join(" ");
+}
+function titleCaseHeadings() {
+  if (LANG !== "en") return;
+  document.querySelectorAll("h1, .section-head h2, .momentum-chart-title, .exec-k, .exec-title, .kpi-label, .mstat-label, .rail-group-label, .rail-item [data-i18n], .cat-name, .manual-badge, .cat-subset-tag, .stable th, .fiscal-link-card a span").forEach(el => {
+    if (el.children && el.children.length) return;   // plain-text headings only
+    el.textContent = tc(el.textContent);
+  });
+}
 
 // ---------- "file dated D · checked C" for the file-based sources ----------
 // D is the source's own Last-Modified date, recorded by the processor. C is the
@@ -8256,8 +8618,8 @@ function renderFileDateLines() {
 // Pages Function that holds the key server-side and relays the request.
 // ================================================================
 
-// Which series get fetched is decided in functions/api/cpi.js; this map only
-// supplies the display names the charts and cards read.
+// The proxy decides which series are fetched; this map only supplies the
+// display names the charts and cards read.
 const BLS_NAMES = {
   "CUUR0000SA0":"Headline (All items)","CUUR0000SA0L1E":"Core (ex. food & energy)",
   "CUUR0000SA0E":"Energy","CUUR0000SAF":"Food and beverages","CUUR0000SAH":"Housing",
@@ -8462,14 +8824,12 @@ function buildMobileNav() {
 document.getElementById("mobileNav").addEventListener("change", e => {
   const v = e.target.value;
   if (v.startsWith("view:")) {
-    const item = document.querySelector(".rail-item[data-view=\"" + v.slice(5) + "\"]");
-    if (item) item.click();
+    showView(v.slice(5), true);
   } else if (v.startsWith("link:")) {
     window.open(v.slice(5), "_blank", "noopener");
     buildMobileNav();   // put the picker back on the current section
   }
 });
-document.querySelectorAll(".rail-item[data-view]").forEach(item => item.addEventListener("click", buildMobileNav));
 
 document.documentElement.setAttribute("lang", T.htmlLang);
 document.querySelectorAll(".lang-switch").forEach(b => b.addEventListener("click", () => setLang(LANG === "es" ? "en" : "es")));
@@ -8477,15 +8837,13 @@ document.querySelectorAll(".lang-switch").forEach(b => b.addEventListener("click
 // Paint from the snapshot immediately, then refresh in the background where the
 // proxy endpoints exist.
 applyStaticStrings();
+syncNavLinks();
 buildMobileNav();
 renderAll();
 if (LIVE_DATA) goLive();
-// Deep link to a section (?view=cpi), used by the alert emails.
-(function () {
-  const v = new URLSearchParams(location.search).get("view");
-  const item = v && document.querySelector('.rail-item[data-view="' + v.replace(/[^a-z]/g, "") + '"]');
-  if (item) item.click();
-})();
+// Open the section named in the address (?view=cpi, which the alert emails link to);
+// an unknown name falls back to the first section and says so.
+showView(new URLSearchParams(location.search).get("view") || DEFAULT_VIEW, false);
 // status.json sits beside the page on the site (not in previews); see renderFileDateLines.
 (function () {
   try {

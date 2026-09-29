@@ -102,6 +102,34 @@ function Convert-XlsSheetToCsv([string]$xls, [string]$sheet, [string]$csv, [int[
   }
 }
 
+# Payroll vintages from ALFRED (FRED's archive of past releases). For each month,
+# its monthly change as first printed and after every later revision, as
+# [release date, change in thousands] pairs in release order; a pair is kept only
+# when the value moved, so a month carries its first print and its revisions and
+# nothing else. $vintDates: release dates ("yyyy-MM-dd", ascending). $obsRows: FRED
+# observation rows (date, value, realtime_start, realtime_end). Returns an ordered
+# dictionary keyed "yyyy-MM" holding the latest $keepMonths months.
+function ConvertTo-PayrollVintages($vintDates, $obsRows, [int]$keepMonths = 24) {
+  $vint = [ordered]@{}
+  foreach ($R in $vintDates) {
+    # The level series exactly as it stood on release day R, then its monthly changes.
+    $lvl = @{}
+    foreach ($o in $obsRows) { if ($o.realtime_start -le $R -and $o.realtime_end -ge $R) { $lvl[$o.date.Substring(0, 7)] = [double]$o.value } }
+    foreach ($mth in @($lvl.Keys | Sort-Object)) {
+      $y = [int]$mth.Substring(0, 4); $mo = [int]$mth.Substring(5, 2)
+      $pm = if ($mo -eq 1) { "{0}-12" -f ($y - 1) } else { "{0}-{1:D2}" -f $y, ($mo - 1) }
+      if (-not $lvl.ContainsKey($pm)) { continue }
+      $chg = [int][math]::Round($lvl[$mth] - $lvl[$pm], 0)
+      if (-not $vint.Contains($mth)) { $vint[$mth] = New-Object System.Collections.ArrayList }
+      $n = $vint[$mth].Count
+      if ($n -eq 0 -or $vint[$mth][$n - 1][1] -ne $chg) { [void]$vint[$mth].Add(@($R, $chg)) }
+    }
+  }
+  $out = [ordered]@{}
+  foreach ($mth in @($vint.Keys | Sort-Object | Select-Object -Last $keepMonths)) { $out[$mth] = @($vint[$mth]) }
+  return $out
+}
+
 function Save-Json($obj, [string]$file, [int]$depth = 8) {
   $path = Join-Path $script:data $file
   ($obj | ConvertTo-Json -Depth $depth -Compress) | Set-Content $path -Encoding utf8
@@ -141,10 +169,22 @@ function WithChanges($pts, [string]$from) {
   return $arr
 }
 
+# BEA's note on each table carries the date its figures were last revised ("LastRevised:
+# August 26, 2026"): the release the numbers come from. Kept per table in
+# $script:beaRevised (yyyy-MM-dd); a table whose note lacks it is simply absent.
+$script:beaRevised = @{}
 function Invoke-Bea([string]$table, [string]$freq, [string]$years) {
   $u = "https://apps.bea.gov/api/data/?UserID=$(Get-ApiKey 'BEA_API_KEY')&method=GetData&datasetname=NIPA&TableName=$table&Frequency=$freq&Year=$years&ResultFormat=JSON"
   $r = Invoke-Retry { Invoke-RestMethod -Uri $u -TimeoutSec 120 }
   if ($r.BEAAPI.Error) { throw "BEA $table : $($r.BEAAPI.Error.APIErrorDescription)" }
+  foreach ($n in @($r.BEAAPI.Results.Notes)) {
+    if ($n -and [string]$n.NoteText -match 'Last\s*Revised(?:\s+on)?:\s*([A-Za-z]+\s+\d{1,2},\s+\d{4})') {
+      $dt = [datetime]::MinValue
+      if ([datetime]::TryParseExact(($Matches[1] -replace '\s+', ' '), [string[]]@("MMMM d, yyyy", "MMM d, yyyy"), [Globalization.CultureInfo]::InvariantCulture, [Globalization.DateTimeStyles]::None, [ref]$dt)) {
+        $script:beaRevised[$table] = $dt.ToString("yyyy-MM-dd"); break
+      }
+    }
+  }
   return $r.BEAAPI.Results.Data
 }
 function BeaValue($s) { [double](([string]$s) -replace ',', '') }
