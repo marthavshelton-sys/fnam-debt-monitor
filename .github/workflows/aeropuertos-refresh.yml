@@ -22,6 +22,13 @@ on:
       skip:
         description: "Sources to skip, e.g. --skip-afac (space-separated flags)"
         default: ""
+      verify_links:
+        description: "Diagnostics only (no refresh, no commit): open every source link of the three airport pages in a browser and print what each returns"
+        type: boolean
+        default: false
+      verify_args:
+        description: "Extra arguments for scripts/aeropuertos/verify-sources.mjs: --dump, or document URLs to print in full"
+        default: ""
   push:
     branches: ["main", "claude/gap-financial-model-vfypi1"]
     paths:
@@ -61,16 +68,33 @@ jobs:
           npx playwright install --with-deps chromium
           pip install --quiet pypdf
 
+      # Diagnostics mode (workflow_dispatch with verify_links): nothing is refreshed or committed. gob.mx, GlobeNewswire and
+      # the airlines' IR sites refuse plain scripts, so the link check below can only call them "unverifiable"; this step opens
+      # each source in Chromium (then a headed Chrome under xvfb) and prints status, title and, for the tariffs table, which
+      # quoted figures appear in the cited filing. Script: scripts/aeropuertos/verify-sources.mjs.
+      - name: Verify source links in a browser (diagnostics only)
+        if: github.event.inputs.verify_links == 'true'
+        env:
+          HEADED: "1"
+          VERIFY_ARGS: ${{ github.event.inputs.verify_args }}
+        run: |
+          sudo apt-get install -y -qq xvfb >/dev/null 2>&1 || true
+          xvfb-run -a --server-args="-screen 0 1366x900x24" node scripts/aeropuertos/verify-sources.mjs $VERIFY_ARGS
+
       - name: Keep the previous data files for the regression check
+        if: github.event.inputs.verify_links != 'true'
         run: git show HEAD:site/aeropuertos/data/traffic.js > /tmp/traffic-prev.js
 
       - name: Refresh from AFAC, AICM and AIFA and rebuild the site data
+        if: github.event.inputs.verify_links != 'true'
         run: node scripts/aeropuertos/refresh.mjs ${{ github.event.inputs.skip }}
 
       - name: Validate (contiguous months, plausible totals, no regressions)
+        if: github.event.inputs.verify_links != 'true'
         run: node scripts/aeropuertos/validate.mjs site/aeropuertos/data/traffic.js /tmp/traffic-prev.js
 
       - name: Commit if anything changed
+        if: github.event.inputs.verify_links != 'true'
         shell: bash
         run: |
           rm -f package.json package-lock.json; rm -rf node_modules tools/aeropuertos/tmp
@@ -96,5 +120,5 @@ jobs:
       # owner. Hosts that refuse scripts (Bloomberg, BLS, FRED, GlobeNewswire ...) are listed as
       # notices and never fail the run. Script: scripts/check-links.mjs.
       - name: Check source links
-        if: always()
-        run: node scripts/check-links.mjs site/aeropuertos/index.html site/aeropuertos/trafico/index.html
+        if: always() && github.event.inputs.verify_links != 'true'
+        run: node scripts/check-links.mjs site/aeropuertos/index.html site/aeropuertos/trafico/index.html site/aeropuertos/aerolineas/index.html
