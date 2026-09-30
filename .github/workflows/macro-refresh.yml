@@ -55,9 +55,10 @@ jobs:
           python-version: "3.12"
 
       # xlrd converts legacy .xls workbooks (NY Fed GSCPI, EIA SPR history,
-      # Shiller's data set); PyMuPDF reads the Challenger report's tables.
+      # Shiller's data set); PyMuPDF reads the Challenger report's tables;
+      # RapidOCR reads DOE's SPR inventory report, which is only an image.
       # The rest of the pipeline is Windows PowerShell 5.1, which the runner ships.
-      - run: pip install xlrd==2.0.1 pymupdf==1.25.5
+      - run: pip install xlrd==2.0.1 pymupdf==1.25.5 rapidocr-onnxruntime==1.4.4
 
       - name: Refresh data and build page
         id: refresh

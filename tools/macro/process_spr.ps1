@@ -76,6 +76,32 @@ try {
   Write-Output "DOE inventory image failed: $($_.Exception.Message)"
   if ($prev -and $prev.image) { $image = $prev.image; Write-Output "  keeping previous image record" }
 }
+# The report's own "as of" date and volumes, read off the image (spr_image_ocr.py
+# checks sweet + sour = total). DOE posts it before EIA's weekly release for the
+# same Friday, so when it is newer than EIA's latest week the page shows it as
+# the latest reading. Accepted only if it is dated on or before the posting,
+# within 14 days of it, and within 3% of EIA's latest week.
+if ($image -and -not $image.reading) {
+  try {
+    $ocrOut = Join-Path $scratch "spr-ocr.json"
+    if (Test-Path $ocrOut) { Remove-Item $ocrOut }
+    & (Get-Python) "$PSScriptRoot\spr_image_ocr.py" (Join-Path $data "spr-inventory.jpg") $ocrOut
+    if ($LASTEXITCODE -ne 0) { throw "spr_image_ocr.py exit $LASTEXITCODE" }
+    $rd = Get-Content $ocrOut -Raw | ConvertFrom-Json
+    $pub = [datetime]$image.published; $rdDate = [datetime]$rd.asOf
+    if ($rdDate -gt $pub -or ($pub - $rdDate).TotalDays -gt 14) { throw "as-of $($rd.asOf) does not fit the posting date $($image.published)" }
+    $eiaLast = $weekly[-1].v / 1000
+    if ([math]::Abs($rd.total / $eiaLast - 1) -gt 0.03) { throw "total $($rd.total) is more than 3% from EIA's latest week ($eiaLast)" }
+    $image = [ordered]@{ file = $image.file; source = $image.source; published = $image.published; bytes = $image.bytes; fetchedAt = $image.fetchedAt
+                         reading = [ordered]@{ asOf = $rd.asOf; sweet = $rd.sweet; sour = $rd.sour; total = $rd.total } }
+  } catch {
+    Write-Output "DOE report not read ($($_.Exception.Message)); the page shows the image without its figures"
+    if ($prev -and $prev.image -and $prev.image.reading -and $prev.image.published -eq $image.published) {
+      $image = [ordered]@{ file = $image.file; source = $image.source; published = $image.published; bytes = $image.bytes; fetchedAt = $image.fetchedAt; reading = $prev.image.reading }
+      Write-Output "  same posting as last run: keeping its reading"
+    }
+  }
+}
 
 # ---- DOE: inventory per site (SPR Quick Facts table) ----
 function Get-FirstNumber([string]$s) { $m = [regex]::Match($s, '-?\d+(\.\d+)?'); if ($m.Success) { [double]$m.Value } else { $null } }
