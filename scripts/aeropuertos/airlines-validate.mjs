@@ -25,7 +25,7 @@ if (fo.length < 30) fail(`only ${fo.length} foreign carriers`);
 for (const [id, s] of Object.entries(A.ir || {})) { if (!s.months.length) { warn(`${id}: empty IR series`); continue; } const lf = s.lf.total.filter((v) => v != null); if (lf.some((v) => v < 40 || v > 100)) fail(`${id}: load factor out of range`); if (s.months.at(-1) < A.lastMonth) warn(`${id}: IR series ends ${s.months.at(-1)}, before AFAC ${A.lastMonth}`); }
 // networks
 const nets = A.networks || {};
-for (const id of ['VOI', 'VIV', 'AM']) { const nw = nets[id]; if (!nw) { warn(`network missing for ${id}`); continue; } if (nw.counts.airportsMx < 5) fail(`${id}: only ${nw.counts.airportsMx} Mexican airports in network`); }
+for (const id of ['VOI', 'VIV', 'AM']) { const nw = nets[id]; if (!nw) { warn(`network missing for ${id}`); continue; } const min = nw.basis === 't100' ? 2 : 5; if (nw.counts.airportsMx < min) fail(`${id}: only ${nw.counts.airportsMx} Mexican airports in network`); if (nw.basis === 't100' && !nw.counts.intlRoutes) fail(`${id}: T-100 network has no US routes`); }  // Aeromexico (T-100): US routes only
 // routes
 if (R.domestic.length < 150) fail(`only ${R.domestic.length} domestic corridors`);
 const okDom = R.domestic.filter((d) => d.ok).length; if (okDom / R.domestic.length < 0.9) fail(`domestic corridors mapped to codes: ${okDom}/${R.domestic.length}`);
