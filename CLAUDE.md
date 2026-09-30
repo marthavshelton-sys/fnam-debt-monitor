@@ -151,12 +151,14 @@ dashboards, everything built from public data by GitHub Actions.
   `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
   (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,
   ND via `evL()/peL()/ndL()`), Spanish keeps VE, P/U, DN.
-- Share prices: the market fetchers keep only completed sessions (`completedSessions()` in `scripts/gap/fetch-market.mjs`
-  and `scripts/airports/fetch-market.mjs`), so the 14:30 UTC run never publishes an intraday bar as a "close"; the
-  header shows the close date and the fetch time in CDMX. FactSet cannot run in GitHub Actions, so it is only an
-  in-session cross-check. Quálitas, Gentera and Oracle fetchers still take Yahoo's partial bar (not yet fixed).
+- Share prices: every market fetcher (GAP, OMA/ASUR, Quálitas, Gentera, Oracle) keeps only completed sessions through
+  `scripts/lib/completed-sessions.mjs`: a bar dated today counts only after that exchange's close in its own time zone
+  (BMV 15:30 CDMX, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid), so a morning run never publishes
+  an intraday quote as a "close". The header shows the close date and the fetch time in CDMX. FactSet cannot run in
+  GitHub Actions, so it is only an in-session cross-check.
 - Executive summaries write the next-results date as the token `{{nextResults}}`; the page fills it from the
-  release-lag rule (`nextResults()` in the model, reused by the deck), never a hand-written date.
+  release-lag rule (`nextResults()` in the model) and the deck engine resolves it in `execSummary()` (`tokens()` in
+  `present-core.js`), never a hand-written date.
 - `?lang=en|es` on a model page overrides the stored language; `document.title` follows the language.
 - OMA's net debt includes lease liabilities (`debtExtraItems` in `site/oma/config.js`), matching OMA's own definition.
 - GAP page headings are Title Case in both languages (`tc()` in `site/gap/app.js`); the debt instruments table is a

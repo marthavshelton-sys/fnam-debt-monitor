@@ -165,3 +165,8 @@ python -m http.server 8080 --directory site      # then open http://localhost:80
   supplied; password protection is off until `QUALITAS_PASSWORD` is set. The reviewing routine runs as the
   cloud Routine "FNAM Quálitas: review and email material changes" (every day 15:50 UTC; prompt in `ROUTINE.md`;
   manage it at https://claude.ai/code/routines).
+
+
+## Closing prices only (30-Sep-2026)
+
+`fetch-market` passes every price series through `scripts/lib/completed-sessions.mjs`: a bar dated today is kept only after that exchange's close in its own time zone (BMV 15:30 Mexico City, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid). The morning run therefore publishes the previous close; the evening run adds the day's close. The same helper serves GAP, OMA, ASUR, Quálitas, Gentera and Oracle.

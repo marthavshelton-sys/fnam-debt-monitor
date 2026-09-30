@@ -19,6 +19,7 @@
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
+import { completedSessions } from '../lib/completed-sessions.mjs';
 
 const OUT = new URL('../../site/qualitas/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -127,13 +128,10 @@ async function main() {
       try { data = await stooq(s.stooq, s.since); data.note = `Yahoo failed (${e1.message}); Stooq fallback`; }
       catch (e2) { err = `${e1.message} | ${e2.message}`; }
     }
-    // Closed sessions only: during trading hours Yahoo's last daily bar is the session in progress, not a close.
-    // Every exchange here (BMV, NYSE, B3, BME) has closed by 22:00 UTC, so a run before that drops the current day's bar;
-    // the 23:00 UTC run adds the real close.
-    if (data && data.points && new Date(out.generatedAt).getUTCHours() < 22) { const today = out.generatedAt.slice(0, 10); data.points = data.points.filter((p) => p[0] !== today); }
     if (data && data.points.length > 50) {
       ok++;
-      out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, points: data.points };
+      data.points = completedSessions(data.points, { exchange: s.exchange }); // closes only: a bar dated today counts once that exchange has closed
+      out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, sessions: 'completed', points: data.points };
       if (s.dividends) out.dividends[s.id] = { source: data.source, points: data.dividends };
       console.log(`${s.id}: ${data.points.length} points via ${data.source} (last ${data.points.at(-1)})`);
     } else {
