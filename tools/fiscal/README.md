@@ -24,7 +24,9 @@ and calendar year-end, the first close above the latest whole trillion), Average
 (every security class, Treasury's own totals, the non-marketable pieces), MSPD table 3
 (security level: weighted-average maturity, principal maturing within 12 months, maturities by
 calendar year), MTS table 3 (receipts by source, outlays by agency, gross interest on Treasury
-debt securities for the current and prior fiscal year to date and the completed prior year),
+debt securities and the interest credited to federal trust funds, for the current and prior
+fiscal year to date and the completed prior year), MTS table 9 (net interest, budget function
+900, same three periods; optional, so a failure never takes the gross figures down),
 Interest Expense on the Debt Outstanding (accrual basis, current FYTD and the completed prior
 year), Treasury Bulletin OFS-2 (ownership, latest fully reported quarter), TIC SLT table 5
 (major foreign holders).
@@ -32,7 +34,8 @@ year), Treasury Bulletin OFS-2 (ownership, latest fully reported quarter), TIC S
 FRED CSV export (no key): DFEDTARU/DFEDTARL (FOMC target range and the date it took effect),
 EFFR, IORB, RRPONTSYAWARD, DPCREDIT, RRPONTSYD (take-up and its peak), WALCL (with its peak
 and the calendar year-end), TREAST, WSHOMCB, WRESBAL, WCURCIR, WTREGEN (the H.4.1 T-account,
-all published in $ millions), M2SL, GDP, GFDGDPA188S, and the four "most recent actual"
+all published in $ millions), M2SL, GDP, GFDGDPA188S (annual debt-to-GDP), GFDEGDQ188S and
+GFDEBTN (quarterly debt-to-GDP and its quarter-end debt), and the four "most recent actual"
 readings of the CBO table: A191RL1Q225SBEA, CPIAUCSL (y/y computed), DGS10, UNRATE.
 
 Every request has a 45-second timeout and its own try/catch, so one slow or dead source never
@@ -46,7 +49,8 @@ date, age and the allowance for its publication cadence, and cross-checks the fi
 agree: ON RRP = target-range floor, discount rate = ceiling, IORB and EFFR inside the range,
 the FedWatch snapshot dated on or after the latest FOMC decision with its first meeting still
 ahead and its columns summing to ~100, MSPD classes summing to Treasury's total, MTS categories
-summing to total receipts and outlays, and the CBO blocks against each other (one value per year in
+summing to total receipts and outlays, gross interest minus trust-fund interest minus net
+interest leaving a residual under 10% of gross (and none of the three missing), and the CBO blocks against each other (one value per year in
 `cboYears`, deficit = outlays − revenue, the "—" outlay rows summing to total outlays, implied GDP =
 outlays ÷ outlays-to-GDP, `cboRecordYear` the first labelled year above 106% in `cboProjection`,
 `cboPublished` at most ~14 months old). Problems go to the run summary and, on `main`, to one
@@ -83,11 +87,20 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
 - Section 03: bills as a share of marketable and of total debt, and whether that is above,
   within or below the 15–20% share TBAC recommends; the 12-month roll-over; the maturity
   schedule prose (this year, five years, eight years, as shares of marketable debt).
-- Section 04: the three average rates and their month; accrued interest FYTD and for the
-  completed prior fiscal year; gross cash interest FYTD against the same months a year earlier and
-  the full prior year; the rank of interest among the outlay lines of Section 08. Cash interest is
-  MTS table 3's "Interest on Treasury Debt Securities (Gross)": it is described as gross interest,
-  not "net interest" (CBO's net interest is lower because it nets what the trust funds receive).
+- Section 04: the three average rates and their month; gross interest expense on an accrual basis
+  FYTD and for the completed prior fiscal year; gross cash interest FYTD against the same months a
+  year earlier and the full prior year; the rank of gross interest among the outlay lines of
+  Section 08; the gross-to-net table (gross interest, less interest credited to trust funds, less
+  other interest and investment income as the residual, equals net interest), with the residual
+  taken from the rounded figures so each column adds up as printed; the composed note on net
+  interest (the figure that counts against the deficit, the one CBO projects and the U.S. Macro
+  Monitor reports). The header KPI is gross interest with net under it.
+- Section 06 and the header KPI: three debt-to-GDP measures, each labelled with its definition,
+  and a composed note reconciling them: the live ratio (total public debt on the latest day ÷ the
+  latest quarter's GDP, annual rate), FRED's quarterly ratio (GFDEGDQ188S: total public debt at
+  quarter-end ÷ that quarter's GDP; the figure the U.S. Macro Monitor shows; FRED adds a quarter
+  three months or more after it ends) and FRED's annual ratio behind the chart (GFDGDPA188S: gross
+  federal debt at fiscal year-end, FYGFD, ÷ calendar-year GDP, GDPA).
 - Section 06: the "most recent actual" column of the CBO table (real GDP growth, CPI y/y, 10-year
   yield, unemployment) from FRED with its period. Everything else in the section comes from the
   research file's CBO keys: the record-year sentence (`cboRecordYear` looked up in `cboProjection`),
@@ -164,6 +177,16 @@ Federal Reserve source that would let the daily workflow refresh market-implied 
 research step. Wiring it means parsing the workbook on the runner and presenting it as what it is.
 
 ## Data facts that trip people up
+
+- Gross vs. net interest: gross is what Treasury pays on all its securities, including those held
+  by federal trust funds (MTS table 3, and the accrual-basis Interest Expense dataset); net is
+  gross minus the interest credited to the trust funds and other federal interest and investment
+  income (MTS table 9, budget function 900). Net is what counts against the deficit and what CBO
+  projects; FY2026 through August: gross $1,267.4B, trust funds $215.9B, other $34.5B, net
+  $1,017.0B. Label every interest figure one or the other.
+- Debt-to-GDP has three honest answers that differ by timing and definition (see Section 06 above);
+  the U.S. Macro Monitor (`/macro/?view=fiscal`) shows FRED's quarterly ratio and net interest, and
+  both pages say so.
 
 - FRED publishes WRESBAL in $ millions like the other H.4.1 lines (2,930,193 = $2.93T on
   2026-09-23); RRPONTSYD is in $ billions.

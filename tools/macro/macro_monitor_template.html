@@ -2066,7 +2066,7 @@
     <div class="exec" id="exec-fiscal"></div>
 
     <div class="fiscal-link-card">
-      <div data-i18n="fiLinkBlurb">For the debt side — total public debt, holders, maturity, and interest — see the companion monitor.</div>
+      <div data-i18n="fiLinkBlurb">For the debt side — total public debt, holders, maturity, and interest — see the companion monitor. Interest here is net interest, the budget's measure; the monitor also shows gross interest on Treasury securities, which is higher because it includes interest paid to federal trust funds.</div>
       <a href="https://fnam.mx/fiscal/" target="_blank" rel="noopener"><span data-i18n="fiLinkText">US Fiscal Debt Monitor</span> ↗</a>
     </div>
 
@@ -3067,7 +3067,7 @@ const I18N = {
     fiTitle: "Déficit fiscal",
     fiDesc: "Lo que el gobierno federal recauda, lo que gasta y la brecha entre ambos. Estado Mensual del Tesoro, año fiscal de octubre a septiembre.",
     sourceMTS: "Fuente: Tesoro de EE. UU., Estado Mensual del Tesoro ↗",
-    fiLinkBlurb: "Para el lado de la deuda (deuda pública total, tenedores, vencimientos e intereses) consulta el monitor complementario.",
+    fiLinkBlurb: "Para el lado de la deuda (deuda pública total, tenedores, vencimientos e intereses) consulta el monitor complementario. Aquí el interés es neto, la medida del presupuesto; el monitor también muestra el interés bruto sobre los valores del Tesoro, que es mayor porque incluye el interés pagado a los fondos fiduciarios federales.",
     fiLinkText: "Monitor de deuda fiscal de EE. UU.",
     fiNextRelease: (m) => "Próxima publicación: Estado Mensual del Tesoro de " + m + ", ~octavo día hábil del mes siguiente",
     fiKpiDeficitFytd: "Déficit del año fiscal a la fecha",
@@ -3106,7 +3106,7 @@ const I18N = {
     fiFunctionNote: (top, topChg, second, secondChg) => "El mayor aumento en dólares está en " + top + " (" + topChg + " mil millones), seguido de " + second + " (" + secondChg + " mil millones).",
     fiFunctionInterest: (int, def) => "El interés neto (" + int + " mil millones) ya supera al gasto en defensa nacional (" + def + " mil millones).",
     fiFunctionInterestBelow: (int, def) => "El interés neto (" + int + " mil millones) se acerca al gasto en defensa nacional (" + def + " mil millones).",
-    fiGdpNote: (fy, pct, avg, debt, dy) => "En el año fiscal " + fy + " el déficit fue de " + pct + "% del PIB, frente a un promedio de " + avg + "% desde 1970. La deuda pública total equivale a " + debt + "% del PIB (" + dy + ").",
+    fiGdpNote: (fy, pct, avg, debt, dy) => "En el año fiscal " + fy + " el déficit fue de " + pct + "% del PIB, frente a un promedio de " + avg + "% desde 1970. Al cierre del último trimestre publicado por FRED (" + dy + "), la deuda pública total equivalía a " + debt + "% del PIB; el Monitor de deuda fiscal de EE. UU. también muestra una razón en vivo, la deuda de hoy entre el PIB del último trimestre, por lo que ambas cifras difieren entre actualizaciones trimestrales.",
     fiGdpMethod: (n, list) => "Como porcentaje del PIB, el déficit ha superado el 5% en " + n + " años fiscales desde 1970: " + list + ". Antes de 2022, cada uno de ellos fue un año de recesión o de su resaca inmediata; los años recientes son los primeros en que ocurre con la economía en expansión.",
     footerFiscal: "Datos: Departamento del Tesoro de EE. UU., Estado Mensual del Tesoro (MTS), tablas 1 y 9, vía la API de FiscalData (sin clave); déficit y deuda como porcentaje del PIB de la Oficina de Administración y Presupuesto y la Reserva Federal vía FRED. Cifras en dólares corrientes, sin ajuste estacional. El año fiscal federal va del 1 de octubre al 30 de septiembre. Las cifras mensuales se revisan en declaraciones posteriores; esta página toma siempre la versión más reciente publicada de cada mes.",
 
@@ -4066,7 +4066,7 @@ const I18N = {
     fiTitle: "Fiscal Deficit",
     fiDesc: "What the federal government takes in, what it spends, and the gap between them. Monthly Treasury Statement; the fiscal year runs October to September.",
     sourceMTS: "Source: U.S. Treasury, Monthly Treasury Statement ↗",
-    fiLinkBlurb: "For the debt side — total public debt, holders, maturity, and interest — see the companion monitor.",
+    fiLinkBlurb: "For the debt side — total public debt, holders, maturity, and interest — see the companion monitor. Interest here is net interest, the budget's measure; the monitor also shows gross interest on Treasury securities, which is higher because it includes interest paid to federal trust funds.",
     fiLinkText: "US Fiscal Debt Monitor",
     fiNextRelease: (m) => "Next release: " + m + " statement, ~8th business day of the following month (Treasury)",
     fiKpiDeficitFytd: "Deficit, fiscal year to date",
@@ -4105,7 +4105,7 @@ const I18N = {
     fiFunctionNote: (top, topChg, second, secondChg) => "The largest dollar increase is " + top + " (" + topChg + " billion), followed by " + second + " (" + secondChg + " billion).",
     fiFunctionInterest: (int, def) => "Net interest ($" + int + " billion) now exceeds national defense ($" + def + " billion).",
     fiFunctionInterestBelow: (int, def) => "Net interest ($" + int + " billion) is approaching national defense ($" + def + " billion).",
-    fiGdpNote: (fy, pct, avg, debt, dy) => "In fiscal " + fy + " the deficit was " + pct + "% of GDP, against an average of " + avg + "% since 1970. Total public debt stands at " + debt + "% of GDP (" + dy + ").",
+    fiGdpNote: (fy, pct, avg, debt, dy) => "In fiscal " + fy + " the deficit was " + pct + "% of GDP, against an average of " + avg + "% since 1970. At the end of the latest quarter FRED has published (" + dy + "), total public debt stood at " + debt + "% of GDP; the US Fiscal Debt Monitor also shows a live ratio, today's debt over the latest quarter's GDP, so the two differ between quarterly updates.",
     fiGdpMethod: (n, list) => "As a share of GDP, the deficit has exceeded 5% in " + n + " fiscal years since 1970: " + list + ". Before 2022, every one of them was a recession year or its immediate aftermath; the recent years are the first with the economy in expansion.",
     footerFiscal: "Data: U.S. Department of the Treasury, Monthly Treasury Statement (MTS), tables 1 and 9, via the FiscalData API (no key required); deficit and debt as a share of GDP from the Office of Management and Budget and the Federal Reserve via FRED. Current dollars, not seasonally adjusted. The federal fiscal year runs October 1 to September 30. Monthly figures are revised in later statements; this page always takes the most recently published version of each month.",
 

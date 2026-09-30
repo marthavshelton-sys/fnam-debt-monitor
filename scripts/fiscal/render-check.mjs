@@ -3,7 +3,7 @@
 // Spanish, light and dark. It renders the committed page against the committed data files and fails on
 // what a reader would notice and the data checks cannot see:
 //   - console errors and page errors; "undefined", "NaN" or "[object Object]" leaking into the text
-//   - a visible [data-bind] element left empty
+//   - a visible [data-bind] element left empty, or a visible callout with no text (composed notes)
 //   - horizontal overflow of the page, and DOM text below 11 px
 //   - the section tab bar: every tab and both language buttons must be hit-testable at their centre
 //     (elementFromPoint), the language buttons must not overlap the tab strip
@@ -86,7 +86,8 @@ for (const scheme of ['light', 'dark']) {
         const name = (el) => (el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : ''));
         const text = document.body.innerText;
         const leaks = (text.match(/\bundefined\b|\bNaN\b|\[object Object\]/g) || []).length;
-        const emptyBinds = [...document.querySelectorAll('[data-bind]')].filter((el) => vis(el) && !el.textContent.trim()).map((el) => el.getAttribute('data-bind'));
+        const emptyBinds = [...document.querySelectorAll('[data-bind]')].filter((el) => vis(el) && !el.textContent.trim()).map((el) => el.getAttribute('data-bind'))
+          .concat([...document.querySelectorAll('.callout')].filter((el) => vis(el) && !el.innerText.trim()).map((el) => 'empty callout in #' + ((el.closest('section') || {}).id || '?')));
         const overflow = document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
         const small = [...document.querySelectorAll('body *:not(svg *)')].filter((el) => vis(el) && el.children.length === 0 && el.textContent.trim() && parseFloat(getComputedStyle(el).fontSize) < 11)
           .map((el) => `${name(el)} ${getComputedStyle(el).fontSize} "${el.textContent.trim().slice(0, 30)}"`);
