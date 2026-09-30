@@ -1,4 +1,5 @@
-# Material updates -> one GitHub issue per run that found new releases. GitHub
+# Material updates -> one GitHub issue per run that found new releases or
+# revisions of figures already reported. GitHub
 # emails the repository owner about every issue opened in a repo they watch
 # (their own, by default), so the issue is only a delivery channel: no mail
 # server, no credentials, nothing running on anyone's computer.
@@ -10,10 +11,24 @@
 # built page under Node), so the email says exactly what the dashboard says.
 # Thresholds below decide whether the subject is marked MATERIAL.
 #
-# State (the last period reported per release) lives next to the data and is
-# committed with it. A missing state file is seeded from the current data
-# without sending anything.
-param([string]$Page = "")
+# Revisions: for the releases whose figures get revised (GDP estimates and annual
+# updates, payrolls, PCE, PPI and CPI months, Census retail benchmarks), the state
+# also keeps the headline figures of the last three periods as last reported. A
+# figure that has since moved by more than its noise band is reported as a
+# revision: inside the next release's alert when it arrives with one (payrolls,
+# PCE), or as an alert of its own when nothing new was published (a GDP estimate,
+# a benchmark revision). Bands, per figure: GDP growth 0.1 pp (MATERIAL from
+# 0.5 pp); CPI, PPI and PCE y/y 0.1 pp (MATERIAL from 0.2 pp); payroll change 10K
+# (MATERIAL from 50K, also for the net of the months revised); unemployment rate
+# 0.1 pp (MATERIAL from 0.2 pp); retail level 0.3% (MATERIAL from 1%) and m/m
+# 0.2 pp (MATERIAL from 0.5 pp).
+#
+# State (the last period reported per release, and those figures) lives next to
+# the data and is committed with it. A missing state file, or a release missing
+# from it, is seeded from the current data without sending anything.
+# -DumpValues prints the figures the state would keep for the data in
+# MACRO_DATA_DIR, and stops.
+param([string]$Page = "", [switch]$DumpValues)
 . "$PSScriptRoot\common.ps1"
 $statePath = Join-Path $data "alerts_state.json"
 function LoadJson([string]$f) { $p = Join-Path $data $f; if (Test-Path $p) { Get-Content $p -Raw -Encoding UTF8 | ConvertFrom-Json } else { $null } }
@@ -41,16 +56,119 @@ if ($ls -and $ls.challenger) { $cur.cuts = $ls.challenger.asOfMonth }
 if ($spr -and $spr.weekly) { $cur.spr = $spr.weekly[$spr.weekly.Count - 1].d }
 if ($cape) { $cur.cape = $cape.asOfMonth }
 
+# ---- the revisable figures of the last three periods, per release ----
+$revKeys = @("cpi", "ppi", "jobs", "pce", "gdp", "retail")
+$revTitle = @{ cpi = "Consumer Price Index"; ppi = "Producer Price Index"; jobs = "Jobs report"; pce = "PCE prices, income and spending"; gdp = "Real GDP"; retail = "Retail sales" }
+$revShort = @{ cpi = "CPI"; ppi = "PPI"; jobs = "Payrolls"; pce = "PCE"; gdp = "GDP"; retail = "Retail" }
+$revViews = @{ cpi = @("cpi"); ppi = @("ppi"); jobs = @("payrolls", "unemployment"); pce = @("pce", "income"); gdp = @("gdp"); retail = @("retail") }
+function PeriodLabel([string]$d) { if ($d -match '^(\d{4})-Q(\d)$') { "Q{0} {1}" -f $Matches[2], $Matches[1] } else { Mon $d } }
+function YoyPairs($a, $b, [string]$fa, [string]$fb) {
+  $out = [ordered]@{}; $byB = @{}; foreach ($q in (Pts $b)) { $byB[$q.d] = $q.yoy }
+  $pa = @(Pts $a | Where-Object { $null -ne $_.yoy }); $from = [math]::Max(0, $pa.Count - 3)
+  for ($i = $from; $i -lt $pa.Count; $i++) {
+    $row = [ordered]@{}; $row[$fa] = [math]::Round([double]$pa[$i].yoy, 2)
+    if ($byB.ContainsKey($pa[$i].d) -and $null -ne $byB[$pa[$i].d]) { $row[$fb] = [math]::Round([double]$byB[$pa[$i].d], 2) }
+    $out[$pa[$i].d] = $row
+  }
+  return $out
+}
+function Get-RevValues([string]$k) {
+  $out = [ordered]@{}
+  switch ($k) {
+    "cpi" { $out = YoyPairs $cpi.CUUR0000SA0 $cpi.CUUR0000SA0L1E "yoy" "core" }
+    "ppi" { $out = YoyPairs $ppi.WPUFD4 $ppi.WPUFD49104 "yoy" "core" }
+    "pce" { $out = YoyPairs $pce.L1 $pce.L25 "yoy" "core" }
+    "gdp" { $g = Pts $gdp.growth.L1; for ($i = [math]::Max(0, $g.Count - 3); $i -lt $g.Count; $i++) { $out[$g[$i].d] = [ordered]@{ v = [math]::Round([double]$g[$i].v, 1) } } }
+    "jobs" {
+      $nf = Pts $labor.CES0000000001; $byU = @{}; foreach ($q in (Pts $labor.LNS14000000)) { $byU[$q.d] = $q.v }
+      for ($i = [math]::Max(1, $nf.Count - 3); $i -lt $nf.Count; $i++) {
+        $row = [ordered]@{ chg = [math]::Round([double]$nf[$i].v - [double]$nf[$i - 1].v, 0) }
+        if ($byU.ContainsKey($nf[$i].d)) { $row.ur = [math]::Round([double]$byU[$nf[$i].d], 1) }
+        $out[$nf[$i].d] = $row
+      }
+    }
+    "retail" { $t = Pts $retail.marts.'44X72'; for ($i = [math]::Max(0, $t.Count - 3); $i -lt $t.Count; $i++) { $out[$t[$i].d] = [ordered]@{ lvl = [math]::Round([double]$t[$i].v, 0); mom = $(if ($null -ne $t[$i].mom) { [math]::Round([double]$t[$i].mom, 2) } else { $null }) } } }
+  }
+  return $out
+}
+# One field's revision as text, with whether it clears the note band and the MATERIAL band.
+function RevField([string]$k, [string]$f, [double]$old, [double]$now) {
+  $d = $now - $old
+  switch ("$k/$f") {
+    { $_ -in "cpi/yoy", "ppi/yoy", "pce/yoy" } { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.195; text = ("{0} y/y {1}% (was {2}%)" -f $revShort[$k], $now.ToString("F1"), $old.ToString("F1")) } }
+    { $_ -in "cpi/core", "ppi/core", "pce/core" } { return @{ note = [math]::Abs($d) -ge 0.095; mat = [math]::Abs($d) -ge 0.195; text = ("core {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "gdp/v" { return @{ note = [math]::Abs($d) -ge 0.05; mat = [math]::Abs($d) -ge 0.45; text = ("{0}% (was {1}%, {2} pp)" -f $now.ToString("F1"), $old.ToString("F1"), (Sg $d)) } }
+    "jobs/chg" { return @{ note = [math]::Abs($d) -ge 10; mat = [math]::Abs($d) -ge 50; text = ("{0}K (was {1}K)" -f (Sg $now 0), (Sg $old 0)) } }
+    "jobs/ur" { return @{ note = [math]::Abs($d) -ge 0.05; mat = [math]::Abs($d) -ge 0.15; text = ("unemployment {0}% (was {1}%)" -f $now.ToString("F1"), $old.ToString("F1")) } }
+    "retail/lvl" { $pc = $(if ($old -ne 0) { ($now / $old - 1) * 100 } else { 0 }); return @{ note = [math]::Abs($pc) -ge 0.3; mat = [math]::Abs($pc) -ge 1.0; text = ("`${0}B (was `${1}B, {2}%)" -f ($now / 1000).ToString("F1"), ($old / 1000).ToString("F1"), (Sg $pc)) } }
+    "retail/mom" { return @{ note = [math]::Abs($d) -ge 0.2; mat = [math]::Abs($d) -ge 0.5; text = ("m/m {0}% (was {1}%)" -f (Sg $now 2), (Sg $old 2)) } }
+  }
+  return $null
+}
+$nowVals = [ordered]@{}
+foreach ($k in $revKeys) { if ($cur[$k]) { try { $nowVals[$k] = Get-RevValues $k } catch { Write-Output "alerts: figures for $k unavailable ($($_.Exception.Message))" } } }
+if ($DumpValues) { Write-Output ($nowVals | ConvertTo-Json -Depth 6); return }
+
 if (-not (Test-Path $statePath)) {
-  [System.IO.File]::WriteAllText($statePath, ($cur | ConvertTo-Json), (New-Object System.Text.UTF8Encoding($false)))
+  $seed = [ordered]@{}; foreach ($k in $cur.Keys) { $seed[$k] = $cur[$k] }; $seed.values = $nowVals
+  [System.IO.File]::WriteAllText($statePath, ($seed | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($false)))
   Write-Output "alerts: no state file - seeded from the current data, nothing sent: $(($cur.Keys | ForEach-Object { $_ + '=' + $cur[$_] }) -join ' ')"
   return
 }
 $state = Get-Content $statePath -Raw -Encoding UTF8 | ConvertFrom-Json
 $isNew = { param($k) $c = $cur[$k]; $s = $state.$k; if (-not $c) { return $false }; if (-not $s) { return $true }; ($c -ne $s) -and ($c.TrimEnd('p') -ge $s.TrimEnd('p')) }
 $new = @($cur.Keys | Where-Object { & $isNew $_ })
-if (-not $new.Count) { Write-Output "alerts: nothing new (state matches the data)"; return }
-Write-Output "alerts: new releases: $($new -join ', ')"
+
+# ---- revisions: figures that moved since they were last reported ----
+$stored = if ($state.PSObject.Properties["values"]) { $state.values } else { $null }
+$revisions = [ordered]@{}
+foreach ($k in $nowVals.Keys) {
+  if (-not $stored -or -not $stored.PSObject.Properties[$k]) { continue }   # first sight: seeded below, nothing to compare
+  $recs = New-Object System.Collections.ArrayList; $net = 0
+  foreach ($pp in $stored.$k.PSObject.Properties) {
+    if (-not $nowVals[$k].Contains($pp.Name)) { continue }
+    $nowRow = $nowVals[$k][$pp.Name]; $texts = @(); $mat = $false
+    foreach ($f in $pp.Value.PSObject.Properties) {
+      if ($null -eq $f.Value -or -not $nowRow.Contains($f.Name) -or $null -eq $nowRow[$f.Name]) { continue }
+      $r = RevField $k $f.Name ([double]$f.Value) ([double]$nowRow[$f.Name])
+      if ($r -and $r.note) { $texts += $r.text; if ($r.mat) { $mat = $true } }
+      if ($k -eq "jobs" -and $f.Name -eq "chg") { $net += [double]$nowRow[$f.Name] - [double]$f.Value }
+    }
+    if ($texts.Count) { [void]$recs.Add([PSCustomObject]@{ period = $pp.Name; figures = ($texts -join ", "); text = (PeriodLabel $pp.Name) + ": " + ($texts -join ", "); material = $mat }) }
+  }
+  if ($recs.Count) {
+    $recs = @($recs | Sort-Object period -Descending)
+    $isMat = [bool](@($recs | Where-Object { $_.material }).Count) -or ($k -eq "jobs" -and [math]::Abs($net) -ge 50)
+    # "text" lists every period revised (the alert's Revision line); "short" names the
+    # newest one only, for the subject.
+    $netNote = $(if ($k -eq "jobs" -and $recs.Count -gt 1) { "; net {0}K" -f (Sg $net 0) } else { "" })
+    $revisions[$k] = [PSCustomObject]@{ records = $recs; material = $isMat; net = $net; text = (($recs | ForEach-Object { $_.text }) -join "; ") + $netNote; short = (PeriodLabel $recs[0].period) + " revised to " + $recs[0].figures + $netNote }
+  }
+}
+$revOnly = @($revisions.Keys | Where-Object { $_ -notin $new })
+$seedOnly = @($nowVals.Keys | Where-Object { -not $stored -or -not $stored.PSObject.Properties[$_] })
+
+# The figures kept for next time: refreshed for every release reported now (new
+# period or revision) and seeded for any not kept yet; the rest keep what was
+# last reported, so small drifts add up until they clear their band.
+function Save-State {
+  $vals = [ordered]@{}
+  foreach ($k in $revKeys) {
+    if ($nowVals.Contains($k) -and ($k -in $new -or $revisions.Contains($k) -or $k -in $seedOnly)) { $vals[$k] = $nowVals[$k] }
+    elseif ($stored -and $stored.PSObject.Properties[$k]) { $vals[$k] = $stored.$k }
+  }
+  foreach ($k in $new) { if ($state.PSObject.Properties[$k]) { $state.$k = $cur[$k] } else { $state | Add-Member -NotePropertyName $k -NotePropertyValue $cur[$k] } }
+  if ($state.PSObject.Properties["values"]) { $state.values = $vals } else { $state | Add-Member -NotePropertyName values -NotePropertyValue $vals }
+  [System.IO.File]::WriteAllText($statePath, ($state | ConvertTo-Json -Depth 6), (New-Object System.Text.UTF8Encoding($false)))
+}
+
+if (-not $new.Count -and -not $revOnly.Count) {
+  if ($seedOnly.Count) { Save-State; Write-Output "alerts: nothing new; revision figures seeded for $($seedOnly -join ', ')" }
+  else { Write-Output "alerts: nothing new (state matches the data)" }
+  return
+}
+if ($new.Count) { Write-Output "alerts: new releases: $($new -join ', ')" }
+if ($revisions.Count) { Write-Output "alerts: revisions: $(($revisions.Keys | ForEach-Object { $_ + ' (' + $revisions[$_].text + ')' }) -join ' | ')" }
 
 # ---- headline figures and materiality, per release ----
 $items = New-Object System.Collections.ArrayList
@@ -136,6 +254,14 @@ foreach ($k in $new) {
     }
   } catch { Write-Output "alerts: could not evaluate $k ($($_.Exception.Message)); it will be reported without a materiality flag"; AddItem $k $k $cur[$k] "$k $($cur[$k])" $false @($k) }
 }
+foreach ($it in $items) {
+  if ($revisions.Contains($it.key)) { $rv = $revisions[$it.key]; $it.headline += "; " + $rv.short; $it | Add-Member -NotePropertyName revision -NotePropertyValue $rv.text; if ($rv.material) { $it.material = $true } }
+}
+foreach ($k in $revOnly) {
+  $rv = $revisions[$k]
+  AddItem $k ($revTitle[$k] + " (revision)") (PeriodLabel $rv.records[0].period) ($revShort[$k] + " " + $rv.short) $rv.material $revViews[$k]
+  $items[$items.Count - 1] | Add-Member -NotePropertyName revision -NotePropertyValue $rv.text
+}
 $toSend = @($items | Where-Object { $_.notify })
 
 # ---- the page's own summaries, in English ----
@@ -156,11 +282,12 @@ if ($toSend.Count) {
   $subject = $(if ($materials.Count) { "MATERIAL: " } else { "Macro update: " }) + (($toSend | ForEach-Object { $_.headline }) -join " | ")
   if ($subject.Length -gt 240) { $subject = $subject.Substring(0, 237) + "..." }
   $lines = New-Object System.Collections.ArrayList
-  [void]$lines.Add("Macro Monitor - new data on " + (Get-Date).ToUniversalTime().ToString("dd-MMM-yyyy") + ". " + $(if ($materials.Count) { "Material by the dashboard's thresholds: " + (($materials | ForEach-Object { $_.title }) -join ", ") + "." } else { "No threshold crossed." }))
+  [void]$lines.Add("Macro Monitor - " + $(if ($new.Count) { "new" } else { "revised" }) + " data on " + (Get-Date).ToUniversalTime().ToString("dd-MMM-yyyy") + ". " + $(if ($materials.Count) { "Material by the dashboard's thresholds: " + (($materials | ForEach-Object { $_.title }) -join ", ") + "." } else { "No threshold crossed." }))
   [void]$lines.Add("")
   foreach ($it in $toSend) {
     [void]$lines.Add("## " + $it.title + " - " + $it.period + $(if ($it.material) { " (MATERIAL)" } else { "" }))
     [void]$lines.Add("**" + $it.headline + "**")
+    if ($it.PSObject.Properties["revision"]) { [void]$lines.Add("- **Revision:** " + $it.revision + " (vs. the figures last reported)") }
     $any = $false
     foreach ($v in $it.views) {
       $s = $sections[$v]; if (-not $s) { continue }
@@ -192,7 +319,6 @@ if ($toSend.Count) {
   Write-Output "alerts: new periods but nothing to send (only sub-threshold weekly moves)"
 }
 
-# ---- advance the state for everything that was new ----
-foreach ($k in $new) { if ($state.PSObject.Properties[$k]) { $state.$k = $cur[$k] } else { $state | Add-Member -NotePropertyName $k -NotePropertyValue $cur[$k] } }
-[System.IO.File]::WriteAllText($statePath, ($state | ConvertTo-Json), (New-Object System.Text.UTF8Encoding($false)))
-Write-Output "alerts: state advanced for $($new -join ', ')"
+# ---- advance the state for everything that was new or revised ----
+Save-State
+Write-Output "alerts: state advanced for $((@($new) + @($revOnly)) -join ', ')"

@@ -21,6 +21,10 @@ on:
       wait_minutes:
         description: "Minutes to wait for Cloudflare to publish main's page"
         default: "20"
+      test_alert:
+        description: "Also open (and at once close) a labeled test issue, to check that failure emails arrive"
+        type: boolean
+        default: false
 
 concurrency:
   group: macro-live-check
@@ -80,6 +84,7 @@ jobs:
         env:
           OUTCOME: ${{ steps.check.outcome }}
           HEADLINE: ${{ steps.check.outputs.headline }}
+          TEST_ALERT: ${{ github.event.inputs.test_alert }}
           REPORT_FILE: ${{ runner.temp }}/live-check-report.md
         with:
           script: |
@@ -97,6 +102,28 @@ jobs:
             const shown = listed.length
               ? listed.slice(0, 15).concat(listed.length > 15 ? [`- ... and ${listed.length - 15} more in the run log`] : [])
               : ['- ' + (stopped || 'the check could not run; see the run log')];
+            // A test of the email path, run by hand: an issue in the failure format that the
+            // email routine sends like a real one, closed at once so a real failure still
+            // opens its own issue (the routine sends closed issues too).
+            if (!failed && process.env.TEST_ALERT === 'true') {
+              try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'b60205', description: 'US macro dashboard: the published page failed its live check' }); } catch (e) { /* exists */ }
+              const test = await github.rest.issues.create({ ...context.repo, labels: [label],
+                title: 'LIVE CHECK FAILED: US macro - TEST ALERT (the page passed; this checks the email path)',
+                body: [
+                  `Test of the live-check alert, run by hand; the live check itself passed: ${runUrl}`,
+                  '',
+                  '- **What failed:** nothing; this is a test of the email path.',
+                  '- **Effect:** none.',
+                  '- **What to do:** nothing. If this reached your inbox, live-check failures will too.',
+                  '',
+                  'Problems found:',
+                  '- none (test alert)',
+                  '',
+                  'This test issue was closed as soon as it was opened.',
+                ].join('\n') });
+              await github.rest.issues.update({ ...context.repo, issue_number: test.data.number, state: 'closed', state_reason: 'completed' });
+              core.info(`Opened and closed test issue #${test.data.number}.`);
+            }
             const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
             const issue = open[0];
             if (failed) {
