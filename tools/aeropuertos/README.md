@@ -126,5 +126,11 @@ from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
   script tags. Replace file and hash together when upgrading.
 - `.chart-box .msg[hidden]{display:none}`: the message layer is `display:grid`, which overrides `[hidden]`; without this
   rule the hidden layer covered the canvas and blocked tooltips and legend clicks.
+- **Operator sources on `/trafico/`**: GAFSACOMM and GATM are cited to their incorporation resolutions on
+  diariooficial.gob.mx (13-Apr-2022 and 15-Sep-2022; runner check 30-Sep-2026: valid TLS, text confirmed). The earlier
+  Cuenta Pública PDFs on cuentapublica.hacienda.gob.mx send an incomplete certificate chain (Node rejects it; Chromium
+  recovers it), and www.dof.gob.mx aborts headless loads, so neither is linked. Per the resolutions, SEDENA put up 99% of
+  GAFSACOMM's initial capital and ASA 99% of GATM's (majority shareholder); Mota-Engil is GATM's co-investment contractor
+  at Tepic (ASA's contract, assigned to GATM on 15-Aug-2023; GATM 2023-2024 progress report, p. 8), not a shareholder.
 - The "Updates" definition on `/trafico/` is composed from `sources.afac.published` (AFAC's file name) and
   `sources.aicm.updated` (the day our check first saw AICM's PDF), never a typed schedule.
