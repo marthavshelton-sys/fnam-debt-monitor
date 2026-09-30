@@ -238,6 +238,10 @@ async function getForeignHolders() {
 //            on Treasury Debt Securities (Gross)" + its "Other" child) | Department of Veterans
 //            Affairs | all other agencies = Total Outlays minus those five
 //   cash-basis interest = "Interest on Treasury Debt Securities (Gross)", fiscal year to date
+//   interest credited to federal trust funds = "Undistributed Offsetting Receipts:" > "Interest"
+//     (a negative outlay; stored as a positive $B), the main difference between gross and net interest
+// Net interest (budget function 900) is MTS table 9's "Net Interest" line (sequence 2.x, outlays by
+// function): gross interest minus what the trust funds receive and other federal interest income.
 // Published monthly for the prior month; the September record is the completed fiscal year,
 // which is where the prior-FY column comes from.
 const MTS3 = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_3';
@@ -256,6 +260,9 @@ function mtsExtract(rows) {
   const treasuryOther = treasury.find((r) => r.classification_desc === 'Other');
   if (!gross || !treasuryOther) throw new Error('MTS table 3: Treasury interest/other sub-lines not found');
   const payroll = childrenOf('Social Insurance and Retirement Receipts:');
+  // Optional: a layout change here must not take the receipts/outlays split down with it.
+  let trustInterest = null;
+  try { trustInterest = childrenOf('Undistributed Offsetting Receipts:').find((r) => r.classification_desc === 'Interest') || null; } catch { trustInterest = null; }
   const r2 = (x) => Math.round(x * 100) / 100;
   const build = (field) => {
     const v = (r) => {
@@ -286,9 +293,22 @@ function mtsExtract(rows) {
       totalReceiptsB: r2(v(one('Total Receipts'))),
       totalOutlaysB: r2(totalOutlays),
       cashInterestB: r2(v(gross)),
+      trustFundInterestB: trustInterest && num(trustInterest[field]) != null ? r2(-num(trustInterest[field]) / 1e9) : null,
     };
   };
   return { cur: build('current_fytd_rcpt_outly_amt'), pri: build('prior_fytd_rcpt_outly_amt') };
+}
+
+// MTS table 9 (receipts and outlays by function): the "Net Interest" line of the outlays section, $B.
+// Returns {cur, pri} for the statement dated `date` (fiscal year to date, and the same months a year
+// earlier), or null when the line cannot be identified unambiguously.
+const MTS9 = 'https://api.fiscaldata.treasury.gov/services/api/fiscal_service/v1/accounting/mts/mts_table_9';
+async function getNetInterest(date) {
+  const rows = (await fetchJSON(`${MTS9}?filter=record_date:eq:${date}&page[size]=100&fields=record_date,classification_desc,sequence_number_cd,current_fytd_rcpt_outly_amt,prior_fytd_rcpt_outly_amt`)).data;
+  const hits = rows.filter((r) => /^Net Interest:?$/.test(String(r.classification_desc).trim()) && String(r.sequence_number_cd).startsWith('2.'));
+  if (hits.length !== 1) throw new Error(`MTS table 9 ${date}: expected one "Net Interest" outlay row, found ${hits.length}`);
+  const b = (x) => (x == null || x === 'null' || Number.isNaN(Number(x)) ? null : Math.round(Number(x) / 1e7) / 100);
+  return { cur: b(hits[0].current_fytd_rcpt_outly_amt), pri: b(hits[0].prior_fytd_rcpt_outly_amt) };
 }
 
 async function getMtsSummary() {
@@ -298,6 +318,10 @@ async function getMtsSummary() {
   const fyPrev = fyCur - 1;
   const ytd = mtsExtract((await fetchJSON(`${MTS3}?filter=record_date:eq:${date}&page[size]=200&fields=${MTS3_FIELDS}`)).data);
   const full = mtsExtract((await fetchJSON(`${MTS3}?filter=record_date:eq:${fyPrev}-09-30&page[size]=200&fields=${MTS3_FIELDS}`)).data);
+  // Net interest is optional too: if table 9 fails, the gross figures above still publish.
+  let netYtd = null, netFull = null;
+  try { netYtd = await getNetInterest(date); } catch (e) { console.warn('net interest (YTD):', e.message); }
+  try { netFull = await getNetInterest(`${fyPrev}-09-30`); } catch (e) { console.warn('net interest (prior FY):', e.message); }
   return {
     date, fyCur, fyPrev,
     revYTDcur: ytd.cur.rev, revYTDpri: ytd.pri.rev, outYTDcur: ytd.cur.out, outYTDpri: ytd.pri.out,
@@ -306,6 +330,13 @@ async function getMtsSummary() {
     cashInterestPriB: ytd.pri.cashInterestB,        // same months of the prior fiscal year (the Section 04 comparison)
     cashInterestFYprevB: full.cur.cashInterestB,    // the completed prior fiscal year
     totalReceiptsFYprevB: full.cur.totalReceiptsB, totalOutlaysFYprevB: full.cur.totalOutlaysB,
+    // Gross-to-net bridge ($B): gross interest (cashInterest*) minus interest credited to the trust
+    // funds (trustFundInterest*) minus other federal interest and investment income (the residual)
+    // equals net interest (netInterest*, MTS table 9, budget function 900).
+    trustFundInterestB: ytd.cur.trustFundInterestB, trustFundInterestPriB: ytd.pri.trustFundInterestB,
+    trustFundInterestFYprevB: full.cur.trustFundInterestB,
+    netInterestB: netYtd ? netYtd.cur : null, netInterestPriB: netYtd ? netYtd.pri : null,
+    netInterestFYprevB: netFull ? netFull.cur : null,
   };
 }
 
@@ -505,7 +536,9 @@ const FRED_SERIES = {
   discount: 'DPCREDIT',     // Primary credit (discount) rate, daily
   rrpvol: 'RRPONTSYD',      // ON RRP take-up volume, daily, $B
   gdp: 'GDP',               // Nominal GDP, quarterly SAAR, $B -- drives the live Debt ÷ GDP ratio
-  debtGdpAnnual: 'GFDGDPA188S', // Gross federal debt as % of GDP, annual -- extends the 1939- chart when a new year posts
+  debtGdpAnnual: 'GFDGDPA188S', // Gross federal debt at fiscal year-end (FYGFD) ÷ calendar-year GDP (GDPA), %, annual -- extends the 1939- chart
+  debtGdpQuarterly: 'GFDEGDQ188S', // Total public debt at quarter-end (GFDEBTN) ÷ that quarter's GDP, %, quarterly -- the U.S. Macro Monitor's figure
+  debtQuarterEnd: 'GFDEBTN',       // Total public debt at quarter-end, $M (Treasury Bulletin via FRED) -- the numerator of GFDEGDQ188S
 };
 
 const fredUrl = (seriesId) => `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${seriesId}`;
@@ -578,8 +611,10 @@ async function main() {
     },
     rrpVolume: results.rrpvol,    // {date, value} — $B, ON RRP take-up
     gdp: results.gdp,             // {date, value} — nominal GDP, $B SAAR; date is the quarter's first day (2026-04-01 = Q2 2026)
-    debtGdpAnnual: results.debtGdpAnnual, // {date, value} — gross federal debt, % of GDP, annual (date = Jan 1 of that year)
-    mts: results.mts,                     // MTS table 3: {date, fyCur, fyPrev, revYTDcur/pri, outYTDcur/pri, revFYprev, outFYprev, cashInterestB, totalReceiptsB, totalOutlaysB} — $B
+    debtGdpAnnual: results.debtGdpAnnual, // {date, value} — gross federal debt at FY-end ÷ calendar-year GDP, %, annual (date = Jan 1 of that year)
+    debtGdpQuarterly: results.debtGdpQuarterly, // {date, value} — FRED GFDEGDQ188S: total public debt at quarter-end ÷ that quarter's GDP, % (date = the quarter's first day)
+    debtQuarterEnd: results.debtQuarterEnd ? { date: results.debtQuarterEnd.date, valueB: Math.round(results.debtQuarterEnd.value) / 1000 } : null, // FRED GFDEBTN, $B (from $M)
+    mts: results.mts,                     // MTS tables 3 and 9: {date, fyCur, fyPrev, revYTDcur/pri, outYTDcur/pri, revFYprev, outFYprev, cashInterestB (gross), trustFundInterestB, netInterestB, totalReceiptsB, totalOutlaysB, ...Pri/FYprev} — $B
     accruedInterest: results.accruedInterest, // {date, fytdT, lineItems} — accrual-basis interest expense, FYTD $T
     holders: results.holders,             // OFS-2 + Debt to the Penny: {asOf, holders[], totalPublicDebtB, foreignYearAgoB, yearAgoEndOfMonth}
     avgMaturity: results.avgMaturity,     // MSPD security-level: {date, months, marketableB, securities, within12moB, within12moPct, schedule{years, valuesB}}

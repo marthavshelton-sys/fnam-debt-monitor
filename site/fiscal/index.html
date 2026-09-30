@@ -391,8 +391,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="en">Total Public Debt, Percent of GDP</span><span class="es" hidden>Deuda pública total, porcentaje del PIB</span></h3>
-      <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span></p>
+      <h3><span class="en">Gross Federal Debt, Percent of GDP</span><span class="es" hidden>Deuda federal bruta, porcentaje del PIB</span></h3>
+      <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span>: gross federal debt at the end of each fiscal year ÷ that calendar year's GDP</span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span>: deuda federal bruta al cierre de cada año fiscal ÷ PIB de ese año calendario</span></p>
       <div class="chart-wrap tall"><canvas id="chartDebtGdpPct"></canvas></div>
       <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repeated from <a href="#gdp">Section 06</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a> — repetida de la <a href="#gdp">Sección 06</a></span></p>
     </div>
@@ -554,12 +554,14 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <div class="stat"><div class="v num" data-bind="avgRateNonmarketable">3.56%</div><div class="l"><span class="en">Avg. rate, non-marketable debt</span><span class="es" hidden>Tasa promedio, deuda no negociable</span></div></div>
         </div>
         <div class="stat-row">
-          <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Accrued interest expense, FY<span data-bind="fyCur">2026</span> YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto de interés devengado, AF<span data-bind="fyCur">2026</span> a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
-          <div class="stat"><div class="v num" data-bind="accruedFYprevT">$1.220T</div><div class="l"><span class="en">Accrued interest expense, full FY<span data-bind="accruedFYprev">2025</span></span><span class="es" hidden>Gasto de interés devengado, AF<span data-bind="accruedFYprev">2025</span> completo</span></div></div>
+          <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Gross interest expense, accrual basis, FY<span data-bind="fyCur">2026</span> YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto bruto por intereses, base devengada, AF<span data-bind="fyCur">2026</span> a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="accruedFYprevT">$1.220T</div><div class="l"><span class="en">Gross interest expense, accrual basis, full FY<span data-bind="accruedFYprev">2025</span></span><span class="es" hidden>Gasto bruto por intereses, base devengada, AF<span data-bind="accruedFYprev">2025</span> completo</span></div></div>
         </div>
+        <p class="cap" id="bridgeCap" style="margin-top:16px"><span class="en">Gross to net interest, cash basis, $ billions · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>, tables 3 and 9</span><span class="es" hidden>Del interés bruto al neto, base de caja, miles de millones de dólares · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>, cuadros 3 y 9</span></p>
+        <div class="tblwrap" id="tblInterestBridge"></div>
         <div class="callout">
-          <span class="en">On a budget (cash-outlay) basis — the figure that counts against the deficit — interest paid on Treasury debt securities (gross, before netting the interest the trust funds receive) was <b data-bind="cashInterestT">$1.170T</b> through the first <span class="fyn-en">10</span> months of FY<span data-bind="fyCur">2026</span>, <span data-bind="cashInterestDirEn">above</span> the <b data-bind="cashInterestPriT">$1.013T</b> paid over the same months of FY<span data-bind="fyPrev">2025</span> (<span data-bind="cashInterestFYprevT">—</span> for the full year), which makes interest the <span data-bind="interestRankEn">third-largest</span> line in the federal budget<span data-bind="interestBehindEn">, behind only Health &amp; Human Services and Social Security</span> (Section 8).</span>
-          <span class="es" hidden>En términos presupuestales (flujo de efectivo) — la cifra que cuenta para el déficit — el interés pagado sobre los valores de deuda del Tesoro (bruto, antes de descontar el interés que reciben los fondos fiduciarios) fue de <b data-bind="cashInterestTEs">$1.170 billones</b> en los primeros <span class="fyn-es">10</span> meses del AF<span data-bind="fyCur">2026</span>, <span data-bind="cashInterestDirEs">por encima de</span> los <b data-bind="cashInterestPriTEs">$1.013 billones</b> pagados en los mismos meses del AF<span data-bind="fyPrev">2025</span> (<span data-bind="cashInterestFYprevTEs">—</span> en el año completo), lo que convierte al interés en la <span data-bind="interestRankEs">tercera partida más grande</span> del presupuesto federal<span data-bind="interestBehindEs">, solo detrás de Salud y Servicios Humanos y el Seguro Social</span> (Sección 8).</span>
+          <span class="en"><b>Gross interest</b> is what Treasury pays on all its securities, including those held by federal trust funds such as Social Security: <b data-bind="cashInterestT">$1.267T</b> in cash through the first <span class="fyn-en">11</span> months of FY<span data-bind="fyCur">2026</span>, <span data-bind="cashInterestDirEn">above</span> the <b data-bind="cashInterestPriT">$1.124T</b> paid over the same months of FY<span data-bind="fyPrev">2025</span> (<span data-bind="cashInterestFYprevT">$1.216T</span> for the full year). That makes gross interest the <span data-bind="interestRankEn">third-largest</span> line in the federal budget by agency<span data-bind="interestBehindEn">, behind only Health &amp; Human Services and Social Security</span> (Section 8). Treasury's accrual-basis figures above are gross too.<span id="netIntNoteEn"></span></span>
+          <span class="es" hidden>El <b>interés bruto</b> es lo que el Tesoro paga sobre todos sus valores, incluidos los que están en manos de fondos fiduciarios federales como el Seguro Social: <b data-bind="cashInterestTEs">$1.267 billones</b> en efectivo en los primeros <span class="fyn-es">11</span> meses del AF<span data-bind="fyCur">2026</span>, <span data-bind="cashInterestDirEs">por encima de</span> los <b data-bind="cashInterestPriTEs">$1.124 billones</b> pagados en los mismos meses del AF<span data-bind="fyPrev">2025</span> (<span data-bind="cashInterestFYprevTEs">$1.216 billones</span> en el año completo). Eso convierte al interés bruto en la <span data-bind="interestRankEs">tercera partida más grande</span> del presupuesto federal por dependencia<span data-bind="interestBehindEs">, solo detrás de Salud y Servicios Humanos y el Seguro Social</span> (Sección 8). Las cifras del Tesoro en base devengada, arriba, también son brutas.<span id="netIntNoteEs"></span></span>
         </div>
       </div>
     </div>
@@ -617,27 +619,29 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <span class="es" hidden>La razón deuda/PIB pone el tamaño de la deuda en el contexto de la capacidad de la economía para sostenerla. Se acercó por última vez al nivel actual en los años inmediatamente posteriores a la Segunda Guerra Mundial, bajó durante las siguientes seis décadas conforme la economía de posguerra creció más rápido que la deuda, y luego se revirtió con fuerza después de la crisis financiera de 2008 y de nuevo en 2020.</span>
     </p>
     <p class="sec-meta">
-      <span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (earliest year with a consistent GDP-based series) · latest quarter (<span data-bind="debtGdpQtrEn">Q2 2026</span>) computed the same way from live Treasury debt ÷ BEA GDP</span>
-      <span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, anual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (primer año con una serie consistente basada en el PIB) · último trimestre (<span data-bind="debtGdpQtrEs">T2 2026</span>) calculado de la misma manera con deuda del Tesoro en vivo ÷ PIB de la BEA</span>
+      <span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (earliest year with a consistent GDP-based series) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Total Public Debt as % of GDP</a>, quarterly · live ratio: Treasury Debt to the Penny ÷ BEA GDP</span>
+      <span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, anual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (primer año con una serie consistente basada en el PIB) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Total Public Debt as % of GDP</a>, trimestral · razón en vivo: Debt to the Penny del Tesoro ÷ PIB de la BEA</span>
     </p>
     <div class="grid-2">
       <div class="card">
-        <h3><span class="en">Total Public Debt, Percent of GDP</span><span class="es" hidden>Deuda pública total, porcentaje del PIB</span></h3>
-        <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span></span></p>
+        <h3><span class="en">Gross Federal Debt, Percent of GDP</span><span class="es" hidden>Deuda federal bruta, porcentaje del PIB</span></h3>
+        <p class="cap"><span class="en">Annual, 1939–<span data-bind="gdpTrendEndYear">2025</span>: gross federal debt at the end of each fiscal year ÷ that calendar year's GDP</span><span class="es" hidden>Anual, 1939–<span data-bind="gdpTrendEndYear">2025</span>: deuda federal bruta al cierre de cada año fiscal ÷ PIB de ese año calendario</span></p>
         <div class="chart-wrap tall"><canvas id="chartGdp"></canvas></div>
         <p class="chart-src"><span class="en">Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a></span><span class="es" hidden>Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a></span></p>
       </div>
       <div class="card">
         <h3><span class="en">Where It Stands</span><span class="es" hidden>Dónde está hoy</span></h3>
         <div class="stat-row">
-          <div class="stat"><div class="v num" data-bind="debtGdpAnnualPct">121.5%</div><div class="l"><span class="en"><span data-bind="debtGdpAnnualYear">2025</span>, latest full year (FRED)</span><span class="es" hidden><span data-bind="debtGdpAnnualYear">2025</span>, último año completo (FRED)</span></div></div>
-          <div class="stat"><div class="v num" data-bind="debtGdpPct">~121–123%</div><div class="l"><span class="en"><span data-bind="debtGdpQtrEn">Q2 2026</span>, latest quarter (live Treasury debt ÷ BEA GDP)</span><span class="es" hidden><span data-bind="debtGdpQtrEs">T2 2026</span>, último trimestre (deuda del Tesoro en vivo ÷ PIB de la BEA)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpPct">123.1%</div><div class="l"><span class="en">Live: debt on <span data-bind="debtAsOfEn">29-Sep-2026</span> ÷ <span data-bind="debtGdpQtrEn">Q2 2026</span> GDP</span><span class="es" hidden>En vivo: deuda al <span data-bind="debtAsOfEs">29 de sep. de 2026</span> ÷ PIB del <span data-bind="debtGdpQtrEs">T2 2026</span></span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpQPct">122.6%</div><div class="l"><span class="en"><span data-bind="debtGdpQQtrEn">Q1 2026</span>, quarter-end debt ÷ that quarter's GDP (FRED; U.S. Macro Monitor)</span><span class="es" hidden><span data-bind="debtGdpQQtrEs">T1 2026</span>, deuda al cierre del trimestre ÷ PIB del trimestre (FRED; Monitor Macro de EE. UU.)</span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpAnnualPct">121.5%</div><div class="l"><span class="en"><span data-bind="debtGdpAnnualYear">2025</span>, annual: gross federal debt at fiscal year-end ÷ GDP (FRED; the chart)</span><span class="es" hidden><span data-bind="debtGdpAnnualYear">2025</span>, anual: deuda federal bruta al cierre del año fiscal ÷ PIB (FRED; la gráfica)</span></div></div>
           <div class="stat"><div class="v num">119.1%</div><div class="l"><span class="en">1946, prior all-time peak</span><span class="es" hidden>1946, máximo histórico previo</span></div></div>
         </div>
         <div class="callout">
-          <span class="en">Debt-to-GDP peaked at <b>119.1%</b> in 1946, paying for World War II, then fell almost every year through the 1970s as the economy grew faster than the debt. It did not return to a comparable level until <b>2020</b> (125.9%), and has stayed above the old 1946 watermark ever since.</span>
-          <span class="es" hidden>La razón deuda/PIB llegó a un máximo de <b>119.1%</b> en 1946, al pagar la Segunda Guerra Mundial, y luego bajó casi cada año hasta la década de 1970 conforme la economía creció más rápido que la deuda. No volvió a un nivel comparable hasta <b>2020</b> (125.9%), y desde entonces se ha mantenido por encima de esa referencia de 1946.</span>
+          <span class="en">On the annual series, debt-to-GDP peaked at <b>119.1%</b> in 1946, paying for World War II, then fell almost every year through the 1970s as the economy grew faster than the debt. It did not return to a comparable level until <b>2020</b> (125.9%), and has stayed above the old 1946 watermark ever since.</span>
+          <span class="es" hidden>En la serie anual, la razón deuda/PIB llegó a un máximo de <b>119.1%</b> en 1946, al pagar la Segunda Guerra Mundial, y luego bajó casi cada año hasta la década de 1970 conforme la economía creció más rápido que la deuda. No volvió a un nivel comparable hasta <b>2020</b> (125.9%), y desde entonces se ha mantenido por encima de esa referencia de 1946.</span>
         </div>
+        <div class="callout"><span class="en" id="debtGdpNoteEn"></span><span class="es" hidden id="debtGdpNoteEs"></span></div>
         <div class="callout">
           <span class="en">For scale: the ratio spent nearly all of 1960–2007 in a 30%–65% range. It has not been below 100% since 2012.</span>
           <span class="es" hidden>Para dar escala: la razón pasó casi todo el periodo 1960–2007 en un rango de 30%–65%. No ha estado por debajo de 100% desde 2012.</span>
@@ -691,8 +695,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <div class="tblwrap"><table id="tblCboProjection"></table></div>
       <p class="chart-src"><span class="en">Source: Congressional Budget Office, <a href="https://www.cbo.gov/publication/61882" data-bind-href="cboUrl" target="_blank" rel="noopener"><span data-bind="cboTitle">The Budget and Economic Outlook: 2026 to 2036</span> ↗</a> (<span data-bind="cboVintageEn">February 2026</span>)</span><span class="es" hidden>Fuente: Oficina de Presupuesto del Congreso (CBO), <a href="https://www.cbo.gov/publication/61882" data-bind-href="cboUrl" target="_blank" rel="noopener"><span data-bind="cboTitle">The Budget and Economic Outlook: 2026 to 2036</span> ↗</a> (<span data-bind="cboVintageEs">febrero de 2026</span>)</span></p>
       <div class="callout">
-        <span class="en"><b>The <span data-bind="cboFirstYear">2026</span> and <span data-bind="cboEndYear">2036</span> columns are CBO's own published figures</b> (its baseline runs through <span data-bind="cboEndYear">2036</span>); the <span data-bind="cboMidYears">2030</span> cells are our straight-line interpolation between them, the "health programs, defense, other" row is what remains of total outlays after Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlay-to-GDP ratio. Italic cells marked ~ are those derived figures: treat them as directional, not precise.</span>
-        <span class="es" hidden><b>Las columnas de <span data-bind="cboFirstYear">2026</span> y <span data-bind="cboEndYear">2036</span> son cifras publicadas por la propia CBO</b> (su panorama base llega hasta <span data-bind="cboEndYear">2036</span>); las celdas de <span data-bind="cboMidYears">2030</span> son nuestra interpolación lineal entre ellas, el renglón "programas de salud, defensa y otros" es lo que queda del gasto total después del Seguro Social y el interés neto, y el PIB nominal es el gasto de la CBO dividido entre su razón gasto/PIB. Las celdas en cursiva marcadas con ~ son esas cifras derivadas: deben tratarse como orientativas, no precisas.</span>
+        <span class="en"><b>The <span data-bind="cboFirstYear">2026</span> and <span data-bind="cboEndYear">2036</span> columns are CBO's own published figures</b> (its baseline runs through <span data-bind="cboEndYear">2036</span>); the <span data-bind="cboMidYears">2030</span> cells are our straight-line interpolation between them, the "health programs, defense, other" row is what remains of total outlays after Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlay-to-GDP ratio. Italic cells marked ~ are those derived figures: treat them as directional, not precise. Net interest is CBO's net measure, comparable with the net line in Section 4, not with Treasury's gross figure.</span>
+        <span class="es" hidden><b>Las columnas de <span data-bind="cboFirstYear">2026</span> y <span data-bind="cboEndYear">2036</span> son cifras publicadas por la propia CBO</b> (su panorama base llega hasta <span data-bind="cboEndYear">2036</span>); las celdas de <span data-bind="cboMidYears">2030</span> son nuestra interpolación lineal entre ellas, el renglón "programas de salud, defensa y otros" es lo que queda del gasto total después del Seguro Social y el interés neto, y el PIB nominal es el gasto de la CBO dividido entre su razón gasto/PIB. Las celdas en cursiva marcadas con ~ son esas cifras derivadas: deben tratarse como orientativas, no precisas. El interés neto es la medida neta de la CBO, comparable con el renglón de interés neto de la Sección 4, no con la cifra bruta del Tesoro.</span>
       </div>
     </div>
   </section>
@@ -764,8 +768,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       <p class="chart-src"><span class="en">Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5 ↗</a></span><span class="es" hidden>Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement, Table 5 ↗</a></span></p>
     </div>
     <div class="callout" style="margin-top:20px">
-      <span class="en">The <b>Treasury</b> total above is mostly interest on Treasury debt securities — <b data-bind="cashInterestT">$1.170T</b> of its <b data-bind="outYtdTreasuryT">$1.407T</b> FY<span data-bind="fyCur">2026</span> year-to-date figure (see Section 4) — with the remainder chiefly IRS-administered refundable tax credits. Social Security and Health &amp; Human Services (which includes Medicare and Medicaid) together are now roughly half of all federal outlays.</span>
-      <span class="es" hidden>El total del <b>Tesoro</b> de arriba es sobre todo interés de los valores de deuda del Tesoro — <b data-bind="cashInterestTEs">$1.170 billones</b> de su cifra de <b data-bind="outYtdTreasuryTEs">$1.407 billones</b> del AF<span data-bind="fyCur">2026</span> a la fecha (ver Sección 4) — y el resto son principalmente créditos fiscales reembolsables administrados por el IRS. El Seguro Social y Salud y Servicios Humanos (que incluye Medicare y Medicaid) juntos son ahora aproximadamente la mitad de todo el gasto federal.</span>
+      <span class="en">The <b>Treasury</b> total above is mostly gross interest on Treasury debt securities — <b data-bind="cashInterestT">$1.170T</b> of its <b data-bind="outYtdTreasuryT">$1.407T</b> FY<span data-bind="fyCur">2026</span> year-to-date figure (see Section 4) — with the remainder chiefly IRS-administered refundable tax credits.<span id="outNetNoteEn"></span> Social Security and Health &amp; Human Services (which includes Medicare and Medicaid) together are now roughly half of all federal outlays.</span>
+      <span class="es" hidden>El total del <b>Tesoro</b> de arriba es sobre todo interés bruto de los valores de deuda del Tesoro — <b data-bind="cashInterestTEs">$1.170 billones</b> de su cifra de <b data-bind="outYtdTreasuryTEs">$1.407 billones</b> del AF<span data-bind="fyCur">2026</span> a la fecha (ver Sección 4) — y el resto son principalmente créditos fiscales reembolsables administrados por el IRS.<span id="outNetNoteEs"></span> El Seguro Social y Salud y Servicios Humanos (que incluye Medicare y Medicaid) juntos son ahora aproximadamente la mitad de todo el gasto federal.</span>
     </div>
     <details class="tbl"><summary><span class="en">View full data table</span><span class="es" hidden>Ver tabla de datos completa</span></summary>
       <div class="tblwrap" id="tblOutlays"></div>
@@ -975,8 +979,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var ES_STR = {
     "Total debt outstanding":"Deuda total pendiente", "as of 08-Sep-2026":"al 8 de sep. de 2026",
     "Held by the public":"En manos del público", "80.8% of total":"80.8% del total",
-    "Debt ÷ GDP":"Deuda ÷ PIB", "GDP ≈ $32.49T (Q2 2026)":"PIB ≈ $32.49 billones (T2 2026)",
-    "FY26 YTD interest cost":"Costo de interés AF26 a la fecha", "10 mo. · ≈4.3% of GDP, ann.":"10 meses · ≈4.3% del PIB, anualizado",
+    "Debt ÷ GDP, live":"Deuda ÷ PIB, en vivo", "Today's debt ÷ Q2 2026 GDP":"Deuda de hoy ÷ PIB T2 2026", "GDP ≈ $32.49T (Q2 2026)":"PIB ≈ $32.49 billones (T2 2026)",
+    "FY26 YTD gross interest":"Interés bruto AF26 a la fecha", "11 mo.":"11 meses",
     "Avg. rate on debt":"Tasa promedio de la deuda", "Aug 2026, up from 1.6% in 2021":"ago. 2026, desde 1.6% en 2021",
     "Debt outstanding":"Deuda pendiente", "08-Sep-2026 (daily)":"8 de sep. de 2026 (diario)",
     "Holders of debt":"Tenedores de deuda", "31-Mar-2026 (quarterly, ~2Q lag)":"31 de mar. de 2026 (trimestral, ~2 trim. de rezago)",
@@ -1001,7 +1005,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     "Corporate income tax":"Impuesto sobre la renta corporativa", "Customs duties":"Derechos de aduana",
     "Excise taxes":"Impuestos especiales", "Estate & gift taxes":"Impuestos sobre herencias y donaciones", "Miscellaneous":"Otros",
     "Social Security Admin.":"Admin. del Seguro Social", "Health & Human Services":"Salud y Servicios Humanos",
-    "Defense — military":"Defensa — militar", "Treasury (incl. interest)":"Tesoro (incl. intereses)",
+    "Defense — military":"Defensa — militar", "Treasury (incl. gross interest)":"Tesoro (incl. interés bruto)",
     "Veterans Affairs":"Asuntos de Veteranos", "All other agencies":"Todas las demás dependencias",
     "FY2026 YTD":"AF2026 a la fecha", "FY2025 YTD":"AF2025 a la fecha",
     "M2 money stock (left axis)":"Oferta monetaria M2 (eje izquierdo)", "Fed total assets (right axis)":"Activos totales de la Fed (eje derecho)",
@@ -1044,9 +1048,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     "Interest Expense on the Debt Outstanding":"Interest Expense on the Debt Outstanding",
     "Monthly accrued interest expense by security type, fiscal year-to-date.":"Gasto de interés devengado mensual por tipo de valor, acumulado del año fiscal.",
     "Monthly Treasury Statement (MTS)":"Monthly Treasury Statement (MTS)",
-    "Official monthly receipts and outlays of the U.S. government, by source and by agency.":"Ingresos y gasto mensual oficial del gobierno de EE. UU., por fuente y por dependencia.",
-    "FRED — Federal Debt as % of GDP":"FRED — Deuda Federal como % del PIB",
-    "Federal Reserve Bank of St. Louis series combining Treasury debt with BEA GDP.":"Serie del Banco de la Reserva Federal de St. Louis que combina la deuda del Tesoro con el PIB de la BEA.",
+    "Official monthly receipts and outlays of the U.S. government: by source and agency, with gross interest and the interest credited to trust funds (table 3), and by budget function, with net interest (table 9).":"Ingresos y gasto mensual oficial del gobierno de EE. UU.: por fuente y por dependencia, con el interés bruto y el interés acreditado a los fondos fiduciarios (cuadro 3), y por función presupuestal, con el interés neto (cuadro 9).",
+    "FRED — Total Public Debt as % of GDP (quarterly)":"FRED — Deuda pública total como % del PIB (trimestral)", "FRED — Gross Federal Debt as % of GDP (annual)":"FRED — Deuda federal bruta como % del PIB (anual)", "Gross federal debt at fiscal year-end (Economic Report of the President) ÷ calendar-year GDP; the Section 6 chart.":"Deuda federal bruta al cierre del año fiscal (Economic Report of the President) ÷ PIB del año calendario; la gráfica de la Sección 6.",
+    "Total public debt at quarter-end (Treasury Bulletin, GFDEBTN) ÷ that quarter's GDP; the figure on the U.S. Macro Monitor.":"Deuda pública total al cierre del trimestre (Treasury Bulletin, GFDEBTN) ÷ PIB del trimestre; la cifra del Monitor Macro de EE. UU.",
     "BEA — Gross Domestic Product":"BEA — Producto Interno Bruto",
     "Nominal (current-dollar) GDP, quarterly, from the Bureau of Economic Analysis.":"PIB nominal (dólares corrientes), trimestral, de la Oficina de Análisis Económico (BEA).",
     "Congressional Budget Office — Monthly Budget Review":"Oficina de Presupuesto del Congreso — Monthly Budget Review",
@@ -1098,8 +1102,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var kpis = [
     {lbl:"Total debt outstanding", val:"$40.08T", delta:"as of 08-Sep-2026"},
     {lbl:"Held by the public", val:"$32.39T", delta:"80.8% of total"},
-    {lbl:"Debt ÷ GDP", val:"~121–123%", delta:"GDP ≈ $32.49T (Q2 2026)"},
-    {lbl:"FY26 YTD interest cost", val:"$1.170T", delta:"10 mo. · ≈4.3% of GDP, ann."},
+    {lbl:"Debt ÷ GDP, live", val:"123.1%", delta:"Today's debt ÷ Q2 2026 GDP"},
+    {lbl:"FY26 YTD gross interest", val:"$1.267T", delta:"11 mo."},
     {lbl:"Avg. rate on debt", val:"3.49%", delta:"Aug 2026, up from 1.6% in 2021"}
   ];
 
@@ -1249,8 +1253,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var revYTDcur = [2368.96,1522.75,292.91,154.47,84.62,34.01,27.71];
   var revYTDpri = [2204.49,1480.32,387.11,135.69,84.93,24.09,30.01];
 
-  var outCats = ["Social Security Admin.","Health & Human Services","Defense — military","Treasury (incl. interest)","Veterans Affairs","All other agencies"];
-  var outCatsWrapped = [["Social Security","Admin."],["Health & Human","Services"],["Defense —","military"],["Treasury","(incl. interest)"],["Veterans Affairs"],["All other","agencies"]];
+  var outCats = ["Social Security Admin.","Health & Human Services","Defense — military","Treasury (incl. gross interest)","Veterans Affairs","All other agencies"];
+  var outCatsWrapped = [["Social Security","Admin."],["Health & Human","Services"],["Defense —","military"],["Treasury","(incl. gross","interest)"],["Veterans Affairs"],["All other","agencies"]];
   var outFY2025 = [1646.52,1884.28,868.41,1458.91,376.59,775.26];
   var outYTDcur = [1444.99,1724.89,764.71,1407.36,360.05,582.24];
   var outYTDpri = [1368.38,1557.01,718.94,1266.66,309.56,754.60];
@@ -1293,10 +1297,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // and figure in that prose stays correct without hand-editing this file again.
   var debtAsOf = "2026-09-08", debtTotalT = 40.08, debtPublicT = 32.39, debtIntragovT = 7.70;
   var rrpAsOf = "2026-09-08", rrpVal = 0.4;
-  // Cash-basis net interest on the debt, FY-to-date $T — no mechanical Treasury API cleanly
-  // maps to this figure (it takes real reconciliation against Treasury's own summary tables),
-  // so it's researched and reassigned by the monthly task (site/monthly-data.js) like CBO/holders,
-  // not the daily script. Baked default below until the first monthly PR adds it.
+  // Cash-basis GROSS interest on Treasury debt securities, FY-to-date $T: MTS table 3's "Interest on
+  // Treasury Debt Securities (Gross)", fetched daily into data.js (the monthly-file overlay below only
+  // applies when data.js has no MTS block). Net interest is the separate netIntB below.
   var cashInterestT = 1.170;
   var accruedInterestT = 1.268, accruedInterestAsOf = "2026-08-31"; // same deferred-to-monthly-task treatment
   // Nominal GDP (FRED "GDP", quarterly SAAR, $B) and FRED's annual gross-debt/GDP series, both
@@ -1304,6 +1307,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // never hand-typed. Baked defaults mirror the last values seen when this was wired up.
   var gdpB = 32486.066, gdpDate = "2026-04-01"; // Q2 2026
   var debtGdpAnnualPct = 121.5, debtGdpAnnualYear = "2025";
+  // FRED's quarterly ratio (GFDEGDQ188S: total public debt at quarter-end ÷ that quarter's GDP, the figure
+  // the U.S. Macro Monitor shows) and its numerator (GFDEBTN, $B). FRED adds a quarter about three months
+  // or more after it ends, so it usually trails the live ratio's GDP quarter by one. Verified baked values.
+  var debtGdpQPct = 122.59387, debtGdpQDate = "2026-01-01", debtQEndB = 39065.421, debtQEndDate = "2026-01-01";
   // FOMC target range: from FRED's DFEDTARU/DFEDTARL (the Board's own series, with the date the
   // current range took effect) when data.js carries it, else inferred from the live ON RRP award
   // rate (the range floor; the range is always 25 bp wide).
@@ -1314,6 +1321,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var milestone = null;                        // {trillions, date}: first close above the latest whole trillion
   var avgRateDate = "2026-08-31", avgRateTotal = 3.49, avgRateMarketable = 3.48, avgRateNonmarketable = 3.56;
   var cashInterestPriT = 1.013, cashInterestFYprevT = null;
+  // Gross-to-net interest bridge, $B, from the same Monthly Treasury Statement as the gross figures:
+  // interest credited to federal trust funds (table 3) and net interest, budget function 900 (table 9).
+  // No baked values: the bridge and every net-interest sentence render only when data.js carries them.
+  var trustIntB = null, trustIntPriB = null, trustIntFYprevB = null, netIntB = null, netIntPriB = null, netIntFYprevB = null;
   var accruedFYprev = 2025, accruedFYprevT = 1.220;
   var within12moPct = null, within12moB = null, scheduleMarketableB = null;
   var compMarketableB = null, compTotalLiveB = null, nmDetail = null;
@@ -1370,8 +1381,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     ["Treasury Bulletin — Ownership of U.S. Treasury Securities","Quarterly estimated ownership of Treasury securities by investor class (OFS-2).","https://fiscaldata.treasury.gov/datasets/treasury-bulletin/"],
     ["Average Interest Rates on U.S. Treasury Securities","Monthly weighted-average interest rate by security type.","https://fiscaldata.treasury.gov/datasets/average-interest-rates-treasury-securities/"],
     ["Interest Expense on the Debt Outstanding","Monthly accrued interest expense by security type, fiscal year-to-date.","https://fiscaldata.treasury.gov/datasets/interest-expense-debt-outstanding/"],
-    ["Monthly Treasury Statement (MTS)","Official monthly receipts and outlays of the U.S. government, by source and by agency.","https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/"],
-    ["FRED — Federal Debt as % of GDP","Federal Reserve Bank of St. Louis series combining Treasury debt with BEA GDP.","https://fred.stlouisfed.org/series/GFDEGDQ188S"],
+    ["Monthly Treasury Statement (MTS)","Official monthly receipts and outlays of the U.S. government: by source and agency, with gross interest and the interest credited to trust funds (table 3), and by budget function, with net interest (table 9).","https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/"],
+    ["FRED — Total Public Debt as % of GDP (quarterly)","Total public debt at quarter-end (Treasury Bulletin, GFDEBTN) ÷ that quarter's GDP; the figure on the U.S. Macro Monitor.","https://fred.stlouisfed.org/series/GFDEGDQ188S"],
+    ["FRED — Gross Federal Debt as % of GDP (annual)","Gross federal debt at fiscal year-end (Economic Report of the President) ÷ calendar-year GDP; the Section 6 chart.","https://fred.stlouisfed.org/series/GFDGDPA188S"],
     ["BEA — Gross Domestic Product","Nominal (current-dollar) GDP, quarterly, from the Bureau of Economic Analysis.","https://www.bea.gov/data/gdp/gross-domestic-product"],
     ["Congressional Budget Office — Monthly Budget Review","Independent monthly cross-check on Treasury-reported receipts, outlays and the deficit.","https://www.cbo.gov/publication/61984"],
     ["Federal Reserve H.4.1 / FRED — Factors Affecting Reserve Balances","Weekly Fed balance sheet: securities held outright, reserves, currency and other factors.","https://www.federalreserve.gov/releases/h41/"],
@@ -1519,6 +1531,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         foreignHoldersAsOf = LD.foreignHolders.date; // "YYYY-MM"
       }
       if(LD.gdp && LD.gdp.value){ gdpB = LD.gdp.value; gdpDate = LD.gdp.date; }
+      if(LD.debtGdpQuarterly && LD.debtGdpQuarterly.value){ debtGdpQPct = LD.debtGdpQuarterly.value; debtGdpQDate = LD.debtGdpQuarterly.date; }
+      if(LD.debtQuarterEnd && LD.debtQuarterEnd.valueB){ debtQEndB = LD.debtQuarterEnd.valueB; debtQEndDate = LD.debtQuarterEnd.date; }
       if(LD.debtGdpAnnual && LD.debtGdpAnnual.value){
         debtGdpAnnualPct = LD.debtGdpAnnual.value;
         debtGdpAnnualYear = String(LD.debtGdpAnnual.date).slice(0,4);
@@ -1545,6 +1559,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         cashInterestT = M.cashInterestB/1000;
         if(M.cashInterestPriB != null) cashInterestPriT = M.cashInterestPriB/1000;
         if(M.cashInterestFYprevB != null) cashInterestFYprevT = M.cashInterestFYprevB/1000;
+        trustIntB = M.trustFundInterestB != null ? M.trustFundInterestB : null; trustIntPriB = M.trustFundInterestPriB != null ? M.trustFundInterestPriB : null;
+        trustIntFYprevB = M.trustFundInterestFYprevB != null ? M.trustFundInterestFYprevB : null;
+        netIntB = M.netInterestB != null ? M.netInterestB : null; netIntPriB = M.netInterestPriB != null ? M.netInterestPriB : null;
+        netIntFYprevB = M.netInterestFYprevB != null ? M.netInterestFYprevB : null;
         liveMts = true;
       }
       if(LD.accruedInterest && LD.accruedInterest.fytdT){
@@ -1725,6 +1743,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // Turns revOutAsOf (e.g. "Aug 31, 2026") into everything the revenue/outlay sections need
   // to say about it, so a monthly data update can never leave a stale "10 mo." or date range
   // behind — every instance below re-derives from this same date every time renderAll() runs.
+  // "2026-01-01" -> "Q1 2026" (es: "T1 2026"); FRED stamps a quarter with its first day.
+  function qLabel(iso, es){ var q = 'Q'+(Math.floor((Number(String(iso).slice(5,7))-1)/3)+1)+' '+String(iso).slice(0,4); return es ? q.replace('Q','T') : q; }
   function fyInfo(dateStr){
     var d = new Date(dateStr);
     var mIdx = d.getMonth(), y = d.getFullYear(); // fiscal year: Oct=month 1 ... Sep=month 12
@@ -1738,7 +1758,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       rangeLongEn:  "Oct '"+yy(fyStartYear)+"–"+enMon[mIdx]+" '"+yy(y),
       rangeLongEs:  "oct. '"+yy(fyStartYear)+"–"+esMon[mIdx]+" '"+yy(y),
       rangeShortEn: "Oct–"+enMon[mIdx],
-      rangeShortEs: "Oct.–"+esMon[mIdx]
+      rangeShortEs: "oct.–"+esMon[mIdx]
     };
   }
   var revOutInfo = fyInfo(revOutAsOf);
@@ -1756,12 +1776,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   if(fedBS) ES_STR[asof[6][1]] = fmtDateEs(fedBS.date)+" (semanal)"; else if(window.LIVE_DATA && window.LIVE_DATA.fed && window.LIVE_DATA.fed.walcl) ES_STR[asof[6][1]] = fmtDateEs(window.LIVE_DATA.fed.walcl.date)+" (semanal)";
   if(ratesAsOf.effr) ES_STR[asof[7][1]] = fmtDateEs(ratesAsOf.effr)+" (diario)";
   kpis[3].val = "$"+cashInterestT.toFixed(3)+sfxT();
-  // Annualized cash interest as a share of the latest-quarter nominal GDP (was a typed-in "≈4.3%").
-  var interestPctGdp = (cashInterestT*12/revOutInfo.months)/(gdpB/1000)*100;
-  kpis[3].lbl = 'FY'+String(fyCur).slice(-2)+' YTD interest cost';
-  ES_STR[kpis[3].lbl] = 'Costo de interés AF'+String(fyCur).slice(-2)+' a la fecha';
-  kpis[3].delta = revOutInfo.months+' mo. · ≈'+interestPctGdp.toFixed(1)+'% of GDP, ann.';
-  ES_STR[kpis[3].delta] = revOutInfo.months+' meses · ≈'+interestPctGdp.toFixed(1)+'% del PIB, anualizado';
+  // Gross interest (MTS table 3) in the headline, net interest (MTS table 9) under it, each named as such.
+  kpis[3].lbl = 'FY'+String(fyCur).slice(-2)+' YTD gross interest';
+  ES_STR[kpis[3].lbl] = 'Interés bruto AF'+String(fyCur).slice(-2)+' a la fecha';
+  kpis[3].delta = netIntB != null ? 'Net $'+(netIntB/1000).toFixed(3)+'T · '+revOutInfo.months+' mo.' : revOutInfo.months+' mo.';
+  ES_STR[kpis[3].delta] = netIntB != null ? 'Neto $'+(netIntB/1000).toFixed(3)+' billones · '+revOutInfo.months+' meses' : revOutInfo.months+' meses';
   // "As of" row + fiscal-year labels, rebuilt from whichever source won above (data.js, or the
   // monthly file as fallback) so the exact-string L() lookup keeps resolving as dates roll forward.
   var revOutIso = isoFromMonDDYYYY(revOutAsOf), holdersIso = isoFromMonDDYYYY(holdersAsOf);
@@ -1808,8 +1827,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var gdpQEs = gdpQ.replace('Q','T');
   var gdpTStr = '$'+(gdpB/1000).toFixed(2)+sfxT();
   kpis[2].val = debtGdpPct.toFixed(1)+'%';
-  kpis[2].delta = 'GDP ≈ '+gdpTStr+' ('+gdpQ+')';
-  ES_STR[kpis[2].delta] = 'PIB ≈ $'+(gdpB/1000).toFixed(2)+' billones ('+gdpQEs+')';
+  // The live ratio (today's debt ÷ the latest quarter's GDP), with FRED's quarterly ratio beside it so the
+  // two figures a reader meets on this page and on the U.S. Macro Monitor are cross-referenced.
+  kpis[2].lbl = 'Debt ÷ GDP, live'; ES_STR[kpis[2].lbl] = 'Deuda ÷ PIB, en vivo';
+  kpis[2].delta = "Today's debt ÷ "+gdpQ+' GDP'+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate)+': '+debtGdpQPct.toFixed(1)+'%' : '');
+  ES_STR[kpis[2].delta] = 'Deuda de hoy ÷ PIB '+gdpQEs+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate, true)+': '+debtGdpQPct.toFixed(1)+'%' : '');
   asof[5][1] = gdpQ+' (BEA GDP, quarterly)';
   ES_STR[asof[5][1]] = gdpQEs+' (PIB de la BEA, trimestral)';
   var targetRangeStr = targetRangeLo.toFixed(2)+'–'+targetRangeHi.toFixed(2)+'%';
@@ -1843,6 +1865,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     caymanValB: '$'+caymanValB.toFixed(0)+sfxB(), caymanValBEs: '$'+caymanValB.toFixed(0)+' mil millones',
     debtGdpPct: debtGdpPct.toFixed(1)+'%', debtGdpQtrEn: gdpQ, debtGdpQtrEs: gdpQEs,
     debtGdpAnnualPct: debtGdpAnnualPct.toFixed(1)+'%', debtGdpAnnualYear: debtGdpAnnualYear,
+    debtGdpQPct: debtGdpQPct != null ? debtGdpQPct.toFixed(1)+'%' : '—', debtGdpQQtrEn: debtGdpQDate ? qLabel(debtGdpQDate) : '—', debtGdpQQtrEs: debtGdpQDate ? qLabel(debtGdpQDate, true) : '—',
     gdpTrendEndYear: gdpTrendEndYear, targetRange: targetRangeStr,
     fedWatchAsOfEn: fmtDateEn(fedWatchAsOf), fedWatchAsOfEs: fmtDateEs(fedWatchAsOf),
     tbacAvgMonths: '~'+tbacAvgMonths, tbacAvgYears: '≈'+(tbacAvgMonths/12).toFixed(1),
@@ -1895,7 +1918,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   BIND.cashInterestFYprevTEs = cashInterestFYprevT != null ? '$'+cashInterestFYprevT.toFixed(3)+' billones' : '—';
   (function(){
     // Rank of cash interest among the outlay lines of Section 08 (Treasury itself excluded, interest is inside it).
-    var others = outCats.map(function(c,i){ return {label:c, value:outYTDcur[i]}; }).filter(function(o){ return o.label !== "Treasury (incl. interest)" && o.label !== "All other agencies"; });
+    var others = outCats.map(function(c,i){ return {label:c, value:outYTDcur[i]}; }).filter(function(o){ return o.label !== "Treasury (incl. gross interest)" && o.label !== "All other agencies"; });
     var above = others.filter(function(o){ return o.value > cashInterestT*1000; }).sort(function(a,b){ return b.value-a.value; });
     var rank = above.length+1;
     var ordEn = ['largest','second-largest','third-largest','fourth-largest','fifth-largest','sixth-largest'];
@@ -2013,6 +2036,60 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var utc = new Date(t), cdmx = new Date(t - 6*3600*1000);
     BIND.generatedAtEn = fmt(utc,false)+' UTC ('+fmt(cdmx,false)+' Mexico City)';
     BIND.generatedAtEs = fmt(utc,true)+' UTC ('+fmt(cdmx,true)+' Ciudad de México)';
+  })();
+  // ---- Composed notes (never hand-typed): the three debt-to-GDP measures, gross vs. net interest ----
+  (function(){
+    var setHtml = function(id, html){ var el = document.getElementById(id); if(el) el.innerHTML = html; };
+    var p1 = function(v){ return v.toFixed(1)+'%'; };
+    var t2En = function(b){ return '$'+(b/1000).toFixed(2)+'T'; }, t2Es = function(b){ return '$'+(b/1000).toFixed(2)+' billones'; };
+    var t3En = function(b){ return '$'+(b/1000).toFixed(3)+'T'; }, t3Es = function(b){ return '$'+(b/1000).toFixed(3)+' billones'; };
+    var macroEn = '<a href="/macro/?view=fiscal">U.S. Macro Monitor</a>', macroEs = '<a href="/macro/?view=fiscal">Monitor Macro de EE. UU.</a>';
+    // Debt-to-GDP: same debt, three timings.
+    var en = '<b>Three measures, three timings.</b> The <b>live</b> figure, <b>'+p1(debtGdpPct)+'</b>, divides today\'s total public debt ('+t2En(debtTotalT*1000)+' on '+fmtDateEn(debtAsOf)+') by the latest quarter\'s GDP ('+t2En(gdpB)+' at an annual rate, '+gdpQ+'), so it moves every day.';
+    var es = '<b>Tres medidas, tres momentos.</b> La cifra <b>en vivo</b>, <b>'+p1(debtGdpPct)+'</b>, divide la deuda pública total de hoy ('+t2Es(debtTotalT*1000)+' al '+fmtDateEs(debtAsOf)+') entre el PIB del último trimestre ('+t2Es(gdpB)+' a tasa anual, '+gdpQEs+'), así que cambia cada día.';
+    if(debtGdpQPct != null && debtGdpQDate){
+      var sameQ = debtQEndB != null && debtQEndDate === debtGdpQDate;
+      en += ' FRED\'s <b>quarterly</b> series, <b>'+p1(debtGdpQPct)+'</b> for '+qLabel(debtGdpQDate)+' and the figure the '+macroEn+' shows, divides total public debt at the end of that quarter'+(sameQ ? ' ('+t2En(debtQEndB)+')' : '')+' by that quarter\'s GDP; FRED adds each quarter three months or more after it ends.';
+      es += ' La serie <b>trimestral</b> de FRED, <b>'+p1(debtGdpQPct)+'</b> para el '+qLabel(debtGdpQDate, true)+' y la cifra que muestra el '+macroEs+', divide la deuda pública total al cierre de ese trimestre'+(sameQ ? ' ('+t2Es(debtQEndB)+')' : '')+' entre el PIB del trimestre; FRED agrega cada trimestre tres meses o más después de su cierre.';
+    }
+    en += ' The <b>annual</b> series behind the chart, <b>'+p1(debtGdpAnnualPct)+'</b> for '+debtGdpAnnualYear+', divides the budget\'s gross federal debt at the end of the fiscal year, slightly below Treasury\'s total public debt, by calendar-year GDP. All three include debt held by federal trust funds; CBO\'s projection below counts only debt held by the public.';
+    es += ' La serie <b>anual</b> de la gráfica, <b>'+p1(debtGdpAnnualPct)+'</b> para '+debtGdpAnnualYear+', divide la deuda federal bruta del presupuesto al cierre del año fiscal, ligeramente menor que la deuda pública total del Tesoro, entre el PIB del año calendario. Las tres incluyen la deuda en manos de los fondos fiduciarios federales; la proyección de la CBO de abajo solo cuenta la deuda en manos del público.';
+    setHtml('debtGdpNoteEn', en); setHtml('debtGdpNoteEs', es);
+    // Interest: net is the budget's measure; gross includes what the government pays its own trust funds.
+    var hasNet = netIntB != null && trustIntB != null;
+    var gB = cashInterestT*1000;
+    if(hasNet){
+      var chg = netIntPriB ? (netIntB/netIntPriB - 1)*100 : null, prem = (gB/netIntB - 1)*100;
+      setHtml('netIntNoteEn', ' <b>Net interest</b>, the figure that counts against the deficit, subtracts what the government pays its own trust funds and its other interest income: <b>'+t3En(netIntB)+'</b> over the same months'+(chg != null ? ', '+Math.abs(chg).toFixed(1)+'% '+(chg >= 0 ? 'more' : 'less')+' than a year earlier' : '')+'. It is the budget\'s measure, the one CBO projects (Section 6) and the '+macroEn+' reports; gross is '+prem.toFixed(1)+'% higher. The table reconciles the two.');
+      setHtml('netIntNoteEs', ' El <b>interés neto</b>, la cifra que cuenta para el déficit, descuenta lo que el gobierno paga a sus propios fondos fiduciarios y sus otros ingresos por intereses: <b>'+t3Es(netIntB)+'</b> en los mismos meses'+(chg != null ? ', '+Math.abs(chg).toFixed(1)+'% '+(chg >= 0 ? 'más' : 'menos')+' que un año antes' : '')+'. Es la medida del presupuesto, la que proyecta la CBO (Sección 6) y reporta el '+macroEs+'; el bruto es '+prem.toFixed(1)+'% mayor. El cuadro concilia ambas cifras.');
+      setHtml('outNetNoteEn', ' Net of what the government pays its own trust funds and its other interest income, interest was <b>'+t3En(netIntB)+'</b> (Section 4).');
+      setHtml('outNetNoteEs', ' Descontado lo que el gobierno paga a sus propios fondos fiduciarios y sus otros ingresos por intereses, el interés fue de <b>'+t3Es(netIntB)+'</b> (Sección 4).');
+    } else {
+      ['netIntNoteEn','netIntNoteEs','outNetNoteEn','outNetNoteEs'].forEach(function(id){ setHtml(id, ''); });
+    }
+    // The bridge table: gross − trust-fund interest − other interest income (residual) = net.
+    var tb = document.getElementById('tblInterestBridge'), cap = document.getElementById('bridgeCap');
+    if(tb){
+      tb.hidden = !hasNet; if(cap) cap.hidden = !hasNet;
+      if(!hasNet){ tb.innerHTML = ''; }
+      else {
+        var isEs = LANG === 'es';
+        var f = function(v){ return v == null ? '—' : (v < 0 ? '−' : '')+Math.abs(v).toLocaleString('en-US', {minimumFractionDigits:1, maximumFractionDigits:1}); };
+        var g = [gB, cashInterestPriT*1000, cashInterestFYprevT != null ? cashInterestFYprevT*1000 : null];
+        var tf = [trustIntB, trustIntPriB, trustIntFYprevB], n = [netIntB, netIntPriB, netIntFYprevB];
+        var neg = function(v){ return v == null ? null : -v; };
+        var oth = g.map(function(x, i){ return (x != null && tf[i] != null && n[i] != null) ? x - tf[i] - n[i] : null; });
+        var rows = [
+          [isEs ? 'Interés bruto sobre los valores de deuda del Tesoro (cuadro 3)' : 'Gross interest on Treasury debt securities (table 3)', g, false],
+          [isEs ? 'Menos: interés acreditado a los fondos fiduciarios federales (cuadro 3)' : 'Less: interest credited to federal trust funds (table 3)', tf.map(neg), false],
+          [isEs ? 'Menos: otros ingresos federales por intereses e inversiones (residual)' : 'Less: other federal interest and investment income (residual)', oth.map(neg), false],
+          [isEs ? 'Interés neto, función presupuestal 900 (cuadro 9)' : 'Net interest, budget function 900 (table 9)', n, true]
+        ];
+        var head = '<thead><tr><th style="text-align:left">'+(isEs ? 'Concepto' : 'Line')+'</th><th>'+(isEs ? 'AF'+fyCur+' a la fecha ('+revOutInfo.rangeShortEs+')' : 'FY'+fyCur+' YTD ('+revOutInfo.rangeShortEn+')')+'</th><th>'+(isEs ? 'AF'+fyPrev+', mismos meses' : 'FY'+fyPrev+', same months')+'</th><th>'+(isEs ? 'AF'+fyPrev+', año completo' : 'FY'+fyPrev+', full year')+'</th></tr></thead>';
+        var body = rows.map(function(r){ return '<tr'+(r[2] ? ' class="total"' : '')+'><td style="text-align:left">'+r[0]+'</td>'+r[1].map(function(v){ return '<td class="num">'+f(v)+'</td>'; }).join('')+'</tr>'; }).join('');
+        tb.innerHTML = '<table>'+head+'<tbody>'+body+'</tbody></table>';
+      }
+    }
   })();
   Object.keys(BIND).forEach(function(k){
     [].forEach.call(document.querySelectorAll('[data-bind="'+k+'"]'), function(el){ el.textContent = BIND[k]; });

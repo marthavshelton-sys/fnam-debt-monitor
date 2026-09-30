@@ -77,6 +77,7 @@ const POINTS = [
   ['Real GDP growth (BEA)', 'macroActuals.realGdpGrowth.date', 'quarter', 135, 'BEA via FRED, quarterly, four weeks after quarter-end'],
   ['Ownership of Treasury securities (OFS-2)', 'holders.asOf', 'obs', 290, 'Treasury Bulletin, quarterly, fully reported about two quarters after quarter-end'],
   ['Gross federal debt, % of GDP (annual)', 'debtGdpAnnual.date', 'year', 470, 'FRED GFDGDPA188S, annual, the next year posts in the first quarter'],
+  ['Total public debt, % of GDP (quarterly)', 'debtGdpQuarterly.date', 'quarter', 200, 'FRED GFDEGDQ188S, quarterly, once Treasury\'s quarter-end debt and BEA GDP are out (about three months after quarter-end)'],
   ['CME FedWatch snapshot', 'fedWatch.asOf', 'obs', 14, 'monthly-data.js (research routine), refreshed Mondays, Wednesdays and Fridays', MD],
   ['CBO baseline (publication date)', 'cboPublished', 'obs', 420, 'monthly-data.js (research routine); CBO publishes a new baseline each January or February', MD],
 ];
@@ -144,6 +145,17 @@ if (dc && dc.total != null) {
   if (Math.abs(gap) > dc.total * 0.005) problems.push(`MSPD classes sum to $${sum.toFixed(0)}B but Treasury's total is $${dc.total.toFixed(0)}B (${dc.date})`);
 }
 const m = LD.mts;
+// Gross vs. net interest: the page reconciles them (gross − trust-fund interest − other interest income = net).
+if (m && m.cashInterestB != null) {
+  if (m.netInterestB == null) problems.push(`MTS table 9 net interest is missing for ${m.date} (the page hides the gross-to-net bridge)`);
+  if (m.trustFundInterestB == null) problems.push(`MTS table 3 interest credited to trust funds is missing for ${m.date} (the page hides the gross-to-net bridge)`);
+  if (m.netInterestB != null && m.trustFundInterestB != null) {
+    const other = m.cashInterestB - m.trustFundInterestB - m.netInterestB;
+    if (m.netInterestB > m.cashInterestB) problems.push(`Net interest $${m.netInterestB}B exceeds gross interest $${m.cashInterestB}B (${m.date})`);
+    if (m.trustFundInterestB < 0) problems.push(`Interest credited to trust funds is negative ($${m.trustFundInterestB}B, ${m.date})`);
+    if (Math.abs(other) > 0.1 * m.cashInterestB) problems.push(`Gross $${m.cashInterestB}B − trust funds $${m.trustFundInterestB}B − net $${m.netInterestB}B leaves $${other.toFixed(1)}B of other interest income, more than 10% of gross (${m.date}): check the MTS lines`);
+  }
+}
 if (m && Array.isArray(m.revYTDcur) && m.totalReceiptsB != null) {
   const s = m.revYTDcur.reduce((a, b) => a + b, 0);
   if (!near(s, m.totalReceiptsB, 1)) problems.push(`MTS receipt categories sum to $${s.toFixed(2)}B but total receipts are $${m.totalReceiptsB.toFixed(2)}B (${m.date})`);
