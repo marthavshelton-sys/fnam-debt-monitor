@@ -14,5 +14,5 @@
     "note": "The reviewing routine emails only when a threshold is crossed or a new quarter, monthly table, guidance vintage or reference event lands (see tools/gentera/README.md)."
   },
   "note": "Updated by the Gentera reviewing routine on every weekday run (lastCheckedAt) and when it notifies (see tools/gentera/README.md).",
-  "lastCheckedAt": "2026-09-29"
+  "lastCheckedAt": "2026-09-30"
 }
