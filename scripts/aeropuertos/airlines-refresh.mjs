@@ -7,7 +7,8 @@
 //   Airlines  Aeromexico, Volaris and Viva monthly traffic reports (passengers, ASMs, RPMs, load factor): Volaris publishes a
 //             history workbook, Viva monthly PDFs (parsed by tools/aeropuertos/parse_airline_pdfs.py), Aeromexico monthly PDFs
 //             on an IR site that only answers real browsers (fetched from inside a Chrome/Chromium page when possible).
-//   Networks  each carrier's own route feed (Volaris, Viva stations feeds). Aeromexico publishes no route list, so its routes
+//   Networks  each carrier's own route feed (Volaris, Viva stations feeds; Mexicana's AIFA pairs from its reservation system and
+//             destinations page). Aeromexico publishes no route list, so its routes
 //             to and from the US come from the US DOT's T-100 International Segment data (BTS TranStats, official, carrier-level
 //             nonstop segments flown); its domestic and other international routes are not drawn. No other source is used.
 // Every raw input is cached in tools/aeropuertos/raw/airlines; a source that cannot be read today keeps yesterday's input, so a
@@ -158,7 +159,7 @@ async function refreshAeromexico() {
 // Only route lists the airline itself publishes (Volaris' and Viva's stations feeds) are used. Wikipedia is not a
 // credible source, and AFAC's origin-destination file has no airline column, so carriers without an official feed
 // have no network on the page. Anything else left in the cache from earlier runs is dropped here.
-const nets = Object.fromEntries(Object.entries(readJson(path.join(RAW, 'networks.json'), {})).filter(([, n]) => n && n.kind === 'routes' && (/stations feed/i.test(n.source || '') || n.basis === 't100')));
+const nets = Object.fromEntries(Object.entries(readJson(path.join(RAW, 'networks.json'), {})).filter(([, n]) => n && n.kind === 'routes' && (/stations feed/i.test(n.source || '') || n.basis === 't100' || n.basis === 'hub')));
 const T100_URL = 'https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FJE&QO_fu146_anzr=Nv4%20Pn44vr45';
 const T100_FIELDS = ['YEAR', 'MONTH', 'UNIQUE_CARRIER', 'ORIGIN', 'ORIGIN_COUNTRY', 'DEST', 'DEST_COUNTRY', 'DEPARTURES_PERFORMED', 'PASSENGERS', 'CLASS'];
 const MONTHS_EN = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
@@ -194,11 +195,36 @@ async function fetchT100() {
   } finally { await browser.close(); }
 }
 
+// Mexicana publishes its destinations (mexicana.gob.mx/destinos) and sells from AIFA, its only base; its reservation system
+// (TTInteractive, loaded by mexicana.gob.mx) lists every bookable city pair, connections included. Its routes are the AIFA
+// pairs of that list whose other end is a published destination. The airline does not mark flights as nonstop.
+const MXA_SLUGS = { acapulco: 'ACA', bajio: 'BJX', campeche: 'CPE', chetumal: 'CTM', chihuahua: 'CUU', cdVictoria: 'CVM', guadalajara: 'GDL', hermosillo: 'HMO', ixtepec: 'IZT', mazatlan: 'MZT', merida: 'MID', monterrey: 'MTY', palenque: 'PQM', puertoVallarta: 'PVR', santaLucia: 'NLU', tijuana: 'TIJ', tulum: 'TQO', tuxtla: 'TGZ', losCabos: 'SJD', zihuatanejo: 'ZIH', zacatecas: 'ZCL', uruapan: 'UPN', veracruz: 'VER', villahermosa: 'VSA', nuevoLaredo: 'NLD', cancun: 'CUN', oaxaca: 'OAX', queretaro: 'QRO' };
+async function fetchMexicana() {
+  const { browser, label } = await siteBrowser();
+  try {
+    const page = await (await browser.newContext({ locale: 'es-MX' })).newPage();
+    let pairs = null;
+    page.on('response', async (r) => { if (/BookingEngine\/getCitypairs/i.test(r.url()) && r.status() === 200) { try { pairs = await r.json(); } catch { /* not JSON */ } } });
+    await page.goto('https://mexicana.gob.mx/', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(12000);
+    if (!Array.isArray(pairs) || pairs.length < 20) throw new Error(`reservation city pairs not read (${pairs ? pairs.length : 'none'})`);
+    await page.goto('https://mexicana.gob.mx/destinos', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(8000);
+    const slugs = [...new Set(await page.$$eval('a[href*="/destino/"]', (a) => a.map((x) => decodeURIComponent(x.getAttribute('href').split('/destino/')[1] || '').replace(/[/?#].*$/, ''))))].filter(Boolean);
+    const unknown = slugs.filter((x) => !MXA_SLUGS[x]); const dest = new Set(slugs.map((x) => MXA_SLUGS[x]).filter(Boolean));
+    if (dest.size < 10) throw new Error(`destinations page: only ${dest.size} destinations read`);
+    const routes = new Set(), sold = new Set();
+    for (const p of pairs) { const a = p.DepartureAirportCode, b = p.ArrivalAirportCode; if (!a || !b) continue; sold.add([a, b].sort().join('-')); if ((a === 'NLU' && dest.has(b)) || (b === 'NLU' && dest.has(a))) routes.add([a, b].sort().join('-')); }
+    const airports = Object.fromEntries([...dest].map((c) => [c, { cc: 'MX' }]));
+    return { net: { kind: 'routes', basis: 'hub', source: 'mexicana.gob.mx (destinations page + reservation system, AIFA pairs)', hubs: ['NLU'], airports, routes: [...routes].map((k) => k.split('-')) }, info: { browser: label, pairs: pairs.length, cityPairs: sold.size, destinations: dest.size, unknownSlugs: unknown, routes: routes.size, destWithoutAifaPair: [...dest].filter((c) => c !== 'NLU' && !routes.has(['NLU', c].sort().join('-'))) } };
+  } finally { await browser.close(); }
+}
+
 async function refreshNetworks() {
   // Volaris: stations feed (plain fetch works)
   try { const j = JSON.parse((await get('https://webapi.volaris.com/ps/api/v1/stations/culture/es-MX', 'application/json')).buf.toString('utf8')); const n = parseVolarisStations(j); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VOI = { ...n, asOf: today }; note('net-volaris', 'ok', { routes: n.routes.length, hubs: n.hubs }); } catch (e) { note('net-volaris', nets.VOI ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
   // Viva: stations API from inside its own site (the last good feed is kept if it fails)
   try { const { browser, label } = await siteBrowser(); try { const page = await (await browser.newContext({ locale: 'es-MX' })).newPage(); await page.goto('https://www.vivaaerobus.com/es-mx/', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(7000); const txt = await inPage(page, 'https://api.vivaaerobus.com/web/vb/v1/resources/stations?StationTypes=Airport'); const n = parseVivaStations(JSON.parse(txt)); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VIV = { ...n, asOf: today }; note('net-viva', 'ok', { browser: label, routes: n.routes.length }); } finally { await browser.close(); } } catch (e) { note('net-viva', nets.VIV ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
+  // Mexicana: reservation system + destinations page on mexicana.gob.mx (the last good network is kept if it fails)
+  try { const { net, info } = await fetchMexicana(); if (net.routes.length < 5) throw new Error(`only ${net.routes.length} routes`); nets.MXA = { ...net, asOf: today }; note('net-mexicana', 'ok', info); } catch (e) { note('net-mexicana', nets.MXA ? 'kept' : 'missing', { error: e.message.split('\n')[0].slice(0, 160) }); }
   // Aeromexico and Aeromexico Connect: US DOT T-100 International Segment (all carriers), filtered to Mexico, downloaded from
   // BTS TranStats' form; the carrier rows are cached in raw/airlines/t100-am.json and a failed day keeps the cached rows.
   const T100 = path.join(RAW, 't100-am.json'); let t100 = readJson(T100, null);
