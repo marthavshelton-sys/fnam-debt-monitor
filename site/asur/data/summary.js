@@ -1,7 +1,7 @@
 // Executive summary shown at the top of the page. Rewritten when results, traffic or an event land;
 // each bullet cites its source period. Basis periods drive the "as of" line.
 window.ASUR_SUMMARY = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-09-30",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-23", trafficMonth: "2026-08", guidanceDate: null },
   sections: [
     { k: "ops", title: { es: "Operación", en: "Operations" },
@@ -28,12 +28,12 @@ window.ASUR_SUMMARY = {
       ] },
     { k: "debt", title: { es: "Deuda y dividendos", en: "Debt and dividends" },
       es: [
-        "Al 30-jun-2026: deuda total Ps. 26,780 M, efectivo Ps. 11,641 M, deuda neta Ps. 15,138 M = 0.9× EBITDA UDM (0.1× un año antes). Préstamos en pesos: BBVA Ps. 9,500 M (2027), JPMorgan Ps. 6,390 M (2027), BBVA Ps. 1,750 M (2029), Santander Ps. 675 M (2027); bonos de Aerostar US$486 M (2035). El crédito de Motiva se suma en el 3T26.",
+        "Al 30-jun-2026: deuda total Ps. 26,780 M, efectivo Ps. 11,641 M, deuda neta Ps. 15,138 M = 0.9× EBITDA UDM (0.1× un año antes). Préstamos en pesos: BBVA Ps. 9,500 M (2027), JPMorgan Ps. 6,390 M (2027), BBVA Ps. 1,750 M (2029), Santander Ps. 675 M (2027); bonos de Aerostar US$486 M (2035). El crédito de US$936.0 M de JPMorgan para Motiva se suma en el 3T26; deuda neta / EBITDA pro forma con CPC ≈2.2× (cálculo propio con cifras de CPC a sep-2025, no de ASUR).",
         "Gasto por intereses +66.8% en el 2T26 por los préstamos de 2025; pérdida cambiaria −78% (Ps. 252 M) con el peso más estable.",
         "Dividendos 2026: Ps. 10.00 ordinario pagado en mayo y dos extraordinarios de Ps. 10.00 (24-nov y 15-dic) con cargo a la reserva de recompra; en 2025 se pagaron Ps. 80 por acción (Ps. 24,000 M)."
       ],
       en: [
-        "At 30-Jun-2026: total debt Ps. 26,780 M, cash Ps. 11,641 M, net debt Ps. 15,138 M = 0.9× LTM EBITDA (0.1× a year earlier). Peso loans: BBVA Ps. 9,500 M (2027), JPMorgan Ps. 6,390 M (2027), BBVA Ps. 1,750 M (2029), Santander Ps. 675 M (2027); Aerostar bonds US$486 M (2035). The Motiva loan is added in 3Q26.",
+        "At 30-Jun-2026: total debt Ps. 26,780 M, cash Ps. 11,641 M, net debt Ps. 15,138 M = 0.9× LTM EBITDA (0.1× a year earlier). Peso loans: BBVA Ps. 9,500 M (2027), JPMorgan Ps. 6,390 M (2027), BBVA Ps. 1,750 M (2029), Santander Ps. 675 M (2027); Aerostar bonds US$486 M (2035). The US$936.0 M JPMorgan loan for Motiva is added in 3Q26; pro-forma net debt / EBITDA with CPC ≈2.2× (analyst calculation on CPC's Sep-2025 figures, not an ASUR figure).",
         "Interest expense +66.8% in 2Q26 on the 2025 loans; FX loss −78% (Ps. 252 M) with a steadier peso.",
         "2026 dividends: Ps. 10.00 ordinary paid in May and two extraordinary Ps. 10.00 payments (24-Nov and 15-Dec) from the buyback reserve; 2025 paid Ps. 80 per share (Ps. 24,000 M)."
       ] },
