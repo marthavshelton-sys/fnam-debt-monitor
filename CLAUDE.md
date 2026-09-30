@@ -56,7 +56,8 @@ dashboards, everything built from public data by GitHub Actions.
   all three groups; a figure computed from a filing is listed in the cell's `calc`. To confirm the pages' source links
   and the table's figures, dispatch `aeropuertos-refresh.yml` with `verify_links` (browser check on the runner, no commit).
   Airline route networks come only from lists the airline itself publishes (Volaris, Viva); never Wikipedia. Aeroméxico
-  publishes none, so only its US routes are drawn, from the US DOT's T-100 (official, carrier-level); see the runbook.
+  publishes none, so only its US routes are drawn, from the US DOT's T-100 (official, carrier-level). Mexicana: AIFA pairs of
+  its own reservation system limited to the destinations its site publishes. See the runbook.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 

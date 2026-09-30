@@ -116,8 +116,15 @@ from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
 ## Sources and page integrity (30-Sep-2026)
 
 - **Airline networks**: route lists the airline itself publishes (Volaris and Viva stations feeds). Wikipedia is not an
-  acceptable source, and AFAC's origin-destination file (`sase-*.xlsx`) has no airline column. Mexicana, TAR, Aerus and
+  acceptable source, and AFAC's origin-destination file (`sase-*.xlsx`) has no airline column. TAR, Aerus and
   Magnicharters have no network on the map; their passengers and market share still come from AFAC.
+- **Mexicana (30-Sep-2026)**: mexicana.gob.mx publishes its destinations (`/destinos`, one `/destino/<slug>` link each;
+  slugs mapped to IATA in `MXA_SLUGS` in `airlines-refresh.mjs`, an unknown slug is logged in `status.json`) and loads its
+  reservation system's city pairs (TTInteractive `BookingEngine/getCitypairs`: 418 one-way pairs, connections included,
+  e.g. Zacatecas to every city). Mexicana flies from one base, AIFA (NLU), so its routes are the NLU pairs of that list whose
+  other end is a published destination (`basis: 'hub'`); the page says the airline does not mark flights as nonstop. First
+  run: 20 destinations (AIFA + 19), 19 routes, every one present in AFAC's corridor file with scheduled traffic in the
+  last 12 months; Zacatecas is sold but not on the destinations page, so it is not drawn.
   `airlines-refresh.mjs` drops anything else from `raw/airlines/networks.json` on load. To add a carrier, find a route list
   on its own site that the runner can read, write a parser next to `parseVolarisStations`, and keep the `kind: 'routes'` /
   "stations feed" source convention.
