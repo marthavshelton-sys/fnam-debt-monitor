@@ -19,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" defer></script>
+<!-- Chart.js 4.4.0 served from this site (npm package, registry integrity sha512-vQEj6d…Q1hQ==) and pinned by hash. -->
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous" defer></script>
 <script src="/aeropuertos/data/traffic.js" defer></script>
 <script src="/aeropuertos/data/status.js" defer></script>
 
@@ -183,6 +184,8 @@ main{flex:1; padding-top:12px;}
 .chart-box{position:relative; height:430px;}
 .chart-box.sm{height:320px;}
 .chart-box .msg{position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); font-size:14px; text-align:center; padding:20px;}
+/* a hidden message must not sit over the canvas: `display:grid` above would otherwise override [hidden] and swallow hover and legend clicks */
+.chart-box .msg[hidden]{display:none;}
 @media (max-width:760px){ .chart-box{height:330px;} .chart-box.sm{height:260px;} }
 .only-sm{display:none;} @media (max-width:640px){ .only-sm{display:inline;} }
 
@@ -266,8 +269,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         <span class="es">Tráfico Aéreo de México por Aeropuerto</span>
       </h1>
       <p class="sub">
-        <span class="en">Passengers, aircraft operations and cargo across the country's commercial airports, as reported to the civil aviation authority (AFAC) since 2006 — consolidated, by operator and by airport. Pick the operators you want to see, change the view, and follow Mexico City's AICM and the new AIFA on their own monthly figures.</span>
-        <span class="es">Pasajeros, operaciones y carga de los aeropuertos comerciales del país, según lo reportado a la autoridad de aviación civil (AFAC) desde 2006 — consolidado, por operador y por aeropuerto. Elige los operadores que quieres ver, cambia la vista y sigue al AICM de la Ciudad de México y al nuevo AIFA con sus propias cifras mensuales.</span>
+        <span class="en">Passengers, aircraft operations and cargo across the country's commercial airports, as reported to the civil aviation authority (AFAC) since 2006 — consolidated, by operator and by airport. Pick the operators you want to see, change the view, and follow Mexico City's AICM and the AIFA (Felipe Ángeles, opened in March 2022) on their own monthly figures.</span>
+        <span class="es">Pasajeros, operaciones y carga de los aeropuertos comerciales del país, según lo reportado a la autoridad de aviación civil (AFAC) desde 2006 — consolidado, por operador y por aeropuerto. Elige los operadores que quieres ver, cambia la vista y sigue al AICM de la Ciudad de México y al AIFA (Felipe Ángeles, abierto en marzo de 2022) con sus propias cifras mensuales.</span>
       </p>
     </div>
   </section>
@@ -503,7 +506,8 @@ window.addEventListener("DOMContentLoaded", function(){
   function fmtN(n){ if (n == null || !isFinite(n)) return "—"; var a = Math.abs(n); return a >= 1e6 ? fmtM(n) : (a >= 1e4 ? nf(n / 1e3, 0) + " k" : nf(n, a < 100 ? 1 : 0)); }
   function fmtT(n){ if (n == null || !isFinite(n)) return "—"; return Math.abs(n) >= 1e6 ? nf(n / 1e6, 2) + " Mt" : (Math.abs(n) >= 1e4 ? nf(n / 1e3, 1) + " kt" : nf(n, 0) + " t"); }
   function fmtBy(measure, n){ return measure === "cargo" ? fmtT(n) : fmtN(n); }
-  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; return (x > 0 ? "+" : (x < 0 ? "−" : "")) + nf(Math.abs(x) * 100, d == null ? 1 : d) + "%"; }
+  // the sign follows the rounded value, so a change that rounds to zero prints "0.0%", never "−0.0%"
+  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; var dd = d == null ? 1 : d, r = Math.round(Math.abs(x) * 100 * Math.pow(10, dd)); return (r === 0 ? "" : (x > 0 ? "+" : "−")) + nf(Math.abs(x) * 100, dd) + "%"; }
   function cls(x){ return x == null || !isFinite(x) ? "" : (x >= 0 ? "up" : "dn"); }
   function monthLabel(ym, longM){ var p = ym.split("-"); var dt = new Date(+p[0], +p[1] - 1, 1); return dt.toLocaleDateString(es() ? "es-MX" : "en-US", {month:longM ? "long" : "short", year:"numeric"}).replace(".", ""); }
   function monName(m){ var dt = new Date(2026, m - 1, 1); return dt.toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short"}).replace(".", ""); }
@@ -522,8 +526,8 @@ window.addEventListener("DOMContentLoaded", function(){
   var OPDEF = {
     "ASA": {es:"Aeropuertos y Servicios Auxiliares, organismo federal de la SICT (Secretaría de Infraestructura, Comunicaciones y Transportes)", en:"Aeropuertos y Servicios Auxiliares, the federal airport agency under SICT (Ministry of Infrastructure, Communications and Transportation)"},
     "GACM": {es:"Grupo Aeroportuario de la Ciudad de México, empresa de la Secretaría de Marina; el 30 de junio de 2025 se fusionó en el AICM, que opera sus aeropuertos como Grupo Aeroportuario Marina", en:"Grupo Aeroportuario de la Ciudad de México, the Navy's airport company; merged into AICM on June 30, 2025, which now runs its airports as Grupo Aeroportuario Marina"},
-    "GAFSACOMM": {es:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, empresa de la Secretaría de la Defensa Nacional", en:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, a company of the Defense Ministry (SEDENA)"},
-    "GATM": {es:"Grupo Aeroportuario Turístico Mexicano, empresa de participación estatal mayoritaria del sector de la SICT (el Gobierno Federal, por medio de la SICT y ASA, tiene al menos el 51%), con Mota-Engil Aeropuertos como socio", en:"Grupo Aeroportuario Turístico Mexicano, a majority state-owned company in the SICT sector (the federal government holds at least 51%, through SICT and ASA), with Mota-Engil Aeropuertos as partner"},
+    "GAFSACOMM": {es:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, empresa de participación estatal mayoritaria del sector de la Secretaría de la Defensa Nacional (la Sedena aportó el 99% del capital inicial)", en:"Grupo Aeroportuario, Ferroviario, de Servicios Auxiliares y Conexos Olmeca-Maya-Mexica, a majority state-owned company in the Defense Ministry (SEDENA) sector (SEDENA contributed 99% of the initial capital)"},
+    "GATM": {es:"Grupo Aeroportuario Turístico Mexicano, empresa de participación estatal mayoritaria del sector de la SICT (ASA aportó el 99% del capital inicial como accionista mayoritario); en Tepic obra en coinversión con Mota-Engil", en:"Grupo Aeroportuario Turístico Mexicano, a majority state-owned company in the SICT sector (ASA contributed 99% of the initial capital as majority shareholder); at Tepic it builds under a co-investment contract with Mota-Engil"},
     "SOCIEDADES/PARTNERSHIPS": {es:"etiqueta de la AFAC para aeropuertos operados por sociedades con participación de gobiernos estatales y otros socios", en:"AFAC's label for airports run by companies with state-government and other partners"},
     "PRIVADOS/PRIVATE": {es:"operadores privados", en:"private operators"}
   };
@@ -633,6 +637,15 @@ window.addEventListener("DOMContentLoaded", function(){
   function isoDay(iso){ var p = iso.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]); }
   // every item reads "datos de <mes>, esperados …" so the participle always agrees with "datos"
   function dueText(d){ var today = new Date(); today.setHours(0,0,0,0); var late = d < today; return '<span class="' + (late ? "late" : "") + '">' + (late ? T("esperados desde el ", "expected since ") : T("esperados hacia el ", "expected around ")) + fmtDay(d) + (late ? T(" (pendientes)", " (pending)") : "") + "</span>"; }
+  // "Updates" definition, composed from the source dates: AFAC's publication date comes from its file name; for AICM only
+  // the day our daily check first saw the PDF is known, so it is labelled as such.
+  function updText(){
+    var s = D.sources || {}, day = function(iso){ var d = iso ? new Date(iso + "T12:00:00Z") : null; return d && !isNaN(d) ? d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"long", year:"numeric", timeZone:"America/Mexico_City"}) : null; };
+    var parts = [];
+    if (s.afac && s.afac.published) parts.push(T("La AFAC publicó " + monthLabel(months[last], true) + " el " + day(s.afac.published), "AFAC published " + monthLabel(months[last], true) + " on " + day(s.afac.published)));
+    if (s.aicm && s.aicm.updated && s.aicm.lastMonth) parts.push(T("el PDF del AICM con " + monthLabel(s.aicm.lastMonth, true) + " se detectó el " + day(s.aicm.updated), "AICM's PDF with " + monthLabel(s.aicm.lastMonth, true) + " was first seen on " + day(s.aicm.updated)));
+    return (parts.length ? parts.join(T("; ", "; ")) + ". " : "") + T("Ambas fuentes se revisan cada día y los datos de esta página se regeneran cuando cambian.", "Both sources are checked every day and this page's data is regenerated when they change.");
+  }
   function renderNextRelease(){
     var el = document.getElementById("next-release"); if (!el) return;
     var parts = [];
@@ -918,7 +931,7 @@ window.addEventListener("DOMContentLoaded", function(){
     if (s.aicm) li.push("<li>" + a(s.aicm.url, T("AICM — «AICM en Cifras»", "AICM — “AICM en Cifras”")) + " (" + T("PDF mensual de " + mesLargo(aicmLast) + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", detectado el ", mesLargo(aicmLast) + " monthly PDF" + (s.aicm.file ? " (" + esc(s.aicm.file) + ")" : "") + ", first seen ") + day(s.aicm.updated) + T(", y ediciones de cierre de año, que traen también el año anterior; serie mensual de " + mesLargo(aicmFirst) + " a " + mesLargo(aicmLast), ", and the year-end editions, which also carry the year before; monthly series from " + mesLargo(aicmFirst) + " to " + mesLargo(aicmLast)) + "). " + T("Pasajeros comerciales, operaciones y carga, nacional e internacional.", "Commercial passengers, operations and cargo, domestic and international.") + "</li>");
     if (s.aifa) li.push("<li>" + a(s.aifa.url, T("AIFA — numeralia de su sitio", "AIFA — counters on its website")) + ": " + T("acumulado de operaciones, pasajeros y toneladas desde la apertura, al ", "cumulative operations, passengers and tons since opening, as of ") + day(D.aifa && D.aifa.asOf) + ".</li>");
     li.push("<li>" + T("Reportes mensuales de tráfico de GAP, OMA y ASUR (base «Reportes de las empresas»), tomados de los modelos de cada grupo en este sitio.", "GAP, OMA and ASUR monthly traffic reports (the “Company reports” basis), taken from each group's model on this site.") + "</li>");
-    li.push("<li>" + T("Operadores: clasificación de la AFAC por año. Fusión del GACM en el AICM (Grupo Aeroportuario Marina): ", "Operators: AFAC's classification by year. GACM's merger into AICM (Grupo Aeroportuario Marina): ") + a("https://www.aicm.com.mx/concluye-proceso-de-fusion-para-el-surgimiento-de-grupo-aeroportuario-marina/30-06-2025", T("comunicado del AICM, 30 de junio de 2025", "AICM release, June 30, 2025")) + T(". GAFSACOMM (Sedena) y GATM (SICT): Cuenta Pública 2024, SHCP — ", ". GAFSACOMM (SEDENA) and GATM (SICT): 2024 Public Accounts, Finance Ministry (SHCP) — ") + a("https://www.cuentapublica.hacienda.gob.mx/work/models/CP/2024/tomo/VII/MAT_Print.7H0C.01.INTRO.pdf", "GAFSACOMM") + ", " + a("https://www.cuentapublica.hacienda.gob.mx/work/models/CP/2024/tomo/VII/MAT_Print.9KDI.02.NEF.pdf", "GATM") + ".</li>");
+    li.push("<li>" + T("Operadores: clasificación de la AFAC por año. Fusión del GACM en el AICM (Grupo Aeroportuario Marina): ", "Operators: AFAC's classification by year. GACM's merger into AICM (Grupo Aeroportuario Marina): ") + a("https://www.aicm.com.mx/concluye-proceso-de-fusion-para-el-surgimiento-de-grupo-aeroportuario-marina/30-06-2025", T("comunicado del AICM, 30 de junio de 2025", "AICM release, June 30, 2025")) + T(". GAFSACOMM (Sedena) y GATM (SICT): resoluciones de constitución en el Diario Oficial de la Federación — ", ". GAFSACOMM (SEDENA) and GATM (SICT): incorporation resolutions in the Official Gazette (DOF) — ") + a("https://www.diariooficial.gob.mx/nota_detalle.php?codigo=5649068&fecha=13/04/2022", T("GAFSACOMM, DOF 13-abr-2022", "GAFSACOMM, DOF Apr 13, 2022")) + ", " + a("https://www.diariooficial.gob.mx/nota_detalle.php?codigo=5664492&fecha=15/09/2022", T("GATM, DOF 15-sep-2022", "GATM, DOF Sep 15, 2022")) + T("; coinversión con Mota-Engil: ", "; Mota-Engil co-investment: ") + a("https://www.gob.mx/cms/uploads/attachment/file/948826/09_PS_GATM_AyR2324.pdf", T("GATM, Avance y Resultados 2023-2024, p. 8", "GATM, 2023-2024 Progress and Results report, p. 8")) + ".</li>");
     var ST = window.MX_AIRPORTS_STATUS || {}, fmtTs = function(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? esc(d.toLocaleString(es() ? "es-MX" : "en-US", {dateStyle:"medium", timeStyle:"short", timeZone:"America/Mexico_City"})) : "—"; };
     var failed = ["afac","aicm","aifa"].filter(function(k){ return /^failed/.test(String(ST[k] || "")); }).map(function(k){ return k.toUpperCase(); });
     li.push("<li>" + T("Actualización automática: las tres fuentes se consultan cada día. Última consulta: ", "Automatic update: the three sources are checked every day. Last check: ") + fmtTs(ST.checkedAt) + T("; datos generados: ", "; data generated: ") + fmtTs(D.generatedAt) + T(" (hora de la Ciudad de México).", " (Mexico City time).") + (failed.length ? " " + T("En la última consulta no respondió: " + failed.join(", ") + "; se conservan los datos anteriores de esa fuente.", "Not reachable in the last check: " + failed.join(", ") + "; that source's previous data is kept.") : "") + "</li>");
@@ -930,7 +943,7 @@ window.addEventListener("DOMContentLoaded", function(){
       "<dt>" + T("Operador", "Operator") + "</dt><dd>" + T("Clasificación de la AFAC por grupo aeroportuario. GAP, OMA y ASUR son los tres grupos listados; AICM y AIFA se muestran por separado; «Otros» agrupa al resto, con estas siglas:", "AFAC's classification by airport group. GAP, OMA and ASUR are the three listed groups; AICM and AIFA are shown separately; “Others” groups the rest, under these labels:") +
         "<ul>" + ops.map(function(key){ return "<li>" + opDefHtml(key, true) + "</li>"; }).join("") + "</ul></dd>" +
       "<dt>" + T("Cifras de las empresas", "Company figures") + "</dt><dd>" + T("Pasajeros terminales según los reportes mensuales de cada grupo; excluyen tránsitos y, en general, aviación general, por lo que difieren ligeramente de la AFAC. GAP clasifica como internacionales a los pasajeros de Tijuana que cruzan por CBX.", "Terminal passengers per each group's monthly report; they exclude transit and, in general, general aviation, so they differ slightly from AFAC. GAP classifies Tijuana passengers using the CBX bridge as international.") + "</dd>" +
-      "<dt>" + T("Actualización", "Updates") + "</dt><dd>" + T("La AFAC publica el mes anterior hacia la última semana del mes; el AICM, a mediados de mes. Los datos de esta página se regeneran a partir de esas publicaciones.", "AFAC publishes the previous month in the last week of the month; AICM around mid-month. This page's data is regenerated from those releases.") + "</dd>";
+      "<dt>" + T("Actualización", "Updates") + "</dt><dd>" + updText() + "</dd>";
   }
 
   // ---------- wiring ----------

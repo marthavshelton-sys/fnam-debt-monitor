@@ -19,7 +19,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" defer></script>
+<!-- Chart.js 4.4.0 served from this site (npm package, registry integrity sha512-vQEj6d…Q1hQ==) and pinned by hash. -->
+<script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous" defer></script>
 <script src="/aeropuertos/data/map.js" defer></script>
 <script src="/aeropuertos/data/map-wide.js" defer></script>
 <script src="/aeropuertos/data/airlines.js" defer></script>
@@ -132,6 +133,8 @@ main{flex:1; padding-top:12px;}
 .chart-box{position:relative; height:430px;}
 .chart-box.sm{height:320px;}
 .chart-box .msg{position:absolute; inset:0; display:grid; place-items:center; color:var(--muted); font-size:14px; text-align:center; padding:20px;}
+/* a hidden message must not sit over the canvas: `display:grid` above would otherwise override [hidden] and swallow hover and legend clicks */
+.chart-box .msg[hidden]{display:none;}
 @media (max-width:760px){ .chart-box{height:330px;} .chart-box.sm{height:260px;} }
 
 .kpis{display:grid; grid-template-columns:repeat(auto-fit, minmax(165px, 1fr)); gap:12px;}
@@ -469,7 +472,8 @@ window.addEventListener("DOMContentLoaded", function(){
   function fmtN(n){ if (n == null || !isFinite(n)) return "—"; var a = Math.abs(n); return a >= 1e6 ? fmtM(n) : (a >= 1e4 ? nf(n / 1e3, 0) + " k" : nf(n, a < 100 ? 1 : 0)); }
   function fmtT(n){ if (n == null || !isFinite(n)) return "—"; return Math.abs(n) >= 1e6 ? nf(n / 1e6, 2) + " Mt" : (Math.abs(n) >= 1e4 ? nf(n / 1e3, 1) + " kt" : nf(n, 0) + " t"); }
   function fmtBy(m, n){ return m === "cargoT" ? fmtT(n) : fmtN(n); }
-  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; return (x > 0 ? "+" : (x < 0 ? "−" : "")) + nf(Math.abs(x) * 100, d == null ? 1 : d) + "%"; }
+  // the sign follows the rounded value, so a change that rounds to zero prints "0.0%", never "−0.0%"
+  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; var dd = d == null ? 1 : d, r = Math.round(Math.abs(x) * 100 * Math.pow(10, dd)); return (r === 0 ? "" : (x > 0 ? "+" : "−")) + nf(Math.abs(x) * 100, dd) + "%"; }
   function cls(x){ return x == null || !isFinite(x) ? "" : (x >= 0 ? "up" : "dn"); }
   function monthLabel(ym, longM){ var p = ym.split("-"); return new Date(+p[0], +p[1] - 1, 1).toLocaleDateString(es() ? "es-MX" : "en-US", {month:longM ? "long" : "short", year:"numeric"}).replace(".", ""); }
   function monName(m){ return new Date(2026, m - 1, 1).toLocaleDateString(es() ? "es-MX" : "en-US", {month:"short"}).replace(".", ""); }
@@ -777,7 +781,7 @@ window.addEventListener("DOMContentLoaded", function(){
   // map chips: several airlines can be combined; "All" clears the selection
   function renderMapChips(){
     var none = !S.airlines.length;
-    document.getElementById("mapchips").innerHTML = '<button type="button" class="plain' + (none ? " on" : "") + '" data-a="" aria-pressed="' + none + '">' + T("Todas", "All") + '</button>' + activeMx.map(function(c){ var has = !!netFor(c.id), on = S.airlines.indexOf(c.id) >= 0; var stop = stopMonth(c), tip = stop ? stopNote(c, false).replace(/<[^>]+>/g, "") : (has ? "" : T("sin datos de red", "no network data")); return '<button type="button" data-a="' + c.id + '" class="' + (on ? "on" : "") + (stop ? " ceased" : "") + '" aria-pressed="' + on + '" style="--c:' + colorOf(c) + '"' + (tip ? ' title="' + esc(tip) + '"' : "") + '><span class="sw"></span>' + esc(c.short) + (has ? "" : " ·") + (stop ? " †" : "") + '</button>'; }).join("");
+    document.getElementById("mapchips").innerHTML = '<button type="button" class="plain' + (none ? " on" : "") + '" data-a="" aria-pressed="' + none + '">' + T("Todas", "All") + '</button>' + activeMx.map(function(c){ var has = !!netFor(c.id), on = S.airlines.indexOf(c.id) >= 0; var stop = stopMonth(c), tip = stop ? stopNote(c, false).replace(/<[^>]+>/g, "") : (has ? "" : T("la aerolínea no publica su red de rutas", "the airline publishes no route list")); return '<button type="button" data-a="' + c.id + '" class="' + (on ? "on" : "") + (stop ? " ceased" : "") + '" aria-pressed="' + on + '" style="--c:' + colorOf(c) + '"' + (tip ? ' title="' + esc(tip) + '"' : "") + '><span class="sw"></span>' + esc(c.short) + (has ? "" : " ·") + (stop ? " †" : "") + '</button>'; }).join("");
     document.getElementById("chips-hint").textContent = S.airlines.length > 1 ? T("Comparando " + S.airlines.length + " aerolíneas, cada una con su color; toca una para quitarla.", "Comparing " + S.airlines.length + " airlines, each in its own color; tap one to remove it.") : T("Toca varias aerolíneas para superponer sus rutas.", "Tap several airlines to overlay their routes.");
   }
   document.getElementById("mapchips").addEventListener("click", function(ev){ var b = ev.target.closest("button"); if (!b) return; var id = b.dataset.a; if (!id) S.airlines = []; else { var i = S.airlines.indexOf(id); if (i >= 0) S.airlines.splice(i, 1); else S.airlines.push(id); } renderMapChips(); renderMap(); });
@@ -915,13 +919,13 @@ window.addEventListener("DOMContentLoaded", function(){
     if (s.aeromexico) li.push('<li><a href="' + esc(s.aeromexico.url) + '" target="_blank" rel="noopener">' + T("Aeroméxico — Traffic Results mensuales", "Aeroméxico — monthly Traffic Results") + "</a>" + T(", último: ", ", latest: ") + esc(s.aeromexico.lastMonth || "") + ".</li>");
     if (s.volaris) li.push('<li><a href="' + esc(s.volaris.url) + '" target="_blank" rel="noopener">' + T("Volaris — Historical Traffic Data y reportes mensuales", "Volaris — Historical Traffic Data and monthly reports") + "</a>" + T(", último: ", ", latest: ") + esc(s.volaris.lastMonth || "") + ".</li>");
     if (s.viva) li.push('<li><a href="' + esc(s.viva.url) + '" target="_blank" rel="noopener">' + T("Viva — reportes mensuales de tráfico", "Viva — monthly traffic reports") + "</a>" + T(", último: ", ", latest: ") + esc(s.viva.lastMonth || "") + ".</li>");
-    var netSrc = Object.keys(A.networks || {}).filter(function(k){ return k !== "AMG"; }).map(function(k){ var n = A.networks[k], c = byId[k]; return (c ? c.short : k) + ": " + n.source + (n.estimated ? T(" (rutas estimadas desde sus bases)", " (routes estimated from its hubs)") : ""); });
-    li.push("<li>" + T("Redes por aerolínea — ", "Airline networks — ") + esc(netSrc.join("; ")) + ".</li>");
+    var netSrc = Object.keys(A.networks || {}).filter(function(k){ return k !== "AMG"; }).map(function(k){ var n = A.networks[k], c = byId[k]; return (c ? c.short : k) + ": " + n.source + ""; });
+    li.push("<li>" + T("Redes por aerolínea (solo las que publica la propia aerolínea) — ", "Airline networks (only those the airline itself publishes) — ") + esc(netSrc.join("; ")) + ".</li>");
     document.getElementById("srclist").innerHTML = li.join("");
     document.getElementById("defs").innerHTML =
       "<dt>" + T("Pasajeros por aerolínea (AFAC)", "Passengers by airline (AFAC)") + "</dt><dd>" + T("Pasajeros transportados en servicio regular por cada aerolínea, contados una vez por vuelo. No coinciden exactamente con los pasajeros por aeropuerto del panel vecino, que cuentan llegadas y salidas en cada aeropuerto.", "Passengers carried on scheduled service by each airline, counted once per flight. They do not exactly match the by-airport dashboard, which counts arrivals and departures at each airport.") + "</dd>" +
       "<dt>" + T("Corredores", "Corridors") + "</dt><dd>" + T("Pares de ciudades de la AFAC sumando ambos sentidos; últimos doce meses disponibles frente a los doce anteriores. En el mapa de México los corredores internacionales se dibujan hacia el borde en la dirección real de la ciudad extranjera; en el mapa de Norte y Centroamérica llegan hasta la ciudad cuando queda dentro del cuadro.", "AFAC city pairs with both directions added; the latest twelve months available versus the previous twelve. On the Mexico map international corridors are drawn toward the edge in the true direction of the foreign city; on the North and Central America map they reach the city when it lies inside the frame.") + "</dd>" +
-      "<dt>" + T("Redes", "Networks") + "</dt><dd>" + T("Volaris y Viva publican sus rutas directas en sus propios sitios; se leen automáticamente. Para las demás aerolíneas mexicanas la red se toma de la tabla de destinos de Wikipedia en inglés y las rutas se estiman uniendo sus bases con los aeropuertos que sirven, solo donde la AFAC registra tráfico en ese corredor.", "Volaris and Viva publish their direct routes on their own sites; they are read automatically. For the other Mexican airlines the network comes from the destinations table on English Wikipedia and routes are estimated by joining their hubs with the airports they serve, only where AFAC records traffic on that corridor.") + "</dd>" +
+      "<dt>" + T("Redes", "Networks") + "</dt><dd>" + T("Solo se muestran redes que la propia aerolínea publica: Volaris y Viva ponen sus rutas directas en sus sitios y se leen automáticamente. Las demás aerolíneas mexicanas no publican una lista de rutas legible, y la estadística de la AFAC por origen-destino no identifica a la aerolínea, así que para ellas no se dibuja red; sus pasajeros y participación sí aparecen, con cifras de la AFAC.", "Only networks the airline itself publishes are shown: Volaris and Viva post their direct routes on their own sites and these are read automatically. The other Mexican airlines publish no readable route list, and AFAC's origin-destination statistics do not identify the airline, so no network is drawn for them; their passengers and market share still appear, from AFAC figures.") + "</dd>" +
       "<dt>" + T("Actualización", "Updates") + "</dt><dd>" + T("Los datos se regeneran automáticamente cada día: la AFAC publica el mes anterior hacia el final del mes; las aerolíneas, en la primera quincena.", "The data regenerates automatically every day: AFAC publishes the previous month toward the end of the month; the airlines, in the first half of the month.") + (A.status && A.status.checkedAt ? " " + T("Última verificación: ", "Last check: ") + A.status.checkedAt + "." : "") + "</dd>";
   }
 

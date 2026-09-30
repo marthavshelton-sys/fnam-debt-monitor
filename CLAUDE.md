@@ -55,6 +55,7 @@ dashboards, everything built from public data by GitHub Actions.
   `tools/aeropuertos/README.md`). Only official filings go into that table, never press. Each row shows one year for
   all three groups; a figure computed from a filing is listed in the cell's `calc`. To confirm the pages' source links
   and the table's figures, dispatch `aeropuertos-refresh.yml` with `verify_links` (browser check on the runner, no commit).
+  Airline route networks come only from lists the airline itself publishes (Volaris, Viva); never Wikipedia.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 
