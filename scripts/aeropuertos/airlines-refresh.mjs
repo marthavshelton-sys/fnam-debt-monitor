@@ -7,13 +7,11 @@
 //   Airlines  Aeromexico, Volaris and Viva monthly traffic reports (passengers, ASMs, RPMs, load factor): Volaris publishes a
 //             history workbook, Viva monthly PDFs (parsed by tools/aeropuertos/parse_airline_pdfs.py), Aeromexico monthly PDFs
 //             on an IR site that only answers real browsers (fetched from inside a Chrome/Chromium page when possible).
-//   Networks  each carrier's route feed (Volaris, Viva) or the destination table on English Wikipedia (Aeromexico, Aeromexico
-//             Connect, Mexicana, TAR, Aerus, Magnicharters); routes for the latter are estimated from their hubs.
-//
+//   Networks  each carrier's own route feed (Volaris, Viva stations feeds); no other source is used
 // Every raw input is cached in tools/aeropuertos/raw/airlines; a source that cannot be read today keeps yesterday's input, so a
 // bad day never blanks the page. Flags: --skip-afac --skip-ir --skip-networks --full (ignore caches) --dump-ir-text.
 import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { parseResumen, parseSase, parseVolarisHistory, parseVolarisStations, parseVivaStations, parseWikiDestinations, makeCodeMaps, compile, irFromMonthly, mergeIrSeries, fileMeta, MESES } from '../../tools/aeropuertos/airlines-lib.mjs';
+import { parseResumen, parseSase, parseVolarisHistory, parseVolarisStations, parseVivaStations, makeCodeMaps, compile, irFromMonthly, mergeIrSeries, fileMeta, MESES } from '../../tools/aeropuertos/airlines-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const TOOLS = path.join(ROOT, 'tools', 'aeropuertos'), RAW = path.join(TOOLS, 'raw', 'airlines'), TMP = path.join(TOOLS, 'tmp', 'airlines'), OUT = path.join(ROOT, 'site', 'aeropuertos', 'data');
@@ -155,23 +153,15 @@ async function refreshAeromexico() {
 }
 
 // ---------------------------------------------------------------- 3. networks
-const nets = readJson(path.join(RAW, 'networks.json'), {});
+// Only route lists the airline itself publishes (Volaris' and Viva's stations feeds) are used. Wikipedia is not a
+// credible source, and AFAC's origin-destination file has no airline column, so carriers without an official feed
+// have no network on the page. Anything else left in the cache from earlier runs is dropped here.
+const nets = Object.fromEntries(Object.entries(readJson(path.join(RAW, 'networks.json'), {})).filter(([, n]) => n && n.kind === 'routes' && /stations feed/i.test(n.source || '')));
 async function refreshNetworks() {
   // Volaris: stations feed (plain fetch works)
   try { const j = JSON.parse((await get('https://webapi.volaris.com/ps/api/v1/stations/culture/es-MX', 'application/json')).buf.toString('utf8')); const n = parseVolarisStations(j); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VOI = { ...n, asOf: today }; note('net-volaris', 'ok', { routes: n.routes.length, hubs: n.hubs }); } catch (e) { note('net-volaris', nets.VOI ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
-  // Viva: stations API from inside its own site; Wikipedia list as fallback
-  let vivaOk = false;
-  try { const { browser, label } = await siteBrowser(); try { const page = await (await browser.newContext({ locale: 'es-MX' })).newPage(); await page.goto('https://www.vivaaerobus.com/es-mx/', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(7000); const txt = await inPage(page, 'https://api.vivaaerobus.com/web/vb/v1/resources/stations?StationTypes=Airport'); const n = parseVivaStations(JSON.parse(txt)); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VIV = { ...n, asOf: today }; vivaOk = true; note('net-viva', 'ok', { browser: label, routes: n.routes.length }); } finally { await browser.close(); } } catch (e) { note('net-viva', 'feed-failed', { error: e.message.slice(0, 120) }); }
-  // Wikipedia destination tables
-  for (const c of registry.carriers) {
-    if (!c.wiki) continue; if (c.id === 'VIV' && vivaOk) continue; if (c.id === 'VOI' && nets.VOI) continue;
-    try {
-      const j = JSON.parse((await get('https://en.wikipedia.org/w/api.php?action=parse&page=' + encodeURIComponent(c.wiki) + '&prop=text|revid&format=json&formatversion=2', 'application/json')).buf.toString('utf8'));
-      const html = j.parse && j.parse.text; if (!html) throw new Error('no page text');
-      const n = parseWikiDestinations(html, c.wikiTable ?? 0, maps); if (!n || n.mx.length < 2) throw new Error('destination table not recognised');
-      nets[c.id] = { ...n, asOf: today, source: 'Wikipedia: ' + c.wiki.replace(/_/g, ' ') + ' (rev ' + j.parse.revid + ')', revid: j.parse.revid };
-    } catch (e) { console.warn('wiki', c.id, e.message); }
-  }
+  // Viva: stations API from inside its own site (the last good feed is kept if it fails)
+  try { const { browser, label } = await siteBrowser(); try { const page = await (await browser.newContext({ locale: 'es-MX' })).newPage(); await page.goto('https://www.vivaaerobus.com/es-mx/', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(7000); const txt = await inPage(page, 'https://api.vivaaerobus.com/web/vb/v1/resources/stations?StationTypes=Airport'); const n = parseVivaStations(JSON.parse(txt)); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VIV = { ...n, asOf: today }; note('net-viva', 'ok', { browser: label, routes: n.routes.length }); } finally { await browser.close(); } } catch (e) { note('net-viva', nets.VIV ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
   writeJson(path.join(RAW, 'networks.json'), nets);
   note('networks', 'ok', { carriers: Object.keys(nets) });
 }
@@ -193,7 +183,7 @@ const ir = {};
 if (volHist || Object.keys(irCache.voi).length) ir.VOI = mergeIrSeries(volHist, Object.keys(irCache.voi).length ? irFromMonthly(irCache.voi, 'Volaris IR - monthly traffic reports') : null, 'Volaris IR - Historical Traffic Data + monthly traffic reports');
 if (Object.keys(irCache.viv).length) ir.VIV = irFromMonthly(irCache.viv, 'Viva Aerobus IR - monthly traffic reports');
 if (Object.keys(irCache.am).length) ir.AM = irFromMonthly(irCache.am, 'Aeromexico IR - monthly traffic results');
-const out = compile({ registry, airportsMeta, cities, resumenes, sases, ir, networks: nets, sources: { afac: sources.afac, afacOd: sources.afac, volaris: sources.volaris, viva: sources.viva, aeromexico: sources.aeromexico, wikipedia: 'https://en.wikipedia.org/' } });
+const out = compile({ registry, airportsMeta, cities, resumenes, sases, ir, networks: nets, sources: { afac: sources.afac, afacOd: sources.afac, volaris: sources.volaris, viva: sources.viva, aeromexico: sources.aeromexico } });
 out.airlines.status = { checkedAt: today, steps: status.steps };
 function writeIfChanged(file, name, obj) {
   let prev = null; try { const t = fs.readFileSync(file, 'utf8'); prev = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)); } catch { /* first run */ }

@@ -111,3 +111,20 @@ name, set in `compile.mjs`); AICM = the month after the last AICM month, one mon
 ASUR = the month after each group's latest monthly report, on the group's usual day (median day of its last twelve traffic
 releases in `/<group>/data/traffic.js`). When a date has passed the line says "expected since … (pending)". Both dates come
 from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
+
+
+## Sources and page integrity (30-Sep-2026)
+
+- **Airline networks**: only route lists the airline itself publishes are used (Volaris and Viva stations feeds).
+  Wikipedia is not an acceptable source, and AFAC's origin-destination file (`sase-*.xlsx`) has no airline column, so
+  Aeroméxico, Mexicana, TAR, Aerus and Magnicharters have no network on the map; their passengers and market share still
+  come from AFAC. `airlines-refresh.mjs` drops anything else from `raw/airlines/networks.json` on load. To add a carrier,
+  find a route list on its own site that the runner can read, write a parser next to `parseVolarisStations`, and keep the
+  `kind: 'routes'` / "stations feed" source convention.
+- **Chart.js** is served from `site/assets/vendor/chart.umd.4.4.0.min.js` (npm package, whose registry integrity
+  sha512-vQEj6d…Q1hQ== npm verified on install) with an `integrity` attribute on the `/trafico/` and `/aerolineas/`
+  script tags. Replace file and hash together when upgrading.
+- `.chart-box .msg[hidden]{display:none}`: the message layer is `display:grid`, which overrides `[hidden]`; without this
+  rule the hidden layer covered the canvas and blocked tooltips and legend clicks.
+- The "Updates" definition on `/trafico/` is composed from `sources.afac.published` (AFAC's file name) and
+  `sources.aicm.updated` (the day our check first saw AICM's PDF), never a typed schedule.

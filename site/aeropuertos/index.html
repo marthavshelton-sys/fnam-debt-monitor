@@ -869,7 +869,8 @@ window.addEventListener("DOMContentLoaded", function(){
   function nf(n, d){ return new Intl.NumberFormat(es() ? "es-MX" : "en-US", {maximumFractionDigits:d == null ? 0 : d, minimumFractionDigits:d == null ? 0 : d}).format(n); }
   function fmtM(n){ return nf(n / 1e6, n >= 1e7 ? 1 : 2) + " M"; }
   function fmtN(n){ return n >= 1e6 ? fmtM(n) : (n >= 1e4 ? nf(n / 1e3, 0) + " k" : nf(n, 0)); }
-  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; return (x > 0 ? "+" : (x < 0 ? "−" : "")) + nf(Math.abs(x) * 100, d == null ? 1 : d) + "%"; }
+  // the sign follows the rounded value, so a change that rounds to zero prints "0.0%", never "−0.0%"
+  function pct(x, d){ if (x == null || !isFinite(x)) return "—"; var dd = d == null ? 1 : d, r = Math.round(Math.abs(x) * 100 * Math.pow(10, dd)); return (r === 0 ? "" : (x > 0 ? "+" : "−")) + nf(Math.abs(x) * 100, dd) + "%"; }
   var ST = window.MX_AIRPORTS_STATUS || {};
   function fmtDay(iso){ var d = iso ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(String(iso)) ? iso + "T12:00:00Z" : iso) : null; return d && !isNaN(d) ? d.toLocaleDateString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", timeZone:"America/Mexico_City"}).replace(".", "") : null; }
   function fmtTs(iso){ var d = iso ? new Date(iso) : null; return d && !isNaN(d) ? d.toLocaleString(es() ? "es-MX" : "en-US", {day:"numeric", month:"short", year:"numeric", hour:"2-digit", minute:"2-digit", hour12:false, timeZone:"America/Mexico_City"}).replace(".", "") + " CDMX" : null; }
