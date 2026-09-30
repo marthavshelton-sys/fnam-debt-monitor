@@ -94,7 +94,10 @@ dashboards, everything built from public data by GitHub Actions.
   recovery), which the same routine emails, and fails the run.
 - IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
   IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
-  `tools/mx-macro/README.md`); do not re-hunt without a new lead.
+  `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's
+  monthly comunicados via web search of imss.gob.mx, each figure reconciled against IMSS's own printed
+  monthly/YTD/12-month changes; derived months are labeled. Never fetch imss.gob.mx from a script or
+  the runner or work around its WAF. Monthly update: Claude Routine, prompt in `tools/mx-macro/imss-task-prompt.md`.
 - Both templates open every section with an executive-summary card ("En resumen / At a glance":
   latest print, drivers, why it matters, what to watch). Every sentence is composed at render time
   from the same data as the charts — never hand-write summary text, it would go stale by the next run.

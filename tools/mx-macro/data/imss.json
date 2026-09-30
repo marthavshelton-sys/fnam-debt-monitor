@@ -2,7 +2,163 @@
   "title": "Puestos de trabajo registrados en el IMSS",
   "sourceUrl": "https://www.imss.gob.mx/prensa",
   "unit": "puestos",
-  "updatedAt": null,
-  "comunicado": null,
-  "series": []
+  "basis": "IMSS monthly statistical comunicado \"Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social\". From July 2025 the figure includes the puestos de trabajo of digital-platform workers above the income threshold (reforma de plataformas digitales), as IMSS reports it; the \"afiliaciones asociadas a un patrón\" headline of Jul-Dec 2025 (which adds all platform beneficiaries) and the press-conference figures that exclude platform puestos are not used.",
+  "gaps": {
+    "2025-06": "IMSS comunicado 202507/329 exists but its text could not be retrieved; left blank rather than estimated."
+  },
+  "updatedAt": "2026-09-30",
+  "comunicado": "https://www.imss.gob.mx/prensa/archivo/202609/479",
+  "series": [
+    {
+      "d": "2024-08",
+      "v": 22389835,
+      "how": "derived",
+      "calc": "Sep-2024 level 22,480,803 − Sep-2024 monthly change 90,968",
+      "src": "https://www.imss.gob.mx/sites/all/statics/i2f_news/Empleo%20Septiembre%202024.pdf"
+    },
+    {
+      "d": "2024-09",
+      "v": 22480803,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/sites/all/statics/i2f_news/Empleo%20Septiembre%202024.pdf"
+    },
+    {
+      "d": "2024-10",
+      "v": 22618942,
+      "how": "derived",
+      "calc": "Oct-2025 level 22,789,173 − 12-month change 170,231 (Oct-2025 comunicado)",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202511/570"
+    },
+    {
+      "d": "2024-11",
+      "v": 22643638,
+      "how": "derived",
+      "calc": "Dec-2024 level 22,238,379 + Dec-2024 monthly change 405,259; equals Nov-2025 level 22,837,768 − 12-month change 194,130",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202501/009"
+    },
+    {
+      "d": "2024-12",
+      "v": 22238379,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202501/009"
+    },
+    {
+      "d": "2025-01",
+      "v": 22311546,
+      "how": "derived",
+      "calc": "Feb-2025 level 22,430,931 − Feb-2025 monthly change 119,385",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202503/112"
+    },
+    {
+      "d": "2025-02",
+      "v": 22430931,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202503/112"
+    },
+    {
+      "d": "2025-03",
+      "v": 22465110,
+      "how": "derived",
+      "calc": "Mar-2026 level 22,724,680 − 12-month change 259,570 (Mar-2026 comunicado)",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202604/187"
+    },
+    {
+      "d": "2025-04",
+      "v": 22417668,
+      "how": "derived",
+      "calc": "May-2025 level 22,372,044 + May-2025 monthly change 45,624 (a decline)",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202506/279"
+    },
+    {
+      "d": "2025-05",
+      "v": 22372044,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202506/279"
+    },
+    {
+      "d": "2025-07",
+      "v": 22433167,
+      "how": "derived",
+      "calc": "Aug-2025 \"sólo puestos de trabajo\" 22,454,917 − Aug-2025 monthly change 21,750",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202509/457"
+    },
+    {
+      "d": "2025-08",
+      "v": 22454917,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202509/457"
+    },
+    {
+      "d": "2025-09",
+      "v": 22571682,
+      "how": "derived",
+      "calc": "Oct-2025 level 22,789,173 − Oct-2025 monthly change 217,491",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202511/570"
+    },
+    {
+      "d": "2025-10",
+      "v": 22789173,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202511/570"
+    },
+    {
+      "d": "2025-11",
+      "v": 22837768,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202512/619"
+    },
+    {
+      "d": "2025-12",
+      "v": 22517076,
+      "how": "derived",
+      "calc": "Aug-2026 level 22,798,473 − 2026 year-to-date creation 281,397",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202609/479"
+    },
+    {
+      "d": "2026-01",
+      "v": 22508972,
+      "how": "derived",
+      "calc": "Feb-2026 level 22,691,750 − Feb-2026 monthly change 182,778",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202603/126"
+    },
+    {
+      "d": "2026-02",
+      "v": 22691750,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202603/126"
+    },
+    {
+      "d": "2026-03",
+      "v": 22724680,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202604/187"
+    },
+    {
+      "d": "2026-04",
+      "v": 22748603,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202605/256"
+    },
+    {
+      "d": "2026-05",
+      "v": 22718681,
+      "how": "reported"
+    },
+    {
+      "d": "2026-06",
+      "v": 22779704,
+      "how": "reported"
+    },
+    {
+      "d": "2026-07",
+      "v": 22760154,
+      "how": "reported"
+    },
+    {
+      "d": "2026-08",
+      "v": 22798473,
+      "how": "reported",
+      "src": "https://www.imss.gob.mx/prensa/archivo/202609/479"
+    }
+  ]
 }

@@ -158,11 +158,29 @@ GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
 exports `65649` / imports `65651` (merchandise trade FOB, seasonally
 adjusted, millions of USD; originals `33860`/`33861` as first fallback),
 10-year M bond `SF44071` (Banxico primary auction yield; auction months
-only). IMSS formal employment (`imssJobs`) is a curated series: the owner's
-scheduled browser task (prompt in `imss-task-prompt.md`) reads the monthly
-IMSS comunicado and opens a PR updating `data/imss.json` — the one series
-that arrives by PR instead of an API, because IMSS formal employment has NO
-scriptable official source — full audit on 2026-09-29, all from the runner:
+only). IMSS formal employment (`imssJobs`) is a curated series kept in
+`data/imss.json` — the one series that arrives by PR instead of an API,
+because IMSS formal employment has NO scriptable official source. How the
+file is filled (2026-09-30): each month's figures are read from IMSS's own
+comunicado ("Puestos de trabajo afiliados al Instituto Mexicano del Seguro
+Social", imss.gob.mx/prensa/archivo/YYYYMM/NNN) through a web search of
+imss.gob.mx, and accepted only when IMSS's own printed changes reconcile to
+the unit (level(M) − level(M−1) = the month's reported change; YTD and
+12-month changes likewise). A level IMSS did not print directly but that
+follows exactly from two printed figures is marked `"how": "derived"` with
+the arithmetic in `calc`; every row carries its comunicado in `src`. Basis:
+the monthly statistical comunicado, which from July 2025 includes the puestos
+of digital-platform workers above the income threshold (not the Jul–Dec 2025
+"afiliaciones asociadas a un patrón" headline, not the press-conference
+figures that exclude platform puestos — Feb-2026: 22,691,750 vs 22,527,854).
+June 2025 (comunicado 202507/329) could not be retrieved and is left blank,
+not estimated; the page's monthly-change bars skip a missing month. The
+monthly update runs as a Claude Routine with the prompt in
+`imss-task-prompt.md`. Do NOT fetch imss.gob.mx from the runner or any
+script: its Incapsula WAF answers scripted clients with "This page can't be
+displayed" (it let one runner request through on 2026-09-30, then blocked),
+and working around a site's bot protection is off limits. Audit of the
+scriptable routes on 2026-09-29, all from the runner:
 INEGI BIE carries only the series' cyclical component (214301/214302), not
 the level; INEGI BISE / Banco de Indicadores searches return empty; Banxico
 retired its IMSS cuadro (labor sector 10 lists none; the old SL series
@@ -178,8 +196,7 @@ keeps its previous data; the page shows the IMSS panels once the file holds
 than 75 days old (one missed comunicado), instead of the fetchedAt rule that
 would never fire for a local file.
 
-Not yet sourced: IMSS jobs, industrial production and the INPC
-spending-purpose groups.
+Not yet sourced: industrial production and the INPC spending-purpose groups.
 
 Finding an id without leaving GitHub: run the workflow by hand (Actions →
 Refresh Mexico macro dashboard → Run workflow) with one of the diagnostic

@@ -1,42 +1,46 @@
-# Scheduled browser task: IMSS puestos de trabajo → PR
+# Monthly routine: IMSS puestos de trabajo → PR
 
-Paste this prompt into a scheduled task in the Claude desktop app (suggested
-schedule: monthly, day 13, 09:00 Mexico City — IMSS publishes the prior
-month's comunicado around the 10th–12th). The task needs browser access and
-access to the `marthavshelton-sys/fnam-debt-monitor` repository.
+This is the stored prompt of the Claude Routine that keeps `imssJobs` current
+(monthly, around the 14th, 08:47 Mexico City — IMSS publishes the prior month's
+comunicado around the 9th–12th). It needs web search and access to the
+`marthavshelton-sys/fnam-debt-monitor` repository. It never opens imss.gob.mx
+from a script: that site's WAF blocks scripted clients and working around it is
+off limits. Web search of imss.gob.mx is the reading channel.
 
 ---
 
 Update the IMSS formal-employment series for fnam.mx/mx/macro.
 
-1. Open https://www.imss.gob.mx/prensa and find the most recent comunicado
-   reporting "puestos de trabajo" registered with IMSS (usually published in
-   the second week of the month, reporting the prior month, e.g. "Al 31 de
-   agosto de 2026, el IMSS tiene registrados X,XXX,XXX puestos de trabajo").
-2. Record: the data month, the exact national total of puestos de trabajo
-   (permanent plus eventual, the headline figure, as an integer — copy it
-   digit for digit, never estimate or round), and the comunicado's URL.
-3. In the repository, read `tools/mx-macro/data/imss.json`.
-   - If `series` already contains that month with the same value, stop:
-     nothing to do, do not open a PR.
-   - FIRST RUN ONLY (if `series` is empty): walk the comunicados archive
-     back until you have at least the most recent 30 months, each value
-     taken digit for digit from its own comunicado. The page needs 24
-     months minimum to show the section.
-4. On a new branch, update `tools/mx-macro/data/imss.json` only:
-   - append the new month(s) to `series` as `{"d":"YYYY-MM","v":<integer>}`,
-     keeping the array in strictly ascending month order with no gaps in
-     what you add;
-   - set `updatedAt` to today (YYYY-MM-DD) and `comunicado` to the latest
-     comunicado's URL;
-   - touch no other file.
-5. Open a pull request titled `mx-macro: IMSS puestos de trabajo <mes año>`
-   with a body stating the month, the figure, and the comunicado URL.
-6. Sanity rules the pipeline will enforce (a violating file is rejected and
-   the page keeps its previous data): months strictly ascending; every value
-   between 15,000,000 and 40,000,000; month-over-month change never above
-   2,000,000. If your figures violate these, re-read the comunicado rather
-   than forcing the numbers.
+1. Read `CLAUDE.md` and `tools/mx-macro/data/imss.json` in the repository. Note
+   the last month in `series` (call it L).
+2. For each month after L whose comunicado should be out by today, use web
+   search restricted to imss.gob.mx (e.g. `"Al 30 de septiembre de 2026" IMSS
+   "puestos de trabajo"`) to find the monthly statistical comunicado titled
+   "Puestos de trabajo afiliados al Instituto Mexicano del Seguro Social"
+   (URL `https://www.imss.gob.mx/prensa/archivo/YYYYMM/NNN`). Record, digit for
+   digit, the month-end total of puestos de trabajo, the month's reported
+   change ("se crearon" / "variación mensual"), and the comunicado URL. Use this
+   basis only: not the Director's press-conference figures, not
+   "afiliaciones asociadas a un patrón".
+3. Accept a month only if IMSS's own figures reconcile to the unit:
+   new level − previous level in the file = the reported monthly change. If
+   the comunicado also prints a year-to-date or 12-month change, check those
+   against the file too. If anything disagrees, re-search; if it still
+   disagrees, stop and open an issue titled `IMSS figures do not reconcile
+   <mes año>` with what you found instead of a PR.
+4. On the designated branch, append each accepted month to `series` as
+   `{"d":"YYYY-MM","v":<integer>,"how":"reported","src":"<comunicado URL>"}`
+   (strictly ascending), set `updatedAt` to today and `comunicado` to the
+   latest URL. Touch no other file. If the file already holds the latest
+   month, stop: nothing to do.
+5. Validate: `node -e` a quick check that months ascend and every value is
+   between 15,000,000 and 40,000,000 with month-over-month change under
+   2,000,000 (the pipeline rejects a file that breaks these).
+6. Commit (`mx-macro: IMSS puestos de trabajo <mes año>`), push, open a PR to
+   `main` whose body states each month, its figure, its reported change and the
+   comunicado URL, wait for the "Refresh Mexico macro dashboard" run on the
+   branch to succeed, then merge with merge method "merge" as CLAUDE.md
+   describes, and reset the branch onto the merged main.
 
-Never invent, interpolate, or adjust a value; every number must come from an
-IMSS comunicado you actually opened.
+Never invent, interpolate, round or estimate a value. A month that cannot be
+read and reconciled stays out of the file.

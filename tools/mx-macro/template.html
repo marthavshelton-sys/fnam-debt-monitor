@@ -1683,7 +1683,9 @@ function prevYearKey(d) { return (parseInt(d.slice(0, 4), 10) - 1) + d.slice(4);
 function withChanges(pts) {
   const by = new Map(pts.map(p => [p.d, p.v]));
   return pts.map((p, i) => {
-    const ago = by.get(prevYearKey(p.d)); const prev = i > 0 ? pts[i - 1].v : undefined;
+    // A monthly series with a missing month must not show a two-month change as the monthly one.
+    const gap = i > 0 && /^\d{4}-\d{2}$/.test(p.d) && nextMonthOf(pts[i - 1].d) !== p.d;
+    const ago = by.get(prevYearKey(p.d)); const prev = i > 0 && !gap ? pts[i - 1].v : undefined;
     return { d: p.d, v: p.v,
       yoy: ago ? r2((p.v / ago - 1) * 100) : null, mom: prev ? r2((p.v / prev - 1) * 100) : null,
       dYoy: ago !== undefined ? r2(p.v - ago) : null, dMom: prev !== undefined ? r2(p.v - prev) : null };
