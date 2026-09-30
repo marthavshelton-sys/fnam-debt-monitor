@@ -179,12 +179,12 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .rt.net{stroke-opacity:.8;}
 .rt.est, .spoke.est{stroke-dasharray:3 3; stroke-opacity:.65;}
 .rt.net:hover, .spoke.net:hover{stroke-opacity:1; stroke-dasharray:none;}
-.tooltip{position:absolute; left:0; top:0; pointer-events:none; z-index:5; background:var(--surface); border:1px solid var(--border-strong); border-radius:10px; box-shadow:var(--shadow-hover); padding:10px 12px; font-size:12.5px; line-height:1.4; width:max-content; max-width:280px; min-width:200px; opacity:0; transform:translate(-50%, calc(-100% - 12px)); transition:opacity .12s;}
+.tooltip{position:absolute; left:0; top:0; pointer-events:none; z-index:5; background:var(--surface); border:1px solid var(--border-strong); border-radius:10px; box-shadow:var(--shadow-hover); padding:10px 12px; font-size:12.5px; line-height:1.4; width:max-content; max-width:380px; min-width:200px; opacity:0; transform:translate(-50%, calc(-100% - 12px)); transition:opacity .12s;}
 .tooltip.show{opacity:1;}
 .tooltip b{font-family:var(--serif); font-size:15px;}
 .tooltip .row{display:flex; justify-content:space-between; gap:12px;}
 .tooltip .op{color:var(--muted); font-size:11.5px; margin:1px 0 3px;} .tooltip .op .tag{font-size:10px; padding:1px 6px;}
-.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;}
+.tooltip .row span:last-child{font-variant-numeric:tabular-nums; font-weight:600;} .tooltip .row span + span{white-space:nowrap;}
 .tooltip .tags{display:flex; flex-wrap:wrap; gap:4px; margin-top:6px;}
 .tooltip .tag{font-size:10.5px; font-weight:700; padding:2px 7px; border-radius:999px; background:var(--c); color:#fff;}
 .side{display:flex; flex-direction:column; gap:12px;}
@@ -205,7 +205,7 @@ svg.wide .mx-state{stroke-width:.6;} .adm1{fill:none; stroke:var(--map-adm1); st
 .ctl .hint{font-size:12px; color:var(--muted); flex-basis:100%;}
 .side .card.compact h4{font-size:16px;} .side .card.compact .v{font-size:17px;} .side .card.compact .k{margin-top:6px;}
 .map-scroll-hint{display:none; font-size:12px; color:var(--muted); margin:6px 0 0;}
-@media (max-width:640px){ .map-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;} .map-wrap svg{min-width:620px;} .map-scroll-hint{display:block;} .seg button{font-size:12px; padding:6px 9px;} .seg.big button{font-size:13px; padding:7px 12px;} .chips button{font-size:12px;} .controls{gap:8px 14px;} .side .card{padding:12px;} .tooltip{max-width:240px; min-width:170px; font-size:12px;} }
+@media (max-width:640px){ .map-wrap{overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:thin;} .map-wrap svg{min-width:620px;} .map-scroll-hint{display:block;} .seg button{font-size:12px; padding:6px 9px;} .seg.big button{font-size:13px; padding:7px 12px;} .chips button{font-size:12px;} .controls{gap:8px 14px;} .side .card{padding:12px;} .tooltip{max-width:min(300px, calc(100vw - 32px)); min-width:170px; font-size:12px;} }
 
 .two{display:grid; grid-template-columns:minmax(0, 1.35fr) minmax(0, 1fr); gap:16px; align-items:start;}
 @media (max-width:920px){ .two{grid-template-columns:minmax(0, 1fr);} }
@@ -469,9 +469,9 @@ window.addEventListener("DOMContentLoaded", function(){
   function es(){ return lang() === "es"; }
   function T(a, b){ return es() ? a : b; }
   function nf(n, d){ return new Intl.NumberFormat(es() ? "es-MX" : "en-US", {maximumFractionDigits:d == null ? 0 : d, minimumFractionDigits:d == null ? 0 : d}).format(n); }
-  function fmtM(n){ return nf(n / 1e6, Math.abs(n) >= 1e7 ? 1 : 2) + " M"; }
-  function fmtN(n){ if (n == null || !isFinite(n)) return "—"; var a = Math.abs(n); return a >= 1e6 ? fmtM(n) : (a >= 1e4 ? nf(n / 1e3, 0) + " k" : nf(n, a < 100 ? 1 : 0)); }
-  function fmtT(n){ if (n == null || !isFinite(n)) return "—"; return Math.abs(n) >= 1e6 ? nf(n / 1e6, 2) + " Mt" : (Math.abs(n) >= 1e4 ? nf(n / 1e3, 1) + " kt" : nf(n, 0) + " t"); }
+  function fmtM(n){ return nf(n / 1e6, Math.abs(n) >= 1e7 ? 1 : 2) + "\u00a0M"; }
+  function fmtN(n){ if (n == null || !isFinite(n)) return "—"; var a = Math.abs(n); return a >= 1e6 ? fmtM(n) : (a >= 1e4 ? nf(n / 1e3, 0) + "\u00a0k" : nf(n, a < 100 ? 1 : 0)); }
+  function fmtT(n){ if (n == null || !isFinite(n)) return "—"; return Math.abs(n) >= 1e6 ? nf(n / 1e6, 2) + "\u00a0Mt" : (Math.abs(n) >= 1e4 ? nf(n / 1e3, 1) + "\u00a0kt" : nf(n, 0) + "\u00a0t"); }
   function fmtBy(m, n){ return m === "cargoT" ? fmtT(n) : fmtN(n); }
   // the sign follows the rounded value, so a change that rounds to zero prints "0.0%", never "−0.0%"
   function pct(x, d){ if (x == null || !isFinite(x)) return "—"; var dd = d == null ? 1 : d, r = Math.round(Math.abs(x) * 100 * Math.pow(10, dd)); return (r === 0 ? "" : (x > 0 ? "+" : "−")) + nf(Math.abs(x) * 100, dd) + "%"; }
@@ -659,7 +659,7 @@ window.addEventListener("DOMContentLoaded", function(){
     function edgeLabel(d, off, text){ edgeReq.push({d:d, off:off, text:text}); }
     function spokeTo(d, cls, width, col, angOff, onTip){ var a = R.airports[d.mx], p0 = apXY[d.mx], ang = bearing(a.lat, a.lon, d.lat, d.lon) + (angOff || 0), p1 = edgePoint(f, p0[0], p0[1], ang); var ln = el("line", {x1:p0[0].toFixed(1), y1:p0[1].toFixed(1), x2:p1[0].toFixed(1), y2:p1[1].toFixed(1), "class":cls, "stroke-width":width.toFixed(2)}, gK); if (col) ln.style.setProperty("--c", col); ln.addEventListener("mousemove", onTip); ln.addEventListener("mouseleave", hideTip); return ln; }
     function arcTo(p1, p2, cls, width, col, k, onTip, layer){ var p = el("path", {d:arcPath(p1, p2, k), "class":cls, "stroke-width":width.toFixed(2)}, layer || gR); if (col) p.style.setProperty("--c", col); p.addEventListener("mousemove", onTip); p.addEventListener("mouseleave", hideTip); return p; }
-    var trafficLabel = function(t){ return t >= 1e6 ? nf(t / 1e6, 1) + " M" : nf(t / 1e3, 0) + " k"; };
+    var trafficLabel = function(t){ return t >= 1e6 ? nf(t / 1e6, 1) + "\u00a0M" : nf(t / 1e3, 0) + "\u00a0k"; };
 
     if (routesView) {
       var showDom = S.scope !== "intl", showIntl = S.scope !== "dom";
