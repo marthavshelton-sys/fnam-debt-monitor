@@ -4,7 +4,7 @@
 #     AFAC       "Estadistica mensual por aerolinea" and "origen-destino" workbooks (gob.mx; the page sits behind a proof-of-work
 #                bot challenge, so headless Chromium lets the challenge run and downloads the files in that session)
 #     Airlines   Aeromexico, Volaris and Viva monthly traffic reports (PDF / history workbook)
-#     Networks   Volaris and Viva route feeds; Wikipedia destination tables for the other Mexican carriers
+#     Networks   route lists the airlines publish themselves (Volaris and Viva stations feeds); never Wikipedia
 #   A source that cannot be read keeps its stored input (tools/aeropuertos/raw/airlines), so a bad day never blanks the page;
 #   the validator refuses implausible figures and regressions before anything is committed.
 #
@@ -20,6 +20,9 @@ on:
     inputs:
       flags:
         description: "Flags for airlines-refresh.mjs, e.g. --skip-afac --full"
+        default: ""
+      probe:
+        description: "Diagnostics only (no refresh, no commit): arguments for scripts/aeropuertos/probe-pages.mjs, e.g. --links=re --grep=re <url> ..."
         default: ""
   push:
     branches: ["main"]
@@ -63,20 +66,32 @@ jobs:
           sudo apt-get install -y -qq xvfb >/dev/null 2>&1 || true
           google-chrome --version || echo "no system Chrome"
 
+      # Diagnostics: open the given pages in the same browsers the refresh uses and print what they return, then stop.
+      - name: Probe pages (diagnostics only)
+        if: ${{ github.event.inputs.probe != '' }}
+        env:
+          HEADED: "1"
+          PROBE_ARGS: ${{ github.event.inputs.probe }}
+        run: xvfb-run -a --server-args="-screen 0 1366x900x24" node scripts/aeropuertos/probe-pages.mjs $PROBE_ARGS
+
       - name: Keep the previous data file for the regression check
+        if: ${{ github.event.inputs.probe == '' || github.event.inputs.probe == null }}
         run: git show HEAD:site/aeropuertos/data/airlines.js > /tmp/airlines-prev.js 2>/dev/null || echo "" > /tmp/airlines-prev.js
 
       # The airline sites (Aeromexico IR, Viva's API) reject headless browsers, so the script gets a virtual display and opens
       # a headed Chrome for them; gob.mx is fetched with plain headless Chromium. Every source falls back to its cached input.
       - name: Refresh from AFAC, the airlines and the route feeds, then rebuild the site data
+        if: ${{ github.event.inputs.probe == '' || github.event.inputs.probe == null }}
         env:
           HEADED: "1"
         run: xvfb-run -a --server-args="-screen 0 1366x900x24" node scripts/aeropuertos/airlines-refresh.mjs ${{ github.event.inputs.flags }}
 
       - name: Validate (contiguous months, plausible totals, no regressions)
+        if: ${{ github.event.inputs.probe == '' || github.event.inputs.probe == null }}
         run: node scripts/aeropuertos/airlines-validate.mjs site/aeropuertos/data/airlines.js site/aeropuertos/data/routes.js /tmp/airlines-prev.js
 
       - name: Commit if anything changed
+        if: ${{ github.event.inputs.probe == '' || github.event.inputs.probe == null }}
         shell: bash
         run: |
           rm -f package.json package-lock.json; rm -rf node_modules tools/aeropuertos/tmp
