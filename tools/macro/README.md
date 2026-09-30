@@ -146,16 +146,21 @@ emails (she turned them off to avoid the noise). Delivery is the Claude Routine
 "FNAM US Macro: email material changes" (cloud, daily at 14:45 and 20:45 UTC,
 right after the two refresh runs). It is read-only: it reads the issues
 opened by github-actions[bot] through the public GitHub API and emails the
-owner the body of every "MATERIAL: " and "SOURCE DOWN: " issue created since the previous scheduled
-run (14:45 run: since 20:45 the day before; 20:45 run: since 14:45), in one
+owner the body of every "MATERIAL: ", "SOURCE DOWN: " and "LIVE CHECK FAILED: " issue
+created in its slot's window (the 14:45 slot covers 20:45 the day before to 14:45;
+the 20:45 slot covers 14:45 to 20:45). A run that starts late keeps the window of
+the slot it belongs to, so nothing is sent twice: on 29-Sep-2026 the 20:45 run
+was marked failed, resumed at 02:41 UTC and, under the old hour-based rule,
+re-sent an alert already delivered at 15:16. Everything goes in one
 message sent with the Gmail connector from the owner's fnam.mx account to her
 gmail.com address, the same path the US fiscal alerts use. The routine must
 have both the Gmail connector and the repository marthavshelton-sys/fnam-debt-monitor
 attached (claude.ai, Routines): the cloud environment refuses GitHub API calls
 for repositories not attached to the session, and without Gmail nothing is sent.
 Either gap makes the run end with a one-line reason and no email. Verified
-end to end on 28-Sep-2026 (issue #63 delivered). A manual run outside those hours
-covers the last 7 days. "Macro update: " issues are never emailed. The routine
+end to end on 28-Sep-2026 (issue #63 delivered). To catch up by hand, run the
+routine with a message such as "catch up: last 7 days"; without one, a run maps
+to its latest slot. "Macro update: " issues are never emailed. The routine
 does not close issues, so they accumulate harmlessly; close them by hand when
 convenient. A missing alert usually means the routine did not run at its time;
 check the Routines page before touching `alerts.ps1`. The same routine also
@@ -188,6 +193,41 @@ issue titled "SOURCE DOWN: US macro - <what>" labeled `macro-source-down`
 the Actions history. The alert routine below emails the SOURCE DOWN issue in
 the same way as a MATERIAL one. The first healthy run comments and closes the
 issue; the recovery itself is not emailed.
+
+## Live check
+
+After every refresh, `.github/workflows/macro-live-check.yml` (ubuntu runner) runs
+`live-check.mjs` against the published page the way a visitor gets it:
+
+- **The deploy arrived.** It waits up to 20 minutes for https://fnam.mx/macro/ to
+  serve main's `site/macro/index.html` byte for byte. A page that never catches up
+  means Cloudflare stopped publishing (the `[skip ci]` incident, see CLAUDE.md).
+- **Every section, both languages, in Chromium with the page's web fonts:** no
+  script errors or failed requests, no "undefined"/"NaN" or raw markup in the text,
+  the four "At a glance" lines filled, the section's own title, description,
+  canonical and hreflang, every chart labelled for screen readers, every sparkline
+  drawn, every image loaded, chart text inside its panel, no Spanish regressions
+  (English glosses, capitalised months).
+- **Layout:** phones at 390 and 360 px, light and dark: no text below 11 px and
+  nothing wider than the screen; desktops at 1280 and 1024 px: no sideways scroll.
+- **Navigation:** an unknown `?view=` shows its notice; section links update the
+  address, title and history.
+
+It is read-only: public pages only, nothing committed. A failure opens one
+"LIVE CHECK FAILED: US macro - ..." issue labeled `macro-live-check`, which the
+email routine above sends; later failures comment on it and the first passing
+check closes it. The run keeps the report in its summary and the screenshots as
+an artifact for 14 days. Run it by hand from Actions ("Check live macro
+dashboard", optional `wait_minutes`).
+
+In a session, try the script against a local copy (the session's browser cannot
+check the live site: it does not trust the egress proxy's certificate, and
+driving it at fnam.mx is refused by the session's permission check):
+
+    python3 -m http.server 8123 --directory site
+    node tools/macro/live-check.mjs --url http://localhost:8123/macro/ --expect site/macro/index.html --local
+
+`--local` blocks the web fonts, so layout is checked with fallback fonts there.
 
 ## Sharing the repository with other pages
 
@@ -270,6 +310,7 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `gscpi_xls_to_csv.py`, `xls_to_csv.py` — convert legacy .xls workbooks on the
   runner (no Excel there); locally `common.ps1` uses Excel COM first
 - `alerts.ps1` + `exec_extract.js` — new-release emails via GitHub issues (see above)
+- `live-check.mjs` — the published page in a browser after every refresh (see "Live check")
 - `build.ps1` — template + data → page, with the locale guards; `build-page.mjs` —
   writes the published page (packed data, no comments) when Node is available
 - `refresh_all.ps1` — runs everything in order; what the workflow calls

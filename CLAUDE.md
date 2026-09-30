@@ -21,8 +21,10 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
    `git fetch origin main && git checkout -B <branch> origin/main && git push --force-with-lease -u origin <branch>`.
 3. The stop hook requires a clean, committed tree. Regenerated data files count.
 4. Cloudflare Pages deploys `main` automatically (root is `site/`; `site/_headers` and `site/_redirects` apply).
-   Preview deploys post on every PR. fnam.mx is blocked from the cloud session's network, so live checks are the
-   owner's; give her the exact URLs to click.
+   Preview deploys post on every PR. Since 30-Sep-2026 the session's network allows plain requests to fnam.mx
+   (curl), but a session cannot drive a browser at the live site (its Chromium does not trust the egress proxy's
+   certificate, and the permission check refuses it): browser checks of live pages run on GitHub's runner
+   (`macro-live-check.yml` for the US macro page). For other pages, give her the exact URLs to click.
 5. Never disable TLS verification or unset `HTTPS_PROXY`. Egress 403s are policy; report, do not retry.
 
 ## What the site is
@@ -66,8 +68,8 @@ dashboards, everything built from public data by GitHub Actions.
 - Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
   sources publish weekdays). A run commits only when data changed.
 - When working on one page, do not touch another page's workflow or scripts.
-- The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…) and fnam.mx
-  itself. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
+- The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
+  plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
 
 ## The macro dashboards
@@ -89,9 +91,11 @@ dashboards, everything built from public data by GitHub Actions.
   the report PDF and only published when the figures reconcile against the report's own totals.
   `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed);
   the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
-  changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues created since its previous run
-  (see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue (closed on
-  recovery), which the same routine emails, and fails the run.
+  changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues of its slot's window (a late run
+  keeps its slot's window; see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue
+  (closed on recovery), which the same routine emails, and fails the run. After every refresh
+  `macro-live-check.yml` loads https://fnam.mx/macro/ in Chromium (the deploy is main's page; every section, ES and
+  EN, desktop and phone) and a failure opens one "LIVE CHECK FAILED: US macro - ..." issue, emailed the same way.
 - IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
   IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
   `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's
