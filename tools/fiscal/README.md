@@ -111,8 +111,8 @@ node scripts/fiscal/render-check.mjs --shots /tmp/fiscal-shots --chart path/to/c
 ```
 
 `render-check.mjs` opens the page in Playwright Chromium at 1280 px and 390 px, in both languages,
-light and dark (eight configurations), with the Chart.js CDN answered from a local `chart.js@4.4.0`
-copy and Google Fonts stubbed. It fails on console errors, `undefined`/`NaN` in the text, empty
+light and dark (eight configurations), with Chart.js served by the site itself (`/assets/vendor/chart.umd.4.4.0.min.js`, SRI-pinned;
+`--chart` only matters for an old checkout that still loads it from the CDN) and Google Fonts stubbed. It fails on console errors, `undefined`/`NaN` in the text, empty
 `[data-bind]` spans, horizontal overflow, DOM text below 11 px, a section tab or language button that
 a tap would not reach (`elementFromPoint` at its centre, the tab strip scrolled to each tab), the
 language buttons overlapping the tab strip, a table that overflows sideways without scrolling and a

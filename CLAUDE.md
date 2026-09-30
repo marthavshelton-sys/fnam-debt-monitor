@@ -134,8 +134,9 @@ dashboards, everything built from public data by GitHub Actions.
 
 - `node --check` every edited script.
 - Serve the site locally: `python3 -m http.server 8123 --directory site` (start it detached with `setsid nohup …`).
-- Headless checks use Playwright Chromium from `/opt/node22/lib/node_modules/playwright`; route the CDN
-  `chart.umd.min.js` to a local `node_modules/chart.js` copy and stub Google Fonts. Register the "abort all
+- Headless checks use Playwright Chromium from `/opt/node22/lib/node_modules/playwright`; Chart.js is
+  self-hosted on every page (`site/assets/vendor/chart.umd.4.4.0.min.js`, `integrity` sha384 on each tag; replace file
+  and hash together), so the local server supplies it; stub Google Fonts. Register the "abort all
   non-localhost" route first so the specific routes win.
 - PDFs: click `#btnPrint` (or open the deep link), catch the download, rasterise pages with PyMuPDF and look at
   every page in both languages before merging.

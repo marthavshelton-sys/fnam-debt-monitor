@@ -122,8 +122,9 @@ from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
   find a route list on its own site that the runner can read, write a parser next to `parseVolarisStations`, and keep the
   `kind: 'routes'` / "stations feed" source convention.
 - **Chart.js** is served from `site/assets/vendor/chart.umd.4.4.0.min.js` (npm package, whose registry integrity
-  sha512-vQEj6d…Q1hQ== npm verified on install) with an `integrity` attribute on the `/trafico/` and `/aerolineas/`
-  script tags. Replace file and hash together when upgrading.
+  sha512-vQEj6d…Q1hQ== npm verified on install) with an `integrity` attribute on every page that uses it (`/aeropuertos/trafico/`,
+  `/aeropuertos/aerolineas/`, GAP, OMA, ASUR, Quálitas, Gentera, Oracle, `/fiscal/`, `/mx/fiscal/`; no page loads it from
+  a CDN since 30-Sep-2026). Replace file and hash together in all ten pages when upgrading.
 - `.chart-box .msg[hidden]{display:none}`: the message layer is `display:grid`, which overrides `[hidden]`; without this
   rule the hidden layer covered the canvas and blocked tooltips and legend clicks.
 - **Operator sources on `/trafico/`**: GAFSACOMM and GATM are cited to their incorporation resolutions on
