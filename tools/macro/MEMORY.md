@@ -19,6 +19,9 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   the fiscal tiles.
 - **SPR cavern counts** come from DOE's storage-sites page only; the Quick Facts
   table's differing count (West Hackberry 22 vs 21) is footnoted, not displayed.
+- **SPR latest reading = the newer of EIA's week and DOE's daily report** (owner, 30-Sep-2026:
+  the header said 18-Sep while DOE's report below showed 25-Sep). DOE's figures come from
+  OCR of the image (`spr_image_ocr.py`); if they fail the checks the page falls back to EIA only.
 - **Sections are links** (`?view=…&lang=…`) with pushState history and per-section
   metadata; an unknown `?view=` shows a notice and the first section.
 - **Challenger is automated** (`process_challenger.ps1` reads the PDF); the page

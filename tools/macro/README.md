@@ -251,7 +251,13 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
   Quick Facts page; each new as-of date is appended to `bySiteHistory`), and
   DOE's inventory report, which exists only as an image (posted weekly on
   Mondays of late, for the prior Friday) and is saved as
-  `data/spr-inventory.jpg` then copied beside the page
+  `data/spr-inventory.jpg` then copied beside the page; `spr_image_ocr.py` (RapidOCR) reads
+  the report's "as of" date and sweet/sour/total volumes into `image.reading`
+  (kept only if sweet + sour = total, the date is on or before DOE's posting
+  and within 14 days, and the total is within 3% of EIA's latest week). When
+  that reading is newer than EIA's latest week the page uses it as the latest
+  point everywhere (header, summary, KPIs, weekly chart) and names DOE as the
+  source; EIA's Wednesday release then takes over
 - `process_challenger.ps1` + `challenger_pdf.py` — the Challenger job-cut report
   (see above); `process_weights.ps1` — BLS probe for the weights tables
 - `process_cape.ps1` — Shiller's ie_data.xls from shillerdata.com (the link

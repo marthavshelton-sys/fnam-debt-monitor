@@ -2791,15 +2791,16 @@ const I18N = {
     sprSiteCols: ["Sitio", "Inventario", "Dulce", "Amargo", "Capacidad", "Ocupación"],
     sprTotalRow: "Total",
     sprCaverns: n => n + " cavernas",
-    sprSitesNote: (n, caverns, cap, fill, cur, d) => n + " sitios y " + caverns + " cavernas de sal pueden guardar hasta " + cap + " millones de barriles; con " + cur + " millones (EIA, " + d + ") la reserva está al " + fill + "%.",
-    sprSitesBySiteNote: (asOf, tot) => "El DOE publica el inventario por sitio en su página SPR Quick Facts según su propio calendario; la tabla más reciente es al " + asOf + " (" + tot + " millones en total), por lo que va detrás del dato semanal de la EIA. El DOE no publica series históricas por sitio; el tablero conserva cada tabla nueva conforme aparece.",
+    sprSitesNote: (n, caverns, cap, fill, cur, d, src) => n + " sitios y " + caverns + " cavernas de sal pueden guardar hasta " + cap + " millones de barriles; con " + cur + " millones (" + src + ", " + d + ") la reserva está al " + fill + "%.",
+    sprSitesBySiteNote: (asOf, tot) => "El DOE publica el inventario por sitio en su página SPR Quick Facts según su propio calendario; la tabla más reciente es al " + asOf + " (" + tot + " millones en total), por lo que va detrás de la lectura más reciente de arriba. El DOE no publica series históricas por sitio; el tablero conserva cada tabla nueva conforme aparece.",
     sprSitesHist: "Tablas anteriores del DOE por sitio:",
     sprSitesHistRow: (d, parts, tot) => d + ": " + parts + " · total " + tot,
     sprSecReport: "Informe de inventario del DOE",
     sprSecReportNote: "Tal como lo publica la Oficina de Reservas de Petróleo: división dulce/amargo y compras y liberaciones mes por mes",
-    sprReportPublished: (d, c) => "publicado por el DOE el " + d + " · verificado el " + c + ": es la versión más reciente",
+    sprReportPublished: (d, c, a) => (a ? "inventario al " + a + " · " : "") + "publicado por el DOE el " + d + " · verificado el " + c + ": es la versión más reciente",
+    exSprDoe: (d, w) => " La cifra al " + d + " es del informe diario de inventario del DOE; la serie semanal de la EIA llega al " + w + ".",
     sprReportNote: nx => "Las cifras entre paréntesis son barriles liberados; la fecha «al» de la tabla está impresa en la propia imagen. Últimamente el DOE publica este informe los lunes con el inventario al viernes anterior; el tablero lo vuelve a descargar en cada actualización y la fecha de arriba es la del archivo del DOE. Próximo: previsto el " + nx + ".",
-    footerSpr: "Datos: Administración de Información Energética de EE. UU. (EIA), inventarios semanales (serie WCSSTUS1) y mensuales (MCSSTUS1) de crudo en la SPR (miles de barriles), vía los libros de historia de la EIA en eia.gov; Departamento de Energía, Oficina de Reservas de Petróleo: capacidades por sitio (energy.gov/ceser/spr-storage-sites) e informe diario de inventario (spr.doe.gov). Las comparaciones por periodo presidencial usan la serie semanal entre fechas de toma de posesión; las liberaciones y compras citadas provienen de los comunicados del DOE enlazados arriba.",
+    footerSpr: "Datos: Administración de Información Energética de EE. UU. (EIA), inventarios semanales (serie WCSSTUS1) y mensuales (MCSSTUS1) de crudo en la SPR (miles de barriles), vía los libros de historia de la EIA en eia.gov; Departamento de Energía, Oficina de Reservas de Petróleo: capacidades por sitio (energy.gov/ceser/spr-storage-sites) e informe diario de inventario (spr.doe.gov), cuyo inventario «al» se lee de la imagen y se usa como la lectura más reciente cuando es posterior a la última semana de la EIA. Las comparaciones por periodo presidencial usan la serie semanal entre fechas de toma de posesión; las liberaciones y compras citadas provienen de los comunicados del DOE enlazados arriba.",
     exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "La reserva tenía " + level + " millones de barriles el " + d + ", " + ({up:"" + wkAbs + " más", down:"" + wkAbs + " menos", flat:"sin cambio"})[wkDir] + " que la semana previa y " + chg52 + " (" + pct52 + "%) en 52 semanas" + (fill !== null ? "; es el " + fill + "% de su capacidad autorizada" : "") + (lowYear ? " y el nivel más bajo desde " + lowYear + "." : "."),
     exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Desde que Trump asumió en ene 2025 la reserva ha pasado de " + from + " a " + to + " (" + chg + ")" + (fell ? ", con un máximo de " + peakV + " en " + peakM + " y una caída de " + since + " desde entonces por las liberaciones de crudo" : "") + ". Con Biden cambió " + bidenChg + " en cuatro años, sobre todo por la liberación de emergencia de 2022.",
     exSprWhy: (pct, peakM) => "La reserva es el seguro del país ante un corte de suministro: las liberaciones añaden crudo al mercado y presionan los precios a la baja por un tiempo, pero cada barril que sale es uno menos para la siguiente emergencia y uno que habrá que recomprar a precio de mercado. Está " + pct + "% por debajo de su máximo de " + peakM + ".",
@@ -2843,6 +2844,7 @@ const I18N = {
     exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el rendimiento excedente del CAPE, el colchón que ofrecen las acciones sobre el rendimiento real de los bonos, y si las utilidades alcanzan a los precios.",
     sprNext: (d, w) => "Próximo informe semanal de la EIA: previsto el " + d + ", con la semana que termina el " + w + " (miércoles, 10:30 ET; un día después si hay feriado)",
     sprAsOfWeek: (w, r) => "Última lectura semanal: semana que terminó el " + w + " (publicada por la EIA el " + r + ")",
+    sprAsOfDoe: (lvl, d, pub, w, r) => "Última lectura: " + lvl + " millones de barriles al " + d + " (informe diario de inventario del DOE, publicado el " + pub + "); la serie semanal de la EIA llega a la semana que terminó el " + w + " (publicada el " + r + ")",
     fcAsOfWeek: (w, r) => "NFCI: semana que terminó el " + w + " (publicado por la Fed de Chicago el " + r + "); tasas y diferenciales, al último día disponible",
     fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
@@ -3787,15 +3789,16 @@ const I18N = {
     sprSiteCols: ["Site", "Inventory", "Sweet", "Sour", "Capacity", "Full"],
     sprTotalRow: "Total",
     sprCaverns: n => n + " caverns",
-    sprSitesNote: (n, caverns, cap, fill, cur, d) => n + " sites and " + caverns + " salt caverns can hold up to " + cap + " million barrels; at " + cur + " million (EIA, " + d + ") the reserve is " + fill + "% full.",
-    sprSitesBySiteNote: (asOf, tot) => "DOE publishes inventory per site on its SPR Quick Facts page on its own schedule; the latest table is as of " + asOf + " (" + tot + " million in total), so it lags EIA's weekly figure. DOE publishes no history by site; the dashboard keeps each new table as it appears.",
+    sprSitesNote: (n, caverns, cap, fill, cur, d, src) => n + " sites and " + caverns + " salt caverns can hold up to " + cap + " million barrels; at " + cur + " million (" + src + ", " + d + ") the reserve is " + fill + "% full.",
+    sprSitesBySiteNote: (asOf, tot) => "DOE publishes inventory per site on its SPR Quick Facts page on its own schedule; the latest table is as of " + asOf + " (" + tot + " million in total), so it lags the latest reading above. DOE publishes no history by site; the dashboard keeps each new table as it appears.",
     sprSitesHist: "Earlier DOE tables by site:",
     sprSitesHistRow: (d, parts, tot) => d + ": " + parts + " · total " + tot,
     sprSecReport: "DOE inventory report",
     sprSecReportNote: "As published by the Office of Petroleum Reserves: sweet/sour split and month-by-month purchases and releases",
-    sprReportPublished: (d, c) => "posted by DOE " + d + " · checked " + c + ": this is the latest version",
+    sprReportPublished: (d, c, a) => (a ? "inventory as of " + a + " · " : "") + "posted by DOE " + d + " · checked " + c + ": this is the latest version",
+    exSprDoe: (d, w) => " The " + d + " figure is from DOE's daily inventory report; EIA's weekly series runs through " + w + ".",
     sprReportNote: nx => "Figures in parentheses are barrels released; the table's own 'as of' date is printed in the image. DOE has lately posted this report on Mondays with inventory as of the preceding Friday; the dashboard re-downloads it on every refresh and the date above is DOE's own file date. Next: expected " + nx + ".",
-    footerSpr: "Data: U.S. Energy Information Administration, weekly (series WCSSTUS1) and monthly (MCSSTUS1) ending stocks of crude oil in the SPR (thousand barrels), via EIA's history workbooks at eia.gov; U.S. Department of Energy, Office of Petroleum Reserves — storage-site capacities (energy.gov/ceser/spr-storage-sites) and the daily inventory report (spr.doe.gov). Presidential-term comparisons use the weekly series between inauguration dates; the releases and purchases cited come from the DOE announcements linked above.",
+    footerSpr: "Data: U.S. Energy Information Administration, weekly (series WCSSTUS1) and monthly (MCSSTUS1) ending stocks of crude oil in the SPR (thousand barrels), via EIA's history workbooks at eia.gov; U.S. Department of Energy, Office of Petroleum Reserves — storage-site capacities (energy.gov/ceser/spr-storage-sites) and the daily inventory report (spr.doe.gov), whose 'as of' inventory is read off the image and used as the latest reading when it is newer than EIA's latest week. Presidential-term comparisons use the weekly series between inauguration dates; the releases and purchases cited come from the DOE announcements linked above.",
     exSprLatest: (level, d, wkDir, wkAbs, chg52, pct52, fill, lowYear) => "The reserve held " + level + " million barrels on " + d + ", " + ({up:"up " + wkAbs, down:"down " + wkAbs, flat:"unchanged"})[wkDir] + " on the week and " + chg52 + " (" + pct52 + "%) over 52 weeks" + (fill !== null ? "; that is " + fill + "% of its authorized capacity" : "") + (lowYear ? " and the lowest level since " + lowYear + "." : "."),
     exSprDrivers: (from, to, chg, peakV, peakM, since, fell, bidenChg) => "Since Trump took office in Jan 2025 the reserve has gone from " + from + " to " + to + " (" + chg + ")" + (fell ? ", peaking at " + peakV + " in " + peakM + " and falling " + since + " since as crude was released" : "") + ". Under Biden it changed by " + bidenChg + " over four years, mostly the 2022 emergency release.",
     exSprWhy: (pct, peakM) => "The reserve is the country's insurance against a supply cut: releases add crude to the market and weigh on prices for a while, but each barrel out is one less for the next emergency and one to buy back later at market prices. It is " + pct + "% below its " + peakM + " peak.",
@@ -3839,6 +3842,7 @@ const I18N = {
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
     sprNext: (d, w) => "Next EIA weekly report: expected " + d + ", covering the week ending " + w + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
     sprAsOfWeek: (w, r) => "Latest weekly reading: week ending " + w + " (released by EIA " + r + ")",
+    sprAsOfDoe: (lvl, d, pub, w, r) => "Latest reading: " + lvl + " million barrels as of " + d + " (DOE daily inventory report, posted " + pub + "); EIA's weekly series runs through the week ending " + w + " (released " + r + ")",
     fcAsOfWeek: (w, r) => "NFCI: week ending " + w + " (released by the Chicago Fed " + r + "); yields and spreads through the latest available day",
     fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
@@ -7582,7 +7586,7 @@ function renderExecSummaries() {
   // ---- Strategic Petroleum Reserve ----
   section("exec-spr", () => {
     if (!SPR || !SPR.weekly || SPR.weekly.length < 60) return;
-    const W = SPR.weekly, mb = v => v / 1000;
+    const W = sprWeekly(), mb = v => v / 1000;
     const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
     const s1 = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
     const cur = W[W.length - 1], prev = W[W.length - 2], w52 = W[W.length - 53];
@@ -7594,7 +7598,8 @@ function renderExecSummaries() {
     const bStart = W.find(p => p.d >= "2021-01-20"); let bEnd = null; for (const p of W) { if (p.d < "2025-01-20") bEnd = p; else break; }
     const wk = cur.v - prev.v;
     card("exec-spr",
-      T.exSprLatest(f1(mb(cur.v)), fmtDateDMY(cur.d), dir(wk, 100), f1(Math.abs(mb(wk))), s1(mb(cur.v - w52.v)), (cur.v >= w52.v ? "+" : "−") + Math.abs(Math.round((cur.v / w52.v - 1) * 100)), cap ? Math.round(mb(cur.v) / cap * 100) : null, lowIdx < 0 ? null : W[lowIdx].d.slice(0, 4)),
+      T.exSprLatest(f1(mb(cur.v)), fmtDateDMY(cur.d), dir(wk, 100), f1(Math.abs(mb(wk))), s1(mb(cur.v - w52.v)), (cur.v >= w52.v ? "+" : "−") + Math.abs(Math.round((cur.v / w52.v - 1) * 100)), cap ? Math.round(mb(cur.v) / cap * 100) : null, lowIdx < 0 ? null : W[lowIdx].d.slice(0, 4)) +
+        (cur.doe ? T.exSprDoe(fmtDateDMY(cur.d), fmtDateDMY(prev.d)) : ""),
       T.exSprDrivers(f1(mb(start.v)), f1(mb(cur.v)), s1(mb(cur.v - start.v)), f1(mb(tPeak.v)), fmtMonthYear(tPeak.d.slice(0, 7)), f1(mb(tPeak.v - cur.v)), tPeak.v - cur.v > 1000, bStart && bEnd ? s1(mb(bEnd.v - bStart.v)) : null),
       T.exSprWhy(Math.round((1 - cur.v / peak.v) * 100), fmtMonthYear(peak.d)),
       T.exSprWatch(dir(wk, 100)));
@@ -7631,9 +7636,16 @@ const SPR_TERMS = [
   { id: "biden",  start: "2021-01-20", end: "2025-01-20" },
   { id: "trump2", start: "2025-01-20", end: null }
 ];
+// EIA's weekly series, plus DOE's daily-report reading (read off the image by
+// spr_image_ocr.py) as the latest point when it is newer: DOE posts the Friday
+// inventory on Monday, EIA's weekly release for the same Friday follows on Wednesday.
+function sprWeekly() {
+  const W = SPR.weekly, r = SPR.image && SPR.image.reading;
+  return r && r.asOf > W[W.length - 1].d ? W.concat([{ d: r.asOf, v: Math.round(r.total * 1000), doe: true }]) : W;
+}
 function renderSpr() {
   if (!SPR || !SPR.weekly || SPR.weekly.length < 60) return;
-  const W = SPR.weekly, M = SPR.monthly;
+  const W = sprWeekly(), M = SPR.monthly, eia = SPR.weekly[SPR.weekly.length - 1];
   const mb = v => v / 1000;                                                   // thousand -> million barrels
   const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const f0 = v => Math.round(v).toLocaleString(T.dateLocale);
@@ -7650,17 +7662,19 @@ function renderSpr() {
   // following Wednesday: say both, so the reference date and the later
   // publication/check dates on this page do not read as a mismatch.
   (function () {
-    const rel = (SPR.files && SPR.files.weekly) ? new Date(SPR.files.weekly + "T00:00:00") : new Date(cur.d + "T00:00:00");
+    const rel = (SPR.files && SPR.files.weekly) ? new Date(SPR.files.weekly + "T00:00:00") : new Date(eia.d + "T00:00:00");
     if (!(SPR.files && SPR.files.weekly)) rel.setDate(rel.getDate() + 5);
-    document.getElementById("sprAsOfLine").textContent = T.sprAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel));
-    const nx = nextWeeklyRelease(cur.d, 3, 12); const cover = new Date(nx); cover.setDate(cover.getDate() - 5);
+    document.getElementById("sprAsOfLine").textContent = cur.doe
+      ? T.sprAsOfDoe(f1(mb(cur.v)), fmtDateDMY(cur.d), fmtDateDMY(SPR.image.published), fmtDateDMY(eia.d), fmtDateDMY(rel))
+      : T.sprAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel));
+    const nx = nextWeeklyRelease(eia.d, 3, 12); const cover = new Date(nx); cover.setDate(cover.getDate() - 5);
     document.getElementById("sprNextReleaseLine").textContent = T.sprNext(fmtDateDMY(nx), fmtDateDMY(cover));
   })();
   document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
 
   // ---- KPIs ----
   const tiles = [
-    { label: T.sprKpiLevel, value: f1(mb(cur.v)), dlt: mb(cur.v - prevW.v), sub: T.sprKpiWk, foot: fmtDateDMY(cur.d), spark: W.slice(-52).map(p => mb(p.v)), color: "--series-headline" },
+    { label: T.sprKpiLevel, value: f1(mb(cur.v)), dlt: mb(cur.v - prevW.v), sub: T.sprKpiWk, foot: fmtDateDMY(cur.d) + (cur.doe ? " · DOE" : ""), spark: W.slice(-52).map(p => mb(p.v)), color: "--series-headline" },
     { label: T.sprKpi4w, value: s1(mb(cur.v - w4.v)), foot: T.sprKpiChgFoot(fmtDateDMY(w4.d)), spark: W.slice(-5).map(p => mb(p.v)), color: "--series-core" },
     { label: T.sprKpi52w, value: s1(mb(cur.v - w52.v)), dltPct: (cur.v / w52.v - 1) * 100, foot: T.sprKpiChgFoot(fmtDateDMY(w52.d)), spark: W.slice(-53).map(p => mb(p.v)), color: "--series-services" },
     { label: T.sprKpiFill, value: cap ? Math.round(mb(cur.v) / cap * 100) + "%" : "—", foot: cap ? T.sprKpiFillFoot(f0(cap)) : "", spark: null, color: "--cat-5" },
@@ -7748,7 +7762,7 @@ function renderSpr() {
     } else tbl.innerHTML = "";
     renderBarList("sprSitesList", sites.map((s, i) => ({ name: s.name + " · " + s.location + " · " + T.sprCaverns(s.caverns), value: s.cap, color: "--cat-" + ((i % 10) + 1) })), v => f1(v) + " " + T.sprMb);
     const caverns = sites.reduce((a, s) => a + s.caverns, 0);
-    const parts = ["<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v)), fmtDateDMY(cur.d)) + "</div>"];
+    const parts = ["<div>" + T.sprSitesNote(sites.length, caverns, f0(SPR.capacity.total), Math.round(mb(cur.v) / SPR.capacity.total * 100), f1(mb(cur.v)), fmtDateDMY(cur.d), cur.doe ? "DOE" : "EIA") + "</div>"];
     if (bs) parts.push("<div>" + T.sprSitesBySiteNote(fmtDateDMY(bs.asOf), f1(bs.total)) + "</div>");
     if (bs) sites.forEach(s => { const r = invOf(s.name); if (r && r.caverns && r.caverns !== s.caverns) parts.push("<div>" + T.sprCavernsNote(s.name, s.caverns, r.caverns, fmtDateDMY(bs.asOf)) + "</div>"); });
     const hist = (SPR.bySiteHistory || []).filter(h => h && h.asOf && (!bs || h.asOf !== bs.asOf)).sort((a, b) => b.asOf < a.asOf ? -1 : 1);
@@ -8595,7 +8609,7 @@ function renderFileDateLines() {
     fileDateLine("sprRefreshedLine", "process_spr", SPR.files && SPR.files.weekly, SPR.fetchedAt, T.fileEia);
     // Every "checked" date on the SPR page comes from the same run, so they agree.
     if (SPR.image && SPR.image.file) document.getElementById("sprReportAsOf").textContent =
-      T.sprReportPublished(fmtDateDMY(SPR.image.published), fmtDateDMY(checkedDate("process_spr", SPR.image.fetchedAt || SPR.fetchedAt)));
+      T.sprReportPublished(fmtDateDMY(SPR.image.published), fmtDateDMY(checkedDate("process_spr", SPR.image.fetchedAt || SPR.fetchedAt)), SPR.image.reading ? fmtDateDMY(SPR.image.reading.asOf) : null);
     if (SPR.capacity) {
       const bs = SPR.bySite && SPR.bySite.sites && SPR.bySite.sites.length ? SPR.bySite : null;
       const c = fmtDateDMY(checkedDate("process_spr", SPR.capacity.fetchedAt || SPR.fetchedAt));
