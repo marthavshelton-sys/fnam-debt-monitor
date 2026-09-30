@@ -89,7 +89,8 @@ dashboards, everything built from public data by GitHub Actions.
   PRs from scheduled browser tasks because BLS answers scripted requests with 403
   (`process_weights.ps1` probes every run in case that changes). Challenger job cuts are read from
   the report PDF and only published when the figures reconcile against the report's own totals.
-  `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed);
+  `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed), and
+  a revision of a figure already reported (a GDP estimate, a benchmark revision) as its own or inside the next one;
   the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
   changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues of its slot's window (a late run
   keeps its slot's window; see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue

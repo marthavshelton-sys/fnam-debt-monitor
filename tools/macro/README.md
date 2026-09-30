@@ -141,6 +141,22 @@ the template. The subject starts with MATERIAL when a threshold in `alerts.ps1`
 is crossed. The state file is seeded from the current data on first run and
 committed with the data.
 
+**Revisions.** The state also keeps, for CPI, PPI, jobs, PCE, GDP and retail, the
+headline figures of the last three periods as they were last reported. When one of
+them has since moved by more than its noise band, the alert says so: inside the next
+release's issue when the revision comes with one ("Jobs Sep 2026 +150K ...; Aug 2026
+revised to +140K (was +162K)"), or as an issue of its own when nothing new was
+published ("MATERIAL: GDP Q2 2026 revised to 2.2% (was 1.5%, +0.7 pp)"). The issue
+body gets a "Revision:" line listing every period revised, then the page's own
+summary. Bands (reported / MATERIAL): GDP growth 0.1 / 0.5 pp; CPI, PPI and PCE y/y,
+headline or core, 0.1 / 0.2 pp; payroll change 10K / 50K (also the net of the months
+revised); unemployment 0.1 / 0.2 pp; retail level 0.3% / 1%; retail m/m 0.2 / 0.5 pp.
+A figure below its band is not re-stored, so small moves add up until they clear it.
+`alerts.ps1 -DumpValues` prints the figures the state would keep for the data in
+`MACRO_DATA_DIR`. The figures were first stored on 30-Sep-2026, backfilled for GDP
+with the values before BEA's annual update of that day and for retail with those
+before Census's 28-Sep benchmark revision, so both revisions were reported once.
+
 The issue is only a queue: the owner does not receive GitHub's own notification
 emails (she turned them off to avoid the noise). Delivery is the Claude Routine
 "FNAM US Macro: email material changes" (cloud, daily at 14:45 and 20:45 UTC,
@@ -218,7 +234,10 @@ It is read-only: public pages only, nothing committed. A failure opens one
 email routine above sends; later failures comment on it and the first passing
 check closes it. The run keeps the report in its summary and the screenshots as
 an artifact for 14 days. Run it by hand from Actions ("Check live macro
-dashboard", optional `wait_minutes`).
+dashboard", optional `wait_minutes`). With `test_alert` ticked, a passing run also
+opens a "LIVE CHECK FAILED: US macro - TEST ALERT ..." issue and closes it at once:
+the email routine sends it like a real one, so it proves the email path end to end
+without holding an open issue that would absorb a real failure.
 
 In a session, try the script against a local copy (the session's browser cannot
 check the live site: it does not trust the egress proxy's certificate, and

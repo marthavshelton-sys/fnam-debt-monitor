@@ -34,6 +34,10 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   issue that the email routine sends). A session's Chromium does not trust the egress
   proxy's certificate, and driving it at fnam.mx is refused by the permission check;
   do not work around either.
+- **Revisions are alerted** (`alerts.ps1`, state `values`): a figure already reported
+  that moves past its band gets a line in the next release's alert, or an alert of its
+  own. First stored 30-Sep-2026 with a backfill (GDP before BEA's annual update that day,
+  retail before Census's 28-Sep benchmark) so both revisions went out once.
 - **Email routine windows follow the scheduled slot** (14:45 / 20:45 UTC), not the
   hour a run starts: a late run on 29-Sep-2026 re-sent an alert under the old rule.
 - **Published page = `build-page.mjs`** (packed data, no comments, ~1.0 MB);
@@ -80,9 +84,11 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   ALFRED first prints agree with `payrollInitial`. Also that the log shows "BEA last
   revised: GDP <date>" (if "not reported", BEA's note lacks the date and the page
   falls back to FRED's calendar alone).
-- Retail sales: the Census API level (Aug-2026 $737.8B) sits 3.4-4.7% below FactSet's
-  CENRETAIL&FS@US on every month since Aug-2024; neither source here confirms the
-  28-Sep benchmark revision. Reconcile against the Census release tables.
+- (Resolved 30-Sep-2026) Retail sales level: Census's 28-Sep-2026 benchmark revision,
+  pulled by the 14:20 UTC refresh that day, cut Aug-2026 retail and food services from
+  $773,947M to $737,763M (-4.7%) and every month since Aug-2024 by 3.4-4.7%. FactSet's
+  CENRETAIL&FS@US still showed the pre-revision $773,947M, so the gap was FactSet lagging,
+  not the page. The revision alert reported it once.
 - Page weight is now ~1.0 MB raw (~290 KB gzip), mostly packed data. The next step
   would be per-section data files loaded on demand, which changes the build,
   `exec_extract.js` and `alerts.ps1` together.
