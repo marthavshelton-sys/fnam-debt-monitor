@@ -7,11 +7,13 @@
 //   Airlines  Aeromexico, Volaris and Viva monthly traffic reports (passengers, ASMs, RPMs, load factor): Volaris publishes a
 //             history workbook, Viva monthly PDFs (parsed by tools/aeropuertos/parse_airline_pdfs.py), Aeromexico monthly PDFs
 //             on an IR site that only answers real browsers (fetched from inside a Chrome/Chromium page when possible).
-//   Networks  each carrier's own route feed (Volaris, Viva stations feeds); no other source is used
+//   Networks  each carrier's own route feed (Volaris, Viva stations feeds). Aeromexico publishes no route list, so its routes
+//             to and from the US come from the US DOT's T-100 International Segment data (BTS TranStats, official, carrier-level
+//             nonstop segments flown); its domestic and other international routes are not drawn. No other source is used.
 // Every raw input is cached in tools/aeropuertos/raw/airlines; a source that cannot be read today keeps yesterday's input, so a
 // bad day never blanks the page. Flags: --skip-afac --skip-ir --skip-networks --full (ignore caches) --dump-ir-text.
 import fs from 'node:fs'; import path from 'node:path'; import { execFileSync } from 'node:child_process'; import { fileURLToPath } from 'node:url';
-import { parseResumen, parseSase, parseVolarisHistory, parseVolarisStations, parseVivaStations, makeCodeMaps, compile, irFromMonthly, mergeIrSeries, fileMeta, MESES } from '../../tools/aeropuertos/airlines-lib.mjs';
+import { parseResumen, parseSase, parseVolarisHistory, parseVolarisStations, parseVivaStations, t100Rows, t100Network, makeCodeMaps, compile, irFromMonthly, mergeIrSeries, fileMeta, MESES } from '../../tools/aeropuertos/airlines-lib.mjs';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..');
 const TOOLS = path.join(ROOT, 'tools', 'aeropuertos'), RAW = path.join(TOOLS, 'raw', 'airlines'), TMP = path.join(TOOLS, 'tmp', 'airlines'), OUT = path.join(ROOT, 'site', 'aeropuertos', 'data');
@@ -156,12 +158,58 @@ async function refreshAeromexico() {
 // Only route lists the airline itself publishes (Volaris' and Viva's stations feeds) are used. Wikipedia is not a
 // credible source, and AFAC's origin-destination file has no airline column, so carriers without an official feed
 // have no network on the page. Anything else left in the cache from earlier runs is dropped here.
-const nets = Object.fromEntries(Object.entries(readJson(path.join(RAW, 'networks.json'), {})).filter(([, n]) => n && n.kind === 'routes' && /stations feed/i.test(n.source || '')));
+const nets = Object.fromEntries(Object.entries(readJson(path.join(RAW, 'networks.json'), {})).filter(([, n]) => n && n.kind === 'routes' && (/stations feed/i.test(n.source || '') || n.basis === 't100')));
+const T100_URL = 'https://www.transtats.bts.gov/DL_SelectFields.aspx?gnoyr_VQ=FJE&QO_fu146_anzr=Nv4%20Pn44vr45';
+const T100_FIELDS = ['YEAR', 'MONTH', 'UNIQUE_CARRIER', 'ORIGIN', 'ORIGIN_COUNTRY', 'DEST', 'DEST_COUNTRY', 'DEPARTURES_PERFORMED', 'PASSENGERS', 'CLASS'];
+const MONTHS_EN = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+// One BTS download per calendar year covering the 12 months to the latest available month; only Aeromexico (AM) and
+// Aeromexico Connect (5D) rows are kept.
+async function fetchT100() {
+  const browser = await gobBrowser();
+  try {
+    const page = await (await browser.newContext({ acceptDownloads: true, locale: 'en-US' })).newPage();
+    await page.goto(T100_URL, { waitUntil: 'domcontentloaded', timeout: 120000 });
+    const m = (await page.textContent('body')).match(/Latest Available Data:\s*([A-Za-z]+)\s+(\d{4})/);
+    if (!m || MONTHS_EN.indexOf(m[1].toLowerCase()) < 0) throw new Error('T-100: no "Latest Available Data" on the form');
+    const ly = +m[2], lm = MONTHS_EN.indexOf(m[1].toLowerCase()) + 1, latest = `${ly}-${String(lm).padStart(2, '0')}`;
+    const years = lm === 12 ? [ly] : [ly - 1, ly];
+    const rows = [];
+    for (const year of years) {
+      await page.goto(T100_URL, { waitUntil: 'domcontentloaded', timeout: 120000 });
+      const geo = await page.$$eval('#cboGeography option', (o) => o.map((x) => x.value));
+      for (const [sel, val] of [['#cboGeography', geo.includes('Mexico') ? 'Mexico' : 'All'], ['#cboYear', String(year)], ['#cboPeriod', 'All']]) {
+        if ((await page.$eval(sel, (e) => e.value)) === val) continue;
+        await Promise.all([page.waitForNavigation({ timeout: 15000 }).catch(() => null), page.selectOption(sel, val)]); await page.waitForTimeout(1000);
+      }
+      await page.$$eval('input[type=checkbox]', (els, want) => els.forEach((e) => { if (!/^chk/.test(e.id)) e.checked = want.includes(e.name); }), T100_FIELDS);
+      const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 600000 }), page.click('#btnDownload')]);
+      const file = path.join(TMP, `t100-${year}.bin`); await dl.saveAs(file);
+      const buf = fs.readFileSync(file);
+      const csv = buf.subarray(0, 2).toString() === 'PK' ? execFileSync('unzip', ['-p', file], { maxBuffer: 1 << 30 }).toString('utf8') : buf.toString('utf8');
+      const got = t100Rows(csv); if (!got.length) throw new Error(`T-100 ${year}: empty file`);
+      rows.push(...got.filter((r) => r.car === 'AM' || r.car === '5D'));
+    }
+    if (!rows.some((r) => r.ym === latest)) throw new Error(`T-100: no Aeromexico rows for ${latest}`);
+    return { fetchedAt: today, latest, years, rows };
+  } finally { await browser.close(); }
+}
+
 async function refreshNetworks() {
   // Volaris: stations feed (plain fetch works)
   try { const j = JSON.parse((await get('https://webapi.volaris.com/ps/api/v1/stations/culture/es-MX', 'application/json')).buf.toString('utf8')); const n = parseVolarisStations(j); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VOI = { ...n, asOf: today }; note('net-volaris', 'ok', { routes: n.routes.length, hubs: n.hubs }); } catch (e) { note('net-volaris', nets.VOI ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
   // Viva: stations API from inside its own site (the last good feed is kept if it fails)
   try { const { browser, label } = await siteBrowser(); try { const page = await (await browser.newContext({ locale: 'es-MX' })).newPage(); await page.goto('https://www.vivaaerobus.com/es-mx/', { waitUntil: 'domcontentloaded', timeout: 90000 }); await page.waitForTimeout(7000); const txt = await inPage(page, 'https://api.vivaaerobus.com/web/vb/v1/resources/stations?StationTypes=Airport'); const n = parseVivaStations(JSON.parse(txt)); if (n.routes.length < 50) throw new Error(`only ${n.routes.length} routes`); nets.VIV = { ...n, asOf: today }; note('net-viva', 'ok', { browser: label, routes: n.routes.length }); } finally { await browser.close(); } } catch (e) { note('net-viva', nets.VIV ? 'kept' : 'missing', { error: e.message.slice(0, 120) }); }
+  // Aeromexico and Aeromexico Connect: US DOT T-100 International Segment (all carriers), filtered to Mexico, downloaded from
+  // BTS TranStats' form; the carrier rows are cached in raw/airlines/t100-am.json and a failed day keeps the cached rows.
+  const T100 = path.join(RAW, 't100-am.json'); let t100 = readJson(T100, null);
+  try {
+    const got = await fetchT100(); t100 = got; writeJson(T100, got);
+    note('net-t100', 'ok', { latest: got.latest, years: got.years, rows: got.rows.length });
+  } catch (e) { note('net-t100', t100 ? 'kept' : 'missing', { error: e.message.split('\n')[0].slice(0, 160) }); }
+  if (t100 && t100.rows && t100.rows.length) {
+    for (const [id, car] of [['AM', 'AM'], ['AMC', '5D']]) { const n = t100Network(t100.rows, car, { to: t100.latest }); if (n && n.routes.length) nets[id] = { ...n, asOf: t100.fetchedAt }; }
+    sources.t100 = { title: 'US DOT, Bureau of Transportation Statistics - T-100 International Segment (All Carriers)', url: T100_URL, lastMonth: t100.latest, fetchedAt: t100.fetchedAt };
+  }
   writeJson(path.join(RAW, 'networks.json'), nets);
   note('networks', 'ok', { carriers: Object.keys(nets) });
 }
@@ -183,7 +231,7 @@ const ir = {};
 if (volHist || Object.keys(irCache.voi).length) ir.VOI = mergeIrSeries(volHist, Object.keys(irCache.voi).length ? irFromMonthly(irCache.voi, 'Volaris IR - monthly traffic reports') : null, 'Volaris IR - Historical Traffic Data + monthly traffic reports');
 if (Object.keys(irCache.viv).length) ir.VIV = irFromMonthly(irCache.viv, 'Viva Aerobus IR - monthly traffic reports');
 if (Object.keys(irCache.am).length) ir.AM = irFromMonthly(irCache.am, 'Aeromexico IR - monthly traffic results');
-const out = compile({ registry, airportsMeta, cities, resumenes, sases, ir, networks: nets, sources: { afac: sources.afac, afacOd: sources.afac, volaris: sources.volaris, viva: sources.viva, aeromexico: sources.aeromexico } });
+const out = compile({ registry, airportsMeta, cities, resumenes, sases, ir, networks: nets, sources: { afac: sources.afac, afacOd: sources.afac, volaris: sources.volaris, viva: sources.viva, aeromexico: sources.aeromexico, t100: sources.t100 } });
 out.airlines.status = { checkedAt: today, steps: status.steps };
 function writeIfChanged(file, name, obj) {
   let prev = null; try { const t = fs.readFileSync(file, 'utf8'); prev = JSON.parse(t.slice(t.indexOf('{'), t.lastIndexOf('}') + 1)); } catch { /* first run */ }

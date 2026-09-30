@@ -7,6 +7,7 @@
 //   node scripts/aeropuertos/probe-pages.mjs [--links=<regex>] [--grep=<regex>] [--wait=<ms>] [--full=<url-part>] <url> [<url> ...]
 //     --grep   print page-text lines and JSON snippets matching the regex
 //     --full   print the whole body of responses whose URL contains this string (first 20,000 chars)
+//     --forms  list every form control (tag, type, name, id, value, label; selects with their options)
 const args = process.argv.slice(2);
 const opt = (k, d) => { const a = args.find((x) => x.startsWith(`--${k}=`)); return a ? a.slice(k.length + 3) : d; };
 const urls = args.filter((a) => !a.startsWith('--'));
@@ -14,6 +15,7 @@ const linkRe = opt('links') ? new RegExp(opt('links'), 'i') : null;
 const grepRe = opt('grep') ? new RegExp(opt('grep'), 'i') : null;
 const full = opt('full', '');
 const wait = +opt('wait', 9000);
+const forms = args.includes('--forms');
 if (!urls.length) { console.log('usage: probe-pages.mjs [--links=re] [--grep=re] [--wait=ms] [--full=url-part] <url>...'); process.exit(0); }
 
 const { chromium } = await import('playwright');
@@ -52,6 +54,14 @@ try {
       console.log(`status ${resp ? resp.status() : '-'} · final ${info.final}\ntitle: ${info.title}\nheadings: ${info.h.join(' | ')}`);
       console.log(`text (${info.text.length} chars): ${clip(info.text.replace(/\s+/g, ' '), 1200)}`);
       if (grepRe) { const lines = info.text.split('\n').map((l) => l.trim()).filter((l) => l && grepRe.test(l)); console.log(`---- text lines matching ${grepRe} (${lines.length}) ----`); lines.slice(0, 80).forEach((l) => console.log('  ' + clip(l, 220))); }
+      if (forms) {
+        const ctl = await page.evaluate(() => [...document.querySelectorAll('input,select,textarea,button')].map((e) => {
+          const lab = (e.id && document.querySelector(`label[for="${CSS.escape(e.id)}"]`)) || e.closest('label');
+          const o = { tag: e.tagName.toLowerCase(), type: e.type || '', name: e.name || '', id: e.id || '', value: (e.value || '').slice(0, 60), checked: !!e.checked, label: lab ? lab.textContent.trim().replace(/\s+/g, ' ').slice(0, 80) : '' };
+          if (e.tagName === 'SELECT') o.options = [...e.options].map((x) => x.value + '=' + x.textContent.trim()).slice(0, 40).join(' | ');
+          return o; }));
+        console.log(`---- form controls (${ctl.length}) ----`); ctl.slice(0, 400).forEach((c) => console.log('  ' + JSON.stringify(c)));
+      }
       console.log(`links: ${info.links.length}`);
       if (linkRe) { const m = info.links.filter((l) => linkRe.test(l.href) || linkRe.test(l.text)); console.log(`---- links matching ${linkRe} (${m.length}) ----`); m.slice(0, 150).forEach((l) => console.log(`  ${clip(l.text, 80)} -> ${l.href}`)); }
     } catch (e) { console.log('error: ' + e.message.split('\n')[0]); }

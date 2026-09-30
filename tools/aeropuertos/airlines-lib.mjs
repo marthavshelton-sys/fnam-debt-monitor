@@ -146,6 +146,44 @@ export function parseVivaStations(json) {
   return { kind: 'routes', source: 'vivaaerobus.com (stations feed)', hubs: [], airports, routes: [...routes].map((k) => k.split('-')) };
 }
 
+// ---------------------------------------------------------------- US DOT T-100 (nonstop segments flown, by carrier)
+// BTS TranStats "T-100 International Segment (All Carriers)": every nonstop segment with at least one US point, reported
+// monthly by US and foreign carriers (carrier, origin, destination, departures performed, passengers, service class). It is the
+// only official carrier-level route source for Aeromexico, which publishes no route list; it covers its US routes only.
+export function parseCsv(text) {
+  const rows = []; let row = [], cell = '', q = false;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (q) { if (ch === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; } else cell += ch; continue; }
+    if (ch === '"') q = true; else if (ch === ',') { row.push(cell); cell = ''; } else if (ch === '\n' || ch === '\r') { if (ch === '\r' && text[i + 1] === '\n') i++; row.push(cell); cell = ''; if (row.some((c) => c !== '')) rows.push(row); row = []; } else cell += ch;
+  }
+  row.push(cell); if (row.some((c) => c !== '')) rows.push(row);
+  return rows;
+}
+export function t100Rows(csvText) {
+  const [head, ...body] = parseCsv(csvText); if (!head) return [];
+  const ix = (k) => head.findIndex((h) => h.trim().toUpperCase() === k);
+  const c = { y: ix('YEAR'), m: ix('MONTH'), car: ix('UNIQUE_CARRIER'), o: ix('ORIGIN'), oc: ix('ORIGIN_COUNTRY'), d: ix('DEST'), dc: ix('DEST_COUNTRY'), dep: ix('DEPARTURES_PERFORMED'), pax: ix('PASSENGERS'), cls: ix('CLASS') };
+  const miss = Object.entries(c).filter(([, v]) => v < 0).map(([k]) => k); if (miss.length) throw new Error('T-100 file lacks columns: ' + miss.join(', '));
+  return body.map((r) => ({ ym: `${String(r[c.y]).trim()}-${String(r[c.m]).trim().padStart(2, '0')}`, car: r[c.car].trim(), o: r[c.o].trim(), oc: r[c.oc].trim(), d: r[c.d].trim(), dc: r[c.dc].trim(), dep: +r[c.dep] || 0, pax: +r[c.pax] || 0, cls: r[c.cls].trim() })).filter((r) => r.car && r.o && r.d && /^\d{4}-\d{2}$/.test(r.ym));
+}
+// Routes a carrier flew on scheduled service (class F) in the 12 months to `to` (default: the latest month in the file, for
+// every carrier alike); a pair needs at least
+// `minDepartures` departures (both directions) in that window so a diversion or one-off flight does not become a route.
+export function t100Network(rows, carrier, { minDepartures = 8, to = rows.reduce((m, x) => (x.ym > m ? x.ym : m), '') } = {}) {
+  const r = rows.filter((x) => x.car === carrier && x.cls === 'F'); if (!r.length) return null;
+  const [ty, tm] = to.split('-').map(Number), fd = new Date(Date.UTC(ty, tm - 12, 1)), from = `${fd.getUTCFullYear()}-${String(fd.getUTCMonth() + 1).padStart(2, '0')}`;
+  const stats = {}, airports = {};
+  for (const x of r) {
+    if (x.ym < from || x.ym > to) continue;
+    const k = [x.o, x.d].sort().join('-'); const s = stats[k] || (stats[k] = { dep: 0, pax: 0 }); s.dep += x.dep; s.pax += x.pax;
+    airports[x.o] = { cc: x.oc }; airports[x.d] = { cc: x.dc };
+  }
+  const keep = Object.keys(stats).filter((k) => stats[k].dep >= minDepartures).sort();
+  const st = Object.fromEntries(keep.map((k) => [k, { dep: Math.round(stats[k].dep), pax: Math.round(stats[k].pax) }]));
+  return { kind: 'routes', basis: 't100', source: 'US DOT BTS, T-100 International Segment (US routes only)', period: { from, to }, minDepartures, hubs: [], airports, routes: keep.map((k) => k.split('-')), stats: st };
+}
+
 // ---------------------------------------------------------------- Wikipedia destination tables
 const decode = (s) => s.replace(/<[^>]+>/g, ' ').replace(/&#(\d+);/g, (_, d) => String.fromCodePoint(+d)).replace(/&#x([0-9a-f]+);/gi, (_, h) => String.fromCodePoint(parseInt(h, 16))).replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/\[\s*\d+\s*\]/g, '').replace(/\s+/g, ' ').trim();
 export function wikiTables(html) {
@@ -199,7 +237,7 @@ export function afacCity(city, country) {
   return WIKI_TO_AFAC[c] || c;
 }
 // airline feed IATA codes for foreign airports -> AFAC city names
-export const FOREIGN_IATA = { LAX: 'LOS ANGELES', ONT: 'ONTARIO', SNA: 'SANTA ANA, CALIFORNIA', SAN: 'SAN DIEGO', SFO: 'SAN FRANCISCO', OAK: 'OAKLAND', SJC: 'SAN JOSE, CALIFORNIA', SMF: 'SACRAMENTO', FAT: 'FRESNO', LAS: 'LAS VEGAS', PHX: 'PHOENIX', DEN: 'DENVER', SLC: 'SALT LAKE CITY', SEA: 'SEATTLE', PDX: 'PORTLAND, OREGON', ORD: 'CHICAGO', MDW: 'CHICAGO', DFW: 'DALLAS-FORT WORTH', DAL: 'DALLAS-FORT WORTH', IAH: 'HOUSTON', HOU: 'HOUSTON', AUS: 'AUSTIN', SAT: 'SAN ANTONIO', MIA: 'MIAMI', FLL: 'FORT LAUDERDALE', MCO: 'ORLANDO', TPA: 'TAMPA', ATL: 'ATLANTA', CLT: 'CHARLOTTE', JFK: 'NUEVA YORK', LGA: 'NUEVA YORK', EWR: 'NEWARK', BOS: 'BOSTON', PHL: 'PHILADELPHIA', BWI: 'BALTIMORE', IAD: 'WASHINGTON', DCA: 'WASHINGTON', DTW: 'DETROIT', MSP: 'MINNEAPOLIS', STL: 'ST. LOUIS', MCI: 'KANSAS CITY', BNA: 'NASHVILLE', RDU: 'RALEIGH/DURHAM', CVG: 'COVINGTON', CLE: 'CLEVELAND', IND: 'INDIANAPOLIS', MKE: 'MILWAUKEE', CMH: 'COLUMBUS, OHIO', TUL: 'TULSA', MSY: 'NUEVA ORLEANS', RNO: 'RENO', ELP: 'EL PASO', TUS: 'TUCSON', ABQ: 'ALBUQUERQUE', OKC: 'OKLAHOMA CITY', JAX: 'JACKSONVILLE', HRL: 'HARLINGEN TEXAS', ORF: 'NORFOLK', PIT: 'PITTSBURGH', MEM: 'MEMPHIS', YYZ: 'TORONTO', YUL: 'MONTREAL', YVR: 'VANCOUVER', YYC: 'CALGARY', YEG: 'EDMONTON', YWG: 'WINNIPEG', YOW: 'OTTAWA', YQB: 'QUEBEC', YHZ: 'HALIFAX', YLW: 'KELOWNA', YQR: 'REGINA, CANADA', YXE: 'SASKATOON', YYJ: 'VICTORIA, COLUMBIA', YHM: 'HAMILTON', YQM: 'MONCTON', YXU: 'LONDON, ONTARIO', YFC: 'FREDERICTON, CANADA', YQT: 'THUNDER BAY', YQQ: 'COMOX', BOG: 'BOGOTA', MDE: 'MEDELLIN', CLO: 'CALI', CTG: 'CARTAGENA DE INDIAS', LIM: 'LIMA', SJO: 'SAN JOSE, COSTA RICA', GUA: 'GUATEMALA', SAL: 'SAN SALVADOR', PTY: 'PANAMA', HAV: 'LA HABANA', CMW: 'CAMAGUEY', PUJ: 'PUNTA CANA', SDQ: 'SANTO DOMINGO,REP DOM', SAP: 'SAN PEDRO SULA', XPL: 'COMAYAGUA', MGA: 'MANAGUA', UIO: 'QUITO', GYE: 'GUAYAQUIL', CCS: 'CARACAS', SCL: 'SANTIAGO DE CHILE', EZE: 'BUENOS AIRES', GRU: 'SAO PAULO', BSB: 'BRASILIA', GIG: 'RIO DE JANEIRO', MVD: 'MONTEVIDEO', MAD: 'MADRID', BCN: 'BARCELONA, ESPAÑA', CDG: 'PARIS', ORY: 'PARIS', LHR: 'LONDRES', LGW: 'LONDRES', MAN: 'MANCHESTER', BHX: 'BIRMINGHAM, INGLATERRA', GLA: 'GLASGOW', NCL: 'NEWCASTLE', AMS: 'AMSTERDAM', FRA: 'FRANKFURT', MUC: 'MUNICH', DUS: 'DUSSELDORF', ZRH: 'ZURICH', FCO: 'ROMA', MXP: 'MILAN', LIS: 'LISBON', IST: 'ESTAMBUL (ARNAVUTKOY)', DXB: 'DUBAI', DOH: 'DOHA', NRT: 'TOKYO', HND: 'TOKYO', ICN: 'SEOUL', SZX: 'SHENZHEN', PEK: 'BEIJING', PVG: 'SHANGHAI', HEL: 'HELSINKI', BRU: 'BRUSELAS', VIE: 'VIENA', DUB: 'DUBLIN', SJU: 'SAN JUAN', BZE: 'BELICE', FRS: 'FLORES', TGU: 'TEGUCIGALPA', RTB: 'ROATAN', KIN: 'KINGSTON', MBJ: 'MONTEGO BAY', NAS: 'NASSAU', AUA: 'ARUBA' };
+export const FOREIGN_IATA = { LAX: 'LOS ANGELES', ONT: 'ONTARIO', SNA: 'SANTA ANA, CALIFORNIA', SAN: 'SAN DIEGO', SFO: 'SAN FRANCISCO', OAK: 'OAKLAND', SJC: 'SAN JOSE, CALIFORNIA', SMF: 'SACRAMENTO', FAT: 'FRESNO', LAS: 'LAS VEGAS', PHX: 'PHOENIX', DEN: 'DENVER', SLC: 'SALT LAKE CITY', SEA: 'SEATTLE', PDX: 'PORTLAND, OREGON', ORD: 'CHICAGO', MDW: 'CHICAGO', DFW: 'DALLAS-FORT WORTH', DAL: 'DALLAS-FORT WORTH', IAH: 'HOUSTON', HOU: 'HOUSTON', AUS: 'AUSTIN', SAT: 'SAN ANTONIO', MIA: 'MIAMI', FLL: 'FORT LAUDERDALE', MCO: 'ORLANDO', TPA: 'TAMPA', ATL: 'ATLANTA', CLT: 'CHARLOTTE', JFK: 'NUEVA YORK', LGA: 'NUEVA YORK', EWR: 'NEWARK', BOS: 'BOSTON', PHL: 'PHILADELPHIA', BWI: 'BALTIMORE', IAD: 'WASHINGTON', DCA: 'WASHINGTON', DTW: 'DETROIT', MSP: 'MINNEAPOLIS', STL: 'ST. LOUIS', MCI: 'KANSAS CITY', BNA: 'NASHVILLE', RDU: 'RALEIGH/DURHAM', CVG: 'COVINGTON', CLE: 'CLEVELAND', IND: 'INDIANAPOLIS', MKE: 'MILWAUKEE', CMH: 'COLUMBUS, OHIO', TUL: 'TULSA', MSY: 'NUEVA ORLEANS', RNO: 'RENO', ELP: 'EL PASO', MFE: 'MCALLEN', TUS: 'TUCSON', ABQ: 'ALBUQUERQUE', OKC: 'OKLAHOMA CITY', JAX: 'JACKSONVILLE', HRL: 'HARLINGEN TEXAS', ORF: 'NORFOLK', PIT: 'PITTSBURGH', MEM: 'MEMPHIS', YYZ: 'TORONTO', YUL: 'MONTREAL', YVR: 'VANCOUVER', YYC: 'CALGARY', YEG: 'EDMONTON', YWG: 'WINNIPEG', YOW: 'OTTAWA', YQB: 'QUEBEC', YHZ: 'HALIFAX', YLW: 'KELOWNA', YQR: 'REGINA, CANADA', YXE: 'SASKATOON', YYJ: 'VICTORIA, COLUMBIA', YHM: 'HAMILTON', YQM: 'MONCTON', YXU: 'LONDON, ONTARIO', YFC: 'FREDERICTON, CANADA', YQT: 'THUNDER BAY', YQQ: 'COMOX', BOG: 'BOGOTA', MDE: 'MEDELLIN', CLO: 'CALI', CTG: 'CARTAGENA DE INDIAS', LIM: 'LIMA', SJO: 'SAN JOSE, COSTA RICA', GUA: 'GUATEMALA', SAL: 'SAN SALVADOR', PTY: 'PANAMA', HAV: 'LA HABANA', CMW: 'CAMAGUEY', PUJ: 'PUNTA CANA', SDQ: 'SANTO DOMINGO,REP DOM', SAP: 'SAN PEDRO SULA', XPL: 'COMAYAGUA', MGA: 'MANAGUA', UIO: 'QUITO', GYE: 'GUAYAQUIL', CCS: 'CARACAS', SCL: 'SANTIAGO DE CHILE', EZE: 'BUENOS AIRES', GRU: 'SAO PAULO', BSB: 'BRASILIA', GIG: 'RIO DE JANEIRO', MVD: 'MONTEVIDEO', MAD: 'MADRID', BCN: 'BARCELONA, ESPAÑA', CDG: 'PARIS', ORY: 'PARIS', LHR: 'LONDRES', LGW: 'LONDRES', MAN: 'MANCHESTER', BHX: 'BIRMINGHAM, INGLATERRA', GLA: 'GLASGOW', NCL: 'NEWCASTLE', AMS: 'AMSTERDAM', FRA: 'FRANKFURT', MUC: 'MUNICH', DUS: 'DUSSELDORF', ZRH: 'ZURICH', FCO: 'ROMA', MXP: 'MILAN', LIS: 'LISBON', IST: 'ESTAMBUL (ARNAVUTKOY)', DXB: 'DUBAI', DOH: 'DOHA', NRT: 'TOKYO', HND: 'TOKYO', ICN: 'SEOUL', SZX: 'SHENZHEN', PEK: 'BEIJING', PVG: 'SHANGHAI', HEL: 'HELSINKI', BRU: 'BRUSELAS', VIE: 'VIENA', DUB: 'DUBLIN', SJU: 'SAN JUAN', BZE: 'BELICE', FRS: 'FLORES', TGU: 'TEGUCIGALPA', RTB: 'ROATAN', KIN: 'KINGSTON', MBJ: 'MONTEGO BAY', NAS: 'NASSAU', AUA: 'ARUBA' };
 
 // ---------------------------------------------------------------- carrier display names
 // AFAC labels carriers by legal or former names ("Lanperu", "K L M", "Delta Airlines", "United Airlines, Inc."). The page shows
@@ -306,13 +344,13 @@ export function compile(input) {
   const nets = {};
   for (const reg of carriersReg) {
     const n = networks[reg.id]; if (!n) continue;
-    const out = { kind: n.kind, source: n.source, asOf: n.asOf || null, hubs: n.hubs && n.hubs.length ? n.hubs : (reg.hubs || []), focus: reg.focus || [], estimated: n.kind !== 'routes' };
+    const out = { kind: n.kind, source: n.source, asOf: n.asOf || null, basis: n.basis || 'airline', period: n.period || null, stats: n.stats || null, hubs: n.hubs && n.hubs.length ? n.hubs : (reg.hubs || []), focus: reg.focus || [], estimated: n.kind !== 'routes' };
     if (n.kind === 'routes') {
       const mxSet = new Set(airportsMeta.map((a) => a.code).concat((registry.extraAirports || []).map((a) => a.code)));
       out.airports = [...new Set(n.routes.flat().filter((c) => mxSet.has(c)))].sort();
       out.foreignAirports = [...new Set(n.routes.flat().filter((c) => !mxSet.has(c)))].sort();
       out.domRoutes = n.routes.filter(([a, b]) => mxSet.has(a) && mxSet.has(b)).map(([a, b]) => [a, b].sort());
-      out.intlRoutes = n.routes.filter(([a, b]) => mxSet.has(a) !== mxSet.has(b)).map(([a, b]) => { const mx = mxSet.has(a) ? a : b, f = mxSet.has(a) ? b : a; return { mx, iata: f, city: FOREIGN_IATA[f] || null, cc: (n.airports[f] || {}).cc || null }; });
+      out.intlRoutes = n.routes.filter(([a, b]) => mxSet.has(a) !== mxSet.has(b)).map(([a, b]) => { const mx = mxSet.has(a) ? a : b, f = mxSet.has(a) ? b : a, city = FOREIGN_IATA[f] || null, ci = city ? cityIndex.get(norm(city)) : null; return { mx, iata: f, city, cc: (n.airports[f] || {}).cc || (ci ? ci.cc : null), lat: ci ? ci.lat : null, lon: ci ? ci.lon : null }; });
       if (!out.hubs.length) { const deg = {}; out.domRoutes.concat(out.intlRoutes.map((r) => [r.mx, r.iata])).forEach(([a, b]) => { deg[a] = (deg[a] || 0) + 1; deg[b] = (deg[b] || 0) + 1; }); out.hubs = Object.entries(deg).filter(([c]) => mxSet.has(c)).sort((x, y) => y[1] - x[1]).slice(0, 4).map(([c]) => c); }
     } else {
       out.airports = (n.mx || []).slice().sort();
@@ -331,19 +369,23 @@ export function compile(input) {
     const parts = [nets.AM, nets.AMC].filter(Boolean);
     const uniqPairs = (arrs) => [...new Set(arrs.flat().map((r) => r.join('-')))].map((k) => k.split('-'));
     const uniqIntl = (arrs) => { const seen = new Map(); arrs.flat().forEach((r) => seen.set(r.mx + '>' + (r.city || r.iata), r)); return [...seen.values()]; };
-    const g = { kind: 'airports', source: parts.map((p) => p.source).filter((v, i, a) => a.indexOf(v) === i).join(' + '), asOf: parts[0].asOf, estimated: true,
+    const allRoutes = parts.every((p) => p.kind === 'routes');
+    const g = { kind: allRoutes ? 'routes' : 'airports', source: parts.map((p) => p.source).filter((v, i, a) => a.indexOf(v) === i).join(' + '), asOf: parts[0].asOf, estimated: !allRoutes,
+      basis: parts.every((p) => p.basis === parts[0].basis) ? parts[0].basis : 'mixed', period: parts[0].period || null,
+      stats: allRoutes && parts.some((p) => p.stats) ? parts.reduce((acc, p) => { Object.entries(p.stats || {}).forEach(([k, v]) => { const a = acc[k] || (acc[k] = { dep: 0, pax: 0 }); a.dep += v.dep; a.pax += v.pax; }); return acc; }, {}) : null,
       hubs: [...new Set(parts.flatMap((p) => p.hubs))], focus: [...new Set(parts.flatMap((p) => p.focus || []))],
       airports: [...new Set(parts.flatMap((p) => p.airports))].sort(), foreign: uniqIntl(parts.map((p) => (p.foreign || []).map((f) => ({ mx: '', city: f.city, country: f.country })))).map((f) => ({ city: f.city, country: f.country })),
       domRoutes: uniqPairs(parts.map((p) => p.domRoutes)), intlRoutes: uniqIntl(parts.map((p) => p.intlRoutes)) };
+    if (allRoutes) g.foreignAirports = [...new Set(parts.flatMap((p) => p.foreignAirports || []))].sort();
     g.foreignCountries = [...new Set(g.foreign.map((f) => f.country))];
-    g.counts = { airportsMx: g.airports.length, foreign: g.foreign.length, domRoutes: g.domRoutes.length, intlRoutes: g.intlRoutes.length };
+    g.counts = { airportsMx: g.airports.length, foreign: allRoutes ? g.foreignAirports.length : g.foreign.length, domRoutes: g.domRoutes.length, intlRoutes: g.intlRoutes.length };
     nets.AMG = g;
   }
 
   const airlines = {
     generatedAt: new Date().toISOString(), months, lastMonth: to, from,
     carriers: [...carriers.values()].sort((a, b) => (a.group === b.group ? 0 : a.group === 'mx' ? -1 : 1)),
-    groups: { AMG: { members: ['AM', 'AMC'], name: 'Grupo Aeroméxico', short: 'Aeroméxico', color: (carriersReg.find((c) => c.id === 'AM') || {}).color } },
+    groups: { AMG: { members: ['AM', 'AMC'], name: 'Grupo Aeroméxico', short: 'Aeroméxico', color: (carriersReg.find((c) => c.id === 'AM') || {}).color, reported: (carriersReg.find((c) => c.id === 'AM') || {}).reported || null } },
     regions: Object.values(regions), totals, ir, networks: nets,
     sources, units: { pax: 'passengers (scheduled service, persons)', flights: 'flights', cargoT: 'metric tons' },
   };
