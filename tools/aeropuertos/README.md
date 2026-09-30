@@ -115,12 +115,24 @@ from `tools/aeropuertos/raw/sources.json`, which the daily refresh maintains.
 
 ## Sources and page integrity (30-Sep-2026)
 
-- **Airline networks**: only route lists the airline itself publishes are used (Volaris and Viva stations feeds).
-  Wikipedia is not an acceptable source, and AFAC's origin-destination file (`sase-*.xlsx`) has no airline column, so
-  Aeroméxico, Mexicana, TAR, Aerus and Magnicharters have no network on the map; their passengers and market share still
-  come from AFAC. `airlines-refresh.mjs` drops anything else from `raw/airlines/networks.json` on load. To add a carrier,
-  find a route list on its own site that the runner can read, write a parser next to `parseVolarisStations`, and keep the
-  `kind: 'routes'` / "stations feed" source convention.
+- **Airline networks**: route lists the airline itself publishes (Volaris and Viva stations feeds). Wikipedia is not an
+  acceptable source, and AFAC's origin-destination file (`sase-*.xlsx`) has no airline column. Mexicana, TAR, Aerus and
+  Magnicharters have no network on the map; their passengers and market share still come from AFAC.
+  `airlines-refresh.mjs` drops anything else from `raw/airlines/networks.json` on load. To add a carrier, find a route list
+  on its own site that the runner can read, write a parser next to `parseVolarisStations`, and keep the `kind: 'routes'` /
+  "stations feed" source convention.
+- **Aeroméxico (30-Sep-2026)**: publishes no route list. Checked on the runner with `aerolineas-refresh.yml` → `probe`:
+  `/us/destinations/route-maps` renders empty, the home page answers "Access Denied" to automated browsers, the
+  `sitemap/vuelos-de-ciudad-a-ciudad` pages list 2,656 sellable city pairs including connections (Acapulco–Atlanta,
+  Bogotá–Berlín) with no nonstop flag, and the route pages' fare feed (EveryMundo/airTRFX) has no stops field. Its Form
+  20-F (FY2025) gives only counts (48 domestic, 51 international destinations, 25 of them in the US) and an image map.
+  So its **US routes** come from the US DOT's **T-100 International Segment (All Carriers)** (BTS TranStats form
+  `DL_SelectFields.aspx?gnoyr_VQ=FJE`, Mexico filter, one download per calendar year): segments carrier AM or 5D flew on
+  scheduled service (class F), at least 8 departures in the latest 12 published months (BTS lags about three months).
+  Carrier rows are cached in `raw/airlines/t100-am.json`; networks carry `basis: 't100'`, `period` and per-route
+  `stats` (departures, passengers). Domestic and non-US routes are not drawn, and the page says so. First run: 45
+  routes, 8 Mexican and 26 US airports (25 cities, New York counted once), July 2025–June 2026. The 20-F counts are in
+  `airlines.json` (`reported`) and shown on the Grupo Aeroméxico card.
 - **Chart.js** is served from `site/assets/vendor/chart.umd.4.4.0.min.js` (npm package, whose registry integrity
   sha512-vQEj6d…Q1hQ== npm verified on install) with an `integrity` attribute on every page that uses it (`/aeropuertos/trafico/`,
   `/aeropuertos/aerolineas/`, GAP, OMA, ASUR, Quálitas, Gentera, Oracle, `/fiscal/`, `/mx/fiscal/`; no page loads it from
