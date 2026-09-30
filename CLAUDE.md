@@ -191,3 +191,6 @@ dashboards, everything built from public data by GitHub Actions.
   links); never type a CBO year or figure into the page. Before pushing a page change run
   `scripts/fiscal/render-check.mjs` (Playwright, eight configurations: tab-bar hit test, table scroll
   hints, SVG label size, heading case) and look at its `--shots` crops of the canvas charts.
+  Debt-to-GDP appears as three labelled measures (live; FRED quarterly GFDEGDQ188S, which the macro
+  dashboard's fiscal view shows; FRED annual GFDGDPA188S) and interest as gross (MTS table 3, accrual
+  dataset) or net (MTS table 9, CBO, the macro view); label any new figure the same way on both pages.

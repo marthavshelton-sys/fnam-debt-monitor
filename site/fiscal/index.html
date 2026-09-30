@@ -557,7 +557,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
           <div class="stat"><div class="v num" data-bind="accruedInterestT">$1.268T</div><div class="l"><span class="en">Gross interest expense, accrual basis, FY<span data-bind="fyCur">2026</span> YTD (<span data-bind="accruedRangeLongEn">Oct '25–Aug '26</span>, <span data-bind="accruedMonths">11</span> mo.)</span><span class="es" hidden>Gasto bruto por intereses, base devengada, AF<span data-bind="fyCur">2026</span> a la fecha (<span data-bind="accruedRangeLongEs">oct. '25–ago. '26</span>, <span data-bind="accruedMonths">11</span> meses)</span></div></div>
           <div class="stat"><div class="v num" data-bind="accruedFYprevT">$1.220T</div><div class="l"><span class="en">Gross interest expense, accrual basis, full FY<span data-bind="accruedFYprev">2025</span></span><span class="es" hidden>Gasto bruto por intereses, base devengada, AF<span data-bind="accruedFYprev">2025</span> completo</span></div></div>
         </div>
-        <p class="cap" id="bridgeCap" style="margin-top:16px"><span class="en">Gross to net interest, cash basis, $ billions · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>, tables 3 and 9</span><span class="es" hidden>Del interés bruto al neto, base de caja, miles de millones de dólares · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>, cuadros 3 y 9</span></p>
+        <p class="cap" id="bridgeCap" style="margin-top:16px"><span class="en">Gross to net interest, cash basis, $ billions · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>: gross interest and trust-fund interest from table 3, net interest from table 9</span><span class="es" hidden>Del interés bruto al neto, base de caja, miles de millones de dólares · <a href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener">Monthly Treasury Statement</a>: interés bruto e interés de los fondos fiduciarios del cuadro 3, interés neto del cuadro 9</span></p>
         <div class="tblwrap" id="tblInterestBridge"></div>
         <div class="callout">
           <span class="en"><b>Gross interest</b> is what Treasury pays on all its securities, including those held by federal trust funds such as Social Security: <b data-bind="cashInterestT">$1.267T</b> in cash through the first <span class="fyn-en">11</span> months of FY<span data-bind="fyCur">2026</span>, <span data-bind="cashInterestDirEn">above</span> the <b data-bind="cashInterestPriT">$1.124T</b> paid over the same months of FY<span data-bind="fyPrev">2025</span> (<span data-bind="cashInterestFYprevT">$1.216T</span> for the full year). That makes gross interest the <span data-bind="interestRankEn">third-largest</span> line in the federal budget by agency<span data-bind="interestBehindEn">, behind only Health &amp; Human Services and Social Security</span> (Section 8). Treasury's accrual-basis figures above are gross too.<span id="netIntNoteEn"></span></span>
@@ -2078,14 +2078,18 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         var g = [gB, cashInterestPriT*1000, cashInterestFYprevT != null ? cashInterestFYprevT*1000 : null];
         var tf = [trustIntB, trustIntPriB, trustIntFYprevB], n = [netIntB, netIntPriB, netIntFYprevB];
         var neg = function(v){ return v == null ? null : -v; };
-        var oth = g.map(function(x, i){ return (x != null && tf[i] != null && n[i] != null) ? x - tf[i] - n[i] : null; });
+        // The residual is taken from the rounded figures shown, so every column adds up exactly as printed.
+        var r1 = function(v){ return v == null ? null : Math.round(v*10)/10; };
+        g = g.map(r1); tf = tf.map(r1); n = n.map(r1);
+        var oth = g.map(function(x, i){ return (x != null && tf[i] != null && n[i] != null) ? Math.round((x - tf[i] - n[i])*10)/10 : null; });
         var rows = [
-          [isEs ? 'Interés bruto sobre los valores de deuda del Tesoro (cuadro 3)' : 'Gross interest on Treasury debt securities (table 3)', g, false],
-          [isEs ? 'Menos: interés acreditado a los fondos fiduciarios federales (cuadro 3)' : 'Less: interest credited to federal trust funds (table 3)', tf.map(neg), false],
-          [isEs ? 'Menos: otros ingresos federales por intereses e inversiones (residual)' : 'Less: other federal interest and investment income (residual)', oth.map(neg), false],
-          [isEs ? 'Interés neto, función presupuestal 900 (cuadro 9)' : 'Net interest, budget function 900 (table 9)', n, true]
+          [isEs ? 'Interés bruto sobre valores del Tesoro' : 'Gross interest on Treasury securities', g, false],
+          [isEs ? 'Menos: interés acreditado a fondos fiduciarios' : 'Less: interest credited to trust funds', tf.map(neg), false],
+          [isEs ? 'Menos: otros ingresos por intereses e inversiones (residual)' : 'Less: other interest and investment income (residual)', oth.map(neg), false],
+          [isEs ? 'Interés neto (función presu&shy;puestal 900)' : 'Net interest (budget function 900)', n, true]
         ];
-        var head = '<thead><tr><th style="text-align:left">'+(isEs ? 'Concepto' : 'Line')+'</th><th>'+(isEs ? 'AF'+fyCur+' a la fecha ('+revOutInfo.rangeShortEs+')' : 'FY'+fyCur+' YTD ('+revOutInfo.rangeShortEn+')')+'</th><th>'+(isEs ? 'AF'+fyPrev+', mismos meses' : 'FY'+fyPrev+', same months')+'</th><th>'+(isEs ? 'AF'+fyPrev+', año completo' : 'FY'+fyPrev+', full year')+'</th></tr></thead>';
+        var rng = isEs ? revOutInfo.rangeShortEs : revOutInfo.rangeShortEn;
+        var head = '<thead><tr><th style="text-align:left">'+(isEs ? 'Concepto' : 'Line')+'</th><th>'+(isEs ? 'AF' : 'FY')+fyCur+' ('+rng+')</th><th>'+(isEs ? 'AF' : 'FY')+fyPrev+' ('+rng+')</th><th>'+(isEs ? 'AF'+fyPrev+' total' : 'FY'+fyPrev+' full year')+'</th></tr></thead>';
         var body = rows.map(function(r){ return '<tr'+(r[2] ? ' class="total"' : '')+'><td style="text-align:left">'+r[0]+'</td>'+r[1].map(function(v){ return '<td class="num">'+f(v)+'</td>'; }).join('')+'</tr>'; }).join('');
         tb.innerHTML = '<table>'+head+'<tbody>'+body+'</tbody></table>';
       }
