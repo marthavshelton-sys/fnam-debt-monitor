@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-30T04:25:46.194Z",
+  "generated": "2026-09-30T13:38:15.936Z",
   "summary": {
     "checks": 349,
     "failed": 0,
@@ -2874,7 +2874,7 @@
     {
       "series": "Share price (ORCL close)",
       "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
@@ -2882,7 +2882,7 @@
     {
       "series": "10-year Treasury (FRED DGS10)",
       "lastDate": "2026-09-28",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"
@@ -2890,7 +2890,7 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 20,
+      "ageDays": 21,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
@@ -2898,7 +2898,7 @@
     {
       "series": "EDGAR submissions snapshot",
       "lastDate": "2026-09-30",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs, weekdays 13:30 UTC"
@@ -2906,7 +2906,7 @@
     {
       "series": "Oracle IR press-release snapshot",
       "lastDate": "2026-09-30",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs"
@@ -2914,7 +2914,7 @@
     {
       "series": "Investor calendar",
       "lastDate": "2026-09-30",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-calendar.mjs"
@@ -2922,7 +2922,7 @@
     {
       "series": "Peer leverage (SEC XBRL)",
       "lastDate": "2026-09-30",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-peer-leverage.mjs"
@@ -2930,7 +2930,7 @@
     {
       "series": "FactSet consensus snapshot",
       "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 7,
       "status": "ok",
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
@@ -2938,7 +2938,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-09-27",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
