@@ -1,0 +1,136 @@
+# Checks the published US macro dashboard (https://fnam.mx/macro/) the way a
+# visitor gets it, after every refresh: the deploy arrived (the live page is
+# main's site/macro/index.html), and every section, in both languages, on
+# desktops and phones, renders without script errors, broken values, raw markup,
+# unlabeled charts, empty sparklines, text below 11 px or anything wider than the
+# screen. What it checks and how to run it by hand: tools/macro/live-check.mjs and
+# the "Live check" section of tools/macro/README.md.
+#
+# Read-only: it loads public pages and commits nothing. A failure opens one
+# "LIVE CHECK FAILED: US macro - ..." issue (label macro-live-check), which the
+# owner's email routine sends her; while it stays open, later failures add a
+# comment, and the first passing check closes it.
+name: Check live macro dashboard
+
+on:
+  workflow_run:
+    workflows: ["Refresh macro dashboard"]
+    types: [completed]
+  workflow_dispatch:
+    inputs:
+      wait_minutes:
+        description: "Minutes to wait for Cloudflare to publish main's page"
+        default: "20"
+
+concurrency:
+  group: macro-live-check
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  live:
+    # A refresh that failed may still have published a page; only a cancelled or
+    # skipped one is left alone.
+    if: github.event_name == 'workflow_dispatch' || contains(fromJSON('["success","failure"]'), github.event.workflow_run.conclusion)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 1
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      # One retry, so a transient download failure does not report the page as broken.
+      - name: Install Playwright's Chromium
+        run: |
+          npm init -y >/dev/null
+          for i in 1 2; do
+            npm i --no-audit --no-fund playwright@1.56.1 && npx playwright install --with-deps chromium && exit 0
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          exit 1
+
+      - name: Check https://fnam.mx/macro/
+        id: check
+        continue-on-error: true
+        env:
+          WAIT: ${{ github.event.inputs.wait_minutes || '20' }}
+        run: node tools/macro/live-check.mjs --expect-ref main --wait "$WAIT" --shots live-check-shots --report "$RUNNER_TEMP/live-check-report.md"
+
+      - name: Keep the screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: live-check-screenshots
+          path: live-check-shots
+          if-no-files-found: ignore
+          retention-days: 14
+
+      # Not when a newer refresh cancelled this check: that is not a failure.
+      - name: Open or close the live-check issue
+        if: ${{ !cancelled() }}
+        uses: actions/github-script@v7
+        env:
+          OUTCOME: ${{ steps.check.outcome }}
+          HEADLINE: ${{ steps.check.outputs.headline }}
+          REPORT_FILE: ${{ runner.temp }}/live-check-report.md
+        with:
+          script: |
+            const fs = require('fs');
+            const label = 'macro-live-check';
+            const failed = process.env.OUTCOME !== 'success';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            let report = '';
+            try { report = fs.readFileSync(process.env.REPORT_FILE, 'utf8'); } catch (e) { /* the check stopped before writing it */ }
+            // The distinct problems, one per line, as the script listed them; if it stopped
+            // early, the line saying why.
+            const lines = report.split('\n'), at = lines.indexOf('### Problems');
+            const listed = at < 0 ? [] : lines.slice(at + 1).filter(l => l.startsWith('- '));
+            const stopped = lines.find(l => l.startsWith('The check stopped:'));
+            const shown = listed.length
+              ? listed.slice(0, 15).concat(listed.length > 15 ? [`- ... and ${listed.length - 15} more in the run log`] : [])
+              : ['- ' + (stopped || 'the check could not run; see the run log')];
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (failed) {
+              if (issue) {
+                await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: [`Still failing in ${runUrl}:`, '', ...shown].join('\n') });
+                core.info(`Live-check issue #${issue.number} already open; commented.`);
+                return;
+              }
+              try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'b60205', description: 'US macro dashboard: the published page failed its live check' }); } catch (e) { /* exists */ }
+              const headline = (process.env.HEADLINE || 'the check could not run').trim();
+              const short = headline.length > 150 ? headline.slice(0, 147) + '...' : headline;
+              const body = [
+                `The live check of https://fnam.mx/macro/ failed: ${runUrl}`,
+                '',
+                '- **What failed:** ' + short,
+                '- **Effect:** ' + (listed.length ? 'visitors see these problems until they are fixed; the data refresh itself is not affected.' : 'the page was not checked this time; it may well be fine.'),
+                '- **What to do:** the run has the full report and screenshots; ask Claude to fix it (runbook: tools/macro/README.md, "Live check").',
+                '',
+                'Problems found:',
+                ...shown,
+                '',
+                'This issue closes automatically on the first passing check.',
+              ].join('\n');
+              const created = await github.rest.issues.create({ ...context.repo, title: 'LIVE CHECK FAILED: US macro - ' + short, labels: [label], body });
+              core.info(`Opened live-check issue #${created.data.number}.`);
+            } else if (issue) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `The live page passes again in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            } else {
+              core.info('Live check passed and no issue is open; nothing to do.');
+            }
+
+      # The issue carries the details; failing the run as well keeps the problem
+      # visible in the Actions history.
+      - name: Fail the run when the check failed
+        if: steps.check.outcome != 'success'
+        run: exit 1

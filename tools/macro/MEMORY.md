@@ -29,6 +29,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
 - **GDP estimate name** = GDP release dates after the quarter's end (FRED calendar,
   `recent`), capped and completed by BEA's own "last revised" date for table 1.1.1
   (`gdp_processed.vintage.gdp`). The date shown is BEA's when available.
+- **The live page is checked on GitHub's runner, not from a session**
+  (`macro-live-check.yml` after every refresh; failures become one "LIVE CHECK FAILED:"
+  issue that the email routine sends). A session's Chromium does not trust the egress
+  proxy's certificate, and driving it at fnam.mx is refused by the permission check;
+  do not work around either.
+- **Email routine windows follow the scheduled slot** (14:45 / 20:45 UTC), not the
+  hour a run starts: a late run on 29-Sep-2026 re-sent an alert under the old rule.
 - **Published page = `build-page.mjs`** (packed data, no comments, ~1.0 MB);
   `build.ps1` builds the unpacked page itself only without Node or on a builder
   failure, which the run flags with a `::warning::`.
@@ -46,6 +53,8 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
 - New data blocks must be read as `unpack(/*__NAME__*/ null)` in the template and
   listed in both `build.ps1` and `build-page.mjs`; the Node builder packs only blocks
   read through `unpack()` and checks each one round-trips.
+- `live-check.mjs` compares against main with a plain `git fetch origin main`
+  (never `--depth`, which makes a full clone shallow).
 - The phone `@media` blocks must stay at the end of the stylesheet (placed first,
   later base rules overrode them and the 11 px floor was dead code).
 - `build.ps1`'s guards only see keys written as `    key:` at the start of a line in
