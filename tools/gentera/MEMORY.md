@@ -58,7 +58,8 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - `pypdf` panics in this container (cryptography backend); `ingest-transcripts.py` falls back to pypdfium2.
 - SBS deposit lines and tables B-2334 / B-2369 are not mapped; the Perú monthly table shows loans, delinquency,
   net loans, YTD income and equity only.
-- Chart.js comes from cdnjs; headless checks must route it to a local copy or charts stay blank.
+- Chart.js is served from `/assets/vendor/chart.umd.4.4.0.min.js` with an SRI hash (since 30-Sep-2026); a local
+  `http.server` on `site/` serves it, so headless checks need no CDN route for it.
 - Two other builders touch this page: `site/gentera/present.js` (board PDF, reads `window.G_MODEL` only) and
   the shared mobile CSS pass (statement tables collapse on phones, 11 px floor). Keep `app.js` changes
   compatible with both: do not rename `G_MODEL` fields or the section ids.
