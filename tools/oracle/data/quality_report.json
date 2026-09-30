@@ -1,5 +1,5 @@
 {
-  "generated": "2026-09-29T21:49:54.613Z",
+  "generated": "2026-09-30T04:25:46.194Z",
   "summary": {
     "checks": 349,
     "failed": 0,
@@ -2873,8 +2873,8 @@
   "freshness": [
     {
       "series": "Share price (ORCL close)",
-      "lastDate": "2026-09-28",
-      "ageDays": 2,
+      "lastDate": "2026-09-29",
+      "ageDays": 1,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
@@ -2897,32 +2897,32 @@
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "lastDate": "2026-09-30",
+      "ageDays": 0,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs, weekdays 13:30 UTC"
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "lastDate": "2026-09-30",
+      "ageDays": 0,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs"
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "lastDate": "2026-09-30",
+      "ageDays": 0,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-calendar.mjs"
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-09-29",
-      "ageDays": 1,
+      "lastDate": "2026-09-30",
+      "ageDays": 0,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-peer-leverage.mjs"
@@ -2945,7 +2945,7 @@
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-09-29",
+      "lastDate": "2026-09-30",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -2986,7 +2986,7 @@
     {
       "file": "market_reference.json",
       "status": "ok",
-      "detail": "shares 3023.736 M; price 2026-09-28; undefined ratings; 58 debt instruments"
+      "detail": "shares 3023.736 M; price 2026-09-29; undefined ratings; 58 debt instruments"
     },
     {
       "file": "calendar.json",
@@ -3006,7 +3006,7 @@
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-09-29"
+      "detail": "5 peers; fetched 2026-09-30"
     }
   ],
   "passed": [
