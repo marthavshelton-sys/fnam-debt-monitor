@@ -20,6 +20,7 @@ import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import { fetchUsdMxn } from '../lib/banxico-fx.mjs';
 import { fetchMx10y } from '../lib/banxico-mx10y.mjs';
+import { completedSessions } from '../lib/completed-sessions.mjs';
 
 const OUT = new URL('../../site/gap/data/market.js', import.meta.url);
 const UA = 'Mozilla/5.0 (compatible; fnam-debt-monitor/1.0; +https://github.com/marthavshelton-sys/fnam-debt-monitor)';
@@ -38,10 +39,6 @@ const FRED_SERIES = [
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const toUnix = (d) => Math.floor(new Date(d + 'T00:00:00Z').getTime() / 1000);
 const isoDate = (unix) => new Date(unix * 1000).toISOString().slice(0, 10);
-// Yahoo's daily chart includes the current session as a partial bar while the market is open. The 14:30 UTC run
-// happens just after the BMV opens (08:30 Mexico City), so a bar dated today is an intraday quote, not a close:
-// keep only completed sessions (today's bar counts once the fetch runs after 22:00 UTC, an hour past the close).
-const completedSessions = (points, fetchedAt) => { const d = new Date(fetchedAt); const today = d.toISOString().slice(0, 10); return points.length && points[points.length - 1][0] === today && d.getUTCHours() < 22 ? points.slice(0, -1) : points; };
 const r2 = (x) => Math.round(x * 100) / 100;
 const r4 = (x) => Math.round(x * 10000) / 10000;
 
@@ -67,9 +64,8 @@ async function yahoo(sym, since) {
   const closes = r.indicators?.quote?.[0]?.close || [];
   const points = [];
   r.timestamp.forEach((t, i) => { if (closes[i] != null && Number.isFinite(closes[i])) points.push([isoDate(t), r2(closes[i])]); });
-  const pts = completedSessions(points, new Date().toISOString());
   const dividends = Object.values(r.events?.dividends || {}).map((d) => [isoDate(d.date), r4(d.amount)]).sort((a, b) => a[0].localeCompare(b[0]));
-  return { points: pts, dividends, source: 'Yahoo Finance chart API', sessions: 'completed' };
+  return { points, dividends, source: 'Yahoo Finance chart API' };
 }
 
 async function stooq(sym, since) {
@@ -110,7 +106,8 @@ async function main() {
     }
     if (data && data.points.length > 50) {
       ok++;
-      out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, points: data.points };
+      data.points = completedSessions(data.points, { exchange: s.exchange }); // closes only: a bar dated today counts once that exchange has closed
+      out.prices[s.id] = { name: s.name, currency: s.currency, exchange: s.exchange, source: data.source, note: data.note, fetchedAt: out.generatedAt, sessions: 'completed', points: data.points };
       if (s.dividends) out.dividends[s.id] = { source: data.source, points: data.dividends };
       console.log(`${s.id}: ${data.points.length} points via ${data.source} (last ${data.points.at(-1)})`);
     } else {

@@ -234,3 +234,10 @@ shape as the existing files), then from this repository run
 `ORACLE_TRANSCRIPTS_RAW_DIR=<private clone>/data node scripts/oracle/merge-raw.mjs` followed by
 `node scripts/oracle/build.mjs`. The merge registers the call as `S-CALL-<id>`, fills any guidance vintage the
 release left unquantified, and rewrites `transcripts.json`.
+
+
+## Closing prices only (30-Sep-2026)
+
+`fetch-market` passes every price series through `scripts/lib/completed-sessions.mjs`: a bar dated today is kept only after that exchange's close in its own time zone (BMV 15:30 Mexico City, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid). The morning run therefore publishes the previous close; the evening run adds the day's close. The same helper serves GAP, OMA, ASUR, Quálitas, Gentera and Oracle.
+
+Oracle's evening run (21:45 UTC) often finds no new close because Nasdaq's historical endpoint posts the day later in the evening; the next morning's run adds it. This is a one-session lag, never an intraday price.

@@ -13,6 +13,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 import { ROOT, DATA, RAW } from "./paths.mjs";
+import { completedSessions } from "../lib/completed-sessions.mjs";
 const today = new Date().toISOString().slice(0, 10);
 const UA = "oracle-board-model/1.0 (public market data refresh)";
 
@@ -89,6 +90,8 @@ async function main() {
   const spx = await firstThatWorks("S&P 500 daily", [["FRED SP500", () => fred("SP500")], ["Yahoo Finance", () => yahoo("^GSPC")], ["Stooq", () => stooq("^spx")]]);
   const tsy = await firstThatWorks("10-year Treasury", [["FRED DGS10", () => fred("DGS10")], ["U.S. Treasury CSV", () => treasuryCSV()]]);
 
+  // closes only: the 13:30 UTC run is at the NYSE open, so a bar dated today is dropped until 16:15 New York time
+  for (const x of [orcl, spx]) if (x) x.rows = completedSessions(x.rows, { exchange: "NYSE" });
   if (orcl) writeFileSync(join(DATA, "prices_orcl_daily.csv"), toCSV(orcl.rows), "utf8");
   if (spx) writeFileSync(join(DATA, "prices_spx_daily.csv"), toCSV(spx.rows), "utf8");
   if (tsy) writeFileSync(join(DATA, "treasury_10y.csv"), toCSV(tsy.rows), "utf8");

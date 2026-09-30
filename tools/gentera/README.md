@@ -180,3 +180,8 @@ otherwise assumed from the median lag between quarter-end and release for the sa
 
 Headless check: serve `site/` locally, open `/gentera/`, pick the language and click `#btnPrint`; the download
 event yields the PDF (see the GAP runbook for the Playwright snippet).
+
+
+## Closing prices only (30-Sep-2026)
+
+`fetch-market` passes every price series through `scripts/lib/completed-sessions.mjs`: a bar dated today is kept only after that exchange's close in its own time zone (BMV 15:30 Mexico City, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid). The morning run therefore publishes the previous close; the evening run adds the day's close. The same helper serves GAP, OMA, ASUR, Quálitas, Gentera and Oracle.

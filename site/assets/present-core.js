@@ -258,7 +258,16 @@
       this.font('bold', 10, ACCENT); this.pdf.text(tx(this.confidential()), cx, c.h - 56);
     }
     // ----- executive summary: two columns, largest font that fits -----
+    // Tokens the curated summaries carry instead of hand-written dates. {{nextResults}} becomes the same date the
+    // closing "next results" line prints (confirmed or assumed), so page, summary and deck never disagree.
+    tokens(text) {
+      if (!/\{\{nextResults\}\}/.test(String(text))) return text;
+      const n = this.next || (this.next = this.nextResults());
+      const v = !n || !n.date ? this.T('fecha por confirmar', 'date to be confirmed') : n.kind === 'confirmed' ? this.T(`${this.date(n.date)}, confirmada`, `${this.date(n.date)}, confirmed`) : this.T(`≈${this.date(n.date)}, fecha supuesta`, `≈${this.date(n.date)}, assumed`);
+      return String(text).replace(/\{\{nextResults\}\}/g, v);
+    }
     execSummary(sections, subtitle) {
+      sections = sections.map((sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)) }));
       let y = this.page('L', this.T('Resumen ejecutivo', 'Executive Summary'), subtitle);
       const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4;
       const half = Math.ceil(sections.length / 2), cols = [sections.slice(0, half), sections.slice(half)];
