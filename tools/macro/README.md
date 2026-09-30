@@ -257,7 +257,10 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
   and within 14 days, and the total is within 3% of EIA's latest week). When
   that reading is newer than EIA's latest week the page uses it as the latest
   point everywhere (header, summary, KPIs, weekly chart) and names DOE as the
-  source; EIA's Wednesday release then takes over
+  source; EIA's Wednesday release then takes over. The 1977 history chart uses EIA's
+  monthly series (MCSSTUS1, about two months late) and fills the months after
+  it with each month's last weekly reading, so every SPR chart ends at the
+  same latest point
 - `process_challenger.ps1` + `challenger_pdf.py` — the Challenger job-cut report
   (see above); `process_weights.ps1` — BLS probe for the weights tables
 - `process_cape.ps1` — Shiller's ie_data.xls from shillerdata.com (the link

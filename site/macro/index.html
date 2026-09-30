@@ -2135,7 +2135,7 @@
     <section>
       <div class="section-head">
         <h2 data-i18n="sprSecHistory">Inventory since 1977</h2>
-        <span class="note" data-i18n="sprSecHistoryNote">Million barrels at month end (EIA) &middot; flags mark the peak, the 2022 emergency release and the start of the last two presidential terms</span>
+        <span class="note" data-i18n="sprSecHistoryNote">Million barrels at month end (EIA; the latest months use the last weekly reading) &middot; flags mark the peak, the 2022 emergency release and the start of the last two presidential terms</span>
       </div>
       <div class="panel">
         <div class="legend" id="sprHistLegend"></div>
@@ -2702,7 +2702,7 @@ const I18N = {
     sprLowestEver: "Mínimo histórico",
     sprMb: "M bbl",
     sprSecHistory: "Inventario desde 1977",
-    sprSecHistoryNote: "Millones de barriles al cierre de mes (EIA) · las banderas marcan el máximo, la caída de 2022 y el inicio de los dos últimos periodos presidenciales",
+    sprSecHistoryNote: "Millones de barriles al cierre de mes (EIA; los meses más recientes, con la última lectura semanal) · las banderas marcan el máximo, la caída de 2022 y el inicio de los dos últimos periodos presidenciales",
     legSpr: "Inventario de la SPR",
     annSprPeak: v => "Máximo " + v,
     annSprPeakDetail: v => "el nivel más alto de la reserva, " + v + " millones de barriles",
@@ -2711,6 +2711,7 @@ const I18N = {
     annTermBiden: "Biden",
     annTermTrump: "Trump",
     sprHistNote: (curV, curD, peakV, peakM, pct) => "La reserva tiene " + curV + " millones de barriles (" + curD + "), " + pct + "% por debajo de su máximo de " + peakV + " millones en " + peakM + ".",
+    sprHistExt: (range, last, m) => range + ": última lectura semanal de cada mes (la más reciente: " + last + "); la serie mensual de la EIA llega a " + m + ".",
     sprSecAdmin: "Uso de la reserva por administración",
     sprSecAdminNote: "Cambio del inventario entre la primera y la última lectura semanal de cada periodo, millones de barriles",
     sprTermObama: "Obama",
@@ -2783,9 +2784,11 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El rendimiento excedente del CAPE (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con la tasa a 10 años del archivo de Shiller en " + gs10 + "%" + (daily ? " (una lectura diaria al publicarse; " + daily + "% diario al " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
     exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el rendimiento excedente del CAPE, el colchón que ofrecen las acciones sobre el rendimiento real de los bonos, y si las utilidades alcanzan a los precios.",
-    sprNext: (d, w) => "Próximo informe semanal de la EIA: previsto el " + d + ", con la semana que termina el " + w + " (miércoles, 10:30 ET; un día después si hay feriado)",
-    sprAsOfWeek: (w, r) => "Última lectura semanal: semana que terminó el " + w + " (publicada por la EIA el " + r + ")",
-    sprAsOfDoe: (lvl, d, pub, w, r) => "Última lectura: " + lvl + " millones de barriles al " + d + " (informe diario de inventario del DOE, publicado el " + pub + "); la serie semanal de la EIA llega a la semana que terminó el " + w + " (publicada el " + r + ")",
+    sprNextEia: (nx, w) => "Próximo informe de la EIA: " + nx + ", 10:30 ET (semana al " + w + ")",
+    sprLatest: (lvl, d, src) => "Último dato: " + lvl + " M bbl al " + d + " · " + src,
+    sprSrcEia: r => "EIA, publicado el " + r,
+    sprSrcDoe: r => "DOE, publicado el " + r,
+    sprEiaThru: (w, nx) => "Datos semanales de la EIA hasta el " + w + "; próximo informe: " + nx + ", 10:30 ET",
     fcAsOfWeek: (w, r) => "NFCI: semana que terminó el " + w + " (publicado por la Fed de Chicago el " + r + "); tasas y diferenciales, al último día disponible",
     fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
@@ -3700,7 +3703,7 @@ const I18N = {
     sprLowestEver: "Lowest ever",
     sprMb: "M bbl",
     sprSecHistory: "Inventory since 1977",
-    sprSecHistoryNote: "Million barrels at month end (EIA) · flags mark the peak, the 2022 drawdown and the start of the last two presidential terms",
+    sprSecHistoryNote: "Million barrels at month end (EIA; the latest months use the last weekly reading) · flags mark the peak, the 2022 drawdown and the start of the last two presidential terms",
     legSpr: "SPR inventory",
     annSprPeak: v => "Peak " + v,
     annSprPeakDetail: v => "the reserve's highest level, " + v + " million barrels",
@@ -3709,6 +3712,7 @@ const I18N = {
     annTermBiden: "Biden",
     annTermTrump: "Trump",
     sprHistNote: (curV, curD, peakV, peakM, pct) => "The reserve holds " + curV + " million barrels (" + curD + "), " + pct + "% below its " + peakM + " peak of " + peakV + " million.",
+    sprHistExt: (range, last, m) => range + ": each month's last weekly reading (latest: " + last + "); EIA's monthly series ends in " + m + ".",
     sprSecAdmin: "Use of the reserve, by administration",
     sprSecAdminNote: "Change in inventory between the first and last weekly reading of each term, million barrels",
     sprTermObama: "Obama",
@@ -3781,9 +3785,11 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year rate in Shiller's file at " + gs10 + "%" + (daily ? " (one daily reading at posting; " + daily + "% daily as of " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
-    sprNext: (d, w) => "Next EIA weekly report: expected " + d + ", covering the week ending " + w + " (Wednesdays, 10:30 ET; a day later in holiday weeks)",
-    sprAsOfWeek: (w, r) => "Latest weekly reading: week ending " + w + " (released by EIA " + r + ")",
-    sprAsOfDoe: (lvl, d, pub, w, r) => "Latest reading: " + lvl + " million barrels as of " + d + " (DOE daily inventory report, posted " + pub + "); EIA's weekly series runs through the week ending " + w + " (released " + r + ")",
+    sprNextEia: (nx, w) => "Next EIA report: " + nx + ", 10:30 ET (week ending " + w + ")",
+    sprLatest: (lvl, d, src) => "Latest: " + lvl + " M bbl on " + d + " · " + src,
+    sprSrcEia: r => "EIA, released " + r,
+    sprSrcDoe: r => "DOE, posted " + r,
+    sprEiaThru: (w, nx) => "EIA weekly data through " + w + "; next report " + nx + ", 10:30 ET",
     fcAsOfWeek: (w, r) => "NFCI: week ending " + w + " (released by the Chicago Fed " + r + "); yields and spreads through the latest available day",
     fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
@@ -7330,11 +7336,10 @@ function renderSpr() {
   (function () {
     const rel = (SPR.files && SPR.files.weekly) ? new Date(SPR.files.weekly + "T00:00:00") : new Date(eia.d + "T00:00:00");
     if (!(SPR.files && SPR.files.weekly)) rel.setDate(rel.getDate() + 5);
-    document.getElementById("sprAsOfLine").textContent = cur.doe
-      ? T.sprAsOfDoe(f1(mb(cur.v)), fmtDateDMY(cur.d), fmtDateDMY(SPR.image.published), fmtDateDMY(eia.d), fmtDateDMY(rel))
-      : T.sprAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel));
+    document.getElementById("sprAsOfLine").textContent = T.sprLatest(f1(mb(cur.v)), fmtDateDMY(cur.d),
+      cur.doe ? T.sprSrcDoe(fmtDateDMY(SPR.image.published)) : T.sprSrcEia(fmtDateDMY(rel)));
     const nx = nextWeeklyRelease(eia.d, 3, 12); const cover = new Date(nx); cover.setDate(cover.getDate() - 5);
-    document.getElementById("sprNextReleaseLine").textContent = T.sprNext(fmtDateDMY(nx), fmtDateDMY(cover));
+    document.getElementById("sprNextReleaseLine").textContent = cur.doe ? T.sprEiaThru(fmtDateDMY(eia.d), fmtDateDMY(nx)) : T.sprNextEia(fmtDateDMY(nx), fmtDateDMY(cover));
   })();
   document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
 
@@ -7361,7 +7366,9 @@ function renderSpr() {
     if (t2.spark && t2.spark.length > 1) drawSparkline(document.getElementById(id), t2.spark, t2.color);
   });
 
-  const mPts = M.map(p => ({ d: p.d, v: mb(p.v) }));
+  const mLast = M[M.length - 1].d, ext = [];
+  W.forEach(p => { const ym = p.d.slice(0, 7); if (ym <= mLast) return; if (ext.length && ext[ext.length - 1].d === ym) ext[ext.length - 1] = { d: ym, v: mb(p.v), wk: p }; else ext.push({ d: ym, v: mb(p.v), wk: p }); });
+  const mPts = M.map(p => ({ d: p.d, v: mb(p.v) })).concat(ext);
   const mPeak = mPts.reduce((m, p) => p.v > m.v ? p : m);
   const rel0 = mPts.find(p => p.d === "2022-03");
   const relWin = rel0 ? mPts.filter(p => p.d > "2022-03" && p.d <= "2024-03") : [];
@@ -7377,7 +7384,8 @@ function renderSpr() {
     seriesA: { key: "spr", label: T.legSpr, colorVar: "--series-headline" }
   });
   const histCallout = document.getElementById("sprHistCallout");
-  histCallout.innerHTML = "<div>" + T.sprHistNote(f1(mb(cur.v)), fmtDateDMY(cur.d), f1(mPeak.v), fmtMonthYear(mPeak.d), Math.round((1 - cur.v / (mPeak.v * 1000)) * 100)) + "</div>" + histCallout.innerHTML;
+  const extNote = ext.length ? "<div>" + T.sprHistExt(fmtMonthYear(ext[0].d) + (ext.length > 1 ? " – " + fmtMonthYear(ext[ext.length - 1].d) : ""), fmtDateDMY(cur.d) + (cur.doe ? ", DOE" : ", EIA"), fmtMonthYear(mLast)) + "</div>" : "";
+  histCallout.innerHTML = extNote + "<div>" + T.sprHistNote(f1(mb(cur.v)), fmtDateDMY(cur.d), f1(mPeak.v), fmtMonthYear(mPeak.d), Math.round((1 - cur.v / (mPeak.v * 1000)) * 100)) + "</div>" + histCallout.innerHTML;
 
   const terms = SPR_TERMS.map(t => {
     const a = atOrAfter(t.start), b = t.end ? lastBefore(t.end) : cur;
