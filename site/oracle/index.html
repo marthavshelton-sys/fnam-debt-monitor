@@ -356,6 +356,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 .press{margin:6px 0 0;padding-left:18px} .press li{margin:0 0 10px;line-height:1.45} .press li b{font-weight:600}
 .press-h,.card h4{margin:10px 0 4px;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
 #sumPress .grid-2{margin-top:4px}
+.obgrp{margin:14px 0 0;padding:2px 0 2px 12px;border-left:4px solid var(--grp)} .obgrp.recog{--grp:var(--series-1)} .obgrp.commit{--grp:var(--series-2)}
+.obgrp h4{margin:0 0 6px;font-size:12.5px;letter-spacing:.04em;text-transform:uppercase;color:var(--text)}
 
 /* ---------- phones (≤640px): compact statements, scroll cue, type floor, tap targets ---------- */
 @media (max-width:640px){
@@ -577,8 +579,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="operating">
     <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Cartera de contratos (RPO) y nube</span><span class="en" hidden>Contracted backlog (RPO) and cloud</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Oracle no publica volúmenes físicos; sus impulsores operativos son la <b>cartera de contratos</b> (obligaciones de desempeño restantes, RPO: ingresos contratados aún no reconocidos), los <b>ingresos de nube</b> y el <b>gasto de capital</b> en centros de datos que convierte esa cartera en ingreso. Vea cada serie por trimestre y compare contra el mismo trimestre del año fiscal anterior.</span>
-      <span class="en" hidden>Oracle publishes no physical volumes; its operating drivers are the <b>contracted backlog</b> (remaining performance obligations, RPO: contracted revenue not yet recognised), <b>cloud revenue</b> and the data-center <b>capital expenditure</b> that turns that backlog into revenue. View each series by quarter and compare with the same quarter of the prior fiscal year.</span>
+      <span class="es">Oracle no publica una serie consistente de indicadores de volumen físico, aunque la administración ha divulgado recientemente algunas métricas de capacidad, entre ellas las GPU entregadas y los MW de capacidad de centros de datos. Sus impulsores operativos son la <b>cartera de contratos</b> (obligaciones de desempeño restantes, RPO: ingresos contratados aún no reconocidos), los <b>ingresos de nube</b> y el <b>gasto de capital</b> en centros de datos que convierte esa cartera en ingreso. Vea cada serie por trimestre y compare contra el mismo trimestre del año fiscal anterior.</span>
+      <span class="en" hidden>Oracle does not publish a consistent physical-volume KPI series, although management has recently disclosed selected capacity metrics including GPUs delivered and MW of data-center capacity. Its operating drivers are the <b>contracted backlog</b> (remaining performance obligations, RPO: contracted revenue not yet recognised), <b>cloud revenue</b> and the data-center <b>capital expenditure</b> that turns that backlog into revenue. View each series by quarter and compare with the same quarter of the prior fiscal year.</span>
     </p>
     <p class="sec-meta" id="opsMeta"></p>
     <div class="controls">
@@ -872,8 +874,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="obligations">
     <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Financiamiento fuera de balance</span><span class="en" hidden>Off-balance-sheet financing</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Lo que Oracle debe además de sus bonos: los arrendamientos de centros de datos ya en el balance (operativos y financieros), los <b>US$288 mil millones</b> de arrendamientos firmados que aún no empiezan y por eso no aparecen en el balance, las obligaciones de compra de energía y equipo, y las garantías. El apalancamiento se muestra de tres formas, cada una etiquetada: como se reporta, ajustado por los arrendamientos en balance (sobre EBITDAR) y sumando los compromisos no iniciados a valor nominal. Los pares provienen de sus propios reportes en la SEC.</span>
-      <span class="en" hidden>What Oracle owes beyond its bonds: the data-center leases already on the balance sheet (operating and finance), the <b>US$288 billion</b> of signed leases that have not started and therefore do not appear on it, purchase obligations for power and equipment, and guarantees. Leverage is shown three ways, each labelled: as reported, adjusted for on-balance-sheet leases (over EBITDAR) and adding the uncommenced commitments at nominal value. Peers come from their own SEC filings.</span>
+      <span class="es">Lo que Oracle debe, en dos grupos separados. Los <b>pasivos reconocidos</b> ya están en el balance: bonos y otros préstamos, arrendamientos operativos y arrendamientos financieros. Los <b>compromisos contractuales futuros</b> no lo están: los arrendamientos de centros de datos firmados que aún no empiezan y las obligaciones de compra de energía, equipo y otros, que Oracle reporta por separado en el 10-Q. También se indican las garantías. El apalancamiento se muestra de tres formas, cada una etiquetada: como se reporta, ajustado por los arrendamientos en balance (sobre EBITDAR) y sumando los arrendamientos no iniciados a valor nominal. Los pares provienen de sus propios reportes en la SEC.</span>
+      <span class="en" hidden>What Oracle owes, in two separate groups. <b>Recognized liabilities</b> are already on the balance sheet: bonds and other borrowings, operating leases and finance leases. <b>Future contractual commitments</b> are not: the signed data-center leases that have not started, and purchase obligations for power, equipment and other, which Oracle reports separately in its 10-Q. Guarantees are noted too. Leverage is shown three ways, each labelled: as reported, adjusted for on-balance-sheet leases (over EBITDAR) and adding the uncommenced leases at nominal value. Peers come from their own SEC filings.</span>
     </p>
     <p class="sec-meta" id="obMeta"></p>
     <div class="stat-row" id="obStats"></div>
@@ -882,7 +884,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <h3><span class="es">Lo que Oracle debe, dentro y fuera del balance</span><span class="en" hidden>What Oracle owes, on and off the balance sheet</span></h3>
         <p class="cap" id="obCap"></p>
         <div class="chart-wrap"><canvas id="chartOblig"></canvas></div>
-        <div class="tblwrap" id="obTable"></div>
+        <div id="obTable"></div>
         <p class="chart-src" id="obSrc"></p>
       </div>
       <div class="card">

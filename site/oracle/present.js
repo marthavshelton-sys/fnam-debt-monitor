@@ -490,17 +490,23 @@
         { v: `US$ ${bn(po.total)} ${this.T('mil M', 'bn')}`, l: this.T('obligaciones de compra (energía, equipo y otros), no canceladas', 'purchase obligations (power, equipment and other), non-cancelable') },
       ], y, 48);
       const gap = 24, wl = this.width() * 0.56, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
-      const rows = [
-        [this.T('Notas por pagar y otros préstamos', 'Notes payable and other borrowings'), bn(bs.notes_payable_total), this.T('en balance', 'on balance sheet')],
-        [this.T('Pasivos por arrendamientos operativos', 'Operating lease liabilities'), bn(S.opL), this.T(`en balance · activo por derecho de uso ${bn(Lz.operating_rou_assets)}`, `on balance sheet · right-of-use asset ${bn(Lz.operating_rou_assets)}`)],
-        [this.T('Pasivos por arrendamientos financieros', 'Finance lease liabilities'), bn(S.finL), this.T(`en balance · activo por derecho de uso ${bn(Lz.finance_rou_assets)}`, `on balance sheet · right-of-use asset ${bn(Lz.finance_rou_assets)}`)],
-        [this.T('Arrendamientos firmados, aún no iniciados', 'Leases signed, not yet commenced'), this.n(un.usd_bn, 0), this.T(`fuera de balance · ${un.term_years_min}–${un.term_years_max} años · inician 2T27–AF2029`, `off balance sheet · ${un.term_years_min}–${un.term_years_max} years · commence 2Q27–FY2029`)],
-        [this.T('Obligaciones de compra', 'Purchase obligations'), bn(po.total), this.T('fuera de balance · calendario a la derecha', 'off balance sheet · schedule at right')],
-        [this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('ni el 10-Q ni el 10-K revelan garantías fuera de balance', 'neither the 10-Q nor the 10-K discloses off-balance-sheet guarantees')],
-        [this.T('Efectivo e inversiones negociables', 'Cash and marketable securities'), '(' + bn(bs.cash_and_investments) + ')', this.T('en balance · se resta para la deuda neta', 'on balance sheet · netted for net debt')],
-      ];
-      let yl = this.heading(this.T('Lo que Oracle debe, dentro y fuera del balance (US$ mil millones)', 'What Oracle owes, on and off the balance sheet (US$ billion)'), this.cur.x0, y, 10);
-      yl = this.table({ y: yl, w: wl, head: [this.T('Partida', 'Item'), this.T('US$ mil M', 'US$ bn'), this.T('Dónde está', 'Where it sits')], body: rows, meta: rows.map(() => ['left', 'bold', 'left small']), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.38 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });
+      // two groups, kept apart: recognized liabilities (on the balance sheet) and future contractual commitments (not)
+      const rows = [], rowMeta = [];
+      const recogTotal = (bs.notes_payable_total || 0) + (Lz.operating_liabilities_total || 0) + (Lz.finance_liabilities_total || 0);
+      const G = (t) => { rows.push([t, '', '']); rowMeta.push(['head left', 'head', 'head']); };
+      const Rw = (l, v, d, cls) => { rows.push([l, v, d]); rowMeta.push([(cls || '') + ' left', (cls === 'muted' ? '' : 'bold'), 'left small']); };
+      G(this.T('Pasivos reconocidos (en el balance)', 'Recognized liabilities (on the balance sheet)'));
+      Rw(this.T('Bonos y otros préstamos', 'Bonds and other borrowings'), bn(bs.notes_payable_total), this.T('notas por pagar, corto y largo plazo', 'notes payable, current and non-current'));
+      Rw(this.T('Arrendamientos operativos', 'Operating leases'), bn(S.opL), this.T(`activo por derecho de uso ${bn(Lz.operating_rou_assets)}`, `right-of-use asset ${bn(Lz.operating_rou_assets)}`));
+      Rw(this.T('Arrendamientos financieros', 'Finance leases'), bn(S.finL), this.T(`activo por derecho de uso ${bn(Lz.finance_rou_assets)}`, `right-of-use asset ${bn(Lz.finance_rou_assets)}`));
+      Rw(this.T('Total de pasivos reconocidos', 'Total recognized liabilities'), bn(recogTotal), this.T('deuda y arrendamientos en el balance', 'debt and leases on the balance sheet'), 'bold');
+      Rw(this.T('Nota: efectivo e inversiones negociables', 'Memo: cash and marketable securities'), '(' + bn(bs.cash_and_investments) + ')', this.T('se resta para la deuda neta', 'netted for net debt'), 'muted');
+      G(this.T('Compromisos contractuales futuros (fuera del balance)', 'Future contractual commitments (not on the balance sheet)'));
+      Rw(this.T('Arrendamientos firmados, aún no iniciados', 'Leases signed, not yet commenced'), this.n(un.usd_bn, 0), this.T(`nota de arrendamientos · ${un.term_years_min}–${un.term_years_max} años · inician 2T27–AF2029 · nominal`, `leases note · ${un.term_years_min}–${un.term_years_max} years · commence 2Q27–FY2029 · nominal`));
+      Rw(this.T('Obligaciones de compra', 'Purchase obligations'), bn(po.total), this.T('reportadas por separado en el 10-Q (nota de compromisos) · calendario a la derecha', 'reported separately in the 10-Q (commitments note) · schedule at right'));
+      Rw(this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('ni el 10-Q ni el 10-K revelan garantías fuera de balance', 'neither the 10-Q nor the 10-K discloses off-balance-sheet guarantees'));
+      let yl = this.heading(this.T('Lo que Oracle debe, en dos grupos (US$ mil millones)', 'What Oracle owes, in two groups (US$ billion)'), this.cur.x0, y, 10);
+      yl = this.table({ y: yl, w: wl, head: [this.T('Partida', 'Item'), this.T('US$ mil M', 'US$ bn'), this.T('Dónde está', 'Where it sits')], body: rows, meta: rowMeta, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 3 : 0)), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.38 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });
       const hist = un.history || [];
       const rr = hist.map((h) => [this.date(h.as_of), this.n(h.usd_bn, h.usd_bn < 100 ? 1 : 0), h.note || '']);
       yl = this.heading(this.T('Arrendamientos no iniciados en cada reporte (US$ mil millones, nominal)', 'Uncommenced leases at each report (US$ billion, nominal)'), this.cur.x0, yl + 10, 10);
