@@ -651,7 +651,6 @@
   <div class="view" id="view-notfound">
     <div class="page-header">
       <div>
-        <h1 data-i18n="nfTitle">Section Not Found</h1>
         <div class="desc" id="nfDesc">—</div>
       </div>
     </div>
@@ -4545,7 +4544,13 @@ function syncNavLinks() {
 }
 // The "not found" state: what was asked for (cleaned for display) and every section, by
 // group, as a link. Drawn again on a language switch.
+// Its heading is created here, not in the markup, so the static page carries one h1 per
+// section and none for a state most visits never reach.
 function renderNotFound() {
+  const nfDesc = document.getElementById("nfDesc");
+  let nfHead = document.querySelector("#view-notfound h1");
+  if (!nfHead) { nfHead = document.createElement("h1"); nfHead.setAttribute("data-i18n", "nfTitle"); nfDesc.parentNode.insertBefore(nfHead, nfDesc); }
+  nfHead.textContent = T.nfTitle;
   const raw = (new URLSearchParams(location.search).get("view") || "").replace(/[^\w-]/g, "").slice(0, 40);
   document.getElementById("nfDesc").textContent = T.nfDesc(raw || "?");
   const box = document.getElementById("nfList"); box.innerHTML = "";
