@@ -181,6 +181,13 @@ dashboards, everything built from public data by GitHub Actions.
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
+- Fiscal dashboards (owner's rules, 2026-10-01): every block says "Data through <date>" (never "live"); every figure
+  carries a Reported / FNAM calculation / FNAM estimate badge and an ⓘ with its source and date
+  (`site/assets/provenance.js`, shared); a data point past its allowance turns amber in the reader's browser and a
+  value the last download did not return is labeled as stored, never shown silently; no placeholder ("—", typed-in
+  fallback dates) may render; INPC variants (monthly vs. first-half-month, original vs. seasonally adjusted) are
+  always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny: amber after 2 U.S. business days) and
+  `tools/mx-fiscal/freshness.json`; details in each page's runbook/MEMORY.
 - US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
   (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
   runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's

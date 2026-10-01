@@ -43,6 +43,18 @@ takes down the run or the other series.
 
 ### The freshness check
 
+The allowances live in `site/fiscal/freshness-rules.js` (one table, read by both this script and the
+page). Debt to the Penny is measured in U.S. business days (federal holidays excluded, computed in
+`site/assets/provenance.js`): amber after **2 business days** without a new close; the rest in calendar days
+after the end of the period. In the reader's browser, `site/fiscal/blocks.js` applies the same table: every
+card gets "Data through <date>", a Reported / FNAM calculation / FNAM estimate badge, an ⓘ with the
+source and date of each figure, the source in every chart tooltip, and an amber flag when a point is past
+its allowance or when `data.js` has no value for it and the page is showing the values stored in its code
+("Not refreshed: showing stored values" — never silent). Test a date with `?asof=YYYY-MM-DD`. A sentence
+that needs a fetched date (the whole-trillion milestone) stays hidden until the date exists; no typed-in
+fallback. The customs-duties chart (`tariffTrend`) is typed into the page: `blocks.js` says so and turns it
+amber when BEA's next annual figure is overdue; update `TARIFF_LAST` there with the series.
+
 `scripts/fiscal/check-freshness.mjs` runs after every refresh (and locally: `node
 scripts/fiscal/check-freshness.mjs --now 2026-09-29`). It lists every data point with its
 date, age and the allowance for its publication cadence, and cross-checks the figures that must
