@@ -133,11 +133,26 @@
     "netIncome": 222.44,
     "equity": 1313.57,
     "morosidad": 5.07
+   },
+   {
+    "month": "202608",
+    "sources": {
+     "balance": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Agosto/B-2201-ag2026.XLS",
+     "delinquency": "https://intranet2.sbs.gob.pe/estadistica/financiera/2026/Agosto/B-2362-ag2026.XLS"
+    },
+    "loans": 4913.05,
+    "loansNet": 4475.83,
+    "netIncome": 250.9,
+    "equity": 1340.15,
+    "morosidad": 5.23
    }
   ]
  },
  "log": [
-  "CNBV 202608: HTTP Error 404: NOT FOUND"
+  "CNBV 202609: HTTP Error 404: NOT FOUND",
+  "CNBV 202608: HTTP Error 404: NOT FOUND",
+  "SBS B-2334 202608: Compartamos column not found",
+  "SBS B-2369 202608: Compartamos column not found"
  ],
- "updatedAt": "2026-09-30T14:53:39+00:00"
+ "updatedAt": "2026-10-01T14:55:02+00:00"
 }
