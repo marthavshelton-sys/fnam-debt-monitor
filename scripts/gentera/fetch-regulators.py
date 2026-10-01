@@ -68,6 +68,8 @@ def get(url, tries=2, log=None):
                 return data
             except Exception as e:  # noqa: BLE001
                 last = e
+                if getattr(e, 'code', None) == 404:
+                    raise  # the file is not there; retrying will not change that
                 if 'CERTIFICATE_VERIFY_FAILED' in str(e):
                     break  # try the next context
                 time.sleep(3 * (i + 1))
@@ -205,6 +207,19 @@ def sbs_links(html):
     return out
 
 
+# Folder and file-suffix names of the monthly files on intranet2.sbs.gob.pe (all twelve checked 2026-10-01 against
+# the 2025 files; September is "Setiembre").
+SBS_DIRS = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Setiembre', 'Octubre', 'Noviembre', 'Diciembre']
+SBS_ABBR = ['en', 'fe', 'ma', 'ab', 'my', 'jn', 'jl', 'ag', 'se', 'oc', 'no', 'di']
+
+
+def sbs_direct_url(table, ym):
+    """Direct file URL for a month, used when the results page does not list it (the page can lag the files, or
+    answer with a bot-check page): 202608 -> .../2026/Agosto/B-2201-ag2026.XLS."""
+    y, m = ym[:4], int(ym[4:])
+    return 'https://intranet2.sbs.gob.pe/estadistica/financiera/%s/%s/%s-%s%s.XLS' % (y, SBS_DIRS[m - 1], table, SBS_ABBR[m - 1], y)
+
+
 def sbs_sheet_values(data):
     """Compartamos column of an SBS table: {row label: value}. Handles .xls (xlrd) and .xlsx (openpyxl)."""
     rows = []
@@ -254,13 +269,17 @@ def fetch_sbs(reg, months, log):
     debug_dir = os.path.join(os.path.dirname(OUT), 'debug')
     for table, kind in SBS_TABLES.items():
         dumped = False
+        links = []
         try:
             html = get(SBS % (table, ''), log=log).decode('latin-1', 'replace')
+            links = sbs_links(html)
+            if not links:
+                log.append('SBS %s: no monthly xls links recognised on the results page; using direct file URLs' % table)
         except Exception as e:  # noqa: BLE001
-            log.append('SBS %s: %s' % (table, e)); continue
-        links = sbs_links(html)
-        if not links:
-            log.append('SBS %s: no monthly xls links recognised' % table); continue
+            log.append('SBS %s: results page %s; using direct file URLs' % (table, e))
+        listed = {ym for ym, _ in links}
+        # Months the page does not list yet are tried at their direct URL; a 404 there means not yet published.
+        links += [(ym, sbs_direct_url(table, ym)) for ym in sorted(want - listed)]
         for ym, url in links:
             if ym not in want:
                 continue
@@ -268,6 +287,8 @@ def fetch_sbs(reg, months, log):
                 data = get(url, log=log)
                 vals = sbs_sheet_values(data)
             except Exception as e:  # noqa: BLE001
+                if ym not in listed and getattr(e, 'code', None) == 404:
+                    continue  # not published yet
                 log.append('SBS %s %s: %s' % (table, ym, e)); continue
             if not dumped:
                 dumped = True
