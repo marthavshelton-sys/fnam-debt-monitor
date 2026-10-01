@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-01T04:35:05Z",
-  "rule": "live = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked hourly by .github/workflows/data-watchdog.yml",
+  "checkedAt": "2026-10-01T04:44:54Z",
+  "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked hourly by .github/workflows/data-watchdog.yml",
   "graceHours": 3,
   "sections": {
     "us": {
@@ -21,7 +21,7 @@
       "id": "us-macro",
       "section": "us",
       "name": {
-        "es": "Macro y Déficit Fiscal EE.\u00a0UU.",
+        "es": "Macro y Déficit Fiscal EE. UU.",
         "en": "U.S. Macro and Fiscal Deficit"
       },
       "url": "/macro/",
@@ -31,14 +31,14 @@
         "at": "2026-09-30T20:19:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-09-30T14:05:00Z",
+      "requiredSince": "2026-09-30T15:45:00Z",
       "alerts": 0
     },
     {
       "id": "us-fiscal",
       "section": "us",
       "name": {
-        "es": "Deuda Fiscal EE.\u00a0UU.",
+        "es": "Deuda Fiscal EE. UU.",
         "en": "U.S. Fiscal Debt"
       },
       "url": "/fiscal/",

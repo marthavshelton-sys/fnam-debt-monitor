@@ -23,7 +23,7 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
   at least 3 hours old. In words: two scheduled refreshes in a row failed or never ran. The schedule is read from the
   workflow file, so changing a cron needs no change here.
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
-  `macro-live-check`, `fiscal-health`, `mx-macro-health`).
+  `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.
 - The pages treat a status file whose `checkedAt` is more than 8 hours old as **unverified** for every dashboard
   (the watchdog rewrites it at least every 4 hours), so a stopped watchdog can never leave a stale "Al día" behind.
