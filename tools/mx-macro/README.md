@@ -274,3 +274,14 @@ published indices, so nothing derived is stored.
 - `../../scripts/lib/whatsapp.mjs` — WhatsApp copy of MATERIAL alerts (Meta Cloud API); `.github/workflows/whatsapp-test.yml` sends a test
 - `../../scripts/mx-macro/exec_extract.mjs` — reads the page's "At a glance" lines for the alerts
 - `data/alerts_state.json` — last period evaluated per release, committed by the workflow
+
+## INPC: monthly, original figures (checked 2026-10-01)
+
+Every INPC series on the page is the **monthly** index from Banxico's SIE (SP1 and the SP746xx subindices, base
+2nd half of July 2018 = 100); the first-half-month (quincenal) index is not used. INEGI publishes **no seasonally
+adjusted INPC**: a search of INEGI's Banco de Información Económica (the workflow's `search` input, run 2026-10-01)
+returns no adjusted INPC series (its adjusted series are GDP, IGAE, confidence and the like), and Banxico's SIE
+price sector (`banxico-dir 8` through the fiscal workflow's probe) lists only monthly and first-half-month tables
+(CP151/154/155/193-195) and UDIs. So month-over-month changes and the 3- and 6-month annualized core rates are on
+original figures and keep their seasonality; the page and its footer say so. Year-over-year changes are unaffected.
+If INEGI ever publishes an adjusted INPC, add it as a separate, labeled series; never mix it with the original one.
