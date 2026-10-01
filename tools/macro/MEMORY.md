@@ -99,6 +99,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   a release morning lost that release (mortgage, 01-Oct-2026 04:00 UTC: next became
   08-Oct). `process_calendar.ps1` keeps today in `upcoming` for the weekly keys until
   FRED lists it as published.
+- Two series on one chart must share an axis of both series' months. `renderDualLineChart`
+  once took its months from the first series only, so a month only the second one had
+  (PCE for October 2025, when BLS published no CPI) was drawn off the chart and back, a
+  stray line across the CPI vs. PCE charts (owner, 1-Oct-2026); the hiring chart drew last
+  year's Sep-Dec past its edge the same way. Now: the union of months, both lines from the
+  later start, a break where one series has no value, and the live check fails any line
+  that leaves its chart.
 - Signed figures: never `(v >= 0 ? "+" : "") + v.toFixed(d)`, which prints "-0.0" for
   -0.03; use `sgnFix(v, d)` and, for tile arrows, `deltaArrow(v, d)`.
 - On pwsh 7, `Headers["Last-Modified"]` is a string array and the date parse fails;

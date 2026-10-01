@@ -9,7 +9,8 @@
 //     fonts: no script errors, no "undefined"/"NaN" or raw markup in the text, the
 //     four "At a glance" lines filled, the section's own title, description,
 //     canonical and hreflang addresses, every chart labelled for screen readers,
-//     every sparkline drawn, every image loaded, chart text inside its panel.
+//     every sparkline drawn, every image loaded, chart text inside its panel, every
+//     line inside its chart.
 //  3. Phones at 390 and 360 px, light and dark: no text below 11 px and nothing wider
 //     than the screen. Desktops at 1280 and 1024 px: no sideways scroll.
 //  4. An unknown ?view= shows the page's "Section Not Found" state (never another section),
@@ -126,6 +127,16 @@ function inspectSection(o) {
     // decorative graphics (sparklines, icons) are hidden from screen readers; the rest are charts
     if (svg.closest('[aria-hidden="true"]')) return;
     if (!(svg.getAttribute("role") === "img" && (svg.getAttribute("aria-label") || "").trim())) out.push("chart without a screen-reader label: " + name(svg));
+    // every line stays between the chart's gridlines: a point placed outside them is a
+    // month the axis does not have (October 2025 CPI drew a stray line across two charts)
+    const grid = [...svg.querySelectorAll("line")].filter(l => l.getAttribute("y1") === l.getAttribute("y2") && +l.getAttribute("x2") > +l.getAttribute("x1"));
+    if (grid.length) {
+      const left = Math.min(...grid.map(l => +l.getAttribute("x1"))), right = Math.max(...grid.map(l => +l.getAttribute("x2")));
+      svg.querySelectorAll('path[fill="none"]').forEach(pa => {
+        const xs = [...(pa.getAttribute("d") || "").matchAll(/[ML]\s*(-?[\d.]+)[ ,]/g)].map(m => +m[1]);
+        if (xs.some(x => x < left - 1.5 || x > right + 1.5)) out.push("a line runs outside its chart: " + name(svg));
+      });
+    }
   });
   view.querySelectorAll("svg text").forEach(tx => {
     if (!visible(tx)) return;
