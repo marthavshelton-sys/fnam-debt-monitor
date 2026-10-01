@@ -139,6 +139,10 @@ foreach ($ln in $byLine.Keys) {
 }
 $pl = $pce["L1"].points[-1]
 Write-Output ("PCE: {0} lines, headline {1} yoy {2}" -f $pce.Count, $pl.d, $pl.yoy)
+# The previous copies, read before they are overwritten: the history-revision check
+# below compares them with this run's figures.
+function Read-DataJson([string]$name) { $f = Join-Path $data $name; if (Test-Path $f) { try { return (Get-Content $f -Raw -Encoding UTF8 | ConvertFrom-Json) } catch {} }; return $null }
+$prevPce = Read-DataJson "pce_processed.json"
 Save-Json $pce "pce_processed.json"
 
 $nomRows = Invoke-Bea "T20805" "M" ("{0},{1}" -f ($thisYear-1), $thisYear)
@@ -199,4 +203,16 @@ $L = { param($k) $gdp.income[$k].points[-1].v }
 $gap = (& $L "L1") - (& $L "L26") - (& $L "L27")
 if ([math]::Abs($gap) -gt 5) { throw "DPI identity fails by $gap" }
 Write-Output "identity income - taxes = DPI: OK"
+# A release that revised history (BEA's annual update) is recorded with its date and
+# kept for 400 days, so the page can say what changed; it shows the note for 120 days.
+$prevGdp = Read-DataJson "gdp_processed.json"
+$revs = New-Object System.Collections.ArrayList
+if ($prevGdp -and $prevGdp.revisions) { foreach ($r in @($prevGdp.revisions)) { if (((Get-Date) - [datetime]$r.release).TotalDays -le 400) { [void]$revs.Add($r) } } }
+$rel = if ($vintage["gdp"]) { $vintage["gdp"] } else { (Get-Date).ToString("yyyy-MM-dd") }
+$hr = Get-HistoryRevision $prevGdp $gdp $prevPce $pce $rel
+if ($hr) {
+  $revs = [System.Collections.ArrayList]@(@($revs) | Where-Object { $_.release -ne $rel }); [void]$revs.Add($hr)
+  Write-Output ("history revised (BEA {0}): GDP growth from {1} ({2} quarters), income from {3}, spending from {4}, PCE prices from {5}; largest: {6}" -f $rel, $hr.gdpFrom, $hr.quarters, $hr.monthsFrom.income, $hr.monthsFrom.spending, $hr.monthsFrom.prices, (($hr.examples | ForEach-Object { "$($_.d) $($_.was) -> $($_.now)" }) -join ", "))
+}
+if ($revs.Count) { $gdp["revisions"] = $revs }
 Save-Json $gdp "gdp_processed.json"

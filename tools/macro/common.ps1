@@ -190,3 +190,42 @@ function Invoke-Bea([string]$table, [string]$freq, [string]$years) {
 function BeaValue($s) { [double](([string]$s) -replace ',', '') }
 function BeaMonth([string]$tp) { $tp.Substring(0,4) + "-" + $tp.Substring(5,2) }   # 2026M07 -> 2026-07
 function BeaQuarter([string]$tp) { $tp.Substring(0,4) + "-" + $tp.Substring(4,2) } # 2026Q2  -> 2026-Q2
+
+# ---- history revisions (BEA's annual update) ----
+# Every GDP release revises the latest quarter or two, and every income and outlays
+# release a few recent months. Once a year, in late September, BEA's annual update
+# revises years of history, and every chart on the GDP, income and PCE views changes
+# back to that point. Given the previous and new GDP data (gdp_processed.json) and
+# PCE prices (pce_processed.json), this returns the revision when it reaches back
+# further than that: growth revised for a quarter older than the two latest, or
+# income, real spending or the PCE price index for a month more than seven months
+# before the latest. It carries the earliest quarter revised, the earliest month of
+# income, real spending and PCE prices revised, the number of quarters whose growth
+# changed, and the three largest changes in growth among the older quarters (ties:
+# the most recent); $null when there is none.
+function Get-HistoryRevision($prevGdp, $gdp, $prevPce, $pce, [string]$release) {
+  if (-not $prevGdp -or -not $prevGdp.growth) { return $null }
+  $qi = { param($d) [int]$d.Substring(0,4) * 4 + [int]$d.Substring(6,1) }
+  $mi = { param($d) [int]$d.Substring(0,4) * 12 + [int]$d.Substring(5,2) }
+  $changed = {
+    param($oldPts, $newPts, $field)
+    $o = @{}; foreach ($p in @($oldPts)) { if ($null -ne $p.$field) { $o[[string]$p.d] = [double]$p.$field } }
+    @(@($newPts) | Where-Object { $null -ne $_.$field -and $o.ContainsKey([string]$_.d) -and $o[[string]$_.d] -ne [double]$_.$field } | ForEach-Object { [string]$_.d })
+  }
+  $gNew = @($gdp.growth.L1.points)
+  $qChanged = @(& $changed $prevGdp.growth.L1.points $gNew "v" | Sort-Object)
+  $inc = @(& $changed $prevGdp.income.L1.points $gdp.income.L1.points "v" | Sort-Object)
+  $spd = @(& $changed $prevGdp.realPce.L1.points $gdp.realPce.L1.points "v" | Sort-Object)
+  $prc = @(if ($prevPce -and $pce) { & $changed $prevPce.L1.points $pce.L1.points "idx" | Sort-Object })
+  $mChanged = @($inc + $spd + $prc | Sort-Object -Unique)
+  $lastQ = & $qi $gNew[-1].d; $lastM = & $mi @($gdp.income.L1.points)[-1].d
+  $oldQ = @($qChanged | Where-Object { (& $qi $_) -le $lastQ - 2 })
+  $oldM = @($mChanged | Where-Object { (& $mi $_) -le $lastM - 7 })
+  if (-not $oldQ.Count -and -not $oldM.Count) { return $null }
+  $was = @{}; foreach ($p in @($prevGdp.growth.L1.points)) { $was[[string]$p.d] = [double]$p.v }
+  $ex = @($gNew | Where-Object { $oldQ -contains [string]$_.d } | ForEach-Object { [ordered]@{ d = [string]$_.d; was = $was[[string]$_.d]; now = [double]$_.v } } |
+    Sort-Object @{ Expression = { [math]::Round([math]::Abs($_.now - $_.was), 4) }; Descending = $true }, @{ Expression = { $_.d }; Descending = $true } | Select-Object -First 3)
+  $first = { param($a) if ($a.Count) { $a[0] } else { $null } }
+  return [ordered]@{ release = $release; gdpFrom = (& $first $qChanged); quarters = $qChanged.Count; examples = $ex
+                     monthsFrom = [ordered]@{ income = (& $first $inc); spending = (& $first $spd); prices = (& $first $prc) } }
+}
