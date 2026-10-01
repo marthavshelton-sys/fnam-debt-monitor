@@ -1,9 +1,14 @@
 # U.S. Fiscal Debt Monitor — fnam.mx/fiscal
 
-Bilingual (EN default on this page, ES via the toggle) dashboard of the federal debt, its holders,
-maturity structure, cost, composition, debt-to-GDP, revenues and outlays, then the Fed's balance
-sheet, policy rates and instruments. One file, `site/fiscal/index.html`, renders everything in the
-browser from two data files; the page has no hand-typed figures left in it.
+Bilingual dashboard of the federal debt, its holders, maturity structure, cost, composition,
+debt-to-GDP, revenues and outlays, then the Fed's balance sheet, policy rates and instruments. One
+file, `site/fiscal/index.html`, renders everything in the browser from two data files; the page has
+no hand-typed figures left in it.
+
+Language: Spanish by default, like the rest of the site. `?lang=en|es` wins, then the reader's last
+choice (`localStorage` key `fiscal-lang`), then Spanish; it is applied before first paint, so the
+page never flashes the other language. The EN/ES toggle saves the choice and rewrites `?lang=` in
+the address bar, so a copied link keeps the language. `document.title` and `<html lang>` follow.
 
 ## How it stays current
 
@@ -15,6 +20,34 @@ browser from two data files; the page has no hand-typed figures left in it.
 `data.js` always wins; the monthly file is only read where `data.js` has nothing. If a series
 fails to fetch it is `null` for that run and the page keeps its last baked value for it, so the
 page always renders.
+
+### The static markup (bake)
+
+The page computes every figure in the browser, but its HTML also carries them, so a reader without
+JavaScript, a crawler or a plain-text fetch sees the numbers of the last refresh instead of whatever
+was typed when the page was last edited. `scripts/fiscal/bake-page.mjs` opens the page in headless
+Chromium (`?lang=es` and `?lang=en`) and writes back into `index.html`: the text of every
+`[data-bind]` element and `[data-bind-href]` link, the fiscal-year range spans, the FedWatch source
+links, the inner HTML of the composed notes, the KPI strip, the as-of row, the tables, the Fed
+T-account and the sources list, plus `<meta name="data-refreshed">` and the dates in the
+`<noscript>` note. The static markup reads in Spanish (the `.es` spans are visible, the `.en` ones
+carry `hidden`). Nothing else changes: the script refuses to write if the file minus its regions
+would differ, if a key appears a different number of times in the file and in the rendered page, or
+if the page logs an error.
+
+- `refresh-data.yml` installs Playwright's Chromium, runs the bake after every fetch and commits
+  `index.html` together with `data.js`. A failed install or bake never blocks the data commit
+  (`index.html` stays as it was) and is reported in the `fiscal-health` issue as "page bake failed".
+  When another bot pushes first, the run rebuilds its commit on the new head (keeps its `data.js`,
+  bakes again) instead of rebasing.
+- After editing the page by hand: `node scripts/fiscal/bake-page.mjs`, then `render-check.mjs`, then
+  commit. `--check` exits 1 when the file is not up to date and writes nothing.
+- Because the bot rewrites `index.html` twice a day, a page branch can conflict with `main` in the
+  baked regions. Resolve by merging `main`, keeping your side of `index.html`
+  (`git checkout --ours site/fiscal/index.html`), baking again and committing.
+- If `data.js` or `monthly-data.js` fails to load in a reader's browser, the page recomputes
+  nothing: the baked text, tiles and tables stay, the charts are hidden and a notice at the top says
+  the data files did not load, with the time of the baked refresh.
 
 ### What `fetch-data.mjs` pulls
 
@@ -112,25 +145,46 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
   the snapshot predates the latest FOMC decision (its date comes from `targetRange.since`); the
   callout is composed from the same odds as the chart in both languages, never hand-written;
   `calloutEn`/`calloutEs` in the monthly file are ignored.
-- Footer: the `data.js` write time in UTC and Mexico City time.
+- Footer: the `data.js` write time in UTC and Mexico City time; the as-of row opens with the same
+  time in Mexico City.
+- Header KPI strip: six tiles (total debt, held by the public, live debt-to-GDP, FYTD gross
+  interest with net under it, average rate, FYTD deficit from MTS with the same months a year
+  earlier). Spanish units ("billones") are set smaller so a value stays on one line.
+- Header notice (`#dataWarn`, both languages): shown when `data.js` was written more than 36 hours
+  ago (two refreshes missed), when a feed is older than its publisher's schedule (Debt to the Penny
+  and the policy rates: more than 2 business days, EFFR 3, counting U.S. federal holidays computed
+  from their statutory rules; H.4.1 12 days; MTS 55; average rates and MSPD 45; GDP 135 days after
+  the quarter; TIC 80 days after the month; FedWatch 14), or when the data files did not load.
+- Section 10 dates: the administered rates (IORB, ON RRP, discount) are labelled "in force since"
+  the FOMC decision and the effective federal funds rate "as of" its own date (the New York Fed
+  publishes it the next business day); the as-of row says the same.
+- Every chart canvas gets `role="img"` and an `aria-label` from its card title and caption, in the
+  current language.
 
 ## Verifying a change
 
 ```
-node --check scripts/fetch-data.mjs scripts/fiscal/check-freshness.mjs scripts/fiscal/probe.mjs scripts/fiscal/render-check.mjs
+node --check scripts/fetch-data.mjs scripts/fiscal/check-freshness.mjs scripts/fiscal/probe.mjs scripts/fiscal/render-check.mjs scripts/fiscal/bake-page.mjs
 node scripts/fiscal/check-freshness.mjs
+node scripts/fiscal/bake-page.mjs
 setsid nohup python3 -m http.server 8123 --directory site >/dev/null 2>&1 &
-node scripts/fiscal/render-check.mjs --shots /tmp/fiscal-shots --chart path/to/chart.umd.js
+node scripts/fiscal/render-check.mjs --shots /tmp/fiscal-shots
 ```
 
-`render-check.mjs` opens the page in Playwright Chromium at 1280 px and 390 px, in both languages,
-light and dark (eight configurations), with Chart.js served by the site itself (`/assets/vendor/chart.umd.4.4.0.min.js`, SRI-pinned;
-`--chart` only matters for an old checkout that still loads it from the CDN) and Google Fonts stubbed. It fails on console errors, `undefined`/`NaN` in the text, empty
-`[data-bind]` spans, horizontal overflow, DOM text below 11 px, a section tab or language button that
-a tap would not reach (`elementFromPoint` at its centre, the tab strip scrolled to each tab), the
-language buttons overlapping the tab strip, a table that overflows sideways without scrolling and a
-scroll hint, SVG donut labels below 11 px after the viewBox scale, an English heading or tab label
-that is not in Title Case, or a Spanish one in Title Case instead of sentence case. `--now
+`render-check.mjs` opens the page in Playwright Chromium at 1280, 390 and 360 px, in both languages
+(`?lang=`), light and dark (twelve configurations), with Chart.js served by the site itself (`/assets/vendor/chart.umd.4.4.0.min.js`, SRI-pinned;
+`--chart` only matters for an old checkout that still loads it from the CDN) and Google Fonts stubbed. It fails on console errors, `undefined`/`NaN` in the text,
+`[data-bind]` spans left empty or at "—", a KPI strip without six filled tiles, `document.title` or
+`<html lang>` not following the language, horizontal overflow, DOM text below 11 px, a section tab or
+language button that a tap would not reach (`elementFromPoint` at its centre, the tab strip scrolled
+to each tab), a desktop tab hidden until the strip is scrolled, the language buttons overlapping the
+tab strip, a table that overflows sideways without scrolling and a scroll hint, SVG donut labels
+below 11 px after the viewBox scale, an English heading or tab label that is not in Title Case, or a
+Spanish one in Title Case instead of sentence case. Three passes run once: the language choice
+(Spanish with nothing stored, `?lang=en` wins, the toggle rewrites `?lang=` and is remembered after
+a reload), JavaScript off (Spanish static text, no placeholder left in the baked figures, the
+`<noscript>` note shown) and `data.js` blocked (the missing-data notice, the baked tiles still
+filled, no errors). `--now
 YYYY-MM-DD` installs a Date shim that keeps time advancing (Chart.js animates on `Date.now()`; a
 frozen clock leaves every chart at frame zero) to exercise the FedWatch meeting filter for a chosen
 day. Canvas charts are outside the DOM: with `--shots` the script also crops the holders chart, the

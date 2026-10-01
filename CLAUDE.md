@@ -195,9 +195,13 @@ dashboards, everything built from public data by GitHub Actions.
   scripts, so the FedWatch odds come from named outlets quoting FedWatch, one to four meetings, and the
   page composes the prose. Probe a blocked source from the runner with the workflow's `url` input.
   Section 06 (CBO) is composed entirely from the research file's CBO keys (years, record year, vintage,
-  links); never type a CBO year or figure into the page. Before pushing a page change run
-  `scripts/fiscal/render-check.mjs` (Playwright, eight configurations: tab-bar hit test, table scroll
-  hints, SVG label size, heading case) and look at its `--shots` crops of the canvas charts.
+  links); never type a CBO year or figure into the page. The static markup carries the figures of the
+  last refresh (Spanish, for no-JS readers and text fetches): `scripts/fiscal/bake-page.mjs` writes them
+  and the refresh workflow runs it and commits index.html with data.js, so on a merge conflict in
+  index.html keep your side and bake again. Before pushing a page change run the bake, then
+  `scripts/fiscal/render-check.mjs` (Playwright, twelve configurations plus language, JavaScript-off and
+  missing-data passes) and look at its `--shots` crops of the canvas charts. The page opens in Spanish;
+  `?lang=` wins, then the reader's saved choice (`fiscal-lang`); the toggle rewrites `?lang=`.
   Debt-to-GDP appears as three labelled measures (live; FRED quarterly GFDEGDQ188S, which the macro
   dashboard's fiscal view shows; FRED annual GFDGDPA188S) and interest as gross (MTS table 3, accrual
   dataset) or net (MTS table 9, CBO, the macro view); label any new figure the same way on both pages.

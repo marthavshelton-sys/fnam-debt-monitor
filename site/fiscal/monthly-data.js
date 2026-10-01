@@ -231,7 +231,7 @@ window.MONTHLY_DATA = {
     }
   },
   "fedWatch": {
-    "asOf": "2026-09-24",
+    "asOf": "2026-09-30",
     "meetings": [
       "28-Oct-2026"
     ],
@@ -247,10 +247,10 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        22.5
+        63
       ],
       [
-        77.5
+        37
       ],
       [
         0
@@ -261,7 +261,7 @@ window.MONTHLY_DATA = {
     ],
     "sourceName": "CNBC (quoting CME FedWatch)",
     "sourceNameEs": "CNBC (citando CME FedWatch)",
-    "sourceUrl": "https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html",
+    "sourceUrl": "https://www.cnbc.com/2026/09/30/treasury-yields-bonds-selloff.html",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -286,7 +286,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "CNBC, \"New York Fed's Williams says it's 'reasonable' to expect another rate hike by year-end\", 2026-09-24: \"CME Group's FedWatch tool put the probability of an October raise at 77.5% on Thursday, up from around 53% on Wednesday\" (https://www.cnbc.com/2026/09/24/feds-williams-another-rate-hike-by-year-end.html); the remainder is shown as no change at 3.75-4.00%. Later meetings are omitted until an outlet quotes their full distribution; CME's tool and Investing.com's Fed Rate Monitor answer 403 to scripts.",
+    "fedWatch": "CNBC, \"10-year Treasury yield is higher as traders look past inflation data, await jobs report\", 2026-09-30: \"At one point this month, traders priced in a more than 80% chance of a quarter-point rate hike in October. Those odds sat around 37% after Wednesday's release, with traders pushing the next expected increase to December, according to the CME Group's FedWatch tool.\" (https://www.cnbc.com/2026/09/30/treasury-yields-bonds-selloff.html); the remainder (63%) is shown as no change at 3.75-4.00%. Previous snapshot: CNBC, 2026-09-24, 77.5% for an October raise. Later meetings are omitted until an outlet quotes their full distribution; CME's tool and Investing.com's Fed Rate Monitor answer 403 to scripts.",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };

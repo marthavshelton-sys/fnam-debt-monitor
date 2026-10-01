@@ -1,17 +1,24 @@
 #!/usr/bin/env node
-// Headless render check for site/fiscal/index.html: desktop (1280 px) and phone (390 px), English and
-// Spanish, light and dark. It renders the committed page against the committed data files and fails on
-// what a reader would notice and the data checks cannot see:
+// Headless render check for site/fiscal/index.html: desktop (1280 px) and phones (390 and 360 px), English
+// and Spanish (opened with ?lang=), light and dark. It renders the committed page against the committed data
+// files and fails on what a reader would notice and the data checks cannot see:
 //   - console errors and page errors; "undefined", "NaN" or "[object Object]" leaking into the text
-//   - a visible [data-bind] element left empty, or a visible callout with no text (composed notes)
+//   - a visible [data-bind] element left empty or at its "—" placeholder, or a visible callout with no text
+//   - a KPI tile without a label or a value (the strip must hold six filled tiles)
+//   - document.title and <html lang> not following the language
 //   - horizontal overflow of the page, and DOM text below 11 px
 //   - the section tab bar: every tab and both language buttons must be hit-testable at their centre
-//     (elementFromPoint), the language buttons must not overlap the tab strip
+//     (elementFromPoint), the language buttons must not overlap the tab strip, and on desktop every tab
+//     must be visible without scrolling the strip
 //   - every table wrapper that overflows sideways (collapsed <details> tables opened first) must scroll
 //     (overflow-x) and carry the "can-scroll" class plus the scroll hint the page inserts, so a phone
 //     reader knows there are more columns
 //   - SVG text (the donut labels) must render at 11 px or more once the viewBox scale is applied
 //   - English headings and tab labels in Title Case, Spanish ones in sentence case (Mexican usage)
+// Three more passes run once: the language choice (Spanish with no ?lang= and nothing stored, ?lang=en wins,
+// a click on the toggle rewrites ?lang= and is remembered after a reload without it), the page with
+// JavaScript off (Spanish text, no placeholder left in the baked figures, the <noscript> note shown) and the
+// page with data.js blocked (the missing-data notice, no errors, the baked KPI strip still filled).
 // Canvas charts (Chart.js) cannot be inspected from the DOM: pass --shots DIR and look at the crops of
 // the holders chart, the donuts, the outlay bars and the tables in both languages before merging.
 //
@@ -53,31 +60,39 @@ function sentenceCaseProblem(text) {
 }
 
 const CROPS = [['nav.jump', 'nav'], ['#holders .grid-2 .card:first-child', 'holders'], ['#tblForeign', 'foreign'], ['#pieRevFY', 'pieRev'], ['#pieOutFY', 'pieOut'],
-  ['#chartOutYTD', 'outYtd'], ['#tblCboProjection', 'cbo'], ['#gdp .tblwrap', 'cboAssumptions'], ['#fedWatchChartWrap', 'fedWatch']];
+  ['#chartOutYTD', 'outYtd'], ['#tblCboProjection', 'cbo'], ['#gdp .tblwrap', 'cboAssumptions'], ['#fedWatchChartWrap', 'fedWatch'],
+  ['header.top', 'header'], ['#policyrates', 'rates'], ['footer#sources', 'sources']];
 const browser = await chromium.launch({ executablePath: process.env.CHROMIUM_PATH || (existsSync('/opt/pw-browsers/chromium') ? '/opt/pw-browsers/chromium' : undefined), args: ['--no-sandbox'] });
-let failures = 0;
+let failures = 0, configs = 0;
+const ORIGIN = BASE.replace(/\/fiscal\/?$/, '');
+const routeSite = (route) => {
+  const u = route.request().url();
+  if (u.startsWith(ORIGIN)) return route.continue();
+  if (u.includes('chart.umd.min.js')) return CHART ? route.fulfill({ path: CHART, contentType: 'application/javascript' }) : route.continue();
+  if (u.includes('fonts.googleapis.com')) return route.fulfill({ body: '', contentType: 'text/css' });
+  return route.abort();
+};
+const TITLE = { en: 'U.S. Fiscal Debt Monitor · FNAM', es: 'Monitor de la Deuda Fiscal de EE. UU. · FNAM' };
+const report = (label, problems, extra = '') => {
+  configs++; if (problems.length) failures++;
+  console.log(`${problems.length ? 'FAIL' : 'ok  '} ${label}${extra}`);
+  for (const p of problems) console.log('     - ' + p);
+};
 for (const scheme of ['light', 'dark']) {
-  for (const [w, h, tag] of [[1280, 900, 'desktop'], [390, 844, 'phone']]) {
+  for (const [w, h, tag] of [[1280, 900, 'desktop'], [390, 844, 'phone'], [360, 780, 'phone360']]) {
     const ctx = await browser.newContext({ viewport: { width: w, height: h }, colorScheme: scheme, deviceScaleFactor: 1 });
     if (NOW) {
       await ctx.addInitScript(`{ const fixed = new Date('${NOW}T12:00:00'); const RealDate = Date; const offset = fixed.getTime() - RealDate.now();
         class FakeDate extends RealDate { constructor(...a){ super(...(a.length ? a : [RealDate.now() + offset])); } static now(){ return RealDate.now() + offset; } }
         FakeDate.parse = RealDate.parse; FakeDate.UTC = RealDate.UTC; window.Date = FakeDate; }`);
     }
-    await ctx.route('**/*', (route) => {
-      const u = route.request().url();
-      if (u.startsWith(BASE.replace(/\/fiscal\/?$/, ''))) return route.continue();
-      if (u.includes('chart.umd.min.js')) return CHART ? route.fulfill({ path: CHART, contentType: 'application/javascript' }) : route.continue();
-      if (u.includes('fonts.googleapis.com')) return route.fulfill({ body: '', contentType: 'text/css' });
-      return route.abort();
-    });
+    await ctx.route('**/*', routeSite);
     for (const lang of ['en', 'es']) {
       const page = await ctx.newPage();
       const errors = [];
       page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
       page.on('console', (m) => { if (m.type() === 'error') errors.push('console: ' + m.text()); });
-      await page.goto(BASE, { waitUntil: 'load' });
-      if (lang === 'es') await page.click('#btnLangEs');
+      await page.goto(BASE + '?lang=' + lang, { waitUntil: 'load' });
       // open every collapsed data table so it is measured the way a reader sees it after opening it
       await page.evaluate(() => document.querySelectorAll('details').forEach((d) => { d.open = true; }));
       await page.waitForTimeout(600);
@@ -86,7 +101,7 @@ for (const scheme of ['light', 'dark']) {
         const name = (el) => (el.id ? '#' + el.id : el.tagName.toLowerCase() + (el.className && typeof el.className === 'string' ? '.' + el.className.trim().split(/\s+/).join('.') : ''));
         const text = document.body.innerText;
         const leaks = (text.match(/\bundefined\b|\bNaN\b|\[object Object\]/g) || []).length;
-        const emptyBinds = [...document.querySelectorAll('[data-bind]')].filter((el) => vis(el) && !el.textContent.trim()).map((el) => el.getAttribute('data-bind'))
+        const emptyBinds = [...document.querySelectorAll('[data-bind]')].filter((el) => vis(el) && (!el.textContent.trim() || el.textContent.trim() === '—')).map((el) => el.getAttribute('data-bind'))
           .concat([...document.querySelectorAll('.callout')].filter((el) => vis(el) && !el.innerText.trim()).map((el) => 'empty callout in #' + ((el.closest('section') || {}).id || '?')));
         const overflow = document.documentElement.scrollWidth > document.documentElement.clientWidth + 1;
         const small = [...document.querySelectorAll('body *:not(svg *)')].filter((el) => vis(el) && el.children.length === 0 && el.textContent.trim() && parseFloat(getComputedStyle(el).fontSize) < 11)
@@ -94,12 +109,21 @@ for (const scheme of ['light', 'dark']) {
         // tab bar: every tab and both language buttons reachable, no overlap
         const strip = document.getElementById('jumpNav'), langBox = document.querySelector('.lang-btn');
         const inter = (a, b) => !(a.right <= b.left || b.right <= a.left || a.bottom <= b.top || b.bottom <= a.top);
-        const nav = { overlap: false, misses: [] };
+        const nav = { overlap: false, misses: [], clipped: [] };
         if (strip && langBox) {
           // the bar sits under the page header and sticks to the top once reached: bring it there first
           const prev = strip.style.scrollBehavior; strip.style.scrollBehavior = 'auto';
           const bar = strip.closest('nav'); window.scrollTo({ top: bar.offsetTop + 1, behavior: 'instant' });
           nav.overlap = inter(strip.parentElement.getBoundingClientRect(), langBox.getBoundingClientRect());
+          // desktop: every tab in view with the strip unscrolled (no tab hidden off the end or under the toggle)
+          if (window.innerWidth >= 900) {
+            strip.scrollLeft = 0;
+            for (const a of strip.querySelectorAll('a')) {
+              const rc = a.getBoundingClientRect();
+              const el = document.elementFromPoint(rc.left + rc.width / 2, rc.top + rc.height / 2);
+              if (!el || el.closest('#jumpNav a') !== a || rc.right > window.innerWidth) nav.clipped.push(a.innerText.trim());
+            }
+          }
           for (const a of strip.querySelectorAll('a')) {
             strip.scrollLeft = Math.max(0, a.offsetLeft - 12);
             const rc = a.getBoundingClientRect();
@@ -135,7 +159,10 @@ for (const scheme of ['light', 'dark']) {
         // headings and tab labels in both languages (hidden spans included: both are checked once)
         const heads = [...document.querySelectorAll('h1, h2, h3, h4, nav.jump a')].map((el) => ({
           tag: el.tagName.toLowerCase(), en: (el.querySelector('.en') || {}).textContent || '', es: (el.querySelector('.es') || {}).textContent || '' }));
-        return { leaks, emptyBinds, overflow, scrollW: document.documentElement.scrollWidth, clientW: document.documentElement.clientWidth, small, nav, tables, svgSmall, heads };
+        const kpis = [...document.querySelectorAll('#kpiStrip .kpi')].map((k) => ({
+          lbl: ((k.querySelector('.lbl') || {}).textContent || '').trim(), val: ((k.querySelector('.val') || {}).textContent || '').trim(), shown: vis(k) }));
+        return { leaks, emptyBinds, overflow, scrollW: document.documentElement.scrollWidth, clientW: document.documentElement.clientWidth, small, nav, tables, svgSmall, heads,
+          kpis, title: document.title, htmlLang: document.documentElement.getAttribute('lang') };
       });
       const problems = [];
       if (errors.length) problems.push(...errors.slice(0, 8));
@@ -145,6 +172,11 @@ for (const scheme of ['light', 'dark']) {
       if (r.small.length) problems.push(`text below 11 px: ${r.small.slice(0, 6).join('; ')}${r.small.length > 6 ? ` (+${r.small.length - 6})` : ''}`);
       if (r.nav.overlap) problems.push('language buttons overlap the tab strip');
       if (r.nav.misses.length) problems.push('tab bar hit test: ' + r.nav.misses.join('; '));
+      if (r.nav.clipped.length) problems.push('tabs not visible without scrolling the strip: ' + r.nav.clipped.join(', '));
+      const badKpi = r.kpis.filter((k) => !k.shown || !k.lbl || !k.val || k.val === '—');
+      if (r.kpis.length !== 6 || badKpi.length) problems.push(`KPI strip: ${r.kpis.length} tiles, ${badKpi.length} without label or value (${badKpi.map((k) => k.lbl || '?').join(', ')})`);
+      if (r.title !== TITLE[lang]) problems.push(`document.title "${r.title}" (expected "${TITLE[lang]}")`);
+      if (r.htmlLang !== (lang === 'es' ? 'es-MX' : 'en')) problems.push(`<html lang="${r.htmlLang}">`);
       for (const t of r.tables) if (!t.ok) problems.push(`table "${t.label}" overflows sideways without scroll + hint`);
       if (r.svgSmall.length) problems.push('SVG text below 11 px: ' + r.svgSmall.slice(0, 6).join(', '));
       if (lang === 'en' && scheme === 'light' && tag === 'desktop') {
@@ -156,9 +188,7 @@ for (const scheme of ['light', 'dark']) {
         }
       }
       const label = `${scheme}/${tag}/${lang}`;
-      if (problems.length) failures++;
-      console.log(`${problems.length ? 'FAIL' : 'ok  '} ${label}  (tables overflowing with scroll+hint: ${r.tables.filter((t) => t.over && t.ok).length})`);
-      for (const p of problems) console.log('     - ' + p);
+      report(label, problems, `  (tables overflowing with scroll+hint: ${r.tables.filter((t) => t.over && t.ok).length})`);
       if (SHOTS) {
         await page.screenshot({ path: `${SHOTS}/${scheme}-${tag}-${lang}.png`, fullPage: true });
         if (scheme === 'light') for (const [sel, nm] of CROPS) {
@@ -171,6 +201,81 @@ for (const scheme of ['light', 'dark']) {
     await ctx.close();
   }
 }
+
+// ---- Language choice: default, ?lang=, toggle -> URL + storage, reload ----
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+  await ctx.route('**/*', routeSite);
+  const page = await ctx.newPage();
+  const state = () => page.evaluate(() => ({ lang: document.documentElement.getAttribute('lang'), title: document.title, url: location.search,
+    stored: (() => { try { return localStorage.getItem('fiscal-lang'); } catch (e) { return 'n/a'; } })(),
+    esShown: !!document.querySelector('#btnLangEs.active'), enShown: !!document.querySelector('#btnLangEn.active') }));
+  const problems = [];
+  await page.goto(BASE, { waitUntil: 'load' });
+  let st = await state();
+  if (st.lang !== 'es-MX' || !st.esShown || st.title !== TITLE.es) problems.push(`no ?lang= and nothing stored: opened as ${st.lang} ("${st.title}"), expected Spanish`);
+  await page.goto(BASE + '?lang=en', { waitUntil: 'load' });
+  st = await state();
+  if (st.lang !== 'en' || !st.enShown) problems.push(`?lang=en opened as ${st.lang}`);
+  await page.click('#btnLangEs');
+  st = await state();
+  if (!/[?&]lang=es\b/.test(st.url) || st.stored !== 'es' || st.title !== TITLE.es) problems.push(`ES button: url "${st.url}", stored "${st.stored}", title "${st.title}"`);
+  await page.click('#btnLangEn');
+  await page.goto(BASE, { waitUntil: 'load' });
+  st = await state();
+  if (st.lang !== 'en' || st.stored !== 'en') problems.push(`after choosing EN and reloading without ?lang=: opened as ${st.lang} (stored "${st.stored}")`);
+  await page.goto(BASE + '?lang=es', { waitUntil: 'load' });
+  st = await state();
+  if (st.lang !== 'es-MX') problems.push(`?lang=es did not win over the stored choice: ${st.lang}`);
+  report('language choice', problems);
+  await ctx.close();
+}
+
+// ---- JavaScript off: the baked markup a crawler or text fetch sees ----
+{
+  const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 }, javaScriptEnabled: false });
+  await ctx.route('**/*', routeSite);
+  const page = await ctx.newPage();
+  await page.goto(BASE, { waitUntil: 'load' });
+  const r = await page.evaluate(() => {
+    const vis = (el) => !!(el.getClientRects().length) && getComputedStyle(el).visibility !== 'hidden';
+    return {
+      placeholders: [...document.querySelectorAll('[data-bind]')].filter((el) => vis(el) && ['', '—'].includes(el.textContent.trim())).map((el) => el.getAttribute('data-bind')),
+      enShown: [...document.querySelectorAll('span.en')].filter(vis).length, esShown: [...document.querySelectorAll('span.es')].filter(vis).length,
+      kpis: document.querySelectorAll('#kpiStrip .kpi').length, noscript: /JavaScript/.test(document.body.innerText),
+      leaks: (document.body.innerText.match(/\bundefined\b|\bNaN\b|\[object Object\]/g) || []).length };
+  });
+  const problems = [];
+  if (r.placeholders.length) problems.push('figures left at a placeholder (run scripts/fiscal/bake-page.mjs): ' + [...new Set(r.placeholders)].slice(0, 12).join(', '));
+  if (r.enShown || !r.esShown) problems.push(`static text not in Spanish: ${r.enShown} English spans shown, ${r.esShown} Spanish`);
+  if (r.kpis !== 6) problems.push(`baked KPI strip has ${r.kpis} tiles`);
+  if (!r.noscript) problems.push('the <noscript> note is not shown');
+  if (r.leaks) problems.push(`${r.leaks} undefined/NaN in the text`);
+  report('javascript off', problems);
+  if (SHOTS) await page.screenshot({ path: `${SHOTS}/no-js-desktop.png` });
+  await ctx.close();
+}
+
+// ---- data.js blocked: the missing-data notice ----
+{
+  const ctx = await browser.newContext({ viewport: { width: 390, height: 844 } });
+  await ctx.route('**/*', (route) => (/\/fiscal\/data\.js(\?|$)/.test(route.request().url()) ? route.abort() : routeSite(route)));
+  const page = await ctx.newPage();
+  const errors = [];
+  page.on('pageerror', (e) => errors.push('pageerror: ' + e.message));
+  await page.goto(BASE + '?lang=en', { waitUntil: 'load' });
+  const r = await page.evaluate(() => ({ warn: (document.getElementById('dataWarn') || {}).hidden === false ? document.getElementById('dataWarnEn').textContent : '',
+    kpis: [...document.querySelectorAll('#kpiStrip .kpi .val')].filter((v) => v.textContent.trim() && v.textContent.trim() !== '—').length,
+    leaks: (document.body.innerText.match(/\bundefined\b|\bNaN\b|\[object Object\]/g) || []).length }));
+  const problems = [...errors];
+  if (!/did not load/.test(r.warn) || !/\d{4} \d{2}:\d{2} UTC/.test(r.warn)) problems.push(`missing-data notice not shown or undated: "${r.warn}"`);
+  if (r.kpis !== 6) problems.push(`${r.kpis} filled KPI tiles without data.js (the baked ones should stay)`);
+  if (r.leaks) problems.push(`${r.leaks} undefined/NaN in the text`);
+  report('data.js blocked', problems);
+  if (SHOTS) await page.screenshot({ path: `${SHOTS}/no-data-phone-en.png` });
+  await ctx.close();
+}
+
 await browser.close();
-console.log(failures ? `\n${failures} configuration(s) with problems` : '\nall 8 configurations clean');
+console.log(failures ? `\n${failures} of ${configs} checks with problems` : `\nall ${configs} checks clean`);
 process.exit(failures ? 1 : 0);
