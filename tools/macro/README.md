@@ -153,6 +153,14 @@ sum to regions, regions to the headline, 51 states). Only a report that
 reconciles is written into the `challenger` block; anything else fails that
 step and the page keeps last month's data.
 
+The newest post is the first entry title on the category page whose post links a
+`Challenger-Report-*.pdf` (up to four posts are tried). Do not key on the slug:
+September 2026's post was `job-cuts-fall-in-september-...`, without the old
+`challenger-report-` prefix, and the old slug match silently kept August. The same
+report changed layout: month columns became mixed case (`Sep-26`) and every page got
+a footer "Challenger Report | September 2026 | Page N"; the parser upper-cases
+hyphenated month headers and drops that footer line.
+
 The `challenger` block is a growing history, not a snapshot: `monthly[]` is the
 national series, `industry[]` is keyed by Challenger's own labels, and
 `stateCuts.<code>` holds `m` (the month's cuts), `ytd` and `priorYtd` keyed by

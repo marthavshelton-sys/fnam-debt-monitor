@@ -28,6 +28,11 @@ def lines_of(page):
     # (x0, y0, x1, y1, text, block, line, word) per word, in reading order.
     words = page.get_text("words")
     toks = [{"s": w[4], "x0": w[0], "x1": w[2], "y": w[1]} for w in words if w[4].strip()]
+    # Month columns were "AUG-26" through August 2026 and "Sep-26" from September 2026 on;
+    # upper-case the hyphenated forms only, so month-name row labels ("May") are untouched.
+    for t in toks:
+        if re.match(r"^[A-Za-z]{3}-\d{0,2}$", t["s"]) and t["s"][:3].upper() in MON3:
+            t["s"] = t["s"].upper()
     toks.sort(key=lambda t: (round(t["y"] / 2.5), t["x0"]))
     lines = []
     for t in toks:
@@ -74,6 +79,10 @@ def parse(pdf_path):
                 line_no += 1
                 T = L["t"]
                 text = " ".join(t["s"] for t in T)
+                # Page footer since September 2026: "Challenger Report | September 2026 | Page 6".
+                # Its year and page number would otherwise land in the table as a row.
+                if re.match(r"^Challenger Report\s*\|.*\|\s*Page\s+\d+$", text, re.I):
+                    continue
                 m = re.match(r"^T\s?ABLE\s*(\d+)", text, re.I)
                 if m:
                     groups = []
