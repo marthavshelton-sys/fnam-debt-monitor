@@ -5,7 +5,9 @@
 //   * an amber flag when a data point is older than its allowance (site/fiscal/freshness-rules.js, the same table
 //     scripts/fiscal/check-freshness.mjs alarms on), or when data.js has no value for it and the page is showing the
 //     values stored in its own code (never silent);
-//   * the source, series and date of each figure behind an ⓘ, and in every chart tooltip.
+//   * the source, series and date of each figure behind an ⓘ, and in every chart tooltip;
+//   * the header notice (#dataWarn, both languages): every data point past its allowance, and a data file that has
+//     missed two refreshes (36 hours). Left alone when the data files did not load: the page writes that notice.
 // Debt to the Penny turns amber after 2 U.S. business days without a new close (federal holidays excluded).
 (function(){
   var PV = window.FNAM_PROV; if(!PV) return;
@@ -143,7 +145,7 @@
       });
     });
     // Header: KPI tiles, the as-of row in "Data through" form, the legend, and the eyebrow.
-    var kpiIds = [['debt','R'],['debt','R'],['gdp','C'],['mts','R'],['avgRate','R']];
+    var kpiIds = [['debt','R'],['debt','R'],['gdp','C'],['mts','R'],['avgRate','R'],['mts','R']];
     document.querySelectorAll('#kpiStrip .kpi').forEach(function(el, i){
       var m = kpiIds[i]; if(!m || el.querySelector('.auto-tile')) return;
       var note = m[1] === 'C' ? T('cálculo FNAM: deuda del último día ÷ PIB nominal del último trimestre','FNAM calculation: latest-day debt ÷ latest quarter\'s nominal GDP') : null;
@@ -156,8 +158,39 @@
         +'<span class="auto-asof">'+T('Última descarga','Last download')+': <b>'+(LD.generatedAt ? PV.fmt(LD.generatedAt.slice(0,10), L) : '—')+'</b></span>'
         +'<span class="auto-asof">'+PV.legend(L)+'</span>';
     }
+    notice();
     var eb = document.getElementById(L === 'en' ? 'eyebrowEn' : 'eyebrowEs');
     if(eb) eb.innerHTML = T('Datos del Tesoro de EE. UU. y la Reserva Federal · ','U.S. Treasury &amp; Federal Reserve Data · ')+PV.through(dateOf('debt'), L);
+  }
+
+  // Header notice, written in both languages at once (the page shows the one the reader chose).
+  var LABEL_ES = { debt:'deuda diaria del Tesoro (Debt to the Penny)', targetRange:'rango objetivo del FOMC', effr:'tasa de fondos federales efectiva',
+    iorb:'interés sobre saldos de reservas (IORB)', onrrp:'tasa ON RRP', discount:'tasa de descuento', rrpVolume:'saldo de ON RRP', tenYear:'rendimiento a 10 años',
+    walcl:'activos totales de la Fed (WALCL)', fedBalanceSheet:'balance de la Fed (H.4.1)', avgRate:'tasas de interés promedio de la deuda',
+    debtComposition:'composición de la deuda (MSPD, cuadro 1)', avgMaturity:'vencimiento promedio (MSPD, cuadro 3)', mts:'Estado Mensual del Tesoro',
+    accruedInterest:'interés devengado', m2:'M2', cpi:'IPC', unemployment:'tasa de desempleo', foreignHolders:'principales tenedores extranjeros (TIC)', gdp:'PIB nominal',
+    realGdp:'crecimiento del PIB real', holders:'tenedores de la deuda (OFS-2)', debtGdpAnnual:'deuda ÷ PIB anual (FRED)', debtGdpQuarterly:'deuda ÷ PIB trimestral (FRED)',
+    fedWatch:'probabilidades de FedWatch', cbo:'panorama base de la CBO', tariffs:'aranceles, serie anual' };
+  function notice(){
+    var box = document.getElementById('dataWarn'); if(!box || document.documentElement.classList.contains('no-data')) return;
+    var en = [], es = [], sEn = [], sEs = [];
+    if(LD.generatedAt && Date.now() - Date.parse(LD.generatedAt) > 36*3600*1000){
+      en.push('<b>The data file was last refreshed on '+PV.fmt(LD.generatedAt.slice(0,10), 'en')+';</b> the twice-daily refresh appears to have failed.');
+      es.push('<b>El archivo de datos se actualizó por última vez el '+PV.fmt(LD.generatedAt.slice(0,10), 'es')+';</b> la actualización de dos veces al día parece haber fallado.');
+    }
+    Object.keys(RULE).forEach(function(id){
+      var f = fresh(id); if(f.level !== 'amber') return;
+      var d = dateOf(id), r = RULE[id];
+      sEn.push(PV.esc(r.label)+' ('+(d ? 'data through '+PV.fmt(d, 'en')+', '+PV.ageText(f, 'en') : 'no value in the last download')+')');
+      sEs.push(PV.esc(LABEL_ES[id] || r.label)+' ('+(d ? 'datos al '+PV.fmt(d, 'es')+', '+PV.ageText(f, 'es') : 'sin dato en la última descarga')+')');
+    });
+    if(sEn.length){
+      en.push('<b>Past their update allowance:</b> '+sEn.join('; ')+'. The page shows the last values it retrieved.');
+      es.push('<b>Fuera de su tolerancia de actualización:</b> '+sEs.join('; ')+'. La página muestra los últimos valores que obtuvo.');
+    }
+    document.getElementById('dataWarnEn').innerHTML = en.join(' ');
+    document.getElementById('dataWarnEs').innerHTML = es.join(' ');
+    box.hidden = !en.length;
   }
 
   // Every chart point names its kind, source and data date in the tooltip.

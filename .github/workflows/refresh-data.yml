@@ -37,13 +37,42 @@ jobs:
         if: github.event.inputs.url == ''
         run: node scripts/fetch-data.mjs
 
+      # The page draws itself from data.js in the browser. The bake writes the same figures into the static
+      # markup of index.html (what a reader without JavaScript, a crawler or a plain-text fetch sees), so the
+      # page source never lags the data by more than one run. A failed bake never blocks the data commit:
+      # index.html stays as it was and the fiscal-health step below reports it. Script: scripts/fiscal/bake-page.mjs.
+      - name: Install Playwright's Chromium (page bake)
+        id: pw
+        if: github.event.inputs.url == ''
+        continue-on-error: true
+        run: |
+          mkdir -p "$RUNNER_TEMP/pw" && cd "$RUNNER_TEMP/pw" && npm init -y >/dev/null
+          for i in 1 2; do
+            npm i --no-audit --no-fund playwright@1.56.1 && ./node_modules/.bin/playwright install --with-deps chromium && exit 0
+            echo "install attempt $i failed; retrying in 30s"; sleep 30
+          done
+          exit 1
+
+      - name: Bake the latest figures into index.html
+        id: bake
+        if: github.event.inputs.url == '' && steps.pw.outcome == 'success'
+        continue-on-error: true
+        env:
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/pw/node_modules/playwright/index.mjs
+        run: node scripts/fiscal/bake-page.mjs
+
       - name: Commit updated data.js if it changed
         id: commit
         if: github.event.inputs.url == ''
+        env:
+          BAKED: ${{ steps.bake.outcome == 'success' }}
+          PLAYWRIGHT_MODULE: ${{ runner.temp }}/pw/node_modules/playwright/index.mjs
         run: |
           git config user.name "fnam-data-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add site/fiscal/data.js
+          FILES="site/fiscal/data.js"
+          if [ "$BAKED" = "true" ]; then FILES="$FILES site/fiscal/index.html"; else git checkout -- site/fiscal/index.html; fi
+          git add $FILES
           if git diff --cached --quiet; then
             echo "No data changes."
           else
@@ -53,15 +82,25 @@ jobs:
             # refreshed when some unrelated commit happened to land and rebuild it.
             git commit -m "chore: refresh live Treasury/Fed data [skip actions]"
             # Several other dashboards' bots push to this repo throughout the day. If one of them
-            # lands between our checkout and push, rebase (this commit only touches
-            # site/fiscal/data.js, so it never conflicts) and try again rather than failing the run.
+            # lands between our checkout and push, rebuild this commit on the new head instead of
+            # rebasing it (index.html may have changed there): keep this run's data.js, bake again
+            # and try again rather than failing the run.
             # Pushes to whichever branch the run checked out (main on schedule; a feature branch when
             # dispatched from one, which is how changes to this pipeline get a preview deployment).
+            cp site/fiscal/data.js "$RUNNER_TEMP/data.js"
             for i in 1 2 3 4; do
               if git push origin "HEAD:${GITHUB_REF_NAME}"; then exit 0; fi
-              echo "push rejected (another workflow pushed first); rebasing and retrying ($i)"
-              git pull --rebase origin "${GITHUB_REF_NAME}" || true
+              echo "push rejected (another workflow pushed first); rebuilding on the new head and retrying ($i)"
               sleep $((i * 5))
+              git fetch -q origin "${GITHUB_REF_NAME}"
+              git reset -q --hard "origin/${GITHUB_REF_NAME}"
+              cp "$RUNNER_TEMP/data.js" site/fiscal/data.js
+              if [ "$BAKED" = "true" ] && ! node scripts/fiscal/bake-page.mjs; then
+                git checkout -- site/fiscal/index.html; FILES="site/fiscal/data.js"
+              fi
+              git add $FILES
+              if git diff --cached --quiet; then echo "Nothing left to commit."; exit 0; fi
+              git commit -q -m "chore: refresh live Treasury/Fed data [skip actions]"
             done
             exit 1
           fi
@@ -85,10 +124,13 @@ jobs:
         env:
           PROBLEMS: ${{ steps.freshness.outputs.problems }}
           RUN_FAILED: ${{ steps.fetch.conclusion == 'failure' || steps.commit.conclusion == 'failure' || steps.freshness.conclusion == 'failure' }}
+          BAKE_FAILED: ${{ steps.pw.outcome == 'failure' || steps.bake.outcome == 'failure' }}
         with:
           script: |
             const label = 'fiscal-health';
-            const problems = (process.env.PROBLEMS || '').trim();
+            const problems = [(process.env.PROBLEMS || '').trim(),
+              process.env.BAKE_FAILED === 'true' ? 'page bake failed: the figures written into index.html were not refreshed (the page itself still renders data.js)' : '']
+              .filter(Boolean).join('\n');
             const failed = process.env.RUN_FAILED === 'true';
             const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
             try { await github.rest.issues.getLabel({ ...context.repo, name: label }); }
