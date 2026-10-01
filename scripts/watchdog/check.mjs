@@ -37,7 +37,7 @@ const REPO = process.env.GITHUB_REPOSITORY || 'marthavshelton-sys/fnam-debt-moni
 const TOKEN = process.env.GITHUB_TOKEN || '';
 const CONFIG = JSON.parse(await readFile(new URL('tools/watchdog/dashboards.json', ROOT), 'utf8'));
 const GRACE = (CONFIG.graceHours ?? 3) * 36e5;
-const HEARTBEAT = (CONFIG.heartbeatHours ?? 4) * 36e5;
+const HEARTBEAT = (CONFIG.heartbeatHours ?? 11) * 36e5;
 const LOOKBACK = 14 * 864e5;
 const OUT = new URL('site/status/refresh.json', ROOT);
 const LABEL = 'data-watchdog';
@@ -119,7 +119,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked hourly by .github/workflows/data-watchdog.yml',
+  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours by .github/workflows/data-watchdog.yml',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,
@@ -154,7 +154,7 @@ for (const r of rows) {
       `| Workflow | ${d.workflows.map((f) => `[\`${f}\`](https://github.com/${REPO}/actions/workflows/${f})`).join(', ')} |`,
       '',
       'The landing page shows this dashboard as "Late" (Retrasado) until a scheduled refresh lands; this issue then closes itself.',
-      'Checked hourly by `scripts/watchdog/check.mjs` (`.github/workflows/data-watchdog.yml`); runbook `tools/watchdog/README.md`.',
+      'Checked every 12 hours by `scripts/watchdog/check.mjs` (`.github/workflows/data-watchdog.yml`); runbook `tools/watchdog/README.md`.',
       '',
       mark(r.id),
     ].join('\n') });

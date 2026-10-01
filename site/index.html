@@ -220,7 +220,7 @@ a.card:hover .cta svg{transform:translateX(2px);}
 .decks a:hover, .decks a:focus-visible{border-color:var(--accent); transform:translateY(-1px); outline:none;}
 .decks .hint{flex-basis:100%; font-size:12px; color:var(--muted); margin:0;}
 
-/* ---------- data status (hourly watchdog; /status/refresh.json) ---------- */
+/* ---------- data status (watchdog every 12 hours; /status/refresh.json) ---------- */
 .status-checked{font-size:12.5px; color:var(--muted); text-align:right;}
 .status-checked.warn{color:var(--st-late); font-weight:600;}
 .status-grid{list-style:none; margin:0; padding:0; display:grid; gap:10px; grid-template-columns:repeat(2, minmax(0, 1fr));}
@@ -478,7 +478,7 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
     </div>
   </section>
 
-  <!-- ================= Data status: verdicts of the hourly watchdog ================= -->
+  <!-- ================= Data status: verdicts of the watchdog (every 12 hours) ================= -->
   <section class="section" id="estado">
     <div class="wrap">
       <div class="section-head">
@@ -490,8 +490,8 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       </div>
       <ul class="status-grid" id="statusGrid"></ul>
       <p class="status-note">
-        <span class="en">A dashboard is shown as up to date only when the hourly watchdog has verified that its scheduled refresh landed on time; a late refresh opens an alert. Mexico City time.</span>
-        <span class="es">Un panel aparece al día solo cuando el vigilante, que revisa cada hora, verificó que su actualización programada llegó a tiempo; una actualización retrasada abre una alerta. Hora del centro de México.</span>
+        <span class="en">A dashboard is shown as up to date only when the watchdog, which checks every 12 hours, has verified that its scheduled refresh landed on time; a late refresh opens an alert. Mexico City time.</span>
+        <span class="es">Un panel aparece al día solo cuando el vigilante, que revisa cada 12 horas, verificó que su actualización programada llegó a tiempo; una actualización retrasada abre una alerta. Hora del centro de México.</span>
       </p>
     </div>
   </section>

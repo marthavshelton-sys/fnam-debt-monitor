@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-10-01T04:44:54Z",
-  "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked hourly by .github/workflows/data-watchdog.yml",
+  "checkedAt": "2026-10-01T05:09:08Z",
+  "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours by .github/workflows/data-watchdog.yml",
   "graceHours": 3,
   "sections": {
     "us": {

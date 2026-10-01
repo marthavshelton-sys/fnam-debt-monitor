@@ -1,4 +1,5 @@
-# Data-refresh watchdog. Every hour it checks that each dashboard's scheduled refresh has landed on time
+# Data-refresh watchdog. Every 12 hours (03:50 and 15:50 UTC: 21:50 and 09:50 in Mexico City, each just after a
+# batch of refreshes) it checks that each dashboard's scheduled refresh has landed on time
 # (scripts/watchdog/check.mjs; dashboards, grace and heartbeat in tools/watchdog/dashboards.json; runbook
 # tools/watchdog/README.md) and writes site/status/refresh.json, which the landing page's "Last successful
 # data refresh" panel and the status dot on each company page read. A dashboard is shown as up to date
@@ -9,13 +10,14 @@
 # opened, which the owner's email routine sends like every "SOURCE DOWN: " issue; the first on-time check
 # comments and closes it.
 #
-# Read-only on every other workflow. Commits only site/status/refresh.json, and only when it changed or
-# every four hours as a heartbeat, so the pages can tell a silent watchdog from a quiet night.
+# Read-only on every other workflow. Commits only site/status/refresh.json, rewritten at every check (it
+# changes, or its time stamp is 11 hours old), about two deploys a day; the pages treat a stamp older than
+# 14 hours as unverified, so a silent watchdog never leaves a stale "Al día" behind.
 name: Data refresh watchdog
 
 on:
   schedule:
-    - cron: "12 * * * *"   # hourly at :12, a minute no refresh uses
+    - cron: "50 3,15 * * *"   # every 12 hours, after the evening and the morning refreshes
   workflow_dispatch:
     inputs:
       dry_run:
