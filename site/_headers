@@ -65,3 +65,8 @@
 # Hand-curated tariffs table: edited with the page, so it must never outlive the page in a cache.
 /aeropuertos/data/regulation.js
   Cache-Control: no-store
+
+# Data-refresh watchdog verdicts (.github/workflows/data-watchdog.yml): rewritten hourly when something
+# changes; the landing page and the company pages must never read a cached copy.
+/status/*
+  Cache-Control: no-store

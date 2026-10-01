@@ -1,0 +1,23 @@
+{
+  "graceHours": 3,
+  "heartbeatHours": 4,
+  "sections": {
+    "us": { "es": "Estados Unidos", "en": "United States" },
+    "mx": { "es": "México", "en": "Mexico" },
+    "companies": { "es": "Empresas", "en": "Companies" }
+  },
+  "dashboards": [
+    { "id": "us-macro", "section": "us", "name": { "es": "Macro y Déficit Fiscal EE.\u00a0UU.", "en": "U.S. Macro and Fiscal Deficit" }, "url": "/macro/", "workflows": ["macro-refresh.yml"], "alertLabels": ["macro-source-down", "macro-live-check"] },
+    { "id": "us-fiscal", "section": "us", "name": { "es": "Deuda Fiscal EE.\u00a0UU.", "en": "U.S. Fiscal Debt" }, "url": "/fiscal/", "workflows": ["refresh-data.yml"], "alertLabels": ["fiscal-health"] },
+    { "id": "mx-macro", "section": "mx", "name": { "es": "Macro México", "en": "Mexico Macro" }, "url": "/mx/macro/", "workflows": ["mx-macro-refresh.yml"], "alertLabels": ["mx-macro-health"] },
+    { "id": "mx-fiscal", "section": "mx", "name": { "es": "Fiscal México", "en": "Mexico Fiscal" }, "url": "/mx/fiscal/", "workflows": ["refresh-mx-data.yml"], "alertLabels": [] },
+    { "id": "gap", "section": "companies", "name": { "es": "GAP", "en": "GAP" }, "url": "/gap/", "workflows": ["gap-refresh.yml"], "alertLabels": [] },
+    { "id": "oma", "section": "companies", "name": { "es": "OMA", "en": "OMA" }, "url": "/oma/", "workflows": ["oma-refresh.yml"], "alertLabels": [] },
+    { "id": "asur", "section": "companies", "name": { "es": "ASUR", "en": "ASUR" }, "url": "/asur/", "workflows": ["asur-refresh.yml"], "alertLabels": [] },
+    { "id": "airport-traffic", "section": "companies", "name": { "es": "Tráfico por Aeropuerto", "en": "Traffic by Airport" }, "url": "/aeropuertos/trafico/", "workflows": ["aeropuertos-refresh.yml"], "alertLabels": [] },
+    { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },
+    { "id": "qualitas", "section": "companies", "name": { "es": "Quálitas", "en": "Quálitas" }, "url": "/qualitas/", "workflows": ["qualitas-refresh.yml"], "alertLabels": [] },
+    { "id": "gentera", "section": "companies", "name": { "es": "Gentera", "en": "Gentera" }, "url": "/gentera/", "workflows": ["gentera-refresh.yml"], "alertLabels": [] },
+    { "id": "oracle", "section": "companies", "name": { "es": "Oracle", "en": "Oracle" }, "url": "/oracle/", "workflows": ["oracle-refresh.yml"], "alertLabels": [] }
+  ]
+}

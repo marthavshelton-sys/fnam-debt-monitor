@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Monitor Fiscal de México | Mexico Fiscal Monitor</title>
-<meta name="description" content="Panel en vivo de la deuda pública, el déficit, el costo financiero, los ingresos y el gasto de México, más el balance y la tasa de política de Banco de México, actualizado cada día hábil desde la SHCP y Banxico. Live dashboard of Mexico's public debt, deficit, revenue, spending and Banxico's monetary policy.">
+<meta name="description" content="Panel de la deuda pública, el déficit, el costo financiero, los ingresos y el gasto de México, más el balance y la tasa de política de Banco de México, actualizado cada día hábil desde la SHCP y Banxico. Dashboard of Mexico's public debt, deficit, revenue, spending and Banxico's monetary policy.">
 <link rel="canonical" href="https://fnam.mx/mx/fiscal/">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="en_US">
@@ -266,7 +266,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .instr{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 17px; box-shadow:var(--shadow); display:flex; flex-direction:column;}
 .instr .ihead{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
 .instr h4{font-size:14px; font-weight:700; font-family:Inter,sans-serif; color:var(--text-primary); margin:0;}
-.instr .pill{flex:0 0 auto; font-size:10.5px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:100px; white-space:nowrap;}
+.instr .pill{flex:0 0 auto; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:100px; white-space:nowrap;}
 .instr .pill.since{color:var(--muted); background:var(--surface-2); border:1px solid var(--border);}
 .instr p{font-size:12.6px; color:var(--text-secondary); line-height:1.55; margin-top:8px;}
 .instr .metric{margin-top:auto; padding-top:10px; border-top:1px solid var(--grid); display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
@@ -275,15 +275,22 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 
 /* ---------- Leader-line donut ---------- */
 .leader-pie-wrap{position:relative; margin-top:14px;}
-.leader-pie-wrap svg{width:100%; height:auto; display:block; overflow:visible;}
+.leader-pie-wrap svg{width:100%; max-width:780px; height:auto; display:block; overflow:visible; margin:0 auto;}
+.leader-pie-wrap.stacked svg{max-width:300px;}
+.pie-legend{list-style:none; margin:14px 0 0; padding:0; display:grid; grid-template-columns:1fr; gap:0;}
+.pie-legend li{display:flex; align-items:baseline; gap:10px; padding:7px 0; border-bottom:1px solid var(--grid); font-size:12.8px;}
+.pie-legend li:last-child{border-bottom:none;}
+.pie-legend .sw{flex:0 0 auto; width:10px; height:10px; border-radius:2.5px; align-self:center;}
+.pie-legend .nm{font-weight:600; color:var(--text-primary); flex:1 1 auto; min-width:0;}
+.pie-legend .vl{flex:0 0 auto; color:var(--text-secondary); font-variant-numeric:tabular-nums; white-space:nowrap;}
 .leader-pie-wrap .slice{cursor:pointer; transition:opacity .12s ease;}
 .leader-pie-wrap .slice:hover{opacity:.82;}
 .leader-pie-wrap .leader-line{fill:none; stroke:var(--baseline); stroke-width:1; opacity:.75;}
-.leader-pie-wrap .lbl-name{font-family:Inter,sans-serif; font-weight:700; font-size:13.5px; fill:var(--text-primary);}
-.leader-pie-wrap .lbl-val{font-family:Inter,sans-serif; font-weight:500; font-size:11.5px; fill:var(--text-secondary); font-variant-numeric:tabular-nums;}
+.leader-pie-wrap .lbl-name{font-family:Inter,sans-serif; font-weight:700; font-size:14px; fill:var(--text-primary);}
+.leader-pie-wrap .lbl-val{font-family:Inter,sans-serif; font-weight:500; font-size:12.5px; fill:var(--text-secondary); font-variant-numeric:tabular-nums;}
 .leader-pie-wrap .lbl-swatch{stroke:var(--surface); stroke-width:1.5;}
 .leader-pie-wrap .center-lbl{font-family:"Source Serif 4",serif; font-weight:700; fill:var(--text-primary);}
-.leader-pie-wrap .center-sub{font-family:Inter,sans-serif; font-size:11px; fill:var(--muted);}
+.leader-pie-wrap .center-sub{font-family:Inter,sans-serif; font-size:12.5px; fill:var(--muted);}
 
 /* ---------- Language toggle (segmented, like the landing page) ---------- */
 .lang-btn{flex:none; display:flex; background:var(--surface); border:1px solid var(--border); border-radius:100px; box-shadow:var(--shadow); overflow:hidden;}
@@ -318,8 +325,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </a>
     </div>
     <span class="eyebrow">
-      <span class="es">Panorama en vivo · Datos de la SHCP y del Banco de México</span>
-      <span class="en">Live snapshot · SHCP &amp; Banco de México data</span>
+      <span class="es">Datos de la SHCP y del Banco de México</span>
+      <span class="en">SHCP &amp; Banco de México data</span>
     </span>
     <h1>
       <span class="es">Monitor Fiscal de México</span>
@@ -936,11 +943,52 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   function stats(id, items){ document.getElementById(id).innerHTML = items.filter(Boolean).map(function(s){ return '<div class="stat"><div class="v num">'+s[0]+'</div><div class="l">'+s[1]+'</div></div>'; }).join(''); }
   function setHTML(id, html){ var el = document.getElementById(id); if(el) el.innerHTML = html; }
   // Donut with external labels + leader lines (same renderer as the U.S. monitor).
+  // Same donut layout as the US fiscal monitor. Below STACKED_PIE_MAX px of container width the labels
+  // cannot be read at the SVG's scale, so the ring is drawn on its own and the labels become an HTML
+  // legend list under it (renderStackedPie). On wide screens the SVG is capped at its native 780 px so
+  // the labels keep their designed size.
+  var STACKED_PIE_MAX = 700;
+  function renderStackedPie(el, items, colors, opts){
+    var W = 300, H = 300, cx = 150, cy = 150, rOuter = 128, rInner = 82;
+    var total = items.reduce(function(s,it){ return s+it.value; }, 0);
+    var ns = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(ns,'svg');
+    svg.setAttribute('viewBox','0 0 '+W+' '+H); svg.setAttribute('role','img'); svg.setAttribute('aria-label', opts.title||'Chart');
+    function polar(r,a){ return [cx + r*Math.cos(a), cy + r*Math.sin(a)]; }
+    function arcPath(r0,r1,a0,a1){
+      var large = (a1-a0) > Math.PI ? 1 : 0;
+      var p0o=polar(r1,a0), p1o=polar(r1,a1), p0i=polar(r0,a1), p1i=polar(r0,a0);
+      return 'M'+p0o[0]+','+p0o[1]+' A'+r1+','+r1+' 0 '+large+' 1 '+p1o[0]+','+p1o[1]+' L'+p0i[0]+','+p0i[1]+' A'+r0+','+r0+' 0 '+large+' 0 '+p1i[0]+','+p1i[1]+' Z';
+    }
+    var start = -Math.PI/2;
+    items.forEach(function(it,i){
+      var a0 = start, a1 = start + it.value/total*Math.PI*2; start = a1;
+      var path = document.createElementNS(ns,'path');
+      path.setAttribute('d', arcPath(rInner, rOuter, a0, Math.min(a1, a0+Math.PI*2-0.0001))); path.setAttribute('fill', colors[i%colors.length]); path.setAttribute('class','slice');
+      var title = document.createElementNS(ns,'title'); title.textContent = it.label+': '+opts.fmt(it.value)+' ('+(it.value/total*100).toFixed(1)+'% '+T('del total','of total')+')';
+      path.appendChild(title); svg.appendChild(path);
+    });
+    if(opts.centerTitle){
+      var ct = document.createElementNS(ns,'text'); ct.setAttribute('x',cx); ct.setAttribute('y',cy-2); ct.setAttribute('text-anchor','middle'); ct.setAttribute('class','center-lbl'); ct.setAttribute('font-size','24'); ct.textContent = opts.centerTitle; svg.appendChild(ct);
+      var cs = document.createElementNS(ns,'text'); cs.setAttribute('x',cx); cs.setAttribute('y',cy+18); cs.setAttribute('text-anchor','middle'); cs.setAttribute('class','center-sub'); cs.setAttribute('font-size','13'); cs.textContent = opts.centerSub||''; svg.appendChild(cs);
+    }
+    var ul = document.createElement('ul'); ul.className = 'pie-legend';
+    items.forEach(function(it,i){
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="sw" style="background:'+colors[i%colors.length]+'"></span><span class="nm"></span><span class="vl"></span>';
+      li.querySelector('.nm').textContent = it.label;
+      li.querySelector('.vl').textContent = opts.fmt(it.value)+' · '+(it.value/total*100).toFixed(1)+'%';
+      ul.appendChild(li);
+    });
+    el.innerHTML = ''; el.classList.add('stacked'); el.appendChild(svg); el.appendChild(ul);
+  }
   function renderLeaderPie(containerId, items, colors, opts){
     opts = opts || {};
     var el = document.getElementById(containerId);
     items = items.filter(function(it){ return it.value != null && it.value > 0; });
     if(!items.length){ el.innerHTML = '<div class="nodata">'+T('Sin datos','No data')+'</div>'; return; }
+    if(el.clientWidth && el.clientWidth < STACKED_PIE_MAX){ renderStackedPie(el, items, colors, opts); return; }
+    el.classList.remove('stacked');
     var W = 780, H = 420, cx = W/2, cy = H/2, rOuter = 92, rInner = 56, rLine1 = rOuter+14, labelX = 148, maxChars = 19, lineH = 14;
     function wrapLabel(text){ var words = text.split(' '), lines = [], cur = ''; words.forEach(function(w){ var t = cur ? cur+' '+w : w; if(t.length > maxChars && cur){ lines.push(cur); cur = w; } else cur = t; }); if(cur) lines.push(cur); return lines; }
     var total = items.reduce(function(s,it){ return s+it.value; }, 0);
@@ -1492,6 +1540,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   } // ---- end renderAll ----
 
   try{ renderAll(); }catch(e){ console.error(e); var el = document.getElementById('dataNotice'); if(el){ el.style.display=''; el.innerHTML = '<b>'+T('Error al dibujar la página','Error rendering the page')+':</b> '+esc(e.message); } }
+  // Re-render when a resize moves any donut between the stacked and the wide layout.
+  (function(){
+    var ids = ['pieInstruments','pieComposition','pieRevenue','pieOutlays'];
+    var mode = function(){ return ids.map(function(id){ var el = document.getElementById(id), w = el && el.clientWidth; return w && w < STACKED_PIE_MAX ? 's' : 'w'; }).join(''); };
+    var last = mode(), t = null;
+    window.addEventListener('resize', function(){ clearTimeout(t); t = setTimeout(function(){ var m = mode(); if(m !== last){ last = m; try{ renderAll(); }catch(e){ console.error(e); } } }, 200); });
+  })();
 
   // ---------------- Nav scroll-spy ----------------
   var links = Array.prototype.slice.call(document.querySelectorAll('nav.jump a'));
