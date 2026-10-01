@@ -2,8 +2,8 @@
 // whenever the language changes or the KPI strip is rebuilt. For every card it adds:
 //   * a kind badge on the heading and on each figure: Reported / FNAM calculation / FNAM estimate;
 //   * "Data through <date>" at the end of the source line (one is added where the card had none);
-//   * an amber flag when a data point is older than its allowance (site/fiscal/freshness-rules.js, the same table
-//     scripts/fiscal/check-freshness.mjs alarms on), or when data.js has no value for it and the page is showing the
+//   * an amber flag when a data point is older than its allowance (freshness-rules.js, the same table
+//     the scheduled freshness check alarms on), or when data.js has no value for it and the page is showing the
 //     values stored in its own code (never silent);
 //   * the source, series and date of each figure behind an ⓘ, and in every chart tooltip;
 //   * the header notice (#dataWarn, both languages): every data point past its allowance, and a data file that has

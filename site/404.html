@@ -41,7 +41,7 @@ main{ max-width:720px; margin:0 auto; padding:56px 16px 48px; }
 .brand{ display:inline-flex; align-items:center; gap:10px; color:var(--text-primary); text-decoration:none; font-weight:700; letter-spacing:0.02em; }
 .brand svg{ width:32px; height:32px; }
 .code{ margin:36px 0 4px; font-size:13px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; color:var(--muted); }
-h1{ margin:0 0 6px; font-size:30px; line-height:1.2; }
+h1, .en h2{ margin:0 0 6px; font-size:30px; line-height:1.2; }
 .lead{ margin:0 0 4px; color:var(--text-secondary); }
 .path{ font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size:14px; color:var(--text-secondary); overflow-wrap:anywhere; }
 .card{ margin:28px 0 0; background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:18px 20px; }
@@ -50,7 +50,7 @@ ul{ list-style:none; margin:0; padding:0; display:grid; grid-template-columns:re
 a.go{ display:inline-block; padding:5px 0; color:var(--accent); font-weight:600; text-decoration:none; }
 a.go:hover, a.go:focus-visible{ text-decoration:underline; }
 .en{ margin-top:36px; padding-top:22px; border-top:1px solid var(--border); }
-.en h1{ font-size:22px; }
+.en h2{ font-size:22px; }
 </style>
 </head>
 <body>
@@ -78,7 +78,7 @@ a.go:hover, a.go:focus-visible{ text-decoration:underline; }
   </nav>
 
   <section class="en" lang="en">
-    <h1>Page Not Found</h1>
+    <h2>Page Not Found</h2>
     <p class="lead">This address does not exist on fnam.mx. Check the spelling, or pick a dashboard:</p>
     <ul>
       <li><a class="go" href="/">Home</a></li>

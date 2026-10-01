@@ -1,6 +1,5 @@
-// Data-refresh status for fnam.mx pages. Reads /status/refresh.json, which the watchdog (every 12 hours,
-// .github/workflows/data-watchdog.yml; runbook tools/watchdog/README.md) writes, and exposes the verdict
-// per dashboard. A verdict counts only while the watchdog keeps reporting: a missing file, or one older
+// Data-refresh status for fnam.mx pages. Reads /status/refresh.json, which the watchdog writes every 12 hours,
+// and exposes the verdict per dashboard. A verdict counts only while the watchdog keeps reporting: a missing file, or one older
 // than STALE_HOURS, makes every dashboard "unverified", so nothing is shown as up to date on old evidence.
 // The site calls nothing "live" (owner's rule); "Al día / Up to date" is the verified state.
 //

@@ -119,7 +119,7 @@ if (process.env.GITHUB_STEP_SUMMARY) {
 // ---- status file ----
 const doc = {
   checkedAt: isoSeconds(NOW),
-  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours by .github/workflows/data-watchdog.yml',
+  rule: 'up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours',
   graceHours: GRACE / 36e5,
   sections: CONFIG.sections,
   dashboards: rows,

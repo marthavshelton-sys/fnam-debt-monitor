@@ -70,3 +70,8 @@
 # changes; the landing page and the company pages must never read a cached copy.
 /status/*
   Cache-Control: no-store
+
+# Cloudflare Pages sends Access-Control-Allow-Origin: * on every response by default, which lets any other site's
+# scripts read these files (the status file, data files). Every reader is a page on this same origin, so drop it.
+/*
+  ! Access-Control-Allow-Origin

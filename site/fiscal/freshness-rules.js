@@ -1,5 +1,5 @@
 // Freshness allowances for every data point on the U.S. fiscal monitor, read by the page (amber flags in the
-// reader's browser, through site/assets/provenance.js) and by scripts/fiscal/check-freshness.mjs (run summary and
+// reader's browser, through provenance.js) and by the scheduled freshness check (run summary and
 // the fiscal-health issue). One table, two readers, so the page and the alarm can never disagree.
 // `period` says what the stamped date is: 'obs' = the observation day itself, 'month' / 'quarter' / 'year' = the
 // FIRST day of the period (FRED's stamp). `bd` = U.S. business days after the observation (federal holidays
