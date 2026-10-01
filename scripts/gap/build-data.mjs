@@ -406,6 +406,35 @@ const MONTHS = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 
 const MON3 = ['jan', 'feb', 'mar', 'apr', 'may', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'];
 const AIRPORT_BY_NAME = { guadalajara: 'GDL', tijuana: 'TIJ', 'los cabos': 'SJD', 'puerto vallarta': 'PVR', 'montego bay': 'MBJ', guanajuato: 'BJX', 'bajio': 'BJX', 'bajío': 'BJX', hermosillo: 'HMO', kingston: 'KIN', morelia: 'MLM', 'la paz': 'LAP', mexicali: 'MXL', aguascalientes: 'AGU', 'los mochis': 'LMM', manzanillo: 'ZLO', total: 'TOTAL' };
 
+// Undo transposed rows (prior-year column vs. the prior year's own release), then require dom + intl = total.
+function reconcileTraffic(t, byMonth) {
+  const [y, mo] = t.ym.split('-').map(Number);
+  const prev = byMonth[`${y - 1}-${String(mo).padStart(2, '0')}`];
+  const near = (a, b) => a != null && b != null && Math.abs(a - b) <= 0.15;
+  const cur = byMonth[t.ym], w = [];
+  if (prev && !prev.source.note) {
+    for (const sec of ['dom', 'intl', 'total']) {
+      const codes = Object.keys(t.prior[sec]).filter((c) => c !== 'TOTAL');
+      for (const a of codes) for (const b of codes) {
+        if (a >= b || near(t.prior[sec][a], prev[sec][a]) || near(t.prior[sec][b], prev[sec][b])) continue;
+        if (!near(t.prior[sec][a], prev[sec][b]) || !near(t.prior[sec][b], prev[sec][a])) continue;
+        [cur[sec][a], cur[sec][b]] = [cur[sec][b], cur[sec][a]];
+        [t.prior[sec][a], t.prior[sec][b]] = [t.prior[sec][b], t.prior[sec][a]];
+        w.push(`${sec}: ${a} and ${b} rows transposed in the release (prior-year column matches the other airport); swapped back`);
+      }
+    }
+  }
+  for (const code of Object.keys(cur.total)) {
+    if (code === 'TOTAL' || cur.intl[code] == null || cur.dom[code] == null) continue;
+    if (Math.abs(cur.dom[code] + cur.intl[code] - cur.total[code]) > 0.25) {
+      w.push(`${code}: dom ${cur.dom[code]} + intl ${cur.intl[code]} != total ${cur.total[code]} in the release; domestic rebuilt as total − international`);
+      cur.dom[code] = Math.round((cur.total[code] - cur.intl[code]) * 10) / 10;
+    }
+  }
+  t.warnings.push(...w);
+  if (w.length) console.warn(`traffic ${t.ym}: ${w.join(' ; ')}`);
+}
+
 function parseTraffic(text, meta) {
   const head = text.slice(0, 3000);
   const m = head.match(/traffic[^.\n]*?(?:in|for|of)\s+(January|February|March|April|May|June|July|August|September|October|November|December)\s+(20\d\d)/i)
@@ -461,15 +490,7 @@ function parseTraffic(text, meta) {
     if (section === 'total' && code === 'TOTAL') { section = null; }
   }
   if (col < 0 && !Object.keys(rel.total).length) rel.warnings.push(`no column for ${ym} found in any table`);
-  // Releases occasionally transpose two rows inside one table (e.g. May-2025 Los Cabos / Puerto Vallarta
-  // in the domestic table). The Total table is the reference: rebuild the domestic figure from it.
-  for (const code of Object.keys(rel.total)) {
-    if (code === 'TOTAL' || rel.intl[code] == null || rel.dom[code] == null) continue;
-    if (Math.abs(rel.dom[code] + rel.intl[code] - rel.total[code]) > 0.25) {
-      rel.warnings.push(`${code}: dom ${rel.dom[code]} + intl ${rel.intl[code]} != total ${rel.total[code]} in the release; domestic rebuilt as total − international`);
-      rel.dom[code] = Math.round((rel.total[code] - rel.intl[code]) * 10) / 10;
-    }
-  }
+  // dom + intl = total is checked after the merge (reconcileTraffic), once transposed rows are undone.
   if (!Object.keys(rel.total).length && Object.keys(rel.dom).length) {
     for (const k of Object.keys(rel.dom)) rel.total[k] = Math.round(((rel.dom[k] || 0) + (rel.intl[k] || 0)) * 10) / 10;
   }
@@ -643,6 +664,11 @@ async function main() {
     byMonth[t.ym] = { ym: t.ym, dom: t.dom, intl: t.intl, total: t.total, cbx: t.cbx, source: { url: t.source.url, date: t.source.date } };
     if (t.warnings.length) console.warn(`traffic ${t.ym}: ${t.warnings.join(' ; ')}`);
   }
+  // Releases occasionally transpose two airport rows in a table. May-2025: the international and total tables
+  // print Los Cabos' figures on the Puerto Vallarta row and vice versa, while the domestic table is right (the
+  // June-2025 YTD columns minus June confirm it). Detection: each table's prior-year column must match the prior
+  // year's own release; a pair whose prior-year values match each other's codes is swapped back.
+  for (const t of traffic.filter((x) => byMonth[x.ym]?.source.date === x.source.date)) reconcileTraffic(t, byMonth);
   for (const t of traffic) {
     const [y, mo] = t.ym.split('-').map(Number);
     const prevYm = `${y - 1}-${String(mo).padStart(2, '0')}`;

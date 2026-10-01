@@ -17,7 +17,7 @@ window.GAP_REF = {
     },
     ir: "https://www.aeropuertosgap.com.mx/en/investors",
   },
-  // Shares outstanding after the CBX / AMP business combination (merger notarised 30-Apr-2026,
+  // Shares outstanding after the CBX / AMP business combination (merger notarized 30-Apr-2026,
   // effective 1-May-2026). Source: GAP release 7-May-2026 "Completion of Business Combination
   // Process of CBX and the Provision of Technical Assistance Services" (GlobeNewswire / Form 6-K).
   shares: {
@@ -126,7 +126,7 @@ window.GAP_REF = {
       { date: "2025-11-03", en: "GAP's board proposes combining (i) the technical-assistance & technology-transfer business provided by strategic partner AMP since 1999 and (ii) CBX: 75% of CBX via merger paid with ≈90 M new serie B shares; remaining 25% for US$487.5 M cash.", es: "El consejo de GAP propone combinar (i) el negocio de asistencia técnica y transferencia de tecnología que el socio estratégico AMP prestaba desde 1999 y (ii) CBX: 75% de CBX vía fusión pagada con ≈90 M de nuevas acciones serie B; el 25% restante por US$487.5 M en efectivo." },
       { date: "2025-12-11", en: "Extraordinary shareholders' meeting approves the combination (~96% of votes cast; 88.1% quorum).", es: "La asamblea extraordinaria aprueba la combinación (~96% de los votos; quórum de 88.1%)." },
       { date: "2026-03-27", en: "Ps. 10,718 M of certificados bursátiles (GAP 26 / GAP 26-2) issued, 1.74× oversubscribed, to fund the 25% cash purchase and PMD capex.", es: "Emisión de Ps. 10,718 M en certificados bursátiles (GAP 26 / GAP 26-2), 1.74× sobresuscrita, para financiar la compra del 25% en efectivo y el capex del PMD." },
-      { date: "2026-04-30", en: "Merger agreement notarised; AMP and the intermediate CBX holding entities merge into GAP. Effective 1-May-2026.", es: "Se protocoliza el convenio de fusión; AMP y las tenedoras intermedias de CBX se fusionan en GAP. Efectiva el 1-May-2026." },
+      { date: "2026-04-30", en: "Merger agreement notarized; AMP and the intermediate CBX holding entities merge into GAP. Effective 1-May-2026.", es: "Se protocoliza el convenio de fusión; AMP y las tenedoras intermedias de CBX se fusionan en GAP. Efectiva el 1-May-2026." },
       { date: "2026-05-07", en: "Completion: 89,740,731 net new shares issued (595,018,195 total); remaining 25% of CBX purchased; GAP owns 100% of CBX and no longer pays the technical-assistance fee. Aena becomes a direct 6.55% holder.", es: "Cierre: se emiten 89,740,731 acciones netas nuevas (595,018,195 en total); se compra el 25% restante de CBX; GAP posee 100% de CBX y deja de pagar la cuota de asistencia técnica. Aena pasa a tener 6.55% directo." },
       { date: "2026-07-14", en: "2Q26 results are the first to consolidate CBX (two months): revenue ex-IFRIC 12 +4.9% (total revenue +3.7%), EBITDA +8.4%, net income +9.0% y/y.", es: "Los resultados del 2T26 son los primeros que consolidan CBX (dos meses): ingresos sin IFRIC 12 +4.9% (ingresos totales +3.7%), EBITDA +8.4%, utilidad neta +9.0% a/a." },
     ],

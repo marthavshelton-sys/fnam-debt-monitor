@@ -72,8 +72,11 @@
           var state = d ? d.state : 'unverified';
           el.classList.remove('is-ok', 'is-alert', 'is-late', 'is-unverified');
           el.classList.add('is-' + state);
+          // The watchdog checks every 12 hours, so a refresh that landed after its last check (the header's fetch
+          // time) is not in the verdict yet: say which refresh was verified and when, so the two times reconcile.
           var tail = d && d.lastSuccess
-            ? (lg === 'es' ? 'última actualización exitosa ' : 'last successful refresh ') + when(d.lastSuccess, lg) + ' (CDMX)'
+            ? (lg === 'es' ? 'última actualización verificada ' : 'last verified refresh ') + when(d.lastSuccess, lg)
+              + (s.checkedAt ? (lg === 'es' ? ' · revisión del vigilante ' : ' · watchdog check ') + when(s.checkedAt, lg) : '') + ' (CDMX)'
             : (lg === 'es' ? 'el vigilante no lo ha verificado' : 'not verified by the watchdog');
           var text = LABELS[state][lg] + ' · ' + tail;
           el.setAttribute('role', 'img');

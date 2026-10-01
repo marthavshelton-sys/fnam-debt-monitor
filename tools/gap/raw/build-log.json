@@ -1,5 +1,5 @@
 {
- "generatedAt": "2026-10-01T14:41:53.622Z",
+ "generatedAt": "2026-10-01T18:47:31.968Z",
  "warnings": [
   {
    "file": "",
@@ -279,7 +279,7 @@
   },
   {
    "file": "",
-   "msg": "traffic 2025-05: PVR: dom 278.2 + intl 367.3 != total 612.3 in the release; domestic rebuilt as total − international ; SJD: dom 245 + intl 236.1 != total 514.3 in the release; domestic rebuilt as total − international"
+   "msg": "traffic 2025-05: intl: PVR and SJD rows transposed in the release (prior-year column matches the other airport); swapped back ; total: PVR and SJD rows transposed in the release (prior-year column matches the other airport); swapped back"
   },
   {
    "file": "",
