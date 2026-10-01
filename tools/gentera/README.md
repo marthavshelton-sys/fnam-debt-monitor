@@ -116,6 +116,11 @@ Either way the page already carries `noindex,nofollow` and the data files are se
   deposit lines of B-2201 did not read consistently and are not shown; the loans-by-type (B-2334) and
   write-off (B-2369) tables list banks differently and are not mapped yet. A structure summary of each table
   is saved under `tools/gentera/raw/debug/` by every run. Values reach the page only when plausible.
+  The results page (`EstadisticaSistemaFinancieroResultados.asp`) can lag the files and sits behind an Incapsula
+  bot check, so every month it does not list is also tried at its direct URL (`sbs_direct_url()`; September is
+  `Setiembre`, suffix `se`); a 404 there means not yet published and is not logged. Files can be .xls or .xlsx
+  (August 2026's B-2201 is .xlsx). SBS posts a month's files around the last day of the next month, in the evening
+  Lima time (August 2026: 30-Sep 22:30 UTC), so the next day's 14:35 UTC filings run picks them up.
 - Gentera does not post call transcripts on the IR page. Twelve transcripts (FactSet CallStreet 3T23–4T25,
   Bloomberg 1T26–2T26) and the 3T24 corporate presentation were supplied by hand (`tools/gentera/raw/transcripts/`,
   converted by `scripts/gentera/ingest-transcripts.py`); their quotes, guidance vintages, ratings and management

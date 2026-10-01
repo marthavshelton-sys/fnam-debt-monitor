@@ -45,7 +45,7 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 
 ## Things that bite
 
-- The IR site, CNBV, SBS, Banxico, FRED and Yahoo are blocked from cloud sessions; only the GitHub runner can
+- The IR site, CNBV, the SBS results pages, Banxico, FRED and Yahoo are blocked from cloud sessions; only the GitHub runner can
   fetch. Test parsers on the harvested texts in `tools/gentera/raw/text/releases/`.
 - Gentera's dateline omits "de" before the year ("22 de julio 2026"); `release_date()` in `build_data.py`
   handles both forms. Release dates are the call day or the day before; guidance vintages use the same date.
@@ -56,6 +56,9 @@ so a new session does not rediscover it. Update it when a decision changes; keep
 - The 3Q20 release prints discontinued operations with the wrong sign; derived as net income − (pre-tax − tax).
 - The IR page once served the corporate presentation under 4T25; the harvester picks anchors by text.
 - `pypdf` panics in this container (cryptography backend); `ingest-transcripts.py` falls back to pypdfium2.
+- SBS: the results page that lists the monthly files lagged them (August 2026 missing on 1-Oct) and answers
+  cloud sessions with an Incapsula bot check; `fetch_sbs` falls back to the direct file URL for every month the
+  page does not list (added 2026-10-01). intranet2.sbs.gob.pe files are reachable from cloud sessions too.
 - SBS deposit lines and tables B-2334 / B-2369 are not mapped; the Perú monthly table shows loans, delinquency,
   net loans, YTD income and equity only.
 - Chart.js is served from `/assets/vendor/chart.umd.4.4.0.min.js` with an SRI hash (since 30-Sep-2026); a local
