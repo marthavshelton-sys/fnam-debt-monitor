@@ -94,6 +94,11 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   Friday (DFEDTARU showed 02-Oct on 29-Sep).
 - The Spanish "sólo" appears only as "solo" (RAE); "derbi", "hostelería" and English
   "grey" are gone. `exFiLatest` starts "En ago 2026:" so no month is capitalised.
+- FRED's calendar has no state for "scheduled today, not out yet": the past query lists
+  only dates with data and the future one was filtered to dates after today, so a run on
+  a release morning lost that release (mortgage, 01-Oct-2026 04:00 UTC: next became
+  08-Oct). `process_calendar.ps1` keeps today in `upcoming` for the weekly keys until
+  FRED lists it as published.
 - Signed figures: never `(v >= 0 ? "+" : "") + v.toFixed(d)`, which prints "-0.0" for
   -0.03; use `sgnFix(v, d)` and, for tile arrows, `deltaArrow(v, d)`.
 - On pwsh 7, `Headers["Last-Modified"]` is a string array and the date parse fails;
@@ -125,6 +130,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   `nfci` and `mortgage` with a next date (if FRED gives none, the page says "expected"),
   `process_spr.ps1` says it used the WPSR workbook and lists EIA's holiday exceptions,
   and the next Wednesday's 14:45 or 15:45 UTC run commits the new SPR week.
+- Monthly "next release" lines (CPI, PPI, jobs, retail, PCE, GDP) still use FRED's
+  first date after the run day. A run on a release morning before FRED lists the release
+  (the 12:50 UTC weekday run is 07:50 ET in winter) skips to the following month until the
+  next run; keeping today in their lists would break the Challenger line on jobs day and
+  mislabel the FRED-lag window. Proper fix: anchor on the data shown, as the weekly lines
+  do (month M is published in M+1, so next = the first date on or after the first day of
+  M+2; GDP and income have BEA's own release date in `vintage`).
 - Page weight is now ~1.0 MB raw (~290 KB gzip), mostly packed data. The next step
   would be per-section data files loaded on demand, which changes the build,
   `exec_extract.js` and `alerts.ps1` together.
