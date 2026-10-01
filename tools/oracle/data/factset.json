@@ -1,8 +1,8 @@
 {
   "_comment": "FactSet consensus snapshot for the valuation section (06), the header tile, the DCF seed and the deck. Written by the FactSet refresh routine through the FactSet AI-Ready Data connector (tools/oracle/FACTSET-PROMPT.md lists the exact calls); GitHub Actions cannot reach FactSet. US$ millions unless stated; per-share in US$. Ratios are computed on the page, never stored here. Keep the schema: build-data.mjs reads it into data/factset.js and data/peers.js and validate-data.mjs checks it.",
-  "as_of": "2026-09-30",
-  "price_date": "2026-09-29",
-  "fetched": "2026-09-30",
+  "as_of": "2026-10-01",
+  "price_date": "2026-09-30",
+  "fetched": "2026-10-01",
   "source": { "title": "FactSet Estimates (consensus), FactSet Global Prices and FactSet Fundamentals via the FactSet AI-Ready Data connector", "url": "https://www.factset.com/" },
   "fiscal_year_note": "FactSet labels Oracle's fiscal year by the calendar year in which it starts (FactSet fiscalYear 2026 = year ending 2027-05-31 = Oracle's fiscal 2027). Records below carry Oracle's own label (fy) and the fiscal end date.",
   "basis_note": "Consensus EPS follows the brokers' majority basis (non-GAAP for Oracle). Consensus EBITDA is broker-adjusted, not the model's GAAP operating income + D&A. FactSet net debt (FF_NET_DEBT) includes lease liabilities: Oracle 132,066 at 2026-08-31 versus the model's reported 88,260 (notes payable minus cash and marketable securities); the 43,806 difference is the operating and finance lease liabilities.",
@@ -12,9 +12,9 @@
   ],
   "oracle": {
     "ticker": "ORCL-US",
-    "price": 137.79,
-    "price_date": "2026-09-29",
-    "market_cap_usd_m": 416641,
+    "price": 137.3,
+    "price_date": "2026-09-30",
+    "market_cap_usd_m": 415159,
     "shares_m": 3023.736,
     "net_debt_usd_m": 132066,
     "total_debt_usd_m": 169143,
@@ -23,10 +23,10 @@
     "net_debt_note": "FactSet Fundamentals FF_NET_DEBT, quarter ended 2026-08-31; includes lease liabilities (see basis_note).",
     "iad_usd": 2.00,
     "ntm": {
-      "eps": { "mean": 9.101, "median": 9.063, "high": 10.020, "low": 8.735, "sd": 0.255 },
-      "ebitda": { "mean": 58800, "median": 60080, "high": 71375, "low": 48460, "sd": 5479 },
-      "sales": { "mean": 104138, "median": 104159, "high": 107717, "low": 98732, "sd": 1626 },
-      "fcf": { "mean": -36467, "median": -34584, "high": -20612, "low": -76628, "sd": 13167 }
+      "eps": { "mean": 9.108, "median": 9.071, "high": 10.033, "low": 8.741, "sd": 0.257 },
+      "ebitda": { "mean": 58861, "median": 60145, "high": 71453, "low": 48494, "sd": 5489 },
+      "sales": { "mean": 104250, "median": 104272, "high": 107848, "low": 98811, "sd": 1635 },
+      "fcf": { "mean": -36462, "median": -34574, "high": -20567, "low": -76623, "sd": 13180 }
     },
     "fiscal": [
       { "fy": "FY2027", "fiscal_end": "2027-05-31", "factset_fiscal_year": 2026,
@@ -82,21 +82,21 @@
     ]
   },
   "peers": [
-    { "ticker": "MSFT-US", "name": "Microsoft", "group": "software", "price": 508.96, "price_date": "2026-09-29", "market_cap_usd_m": 3779306, "shares_m": 7425.545, "net_debt_usd_m": 51970, "net_debt_date": "2026-06-30", "iad_usd": 3.92,
-      "ntm": { "eps": 20.679, "ebitda": 255550, "sales": 409749 }, "fy1": { "end": "2027-06-30", "eps": 19.735 }, "fy2": { "end": "2028-06-30", "eps": 23.482 } },
-    { "ticker": "SAP-US", "name": "SAP", "group": "software", "price": 210.85, "price_date": "2026-09-29", "market_cap_usd_m": 243364, "market_cap_note": "ADR price in USD × 1,154.2 M shares (FactSet market value is reported in EUR for SAP)", "shares_m": 1154.204, "net_debt_usd_m": -654, "net_debt_date": "2026-06-30", "iad_usd": 2.941,
-      "ntm": { "eps": 9.113, "ebitda": 16476, "sales": 50068 }, "fy1": { "end": "2026-12-31", "eps": 8.073 }, "fy2": { "end": "2027-12-31", "eps": 9.464 } },
-    { "ticker": "CRM-US", "name": "Salesforce", "group": "software", "price": 225.31, "price_date": "2026-09-29", "market_cap_usd_m": 185430, "shares_m": 823.0, "net_debt_usd_m": 30973, "net_debt_date": "2026-07-31", "iad_usd": 1.76,
-      "ntm": { "eps": 16.301, "ebitda": 20283, "sales": 49325 }, "fy1": { "end": "2027-01-31", "eps": 16.753 }, "fy2": { "end": "2028-01-31", "eps": 16.072 } },
-    { "ticker": "NOW-US", "name": "ServiceNow", "group": "software", "price": 129.94, "price_date": "2026-09-29", "market_cap_usd_m": 134340, "shares_m": 1033.862, "net_debt_usd_m": 3780, "net_debt_date": "2026-06-30", "iad_usd": null,
-      "ntm": { "eps": 4.779, "ebitda": 7244, "sales": 18482 }, "fy1": { "end": "2026-12-31", "eps": 4.073 }, "fy2": { "end": "2027-12-31", "eps": 5.017 } },
-    { "ticker": "IBM-US", "name": "IBM", "group": "software", "price": 219.99, "price_date": "2026-09-29", "market_cap_usd_m": 207260, "shares_m": 942.134, "net_debt_usd_m": 57095, "net_debt_date": "2026-06-30", "iad_usd": 6.76,
-      "ntm": { "eps": 12.935, "ebitda": 20449, "sales": 72387 }, "fy1": { "end": "2026-12-31", "eps": 12.309 }, "fy2": { "end": "2027-12-31", "eps": 13.146 } },
-    { "ticker": "WDAY-US", "name": "Workday", "group": "software", "price": 189.17, "price_date": "2026-09-29", "market_cap_usd_m": 45590, "shares_m": 196.0, "shares_note": "Class A only; market value covers all classes", "net_debt_usd_m": 362, "net_debt_date": "2026-07-31", "iad_usd": null,
-      "ntm": { "eps": 12.518, "ebitda": 3983, "sales": 11407 }, "fy1": { "end": "2027-01-31", "eps": 11.085 }, "fy2": { "end": "2028-01-31", "eps": 13.246 } },
-    { "ticker": "AMZN-US", "name": "Amazon", "group": "hyperscaler", "price": 246.67, "price_date": "2026-09-29", "market_cap_usd_m": 2660660, "shares_m": 10786.314, "net_debt_usd_m": 118724, "net_debt_date": "2026-06-30", "iad_usd": null,
-      "ntm": { "eps": 11.166, "ebitda": 266424, "sales": 919210 }, "fy1": { "end": "2026-12-31", "eps": 12.773 }, "fy2": { "end": "2027-12-31", "eps": 10.625 } },
-    { "ticker": "GOOGL-US", "name": "Alphabet", "group": "hyperscaler", "price": 340.92, "price_date": "2026-09-29", "market_cap_usd_m": 3864886, "shares_m": 5868.0, "shares_note": "Class A only; market value covers all classes", "net_debt_usd_m": -125126, "net_debt_date": "2026-06-30", "iad_usd": 0.88,
-      "ntm": { "eps": 16.530, "ebitda": 281729, "sales": 584327 }, "fy1": { "end": "2026-12-31", "eps": 20.613 }, "fy2": { "end": "2027-12-31", "eps": 15.155 } }
+    { "ticker": "MSFT-US", "name": "Microsoft", "group": "software", "price": 512.9, "price_date": "2026-09-30", "market_cap_usd_m": 3808562, "shares_m": 7425.545, "net_debt_usd_m": 51970, "net_debt_date": "2026-06-30", "iad_usd": 3.92,
+      "ntm": { "eps": 20.690, "ebitda": 255701, "sales": 409972 }, "fy1": { "end": "2027-06-30", "eps": 19.735 }, "fy2": { "end": "2028-06-30", "eps": 23.485 } },
+    { "ticker": "SAP-US", "name": "SAP", "group": "software", "price": 208.48, "price_date": "2026-09-30", "market_cap_usd_m": 240628, "market_cap_note": "ADR price in USD × 1,154.2 M shares (FactSet market value is reported in EUR for SAP)", "shares_m": 1154.204, "net_debt_usd_m": -654, "net_debt_date": "2026-06-30", "iad_usd": 2.941,
+      "ntm": { "eps": 9.116, "ebitda": 16482, "sales": 50083 }, "fy1": { "end": "2026-12-31", "eps": 8.072 }, "fy2": { "end": "2027-12-31", "eps": 9.462 } },
+    { "ticker": "CRM-US", "name": "Salesforce", "group": "software", "price": 229.57, "price_date": "2026-09-30", "market_cap_usd_m": 188936, "shares_m": 823.0, "net_debt_usd_m": 30973, "net_debt_date": "2026-07-31", "iad_usd": 1.76,
+      "ntm": { "eps": 16.300, "ebitda": 20286, "sales": 49337 }, "fy1": { "end": "2027-01-31", "eps": 16.753 }, "fy2": { "end": "2028-01-31", "eps": 16.072 } },
+    { "ticker": "NOW-US", "name": "ServiceNow", "group": "software", "price": 134.01, "price_date": "2026-09-30", "market_cap_usd_m": 138548, "shares_m": 1033.862, "net_debt_usd_m": 3780, "net_debt_date": "2026-06-30", "iad_usd": null,
+      "ntm": { "eps": 4.781, "ebitda": 7247, "sales": 18490 }, "fy1": { "end": "2026-12-31", "eps": 4.073 }, "fy2": { "end": "2027-12-31", "eps": 5.017 } },
+    { "ticker": "IBM-US", "name": "IBM", "group": "software", "price": 219.93, "price_date": "2026-09-30", "market_cap_usd_m": 207204, "shares_m": 942.134, "net_debt_usd_m": 57095, "net_debt_date": "2026-06-30", "iad_usd": 6.76,
+      "ntm": { "eps": 12.937, "ebitda": 20453, "sales": 72394 }, "fy1": { "end": "2026-12-31", "eps": 12.309 }, "fy2": { "end": "2027-12-31", "eps": 13.146 } },
+    { "ticker": "WDAY-US", "name": "Workday", "group": "software", "price": 190.46, "price_date": "2026-09-30", "market_cap_usd_m": 45901, "shares_m": 196.0, "shares_note": "Class A only; market value covers all classes", "net_debt_usd_m": 362, "net_debt_date": "2026-07-31", "iad_usd": null,
+      "ntm": { "eps": 12.524, "ebitda": 3985, "sales": 11410 }, "fy1": { "end": "2027-01-31", "eps": 11.085 }, "fy2": { "end": "2028-01-31", "eps": 13.246 } },
+    { "ticker": "AMZN-US", "name": "Amazon", "group": "hyperscaler", "price": 249.15, "price_date": "2026-09-30", "market_cap_usd_m": 2687410, "shares_m": 10786.314, "net_debt_usd_m": 118724, "net_debt_date": "2026-06-30", "iad_usd": null,
+      "ntm": { "eps": 11.161, "ebitda": 266602, "sales": 919542 }, "fy1": { "end": "2026-12-31", "eps": 12.773 }, "fy2": { "end": "2027-12-31", "eps": 10.625 } },
+    { "ticker": "GOOGL-US", "name": "Alphabet", "group": "hyperscaler", "price": 344.08, "price_date": "2026-09-30", "market_cap_usd_m": 3902331, "shares_m": 5868.0, "shares_note": "Class A only; market value covers all classes", "net_debt_usd_m": -125126, "net_debt_date": "2026-06-30", "iad_usd": 0.88,
+      "ntm": { "eps": 16.515, "ebitda": 281900, "sales": 584643 }, "fy1": { "end": "2026-12-31", "eps": 20.613 }, "fy2": { "end": "2027-12-31", "eps": 15.155 } }
   ]
 }
