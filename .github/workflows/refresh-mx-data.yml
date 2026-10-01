@@ -20,6 +20,7 @@ on:
 
 permissions:
   contents: write
+  issues: write      # the mx-fiscal-health issue opened by the freshness test
 
 # One run at a time; other pages' refresh workflows have their own groups and never touch these paths.
 concurrency:
@@ -86,6 +87,42 @@ jobs:
       - name: Cross-check docs-data.js against the mirrored documents
         if: ${{ github.event.inputs.probe == '' }}
         run: node scripts/mx-fiscal/check-docs.mjs
+
+      # Freshness test (tools/mx-fiscal/freshness.json): every series the page shows must be newer than
+      # its allowance, data.js itself must be under two business days old, and no series may be a kept
+      # copy of an earlier run. The page shows the same verdict in amber in the reader's browser; this
+      # step fails the run and keeps one mx-fiscal-health issue open until a healthy run closes it.
+      - name: Freshness test
+        id: freshness
+        if: ${{ always() && github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' }}
+        run: node scripts/mx-fiscal/check-freshness.mjs
+
+      - name: Open, update or close the mx-fiscal-health issue
+        if: ${{ always() && github.event.inputs.probe == '' && github.event.inputs.dry_run != 'true' && github.ref_name == 'main' }}
+        uses: actions/github-script@v7
+        env:
+          PROBLEMS: ${{ steps.freshness.outputs.problems }}
+        with:
+          script: |
+            const label = 'mx-fiscal-health';
+            const problems = (process.env.PROBLEMS || '').trim();
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if (problems) {
+              const body = `Stale data on fnam.mx/mx/fiscal (${runUrl}). The page shows these blocks in amber meanwhile.\n\n\`\`\`\n${problems}\n\`\`\`\n\nAllowances: tools/mx-fiscal/freshness.json. Diagnostics: run the workflow with the "probe" input.`;
+              if (issue) {
+                const { data: comments } = await github.rest.issues.listComments({ ...context.repo, issue_number: issue.number, per_page: 100 });
+                const last = Date.parse(comments.length ? comments[comments.length - 1].created_at : issue.created_at);
+                if (Date.now() - last > 20 * 3600 * 1000) await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
+              } else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'e0a800', description: 'Mexico fiscal monitor data is stale' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title: 'SOURCE DOWN: MX fiscal - stale data', labels: [label], body });
+              }
+            } else if (issue) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Fresh again in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
 
       # Source links. Every external link on the page (and in the data files it loads) is
       # requested once; a link that answers 404/410 or whose host no longer resolves fails the

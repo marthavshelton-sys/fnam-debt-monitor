@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>U.S. Fiscal Debt Monitor | Monitor de la Deuda Fiscal de EE. UU.</title>
-<meta name="description" content="Live U.S. federal debt, deficit, and monetary-policy dashboard sourced from the Treasury and the Federal Reserve. Panel en vivo de deuda, déficit y política monetaria de EE. UU.">
+<meta name="description" content="U.S. federal debt, deficit, and monetary-policy dashboard sourced from the Treasury and the Federal Reserve. Panel de deuda, déficit y política monetaria de EE. UU.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -19,6 +19,8 @@
   document.documentElement.className += ' lang-' + l;
   window.__FISCAL_LANG = l; })();
 </script>
+<script src="/assets/provenance.js"></script>
+<script src="freshness-rules.js"></script>
 <script src="data.js"></script>
 <script src="monthly-data.js"></script>
 <meta name="data-refreshed" content="2026-09-30T22:33:23.533Z">
@@ -338,8 +340,8 @@ html.no-data canvas{display:none !important;}
     </p>
     <div class="data-warn" id="dataWarn" role="status" hidden><span class="en" hidden id="dataWarnEn"></span><span class="es" id="dataWarnEs"></span></div>
     <noscript><div class="data-warn">Esta página dibuja sus gráficas y calcula sus cifras en el navegador. Sin JavaScript, el texto y las tablas muestran la actualización de datos del <span data-baked="es">30 de sep. de 2026, 22:33 UTC (30 de sep. de 2026, 16:33 Ciudad de México)</span> y las gráficas no se dibujan. / This page draws its charts and computes its figures in the browser. Without JavaScript, the text and tables show the data refresh of <span data-baked="en">30-Sep-2026 22:33 UTC (30-Sep-2026 16:33 Mexico City)</span> and the charts are not drawn.</div></noscript>
-    <div class="asof-row" id="asofRow"><span>Datos actualizados: <b>30 de sep. de 2026, 16:33 (Ciudad de México)</b></span><span>Deuda pendiente: <b>29 de sep. de 2026 (diario)</b></span><span>Tenedores de deuda: <b>31 de mar. de 2026 (trimestral, ~2 trim. de rezago)</b></span><span>Vencimiento / composición: <b>31 de ago. de 2026 (mensual)</b></span><span>Costo de la deuda: <b>31 de ago. de 2026 (mensual)</b></span><span>Ingresos y gasto: <b>31 de ago. de 2026 a la fecha; AF2025 completo</b></span><span>Deuda ÷ PIB: <b>T2 2026 (PIB de la BEA, trimestral)</b></span><span>Balance de la Fed: <b>23 de sep. de 2026 (semanal)</b></span><span>Tasas de política: <b>vigentes desde el 17 de sep. de 2026; tasa efectiva al 29 de sep. de 2026</b></span></div>
-    <div class="kpi-strip" id="kpiStrip"><div class="kpi"><div class="lbl">Deuda total pendiente</div><div class="val num">$40.10<span class="unit"> billones</span></div><div class="delta">al 29 de sep. de 2026</div></div><div class="kpi"><div class="lbl">En manos del público</div><div class="val num">$32.37<span class="unit"> billones</span></div><div class="delta">80.7% del total</div></div><div class="kpi"><div class="lbl">Deuda ÷ PIB, en vivo</div><div class="val num">123.1%</div><div class="delta">Deuda de hoy ÷ PIB T2 2026 · FRED T1 2026: 122.6%</div></div><div class="kpi"><div class="lbl">Interés bruto AF26 a la fecha</div><div class="val num">$1.267<span class="unit"> billones</span></div><div class="delta">Neto $1.017 billones · 11 meses</div></div><div class="kpi"><div class="lbl">Tasa promedio de la deuda</div><div class="val num">3.49%</div><div class="delta">ago. 2026, desde 1.6% en el AF2021</div></div><div class="kpi"><div class="lbl">Déficit AF26 a la fecha</div><div class="val num">$1.966<span class="unit"> billones</span></div><div class="delta">11 meses · $1.973 billones un año antes</div></div></div>
+    <div class="asof-row" id="asofRow"><span class="auto-asof">Deuda: <b>Datos al 29 sep 2026</b></span><span class="auto-asof">Tenedores: <b>Datos al 31 mar 2026</b></span><span class="auto-asof">Vencimientos y composición: <b>Datos al 31 ago 2026</b></span><span class="auto-asof">Costo: <b>Datos al 31 ago 2026</b></span><span class="auto-asof">Ingresos y gasto: <b>Datos al 31 ago 2026</b></span><span class="auto-asof">PIB: <b>Datos a T2 2026</b></span><span class="auto-asof">Balance de la Fed: <b>Datos al 23 sep 2026</b></span><span class="auto-asof">Tasas: <b>Datos al 29 sep 2026</b></span><span class="auto-asof">Última descarga: <b>30 sep 2026</b></span><span class="auto-asof"><span class="pk-legend"><span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span> <span class="pk-legend-t">tal como lo publica la fuente</span> <span class="pk pk-C" title="FNAM la calcula con cifras reportadas (p. ej. razones, sumas de 12 meses, variaciones reales); el método está en la nota.">Cálculo FNAM</span> <span class="pk-legend-t">calculado por FNAM con cifras reportadas</span> <span class="pk pk-E" title="Aproximación o supuesto de FNAM; no es una cifra publicada.">Estimación FNAM</span> <span class="pk-legend-t">aproximación de FNAM</span><span class="pk-legend-t">· ⓘ fuente y fecha de cada cifra</span></span></span></div>
+    <div class="kpi-strip" id="kpiStrip"><div class="kpi"><div class="lbl">Deuda total pendiente</div><div class="val num">$40.10<span class="unit"> billones</span></div><div class="delta">+$2.46 billones desde el 30 de sep. de 2025</div><div class="delta auto-tile">Datos al 29 sep 2026 <span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener" title="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026" aria-label="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026">ⓘ</a></div></div><div class="kpi"><div class="lbl">En manos del público</div><div class="val num">$32.37<span class="unit"> billones</span></div><div class="delta">80.7% del total</div><div class="delta auto-tile">Datos al 29 sep 2026 <span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener" title="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026" aria-label="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026">ⓘ</a></div></div><div class="kpi"><div class="lbl">Deuda ÷ PIB, último dato</div><div class="val num">123.1%</div><div class="delta">Deuda de hoy ÷ PIB T2 2026 · FRED T1 2026: 122.6%</div><div class="delta auto-tile">Datos a T2 2026 <span class="pk pk-C" title="FNAM la calcula con cifras reportadas (p. ej. razones, sumas de 12 meses, variaciones reales); el método está en la nota.">Cálculo FNAM</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/debt-to-the-penny/debt-to-the-penny" target="_blank" rel="noopener" title="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026 · cálculo FNAM: deuda del último día ÷ PIB nominal del último trimestre | BEA nominal GDP via FRED (GDP) · Datos a T2 2026" aria-label="U.S. Treasury, Debt to the Penny · Datos al 29 sep 2026 · cálculo FNAM: deuda del último día ÷ PIB nominal del último trimestre | BEA nominal GDP via FRED (GDP) · Datos a T2 2026">ⓘ</a></div></div><div class="kpi"><div class="lbl">Interés bruto AF26 a la fecha</div><div class="val num">$1.267<span class="unit"> billones</span></div><div class="delta">Neto $1.017 billones · 11 meses</div><div class="delta auto-tile">Datos al 31 ago 2026 <span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener" title="U.S. Treasury, Monthly Treasury Statement · Datos al 31 ago 2026" aria-label="U.S. Treasury, Monthly Treasury Statement · Datos al 31 ago 2026">ⓘ</a></div></div><div class="kpi"><div class="lbl">Tasa promedio de la deuda</div><div class="val num">3.49%</div><div class="delta">ago. 2026, desde 1.6% en el AF2021</div><div class="delta auto-tile">Datos al 31 ago 2026 <span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/average-interest-rates-treasury-securities/" target="_blank" rel="noopener" title="U.S. Treasury, Average Interest Rates on U.S. Treasury Securities · Datos al 31 ago 2026" aria-label="U.S. Treasury, Average Interest Rates on U.S. Treasury Securities · Datos al 31 ago 2026">ⓘ</a></div></div><div class="kpi"><div class="lbl">Déficit AF26 a la fecha</div><div class="val num">$1.966<span class="unit"> billones</span></div><div class="delta">11 meses · $1.973 billones un año antes</div><div class="delta auto-tile">Datos al 31 ago 2026 <span class="pk pk-R" title="Cifra tal como la publica la fuente oficial.">Reportado</span><a class="pv" href="https://fiscaldata.treasury.gov/datasets/monthly-treasury-statement/" target="_blank" rel="noopener" title="U.S. Treasury, Monthly Treasury Statement · Datos al 31 ago 2026" aria-label="U.S. Treasury, Monthly Treasury Statement · Datos al 31 ago 2026">ⓘ</a></div></div></div>
   </div>
 </header>
 
@@ -390,7 +392,7 @@ html.no-data canvas{display:none !important;}
           <div class="tblwrap" id="tblDebtTrend"><table><thead><tr><th>Periodo</th><th>En manos del público</th><th>Intragubernamental</th><th>Total</th></tr></thead><tbody><tr><td>FY1995</td><td class="num">$3.68 billones</td><td class="num">$1.29 billones</td><td class="num">$4.97 billones</td></tr><tr><td>FY1996</td><td class="num">$3.83 billones</td><td class="num">$1.40 billones</td><td class="num">$5.23 billones</td></tr><tr><td>FY1997</td><td class="num">$3.79 billones</td><td class="num">$1.62 billones</td><td class="num">$5.41 billones</td></tr><tr><td>FY1998</td><td class="num">$3.73 billones</td><td class="num">$1.79 billones</td><td class="num">$5.52 billones</td></tr><tr><td>FY1999</td><td class="num">$3.64 billones</td><td class="num">$2.02 billones</td><td class="num">$5.66 billones</td></tr><tr><td>FY2000</td><td class="num">$3.41 billones</td><td class="num">$2.27 billones</td><td class="num">$5.68 billones</td></tr><tr><td>FY2001</td><td class="num">$3.34 billones</td><td class="num">$2.47 billones</td><td class="num">$5.81 billones</td></tr><tr><td>FY2002</td><td class="num">$3.55 billones</td><td class="num">$2.68 billones</td><td class="num">$6.23 billones</td></tr><tr><td>FY2003</td><td class="num">$3.92 billones</td><td class="num">$2.86 billones</td><td class="num">$6.78 billones</td></tr><tr><td>FY2004</td><td class="num">$4.31 billones</td><td class="num">$3.07 billones</td><td class="num">$7.38 billones</td></tr><tr><td>FY2005</td><td class="num">$4.60 billones</td><td class="num">$3.33 billones</td><td class="num">$7.93 billones</td></tr><tr><td>FY2006</td><td class="num">$4.84 billones</td><td class="num">$3.66 billones</td><td class="num">$8.50 billones</td></tr><tr><td>FY2007</td><td class="num">$5.05 billones</td><td class="num">$3.96 billones</td><td class="num">$9.01 billones</td></tr><tr><td>FY2008</td><td class="num">$5.81 billones</td><td class="num">$4.22 billones</td><td class="num">$10.03 billones</td></tr><tr><td>FY2009</td><td class="num">$7.55 billones</td><td class="num">$4.36 billones</td><td class="num">$11.91 billones</td></tr><tr><td>FY2010</td><td class="num">$9.02 billones</td><td class="num">$4.54 billones</td><td class="num">$13.56 billones</td></tr><tr><td>FY2011</td><td class="num">$10.13 billones</td><td class="num">$4.66 billones</td><td class="num">$14.79 billones</td></tr><tr><td>FY2012</td><td class="num">$11.27 billones</td><td class="num">$4.80 billones</td><td class="num">$16.07 billones</td></tr><tr><td>FY2013</td><td class="num">$11.98 billones</td><td class="num">$4.76 billones</td><td class="num">$16.74 billones</td></tr><tr><td>FY2014</td><td class="num">$12.78 billones</td><td class="num">$5.04 billones</td><td class="num">$17.82 billones</td></tr><tr><td>FY2015</td><td class="num">$13.12 billones</td><td class="num">$5.03 billones</td><td class="num">$18.15 billones</td></tr><tr><td>FY2016</td><td class="num">$14.17 billones</td><td class="num">$5.40 billones</td><td class="num">$19.57 billones</td></tr><tr><td>FY2017</td><td class="num">$14.67 billones</td><td class="num">$5.57 billones</td><td class="num">$20.24 billones</td></tr><tr><td>FY2018</td><td class="num">$15.76 billones</td><td class="num">$5.75 billones</td><td class="num">$21.51 billones</td></tr><tr><td>FY2019</td><td class="num">$16.81 billones</td><td class="num">$5.91 billones</td><td class="num">$22.72 billones</td></tr><tr><td>FY2020</td><td class="num">$21.02 billones</td><td class="num">$5.93 billones</td><td class="num">$26.95 billones</td></tr><tr><td>FY2021</td><td class="num">$22.28 billones</td><td class="num">$6.15 billones</td><td class="num">$28.43 billones</td></tr><tr><td>FY2022</td><td class="num">$24.30 billones</td><td class="num">$6.63 billones</td><td class="num">$30.93 billones</td></tr><tr><td>FY2023</td><td class="num">$26.33 billones</td><td class="num">$6.84 billones</td><td class="num">$33.17 billones</td></tr><tr><td>FY2024</td><td class="num">$28.31 billones</td><td class="num">$7.16 billones</td><td class="num">$35.47 billones</td></tr><tr><td>FY2025</td><td class="num">$30.28 billones</td><td class="num">$7.36 billones</td><td class="num">$37.64 billones</td></tr><tr><td>Sep '26</td><td class="num">$32.37 billones</td><td class="num">$7.73 billones</td><td class="num">$40.10 billones</td></tr></tbody></table></div>
         </details>
       </div>
-      <div class="card">
+      <div class="card" data-block="snapshot">
         <h3><span class="en" hidden>Snapshot, <span data-bind="debtAsOfEn">29-Sep-2026</span></span><span class="es">Panorama al <span data-bind="debtAsOfEs">29 de sep. de 2026</span></span></h3>
         <p class="cap"><span class="en" hidden>Latest daily figure</span><span class="es">Última cifra diaria</span></p>
         <div class="stat-row">
@@ -399,8 +401,8 @@ html.no-data canvas{display:none !important;}
           <div class="stat"><div class="v num" data-bind="debtIntragovT">$7.73 billones</div><div class="l"><span class="en" hidden>Intragovernmental (<span data-bind="debtIntragovPct">19.3</span>%)</span><span class="es">Intragubernamental (<span data-bind="debtIntragovPct">19.3</span>%)</span></div></div>
         </div>
         <div class="callout">
-          <span class="en" hidden>Debt has risen roughly <b>$<span data-bind="debtSinceFYT">2.5</span> trillion</b> since fiscal year-end <span data-bind="fyEndYear">2025</span> (<span data-bind="fyEndDebtT">$37.64T</span> on <span data-bind="fyEndDateEn">30-Sep-2025</span>) — a pace of about <b>$<span data-bind="debtMonthlyPaceB">206</span> billion a month</b>. Total debt first closed above <span data-bind="milestoneT">$40 trillion</span> on <span data-bind="milestoneDateEn">18-Aug-2026</span>.</span>
-          <span class="es">La deuda ha aumentado aproximadamente <b>$<span data-bind="debtSinceFYT">2.5</span> billones</b> desde el fin del año fiscal <span data-bind="fyEndYear">2025</span> (<span data-bind="fyEndDebtTEs">$37.64 billones</span> el <span data-bind="fyEndDateEs">30 de sep. de 2025</span>) — un ritmo de casi <b>$<span data-bind="debtMonthlyPaceB">206</span> mil millones al mes</b>. La deuda total cerró por primera vez por encima de <span data-bind="milestoneTEs">$40 billones</span> el <span data-bind="milestoneDateEs">18 de ago. de 2026</span>.</span>
+          <span class="en" hidden>Debt has risen roughly <b>$<span data-bind="debtSinceFYT">2.5</span> trillion</b> since fiscal year-end <span data-bind="fyEndYear">2025</span> (<span data-bind="fyEndDebtT">$37.64T</span> on <span data-bind="fyEndDateEn">30-Sep-2025</span>) — a pace of about <b>$<span data-bind="debtMonthlyPaceB">206</span> billion a month</b>. <span data-milestone hidden>Total debt first closed above <span data-bind="milestoneT">$40 trillion</span> on <span data-bind="milestoneDateEn">18-Aug-2026</span>.</span></span>
+          <span class="es">La deuda ha aumentado aproximadamente <b>$<span data-bind="debtSinceFYT">2.5</span> billones</b> desde el fin del año fiscal <span data-bind="fyEndYear">2025</span> (<span data-bind="fyEndDebtTEs">$37.64 billones</span> el <span data-bind="fyEndDateEs">30 de sep. de 2025</span>) — un ritmo de casi <b>$<span data-bind="debtMonthlyPaceB">206</span> mil millones al mes</b>. <span data-milestone hidden>La deuda total cerró por primera vez por encima de <span data-bind="milestoneTEs">$40 billones</span> el <span data-bind="milestoneDateEs">18 de ago. de 2026</span>.</span></span>
         </div>
         <div class="callout">
           <span class="en" hidden>A one-day snapshot moves with the Treasury's cash and auction calendar, so day-to-day swings of $10–50B are normal and not a signal of a shift in trend.</span>
@@ -512,7 +514,7 @@ html.no-data canvas{display:none !important;}
         <div class="chart-wrap"><canvas id="chartMaturityMix"></canvas></div>
         <p class="chart-src"><span class="en" hidden>Source: Treasury, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Monthly Statement of the Public Debt, Table 1 ↗</a></span><span class="es">Fuente: Tesoro, <a href="https://fiscaldata.treasury.gov/datasets/monthly-statement-public-debt/" target="_blank" rel="noopener">Estado Mensual de la Deuda Pública, cuadro 1 ↗</a></span></p>
       </div>
-      <div class="card">
+      <div class="card" data-block="avgMaturity">
         <h3><span class="en" hidden>Average Maturity of Marketable Debt</span><span class="es">Vencimiento promedio de la deuda negociable</span></h3>
         <div class="stat-row">
           <div class="stat"><div class="v num"><span data-bind="tbacAvgMonths">~69.6</span> <span class="en" hidden>mo.</span><span class="es">meses</span></div><div class="l"><span class="en" hidden>Avg. maturity (<span data-bind="tbacAvgYears">≈5.8</span> yrs), <span data-bind="tbacAsOfEn">Aug 2026</span></span><span class="es">Vencimiento promedio (<span data-bind="tbacAvgYears">≈5.8</span> años), <span data-bind="tbacAsOfEs">ago. 2026</span></span></div></div>
@@ -604,7 +606,7 @@ html.no-data canvas{display:none !important;}
         <div class="tblwrap" id="tblComposition"><table><thead><tr><th>Tipo de valor</th><th>Monto</th><th>% del total</th></tr></thead><tbody><tr><td>Notas</td><td class="num">$16,218 mmd</td><td class="num">40.4%</td></tr><tr><td>Letras</td><td class="num">$7,248 mmd</td><td class="num">18.0%</td></tr><tr><td>Bonos</td><td class="num">$5,525 mmd</td><td class="num">13.8%</td></tr><tr><td>No negociable</td><td class="num">$8,348 mmd</td><td class="num">20.8%</td></tr><tr><td>TIPS</td><td class="num">$2,153 mmd</td><td class="num">5.4%</td></tr><tr><td>FRNs</td><td class="num">$680 mmd</td><td class="num">1.7%</td></tr><tr class="total"><td>Deuda pública total</td><td class="num">$40,172 mmd</td><td class="num">100.0%</td></tr></tbody></table></div>
       </details>
     </div>
-    <div class="card" style="margin-top:20px">
+    <div class="card" data-block="mktVsNonmkt" style="margin-top:20px">
       <h3><span class="en" hidden>Marketable vs. Non-Marketable: What's the Difference?</span><span class="es">Negociable vs. no negociable: ¿cuál es la diferencia?</span></h3>
       <div class="stat-row">
         <div class="stat"><div class="v num" data-bind="marketablePct">79.2%</div><div class="l"><span class="en" hidden>Marketable (<span data-bind="marketableT">$31.83T</span>)</span><span class="es">Negociable (<span data-bind="marketableTEs">$31.83 billones</span>)</span></div></div>
@@ -637,8 +639,8 @@ html.no-data canvas{display:none !important;}
       <span class="es">La razón deuda/PIB pone el tamaño de la deuda en el contexto de la capacidad de la economía para sostenerla. Se acercó por última vez al nivel actual en los años inmediatamente posteriores a la Segunda Guerra Mundial, bajó durante las siguientes seis décadas conforme la economía de posguerra creció más rápido que la deuda, y luego se revirtió con fuerza después de la crisis financiera de 2008 y de nuevo en 2020.</span>
     </p>
     <p class="sec-meta">
-      <span class="en" hidden>Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (earliest year with a consistent GDP-based series) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Total Public Debt as % of GDP</a>, quarterly · live ratio: Treasury Debt to the Penny ÷ BEA GDP</span>
-      <span class="es">Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Deuda federal bruta como % del PIB</a>, anual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (primer año con una serie consistente basada en el PIB) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Deuda pública total como % del PIB</a>, trimestral · razón en vivo: deuda diaria del Tesoro ÷ PIB de la BEA</span>
+      <span class="en" hidden>Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as % of GDP</a>, annual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (earliest year with a consistent GDP-based series) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Total Public Debt as % of GDP</a>, quarterly · latest ratio: Treasury Debt to the Penny ÷ BEA GDP</span>
+      <span class="es">Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Deuda federal bruta como % del PIB</a>, anual, 1939–<span data-bind="gdpTrendEndYear">2025</span> (primer año con una serie consistente basada en el PIB) · FRED, <a href="https://fred.stlouisfed.org/series/GFDEGDQ188S" target="_blank" rel="noopener">Deuda pública total como % del PIB</a>, trimestral · razón con el último dato: deuda diaria del Tesoro ÷ PIB de la BEA</span>
     </p>
     <div class="grid-2">
       <div class="card">
@@ -647,10 +649,10 @@ html.no-data canvas{display:none !important;}
         <div class="chart-wrap tall"><canvas id="chartGdp"></canvas></div>
         <p class="chart-src"><span class="en" hidden>Source: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Gross Federal Debt as Percent of GDP (GFDGDPA188S) ↗</a></span><span class="es">Fuente: FRED, <a href="https://fred.stlouisfed.org/series/GFDGDPA188S" target="_blank" rel="noopener">Deuda federal bruta como porcentaje del PIB (GFDGDPA188S) ↗</a></span></p>
       </div>
-      <div class="card">
+      <div class="card" data-block="whereStands">
         <h3><span class="en" hidden>Where It Stands</span><span class="es">Dónde está hoy</span></h3>
         <div class="stat-row">
-          <div class="stat"><div class="v num" data-bind="debtGdpPct">123.1%</div><div class="l"><span class="en" hidden>Live: debt on <span data-bind="debtAsOfEn">29-Sep-2026</span> ÷ <span data-bind="debtGdpQtrEn">Q2 2026</span> GDP</span><span class="es">En vivo: deuda al <span data-bind="debtAsOfEs">29 de sep. de 2026</span> ÷ PIB del <span data-bind="debtGdpQtrEs">T2 2026</span></span></div></div>
+          <div class="stat"><div class="v num" data-bind="debtGdpPct">123.1%</div><div class="l"><span class="en" hidden>Latest: debt on <span data-bind="debtAsOfEn">29-Sep-2026</span> ÷ <span data-bind="debtGdpQtrEn">Q2 2026</span> GDP</span><span class="es">Último dato: deuda al <span data-bind="debtAsOfEs">29 de sep. de 2026</span> ÷ PIB del <span data-bind="debtGdpQtrEs">T2 2026</span></span></div></div>
           <div class="stat"><div class="v num" data-bind="debtGdpQPct">122.6%</div><div class="l"><span class="en" hidden><span data-bind="debtGdpQQtrEn">Q1 2026</span>, quarter-end debt ÷ that quarter's GDP (FRED; U.S. Macro Monitor)</span><span class="es"><span data-bind="debtGdpQQtrEs">T1 2026</span>, deuda al cierre del trimestre ÷ PIB del trimestre (FRED; Monitor Macro de EE. UU.)</span></div></div>
           <div class="stat"><div class="v num" data-bind="debtGdpAnnualPct">121.5%</div><div class="l"><span class="en" hidden><span data-bind="debtGdpAnnualYear">2025</span>, annual: gross federal debt at fiscal year-end ÷ GDP (FRED; the chart)</span><span class="es"><span data-bind="debtGdpAnnualYear">2025</span>, anual: deuda federal bruta al cierre del año fiscal ÷ PIB (FRED; la gráfica)</span></div></div>
           <div class="stat"><div class="v num">119.1%</div><div class="l"><span class="en" hidden>1946, prior all-time peak</span><span class="es">1946, máximo histórico previo</span></div></div>
@@ -659,7 +661,7 @@ html.no-data canvas{display:none !important;}
           <span class="en" hidden>On the annual series, debt-to-GDP peaked at <b>119.1%</b> in 1946, paying for World War II, then fell almost every year through the 1970s as the economy grew faster than the debt. It did not return to a comparable level until <b>2020</b> (125.9%), and has stayed above the old 1946 watermark ever since.</span>
           <span class="es">En la serie anual, la razón deuda/PIB llegó a un máximo de <b>119.1%</b> en 1946, al pagar la Segunda Guerra Mundial, y luego bajó casi cada año hasta la década de 1970 conforme la economía creció más rápido que la deuda. No volvió a un nivel comparable hasta <b>2020</b> (125.9%), y desde entonces se ha mantenido por encima de esa referencia de 1946.</span>
         </div>
-        <div class="callout"><span class="en" hidden id="debtGdpNoteEn"><b>Three measures, three timings.</b> The <b>live</b> figure, <b>123.1%</b>, divides today's total public debt ($40.10T on 29-Sep-2026) by the latest quarter's GDP ($32.56T at an annual rate, Q2 2026), so it moves every day. FRED's <b>quarterly</b> series, <b>122.6%</b> for Q1 2026 and the figure the <a href="/macro/?view=fiscal">U.S. Macro Monitor</a> shows, divides total public debt at the end of that quarter ($39.07T) by that quarter's GDP; FRED adds each quarter three months or more after it ends. The <b>annual</b> series behind the chart, <b>121.5%</b> for 2025, divides the budget's gross federal debt at the end of the fiscal year, slightly below Treasury's total public debt, by calendar-year GDP. All three include debt held by federal trust funds; CBO's projection below counts only debt held by the public.</span><span class="es" id="debtGdpNoteEs"><b>Tres medidas, tres momentos.</b> La cifra <b>en vivo</b>, <b>123.1%</b>, divide la deuda pública total de hoy ($40.10 billones al 29 de sep. de 2026) entre el PIB del último trimestre ($32.56 billones a tasa anual, T2 2026), así que cambia cada día. La serie <b>trimestral</b> de FRED, <b>122.6%</b> para el T1 2026 y la cifra que muestra el <a href="/macro/?view=fiscal">Monitor Macro de EE. UU.</a>, divide la deuda pública total al cierre de ese trimestre ($39.07 billones) entre el PIB del trimestre; FRED agrega cada trimestre tres meses o más después de su cierre. La serie <b>anual</b> de la gráfica, <b>121.5%</b> para 2025, divide la deuda federal bruta del presupuesto al cierre del año fiscal, ligeramente menor que la deuda pública total del Tesoro, entre el PIB del año calendario. Las tres incluyen la deuda en manos de los fondos fiduciarios federales; la proyección de la CBO de abajo solo cuenta la deuda en manos del público.</span></div>
+        <div class="callout"><span class="en" hidden id="debtGdpNoteEn"><b>Three measures, three timings.</b> The <b>latest</b> figure, <b>123.1%</b>, divides today's total public debt ($40.10T on 29-Sep-2026) by the latest quarter's GDP ($32.56T at an annual rate, Q2 2026), so it moves every day. FRED's <b>quarterly</b> series, <b>122.6%</b> for Q1 2026 and the figure the <a href="/macro/?view=fiscal">U.S. Macro Monitor</a> shows, divides total public debt at the end of that quarter ($39.07T) by that quarter's GDP; FRED adds each quarter three months or more after it ends. The <b>annual</b> series behind the chart, <b>121.5%</b> for 2025, divides the budget's gross federal debt at the end of the fiscal year, slightly below Treasury's total public debt, by calendar-year GDP. All three include debt held by federal trust funds; CBO's projection below counts only debt held by the public.</span><span class="es" id="debtGdpNoteEs"><b>Tres medidas, tres momentos.</b> La cifra <b>más reciente</b>, <b>123.1%</b>, divide la deuda pública total de hoy ($40.10 billones al 29 de sep. de 2026) entre el PIB del último trimestre ($32.56 billones a tasa anual, T2 2026), así que cambia cada día. La serie <b>trimestral</b> de FRED, <b>122.6%</b> para el T1 2026 y la cifra que muestra el <a href="/macro/?view=fiscal">Monitor Macro de EE. UU.</a>, divide la deuda pública total al cierre de ese trimestre ($39.07 billones) entre el PIB del trimestre; FRED agrega cada trimestre tres meses o más después de su cierre. La serie <b>anual</b> de la gráfica, <b>121.5%</b> para 2025, divide la deuda federal bruta del presupuesto al cierre del año fiscal, ligeramente menor que la deuda pública total del Tesoro, entre el PIB del año calendario. Las tres incluyen la deuda en manos de los fondos fiduciarios federales; la proyección de la CBO de abajo solo cuenta la deuda en manos del público.</span></div>
         <div class="callout">
           <span class="en" hidden>For scale: the ratio spent nearly all of 1960–2007 in a 30%–65% range. It has not been below 100% since 2012.</span>
           <span class="es">Para dar escala: la razón pasó casi todo el periodo 1960–2007 en un rango de 30%–65%. No ha estado por debajo de 100% desde 2012.</span>
@@ -680,7 +682,7 @@ html.no-data canvas{display:none !important;}
           <span class="es">La CBO proyecta que la deuda en manos del público superará su récord de posguerra (106% del PIB, 1946) en <b data-bind="cboRecordYear">2030</b> (<span data-bind="cboRecordPct">108%</span> del PIB) y alcanzará <b data-bind="cboEndPct">120%</b> en <span data-bind="cboEndYear">2036</span> — un nivel nunca antes visto en la historia de EE. UU., impulsado sobre todo por el crecimiento del Seguro Social y Medicare y por el interés compuesto, no por nuevo gasto de emergencia.</span>
         </div>
       </div>
-      <div class="card">
+      <div class="card" data-block="cboAssumptions">
         <h3><span class="en" hidden>CBO's Economic Assumptions Behind the Baseline</span><span class="es">Los supuestos económicos de la CBO detrás del panorama base</span></h3>
         <p class="cap">
           <span class="en" hidden>Where things stand right now vs. what CBO's <span data-bind="cboVintageEn">February 2026</span> baseline assumes for FY<span data-bind="cboFirstYear">2026</span>–<span data-bind="cboEndYear">2036</span></span>
@@ -822,7 +824,7 @@ html.no-data canvas{display:none !important;}
         <div class="chart-wrap"><canvas id="chartFedM2"></canvas></div>
         <p class="chart-src"><span class="en" hidden>Source: FRED, <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" rel="noopener">WALCL ↗</a> (Fed total assets) and <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a> (M2 money stock)</span><span class="es">Fuente: FRED, <a href="https://fred.stlouisfed.org/series/WALCL" target="_blank" rel="noopener">WALCL ↗</a> (activos totales de la Fed) y <a href="https://fred.stlouisfed.org/series/M2SL" target="_blank" rel="noopener">M2SL ↗</a> (oferta monetaria M2)</span></p>
       </div>
-      <div class="card">
+      <div class="card" data-block="fedEras">
         <h3><span class="en" hidden>Three Balance-Sheet Eras</span><span class="es">Tres eras del balance</span></h3>
         <div class="stat-row">
           <div class="stat"><div class="v num" data-bind="walclT">$6.75 billones</div><div class="l"><span class="en" hidden>Total Fed assets, <span data-bind="walclAsOfEn">23-Sep-2026</span></span><span class="es">Activos totales de la Fed, <span data-bind="walclAsOfEs">23 de sep. de 2026</span></span></div></div>
@@ -1001,7 +1003,7 @@ html.no-data canvas{display:none !important;}
   var ES_STR = {
     "Total debt outstanding":"Deuda total pendiente", "FY26 YTD deficit":"Déficit AF26 a la fecha", "—":"—",
     "Held by the public":"En manos del público", "80.8% of total":"80.8% del total",
-    "Debt ÷ GDP, live":"Deuda ÷ PIB, en vivo", "Today's debt ÷ Q2 2026 GDP":"Deuda de hoy ÷ PIB T2 2026", "GDP ≈ $32.49T (Q2 2026)":"PIB ≈ $32.49 billones (T2 2026)",
+    "Debt ÷ GDP, latest":"Deuda ÷ PIB, último dato", "Today's debt ÷ Q2 2026 GDP":"Deuda de hoy ÷ PIB T2 2026", "GDP ≈ $32.49T (Q2 2026)":"PIB ≈ $32.49 billones (T2 2026)",
     "FY26 YTD gross interest":"Interés bruto AF26 a la fecha", "11 mo.":"11 meses",
     "Avg. rate on debt":"Tasa promedio de la deuda", "Aug 2026, up from 1.6% in 2021":"ago. 2026, desde 1.6% en 2021",
     "Debt outstanding":"Deuda pendiente",
@@ -1142,7 +1144,7 @@ html.no-data canvas{display:none !important;}
   var kpis = [
     {lbl:"Total debt outstanding", val:"—", delta:"—"},
     {lbl:"Held by the public", val:"$32.39T", delta:"80.8% of total"},
-    {lbl:"Debt ÷ GDP, live", val:"123.1%", delta:"Today's debt ÷ Q2 2026 GDP"},
+    {lbl:"Debt ÷ GDP, latest", val:"123.1%", delta:"Today's debt ÷ Q2 2026 GDP"},
     {lbl:"FY26 YTD gross interest", val:"$1.267T", delta:"11 mo."},
     {lbl:"Avg. rate on debt", val:"3.49%", delta:"Aug 2026, up from 1.6% in 2021"},
     {lbl:"FY26 YTD deficit", val:"—", delta:"—"}
@@ -1785,23 +1787,6 @@ html.no-data canvas{display:none !important;}
   // Turns revOutAsOf (e.g. "Aug 31, 2026") into everything the revenue/outlay sections need
   // to say about it, so a monthly data update can never leave a stale "10 mo." or date range
   // behind — every instance below re-derives from this same date every time renderAll() runs.
-  // U.S. federal holidays of a year (observed dates), computed from the statutory rules.
-  function usHolidays(y){
-    var d = function(m, day){ return new Date(Date.UTC(y, m, day)); };
-    var nth = function(m, wd, n){ var off = (wd - d(m,1).getUTCDay() + 7) % 7; return d(m, 1 + off + 7*(n-1)); };
-    var last = function(m, wd){ var e = new Date(Date.UTC(y, m+1, 0)); return d(m, e.getUTCDate() - ((e.getUTCDay() - wd + 7) % 7)); };
-    var obs = function(x){ var w = x.getUTCDay(); return w === 6 ? new Date(x.getTime() - 864e5) : (w === 0 ? new Date(x.getTime() + 864e5) : x); };
-    return [obs(d(0,1)), nth(0,1,3), nth(1,1,3), last(4,1), obs(d(5,19)), obs(d(6,4)), nth(8,1,1), nth(9,1,2), obs(d(10,11)), nth(10,4,4), obs(d(11,25))]
-      .map(function(x){ return x.toISOString().slice(0,10); });
-  }
-  // Business days after `iso` up to and including today (weekends and federal holidays excluded).
-  function businessDaysSince(iso, now){
-    var t = Date.parse(iso+'T00:00:00Z'); if(!(t > 0)) return 0;
-    var end = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()), hol = {}, n = 0;
-    for(var y = new Date(t).getUTCFullYear(); y <= now.getUTCFullYear(); y++) usHolidays(y).forEach(function(h){ hol[h] = 1; });
-    for(var x = t + 864e5; x <= end; x += 864e5){ var dd = new Date(x), w = dd.getUTCDay(); if(w !== 0 && w !== 6 && !hol[dd.toISOString().slice(0,10)]) n++; }
-    return n;
-  }
   // "2026-01-01" -> "Q1 2026" (es: "T1 2026"); FRED stamps a quarter with its first day.
   function qLabel(iso, es){ var q = 'Q'+(Math.floor((Number(String(iso).slice(5,7))-1)/3)+1)+' '+String(iso).slice(0,4); return es ? q.replace('Q','T') : q; }
   function fyInfo(dateStr){
@@ -1823,7 +1808,10 @@ html.no-data canvas{display:none !important;}
   var revOutInfo = fyInfo(revOutAsOf);
   var accruedInfo = fyInfo(accruedInterestAsOf);
   // Header strings that carry live dates: register their Spanish forms so the exact-string L() lookup resolves.
-  ES_STR[kpis[0].delta] = "al "+fmtDateEs(debtAsOf);
+  // blocks.js adds the tile's data date, so the first tile's second line carries the change since the fiscal year-end.
+  var sinceSign = debtSinceFYT >= 0 ? '+' : '−';
+  kpis[0].delta = sinceSign+'$'+Math.abs(debtSinceFYT).toFixed(2)+'T since '+fmtDateEn(fyEndDebt.date);
+  ES_STR[kpis[0].delta] = sinceSign+'$'+Math.abs(debtSinceFYT).toFixed(2)+' billones desde el '+fmtDateEs(fyEndDebt.date);
   ES_STR[kpis[1].delta] = kpis[1].delta.replace(' of total', ' del total');
   var fy2021Idx = rateTrend.labels.indexOf('2021');
   var fy2021Rate = fy2021Idx >= 0 ? rateTrend.values[fy2021Idx] : 1.605;
@@ -1898,13 +1886,15 @@ html.no-data canvas{display:none !important;}
   kpis[2].val = debtGdpPct.toFixed(1)+'%';
   // The live ratio (today's debt ÷ the latest quarter's GDP), with FRED's quarterly ratio beside it so the
   // two figures a reader meets on this page and on the U.S. Macro Monitor are cross-referenced.
-  kpis[2].lbl = 'Debt ÷ GDP, live'; ES_STR[kpis[2].lbl] = 'Deuda ÷ PIB, en vivo';
+  kpis[2].lbl = 'Debt ÷ GDP, latest'; ES_STR[kpis[2].lbl] = 'Deuda ÷ PIB, último dato';
   kpis[2].delta = "Today's debt ÷ "+gdpQ+' GDP'+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate)+': '+debtGdpQPct.toFixed(1)+'%' : '');
   ES_STR[kpis[2].delta] = 'Deuda de hoy ÷ PIB '+gdpQEs+(debtGdpQPct != null ? ' · FRED '+qLabel(debtGdpQDate, true)+': '+debtGdpQPct.toFixed(1)+'%' : '');
   asof[5][1] = gdpQ+' (BEA GDP, quarterly)';
   ES_STR[asof[5][1]] = gdpQEs+' (PIB de la BEA, trimestral)';
   var targetRangeStr = targetRangeLo.toFixed(2)+'–'+targetRangeHi.toFixed(2)+'%';
   var gdpTrendEndYear = gdpTrend.labels[gdpTrend.labels.length-1];
+  // A sentence that needs a fetched date never renders with a placeholder: it stays hidden until the date exists.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-milestone]'), function(el){ el.hidden = !(milestone && milestone.date); });
   var BIND = {
     debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
     debtTotalT: '$'+debtTotalT.toFixed(2)+sfxT(), debtPublicT: '$'+debtPublicT.toFixed(2)+sfxT(), debtIntragovT: '$'+debtIntragovT.toFixed(2)+sfxT(),
@@ -1912,8 +1902,8 @@ html.no-data canvas{display:none !important;}
     debtSinceFYT: debtSinceFYT.toFixed(1), debtMonthlyPaceB: Math.round(debtMonthlyPaceB),
     fyEndYear: String(fyEndDebt.fy), fyEndDebtT: '$'+fyEndDebt.totalDebtT.toFixed(2)+sfxT(), fyEndDebtTEs: '$'+fyEndDebt.totalDebtT.toFixed(2)+' billones',
     fyEndDateEn: fmtDateEn(fyEndDebt.date), fyEndDateEs: fmtDateEs(fyEndDebt.date),
-    milestoneT: milestone ? '$'+milestone.trillions+' trillion' : '$40 trillion', milestoneTEs: milestone ? '$'+milestone.trillions+' billones' : '$40 billones',
-    milestoneDateEn: milestone ? fmtDateEn(milestone.date) : '18-Aug-2026', milestoneDateEs: milestone ? fmtDateEs(milestone.date) : '18 de ago. de 2026',
+    milestoneT: milestone ? '$'+milestone.trillions+' trillion' : '', milestoneTEs: milestone ? '$'+milestone.trillions+' billones' : '',
+    milestoneDateEn: milestone ? fmtDateEn(milestone.date) : '', milestoneDateEs: milestone ? fmtDateEs(milestone.date) : '',
     curYear: curYear,
     rrpValB: '$'+rrpVal.toFixed(1)+sfxB(), rrpAsOfEn: fmtDateEn(rrpAsOf), rrpAsOfEs: fmtDateEs(rrpAsOf),
     fedMult: fedMultiplier.toFixed(1)+'×', debtMult: debtMultiplier.toFixed(1)+'×', m2Mult: m2Multiplier.toFixed(1)+'×',
@@ -2102,42 +2092,6 @@ html.no-data canvas{display:none !important;}
     BIND.generatedAtEn = fmt(utc,false)+' UTC ('+fmt(cdmx,false)+' Mexico City)';
     BIND.generatedAtEs = fmt(utc,true)+' UTC ('+fmt(cdmx,true)+' Ciudad de México)';
   })();
-  // ---- Freshness: a visible warning when a feed is older than its publisher's schedule ----
-  // Daily feeds: more than 2 business days old (Debt to the Penny posts the next business day at 3 p.m. ET;
-  // EFFR gets one extra day). Weekly, monthly and quarterly feeds: the allowances of the freshness check.
-  (function(){
-    var now = new Date(), todayMs = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate());
-    var daysSince = function(iso){ return Math.floor((todayMs - Date.parse(iso+'T00:00:00Z'))/864e5); };
-    var monthEnd = function(ym){ return new Date(Date.UTC(+ym.slice(0,4), +ym.slice(5,7), 0)).toISOString().slice(0,10); };
-    var quarterEnd = function(iso){ return new Date(Date.UTC(+iso.slice(0,4), +iso.slice(5,7)+2, 0)).toISOString().slice(0,10); };
-    var stale = [];
-    var add = function(en, es, iso, ok){ if(iso && !ok) stale.push([en+' ('+fmtDateEn(iso)+')', es+' ('+fmtDateEs(iso)+')']); };
-    add('Debt to the Penny', 'deuda diaria del Tesoro', debtAsOf, businessDaysSince(debtAsOf, now) <= 2);
-    if(ratesAsOf.effr) add('effective federal funds rate', 'tasa de fondos federales efectiva', ratesAsOf.effr, businessDaysSince(ratesAsOf.effr, now) <= 3);
-    if(ratesAsOf.iorb) add('IORB', 'IORB', ratesAsOf.iorb, businessDaysSince(ratesAsOf.iorb, now) <= 2);
-    if(ratesAsOf.onrrp) add('ON RRP rate', 'tasa ON RRP', ratesAsOf.onrrp, businessDaysSince(ratesAsOf.onrrp, now) <= 2);
-    if(ratesAsOf.discount) add('discount rate', 'tasa de descuento', ratesAsOf.discount, businessDaysSince(ratesAsOf.discount, now) <= 2);
-    var walclDate = fedBS && fedBS.date ? fedBS.date : null;
-    if(walclDate) add('Fed balance sheet (H.4.1)', 'balance de la Fed (H.4.1)', walclDate, daysSince(walclDate) <= 12);
-    var mtsIso = isoFromMonDDYYYY(revOutAsOf);
-    if(mtsIso) add('Monthly Treasury Statement', 'Estado Mensual del Tesoro', mtsIso, daysSince(mtsIso) <= 55);
-    if(avgRateDate) add('average interest rates', 'tasas de interés promedio', avgRateDate, daysSince(avgRateDate) <= 45);
-    if(compAsOf) add('debt by security (MSPD)', 'deuda por tipo de valor (MSPD)', compAsOf, daysSince(compAsOf) <= 45);
-    if(gdpDate) add('GDP', 'PIB', gdpDate, daysSince(quarterEnd(gdpDate)) <= 135);
-    if(foreignHoldersAsOf && /^\d{4}-\d{2}$/.test(foreignHoldersAsOf)){ var fe = monthEnd(foreignHoldersAsOf); add('foreign holders (TIC)', 'tenedores extranjeros (TIC)', fe, daysSince(fe) <= 80); }
-    if(fedWatch && fedWatch.asOf) add('FedWatch snapshot', 'probabilidades de FedWatch', fedWatch.asOf, daysSince(fedWatch.asOf) <= 14);
-    var en = [], es = [];
-    if(generatedAt && (Date.now() - Date.parse(generatedAt)) > 36*3600*1000){
-      en.push('<b>The data file was last refreshed on '+fmtDateEn(generatedAt.slice(0,10))+';</b> the twice-daily refresh appears to have failed.');
-      es.push('<b>El archivo de datos se actualizó por última vez el '+fmtDateEs(generatedAt.slice(0,10))+';</b> la actualización de dos veces al día parece haber fallado.');
-    }
-    if(stale.length){
-      en.push('<b>Older than their publishers\' schedule:</b> '+stale.map(function(s){ return s[0]; }).join('; ')+'. The page shows the last values it retrieved.');
-      es.push('<b>Con más antigüedad que el calendario de su fuente:</b> '+stale.map(function(s){ return s[1]; }).join('; ')+'. La página muestra los últimos valores que obtuvo.');
-    }
-    var box = document.getElementById('dataWarn');
-    if(box){ box.hidden = !en.length; document.getElementById('dataWarnEn').innerHTML = en.join(' '); document.getElementById('dataWarnEs').innerHTML = es.join(' '); }
-  })();
   // ---- Composed notes (never hand-typed): the three debt-to-GDP measures, gross vs. net interest ----
   (function(){
     var setHtml = function(id, html){ var el = document.getElementById(id); if(el) el.innerHTML = html; };
@@ -2146,8 +2100,8 @@ html.no-data canvas{display:none !important;}
     var t3En = function(b){ return '$'+(b/1000).toFixed(3)+'T'; }, t3Es = function(b){ return '$'+(b/1000).toFixed(3)+' billones'; };
     var macroEn = '<a href="/macro/?view=fiscal">U.S. Macro Monitor</a>', macroEs = '<a href="/macro/?view=fiscal">Monitor Macro de EE. UU.</a>';
     // Debt-to-GDP: same debt, three timings.
-    var en = '<b>Three measures, three timings.</b> The <b>live</b> figure, <b>'+p1(debtGdpPct)+'</b>, divides today\'s total public debt ('+t2En(debtTotalT*1000)+' on '+fmtDateEn(debtAsOf)+') by the latest quarter\'s GDP ('+t2En(gdpB)+' at an annual rate, '+gdpQ+'), so it moves every day.';
-    var es = '<b>Tres medidas, tres momentos.</b> La cifra <b>en vivo</b>, <b>'+p1(debtGdpPct)+'</b>, divide la deuda pública total de hoy ('+t2Es(debtTotalT*1000)+' al '+fmtDateEs(debtAsOf)+') entre el PIB del último trimestre ('+t2Es(gdpB)+' a tasa anual, '+gdpQEs+'), así que cambia cada día.';
+    var en = '<b>Three measures, three timings.</b> The <b>latest</b> figure, <b>'+p1(debtGdpPct)+'</b>, divides today\'s total public debt ('+t2En(debtTotalT*1000)+' on '+fmtDateEn(debtAsOf)+') by the latest quarter\'s GDP ('+t2En(gdpB)+' at an annual rate, '+gdpQ+'), so it moves every day.';
+    var es = '<b>Tres medidas, tres momentos.</b> La cifra <b>más reciente</b>, <b>'+p1(debtGdpPct)+'</b>, divide la deuda pública total de hoy ('+t2Es(debtTotalT*1000)+' al '+fmtDateEs(debtAsOf)+') entre el PIB del último trimestre ('+t2Es(gdpB)+' a tasa anual, '+gdpQEs+'), así que cambia cada día.';
     if(debtGdpQPct != null && debtGdpQDate){
       var sameQ = debtQEndB != null && debtQEndDate === debtGdpQDate;
       en += ' FRED\'s <b>quarterly</b> series, <b>'+p1(debtGdpQPct)+'</b> for '+qLabel(debtGdpQDate)+' and the figure the '+macroEn+' shows, divides total public debt at the end of that quarter'+(sameQ ? ' ('+t2En(debtQEndB)+')' : '')+' by that quarter\'s GDP; FRED adds each quarter three months or more after it ends.';
@@ -2946,5 +2900,6 @@ html.no-data canvas{display:none !important;}
   }, {passive:true});
 })();
 </script>
+<script src="blocks.js"></script>
 </body>
 </html>

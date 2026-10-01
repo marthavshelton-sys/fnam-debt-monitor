@@ -46,41 +46,14 @@ const isoFromDMY = (s) => {
   return mi < 0 ? null : `${m[3]}-${String(mi + 1).padStart(2, '0')}-${m[1].padStart(2, '0')}`;
 };
 
-// ---- cadence table: every data point, what its date stamp means, and its allowance ----
-// `period` says what the stamped date is: 'obs' = the observation day itself (daily/weekly series and
-// Treasury's month-end tables), 'month' / 'quarter' / 'year' = the FIRST day of the period (how FRED
-// stamps monthly, quarterly and annual series; TIC stamps "YYYY-MM"). Age is measured from the END of
-// that period, and the allowance is the number of days after which the publisher's NEXT release
-// should have replaced the data point (normal lag plus a margin for holidays and late postings): a
-// data point older than that means a newer figure exists that the fetch has failed to pick up.
-const POINTS = [
-  ['Debt to the Penny (total, public, intragovernmental)', 'debt.date', 'obs', 5, 'Treasury Fiscal Data, daily (business days)'],
-  ['FOMC target range (DFEDTARU/DFEDTARL)', 'targetRange.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
-  ['Effective federal funds rate (EFFR)', 'rates.effr.date', 'obs', 6, 'New York Fed via FRED, daily'],
-  ['Interest on reserve balances (IORB)', 'rates.iorb.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
-  ['ON RRP award rate', 'rates.onrrp.date', 'obs', 6, 'New York Fed via FRED, daily'],
-  ['Discount rate (primary credit)', 'rates.discount.date', 'obs', 6, 'Federal Reserve Board via FRED, daily'],
-  ['ON RRP take-up', 'rrpVolume.date', 'obs', 6, 'New York Fed via FRED, daily'],
-  ['10-year Treasury yield', 'macroActuals.tenYear.date', 'obs', 7, 'Treasury via FRED, daily'],
-  ['Fed total assets (WALCL)', 'fed.walcl.date', 'obs', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
-  ['Fed balance-sheet lines (H.4.1)', 'fedBalanceSheet.date', 'obs', 12, 'H.4.1 via FRED, weekly (Wednesday)'],
-  ['Average interest rates on the debt', 'avgRate.date', 'obs', 45, 'Treasury Fiscal Data, monthly, about a week after month-end'],
-  ['Debt composition (MSPD table 1)', 'debtComposition.date', 'obs', 45, 'Treasury MSPD, monthly, about a week after month-end'],
-  ['Average maturity and schedule (MSPD table 3)', 'avgMaturity.date', 'obs', 45, 'Treasury MSPD, monthly, about a week after month-end'],
-  ['Monthly Treasury Statement (receipts, outlays, interest)', 'mts.date', 'obs', 55, 'Treasury MTS, monthly, 8th business day of the next month (later for September)'],
-  ['Accrued interest expense', 'accruedInterest.date', 'obs', 55, 'Treasury Fiscal Data, monthly, with the MTS'],
-  ['M2 money stock', 'fed.m2.date', 'month', 65, 'Federal Reserve H.6 via FRED, monthly, fourth week of the next month'],
-  ['CPI inflation (y/y)', 'macroActuals.cpiYoY.date', 'month', 55, 'BLS via FRED, monthly, around the 12th of the next month'],
-  ['Unemployment rate', 'macroActuals.unemployment.date', 'month', 45, 'BLS via FRED, monthly, first Friday of the next month'],
-  ['Major foreign holders (TIC table 5)', 'foreignHolders.date', 'month', 80, 'Treasury TIC, monthly, about seven weeks after month-end'],
-  ['Nominal GDP (BEA)', 'gdp.date', 'quarter', 135, 'BEA via FRED, quarterly, four weeks after quarter-end'],
-  ['Real GDP growth (BEA)', 'macroActuals.realGdpGrowth.date', 'quarter', 135, 'BEA via FRED, quarterly, four weeks after quarter-end'],
-  ['Ownership of Treasury securities (OFS-2)', 'holders.asOf', 'obs', 290, 'Treasury Bulletin, quarterly, fully reported about two quarters after quarter-end'],
-  ['Gross federal debt, % of GDP (annual)', 'debtGdpAnnual.date', 'year', 470, 'FRED GFDGDPA188S, annual, the next year posts in the first quarter'],
-  ['Total public debt, % of GDP (quarterly)', 'debtGdpQuarterly.date', 'quarter', 200, 'FRED GFDEGDQ188S, quarterly, once Treasury\'s quarter-end debt and BEA GDP are out (about three months after quarter-end)'],
-  ['CME FedWatch snapshot', 'fedWatch.asOf', 'obs', 14, 'monthly-data.js (research routine), refreshed Mondays, Wednesdays and Fridays', MD],
-  ['CBO baseline (publication date)', 'cboPublished', 'obs', 420, 'monthly-data.js (research routine); CBO publishes a new baseline each January or February', MD],
-];
+// ---- cadence table: site/fiscal/freshness-rules.js, shared with the page so its amber flags and this alarm agree ----
+// `period` says what the stamped date is ('obs' = the observation day; 'month' / 'quarter' / 'year' = the FIRST day of
+// the period, FRED's stamp); age runs from the END of that period. `days` = calendar-day allowance; `bd` = U.S.
+// business days (federal holidays excluded, site/assets/provenance.js), used for Debt to the Penny (2 business days).
+const RULES = await loadAssignment(new URL('site/fiscal/freshness-rules.js', ROOT), 'window.FISCAL_FRESHNESS');
+globalThis.location = { search: '' };
+const PROV = (await import(new URL('site/assets/provenance.js', ROOT))).default;
+const POINTS = RULES.points.map((p) => [p.label, p.path, p.period, p.bd != null ? { bd: p.bd } : p.days, p.source, p.file === 'monthly' ? MD : undefined]);
 // Last day of the period that starts on `iso` ('month', 'quarter' or 'year'), else the date itself.
 function periodEnd(iso, period) {
   const y = Number(iso.slice(0, 4)), m = Number(iso.slice(5, 7));
@@ -101,11 +74,14 @@ for (const [label, path, period, allowance, source, obj] of POINTS) {
     continue;
   }
   const end = periodEnd(d, period);
-  const age = days(end);
-  const ok = age <= allowance;
+  const bdRule = typeof allowance === 'object';
+  const age = bdRule ? PROV.businessDays(end, nowIso, 'us') : days(end);
+  const allow = bdRule ? allowance.bd : allowance;
+  const unit = bdRule ? 'business days' : 'd';
+  const ok = age <= allow;
   const shown = period === 'obs' ? d : `${d.slice(0, 7)}${period === 'quarter' ? ' (quarter)' : period === 'year' ? ' (year)' : ''}`;
-  rows.push([label, shown, `${age} d after ${period === 'obs' ? 'obs.' : 'period end'} (allowance ${allowance})`, ok ? 'ok' : 'STALE', source]);
-  if (!ok) problems.push(`${label}: latest ${shown} is ${age} days past its ${period === 'obs' ? 'date' : 'period end'}, allowance ${allowance} (${source})`);
+  rows.push([label, shown, `${age} ${unit} after ${period === 'obs' ? 'obs.' : 'period end'} (allowance ${allow})`, ok ? 'ok' : 'STALE', source]);
+  if (!ok) problems.push(`${label}: latest ${shown} is ${age} ${bdRule ? 'business days' : 'days'} past its ${period === 'obs' ? 'date' : 'period end'}, allowance ${allow} (${source})`);
 }
 
 // ---- consistency: figures that must agree with each other ----

@@ -597,7 +597,7 @@
     <div class="rail-item" data-view="banxico"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navBanxico">Tasas y reservas</span></span></div>
 
     <div class="rail-group-label" data-i18n="groupFiscal">Finanzas públicas</div>
-    <div class="rail-item"><span data-i18n="navFiscalMx">Monitor fiscal de México</span> <span class="soon-pill" data-i18n="soon">Pronto</span></div>
+    <a class="rail-item rail-link" href="https://fnam.mx/mx/fiscal/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navFiscalMx">Monitor fiscal de México</span></span><span class="ext-mark">↗</span></a>
 
     <div class="rail-group-label" data-i18n="groupUS">Estados Unidos</div>
     <a class="rail-item rail-link" href="https://fnam.mx/macro/" target="_blank" rel="noopener"><span style="display:flex;align-items:center;gap:8px"><span class="dot"></span><span data-i18n="navUsMacro">Panel macro de EE. UU.</span></span><span class="ext-mark">↗</span></a>
@@ -1135,7 +1135,7 @@ const I18N = {
     inpcMomCoreTitle: "Subyacente, variación mensual",
     inpcSecCategory: "Inflación por componente",
     inpcSecDerby: "Componentes ordenados de mayor a menor inflación anual",
-    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base segunda quincena de julio de 2018 = 100. La inflación subyacente excluye agropecuarios, energéticos y tarifas autorizadas por el gobierno. Variaciones calculadas sobre los índices publicados; las cifras mensuales son originales (el INPC no se desestacionaliza). Objetivo de Banxico: 3% con intervalo de variabilidad de ±1 punto porcentual.",
+    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base segunda quincena de julio de 2018 = 100. La inflación subyacente excluye agropecuarios, energéticos y tarifas autorizadas por el gobierno. Serie mensual (no quincenal) tomada del SIE de Banxico. Variaciones calculadas sobre los índices publicados, con cifras originales: INEGI no publica una serie desestacionalizada del INPC (no la hay en su Banco de Información Económica ni en el SIE de Banxico; verificado el 1-oct-2026), así que las variaciones mensuales y las tasas anualizadas de 3 y 6 meses conservan la estacionalidad; la variación anual no se ve afectada. Objetivo de Banxico: 3% con intervalo de variabilidad de ±1 punto porcentual.",
     kpiHeadline: "Inflación general",
     kpiCore: "Subyacente",
     kpiGoods: "Mercancías",
@@ -1440,7 +1440,7 @@ const I18N = {
     inpcMomCoreTitle: "Core, MoM",
     inpcSecCategory: "Inflation by component",
     inpcSecDerby: "Components ranked from highest to lowest 12-month inflation",
-    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base second half of July 2018 = 100. Core inflation excludes agricultural products, energy and government-set tariffs. Changes are computed from the published indices; monthly figures are not seasonally adjusted (INEGI does not publish an adjusted INPC). Banxico's target: 3% with a ±1 percentage point variability band.",
+    footerInpc: "Índice Nacional de Precios al Consumidor (INEGI), base second half of July 2018 = 100. Core inflation excludes agricultural products, energy and government-set tariffs. Monthly series (not the first-half-month index), taken from Banxico's SIE. Changes are computed from the published indices, original figures: INEGI does not publish a seasonally adjusted INPC (there is none in INEGI's Economic Information Bank or in Banxico's SIE; checked 1-Oct-2026), so month-over-month changes and the 3- and 6-month annualized rates keep their seasonality; the year-over-year change is not affected. Banxico's target: 3% with a ±1 percentage point variability band.",
     kpiHeadline: "Headline inflation",
     kpiCore: "Core",
     kpiGoods: "Goods",
@@ -2027,7 +2027,8 @@ function renderInpc() {
     ], {legendId: "inpcNonCoreLegend", tooltipId: "inpcNonCoreTooltip", calloutId: "inpcNonCoreCallout", zeroBase: true, calloutLines: [T.inpcNonCoreCallout(fmtMonthYear(a.d), fmtPct(a.yoy), fmtPct(e.yoy))]});
   }
 
-  // momentum: MoM columns (INPC is not seasonally adjusted) and annualized core runs
+  // momentum: MoM columns and annualized core runs, all on original figures: INEGI publishes no seasonally adjusted
+  // INPC (BIE search and Banxico SIE sector 8 checked 2026-10-01), and the labels say "cifras originales".
   const hm = H.filter(p => p.mom !== null), hLm = hm[hm.length - 1];
   const cm = C.inpcCore ? C.inpcCore.filter(p => p.mom !== null) : null, cLm = cm ? cm[cm.length - 1] : null;
   const ann = (pts, m) => (Math.pow(pts[pts.length - 1].v / pts[pts.length - 1 - m].v, 12 / m) - 1) * 100;

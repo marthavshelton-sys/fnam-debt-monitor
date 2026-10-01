@@ -74,6 +74,13 @@ dashboards, everything built from public data by GitHub Actions.
 - Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
   sources publish weekdays). A run commits only when data changed.
 - When working on one page, do not touch another page's workflow or scripts.
+- Hourly `data-watchdog.yml` (`scripts/watchdog/`, runbook `tools/watchdog/README.md`) judges each dashboard's
+  last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
+  landing page's "Last successful data refresh" panel and the company pages' header dots
+  (`site/assets/data-status.js`) read it. A late dashboard whose pipeline has not alerted gets a
+  "SOURCE DOWN: watchdog - ..." issue (emailed). Nothing on the site is called "live": a dashboard shows as
+  "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
+  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.
@@ -188,6 +195,13 @@ dashboards, everything built from public data by GitHub Actions.
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
+- Fiscal dashboards (owner's rules, 2026-10-01): every block says "Data through <date>" (never "live"); every figure
+  carries a Reported / FNAM calculation / FNAM estimate badge and an ⓘ with its source and date
+  (`site/assets/provenance.js`, shared); a data point past its allowance turns amber in the reader's browser and a
+  value the last download did not return is labeled as stored, never shown silently; no placeholder ("—", typed-in
+  fallback dates) may render; INPC variants (monthly vs. first-half-month, original vs. seasonally adjusted) are
+  always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny: amber after 2 U.S. business days) and
+  `tools/mx-fiscal/freshness.json`; details in each page's runbook/MEMORY.
 - US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
   (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
   runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's

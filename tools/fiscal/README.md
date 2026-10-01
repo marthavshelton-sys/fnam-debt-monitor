@@ -76,6 +76,18 @@ takes down the run or the other series.
 
 ### The freshness check
 
+The allowances live in `site/fiscal/freshness-rules.js` (one table, read by both this script and the
+page). Debt to the Penny is measured in U.S. business days (federal holidays excluded, computed in
+`site/assets/provenance.js`): amber after **2 business days** without a new close; the rest in calendar days
+after the end of the period. In the reader's browser, `site/fiscal/blocks.js` applies the same table: every
+card gets "Data through <date>", a Reported / FNAM calculation / FNAM estimate badge, an ⓘ with the
+source and date of each figure, the source in every chart tooltip, and an amber flag when a point is past
+its allowance or when `data.js` has no value for it and the page is showing the values stored in its code
+("Not refreshed: showing stored values" — never silent). Test a date with `?asof=YYYY-MM-DD`. A sentence
+that needs a fetched date (the whole-trillion milestone) stays hidden until the date exists; no typed-in
+fallback. The customs-duties chart (`tariffTrend`) is typed into the page: `blocks.js` says so and turns it
+amber when BEA's next annual figure is overdue; update `TARIFF_LAST` there with the series.
+
 `scripts/fiscal/check-freshness.mjs` runs after every refresh (and locally: `node
 scripts/fiscal/check-freshness.mjs --now 2026-09-29`). It lists every data point with its
 date, age and the allowance for its publication cadence, and cross-checks the figures that must
@@ -145,19 +157,18 @@ and Treasury), the Fed, Treasury, the Atlanta Fed and CNBC answer normally.
   the snapshot predates the latest FOMC decision (its date comes from `targetRange.since`); the
   callout is composed from the same odds as the chart in both languages, never hand-written;
   `calloutEn`/`calloutEs` in the monthly file are ignored.
-- Footer: the `data.js` write time in UTC and Mexico City time; the as-of row opens with the same
-  time in Mexico City.
-- Header KPI strip: six tiles (total debt, held by the public, live debt-to-GDP, FYTD gross
+- Footer: the `data.js` write time in UTC and Mexico City time.
+- Header KPI strip: six tiles (total debt, held by the public, latest debt-to-GDP, FYTD gross
   interest with net under it, average rate, FYTD deficit from MTS with the same months a year
-  earlier). Spanish units ("billones") are set smaller so a value stays on one line.
-- Header notice (`#dataWarn`, both languages): shown when `data.js` was written more than 36 hours
-  ago (two refreshes missed), when a feed is older than its publisher's schedule (Debt to the Penny
-  and the policy rates: more than 2 business days, EFFR 3, counting U.S. federal holidays computed
-  from their statutory rules; H.4.1 12 days; MTS 55; average rates and MSPD 45; GDP 135 days after
-  the quarter; TIC 80 days after the month; FedWatch 14), or when the data files did not load.
+  earlier); `blocks.js` adds each tile's data date and kind. Spanish units ("billones") are set
+  smaller so a value stays on one line.
+- Header notice (`#dataWarn`, both languages, written by `blocks.js` from `freshness-rules.js`, the
+  same table as the amber flags and the freshness check): every data point past its allowance with
+  its date and age, and a `data.js` older than 36 hours (two refreshes missed). When the data files
+  did not load, the page writes its own notice instead.
 - Section 10 dates: the administered rates (IORB, ON RRP, discount) are labelled "in force since"
   the FOMC decision and the effective federal funds rate "as of" its own date (the New York Fed
-  publishes it the next business day); the as-of row says the same.
+  publishes it the next business day).
 - Every chart canvas gets `role="img"` and an `aria-label` from its card title and caption, in the
   current language.
 

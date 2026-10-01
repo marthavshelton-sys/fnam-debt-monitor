@@ -1,0 +1,31 @@
+{
+  "_readme": [
+    "Freshness allowances for every series in site/mx/fiscal/data.js. One file feeds three readers: scripts/mx-fiscal/fetch.mjs",
+    "embeds it in data.js (MX_DATA.freshness), the page turns a block amber in the reader's browser when a series is older than",
+    "its allowance, and scripts/mx-fiscal/check-freshness.mjs fails the workflow and opens the mx-fiscal-health issue.",
+    "`bd` = Mexican business days after the observation date (daily series); `days` = calendar days after the END of the",
+    "stamped period (weekly, monthly, quarterly). An allowance is the publisher's normal lag plus a margin: past it, a newer",
+    "figure exists that the fetch has failed to pick up. `byFreq` applies unless the key has its own entry in `bySeries`.",
+    "Calibrated on 2026-10-01 against the observed lags in data.js."
+  ],
+  "byFreq": {
+    "D": { "bd": 2, "why": "Banxico SIE daily series (target rate, TIIE, FIX, UDI) carry the previous business day by the 19:30 UTC run" },
+    "W": { "days": 12, "why": "weekly balance sheet and reserves (Tuesday for the previous Friday), weekly Cetes auctions" },
+    "M": { "days": 66, "why": "SHCP monthly public finances: last business day of the following month (~30 days), plus a margin" },
+    "Q": { "days": 150, "why": "quarterly accounts: INEGI nominal GDP ~55 days after the quarter, the next one ~90 days later" }
+  },
+  "bySeries": {
+    "vgTotal": { "bd": 10, "why": "Banxico publishes holdings of government securities with a lag of about 6 to 8 business days" },
+    "vgResidentes": { "bd": 10 }, "vgExtranjero": { "bd": 10 }, "vgSiefores": { "bd": 10 }, "vgSocInversion": { "bd": 10 },
+    "vgBancos": { "bd": 10 }, "vgAseguradoras": { "bd": 10 }, "vgOtrosRes": { "bd": 10 }, "vgReportosBanxico": { "bd": 10 },
+    "vgGarantiasBanxico": { "bd": 10 }, "vgBanxico": { "bd": 10 }, "vgCetes": { "bd": 10 }, "vgBonos": { "bd": 10 },
+    "vgUdibonos": { "bd": 10 }, "vgBondesF": { "bd": 10 }, "vgBondesD": { "bd": 10 }, "vgBondesG": { "bd": 10 },
+    "vgCetesExt": { "bd": 10 }, "vgBonosExt": { "bd": 10 }, "vgUdibonosExt": { "bd": 10 }, "vgBondesFExt": { "bd": 10 },
+    "cetes364": { "days": 17, "why": "the 364-day Cetes are auctioned every other week" },
+    "inpc": { "days": 45, "why": "INEGI publishes the monthly INPC around the 9th of the following month" },
+    "inpcAnual": { "days": 45 },
+    "vgPlazoPromedio": { "days": 45, "why": "monthly, published early in the following month" },
+    "deudaBrutaSPEA": { "days": 120, "why": "quarterly, SHCP's quarterly report 30 days after the quarter, republished by Banxico" },
+    "deudaNetaLiquidaSPEA": { "days": 120 }
+  }
+}
