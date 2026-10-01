@@ -338,6 +338,7 @@
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 14px; height: 2px; border-radius: 1px; }
+  .legend-swatch.dashed { height: 0; border-radius: 0; border-top: 1.5px dashed var(--text-muted); }
   .chart-wrap { position: relative; }
   .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
   .tooltip {
@@ -2480,6 +2481,8 @@ const I18N = {
 
     annCallout: (m, detail) => "En " + m + ": " + detail,
     gapNoteCPI: m => "Hueco en " + m + ": el BLS no publicó reporte de CPI ese mes.",
+    cmpGapNote: (m, other) => "Las líneas del CPI se interrumpen en " + m + ": el BLS no publicó reporte de CPI ese mes (el " + other + " sí se publicó).",
+    cpiGapLine: m => "La línea del CPI se interrumpe en " + m + ": el BLS no publicó reporte de CPI ese mes.",
     gapNotePCE: m => "Hueco en " + m + ": el BEA no publicó índice de precios PCE ese mes.",
 
     annPandemicLabel: "Pico pospandemia/guerra en Ucrania",
@@ -3501,6 +3504,8 @@ const I18N = {
 
     annCallout: (m, detail) => m + ": " + detail,
     gapNoteCPI: m => "Gap at " + m + ": BLS did not publish a CPI report for that month.",
+    cmpGapNote: (m, other) => "The CPI lines break at " + m + ": BLS did not publish a CPI report for that month (" + other + " was published).",
+    cpiGapLine: m => "The CPI line breaks at " + m + ": BLS did not publish a CPI report for that month.",
     gapNotePCE: m => "Gap at " + m + ": BEA did not publish a PCE price index for that month.",
 
     annPandemicLabel: "Post-pandemic/Ukraine war peak",
@@ -4740,9 +4745,14 @@ function renderDualLineChart(cfg) {
   const axisFmt = cfg.fmtAxis || (v => v + "%");
   const dataA = cfg.seriesA.data || dataset;
   const dataB = cfg.seriesB ? (cfg.seriesB.data || dataset) : null;
-  const aPts = dataA[cfg.seriesA.key].points.filter(p => p[F] !== null && p[F] !== undefined);
-  const bPts = cfg.seriesB ? dataB[cfg.seriesB.key].points.filter(p => p[F] !== null && p[F] !== undefined) : [];
-  const allDates = aPts.map(p => p.d);
+  let aPts = dataA[cfg.seriesA.key].points.filter(p => p[F] !== null && p[F] !== undefined);
+  let bPts = cfg.seriesB ? dataB[cfg.seriesB.key].points.filter(p => p[F] !== null && p[F] !== undefined) : [];
+  if (aPts.length && bPts.length) {
+    const start = aPts[0].d > bPts[0].d ? aPts[0].d : bPts[0].d;
+    aPts = aPts.filter(p => p.d >= start); bPts = bPts.filter(p => p.d >= start);
+  }
+  const allDates = Array.from(new Set(aPts.map(p => p.d).concat(bPts.map(p => p.d)))).sort();
+  const pos = new Map(allDates.map((d, i) => [d, i]));
   const n = allDates.length;
 
   const allVals = aPts.map(p=>p[F]).concat(bPts.map(p=>p[F])).concat(cfg.showTarget ? [2] : []);
@@ -4766,9 +4776,11 @@ function renderDualLineChart(cfg) {
   const yVal = v => MT + plotH - ((v - minV) / (maxV - minV)) * plotH;
 
   function pathFromPts(points) {
-    return points.map((p,i) => {
-      const idx = allDates.indexOf(p.d);
-      return (i===0?"M":"L") + xIdx(idx).toFixed(1) + "," + yVal(p[F]).toFixed(1);
+    let prev = -2;
+    return points.map(p => {
+      const idx = pos.get(p.d), cmd = idx === prev + 1 ? "L" : "M";
+      prev = idx;
+      return cmd + xIdx(idx).toFixed(1) + "," + yVal(p[F]).toFixed(1);
     }).join(" ");
   }
 
@@ -4825,7 +4837,7 @@ function renderDualLineChart(cfg) {
     path.setAttribute("stroke-linecap","round");
     svg.appendChild(path);
     const last = points[points.length-1];
-    const lastIdx = allDates.indexOf(last.d);
+    const lastIdx = pos.get(last.d);
     const ring = document.createElementNS(ns,"circle");
     ring.setAttribute("cx", xIdx(lastIdx)); ring.setAttribute("cy", yVal(last[F])); ring.setAttribute("r","5");
     ring.setAttribute("fill","var(--surface-1)");
@@ -4840,7 +4852,7 @@ function renderDualLineChart(cfg) {
 
   if (cfg.showTarget) {
     const targetY = yVal(2), lw = T.fedTarget.length * 5.9 + 8, lh = 13;
-    const pts = aPts.concat(bPts).map(p => { const xi = allDates.indexOf(p.d); return xi < 0 ? null : { x: xIdx(xi), y: yVal(p[F]) }; }).filter(Boolean);
+    const pts = aPts.concat(bPts).map(p => ({ x: xIdx(pos.get(p.d)), y: yVal(p[F]) }));
     let best = { score: -Infinity, x: W - MR - lw - 2, above: true };
     for (let x0 = ML + 4; x0 <= W - MR - lw - 2; x0 += 20) {
       [true, false].forEach(above => {
@@ -4906,7 +4918,8 @@ function renderDualLineChart(cfg) {
   const legend = cfg.legendId ? document.getElementById(cfg.legendId) : null;
   if (legend) legend.innerHTML =
     `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesA.colorVar})"></span>${cfg.seriesA.label}</div>` +
-    (cfg.seriesB ? `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesB.colorVar})"></span>${cfg.seriesB.label}</div>` : "");
+    (cfg.seriesB ? `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesB.colorVar})"></span>${cfg.seriesB.label}</div>` : "") +
+    (cfg.showTarget ? `<div class="legend-item"><span class="legend-swatch dashed"></span>${T.fedTarget}</div>` : "");
 
 
   if (cfg.calloutId) {
@@ -5403,9 +5416,12 @@ renderDualLineChart({
   const pceHousing = PCE_WEIGHTS.majorGroups.find(g=>g.id==="housing").w;
   const cpiMed = WEIGHTS.majorGroups.find(g=>g.id==="SAM").w;
   const pceHealth = PCE_WEIGHTS.majorGroups.find(g=>g.id==="health").w;
+  const pceMonths = new Set(PCE["L1"].points.filter(p => p.yoy !== null).map(p => p.d));
+  const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && pceMonths.has(p.d)).map(p => fmtMonthYear(p.d));
   document.getElementById("cmpCallout").innerHTML =
     "<div>" + T.cmpLine1(fmtPct(cpiLatest.yoy), fmtPct(pceLatest.yoy), fmtMonthYear(cpiLatest.d)) + "</div>" +
-    "<div>" + T.cmpLine2(cpiHousing.toFixed(1), pceHousing.toFixed(1), cpiMed.toFixed(1), pceHealth.toFixed(1)) + "</div>";
+    "<div>" + T.cmpLine2(cpiHousing.toFixed(1), pceHousing.toFixed(1), cpiMed.toFixed(1), pceHealth.toFixed(1)) + "</div>" +
+    (cpiGap.length ? "<div>" + T.cmpGapNote(cpiGap.join(", "), "PCE") + "</div>" : "");
 })();
 
 renderDualLineChart({
@@ -5752,10 +5768,13 @@ function renderPPI() {
   const cpiAt = CPI["CUUR0000SA0"].points.find(p => p.d === headline.d);
   if (cpiAt && cpiAt.yoy !== null) {
     const gap = headline.yoy - cpiAt.yoy;
+    const ppiMonths = new Set(PPI["WPUFD4"].points.filter(p => p.yoy !== null).map(p => p.d));
+    const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && ppiMonths.has(p.d)).map(p => fmtMonthYear(p.d));
     document.getElementById("ppiCmpCallout").innerHTML =
       "<div>" + T.ppiCmpLine1(fmtPct(headline.yoy), fmtPct(cpiAt.yoy), fmtMonthYear(headline.d)) + " " +
                 T.ppiCmpLine2(gap >= 0 ? "above" : "below", Math.abs(gap).toFixed(1)) + "</div>" +
-      "<div>" + T.ppiCmpMethod + "</div>";
+      "<div>" + T.ppiCmpMethod + "</div>" +
+      (cpiGap.length ? "<div>" + T.cmpGapNote(cpiGap.join(", "), "PPI") + "</div>" : "");
   }
 
   renderDualLineChart({
@@ -6814,10 +6833,13 @@ function renderPayrolls() {
   const cpiLast = cpiPts[cpiPts.length-1];
   if (aheYoYLatest && cpiLast) {
     const realGap = aheYoYLatest.v - cpiLast.yoy;
+    const aheMonths = new Set(aheYoY.map(p => p.d));
+    const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && aheMonths.has(p.d)).map(p => fmtMonthYear(p.d));
     document.getElementById("pyWagesCallout").innerHTML =
       "<div>" + T.pyWagesNote(fmtPct(aheYoYLatest.v), fmtPct(cpiLast.yoy),
                               Math.abs(realGap).toFixed(1),
-                              realGap >= 0 ? T.wagesAhead : T.wagesBehind) + "</div>";
+                              realGap >= 0 ? T.wagesAhead : T.wagesBehind) + "</div>" +
+      (cpiGap.length ? "<div>" + T.cpiGapLine(cpiGap.join(", ")) + "</div>" : "");
   }
 
   const unempAt = {};
@@ -7016,8 +7038,9 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     }
   });
   const legend = legendId ? document.getElementById(legendId) : null;
-  if (legend) legend.innerHTML = series.map(s =>
-    `<div class="legend-item"><span class="legend-swatch" style="background:var(${s.color})"></span>${s.name}</div>`).join("");
+  if (legend) legend.innerHTML = series.map(s => s.dashed
+    ? `<div class="legend-item"><span class="legend-swatch dashed" style="border-top-color:var(${s.color})"></span>${s.name}</div>`
+    : `<div class="legend-item"><span class="legend-swatch" style="background:var(${s.color})"></span>${s.name}</div>`).join("");
 
   const tooltip = tooltipId ? document.getElementById(tooltipId) : null;
   if (tooltip) {
@@ -7726,10 +7749,12 @@ function renderCuts() {
               Math.round((top3.reduce((a,b)=>a+b.value,0)/indTotal)*100), nf(indTotal), nf(latest.v)) + "</div>";
 
   const thisYear = C.asOfMonth.slice(0, 4), lastYear = String(+thisYear - 1);
-  const hLabels = C.hiringThisYear.map((_,i) => String(i+1).padStart(2,"0"));
+  const hN = Math.max(C.hiringThisYear.length, (C.hiringLastYear || []).length);
+  const hLabels = Array.from({ length: hN }, (_, i) => String(i + 1).padStart(2, "0"));
+  const hPad = arr => Array.from({ length: hN }, (_, i) => arr && arr[i] !== undefined ? arr[i] : null);
   plotSeries("cutsHiringChart","cutsHiringTooltip","cutsHiringLegend", hLabels, [
-    {name:thisYear, color:"--series-category", data:C.hiringThisYear},
-    {name:lastYear, color:"--text-muted", data:C.hiringLastYear, dashed:true}
+    {name:thisYear, color:"--series-category", data:hPad(C.hiringThisYear)},
+    {name:lastYear, color:"--text-muted", data:hPad(C.hiringLastYear), dashed:true}
   ], {fmt: v => nf(v), labelFmt: m => T.months[parseInt(m,10)-1]});
   document.getElementById("cutsHiringCallout").innerHTML =
     "<div>" + T.cutsHiringNote(nf(C.ytdHiring), nf(C.ytdHiringLastYear), pctChg(C.ytdHiring, C.ytdHiringLastYear)) + "</div>";

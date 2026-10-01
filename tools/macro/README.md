@@ -267,8 +267,8 @@ After every refresh, `.github/workflows/macro-live-check.yml` (ubuntu runner) ru
   script errors or failed requests, no "undefined"/"NaN" or raw markup in the text,
   the four "At a glance" lines filled, the section's own title, description,
   canonical and hreflang, every chart labelled for screen readers, every sparkline
-  drawn, every image loaded, chart text inside its panel, no Spanish regressions
-  (English glosses, capitalised months).
+  drawn, every image loaded, chart text inside its panel, every line inside its
+  chart, no Spanish regressions (English glosses, capitalised months).
 - **Layout:** phones at 390 and 360 px, light and dark: no text below 11 px and
   nothing wider than the screen; desktops at 1280 and 1024 px: no sideways scroll.
 - **Navigation:** an unknown `?view=` shows the "Section Not Found" state (every
