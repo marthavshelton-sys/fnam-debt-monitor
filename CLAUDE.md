@@ -74,7 +74,8 @@ dashboards, everything built from public data by GitHub Actions.
 - Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
   sources publish weekdays). A run commits only when data changed.
 - When working on one page, do not touch another page's workflow or scripts.
-- Hourly `data-watchdog.yml` (`scripts/watchdog/`, runbook `tools/watchdog/README.md`) judges each dashboard's
+- `data-watchdog.yml`, every 12 hours at 03:50 and 15:50 UTC (owner's choice, to limit deploys; `scripts/watchdog/`,
+  runbook `tools/watchdog/README.md`), judges each dashboard's
   last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
   landing page's "Last successful data refresh" panel and the company pages' header dots
   (`site/assets/data-status.js`) read it. A late dashboard whose pipeline has not alerted gets a

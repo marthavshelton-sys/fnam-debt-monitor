@@ -1,13 +1,13 @@
 # Data-refresh watchdog
 
-Answers one question every hour: has each dashboard's scheduled refresh landed on time? Its verdict is the
+Answers one question every 12 hours: has each dashboard's scheduled refresh landed on time? Its verdict is the
 only basis on which the site shows a dashboard as up to date ("Al día"); the site calls nothing "live".
 
 ## Pieces
 
 | File | Role |
 |---|---|
-| `.github/workflows/data-watchdog.yml` | Hourly at :12 UTC (and by hand, with a `dry_run` input). Read-only on every other workflow. |
+| `.github/workflows/data-watchdog.yml` | Every 12 hours, 03:50 and 15:50 UTC (21:50 and 09:50 in Mexico City), each just after a batch of refreshes; also by hand, with a `dry_run` input. Read-only on every other workflow. |
 | `scripts/watchdog/check.mjs` | Reads the Actions run history and open issues through the GitHub API, writes the verdicts, opens/closes alert issues. |
 | `scripts/watchdog/lib.mjs`, `selftest.mjs` | Cron matching and the rules; the self-test runs before every check. |
 | `tools/watchdog/dashboards.json` | Dashboard → workflow(s) and the alert labels of its own pipeline; grace and heartbeat hours. |
@@ -25,8 +25,10 @@ only basis on which the site shows a dashboard as up to date ("Al día"); the si
 - **Alert**: on time, but an issue carrying one of the dashboard's `alertLabels` is open (`macro-source-down`,
   `macro-live-check`, `fiscal-health`, `mx-fiscal-health`, `mx-macro-health`).
 - **Up to date** (`ok`, shown as "Al día"): on time, no alert open.
-- The pages treat a status file whose `checkedAt` is more than 8 hours old as **unverified** for every dashboard
-  (the watchdog rewrites it at least every 4 hours), so a stopped watchdog can never leave a stale "Al día" behind.
+- The pages treat a status file whose `checkedAt` is more than 14 hours old as **unverified** for every dashboard
+  (the watchdog rewrites it at every check: `heartbeatHours` is 11), so a stopped watchdog can never leave a stale
+  "Al día" behind. The owner chose the 12-hour cadence (1-Oct-2026) to keep Cloudflare deploys to about two a day;
+  the cost is that the panel and an alarm can trail a refresh by up to 12 hours.
 
 ## Alarm
 

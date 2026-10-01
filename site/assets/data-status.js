@@ -1,5 +1,5 @@
-// Data-refresh status for fnam.mx pages. Reads /status/refresh.json, which the hourly watchdog
-// (.github/workflows/data-watchdog.yml; runbook tools/watchdog/README.md) writes, and exposes the verdict
+// Data-refresh status for fnam.mx pages. Reads /status/refresh.json, which the watchdog (every 12 hours,
+// .github/workflows/data-watchdog.yml; runbook tools/watchdog/README.md) writes, and exposes the verdict
 // per dashboard. A verdict counts only while the watchdog keeps reporting: a missing file, or one older
 // than STALE_HOURS, makes every dashboard "unverified", so nothing is shown as up to date on old evidence.
 // The site calls nothing "live" (owner's rule); "Al día / Up to date" is the verified state.
@@ -13,7 +13,7 @@
 // own CSS keeps it neutral.
 (function () {
   'use strict';
-  var STALE_HOURS = 8;
+  var STALE_HOURS = 14;   // one 12-hour check interval plus two hours for GitHub's schedule delays
   var MON = {
     es: ['ene', 'feb', 'mar', 'abr', 'may', 'jun', 'jul', 'ago', 'sep', 'oct', 'nov', 'dic'],
     en: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
