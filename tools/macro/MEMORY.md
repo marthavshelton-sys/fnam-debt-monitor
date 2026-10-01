@@ -23,7 +23,32 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   the header said 18-Sep while DOE's report below showed 25-Sep). DOE's figures come from
   OCR of the image (`spr_image_ocr.py`); if they fail the checks the page falls back to EIA only.
 - **Sections are links** (`?view=…&lang=…`) with pushState history and per-section
-  metadata; an unknown `?view=` shows a notice and the first section.
+  metadata. An unknown `?view=` gets "Section not found" (owner, 30-Sep-2026: falling
+  back to CPI was a defect): the address as typed, every section as a link, `noindex`,
+  and a real 404 from `functions/macro/_middleware.js`, whose `VIEWS` list both
+  builders check against the navigation. Adding or renaming a section means updating
+  that list. Site-wide, `site/404.html` (status 404) replaced Cloudflare's SPA fallback,
+  which had answered every unknown address with the home page and 200; the internal
+  links were scanned first and none depended on the fallback.
+- **Weekly "next" dates are the release after the one shown**, from the publisher's
+  calendar: NFCI = FRED release 221 (Wednesdays 8:30 ET; Thursday after a Monday
+  holiday, e.g. 15-Oct and 12-Nov-2026), mortgage = FRED release 190 (Freddie Mac PMMS,
+  Thursdays 12:00 ET; Wednesday 25-Nov-2026), EIA = its holiday table on
+  eia.gov/petroleum/supply/weekly/schedule.php. Never "next Wednesday from today": that
+  rule printed 30-Sep as "next" on 30-Sep, after the 30-Sep NFCI was already shown.
+- **SPR weekly comes from the WPSR's own Table 1 workbook** (`ir.eia.gov/wpsr/psw01.xls`,
+  column WCSSTUS1), posted at the 10:30 ET release; the series-page workbook
+  (`dnav/pet/hist_xls/WCSSTUS1w.xls`) carries identical figures (2,296 weeks, 0
+  differences on 30-Sep-2026) but is served only in the afternoon: on 30-Sep the runs at
+  14:51 and 16:52 UTC still got the 23-Sep file although its Last-Modified said 14:43 UTC
+  (built in the morning, published later). It stays as the fallback. Wednesday runs at
+  14:45 and 15:45 UTC pick the report up.
+- **Each figure carries its own date**: target (same day), effective rate (next business
+  day) and mortgage (weekly) are dated separately; one date for all three printed
+  "7.03% (30-Sep-2026)" for a 24-Sep reading.
+- **BEA's annual update is announced on the page** for 120 days (`revisions` in
+  `gdp_processed.json`, written by `Get-HistoryRevision`). The 30-Sep-2026 record was
+  computed from the committed data before (9af7c7f) and after (a1705bf) the update.
 - **Challenger is automated** (`process_challenger.ps1` reads the PDF); the page
   notice and badge say so. Do not reintroduce "entered by hand".
 - **GDP estimate name** = GDP release dates after the quarter's end (FRED calendar,
@@ -69,6 +94,13 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   Friday (DFEDTARU showed 02-Oct on 29-Sep).
 - The Spanish "sólo" appears only as "solo" (RAE); "derbi", "hostelería" and English
   "grey" are gone. `exFiLatest` starts "En ago 2026:" so no month is capitalised.
+- Signed figures: never `(v >= 0 ? "+" : "") + v.toFixed(d)`, which prints "-0.0" for
+  -0.03; use `sgnFix(v, d)` and, for tile arrows, `deltaArrow(v, d)`.
+- On pwsh 7, `Headers["Last-Modified"]` is a string array and the date parse fails;
+  on the runner (5.1) it is a string. Test processors with that in mind.
+- Headings: this page keeps Spanish headings in sentence case (its own convention,
+  `titleCaseHeadings` is English-only); site-wide pages such as `site/404.html` follow
+  CLAUDE.md's Title Case in both languages.
 
 ## Open items
 
@@ -89,6 +121,10 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   $773,947M to $737,763M (-4.7%) and every month since Aug-2024 by 3.4-4.7%. FactSet's
   CENRETAIL&FS@US still showed the pre-revision $773,947M, so the gap was FactSet lagging,
   not the page. The revision alert reported it once.
+- After the first runner run with this change: the log of `process_calendar.ps1` shows
+  `nfci` and `mortgage` with a next date (if FRED gives none, the page says "expected"),
+  `process_spr.ps1` says it used the WPSR workbook and lists EIA's holiday exceptions,
+  and the next Wednesday's 14:45 or 15:45 UTC run commits the new SPR week.
 - Page weight is now ~1.0 MB raw (~290 KB gzip), mostly packed data. The next step
   would be per-section data files loaded on demand, which changes the build,
   `exec_extract.js` and `alerts.ps1` together.

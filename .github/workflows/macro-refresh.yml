@@ -8,6 +8,11 @@
 # is committed); the 14:05 run is the safety net in either season; 20:05
 # catches afternoon releases and same-day revisions. Weekend runs pick up
 # anything posted off-cycle (Shiller's file, DOE's inventory report).
+# Two weekly releases get their own runs: EIA's petroleum report (Wednesdays
+# 10:30 ET) at 14:45 and 15:45 UTC on Wednesdays - 10:45 and 11:45 ET in
+# daylight time, 09:45 (a no-op) and 10:45 ET in winter - and, for EIA's
+# holiday weeks (Thursday, 12:00 ET) and Freddie Mac's mortgage survey
+# (Thursdays, 12:00 ET), 17:20 UTC on Thursdays.
 #
 # This job only ever writes site/macro/index.html, site/macro/spr-inventory.jpg,
 # site/macro/status.json and tools/macro/data/**; it never touches another
@@ -18,6 +23,8 @@ on:
   schedule:
     - cron: "50 12 * * 1-5"
     - cron: "5 14,20 * * *"
+    - cron: "45 14,15 * * 3"
+    - cron: "20 17 * * 4"
   workflow_dispatch:
   push:
     branches: [main]

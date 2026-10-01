@@ -60,6 +60,9 @@ dashboards, everything built from public data by GitHub Actions.
   its own reservation system limited to the destinations its site publishes. See the runbook.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
+- `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
+  Pages' single-page fallback served the home page with 200). Links inside it are absolute. `site/favicon.ico` is the
+  site's "F" mark; pages carry the same mark as a data-URI icon.
 
 ## Scheduled refreshes — rules that apply to every pipeline
 
@@ -100,6 +103,10 @@ dashboards, everything built from public data by GitHub Actions.
   (closed on recovery), which the same routine emails, and fails the run. After every refresh
   `macro-live-check.yml` loads https://fnam.mx/macro/ in Chromium (the deploy is main's page; every section, ES and
   EN, desktop and phone) and a failure opens one "LIVE CHECK FAILED: US macro - ..." issue, emailed the same way.
+  An unknown `?view=` shows "Section not found" and answers 404 through `functions/macro/_middleware.js`, whose
+  section list both builders check against the page. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
+  from the publishers' calendars and are always the release after the one shown; extra refresh runs on Wednesdays
+  (14:45, 15:45 UTC) and Thursdays (17:20 UTC) catch EIA's and Freddie Mac's releases.
 - IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
   IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
   `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's
