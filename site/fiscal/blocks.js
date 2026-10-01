@@ -114,7 +114,7 @@
     { at:'fedEras', ids:['walcl','fedBalanceSheet'], k:'R' },
     { at:'chartFedComposition', ids:['fedBalanceSheet'], k:'R' },
     { at:'tacctAssets', ids:['fedBalanceSheet'], k:'R' },
-    { at:'chartFundsRate', ids:['effr'], k:'R', note:T('promedios anuales; el último punto es la EFFR más reciente','annual averages; the last point is the latest EFFR') },
+    { at:'chartFundsRate', ids:['effr'], k:'R', note:T('cierre de año (promedio mensual de diciembre de FEDFUNDS), años seleccionados; el último punto es la EFFR diaria más reciente','year-end (December FEDFUNDS monthly average), selected years; the last point is the latest daily EFFR') },
     { at:'corridorWrap', ids:['targetRange','iorb','onrrp','discount','effr'], k:'R' },
     { at:'chartFedWatch', ids:['fedWatch'], k:'R', note:T('probabilidades implícitas en futuros calculadas por CME y reportadas por la prensa','futures-implied probabilities computed by CME and reported by the press') }
   ]; }

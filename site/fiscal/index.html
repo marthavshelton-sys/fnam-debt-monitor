@@ -169,7 +169,7 @@ nav.jump a.active{color:var(--accent-ink); border-bottom-color:var(--accent);}
 
 /* ---------- Sections ---------- */
 main{padding:44px 0 20px;}
-section.block{padding:46px 0; border-top:1px solid var(--border);}
+section.block{padding:46px 0; border-top:1px solid var(--border); scroll-margin-top:var(--jump-h,92px);}
 section.block:first-of-type{border-top:none;}
 .sec-head{display:flex; align-items:baseline; gap:12px; margin-bottom:6px;}
 .sec-num{font-family:"Source Serif 4",serif; font-size:14px; font-weight:700; color:var(--accent-ink); background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:6px; padding:1px 8px;}
@@ -227,7 +227,7 @@ table tr.bold td{font-weight:700;}
 .stat .l{font-size:11.5px; color:var(--muted); margin-top:2px;}
 
 /* ---------- Footer ---------- */
-footer{border-top:1px solid var(--border); background:var(--surface); padding:36px 0 44px; margin-top:10px;}
+footer{border-top:1px solid var(--border); background:var(--surface); padding:36px 0 44px; margin-top:10px; scroll-margin-top:var(--jump-h,92px);}
 footer h3{font-size:13px; text-transform:uppercase; letter-spacing:.05em; color:var(--muted); font-family:Inter; font-weight:700;}
 .src-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:16px 28px; margin-top:16px;}
 @media (max-width:800px){.src-grid{grid-template-columns:1fr;}}
@@ -266,13 +266,15 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
 .corridor .legend .val{margin-left:auto; font-variant-numeric:tabular-nums; font-weight:700; color:var(--text-primary); flex:0 0 auto; padding-left:10px;}
 
 /* ---------- Instrument cards ---------- */
-.instr-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-top:22px;}
-@media (max-width:900px){.instr-grid{grid-template-columns:repeat(2,1fr);}}
+.instr-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin-top:22px;}
+@media (max-width:900px){.instr-grid{grid-template-columns:repeat(2,minmax(0,1fr));}}
 @media (max-width:640px){.instr-grid{grid-template-columns:1fr;}}
-.instr{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 17px; box-shadow:var(--shadow); display:flex; flex-direction:column;}
-.instr .ihead{display:flex; justify-content:space-between; align-items:flex-start; gap:8px;}
+.instr{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:16px 17px; box-shadow:var(--shadow); display:flex; flex-direction:column; min-width:0;}
+canvas{max-width:100%;}
+.instr .ihead{display:flex; flex-wrap:wrap; justify-content:space-between; align-items:flex-start; gap:6px 8px;}
+.instr .ihead h4{flex:1 1 150px; min-width:0;}
 .instr h4{font-size:14px; font-weight:700; font-family:Inter,sans-serif; color:var(--text-primary);}
-.instr .pill{flex:0 0 auto; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:100px; white-space:nowrap;}
+.instr .pill{flex:0 1 auto; max-width:100%; overflow-wrap:anywhere; font-size:11px; font-weight:700; letter-spacing:.03em; text-transform:uppercase; padding:2px 8px; border-radius:100px; white-space:nowrap;}
 .instr .pill.since{color:var(--muted); background:var(--surface-2); border:1px solid var(--border);}
 .instr p{font-size:12.6px; color:var(--text-secondary); line-height:1.55; margin-top:8px;}
 .instr .metric{margin-top:12px; padding-top:10px; border-top:1px solid var(--grid); display:flex; justify-content:space-between; align-items:baseline; gap:8px;}
@@ -884,7 +886,7 @@ html.no-data canvas{display:none !important;}
     <div class="grid-2">
       <div class="card">
         <h3><span class="en" hidden>Effective Federal Funds Rate</span><span class="es">Tasa de fondos federales efectiva</span></h3>
-        <p class="cap"><span class="en" hidden>Monthly average, percent, 2000–2024; the last point is the latest daily effective rate (<span data-bind="effrAsOfEn">30-Sep-2026</span>)</span><span class="es">Promedio mensual, porcentaje, 2000–2024; el último punto es la tasa efectiva diaria más reciente (<span data-bind="effrAsOfEs">30 de sep. de 2026</span>)</span></p>
+        <p class="cap"><span class="en" hidden>Year-end (December) monthly average, percent, selected years 2000–2024; the last point is the latest daily effective rate (<span data-bind="effrAsOfEn">30-Sep-2026</span>)</span><span class="es">Promedio mensual de diciembre (cierre de año), porcentaje, años seleccionados 2000–2024; el último punto es la tasa efectiva diaria más reciente (<span data-bind="effrAsOfEs">30 de sep. de 2026</span>)</span></p>
         <div class="chart-wrap"><canvas id="chartFundsRate"></canvas></div>
         <p class="chart-src"><span class="en" hidden>Source: Federal Reserve Board via FRED, <a href="https://fred.stlouisfed.org/series/FEDFUNDS" target="_blank" rel="noopener">FEDFUNDS ↗</a></span><span class="es">Fuente: Junta de la Reserva Federal vía FRED, <a href="https://fred.stlouisfed.org/series/FEDFUNDS" target="_blank" rel="noopener">FEDFUNDS ↗</a></span></p>
       </div>
@@ -1379,7 +1381,7 @@ html.no-data canvas{display:none !important;}
 
   var fundsRate = {
     labels:["2000","2003","2006","2007","2008","2010","2015","2018","2019","2020","2022","2023","2024","2026"],
-    values:[5.45,0.98,5.24,4.24,0.16,0.18,0.24,2.27,1.55,0.09,4.10,5.33,4.48,3.63]
+    values:[6.40,0.98,5.24,4.24,0.16,0.18,0.24,2.27,1.55,0.09,4.10,5.33,4.48,3.63]
   };
 
   var corridor = [
@@ -2885,9 +2887,16 @@ html.no-data canvas{display:none !important;}
   document.getElementById('btnLangEn').addEventListener('click', function(){ setTimeout(updateNavFade, 0); });
   document.getElementById('btnLangEs').addEventListener('click', function(){ setTimeout(updateNavFade, 0); });
   updateNavFade();
+  // The sticky nav wraps to 2-3 rows on desktop; anchored sections stop just below its real height.
+  (function(){
+    var nav = document.querySelector('nav.jump');
+    function setJumpH(){ document.documentElement.style.setProperty('--jump-h', Math.ceil(nav.getBoundingClientRect().height)+'px'); }
+    setJumpH();
+    if(window.ResizeObserver) new ResizeObserver(setJumpH).observe(nav); else window.addEventListener('resize', setJumpH);
+  })();
   var activeIdx = -1;
   window.addEventListener('scroll', function(){
-    var y = window.scrollY + 90;
+    var y = window.scrollY + (document.querySelector('nav.jump').offsetHeight || 92) + 8; // past the nav-height scroll-margin-top of section.block
     var idx = 0;
     secs.forEach(function(s,i){ if(s && s.offsetTop <= y) idx = i; });
     if(idx === activeIdx) return;
