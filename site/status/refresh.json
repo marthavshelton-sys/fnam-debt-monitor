@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-01T05:09:08Z",
+  "checkedAt": "2026-10-01T15:59:36Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -26,12 +26,12 @@
       },
       "url": "/macro/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T20:19:54Z",
+      "lastSuccess": "2026-10-01T14:22:36Z",
       "lastAttempt": {
-        "at": "2026-09-30T20:19:54Z",
+        "at": "2026-10-01T14:22:36Z",
         "result": "success"
       },
-      "requiredSince": "2026-09-30T15:45:00Z",
+      "requiredSince": "2026-09-30T20:05:00Z",
       "alerts": 0
     },
     {
@@ -43,9 +43,9 @@
       },
       "url": "/fiscal/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T21:45:09Z",
+      "lastSuccess": "2026-10-01T13:39:27Z",
       "lastAttempt": {
-        "at": "2026-09-30T21:45:09Z",
+        "at": "2026-10-01T13:39:27Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T13:15:00Z",
@@ -60,12 +60,12 @@
       },
       "url": "/mx/macro/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T19:37:04Z",
+      "lastSuccess": "2026-10-01T12:43:56Z",
       "lastAttempt": {
-        "at": "2026-09-30T19:37:04Z",
+        "at": "2026-10-01T12:43:56Z",
         "result": "success"
       },
-      "requiredSince": "2026-09-30T18:25:00Z",
+      "requiredSince": "2026-09-30T19:25:00Z",
       "alerts": 0
     },
     {
@@ -94,9 +94,9 @@
       },
       "url": "/gap/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T22:47:45Z",
+      "lastSuccess": "2026-10-01T14:42:00Z",
       "lastAttempt": {
-        "at": "2026-09-30T22:47:45Z",
+        "at": "2026-10-01T14:42:00Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T14:30:00Z",
@@ -111,9 +111,9 @@
       },
       "url": "/oma/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T23:00:19Z",
+      "lastSuccess": "2026-10-01T14:58:49Z",
       "lastAttempt": {
-        "at": "2026-09-30T23:00:19Z",
+        "at": "2026-10-01T14:58:49Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T14:45:00Z",
@@ -128,9 +128,9 @@
       },
       "url": "/asur/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T22:57:57Z",
+      "lastSuccess": "2026-10-01T14:53:10Z",
       "lastAttempt": {
-        "at": "2026-09-30T22:57:57Z",
+        "at": "2026-10-01T14:53:10Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T14:40:00Z",
@@ -179,9 +179,9 @@
       },
       "url": "/qualitas/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T23:05:15Z",
+      "lastSuccess": "2026-10-01T15:01:28Z",
       "lastAttempt": {
-        "at": "2026-09-30T23:05:15Z",
+        "at": "2026-10-01T15:01:28Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T14:50:00Z",
@@ -196,9 +196,9 @@
       },
       "url": "/gentera/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T22:59:08Z",
+      "lastSuccess": "2026-10-01T14:55:34Z",
       "lastAttempt": {
-        "at": "2026-09-30T22:59:08Z",
+        "at": "2026-10-01T14:55:34Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T14:35:00Z",
@@ -213,9 +213,9 @@
       },
       "url": "/oracle/",
       "status": "ok",
-      "lastSuccess": "2026-09-30T21:55:14Z",
+      "lastSuccess": "2026-10-01T13:42:53Z",
       "lastAttempt": {
-        "at": "2026-09-30T21:55:14Z",
+        "at": "2026-10-01T13:42:53Z",
         "result": "success"
       },
       "requiredSince": "2026-09-30T13:30:00Z",
