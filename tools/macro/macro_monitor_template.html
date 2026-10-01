@@ -12,6 +12,7 @@
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="en_US">
 <meta name="twitter:card" content="summary">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
@@ -211,6 +212,11 @@
   .rail-item:not(.active) .dot { display: none; }
   .view { display: none; }
   .view.active { display: block; }
+  .nf-group { margin-bottom: 18px; }
+  .nf-group h2 { font-size: 13px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--text-secondary); margin: 0 0 8px; }
+  .nf-links { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 6px 18px; }
+  .nf-links a { font-size: 14px; color: var(--series-single); text-decoration: none; padding: 4px 0; }
+  .nf-links a:hover, .nf-links a:focus-visible { text-decoration: underline; }
   .soon-pill {
     font-size: 9.5px;
     font-weight: 600;
@@ -337,6 +343,7 @@
   .legend { display: flex; flex-wrap: wrap; gap: 6px 16px; font-size: 12px; color: var(--text-secondary); margin-bottom: 4px; }
   .legend-item { display: flex; align-items: center; gap: 6px; }
   .legend-swatch { width: 14px; height: 2px; border-radius: 1px; }
+  .legend-swatch.dashed { height: 0; border-radius: 0; border-top: 1.5px dashed var(--text-muted); }
   .chart-wrap { position: relative; }
   .chart-wrap svg { width: 100%; height: auto; display: block; overflow: visible; }
   .tooltip {
@@ -641,7 +648,15 @@
 
   <main id="main">
   <div id="artNotice"></div>
-  <div class="notice" id="viewNotice" role="status"></div>
+  <div class="view" id="view-notfound">
+    <div class="page-header">
+      <div>
+        <h1 data-i18n="nfTitle">Section Not Found</h1>
+        <div class="desc" id="nfDesc">—</div>
+      </div>
+    </div>
+    <section id="nfList"></section>
+  </div>
   <div class="view active" id="view-cpi">
     <div class="page-header">
       <div>
@@ -1143,6 +1158,7 @@
         <div><a href="https://www.bea.gov/data/gdp/gross-domestic-product" target="_blank" rel="noopener" data-i18n="sourceGDP">Source: BEA national accounts</a></div>
       </div>
     </div>
+    <div class="notice" id="gdpRevNotice" role="note"></div>
 
     <div class="exec" id="exec-gdp"></div>
 
@@ -1200,6 +1216,7 @@
         <div><a href="https://www.bea.gov/data/income-saving/personal-income" target="_blank" rel="noopener" data-i18n="sourceIncome">Source: BEA personal income</a></div>
       </div>
     </div>
+    <div class="notice" id="incRevNotice" role="note"></div>
 
     <div class="exec" id="exec-income"></div>
 
@@ -1365,6 +1382,7 @@
         <div><a href="https://www.bea.gov/data/personal-consumption-expenditures-price-index" target="_blank" rel="noopener" data-i18n="sourceBEA">Source: BEA PCE price index</a></div>
       </div>
     </div>
+    <div class="notice" id="pceRevNotice" role="note"></div>
 
     <div class="exec" id="exec-pce"></div>
 
@@ -2380,12 +2398,15 @@ const I18N = {
     htmlLang: "es-MX",
     dateLocale: "es-MX",
     months: ["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"],
+    wdays: ["domingo","lunes","martes","miércoles","jueves","viernes","sábado"],
     switchTo: "Change to English",
     switchAria: "Change to English",
     docTitle: v => v + " · Monitor Macro de Estados Unidos · FNAM",
     metaDescDefault: "Indicadores económicos de Estados Unidos con datos públicos: inflación (CPI, PCE, PPI), empleo, PIB, ingreso, ventas minoristas, déficit fiscal, confianza del consumidor, condiciones financieras, cadena de suministro, CAPE de Shiller y Reserva Estratégica de Petróleo. En español e inglés.",
     navAria: "Secciones",
-    unknownView: v => "No existe una sección llamada «" + v + "»; se muestra el Índice de Precios al Consumidor.",
+    nfTitle: "Sección no encontrada",
+    nfDesc: v => "Este tablero no tiene una sección llamada «" + v + "». Elige una de estas:",
+    nfChoose: "Elige una sección",
     chartAria: (title, series) => "Gráfica: " + title + (series ? " (" + series + ")" : ""),
     mapAria: title => "Mapa esquemático por estado: " + title,
     exPyRevFirstOnly: (n, net) => "Frente a sus primeras estimaciones, los " + n + " meses previos suman ahora " + net + " en conjunto. ",
@@ -2519,6 +2540,8 @@ const I18N = {
 
     annCallout: (m, detail) => "En " + m + ": " + detail,
     gapNoteCPI: m => "Hueco en " + m + ": el BLS no publicó reporte de CPI ese mes.",
+    cmpGapNote: (m, other) => "Las líneas del CPI se interrumpen en " + m + ": el BLS no publicó reporte de CPI ese mes (el " + other + " sí se publicó).",
+    cpiGapLine: m => "La línea del CPI se interrumpe en " + m + ": el BLS no publicó reporte de CPI ese mes.",
     gapNotePCE: m => "Hueco en " + m + ": el BEA no publicó índice de precios PCE ese mes.",
 
     annPandemicLabel: "Pico pospandemia/guerra en Ucrania",
@@ -2552,6 +2575,11 @@ const I18N = {
     gdpNextRelease: (d, what) => "Próxima publicación del PIB: " + d + (what ? " (" + what + ")" : ""),
     gdpNextReleaseWas: d => "La publicaci\u00f3n del PIB fue el " + d,
     gdpVintage: "Estimación sujeta a revisión",
+    beaRevLead: "Historia revisada.",
+    beaRevGdp: (d, from, n, ex) => "La actualización anual del BEA del " + d + " revisó el PIB desde el " + from + " y cambió el crecimiento de " + n + " trimestres; las gráficas muestran las cifras revisadas." + (ex.length ? " Mayores cambios en el crecimiento anualizado: " + ex.join("; ") + "." : ""),
+    beaRevIncome: (d, from) => "La actualización anual del BEA del " + d + " revisó el ingreso y el gasto desde " + from + "; las gráficas muestran las cifras revisadas.",
+    beaRevPce: (d, from) => "La actualización anual del BEA del " + d + " revisó el índice de precios PCE desde " + from + "; las gráficas y las tasas de inflación muestran las cifras revisadas.",
+    beaRevEx: (q, was, now) => q + ", de " + was + " a " + now,
     gdpSecGrowth: "Crecimiento trimestral",
     gdpSecGrowthNote: "PIB real, variación porcentual a tasa anualizada",
     gdpSecContrib: "Qué sumó y qué restó al crecimiento",
@@ -2665,13 +2693,13 @@ const I18N = {
     cutsKpi3moFoot: "promedio móvil",
     cutsKpiYtd: "Recortes en el año",
     cutsKpiHiring: "Contrataciones planeadas en el año",
-    cutsVsPrev: (mom, yoy) => (mom>=0?"+":"") + mom + "% vs. mes previo · " + (yoy>=0?"+":"") + yoy + "% anual",
-    cutsYtdFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " del año pasado",
-    cutsHiringFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " del año pasado",
+    cutsVsPrev: (mom, yoy) => (mom>0?"+":mom<0?"−":"") + Math.abs(mom) + "% vs. mes previo · " + (yoy>0?"+":yoy<0?"−":"") + Math.abs(yoy) + "% anual",
+    cutsYtdFoot: (pct, prior) => (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "% vs. " + prior + " del año pasado",
+    cutsHiringFoot: (pct, prior) => (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "% vs. " + prior + " del año pasado",
     cutsLegMonthly: "Total mensual",
     cutsLeg3mo: "Promedio de 3 meses",
     cutsIndustryNote: (names, share, total, headline) => "Los tres sectores con más recortes (" + names + ") concentran el " + share + "% de los " + total + " clasificados por sector este mes. La tabla sectorial de Challenger no cubre todos los anuncios, por eso suma menos que el total de " + headline + ".",
-    cutsHiringNote: (ytd, prior, pct) => "En lo que va del año se anunciaron " + ytd + " contrataciones, frente a " + prior + " en el mismo periodo del año pasado (" + (pct>=0?"+":"") + pct + "%).",
+    cutsHiringNote: (ytd, prior, pct) => "En lo que va del año se anunciaron " + ytd + " contrataciones, frente a " + prior + " en el mismo periodo del año pasado (" + (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "%).",
     cutsStatesNote: m => "Tasa = recortes anunciados (Challenger) ÷ empleo no agrícola total del estado (BLS, " + m + "). La cuadrícula es esquemática: cada estado ocupa una celda del mismo tamaño, colocada para aproximar su posición real, de modo que estados pequeños sigan siendo legibles.",
     mapSpan: (a, b) => a + " a " + b,
     exTitle: "En resumen",
@@ -2715,7 +2743,19 @@ const I18N = {
     exCutsWatch: (dm, rm, rel, top) => "Próximo informe (recortes de " + dm + ") en la primera semana de " + rm + ". Seguir si los recortes se mantienen " + (rel === "below" ? "por debajo" : "por encima") + " del nivel de hace un año y si " + top + " sigue a la cabeza.",
     exGdpLatest: (g, q, gp, qp, avg) => "El PIB real creció " + g + " a tasa anualizada en " + q + " (" + gp + " en " + qp + "); el promedio de cuatro trimestres es " + avg + ".",
     exGdpDrivers: (pce, inv, gov, nx) => "El consumo aportó " + pce + ", la inversión " + inv + ", el gobierno " + gov + " y las exportaciones netas " + nx + ".",
-    exGdpWhy: (rel, share, pce) => "Es la medida más amplia de la actividad. El crecimiento está " + ({above:"por encima de", below:"por debajo de", near:"cerca de"})[rel] + " su promedio reciente" + (share === null ? "." : share > 100 ? ", y el consumo, cerca de dos tercios de la economía, aportó más que todo el dato (" + pce + "): los demás componentes restaron." : ", y el consumo, cerca de dos tercios de la economía, explicó el " + share + "% del dato."),
+    exGdpWhy: (rel, mode, share, pce, plus, minus) => {
+      // plus / minus: the components that added and subtracted, named from the data
+      const nm = { pce: "el consumo", inv: "la inversión", exp: "las exportaciones", imp: "las importaciones", gov: "el gobierno" };
+      const list = a => { const t = a.map(o => nm[o.k] + " (" + o.v + ")"); return t.length > 1 ? t.slice(0, -1).join(", ") + " y " + t[t.length - 1] : t.join(""); };
+      const pl = (a, one, many) => a.length > 1 ? many : one;
+      const head = "Es la medida más amplia de la actividad. El crecimiento está " + ({above:"por encima de", below:"por debajo de", near:"cerca de"})[rel] + " su promedio reciente";
+      if (!mode) return head + ".";
+      if (mode === "share") return head + ", y el consumo, cerca de dos tercios de la economía, explicó el " + share + "% del dato.";
+      if (mode === "gt100") return head + ", y el consumo, cerca de dos tercios de la economía, aportó más que todo el dato (" + pce + ")" +
+        (plus.length ? ": también " + pl(plus, "sumó ", "sumaron ") + list(plus) + ", pero " + pl(minus, "restó más ", "restaron más ") + list(minus) + "." : "; " + pl(minus, "restó ", "restaron ") + list(minus) + ".");
+      if (mode === "pceNeg") return head + "; el consumo restó (" + pce + ") y el crecimiento vino de " + list(plus) + ".";
+      return head + "; la producción se contrajo: " + pl(minus, "restó ", "restaron ") + list(minus) + (plus.length ? ", más de lo que " + pl(plus, "sumó ", "sumaron ") + list(plus) : "") + ".";
+    },
     exGdpWatch: nx => "Cada trimestre se revisa dos veces después de la estimación anticipada. Seguir el consumo para el ritmo de fondo y si el vaivén comercial (" + nx + ") se revierte.",
     exIncLatest: (m, inc, rdm, rdy, out, sr, srp) => "En " + m + " el ingreso personal varió " + inc + "%; el ingreso disponible real " + rdm + "% en el mes y " + rdy + "% en el año; el gasto " + out + "%. Tasa de ahorro de " + sr + " (" + srp + " el mes previo).",
     exIncDrivers: (out, inc, srDir, rpce) => "El gasto creció " + out + "% frente a un ingreso de " + inc + "%, así que la tasa de ahorro " + ({down:"bajó", up:"subió", flat:"se mantuvo"})[srDir] + ". El gasto real es " + rpce + "% mayor que hace un año.",
@@ -2728,7 +2768,7 @@ const I18N = {
     exConfDrivers: (which, dIce, dIcc, px1, px5) => (which === "ice" ? "Las expectativas fueron lo que más se movió, " + dIce + " puntos, con las condiciones actuales en " + dIcc : "Las condiciones actuales fueron lo que más se movió, " + dIcc + " puntos, con las expectativas en " + dIce) + ". Los hogares esperan una inflación de " + px1 + " el próximo año y de " + px5 + " anual a cinco años.",
     exConfWhy: (nBelow, total, gap, rel, cpi, px1) => "La confianza es una guía laxa del gasto pero muy precisa de cómo viven los hogares los precios. " + (nBelow <= 24 ? "Solo " + nBelow + (nBelow === 1 ? " mes" : " meses") + " desde 1952 " + (nBelow === 1 ? "ha" : "han") + " marcado menos" : nBelow + " de " + total + " meses desde 1952 han marcado menos") + (gap === null ? "." : ", y la inflación esperada a un año, " + px1 + ", está " + gap + " pp " + (rel === "above" ? "por encima" : "por debajo") + " del CPI observado (" + cpi + ")."),
     exConfWatch: px5 => "Seguir si se recuperan las expectativas (no las condiciones actuales) y si la inflación esperada a cinco años sigue anclada cerca de " + px5 + ".",
-    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg) => "NFCI de la Fed de Chicago en " + nfci + " al " + d + " (bajo cero = más laxo que el promedio), " + ({up:"sube " + chg, down:"baja " + chg, flat:"casi sin cambio"})[dir] + " en cuatro semanas. Tesoro a 10 años " + y10 + ", a 2 años " + y2 + " (curva " + slope + " pp); diferencial de alto rendimiento " + hy + " pp; hipoteca a 30 años " + mtg + ".",
+    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg, md) => "NFCI de la Fed de Chicago en " + nfci + " al " + d + " (bajo cero = más laxo que el promedio), " + ({up:"sube " + chg, down:"baja " + chg, flat:"casi sin cambio"})[dir] + " en cuatro semanas. Tesoro a 10 años " + y10 + ", a 2 años " + y2 + " (curva " + slope + " pp); diferencial de alto rendimiento " + hy + " pp; hipoteca a 30 años " + mtg + " (" + md + ").",
     exFcDrivers: (sub, v, tl, ff, hyDir, hyChg) => "El subíndice de " + sub + " es el más alejado de neutral (" + v + ", " + (tl === "tight" ? "más restrictivo" : "más laxo") + " que el promedio); la tasa objetivo de la Fed es " + ff + ". Los diferenciales de alto rendimiento están " + ({up:"más amplios por " + hyChg + " pp", down:"más estrechos por " + hyChg + " pp", flat:"casi sin cambio"})[hyDir] + " en cuatro semanas.",
     exFcWhy: (state, band, hy) => "Las condiciones financieras son el canal por el que la política de la Fed llega a la economía: " + ({loose:"condiciones así de laxas significan crédito barato y activos con soporte", tight:"condiciones así de restrictivas frenan el crédito y el crecimiento", neutral:"condiciones cerca de neutral ni suman ni restan al crecimiento"})[state] + ". Un diferencial de alto rendimiento de " + hy + " pp señala " + ({calm:"calma en el crédito (menos de 4 pp)", elevated:"cierta cautela crediticia (4-6 pp)", stress:"tensión crediticia (más de 6 pp)"})[band] + ".",
     exFcWatch: curve => "Se actualiza cada semana. Seguir la tasa a 2 años, la primera en moverse cuando cambian las expectativas de tasas, y el diferencial de alto rendimiento; la curva está " + (curve === "inverted" ? "invertida, una señal clásica de fin de ciclo" : "con pendiente positiva") + ".",
@@ -2843,13 +2883,13 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "El S&P 500 real está en " + real + ", unas " + cape + " veces su promedio de diez años de utilidades reales (" + earn + "); la razón " + ({up:"subió", down:"bajó", flat:"no cambió"})[dir] + " este mes. El rendimiento excedente del CAPE (rendimiento de utilidades menos la tasa real a 10 años) es " + ecy + ", con la tasa a 10 años del archivo de Shiller en " + gs10 + "%" + (daily ? " (una lectura diaria al publicarse; " + daily + "% diario al " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "Un CAPE alto ha significado rendimientos bajos después: tras el máximo de 1929 las acciones rindieron " + (r1929 === null ? "—" : r1929) + " anual en términos reales durante la década siguiente, y tras el máximo de 1999, " + (r1999 === null ? "—" : r1999) + ". Dice poco del próximo año y mucho de los próximos diez.",
     exCapeWatch: "Shiller actualiza el archivo cada mes. Seguir el rendimiento excedente del CAPE, el colchón que ofrecen las acciones sobre el rendimiento real de los bonos, y si las utilidades alcanzan a los precios.",
-    sprNextEia: (nx, w) => "Próximo informe de la EIA: " + nx + ", 10:30 ET (semana al " + w + ")",
+    sprNextEia: (nx, t, w, late) => (late ? "Informe de la EIA previsto para el " + nx + ", " + t + " ET" : "Próximo informe de la EIA: " + nx + ", " + t + " ET") + " (semana al " + w + ")" + (late ? ": aún no está en esta página" : ""),
     sprLatest: (lvl, d, src) => "Último dato: " + lvl + " M bbl al " + d + " · " + src,
     sprSrcEia: r => "EIA, publicado el " + r,
     sprSrcDoe: r => "DOE, publicado el " + r,
-    sprEiaThru: (w, nx) => "Datos semanales de la EIA hasta el " + w + "; próximo informe: " + nx + ", 10:30 ET",
+    sprEiaThru: (w, nx, t, late) => "Datos semanales de la EIA hasta el " + w + "; " + (late ? "el informe previsto para el " + nx + ", " + t + " ET, aún no está en esta página" : "próximo informe: " + nx + ", " + t + " ET"),
     fcAsOfWeek: (w, r) => "NFCI: semana que terminó el " + w + " (publicado por la Fed de Chicago el " + r + "); tasas y diferenciales, al último día disponible",
-    fcNext: d => "Próxima actualización del NFCI: prevista el " + d + " (miércoles, 8:30 ET); tasas y diferenciales, diarios",
+    fcNext: (d, sched, late) => (late ? "Actualización del NFCI prevista para el " + d + ", 8:30 ET: aún no está en esta página" : "Próxima actualización del NFCI: " + (sched ? "" : "prevista para el ") + d + ", 8:30 ET") + "; tasas y diferenciales, diarios",
     scNext: (d, m) => "Próximo GSCPI (" + m + "): previsto el " + d + " (alrededor del 4.º día hábil del mes)",
     capeNext: m => "Próxima actualización de Shiller: prevista a principios de " + m + " (mensual, sin fecha fija)",
     fileDated: (what, f, c) => what + " con fecha " + f + " · verificado el " + c + ": es la versión más reciente",
@@ -3219,7 +3259,8 @@ const I18N = {
     fcSpreadMethod: "El diferencial es lo que el mercado cobra de más, sobre el Tesoro, por prestar a empresas: se amplía cuando crece el temor a impagos. Los índices ICE BofA solo están disponibles en FRED para los últimos tres años, de ahí la ventana corta.",
     fcYieldNote: (y10, y2, s102, d) => "El Tesoro a 10 años rinde " + y10 + " y el de 2 años " + y2 + " (" + d + "); la pendiente 10−2 es de " + s102 + " puntos porcentuales.",
     fcYieldSlope: (dir) => dir === "inverted" ? "La curva está invertida: el corto plazo rinde más que el largo. Históricamente ha precedido a las recesiones, aunque con rezagos largos y variables." : "La curva tiene pendiente positiva, la forma normal: los inversionistas exigen más por prestar a plazos largos.",
-    fcPolicyNote: (target, eff, mort, d) => "El rango objetivo de la Fed tiene tope en " + target + "; la tasa efectiva es " + eff + " y la hipoteca a 30 años promedia " + mort + " (" + d + ").",
+    fcPolicyNote: (target, td, eff, ed) => "El rango objetivo de la Fed tiene tope en " + target + " (" + td + "); la tasa efectiva es " + eff + " (" + ed + ").",
+    fcMortNote: (mort, md, nx, sched, late) => "La hipoteca a 30 años promedia " + mort + " en la encuesta semanal de Freddie Mac del " + md + "; " + (late ? "la lectura prevista para el " + nx + ", 12:00 ET, aún no está en esta página." : "próxima lectura: " + (sched ? "" : "prevista para el ") + nx + ", 12:00 ET."),
     fcPolicyMethod: "La hipoteca sigue al Tesoro a 10 años más un margen, no a la tasa de la Fed directamente: por eso puede subir mientras la Fed recorta, y viceversa.",
     fcMarketsNote: (dxy, vix, spx, bs) => "Índice del dólar en " + dxy + "; VIX en " + vix + "; S&P 500 en " + spx + "; hoja de balance de la Fed en " + bs + " billones de dólares.",
     fcMarketsMethod: "Un dólar más fuerte endurece las condiciones para el resto del mundo y abarata las importaciones. El VIX por encima de 30 señala tensión aguda. La hoja de balance de la Fed muestra si el banco central está inyectando o retirando liquidez.",
@@ -3381,12 +3422,15 @@ const I18N = {
     htmlLang: "en",
     dateLocale: "en-US",
     months: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
+    wdays: ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],
     switchTo: "Cambiar a español",
     switchAria: "Cambiar a español",
     docTitle: v => v + " · U.S. Macro Monitor · FNAM",
     metaDescDefault: "U.S. economic indicators built from public data: inflation (CPI, PCE, PPI), jobs, GDP, income, retail sales, the fiscal deficit, consumer sentiment, financial conditions, supply chains, the Shiller CAPE and the Strategic Petroleum Reserve. In Spanish and English.",
     navAria: "Sections",
-    unknownView: v => "There is no section called “" + v + "”; showing the Consumer Price Index.",
+    nfTitle: "Section Not Found",
+    nfDesc: v => "This dashboard has no section called “" + v + "”. Choose one of these:",
+    nfChoose: "Choose a section",
     chartAria: (title, series) => "Chart: " + title + (series ? " (" + series + ")" : ""),
     mapAria: title => "Schematic state map: " + title,
     exPyRevFirstOnly: (n, net) => "Against their first estimates, the prior " + n + " months now read " + net + " in total. ",
@@ -3520,6 +3564,8 @@ const I18N = {
 
     annCallout: (m, detail) => m + ": " + detail,
     gapNoteCPI: m => "Gap at " + m + ": BLS did not publish a CPI report for that month.",
+    cmpGapNote: (m, other) => "The CPI lines break at " + m + ": BLS did not publish a CPI report for that month (" + other + " was published).",
+    cpiGapLine: m => "The CPI line breaks at " + m + ": BLS did not publish a CPI report for that month.",
     gapNotePCE: m => "Gap at " + m + ": BEA did not publish a PCE price index for that month.",
 
     annPandemicLabel: "Post-pandemic/Ukraine war peak",
@@ -3553,6 +3599,11 @@ const I18N = {
     gdpNextRelease: (d, what) => "Next GDP release: " + d + (what ? " (" + what + ")" : ""),
     gdpNextReleaseWas: d => "Next GDP release was " + d,
     gdpVintage: "Estimate subject to revision",
+    beaRevLead: "History revised.",
+    beaRevGdp: (d, from, n, ex) => "BEA's annual update of " + d + " revised GDP back to " + from + ", changing growth in " + n + " quarters; the charts show the revised figures." + (ex.length ? " Largest changes to annualized growth: " + ex.join("; ") + "." : ""),
+    beaRevIncome: (d, from) => "BEA's annual update of " + d + " revised income and spending back to " + from + "; the charts show the revised figures.",
+    beaRevPce: (d, from) => "BEA's annual update of " + d + " revised the PCE price index back to " + from + "; the charts and inflation rates show the revised figures.",
+    beaRevEx: (q, was, now) => q + ", from " + was + " to " + now,
     gdpSecGrowth: "Quarterly growth",
     gdpSecGrowthNote: "Real GDP, percent change at an annual rate",
     gdpSecContrib: "What added to growth, what subtracted",
@@ -3666,13 +3717,13 @@ const I18N = {
     cutsKpi3moFoot: "trailing average",
     cutsKpiYtd: "Cuts year to date",
     cutsKpiHiring: "Hiring plans year to date",
-    cutsVsPrev: (mom, yoy) => (mom>=0?"+":"") + mom + "% mo/mo · " + (yoy>=0?"+":"") + yoy + "% yr/yr",
-    cutsYtdFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " last year",
-    cutsHiringFoot: (pct, prior) => (pct>=0?"+":"") + pct + "% vs. " + prior + " last year",
+    cutsVsPrev: (mom, yoy) => (mom>0?"+":mom<0?"−":"") + Math.abs(mom) + "% mo/mo · " + (yoy>0?"+":yoy<0?"−":"") + Math.abs(yoy) + "% yr/yr",
+    cutsYtdFoot: (pct, prior) => (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "% vs. " + prior + " last year",
+    cutsHiringFoot: (pct, prior) => (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "% vs. " + prior + " last year",
     cutsLegMonthly: "Monthly total",
     cutsLeg3mo: "3-month average",
     cutsIndustryNote: (names, share, total, headline) => "The three heaviest-cutting sectors (" + names + ") account for " + share + "% of the " + total + " classified by sector this month. Challenger's sector table does not cover every announcement, which is why it sums to less than the " + headline + " headline total.",
-    cutsHiringNote: (ytd, prior, pct) => ytd + " hires have been announced so far this year, against " + prior + " in the same period last year (" + (pct>=0?"+":"") + pct + "%).",
+    cutsHiringNote: (ytd, prior, pct) => ytd + " hires have been announced so far this year, against " + prior + " in the same period last year (" + (pct>0?"+":pct<0?"−":"") + Math.abs(pct) + "%).",
     cutsStatesNote: m => "Rate = announced cuts (Challenger) ÷ the state's total nonfarm employment (BLS, " + m + "). The grid is schematic: every state gets an equal-sized tile placed to approximate its real position, so small states stay as legible as large ones.",
     mapSpan: (a, b) => a + " \u2013 " + b,
     exTitle: "At a glance",
@@ -3716,7 +3767,18 @@ const I18N = {
     exCutsWatch: (dm, rm, rel, top) => "Next report (" + dm + " cuts) in the first week of " + rm + ". Watch whether cuts stay " + rel + " year-ago levels and whether " + top + " keeps leading.",
     exGdpLatest: (g, q, gp, qp, avg) => "Real GDP grew " + g + " at an annual rate in " + q + " (" + gp + " in " + qp + "); the four-quarter average is " + avg + ".",
     exGdpDrivers: (pce, inv, gov, nx) => "Consumer spending contributed " + pce + ", investment " + inv + ", government " + gov + " and net exports " + nx + ".",
-    exGdpWhy: (rel, share, pce) => "The broadest measure of activity. Growth is " + ({above:"above", below:"below", near:"close to"})[rel] + " its recent average" + (share === null ? "." : share > 100 ? ", and consumer spending, about two-thirds of the economy, contributed more than all of it (" + pce + "); the other components subtracted." : ", and consumer spending, about two-thirds of the economy, accounted for " + share + "% of it."),
+    exGdpWhy: (rel, mode, share, pce, plus, minus) => {
+      // plus / minus: the components that added and subtracted, named from the data
+      const nm = { pce: "consumer spending", inv: "investment", exp: "exports", imp: "imports", gov: "government" };
+      const list = a => { const t = a.map(o => nm[o.k] + " (" + o.v + ")"); return t.length > 1 ? t.slice(0, -1).join(", ") + " and " + t[t.length - 1] : t.join(""); };
+      const head = "The broadest measure of activity. Growth is " + ({above:"above", below:"below", near:"close to"})[rel] + " its recent average";
+      if (!mode) return head + ".";
+      if (mode === "share") return head + ", and consumer spending, about two-thirds of the economy, accounted for " + share + "% of it.";
+      if (mode === "gt100") return head + ", and consumer spending, about two-thirds of the economy, contributed more than all of it (" + pce + ")" +
+        (plus.length ? ": " + list(plus) + " also added, but " + list(minus) + " subtracted more." : "; " + list(minus) + " subtracted.");
+      if (mode === "pceNeg") return head + "; consumer spending subtracted (" + pce + "), and the growth came from " + list(plus) + ".";
+      return head + "; output shrank: " + list(minus) + " subtracted" + (plus.length ? ", more than " + list(plus) + " added" : "") + ".";
+    },
     exGdpWatch: nx => "Each quarter is revised twice after the advance estimate. Watch consumer spending for the underlying pace and whether the trade swing (" + nx + ") reverses.",
     exIncLatest: (m, inc, rdm, rdy, out, sr, srp) => "In " + m + " personal income " + inc + "%; real disposable income " + rdm + "% on the month and " + rdy + "% over the year; outlays " + out + "%. Saving rate " + sr + " (" + srp + " the month before).",
     exIncDrivers: (out, inc, srDir, rpce) => "Outlays grew " + out + "% against income of " + inc + "%, so the saving rate " + ({down:"fell", up:"rose", flat:"held"})[srDir] + ". Real spending is " + rpce + "% higher than a year ago.",
@@ -3729,7 +3791,7 @@ const I18N = {
     exConfDrivers: (which, dIce, dIcc, px1, px5) => (which === "ice" ? "Expectations moved most, " + dIce + " points, with current conditions " + dIcc : "Current conditions moved most, " + dIcc + " points, with expectations " + dIce) + ". Households expect " + px1 + " inflation over the next year and " + px5 + " a year over the next five.",
     exConfWhy: (nBelow, total, gap, rel, cpi, px1) => "Sentiment is a loose guide to spending but a sharp one for how households experience prices. " + (nBelow <= 24 ? "Only " + nBelow + " month" + (nBelow === 1 ? "" : "s") + " since 1952 " + (nBelow === 1 ? "has" : "have") + " read lower" : nBelow + " of " + total + " months since 1952 have read lower") + (gap === null ? "." : ", and one-year inflation expectations of " + px1 + " sit " + gap + " pp " + rel + " actual CPI (" + cpi + ")."),
     exConfWatch: px5 => "Watch whether expectations (not current conditions) recover and whether five-year inflation expectations stay anchored near " + px5 + ".",
-    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg) => "Chicago Fed NFCI " + nfci + " as of " + d + " (below zero = looser than average), " + ({up:"up " + chg, down:"down " + chg, flat:"little changed"})[dir] + " over four weeks. 10-year Treasury " + y10 + ", 2-year " + y2 + " (curve " + slope + " pp); high-yield spread " + hy + " pp; 30-year mortgage " + mtg + ".",
+    exFcLatest: (nfci, d, dir, chg, y10, y2, slope, hy, mtg, md) => "Chicago Fed NFCI " + nfci + " as of " + d + " (below zero = looser than average), " + ({up:"up " + chg, down:"down " + chg, flat:"little changed"})[dir] + " over four weeks. 10-year Treasury " + y10 + ", 2-year " + y2 + " (curve " + slope + " pp); high-yield spread " + hy + " pp; 30-year mortgage " + mtg + " (" + md + ").",
     exFcDrivers: (sub, v, tl, ff, hyDir, hyChg) => "The " + sub + " sub-index is furthest from neutral (" + v + ", " + (tl === "tight" ? "tighter" : "looser") + " than average); the fed funds target is " + ff + ". High-yield spreads are " + ({up:"wider by " + hyChg + " pp", down:"narrower by " + hyChg + " pp", flat:"about unchanged"})[hyDir] + " over four weeks.",
     exFcWhy: (state, band, hy) => "Financial conditions are how Fed policy reaches the economy: " + ({loose:"conditions this loose mean cheap credit and supportive asset prices", tight:"conditions this tight restrain borrowing and growth", neutral:"conditions near neutral neither add to nor subtract from growth"})[state] + ". A " + hy + " pp high-yield spread signals " + ({calm:"calm credit markets (under 4 pp)", elevated:"some credit caution (4-6 pp)", stress:"credit stress (above 6 pp)"})[band] + ".",
     exFcWatch: curve => "Updated weekly. Watch the 2-year yield, which moves first when rate expectations change, and the high-yield spread; the curve is " + (curve === "inverted" ? "inverted, a classic late-cycle signal" : "positively sloped") + ".",
@@ -3844,13 +3906,13 @@ const I18N = {
     exCapeDrivers: (real, earn, cape, dir, ecy, gs10, daily, dd) => "The real S&P 500 stands at " + real + ", about " + cape + " times its ten-year average real earnings of " + earn + "; the ratio " + ({up:"rose", down:"fell", flat:"was unchanged"})[dir] + " this month. The excess CAPE yield (earnings yield minus the real 10-year rate) is " + ecy + ", with the 10-year rate in Shiller's file at " + gs10 + "%" + (daily ? " (one daily reading at posting; " + daily + "% daily as of " + dd + ")" : "") + ".",
     exCapeWhy: (r1929, r1999) => "High CAPE has meant low subsequent returns: after the 1929 peak stocks returned " + (r1929 === null ? "—" : r1929) + " a year in real terms over the next decade, and after the 1999 peak " + (r1999 === null ? "—" : r1999) + ". It says little about the next year and a lot about the next ten.",
     exCapeWatch: "Shiller updates the file monthly. Watch the excess CAPE yield — the cushion stocks offer over real bond yields — and whether earnings catch up with prices.",
-    sprNextEia: (nx, w) => "Next EIA report: " + nx + ", 10:30 ET (week ending " + w + ")",
+    sprNextEia: (nx, t, w, late) => (late ? "EIA report due " + nx + ", " + t + " ET" : "Next EIA report: " + nx + ", " + t + " ET") + " (week ending " + w + ")" + (late ? ": not on this page yet" : ""),
     sprLatest: (lvl, d, src) => "Latest: " + lvl + " M bbl on " + d + " · " + src,
     sprSrcEia: r => "EIA, released " + r,
     sprSrcDoe: r => "DOE, posted " + r,
-    sprEiaThru: (w, nx) => "EIA weekly data through " + w + "; next report " + nx + ", 10:30 ET",
+    sprEiaThru: (w, nx, t, late) => "EIA weekly data through " + w + "; " + (late ? "the report due " + nx + ", " + t + " ET, is not on this page yet" : "next report " + nx + ", " + t + " ET"),
     fcAsOfWeek: (w, r) => "NFCI: week ending " + w + " (released by the Chicago Fed " + r + "); yields and spreads through the latest available day",
-    fcNext: d => "Next NFCI update: expected " + d + " (Wednesdays, 8:30 ET); yields and spreads daily",
+    fcNext: (d, sched, late) => (late ? "NFCI update due " + d + ", 8:30 ET: not on this page yet" : "Next NFCI update: " + (sched ? "" : "expected ") + d + ", 8:30 ET") + "; yields and spreads daily",
     scNext: (d, m) => "Next GSCPI (" + m + "): expected " + d + " (about the 4th business day of the month)",
     capeNext: m => "Next Shiller update: expected early " + m + " (monthly, no fixed date)",
     fileDated: (what, f, c) => what + " dated " + f + " · checked " + c + ": this is the latest version",
@@ -4218,7 +4280,8 @@ const I18N = {
     fcSpreadMethod: "The spread is what the market charges over Treasuries to lend to companies — it widens when default fears rise. ICE BofA indexes are available on FRED for the past three years only, hence the short window.",
     fcYieldNote: (y10, y2, s102, d) => "The 10-year Treasury yields " + y10 + " and the 2-year " + y2 + " (" + d + "); the 10−2 slope is " + s102 + " percentage points.",
     fcYieldSlope: (dir) => dir === "inverted" ? "The curve is inverted — short rates above long. Historically it has preceded recessions, though with long and variable lags." : "The curve slopes upward, its normal shape: investors demand more to lend for longer.",
-    fcPolicyNote: (target, eff, mort, d) => "The Fed's target range tops out at " + target + "; the effective rate is " + eff + " and the 30-year mortgage averages " + mort + " (" + d + ").",
+    fcPolicyNote: (target, td, eff, ed) => "The Fed's target range tops out at " + target + " (" + td + "); the effective rate is " + eff + " (" + ed + ").",
+    fcMortNote: (mort, md, nx, sched, late) => "The 30-year mortgage averages " + mort + " in Freddie Mac's weekly survey of " + md + "; " + (late ? "the reading due " + nx + ", 12:00 ET, is not on this page yet." : "next reading " + (sched ? "" : "expected ") + nx + ", 12:00 ET."),
     fcPolicyMethod: "The mortgage rate tracks the 10-year Treasury plus a margin, not the Fed's rate directly — which is why it can rise while the Fed cuts, and vice versa.",
     fcMarketsNote: (dxy, vix, spx, bs) => "Dollar index at " + dxy + "; VIX at " + vix + "; S&P 500 at " + spx + "; Fed balance sheet at $" + bs + " trillion.",
     fcMarketsMethod: "A stronger dollar tightens conditions for the rest of the world and makes imports cheaper. A VIX above 30 signals acute stress. The Fed's balance sheet shows whether the central bank is adding or draining liquidity.",
@@ -4413,6 +4476,7 @@ function setLang(lang) {
   buildMobileNav();
   clearTargets();
   renderAll();
+  if (currentView() === NOT_FOUND) renderNotFound();
   updateMeta(currentView());
 }
 // Redraw when the content column changes width enough to change the chart layout
@@ -4441,6 +4505,10 @@ function setLang(lang) {
 // a shared link opens the same section in the same language.
 const VIEW_IDS = Array.from(document.querySelectorAll(".rail-item[data-view]")).map(el => el.getAttribute("data-view"));
 const DEFAULT_VIEW = VIEW_IDS[0];
+// An address naming no section (mistyped, or from an old link) gets a "not found" state
+// of its own, never another section in its place. The server answers such an address
+// with 404 (functions/macro/_middleware.js, which lists the same section ids).
+const NOT_FOUND = "notfound";
 function currentView() { const a = document.querySelector(".view.active"); return a && a.id ? String(a.id).replace(/^view-/, "") : DEFAULT_VIEW; }
 function viewTitle(v) { const h = document.querySelector("#view-" + v + " h1"); return h ? String(h.textContent).trim() : T.brand; }
 function viewDesc(v) { const d = document.querySelector("#view-" + v + " .desc"); return d ? String(d.textContent).trim() : T.metaDescDefault; }
@@ -4454,6 +4522,11 @@ function publicUrl(v, lang) {
 function setMeta(sel, attr, value) { const el = document.querySelector(sel); if (el) el.setAttribute(attr, value); }
 function updateMeta(v) {
   const title = T.docTitle(viewTitle(v)), desc = viewDesc(v);
+  // "Not found" is never indexed, and its address metadata points at the dashboard.
+  const nf = v === NOT_FOUND; let robots = document.querySelector('meta[name="robots"]');
+  if (nf && !robots) { robots = document.createElement("meta"); robots.setAttribute("name", "robots"); robots.setAttribute("content", "noindex"); document.head.appendChild(robots); }
+  if (!nf && robots) robots.remove();
+  if (nf) v = DEFAULT_VIEW;
   document.title = title;
   setMeta('meta[name="description"]', "content", desc);
   setMeta('meta[property="og:title"]', "content", title);
@@ -4470,19 +4543,40 @@ function updateMeta(v) {
 function syncNavLinks() {
   document.querySelectorAll(".rail-item[data-view]").forEach(a => a.setAttribute("href", "?view=" + a.getAttribute("data-view") + "&lang=" + LANG));
 }
+// The "not found" state: what was asked for (cleaned for display) and every section, by
+// group, as a link. Drawn again on a language switch.
+function renderNotFound() {
+  const raw = (new URLSearchParams(location.search).get("view") || "").replace(/[^\w-]/g, "").slice(0, 40);
+  document.getElementById("nfDesc").textContent = T.nfDesc(raw || "?");
+  const box = document.getElementById("nfList"); box.innerHTML = "";
+  let group = null;
+  document.querySelectorAll(".rail > *").forEach(el => {
+    if (el.classList.contains("rail-group-label")) {
+      const g = document.createElement("div"); g.className = "nf-group";
+      const h = document.createElement("h2"); h.textContent = el.textContent.trim(); g.appendChild(h);
+      group = document.createElement("div"); group.className = "nf-links"; g.appendChild(group); box.appendChild(g);
+    } else if (el.classList.contains("rail-item") && el.hasAttribute("data-view") && group) {
+      const id = el.getAttribute("data-view"), label = el.querySelector("[data-i18n]"), a = document.createElement("a");
+      a.href = "?view=" + id + "&lang=" + LANG; a.textContent = (label || el).textContent.trim();
+      a.addEventListener("click", e => { if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button) return; e.preventDefault(); showView(id, true); });
+      group.appendChild(a);
+    }
+  });
+}
 function showView(requested, push) {
   const raw = String(requested || "");
-  const v = VIEW_IDS.indexOf(raw) >= 0 ? raw : DEFAULT_VIEW;
-  const notice = document.getElementById("viewNotice");
-  if (notice) notice.textContent = raw && v !== raw ? T.unknownView(raw.replace(/[^\w-]/g, "").slice(0, 40)) : "";
+  const known = !raw || VIEW_IDS.indexOf(raw) >= 0;
+  const v = known ? (raw || DEFAULT_VIEW) : NOT_FOUND;
+  if (!known) renderNotFound();
   document.querySelectorAll(".rail-item[data-view]").forEach(i => {
     const on = i.getAttribute("data-view") === v;
     i.classList.toggle("active", on);
     if (on) i.setAttribute("aria-current", "page"); else i.removeAttribute("aria-current");
   });
   document.querySelectorAll(".view").forEach(el => el.classList.toggle("active", el.id === "view-" + v));
+  // An unknown section keeps its address as typed, so the visitor sees what was asked for.
   const url = new URL(location.href);
-  url.searchParams.set("view", v);
+  if (known) url.searchParams.set("view", v);
   if (push && url.href !== location.href) history.pushState({ view: v }, "", url); else history.replaceState({ view: v }, "", url);
   updateMeta(v);
   buildMobileNav();
@@ -4536,10 +4630,15 @@ function applyStaticStrings() {
   const rail = document.getElementById("rail"); if (rail) rail.setAttribute("aria-label", T.navAria);
   const picker = document.getElementById("mobileNav"); if (picker) picker.setAttribute("aria-label", T.navAria);
 }
+// A signed figure for display: the sign only when the rounded figure is not zero, and
+// a real minus sign, so a tiny decline reads "0.0", never "−0.0" or "-0.0".
+function sgnFix(v, d) { const a = Math.abs(v).toFixed(d); return (+a === 0 ? "" : v > 0 ? "+" : "−") + a; }
+// A KPI tile's arrow: a dash when the change rounds to zero at the precision shown.
+function deltaArrow(v, d) { return +Math.abs(v).toFixed(d) === 0 ? "—" : v > 0 ? "▲" : "▼"; }
 function fmtPct(v, digits) {
   if (v === null || v === undefined) return "—";
   digits = digits === undefined ? 1 : digits;
-  return (v > 0 ? "+" : "") + v.toFixed(digits) + "%";
+  return sgnFix(v, digits) + "%";
 }
 function lastReal(points) {
   for (let i = points.length - 1; i >= 0; i--) {
@@ -4759,9 +4858,19 @@ function renderDualLineChart(cfg) {
   const axisFmt = cfg.fmtAxis || (v => v + "%");
   const dataA = cfg.seriesA.data || dataset;
   const dataB = cfg.seriesB ? (cfg.seriesB.data || dataset) : null;
-  const aPts = dataA[cfg.seriesA.key].points.filter(p => p[F] !== null && p[F] !== undefined);
-  const bPts = cfg.seriesB ? dataB[cfg.seriesB.key].points.filter(p => p[F] !== null && p[F] !== undefined) : [];
-  const allDates = aPts.map(p => p.d);
+  let aPts = dataA[cfg.seriesA.key].points.filter(p => p[F] !== null && p[F] !== undefined);
+  let bPts = cfg.seriesB ? dataB[cfg.seriesB.key].points.filter(p => p[F] !== null && p[F] !== undefined) : [];
+  // Both lines start where the later one starts, so a longer history does not stretch the axis back alone.
+  if (aPts.length && bPts.length) {
+    const start = aPts[0].d > bPts[0].d ? aPts[0].d : bPts[0].d;
+    aPts = aPts.filter(p => p.d >= start); bPts = bPts.filter(p => p.d >= start);
+  }
+  // The x-axis holds every month either series has, so each point sits at its own month.
+  // A month one series lacks (BLS published no CPI for October 2025, BEA did publish PCE)
+  // breaks that series' line there; built from one series alone, the other's extra month
+  // had no place and its line was drawn off the chart and back.
+  const allDates = Array.from(new Set(aPts.map(p => p.d).concat(bPts.map(p => p.d)))).sort();
+  const pos = new Map(allDates.map((d, i) => [d, i]));
   const n = allDates.length;
 
   const allVals = aPts.map(p=>p[F]).concat(bPts.map(p=>p[F])).concat(cfg.showTarget ? [2] : []);
@@ -4787,9 +4896,11 @@ function renderDualLineChart(cfg) {
   const yVal = v => MT + plotH - ((v - minV) / (maxV - minV)) * plotH;
 
   function pathFromPts(points) {
-    return points.map((p,i) => {
-      const idx = allDates.indexOf(p.d);
-      return (i===0?"M":"L") + xIdx(idx).toFixed(1) + "," + yVal(p[F]).toFixed(1);
+    let prev = -2;
+    return points.map(p => {
+      const idx = pos.get(p.d), cmd = idx === prev + 1 ? "L" : "M";
+      prev = idx;
+      return cmd + xIdx(idx).toFixed(1) + "," + yVal(p[F]).toFixed(1);
     }).join(" ");
   }
 
@@ -4849,7 +4960,7 @@ function renderDualLineChart(cfg) {
     path.setAttribute("stroke-linecap","round");
     svg.appendChild(path);
     const last = points[points.length-1];
-    const lastIdx = allDates.indexOf(last.d);
+    const lastIdx = pos.get(last.d);
     const ring = document.createElementNS(ns,"circle");
     ring.setAttribute("cx", xIdx(lastIdx)); ring.setAttribute("cy", yVal(last[F])); ring.setAttribute("r","5");
     ring.setAttribute("fill","var(--surface-1)");
@@ -4868,7 +4979,7 @@ function renderDualLineChart(cfg) {
     const targetY = yVal(2), lw = T.fedTarget.length * 5.9 + 8, lh = 13;
     // Candidate spots every 20 units across the plot, above and below the line; the
     // one the series stay farthest from wins (ties go to the right, near the latest data).
-    const pts = aPts.concat(bPts).map(p => { const xi = allDates.indexOf(p.d); return xi < 0 ? null : { x: xIdx(xi), y: yVal(p[F]) }; }).filter(Boolean);
+    const pts = aPts.concat(bPts).map(p => ({ x: xIdx(pos.get(p.d)), y: yVal(p[F]) }));
     let best = { score: -Infinity, x: W - MR - lw - 2, above: true };
     for (let x0 = ML + 4; x0 <= W - MR - lw - 2; x0 += 20) {
       [true, false].forEach(above => {
@@ -4939,7 +5050,8 @@ function renderDualLineChart(cfg) {
   const legend = cfg.legendId ? document.getElementById(cfg.legendId) : null;
   if (legend) legend.innerHTML =
     `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesA.colorVar})"></span>${cfg.seriesA.label}</div>` +
-    (cfg.seriesB ? `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesB.colorVar})"></span>${cfg.seriesB.label}</div>` : "");
+    (cfg.seriesB ? `<div class="legend-item"><span class="legend-swatch" style="background:var(${cfg.seriesB.colorVar})"></span>${cfg.seriesB.label}</div>` : "") +
+    (cfg.showTarget ? `<div class="legend-item"><span class="legend-swatch dashed"></span>${T.fedTarget}</div>` : "");
 
 
   // gap + annotation callouts
@@ -5257,7 +5369,7 @@ function addCatCard(grid, cardId, name, pts, colorVar, subsetTag) {
   const actualHeadline = headlineLatest.yoy;
   document.getElementById("contribCallout").textContent = T.contribFoot(
     fmtMonthYear(WEIGHTS.asOfMonth),
-    (sumContrib >= 0 ? "+" : "") + sumContrib.toFixed(2),
+    sgnFix(sumContrib, 2),
     fmtPct(actualHeadline)
   );
 })();
@@ -5404,6 +5516,7 @@ const PCE_MAJOR_GROUPS = [
   document.getElementById("pceRefreshedLine").textContent = freshnessLabel(PCE_SOURCE, PCE_REFRESHED_AT, "BEA");
 
   document.getElementById("pceNextReleaseLine").textContent = nextReleaseText("pce", fmtMonthYear(nextMonthOf(latest.d)), T.nextReleaseEstPCE);
+  renderBeaRevisionNote("pceRevNotice", "pce");
 })();
 
 // ---------- PCE KPI tiles ----------
@@ -5461,9 +5574,13 @@ renderDualLineChart({
   const pceHousing = PCE_WEIGHTS.majorGroups.find(g=>g.id==="housing").w;
   const cpiMed = WEIGHTS.majorGroups.find(g=>g.id==="SAM").w;
   const pceHealth = PCE_WEIGHTS.majorGroups.find(g=>g.id==="health").w;
+  // A month BLS did not publish (October 2025) is a break in the CPI lines; PCE has it.
+  const pceMonths = new Set(PCE["L1"].points.filter(p => p.yoy !== null).map(p => p.d));
+  const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && pceMonths.has(p.d)).map(p => fmtMonthYear(p.d));
   document.getElementById("cmpCallout").innerHTML =
     "<div>" + T.cmpLine1(fmtPct(cpiLatest.yoy), fmtPct(pceLatest.yoy), fmtMonthYear(cpiLatest.d)) + "</div>" +
-    "<div>" + T.cmpLine2(cpiHousing.toFixed(1), pceHousing.toFixed(1), cpiMed.toFixed(1), pceHealth.toFixed(1)) + "</div>";
+    "<div>" + T.cmpLine2(cpiHousing.toFixed(1), pceHousing.toFixed(1), cpiMed.toFixed(1), pceHealth.toFixed(1)) + "</div>" +
+    (cpiGap.length ? "<div>" + T.cmpGapNote(cpiGap.join(", "), "PCE") + "</div>" : "");
 })();
 
 // ---------- PCE headline vs core ----------
@@ -5571,7 +5688,7 @@ renderDualLineChart({
   const actualHeadline = headlineLatest.yoy;
   document.getElementById("pceContribCallout").textContent = T.pceContribFoot(
     fmtMonthYear(PCE_WEIGHTS.asOfMonth),
-    (sumContrib >= 0 ? "+" : "") + sumContrib.toFixed(2),
+    sgnFix(sumContrib, 2),
     fmtPct(actualHeadline)
   );
 })();
@@ -5831,10 +5948,14 @@ function renderPPI() {
   const cpiAt = CPI["CUUR0000SA0"].points.find(p => p.d === headline.d);
   if (cpiAt && cpiAt.yoy !== null) {
     const gap = headline.yoy - cpiAt.yoy;
+    // A month BLS did not publish CPI (October 2025) is a break in the CPI lines; PPI has it.
+    const ppiMonths = new Set(PPI["WPUFD4"].points.filter(p => p.yoy !== null).map(p => p.d));
+    const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && ppiMonths.has(p.d)).map(p => fmtMonthYear(p.d));
     document.getElementById("ppiCmpCallout").innerHTML =
       "<div>" + T.ppiCmpLine1(fmtPct(headline.yoy), fmtPct(cpiAt.yoy), fmtMonthYear(headline.d)) + " " +
                 T.ppiCmpLine2(gap >= 0 ? "above" : "below", Math.abs(gap).toFixed(1)) + "</div>" +
-      "<div>" + T.ppiCmpMethod + "</div>";
+      "<div>" + T.ppiCmpMethod + "</div>" +
+      (cpiGap.length ? "<div>" + T.cmpGapNote(cpiGap.join(", "), "PPI") + "</div>" : "");
   }
 
   // ---- goods vs services ----
@@ -5882,10 +6003,10 @@ function renderPPI() {
     const p = latestYoy(g.id);
     return p ? {name:nameOf(g.id), value:(g.w/100) * p.yoy, color:colorByKey[g.id]} : null;
   }).filter(Boolean).sort((a,b) => b.value - a.value);
-  renderBarList("ppiContribList", contrib, v => (v >= 0 ? "+" : "") + v.toFixed(2) + "pp");
+  renderBarList("ppiContribList", contrib, v => sgnFix(v, 2) + "pp");
   const sumC = contrib.reduce((a,b) => a + b.value, 0);
   document.getElementById("ppiContribCallout").textContent =
-    T.ppiContribFoot(fmtMonthYear(PPI_WEIGHTS.asOfMonth), (sumC >= 0 ? "+" : "") + sumC.toFixed(2), fmtPct(headline.yoy));
+    T.ppiContribFoot(fmtMonthYear(PPI_WEIGHTS.asOfMonth), sgnFix(sumC, 2), fmtPct(headline.yoy));
 
   // ---- derby ----
   document.getElementById("ppiDerbyAsOf").textContent = fmtMonthYear(headline.d);
@@ -5940,7 +6061,7 @@ function renderDivergingTileMap(containerId, legendId, valueFn, decimals) {
   const vals = states.map(valueFn).filter(v => v !== null && v !== undefined);
   // Symmetric range so equal moves in either direction get equal color.
   const vmax = Math.max(...vals.map(Math.abs)) || 1;
-  const disp = v => (v > 0 ? "+" : "") + v.toFixed(decimals) + "%";
+  const disp = v => sgnFix(v, decimals) + "%";
   states.forEach(s => {
     const v = valueFn(s);
     const x = pad + s.col*(cell+gap), y = pad + s.row*(cell+gap);
@@ -6034,7 +6155,7 @@ function renderRetail() {
     tile.innerHTML =
       `<div class="kpi-label">${t2.label}</div>` +
       `<div class="kpi-value-row"><div class="kpi-value">${fmtPct(cur.yoy)}</div>` +
-      `<div class="kpi-delta">${cur.mom >= 0 ? "▲" : "▼"} ${Math.abs(cur.mom).toFixed(1)}% ${T.rtKpiMoM}</div></div>` +
+      `<div class="kpi-delta">${deltaArrow(cur.mom, 1)} ${Math.abs(cur.mom).toFixed(1)}% ${T.rtKpiMoM}</div></div>` +
       `<svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` +
       `<div class="kpi-foot">${fmtMonthYear(cur.d)}</div>`;
     row.appendChild(tile);
@@ -6091,10 +6212,10 @@ function renderRetail() {
     const now = last(c.key), ago = at(c.key, agoD);
     return (now && ago && totalAgo) ? {name:nameOf(c.key), value:(now.v - ago.v)/totalAgo.v*100, color:colorByKey[c.key]} : null;
   }).filter(Boolean).sort((a,b) => b.value - a.value);
-  renderBarList("rtContribList", contrib, v => (v >= 0 ? "+" : "") + v.toFixed(2) + "pp");
+  renderBarList("rtContribList", contrib, v => sgnFix(v, 2) + "pp");
   const sumC = contrib.reduce((a,b) => a + b.value, 0);
   document.getElementById("rtContribCallout").innerHTML =
-    "<div>" + T.rtContribFoot((sumC >= 0 ? "+" : "") + sumC.toFixed(2), fmtPct(total.yoy), fmtMonthYear(total.d)) + "</div>";
+    "<div>" + T.rtContribFoot(sgnFix(sumC, 2), fmtPct(total.yoy), fmtMonthYear(total.d)) + "</div>";
 
   // ---- composition donut: current shares, with a year ago as the comparison ----
   document.getElementById("rtCompAsOf").textContent = fmtMonthYear(total.d);
@@ -6164,10 +6285,11 @@ function renderFinCond() {
   const fmtWeek = d => fmtDateDMY(d);
   const pctFmt = v => v.toFixed(2) + "%";
 
-  // The NFCI is dated to the Friday its week ends and published the following Wednesday.
-  (function () { const rel = new Date(cur.d + "T00:00:00"); rel.setDate(rel.getDate() + 5);
-    document.getElementById("fcAsOfLine").textContent = T.fcAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(rel)); })();
-  document.getElementById("fcNextReleaseLine").textContent = T.fcNext(fmtDateDMY(nextWeeklyRelease(cur.d, 3, 5)));
+  // The NFCI is dated to the Friday its week ends and published the following Wednesday
+  // (Thursday in a week with a Monday holiday): both dates from the Chicago Fed's calendar.
+  (function () { const r = weeklyReleases("nfci", cur.d, 5);
+    document.getElementById("fcAsOfLine").textContent = T.fcAsOfWeek(fmtDateDMY(cur.d), fmtDateDMY(r.released));
+    document.getElementById("fcNextReleaseLine").textContent = T.fcNext(fmtDateWd(r.next), r.sched, releaseDue(r.next, "08:30")); })();
   document.getElementById("fcRefreshedLine").textContent = freshnessLabel(FINCOND_SOURCE, FINCOND.fetchedAt, "FRED");
 
   // ---- KPI tiles: level now, change over four weeks ----
@@ -6297,9 +6419,12 @@ function renderFinCond() {
     {name:T.legFedEffective, color:"--series-core",     data: tgt.map(p => pick(dff, p.d))},
     {name:T.legMortgage,     color:"--series-goods",    data: tgt.map(p => pick(mortByWeek, p.d))}
   ], {fmt: pctFmt, labelFmt: fmtWeek});
-  const tgtL = last("DFEDTARU"), dffL = last("DFF"), mortL = last("MORTGAGE30US");
+  // Each figure with its own date: the target is known the same day, the effective rate a
+  // business day later, and the mortgage rate is Freddie Mac's weekly survey (Thursdays, 12:00 ET).
+  const tgtL = last("DFEDTARU"), dffL = last("DFF"), mortL = last("MORTGAGE30US"), mr = weeklyReleases("mortgage", mortL.d, 0);
   document.getElementById("fcPolicyCallout").innerHTML =
-    "<div>" + T.fcPolicyNote(pctFmt(tgtL.v), pctFmt(dffL.v), pctFmt(mortL.v), fmtDay(tgtL.d)) + "</div>" +
+    "<div>" + T.fcPolicyNote(pctFmt(tgtL.v), fmtDay(tgtL.d), pctFmt(dffL.v), fmtDay(dffL.d)) + " " +
+              T.fcMortNote(pctFmt(mortL.v), fmtDay(mortL.d), fmtDateWd(mr.next), mr.sched, releaseDue(mr.next, "12:00")) + "</div>" +
     "<div>" + T.fcPolicyMethod + "</div>";
 
   // ---- markets ----
@@ -6448,7 +6573,7 @@ function renderFiscal() {
   const sB = T.sfxB, sT = T.sfxT;
   // A signed change in $ billions; a value that rounds to zero carries no sign.
   const sgnB = v => (Math.round(Math.abs(v)) === 0 ? "$" : v > 0 ? "+$" : "−$") + bn(v) + sB;
-  const signed = v => (v >= 0 ? "+" : "−") + T.currencySym + bn(v);
+  const signed = v => (Math.round(Math.abs(v)) === 0 ? "" : v > 0 ? "+" : "−") + T.currencySym + bn(v);
   const byD = {}; M.forEach(p => byD[p.d] = p);
   const yearAgo = d => { const [y, m] = d.split("-").map(Number); return byD[(y-1) + "-" + String(m).padStart(2,"0")]; };
   const fyMonths = M.filter(p => p.fy === cur.fy);                  // this fiscal year so far
@@ -6615,7 +6740,7 @@ function lbYoY(key) {
 }
 // Thousands: "+162K" in English. Spanish spells the unit out ("+162 mil") and reads a
 // level of a million or more in millions ("7.38 M"), the Mexican convention.
-function fmtK(v) { const r = Math.round(v); return r === 0 ? "0" : (r > 0 ? "+" : "") + r.toLocaleString(T.dateLocale) + (LANG === "es" ? " mil" : "K"); }
+function fmtK(v) { const r = Math.round(v); return r === 0 ? "0" : (r > 0 ? "+" : "−") + Math.abs(r).toLocaleString(T.dateLocale) + (LANG === "es" ? " mil" : "K"); }
 function fmtLevelK(v) {
   if (LANG !== "es") return Math.round(v).toLocaleString(T.dateLocale) + "K";
   if (Math.abs(v) < 1000) return Math.round(v).toLocaleString(T.dateLocale) + " mil";
@@ -6717,7 +6842,7 @@ function renderUnemployment() {
     tile.innerHTML =
       `<div class="kpi-label">${def.label}</div>` +
       `<div class="kpi-value-row"><div class="kpi-value">${def.fmt(cur.v)}</div>` +
-      `<div class="kpi-delta">${delta >= 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(unit === "K" ? 0 : 1)}${unit} ${T.kpiDeltaBare}</div></div>` +
+      `<div class="kpi-delta">${deltaArrow(delta, unit === "K" ? 0 : 1)} ${Math.abs(delta).toFixed(unit === "K" ? 0 : 1)}${unit} ${T.kpiDeltaBare}</div></div>` +
       `<svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` +
       `<div class="kpi-foot">${fmtMonthYear(cur.d)}</div>`;
     row.appendChild(tile);
@@ -7000,10 +7125,14 @@ function renderPayrolls() {
   const cpiLast = cpiPts[cpiPts.length-1];
   if (aheYoYLatest && cpiLast) {
     const realGap = aheYoYLatest.v - cpiLast.yoy;
+    // A month BLS did not publish CPI (October 2025) is a break in the CPI line; pay has it.
+    const aheMonths = new Set(aheYoY.map(p => p.d));
+    const cpiGap = CPI["CUUR0000SA0"].points.filter(p => p.idx === null && aheMonths.has(p.d)).map(p => fmtMonthYear(p.d));
     document.getElementById("pyWagesCallout").innerHTML =
       "<div>" + T.pyWagesNote(fmtPct(aheYoYLatest.v), fmtPct(cpiLast.yoy),
                               Math.abs(realGap).toFixed(1),
-                              realGap >= 0 ? T.wagesAhead : T.wagesBehind) + "</div>";
+                              realGap >= 0 ? T.wagesAhead : T.wagesBehind) + "</div>" +
+      (cpiGap.length ? "<div>" + T.cpiGapLine(cpiGap.join(", ")) + "</div>" : "");
   }
 
   // JOLTS
@@ -7224,8 +7353,9 @@ function plotSeries(svgId, tooltipId, legendId, labels, series, opts) {
     }
   });
   const legend = legendId ? document.getElementById(legendId) : null;
-  if (legend) legend.innerHTML = series.map(s =>
-    `<div class="legend-item"><span class="legend-swatch" style="background:var(${s.color})"></span>${s.name}</div>`).join("");
+  if (legend) legend.innerHTML = series.map(s => s.dashed
+    ? `<div class="legend-item"><span class="legend-swatch dashed" style="border-top-color:var(${s.color})"></span>${s.name}</div>`
+    : `<div class="legend-item"><span class="legend-swatch" style="background:var(${s.color})"></span>${s.name}</div>`).join("");
 
   const tooltip = tooltipId ? document.getElementById(tooltipId) : null;
   if (tooltip) {
@@ -7310,10 +7440,10 @@ function renderTileMap(containerId, legendId, rateFn, decimals) {
 function renderExecSummaries() {
   const today = new Date(); today.setHours(0, 0, 0, 0);
   const lv = (v, d) => v.toFixed(d === undefined ? 1 : d) + "%";                                   // a level, no sign
-  const sg = (v, d) => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(d === undefined ? 1 : d);   // a signed change
+  const sg = (v, d) => sgnFix(v, d === undefined ? 1 : d);                                   // a signed change
   const pp = (v, d) => sg(v, d) + " pp";
   const ppa = v => Math.abs(v).toFixed(2) + " pp";
-  const mn = v => v.toFixed(2).replace("-", "−");                                             // a signed level with a real minus
+  const mn = v => { const t = v.toFixed(2); return +t === 0 ? t.replace("-", "") : t.replace("-", "−"); };   // a signed level with a real minus
   const n0 = v => Math.round(v).toLocaleString(T.dateLocale);
   const dir = (delta, tol) => Math.abs(delta) < (tol === undefined ? 0.05 : tol) ? "flat" : delta > 0 ? "up" : "down";
   const monthsAgoKey = (d, k) => { const [y, m] = d.split("-").map(Number); const t = y * 12 + (m - 1) - k; return Math.floor(t / 12) + "-" + String((t % 12) + 1).padStart(2, "0"); };
@@ -7456,13 +7586,19 @@ function renderExecSummaries() {
     const cur = g[g.length - 1], prev = g[g.length - 2];
     const avg4 = g.slice(-4).reduce((a, b) => a + b.v, 0) / 4;
     const con = k => { const p = gdpLatest("contributions", k); return p ? p.v : null; };
-    const pce = con("L2"), inv = con("L7"), gov = con("L22"), nx = con("L15");
+    const pce = con("L2"), inv = con("L7"), gov = con("L22"), nx = con("L15"), ex = con("L16"), im = con("L19");
     if ([pce, inv, gov, nx].some(v => v === null)) return;
-    const share = Math.abs(cur.v) >= 0.5 ? Math.round(pce / cur.v * 100) : null;
+    // Which components added and which subtracted, each named with its own figure;
+    // exports and imports separately (net exports hides that one side added).
+    const parts = [["inv", inv], ["exp", ex], ["imp", im], ["gov", gov]].filter(o => o[1] !== null && +Math.abs(o[1]).toFixed(2) > 0);
+    const mode = Math.abs(cur.v) < 0.5 ? null : cur.v < 0 ? "decline" : pce < 0 ? "pceNeg" : pce > cur.v ? "gt100" : "share";
+    if (mode === "decline" && +Math.abs(pce).toFixed(2) > 0) parts.unshift(["pce", pce]);
+    const side = sign => parts.filter(o => sign * o[1] > 0).sort((a, b) => sign * (b[1] - a[1])).map(o => ({ k: o[0], v: pp(o[1], 2) }));
+    const share = mode === "share" ? Math.round(pce / cur.v * 100) : null;
     card("exec-gdp",
       T.exGdpLatest(lv(cur.v), fmtQuarter(cur.d), lv(prev.v), fmtQuarter(prev.d), lv(avg4)),
       T.exGdpDrivers(pp(pce, 2), pp(inv, 2), pp(gov, 2), pp(nx, 2)),
-      T.exGdpWhy(cur.v > avg4 + 0.3 ? "above" : cur.v < avg4 - 0.3 ? "below" : "near", share, pp(pce, 2)),
+      T.exGdpWhy(cur.v > avg4 + 0.3 ? "above" : cur.v < avg4 - 0.3 ? "below" : "near", mode, share, pp(pce, 2), side(1), side(-1)),
       nextLine("gdp", (function () { const e = gdpNextEstimate(cur.d); return e ? T.exRelGdp(e.name, e.q) : T.exRelGdp(); })()) + " " + T.exGdpWatch(pp(nx, 2)));
   });
 
@@ -7542,7 +7678,7 @@ function renderExecSummaries() {
     const drv = subs.reduce((m, s) => Math.abs(s.v) > Math.abs(m.v) ? s : m);
     const slope = y10.v - y2.v;
     card("exec-fincond",
-      T.exFcLatest(mn(cur.v), fmtDateDMY(cur.d), dir(cur.v - ago.v, 0.02), Math.abs(cur.v - ago.v).toFixed(2), lv(y10.v, 2), lv(y2.v, 2), sg(slope, 2), hy.v.toFixed(2), lv(mtg.v, 2)),
+      T.exFcLatest(mn(cur.v), fmtDateDMY(cur.d), dir(cur.v - ago.v, 0.02), Math.abs(cur.v - ago.v).toFixed(2), lv(y10.v, 2), lv(y2.v, 2), sg(slope, 2), hy.v.toFixed(2), lv(mtg.v, 2), fmtDateDMY(mtg.d)),
       T.exFcDrivers(drv.name.toLowerCase(), mn(drv.v), drv.v > 0 ? "tight" : "loose", (ff.v - 0.25).toFixed(2) + "–" + ff.v.toFixed(2) + "%", dir(hy.v - hyAgo.v, 0.05), Math.abs(hy.v - hyAgo.v).toFixed(2)),
       T.exFcWhy(cur.v < -0.2 ? "loose" : cur.v > 0.2 ? "tight" : "neutral", hy.v < 4 ? "calm" : hy.v < 6 ? "elevated" : "stress", hy.v.toFixed(2)),
       T.exFcWatch(slope < 0 ? "inverted" : "positive"));
@@ -7594,7 +7730,7 @@ function renderExecSummaries() {
     if (!SPR || !SPR.weekly || SPR.weekly.length < 60) return;
     const W = sprWeekly(), mb = v => v / 1000;
     const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
-    const s1 = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
+    const s1 = v => (+Math.abs(v).toFixed(1) === 0 ? "" : v > 0 ? "+" : "−") + f1(Math.abs(v));
     const cur = W[W.length - 1], prev = W[W.length - 2], w52 = W[W.length - 53];
     const peak = SPR.monthly.reduce((m, p) => p.v > m.v ? p : m);
     const cap = SPR.capacity ? SPR.capacity.total : null;
@@ -7619,7 +7755,7 @@ function renderExecSummaries() {
     const pctAbove = Math.round(vals.filter(v => v > cur.cape).length / n * 100);
     const f1 = v => v.toFixed(1);
     const pk1929 = P.find(p => p.d === "1929-09"), pk1999 = P.find(p => p.d === "1999-12");
-    const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
+    const pctf = v => sgnFix(v, 1) + "%";
     card("exec-cape",
       T.exCapeLatest(f1(cur.cape), fmtMonthYear(cur.d), CAPE.partialMonth, f1(prev.cape), f1(mean), pctAbove),
       T.exCapeDrivers(Math.round(cur.real).toLocaleString(T.dateLocale), Math.round(cur.real / cur.cape).toLocaleString(T.dateLocale), f1(cur.cape), dir(cur.cape - prev.cape, 0.05), cur.ecy === null ? "—" : pctf(cur.ecy), cur.gs10.toFixed(2),
@@ -7655,7 +7791,7 @@ function renderSpr() {
   const mb = v => v / 1000;                                                   // thousand -> million barrels
   const f1 = v => v.toLocaleString(T.dateLocale, { minimumFractionDigits: 1, maximumFractionDigits: 1 });
   const f0 = v => Math.round(v).toLocaleString(T.dateLocale);
-  const s1 = v => (v >= 0 ? "+" : "−") + f1(Math.abs(v));
+  const s1 = v => (+Math.abs(v).toFixed(1) === 0 ? "" : v > 0 ? "+" : "−") + f1(Math.abs(v));
   const cur = W[W.length - 1], prevW = W[W.length - 2], w4 = W[W.length - 5], w52 = W[W.length - 53];
   const cap = SPR.capacity ? SPR.capacity.total : null;
   const peak = M.reduce((m, p) => p.v > m.v ? p : m);                        // month-end peak, the same one the chart flags
@@ -7672,8 +7808,9 @@ function renderSpr() {
     if (!(SPR.files && SPR.files.weekly)) rel.setDate(rel.getDate() + 5);
     document.getElementById("sprAsOfLine").textContent = T.sprLatest(f1(mb(cur.v)), fmtDateDMY(cur.d),
       cur.doe ? T.sprSrcDoe(fmtDateDMY(SPR.image.published)) : T.sprSrcEia(fmtDateDMY(rel)));
-    const nx = nextWeeklyRelease(eia.d, 3, 12); const cover = new Date(nx); cover.setDate(cover.getDate() - 5);
-    document.getElementById("sprNextReleaseLine").textContent = cur.doe ? T.sprEiaThru(fmtDateDMY(eia.d), fmtDateDMY(nx)) : T.sprNextEia(fmtDateDMY(nx), fmtDateDMY(cover));
+    // The report after the week shown, on EIA's schedule (holiday weeks included).
+    const nx = nextEiaReport(eia.d), late = releaseDue(nx.d, nx.time), t = nx.time.replace(/^0/, "");
+    document.getElementById("sprNextReleaseLine").textContent = cur.doe ? T.sprEiaThru(fmtDateDMY(eia.d), fmtDateWd(nx.d), t, late) : T.sprNextEia(fmtDateWd(nx.d), t, fmtDateDMY(nx.week), late);
   })();
   document.getElementById("sprRefreshedLine").textContent = freshnessLabel("snapshot", SPR.fetchedAt, "EIA");
 
@@ -7807,7 +7944,7 @@ function renderCape() {
   const pctBelow = vals.filter(v => v < cur.cape).length / n * 100;
   const hi = P.reduce((m, p) => p.cape > m.cape ? p : m), lo = P.reduce((m, p) => p.cape < m.cape ? p : m);
   const f1 = v => v.toFixed(1);
-  const pctf = v => (v >= 0 ? "+" : "−") + Math.abs(v).toFixed(1) + "%";
+  const pctf = v => sgnFix(v, 1) + "%";
 
   document.getElementById("capeAsOfLine").textContent = T.dataAsOf(fmtMonthYear(cur.d)) + (CAPE.partialMonth ? " " + T.capeMtd : "");
   document.getElementById("capeNextReleaseLine").textContent = T.capeNext(fmtMonthYear(nextMonthOf(cur.d)));
@@ -7873,10 +8010,11 @@ function renderCape() {
 
 
 // ---------- expected release dates for sources without a published calendar ----------
-// EIA, the Chicago Fed, the NY Fed, Treasury and Challenger publish on a cadence
-// rather than a calendar the pipeline can read, so their "next" dates are
-// computed from the cadence and labelled as expected. US federal holidays
-// (observed) are taken into account for the business-day rules.
+// The NY Fed, Treasury, Challenger and DOE publish on a cadence rather than a
+// calendar the pipeline can read, so their "next" dates are computed from the
+// cadence and labelled as expected. US federal holidays (observed) are taken
+// into account for the business-day rules. The weekly Chicago Fed, Freddie Mac
+// and EIA releases follow their own calendars (below).
 function fmtYmd(d) { return d.getFullYear() + "-" + String(d.getMonth() + 1).padStart(2, "0") + "-" + String(d.getDate()).padStart(2, "0"); }
 function usHolidays(y) {
   const out = new Set();
@@ -7910,6 +8048,46 @@ function calendarNextDate(key) {
   const cands = [c.next].concat(c.upcoming || []).filter(Boolean).map(s => new Date(s + "T00:00:00")).filter(d => d >= today).sort((a, b) => a - b);
   return cands.length ? cands[0] : null;
 }
+
+// ---------- weekly releases on the publisher's own schedule ----------
+// The "next" date of a weekly series is the release after the one the page shows,
+// never a date computed from today, so it moves on by itself with each refresh
+// that brings the new point in. Holiday shifts come from the publisher's calendar.
+function addDaysYmd(ymd, n) { const d = new Date(ymd + "T00:00:00"); d.setDate(d.getDate() + n); return fmtYmd(d); }
+// Every date of a FRED release in calendar.json, published and scheduled, sorted.
+function calendarDates(key) {
+  const c = CALENDAR && CALENDAR.releases && CALENDAR.releases[key]; if (!c) return [];
+  return Array.from(new Set([].concat(c.recent || [], c.upcoming || [], c.next ? [c.next] : []))).sort();
+}
+// A weekly FRED series: when the point dated ymd came out (the calendar date within three
+// days of the usual one, lag days after the data date) and the release after it. Without
+// the calendar, the usual day and a week later, flagged as not scheduled.
+function weeklyReleases(key, ymd, lag) {
+  const all = calendarDates(key), usual = addDaysYmd(ymd, lag);
+  const rel = all.find(d => d >= addDaysYmd(usual, -3) && d <= addDaysYmd(usual, 3));
+  const next = rel ? all.find(d => d > rel) : null;
+  return next ? { released: rel, next, sched: true } : { released: rel || usual, next: addDaysYmd(rel || usual, 7), sched: false };
+}
+// EIA's next weekly petroleum report after the week shown (dated to its Friday): the
+// following Wednesday at 10:30 ET, or the day and time EIA's holiday schedule gives.
+function nextEiaReport(weekYmd) {
+  const wk = addDaysYmd(weekYmd, 7), sch = SPR && SPR.schedule;
+  const ex = sch && (sch.exceptions || []).find(e => e.week === wk);
+  return ex ? { d: ex.release, time: ex.time, week: wk, sched: true } : { d: addDaysYmd(wk, 5), time: "10:30", week: wk, sched: !!sch };
+}
+// The time in New York now, "YYYY-MM-DD HH:MM", to tell whether a release time (ET) has passed.
+function nowET() {
+  try {
+    const p = {};
+    new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" })
+      .formatToParts(new Date()).forEach(x => { p[x.type] = x.value; });
+    return p.year + "-" + p.month + "-" + p.day + " " + p.hour + ":" + p.minute;
+  } catch (e) { return fmtYmd(new Date()) + " 00:00"; }
+}
+// True once a release's scheduled time has passed: the data shown are then behind it.
+function releaseDue(ymd, hhmm) { return nowET() >= ymd + " " + hhmm; }
+// "Wednesday 07-Oct-2026" / "miércoles 07-oct-2026".
+function fmtDateWd(ymd) { const d = new Date(ymd + "T00:00:00"); return T.wdays[d.getDay()] + " " + fmtDateDMY(d); }
 
 function renderCuts() {
   if (!LABOR_STATIC || !LABOR_STATIC.challenger) return;
@@ -7977,10 +8155,14 @@ function renderCuts() {
 
   // hiring plans, this year vs last
   const thisYear = C.asOfMonth.slice(0, 4), lastYear = String(+thisYear - 1);
-  const hLabels = C.hiringThisYear.map((_,i) => String(i+1).padStart(2,"0"));
+  // One January-December axis: last year in full, this year to its latest month. An axis
+  // of this year's months alone drew last year's later months past the chart's edge.
+  const hN = Math.max(C.hiringThisYear.length, (C.hiringLastYear || []).length);
+  const hLabels = Array.from({ length: hN }, (_, i) => String(i + 1).padStart(2, "0"));
+  const hPad = arr => Array.from({ length: hN }, (_, i) => arr && arr[i] !== undefined ? arr[i] : null);
   plotSeries("cutsHiringChart","cutsHiringTooltip","cutsHiringLegend", hLabels, [
-    {name:thisYear, color:"--series-category", data:C.hiringThisYear},
-    {name:lastYear, color:"--text-muted", data:C.hiringLastYear, dashed:true}
+    {name:thisYear, color:"--series-category", data:hPad(C.hiringThisYear)},
+    {name:lastYear, color:"--text-muted", data:hPad(C.hiringLastYear), dashed:true}
   ], {fmt: v => nf(v), labelFmt: m => T.months[parseInt(m,10)-1]});
   document.getElementById("cutsHiringCallout").innerHTML =
     "<div>" + T.cutsHiringNote(nf(C.ytdHiring), nf(C.ytdHiringLastYear), pctChg(C.ytdHiring, C.ytdHiringLastYear)) + "</div>";
@@ -8052,6 +8234,22 @@ function fmtQuarter(d) {
   const [y, q] = d.split("-");
   return T.quarterPrefix + q.replace("Q","") + " " + y;
 }
+// BEA's annual update revises years of history at once. The pipeline records such a
+// release (gdp_processed.json "revisions"); for 120 days after it the GDP, income and
+// PCE views say what was revised, so charts that moved do not move silently.
+function renderBeaRevisionNote(elId, kind) {
+  const el = document.getElementById(elId); if (!el) return;
+  const R = GDP && GDP.revisions, r = R && R.length ? R[R.length - 1] : null;
+  const rel = r ? new Date(r.release + "T00:00:00") : null;
+  if (!r || (todayLocal() - rel) / 864e5 > 120) { el.innerHTML = ""; return; }
+  const pc = v => (v < 0 ? "−" : "") + Math.abs(v).toFixed(1) + "%", mf = r.monthsFrom || {};
+  const earliest = a => a.filter(Boolean).sort()[0] || null;
+  let text = null;
+  if (kind === "gdp" && r.gdpFrom) text = T.beaRevGdp(fmtDateDMY(rel), fmtQuarter(r.gdpFrom), r.quarters, (r.examples || []).map(e => T.beaRevEx(fmtQuarter(e.d), pc(e.was), pc(e.now))));
+  if (kind === "income" && earliest([mf.income, mf.spending])) text = T.beaRevIncome(fmtDateDMY(rel), fmtMonthYear(earliest([mf.income, mf.spending])));
+  if (kind === "pce" && mf.prices) text = T.beaRevPce(fmtDateDMY(rel), fmtMonthYear(mf.prices));
+  el.innerHTML = text ? "<div><b>" + T.beaRevLead + "</b> " + text + "</div>" : "";
+}
 function gdpPts(group, key) {
   const s = GDP && GDP[group] && GDP[group][key];
   return s ? s.points.filter(p => p.v !== null && p.v !== undefined) : [];
@@ -8122,6 +8320,7 @@ function renderGDP() {
     if (c && c.next) { const dt = new Date(c.next + "T00:00:00"); el.textContent = (dt < new Date() ? T.gdpNextReleaseWas : T.gdpNextRelease)(fmtDateDMY(dt), nxEst ? T.exRelGdp(nxEst.name, nxEst.q) : ""); }
     else el.textContent = ""; })();
   document.getElementById("gdpRefreshedLine").textContent = freshnessLabel(GDP_SOURCE, REFRESHED_AT, "BEA");
+  renderBeaRevisionNote("gdpRevNotice", "gdp");
 
   const con = k => gdpLatest("contributions", k);
   const tiles = [
@@ -8207,6 +8406,7 @@ function renderIncome() {
   document.getElementById("incAsOfLine").textContent = T.dataAsOf(fmtMonthYear(inc.d));
   document.getElementById("incRefreshedLine").textContent = freshnessLabel(GDP_SOURCE, REFRESHED_AT, "BEA");
   document.getElementById("incNextReleaseLine").textContent = nextReleaseText("pce", fmtMonthYear(nextMonthOf(inc.d)), T.nextReleaseEstPCE);
+  renderBeaRevisionNote("incRevNotice", "income");
 
   const L = k => gdpLatest("income", k);
   const savingRate = L(INC.savingRate);
@@ -8230,8 +8430,8 @@ function renderIncome() {
       `<div class="kpi-label">${t2.label}</div>` +
       `<div class="kpi-value-row"><div class="kpi-value">${t2.value}</div>` +
       (t2.key === INC.savingRate
-        ? `<div class="kpi-delta">${(cur.v-prev.v) >= 0 ? "▲" : "▼"} ${Math.abs(cur.v-prev.v).toFixed(1)}pp ${T.kpiDeltaBare}</div>`
-        : `<div class="kpi-delta">${delta >= 0 ? "▲" : "▼"} ${Math.abs(delta).toFixed(1)}% ${T.kpiDeltaBare}</div>`) +
+        ? `<div class="kpi-delta">${deltaArrow(cur.v - prev.v, 1)} ${Math.abs(cur.v-prev.v).toFixed(1)}pp ${T.kpiDeltaBare}</div>`
+        : `<div class="kpi-delta">${deltaArrow(delta, 1)} ${Math.abs(delta).toFixed(1)}% ${T.kpiDeltaBare}</div>`) +
       `</div><svg class="kpi-spark" id="${id}" viewBox="0 0 200 40" preserveAspectRatio="none"></svg>` +
       `<div class="kpi-foot">${fmtMonthYear(cur.d)}</div>`;
     row.appendChild(tile);
@@ -8404,7 +8604,7 @@ function renderConfidence() {
     {label:T.confKpiPx1,       series:px1, color:"--series-energy",   dec:1, unit:"%"},
     {label:T.confKpiPx5,       series:px5, color:"--cat-5",           dec:1, unit:"%"},
     {label:T.confKpiVsAvg,     series:null, color:"--cat-8", dec:1, unit:"",
-     value:(vsAvg >= 0 ? "+" : "−") + Math.abs(vsAvg).toFixed(1), foot:curD}
+     value:sgnFix(vsAvg, 1), foot:curD}
   ];
   const row = document.getElementById("confKpiRow");
   tiles.forEach((t2, i) => {
@@ -8416,7 +8616,7 @@ function renderConfidence() {
       const cur = last(t2.series), prev = t2.series[t2.series.length-2];
       valueHtml = cur.v.toFixed(t2.dec) + t2.unit;
       const dlt = cur.v - prev.v;
-      deltaHtml = `<div class="kpi-delta">${dlt >= 0 ? "▲" : "▼"} ${Math.abs(dlt).toFixed(t2.dec)}${t2.unit ? "pp" : ""} ${T.kpiDeltaBare}</div>`;
+      deltaHtml = `<div class="kpi-delta">${deltaArrow(dlt, t2.dec)} ${Math.abs(dlt).toFixed(t2.dec)}${t2.unit ? "pp" : ""} ${T.kpiDeltaBare}</div>`;
       footD = cur.d;
       spark = t2.series.slice(-36).map(p => p.v);
     } else {
@@ -8825,6 +9025,9 @@ function buildMobileNav() {
   const sel = document.getElementById("mobileNav");
   if (!sel) return;
   sel.innerHTML = "";
+  if (!document.querySelector(".rail-item[data-view].active")) {
+    const o = document.createElement("option"); o.value = ""; o.textContent = T.nfChoose; o.disabled = true; o.selected = true; sel.appendChild(o);
+  }
   let group = null;
   document.querySelectorAll(".rail > *").forEach(el => {
     if (el.classList.contains("rail-group-label")) {

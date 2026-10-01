@@ -94,8 +94,22 @@ function Assert-StringsResolve {
   Write-Output ("string refs    : OK ({0} references all resolve)" -f $used.Count)
 }
 
+# The server answers an unknown ?view= with 404 (functions/macro/_middleware.js); its list of
+# sections must be the page's own, or a real section would answer 404 and a missing one 200.
+function Assert-ViewList {
+  $rail = @([regex]::Matches($template, '<a class="rail-item[^"]*"[^>]*data-view="([a-z0-9-]+)"') | ForEach-Object { $_.Groups[1].Value })
+  $mwFile = Join-Path $PSScriptRoot "..\..\functions\macro\_middleware.js"
+  if (-not (Test-Path $mwFile)) { throw "functions/macro/_middleware.js is missing." }
+  $listed = @([regex]::Matches([regex]::Match((Get-Content $mwFile -Raw), 'const VIEWS = \[([^\]]*)\]').Groups[1].Value, '[a-z0-9-]+') | ForEach-Object { $_.Value })
+  if (-not $rail.Count -or ((@($rail | Sort-Object) -join ",") -ne (@($listed | Sort-Object) -join ","))) {
+    throw ("functions/macro/_middleware.js lists the sections [{0}] but the page has [{1}]." -f ($listed -join ", "), ($rail -join ", "))
+  }
+  Write-Output ("view list      : OK ({0} sections, the same in functions/macro/_middleware.js)" -f $rail.Count)
+}
+
 Assert-LocaleParity
 Assert-StringsResolve
+Assert-ViewList
 
 function Build-Page([string]$liveFlag) {
   $out = $template.

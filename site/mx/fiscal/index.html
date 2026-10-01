@@ -14,6 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
 <!-- data.js: every time series, refreshed each business day by .github/workflows/refresh-mx-data.yml (scripts/mx-fiscal/fetch.mjs) → window.MX_DATA. -->
+<script src="/assets/provenance.js"></script>
 <script src="data.js"></script>
 <!-- docs-data.js: figures that exist only in documents (CGPE, PAF, LIF, PEF, Pemex reports, ratings, survey), refreshed every business day by a Claude routine that reads the document mirrors in tools/mx-fiscal/docs/ → window.MX_DOCS. -->
 <script src="docs-data.js"></script>
@@ -218,6 +219,7 @@ table tr.bold td{font-weight:700;}
 .stat{min-width:120px;}
 .stat .v{font-family:"Source Serif 4",serif; font-size:24px; font-weight:700;}
 .stat .l{font-size:11.5px; color:var(--muted); margin-top:2px;}
+abbr.np{text-decoration:none; color:var(--muted); cursor:help; border-bottom:1px dotted var(--muted);}
 .approx{color:var(--muted); font-weight:500; font-size:.8em; vertical-align:super; cursor:help;}
 
 /* ---------- Footer ---------- */
@@ -325,8 +327,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       </a>
     </div>
     <span class="eyebrow">
-      <span class="es">Datos de la SHCP y del Banco de México</span>
-      <span class="en">SHCP &amp; Banco de México data</span>
+      <span class="es" id="eyebrowEs">Datos de la SHCP y del Banco de México</span>
+      <span class="en" id="eyebrowEn">SHCP &amp; Banco de México Data</span>
     </span>
     <h1>
       <span class="es">Monitor Fiscal de México</span>
@@ -374,8 +376,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   <section class="block" id="outstanding">
     <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Deuda pendiente</span><span class="en">Debt Outstanding</span></h2></div>
     <p class="sec-desc">
-      <span class="es">México reporta su deuda con varias medidas anidadas. La más amplia es el <b>Saldo Histórico de los Requerimientos Financieros del Sector Público (SHRFSP)</b>, que suma la deuda del Gobierno Federal, Pemex, CFE, la banca de desarrollo, el IPAB, los Pidiregas y los pasivos por el rescate carretero, netos de activos financieros. La <b>deuda neta del sector público federal</b> excluye esos pasivos "extra-presupuestarios"; la <b>deuda bruta del Gobierno Federal</b> es la más estrecha y no descuenta activos.</span>
-      <span class="en">Mexico reports its debt with several nested measures. The broadest is the <b>Historical Balance of Public Sector Borrowing Requirements (SHRFSP)</b>, which adds up the debt of the Federal Government, Pemex, CFE, the development banks, the deposit-insurance agency IPAB, Pidiregas and the highway-rescue liabilities, net of financial assets. The <b>net debt of the federal public sector</b> leaves out those "off-budget" liabilities; the <b>gross debt of the Federal Government</b> is the narrowest and does not net out assets.</span>
+      <span class="es">México reporta su deuda con varias medidas anidadas. La más amplia es el <b>Saldo Histórico de los Requerimientos Financieros del Sector Público (SHRFSP)</b>, que capta el saldo neto de los pasivos asociados al marco ampliado de los Requerimientos Financieros del Sector Público: obligaciones del Gobierno Federal, Pemex, CFE, la banca de desarrollo, el IPAB, los Pidiregas, el rescate carretero y los programas de apoyo a deudores, netas de los activos financieros disponibles. No es la suma aritmética de la deuda que reporta cada entidad: consolida las operaciones entre entidades del sector público y descuenta activos. La <b>deuda neta del sector público federal</b> excluye esos pasivos "extra-presupuestarios"; la <b>deuda bruta del Gobierno Federal</b> es la más estrecha y no descuenta activos.</span>
+      <span class="en">Mexico reports its debt with several nested measures. The broadest is the <b>Historical Balance of Public Sector Borrowing Requirements (SHRFSP)</b>, which captures the net stock of liabilities associated with the broader Public Sector Borrowing Requirements framework: obligations of the Federal Government, Pemex, CFE, the development banks, the deposit-insurance agency IPAB, Pidiregas, the highway rescue and the debtor-support programs, net of available financial assets. It is not an arithmetic sum of each entity's headline debt: it consolidates operations between public entities and nets out financial assets. The <b>net debt of the federal public sector</b> leaves out those "off-budget" liabilities; the <b>gross debt of the Federal Government</b> is the narrowest and does not net out assets.</span>
     </p>
     <p class="sec-meta" id="meta-debt"></p>
     <div class="grid-2">
@@ -771,8 +773,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     <h3><span class="es">Fuentes y fecha de los datos</span><span class="en">Sources &amp; Data Vintage</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
-      <span class="es">Este panel combina dos cadencias. Las series de tiempo (Banxico SIE y bases abiertas de la SHCP) se descargan y validan cada día hábil: cada serie se publica solo si el título que reporta la fuente coincide con el esperado y si su último valor pasa una prueba de plausibilidad; si no, la sección conserva el último dato bueno y muestra la etiqueta "sin actualizar desde…". Las cifras que solo existen en documentos (Paquete Económico, Plan Anual de Financiamiento, reportes de Pemex, calificaciones, encuestas) se revisan cada semana y llevan la fecha del documento. Las razones respecto al PIB usan el PIB nominal de INEGI (promedio de los últimos cuatro trimestres), por lo que pueden diferir por décimas de las que publica la SHCP con su estimación anual. "Billones" sigue el uso mexicano (10¹²) y "mmdp" significa miles de millones de pesos. Esta página es informativa y no es material oficial del Gobierno de México ni del Banco de México.</span>
-      <span class="en">This dashboard blends two cadences. Time series (Banxico SIE and SHCP's open databases) are downloaded and validated every business day: a series is published only if the title the source reports matches the expected one and its latest value passes a plausibility check; otherwise the section keeps the last good reading and shows a "not updated since…" tag. Figures that exist only in documents (Economic Package, Annual Financing Plan, Pemex reports, ratings, surveys) are reviewed weekly and carry the document's date. Ratios to GDP use INEGI's nominal GDP (average of the last four quarters), so they can differ by tenths of a point from SHCP's, which uses its annual estimate. In the English version "trillion" means 10¹² and "bn" means billions (10⁹) of pesos. This page is informational and is not official material of the Government of Mexico or Banco de México.</span>
+      <span class="es">Este panel combina dos cadencias. Las series de tiempo (Banxico SIE y bases abiertas de la SHCP) se descargan y validan cada día hábil: cada serie se publica solo si el título que reporta la fuente coincide con el esperado y si su último valor pasa una prueba de plausibilidad; si no, la sección conserva el último dato bueno y muestra la etiqueta "sin actualizar desde…". Las cifras que solo existen en documentos (Paquete Económico, Plan Anual de Financiamiento, reportes de Pemex, calificaciones, encuestas) se revisan cada día hábil contra copias de los documentos oficiales y llevan la fecha del documento. Las razones respecto al PIB usan el PIB nominal de INEGI (promedio de los últimos cuatro trimestres), por lo que pueden diferir por décimas de las que publica la SHCP con su estimación anual. "Billones" sigue el uso mexicano (10¹²) y "mmdp" significa miles de millones de pesos. Cada bloque indica <b>"Datos al"</b> su última observación; si una serie rebasa su tolerancia de actualización (2 días hábiles para las series diarias, más para las semanales, mensuales y trimestrales), el bloque se marca en ámbar en lugar de mostrar el dato viejo en silencio. Las etiquetas distinguen tres tipos de cifra: <b>Reportado</b> (tal como lo publica la fuente), <b>Cálculo FNAM</b> (razones, sumas de doce meses o variaciones reales hechas con cifras reportadas) y <b>Estimación FNAM</b> (aproximación propia); el ⓘ junto a cada cifra muestra la serie, su fecha y la liga. Las variaciones reales usan el INPC <b>mensual</b>, serie original (sin ajuste estacional); esta página no usa el INPC quincenal ni series desestacionalizadas. "n. p." = la fuente no publica el dato; "n. a." = no aplica. Esta página es informativa y no es material oficial del Gobierno de México ni del Banco de México.</span>
+      <span class="en">This dashboard blends two cadences. Time series (Banxico SIE and SHCP's open databases) are downloaded and validated every business day: a series is published only if the title the source reports matches the expected one and its latest value passes a plausibility check; otherwise the section keeps the last good reading and shows a "not updated since…" tag. Figures that exist only in documents (Economic Package, Annual Financing Plan, Pemex reports, ratings, surveys) are checked every business day against copies of the official documents and carry the document's date. Ratios to GDP use INEGI's nominal GDP (average of the last four quarters), so they can differ by tenths of a point from SHCP's, which uses its annual estimate. In the English version "trillion" means 10¹² and "bn" means billions (10⁹) of pesos. Every block states the <b>"Data through"</b> date of its latest observation; when a series is past its update allowance (2 business days for daily series, longer for weekly, monthly and quarterly ones), the block turns amber instead of silently showing old data. Labels separate three kinds of figure: <b>Reported</b> (as published by the source), <b>FNAM calculation</b> (ratios, twelve-month sums or real changes computed from reported figures) and <b>FNAM estimate</b> (FNAM's own approximation); the ⓘ next to each figure shows the series, its date and its link. Real changes use the <b>monthly</b> INPC, original series (not seasonally adjusted); this page uses neither the first-half-month INPC nor seasonally adjusted series. "n.p." = the source does not publish the figure; "n.a." = not applicable. This page is informational and is not official material of the Government of Mexico or Banco de México.</span>
     </p>
     <p class="fine">
       <span class="es">La versión en inglés es una traducción completa de los mismos datos, fuentes y cálculos que la versión en español — ambas se generan a partir de un único conjunto de cifras, así que nunca deberían discrepar; si encuentra una discrepancia, es un error de traducción y vale la pena reportarlo.</span>
@@ -841,6 +843,10 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   // INPC deflator: average index over Jan..m of a year, for real year-to-date comparisons.
   function inpcAvg(year, toMonth){ var s = 0, n = 0; pts('inpc').forEach(function(q){ var y = +q[0].slice(0,4), m = +q[0].slice(5,7); if(y === year && m <= toMonth){ s += q[1]; n++; } }); return n === toMonth ? s/n : null; }
   function realChange(cur, pri, year, toMonth){ var a = inpcAvg(year, toMonth), b = inpcAvg(year-1, toMonth); if(cur==null || pri==null || !a || !b || !pri) return null; return ((cur/pri)/(a/b) - 1)*100; }
+  // Which INPC each calculation uses, said out loud: only the MONTHLY index and its annual change, original
+  // (not seasonally adjusted) figures; the first-half-month (quincenal) INPC is never used on this page.
+  function INPC_NOTE(){ return T('variación real: deflactada con el promedio enero–mes del INPC mensual (INEGI, vía Banxico SIE SP1), serie original sin ajuste estacional; no se usa el INPC quincenal', 'real change: deflated with the January-to-month average of the monthly INPC (INEGI, via Banxico SIE SP1), original series, not seasonally adjusted; the first-half-month INPC is not used'); }
+  function GDP_NOTE(){ return T('cálculo FNAM: saldo ÷ PIB nominal promedio de los últimos cuatro trimestres (INEGI, vía Banxico SIE SR17645)', 'FNAM calculation: balance ÷ average nominal GDP of the last four quarters (INEGI, via Banxico SIE SR17645)'); }
   function nomChange(cur, pri){ return (cur==null || pri==null || !pri) ? null : (cur/pri - 1)*100; }
 
   // ================= Formatting (Mexican convention: comma thousands, dot decimals, both languages) =================
@@ -874,19 +880,39 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     if(mi.length && mi.length < keys.length) out += ' <span class="stale miss">'+mi.length+' '+T('series sin datos','series without data')+'</span>';
     return out;
   }
-  // Every chart and table carries a timestamp: the latest observation among its series and the day it was downloaded.
+  // Every block carries "Datos al <última observación>" (FNAM_PROV.through), the day the series were downloaded,
+  // and an amber flag for any series older than its allowance (tools/mx-fiscal/freshness.json, embedded in data.js
+  // as MX_DATA.freshness) computed against today's date in the reader's browser: old data is never shown silently.
+  var PV = window.FNAM_PROV, FR = MX.freshness || { byFreq:{ D:{bd:2}, W:{days:12}, M:{days:66}, Q:{days:150} }, bySeries:{} };
   function dkey(d){ var q = String(d).match(/^(\d{4})-Q([1-4])$/); return q ? q[1]+'-'+String(+q[2]*3).padStart(2,'0')+'-99' : String(d); }
+  function latestOf(keys){ var lastD = ''; keys.forEach(function(k){ var s = S(k); if(s && s.last && (!lastD || dkey(s.last[0]) > dkey(lastD))) lastD = s.last[0]; }); return lastD; }
+  function ruleFor(k){ var s = S(k); return FR.bySeries[k] || (s && FR.byFreq[s.freq]) || { days:90 }; }
+  function agedKeys(keys){ return keys.filter(function(k){ var s = S(k); return s && s.last && PV.freshness(s.last[0], ruleFor(k), 'mx').level === 'amber'; }); }
+  function agedBadge(keys){
+    var ag = agedKeys(keys); if(!ag.length) return '';
+    var tip = ag.map(function(k){ var s = S(k), r = ruleFor(k), f = PV.freshness(s.last[0], r, 'mx'); return (s.provider==='shcp'?'SHCP ':'Banxico SIE ')+s.id+': '+PV.through(s.last[0], LANG)+' · '+PV.ageText(f, LANG)+' ('+T('tolerancia ','allowance ')+(r.bd!=null ? r.bd+' '+T('días hábiles','business days') : r.days+' '+T('días tras el cierre del periodo','days after period end'))+')'; }).join(' | ');
+    return PV.amber(T('Desactualizado: ','Out of date: ')+ag.length+' '+T(ag.length===1 ? 'serie más antigua de lo normal' : 'series más antiguas de lo normal', ag.length===1 ? 'series older than normal' : 'series older than normal'), tip);
+  }
+  // A block's "Datos al" is the date of its MAIN series (the first key); auxiliary series (FX for a conversion,
+  // GDP for a ratio, INPC for a deflator) are newer or older without moving it, but still trigger the amber flag.
+  function primaryDate(keys){ for(var i=0;i<keys.length;i++){ var s = S(keys[i]); if(s && s.last) return s.last[0]; } return ''; }
   function dataStamp(keys){
-    var lastD = '', fetched = '';
-    keys.forEach(function(k){ var s = S(k); if(!s || !s.last) return; if(!lastD || dkey(s.last[0]) > dkey(lastD)) lastD = s.last[0]; if((s.fetchedAt||'') > fetched) fetched = s.fetchedAt; });
+    var lastD = primaryDate(keys), fetched = '';
+    keys.forEach(function(k){ var s = S(k); if(s && (s.fetchedAt||'') > fetched) fetched = s.fetchedAt; });
     if(!lastD) return '';
-    return T('datos al ','data through ')+(lastD.length > 7 ? fmtDate(lastD) : fmtMonth(lastD))+(fetched ? T(' · descargados el ',' · downloaded ')+fmtDate(fetched) : '');
+    return '<span class="data-through">'+PV.through(lastD, LANG)+'</span>'+(fetched ? T(' · descargados el ',' · downloaded ')+PV.fmt(fetched, LANG) : '');
   }
   function srcLine(keys, extra){
     var seen = {}, parts = [], stamp = dataStamp(keys);
     keys.forEach(function(k){ var s = S(k); if(!s) return; var label = (s.provider==='shcp' ? 'SHCP' : 'Banxico SIE')+' '+(s.id||''); if(seen[label]) return; seen[label] = 1; parts.push('<a href="'+esc(s.url)+'" target="_blank" rel="noopener">'+esc(label)+'</a>'); });
-    return T('Fuente: ','Source: ')+(parts.length ? parts.join(', ') : '—')+(extra ? ' · '+extra : '')+(stamp ? ' · '+stamp : '')+staleBadge(keys);
+    return T('Fuente: ','Source: ')+(parts.length ? parts.join(', ') : '—')+(extra ? ' · '+extra : '')+(stamp ? ' · '+stamp : '')+staleBadge(keys)+agedBadge(keys);
   }
+  // Data-point provenance: the ⓘ next to a figure names each series (provider and id), its latest date and its link.
+  function provKeys(keys, note){ return keys.filter(function(k){ return S(k); }).map(function(k, i){ var s = S(k); return { src:(s.provider==='shcp'?'SHCP ':'Banxico SIE ')+s.id+' — '+s.title, url:s.url, date:s.last && s.last[0], note:i===0 ? note : null }; }); }
+  function provDoc(b){ if(!b || !b.asOf) return []; return [{ src:(typeof b.title==='object' ? (b.title[LANG]||b.title.es) : (b.title||'')), url:b.url, date:b.asOf, note:T('documento del ','document dated ')+PV.fmt(b.asOf, LANG) }]; }
+  // A tile/chart descriptor: { k:'R'|'C'|'E', keys:[…] | doc:block, note:'how FNAM computed it' }
+  function provOf(m){ return m.doc ? provDoc(m.doc) : provKeys(m.keys||[], m.note); }
+  function tag(m){ return m ? PV.kind(m.k, LANG)+PV.src(provOf(m), LANG)+(m.keys ? (agedKeys(m.keys).length || staleKeys(m.keys).length ? PV.amber('!', T('Dato fuera de su tolerancia de actualización; ver la línea de fuente','Data past its update allowance; see the source line')) : '') : '') : ''; }
   function docStamp(block){ if(!block || !block.asOf) return '<span class="stale miss">'+T('documento no cargado','document not loaded')+'</span>'; return '<span class="docstamp">'+esc(typeof block.title==='object' ? (block.title[LANG]||block.title.es) : (block.title||''))+(block.title?' · ':'')+T('con fecha ','dated ')+fmtDate(block.asOf)+(block.approx?' · ~':'')+'</span>'; }
   function metaLine(id, keys, docBlocks, note){
     var html = srcLine(keys, note);
@@ -907,6 +933,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     Chart.defaults.plugins.tooltip.backgroundColor = isDark ? '#2a2a27' : '#0b0b0b';
     Chart.defaults.plugins.tooltip.titleFont = { family:"Inter", weight:'700', size:12 }; Chart.defaults.plugins.tooltip.bodyFont = { family:"Inter", size:12 };
     Chart.defaults.plugins.tooltip.padding = 10; Chart.defaults.plugins.tooltip.cornerRadius = 6; Chart.defaults.plugins.tooltip.displayColors = true; Chart.defaults.plugins.tooltip.boxPadding = 4;
+    Chart.defaults.plugins.tooltip.footerFont = { family:"Inter", weight:'500', size:11 };
+    Chart.defaults.plugins.tooltip.callbacks.footer = function(items){ var it = items && items[0]; if(!it) return ''; var b = CHART_PROV[it.chart.canvas.id]; if(!b) return ''; return provFooter(b, it.dataIndex); };
     axisGrid = { color: gridColor, drawTicks:false }; axisTicks = { color: mutedInk, font:{ size:11 } };
     legendTop = { display:true, position:'top', align:'end', labels:{ boxWidth:9, boxHeight:9, usePointStyle:true, pointStyle:'rect', font:{ size:11.5 } } };
   }
@@ -934,13 +962,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
         scales:{ x: opts.horizontal ? { grid:axisGrid, stacked:!!opts.stacked, ticks:Object.assign({}, axisTicks, { callback:function(v){ return opts.tick ? opts.tick(v) : v; } }) } : { grid:{ display:false }, stacked:!!opts.stacked, ticks:Object.assign({}, axisTicks, { maxRotation:0, autoSkip:true, maxTicksLimit:opts.maxTicks||20 }) },
           y: opts.horizontal ? { grid:{ display:false }, stacked:!!opts.stacked, afterFit:function(sc){ if(opts.labelWidth) sc.width = opts.labelWidth; }, ticks:{ color:ink, font:{ size:11.5, weight:'600' }, autoSkip:false, padding:6 } } : { grid:axisGrid, stacked:!!opts.stacked, min:opts.min, ticks:Object.assign({}, axisTicks, { callback:function(v){ return opts.tick ? opts.tick(v) : v; } }) } } } });
   }
+  // A cell with no figure says why instead of a bare dash: n. p. = the source does not publish it; n. a. = not applicable.
+  function NP(){ return '<abbr class="np" title="'+T('La fuente no publica este dato','The source does not publish this figure')+'">'+T('n. p.','n.p.')+'</abbr>'; }
+  function NA(){ return '<abbr class="np" title="'+T('No aplica','Not applicable')+'">'+T('n. a.','n.a.')+'</abbr>'; }
   function simpleTable(id, head, rows, totalRow){
     var h = '<thead><tr>'+head.map(function(x){ return '<th>'+x+'</th>'; }).join('')+'</tr></thead>';
-    var b = rows.map(function(r){ return '<tr>'+r.map(function(c,i){ return '<td'+(i>0?' class="num"':'')+'>'+c+'</td>'; }).join('')+'</tr>'; }).join('');
+    var b = rows.map(function(r){ return '<tr>'+r.map(function(c,i){ return '<td'+(i>0?' class="num"':'')+'>'+(c === '—' ? NA() : c)+'</td>'; }).join('')+'</tr>'; }).join('');
     if(totalRow) b += '<tr class="total">'+totalRow.map(function(c,i){ return '<td'+(i>0?' class="num"':'')+'>'+c+'</td>'; }).join('')+'</tr>';
     document.getElementById(id).innerHTML = rows.length ? '<table>'+h+'<tbody>'+b+'</tbody></table>' : '<div class="nodata">'+T('Sin datos','No data')+'</div>';
   }
-  function stats(id, items){ document.getElementById(id).innerHTML = items.filter(Boolean).map(function(s){ return '<div class="stat"><div class="v num">'+s[0]+'</div><div class="l">'+s[1]+'</div></div>'; }).join(''); }
+  // items: [value, label, meta?]; meta (or the call's default `def`) = { k:'R'|'C'|'E', keys|doc, note } -> kind badge + ⓘ source.
+  function stats(id, items, def){ document.getElementById(id).innerHTML = items.filter(Boolean).map(function(s){ var m = s[2] || def; return '<div class="stat"><div class="v num">'+s[0]+'</div><div class="l">'+s[1]+(m ? ' '+tag(m) : '')+'</div></div>'; }).join(''); }
   function setHTML(id, html){ var el = document.getElementById(id); if(el) el.innerHTML = html; }
   // Donut with external labels + leader lines (same renderer as the U.S. monitor).
   // Same donut layout as the US fiscal monitor. Below STACKED_PIE_MAX px of container width the labels
@@ -1022,6 +1054,69 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   function monthLabels(points){ return points.map(function(p){ return monYY(ym(p[0])); }); }
 
   // ================= RENDER =================
+  // ================= Block registry: kind badge, timestamp and provenance for every chart, table and card =================
+  // k: 'R' reported by the source, 'C' FNAM calculation from reported figures, 'E' FNAM estimate. Cards without a
+  // source line of their own get one (with "Datos al …" and the amber flag); charts get the source in every tooltip.
+  var CHART_PROV = {};
+  function BLOCKS(){
+    var cg = DOCS.cgpe||{}, paf = DOCS.paf||{}, pd = DOCS.pemex||{}, lif = DOCS.lif||{}, sv = DOCS.survey||{};
+    var VG = ['vgTotal','vgExtranjero','vgSiefores','vgSocInversion','vgBancos','vgAseguradoras','vgOtrosRes','vgReportosBanxico','vgGarantiasBanxico','vgBanxico'];
+    return [
+      { el:'chartShrfspPct', k:'C', keys:['shrfsp','pibNominal'], note:GDP_NOTE() },
+      { el:'stats-debt', k:'R', keys:['shrfsp','deudaInternaNetaSP','deudaExternaNetaSP','deudaNetaSPEA'] },
+      { el:'chartRfsp', k:'C', keys:['rfsp','pibNominal'], note:T('cálculo FNAM: RFSP del año ÷ PIB nominal del año; el año en curso, acumulado','FNAM calculation: the year\'s RFSP ÷ the year\'s nominal GDP; current year to date') },
+      { el:'tblSexenios', k:'C', keys:['shrfsp','pibNominal'], note:GDP_NOTE() },
+      { el:'chartHolders', k:'R', keys:VG },
+      { el:'chartForeignShare', k:'C', keys:['vgExtranjero','vgTotal'], note:T('cálculo FNAM: residentes en el extranjero ÷ total en circulación','FNAM calculation: non-residents ÷ total outstanding') },
+      { el:'chartAvgMaturity', k:'R', keys:['vgPlazoPromedio'], note:T('Banxico lo publica en días; FNAM lo expresa en años','Banxico publishes it in days; FNAM shows it in years') },
+      { el:'pieInstruments', k:'R', keys:['vgBonos','vgUdibonos','vgBondesF','vgCetes','vgBondesD','vgBondesG'] },
+      { el:'chartMaturity', k:'R', doc:paf },
+      { el:'stats-paf', k:'R', doc:paf },
+      { el:'chartCostPct', k:'C', keys:['spCostoFinanciero','pibNominal'], note:T('cálculo FNAM: suma de doce meses ÷ PIB de cuatro trimestres','FNAM calculation: twelve-month sum ÷ four-quarter GDP') },
+      { el:'stats-cost', k:'C', keys:['spCostoFinanciero','spIngTributarios','spGasto','inpc'], note:INPC_NOTE() },
+      { el:'pieComposition', k:'C', keys:['deudaInternaBrutaSP','deudaExternaBrutaSP','fix'], note:T('cálculo FNAM: la deuda externa (dólares) se convierte con el FIX de fin de mes','FNAM calculation: external debt (dollars) converted at the end-of-month FIX') },
+      { el:'stats-lif', k:'R', doc:lif },
+      { el:'chartCgpeProjection', k:'C', keys:['shrfsp','pibNominal'], note:T('observado: cálculo FNAM con PIB de INEGI; años con "e": estimación publicada por la SHCP (CGPE)','observed: FNAM calculation with INEGI GDP; years marked "e": estimate published by SHCP (CGPE)') },
+      { el:'tblCgpe', k:'R', doc:cg },
+      { el:'pieRevenue', k:'C', keys:['spIngresos','spIngTributarios','spIngPetroleros','spIngNoTributarios','spIngOrganismos'], note:T('cálculo FNAM: suma de los últimos doce meses','FNAM calculation: sum of the last twelve months') },
+      { el:'chartRevYTD', k:'R', keys:['gfISR','gfIVA','gfIEPS','gfImportacion'] },
+      { el:'chartRevMix', k:'C', keys:['spIngTributarios','spIngPetroleros','pibNominal'], note:T('cálculo FNAM: total del año ÷ PIB promedio del año','FNAM calculation: the year\'s total ÷ the year\'s average GDP') },
+      { el:'pieOutlays', k:'R', keys:['spGasto','spPensiones','spCostoFinanciero','gfParticipaciones','spInversionFisica'] },
+      { el:'stats-out', k:'R', keys:['spGasto','spPensiones','spInversionFisica','spBalancePresupuestario','spBalancePrimario','rfsp','inpc'], note:INPC_NOTE() },
+      { el:'chartPemexTransfers', k:'R', keys:['pemexBalance'] },
+      { el:'stats-pemex', k:'R', keys:['pemexBalance','pemexIngresos','pemexGasto','pemexInversion','pemexDerechos','inpc'], note:INPC_NOTE() },
+      { el:'chartPemex', k:'R', doc:pd, pointKind:function(i){ var d = pd.debtUsdBn; return d && d.est && d.est[i] ? 'E' : 'R'; } },
+      { el:'stats-pemex-docs', k:'R', doc:pd },
+      { el:'chartReserves', k:'R', keys:['reservas'] },
+      { el:'tacctAssets', k:'R', keys:['bmReservaMXN','bmValoresGub','bmCreditoGF','bmBaseMonetaria','bmDepRegMonetaria','bmBrems','bmDepositosGF','bmFMI','bmOtrosPasivosCap'] },
+      { el:'chartFx', k:'R', keys:['fix'] },
+      { el:'chartPolicyRate', k:'R', keys:['tasaObjetivo'] },
+      { el:'corridorWrap', k:'R', keys:['tasaObjetivo','tiie28','cetes28','cetes91','cetes182','cetes364','inpcAnual'], note:T('tasas reales: cálculo FNAM; ex post con la inflación anual del INPC mensual (Banxico SIE SP30578, serie original), ex ante con la mediana esperada a 12 meses de la encuesta de Banxico','real rates: FNAM calculation; ex post with the annual change of the monthly INPC (Banxico SIE SP30578, original series), ex ante with the median 12-month expectation from Banxico\'s survey') },
+      { el:'tblDecisions', k:'R', keys:['tasaObjetivo'] },
+      { el:'chartExpectations', k:'R', doc:sv },
+      { el:'tblSurveyCmp', k:'R', doc:sv }
+    ];
+  }
+  function provFooter(b, i){
+    var k = b.pointKind ? b.pointKind(i) : b.k;
+    var src = b.doc ? (typeof b.doc.title==='object' ? (b.doc.title[LANG]||b.doc.title.es) : (b.doc.title||''))+' · '+PV.through(b.doc.asOf, LANG)
+                    : b.keys.filter(function(x){ return S(x); }).slice(0,3).map(function(x){ var s = S(x); return (s.provider==='shcp'?'SHCP ':'Banxico SIE ')+s.id; }).join(', ')+(b.keys.length > 3 ? '…' : '')+' · '+PV.through(primaryDate(b.keys), LANG);
+    var kind = { R:T('Reportado','Reported'), C:T('Cálculo FNAM','FNAM calculation'), E:T('Estimación FNAM (aproximada)','FNAM estimate (approximate)') }[k];
+    return [kind+' — '+src];
+  }
+  function applyBlocks(){
+    BLOCKS().forEach(function(b){
+      var el = document.getElementById(b.el); if(!el) return;
+      CHART_PROV[b.el] = b;
+      var card = el.closest('.card'); if(!card) return;
+      var h3 = card.querySelector('h3');
+      if(h3){ var old = h3.querySelector('.pk-h'); if(old) old.remove(); h3.insertAdjacentHTML('beforeend', '<span class="pk-h">'+PV.kind(b.k, LANG)+'</span>'); }
+      var auto = card.querySelector('.auto-src'); if(auto) auto.remove();
+      if(!card.querySelector('.chart-src')) card.insertAdjacentHTML('beforeend', '<p class="chart-src auto-src">'+(b.doc ? T('Fuente: ','Source: ')+(b.doc.url ? '<a href="'+esc(b.doc.url)+'" target="_blank" rel="noopener">' : '')+esc(typeof b.doc.title==='object' ? (b.doc.title[LANG]||b.doc.title.es) : (b.doc.title||''))+(b.doc.url ? '</a>' : '')+' · <span class="data-through">'+PV.through(b.doc.asOf, LANG)+'</span>' : srcLine(b.keys, b.note))+'</p>');
+      else if(b.note && !card.querySelector('.auto-note')) card.insertAdjacentHTML('beforeend', '<p class="chart-src auto-src auto-note">'+esc(b.note)+'</p>');
+    });
+  }
+
   function renderAll(){
   Array.prototype.forEach.call(document.querySelectorAll('canvas'), function(cv){ var ex = Chart.getChart(cv); if(ex) ex.destroy(); });
   chartDefaults();
@@ -1044,23 +1139,30 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
   var lastChange = rateChanges.length ? rateChanges[rateChanges.length-1] : null;
 
   // ---- Header: as-of row, KPIs, data notice ----
+  // Each group: its latest observation ("Datos al …") and an amber flag when any of its series is past its allowance.
   var asof = [
-    [T('Finanzas públicas (SHCP)','Public finances (SHCP)'), shM ? fmtMonth(shM) : '—'],
-    [T('Tenedores y balance (Banxico)','Holders & balance sheet (Banxico)'), fmtDate(lastDate('vgTotal'))],
-    [T('Tasas y tipo de cambio','Rates & FX'), fmtDate(lastDate('fix'))],
-    [T('PIB nominal (INEGI)','Nominal GDP (INEGI)'), fmtMonth(lastDate('pibNominal')||'')],
-    [T('Documentos','Documents'), DOCS.updatedAt ? fmtDate(DOCS.updatedAt) : '—'],
-    [T('Última corrida','Last refresh'), MX.generatedAt ? fmtDate(MX.generatedAt.slice(0,10)) : '—']
+    [T('Finanzas públicas (SHCP)','Public finances (SHCP)'), ['shrfsp','rfsp','spIngresos','spGasto']],
+    [T('Tenedores y balance (Banxico)','Holders & balance sheet (Banxico)'), ['vgTotal','vgExtranjero','reservas','bmBaseMonetaria']],
+    [T('Tasas y tipo de cambio','Rates & FX'), ['tasaObjetivo','tiie28','cetes28','fix']],
+    [T('PIB nominal (INEGI)','Nominal GDP (INEGI)'), ['pibNominal']],
+    [T('Inflación (INPC mensual, serie original)','Inflation (monthly INPC, original series)'), ['inpc','inpcAnual']]
   ];
-  setHTML('asofRow', asof.map(function(a){ return '<span>'+a[0]+': <b>'+a[1]+'</b></span>'; }).join(''));
+  var runIso = MX.generatedAt ? MX.generatedAt.slice(0,10) : null, runFresh = runIso ? PV.freshness(runIso, { bd:2 }, 'mx') : { level:'amber' };
+  setHTML('asofRow', asof.map(function(a){ return '<span>'+a[0]+': <b>'+PV.through(primaryDate(a[1]), LANG)+'</b>'+agedBadge(a[1])+'</span>'; }).join('')
+    +'<span>'+T('Documentos revisados','Documents reviewed')+': <b>'+(DOCS.updatedAt ? PV.fmt(DOCS.updatedAt, LANG) : '—')+'</b></span>'
+    +'<span>'+T('Última descarga','Last download')+': <b>'+(runIso ? PV.fmt(runIso, LANG) : '—')+'</b>'+(runFresh.level === 'amber' ? PV.amber(T('la descarga diaria no ha corrido','the daily download has not run'), T('Última descarga ','Last download ')+(runIso||'—')) : '')+'</span>'
+    +'<span class="pk-row">'+PV.legend(LANG)+'</span>');
+  // Eyebrow: the latest daily observation, never "live".
+  var topD = latestOf(['tasaObjetivo','fix','tiie28']);
+  setHTML(LANG==='en' ? 'eyebrowEn' : 'eyebrowEs', T('SHCP y Banco de México · ','SHCP &amp; Banco de México · ')+PV.through(topD, LANG));
   var kpis = [
-    { lbl:T('Deuda amplia (SHRFSP)','Broad debt (SHRFSP)'), val:fmtBn(shV,2), delta:(shM ? fmtMonth(shM) : '—')+(shPrev ? ' · '+fmtSigned(nomChange(shV, shPrev),1,'%')+' '+T('anual','y/y') : '') },
-    { lbl:T('SHRFSP ÷ PIB','SHRFSP ÷ GDP'), val:fmtPct(shPct), delta:shPctDec!=null ? fmtPct(shPctDec)+' '+T('al cierre de ','at end-')+lastFullYear : T('PIB de 4 trimestres','4-quarter GDP') },
-    { lbl:T('Costo financiero, 12 meses','Financial cost, 12 months'), val:fmtMMDP(cost12), delta:cost12!=null && flowM ? fmtPct(pctGdp(cost12, flowM))+' '+ofGdp()+' · '+T('a ','to ')+fmtMonth(flowM) : '—' },
-    { lbl:T('Tasa objetivo Banxico','Banxico target rate'), val:target!=null ? fmtPct(target,2) : '—', delta:lastChange ? T('desde el ','since ')+fmtDate(lastChange.date)+' ('+fmtSigned((lastChange.to-lastChange.from)*100,0,' pb')+')' : '—' },
-    { lbl:T('Tipo de cambio FIX','FIX exchange rate'), val:fxNow!=null ? n(fxNow,2) : '—', delta:fmtDate(lastDate('fix'))+' · '+T('pesos por dólar','pesos per dollar') }
+    { m:{ k:'R', keys:['shrfsp'] }, lbl:T('Deuda amplia (SHRFSP)','Broad debt (SHRFSP)'), val:fmtBn(shV,2), delta:(shM ? fmtMonth(shM) : '—')+(shPrev ? ' · '+fmtSigned(nomChange(shV, shPrev),1,'%')+' '+T('anual','y/y') : '') },
+    { m:{ k:'C', keys:['shrfsp','pibNominal'], note:GDP_NOTE() }, lbl:T('SHRFSP ÷ PIB','SHRFSP ÷ GDP'), val:fmtPct(shPct), delta:shPctDec!=null ? fmtPct(shPctDec)+' '+T('al cierre de ','at end-')+lastFullYear : T('PIB de 4 trimestres','4-quarter GDP') },
+    { m:{ k:'C', keys:['spCostoFinanciero','pibNominal'], note:T('cálculo FNAM: suma de doce meses','FNAM calculation: twelve-month sum') }, lbl:T('Costo financiero, 12 meses','Financial cost, 12 months'), val:fmtMMDP(cost12), delta:cost12!=null && flowM ? fmtPct(pctGdp(cost12, flowM))+' '+ofGdp()+' · '+T('a ','to ')+fmtMonth(flowM) : '—' },
+    { m:{ k:'R', keys:['tasaObjetivo'] }, lbl:T('Tasa objetivo Banxico','Banxico target rate'), val:target!=null ? fmtPct(target,2) : '—', delta:lastChange ? T('desde el ','since ')+fmtDate(lastChange.date)+' ('+fmtSigned((lastChange.to-lastChange.from)*100,0,' pb')+')' : '—' },
+    { m:{ k:'R', keys:['fix'] }, lbl:T('Tipo de cambio FIX','FIX exchange rate'), val:fxNow!=null ? n(fxNow,2) : '—', delta:fmtDate(lastDate('fix'))+' · '+T('pesos por dólar','pesos per dollar') }
   ];
-  setHTML('kpiStrip', kpis.map(function(k){ return '<div class="kpi"><div class="lbl">'+k.lbl+'</div><div class="val num">'+k.val+'</div><div class="delta">'+k.delta+'</div></div>'; }).join(''));
+  setHTML('kpiStrip', kpis.map(function(k){ return '<div class="kpi"><div class="lbl">'+k.lbl+'</div><div class="val num">'+k.val+'</div><div class="delta">'+k.delta+'</div><div class="delta">'+PV.through(primaryDate(k.m.keys), LANG)+' '+tag(k.m)+'</div></div>'; }).join(''));
   (function(){
     var all = Object.keys(D), st = all.filter(function(k){ return D[k].stale; });
     var notice = document.getElementById('dataNotice');
@@ -1088,11 +1190,11 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     setHTML('cap-debt-snapshot', shM ? T('Cifras de la SHCP a ','SHCP figures through ')+fmtMonthLong(shM) : '—');
     var dnM = lastDate('deudaNetaSPEA');
     stats('stats-debt', [
-      [fmtBn(shV,2), T('SHRFSP, billones de pesos','SHRFSP, MXN trillion')],
-      [fmtPct(shPct), T('SHRFSP, % del PIB (4 trimestres)','SHRFSP, % of GDP (4 quarters)')],
-      [fmtBn(lastVal('deudaInternaNetaSP'),2), T('Deuda interna neta del sector público','Net domestic public-sector debt')],
-      [fmtUSDbn(lastVal('deudaExternaNetaSP'),1), T('Deuda externa neta del sector público','Net external public-sector debt')],
-      dnM ? [fmtBn(lastVal('deudaNetaSPEA')*1000,2), T('Deuda neta del sector público económico amplio (Banxico, ','Broad public-sector net debt (Banxico, ')+fmtMonth(ym(dnM))+')'] : null
+      [fmtBn(shV,2), T('SHRFSP, billones de pesos','SHRFSP, MXN trillion'), { k:'R', keys:['shrfsp'] }],
+      [fmtPct(shPct), T('SHRFSP, % del PIB (4 trimestres)','SHRFSP, % of GDP (4 quarters)'), { k:'C', keys:['shrfsp','pibNominal'], note:GDP_NOTE() }],
+      [fmtBn(lastVal('deudaInternaNetaSP'),2), T('Deuda interna neta del sector público','Net domestic public-sector debt'), { k:'R', keys:['deudaInternaNetaSP'] }],
+      [fmtUSDbn(lastVal('deudaExternaNetaSP'),1), T('Deuda externa neta del sector público','Net external public-sector debt'), { k:'R', keys:['deudaExternaNetaSP'] }],
+      dnM ? [fmtBn(lastVal('deudaNetaSPEA')*1000,2), T('Deuda neta del sector público económico amplio (Banxico, ','Broad public-sector net debt (Banxico, ')+fmtMonth(ym(dnM))+')', { k:'R', keys:['deudaNetaSPEA'] }] : null
     ]);
     // Templated callouts
     if(shV!=null && shPrev!=null){
@@ -1153,9 +1255,9 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var decPrev = d ? valAt('vgExtranjero', (+d.slice(0,4)-1)+'-12-31') : null, decPrevTot = d ? valAt('vgTotal', (+d.slice(0,4)-1)+'-12-31') : null;
     var yrAgo = d ? valAt('vgExtranjero', addMonths(ym(d),-12)+'-31') : null, yrAgoTot = d ? valAt('vgTotal', addMonths(ym(d),-12)+'-31') : null;
     stats('stats-foreign', [
-      [fmtBn(fx,2), T('Tenencia extranjera, ','Foreign holdings, ')+fmtDate(d)],
-      [fmtPct(share), T('Del total en circulación','Of total outstanding')+(yrAgo!=null && yrAgoTot ? ' · '+T('hace un año ','a year ago ')+fmtPct(yrAgo/yrAgoTot*100) : '')],
-      decPrev!=null ? [fmtSigned((fx-decPrev)/1000,0,LANG==='en'?' bn':' mmdp'), T('Cambio desde el cierre de ','Change since end-')+(+d.slice(0,4)-1)] : null
+      [fmtBn(fx,2), T('Tenencia extranjera, ','Foreign holdings, ')+fmtDate(d), { k:'R', keys:['vgExtranjero'] }],
+      [fmtPct(share), T('Del total en circulación','Of total outstanding')+(yrAgo!=null && yrAgoTot ? ' · '+T('hace un año ','a year ago ')+fmtPct(yrAgo/yrAgoTot*100) : ''), { k:'C', keys:['vgExtranjero','vgTotal'], note:T('cálculo FNAM: tenencia de residentes en el extranjero ÷ total en circulación','FNAM calculation: non-resident holdings ÷ total outstanding') }],
+      decPrev!=null ? [fmtSigned((fx-decPrev)/1000,0,LANG==='en'?' bn':' mmdp'), T('Cambio desde el cierre de ','Change since end-')+(+d.slice(0,4)-1), { k:'C', keys:['vgExtranjero'], note:T('cálculo FNAM: diferencia contra el último dato del año anterior','FNAM calculation: difference from the last reading of the previous year') }] : null
     ]);
     var fp = pts('vgExtranjero'), fl = [], fv = [];
     fp.forEach(function(q){ var t = valAt('vgTotal', q[0]); if(t){ fl.push(monYY(ym(q[0]))); fv.push(Math.round(q[1]/t*1000)/10); } });
@@ -1199,7 +1301,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       paf.avgMaturityExternalYears!=null ? [n(paf.avgMaturityExternalYears,1)+' '+T('años','yrs'), T('Plazo promedio, deuda externa','Avg. maturity, external debt')] : null,
       paf.fixedRateSharePct!=null ? [fmtPct(paf.fixedRateSharePct), T('De la deuda interna a tasa fija con plazo mayor a un año','Of domestic debt at fixed rate with maturity over one year')] : null,
       paf.externalShareEstPct!=null ? [fmtPct(paf.externalShareEstPct), T('Deuda externa neta como % de la deuda neta total, estimación para el cierre de 2026¹','Net external debt as % of total net debt, estimate for end-2026¹')] : null
-    ]);
+    ], { k:'R', doc:paf });
     setHTML('fn-paf', paf.externalShareEstPct!=null ? T('¹ Estimación del PAF 2026, no un tope legal: el plan proyecta que la deuda externa neta "se ubique" en '+fmtPct(paf.externalShareEstPct)+' del total al cierre de 2026 (16.0% en 2025 y 13.1% en 2031). Los únicos techos con fuerza de ley son los del artículo 2 de la Ley de Ingresos (Sección 05).','¹ A PAF 2026 estimate, not a legal cap: the plan projects that net external debt "will stand at" '+fmtPct(paf.externalShareEstPct)+' of the total at end-2026 (16.0% in 2025 and 13.1% in 2031). The only ceilings with force of law are those in article 2 of the Revenue Law (Section 05).') : '');
     // Instrument cards: timeless descriptions, live metrics
     var cards = [
@@ -1227,15 +1329,15 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     var realC = realChange(ytdC, ytdCp, flowY, flowMo), intC = flowM ? ytdAt('spCostoFinancieroInterno', flowM) : null, extC = flowM ? ytdAt('spCostoFinancieroExterno', flowM) : null;
     var shareTrib = (cost12!=null && trib12) ? cost12/trib12*100 : null, shareGasto = (cost12!=null && trailing12('spGasto')) ? cost12/trailing12('spGasto')*100 : null;
     stats('stats-cost', [
-      [fmtMMDP(cost12), T('Últimos doce meses a ','Last twelve months to ')+(flowM ? fmtMonth(flowM) : '—')+(cost12!=null && flowM ? ' ('+fmtPct(pctGdp(cost12, flowM))+' '+ofGdp()+')' : '')],
-      [fmtMMDP(ytdC), (flowM ? fmtJanTo(flowM) : '—')+(realC!=null ? ' · '+fmtSigned(realC,1,'%')+' '+T('real anual','real y/y') : '')],
-      [fmtSigned(nomChange(ytdC, ytdCp),1,'%'), T('Variación nominal vs. ','Nominal change vs. ')+(flowPrevM ? fmtJanTo(flowPrevM) : '—')]
+      [fmtMMDP(cost12), T('Últimos doce meses a ','Last twelve months to ')+(flowM ? fmtMonth(flowM) : '—')+(cost12!=null && flowM ? ' ('+fmtPct(pctGdp(cost12, flowM))+' '+ofGdp()+')' : ''), { k:'C', keys:['spCostoFinanciero','pibNominal'], note:T('cálculo FNAM: suma de los últimos doce meses de los flujos mensuales (diferencias del acumulado anual)','FNAM calculation: sum of the last twelve monthly flows (differences of the year-to-date total)') }],
+      [fmtMMDP(ytdC), (flowM ? fmtJanTo(flowM) : '—')+(realC!=null ? ' · '+fmtSigned(realC,1,'%')+' '+T('real anual','real y/y') : ''), { k:'R', keys:['spCostoFinanciero','inpc'], note:INPC_NOTE() }],
+      [fmtSigned(nomChange(ytdC, ytdCp),1,'%'), T('Variación nominal vs. ','Nominal change vs. ')+(flowPrevM ? fmtJanTo(flowPrevM) : '—'), { k:'C', keys:['spCostoFinanciero'] }]
     ]);
     stats('stats-cost-2', [
       [fmtPct(shareTrib), T('De los ingresos tributarios (12 meses)','Of tax revenue (12 months)')],
       [fmtPct(shareGasto), T('Del gasto presupuestario (12 meses)','Of budget spending (12 months)')],
-      (intC!=null && ytdC) ? [pctOf(intC, ytdC), T('Interno; externo ','Domestic; external ')+pctOf(extC, ytdC)+' ('+fmtJanTo(flowM)+')'] : null
-    ]);
+      (intC!=null && ytdC) ? [pctOf(intC, ytdC), T('Interno; externo ','Domestic; external ')+pctOf(extC, ytdC)+' ('+fmtJanTo(flowM)+')', { k:'C', keys:['spCostoFinancieroInterno','spCostoFinancieroExterno','spCostoFinanciero'] }] : null
+    ], { k:'C', keys:['spCostoFinanciero','spIngTributarios','spGasto'], note:T('cálculo FNAM: razones entre sumas de doce meses','FNAM calculation: ratios of twelve-month sums') });
     if(ytdC!=null && ytdCp!=null){
       setHTML('co-cost', T('El costo financiero sumó <b>'+fmtMMDP(ytdC)+'</b> en '+fmtJanTo(flowM)+', '+fmtSigned(nomChange(ytdC,ytdCp),1,'%')+' nominal'+(realC!=null ? ' y <b>'+fmtSigned(realC,1,'%')+' real</b>' : '')+' respecto al mismo periodo de '+(flowY-1)+'. En doce meses equivale a '+fmtPct(pctGdp(cost12, flowM))+' del PIB y a '+fmtPct(shareTrib)+' de la recaudación tributaria: cada peso de intereses es un peso que no va a inversión ni a programas. La parte externa ('+pctOf(extC, ytdC)+') se mueve con el tipo de cambio; la interna, con rezago, con la tasa objetivo (Sección 11).',
         'The financial cost totaled <b>'+fmtMMDP(ytdC)+'</b> in '+fmtJanTo(flowM)+', '+fmtSigned(nomChange(ytdC,ytdCp),1,'%')+' in nominal terms'+(realC!=null ? ' and <b>'+fmtSigned(realC,1,'%')+' in real terms</b>' : '')+' versus the same period of '+(flowY-1)+'. Over twelve months it equals '+fmtPct(pctGdp(cost12, flowM))+' of GDP and '+fmtPct(shareTrib)+' of tax revenue: every peso of interest is a peso not going to investment or programs. The external part ('+pctOf(extC, ytdC)+') moves with the exchange rate; the domestic part, with a lag, with the policy rate (Section 11).'));
@@ -1264,7 +1366,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       lif.domesticBn!=null ? [fmtBn(lif.domesticBn*1000,2), T('Endeudamiento neto interno autorizado, 2026','Authorized net domestic borrowing, 2026')] : null,
       lif.externalUsdBn!=null ? [fmtUSDbn(lif.externalUsdBn*1000,1), T('Endeudamiento neto externo autorizado, 2026 (incluye organismos financieros internacionales)','Authorized net external borrowing, 2026 (includes international financial institutions)')] : null,
       il && il.domesticBn!=null ? [fmtBn(il.domesticBn*1000,2)+(il.externalUsdBn!=null ? ' · '+fmtUSDbn(il.externalUsdBn*1000,1) : ''), T('Propuesta de la ILIF 2027 (interno · externo), pendiente de aprobación · ','ILIF 2027 proposal (domestic · external), pending approval · ')+esc(cgDoc.title||'')+(cgDoc.asOf ? ', '+fmtDate(cgDoc.asOf) : '')] : null
-    ]);
+    ], { k:'R', doc:lif });
     var extPrev = dM ? valAt('deudaExternaBrutaSP', addMonths(dM,-12)+'-99') : null, fxPrev = dM ? valAt('fix', addMonths(dM,-12)+'-99') : null;
     if(extUsd!=null && fxEom){
       setHTML('co-external', T('La deuda externa bruta del sector público fue de <b>'+fmtUSDbn(extUsd,1)+'</b> en '+fmtMonthLong(dM)+(extPrev!=null ? ' ('+fmtSigned((extUsd-extPrev)/1000,1,T(' mmd',' bn'))+' en doce meses)' : '')+'. Al tipo de cambio FIX de fin de mes ('+n(fxEom,2)+') equivale a <b>'+fmtBn(extB,2)+'</b>, '+pctOf(extB,tot)+' del total'+(fxPrev ? '; un año antes el FIX era '+n(fxPrev,2)+', así que el tipo de cambio por sí solo '+(fxEom<fxPrev?'redujo':'elevó')+' el valor en pesos de esa deuda en '+fmtMMDP(Math.abs((fxEom-fxPrev)*extUsd),0)+'.' : '.'),
@@ -1292,13 +1394,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     else setHTML('co-cgpe', T('Proyecciones: documento no cargado.','Projections: document not loaded.'));
     setHTML('cap-cgpe-table', cg.rows ? T('Supuestos de la SHCP vs. lo que esperan los analistas ('+esc((cg.analystsSource||{})[LANG]||'')+') · '+esc(cg.title)+', '+fmtDate(cg.asOf), 'SHCP assumptions vs. what analysts expect ('+esc((cg.analystsSource||{})[LANG]||'')+') · '+esc(cg.title)+', '+fmtDate(cg.asOf)) : T('Documento no cargado','Document not loaded'));
     var head = '<thead><tr><th style="text-align:left">'+T('Indicador','Indicator')+'</th><th>SHCP 2026</th><th>'+T('Analistas 2026','Analysts 2026')+'</th><th>SHCP 2027</th><th>'+T('Analistas 2027','Analysts 2027')+'</th></tr></thead>';
-    document.getElementById('tblCgpe').innerHTML = cg.rows ? head+'<tbody>'+cg.rows.map(function(r){ return '<tr><td style="text-align:left">'+esc(r[LANG]||r.es)+'</td>'+[r.shcp2026, r.analysts2026, r.shcp2027, r.analysts2027].map(function(c){ return '<td class="num">'+esc(c)+'</td>'; }).join('')+'</tr>'; }).join('')+'</tbody>' : '';
+    document.getElementById('tblCgpe').innerHTML = cg.rows ? head+'<tbody>'+cg.rows.map(function(r){ return '<tr><td style="text-align:left">'+esc(r[LANG]||r.es)+'</td>'+[r.shcp2026, r.analysts2026, r.shcp2027, r.analysts2027].map(function(c){ return '<td class="num">'+(c === '—' ? NP() : esc(c))+'</td>'; }).join('')+'</tr>'; }).join('')+'</tbody>' : '';
     stats('stats-cgpe', [
       cg.gdpNominalBn && cg.gdpNominalBn['2026']!=null ? [fmtBn(cg.gdpNominalBn['2026']*1e6,1), T('PIB nominal 2026 estimado por la SHCP','SHCP estimate of 2026 nominal GDP')] : null,
       cg.rfspPct && cg.rfspPct['2027']!=null ? [fmtPct(cg.rfspPct['2027']), T('RFSP 2027, % del PIB','RFSP 2027, % of GDP')] : null,
       cg.budgetDeficitPct && cg.budgetDeficitPct['2027']!=null ? [fmtPct(cg.budgetDeficitPct['2027']), T('Déficit presupuestario 2027, % del PIB','2027 budget deficit, % of GDP')] : null,
       cg.taxRevenuePct && cg.taxRevenuePct['2027']!=null ? [fmtPct(cg.taxRevenuePct['2027']), T('Recaudación tributaria 2027, % del PIB','2027 tax revenue, % of GDP')] : null
-    ]);
+    ], { k:'R', doc:cg });
   })();
 
   // ================= 07 Revenue =================
@@ -1350,13 +1452,13 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     stats('stats-out', [
       [fmtMMDP(g), T('Gasto presupuestario, ','Budget spending, ')+(flowM ? fmtJanTo(flowM) : '—')+(realG!=null ? ' ('+fmtSigned(realG,1,'%')+' '+T('real','real')+')' : '')],
       [fmtMMDP(pe), T('Pensiones y jubilaciones','Pensions')+(realChange(pe, yp('spPensiones'), flowY, flowMo)!=null ? ' ('+fmtSigned(realChange(pe, yp('spPensiones'), flowY, flowMo),1,'%')+' real)' : '')],
-      [fmtMMDP(inv), T('Inversión física','Physical investment')+(realChange(inv, yp('spInversionFisica'), flowY, flowMo)!=null ? ' ('+fmtSigned(realChange(inv, yp('spInversionFisica'), flowY, flowMo),1,'%')+' real)' : '')]
-    ]);
+      [fmtMMDP(inv), T('Inversión física','Physical investment')+(realChange(inv, yp('spInversionFisica'), flowY, flowMo)!=null ? ' ('+fmtSigned(realChange(inv, yp('spInversionFisica'), flowY, flowMo),1,'%')+' real)' : ''), { k:'R', keys:['spInversionFisica','inpc'], note:INPC_NOTE() }]
+    ], { k:'R', keys:['spGasto','spPensiones','inpc'], note:INPC_NOTE() });
     stats('stats-out-2', [
       [fmtMMDP(y('spBalancePresupuestario')), T('Balance presupuestario (negativo = déficit)','Budget balance (negative = deficit)')],
       [fmtMMDP(y('spBalancePrimario')), T('Balance primario (antes de intereses)','Primary balance (before interest)')],
-      rfspYtd!=null ? [fmtMMDP(-rfspYtd), T('RFSP acumulados (déficit amplio)','RFSP year to date (broad deficit)')+(rfspYtdP!=null ? ' · '+(flowY-1)+': '+fmtMMDP(-rfspYtdP) : '')] : null
-    ]);
+      rfspYtd!=null ? [fmtMMDP(-rfspYtd), T('RFSP acumulados (déficit amplio)','RFSP year to date (broad deficit)')+(rfspYtdP!=null ? ' · '+(flowY-1)+': '+fmtMMDP(-rfspYtdP) : ''), { k:'C', keys:['rfsp'], note:T('cálculo FNAM: suma de los RFSP mensuales de enero al último mes','FNAM calculation: sum of the monthly RFSP from January to the latest month') }] : null
+    ], { k:'R', keys:['spBalancePresupuestario','spBalancePrimario'] });
     var rigid = (cf!=null && pa!=null && pe!=null) ? cf+pa+pe : null, ing = flowM ? ytdAt('spIngresos', flowM) : null, trib = flowM ? ytdAt('spIngTributarios', flowM) : null;
     if(rigid!=null && g){
       setHTML('co-outlays', T('Pensiones, costo financiero y participaciones sumaron <b>'+fmtMMDP(rigid)+'</b> en '+fmtJanTo(flowM)+', <b>'+pctOf(rigid,g)+' del gasto</b>'+(ing ? ' y '+pctOf(rigid,ing)+' de los ingresos presupuestarios' : '')+(trib ? '; las pensiones solas absorbieron '+pctOf(pe,trib)+' de la recaudación tributaria' : '')+'. Como esos tres rubros crecen más rápido que los ingresos, el ajuste recae en el gasto discrecional, sobre todo la inversión física ('+pctOf(inv,g)+' del gasto).',
@@ -1378,8 +1480,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     setHTML('src-pemex-transfers', srcLine(['pemexBalance']));
     function y(k){ return flowM ? ytdAt(k, flowM) : null; } function yp(k){ return flowM ? ytdAt(k, flowPrevM) : null; }
     var tr = y('pemexTransferencias'), bal = y('pemexBalance'), balp = yp('pemexBalance'), ing = y('pemexIngresos'), ingp = yp('pemexIngresos'), gas = y('pemexGasto'), inv = y('pemexInversion'), invp = yp('pemexInversion'), intr = (y('pemexInteresesInternos')||0)+(y('pemexInteresesExternos')||0), der = y('pemexDerechos');
-    stats('stats-pemex', [ [fmtMMDP(bal), T('Balance financiero de Pemex','Pemex financial balance')+(balp!=null ? ' · '+(flowY-1)+': '+fmtMMDP(balp) : '')], [fmtMMDP(ing), T('Ingresos totales','Total revenue')+(realChange(ing,ingp,flowY,flowMo)!=null ? ' ('+fmtSigned(realChange(ing,ingp,flowY,flowMo),1,'%')+' real)' : '')], [fmtMMDP(gas), T('Gasto total','Total spending')] ]);
-    stats('stats-pemex-2', [ [fmtMMDP(inv), T('Inversión','Investment')+(realChange(inv,invp,flowY,flowMo)!=null ? ' ('+fmtSigned(realChange(inv,invp,flowY,flowMo),1,'%')+' real)' : '')], [fmtMMDP(intr), T('Intereses de la deuda pagados','Debt interest paid')], [fmtMMDP(der), T('Derechos y enteros pagados al Gobierno','Duties and payments to the Government')], tr ? [fmtMMDP(tr), T('Subsidios y transferencias recibidos (flujo de caja)','Subsidies and transfers received (cash flow)')] : null ]);
+    stats('stats-pemex', [ [fmtMMDP(bal), T('Balance financiero de Pemex','Pemex financial balance')+(balp!=null ? ' · '+(flowY-1)+': '+fmtMMDP(balp) : '')], [fmtMMDP(ing), T('Ingresos totales','Total revenue')+(realChange(ing,ingp,flowY,flowMo)!=null ? ' ('+fmtSigned(realChange(ing,ingp,flowY,flowMo),1,'%')+' real)' : '')], [fmtMMDP(gas), T('Gasto total','Total spending')] ], { k:'R', keys:['pemexBalance','pemexIngresos','pemexGasto','inpc'], note:INPC_NOTE() });
+    stats('stats-pemex-2', [ [fmtMMDP(inv), T('Inversión','Investment')+(realChange(inv,invp,flowY,flowMo)!=null ? ' ('+fmtSigned(realChange(inv,invp,flowY,flowMo),1,'%')+' real)' : '')], [fmtMMDP(intr), T('Intereses de la deuda pagados','Debt interest paid')], [fmtMMDP(der), T('Derechos y enteros pagados al Gobierno','Duties and payments to the Government')], tr ? [fmtMMDP(tr), T('Subsidios y transferencias recibidos (flujo de caja)','Subsidies and transfers received (cash flow)')] : null ], { k:'R', keys:['pemexInversion','pemexInteresesInternos','pemexInteresesExternos','pemexDerechos','pemexTransferencias','inpc'], note:INPC_NOTE() });
     if(bal!=null && flowM){
       var lastFull = Object.keys(bt).filter(function(k){ return bt[k].month===12; }).pop();
       setHTML('co-pemex', T('En '+fmtJanTo(flowM)+' Pemex registró un balance financiero de <b>'+fmtMMDP(bal)+'</b>'+(balp!=null ? ' (frente a '+fmtMMDP(balp)+' en el mismo periodo de '+(flowY-1)+')' : '')+', con ingresos de '+fmtMMDP(ing)+', gasto de '+fmtMMDP(gas)+', inversión de '+fmtMMDP(inv)+' e intereses pagados por '+fmtMMDP(intr)+'. Pagó '+fmtMMDP(der)+' en derechos al Gobierno Federal.'+(lastFull ? ' El año completo más reciente ('+lastFull+') cerró con un balance de '+fmtMMDP(bt[lastFull].v)+'.' : '')+' El apoyo del Gobierno a Pemex llega sobre todo como aportaciones de capital y vehículos fuera de balance, que no aparecen en este flujo de caja: se documentan abajo con fecha.',
@@ -1398,7 +1500,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       pd.pcapsUsdBn!=null ? [fmtUSDbn(pd.pcapsUsdBn*1000,0), T('P-Caps emitidas por la SHCP (jul. 2025, vencen 2030)','P-Caps issued by SHCP (Jul 2025, due 2030)')] : null,
       pd.maturities2026UsdBn!=null ? [fmtUSDbn(pd.maturities2026UsdBn*1000,1), T('Vencimientos de deuda de Pemex en 2026','Pemex debt maturities in 2026')] : null,
       pd.suppliersBn && pd.suppliersBn.value!=null ? [fmtMMDP(pd.suppliersBn.value*1000), T('Adeudo con proveedores (','Owed to suppliers (')+fmtMonth(ym(pd.suppliersBn.asOf||''))+')'] : null
-    ]);
+    ], { k:'R', doc:pd });
   })();
 
   // ================= 10 Banxico balance sheet =================
@@ -1417,7 +1519,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     setHTML('tacctAssets', '<h4>'+T('Activos','Assets')+'</h4>'+assets.filter(function(a){ return a[2]!=null; }).map(function(a){ return row(a[0],a[1],a[2]); }).join('')+row('Total de renglones principales','Total of main items', aTot, 'total'));
     setHTML('tacctLiab', '<h4>'+T('Pasivos','Liabilities')+'</h4>'+liabs.filter(function(a){ return a[2]!=null && a[2]!==0; }).map(function(a){ return row(a[0],a[1],a[2]); }).join('')+row('Total de renglones principales','Total of main items', lTot, 'total'));
     var base = lastVal('bmBaseMonetaria'), resMXN = lastVal('bmReservaMXN'), cover = (resMXN!=null && base) ? resMXN/base*100 : null;
-    stats('stats-banxico', [ [fmtUSDbn(resUsd,1), T('Reserva internacional, ','International reserve, ')+fmtDate(lastDate('reservas'))], [fmtBn(base,2), T('Base monetaria','Monetary base')], [fmtPct(cover,0), T('Reserva ÷ base monetaria','Reserve ÷ monetary base')] ]);
+    stats('stats-banxico', [ [fmtUSDbn(resUsd,1), T('Reserva internacional, ','International reserve, ')+fmtDate(lastDate('reservas'))], [fmtBn(base,2), T('Base monetaria','Monetary base')], [fmtPct(cover,0), T('Reserva ÷ base monetaria','Reserve ÷ monetary base'), { k:'C', keys:['bmReservaMXN','bmBaseMonetaria'], note:T('cálculo FNAM: reserva en pesos del estado de cuenta ÷ base monetaria','FNAM calculation: reserve in pesos from the weekly statement ÷ monetary base') }] ], { k:'R', keys:['reservas','bmBaseMonetaria'] });
     var rd = lastDate('reservas'), resDec = rd ? valAt('reservas', (+rd.slice(0,4)-1)+'-12-31') : null, resYr = rd ? valAt('reservas', addMonths(ym(rd),-12)+'-31') : null, resMax = rp.length ? Math.max.apply(null, rp.map(function(q){ return q[1]; })) : null;
     var prevDec2 = rd ? valAt('reservas', (+rd.slice(0,4)-2)+'-12-31') : null;
     if(resUsd!=null && resDec!=null){
@@ -1469,7 +1571,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     // Decisions: calendar dates from docs, outcome from the daily series
     var today = (MX.generatedAt || new Date().toISOString()).slice(0,10), drows = [];
     (bx.decisionDates || []).forEach(function(dt){
-      if(dt > today){ drows.push([fmtDate(dt), T(drows.length && drows[drows.length-1][1]===T('Programada','Scheduled') ? 'Programada' : 'Próxima reunión', drows.length && drows[drows.length-1][1]==='Scheduled' ? 'Scheduled' : 'Next meeting'), '—']); return; }
+      if(dt > today){ drows.push([fmtDate(dt), T(drows.length && drows[drows.length-1][1]===T('Programada','Scheduled') ? 'Programada' : 'Próxima reunión', drows.length && drows[drows.length-1][1]==='Scheduled' ? 'Scheduled' : 'Next meeting'), T('Pendiente','Pending')]); return; }
       var before = valAt('tasaObjetivo', addDays(dt,-1)), after = valAt('tasaObjetivo', addDays(dt,3));
       if(before==null || after==null){ drows.push([fmtDate(dt), '—', '—']); return; }
       var bp = Math.round((after-before)*100);
@@ -1482,19 +1584,19 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
       var lab = [ T('Mantener','Hold'), T('Subir','Hike'), T('Recortar','Cut') ], nv = [sv.nextMove.hold, sv.nextMove.hike, sv.nextMove.cut];
       new Chart(document.getElementById('chartExpectations'), { type:'bar', data:{ labels:[T('Próximo movimiento','Next move')], datasets:lab.map(function(l,i){ return { label:l, data:[nv[i]], backgroundColor:[C.s1, C.s8, C.s3][i], borderColor:C.surface, borderWidth:1, stack:'s' }; }) },
         options:{ indexAxis:'y', responsive:true, maintainAspectRatio:false, animation:false, layout:{ padding:{ left:4 } }, plugins:{ legend:legendTop, tooltip:{ callbacks:{ label:function(c){ return c.dataset.label+': '+c.parsed.x+' '+T('instituciones','institutions')+' ('+(c.parsed.x/sv.institutions*100).toFixed(0)+'%)'; } } } }, scales:{ x:{ stacked:true, max:sv.institutions, grid:axisGrid, ticks:axisTicks }, y:{ stacked:true, grid:{ display:false }, ticks:{ color:ink, font:{ size:12, weight:'600' } } } } } });
-      stats('stats-survey', [ [fmtPct(sv.rateEnd['2026'],2)+' → '+fmtPct(sv.rateEnd['2027'],2), T('Tasa esperada al cierre de 2026 → 2027 (mediana)','Expected rate at end-2026 → 2027 (median)')], [fmtPct(sv.inflationEnd['2026'],2)+' → '+fmtPct(sv.inflationEnd['2027'],2), T('Inflación esperada, cierre 2026 → 2027','Expected inflation, end-2026 → 2027')], [n(sv.fxEnd['2026'],2)+' → '+n(sv.fxEnd['2027'],2), T('Tipo de cambio esperado, cierre 2026 → 2027','Expected exchange rate, end-2026 → 2027')] ]);
+      stats('stats-survey', [ [fmtPct(sv.rateEnd['2026'],2)+' → '+fmtPct(sv.rateEnd['2027'],2), T('Tasa esperada al cierre de 2026 → 2027 (mediana)','Expected rate at end-2026 → 2027 (median)')], [fmtPct(sv.inflationEnd['2026'],2)+' → '+fmtPct(sv.inflationEnd['2027'],2), T('Inflación esperada, cierre 2026 → 2027','Expected inflation, end-2026 → 2027')], [n(sv.fxEnd['2026'],2)+' → '+n(sv.fxEnd['2027'],2), T('Tipo de cambio esperado, cierre 2026 → 2027','Expected exchange rate, end-2026 → 2027')] ], { k:'R', doc:sv });
     } else { setHTML('cap-survey', T('Encuesta no cargada','Survey not loaded')); emptyChart('chartExpectations', T('Documento no cargado','Document not loaded')); stats('stats-survey', []); }
     setHTML('src-survey', T('Fuente: ','Source: ')+docStamp(sv)+T(' · a diferencia del FedWatch de CME, no hay una probabilidad implícita en futuros de libre acceso para México; la encuesta es el sustituto más cercano',' · unlike CME\'s FedWatch there is no freely available futures-implied probability for Mexico; the survey is the closest substitute'));
     // Two surveys side by side: Citi (every two weeks) and Banco de México's own monthly survey (official, linked).
     var bs = DOCS.banxicoSurvey || {};
     if(bs.asOf || sv.asOf){
-      var pc = function(o,y,d){ return o && o[y]!=null ? fmtPct(o[y],d==null?2:d) : '—'; }, fx = function(o,y){ return o && o[y]!=null ? n(o[y],2) : '—'; };
+      var pc = function(o,y,d){ return o && o[y]!=null ? fmtPct(o[y],d==null?2:d) : NP(); }, fx = function(o,y){ return o && o[y]!=null ? n(o[y],2) : NP(); };
       var yrs = ['2026','2027'], rows = [];
       yrs.forEach(function(y){ rows.push([T('Tasa objetivo, cierre ','Target rate, end-')+y, pc(sv.rateEnd,y), pc(bs.rateEnd,y)]); });
       yrs.forEach(function(y){ rows.push([T('Inflación general, cierre ','Headline inflation, end-')+y, pc(sv.inflationEnd,y), pc(bs.inflationEnd,y)]); });
       yrs.forEach(function(y){ rows.push([T('Tipo de cambio, cierre ','Exchange rate, end-')+y, fx(sv.fxEnd,y), fx(bs.fxEnd,y)]); });
       yrs.forEach(function(y){ if((sv.gdpGrowth||{})[y]!=null || (bs.gdpGrowth||{})[y]!=null) rows.push([T('Crecimiento del PIB real, ','Real GDP growth, ')+y, pc(sv.gdpGrowth,y), pc(bs.gdpGrowth,y)]); });
-      if(bs.inflationNext12m!=null) rows.push([T('Inflación esperada, próximos 12 meses','Expected inflation, next 12 months'), '—', fmtPct(bs.inflationNext12m,2)]);
+      if(bs.inflationNext12m!=null) rows.push([T('Inflación esperada, próximos 12 meses','Expected inflation, next 12 months'), NP(), fmtPct(bs.inflationNext12m,2)]);
       setHTML('cap-survey-cmp', T('Medianas de las dos encuestas: Citi ('+(sv.asOf ? fmtDate(sv.asOf) : '—')+') y Banco de México ('+(bs.period ? esc(bs.period.es) : '—')+', publicada el '+(bs.asOf ? fmtDate(bs.asOf) : '—')+') · Banxico pregunta por la tasa de fondeo interbancario, que el banco central mantiene en la tasa objetivo',
         'Medians from both surveys: Citi ('+(sv.asOf ? fmtDate(sv.asOf) : '—')+') and Banco de México ('+(bs.period ? esc(bs.period.en) : '—')+', published '+(bs.asOf ? fmtDate(bs.asOf) : '—')+') · Banxico asks about the interbank funding rate, which the central bank holds at the target'));
       simpleTable('tblSurveyCmp', [T('Variable','Variable'), 'Citi', 'Banxico'], rows);
@@ -1518,6 +1620,8 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:80ch
     ];
     setHTML('mpInstrGrid', cards.map(function(c){ return '<div class="instr"><div class="ihead"><h4>'+c[0]+'</h4><span class="pill since">'+c[1]+'</span></div><p>'+c[2]+'</p><div class="metric"><span class="v num">'+c[3]+'</span><span class="l">'+c[4]+'</span></div></div>'; }).join(''));
   })();
+
+  applyBlocks();
 
   // ================= Sources =================
   (function(){

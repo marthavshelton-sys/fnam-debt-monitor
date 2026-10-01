@@ -57,6 +57,15 @@ if (undef.length) { console.log(undef.map(k => "  undefined reference : T." + k)
 console.log(`string refs    : OK (${used.length} references all resolve)`);
 try { new vm.Script(scriptOf(template)); } catch (e) { fail("the page script does not parse: " + e.message); }
 console.log("script syntax  : OK");
+// The server answers an unknown ?view= with 404 (functions/macro/_middleware.js); its list of
+// sections must be the page's own, or a real section would answer 404 and a missing one 200.
+{
+  const railIds = [...template.matchAll(/<a class="rail-item[^"]*"[^>]*data-view="([a-z0-9-]+)"/g)].map(m => m[1]);
+  let mw = ""; try { mw = rd(join(here, "..", "..", "functions", "macro", "_middleware.js")); } catch (e) { fail("functions/macro/_middleware.js is missing"); }
+  const listed = (/const VIEWS = \[([^\]]*)\]/.exec(mw)?.[1] || "").match(/[a-z0-9-]+/g) || [];
+  if (!railIds.length || [...railIds].sort().join() !== [...listed].sort().join()) fail(`functions/macro/_middleware.js lists the sections [${listed.join(", ")}] but the page has [${railIds.join(", ")}]`);
+  console.log(`view list      : OK (${railIds.length} sections, the same in functions/macro/_middleware.js)`);
+}
 
 // ---------------- data: lossless packing, checked by the page's own unpack() ----------------
 // The unpacker lives in the template (between the @unpack markers) and is evaluated

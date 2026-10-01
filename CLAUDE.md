@@ -60,6 +60,9 @@ dashboards, everything built from public data by GitHub Actions.
   its own reservation system limited to the destinations its site publishes. See the runbook.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
+- `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
+  Pages' single-page fallback served the home page with 200). Links inside it are absolute. `site/favicon.ico` is the
+  site's "F" mark; pages carry the same mark as a data-URI icon.
 
 ## Scheduled refreshes — rules that apply to every pipeline
 
@@ -107,6 +110,10 @@ dashboards, everything built from public data by GitHub Actions.
   (closed on recovery), which the same routine emails, and fails the run. After every refresh
   `macro-live-check.yml` loads https://fnam.mx/macro/ in Chromium (the deploy is main's page; every section, ES and
   EN, desktop and phone) and a failure opens one "LIVE CHECK FAILED: US macro - ..." issue, emailed the same way.
+  An unknown `?view=` shows "Section not found" and answers 404 through `functions/macro/_middleware.js`, whose
+  section list both builders check against the page. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
+  from the publishers' calendars and are always the release after the one shown; extra refresh runs on Wednesdays
+  (14:45, 15:45 UTC) and Thursdays (17:20 UTC) catch EIA's and Freddie Mac's releases.
 - IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
   IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
   `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's
@@ -188,6 +195,13 @@ dashboards, everything built from public data by GitHub Actions.
   two (page, deck and validator do) before calling the feed stale. The 2026 Ps. 20.80 was unpaid as of Sep-2026.
 - Per-model memory files (decisions, pitfalls, open items) live next to the runbooks: `tools/gentera/MEMORY.md`
   (others as they are written). Read the one for the model you are touching.
+- Fiscal dashboards (owner's rules, 2026-10-01): every block says "Data through <date>" (never "live"); every figure
+  carries a Reported / FNAM calculation / FNAM estimate badge and an ⓘ with its source and date
+  (`site/assets/provenance.js`, shared); a data point past its allowance turns amber in the reader's browser and a
+  value the last download did not return is labeled as stored, never shown silently; no placeholder ("—", typed-in
+  fallback dates) may render; INPC variants (monthly vs. first-half-month, original vs. seasonally adjusted) are
+  always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny: amber after 2 U.S. business days) and
+  `tools/mx-fiscal/freshness.json`; details in each page's runbook/MEMORY.
 - US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
   (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
   runs after each refresh and opens a `fiscal-health` issue when a data point outlives its publisher's

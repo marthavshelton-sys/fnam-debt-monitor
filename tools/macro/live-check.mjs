@@ -9,11 +9,14 @@
 //     fonts: no script errors, no "undefined"/"NaN" or raw markup in the text, the
 //     four "At a glance" lines filled, the section's own title, description,
 //     canonical and hreflang addresses, every chart labelled for screen readers,
-//     every sparkline drawn, every image loaded, chart text inside its panel.
+//     every sparkline drawn, every image loaded, chart text inside its panel, every
+//     line inside its chart.
 //  3. Phones at 390 and 360 px, light and dark: no text below 11 px and nothing wider
 //     than the screen. Desktops at 1280 and 1024 px: no sideways scroll.
-//  4. An unknown ?view= shows its notice; section links are links, and following one
-//     updates the address, the title and the browser history.
+//  4. An unknown ?view= shows the page's "Section Not Found" state (never another section),
+//     marked noindex, and the server answers it with 404; a missing address on the site
+//     answers 404 and /favicon.ico is an image. Section links are links, and following
+//     one updates the address, the title and the browser history.
 //
 //   node tools/macro/live-check.mjs [--url URL] [--expect FILE | --expect-ref BRANCH]
 //        [--wait MINUTES] [--shots DIR] [--summary FILE] [--report FILE] [--local]
@@ -124,6 +127,16 @@ function inspectSection(o) {
     // decorative graphics (sparklines, icons) are hidden from screen readers; the rest are charts
     if (svg.closest('[aria-hidden="true"]')) return;
     if (!(svg.getAttribute("role") === "img" && (svg.getAttribute("aria-label") || "").trim())) out.push("chart without a screen-reader label: " + name(svg));
+    // every line stays between the chart's gridlines: a point placed outside them is a
+    // month the axis does not have (October 2025 CPI drew a stray line across two charts)
+    const grid = [...svg.querySelectorAll("line")].filter(l => l.getAttribute("y1") === l.getAttribute("y2") && +l.getAttribute("x2") > +l.getAttribute("x1"));
+    if (grid.length) {
+      const left = Math.min(...grid.map(l => +l.getAttribute("x1"))), right = Math.max(...grid.map(l => +l.getAttribute("x2")));
+      svg.querySelectorAll('path[fill="none"]').forEach(pa => {
+        const xs = [...(pa.getAttribute("d") || "").matchAll(/[ML]\s*(-?[\d.]+)[ ,]/g)].map(m => +m[1]);
+        if (xs.some(x => x < left - 1.5 || x > right + 1.5)) out.push("a line runs outside its chart: " + name(svg));
+      });
+    }
   });
   view.querySelectorAll("svg text").forEach(tx => {
     if (!visible(tx)) return;
@@ -229,6 +242,7 @@ async function run() {
       // links, address and history
       const links = await s.page.$$eval(".rail-item[data-view]", els => els.filter(e => e.tagName !== "A" || !/[?&]view=/.test(e.getAttribute("href") || "")).length);
       if (links) problem(tag, `${links} section menu items are not links`);
+      if (!(await s.page.$('link[rel="icon"]'))) problem(tag, "the page has no icon (link rel=icon)");
       try {
         await show(s.page, views[0], false);
         const before = await s.page.evaluate(() => ({ t: document.title, q: location.search }));
@@ -245,13 +259,36 @@ async function run() {
     if (pass.phone && pass.w === 390 && pass.scheme === "light" && lang === "es") { await show(s.page, views[0], true); await shoot(s.page, "reference-phone-es-" + views[0]); }
     await s.ctx.close();
   }
-  // an unknown section
+  // an unknown section: the page's own "not found" state, with every section as a link, the
+  // address left as typed, noindex; on the live site the server's 404 (functions/macro/_middleware.js)
   try {
-    const s = await open(1280, 900, "en", "light", "?view=zz-live-check&lang=en");
-    const r = await s.page.evaluate(() => ({ notice: (document.getElementById("viewNotice") || {}).textContent || "", id: (document.querySelector(".view.active") || {}).id }));
-    if (!r.notice.includes("zz-live-check") || r.id !== "view-" + views[0]) problem("unknown ?view=", `notice "${r.notice.slice(0, 60)}", showing ${r.id}`);
-    await s.ctx.close();
+    const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    const page = await ctx.newPage();
+    if (local) await page.route("**/*", r => r.request().url().startsWith(origin) ? r.continue() : r.abort());
+    const resp = await page.goto(pageUrl + "?view=zz-live-check&lang=en", { waitUntil: "load", timeout: 90000 });
+    await page.waitForTimeout(300);
+    const r = await page.evaluate(() => ({ id: (document.querySelector(".view.active") || {}).id, desc: (document.getElementById("nfDesc") || {}).textContent || "",
+      links: document.querySelectorAll("#nfList a").length, current: document.querySelectorAll(".rail-item.active").length,
+      robots: (document.querySelector('meta[name="robots"]') || {}).content || "", q: location.search }));
+    if (r.id !== "view-notfound" || !r.desc.includes("zz-live-check")) problem("unknown ?view=", `showing ${r.id} ("${r.desc.slice(0, 60)}") instead of "Section Not Found"`);
+    if (r.links !== views.length || r.current) problem("unknown ?view=", `${r.links} section links (expected ${views.length}); ${r.current} section marked as current`);
+    if (!/noindex/.test(r.robots)) problem("unknown ?view=", "the not-found state is not marked noindex");
+    if (!r.q.includes("view=zz-live-check")) problem("unknown ?view=", `the address was changed to ${r.q}`);
+    if (!local && resp && resp.status() !== 404) problem("unknown ?view=", `the server answered ${resp.status()}, not 404`);
+    await ctx.close();
   } catch (e) { problem("unknown ?view=", "could not check (" + e.message.split("\n")[0] + ")"); }
+  // the site: a missing address answers 404 (site/404.html), never the home page, and the
+  // browser's default icon request gets an image
+  if (!local) {
+    for (const [path, want] of [["/macro/zz-live-check-missing", 404], ["/favicon.ico", 200]]) {
+      try {
+        const res = await fetch(new URL(path, pageUrl), { redirect: "manual" });
+        const type = res.headers.get("content-type") || "";
+        if (res.status !== want) problem("site", `${path} answered ${res.status}, expected ${want}`);
+        else if (path === "/favicon.ico" && !/^image\//.test(type)) problem("site", `${path} is served as "${type}", not an image`);
+      } catch (e) { problem("site", `${path} could not be requested (${e.message})`); }
+    }
+  }
   await browser.close();
 
   notes.push(`Coverage: ${views ? views.length : 0} sections × Spanish and English; desktop 1280 and 1024 px; phones 390 and 360 px, light and dark`);

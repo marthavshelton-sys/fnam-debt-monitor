@@ -24,7 +24,19 @@ $releases = [ordered]@{
   pce    = 54   # Personal Income and Outlays
   gdp    = 53   # Gross Domestic Product
   retail = 9    # Advance Monthly Sales for Retail and Food Services
+  # Weekly releases: their calendars carry the holiday shifts (the NFCI moves to
+  # Thursday in a week with a Monday holiday, the mortgage survey to Wednesday in
+  # Thanksgiving week), which a fixed weekday cannot.
+  nfci     = 221  # Chicago Fed National Financial Conditions Index
+  mortgage = 190  # Primary Mortgage Market Survey (Freddie Mac)
 }
+
+# The weekly releases' "next" is worked out on the page from the data it shows, so
+# their lists must not lose a date scheduled for today: until FRED lists it as
+# published it stays in "upcoming". Without this, the 04:00 UTC run on Thursday
+# 01-Oct-2026 dropped that day's mortgage survey from both lists and the page named
+# 08-Oct as the next reading. The monthly releases keep the rule their lines use.
+$weeklyKeys = @("nfci", "mortgage")
 
 $cal = [ordered]@{}
 foreach ($k in $releases.Keys) {
@@ -34,9 +46,9 @@ foreach ($k in $releases.Keys) {
   $future = Invoke-Retry { Invoke-RestMethod "$base&include_release_dates_with_no_data=true&realtime_start=$today&realtime_end=$horizon&sort_order=asc&limit=12" -TimeoutSec 60 }
   $recent = @($past.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -le $today } | Sort-Object -Unique -Descending)
   $last = $(if ($recent.Count) { $recent[0] } else { $null })
-  $upcoming = @($future.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -gt $today } | Sort-Object -Unique)
+  $upcoming = @($future.release_dates | ForEach-Object { $_.date } | Where-Object { $_ -gt $today -or ($weeklyKeys -contains $k -and $_ -eq $today -and $recent -notcontains $today) } | Sort-Object -Unique)
   $cal[$k] = [ordered]@{ last = $last; next = $(if ($upcoming.Count) { $upcoming[0] } else { $null }); upcoming = $upcoming; recent = $recent }
-  "{0,-7} last {1}  next {2}  (+{3} more scheduled)" -f $k, $last, $cal[$k].next, [Math]::Max(0, $upcoming.Count - 1)
+  "{0,-8} last {1}  next {2}  (+{3} more scheduled)" -f $k, $last, $cal[$k].next, [Math]::Max(0, $upcoming.Count - 1)
   Start-Sleep -Milliseconds 150
 }
 $missing = @($cal.Keys | Where-Object { -not $cal[$_].next })

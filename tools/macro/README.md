@@ -8,7 +8,11 @@ One page, two languages; the page is served at `site/macro/index.html`.
 ## How it stays current
 
 `.github/workflows/macro-refresh.yml` runs at 12:50 UTC on weekdays and at
-14:05 and 20:05 UTC every day (and on demand from the Actions tab). It:
+14:05 and 20:05 UTC every day (and on demand from the Actions tab), plus two
+weekly slots: 14:45 and 15:45 UTC on Wednesdays for EIA's petroleum report
+(10:30 ET; 10:45 and 11:45 ET in daylight time, 10:45 ET in winter) and 17:20 UTC
+on Thursdays for EIA's holiday weeks and Freddie Mac's mortgage survey (both
+12:00 ET). It:
 
 1. runs every `process_*.ps1` here, pulling fresh data from BLS, BEA, FRED,
    Census, Treasury FiscalData, the University of Michigan, and the New York
@@ -32,7 +36,9 @@ Everything on the page except the four items below, including: all series
 from BLS, BEA, FRED, Census, Treasury, Michigan and the NY Fed; every "next
 release" date (pulled from FRED's mirror of each agency's official calendar,
 so no date tables live in the code, plus the last six dates that published,
-which name the GDP estimate on the page); the first-print payroll figures behind
+which name the GDP estimate on the page; the weekly NFCI and mortgage survey
+come from the same calendars, and EIA's weekly report from EIA's own holiday
+schedule); the first-print payroll figures behind
 the revisions chart (recorded on the first run after each jobs report) and every
 published value of the last two years of payrolls (ALFRED vintages, see below);
 and state nonfarm employment behind the job-cut maps.
@@ -89,7 +95,46 @@ and state nonfarm employment behind the job-cut maps.
 - **Addresses and metadata.** Every section is a real link (`?view=`,
   `&lang=`), the browser history follows it, and the document title,
   description, canonical, hreflang and Open Graph tags are rewritten per
-  section and language. An unknown `?view=` opens the first section and says so.
+  section and language. An unknown `?view=` gets its own "Section Not Found"
+  state (the address as typed, every section as a link, `noindex`), never another
+  section in its place, and the server answers it with 404:
+  `functions/macro/_middleware.js` (a Cloudflare Pages Function) lists the section
+  ids, and both builders refuse to build when that list and the page's navigation
+  differ. A missing address anywhere on the site gets `site/404.html` with status
+  404 (without a top-level 404.html Cloudflare Pages answers every unknown address
+  with the home page and 200); `site/favicon.ico` answers browsers' default icon
+  request, and the page carries the site's icon itself.
+- **Weekly release dates follow the publisher's calendar.** The NFCI (Chicago Fed,
+  Wednesdays 8:30 ET, Thursday in a week with a Monday holiday) and the 30-year
+  mortgage rate (Freddie Mac, Thursdays 12:00 ET, Wednesday in Thanksgiving week)
+  take their dates from FRED's release calendars (`calendar.json` keys `nfci`,
+  release 221, and `mortgage`, release 190); EIA's weekly report from EIA's holiday
+  schedule page (`spr_processed.json` `schedule`). "Next" is always the release
+  after the one whose data the page shows, never a date counted from today, so it
+  moves on by itself with the refresh that brings the new point; once its time
+  (ET) has passed and the data is not in yet, the line says "not on this page
+  yet". Without the calendar the page falls back to the usual weekday and says
+  "expected".
+- **Each figure carries its own date.** The policy callout dates the Fed's target
+  (same day), the effective rate (a business day later) and the mortgage rate
+  (Freddie Mac's weekly survey) separately, with the next mortgage reading.
+- **No signed zero.** Every signed figure goes through `sgnFix` (sign only when the
+  rounded value is not zero, a real minus sign) and every tile arrow through
+  `deltaArrow` (a dash when the change rounds to zero), so a tiny decline reads
+  "0.0%", never "−0.0%".
+- **GDP "why it matters"** names what added to growth and what subtracted, with
+  each contribution, from BEA's table 1.1.2 (consumer spending, investment,
+  exports, imports, government); never a blanket "the other components".
+- **History revisions are said, not silent.** Once a year (late September) BEA's
+  annual update revises years of GDP, income, spending and PCE-price history.
+  `Get-HistoryRevision` (`common.ps1`, called by `process_core.ps1`) compares each
+  run with the previous data and, when growth changed for a quarter older than the
+  two latest or a monthly series for a month more than seven months back, records
+  the release in `gdp_processed.json` `revisions` (earliest quarter and months
+  revised, quarters changed, the three largest changes in growth; kept 400 days).
+  For 120 days the GDP, income and PCE views open with a "History revised" note.
+  The 30-Sep-2026 update (GDP from Q1 2021, 19 quarters; Q1 2025 −0.6% → 0.1%) was
+  recorded from the committed data before and after it.
 - `labor_static.json` is written compact (it is baked into the page; the
   pretty-printed form was 65 KB of whitespace).
 - **Phones.** No text below 11 px: chart SVGs narrower than their drawing are
@@ -222,12 +267,14 @@ After every refresh, `.github/workflows/macro-live-check.yml` (ubuntu runner) ru
   script errors or failed requests, no "undefined"/"NaN" or raw markup in the text,
   the four "At a glance" lines filled, the section's own title, description,
   canonical and hreflang, every chart labelled for screen readers, every sparkline
-  drawn, every image loaded, chart text inside its panel, no Spanish regressions
-  (English glosses, capitalised months).
+  drawn, every image loaded, chart text inside its panel, every line inside its
+  chart, no Spanish regressions (English glosses, capitalised months).
 - **Layout:** phones at 390 and 360 px, light and dark: no text below 11 px and
   nothing wider than the screen; desktops at 1280 and 1024 px: no sideways scroll.
-- **Navigation:** an unknown `?view=` shows its notice; section links update the
-  address, title and history.
+- **Navigation:** an unknown `?view=` shows the "Section Not Found" state (every
+  section as a link, address kept, `noindex`) and the server answers 404; a missing
+  address on the site answers 404 and `/favicon.ico` is an image; the page has an
+  icon; section links update the address, title and history.
 
 It is read-only: public pages only, nothing committed. A failure opens one
 "LIVE CHECK FAILED: US macro - ..." issue labeled `macro-live-check`, which the
@@ -299,12 +346,17 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 
 ## Files
 
-- `common.ps1` — shared: data folder, API keys from environment, BLS/BEA helpers
+- `common.ps1` — shared: data folder, API keys from environment, BLS/BEA helpers,
+  `Get-HistoryRevision` (BEA's annual update, see "History revisions")
 - `process_core.ps1` — CPI, labor, PCE (+weights), GDP/income (BLS + BEA)
-- `process_calendar.ps1` - release dates for every section, from FRED
+- `process_calendar.ps1` - release dates for every section, from FRED (monthly
+  releases plus the weekly NFCI and mortgage survey)
 - `process_umich.ps1`, `process_ppi.ps1`, `process_retail.ps1`,
   `process_fincond.ps1`, `process_supply.ps1`, `process_fiscal.ps1` — one per section
-- `process_spr.ps1` — EIA weekly/monthly SPR stocks (keyless history workbooks),
+- `process_spr.ps1` — EIA weekly/monthly SPR stocks (keyless history workbooks: the
+  weekly series from the WPSR's Table 1 workbook `ir.eia.gov/wpsr/psw01.xls`, posted at
+  the 10:30 ET release, with the series-page workbook as fallback), EIA's holiday
+  release schedule (`schedule.exceptions`),
   DOE capacity per site (scraped from the storage-sites page), DOE's inventory
   per site (the "Crude Oil Inventory by Site (as of ...)" table on the SPR
   Quick Facts page; each new as-of date is appended to `bySiteHistory`), and
@@ -333,3 +385,7 @@ To preview locally on Windows with the keys in `%TEMP%\claude\api_keys.json`:
 - `build.ps1` — template + data → page, with the locale guards; `build-page.mjs` —
   writes the published page (packed data, no comments) when Node is available
 - `refresh_all.ps1` — runs everything in order; what the workflow calls
+- `../../functions/macro/_middleware.js` — Cloudflare Pages Function: an unknown
+  `?view=` answers 404 (section list checked by both builders)
+- `../../site/404.html`, `../../site/favicon.ico` — the site-wide "not found" page
+  (status 404 for any missing address) and icon
