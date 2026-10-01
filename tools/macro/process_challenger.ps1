@@ -13,11 +13,20 @@ $C = $ls.challenger
 
 # ---- newest report post ----
 $cat = Invoke-Retry { Invoke-WebRequest -Uri "https://www.challengergray.com/blog/category/job-cuts-report/" -UserAgent $ua -UseBasicParsing -TimeoutSec 60 }
-$post = [regex]::Match($cat.Content, 'href="(https://www\.challengergray\.com/blog/challenger-report-[^"]+)"').Groups[1].Value
-if (-not $post) { throw "no report post link found on the category page" }
-$page = Invoke-Retry { Invoke-WebRequest -Uri $post -UserAgent $ua -UseBasicParsing -TimeoutSec 60 }
-$pdfUrl = [regex]::Match($page.Content, 'href="(https://www\.challengergray\.com/wp-content/uploads/[^"]+\.pdf)"').Groups[1].Value
-if (-not $pdfUrl) { throw "no PDF link on $post" }
+# Posts are listed newest first as entry titles. Slugs are not a reliable marker
+# (September 2026's was "job-cuts-fall-in-september-...", not "challenger-report-..."),
+# and the category also carries non-report articles, so walk the newest few posts
+# in order and take the first that links a Challenger-Report PDF.
+$posts = @([regex]::Matches($cat.Content, 'class="entry_title">.{0,400}?<a itemprop="url" href="(https://www\.challengergray\.com/blog/[^"]+)"') | ForEach-Object { $_.Groups[1].Value } | Select-Object -Unique)
+if (-not $posts.Count) { throw "no post links found on the category page" }
+$post = $null; $pdfUrl = $null; $page = $null
+foreach ($p in ($posts | Select-Object -First 4)) {
+  $pg = Invoke-Retry { Invoke-WebRequest -Uri $p -UserAgent $ua -UseBasicParsing -TimeoutSec 60 }
+  $u = [regex]::Match($pg.Content, 'href="(https://www\.challengergray\.com/wp-content/uploads/[^"]*Challenger-Report[^"]*\.pdf)"', 'IgnoreCase').Groups[1].Value
+  if ($u) { $post = $p; $pdfUrl = $u; $page = $pg; break }
+  Write-Output "not a report post (no Challenger-Report PDF): $p"
+}
+if (-not $pdfUrl) { throw "none of the newest $([math]::Min(4, $posts.Count)) posts links a Challenger-Report PDF" }
 $published = [regex]::Match($page.Content, 'property="article:published_time"[^>]+content="([^"]+)"').Groups[1].Value
 Write-Output "newest report: $post"
 if ($C.reportUrl -eq $pdfUrl) { Write-Output "Challenger: $($C.asOfMonth) already applied ($pdfUrl); nothing to do"; return }
