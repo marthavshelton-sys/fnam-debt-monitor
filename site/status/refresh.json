@@ -1,0 +1,225 @@
+{
+  "checkedAt": "2026-10-01T04:44:54Z",
+  "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked hourly by .github/workflows/data-watchdog.yml",
+  "graceHours": 3,
+  "sections": {
+    "us": {
+      "es": "Estados Unidos",
+      "en": "United States"
+    },
+    "mx": {
+      "es": "México",
+      "en": "Mexico"
+    },
+    "companies": {
+      "es": "Empresas",
+      "en": "Companies"
+    }
+  },
+  "dashboards": [
+    {
+      "id": "us-macro",
+      "section": "us",
+      "name": {
+        "es": "Macro y Déficit Fiscal EE. UU.",
+        "en": "U.S. Macro and Fiscal Deficit"
+      },
+      "url": "/macro/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T20:19:54Z",
+      "lastAttempt": {
+        "at": "2026-09-30T20:19:54Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T15:45:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "us-fiscal",
+      "section": "us",
+      "name": {
+        "es": "Deuda Fiscal EE. UU.",
+        "en": "U.S. Fiscal Debt"
+      },
+      "url": "/fiscal/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T21:45:09Z",
+      "lastAttempt": {
+        "at": "2026-09-30T21:45:09Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T13:15:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "mx-macro",
+      "section": "mx",
+      "name": {
+        "es": "Macro México",
+        "en": "Mexico Macro"
+      },
+      "url": "/mx/macro/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T19:37:04Z",
+      "lastAttempt": {
+        "at": "2026-09-30T19:37:04Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T18:25:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "mx-fiscal",
+      "section": "mx",
+      "name": {
+        "es": "Fiscal México",
+        "en": "Mexico Fiscal"
+      },
+      "url": "/mx/fiscal/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T19:39:46Z",
+      "lastAttempt": {
+        "at": "2026-09-30T19:39:46Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-29T19:30:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "gap",
+      "section": "companies",
+      "name": {
+        "es": "GAP",
+        "en": "GAP"
+      },
+      "url": "/gap/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T22:47:45Z",
+      "lastAttempt": {
+        "at": "2026-09-30T22:47:45Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T14:30:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "oma",
+      "section": "companies",
+      "name": {
+        "es": "OMA",
+        "en": "OMA"
+      },
+      "url": "/oma/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T23:00:19Z",
+      "lastAttempt": {
+        "at": "2026-09-30T23:00:19Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T14:45:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "asur",
+      "section": "companies",
+      "name": {
+        "es": "ASUR",
+        "en": "ASUR"
+      },
+      "url": "/asur/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T22:57:57Z",
+      "lastAttempt": {
+        "at": "2026-09-30T22:57:57Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T14:40:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "airport-traffic",
+      "section": "companies",
+      "name": {
+        "es": "Tráfico por Aeropuerto",
+        "en": "Traffic by Airport"
+      },
+      "url": "/aeropuertos/trafico/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T17:39:30Z",
+      "lastAttempt": {
+        "at": "2026-09-30T17:39:30Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-29T17:30:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "airline-traffic",
+      "section": "companies",
+      "name": {
+        "es": "Tráfico por Aerolínea",
+        "en": "Traffic by Airline"
+      },
+      "url": "/aeropuertos/aerolineas/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T18:39:54Z",
+      "lastAttempt": {
+        "at": "2026-09-30T18:39:54Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-29T18:20:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "qualitas",
+      "section": "companies",
+      "name": {
+        "es": "Quálitas",
+        "en": "Quálitas"
+      },
+      "url": "/qualitas/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T23:05:15Z",
+      "lastAttempt": {
+        "at": "2026-09-30T23:05:15Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T14:50:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "gentera",
+      "section": "companies",
+      "name": {
+        "es": "Gentera",
+        "en": "Gentera"
+      },
+      "url": "/gentera/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T22:59:08Z",
+      "lastAttempt": {
+        "at": "2026-09-30T22:59:08Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T14:35:00Z",
+      "alerts": 0
+    },
+    {
+      "id": "oracle",
+      "section": "companies",
+      "name": {
+        "es": "Oracle",
+        "en": "Oracle"
+      },
+      "url": "/oracle/",
+      "status": "ok",
+      "lastSuccess": "2026-09-30T21:55:14Z",
+      "lastAttempt": {
+        "at": "2026-09-30T21:55:14Z",
+        "result": "success"
+      },
+      "requiredSince": "2026-09-30T13:30:00Z",
+      "alerts": 0
+    }
+  ]
+}

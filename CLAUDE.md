@@ -74,6 +74,13 @@ dashboards, everything built from public data by GitHub Actions.
 - Both macro dashboards refresh every day, weekends included (weekend runs usually commit nothing;
   sources publish weekdays). A run commits only when data changed.
 - When working on one page, do not touch another page's workflow or scripts.
+- Hourly `data-watchdog.yml` (`scripts/watchdog/`, runbook `tools/watchdog/README.md`) judges each dashboard's
+  last landed scheduled refresh against that workflow's own cron and writes `site/status/refresh.json`; the
+  landing page's "Last successful data refresh" panel and the company pages' header dots
+  (`site/assets/data-status.js`) read it. A late dashboard whose pipeline has not alerted gets a
+  "SOURCE DOWN: watchdog - ..." issue (emailed). Nothing on the site is called "live": a dashboard shows as
+  "Al día / Up to date" only in that panel and dot, and only while the watchdog verifies it.
+  A new dashboard or refresh workflow goes into `tools/watchdog/dashboards.json`.
 - The sandbox's egress proxy blocks the data providers (Banxico, INEGI, FRED, BLS…); fnam.mx answers
   plain requests since 30-Sep-2026. To probe a live endpoint, dispatch the page's workflow with its diagnostics inputs and
   read the run log; verify deploys via Actions history and committed files, not by fetching the site.

@@ -4,12 +4,12 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>FNAM — Paneles Macro y Fiscales | Macro &amp; Fiscal Dashboards</title>
-<meta name="description" content="Paneles en vivo de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales. Live macro, fiscal, and market dashboards for the United States and Mexico.">
+<meta name="description" content="Paneles de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales. Macro, fiscal, and market dashboards for the United States and Mexico.">
 <link rel="canonical" href="https://fnam.mx/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="FNAM">
 <meta property="og:title" content="FNAM — Paneles Macro y Fiscales">
-<meta property="og:description" content="Paneles en vivo de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales.">
+<meta property="og:description" content="Paneles de datos macro, fiscales y de mercados para Estados Unidos y México, construidos directamente sobre fuentes oficiales.">
 <meta property="og:locale" content="es_MX">
 <meta property="og:locale:alternate" content="en_US">
 <meta property="og:url" content="https://fnam.mx/">
@@ -36,6 +36,9 @@
   --accent-ink:#0f2c20;
   --accent-soft:#e6ede8;
   --accent-soft-border:rgba(27,67,50,0.22);
+  --st-ok:#0a7d0a;
+  --st-alert:#9a5b00;
+  --st-late:#b42318;
   --shadow: 0 1px 2px rgba(11,11,11,0.04);
   --shadow-hover: 0 6px 20px rgba(11,11,11,0.08);
   --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
@@ -57,6 +60,9 @@
     --accent-ink:#bfe3cf;
     --accent-soft:#16261e;
     --accent-soft-border:rgba(79,154,118,0.32);
+    --st-ok:#4cc94c;
+    --st-alert:#e3a33a;
+    --st-late:#f07167;
     --shadow: 0 1px 2px rgba(0,0,0,0.3);
     --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
   }
@@ -76,6 +82,9 @@
   --accent-ink:#bfe3cf;
   --accent-soft:#16261e;
   --accent-soft-border:rgba(79,154,118,0.32);
+  --st-ok:#4cc94c;
+  --st-alert:#e3a33a;
+  --st-late:#f07167;
   --shadow: 0 1px 2px rgba(0,0,0,0.3);
   --shadow-hover: 0 8px 24px rgba(0,0,0,0.45);
 }
@@ -151,7 +160,7 @@ main{flex:1; padding-top:12px;}
   border-bottom:1px solid var(--grid);
 }
 .section-head h2{
-  font-family:var(--serif); font-weight:600; font-size:24px; margin:0; letter-spacing:-0.01em;
+  font-family:var(--serif); font-weight:600; font-size:24px; line-height:1.2; margin:0; letter-spacing:-0.01em;
 }
 
 .grid{
@@ -210,6 +219,24 @@ a.card:hover .cta svg{transform:translateX(2px);}
 .decks a{color:var(--accent-ink); font-weight:600; text-decoration:none; background:var(--accent-soft); border:1px solid var(--accent-soft-border); border-radius:999px; padding:4px 11px; white-space:nowrap; transition:border-color .18s ease, transform .18s ease;}
 .decks a:hover, .decks a:focus-visible{border-color:var(--accent); transform:translateY(-1px); outline:none;}
 .decks .hint{flex-basis:100%; font-size:12px; color:var(--muted); margin:0;}
+
+/* ---------- data status (hourly watchdog; /status/refresh.json) ---------- */
+.status-checked{font-size:12.5px; color:var(--muted); text-align:right;}
+.status-checked.warn{color:var(--st-late); font-weight:600;}
+.status-grid{list-style:none; margin:0; padding:0; display:grid; gap:10px; grid-template-columns:repeat(2, minmax(0, 1fr));}
+@media (min-width:640px){ .status-grid{grid-template-columns:repeat(3, minmax(0, 1fr));} }
+@media (min-width:1000px){ .status-grid{grid-template-columns:repeat(4, minmax(0, 1fr));} }
+.st{display:flex; flex-direction:column; gap:3px; min-width:0; padding:11px 14px; background:var(--surface); border:1px solid var(--border); border-radius:10px;}
+.st-name{font-size:14px; font-weight:600; line-height:1.3; color:var(--text-primary); text-decoration:none;}
+a.st-name:hover, a.st-name:focus-visible{color:var(--accent); text-decoration:underline; outline:none;}
+.st-meta{display:flex; flex-wrap:wrap; align-items:center; gap:2px 10px; font-size:12.5px; line-height:1.4; color:var(--text-secondary); font-variant-numeric:tabular-nums;}
+.st-state{display:inline-flex; align-items:center; gap:6px; font-weight:600; color:var(--muted);}
+.st-state::before{content:""; flex:none; width:8px; height:8px; border-radius:50%; background:var(--muted);}
+.st.ok .st-state{color:var(--st-ok);}  .st.ok .st-state::before{background:var(--st-ok);}
+.st.alert .st-state{color:var(--st-alert);}  .st.alert .st-state::before{background:var(--st-alert);}
+.st.late .st-state{color:var(--st-late);}  .st.late .st-state::before{background:var(--st-late);}
+.status-note{margin:12px 0 0; font-size:12.5px; line-height:1.5; color:var(--muted); max-width:100ch;}
+@media (max-width:640px){ .section-head{flex-wrap:wrap; gap:4px 16px;} .status-checked{text-align:left;} }
 
 /* ---------- footer ---------- */
 footer{
@@ -450,6 +477,24 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
         </div>
     </div>
   </section>
+
+  <!-- ================= Data status: verdicts of the hourly watchdog ================= -->
+  <section class="section" id="estado">
+    <div class="wrap">
+      <div class="section-head">
+        <h2>
+          <span class="en">Last Successful Data Refresh</span>
+          <span class="es">Última Actualización Exitosa de Datos</span>
+        </h2>
+        <span class="status-checked" id="statusChecked"></span>
+      </div>
+      <ul class="status-grid" id="statusGrid"></ul>
+      <p class="status-note">
+        <span class="en">A dashboard is shown as up to date only when the hourly watchdog has verified that its scheduled refresh landed on time; a late refresh opens an alert. Mexico City time.</span>
+        <span class="es">Un panel aparece al día solo cuando el vigilante, que revisa cada hora, verificó que su actualización programada llegó a tiempo; una actualización retrasada abre una alerta. Hora del centro de México.</span>
+      </p>
+    </div>
+  </section>
 </main>
 
 <footer>
@@ -514,6 +559,38 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
       var lang = document.documentElement.getAttribute("lang") === "en" ? "en" : "es";
       a.href = a.getAttribute("data-base") + "?present=1&lang=" + lang;
     });
+  });
+})();
+</script>
+
+<script src="/assets/data-status.js"></script>
+<script>
+(function(){
+  // "Last successful data refresh": one card per dashboard from the watchdog's verdicts.
+  var grid = document.getElementById("statusGrid"), checked = document.getElementById("statusChecked");
+  if (!grid || !checked || !window.FNAM_STATUS) return;
+  var S = window.FNAM_STATUS;
+  function esc(v){ return String(v).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); }
+  function both(es, en){ return '<span class="es">' + es + '</span><span class="en">' + en + '</span>'; }
+  S.load().then(function(s){
+    if (!s.ok || !s.dashboards.length) {
+      checked.innerHTML = both("Estado no disponible", "Status unavailable");
+      grid.hidden = true;
+      return;
+    }
+    checked.innerHTML = s.fresh
+      ? both("Revisado " + S.when(s.checkedAt, "es"), "Checked " + S.when(s.checkedAt, "en"))
+      : both("El vigilante no reporta desde " + S.when(s.checkedAt, "es"), "No watchdog report since " + S.when(s.checkedAt, "en"));
+    checked.classList.toggle("warn", !s.fresh);
+    grid.innerHTML = s.dashboards.map(function(d){
+      var label = S.labels[d.state];
+      var name = d.name || { es: d.id, en: d.id };
+      return '<li class="st ' + esc(d.state) + '">' +
+        '<a class="st-name" href="' + esc(d.url || "/") + '">' + both(esc(name.es), esc(name.en)) + '</a>' +
+        '<span class="st-meta"><span class="st-state">' + both(label.es, label.en) + '</span>' +
+        '<time datetime="' + esc(d.lastSuccess || "") + '">' + both(S.when(d.lastSuccess, "es"), S.when(d.lastSuccess, "en")) + '</time></span>' +
+      '</li>';
+    }).join("");
   });
 })();
 </script>
