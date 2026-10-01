@@ -49,7 +49,7 @@ const isoFromDMY = (s) => {
 // ---- cadence table: site/fiscal/freshness-rules.js, shared with the page so its amber flags and this alarm agree ----
 // `period` says what the stamped date is ('obs' = the observation day; 'month' / 'quarter' / 'year' = the FIRST day of
 // the period, FRED's stamp); age runs from the END of that period. `days` = calendar-day allowance; `bd` = U.S.
-// business days (federal holidays excluded, site/assets/provenance.js), used for Debt to the Penny (2 business days).
+// business days (federal holidays excluded, site/assets/provenance.js), used for Debt to the Penny and the policy rates (2 business days).
 const RULES = await loadAssignment(new URL('site/fiscal/freshness-rules.js', ROOT), 'window.FISCAL_FRESHNESS');
 globalThis.location = { search: '' };
 const PROV = (await import(new URL('site/assets/provenance.js', ROOT))).default;

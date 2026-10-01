@@ -8,7 +8,7 @@
 //   * the source, series and date of each figure behind an ⓘ, and in every chart tooltip;
 //   * the header notice (#dataWarn, both languages): every data point past its allowance, and a data file that has
 //     missed two refreshes (36 hours). Left alone when the data files did not load: the page writes that notice.
-// Debt to the Penny turns amber after 2 U.S. business days without a new close (federal holidays excluded).
+// Debt to the Penny and the policy rates turn amber after 2 U.S. business days without a new value (federal holidays excluded).
 (function(){
   var PV = window.FNAM_PROV; if(!PV) return;
   var LD = window.LIVE_DATA || {}, MD = window.MONTHLY_DATA || {};

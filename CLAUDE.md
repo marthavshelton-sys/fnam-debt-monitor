@@ -200,7 +200,7 @@ dashboards, everything built from public data by GitHub Actions.
   (`site/assets/provenance.js`, shared); a data point past its allowance turns amber in the reader's browser and a
   value the last download did not return is labeled as stored, never shown silently; no placeholder ("—", typed-in
   fallback dates) may render; INPC variants (monthly vs. first-half-month, original vs. seasonally adjusted) are
-  always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny: amber after 2 U.S. business days) and
+  always named. Rules: `site/fiscal/freshness-rules.js` (Debt to the Penny and the policy rates: amber after 2 U.S. business days) and
   `tools/mx-fiscal/freshness.json`; details in each page's runbook/MEMORY.
 - US fiscal monitor (`site/fiscal`): runbook `tools/fiscal/README.md`. Every figure is bound to `data.js`
   (fetched twice a day) or `monthly-data.js` (research routine); `scripts/fiscal/check-freshness.mjs`
