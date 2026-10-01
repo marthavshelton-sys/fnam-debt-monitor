@@ -20,40 +20,40 @@ window.FISCAL_FRESHNESS = {
    "label": "FOMC target range (DFEDTARU/DFEDTARL)",
    "path": "targetRange.date",
    "period": "obs",
-   "days": 6,
-   "source": "Federal Reserve Board via FRED, daily"
+   "bd": 2,
+   "source": "Federal Reserve Board via FRED, daily; amber after 2 business days without a new value (owner's rule, 2026-10-01)"
   },
   {
    "id": "effr",
    "label": "Effective federal funds rate (EFFR)",
    "path": "rates.effr.date",
    "period": "obs",
-   "days": 6,
-   "source": "New York Fed via FRED, daily"
+   "bd": 2,
+   "source": "New York Fed via FRED, daily; amber after 2 business days without a new value (owner's rule, 2026-10-01)"
   },
   {
    "id": "iorb",
    "label": "Interest on reserve balances (IORB)",
    "path": "rates.iorb.date",
    "period": "obs",
-   "days": 6,
-   "source": "Federal Reserve Board via FRED, daily"
+   "bd": 2,
+   "source": "Federal Reserve Board via FRED, daily; amber after 2 business days without a new value (owner's rule, 2026-10-01)"
   },
   {
    "id": "onrrp",
    "label": "ON RRP award rate",
    "path": "rates.onrrp.date",
    "period": "obs",
-   "days": 6,
-   "source": "New York Fed via FRED, daily"
+   "bd": 2,
+   "source": "New York Fed via FRED, daily; amber after 2 business days without a new value (owner's rule, 2026-10-01)"
   },
   {
    "id": "discount",
    "label": "Discount rate (primary credit)",
    "path": "rates.discount.date",
    "period": "obs",
-   "days": 6,
-   "source": "Federal Reserve Board via FRED, daily"
+   "bd": 2,
+   "source": "Federal Reserve Board via FRED, daily; amber after 2 business days without a new value (owner's rule, 2026-10-01)"
   },
   {
    "id": "rrpVolume",

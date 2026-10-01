@@ -77,9 +77,10 @@ takes down the run or the other series.
 ### The freshness check
 
 The allowances live in `site/fiscal/freshness-rules.js` (one table, read by both this script and the
-page). Debt to the Penny is measured in U.S. business days (federal holidays excluded, computed in
-`site/assets/provenance.js`): amber after **2 business days** without a new close; the rest in calendar days
-after the end of the period. In the reader's browser, `site/fiscal/blocks.js` applies the same table: every
+page). Debt to the Penny and the five policy rates (target range, EFFR, IORB, ON RRP, discount) are
+measured in U.S. business days (federal holidays excluded, computed in `site/assets/provenance.js`): amber
+after **2 business days** without a new value (owner's rule, 2026-10-01); the rest in calendar days after
+the end of the period. In the reader's browser, `site/fiscal/blocks.js` applies the same table: every
 card gets "Data through <date>", a Reported / FNAM calculation / FNAM estimate badge, an ⓘ with the
 source and date of each figure, the source in every chart tooltip, and an amber flag when a point is past
 its allowance or when `data.js` has no value for it and the page is showing the values stored in its code
