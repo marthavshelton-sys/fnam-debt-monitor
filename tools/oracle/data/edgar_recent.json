@@ -1,8 +1,17 @@
 {
   "note": "Most recent EDGAR submissions for Oracle (CIK 1341439), all forms, refreshed by scripts/oracle/harvest-filings.mjs on every filings run so the reviewing routine can read them without network access.",
   "cik": "0001341439",
-  "fetched": "2026-10-01",
+  "fetched": "2026-10-02",
   "filings": [
+    {
+      "form": "4",
+      "filing_date": "2026-10-01",
+      "report_date": "2026-09-29",
+      "accession": "0001341439-26-000099",
+      "items": "",
+      "primary_document": "xslF345X06/form4.xml",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000134143926000099/xslF345X06/form4.xml"
+    },
     {
       "form": "DEFA14A",
       "filing_date": "2026-09-25",
@@ -533,15 +542,6 @@
       "items": "",
       "primary_document": "d33906d424b2.htm",
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526035603/d33906d424b2.htm"
-    },
-    {
-      "form": "FWP",
-      "filing_date": "2026-02-03",
-      "report_date": null,
-      "accession": "0001193125-26-034351",
-      "items": "",
-      "primary_document": "d24013dfwp.htm",
-      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526034351/d24013dfwp.htm"
     }
   ]
 }
