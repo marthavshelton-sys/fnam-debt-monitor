@@ -7,8 +7,9 @@ One page, two languages; the page is served at `site/macro/index.html`.
 
 ## How it stays current
 
-`.github/workflows/macro-refresh.yml` runs at 12:50 UTC on weekdays and at
-14:05 and 20:05 UTC every day (and on demand from the Actions tab), plus two
+`.github/workflows/macro-refresh.yml` runs at 12:50 and 13:50 UTC on weekdays (one of the
+two is 08:50 ET in either season, so an 08:30 ET release is on the page by about
+09:10 ET) and at 14:05 and 20:05 UTC every day (and on demand from the Actions tab), plus two
 weekly slots: 14:45 and 15:45 UTC on Wednesdays for EIA's petroleum report
 (10:30 ET; 10:45 and 11:45 ET in daylight time, 10:45 ET in winter) and 17:20 UTC
 on Thursdays for EIA's holiday weeks and Freddie Mac's mortgage survey (both
@@ -212,12 +213,16 @@ before Census's 28-Sep benchmark revision, so both revisions were reported once.
 
 The issue is only a queue: the owner does not receive GitHub's own notification
 emails (she turned them off to avoid the noise). Delivery is the Claude Routine
-"FNAM US Macro: email material changes" (cloud, daily at 14:45 and 20:45 UTC,
-right after the two refresh runs). It is read-only: it reads the issues
+"FNAM US Macro: email material changes" (cloud, daily at 09:20 and 16:45 New York
+time, right after the morning and afternoon refresh runs; prompt in
+`tools/macro/email-routine-prompt.md`, set on 2-Oct-2026 - before, 14:45 and 20:45 UTC,
+which held the 8:30 ET releases until 10:45 ET). It is read-only: it reads the issues
 opened by github-actions[bot] through the public GitHub API and emails the
 owner the body of every "MATERIAL: ", "SOURCE DOWN: " and "LIVE CHECK FAILED: " issue
-created in its slot's window (the 14:45 slot covers 20:45 the day before to 14:45;
-the 20:45 slot covers 14:45 to 20:45). A run that starts late keeps the window of
+created in its slot's window, in New York time (the 09:20 slot covers 16:45 the day
+before to 09:20; the 16:45 slot covers 09:20 to 16:45). The routine's own schedule
+must follow New York time: 13:20 and 20:45 UTC in daylight time, 14:20 and 21:45 UTC
+in winter if it is set in UTC. A run that starts late keeps the window of
 the slot it belongs to, so nothing is sent twice: on 29-Sep-2026 the 20:45 run
 was marked failed, resumed at 02:41 UTC and, under the old hour-based rule,
 re-sent an alert already delivered at 15:16. Everything goes in one
