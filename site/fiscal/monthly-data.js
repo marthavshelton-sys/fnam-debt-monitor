@@ -231,7 +231,7 @@ window.MONTHLY_DATA = {
     }
   },
   "fedWatch": {
-    "asOf": "2026-09-30",
+    "asOf": "2026-10-02",
     "meetings": [
       "28-Oct-2026"
     ],
@@ -247,10 +247,10 @@ window.MONTHLY_DATA = {
         0
       ],
       [
-        63
+        82.8
       ],
       [
-        37
+        17
       ],
       [
         0
@@ -261,7 +261,7 @@ window.MONTHLY_DATA = {
     ],
     "sourceName": "CNBC (quoting CME FedWatch)",
     "sourceNameEs": "CNBC (citando CME FedWatch)",
-    "sourceUrl": "https://www.cnbc.com/2026/09/30/treasury-yields-bonds-selloff.html",
+    "sourceUrl": "https://www.cnbc.com/2026/10/02/fed-rate-hike-odds-decline-after-september-jobs-report.html",
     "calloutEn": null,
     "calloutEs": null
   },
@@ -286,7 +286,7 @@ window.MONTHLY_DATA = {
   },
   "sources": {
     "cbo": "Congressional Budget Office, The Budget and Economic Outlook: 2026 to 2036 (February 2026, https://www.cbo.gov/publication/61882; cbo.gov answers HTTP 403 to scripts), as quoted on 2026-09-29 by two independent outlets: Committee for a Responsible Federal Budget, \"CBO's February 2026 Budget and Economic Outlook\" (2026-02-11, https://www.crfb.org/papers/cbos-february-2026-budget-and-economic-outlook): deficit $1.8T = 5.8% of GDP in 2025 rising to $3.1T = 6.7% in 2036; debt held by the public 99% of GDP (2025) to 120% (2036); net interest 3.3% (2026) to 4.6% (2036); and American Action Forum, \"Highlights of CBO's February 2026 Budget and Economic Outlook\" (https://www.americanactionforum.org/insight/highlights-of-cbos-february-2026-budget-and-economic-outlook/): revenues 17.5% of GDP ($5.6T) in 2026 and 17.8% ($8.3T) in 2036; outlays 23.3% ($7.4T) in 2026 and 24.4% ($11.4T) in 2036; deficit 5.8% in 2026; Social Security 5.2% to 5.9%; debt 101% (2026), 108% (2030), 120% (2036), surpassing the 1946 high of 106% in 2030 (also The Hill, \"National debt may surpass historical high by 2030: CBO\", https://thehill.com/business/5733818-cbo-federal-deficit-debt-projections/). Economic assumptions (same outlook, via CRFB/AAF): real GDP growth 2.2% in 2026 and 1.8% a year on average in 2031-2036; CPI 2.9% in 2026 and 2.3% average; 10-year yield 4.1% in 2026 rising to 4.4%; unemployment 4.6% in 2026 and 4.3% average. cboYears are the years each column belongs to: 2026 and 2036 are CBO's published figures (direct:true), 2030 is a linear interpolation, the 'everything else' outlay row is total outlays minus Social Security and net interest, and nominal GDP is CBO's outlays divided by its outlays-to-GDP ratio (cboOutlaysT). The health-programs row and the 2040 column of the earlier table were dropped: their figures could not be confirmed against this baseline (they came from CBO's January 2025 baseline and March 2025 long-term outlook).",
-    "fedWatch": "CNBC, \"10-year Treasury yield is higher as traders look past inflation data, await jobs report\", 2026-09-30: \"At one point this month, traders priced in a more than 80% chance of a quarter-point rate hike in October. Those odds sat around 37% after Wednesday's release, with traders pushing the next expected increase to December, according to the CME Group's FedWatch tool.\" (https://www.cnbc.com/2026/09/30/treasury-yields-bonds-selloff.html); the remainder (63%) is shown as no change at 3.75-4.00%. Previous snapshot: CNBC, 2026-09-24, 77.5% for an October raise. Later meetings are omitted until an outlet quotes their full distribution; CME's tool and Investing.com's Fed Rate Monitor answer 403 to scripts.",
+    "fedWatch": "CNBC, \"Traders now see little chance of a Fed rate hike in October after weak jobs report\" (also run as \"Fed rate hike odds decline after September jobs report\"), 2026-10-02: following the September jobs report (29,000 nonfarm payrolls, well below the 84,000 forecast, unemployment up to 4.2%), \"CME's FedWatch tool shows only a 17% chance that the Fed increases rates by a quarter percentage point at the October 27-28 meeting... one week ago, odds were close to 36%\"; \"market-implied odds that the Fed will hold rates steady at its Oct. 27-28 meeting jumped to 82.8%, according to the CME Group's FedWatch tool.\" (https://www.cnbc.com/2026/10/02/fed-rate-hike-odds-decline-after-september-jobs-report.html). 17% is shown as a hike to 4.00-4.25%, 82.8% as no change at 3.75-4.00% (the two sum to 99.8, not 100, as quoted). Previous snapshot: CNBC, 2026-09-30, 37% for an October raise. December is still omitted: outlets describe December hike odds only in vague terms (\"above 75%\") without a dated, precise FedWatch distribution. CME's tool and Investing.com's Fed Rate Monitor answer 403 to scripts.",
     "tbac": "Treasury Borrowing Advisory Committee quarterly refunding presentations (Feb 2021, Aug 2023, Feb 2026) for the historical anchors"
   }
 };
