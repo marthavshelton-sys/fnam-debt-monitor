@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-02T13:39:47.340Z",
+  "generated": "2026-10-02T14:22:19.198Z",
   "summary": {
     "checks": 349,
     "failed": 0,
@@ -2929,8 +2929,8 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-01",
-      "ageDays": 2,
+      "lastDate": "2026-10-02",
+      "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
@@ -3001,7 +3001,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-01; prices 2026-09-30; 8 peers; fetched 2026-10-01"
+      "detail": "consensus 2026-10-02; prices 2026-10-01; 8 peers; fetched 2026-10-02"
     },
     {
       "file": "peer_leverage.json",
