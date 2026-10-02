@@ -63,7 +63,8 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   that moves past its band gets a line in the next release's alert, or an alert of its
   own. First stored 30-Sep-2026 with a backfill (GDP before BEA's annual update that day,
   retail before Census's 28-Sep benchmark) so both revisions went out once.
-- **Email routine windows follow the scheduled slot** (14:45 / 20:45 UTC), not the
+- **Email routine windows follow the scheduled slot** (09:20 / 16:45 New York time since
+  2-Oct-2026; 14:45 / 20:45 UTC before), not the
   hour a run starts: a late run on 29-Sep-2026 re-sent an alert under the old rule.
 - **Published page = `build-page.mjs`** (packed data, no comments, ~1.0 MB);
   `build.ps1` builds the unpacked page itself only without Node or on a builder
@@ -139,7 +140,8 @@ Read with `README.md` before touching `tools/macro/` or `site/macro/`.
   and the next Wednesday's 14:45 or 15:45 UTC run commits the new SPR week.
 - Monthly "next release" lines (CPI, PPI, jobs, retail, PCE, GDP) still use FRED's
   first date after the run day. A run on a release morning before FRED lists the release
-  (the 12:50 UTC weekday run is 07:50 ET in winter) skips to the following month until the
+  (the 12:50 UTC weekday run is 07:50 ET in winter; the 13:50 run added on 2-Oct-2026
+  is 08:50 ET then and should list it) skips to the following month until the
   next run; keeping today in their lists would break the Challenger line on jobs day and
   mislabel the FRED-lag window. Proper fix: anchor on the data shown, as the weekly lines
   do (month M is published in M+1, so next = the first date on or after the first day of

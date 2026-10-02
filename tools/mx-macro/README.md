@@ -59,7 +59,7 @@ Thresholds (edit them in `alerts.mjs`):
 | 12-month inflation expectations | move ≥0.3 pp |
 
 Delivery: the owner does not receive GitHub notification mail. The Claude
-Routine "FNAM US Macro: email material changes" (14:45 and 20:45 UTC; Gmail
+Routine "FNAM US Macro: email material changes" (09:20 and 16:45 New York time; Gmail
 connector and this repository attached) emails every "MATERIAL (MX): " and
 "SOURCE DOWN: MX macro" issue created since its previous run, in the same
 message as the U.S. alerts. Test offline:

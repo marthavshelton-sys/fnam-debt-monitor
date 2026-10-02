@@ -106,7 +106,7 @@ dashboards, everything built from public data by GitHub Actions.
   `alerts.ps1` queues each new release as a GitHub issue (title `MATERIAL:` when a threshold is crossed), and
   a revision of a figure already reported (a GDP estimate, a benchmark revision) as its own or inside the next one;
   the owner does not get GitHub notification mail, so the Claude Routine "FNAM US Macro: email material
-  changes" (14:45 and 20:45 UTC, read-only) emails her the MATERIAL issues of its slot's window (a late run
+  changes" (09:20 and 16:45 New York time, read-only; prompt in `tools/macro/email-routine-prompt.md`) emails her the MATERIAL issues of its slot's window (a late run
   keeps its slot's window; see `tools/macro/README.md`). A source down three runs opens one "SOURCE DOWN:" issue
   (closed on recovery), which the same routine emails, and fails the run. After every refresh
   `macro-live-check.yml` loads https://fnam.mx/macro/ in Chromium (the deploy is main's page; every section, ES and
