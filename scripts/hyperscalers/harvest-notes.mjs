@@ -73,16 +73,21 @@ for (const c of companies) {
       const html = await r.text();
       const pg = pages(html);
       const hits = [];
+      // passages: a window around each match (tables often precede the sentence that matters, so the window is
+      // centred on the match rather than on sentence boundaries); overlapping matches of one kind are merged
       for (const p of pg) {
-        const sentences = p.text.replace(/\n/g, ' ').split(/(?<=[.;])\s+(?=[A-Z(])/);
-        sentences.forEach((s, i) => {
-          for (const [kind, re] of KINDS) {
-            if (!re.test(s)) continue;
-            const ctx = sentences.slice(Math.max(0, i - 1), i + 2).join(' ').slice(0, 1400);
-            if (hits.some((h) => h.kind === kind && h.page === p.page && h.text === ctx)) continue;
-            hits.push({ kind, page: p.page, text: ctx, amounts: amounts(s) });
+        const flat = p.text.replace(/\n/g, ' ');
+        for (const [kind, re] of KINDS) {
+          const g = new RegExp(re.source, 'gi');
+          let m, lastEnd = -1;
+          while ((m = g.exec(flat))) {
+            if (m.index < lastEnd) continue;
+            const a = Math.max(0, m.index - 500), b = Math.min(flat.length, m.index + 900);
+            lastEnd = b;
+            const near = flat.slice(Math.max(0, m.index - 250), Math.min(flat.length, m.index + 400));
+            hits.push({ kind, page: p.page, match: m[0], text: (a > 0 ? '…' : '') + flat.slice(a, b) + (b < flat.length ? '…' : ''), amounts: amounts(near) });
           }
-        });
+        }
       }
       await writeJson(`${TOOLS}raw/notes/${c.ticker}/${f.accn}.json`, { ticker: c.ticker, cik: c.cik, form: f.form, accn: f.accn, filed: f.filed, report: f.report, url, harvested: new Date().toISOString().slice(0, 10), pageCount: pg.length, numberedPages: pg.filter((p) => !String(p.page).startsWith('seq')).length, hits });
       state.notes[f.accn] = { ticker: c.ticker, form: f.form, filed: f.filed, harvested: new Date().toISOString().slice(0, 10), hits: hits.length, status: 'pending_review' };
