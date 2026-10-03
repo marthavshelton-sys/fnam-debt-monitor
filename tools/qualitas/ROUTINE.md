@@ -17,9 +17,14 @@ a short note that the platform emails to the owner only when something material 
    * **New operating quarter**: latest `Q_OPS` quarter with `units.total` newer than `state.lastOpsQuarter`.
    * **New or revised expectations**: a results report or call newer than `state.lastGuidanceDate` (Quálitas
      gives its expectations for the year in the 4Q report/call and reaffirms or nuances them every quarter).
-   * **Corporate events**: new items on the IR "eventos relevantes" page (dividend decree, AGM resolutions,
-     buyback fund, rating actions, acquisitions, executive changes, VAT/regulatory news) since
-     `state.lastReferenceUpdatedAt`.
+   * **Corporate events**: the BMV notices the refresh archives in `tools/qualitas/raw/text/events/`
+     (`<date>_bmv<id>_es.txt`, since 3-Oct-2026; Quálitas' eventos relevantes on the BMV, which no IR-site
+     report covers; Spanish text with header lines `# title`, `# date` and `# source` = the filing PDF on
+     bmv.com.mx, the source to cite). **Read every file there whose name sorts after `state.lastBmvFile`**
+     (absent before 3-Oct-2026: treat it as `"2026-09-01"`); this replaces the best-effort fetch of the IR
+     site's eventos-relevantes page. Material: dividend decree, AGM resolutions, buyback fund, rating actions,
+     acquisitions, executive changes, VAT/regulatory news. Not material: meeting calls, results-date or
+     conference-call notices, industry reports, BMV volume enquiries.
    * **Thresholds** (`data/alerts.js`): a daily or five-day move in Q* beyond the limits, the latest quarter's
      combined or loss ratio above the limits, the solvency index or 12M ROE below the limits, any expectation
      metric tracking outside its range on the reported year-to-date, a ±50 bp week in the 10-year M bond.
@@ -27,7 +32,8 @@ a short note that the platform emails to the owner only when something material 
      for the price/FX series), a workflow run that failed, or `curated[]` items behind the latest quarter.
 3. Every run, material or not, ends by rewriting `site/qualitas/data/review.js` (`lastRunAt`, `result` =
    quiet | material | pipeline, `lastQuarterChecked`, a one-line bilingual note) and `lastCheckedAt` /
-   `lastCheckResult` in `tools/qualitas/notify-state.json`, committed to `main` with `[skip actions]` (pull
+   `lastCheckResult` / `lastBmvFile` (the newest file name in `tools/qualitas/raw/text/events/`, material or
+   not; unchanged if the folder is empty) in `tools/qualitas/notify-state.json`, committed to `main` with `[skip actions]` (pull
    with rebase before pushing). The header of the page shows that stamp as "Last review". If nothing above
    is true, that stamp is the only change: finish with the single line `No material change in Quálitas data
    today.` (The platform does not email on that line.)
