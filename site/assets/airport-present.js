@@ -113,7 +113,7 @@
       if (L) R(this.T('Ingresos últimos 12 meses (sin construcción)', 'Revenue last twelve months (ex-construction)'), `Ps. ${this.m(M.exRev(L.is))} M${prevL ? `  ·  ${pm(g(M.exRev(L.is), M.exRev(prevL.is)))} ${yy}` : ''}`);
       if (L) R(this.T('Utilidad neta (participación controladora) últimos 12 meses', 'Net income (controlling interest) last twelve months'), `Ps. ${this.m(M.niCtrl(L.is))} M${prevL ? `  ·  ${pm(g(M.niCtrl(L.is), M.niCtrl(prevL.is)))} ${yy}` : ''}`);
       if (nd) R(this.T(`Deuda neta (${this.date(M.qEndDate(lastQ))})`, `Net debt (${this.date(M.qEndDate(lastQ))})`), `Ps. ${this.m(nd.net)} M  ·  ${this.T('bruta', 'gross')} Ps. ${this.m(nd.gross)} M  ·  ${this.T('efectivo', 'cash')} Ps. ${this.m(nd.cash)} M`);
-      if (nd && L) R(this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`), this.x(nd.net / L.is.ebitda, 2), 'bold');
+      if (nd && L) R(this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`), this.x(nd.net / L.is.ebitda, 1), 'bold');
       if (L) R(this.T(`VE / ${this.ebitdaL} UDM  ·  P/U UDM`, `EV / LTM ${this.ebitdaL}  ·  LTM P/E`), `${this.x(ev / L.is.ebitda)}  ·  ${M.niCtrl(L.is) ? this.x(mc / 1000 / M.niCtrl(L.is)) : '—'}`);
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
@@ -335,8 +335,8 @@
         { v: nd ? `Ps. ${this.m(nd.net)} M` : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
         { v: nd ? `Ps. ${this.m(nd.gross)} M` : '—', l: this.T('Deuda bruta (préstamos y bonos)', 'Gross debt (loans and bonds)') },
         { v: nd ? `Ps. ${this.m(nd.cash)} M` : '—', l: this.T('Efectivo y equivalentes', 'Cash and equivalents') },
-        { v: lev != null ? this.x(lev, 2) : '—', l: this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`) },
-        rat ? { v: rat, l: this.T('Calificaciones', 'Ratings'), size: 11 } : { v: nd && L ? this.x(nd.gross / L.is.ebitda, 2) : '—', l: this.T(`Deuda bruta / ${this.ebitdaL} UDM`, `Gross debt / LTM ${this.ebitdaL}`) },
+        { v: lev != null ? this.x(lev, 1) : '—', l: this.T(`Deuda neta / ${this.ebitdaL} UDM`, `Net debt / LTM ${this.ebitdaL}`) },
+        rat ? { v: rat, l: this.T('Calificaciones', 'Ratings'), size: 11 } : { v: nd && L ? this.x(nd.gross / L.is.ebitda, 1) : '—', l: this.T(`Deuda bruta / ${this.ebitdaL} UDM`, `Gross debt / LTM ${this.ebitdaL}`) },
       ], y);
       const gap = 24, wl = this.width() * 0.54, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       let yl = this.heading(this.T(`Deuda neta (barras, Ps. M) y deuda neta / ${this.ebitdaL} UDM (línea, eje der.)`, `Net debt (bars, Ps. M) and net debt / LTM ${this.ebitdaL} (line, right axis)`), this.cur.x0, y, 9.5);
@@ -347,13 +347,14 @@
       const img1 = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [
         { type: 'line', label: this.T(`Deuda neta / ${this.ebitdaL} UDM (eje der.)`, `Net debt / LTM ${this.ebitdaL} (right axis)`), data: nds.map((x) => (x.nd && x.l && x.l.is.ebitda ? x.nd.net / x.l.is.ebitda : null)), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0, spanGaps: true, segment: { borderDash: (ctx) => (est[ctx.p1DataIndex] ? [5, 4] : undefined) } },
         { type: 'bar', label: this.T('Deuda neta (eje izq.)', 'Net debt (left axis)'), data: nds.map((x) => (x.nd ? x.nd.net / 1000 : null)), backgroundColor: nds.map((_, i) => alpha(PALETTE[0], est[i] ? 0.45 : 1)), maxBarThickness: 38, order: 1 }] },
-        options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, min: levMin, ticks: { stepSize: 0.25, callback: (v) => this.n(v, 2) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
+        options: { scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, min: levMin, ticks: { precision: 1, callback: (v) => this.n(v, 1) + 'x' } } } } }, Math.round(wl * 1.6), Math.round(h1 * 1.6));
       yl = this.image(img1, this.cur.x0, yl, wl, h1) + 6;
       const firstBs = nds.find((x) => x.nd && x.nd.basis === 'bs');
       const bl = [M.L(CFG.debtNote) + (est.some(Boolean) ? this.T(` Barras translúcidas y línea punteada: estimación a partir de los flujos de financiamiento (balance detallado desde ${firstBs ? this.qlab(firstBs.q) : '—'}).`, ` Translucent bars and dashed line: estimated from financing flows (itemised balance sheet from ${firstBs ? this.qlab(firstBs.q) : '—'}).`) : '')];
-      if (D2.events && D2.events.length) bl.push(D2.events.map((e) => `${this.date(e.date)}: ${M.L(e)}`).join(' '));
-      if (D2.instrumentsNote) bl.push(M.LS(D2.instrumentsNote));
-      yl = this.bullets(bl, this.cur.x0, yl, wl, 7.8, { gap: 3, color: MUTED });
+      // Post-quarter events (reference.js debt.events) go under the right-hand tables when they fit there, else in this column.
+      const evs = (D2.events || []).map((e) => `**${this.date(e.date)}.** ${M.L(e.deck || e)}`), evH = this.T('Después del cierre del trimestre', 'After the quarter-end');
+      const blL = evs.length ? [...bl, evs.map((e) => e.replace(/\*\*/g, '')).join(' ')] : bl;
+      if (D2.instrumentsNote) { bl.push(M.LS(D2.instrumentsNote)); blL.push(M.LS(D2.instrumentsNote)); }
       const asOfI = D2.instrumentsAsOf ? this.date(D2.instrumentsAsOf) : this.qlab(lastQ);
       let yr = this.heading(this.T(`Vencimientos de los instrumentos vigentes (${asOfI}, Ps. millones)`, `Maturity profile of outstanding instruments (${asOfI}, Ps. million)`), xr, y, 10);
       // One row per maturity year; the page lists every instrument. Keeps the table short enough for the page.
@@ -367,9 +368,12 @@
       const insK = ins.map((r) => r.filter((_, k) => keep[k]));
       const headK = [M.t('matures'), 'CB (n)', 'CB (Ps. M)', hasCb ? this.T('Préstamos (Ps. M)', 'Loans (Ps. M)') : this.T('Préstamos y bonos (Ps. M)', 'Loans and notes (Ps. M)'), 'Total (Ps. M)', this.T('% fija', '% fixed')].filter((_, k) => keep[k]);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: headK, body: insK, meta: insK.map((r, k) => (k === insK.length - 1 ? r.map(() => 'bold') : r.map((_, c) => (c === 0 ? 'left' : '')))), cols: { 0: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 136);
-      const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
+      const qr = nds.map((x) => [this.qlab(x.q) + (x.nd && x.nd.basis === 'est' ? ' *' : ''), x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 1) : '—']);
       yr = this.heading(this.T('Por trimestre (Ps. millones)', 'By quarter (Ps. million)'), xr, yr + 8, 10);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda neta', 'Net debt'), `${this.ebitdaL} UDM`, this.T(`Deuda neta / ${this.ebitdaL}`, `Net debt / ${this.ebitdaL}`)], body: qr, meta: qr.map(() => ['left', 'bold', '', 'bold']), cols: { 0: { halign: 'left' } } }, [8, 7.6, 7.2, 6.8], this.cur.y1 - 26);
+      const evRight = evs.length && yr + 8 + 15 + this.measureBullets(evs, wr, 7.4, { gap: 3 }) <= this.cur.y1 - 22;
+      if (evRight) { yr = this.heading(evH, xr, yr + 8, 10); yr = this.bullets(evs, xr, yr, wr, 7.4, { gap: 3, color: MUTED }); }
+      yl = this.bullets(evRight ? bl : blL, this.cur.x0, yl, wl, 7.8, { gap: 3, color: MUTED });
       this.noteAbove(this.T(`* estimación. Fuentes: balances trimestrales de ${this.cfg.short}; informes y comunicados sobre instrumentos (referencia actualizada ${this.date(M.REF.updatedAt)}).`, `* estimate. Sources: ${this.cfg.short} quarterly balance sheets; reports and releases on instruments (reference updated ${this.date(M.REF.updatedAt)}).`), Math.max(yl, yr) + 4, 7);
     }
 
