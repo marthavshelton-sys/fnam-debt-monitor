@@ -7,11 +7,8 @@
 //                  by airport, debt tables) and the earnings-call transcripts, from the "Financial
 //                  Information" page. PDFs are converted to pipe-delimited text with pdf2text.py; the PDF
 //                  itself is not committed (tools/asur/raw/pdf is ignored), the text is.
-//   BMV          — the exchange's list of ASUR's eventos relevantes, the official disclosure channel in Mexico. A
-//                  filing that a PR Newswire / asur.com.mx document above already covers (same kind, within a day)
-//                  is only recorded; any other one (e.g. the 28-Sep-2026 offering disclosure with the CPC bridge
-//                  loan, never sent to the wire) is archived from its PDF as class 'other' (Spanish), so the alert
-//                  routine sees it as a new event. manifest.bmv records when the list was last read.
+// The BMV's list of eventos relevantes (filings that never reach the wire) is read afterwards by the shared watcher
+// scripts/lib/bmv-events.mjs, a separate workflow step; its state is tools/asur/raw/bmv-events.json.
 //
 // Output: tools/asur/raw/releases/<date>_<source><id>_en.txt (+ manifest.json). Incremental: anything already
 // in the manifest is skipped; pass --full to redo everything.
@@ -28,8 +25,6 @@ const OTHER_SINCE = '2024-01-01';
 const PRN_ORG = 'https://www.prnewswire.com/news/grupo-aeroportuario-del-sureste%2C-s.a.b.-de-c.v./?pagesize=100&page=';
 const ASUR_FIN = 'https://www.asur.com.mx/informacion-financiera-page-0';
 const ASUR_BASE = 'https://www.asur.com.mx';
-const BMV_EVENTS = 'https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ASUR-6001-CGEN_CAPIT';
-const BMV_BASE = 'https://www.bmv.com.mx';
 
 function classify(title) {
   const t = title.toLowerCase();
@@ -44,6 +39,7 @@ const norm = (s) => s.replace(/\s+/g, ' ').trim();
 async function main() {
   await mkdir(REL, { recursive: true }); await mkdir(PDF, { recursive: true }); await mkdir(LIST, { recursive: true });
   const manifest = FULL ? { filings: [] } : await loadJson(MANIFEST, { filings: [] });
+  manifest.filings = manifest.filings.filter((f) => f.source !== 'bmv'); // BMV notices live in bmv-events.json
   const known = new Set(manifest.filings.map((f) => f.url));
   const filings = [...manifest.filings];
   let fetched = 0;
@@ -136,55 +132,10 @@ async function main() {
     console.log(`${date} ir  ${p.kind.padEnd(11)} ${p.tag}`);
   }
 
-  // ---- BMV eventos relevantes (fail-safe for filings that never reach PR Newswire)
-  const bmv = { url: BMV_EVENTS, checkedAt: (manifest.bmv || {}).checkedAt || null, rows: 0, archived: 0, unmatched: [], error: null };
-  let bmvHtml = '';
-  try { bmvHtml = await fetchText(BMV_EVENTS); } catch (e) { bmv.error = e.message; console.error(`BMV eventos relevantes: ${e.message}`); }
-  const sec = bmvHtml.slice(Math.max(0, bmvHtml.indexOf('EVENTOS RELEVANTES DE LA EMISORA')));
-  const rows = [...sec.slice(0, sec.indexOf('</table>') + 1).matchAll(/<tr>\s*<td>(\d\d)-(\d\d)-(\d{4}) (\d\d:\d\d)<\/td>\s*<td>([\s\S]*?)<\/td>([\s\S]*?)<\/tr>/g)].map((m) => {
-    const pdf = m[6].match(/href="(\/docs-pub\/eventemi\/eventemi_(\d+)_\d+\.pdf)"/), zip = m[6].match(/eventemi_(\d+)_\d+\.zip/);
-    return { date: `${m[3]}-${m[2]}-${m[1]}`, title: norm(decodeEntities(m[5].replace(/<[^>]+>/g, ''))), id: (pdf || zip || [])[pdf ? 2 : 1] || null, pdf: pdf ? BMV_BASE + pdf[1] : null };
-  }).filter((r) => r.id);
-  if (bmvHtml && !rows.length) { bmv.error = 'the listing parsed to zero rows (page layout changed?)'; console.error(`BMV eventos relevantes: ${bmv.error}`); }
-  if (rows.length) { bmv.checkedAt = new Date().toISOString(); bmv.rows = rows.length; }
-  const bmvClass = (t) => (/resultados\s+\d\s?t|reenv[ií]o del? \d\s?t/i.test(t) ? 'results' : /tr[aá]fico/i.test(t) ? 'traffic' : 'other');
-  const days = (a, b) => Math.abs(Date.parse(a) - Date.parse(b)) / 864e5;
-  const used = new Set(filings.filter((f) => f.source === 'bmv' && f.coveredBy).map((f) => f.coveredBy));
-  for (const r of rows.reverse()) {
-    const url = `${BMV_EVENTS}#${r.id}`;
-    if (r.date < OTHER_SINCE || known.has(url)) continue;
-    const cls = bmvClass(r.title);
-    const kinds = cls === 'results' ? ['results', 'results-pdf'] : [cls];
-    const twin = filings.filter((f) => f.path && f.source !== 'bmv' && kinds.includes(f.class) && !used.has(`${f.source}:${f.id}`) && days(f.date, r.date) <= 1).sort((a, b) => days(a.date, r.date) - days(b.date, r.date))[0]
-      || filings.find((f) => f.source === 'bmv' && f.date === r.date && f.title === r.title); // the same notice filed twice
-    const entry = { source: 'bmv', id: r.id, url, date: r.date, title: r.title, class: cls, attachment: r.pdf };
-    if (twin) { entry.coveredBy = `${twin.source}:${twin.id}`; used.add(entry.coveredBy); filings.push(entry); continue; }
-    if (cls !== 'other') { // traffic and results are parsed from the English documents; a BMV copy only proves one exists
-      bmv.unmatched.push(`${r.date} ${r.title}`); console.warn(`BMV ${r.date} ${cls}: no matching PR Newswire / asur.com.mx document: ${r.title}`);
-      if (days(r.date, new Date().toISOString().slice(0, 10)) > 3) filings.push({ ...entry, unmatched: true }); // stop re-checking old ones
-      continue;
-    }
-    let body = `(The BMV attachment is a ZIP/XBRL package, not a PDF; open the listing: ${BMV_EVENTS})`;
-    if (r.pdf) {
-      try {
-        const res = await fetchRaw(r.pdf, { accept: 'application/pdf,*/*' });
-        if (res.buf.slice(0, 4).toString() !== '%PDF') throw new Error('not a PDF');
-        const pdfPath = fileURLToPath(new URL(`bmv_${r.id}.pdf`, PDF)), tmp = fileURLToPath(new URL(`bmv_${r.id}.tmp.txt`, PDF));
-        await writeFile(pdfPath, res.buf); pdfToText(pdfPath, tmp);
-        body = await (await import('node:fs/promises')).readFile(tmp, 'utf8');
-      } catch (e) { bmv.error = `${r.id}: ${e.message}`; console.error(`BMV ${r.date} ${r.id}: ${e.message}`); continue; } // retried next run
-    }
-    const file = `${r.date}_bmv${r.id}_es.txt`;
-    await writeFile(new URL(file, REL), `# source: ${r.pdf || BMV_EVENTS}\n# title: ${r.title}\n# date: ${r.date}\n# lang: es\n# class: other\n# via: BMV eventos relevantes (no PR Newswire release matched)\n\n${body}`);
-    filings.push({ ...entry, path: `tools/asur/raw/releases/${file}` }); fetched++; bmv.archived++;
-    console.log(`${r.date} bmv other   ${r.title.slice(0, 90)}`);
-  }
-  if (!bmv.unmatched.length) delete bmv.unmatched;
-
   filings.sort((a, b) => (a.date || '').localeCompare(b.date || '') || String(a.id).localeCompare(String(b.id)));
   const kept = {};
   for (const f of filings) if (f.path) kept[f.class] = (kept[f.class] || 0) + 1;
-  await saveJson(MANIFEST, { entity: 'Grupo Aeroportuario del Sureste, S.A.B. de C.V.', since: SINCE, otherSince: OTHER_SINCE, updatedAt: new Date().toISOString(), kept, bmv, filings });
+  await saveJson(MANIFEST, { entity: 'Grupo Aeroportuario del Sureste, S.A.B. de C.V.', since: SINCE, otherSince: OTHER_SINCE, updatedAt: new Date().toISOString(), kept, filings });
   console.log(`Fetched ${fetched} new documents. Kept: ${JSON.stringify(kept)}`);
   if (!filings.length) { console.error('Nothing harvested'); process.exit(1); }
 }

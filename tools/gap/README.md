@@ -83,6 +83,19 @@ subtotal no longer reconciles, the validator fails and nothing is committed. Fix
 to the regex (or a new row to the catalogue, which also adds it to the page), run
 `node scripts/gap/build-data.mjs && node scripts/gap/validate-data.mjs` locally, commit.
 
+## BMV eventos relevantes (fail-safe for filings the wire never carries; since 3-Oct-2026)
+
+After the harvest, the workflow step "Watch BMV eventos relevantes" runs the shared watcher
+`scripts/lib/bmv-events.mjs --company=gap`. It reads GAP's list of eventos relevantes on the BMV
+(issuer key GAP-6579), the official disclosure channel in Mexico, and matches each notice from 1-Jan-2026 on against what the
+harvest already archived (a release of the same class dated the same day, or within a day for results and traffic). Every other notice is archived from its PDF as
+`tools/gap/raw/6k/<date>_bmv<id>_es.txt` (Spanish; header lines `# title`, `# date`, `# source` = the filing PDF, `# class: other`);
+when several notices of one kind fall on a day with fewer harvested documents, all of that day's notices are archived
+(titles cannot be paired across languages; a duplicate is cheap, a missed filing is not). `build-data.mjs` skips these files; the alert routine reads them like any other event file whose name sorts after `lastEventFile`.
+State: `tools/gap/raw/bmv-events.json` (last read, error, every notice and how it was handled). A BMV outage or
+maintenance page (the site redirects to `no_disponible.html`, common on weekends) is recorded there and never fails the
+run; the data-quality page shows the line "BMV eventos relevantes" and turns it amber after 4 days without a read.
+
 ## Manual updates (now rare; the routine handles the usual events)
 
 **`site/gap/data/reference.js`** — update when:

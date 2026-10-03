@@ -583,7 +583,7 @@ async function main() {
     const text = await readFile(new URL(f, RAW), 'utf8');
     const h = header(text);
     const meta = { file: f, url: h.source, date: h.date, title: h.title };
-    for (const g of parseGuidance(text, meta)) guidance.push(g);
+    if (!/_bmv\d+_/.test(f)) for (const g of parseGuidance(text, meta)) guidance.push(g); // BMV notices (Spanish) are for the alert routine only
     if (h.class === 'results') {
       const r = parseResults(text, meta);
       if (r) { results.push(r); for (const g of guidance) if (g.source.file === f) g.quarter = r.id; } else console.warn(`results: could not identify period in ${f}`);

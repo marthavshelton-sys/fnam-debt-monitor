@@ -38,6 +38,19 @@ hidden data-quality page lives at https://fnam.mx/gentera/quality.html.
 3. Open https://fnam.mx/gentera/ in ES and EN and check the header strip, the 01 comparison (y/y with
    comments), the guidance table, the valuation defaults and the print view.
 
+## BMV eventos relevantes (fail-safe for filings the IR site never carries; since 3-Oct-2026)
+
+After the harvest, the workflow step "Watch BMV eventos relevantes" runs the shared watcher
+`scripts/lib/bmv-events.mjs --company=gentera`. It reads Gentera's list of eventos relevantes on the BMV
+(issuer key GENTERA-7472), the official disclosure channel in Mexico, and matches each notice from 1-Jan-2026 on against what the
+harvest already archived (results notices against the quarterly releases in `manifest.json`; Gentera harvests no other events, so every other notice is archived (Banco Compartamos placements and rating actions among them)). Every other notice is archived from its PDF as
+`tools/gentera/raw/text/events/<date>_bmv<id>_es.txt` (Spanish; header lines `# title`, `# date`, `# source` = the filing PDF, `# class: other`);
+when several notices of one kind fall on a day with fewer harvested documents, all of that day's notices are archived
+(titles cannot be paired across languages; a duplicate is cheap, a missed filing is not). The reviewing routine reads every file there whose name sorts after `notify-state.lastBmvFile` and updates `reference.js` for material events.
+State: `tools/gentera/raw/bmv-events.json` (last read, error, every notice and how it was handled). A BMV outage or
+maintenance page (the site redirects to `no_disponible.html`, common on weekends) is recorded there and never fails the
+run; the data-quality page shows the line "BMV eventos relevantes" and turns it amber after 4 days without a read.
+
 ## Reviewing routine (email on material days only)
 
 A Claude Code Routine ("FNAM Gentera: review and email material changes") is meant to run each weekday at
