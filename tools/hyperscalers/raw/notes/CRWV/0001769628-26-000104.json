@@ -11,6 +11,13 @@
  "numberedPages": 143,
  "hits": [
   {
+   "kind": "properties",
+   "page": "2",
+   "match": "Item 2.   Properties",
+   "text": "Table of Contents   TABLE OF CONTENTS   S pecial Note Regarding Fo rward Looking Statements   3   PART I   Item 1.   Business   5   Item 1A.   Risk Factors   13   Item 1B.   Unresolved Staff Comments   61   Item 1C.   C ybersecurity   61   Item 2.   Properties   62   Item 3.   Legal Proceedings   63   Item 4.   Mine Safety Disclosures   63   PART II   Item 5.   Market for the Registrant's Common Equity, Related Stockholder Matters, and Issuer Purchases of Equity Securities   64   Item 6.   [ Reserved ]   65   Item 7.   Management’s Discussion and Analysis of Financial Condition and Results of Operations   66   Item 7A.   Quantitative and Qualitative Disclosures about Market Risk   79   Item 8.   Financial Statements and Supplementary Data   81   Item 9.   Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   132   Item 9A.   Controls and Procedures   132   Item 9B.   Other Information   133   Item 9C.   Disclosure Regarding Foreign Jurisdiction that Prevent Inspections   135   PART III   Item 10.   Directors, Executive Officers, and Corporate Governance   136   Item 11.   Executive Compensa…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "4",
    "match": "joint venture",
@@ -22,6 +29,13 @@
    "page": "5",
    "match": "take-or-pay",
    "text": "…W of active power. As of December 31, 2025, our total contracted power capacity was approximately 3.1 GW, which we expect to deploy over future periods.   We maintain relationships with semiconductor manufacturers, original equipment manufacturers (\"OEMs\"), original design manufactures (\"ODMs\"), and software providers to support the sourcing and deployment of infrastructure components used in our platform. We primarily finance our infrastructure development through asset-level debt supported by take-or-pay customer contracts, supplemented by corporate-level equity and debt financing.   5",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "5",
+   "match": "70 MW",
+   "text": "…ture and incorporate advanced networking equipment, enhanced access to power, and, where appropriate, liquid cooling technologies. Our low-latency data center footprint and integrated software platform support fungible use of infrastructure across training and inference workloads, enabling customers to transition capacity seamlessly as their workload requirements evolve.   We have scaled rapidly over the last several years. As of December 31, 2023, we operated 10 data centers with approximately 70 MW of active power. As of December 31, 2024, we operated 32 data centers with approximately 360 MW of active power. As of December 31, 2025, we operated 43 data centers with over 850 MW of active power. As of December 31, 2025, our total contracted power capacity was approximately 3.1 GW, which we expect to deploy over future periods.   We maintain relationships with semiconductor manufacturers, original equipment manufacturers (\"OEMs\"), original design manufactures (\"ODMs\"), and software providers to support the sourcing and deployment of infrastructure components used in our platform. We primarily finance our infrastructure development through asset-level debt supported by take-or-pay customer contracts, supplemented by corporate-level equity and debt financing.   5",
    "amounts": []
   },
   {
@@ -41,10 +55,164 @@
    ]
   },
   {
+   "kind": "gpu",
+   "page": "6",
+   "match": "GPU",
+   "text": "…ia high-speed Direct Connect tailored to a wide range of requirements—with physical connectivity options of 10Gbps, 100 Gbps, and 400 Gbps of bandwidth. We continue to enhance our networking backbone to serve the evolving business needs of our customers, including large AI labs leveraging our backbone to connect multi-cloud inference infrastructures.   Foundational Infrastructure. Our purpose-built foundational infrastructure maximizes performance with first-to-market Graphics Processing Unit (\"GPU\") clusters, ultra-high density, and high-speed interconnects, supporting complex AI workloads while improving efficiency and lowering total cost of ownership. Our track record and ability to   6",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "7",
+   "match": "NVIDIA",
+   "text": "Table of Contents   deploy the industry's most advanced hardware and architectures first—including NVIDIA GB200 and GB300 NVL72 systems for mission-critical AI—gives our customers a measurable edge in performance, efficiency, and scale. CoreWeave clusters also use cutting edge CPUs, including AMD and Intel chips, to power compute-intensive projects and to help our customers get more out of GPU compute.   Our data center fabric is designed to harness the full potential of each GPU and to maximize performance from the newest architectures. It integrates state-of-the-art networking technology, including NVIDIA Quantum-X800(XDR) enabling 800Gbps of connectivity, NVIDIA Quantum-2 InfiniBand interconnect and NVIDIA Spectrum-X with RoCE or RDMA over Converged Ethernet for ultra-low-latency connectivity between racks of GPUs. To ensure sustainability, many of CoreWeave's data centers draw on renewable energy, deploy advanced closed-loop liquid cooling systems, and pilot innovative projects—su…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "7",
+   "match": "NVIDIA",
+   "text": "…nnect and NVIDIA Spectrum-X with RoCE or RDMA over Converged Ethernet for ultra-low-latency connectivity between racks of GPUs. To ensure sustainability, many of CoreWeave's data centers draw on renewable energy, deploy advanced closed-loop liquid cooling systems, and pilot innovative projects—such as heat recapture to supply excess heat to nearby homes and industrial facilities.   This powerful, proven infrastructure enables exceptional results for our customers. In recent benchmarking through NVIDIA's Exemplar Cloud program, we demonstrated improvements on system model flop utilization (“MFU”) over reference targets for both training and inference workloads. For training, our infrastructure enables superior utilization compared to reference targets. For inference, our platform met or exceeded benchmark tests across inference tasks, such as reasoning and generation, demonstrating CoreWeave's consistent performance and faster scaling for every stage of AI deployment.   We continue to extend and enhance our foundational infrastructure with the latest GPU and CPU innovations, and expect to be among the first cloud providers to deploy the NVIDIA Rubin platform, expanding our support for large-scale inference, reasoning, and agentic AI.   Data and Storage. CoreWeave's purpose-built storage combines exascale, AI-optimized object and file storage with GPU-local caching and Local Tier…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "7",
+   "match": "Accelerator",
+   "text": "…eWeave's purpose-built storage combines exascale, AI-optimized object and file storage with GPU-local caching and Local Tier Acceleration (LOTA TM ) to deliver high-throughput data access, cross-cloud reach, and predictable economics for training and inference. Our customers rely on our fast, resilient, and easy-to-use storage solutions to train, fine-tune, and deploy models more rapidly at scale—while reducing replication costs, egress fees, or performance tradeoffs. Our Local Object Transport Accelerator (\"LOTA\") brings data closer to GPUs by caching directly on GPU nodes, which enables rapid throughput and high uptime and durability. CoreWeave object and file storage services are optimized for AI, enabling streamlined training, low latency, efficiently utilized clusters, and faster time to market. Our microservices-based architecture allows us to support the storage solution that our customers choose.   Infrastructure Control. Our integrated AI-native orchestration and bare-metal control deliver the reliability, flexibility, and efficiency required to run complex AI workloads at scale, and matched with the right AI services. CoreWeave Kubernetes Service (\"CKS\"), our managed Kubernetes service, minimizes the burden of managing large GPU clusters. CKS combines fast performance, security, and flexibility in a fully managed Kubernetes solution—one that reduces management time fo…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "7",
+   "match": "GPU",
+   "text": "…-metal control deliver the reliability, flexibility, and efficiency required to run complex AI workloads at scale, and matched with the right AI services. CoreWeave Kubernetes Service (\"CKS\"), our managed Kubernetes service, minimizes the burden of managing large GPU clusters. CKS combines fast performance, security, and flexibility in a fully managed Kubernetes solution—one that reduces management time for complex Kubernetes clusters. CKS clusters leverage bare-metal performance to gain higher GPU cluster performance, accelerating model download speeds and spin up times for inference. CKS runs on CoreWeave Cloud’s bare-metal GPU infrastructure, eliminating hypervisor overhead to maximize performance, including high-throughput model downloads and faster container spin-ups for inference. CKS clusters leverage Bare Metal nodes without a hypervisor to maximize node performance. Our data center architecture uses Data Processing Units to enforce tenant isolation and strengthen the security boundary between workloads. It also offloads processes such as networking and security to enable peak GPU performance while providing complete isolation and acceleration with private-cluster Virtual Private Clouds.   CoreWeave Mission Control. CoreWeave Mission Control integrates security, observability, and services—including node, rack, and fleet lifecycle management—to enable intelligent, unifi…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "7",
+   "match": "GPU",
+   "text": "…rking and security to enable peak GPU performance while providing complete isolation and acceleration with private-cluster Virtual Private Clouds.   CoreWeave Mission Control. CoreWeave Mission Control integrates security, observability, and services—including node, rack, and fleet lifecycle management—to enable intelligent, unified orchestration from foundational infrastructure to agent development. It connects all of the critical layers of CoreWeave, giving customers real-time visibility into GPU, network, and storage behavior. It integrates secure controls for AI workloads, continuous operational insight, and proactive remediation paths.   With CoreWeave Mission Control's proprietary monitoring and management solutions, users can see how systems are performing, spotting early warning signs that enable them to replace or repair problematic nodes before they create delays—keeping systems stable and projects on schedule. Combining identity and access controls, compliance logging, and audit history, CoreWeave Mission Control provides a complete, clear, and defensible record of activity across an environment. Its continuous operational insight delivers deep knowledge of complex environments. Audit and telemetry signals stream seamlessly into security information and event management systems on any cloud—along with health checks on GPUs, nodes, and racks, so our customers always k…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "7",
+   "match": "NVIDIA",
+   "text": "Table of Contents   deploy the industry's most advanced hardware and architectures first—including NVIDIA GB200 and GB300 NVL72 systems for mission-critical AI—gives our customers a measurable edge in performance, efficiency, and scale. CoreWeave clusters also use cutting edge CPUs, including AMD and Intel chips, to power compute-intensive projects and to help our customers get more out of GPU compute.   Our data center fabric is designed to harness the full potential of each GPU and to maximize performance from the newest architectures. It integrates state-of-the-art networking technology, including NVIDIA Quantum-X800(XDR) enabling 800Gbps of connectivity, NVIDIA Quantum-2 InfiniBand interconnect and NVIDIA Spectrum-X with RoCE or RDMA over Converged Ethernet for ultra-low-latency connectivity between racks of GPUs. To ensure sustainability, many of CoreWeave's data centers draw on renewable energy, deploy advanced closed-loop liquid cooling systems, and pilot innovative projects—su…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "7",
+   "match": "NVIDIA",
+   "text": "…nnect and NVIDIA Spectrum-X with RoCE or RDMA over Converged Ethernet for ultra-low-latency connectivity between racks of GPUs. To ensure sustainability, many of CoreWeave's data centers draw on renewable energy, deploy advanced closed-loop liquid cooling systems, and pilot innovative projects—such as heat recapture to supply excess heat to nearby homes and industrial facilities.   This powerful, proven infrastructure enables exceptional results for our customers. In recent benchmarking through NVIDIA's Exemplar Cloud program, we demonstrated improvements on system model flop utilization (“MFU”) over reference targets for both training and inference workloads. For training, our infrastructure enables superior utilization compared to reference targets. For inference, our platform met or exceeded benchmark tests across inference tasks, such as reasoning and generation, demonstrating CoreWeave's consistent performance and faster scaling for every stage of AI deployment.   We continue to extend and enhance our foundational infrastructure with the latest GPU and CPU innovations, and expect to be among the first cloud providers to deploy the NVIDIA Rubin platform, expanding our support for large-scale inference, reasoning, and agentic AI.   Data and Storage. CoreWeave's purpose-built storage combines exascale, AI-optimized object and file storage with GPU-local caching and Local Tier…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "8",
+   "match": "data centers in the",
+   "text": "…n their performance needs (e.g., GPU selection), specific use case (AI model training, agentic AI and inference, and specialized workloads), and business goals—from pioneering labs and researchers envisioning the next AI breakthroughs to enterprises seeking an AI-driven competitive advantage. In all cases, our customers benefit from CoreWeave Cloud, purpose-built for AI innovation at every layer.   Our Data Center Footprint   Our platform is powered by some of the largest and most sophisticated data centers in the world, built around cutting-edge GPU clusters and state-of-the-art network technology designed to maximize performance for AI workloads. Each component of our data center technology stack is purposefully architected to deliver highly performant networking, power, and cooling, resulting in a geographically distributed, high-density, and secure data center footprint.   We operate a distributed and interconnected portfolio of data centers across the United States, Europe, and Canada, operating in six countries total. Many of our facilities are designed to scale from tens to hundreds of megawatts of power and are connected through high-speed interconnects to support burst AI workloads. The portfolio includes a range of facility sizes, which provide us with critical flexibility. These facilities range from smaller sites that support inference workloads close to where custo…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "8",
+   "match": "GPU",
+   "text": "…ble of Contents   CoreWeave Mission Control's proactive remediation paths transform insights into action, enabling users to anticipate issues (including potential node failures) before they happen. It initiates the right responses, from automated recovery to routing the incident directly to CoreWeave experts, so customers no longer have to waste valuable time chasing ambiguous alerts or guessing at root causes. We continue to add new CoreWeave Mission Control features—including Telemetry Relay, GPU Straggler Detection, and the CoreWeave Mission Control Agent—that bring improved visibility and control to large-scale AI workloads.   Runtime Acceleration. CoreWeave delivers platform services that accelerate training and inference by optimizing workload latency, improving throughput, and increasing utilization at runtime—removing friction across scheduling, environment readiness, and execution so jobs reach steady-state performance faster and run more efficiently at scale. SUNK (Slurm on Kubernetes) helps customers deploy and operate large-scale Slurm-based AI research clusters on CoreWeave Cloud, leveraging our purpose-built infrastructure and integrated platform capabilities to support high-performance AI workloads. With a Slurm cluster purpose-built for AI, researchers can save valuable time and speed critical breakthroughs. They can run training, inference, and reinforcement le…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "8",
+   "match": "GPU",
+   "text": "…RL at scale, seamlessly bridging model development and production deployment. To meet the specialized needs of industrial customers, in November 2025 we acquired Monolith, which provides a full-stack platform for enterprises that want to accelerate industrial innovation in the physical world through simulation and machine learning capabilities.   The Essential Cloud for AI—and for our customers   We work closely with our customers to tailor their solution based on their performance needs (e.g., GPU selection), specific use case (AI model training, agentic AI and inference, and specialized workloads), and business goals—from pioneering labs and researchers envisioning the next AI breakthroughs to enterprises seeking an AI-driven competitive advantage. In all cases, our customers benefit from CoreWeave Cloud, purpose-built for AI innovation at every layer.   Our Data Center Footprint   Our platform is powered by some of the largest and most sophisticated data centers in the world, built around cutting-edge GPU clusters and state-of-the-art network technology designed to maximize performance for AI workloads. Each component of our data center technology stack is purposefully architected to deliver highly performant networking, power, and cooling, resulting in a geographically distributed, high-density, and secure data center footprint.   We operate a distributed and interconnected…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "9",
+   "match": "NVIDIA",
+   "text": "…ure is trending toward higher rack density and increased power per rack, driving significantly greater cooling requirements. Our advanced closed-loop liquid cooling systems address these demands by enabling higher power density and closer rack placement, and significantly reducing water consumption. This approach enables our data centers to support and deploy the latest generation of chips at scale and for us to be among the first to bring them to market at scale—with a track record of bringing NVIDIA GPUs to market first, including GB200, GB300, and RTX Pro 6000 systems. As compute density continues to increase, these same design principles position our data centers to support future chip generations, and looking ahead, CoreWeave is expected to be among the first cloud providers to deploy the NVIDIA Rubin platform, offering customers greater flexibility and choice as AI systems scale.   To support our continued growth and scale, we are making sustained investments in both our supply chain and labor force. While the chip remains at the core of delivering AI data centers, the supporting equipment is equally critical to bringing compute to life. As a result, we have continued to evolve and expand not only our component supply chain, but also our long-lead data center equipment. We have strengthened our operations to ensure accurate planning and timely procurement of the long-lead…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "9",
+   "match": "accelerators",
+   "text": "…xperience, Partnerships, and Revenue Operations. Our sales engine prioritizes lean and efficient scaling, leveraging AI to accelerate execution. Our organization is driven by customer-obsessed team-members focused on acquiring new customers and expanding with existing customers, who are aligned by vertical and geography. Our GTM team operates across the breadth of CoreWeave Cloud, selling and supporting products that provide foundational infrastructure for large scale research training, runtime accelerators and orchestrators, agent and AI application hosting, and model and agent development tools. For example, initiatives, such as \"direct-to-expert,\" enable our customers to receive consultative expertise and technical support to troubleshoot issues and optimize performance. Our robust product offering enables us to diversify across industries, geographies, and customer segments, while engaging with customers throughout their journey to ensure they are positioned to develop and productionize AI.   Our Culture and Values   Our mission is to power the creation and delivery of the intelligence that drives innovation. We believe the success of this mission depends on the power of our people and a culture defined by ownership, curiosity, and trust. Our multidisciplinary team operates with this mindset and is focused on disciplined execution, running toward the hardest technical chall…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "9",
+   "match": "NVIDIA",
+   "text": "…ure is trending toward higher rack density and increased power per rack, driving significantly greater cooling requirements. Our advanced closed-loop liquid cooling systems address these demands by enabling higher power density and closer rack placement, and significantly reducing water consumption. This approach enables our data centers to support and deploy the latest generation of chips at scale and for us to be among the first to bring them to market at scale—with a track record of bringing NVIDIA GPUs to market first, including GB200, GB300, and RTX Pro 6000 systems. As compute density continues to increase, these same design principles position our data centers to support future chip generations, and looking ahead, CoreWeave is expected to be among the first cloud providers to deploy the NVIDIA Rubin platform, offering customers greater flexibility and choice as AI systems scale.   To support our continued growth and scale, we are making sustained investments in both our supply chain and labor force. While the chip remains at the core of delivering AI data centers, the supporting equipment is equally critical to bringing compute to life. As a result, we have continued to evolve and expand not only our component supply chain, but also our long-lead data center equipment. We have strengthened our operations to ensure accurate planning and timely procurement of the long-lead…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "10",
+   "match": "data centers in the",
+   "text": "…sks.   Our strategy is centered around: Clean Energy, Efficiency by Design, Responsible Resource Usage, and Supplier Relationships.   Clean Energy   Our fleet of data centers necessarily uses a significant amount of power to enable our customers to train AI models, particularly large language and deep learning models. This energy usage results in greenhouse gas (\"GHG\") emissions, which impact the environment. Our goal is to minimize our environmental impact. For example, several of the existing data centers in the United States and Europe in which we are a tenant are powered by non-emitting sources of energy, and we are exploring other ways we can reduce our environmental impact.   We are currently evaluating and measuring Scopes 1 and 2 GHG emissions from our facilities and data center operations and will soon begin to evaluate our emissions resulting from our supply chain (Scope 3). A large portion of our GHG emissions are currently Scope 2 emissions, which result from purchased electricity for our data centers. The mix of our GHG emissions could shift over time as we grow and begin to control more of our data centers, potentially increasing our ability to contract larger amounts of non-emitting sources of energy.   We are tracking renewable energy sourcing to assess progress toward increasing the proportion of energy procured from low-carbon and renewable sources.   As we co…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "11",
+   "match": "data centers in the",
+   "text": "Table of Contents   impacts. We also aim to establish our operations in buildings that meet high levels of environmental standards where possible.   Efficiency by Design   Our business was founded on a simple principle: AI infrastructure should be designed for efficiency from day one, not retrofitted onto legacy systems. This shapes everything we do.   We aim to build next-generation data centers in the right places, with the right partners, to ensure we can deliver performance while continuously improving efficiency.   We work with our data center partners to track Power Usage Effectiveness (\"PUE\"), enabling us to collectively measure how efficiently data centers use energy. We are collecting the necessary PUE data with the aim of reducing both operating costs and indirect emissions.   Responsible Resource Usage   Water Stewardship   We are committed to responsible water consumption. Monitoring water consumption helps identify opportunities to reduce freshwater use, particularly in water-stressed regions, and supports climate resilience by mitigating exposure to drought-related disruptions. CoreWeave's infrastructure incorporates innovative technologies, such as closed-loop liquid cooling systems to manage the increased heat output stemming from our use of smaller a…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "11",
+   "match": "GPUs",
+   "text": "… cloud market is highly competitive and continues to evolve rapidly. We primarily compete with hyperscalers who offer general purpose cloud computing as part of a broader product portfolio, several of which are also customers of, and partners to, CoreWeave. We also compete with smaller cloud service providers.   CoreWeave's competitive advantage is a result of our platform being purpose-built for AI and accelerated compute use cases. We believe our speed to market with the latest generations of GPUs, proprietary software and orchestration platform, security standards and ability to deliver a highly attractive total cost of ownership all contribute to CoreWeave's rapid growth. Our competitive differentiation is further underpinned by our ability to service AI compute use cases of all sizes rapidly and fungibly. For more information, refer to the risk factor entitled \"We face intense competition and could lose market share to our competitors, which would adversely affect our business, operating results, financial condition, and prospects\" included in Part I, Item 1A of this Annual Report on Form 10-K.   Intellectual Property   Our intellectual property is an important aspect of our business and helps us to maintain our competitive position. To establish and protect our rights in our proprietary technology, we rely upon intellectual property laws and other legal protections coveri…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "14",
    "match": "guarantee",
    "text": "…mit substantial operational and financial resources, including long-term power supply contracts, in advance of securing customer contracts for those data centers. This asymmetric dynamic could adversely affect our business, financial position, results from operations and prospects.   Finally, the global energy market is currently experiencing inflation and volatility pressures. Although we use power purchase agreements to hedge against the risk of some changes in the price of power, there is no guarantee that they will work as intended or will protect us from long-term changes in the price of power. We expect the cost for power to continue to be volatile and unpredictable and subject to inflationary pressures, which could materially affect our financial forecasting, business, operating results, financial condition, and prospects.   We have a limited number of suppliers for significant components of the equipment we use to build and operate our platform and provide our solutions and services. Any disruption in the availability of these components could delay our ability to expand or increase the capacity of our infrastructure or replace defective equipment.   We do not manufacture the components we use to build the technology infrastructure underlying our platform. We have a limited number of suppliers that we use to procure and configure significant components of the technology…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "14",
+   "match": "power capacity",
+   "text": "…r business would be harmed if we were not able to access sufficient power or by increased costs to procure power, prolonged power outages, shortages, or capacity constraints.   We depend on third parties, including utilities, independent system operators, regulators, governments, and global suppliers to secure sufficient power, which powers our data center facilities, in a cost-effective manner. Limitations on generation, transmission, and distribution may limit our ability to obtain sufficient power capacity for our potential expansion sites in new or existing markets. Power providers, other participants in the power market, and regulators may impose onerous operating conditions, such as power generation procurement obligations or collateralization requirements, to any approval or provision of power. The local electricity grids in the markets where we have data centers have faced substantial increases in demand for power. Although there are some early stage alternative methods to source power to local electricity grids they may not be available to service all of our needs due to lack of supply or high cost per unit of electricity. Our inability to secure sufficient power on terms that are acceptable to us could have an adverse effect on our business, results of operation, ability to operate, financial condition, and prospects.   Our data center facilities are affected by probl…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "14",
+   "match": "utility",
+   "text": "…wer on terms that are acceptable to us could have an adverse effect on our business, results of operation, ability to operate, financial condition, and prospects.   Our data center facilities are affected by problems accessing electricity sources, such as unplanned or planned power outages and limitations on transmission or distribution of power. Unplanned power outages, including, but not limited to those relating to large storms, earthquakes, fires, tsunamis, cyberattacks, physical attacks on utility infrastructure, war, and any failures of electrical power grids more generally, and planned power outages by public utilities, such as the practice of planned outages by the public utilities in California, Colorado, Texas, and other states to minimize fire risks, could harm our customers and our business. Further, our existing data center facilities are located in leased buildings where, depending upon the lease requirements and number of tenants involved, we may or may not control some or all of the infrastructure, including generators and fuel tanks. As a result, in the event of a power outage, we could be dependent upon the landlord, as well as the utility company, to restore the power. Even if we attempt to limit our exposure to system downtime by using backup generators, which are in turn supported by onsite fuel storage and through contracts with fuel suppliers, these measu…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "14",
+   "match": "power purchase agreement",
+   "text": "…and prospects.   Additionally, for our potential new data centers and expansion sites, we expect to commit substantial operational and financial resources, including long-term power supply contracts, in advance of securing customer contracts for those data centers. This asymmetric dynamic could adversely affect our business, financial position, results from operations and prospects.   Finally, the global energy market is currently experiencing inflation and volatility pressures. Although we use power purchase agreements to hedge against the risk of some changes in the price of power, there is no guarantee that they will work as intended or will protect us from long-term changes in the price of power. We expect the cost for power to continue to be volatile and unpredictable and subject to inflationary pressures, which could materially affect our financial forecasting, business, operating results, financial condition, and prospects.   We have a limited number of suppliers for significant components of the equipment we use to build and operate our platform and provide our solutions and services. Any disruption in the availability of these components could delay our ability to expand or increase the capacity of our infrastructure or replace defective equipment.   We do not manufacture the components we use to build the technology infrastructure underlying our platform. We have a li…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "14",
+   "match": "GPUs",
+   "text": "…increase the capacity of our infrastructure or replace defective equipment.   We do not manufacture the components we use to build the technology infrastructure underlying our platform. We have a limited number of suppliers that we use to procure and configure significant components of the technology infrastructure that we use to operate our platform and provide our solutions and services to our customers. For example, as a result of our obligations in our current customer contracts, all of the GPUs used in our infrastructure today are NVIDIA GPUs. Additionally, for the year ended December 31, 2025, three suppliers accounted for 23%, 20%, and 17% of total purchases, for the year ended December 31, 2024, three suppliers accounted for 46%, 16%, and 14% of total purchases, and for the year ended December 31, 2023, three suppliers account for 57%, 22%, and 11% of total purchases. Utilizing a limited number of suppliers of the components for our technology infrastructure exposes us to risks, including:   • asymmetry between component availability and contractual performance obligations, including where specified components are required;   14",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "14",
+   "match": "NVIDIA",
+   "text": "…e or replace defective equipment.   We do not manufacture the components we use to build the technology infrastructure underlying our platform. We have a limited number of suppliers that we use to procure and configure significant components of the technology infrastructure that we use to operate our platform and provide our solutions and services to our customers. For example, as a result of our obligations in our current customer contracts, all of the GPUs used in our infrastructure today are NVIDIA GPUs. Additionally, for the year ended December 31, 2025, three suppliers accounted for 23%, 20%, and 17% of total purchases, for the year ended December 31, 2024, three suppliers accounted for 46%, 16%, and 14% of total purchases, and for the year ended December 31, 2023, three suppliers account for 57%, 22%, and 11% of total purchases. Utilizing a limited number of suppliers of the components for our technology infrastructure exposes us to risks, including:   • asymmetry between component availability and contractual performance obligations, including where specified components are required;   14",
    "amounts": []
   },
   {
@@ -62,6 +230,48 @@
    "amounts": []
   },
   {
+   "kind": "gpu",
+   "page": "15",
+   "match": "NVIDIA",
+   "text": "…upt our ability to procure necessary components. Further, because we often submit purchase orders to our suppliers according to stated lead times and generally order only what we need to fulfill customer requirements, any delay from our suppliers may result in our inability to provide our infrastructure and platform to our customers on a timely basis and fulfill our contractual requirements under our customer contracts. Additionally, our current customers have contractually specified our use of NVIDIA GPUs. If we are required to change suppliers, our ability to meet our obligations to our customers, including scheduled compute access, could be adversely affected and our solutions may not perform, which could cause the loss of sales from existing or potential customers, delayed revenue, or an increase in our costs, which could adversely affect our margins and other financial results. Any production or shipping interruption for any reason, such as a natural disaster, epidemics, pandemics, capacity shortages, quality problems, or strike or other labor disruption at one of our supplier locations or at shipping ports or locations, could adversely affect sales of our solution and services offerings.   In addition, we are continually working to expand and enhance our infrastructure features, technology, and network and other technologies to accommodate substantial increases in the com…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "15",
+   "match": "NVIDIA",
+   "text": "…upt our ability to procure necessary components. Further, because we often submit purchase orders to our suppliers according to stated lead times and generally order only what we need to fulfill customer requirements, any delay from our suppliers may result in our inability to provide our infrastructure and platform to our customers on a timely basis and fulfill our contractual requirements under our customer contracts. Additionally, our current customers have contractually specified our use of NVIDIA GPUs. If we are required to change suppliers, our ability to meet our obligations to our customers, including scheduled compute access, could be adversely affected and our solutions may not perform, which could cause the loss of sales from existing or potential customers, delayed revenue, or an increase in our costs, which could adversely affect our margins and other financial results. Any production or shipping interruption for any reason, such as a natural disaster, epidemics, pandemics, capacity shortages, quality problems, or strike or other labor disruption at one of our supplier locations or at shipping ports or locations, could adversely affect sales of our solution and services offerings.   In addition, we are continually working to expand and enhance our infrastructure features, technology, and network and other technologies to accommodate substantial increases in the com…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "16",
+   "match": "data centers located in the",
+   "text": "…eet the demand of our customers, which in turn would have an adverse effect on our business, operating results, financial condition, and prospects.   If our data center providers fail to meet the requirements of our business, or if the data center facilities experience damage, interruption, or a security breach, our ability to provide access to our infrastructure and maintain the performance of our network could be negatively impacted.   We lease space in or otherwise license use of third-party data centers located in the United States, Europe and United Kingdom. Our current business is reliant on these data center facilities. Given that we lease or license our existing data center space, we do not control the operation of these third-party facilities. Consequently, we could be subject to service disruptions as well as failures to provide adequate support for reasons that are outside of our direct control. Our data center facilities and network infrastructure are vulnerable to damage or interruption from a variety of sources including earthquakes, floods, storms, fires, power loss, system failures, computer and other cybersecurity vulnerabilities, physical or electronic break-ins, human error, malfeasance or interference, including by employees, former employees, or contractors, as well as crime, terrorist acts and other catastrophic events. We and the data center facilities we…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "16",
+   "match": "NVIDIA",
+   "text": "Table of Contents   Moreover, our suppliers themselves rely on a complex network of third-party suppliers for semiconductor manufacturing, hardware components, and other critical inputs, which introduces additional risks to our supply chain. For example, NVIDIA relies on suppliers such as Taiwan Semiconductor Manufacturing Company for semiconductor fabrication and other manufacturers for compute and networking components. Any disruption in the operations of these upstream suppliers, whether due to equipment failures, geopolitical factors such as the growing potential for military conflict between China and Taiwan, or subcomponent or raw material supply chain constraints, could affect our suppliers' ability to supply the significant components of the equipment we use to operate our platform and provide our solutions and services to our customers, which would, in turn, affect the availability of our solutions and services, lead times, and our financial results.   In addition, to the extent any of our suppliers' businesses are impacted by business, legal, compliance, litigation, and financial concerns, including regulatory scrutiny and expo…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "16",
+   "match": "GPUs",
+   "text": "…lutions and services, lead times, and our financial results.   In addition, to the extent any of our suppliers' businesses are impacted by business, legal, compliance, litigation, and financial concerns, including regulatory scrutiny and export controls, our business, operating results, financial condition, and prospects may be adversely affected. For example, increasing use of tariffs, economic sanctions and export controls has impacted and may in the future impact the availability and cost of GPUs and other components of our platform. Tariff actions, quotas, and retaliatory measures may raise the price of imported equipment and materials we rely on. If additional restrictions are imposed on semiconductors, networking equipment, or design and manufacturing software, or if foreign governments adopt countermeasures, our procurement costs could rise and our ability to deploy capacity on planned timelines could be reduced. Expansion or reinterpretation of United States export controls that cover advanced computing hardware, software, or related services could limit availability of components or require reconfiguration of our infrastructure plans. Responses from governments outside of the U.S. to U.S. export controls could further affect supply, logistics, and servicing. These dynamics could slow our ability to add or replace hardware and could affect the economics of certain deplo…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "NVIDIA",
+   "text": "Table of Contents   Moreover, our suppliers themselves rely on a complex network of third-party suppliers for semiconductor manufacturing, hardware components, and other critical inputs, which introduces additional risks to our supply chain. For example, NVIDIA relies on suppliers such as Taiwan Semiconductor Manufacturing Company for semiconductor fabrication and other manufacturers for compute and networking components. Any disruption in the operations of these upstream suppliers, whether due to equipment failures, geopolitical factors such as the growing potential for military conflict between China and Taiwan, or subcomponent or raw material supply chain constraints, could affect our suppliers' ability to supply the significant components of the equipment we use to operate our platform and provide our solutions and services to our customers, which would, in turn, affect the availability of our solutions and services, lead times, and our financial results.   In addition, to the extent any of our suppliers' businesses are impacted by business, legal, compliance, litigation, and financial concerns, including regulatory scrutiny and expo…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "17",
    "match": "joint venture",
@@ -76,6 +286,25 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "19",
+   "match": "67% of our revenue",
+   "text": "…lties would adversely affect our business, operating results, financial condition, and prospects.   A substantial portion of our revenue is driven by a limited number of our customers, and the loss of, or a significant reduction in, spending from one or a few of our top customers would adversely affect our business, operating results, financial condition, and prospects.   A substantial portion of our revenue is driven by a limited number of customers. We recognized an aggregate of approximately 67% of our revenue from our top customer, Microsoft, for the year ended December 31, 2025. We recognized an aggregate of approximately 77% of our revenue from our top two customers for the year ended December 31, 2024. We recognized an aggregate of approximately 73% of our revenue for the year ended December 31, 2023, from our top three customers. None of our other customers represented 10% or more of our revenue for the year ended December 31, 2025. In May 2025, we entered into a master services agreement with OpenAI OpCo, LLC (\"OpenAI\") and in September 2025, we entered into an order form under this master services agreement pursuant to which OpenAI has committed to pay us up to approximately $6.5 billion through May 31, 2031 and, as a result, we expect OpenAI to be a significant customer in future periods. Similarly, in September 2025, we entered into an order form under an existing m…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "19",
+   "match": "significant customer",
+   "text": "…his master services agreement pursuant to which OpenAI has committed to pay us up to approximately $6.5 billion through May 31, 2031 and, as a result, we expect OpenAI to be a significant customer in future periods. Similarly, in September 2025, we entered into an order form under an existing master services agreement pursuant to which Meta Platforms, Inc. (\"Meta\") initially committed to pay us up to approximately $14.2 billion through December 2031 and, as a result, we also expect Meta to be a significant customer in future periods. We expect that our customer concentration with a limited number of top customers is likely to continue in future years because of the long-term nature of contracts with those customers. Any negative changes in demand from our top customers or the perception of negative changes in demand from our top customers, in their ability or willingness to perform under their contracts with us, in laws or regulations applicable to these customers or the regions in which they operate, or in our broader strategic relationship with these customers, or any failures or alleged or perceived failures to satisfy contractual requirements, would adversely affect our business, operating results, financial condition, and prospects.   We anticipate that we will continue to derive a significant portion of our revenue from a limited number of customers for the foreseeable fu…",
+   "amounts": [
+    {
+     "raw": "$14.2 billion",
+     "usdM": 14200
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "20",
    "match": "guarantee",
@@ -83,10 +312,45 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "21",
+   "match": "utility",
+   "text": "…quipment that either affect us indirectly through our partners or directly;   • availability of skilled labor who are able to effectively and safely work with advanced technology in demanding construction environments, as well as the potential for labor disputes and work stoppages with contractors and subcontractors used by us or our third party partners;   • environmental issues or other issues with a specific site;   • delays related to obtaining necessary permits from government agencies and utility companies;   • availability of suitable sites with access to all of the features that are needed for a successful data center, such as access to power. and   • other delays stemming from the difficulties of large development and construction projects involving expensive technology.   If we fail to efficiently enhance our platform and develop and sell new solutions and services and respond effectively to rapidly changing technology, evolving industry standards, changing regulations, and changing customer needs, requirements, or preferences, our platform may become less competitive.   The market in which we compete is relatively new and subject to rapid technological change, evolving industry standards and regulatory changes, as well as changing customer needs, requirements, and preferences. The success of our business will depend, in part, on our ability to, predict, adapt, and re…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "21",
+   "match": "GPUs",
+   "text": "Table of Contents   • lack of availability and delays for data center equipment, including items such as GPUs, CPUs, memory, power distribution units, switchboards, breakers, cables, and cooling equipment;   • coordination with and dependence on our third-party partners that are responsible for numerous critical aspects of these projects and may take actions that are not within our control;   • the need to raise funds directly or indirectly to finance these capital-intensive projects through debt and equity financings, which may not be available to us in a sufficient amount or on reasonable terms (and our third party partners may face similar issues, which may affect us);   • increased prices or lack of availability of construction supplies, raw materials and data center equipment that either affect us indirectly through our partners or directly;   • availability of skilled labor who are able to effectively and safely work with advanced technology in demanding construction environments, as …",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "22",
    "match": "guarantee",
    "text": "…nhance our platform, solutions, and services in response to customer demand and to keep up with technological changes. Part of this process entails cycling out older components of our infrastructure and replacing them with the latest technology available. This requires us to make certain estimates with respect to the useful life of the components of our infrastructure and to maximize the value of the components of our infrastructure, including our GPUs, to the fullest extent possible. We cannot guarantee that our estimates will be accurate or that our attempts at maximizing value will be successful. Any changes to the significant assumptions underlying our estimates or to the estimates of our components' useful lives, or any inability to redeploy components of our existing infrastructure to extend past their contracted life could significantly affect our business, operating results, financial condition, and prospects.   Our platform must also integrate with a variety of network, hardware, storage, and software technologies, and we need to continuously modify and enhance the capabilities of our platform to adapt to changes and innovation in these technologies. If our customers widely adopt new technologies, we may need to redesign parts of our platform to work with those new technologies. These development efforts may require significant engineering, operations, marketing, and s…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "22",
+   "match": "GPUs",
+   "text": "…affected.   We continually work to upgrade and enhance our platform, solutions, and services in response to customer demand and to keep up with technological changes. Part of this process entails cycling out older components of our infrastructure and replacing them with the latest technology available. This requires us to make certain estimates with respect to the useful life of the components of our infrastructure and to maximize the value of the components of our infrastructure, including our GPUs, to the fullest extent possible. We cannot guarantee that our estimates will be accurate or that our attempts at maximizing value will be successful. Any changes to the significant assumptions underlying our estimates or to the estimates of our components' useful lives, or any inability to redeploy components of our existing infrastructure to extend past their contracted life could significantly affect our business, operating results, financial condition, and prospects.   Our platform must also integrate with a variety of network, hardware, storage, and software technologies, and we need to continuously modify and enhance the capabilities of our platform to adapt to changes and innovation in these technologies. If our customers widely adopt new technologies, we may need to redesign parts of our platform to work with those new technologies. These development efforts may require signi…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "24",
+   "match": "GPU",
+   "text": "…ability to reduce our cost of capital over time;   • decisions by organizations to purchase specialized AI cloud infrastructure from larger, more established vendors;   • our ability to successfully and timely deliver our solutions and services to customers under our committed contracts, including due to data center lead times;   • our ability to successfully and timely deploy launches of additional data centers;   • the timing and success of the integration of new infrastructure, including new GPU generations, into our platform;   • changes in our pricing policies or those of our competitors;   • insolvency or credit difficulties confronting our customers, including bankruptcy or liquidation, due to individual, macroeconomic, and regulatory factors, including those specifically impacting early-stage AI ventures, affecting their ability to purchase or pay for our platform;   • significant security breaches of, technical difficulties with, or interruptions to, the use of our platform or other cybersecurity incidents;   • extraordinary expenses such as litigation or other dispute-related settlement payments or outcomes, taxes, regulatory fines or penalties;   • the timing of revenue recognition and revenue deferrals;   • future accounting pronouncements or changes in our accounting policies or practices;   • negative media coverage or publicity; and   • increases or decreases in …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "26",
+   "match": "Microsoft",
+   "text": "…icts, such as the conflicts in the Middle East and Ukraine, the tensions between China and Taiwan, and instability in Venezuela.   Many of our competitors have greater financial, technical, marketing, sales, and other resources, greater name recognition, longer operating histories, and a larger base of customers than we do. Key competitors that offer general purpose cloud computing services as part of a broader, diversified product portfolio include Amazon (AWS), Google (Google Cloud Platform), Microsoft (Azure), and Oracle, a number of which are also our current customers. Our competitors may be able to devote significantly greater resources to the development, promotion, and sale of their solutions and services than we can, and they may offer lower pricing than we do or bundle certain competing solutions and services at lower prices. Our competitors may also have greater resources for research and development of new technologies, customer support, and to pursue acquisitions, and they have other financial, technical, or other resource advantages. Our competitors may engage in business practices that make our products and services more difficult to transition to or more expensive (for example, by charging data egress fees). Our larger competitors have substantially broader and more diverse solution and service offerings and more mature distribution and go-to-market strategies, …",
    "amounts": []
   },
   {
@@ -125,6 +389,27 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "30",
+   "match": "88% of our revenue",
+   "text": "…s to our AI infrastructure cloud services and proprietary managed software and application services through our CoreWeave Cloud Platform under our current business model and we are continuing to scale our operations and evolve our go-to-market strategy. We currently sell access to our platform either through committed contracts, which are take-or-pay, or on-demand, which are pay-as-you-go. For the years ended December 31, 2025, 2024, and 2023, committed contracts accounted for over 98%, 96% and 88% of our revenue, respectively. There is no guarantee that in the future customers will continue to be willing to enter into, and that the industry will continue to support, a take-or-pay model, and any move towards a pay-as-you-go and other consumption-based models will impact our ability to forecast our expected cash flows and operating results, impact our margins, and affect our business, operating results, financial condition, and prospects. Moreover, our committed contracts typically include a prepayment from our customers prior to them receiving access to our services. As of December 31, 2025, 2024, and 2023, the weighted-average prepayment across all our active contracts was 15% to 25% of the TCV. The level of prepayments we receive from customers may fluctuate over time as we continue to scale our operations and evolve our go-to-market strategy, customer base, and the use cases…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "31",
+   "match": "NVIDIA",
+   "text": "Table of Contents   services and add new and upgraded components of our platform (such as our expected deployment of the NVIDIA Rubin platform in the second half of 2026), we face the risk that customers may not value or be willing to adopt these newer offerings, and may forgo adopting one or more newer generations of our existing offerings. Regardless of the improved features or superior performance of the newer offerings, customers may be unwilling to adopt our platform due to design or pricing constraints, among other reasons. Even if customers choose to adopt our platform or new solutions and services that we develop, they may be slow to do so. Because of the extensive time and resources that we invest in research and development, if we are unable to sell new solutions and services, our revenue may decline and our business, operating results, financial condition, and prospects could be negatively affected. Historically, we have used an internal sales team that is focused on responding to inbound inquir…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "31",
+   "match": "NVIDIA",
+   "text": "Table of Contents   services and add new and upgraded components of our platform (such as our expected deployment of the NVIDIA Rubin platform in the second half of 2026), we face the risk that customers may not value or be willing to adopt these newer offerings, and may forgo adopting one or more newer generations of our existing offerings. Regardless of the improved features or superior performance of the newer offerings, customers may be unwilling to adopt our platform due to design or pricing constraints, among other reasons. Even if customers choose to adopt our platform or new solutions and services that we develop, they may be slow to do so. Because of the extensive time and resources that we invest in research and development, if we are unable to sell new solutions and services, our revenue may decline and our business, operating results, financial condition, and prospects could be negatively affected. Historically, we have used an internal sales team that is focused on responding to inbound inquir…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "32",
    "match": "guarantee",
@@ -146,10 +431,36 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "33",
+   "match": "OpenAI",
+   "text": "…pact our business, operating results, financial condition, and prospects.   Although we currently generate the majority of our revenue from large, established customers in the AI industry, we intend to increase the number of our customers over time, including customers in their early stages and/or private companies that may have increased risk of insolvency, bankruptcy, or other issues impacting their creditworthiness. For example, in March 2025, we entered into a master services agreement with OpenAI, a private company, pursuant to which OpenAI has committed to pay us up to approximately $11.9 billion through October 2030. Other significant customers include Microsoft and Meta. Our business is, and may in the future be, subject to the risks of non-payment and non-performance by these customers, which risk is heightened given that a substantial portion of our revenue is currently, and is expected for the foreseeable future to be, driven by a limited number of customers. We manage our exposure to credit risk through receipt of prepayments under our committed contracts, credit analysis and monitoring procedures, and may use letters of credit, prepayments, and guarantees. However, these procedures and policies cannot fully eliminate customer credit risk, and to the extent our policies and procedures prove to be inadequate, it could negatively affect our business, operating results…",
+   "amounts": [
+    {
+     "raw": "$11.9 billion",
+     "usdM": 11900
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "35",
    "match": "guaranteed",
    "text": "…, dilute stockholder value, and adversely affect our business, operating results, financial condition, and prospects.   As part of our business strategy, we have in the past and expect to continue to make investments in and/or acquire complementary companies, services, products, technologies, or talent. For example, we have recently announced a number of acquisitions. Our ability as an organization to acquire and integrate other companies, services, or technologies in a successful manner is not guaranteed.   We have also invested, including in the form of providing computing services, in certain privately held companies, and we may not realize a return on these investments. All of our acquisitions and venture investments are subject to a risk of partial or total loss of investment capital.   In the future, we may not be able to find suitable acquisition candidates, and we may not be able to complete such acquisitions on favorable terms, if at all. Our due diligence efforts may fail to identify all of the challenges, problems, liabilities, or other shortcomings involved in an acquisition. Further, current and future changes to the U.S. and foreign regulatory approval process and requirements related to acquisitions may cause approvals to take longer than anticipated, not be forthcoming or contain burdensome conditions, which may prevent a transaction or jeopardize, delay or redu…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "36",
+   "match": "NVIDIA",
+   "text": "…hese third parties fail to deliver certain operational services, our business, operating results, financial condition, and prospects could be adversely affected.   We have in the past, and may in the future, enter into collaborations or strategic alliances with third parties in connection with the development, operation, and enhancements to our platform and the provision of our solutions and services. For example, in January 2026, we announced that we entered into a collaboration framework with NVIDIA Corporation to expand our long-standing complementary relationship to advance AI adoption at global scale. Identifying strategic relationships with third parties, and negotiating and documenting relationships with them, may be time-consuming and complex and may distract management. Moreover, we may be delayed, or may not be successful, in achieving the   36",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "36",
+   "match": "NVIDIA",
+   "text": "…hese third parties fail to deliver certain operational services, our business, operating results, financial condition, and prospects could be adversely affected.   We have in the past, and may in the future, enter into collaborations or strategic alliances with third parties in connection with the development, operation, and enhancements to our platform and the provision of our solutions and services. For example, in January 2026, we announced that we entered into a collaboration framework with NVIDIA Corporation to expand our long-standing complementary relationship to advance AI adoption at global scale. Identifying strategic relationships with third parties, and negotiating and documenting relationships with them, may be time-consuming and complex and may distract management. Moreover, we may be delayed, or may not be successful, in achieving the   36",
    "amounts": []
   },
   {
@@ -181,6 +492,13 @@
    "amounts": []
   },
   {
+   "kind": "properties",
+   "page": "37",
+   "match": "campus in",
+   "text": "… have economic and business interests that are inconsistent with our business interests.   We have in the past, and may in the future, enter into joint ventures in the future, including to develop and operate data centers. Certain sites that are intended to be utilized in joint ventures require investment for development. For example, in June 2025, we entered into a joint venture with a third-party infrastructure developer, to support the acquisition and development of a multi-phase data center campus in Kenilworth, New Jersey. The success of these joint ventures will also depend, in part, on the successful development of the data center sites, and we may not realize all of the anticipated benefits. Such development may be more difficult, time-consuming, or costly than expected and could result in increased costs, decreases in the amount of expected revenues, and diversion of management's time and energy, which could materially impact our business, operating results, financial condition, and prospects. Additionally, if it is determined these sites are no longer desirable for the joint ventures, we would need to adapt such sites for other purposes.   The success of any joint ventures will depend, in part, on the successful relationship between us and our joint venture partners. A failure to successfully partner, or a failure to realize our expectations for the joint ventures, in…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "38",
    "match": "joint venture",
@@ -199,6 +517,13 @@
    "page": "38",
    "match": "guarantee",
    "text": "Table of Contents   • we may in certain circumstances be liable for the actions of our third-party partners or guarantee all or a portion of the joint venture's liabilities, which may require us to pay an amount greater than its investment in the joint venture;   • we may need to change the structure of an established joint venture or create new complex structures to meet our business needs or the needs of our partners which could prove challenging; and   • a joint venture partner's decision to exit the joint venture may not be at an opportune time for us or in our business interests.   Each of these factors may result in returns on these investments being less than we expect or in losses, and business, operating results, financial condition, and prospects may be adversely affected.   Our ownership stake in the Kenilworth, New Jersey joint venture, and any future acquisitions that include real property, subject us to the general risks associated with the ownership of real property.   We currently…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "38",
+   "match": "campus in",
+   "text": "…eing less than we expect or in losses, and business, operating results, financial condition, and prospects may be adversely affected.   Our ownership stake in the Kenilworth, New Jersey joint venture, and any future acquisitions that include real property, subject us to the general risks associated with the ownership of real property.   We currently lease all of our existing data centers and offices. We also have an ownership stake in a joint venture that is developing a multi-phase data center campus in Kenilworth, New Jersey. In the future, we could make additional acquisitions that include real property. As a result of our ownership stake in the Kenilworth, New Jersey joint venture and any future acquisition, we are subject to the general risks associated with the ownership of real property, including:   • changes in governmental laws and regulations, including the Americans with Disabilities Act and zoning ordinances, and the related costs of compliance;   • increased upfront costs of purchasing real property;   • the ongoing need for repair, maintenance and capital improvements;   • natural disasters, including earthquakes, storms, wildfires and floods, and acts of war or terrorism;   • general liability, property and casualty losses, some of which may be uninsured;   • liabilities for clean-up of undisclosed environmental contamination and real property title claims; and …",
    "amounts": []
   },
   {
@@ -260,6 +585,65 @@
    "amounts": []
   },
   {
+   "kind": "properties",
+   "page": "62",
+   "match": "Item 2. Properties",
+   "text": "…anagement activities to be coordinated and applied across our organization.   Management monitors the prevention, detection, mitigation, and remediation of cybersecurity incidents through continuous endpoint and security monitoring, vulnerability and configuration assessments, log-analysis workflows, and established incident-response processes. Regular business reviews provide structured oversight of these activities, and visibility across cybersecurity, engineering, and executive leadership.   Item 2. Properties   We are headquartered in Livingston, New Jersey. We also lease office space in various parts of the United States, such as New York, the State of Washington, and California, as well as internationally in the United Kingdom. Additionally, we lease space to operate data centers worldwide, including in the United States, the United Kingdom, Spain, Sweden, and Norway. We believe that our current facilities are adequate to meet our current needs and that, should it be needed, suitable additional or alternative space will be available to accommodate our operations.   62",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "66",
+   "match": "GPU",
+   "text": "…y software that enables our customers to build and run AI systems continuously, reliably, and at scale. CoreWeave is trusted by some of the world's leading AI labs and enterprises.   Our CoreWeave Cloud Platform includes:   • Networking Backbone. Our network backbone supports the bandwidth and connectivity that our customers need to move large-scale distributed AI workloads.   • Foundational Infrastructure. Our purpose-built foundational infrastructure maximizes performance with first-to-market GPU clusters, ultra-high density, and high-speed interconnects, supporting complex AI workloads while improving efficiency and lowering total cost of ownership.   • Data and Storage. CoreWeave's purpose-built storage combines exascale, AI-optimized object and file storage with GPU-local caching and Local Tier Acceleration (LOTA™) to deliver high-throughput data access, cross-cloud reach, and predictable economics for training and inference.   • Infrastructure Control. Our integrated AI-native orchestration and bare-metal control deliver the reliability, flexibility, and efficiency required to run complex AI workloads at scale, and matched with the right AI services.   • CoreWeave Mission Control. CoreWeave Mission Control integrates security, observability, and services—including node, rack, and fleet lifecycle management—to enable intelligent, unified orchestration from foundational inf…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "67",
+   "match": "Power Capacity",
+   "text": "Table of Contents   becomes more widespread, chip technology continues to improve, the amount of available data for training grows and companies continue to invest in infrastructure for AI, we believe that the adoption of AI will scale significantly.   Securing Sufficient Power Capacity   We believe the data center installed base will need to scale significantly over the course of the coming years in terms of both space and power to keep pace with demand for AI products and high-performance compute. As of December 31, 2023, we had 10 data centers supported by 70 MW of active power, which grew to 32 data centers supported by more than 360 MW of active power as of December 31, 2024. As of December 31, 2025, we had 43 data centers supported by over 850 MW of active power. Further, we had total contracted power of approximately 3.1 GW as of December 31, 2025, which we expect to roll out over the coming years. Importantly, our power capacity is available in large individual deployments that are capable of serving large infrastructure clusters, which is critical for our larger customers. We plan to continue to build out our access to power capacity and explore …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "67",
+   "match": "GPUs",
+   "text": "…olutions to support our growing capacity needs, including, but not limited to non-emitting sources of power. We believe that limited access to power will favor platforms like ours that are purpose-built to deliver maximum performance from a constrained pool of resources.   Maintaining a Robust Supply Chain to Service AI and High-Performance Compute Requirements   Our future success depends in part on our access to the latest generation of high-performance chips and ancillary hardware, including GPUs, and other high-performance networking and storage equipment required to run our CoreWeave Cloud Platform. We have established close relationships with chipmakers and OEMs over time to procure our supply of hardware components and continue to strengthen these relationships through our demonstrated ability to deliver leading-edge compute at unparalleled scale and speed. Our future success also depends on our ability to access components such as chillers and HVAC systems for liquid cooling to maintain our data center infrastructure. We work actively with our suppliers on future capacity to ensure that our future resource needs are met while continuing to develop our relationships with leading component providers to incorporate the latest hardware innovations and assemble highly performant AI compute solutions for our customers.   Investing in Innovation and Technology Leadership   Our…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "67",
+   "match": "GPUs",
+   "text": "…liers on future capacity to ensure that our future resource needs are met while continuing to develop our relationships with leading component providers to incorporate the latest hardware innovations and assemble highly performant AI compute solutions for our customers.   Investing in Innovation and Technology Leadership   Our success is dependent on our ability to sustain innovation and technology leadership in order to maintain the competitive advantage of our solution and to bring the latest GPUs to market faster than our competition. We have built a highly differentiated full stack solution for running AI training and inference workloads at maximum performance and efficiency, which we intend to continue to adapt and evolve with the support of our AI specific expertise. We plan to maintain our prioritization of investments in our engineering and product teams to continue to extend our technology leadership in AI infrastructure. Our engineering-led culture, coupled with our team's embedded philosophy of embracing complex technical challenges, will be a critical factor to our future performance and our ability to continue innovating.   Our CoreWeave Cloud Platform is a critical part of the daily operations of the AI developers and providers of AI products and services that rely on our platform to train and inference their models. We remain committed to investing in and growing…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "76",
+   "match": "GPU",
+   "text": "… payable and accrued expenses due to the growth of our business and timing of accrual payments. The increase was partially offset by higher cash payments and an increase in accounts receivable.   Cash Flows From Investing Activities   Net cash used in investing activities was approximately $10.3 billion for the year ended December 31, 2025, as compared to $8.7 billion for the year ended December 31, 2024. The increase was driven by higher capital investments in our infrastructure, including our GPU fleet, networking equipment, servers, switches and other necessary equipment for infrastructure asset security as compared to the year ended December 31, 2024.   Net cash used in investing activities was $8.7 billion for the year ended December 31, 2024, as compared to $3.1 billion for the year ended December 31, 2023. The increase was driven by increased capital investments in our infrastructure, including our GPU fleet, networking equipment, and software development. The increase was partially offset by sales and maturities of marketable securities.   Cash Flows From Financing Activities   Net cash provided by financing activities was $9.3 billion for the year ended December 31, 2025, as compared to $7.5 billion for the year ended December 31, 2024. The increase was driven by the issuance of debt and proceeds from our IPO. The increase was partially offset by higher payments on deb…",
+   "amounts": [
+    {
+     "raw": "$10.3 billion",
+     "usdM": 10300
+    },
+    {
+     "raw": "$8.7 billion",
+     "usdM": 8700
+    },
+    {
+     "raw": "$8.7 billion",
+     "usdM": 8700
+    },
+    {
+     "raw": "$3.1 billion",
+     "usdM": 3100
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "77",
    "match": "not yet commenced",
@@ -288,10 +672,40 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "84",
+   "match": "related party",
+   "text": "…, respectively; no shares issued and outstanding as of December 31, 2025 and 2024   — —   Treasury stock, at cost, 7 shares as of December 31, 2025 and 2024   ( 34 ) ( 34 )   Additional paid-in capital 6,012 1,096   Accumulated deficit ( 2,643 ) ( 1,476 )   Total stockholders' equity (deficit) 3,335 ( 414 )   Total liabilities, redeemable convertible preferred stock, and stockholders' equity (deficit) $ 49,302 $ 17,833   (a) Refer to Note 14—Related-Party Transactions for further information on related party arrangements.   The accompanying notes are an integral part of these consolidated financial statements.   84",
+   "amounts": [
+    {
+     "raw": "$ 49,302 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,833   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "85",
+   "match": "related party",
+   "text": "…per share attributable to common stockholders, basic $ ( 2.75 ) $ ( 4.30 ) $ ( 3.09 )   Net loss per share attributable to common stockholders, diluted $ ( 2.81 ) $ ( 4.30 ) $ ( 3.09 )   Weighted-average shares used in computing net loss per share attributable to common stockholders, basic 435 218 192   Weighted-average shares used in computing net loss per share attributable to common stockholders, diluted 436 218 192   (a) Refer to Note 14—Related-Party Transactions for further information on related party arrangements.   The accompanying notes are an integral part of these consolidated financial statements.   85",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "91",
    "match": "variable interest entit",
    "text": "Table of Contents   The Company determines at inception of each arrangement whether an entity in which the Company has made an investment or in which the Company has other variable interests is considered a variable interest entity (\"VIE\"). Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity. The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE's economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. If the Company is not the primary beneficiary of the VIE, the investment or other variable interest is accounted for in accordance with applicable U.S. GAAP.   In circumstances where an entity does not have the characteristics of a VIE, it would be considered a voting interest entity (\"VOE\"). The Company would consolidate a VOE when the Company has a majority equity interest and has control over signifi…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "91",
+   "match": "significant customer",
+   "text": "…tatements of operations and comprehensive loss. Foreign currency transaction losses were $ 60 million for the year ended December 31, 2025. Foreign currency transaction gains and losses were not material for the years ended December 31, 2024 and 2023.   Concentration of Risk   The Company is subject to certain risks and uncertainties that could have a material adverse effect on its business, financial condition, results of operations, or cash flows primarily due to concentration of credit risk, significant customers, and supplier concentration.   Concentration of Credit Risk   Financial instruments that potentially expose the Company to significant concentration of credit risk consist primarily of cash, cash equivalents, restricted cash, accounts receivable, and marketable securities. The Company maintains its cash, cash equivalents, restricted cash, and marketable securities with high-quality financial institutions mainly in the United States, where the composition and maturities are regularly monitored by the Company. The Company grants credit to its customers in the normal course of business, exposing it to credit risk in the event of nonrepayment by customers. The Company has not experienced any material losses in such accounts.   Customer Concentration   91",
    "amounts": []
   },
   {
@@ -320,6 +734,20 @@
    "page": "97",
    "match": "Joint Venture",
    "text": "…rmation.   Foreign Exchange Forward Contracts   The Company uses forward contracts to mitigate foreign currency risk associated with foreign currency-denominated leasing liabilities. These contracts are not designated as accounting hedges under ASC 815 and therefore considered economic hedges. Changes in the fair-value of these forward contracts are recognized immediately in earnings within other income, net. Refer to Note 3— Investments and Fair Value Measurements for additional information.   Joint Ventures   The Company may, from time to time, enter into joint venture arrangements. The Company evaluates its investments in accordance with ASC 810, Consolidation, to determine whether the entity is a VIE for which the Company is the primary beneficiary, or a VOE for which the Company has a controlling financial interest, in which case the investment is consolidated. For investments that are not consolidated, but over which the Company has the ability to exercise significant influence, including certain joint ventures, the Company accounts for such investments using the equity method of accounting in accordance with ASC 323, Investments—Equity Method and Joint Ventures .   Revenue Recognition   The Company generates revenue from the delivery of cloud computing services. Revenue is recognized when promised services are delivered. The amount of revenue recognized reflects the cons…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "97",
+   "match": "power capacity",
+   "text": "…815, Derivatives and Hedging (\"ASC 815\"). The Company's interest rate swaps and foreign currency forward contracts are classified within Level 2 as the valuation inputs are based on quoted prices and market observable data of similar instruments in active markets, such as currency spot and forward rates. The Company does not enter into derivatives for trading or speculative purposes.   Power Purchase Agreements   Additionally, the Company enters into power purchase agreements (\"PPAs\") to secure power capacity for existing, under construction, and planned data center builds. These agreements are specifically designed to support the Company in managing its energy needs as it encounters rapidly increasing energy demands. Agreements that do not meet the 'normal purchase and normal sale' scope exception, contain a notional amount and are for delivery of electricity in markets where notional amounts are readily convertible to cash (or where contracts can be net-settled) are classified as derivative instruments. These derivative instruments are not designated for special hedge accounting under ASC 815, and therefore changes in the value of these contracts are recorded in earnings.   Generally, derivative assets and liabilities are presented on a gross basis on the consolidated balance sheets and classified as either current or non-current based on the timing of expected settlement. Ca…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "97",
+   "match": "Power Purchase Agreement",
+   "text": "… derivative instruments are recognized on the consolidated balance sheets at fair value in accordance with ASC 815, Derivatives and Hedging (\"ASC 815\"). The Company's interest rate swaps and foreign currency forward contracts are classified within Level 2 as the valuation inputs are based on quoted prices and market observable data of similar instruments in active markets, such as currency spot and forward rates. The Company does not enter into derivatives for trading or speculative purposes.   Power Purchase Agreements   Additionally, the Company enters into power purchase agreements (\"PPAs\") to secure power capacity for existing, under construction, and planned data center builds. These agreements are specifically designed to support the Company in managing its energy needs as it encounters rapidly increasing energy demands. Agreements that do not meet the 'normal purchase and normal sale' scope exception, contain a notional amount and are for delivery of electricity in markets where notional amounts are readily convertible to cash (or where contracts can be net-settled) are classified as derivative instruments. These derivative instruments are not designated for special hedge accounting under ASC 815, and therefore changes in the value of these contracts are recorded in earnings.   Generally, derivative assets and liabilities are presented on a gross basis on the consolidate…",
    "amounts": []
   },
   {
@@ -412,6 +840,18 @@
    ]
   },
   {
+   "kind": "properties",
+   "page": "103",
+   "match": "campus in",
+   "text": "…rs' economic performance and is not the primary beneficiary. Therefore, the Company has not consolidated the VIEs within the consolidated financial statement. The Company has lease prepayments of $ 54 million associated with these lease agreements as of December 31, 2025.   Unconsolidated Joint Venture   Additionally, in June 2025, the Company entered into a joint venture (the \"JV\") with a data center developer and operator to support the acquisition and development of a multi-phase data center campus in New Jersey. Upon formation, the third-party infrastructure developer obtained an 85 % equity interest, while the Company holds the remaining 15 %, for which the Company contributed net assets worth $ 57 million. The JV expects to construct and develop the campus using a combination of additional debt and equity capital. The Company provides construction management, administrative and property management services to the JV.   The Company is not the primary beneficiary and does not consolidate the VIE as it does not have the power to direct the activities that most significantly impact the JV's economic performance. Accordingly, the investment in the JV is accounted for as an equity method investment included in other non-current assets on the consolidated balance sheets. The carrying value of the Company's investment in the JV was $ 51 million as of December 31, 2025, and the Co…",
+   "amounts": [
+    {
+     "raw": "$ 57 million",
+     "usdM": 57
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "104",
    "match": "maximum exposure to loss",
@@ -444,6 +884,26 @@
    ]
   },
   {
+   "kind": "power",
+   "page": "104",
+   "match": "Power purchase agreement",
+   "text": "…ted cash and cash equivalents, current   Money market funds Level 1 — 24   Restricted cash and cash equivalents, non-current   Money market funds Level 1 — 57   Restricted marketable securities, non-current   Certificates of deposit Level 2 — 29   Marketable securities, current   Commercial paper Level 2 12 —   Corporate bonds Level 2 22 —   Prepaid expenses and other current assets   Foreign exchange forward contracts not designated as accounting hedges Level 2 5 —   Other non-current assets   Power purchase agreements Level 3 2 3   Total financial assets $ 41 $ 115   Financial liabilities:   Other current liabilities   Foreign exchange forward contracts not designated as accounting hedges Level 2 $ 4 $ —   Contingent consideration Level 3 20 —   Derivative and warrant liabilities   Interest rate swaps designated as accounting hedges Level 2 1 —   Warrant liabilities Level 3 — 200   Total financial liabilities $ 25 $ 200   The notional amounts of the Company's outstanding interest rate swaps and foreign exchange forward contracts were as follows (in millions):   104",
+   "amounts": [
+    {
+     "raw": "$ 41 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 115   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "112",
    "match": "Not Yet Commenced",
@@ -452,6 +912,22 @@
     {
      "raw": "$ 38.5 billion",
      "usdM": 38500
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "112",
+   "match": "393 MW",
+   "text": "…ociated with such leases is $ 38.5 billion. These leases will commence between 2026 and 2029 with estimated lease terms of five to seventeen years . Not included in the preceding amounts are the following lease arrangements, which include significant uncertainties regarding the amount of future lease payments.   As of December 31, 2025, the Company entered into a lease agreement for various buildings located at a single site intended to be used as a data center. The agreement provides access to 393 MW of electrical power, which is expected to be delivered in phases in 2026 and 2027. The Company will make contractual rent payments based on construction costs incurred by the lessor, subject to a contractual maximum. The total contractual rent payments range from $ 13.5 billion to $ 14.4 billion over the sixteen year term of this lease.   Additionally, the Company has lease agreements where the lease payments are based on a portion of the construction costs incurred by the lessor, including during the construction period. The payments during the construction period are variable and subject to contingencies, which are expected to be resolved at or near the lease commencement date. As of December 31, 2025, these lease agreements provide access to 378 MW of electrical power, which is expected to be delivered in phases between 2026 and 2028.   112",
+   "amounts": [
+    {
+     "raw": "$ 13.5 billion",
+     "usdM": 13500
+    },
+    {
+     "raw": "$ 14.4 billion",
+     "usdM": 14400
     }
    ]
   },
@@ -479,11 +955,96 @@
    "amounts": []
   },
   {
+   "kind": "gpu",
+   "page": "115",
+   "match": "GPU",
+   "text": "…principal amount of the DDTL 2.1 Facility is required to be repaid in quarterly installments, beginning in July 2026, with the final payment due five years after the applicable loan was funded. The terms of the draws under the DDTL 2.0 Facility remain unchanged.   The total loans available provided by the DDTL Facilities are constrained by the purchase price of assets for which the loans are being used to finance with such percentage based upon the depreciable cost of graphics processing unit (\"GPU\") servers. Borrowings under the DDTL Facilities are used to finance a portion of the purchase considerations, fees, and expenses relating to the acquisition of computing equipment. Obligations outstanding under the DDTL Facilities are secured by perfected first priority pledges of and security interests in (i) the equity interests of the respective subsidiaries held by its direct parent and (ii) substantially all of the assets of the respective subsidiaries.   The outstanding loan amounts are prepayable at any time, from time to time, at the Company's option, and are required to be prepaid upon the occurrence of an event of default or change of control of the Company, or with the proceeds of certain asset dispositions or incurrences of indebtedness.   Furthermore, all obligations under the DDTL Facilities are unconditionally guaranteed by the Company. They contain covenants that rest…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "119",
+   "match": "78 MW",
+   "text": "…llion and $ 361 million, respectively. During the year ended December 31, 2024, total interest costs were not material and during the year ended December 31, 2023, total interest costs were $ 31 million.   DCSP Financing Arrangements   In June 2023, the Company entered into a service agreement (the \"DCSP Service Agreement\") with a data center service provider (the \"DCSP\"). Under the DCSP Service Agreement, the DCSP will design, purchase, build, and manage a data center providing access to up to 78 MW of electrical power to be delivered in phases. Separately, during the year ended December 31, 2024, the Company purchased $ 116 million of critical infrastructure assets to support the data center site (the \"Existing Critical Infrastructure Assets\").   In October 2024, the Company, as a lender, entered into a Senior Secured Delayed Draw Term Loan Credit Agreement (the \"DCSP Note Receivable\", and collectively, with the DCSP Service Agreement, the \"DCSP Financing Arrangements\") with the DCSP to facilitate the purchase of critical infrastructure assets. The DCSP Note Receivable provides for a total commitment of up to $ 305 million in delayed draw term loan funding for a term of seven years with a stated interest rate of 13.00 % per annum.   The DCSP Note Receivable is secured by the new and existing critical infrastructure assets that support current and future phases of the build ou…",
+   "amounts": [
+    {
+     "raw": "$ 116 million",
+     "usdM": 116
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "119",
+   "match": "related party",
+   "text": "Table of Contents   2021 Convertible Senior Secured Notes   In October 2021, the Company executed a note issuance agreement and a note purchase agreement with a related party for the issuance of an aggregate principal amount of up to $ 50 million of convertible senior secured notes (the \"2021 Convertible Senior Secured Notes\"). The Company determined that the conversion features, the accelerated redemption features, the variability in interest payments, and the Company's redemption option were required to be bifurcated and accounted for as an embedded derivative. The investors elected to convert all of the outstanding 2021 Convertible Senior Secured Notes on September 17, 2024, pursuant to the original terms of the conversion feature, resulting in the issuance of 25 million shares of common stock and a cash payment of $ 2 million for accrued interest and cash in lieu of fractional shares. The conversion was accounted for as an extinguishment. Equity increased by the settlement-date fair value of the common shares issued of $ 1.1 billion. Loss on…",
+   "amounts": [
+    {
+     "raw": "$ 50 million",
+     "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "130",
+   "match": "related party",
+   "text": "…tible promissory note, which may be settled in a variable number of shares of the Company's Class A common stock. Refer to Note 10—Debt for additional information.   14. Related-Party Transactions   Magnetar   The Company has entered into certain transactions, as further described below, with Magnetar Financial LLC (\"Magnetar\") and certain funds or accounts managed or advised by Magnetar, and such funds or accounts collectively held a significant equity interest in the Company.   Magnetar was a related party of the Company through March 2025, as Magnetar-affiliated funds collectively held a significant equity interest in the Company and Magnetar had representation on the Company's Board. Effective March 2025, Magnetar relinquished its Board seat, held less than 10% of the total voting power, and no longer had the ability to exercise significant influence over the Company. Accordingly, Magnetar no longer met the definition of a related party per ASC 850, Related Party Disclosures . Transactions and balances with Magnetar are disclosed below for periods during which Magnetar was a related party.   Senior Secured Notes   In connection with the issuance of the 2021 Convertible Senior Secured Notes in October 2021, the Company granted Magnetar an option to purchase up to $ 15 million of the Company's Class A common stock at the IPO price, which is equal to 0.4 million shares at the …",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "131",
    "match": "Joint Venture",
    "text": "…ptember 2024, the Company entered into an equity exchange right agreement with each of its co-founders. This agreement grants each co-founder the right, but not the obligation, to exchange shares of Class A common stock received upon the exercise or settlement of equity awards for shares of Class B common stock. This right applies to equity awards previously granted to the Company's co-founders and to equity awards that may be granted to the Company's co-founders in the future.   Unconsolidated Joint Venture   In June 2025, the Company entered into a forward-starting lease and a development management agreement in connection with the JV, which is an unconsolidated subsidiary of the Company and a related party. These agreements are deemed to be priced at market terms as they were negotiated as part of an arms-length negotiations with the other investor in the JV. During the year ended December 31, 2025, the Company did not recognize any material income or expenses in the consolidated statements of operations and comprehensive loss pursuant to these agreements. Refer to Note 3 — Investments and Fair Value Measurements for additional information.   15. Geographic Information   Revenue by geography is based on the address of the customer as specified in the Company's customer contracts. The following table sets forth revenue by geographic area (in millions):   Year Ended December 3…",
    "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "131",
+   "match": "related party",
+   "text": "…A common stock received upon the exercise or settlement of equity awards for shares of Class B common stock. This right applies to equity awards previously granted to the Company's co-founders and to equity awards that may be granted to the Company's co-founders in the future.   Unconsolidated Joint Venture   In June 2025, the Company entered into a forward-starting lease and a development management agreement in connection with the JV, which is an unconsolidated subsidiary of the Company and a related party. These agreements are deemed to be priced at market terms as they were negotiated as part of an arms-length negotiations with the other investor in the JV. During the year ended December 31, 2025, the Company did not recognize any material income or expenses in the consolidated statements of operations and comprehensive loss pursuant to these agreements. Refer to Note 3 — Investments and Fair Value Measurements for additional information.   15. Geographic Information   Revenue by geography is based on the address of the customer as specified in the Company's customer contracts. The following table sets forth revenue by geographic area (in millions):   Year Ended December 31,   2025 2024 2023   United States $ 4,801 $ 1,797 $ 201   All other countries 330 118 28   Total revenue $ 5,131 $ 1,915 $ 229   The Company's long-lived assets are attributed to a country based on the p…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "132",
+   "match": "NVIDIA",
+   "text": "Table of Contents   16. Subsequent Events   In January 2026, NVIDIA Corporation invested $ 2 billion in the Company's Class A common stock at a purchase price of $ 87.20 per share.   In January 2026, the Company entered into additional financing agreements with an OEM. The financing agreements have an aggregate notional balance of $ 1.5 billion. The financing arrangements have terms of three years . The Company granted a security interest for the financed equipment.    In January and February 2026, the Company executed additional lease agreements, primarily for data centers and office facilities. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $ 8.8 billion. The leases are expected to commence between 2026 and 2028 with estimated lease terms of two to 16 years.   Item 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   None.   Item 9A. Controls and Procedures…",
+   "amounts": [
+    {
+     "raw": "$ 2 billion",
+     "usdM": 2000
+    },
+    {
+     "raw": "$ 87.20 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.5 billion",
+     "usdM": 1500
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "132",
+   "match": "NVIDIA",
+   "text": "Table of Contents   16. Subsequent Events   In January 2026, NVIDIA Corporation invested $ 2 billion in the Company's Class A common stock at a purchase price of $ 87.20 per share.   In January 2026, the Company entered into additional financing agreements with an OEM. The financing agreements have an aggregate notional balance of $ 1.5 billion. The financing arrangements have terms of three years . The Company granted a security interest for the financed equipment.    In January and February 2026, the Company executed additional lease agreements, primarily for data centers and office facilities. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $ 8.8 billion. The leases are expected to commence between 2026 and 2028 with estimated lease terms of two to 16 years.   Item 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   None.   Item 9A. Controls and Procedures…",
+   "amounts": [
+    {
+     "raw": "$ 2 billion",
+     "usdM": 2000
+    },
+    {
+     "raw": "$ 87.20 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.5 billion",
+     "usdM": 1500
+    }
+   ]
   },
   {
    "kind": "guarantee",
@@ -518,6 +1079,20 @@
    "page": "140",
    "match": "Guarantee",
    "text": "…5   10.29   Credit Agreement between CoreWeave Compute Acquisition Co. V, LLC, CoreWeave Compute Acquisition Co. VII, LLC, U.S. Bank National Association, as depository bank, MUFG Bank, Ltd., as administrative agent, U.S. Bank Trust Company, National Association as collateral agent, Morgan Stanley Asset Funding, Inc., MUFG Bank, Ltd. and Goldman Sachs Bank USA, as joint lead arrangers, and other lenders party thereto, dated July 28, 2025   8-K   001-42563   10.1   July 31, 2025   10.30   Parent Guarantee and Pledge Agreement between CoreWeave, Inc., CCAC VII Holdco LLC and U.S. Bank Trust Company, National Association, and the lenders party thereto, dated July 28, 2025   8-K   001-42563   10.2   July 31, 2025   10.31†   F irst Amendment to Credit Agreement and Parent G uarantee and Ple dge Agreement between CoreWeave Compute Acquisition Co. VII, LLC , CoreWeave, Inc. , CCAC VII Holdco LLC , and the agents and lenders party thereto , dated December 31, 2025   X   140",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "141",
+   "match": "NVIDIA",
+   "text": "…†^   Master Services Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated March 7, 2025   S-1/A   333-285512 10.24   March 12, 2025   10.36†^   Master Services Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated May 8, 2025   8-K   001-42563   10.1   September 25, 2025   10.37   Stock Issuance Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated March 7, 2025   S-1/A   333-285512 10.25   March 12, 2025   10.38†^   Master Services Agreement between CoreWeave, Inc. and NVIDIA Corporation, dated April 10, 2023   S-4/A   333-289742   10.31   September 25, 2025   10.39†^   Master Services Agreement between CoreWeave, Inc. and Meta Platforms, Inc., dated December 10, 2023   8-K   001-42563   10.1   September 30, 2025   10.40   Form of Base Capped Call Confirmation   8-K   001-42563   10.1   December 11, 2025   10.41   Form of Additional Capped Call Confirmation   8-K   001-42563   10.2   December 11, 2025   10.42#†^   L etter Agreement between CoreWeave, Inc. and Nitin Agrawal   X   10.43#†^   Letter Agreement between CoreWeave, Inc. and Jon Jones   X   16.1   L etter Regarding Change in Accountants   S-1/A   333-285512   16.1   March 20, 2025   19.1   CoreWeave, Inc. Insider Trading Policy   X   21.1   List of Subsidiaries of CoreWeave, Inc.   X   23.1   Consent of Deloitte & Touche LLP, independent registered public accounting firm   X   24.1   Power of …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "141",
+   "match": "Microsoft",
+   "text": "… Contents   10.32   Form of Equity Exchange Right Agreement between CoreWeave, Inc. and each of Michael Intrator, Brian Venturo, and Brannin McBee   S-1   333-285512 10.21   March 3, 2025   10.33   Termination of Director Nomination Rights between CoreWeave, Inc. and CW Opportunity 2 LP, Magnetar Constellation Master Fund, Ltd, Magnetar Capital Master Fund Ltd and Longhorn Special Opportunities Fund LP, dated November 6, 2025   X   10.34†^   Master Services Agreement between CoreWeave, Inc. and Microsoft Corporation, dated February 22, 2023   S-1   333-285512 10.23   March 3, 2025   10.35†^   Master Services Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated March 7, 2025   S-1/A   333-285512 10.24   March 12, 2025   10.36†^   Master Services Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated May 8, 2025   8-K   001-42563   10.1   September 25, 2025   10.37   Stock Issuance Agreement between CoreWeave, Inc. and OpenAI OpCo, LLC, dated March 7, 2025   S-1/A   333-285512 10.25   March 12, 2025   10.38†^   Master Services Agreement between CoreWeave, Inc. and NVIDIA Corporation, dated April 10, 2023   S-4/A   333-289742   10.31   September 25, 2025   10.39†^   Master Services Agreement between CoreWeave, Inc. and Meta Platforms, Inc., dated December 10, 2023   8-K   001-42563   10.1   September 30, 2025   10.40   Form of Base Capped Call Confirmation   8-K   …",
    "amounts": []
   }
  ]

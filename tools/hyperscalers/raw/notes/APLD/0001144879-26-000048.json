@@ -11,10 +11,96 @@
  "numberedPages": 141,
  "hits": [
   {
+   "kind": "properties",
+   "page": "3",
+   "match": "Item 2. Properties",
+   "text": "Table of Contents   Page   Part I   Item 1. Business   5   Item 1A. Risk Factors   12   Item 1B. Unresolved Staff Comments   36   Item 1C. Cybersecurity   36   Item 2. Properties   37   Item 3. Legal Proceedings   37   Item 4. Mine Safety Disclosures   38   Part II   Item 5. Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities   39   Item 6. [Reserved]   40   Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations   41   Item 7A. Quantitative and Qualitative Disclosures About Market Risk   66   Item 8. Financial Statements and Supplementary Data   68   Item 9. Changes in and Disagreements With Accountants on Accounting and Financial Disclosure   128   Item 9A. Controls and Procedures   128   Item 9B. Other Information   131   Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   131   Part III   Item 10. Directors, Executive Officers and Corporate Governance   131   Item 11. Executive Compensation   131   Item 12. Security Owne…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "4",
+   "match": "utility",
+   "text": "…our data center campuses;   • our dependence on principal customers, including our ability to execute leases with key customers;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies; and   • uncertainties of regulation policy.   The foregoing does not represent an exhaustive list of matters that may be covered by the forward-looking statements contained herein or risk factors that we are faced with that may cause our actual results to differ from those anticipated in such forward-looking statements. The events and circumstances reflected in our forward-looking statements may not be achieved or occur and actual results could differ materially from those projected in the forward-looking statements. Yo…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "4",
+   "match": "significant customer",
+   "text": "…lly from those expressed in any forward-looking statement made by us. These factors include, but are not limited to:   • our ability to complete construction of our data center campuses;   • our dependence on principal customers, including our ability to execute leases with key customers;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies; and   • uncertainties of regulation policy.   The foregoing does not represent an exhaustive list of matters that may be covered by the forward-looking statements contained herein or risk factors that we are faced with that may cause our actual results to differ from those anticipated in such forward-looking statements. The events and circumstances reflected in …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "5",
+   "match": "150 MW",
+   "text": "…stems designed to meet the uptime and performance requirements of mission-critical AI workloads.   Long-term contracted revenue with high-quality counterparties   Our HPC capacity is contracted under long-term leases, including with investment-grade hyperscalers, providing long-dated revenue visibility.   Standardized, repeatable AI factory platform   We develop our campuses using a standardized, franchise-style design that is engineered to deliver state-of-the-art data centers of approximately 150 MW in approximately 14 to 18 months, with low water usage. A scalable operating model which standardizes operations and leverages the same core roles across campuses and our master service and master telecom service agreements with leading hyperscalers—agreements that are difficult to obtain—position us to move quickly as hyperscaler AI infrastructure investment accelerates.   HPC Hosting Business   Our HPC Hosting Business designs, constructs, owns, and operates next-generation data centers purpose-built to host high-density GPU and other accelerated-compute infrastructure for AI, machine learning, and other HPC applications.   5",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "5",
+   "match": "interconnection",
+   "text": "…”). As discussed further under Note 1 - Business and Basis of Presentation and Note 19 - Business Segments, our cloud services business is no longer an operating or reportable segment following the May 2026 transaction.   Our Competitive Strengths   We believe the following strengths position us to capture growing demand for HPC and AI infrastructure:   Control of power-advantaged sites   We originate and control large, contiguous sites with access to substantial, cost-competitive power and the interconnection rights necessary to energize high-density compute at scale. We believe that securing power and interconnection ahead of demand is the principal constraint on new HPC capacity and a core differentiator for us from many of our competitors.   Purpose-built, high-density design   Our campuses are engineered for liquid-cooled, high-density graphics processing unit (GPU) deployments, with redundant electrical and mechanical systems designed to meet the uptime and performance requirements of mission-critical AI workloads.   Long-term contracted revenue with high-quality counterparties   Our HPC capacity is contracted under long-term leases, including with investment-grade hyperscalers, providing long-dated revenue visibility.   Standardized, repeatable AI factory platform   We develop our campuses using a standardized, franchise-style design that is engineered to deliver state-o…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "5",
+   "match": "GPU",
+   "text": "…aged sites   We originate and control large, contiguous sites with access to substantial, cost-competitive power and the interconnection rights necessary to energize high-density compute at scale. We believe that securing power and interconnection ahead of demand is the principal constraint on new HPC capacity and a core differentiator for us from many of our competitors.   Purpose-built, high-density design   Our campuses are engineered for liquid-cooled, high-density graphics processing unit (GPU) deployments, with redundant electrical and mechanical systems designed to meet the uptime and performance requirements of mission-critical AI workloads.   Long-term contracted revenue with high-quality counterparties   Our HPC capacity is contracted under long-term leases, including with investment-grade hyperscalers, providing long-dated revenue visibility.   Standardized, repeatable AI factory platform   We develop our campuses using a standardized, franchise-style design that is engineered to deliver state-of-the-art data centers of approximately 150 MW in approximately 14 to 18 months, with low water usage. A scalable operating model which standardizes operations and leverages the same core roles across campuses and our master service and master telecom service agreements with leading hyperscalers—agreements that are difficult to obtain—position us to move quickly as hyperscaler…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "5",
+   "match": "GPU",
+   "text": "…ths, with low water usage. A scalable operating model which standardizes operations and leverages the same core roles across campuses and our master service and master telecom service agreements with leading hyperscalers—agreements that are difficult to obtain—position us to move quickly as hyperscaler AI infrastructure investment accelerates.   HPC Hosting Business   Our HPC Hosting Business designs, constructs, owns, and operates next-generation data centers purpose-built to host high-density GPU and other accelerated-compute infrastructure for AI, machine learning, and other HPC applications.   5",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "6",
    "match": "guaranteed",
    "text": "… ELN-02 LLC and APLD ELN-03 LLC each entered into a data center lease (the \"ELN-02 Lease\" and the \"ELN-03 Lease”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of capacity to host CoreWeave’s HPC operations at Polaris Forge 1. On August 28, 2025, our subsidiary APLD ELN-02 C LLC entered into a third lease (the “Building 4 Lease”) with CoreWeave for an additional 150 MW, bringing the total contracted capacity at Polaris Forge 1 under our CoreWeave leases to 400 MW. We have guaranteed the obligations of the applicable subsidiaries under each of these leases. On March 30, 2026, as a result of an internal restructuring at CoreWeave, the ELN-02 Lease was amended and the ELN-03 Lease was assigned, in each case, to a wholly owned subsidiary of CoreWeave, CoreWeave Compute Acquisition Co. VIII, LLC, as further described in \" Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations – Business Overview.\"   Polaris Forge 2   On August 18, 2025, we broke ground on our Polaris Forge 2 data center campus near Harwood, North Dakota, with an initial 200 MW data center. We currently anticipate reaching initial capacity in the second half of calendar year 2026 and full capacity in early calendar year 2027. On October 22, 2025, we entered into an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 MW of cri…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "6",
+   "match": "100 MW",
+   "text": "Polaris Forge 1   Our flagship HPC campus, located in Ellendale, North Dakota, is being developed in phases. Our first HPC data center at the campus, with approximately 100 MW of critical IT load, became operational in October 2025. A second data center, expected to provide an additional 150 MW, is partially operational, and a third data center, also expected to provide approximately 150 MW, is under construction with an anticipated ready-for-service date in calendar year 2027.   On May 28, 2025, our subsidiaries APLD ELN-02 LLC and APLD ELN-03 LLC each entered into a data center lease (the \"ELN-02 Lease\" and the \"ELN-03 Lease”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of capacity to host CoreWeave’s HPC operations at Polaris Forge 1. On August 28, 2025, our subsidiary APLD ELN-02 C LLC entered into a third lease (the “Building 4 Lease”) with CoreWeave for an additional 150 MW, bringing the total contracted capacity at Polaris Forge 1 under our CoreWeave leases to 400 MW. We have guaranteed the obligations of the applicable s…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "6",
+   "match": "200 MW",
+   "text": "…result of an internal restructuring at CoreWeave, the ELN-02 Lease was amended and the ELN-03 Lease was assigned, in each case, to a wholly owned subsidiary of CoreWeave, CoreWeave Compute Acquisition Co. VIII, LLC, as further described in \" Item 7. Management's Discussion and Analysis of Financial Condition and Results of Operations – Business Overview.\"   Polaris Forge 2   On August 18, 2025, we broke ground on our Polaris Forge 2 data center campus near Harwood, North Dakota, with an initial 200 MW data center. We currently anticipate reaching initial capacity in the second half of calendar year 2026 and full capacity in early calendar year 2027. On October 22, 2025, we entered into an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 MW of critical IT load at the campus.   Delta Forge 1   On January 22, 2026, we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market. On April 23, 2026, we entered into two approximately 15-year leases with a second U.S.-based investment-grade hyperscaler for an aggregate 300 MW of critical IT load at the campus.   Polaris Forge 3   Polaris Forge 3 is a 300 MW critical IT load data center campus located in our northern United States region, currently under construction across two buildings. The aggregate 300 MW of critical IT load is contracted under two app…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "6",
+   "match": "210 MW",
+   "text": "…ur northern United States region, currently under construction across two buildings. The aggregate 300 MW of critical IT load is contracted under two approximately 15-year leases (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $7.5 billion of contracted revenue over the base term, with expected delivery beginning in the second half of calendar year 2027 through the second half of calendar year 2028.   Delta Forge 2   Delta Forge 2 is a 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The full 210 MW of critical IT load is contracted under an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   Contracted Lease Portfolio   As of May 31, 2026, we had executed long-term leases representing approximately 1,410 MW of contracted critical IT load across five campuses, representing approximately $36.2 billion of total contracted revenue over the initial 15-year base lease terms. Each lease is a direct, long-term agreement with CoreWeave or an investment-grade hyperscaler, is structured   6",
+   "amounts": [
+    {
+     "raw": "$7.5 billion",
+     "usdM": 7500
+    },
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "6",
+   "match": "campus located",
+   "text": "…ur Polaris Forge 2 data center campus near Harwood, North Dakota, with an initial 200 MW data center. We currently anticipate reaching initial capacity in the second half of calendar year 2026 and full capacity in early calendar year 2027. On October 22, 2025, we entered into an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 MW of critical IT load at the campus.   Delta Forge 1   On January 22, 2026, we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market. On April 23, 2026, we entered into two approximately 15-year leases with a second U.S.-based investment-grade hyperscaler for an aggregate 300 MW of critical IT load at the campus.   Polaris Forge 3   Polaris Forge 3 is a 300 MW critical IT load data center campus located in our northern United States region, currently under construction across two buildings. The aggregate 300 MW of critical IT load is contracted under two approximately 15-year leases (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $7.5 billion of contracted revenue over the base term, with expected delivery beginning in the second half of calendar year 2027 through the second half of calendar year 2028.   Delta Forge 2   Delta Forge 2 is a 210 MW critical IT load campus located in our southern region, comprisi…",
    "amounts": []
   },
   {
@@ -28,6 +114,122 @@
      "usdM": null
     }
    ]
+  },
+  {
+   "kind": "capacity",
+   "page": "7",
+   "match": "400 MW",
+   "text": "on a take-or-pay basis, and is non-cancellable, such that a termination for convenience would require payment of the full remaining contractual value. The following table summarizes our contracted HPC lease portfolio as of May 31, 2026:   Campus Anchor Tenant Contracted Critical IT Load Lease Term Total Contracted Revenue (1)   Expected Delivery (2)   Polaris Forge 1 CoreWeave 400 MW 15 years ~$11.0B 2H25–1H27   Polaris Forge 2 Investment-grade hyperscaler 200 MW 15 years ~$5.0B 2H26–1H27   Polaris Forge 3 High investment-grade hyperscaler 300 MW 15 years ~$7.5B 2H27–2H28   Delta Forge 1 High investment-grade hyperscaler 300 MW 15 years ~$7.5B 1H27–1H28   Delta Forge 2 High investment-grade hyperscaler 210 MW 15 years ~$5.2B 1H28   Total / Portfolio 1,410 MW ~$36.2B 2H25–2H28   (1) Total contracted revenue reflects the initial 15-year base term of each lease and excludes renewal options. Each lease includes multiple five-year renewal options (three five-year options, except Polaris Forge 2, which includes two five-year options), which are not reflected in the amounts shown.   (2) Expected delivery reflects management’s current estimates of the periods during which contracted capacity is expected to be placed in service and is subject to construction, permittin…",
+   "amounts": [
+    {
+     "raw": "$11.0",
+     "usdM": null
+    },
+    {
+     "raw": "$5.0",
+     "usdM": null
+    },
+    {
+     "raw": "$7.5",
+     "usdM": null
+    },
+    {
+     "raw": "$7.5",
+     "usdM": null
+    },
+    {
+     "raw": "$5.2",
+     "usdM": null
+    },
+    {
+     "raw": "$36.2",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "7",
+   "match": "1.5 GW",
+   "text": "…iods during which contracted capacity is expected to be placed in service and is subject to construction, permitting, interconnection, and other risks. Expected delivery is presented as calendar year periods.   Site and Power Pipeline   In addition to our contracted lease portfolio, we are developing and originating additional capacity that we expect to support future HPC leasing. We categorize this pipeline as follows:   Secured and under construction   As of May 31, 2026, we had approximately 1.5 GW of critical IT load that is contracted and operating or under construction across our five named campuses—Polaris Forge 1, Polaris Forge 2, and Polaris Forge 3 in our northern region and Delta Forge 1 and Delta Forge 2 in our southern region—of which approximately 100 MW was operating and revenue-generating. Each megawatt in this category is backed by land under our control and/or an executed utility power agreement.   Active pipeline   We are advancing an active development pipeline of over 3 GW of utility (gross) power, consisting of near-term greenfield sites in multiple states together with expansion capacity at our existing campuses, certain of which are scalable to 1 GW or more.   Extended pipeline   We are additionally evaluating an extended pipeline of more than 5 GW of utility (gross) power that is in earlier stages of discussion or due diligence.   In addition, through o…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "7",
+   "match": "1.2 GW",
+   "text": "… of near-term greenfield sites in multiple states together with expansion capacity at our existing campuses, certain of which are scalable to 1 GW or more.   Extended pipeline   We are additionally evaluating an extended pipeline of more than 5 GW of utility (gross) power that is in earlier stages of discussion or due diligence.   In addition, through our partnership with Base Electron Corporation (\"Base Electron\"), an independent power producer, we are pursuing the development of approximately 1.2 GW of front-of-the-meter, natural gas-fired generation in the Dakotas, which we expect to unlock additional power capacity for our development pipeline.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure allowing the customer to deploy equipment based on its power requirements. This is a legacy line of business: we currently serve a single crypto mining customer under a contract with a remaining term of approximately one and a half years, and we expect this segment to represent a declining share of our business as we scale our HPC operations. We operate hosting sites in Jamestown, North Dakota (a 106 MW facility) and Ellendale, North Dakota (a 180 MW facility), representing total hosting capacity of approximately 286 MW.   ChronoScale   On May 5, 2026, we completed the separation of our cloud business in a series of transactions that r…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "7",
+   "match": "interconnection",
+   "text": "…H28   (1) Total contracted revenue reflects the initial 15-year base term of each lease and excludes renewal options. Each lease includes multiple five-year renewal options (three five-year options, except Polaris Forge 2, which includes two five-year options), which are not reflected in the amounts shown.   (2) Expected delivery reflects management’s current estimates of the periods during which contracted capacity is expected to be placed in service and is subject to construction, permitting, interconnection, and other risks. Expected delivery is presented as calendar year periods.   Site and Power Pipeline   In addition to our contracted lease portfolio, we are developing and originating additional capacity that we expect to support future HPC leasing. We categorize this pipeline as follows:   Secured and under construction   As of May 31, 2026, we had approximately 1.5 GW of critical IT load that is contracted and operating or under construction across our five named campuses—Polaris Forge 1, Polaris Forge 2, and Polaris Forge 3 in our northern region and Delta Forge 1 and Delta Forge 2 in our southern region—of which approximately 100 MW was operating and revenue-generating. Each megawatt in this category is backed by land under our control and/or an executed utility power agreement.   Active pipeline   We are advancing an active development pipeline of over 3 GW of utilit…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "7",
+   "match": "utility",
+   "text": "… revenue-generating. Each megawatt in this category is backed by land under our control and/or an executed utility power agreement.   Active pipeline   We are advancing an active development pipeline of over 3 GW of utility (gross) power, consisting of near-term greenfield sites in multiple states together with expansion capacity at our existing campuses, certain of which are scalable to 1 GW or more.   Extended pipeline   We are additionally evaluating an extended pipeline of more than 5 GW of utility (gross) power that is in earlier stages of discussion or due diligence.   In addition, through our partnership with Base Electron Corporation (\"Base Electron\"), an independent power producer, we are pursuing the development of approximately 1.2 GW of front-of-the-meter, natural gas-fired generation in the Dakotas, which we expect to unlock additional power capacity for our development pipeline.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure allowing the customer to deploy equipment based on its power requirements. This is a legacy line of business: we currently serve a single crypto mining customer under a contract with a remaining term of approximately one and a half years, and we expect this segment to represent a declining share of our business as we scale our HPC operations. We operate hosting sites in Jamestown, North Dako…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "8",
+   "match": "100 GW",
+   "text": "… providers.   Industry Trends   The build-out of AI infrastructure is accelerating rapidly. Hyperscaler capital expenditures on AI infrastructure are estimated to exceed $700 billion annually by 2026, and U.S. data center construction spending has tripled since 2022 and is on track to surpass general office construction. Industry sources project that global demand for data center capacity could triple by 2030, while the U.S. Department of Energy projects that the grid will require approximately 100 GW of new capacity by 2030—roughly half of it driven by data centers—and the Boston Consulting Group estimates a U.S. data center power shortfall that could exceed 45 GW by 2030. At the same time, rising rack power densities driven by successive generations of AI accelerators are pushing critical IT loads beyond the levels most legacy facilities can support, increasing demand for the purpose-built, high-density, liquid-cooled capacity we develop.   We believe the data center industry is poised for significant growth, driven by the rapid adoption of digital technologies across all sectors. As businesses prioritize digital transformation, the demand for data center infrastructure is expected to increase substantially. Companies require robust, reliable and scalable solutions to process, analyze and store vast amounts of data in real-time, and data centers play a crucial role in meeting…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "8",
+   "match": "interconnection",
+   "text": "… June 4, 2026, ChronoScale announced that its Board of Directors committed to a plan to divest the Legacy Ekso business and to focus its operations solely on its cloud business. As such, the Legacy Ekso business was designated as “held for sale.”   Competition   We operate in a competitive market for the development and operation of data centers serving HPC and AI workloads. Competition centers on securing and developing sites with access to large-scale, reliable, and cost-competitive power and interconnection; designing and delivering facilities capable of supporting high-density compute; attracting and retaining customers; and accessing capital on attractive terms.   We compete with established data center owners and operators, including Digital Realty Trust, Inc. and Equinix, Inc., as well as hyperscalers that develop their own capacity, independent and private data center developers, and other power-advantaged developers, including companies that have expanded from blockchain hosting into HPC infrastructure, such as IREN Limited, Cipher Digital Inc., TeraWulf Inc., Hut 8 Corp., Riot Platforms, Inc., CleanSpark, Inc., HIVE Digital Technologies Ltd., Core Scientific, Inc., Bitdeer Technologies Group, Galaxy Digital Inc., Fermi Inc., Keel Infrastructure Corp, and MARA Holdings, Inc. Within our legacy Data Center Hosting Business, we compete with other blockchain hosting provid…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "8",
+   "match": "accelerators",
+   "text": "…nd is on track to surpass general office construction. Industry sources project that global demand for data center capacity could triple by 2030, while the U.S. Department of Energy projects that the grid will require approximately 100 GW of new capacity by 2030—roughly half of it driven by data centers—and the Boston Consulting Group estimates a U.S. data center power shortfall that could exceed 45 GW by 2030. At the same time, rising rack power densities driven by successive generations of AI accelerators are pushing critical IT loads beyond the levels most legacy facilities can support, increasing demand for the purpose-built, high-density, liquid-cooled capacity we develop.   We believe the data center industry is poised for significant growth, driven by the rapid adoption of digital technologies across all sectors. As businesses prioritize digital transformation, the demand for data center infrastructure is expected to increase substantially. Companies require robust, reliable and scalable solutions to process, analyze and store vast amounts of data in real-time, and data centers play a crucial role in meeting these needs.   Sustainability and energy efficiency are increasingly important considerations in the data center industry. Companies are investing in renewable energy sources, such as solar and wind power, and implementing advanced cooling and power management techno…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "9",
+   "match": "150 MW",
+   "text": "…ized across our campuses, we are able to consolidate purchasing around a common set of trusted, qualified partners—including ABB for electrical equipment, BASX for mechanical and cooling systems, and Caterpillar for backup generation—and to place bulk orders against a multi-gigawatt development pipeline. Combined with prefabricated skids, modular construction, and early procurement of long-lead equipment, this approach supports repeatable build cycles of approximately 12 to 18 months per 100 to 150 MW facility and reduces delivery and schedule risk as we scale.   By proactively managing our supplier relationships, securing necessary materials in advance and closely monitoring market conditions, we aim to minimize the impact of supply chain fluctuations on our operations. This approach enables us to maintain a steady pace of hardware deployments and facility development, ultimately supporting our goal of expanding our HPC capabilities and maximizing shareholder value. However, we rely on a limited number of vendors for certain products and services for our data center facilities, and some of our contracts provide a single source of materials. If any of our key suppliers cannot perform under their contracts or satisfy our orders, it could significantly delay our data center development and operations. While we may be able to engage replacement suppliers, this would likely lead to…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "11",
+   "match": "customer concentration",
+   "text": "…izes a closed-loop design that reduces water waste by recycling water rather than consuming it, addressing a common concern among communities about water usage. As a result, our data centers are designed to operate at a near-zero water usage effectiveness (WUE).   Our environmental focus is centered on disciplined development, efficient operations, and long-term infrastructure stewardship rather than reliance on any single energy source or environmental attribute.   Customers   We have material customer concentration in our Data Center Hosting Business. We currently serve one crypto mining customer with a remaining contract term of one and a half years. We also have material customer concentration in our HPC Hosting Business. We currently have three customers in this business segment, each of which is party to approximately fifteen-year leases with us.   Corporate Information   Our executive office is located at 3811 Turtle Creek Blvd., Suite 2100, Dallas, Texas 75219, and our phone number is (214) 427-1704. Our principal website address is www.applieddigital.com .   We make available free of charge through the Investor Relations link on our website access to press releases and investor presentations, as well as all materials that we file electronically with the Securities and Exchange Commission (\"SEC\"),   11",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "significant customer",
+   "text": "…future or otherwise fail to maintain an effective system of internal controls, any of which may result in material misstatements of our financial statements or cause us to fail to meet our periodic reporting obligations.   • We may be unable to complete our data center campuses in a timely manner or within anticipated cost estimates.   • Delays in lease commencement could adversely affect our financial condition and results of operations.   • Our business has and is expected to continue to have significant customer concentration.   • Our consolidated financial statements include the financial results of ChronoScale.   • Changes in U.S. trade policy, including the imposition of tariffs and the resulting consequences, may have a material adverse impact on our business, operating results, and financial condition.   • We are subject to a highly evolving regulatory landscape and any adverse changes to certain laws or regulations could adversely affect our customers and our business, prospects or operations.   • We could incur significant costs related to environmental matters, including from government regulation, private litigation, and existing conditions at some of our properties.   • Our business depends upon the demand for data centers.   • Any delays or unexpected costs developing our existing space, developable land and newly acquired properties may delay and harm our growth …",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "13",
+   "match": "data centers in remote",
+   "text": "… to attract and retain qualified personnel, could adversely affect our business.   • We may become involved in litigation arising in the ordinary course of our business that may materially adversely affect us.   • Employee disputes or litigation and related unfavorable publicity may negatively affect our future business, financial condition, and operating results.   • We may not be able to compete with other companies, some of which have greater resources and experience.   • We are establishing data centers in remote areas, which may adversely affect our ability to recruit, retain staff and could increase our compensation costs.   Risks Related to Our Industry   • Uncertainty in the global economy and international relations instability and unpredictability, including changes in governmental policies relating to technology, and any potential downturn in the semiconductor and electronics industries, may negatively impact our business.   • We depend on significant customers in our HPC Hosting Business and Data Center Hosting Business.   • The use and continued pace of developments in AI are inherently uncertain. Failure by us to keep up with evolving data center requirements and regulatory frameworks for AI, could have a material adverse effect on our business and financial condition.   • The development and advancement in the efficiency of AI models presents risks and challenges…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "13",
+   "match": "significant customer",
+   "text": "…xperience.   • We are establishing data centers in remote areas, which may adversely affect our ability to recruit, retain staff and could increase our compensation costs.   Risks Related to Our Industry   • Uncertainty in the global economy and international relations instability and unpredictability, including changes in governmental policies relating to technology, and any potential downturn in the semiconductor and electronics industries, may negatively impact our business.   • We depend on significant customers in our HPC Hosting Business and Data Center Hosting Business.   • The use and continued pace of developments in AI are inherently uncertain. Failure by us to keep up with evolving data center requirements and regulatory frameworks for AI, could have a material adverse effect on our business and financial condition.   • The development and advancement in the efficiency of AI models presents risks and challenges that may adversely impact our business and operating results.   Risks Related to Our Securities   • Our stock price has been volatile and may continue to be volatile in the future; this volatility may affect your ability to, and the price at which you could, sell our common stock.   • We have issued, and may in the future, issue new shares of our common stock, which has a dilutive effect on our stockholders.   • If securities or industry analysts do not publis…",
+   "amounts": []
   },
   {
    "kind": "guarantee",
@@ -44,10 +246,87 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "15",
+   "match": "utility",
+   "text": "…g on time and within our cost expectations, we cannot guarantee we will complete these projects on time or within our anticipated cost estimates, if at all.   The build-out of our data center campuses expose us to significant construction risks, including risks related to construction delays; lack of availability of parts and/or labor; increased prices; work stoppages; unanticipated environmental issues and geological problems; delays related to permitting and approvals from public agencies and utility companies; and delays in site readiness, which may lead to our failure to meet commitments, including missing ready for service dates under our   15",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "16",
+   "match": "1.4 GW",
+   "text": "… During fiscal year 2026, this business segment was comprised of one customer accounting for 59% of our total revenue from continuing operations. No other customers accounted for more than 10% of revenue.   This business segment began generating meaningful revenues once the first HPC building within Polaris Forge 1 became operational in fiscal year 2026. As of the date of this report, we have entered into numerous lease agreements with multiple customers for a combined capacity of approximately 1.4 GW. As a result, we expect significant growth in revenue from this segment in the coming years.   Due to the limited number of hyperscalers, we expect that a limited number of customers will continue to account for a high percentage of our revenue for the foreseeable future. The concentration of our customer base increases risks related to the financial condition of our customers, and the deterioration in financial condition of a single customer or the failure of a single customer to perform its obligations could have a material adverse effect on our results of operations and cash flow. If a subset or all of our customers were to experience harm or loss due to unforeseen circumstances, it could negatively impact their businesses. In the event that any of our customers experience a decline in their equipment usage for any reason, or decide to discontinue the use of our facilities, we …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "significant customer",
+   "text": "…nt could adversely affect our financial condition and results of operations.   Under certain circumstances, lessees may have the right to terminate applicable leases if there are significant delays in construction. In the event of a termination, we may not be able to re-lease the applicable data center in a timely or profitable manner. As a result, a lease termination could adversely affect our financial condition and results of operations.   Our business has and is expected to continue to have significant customer concentration .   We generate a large portion of our revenue from a small number of customers. If we were to lose one or more of our large customers, our operating results could suffer dramatically.   HPC Hosting Business   During fiscal year 2026, this business segment was comprised of one customer accounting for 59% of our total revenue from continuing operations. No other customers accounted for more than 10% of revenue.   This business segment began generating meaningful revenues once the first HPC building within Polaris Forge 1 became operational in fiscal year 2026. As of the date of this report, we have entered into numerous lease agreements with multiple customers for a combined capacity of approximately 1.4 GW. As a result, we expect significant growth in revenue from this segment in the coming years.   Due to the limited number of hyperscalers, we expect t…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "significant customer",
+   "text": "…le customer to perform its obligations could have a material adverse effect on our results of operations and cash flow. If a subset or all of our customers were to experience harm or loss due to unforeseen circumstances, it could negatively impact their businesses. In the event that any of our customers experience a decline in their equipment usage for any reason, or decide to discontinue the use of our facilities, we may be compelled to lower our lease prices in some instances or risk losing a significant customer. Such developments could adversely affect our profit margins and financial position, leading to a negative impact on our revenue and operating results.   Data Center Hosting Business   During fiscal year 2026, this business segment was comprised of one customer accounting for 25% of our revenue from continuing operations. No other customers accounted for more than 10% of revenue.   As of the date of this report, we have only one customer in this business segment. As a result of the risks our crypto mining customer faces, it is not possible for us to predict the future level of demand for our services that will be generated by this customer or the future demand for the products and services of this customer. Should this customer suffer from harm or loss due to a set of circumstances, their business could be negatively impacted. Further, although this customer is curre…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "19",
+   "match": "data centers in the",
+   "text": "…ers or result in the loss of one or more key customers. If any of our key customers were to do so, it could result in a loss of business to us or put pressure on our pricing. Mergers or consolidations of technology companies could reduce further the number of our customers and potential customers and make us more dependent on a more limited number of customers. If our customers merge with or are acquired by other entities that are not our customers, they may discontinue or reduce the use of our data centers in the future. Our financial condition, results of operations, cash flow, cash available for distribution and ability to satisfy our debt service obligations could be materially adversely affected as a result of any or all of these factors.   Any delays or unexpected costs developing our existing space, developable land and newly acquired properties may delay and harm our growth prospects, future operating results and financial condition.   We are currently in the process of constructing numerous data center campuses and we may in the future continue to build out additional HPC hosting facilities on a speculative basis at significant cost. Our successful development of our announced campuses and future projects is subject to many risks, including those associated with:   • delays in construction, or changes to the plans or specifications;   • financing availability, includin…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "20",
+   "match": "utility",
+   "text": "• delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • budget overruns, increased prices for raw materials or building supplies, or lack of availability and/or increased costs for specialized data center components, including long lead time items such as generators;   • construction site accidents and other casualties;   • labor availability, costs, disputes and work stoppages with contractors, subcontractors or others that are constructing the project;   • failure of contractors to perform on a timely basis or at all, or other misconduct on the part of contractors;   • access to sufficient power and related costs of providing such power to our customers;   • environmental issues;   • supply chain constraints;   • fire, flooding, earthquakes and other natural disasters;   • pandemics; and   • geological, construction, excavati…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "20",
+   "match": "utility",
+   "text": "…d from operating these data centers was responsible for the majority of our revenue in the fiscal years ended May 31, 2026, 2025, and 2024. Consequently, our business operations and financial condition are particularly reliant on the performance of these data centers, which are all located in North Dakota.   As a result of the concentrated nature of our operations in this state, the operation of our business is particularly exposed to the regulatory framework, including but not limited to state utility permitting regulations, and changes in the regulatory environment, market conditions and natural disasters in the state, any of which may cause delays in the construction and operation of our data center facilities or prevent us from executing on our expansion strategy.   We may be unable to lease vacant or development space, renew leases, or re-lease space as leases expire.   We intend to continue to add new space to our development inventory and to continue to develop additional space from this inventory. A portion of the space that we develop has been, and may continue to be, developed on a speculative basis, meaning that we do not have a signed customer agreement for the space when we begin the development process. We also develop space specifically for customers pursuant to agreements signed prior to the beginning of the development process. In those cases, if we fail to mee…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "21",
    "match": "guarantee",
    "text": "…h and retention of a diverse and balanced customer base and adversely affect our business, financial condition and results of operations.   We are continuing to invest in our expansion efforts but may not have sufficient customer demand in the future to realize expected returns on these investments.   We expect to continue to expand our data center footprint. In connection with our expansion plans, we may be required to commit significant operational and financial resources, but there can be no guarantee we will have sufficient customer demand in those markets to support the data centers once they are built. This risk may be greater in a market where we have not operated previously. Once development of a data center facility is complete, we incur certain operating expenses even if there are no customers occupying any space. Consequently, if any of our properties have significant vacancies for an extended period of time, our results of operations and business and financial condition will be adversely affected, the impact of which could be material. In addition, unanticipated technological changes could affect customer requirements for data centers, and we may not have built such requirements into our new data centers. If any of these developments or contingencies were to occur, it could make it difficult for us to realize expected or reasonable returns on our investments.   Our …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "22",
+   "match": "power capacity",
+   "text": "…ess, financial condition and results of operations.   We depend upon third-party suppliers for power, and we are vulnerable to service failures and price increases by such suppliers and to volatility in the supply and price of power in the open market.   We rely on third parties to provide power to our data centers, and we cannot ensure that these third parties will deliver such power in adequate quantities or on a consistent basis. We are also reliant on third parties to deliver the additional power capacity required to support the growth of our business. If the amount of power available to us is inadequate to support our customer requirements, we may be unable to satisfy our obligations to our customers or grow our business. In addition, our data centers may be susceptible to power shortages and planned or unplanned power outages caused by these shortages. Power outages may last beyond our backup and alternative power arrangements, which would harm our customers and our business. Any loss of services or equipment damage could adversely affect both our ability to generate revenues and our operating results, harm our reputation and potentially lead to customer disputes or litigation.   In addition, we may be subject to risks and unanticipated costs associated with obtaining power from various utility companies. Utilities that serve our data centers may be dependent on, and sens…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "22",
+   "match": "utility",
+   "text": "…ed or unplanned power outages caused by these shortages. Power outages may last beyond our backup and alternative power arrangements, which would harm our customers and our business. Any loss of services or equipment damage could adversely affect both our ability to generate revenues and our operating results, harm our reputation and potentially lead to customer disputes or litigation.   In addition, we may be subject to risks and unanticipated costs associated with obtaining power from various utility companies. Utilities that serve our data centers may be dependent on, and sensitive to price increases for, a particular type of fuel, such as natural gas, coal or nuclear. In addition, the price of these fuels and the total cost of delivered electricity could increase as a result of: regulations intended to regulate carbon emissions and other pollutants, ratepayer surcharges related to recovering the cost of extreme weather events and natural disasters, geopolitical conflicts, military conflicts, grid modernization charges, as well as other charges borne by ratepayers. Increases in the cost of power at any of our data centers could put those locations at a competitive disadvantage relative to data centers that are supplied power at a lower price.   We have also entered into power purchase agreements with contract terms ranging from 4 to 5 years. These agreements require us to pu…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "22",
+   "match": "power purchase agreement",
+   "text": "…ut those locations at a competitive disadvantage relative to data centers that are supplied power at a lower price.   We have also entered into power purchase agreements with contract terms ranging from 4 to 5 years. These agreements require us to purchase renewable energy and/or renewable energy credits from producers at fixed prices over the terms of the contracts, subject to certain adjustments. In the event that the market price for energy decreases, we may be required to pay more under the power purchase agreements than we would otherwise if we were to purchase renewable energy credits on the open market, which could adversely affect our results of operations. Additionally, interruptions in the operations of one or more of the suppliers under these agreements, as a result of extreme weather events, natural disasters or otherwise, could negatively impact the quantity of renewable energy credits delivered to us. In particular, disruptions in the oil and gas and electric power markets have caused, and could continue to cause, significant increases in energy prices, which could have a material effect on our business.   Any failure of our physical or information technology or operational technology infrastructure or services could lead to significant costs and disruptions.   Our business depends on providing customers with highly reliable services, including with respect to pow…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "23",
+   "match": "data centers in order",
+   "text": "…erially and adversely impair our results of operations.   We depend on third parties to provide network connectivity to the customers in our data centers and any delays or disruptions in connectivity may materially adversely affect our operating results and cash flow.   We are not a telecommunications carrier. Although our customers generally are responsible for providing their own network connectivity, we still depend upon the presence of telecommunications carriers’ fiber networks serving our data centers in order to attract and retain customers. We believe that the availability of carrier capacity will directly affect our ability to achieve our projected results. Any carrier may elect not to offer its services within our data centers. Any carrier that has decided to provide network connectivity to our data centers may not continue to do so for any period of time. Further, some carriers are experiencing business difficulties or have announced consolidations. As a result, some carriers may be forced to downsize or terminate connectivity within our data centers, which could have an adverse effect on the business of our customers and, in turn, our own operating results.   Our data centers may require construction and operation of a sophisticated redundant fiber network. The construction required to connect multiple carrier facilities to our data centers is complex and involves f…",
    "amounts": []
   },
   {
@@ -72,10 +351,45 @@
    "amounts": []
   },
   {
+   "kind": "properties",
+   "page": "28",
+   "match": "data centers in remote",
+   "text": "…iaries from making improper payments to government officials for the purpose of obtaining or generating business. We cannot provide assurance that our internal controls and procedures will protect us from reckless or criminal acts that may be committed by our employees or third parties with whom we work. If we are found to be liable for violations of the FCPA or similar anti-corruption laws in international jurisdictions, criminal or civil penalties could be imposed on us.   We are establishing data centers in remote areas, which may adversely affect our ability to recruit and retain staff and could increase our compensation costs.   As we are establishing data centers in areas with lower populations, recruiting and retaining the necessary staff to operate our locations may pose a challenge.   We have data centers in North Dakota, with an estimated population of approximately 797,000, as well as data centers under construction in rural areas of other states. As a result of the relatively low populations in these areas, the pool of available employees is limited. In addition, some employers have offered significantly higher wages in order to fill vacant positions. This may adversely affect our ability to attract and retain qualified personnel and may increase our employee costs if we have to increase the compensation we pay in response to the market.   28",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "29",
+   "match": "significant customer",
+   "text": "…ncial markets and rising interest rates like we are currently experiencing could affect our ability to access the capital markets at a time when we desire, or need, to do so which could have an impact on our flexibility to pursue additional expansion opportunities and maintain our desired level of revenue growth in the future.   Our efforts to mitigate the risks associated with these adverse conditions may not be successful and our business and growth could be adversely affected.   We depend on significant customers for our data centers.   Many factors, including global economic conditions, may cause our AI factory customers to experience a downturn in their businesses or otherwise experience a lack of liquidity, which may weaken their financial condition and impact our estimates as to the probability of collectability of payments, and ultimately result in their failure to make timely rental and other payments or their default under their agreements with us. Further, the development of new technologies, the adoption of new industry standards or other factors could render our AI factory customers’ current products and services obsolete or unmarketable and contribute to a downturn in their businesses, thereby increasing the likelihood that they default under their leases, become insolvent or file for bankruptcy. If a customer defaults or fails to make timely rent or other payment…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "30",
+   "match": "significant customer",
+   "text": "Our claim against the customer for unpaid, future rent and other payments could be subject to a statutory cap that might be substantially less than the remaining amounts actually owed under their agreements with us. In either case, our claim for unpaid rent and other amounts would likely not be paid in full. Our revenue could be materially adversely affected if a significant customer were to become bankrupt or insolvent, suffer a downturn in its businesses, fail to renew its contract or renew on terms less favorable to us than its current terms.   The use and continued pace of developments in AI are inherently uncertain. Failure by us to keep up with evolving data center requirements and regulatory frameworks for AI, could have a material adverse effect on our business and financial condition.   AI has been developing at a rapid pace, and continues to evolve and change. As demand continues for AI services, our prospective tenants have sought increased power and compute capacity to enable advancements in AI models and service the demands of end users. We cannot predict whether additional electric and computing power will continue to be required to develop larger, more powerful AI models, or if the practical limits of AI will stagnate in the future…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "34",
    "match": "guarantee",
    "text": "…on, we would not be able to pay our debts as they become due in the usual course of business or our total assets would be less than the sum of our total liabilities plus, unless the terms of such class or series provide otherwise, the amount that would be needed to satisfy the preferential rights upon dissolution of the holders of shares of any class or series of preferred stock then outstanding, if any, with preferences senior to those of the Series E and E-1 Preferred Stock.   There can be no guarantee that we will have sufficient funds available to meet these obligations. As a result, if it becomes necessary for us to issue and sell to the holders an aggregate number of shares that would exceed 19.99% of the outstanding shares of common stock , then before we could issue any shares of common stock in excess of such limit , we would also need to obtain the requisite stockholder approval.   The redemption of the Series E Preferred Stock and Series E-1 Preferred Stock could adversely affect our business, financial position, and results of operations, in the event our assets are not sufficient to meet our redemption obligations.   The Convertible Notes may adversely affect the market price of our common stock.   The market price of our common stock is likely to be influenced by our 2.75% Convertible Senior Notes due 2030 (the “Convertible Notes”). For example, the market price o…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "37",
+   "match": "Item 2. Properties",
+   "text": "…pdates to the Audit Committee on our cybersecurity risk management program, including updates on (1) any critical cybersecurity risks; (2) ongoing cybersecurity initiatives and strategies; (3) applicable regulatory requirements; and (4) industry standards. The Risk Management Committee also notifies the Board of any significant and/or material cybersecurity incidents (suspected or actual) and provides updates on the incidents as well as cybersecurity risk mitigation activities as appropriate.   Item 2. Properties   We lease office space located in Dallas, Texas for our principal offices. In addition, we lease office and warehouse space in Irving, Texas to support our operations.   We own our Polaris Forge and Delta Forge data centers, including the land on which such data centers are located in North Dakota and Louisiana. See Item 1. Business for further descriptions of our facilities and sites.   ChronoScale leases office space in Menlo Park, California for its principal offices. ChronoScale also leases data center colocation space in Colorado, Utah, and Minnesota to support its operations.   We believe that our leased and owned facilities are adequate to support our near-term business needs and that should it be needed, suitable additional or alternative space will be available to support our operations.   Item 3. Legal Proceedings   From time to time, we may become involved …",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "38",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in these actions. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   As of May 31, 2026, there were no other pending or threatened lawsuits that could reasonably be expected to have a material adverse effect on the results of the Company’s consolidated operations. There are also no legal proceedings in which any of the Company's management or affiliates is an adverse party or has a material interest adverse to the Company's interest.   Item 4. Min…",
    "amounts": []
   },
   {
@@ -97,6 +411,114 @@
    "page": "42",
    "match": "guaranteed",
    "text": "…ave from the ELN-03 Lease. In addition, CoreWeave also provided an Unconditional Springing Guaranty of Payment and Performance in connection with CoreWeave SPV’s obligations under the ELN-03 Lease, similar to the ELN-02 Guaranty.   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in the calendar year 2026 and reaching full capacity in early calendar year 2027. On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S.-based investment-grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   42",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "100MW",
+   "text": "…d Business Combination, the Company (on an aggregate basis with Contributor), owned approximately 97% of the issued and outstanding equity of ChronoScale.   Business Update   HPC Hosting Business   Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   We recently commenced operations at our first HPC data center at our Polaris Forge 1 campus with 100MW of capacity. We continue building our second HPC data center at Polaris Forge 1 to provide an additional 150MW of capacity. These facilities are being designed and purpose-built to host high-density graphics processing unit architecture or other HPC applications, such as artificial intelligence, natural language processing, machine learning, and additional HPC developments. Our third HPC focused data center facility at Polaris Forge 1, which is expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in calendar year 2027.   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (the “ELN-02 Lease” and the “ELN-03 Lease”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forg…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "100 MW",
+   "text": "… expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in calendar year 2027.   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (the “ELN-02 Lease” and the “ELN-03 Lease”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The ELN-02 Lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the ELN-03 Lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective lease to which such subsidiary is a party.   On March 30, 2026, the Company and CoreWeave amended the ELN-02 Lease to suspend the term for two of the four data halls covered by the lease (the “ELN-02 Lease Amendment”) and the Company entered into a new datacenter lease with CoreWeave Compute Acquisition Co. VIII, LLC (“CoreWeave SPV”), a wholly owned subsidiary of CoreWeave, for those two data halls on substantially the same terms as the ELN-02 Lease (the “ELN-02 SPV Lease”). The ELN-02 SPV Lease is conterminous with the initial term of the ELN-02 Lease. Upon the expiration or earlier termination of the ELN-02 SPV …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "42",
+   "match": "150 MW",
+   "text": "…ions under the ELN-03 Lease to CoreWeave SPV for the remaining term of the ELN-03 Lease and releasing CoreWeave from the ELN-03 Lease. In addition, CoreWeave also provided an Unconditional Springing Guaranty of Payment and Performance in connection with CoreWeave SPV’s obligations under the ELN-03 Lease, similar to the ELN-02 Guaranty.   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in the calendar year 2026 and reaching full capacity in early calendar year 2027. On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S.-based investment-grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to com…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "43",
+   "match": "300 MW",
+   "text": "On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during calendar year 2027. On May 20, 2026, a different subsidiary of the Company entered into a data center lease with the same U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI and HPC infrastructure at Polaris Forge 3. Initial operations at Polaris Forge 3 are anticipated to commence during calendar year 2027.   We began to generate reve…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "43",
+   "match": "106 MW",
+   "text": "…ended May 31, 2026, with $270.6 million related to services revenue and $114.7 million related to data center rental and other revenue.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements. We currently serve one crypto mining customer with a remaining contractual term of one and a half years. As of May 31, 2026, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue to operate at full capacity.   We recognized $154.4 million, $144.2 million, and $136.6 million in revenue from this business segment during the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024 respectively.   ChronoScale   On May 5, 2026, we completed the separation of our cloud business in a series of transactions that resulted in the Company owning approximately 97% of the issued and outstanding equity of ChronoScale Corporation (\"ChronoScale\"). ChronoScale owns and operates our historic cloud business and is consolidated into our financial statements. The common stock of ChronoScale began trading on the Nasdaq Capital Market under the symbol “CHRN” on May 5, 2026.   ChronoScale's cloud business currently operates in three states: Colorado, Minnesota and Utah. This bus…",
+   "amounts": [
+    {
+     "raw": "$154.4 million",
+     "usdM": 154.4
+    },
+    {
+     "raw": "$144.2 million",
+     "usdM": 144.2
+    },
+    {
+     "raw": "$136.6 million",
+     "usdM": 136.6
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "43",
+   "match": "campus located",
+   "text": "On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during calendar year 2027. On May 20, 2026, a different subsidiary of the Company entered into a data center lease with the same U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI and HPC infrastructure at Polaris Forge 3. Initial operations at Polaris Forge 3 are anticipated to commence during calendar year 2027.   We began to generate revenue from this business s…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "44",
+   "match": "campus in",
+   "text": "…of Series G Preferred Stock that have been or will be converted will be retired and resume the status of authorized but unissued shares.   On September 11, 2025, we entered into the second amendment (the “Second Amendment”) to the PEPA, dated April 30, 2025, by and between us and the investors signatory thereto, as amended by the First Amendment, dated August 14, 2025 in order to increase our access to capital to fund the continued construction and development of our Polaris Forge 1 data center campus in Ellendale, North Dakota and other general corporate purposes.   The Second Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of Series G Preferred Stock from $300 million to $450 million. Concurrent with the Second Amendment, the   Company filed an amendment to the Certificate of Designations to increase the number of shares authorized for issuance as Series G Preferred Stock from 156,000 to 204,000 shares.   On September 25, 2025, the Company filed an amendment (the “Third CoD Amendment”) to the Series G Certificate of Designation, originally filed with the Secretary of State of the State of Nevada on April 30, 2025, as amended. The Third CoD Amendment amended the Series G Certificate of Designation, as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from…",
+   "amounts": [
+    {
+     "raw": "$300 million",
+     "usdM": 300
+    },
+    {
+     "raw": "$450 million",
+     "usdM": 450
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "44",
+   "match": "data center in Ellendale",
+   "text": "…as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from $12.50.   On October 7, 2025, the Company entered into the third amendment (the “Third Amendment”) to the PEPA, dated April 30, 2025, by and between the Company and the investors signatory thereto, as amended by the First Amendment and the Second Amendment, in order to increase its access to capital to fund the continued construction and development of its Polaris Forge I data center in Ellendale, North Dakota. The Third Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of the Series G Preferred Stock from 450.0 million to 590.0 million.   On October 14, 2025, the Company filed a fourth amendment (the “Fourth CoD Amendment”) to the Series G Certificate of Designation, as amended. The Fourth CoD Amendment amended the Series G Certificate of Designation, as amended, which increased the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $34.00 from $22.00. On October 21, 2025, the Company entered into the fourth amendment (the “Fourth Amendment”) to the PEPA in order to increase its access to capital to fund the continued construction and development of its Polaris Forge 1 and Polaris Forge 2   44",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "45",
+   "match": "data centers in Ellendale",
+   "text": "data centers in Ellendale and Harwood, North Dakota, as well as general working capital purposes and for transaction expenses.   The Fourth Amendment amended the PEPA to, among other things: (i) increase the aggregate commitment amount of the shares of Series G Preferred Stock, from $590.0 million to $1.59 billion; (ii) subject to waiver by a majority-in-interest of the investors, (a) set the maximum put issuance amount to $75.0 million per issuance, (b) set the limit to one put issuance per seven (7) business day period, and (c) set the maximum aggregate stated value of Series G Preferred Stock outstanding at any one time to $75.0 million; (iii) increase the original discount from 2% to 3%; (iv) eliminate the placement agent fee; and (v) eliminate the prohibition on Variable Rate Transactions (as defined in the PEPA). On October 21, 2025, in connection with the entry into the Fourth Ame…",
+   "amounts": [
+    {
+     "raw": "$590.0 million",
+     "usdM": 590
+    },
+    {
+     "raw": "$1.59 billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "47",
+   "match": "200 MW",
+   "text": "…eing capitalized to principal monthly and at such other times as may be specified in the MEC Promissory Note. After the PIK Period, accrued interest will be paid in cash, provided that (i) the Post-Default Rate interest is payable in cash on demand and (ii) accrued interest on any principal amount repaid or prepaid is payable on the date of such repayment or prepayment. The MEC Promissory Note matures on the earliest of (i) the date of acceleration of the MEC Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027. The MEC Loan will accelerate and we must mandatorily prepay the full outstanding principal balance of the MEC Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (90) days following the occurrence of the 200 MW Lease Execution, and (c) within thirty (30) days following a Qualifying Preference Share Issuance (as defined therein).   We may voluntarily prepay all or part of the MEC Promissory Note at any time with no less than three (3) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with resp…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "47",
+   "match": "campus in",
+   "text": "…s sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10x return hurdle applies to repayment at maturity. Amounts repaid under the MEC Promissory Note will not be available to be re-borrowed.   Proceeds of the MEC Loan under the MEC Promissory Note were used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, North Dakota (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   47",
    "amounts": []
   },
   {
@@ -140,6 +562,13 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "49",
+   "match": "electric service agreement",
+   "text": "…e 2031 6.750% Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 6.750% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 6.750% Notes Offering. The gross proceeds from the 2031 6.750% Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. On June 18, 2026, the escrow release condition was satisfied, and the escrowed funds were released into the project accounts to fund the development and construction of the facilities.   Bridge Facility   On May 1, 2026, APLD ComputeCo 3 LLC (\"APLD ComputeCo 3\"), a subsidiary of the Company, and APLD ComputeCo 3's wholly owned subsidiaries as subsidiary guarantors entered into a Credit and Guaranty Agreement with Goldman Sachs Bank USA, as administrative agent and as collateral agent (in such capacity, the “Bridge Facility Collateral Agent”) and the Lenders party thereto, providing for a bridge loan facility in an aggregate principal amount of $300 million (the “Bridge Facility”).   49",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "50",
    "match": "guarantee",
@@ -164,6 +593,326 @@
      "usdM": 150
     }
    ]
+  },
+  {
+   "kind": "capacity",
+   "page": "51",
+   "match": "210 MW",
+   "text": "Delta Forge 2 Lease   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $1.59 Billion Senior Secured Notes due 2031   On June 16, 2026, APLD ComputeCo 3 refinanced the Bridge Facility with the closing of a $1.59 billion offering (the “2031 7.000% Notes Offering”) of 7.000% senior secured notes due 2031 (the “2031 7.000% Notes”) at an issue price of 100.000% of par. The 2031 7.000% Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000% Notes will amortize on…",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$1.59 Billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "51",
+   "match": "campus located",
+   "text": "Delta Forge 2 Lease   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $1.59 Billion Senior Secured Notes due 2031   On June 16, 2026, APLD ComputeCo 3 refinanced the Bridge Facility with the closing of a $1.59 billion offering (the “2031 7.000% Notes Offering”) of 7.000% senior secured notes due 2031 (the “2031 7.000% Notes”) at an issue price of 100.000% of par. The 2031 7.000% Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000% Notes will amortize on a semi-annual basis on …",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$1.59 Billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "53",
+   "match": "Related party",
+   "text": "Results of Operations   Results of Operations for the fiscal year ended May 31, 2026 compared to fiscal years ended May 31, 2025 and May 31, 2024   The following table sets forth key components of the results of operations (in thousands) during the fiscal years ended May 31, 2026, 2025, and 2024.   Fiscal Year Ended   May 31, 2026 May 31, 2025 May 31, 2024   Revenues:   Services revenue $ 496,609 $ 226,643 $ 150,814   Data center rental and other revenue 114,702 — —   Related party revenue — 1,926 14,761   Total revenue 611,311 228,569 165,575   Costs and expenses:   Services cost of revenue 396,858 216,759 148,340   Data center rental and other cost of revenue 56,771 — —   Selling, general and administrative (1)   332,096 107,877 97,776   Loss (gain) on classification as held for sale (2)   59,650 (24,616) 15,417   Loss on abandonment of assets 2,398 724 —   Loss from legal settlement — — 2,380   Total costs and expenses 847,773 300,744 263,913   Operating loss (236,462) (72,175) (98,338)   Interest expense, net (3)   29,516 32,139 27,517   Gain on change in fair value of derivatives (75,818) — —   Gain on change in fair value of investments (10,840) — —   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on extinguishment of debt — 1,177 —…",
+   "amounts": [
+    {
+     "raw": "$ 496,609 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 226,643 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 150,814   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "53",
+   "match": "related party",
+   "text": "… 2,380   Total costs and expenses 847,773 300,744 263,913   Operating loss (236,462) (72,175) (98,338)   Interest expense, net (3)   29,516 32,139 27,517   Gain on change in fair value of derivatives (75,818) — —   Gain on change in fair value of investments (10,840) — —   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on change in fair value of warrants 2,212 6,421 —   Loss on change in fair value of related party warrants — — 5,696   Net loss from continuing operations before income tax expenses (181,532) (230,963) (149,575)   Income tax expense 1,787 102 96   Net loss from continuing operations (183,319) (231,065) (149,671)   Net loss from discontinued operations (1,020) — —   Net loss (184,339) (231,065) (149,671)   Net loss attributable to noncontrolling interest and redeemable noncontrolling interest (59,665) — (397)   Preferred dividends (6,259) (2,615) —   Net loss attributable to common stockholders $ (250,263) $ (233,680) $ (149,274)   Net loss attributable to common stockholders   Continuing operations $ (249,243) $ (233,680) $ (149,274)   Discontinued operations (1,020) — —   Net loss $ (250,263) $ (233,680) $ (149,274)   53",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "54",
+   "match": "related party",
+   "text": "…mmon stockholders $ 36,076 $ (12,458) $ (13,052)   Adjusted net income (loss) from continuing operations attributable to common stockholders per diluted share $ 0.11 $ (0.06) $ (0.11)   Other Financial Data (4)   EBITDA $ (65,540) $ (126,204) $ (35,095)   as a percentage of adjusted revenue (11)% (55)% (21)%   Adjusted EBITDA $ 107,229 $ 19,628 $ 21,922   as a percentage of adjusted revenue 18% 9% 13%   Net operating income $ 90,388 $ — $ —   Net operating income margin 91% —% —%   (1) Includes related party selling, general and administrative expense of $0.3 million, $0.3 million, and $0.6 million for the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024 respectively.   (2) For the fiscal year ended May 31, 2026, amount includes a loss on classification of held for sale of $59.7 million representing the write down of the cloud business assets to their carrying value as of February 15, 2026 when it no longer qualified as held for sale. For the fiscal year ended May 31, 2025, amount includes $25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released. The fiscal year ended May 31, 2024 includes $15.4 million loss on classification of held for sale related to the sale of the Garden City facility.   (3) For the fiscal year ended May 31, 2026, amount includes related part…",
+   "amounts": [
+    {
+     "raw": "$ 107,229 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 19,628 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 21,922   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 90,388 ",
+     "usdM": null
+    },
+    {
+     "raw": "$0.3 million",
+     "usdM": 0.3
+    },
+    {
+     "raw": "$0.3 million",
+     "usdM": 0.3
+    },
+    {
+     "raw": "$0.6 million",
+     "usdM": 0.6
+    },
+    {
+     "raw": "$59.7 million",
+     "usdM": 59.7
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "54",
+   "match": "related party",
+   "text": "…r ended May 31, 2025, amount includes $25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released. The fiscal year ended May 31, 2024 includes $15.4 million loss on classification of held for sale related to the sale of the Garden City facility.   (3) For the fiscal year ended May 31, 2026, amount includes related party income of $0.1 million. For the fiscal year ended May 31, 2024, amount includes related party interest expense of $5.7 million.   (4) Adjusted Amounts and Other Financial Data are non-GAAP performance measures. A reconciliation of reported amounts to adjusted amounts can be found in the \"Non-GAAP Measures and Reconciliation\" section of Management's Discussion and Analysis.   Commentary on Results of Operations for the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025   Revenues   Services revenue increased $270.0 million, or 119%, from $226.6 million for the fiscal year ended May 31, 2025 to $496.6 million for the fiscal year ended May 31, 2026. Our HPC Hosting Business commenced operations during the current fiscal year with the first HPC data center at our Polaris Forge 1 campus resulting in the recognition of approximately $270.6 million related to tenant fit-out services. Additionally, there was an increase of $12.1 million in revenue…",
+   "amounts": [
+    {
+     "raw": "$0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$5.7 million",
+     "usdM": 5.7
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "55",
+   "match": "Related party",
+   "text": "Data center rental and other revenue was $114.7 million for the fiscal year ended May 31, 2026, which is the period during which our HPC Hosting Business commenced operations. This revenue consisted of approximately $99.8 million related to base rent and $14.9 million related to tenant recoveries.   Related party revenue decreased $1.9 million, or 100%, from $1.9 million for the fiscal year ended May 31, 2025 to no related party revenue recognized for the fiscal year ended May 31, 2026, driven by certain related parties terminating their contracts during the first fiscal quarter of fiscal year 2025.   Cost of revenues   Services cost of revenue increased by $180.1 million, or 83%, from $216.8 million for the fiscal year ended May 31, 2025 to $396.9 million for the fiscal year ended May 31, 2026. The increase was due to the following changes:   • approximately $258.1 million in expenses associated with tenant fit-out services for our HPC Hosting Business which we began providing during the current fiscal year;   • approximately $2.1 million increase in energy costs associated with our Data Center Hosting Business; and   • approximately $1.0 million increase in other expenses directly…",
+   "amounts": [
+    {
+     "raw": "$99.8 million",
+     "usdM": 99.8
+    },
+    {
+     "raw": "$14.9 million",
+     "usdM": 14.9
+    },
+    {
+     "raw": "$1.9 million",
+     "usdM": 1.9
+    },
+    {
+     "raw": "$1.9 million",
+     "usdM": 1.9
+    },
+    {
+     "raw": "$180.1 million",
+     "usdM": 180.1
+    },
+    {
+     "raw": "$216.8",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "56",
+   "match": "related party",
+   "text": "… assets related to the preferred units and corresponding common units held by APLD HPC TopCo 2’s noncontrolling interest. There was no such gain recorded in the prior fiscal year.   Gain on change in fair value of investments   Gain on change in fair value of investment was $10.8 million for the fiscal year ended May 31, 2026, due to an increase of $8.8 million in fair value of our investment in BWE common stock and an increase of $2.0 million in fair value of our investment in Base Electron, a related party. There was no such gain recorded in the prior fiscal year.   Loss on extinguishment of debt   Loss on extinguishment of debt was $1.2 million for the fiscal year ended May 31, 2025, due to unamortized loan issuance costs related to the Macquarie Promissory Note that was repaid in the fiscal year ended May 31, 2025. There was no such loss recorded in the current fiscal year.   Loss on conversion of debt   Loss on conversion of debt was $33.6 million for the fiscal year ended May 31, 2025, due to the difference in the fair value compared to the price at which the promissory notes, totaling $92.1 million, entered into with YA II PN, LTD in the year ended May 31, 2024 (the “YA Notes\") were converted. There was no such loss recorded in the current fiscal year.   Loss on change in fair value of debt   Loss on change in fair value of debt was $85.4 million for the fiscal year ende…",
+   "amounts": [
+    {
+     "raw": "$10.8 million",
+     "usdM": 10.8
+    },
+    {
+     "raw": "$8.8 million",
+     "usdM": 8.8
+    },
+    {
+     "raw": "$2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$1.2 million",
+     "usdM": 1.2
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "58",
+   "match": "related party",
+   "text": "… and amortization, loss on legal settlement, restructuring expenses and other non-recurring expenses that management believes are not representative of our expected ongoing costs. Adjusted net income (loss) is Adjusted operating income further adjusted for interest expense directly attributable to ChronoScale, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on change in fair value of warrants, loss on change in fair value of warrants issued to related parties, loss on extinguishment of debt and loss on extinguishment of related party debt. We define “Adjusted net income (loss) per diluted share” as Adjusted net income (loss) divided by weighted average diluted share count.   EBITDA and Adjusted EBITDA   “EBITDA” is defined as earnings before interest expense, net, income tax expense, and depreciation and amortization and excluding results of ChronoScale. “Adjusted EBITDA” is defined as EBITDA adjusted for stock-based compensation, non-   58",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "59",
+   "match": "related party",
+   "text": "recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, (gain) loss on classification as held for sale, loss on abandonment of assets, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on change in fair value of warrants, loss on change in fair value of warrants issued to related parties, loss on extinguishment of debt and loss on extinguishment of related party debt, loss on legal settlement, restructuring expenses, and other non-recurring expenses that management believes are not representative of our expected ongoing costs.   Net Operating Income   \"Net Operating Income\" is a non-GAAP financial measure that represents base rental revenue from the HPC Hosting Business. Net Operating Income is HPC Hosting Business base rental revenue less rental property operating expenses, property taxes, and property insurance expenses. \"Net Operating Income Margin\" is defined as Net Operating Income divided by HPC Hosting Business base rental revenue.   Reconciliation of GAAP to Non-GAAP Measures   Fiscal Year Ended   $ in thousands May 31, 2026 May 31, 202…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "60",
+   "match": "related party",
+   "text": "(Gain) loss on classification as held for sale — (24,616) 15,417   Accelerated depreciation and amortization (4)   — 45 4,307   Gain on change in fair value of derivatives (75,818) — —   Gain on change in fair value of investments (10,840) — —   Loss on conversion of debt   — 33,612 —   Loss on change in fair value of debt   — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on change in fair value of warrants   2,212 6,421 —   Loss on change in fair value of warrants issued to related parties   — — 5,696   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on legal settlement — — 2,380   Restructuring expenses (5)   1,469 711 —   Other non-recurring expenses (6)   5,219 627 169   Adjusted net income (loss) from continuing operations (Non-GAAP) $ 36,076 $ (12,458) $ (13,052)   Diluted weighted average number of shares outstanding (Non-GAAP) (7)   318,968,163 201,194,451 114,061,414   Adjusted net income (loss) from continuing operations per diluted share (Non-GAAP) $ 0.11 $ (0.06) $ (0.11)   EBITDA and Adjusted EBITDA   Net loss from continuing operations (GAAP) $ (183,319) $ (231,065) $ (149,671)   Operating loss from ChronoScale 37,043 55,331 65,486   Interest expense…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "60",
+   "match": "related party",
+   "text": "…4   Diligence, acquisition, disposition and integration expenses (2)   27,938 17,269 5,545   Litigation expenses (3)   1,179 1,389 1,589   (Gain) loss on classification as held for sale — (24,616) 15,417   Loss on abandonment of assets 1,799 1,138 —   Gain on change in fair value of derivatives (75,818) — —   Gain on change in fair value of investments (10,840) — —   Loss on conversion of debt   — 33,612 —   Loss on change in fair value of debt   — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on change in fair value of warrants   2,212 6,421 —   Loss on change in fair value of warrants issued to related parties   — — 5,696   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on legal settlement — — 2,380   Restructuring expenses (5)   1,469 711 —   Other non-recurring expenses (6)   5,219 627 169   60",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "64",
+   "match": "related parties",
+   "text": "…ear.   Investing Activities   The net cash used in investing activities increased by $2.3 billion, or 340%, from $667.7 million for the fiscal year ended May 31, 2025 to $2.9 billion for the fiscal year ended May 31, 2026. This increase was primarily due to an increase of approximately $2.2 billion in investments in property and equipment during the fiscal year ended May 31, 2026 as our payments in the current period for construction related expenses increased as well as an increase in loans to related parties and investments in other companies. Additionally, there were less proceeds from the sale of assets during the fiscal year ended May 31, 2026, compared to the fiscal year ended May 31, 2025 to offset the increase in cash used in investing activities.   Financing Activities   The net cash provided by financing activities increased by $6.0 billion, or 686%, from $874.7 million for the fiscal year ended May 31, 2025 to $6.9 billion for the fiscal year ended May 31, 2026. The primary reason for the change was an increase in the net borrowings of long-term debt of $4.1 billion and a capital contribution from our noncontrolling interest partners of $1.8 billion. Also contributing to the increase was an increase in the net proceeds from offerings of our common and preferred stock of $627.8 million during the fiscal year ended May 31, 2026. These increases were partially offset by…",
+   "amounts": [
+    {
+     "raw": "$2.2 billion",
+     "usdM": 2200
+    },
+    {
+     "raw": "$6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$874.7 million",
+     "usdM": 874.7
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "71",
+   "match": "related party",
+   "text": "…0 shares at May 31, 2026 and 9,291,199 shares at May 31, 2025, at cost   ( 52,737 ) ( 31,400 )   Additional paid in capital 2,432,250 1,009,913   Accumulated deficit ( 662,333 ) ( 481,055 )   Total stockholders’ equity attributable to Applied Digital Corporation 1,717,476 497,688   Noncontrolling interest 7,032 —   Total stockholders' equity including noncontrolling interest 1,724,508 497,688   TOTAL LIABILITIES, TEMPORARY EQUITY AND STOCKHOLDERS' EQUITY $ 9,929,312 $ 1,870,090   (1) Includes a related party loan receivable of $ 58.6 million as of May 31, 2026. See Note 7 - Related Party Transactions for further discussion.   See accompanying notes to the consolidated financial statements   71",
+   "amounts": [
+    {
+     "raw": "$ 9,929,312 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,870,090   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 58.6 million",
+     "usdM": 58.6
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "72",
+   "match": "Related party",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Consolidated Statements of Operations   (In thousands, except share and per share data)   Fiscal Year Ended   May 31, 2026 May 31, 2025 May 31, 2024   Revenue:   Services revenue $ 496,609 $ 226,643 $ 150,814   Data center rental and other revenue 114,702 — —   Related party revenue — 1,926 14,761   Total revenue 611,311 228,569 165,575   Costs and expenses:   Services cost of revenue 396,858 216,759 148,340   Data center rental and other cost of revenue 56,771 — —   Selling, general and administrative (1)   332,096 107,877 97,776   Loss (gain) on classification as held for sale (2)   59,650 ( 24,616 ) 15,417   Loss on abandonment of assets 2,398 724 —   Loss from legal settlement — — 2,380   Total costs and expenses 847,773 300,744 263,913   Operating loss ( 236,462 ) ( 72,175 ) ( 98,338 )   Interest expense, net (3)   29,516 32,139 27,517   Gain on change in fair value of derivatives ( 75,818 ) — —   Gain on change in fair value of investments ( 10,840 ) — —   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on extinguishment of de…",
+   "amounts": [
+    {
+     "raw": "$ 496,609 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 226,643 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 150,814   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "72",
+   "match": "related party",
+   "text": "…otal costs and expenses 847,773 300,744 263,913   Operating loss ( 236,462 ) ( 72,175 ) ( 98,338 )   Interest expense, net (3)   29,516 32,139 27,517   Gain on change in fair value of derivatives ( 75,818 ) — —   Gain on change in fair value of investments ( 10,840 ) — —   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on change in fair value of warrants 2,212 6,421 —   Loss on change in fair value of related party warrants — — 5,696   Net loss from continuing operations before income tax expenses ( 181,532 ) ( 230,963 ) ( 149,575 )   Income tax expense 1,787 102 96   Net loss from continuing operations ( 183,319 ) ( 231,065 ) ( 149,671 )   Net loss from discontinued operations ( 1,020 ) — —   Net loss ( 184,339 ) ( 231,065 ) ( 149,671 )   Net loss attributable to noncontrolling interest and redeemable noncontrolling interest ( 59,665 ) — ( 397 )   Preferred dividends ( 6,259 ) ( 2,615 ) —   Net loss attributable to common stockholders $ ( 250,263 ) $ ( 233,680 ) $ ( 149,274 )   Net loss attributable to common stockholders   Continuing operations $ ( 249,243 ) $ ( 233,680 ) $ ( 149,274 )   Discontinued operations ( 1,020 ) — —   Net loss attributable to common stockh…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "72",
+   "match": "related party",
+   "text": "…rations ( 1,020 ) — —   Net loss attributable to common stockholders $ ( 250,263 ) $ ( 233,680 ) $ ( 149,274 )   Basic and diluted net loss per share attributable to common stockholders   Continuing operations $ ( 0.91 ) $ ( 1.16 ) $ ( 1.31 )   Discontinued operations — — —   Basic and diluted net loss per share attributable to common stockholders $ ( 0.91 ) $ ( 1.16 ) $ ( 1.31 )   Basic and diluted weighted average number of shares outstanding 275,194,755 201,194,451 114,061,414   (1) Includes related party selling, general and administrative expense of $ 0.3 million, $ 0.3 million, and $ 0.6 million for the fiscal years ended May 31, 2026, May 31, 2025, and May 31, 2024, respectively .   72",
+   "amounts": [
+    {
+     "raw": "$ 0.3 million",
+     "usdM": 0.3
+    },
+    {
+     "raw": "$ 0.3 million",
+     "usdM": 0.3
+    },
+    {
+     "raw": "$ 0.6 million",
+     "usdM": 0.6
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "73",
+   "match": "related party",
+   "text": "…e as of February 15, 2026 when it no longer qualified as held for sale. For the fiscal year ended May 31, 2025, amount includes $ 25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released. The fiscal year ended May 31, 2024 includes a $ 15.4 million loss on classification of held for sale related to the sale of the Garden City facility.   (3) For the fiscal year ended May 31, 2026, amount includes related party income of $ 0.1 million and for the fiscal year ended May 31, 2024, amount includes related party interest expense of $ 5.7 million.   See accompanying notes to the consolidated financial statements and, specifically, Note 7 - Related Party Transactions for further discussion of related party transactions.   73",
+   "amounts": [
+    {
+     "raw": "$ 15.4 million",
+     "usdM": 15.4
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$ 5.7 million",
+     "usdM": 5.7
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "77",
+   "match": "related party",
+   "text": "…M OPERATING ACTIVITIES   Net loss $ ( 184,339 ) $ ( 231,065 ) $ ( 149,671 )   Adjustments to reconcile net loss to net cash provided by (used in) operating activities:   Depreciation and amortization 67,387 97,945 79,360   Stock-based compensation 220,135 22,704 17,362   Lease expense 10,106 31,661 13,944   Gain on change in fair value of derivatives ( 75,818 ) — —   Gain on change in fair value of investments ( 10,840 ) — —   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on legal settlement — — 2,380   Amortization of debt issuance costs 6,323 9,563 5,214   Loss (gain) on classification of held for sale 59,650 ( 24,616 ) 15,417   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 13,812   Loss on change in fair value of warrants issued 2,212 6,421 —   Loss on abandonment of assets 2,398 1,138 —   Changes in operating assets and liabilities:   Accounts receivable ( 49,268 ) ( 2,934 ) ( 3,765 )   Prepaid expenses and other current assets ( 36,164 ) ( 8,309 ) 899   Other assets ( 51,483 ) 2,979 327   Customer deposits 627 2,306 ( 8,770 )   Related party customer deposits — ( 1,549 ) ( 2,261 )   Deferred revenue 947 ( 34,080 ) ( 9,494 )   Related party deferred revenue — ( 1,692 ) 168   Accounts payable ( 1,182 ) ( 78,256 ) 41…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "77",
+   "match": "related parties",
+   "text": "…ies 106,223 ( 12,127 ) 21,601   Due to customer 5,258 ( 8,195 ) 13,002   Lease assets and liabilities 17,513 ( 7,524 ) ( 47,479 )   CASH FLOW PROVIDED BY (USED IN) OPERATING ACTIVITIES 89,685 ( 115,402 ) 13,794   CASH FLOW USED IN INVESTING ACTIVITIES   Purchases of property and equipment and other assets ( 2,865,765 ) ( 681,603 ) ( 141,809 )   Proceeds from sale of investments 5,000 — —   Proceeds from sale of assets — 25,000 19,852   Finance lease prepayments — ( 6,178 ) ( 50,089 )   Loans to related parties ( 58,632 ) — —   Purchases of investments ( 17,000 ) ( 4,873 ) ( 391 )   CASH FLOW USED IN INVESTING ACTIVITIES ( 2,936,397 ) ( 667,654 ) ( 172,437 )   CASH FLOW PROVIDED BY FINANCING ACTIVITIES   Repayment of finance leases ( 99,455 ) ( 125,073 ) ( 59,967 )   Borrowings of long-term debt 4,955,327 650,083 116,554   Borrowings of related party debt — — 28,000   Repayment of long-term debt ( 521,512 ) ( 293,045 ) ( 21,714 )   Repayment of related party debt — — ( 45,500 )   Payment of deferred financing costs ( 171,885 ) ( 42,398 ) ( 320 )   Tax payments for restricted stock upon vesting ( 36,282 ) ( 4,116 ) ( 861 )   Proceeds from issuance of common stock 196,366 191,590 130,849   Common stock issuance costs ( 5,950 ) ( 10,305 ) ( 284 )   77",
+   "amounts": []
   },
   {
    "kind": "guarantee",
@@ -263,6 +1012,34 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "80",
+   "match": "Interconnection",
+   "text": "…incurred – which is generally on a ratable basis through the term of the lease. The Company accounts for and presents rental revenue and tenant recoveries as a single component under Data center rental and other revenue on the consolidated statements of operations as the timing of recognition is the same, the pattern with which the Company transfers the right of use of the property and related services to the lessee are both on a straight-line basis and its leases qualify as operating leases.   Interconnection services include port and cross-connect services generally provided on terms that align with the respective lease term. The Company bills for these services on a monthly basis and recognize the revenue over the period the service is provided. Revenue for cross-connect installations is generally recognized in the period the cross-connect is installed.   The Company also generates HPC hosting revenue by providing tenant fit-out services including the procurement and installation of customer equipment provided in accordance with the terms of the agreement with the customer. Under these arrangements, the Company is entitled to reimbursement of costs incurred plus a contractual markup. In the course of providing its services, the Company routinely subcontracts for services and incurs other direct costs which are recognized, with margin, as revenue. The Company recognizes tenan…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "81",
+   "match": "related party",
+   "text": "… results by segment include costs or expenses directly attributable to each segment, which include selling, general, and administrative expenses, loss (gain) on classification of held for sale, loss on abandonment of assets, and loss from legal settlement.   The Company does not allocate interest expense, net, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on extinguishment of debt, loss on extinguishment of related party debt, loss on change in fair value of warrants, loss on change in fair value of related party warrants or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance.   The Data Center Hosting Business operates data centers to provide energized space to crypto mining customers. Customer-owned hardware is installed in the Company’s facilities and the Company provides operational and maintenance services for a fixed fee.   The Company's HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   81",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "82",
+   "match": "Related Party",
+   "text": "…lues   The Company accounts for certain of its investments in equity securities of publicly traded companies in accordance with ASC 321. The Company records all equity investments with readily determinable fair values at fair value calculated by the publicly traded stock price at the close of the reporting period within gain on change in fair value of investments on the consolidated statement of operations.   For further discussion of the Company’s investments in equity securities, see Note 7 - Related Party Transactions, Note 9 - Balance Sheet Components , and Note 10 - Derivative Assets .   Redeemable Noncontrolling Interest   The Company determined for the redeemable noncontrolling interest, the initial amount presented in temporary equity should be the initial carrying amount of the redeemable noncontrolling interest pursuant to ASC 805-20-30. Under ASC 805-20-30, noncontrolling interests are initially measured at fair value at the acquisition date. However, as the redeemable noncontrolling interest has embedded features that require bifurcation, the fair value at issuance must be allocated between the components. The Company initially measured the redeemable noncontrolling interest by first allocating the proceeds from the offering to the derivatives and, with the residual net proceeds allocated to the temporary equity classified redeemable noncontrolling interest and the …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "84",
+   "match": "related parties",
+   "text": "… primarily comprised of billed and unbilled receivables for which the Company has an unconditional right to consideration and the performance obligations have been satisfied. Accounts receivable are recorded at the invoiced amount, net of an allowance for credit losses recognized in accordance with the current expected credit loss (\"CECL\") model under ASC 326, Financial Instruments - Credit Losses (\"ASC 326\") .   The Company periodically provides financing arrangements to strategic partners and related parties. Loans receivable are recorded at amortized cost, net of an allowance for credit losses recognized in accordance with the CECL model under ASC 326.   The allowance for expected credit losses reflects management’s estimate of lifetime expected credit losses on accounts receivable and loans receivable. The Company bases its estimate on multiple factors, including historical experience with bad debts, the Company's relationship with its counterparties and their credit quality, the aging of respective asset balances, current macroeconomic conditions, and management's reasonable and supportable forecasts of future economic conditions that may affect collectibility. The allowance for credit losses is reassessed each reporting period, with changes in expected credit losses recognized in earnings. The Company writes off accounts receivable and loans receivable in the period when …",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "92",
    "match": "primary beneficiary",
@@ -275,6 +1052,36 @@
    "match": "Guarantee",
    "text": "…equest, certain administrative services in an advisory capacity, while all strategic, operational, investment, financing, and governance decisions remain exclusively with Base Electron. The costs for services provided are calculated under the services cost method, as described in Treasury Regulation Section 1.482-9(b), in order to determine the applicable arm's length charges. The amount of services provided during the fiscal year ended May 31, 2026 were immaterial.   The Company was party to a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which it had agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   Following Base Electron's entry into the Design-Build Agreement and assuming all of the obligations thereunder in lieu of the Company, on March 18, 2026, the Company entered into the Partial Assignment and A…",
    "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "92",
+   "match": "1.2 GW",
+   "text": "…r of The Babcock & Wilcox Company (“B&W”), pursuant to which it had agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   Following Base Electron's entry into the Design-Build Agreement and assuming all of the obligations thereunder in lieu of the Company, on March 18, 2026, the Company entered into the Partial Assignment and Assumption Agreement (the \"Assignment Agreement\") with Base Electron, B&W Enterprises, and B&W, pursuant to which the Company assigned to Base Electron its right to purchase an aggregate of 5,230,000 shares of common stock of B&W Enterprises. In connection therewith, B&W Enterprises issued a common stock purchase warrant with respect to such shares directly to Base Electron (the \"Base Warrant\").   In connection with the Assignment Agreement, on March 18, 2026, the Company entered into the Amendment and Joinder to Registration Righ…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "92",
+   "match": "utility",
+   "text": "…d to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   Following Base Electron's entry into the Design-Build Agreement and assuming all of the obligations thereunder in lieu of the Company, on March 18, 2026, the Company entered into the Partial Assignment and Assumption Agreement (the \"Assignment Agreement\") with Base Electron, B&W Enterprises, and B&W, pursuant to which the Company assigned to Base Electron its right to purchase an aggregate of 5,230,000 shares of common stock of B&W Enterprises. In connection therewith, B&W Enterprises issued a common stock purchase warrant with respect to such shares directly to Base Electron (the \"Base Warrant\").   In connection with the Assignment Agreement, on March 18, 2026, the Company entered into the Amendment and Joinder to Registration Rights Agreement with Base Electron and B&W Enterprises, whereby the Company …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "92",
+   "match": "Related Party",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   7. Related Party Transactions   Related Party Revenue   Related party revenue consisted of revenue from two customers, Customer E and Customer F, neither of which is currently a customer of the Company. The following table illustrates related party revenue for the fiscal years ended May 31, 2026, 2025, and 2024 (in thousands):   May 31, 2026 May 31, 2025 May 31, 2024   Customer E $ — $ 1,244 $ 8,005   Customer F $ — $ 682 $ 6,756   Customer E is a subsidiary of an entity which, during the first quarter of fiscal year 2025, was deemed to beneficially own over 5 % of the Company's outstanding common stock. As of July 25, 2024, the controlling individual of the entity filed a Schedule 13G to report the fact that as of the date thereof, the entity had ceased to be a beneficial owner of more than 5 % of such class of securities.   Customer F is 60 % owned by an individual who, during the first q…",
+   "amounts": [
+    {
+     "raw": "$ 1,244 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,005 ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "guarantee",
@@ -296,6 +1103,22 @@
     {
      "raw": "$ 37.0 million",
      "usdM": 37
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "93",
+   "match": "related party",
+   "text": "…dvances, not to exceed $ 50.0 million. On May 29, 2026, the Demand Grid Promissory Note was further amended (the \"Second Amended and Restated Demand Grid Promissory Note\") to increase the aggregate amount of future advances, not to exceed $ 100.0 million.   On May 29, 2026, the Guarantee was terminated, effective upon payment of $ 37.0 million by the Company on behalf of Base Electron which was added to the Second Amended and Restated Demand Grid Promissory Note. As such, the Company recorded a related party loan receivable which is included within Prepaid expenses and other current assets on the consolidated balance sheets.   As of May 31, 2026, the balance of the Demand Grid Promissory Note was $ 58.6 million, which was recorded as a related party loan receivable and presented within Prepaid expense and other current assets on the consolidated balance sheets. During the fiscal year ended May 31, 2026, approximately $ 0.1 million of interest income was recognized.   Other Related Party Transactions   Related party transactions included within selling, general and administrative expense on the consolidated statement of operations include the following:   • consulting costs of $ 0.3 million during the fiscal year ended May 31, 2024, were incurred with a company owned by a family member of the Company’s former Chief Administrative Officer.   • software license fees of $ 0.3 milli…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 million",
+     "usdM": 37
+    },
+    {
+     "raw": "$ 58.6 million",
+     "usdM": 58.6
     }
    ]
   },
@@ -331,6 +1154,49 @@
    "amounts": []
   },
   {
+   "kind": "gpu",
+   "page": "94",
+   "match": "GPU",
+   "text": "…e $ 4.4 million of unamortized deferred financing costs. The average SOFR plus the applicable margin for the fiscal year ended May 31, 2025 was 7.82 %.   (3) The Starion Ellendale Loan incurred by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, is guaranteed by the Company and is secured by substantially all of the assets of APLD ELN-01. APLD ELN-01 LLC is subject to a debt service coverage ratio and is in compliance as of May 31, 2026   (4) The Cornerstone Bank Loan incurred by APLD GPU-01, LLC, a wholly owned subsidiary of the Company, is guaranteed by the Company, APLD Hosting, and Sai Computing, LLC and is secured by substantially all assets of APLD GPU-01 including, among other things, APLD GPU-01’s interest in electrical services agreements, and the Company’s interest in the various terms of service agreements for HPC based systems related to AI Cloud Computing Services, which are to be serviced at the Jamestown hosting facility.   (5) The Starion Term Loan incurred by APLD Hosting, LLC, a wholly-owned subsidiary of the Company, is guaranteed by the Company and is secured by substantially all of the assets of APLD Hosting, and its interests in the master hosting agreements and electric services agreements related to the Jamestown hosting facility. APLD Hosting is subject to customary covenants, representations and warranties and events of default. APLD Hosting …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "95",
+   "match": "related party",
+   "text": "…   For the Fiscal Year Ended May 31, 2026   Interest Expense   Interest and related amortization of debt issuance costs and discounts recognized during construction projects are capitalized and included in the cost of project. Interest expense, net of amounts capitalized, recognized for the years ended May 31, 2026, May 31, 2025, and May 31, 2024 consisted of the following (in thousands):   May 31, 2026 May 31, 2025 May 31, 2024   Interest expense $ 85,259 $ 35,261 $ 23,448   Interest expense - related party — — 5,000   Interest income (1)   ( 55,743 ) ( 3,122 ) ( 931 )   Interest expense, net 29,516 32,139 27,517   Interest capitalized 39,574 57,171 —   Total interest charges incurred $ 69,090 $ 89,310 $ 27,517   (1) For the fiscal year ended May 31, 2026, amount includes related party interest income of $ 0.1 million.   Below is the weighted-average interest rate for the Company's term loans:   May 31, 2026 May 31, 2025   Weighted-average interest rate 7.1 % 1.7 %   Remaining Principal Payments   Below is a summary of the remaining principal payments due over the life of the term loans as of May 31, 2026 (in thousands):   FY27 $ 16,591   FY28 196,648   FY29 290,798   FY30 295,689   FY31 4,194,954   Thereafter (1)   312,000   Total $ 5,306,680   (1) Includes $ 12.0 million of proceeds from the issuance of two SAFE agreements, which are classified as liabilities.   Debt Fair Va…",
+   "amounts": [
+    {
+     "raw": "$ 85,259 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 35,261 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,448   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 69,090 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 89,310 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27,517   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "96",
    "match": "guarantee",
@@ -341,6 +1207,20 @@
      "usdM": 1.4
     }
    ]
+  },
+  {
+   "kind": "capacity",
+   "page": "96",
+   "match": "200 MW",
+   "text": "…interest at 8.0 % per annum. From the Closing Date and for the succeeding twelve months (the “PIK Period”), accrued interest was to be paid in kind, with such payment in kind being capitalized to principal monthly and at such other times as specified in the MEC Promissory Note. After the PIK Period, accrued interest was to be paid in cash in certain circumstances. The MEC Promissory Note was to mature on the earliest of (i) the date of acceleration of the MEC Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027.   The MEC Loan could be accelerated and APLD FAR-01 required to prepay the full outstanding principal balance of the MEC Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety ( 90 ) days following the occurrence of the 200 MW Lease Execution, and (c) within thirty ( 30 ) days following a Qualifying Preference Share Issuance (as defined therein).   APLD FAR-01 may voluntarily prepay all or part of the MEC Promissory Note at any time with no less than three ( 3 ) business days’ notice with accrued interest to the date of prepayment on the principal amount prep…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "96",
+   "match": "campus in",
+   "text": "…unts sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10 x return hurdle applied to repayment at maturity. Amounts repaid under the MEC Promissory Note are not available to be re-borrowed.   Proceeds of the MEC Loan under the MEC Promissory Note were used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the MEC Loan, (i) APLD FAR-01, APLD FAR Holdings LLC, a Delaware limited liability company (\"APLD FAR Holdings\"), as parent of APLD FAR-01, and APLD FAR-02 LLC, a Delaware limited liability company (\"APLD FAR-02\"), as a subsidiary of APLD FAR Holdings, entered into a guarantee and collateral agreement, as grantors thereunder, in f…",
+   "amounts": []
   },
   {
    "kind": "guarantee",
@@ -354,6 +1234,13 @@
    "page": "97",
    "match": "guarantee",
    "text": "…ts are subject to a number of important qualifications and exceptions as set forth in the 2030 9.250 % Notes Indenture. Additionally, upon the occurrence of specified change of control events, APLD ComputeCo must offer to repurchase the 2030 9.250 % Notes at 101 % of the principal amount, plus accrued and unpaid interest, if any, to, but excluding, the purchase date. The 2030 9.250 % Notes Indenture also provides for customary events of default.   The Company will provide a customary completion guarantee with respect to each Project (as defined in the 2030 9.250 % Notes Indenture) related to the Ellendale Facilities, which will require the Company to provide APLD ComputeCo funds as necessary to ensure the achievement of the applicable Commencement Date (as defined in the 2030 9.250 % Notes Indenture) under the respective data center lease in the event that the proceeds of the 2030 9.250 % Notes and the available funds (including previous equity contributions from the Company) are insufficient to do so.   As of May 31, 2026, remaining unamortized deferred financing costs related to the issuance of the loan was $ 6.1 million.   97",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "97",
+   "match": "100 MW",
+   "text": "…nd among APLD ComputeCo, the subsidiary guarantors party thereto (the “Subsidiary Guarantors”) and Morgan Stanley & Co. LLC as the representative (the “Representative”) of the several initial purchasers (the “Initial Purchasers”) in a Rule 144A/Regulation S offering.   The 2030 9.250 % Notes were issued at a price equal to 97 % of their aggregate principal amount APLD ComputeCo intends to use the net proceeds from the offering to fund a portion of the construction and associated expenses of its 100 MW and 150 MW data centers, ELN-02 and ELN-03, respectively (the “Ellendale Facilities”), at the Company’s 400MW Ellendale, North Dakota campus (“Polaris Forge 1”), repay the aggregate principal balance plus any accrued and unpaid interest under the SMBC Loan, fund debt service reserves, and pay transaction expenses.   Also on November 20, 2025, APLD ComputeCo, APLD HPC Holdings 2 LLC (the direct parent of APLD ComputeCo) and the Subsidiary Guarantors entered into an indenture (the “2030 9.250 % Notes Indenture”) with respect to the 2030 9.250 % Notes with Wilmington Trust, National Association, as trustee (the “Trustee”) and collateral agent (the “Collateral Agent”). The 2030 9.250 % Notes are senior secured obligations of APLD ComputeCo and bear interest at a rate of 9.25 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on June 15, 20…",
    "amounts": []
   },
   {
@@ -397,6 +1284,58 @@
    ]
   },
   {
+   "kind": "concentration",
+   "page": "101",
+   "match": "Related party",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   9. Balance Sheet Components   Certain balance sheet components are as follows (in thousands):   May 31, 2026 May 31, 2025   Prepaid expenses and other current assets   Short term equipment deposit $ 500,290 $ —   Deferred issuance costs 3,397 5,469   Short term lease incentive 6,231 1,290   Related party loan receivable (1)   58,632 —   Prepaid expenses 24,471 1,421   Other current assets 20,671 1,472   Total Prepaid expenses and other current assets   $ 613,692 $ 9,652   (1) Balance as of May 31, 2026 consists of the promissory note with Base Electron. See Note 7 - Related Party Transactions for further discussion.   May 31, 2026 May 31, 2025   Other assets   Lease incentive $ 199,391 $ 84,416   Restricted cash 180,415 7,000   Deposits on assets and construction 47,719 69,500   Deferred construction costs 84 45   Goodwill (1)   54,513 —   Deferred lease costs 10,729 7,342   Derivative assets (2)   163,283 —   Investments in other companies (3)   123,329 6,073   Investments in related party (4)   2,000 —   Other 49,247 4,977   Total Other assets $ 830,710 $ 179,353   (1) Balance as of May 31, 2026 consists of goodwill held at ChronoScale.   (2) Balance as of May 31, 2026 co…",
+   "amounts": [
+    {
+     "raw": "$ 500,290 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 613,692 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,652   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 199,3",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "101",
+   "match": "Related Party",
+   "text": "…nging the Company's investment in Corintis to $ 10.0 million, or approximately 4 % of Corintis’s outstanding equity. The investment in Corintis is accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value and is evaluated quarterly for impairment indicators. There were no impairment indicators during the fiscal year ended May 31, 2026.   (4) Includes a $ 2.0 million investment in Base Electron. See further discussion of the transaction in Note 7 - Related Party Transactions .   101",
+   "amounts": [
+    {
+     "raw": "$ 2.0 million",
+     "usdM": 2
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "102",
+   "match": "natural gas",
+   "text": "…nsolidated statement of operations.   B&W Warrants   On November 4, 2025, the Company and B&W entered into an agreement under which the Company contributed $ 2.0 million to B&W in exchange for 500,000 shares of B&W’s common stock and a warrant to purchase 2.6 million shares of B&W’s common stock with an exercise price of $ 4.11 (the “Initial Warrant”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, B&W agreed to issue an additional warrant to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrant”) to the Company upon execution of such a definitive agreement.   102",
+   "amounts": [
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "103",
    "match": "Variable Interest Entit",
@@ -407,6 +1346,13 @@
      "usdM": 89.2
     }
    ]
+  },
+  {
+   "kind": "concentration",
+   "page": "104",
+   "match": "Related Party",
+   "text": "…mer 7,407   Other current liabilities   97,571   Long-term debt   4,349,907   Total liabilities   $ 5,638,350   Third-party equity ownership interests in TopCo 2 represents a noncontrolling interest and is presented as temporary equity in the consolidated balance sheets separate from the Company’s stockholders’ equity. The amount of net income (loss) attributable to noncontrolling interests is disclosed in the consolidated statement of operations.   Unconsolidated VIE   As discussed in Note 7 - Related Party Transactions , Base Electron is a related party formed to develop power generation and infrastructure projects supporting the broader AI industry. The Company has determined that Base Electron is a VIE   104",
+   "amounts": []
   },
   {
    "kind": "vie",
@@ -421,6 +1367,13 @@
    ]
   },
   {
+   "kind": "concentration",
+   "page": "105",
+   "match": "related party",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   because it does not have sufficient equity at risk to finance its activities without additional subordinated financial support. The Company's variable interests in Base Electron consist of its equity investment and related party promissory note.   Additionally, the Company has determined that it is not the primary beneficiary of Base Electron because it does not have the power to direct the activities that most significantly impact Base Electron's economic performance. Accordingly, the Company does not consolidate Base Electron because ASC 810 requires both power and economics for consolidation.   As of May 31, 2026, the carrying value of the Company's investment in Base Electron was $ 2.0 million and the outstanding balance of the related party promissory note was $ 58.6 million, which together reflect the Company's maximum exposure to loss. The Company is not contractually required to provide financial support to Base Electron and did not provide material non-contractual financial support during the fiscal year ended May 31, 2026.   12. Income Taxes   The components of consolidated income before …",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "117",
    "match": "Variable Interest Entit",
@@ -433,10 +1386,31 @@
    ]
   },
   {
+   "kind": "capacity",
+   "page": "118",
+   "match": "250 MW",
+   "text": "…onsists of $ 1.9 billion of contributions from the noncontrolling interest, net of costs, $ 62.7 million of preferred stock dividends paid in-kind, and $ 2.7 million in current year net loss attributable to the non-controlling interest.   17. Leases   Lessor Accounting   CoreWeave Leases   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, the Company's subsidiaries, each entered into a data center lease with CoreWeave, Inc. (together, the \"CoreWeave Leases\") to deliver up to an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of Building 2, the Company's 100 MW data center, which was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   118",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "119",
    "match": "guaranteed",
    "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On March 30, 2026, the Company and CoreWeave amended the lease for Building 2 (the “ELN-02 Parent Lease”) to suspend the term for two of the four data halls covered by the lease (the “ELN-02 Parent Lease Amendment”) and the Company entered into a new data center lease with CoreWeave Compute Acquisition Co. VIII, LLC (“CoreWeave SPV”), a wholly owned subsidiary of CoreWeave, for those same two data halls on substantially the same terms as the ELN-02 Parent Lease (the “ELN-02 SPV Lease”). The ELN-02 SPV Lease is conterminous with the initial term of the ELN-02 Parent Lease. Upon the expiration or earlier termination of the ELN-02 SPV Lease, the suspen…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "119",
+   "match": "150MW",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On March 30, 2026, the Company and CoreWeave amended the lease for Building 2 (the “ELN-02 Parent Lease”) to suspend the term for two of the four data halls covered by the lease (the “ELN-02 Parent Lease Amendment”) and the Company entered into a new data center lease with CoreWeave Compute Acquisition Co. VIII, LLC (“CoreWeave SPV”), a wholly owned subsidiary of CoreWeave, for those same two data halls on substantially the same terms as the ELN-02 Parent Lease (the “ELN-02 SPV Lease”). The ELN-02 SPV Lease is conterminous with the init…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "119",
+   "match": "200MW",
+   "text": "…arent Lease and releasing CoreWeave from the ELN-03 Parent Lease. In addition, CoreWeave also provided an Unconditional Springing Guaranty of Payment and Performance in connection with CoreWeave SPV’s obligations under the ELN-03 Parent Lease (the “ELN-03 Guaranty”), similar to the ELN-02 Guaranty.   Hyperscaler Leases   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S. based investment grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during the calendar year 2027.   On May 20, 2026, the Company entered into a data center lease with the second U.S. based investment grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI an…",
    "amounts": []
   },
   {
@@ -461,6 +1435,87 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "121",
+   "match": "1.2 GW",
+   "text": "…suant to which it had agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   On May 29, 2026, the Guarantee was terminated, effective upon payment of $ 37.0 million by or on behalf of Base Electron, as discussed in Note 7 - Related Party Transactions.   Claims and Litigation   From time to time, the Company may be involved in litigation relating to claims arising out of operations in the normal course of business.   Securities Lawsuit   The Company, Wes Cummins, the Company's Chief Executive Officer, and David Rench, the Company's then Chief Financial Officer, have been named as defendants in a putative securities class action lawsuit in the matter styled, McConnell v. Applied Digital Corporation, et al., Case No. 3:23-cv-1805, filed in August 2023 in the U.S. District Court for the Northern District of Texas (the “Securities Lawsuit”). Specifically, t…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 million",
+     "usdM": 37
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "121",
+   "match": "utility",
+   "text": "… the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   On May 29, 2026, the Guarantee was terminated, effective upon payment of $ 37.0 million by or on behalf of Base Electron, as discussed in Note 7 - Related Party Transactions.   Claims and Litigation   From time to time, the Company may be involved in litigation relating to claims arising out of operations in the normal course of business.   Securities Lawsuit   The Company, Wes Cummins, the Company's Chief Executive Officer, and David Rench, the Company's then Chief Financial Officer, have been named as defendants in a putative securities class action lawsuit in the matter styled, McConnell v. Applied Digital Corporation, et al., Case No. 3:23-cv-1805, filed in August 2023 in the U.S. District Court for the Northern District of Texas (the “Securities Lawsuit”). Specifically, the complaint asserts claims pursuant to Section 10(b) and 20(a) of the Se…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 million",
+     "usdM": 37
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "121",
+   "match": "Related Party",
+   "text": "… Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   On May 29, 2026, the Guarantee was terminated, effective upon payment of $ 37.0 million by or on behalf of Base Electron, as discussed in Note 7 - Related Party Transactions.   Claims and Litigation   From time to time, the Company may be involved in litigation relating to claims arising out of operations in the normal course of business.   Securities Lawsuit   The Company, Wes Cummins, the Company's Chief Executive Officer, and David Rench, the Company's then Chief Financial Officer, have been named as defendants in a putative securities class action lawsuit in the matter styled, McConnell v. Applied Digital Corporation, et al., Case No. 3:23-cv-1805, filed in August 2023 in the U.S. District Court for the Northern District of Texas (the “Securities Lawsuit”). Specifically, the complaint asserts claims pursuant to Section 10(b) and 20(a) of the Securities and Exchange Act of 1934 based on allegedly false or misleading statements regarding the company’s business, operations, and compliance policies, including claims that the Compan…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 million",
+     "usdM": 37
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "122",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   As of May 31, 2026, there were no other pending or threatened lawsuits that could reasonably be expected to have a material effect on the results of the Company’s consolidated operations. There are also no legal proceedings in which any of the Company’s management or affiliates is an adverse party or has …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "122",
+   "match": "related party",
+   "text": "…purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest (income) expense, net, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on extinguishment of debt, loss on extinguishment of related party debt, loss on change in fair value of warrants, loss on change in fair value of related party warrants or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance.   122",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "123",
+   "match": "Related party",
+   "text": "…t revenue   154,403 385,304   Costs and expenses:   Services cost of revenue 102,980 258,147   Data center rental and other cost of revenue — 56,773   Selling, general and administrative 2,516 30,017   Loss on abandonment of assets 570 1,240   Total costs and expenses 106,066 346,177   Segment profit $ 48,337 $ 39,127   Fiscal Year Ended May 31, 2025   Data Center Hosting Business   HPC Hosting Business   Revenue:   Services revenue $ 142,267 $ —   Data center rental and other revenue $ — $ —   Related party revenue 1,926 —   Total segment revenue 144,193 —   Costs and expenses:   Services cost of revenue 100,744 143   Data center rental and other cost of revenue — —   Selling, general and administrative 3,006 11,943   Loss on classification of held for sale ( 24,616 ) —   Loss on abandonment of assets 1,132 —   Total costs and expenses 80,266 12,086   Segment profit (loss)   $ 63,927 $ ( 12,086 )   Fiscal Year Ended May 31, 2024   Data Center Hosting Business   HPC Hosting Business   Revenue:   Services revenue $ 121,857 $ —   Data center rental and other revenue $ — $ —   Related party revenue 14,761 —   Total segment revenue 136,618 —   Costs and expenses:   Services cost of revenue 106,022 50   Data center rental and other cost of revenue — —   Selling, general and administrative 10,367 4,761   Loss on classification of held for sale 15,417 —   Total costs and expenses 131,…",
+   "amounts": [
+    {
+     "raw": "$ 48,337 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 39,127   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 142,267 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 63,927 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "124",
+   "match": "related party",
+   "text": "…63,927 $ 4,812   HPC Hosting Business 39,127 ( 12,086 ) ( 4,811 )   Total segment profit 87,464 51,841 1   Other (1)   ( 323,926 ) ( 124,016 ) ( 98,339 )   Operating loss ( 236,462 ) ( 72,175 ) ( 98,338 )   Interest expense, net 29,516 32,139 27,517   Gain on change in fair value of derivatives ( 75,818 ) — —   Gain on change in fair value of investments ( 10,840 ) — —   Loss on conversion of debt — 33,612 —   Loss on change in fair value of debt — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on change in fair value of warrants 2,212 6,421 —   Loss on change in fair value of related party warrants — — 5,696   Net loss from continuing operations before income tax expenses $ ( 181,532 ) $ ( 230,963 ) $ ( 149,575 )   (1) Other includes corporate related items not allocated to reportable segments and ChronoScale.   The Company also provides the following additional segment disclosures (in thousands):   Fiscal Year Ended   May 31, 2026 May 31, 2025 May 31, 2024   Depreciation and amortization:   Data Center Hosting Business $ 12,888 $ 13,312 $ 19,948   HPC Hosting Business 34,414 3,733 1,233   Other (1)   20,087 117,664 58,179   Total depreciation and amortization (2)   $ 67,389 $ 134,709 $ 79,360   Capital expenditures:   Data Center Hosting Busi…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "126",
    "match": "guaranteed",
@@ -471,6 +1526,67 @@
      "usdM": 150
     }
    ]
+  },
+  {
+   "kind": "capacity",
+   "page": "126",
+   "match": "210 MW",
+   "text": "…quity (“SAFEs”) with an investor for equity in Cloud, which was, at that time, a wholly-owned subsidiary, for aggregate proceeds of $ 12.0 million. On June 2, 2026, following an agreement reached with the investor, the Company paid off all amounts outstanding under the SAFEs, totaling $ 13.3 million.   Delta Forge 2 Lease   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $ 1.59 billion Senior Secured Notes   On June 16, 2026, APLD ComputeCo 3 LLC refinanced the Bridge Facility with the closing of a $ 1.59 billion offering (the “2031 7.000 % Notes Offering”) of 7.000 % senior secured notes due 2031 (the “2031 7.000 % Notes”) at an issue price of 100.000 % of par. The 2031 7.000 % Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000 % Notes will amorti…",
+   "amounts": [
+    {
+     "raw": "$ 13.3 million",
+     "usdM": 13.3
+    },
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$ 1.59 billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "126",
+   "match": "campus located",
+   "text": "…investor for equity in Cloud, which was, at that time, a wholly-owned subsidiary, for aggregate proceeds of $ 12.0 million. On June 2, 2026, following an agreement reached with the investor, the Company paid off all amounts outstanding under the SAFEs, totaling $ 13.3 million.   Delta Forge 2 Lease   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $ 1.59 billion Senior Secured Notes   On June 16, 2026, APLD ComputeCo 3 LLC refinanced the Bridge Facility with the closing of a $ 1.59 billion offering (the “2031 7.000 % Notes Offering”) of 7.000 % senior secured notes due 2031 (the “2031 7.000 % Notes”) at an issue price of 100.000 % of par. The 2031 7.000 % Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000 % Notes will amortize on a semi-annual basi…",
+   "amounts": [
+    {
+     "raw": "$ 13.3 million",
+     "usdM": 13.3
+    },
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$ 1.59 billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "128",
+   "match": "0.1% of total revenue",
+   "text": "… May 5, 2026. Consistent with guidance issued by the SEC that an assessment of a recently acquired business may be omitted from management’s report on internal control over financial reporting in the year of acquisition, management elected to exclude an assessment of the effectiveness of the Company’s internal control over financial reporting related to Ekso. Total assets and total revenues of Ekso that were excluded from management’s assessment constitute 0.2% of the Company’s total assets and 0.1% of total revenues as of and for the year ended May 31, 2026.   Our management conducted an evaluation of the effectiveness of our internal control over financial reporting based on the framework in Internal Control—Integrated Framework (2013) issued by the Committee of Sponsoring Organizations of the Treadway Commission. Based on that evaluation, our Chief Executive Officer and Chief Financial Officer concluded that, as of May 31, 2026, our internal controls over financial reporting were effective.   Previously Reported Material Weakness and Remediation   In connection with the preparation of our consolidated financial statements for the fiscal year ended May 31, 2025, we previously identified a material weakness in the design of our internal controls as we did not design and maintain effective controls around the accounting and assessment of complex financial instruments.   During …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "135",
+   "match": "GPU",
+   "text": "… dated March 27, 2024. (Incorporated by reference to Exhibit 10.4 to the Company’s Current Report on Form 8-K, filed with the SEC on April 1, 2024).   10.32.2 Amendment No. 2 to Unsecured Promissory Note, dated April 26, 2024, by and between Applied Digital Corporation and AI Bridge Funding LLC. (Incorporated by reference to Exhibit 10.1 of the Company’s Current Report on Form 8-K, filed with the SEC on April 30, 2024).   10.33# Loan Agreement, dated as of February 28, 2024, by and between APLD GPU-01, LLC and Cornerstone Bank. (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.34 Security Agreement, dated as of February 28, 2024, by and between APLD GPU-01, LLC and Cornerstone Bank. (Incorporated by reference to Exhibit 10.2 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.35 Form of Guaranty Agreement, dated as of February 28, 2024, made by each of Applied Digital Corporation, SAI Computing, LLC and APLD Hosting, LLC in favor of Cornerstone Bank. (Incorporated by reference to Exhibit 10.3 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.36 Consent to Transfer Interest in Real Property Subject to Mortgage and Subordination Agreement, dated as of February 28, 2024, made by Starion Bank, in favor of APLD Hosting, LLC. (Inco…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "135",
+   "match": "GPU",
+   "text": "…Cornerstone Bank. (Incorporated by reference to Exhibit 10.3 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.36 Consent to Transfer Interest in Real Property Subject to Mortgage and Subordination Agreement, dated as of February 28, 2024, made by Starion Bank, in favor of APLD Hosting, LLC. (Incorporated by reference to Exhibit 10.4 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.37# Collateral Assignment of Customer GPU Contracts and Consent, dated as of February 28, 2024, by Applied Digital Corporation, in favor of Cornerstone Bank. (Incorporated by reference to Exhibit 10.5 to the Company’s Current Report on Form 8-K, filed with the SEC on March 5, 2024).   10.38% Purchase and Sale Agreement, dated March 14, 2024, by and between APLD - Rattlesnake Den I LLC and Mara Garden City LLC. (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K, filed with the SEC on March 15, 2024).   10.39 Prepaid Advance Agreement by and between Applied Digital Corporation and YA II PN, LTD., dated March 27, 2024. (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K, filed with the SEC on April 1, 2024).   10.4 Convertible Promissory Note issued by Applied Digital Corporation and payable to YA II PN, LTD., dated March 27, 2024. (Incorporated by reference…",
+   "amounts": []
   },
   {
    "kind": "guarantee",
