@@ -561,9 +561,10 @@
   .yc-table th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--baseline); white-space: nowrap; }
   .yc-table td { padding: 4px 6px; border-bottom: 1px solid var(--gridline); text-align: right; font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
   .yc-table th:first-child, .yc-table td:first-child { text-align: left; font-family: inherit; }
-  .yc-table td.yc-old { color: var(--cat-4); }
+  .yc-table .yc-old { color: var(--cat-4); }
+  .yc-table .yc-sub { font-size: 11px; color: var(--text-muted); }
   .yc-table { max-width: 760px; }
-  @media (max-width: 860px) { .yc-table { font-size: 11px; } .yc-table th, .yc-table td { padding: 4px 2px; } .yc-table th { white-space: normal; vertical-align: bottom; } }
+  @media (max-width: 860px) { .yc-table { font-size: 11.5px; } .yc-table th, .yc-table td { padding: 4px 4px; } .yc-table th { white-space: normal; vertical-align: bottom; } }
   /* phones: nothing below 11 px, and the category grid must not force the page wider than the screen */
   @media (max-width: 860px) {
     .kpi-foot, .mstat-sub, .donut-center .s, .stable th, .note-sm, .tooltip .t-date, .exec-title, .cat-subset-tag, .soon-pill, .manual-badge, .stale-pill { font-size: 11px; }
@@ -2586,10 +2587,13 @@ function renderBanxico() {
       {label: T.legYcNow, color: "--series-core", vals: rows.map(r => r.l)},
       {label: T.legYcAgo, color: "--cat-10", dashed: true, vals: rows.map(r => r.ago)}
     ], {legendId: "bxYcLegend", tooltipId: "bxYcTooltip", names: rows.map(r => nameOf(r.key))});
-    const head = `<thead><tr><th>${esc(T.ycColTenor)}</th><th>${esc(T.ycColYield)}</th><th>${esc(T.ycColDate)}</th><th>${esc(T.ycColPrev)}</th><th>${esc(T.ycColYear)}</th></tr></thead>`;
+    // phones: the issue date moves under the tenor's name instead of taking a column of its own
+    const oldAttr = r => r.old ? ` class="yc-old" title="${esc(T.ycOld)}"` : "";
+    const head = `<thead><tr><th>${esc(narrow ? T.ycColTenor + " · " + T.ycColDate : T.ycColTenor)}</th><th>${esc(T.ycColYield)}</th>${narrow ? "" : `<th>${esc(T.ycColDate)}</th>`}<th>${esc(T.ycColPrev)}</th><th>${esc(T.ycColYear)}</th></tr></thead>`;
     document.getElementById("bxYcTable").innerHTML = head + "<tbody>" + rows.map(r =>
-      `<tr><td>${esc(narrow ? T.ycShort(r.instr, r.n, r.unit) : nameOf(r.key))}</td><td>${esc(r.l.v.toFixed(2))}</td>` +
-      `<td${r.old ? ` class="yc-old" title="${esc(T.ycOld)}"` : ""}>${esc(narrow ? fmtDateDMY(r.l.d).slice(0, -4) + r.l.d.slice(2, 4) : fmtDateDMY(r.l.d))}</td>` +
+      (narrow ? `<tr><td>${esc(T.ycShort(r.instr, r.n, r.unit))}<div class="yc-sub"><span${oldAttr(r)}>${esc(fmtDateDMY(r.l.d))}</span></div></td>`
+              : `<tr><td>${esc(nameOf(r.key))}</td>`) +
+      `<td>${esc(r.l.v.toFixed(2))}</td>` + (narrow ? "" : `<td${oldAttr(r)}>${esc(fmtDateDMY(r.l.d))}</td>`) +
       `<td>${r.prev ? esc(fmtSigned(Math.round((r.l.v - r.prev.v) * 100), 0)) : "—"}</td><td>${r.ago ? esc(fmtSigned(Math.round((r.l.v - r.ago.v) * 100), 0)) : "—"}</td></tr>`).join("") + "</tbody>";
     const c = rows.find(r => r.key === "cetes28"), b = rows.find(r => r.key === "mbono10"), lines = [];
     if (c && b) lines.push(T.bxYcCallout(fmtPP(b.l.v - c.l.v, 2), fmtLevelPct(c.l.v, 2), fmtDateDMY(c.l.d), fmtLevelPct(b.l.v, 2), fmtDateDMY(b.l.d)));
@@ -2634,8 +2638,8 @@ function renderBanxico() {
     execSummary("bx", [
       [T.sumLatest, T.sumBxLatest(fmtLevelPct(prL.v, 2), chgTxt) + (hL ? " " + T.sumBxInfl(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1)) : "")],
       drvLine,
-      slope !== null ? [T.sumCurve, T.sumBxCurve(slope > 0.25 ? "up" : slope < -0.25 ? "inverted" : "flat", fmtLevelPct(ycB.l.v, 2), fmtDateDMY(ycB.l.d), fmtPP(slope, 2), spOk ? fmtBp(spL.v) : null)] : null,
       [T.sumWhy, T.sumBxWhy],
+      slope !== null ? [T.sumCurve, T.sumBxCurve(slope > 0.25 ? "up" : slope < -0.25 ? "inverted" : "flat", fmtLevelPct(ycB.l.v, 2), fmtDateDMY(ycB.l.d), fmtPP(slope, 2), spOk ? fmtBp(spL.v) : null)] : null,
       [T.sumNext, T.sumBxNext(moveWord)]
     ]);
   } else execSummary("bx", []);
