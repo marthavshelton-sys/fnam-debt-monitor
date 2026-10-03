@@ -1,0 +1,120 @@
+# Keeps the Hyperscaler Hub (site/hiperescaladores) current. Runbook: tools/hyperscalers/README.md.
+#
+#   poll    every day, twice (13:20 UTC ≈ 09:20 ET, after the overnight filings; 22:20 UTC ≈ 18:20 ET, after the
+#           evening 8-Ks): SEC EDGAR submissions API (new 8-K / 10-Q / 10-K / 10-K/A / 20-F / 6-K / 424B) and XBRL
+#           companyfacts for the ten companies → tools/hyperscalers/data/xbrl, filings.json, state.json; then the build
+#           (quarters, TTM, ratios, debt deals, change log, CSVs) and the validator (quality pages).
+#   notes   when a new 10-K / 10-Q / 20-F arrives (or on dispatch with mode=notes): downloads the filing on this runner
+#           and keeps the off-balance-sheet passages with their page numbers in tools/hyperscalers/raw/notes/. Figures
+#           from text enter the page only through tools/hyperscalers/data/offbs.json, as "needs review" until verified.
+#
+# A run commits only when data changed; bot commits carry [skip actions]. Three failed EDGAR polls in a row open one
+# "SOURCE DOWN: Hyperscalers - ..." issue (label hyperscalers-health), closed on recovery. FactSet snapshots and
+# guidance are refreshed in a Claude session (FactSet is not available here).
+name: Refresh Hyperscaler Hub data
+
+on:
+  schedule:
+    - cron: "20 13 * * *"
+    - cron: "20 22 * * *"
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: "poll | notes | all"
+        default: "poll"
+      force_notes:
+        description: "re-harvest notes already harvested (true/false)"
+        default: "false"
+
+concurrency:
+  group: hyperscalers-refresh
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Poll SEC EDGAR (submissions + XBRL companyfacts)
+        id: poll
+        if: github.event.inputs.mode != 'notes'
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx hyperscaler-hub (contact via repository)' }}
+        run: node scripts/hyperscalers/fetch-edgar.mjs
+
+      - name: Decide whether to harvest notes
+        id: plan
+        shell: bash
+        run: |
+          MODE="${{ github.event.inputs.mode || 'poll' }}"
+          NEW=$(node -e 'const s=require("./tools/hyperscalers/data/state.json");console.log((s.newFilings||[]).some(f=>/^(10-K|10-Q|20-F)/.test(f.form))?"yes":"no")')
+          if [ "$MODE" = "notes" ] || [ "$MODE" = "all" ] || [ "$NEW" = "yes" ]; then echo "notes=yes" >> "$GITHUB_OUTPUT"; else echo "notes=no" >> "$GITHUB_OUTPUT"; fi
+          echo "mode=$MODE new_periodic_filing=$NEW"
+
+      - name: Harvest off-balance-sheet notes (new 10-K / 10-Q / 20-F)
+        if: steps.plan.outputs.notes == 'yes'
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx hyperscaler-hub (contact via repository)' }}
+        run: node scripts/hyperscalers/harvest-notes.mjs ${{ github.event.inputs.force_notes == 'true' && '--force' || '' }}
+
+      - name: Build module data
+        run: node scripts/hyperscalers/build.mjs
+
+      - name: Validate (writes the quality pages)
+        run: node scripts/hyperscalers/validate.mjs
+
+      - name: Commit if anything changed
+        shell: bash
+        run: |
+          git config user.name "hyperscalers-refresh[bot]"
+          git config user.email "hyperscalers-refresh@users.noreply.github.com"
+          git add site/hiperescaladores tools/hyperscalers
+          # the build stamps every file with its run time; commit only when a value, filing or note changed
+          if git diff --cached --quiet -- tools/hyperscalers/data/metrics.json tools/hyperscalers/data/filings.json tools/hyperscalers/raw tools/hyperscalers/data/xbrl tools/hyperscalers/data/changelog.json; then
+            echo "No data change; nothing to commit."
+            git reset -q
+            git checkout -q -- site/hiperescaladores tools/hyperscalers
+            exit 0
+          fi
+          git commit -m "hyperscalers: refresh data $(date -u +%Y-%m-%d\ %H:%M) UTC [skip actions]"
+          for i in 1 2 3 4; do
+            if git push origin HEAD:${GITHUB_REF_NAME}; then exit 0; fi
+            echo "push failed; rebasing and retrying ($i)"
+            git pull --rebase origin ${GITHUB_REF_NAME} || true
+            sleep $((i * 5))
+          done
+          exit 1
+
+      - name: SOURCE DOWN issue (three failed polls in a row) / close on recovery
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let s = {};
+            try { s = JSON.parse(fs.readFileSync('tools/hyperscalers/data/state.json', 'utf8')); } catch (e) { return; }
+            const label = 'hyperscalers-health';
+            const runUrl = `${context.serverUrl}/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}`;
+            const { data: open } = await github.rest.issues.listForRepo({ ...context.repo, state: 'open', labels: label, per_page: 1 });
+            const issue = open[0];
+            if ((s.consecutiveFailures || 0) >= 3) {
+              const body = `The EDGAR poll of the Hyperscaler Hub (https://fnam.mx/hiperescaladores/) failed ${s.consecutiveFailures} runs in a row.\n\n` +
+                (s.errors || []).map((e) => `- ${e.ticker} (${e.api}): ${e.error}`).join('\n') + `\n\nLast success: ${s.lastSuccess || 'none'}. Stored values are still shown, labeled with their dates. Run: ${runUrl}`;
+              if (issue) await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body });
+              else {
+                try { await github.rest.issues.createLabel({ ...context.repo, name: label, color: 'd93f0b', description: 'Hyperscaler Hub refresh needs attention' }); } catch (e) { /* exists */ }
+                await github.rest.issues.create({ ...context.repo, title: 'SOURCE DOWN: Hyperscalers - EDGAR poll failing', labels: [label], body });
+              }
+            } else if (issue && (s.consecutiveFailures || 0) === 0) {
+              await github.rest.issues.createComment({ ...context.repo, issue_number: issue.number, body: `Healthy again: every EDGAR call answered in ${runUrl}. Closing.` });
+              await github.rest.issues.update({ ...context.repo, issue_number: issue.number, state: 'closed' });
+            }
