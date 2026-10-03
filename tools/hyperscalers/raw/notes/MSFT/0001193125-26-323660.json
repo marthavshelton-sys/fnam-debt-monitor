@@ -1,0 +1,137 @@
+{
+ "ticker": "MSFT",
+ "cik": 789019,
+ "form": "10-K",
+ "accn": "0001193125-26-323660",
+ "filed": "2026-07-29",
+ "report": "2026-06-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 102,
+ "numberedPages": 100,
+ "hits": [
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "text": "These factors could adversely affect our business, financial condition, and results of operations. Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "text": "Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, in October 2023 we completed our acquisition of Activision Blizzard , Inc.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "22",
+   "text": "Expanding manufacturing or supply capacity for certain components may require significant investments and multi-year lead times. As components are delayed or become unavailable or more expensive, whether because of supplier capacity constraint, industry shortages, legal or regulatory changes that restrict supply sources, geopolitical tensions, trade restrictions, tariffs, transportation disruptions, supplier financial distress, natural disasters, public health events, instability in regions important to our or our suppliers’ supply chains, or other reasons, we may not obtain timely replacement supplies, or may be able to obtain supplies only by entering into long-term purchase commitments, price commitments, paying prices above prevailing market rates, or other arrangements on terms that are less favorable than prevailing market terms. Any delay or inability to obtain necessary equipment, hardware, or components on acceptable terms and timelines could delay infrastructure deployments, result in reduced sales, higher costs, or   22",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "41",
+   "text": "Gains and losses from changes in fair values of derivatives that are not designated as hedging instruments are primarily recognized in other income (expense), net. Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net losses for fiscal years 2026 and 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for fiscal year 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.",
+   "amounts": [
+    {
+     "raw": "$6.5 billion",
+     "usdM": 6500
+    },
+    {
+     "raw": "$4.8 billion",
+     "usdM": 4800
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "41",
+   "text": "Net gains on derivatives increased primarily due to gains on equity derivatives in the current period as compared to losses in the prior period. Other, net primarily reflects net recognized gains on equity method investments, including OpenAI. INCOME TAXES   Effective Tax Rate   Our effective tax rate for fiscal years 2026 and 2025 was 19% and 18%, respectively.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "44",
+   "text": "Refer to Note 12 – Unearned Revenue of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K). Material Cash Requirements and Other Obligations   Contractual Obligations   The following table summarizes the payments due by fiscal year for our outstanding contractual obligations as of June 30, 2026:   (In millions)   2027   Thereafter   Total   Long-term debt: (a)   Principal payments   $   9,250   $   36,886   $   46,136   Interest payments   1,405   24,148   25,553   Construction commitments (b)   29,848   4,718   34,566   Operating and finance leases, including imputed interest (c)   32,411   411,095   443,506   Purchase commitments (d)   169,008   25,052   194,060   Total   $   241,922   $   501,899   $   743,821   (a) Refer to Note 10 – Debt of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K). (b) Refer to Note 6 – Property and Equipment of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "44",
+   "text": "(c) Refer to Note 13 – Leases of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K). (d) Purchase commitments primarily relate to datacenters and include open purchase orders and take-or-pay contracts that are not presented as construction commitments above. Share Repurchases   During fiscal years 2026 and 2025, we repurchased 36 million shares and 31 million shares of our common stock for $16.7 billion and $13.0 billion, respectively, through our share repurchase program.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "text": "Measurement and Impairment of Investment Securities   Investments purchased by Microsoft are typically accounted for as available-for-sale debt securities, equity investments with readily determinable fair values, or equity investments without readily determinable fair values measured using either the equity method when required or at cost less impairments, if any, with adjustments for observable changes in price (referred to as the measurement alternative). Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "text": "Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred. We review debt investments quarterly for credit losses and impairment.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "59",
+   "text": "Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "59",
+   "text": "Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred. Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "59",
+   "text": "For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred. Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "59",
+   "text": "We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting or the measurement alternative.   59",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "60",
+   "text": "We have an investment accounted for under the equity method that represents an approximate 25 % interest on an as-converted basis. As an equity method investee, OpenAI is a related party as defined in Accounting Standards Codification Topic 850, Related Party Disclosures (“ASC 850”). In accordance with ASC 850, we are disclosing revenue and accounts receivable balances from transactions with OpenAI.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "62",
+   "text": "The components of basic and diluted EPS were as follows:   (In millions, except per share amounts)   Year Ended June 30,   2026   2025   2024   Net income available for common shareholders (A)   $   133,749   $   101,832   $   88,136   Weighted average outstanding shares of common stock (B)   7,429   7,433   7,431   Dilutive effect of stock-based awards   24   32   38   Common stock and common stock equivalents (C)   7,453   7,465   7,469   Earnings Per Share   Basic (A/B)   $   18.00   $   13.70   $   11.86   Diluted (A/C)   $   17.95   $   13.64   $   11.80   Anti-dilutive stock-based awards excluded from the calculations of diluted EPS were immaterial during the periods presented. NOTE 3 — OTHER INCOME (EXPENSE), NET   The components of other income (expense), net were as follows:   (In millions)   Year Ended June 30,   2026   2025   2024   Interest and dividends income   $   3,301   $   2,647   $   3,157   Interest expense   ( 3,051   )   ( 2,385   )   ( 2,935   )   Net recognized gains (losses) on investments   4,385   ( 349   )   ( 118   )   Net gains (losses) on derivatives   1,867   ( 260   )   ( 187   )   Net gains (losses) on foreign currency remeasurements   ( 527   )   171   ( 244   )   Other, net   4,722   ( 4,725   )   ( 1,319   )   Total   $   10,697   $   ( 4,901   )   $   ( 1,646   )   Other income (expense), net included $ 6.5 billion of net gains, $ 4.8 billi",
+   "amounts": [
+    {
+     "raw": "$ 6.5 billion",
+     "usdM": 6500
+    },
+    {
+     "raw": "$ 4.8 billion",
+     "usdM": 4800
+    },
+    {
+     "raw": "$ 1.5 billion",
+     "usdM": 1500
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "78",
+   "text": "PART II   Item 8   Supplemental cash flow information related to leases was as follows:   (In millions)   Year Ended June 30,   2026   2025   2024   Cash paid for amounts included in the measurement of lease liabilities:   Operating cash flows from operating leases   $   6,443   $   4,931   $   3,550   Operating cash flows from finance leases   2,547   1,372   734   Financing cash flows from finance leases   3,101   2,283   1,286   Right-of-use assets obtained in exchange for lease obligations:   Operating leases   4,555   7,826   6,703   Finance leases   24,608   20,511   11,633   Supplemental balance sheet information related to leases was as follows:   (In millions, except lease term and discount rate)   June 30,   2026   2025   Operating Leases   Operating lease right-of-use assets   $   24,177   $   24,823   Other current liabilities   $   5,393   $   5,424   Operating lease liabilities   16,532   17,437   Total operating lease liabilities   $   21,925   $   22,861   Finance Leases   Property and equipment, at cost   $   82,712   $   53,876   Accumulated depreciation   ( 15,431   )   ( 9,861   )   Property and equipment, net   $   67,281   $   44,015   Other current liabilities   $   4,290   $   3,172   Other long-term liabilities   62,304   43,000   Total finance lease liabilities   $   66,594   $   46,172   Weighted Average Remaining Lease Term   Operating leases   6 yea",
+   "amounts": [
+    {
+     "raw": "$ 329.1 billion",
+     "usdM": 329100
+    }
+   ]
+  }
+ ]
+}

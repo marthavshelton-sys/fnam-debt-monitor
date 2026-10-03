@@ -1,0 +1,68 @@
+{
+ "ticker": "CORZ",
+ "cik": 1839341,
+ "form": "10-K",
+ "accn": "0001628280-26-013305",
+ "filed": "2026-03-02",
+ "report": "2025-12-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1839341/000162828026013305/core-20251231.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 1,
+ "numberedPages": 0,
+ "hits": [
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "These statements are provided for illustrative purposes only and are   based on various assumptions, whether or not identified in this Annual Report on Form 10-K, and on the current expectations of the   Company’s management. These forward-looking statements are not intended to serve, and must not be relied on by any investor, as a   guarantee, an assurance, a prediction or a definitive statement of fact or probability. Actual events and circumstances are difficult or   impossible to predict and will differ from assumptions.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "Many actual events and circumstances are beyond the control of the Company. These forward-looking statements are not guarantees of future performance and are subject to risks, uncertainties and   assumptions, known or unknown, that could cause actual results to vary materially from those indicated or anticipated. These risks,   assumptions and uncertainties include those described in Item 1A. — “Risk Factors.” If one or more of these risks or uncertainties   materializes, or if underlying assumptions prove incorrect, actual results may vary materially from those indicated or anticipated by   such forward-looking statements.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "seq1",
+   "text": "Modified gross leases, by contrast, typically involve the operator retaining responsibility for certain facility-level   operating expenses, while the customer is billed separately for power and, in some cases, other variable operating costs. Both lease   8   Table of Contents   structures are frequently paired with long-term, take-or-pay contractual commitments, under which the customer is obligated to pay for   leased customer power capacity regardless of utilization, providing operators with revenue visibility over the contract term. The colocation industry has evolved significantly in recent years, driven in particular by the large-scale deployment of   infrastructure to support AI and other HPC workloads.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "While we might be entitled to damages if the third parties with whom we work fail to satisfy their   privacy or security-related obligations to us, any award may be insufficient to cover our damages, or we may be unable to recover such   award. In addition, supply-chain attacks have increased in frequency and severity, and we cannot guarantee that third parties’   infrastructure in our supply chain or that of the third parties with whom we work have not been compromised. Our digital infrastructure and systems may be breached due to the actions of outside parties, error or malfeasance of one of our   employees, or otherwise, and, as a result, an unauthorized party may obtain access to our digital asset accounts, private keys, data or   digital assets.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq1",
+   "text": "As Rule 3a-2 is available to an   issuer no more than once every three years, and assuming no other exclusion were available to us, we would have to keep within the   40% limit for at least three years after we cease being an inadvertent investment company. This may limit our ability to make certain   investments or enter into joint ventures that could otherwise have a positive impact on our earnings. In any event, we do not intend to   become an investment company engaged in the business of investing and trading securities.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "In 2019, the IRS issued additional guidance specifically relating to the income tax consequences that could   arise from a digital asset hard fork event in which a new unit of digital asset may or may not be received, and released frequently   asked questions to address certain digital asset topics such as tax basis, gain, or loss on the sale or exchange of certain kinds of digital   assets and how to determine the fair market value of such digital assets. There is no guarantee that the IRS will not alter its position with respect to the taxation of digital assets, or that legislation or   judicial determinations in the future will not result in a tax treatment of digital assets and transactions in digital assets for tax purposes   that differs from the treatment described above. You are urged to consult your own tax advisor as to the tax implications of our   acquisition, ownership, use, and disposition of digital assets.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "We   believe that the security procedures that Coinbase utilizes, such as dual authentication security, secured facilities, segregated accounts   and cold storage, are reasonably designed to safeguard our bitcoin and other digital assets from theft, loss, destruction or other issues   relating to hackers and technological attack. Nevertheless, the security procedures cannot guarantee the prevention of any loss due to a   security breach, software defect or act of God that may be borne by us. In addition, Coinbase’s limited liability under its services   42   Table of Contents   agreement with us may limit our ability to recover losses relating to our bitcoin.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq1",
+   "text": "Participants in the digital asset ecosystem debate potential approaches to increasing the average number of   transactions per second that the network can handle and have implemented mechanisms or are researching ways to increase scale, such   as “sharding,” which is a term for a horizontal partition of data in a database or search engine, which would not require every single   transaction to be included in every single miner’s or validator’s block. There is no guarantee that any of the mechanisms in place or being explored for increasing the scale of settlement of digital   asset transactions will be effective, how long they will take to become effective or whether such mechanisms will be effective for all   digital assets. There is also a risk that any mechanisms of increasing the scale of digital asset settlements, such as the ongoing   upgrades as part of Ethereum 2.0, may significantly alter the competitive dynamics in the digital asset market and may adversely affect   the value of bitcoin and the price of our securities.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "seq1",
+   "text": "We expect to increase   capital expenditures in 2026 relative to 2025 to support our strategic shift to colocation services. For additional information regarding our operating lease obligations, convertible notes, and purchase commitments, refer to   Note 7 — Leases , Note 8 — Convertible and Other Notes Payable , and Note 11 — Commitments and Contingencies , respectively , to   our consolidated financial statements included in Item 8 of Part II of this Annual Report on Form 10-K. Critical Accounting Estimates   The critical accounting estimates, assumptions, judgments and the related policies that we believe have the most significant   impact on our consolidated financial statements are described below.",
+   "amounts": []
+  }
+ ]
+}

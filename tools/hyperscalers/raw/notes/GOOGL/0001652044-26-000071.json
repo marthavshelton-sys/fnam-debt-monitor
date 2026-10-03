@@ -1,0 +1,563 @@
+{
+ "ticker": "GOOGL",
+ "cik": 1652044,
+ "form": "10-Q",
+ "accn": "0001652044-26-000071",
+ "filed": "2026-07-23",
+ "report": "2026-06-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 64,
+ "numberedPages": 64,
+ "hits": [
+  {
+   "kind": "vie",
+   "page": "17",
+   "text": "We account for non-marketable equity securities through which we exercise significant influence, but do not have control over the investee under the equity method. Certain of our non-marketable securities include our investments in variable interest entities (VIEs) where we are not the primary beneficiary. See Note 5 for further details on VIEs.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "18",
+   "text": "Table of Contents   Alphabet Inc. The carrying values for non-marketable securities are summarized below (in millions):   As of  December 31, 2025 As of June 30, 2026   Non-marketable securities:   Total initial cost of non-marketable equity securities accounted for under the measurement alternative   $ 28,429 $ 47,642   Cumulative upward adjustments   44,485 85,732   Cumulative downward adjustments (including impairments)   ( 8,820 ) ( 9,115 )   Carrying value of non-marketable equity securities accounted for under the measurement alternative (1)   64,094 124,259   Equity method investments and other   4,593 7,202   Total non-marketable securities   $ 68,687 $ 131,461   (1) As of June 30, 2026, our investments in non-marketable securities accounted for under the measurement alternative primarily consist of our investment in a private company. Gains and Losses on Equity Securities   Gains and losses (including impairments), net, for equity securities included in OI&E are summarized below (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2025 2026 2025 2026   Gross unrealized gain on non-marketable equity securities accounted for under the measurement alternative   $ 670 $ 77,544 $ 10,374 $ 114,161   Gross unrealized loss (including impairments) on non-marketable equity securities accounted for under the measurement alternative   ( 454 ) ( 190 ) ( 853 ) ",
+   "amounts": [
+    {
+     "raw": "$ 28,429 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 47,642   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68,687 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 131,461   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "18",
+   "text": "The carrying values for non-marketable securities are summarized below (in millions):   As of  December 31, 2025 As of June 30, 2026   Non-marketable securities:   Total initial cost of non-marketable equity securities accounted for under the measurement alternative   $ 28,429 $ 47,642   Cumulative upward adjustments   44,485 85,732   Cumulative downward adjustments (including impairments)   ( 8,820 ) ( 9,115 )   Carrying value of non-marketable equity securities accounted for under the measurement alternative (1)   64,094 124,259   Equity method investments and other   4,593 7,202   Total non-marketable securities   $ 68,687 $ 131,461   (1) As of June 30, 2026, our investments in non-marketable securities accounted for under the measurement alternative primarily consist of our investment in a private company. Gains and Losses on Equity Securities   Gains and losses (including impairments), net, for equity securities included in OI&E are summarized below (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2025 2026 2025 2026   Gross unrealized gain on non-marketable equity securities accounted for under the measurement alternative   $ 670 $ 77,544 $ 10,374 $ 114,161   Gross unrealized loss (including impairments) on non-marketable equity securities accounted for under the measurement alternative   ( 454 ) ( 190 ) ( 853 ) ( 582 )   Unrealized net gain (los",
+   "amounts": [
+    {
+     "raw": "$ 670 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 77,544 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,374 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 114,161   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,286 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 99,031 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,044 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 135,946   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "20",
+   "text": "The gross notional amounts of outstanding derivative instruments were as follows (in millions):   As of  December 31, 2025 As of June 30, 2026   Derivatives designated as hedging instruments:   Foreign exchange and other derivatives   Cash flow hedges $ 23,852 $ 27,493   Net investment hedges $ 14,203 $ 11,520   Derivatives not designated as hedging instruments:   Foreign exchange derivatives   $ 56,085 $ 54,387   Equity derivatives   $ 0 $ 20,000   Credit derivatives   $ 16,940 $ 43,785   Other derivatives $ 15,900 $ 14,925   See Note 5 for further details on variable interest entity considerations relating to our equity and credit derivatives. The fair values of outstanding derivative instruments were as follows (in millions):   As of December 31, 2025 As of June 30, 2026   Assets (1)   Liabilities (2)   Assets (1)   Liabilities (2)   Derivatives designated as hedging instruments:   Foreign exchange derivatives   $ 316 $ 197 $ 1,150 $ 18   Derivatives not designated as hedging instruments:   Foreign exchange derivatives   92 15 168 646   Equity derivatives 0 0 0 457   Credit derivatives   0 69 0 815   Other derivatives   324 98 384 22   Total derivatives not designated as hedging instruments 416 182 552 1,940   Total $ 732 $ 379 $ 1,702 $ 1,958   (1) Derivative assets are recorded as other current and non-current assets.",
+   "amounts": [
+    {
+     "raw": "$ 23,852 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27,493   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,203 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,520   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 56,085 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 54,387   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 20,000   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16,940 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 43,785   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 15,900 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,925   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "24",
+   "text": "Three Months Ended Six Months Ended   June 30, June 30,   2025 2026 2025 2026   Cash payments for lease liabilities:   Operating cash flows used for operating leases   $ 783 $ 899 $ 1,661 $ 1,817   Operating cash flows used for finance leases   $ 16 $ 18 $ 31 $ 35   Financing cash flows used for finance leases (1)   $ 110 $ 318 $ 302 $ 840   Assets obtained in exchange for lease liabilities:   Operating leases $ 831 $ 2,664 $ 1,528 $ 3,739   Finance leases $ 83 $ 691 $ 606 $ 902   (1) Additionally, during the three and six months ended June 30, 2026, we made $ 201 million and $ 835 million of lease prepayments for leases not yet commenced, respectively, which are expected to be accounted for as finance leases. Future lease payments as of June 30, 2026 were as follows (in millions):   Operating Leases Finance  Leases   Remainder of 2026 $ 1,836 $ 206   2027 3,498 387   2028 2,979 377   2029 2,576 356   2030 2,046 285   Thereafter 8,398 1,309   Total undiscounted lease payments   21,333 2,920   Less: imputed interest   ( 3,296 ) ( 330 )   Total lease liability balance $ 18,037 $ 2,590   As of June 30, 2026, we have entered into leases, primarily related to data centers, that have not yet commenced with future lease payments of $ 85.2 billion that are not yet recorded.",
+   "amounts": [
+    {
+     "raw": "$ 783 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 899 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,661 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,817   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 31 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 35   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 110 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 318 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 302 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 840   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 831 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,664 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,528 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,739   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 83 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 691 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 606 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 902   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 201 million",
+     "usdM": 201
+    },
+    {
+     "raw": "$ 835 million",
+     "usdM": 835
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "24",
+   "text": "Three Months Ended Six Months Ended   June 30, June 30,   2025 2026 2025 2026   Cash payments for lease liabilities:   Operating cash flows used for operating leases   $ 783 $ 899 $ 1,661 $ 1,817   Operating cash flows used for finance leases   $ 16 $ 18 $ 31 $ 35   Financing cash flows used for finance leases (1)   $ 110 $ 318 $ 302 $ 840   Assets obtained in exchange for lease liabilities:   Operating leases $ 831 $ 2,664 $ 1,528 $ 3,739   Finance leases $ 83 $ 691 $ 606 $ 902   (1) Additionally, during the three and six months ended June 30, 2026, we made $ 201 million and $ 835 million of lease prepayments for leases not yet commenced, respectively, which are expected to be accounted for as finance leases. Future lease payments as of June 30, 2026 were as follows (in millions):   Operating Leases Finance  Leases   Remainder of 2026 $ 1,836 $ 206   2027 3,498 387   2028 2,979 377   2029 2,576 356   2030 2,046 285   Thereafter 8,398 1,309   Total undiscounted lease payments   21,333 2,920   Less: imputed interest   ( 3,296 ) ( 330 )   Total lease liability balance $ 18,037 $ 2,590   As of June 30, 2026, we have entered into leases, primarily related to data centers, that have not yet commenced with future lease payments of $ 85.2 billion that are not yet recorded. These leases will commence between 2026 and 2031 with non-cancelable lease terms between one and 26 years.",
+   "amounts": [
+    {
+     "raw": "$ 1,836 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 206   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,037 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,590   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 85.2 billion",
+     "usdM": 85200
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "24",
+   "text": "Note 5. Variable Interest Entities   Consolidated VIEs   We consolidate VIEs in which we hold a variable interest and are the primary beneficiary. The results of operations and financial position of these VIEs are included in our consolidated financial statements.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "24",
+   "text": "Unconsolidated VIEs   We hold various forms of interests in VIEs, including certain of our investments in private companies and renewable energy entities, certain leases and credit backstops with data center entities, and certain backstops with energy infrastructure entities. Because we have determined that we do not direct the activities that most significantly impact the economic performance of these entities, we are not the primary beneficiary. Therefore, these VIEs are not consolidated within our financial statements.",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "25",
+   "text": "Leases with data center leasing VIEs are accounted for as finance leases and are included within total lease obligations disclosed in Note 4. The maximum exposure arising from leases with VIEs is limited to the net carrying value of commenced finance lease assets, plus the undiscounted future obligations for leases that have not yet commenced. See Note 4 for further details on leases.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "25",
+   "text": "See Note 3 for further details on credit derivatives. Backstop agreements we have provided to certain energy infrastructure VIEs are accounted for as financial guarantees. The maximum exposure to these VIEs is limited to the potential amount of future payments under these arrangements.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "25",
+   "text": "The maximum exposure to these VIEs is limited to the potential amount of future payments under these arrangements. See Note 10 for further details on financial guarantees. Note 6.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "28",
+   "text": "Foreign Currency Translation Adjustments Unrealized Gains (Losses) on Available-for-Sale Investments Unrealized Gains (Losses) on Cash Flow Hedges Total   Balance as of December 31, 2025 $ ( 2,558 ) $ 678 $ ( 36 ) $ ( 1,916 )   Other comprehensive income (loss) before reclassifications ( 331 ) ( 629 ) 439 ( 521 )   Amounts excluded from the assessment of hedge effectiveness recorded in AOCI ( 4 ) 0 68 64   Amounts reclassified from AOCI 0 15 73 88   Other comprehensive income (loss) ( 335 ) ( 614 ) 580 ( 369 )   Balance as of June 30, 2026 $ ( 2,893 ) $ 64 $ 544 $ ( 2,285 )   The effects on net income of amounts reclassified from AOCI were as follows (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   AOCI Components Location 2025 2026 2025 2026   Unrealized gains (losses) on available-for-sale investments   Other income (expense), net $ 37 $ ( 44 ) $ 141 $ ( 20 )   Benefit (provision) for income taxes ( 8 ) 10 ( 28 ) 5   Net of income tax 29 ( 34 ) 113 ( 15 )   Unrealized gains (losses) on cash flow hedges   Foreign exchange derivatives Revenue ( 138 ) 97 104 ( 114 )   Interest rate derivatives Other income (expense), net 0 1 0 2   Benefit (provision) for income taxes 31 ( 13 ) ( 14 ) 39   Net of income tax ( 107 ) 85 90 ( 73 )   Total amount reclassified, net of income tax $ ( 78 ) $ 51 $ 203 $ ( 88 )   Other Income (Expense), Net   Components of OI&E w",
+   "amounts": [
+    {
+     "raw": "$ 678 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 64 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 544 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 37 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 141 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 51 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 203 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,050 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,430 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,051 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,811   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,662 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 97,983 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,845 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 135,699   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 92 million",
+     "usdM": 92
+    },
+    {
+     "raw": "$ 363 million",
+     "usdM": 363
+    },
+    {
+     "raw": "$ 171 million",
+     "usdM": 171
+    },
+    {
+     "raw": "$ 628 million",
+     "usdM": 628
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "29",
+   "text": "This acquisition enables acceleration of data center capacity and energy development. Intersect is a VIE and we have determined we are the primary beneficiary. Following the close of the acquisition, the financial results are included in our consolidated financial statements and are allocated to our segments.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "29",
+   "text": "Upon closing, we expect to receive $ 1.5 billion in cash, a $ 2.0 billion note receivable, and a 49.99 % equity interest. The remaining interest is expected to be accounted for as an unconsolidated VIE under the equity method of accounting, as we will no longer be the primary beneficiary. The transaction is expected to close in late 2026.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "30",
+   "text": "In addition, we have commitments for certain energy service agreements to secure energy for data center usage, and certain content licensing agreements. As of June 30, 2026, expected future fixed or guaranteed commitments under these agreements were $ 707.0 billion, the significant majority of which related to long-term supply agreements. We expect contractual commitments under the long-term supply agreements and content licenses to generally be fulfilled through 2030.",
+   "amounts": [
+    {
+     "raw": "$ 707.0 billion",
+     "usdM": 707000
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "30",
+   "text": "We expect contractual commitments under the long-term supply agreements and content licenses to generally be fulfilled through 2030. The energy service agreements include terms ranging from two to 26 years, with obligations through 2054, and generally include take-or-pay provisions for minimum quantities of energy supply and substantive termination fees. Financial Guarantees   30",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "30",
+   "text": "The energy service agreements include terms ranging from two to 26 years, with obligations through 2054, and generally include take-or-pay provisions for minimum quantities of energy supply and substantive termination fees. Financial Guarantees   30",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "31",
+   "text": "We provide financial guarantees to certain counterparties, primarily in the form of backstop agreements with varying terms through September 2026. These backstop agreements support counterparty procurement of long-lead time equipment for our future power purchase and energy agreements.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "31",
+   "text": "These backstop agreements support counterparty procurement of long-lead time equipment for our future power purchase and energy agreements. As of June 30, 2026, our maximum potential amount of future payments under these guarantees was $ 7.6 billion, upon which we may receive certain assets. The fair value of these obligations was not material.",
+   "amounts": [
+    {
+     "raw": "$ 7.6 billion",
+     "usdM": 7600
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "32",
+   "text": "We appealed the ruling in November 2025, which remains pending. We recognized a charge of $ 3.5 billion in the third quarter of 2025, and we placed bank guarantees in the fourth quarter of 2025 in lieu of cash payment. In September 2024, the United Kingdom (UK) also issued a Statement of Objections concerning Google's advertising technology and its compliance with UK antitrust laws, to which we responded.   • Google Play: In July 2021, a number of state Attorneys General filed a lawsuit in the US District Court for the Northern District of California concerning Google's operation of Android and Google Play and its compliance with US antitrust laws and state antitrust and consumer protection laws.",
+   "amounts": [
+    {
+     "raw": "$ 3.5 billion",
+     "usdM": 3500
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "45",
+   "text": "The main components of our general and administrative expenses are:   • employee compensation expenses for employees in finance, human resources, information technology, legal, and other administrative support functions;   • expenses relating to legal and other matters, including certain fines and settlements; and   • third-party services fees, including audit, consulting, outside legal, and other outsourced administrative services. Other Income (Expense), Net   OI&E, net primarily consists of interest income (expense), the effect of foreign currency exchange gains (losses), net gains (losses) and impairment on our marketable and non-marketable securities, and income (loss) and impairment from our equity method investments. For additional information, including how we account for our investments and factors that can drive fluctuations in the value of our investments, see Note 1 of the Notes to Consolidated Financial Statements included in Part II, Item 8 as well as Item 7A, “Quantitative and Qualitative Disclosur es About Market Risk” in our An nual Report on Form 10-K for the fiscal year ended December 31, 2025 as well as Note 3 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "50",
+   "text": "The increase in operating loss was primarily driven by increases in employee compensation expenses, third-party services fees, and a combination of other factors, none of which were individually significant. Other Income (Expense), Net   The following table presents OI&E (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2025 2026 2025 2026   Interest income $ 1,050 $ 1,430 $ 2,051 $ 2,811   Interest expense (261) (1,278) (295) (1,811)   Foreign currency exchange gain (loss), net (69) (160) (175) (14)   Gain (loss) on debt securities, net 165 (32) 367 (143)   Gain (loss) on equity securities, net 1,286 99,031 11,044 135,946   Income (loss) and impairment from equity method investments, net 419 (35) 397 25   Other 72 (973) 456 (1,115)   Other income (expense), net $ 2,662 $ 97,983 $ 13,845 $ 135,699   50",
+   "amounts": [
+    {
+     "raw": "$ 1,050 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,430 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,051 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,811   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,662 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 97,983 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,845 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 135,699   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "53",
+   "text": "As of June 30, 2026, we have entered into leases, primarily related to data centers, that have not yet commenced with future lease payments of $85.2 billion. These leases will commence between 2026 and 2031 with non-cancelable lease terms between one and 26 years.",
+   "amounts": [
+    {
+     "raw": "$85.2 billion",
+     "usdM": 85200
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "The timing and amount of any payment related to these unrecognized tax benefits are uncertain and cannot be estimated. Purchase Commitments and Other Contractual Obligations   As of June 30, 2026, we had material purchase commitments and other contractual obligations totaling $811.0 billion, of which $200.7 billion was short-term. These purchase commitments primarily relate to costs for technical infrastructure and inventory through long-term supply agreements and open purchase orders.",
+   "amounts": [
+    {
+     "raw": "$811.0 billion",
+     "usdM": 811000
+    },
+    {
+     "raw": "$200.7 billion",
+     "usdM": 200700
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "Purchase Commitments and Other Contractual Obligations   As of June 30, 2026, we had material purchase commitments and other contractual obligations totaling $811.0 billion, of which $200.7 billion was short-term. These purchase commitments primarily relate to costs for technical infrastructure and inventory through long-term supply agreements and open purchase orders. Additional contractual obligations include commitments for content licenses and energy take-or-pay contracts.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "These purchase commitments primarily relate to costs for technical infrastructure and inventory through long-term supply agreements and open purchase orders. Additional contractual obligations include commitments for content licenses and energy take-or-pay contracts. For additional information related to our long-term supply agreements, energy take-or-pay contracts, and content licenses, see Note 10 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "Additional contractual obligations include commitments for content licenses and energy take-or-pay contracts. For additional information related to our long-term supply agreements, energy take-or-pay contracts, and content licenses, see Note 10 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q. As of June 30, 2026, we provided backstops in the form of financial guarantees and credit derivatives with maximum potential amount of future payments of $7.6 billion and $43.8 billion, respectively.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "54",
+   "text": "For additional information related to our long-term supply agreements, energy take-or-pay contracts, and content licenses, see Note 10 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q. As of June 30, 2026, we provided backstops in the form of financial guarantees and credit derivatives with maximum potential amount of future payments of $7.6 billion and $43.8 billion, respectively. Upon a default under these backstops, we retain the right to assume the underlying leases for internal use or to sublease to third parties.",
+   "amounts": [
+    {
+     "raw": "$7.6 billion",
+     "usdM": 7600
+    },
+    {
+     "raw": "$43.8 billion",
+     "usdM": 43800
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "55",
+   "text": "Upon closing, we expect to receive $1.5 billion in cash, a $2.0 billion note receivable, and a 49.99% equity interest. The remaining interest is expected to be accounted for as an unconsolidated VIE under the equity method of accounting, as we will no longer be the primary beneficiary. The transaction is expected to close in late 2026.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "58",
+   "text": "We also have a number of large, long-duration commercial agreements, which could increase our liabilities and obligations in the event of nonperformance by us, our counterparties, or vendors. These include certain financial guarantees, such as backstops to support the build-out of third-party data centers and power infrastructure. In the event of such nonperformance or industry challenges, we may incur additional liabilities, have excess capacity that we cannot easily redeploy, and not receive payments from our counterparties or customers.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "58",
+   "text": "Any difficulty in accessing capital markets, entering into other forms of financing on favorable terms, or managing our existing indebtedness could increase our costs of financing and restrict our ability to invest in our business. Furthermore, our current and any future indebtedness, including obligations arising under leases, backstops, guarantees, and potential liabilities from large commercial agreements, combined with the dilutive impact of current or future equity issuances, could harm our financial condition, depress our stock price or reduce our financial and business flexibility. Risks Related to Laws, Regulations, and Policies   Privacy, data protection, data usage, and portability regulations are complex and rapidly evolving areas.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "59",
+   "text": "There is no assurance that any depression in the market price from such dilution will only be in the short-term or temporary. We cannot guarantee that we will make repurchases under any share repurchase program, that our common stock dividend program will be continuously active or fully consummated, or that the required dividend payments on our Mandatory Convertible Preferred Stock together with any repurchases or dividends on our common stock will enhance long-term stockholder value. Further, share repurchases or dividends could increase the volatility of our stock prices and could diminish our cash reserves.",
+   "amounts": []
+  }
+ ]
+}

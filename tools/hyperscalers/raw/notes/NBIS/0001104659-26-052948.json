@@ -1,0 +1,399 @@
+{
+ "ticker": "NBIS",
+ "cik": 1513845,
+ "form": "20-F",
+ "accn": "0001104659-26-052948",
+ "filed": "2026-04-30",
+ "report": "2025-12-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 153,
+ "numberedPages": 93,
+ "hits": [
+  {
+   "kind": "guarantee",
+   "page": "4",
+   "text": "In some cases, these forward-looking statements can be identified by words or phrases such as “may,” “will,” “expect,” “anticipate,” “aim,” “estimate,” “intend,” “plan,” “believe,” “potential,” “continue,” “is/are likely to” or other similar expressions. In addition, these forward-looking statements reflect our current views with respect to future events and are not a guarantee of future performance. Actual results may differ materially from the results predicted or implied by such statements, and our reported results should not be considered as an indication of future performance.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "6",
+   "text": "Any supply chain disruptions, delays in delivery or increased costs could adversely affect our growth plans, financial condition and results of operations.   ● Our future growth relies on significant continuing expansion of our data center footprint. Any difficulties in identifying appropriate sites, entering into greenfield or build-to-suit arrangements or co-location agreements, or obtaining reliable power with sufficient capacity and on acceptable terms, will limit the growth of our revenues and anticipated profitability.   ● Expansion into new and unfamiliar geographic markets exposes us to additional risks that could adversely affect our business, results of operations and financial condition.   ● Our data centers are subject to numerous operational risks, including related to cybersecurity, physical security and third-party dependencies.   ● If there is insufficient customer demand to utilize the compute capacity we build, we would not realize the expected returns on our expansion efforts and our businesses, future operating results and financial condition would be adversely affected.   ● We depend on third-party suppliers for power, network connectivity and other key services, and may face service interruptions, limitations in capacity, additional regulatory requirements, or increased costs.   ● A slowdown, deferral or reprioritization of AI-related customer spending, or",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "10",
+   "text": "In addition, equity or convertible debt issuances could result in our existing shareholders suffering significant dilution and/or result in the issuance of securities that have preferential rights and privileges in addition to those of our existing Class A shares, and debt financings could entail significant additional cost and operational complexity. Even if we are able to raise sufficient capital, we cannot guarantee that we will deploy it in a manner that allows us to achieve better operating results or grow our business.  c. Our businesses face significant and evolving competition, and any inability to adapt to new and changing technologies and customer requirements or specifications could negatively affect our financial condition, results of operations and future prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "14",
+   "text": "We currently rely on Nvidia for the GPU chips we use and on a limited number of other suppliers for other key components in our infrastructure. The concentration of our suppliers exposes us to a number of risks including:   • the potentially limited availability of and access to the latest components including sophisticated GPU chips, which can be affected by suppliers’ capacity and commitments to other customers;   • lack of control over production costs, delivery, availability, terms, and pricing of components;   • the potential for binding price or purchase commitments with our suppliers at higher than market rates;   • changes in market-leading technologies away from those currently offered by our existing suppliers, which could impact our ability to offer our customers the services that they are seeking;   • reliance on our current suppliers to keep up to date with technological advancements at the same rate that our customers and the market demands, including delivering next-generation components that perform significantly better than their previous versions;   • limited ability to control aspects of the quality, performance, quantity, and cost of our infrastructure or of its components;   • the prioritization by our suppliers of other customers;   • breaches of contract by our suppliers;   • impacts on our supply chain from geopolitical disputes, natural disasters or adv",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "text": "Our future growth relies on significant continuing expansion of our data center footprint. Any difficulties in identifying appropriate sites, entering into greenfield or build-to-suit arrangements or co-location agreements, or obtaining reliable power with sufficient capacity and on acceptable terms, will limit the growth of our revenues and anticipated profitability . We intend to continue to purchase, build-to-suit or enter lease agreements with respect to additional data center capacity.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "text": "Any difficulties in identifying appropriate sites, entering into greenfield or build-to-suit arrangements or co-location agreements, or obtaining reliable power with sufficient capacity and on acceptable terms, will limit the growth of our revenues and anticipated profitability . We intend to continue to purchase, build-to-suit or enter lease agreements with respect to additional data center capacity. In particular, we are developing several facilities in the U.S., a market in which we have limited experience operating, and in Europe, and are exploring other appropriate locations.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "17",
+   "text": "We are unable to ensure that the security measures that we take will be adequate to prevent or protect our data centers and associated infrastructure against a cybersecurity attack, and any impact to our data centers will affect our services and may also impact our business, results of operations and financial condition. Various factors, many of which are beyond our control, can adversely affect the performance, availability, and delivery of our services to our customers including:  • the development, maintenance, and functioning of the underlying infrastructure of the internet as a whole;   • power and power grid constraints;   • lack of availability and delays for data center equipment, including items such as server racks, generators and switchgear;   • the performance and availability of third-party telecommunications services with the necessary speed, data capacity, and security for providing reliable and efficient internet access and services;   • the success or failure of our redundancy systems;   • the success or failure of our disaster recovery and business continuity plans;   • decisions by global telecommunications service provider partners who provide us with network bandwidth to modify or terminate our contracts, shut down their operations, increase our prices, modify the level of service they provide, breach their contract, or prioritize other parties over us;   •",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "20",
+   "text": "We may seek to enter into strategic partnerships or relationships, and any such arrangements may fail to realize the benefits we anticipate on the desired timeframe or at all. We may seek to expand our businesses by entering into strategic partnerships, joint ventures or other arrangements with third parties including for distribution of our services. Identifying strategic relationships with appropriate counterparties, and negotiating and documenting relationships with them, may take significant time and resources and distract members of senior management and key personnel.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "22",
+   "text": "We have implemented and rely on sophisticated IT and other security measures to protect our, our customers’ and partners’ businesses, information, data and personal details, as well as to safeguard the seamless operation of our offerings. While no incidents have had a material impact on our financial condition or business relationships to date, we are unable to guarantee that material incidents will not occur in the future. Despite our efforts, we may not be able to predict or recognize a cybersecurity incident, or implement adequate preventative measures, as the techniques used to sabotage systems and/or gain unauthorized access are ever-changing and may not be identified until the cyberattack has been launched against us.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "22",
+   "text": "Any significant infringement of our intellectual property rights and proprietary information could adversely affect our competitive position, business, financial condition and results of operations. In addition, we cannot guarantee that the steps we take to protect our intellectual property and technology rights will be sufficient to deter any misappropriation or unauthorized use of our intellectual property and   22",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "23",
+   "text": "Table of Contents   proprietary information or provide us with any competitive advantages. For example, there is no guarantee that any confidentiality or license arrangements that we enter into with, among others, our employees, customers and partners are enforceable. Legal standards relating to the validity, enforceability and scope of protection of intellectual property rights can be uncertain and any inadequate protection in some jurisdictions may hinder our international expansion efforts.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "24",
+   "text": "We select the types of insurance, including the limits and deductibles, based on our specific risk profile, including risks prevalent in our markets, the cost of the insurance coverage versus its anticipated benefit and general industry and market standards. There can be no guarantee that any or all costs or losses incurred will be partially or fully recouped from such insurance. In addition, as cyberattacks and cyber incursions increase in frequency and degree, in particular in our industry and against technology companies, we may be unable to obtain cybersecurity insurance in amounts and on terms we view as adequate for our operations.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "28",
+   "text": "We expect to issue additional equity or equity-linked securities from time to time, which may dilute the interest of our existing shareholders in our company. In order to expand our businesses and invest in our future prospects, we may consider offering Class A shares and securities that are convertible into our Class A shares, and we may issue additional Class A shares in connection with acquisitions or joint ventures. If we sell additional Class A shares, the ownership interests of our existing shareholders will be diluted to the extent that they do not participate in such offering.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "34",
+   "text": "We select data center sites based on access to power, existing industrial zoning, and alignment with local governments on delivering economic benefits to the region. In 2025, we owned and operated a data center in Finland, signed a build-to-suit location in New Jersey and signed several co-location agreements in Kansas City, the UK, Israel, France and Iceland. In February 2026, we announced the expansion of our data center footprint to include nine additional sites across seven locations in the US (Missouri, Alabama, Oklahoma, and Minnesota) and Europe (France, UK) and the Middle East (Israel), bringing our total contracted power to more than 2 GW.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "35",
+   "text": "These sites provide additional opportunities to utilize our unique designs and generate optimal data center efficiency with faster time to market. Build-to-suit   We may also partner with a developer who owns the land and has secured the power. Under such agreements Nebius would still provide custom specifications for the data-center buildout.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "35",
+   "text": "This allows us to drive energy efficiency and infrastructure optimization within the facility. Our New Jersey facility follows a build-to-suit model. Co-location   We lease capacity at existing data centers through third-party providers, enabling us to rapidly deploy compute resources.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "text": "Starting the second quarter of 2025, the Company introduced the following changes to the segments under which it previously reported financial results:  Toloka, an AI development platform, previously constituted an operating segment within the Group. In May 2025, following the completion of a third-party investment in Toloka, Nebius ceased to hold majority voting power in Toloka and no longer includes Toloka’s results in Nebius’s consolidated financial statements; we now report our stake as an equity method investment. Comparative financial information appearing elsewhere in this Annual Report has been recast to reflect the results of Toloka within discontinued operations.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "48",
+   "text": "Table of Contents   Gain from revaluation of investments in equity securities   Gain from revaluation of investments in equity securities includes primarily the remeasurement of our investment in ClickHouse, following a third-party investment in that company. Income / (loss) from equity method investments   Income / (loss) from equity method investments includes the results of Toloka, which was deconsolidated in the second quarter of 2025 and subsequently accounted for under the equity method, and minor stakes in venture capital funds. Other income / (loss), net   Other income / (loss), net consists of gains from investments in money market funds and foreign exchange gains and losses.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "48",
+   "text": "Dynamics of foreign exchange gains and losses reflect changes in the U.S. dollar value (the group’s reporting currency) of monetary assets and liabilities that are denominated in other currencies (primarily the euro), as well as changes in the functional currencies of foreign subsidiaries' monetary assets and liabilities that are denominated in currencies different from their respective local currencies. Results of Operations   The following table presents our historical consolidated results of continuing operations for the periods indicated:  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​   ​ ​ ​  ​   ​   ​   ​   2023   ​   2024   ​   2025   ​   ​   ​   ​   ​   ​   ​   (in millions of U.S. dollars)   ​   Revenues  ​   ​   ​   ​   ​   9.8   ​   91.5   ​   529.8   ​   Operating costs and expenses:  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Cost of revenues  ​   ​   ​   ​   ​   19.6   ​   43.7   ​   166.2   ​   Product development  ​   ​   ​   ​   ​   87.1   ​   114.8   ​   177.3   ​   Sales, general and administrative  ​   ​   ​   ​   ​   159.5   ​   255.5   ​   380.1   ​   Depreciation and amortization  ​   ​   ​   ​   ​   29.3   ​   77.1   ​   417.9   ​   Total operating costs and expenses  ​   ​   ​   ​   ​   295.5   ​   491.1   ​   1,141.5   ​   Loss from operations  ​   ​   ​   ​   ​   (285.7)   ​   (399.6)   ​   (6",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "52",
+   "text": "No revaluation gains or losses were recognized for the years ended December 31, 2023 and 2024. Income/(Loss) from Equity Method Investments   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   Changes   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   ​   2023 to 2024   ​ ​ ​   2024 to 2025   ​   ​   (in millions of U.S. dollars)   ​   (as a percentage, %)   Income/(loss) from equity method investments  (10.9)   0.4   (24.3)   ​   n/m  ​   n/m  ​   Loss from equity method investments was $24.3 million for the year ended December 31, 2025. The loss primarily reflects our share of losses related to our remaining interest in Toloka, which was deconsolidated in the second quarter of 2025 and subsequently accounted for under the equity method.",
+   "amounts": [
+    {
+     "raw": "$24.3 million",
+     "usdM": 24.3
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "52",
+   "text": "The loss was partially offset by income recognized from cash distributions received from our minority interests in venture capital funds. Income from equity method investments was $0.4 million for the year ended December 31, 2024. The income primarily represents cash distributions received from our investments in venture capital funds.",
+   "amounts": [
+    {
+     "raw": "$0.4 million",
+     "usdM": 0.4
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "52",
+   "text": "The income primarily represents cash distributions received from our investments in venture capital funds. Loss from equity method investments was $10.9 million for the year ended December 31, 2023. The loss primarily reflects impairment charges related to our investments in venture capital funds, as well as our share of net losses from equity method investees.",
+   "amounts": [
+    {
+     "raw": "$10.9 million",
+     "usdM": 10.9
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "52",
+   "text": "Loss from equity method investments was $10.9 million for the year ended December 31, 2023. The loss primarily reflects impairment charges related to our investments in venture capital funds, as well as our share of net losses from equity method investees. See Note 5 — “ Investments in equity securities and equity investments ” of the consolidated financial statements for more information.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "53",
+   "text": "Adjusted EBITDA (loss) means U.S. GAAP net income/(loss) from continuing operations before (1) depreciation and amortization, (2) certain SBC expense 1 , (3) one-off restructuring and other expenses 2 , (4) interest income, (5) interest expense, (6) income/(loss) from equity method investments, (7) gain from revaluation of investments in equity securities, (8) other income/(loss), net, (9) income tax expense/(benefit). For a reconciliation between total Adjusted EBITDA / (loss) and net income / (loss) before income taxes see Note 15 — “ Information about segments & geographic areas ” of the consolidated financial statements included elsewhere in this Annual Report.  1 We settled certain RSU equity awards granted to employees prior to 2022 in cash during 2023 and 2024.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "53",
+   "text": "Cash equivalents mainly consist of bank deposits with original maturities of three months or fewer and investments in money market funds. The group’s main cash outflows are as follows: acquisitions of server and infrastructure equipment, investments in construction of new capacities at our proprietary data center in Finland, in build-to-suit facilities and in new greenfield sites (including land acquisition), lease payments for co-location agreements and other general corporate activities. Our   53",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "Table of Contents   businesses expect to fund their operations, to the extent required, through debt or equity financing, as well as achieve positive operating cash flow. Contractual Obligations   We have various contractual obligations and commitments, such as long-term leases, purchase commitments and long-term debt, that are disclosed in the footnotes to the consolidated financial statements. See Note 8 — “Leases” and Note 11 — “ Commitments and Contingencies” of the consolidated financial statements included elsewhere in this Annual Report for more information on our lease contracts, including leases not yet commenced, and purchase commitments and other non-cancellable purchase obligations.",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "54",
+   "text": "Contractual Obligations   We have various contractual obligations and commitments, such as long-term leases, purchase commitments and long-term debt, that are disclosed in the footnotes to the consolidated financial statements. See Note 8 — “Leases” and Note 11 — “ Commitments and Contingencies” of the consolidated financial statements included elsewhere in this Annual Report for more information on our lease contracts, including leases not yet commenced, and purchase commitments and other non-cancellable purchase obligations. Cash Flows   Set out below is a summary of cash flows from continuing operations for the years ended December 31, 2023, 2024 and 2025.  ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   ​   ​   (in millions of U.S. dollars)   Net cash (used in)/provided by operating activities  (222.0)   (269.9)   401.9   Net cash (used in)/provided by investing activities  (92.9)   672.0   (4,229.2)   Net cash provided by financing activities  —   656.8   5,125.5   Cash flows (used in)/provided by operating activities.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "54",
+   "text": "Contractual Obligations   We have various contractual obligations and commitments, such as long-term leases, purchase commitments and long-term debt, that are disclosed in the footnotes to the consolidated financial statements. See Note 8 — “Leases” and Note 11 — “ Commitments and Contingencies” of the consolidated financial statements included elsewhere in this Annual Report for more information on our lease contracts, including leases not yet commenced, and purchase commitments and other non-cancellable purchase obligations. Cash Flows   Set out below is a summary of cash flows from continuing operations for the years ended December 31, 2023, 2024 and 2025.  ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   ​   ​   (in millions of U.S. dollars)   Net cash (used in)/provided by operating activities  (222.0)   (269.9)   401.9   Net cash (used in)/provided by investing activities  (92.9)   672.0   (4,229.2)   Net cash provided by financing activities  —   656.8   5,125.5   Cash flows (used in)/provided by operating activities.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "55",
+   "text": "Those proceeds were partially offset by $32.5 million of issuance costs related to the private placement, $10.0 million paid to repurchase equity-classified awards associated with one of our business units, and $0.7 million of cash payments related to the repurchase of convertible notes restructured in 2022. Off-Balance Sheet Items   Nebius Group does not currently engage in material off balance sheet financing arrangements, and does not have any material interest or obligation, including any contingent obligation arising out of a variable interest in entities referred to as variable interest entities, which include special purpose entities and other structured finance entities. Critical Accounting Estimates   Our consolidated financial statements are prepared in accordance with U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "55",
+   "text": "Those proceeds were partially offset by $32.5 million of issuance costs related to the private placement, $10.0 million paid to repurchase equity-classified awards associated with one of our business units, and $0.7 million of cash payments related to the repurchase of convertible notes restructured in 2022. Off-Balance Sheet Items   Nebius Group does not currently engage in material off balance sheet financing arrangements, and does not have any material interest or obligation, including any contingent obligation arising out of a variable interest in entities referred to as variable interest entities, which include special purpose entities and other structured finance entities. Critical Accounting Estimates   Our consolidated financial statements are prepared in accordance with U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "57",
+   "text": "The valuation of these investments requires significant management judgment, particularly when assessing whether an impairment has occurred and estimating the fair value of an investment when observable market prices are not available. For equity method investments, we evaluate whether events or changes in circumstances indicate that the carrying value may not be recoverable. For investments accounted for under the measurement alternative, we perform periodic qualitative assessments to determine whether the investment is impaired.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq98",
+   "text": "Table of Contents   NEBIUS GROUP N.V. CONSOLIDATED B ALANCE SHEETS   (In millions of U.S. dollars (“$”), except share and per share data) d  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   As of December 31,   ​   ​ ​ ​   Notes   ​ ​ ​   ​ ​ ​   2024   ​ ​ ​   2025   ASSETS   ​   ​   ​   ​   ​   ​   ​   Cash and cash equivalents   4  2,434.7   ​   3,678.1   Accounts receivable, less allowance for doubtful accounts of $ 0.1 and $ 4.0 , respectively  ​   4  11.2   ​   720.3   Prepaid expenses   ​   ​   ​   ​   22.2   ​   34.8   VAT reclaimable   ​   ​   ​   ​   6.2   ​   131.4   Other current assets   4  37.6   ​   146.8   Current assets of discontinued operations   ​   3  ​   ​   21.4   ​   —  Total current assets   ​   ​   ​   2,533.3   ​   4,711.4   Property and equipment   7  846.7   ​   5,553.3   Intangible assets   9  4.9   ​   19.7   Operating lease right-of-use assets   ​   8  ​   ​   44.8   ​   918.8   Equity method investments   5  6.4   ​   11.1   Investments in non-marketable equity securities   ​   5  ​   ​   90.7   ​   836.6   Deferred tax assets   10  7.7   ​   11.8   Other non-current assets   4  13.4   ​   367.9   Non-current assets of discontinued operations   ​   3  ​   ​   0.7   ​   —  Total non-current assets   ​   ​   ​   ​   1,015.3   ​   7,719.2   TOTAL ASSETS   ​   ​   3,548.6   ​   12,430.6   LIABILITIES AND SHAREHOLDERS’ EQUITY   ​   ​   ​   ​   ​   ​  ",
+   "amounts": [
+    {
+     "raw": "$ 0.1 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq99",
+   "text": "Table of Contents   NEBIUS GROUP N.V. CONSO LIDATED STATEMENTS OF OPERATIONS   (In millions of U.S. dollars (“$”), except share and per share data)   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​   Notes   ​   ​   2023   ​   2024   ​   2025   Revenues  ​   15  ​   ​   9.8   ​   91.5   ​   529.8   Operating costs and expenses:  ​   ​   ​   ​   ​   ​   ​   ​   ​   Cost of revenues (1)   ​   ​   ​   19.6   43.7   ​   166.2   Product development (1)   ​   ​   ​   87.1   114.8   ​   177.3   Sales, general and administrative (1)   ​   ​   ​   159.5   255.5   ​   380.1   Depreciation and amortization   ​   7, 9  ​   29.3   77.1   ​   417.9   Total operating costs and expenses  ​   ​   ​   295.5   491.1   ​   1,141.5   Loss from operations   ​   ​   ​   ( 285.7 )   ( 399.6 )   ​   ( 611.7 )   Interest income  ​   4  ​   3.3   63.6   ​   31.8   Interest expense  ​   4  ​   ​   —  ​   —  ​   ( 61.5 )  Gain from revaluation of investments in equity securities  ​   5  ​   ​   —  ​   —  ​   598.9   Income / (loss) from equity method investments  ​   ​   ​   ​   ( 10.9 )  ​   0.4   ​   ( 24.3 )  Other income / (loss), net  ​   4  ​   ​   ( 3.7 )  ​   ( 17.4 )  ​   80.6   Net income / (loss) before income taxes   ​   ​   ( 297.0 )   ( 353.0 )   ​   13.8   Income tax expense / (benefit)  ​   10  ​   2.0   ( 1.0 )  ​   4.0   Net income / (loss) from con",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq101",
+   "text": "Table of Contents   NEBIUS GROUP N.V . CONSOLID ATED STATEMENTS OF CASH FLOWS   (In millions of U.S. dollars)   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​ ​ ​   Notes   ​ ​ ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   CASH FLOWS PROVIDED BY OPERATING ACTIVITIES:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Net income / (loss) from continuing operations  ​   ​   ( 299.0 )  ​   ( 352.0 )  9.8   Adjustments to reconcile net income / (loss) to net cash provided by operating activities:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Depreciation of property and equipment   ​   7  27.9   ​   75.2   ​   411.0   Amortization of intangible assets   ​   9  1.4   ​   1.9   ​   6.9   Operating lease right-of-use assets amortization   ​   8  ​   ​   7.1   ​   8.7   ​   50.6   Amortization of debt discount and issuance costs, net of interest expense capitalized   ​   12  ​   ​   —  ​   —  ​   21.2   Share-based compensation expense   ​   14  28.8   ​   54.5   ​   83.2   Deferred income tax expense / (benefit)   ​   10  ( 1.3 )  ​   ( 2.8 )  ​   ( 3.4 )  Foreign exchange (gains) / losses   ​   4  2.4   ​   17.8   ​   ( 27.2 )  Gain from revaluation of investments in equity securities   ​   ​   ​   ​   —  ​   —  ​   ( 598.9 )  Income / (loss) from equity method investments   ​   ​   ​   ​   10.9   ​   ( 0.4 )  ​   24.3   Provision for expected credit losses   ​",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq104",
+   "text": "On May 7, 2025, the Company announced a strategic investment transaction in Toloka, the Group’s data-for-generative AI solutions business, led by Bezos Expeditions with participation from Mikhail Parakhin, CTO of Shopify. Following the completion of the investment transaction in Toloka, the Company continued to hold a significant equity stake but ceased to hold majority voting power in Toloka, no longer includes Toloka’s results in the Group’s consolidated financial statements, and reports its stake in Toloka as a combination of equity method investment and investment in non-marketable equity securities (See Note 3 – “Acquisitions, Disposals and Discontinued Operations”; Note 5 – “Investments in Equity Securities and Equity Investments” for further detail).",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq113",
+   "text": "In the event of a full or a partial termination, any difference between the changes in lease liability and ROU asset is recognized in profit or loss at the effective date of the modification. Equity Method Investments   Investments in the common stock or in-substance common stock of entities in which the Group can exercise significant influence but does not own a majority equity interest or otherwise control are accounted for under the equity method. The Group records its share of the results of these companies and the amortization of basis differences within the income/(loss) from equity method investments line on the consolidated statements of operations or as an adjustment to equity to reflect the Group’s share in the changes of the investee’s capital.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq113",
+   "text": "Equity Method Investments   Investments in the common stock or in-substance common stock of entities in which the Group can exercise significant influence but does not own a majority equity interest or otherwise control are accounted for under the equity method. The Group records its share of the results of these companies and the amortization of basis differences within the income/(loss) from equity method investments line on the consolidated statements of operations or as an adjustment to equity to reflect the Group’s share in the changes of the investee’s capital. Following the loss of significant influence over equity method investments without readily determinable fair values, the Group accounts for these investments under the measurement alternative at cost less impairment.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq113",
+   "text": "The Group records its share of the results of these companies and the amortization of basis differences within the income/(loss) from equity method investments line on the consolidated statements of operations or as an adjustment to equity to reflect the Group’s share in the changes of the investee’s capital. Following the loss of significant influence over equity method investments without readily determinable fair values, the Group accounts for these investments under the measurement alternative at cost less impairment. The Group reviews its equity method investments for other-than-temporary impairment whenever events or changes in business circumstances indicate that the carrying value of the investment may not be fully recoverable.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq113",
+   "text": "Following the loss of significant influence over equity method investments without readily determinable fair values, the Group accounts for these investments under the measurement alternative at cost less impairment. The Group reviews its equity method investments for other-than-temporary impairment whenever events or changes in business circumstances indicate that the carrying value of the investment may not be fully recoverable. Investments identified as having an indication of impairment are subject to further analysis to determine if the impairment is other-than-temporary and this analysis requires estimating the fair value of the investment.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq119",
+   "text": "Table of Contents   NEBIUS GROUP N.V. NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   The Company reclassified the following operations to discontinued operations for the years ended December 31, 2023, and 2024, respectively.   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   2023   ​   2024   Revenues  9,344.8   ​   3,848.5   Operating costs and expenses:  ​   ​   ​   Cost of revenues   4,193.7   ​   1,588.8   Product development   1,099.5   ​   433.6   Sales, general and administrative   2,878.1   ​   1,143.4   Depreciation and amortization   440.5   ​   89.3   Goodwill impairment   84.3   ​   1.6   Total operating costs and expenses  8,696.1   ​   3,256.7   Income / (loss) from discontinued operations   648.7   ​   591.8   Interest income  62.7   ​   33.70   Interest expense  ( 122.6 )  ​   ( 80.60 )  Income / (loss) from equity method investments  ( 6.4 )  ​   ( 0.5 )  Other income / (loss), net  264.1   ​   13.2   Income / (loss) from discontinued operations before income tax expense   846.5   ​   557.6   Income tax expense  239.1   ​   79.9   Net income from discontinued operations, net of tax   607.4   ​   477.7   ​   Results of discontinued operations for the year ended December 31, 2024 were consolidated until the date of the first",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq119",
+   "text": "(\"Toloka Group\") of additional stock to third-party investors and a restructuring of the capital stock of Toloka Group into both voting and nonvoting common and preferred shares, as result of which the Company’s voting interest was reduced to 49 %. Consequently, Toloka Group was deconsolidated from the Company’s financial statements, and the Company's retained share in Toloka was reclassified as an equity method investment under ASC 323 for the investment in common stock, while the investment in preferred stock was accounted for under ASC 321 using the measurement alternative. The Toloka Deconsolidation represents a strategic transaction aimed at enhancing the Group’s focus on its core AI infrastructure business while allowing Toloka to operate independently.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq121",
+   "text": "On April 21, 2023, the Company entered into an agreement with Uber NL Holdings 1 B.V. (“Uber”), a subsidiary of Uber Technologies Inc., and on the same day acquired Uber’s entire remaining 29 % interest in MLU B.V., a mobility joint venture, for consideration in cash of $ 702.5 . In order to account for the equity ownership changes contemplated by the transaction, the Group reduced the amount of the non-controlling interest and additional paid-in capital by $ 280.0 and $ 320.2 , respectively, and increased the amount of the accumulated other comprehensive loss by $ 102.5 (Note 4).",
+   "amounts": [
+    {
+     "raw": "$ 702.5 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq122",
+   "text": "Table of Contents   NEBIUS GROUP N.V. NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   Allowance for current expected credit losses on trade receivables   Movements in the allowance for current expected credit losses on trade receivables for the years ended December 31, 2024 and 2025 were as follows:  ​   ​   ​   ​   ​   ​   ​   ​ ​ ​   2024   ​ ​ ​   2025   Balance at beginning of period  0.4   ​   0.1   Current period provision for expected credit losses  1.0   ​   3.9   Write-off  ( 1.3 )  ​   —  Balance at the end of the period   0.1   ​   4.0   ​   Other Current Assets   Other current assets as of December 31, 2024 and 2025 consisted of the following:  ​   ​   ​   ​   ​   ​   ​   ​   ​ ​ ​   ​ ​ ​   2024   ​ ​ ​  2025   Term deposits, current  ​   —  ​   75.0   Prepaid other taxes  ​   ​   1.8   ​   30.0   Security and guarantee deposits for next 12 months  ​   ​   6.2   ​   8.8   Deferred expenses  ​   ​   2.1   ​   8.4   Restricted cash  ​   ​   0.6   ​   6.8   Prepaid income tax  ​   ​   3.0   ​   3.4   Funds receivable  ​   ​   1.5   ​   1.6   Interest receivable   ​   ​   21.6   ​   0.4   Other   ​   ​   0.8   ​   12.4   Total other current assets   37.6   ​   146.8   ​   Other Non-current Assets   Other non-current assets as of Decembe",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq125",
+   "text": "(Note 3).   5. INVESTMENTS IN EQUITY SECURITIES AND EQUITY INVESTMENTS   Equity method investments   The table below summarizes the movements in the carrying amount of the Group’s equity method investments for the years ended December 31, 2023, 2024 and 2025.  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   Balance at the beginning of the year   ​   19.6   ​   6.4   ​   6.4   Investment in Toloka  ​   —  ​   —  ​   33.6   Share of profit / (loss) in equity method investments  ​   ( 2.3 )  ​   —   ​   ( 28.6 )  Share of other comprehensive loss in equity method investments  ​   —  ​   —  ​   ( 0.3 )  Impairment loss  ​   ( 10.9 )  ​   —  ​   —  Total equity method investments   6.4   6.4   11.1   ​   As of December 31, 2025 investment in Toloka represents an investment in combination of common stock and preferred stock, initially recognized at fair value as of the date of Toloka Deconsolidation. The Group holds 81 % of the economic interest and 49 % of the voting interest in Toloka on an outstanding basis.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq126",
+   "text": "Table of Contents   NEBIUS GROUP N.V. NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   The carrying value of the Group’s equity method investments as of December 31, 2024 and 2025 were as follows:  ​   ​   ​   ​   ​   ​   ​   ​   2024   ​   2025   Venture capital fund  ​   6.4   ​   6.4   Toloka  ​   —  ​   4.7   Total equity method investments   ​   6.4   ​   11.1   ​   Included in the carrying value of the Toloka investment is the basis difference, net of amortization, between the original cost of the investment and the Group's proportionate share of the net assets of Toloka. The carrying value of the equity method investment is primarily adjusted for the Group’s share in the losses of Toloka and amortization of basis differences.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq126",
+   "text": "NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   The carrying value of the Group’s equity method investments as of December 31, 2024 and 2025 were as follows:  ​   ​   ​   ​   ​   ​   ​   ​   2024   ​   2025   Venture capital fund  ​   6.4   ​   6.4   Toloka  ​   —  ​   4.7   Total equity method investments   ​   6.4   ​   11.1   ​   Included in the carrying value of the Toloka investment is the basis difference, net of amortization, between the original cost of the investment and the Group's proportionate share of the net assets of Toloka. The carrying value of the equity method investment is primarily adjusted for the Group’s share in the losses of Toloka and amortization of basis differences. The table below provides the composition of the basis difference as of December 31, 2025:  ​   ​   ​   ​   ​   ​   2025   Intangible assets, net of accumulated amortization  ​   ( 8.3 )  Deferred tax liabilities  ​   1.6   Basis difference   ​   ( 6.7 )   ​   The Group amortizes the basis difference related to the intangible assets over the estimated useful lives of the assets that gave rise to the difference using the straight-line method.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq127",
+   "text": "Level 2—inputs other than quoted prices included within Level 1 that are observable for the asset or liability, either directly or indirectly; and  Level 3— unobservable inputs that are supported by little or no market activities. Investments measured at fair value on a recurring basis   The Group's financial assets and liabilities measured at fair value on a recurring basis include investments in cash and cash equivalents, including money market funds, accounts receivables, other assets (except prepayments and deferred expenses), trade accounts payables, investments in non-marketable equity securities, equity method investments, financial assets and financial liabilities from discontinued operations and convertible debt. Cash, accounts receivable, and trade accounts payables are stated at their carrying value, which approximates fair value due to the short-term nature of these items except for the fair value of the convertible debt (Note 12).",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq128",
+   "text": "NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   preferred shares (fair value $ 97.0 ). The Group’s investment in Toloka’s common stock is accounted for as an equity method investment, while its investment in preferred shares is recorded as investment in non-marketable equity securities. The valuation was based primarily on the recent financing (market approach), with equity allocated using the Option Pricing Method.",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "seq130",
+   "text": "Table of Contents   NEBIUS GROUP N.V. NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   Information about weighted-average remaining lease term and weighted-average discount rate is presented below:  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Weighted average remaining   lease term, years   ​   Weighted average discount   rate, %   ​   ​   December 31, 2024   ​   December 31, 2025   ​   December 31, 2024   ​   December 31, 2025   ​   Operating leases  4.2   ​   8.6   ​   4.0   %  6.3   %  ​   As of December 31, 2025, the Group executed additional lease agreements, primarily for data centers, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $ 9,759.6 and the Group has already made a prepayment of $ 271.0 as of December 31, 2025.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq132",
+   "text": "The Company is domiciled in the Netherlands, therefore, the Dutch statutory income tax rate of 25.8 % is used in the reconciliation table for the year ended December 31, 2025. The reconciliation table below is prepared in accordance with the disclosure requirements of ASU 2023-09, whereby reconciling items that individually or at an aggregated country level are equal to or greater than 5% of expected total tax expense, based on the Dutch statutory rate, are presented separately.  ​   ​   ​   ​   ​   ​   ​   ​   ​ ​ ​   2025   Expected expense / (income) at Dutch statutory income tax rate of 25.8 %  3.6   ​   26.1   %   Domestic - Netherlands:   ​   ​   ​   ​   ​   Non-taxable and nondeductible items:  ​   ​   ​   ​   ​   Non-deductible share-based compensation   20.9   ​   151.4   %   Effect of revaluation of the investment in ClickHouse (Note 5)   ( 154.1 )  ​   ( 1,116.7 )  %   Effect of pick-up of financial results of equity method investments   ​   7.5   ​   54.3   %   Effect of underwriters' fees on the follow-on public offering   ​   ( 6.1 )  ​   ( 44.2 )  %   Other   ​   0.4   ​   2.9   %   Changes in valuation allowances   ​   96.0   ​   695.7   %   Foreign tax effects:   ​   ​   ​   ​   ​   United States of America   ​   ​   ​   ​   ​   Changes in valuation allowances   ​   32.7   ​   237.0   %   Difference in foreign tax rates   ​   7.3   ​   52.9   %   Non-deductible",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "seq134",
+   "text": "Cash taxes paid   The Group adopted ASU 2023-09 on a prospective basis for the year ended December 31, 2025 and have included the following table as a result of our adoption, which presents income taxes paid (net of refunds received) for the year ended December 31, 2025 to each individual jurisdiction that are equal to or greater than 5% of total income taxes paid (net of refunds received) for the year ended December 31, 2025:  ​   ​   ​   ​   ​   ​   2025   Domestic taxes   ​   —  Foreign taxes:   ​   ​   Finland  ​   1.8   Israel  ​   1.5   Other foreign jurisdictions   ​   1.2   Total cash taxes paid   ​   4.5   ​   The following table presents the required disclosures prior to our adoption of ASU 2023-09 and includes a summary of income taxes paid for the years ended December 31, 2023 and December 31, 2024:  ​   ​   ​   ​   ​   ​   ​   ​   2023   ​   2024   Cash paid during the year for  ​   ​   ​   ​   Income taxes, net of refunds  ​   2.0   ​   3.7   ​   ​   11. COMMITMENTS AND CONTINGENCIES   Purchase Commitments   The Group has entered into purchase commitments for power and utilities of rented data center facilities (co-location agreement) with future payments (net of VAT) amounting to $ 6.8 in 2026, $ 7.0 in 2027, $ 7.2 in 2028, and $ 5.6 in 2029. The Group also has purchase commitments for other goods and services with future payments (net of VAT) amounting to $ 0.6 ",
+   "amounts": [
+    {
+     "raw": "$ 6.8 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7.0 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7.2 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5.6 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "seq134",
+   "text": "COMMITMENTS AND CONTINGENCIES   Purchase Commitments   The Group has entered into purchase commitments for power and utilities of rented data center facilities (co-location agreement) with future payments (net of VAT) amounting to $ 6.8 in 2026, $ 7.0 in 2027, $ 7.2 in 2028, and $ 5.6 in 2029. The Group also has purchase commitments for other goods and services with future payments (net of VAT) amounting to $ 0.6 in 2026, $ 1.0 in 2027, $ 0.4 in 2028, $ 0.4 in 2029 and $ 0.1 in 2030. Legal Proceedings   In the ordinary course of business, the Group is a party to various legal proceedings and subject to claims, certain of which relate to the alleged breach of certain contractual arrangements.",
+   "amounts": [
+    {
+     "raw": "$ 0.6 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.0 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.4 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.4 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.1 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "seq147",
+   "text": "Table of Contents   NEBIUS GROUP N.V. NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   The reconciliation between adjusted EBITDA and income/(loss) before income tax expense was as follows:  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   2023   ​   2024   ​   2025   Total segment adjusted EBITDA loss  ​   ( 240.7 )  ​   ( 226.3 )  ​   ( 64.9 )  Depreciation and amortization   ​   ( 29.3 )  ​   ( 77.1 )  ​   ( 417.9 )  Certain SBC expense  ​   ( 12.9 )  ​   ( 44.1 )  ​   ( 83.2 )  One-off restructuring and other expenses  ​   ( 2.8 )  ​   ( 52.1 )  ​   ( 45.7 )  Interest income  ​   3.3   ​   63.6   ​   31.8   Interest expense  ​   —  ​   —  ​   ( 61.5 )  Income / (loss) from equity method investments   ​   ( 10.9 )  ​   0.4   ​   ( 24.3 )  Gain from revaluation of investment in equity securities  ​   —  ​   —  ​   598.9   Other income / (loss), net  ​   ( 3.7 )  ​   ( 17.4 )  ​   80.6   Net income / (loss) before income taxes   ​   ( 297.0 )   ​   ( 353.0 )   ​   13.8   ​   The Group’s long-lived assets are allocated based on the country of incorporation of the subsidiary with the title of ownership. The following table presents long-lived assets by geographic area, which includes property and equipment, net, intangibles assets, net and operating lease ",
+   "amounts": []
+  }
+ ]
+}

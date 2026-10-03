@@ -1,0 +1,436 @@
+{
+ "ticker": "AMZN",
+ "cik": 1018724,
+ "form": "10-Q",
+ "accn": "0001018724-26-000026",
+ "filed": "2026-07-31",
+ "report": "2026-06-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 52,
+ "numberedPages": 51,
+ "hits": [
+  {
+   "kind": "equity_method",
+   "page": "4",
+   "text": "Table of Contents   AMAZON.COM, INC. CONSOLIDATED STATEMENTS OF OPERATIONS   (in millions, except per share data)   (unaudited)   Three Months Ended June 30, Six Months Ended June 30,   2025 2026 2025 2026   Net product sales $ 68,246 $ 77,602 $ 132,216 $ 148,906   Net service sales 99,456 123,004 191,153 233,219   Total net sales 167,702 200,606 323,369 382,125   Operating expenses:   Cost of sales 80,809 95,778 157,785 183,241   Fulfillment 25,976 29,633 50,569 56,922   Technology and infrastructure 27,166 33,158 50,160 62,725   Sales and marketing 11,416 11,698 21,179 22,012   General and administrative 2,965 2,788 5,593 5,375   Other operating expense (income), net 199 90 507 537   Total operating expenses 148,531 173,145 285,793 330,812   Operating income 19,171 27,461 37,576 51,313   Interest income 1,085 1,295 2,151 2,430   Interest expense ( 516 ) ( 1,314 ) ( 1,057 ) ( 2,114 )   Other income (expense), net 1,117 53,415 3,866 69,062   Total non-operating income 1,686 53,396 4,960 69,378   Income before income taxes 20,857 80,857 42,536 120,691   Provision for income taxes ( 2,678 ) ( 18,199 ) ( 7,231 ) ( 27,759 )   Equity-method investment activity, net of tax ( 15 ) ( 11 ) ( 14 ) ( 30 )   Net income $ 18,164 $ 62,647 $ 35,291 $ 92,902   Basic earnings per share $ 1.71 $ 5.82 $ 3.32 $ 8.64   Diluted earnings per share $ 1.68 $ 5.75 $ 3.27 $ 8.53   Weighted-average shares",
+   "amounts": [
+    {
+     "raw": "$ 68,246 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 77,602 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 132,216 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 148,906   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,164 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 62,647 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 35,291 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 92,902   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.71 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5.82 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3.32 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8.64   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.68 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5.75 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3.27 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8.53   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "7",
+   "text": "These consolidated financial statements should be read in conjunction with the audited consolidated financial statements and accompanying notes in Item 8 of Part II, “Financial Statements and Supplementary Data,” of our 2025 Annual Report on Form 10-K. Principles of Consolidation   The consolidated financial statements include the accounts of Amazon.com, Inc. and its consolidated entities (collectively, the “Company”), consisting of its wholly-owned subsidiaries and those entities in which we have a variable interest (“VIEs”) and of which we are the primary beneficiary, including certain entities in India and certain entities that support our healthcare services and production and distribution of video content. We are the primary beneficiary if we have the power to direct the activities of the VIE and absorb the losses or benefits that would be significant to the VIE.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "7",
+   "text": "Principles of Consolidation   The consolidated financial statements include the accounts of Amazon.com, Inc. and its consolidated entities (collectively, the “Company”), consisting of its wholly-owned subsidiaries and those entities in which we have a variable interest (“VIEs”) and of which we are the primary beneficiary, including certain entities in India and certain entities that support our healthcare services and production and distribution of video content. We are the primary beneficiary if we have the power to direct the activities of the VIE and absorb the losses or benefits that would be significant to the VIE. Intercompany balances and transactions between consolidated entities are eliminated.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "13",
+   "text": "These non-marketable investments are included within “Other assets” on our consolidated balance sheets. Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in entities that we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "13",
+   "text": "Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in entities that we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments. Consolidated Statements of Cash Flows Reconciliation   The following table provides a reconciliation of the amount of cash, cash equivalents, and restricted cash reported within the consolidated balance sheets to the total of the same such amounts shown in the consolidated statements of cash flows (in millions):   December 31, 2025 June 30, 2026   Cash and cash equivalents $ 86,810 $ 78,213   Restricted cash included in “Accounts receivable, net and other”   300 283   Restricted cash included in “Other assets”   2,996 2,431   Total cash, cash equivalents, and restricted cash shown in the consolidated statements of cash flows $ 90,106 $ 80,927   Note 3 — LEASES   We have entered into non-cancellable operating and finance leases for fulfillment network, data center, office, and physical store facilities as well as server and networking equipment, aircraft, and vehicles.",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "15",
+   "text": "Table of Contents   Note 4 — COMMITMENTS AND CONTINGENCIES   Commitments   The following summarizes our principal contractual commitments, excluding open orders for purchases that support normal operations and are generally cancellable, as of June 30, 2026 (in millions):   Six Months Ended December 31, Year Ended December 31,   2026 2027 2028 2029 2030 Thereafter Total   Long-term debt principal and interest $ 2,361 $ 14,060 $ 17,087 $ 13,528 $ 11,112 $ 162,161 $ 220,309   Operating lease liabilities 9,336 14,765 13,924 12,599 11,269 54,457 116,350   Finance lease liabilities, including interest 1,088 1,775 1,885 1,482 1,269 9,161 16,660   Financing obligations, including interest (1) 352 682 694 706 720 7,916 11,070   Leases not yet commenced 4,018 11,732 9,278 9,483 9,227 93,476 137,214   Unconditional purchase obligations (2) 23,452 33,026 9,326 7,961 7,659 48,641 130,065   Other commitments (3) 2,145 2,044 1,212 1,008 963 10,994 18,366   Total commitments $ 42,752 $ 78,084 $ 53,406 $ 46,767 $ 42,219 $ 386,806 $ 650,034   ___________________   (1) Includes non-cancellable financing obligations for fulfillment network and data center facilities. Excluding interest, current financing obligations of $ 358 million and $ 415 million are recorded within “Accrued expenses and other” and $ 7.8 billion and $ 8.9 billion are recorded within “Other long-term liabilities” as of December",
+   "amounts": [
+    {
+     "raw": "$ 2,361 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,060 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,087 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,528 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,112 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 162,161 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 220,309   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,752 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 78,084 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 53,406 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 46,767 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,219 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 386,806 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 650,034   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "text": "Table of Contents   Note 4 — COMMITMENTS AND CONTINGENCIES   Commitments   The following summarizes our principal contractual commitments, excluding open orders for purchases that support normal operations and are generally cancellable, as of June 30, 2026 (in millions):   Six Months Ended December 31, Year Ended December 31,   2026 2027 2028 2029 2030 Thereafter Total   Long-term debt principal and interest $ 2,361 $ 14,060 $ 17,087 $ 13,528 $ 11,112 $ 162,161 $ 220,309   Operating lease liabilities 9,336 14,765 13,924 12,599 11,269 54,457 116,350   Finance lease liabilities, including interest 1,088 1,775 1,885 1,482 1,269 9,161 16,660   Financing obligations, including interest (1) 352 682 694 706 720 7,916 11,070   Leases not yet commenced 4,018 11,732 9,278 9,483 9,227 93,476 137,214   Unconditional purchase obligations (2) 23,452 33,026 9,326 7,961 7,659 48,641 130,065   Other commitments (3) 2,145 2,044 1,212 1,008 963 10,994 18,366   Total commitments $ 42,752 $ 78,084 $ 53,406 $ 46,767 $ 42,219 $ 386,806 $ 650,034   ___________________   (1) Includes non-cancellable financing obligations for fulfillment network and data center facilities. Excluding interest, current financing obligations of $ 358 million and $ 415 million are recorded within “Accrued expenses and other” and $ 7.8 billion and $ 8.9 billion are recorded within “Other long-term liabilities” as of December",
+   "amounts": [
+    {
+     "raw": "$ 2,361 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,060 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,087 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,528 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,112 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 162,161 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 220,309   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,752 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 78,084 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 53,406 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 46,767 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,219 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 386,806 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 650,034   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "text": "The weighted-average remaining term of the financing obligations was 15.0 years and 14.9 years and the weighted-average imputed interest rate was 2.9 % and 3.2 % as of December 31, 2025 and June 30, 2026. (2) Includes unconditional purchase obligations related to long-term agreements to procure energy, acquire and license digital media content, acquire property and equipment, and license software that are not reflected on the consolidated balance sheets. For those agreements with variable terms or subject to certain regulatory approvals, we do not estimate the total obligation beyond any minimum quantities and/or pricing, or termination penalties, as of the reporting date.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "text": "For those agreements with variable terms or subject to certain regulatory approvals, we do not estimate the total obligation beyond any minimum quantities and/or pricing, or termination penalties, as of the reporting date. Purchase obligations associated with renewal provisions solely at the option of the content provider are included to the extent such commitments are fixed or a minimum amount is specified. Energy agreements based on actual generation without a fixed or minimum volume commitment are not included.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "text": "Certain of our energy agreements also provide the right to receive energy certificates. (3) Includes asset retirement obligations, the estimated timing and amounts of payments for rent and tenant improvements associated with build-to-suit lease arrangements that are under construction, and liabilities associated with digital media content agreements with initial terms greater than one year. Excludes approximately $ 7.1 billion of income tax contingencies for which we cannot make a reasonably reliable estimate of the amount and period of payment, if any.",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "text": "On the date of the merger agreement, we also entered into agreements with Apple Inc. (“Apple”), Globalstar’s largest customer, to provide certain services after the acquisition and to redeem certain equity interests held by Apple in a Globalstar special purpose entity. The acquisition is expected to close in 2027, subject to the satisfaction of certain closing conditions, including receipt of regulatory approvals and Globalstar’s achievement of certain satellite replacement milestones.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "18",
+   "text": "There were $ 455 million and $ 325 million of borrowings outstanding under these facilities as of December 31, 2025 and June 30, 2026, which were included in “Accrued expenses and other” on our consolidated balance sheets. Standby letters of credit are guarantees issued by financial institutions on our behalf, which can only be drawn in the event we fail to perform under the underlying obligation, and do not reduce the amount of borrowings available under our credit facilities. As of June 30, 2026, our total standby letter of credit facilities assigned to specific beneficiaries was $ 13.4 billion, primarily related to our payment-related services, and workers’ compensation and insurance programs.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "23",
+   "text": "AWS   The AWS segment consists of amounts earned from global sales of compute, storage, database, and other services for start-ups, enterprises, government agencies, and academic institutions. Information on reportable segments and reconciliation to consolidated net income is as follows (in millions):   Three Months Ended June 30, Six Months Ended June 30,   2025 2026 2025 2026   North America   Net sales $ 100,068 $ 116,177 $ 192,955 $ 220,320   Operating expenses 92,551 107,054 179,597 202,930   Operating income $ 7,517 $ 9,123 $ 13,358 $ 17,390   International   Net sales $ 36,761 $ 42,197 $ 70,274 $ 81,986   Operating expenses 35,267 40,480 67,763 78,845   Operating income $ 1,494 $ 1,717 $ 2,511 $ 3,141   AWS   Net sales $ 30,873 $ 42,232 $ 60,140 $ 79,819   Operating expenses 20,713 25,611 38,433 49,037   Operating income $ 10,160 $ 16,621 $ 21,707 $ 30,782   Consolidated   Net sales $ 167,702 $ 200,606 $ 323,369 $ 382,125   Operating expenses 148,531 173,145 285,793 330,812   Operating income 19,171 27,461 37,576 51,313   Total non-operating income 1,686 53,396 4,960 69,378   Provision for income taxes ( 2,678 ) ( 18,199 ) ( 7,231 ) ( 27,759 )   Equity-method investment activity, net of tax ( 15 ) ( 11 ) ( 14 ) ( 30 )   Net income $ 18,164 $ 62,647 $ 35,291 $ 92,902   23",
+   "amounts": [
+    {
+     "raw": "$ 100,068 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 116,177 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 192,955 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 220,320   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,517 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,123 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,358 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,390   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36,761 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,197 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 70,274 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 81,986   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,494 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,717 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,511 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,141   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,873 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,232 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 60,140 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,819   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,160 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16,621 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 21,707 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,782   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 167,702 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 200,606 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 323,369 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 382,125   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,164 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 62,647 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 35,291 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 92,902   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "28",
+   "text": "See Item 1 of Part I, “Financial Statements — Note 4 — Commitments and Contingencies” and “Financial Statements — Note 5 — Debt” for additional discussion of our principal contractual commitments, as well as our pledged assets. Additionally, we have purchase obligations and open purchase orders, including for inventory and capital expenditures, that support normal operations and are primarily due in the next twelve months. These purchase obligations and open purchase orders are generally cancellable in full or in part through the contractual provisions.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "28",
+   "text": "Additionally, we have purchase obligations and open purchase orders, including for inventory and capital expenditures, that support normal operations and are primarily due in the next twelve months. These purchase obligations and open purchase orders are generally cancellable in full or in part through the contractual provisions. We believe that cash flows generated from operations and our cash, cash equivalents, and marketable securities balances, as well as our borrowing arrangements and other financing activities, will be sufficient to meet our anticipated operating cash needs for at least the next twelve months.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "40",
+   "text": "When these policies and processes are circumvented or fail to operate sufficiently, it can harm our business or damage our reputation and we could face civil or criminal liability for unlawful activities by our sellers. Under our A-to-z Guarantee, we may reimburse customers for payments up to certain limits in these situations, and as our third-party seller sales grow, the cost of this program will increase and could negatively affect our operating results. We Face Risks Related to Adequately Protecting Our Intellectual Property Rights and Being Accused of Infringing Intellectual Property Rights of Third Parties   We regard our trademarks, service marks, copyrights, patents, trade dress, trade secrets, proprietary technology, and similar intellectual property as critical to our success, and we rely on trademark, copyright, and patent law, trade secret protection, and confidentiality and/or license agreements with our employees, customers, and others to protect our proprietary rights.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "44",
+   "text": "Our Supplier Relationships Subject Us to a Number of Risks   We have significant suppliers, including content and technology licensors, and in some cases, limited or single-sources of supply, that are important to our sourcing, services, manufacturing, and any related ongoing servicing of merchandise and content. We do not have long-term arrangements with most of our suppliers to guarantee availability of merchandise, content, components, or services, particular payment terms, or the extension of credit limits. Decisions by our current suppliers to limit or stop selling or licensing merchandise, content, components, or services to us on acceptable terms, or delay delivery, including as a result of one or more supplier bankruptcies due to poor economic conditions, natural or human-caused disasters (including public health crises), geopolitical events, labor and trade disputes, or for other reasons, may result in our being unable to procure alternatives from other suppliers in a timely and efficient manner and on acceptable terms, or at all.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "45",
+   "text": "Table of Contents   • difficulty integrating under the commercial agreements. Our Business Suffers When We Are Unsuccessful in Making, Integrating, and Maintaining Acquisitions and Investments   We have acquired and invested in a number of companies, and we may in the future acquire or invest in or enter into joint ventures with additional companies. These transactions involve risks such as:   • disruption of our ongoing business, including loss of management focus on and diversion of resources from existing businesses;   • problems retaining key personnel;   • additional operating losses and expenses of the businesses we acquired or in which we invested;   • the potential impairment of tangible and intangible assets and goodwill, including as a result of acquisitions;   • the potential impairment of customer and other relationships of the company we acquired or in which we invested or our own customers as a result of any integration of operations;   • the difficulty of completing such transactions, including obtaining regulatory approvals or satisfying other closing conditions, and achieving anticipated benefits within expected timeframes, or at all;   • the difficulty of incorporating acquired operations, technology, and rights into our offerings, and unanticipated expenses related to such integration;   • the difficulty of integrating a new company’s accounting, financial an",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "48",
+   "text": "Third parties who sell products using our services and stores also expose us to product liability claims. Additionally, under our A-to-z Guarantee, we may reimburse customers for certain product liability claims up to certain limits in these situations, and as our third-party seller sales grow, the cost of this program will increase and could negatively affect our operating results. Although we maintain liability insurance, we cannot be certain that our coverage will be adequate for liabilities actually incurred or that insurance will continue to be available to us on economically reasonable terms, or at all.",
+   "amounts": []
+  }
+ ]
+}

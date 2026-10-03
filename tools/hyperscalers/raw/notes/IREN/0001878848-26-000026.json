@@ -1,0 +1,50 @@
+{
+ "ticker": "IREN",
+ "cik": 1878848,
+ "form": "10-Q",
+ "accn": "0001878848-26-000026",
+ "filed": "2026-05-08",
+ "report": "2026-03-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 67,
+ "numberedPages": 66,
+ "hits": [
+  {
+   "kind": "guarantee",
+   "page": "2",
+   "text": "Although we believe that these forward-looking statements are based on reasonable assumptions at the time they are made, you should be aware that many factors could affect our actual financial results or results of operations, and could cause actual results to differ materially from those expressed in the forward-looking statements. Factors that may materially affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our capital needs and facilitate our expansion plans;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any existing or future financing or grant of security, which could require us to comply with onerous covenants, restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems, provide software, and operate and expand our high-performance computing (“HPC”) business (including our AI Cloud Services business and, potentially, colocation services such as powered shell, build-to-suit and turnkey data centers (“Colocation Services”) (",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "2",
+   "text": "Although we believe that these forward-looking statements are based on reasonable assumptions at the time they are made, you should be aware that many factors could affect our actual financial results or results of operations, and could cause actual results to differ materially from those expressed in the forward-looking statements. Factors that may materially affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our capital needs and facilitate our expansion plans;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any existing or future financing or grant of security, which could require us to comply with onerous covenants, restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems, provide software, and operate and expand our high-performance computing (“HPC”) business (including our AI Cloud Services business and, potentially, colocation services such as powered shell, build-to-suit and turnkey data centers (“Colocation Services”) (",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "4",
+   "text": "(“Mirantis”) and of the Ingenostrum, S.L. (trading as Nostrum Group) (“Nostrum Group”), as well as any other pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to obtain the requisite regulatory approvals, satisfy the applicable closing conditions and to consummate any such transactions on terms favorable to the Group or at all, as well as to successfully integrate and achieve the anticipated benefits of any such acquisition that may be completed;   • unanticipated costs or liabilities associated with the pending acquisition of Mirantis or Nostrum Group, or any other pending or future acquisitions, dispositions, joint ventures or other strategic transactions, and any failure to comply with laws, rules, regulations or business practices that we may become subject to as a result of any expansion of our business in connection with the pending acquisition of Mirantis or Nostrum Group or any other such acquisition, joint venture or other strategic transaction;   • our ability to operate in an evolving regulatory environment;   • our ability to successfully operate and maintain our property and infrastructure;   • reliability and performance of our infrastructure compared to expectations;   • malicious attacks on our property, infrastructure or IT systems;   4",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "5",
+   "text": "• our ability to obtain, maintain, protect and enforce our intellectual property rights and confidential information;   • any intellectual property infringement and product liability claims;   • whether the secular trends we expect to drive growth in our business materialize to the degree we expect them to, or at all;   any pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to consummate any such transactions on terms favorable to the Group or at all;   • the occurrence of any environmental, health and safety incidents at our sites, and any material costs relating to environmental, health and safety requirements or liabilities;   • damage to our property and infrastructure and the risk that any insurance we maintain may not fully cover all potential exposures;   • settlement and termination of proceedings relating to the default under certain equipment financing facilities, ongoing securities litigation, and any future litigation, claims and/or regulatory investigations, and the costs, expenses, use of resources, diversion of management time and efforts, liability and damages that may result therefrom;   • our failure to comply with any laws including the anti-corruption and sanctions laws, rules and regulations of the United States and various international jurisdictions;   • any failure of our compliance and ris",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "45",
+   "text": "The Dell Purchase Agreements contain customary representations, warranties, covenants, indemnities and termination rights. The Company has agreed to unconditionally guarantee the obligations of IE CA Leasing and IE US Hardware 1 under the Dell Purchase Agreements. Commitment for GPU Financing   On February 4, 2026, the Group entered into a binding commitment letter pursuant to which Goldman Sachs Bank USA and JPMorgan Chase Bank, N.A. have, subject to certain conditions, committed to underwrite a delayed draw financing of approximately $3.6 billion to support satisfaction of the Group’s obligations under the Microsoft Agreement.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "58",
+   "text": "The lease includes a purchase option at the Group’s sole discretion, allowing the acquisition of the GPUs upon maturity of the lease for $1. The Company has agreed to provide a parent guarantee with respect to all payment obligations under this facility. Off-Balance Sheet Arrangements   As of March 31, 2026, there have been no material changes to our off-balance sheet arrangements as reported under Item 7 in the Annual Report.",
+   "amounts": []
+  }
+ ]
+}

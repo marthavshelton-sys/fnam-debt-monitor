@@ -1,0 +1,567 @@
+{
+ "ticker": "CRWV",
+ "cik": 1769628,
+ "form": "10-K",
+ "accn": "0001769628-26-000104",
+ "filed": "2026-03-02",
+ "report": "2025-12-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 143,
+ "numberedPages": 143,
+ "hits": [
+  {
+   "kind": "equity_method",
+   "page": "4",
+   "text": "We may not actually achieve the plans, intentions or expectations disclosed in our forward-looking statements and you should not place undue reliance on our forward-looking statements. Our forward-looking statements do not reflect the potential impact of any future acquisitions, mergers, dispositions, restructurings, joint ventures, partnerships, or investments we may make. In addition, statements that \"we believe\" and similar statements reflect our beliefs and opinions on the relevant subject.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "5",
+   "text": "We maintain relationships with semiconductor manufacturers, original equipment manufacturers (\"OEMs\"), original design manufactures (\"ODMs\"), and software providers to support the sourcing and deployment of infrastructure components used in our platform. We primarily finance our infrastructure development through asset-level debt supported by take-or-pay customer contracts, supplemented by corporate-level equity and debt financing.   5",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "6",
+   "text": "Table of Contents   We serve a range of customers, including leading enterprises, AI labs, and technology companies deploying AI at scale across a variety of use cases. Customers generally access our platform through multi-year committed contracts, under which they purchase a specified amount of capacity on a take-or-pay basis over the contract term. A number of our customers have expanded their initial commitments over time by contracting for additional capacity as their AI workloads have grown.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "14",
+   "text": "Finally, the global energy market is currently experiencing inflation and volatility pressures. Although we use power purchase agreements to hedge against the risk of some changes in the price of power, there is no guarantee that they will work as intended or will protect us from long-term changes in the price of power. We expect the cost for power to continue to be volatile and unpredictable and subject to inflationary pressures, which could materially affect our financial forecasting, business, operating results, financial condition, and prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "text": "Table of Contents   • shifts in market-leading technologies away from those offered by our current suppliers that could impact our ability to offer our customers the solutions and services that they are seeking;   • reduced control over production costs and constraints based on the then current availability, terms, and pricing of these components, including any delays in our supply chain;   • limited ability to control aspects of the quality, performance, quantity, and cost of our infrastructure or of its components;   • the potential for binding price or purchase commitments with our suppliers at higher than market rates;   • reliance on our suppliers to keep up with technological advancements at the same pace as our business and customer demands, including their ability to continue to deliver next generation components that are substantially better than the prior generation;   • consolidation among suppliers in our industry, which may harm our ability to negotiate and obtain favorable terms from our suppliers and the third-party suppliers that our suppliers rely on;   • labor and political unrest at facilities we do not operate or own;   • geopolitical disputes disrupting our or any of our suppliers' supply chains, such as geopolitical tensions including but not limited to Taiwan and China and instability in Venezuela;   • business, legal, compliance, litigation, and financia",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "15",
+   "text": "Additionally, if such lead times increase in the future for any one or more of our infrastructure components, we may face a supply interruption for necessary components. We currently have no long-term contracts or arrangements with our suppliers that guarantee capacity or the continuation of any particular payment terms. Accordingly, after individual purchase orders have been completed, our suppliers are not obligated to continue to fulfill our supply expectations, and the prices we are charged for their products and, if applicable, services could be increased on short notice.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "text": "If third parties fail to successfully deliver on such performance requirements, our ability to maintain the performance of our network would be negatively impacted. Other factors, many of which are beyond our control, that can affect the delivery, performance, and availability of our platform include:   • the development, maintenance, and functioning of the infrastructure of the internet as a whole;   • the performance and availability of third-party telecommunications services with the necessary speed, data capacity, and security for providing reliable and fast internet access and services;   • the success or failure of our redundancy systems;   • the success or failure of our disaster recovery and business continuity plans;   • decisions by the owners and operators of the data center facilities where our infrastructure is installed or by global telecommunications service provider partners who provide us with network bandwidth to terminate our contracts, discontinue services to us, shut down operations or facilities, increase prices, change service levels, limit bandwidth, declare bankruptcy, breach their contracts with us, or prioritize the traffic of other parties;   • our ability to enter into data center agreements and leases or enter into data center acquisition agreements or joint venture agreements according to our business needs and on terms and with counterparties acc",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "text": "The occurrence of any of these factors, or our inability to quickly, efficiently, and cost-effectively fix such errors or other problems that may be identified, could damage our reputation, negatively impact our relationship with our customers, or otherwise materially harm our business, operating results, financial condition, and prospects. Currently, with our joint venture in Kenilworth, New Jersey, and in the future with new projects, we are beginning to develop our own data centers, rather than relying on third parties and, because of our limited experience in this area, we could experience unforeseen difficulties. For example, any expansion of our data center infrastructure would be complex, and unanticipated delays in the completion of those projects or availability of components may lead to increased project costs, operational inefficiencies, or interruptions in the delivery or degradation of the quality of our platform.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "20",
+   "text": "If we are unable to obtain adequate financing or financing on terms satisfactory to us when we require it, our ability to continue to support our business growth and to respond to business challenges could be significantly impaired and our business may be adversely affected, requiring us to delay, reduce, or eliminate some or all of our operations. Even if we are able to raise such capital, we cannot guarantee that we will deploy it in such a fashion that allows us to achieve better operating results or grow our business. Moreover, in order to fund investments in our infrastructure, we have pioneered and scaled innovative financing structures that have enabled us to grow our business through timely and flexible access to capital.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "22",
+   "text": "This requires us to make certain estimates with respect to the useful life of the components of our infrastructure and to maximize the value of the components of our infrastructure, including our GPUs, to the fullest extent possible. We cannot guarantee that our estimates will be accurate or that our attempts at maximizing value will be successful. Any changes to the significant assumptions underlying our estimates or to the estimates of our components' useful lives, or any inability to redeploy components of our existing infrastructure to extend past their contracted life could significantly affect our business, operating results, financial condition, and prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "27",
+   "text": "We may be a valuable target for cyberattacks given our size, increased awareness of our company since our initial public offering and the critical data which we host and transmit. Although we have implemented security measures designed to prevent such attacks, including mandating training for our employees, continuing to hire personnel with cybersecurity expertise, and reviewing our third-party providers' security measures, we cannot guarantee that such measures will operate effectively to protect our and our third-party providers' infrastructure, systems, networks, and physical facilities from breach due to the actions of outside parties or human error, malfeasance, insider threats, system errors or vulnerabilities, insufficient cybersecurity controls, a combination of the foregoing, or otherwise, and as a result, an unauthorized party may obtain access to our, our third-party providers' or our customers' systems, networks, or data. The techniques used to obtain unauthorized access to systems or sabotage systems, or disable or degrade services, change frequently and are often unrecognizable until launched against a target, and therefore we may be unable to anticipate these techniques and implement adequate preventative measures.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "27",
+   "text": "A breach in our or our third-party providers' data security or an attack against our platform could and have impacted our infrastructure and systems, creating system disruptions or slowdowns and providing access to malicious parties to information hosted and transmitted by our infrastructure, resulting in data, including the data of our customers, being publicly disclosed, misused, altered, lost, or stolen, which could subject us to liability and reputational harm and adversely affect our financial condition. While to date no incidents have had a material impact on our operations or financial results, we cannot guarantee that material incidents will not occur in the future. If compromised, our own systems could be used to facilitate or magnify an attack.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "28",
+   "text": "Table of Contents   Although we maintain cybersecurity insurance, there can be no guarantee that any or all costs or losses incurred will be partially or fully recouped from such insurance or that applicable insurance in the future will be available on economically reasonable terms or at all. Furthermore, our insurance coverage may not extend to all risks we face.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "30",
+   "text": "We have a limited history selling access to our AI infrastructure cloud services and proprietary managed software and application services through our CoreWeave Cloud Platform under our current business model and we are continuing to scale our operations and evolve our go-to-market strategy. We currently sell access to our platform either through committed contracts, which are take-or-pay, or on-demand, which are pay-as-you-go. For the years ended December 31, 2025, 2024, and 2023, committed contracts accounted for over 98%, 96% and 88% of our revenue, respectively.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "30",
+   "text": "For the years ended December 31, 2025, 2024, and 2023, committed contracts accounted for over 98%, 96% and 88% of our revenue, respectively. There is no guarantee that in the future customers will continue to be willing to enter into, and that the industry will continue to support, a take-or-pay model, and any move towards a pay-as-you-go and other consumption-based models will impact our ability to forecast our expected cash flows and operating results, impact our margins, and affect our business, operating results, financial condition, and prospects. Moreover, our committed contracts typically include a prepayment from our customers prior to them receiving access to our services.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "30",
+   "text": "For the years ended December 31, 2025, 2024, and 2023, committed contracts accounted for over 98%, 96% and 88% of our revenue, respectively. There is no guarantee that in the future customers will continue to be willing to enter into, and that the industry will continue to support, a take-or-pay model, and any move towards a pay-as-you-go and other consumption-based models will impact our ability to forecast our expected cash flows and operating results, impact our margins, and affect our business, operating results, financial condition, and prospects. Moreover, our committed contracts typically include a prepayment from our customers prior to them receiving access to our services.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "32",
+   "text": "We appointed our Chief Revenue Officer in October 2025 and have dedicated, and plan to continue to dedicate, significant resources to sales and marketing programs and to expand our sales and marketing capabilities to target additional potential customers and achieve broader market adoption of our platform. However, there is no guarantee that we will be successful in attracting and maintaining additional customers. Moreover, identifying, recruiting, training, and managing sales personnel requires significant time, expense, and attention, including from our senior management and other key personnel, which could adversely impact our business, operating results, financial condition, and prospects in the short and long term.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "32",
+   "text": "If we do not hire a sufficient number of qualified sales personnel or if the sales personnel that we retain are not coordinated to achieve our goals, our future revenue growth and business could be adversely impacted. It may take a significant period of time before our sales personnel are fully trained and productive, particularly in light of our current sales model, and there is no guarantee we will be successful in adequately training and effectively deploying our sales personnel. In addition, we have invested, and may need to continue investing, significant resources in our sales operations to enable our sales organization to run effectively and efficiently, including supporting sales strategy planning, sales process optimization, data analytics and reporting, and administering incentive compensation arrangements.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "33",
+   "text": "Our business is, and may in the future be, subject to the risks of non-payment and non-performance by these customers, which risk is heightened given that a substantial portion of our revenue is currently, and is expected for the foreseeable future to be, driven by a limited number of customers. We manage our exposure to credit risk through receipt of prepayments under our committed contracts, credit analysis and monitoring procedures, and may use letters of credit, prepayments, and guarantees. However, these procedures and policies cannot fully eliminate customer credit risk, and to the extent our policies and procedures prove to be inadequate, it could negatively affect our business, operating results, financial condition, and prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "35",
+   "text": "For example, we have recently announced a number of acquisitions. Our ability as an organization to acquire and integrate other companies, services, or technologies in a successful manner is not guaranteed. We have also invested, including in the form of providing computing services, in certain privately held companies, and we may not realize a return on these investments.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "If we are unsuccessful in establishing or maintaining strategic relationships with third parties, our ability to compete or to grow our revenue could be impaired and our business, operating results, financial condition, and prospects could be adversely affected. The anticipated benefits of potential joint ventures may not be fully realized or take longer to realize than expected. In addition, our joint venture investments could expose us to risks and liabilities in connection with the formation of new joint ventures, the operation of such joint ventures without sole decision-making authority, and our reliance on joint venture partners who may have economic and business interests that are inconsistent with our business interests.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "The anticipated benefits of potential joint ventures may not be fully realized or take longer to realize than expected. In addition, our joint venture investments could expose us to risks and liabilities in connection with the formation of new joint ventures, the operation of such joint ventures without sole decision-making authority, and our reliance on joint venture partners who may have economic and business interests that are inconsistent with our business interests. We have in the past, and may in the future, enter into joint ventures in the future, including to develop and operate data centers.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "In addition, our joint venture investments could expose us to risks and liabilities in connection with the formation of new joint ventures, the operation of such joint ventures without sole decision-making authority, and our reliance on joint venture partners who may have economic and business interests that are inconsistent with our business interests. We have in the past, and may in the future, enter into joint ventures in the future, including to develop and operate data centers. Certain sites that are intended to be utilized in joint ventures require investment for development.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "We have in the past, and may in the future, enter into joint ventures in the future, including to develop and operate data centers. Certain sites that are intended to be utilized in joint ventures require investment for development. For example, in June 2025, we entered into a joint venture with a third-party infrastructure developer, to support the acquisition and development of a multi-phase data center campus in Kenilworth, New Jersey.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "Certain sites that are intended to be utilized in joint ventures require investment for development. For example, in June 2025, we entered into a joint venture with a third-party infrastructure developer, to support the acquisition and development of a multi-phase data center campus in Kenilworth, New Jersey. The success of these joint ventures will also depend, in part, on the successful development of the data center sites, and we may not realize all of the anticipated benefits.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "For example, in June 2025, we entered into a joint venture with a third-party infrastructure developer, to support the acquisition and development of a multi-phase data center campus in Kenilworth, New Jersey. The success of these joint ventures will also depend, in part, on the successful development of the data center sites, and we may not realize all of the anticipated benefits. Such development may be more difficult, time-consuming, or costly than expected and could result in increased costs, decreases in the amount of expected revenues, and diversion of management's time and energy, which could materially impact our business, operating results, financial condition, and prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "Such development may be more difficult, time-consuming, or costly than expected and could result in increased costs, decreases in the amount of expected revenues, and diversion of management's time and energy, which could materially impact our business, operating results, financial condition, and prospects. Additionally, if it is determined these sites are no longer desirable for the joint ventures, we would need to adapt such sites for other purposes. The success of any joint ventures will depend, in part, on the successful relationship between us and our joint venture partners.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "Additionally, if it is determined these sites are no longer desirable for the joint ventures, we would need to adapt such sites for other purposes. The success of any joint ventures will depend, in part, on the successful relationship between us and our joint venture partners. A failure to successfully partner, or a failure to realize our expectations for the joint ventures, including any contemplated exit strategy from a joint venture, could materially impact our business, operating results, financial condition, and prospects.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "The success of any joint ventures will depend, in part, on the successful relationship between us and our joint venture partners. A failure to successfully partner, or a failure to realize our expectations for the joint ventures, including any contemplated exit strategy from a joint venture, could materially impact our business, operating results, financial condition, and prospects. These joint ventures could also be negatively impacted by inflation, supply chain issues, an inability to obtain financing on favorable terms or at all, an inability to fill the data center sites with customers as planned, and development and construction delays.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "A failure to successfully partner, or a failure to realize our expectations for the joint ventures, including any contemplated exit strategy from a joint venture, could materially impact our business, operating results, financial condition, and prospects. These joint ventures could also be negatively impacted by inflation, supply chain issues, an inability to obtain financing on favorable terms or at all, an inability to fill the data center sites with customers as planned, and development and construction delays. Further, in the future, we may co-invest with other third parties through partnerships, joint ventures, or other entities in the future.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "These joint ventures could also be negatively impacted by inflation, supply chain issues, an inability to obtain financing on favorable terms or at all, an inability to fill the data center sites with customers as planned, and development and construction delays. Further, in the future, we may co-invest with other third parties through partnerships, joint ventures, or other entities in the future. These joint ventures could result in our acquisition of non-controlling interests in, or shared responsibility for, managing the affairs of a property or portfolio of properties, partnership, joint venture, or other entity.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "Further, in the future, we may co-invest with other third parties through partnerships, joint ventures, or other entities in the future. These joint ventures could result in our acquisition of non-controlling interests in, or shared responsibility for, managing the affairs of a property or portfolio of properties, partnership, joint venture, or other entity. We may be subject to additional risks, including:   • we may not have the right to exercise sole decision-making authority regarding the properties, partnership, joint venture, or other entity;   • if our partners become bankrupt or fail to fund their share of required capital contributions, we may choose to or be required to contribute such capital;   • our partners may have economic, tax, or other business interests or goals which are inconsistent with our business interests or goals, and may be in a position to take actions contrary to our interests or objectives;   • our joint venture partners may take actions that are not within our control, which could require us to dispose of the joint venture asset or purchase the partner's interests or assets at an above-market price;   • our joint venture partners may take actions unrelated to our business agreement but which reflect poorly on us because of our joint venture relationship;   • disputes between us and our partners may result in litigation or arbitration that would i",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "37",
+   "text": "These joint ventures could result in our acquisition of non-controlling interests in, or shared responsibility for, managing the affairs of a property or portfolio of properties, partnership, joint venture, or other entity. We may be subject to additional risks, including:   • we may not have the right to exercise sole decision-making authority regarding the properties, partnership, joint venture, or other entity;   • if our partners become bankrupt or fail to fund their share of required capital contributions, we may choose to or be required to contribute such capital;   • our partners may have economic, tax, or other business interests or goals which are inconsistent with our business interests or goals, and may be in a position to take actions contrary to our interests or objectives;   • our joint venture partners may take actions that are not within our control, which could require us to dispose of the joint venture asset or purchase the partner's interests or assets at an above-market price;   • our joint venture partners may take actions unrelated to our business agreement but which reflect poorly on us because of our joint venture relationship;   • disputes between us and our partners may result in litigation or arbitration that would increase our expenses and prevent our management from focusing their time and effort on our day-to-day business;   37",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "38",
+   "text": "Table of Contents   • we may in certain circumstances be liable for the actions of our third-party partners or guarantee all or a portion of the joint venture's liabilities, which may require us to pay an amount greater than its investment in the joint venture;   • we may need to change the structure of an established joint venture or create new complex structures to meet our business needs or the needs of our partners which could prove challenging; and   • a joint venture partner's decision to exit the joint venture may not be at an opportune time for us or in our business interests. Each of these factors may result in returns on these investments being less than we expect or in losses, and business, operating results, financial condition, and prospects may be adversely affected.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "38",
+   "text": "Table of Contents   • we may in certain circumstances be liable for the actions of our third-party partners or guarantee all or a portion of the joint venture's liabilities, which may require us to pay an amount greater than its investment in the joint venture;   • we may need to change the structure of an established joint venture or create new complex structures to meet our business needs or the needs of our partners which could prove challenging; and   • a joint venture partner's decision to exit the joint venture may not be at an opportune time for us or in our business interests. Each of these factors may result in returns on these investments being less than we expect or in losses, and business, operating results, financial condition, and prospects may be adversely affected.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "38",
+   "text": "Each of these factors may result in returns on these investments being less than we expect or in losses, and business, operating results, financial condition, and prospects may be adversely affected. Our ownership stake in the Kenilworth, New Jersey joint venture, and any future acquisitions that include real property, subject us to the general risks associated with the ownership of real property. We currently lease all of our existing data centers and offices.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "38",
+   "text": "We currently lease all of our existing data centers and offices. We also have an ownership stake in a joint venture that is developing a multi-phase data center campus in Kenilworth, New Jersey. In the future, we could make additional acquisitions that include real property.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "38",
+   "text": "In the future, we could make additional acquisitions that include real property. As a result of our ownership stake in the Kenilworth, New Jersey joint venture and any future acquisition, we are subject to the general risks associated with the ownership of real property, including:   • changes in governmental laws and regulations, including the Americans with Disabilities Act and zoning ordinances, and the related costs of compliance;   • increased upfront costs of purchasing real property;   • the ongoing need for repair, maintenance and capital improvements;   • natural disasters, including earthquakes, storms, wildfires and floods, and acts of war or terrorism;   • general liability, property and casualty losses, some of which may be uninsured;   • liabilities for clean-up of undisclosed environmental contamination and real property title claims; and   • liabilities incurred in the ordinary course of business, including delays and expenses relating to obtaining permits from municipal and other governmental authorities. If negative publicity arises with respect to us, our employees, our third-party suppliers, service providers, or our partners, our business, operating results, financial condition, and prospects could be adversely affected, regardless of whether the negative publicity is true.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "40",
+   "text": "Risks Related to Our Intellectual Property   Failure to obtain, maintain, protect, or enforce our intellectual property and proprietary rights could enable others to copy or use aspects of our platform without compensating us, which could harm our brand, business, operating results, financial condition, and prospects. We rely on a combination of trademark, copyright, trade secret, patent, unfair competition, and other related laws in the United States and internationally, as well as confidentiality agreements, company policies, and contractual provisions with our customers, third-party manufacturing partners, joint venture partners, employees, and consultants to protect our technology and intellectual property rights. Despite our efforts to protect our proprietary rights, unauthorized parties may attempt to copy aspects of our platform or obtain and use information that we regard as proprietary.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "41",
+   "text": "Lastly, the measures we employ to limit the access and distribution of our proprietary information may not prevent unauthorized use or disclosure of our proprietary technology or intellectual property. As such, we cannot guarantee that the steps taken by us will prevent infringement, violation, or misappropriation of our technology. We pursue the registration of our trademarks, service marks, patents, and domain names in the United States and in certain foreign jurisdictions.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "51",
+   "text": "We base our estimates on historical experience and on various other assumptions that we believe to be reasonable under the circumstances, as discussed in the section titled \"Management's Discussion and Analysis of Financial Condition and Results of Operations—Critical Accounting Estimates.\" The results of these estimates form the basis for our judgments about the carrying values of assets, liabilities and equity, and the amount of revenue and expenses that are not readily apparent from other sources. Significant assumptions and estimates used in preparing our consolidated financial statements include but are not limited to those related to the identification of performance obligations in revenue recognition, the valuation of stock-based awards, the valuation of derivatives and warrants, and accounting for leases, property and equipment, income taxes and variable interest entities. Our operating results may be adversely affected if our assumptions change or if actual circumstances differ from those in our assumptions, which could cause our operating results to fall below the expectations of industry or financial analysts and investors, resulting in a potential decline in the market price of our Class A common stock.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "52",
+   "text": "Table of Contents   Our operating expenses incurred outside the United States and denominated in foreign currencies are increasing and are subject to fluctuations due to changes in foreign currency exchange rates. Although we currently hedge against the risks associated with currency fluctuations, there is no guarantee that the derivative financial instruments that we use to manage risk associated with foreign currency fluctuations will work as intended or will protect us against long-term movements in foreign currency exchange rates. Risks Related to Our Indebtedness   Our substantial indebtedness could materially adversely affect our financial condition, our ability to raise additional capital to fund our operations, our ability to operate our business, our ability to react to changes in the economy or our industry, our ability to meet our obligations under our outstanding indebtedness and could divert our cash flow from operations for debt payments, and we may still incur substantially more indebtedness in the future.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "52",
+   "text": "VII, LLC, our indirect subsidiary, entered into the DDTL 3.0 Facility (together with the DDTL 1.0 Facility, the DDTL 2.0 Facility, and the DDTL 2.1 Facility, the \"DDTL Facilities\") providing for up to $2.6 billion in delayed draw term loans. All obligations under the DDTL Facilities are unconditionally guaranteed by us. In November 2025, we amended our Revolving Credit Facility to increase its capacity to $2.5 billion, to modify certain covenant metrics, and to extend its maturity to November 2029 (together with the DDTL Facilities, the \"Credit Facilities\").",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "52",
+   "text": "In December 2025, we issued $2.6 billion aggregate principal amount of 1.75% Convertible Senior Notes due 2031 (the \"2031 Convertible Notes,\" and, together with the 2030 Senior Notes and the 2031 Senior Notes, the \"Notes\"). The Notes are guaranteed on a senior unsecured basis by certain of our wholly-owned subsidiaries and certain of our future direct and indirect wholly owned domestic restricted subsidiaries that guarantee the Revolving Credit Facility in the case of the 2023 Senior Notes and 2031 Senior Notes and the 2023 Senior Notes and 2031 Senior Notes in the case of the 2031 Convertible Notes. In addition to our substantial debt, we lease all of our data centers and certain equipment under lease agreements, some of which are accounted for as operating leases.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "53",
+   "text": "Certain of our debt agreements impose significant operating and financial restrictions on us and our subsidiaries, which may prevent us from capitalizing on business opportunities. The credit agreements that govern our Credit Facilities, as well as the related parent guarantees, and the indentures that govern the Notes impose significant operating and financial restrictions on us. These restrictions will limit our ability and/or the ability of our subsidiaries to, among other things:   • incur or guarantee additional debt or issue disqualified stock or preferred stock;   • pay dividends and make other distributions on, or redeem or repurchase, capital stock;   • make certain investments or acquisitions;   • incur certain liens;   • enter into transactions with our affiliates;   • merge or consolidate;   53",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "53",
+   "text": "The credit agreements that govern our Credit Facilities, as well as the related parent guarantees, and the indentures that govern the Notes impose significant operating and financial restrictions on us. These restrictions will limit our ability and/or the ability of our subsidiaries to, among other things:   • incur or guarantee additional debt or issue disqualified stock or preferred stock;   • pay dividends and make other distributions on, or redeem or repurchase, capital stock;   • make certain investments or acquisitions;   • incur certain liens;   • enter into transactions with our affiliates;   • merge or consolidate;   53",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "77",
+   "text": "Table of Contents   Contractual Obligations   Our significant contractual obligations as of December 31, 2025 consisted of:   • our Notes and other borrowings that are included in our consolidated balance sheet and the related periodic interest payments;   • lease liabilities that are included in our consolidated balance sheet;   • lease commitments that have not yet commenced and were not included in our consolidated balance sheet; and   • other contractual commitments associated with agreements that are enforceable and legally binding, such as routine commitments for the purchase of goods or services entered into in the ordinary course of business including the purchase of technology equipment and enterprise software and service arrangements. Refer to Note 8—Leases, Note 9—Commitments and Contingencies, and Note 10—Debt of the Notes to the Consolidated Financial Statements included in Part II, Item 8 of this Annual Report on Form 10-K for the years ended December 31, 2025, 2024, and 2023 for additional information.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "83",
+   "text": "Table of Contents   How the Critical Audit Matter Was Addressed in the Audit   Our principal audit procedures related to the Company's revenue recognition for certain customer agreements included the following:   • We evaluated management's significant accounting policies related to certain customer agreements for reasonableness.   • We selected a sample of certain customer agreements and performed the following procedures:   • Obtained and read contract source documents for each selection, including order forms and other documents that form part of the contract.   • Tested management's identification and treatment of contract terms.   • Assessed the terms in the customer contract and evaluated the appropriateness of management's application of their accounting policies in the determination of revenue recognition conclusions.   • Tested the mathematical accuracy of management's calculations of revenue and the associated timing and amount of revenue recognized in the financial statements. Consolidation Accounting for a Variable Interest Entity — Refer to Note 1 and Note 3 to the financial statements   Critical Audit Matter Description   The Company entered into a joint venture (“JV”) with a third-party infrastructure developer to support the acquisition and development of a multi-phase data center campus. The Company determined whether it holds a variable interest in the JV, whe",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "83",
+   "text": "Table of Contents   How the Critical Audit Matter Was Addressed in the Audit   Our principal audit procedures related to the Company's revenue recognition for certain customer agreements included the following:   • We evaluated management's significant accounting policies related to certain customer agreements for reasonableness.   • We selected a sample of certain customer agreements and performed the following procedures:   • Obtained and read contract source documents for each selection, including order forms and other documents that form part of the contract.   • Tested management's identification and treatment of contract terms.   • Assessed the terms in the customer contract and evaluated the appropriateness of management's application of their accounting policies in the determination of revenue recognition conclusions.   • Tested the mathematical accuracy of management's calculations of revenue and the associated timing and amount of revenue recognized in the financial statements. Consolidation Accounting for a Variable Interest Entity — Refer to Note 1 and Note 3 to the financial statements   Critical Audit Matter Description   The Company entered into a joint venture (“JV”) with a third-party infrastructure developer to support the acquisition and development of a multi-phase data center campus. The Company determined whether it holds a variable interest in the JV, whe",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "83",
+   "text": "Consolidation Accounting for a Variable Interest Entity — Refer to Note 1 and Note 3 to the financial statements   Critical Audit Matter Description   The Company entered into a joint venture (“JV”) with a third-party infrastructure developer to support the acquisition and development of a multi-phase data center campus. The Company determined whether it holds a variable interest in the JV, whether the entity in which the Company has a variable interest is a variable interest entity (“VIE”), and whether the Company is required to consolidate the entity. Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "83",
+   "text": "The Company determined whether it holds a variable interest in the JV, whether the entity in which the Company has a variable interest is a variable interest entity (“VIE”), and whether the Company is required to consolidate the entity. Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity. The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "83",
+   "text": "The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We identified the Company’s consolidation accounting conclusion with respect to its interest in the JV as a critical audit matter because of the significant judgments necessary for management to determine the primary beneficiary. This required a high degree of auditor judgment to evaluate management’s judgements in determining the activities that most significantly affect the JV’s economic performance based on the purpose and design of the entity and assessing whether the Company has the power to direct those activities.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "83",
+   "text": "This required a high degree of auditor judgment to evaluate management’s judgements in determining the activities that most significantly affect the JV’s economic performance based on the purpose and design of the entity and assessing whether the Company has the power to direct those activities. How the Critical Audit Matter Was Addressed in the Audit   Our audit procedures related to the evaluation of whether the Company's consolidation accounting conclusion with respect to its interest in the JV included the following, among others:   • We read the relevant agreements related to the JV to understand the purpose and design of the JV and assessed the reasonableness of the Company’s determination of the primary beneficiary of the JV, including its determination of the activities that most significantly affect the JV’s economic performance and assessing which party has the power to direct those activities.   • We evaluated the appropriateness of the related disclosures included in Note 1 and Note 3 to the financial statements.   /s/ Deloitte & Touche LLP   San Jose, CA   March 2, 2026   We have served as the Company's auditor since 2024.   83",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "91",
+   "text": "Table of Contents   The Company determines at inception of each arrangement whether an entity in which the Company has made an investment or in which the Company has other variable interests is considered a variable interest entity (\"VIE\"). Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "91",
+   "text": "Table of Contents   The Company determines at inception of each arrangement whether an entity in which the Company has made an investment or in which the Company has other variable interests is considered a variable interest entity (\"VIE\"). Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity. The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE's economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "91",
+   "text": "The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE's economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. If the Company is not the primary beneficiary of the VIE, the investment or other variable interest is accounted for in accordance with applicable U.S. GAAP.",
+   "amounts": []
+  },
+  {
+   "kind": "rvg",
+   "page": "96",
+   "text": "The Company's finance leases generally include purchase options and declining minimum payments. The Company currently does not have any lease arrangements with residual value guarantees.   96",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "96",
+   "text": "The Company's finance leases generally include purchase options and declining minimum payments. The Company currently does not have any lease arrangements with residual value guarantees.   96",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "97",
+   "text": "Refer to Note 3— Investments and Fair Value Measurements for additional information. Joint Ventures   The Company may, from time to time, enter into joint venture arrangements. The Company evaluates its investments in accordance with ASC 810, Consolidation, to determine whether the entity is a VIE for which the Company is the primary beneficiary, or a VOE for which the Company has a controlling financial interest, in which case the investment is consolidated.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "97",
+   "text": "Joint Ventures   The Company may, from time to time, enter into joint venture arrangements. The Company evaluates its investments in accordance with ASC 810, Consolidation, to determine whether the entity is a VIE for which the Company is the primary beneficiary, or a VOE for which the Company has a controlling financial interest, in which case the investment is consolidated. For investments that are not consolidated, but over which the Company has the ability to exercise significant influence, including certain joint ventures, the Company accounts for such investments using the equity method of accounting in accordance with ASC 323, Investments—Equity Method and Joint Ventures .",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "97",
+   "text": "The Company evaluates its investments in accordance with ASC 810, Consolidation, to determine whether the entity is a VIE for which the Company is the primary beneficiary, or a VOE for which the Company has a controlling financial interest, in which case the investment is consolidated. For investments that are not consolidated, but over which the Company has the ability to exercise significant influence, including certain joint ventures, the Company accounts for such investments using the equity method of accounting in accordance with ASC 323, Investments—Equity Method and Joint Ventures . Revenue Recognition   The Company generates revenue from the delivery of cloud computing services.",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "98",
+   "text": "The initial contract period generally ranges from one to six years . The terms of these contracts are typically structured as \"take-or-pay\" agreements, requiring payment regardless of the level of utilization. Additionally, customers under committed contracts often make a prepayment that is recorded as deferred revenue and consumed based on the terms of the contract.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "101",
+   "text": "The Company is currently evaluating the impact this amended guidance may have on its consolidated financial statements. In May 2025, the FASB issued ASU No. 2025-03, Business Combinations (Topic 805) and Consolidation (Topic 810): Determining the Accounting Acquirer in the Acquisition of a Variable Interest Entity , which provides clarifying guidance on determining the accounting acquirer in certain transactions involving VIEs. The update aims to improve consistency and comparability in financial reporting.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "103",
+   "text": "Table of Contents   Remaining Performance Obligations   As of December 31, 2025, the Company had $ 60.7 billion of unsatisfied RPO, of which 43 % is expected to be recognized over the initial 24 months ending December 31, 2027, 38 % between months 25 and 48, and the remaining balance recognized between months 49 and 84.   3. Investments and Fair Value Measurements   Investments   The Company's investments on the consolidated balance sheets consisted of the following (in millions):   December 31, 2025 December 31, 2024   Marketable securities:   Commercial paper $ 12 $ —   Corporate bonds 22 —   Total marketable securities $ 34 $ —   Non-marketable equity securities:   Strategic investments $ 117 $ 102   Equity method investments 51 —   Total non-marketable equity securities 168 102   Total investments $ 202 $ 102   Marketable Securities   For the years ended December 31, 2025, 2024, and 2023, the Company did not recognize any material realized or unrealized gains or losses related to its debt securities. As of December 31, 2025 and 2024, there was no allowance for credit losses related to the Company's debt securities.",
+   "amounts": [
+    {
+     "raw": "$ 12 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 34 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 117 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 102   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 202 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 102   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "103",
+   "text": "The weighted-average remaining maturity of the Company's debt securities was less than one year as of December 31, 2025. Unconsolidated Variable Interest Entities   The Company has entered into various lease agreements with data center developers and operators that are VIEs. The Company does not have the power to direct the activities that most significantly impact the data center developer and operators' economic performance and is not the primary beneficiary.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "103",
+   "text": "Unconsolidated Variable Interest Entities   The Company has entered into various lease agreements with data center developers and operators that are VIEs. The Company does not have the power to direct the activities that most significantly impact the data center developer and operators' economic performance and is not the primary beneficiary. Therefore, the Company has not consolidated the VIEs within the consolidated financial statement.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "103",
+   "text": "The Company has lease prepayments of $ 54 million associated with these lease agreements as of December 31, 2025. Unconsolidated Joint Venture   Additionally, in June 2025, the Company entered into a joint venture (the \"JV\") with a data center developer and operator to support the acquisition and development of a multi-phase data center campus in New Jersey. Upon formation, the third-party infrastructure developer obtained an 85 % equity interest, while the Company holds the remaining 15 %, for which the Company contributed net assets worth $ 57 million.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "103",
+   "text": "The Company provides construction management, administrative and property management services to the JV. The Company is not the primary beneficiary and does not consolidate the VIE as it does not have the power to direct the activities that most significantly impact the JV's economic performance. Accordingly, the investment in the JV is accounted for as an equity method investment included in other non-current assets on the consolidated balance sheets.",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "103",
+   "text": "The Company is not the primary beneficiary and does not consolidate the VIE as it does not have the power to direct the activities that most significantly impact the JV's economic performance. Accordingly, the investment in the JV is accounted for as an equity method investment included in other non-current assets on the consolidated balance sheets. The carrying value of the Company's investment in the JV was $ 51 million as of December 31, 2025, and the Company's share of the earnings and losses of the JV were not material during the year ended December 31, 2025.",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "104",
+   "text": "Table of Contents   The Company's maximum exposure to loss with respect to the JV includes (i) the carrying value of the Company's investment, (ii) up to $ 95 million related to a guarantee for certain contingent consideration payable to a third-party by the JV upon the achievement of certain milestones, (iii) a lease prepayment of $ 15 million, and (iv) potential requirements to fund the construction and development of the data center campus to the extent the JV is unable to secure third-party financing. Based on current projected development costs and third-party financing secured by the JV as of December 31 2025, the Company estimates that the maximum funding exposure to fund these latter construction and development costs is up to $ 200 million.",
+   "amounts": [
+    {
+     "raw": "$ 95 million",
+     "usdM": 95
+    },
+    {
+     "raw": "$ 15 million",
+     "usdM": 15
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "104",
+   "text": "Table of Contents   The Company's maximum exposure to loss with respect to the JV includes (i) the carrying value of the Company's investment, (ii) up to $ 95 million related to a guarantee for certain contingent consideration payable to a third-party by the JV upon the achievement of certain milestones, (iii) a lease prepayment of $ 15 million, and (iv) potential requirements to fund the construction and development of the data center campus to the extent the JV is unable to secure third-party financing. Based on current projected development costs and third-party financing secured by the JV as of December 31 2025, the Company estimates that the maximum funding exposure to fund these latter construction and development costs is up to $ 200 million.",
+   "amounts": [
+    {
+     "raw": "$ 95 million",
+     "usdM": 95
+    },
+    {
+     "raw": "$ 15 million",
+     "usdM": 15
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "112",
+   "text": "Refer to Note 10—Debt for additional information. Leases Not Yet Commenced   As of December 31, 2025, the Company executed additional lease agreements, primarily for data centers and office buildings, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $ 38.5 billion.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "113",
+   "text": "Commitments and Contingencies   Letters of Credit   As of December 31, 2025 and 2024, the Company had outstanding Letters of Credit (\"LOC\") in the aggregate amount of $ 294 million and $ 533 million, respectively. These LOC primarily guarantee the Company's ability to fulfill its lease obligations, per the lease agreements. As of December 31, 2025 and 2024, the Company has not drawn on any of its LOC and is in compliance with the terms and conditions set forth by the financial institution.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "115",
+   "text": "The outstanding loan amounts are prepayable at any time, from time to time, at the Company's option, and are required to be prepaid upon the occurrence of an event of default or change of control of the Company, or with the proceeds of certain asset dispositions or incurrences of indebtedness. Furthermore, all obligations under the DDTL Facilities are unconditionally guaranteed by the Company. They contain covenants that restrict the ability of the Company and/or the respective subsidiaries to incur or guarantee additional indebtedness; pay dividends and make other distributions or repurchase stock; make certain investments; create or incur liens; sell assets; enter into certain transactions with affiliates; and merge, consolidate, transfer, or sell all or substantially all of its assets.   115",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "115",
+   "text": "Furthermore, all obligations under the DDTL Facilities are unconditionally guaranteed by the Company. They contain covenants that restrict the ability of the Company and/or the respective subsidiaries to incur or guarantee additional indebtedness; pay dividends and make other distributions or repurchase stock; make certain investments; create or incur liens; sell assets; enter into certain transactions with affiliates; and merge, consolidate, transfer, or sell all or substantially all of its assets.   115",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "131",
+   "text": "This right applies to equity awards previously granted to the Company's co-founders and to equity awards that may be granted to the Company's co-founders in the future. Unconsolidated Joint Venture   In June 2025, the Company entered into a forward-starting lease and a development management agreement in connection with the JV, which is an unconsolidated subsidiary of the Company and a related party. These agreements are deemed to be priced at market terms as they were negotiated as part of an arms-length negotiations with the other investor in the JV.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "138",
+   "text": "II, LLC and the agents and lenders party thereto, dated July 30, 2023   S-1   333-285512 10.8   March 3, 2025   10.9†   First Amendment to Credit Agreement between CoreWeave Compute Acquisition Co. II, LLC and the agents and lenders party thereto, dated May 16, 2024   S-1   333-285512 10.9   March 3, 2025   10.10†^   Parent Guarantee and Pledge Agreement between CoreWeave, Inc. and U.S. Bank Trust Company, National Association, dated July 30, 2023   S-1   333-285512 10.10   March 3, 2025   10.11   First Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "138",
+   "text": "II, LLC and the agents and lenders party thereto, dated May 16, 2024   S-1   333-285512 10.9   March 3, 2025   10.10†^   Parent Guarantee and Pledge Agreement between CoreWeave, Inc. and U.S. Bank Trust Company, National Association, dated July 30, 2023   S-1   333-285512 10.10   March 3, 2025   10.11   First Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated November 8, 2023   S-1   333-285512 10.11   March 3, 2025   10.12†   Second Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "138",
+   "text": "Bank Trust Company, National Association, dated July 30, 2023   S-1   333-285512 10.10   March 3, 2025   10.11   First Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated November 8, 2023   S-1   333-285512 10.11   March 3, 2025   10.12†   Second Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated May 16, 2024   S-1   333-285512 10.12   March 3, 2025   138",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "139",
+   "text": "Table of Contents   10.13†   Third Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated November 5, 2025   X   10.14†   Fourth Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "139",
+   "text": "Table of Contents   10.13†   Third Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated November 5, 2025   X   10.14†   Fourth Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated December 7, 2025   X   10.15†^   Credit Agreement between CoreWeave Compute Acquisition Co., IV, LLC and the agents and lenders party thereto, dated May 16, 2024   S-1   333-285512 10.13   March 3, 2025   10.16†   First Amendment to Credit Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto, dated August 29, 2024   S-1   333-285512 10.14   March 3, 2025   10.17†   Limited Waiver And Second Amendment To Credit Agreement between CoreWeave Compute Acquisition Co., IV, LLC, the Borrower party thereto, and the agents and lenders party thereto, dated December 31, 2024   S-1   333-285512 10.15   March 3, 2025   10.18^   T hird Amendment to Credit Agreement between CoreWeave Compute Acquisiti on Co., IV, LLC and the lenders party thereto, dated February 28, 2025   X   10.19   Fourth Amendment to Credit Agreement, dated as of June 6, 2025, by and among CoreWeave Compute Acquisition Co., IV, LLC and the lenders party thereto   10-Q   001-42563 10.8",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "139",
+   "text": "Bank National Association, as depository bank, U.S. Bank Trust Company, National Association as administrative agent and collateral agent, and other lenders party thereto, dated September 29, 2025   8-K 001-42563 10.1   October 2, 2025   10.21^   Parent Guarantee and Pledge Agreement between CoreWeave, Inc. and U.S. Bank Trust Company, National Association, dated May 16, 2024   S-1   333-285512 10.16   March 3, 2025   10.22†   First Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S.",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "139",
+   "text": "Bank Trust Company, National Association as administrative agent and collateral agent, and other lenders party thereto, dated September 29, 2025   8-K 001-42563 10.1   October 2, 2025   10.21^   Parent Guarantee and Pledge Agreement between CoreWeave, Inc. and U.S. Bank Trust Company, National Association, dated May 16, 2024   S-1   333-285512 10.16   March 3, 2025   10.22†   First Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated November 5, 2025   X   139",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "140",
+   "text": "Table of Contents   10.23   Second Amendment to Parent Guarantee and Pledge Agreement between CoreWeave, Inc., U.S. Bank Trust Company, National Association, and the lenders party thereto, dated December 7, 2025   X   10.24^   Revolving Credit and Guaranty Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto, dated June 21, 2024   S-1   333-285512 10.17   March 3, 2025   10.25^   Amendment No. 1 to Revolving Credit and Guaranty Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto, dated October 7, 2024   S-1   333-285512 10.18   March 3, 2025   10.26^   Amendment No. 2 to Revolving Credit and Guaranty Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto, dated December 2, 2024   S-1   333-285512 10.19   March 3, 2025   10.27   Amendment No. 3 to Revolving Credit and Guaranty Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto , dated May 2, 2025   8-K   001-42563   10.1   May 6, 2025   10.28†^   Amendment No. 4 to Revolving Credit and Guaranty Agreement between CoreWeave, Inc., the guarantors party thereto, and the agents and lenders party thereto , dated November 10, 2025   10-Q   001-42563   10.7   November 13, 2025   10.29   Credit Agreement between CoreWeave Comput",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "140",
+   "text": "Bank National Association, as depository bank, MUFG Bank, Ltd., as administrative agent, U.S. Bank Trust Company, National Association as collateral agent, Morgan Stanley Asset Funding, Inc., MUFG Bank, Ltd. and Goldman Sachs Bank USA, as joint lead arrangers, and other lenders party thereto, dated July 28, 2025   8-K   001-42563   10.1   July 31, 2025   10.30   Parent Guarantee and Pledge Agreement between CoreWeave, Inc., CCAC VII Holdco LLC and U.S. Bank Trust Company, National Association, and the lenders party thereto, dated July 28, 2025   8-K   001-42563   10.2   July 31, 2025   10.31†   F irst Amendment to Credit Agreement and Parent G uarantee and Ple dge Agreement between CoreWeave Compute Acquisition Co.",
+   "amounts": []
+  }
+ ]
+}
