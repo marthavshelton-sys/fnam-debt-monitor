@@ -86,10 +86,13 @@
       const ev = mc / 1000 + (nd ? nd.net : 0) + M.nciOf(lastQ);
       const prevQ = M.qById[M.yoyQid(lastQ)], prevL = prevQ ? M.ltmFor(prevQ) : null;
       const g = (a, b) => (a != null && b ? 100 * (a / b - 1) : null);
-      const ms = M.TR.months, lastM = this.lastM(); const sum12 = (end) => { const i = ms.findIndex((m) => m.ym === end); return i >= 11 ? ms.slice(i - 11, i + 1).reduce((a, m) => a + m.total.TOTAL, 0) : null; };
+      // passenger growth on the legacy perimeter (REF.perimeter): like for like across a perimeter change; identical to the
+      // printed group total until a release carries the new airports
+      const PER = M.PERIM, grp = (m) => (PER ? PER.legacy(m, 'total') : m.total.TOTAL), perSfx = PER && PER.first ? this.T(', perímetro anterior', ', legacy perimeter') : '';
+      const ms = M.TR.months, lastM = this.lastM(); const sum12 = (end) => { const i = ms.findIndex((m) => m.ym === end); return i >= 11 ? ms.slice(i - 11, i + 1).reduce((a, m) => a + grp(m), 0) : null; };
       const ltmPax = sum12(lastM.ym), ltmPaxPrev = sum12(`${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
       const prevM = ms.find((m) => m.ym === `${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
-      const ytd = (ym) => ms.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + m.total.TOTAL, 0);
+      const ytd = (ym) => ms.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + grp(m), 0);
       const ytdNow = ytd(lastM.ym), ytdPrev = prevM ? ytd(prevM.ym) : null;
       const pm = (v) => (v == null ? '' : this.pct(v, 1, true)); const yy = this.T('a/a', 'y/y');
       const rows = [], meta2 = [];
@@ -117,12 +120,13 @@
       if (L) R(this.T(`VE / ${this.ebitdaL} UDM  ·  P/U UDM`, `EV / LTM ${this.ebitdaL}  ·  LTM P/E`), `${this.x(ev / L.is.ebitda)}  ·  ${M.niCtrl(L.is) ? this.x(mc / 1000 / M.niCtrl(L.is)) : '—'}`);
       if (L && L.cf && L.cf.capex != null) R(this.T('Capex últimos 12 meses', 'Capex last twelve months'), `Ps. ${this.m(-L.cf.capex)} M`);
       H(this.T('Operación', 'Operations'));
-      if (ltmPax) R(this.T('Pasajeros últimos 12 meses (millones)', 'Passengers last twelve months (million)'), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
-      R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)} (million)`), `${this.n(lastM.total.TOTAL / 1000, 2)}${prevM ? `  ·  ${pm(g(lastM.total.TOTAL, prevM.total.TOTAL))} ${yy}` : ''}  ·  ${this.T('acum.', 'YTD')} ${pm(g(ytdNow, ytdPrev))}`, this.cls(g(lastM.total.TOTAL, prevM && prevM.total.TOTAL)));
+      if (ltmPax) R(this.T(`Pasajeros últimos 12 meses${perSfx} (millones)`, `Passengers last twelve months${perSfx} (million)`), `${this.n(ltmPax / 1000, 1)}${ltmPaxPrev ? `  ·  ${pm(g(ltmPax, ltmPaxPrev))} ${yy}` : ''}`, this.cls(g(ltmPax, ltmPaxPrev)));
+      R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}${perSfx} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}${perSfx} (million)`), `${this.n(grp(lastM) / 1000, 2)}${prevM ? `  ·  ${pm(g(grp(lastM), grp(prevM)))} ${yy}` : ''}  ·  ${this.T('acum.', 'YTD')} ${pm(g(ytdNow, ytdPrev))}`, this.cls(g(grp(lastM), prevM && grp(prevM))));
+      if (PER && PER.has(lastM)) R(this.T(`Pasajeros ${M.ymLabel(lastM.ym)}, consolidado con ${M.L(PER.P.name)} (millones)`, `Passengers ${M.ymLabel(lastM.ym)}, consolidated with ${M.L(PER.P.name)} (million)`), `${this.n(PER.consolidated(lastM, 'total') / 1000, 2)}  ·  ${prevM && PER.has(prevM) ? pm(g(PER.consolidated(lastM, 'total'), PER.consolidated(prevM, 'total'))) : 'n.c.'} ${yy}`, 'muted');
       for (const c of M.CTRY) { const v = lastM.countries && lastM.countries[c.code], p = prevM && prevM.countries && prevM.countries[c.code]; if (v) R(this.T(`  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`, `  ${M.L(c)} · ${M.ymLabel(lastM.ym)}`), `${this.n(v.total / 1000, 2)}${p ? `  ·  ${pm(g(v.total, p.total))} ${yy}` : ''}`, 'muted'); }
       R(this.T('Próximos resultados', 'Next results'), this.nextText().replace(/^[^:]*:\s*/, ''), this.next && this.next.kind === 'confirmed' ? 'bold' : '');
       const noteStr = this.T(`Fuentes: Yahoo Finance (cierres diarios ${M.HOME}, ${M.ADS}, ^MXX; dividendos), Banxico SIE SF43718 (tipo de cambio FIX), informe trimestral de ${this.cfg.short} ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}), reportes mensuales de tráfico. VE = capitalización + deuda neta + participación no controladora. ${M.L(CFG.debtNote)} UDM = últimos doce meses (suma de los cuatro trimestres más recientes).`,
-        `Sources: Yahoo Finance (daily closes ${M.HOME}, ${M.ADS}, ^MXX; dividends), Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${M.L(CFG.debtNote)} LTM = last twelve months (sum of the four most recent quarters).`);
+        `Sources: Yahoo Finance (daily closes ${M.HOME}, ${M.ADS}, ^MXX; dividends), Banxico SIE SF43718 (FIX exchange rate), ${this.cfg.short} ${this.qlab(lastQ)} quarterly report (${this.date(this.rel(lastQ))}), monthly traffic reports. EV = market cap + net debt + non-controlling interest. ${M.L(CFG.debtNote)} LTM = last twelve months (sum of the four most recent quarters).`) + (PER && PER.first ? ' ' + M.perimNote() : '');
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25), limitY = this.cur.y1 - noteH - 10;
       const fy = this.fitTable({ y, w: colW, head: null, body: rows, meta: meta2, cols: { 0: { cellWidth: colW * 0.46, halign: 'left' }, 1: { cellWidth: colW * 0.54 } }, pad: { top: 2.6, bottom: 2.6, left: 4, right: 4 } }, [8.6, 8.3, 8, 7.7, 7.4, 7], limitY);
       const base = M.addDays(px[0], -365);
@@ -154,23 +158,26 @@
       const la = this.qlab(A), lb = this.qlab(B);
       let y = this.page('P', this.T(`Métricas operativas de ${this.cfg.short} · ${la} vs ${lb}`, `${this.cfg.short} Operating Metrics · ${la} vs ${lb}`), this.nextText());
       const rows = [], meta = [];
+      const PER = M.PERIM, ncP = !!(PER && A && B && !PER.lfl(M.periodYms(A, 'q'), M.periodYms(B, 'q')));
       const head = (l) => { rows.push([l, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); };
-      const row = (l, k, o = {}) => { const va = oa && oa[k], vb = ob && ob[k]; if (va == null && vb == null) return; const d = va != null && vb != null ? va - vb : null, p = o.pct ? null : (d != null && vb ? 100 * d / Math.abs(vb) : null); const dec = o.dec != null ? o.dec : 1; const f = (v) => (v == null ? '—' : o.pct ? this.pct(v) : this.n(v, dec)); rows.push([l, f(va), f(vb), d == null ? '—' : o.pct ? this.n(d, 1) + ' pp' : this.n(d, dec), o.pct ? '' : this.pct(p, 1, true), ops && ops[o.ck || k] ? M.L(ops[o.ck || k]) : '']); meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', this.cls(d) + ' ' + (o.cls || ''), this.cls(p) + ' ' + (o.cls || ''), 'left small']); };
-      head(M.t('trafCargo')); row(M.t('domPax'), 'dom', { cls: 'sub' }); row(M.t('intlPax'), 'intl', { cls: 'sub' }); row(M.t('totalPax'), 'total', { cls: 'bold' });
-      for (const c of M.CTRY) row(`${this.T('Pasajeros', 'Passengers')} ${M.L(c)}`, 'country_' + c.code, { cls: 'sub' });
-      head(`${M.t('unitRev')} (Ps.)`); row(M.t('aeroPerPax'), 'aeroPerPax'); row(M.t('nonAeroPerPax'), 'nonAeroPerPax'); row(M.t('commercialPerPax'), 'commercialPerPax', { cls: 'sub' }); row(M.t('revPerPaxAll'), 'revPerPaxAll', { cls: 'bold' }); if (CFG.costPerPax) row(M.t('costPerPax'), 'costPerPax');
+      const row = (l, k, o = {}) => { const va = oa && oa[k], vb = ob && ob[k]; if (va == null && vb == null) return; if (ncP && o.perim) { const dec = o.dec != null ? o.dec : 1, f = (v) => (v == null ? '—' : this.n(v, dec)); rows.push([l, f(va), f(vb), 'n.c.', 'n.c.', ops && ops[o.ck || k] ? M.L(ops[o.ck || k]) : '']); meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', o.cls || '', o.cls || '', 'left small']); return; } const d = va != null && vb != null ? va - vb : null, p = o.pct ? null : (d != null && vb ? 100 * d / Math.abs(vb) : null); const dec = o.dec != null ? o.dec : 1; const f = (v) => (v == null ? '—' : o.pct ? this.pct(v) : this.n(v, dec)); rows.push([l, f(va), f(vb), d == null ? '—' : o.pct ? this.n(d, 1) + ' pp' : this.n(d, dec), o.pct ? '' : this.pct(p, 1, true), ops && ops[o.ck || k] ? M.L(ops[o.ck || k]) : '']); meta.push([(o.cls || '') + ' left', o.cls || '', o.cls || '', this.cls(d) + ' ' + (o.cls || ''), this.cls(p) + ' ' + (o.cls || ''), 'left small']); };
+      head(M.t('trafCargo')); row(M.t('domPax'), 'dom', { cls: 'sub', perim: true }); row(M.t('intlPax'), 'intl', { cls: 'sub', perim: true }); row(M.t('totalPax'), 'total', { cls: 'bold', perim: true });
+      if (ncP) row(`${M.t('legacyPax')} (${PER.nLegacyAir} ${M.t('airportsN')})`, 'legacyTotal', { cls: 'bold' });
+      for (const c of M.CTRY) row(`${this.T('Pasajeros', 'Passengers')} ${M.L(c)}`, 'country_' + c.code, { cls: 'sub', perim: !!(PER && PER.newCodes.includes(c.code)) });
+      head(`${M.t('unitRev')} (Ps.)`); row(M.t('aeroPerPax'), 'aeroPerPax', { perim: true }); row(M.t('nonAeroPerPax'), 'nonAeroPerPax', { perim: true }); row(M.t('commercialPerPax'), 'commercialPerPax', { cls: 'sub', perim: true }); row(M.t('revPerPaxAll'), 'revPerPaxAll', { cls: 'bold', perim: true }); if (CFG.costPerPax) row(M.t('costPerPax'), 'costPerPax', { perim: true });
       const extra = (CFG.opsKpi || []).filter((k) => [oa, ob].some((o) => o && o['kpi_' + k.k] != null));
       if (extra.length) { head(M.t('otherOps')); for (const k of extra) row(M.L(k), 'kpi_' + k.k, { dec: k.dec != null ? k.dec : 1, pct: !!k.pct, ck: k.k }); }
       const W = this.width(), cw = { 0: { cellWidth: W * 0.22, halign: 'left' }, 1: { cellWidth: W * 0.095 }, 2: { cellWidth: W * 0.095 }, 3: { cellWidth: W * 0.085 }, 4: { cellWidth: W * 0.075 }, 5: { cellWidth: W * 0.43, halign: 'left' } };
-      const cap = `${M.L(CFG.opsCap)} ${this.T('Ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo.', 'Unit revenues = income-statement revenue ÷ passengers in the period.')} ${M.L(CFG.opsNote || { es: '', en: '' })} ${(CFG.opsKpi || []).length ? M.L(CFG.opsKpiNote || { es: '', en: '' }) : ''} ${this.T(`Fuentes: informe trimestral ${la} (${this.date(this.rel(A))})`, `Sources: ${la} quarterly report (${this.date(this.rel(A))})`)}${C && C.call ? ' · ' + M.L(C.call) : ''} · ${this.T('reportes mensuales de tráfico', 'monthly traffic reports')}.`.replace(/\s+/g, ' ');
+      const cap = `${M.L(CFG.opsCap)} ${this.T('Ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo.', 'Unit revenues = income-statement revenue ÷ passengers in the period.')} ${M.L(CFG.opsNote || { es: '', en: '' })} ${(CFG.opsKpi || []).length ? M.L(CFG.opsKpiNote || { es: '', en: '' }) : ''} ${this.T(`Fuentes: informe trimestral ${la} (${this.date(this.rel(A))})`, `Sources: ${la} quarterly report (${this.date(this.rel(A))})`)}${C && C.call ? ' · ' + M.L(C.call) : ''} · ${this.T('reportes mensuales de tráfico', 'monthly traffic reports')}.${ncP ? ' ' + M.perimNote() : ''}`.replace(/\s+/g, ' ');
       const noteH = this.measureText(cap, W, 7.5, 1.25);
       y = this.fitTable({ y, head: [M.t('metric'), la, lb, this.T('Var.', 'Chg'), this.T('Var. %', 'Chg %'), this.T('Comentarios (informe trimestral y conferencia)', 'Comments (quarterly report and earnings call)')], body: rows, meta, cols: cw, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 6 : 0)) }, [8.6, 8.2, 7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - 150);
-      const qs = M.Q.slice(-8); const pax = (q) => { const o = M.opsFor(q, 'q'); return o && o.total ? o.total : null; };
+      // chart on the legacy perimeter: bars and y/y stay like for like through a perimeter change (equal to the total before it)
+      const qs = M.Q.slice(-8); const pax = (q) => { const o = M.opsFor(q, 'q'); const v = o ? (o.legacyTotal != null ? o.legacyTotal : o.total) : null; return v || null; };
       const yoy = (q) => { const p = M.qById[M.yoyQid(q)]; const a = pax(q), b = p && pax(p); return a && b ? 100 * (a / b - 1) : null; };
       const remaining = this.cur.y1 - noteH - y - 34;
       if (remaining > 110) {
         const h = Math.min(remaining - 26, 200);
-        y = this.heading(this.T('Pasajeros terminales por trimestre (millones) y variación a/a', 'Terminal passengers by quarter (million) and YoY change'), this.cur.x0, y + 10, 10);
+        y = this.heading(PER && PER.first ? this.T(`Pasajeros terminales por trimestre, perímetro anterior (${PER.nLegacyAir} aeropuertos; millones) y variación a/a`, `Terminal passengers by quarter, legacy perimeter (${PER.nLegacyAir} airports; million) and YoY change`) : this.T('Pasajeros terminales por trimestre (millones) y variación a/a', 'Terminal passengers by quarter (million) and YoY change'), this.cur.x0, y + 10, 10);
         const img = this.chart({ type: 'bar', data: { labels: qs.map((q) => this.qlab(q)), datasets: [{ type: 'line', label: this.T('Variación a/a, % (eje der.)', 'YoY change, % (right axis)'), data: qs.map(yoy), borderColor: '#c0392b', backgroundColor: '#ffffff', borderWidth: 2.6, pointRadius: 4, pointBorderWidth: 2, pointBorderColor: '#c0392b', pointBackgroundColor: '#ffffff', yAxisID: 'y2', order: 0 }, { type: 'bar', label: this.T('Pasajeros (millones, eje izq.)', 'Passengers (million, left axis)'), data: qs.map((q) => { const v = pax(q); return v ? v / 1000 : null; }), backgroundColor: PALETTE[0], yAxisID: 'y', maxBarThickness: 40, order: 1 }] }, options: { scales: { x: { grid: { display: false } }, y: { position: 'left', beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } }, y2: { position: 'right', grid: { display: false }, ticks: { callback: (v) => this.n(v, 0) + '%' } } } } }, Math.round(W * 1.6), Math.round(h * 1.6));
         y = this.image(img, this.cur.x0, y, W, h) + 4;
       }
@@ -264,14 +271,24 @@
       // Airports in country order (ASUR) or as listed (OMA); a subtotal row per country when the data carries countries.
       const groups = M.CTRY.length ? M.CTRY.map((c) => ({ label: M.L(c), code: c.code, codes: AIR.filter((a) => a.country === c.code).map((a) => a.code) })) : [{ label: null, codes: AIR.map((a) => a.code) }];
       const rows = [], meta = [];
-      const push = (label, v, p, yv, yp, dom, intl, tot, b) => { const yoy = p ? 100 * (v / p - 1) : null, yoyY = yp ? 100 * (yv / yp - 1) : null; rows.push([label, this.n(v, 1), this.pct(yoy, 1, true), this.n(dom, 1), this.n(intl, 1), this.n(yv, 1), this.pct(yoyY, 1, true), this.pct(100 * v / tot, 1)]); meta.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, this.cls(yoyY) + ' ' + b, b]); };
-      const totNow = lastM.total.TOTAL;
+      // nc = { m, y }: the month / year-to-date change mixes traffic perimeters (REF.perimeter) and prints n.c.
+      const push = (label, v, p, yv, yp, dom, intl, tot, b, nc = {}) => { const yoy = nc.m ? null : p ? 100 * (v / p - 1) : null, yoyY = nc.y ? null : yp ? 100 * (yv / yp - 1) : null; rows.push([label, this.n(v, 1), nc.m ? 'n.c.' : this.pct(yoy, 1, true), this.n(dom, 1), this.n(intl, 1), this.n(yv, 1), nc.y ? 'n.c.' : this.pct(yoyY, 1, true), this.pct(100 * v / tot, 1)]); meta.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, this.cls(yoyY) + ' ' + b, b]); };
+      const PER = M.PERIM, perOn = !!(PER && PER.first);
+      const ytdYms = (ym) => ms.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).map((m) => m.ym);
+      const lflY = !perOn || !prev || PER.lfl(ytdYms(lastM.ym), ytdYms(prev.ym)), lflM = !perOn || !prev || PER.lfl([lastM.ym], [prev.ym]);
+      const totNow = perOn ? PER.consolidated(lastM, 'total') : lastM.total.TOTAL;
       for (const g of groups) {
+        const nw = !!(PER && PER.newCodes.includes(g.code)), ncNew = (p, yp) => (nw ? { m: !p, y: !yp || !lflY } : {});
         if (g.label) { rows.push([g.label, '', '', '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head', 'head']); }
-        for (const code of g.codes) push(this.airportName(code), lastM.total[code], prev && prev.total[code], ytdOf(lastM.ym, code), prev ? ytdOf(prev.ym, code) : null, lastM.dom[code], lastM.intl[code], totNow, '');
-        if (g.label && lastM.countries && lastM.countries[g.code]) { const cv = lastM.countries[g.code], cp = prev && prev.countries && prev.countries[g.code]; const ytdC = (mm, k) => ms.filter((m) => m.ym.slice(0, 4) === mm.slice(0, 4) && m.ym <= mm).reduce((a, m) => a + ((m.countries && m.countries[k] && m.countries[k].total) || 0), 0); push(this.T(`Subtotal ${g.label}`, `Subtotal ${g.label}`), cv.total, cp && cp.total, ytdC(lastM.ym, g.code), prev ? ytdC(prev.ym, g.code) : null, cv.dom, cv.intl, totNow, 'bold'); }
+        for (const code of g.codes) { const p = prev && prev.total[code], yp = prev ? ytdOf(prev.ym, code) : null; push(this.airportName(code), lastM.total[code], p, ytdOf(lastM.ym, code), yp, lastM.dom[code], lastM.intl[code], totNow, '', ncNew(p, yp)); }
+        if (g.label && lastM.countries && lastM.countries[g.code]) { const cv = lastM.countries[g.code], cp = prev && prev.countries && prev.countries[g.code]; const ytdC = (mm, k) => ms.filter((m) => m.ym.slice(0, 4) === mm.slice(0, 4) && m.ym <= mm).reduce((a, m) => a + ((m.countries && m.countries[k] && m.countries[k].total) || 0), 0); const ycp = prev ? ytdC(prev.ym, g.code) : null; push(this.T(`Subtotal ${g.label}`, `Subtotal ${g.label}`), cv.total, cp && cp.total, ytdC(lastM.ym, g.code), ycp, cv.dom, cv.intl, totNow, 'bold', ncNew(cp && cp.total, ycp)); }
       }
-      push(this.T(`Total ${this.cfg.short} (${AIR.length} aeropuertos)`, `Total ${this.cfg.short} (${AIR.length} airports)`), totNow, prev && prev.total.TOTAL, ytdOf(lastM.ym, 'TOTAL'), prev ? ytdOf(prev.ym, 'TOTAL') : null, lastM.dom.TOTAL, lastM.intl.TOTAL, totNow, 'bold');
+      if (perOn) {
+        const lg = (m, s) => PER.legacy(m, s), ytdL = (ym, f) => ytdYms(ym).reduce((a, x) => a + (f(M.trByYm[x], 'total') || 0), 0);
+        push(this.T(`${M.t('legacyPax')} (${PER.nLegacyAir} aeropuertos)`, `${M.t('legacyPax')} (${PER.nLegacyAir} airports)`), lg(lastM, 'total'), prev && lg(prev, 'total'), ytdL(lastM.ym, lg), prev ? ytdL(prev.ym, lg) : null, lg(lastM, 'dom'), lg(lastM, 'intl'), totNow, 'bold');
+        const cs = (m, s) => PER.consolidated(m, s);
+        push(this.T(`Total ${this.cfg.short} consolidado (${PER.nConsolidated} aeropuertos)`, `${this.cfg.short} consolidated total (${PER.nConsolidated} airports)`), totNow, prev && cs(prev, 'total'), ytdL(lastM.ym, cs), prev ? ytdL(prev.ym, cs) : null, cs(lastM, 'dom'), cs(lastM, 'intl'), totNow, 'bold', { m: !lflM, y: !lflY });
+      } else push(this.T(`Total ${this.cfg.short} (${AIR.length} aeropuertos)`, `Total ${this.cfg.short} (${AIR.length} airports)`), totNow, prev && prev.total.TOTAL, ytdOf(lastM.ym, 'TOTAL'), prev ? ytdOf(prev.ym, 'TOTAL') : null, lastM.dom.TOTAL, lastM.intl.TOTAL, totNow, 'bold');
       y = this.heading(this.T(`Último mes: ${M.ymLabel(lastM.ym)}`, `Latest month: ${M.ymLabel(lastM.ym)}`), this.cur.x0, y, 10.5);
       const nt = this.nextTraffic();
       const nextLine = nt ? this.T(`Próximo reporte: tráfico de ${new Date(Date.UTC(+lastM.ym.slice(0, 4), +lastM.ym.slice(5, 7), 1)).toLocaleDateString('es-MX', { month: 'long', year: 'numeric', timeZone: 'UTC' })}, esperado hacia el ${this.date(nt.date)} (${this.cfg.short} publica alrededor del día ${nt.day}, mediana de los últimos doce reportes).`, `Next report: ${new Date(Date.UTC(+lastM.ym.slice(0, 4), +lastM.ym.slice(5, 7), 1)).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' })} traffic report expected around ${this.date(nt.date)} (${this.cfg.short} publishes around the ${nt.day}${this.es ? '' : 'th'}, median of the last twelve reports).`) : '';
@@ -281,14 +298,22 @@
       if (nextLine) y = this.text(nextLine, this.cur.x0, y + 3, this.width(), 8.2, 'bold', ACCENT);
       if (win.length === 12) {
         const sum = (arr, seg, code) => arr.reduce((a, m) => a + ((m[seg] && m[seg][code]) || 0), 0);
-        const r2 = [], m2 = []; const tot = sum(win, 'total', 'TOTAL');
-        const push2 = (label, code, b) => { const v = sum(win, 'total', code), p = pwin.length === 12 ? sum(pwin, 'total', code) : null; const yoy = p ? 100 * (v / p - 1) : null; r2.push([label, this.n(v, 1), this.pct(yoy, 1, true), this.n(sum(win, 'dom', code), 1), this.n(sum(win, 'intl', code), 1), this.pct(100 * sum(win, 'intl', code) / v, 1), this.pct(100 * v / tot, 1)]); m2.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, b]); };
-        for (const g of groups) { if (g.label) { r2.push([g.label, '', '', '', '', '', '']); m2.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head']); } for (const code of g.codes) push2(this.airportName(code), code, ''); }
-        push2(this.T(`Total ${this.cfg.short}`, `Total ${this.cfg.short}`), 'TOTAL', 'bold');
+        const r2 = [], m2 = [];
+        // group sums through a getter so the legacy perimeter and the consolidated total can be listed apart (REF.perimeter)
+        const sumF = (arr, seg, f) => arr.reduce((a, m) => a + (f(m, seg) || 0), 0);
+        const airF = (code) => (m, seg) => m[seg] && m[seg][code];
+        const lflW = !perOn || pwin.length !== 12 || PER.lfl(win.map((m) => m.ym), pwin.map((m) => m.ym));
+        const totF = perOn ? (m, seg) => PER.consolidated(m, seg) : airF('TOTAL'); const tot = sumF(win, 'total', totF);
+        const push2 = (label, f, b, nc) => { const v = sumF(win, 'total', f), p = pwin.length === 12 ? sumF(pwin, 'total', f) : null; const yoy = nc ? null : p ? 100 * (v / p - 1) : null; r2.push([label, this.n(v, 1), nc ? 'n.c.' : this.pct(yoy, 1, true), this.n(sumF(win, 'dom', f), 1), this.n(sumF(win, 'intl', f), 1), this.pct(100 * sumF(win, 'intl', f) / v, 1), this.pct(100 * v / tot, 1)]); m2.push([b + ' left', b, this.cls(yoy) + ' ' + b, b, b, b, b]); };
+        for (const g of groups) { const nw = !!(PER && PER.newCodes.includes(g.code)); if (g.label) { r2.push([g.label, '', '', '', '', '', '']); m2.push(['head left', 'head', 'head', 'head', 'head', 'head', 'head']); } for (const code of g.codes) push2(this.airportName(code), airF(code), '', nw && !lflW); }
+        if (perOn) {
+          push2(this.T(`${M.t('legacyPax')} (${PER.nLegacyAir} aeropuertos)`, `${M.t('legacyPax')} (${PER.nLegacyAir} airports)`), (m, seg) => PER.legacy(m, seg), 'bold');
+          push2(this.T(`Total ${this.cfg.short} consolidado`, `${this.cfg.short} consolidated total`), totF, 'bold', !lflW);
+        } else push2(this.T(`Total ${this.cfg.short}`, `Total ${this.cfg.short}`), airF('TOTAL'), 'bold');
         y = this.heading(this.T(`Últimos doce meses: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`, `Last twelve months: ${M.ymLabel(win[0].ym)} – ${M.ymLabel(lastM.ym)}`), this.cur.x0, y + 6, 10.5);
         y = this.fitTable({ y, head: [M.t('airport'), this.T('UDM', 'LTM'), this.T('a/a vs UDM previos', 'y/y vs prior LTM'), M.t('dom'), M.t('intl'), this.T('% internacional', '% international'), M.t('share')], body: r2, meta: m2, cols: { 0: { halign: 'left', cellWidth: this.width() * 0.3 } }, rowSpan: r2.map((r) => (r[1] === '' ? 7 : 0)), pad: { top: 1.9, bottom: 1.9, left: 3.5, right: 3.5 } }, [8.4, 8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 34);
       }
-      this.noteAbove(`${M.L(CFG.trafficCap)} ${this.T(`Cobertura ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; acumulado del año vs el mismo periodo del año anterior.`, `Coverage ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; year-to-date vs the same period a year earlier.`)}`, y + 6);
+      this.noteAbove(`${M.L(CFG.trafficCap)} ${this.T(`Cobertura ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; acumulado del año vs el mismo periodo del año anterior.`, `Coverage ${M.ymLabel(ms[0].ym)} – ${M.ymLabel(lastM.ym)}; year-to-date vs the same period a year earlier.`)}${perOn ? ' ' + M.perimNote() : ''}`, y + 6);
     }
 
     // ================= 10. TRAFFIC CHARTS: COMPANY vs MEXICO =================

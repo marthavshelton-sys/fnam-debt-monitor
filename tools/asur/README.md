@@ -79,6 +79,46 @@ git commit "[skip actions]" + push                 Cloudflare Pages deploys; the
 * Known gaps: Table 1 capex is not captured for 2024 (the highlights bullets are interleaved with the
   table in those PDFs); FY2016–FY2017 statements exist only as comparatives.
 
+### Traffic perimeter change: the Motiva / CPC airports (3-Oct-2026)
+
+ASUR closed the CPC purchase on 1-Sep-2026 (20 airports: 17 in Brazil, Quito, San José, Curaçao) and said in its August
+2026 traffic release (8-Sep-2026) that its monthly report includes them from September 2026 traffic on. Until the first
+such release lands, and for the twelve months after it, a group total compared year over year would mix perimeters
+(ASUR's 28-Sep-2026 evento relevante: CPC ≈24 M passengers in 6M26 against 36.2 M at the 16 legacy airports, so an
+unadjusted comparison would show ≈+66% with no real growth; FNAM calculation).
+
+* **Facts** live in `reference.js → perimeter` (closing date, `firstMonth`, legacy countries, the four new countries with
+  airport counts, ASUR's announcement, the passengers ASUR filed, sources). No passenger figure ASUR has not published
+  goes there, and none of the filed ones enters a chart or a total.
+* **Status is computed, never typed**: the first month at or after `firstMonth` whose traffic carries BR/EC/CR/CW (or an
+  airport located there). States: *awaiting* (latest month before `firstMonth`), *missing* (a release for `firstMonth` or
+  later without them: amber/red), *reported*. The page engine (`PERIM` in `site/assets/airport-model.js`), the deck and the
+  hub (`/aeropuertos/`, reads `/asur/data/reference.js` and `traffic.js` at runtime) apply the same rule; the validator
+  writes it to the quality page as "traffic perimeter".
+* **Page** (section 03): status card above the controls; a *Perimeter* switch, *Legacy perimeter* (default, 16 airports,
+  every change like for like) or *Consolidated* (enabled only once a release carries the new airports). Any change between
+  periods with different perimeters prints **n.c.** (traffic table, operating-metrics table, quarterly KPI table) with the
+  legacy-perimeter change beside it. The card stays until the consolidated total is comparable month on month again
+  (first month + 12). Group totals are computed as legacy countries + new countries, so they do not depend on whether ASUR's
+  printed "Total Traffic" is consolidated.
+* **Deck**: tear-sheet and traffic-table growth on the legacy perimeter; consolidated rows print n.c.; the quarterly
+  passenger chart stays on the legacy perimeter.
+* **Parser** (`build-data.mjs`): knows the four country labels in the summary table and "<Country> Passenger Traffic"
+  tables; airports printed in those tables are listed with the release's own names (`group: 'cpc'`), countries join
+  `traffic.js` only once printed. In the summary table an unrecognised labelled row with figures closes the current
+  country (logged as "summary row not recognised"), so its domestic / international rows can never overwrite the previous
+  country's, and three-letter codes are read as airports only inside country tables. Checked against two synthetic
+  September releases: the expected layout publishes; an unknown block ("CPC Aeroportos") leaves Colombia intact and fails
+  validation.
+* **Validator**: per-country domestic + international = total, and countries sum = group total (both strict from 2019),
+  on top of airports sum = group total. A first CPC release the parser cannot place therefore **fails the filings run and
+  commits nothing** (market-only runs keep committing prices from the last valid data); fix the label in `build-data.mjs`.
+* **First print checklist** (September 2026 traffic, expected about 6–8 Oct-2026): the quality page's "traffic perimeter"
+  row turns to "since 2026-09"; the card shows "In traffic since Sep 26"; check the itemized count against 20 and whether
+  ASUR prints prior-year comparatives for CPC (not used yet; consolidated growth stays n.c.). Open items for 3Q26 results
+  (≈22-Oct): the DCF base passengers (`dcfDefaults`) are consolidated once traffic includes CPC, while the DCF note says
+  Motiva is not in the base; revisit when the first consolidated quarter lands.
+
 ### When a release changes format
 
 `build-data.mjs` matches each printed line against the regexes in `IS_ROWS`, `BS_ROWS`, `CF_*`,

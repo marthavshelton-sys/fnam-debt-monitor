@@ -95,8 +95,30 @@ for (const m of traffic.months) {
   }
   const sum = Object.entries(m.total).filter(([c]) => c !== 'TOTAL').reduce((a, [, v]) => a + v, 0);
   if (m.total.TOTAL != null) identity(`traffic ${m.ym}`, 'airports sum = group total', sum, m.total.TOTAL, 0.05);
+  // country subtotals of the summary table: each adds up, and together they make the group total. A country block the
+  // parser does not place (ASUR's CPC airports from Sep-2026, in a layout not yet seen) unbalances one of the two and stops
+  // the commit, instead of a group total that silently mixes perimeters or a country overwritten by another's rows.
+  if (m.countries) {
+    const cs = Object.entries(m.countries).filter(([c]) => c !== 'TOTAL'), soft = m.ym < TRAFFIC_FROM ? { soft: true, note: HIST } : {};
+    for (const [c, v] of cs) if (v && v.dom != null && v.intl != null && v.total != null) identity(`traffic ${m.ym}`, `country ${c}: domestic + international = total`, v.dom + v.intl, v.total, 0.05, soft);
+    if (m.total.TOTAL != null && cs.length && cs.every(([, v]) => v && v.total != null)) identity(`traffic ${m.ym}`, 'countries sum = group total', cs.reduce((a, [, v]) => a + v.total, 0), m.total.TOTAL, 0.05, soft);
+  }
   const n = Object.keys(m.total).filter((c) => c !== 'TOTAL').length;
   if (m.ym >= TRAFFIC_FROM && n < MIN_AIRPORTS) record(`traffic ${m.ym}`, `airports parsed ≥ ${MIN_AIRPORTS}`, 'warn', n, MIN_AIRPORTS, { es: `sólo ${n} aeropuertos`, en: `only ${n} airports` });
+}
+// traffic perimeter change (reference.js -> perimeter; ASUR's CPC airports): reported, awaited or missing from a release
+{
+  let per = null; try { per = (await loadJs(`../../site/${COMPANY}/data/reference.js`, `${KEY}_REF`)).perimeter || null; } catch { /* optional */ }
+  if (per && Array.isArray(per.countries) && per.firstMonth) {
+    const codes = per.countries.map((c) => c.code), lastT = traffic.months.at(-1);
+    const newAir = (traffic.airports || []).filter((a) => codes.includes(a.country)).map((a) => a.code);
+    const has = (m) => codes.some((c) => m.countries && m.countries[c]) || newAir.some((c) => m.total[c] != null);
+    const firstP = traffic.months.find((m) => m.ym >= per.firstMonth && has(m));
+    const check = `${per.key || 'perimeter'}: new airports in the monthly traffic (from ${per.firstMonth})`;
+    if (firstP) record('traffic perimeter', check, 'ok', null, null, { es: `desde ${firstP.ym}: ${codes.filter((c) => lastT.countries && lastT.countries[c]).join(', ') || '—'}; ${newAir.length} de ${per.airports || '—'} aeropuertos desglosados`, en: `since ${firstP.ym}: ${codes.filter((c) => lastT.countries && lastT.countries[c]).join(', ') || '—'}; ${newAir.length} of ${per.airports || '—'} airports itemized` });
+    else if (lastT && lastT.ym >= per.firstMonth) record('traffic perimeter', check, 'warn', null, null, { es: `el reporte de ${lastT.ym} no trae los países nuevos (${codes.join(', ')})`, en: `the ${lastT.ym} report carries none of the new countries (${codes.join(', ')})` });
+    else record('traffic perimeter', check, 'ok', null, null, { es: `en espera: último mes ${lastT ? lastT.ym : '—'}; primer reporte con ellos: ${per.firstMonth}`, en: `awaiting: latest month ${lastT ? lastT.ym : '—'}; first report with them: ${per.firstMonth}` });
+  }
 }
 const months = traffic.months.map((m) => m.ym);
 let cur = TRAFFIC_FROM;

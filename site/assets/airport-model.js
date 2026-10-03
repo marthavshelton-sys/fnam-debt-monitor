@@ -60,6 +60,9 @@
     cmtOnlyYoy: { es: 'Los comentarios se muestran al comparar un periodo con el mismo periodo del año anterior.', en: 'Comments appear when a period is compared with the same period a year earlier.' },
     provisional: { es: 'Datos provisionales: faltan archivos de datos. Ejecute el flujo de actualización.', en: 'Provisional: data files missing. Run the refresh workflow.' },
     segment: { es: 'Segmento', en: 'Segment' }, country: { es: 'País', en: 'Country' },
+    nc: { es: 'n.c.', en: 'n.c.' }, ncTitle: { es: 'No comparable: uno de los dos periodos incluye aeropuertos que el otro no tiene', en: 'Not comparable: one of the two periods includes airports the other lacks' },
+    legacyPax: { es: 'Pasajeros, perímetro anterior', en: 'Passengers, legacy perimeter' }, airportsN: { es: 'aeropuertos', en: 'airports' },
+    basisCons: { es: 'Consolidado', en: 'Consolidated' }, totalCons: { es: 'Total consolidado', en: 'Consolidated total' },
   };
   const t = (k) => (S[k] ? S[k][LANG] : k);
   const L = (obj) => (obj ? (LANG === 'es' ? obj.es || obj.en : obj.en || obj.es) : '');
@@ -358,6 +361,45 @@
   }
   // ---- Operating metrics: passengers from the monthly traffic reports; unit revenues = income-statement lines / passengers
   const trByYm = Object.fromEntries(TR.months.map((m) => [m.ym, m]));
+  // ---- Traffic perimeter change (REF.perimeter: ASUR's CPC airports from Sep-2026). Whether the company already reports the
+  // new airports is read from traffic.js, never typed: the first month at or after firstMonth that carries one of the new
+  // countries (or an airport located in one). A growth rate is like for like only when both months carry the same
+  // perimeter; otherwise the page prints "n.c." and the legacy-perimeter change beside it. No passenger is estimated.
+  const addYm = (ym, n) => { let y = +ym.slice(0, 4), mo = +ym.slice(5, 7) + n; while (mo > 12) { mo -= 12; y++; } while (mo < 1) { mo += 12; y--; } return `${y}-${String(mo).padStart(2, '0')}`; };
+  // Next monthly traffic report: the month after the latest one, on the company's usual day (median of the last twelve
+  // release dates; the same rule as the deck's nextTraffic()).
+  function nextTrafficRelease() {
+    const ms = TR.months; if (!ms.length) return null;
+    const days = ms.slice(-12).map((m) => (m.source && m.source.date ? +m.source.date.slice(8, 10) : null)).filter(Boolean).sort((a, b) => a - b);
+    const day = days.length ? days[Math.floor((days.length - 1) / 2)] : 5;
+    const ym = addYm(ms[ms.length - 1].ym, 1), rel = addYm(ym, 1);
+    return { ym, day, date: `${rel}-${String(day).padStart(2, '0')}` };
+  }
+  const PERIM = (() => {
+    const P0 = REF.perimeter;
+    if (!P0 || !Array.isArray(P0.countries) || !P0.countries.length || !P0.firstMonth) return null;
+    const newCodes = P0.countries.map((c) => c.code);
+    const legacyCodes = (P0.legacy && P0.legacy.length ? P0.legacy : (TR.countries || []).map((c) => c.code)).filter((c) => !newCodes.includes(c));
+    const airs = TR.airports || [];
+    const newAir = airs.filter((a) => newCodes.includes(a.country)).map((a) => a.code);
+    const legacyAir = airs.filter((a) => !newCodes.includes(a.country)).map((a) => a.code);
+    const ctryHas = (m, c, s) => !!(m && m.countries && m.countries[c] && m.countries[c][s] != null);
+    const has = (m) => !!m && (newCodes.some((c) => ctryHas(m, c, 'total')) || newAir.some((c) => m.total && m.total[c] != null));
+    const sumC = (m, codes, s) => (codes.every((c) => ctryHas(m, c, s)) ? codes.reduce((a, c) => a + m.countries[c][s], 0) : null);
+    const sumA = (m, codes, s) => { const v = codes.map((c) => (m[s] ? m[s][c] : null)).filter((x) => x != null); return v.length ? v.reduce((a, x) => a + x, 0) : null; };
+    // legacy perimeter: before the new airports appear it is the printed group total; afterwards the sum of the legacy
+    // countries (or of the legacy airports when a release prints no country subtotal)
+    const legacy = (m, s = 'total') => { if (!m) return null; if (!has(m)) return m[s] ? m[s].TOTAL : null; const c = sumC(m, legacyCodes, s); return c != null ? c : sumA(m, legacyAir, s); };
+    const added = (m, s = 'total') => { if (!has(m)) return 0; const cs = newCodes.filter((c) => ctryHas(m, c, s)); return cs.length ? cs.reduce((a, c) => a + m.countries[c][s], 0) : (sumA(m, newAir, s) || 0); };
+    const consolidated = (m, s = 'total') => { const l = legacy(m, s); return l == null ? null : l + added(m, s); };
+    const first = TR.months.find((m) => m.ym >= P0.firstMonth && has(m)) || null;
+    const lastM = TR.months[TR.months.length - 1] || null;
+    const state = first ? 'reported' : lastM && lastM.ym >= P0.firstMonth ? 'missing' : 'awaiting';
+    // like for like: every month of period A pairs with a month of period B that carries the same perimeter
+    const lfl = (ymsA, ymsB) => ymsA.length === ymsB.length && ymsA.every((ym, i) => has(trByYm[ym]) === has(trByYm[ymsB[i]]));
+    const nLegacyAir = legacyAir.length;
+    return { P: P0, newCodes, legacyCodes, newAir, legacyAir, has, legacy, added, consolidated, first, lastM, state, lfl, nLegacyAir, nConsolidated: nLegacyAir + (P0.airports || newAir.length), comparableFrom: first ? addYm(first.ym, 12) : null };
+  })();
   function periodYms(obj, mode = st.mode) {
     const endM = mode === 'fy' ? 12 : (obj.q || 4) * 3;
     const n = mode === 'q' ? 3 : mode === 'ytd' ? (obj.months || endM) : 12;
@@ -368,15 +410,17 @@
     const ms = periodYms(obj, mode).map((ym) => trByYm[ym]);
     const full = ms.length > 0 && ms.every(Boolean);
     const sum = (f) => (full ? ms.reduce((a, m) => a + (f(m) || 0), 0) : null);
-    const dom = sum((m) => m.dom && m.dom.TOTAL), intl = sum((m) => m.intl && m.intl.TOTAL);
-    let total = sum((m) => m.total && m.total.TOTAL), totalSrc = 'traffic';
+    const grp = (m, s) => (PERIM ? PERIM.consolidated(m, s) : m[s] && m[s].TOTAL);
+    const dom = sum((m) => grp(m, 'dom')), intl = sum((m) => grp(m, 'intl'));
+    let total = sum((m) => grp(m, 'total')), totalSrc = 'traffic';
+    const legacyTotal = PERIM ? sum((m) => PERIM.legacy(m, 'total')) : null;
     const kpi = obj.kpi || {};
     if (total == null && kpi.pax != null) { total = kpi.pax; totalSrc = 'report'; }
     const is = obj.is || {};
     const per = (v, d) => (v != null && d ? v / d : null);
-    const o = { dom, intl, total, totalSrc, aeroPerPax: per(is.revAero, total), nonAeroPerPax: per(is.revNonAero, total), commercialPerPax: is.revCommercial != null ? per(is.revCommercial, total) : null, revPerPaxAll: is.revAero != null && is.revNonAero != null ? per(is.revAero + is.revNonAero, total) : null };
+    const o = { dom, intl, total, totalSrc, legacyTotal, aeroPerPax: per(is.revAero, total), nonAeroPerPax: per(is.revNonAero, total), commercialPerPax: is.revCommercial != null ? per(is.revCommercial, total) : null, revPerPaxAll: is.revAero != null && is.revNonAero != null ? per(is.revAero + is.revNonAero, total) : null };
     if (CFG.costPerPax) o.costPerPax = per(CFG.costPerPax(is), total);
-    for (const c of (TR.countries || [])) { const v = sum((m) => m.countries && m.countries[c.code] && m.countries[c.code].total); o['country_' + c.code] = v; }
+    for (const c of (TR.countries || [])) { const v = full && ms.some((m) => m.countries && m.countries[c.code]) ? sum((m) => m.countries && m.countries[c.code] && m.countries[c.code].total) : null; o['country_' + c.code] = v; }
     for (const k of (CFG.opsKpi || [])) o['kpi_' + k.k] = kpi[k.k] != null ? kpi[k.k] : null;
     return o;
   }
@@ -389,36 +433,42 @@
     const fxA = st.usd ? fxOf(A) : null, fxB = st.usd ? fxOf(B) : null;
     const C = yoyCommentsFor(A, B), ops = C && C.ops;
     const rows = [];
+    // the two periods carry different traffic perimeters (one includes the new airports): group passengers and unit
+    // revenues are not comparable, so their change reads n.c. and the legacy-perimeter row carries the comparable change
+    const ncP = !!(PERIM && A && B && !PERIM.lfl(periodYms(A), periodYms(B)));
     const head = (label) => rows.push(`<tr class="head"><td colspan="6">${label}</td></tr>`);
     const row = (label, k, opt = {}) => {
       let va = oa ? oa[k] : null, vb = ob ? ob[k] : null;
       if (opt.money && st.usd) { va = va != null && fxA ? va / fxA : null; vb = vb != null && fxB ? vb / fxB : null; }
       if (va == null && vb == null) return;
-      const d = va != null && vb != null ? va - vb : null;
+      const nc = ncP && opt.perim;
+      const d = !nc && va != null && vb != null ? va - vb : null;
       const pct = d != null && vb ? 100 * d / Math.abs(vb) : null;
       const dec = opt.dec != null ? opt.dec : opt.money ? (st.usd ? 2 : 1) : 1;
       const f = (v) => (v == null ? '—' : opt.pct ? fmtPct(v) : fmtN(v, dec));
       const ck = opt.cmtKey || k;
-      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${d == null ? '—' : opt.pct ? fmtN(d, 1) + ' pp' : fmtN(d, dec)}</td><td class="${cls(pct)}">${opt.pct ? '' : fmtPct(pct, 1, true)}</td><td class="cmt">${ops && ops[ck] ? L(ops[ck]) : ''}</td></tr>`);
+      const ncCell = `<span class="nc" title="${t('ncTitle')}">${t('nc')}</span>`;
+      rows.push(`<tr class="${opt.cls || ''}"><td>${label}</td><td>${f(va)}</td><td>${f(vb)}</td><td class="${cls(d)}">${nc ? ncCell : d == null ? '—' : opt.pct ? fmtN(d, 1) + ' pp' : fmtN(d, dec)}</td><td class="${cls(pct)}">${opt.pct ? '' : nc ? ncCell : fmtPct(pct, 1, true)}</td><td class="cmt">${ops && ops[ck] ? L(ops[ck]) : ''}</td></tr>`);
     };
     head(t('trafCargo'));
-    row(t('domPax'), 'dom', { cls: 'sub' });
-    row(t('intlPax'), 'intl', { cls: 'sub' });
-    row(t('totalPax'), 'total', { cls: 'bold' });
-    for (const c of (TR.countries || [])) row(`${LANG === 'es' ? 'Pasajeros' : 'Passengers'} ${L(c)}`, 'country_' + c.code, { cls: 'sub', cmtKey: 'country_' + c.code });
+    row(t('domPax'), 'dom', { cls: 'sub', perim: true });
+    row(t('intlPax'), 'intl', { cls: 'sub', perim: true });
+    row(t('totalPax'), 'total', { cls: 'bold', perim: true });
+    if (ncP) row(`${t('legacyPax')} (${PERIM.nLegacyAir} ${t('airportsN')})`, 'legacyTotal', { cls: 'bold' });
+    for (const c of (TR.countries || [])) row(`${LANG === 'es' ? 'Pasajeros' : 'Passengers'} ${L(c)}`, 'country_' + c.code, { cls: 'sub', cmtKey: 'country_' + c.code, perim: !!(PERIM && PERIM.newCodes.includes(c.code)) });
     head(`${t('unitRev')} (${st.usd ? 'US$' : 'Ps.'})`);
-    row(t('aeroPerPax'), 'aeroPerPax', { money: true });
-    row(t('nonAeroPerPax'), 'nonAeroPerPax', { money: true });
-    row(t('commercialPerPax'), 'commercialPerPax', { money: true, cls: 'sub' });
-    row(t('revPerPaxAll'), 'revPerPaxAll', { money: true, cls: 'bold' });
-    if (CFG.costPerPax) row(t('costPerPax'), 'costPerPax', { money: true });
+    row(t('aeroPerPax'), 'aeroPerPax', { money: true, perim: true });
+    row(t('nonAeroPerPax'), 'nonAeroPerPax', { money: true, perim: true });
+    row(t('commercialPerPax'), 'commercialPerPax', { money: true, cls: 'sub', perim: true });
+    row(t('revPerPaxAll'), 'revPerPaxAll', { money: true, cls: 'bold', perim: true });
+    if (CFG.costPerPax) row(t('costPerPax'), 'costPerPax', { money: true, perim: true });
     const extra = (CFG.opsKpi || []).filter((k) => [oa, ob].some((o) => o && o['kpi_' + k.k] != null));
     if (extra.length) { head(t('otherOps')); for (const k of extra) row(L(k), 'kpi_' + k.k, { dec: k.dec != null ? k.dec : 1, pct: !!k.pct, money: !!k.money, cmtKey: k.k }); }
     const la = A ? A.label : '—', lb = B ? B.label : '—';
     html('opsTable', `<table class="stmt-table"><thead><tr><th>${t('metric')}</th><th>${la}</th><th>${lb}</th><th>${t('change')}</th><th>${t('changePct')}</th><th class="cmt">${t('comments')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     txt('opsTitle', tc(`${t('ops')} · ${la} vs ${lb}`));
     const reportOnly = [oa, ob].some((o) => o && o.totalSrc === 'report');
-    txt('opsCap', `${L(CFG.opsCap)} ${LANG === 'es' ? `Ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo${st.usd ? ', convertidos al tipo de cambio promedio de la Fed H.10' : ''}.` : `Unit revenues = income-statement revenue ÷ passengers in the period${st.usd ? ', converted at the Fed H.10 average rate' : ''}.`}${reportOnly ? (LANG === 'es' ? ' Donde faltan meses solo se dispone del total de pasajeros del informe trimestral.' : ' Where months are missing only the quarterly report\'s passenger total is available.') : ''} ${extra.length ? L(CFG.opsKpiNote || { es: 'Los demás indicadores son los reportados en el informe trimestral (no se suman en UDM).', en: 'The other indicators are as reported in the quarterly report (not summed for LTM).' }) : ''} ${C ? t('cmtNote') : t('cmtOnlyYoy')}`);
+    txt('opsCap', `${L(CFG.opsCap)} ${LANG === 'es' ? `Ingresos unitarios = ingresos del estado de resultados ÷ pasajeros del periodo${st.usd ? ', convertidos al tipo de cambio promedio de la Fed H.10' : ''}.` : `Unit revenues = income-statement revenue ÷ passengers in the period${st.usd ? ', converted at the Fed H.10 average rate' : ''}.`}${reportOnly ? (LANG === 'es' ? ' Donde faltan meses solo se dispone del total de pasajeros del informe trimestral.' : ' Where months are missing only the quarterly report\'s passenger total is available.') : ''} ${extra.length ? L(CFG.opsKpiNote || { es: 'Los demás indicadores son los reportados en el informe trimestral (no se suman en UDM).', en: 'The other indicators are as reported in the quarterly report (not summed for LTM).' }) : ''}${ncP ? ' ' + perimNote() : ''} ${C ? t('cmtNote') : t('cmtOnlyYoy')}`);
     const srcs = [];
     for (const obj of [A, B]) { if (!obj) continue; const last = periodYms(obj).map((ym) => trByYm[ym]).filter(Boolean).pop(); if (last && last.source) srcs.push({ url: last.source.url, label: LANG === 'es' ? 'reporte de tráfico' : 'traffic report', date: last.source.date }); if (obj.sources && obj.sources.is) srcs.push({ url: obj.sources.is.url, label: t('release'), date: obj.sources.is.date }); }
     html('opsNote', L(CFG.opsNote || { es: '', en: '' }));
@@ -459,22 +509,24 @@
     const qs = Q.slice(-lastN());
     const paxOf = (q) => { const o = opsForMode(q); return o; };
     const yoy = (q, f) => { const p = qById[yoyQid(q)]; const a = f(q), b = p && f(p); return a != null && b ? 100 * (a / b - 1) : null; };
+    const qYms = (q) => [1, 2, 3].map((i) => `${q.fy}-${String(q.q * 3 - 3 + i).padStart(2, '0')}`);
+    const ncQ = (q) => { const p = qById[yoyQid(q)]; return !!(PERIM && p && !PERIM.lfl(qYms(q), qYms(p))); };
     const rowsDef = [
       { l: t('revenue') + ' ' + (CFG.marginShort ? L(CFG.marginShort) : t('exIfric')) + ' (Ps. M)', f: (q) => exRev(q.is) / 1000, fmt: (v) => fmtN(v) },
       { l: t('ebitda') + ' (Ps. M)', f: (q) => q.is.ebitda / 1000, fmt: (v) => fmtN(v) },
       { l: t('ebitdaMarginEx'), f: (q) => q.is.ebitdaMarginExIfric, fmt: (v) => fmtPct(v), noYoy: true },
       { l: t('netIncome') + ' (Ps. M)', f: (q) => q.is.netIncome / 1000, fmt: (v) => fmtN(v) },
-      { l: t('pax'), f: (q) => paxOf(q), fmt: (v) => fmtN(v, 1) },
-      { l: t('revPerPax'), f: (q) => { const p = paxOf(q); return p && q.is.revAero != null && q.is.revNonAero != null ? (q.is.revAero + q.is.revNonAero) / p : null; }, fmt: (v) => fmtN(v, 1) },
+      { l: t('pax'), f: (q) => paxOf(q), fmt: (v) => fmtN(v, 1), perim: true },
+      { l: t('revPerPax'), f: (q) => { const p = paxOf(q); return p && q.is.revAero != null && q.is.revNonAero != null ? (q.is.revAero + q.is.revNonAero) / p : null; }, fmt: (v) => fmtN(v, 1), perim: true },
       { l: t('cfo') + ' (Ps. M)', f: (q) => q.cf && q.cf.cfo != null ? q.cf.cfo / 1000 : null, fmt: (v) => fmtN(v) },
       { l: t('capex') + ' (Ps. M)', f: (q) => q.cf && q.cf.capex != null ? -q.cf.capex / 1000 : null, fmt: (v) => fmtN(v) },
     ];
     const head = `<tr><th>${t('metric')}</th>${qs.map((q) => `<th>${qLabel(q)}</th>`).join('')}</tr>`;
-    const body = rowsDef.map((r) => `<tr><td>${r.l}</td>${qs.map((q) => { const v = r.f(q); const y = r.noYoy ? null : yoy(q, r.f); return `<td>${r.fmt(v)}${y != null ? `<br><span class="small ${cls(y)}">${fmtPct(y, 1, true)}</span>` : ''}</td>`; }).join('')}</tr>`).join('');
+    const body = rowsDef.map((r) => `<tr><td>${r.l}</td>${qs.map((q) => { const v = r.f(q); if (r.perim && ncQ(q)) return `<td>${r.fmt(v)}<br><span class="small nc" title="${t('ncTitle')}">${t('nc')}</span></td>`; const y = r.noYoy ? null : yoy(q, r.f); return `<td>${r.fmt(v)}${y != null ? `<br><span class="small ${cls(y)}">${fmtPct(y, 1, true)}</span>` : ''}</td>`; }).join('')}</tr>`).join('');
     html('kpiTable', `<table><thead>${head}</thead><tbody>${body}</tbody></table>`);
   }
   // passengers for a quarter object regardless of the statements mode (sum of its three months, else reported)
-  function opsForMode(q) { const ms = [1, 2, 3].map((i) => trByYm[`${q.fy}-${String(q.q * 3 - 3 + i).padStart(2, '0')}`]); if (ms.every(Boolean)) return ms.reduce((a, m) => a + (m.total.TOTAL || 0), 0); return q.kpi && q.kpi.pax != null ? q.kpi.pax : null; }
+  function opsForMode(q) { const ms = [1, 2, 3].map((i) => trByYm[`${q.fy}-${String(q.q * 3 - 3 + i).padStart(2, '0')}`]); if (ms.every(Boolean)) return ms.reduce((a, m) => a + ((PERIM ? PERIM.consolidated(m, 'total') : m.total.TOTAL) || 0), 0); return q.kpi && q.kpi.pax != null ? q.kpi.pax : null; }
 
   // ================= 02 GUIDANCE =================
   const GM = [
@@ -567,10 +619,19 @@
   }
 
   // ================= 03 TRAFFIC =================
-  const tr = { freq: 'm', seg: 'total', airports: ['TOTAL'] };
+  const tr = { freq: 'm', seg: 'total', airports: ['TOTAL'], basis: 'legacy' };
   const AIR = (TR.airports && TR.airports.length ? TR.airports : (REF.airports || []));
   const CTRY = TR.countries || [];
-  const segValue = (m, code) => (code.startsWith('C:') ? (m.countries && m.countries[code.slice(2)] ? m.countries[code.slice(2)][tr.seg] : null) : m[tr.seg][code]);
+  // Basis (REF.perimeter only): "legacy" keeps the airports reported before the perimeter change, so every growth rate is
+  // like for like; "cons" adds the new airports and is available only once a traffic release carries them.
+  const consBasis = () => !!(PERIM && PERIM.first && tr.basis === 'cons');
+  const isNewChip = (code) => !!PERIM && (code.startsWith('C:') ? PERIM.newCodes.includes(code.slice(2)) : PERIM.newAir.includes(code));
+  const airB = () => (!PERIM || consBasis() ? AIR : AIR.filter((a) => !PERIM.newCodes.includes(a.country)));
+  const ctryB = () => (!PERIM || consBasis() ? CTRY : CTRY.filter((c) => !PERIM.newCodes.includes(c.code)));
+  const groupVal = (m, s) => (!PERIM ? (m[s] ? m[s].TOTAL : null) : consBasis() ? PERIM.consolidated(m, s) : PERIM.legacy(m, s));
+  const groupN = () => (!PERIM ? AIR.length : consBasis() ? PERIM.nConsolidated : PERIM.nLegacyAir);
+  const groupLabel = () => (PERIM ? `${t('group')} (${groupN()} ${t('airportsN')})` : t('group'));
+  const segValue = (m, code) => (code === 'TOTAL' ? groupVal(m, tr.seg) : code.startsWith('C:') ? (m.countries && m.countries[code.slice(2)] ? m.countries[code.slice(2)][tr.seg] : null) : m[tr.seg][code]);
   function trafficSeries() {
     const months = TR.months.filter((m) => m.ym >= (CFG.trafficFrom || '2019-01'));
     const bucket = (ym) => (tr.freq === 'm' ? ym : tr.freq === 'q' ? `${ym.slice(0, 4)}Q${Math.ceil(+ym.slice(5) / 3)}` : ym.slice(0, 4));
@@ -579,12 +640,76 @@
     const buckets = Object.keys(byB).sort();
     const complete = (b) => (tr.freq === 'm' ? true : tr.freq === 'q' ? byB[b].months.length === 3 : byB[b].months.length === 12);
     const label = (b) => (tr.freq === 'm' ? ymLabel(b) : tr.freq === 'q' ? (LANG === 'es' ? `${b.slice(5)}T${b.slice(2, 4)}` : `${b.slice(5)}Q${b.slice(2, 4)}`) : b);
-    const nameOf = (code) => (code === 'TOTAL' ? t('group') : code.startsWith('C:') ? L(CTRY.find((c) => c.code === code.slice(2)) || {}) : (AIR.find((a) => a.code === code) || {})[LANG] || code);
+    const nameOf = (code) => (code === 'TOTAL' ? groupLabel() : code.startsWith('C:') ? L(CTRY.find((c) => c.code === code.slice(2)) || {}) : (AIR.find((a) => a.code === code) || {})[LANG] || code);
     return tr.airports.map((code) => ({ key: code, label: nameOf(code), points: buckets.filter(complete).map((b) => { const vals = byB[b].months.map((m) => segValue(m, code)).filter((v) => v != null); return [label(b), vals.length ? vals.reduce((a, v) => a + v, 0) : null, b]; }) }));
   }
+  // One sentence for captions when a comparison mixes perimeters (the status card below says the rest).
+  function perimNote() {
+    if (!PERIM || !PERIM.first) return '';
+    const nm = L(PERIM.P.name);
+    return LANG === 'es'
+      ? `n.c. = no comparable: ${nm} entra al tráfico de ${CFG.short} en ${ymLabel(PERIM.first.ym)} y el periodo de comparación no lo incluye; la variación comparable es la del perímetro anterior (${PERIM.nLegacyAir} aeropuertos). El consolidado vuelve a ser comparable mes contra mes desde ${ymLabel(PERIM.comparableFrom)}.`
+      : `n.c. = not comparable: ${nm} enters ${CFG.short}'s traffic in ${ymLabel(PERIM.first.ym)} and the comparison period does not include it; the comparable change is the legacy perimeter's (${PERIM.nLegacyAir} airports). The consolidated total is comparable month on month again from ${ymLabel(PERIM.comparableFrom)}.`;
+  }
+  // Status card for the perimeter change: airports, closing date, whether ASUR's monthly report carries them yet, and how
+  // the section compares. Every passenger figure is ASUR's (traffic.js or the filing cited in REF.perimeter).
+  function renderPerimeter() {
+    const box = el('perimCard'), ctl = el('ctlBasis');
+    if (!box) return;
+    if (!PERIM) { box.hidden = true; if (ctl) ctl.hidden = true; return; }
+    const P0 = PERIM.P, es = LANG === 'es', nm = L(P0.name), first = PERIM.first, lastM = PERIM.lastM, nx = nextTrafficRelease();
+    const consBtn = ctl && ctl.querySelector('[data-v="cons"]');
+    if (consBtn) { consBtn.disabled = !first; consBtn.title = first ? '' : (es ? `Se activa con el primer reporte de tráfico de ${CFG.short} que incluya ${nm}` : `Turns on with ${CFG.short}'s first traffic report that includes ${nm}`); }
+    if (ctl) ctl.hidden = false;
+    const show = !first || (lastM && lastM.ym < PERIM.comparableFrom);
+    box.hidden = !show;
+    if (!show) { box.innerHTML = ''; return; }
+    const n0 = PERIM.nLegacyAir;
+    const badge = PERIM.state === 'reported' ? ['ok', es ? `En el tráfico desde ${ymLabel(first.ym)}` : `In traffic since ${ymLabel(first.ym)}`]
+      : PERIM.state === 'missing' ? ['warn', es ? `Ausente del reporte de ${ymLabel(lastM.ym)}` : `Absent from the ${ymLabel(lastM.ym)} report`]
+        : ['wait', es ? 'Esperando el primer reporte de tráfico' : 'Awaiting first traffic print'];
+    const ctryList = P0.countries.map((c) => `${L(c)} ${c.airports}`).join(' · ');
+    const relDate = (m) => fmtDate(m && m.source && m.source.date);
+    const nextTxt = nx ? (es ? `tráfico de ${ymLabel(nx.ym)}, esperado hacia el ${fmtDate(nx.date)} (día ${nx.day}, mediana de los últimos doce reportes)` : `${ymLabel(nx.ym)} traffic, expected around ${fmtDate(nx.date)} (day ${nx.day}, median of the last twelve reports)`) : '—';
+    const facts = [
+      [String(P0.airports || PERIM.newAir.length), `${es ? 'aeropuertos' : 'airports'} · ${ctryList}`],
+      [fmtDate(P0.closed), es ? 'cierre de la compra' : 'acquisition closed'],
+      first ? [ymLabel(first.ym), es ? `primer mes en el reporte de ${CFG.short} (publicado el ${relDate(first)})` : `first month in ${CFG.short}'s report (published ${relDate(first)})`]
+        : [nx ? fmtDate(nx.date) : '—', PERIM.state === 'missing' ? (es ? `siguiente reporte: ${nextTxt}` : `next report: ${nextTxt}`) : (es ? `primer reporte esperado: ${nextTxt}` : `first report expected: ${nextTxt}`)],
+    ];
+    const lines = [];
+    if (!first) {
+      lines.push(PERIM.state === 'missing'
+        ? (es ? `El reporte de tráfico de ${ymLabel(lastM.ym)} (publicado el ${relDate(lastM)}) no incluye estos aeropuertos: sigue cubriendo los ${n0} anteriores. Siguiente: ${nextTxt}.` : `The ${ymLabel(lastM.ym)} traffic report (published ${relDate(lastM)}) does not include these airports: it still covers the ${n0} legacy ones. Next: ${nextTxt}.`)
+        : (es ? `Ningún reporte mensual de ${CFG.short} los incluye todavía: el último, de ${lastM ? ymLabel(lastM.ym) : '—'} (publicado el ${relDate(lastM)}), cubre los ${n0} aeropuertos anteriores, y la compra cerró después de ese mes.` : `No ${CFG.short} monthly report includes them yet: the latest, for ${lastM ? ymLabel(lastM.ym) : '—'} (published ${relDate(lastM)}), covers the ${n0} legacy airports, and the deal closed after that month.`)
+          + (P0.announced ? ` ${L(P0.announced)} (${fmtDate(P0.announced.date)}).` : ''));
+      const r6 = (P0.paxReported || []).find((x) => x.period === '6M26'), src = (P0.sources || []).slice().reverse().find((x) => /bmv\.com\.mx/.test(x.url));
+      if (r6 && P0.legacyPax6M26) {
+        const lift = Math.round(100 * r6.v * 1000 / P0.legacyPax6M26);
+        lines.push(es ? `Escala: ≈${fmtN(r6.v)} M de pasajeros en 6M26 frente a ${fmtN(P0.legacyPax6M26 / 1000, 1)} M de los ${n0} aeropuertos anteriores (${CFG.short}, evento relevante del ${src ? fmtDate(src.date) : '—'}). Sumarlos sin ajuste elevaría el total ≈${lift}% sin crecimiento real (cálculo FNAM).` : `Scale: ≈${fmtN(r6.v)} M passengers in 6M26 against ${fmtN(P0.legacyPax6M26 / 1000, 1)} M at the ${n0} legacy airports (${CFG.short}, evento relevante of ${src ? fmtDate(src.date) : '—'}). Adding them unadjusted would lift the total ≈${lift}% with no real growth (FNAM calculation).`);
+      }
+      lines.push(es ? `Mientras tanto, todo total y variación a/a de esta sección corresponde al perímetro anterior (${n0} aeropuertos). El selector «${t('basisCons')}» se activa con el primer reporte que los incluya y marca «n.c.» toda variación contra un mes sin ellos. No se estima ningún pasajero que ${CFG.short} no haya publicado.` : `Until then, every total and y/y change in this section is the legacy perimeter's (${n0} airports). The "${t('basisCons')}" switch turns on with the first report that includes them and marks "n.c." every change against a month without them. No passenger figure ${CFG.short} has not published is estimated.`);
+    } else {
+      const cpc = PERIM.added(lastM, 'total'), cons = PERIM.consolidated(lastM, 'total');
+      lines.push(es ? `En ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} mil pasajeros en los aeropuertos de ${nm}, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} del consolidado (${fmtN(cons, 1)} mil).` : `In ${ymLabel(lastM.ym)}: ${fmtN(cpc, 1)} thousand passengers at the ${nm} airports, ${fmtPct(cons ? 100 * cpc / cons : null, 1)} of the consolidated total (${fmtN(cons, 1)} thousand).`);
+      if (PERIM.newAir.length && P0.airports && PERIM.newAir.length !== P0.airports) lines.push(es ? `El reporte desglosa ${PERIM.newAir.length} de los ${P0.airports} aeropuertos; el resto viene agregado por país o bloque.` : `The report itemizes ${PERIM.newAir.length} of the ${P0.airports} airports; the rest come aggregated by country or block.`);
+      lines.push(es ? `La vista por defecto es el perímetro anterior (${n0} aeropuertos, comparable). «${t('basisCons')}» suma ${nm} y marca «n.c.» las variaciones contra meses sin esos aeropuertos hasta ${ymLabel(addYm(PERIM.comparableFrom, -1))}.` : `The default view is the legacy perimeter (${n0} airports, like for like). "${t('basisCons')}" adds ${nm} and marks "n.c." every change against months without those airports through ${ymLabel(addYm(PERIM.comparableFrom, -1))}.`);
+    }
+    if (P0.minorities) lines.push(L(P0.minorities));
+    const srcs = (P0.sources || []).map((x) => `<a href="${x.url}" target="_blank" rel="noopener">${L(x)} (${fmtDate(x.date)}) ↗</a>`).join(' · ');
+    box.className = `perim ${badge[0]}`;
+    box.innerHTML = `<div class="perim-head"><h3>${tc(`${nm}: ${es ? 'estado en el tráfico' : 'traffic status'}`)}</h3><span class="perim-badge ${badge[0]}">${badge[1]}</span></div>`
+      + `<div class="perim-facts">${facts.map((f) => `<div><b>${f[0]}</b><span>${f[1]}</span></div>`).join('')}</div>`
+      + `<ul class="perim-lines">${lines.map((l) => `<li>${l}</li>`).join('')}</ul>`
+      + (srcs ? `<p class="perim-src">${t('src')}: ${srcs}</p>` : '');
+  }
   function renderTraffic() {
+    renderPerimeter();
     if (!TR.months.length || !el('chartTraffic')) return;
-    const chips = [{ code: 'TOTAL', label: t('group') }, ...CTRY.map((c) => ({ code: 'C:' + c.code, label: L(c) })), ...AIR.map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
+    if (!consBasis()) { tr.airports = tr.airports.filter((c) => !isNewChip(c)); if (!tr.airports.length) tr.airports = ['TOTAL']; }
+    const bBox = el('segTrafBasis'); if (bBox) bBox.querySelectorAll('button').forEach((b) => b.classList.toggle('active', b.dataset.v === (consBasis() ? 'cons' : 'legacy')));
+    const AIRb = airB(), CTRYb = ctryB();
+    const chips = [{ code: 'TOTAL', label: groupLabel() }, ...CTRYb.map((c) => ({ code: 'C:' + c.code, label: L(c) })), ...AIRb.map((a) => ({ code: a.code, label: `${a.code} · ${a[LANG] || a.en}` }))];
     const c = SERIES();
     html('airportChips', chips.map((ch) => { const i = tr.airports.indexOf(ch.code); return `<button type="button" class="chip${i >= 0 ? ' active' : ''}" data-code="${ch.code}">${i >= 0 ? `<span class="sw" style="background:${c[i % 8]}"></span>` : ''}${ch.label}</button>`; }).join(''));
     el('airportChips').querySelectorAll('.chip').forEach((b) => b.addEventListener('click', () => { const code = b.dataset.code; const i = tr.airports.indexOf(code); if (i >= 0) { if (tr.airports.length > 1) tr.airports.splice(i, 1); } else if (tr.airports.length < 6) tr.airports.push(code); renderTraffic(); }));
@@ -594,20 +719,48 @@
     mkChart('chartTraffic', { type, data: { labels, datasets: series.map((s, i) => ({ label: s.label, data: s.points.map((p) => p[1]), borderColor: c[i % 8], backgroundColor: c[i % 8], fill: false, spanGaps: false })) },
       options: { plugins: { legend: { display: series.length > 1, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.y, 1)} (${LANG === 'es' ? 'miles' : 'thousands'})` } } }, scales: { x: { grid: { display: false }, ticks: { maxTicksLimit: 14, maxRotation: 0 } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 24, borderWidth: 0 } } } });
     txt('trafficChartTitle', tc(`${t(tr.seg)} · ${LANG === 'es' ? 'serie' : 'series'} ${t(tr.freq === 'm' ? 'monthly' : tr.freq === 'q' ? 'quarterly' : 'annual')}`));
-    txt('trafficChartCap', LANG === 'es' ? 'Miles de pasajeros; periodos incompletos se omiten en la vista trimestral/anual' : 'Thousand passengers; incomplete periods are omitted in the quarterly/annual view');
+    const jump = consBasis() && tr.airports.includes('TOTAL') ? (LANG === 'es' ? ` El total consolidado sube en ${ymLabel(PERIM.first.ym)} porque entran los aeropuertos de ${L(PERIM.P.name)}, no por crecimiento.` : ` The consolidated total steps up in ${ymLabel(PERIM.first.ym)} because the ${L(PERIM.P.name)} airports enter, not because of growth.`) : '';
+    txt('trafficChartCap', (LANG === 'es' ? 'Miles de pasajeros; periodos incompletos se omiten en la vista trimestral/anual.' : 'Thousand passengers; incomplete periods are omitted in the quarterly/annual view.') + jump);
     html('trafficSeriesTable', `<table><thead><tr><th>${t('period')}</th>${series.map((s) => `<th>${s.label}</th>`).join('')}</tr></thead><tbody>${labels.map((l, i) => `<tr><td>${l}</td>${series.map((s) => `<td>${fmtN(s.points[i][1], 1)}</td>`).join('')}</tr>`).reverse().slice(0, 60).join('')}</tbody></table>`);
     const lastM = TR.months[TR.months.length - 1];
     html('trafficSrc', `${t('src')}: <a href="${lastM.source.url}" target="_blank" rel="noopener">${LANG === 'es' ? `reporte mensual de tráfico de ${CFG.short}` : `${CFG.short} monthly traffic report`} (${fmtDate(lastM.source.date)}) ↗</a>`);
-    const prev = TR.months.find((m) => m.ym === `${+lastM.ym.slice(0, 4) - 1}${lastM.ym.slice(4)}`);
-    const ytdOf = (ym, code) => TR.months.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).reduce((a, m) => a + (m.total[code] || 0), 0);
-    const rowFor = (code, name, isTotal) => { const v = lastM.total[code], p = prev && prev.total[code]; const y = ytdOf(lastM.ym, code), yp = prev ? ytdOf(prev.ym, code) : null; const yoy = p ? 100 * (v / p - 1) : null, yoyY = yp ? 100 * (y / yp - 1) : null; return `<tr class="${isTotal ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td><td class="${cls(yoy)}">${fmtPct(yoy, 1, true)}</td><td>${fmtN(lastM.dom[code], 1)}</td><td>${fmtN(lastM.intl[code], 1)}</td><td>${fmtN(y, 1)}</td><td class="${cls(yoyY)}">${fmtPct(yoyY, 1, true)}</td><td>${fmtPct(100 * v / lastM.total.TOTAL, 1)}</td></tr>`; };
+    const prev = trByYm[addYm(lastM.ym, -12)];
+    const ytdYms = (ym) => TR.months.filter((m) => m.ym.slice(0, 4) === ym.slice(0, 4) && m.ym <= ym).map((m) => m.ym);
+    const ytdOf = (ym, get) => ytdYms(ym).reduce((a, x) => a + (get(trByYm[x], 'total') || 0), 0);
+    // like for like on the group total: every month of the window carries the same perimeter as its prior-year month
+    const lflM = !PERIM || !prev || PERIM.lfl([lastM.ym], [prev.ym]);
+    const lflY = !PERIM || !prev || PERIM.lfl(ytdYms(lastM.ym), ytdYms(prev.ym));
+    const totB = groupVal(lastM, 'total');
+    const ncCell = (y) => `<td class="${cls(y)}">${y === 'nc' ? `<span class="nc" title="${t('ncTitle')}">${t('nc')}</span>` : fmtPct(y, 1, true)}</td>`;
+    // get(m, seg) -> value; opt.ncM / opt.ncY force n.c.; opt.noYtd leaves the YTD cells empty (country subtotals)
+    const line = (name, get, opt = {}) => {
+      const v = get(lastM, 'total'), p = prev ? get(prev, 'total') : null;
+      const yoy = opt.ncM || (opt.isNew && v != null && p == null) ? 'nc' : p ? 100 * (v / p - 1) : null;
+      let ytdC = '<td></td><td></td>';
+      if (!opt.noYtd) { const y = ytdOf(lastM.ym, get), yp = prev ? ytdOf(prev.ym, get) : null; const yoyY = opt.ncY || (opt.isNew && y && !yp) ? 'nc' : yp ? 100 * (y / yp - 1) : null; ytdC = `<td>${fmtN(y, 1)}</td>${ncCell(yoyY)}`; }
+      return `<tr class="${opt.total ? 'total' : ''}"><td>${name}</td><td>${fmtN(v, 1)}</td>${ncCell(yoy)}<td>${fmtN(get(lastM, 'dom'), 1)}</td><td>${fmtN(get(lastM, 'intl'), 1)}</td>${ytdC}<td>${fmtPct(v != null && totB ? 100 * v / totB : null, 1)}</td></tr>`;
+    };
+    const airGet = (code) => (m, s) => (m && m[s] ? m[s][code] : null);
+    const ctryGet = (code) => (m, s) => (m && m.countries && m.countries[code] ? m.countries[code][s] : null);
     const rows = [];
-    if (CTRY.length) { for (const cc of CTRY) { rows.push(...AIR.filter((a) => a.country === cc.code).map((a) => rowFor(a.code, `${a.code} · ${a[LANG] || a.en}`, false))); const cv = lastM.countries && lastM.countries[cc.code]; if (cv) { const pv = prev && prev.countries && prev.countries[cc.code]; const yoy = pv && pv.total ? 100 * (cv.total / pv.total - 1) : null; rows.push(`<tr class="total"><td>${L(cc)}</td><td>${fmtN(cv.total, 1)}</td><td class="${cls(yoy)}">${fmtPct(yoy, 1, true)}</td><td>${fmtN(cv.dom, 1)}</td><td>${fmtN(cv.intl, 1)}</td><td></td><td></td><td>${fmtPct(100 * cv.total / lastM.total.TOTAL, 1)}</td></tr>`); } } }
-    else rows.push(...AIR.map((a) => rowFor(a.code, `${a.code} · ${a[LANG] || a.en}`, false)));
-    rows.push(rowFor('TOTAL', t('total'), true));
+    if (CTRYb.length) {
+      for (const cc of CTRYb) {
+        const nw = !!(PERIM && PERIM.newCodes.includes(cc.code));
+        rows.push(...AIRb.filter((a) => a.country === cc.code).map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code), { isNew: nw })));
+        if (lastM.countries && lastM.countries[cc.code]) rows.push(line(L(cc), ctryGet(cc.code), { total: true, noYtd: true, isNew: nw }));
+      }
+    } else rows.push(...AIRb.map((a) => line(`${a.code} · ${a[LANG] || a.en}`, airGet(a.code))));
+    if (consBasis()) {
+      rows.push(line(`${t('legacyPax')} (${PERIM.nLegacyAir} ${t('airportsN')})`, (m, s) => PERIM.legacy(m, s), { total: true }));
+      rows.push(line(`${t('totalCons')} (${groupN()} ${t('airportsN')})`, groupVal, { total: true, ncM: !lflM, ncY: !lflY }));
+    } else rows.push(line(PERIM ? `${t('total')} (${PERIM.nLegacyAir} ${t('airportsN')})` : t('total'), groupVal, { total: true }));
     html('trafficTable', `<table><thead><tr><th>${t('airport')}</th><th>${ymLabel(lastM.ym)}</th><th>${t('yoy')}</th><th>${t('dom')}</th><th>${t('intl')}</th><th>${t('ytdShort')} ${lastM.ym.slice(0, 4)}</th><th>${t('yoy')}</th><th>${t('share')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
     txt('trafficTblTitle', tc(`${t('latestMonth')}: ${ymLabel(lastM.ym)}`));
-    txt('trafficTblCap', L(CFG.trafficCap));
+    const legNames = PERIM ? PERIM.legacyCodes.map((c) => L(CTRY.find((x) => x.code === c) || { es: c, en: c })) : [];
+    const joinL = (a) => (a.length > 1 ? `${a.slice(0, -1).join(', ')} ${LANG === 'es' ? 'y' : 'and'} ${a[a.length - 1]}` : a.join(''));
+    const capB = !PERIM ? '' : consBasis() ? ' ' + perimNote()
+      : (LANG === 'es' ? ` Perímetro anterior: los ${PERIM.nLegacyAir} aeropuertos de ${joinL(legNames)} que ${CFG.short} reportaba antes de ${L(PERIM.P.name)}; todas las variaciones son comparables.` : ` Legacy perimeter: the ${PERIM.nLegacyAir} airports in ${joinL(legNames)} that ${CFG.short} reported before ${L(PERIM.P.name)}; every change is like for like.`);
+    txt('trafficTblCap', L(CFG.trafficCap) + capB);
     html('trafficMeta', LANG === 'es' ? `Cobertura mensual: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} meses). Cifras preliminares publicadas cada mes; la vista por defecto empieza en 2019 para incluir la base prepandemia.` : `Monthly coverage: ${ymLabel(TR.months[0].ym)} → ${ymLabel(lastM.ym)} (${TR.months.length} months). Preliminary figures released monthly; the default view starts in 2019 to include the pre-pandemic base.`);
   }
 
@@ -975,6 +1128,7 @@
   seg('segGuideMetric', (v) => { gs.metric = v; renderGuideChart(); });
   seg('segTrafFreq', (v) => { tr.freq = v; renderTraffic(); });
   seg('segTrafSeg', (v) => { tr.seg = v; renderTraffic(); });
+  seg('segTrafBasis', (v) => { tr.basis = v; renderTraffic(); });
   seg('segRange', (v) => { sh.range = v; renderShare(); });
   seg('segListing', (v) => { sh.listing = v; renderShare(); });
   const navLinks = [...document.querySelectorAll('nav.jump a')];
@@ -990,7 +1144,7 @@
     CFG, FIN, TR, MK, REF, PEERS, GD, CM, SUM, HOME, ADS,
     Q, Y, YTD, lastQ, qById, ytdById, prevQid, yoyQid, sumParts, exRev, fixRatios, niCtrl, ytdFor, ltmFor, lastLTM,
     px, lastPoint, pointAtOrBefore, fxPts, fxAt, mx10, homePx, lastPx, sharesNow, sharesAt, qEndDate, DEBT, netDebt, nciOf,
-    avgFx, yoyCommentsFor, trByYm, periodYms, opsFor, opsForMode, AIR, CTRY, GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual, fmtFact, betaFromMarket, kdFromDebt,
+    avgFx, yoyCommentsFor, trByYm, periodYms, opsFor, opsForMode, AIR, CTRY, PERIM, perimNote, nextTrafficRelease, addYm, GM, GV, gRange, gMid, gActualFmt, gStatus, gGrowthSet, gActual, fmtFact, betaFromMarket, kdFromDebt,
   };
   let initial = 'es'; try { initial = localStorage.getItem(CFG.slug + '-lang') || 'es'; } catch (e) { /* ignore */ }
   { const qp = new URLSearchParams(location.search).get('lang'); if (qp === 'en' || qp === 'es') initial = qp; } // ?lang=en|es wins over the stored choice
