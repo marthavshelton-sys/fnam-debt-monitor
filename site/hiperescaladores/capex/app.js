@@ -53,7 +53,7 @@
   }
   function calc(val, k, c, q, ttm) {
     if (val == null) return k === 'capex_ocf' ? H.nm() : H.nt(t('Falta un insumo sin etiqueta XBRL para este periodo', 'An input is not tagged in XBRL for this period'));
-    var shown = k === 'capex_ocf' ? H.pct(val) : H.money(val);
+    var shown = k === 'capex_ocf' ? H.capexOcf(val) : H.money(val);
     return shown + H.src({ title: c.name + ' · ' + dname(k) + (q ? ' · ' + H.fq(q.id) : ''), rows: [[t('Cálculo FNAM', 'FNAM calculation'), DER[k] ? DER[k].how[H.lang] : ''], [t('Base', 'Basis'), ttm ? t('últimos doce meses = suma de los cuatro trimestres fiscales consecutivos más recientes (o el año fiscal si el periodo cierra el año)', 'trailing twelve months = sum of the four most recent consecutive fiscal quarters (or the fiscal year when the period closes the year)') : t('trimestre', 'quarter')], [t('Insumos', 'Inputs'), t('cifras T1 de la tabla; cada una abre su presentación', 'T1 figures in the table; each opens its filing')]] });
   }
   function ttmCell(c, q, k) {
@@ -91,14 +91,16 @@
     if (S.edgarErrors && S.edgarErrors.length) notes.push('<div class="notice warn"><b>' + t('La última consulta a EDGAR falló para', 'The last EDGAR poll failed for') + '</b> ' + S.edgarErrors.map(function (e) { return esc(e.ticker + ' (' + e.api + ')'); }).join(', ') + '. ' + t('Se muestran los valores almacenados de la consulta anterior.', 'Stored values from the previous poll are shown.') + '</div>');
     set('notices', notes.join(''));
     // KPIs
-    var cap = 0, ocf = 0, n = 0, missing = [];
-    CORE.forEach(function (c) { var q = latest(c); if (q && q.ttm.capex_cash != null && q.ttm.ocf != null) { cap += q.ttm.capex_cash; ocf += q.ttm.ocf; n++; } else missing.push(c.name); });
+    // calendarized: every company at the same calendar quarter (H.calTTM); OCF from the same fiscal quarters
+    var X = H.calTTM(CORE, 'capex_cash'), cap = X ? X.total : null, ocf = 0, missing = X ? X.missing.slice() : CORE.map(function (c) { return c.name; });
+    if (X) X.rows.forEach(function (r) { if (r.q.ttm.ocf != null) ocf += r.q.ttm.ocf; else { ocf = null; missing.push(r.c.name); } });
+    var win = X ? t('UDM al ', 'TTM to ') + H.cq(X.cal) + t(' calendario', ' (calendar)') : '';
     var leases = 0, lm = [];
     CORE.forEach(function (c) { var qo = lastWith(c, 'ol_liab'), qf = lastWith(c, 'fl_liab'); if (qo) leases += v(qo, 'ol_liab'); if (qf) leases += v(qf, 'fl_liab'); if (!qo || !qf) lm.push(c.name); });
     var iss = F.debt ? F.debt.deals.reduce(function (s, d) { return s + d.amount; }, 0) * 1e6 : null;
     set('kpis', [
-      [t('Capex en efectivo, UDM, seis principales', 'Cash capex, TTM, core six'), H.money(cap), t('Suma del UDM de cada empresa a su último trimestre; los cierres difieren (', 'Sum of each company\'s TTM to its latest quarter; period ends differ (') + asOfRange + ')' + (missing.length ? '. ' + t('Sin dato: ', 'Missing: ') + missing.join(', ') : '')],
-      [t('Capex / flujo de operación, seis principales', 'Capex / operating cash flow, core six'), H.pct(ocf ? cap / ocf : null), t('Cálculo FNAM con las mismas sumas UDM', 'FNAM calculation on the same TTM sums')],
+      [t('Capex en efectivo, UDM, seis principales', 'Cash capex, TTM, core six'), H.money(cap) + (X ? H.src({ title: t('Capex en efectivo UDM, seis principales', 'Cash capex TTM, core six'), rows: [[t('Ventana', 'Window'), win]].concat(H.calRows(X)).concat([[t('Nivel', 'Tier'), t('Cálculo FNAM sobre cifras T1 (XBRL)', 'FNAM calculation on T1 figures (XBRL)')]]) }) : ''), win + '. ' + H.offsetNote(X || { offsets: [] }) + (missing.length ? ' ' + t('Sin dato: ', 'Missing: ') + missing.join(', ') : '')],
+      [t('Capex / flujo de operación, seis principales', 'Capex / operating cash flow, core six'), H.capexOcf(ocf ? cap / ocf : null), t('Cálculo FNAM con las mismas sumas UDM calendarizadas', 'FNAM calculation on the same calendarized TTM sums')],
       [t('Deuda emitida desde ene-2025 (vigente)', 'Debt issued since Jan-2025 (outstanding)'), H.money(iss), t('Diez empresas; bonos, préstamos, convertibles; instantánea FactSet del ', 'Ten companies; bonds, loans, converts; FactSet snapshot of ') + H.date(F.debt && F.debt.pulledAt)],
       [t('Pasivos por arrendamiento, seis principales', 'Lease liabilities, core six'), H.money(leases), t('Operativos + financieros, último balance etiquetado; excluye arrendamientos aún no iniciados (módulo 6)', 'Operating + finance, latest tagged balance sheet; excludes leases not yet commenced (module 6)') + (lm.length ? '. ' + t('Balance trimestral incompleto: ', 'Quarterly balance incomplete: ') + lm.join(', ') : '')]
     ].map(function (k) { return '<div class="kpi"><div class="lbl">' + k[0] + '</div><div class="val">' + k[1] + '</div><div class="sub">' + k[2] + '</div></div>'; }).join(''));
@@ -194,7 +196,7 @@
       var k = ln[0], gv = function (q) { if (!q) return null; return DER[k] ? (q.d ? q.d[k] : null) : (q.m[k] ? q.m[k][0] : null); };
       var a = gv(last), b = gv(yago);
       var chg = a != null && b != null && b !== 0 && k !== 'capex_ocf' ? (a - b) / Math.abs(b) : null;
-      return '<div class="mrow"><div class="h"><b>' + esc(dname(k)) + '</b><span class="v">' + (a == null ? H.nt() : (k === 'capex_ocf' ? H.pct(a) : H.money(a))) + '</span></div><div class="c">' + (annual ? last.id : H.fq(last.id)) + ' · ' + t('a/a', 'y/y') + ' ' + (chg == null ? t('n.s.', 'n.m.') : (chg > 0 ? '+' : '') + H.num(chg * 100, 0) + '%') + ' · ' + (ln[1] === 'C' ? t('cálculo FNAM', 'FNAM calculation') : 'T1 · SEC') + '</div></div>';
+      return '<div class="mrow"><div class="h"><b>' + esc(dname(k)) + '</b><span class="v">' + (a == null ? H.nt() : (k === 'capex_ocf' ? H.capexOcf(a) : H.money(a))) + '</span></div><div class="c">' + (annual ? last.id : H.fq(last.id)) + ' · ' + t('a/a', 'y/y') + ' ' + (chg == null ? t('n.s.', 'n.m.') : (chg > 0 ? '+' : '') + H.num(chg * 100, 0) + '%') + ' · ' + (ln[1] === 'C' ? t('cálculo FNAM', 'FNAM calculation') : 'T1 · SEC') + '</div></div>';
     }).join('');
     set('coTbl', '<div class="only-d"><table>' + '<thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><div class="only-m">' + mob + '</div>');
     set('coStamp', H.stamp({ tier: 'T1', asOf: last ? H.date(last.end) : '', sources: [{ label: 'EDGAR · ' + c.name, url: edgarCo(c) }], csv: '/hiperescaladores/csv/capex-financing-quarterly.csv' }));
@@ -211,7 +213,7 @@
       var s = H.stale(c);
       return '<tr><td class="l">' + coName(c) + '</td><td class="l">' + H.fq(q.id) + ' · ' + H.date(q.end) + (s.stale ? H.flag('stale') : '') + '</td>' + ks.map(function (k) { return '<td>' + (DER[k] ? calc(q.ttm[k], k, c, q, true) : ttmCell(c, q, k)) + '</td>'; }).join('') + '</tr>';
     }
-    var mrow = function (c) { var q = latest(c); if (!q) return ''; var s = H.stale(c); return '<div class="mrow"><div class="h"><b>' + sw(c) + esc(c.name) + '</b><span class="v">' + H.money(q.ttm.capex_cash) + '</span></div><div class="c">' + t('Capex en efectivo UDM al ', 'Cash capex TTM to ') + H.date(q.end) + ' · ' + t('capex/flujo de op. ', 'capex/OCF ') + H.pct(q.ttm.capex_ocf) + ' · ' + t('flujo libre ', 'FCF ') + H.money(q.ttm.fcf) + (q.ttm.capex_incl_fl != null ? ' · ' + t('incl. arrend. fin. ', 'incl. fin. leases ') + H.money(q.ttm.capex_incl_fl) : '') + (s.stale ? ' ' + H.flag('stale') : '') + '</div></div>'; };
+    var mrow = function (c) { var q = latest(c); if (!q) return ''; var s = H.stale(c); return '<div class="mrow"><div class="h"><b>' + sw(c) + esc(c.name) + '</b><span class="v">' + H.money(q.ttm.capex_cash) + '</span></div><div class="c">' + t('Capex en efectivo UDM al ', 'Cash capex TTM to ') + H.date(q.end) + ' · ' + t('capex/flujo de op. ', 'capex/OCF ') + H.capexOcf(q.ttm.capex_ocf).replace(/<[^>]+>/g, '') + ' · ' + t('flujo libre ', 'FCF ') + H.money(q.ttm.fcf) + (q.ttm.capex_incl_fl != null ? ' · ' + t('incl. arrend. fin. ', 'incl. fin. leases ') + H.money(q.ttm.capex_incl_fl) : '') + (s.stale ? ' ' + H.flag('stale') : '') + '</div></div>'; };
     set('ttmTbl', '<div class="only-d"><table><thead>' + head + '</thead><tbody><tr class="grp"><td colspan="' + (ks.length + 2) + '">' + t('Seis principales', 'Core six') + '</td></tr>' + CORE.map(row).join('') + '<tr class="grp"><td colspan="' + (ks.length + 2) + '">' + t('Neonubes listadas', 'Listed neoclouds') + '</td></tr>' + NEO.map(row).join('') + '</tbody></table></div><div class="only-m">' + CO.map(mrow).join('') + '<p class="small muted">' + t('Tabla completa con fuentes (ⓘ) en pantalla ancha o en el CSV.', 'Full table with sources (ⓘ) on a wide screen or in the CSV.') + '</p></div>');
     set('ttmStamp', H.stamp({ tier: 'T1', asOf: asOfRange, sources: SRC_XBRL(), csv: '/hiperescaladores/csv/capex-financing-quarterly.csv', note: t('Nebius: año fiscal 2025 del 20-F (sin trimestres en XBRL)', 'Nebius: fiscal 2025 from the 20-F (no XBRL quarters)') }));
     // guidance (T2)
@@ -225,10 +227,18 @@
         var c = F.companies[g.ticker]; var q = latest(c);
         var rng = g.low == null ? (g.status === 'not_in_dataset' ? '<span class="nd" title="' + t('La empresa no figura con guía de capex en el conjunto de FactSet; puede haberla dado en su llamada', 'The company has no capex guidance in FactSet\'s dataset; it may have given one on its call') + '">' + t('Sin dato en FactSet', 'Not in FactSet') + '</span>' : H.nd(t('La empresa no da un rango anual de capex', 'The company gives no annual capex range'))) : rngTxt(g.low, g.high, g.approx);
         var note = (g['note_' + H.lang] ? esc(g['note_' + H.lang]) + ' ' : '') + '<span class="muted">' + t('Fuente', 'Source') + ': ' + esc(g.source) + '</span>';
-        return '<tr><td class="l" style="border-bottom:0">' + coName(c) + '</td><td class="l" style="border-bottom:0">' + esc(H.lang === 'es' ? g.fy.replace('FY', 'AF') : g.fy) + ' · ' + t('cierra', 'ends') + ' ' + H.date(g.fyEnd) + '</td><td style="border-bottom:0">' + rng + (g.netCashMax ? '<br><span class="small muted">' + t('neto en efectivo ≤ ', 'net cash ≤ ') + H.moneyM(g.netCashMax, 0) + '</span>' : '') + '</td><td class="l" style="border-bottom:0">' + (g.date ? H.date(g.date) : '') + '</td><td style="border-bottom:0">' + (rngTxt(g.prevLow, g.prevHigh) || '') + '</td><td style="border-bottom:0">' + (q && q.ttm.capex_cash != null ? H.money(q.ttm.capex_cash) : H.nd()) + '</td></tr>' +
+        return '<tr><td class="l" style="border-bottom:0">' + coName(c) + '</td><td class="l" style="border-bottom:0">' + esc(H.lang === 'es' ? g.fy.replace('FY', 'AF') : g.fy) + ' · ' + t('cierra', 'ends') + ' ' + H.date(g.fyEnd) + '</td><td style="border-bottom:0">' + rng + (g.netCashMax ? '<br><span class="small muted">' + t('neto en efectivo ≤ ', 'net cash ≤ ') + H.moneyM(g.netCashMax, 0) + '</span>' : '') + '</td><td class="l" style="border-bottom:0">' + (g.date ? H.date(g.date) + guideAge(g.date) : '') + '</td><td style="border-bottom:0">' + (rngTxt(g.prevLow, g.prevHigh) || '') + '</td><td style="border-bottom:0">' + (q && q.ttm.capex_cash != null ? H.money(q.ttm.capex_cash) : H.nd()) + '</td></tr>' +
           '<tr><td colspan="6" class="wrap-cell small" style="max-width:none;padding-top:0;color:var(--text-secondary)">' + note + '</td></tr>';
       }).join('') + '</tbody></table>');
     set('guideStamp', H.stamp({ tier: 'T2', asOf: H.date(G.pulledAt), sources: [{ label: t('Conjunto de guías de FactSet; llamada de Oracle', 'FactSet guidance dataset; Oracle call') }], note: t('Se actualiza en sesión después de cada llamada de resultados', 'Updated in-session after each earnings call') }));
+  }
+
+  // guidance not updated for more than two quarters gets an amber age note (computed in the reader's browser);
+  // more than 12 months, the gray "> 12 months" flag
+  function guideAge(d) {
+    var days = Math.floor((Date.now() - Date.parse(d + 'T12:00:00Z')) / 864e5);
+    if (H.aged(d)) return ' <span class="flag old">' + t('> 12 meses', '> 12 months') + '</span>';
+    return days > 183 ? '<br><span class="flag">' + t('sin actualizar hace ', 'not updated for ') + Math.floor(days / 30.44) + t(' meses', ' months') + '</span>' : '';
   }
 
   // ---------- 04 funding ----------
