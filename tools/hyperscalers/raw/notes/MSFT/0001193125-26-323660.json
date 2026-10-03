@@ -1,0 +1,116 @@
+{
+ "ticker": "MSFT",
+ "cik": 789019,
+ "form": "10-K",
+ "accn": "0001193125-26-323660",
+ "filed": "2026-07-29",
+ "report": "2026-06-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 102,
+ "numberedPages": 100,
+ "hits": [
+  {
+   "kind": "equity_method",
+   "page": "17",
+   "match": "joint venture",
+   "text": "…ons of mismanagement, driven by regulatory activity or negative public reaction to our practices or product experiences, could negatively impact product and feature adoption. Developing new technologies is complex. It can require long development and testing periods. We could experience significant delays in new releases or significant problems in creating new products or services. These factors could adversely affect our business, financial condition, and results of operations.   Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, in October 2023 we completed our acquisition of Activision Blizzard , Inc. Additionally, we have a long-term strategic partnership with OpenAI. Acquisitions and other transactions and arrangements involve significant challenges and risks, including that they do not advance our business strategy, that we get an unsatisfactory return on our investment, that they raise new compliance-related obligations and challenges, that we have difficulty integrating and retaining new employees, business systems, and technology, that they distract management from our other businesses, or that announced transactions may not be completed. If an arrangement fails to ad…",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "22",
+   "match": "purchase commitments",
+   "text": "…or more expensive, whether because of supplier capacity constraint, industry shortages, legal or regulatory changes that restrict supply sources, geopolitical tensions, trade restrictions, tariffs, transportation disruptions, supplier financial distress, natural disasters, public health events, instability in regions important to our or our suppliers’ supply chains, or other reasons, we may not obtain timely replacement supplies, or may be able to obtain supplies only by entering into long-term purchase commitments, price commitments, paying prices above prevailing market rates, or other arrangements on terms that are less favorable than prevailing market terms. Any delay or inability to obtain necessary equipment, hardware, or components on acceptable terms and timelines could delay infrastructure deployments, result in reduced sales, higher costs, or   22",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "41",
+   "match": "equity method investment",
+   "text": "…interest rates, equity prices, and credit; to enhance investment returns; and to facilitate portfolio diversification. Gains and losses from changes in fair values of derivatives that are not designated as hedging instruments are primarily recognized in other income (expense), net.   Other income (expense), net included $6.5 billion of net gains and $4.8 billion of net losses for fiscal years 2026 and 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for fiscal year 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.   Fiscal Year 2026 Compared with Fiscal Year 2025   Interest and dividends income increased primarily due to higher portfolio balances and higher yields on debt securities. Interest expense increased primarily due to higher finance lease interest expense, offset in part by higher capitalization of debt interest expense. Net recognized gains on investments increased primarily due to higher gains on equity securities and lower impairments in the current period. Net gains on derivatives increased primarily due to gains on equity derivatives in the current period as compared to losses in the prior period. Other, net primarily reflects net recognized gains on equity method investments, including OpenAI.   INCOME TAXES   Effective…",
+   "amounts": [
+    {
+     "raw": "$6.5 billion",
+     "usdM": 6500
+    },
+    {
+     "raw": "$4.8 billion",
+     "usdM": 4800
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "44",
+   "match": "Purchase commitments",
+   "text": "…and Other Obligations   Contractual Obligations   The following table summarizes the payments due by fiscal year for our outstanding contractual obligations as of June 30, 2026:   (In millions)   2027   Thereafter   Total   Long-term debt: (a)   Principal payments   $   9,250   $   36,886   $   46,136   Interest payments   1,405   24,148   25,553   Construction commitments (b)   29,848   4,718   34,566   Operating and finance leases, including imputed interest (c)   32,411   411,095   443,506   Purchase commitments (d)   169,008   25,052   194,060   Total   $   241,922   $   501,899   $   743,821   (a) Refer to Note 10 – Debt of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   (b) Refer to Note 6 – Property and Equipment of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   (c) Refer to Note 13 – Leases of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   (d) Purchase commitments primarily relate to datacenters and include open purchase orders and take-or-pay contracts that are not presented as construction commitments above.   Share Repurchases   During fiscal years 2026 and 2025, we repurchased 36 million shares and 31 million shares of our common stock for $16.7 billion and $13.0 billion, respectively, through our share repurchase program. All repurchases were made using cash resources. As of June 30, 2026,…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "match": "Equity method investment",
+   "text": "…across our portfolio of contracts.   Measurement and Impairment of Investment Securities   Investments purchased by Microsoft are typically accounted for as available-for-sale debt securities, equity investments with readily determinable fair values, or equity investments without readily determinable fair values measured using either the equity method when required or at cost less impairments, if any, with adjustments for observable changes in price (referred to as the measurement alternative). Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   We review debt investments quarterly for credit losses and impairment. If the cost of an investment exceeds its fair value, we evaluate, among other factors, general market conditions, credit quality of debt instrument issuers, and the extent to which the fair value is less than cost. This determination requires significant judgment. In making this judgment, we employ a systematic methodology that considers available quantitative and qualitative evidence in evaluating potential impairment of our investments. In addition, we consider specific …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "59",
+   "match": "variable interest entit",
+   "text": "…e of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting or the measurement alternative.   59",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "59",
+   "match": "Equity method investment",
+   "text": "… whether the securities are comparable, including consideration of the rights and preferences of the securities, the composition of the investor group, and other relevant facts and circumstances. For equity investments not recorded at fair value, we perform a qualitative assessment on a periodic basis and recognize an impairment if there are sufficient indicators that the fair value of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE in…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "60",
+   "match": "equity method investee",
+   "text": "PART II   Item 8   We have a long-term strategic partnership with OpenAI. In October 2025, we signed a new definitive agreement with OpenAI that extends this partnership. We have an investment accounted for under the equity method that represents an approximate 25 % interest on an as-converted basis. As an equity method investee, OpenAI is a related party as defined in Accounting Standards Codification Topic 850, Related Party Disclosures (“ASC 850”). In accordance with ASC 850, we are disclosing revenue and accounts receivable balances from transactions with OpenAI. For fiscal year 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $ 24.1 billion, and accounts receivable from OpenAI as of June 30, 2026 was $ 6.0 billion. We have made total funding commitments of $ 13.0 billion related to our investment, of which $ 11.9 billion has been funded as of June 30, 2026. We calculate our equity method income or loss using the hypothetical liquidation at book value (“HLBV”) method because our liquidation rights and priorities differ from our underlying ownership interest. Under the HLBV method, we recognize income or loss based on the chan…",
+   "amounts": [
+    {
+     "raw": "$ 24.1 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "62",
+   "match": "equity method investment",
+   "text": "…ses) on derivatives   1,867   ( 260   )   ( 187   )   Net gains (losses) on foreign currency remeasurements   ( 527   )   171   ( 244   )   Other, net   4,722   ( 4,725   )   ( 1,319   )   Total   $   10,697   $   ( 4,901   )   $   ( 1,646   )   Other income (expense), net included $ 6.5 billion of net gains, $ 4.8 billion of net losses, and $ 1.5 billion of net losses for fiscal years 2026, 2025, and 2024, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for fiscal year 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.   62",
+   "amounts": [
+    {
+     "raw": "$ 6.5 billion",
+     "usdM": 6500
+    },
+    {
+     "raw": "$ 4.8 billion",
+     "usdM": 4800
+    },
+    {
+     "raw": "$ 1.5 billion",
+     "usdM": 1500
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "78",
+   "match": "not yet commenced",
+   "text": "…turities of our lease liabilities as of June 30, 2026:   (In millions)   Year Ending June 30,   Operating   Leases   Finance   Leases   2027   $   6,082   $   7,121   2028   4,334   7,294   2029   3,146   6,668   2030   2,612   6,570   2031   2,316   6,543   Thereafter   6,216   55,490   Total lease payments   24,706   89,686   Less imputed interest   ( 2,781   )   ( 23,092   )   Total   $   21,925   $   66,594   As of June 30, 2026, we had additional leases, primarily for datacenters, that had not yet commenced of $ 329.1 billion, with some arrangements subject to certain contractual conditions being met. These leases will commence between fiscal year 2027 and fiscal year 2033 with lease terms of 1 year to 20 years.   78",
+   "amounts": [
+    {
+     "raw": "$ 329.1 billion",
+     "usdM": 329100
+    }
+   ]
+  }
+ ]
+}

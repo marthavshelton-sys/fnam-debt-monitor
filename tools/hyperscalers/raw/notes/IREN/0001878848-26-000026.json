@@ -1,0 +1,70 @@
+{
+ "ticker": "IREN",
+ "cik": 1878848,
+ "form": "10-Q",
+ "accn": "0001878848-26-000026",
+ "filed": "2026-05-08",
+ "report": "2026-03-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000026/iren-20260331.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 67,
+ "numberedPages": 66,
+ "hits": [
+  {
+   "kind": "guarantee",
+   "page": "2",
+   "match": "guarantees",
+   "text": "…affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our capital needs and facilitate our expansion plans;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any existing or future financing or grant of security, which could require us to comply with onerous covenants, restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems, provide software, and operate and expand our high-performance computing (“HPC”) business (including our AI Cloud Services business and, potentially, colocation services such as powered shell, build-to-suit and turnkey data centers (“Colocation Services”) (collectively “HPC and AI services”));   2",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "2",
+   "match": "build-to-suit",
+   "text": "…covenants, restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid cooling systems, provide software, and operate and expand our high-performance computing (“HPC”) business (including our AI Cloud Services business and, potentially, colocation services such as powered shell, build-to-suit and turnkey data centers (“Colocation Services”) (collectively “HPC and AI services”));   2",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "4",
+   "match": "joint venture",
+   "text": "…approvals and/or licenses required for our operations, construction activities and business which could be delayed by regulatory approval processes, may not be successful or may be cost prohibitive;   • the availability, suitability, reliability and cost of internet connections at our facilities;   • the pending acquisitions of Mirantis, Inc. (“Mirantis”) and of the Ingenostrum, S.L. (trading as Nostrum Group) (“Nostrum Group”), as well as any other pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to obtain the requisite regulatory approvals, satisfy the applicable closing conditions and to consummate any such transactions on terms favorable to the Group or at all, as well as to successfully integrate and achieve the anticipated benefits of any such acquisition that may be completed;   • unanticipated costs or liabilities associated with the pending acquisition of Mirantis or Nostrum Group, or any other pending or future acquisitions, dispositions, joint ventures or other strategic transactions, and any failure to comply with laws, rules, regulations or business practices that we may become subject to as a result of any expansion of our business in connection with the pending acquisition of Mirantis or Nostrum Group or any other such acquisition, joint venture or other strategic transaction;   • our ability to o…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "5",
+   "match": "joint venture",
+   "text": "• our ability to obtain, maintain, protect and enforce our intellectual property rights and confidential information;   • any intellectual property infringement and product liability claims;   • whether the secular trends we expect to drive growth in our business materialize to the degree we expect them to, or at all;   any pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to consummate any such transactions on terms favorable to the Group or at all;   • the occurrence of any environmental, health and safety incidents at our sites, and any material costs relating to environmental, health and safety requirements or liabilities;   • damage to our property and infrastructure and the risk that any insurance we maintain may not fully cover all potential exposures;   • settlement and termination of proceedings relating to the default under certain equipment financing facilities, ongoing securities litigation, and any future litigation, claims and/or regulatory investigations, and the costs, expenses, use of resources, diversion of management time and efforts, liability and damages that may result therefrom;   • our failure to comply with any laws including the anti-corruption and sanctions law…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "45",
+   "match": "guarantee",
+   "text": "…ary products and services, scheduled to be delivered in phases during the second half of calendar year 2026, for an aggregate purchase price of approximately $1.2 billion payable in installments within 30 days of each tranche shipping, subject to rights to adjust the price based on independent review due to certain cost increases.   The Dell Purchase Agreements contain customary representations, warranties, covenants, indemnities and termination rights. The Company has agreed to unconditionally guarantee the obligations of IE CA Leasing and IE US Hardware 1 under the Dell Purchase Agreements.   Commitment for GPU Financing   On February 4, 2026, the Group entered into a binding commitment letter pursuant to which Goldman Sachs Bank USA and JPMorgan Chase Bank, N.A. have, subject to certain conditions, committed to underwrite a delayed draw financing of approximately $3.6 billion to support satisfaction of the Group’s obligations under the Microsoft Agreement. The proposed facility is expected to be secured by the GPUs the Group proposes to utilize to service, and the cash flows to be generated from, the Microsoft Agreement, with phased drawdowns through 2026, and remains subject to execution of definitive agreements and customary closing conditions. No assurances can be given that the delayed draw term loan facility will be entered into in the amount indicated above or at all. …",
+   "amounts": [
+    {
+     "raw": "$3.6 billion",
+     "usdM": 3600
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "58",
+   "match": "guarantee",
+   "text": "… of the Convertible Notes and Capped Call Transactions.   Equipment Leasing Agreements   On November 5, 2025, the Group entered into financing arrangements with Dell Financial Services to finance a portion of the Group’s GPU orders. The facility provides $199.8 million of financing, structured as a 24-month lease. The lease includes a purchase option at the Group’s sole discretion, allowing the acquisition of the GPUs upon maturity of the lease for $1. The Company has agreed to provide a parent guarantee with respect to all payment obligations under this facility.   Off-Balance Sheet Arrangements   As of March 31, 2026, there have been no material changes to our off-balance sheet arrangements as reported under Item 7 in the Annual Report.   Historical Cash Flows   The following table sets forth a summary of our historical cash flows for the nine months ended March 31, 2026 and 2025 presented.   Nine Months Ended  March 31,   2026 2025   ($ thousands) ($ thousands)   Net cash from (used in) operating activities   289,326 142,745   Net cash from (used in) investing activities   (2,608,931) (1,010,311)   Net cash from (used in) financing activities   3,968,769 648,811   Net cash and cash equivalents increase/(decrease) 1,649,164 (218,755)   Cash and cash equivalents at the beginning of the period   564,526 404,601   Effects of exchange rate changes on cash and cash equivalents   (…",
+   "amounts": [
+    {
+     "raw": "$199.8 million",
+     "usdM": 199.8
+    },
+    {
+     "raw": "$1. ",
+     "usdM": null
+    }
+   ]
+  }
+ ]
+}

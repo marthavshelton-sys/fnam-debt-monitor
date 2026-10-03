@@ -74,6 +74,12 @@ dashboards, everything built from public data by GitHub Actions.
   Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
   routine (`tools/oracle/NEWS-SWEEP-PROMPT.md`). Off-balance-sheet figures carry filing/note/accession and an XBRL
   verdict; uncommenced leases are never added to debt. Read `tools/oracle/MEMORY.md` and `METHODOLOGY.md` first.
+- Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, module 3 `capex/`, module 6
+  `fuera-de-balance/`, `metodologia/`, `glosario/`, quality pages per module; phases 2–3 (capacity, sites, electricity,
+  circular financing) await the owner's go. Ten companies in `tools/hyperscalers/companies.json`. Every datum carries a
+  source tier (T1 SEC, T2 company, T3 regulator, T4 estimate; FactSet = dated snapshot, not T1 until matched) and an ⓘ
+  card; "Not tagged" (absent from XBRL) is never written as "Not disclosed"; nothing is imputed; leases not yet commenced
+  are never added to present-value debt. Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

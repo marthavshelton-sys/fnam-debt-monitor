@@ -1,0 +1,372 @@
+{
+ "ticker": "APLD",
+ "cik": 1144879,
+ "form": "10-Q",
+ "accn": "0001144879-26-000030",
+ "filed": "2026-04-08",
+ "report": "2026-02-28",
+ "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000030/apld-20260228.htm",
+ "harvested": "2026-10-03",
+ "pageCount": 77,
+ "numberedPages": 76,
+ "hits": [
+  {
+   "kind": "guarantee",
+   "page": "8",
+   "match": "guarantee",
+   "text": "… RESTRICTED CASH, END OF PERIOD 2,107,673 261,224   SUPPLEMENTAL DISCLOSURE OF CASH FLOW INFORMATION   Interest paid $ 93,455 $ 54,855   SUPPLEMENTAL DISCLOSURE OF NON-CASH ACTIVITIES   Operating right-of-use assets obtained by lease obligation $ — $ 20,280   Finance right-of-use assets obtained by lease obligation $ 25,214 $ 106,754   Property and equipment in accounts payable and accrued liabilities $ ( 564,230 ) $ 142,787   Conversion of debt to common stock $ — $ 104,945   Consideration for guarantee of an affiliate's obligations   $ 2,000 $ —   Conversion of preferred stock to common stock $ 800,214 $ 53,191   Cashless exercise of warrants $ 1 $ 5   Issuance of warrants, at fair value $ 104,705 $ 50,586   Non-cash dividends paid in-kind   $ ( 31,980 ) $ —   See accompanying notes to the unaudited condensed consolidated financial statements   8",
+   "amounts": [
+    {
+     "raw": "$ 25,214 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 106,754   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 142,787   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 104,945   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 800,214 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 53,191   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 104,705 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 50,586   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "10",
+   "match": "variable interest entit",
+   "text": "…nnual consolidated financial statements on Form 10-K have been condensed or omitted. The unaudited condensed consolidated balance sheet as of May 31, 2025 has been derived from the audited consolidated financial statements as of that date, but does not include all disclosures required for audited annual financial statements.   The unaudited condensed consolidated financial statements include the accounts of the Company and its consolidated subsidiaries and entities that meet the definition of a variable interest entity (“VIE”) for which the Company is considered the primary beneficiary. See Note 9 - Variable Interest Entity for further discussion.   In the Company’s opinion, all necessary adjustments have been made for the fair presentation of the results of the interim periods presented. The results of operations for such interim periods are not necessarily indicative of the results to be expected for the full year. For further information, please refer to and read these interim unaudited condensed consolidated financial statements in conjunction with the Company's audited consolidated financial statements included in the Company's Annual Report on Form 10-K for the fiscal year ended May 31, 2025 filed with the SEC on July 30, 2025.   2. Significant Accounting Policies   Significant Accounting Policies and Use of Estimates   Use of Estimates   The preparation of the unaudited …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "12",
+   "match": "Variable Interest Entit",
+   "text": "…2016-01, the Company records all equity investments with readily determinable fair values at fair value calculated by the publicly traded stock price at the close of the reporting period within gain (loss) on change in fair value of investments on the unaudited condensed consolidated statement of operations. .   For further discussion of the Company’s investments in equity securities, see Note 5 - Related Party Transactions, Note 7 - Balance Sheet Components , and Note 8 - Derivative Assets .   Variable Interest Entity   The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power   12",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "13",
+   "match": "primary beneficiary",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its variable interest holders. The Company also evaluates its economic interests in the VIE. All intercompany amounts and transactions have been eliminated.   Redeemable Noncontrolling Interest   The Company determined for the noncontrolling interest, the initial amount presented in temporary equity should be the initial carrying amount of the noncontrolling interest pursuant to ASC 805-20-30. Under ASC 805-20-30, noncontrolling interests are initially measured at fair value at the acquisition date. However, as the noncontrolling interest has embedded features that require bifurcation, the fair value at issuance must be allocated between the components. The Company …",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "13",
+   "match": "Joint Venture",
+   "text": "…ws as of February 28, 2026 and May 31, 2025 were as follows (in thousands):   February 28, 2026 May 31, 2025   Cash and cash equivalents $ 1,730,440 $ 43,950   Restricted cash   198,423 72,368   Restricted cash included in other assets 178,810 7,000   Total cash, cash equivalents, and restricted cash $ 2,107,673 $ 123,318   Recent Accounting Pronouncements   Accounting Pronouncements Adopted   In August 2023, the FASB issued Accounting Standards Update (“ASU”) No. 2023-05, Business Combinations-Joint Venture Formations (Subtopic 805-60): Recognition and Initial Measurement, which is intended to provide guidance for the formation of a joint venture, including the initial measurement of assets and liabilities, the formation date, and basis of accounting. This new standard became effective for annual reporting periods beginning on or after January 1, 2025, with   13",
+   "amounts": [
+    {
+     "raw": "$ 2,107,673 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 123,318   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "16",
+   "match": "Guarantee",
+   "text": "… the individual had ceased to be a beneficial owner of more than 5 % of such class of securities.   Base Electron   Base Electron, Inc., a Nevada corporation, (“Base Electron”) is an independent power producer owned and managed by a combination of third parties, as well as certain officers and directors of the Company acting in their individual capacities, for the purpose of developing stabilized power generation and infrastructure to support the broader AI industry.   The Company is party to a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which it has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the   16",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "17",
+   "match": "Guarantee",
+   "text": "…ents (Unaudited)   For the Three and Nine Months Ended February 28, 2026   “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $ 50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $ 50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $ 100 million. As of February 28, 2026, no liability has been recognized in the unaudited condensed consolidated financial statements, as the Company has determined that the likelihood of Base Electron failing to perform or the Company terminating the Guarantee is not probable.   In connection with and as partial consideration for th…",
+   "amounts": [
+    {
+     "raw": "$ 50 million",
+     "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "17",
+   "match": "Guarantee",
+   "text": "…pany of a termination fee equal to either $ 50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $ 100 million. As of February 28, 2026, no liability has been recognized in the unaudited condensed consolidated financial statements, as the Company has determined that the likelihood of Base Electron failing to perform or the Company terminating the Guarantee is not probable.   In connection with and as partial consideration for the Company’s entry into the Guarantee, Base Electron issued to the Company approximately 10 % of Base Electron’s outstanding equity. The investment in Base Electron will be accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value and will be evaluated quarterly for impairment indicators. There were no impairment indicators during the quarter. As of February 28, 2026, the Company determined the fair value of the investment was $ 2.0 million, which was recorded as an other asset on the unaudited condensed consolidated balance sheets and a gain on change in fair value of investment on the unaudited condensed consolidated statements of operations.   Other Related Party Transactions   Related party transactions included within selling, general and administrative expense on the unaudited condensed consolidated statement of operations include software license fees of $ 0.1 …",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "17",
+   "match": "guaranteed",
+   "text": "… debt (6)   31,439 12,275   Deferred financing costs, net of amortization   ( 250,444 ) ( 181,329 )   Less: Current portion of debt   ( 98,174 ) ( 10,331 )   Long-term debt, net $ 2,594,501 $ 677,825   (1) The net carrying amount of the Convertible Notes was $ 275.3 million and $ 273.3 million and the remaining unamortized deferred financing costs related to the issuance was $ 174.7 million and $ 176.7 million, each as of February 28, 2026 and May 31, 2025, respectively.   (2) The SMBC Loan was guaranteed by APLD HPC TopCo LLC, a wholly-owned subsidiary of the Company, and was secured by a continuing security interest in all of the membership interests of the borrower, APLD HPC Holdings LLC, including a mortgage on certain properties as defined in the collateral agency, security and depositary agreement.   17",
+   "amounts": [
+    {
+     "raw": "$ 275.3 million",
+     "usdM": 275.3
+    },
+    {
+     "raw": "$ 273.3 million",
+     "usdM": 273.3
+    },
+    {
+     "raw": "$ 174.7 million",
+     "usdM": 174.7
+    },
+    {
+     "raw": "$ 176.7 million",
+     "usdM": 176.7
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "18",
+   "match": "guaranteed",
+   "text": "…nts (Unaudited)   For the Three and Nine Months Ended February 28, 2026   During the quarter ended February 28, 2026, concurrent with the closing of the 2030 Senior Secured Notes offering (see below), the Company repaid in full the aggregate principal balance plus accrued interest. As of May 31, 2025, there were $ 4.4 million of unamortized deferred financing costs. The average SOFR plus the applicable margin for the fiscal year ended May 31, 2025 was 7.82 %.   (3) The Starion Ellendale Loan is guaranteed by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in substantially all of the assets of the Ellendale Data Center Hosting facility (as defined in the Starion Ellendale Loan), and a security interest in the form of a collateral assignment of the Company’s rights and interests in all master hosting agreements related to APLD ELN-01 LLC.   (4) The Cornerstone Bank Loan is guaranteed by APLD GPU-01, LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in multiple Terms of Service Agreements for HPC based systems related to AI Cloud Computing Services, which are to be serviced at the Jamestown hosting facility.   (5) The Starion Term Loan is guaranteed by APLD Hosting, LLC, a wholly-owned subsidiary of the Company, and is secured by the Jamestown hosting facility, a security interest in substantially …",
+   "amounts": [
+    {
+     "raw": "$ 4.4 million",
+     "usdM": 4.4
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "19",
+   "match": "guarantee",
+   "text": "…, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   On November 28, 2025, the Company repaid the Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return. As a result, the accrued interest and rate of return on the Macquarie Promissory Note of $ 1.4 million was capitalized to CIP commensurate with the use of proceeds associated with construction.   2030 Senior Secured Notes   On November 20, 2025, APLD ComputeCo LLC (“Issuer”), a subsidiary of the Company, completed a private offering of 9.25 % Senior Secured Notes due 2030 (the “2030 Notes”). The 2030 Notes were sold pursuant to the terms of a purchase agreement, dated as of November 13, 2025 and as amended thereafter, entered into by and among the Issuer, the subsidiary guarantors party thereto (the “Subsidi…",
+   "amounts": [
+    {
+     "raw": "$ 1.4 million",
+     "usdM": 1.4
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "20",
+   "match": "guarantee",
+   "text": "…030 Notes redeemed, plus a “make-whole” premium and accrued and unpaid interest, if any. In addition, prior to December 15, 2027, the Issuer may redeem up to 40 % of the aggregate principal amount of the 2030 Notes in an amount not to exceed the amount of the proceeds of certain equity offerings, at the redemption price set forth in the Indenture, plus accrued and unpaid interest.   The Indenture limits the ability of the Issuer and the Subsidiary Guarantors to, among other things: (i) incur or guarantee additional indebtedness; (ii) pay dividends or distributions on, or redeem or repurchase, capital stock and make other restricted payments; (iii) make certain investments; (iv) create or incur liens; (v) consummate certain asset sales; (vi) enter into sale and lease back transactions; (vii) hold assets or conduct operations unrelated to the operation of the Facilities and certain additional projects; (viii) engage in certain transactions with its affiliates; and (ix) merge, consolidate or transfer or sell all or substantially all of its assets. These covenants are subject to a number of important qualifications and exceptions as set forth in the Indenture. Additionally, upon the occurrence of specified change of control events, the Issuer must offer to repurchase the 2030 Notes at 101 % of the principal amount, plus accrued and unpaid interest, if any, to, but excluding, the pu…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "20",
+   "match": "guarantee",
+   "text": "… or substantially all of its assets. These covenants are subject to a number of important qualifications and exceptions as set forth in the Indenture. Additionally, upon the occurrence of specified change of control events, the Issuer must offer to repurchase the 2030 Notes at 101 % of the principal amount, plus accrued and unpaid interest, if any, to, but excluding, the purchase date. The Indenture also provides for customary events of default.   The Company will provide a customary completion guarantee with respect to each Project (as defined in the Indenture) related to the Facilities, which will require the Company to provide the Issuer funds as necessary to ensure the achievement of the applicable Commencement Date (as defined in the Indenture) under the respective data center lease in the event that the proceeds of the 2030 Notes and the available funds (including previous equity contributions from the Company) are insufficient to do so.   As of February 28, 2026, remaining unamortized deferred financing costs related to the issuance of the loan was $ 6.4 million.   DevCo Facility   On December 18, 2025, APLD DevCo LLC (the “Borrower”), a subsidiary of the Company, entered into an ongoing credit arrangement with MEC (as defined above), for the purposes of funding the initial sourcing, planning, development and construction costs associated with a new data center project (…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "21",
+   "match": "guarantee",
+   "text": "…ited condensed consolidated balance sheet.   Proceeds from the Loan will be used, in part, to (i) pay transaction expenses, and (ii) fund the purchase, development and improvement of, and the purchase of equipment for, the Company’s latest new project under development.   In connection with the Loan, (i) APLD Intermediate HoldCo LLC, a Delaware limited liability company, as direct parent of the Borrower (“Intermediate Holdings”), the Borrower, and the Borrower’s subsidiaries have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of MEC (the “Guarantee and Collateral Agreement”), and (ii) the Company has entered into a parent guarantee in favor of MEC to guarantee the obligations of the Note Parties under the Promissory Note.   21",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "24",
+   "match": "Variable Interest Entit",
+   "text": "…rrants are based on the following significant inputs:   November 4, 2025 February 28, 2026   Time to expiry 7 years 6.68 years   Stock price $ 3.74 $ 8.86   Volatility 115.0 % 107.5 %   Risk-free rate 3.84 % 3.65 %   Dividend yield — % — %   During the three and nine months ended February 28, 2026, the Company recorded gains of $ 6.1 million and $ 19.2 million, related to the change in fair value of derivatives, respectively, on the unaudited condensed consolidated statement of operations.   9. Variable Interest Entity   Based upon the criteria set forth in ASC 810, Consolidation , the Company consolidates variable interest entities (“VIEs”) in which it has a controlling financial interest and is therefore deemed the primary beneficiary. A controlling financial interest will have both of the following characteristics: (a) the power to direct the VIE activities that most significantly impact economic performance; and (b) the obligation to absorb the VIE losses and the right to receive benefits that are significant to the VIE. As of November 30, 2025, the Company has determined that it was the primary beneficiary of one VIE, APLD HPC TopCo 2 LLC (“TopCo 2”), as it has both the power to direct the activities that most significantly impact the entity’s economic performance and the obligation to absorb losses or the right to receive benefits that could potentially be significant to …",
+   "amounts": [
+    {
+     "raw": "$ 6.1 million",
+     "usdM": 6.1
+    },
+    {
+     "raw": "$ 19.2 million",
+     "usdM": 19.2
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "35",
+   "match": "Variable Interest Entit",
+   "text": "…PPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   of Series G Preferred Stock, respectively, were converted into 5.6 million and 49.2 million shares of the Company’s common stock, respectively. As of February 28, 2026, no shares of Series G Preferred Stock were issued and outstanding.   Redeemable Noncontrolling Interest   APLD HPC TopCo 2 LLC   As discussed within Note 9 - Variable Interest Entity above, APLD HPC TopCo 2 LLC (“TopCo 2”) completed three closings under its A&R UPA as of February 28, 2026, issuing 900,000 preferred units and 102,778 corresponding common units for $ 900.0 million to MIP HPC Holdings, LLC, which resulted in a redeemable noncontrolling interest.   The preferred units accrue dividends at a rate of 12.75 % per annum, which accrue daily and compound semi-annually, and which, if not redeemed by then, will increase by 87.5 basis points on each of October 7, 2030 and October 7, 2031, and by 200 basis points on October 7, 2035 and each one-year anniversary thereof, up to a maximum rate of 16.75 %. The dividend rate will be further increased (i) by the amount that the weighted average all-in annual interest rate on certain indebtedness exceeds 8.75 % per annum for so long as such indebtedness is outstanding and (ii) for so long as certa…",
+   "amounts": [
+    {
+     "raw": "$ 900.0 million",
+     "usdM": 900
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "36",
+   "match": "guaranteed",
+   "text": "…h was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will e…",
+   "amounts": []
+  },
+  {
+   "kind": "rvg",
+   "page": "37",
+   "match": "residual value guarantee",
+   "text": "…26   option or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY26 $ 36,000   FY27 479,540   FY28 855,950   FY29 883,279   FY30 908,393   Thereafter 12,351,943   Total $ 15,515,105   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   Components of lease expense were as follows (in thousands):   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Operating lease cost:   Operating lease expense $ 1,109 $ 9,889 $ 1,457 $ 27,771   Short-term lease expense 13 166 1,002 251   Total operating lease cost 1,122 10,055 2,459 28,022   Finance lease expense:   Amortization of right-of-use assets (1)   5,455 15,792 11,983 70,443   Interest on lease liabilities 715 5,064 1,735 14,343   Total finance lease cost 6,170 20,856 13,718 84,786   Variable lease cost 588 795 2,018 1,829   T…",
+   "amounts": [
+    {
+     "raw": "$ 15,515,105   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "37",
+   "match": "guarantees",
+   "text": "…the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY26 $ 36,000   FY27 479,540   FY28 855,950   FY29 883,279   FY30 908,393   Thereafter 12,351,943   Total $ 15,515,105   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   Components of lease expense were as follows (in thousands):   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Operating lease cost:   Operating lease expense $ 1,109 $ 9,889 $ 1,457 $ 27,771   Short-term lease expense 13 166 1,002 251   Total operating lease cost 1,122 10,055 2,459 28,022   Finance lease expense:   Amortization of right-of-use assets (1)   5,455 15,792 11,983 70,443   Interest on lease liabilities 715 5,064 1,735 14,343   Total finance lease cost 6,170 20,856 13,718 84,786   Variable lease cost 588 795 2,018 1,829   Total net lease …",
+   "amounts": [
+    {
+     "raw": "$ 15,515,105   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "38",
+   "match": "Guarantee",
+   "text": "…ur facilities. These engagements are governed by contracts containing standard terms and conditions, including certain milestones that obligate the Company to pay as work is completed. In the event of termination of any of these contracts by the Company, the Company would be liable for all work that has been completed or in process, plus any applicable fees. The Company generally has the right to cancel these open purchase orders prior to delivery or terminate the contracts without cause.   B&W Guarantee   The Company is party to a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which it has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   38",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "39",
+   "match": "Guarantee",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   The Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $ 50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $ 50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $ 100 million. As of February 28, 2026, no liability has been recognized in the unaudited condensed consolidated financial statements, as the Company has determined that the likelihood of Base Electron failing to perform or the Company terminating the Guarantee is not probable.   Claims and Litigation   From time to time, the Company…",
+   "amounts": [
+    {
+     "raw": "$ 50 million",
+     "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "44",
+   "match": "guaranteed",
+   "text": "…APLD ComputeCo 2 LLC and bear interest at a rate of 6.750 % per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 Notes Offering. The gross proceeds from the 2031 Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100 % of the aggregate principal amount thereof, plus accrued and unpaid inter…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "47",
+   "match": "Variable Interest Entit",
+   "text": "…siness segments, data center hosting (the \"Data Center Hosting Business\"), cloud services (the “Cloud Services Business”) and HPC data center hosting (the \"HPC Hosting Business\"), all of which are included in our consolidated financial statements and continuing operations, as further discussed below. Management considers the Data Center Hosting Business and the HPC Hosting Business to be its core operations for long-run strategic and performance evaluation purposes.   The Company consolidates a Variable Interest Entity (“VIE”) where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations . The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its variable interest holders. The Company also evaluates its economic interests in the VIE.   In the fourth quarter of fiscal year 2025, we determined that the Cloud Servi…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "50",
+   "match": "guaranteed",
+   "text": "… LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the second lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective Data Center Lease to which such subsidiary is a party.   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based invest…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "51",
+   "match": "joint venture",
+   "text": "…uded a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD HPC Holdings LLC and APLD HPC Holdings 2 LLC, including APLD ComputeCo LLC, the issuer of the Notes (“APLD ComputeCo LLC”), and additional internal transactions, including equity distributions and contributions and asset transfers, resulting in APLD ELN-02 LLC, APLD ELN-03 LLC, ELN-02 and ELN-03 being owned by APLD ComputeCo. APLD ComputeCo is wholly owned by a joint venture entity, APLD HPC TopCo 2, in which we own 90.0% of fully diluted common equity, and an affiliate of funds and investment vehicles managed by entities within MAM owns 10.0% of fully diluted common equity, as well as preferred equity.   In order to facilitate the 2031 Notes Offering (as defined below), we also completed a targeted reorganization of the entities and assets related to the Polaris Forge 2 campus consistent with the reorganizations completed in connecting with the 2030 Notes Offering. This reorganization includes a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD FAR Holdings LLC, including APLD ComputeCo 2 LLC (“APLD ComputeCo 2”), the issuer of the 2031 Notes, and additional internal transactions, including equity distributions and contributions and asset transfers. Under the result…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "51",
+   "match": "joint venture",
+   "text": "…reorganization includes a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD FAR Holdings LLC, including APLD ComputeCo 2 LLC (“APLD ComputeCo 2”), the issuer of the 2031 Notes, and additional internal transactions, including equity distributions and contributions and asset transfers. Under the resulting structure, APLD FAR-01 LLC and APLD FAR-02 LLC are owned by APLD ComputeCo 2. APLD ComputeCo 2 is wholly owned by a joint venture entity, APLD HPC TopCo 2, in which we own 90.0% of fully diluted common equity, and an affiliate of funds and investment vehicles managed by entities within MAM owns 10.0% of fully diluted common equity, as well as preferred equity.   Debt and Equity Offerings and Changes to Equity   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.   Series G Preferred Stock   On August 14, 2025, we entered into the first amendment (the “First Amendmen…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "53",
+   "match": "guarantee",
+   "text": "… to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   On November 28, 2025, the Company repaid the Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return.   Amended and Restated Unit Purchase Agreement   As previously disclosed, on January 13, 2025, APLD HPC Holdings LLC (formerly, APLD ELN-02 Holdings LLC), an indirect wholly owned subsidiary of the Company, entered into a Unit Purchase Agreement (the “Unit Purchase Agreement” or “UPA”) for its HPC Hosting Business with MIP VI HPC Holdings, LLC, which is an affiliate of funds and investment vehicles managed by entities within Macquarie Asset Management (“MAM”). On February 11, 2025, APLD HPC Holdings LLC novated and assigned its rights, title and interests and duties, liabilities and obligations under the UPA…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "55",
+   "match": "guaranteed",
+   "text": "Table of Contents   guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo. Other than a customary completion guarantee, the Company is not providing credit support for the 2030 Notes Offering.   SMBC Loan Extinguishment   Concurrently with the closing of the 2030 Notes Offering, we repaid in full the aggregate principal balance plus accrued interest under the Credit and Guaranty Agreement, dated as of February 11, 2025, by and among APLD HPC Holdings LLC, the Subsidiary Guarantors thereunder (as defined therein), the lenders party thereto and Sumitomo Mitsui Banking Corporation (“SMBC”), as administrative agent.   DevCo Facility   On December 18, 2025, APLD DevCo LLC (the “Borrower”), a subsidiary of the Company, entered into an ongoing credit arrangement with MEC, for the purposes of funding the initial sourcing, planning, development and construction costs a…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "55",
+   "match": "guarantee",
+   "text": "…tion (as defined therein) has not occurred on or before April 18, 2026, or (iii) December 18, 2027 (the “Maturity Date”).   Proceeds from the Loan will be used, in part, to (i) pay transaction expenses, and (ii) fund the purchase, development and improvement of, and the purchase of equipment for, our latest new project under development.   In connection with the Loan, (i) APLD Intermediate as direct parent of the Borrower, and the Borrower’s subsidiaries (the “Note Parties”) have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of MEC (the “Guarantee and Collateral Agreement”), and (ii) the Company has entered into a parent guarantee in favor of MEC to guarantee the obligations of the Note Parties under the Promissory Note.   55",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "56",
+   "match": "guaranteed",
+   "text": "… APLD ComputeCo 2 LLC and bear interest at a rate of 6.750% per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 Notes Offering. The gross proceeds from the 2031 Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100% of the aggregate principal amount thereof, plus accrued and unpaid intere…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "56",
+   "match": "Guarantee",
+   "text": "…agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100% of the aggregate principal amount thereof, plus accrued and unpaid interest.   B&W Guarantee   On February 26, 2026, the Company entered into a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which Applied Digital has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under that certain Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company’s obligations under the Guarantee are absolute and unconditional…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "56",
+   "match": "Guarantee",
+   "text": "… a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company’s obligations under the Guarantee are absolute and unconditional and continue until all obligations under the Design-Build Agreement have been fully performed or otherwise discharged. However, the Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $100 million.   B&W Warrants   On November 4, 2025, the Company and Babcock & Wilcox Enterprises, Inc. (“BWE”), B&W’s parent, entered into an agreement under which the Company contributed $2.0 million to BWE in exchange for 500,000 shares of BWE’s common stock and warrants to purchase 2,600,000 shares of BWE’s common stock with an exer…",
+   "amounts": [
+    {
+     "raw": "$50 million",
+     "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "73",
+   "match": "Guarantee",
+   "text": "…Agreement, dated October 21, 2025, by and between the Company and the investors signatory thereto (Incorporated by re ference to Exhibit 10.1 to the Company ’ s Current Report on Form 8-K filed with the SEC on October 21, 2025) .   10.2^† Promissory Note, dated December 18, 2025, issued by APLD DevCo LLC and payable to Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.3† Parent Guarantee, dated December 18, 2025, issued by Applied Digital Corporation in favor of Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.2 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.4^† Guarantee and Collateral Agreement, dated December 18, 2025, by APLD DevCo LLC, APLD Intermediate HoldCo LLC, and the other Grantors defined therein in favor of Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.3 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.5#   Performance Stock Unit Award, dated January 6, 2026, by and between Applied Digital Corporation and Wes Cummins (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K f iled with the SEC on January 8, 2026).   10.6#   Restricted Stock Unit Award, dated January 6, 2026, by a…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "73",
+   "match": "Guarantee",
+   "text": "… Holdings, Inc., APLD ChronoScale Holdco LLC, APLD Intermediate Holdco LLC, and Applied Digital Cloud Corporation (Incorporated by reference to Exhibit 10.1 to the Comp any ’ s Current Report on Form 8-K filed with the SEC on February 17, 2026) .   10.13 Form of Investor Rights Agreement by and between ChronoScale Corporation and APLD ChronoScale Holdco LLC ( Incorporated by reference to Exhibit 10. 2 to the Company’s Current Report on Form 8-K filed with the SEC on February 17, 2026) .   10.14 Guarantee, dated February 26, 2026, by Applied Digital Corporation in favor of the Babcock & Wilcox Company (Incorporated by reference to Exhibit 10.1 to the Company ’ s Current Report on Form 8-K filed with the SEC on March 4, 2026).   10.15# Amended and Restated Performance Stock Unit Award , by and between Applied Digital Corporation and Jason Zhang (Incorporated by reference to the Exhibit 10.1 to the Company ’ s Current Report on Form 8-K/A filed with the SEC on March 13, 202 6).   10.16* Amendment No. 1, effective as of February 24, 2026, to the Promissory Note, dated December 18, 2025, issued by APLD DevCo LLC and payable to Macquarie Equipment Capital, Inc.   73",
+   "amounts": []
+  }
+ ]
+}

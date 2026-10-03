@@ -1,0 +1,15 @@
+{
+  "_comment": "Coverage universe of the Hyperscaler Hub (owner's choice, 2026-10-03): the six core companies with full filings-based data and the listed neocloud tier. fyEnd is the fiscal-year-end month (1-12). group: core | neocloud. Private counterparties (OpenAI, Anthropic, Crusoe, Lambda) are not covered companies; they appear only as counterparties in modules 6-7. Filer category and forms come from the EDGAR submissions API on every run, never from this file.",
+  "companies": [
+    { "ticker": "MSFT", "cik": 789019, "name": "Microsoft", "fyEnd": 6, "group": "core", "color": "#2f6f9f" },
+    { "ticker": "GOOGL", "cik": 1652044, "name": "Alphabet", "fyEnd": 12, "group": "core", "color": "#3f8f5a" },
+    { "ticker": "AMZN", "cik": 1018724, "name": "Amazon", "fyEnd": 12, "group": "core", "color": "#c07a1a" },
+    { "ticker": "META", "cik": 1326801, "name": "Meta", "fyEnd": 12, "group": "core", "color": "#5b5fc7" },
+    { "ticker": "ORCL", "cik": 1341439, "name": "Oracle", "fyEnd": 5, "group": "core", "color": "#b83a3a" },
+    { "ticker": "CRWV", "cik": 1769628, "name": "CoreWeave", "fyEnd": 12, "group": "core", "color": "#7a4fa0" },
+    { "ticker": "NBIS", "cik": 1513845, "name": "Nebius", "fyEnd": 12, "group": "neocloud", "color": "#2a8a8a", "note_en": "Foreign private issuer: annual report on Form 20-F (XBRL); quarterly results are furnished on Form 6-K without XBRL, so quarterly figures are not in the automated feed.", "note_es": "Emisor privado extranjero: informe anual en Forma 20-F (XBRL); los resultados trimestrales se entregan en Forma 6-K sin XBRL, por lo que las cifras trimestrales no entran al flujo automático." },
+    { "ticker": "IREN", "cik": 1878848, "name": "IREN", "fyEnd": 6, "group": "neocloud", "color": "#8a6d2a" },
+    { "ticker": "APLD", "cik": 1144879, "name": "Applied Digital", "fyEnd": 5, "group": "neocloud", "color": "#6b7f2a" },
+    { "ticker": "CORZ", "cik": 1839341, "name": "Core Scientific", "fyEnd": 12, "group": "neocloud", "color": "#9a4a6a" }
+  ]
+}

@@ -1,0 +1,812 @@
+{
+ "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (Claude routine or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here.",
+ "updated": "2026-10-03",
+ "items": [
+  {
+   "ticker": "MSFT",
+   "item": "leases_not_commenced",
+   "amountUSDm": 329100,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001193125-26-323660",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+    "section": "Note 13 — Leases",
+    "page": "78"
+   },
+   "quote": "As of June 30, 2026, we had additional leases, primarily for datacenters, that had not yet commenced of $329.1 billion, with some arrangements subject to certain contractual conditions being met. These leases will commence between fiscal year 2027 and fiscal year 2033 with lease terms of 1 year to 20 years.",
+   "commence": {
+    "from": "FY2027",
+    "to": "FY2033"
+   },
+   "termYears": [
+    1,
+    20
+   ],
+   "history": [
+    {
+     "as_of": "2026-03-31",
+     "usd_bn": 196.6,
+     "source": "10-Q 0001193125-26-191507 p.23"
+    },
+    {
+     "as_of": "2026-06-30",
+     "usd_bn": 329.1,
+     "source": "10-K 0001193125-26-323660 p.78"
+    }
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "MSFT",
+   "item": "purchase_obligation",
+   "amountUSDm": 194060,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001193125-26-323660",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+    "section": "Item 7 — Contractual obligations",
+    "page": "44"
+   },
+   "quote": "Purchase commitments $194,060 million (2027: $169,008 million; thereafter $25,052 million). Purchase commitments primarily relate to datacenters and include open purchase orders and take-or-pay contracts that are not presented as construction commitments above. Construction commitments: $34,566 million.",
+   "accounting": "ASC 440",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "MSFT",
+   "item": "funding_commitment",
+   "amountUSDm": 13000,
+   "basis": "notional",
+   "asOf": "2026-06-30",
+   "counterparty": "OpenAI",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001193125-26-323660",
+    "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/0001193125-26-323660-index.htm",
+    "section": "Note — Investments (OpenAI)",
+    "page": "60"
+   },
+   "quote": "We have an investment accounted for under the equity method that represents an approximate 25% interest on an as-converted basis... For fiscal year 2026, we recorded revenue from commercial arrangements with OpenAI, inclusive of revenue-sharing payments, of $24.1 billion, and accounts receivable from OpenAI as of June 30, 2026 was $6.0 billion. We have made total funding commitments of $13.0 billion related to our investment, of which $11.9 billion has been funded as of June 30, 2026.",
+   "accounting": "ASC 323 (equity method, HLBV)",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "leases_not_commenced",
+   "amountUSDm": 85200,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "section": "Item 2 — Contractual obligations (Note 4 — Leases)",
+    "page": "53"
+   },
+   "quote": "As of June 30, 2026, we have entered into leases, primarily related to data centers, that have not yet commenced with future lease payments of $85.2 billion. These leases will commence between 2026 and 2031 with non-cancelable lease terms between one and 26 years. Additionally, in June 2026, we entered into a short-term lease agreement with a non-cancelable commitment of approximately $5.8 billion, which will commence in the third quarter of 2026.",
+   "commence": {
+    "from": "2026",
+    "to": "2031"
+   },
+   "termYears": [
+    1,
+    26
+   ],
+   "history": [
+    {
+     "as_of": "2025-12-31",
+     "usd_bn": 58.5,
+     "source": "10-K 0001652044-26-000018, Note 4 ($5.8bn short-term + $52.7bn long-term)"
+    },
+    {
+     "as_of": "2026-06-30",
+     "usd_bn": 85.2,
+     "source": "10-Q 0001652044-26-000071 p.53"
+    }
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "backstop",
+   "amountUSDm": 43800,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "section": "Item 2 — Contractual obligations; Note 3 (credit derivatives)",
+    "page": "54"
+   },
+   "quote": "As of June 30, 2026, we provided backstops in the form of financial guarantees and credit derivatives with maximum potential amount of future payments of $7.6 billion and $43.8 billion, respectively. Upon a default under these backstops, we retain the right to assume the underlying leases for internal use or to sublease to third parties. Under specific conditions or following a predetermined period, we may elect to extinguish the backstop obligation by making a termination payment.",
+   "history": [
+    {
+     "as_of": "2025-12-31",
+     "usd_bn": 16.9,
+     "source": "10-K 0001652044-26-000018 (credit derivatives)"
+    },
+    {
+     "as_of": "2026-06-30",
+     "usd_bn": 43.8,
+     "source": "10-Q 0001652044-26-000071 p.54"
+    }
+   ],
+   "accounting": "ASC 815 (credit derivatives)",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "guarantee",
+   "amountUSDm": 7600,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "section": "Note 10 — Commitments and contingencies (financial guarantees)",
+    "page": "31"
+   },
+   "quote": "We provide financial guarantees to certain counterparties, primarily in the form of backstop agreements with varying terms through September 2026. These backstop agreements support counterparty procurement of long-lead time equipment for our future power purchase and energy agreements. As of June 30, 2026, our maximum potential amount of future payments under these guarantees was $7.6 billion, upon which we may receive certain assets.",
+   "accounting": "ASC 460",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "backstop",
+   "amountUSDm": 24100,
+   "basis": "notional",
+   "asOf": "2026-06-30",
+   "subsequent": true,
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "section": "Item 2 — Contractual obligations",
+    "page": "54"
+   },
+   "quote": "We have also entered into an agreement to provide an estimated $24.1 billion of future backstops to support the build-out of data center and energy supply infrastructure, subject to finalization of terms with data center providers.",
+   "note_en": "Agreed but not yet provided; terms not final.",
+   "note_es": "Acordado pero aún no otorgado; términos no definitivos.",
+   "accounting": "ASC 815 / 460 (when provided)",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "purchase_obligation",
+   "amountUSDm": 811000,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "section": "Item 2 — Purchase commitments and other contractual obligations",
+    "page": "54"
+   },
+   "quote": "As of June 30, 2026, we had material purchase commitments and other contractual obligations totaling $811.0 billion, of which $200.7 billion was short-term. These purchase commitments primarily relate to costs for technical infrastructure and inventory through long-term supply agreements and open purchase orders. Additional contractual obligations include commitments for content licenses and energy take-or-pay contracts.",
+   "accounting": "ASC 440",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "AMZN",
+   "item": "leases_not_commenced",
+   "amountUSDm": 137214,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001018724-26-000026",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm",
+    "section": "Note 4 — Commitments and contingencies (table)",
+    "page": "15"
+   },
+   "quote": "Leases not yet commenced: 4,018 (remainder of 2026), 11,732 (2027), 9,278 (2028), 9,483 (2029), 9,227 (2030), 93,476 (thereafter), total $137,214 million, in the table of principal contractual commitments as of June 30, 2026.",
+   "history": [
+    {
+     "as_of": "2025-12-31",
+     "usd_bn": 96.4,
+     "source": "10-K 0001018724-26-000004 p.59 ($96,373m)"
+    },
+    {
+     "as_of": "2026-06-30",
+     "usd_bn": 137.2,
+     "source": "10-Q 0001018724-26-000026 p.15"
+    }
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "AMZN",
+   "item": "purchase_obligation",
+   "amountUSDm": 130065,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001018724-26-000026",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm",
+    "section": "Note 4 — Commitments and contingencies (table)",
+    "page": "15"
+   },
+   "quote": "Unconditional purchase obligations: total $130,065 million as of June 30, 2026 (other commitments: $18,366 million; total commitments $650,034 million).",
+   "accounting": "ASC 440",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "AMZN",
+   "item": "vie_unconsolidated",
+   "amountUSDm": null,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "counterparty": "Anthropic; OpenAI",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001018724-26-000026",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm",
+    "section": "Note 1 — Investments",
+    "page": "13"
+   },
+   "quote": "Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in entities that we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.",
+   "accounting": "ASC 810",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "leases_not_commenced",
+   "amountUSDm": 278990,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note 9 — Commitments and contingencies",
+    "page": "20"
+   },
+   "quote": "In addition to the lease liabilities that are included on our balance sheet, we have operating and finance leases that have not yet commenced as of June 30, 2026. These lease obligations were approximately $278.99 billion, consisting of data centers, colocations, and certain network infrastructure, which will commence during the remainder of 2026 through 2036 with lease terms ranging from greater than one year to 30 years.",
+   "commence": {
+    "from": "2026",
+    "to": "2036"
+   },
+   "termYears": [
+    1,
+    30
+   ],
+   "history": [
+    {
+     "as_of": "2025-12-31",
+     "usd_bn": 103.77,
+     "source": "10-K 0001628280-26-003942 p.109"
+    },
+    {
+     "as_of": "2026-06-30",
+     "usd_bn": 278.99,
+     "source": "10-Q 0001628280-26-050705 p.20"
+    }
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "leases_not_commenced",
+   "amountUSDm": 68000,
+   "basis": "undiscounted",
+   "asOf": "2026-07-31",
+   "subsequent": true,
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note 9 — Commitments and contingencies",
+    "page": "20"
+   },
+   "quote": "In July 2026, we entered into additional data center leases with lease obligations of approximately $68 billion, which are expected to commence in 2027 and 2028, with lease terms of 18 to 20 years.",
+   "commence": {
+    "from": "2027",
+    "to": "2028"
+   },
+   "termYears": [
+    18,
+    20
+   ],
+   "note_en": "Signed after the June 30, 2026 balance-sheet date; not in the $278.99bn.",
+   "note_es": "Firmado después del balance al 30 de junio de 2026; no está en los US$278.99 mil M.",
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "vie_unconsolidated",
+   "amountUSDm": 46030,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "counterparty": "Louisiana data center campus venture (20% interest)",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note 5 — Equity method investments (the Venture)",
+    "page": "17–18"
+   },
+   "quote": "Our non-marketable equity method investments include an arrangement, entered into in October 2025, to co-develop a data center campus in Louisiana (the Venture), in which we hold a 20% membership interest... The parties have committed to fund their respective pro rata share of approximately $27 billion in total estimated development costs. Our lease agreements with the Venture... will commence in 2029 and have an aggregate initial lease commitment of approximately $12.31 billion... we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $28 billion that decreases over time... our maximum exposure to loss related to the Venture was $46.03 billion... consisting of the carrying value of our equity investment, the lease commitments, our estimated future funding commitments, and the maximum RVG threshold.",
+   "lookthrough": {
+    "sharePct": 20,
+    "amountUSDm": null,
+    "method": "20% of the Venture's borrowings; the borrowings are not stated in Meta's filing"
+   },
+   "accounting": "ASC 810 / ASC 323",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "rvg",
+   "amountUSDm": 28000,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "counterparty": "Louisiana campus venture",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note 5 — Equity method investments (the Venture)",
+    "page": "17"
+   },
+   "quote": "In addition, we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $28 billion that decreases over time. If we decide to terminate or not renew a lease, and if certain other conditions are met, our maximum RVG payment would equal…",
+   "note_en": "Included in the $46.03bn maximum exposure above; a ceiling, not a liability.",
+   "note_es": "Incluida en la exposición máxima de US$46.03 mil M; un tope, no un pasivo.",
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "rvg",
+   "amountUSDm": 13000,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "subsequent": true,
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note — Held for sale (second campus venture)",
+    "page": "30"
+   },
+   "quote": "...we estimate that we will contribute approximately $2.3 billion of held-for-sale assets, net of liabilities, consisting mostly of construction in progress and land, and receive a one-time distribution of approximately $1 billion. We will enter into lease agreements for the use of properties to be developed on the data center campus. We will also provide residual value guarantees with a maximum aggregate exposure of approximately $13 billion.",
+   "note_en": "Expected on closing in the third quarter of 2026; not yet provided at June 30, 2026.",
+   "note_es": "Previsto al cierre en el tercer trimestre de 2026; no otorgado al 30 de junio de 2026.",
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "META",
+   "item": "purchase_obligation",
+   "amountUSDm": 349310,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001628280-26-050705",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
+    "section": "Note 9 — Commitments and contingencies",
+    "page": "20"
+   },
+   "quote": "As of June 30, 2026, we had $349.31 billion of non-cancelable contractual commitments, comprising both short-term and long-term arrangements. These commitments mostly relate to third-party cloud capacity arrangements and investments in servers and network infrastructure, data centers, and consumer hardware products in Reality Labs...",
+   "accounting": "ASC 440",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "ORCL",
+   "item": "guarantee",
+   "amountUSDm": 3300,
+   "basis": "max_exposure",
+   "asOf": "2026-05-31",
+   "counterparty": "Lessor of a data center lease (not named)",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001193125-26-277521",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/0001193125-26-277521-index.htm",
+    "section": "Note — Leases (lease commitments not yet commenced)",
+    "page": "90"
+   },
+   "quote": "As of May 31, 2026, we had $260 billion of additional lease commitments... These additional lease commitments include a lease for which we have guaranteed up to $3.3 billion of the lessor's borrowing, which matures in September 2026.",
+   "note_en": "The August 31, 2026 10-Q does not repeat the guarantee; the borrowing matured in September 2026 per the 10-K. Status after maturity: not disclosed yet.",
+   "note_es": "El 10-Q al 31 de agosto de 2026 no repite la garantía; según el 10-K, el préstamo vencía en septiembre de 2026. Situación tras el vencimiento: aún no revelada.",
+   "accounting": "ASC 460",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "ORCL",
+   "item": "purchase_obligation",
+   "amountUSDm": 19000,
+   "basis": "undiscounted",
+   "asOf": "2026-06-22",
+   "subsequent": true,
+   "filing": {
+    "form": "10-K",
+    "accn": "0001193125-26-277521",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/0001193125-26-277521-index.htm",
+    "section": "Note — Unconditional obligations",
+    "page": "90"
+   },
+   "quote": "Subsequent to May 31, 2026, we entered into an additional $19 billion of unconditional purchase commitments for cloud infrastructure assets that commence in fiscal 2027 and have a term of five years.",
+   "accounting": "ASC 440",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "CRWV",
+   "item": "leases_not_commenced",
+   "amountUSDm": 35500,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001769628-26-000366",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
+    "section": "Note 8 — Leases (leases not yet commenced)",
+    "page": "24"
+   },
+   "quote": "As of June 30, 2026, the Company executed additional lease agreements, primarily for data centers, equipment, and office buildings, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $35.5 billion. These leases will commence between 2026 and 2029 with estimated lease terms of seven to sixteen years. Not included in the preceding amount... are [lease arrangements] which include significant uncertainties regarding the amount of future lease payments.",
+   "commence": {
+    "from": "2026",
+    "to": "2029"
+   },
+   "termYears": [
+    7,
+    16
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "CRWV",
+   "item": "vie_unconsolidated",
+   "amountUSDm": 1700,
+   "basis": "max_exposure",
+   "asOf": "2026-06-30",
+   "counterparty": "Data center joint ventures",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001769628-26-000366",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
+    "section": "Note — Variable interest entities (joint ventures)",
+    "page": "16"
+   },
+   "quote": "The Company's maximum exposure to loss related to these joint ventures is limited to its total funding commitments of $1.7 billion as of June 30, 2026. The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment.",
+   "accounting": "ASC 810 / ASC 323",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "CRWV",
+   "item": "spv",
+   "amountUSDm": 1800,
+   "basis": "undiscounted",
+   "asOf": "2026-06-30",
+   "counterparty": "Equipment Lessor (special-purpose entities sponsored by a third-party financial investor)",
+   "includedIn": "leases_not_commenced",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001769628-26-000366",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/0001769628-26-000366-index.htm",
+    "section": "Note 8 — Leases",
+    "page": "25"
+   },
+   "quote": "The Company also entered into an equipment lease with a group of special-purpose entities (the \"Equipment Lessor\") sponsored by a third-party financial investor... the Company is not the primary beneficiary and does not consolidate the Equipment Lessor. The Company's maximum exposure to loss under this lease consists of its committed payments, which total approximately $1.8 billion as of June 30, 2026 and are included within aggregate estimated future undiscounted lease payments, as disclosed in the Leases Not Yet Commenced section.",
+   "note_en": "Already inside the $35.5bn of leases not yet commenced; not additional.",
+   "note_es": "Ya incluido en los US$35.5 mil M de arrendamientos no iniciados; no es adicional.",
+   "accounting": "ASC 842 / ASC 810",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "NBIS",
+   "item": "leases_not_commenced",
+   "amountUSDm": 9759.6,
+   "basis": "undiscounted",
+   "asOf": "2025-12-31",
+   "filing": {
+    "form": "20-F",
+    "accn": "0001104659-26-052948",
+    "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/0001104659-26-052948-index.htm",
+    "section": "Note 8 — Leases",
+    "page": "not printed (130th page of the document)"
+   },
+   "quote": "As of December 31, 2025, the Group executed additional lease agreements, primarily for data centers, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $9,759.6 [million] and the Group has already made a prepayment of $271.0 [million] as of December 31, 2025. These leases will commence between 2026 and 2027 with estimated lease terms up to eleven years.",
+   "commence": {
+    "from": "2026",
+    "to": "2027"
+   },
+   "termYears": [
+    null,
+    11
+   ],
+   "accounting": "ASC 842",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "IREN",
+   "item": "spv",
+   "amountUSDm": 3645,
+   "basis": "notional",
+   "asOf": "2026-06-30",
+   "counterparty": "Microsoft contract financing (Financing SPV, consolidated)",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001878848-26-000052",
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/0001878848-26-000052-index.htm",
+    "section": "Item 7 — Liquidity; Note 23 — Debt",
+    "page": "121, 124"
+   },
+   "quote": "In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company... As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded. ... The Financing SPV is a variable interest entity of which the Company is the primary beneficiary.",
+   "note_en": "Consolidated: the drawn amounts are already in debt; the undrawn remainder ($2,707m) is a commitment, not a liability. Parent guarantees cover the remarketing right and hedges, stepping down tranche by tranche.",
+   "note_es": "Consolidado: lo dispuesto ya está en la deuda; el remanente no dispuesto (US$2,707 M) es un compromiso, no un pasivo. Las garantías de la matriz cubren el derecho de recomercialización y las coberturas, y bajan por tramo.",
+   "accounting": "ASC 810 (consolidated VIE)",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  },
+  {
+   "ticker": "APLD",
+   "item": "spv",
+   "amountUSDm": 4500,
+   "basis": "carrying",
+   "asOf": "2026-05-31",
+   "counterparty": "APLD ComputeCo and APLD ComputeCo 2 (project subsidiaries)",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001144879-26-000048",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/0001144879-26-000048-index.htm",
+    "section": "Item 7 — Financing (2030 9.250% and 2031 6.750% Notes)",
+    "page": "48–49"
+   },
+   "quote": "The 2030 9.250% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo. Other than a customary completion guarantee, the Company is not providing credit support for the 2030 9.250% Notes Offering. ... The 2031 6.750% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 6.750% Notes Offering.",
+   "note_en": "Amount = $2,350m + $2,150m outstanding per the FactSet snapshot (the passage does not repeat the amounts). Consolidated, so already in debt; the point is recourse: project-level, with only completion guarantees from the parent.",
+   "note_es": "Monto = US$2,350 M + US$2,150 M vigentes según la instantánea de FactSet (el pasaje no repite los montos). Consolidado, ya está en la deuda; lo relevante es el recurso: a nivel proyecto, con solo garantías de terminación de la matriz.",
+   "accounting": "ASC 810 (consolidated subsidiaries)",
+   "tier": "T1",
+   "status": "needs_review",
+   "verifiedBy": null,
+   "verifiedOn": null,
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+  }
+ ],
+ "searched": [
+  {
+   "ticker": "ORCL",
+   "item": "rvg",
+   "result": "none",
+   "asOf": "2026-08-31",
+   "accn": "0001193125-26-389274",
+   "note_en": "No residual value guarantee passage in the FY2026 10-K or the August 31, 2026 10-Q (harvested text).",
+   "note_es": "Sin pasaje de garantía de valor residual en el 10-K del AF2026 ni en el 10-Q al 31 de agosto de 2026 (texto cosechado)."
+  },
+  {
+   "ticker": "APLD",
+   "item": "rvg",
+   "result": "none",
+   "asOf": "2026-05-31",
+   "accn": "0001144879-26-000048",
+   "note_en": "10-K p. 120: \"The Company's lease agreements do not contain any material residual value guarantees.\"",
+   "note_es": "10-K p. 120: los contratos de arrendamiento \"no contienen garantías de valor residual materiales\"."
+  },
+  {
+   "ticker": "MSFT",
+   "item": "vie_unconsolidated",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001193125-26-323660",
+   "note_en": "10-K p. 59: \"We have determined we are not the primary beneficiary of any of our VIE investments.\" No maximum-exposure amount is given.",
+   "note_es": "10-K p. 59: no es beneficiario primario de ninguna inversión en EIV; no da monto de exposición máxima."
+  },
+  {
+   "ticker": "META",
+   "item": "jv_equity_method_debt",
+   "result": "amount_not_disclosed",
+   "asOf": "2026-06-30",
+   "accn": "0001628280-26-050705",
+   "note_en": "The Venture (20%) funds ~$27bn of development costs pro rata; its borrowings are not stated in Meta's filing, so the look-through share cannot be computed from T1.",
+   "note_es": "La coinversión (20%) financia ~US$27 mil M de desarrollo a prorrata; su deuda no aparece en la presentación de Meta, así que la parte proporcional no puede calcularse con T1."
+  },
+  {
+   "ticker": "CORZ",
+   "item": "leases_not_commenced",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001839341-26-000014",
+   "note_en": "Core Scientific is the lessor: its $3.1bn of leases not yet commenced (10-Q p. 17) are payments it expects to receive (from CoreWeave), not obligations.",
+   "note_es": "Core Scientific es el arrendador: sus US$3.1 mil M de arrendamientos no iniciados (10-Q p. 17) son pagos que espera recibir (de CoreWeave), no obligaciones."
+  },
+  {
+   "ticker": "MSFT",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001193125-26-323660",
+   "note_en": "No datacenter joint venture or vehicle with debt is described; equity-method investees (OpenAI ~25%) are investments, not capacity vehicles.",
+   "note_es": "No se describe coinversión o vehículo de centros de datos con deuda; las participadas por método de participación (OpenAI ~25%) son inversiones, no vehículos de capacidad."
+  },
+  {
+   "ticker": "GOOGL",
+   "item": "jv_equity_method_debt",
+   "result": "amount_not_disclosed",
+   "asOf": "2026-06-30",
+   "accn": "0001652044-26-000071",
+   "note_en": "Unconsolidated data center leasing VIEs and backstopped data center entities exist (10-Q Note 5); their borrowings are not stated.",
+   "note_es": "Existen EIV no consolidadas de arrendamiento de centros de datos y entidades respaldadas (10-Q nota 5); su deuda no se revela."
+  },
+  {
+   "ticker": "AMZN",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001018724-26-000026",
+   "note_en": "No datacenter joint venture with debt is described; the unconsolidated VIEs are investments (Anthropic, OpenAI).",
+   "note_es": "No se describe coinversión de centros de datos con deuda; las EIV no consolidadas son inversiones (Anthropic, OpenAI)."
+  },
+  {
+   "ticker": "ORCL",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-08-31",
+   "accn": "0001193125-26-389274",
+   "note_en": "No joint venture is described; the FY2026 10-K mentions a guarantee of up to $3.3bn of one lessor's borrowing (see the guarantee item).",
+   "note_es": "No se describe coinversión; el 10-K del AF2026 menciona una garantía de hasta US$3.3 mil M de la deuda de un arrendador (ver la partida de garantía)."
+  },
+  {
+   "ticker": "CRWV",
+   "item": "jv_equity_method_debt",
+   "result": "amount_not_disclosed",
+   "asOf": "2026-06-30",
+   "accn": "0001769628-26-000366",
+   "note_en": "Data center joint ventures exist (maximum exposure $1.7bn of funding commitments); their borrowings are not stated.",
+   "note_es": "Existen coinversiones de centros de datos (exposición máxima US$1.7 mil M de compromisos de fondeo); su deuda no se revela."
+  },
+  {
+   "ticker": "NBIS",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2025-12-31",
+   "accn": "0001104659-26-052948",
+   "note_en": "No datacenter joint venture is described in the 20-F.",
+   "note_es": "El 20-F no describe coinversiones de centros de datos."
+  },
+  {
+   "ticker": "IREN",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001878848-26-000052",
+   "note_en": "No joint venture; the Microsoft-contract Financing SPV is a consolidated subsidiary (its debt is on the balance sheet).",
+   "note_es": "Sin coinversiones; el SPV de financiamiento del contrato con Microsoft es subsidiaria consolidada (su deuda está en el balance)."
+  },
+  {
+   "ticker": "APLD",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-05-31",
+   "accn": "0001144879-26-000048",
+   "note_en": "No datacenter joint venture; the only unconsolidated VIE is Base Electron (maximum exposure $60.6m: $2.0m investment + $58.6m note, 10-K p. 105).",
+   "note_es": "Sin coinversiones de centros de datos; la única EIV no consolidada es Base Electron (exposición máxima US$60.6 M, 10-K p. 105)."
+  },
+  {
+   "ticker": "CORZ",
+   "item": "jv_equity_method_debt",
+   "result": "none",
+   "asOf": "2026-06-30",
+   "accn": "0001839341-26-000014",
+   "note_en": "No joint venture is described.",
+   "note_es": "No se describe coinversión."
+  }
+ ],
+ "pageCites": [
+  {
+   "ticker": "ORCL",
+   "item": "leases_not_commenced",
+   "accn": "0001193125-26-389274",
+   "section": "Note — Leases",
+   "page": "13",
+   "source": "tools/hyperscalers/raw/notes/ORCL/0001193125-26-389274.json"
+  }
+ ]
+}
