@@ -13,24 +13,16 @@
   {
    "kind": "guarantee",
    "page": "seq3",
-   "text": "These statements are provided for illustrative purposes only and are based on various assumptions, whether or not identified in this Quarterly Report on Form 10-Q, and on the current expectations of the Company’s management. These forward-looking statements are not intended to serve, and must not be relied on by any investor, as a guarantee, an assurance, a prediction or a definitive statement of fact or probability. Actual events and circumstances are difficult or impossible to predict and will differ from assumptions.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq3",
-   "text": "Many actual events and circumstances are beyond the control of the Company. These forward-looking statements are not guarantees of future performance and are subject to risks, uncertainties and assumptions, known or unknown, that could cause actual results to vary materially from those indicated or anticipated. These risks, assumptions and uncertainties include those described in Part I.",
+   "match": "guarantee",
+   "text": "…mpany, the Company’s ability to source and retain talent, and the Company’s ability to source and consummate acquisitions of entities holding suitable land and power. These statements are provided for illustrative purposes only and are based on various assumptions, whether or not identified in this Quarterly Report on Form 10-Q, and on the current expectations of the Company’s management. These forward-looking statements are not intended to serve, and must not be relied on by any investor, as a guarantee, an assurance, a prediction or a definitive statement of fact or probability. Actual events and circumstances are difficult or impossible to predict and will differ from assumptions. Many actual events and circumstances are beyond the control of the Company.   These forward-looking statements are not guarantees of future performance and are subject to risks, uncertainties and assumptions, known or unknown, that could cause actual results to vary materially from those indicated or anticipated. These risks, assumptions and uncertainties include those described in Part I. Item 1A. — “Risk Factors\" of the Company’s Annual Report on Form 10-K for the year ended December 31, 2025, filed with the SEC on March 2, 2026. If one or more of these risks or uncertainties materializes, or if underlying assumptions prove incorrect, actual results may vary materially from those indicated or ant…",
    "amounts": []
   },
   {
    "kind": "leases_not_commenced",
    "page": "17",
-   "text": "Core Scientific, Inc. Notes to Unaudited Condensed Consolidated Financial Statements   The following table represents future operating lease payments expected to be received as of June 30, 2026 (in thousands):   Operating Leases (1)   Remaining 2026   $ 132,281   2027 271,468   2028 368,963   2029 527,771   2030 546,112   Thereafter 4,241,072   Total $ 6,087,667   (1) Operating lease payments expected to be received exclude $ 3.1 billion in total future noncancellable operating lease payments expected to be received for operating leases that have not yet commenced as of June 30, 2026, which have initial lease terms of 12 years from commencement.   7. DEBT   The following table summarizes the terms and carrying amounts of the Company’s outstanding debt at the dates indicated (dollars in thousands):   Stated Interest Rate   Effective Interest Rates   Maturities June 30, 2026 December 31, 2025   Senior Secured Notes 7.75 % 8.3 % 2031 $ 3,300,000 $ —   2029 Convertible Notes 3.00 % 3.7 % 2029 460,000 460,000   2031 Convertible Notes — % 0.4 % 2031 625,000 625,000   Notes payable   4,385,000 1,085,000   Less: Unamortized discounts   87,033 24,675   Long-term debt $ 4,297,967 $ 1,060,325   The following table presents the components of interest expense for the periods indicated (in thousands):   Three Months Ended June 30, Six Months Ended June 30,   2026 2025 2026 2025   Coupon inte",
+   "match": "not yet commenced",
+   "text": "…nsolidated Financial Statements   The following table represents future operating lease payments expected to be received as of June 30, 2026 (in thousands):   Operating Leases (1)   Remaining 2026   $ 132,281   2027 271,468   2028 368,963   2029 527,771   2030 546,112   Thereafter 4,241,072   Total $ 6,087,667   (1) Operating lease payments expected to be received exclude $ 3.1 billion in total future noncancellable operating lease payments expected to be received for operating leases that have not yet commenced as of June 30, 2026, which have initial lease terms of 12 years from commencement.   7. DEBT   The following table summarizes the terms and carrying amounts of the Company’s outstanding debt at the dates indicated (dollars in thousands):   Stated Interest Rate   Effective Interest Rates   Maturities June 30, 2026 December 31, 2025   Senior Secured Notes 7.75 % 8.3 % 2031 $ 3,300,000 $ —   2029 Convertible Notes 3.00 % 3.7 % 2029 460,000 460,000   2031 Convertible Notes — % 0.4 % 2031 625,000 625,000   Notes payable   4,385,000 1,085,000   Less: Unamortized discounts   87,033 24,675   Long-term debt $ 4,297,967 $ 1,060,325   The following table presents the components of interest expense for the periods indicated (in thousands):   Three Months Ended June 30, Six Months Ended June 30,   2026 2025 2026 2025   Coupon interest   $ 48,690 $ 3,450 $ 55,485 $ 6,900   Amortizati…",
    "amounts": [
-    {
-     "raw": "$ 132,281   ",
-     "usdM": null
-    },
     {
      "raw": "$ 6,087,667   ",
      "usdM": null
@@ -38,49 +30,53 @@
     {
      "raw": "$ 3.1 billion",
      "usdM": 3100
+    },
+    {
+     "raw": "$ 3,300,",
+     "usdM": null
     }
    ]
   },
   {
    "kind": "guarantee",
    "page": "18",
-   "text": "Beginning on the First Installment Payment Date, Core Scientific Finance will make semi-annual installment payments on May 15 and November 15 of each year at an initial annual rate of 11.50 % per annum of the original principal amount of the Senior Secured Notes outstanding on the issue date until the notes are repaid, repurchased, redeemed or otherwise discharged in full. The Senior Secured Notes and related guarantees are secured by first-priority liens on (i) substantially all of the assets of Core Scientific Finance and Core Scientific Austin LLC, Core Scientific Denton LLC, Core Scientific Dalton LLC, Core Scientific Marble LLC and Core Scientific Muskogee LLC (collectively, the \"Subsidiary Guarantors\"), (ii) the equity interests of Core Scientific Finance held by its direct parent, and (iii) certain assets and rights identified as subject to the Ringfencing (as defined in the completion guarantee description below) which are not yet transferred (or in which rights to use have not been granted) to Core Scientific Finance or the Subsidiary Guarantors. The Indenture contains customary covenants that restrict the ability of Core Scientific Finance and the Subsidiary Guarantors to, among other things, (i) incur additional indebtedness, (ii) pay dividends or distributions on, or redeem or repurchase, capital stock and make other restricted payments, (iii) make certain investmen",
+   "match": "guarantees",
+   "text": "… by the Company or its affiliates to the tenant under the related datacenter leases. Beginning on the First Installment Payment Date, Core Scientific Finance will make semi-annual installment payments on May 15 and November 15 of each year at an initial annual rate of 11.50 % per annum of the original principal amount of the Senior Secured Notes outstanding on the issue date until the notes are repaid, repurchased, redeemed or otherwise discharged in full.   The Senior Secured Notes and related guarantees are secured by first-priority liens on (i) substantially all of the assets of Core Scientific Finance and Core Scientific Austin LLC, Core Scientific Denton LLC, Core Scientific Dalton LLC, Core Scientific Marble LLC and Core Scientific Muskogee LLC (collectively, the \"Subsidiary Guarantors\"), (ii) the equity interests of Core Scientific Finance held by its direct parent, and (iii) certain assets and rights identified as subject to the Ringfencing (as defined in the completion guarantee description below) which are not yet transferred (or in which rights to use have not been granted) to Core Scientific Finance or the Subsidiary Guarantors. The Indenture contains customary covenants that restrict the ability of Core Scientific Finance and the Subsidiary Guarantors to, among other things, (i) incur additional indebtedness, (ii) pay dividends or distributions on, or redeem or rep…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "18",
-   "text": "Neither the Company nor its other subsidiaries are subject to these covenants. In addition, the Company provided an uncapped completion guarantee for the benefit of the holders with respect to the completion of specified data center development projects. Core Scientific Finance may redeem the Senior Secured Notes prior to maturity, in whole or in part, at the redemption prices specified in the Indenture, which include a \"make-whole\" premium for redemptions prior to May 15, 2028.",
-   "amounts": []
-  },
-  {
-   "kind": "spv",
-   "page": "29",
-   "text": "As of June 30, 2026, approximately 395 MW has commenced billing. During the six months ended June 30, 2026, certain CoreWeave license agreements were assigned to a special purpose vehicle financing structure while CoreWeave remained a primary obligor under the agreements. See “Strategic Transition to High-Density Colocation Services” below for a more detailed discussion of this arrangement and the associated risks.",
+   "match": "guarantee",
+   "text": "…ck transactions, (vii) hold assets or conduct operations unrelated to the operation of the Facilities (as defined in the indenture) and certain additional projects, (viii) terminate or amend certain agreements, (ix) engage in certain transactions with affiliates, and (x) merge, consolidate or transfer or sell all or substantially all of their respective assets. Neither the Company nor its other subsidiaries are subject to these covenants. In addition, the Company provided an uncapped completion guarantee for the benefit of the holders with respect to the completion of specified data center development projects.   Core Scientific Finance may redeem the Senior Secured Notes prior to maturity, in whole or in part, at the redemption prices specified in the Indenture, which include a \"make-whole\" premium for redemptions prior to May 15, 2028. Upon a change of control, Core Scientific Finance is required to offer to repurchase the Senior Secured Notes at 101 % of the principal amount, plus accrued and unpaid interest, if any, but excluding the purchase date.   Convertible Notes   On August 19, 2024, the Company issued $ 460.0 million in aggregate principal amount of 3.00 % Convertible Senior Notes due 2029 (the “2029 Convertible Notes”). The 2029 Convertible Notes mature on September 1, 2029, unless earlier converted, redeemed or repurchased. The 2029 Convertible Notes are convertibl…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "29",
-   "text": "The net proceeds were used to fund a debt service reserve account and to repay in full and terminate our Term Loan Facility. The Senior Secured Notes and related guarantees are secured by first-priority liens, among other things, on substantially all assets of Core Scientific Finance and its subsidiary guarantors, which own or operate our specified data center development projects. For additional details, see Note 7 — Debt to our condensed consolidated financial statements.   29",
+   "match": "guarantees",
+   "text": "…ip with AMD with the potential to support up to 2.5 GW of leasable capacity, anchored by a 15-year agreement for approximately 530 MW across five sites.   • On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031 (the \"Senior Secured Notes”). The net proceeds were used to fund a debt service reserve account and to repay in full and terminate our Term Loan Facility. The Senior Secured Notes and related guarantees are secured by first-priority liens, among other things, on substantially all assets of Core Scientific Finance and its subsidiary guarantors, which own or operate our specified data center development projects. For additional details, see Note 7 — Debt to our condensed consolidated financial statements.   29",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "29",
+   "match": "special purpose vehicle",
+   "text": "…ts, and increases the long-term value of our infrastructure platform relative to its historical use in digital asset mining operations.   In 2024, we announced our first HDC contract with CoreWeave, a provider of HPC services, which was subsequently expanded to approximately 590 MW of leased customer power capacity across five sites. As of June 30, 2026, approximately 395 MW has commenced billing. During the six months ended June 30, 2026, certain CoreWeave license agreements were assigned to a special purpose vehicle financing structure while CoreWeave remained a primary obligor under the agreements. See “Strategic Transition to High-Density Colocation Services” below for a more detailed discussion of this arrangement and the associated risks. While our current colocation revenue remains concentrated with a single customer, we believe our available unleased power capacity provides a meaningful opportunity to diversify our customer base over time.   As of June 30, 2026, we controlled approximately 2.1 GW of gross utility power capacity, or approximately 1.3 GW of total leasable customer power capacity across 11 data centers in seven U.S. states including Alabama ( 1 ), Georgia ( 2) , Kentucky (1), North Carolina (1), North Dakota (1), Oklahoma (1), and Texas (4). We continue to develop, convert and expand most of our facilities to support AI and HPC workloads while pursuing add…",
    "amounts": []
   },
   {
    "kind": "spv",
    "page": "31",
-   "text": "This concentration means that our financial results, liquidity and cash flows are highly dependent on CoreWeave’s continued performance of its obligations under our license agreements, its financial health, and its ongoing demand for our data center capacity. During the period, CoreWeave entered into assignment and assumption agreements transferring certain license agreements to CW SPV, a special purpose vehicle that is an indirect subsidiary of CoreWeave. CoreWeave remains a primary obligor under those   31",
+   "match": "special purpose vehicle",
+   "text": "…es. For the six months ended June 30, 2026, CoreWeave represented approximately 77% of our total revenue. This concentration means that our financial results, liquidity and cash flows are highly dependent on CoreWeave’s continued performance of its obligations under our license agreements, its financial health, and its ongoing demand for our data center capacity.   During the period, CoreWeave entered into assignment and assumption agreements transferring certain license agreements to CW SPV, a special purpose vehicle that is an indirect subsidiary of CoreWeave. CoreWeave remains a primary obligor under those   31",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "40",
-   "text": "As of June 30, 2026, $345 million remained in the debt service reserve account and is included in Restricted cash, net of current portion on our condensed consolidated balance sheet. In connection with the Senior Secured Notes offering, we provided an uncapped completion guarantee for the benefit of the noteholders with respect to the completion of specified data center development projects. This guarantee reflects our commitment to complete the specified development projects and is consistent with our existing contractual construction obligation, which are discussed further below.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "40",
-   "text": "In connection with the Senior Secured Notes offering, we provided an uncapped completion guarantee for the benefit of the noteholders with respect to the completion of specified data center development projects. This guarantee reflects our commitment to complete the specified development projects and is consistent with our existing contractual construction obligation, which are discussed further below. The Senior Secured Notes require semi-annual interest payments on May 15 and November 15, beginning November 15, 2026.",
+   "match": "guarantee",
+   "text": "…ecured Notes due 2031. Core Scientific Finance used the net proceeds to fund a debt service reserve account and to make a distribution to the Company, a portion of which was used to repay and terminate the Term Loan Facility. As of June 30, 2026, $345 million remained in the debt service reserve account and is included in Restricted cash, net of current portion on our condensed consolidated balance sheet.   In connection with the Senior Secured Notes offering, we provided an uncapped completion guarantee for the benefit of the noteholders with respect to the completion of specified data center development projects. This guarantee reflects our commitment to complete the specified development projects and is consistent with our existing contractual construction obligation, which are discussed further below.   The Senior Secured Notes require semi-annual interest payments on May 15 and November 15, beginning November 15, 2026. Semi-annual principal amortization on May 15 and November 15 will commence on the First Installment Payment Date at an initial annual rate of 11.50% of the $3.30 billion original principal amount. We also have outstanding $460 million of 2029 Convertible Notes and $625 million of 2031 Convertible Notes. For maturity dates, amortization schedules, and full terms of all outstanding debt, see Note 7 — Debt to our consolidated financial statements.   40",
    "amounts": []
   }
  ]
