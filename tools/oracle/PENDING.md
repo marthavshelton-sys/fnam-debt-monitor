@@ -6,7 +6,7 @@
 |---|---|---|
 | Press-sourced facts and failed guards only | Since 2026-09-24 the cloud routine publishes to main when a machine check stands behind the change (results and filings: both guards 0 failed; events: every fact primary-sourced; state: always). The only work it leaves unpublished is a branch `oracle/…` holding an event with a press-only fact or a quarter whose guard failed | Read the material-day email; open a pull request from the branch it names as "awaiting your review", or fix and merge it |
 | Earnings-call transcripts | Management quotes, call-page comments, megawatts delivered, promises, quantified guidance before 3Q26 | Supplied for 1Q24–1Q27 plus the Sept-2025 business update and the Oct-2025 analyst meeting (private `oracle-model` repository, `Transcripts/`). After each results call, drop the new PDF into that folder; the routine's next run picks it up |
-| FactSet connector | Section 06 peer multiples, section 04 peer rebasing, section 11 CDS spread, consensus next to guidance | Authorise the connector; data contracts: `tools/oracle/data/peers.json` (fields in `site/oracle/data/peers.js` header), `tools/oracle/data/cds.json` (`points` = [date, 5-year senior CDS mid in bp]), `tools/oracle/data/consensus.json` (revenue, EBITDA, EPS, target price, date) |
+| FactSet connector | Valuation Context peer multiples and peer rebasing, Financing and Balance Sheet CDS spread, consensus next to guidance | Authorise the connector; data contracts: `tools/oracle/data/peers.json` (fields in `site/oracle/data/peers.js` header), `tools/oracle/data/cds.json` (`points` = [date, 5-year senior CDS mid in bp]), `tools/oracle/data/consensus.json` (revenue, EBITDA, EPS, target price, date) |
 | Password (optional) | Internal working model | Cloudflare → Workers & Pages → the Pages project → Settings → Variables and Secrets: `ORACLE_PASSWORD` (Production and Preview). Dormant until set; see runbook §Access |
 
 Done: `/oracle/` published from `main` (PR #32, 2026-09-23); `EDGAR_USER_AGENT` repository variable set; the
@@ -36,7 +36,7 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   (cloud routine "FNAM Oracle: FactSet refresh"). **CDS still pending**: the connector exposes Estimates, Global Prices,
   Fundamentals, Debt Capital Structure and Terms & Conditions, but no CDS or bond-price endpoint; ask FactSet whether the
   Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine.
-- Peer ratings (section 11): the peer table shows leverage only; add each agency's rating with its release URL to
+- Peer ratings (Off-Balance-Sheet Financing and Leases, peer leverage table): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
 - News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
   (`NEWS-SWEEP-PROMPT.md`); the desktop task "FNAM Oracle: weekly press sweep" and `press.js` are retired — **owner:
@@ -44,7 +44,7 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - Obligations provenance: `page` is null for every note (Oracle files inline XBRL without fixed pagination); the note
   numbers in `obligations.json → sources.10q_1q27.notes` follow the FY2026 10-K order and need a re-read of the 1Q27 10-Q.
   VIE/SPV and guarantees are text readings flagged *needs review* until the routine greps the archived filings.
-- Unit economics (section 09): revenue per energized MW and the prepaid / BYOH / Oracle-funded split are marked
+- Unit economics (AI buildout): revenue per energized MW and the prepaid / BYOH / Oracle-funded split are marked
   "not derivable" / "not disclosed"; fill them only if Oracle discloses total energized MW or the RPO split by funding type.
 
 ## Owner's decision pending (ideas proposed 2026-10-03, not built)
