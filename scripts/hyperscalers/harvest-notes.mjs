@@ -21,7 +21,13 @@ const KINDS = [
   ['equity_method', /equity[- ]method (?:investee|investment)|joint venture/i],
   ['guarantee', /\bguarantee(?:s|d)?\b(?!.{0,40}residual)/i],
   ['purchase_obligation', /purchase obligations?|purchase commitments?|take-or-pay|minimum (?:purchase|payment) commitments?/i],
-  ['spv', /special[- ]purpose (?:vehicle|entit)|build-to-suit|construction (?:period|agreement) .{0,80}lessor|sale[- ]leaseback/i]
+  ['spv', /special[- ]purpose (?:vehicle|entit)|build-to-suit|construction (?:period|agreement) .{0,80}lessor|sale[- ]leaseback/i],
+  // phase 2-3: capacity, sites, power, accelerators, customer concentration and related-party flows
+  ['capacity', /\b\d[\d,.]*\s*(?:MW|megawatts?|GW|gigawatts?)\b|(?:active|contracted|critical IT|IT load|power(?:ed)?) capacity/i],
+  ['properties', /\bItem\s*2\.?\s*Properties\b|data cent(?:er|re)s? (?:located )?in [A-Z][a-z]+|campus (?:in|located)/],
+  ['power', /power purchase agreement|\bPPAs?\b|nuclear|small modular reactor|natural gas|interconnection|electric(?:ity)? (?:supply|service) agreement|utility/i],
+  ['gpu', /\bGPUs?\b|accelerators?\b|\bNVIDIA\b|Blackwell|\bGB[23]00\b|\bH[12]00\b/],
+  ['concentration', /\d{1,3}(?:\.\d)?%\s+of\s+(?:our\s+)?(?:total\s+)?revenue|significant customer|customer concentration|largest customer|related part(?:y|ies)|\bOpenAI\b|\bAnthropic\b|\bMicrosoft\b|\bNVIDIA\b/]
 ];
 
 function decode(s) {
@@ -54,6 +60,7 @@ function amounts(s) {
   return out;
 }
 
+const SELF = { MSFT: /Microsoft/, NBIS: /Nebius/ };
 const { companies } = await readJson(TOOLS + 'companies.json');
 const filings = await readJson(TOOLS + 'data/filings.json', { companies: {} });
 const state = await readJson(TOOLS + 'data/state.json', {});
@@ -73,6 +80,7 @@ for (const c of companies) {
       const html = await r.text();
       const pg = pages(html);
       const hits = [];
+      const perKind = {};
       // passages: a window around each match (tables often precede the sentence that matters, so the window is
       // centred on the match rather than on sentence boundaries); overlapping matches of one kind are merged
       for (const p of pg) {
@@ -82,6 +90,9 @@ for (const c of companies) {
           let m, lastEnd = -1;
           while ((m = g.exec(flat))) {
             if (m.index < lastEnd) continue;
+            // a company names itself everywhere: skip self-mentions, and cap each kind so a filing stays reviewable
+            if (kind === 'concentration' && SELF[c.ticker] && SELF[c.ticker].test(m[0])) continue;
+            if ((perKind[kind] = (perKind[kind] || 0) + 1) > 150) break;
             const a = Math.max(0, m.index - 500), b = Math.min(flat.length, m.index + 900);
             lastEnd = b;
             const near = flat.slice(Math.max(0, m.index - 250), Math.min(flat.length, m.index + 400));
