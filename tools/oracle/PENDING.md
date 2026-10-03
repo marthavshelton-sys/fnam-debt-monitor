@@ -38,10 +38,21 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine.
 - Peer ratings (section 11): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
-- Press sweep: `press.json` is refreshed by the desktop task "FNAM Oracle: weekly press sweep" on Mondays while the
-  app is open; a cloud version would need the outbound network the cloud sandbox lacks.
+- News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
+  (`NEWS-SWEEP-PROMPT.md`); the desktop task "FNAM Oracle: weekly press sweep" and `press.js` are retired — **owner:
+  disable the desktop task**. `press.json` stays in the repository as the archive of the earlier sweeps.
+- Obligations provenance: `page` is null for every note (Oracle files inline XBRL without fixed pagination); the note
+  numbers in `obligations.json → sources.10q_1q27.notes` follow the FY2026 10-K order and need a re-read of the 1Q27 10-Q.
+  VIE/SPV and guarantees are text readings flagged *needs review* until the routine greps the archived filings.
 - Unit economics (section 09): revenue per energized MW and the prepaid / BYOH / Oracle-funded split are marked
   "not derivable" / "not disclosed"; fill them only if Oracle discloses total energized MW or the RPO split by funding type.
+
+## Owner's decision pending (ideas proposed 2026-10-03, not built)
+
+Interest coverage and cash interest (XBRL, easy); depreciation vs capex with a server useful-life sensitivity (10-K
+policy note, medium); Form 4 insider transactions (EDGAR, easy); rating-agency lease-adjusted leverage replicated
+(agency methodology, medium); "what changed since your last visit" banner (reuses the change log, easy); short interest
+(FINRA, medium); TRACE bond spreads and interconnection queues (not recommended).
 
 ## Page features still to build
 

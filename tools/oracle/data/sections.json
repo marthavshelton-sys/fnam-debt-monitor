@@ -1,0 +1,20 @@
+{
+  "_comment": "Section registry for site/oracle (the single source of section order, numbering, titles, module staleness and deck inclusion). The page numbers sections, figures, tables and cross-references from this list at render time (app.js numberSections); present.js titles its pages from it; validate-data.mjs fails when a cross-reference (ref('id') in app.js / present.js, data-ref in index.html, {{sec:id}} in the JSON narrative) names an id that is not here. Never type a section number anywhere else. `modules` lists the data files that feed the section (keys of freshness.modules), so every chart footer can show the period end, the ET refresh time and a stale flag of the right module. `deck` = the board presentation builds a page for it.",
+  "updated": "2026-10-03",
+  "sections": [
+    { "id": "summary", "en": "Summary", "es": "Resumen", "nav_en": "Summary", "nav_es": "Resumen", "numbered": false, "deck": true, "modules": ["financials", "market", "summary", "guidance"] },
+    { "id": "statements", "en": "Business and Segments: Comparable Financial Statements", "es": "Negocio y segmentos: estados financieros comparables", "nav_en": "Statements", "nav_es": "Estados financieros", "deck": true, "modules": ["financials", "comments"] },
+    { "id": "guidance", "en": "Management Guidance", "es": "Guía de la administración", "nav_en": "Guidance", "nav_es": "Guía", "deck": true, "modules": ["guidance", "financials"] },
+    { "id": "rpo", "en": "RPO and Backlog", "es": "RPO y cartera de contratos", "nav_en": "RPO", "nav_es": "RPO", "deck": true, "modules": ["financials", "buildout", "reference"] },
+    { "id": "capex", "en": "Capex and Free Cash Flow", "es": "Capex y flujo de efectivo libre", "nav_en": "Capex & FCF", "nav_es": "Capex y flujo libre", "deck": true, "modules": ["financials", "xbrl", "guidance"] },
+    { "id": "sites", "en": "Power and Data-Center Sites", "es": "Energía y sitios de centros de datos", "nav_en": "Sites & power", "nav_es": "Sitios y energía", "deck": true, "modules": ["buildout", "reference"] },
+    { "id": "financing", "en": "Financing and Balance Sheet", "es": "Financiamiento y balance", "nav_en": "Financing", "nav_es": "Financiamiento", "deck": true, "modules": ["financials", "reference", "obligations", "cds"] },
+    { "id": "obligations", "en": "Off-Balance-Sheet Financing and Leases", "es": "Financiamiento fuera de balance y arrendamientos", "nav_en": "Off-balance-sheet", "nav_es": "Fuera de balance", "deck": true, "modules": ["obligations", "xbrl", "peer_leverage"] },
+    { "id": "circular", "en": "Circular Financing and Customer Concentration", "es": "Financiamiento circular y concentración de clientes", "nav_en": "Circularity", "nav_es": "Circularidad", "deck": true, "modules": ["obligations", "buildout", "news"] },
+    { "id": "valuation", "en": "Valuation Context", "es": "Contexto de valuación", "nav_en": "Valuation", "nav_es": "Valuación", "deck": true, "modules": ["market", "factset", "financials"] },
+    { "id": "news", "en": "News and Recent Events", "es": "Noticias y eventos recientes", "nav_en": "News", "nav_es": "Noticias", "deck": true, "modules": ["news"] },
+    { "id": "risks", "en": "Risks", "es": "Riesgos", "nav_en": "Risks", "nav_es": "Riesgos", "deck": true, "modules": ["risks", "obligations"] },
+    { "id": "calendar", "en": "Investor Calendar", "es": "Calendario del inversionista", "nav_en": "Calendar", "nav_es": "Calendario", "deck": false, "modules": ["calendar"] },
+    { "id": "method", "en": "Methodology, Sources and Change Log", "es": "Metodología, fuentes y bitácora de cambios", "nav_en": "Methodology", "nav_es": "Metodología", "deck": true, "modules": ["quality", "changelog"] }
+  ]
+}

@@ -69,6 +69,11 @@ dashboards, everything built from public data by GitHub Actions.
   `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
   validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
   Runbook: `tools/asur/README.md` → "Traffic perimeter change".
+- Oracle page (rebuilt 2026-10-03): sections, figure/table numbers, navigation and cross-references are generated from
+  `tools/oracle/data/sections.json` (`ref('id')`, `{{sec:id}}`); never type a section number (the validator fails).
+  Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
+  routine (`tools/oracle/NEWS-SWEEP-PROMPT.md`). Off-balance-sheet figures carry filing/note/accession and an XBRL
+  verdict; uncommenced leases are never added to debt. Read `tools/oracle/MEMORY.md` and `METHODOLOGY.md` first.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

@@ -186,6 +186,81 @@ if (fsj) {
   check("factset: at least six peers with price, market cap and NTM EPS", (fsj.peers || []).filter((p) => p.price > 0 && p.market_cap_usd_m > 0 && p.ntm?.eps != null).length >= 6);
 }
 
+// ---------- xbrl_facts.json: machine check of the figures transcribed from the leases and commitments notes ----------
+// Each obligations.json figure whose provenance names a us-gaap concept is compared with the XBRL value for the same
+// period end: "verified" clears its needs-review flag; a mismatch fails the build; a text-only figure (the uncommenced
+// lease sentence, guarantees, VIEs) stays "needs review" until a second reading confirms it.
+const xb = loadJSON("xbrl_facts.json");
+const obligationsVerification = [];
+if (ob && xb) {
+  const getPath = (o, path) => path.split(".").reduce((a, k) => (a == null ? a : a[k]), o);
+  const inst = (key, end) => { const c = xb.concepts[key]; if (!c || !c.periods) return null; const p = c.periods.find((x) => x.period_end === end); return p || null; };
+  const dur = (key, period) => { const c = xb.concepts[key]; if (!c) return null; if (/^FY\d{4}$/.test(period)) return (c.fiscal_years || []).find((x) => x.fiscal_year === period) || null; return (c.quarters || []).find((x) => x.quarter === period) || null; };
+  for (const [path, pv] of Object.entries(ob.provenance || {})) {
+    if (path.startsWith("_")) continue;
+    const src = ob.sources?.[pv.source] || {};
+    const base = { path, source: pv.source, filing: src.title || pv.source, accession: src.accession || null, note: pv.note, page: pv.page ?? null, url: src.url || null };
+    const val = getPath(ob, path);
+    if (!pv.xbrl) { obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, verdict: pv.text_only ? "needs_review" : "unverified", reason: pv.text_only ? "text-derived figure or statement; no XBRL concept exists" : "no XBRL concept mapped" }); continue; }
+    if (Array.isArray(pv.xbrl)) { // the purchase-obligation schedule, element by element
+      const sched = Array.isArray(val) ? val : [];
+      pv.xbrl.forEach((key, i) => { const p = inst(key, ob.as_of); const v = sched[i]?.usd_m ?? null; const ok = p && v != null ? near(v, p.value, TOL) : null; obligationsVerification.push({ ...base, path: `${path}[${i}]`, value: v, xbrl: p ? { concept: xb.concepts[key].concept, value: p.value, accn: p.accn, form: p.form, filed: p.filed } : null, verdict: ok === null ? "unverified" : ok ? "verified" : "mismatch", reason: ok === null ? "XBRL value for this period not found" : null }); check(`obligations/XBRL: ${path}[${i}] = ${xb.concepts[key]?.concept || key}`, ok); });
+      continue;
+    }
+    const p0 = pv.xbrl_period ? dur(pv.xbrl, pv.xbrl_period) : inst(pv.xbrl, ob.as_of);
+    const p = p0 && !p0.accn && Array.isArray(p0.from) ? { ...p0, accn: p0.from[0].accn, form: p0.from[0].form } : p0;
+    const xv = p ? p.value : null;
+    const ok = typeof val === "number" && xv != null ? near(val, xv, TOL) : null;
+    obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: p ? { concept: xb.concepts[pv.xbrl].concept, value: xv, accn: p.accn, form: p.form, filed: p.filed, derived: !!p.derived } : null, verdict: ok === null ? "unverified" : ok ? "verified" : "mismatch", reason: ok === null ? "XBRL value for this period not found" : null });
+    check(`obligations/XBRL: ${path} = ${xb.concepts[pv.xbrl]?.concept || pv.xbrl} (${pv.xbrl_period || ob.as_of})`, ok);
+  }
+  // capex and operating cash flow: the discrete quarters in quarters.json (derived by subtraction from the releases)
+  // must equal the quarters derived from the XBRL year-to-date cash-flow lines (10-Q/10-K) — a second, independent path.
+  for (const r of q?.quarters || []) {
+    const cx = dur("capex_cash", r.id), ox = dur("cfo", r.id);
+    if (cx && cx.value != null && r.cash_flow?.capex_quarter != null) check(`${r.id}: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)`, near(-r.cash_flow.capex_quarter, cx.value, TOL * 2));
+    if (ox && ox.value != null && r.cash_flow?.operating_cash_flow_quarter != null) check(`${r.id}: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)`, near(r.cash_flow.operating_cash_flow_quarter, ox.value, TOL * 2));
+  }
+  // every 12-month XBRL span equals the sum of its four derived quarters (quarters sum to the year)
+  for (const key of ["capex_cash", "cfo", "fin_lease_additions", "interest_expense"]) {
+    const c = xb.concepts[key]; if (!c) continue;
+    for (const fy of c.fiscal_years || []) { const yr = Number(fy.fiscal_year.slice(2)); const qs = (c.quarters || []).filter((x) => x.quarter.startsWith(`FY${yr}Q`)); if (qs.length === 4 && qs.every((x) => x.value != null)) check(`${fy.fiscal_year}: XBRL ${c.concept} four derived quarters sum to the annual`, near(qs.reduce((a, x) => a + x.value, 0), fy.value, TOL * 2)); }
+  }
+  check("xbrl: latest period end matches the latest quarter in quarters.json", xb.latest_period_end === (q?.quarters || []).map((x) => x.period_end).sort().pop());
+}
+
+// ---------- news.json: dated, themed, sourced (primary first), no rumors ----------
+const nws = loadJSON("news.json");
+if (nws) {
+  const items = nws.items || [], themes = new Set((nws.themes || []).map((t) => t.id)), tiers = ["sec", "company", "agency", "wire", "press", "trade"];
+  const rank = (t) => tiers.indexOf(t);
+  check("news: every item has an ISO date, theme, bilingual title, summary and why-it-matters", items.length > 0 && items.every((x) => /^\d{4}-\d{2}-\d{2}$/.test(x.date) && x.theme && x.title_en && x.title_es && x.summary_en && x.summary_es && x.why_en && x.why_es));
+  check("news: every theme used is declared", items.every((x) => themes.has(x.theme)));
+  check("news: every item has at least one https source with a known tier", items.every((x) => (x.sources || []).length > 0 && x.sources.every((s) => /^https:\/\//.test(s.url || "") && tiers.includes(s.tier))));
+  check("news: sources are listed primary first (SEC → company → agency → wire → press)", items.every((x) => (x.sources || []).every((s, i, a) => i === 0 || rank(a[i - 1].tier) <= rank(s.tier))));
+  check("news: an item labeled sec/company/agency leads with a source of that tier", items.every((x) => !["sec", "company", "agency"].includes(x.basis) || (x.sources[0] && rank(x.sources[0].tier) <= rank(x.basis))));
+  check("news: SEC-sourced items carry an accession number", items.every((x) => x.basis !== "sec" || (x.sources[0] && /^\d{10}-\d{2}-\d{6}$/.test(x.sources[0].accession || ""))));
+  check("news: no item is dated after as_of; ids are unique", items.every((x) => x.date <= nws.as_of) && new Set(items.map((x) => x.id)).size === items.length);
+}
+
+// ---------- sections.json: every cross-reference on the page resolves to a registered section ----------
+const secReg = loadJSON("sections.json");
+const crossRefs = { ids: [], unresolved: [] };
+if (secReg) {
+  const ids = new Set((secReg.sections || []).map((s) => s.id)); crossRefs.ids = [...ids];
+  const scan = (text, file) => { const re = /(?:\bref\(\s*'([a-z_]+)'|data-ref="([a-z_]+)"|\{\{sec:([a-z_]+)\}\}|secNum\(\s*'([a-z_]+)'|secTitle\(\s*'([a-z_]+)')/g; let m; while ((m = re.exec(text))) { const id = m[1] || m[2] || m[3] || m[4] || m[5]; if (!ids.has(id)) crossRefs.unresolved.push({ file, id }); } };
+  for (const f of ["site/oracle/index.html", "site/oracle/app.js", "site/oracle/present.js"]) { const fp = join(ROOT, f); if (existsSync(fp)) scan(readFileSync(fp, "utf8"), f); }
+  for (const f of ["risks.json", "news.json", "obligations.json", "explainers.json", "special_situations.json", "comments.json"]) { const fp = join(DATA, f); if (existsSync(fp)) scan(readFileSync(fp, "utf8"), `tools/oracle/data/${f}`); }
+  const html = existsSync(join(ROOT, "site/oracle/index.html")) ? readFileSync(join(ROOT, "site/oracle/index.html"), "utf8") : "";
+  const domSecs = [...html.matchAll(/<section[^>]*\bdata-sec="([a-z_]+)"/g)].map((m) => m[1]);
+  check("sections: every cross-reference (ref(), data-ref, {{sec:}}) names a registered section", crossRefs.unresolved.length === 0);
+  check("sections: every registered section exists once in index.html, in registry order", domSecs.length === (secReg.sections || []).length && domSecs.every((id, i) => id === secReg.sections[i].id));
+  check("sections: no hand-typed section number remains in the page, deck or data narrative", !/sec[ct]i[oó]n\s+\d\d\b/i.test([html, ...["site/oracle/app.js", "site/oracle/present.js"].map((f) => (existsSync(join(ROOT, f)) ? readFileSync(join(ROOT, f), "utf8") : ""))].join("\n")));
+}
+
+// ---------- module staleness (owner's rule: stale past the next expected filing + grace days; never show old data as current) ----------
+const fr = existsSync(join(DATA, "..", "freshness.json")) ? JSON.parse(readFileSync(join(DATA, "..", "freshness.json"), "utf8")) : null;
+const modules = [];
 // ---------- freshness of series and snapshots, curated-file coverage ----------
 const today = new Date();
 const daysSince = (iso) => (iso ? Math.round((today - new Date(String(iso).slice(0, 10) + "T00:00:00Z")) / 864e5) : null);
@@ -227,6 +302,28 @@ cur("press.json", !!(prs && (prs.items || []).length && daysSince(prs.as_of) <= 
 cur("factset.json", !!(fsj && daysSince(fsj.fetched) <= 7), fsj ? `consensus ${fsj.as_of}; prices ${fsj.price_date}; ${(fsj.peers || []).length} peers; fetched ${fsj.fetched}` : "missing");
 cur("peer_leverage.json", !!(plv && (plv.peers || []).some((p) => !p.error)), plv ? `${(plv.peers || []).filter((p) => !p.error).length} peers; fetched ${plv.fetched}` : "missing");
 
+// Next expected filing: Oracle's confirmed date, else the end of the derived window (assumed); a filing-driven module
+// is stale once today > that date + grace. Daily modules are stale past max_age_days.
+if (fr) {
+  const grace = fr.grace_days ?? 7;
+  const nextExp = nextRes || est?.window_end || null, nextBasis = nextRes ? "confirmed" : est ? "assumed" : null;
+  const nwsJ = loadJSON("news.json"), rk = loadJSON("risks.json"), chl = loadJSON("changelog.json"), xbJ = loadJSON("xbrl_facts.json");
+  const lastRefreshOf = {
+    financials: latest?.release_date, xbrl: xbJ?.fetched, obligations: ob?.updated, guidance: gv?.issued_on, comments: cmQ?.drafted || cm?.updatedAt, summary: cmQ?.drafted || cm?.updatedAt, buildout: bo?.updated, reference: mref?.price_snapshot?.orcl?.accessed,
+    market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.fetched, cds: loadJSON("cds.json")?.updated_at || null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString(), changelog: chl?.generated || null,
+  };
+  const asOfOf = { financials: latest?.period_end, xbrl: xbJ?.latest_period_end, obligations: ob?.as_of, guidance: gv?.issued_on, comments: latest?.period_end, summary: latest?.period_end, buildout: latest?.period_end, reference: latest?.period_end, market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.as_of, cds: null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString().slice(0, 10), changelog: chl?.generated };
+  for (const [id, m] of Object.entries(fr.modules || {})) {
+    const last = lastRefreshOf[id] ? String(lastRefreshOf[id]).slice(0, 10) : null; const asOf = asOfOf[id] ? String(asOfOf[id]).slice(0, 10) : null;
+    let stale = false, reason = null, deadline = null;
+    if (m.cadence === "filing") {
+      if (nextExp) { const d = new Date(nextExp + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() + grace); deadline = d.toISOString().slice(0, 10); const covered = asOf && latest?.period_end && asOf >= latest.period_end; stale = today.toISOString().slice(0, 10) > deadline || (asOf != null && latest?.period_end != null && asOf < latest.period_end && id !== "guidance" && id !== "reference" && id !== "risks"); reason = stale ? (covered ? `next filing expected by ${nextExp} (${nextBasis}) + ${grace} days passed without a new filing` : `data as of ${asOf} while the latest quarter ends ${latest?.period_end}`) : null; }
+    } else { const age = daysSince(last); stale = last == null || (age != null && age > (m.max_age_days ?? 7)); reason = stale ? (last ? `last refresh ${last}, ${age} days ago (limit ${m.max_age_days})` : "never refreshed") : null; if (m.optional && last == null) { stale = false; reason = "optional module, no data yet"; } }
+    modules.push({ id, label_en: m.label_en, label_es: m.label_es, cadence: m.cadence, asOf, lastRefresh: last, nextExpected: m.cadence === "filing" ? nextExp : null, nextExpectedBasis: m.cadence === "filing" ? nextBasis : null, deadline, maxAgeDays: m.max_age_days ?? null, stale, reason, textDerived: !!m.text_derived });
+  }
+}
+const amendments = (loadJSON("xbrl_facts.json")?.amendments || []);
+
 // ---------- report ----------
 const warnOnly = warnings.map((w) => w.replace(/^WARN\s+/, "")).filter((w) => !/ — insufficient data, skipped$/.test(w)).map((w) => { const i = w.indexOf(": "); return { tag: i > 0 ? w.slice(0, i) : "general", check: i > 0 ? w.slice(i + 2) : w, status: "warn", diff: null, tol: null, note: null }; });
 writeFileSync(join(DATA, "quality_report.json"), JSON.stringify({
@@ -237,7 +334,7 @@ writeFileSync(join(DATA, "quality_report.json"), JSON.stringify({
   tolerances: { usdM: TOL, eps: EPS_TOL },
   coverage: { quarters: [first?.id || null, latestId], years: [fyKeys[0] || null, lastFy] },
   checks: [...results, ...warnOnly],
-  freshness, curated,
+  freshness, curated, modules, obligationsVerification, crossRefs, amendments,
   passed,
   failures: failures.map((f) => f.replace(/^FAIL\s+/, "")),
   warnings: warnings.map((w) => w.replace(/^WARN\s+/, "")),

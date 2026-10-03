@@ -3,9 +3,11 @@
 The interactive model lives at `site/oracle/` (`index.html` + `app.js`, plus the unlinked `quality.html`) and is
 served at **https://fnam.mx/oracle/** (password: see *Access*). It is a port of the GAP model — same HTML/CSS,
 same `app.js` structure and controls, same family of `data/*.js` contracts (`window.ORCL_*` mirrors
-`window.GAP_*`) — so the two read side by side; only the company-specific sections differ (03 RPO & cloud
-instead of traffic, 09 AI buildout instead of CBX, 10 RPO explainer instead of FIBRA GAP, 11 debt detail and
-CDS). Every figure on the page comes from a data file in `site/oracle/data/`; nothing is hard-coded.
+`window.GAP_*`). Rebuilt 2026-10-03 (audit + new architecture, owner-approved): summary with dated key numbers →
+statements → guidance → RPO → capex and FCF → sites and power → financing → off-balance-sheet and leases → circular
+financing and concentration → valuation → news → risks → calendar → methodology and change log. Section order,
+titles and numbering come from `tools/oracle/data/sections.json` (see *Numbering*). Every figure on the page comes from
+a data file in `site/oracle/data/`; nothing is hard-coded. Method and sources: `METHODOLOGY.md`; memory: `MEMORY.md`.
 
 Unlike the Mexican models, the page data is **generated** from a curated layer: `tools/oracle/data/*.json`
 is the only place numbers are entered (each with a source key into `sources.json`), `validate-data.mjs`
@@ -22,7 +24,12 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `summary.js` (`window.ORCL_SUMMARY`) | Executive-summary cards (operations, guidance, debt, what to watch) for the latest quarter | `comments.json` → `exec_summary` |
 | `peers.js` (`window.ORCL_PEERS`) | Peer multiples (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) | **Placeholder** until the FactSet connector is authorised (`peers.json`) |
 | `cds.js` (`window.ORCL_CDS`) | 5-year senior CDS spread series, tenor, recovery assumption | **Placeholder** until the FactSet connector is authorised (`cds.json`) |
-| `quality.js` (`window.ORCL_QUALITY`) | Last tie-out report + automation state, rendered by `quality.html` | `validate-data.mjs` → `quality_report.json`, `harvest-filings.mjs` → `state.json` |
+| `quality.js` (`window.ORCL_QUALITY`) | Last tie-out report + automation state + module staleness + obligations/XBRL verification + cross-reference check, rendered by `quality.html` | `validate-data.mjs` → `quality_report.json`, `harvest-filings.mjs` → `state.json` |
+| `sections.js` (`window.ORCL_SECTIONS`) | Section registry (order, bilingual titles, nav labels, deck flag, modules) + the freshness rules | `sections.json`, `tools/oracle/freshness.json` |
+| `xbrl.js` (`window.ORCL_XBRL`) | Oracle's XBRL facts: lease balances, maturities and additions, cash capex, purchase obligations, RPO, deferred revenue, interest; latest-filed value per period, derived quarters flagged, amendments | **Automatic, daily** (`fetch-xbrl-facts.mjs` → `xbrl_facts.json`) |
+| `news.js` (`window.ORCL_NEWS`) | News and recent events: dated, themed, one-line summary, why it matters, sources primary first | `news.json`, daily cloud routine (`NEWS-SWEEP-PROMPT.md`) |
+| `risks.js` (`window.ORCL_RISKS`) | Risk register with evidence, section references and what to watch | `risks.json`, reviewed with each 10-Q/10-K |
+| `changelog.js` (`window.ORCL_CHANGELOG`) | What changed in each build (file, leaf, old → new) | `build-data.mjs` diff → `changelog.json` |
 
 ## Curated source of truth (`tools/oracle/data/`)
 
@@ -56,6 +63,16 @@ operating-expense lines and total, operating income, interest expense, pretax an
 share count, and the balance-sheet cash, marketable securities, total assets, current and non-current borrowings
 and current deferred revenue). 338 checks across the 13 archived quarters; any mismatch fails the build.
 
+## Numbering, cross-references and stamps (2026-10-03)
+
+`sections.json` is the only place a section is defined. `app.js numberSections()` numbers the sections (the summary is
+unnumbered), the figures (cards with a chart) and the tables (cards with a table) in DOM order, builds the navigation and
+labels every card "Figure n / Table n". Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
+the JSON narrative (resolved by `html()`); the deck titles its pages with `secHead(id)`. `validate-data.mjs` fails when a
+reference does not resolve, when the `<section data-sec>` order differs from the registry, or when a literal "section NN"
+remains in the page, deck or data. Every `p.chart-src` footer and section head gets an as-of / refreshed (ET) / STALE
+stamp from the section's modules (`applyStamps()`); rules in `tools/oracle/freshness.json`.
+
 Conventions: nominal USD as reported; thousands shown as millions; outflows stored negative
 (`capex_quarter: -28499`); ISO dates; one decimal on percentages applied at render time, never in the data.
 Assumptions in `ASSUMPTIONS.md`; open items in `PENDING.md`.
@@ -67,14 +84,16 @@ Since 2026-09-24 the filings job also runs `fetch-peer-leverage.mjs` (SEC XBRL c
 ```
 scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED   -> tools/oracle/data/*.csv, market_reference.json
 scripts/oracle/harvest-filings.mjs  SEC EDGAR (IR feed fallback) -> tools/oracle/raw/*, tools/oracle/data/state.json
+scripts/oracle/fetch-xbrl-facts.mjs SEC XBRL company facts       -> tools/oracle/data/xbrl_facts.json (amendments by accession)
 scripts/oracle/validate-data.mjs    tie-outs; non-zero exit fails the job; writes quality_report.json
 scripts/oracle/test-parsers.mjs     archived exhibits vs quarters.json
 scripts/oracle/build-data.mjs       curated JSON -> site/oracle/data/*.js
 git commit "[skip actions]" + push  Cloudflare Pages deploys the commit
 ```
 
-* Schedules: weekdays **21:45 UTC** (market only; NYSE closes 20:00 UTC in summer, 21:00 in winter) and
-  **13:30 UTC** (filings + market; Oracle files the results 8-K the evening it reports). GitHub only runs
+* Schedules: weekdays **21:45 UTC** (market only; NYSE closes 20:00 UTC in summer, 21:00 in winter) and every day
+  **13:30 UTC** (filings + XBRL facts + market; Oracle files the results 8-K the evening it reports; daily since
+  2026-10-03, owner's choice; a run commits only when data changed). GitHub only runs
   schedules on the **default branch**, so the automation starts when the `oracle-model` branch is merged;
   until then trigger it from the Actions tab (`workflow_dispatch`, `mode` = market | filings | all).
 * Set the repository variable **`EDGAR_USER_AGENT`** = `Your Name your@email` (the SEC asks for a contact).

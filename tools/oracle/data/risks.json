@@ -1,0 +1,72 @@
+{
+  "_comment": "Risk register for the Oracle page (section 'risks'). Each risk names the public evidence behind it (a filing section, a figure already on the page, or a sourced news item), the page section where the figure lives (a {{sec:…}} token resolves to the live section number) and what would change the assessment. Nothing here introduces a figure that is not already in /data; every row carries its source. Reviewed with each 10-Q/10-K and after rating actions; `updated` is the review date.",
+  "updated": "2026-10-03",
+  "items": [
+    {
+      "id": "execution",
+      "en": "Execution: the buildout must energise enough capacity to convert RPO",
+      "es": "Ejecución: la expansión debe energizar suficiente capacidad para convertir el RPO",
+      "evidence_en": "RPO of US$664 bn (1Q27) against 850 MW delivered in the quarter and five named campuses of about 5.6 GW planned, of which 733 MW are energised per the calls; Oracle: 'some sites are ahead of schedule, some sites are more difficult than others' (1Q27 call).",
+      "evidence_es": "RPO de US$664 mil millones (1T27) frente a 850 MW entregados en el trimestre y cinco campus nombrados de unos 5.6 GW planeados, de los cuales 733 MW están energizados según las llamadas; Oracle: 'algunos sitios van adelantados, otros son más difíciles' (llamada 1T27).",
+      "where": ["rpo", "sites"],
+      "watch_en": "Energised MW per site on each call; the 12-month RPO recognition share (13% at 1Q27).",
+      "watch_es": "MW energizados por sitio en cada llamada; la porción del RPO a reconocer en 12 meses (13% al 1T27).",
+      "source": { "title": "1Q27 earnings release and call; 1Q27 10-Q revenue note", "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" }
+    },
+    {
+      "id": "leases",
+      "en": "Fixed charges from leases: US$288 bn signed but not yet on the balance sheet",
+      "es": "Cargos fijos por arrendamientos: US$288 mil millones firmados aún fuera del balance",
+      "evidence_en": "Uncommenced leases of US$288 bn (undiscounted, 15–19 years, commencing 2Q27–FY2029) on top of US$34.6 bn operating and US$9.2 bn finance lease liabilities (1Q27 10-Q). Press reports (FT, Sep 25, 2026) say Project Jupiter rent is owed even without power; Oracle's 10-Q does not disclose the terms.",
+      "evidence_es": "Arrendamientos no iniciados por US$288 mil millones (sin descontar, 15–19 años, inicios 2T27–AF2029) sobre US$34.6 mil millones de pasivos por arrendamientos operativos y US$9.2 mil millones financieros (10-Q 1T27). La prensa (FT, 25 sep 2026) dice que la renta del Proyecto Júpiter se debe aun sin energía; el 10-Q de Oracle no divulga los términos.",
+      "where": ["obligations"],
+      "watch_en": "The uncommenced figure in each 10-Q; the weighted-average term and start of new leases; any disclosure of guarantees or termination rights.",
+      "watch_es": "La cifra de no iniciados en cada 10-Q; el plazo y arranque promedio ponderado de los arrendamientos nuevos; cualquier revelación de garantías o derechos de terminación.",
+      "source": { "title": "1Q27 10-Q, Note 'Leases'", "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" }
+    },
+    {
+      "id": "funding",
+      "en": "Funding and ratings: about US$20 bn still to raise in fiscal 2027, one notch above speculative grade at S&P",
+      "es": "Financiamiento y calificaciones: unos US$20 mil millones por levantar en el AF2027, un escalón arriba del grado especulativo en S&P",
+      "evidence_en": "Notes payable US$125.3 bn and net debt US$88.3 bn at 1Q27; S&P BBB-/stable (Jul 9, 2026), Moody's Baa2/negative (Jul 28, 2025), Fitch BBB/stable (Feb 2026); US$19.9 bn ATM done of the US$40 bn fiscal-2027 plan (4Q26 call); 5-year CDS about 203 bp in July 2026 (Bloomberg).",
+      "evidence_es": "Notas por pagar US$125.3 mil millones y deuda neta US$88.3 mil millones al 1T27; S&P BBB-/estable (9 jul 2026), Moody's Baa2/negativa (28 jul 2025), Fitch BBB/estable (feb 2026); US$19.9 mil millones de ATM ejecutados de los US$40 mil millones del plan AF2027 (llamada 4T26); CDS a 5 años cerca de 203 pb en julio de 2026 (Bloomberg).",
+      "where": ["financing"],
+      "watch_en": "The instrument and coupon of the remaining raise; rating-agency actions after each 10-Q; lease-adjusted leverage versus the agencies' thresholds.",
+      "watch_es": "El instrumento y cupón del financiamiento restante; acciones de las agencias tras cada 10-Q; apalancamiento ajustado por arrendamientos frente a los umbrales de las agencias.",
+      "source": { "title": "1Q27 10-Q balance sheet; agency releases linked in the financing section", "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" }
+    },
+    {
+      "id": "concentration",
+      "en": "Customer concentration: Oracle names no customer; S&P estimates about half of RPO is OpenAI",
+      "es": "Concentración de clientes: Oracle no nombra clientes; S&P estima que cerca de la mitad del RPO es OpenAI",
+      "evidence_en": "Oracle's 10-K discloses only that no customer exceeded 10% of revenue in fiscal 2026; S&P's July 2026 rating action estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (third-party estimate, not an Oracle disclosure). Four of the five named campuses list OpenAI as the tenant.",
+      "evidence_es": "El 10-K de Oracle solo revela que ningún cliente superó el 10% de los ingresos en el AF2026; la acción de calificación de S&P de julio de 2026 estima que cerca de la mitad de los US$638 mil millones de RPO al 31 de mayo de 2026 corresponde a OpenAI (estimación de un tercero, no una revelación de Oracle). Cuatro de los cinco campus nombrados tienen a OpenAI como inquilino.",
+      "where": ["circular"],
+      "watch_en": "Any 10% customer disclosure in the 10-K; the prepaid / bring-your-own-hardware share of new contracts; counterparty financing announcements.",
+      "watch_es": "Cualquier revelación de cliente ≥10% en el 10-K; la porción prepagada / con hardware del cliente de los contratos nuevos; anuncios de financiamiento de las contrapartes.",
+      "source": { "title": "S&P Global Ratings, Jul 9, 2026; FY2026 10-K Note 1", "url": "https://www.spglobal.com/ratings/en/regulatory/article/-/view/sourceId/101695609" }
+    },
+    {
+      "id": "power",
+      "en": "Power and permitting: on-site generation and pipelines gate the named sites",
+      "es": "Energía y permisos: la generación en sitio y los gasoductos condicionan los sitios nombrados",
+      "evidence_en": "Doña Ana depends on up to 2.45 GW of fuel cells and a gas pipeline delayed to February 1, 2027 after permit denials, with an air-permit decision due November 23, 2026 (Oracle release Apr 27, 2026; TechCrunch Sep 24, 2026); Shackelford runs on an on-site gas microgrid per press; Port Washington on grid supply.",
+      "evidence_es": "Doña Ana depende de hasta 2.45 GW de celdas de combustible y de un gasoducto pospuesto al 1 de febrero de 2027 tras negativas de permisos, con decisión del permiso de aire el 23 de noviembre de 2026 (comunicado de Oracle 27 abr 2026; TechCrunch 24 sep 2026); Shackelford opera con una microrred de gas en sitio según la prensa; Port Washington con suministro de la red.",
+      "where": ["sites"],
+      "watch_en": "Permit decisions and pipeline in-service dates; first energised megawatts at Doña Ana and Shackelford against the first-half-2027 target.",
+      "watch_es": "Decisiones de permisos y fechas de entrada en servicio del gasoducto; primeros megavatios energizados en Doña Ana y Shackelford frente a la meta del primer semestre de 2027.",
+      "source": { "title": "Oracle press release, Apr 27, 2026 (Project Jupiter fuel cells)", "url": "https://www.oracle.com/news/announcement/oracle-borderplex-and-bloom-energy-to-power-project-jupiter-with-fuel-cell-technology-2026-04-27/" }
+    },
+    {
+      "id": "margins",
+      "en": "Margins and asset lives: data-center ramp compresses gross margin; servers are depreciated over six years",
+      "es": "Márgenes y vidas útiles: la entrada de centros de datos comprime el margen bruto; los servidores se deprecian a seis años",
+      "evidence_en": "Management expects gross margin to flatten as data centers ramp (1Q27 call); depreciation US$3,156 M in 1Q27 versus US$1,351 M a year earlier (XBRL); servers and networking equipment are depreciated over an estimated six-year life (1Q27 10-Q, Note 3). A shorter life would raise depreciation on the same capex.",
+      "evidence_es": "La administración espera que el margen bruto se aplane conforme entren los centros de datos (llamada 1T27); depreciación de US$3,156 M en el 1T27 frente a US$1,351 M un año antes (XBRL); servidores y equipo de red se deprecian en una vida útil estimada de seis años (10-Q 1T27, nota 3). Una vida más corta elevaría la depreciación sobre el mismo capex.",
+      "where": ["statements", "capex"],
+      "watch_en": "Depreciation growth against cloud revenue growth; any change to the useful-life policy in the 10-K.",
+      "watch_es": "Crecimiento de la depreciación frente al de los ingresos de nube; cualquier cambio a la política de vidas útiles en el 10-K.",
+      "source": { "title": "1Q27 10-Q, Note 3 Property, plant and equipment", "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" }
+    }
+  ]
+}

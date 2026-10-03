@@ -1,5 +1,5 @@
 {
-  "_comment": "Content for section 09. Every figure here must already exist, identically, in quarters.json — this section narrates, it doesn't introduce new numbers.",
+  "_comment": "Content for the sites section. Every figure here must already exist, identically, in quarters.json — this section narrates, it doesn't introduce new numbers.",
   "ai_cloud_buildout": {
     "title_en": "The AI cloud infrastructure buildout",
     "title_es": "La expansión de infraestructura de nube de IA",
@@ -56,14 +56,14 @@
       }
     ],
     "model_impact_en": [
-      "DCF (Section 05): capex and D&A assumptions for the projection years should be anchored to this buildout, not to Oracle's historical (pre-2026) capital intensity — using the old capex/revenue ratio would understate near-term free-cash-flow pressure.",
-      "Leverage (Section 07): net debt/EBITDA is rising mechanically as debt funds capex ahead of the RPO converting to revenue; watch the maturity profile and coupon on any new issuance.",
-      "Guidance tracking (Section 02): the FY2027 “at least $90bn” revenue guidance and the cloud-growth ranges are the number to reconcile actual quarters against — a miss here is the single most important early-warning signal for the buildout thesis."
+      "DCF ({{sec:valuation}}): capex and D&A assumptions for the projection years should be anchored to this buildout, not to Oracle's historical (pre-2026) capital intensity — using the old capex/revenue ratio would understate near-term free-cash-flow pressure.",
+      "Leverage ({{sec:financing}}): net debt/EBITDA is rising mechanically as debt funds capex ahead of the RPO converting to revenue; watch the maturity profile and coupon on any new issuance.",
+      "Guidance tracking ({{sec:guidance}}): the FY2027 “at least $90bn” revenue guidance and the cloud-growth ranges are the number to reconcile actual quarters against — a miss here is the single most important early-warning signal for the buildout thesis."
     ],
     "model_impact_es": [
-      "DCF (Sección 05): los supuestos de capex y D&A de los años de proyección deben anclarse a esta expansión, no a la intensidad de capital histórica de Oracle (previa a 2026) — usar la razón capex/ingresos anterior subestimaría la presión sobre el flujo libre de efectivo de corto plazo.",
-      "Apalancamiento (Sección 07): la deuda neta/EBITDA sube mecánicamente porque la deuda financia el capex antes de que el RPO se convierta en ingreso; vigilar el perfil de vencimientos y el cupón de cualquier nueva emisión.",
-      "Seguimiento de guía (Sección 02): la guía de ingresos AF2027 de “al menos $90,000 millones” y los rangos de crecimiento de nube son la cifra contra la que hay que conciliar los trimestres reales — un incumplimiento aquí es la señal de alerta temprana más importante para la tesis de la expansión."
+      "DCF ({{sec:valuation}}): los supuestos de capex y D&A de los años de proyección deben anclarse a esta expansión, no a la intensidad de capital histórica de Oracle (previa a 2026) — usar la razón capex/ingresos anterior subestimaría la presión sobre el flujo libre de efectivo de corto plazo.",
+      "Apalancamiento ({{sec:financing}}): la deuda neta/EBITDA sube mecánicamente porque la deuda financia el capex antes de que el RPO se convierta en ingreso; vigilar el perfil de vencimientos y el cupón de cualquier nueva emisión.",
+      "Seguimiento de guía ({{sec:guidance}}): la guía de ingresos AF2027 de “al menos $90,000 millones” y los rangos de crecimiento de nube son la cifra contra la que hay que conciliar los trimestres reales — un incumplimiento aquí es la señal de alerta temprana más importante para la tesis de la expansión."
     ],
     "pending_enrichment_en": "Named-counterparty contract terms (e.g. specific customer agreements) are not yet sourced to a citable public filing and are deliberately omitted; the 10-K's customer-concentration risk factor and any earnings-call transcript, once supplied, would be the right sources to enrich this section.",
     "pending_enrichment_es": "Los términos de contratos con contrapartes nombradas (p. ej. acuerdos con clientes específicos) aún no están sustentados en un documento público citable y se omiten deliberadamente; el factor de riesgo de concentración de clientes del 10-K y cualquier transcripción de llamada de resultados, una vez proporcionada, serían las fuentes adecuadas para enriquecer esta sección."

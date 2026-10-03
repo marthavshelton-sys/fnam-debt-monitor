@@ -1,0 +1,23 @@
+{
+  "_comment": "Staleness rules per data module (owner's rule, 2026-10-03): a filing-driven module is stale when today is past the next expected filing date plus `grace_days`; a daily module when its last refresh is older than `max_age_days`. The next expected filing date is calendar.json → nextResults (confirmed) or the end of its derived window (assumed), both labelled. Evaluated in scripts/oracle/validate-data.mjs (quality_report.modules) and again in the browser (app.js moduleStatus), so a halted pipeline never shows old data as current. `text_derived` modules carry a 'needs review' flag until a figure is confirmed by XBRL or a second reading (validate-data writes the per-figure verdicts).",
+  "grace_days": 7,
+  "modules": {
+    "financials": { "label_en": "Statements (8-K releases)", "label_es": "Estados financieros (comunicados 8-K)", "cadence": "filing", "asof": "period_end", "source_file": "quarters.json" },
+    "xbrl": { "label_en": "XBRL facts (10-Q/10-K)", "label_es": "Datos XBRL (10-Q/10-K)", "cadence": "filing", "asof": "period_end", "source_file": "xbrl_facts.json" },
+    "obligations": { "label_en": "Leases and commitments notes", "label_es": "Notas de arrendamientos y compromisos", "cadence": "filing", "asof": "period_end", "source_file": "obligations.json", "text_derived": true },
+    "guidance": { "label_en": "Guidance", "label_es": "Guía", "cadence": "filing", "asof": "issued_on", "source_file": "guidance.json" },
+    "comments": { "label_en": "Line comments", "label_es": "Comentarios por renglón", "cadence": "filing", "asof": "quarter", "source_file": "comments.json" },
+    "summary": { "label_en": "Executive summary", "label_es": "Resumen ejecutivo", "cadence": "filing", "asof": "quarter", "source_file": "comments.json" },
+    "buildout": { "label_en": "Buildout (calls)", "label_es": "Expansión (llamadas)", "cadence": "filing", "asof": "quarter", "source_file": "buildout.json", "text_derived": true },
+    "reference": { "label_en": "Reference facts", "label_es": "Hechos de referencia", "cadence": "filing", "asof": "updated", "source_file": "market_reference.json" },
+    "market": { "label_en": "Market (daily closes)", "label_es": "Mercado (cierres diarios)", "cadence": "daily", "max_age_days": 5, "source_file": "market_reference.json" },
+    "factset": { "label_en": "FactSet consensus", "label_es": "Consenso FactSet", "cadence": "daily", "max_age_days": 7, "source_file": "factset.json" },
+    "cds": { "label_en": "5-year CDS", "label_es": "CDS a 5 años", "cadence": "daily", "max_age_days": 7, "source_file": "cds.json", "optional": true },
+    "news": { "label_en": "News and events", "label_es": "Noticias y eventos", "cadence": "daily", "max_age_days": 3, "source_file": "news.json" },
+    "calendar": { "label_en": "Investor calendar", "label_es": "Calendario del inversionista", "cadence": "daily", "max_age_days": 10, "source_file": "calendar.json" },
+    "peer_leverage": { "label_en": "Peer leverage (XBRL)", "label_es": "Apalancamiento de pares (XBRL)", "cadence": "daily", "max_age_days": 10, "source_file": "peer_leverage.json" },
+    "risks": { "label_en": "Risk register", "label_es": "Registro de riesgos", "cadence": "filing", "asof": "updated", "source_file": "risks.json" },
+    "quality": { "label_en": "Validation report", "label_es": "Reporte de validación", "cadence": "daily", "max_age_days": 4, "source_file": "quality_report.json" },
+    "changelog": { "label_en": "Change log", "label_es": "Bitácora de cambios", "cadence": "daily", "max_age_days": 4, "source_file": "changelog.json" }
+  }
+}

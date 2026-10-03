@@ -11,7 +11,24 @@ import { ROOT, DATA, OUT } from "./paths.mjs";
 mkdirSync(OUT, { recursive: true });
 const load = (n, fb = null) => (existsSync(join(DATA, n)) ? JSON.parse(readFileSync(join(DATA, n), "utf8").replace(/^﻿/, "")) : fb);
 const now = new Date().toISOString();
-const emit = (file, global, obj, header) => writeFileSync(join(OUT, file), `// ${header}\n// Generated ${now} by scripts/oracle/build-data.mjs — do not hand-edit; edit /data and rebuild.\nwindow.${global} = ${JSON.stringify(obj)};\n`, "utf8");
+// Change log: every emit() diffs the new object against the file it replaces and records each leaf that changed
+// (value, path, file, time), so the page's methodology section and the quality page show what moved and when.
+// Volatile stamps are ignored; long series (daily prices) are summarised as a length change; quality.js is a report
+// and is not logged. tools/oracle/data/changelog.json keeps the last 600 entries.
+const CHANGELOG_PATH = join(DATA, "changelog.json");
+const changelog = existsSync(CHANGELOG_PATH) ? JSON.parse(readFileSync(CHANGELOG_PATH, "utf8")) : { note: "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.", entries: [] };
+const SKIP_KEYS = /^(generatedAt|generated|fetched|updatedAt|updated|checkedAt|accessed|_comment|note|notes)$/;
+const flatten = (o, prefix, out, depth = 0) => { if (o == null || typeof o !== "object") { out[prefix] = o; return out; } if (Array.isArray(o)) { if (o.length > 60) { out[prefix + ".length"] = o.length; return out; } o.forEach((v, i) => flatten(v, `${prefix}[${i}]`, out, depth + 1)); return out; } for (const [k, v] of Object.entries(o)) { if (SKIP_KEYS.test(k)) continue; flatten(v, prefix ? `${prefix}.${k}` : k, out, depth + 1); } return out; };
+const readPrev = (file) => { const p = join(OUT, file); if (!existsSync(p)) return null; const txt = readFileSync(p, "utf8"); const i = txt.indexOf("= "); try { return JSON.parse(txt.slice(i + 2).replace(/;\s*$/, "")); } catch (e) { return null; } };
+const logChanges = (file, obj) => {
+  if (file === "quality.js" || file === "changelog.js") return;
+  const prev = readPrev(file); if (!prev) { changelog.entries.push({ at: now, file, path: "(file)", old: null, new: "created" }); return; }
+  const a = flatten(prev, "", {}), b = flatten(obj, "", {});
+  const keys = new Set([...Object.keys(a), ...Object.keys(b)]);
+  let n = 0;
+  for (const k of keys) { const x = a[k], y = b[k]; if (JSON.stringify(x) === JSON.stringify(y)) continue; if (typeof x === "string" && typeof y === "string" && (x.length > 160 || y.length > 160)) { changelog.entries.push({ at: now, file, path: k, old: "(text)", new: "(text changed)" }); n++; continue; } changelog.entries.push({ at: now, file, path: k, old: x === undefined ? null : x, new: y === undefined ? null : y }); n++; if (n >= 120) { changelog.entries.push({ at: now, file, path: "(more)", old: null, new: `${keys.size} leaves compared; further changes in this file not listed` }); break; } }
+};
+const emit = (file, global, obj, header) => { logChanges(file, obj); writeFileSync(join(OUT, file), `// ${header}\n// Generated ${now} by scripts/oracle/build-data.mjs — do not hand-edit; edit /data and rebuild.\nwindow.${global} = ${JSON.stringify(obj)};\n`, "utf8"); };
 
 const quarters = load("quarters.json").quarters.slice().sort((a, b) => (a.period_end < b.period_end ? -1 : 1));
 const fiscalYears = load("fiscal_years.json", { fiscal_years: {} }).fiscal_years;
@@ -283,18 +300,12 @@ if (bo) {
   }, "Oracle AI-infrastructure buildout — capacity delivered, GPU fleet metrics, secured capacity and named sites, from the earnings calls, Oracle press releases, partner releases and wire reports (tools/oracle/data/buildout.json).");
 }
 
-// ---------- press.js (market concerns from credible press and analysts, executive summary) ----------
-// tools/oracle/data/press.json is refreshed weekly by the desktop task; only items inside the window are published.
+// press.js retired 2026-10-03: the news section (news.json → news.js) replaces the weekly press block.
 const prs = load("press.json", null);
-if (prs) {
-  const cut = new Date((prs.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (prs.window_days || 90)); const cutIso = cut.toISOString().slice(0, 10);
-  const items = (prs.items || []).filter((x) => x.date && x.url && x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, prs.max_items || 8);
-  emit("press.js", "ORCL_PRESS", { asOf: prs.as_of, windowDays: prs.window_days || 90, maxItems: prs.max_items || 8, themes: prs.themes || [], items }, "Market concerns as stated in credible press and analyst publications (last 90 days, up to 8 items, grouped by theme) — tools/oracle/data/press.json, refreshed weekly by the desktop task.");
-}
 
 // ---------- obligations.js (off-balance-sheet financing, preferred stock, funding plan) ----------
 const obl = load("obligations.json", null);
-if (obl) emit("obligations.js", "ORCL_OBLIG", obl, "Off-balance-sheet financing and capital-structure facts from the 10-Q/10-K leases and commitments notes, the preferred-stock prospectus and the calls (tools/oracle/data/obligations.json); ratios are computed on the page.");
+if (obl) emit("obligations.js", "ORCL_OBLIG", { ...obl, generatedAt: now }, "Off-balance-sheet financing and capital-structure facts from the 10-Q/10-K leases and commitments notes, the preferred-stock prospectus and the calls (tools/oracle/data/obligations.json); ratios are computed on the page.");
 
 // ---------- peer_leverage.js (Baa-range technology issuers, SEC XBRL) ----------
 const plv = load("peer_leverage.json", null);
@@ -326,6 +337,27 @@ if (fsd) {
   emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until tools/oracle/data/factset.json exists.");
 }
 
+// ---------- sections.js (section registry: order, titles, deck flag, modules → numbering is generated, never typed) ----------
+const secReg = load("sections.json", { sections: [] });
+const freshRules = existsSync(join(DATA, "..", "freshness.json")) ? JSON.parse(readFileSync(join(DATA, "..", "freshness.json"), "utf8")) : null;
+emit("sections.js", "ORCL_SECTIONS", { generatedAt: now, updated: secReg.updated, sections: secReg.sections, freshness: freshRules }, "Section registry for the Oracle page: order, bilingual titles, deck inclusion and the data modules behind each section; the page numbers sections, figures, tables and cross-references from it at render time.");
+
+// ---------- news.js (news and recent events: dated, themed, sourced primary-first) ----------
+const nws = load("news.json", null);
+if (nws) {
+  const cut = new Date((nws.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (nws.window_days || 120)); const cutIso = cut.toISOString().slice(0, 10);
+  const items = (nws.items || []).filter((x) => x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));
+  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], items }, "News and recent events for the Oracle page — tools/oracle/data/news.json, refreshed daily by the cloud routine; each item dated, themed, with primary sources first.");
+}
+
+// ---------- xbrl.js (Oracle's own XBRL facts: leases, capex, finance-lease additions, commitments) ----------
+const xbj = load("xbrl_facts.json", null);
+if (xbj) emit("xbrl.js", "ORCL_XBRL", { generatedAt: now, fetched: xbj.fetched, latestPeriodEnd: xbj.latest_period_end, latestFiling: xbj.latest_filing, source: xbj.source, concepts: xbj.concepts, amendments: xbj.amendments, missing: xbj.missing }, "Oracle XBRL facts from the SEC company-facts API (scripts/oracle/fetch-xbrl-facts.mjs): lease balances and maturities, capex, finance-lease additions, purchase obligations, RPO; latest-filed value per period, quarters derived from year-to-date by subtraction and flagged.");
+
+// ---------- risks.js (risk register) ----------
+const rk = load("risks.json", null);
+if (rk) emit("risks.js", "ORCL_RISKS", { generatedAt: now, updated: rk.updated, items: rk.items }, "Risk register for the Oracle page — each risk with its public evidence, the section where the figure lives and what to watch (tools/oracle/data/risks.json).");
+
 // ---------- quality (for the hidden data-quality page) ----------
 const qr = load("quality_report.json", null), st = load("state.json", null), prp = load("parser_report.json", null);
 const nsPath = join(DATA, "..", "notify-state.json"); const ns = existsSync(nsPath) ? JSON.parse(readFileSync(nsPath, "utf8")) : null;
@@ -333,7 +365,12 @@ emit("quality.js", "ORCL_QUALITY", {
   generatedAt: now, report: qr, parser: prp,
   state: st ? { last_harvest: st.last_harvest, last_review: st.last_review, seen: (st.seen_accessions || []).length, pending: (st.pending_extraction || []).filter((p) => p.status === "pending"), references: (st.pending_extraction || []).filter((p) => p.status === "reference").length, done: (st.pending_extraction || []).filter((p) => p.status === "done").length, log: (st.log || []).slice(-12) } : null,
   notify: ns ? { lastQuarter: ns.lastQuarter, lastFilingSeen: ns.lastFilingSeen, lastEventDate: ns.lastEventDate, lastMarketClose: ns.lastMarketClose, lastNotifiedAt: ns.lastNotifiedAt, lastFailureNote: ns.lastFailureNote, checkedAt: ns.checkedAt } : null,
-  routines: { factsetFetched: fsd ? fsd.fetched : null, pressAsOf: prs ? prs.as_of : null, peerLeverageFetched: plv ? plv.fetched : null, calendarGenerated: calAll ? calAll.generated : null, marketGeneratedAt: mref.as_of || null },
+  routines: { factsetFetched: fsd ? fsd.fetched : null, pressAsOf: prs ? prs.as_of : null, newsAsOf: nws ? nws.as_of : null, xbrlFetched: xbj ? xbj.fetched : null, peerLeverageFetched: plv ? plv.fetched : null, calendarGenerated: calAll ? calAll.generated : null, marketGeneratedAt: mref.as_of || null },
 }, "Data-quality report for the hidden quality page: structured tie-outs, parser tests, freshness, curated-file coverage and automation state (tools/oracle/data/quality_report.json, parser_report.json, state.json, notify-state.json).");
+
+// ---------- changelog.js (what changed since the previous build; written last so it includes this build) ----------
+changelog.generated = now; changelog.entries = changelog.entries.slice(-600);
+writeFileSync(CHANGELOG_PATH, JSON.stringify(changelog, null, 1) + "\n", "utf8");
+emit("changelog.js", "ORCL_CHANGELOG", { generatedAt: now, entries: changelog.entries.slice(-250).reverse() }, "Change log of the page data files (newest first): each leaf that changed between builds with the file, path, old and new value (tools/oracle/data/changelog.json).");
 
 console.log(`site/data: financials (${finQuarters.length} quarters, ${years.length} years), market (${orclPts.length} ORCL closes, ${spxPts.length} S&P closes, ${tsyPts.length} yield points), guidance (${vint.length} vintages), comments (${Object.keys(periods).length} periods), instruments ${(mref.debt_instruments || []).length}.`);
