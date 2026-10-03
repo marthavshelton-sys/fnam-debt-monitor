@@ -24,7 +24,7 @@ const KINDS = [
   ['spv', /special[- ]purpose (?:vehicle|entit)|build-to-suit|construction (?:period|agreement) .{0,80}lessor|sale[- ]leaseback/i],
   // phase 2-3: capacity, sites, power, accelerators, customer concentration and related-party flows
   ['capacity', /\b\d[\d,.]*\s*(?:MW|megawatts?|GW|gigawatts?)\b|(?:active|contracted|critical IT|IT load|power(?:ed)?) capacity/i],
-  ['properties', /\bItem\s*2\.?\s*Properties\b|data cent(?:er|re)s? (?:located )?in [A-Z][a-z]+|campus (?:in|located)/],
+  ['properties', /\b(?:Item|ITEM)\s*2\.?\s*(?:Properties|PROPERTIES)\b|data cent(?:er|re)s? (?:located )?in [A-Z][a-z]+|campus (?:in|located)/],
   ['power', /power purchase agreement|\bPPAs?\b|nuclear|small modular reactor|natural gas|interconnection|electric(?:ity)? (?:supply|service) agreement|utility/i],
   ['gpu', /\bGPUs?\b|accelerators?\b|\bNVIDIA\b|Blackwell|\bGB[23]00\b|\bH[12]00\b/],
   ['concentration', /\d{1,3}(?:\.\d)?%\s+of\s+(?:our\s+)?(?:total\s+)?revenue|significant customer|customer concentration|largest customer|related part(?:y|ies)|\bOpenAI\b|\bAnthropic\b|\bMicrosoft\b|\bNVIDIA\b/]

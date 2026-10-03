@@ -1,6 +1,13 @@
 {
  "entries": [
   {
+   "at": "2026-10-03T15:30:57Z",
+   "kind": "metric_added",
+   "id": "*.revenue",
+   "value": 135,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
    "at": "2026-10-03T14:04:01Z",
    "kind": "initial",
    "id": "*",

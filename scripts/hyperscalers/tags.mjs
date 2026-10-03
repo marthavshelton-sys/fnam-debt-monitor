@@ -10,6 +10,7 @@ export const TAGS = {
   fl_additions: { kind: 'flow', tags: ['us-gaap:RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability'], en: 'Assets acquired under finance leases (non-cash)', es: 'Activos adquiridos mediante arrendamiento financiero (no monetario)' },
   ol_additions: { kind: 'flow', tags: ['us-gaap:RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability'], en: 'Right-of-use assets obtained for new operating leases (non-cash)', es: 'Activos por derecho de uso obtenidos por nuevos arrendamientos operativos (no monetario)' },
   fl_principal: { kind: 'flow', tags: ['us-gaap:FinanceLeasePrincipalPayments'], en: 'Principal payments on finance leases', es: 'Pagos de principal de arrendamientos financieros' },
+  revenue: { kind: 'flow', tags: ['us-gaap:RevenueFromContractWithCustomerExcludingAssessedTax', 'us-gaap:Revenues'], en: 'Revenue', es: 'Ingresos' },
   ocf: { kind: 'flow', tags: ['us-gaap:NetCashProvidedByUsedInOperatingActivities'], en: 'Operating cash flow', es: 'Flujo de efectivo de operación' },
   op_income: { kind: 'flow', tags: ['us-gaap:OperatingIncomeLoss'], en: 'Operating income', es: 'Utilidad de operación' },
   da: { kind: 'flow', tags: ['us-gaap:DepreciationDepletionAndAmortization', 'us-gaap:DepreciationAmortizationAndAccretionNet', 'us-gaap:DepreciationAndAmortization', 'us-gaap:Depreciation'], en: 'Depreciation and amortization (cash-flow statement)', es: 'Depreciación y amortización (estado de flujos)' },
