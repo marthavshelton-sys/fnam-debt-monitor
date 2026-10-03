@@ -2,11 +2,567 @@
  "issuer": "ASUR-6001-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ASUR-6001-CGEN_CAPIT",
  "since": "2024-01-01",
- "checkedAt": null,
- "rows": 0,
- "archived": 0,
+ "checkedAt": "2026-10-03T13:48:44.140Z",
+ "rows": 119,
+ "archived": 1,
  "pending": 0,
- "unmatched": [],
- "error": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/ASUR-6001-CGEN_CAPIT -> gave up (HTTP 503)",
- "seen": []
+ "unmatched": [
+  "2024-06-06 ASUR anuncia el total de tráfico para Mayo del 2024"
+ ],
+ "error": null,
+ "seen": [
+  {
+   "id": "1591573",
+   "date": "2026-09-28",
+   "title": "INFORMACIÓN FINANCIERA Y DE DIVULGACIÓN RESPECTO DE ACONTECIMIENTOS RECIENTES Y RESULTADOS DE OPERACIÓN",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591573_1.pdf",
+   "file": "tools/asur/raw/releases/2026-09-28_bmv1591573_es.txt"
+  },
+  {
+   "id": "1587492",
+   "date": "2026-09-08",
+   "title": "ASUR anuncia el total de tráfico para Agosto del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1587492_1.pdf",
+   "coveredBy": "2026-09-08_prn302872657_en.txt"
+  },
+  {
+   "id": "1585964",
+   "date": "2026-09-01",
+   "title": "ASUR CONCLUYE LA ADQUISICIÓN DE LA PARTICIPACIÓN DE MOTIVA EN AEROPUERTOS DE BRASIL, ECUADOR, COSTA RICA Y CURAÇAO",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1585964_1.pdf",
+   "coveredBy": "2026-09-01_prn302866774_en.txt"
+  },
+  {
+   "id": "1583369",
+   "date": "2026-08-20",
+   "title": "ASUR anuncia las resoluciones aprobadas en la Asamblea General Ordinaria y Extraordinaria de Accionistas celebrada el 20 de agosto de 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1583369_1.pdf",
+   "coveredBy": "2026-08-20_prn302856761_en.txt"
+  },
+  {
+   "id": "1580157",
+   "date": "2026-08-05",
+   "title": "ASUR anuncia el total de tráfico para Julio del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1580157_1.pdf",
+   "coveredBy": "2026-08-05_prn302844115_en.txt"
+  },
+  {
+   "id": "1576484",
+   "date": "2026-07-23",
+   "title": "ASUR ANUNCIA RESULTADOS 2T 2026",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576484_1.pdf",
+   "coveredBy": "2026-07-23_ir2Q26_en.txt"
+  },
+  {
+   "id": "1573901",
+   "date": "2026-07-13",
+   "title": "ASUR anuncia convocatoria a la Asamblea General Ordinaria y Extraordinaria de Grupo Aeroportuario del Sureste, S.A.B. de C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1573901_1.pdf",
+   "coveredBy": "2026-07-13_prn302824149_en.txt"
+  },
+  {
+   "id": "1572637",
+   "date": "2026-07-06",
+   "title": "ASUR anuncia el total de tráfico para Junio del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1572637_1.pdf",
+   "coveredBy": "2026-07-06_prn302818632_en.txt"
+  },
+  {
+   "id": "1569745",
+   "date": "2026-06-23",
+   "title": "ASUR PROPONE A SUS ACCIONISTAS LA INTERNALIZACIÓN DE LOS SERVICIOS DE ASISTENCIA TÉCNICA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1569745_1.pdf",
+   "coveredBy": "2026-06-23_prn302808391_en.txt"
+  },
+  {
+   "id": "1566241",
+   "date": "2026-06-08",
+   "title": "ASUR anuncia el total de tráfico para Mayo del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1566241_1.pdf",
+   "coveredBy": "2026-06-08_prn302794378_en.txt"
+  },
+  {
+   "id": "1557306",
+   "date": "2026-05-06",
+   "title": "ASUR anuncia el total de tráfico para abril del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1557306_1.pdf",
+   "coveredBy": "2026-05-06_prn302764550_en.txt"
+  },
+  {
+   "id": "1550733",
+   "date": "2026-04-23",
+   "title": "ASUR ANUNCIA RESOLUCIONES APROBADAS EN ASAMBLEA ANUAL ORDINARIA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550733_1.pdf",
+   "coveredBy": "2026-04-23_prn302752082_en.txt"
+  },
+  {
+   "id": "1550295",
+   "date": "2026-04-22",
+   "title": "ASUR ANUNCIA RESULTADOS 1T26",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550295_1.pdf",
+   "coveredBy": "2026-04-22_ir1Q26_en.txt"
+  },
+  {
+   "id": "1546706",
+   "date": "2026-04-07",
+   "title": "ASUR anuncia el total de tráfico para Marzo del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1546706_1.pdf",
+   "coveredBy": "2026-04-07_prn302736122_en.txt"
+  },
+  {
+   "id": "1539442",
+   "date": "2026-03-05",
+   "title": "ASUR anuncia el total de tráfico para febrero del 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1539442_1.pdf",
+   "coveredBy": "2026-03-05_prn302705737_en.txt"
+  },
+  {
+   "id": "1539046",
+   "date": "2026-03-04",
+   "title": "ASUR ANUNCIA CONVOCATORIA A LA ASAMBLEA ANUAL ORDINARIA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1539046_1.pdf",
+   "coveredBy": "2026-03-04_prn302704361_en.txt"
+  },
+  {
+   "id": "1536280",
+   "date": "2026-02-24",
+   "title": "ASUR ANUNCIA RESULTADOS 4T25",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1536280_1.pdf",
+   "coveredBy": "2026-02-24_ir4Q25_en.txt"
+  },
+  {
+   "id": "1531498",
+   "date": "2026-02-09",
+   "title": "ASUR ANUNCIA EL TOTAL DE TRÁFICO PARA ENERO DEL 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1531498_1.pdf",
+   "coveredBy": "2026-02-09_prn302682986_en.txt"
+  },
+  {
+   "id": "1526971",
+   "date": "2026-01-26",
+   "title": "ASUR anuncia las resoluciones de la Asamblea General Ordinaria de Accionistas celebrada el 26 de enero de 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1526971_1.pdf",
+   "coveredBy": "2026-01-26_prn302670388_en.txt"
+  },
+  {
+   "id": "1521468",
+   "date": "2026-01-06",
+   "title": "ASUR anuncia el total de tráfico para diciembre del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1521468_1.pdf",
+   "coveredBy": "2026-01-06_prn302654211_en.txt"
+  },
+  {
+   "id": "1515334",
+   "date": "2025-12-11",
+   "title": "ASUR COMPLETA LA ADQUISICIÓN DE URW AIRPORTS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1515334_1.pdf",
+   "coveredBy": "2025-12-11_prn302639651_en.txt"
+  },
+  {
+   "id": "1514495",
+   "date": "2025-12-08",
+   "title": "ASUR anuncia el total de tráfico para noviembre del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1514495_1.pdf",
+   "coveredBy": "2025-12-08_prn302635733_en.txt"
+  },
+  {
+   "id": "1514024",
+   "date": "2025-12-04",
+   "title": "ASUR anuncia convocatoria a Asamblea General Ordinaria de Accionistas",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1514024_1.pdf",
+   "coveredBy": "2025-12-04_prn302633605_en.txt"
+  },
+  {
+   "id": "1510544",
+   "date": "2025-11-18",
+   "title": "ASUR CELEBRA UN ACUERDO PARA ADQUIRIR LA PARTICIPACIÓN DE MOTIVA EN SUS AEROPUERTOS DE BRASIL, ECUADOR, COSTA RICA Y CURAÇAO",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1510544_1.pdf",
+   "coveredBy": "2025-11-18_prn302619317_en.txt"
+  },
+  {
+   "id": "1506170",
+   "date": "2025-11-06",
+   "title": "ASUR anuncia el total de tráfico para octubre del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1506170_1.pdf",
+   "coveredBy": "2025-11-06_prn302607781_en.txt"
+  },
+  {
+   "id": "1505542",
+   "date": "2025-11-05",
+   "title": "ASUR ANUNCIA A SOLICITUD DE LA BMV PRESENTACIÓN DE OFERTA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1505542_1.pdf",
+   "coveredBy": "2025-11-05_prn302605930_en.txt"
+  },
+  {
+   "id": "1500697",
+   "date": "2025-10-22",
+   "title": "ASUR ANUNCIA RESULTADOS 3T25",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1500697_1.pdf",
+   "coveredBy": "2025-10-22_ir3Q25_en.txt"
+  },
+  {
+   "id": "1497513",
+   "date": "2025-10-06",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS SEPTIEMBRE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1497513_1.pdf",
+   "coveredBy": "2025-10-06_prn302576222_en.txt"
+  },
+  {
+   "id": "1491867",
+   "date": "2025-09-08",
+   "title": "ASUR anuncia el total de tráfico para agosto del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1491867_1.pdf",
+   "coveredBy": "2025-09-08_prn302549559_en.txt"
+  },
+  {
+   "id": "1484610",
+   "date": "2025-08-05",
+   "title": "ASUR anuncia el total de tráfico para julio del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1484610_1.pdf",
+   "coveredBy": "2025-08-05_prn302522363_en.txt"
+  },
+  {
+   "id": "1483307",
+   "date": "2025-07-30",
+   "title": "ASUR CELEBRA ACUERDO PARA ADQUIRIR CONCESIONES COMERCIALES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1483307_1.pdf",
+   "coveredBy": "2025-07-30_prn302517987_en.txt"
+  },
+  {
+   "id": "1483263",
+   "date": "2025-07-30",
+   "title": "ASUR CELEBRA ACUERDO PARA ADQUIRIR CONCESIONES COMERCIALES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1483263_1.pdf",
+   "coveredBy": "bmv:1483307"
+  },
+  {
+   "id": "1480678",
+   "date": "2025-07-22",
+   "title": "ASUR ANUNCIA RESULTADOS 2T 2025",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1480678_1.pdf",
+   "coveredBy": "2025-07-22_ir2Q25_en.txt"
+  },
+  {
+   "id": "1477325",
+   "date": "2025-07-07",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS JUNIO 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1477325_1.pdf",
+   "coveredBy": "2025-07-07_prn302499291_en.txt"
+  },
+  {
+   "id": "1473845",
+   "date": "2025-06-20",
+   "title": "ASUR anuncia movimiento de la accion",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/asur/raw/releases/2025-06-20_bmv1473845_es.txt"
+  },
+  {
+   "id": "1470603",
+   "date": "2025-06-05",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS MAYO 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1470603_1.pdf",
+   "coveredBy": "2025-06-05_prn302474611_en.txt"
+  },
+  {
+   "id": "1462218",
+   "date": "2025-05-05",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS ABRIL 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1462218_1.pdf",
+   "coveredBy": "2025-05-05_prn302446256_en.txt"
+  },
+  {
+   "id": "1457290",
+   "date": "2025-04-23",
+   "title": "ASUR ANUNCIA ACUERDOS DE ASAMBLEA ORDINARIA ANUAL",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1457290_1.pdf",
+   "coveredBy": "2025-04-23_prn302436520_en.txt"
+  },
+  {
+   "id": "1456961",
+   "date": "2025-04-22",
+   "title": "ASUR ANUNCIA RESULTADOS 1T 2025",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1456961_1.pdf",
+   "coveredBy": "2025-04-22_ir1Q25_en.txt"
+  },
+  {
+   "id": "1456960",
+   "date": "2025-04-22",
+   "title": "ASUR ANUNCIA REENVÍO DE RESULTADOS 1T 2025",
+   "class": "results",
+   "attachment": null,
+   "coveredBy": "2025-04-22_prn302434785_en.txt"
+  },
+  {
+   "id": "1456912",
+   "date": "2025-04-22",
+   "title": "ASUR ANUNCIA RESULTADOS 1T 2025",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1456912_1.pdf",
+   "coveredBy": "bmv:1456961"
+  },
+  {
+   "id": "1453973",
+   "date": "2025-04-07",
+   "title": "ASUR anuncia el total de tráfico para Marzo del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1453973_1.pdf",
+   "coveredBy": "2025-04-07_prn302422383_en.txt"
+  },
+  {
+   "id": "1448980",
+   "date": "2025-03-18",
+   "title": "ASUR anuncia movimiento del volumen de la acción el día 14 de marzo de 2025",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/asur/raw/releases/2025-03-18_bmv1448980_es.txt"
+  },
+  {
+   "id": "1448618",
+   "date": "2025-03-13",
+   "title": "ASUR ANUNCIA CONVOCATORIA A LA ASAMBLEA ORDINARIA ANUAL",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1448618_1.pdf",
+   "coveredBy": "2025-03-13_prn302401340_en.txt"
+  },
+  {
+   "id": "1446863",
+   "date": "2025-03-05",
+   "title": "ASUR anuncia el total de tráfico para febrero del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1446863_1.pdf",
+   "coveredBy": "2025-03-05_prn302393458_en.txt"
+  },
+  {
+   "id": "1443659",
+   "date": "2025-02-24",
+   "title": "ASUR ANUNCIA RESULTADOS 4T2024",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1443659_1.pdf",
+   "coveredBy": "2025-02-24_ir4Q24_en.txt"
+  },
+  {
+   "id": "1441646",
+   "date": "2025-02-17",
+   "title": "ASUR anuncia movimiento del volumen de la acción el día 14 de febrero de 2025",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/asur/raw/releases/2025-02-17_bmv1441646_es.txt"
+  },
+  {
+   "id": "1439385",
+   "date": "2025-02-06",
+   "title": "ASUR anuncia el total de tráfico para enero del 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1439385_1.pdf",
+   "coveredBy": "2025-02-06_prn302370375_en.txt"
+  },
+  {
+   "id": "1432034",
+   "date": "2025-01-06",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS DICIEMBRE 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1432034_1.pdf",
+   "coveredBy": "2025-01-06_prn302343332_en.txt"
+  },
+  {
+   "id": "1424726",
+   "date": "2024-12-05",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS NOVIEMBRE 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1424726_1.pdf",
+   "coveredBy": "2024-12-05_prn302324138_en.txt"
+  },
+  {
+   "id": "1417461",
+   "date": "2024-11-05",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS OCTUBRE 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1417461_1.pdf",
+   "coveredBy": "2024-11-05_prn302296844_en.txt"
+  },
+  {
+   "id": "1413523",
+   "date": "2024-10-22",
+   "title": "ASUR ANUNCIA RESULTADOS 3T2024",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1413523_1.pdf",
+   "coveredBy": "2024-10-22_ir3Q24_en.txt"
+  },
+  {
+   "id": "1410473",
+   "date": "2024-10-07",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS SEPTIEMBRE 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1410473_1.pdf",
+   "coveredBy": "2024-10-07_prn302269215_en.txt"
+  },
+  {
+   "id": "1404022",
+   "date": "2024-09-05",
+   "title": "ASUR ANUNCIA TRÁFICO DE PASAJEROS AGOSTO 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1404022_1.pdf",
+   "coveredBy": "2024-09-05_prn302239960_en.txt"
+  },
+  {
+   "id": "1397160",
+   "date": "2024-08-05",
+   "title": "ASUR anuncia el total de tráfico para Julio del 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1397160_1.pdf",
+   "coveredBy": "2024-08-05_prn302214726_en.txt"
+  },
+  {
+   "id": "1393488",
+   "date": "2024-07-23",
+   "title": "ASUR ANUNCIA RESULTADOS 2T24",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1393488_1.pdf",
+   "coveredBy": "2024-07-23_ir2Q24_en.txt"
+  },
+  {
+   "id": "1390651",
+   "date": "2024-07-08",
+   "title": "ASUR ANUNCIA EL TOTAL DE TRÁFICO PARA JUNIO DEL 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1390651_1.pdf",
+   "coveredBy": "2024-07-08_prn302191175_en.txt"
+  },
+  {
+   "id": "1384648",
+   "date": "2024-06-21",
+   "title": "ASUR ANUNCIA MOVIMIENTO DEL VOLUMEN DE LA ACCIÓN",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1384648_1.pdf",
+   "file": "tools/asur/raw/releases/2024-06-21_bmv1384648_es.txt"
+  },
+  {
+   "id": "1380992",
+   "date": "2024-06-07",
+   "title": "FE DE ERRATAS ASUR anuncia tráfico de pasajeros Mayo 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1380992_1.pdf",
+   "coveredBy": "2024-06-07_prn302166303_en.txt"
+  },
+  {
+   "id": "1380817",
+   "date": "2024-06-06",
+   "title": "ASUR anuncia el total de tráfico para Mayo del 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1380817_1.pdf",
+   "unmatched": true,
+   "file": "tools/asur/raw/releases/2024-06-06_bmv1380817_es.txt"
+  },
+  {
+   "id": "1372512",
+   "date": "2024-05-06",
+   "title": "ASUR anuncia el total de tráfico para Abril del 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1372512_1.pdf",
+   "coveredBy": "2024-05-06_prn302137182_en.txt"
+  },
+  {
+   "id": "1366402",
+   "date": "2024-04-24",
+   "title": "ASUR anuncia las resoluciones aprobadas en la Asamblea General Anual Ordinaria de Accionistas celebrada el 24 de abril de 2024",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1366402_1.pdf",
+   "coveredBy": "2024-04-24_prn302126452_en.txt"
+  },
+  {
+   "id": "1365564",
+   "date": "2024-04-22",
+   "title": "ASUR ANUNCIA RESULTADOS 1T24",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1365564_1.pdf",
+   "coveredBy": "2024-04-22_ir1Q24_en.txt"
+  },
+  {
+   "id": "1362193",
+   "date": "2024-04-08",
+   "title": "ASUR anuncia el total de tráfico para Marzo del 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1362193_1.pdf",
+   "coveredBy": "2024-04-08_prn302110851_en.txt"
+  },
+  {
+   "id": "1354095",
+   "date": "2024-03-07",
+   "title": "ASUR anuncia la convocatoria a la Asamblea General Anual Ordinaria de Accionistas",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1354095_1.pdf",
+   "coveredBy": "2024-03-07_prn302083348_en.txt"
+  },
+  {
+   "id": "1353635",
+   "date": "2024-03-06",
+   "title": "El tráfico de pasajeros incrementó interanual 5.7% en México y 12.6% en Puerto Rico y disminución de 3.4% en Colombia",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1353635_1.pdf",
+   "coveredBy": "2024-03-06_prn302081980_en.txt"
+  },
+  {
+   "id": "1350096",
+   "date": "2024-02-26",
+   "title": "ASUR ANUNCIA RESULTADOS 4T23 El tráfico de pasajeros incrementó en 1.1% con respecto al 4T22",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1350096_1.pdf",
+   "coveredBy": "2024-02-26_ir4Q23_en.txt"
+  },
+  {
+   "id": "1345374",
+   "date": "2024-02-06",
+   "title": "ASUR anuncia el total de tráfico para Enero del 2024 El tráfico de pasajeros incrementó interanual 2.6% en México y 8.2% en Puerto Rico y disminución de 10.1% en Colombia",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1345374_1.pdf",
+   "coveredBy": "2024-02-06_prn302055050_en.txt"
+  },
+  {
+   "id": "1336705",
+   "date": "2024-01-04",
+   "title": "ASUR anuncia el total de tráfico para Diciembre del 2023 El tráfico de pasajeros incrementó interanual 4.5% en México y 11.2% en Puerto Rico y disminuyó 10.8% en Colombia",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1336705_1.pdf",
+   "coveredBy": "2024-01-04_prn302026693_en.txt"
+  }
+ ]
 }
