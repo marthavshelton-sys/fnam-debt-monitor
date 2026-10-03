@@ -304,6 +304,8 @@ if (orclOblig && orclOblig.prepayments && orclOblig.prepayments.deferred_revenue
     filing: { form: '10-Q', accn: '0001193125-26-389274', url: src.url || null, section: 'Cash-flow statement', page: null }, quote: orclOblig.prepayments.text_en,
     accounting: 'ASC 606 (significant financing component)', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, pagePending: true });
 }
+// page citations found in the harvested notes for items that come from another store (Oracle)
+for (const pc of offbsCur.pageCites || []) for (const i of offItems) if (i.ticker === pc.ticker && i.item === pc.item && i.filing && i.filing.accn === pc.accn && !i.filing.page) { i.filing.page = pc.page; i.filing.section = pc.section || i.filing.section; delete i.pagePending; }
 out.offbs = { updated: offbsCur.updated, items: offItems, searched: offbsCur.searched || [] };
 out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: debtSnap.notes, tranches: debtSnap.tranches, deals } : null;
 

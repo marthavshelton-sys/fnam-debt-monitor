@@ -186,7 +186,7 @@
   ["NBIS","63954QAL0","Notes/Bonds","Senior Unsecured",1750,2.625,"Fixed","2026-03-20","2033-03-15","2026-03-31"]
  ],
  "notes": {
-  "APLD": "The CUSIP issuer prefixes of the two secured notes (00202D, 03772C) differ from Applied Digital's own (038169): FNAM inference, not a disclosed fact, that they were issued by subsidiaries or project vehicles; verify in the 8-K / offering memorandum before relying on it.",
+  "APLD": "Disclosed in the FY2026 10-K (pp. 48-49, accession 0001144879-26-000048): the 2030 9.250% and 2031 6.750% secured notes were issued by the project subsidiaries APLD ComputeCo and APLD ComputeCo 2; Applied Digital gives only customary completion guarantees.",
   "CORZ": "CUSIP issuer prefix 21874L differs from the parent's convertibles (21874A): FNAM inference that the secured notes were issued by a subsidiary; verify in the 8-K.",
   "NBIS": "FactSet labels the 2026-03-20 notes Senior Unsecured; their coupons (1.25%, 2.625%) are typical of convertible notes. Needs review against Nebius's 6-K before the type is relied on.",
   "MSFT": "No instrument issued since 2025-01-01 in FactSet's list as of 2026-06-30."
