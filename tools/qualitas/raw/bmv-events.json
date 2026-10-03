@@ -2,11 +2,204 @@
  "issuer": "Q-7790-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/Q-7790-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": null,
- "rows": 0,
- "archived": 0,
+ "checkedAt": "2026-10-03T18:45:29.330Z",
+ "rows": 214,
+ "archived": 24,
  "pending": 0,
  "unmatched": [],
- "error": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/Q-7790-CGEN_CAPIT -> gave up (HTTP 503)",
- "seen": []
+ "error": null,
+ "seen": [
+  {
+   "id": "1591504",
+   "date": "2026-09-25",
+   "title": "Q* - S&P assigns global ratings for Qualitas Compañia de Seguros S.A. de C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591504_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-09-25_bmv1591504_es.txt"
+  },
+  {
+   "id": "1591503",
+   "date": "2026-09-25",
+   "title": "Q* - S&P asigna calificación crediticia global para Quálitas Compañía de Seguros S.A. de C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591503_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-09-25_bmv1591503_es.txt"
+  },
+  {
+   "id": "1581461",
+   "date": "2026-08-11",
+   "title": "Q* - Industry Report 6M26 auto",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1581461_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-08-11_bmv1581461_es.txt"
+  },
+  {
+   "id": "1581460",
+   "date": "2026-08-11",
+   "title": "Q* - Reporte Sectorial 6M26 autos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1581460_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-08-11_bmv1581460_es.txt"
+  },
+  {
+   "id": "1579062",
+   "date": "2026-07-31",
+   "title": "Q* - Unusual Movements",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1579062_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-07-31_bmv1579062_es.txt"
+  },
+  {
+   "id": "1579061",
+   "date": "2026-07-31",
+   "title": "Q* - Movimientos Inusitados",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1579061_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-07-31_bmv1579061_es.txt"
+  },
+  {
+   "id": "1575771",
+   "date": "2026-07-21",
+   "title": "Q* - Earnings Results 2Q26",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575771_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-07-21_bmv1575771_es.txt"
+  },
+  {
+   "id": "1575767",
+   "date": "2026-07-21",
+   "title": "Q* - Reporte Trimestral 2T26",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575767_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-07-21_bmv1575767_es.txt"
+  },
+  {
+   "id": "1566335",
+   "date": "2026-06-08",
+   "title": "Q* - Citigroup Initiates Coverage",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1566335_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-06-08_bmv1566335_es.txt"
+  },
+  {
+   "id": "1566334",
+   "date": "2026-06-08",
+   "title": "Q* - Citigroup Inicio de Cobertura",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1566334_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-06-08_bmv1566334_es.txt"
+  },
+  {
+   "id": "1563723",
+   "date": "2026-05-28",
+   "title": "Q* - S&P assigns ratings for Qualitas Compañia de Seguros S.A. de C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1563723_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-05-28_bmv1563723_es.txt"
+  },
+  {
+   "id": "1563722",
+   "date": "2026-05-28",
+   "title": "Q* - S&P asigna calificación crediticia para Quálitas Compañía de Seguros S.A. de C.V.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1563722_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-05-28_bmv1563722_es.txt"
+  },
+  {
+   "id": "1559970",
+   "date": "2026-05-14",
+   "title": "Q* - Industry Report 3M26 auto",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1559970_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-05-14_bmv1559970_es.txt"
+  },
+  {
+   "id": "1559967",
+   "date": "2026-05-14",
+   "title": "Q* - Reporte Sectorial 3M26 autos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1559967_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-05-14_bmv1559967_es.txt"
+  },
+  {
+   "id": "1553522",
+   "date": "2026-04-29",
+   "title": "Q* - Approved proposals to the AGM 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1553522_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-04-29_bmv1553522_es.txt"
+  },
+  {
+   "id": "1553517",
+   "date": "2026-04-29",
+   "title": "Q* - Puntos aprobados en la Asamblea General de Accionistas 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1553517_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-04-29_bmv1553517_es.txt"
+  },
+  {
+   "id": "1550507",
+   "date": "2026-04-22",
+   "title": "Q*-EARNINGS RESULTS 1Q26",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550507_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-04-22_bmv1550507_es.txt"
+  },
+  {
+   "id": "1550489",
+   "date": "2026-04-22",
+   "title": "Q* - Reporte trimestral 1T26",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550489_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-04-22_bmv1550489_es.txt"
+  },
+  {
+   "id": "1544735",
+   "date": "2026-03-27",
+   "title": "Q* - Invite to the 2026 Ordinary General Shareholders' Meeting",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1544735_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-03-27_bmv1544735_es.txt"
+  },
+  {
+   "id": "1544734",
+   "date": "2026-03-27",
+   "title": "Q* - Invitación Asamblea General Ordinaria de Accionistas 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1544734_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-03-27_bmv1544734_es.txt"
+  },
+  {
+   "id": "1540277",
+   "date": "2026-03-10",
+   "title": "Q* - Industry Report 2025 auto",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1540277_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-03-10_bmv1540277_es.txt"
+  },
+  {
+   "id": "1540276",
+   "date": "2026-03-10",
+   "title": "Q* - Reporte Sectorial 2025 autos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1540276_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-03-10_bmv1540276_es.txt"
+  },
+  {
+   "id": "1527777",
+   "date": "2026-01-28",
+   "title": "Q* - EARNINGS RESULTS 4Q25 & 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1527777_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-01-28_bmv1527777_es.txt"
+  },
+  {
+   "id": "1527776",
+   "date": "2026-01-28",
+   "title": "Q* - REPORTE TRIMESTRAL 4T25 Y 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1527776_1.pdf",
+   "file": "tools/qualitas/raw/text/events/2026-01-28_bmv1527776_es.txt"
+  }
+ ]
 }
