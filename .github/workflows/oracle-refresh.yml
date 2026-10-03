@@ -3,7 +3,7 @@
 #   market   weekdays after the NYSE close: ORCL daily closes (Nasdaq → Yahoo → Stooq, first that answers),
 #            S&P 500 and the 10-year Treasury from FRED -> tools/oracle/data/*.csv + market_reference.json
 #            -> site/oracle/data/market.js
-#   filings  weekday mornings (Oracle reports after the close in the 2nd week of Sep / Dec / Mar / Jun and
+#   filings  every morning, weekends included (Oracle reports after the close in the 2nd week of Sep / Dec / Mar / Jun and
 #            files the 8-K the same evening): harvests new 8-K (Item 2.02) / 10-Q / 10-K filings from SEC EDGAR
 #            into tools/oracle/raw/ and marks them "pending extraction" in tools/oracle/data/state.json.
 #            Figures enter quarters.json only through the verified extraction step (the weekday routine, see
@@ -21,7 +21,7 @@ name: Refresh Oracle model data
 on:
   schedule:
     - cron: "45 21 * * 1-5"      # market, weekdays 21:45 UTC (NYSE closes 20:00 UTC in summer, 21:00 in winter)
-    - cron: "30 13 * * 1-5"      # filings + market, weekdays 13:30 UTC (≈ 09:30 ET, after the evening-before 8-K)
+    - cron: "30 13 * * *"        # filings + XBRL + market, every day 13:30 UTC (≈ 09:30 ET; owner's choice 2026-10-03: daily EDGAR poll, commits only when data changed)
   workflow_dispatch:
     inputs:
       mode:
@@ -72,6 +72,12 @@ jobs:
           EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx oracle-model (contact via repository)' }}
         run: node scripts/oracle/harvest-filings.mjs
 
+      - name: Oracle XBRL facts (SEC company facts: leases, capex, finance-lease additions, commitments; amendments by accession)
+        if: steps.plan.outputs.mode != 'market'
+        env:
+          EDGAR_USER_AGENT: ${{ vars.EDGAR_USER_AGENT || 'fnam.mx oracle-model (contact via repository)' }}
+        run: node scripts/oracle/fetch-xbrl-facts.mjs
+
       - name: Investor calendar (Oracle IR events list and date-setting releases)
         if: steps.plan.outputs.mode != 'market'
         env:
@@ -86,7 +92,10 @@ jobs:
 
       # The steps below run even if a fetch failed, so whatever did refresh still gets committed
       # (the job itself stays red so the failure is visible in the Actions tab).
-      - name: Validate model data (tie-outs; writes quality_report.json)
+      # The validator also cross-checks the lease/commitment figures against XBRL, evaluates module staleness
+      # (next expected filing + 7 days) and resolves every cross-reference; the build then diffs the page data
+      # against the previous files and writes the change log (tools/oracle/data/changelog.json → data/changelog.js).
+      - name: Validate model data (tie-outs, XBRL cross-check, staleness, cross-references; writes quality_report.json)
         if: always()
         run: node scripts/oracle/validate-data.mjs
 

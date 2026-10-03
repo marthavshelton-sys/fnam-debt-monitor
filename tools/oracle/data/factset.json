@@ -56,7 +56,7 @@
     ],
     "price_target": { "mean": 242.84, "median": 240, "high": 400, "low": 110, "count": 37, "up": 3, "down": 12, "note": "up/down = targets raised/lowered in the last month (FactSet)" },
     "ratings": { "buy": 30, "overweight": 6, "hold": 8, "underweight": 0, "sell": 1, "total": 45, "note": 1.289, "noteText": "OVERWEIGHT" },
-    "ntm_history_note": "Point-in-time NTM consensus (mean) sampled at each Oracle fiscal quarter-end (FactSet consensus_rolling, periodicity NTMA, frequency AQ from 2021-08-31). Used for the historical forward-multiple chart in section 06.",
+    "ntm_history_note": "Point-in-time NTM consensus (mean) sampled at each Oracle fiscal quarter-end (FactSet consensus_rolling, periodicity NTMA, frequency AQ from 2021-08-31). Used for the historical forward-multiple chart in the valuation section.",
     "ntm_history": [
       { "date": "2021-08-31", "eps": 4.766, "ebitda": 20952, "sales": 42633 },
       { "date": "2021-11-30", "eps": 4.930, "ebitda": 21573, "sales": 43113 },

@@ -16,6 +16,8 @@
   const SUM = window.ORCL_SUMMARY || { sections: [] };
   const CDS = window.ORCL_CDS || { tenor: 5, recoveryPct: 40, points: [] };
   const CAL = window.ORCL_CALENDAR || null;
+  const SEC = window.ORCL_SECTIONS || { sections: [], freshness: null };
+  const NEWS = window.ORCL_NEWS || null; const XB = window.ORCL_XBRL || null; const RK = window.ORCL_RISKS || null; const CL = window.ORCL_CHANGELOG || null;
 
   // ---------------- i18n ----------------
   let LANG = 'es';
@@ -75,7 +77,7 @@
   const fyLabel = (fy) => `FY${fy}`;
   const cls = (v) => (v == null ? '' : v > 0 ? 'pos' : v < 0 ? 'neg' : '');
   const el = (id) => document.getElementById(id);
-  const html = (id, s) => { const e = el(id); if (e) e.innerHTML = s; };
+  const html = (id, s) => { const e = el(id); if (e) e.innerHTML = typeof s === 'string' && s.includes('{{sec:') ? resolveRefs(s) : s; };
   const link = (s, label) => (s && s.url ? `<a href="${s.url}" target="_blank" rel="noopener">${label || (t('release') + ' (' + fmtDate(s.date) + ')')}</a>` : label || '');
 
   // ---------------- theme + chart defaults ----------------
@@ -220,12 +222,12 @@
     if (nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} ${fmtBn(nd.net)}` });
     if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; const fn = fsNtm(); if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}` }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
     html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
-    el('genStamp').textContent = fmtDate((FIN.generatedAt || MK.generatedAt || '').slice(0, 10));
+    document.querySelectorAll('#genStamp, #genStamp2').forEach((e) => { e.textContent = fmtET(FIN.generatedAt || MK.generatedAt); });
   }
 
   // ================= 00 EXECUTIVE SUMMARY =================
   function renderSummary() {
-    renderPress();
+    renderKeyNumbers();
     const b = SUM.basis || {};
     const qq = b.quarter && (qById[b.quarter] || { fy: +b.quarter.slice(0, 4), q: +b.quarter.slice(5) });
     html('sumMeta', LANG === 'es'
@@ -234,18 +236,6 @@
     if (!(SUM.sections || []).length) { html('sumGrid', `<div class="notice warn">${LANG === 'es' ? 'El resumen ejecutivo se redacta a partir del comunicado y la transcripción del último trimestre; pendiente de la primera corrida de la rutina de revisión.' : 'The executive summary is drafted from the latest release and call transcript; pending the first run of the reviewing routine.'}</div>`); return; }
     html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
     html('sumSrc', `${t('src')}: ${relLink()} · ${LANG === 'es' ? 'transcripción de la llamada de resultados' : 'earnings-call transcript'} · ${irLink()} · ${asOfQ()}${SUM.updatedAt ? ` · ${LANG === 'es' ? 'redactado el' : 'drafted'} ${fmtDate(SUM.updatedAt)}` : ''}`);
-  }
-
-  // ---- market concerns as stated in credible press and analyst publications (tools/oracle/data/press.json; weekly sweep) ----
-  const PRESS = window.ORCL_PRESS || null;
-  function renderPress() {
-    const box = el('sumPress'); if (!box) return;
-    if (!PRESS || !(PRESS.items || []).length) { box.hidden = true; return; }
-    box.hidden = false; const es = LANG === 'es';
-    const themes = (PRESS.themes || []).map((th) => ({ ...th, items: PRESS.items.filter((x) => x.theme === th.id) })).filter((th) => th.items.length);
-    const item = (x) => `<li><b>${fmtDate(x.date)} · ${x.outlet}</b> — ${extLink(x.url, x.title)}<br>${es ? x.es : x.en}${(x.also || []).length ? ` <span class="muted small">${es ? 'También' : 'Also'}: ${x.also.map((a) => extLink(a.url, a.outlet) + (a.note_en ? ` (${es ? a.note_es : a.note_en})` : '')).join(' · ')}</span>` : ''}</li>`;
-    const outlets = [...new Set(PRESS.items.map((x) => x.outlet))].join(', ');
-    html('sumPress', `<h3>${es ? 'Lo que preocupa al mercado' : 'What the market is worried about'} <span class="muted small" style="font-weight:400">(${es ? `prensa y analistas, últimos ${PRESS.windowDays} días, agrupado por tema` : `press and analysts, last ${PRESS.windowDays} days, grouped by theme`})</span></h3><div class="grid-2">${themes.map((th) => `<div><h4 class="press-h">${es ? th.es : th.en}</h4><ul class="press">${th.items.map(item).join('')}</ul></div>`).join('')}</div><p class="chart-src">${t('src')}: ${es ? 'enlaces en cada punto' : 'links on each item'} (${outlets}) · ${es ? 'cada resumen se limita a lo que reporta la pieza, sin inferencias; las declaraciones de Oracle se citan cuando la pieza las incluye' : 'each summary is limited to what the piece reports, no inference; Oracle\'s statements are quoted where the piece includes them'} · ${es ? 'barrido semanal (lunes) por la rutina de escritorio · al' : 'weekly sweep (Mondays) by the desktop routine · as of'} ${fmtDate(PRESS.asOf)}</p>`);
   }
 
   // ---------------- uniform source / timestamp pieces (every chart and table footer uses these) ----------------
@@ -459,7 +449,7 @@
       : `RPO as Oracle publishes it in each release (rounded to billions). Cloud revenue on the FY2026 presentation basis (Cloud / Software): native from 1Q26, recast by Oracle for FY2025 and unavailable earlier. EBITDA = GAAP operating income + cash-flow D&A. ${C ? t('cmtNote') : t('cmtOnlyYoy')}`;
     const srcs = [A, B].filter(Boolean).map((o) => o.sources && o.sources.is).filter(Boolean);
     html('opsSrc', srcs.length ? `${t('src')}: ` + [...new Map(srcs.map((x) => [x.url, x])).values()].map((x) => link(x)).join(' · ') + (C && C.call ? ' · ' + L(C.call) : '') : '');
-    html('opsNote', LANG === 'es' ? 'RPO (obligaciones de desempeño restantes) = ingresos contratados aún no reconocidos; véase la sección 10.' : 'RPO (remaining performance obligations) = contracted revenue not yet recognised; see section 10.');
+    html('opsNote', LANG === 'es' ? `RPO (obligaciones de desempeño restantes) = ingresos contratados aún no reconocidos; detalle en ${ref('rpo')}.` : `RPO (remaining performance obligations) = contracted revenue not yet recognised; detail in ${ref('rpo')}.`);
   }
   const rm = { view: 'q' };
   function renderRevMix() {
@@ -641,7 +631,7 @@
     html('opsChartSrc', `${t('src')}: ${LANG === 'es' ? 'comunicados de resultados de Oracle de cada trimestre' : "Oracle's earnings releases for each quarter"} · ${relLink()} · ${asOfQ()}`);
     // latest-quarter table across all drivers
     const q = lastQ, p = qById[yoyQid(q)], pq = qById[prevQid(q)];
-    const rows = [['rpo', 'RPO (US$ M)', 0], ['cloud', t('cloudRev'), 0], ['capex', t('capex') + ' (US$ M)', 0], ['fcf', t('fcf') + ' (US$ M)', 0]].map(([k, l, dd]) => { const f = defs[k].f; const v = f(q), vp = p && f(p), vq = pq && f(pq); const yy = k === 'rpo' && q.kpi.rpoYoyPct != null ? q.kpi.rpoYoyPct : (v != null && vp && vp > 0 ? 100 * (v / vp - 1) : null); const qq = v != null && vq && vq > 0 ? 100 * (v / vq - 1) : null; return `<tr><td>${l}</td><td>${fmtN(v, dd)}</td><td>${fmtN(vq, dd)}</td><td class="${cls(qq)}">${fmtPct(qq, 1, true)}</td><td>${fmtN(vp, dd)}</td><td class="${cls(yy)}">${fmtPct(yy, 1, true)}</td></tr>`; }).join('');
+    const rows = [['rpo', 'RPO (US$ M)', 0], ['cloud', t('cloudRev'), 0]].map(([k, l, dd]) => { const f = defs[k].f; const v = f(q), vp = p && f(p), vq = pq && f(pq); const yy = k === 'rpo' && q.kpi.rpoYoyPct != null ? q.kpi.rpoYoyPct : (v != null && vp && vp > 0 ? 100 * (v / vp - 1) : null); const qq = v != null && vq && vq > 0 ? 100 * (v / vq - 1) : null; return `<tr><td>${l}</td><td>${fmtN(v, dd)}</td><td>${fmtN(vq, dd)}</td><td class="${cls(qq)}">${fmtPct(qq, 1, true)}</td><td>${fmtN(vp, dd)}</td><td class="${cls(yy)}">${fmtPct(yy, 1, true)}</td></tr>`; }).join('');
     const rc = revOnNewBasis(q);
     html('opsQTable', `<table><thead><tr><th>${t('metric')}</th><th>${qLabel(q)}</th><th>${pq ? qLabel(pq) : '—'}</th><th>${t('qoq')}</th><th>${p ? qLabel(p) : '—'}</th><th>${t('yoy')}</th></tr></thead><tbody>${rows}<tr><td>${t('cloudShare')}</td><td>${rc ? fmtPct(100 * rc.revCloud / q.is.revTotal) : '—'}</td><td>${pq && revOnNewBasis(pq) ? fmtPct(100 * revOnNewBasis(pq).revCloud / pq.is.revTotal) : '—'}</td><td></td><td>${p && revOnNewBasis(p) ? fmtPct(100 * revOnNewBasis(p).revCloud / p.is.revTotal) : '—'}</td><td></td></tr><tr><td>${LANG === 'es' ? 'Capex / ingresos' : 'Capex / revenue'}</td><td>${fmtPct(q.cf ? q.cf.capexToRevenue : null)}</td><td>${fmtPct(pq && pq.cf ? pq.cf.capexToRevenue : null)}</td><td></td><td>${fmtPct(p && p.cf ? p.cf.capexToRevenue : null)}</td><td></td></tr></tbody></table>`);
     el('opsTblCap').textContent = LANG === 'es' ? `${qLabel(q)} frente al trimestre anterior y al mismo trimestre del año fiscal previo; RPO a/a como lo declara Oracle` : `${qLabel(q)} versus the prior quarter and the same quarter of the prior fiscal year; RPO y/y as stated by Oracle`;
@@ -730,7 +720,7 @@
     const li = (arr) => `<ul>${arr.filter(Boolean).map((x) => `<li>${x}</li>`).join('')}</ul>`;
     const steps = [
       { k: LANG === 'es' ? '1 · Contratos' : '1 · Contracts', big: q.kpi.rpo != null ? `US$ ${fmtN(q.kpi.rpo / 1000)} bn` : '—', sub: `RPO · ${ql}`, items: [sched ? `${sched.buckets[0].pct}% ${L(sched.buckets[0]).toLowerCase()}, ${sched.buckets[1].pct}% ${L(sched.buckets[1]).toLowerCase()}` : null, LANG === 'es' ? 'Contratos plurianuales de infraestructura de IA, en su mayoría prepagados o con hardware del cliente' : 'Multi-year AI-infrastructure contracts, mostly prepaid or bring-your-own-hardware'] },
-      { k: LANG === 'es' ? '2 · Capacidad' : '2 · Capacity', big: lastMw ? `${fmtN(lastMw.mw)} MW` : '—', sub: lastMw ? `${LANG === 'es' ? 'entregados en el' : 'delivered in'} ${boLabel(lastMw.id)}` : '', items: [fyMw ? (LANG === 'es' ? `> ${fmtN(fyMw.mw / 1000, 1)} GW entregados en el AF2026` : `> ${fmtN(fyMw.mw / 1000, 1)} GW delivered in FY2026`) : null, sec ? (LANG === 'es' ? `> ${sec.gw} GW asegurados vía socios (3T26)` : `> ${sec.gw} GW secured through partners (3Q26)`) : null, LANG === 'es' ? `${(BO.sites || []).length} campus nombrados (sección 03)` : `${(BO.sites || []).length} named campuses (section 03)`] },
+      { k: LANG === 'es' ? '2 · Capacidad' : '2 · Capacity', big: lastMw ? `${fmtN(lastMw.mw)} MW` : '—', sub: lastMw ? `${LANG === 'es' ? 'entregados en el' : 'delivered in'} ${boLabel(lastMw.id)}` : '', items: [fyMw ? (LANG === 'es' ? `> ${fmtN(fyMw.mw / 1000, 1)} GW entregados en el AF2026` : `> ${fmtN(fyMw.mw / 1000, 1)} GW delivered in FY2026`) : null, sec ? (LANG === 'es' ? `> ${sec.gw} GW asegurados vía socios (3T26)` : `> ${sec.gw} GW secured through partners (3Q26)`) : null, LANG === 'es' ? `${(BO.sites || []).length} campus nombrados (tabla arriba)` : `${(BO.sites || []).length} named campuses (table above)`] },
       { k: LANG === 'es' ? '3 · Inversión' : '3 · Spend', big: q.cf && q.cf.capex != null ? fmtBn(-q.cf.capex) : '—', sub: `Capex · ${ql}`, items: [q.cf && q.cf.cfo != null ? (LANG === 'es' ? `Flujo operativo ${fmtBn(q.cf.cfo)} (incluye prepagos)` : `Operating cash flow ${fmtBn(q.cf.cfo)} (includes prepayments)`) : null, fyG && fyG.items.fyCapexNote ? (LANG === 'es' ? 'Guía AF27: ' : 'FY27 guide: ') + gCapexNote(fyG).replace(/\s*\(p\d+\)$/, '') : null] },
       { k: LANG === 'es' ? '4 · Financiamiento' : '4 · Funding', big: fund.length ? `US$ ${fmtN(fund.filter((f) => !/prepay|prepago/i.test(f.en)).reduce((a, f) => a + f.usd_bn, 0))} bn` : '—', sub: LANG === 'es' ? 'deuda y capital levantados AF26–1T27' : 'debt and equity raised FY26–1Q27', items: fund.map((f) => `${L(f)}: US$ ${fmtN(f.usd_bn)} bn`) },
       { k: LANG === 'es' ? '5 · Ingresos' : '5 · Revenue', big: rec ? fmtBn(rec.revCloud) : '—', sub: `${t('cloud')} · ${ql}`, items: [q.is.revTotal != null ? (LANG === 'es' ? `Ingresos totales ${fmtBn(q.is.revTotal)}` : `Total revenue ${fmtBn(q.is.revTotal)}`) : null, fyG && fyG.items.fyRevenue ? (LANG === 'es' ? `Guía AF${String(fyG.fyGuided).slice(2)}: al menos ${fmtBn(fyG.items.fyRevenue.usdM)}` : `FY${String(fyG.fyGuided).slice(2)} guide: at least ${fmtBn(fyG.items.fyRevenue.usdM)}`) : null] },
@@ -1038,8 +1028,8 @@
     const within = (months) => { if (!end) return null; const d = new Date(end + 'T12:00:00Z'); d.setUTCMonth(d.getUTCMonth() + months); const lim = d.toISOString().slice(0, 10); return dated.filter((i) => i.matures > end && i.matures <= lim).reduce((a, i) => a + i.principalUsdM, 0); };
     const m12 = within(12), m24 = within(24); const cash = lastQ && lastQ.bs ? lastQ.bs.cashAndInvestments : null;
     el('schedCap').textContent = LANG === 'es'
-      ? `Principal en US$ millones por año calendario de vencimiento (misma agrupación que el perfil de la sección 07). Vencen US$ ${fmtN(m12)} M en los 12 meses posteriores al ${lastQ ? qLabel(lastQ) : '—'} y US$ ${fmtN(m24)} M en 24 meses, frente a US$ ${fmtN(cash)} M de efectivo e inversiones al cierre del trimestre. Cupón promedio ponderado por principal de los bonos a tasa fija de cada grupo.`
-      : `Principal in US$ million by calendar year of maturity (same grouping as the section-07 profile). US$ ${fmtN(m12)} M matures in the 12 months after ${lastQ ? qLabel(lastQ) : '—'} and US$ ${fmtN(m24)} M within 24 months, against US$ ${fmtN(cash)} M of cash and investments at quarter-end. Average coupon is principal-weighted across each group's fixed-rate notes.`;
+      ? `Principal en US$ millones por año calendario de vencimiento. Vencen US$ ${fmtN(m12)} M en los 12 meses posteriores al ${lastQ ? qLabel(lastQ) : '—'} y US$ ${fmtN(m24)} M en 24 meses, frente a US$ ${fmtN(cash)} M de efectivo e inversiones al cierre del trimestre. Cupón promedio ponderado por principal de los bonos a tasa fija de cada grupo.`
+      : `Principal in US$ million by calendar year of maturity. US$ ${fmtN(m12)} M matures in the 12 months after ${lastQ ? qLabel(lastQ) : '—'} and US$ ${fmtN(m24)} M within 24 months, against US$ ${fmtN(cash)} M of cash and investments at quarter-end. Average coupon is principal-weighted across each group's fixed-rate notes.`;
     html('schedSrc', `${t('src')}: ${tenKLink()} (${LANG === 'es' ? 'nota de deuda al 31 de mayo de 2026: 58 instrumentos, principal conciliado con el total bruto revelado' : 'debt footnote as of 31 May 2026: 58 instruments, principal reconciled to the disclosed gross total'}) · ${LANG === 'es' ? 'efectivo del balance del' : 'cash from the'} ${lastQ ? qLabel(lastQ) + (LANG === 'es' ? '' : ' balance sheet') : ''} ${relLink()} · ${asOfQ()}`);
     // ---- instrument book
     const today = new Date().toISOString().slice(0, 10);
@@ -1052,7 +1042,7 @@
       ? `${all.length} instrumentos al 31 de mayo de 2026, US$ ${fmtN(total)} M de principal; cupón promedio ponderado de los bonos a tasa fija ${fmtPct(wavg(fixed), 2)}.${matured.length ? (matured.length === 1 ? ` El vencido desde entonces (US$ ${fmtN(matured[0].principalUsdM)} M) se muestra atenuado hasta que el 10-Q lo confirme como pagado.` : ` Los ${matured.length} vencidos desde entonces (US$ ${fmtN(matured.reduce((a, i) => a + i.principalUsdM, 0))} M) se muestran atenuados hasta que el 10-Q los confirme como pagados.`) : ''}`
       : `${all.length} instruments at 31 May 2026, US$ ${fmtN(total)} M principal; principal-weighted average coupon of the fixed-rate notes ${fmtPct(wavg(fixed), 2)}.${matured.length ? (matured.length === 1 ? ` The one that matured since (US$ ${fmtN(matured[0].principalUsdM)} M) is greyed until the 10-Q confirms repayment.` : ` The ${matured.length} that matured since (US$ ${fmtN(matured.reduce((a, i) => a + i.principalUsdM, 0))} M) are greyed until the 10-Q confirms repayment.`) : ''}`;
     html('bookSrc', `${t('src')}: ${all[0] && all[0].url ? `<a href="${all[0].url}" target="_blank" rel="noopener">${LANG === 'es' ? 'Formulario 10-K AF2026, nota de deuda' : 'Form 10-K FY2026, debt footnote'} ↗</a>` : ''} · ${LS(D2.instrumentsNote)}`);
-    html('creditMeta', LANG === 'es' ? `Instrumentos del 10-K del AF2026 (${fmtDate(REF.updatedAt)}); calificaciones y apalancamiento en la sección 07.` : `Instruments from the FY2026 10-K (${fmtDate(REF.updatedAt)}); ratings and leverage in section 07.`);
+    html('creditMeta', LANG === 'es' ? `Instrumentos de la nota de deuda del 10-K del AF2026 (referencia actualizada ${fmtDate(REF.updatedAt)}); balance del ${lastQ ? qLabel(lastQ) : '—'}. Los arrendamientos y los compromisos fuera de balance están en ${ref('obligations')}.` : `Instruments from the FY2026 10-K debt footnote (reference updated ${fmtDate(REF.updatedAt)}); ${lastQ ? qLabel(lastQ) : '—'} balance sheet. Leases and off-balance-sheet commitments are in ${ref('obligations')}.`);
     // ---- CDS
     const pts = CDS.points || [];
     const R = (CDS.recoveryPct ?? 40) / 100, T = CDS.tenor || 5;
@@ -1063,7 +1053,7 @@
       html('cdsStats', [{ v: `${fmtN(last[1])} bp`, l: `${LANG === 'es' ? 'spread' : 'spread'} ${fmtDate(last[0])}` }, { v: fmtPct(pd(last[1])), l: LANG === 'es' ? `PD implícita a ${T} años (recuperación ${fmtPct(100 * R, 0)})` : `implied ${T}-yr PD (${fmtPct(100 * R, 0)} recovery)` }, { v: yAgo ? `${last[1] - yAgo[1] > 0 ? '+' : ''}${fmtN(last[1] - yAgo[1])} bp` : '—', l: t('oneY'), c: yAgo ? cls(yAgo[1] - last[1]) : '' }].map((s) => `<div class="stat"><div class="v ${s.c || ''}">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
       el('cdsCap').textContent = LS(CDS.notes);
       html('cdsSrc', `${t('src')}: ${CDS.source} · ${fmtDate(CDS.updatedAt)}`);
-      html('cdsNote', LANG === 'es' ? `<b>Lectura.</b> El spread es lo que cuesta asegurar US$ 10,000 de deuda senior de Oracle por año durante ${T} años, en puntos base; la PD implícita es la probabilidad acumulada de incumplimiento que ese precio implica bajo el supuesto de recuperación estándar. Léalo junto con las calificaciones (sección 07): el CDS reacciona antes que las agencias.` : `<b>Reading it.</b> The spread is the annual cost, in basis points, of insuring US$ 10,000 of Oracle senior debt for ${T} years; the implied PD is the cumulative default probability that price implies under the standard recovery assumption. Read it with the ratings (section 07): the CDS moves before the agencies do.`);
+      html('cdsNote', LANG === 'es' ? `<b>Lectura.</b> El spread es lo que cuesta asegurar US$ 10,000 de deuda senior de Oracle por año durante ${T} años, en puntos base; la PD implícita es la probabilidad acumulada de incumplimiento que ese precio implica bajo el supuesto de recuperación estándar. Léalo junto con las calificaciones (tabla a la izquierda): el CDS reacciona antes que las agencias.` : `<b>Reading it.</b> The spread is the annual cost, in basis points, of insuring US$ 10,000 of Oracle senior debt for ${T} years; the implied PD is the cumulative default probability that price implies under the standard recovery assumption. Read it with the ratings (table at left): the CDS moves before the agencies do.`);
     } else {
       el('cdsCap').textContent = t('pending');
       html('cdsStats', '');
@@ -1110,9 +1100,6 @@
     html('maturitySrc', `${t('src')}: ${tenKLink()} (${LANG === 'es' ? 'nota de deuda, al 31 de mayo de 2026' : 'debt footnote, as of 31 May 2026'}) · ${LANG === 'es' ? 'años calendario de vencimiento; la barra atenuada (2026) venció en julio y espera la confirmación de pago del 10-Q' : 'calendar years of maturity; the shaded bar (2026) matured in July and awaits the 10-Q confirmation of repayment'}${cp ?` · ${LANG === 'es' ? 'excluye papel comercial' : 'excludes commercial paper'} (US$ ${fmtN(cp.principalUsdM)} M)` : ''}`);
     const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td>${r.rating}</td><td>${LS(r.outlook)}</td><td>${LS(r.scope)}</td><td>${fmtDate(r.date)}</td><td class="muted small">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${LS(r.source)}</a>` : LS(r.source)}</td></tr>`).join('');
     html('ratingsTable', `<table><thead><tr><th>${t('rating')}</th><th>${LANG === 'es' ? 'Nivel' : 'Level'}</th><th>${LANG === 'es' ? 'Perspectiva' : 'Outlook'}</th><th>${LANG === 'es' ? 'Alcance' : 'Scope'}</th><th>${t('date')}</th><th>${t('src')}</th></tr></thead><tbody>${ratings}</tbody></table>`);
-    const instr = (D2.instruments || []).slice().sort((a, b) => (a.matures || '9999').localeCompare(b.matures || '9999')).map((i) => `<tr><td>${LS(i.name)}</td><td>${LS(i.type)}</td><td>${fmtDate(i.issued)}</td><td>${i.matures ? fmtDate(i.matures) : '—'}</td><td>${fmtN(i.principalUsdM)}</td><td>${LS(i.rate) || '—'}</td></tr>`).join('');
-    html('instrTable', `<table><thead><tr><th>${t('instrument')}</th><th>${LANG === 'es' ? 'Tipo' : 'Type'}</th><th>${LANG === 'es' ? 'Emisión' : 'Issued'}</th><th>${t('matures')}</th><th>${t('principal')}</th><th>${t('rate')}</th></tr></thead><tbody>${instr}</tbody></table>`);
-    el('instrSummary').textContent = LANG === 'es' ? `Ver los ${(D2.instruments || []).length} instrumentos (US$ ${fmtN((D2.instruments || []).reduce((a, i) => a + (i.principalUsdM || 0), 0))} M de principal)` : `View all ${(D2.instruments || []).length} instruments (US$ ${fmtN((D2.instruments || []).reduce((a, i) => a + (i.principalUsdM || 0), 0))} M principal)`;
     el('instrCap').textContent = LANG === 'es' ? `Calificaciones de las agencias (comunicados de acción de calificación); instrumentos de la nota de deuda del 10-K (data/reference.js, actualizado ${fmtDate(REF.updatedAt)})` : `Agency ratings (rating-action releases); instruments from the 10-K debt footnote (data/reference.js, updated ${fmtDate(REF.updatedAt)})`;
     html('instrNote', LS(D2.instrumentsNote));
     const lastRating = (D2.ratings || []).map((r) => r.date).filter(Boolean).sort().slice(-1)[0];
@@ -1152,7 +1139,7 @@
     const sched = (R.schedule || []).map((s) => `<tr><td>${LANG === 'es' ? s.bucket_es : s.bucket_en}</td><td>${fmtPct(s.pct, 0)}</td><td>US$ ${fmtN(s.amount_bn)} ${LANG === 'es' ? 'mil M' : 'bn'}</td></tr>`).join('');
     html('rpoTable', `<table><thead><tr><th>${LANG === 'es' ? 'Horizonte de reconocimiento' : 'Recognition horizon'}</th><th>%</th><th>${LANG === 'es' ? 'Monto' : 'Amount'}</th></tr></thead><tbody>${sched}</tbody></table>`);
     el('rpoCap').textContent = R.latest ? (LANG === 'es' ? `RPO total al ${R.latestQuarter}: US$ ${fmtN(R.latest / 1000, 0)} mil M, según el calendario que Oracle revela en el 10-Q` : `Total RPO at ${R.latestQuarter}: US$ ${fmtN(R.latest / 1000, 0)} bn, per the schedule Oracle discloses in the 10-Q`) : '';
-    html('rpoCaution', `<b>${LANG === 'es' ? 'Lectura.' : 'Reading it.'}</b> ${LANG === 'es' ? 'El RPO es un indicador adelantado, no ingreso asegurado: su conversión depende de la capacidad de centros de datos que Oracle logre construir y energizar, por eso se lee junto con el capex de la sección 03.' : 'RPO is a leading indicator, not assured revenue: its conversion depends on the data-center capacity Oracle manages to build and energise, which is why it is read alongside the capex in section 03.'}`);
+    html('rpoCaution', `<b>${LANG === 'es' ? 'Lectura.' : 'Reading it.'}</b> ${LANG === 'es' ? `El RPO es un indicador adelantado, no ingreso asegurado: su conversión depende de la capacidad de centros de datos que Oracle logre construir y energizar, por eso se lee junto con el capex de ${ref('capex')} y los sitios de ${ref('sites')}.` : `RPO is a leading indicator, not assured revenue: its conversion depends on the data-center capacity Oracle manages to build and energise, which is why it is read alongside the capex in ${ref('capex')} and the sites in ${ref('sites')}.`}`);
     html('rpoSrc', `${t('src')}: ${R.quoteSource ? link(R.quoteSource, (LANG === 'es' ? `Formulario 10-Q de Oracle (${fmtDate(R.quoteSource.date)})` : R.quoteSource.title) + ' ↗') : ''} · ${relLink()} (RPO) · ${R.latestQuarter ? `${LANG === 'es' ? 'al' : 'as of'} ${R.latestQuarter}` : asOfQ()}`);
   }
 
@@ -1167,10 +1154,10 @@
     const gl = U.gpu_life || {}, fm = U.funding_mix || {}, cn = U.concentration || {}, ct = U.contract_terms || {}, gu = (BO.gpu && BO.gpu.utilization) || [], u = gu[gu.length - 1];
     const rows = [
       [es ? 'Capex UDM (US$ M)' : 'LTM capex (US$ M)', capexLtm != null ? fmtM(capexLtm) : '—', es ? 'estado de flujos, cuatro trimestres sumados' : 'cash-flow statement, four quarters summed', L4 ? L4.id : ''],
-      [es ? 'MW entregados en los mismos cuatro trimestres' : 'MW delivered over the same four quarters', mwLtm ? fmtN(mwLtm) + (mwFull ? '' : ' *') : '—', es ? 'llamadas de resultados (sección 03)' : 'earnings calls (section 03)', L4 ? L4.id : ''],
+      [es ? 'MW entregados en los mismos cuatro trimestres' : 'MW delivered over the same four quarters', mwLtm ? fmtN(mwLtm) + (mwFull ? '' : ' *') : '—', es ? 'llamadas de resultados (gráfica de capacidad arriba)' : 'earnings calls (capacity chart above)', L4 ? L4.id : ''],
       [es ? 'Capex por MW entregado (US$ M por MW, derivado)' : 'Capex per MW delivered (US$ M per MW, derived)', capexPerMw ? fmtN(capexPerMw, 1) : '—', es ? 'Oracle no separa el capex ni los MW entre sitios propios y arrendados: todo el capex sobre todos los MW entregados' : 'Oracle does not split capex or MW between owned and leased sites: total capex over total MW delivered', L4 ? L4.id : ''],
       [es ? 'Ingresos por MW energizado' : 'Revenue per energized MW', es ? 'no derivable' : 'not derivable', es ? 'Oracle no divulga los MW energizados totales (solo las entregas desde el 2T26) ni ingresos por sitio' : 'Oracle discloses neither total energized MW (only deliveries since 2Q26) nor revenue by site', ''],
-      [es ? 'Utilización de la flota de GPU' : 'GPU-fleet utilization', u ? fmtPct(u.pct) : '—', es ? 'según la llamada (sección 03)' : 'per the call (section 03)', u ? boLabel(u.id) : ''],
+      [es ? 'Utilización de la flota de GPU' : 'GPU-fleet utilization', u ? fmtPct(u.pct) : '—', es ? 'según la llamada (gráfica de GPU arriba)' : 'per the call (GPU chart above)', u ? boLabel(u.id) : ''],
       [es ? 'Vida útil de servidores y GPU' : 'Servers and GPUs, useful life', `${gl.useful_life_years} ${es ? 'años' : 'years'}`, es ? gl.text_es : gl.text_en, lastQ ? qLabel(lastQ) : ''],
       [es ? 'Prima de precio en renovaciones de GPU' : 'GPU renewal price premium', `+${gl.renewal_premium_pct}%`, es ? gl.renewal_text_es : gl.renewal_text_en, boLabel('FY2027Q1')],
       [es ? 'Prepagos de clientes recibidos (US$ M)' : 'Customer prepayments received (US$ M)', fmtM(fm.prepayments_1q27_usd_m), es ? fm.prepayments_text_es : fm.prepayments_text_en, boLabel('FY2027Q1')],
@@ -1205,7 +1192,7 @@
     html('dpsCapital', `<div class="grid-2"><div><h4>${es ? 'Acciones preferentes convertibles obligatorias' : 'Mandatory convertible preferred stock'}</h4><p class="small">${es ? pf.text_es : pf.text_en}</p><div class="stat-row">${[
       { v: `US$ ${fmtN(pf.dividend_quarterly_usd_m, 2)} M`, l: es ? `dividendo preferente trimestral (6.50% × US$5 mil M ÷ 4); US$ ${fmtN(pf.dividend_paid_1q27_usd_m)} M en el estado de resultados del 1T27` : `quarterly preferred dividend (6.50% × US$5 bn ÷ 4); US$ ${fmtN(pf.dividend_paid_1q27_usd_m)} M in the 1Q27 income statement` },
       { v: fmtDate(pf.mandatory_conversion_date), l: es ? `conversión obligatoria en ${fmtN(conv.min, 1)}–${fmtN(conv.max, 1)} millones de acciones comunes (a ≥ US$ ${fmtN(pf.threshold_appreciation_price_usd, 2)} / ≤ US$ ${fmtN(pf.initial_price_usd, 2)})` : `mandatory conversion into ${fmtN(conv.min, 1)}–${fmtN(conv.max, 1)} million common shares (at ≥ US$ ${fmtN(pf.threshold_appreciation_price_usd, 2)} / ≤ US$ ${fmtN(pf.initial_price_usd, 2)})` },
-    ].map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join('')}</div></div><div><h4>${es ? 'Plan de financiamiento: anunciado y ejecutado (US$ mil M)' : 'Funding plan: announced and executed (US$ bn)'}</h4><div class="tblwrap"><table><thead><tr><th>${es ? 'Cuándo' : 'When'}</th><th>${es ? 'Qué' : 'What'}</th><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${t('src')}</th></tr></thead><tbody>${items}</tbody></table></div><div class="callout"><b>${es ? 'Conciliación.' : 'Reconciliation.'}</b> ${es ? fp.reconciliation_es : fp.reconciliation_en}</div><p class="small muted">${es ? `Obligaciones de compra de energía, equipo y otros: US$ ${fmtN(po.total / 1000, 1)} mil M no cancelables, calendario por año fiscal en la sección 11.` : `Purchase obligations for power, equipment and other: US$ ${fmtN(po.total / 1000, 1)} bn non-cancelable, schedule by fiscal year in section 11.`}</p></div></div>`);
+    ].map((x) => `<div class="stat"><div class="v">${x.v}</div><div class="l">${x.l}</div></div>`).join('')}</div></div><div><h4>${es ? 'Plan de financiamiento: anunciado y ejecutado (US$ mil M)' : 'Funding plan: announced and executed (US$ bn)'}</h4><div class="tblwrap"><table><thead><tr><th>${es ? 'Cuándo' : 'When'}</th><th>${es ? 'Qué' : 'What'}</th><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Estado' : 'Status'}</th><th>${t('src')}</th></tr></thead><tbody>${items}</tbody></table></div><div class="callout"><b>${es ? 'Conciliación.' : 'Reconciliation.'}</b> ${es ? fp.reconciliation_es : fp.reconciliation_en}</div><p class="small muted">${es ? `Obligaciones de compra de energía, equipo y otros: US$ ${fmtN(po.total / 1000, 1)} mil M no cancelables, calendario por año fiscal en ${ref('obligations')}.` : `Purchase obligations for power, equipment and other: US$ ${fmtN(po.total / 1000, 1)} bn non-cancelable, schedule by fiscal year in ${ref('obligations')}.`}</p></div></div>`);
     const s424 = obSrc(pf.source), s10q = obSrc('10q_1q27');
     html('dpsCapitalSrc', `${t('src')}: ${s424 ? extLink(s424.url, es ? 'prospecto 424B5 de las preferentes (feb 2026)' : 'preferred-stock prospectus 424B5 (Feb 2026)') : ''} · ${s10q ? extLink(s10q.url, es ? '10-Q 1T27 (capital y flujos)' : '1Q27 10-Q (equity and cash flows)') : ''} · ${es ? 'transcripciones de las llamadas 3T26 y 4T26' : '3Q26 and 4Q26 call transcripts'} · ${irLink()} · ${asOfQ()}`);
   }
@@ -1269,7 +1256,7 @@
       { label: es ? 'Compromisos contractuales futuros' : 'Future contractual commitments', data: bars.map((x) => (x.g === 1 ? x.v / 1000 : null)), backgroundColor: c[1] },
     ] }, options: { indexAxis: 'y', plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: US$ ${fmtN(x.parsed.x, 1)} ${es ? 'mil M' : 'bn'}` } } }, scales: { x: { stacked: true, ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true }, y: { stacked: true, grid: { display: false }, ticks: { font: { size: 11 } } } }, datasets: { bar: { maxBarThickness: 26, borderWidth: 0 } } } });
     el('obCap').textContent = es ? 'US$ mil millones al 31 de agosto de 2026. Los pasivos reconocidos ya están en el balance; los compromisos contractuales futuros no, y se muestran a valor nominal. Oracle reporta las obligaciones de compra por separado de sus arrendamientos, en la nota de compromisos del 10-Q. Los arrendamientos no iniciados pasarán al balance (pasivo y activo por derecho de uso) conforme cada centro de datos se entregue a Oracle.' : 'US$ billion at August 31, 2026. Recognized liabilities are already on the balance sheet; future contractual commitments are not, and are shown at nominal value. Oracle reports purchase obligations separately from its leases, in the commitments note of the 10-Q. Uncommenced leases move onto the balance sheet (liability and right-of-use asset) as each data center is handed over to Oracle.';
-    html('obSrc', `${t('src')}: ${tenQ} (${es ? 'balance, nota de arrendamientos, nota de compromisos' : 'balance sheet, leases note, commitments note'}) · ${es ? 'deuda neta y EBITDA UDM: modelo (sección 07)' : 'net debt and LTM EBITDA: model (section 07)'} · ${asOfQ()}`);
+    html('obSrc', `${t('src')}: ${tenQ} (${es ? 'balance, nota de arrendamientos, nota de compromisos' : 'balance sheet, leases note, commitments note'}) · ${es ? 'deuda neta y EBITDA UDM: modelo' : 'net debt and LTM EBITDA: model'} (${ref('financing')}) · ${asOfQ()}`);
     const hist = un.history || [];
     mkChart('chartUncommenced', { type: 'bar', data: { labels: hist.map((h) => fmtDate(h.as_of)), datasets: [{ label: 'US$ bn', data: hist.map((h) => h.usd_bn), backgroundColor: c[1] }] }, options: { plugins: { legend: { display: false }, tooltip: { callbacks: { label: (x) => `US$ ${fmtN(x.parsed.y, x.parsed.y < 100 ? 1 : 0)} ${es ? 'mil M' : 'bn'}${hist[x.dataIndex].note ? ' · ' + hist[x.dataIndex].note : ''}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 44, borderWidth: 0 } } } });
     el('uncCap').textContent = es ? 'Compromisos de arrendamiento firmados que aún no están en el balance, según la nota de arrendamientos de cada 10-Q y 10-K (US$ mil millones, valor nominal).' : 'Signed lease commitments not yet on the balance sheet, per the leases note of each 10-Q and 10-K (US$ billion, nominal value).';
@@ -1319,7 +1306,7 @@
   // ================= 13 METHOD / SOURCES =================
   function renderMethod() {
     const rows = [
-      [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'días hábiles, tras cada 8-K' : 'weekdays, after each 8-K', LANG === 'es' ? 'GitHub Actions cosecha los 8-K de SEC EDGAR; las cifras entran a tools/oracle/data/quarters.json y pasan scripts/oracle/validate-data.mjs antes de publicarse' : 'GitHub Actions harvests the 8-Ks from SEC EDGAR; figures enter tools/oracle/data/quarters.json and pass scripts/oracle/validate-data.mjs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
+      [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'diario, tras cada 8-K' : 'daily, after each 8-K', LANG === 'es' ? 'GitHub Actions cosecha los 8-K de SEC EDGAR; las cifras entran a tools/oracle/data/quarters.json y pasan scripts/oracle/validate-data.mjs antes de publicarse' : 'GitHub Actions harvests the 8-Ks from SEC EDGAR; figures enter tools/oracle/data/quarters.json and pass scripts/oracle/validate-data.mjs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'con cada reporte / transcripción' : 'with each report / transcript', 'data/guidance.js', fmtDate((GD.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Comentarios del estado de resultados' : 'Income-statement comments', LANG === 'es' ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [LANG === 'es' ? 'Resumen ejecutivo' : 'Executive summary', LANG === 'es' ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
@@ -1327,10 +1314,12 @@
       [LANG === 'es' ? 'Referencia: acciones, deuda, calificaciones, expansión de IA, RPO, supuestos DCF' : 'Reference: shares, debt, ratings, AI buildout, RPO, DCF defaults', LANG === 'es' ? 'por evento (PR revisado)' : 'event-driven (reviewed PR)', 'data/reference.js', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Consenso FactSet: múltiplos a doce meses, pares, precio objetivo, semilla del DCF' : 'FactSet consensus: forward multiples, peers, price target, DCF seed', LANG === 'es' ? 'días hábiles (rutina con el conector de FactSet)' : 'weekdays (routine with the FactSet connector)', 'tools/oracle/data/factset.json → data/factset.js, data/peers.js', FS && FS.fetched ? fmtDate(FS.fetched) : '—'],
       [LANG === 'es' ? 'CDS a 5 años (riesgo de crédito)' : '5-year CDS (credit risk)', LANG === 'es' ? 'pendiente · diario cuando esté conectado' : 'pending · daily once connected', 'FactSet → data/cds.js', CDS.updatedAt ? fmtDate(CDS.updatedAt) : '—'],
-      [LANG === 'es' ? 'Preocupaciones del mercado (prensa y analistas)' : 'Market concerns (press and analysts)', LANG === 'es' ? 'semanal (lunes), rutina de escritorio' : 'weekly (Mondays), desktop routine', 'tools/oracle/data/press.json → data/press.js', PRESS && PRESS.asOf ? fmtDate(PRESS.asOf) : '—'],
+      [LANG === 'es' ? 'Noticias y eventos recientes' : 'News and recent events', LANG === 'es' ? 'diario (rutina en la nube)' : 'daily (cloud routine)', 'tools/oracle/data/news.json → data/news.js', NEWS && NEWS.asOf ? fmtDate(NEWS.asOf) : '—'],
+      [LANG === 'es' ? 'Datos XBRL de Oracle (arrendamientos, capex, compromisos)' : 'Oracle XBRL facts (leases, capex, commitments)', LANG === 'es' ? 'diario, con la cosecha de EDGAR' : 'daily, with the EDGAR harvest', 'scripts/oracle/fetch-xbrl-facts.mjs → data/xbrl.js', XB && XB.fetched ? fmtDate(XB.fetched.slice(0, 10)) : '—'],
+      [LANG === 'es' ? 'Registro de riesgos' : 'Risk register', LANG === 'es' ? 'con cada 10-Q / 10-K y acción de calificación' : 'with each 10-Q / 10-K and rating action', 'tools/oracle/data/risks.json → data/risks.js', RK && RK.updated ? fmtDate(RK.updated) : '—'],
       [LANG === 'es' ? 'Financiamiento fuera de balance, preferentes, plan de financiamiento' : 'Off-balance-sheet financing, preferred stock, funding plan', LANG === 'es' ? 'con cada 10-Q / 10-K (rutina)' : 'with each 10-Q / 10-K (routine)', 'tools/oracle/data/obligations.json → data/obligations.js', OB && OB.updated ? fmtDate(OB.updated) : '—'],
-      [LANG === 'es' ? 'Apalancamiento de pares (XBRL de la SEC)' : 'Peer leverage (SEC XBRL)', LANG === 'es' ? 'días hábiles, con la cosecha de EDGAR' : 'weekdays, with the EDGAR harvest', 'scripts/oracle/fetch-peer-leverage.mjs → data/peer_leverage.js', PL && PL.fetched ? fmtDate(PL.fetched) : '—'],
-      [LANG === 'es' ? 'Calendario del inversionista' : 'Investor calendar', LANG === 'es' ? 'días hábiles, con la cosecha de EDGAR' : 'weekdays, with the EDGAR harvest', LANG === 'es' ? 'página de eventos de RI y comunicados de fecha → data/calendar.js' : 'IR events page and date-setting releases → data/calendar.js', CAL && CAL.generated ? fmtDate(CAL.generated) : '—'],
+      [LANG === 'es' ? 'Apalancamiento de pares (XBRL de la SEC)' : 'Peer leverage (SEC XBRL)', LANG === 'es' ? 'diario, con la cosecha de EDGAR' : 'daily, with the EDGAR harvest', 'scripts/oracle/fetch-peer-leverage.mjs → data/peer_leverage.js', PL && PL.fetched ? fmtDate(PL.fetched) : '—'],
+      [LANG === 'es' ? 'Calendario del inversionista' : 'Investor calendar', LANG === 'es' ? 'diario, con la cosecha de EDGAR' : 'daily, with the EDGAR harvest', LANG === 'es' ? 'página de eventos de RI y comunicados de fecha → data/calendar.js' : 'IR events page and date-setting releases → data/calendar.js', CAL && CAL.generated ? fmtDate(CAL.generated) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th>${t('block')}</th><th>${t('cadence')}</th><th>${t('mechanism')}</th><th>${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     const srcs = [
@@ -1345,11 +1334,341 @@
     html('srcGrid', srcs.map((s) => `<div class="item"><div class="t"><a href="${s.u}" target="_blank" rel="noopener">${s.t} ↗</a></div><div class="d">${s.d}</div></div>`).join(''));
   }
 
+  // ================= SECTION REGISTRY: generated numbering, cross-references, stamps and staleness =================
+  // data/sections.js (tools/oracle/data/sections.json) is the only source of section order, titles and numbers.
+  // Nothing on the page types a section, figure or table number; ref(sectionId) resolves to "§NN Title" at render time.
+  const secList = () => SEC.sections || [];
+  const secIndex = () => { let n = 0; const m = {}; for (const s of secList()) { if (s.numbered === false) { m[s.id] = { n: null, s }; continue; } n++; m[s.id] = { n, s }; } return m; };
+  const secNum = (id) => { const e = secIndex()[id]; return e && e.n != null ? String(e.n).padStart(2, '0') : ''; };
+  const secTitle = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.es, en: e.s.en }) : id; };
+  const secNav = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.nav_es, en: e.s.nav_en }) : id; };
+  const ref = (id) => { const e = secIndex()[id]; if (!e) return `<a class="xref" href="#${id}">${id}</a>`; return `<a class="xref" href="#${id}">${e.n != null ? '§' + secNum(id) + ' ' : ''}${secNav(id)}</a>`; };
+  const resolveRefs = (s) => String(s).replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => ref(id));
+  function numberSections() {
+    const idx = secIndex(); const es = LANG === 'es';
+    const secs = [...document.querySelectorAll('section.block[data-sec]')];
+    for (const sec of secs) {
+      const e = idx[sec.dataset.sec]; if (!e) continue;
+      const num = sec.querySelector('.sec-head .sec-num'), h2 = sec.querySelector('.sec-head h2');
+      if (num) { num.textContent = e.n != null ? String(e.n).padStart(2, '0') : ''; num.hidden = e.n == null; }
+      if (h2) h2.textContent = L({ es: e.s.es, en: e.s.en });
+      // figures (cards with a chart) and tables (cards with a table) numbered in reading order, once per card
+      for (const card of sec.querySelectorAll('.card')) {
+        if (card.closest('.sum-grid') || card.classList.contains('inputs')) continue;
+        const h3 = [...card.children].find((c) => c.tagName === 'H3'); if (!h3) continue;
+        const kind = card.querySelector('canvas') ? 'fig' : card.querySelector('.tblwrap, table') ? 'tbl' : null; if (!kind) continue;
+        if (!card.dataset.num) { card.dataset.kind = kind; card.dataset.num = String(kind === 'fig' ? ++numberSections.fig : ++numberSections.tbl); }
+        let tag = card.querySelector(':scope > .fignum'); if (!tag) { tag = document.createElement('span'); tag.className = 'fignum'; card.insertBefore(tag, h3); }
+        tag.textContent = `${card.dataset.kind === 'fig' ? (es ? 'Figura' : 'Figure') : (es ? 'Tabla' : 'Table')} ${card.dataset.num}`;
+      }
+    }
+    // navigation from the registry
+    const nav = el('jumpNav');
+    if (nav) nav.innerHTML = secList().map((s) => `<a href="#${s.id}">${idx[s.id].n != null ? `<span class="muted">${String(idx[s.id].n).padStart(2, '0')}</span> ` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`).join('') + `<a href="#sources">${es ? 'Fuentes' : 'Sources'}</a>`;
+  }
+  numberSections.fig = 0; numberSections.tbl = 0;
+
+  // ---- freshness: as-of (period end) and last refresh (ET) per data module; stale past the next expected filing + grace ----
+  const fmtET = (iso) => { if (!iso) return '—'; const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso + 'T00:00:00Z' : iso); if (isNaN(d)) return '—'; return d.toLocaleString(locale(), { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET'; };
+  const todayIso = () => new Date().toISOString().slice(0, 10);
+  const MOD_REFRESH = {
+    financials: () => FIN.generatedAt, xbrl: () => XB && XB.fetched, obligations: () => OB && (OB.generatedAt || OB.updated), guidance: () => GD.generatedAt, comments: () => CM.updatedAt, summary: () => SUM.updatedAt,
+    buildout: () => BO && (BO.updatedAt || BO.updated), reference: () => REF.updatedAt, market: () => MK.generatedAt, factset: () => FS && FS.fetched, cds: () => CDS.updatedAt, news: () => NEWS && NEWS.generatedAt,
+    calendar: () => CAL && CAL.generated, peer_leverage: () => PL && PL.fetched, risks: () => RK && RK.generatedAt, quality: () => QR && (QR.generated || QR.generatedAt), changelog: () => CL && CL.generatedAt,
+  };
+  const MOD_ASOF = {
+    financials: () => lastQ && qEndDate(lastQ), xbrl: () => XB && XB.latestPeriodEnd, obligations: () => OB && OB.as_of, guidance: () => GV.length && GV[GV.length - 1].date, comments: () => lastQ && qEndDate(lastQ), summary: () => lastQ && qEndDate(lastQ),
+    buildout: () => lastQ && qEndDate(lastQ), reference: () => REF.updatedAt, market: () => lastPx && lastPx[0], factset: () => FS && FS.asOf, cds: () => { const p = CDS.points || []; return p.length ? p[p.length - 1][0] : null; }, news: () => NEWS && NEWS.asOf,
+    calendar: () => CAL && CAL.generated, peer_leverage: () => PL && PL.fetched, risks: () => RK && RK.updated, quality: () => QR && (QR.generated || '').slice(0, 10), changelog: () => CL && CL.generatedAt,
+  };
+  const nextExpectedFiling = () => { const c = REF.calendar && REF.calendar.nextResults; if (c && c.date) return { date: c.date, basis: 'confirmed' }; const e = QR && QR.nextResultsEstimate; if (e && e.end) return { date: e.end, basis: 'assumed' }; return null; };
+  function moduleStatus(id) {
+    const rules = (SEC.freshness && SEC.freshness.modules) || {}; const r = rules[id] || {}; const grace = (SEC.freshness && SEC.freshness.grace_days) || 7;
+    const srv = QR && (QR.modules || []).find((m) => m.id === id);
+    const refreshed = (MOD_REFRESH[id] && MOD_REFRESH[id]()) || null, asOf = (MOD_ASOF[id] && MOD_ASOF[id]()) || null;
+    let stale = false, reason = null;
+    if (r.cadence === 'filing') { const nx = nextExpectedFiling(); if (nx) { const d = new Date(nx.date + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + grace); const deadline = d.toISOString().slice(0, 10); if (todayIso() > deadline) { stale = true; reason = LANG === 'es' ? `pasó la siguiente fecha esperada de reporte (${fmtDate(nx.date)}, ${nx.basis === 'confirmed' ? 'confirmada' : 'supuesta'}) + ${grace} días` : `past the next expected filing (${fmtDate(nx.date)}, ${nx.basis}) + ${grace} days`; } } if (asOf && lastQ && asOf < qEndDate(lastQ) && !['guidance', 'reference', 'risks'].includes(id)) { stale = true; reason = LANG === 'es' ? `datos al ${fmtDate(asOf)}; el último trimestre cierra el ${fmtDate(qEndDate(lastQ))}` : `data as of ${fmtDate(asOf)} while the latest quarter ends ${fmtDate(qEndDate(lastQ))}`; } }
+    else { const age = daysSince(refreshed ? String(refreshed).slice(0, 10) : null); const lim = r.max_age_days || 7; if (refreshed == null) { if (!r.optional) { stale = true; reason = LANG === 'es' ? 'sin datos' : 'no data'; } } else if (age > lim) { stale = true; reason = LANG === 'es' ? `última actualización hace ${age} días (límite ${lim})` : `last refresh ${age} days ago (limit ${lim})`; } }
+    if (srv && srv.stale && !stale) { stale = true; reason = srv.reason; }
+    return { id, label: L({ es: r.label_es, en: r.label_en }) || id, cadence: r.cadence, asOf, refreshed, stale, reason, textDerived: !!r.text_derived, nextExpected: r.cadence === 'filing' ? nextExpectedFiling() : null, maxAgeDays: r.max_age_days || null };
+  }
+  const stampHtml = (asOf, refreshed, stale) => `<span class="stamp">${LANG === 'es' ? 'Corte' : 'As of'}: <b>${asOf ? fmtDate(String(asOf).slice(0, 10)) : '—'}</b> · ${LANG === 'es' ? 'actualizado' : 'refreshed'} <span class="et">${fmtET(refreshed)}</span>${stale ? ` <span class="stale">${LANG === 'es' ? 'DESACTUALIZADO' : 'STALE'}</span>` : ''}</span>`;
+  // Every chart, table and metric footer in a section gets the as-of date, the ET refresh time and the stale flag of
+  // the modules that feed the section (from the registry); the section head carries the same stamp.
+  function applyStamps() {
+    for (const sec of document.querySelectorAll('section.block[data-sec]')) {
+      const reg = secList().find((s) => s.id === sec.dataset.sec); if (!reg) continue;
+      const sts = (reg.modules || []).map(moduleStatus);
+      const asOf = sts.length ? sts[0].asOf : null; const refreshed = sts.map((s) => s.refreshed).filter(Boolean).sort().pop() || null; const stale = sts.some((s) => s.stale);
+      sec.querySelectorAll('.stamp, .sec-stamp').forEach((e) => e.remove());
+      for (const p of sec.querySelectorAll('p.chart-src')) p.insertAdjacentHTML('beforeend', stampHtml(asOf, refreshed, stale));
+      const head = sec.querySelector('.sec-head'); if (head) head.insertAdjacentHTML('beforeend', `<span class="sec-stamp">${stampHtml(asOf, refreshed, stale)}</span>`);
+    }
+  }
+
+  // ================= SUMMARY: key numbers with their dates =================
+  function renderKeyNumbers() {
+    if (!el('keyNumbers') || !lastQ) return; const es = LANG === 'es';
+    const nd = netDebt(lastQ), eb = lastLTM && lastLTM.is ? lastLTM.is.ebitda : null; const Lz = (OB && OB.leases) || {}; const un = Lz.uncommenced || {};
+    const fla = XB && XB.concepts.fin_lease_additions ? (XB.concepts.fin_lease_additions.quarters || []).filter((x) => x.value != null).slice(-1)[0] : null;
+    const nx = nextExpectedFiling();
+    const B = { rep: `<span class="badge ok">${es ? 'reportado' : 'reported'}</span>`, der: `<span class="badge">${es ? 'derivado' : 'derived'}</span>`, txt: `<span class="badge rev">${es ? 'texto · revisión pendiente' : 'text · needs review'}</span>`, mkt: `<span class="badge ok">${es ? 'mercado' : 'market'}</span>`, est: `<span class="badge est">${es ? 'supuesto' : 'assumed'}</span>`, co: `<span class="badge">${es ? 'declaración de la empresa' : 'company statement'}</span>` };
+    const ql = qLabel(lastQ), qe = fmtDate(qEndDate(lastQ));
+    const rows = [
+      [es ? 'Ingresos del trimestre' : 'Quarterly revenue', fmtBn(lastQ.is.revTotal), `${ql} · ${qe}`, B.rep, 'statements'],
+      [es ? 'Margen operativo No-GAAP' : 'Non-GAAP operating margin', fmtPct(lastQ.is.ngOpMargin), `${ql}`, B.rep, 'statements'],
+      [es ? 'RPO (demanda contratada)' : 'RPO (contracted demand)', lastQ.kpi.rpo != null ? fmtBn(lastQ.kpi.rpo, 0) : '—', `${ql} · ${qe}`, B.rep, 'rpo'],
+      [es ? 'Capex en efectivo del trimestre' : 'Quarterly cash capex', lastQ.cf && lastQ.cf.capex != null ? fmtBn(-lastQ.cf.capex) : '—', `${ql}`, lastQ.q === 1 ? B.rep : B.der, 'capex'],
+      [es ? 'Adiciones por arrendamiento financiero' : 'Finance-lease additions', fla ? fmtBn(fla.value) : (es ? 'no etiquetado' : 'not tagged'), fla ? boLabel(fla.quarter) : '', fla && fla.derived ? B.der : B.rep, 'capex'],
+      [es ? 'Flujo de efectivo libre del trimestre' : 'Quarterly free cash flow', lastQ.cf && lastQ.cf.fcf != null ? fmtBn(lastQ.cf.fcf) : '—', `${ql}`, B.der, 'capex'],
+      [es ? 'Deuda neta · deuda neta / EBITDA UDM' : 'Net debt · net debt / LTM EBITDA', nd ? `${fmtBn(nd.net)} · ${eb ? fmtX(nd.net / eb, 2) : '—'}` : '—', `${qe}`, B.der, 'financing'],
+      [es ? 'Pasivos por arrendamiento (operativos + financieros)' : 'Lease liabilities (operating + finance)', Lz.operating_liabilities_total != null ? fmtBn((Lz.operating_liabilities_total || 0) + (Lz.finance_liabilities_total || 0)) : '—', OB ? fmtDate(OB.as_of) : '', B.rep, 'obligations'],
+      [es ? 'Arrendamientos firmados, no iniciados (nominal)' : 'Leases signed, not yet commenced (nominal)', un.usd_bn != null ? `US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M' : 'bn'}` : '—', OB ? fmtDate(OB.as_of) : '', B.txt, 'obligations'],
+      [es ? 'Obligaciones de compra (nominal)' : 'Purchase obligations (nominal)', OB && OB.purchase_obligations ? fmtBn(OB.purchase_obligations.total) : '—', OB ? fmtDate(OB.as_of) : '', B.rep, 'obligations'],
+      [es ? 'Precio ORCL · capitalización' : 'ORCL price · market cap', lastPx ? `US$ ${fmtN(lastPx[1], 2)}${sharesNow ? ` · ${fmtBn(lastPx[1] * sharesNow / 1e6, 0)}` : ''}` : '—', lastPx ? `${es ? 'cierre' : 'close'} ${fmtDate(lastPx[0])}` : '', B.mkt, 'valuation'],
+      [es ? 'Próximos resultados' : 'Next results', nx ? fmtDate(nx.date) : '—', nx ? (nx.basis === 'confirmed' ? (es ? 'confirmado por Oracle' : 'confirmed by Oracle') : (es ? 'mediana de los tres años anteriores' : 'median of the prior three years')) : '', nx && nx.basis === 'confirmed' ? B.co : B.est, 'calendar'],
+    ];
+    html('keyNumbers', `<table class="keynums"><thead><tr><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Valor' : 'Value'}</th><th>${es ? 'Periodo / fecha' : 'Period / date'}</th><th>${es ? 'Base' : 'Basis'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td class="v">${r[1]}</td><td class="small muted">${r[2]}</td><td>${r[3]}</td><td class="small">${ref(r[4])}</td></tr>`).join('')}</tbody></table>`);
+    html('keyNumbersSrc', `${t('src')}: ${relLink()} · ${OB && obSrc(OB.leases && OB.leases.source) ? extLink(obSrc(OB.leases.source).url, es ? '10-Q' : '10-Q') : ''} · ${XB ? extLink(XB.source.url, 'SEC XBRL') : ''} · ${lastPx ? extLink(NASDAQ_URL, 'Nasdaq') : ''} · ${asOfQ()}`);
+  }
+
+  // ================= CAPEX AND FREE CASH FLOW =================
+  const xbQuarters = (key) => (XB && XB.concepts[key] && XB.concepts[key].quarters) || [];
+  const xbQ = (key, q) => xbQuarters(key).find((x) => x.quarter === `FY${q.fy}Q${q.q}`) || null;
+  const xbInstant = (key, end) => { const c = XB && XB.concepts[key]; if (!c || !c.periods) return null; return c.periods.find((p) => p.period_end === end) || null; };
+  const parseCapexGuide = (note) => { if (!note) return null; const s = String(note).replace(/,/g, ''); const rng = /\$(\d+(?:\.\d+)?)\s*(?:billion|bn)?\s*(?:to|-|–)\s*\$?(\d+(?:\.\d+)?)\s*(?:billion|bn)/i.exec(s); const single = !rng && /(?:around|about|approximately|roughly)?\s*\$(\d+(?:\.\d+)?)\s*(?:billion|bn)/i.exec(s); const net = /(?:not more than|no more than|at most|around|about|approximately)\s*\$(\d+(?:\.\d+)?)\s*(?:billion|bn)\s*(?:in|of)?\s*net cash/i.exec(s); return { lo: rng ? +rng[1] : single ? +single[1] : null, hi: rng ? +rng[2] : single ? +single[1] : null, netMax: net ? +net[1] : null }; };
+  function renderCapex() {
+    if (!el('chartCapex')) return; const es = LANG === 'es', c = SERIES();
+    const qs = Q.slice(-lastN());
+    const capex = qs.map((q) => (q.cf && q.cf.capex != null ? -q.cf.capex : null));
+    const fcf = qs.map((q) => (q.cf ? q.cf.fcf : null));
+    const fla = qs.map((q) => { const x = xbQ('fin_lease_additions', q); return x && x.value != null ? x.value : null; });
+    mkChart('chartCapex', { type: 'bar', data: { labels: qs.map(qLabel), datasets: [
+      { type: 'bar', label: es ? 'Capex en efectivo (US$ M)' : 'Cash capex (US$ M)', data: capex, backgroundColor: c[0], stack: 'cap' },
+      { type: 'bar', label: es ? 'Adiciones por arrendamiento financiero (US$ M, XBRL)' : 'Finance-lease additions (US$ M, XBRL)', data: fla, backgroundColor: c[3], stack: 'cap' },
+      { type: 'line', label: es ? 'Flujo libre (US$ M)' : 'Free cash flow (US$ M)', data: fcf, borderColor: c[7], backgroundColor: c[7], pointRadius: 3, spanGaps: true },
+    ] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${x.parsed.y == null ? (es ? 'no etiquetado' : 'not tagged') : fmtN(x.parsed.y)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: axisM() } }, datasets: { bar: { maxBarThickness: 26, borderWidth: 0 } } } });
+    const gaps = qs.filter((q, i) => fla[i] == null).map(qLabel);
+    el('capexChartCap').textContent = es ? `US$ millones por trimestre. Barras apiladas: capex en efectivo (estado de flujos, trimestres discretos por diferencia) y adiciones por arrendamiento financiero (activos por derecho de uso obtenidos a cambio de nuevos pasivos, dato XBRL del 10-Q/10-K; Oracle no lo etiqueta en cada trimestre${gaps.length ? `: sin dato en ${gaps.join(', ')}` : ''}). Línea: flujo libre = flujo operativo − capex; el flujo operativo incluye prepagos de clientes.` : `US$ million per quarter. Stacked bars: cash capex (cash-flow statement, discrete quarters by subtraction) and finance-lease additions (right-of-use assets obtained in exchange for new lease liabilities, XBRL fact of the 10-Q/10-K; Oracle does not tag it every quarter${gaps.length ? `: no value for ${gaps.join(', ')}` : ''}). Line: free cash flow = operating cash flow − capex; operating cash flow includes customer prepayments.`;
+    html('capexChartSrc', `${t('src')}: ${relLink()} (${es ? 'capex, flujo operativo' : 'capex, operating cash flow'}) · ${XB ? extLink(XB.source.url, es ? 'SEC XBRL (RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability)' : 'SEC XBRL (RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability)') : ''} · ${asOfQ()}`);
+    // table: capital deployed by quarter, cash and leased, with the cumulative year-to-date and the method
+    const last8 = Q.slice(-8);
+    const row = (q) => { const x = xbQ('fin_lease_additions', q), o = xbQ('op_lease_additions', q), cx = xbQ('capex_cash', q); const cap = q.cf && q.cf.capex != null ? -q.cf.capex : null; const tot = cap != null && x && x.value != null ? cap + x.value : null; return `<tr><td><b>${qLabel(q)}</b><span class="sub">${fmtDate(qEndDate(q))}</span></td><td>${fmtM(cap)}${cx && cx.value != null && Math.abs(cx.value - cap) <= 2 ? ` <span class="badge ok" title="XBRL">✓</span>` : ''}</td><td>${x && x.value != null ? fmtM(x.value) + (x.derived ? '<span class="sub">' + (es ? 'derivado' : 'derived') + '</span>' : '') : `<span class="muted">${es ? 'no etiquetado' : 'not tagged'}</span>`}</td><td>${o && o.value != null ? fmtM(o.value) : `<span class="muted">${es ? 'no etiquetado' : 'not tagged'}</span>`}</td><td><b>${tot != null ? fmtM(tot) : '—'}</b></td><td>${q.cf ? fmtM(q.cf.cfo) : '—'}</td><td class="${q.cf ? cls(q.cf.fcf) : ''}">${q.cf ? fmtM(q.cf.fcf) : '—'}</td><td>${q.cf && q.cf.capexToRevenue != null ? fmtPct(q.cf.capexToRevenue, 0) : '—'}</td></tr>`; };
+    html('capexTable', `<table><thead><tr><th>${t('quarter')}</th><th>${es ? 'Capex en efectivo' : 'Cash capex'}</th><th>${es ? 'Adiciones arr. financiero' : 'Finance-lease additions'}</th><th>${es ? 'Adiciones arr. operativo' : 'Operating-lease additions'}</th><th>${es ? 'Capital desplegado (efectivo + arr. fin., derivado)' : 'Capital deployed (cash + finance lease, derived)'}</th><th>${t('cfo')}</th><th>${t('fcf')}</th><th>${es ? 'Capex / ingresos' : 'Capex / revenue'}</th></tr></thead><tbody>${last8.map(row).join('')}</tbody></table>`);
+    el('capexTableCap').textContent = es ? 'US$ millones. El capex en efectivo del 2T–4T se deriva restando el acumulado del reporte anterior (✓ = coincide con el dato XBRL del 10-Q/10-K derivado por el mismo método). Las adiciones por arrendamiento financiero y operativo son el dato XBRL del estado de flujos complementario; "no etiquetado" = Oracle no reportó la cifra de ese trimestre por separado y no se interpola. El capital desplegado suma efectivo y arrendamiento financiero y se marca derivado; las adiciones operativas no se suman porque no son capex.' : 'US$ million. Cash capex for 2Q–4Q is derived by subtracting the prior report\'s cumulative figure (✓ = matches the 10-Q/10-K XBRL value derived the same way). Finance- and operating-lease additions are the XBRL supplemental cash-flow fact; "not tagged" = Oracle did not report that quarter\'s figure separately and nothing is interpolated. Capital deployed adds cash and finance leases and is marked derived; operating-lease additions are not added because they are not capex.';
+    html('capexTableSrc', `${t('src')}: ${relLink()} · ${XB ? extLink(XB.source.url, 'SEC XBRL') : ''} · ${asOfQ()}`);
+    // guidance for the current fiscal year versus spend to date
+    const fyNow = lastQ.fy; const fyQs = Q.filter((q) => q.fy === fyNow); const spent = fyQs.reduce((a, q) => a + (q.cf && q.cf.capex != null ? -q.cf.capex : 0), 0);
+    const flaFy = fyQs.map((q) => xbQ('fin_lease_additions', q)).filter((x) => x && x.value != null).reduce((a, x) => a + x.value, 0);
+    const gv = GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote && v.fyGuided === fyNow) || GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote);
+    const g = gv ? parseCapexGuide(gv.items.fyCapexNote) : null;
+    const prevFy = Y.find((y) => y.fy === fyNow - 1);
+    const rows = [
+      [es ? `Guía de capex ${fyLabel(gv ? gv.fyGuided : fyNow)} (texto de la administración)` : `${fyLabel(gv ? gv.fyGuided : fyNow)} capex guidance (management's words)`, gv ? gCapexNote(gv) : '—', gv ? `${fmtDate(gv.date)} · ${gLink(gv, es ? 'fuente' : 'source')}` : ''],
+      [es ? 'Rango interpretado del texto (US$ mil M)' : 'Range parsed from the text (US$ bn)', g && g.lo != null ? `${fmtN(g.lo)}${g.hi !== g.lo ? '–' + fmtN(g.hi) : ''}${g.netMax ? ` · ${es ? 'neto en efectivo ≤' : 'net cash ≤'} ${fmtN(g.netMax)}` : ''}` : (es ? 'no cuantificable' : 'not quantifiable'), es ? 'lectura automática del texto de la guía; sin interpolación' : 'automatic reading of the guidance text; no interpolation'],
+      [es ? `Capex en efectivo ejecutado, ${fyLabel(fyNow)} a la fecha` : `Cash capex spent, ${fyLabel(fyNow)} to date`, `${fmtBn(spent)} (${fyQs.map(qLabel).join(' + ')})`, g && g.lo ? (es ? `${fmtPct(100 * spent / 1000 / g.lo, 0)}–${fmtPct(100 * spent / 1000 / g.hi, 0)} del rango` : `${fmtPct(100 * spent / 1000 / g.hi, 0)}–${fmtPct(100 * spent / 1000 / g.lo, 0)} of the range`) : ''],
+      [es ? `Adiciones por arrendamiento financiero, ${fyLabel(fyNow)} a la fecha (XBRL)` : `Finance-lease additions, ${fyLabel(fyNow)} to date (XBRL)`, flaFy ? fmtBn(flaFy) : (es ? 'no etiquetado' : 'not tagged'), es ? 'fuera de la guía de capex: capacidad arrendada, no comprada' : 'outside the capex guide: leased, not purchased, capacity'],
+      [es ? `Capex en efectivo ${fyLabel(fyNow - 1)} (año completo)` : `${fyLabel(fyNow - 1)} cash capex (full year)`, prevFy && prevFy.cf ? fmtBn(-prevFy.cf.capex) : '—', es ? 'estado de flujos anual' : 'annual cash-flow statement'],
+    ];
+    html('capexGuide', `<table><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td class="small muted">${r[2]}</td></tr>`).join('')}</tbody></table>`);
+    el('capexGuideCap').textContent = es ? 'La guía es una declaración de la empresa, no auditada; el capex "neto en efectivo" que Oracle guía descuenta los prepagos de clientes del capex reportado.' : 'Guidance is a company statement, not audited; the "net cash" capex Oracle guides nets customer prepayments against reported capex.';
+    html('capexGuideNote', `<b>${es ? 'Lectura.' : 'Reading it.'}</b> ${es ? `El capex se paga antes de facturarse: ${ref('rpo')} muestra la demanda contratada y ${ref('sites')} los megavatios que ese capital energiza. Los prepagos de clientes (${ref('circular')}) reducen el capex que Oracle financia con deuda y capital (${ref('financing')}).` : `Capex is paid before it is billed: ${ref('rpo')} shows the contracted demand and ${ref('sites')} the megawatts that capital energises. Customer prepayments (${ref('circular')}) reduce the capex Oracle funds with debt and equity (${ref('financing')}).`}`);
+    html('capexGuideSrc', `${t('src')}: ${gv ? gLink(gv, es ? 'transcripción / comunicado' : 'transcript / release') : ''} · ${relLink()} · ${asOfQ()}`);
+    const ltmCap = lastLTM && lastLTM.cf ? -lastLTM.cf.capex : null, ltmFcf = lastLTM && lastLTM.cf ? lastLTM.cf.fcf : null;
+    const ltmFla = lastLTM && lastLTM.quarters ? lastLTM.quarters.map((id) => xbQuarters('fin_lease_additions').find((x) => x.quarter === `FY${id}`)).filter((x) => x && x.value != null) : [];
+    html('capexStats', [
+      ltmCap != null && { v: fmtBn(ltmCap), l: es ? `capex en efectivo UDM (${lastLTM.id})` : `LTM cash capex (${lastLTM.id})` },
+      { v: ltmFla.length === 4 ? fmtBn(ltmFla.reduce((a, x) => a + x.value, 0)) : (es ? 'incompleto' : 'incomplete'), l: es ? `adiciones por arrendamiento financiero UDM (XBRL, ${ltmFla.length}/4 trimestres etiquetados)` : `LTM finance-lease additions (XBRL, ${ltmFla.length}/4 quarters tagged)` },
+      ltmFcf != null && { v: fmtBn(ltmFcf), l: es ? 'flujo libre UDM' : 'LTM free cash flow', c: cls(ltmFcf) },
+      lastQ.cf && lastQ.cf.capexToRevenue != null && { v: fmtPct(lastQ.cf.capexToRevenue, 0), l: es ? `capex / ingresos, ${qLabel(lastQ)}` : `capex / revenue, ${qLabel(lastQ)}` },
+    ].filter(Boolean).map((s) => `<div class="stat"><div class="v ${s.c || ''}">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
+    html('capexMeta', es ? `Trimestres discretos derivados de los estados de flujo acumulados (6, 9 y 12 meses) y verificados contra el total anual y los datos XBRL. Año fiscal de Oracle: termina el 31 de mayo.` : `Discrete quarters derived from the cumulative cash-flow statements (6, 9 and 12 months) and checked against the annual total and the XBRL data. Oracle's fiscal year ends 31 May.`);
+  }
+
+  // ================= OFF-BALANCE-SHEET: three views, lease maturities, VIE / guarantees / developer financings, provenance =================
+  function renderObViews() {
+    if (!OB || !el('obViews')) return; const es = LANG === 'es', S = obligStats(); if (!S) return;
+    const Lz = OB.leases || {}, un = Lz.uncommenced || {}, po = OB.purchase_obligations || {}, lt = OB.lookthrough || {}, pv = lt.pv_estimate || null, vie = OB.vie || {}, ga = OB.guarantees || {};
+    const bn = (v) => (v == null ? '—' : `${fmtN(v / 1000, 1)}`);
+    // illustrative present value of the uncommenced leases, labelled estimate and never added anywhere
+    let pvVal = null; if (pv && un.usd_bn) { const r = pv.discount_rate_pct / 100, n = pv.term_years, pay = un.usd_bn * 1000 / n; const annuity = pay * (1 - Math.pow(1 + r, -n)) / r; pvVal = annuity / Math.pow(1 + r, pv.start_offset_years); }
+    const dash = '<span class="muted">—</span>';
+    const nd = (es ? 'no divulgado' : 'not disclosed');
+    const rows = [
+      { l: es ? 'Deuda neta (notas por pagar − efectivo e inversiones)' : 'Net debt (notes payable − cash and investments)', a: bn(S.net), b: bn(S.net), c: bn(S.net), d: es ? 'balance del 10-Q' : '10-Q balance sheet' },
+      { l: es ? '+ pasivos por arrendamientos operativos (valor presente, ASC 842)' : '+ operating lease liabilities (present value, ASC 842)', a: dash, b: bn(S.opL), c: bn(S.opL), d: es ? 'ya en el balance; se suman porque su costo no está en el EBITDA' : 'already on the balance sheet; added because their cost is outside EBITDA' },
+      { l: es ? '+ pasivos por arrendamientos financieros (valor presente)' : '+ finance lease liabilities (present value)', a: dash, b: bn(S.finL), c: bn(S.finL), d: es ? 'ya en el balance, fuera de "notas por pagar"' : 'already on the balance sheet, outside "notes payable"' },
+      { l: es ? '= Deuda neta ajustada' : '= Adjusted net debt', a: `<b>${bn(S.net)}</b>`, b: `<b>${bn(S.adjDebt)}</b>`, c: `<b>${bn(S.adjDebt)}</b>`, d: '' , cls: 'total' },
+      { l: es ? 'EBITDA UDM · EBITDAR UDM (+ costo de arrendamientos operativos)' : 'LTM EBITDA · LTM EBITDAR (+ operating lease cost)', a: bn(S.ebitda), b: bn(S.ebitdar), c: bn(S.ebitdar), d: es ? `costo de arrendamientos operativos UDM US$ ${fmtN(S.olc)} M` : `LTM operating lease cost US$ ${fmtN(S.olc)} M` },
+      { l: es ? 'Apalancamiento' : 'Leverage', a: `<b>${fmtX(S.ndEbitda, 2)}</b>`, b: `<b>${fmtX(S.leaseAdj, 2)}</b>`, c: `<b>${fmtX(S.leaseAdj, 2)}</b>`, d: es ? 'la vista transparente no cambia la razón: nada de abajo es pasivo' : 'the look-through view leaves the ratio unchanged: nothing below is a liability', cls: 'total' },
+      { l: es ? 'Memo: arrendamientos firmados, no iniciados (nominal, sin descontar)' : 'Memo: leases signed, not yet commenced (nominal, undiscounted)', a: dash, b: dash, c: `${fmtN(un.usd_bn, 0)} <span class="badge rev">${es ? 'texto · revisión' : 'text · review'}</span>`, d: es ? `fuera del balance hasta que cada sitio se entregue; plazos ${un.term_years_min}–${un.term_years_max} años; nunca se suman a la deuda` : `off the balance sheet until each site is handed over; ${un.term_years_min}–${un.term_years_max}-year terms; never added to debt`, cls: 'sub' },
+      { l: es ? 'Memo: valor presente de esos arrendamientos' : 'Memo: present value of those leases', a: dash, b: dash, c: pvVal != null ? `≈ ${bn(pvVal)} <span class="badge est">${L({ es: pv.label_es, en: pv.label_en })}</span>` : nd, d: pv ? L({ es: pv.method_es, en: pv.method_en }) : '', cls: 'sub' },
+      { l: es ? 'Memo: razón incluyendo compromisos (nominal)' : 'Memo: commitment-inclusive ratio (nominal)', a: dash, b: dash, c: `${fmtX(S.commit, 1)} <span class="badge est">${es ? 'exposición, no deuda' : 'exposure, not debt'}</span>`, d: es ? '(deuda neta ajustada + arrendamientos no iniciados a valor nominal) ÷ EBITDAR, sin proyectar EBITDA' : '(adjusted net debt + uncommenced leases at nominal) ÷ EBITDAR, without projecting EBITDA', cls: 'sub' },
+      { l: es ? 'Memo: obligaciones de compra (nominal)' : 'Memo: purchase obligations (nominal)', a: dash, b: dash, c: bn(po.total), d: es ? 'energía, componentes y otros; nota de compromisos del 10-Q' : 'power, components and other; 10-Q commitments note', cls: 'sub' },
+      { l: es ? 'Memo: entidades de interés variable consolidadas o no (ASC 810)' : 'Memo: variable-interest entities, consolidated or not (ASC 810)', a: dash, b: dash, c: `${vie.disclosed ? '' : nd} <span class="badge rev">${es ? 'revisión pendiente' : 'needs review'}</span>`, d: es ? 'exposición máxima a pérdidas: no divulgada' : 'maximum exposure to loss: not disclosed', cls: 'sub' },
+      { l: es ? 'Memo: garantías a arrendadores o de valor residual' : 'Memo: lessor or residual-value guarantees', a: dash, b: dash, c: ga.disclosed ? '' : nd, d: es ? 'si se divulgara, se mostraría como exposición, nunca como pasivo' : 'if disclosed, shown as exposure, never as a liability', cls: 'sub' },
+      { l: es ? 'Memo: deuda de proyecto de los desarrolladores (prensa)' : 'Memo: developers\' project debt (press)', a: dash, b: dash, c: `${es ? 'de los desarrolladores, no de Oracle' : 'the developers\', not Oracle\'s'}`, d: es ? 'listada por sitio abajo solo como referencia' : 'listed per site below for reference only', cls: 'sub' },
+    ];
+    html('obViews', `<table class="views"><thead><tr><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Reportado' : 'Reported'}</th><th>${es ? 'Ajustado por arrendamientos (ASC 842)' : 'Lease-adjusted (ASC 842)'}</th><th>${es ? 'Transparente (ASC 810 + compromisos)' : 'Look-through (ASC 810 + commitments)'}</th><th>${es ? 'Qué es' : 'What it is'}</th></tr></thead><tbody>${rows.map((r) => `<tr class="${r.cls || ''}"><td>${r.l}</td><td>${r.a}</td><td>${r.b}</td><td>${r.c}</td><td class="desc">${r.d}</td></tr>`).join('')}</tbody></table>`);
+    el('obViewsCap').textContent = es ? `Al ${fmtDate(OB.as_of)} (10-Q) con el EBITDA UDM del modelo (${lastLTM ? lastLTM.id : ''}). Las razones son derivadas. Las filas "memo" de la vista transparente son exposición, no deuda, y nunca entran en una razón salvo la marcada como tal.` : `At ${fmtDate(OB.as_of)} (10-Q) with the model's LTM EBITDA (${lastLTM ? lastLTM.id : ''}). Ratios are derived. The "memo" rows of the look-through view are exposure, not debt, and never enter a ratio except the one marked as such.`;
+    html('obViewsMethod', `<div class="callout"><b>${es ? 'Cómo leer las tres vistas.' : 'How to read the three views.'}</b><br><b>${es ? 'Reportado.' : 'Reported.'}</b> ${L({ es: lt.reported_es, en: lt.reported_en })}<br><b>${es ? 'Ajustado por arrendamientos.' : 'Lease-adjusted.'}</b> ${L({ es: lt.lease_adjusted_es, en: lt.lease_adjusted_en })}<br><b>${es ? 'Transparente.' : 'Look-through.'}</b> ${L({ es: lt.lookthrough_es, en: lt.lookthrough_en })}</div>`);
+    const q10 = obSrc(Lz.source);
+    html('obViewsSrc', `${t('src')}: ${q10 ? extLink(q10.url, q10.title) : ''}${q10 && q10.accession ? ` · ${es ? 'acceso' : 'accession'} <span class="mono">${q10.accession}</span>` : ''} · ${es ? 'deuda neta y EBITDA UDM del modelo' : 'model net debt and LTM EBITDA'} (${ref('financing')}) · ${asOfQ()}`);
+    // uncommenced leases: what is and is not disclosed
+    const wa = un.weighted_average_start || {}, ls = un.lessors || {};
+    html('uncFacts', `<table><tbody>
+      <tr><td>${es ? 'Monto (nominal, sin descontar)' : 'Amount (nominal, undiscounted)'}</td><td><b>US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M' : 'bn'}</b></td></tr>
+      <tr><td>${es ? 'Inicio esperado' : 'Expected commencement'}</td><td>${boLabel(un.commence_from)} – ${un.commence_to}</td></tr>
+      <tr><td>${es ? 'Plazos' : 'Terms'}</td><td>${un.term_years_min}–${un.term_years_max} ${es ? 'años' : 'years'}</td></tr>
+      <tr><td>${es ? 'Inicio y plazo promedio ponderados' : 'Weighted-average start and term'}</td><td class="small">${L({ es: wa.text_es, en: wa.text_en }) || nd}</td></tr>
+      <tr><td>${es ? 'Arrendadores / desarrolladores' : 'Lessors / developers'}</td><td class="small">${L({ es: ls.text_es, en: ls.text_en }) || nd}</td></tr>
+      <tr><td>${es ? 'Tasa de descuento (arrendamientos vigentes)' : 'Discount rate (existing leases)'}</td><td>${Lz.discount_rate_pct ? `${fmtPct(Lz.discount_rate_pct.operating, 1)} <span class="small muted">${L({ es: Lz.discount_rate_pct.note_es, en: Lz.discount_rate_pct.note_en })}</span>` : nd}</td></tr>
+    </tbody></table>`);
+  }
+  function renderLeaseMaturity() {
+    if (!XB || !el('chartLeaseMaturity') || !OB) return; const es = LANG === 'es', c = SERIES(); const end = OB.as_of;
+    const fyOf = (d) => { const [y, m] = d.split('-').map(Number); return m >= 6 ? y + 1 : y; };
+    const fy = fyOf(end);
+    const keys = ['remainder', 'y1', 'y2', 'y3', 'y4', 'y5', 'after'];
+    const labels = keys.map((k, i) => (k === 'remainder' ? (es ? `Resto AF${fy}` : `Rest of FY${fy}`) : k === 'after' ? (es ? 'Después' : 'Thereafter') : `FY${fy + i}`));
+    const op = keys.map((k) => { const p = xbInstant(`op_lease_due_${k}`, end); return p ? p.value : null; }), fin = keys.map((k) => { const p = xbInstant(`fin_lease_due_${k}`, end); return p ? p.value : null; });
+    const opT = xbInstant('op_lease_payments_undiscounted', end), finT = xbInstant('fin_lease_payments_undiscounted', end), opI = xbInstant('op_lease_imputed_interest', end), finI = xbInstant('fin_lease_imputed_interest', end), opL = xbInstant('op_lease_liability', end), finL = xbInstant('fin_lease_liability', end);
+    if (op.every((v) => v == null)) { html('leaseMatTable', `<p class="small muted">${es ? 'Calendario no etiquetado en XBRL para este periodo.' : 'Schedule not tagged in XBRL for this period.'}</p>`); return; }
+    mkChart('chartLeaseMaturity', { type: 'bar', data: { labels, datasets: [{ label: es ? 'Operativos' : 'Operating', data: op, backgroundColor: c[0], stack: 'a' }, { label: es ? 'Financieros' : 'Finance', data: fin, backgroundColor: c[3], stack: 'a' }] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: US$ ${fmtN(x.parsed.y)} M` } } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 34, borderWidth: 0 } } } });
+    const sum = (a) => a.reduce((x, v) => x + (v || 0), 0);
+    const tie = (s, tot) => (tot && Math.abs(s - tot.value) <= 1 ? `<span class="badge ok">${es ? 'cuadra' : 'ties'}</span>` : `<span class="badge bad">${es ? 'no cuadra' : 'does not tie'}</span>`);
+    html('leaseMatTable', `<table><thead><tr><th>${es ? 'Periodo' : 'Period'}</th><th>${es ? 'Operativos' : 'Operating'}</th><th>${es ? 'Financieros' : 'Finance'}</th></tr></thead><tbody>${labels.map((l, i) => `<tr><td>${l}</td><td>${fmtM(op[i])}</td><td>${fmtM(fin[i])}</td></tr>`).join('')}<tr class="total"><td>${es ? 'Total de pagos sin descontar' : 'Total undiscounted payments'}</td><td>${fmtM(sum(op))} ${tie(sum(op), opT)}</td><td>${fmtM(sum(fin))} ${tie(sum(fin), finT)}</td></tr><tr class="sub"><td>${es ? '− interés implícito' : '− imputed interest'}</td><td>${opI ? fmtM(-opI.value) : '—'}</td><td>${finI ? fmtM(-finI.value) : '—'}</td></tr><tr class="total"><td>${es ? '= Pasivo en el balance (valor presente)' : '= Liability on the balance sheet (present value)'}</td><td>${opL ? fmtM(opL.value) : '—'}</td><td>${finL ? fmtM(finL.value) : '—'}</td></tr></tbody></table>`);
+    el('leaseMatCap').textContent = es ? `US$ millones al ${fmtDate(end)}: pagos de los arrendamientos ya reconocidos, por año fiscal, sin descontar; la suma menos el interés implícito es el pasivo del balance (ASC 842). No incluye los arrendamientos firmados que aún no empiezan. Dato XBRL del 10-Q; "cuadra" = la suma de los años coincide con el total etiquetado.` : `US$ million at ${fmtDate(end)}: payments on the leases already recognised, by fiscal year, undiscounted; the sum less imputed interest is the balance-sheet liability (ASC 842). Excludes the leases signed but not yet commenced. XBRL fact of the 10-Q; "ties" = the sum of the years equals the tagged total.`;
+    html('leaseMatSrc', `${t('src')}: ${extLink(XB.source.url, 'SEC XBRL')} · ${opL ? extLink(opL.url, `10-Q ${es ? 'acceso' : 'accession'} ${opL.accn}`) : ''} · ${asOfQ()}`);
+  }
+  function renderObVie() {
+    if (!OB || !el('obVie')) return; const es = LANG === 'es'; const vie = OB.vie || {}, ga = OB.guarantees || {};
+    const sV = obSrc(vie.source), sG = obSrc(ga.source);
+    html('obVie', `<div class="grid-2 eq" style="margin-top:0"><div class="callout" style="margin-top:12px"><b>${es ? 'Entidades de interés variable y vehículos de propósito especial (ASC 810).' : 'Variable-interest entities and special-purpose vehicles (ASC 810).'}</b> <span class="badge rev">${es ? 'revisión pendiente' : 'needs review'}</span><br>${L({ es: vie.text_es, en: vie.text_en })}${sV ? `<br><span class="small muted">${t('src')}: ${extLink(sV.url, sV.title)}${sV.accession ? ` · <span class="mono">${sV.accession}</span>` : ''}</span>` : ''}</div><div class="callout" style="margin-top:12px"><b>${es ? 'Garantías a arrendadores y de valor residual.' : 'Lessor and residual-value guarantees.'}</b> <span class="badge rev">${es ? 'texto · revisión' : 'text · review'}</span><br>${L({ es: ga.text_es, en: ga.text_en })}${sG ? `<br><span class="small muted">${t('src')}: ${extLink(sG.url, sG.title)}${sG.accession ? ` · <span class="mono">${sG.accession}</span>` : ''}</span>` : ''}</div></div>`);
+    const sites = (BO && BO.sites) || [];
+    const sf = (s, k) => (es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
+    const srcShort = (r) => (r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.short || r.title}</a>` : `<span>${r.short || r.title}</span>`);
+    html('obDevFin', `<table class="sites"><thead><tr><th>${es ? 'Sitio' : 'Site'}</th><th>${es ? 'Desarrollador' : 'Developer'}</th><th>${es ? 'Financiamiento del desarrollador (según su comunicado o la prensa)' : 'Developer financing (per its release or the press)'}</th><th>${es ? 'Exposición de Oracle' : 'Oracle\'s exposure'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.short || s.name}</b></td><td>${sf(s, 'developer')}</td><td>${sf(s, 'financing')} <span class="badge">${es ? 'no es de Oracle' : 'not Oracle\'s'}</span></td><td class="small">${es ? 'Oracle no divulga su compromiso por sitio; el arrendamiento entra al balance al iniciar' : 'Oracle discloses no per-site commitment; the lease comes onto the balance sheet at commencement'}</td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
+    el('obVieCap').textContent = es ? 'Lo que los reportes de Oracle dicen (y no dicen) sobre entidades consolidadas y garantías, y los financiamientos de proyecto de los desarrolladores detrás de los campus arrendados. La deuda de los desarrolladores es de ellos: aquí se lista como referencia y nunca se trata como pasivo de Oracle.' : 'What Oracle\'s filings say (and do not say) about consolidated entities and guarantees, and the developers\' project financings behind the leased campuses. The developers\' debt is theirs: it is listed for reference and never treated as an Oracle liability.';
+    html('obVieSrc', `${t('src')}: ${sV ? extLink(sV.url, es ? '10-K AF2026' : 'FY2026 10-K') : ''} · ${sG ? extLink(sG.url, es ? '10-Q 1T27' : '1Q27 10-Q') : ''} · ${es ? 'comunicados de los desarrolladores y prensa enlazados por fila' : 'developer releases and press linked per row'} (${ref('sites')}) · ${asOfQ()}`);
+  }
+  function renderObProvenance() {
+    if (!OB || !el('obProvenance')) return; const es = LANG === 'es';
+    const ver = (QR && QR.obligationsVerification) || [];
+    const prov = OB.provenance || {};
+    const getPath = (o, path) => path.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
+    const label = (path) => path.replace(/^balance_sheet\./, es ? 'Balance: ' : 'Balance sheet: ').replace(/^leases\.cost\./, es ? 'Arrendamientos, costo: ' : 'Leases, cost: ').replace(/^leases\.uncommenced\./, es ? 'Arrendamientos no iniciados: ' : 'Uncommenced leases: ').replace(/^leases\./, es ? 'Arrendamientos: ' : 'Leases: ').replace(/^purchase_obligations\./, es ? 'Obligaciones de compra: ' : 'Purchase obligations: ').replace(/^prepayments\./, es ? 'Prepagos: ' : 'Prepayments: ').replace(/_/g, ' ');
+    const badge = (v) => v === 'verified' ? `<span class="badge ok">${es ? 'verificado (XBRL)' : 'verified (XBRL)'}</span>` : v === 'mismatch' ? `<span class="badge bad">${es ? 'no coincide' : 'mismatch'}</span>` : v === 'needs_review' ? `<span class="badge rev">${es ? 'revisión pendiente' : 'needs review'}</span>` : `<span class="badge">${es ? 'sin verificar' : 'unverified'}</span>`;
+    const rows = Object.entries(prov).filter(([k]) => !k.startsWith('_')).map(([path, p]) => {
+      const s = (OB.sources || {})[p.source] || {}; const noteName = s.notes && s.notes[p.note] ? s.notes[p.note] : p.note;
+      const vs = ver.filter((v) => v.path === path || v.path.startsWith(path + '['));
+      const val = getPath(OB, path); const vTxt = typeof val === 'number' ? fmtM(val) : Array.isArray(val) ? `${val.length} ${es ? 'renglones' : 'rows'}` : val && typeof val === 'object' ? (es ? 'bloque de texto' : 'text block') : String(val ?? '—');
+      const verdict = vs.length ? (vs.every((v) => v.verdict === 'verified') ? 'verified' : vs.some((v) => v.verdict === 'mismatch') ? 'mismatch' : vs[0].verdict) : (p.text_only ? 'needs_review' : 'unverified');
+      const xb = vs.find((v) => v.xbrl) ? vs.find((v) => v.xbrl).xbrl : null;
+      return `<tr><td>${label(path)}</td><td>${vTxt}</td><td class="small">${s.url ? extLink(s.url, (s.title || p.source).replace(/^Oracle /, '')) : p.source}${s.filed ? `<span class="sub">${es ? 'presentado' : 'filed'} ${fmtDate(s.filed)}</span>` : ''}</td><td class="small">${noteName || '—'}</td><td class="small">${p.page != null ? p.page : `<span class="muted" title="${es ? 'reporte en XBRL en línea sin paginación fija; la nota es el ancla' : 'inline-XBRL filing without fixed pagination; the note is the anchor'}">n/p</span>`}</td><td class="mono small">${s.accession || '—'}</td><td class="small">${xb ? `${xb.concept}<span class="sub">${fmtM(xb.value)} · ${xb.form} ${xb.accn}</span>` : p.xbrl ? (Array.isArray(p.xbrl) ? p.xbrl.length + ' ' + (es ? 'conceptos' : 'concepts') : '—') : (es ? 'sin concepto XBRL' : 'no XBRL concept')}</td><td>${badge(verdict)}</td></tr>`;
+    });
+    html('obProvenance', `<table class="prov"><thead><tr><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Valor (US$ M)' : 'Value (US$ M)'}</th><th>${es ? 'Reporte' : 'Filing'}</th><th>${es ? 'Nota / sección' : 'Note / section'}</th><th>${es ? 'Pág.' : 'Page'}</th><th>${es ? 'No. de acceso' : 'Accession no.'}</th><th>${es ? 'Verificación XBRL' : 'XBRL check'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    const n = { v: ver.filter((v) => v.verdict === 'verified').length, r: ver.filter((v) => v.verdict === 'needs_review').length, m: ver.filter((v) => v.verdict === 'mismatch').length };
+    el('obProvCap').textContent = es ? `${n.v} cifras verificadas contra el dato XBRL de la SEC del mismo periodo, ${n.r} lecturas de texto con revisión pendiente, ${n.m} discrepancias. "n/p" = Oracle presenta XBRL en línea sin paginación fija; el nombre de la nota es el ancla. Los números de nota siguen el orden del 10-K del AF2026 y se releen con cada 10-Q.` : `${n.v} figures verified against the SEC's XBRL value for the same period, ${n.r} text readings with review pending, ${n.m} mismatches. "n/p" = Oracle files inline XBRL without fixed pagination; the note name is the anchor. Note numbers follow the FY2026 10-K order and are re-read with each 10-Q.`;
+    html('obProvSrc', `${t('src')}: ${es ? 'reportes enlazados por fila' : 'filings linked per row'} · ${XB ? extLink(XB.source.url, 'SEC XBRL company facts') : ''} · ${es ? 'verificación' : 'verification'}: scripts/oracle/validate-data.mjs${QR && QR.generated ? ` (${fmtET(QR.generated)})` : ''} · ${asOfQ()}`);
+  }
+
+  // ================= CIRCULAR FINANCING AND CUSTOMER CONCENTRATION =================
+  function renderCircular() {
+    if (!el('circTable')) return; const es = LANG === 'es', c = SERIES();
+    const U = (BO && BO.unitEconomics) || {}, fm = U.funding_mix || {}, cn = U.concentration || {}, pp = (OB && OB.prepayments) || {};
+    const fund = (BO && BO.funding && BO.funding.items) || [];
+    const prepayCum = fund.find((f) => /prepay|prepago/i.test(f.en));
+    const sites = (BO && BO.sites) || [], openai = sites.filter((s) => /OpenAI/i.test(s.tenant_en || s.customer || '')).length;
+    const def = XB && XB.concepts.deferred_revenue_total ? XB.concepts.deferred_revenue_total.periods.slice(-12) : [];
+    const defNC = XB && XB.concepts.deferred_revenue_noncurrent ? XB.concepts.deferred_revenue_noncurrent.periods : [];
+    if (def.length) mkChart('chartDeferred', { type: 'bar', data: { labels: def.map((p) => boLabel(p.fiscal)), datasets: [
+      { label: es ? 'Ingresos diferidos, corto plazo' : 'Deferred revenue, current', data: def.map((p) => { const nc = defNC.find((x) => x.period_end === p.period_end); return nc ? p.value - nc.value : p.value; }), backgroundColor: c[0], stack: 'a' },
+      { label: es ? 'Ingresos diferidos, largo plazo' : 'Deferred revenue, non-current', data: def.map((p) => { const nc = defNC.find((x) => x.period_end === p.period_end); return nc ? nc.value : null; }), backgroundColor: c[3], stack: 'a' },
+    ] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: US$ ${fmtN(x.parsed.y)} M` } } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 30, borderWidth: 0 } } } });
+    const last = def[def.length - 1];
+    el('circChartCap').textContent = es ? 'US$ millones al cierre de cada trimestre: pasivos por contratos con clientes (ingresos diferidos) del balance, dato XBRL del 10-Q/10-K. Es el efectivo cobrado por adelantado que aún no es ingreso; sube cuando los clientes prepagan capacidad. Es distinto del RPO: el RPO incluye lo contratado y no cobrado.' : 'US$ million at each quarter-end: contract liabilities (deferred revenue) from the balance sheet, XBRL fact of the 10-Q/10-K. It is cash collected in advance that is not yet revenue; it rises when customers prepay capacity. It differs from RPO: RPO includes what is contracted but not yet billed.';
+    html('circChartSrc', `${t('src')}: ${XB ? extLink(XB.source.url, 'SEC XBRL (ContractWithCustomerLiability)') : ''} · ${last ? `${es ? 'último' : 'latest'} ${fmtDate(last.period_end)}, ${last.form} ${extLink(last.url, last.accn)}` : ''} · ${asOfQ()}`);
+    const sp = obSrc(pp.source);
+    const B = { rep: `<span class="badge ok">${es ? 'reportado' : 'reported'}</span>`, co: `<span class="badge">${es ? 'declaración de la empresa, no auditada' : 'company statement, not audited'}</span>`, third: `<span class="badge est">${es ? 'estimación de un tercero' : 'third-party estimate'}</span>`, nd: `<span class="badge rev">${es ? 'no divulgado' : 'not disclosed'}</span>` };
+    const rows = [
+      [es ? 'Prepagos de clientes con componente de financiamiento, 1T27' : 'Customer prepayments with a significant financing component, 1Q27', pp.deferred_revenue_prepayments_financing_1q27 != null ? fmtBn(pp.deferred_revenue_prepayments_financing_1q27) : '—', B.rep, `${L({ es: pp.text_es, en: pp.text_en }) || ''}`, sp ? extLink(sp.url, es ? '10-Q 1T27, estado de flujos' : '1Q27 10-Q, cash-flow statement') : ''],
+      [es ? 'Ingresos diferidos totales (balance)' : 'Total deferred revenue (balance sheet)', last ? fmtBn(last.value) : '—', B.rep, last ? `${fmtDate(last.period_end)} · XBRL` : '', last ? extLink(last.url, `${last.form} ${last.accn}`) : ''],
+      [es ? 'Prepagos y contratos con hardware del cliente, acumulado' : 'Prepayments and bring-your-own-hardware contracts, cumulative', prepayCum ? `≈ US$ ${fmtN(prepayCum.usd_bn)} ${es ? 'mil M' : 'bn'}` : '—', B.co, L({ es: fm.split_text_es, en: fm.split_text_en }) || '', prepayCum && prepayCum.sourceRef ? extLink(prepayCum.sourceRef.url, prepayCum.sourceRef.title) : irLink()],
+      [es ? 'División del RPO: prepagado · hardware del cliente · financiado por Oracle' : 'RPO split: prepaid · bring-your-own-hardware · Oracle-funded', es ? 'no divulgado' : 'not disclosed', B.nd, es ? 'Oracle no divulga la división; sin ella no puede calcularse cuánto capex financia el cliente' : 'Oracle does not disclose the split; without it the customer-funded share of capex cannot be computed', ''],
+      [es ? 'Clientes con ≥ 10% de los ingresos' : 'Customers at ≥ 10% of revenue', es ? 'ninguno (AF2026)' : 'none (FY2026)', B.rep, L({ es: cn.oracle_text_es, en: cn.oracle_text_en }) || '', cn.source ? extLink(cn.source.url, es ? 'fuente' : 'source') : ''],
+      [es ? 'Porción del RPO ligada a OpenAI' : 'Share of RPO tied to OpenAI', es ? '≈ la mitad (S&P)' : '≈ half (S&P)', B.third, L({ es: cn.third_party_text_es, en: cn.third_party_text_en }) || '', cn.source ? extLink(cn.source.url, 'S&P Global Ratings, 9 Jul 2026') : ''],
+      [es ? 'Campus nombrados con OpenAI como inquilino' : 'Named campuses with OpenAI as tenant', `${openai} ${es ? 'de' : 'of'} ${sites.length}`, B.co, es ? 'según las llamadas de resultados y los comunicados de los desarrolladores' : 'per the earnings calls and the developers\' releases', ref('sites')],
+      [es ? 'Deuda de proyecto de los desarrolladores' : 'Developers\' project debt', es ? 'de los desarrolladores' : 'the developers\'', `<span class="badge">${es ? 'prensa' : 'press'}</span>`, es ? 'no está en el balance de Oracle; listada por sitio en la sección fuera de balance' : 'not on Oracle\'s balance sheet; listed per site in the off-balance-sheet section', ref('obligations')],
+      [es ? 'Inversiones de Oracle en sus clientes o proveedores de IA' : 'Oracle investments in its AI customers or suppliers', es ? 'no divulgadas' : 'not disclosed', B.nd, es ? 'ninguna revelación identificada en el 10-K del AF2026 ni en el 10-Q del 1T27; lectura de texto, revisión pendiente' : 'no disclosure identified in the FY2026 10-K or the 1Q27 10-Q; text reading, review pending', ''],
+    ];
+    html('circTable', `<table class="prov"><thead><tr><th>${es ? 'Concepto' : 'Item'}</th><th>${es ? 'Valor' : 'Value'}</th><th>${es ? 'Base' : 'Basis'}</th><th>${es ? 'Detalle' : 'Detail'}</th><th>${t('src')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td><b>${r[1]}</b></td><td>${r[2]}</td><td class="small muted">${r[3]}</td><td class="small">${r[4]}</td></tr>`).join('')}</tbody></table>`);
+    el('circTableCap').textContent = es ? 'Cada fila dice si la cifra la reporta Oracle, la declara la administración (no auditada), la estima un tercero o no se divulga. Nada se interpola.' : 'Each row says whether the figure is reported by Oracle, stated by management (not audited), estimated by a third party or not disclosed. Nothing is interpolated.';
+    html('circTableSrc', `${t('src')}: ${sp ? extLink(sp.url, '10-Q') : ''} · ${cn.source ? extLink(cn.source.url, 'S&P Global Ratings') : ''} · ${irLink()} · ${asOfQ()}`);
+    html('circStats', [
+      pp.deferred_revenue_prepayments_financing_1q27 != null && { v: fmtBn(pp.deferred_revenue_prepayments_financing_1q27), l: es ? 'prepagos de clientes cobrados en el 1T27 (10-Q)' : 'customer prepayments collected in 1Q27 (10-Q)' },
+      last && { v: fmtBn(last.value), l: `${es ? 'ingresos diferidos al' : 'deferred revenue at'} ${fmtDate(last.period_end)} (XBRL)` },
+      prepayCum && { v: `≈ US$ ${fmtN(prepayCum.usd_bn)} ${es ? 'mil M' : 'bn'}`, l: es ? 'prepagos y hardware del cliente, acumulado (llamada 4T26, no auditado)' : 'prepayments and BYOH, cumulative (4Q26 call, not audited)' },
+      { v: `${openai}/${sites.length}`, l: es ? 'campus nombrados con OpenAI como inquilino' : 'named campuses with OpenAI as tenant' },
+    ].filter(Boolean).map((s) => `<div class="stat"><div class="v">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
+    html('circMeta', es ? `Oracle no nombra a ningún cliente en sus reportes; la concentración por cliente solo existe como estimación de terceros y se marca así.` : `Oracle names no customer in its filings; customer concentration exists only as third-party estimates and is labeled as such.`);
+  }
+
+  // ================= NEWS AND RECENT EVENTS =================
+  const nw = { theme: 'all' };
+  function renderNews() {
+    if (!NEWS || !el('newsList')) return; const es = LANG === 'es';
+    const items = (NEWS.items || []).slice().sort((a, b) => (a.date < b.date ? 1 : -1));
+    const themes = NEWS.themes || [];
+    const count = (id) => (id === 'all' ? items.length : items.filter((x) => x.theme === id).length);
+    html('newsFilters', [{ id: 'all', es: 'Todos', en: 'All' }, ...themes].map((th) => `<button type="button" class="chip ${nw.theme === th.id ? 'active' : ''}" data-theme="${th.id}">${L(th)} <span class="muted">${count(th.id)}</span></button>`).join(''));
+    el('newsFilters').querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { nw.theme = b.dataset.theme; renderNews(); }));
+    const tierLabel = { sec: es ? 'SEC' : 'SEC', company: es ? 'Oracle' : 'Oracle', agency: es ? 'agencia' : 'agency', wire: es ? 'cable' : 'wire', press: es ? 'prensa' : 'press', trade: es ? 'prensa especializada' : 'trade press' };
+    const basis = (x) => x.basis === 'sec' ? `<span class="badge ok">${es ? 'reporte a la SEC' : 'SEC filing'}</span>` : x.basis === 'company' ? `<span class="badge">${es ? 'declaración de la empresa, no auditada' : 'company statement, not audited'}</span>` : x.basis === 'agency' ? `<span class="badge">${es ? 'agencia calificadora' : 'rating agency'}</span>` : `<span class="badge est">${es ? 'prensa' : 'press'}</span>`;
+    const themeOf = (id) => { const th = themes.find((x) => x.id === id); return th ? L(th) : id; };
+    const vis = items.filter((x) => nw.theme === 'all' || x.theme === nw.theme);
+    html('newsList', vis.length ? vis.map((x) => `<article class="news-item"><div class="when"><b>${fmtDate(x.date)}</b><span class="theme"><span class="badge">${themeOf(x.theme)}</span></span><span class="theme">${basis(x)}</span></div><div><h4>${L({ es: x.title_es, en: x.title_en })}</h4><p>${L({ es: x.summary_es, en: x.summary_en })}</p><p><b>${es ? 'Por qué importa.' : 'Why it matters.'}</b> ${resolveRefs(L({ es: x.why_es, en: x.why_en }))}</p><div class="srcs">${t('src')}: ${(x.sources || []).map((s) => `<span class="badge">${tierLabel[s.tier] || s.tier}</span> ${extLink(s.url, s.title)}${s.accession ? ` <span class="mono">${s.accession}</span>` : ''}`).join('<br>')}</div></div></article>`).join('') : `<p class="muted">${es ? 'Sin eventos en este tema.' : 'No events under this theme.'}</p>`);
+    html('newsMeta', es ? `${items.length} eventos de los últimos ${NEWS.windowDays} días · barrido al ${fmtDate(NEWS.asOf)} · fuentes primarias primero (SEC, Oracle, agencias), luego cables y prensa.` : `${items.length} events from the last ${NEWS.windowDays} days · swept ${fmtDate(NEWS.asOf)} · primary sources first (SEC, Oracle, agencies), then wires and press.`);
+    html('newsSrc', `${t('src')}: ${es ? 'enlaces en cada evento' : 'links on each event'} · ${extLink('https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001341439', 'SEC EDGAR')} · ${irLink()} · ${es ? 'barrido diario (rutina en la nube) al' : 'daily sweep (cloud routine) as of'} ${fmtDate(NEWS.asOf)}`);
+  }
+
+  // ================= RISKS =================
+  function renderRisks() {
+    if (!RK || !el('risksTable')) return; const es = LANG === 'es';
+    html('risksTable', `<table class="risks"><thead><tr><th>${es ? 'Riesgo' : 'Risk'}</th><th>${es ? 'Evidencia pública' : 'Public evidence'}</th><th>${es ? 'Dónde' : 'Where'}</th><th>${es ? 'Qué observar' : 'What to watch'}</th><th>${t('src')}</th></tr></thead><tbody>${(RK.items || []).map((r) => `<tr><td><b>${L(r)}</b></td><td class="small">${resolveRefs(L({ es: r.evidence_es, en: r.evidence_en }))}</td><td class="small">${(r.where || []).map(ref).join('<br>')}</td><td class="small">${L({ es: r.watch_es, en: r.watch_en })}</td><td class="small">${r.source ? extLink(r.source.url, r.source.title) : ''}</td></tr>`).join('')}</tbody></table>`);
+    html('risksMeta', es ? `Registro revisado el ${fmtDate(RK.updated)}; cada riesgo cita la cifra o el reporte que lo sustenta.` : `Register reviewed ${fmtDate(RK.updated)}; each risk cites the figure or filing behind it.`);
+    html('risksSrc', `${t('src')}: ${es ? 'enlaces por fila' : 'links per row'} · ${relLink()} · ${asOfQ()}`);
+  }
+
+  // ================= METHODOLOGY: module status and change log =================
+  function renderModules() {
+    if (!el('modulesTable')) return; const es = LANG === 'es';
+    const mods = Object.keys((SEC.freshness && SEC.freshness.modules) || {}).map(moduleStatus);
+    html('modulesTable', `<table><thead><tr><th>${es ? 'Módulo' : 'Module'}</th><th>${es ? 'Corte' : 'As of'}</th><th>${es ? 'Actualizado (ET)' : 'Refreshed (ET)'}</th><th>${es ? 'Regla' : 'Rule'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${mods.map((m) => `<tr><td>${m.label}${m.textDerived ? ` <span class="badge rev" title="${es ? 'cifras tomadas de texto: revisión pendiente hasta confirmarlas' : 'text-derived figures: needs review until confirmed'}">${es ? 'texto' : 'text'}</span>` : ''}</td><td>${m.asOf ? fmtDate(String(m.asOf).slice(0, 10)) : '—'}</td><td class="small">${fmtET(m.refreshed)}</td><td class="small muted">${m.cadence === 'filing' ? (m.nextExpected ? `${es ? 'siguiente reporte' : 'next filing'} ${fmtDate(m.nextExpected.date)} (${m.nextExpected.basis === 'confirmed' ? (es ? 'confirmado' : 'confirmed') : (es ? 'supuesto' : 'assumed')}) + ${(SEC.freshness && SEC.freshness.grace_days) || 7} ${es ? 'días' : 'days'}` : (es ? 'por reporte' : 'per filing')) : `${es ? 'diario · máx.' : 'daily · max'} ${m.maxAgeDays} ${es ? 'días' : 'days'}`}</td><td>${m.stale ? `<span class="stale">${es ? 'DESACTUALIZADO' : 'STALE'}</span> <span class="small muted">${m.reason || ''}</span>` : `<span class="badge ok">${es ? 'vigente' : 'current'}</span>`}</td></tr>`).join('')}</tbody></table>`);
+    html('modulesSrc', `${es ? 'Reglas' : 'Rules'}: tools/oracle/freshness.json · ${es ? 'evaluadas en el servidor (validate-data.mjs) y de nuevo en su navegador' : 'evaluated on the server (validate-data.mjs) and again in your browser'} · ${QR && QR.generated ? `${es ? 'última validación' : 'last validation'} ${fmtET(QR.generated)}` : ''}`);
+  }
+  function renderChangelog() {
+    if (!CL || !el('changelogTable')) return; const es = LANG === 'es';
+    const ents = (CL.entries || []).slice(0, 60);
+    const fmtV = (v) => (v == null ? '—' : typeof v === 'number' ? fmtN(v, Math.abs(v) < 10 ? 2 : 0) : String(v).length > 60 ? String(v).slice(0, 57) + '…' : String(v));
+    html('changelogTable', ents.length ? `<table class="chg"><thead><tr><th>${es ? 'Cuándo (ET)' : 'When (ET)'}</th><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Dato' : 'Leaf'}</th><th>${es ? 'Antes' : 'Before'}</th><th>${es ? 'Después' : 'After'}</th></tr></thead><tbody>${ents.map((e) => `<tr><td class="small">${fmtET(e.at)}</td><td class="mono">${e.file}</td><td class="mono small">${e.path}</td><td class="small">${fmtV(e.old)}</td><td class="small"><b>${fmtV(e.new)}</b></td></tr>`).join('')}</tbody></table>` : `<p class="muted small">${es ? 'Sin cambios registrados todavía.' : 'No changes recorded yet.'}</p>`);
+    el('changelogCap').textContent = es ? `Últimas ${ents.length} entradas de ${(CL.entries || []).length} publicadas; cada actualización compara los archivos de datos nuevos con los anteriores (sin contar las marcas de tiempo). Bitácora completa en la página de calidad de datos.` : `Last ${ents.length} of ${(CL.entries || []).length} published entries; every refresh diffs the new data files against the previous ones (generation stamps excluded). Full log on the data-quality page.`;
+    html('changelogSrc', `tools/oracle/data/changelog.json · scripts/oracle/build-data.mjs · <a href="quality.html">quality.html</a>`);
+  }
+  function wireNav() {
+    const navLinks = [...document.querySelectorAll('nav.jump a')];
+    const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
+    if (wireNav.io) wireNav.io.disconnect();
+    wireNav.io = new IntersectionObserver((entries) => { entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }); }, { rootMargin: '-40% 0px -55% 0px' });
+    sections.forEach((s2) => wireNav.io.observe(s2));
+  }
+
   // ================= wiring =================
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b)); onChange(b.dataset.v); })); }
   function renderAll() {
     chartDefaults();
-    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderCredit(); renderCalendar(); renderMethod();
+    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderCapex(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderObViews(); renderLeaseMaturity(); renderObVie(); renderObProvenance(); renderCircular(); renderCredit(); renderNews(); renderRisks(); renderCalendar(); renderMethod(); renderModules(); renderChangelog();
+    numberSections(); applyStamps(); wireNav();
   }
   function setLang(lang) {
     LANG = lang;
@@ -1401,10 +1720,6 @@
   seg('segGuideMetric', (v) => { gs.metric = v; renderGuideChart(); });
   seg('segOpsMetric', (v) => { op.metric = v; renderOperating(); });
   seg('segRange', (v) => { sh.range = v; renderShare(); });
-  const navLinks = [...document.querySelectorAll('nav.jump a')];
-  const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
-  const io = new IntersectionObserver((entries) => { entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }); }, { rootMargin: '-40% 0px -55% 0px' });
-  sections.forEach((s2) => io.observe(s2));
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
 
   // Read-only view of the model for the presentation builder (present.js): the same data, helpers and
@@ -1416,7 +1731,7 @@
     px, lastPoint, pointAtOrBefore, us10, orclPx, lastPx, sharesNow, sharesAt, qEndDate, netDebt,
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
-    pctChange, PRESS, OB, PL, obligStats, peerLeverage,
+    pctChange, OB, PL, obligStats, peerLeverage, SEC, NEWS, XB, RK, CL, secNum, secTitle, secNav, secList, moduleStatus, fmtET, nextExpectedFiling, xbQ, xbQuarters, xbInstant, parseCapexGuide, gCapexNote,
     FS, fsNtm, fsFiscal, peersOwnRow, consensusPath,
   };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }

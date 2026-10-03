@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex,nofollow">
 <title>Oracle · Modelo financiero interactivo | Oracle Corporation (ORCL)</title>
-<meta name="description" content="Modelo financiero interactivo de Oracle Corporation (NYSE: ORCL): estados financieros comparables por trimestre, guía de la administración, RPO y nube, acción, DCF y valuación relativa. Datos públicos (SEC EDGAR).">
+<meta name="description" content="Modelo financiero interactivo de Oracle Corporation (NYSE: ORCL): estados financieros comparables, guía, RPO, capex y flujo libre, financiamiento, arrendamientos fuera de balance, sitios y energía, noticias y riesgos. Datos públicos (SEC EDGAR).">
 <meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Cpath d='M16 46V18h26v6H23v6h16v6H23v10z' fill='%23f9f9f7'/%3E%3C/svg%3E">
@@ -27,9 +27,13 @@
 <script src="data/buildout.js"></script>
 <script src="data/quality.js"></script>
 <script src="data/calendar.js"></script>
-<script src="data/press.js"></script>
 <script src="data/obligations.js"></script>
 <script src="data/peer_leverage.js"></script>
+<script src="data/sections.js"></script>
+<script src="data/xbrl.js"></script>
+<script src="data/news.js"></script>
+<script src="data/risks.js"></script>
+<script src="data/changelog.js"></script>
 
 <style>
 :root{
@@ -112,11 +116,11 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .kpi .val{font-family:var(--sans); font-size:clamp(19px,2vw,26px); font-weight:700; margin-top:6px; line-height:1.15; overflow-wrap:normal;}
 .kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
 @media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
-/* Section 03: disclosed sites table — wrapped cells, readable line length */
+/* Sites section: disclosed sites table — wrapped cells, readable line length */
 table.sites td{white-space:normal; vertical-align:top; min-width:150px; max-width:300px; line-height:1.4;}
 table.sites td .sub{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; font-weight:400;}
 table.sites td:first-child{min-width:170px;} table.sites td:nth-child(2){min-width:130px;} table.sites td:last-child{min-width:150px;}
-/* Section 09: contracts → capacity → spend → funding → revenue flow (HTML so it stays legible on a phone) */
+/* Sites section: contracts → capacity → spend → funding → revenue flow (HTML so it stays legible on a phone) */
 .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:22px 26px; margin-top:12px; align-items:stretch;}
 .flow .step{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 12px 10px; position:relative; min-width:0;}
 .flow .step .k{font-size:11px; font-weight:700; letter-spacing:.06em; text-transform:uppercase; color:var(--accent);}
@@ -390,7 +394,50 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   .gl{border-bottom:none;}
 }
 </style>
+
+<style>
+/* ---------- Generated numbering, stamps and the new sections (2026-10-03 rebuild) ---------- */
+.fignum{display:block; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:4px;}
+.stamp{display:block; margin-top:4px; color:var(--muted);}
+.stamp .et{font-variant-numeric:tabular-nums;}
+.stale{display:inline-block; padding:1px 7px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.03em; background:#fff6df; border:1px solid #f0cf7a; color:#6b4b00; vertical-align:middle;}
+:root[data-theme="dark"] .stale, :root:not([data-theme="light"]) .stale{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+.badge{display:inline-block; padding:1px 7px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.03em; border:1px solid var(--border-strong); color:var(--text-secondary); vertical-align:middle; white-space:nowrap;}
+.badge.ok{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
+.badge.rev{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
+.badge.bad{background:#fde8e8; border-color:#f1b5b5; color:#8a1f1f;}
+.badge.est{background:var(--surface-2); color:var(--text-secondary); font-style:italic;}
+:root[data-theme="dark"] .badge.rev, :root:not([data-theme="light"]) .badge.rev{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+:root[data-theme="dark"] .badge.bad, :root:not([data-theme="light"]) .badge.bad{background:#3a1a1a; border-color:#7a3a3a; color:#f0a0a0;}
+.sec-head .sec-stamp{margin-left:auto; font-size:11.5px; color:var(--muted); font-family:var(--sans); white-space:nowrap;}
+@media (max-width:640px){.sec-head{flex-wrap:wrap;} .sec-head .sec-stamp{margin-left:0; flex-basis:100%; white-space:normal;}}
+a.xref{color:var(--accent-ink); text-decoration:none; border-bottom:1px dotted var(--accent-soft-border); white-space:nowrap;}
+a.xref:hover{border-bottom-style:solid;}
+h3.sub-h{font-size:19px; font-weight:700; margin-top:36px;}
+.news-item{border-top:1px solid var(--border); padding:16px 0 14px; display:grid; grid-template-columns:150px 1fr; gap:6px 22px;}
+.news-item .when .badge{white-space:normal; line-height:1.3; text-align:left;}
+.news-item:first-child{border-top:none;}
+.news-item .when{font-size:12.5px; color:var(--muted); font-variant-numeric:tabular-nums;}
+.news-item .when .theme{display:block; margin-top:6px;}
+.news-item h4{font-family:var(--sans); font-size:14.5px; font-weight:700; margin:0 0 4px;}
+.news-item p{margin:4px 0; font-size:13.5px; line-height:1.55; color:var(--text-secondary);}
+.news-item p b{color:var(--text-primary);}
+.news-item .srcs{font-size:12px; color:var(--muted); margin-top:6px; line-height:1.6;}
+.news-item .srcs .badge{margin-right:4px;}
+@media (max-width:640px){.news-item{grid-template-columns:1fr; gap:4px;}}
+table.views th, table.views td{vertical-align:top;}
+table.views td.desc{white-space:normal; max-width:280px; font-size:12px; color:var(--muted); text-align:left;}
+table.prov td{white-space:normal; vertical-align:top;}
+.mono{font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:11.5px;}
+table.keynums td{white-space:normal; vertical-align:top;}
+table.keynums td.v{font-weight:700; white-space:nowrap;}
+table.risks td{white-space:normal; vertical-align:top; line-height:1.45; min-width:160px;}
+table.risks td:first-child{min-width:190px;}
+table.chg td{white-space:normal; vertical-align:top;}
+@media print{.stamp{display:block;} .fignum{font-size:8pt;} .news-item{grid-template-columns:1in 1fr;} .sec-head .sec-stamp{display:none;}}
+</style>
 </head>
+
 <body>
 
 <div class="lang-btn">
@@ -424,44 +471,37 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
 </header>
 <div class="print-only print-footer" id="printFooter"></div>
 
-<nav class="jump">
-  <div class="wrap" id="jumpNav">
-    <a href="#summary"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
-    <a href="#statements"><span class="es">Estados financieros</span><span class="en" hidden>Statements</span></a>
-    <a href="#guidance"><span class="es">Guía</span><span class="en" hidden>Guidance</span></a>
-    <a href="#operating"><span class="es">RPO y nube</span><span class="en" hidden>RPO &amp; cloud</span></a>
-    <a href="#share"><span class="es">Acción</span><span class="en" hidden>Share price</span></a>
-    <a href="#dcf"><span class="es">DCF</span><span class="en" hidden>DCF</span></a>
-    <a href="#relative"><span class="es">Múltiplos</span><span class="en" hidden>Multiples</span></a>
-    <a href="#debt"><span class="es">Deuda</span><span class="en" hidden>Debt</span></a>
-    <a href="#dividends"><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></a>
-    <a href="#ai"><span class="es">Expansión de IA</span><span class="en" hidden>AI buildout</span></a>
-    <a href="#rpo">RPO</a>
-    <a href="#obligations"><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
-    <a href="#credit"><span class="es">Deuda y CDS</span><span class="en" hidden>Debt &amp; CDS</span></a>
-    <a href="#calendar"><span class="es">Calendario</span><span class="en" hidden>Calendar</span></a>
-    <a href="#method"><span class="es">Metodología</span><span class="en" hidden>Methodology</span></a>
-    <a href="#sources"><span class="es">Fuentes</span><span class="en" hidden>Sources</span></a>
-  </div>
+<!-- Section navigation: generated by app.js (numberSections) from data/sections.js, never typed. -->
+<nav class="jump" aria-label="Secciones / Sections">
+  <div class="wrap" id="jumpNav"></div>
 </nav>
 
 <main class="wrap">
 
-  <!-- 00 EXECUTIVE SUMMARY -->
-  <section class="block" id="summary">
-    <div class="sec-head"><span class="sec-num">00</span><h2><span class="es">Resumen ejecutivo</span><span class="en" hidden>Executive summary</span></h2></div>
+  <!-- Section numbers, figure and table numbers and cross-references are generated at render time from
+       data/sections.js (tools/oracle/data/sections.json). Every <section> carries data-sec = its registry id;
+       the validator fails the build if the DOM order differs from the registry or a reference does not resolve. -->
+
+  <!-- SUMMARY -->
+  <section class="block" id="summary" data-sec="summary">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-meta" id="sumMeta"></p>
+    <div class="card" style="margin-top:18px">
+      <h3><span class="es">Cifras clave, con su fecha</span><span class="en" hidden>Key numbers, each with its date</span></h3>
+      <p class="cap"><span class="es">Cada cifra indica el periodo al que corresponde, la base (reportado, derivado, estimado) y la sección donde se detalla. Nada aquí se escribe a mano.</span><span class="en" hidden>Each figure names the period it belongs to, its basis (reported, derived, estimate) and the section with the detail. Nothing here is typed by hand.</span></p>
+      <div class="tblwrap" id="keyNumbers"></div>
+      <p class="chart-src" id="keyNumbersSrc"></p>
+    </div>
     <div class="sum-grid" id="sumGrid"></div>
-    <div class="card" id="sumPress" style="margin-top:16px" hidden></div>
     <p class="chart-src" id="sumSrc"></p>
   </section>
 
-  <!-- 01 STATEMENTS -->
-  <section class="block" id="statements">
-    <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Estados financieros comparables</span><span class="en" hidden>Comparable financial statements</span></h2></div>
+  <!-- BUSINESS AND SEGMENTS: STATEMENTS -->
+  <section class="block" id="statements" data-sec="statements">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Elija dos periodos y compare el estado de resultados, el balance o el flujo de efectivo con variación absoluta y porcentual. Los modos <b>acumulado del año fiscal</b> (por ejemplo 6M26 vs 6M25) y <b>últimos doce meses</b> se construyen a partir de las cifras trimestrales reportadas. El año fiscal de Oracle termina el 31 de mayo: el 1T27 cubre junio–agosto de 2026. El interruptor <b>No-GAAP</b> muestra la utilidad de operación, la utilidad neta y la UPA tal como Oracle las ajusta (sin compensación en acciones, amortización de intangibles adquiridos ni reestructura), conciliadas en cada reporte.</span>
-      <span class="en" hidden>Pick two periods and compare the income statement, balance sheet or cash-flow statement with absolute and percentage variances. The <b>fiscal year-to-date</b> mode (e.g. 6M26 vs 6M25) and <b>last-twelve-months</b> mode are built from the reported quarterly figures. Oracle's fiscal year ends 31 May: 1Q27 covers June–August 2026. The <b>Non-GAAP</b> switch shows operating income, net income and EPS as Oracle adjusts them (excluding stock-based compensation, amortization of acquired intangibles and restructuring), reconciled in every release.</span>
+      <span class="es">Elija dos periodos y compare el estado de resultados, el balance o el flujo de efectivo con variación absoluta y porcentual. Los modos <b>acumulado del año fiscal</b> (por ejemplo 6M26 vs 6M25) y <b>últimos doce meses</b> se construyen a partir de las cifras trimestrales reportadas. El año fiscal de Oracle termina el 31 de mayo: el 1T27 cubre junio–agosto de 2026. El interruptor <b>No-GAAP</b> muestra la utilidad de operación, la utilidad neta y la UPA tal como Oracle las ajusta (sin compensación en acciones, amortización de intangibles adquiridos ni reestructura), conciliadas en cada reporte. La columna de comentarios explica cada renglón con lo dicho en la llamada de resultados.</span>
+      <span class="en" hidden>Pick two periods and compare the income statement, balance sheet or cash-flow statement with absolute and percentage variances. The <b>fiscal year-to-date</b> mode (e.g. 6M26 vs 6M25) and <b>last-twelve-months</b> mode are built from the reported quarterly figures. Oracle's fiscal year ends 31 May: 1Q27 covers June–August 2026. The <b>Non-GAAP</b> switch shows operating income, net income and EPS as Oracle adjusts them (excluding stock-based compensation, amortization of acquired intangibles and restructuring), reconciled in every release. The comments column explains each line with what was said on the earnings call.</span>
     </p>
     <p class="sec-meta" id="stmtMeta"></p>
 
@@ -532,12 +572,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
   </section>
 
-  <!-- 02 GUIDANCE -->
-  <section class="block" id="guidance">
-    <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Guía de la administración</span><span class="en" hidden>Management guidance</span></h2></div>
+  <!-- GUIDANCE -->
+  <section class="block" id="guidance" data-sec="guidance">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">En cada llamada de resultados la directora financiera da rangos para el <b>siguiente trimestre</b> (crecimiento de ingresos totales y de nube, en dólares y a tipo de cambio constante, y UPA No-GAAP) y, desde el cuarto trimestre, un objetivo para el <b>año fiscal</b> (ingresos totales y UPA No-GAAP). Desde el 3T26 esos rangos también se imprimen en el comunicado; antes solo se decían en la llamada, por lo que las versiones anteriores provienen de las transcripciones. Esta sección compara cada guía con lo realizado y conserva el historial.</span>
-      <span class="en" hidden>On each earnings call the CFO gives ranges for the <b>next quarter</b> (total and cloud revenue growth, in USD and constant currency, and Non-GAAP EPS) and, from the fourth quarter, a <b>fiscal-year</b> target (total revenue and Non-GAAP EPS). Since 3Q26 those ranges are also printed in the release; earlier they were only spoken on the call, so older vintages come from the transcripts. This section compares every guidance with what was delivered and keeps the history.</span>
+      <span class="es">En cada llamada de resultados la directora financiera da rangos para el <b>siguiente trimestre</b> (crecimiento de ingresos totales y de nube, en dólares y a tipo de cambio constante, y UPA No-GAAP) y, desde el cuarto trimestre, un objetivo para el <b>año fiscal</b> (ingresos totales y UPA No-GAAP). Desde el 3T26 esos rangos también se imprimen en el comunicado; antes solo se decían en la llamada, por lo que las versiones anteriores provienen de las transcripciones. Esta sección compara cada guía con lo realizado y conserva el historial. La guía es una declaración de la empresa, no auditada.</span>
+      <span class="en" hidden>On each earnings call the CFO gives ranges for the <b>next quarter</b> (total and cloud revenue growth, in USD and constant currency, and Non-GAAP EPS) and, from the fourth quarter, a <b>fiscal-year</b> target (total revenue and Non-GAAP EPS). Since 3Q26 those ranges are also printed in the release; earlier they were only spoken on the call, so older vintages come from the transcripts. This section compares every guidance with what was delivered and keeps the history. Guidance is a company statement, not audited.</span>
     </p>
 
     <div class="card" style="margin-top:22px">
@@ -579,12 +619,12 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <details class="tbl" id="guideAllWrap"><summary><span class="es">Todas las guías registradas (con enlace al comunicado o transcripción)</span><span class="en" hidden>Every guidance vintage (with a link to the release or transcript)</span></summary><div class="tblwrap" id="guideAll"></div></details>
   </section>
 
-  <!-- 03 OPERATING (RPO & cloud) -->
-  <section class="block" id="operating">
-    <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Cartera de contratos (RPO) y nube</span><span class="en" hidden>Contracted backlog (RPO) and cloud</span></h2></div>
+  <!-- RPO AND BACKLOG -->
+  <section class="block" id="rpo" data-sec="rpo">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Oracle no publica una serie consistente de indicadores de volumen físico, aunque la administración ha divulgado recientemente algunas métricas de capacidad, entre ellas las GPU entregadas y los MW de capacidad de centros de datos. Sus impulsores operativos son la <b>cartera de contratos</b> (obligaciones de desempeño restantes, RPO: ingresos contratados aún no reconocidos), los <b>ingresos de nube</b> y el <b>gasto de capital</b> en centros de datos que convierte esa cartera en ingreso. Vea cada serie por trimestre y compare contra el mismo trimestre del año fiscal anterior.</span>
-      <span class="en" hidden>Oracle does not publish a consistent physical-volume KPI series, although management has recently disclosed selected capacity metrics including GPUs delivered and MW of data-center capacity. Its operating drivers are the <b>contracted backlog</b> (remaining performance obligations, RPO: contracted revenue not yet recognised), <b>cloud revenue</b> and the data-center <b>capital expenditure</b> that turns that backlog into revenue. View each series by quarter and compare with the same quarter of the prior fiscal year.</span>
+      <span class="es">El RPO (obligaciones de desempeño restantes) es la <b>demanda contratada</b>: ingresos que los clientes se han comprometido a pagar y que Oracle aún no reconoce. No es efectivo ni capacidad: el efectivo cobrado por adelantado aparece como ingresos diferidos en el balance y la capacidad construida en megavatios está en la sección de sitios. Esta sección sigue el RPO, los ingresos de nube que lo convierten y el ritmo al que Oracle espera reconocerlo.</span>
+      <span class="en" hidden>RPO (remaining performance obligations) is <b>contracted demand</b>: revenue customers have committed to pay that Oracle has not yet recognised. It is neither cash nor capacity: cash collected in advance sits as deferred revenue on the balance sheet, and the capacity built, in megawatts, is in the sites section. This section tracks RPO, the cloud revenue that converts it and the pace at which Oracle expects to recognise it.</span>
     </p>
     <p class="sec-meta" id="opsMeta"></p>
     <div class="controls">
@@ -592,8 +632,6 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <div class="seg" id="segOpsMetric">
           <button type="button" data-v="rpo" class="active">RPO</button>
           <button type="button" data-v="cloud"><span class="es">Ingresos de nube</span><span class="en" hidden>Cloud revenue</span></button>
-          <button type="button" data-v="capex">Capex</button>
-          <button type="button" data-v="fcf"><span class="es">Flujo libre</span><span class="en" hidden>Free cash flow</span></button>
         </div>
       </div>
     </div>
@@ -610,6 +648,84 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <div class="tblwrap" id="opsQTable"></div>
         <p class="chart-src" id="opsTblSrc"></p>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Ritmo de conversión del RPO: porción a reconocer en 12 meses, por trimestre</span><span class="en" hidden>RPO conversion pace: share to be recognised within 12 months, by quarter</span></h3>
+      <p class="cap" id="rpoRecCap"></p>
+      <div class="tblwrap" id="rpoRecTable"></div>
+      <p class="chart-src" id="rpoRecSrc"></p>
+    </div>
+    <div class="grid-2" style="margin-top:20px">
+      <div class="prose" id="rpoProse"></div>
+      <div class="card">
+        <h3><span class="es">Ficha: calendario de reconocimiento</span><span class="en" hidden>Fact sheet: recognition schedule</span></h3>
+        <p class="cap" id="rpoCap"></p>
+        <div class="tblwrap" id="rpoTable"></div>
+        <div class="notice warn" id="rpoCaution"></div>
+        <p class="chart-src" id="rpoSrc"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAPEX AND FREE CASH FLOW -->
+  <section class="block" id="capex" data-sec="capex">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <p class="sec-desc">
+      <span class="es">Cuánto capital despliega Oracle y cómo se financia. El <b>capex en efectivo</b> es la línea del estado de flujos; las <b>adiciones por arrendamiento financiero</b> (activos por derecho de uso obtenidos a cambio de nuevos pasivos) son capacidad que entra sin pasar por el capex, y se muestran junto a él, nunca sumadas sin decirlo. Oracle imprime los flujos acumulados en el año fiscal; los trimestres se obtienen por diferencia. La guía de capex del AF2027 se compara con lo ejecutado.</span>
+      <span class="en" hidden>How much capital Oracle deploys and how it is funded. <b>Cash capex</b> is the cash-flow-statement line; <b>finance-lease additions</b> (right-of-use assets obtained in exchange for new lease liabilities) are capacity that arrives without passing through capex, shown beside it and never added without saying so. Oracle prints cash flows cumulatively within the fiscal year; quarters are derived by subtraction. The FY2027 capex guidance is tracked against what has been spent.</span>
+    </p>
+    <p class="sec-meta" id="capexMeta"></p>
+    <div class="stat-row" id="capexStats"></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Capex en efectivo, adiciones por arrendamiento financiero y flujo libre</span><span class="en" hidden>Cash capex, finance-lease additions and free cash flow</span></h3>
+        <p class="cap" id="capexChartCap"></p>
+        <div class="chart-wrap tall"><canvas id="chartCapex"></canvas></div>
+        <p class="chart-src" id="capexChartSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Guía de capex del año fiscal frente a lo ejecutado</span><span class="en" hidden>Fiscal-year capex guidance versus spend to date</span></h3>
+        <p class="cap" id="capexGuideCap"></p>
+        <div class="tblwrap" id="capexGuide"></div>
+        <div class="callout" id="capexGuideNote"></div>
+        <p class="chart-src" id="capexGuideSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Capital desplegado por trimestre: en efectivo y por arrendamiento</span><span class="en" hidden>Capital deployed by quarter: cash and leased</span></h3>
+      <p class="cap" id="capexTableCap"></p>
+      <div class="tblwrap" id="capexTable"></div>
+      <p class="chart-src" id="capexTableSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Capex frente a ingresos de nube, RPO y megavatios entregados</span><span class="en" hidden>Capex against cloud revenue, RPO and megawatts delivered</span></h3>
+      <p class="cap" id="trackerCap"></p>
+      <div class="chart-wrap tall"><canvas id="chartBuildout"></canvas></div>
+      <p class="chart-src" id="trackerSrc"></p>
+    </div>
+  </section>
+
+  <!-- POWER AND DATA-CENTER SITES -->
+  <section class="block" id="sites" data-sec="sites">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <div class="grid-2">
+      <div>
+        <div class="prose" id="aiProse"></div>
+        <div class="fact-grid" id="aiFacts"></div>
+        <div id="aiTargets"></div>
+        <div class="callout" id="aiPending"></div>
+      </div>
+      <div class="card">
+        <h3><span class="es">Cronología</span><span class="en" hidden>Timeline</span></h3>
+        <ul class="timeline" id="aiTimeline"></ul>
+        <p class="chart-src" id="aiSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Sitios de centros de datos divulgados</span><span class="en" hidden>Disclosed data-center sites</span></h3>
+      <p class="cap" id="sitesCap"></p>
+      <div class="tblwrap" id="sitesTable"></div>
+      <p class="chart-src" id="sitesSrc"></p>
     </div>
     <div class="card" style="margin-top:20px">
       <h3><span class="es">Demanda contratada frente a capacidad entregada y pendiente</span><span class="en" hidden>Contracted demand versus capacity delivered and pending</span></h3>
@@ -636,19 +752,199 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       </div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Sitios de centros de datos divulgados</span><span class="en" hidden>Disclosed data-center sites</span></h3>
-      <p class="cap" id="sitesCap"></p>
-      <div class="tblwrap" id="sitesTable"></div>
-      <p class="chart-src" id="sitesSrc"></p>
+      <h3><span class="es">De los contratos a los ingresos: cómo funciona la expansión</span><span class="en" hidden>From contracts to revenue: how the buildout works</span></h3>
+      <p class="cap" id="flowCap"></p>
+      <div class="flow" id="buildoutFlow"></div>
+      <p class="chart-src" id="flowSrc"></p>
+    </div>
+    <div class="grid-2" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Economía unitaria: lo divulgado y lo derivable</span><span class="en" hidden>Unit economics: what is disclosed and what can be derived</span></h3>
+        <p class="cap" id="aiUnitCap"></p>
+        <div class="tblwrap" id="aiUnitTable"></div>
+        <p class="chart-src" id="aiUnitSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Precios de lista de GPU en OCI (US$ por GPU-hora)</span><span class="en" hidden>OCI GPU list prices (US$ per GPU-hour)</span></h3>
+        <p class="cap"><span class="es">Precio de lista público, pago por uso, por GPU y hora; los grandes contratos de IA se negocian y Oracle no divulga precios realizados.</span><span class="en" hidden>Public pay-as-you-go list price per GPU per hour; large AI contracts are negotiated and Oracle does not disclose realised prices.</span></p>
+        <div class="tblwrap" id="aiGpuPrices"></div>
+        <p class="chart-src" id="aiGpuSrc"></p>
+      </div>
     </div>
   </section>
 
-  <!-- 04 SHARE PRICE -->
-  <section class="block" id="share">
-    <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Desempeño de la acción</span><span class="en" hidden>Share-price performance</span></h2></div>
+  <!-- FINANCING AND BALANCE SHEET -->
+  <section class="block" id="financing" data-sec="financing">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Oracle cotiza únicamente en la NYSE (ORCL, dólares). El comparativo reindexa cada serie a 100 al inicio del periodo elegido para verla contra el S&amp;P 500; los pares del sector se agregan cuando el conector de pares esté autorizado. Precios de cierre diarios; se actualizan cada día hábil.</span>
-      <span class="en" hidden>Oracle trades only on the NYSE (ORCL, US dollars). The comparison rebases every series to 100 at the start of the chosen window to see it against the S&amp;P 500; sector peers are added once the peer connector is authorised. Daily closes, refreshed every business day.</span>
+      <span class="es">Deuda neta (deuda total menos efectivo e inversiones) y su relación con el EBITDA de los últimos doce meses; todos los instrumentos vigentes instrumento por instrumento (bonos senior en dólares con vencimientos hasta 2066, notas a tasa flotante, un crédito a plazo y papel comercial) según la nota de deuda del último 10-K; el calendario de vencimientos frente al efectivo; las calificaciones; el riesgo que el mercado asigna vía el <b>CDS a 5 años</b>; las acciones preferentes convertibles y el plan de financiamiento; y los dividendos. El apalancamiento sube porque la deuda financia la construcción de centros de datos antes de que la cartera de contratos se convierta en ingresos.</span>
+      <span class="en" hidden>Net debt (total debt less cash and investments) and its ratio to last-twelve-month EBITDA; every outstanding instrument (US-dollar senior notes maturing out to 2066, floating-rate notes, a term loan and commercial paper) from the debt footnote of the latest 10-K; the maturity schedule against cash; the ratings; the default risk the market assigns through the <b>5-year CDS</b>; the mandatory convertible preferred and the funding plan; and the dividends. Leverage is rising because debt funds the data-center buildout ahead of the backlog converting to revenue.</span>
+    </p>
+    <p class="sec-meta" id="creditMeta"></p>
+    <div class="grid-2 eq">
+      <div class="card">
+        <h3><span class="es">Deuda neta y apalancamiento</span><span class="en" hidden>Net debt and leverage</span></h3>
+        <p class="cap"><span class="es">US$ millones al cierre del trimestre; deuda neta / EBITDA UDM</span><span class="en" hidden>US$ million at quarter-end; net debt / LTM EBITDA</span></p>
+        <div class="chart-wrap short"><canvas id="chartNetDebt"></canvas></div>
+        <div class="chart-wrap short"><canvas id="chartLeverage"></canvas></div>
+        <p class="chart-src" id="debtSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Calendario de vencimientos</span><span class="en" hidden>Maturity schedule</span></h3>
+        <div class="stat-row" id="schedStats"></div>
+        <p class="cap" id="schedCap"></p>
+        <div class="chart-wrap short"><canvas id="chartMaturity"></canvas></div>
+        <div class="tblwrap" id="schedTable"></div>
+        <p class="chart-src" id="schedSrc"></p>
+        <p class="chart-src" id="maturitySrc"></p>
+      </div>
+    </div>
+    <div class="grid-2 eq" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Calificaciones crediticias</span><span class="en" hidden>Credit ratings</span></h3>
+        <p class="cap" id="instrCap"></p>
+        <div class="tblwrap" id="ratingsTable"></div>
+        <p class="chart-src" id="instrSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Riesgo de crédito: CDS senior a 5 años</span><span class="en" hidden>Credit risk: 5-year senior CDS</span></h3>
+        <p class="cap" id="cdsCap"></p>
+        <div class="chart-wrap short"><canvas id="chartCds"></canvas></div>
+        <div class="stat-row" id="cdsStats"></div>
+        <div class="callout" id="cdsNote"></div>
+        <p class="chart-src" id="cdsSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Deuda vigente por instrumento</span><span class="en" hidden>Outstanding debt by instrument</span></h3>
+      <p class="cap" id="bookCap"></p>
+      <details class="tbl"><summary id="bookSummary"></summary><div class="tblwrap" id="bookTable"></div></details>
+      <div class="callout" id="instrNote"></div>
+      <p class="chart-src" id="bookSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Acciones preferentes y plan de financiamiento</span><span class="en" hidden>Preferred stock and funding plan</span></h3>
+      <div id="dpsCapital"></div>
+      <p class="chart-src" id="dpsCapitalSrc"></p>
+    </div>
+    <div class="grid-2 eq" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Dividendo declarado por acción, por año fiscal</span><span class="en" hidden>Dividend declared per share, by fiscal year</span></h3>
+        <p class="cap"><span class="es">US$ por acción común; el consejo declara el dividendo con cada reporte trimestral</span><span class="en" hidden>US$ per common share; the board declares the dividend with each quarterly report</span></p>
+        <div class="chart-wrap"><canvas id="chartDps"></canvas></div>
+        <p class="chart-src" id="dpsSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Dividendos: detalle</span><span class="en" hidden>Dividends: detail</span></h3>
+        <p class="cap" id="dpsCap"></p>
+        <div class="tblwrap" id="dpsTable"></div>
+        <div class="callout" id="dpsNote"></div>
+        <p class="chart-src" id="dpsDetailSrc"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- OFF-BALANCE-SHEET FINANCING AND LEASES -->
+  <section class="block" id="obligations" data-sec="obligations">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <p class="sec-desc">
+      <span class="es">Lo que Oracle debe más allá de los bonos, en dos grupos que nunca se mezclan. Los <b>pasivos reconocidos</b> ya están en el balance: arrendamientos operativos y financieros (ASC 842: valor presente de los pagos). Los <b>compromisos contractuales futuros</b> no lo están: los arrendamientos de centros de datos firmados que aún no empiezan y las obligaciones de compra, que Oracle reporta a valor nominal. Cada cifra indica el reporte, la nota, la página y el número de acceso en EDGAR, y si una lectura de XBRL la confirmó. Las tres vistas (reportada, ajustada por arrendamientos, transparente) se explican en lenguaje llano. Una exposición máxima por garantías nunca se trata como pasivo; los arrendamientos no iniciados nunca se suman a la deuda sin decirlo.</span>
+      <span class="en" hidden>What Oracle owes beyond its bonds, in two groups that are never mixed. <b>Recognized liabilities</b> are already on the balance sheet: operating and finance leases (ASC 842: present value of the payments). <b>Future contractual commitments</b> are not: the signed data-center leases that have not started and the purchase obligations, which Oracle reports at nominal value. Every figure names the filing, note, page and EDGAR accession number, and whether an XBRL reading confirmed it. The three views (reported, lease-adjusted, look-through) are explained in plain language. A maximum guarantee exposure is never treated as a liability; uncommenced leases are never added to debt without saying so.</span>
+    </p>
+    <p class="sec-meta" id="obMeta"></p>
+    <div class="stat-row" id="obStats"></div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Tres vistas, lado a lado: reportada, ajustada por arrendamientos (ASC 842) y transparente (ASC 810 y compromisos)</span><span class="en" hidden>Three views side by side: reported, lease-adjusted (ASC 842) and look-through (ASC 810 and commitments)</span></h3>
+      <p class="cap" id="obViewsCap"></p>
+      <div class="tblwrap" id="obViews"></div>
+      <div id="obViewsMethod"></div>
+      <p class="chart-src" id="obViewsSrc"></p>
+    </div>
+    <div class="grid-2 eq">
+      <div class="card">
+        <h3><span class="es">Lo que Oracle debe, dentro y fuera del balance</span><span class="en" hidden>What Oracle owes, on and off the balance sheet</span></h3>
+        <p class="cap" id="obCap"></p>
+        <div class="chart-wrap"><canvas id="chartOblig"></canvas></div>
+        <div id="obTable"></div>
+        <p class="chart-src" id="obSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Arrendamientos firmados que aún no empiezan</span><span class="en" hidden>Leases signed but not yet commenced</span></h3>
+        <p class="cap" id="uncCap"></p>
+        <div class="chart-wrap short"><canvas id="chartUncommenced"></canvas></div>
+        <div class="tblwrap" id="uncFacts"></div>
+        <div class="callout" id="uncNote"></div>
+        <p class="chart-src" id="uncSrc"></p>
+      </div>
+    </div>
+    <div class="grid-2 eq" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Pagos de arrendamiento comprometidos por año fiscal (en balance)</span><span class="en" hidden>Lease payments committed by fiscal year (on the balance sheet)</span></h3>
+        <p class="cap" id="leaseMatCap"></p>
+        <div class="chart-wrap short"><canvas id="chartLeaseMaturity"></canvas></div>
+        <div class="tblwrap" id="leaseMatTable"></div>
+        <p class="chart-src" id="leaseMatSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Obligaciones de compra por año fiscal</span><span class="en" hidden>Purchase obligations by fiscal year</span></h3>
+        <p class="cap" id="poCap"></p>
+        <div class="tblwrap" id="poTable"></div>
+        <p class="chart-src" id="poSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Entidades de interés variable, garantías y financiamientos de desarrolladores</span><span class="en" hidden>Variable-interest entities, guarantees and developer financings</span></h3>
+      <p class="cap" id="obVieCap"></p>
+      <div id="obVie"></div>
+      <div class="tblwrap" id="obDevFin"></div>
+      <p class="chart-src" id="obVieSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Procedencia de cada cifra: reporte, nota, página, número de acceso y verificación</span><span class="en" hidden>Provenance of every figure: filing, note, page, accession number and verification</span></h3>
+      <p class="cap" id="obProvCap"></p>
+      <div class="tblwrap" id="obProvenance"></div>
+      <p class="chart-src" id="obProvSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Apalancamiento ajustado por arrendamientos frente a pares</span><span class="en" hidden>Lease-adjusted leverage versus peers</span></h3>
+      <p class="cap" id="peerLevCap"></p>
+      <div class="chart-wrap short"><canvas id="chartPeerLev"></canvas></div>
+      <div class="tblwrap" id="peerLevTable"></div>
+      <p class="chart-src" id="peerLevSrc"></p>
+    </div>
+  </section>
+
+  <!-- CIRCULAR FINANCING AND CUSTOMER CONCENTRATION -->
+  <section class="block" id="circular" data-sec="circular">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <p class="sec-desc">
+      <span class="es">Quién paga la capacidad y quién la usa. Los clientes prepagan parte de los contratos (ingresos diferidos con componente de financiamiento), los socios desarrolladores financian los campus con deuda propia y Oracle no nombra a ningún cliente: solo revela que ninguno superó el 10% de los ingresos. Esta sección separa lo que Oracle divulga de lo que terceros estiman, y lo marca.</span>
+      <span class="en" hidden>Who pays for the capacity and who uses it. Customers prepay part of the contracts (deferred revenue with a significant financing component), developer partners finance the campuses with their own debt, and Oracle names no customer: it discloses only that none exceeded 10% of revenue. This section separates what Oracle discloses from what third parties estimate, and labels each.</span>
+    </p>
+    <p class="sec-meta" id="circMeta"></p>
+    <div class="stat-row" id="circStats"></div>
+    <div class="grid-2">
+      <div class="card">
+        <h3><span class="es">Ingresos diferidos (contratos con clientes) por trimestre</span><span class="en" hidden>Deferred revenue (contract liabilities) by quarter</span></h3>
+        <p class="cap" id="circChartCap"></p>
+        <div class="chart-wrap"><canvas id="chartDeferred"></canvas></div>
+        <p class="chart-src" id="circChartSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Lo divulgado y lo estimado</span><span class="en" hidden>What is disclosed and what is estimated</span></h3>
+        <p class="cap" id="circTableCap"></p>
+        <div class="tblwrap" id="circTable"></div>
+        <p class="chart-src" id="circTableSrc"></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUATION CONTEXT -->
+  <section class="block" id="valuation" data-sec="valuation">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <p class="sec-desc">
+      <span class="es">La acción (NYSE: ORCL, dólares) frente al S&amp;P 500; múltiplos <b>a doce meses</b> sobre el consenso de FactSet, con pares de software e hiperescaladores; la visión del mercado (precio objetivo y recomendaciones); y un DCF editable cuyo resultado recalcula al instante. Nada aquí es una recomendación.</span>
+      <span class="en" hidden>The share (NYSE: ORCL, US dollars) against the S&amp;P 500; <b>forward</b> multiples over FactSet consensus, with software and hyperscaler peers; the Street view (price target and ratings); and an editable DCF that recalculates instantly. Nothing here is a recommendation.</span>
     </p>
     <p class="sec-meta" id="shareMeta"></p>
     <div class="controls">
@@ -677,14 +973,37 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
         <div class="tblwrap" id="rebasedTable"></div>
       </div>
     </div>
-  </section>
-
-  <!-- 05 DCF -->
-  <section class="block" id="dcf">
-    <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h2></div>
+    <div class="grid-2 rev" style="margin-top:20px">
+      <div class="card">
+        <h3><span class="es">Oracle: múltiplos actuales</span><span class="en" hidden>Oracle: current multiples</span></h3>
+        <p class="cap" id="multCap"></p>
+        <div class="tblwrap" id="multTable"></div>
+        <p class="chart-src" id="multSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">VE/EBITDA y P/U a doce meses, históricos</span><span class="en" hidden>Historical forward EV/EBITDA and P/E</span></h3>
+        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal: VE con la deuda neta reportada, sobre el consenso NTM de FactSet vigente ese día</span><span class="en" hidden>At each fiscal quarter-end: EV with reported net debt, over the FactSet NTM consensus in force that day</span></p>
+        <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
+        <p class="chart-src" id="evSrc"></p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Pares: múltiplos a doce meses (consenso FactSet)</span><span class="en" hidden>Peers: forward multiples (FactSet consensus)</span></h3>
+      <p class="cap" id="peersCap"></p>
+      <div class="tblwrap" id="peersTable"></div>
+      <p class="chart-src" id="peersSrc"></p>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Visión del mercado: precio objetivo y recomendaciones</span><span class="en" hidden>Street view: price target and recommendations</span></h3>
+      <div class="stat-row" id="streetStats"></div>
+      <div class="tblwrap" id="streetTable"></div>
+      <div class="notice" id="streetNote"></div>
+      <p class="chart-src" id="streetSrc"></p>
+    </div>
+    <h3 class="sub-h"><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h3>
     <p class="sec-desc">
-      <span class="es">Flujo de efectivo libre a la firma en dólares nominales durante cinco años fiscales explícitos, descontado a un WACC construido con CAPM sobre el bono del Tesoro a 10 años. Oracle no tiene una concesión con fecha de término, así que el valor terminal por defecto es una <b>perpetuidad de Gordon</b>; puede cambiarlo a múltiplo de salida. Todos los supuestos son editables, el resultado se recalcula al instante y el escenario queda codificado en la URL para compartirlo.</span>
-      <span class="en" hidden>Unlevered free cash flow in nominal dollars over five explicit fiscal years, discounted at a CAPM-based WACC built on the 10-year Treasury. Oracle has no concession with an end date, so the default terminal value is a <b>Gordon perpetuity</b>; switch to an exit multiple if you prefer. Every assumption is editable, the result recalculates instantly and the scenario is encoded in the URL for sharing.</span>
+      <span class="es">Flujo de efectivo libre a la firma en dólares nominales durante cinco años fiscales explícitos, descontado a un WACC construido con CAPM sobre el bono del Tesoro a 10 años. Oracle no tiene una concesión con fecha de término, así que el valor terminal por defecto es una <b>perpetuidad de Gordon</b>; puede cambiarlo a múltiplo de salida. Todos los supuestos son editables; el escenario queda en la URL para compartirlo.</span>
+      <span class="en" hidden>Unlevered free cash flow in nominal dollars over five explicit fiscal years, discounted at a CAPM-based WACC built on the 10-year Treasury. Oracle has no concession with an end date, so the default terminal value is a <b>Gordon perpetuity</b>; switch to an exit multiple if you prefer. Every assumption is editable; the scenario is kept in the URL to share it.</span>
     </p>
     <p class="sec-meta" id="dcfMeta"></p>
     <div class="dcf-grid">
@@ -712,249 +1031,39 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     </div>
   </section>
 
-  <!-- 06 RELATIVE -->
-  <section class="block" id="relative">
-    <div class="sec-head"><span class="sec-num">06</span><h2><span class="es">Valuación relativa</span><span class="en" hidden>Relative valuation</span></h2></div>
+  <!-- NEWS AND RECENT EVENTS -->
+  <section class="block" id="news" data-sec="news">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Múltiplos <b>a doce meses</b> (NTM): el precio y el valor de la empresa de Oracle sobre el consenso de analistas de FactSet para los próximos doce meses, con los múltiplos por año fiscal y los de los últimos doce meses como referencia. La tabla de pares usa la misma base para seis emisores de software (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) y dos hiperescaladores (Amazon, Alphabet). El consenso de UPA sigue la base mayoritaria de los brokers (No-GAAP para Oracle) y el EBITDA es el ajustado por los brokers; la deuda neta de los pares es la del último trimestre reportado. Al final, la visión del mercado: precio objetivo y recomendaciones; no constituye una recomendación de inversión.</span>
-      <span class="en" hidden><b>Forward</b> (next-twelve-month) multiples: Oracle's price and enterprise value over FactSet's analyst consensus for the next twelve months, with fiscal-year multiples and the last-twelve-month figures kept as a reference. The peer table uses the same basis for six software issuers (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) and two hyperscalers (Amazon, Alphabet). Consensus EPS follows the brokers' majority basis (non-GAAP for Oracle) and EBITDA is broker-adjusted; peers' net debt is the latest reported quarter. At the end, the Street view: price target and recommendations; not investment advice.</span>
+      <span class="es">Eventos con fecha, un resumen factual de una línea, por qué importa para las finanzas de Oracle y la fuente: primero los reportes a la SEC y los comunicados de Oracle, luego las agencias calificadoras, los cables y la prensa financiera. Las declaraciones de la empresa se marcan como tales, no auditadas; lo que descansa solo en prensa se marca como prensa. Sin rumores ni afirmaciones sin atribución. Más reciente primero; filtre por tema.</span>
+      <span class="en" hidden>Dated events with a one-line factual summary, why each matters for Oracle's financials and its source: SEC filings and Oracle releases first, then rating agencies, wires and the financial press. Company statements are labeled as such, not audited; what rests on press alone is labeled press. No rumors or unattributed claims. Most recent first; filter by theme.</span>
     </p>
-    <div class="grid-2 rev">
-      <div class="card">
-        <h3><span class="es">Oracle: múltiplos actuales</span><span class="en" hidden>Oracle: current multiples</span></h3>
-        <p class="cap" id="multCap"></p>
-        <div class="tblwrap" id="multTable"></div>
-        <p class="chart-src" id="multSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">VE/EBITDA y P/U a doce meses, históricos</span><span class="en" hidden>Historical forward EV/EBITDA and P/E</span></h3>
-        <p class="cap"><span class="es">Al cierre de cada trimestre fiscal: VE con la deuda neta reportada, sobre el consenso NTM de FactSet vigente ese día</span><span class="en" hidden>At each fiscal quarter-end: EV with reported net debt, over the FactSet NTM consensus in force that day</span></p>
-        <div class="chart-wrap"><canvas id="chartEvEbitda"></canvas></div>
-        <p class="chart-src" id="evSrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Pares: múltiplos a doce meses (consenso FactSet)</span><span class="en" hidden>Peers: forward multiples (FactSet consensus)</span></h3>
-      <p class="cap" id="peersCap"></p>
-      <div class="tblwrap" id="peersTable"></div>
-      <p class="chart-src" id="peersSrc"></p>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Visión del mercado: precio objetivo y recomendaciones</span><span class="en" hidden>Street view: price target and recommendations</span></h3>
-      <div class="stat-row" id="streetStats"></div>
-      <div class="tblwrap" id="streetTable"></div>
-      <div class="notice" id="streetNote"></div>
-      <p class="chart-src" id="streetSrc"></p>
-    </div>
+    <p class="sec-meta" id="newsMeta"></p>
+    <div class="chips" id="newsFilters" style="margin-top:14px"></div>
+    <div id="newsList"></div>
+    <p class="chart-src" id="newsSrc"></p>
   </section>
 
-  <!-- 07 DEBT -->
-  <section class="block" id="debt">
-    <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Apalancamiento y perfil de deuda</span><span class="en" hidden>Leverage and debt profile</span></h2></div>
+  <!-- RISKS -->
+  <section class="block" id="risks" data-sec="risks">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Deuda neta (deuda total menos efectivo e inversiones) y su relación con el EBITDA de los últimos doce meses, más los instrumentos vigentes: bonos senior en dólares con vencimientos hasta 2066, notas a tasa flotante, un crédito a plazo y papel comercial. El apalancamiento sube porque la deuda financia la construcción de centros de datos antes de que la cartera de contratos se convierta en ingreso.</span>
-      <span class="en" hidden>Net debt (total debt less cash and investments) and its ratio to last-twelve-month EBITDA, plus the outstanding instruments: US-dollar senior notes maturing out to 2066, floating-rate notes, a term loan and commercial paper. Leverage is rising because debt funds the data-center buildout ahead of the backlog converting to revenue.</span>
+      <span class="es">Los riesgos que la información pública permite documentar, cada uno con su evidencia (un reporte, una cifra de esta página o una noticia con fuente), la sección donde vive la cifra y qué observar. Se revisa con cada 10-Q/10-K y tras cada acción de calificación.</span>
+      <span class="en" hidden>The risks public information allows documenting, each with its evidence (a filing, a figure on this page or a sourced news item), the section where the figure lives and what to watch. Reviewed with each 10-Q/10-K and after every rating action.</span>
     </p>
-    <div class="grid-2 eq">
-      <div class="card">
-        <h3><span class="es">Deuda neta y apalancamiento</span><span class="en" hidden>Net debt and leverage</span></h3>
-        <p class="cap"><span class="es">US$ millones al cierre del trimestre; deuda neta / EBITDA UDM</span><span class="en" hidden>US$ million at quarter-end; net debt / LTM EBITDA</span></p>
-        <div class="chart-wrap short"><canvas id="chartNetDebt"></canvas></div>
-        <div class="chart-wrap short"><canvas id="chartLeverage"></canvas></div>
-        <p class="chart-src" id="debtSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Perfil de vencimientos</span><span class="en" hidden>Maturity profile</span></h3>
-        <p class="cap"><span class="es">Principal por año de vencimiento, US$ millones (bonos y crédito a plazo del 10-K del AF2026)</span><span class="en" hidden>Principal by maturity year, US$ million (notes and term loan from the FY2026 10-K)</span></p>
-        <div class="chart-wrap"><canvas id="chartMaturity"></canvas></div>
-        <p class="chart-src" id="maturitySrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Instrumentos y calificaciones</span><span class="en" hidden>Instruments and ratings</span></h3>
-      <p class="cap" id="instrCap"></p>
-      <div class="tblwrap" id="ratingsTable"></div>
-      <details class="tbl"><summary id="instrSummary"></summary><div class="tblwrap" id="instrTable"></div></details>
-      <div class="callout" id="instrNote"></div>
-      <p class="chart-src" id="instrSrc"></p>
+    <p class="sec-meta" id="risksMeta"></p>
+    <div class="card" style="margin-top:18px">
+      <div class="tblwrap" id="risksTable"></div>
+      <p class="chart-src" id="risksSrc"></p>
     </div>
   </section>
 
-  <!-- 08 DIVIDENDS -->
-  <section class="block" id="dividends">
-    <div class="sec-head"><span class="sec-num">08</span><h2><span class="es">Dividendos</span><span class="en" hidden>Dividends</span></h2></div>
+  <!-- INVESTOR CALENDAR -->
+  <section class="block" id="calendar" data-sec="calendar">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">El consejo de Oracle declara un dividendo trimestral en efectivo con cada reporte de resultados (no hay un paso separado de aprobación en asamblea). Dividendo por acción sumado por año fiscal, razón de pago contra la UPA GAAP del año y rendimiento sobre el precio de cierre del año fiscal.</span>
-      <span class="en" hidden>Oracle's board declares a quarterly cash dividend with each earnings release (there is no separate shareholder-meeting approval). Dividend per share summed by fiscal year, payout ratio against the year's GAAP EPS and yield on the fiscal-year-end price.</span>
-    </p>
-    <div class="grid-2 eq">
-      <div class="card">
-        <h3><span class="es">Dividendo declarado por acción, por año fiscal</span><span class="en" hidden>Dividend declared per share, by fiscal year</span></h3>
-        <p class="cap"><span class="es">US$ por acción común</span><span class="en" hidden>US$ per common share</span></p>
-        <div class="chart-wrap"><canvas id="chartDps"></canvas></div>
-        <p class="chart-src" id="dpsSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Detalle</span><span class="en" hidden>Detail</span></h3>
-        <p class="cap" id="dpsCap"></p>
-        <div class="tblwrap" id="dpsTable"></div>
-        <div class="callout" id="dpsNote"></div>
-        <p class="chart-src" id="dpsDetailSrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Acciones preferentes, plan de financiamiento y obligaciones de compra</span><span class="en" hidden>Preferred stock, funding plan and purchase obligations</span></h3>
-      <div id="dpsCapital"></div>
-      <p class="chart-src" id="dpsCapitalSrc"></p>
-    </div>
-  </section>
-
-  <!-- 09 AI CLOUD BUILDOUT -->
-  <section class="block" id="ai">
-    <div class="sec-head"><span class="sec-num">09</span><h2><span class="es">La expansión de infraestructura de nube de IA</span><span class="en" hidden>The AI cloud infrastructure buildout</span></h2></div>
-    <div class="grid-2">
-      <div>
-        <div class="prose" id="aiProse"></div>
-        <div class="fact-grid" id="aiFacts"></div>
-        <div id="aiTargets"></div>
-        <div class="callout" id="aiPending"></div>
-      </div>
-      <div class="card">
-        <h3><span class="es">Cronología</span><span class="en" hidden>Timeline</span></h3>
-        <ul class="timeline" id="aiTimeline"></ul>
-        <p class="chart-src" id="aiSrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">De los contratos a los ingresos: cómo funciona la expansión</span><span class="en" hidden>From contracts to revenue: how the buildout works</span></h3>
-      <p class="cap" id="flowCap"></p>
-      <div class="flow" id="buildoutFlow"></div>
-      <p class="chart-src" id="flowSrc"></p>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Seguimiento de la expansión por trimestre</span><span class="en" hidden>Buildout tracker by quarter</span></h3>
-      <p class="cap" id="trackerCap"></p>
-      <div class="chart-wrap tall"><canvas id="chartBuildout"></canvas></div>
-      <p class="chart-src" id="trackerSrc"></p>
-    </div>
-    <div class="grid-2" style="margin-top:20px">
-      <div class="card">
-        <h3><span class="es">Economía unitaria: lo divulgado y lo derivable</span><span class="en" hidden>Unit economics: what is disclosed and what can be derived</span></h3>
-        <p class="cap" id="aiUnitCap"></p>
-        <div class="tblwrap" id="aiUnitTable"></div>
-        <p class="chart-src" id="aiUnitSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Precios de lista de GPU en OCI (US$ por GPU-hora)</span><span class="en" hidden>OCI GPU list prices (US$ per GPU-hour)</span></h3>
-        <p class="cap"><span class="es">Precio de lista público, pago por uso, por GPU y hora; los grandes contratos de IA se negocian y Oracle no divulga precios realizados.</span><span class="en" hidden>Public pay-as-you-go list price per GPU per hour; large AI contracts are negotiated and Oracle does not disclose realised prices.</span></p>
-        <div class="tblwrap" id="aiGpuPrices"></div>
-        <p class="chart-src" id="aiGpuSrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Ritmo de conversión del RPO: porción a reconocer en 12 meses, por trimestre</span><span class="en" hidden>RPO conversion pace: share to be recognised within 12 months, by quarter</span></h3>
-      <p class="cap" id="rpoRecCap"></p>
-      <div class="tblwrap" id="rpoRecTable"></div>
-      <p class="chart-src" id="rpoRecSrc"></p>
-    </div>
-  </section>
-
-  <!-- 10 RPO EXPLAINED -->
-  <section class="block" id="rpo">
-    <div class="sec-head"><span class="sec-num">10</span><h2><span class="es">RPO explicado</span><span class="en" hidden>RPO explained</span></h2></div>
-    <div class="grid-2">
-      <div class="prose" id="rpoProse"></div>
-      <div class="card">
-        <h3><span class="es">Ficha</span><span class="en" hidden>Fact sheet</span></h3>
-        <p class="cap" id="rpoCap"></p>
-        <div class="tblwrap" id="rpoTable"></div>
-        <div class="notice warn" id="rpoCaution"></div>
-        <p class="chart-src" id="rpoSrc"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 11 OFF-BALANCE-SHEET FINANCING -->
-  <section class="block" id="obligations">
-    <div class="sec-head"><span class="sec-num">11</span><h2><span class="es">Financiamiento fuera de balance</span><span class="en" hidden>Off-balance-sheet financing</span></h2></div>
-    <p class="sec-desc">
-      <span class="es">Lo que Oracle debe, en dos grupos separados. Los <b>pasivos reconocidos</b> ya están en el balance: bonos y otros préstamos, arrendamientos operativos y arrendamientos financieros. Los <b>compromisos contractuales futuros</b> no lo están: los arrendamientos de centros de datos firmados que aún no empiezan y las obligaciones de compra de energía, equipo y otros, que Oracle reporta por separado en el 10-Q. También se indican las garantías. El apalancamiento se muestra de tres formas, cada una etiquetada: como se reporta, ajustado por los arrendamientos en balance (sobre EBITDAR) y sumando los arrendamientos no iniciados a valor nominal. Los pares provienen de sus propios reportes en la SEC.</span>
-      <span class="en" hidden>What Oracle owes, in two separate groups. <b>Recognized liabilities</b> are already on the balance sheet: bonds and other borrowings, operating leases and finance leases. <b>Future contractual commitments</b> are not: the signed data-center leases that have not started, and purchase obligations for power, equipment and other, which Oracle reports separately in its 10-Q. Guarantees are noted too. Leverage is shown three ways, each labelled: as reported, adjusted for on-balance-sheet leases (over EBITDAR) and adding the uncommenced leases at nominal value. Peers come from their own SEC filings.</span>
-    </p>
-    <p class="sec-meta" id="obMeta"></p>
-    <div class="stat-row" id="obStats"></div>
-    <div class="grid-2 eq">
-      <div class="card">
-        <h3><span class="es">Lo que Oracle debe, dentro y fuera del balance</span><span class="en" hidden>What Oracle owes, on and off the balance sheet</span></h3>
-        <p class="cap" id="obCap"></p>
-        <div class="chart-wrap"><canvas id="chartOblig"></canvas></div>
-        <div id="obTable"></div>
-        <p class="chart-src" id="obSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Arrendamientos firmados que aún no empiezan</span><span class="en" hidden>Leases signed but not yet started</span></h3>
-        <p class="cap" id="uncCap"></p>
-        <div class="chart-wrap short"><canvas id="chartUncommenced"></canvas></div>
-        <div class="callout" id="uncNote"></div>
-        <p class="chart-src" id="uncSrc"></p>
-      </div>
-    </div>
-    <div class="grid-2 eq" style="margin-top:20px">
-      <div class="card">
-        <h3><span class="es">Obligaciones de compra por año fiscal</span><span class="en" hidden>Purchase obligations by fiscal year</span></h3>
-        <p class="cap" id="poCap"></p>
-        <div class="tblwrap" id="poTable"></div>
-        <p class="chart-src" id="poSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Apalancamiento ajustado por arrendamientos frente a pares</span><span class="en" hidden>Lease-adjusted leverage versus peers</span></h3>
-        <p class="cap" id="peerLevCap"></p>
-        <div class="chart-wrap short"><canvas id="chartPeerLev"></canvas></div>
-        <div class="tblwrap" id="peerLevTable"></div>
-        <p class="chart-src" id="peerLevSrc"></p>
-      </div>
-    </div>
-  </section>
-
-  <!-- 12 DEBT DETAIL & CREDIT RISK -->
-  <section class="block" id="credit">
-    <div class="sec-head"><span class="sec-num">12</span><h2><span class="es">Deuda en detalle y riesgo de crédito</span><span class="en" hidden>Debt detail and credit risk</span></h2></div>
-    <p class="sec-desc">
-      <span class="es">Toda la deuda vigente instrumento por instrumento (bonos senior, notas a tasa flotante, crédito a plazo y papel comercial) según la nota de deuda del último Formulario 10-K, el calendario de vencimientos por año fiscal frente al efectivo disponible, y el riesgo de incumplimiento que el mercado asigna a Oracle a través del <b>CDS a 5 años</b>. Las emisiones nuevas se agregan de cada 8-K; la serie de CDS se llenará con el conector de FactSet cuando esté autorizado.</span>
-      <span class="en" hidden>All outstanding debt instrument by instrument (senior notes, floating-rate notes, term loan and commercial paper) from the debt footnote of the latest Form 10-K, the maturity schedule by fiscal year against available cash, and the default risk the market assigns to Oracle through the <b>5-year CDS</b>. New issuances are added from each 8-K; the CDS series will be filled by the FactSet connector once authorised.</span>
-    </p>
-    <p class="sec-meta" id="creditMeta"></p>
-    <div class="grid-2 eq">
-      <div class="card">
-        <h3><span class="es">Calendario de vencimientos</span><span class="en" hidden>Maturity schedule</span></h3>
-        <div class="stat-row" id="schedStats"></div>
-        <p class="cap" id="schedCap"></p>
-        <div class="tblwrap" id="schedTable"></div>
-        <p class="chart-src" id="schedSrc"></p>
-      </div>
-      <div class="card">
-        <h3><span class="es">Riesgo de crédito: CDS senior a 5 años</span><span class="en" hidden>Credit risk: 5-year senior CDS</span></h3>
-        <p class="cap" id="cdsCap"></p>
-        <div class="chart-wrap short"><canvas id="chartCds"></canvas></div>
-        <div class="stat-row" id="cdsStats"></div>
-        <div class="callout" id="cdsNote"></div>
-        <p class="chart-src" id="cdsSrc"></p>
-      </div>
-    </div>
-    <div class="card" style="margin-top:20px">
-      <h3><span class="es">Deuda vigente por instrumento</span><span class="en" hidden>Outstanding debt by instrument</span></h3>
-      <p class="cap" id="bookCap"></p>
-      <details class="tbl"><summary id="bookSummary"></summary><div class="tblwrap" id="bookTable"></div></details>
-      <p class="chart-src" id="bookSrc"></p>
-    </div>
-  </section>
-
-  <!-- 13 INVESTOR CALENDAR -->
-  <section class="block" id="calendar">
-    <div class="sec-head"><span class="sec-num">13</span><h2><span class="es">Calendario del inversionista</span><span class="en" hidden>Investor calendar</span></h2></div>
-    <p class="sec-desc">
-      <span class="es">Próximas llamadas de resultados, reuniones de analistas, días del inversionista y conferencias en las que participa Oracle, tomados de la página de eventos de Relación con Inversionistas y de los comunicados con los que Oracle fija cada fecha de resultados, con los enlaces al webcast y al comunicado. Cuando Oracle aún no ha anunciado la siguiente fecha de resultados se muestra una ventana estimada a partir de las fechas de años anteriores, marcada como estimación y sustituida por la fecha confirmada en cuanto Oracle la publica. Los eventos de los últimos seis meses quedan a la vista con sus enlaces.</span>
-      <span class="en" hidden>Upcoming earnings calls, analyst meetings, investor days and conferences Oracle takes part in, from the Investor Relations events page and the releases with which Oracle sets each results date, with links to the webcast and the release. When Oracle has not yet announced the next results date, an estimated window derived from prior years' dates is shown, labelled as an estimate and replaced by the confirmed date as soon as Oracle publishes it. Events of the last six months stay visible with their links.</span>
+      <span class="es">Próximas llamadas de resultados, reuniones de analistas, días del inversionista y conferencias en las que participa Oracle, tomados de la página de eventos de Relación con Inversionistas y de los comunicados con los que Oracle fija cada fecha de resultados, con los enlaces al webcast y al comunicado. Cuando Oracle aún no ha anunciado la siguiente fecha de resultados se muestra una ventana estimada a partir de las fechas de años anteriores, marcada como supuesto.</span>
+      <span class="en" hidden>Upcoming earnings calls, analyst meetings, investor days and conferences Oracle takes part in, from the Investor Relations events page and the releases with which Oracle sets each results date, with links to the webcast and the release. When Oracle has not yet announced the next results date, an estimated window derived from prior years' dates is shown, labeled as an assumption.</span>
     </p>
     <p class="sec-meta" id="calCap"></p>
     <div class="stat-row" id="calStats"></div>
@@ -971,20 +1080,37 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <p class="chart-src" id="calSrc"></p>
   </section>
 
-  <!-- 14 METHOD -->
-  <section class="block" id="method">
-    <div class="sec-head"><span class="sec-num">14</span><h2><span class="es">Metodología y actualización</span><span class="en" hidden>Methodology and refresh</span></h2></div>
+  <!-- METHODOLOGY, SOURCES AND CHANGE LOG -->
+  <section class="block" id="method" data-sec="method">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <div class="grid-2 eq">
       <div class="prose">
-        <p><span class="es"><b>GAAP y No-GAAP.</b> Oracle reporta bajo US GAAP y, en el mismo comunicado, cifras No-GAAP que excluyen la compensación basada en acciones, la amortización de intangibles adquiridos y los costos de reestructura y adquisición, con su efecto fiscal. Ambas bases aparecen conciliadas en cada reporte; el interruptor de la sección 01 cambia entre ellas sin alterar los ingresos. El EBITDA no lo publica Oracle: aquí es utilidad de operación GAAP más la depreciación y amortización del estado de flujos.</span><span class="en" hidden><b>GAAP and Non-GAAP.</b> Oracle reports under US GAAP and, in the same release, Non-GAAP figures that exclude stock-based compensation, amortization of acquired intangibles and restructuring and acquisition costs, with their tax effect. Both bases are reconciled in every release; the switch in section 01 flips between them without changing revenue. Oracle does not publish EBITDA: here it is GAAP operating income plus the cash-flow statement's depreciation and amortization.</span></p>
-        <p><span class="es"><b>Trimestres, acumulado y UDM.</b> Oracle imprime el estado de flujos de forma acumulada (seis, nueve y doce meses); los trimestres discretos se obtienen por diferencia contra el informe anterior y se verifican contra el total anual. El acumulado del año fiscal suma los trimestres reportados; los últimos doce meses suman los cuatro más recientes. El balance siempre es al cierre del periodo. Desde el 1T26 Oracle presenta los ingresos como Nube / Software; los trimestres del AF2025 se muestran como Oracle mismo los reexpresó en esa base cuando se comparan con periodos posteriores.</span><span class="en" hidden><b>Quarters, year-to-date and LTM.</b> Oracle prints the cash-flow statement cumulatively (six, nine and twelve months); discrete quarters are derived by difference against the prior report and checked against the annual total. Fiscal year-to-date sums the reported quarters; last twelve months sums the four most recent. The balance sheet is always the period-end position. From 1Q26 Oracle presents revenue as Cloud / Software; FY2025 quarters are shown as Oracle itself recast them on that basis when compared with later periods.</span></p>
-        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = Tesoro a 10 años y β calculada con dos años de rendimientos semanales contra el S&amp;P 500. Valor terminal por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA₅ × múltiplo. Valor del capital = VE − deuda neta. Es una herramienta de sensibilidad, no una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = the 10-year Treasury and β computed from two years of weekly returns against the S&amp;P 500. Perpetuity terminal value: FCF₆/(WACC−g); multiple: EBITDA₅ × multiple. Equity value = EV − net debt. It is a sensitivity tool, not a recommendation.</span></p>
+        <p><span class="es"><b>GAAP y No-GAAP.</b> Oracle reporta bajo US GAAP y, en el mismo comunicado, cifras No-GAAP que excluyen la compensación basada en acciones, la amortización de intangibles adquiridos y los costos de reestructura y adquisición, con su efecto fiscal. Ambas bases aparecen conciliadas en cada reporte; el interruptor de la sección de estados financieros cambia entre ellas sin alterar los ingresos. El EBITDA no lo publica Oracle: aquí es utilidad de operación GAAP + depreciación y amortización del estado de flujos.</span><span class="en" hidden><b>GAAP and Non-GAAP.</b> Oracle reports under US GAAP and, in the same release, Non-GAAP figures that exclude stock-based compensation, amortization of acquired intangibles and restructuring and acquisition costs, with their tax effect. Both bases are reconciled in every release; the switch in the statements section flips between them without changing revenue. Oracle does not publish EBITDA: here it is GAAP operating income + depreciation and amortization from the cash-flow statement.</span></p>
+        <p><span class="es"><b>Trimestres, acumulado y UDM.</b> Oracle imprime el estado de flujos de forma acumulada (seis, nueve y doce meses); los trimestres discretos se obtienen por diferencia contra el informe anterior y se verifican contra el total anual y contra los datos XBRL del 10-Q/10-K. El acumulado del año fiscal suma los trimestres reportados; los últimos doce meses suman los cuatro más recientes. El balance siempre es la posición al cierre del periodo. Las etiquetas siguen el año fiscal de Oracle (termina el 31 de mayo): 1T27 = junio–agosto de 2026.</span><span class="en" hidden><b>Quarters, year-to-date and LTM.</b> Oracle prints the cash-flow statement cumulatively (six, nine and twelve months); discrete quarters are derived by difference against the prior report and checked against the annual total and against the 10-Q/10-K XBRL data. Fiscal year-to-date sums the reported quarters; last twelve months sums the four most recent. The balance sheet is always the period-end position. Labels follow Oracle's fiscal year (ends 31 May): 1Q27 = June–August 2026.</span></p>
+        <p><span class="es"><b>Arrendamientos y compromisos (ASC 842, ASC 810).</b> Los pasivos por arrendamiento en el balance son el valor presente de los pagos; los arrendamientos firmados que aún no empiezan se muestran a valor nominal, por separado, y nunca se suman a la deuda sin decirlo. Oracle no consolida entidades de interés variable ni divulga garantías; si lo hiciera, una exposición máxima se mostraría como exposición, no como pasivo. Cada cifra transcrita de una nota lleva su reporte, nota, página y número de acceso, y la marca "verificado" solo cuando el dato XBRL de la SEC coincide; las lecturas de texto llevan "revisión pendiente".</span><span class="en" hidden><b>Leases and commitments (ASC 842, ASC 810).</b> Lease liabilities on the balance sheet are the present value of the payments; leases signed but not yet commenced are shown at nominal value, separately, and never added to debt without saying so. Oracle consolidates no variable-interest entities and discloses no guarantees; if it did, a maximum exposure would be shown as exposure, not as a liability. Every figure transcribed from a note carries its filing, note, page and accession number, and the "verified" mark only when the SEC's XBRL value matches; text readings carry "needs review".</span></p>
+        <p><span class="es"><b>Fechas y actualización.</b> Cada gráfica, tabla y cifra indica su fecha de corte (cierre del periodo), la hora de la última actualización en hora del Este (ET) y su fuente. EDGAR se consulta a diario; un 8-K, 10-Q o 10-K nuevo entra al modelo tras pasar los cuadres; las noticias se revisan a diario. Un módulo se marca <b>desactualizado</b> cuando pasa la siguiente fecha esperada de reporte más siete días, en vez de mostrar datos viejos como vigentes. Cada actualización compara con los valores anteriores y escribe la bitácora de abajo.</span><span class="en" hidden><b>Dates and refresh.</b> Every chart, table and figure shows its as-of date (period end), the time of its last refresh in Eastern Time (ET) and its source. EDGAR is polled daily; a new 8-K, 10-Q or 10-K enters the model after passing the tie-outs; news is reviewed daily. A module is flagged <b>stale</b> once the next expected filing date plus seven days has passed, rather than showing old data as current. Every refresh diffs against the prior values and writes the change log below.</span></p>
+        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = Tesoro a 10 años y β calculada con dos años de rendimientos semanales contra el S&amp;P 500. Valor terminal por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA₅ × múltiplo. Valor del capital = VE − deuda neta. No es una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = 10-year Treasury and β from two years of weekly returns against the S&amp;P 500. Terminal value by perpetuity: FCF₆/(WACC−g); by multiple: EBITDA₅ × multiple. Equity value = EV − net debt. Not a recommendation.</span></p>
+        <p class="small muted"><span class="es">Nota completa de metodología y fuentes: <code>tools/oracle/METHODOLOGY.md</code> en el repositorio. <a href="quality.html">Página de calidad de datos ↗</a></span><span class="en" hidden>Full methodology and sources note: <code>tools/oracle/METHODOLOGY.md</code> in the repository. <a href="quality.html">Data-quality page ↗</a></span></p>
       </div>
-      <div class="card">
-        <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
-        <div class="tblwrap" id="refreshTable"></div>
-        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oracle/*</code> y <code>.github/workflows/oracle-refresh.yml</code> en el repositorio; runbook en <code>tools/oracle/README.md</code>; cada cifra se valida con <code>scripts/oracle/validate-data.mjs</code> antes de publicarse. <a href="quality.html">Página de calidad de datos ↗</a></span><span class="en" hidden>Data flow: <code>scripts/oracle/*</code> and <code>.github/workflows/oracle-refresh.yml</code> in the repository; runbook in <code>tools/oracle/README.md</code>; every figure passes <code>scripts/oracle/validate-data.mjs</code> before publishing. <a href="quality.html">Data-quality page ↗</a></span></p>
+      <div>
+        <div class="card">
+          <h3><span class="es">Estado de cada módulo de datos</span><span class="en" hidden>Status of each data module</span></h3>
+          <p class="cap"><span class="es">Fecha de corte, última actualización (ET) y si está vigente o desactualizado según la regla de la siguiente fecha esperada de reporte + 7 días</span><span class="en" hidden>As-of date, last refresh (ET) and whether it is current or stale under the next-expected-filing + 7 days rule</span></p>
+          <div class="tblwrap" id="modulesTable"></div>
+          <p class="chart-src" id="modulesSrc"></p>
+        </div>
+        <div class="card" style="margin-top:20px">
+          <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
+          <div class="tblwrap" id="refreshTable"></div>
+          <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oracle/*</code> y <code>.github/workflows/oracle-refresh.yml</code> en el repositorio; runbook en <code>tools/oracle/README.md</code>; cada cifra se valida con <code>scripts/oracle/validate-data.mjs</code> antes de publicarse.</span><span class="en" hidden>Data flow: <code>scripts/oracle/*</code> and <code>.github/workflows/oracle-refresh.yml</code> in the repository; runbook in <code>tools/oracle/README.md</code>; every figure passes <code>scripts/oracle/validate-data.mjs</code> before publishing.</span></p>
+        </div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Bitácora de cambios: qué cambió en cada actualización</span><span class="en" hidden>Change log: what changed in each refresh</span></h3>
+      <p class="cap" id="changelogCap"></p>
+      <div class="tblwrap" id="changelogTable"></div>
+      <p class="chart-src" id="changelogSrc"></p>
     </div>
   </section>
 
@@ -997,15 +1123,15 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
     <h3><span class="es">Fuentes</span><span class="en" hidden>Sources</span></h3>
     <div class="src-grid" id="srcGrid"></div>
     <p class="fine">
-      <span class="es">Este modelo se elabora exclusivamente con información pública (comunicados de resultados de Oracle presentados como Anexo 99.1 del Formulario 8-K, Formularios 10-Q y 10-K, materiales de relación con inversionistas; precios de mercado; series de FRED y del Tesoro de EE. UU.; transcripciones de llamadas de resultados aportadas por el responsable). No contiene ni debe alimentarse con información privilegiada. Las proyecciones del DCF son ilustrativas y dependen de los supuestos elegidos por la persona usuaria; no constituyen una recomendación de inversión. Cifras en dólares nominales salvo indicación. Última generación de datos: <span id="genStamp"></span>.</span>
-      <span class="en" hidden>This model is built exclusively from public information (Oracle's earnings releases furnished as Exhibit 99.1 to Form 8-K, Forms 10-Q and 10-K, investor-relations materials; market prices; FRED and U.S. Treasury series; earnings-call transcripts supplied by the owner). It contains, and must not be fed, any material non-public information. DCF projections are illustrative and depend on the user's assumptions; they are not an investment recommendation. Figures in nominal US dollars unless stated. Data last generated: <span id="genStamp"></span>.</span>
+      <span class="es">Este modelo se elabora exclusivamente con información pública (comunicados de resultados de Oracle presentados como Anexo 99.1 del Formulario 8-K, Formularios 10-Q y 10-K y sus datos XBRL, materiales de relación con inversionistas; precios de mercado; series de FRED y del Tesoro de EE. UU.; transcripciones de llamadas de resultados aportadas por la responsable). No contiene ni debe alimentarse con información privilegiada. No es asesoría de inversión. Datos generados el <span id="genStamp"></span>.</span>
+      <span class="en" hidden>This model is built exclusively from public information (Oracle earnings releases filed as Exhibit 99.1 to Form 8-K, Forms 10-Q and 10-K and their XBRL data, investor-relations materials; market prices; FRED and US Treasury series; earnings-call transcripts supplied by the owner). It contains no material non-public information and must not be fed any. Not investment advice. Data generated <span id="genStamp2"></span>.</span>
     </p>
   </div>
 </footer>
 
+<script src="/assets/data-status.js" defer></script>
 <script src="app.js"></script>
 <script src="/assets/present-core.js"></script>
 <script src="present.js"></script>
-<script src="/assets/data-status.js" defer></script>
 </body>
 </html>

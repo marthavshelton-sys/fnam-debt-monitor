@@ -69,6 +69,11 @@ dashboards, everything built from public data by GitHub Actions.
   `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
   validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
   Runbook: `tools/asur/README.md` → "Traffic perimeter change".
+- Oracle page (rebuilt 2026-10-03): sections, figure/table numbers, navigation and cross-references are generated from
+  `tools/oracle/data/sections.json` (`ref('id')`, `{{sec:id}}`); never type a section number (the validator fails).
+  Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
+  routine (`tools/oracle/NEWS-SWEEP-PROMPT.md`). Off-balance-sheet figures carry filing/note/accession and an XBRL
+  verdict; uncommenced leases are never added to debt. Read `tools/oracle/MEMORY.md` and `METHODOLOGY.md` first.
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, module 3 `capex/`, module 6
   `fuera-de-balance/`, `metodologia/`, `glosario/`, quality pages per module; phases 2–3 (capacity, sites, electricity,
   circular financing) await the owner's go. Ten companies in `tools/hyperscalers/companies.json`. Every datum carries a

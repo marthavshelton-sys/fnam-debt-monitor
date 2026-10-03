@@ -17,8 +17,25 @@
     const M = window.ORCL_MODEL;
     await P.run(M, ['/assets/us-map.js'], async () => {
       const doc = new OracleDoc(M);
-      doc.cover(); doc.execSummary(); doc.pressPage(); doc.tearSheet(); doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy');
-      doc.guidancePage(); doc.rpoCloudPage(); doc.sitesPage(); doc.valuationPage(); doc.debtPage(); doc.obligationsPage(); doc.dividendPage(); doc.buildoutPage(); doc.rpoPage(); doc.creditPage(); doc.sourcesPage();
+      // Pages follow the section registry (data/sections.js): a section is in the deck when its registry entry says
+      // deck: true, in registry order; sections are addressed by id, never by number.
+      const PAGES = {
+        summary: () => { doc.execSummary(); doc.tearSheet(); },
+        statements: () => { doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy'); },
+        guidance: () => doc.guidancePage(),
+        rpo: () => doc.rpoPage(),
+        capex: () => doc.rpoCloudPage(),
+        sites: () => { doc.sitesPage(); doc.buildoutPage(); },
+        financing: () => { doc.debtPage(); doc.creditPage(); doc.dividendPage(); },
+        obligations: () => doc.obligationsPage(),
+        circular: () => doc.circularPage(),
+        valuation: () => doc.valuationPage(),
+        news: () => doc.newsPage(),
+        risks: () => doc.risksPage(),
+        method: () => doc.sourcesPage(),
+      };
+      doc.cover();
+      for (const sec of (M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) PAGES[sec.id]();
       doc.finish();
     });
   }
@@ -29,6 +46,8 @@
       this.next = this.nextResults();
     }
     // ----- shared pieces -----
+    // Page title from the section registry: "NN · Title" (the number is generated, never typed) plus an optional subtitle.
+    secHead(id, sub) { const M = this.M, n = M.secNum ? M.secNum(id) : ''; const title = sub ? (M.secNav ? M.secNav(id) : id) : (M.secTitle ? M.secTitle(id) : id); return `${n ? n + ' · ' : ''}${title}${sub ? ': ' + sub : ''}`; }
     bn(vM, d = 1) { return this.M.fmtBn(vM, d); }               // "US$ 19.3 bn" / "US$ 19.3 mil M" from millions
     usdM(v) { return v == null ? '—' : `US$ ${this.m(v)} M`; }
     rel(q) { return q && (q.releaseDate || (q.sources && q.sources.is && q.sources.is.date)); }
@@ -64,17 +83,63 @@
       super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''));
     }
 
-    // ================= 2b. MARKET CONCERNS (credible press and analysts) =================
-    pressPage() {
-      const M = this.M, PR = M.PRESS; if (!PR || !(PR.items || []).length) return;
-      let y = this.page('L', this.T('Lo que preocupa al mercado', 'What the Market Is Worried About'), this.T(`Prensa y analistas, últimos ${PR.windowDays} días · al ${this.date(PR.asOf)} · cada resumen se limita a lo que reporta la pieza; enlaces en fnam.mx/oracle (sección 00)`, `Press and analysts, last ${PR.windowDays} days · as of ${this.date(PR.asOf)} · each summary is limited to what the piece reports; links at fnam.mx/oracle (section 00)`));
-      const themes = (PR.themes || []).map((th) => ({ th, items: PR.items.filter((x) => x.theme === th.id) })).filter((x) => x.items.length);
-      const rows = [], meta = [];
-      for (const { th, items } of themes) { rows.push([this.T(th.es, th.en), '', '', '']); meta.push(['head left', 'head', 'head', 'head']); for (const x of items) { rows.push([this.date(x.date), x.outlet, x.title, this.es ? x.es : x.en]); meta.push(['left', 'left', 'left bold', 'left small']); } }
+    // ================= NEWS AND RECENT EVENTS (dated, themed, primary sources first) =================
+    newsPage() {
+      const M = this.M, N = M.NEWS; if (!N || !(N.items || []).length) return;
+      const items = N.items.slice().sort((a, b) => (a.date < b.date ? 1 : -1)).slice(0, 14);
+      let y = this.page('L', this.secHead('news'), this.T(`Eventos de los últimos ${N.windowDays} días · barrido al ${this.date(N.asOf)} · cada resumen se limita al hecho reportado; fuentes primarias primero (SEC, Oracle, agencias); enlaces en fnam.mx/oracle`, `Events of the last ${N.windowDays} days · swept ${this.date(N.asOf)} · each summary is limited to the reported fact; primary sources first (SEC, Oracle, agencies); links at fnam.mx/oracle`));
+      const theme = (id) => { const th = (N.themes || []).find((x) => x.id === id); return th ? M.L(th) : id; };
+      const basis = (x) => ({ sec: this.T('reporte SEC', 'SEC filing'), company: this.T('empresa, no auditado', 'company, not audited'), agency: this.T('agencia', 'rating agency'), press: this.T('prensa', 'press') }[x.basis] || x.basis);
+      const rows = items.map((x) => [this.date(x.date), theme(x.theme), this.es ? x.title_es : x.title_en, this.es ? x.why_es : x.why_en, `${basis(x)} · ${(x.sources || []).slice(0, 2).map((sr) => sr.title.replace(/\s*\(accession.*$/, '').slice(0, 70)).join(' · ')}`]);
       const W = this.width();
-      y = this.fitTable({ y, head: [M.t('date'), this.T('Medio', 'Outlet'), this.T('Titular', 'Headline'), this.T('Qué reporta', 'What it reports')], body: rows, meta, cols: { 0: { cellWidth: W * 0.09, halign: 'left' }, 1: { cellWidth: W * 0.13, halign: 'left' }, 2: { cellWidth: W * 0.26, halign: 'left' }, 3: { cellWidth: W * 0.52, halign: 'left' } }, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 4 : 0)) }, [8.4, 8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - 30);
-      const outlets = [...new Set(PR.items.map((x) => x.outlet))].join(', ');
-      this.noteAbove(this.T(`Fuentes: ${outlets}; los enlaces a cada artículo están en la página. Las declaraciones de Oracle se citan cuando la pieza las incluye. Barrido semanal (lunes).`, `Sources: ${outlets}; links to each article are on the page. Oracle's statements are quoted where the piece includes them. Weekly sweep (Mondays).`), y + 6);
+      y = this.fitTable({ y, head: [M.t('date'), this.T('Tema', 'Theme'), this.T('Qué pasó', 'What happened'), this.T('Por qué importa', 'Why it matters'), this.T('Base y fuente', 'Basis and source')], body: rows, meta: rows.map(() => ['left', 'left small', 'left bold', 'left small', 'left small']), cols: { 0: { cellWidth: W * 0.08, halign: 'left' }, 1: { cellWidth: W * 0.1, halign: 'left' }, 2: { cellWidth: W * 0.3, halign: 'left' }, 3: { cellWidth: W * 0.32, halign: 'left' }, 4: { cellWidth: W * 0.2, halign: 'left' } } }, [8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 26);
+      this.noteAbove(this.T('Sin rumores ni afirmaciones sin atribución. Las declaraciones de Oracle se marcan como declaración de la empresa, no auditada; lo que descansa solo en prensa se marca como prensa. Barrido diario (rutina en la nube); enlaces a cada fuente en la página.', 'No rumors or unattributed claims. Oracle statements are labeled company statement, not audited; what rests on press alone is labeled press. Daily sweep (cloud routine); links to every source on the page.'), y + 6);
+    }
+
+    // ================= RISKS =================
+    risksPage() {
+      const M = this.M, R = M.RK; if (!R || !(R.items || []).length) return;
+      let y = this.page('L', this.secHead('risks'), this.T(`Registro revisado el ${this.date(R.updated)} · cada riesgo cita la cifra o el reporte que lo sustenta`, `Register reviewed ${this.date(R.updated)} · each risk cites the figure or filing behind it`));
+      const strip = (t) => String(t).replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => (M.secNav ? M.secNav(id) : id));
+      const rows = R.items.map((r) => [M.L(r), strip(this.es ? r.evidence_es : r.evidence_en), (r.where || []).map((id) => `${M.secNum(id)} ${M.secNav(id)}`).join(' · '), this.es ? r.watch_es : r.watch_en]);
+      const W = this.width();
+      y = this.fitTable({ y, head: [this.T('Riesgo', 'Risk'), this.T('Evidencia pública', 'Public evidence'), this.T('Dónde', 'Where'), this.T('Qué observar', 'What to watch')], body: rows, meta: rows.map(() => ['left bold', 'left', 'left', 'left']), cols: { 0: { cellWidth: W * 0.22, halign: 'left' }, 1: { cellWidth: W * 0.4, halign: 'left' }, 2: { cellWidth: W * 0.12, halign: 'left' }, 3: { cellWidth: W * 0.26, halign: 'left' } } }, [10.5, 10, 9.5, 9, 8.5, 8, 7.5, 7], this.cur.y1 - 26);
+      this.noteAbove(this.T('Fuentes: reportes 10-Q/10-K y comunicados enlazados por fila en la página; estimaciones de terceros marcadas como tales.', 'Sources: 10-Q/10-K filings and releases linked per row on the page; third-party estimates labeled as such.'), y + 6);
+    }
+
+    // ================= CIRCULAR FINANCING AND CUSTOMER CONCENTRATION =================
+    circularPage() {
+      const M = this.M, BO = M.BO, OB = M.OB, XB = M.XB; if (!BO || !OB) return;
+      const U = BO.unitEconomics || {}, fm = U.funding_mix || {}, cn = U.concentration || {}, pp = OB.prepayments || {};
+      const fund = (BO.funding && BO.funding.items) || [], prepayCum = fund.find((f) => /prepay|prepago/i.test(f.en));
+      const sites = BO.sites || [], openai = sites.filter((s) => /OpenAI/i.test(s.tenant_en || s.customer || '')).length;
+      const def = XB && XB.concepts.deferred_revenue_total ? XB.concepts.deferred_revenue_total.periods.slice(-10) : [], last = def[def.length - 1];
+      let y = this.page('L', this.secHead('circular'), this.T(`Quién paga la capacidad y quién la usa · 10-Q al ${this.date(OB.as_of)}, llamadas de resultados, S&P · lo reportado se separa de lo estimado`, `Who pays for the capacity and who uses it · 10-Q at ${this.date(OB.as_of)}, earnings calls, S&P · reported figures kept apart from estimates`));
+      y = this.tiles([
+        pp.deferred_revenue_prepayments_financing_1q27 != null && { v: this.bn(pp.deferred_revenue_prepayments_financing_1q27), l: this.T('prepagos de clientes cobrados en el 1T27 (10-Q, reportado)', 'customer prepayments collected in 1Q27 (10-Q, reported)') },
+        last && { v: this.bn(last.value), l: this.T(`ingresos diferidos al ${this.date(last.period_end)} (XBRL)`, `deferred revenue at ${this.date(last.period_end)} (XBRL)`) },
+        prepayCum && { v: `≈ US$ ${this.n(prepayCum.usd_bn)} ${this.T('mil M', 'bn')}`, l: this.T('prepagos y hardware del cliente, acumulado (llamada 4T26, no auditado)', 'prepayments and BYOH, cumulative (4Q26 call, not audited)') },
+        { v: `${openai}/${sites.length}`, l: this.T('campus nombrados con OpenAI como inquilino', 'named campuses with OpenAI as tenant') },
+      ].filter(Boolean), y, 48);
+      const gap = 24, wl = this.width() * 0.46, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
+      let yl = this.heading(this.T('Ingresos diferidos por trimestre (US$ millones, XBRL)', 'Deferred revenue by quarter (US$ million, XBRL)'), this.cur.x0, y, 10);
+      if (def.length) { const img = this.chart({ type: 'bar', data: { labels: def.map((p) => M.boLabel(p.fiscal)), datasets: [{ label: 'US$ M', data: def.map((p) => p.value), backgroundColor: PALETTE[0] }] }, options: { plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } } }, wl, 150); this.pdf.addImage(img, 'PNG', this.cur.x0, yl, wl, 150); yl += 156; }
+      const rows = [
+        [this.T('Prepagos con componente de financiamiento, 1T27', 'Prepayments with a financing component, 1Q27'), pp.deferred_revenue_prepayments_financing_1q27 != null ? this.bn(pp.deferred_revenue_prepayments_financing_1q27) : '—', this.T('reportado (10-Q)', 'reported (10-Q)')],
+        [this.T('División del RPO prepagado · hardware del cliente · Oracle', 'RPO split prepaid · BYOH · Oracle-funded'), this.T('no divulgado', 'not disclosed'), this.T('Oracle no la divulga', 'not disclosed by Oracle')],
+        [this.T('Clientes ≥ 10% de los ingresos', 'Customers ≥ 10% of revenue'), this.T('ninguno (AF2026)', 'none (FY2026)'), this.T('reportado (10-K)', 'reported (10-K)')],
+        [this.T('Porción del RPO ligada a OpenAI', 'Share of RPO tied to OpenAI'), this.T('≈ la mitad', '≈ half'), this.T('estimación de S&P (tercero), 9 jul 2026', 'S&P estimate (third party), Jul 9, 2026')],
+        [this.T('Deuda de proyecto de los desarrolladores', 'Developers\' project debt'), this.T('de los desarrolladores', 'the developers\''), this.T('prensa; no es pasivo de Oracle', 'press; not an Oracle liability')],
+        [this.T('Inversiones de Oracle en clientes o proveedores de IA', 'Oracle investments in AI customers or suppliers'), this.T('no divulgadas', 'not disclosed'), this.T('lectura de texto, revisión pendiente', 'text reading, review pending')],
+      ];
+      let yr = this.heading(this.T('Lo divulgado y lo estimado', 'What is disclosed and what is estimated'), xr, y, 10);
+      yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Concepto', 'Item'), this.T('Valor', 'Value'), this.T('Base', 'Basis')], body: rows, meta: rows.map(() => ['left', 'bold', 'left small muted']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.46 }, 1: { cellWidth: wr * 0.22 }, 2: { halign: 'left' } } });
+      // developers' financing per named campus (their own releases or the press): reference only, never an Oracle liability
+      const sf = (st, k) => (this.es && st[k + '_es'] ? st[k + '_es'] : st[k] || '');
+      const dev = sites.map((st) => [st.short || st.name, sf(st, 'developer'), sf(st, 'financing'), (st.sources || []).map((r) => r.short || r.title).slice(0, 3).join(' · ')]);
+      let yb = this.heading(this.T('Financiamiento de los desarrolladores por campus (comunicados propios o prensa; no es pasivo de Oracle)', 'Developer financing per campus (their releases or the press; not an Oracle liability)'), this.cur.x0, Math.max(yl, yr) + 10, 10);
+      yb = this.fitTable({ y: yb, head: [this.T('Campus', 'Campus'), this.T('Desarrollador', 'Developer'), this.T('Financiamiento del desarrollador', 'Developer financing'), M.t('src')], body: dev, meta: dev.map(() => ['left bold', 'left', 'left small', 'left small']), cols: { 0: { cellWidth: this.width() * 0.14, halign: 'left' }, 1: { cellWidth: this.width() * 0.2, halign: 'left' }, 2: { halign: 'left' }, 3: { cellWidth: this.width() * 0.2, halign: 'left' } } }, [8.5, 8, 7.5, 7], this.cur.y1 - 40);
+      this.noteAbove(this.T(`${this.es ? cn.oracle_text_es : cn.oracle_text_en} ${this.es ? cn.third_party_text_es : cn.third_party_text_en} ${this.es ? fm.split_text_es : fm.split_text_en} Fuentes: Formulario 10-Q 1T27 (estado de flujos y balance), SEC XBRL, llamadas 4T26 y 1T27, S&P Global Ratings, comunicados de los desarrolladores.`, `${cn.oracle_text_en || ''} ${cn.third_party_text_en || ''} ${fm.split_text_en || ''} Sources: 1Q27 Form 10-Q (cash-flow statement and balance sheet), SEC XBRL, 4Q26 and 1Q27 calls, S&P Global Ratings, developer releases.`), yb + 6);
     }
 
     // ================= 3. TEAR SHEET =================
@@ -157,7 +222,7 @@
       const M = this.M, A = M.lastQ, B = M.qById[M.yoyQid(A)];
       const oa = M.opsFor(A), ob = M.opsFor(B), C = M.yoyCommentsFor(A, B, 'q'), ops = C && C.ops;
       const la = this.qlab(A), lb = this.qlab(B);
-      let y = this.page('P', this.T(`Métricas operativas de Oracle · ${la} vs ${lb}`, `Oracle Operating Metrics · ${la} vs ${lb}`), this.nextText());
+      let y = this.page('P', this.secHead('statements', this.T(`métricas operativas · ${la} vs ${lb}`, `operating metrics · ${la} vs ${lb}`)), this.nextText());
       const rows = [], meta = [];
       const head = (l) => { rows.push([l, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); };
       const row = (l, k, o = {}) => {
@@ -210,7 +275,7 @@
       else if (mode === 'fy') { A = M.Y[M.Y.length - 1]; B = M.Y[M.Y.length - 2]; C = M.yoyCommentsFor(A, B, 'fy'); la = M.fyLabel(A.fy); lb = M.fyLabel(B.fy); }
       else { A = M.ltmFor(M.lastQ); const bq = M.qById[M.yoyQid(M.lastQ)]; B = bq && M.ltmFor(bq); C = M.yoyCommentsFor(M.lastQ, bq, 'q'); la = A.id; lb = B ? B.id : '—'; cmtNote = this.T(` · Los comentarios corresponden al ${this.qlab(M.lastQ)} vs ${this.qlab(bq)} (último trimestre reportado)`, ` · Comments refer to ${this.qlab(M.lastQ)} vs ${this.qlab(bq)} (latest reported quarter)`); }
       if (!A || !B) return;
-      let y = this.page('P', `${this.T('Estado de resultados de Oracle', 'Oracle Income Statement')} · ${la} vs ${lb}`, this.nextText());
+      let y = this.page('P', this.secHead('statements', `${this.T('estado de resultados', 'income statement')} · ${la} vs ${lb}`), this.nextText());
       const layout = M.FIN.layout.is; const rows = [], meta = [], mis = this.mismatch(A, B); let usedRecast = false, split = false;
       const H = (l) => { rows.push([l, '', '', '', '', '']); meta.push(['head left', 'head', 'head', 'head', 'head', 'head']); };
       for (const def of layout) {
@@ -251,7 +316,7 @@
       const M = this.M, GV = M.GV; if (!GV.length) return;
       const last = GV[GV.length - 1], fq = last.forQuarter ? M.qLabelId(last.forQuarter) : '—', act = last.forQuarter ? M.gActual(last.forQuarter) : null;
       const fyV = GV.filter((v) => v.items.fyRevenue || v.items.fyEps), fyCur = fyV.length ? Math.max(...fyV.map((v) => v.fyGuided).filter(Boolean)) : null, cur = fyV.filter((v) => v.fyGuided === fyCur);
-      let y = this.page('L', this.T(`Guía de la administración · ${fq} y AF${String(fyCur).slice(2)}, con su historial`, `Management Guidance · ${fq} and FY${String(fyCur).slice(2)}, with Its History`), this.nextText());
+      let y = this.page('L', this.secHead('guidance', this.T(`${fq} y AF${String(fyCur).slice(2)}, con su historial`, `${fq} and FY${String(fyCur).slice(2)}, with its history`)), this.nextText());
       const gap = 20, wl = this.width() * 0.47 - gap / 2, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       // ---- left: guidance in force for the next quarter
       let yl = this.heading(this.T(`Guía vigente · ${fq} · emitida el ${this.date(last.date)} con los resultados del ${M.qLabelId(last.issuedIn)}`, `Guidance in force · ${fq} · issued ${this.date(last.date)} with the ${M.qLabelId(last.issuedIn)} results`), this.cur.x0, y, 10);
@@ -294,7 +359,7 @@
     // ================= 9. RPO, CLOUD AND CASH FLOW (portrait) =================
     rpoCloudPage() {
       const M = this.M, lastQ = M.lastQ, R = M.REF.rpo || {};
-      let y = this.page('P', this.T('RPO, capex y flujo de efectivo por trimestre', 'RPO, Capex and Cash Flow by Quarter'), this.T(`US$ · comunicados de resultados de Oracle hasta el ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`, `US$ · Oracle earnings releases through ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`));
+      let y = this.page('P', this.secHead('capex', this.T('RPO, capex y flujo de efectivo por trimestre', 'RPO, capex and cash flow by quarter')), this.T(`US$ · comunicados de resultados de Oracle hasta el ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`, `US$ · Oracle earnings releases through ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`));
       const W = this.width(), q12 = M.Q.slice(-12);
       y = this.heading(this.T('RPO al cierre de cada trimestre (US$ mil millones, barras) y variación a/a declarada (%, línea, eje derecho)', 'RPO at each quarter-end (US$ billion, bars) and stated YoY change (%, line, right axis)'), this.cur.x0, y, 10);
       const h1 = 190;
@@ -310,7 +375,7 @@
       const sched = (R.schedule || []).map((s) => [this.T(s.bucket_es, s.bucket_en), this.pct(s.pct, 0), `US$ ${this.n(s.amount_bn)} ${this.T('mil M', 'bn')}`]);
       const cw = W * 0.6;
       if (sched.length) y = this.table({ y, w: cw, head: [this.T('Horizonte', 'Horizon'), '%', this.T('Monto', 'Amount')], body: sched, meta: sched.map(() => ['left', '', 'bold']), size: 8, cols: { 0: { halign: 'left', cellWidth: cw * 0.5 } } });
-      this.noteAbove(this.T(`RPO = ingresos contratados aún no reconocidos (sección 10). Flujo libre = flujo operativo − capex; trimestres discretos derivados de los estados de flujo acumulados. El flujo operativo incluye prepagos de clientes cuando los hay. Fuentes: comunicados de resultados (RPO, flujos)${R.quoteSource ? ` · ${this.T('Formulario 10-Q', 'Form 10-Q')} (${this.date(R.quoteSource.date)}) ${this.T('para el calendario', 'for the schedule')}` : ''}.`, `RPO = contracted revenue not yet recognised (section 10). Free cash flow = operating cash flow − capex; discrete quarters derived from the cumulative cash-flow statements. Operating cash flow includes customer prepayments where present. Sources: earnings releases (RPO, cash flows)${R.quoteSource ? ` · Form 10-Q (${this.date(R.quoteSource.date)}) for the schedule` : ''}.`), y + 8);
+      this.noteAbove(this.T(`RPO = ingresos contratados aún no reconocidos (sección «RPO y cartera de contratos»). Flujo libre = flujo operativo − capex; trimestres discretos derivados de los estados de flujo acumulados. El flujo operativo incluye prepagos de clientes cuando los hay. Fuentes: comunicados de resultados (RPO, flujos)${R.quoteSource ? ` · ${this.T('Formulario 10-Q', 'Form 10-Q')} (${this.date(R.quoteSource.date)}) ${this.T('para el calendario', 'for the schedule')}` : ''}.`, `RPO = contracted revenue not yet recognised (the RPO section). Free cash flow = operating cash flow − capex; discrete quarters derived from the cumulative cash-flow statements. Operating cash flow includes customer prepayments where present. Sources: earnings releases (RPO, cash flows)${R.quoteSource ? ` · Form 10-Q (${this.date(R.quoteSource.date)}) for the schedule` : ''}.`), y + 8);
     }
 
     // ================= 10. AI BUILDOUT: SITES AND CAPACITY (portrait) =================
@@ -355,7 +420,7 @@
       const cap = BO.capacity || {}, cq = cap.quarters || [], last = cq[cq.length - 1], fy = (cap.fiscal_years || [])[0], sec = cap.secured, sites = BO.sites || [];
       const gu = (BO.gpu && BO.gpu.utilization) || [], rn = (BO.gpu && BO.gpu.renewals) || [], u = gu[gu.length - 1], r = rn[rn.length - 1];
       const sitesMw = sites.reduce((a, s) => a + (s.capacity_mw || 0), 0);
-      let y = this.page('P', this.T('Expansión de IA: sitios nombrados y capacidad entregada', 'AI Buildout: Named Sites and Capacity Delivered'), this.T(`Según las llamadas de resultados hasta el ${BO.promises ? M.boLabel(BO.promises.as_of) : this.qlab(M.lastQ)}${BO.updated ? ` · revisado el ${this.date(BO.updated)}` : ''}`, `Per the earnings calls through ${BO.promises ? M.boLabel(BO.promises.as_of) : this.qlab(M.lastQ)}${BO.updated ? ` · reviewed ${this.date(BO.updated)}` : ''}`));
+      let y = this.page('P', this.secHead('sites', this.T('sitios nombrados y capacidad entregada', 'named sites and capacity delivered')), this.T(`Según las llamadas de resultados hasta el ${BO.promises ? M.boLabel(BO.promises.as_of) : this.qlab(M.lastQ)}${BO.updated ? ` · revisado el ${this.date(BO.updated)}` : ''}`, `Per the earnings calls through ${BO.promises ? M.boLabel(BO.promises.as_of) : this.qlab(M.lastQ)}${BO.updated ? ` · reviewed ${this.date(BO.updated)}` : ''}`));
       const W = this.width();
       y = this.tiles([
         { v: last ? `${this.n(last.mw)} MW` : '—', l: this.T(`entregados en el ${last ? M.boLabel(last.id) : '—'}${fy ? ` · > ${this.n(fy.mw / 1000, 1)} GW en el AF2026` : ''}`, `delivered in ${last ? M.boLabel(last.id) : '—'}${fy ? ` · > ${this.n(fy.mw / 1000, 1)} GW in FY2026` : ''}`) },
@@ -372,7 +437,7 @@
       const short = (t) => String(t).replace(/\s+(via|vía|a través de)\s+.*$/i, '').replace(/\s*\([^)]*\)/g, '').split(';')[0].trim();
       const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], `${this.n(s.nameplate_mw || s.capacity_mw)} / ${s.energized_mw != null ? this.n(s.energized_mw) : '—'}`, short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), (s.issues_en && !/^None reported/i.test(s.issues_en) ? `${this.date(s.status_date)}: ${first(sf(s, 'issues'), 70)}` : first(sf(s, 'oracle_status'), 62))]);
       const promises = ((BO.promises && BO.promises.items) || []).slice(0, 4).map((x) => `**${M.boLabel(x.id)}** · ${M.L(x)}`);
-      const noteStr = this.T('Ubicaciones aproximadas en el mapa (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección 09). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Map locations are approximate (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, section 09). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
+      const noteStr = this.T('Ubicaciones aproximadas en el mapa (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección de sitios). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Map locations are approximate (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, sites section). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
       const noteH = this.measureText(noteStr, W, 7.5, 1.25);
       const promH = promises.length ? 16 + this.measureBullets(promises, W, 7.8, { gap: 3 }) : 0;
       y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), this.T('MW plan / en línea', 'MW plan / live'), this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
@@ -383,7 +448,7 @@
     // ================= 10b. 06 RELATIVE VALUATION (forward multiples, peers, street view) =================
     valuationPage() {
       const M = this.M, FS = M.FS; if (!FS || !FS.oracle || !M.lastPx) return; const fo = FS.oracle, fn = fo.ntm || {}, px = M.lastPx, nd = M.netDebt(M.lastQ), mc = px[1] * M.sharesNow / 1e6, ev = mc + (nd ? nd.net : 0);
-      let y = this.page('L', this.T('06 · Valuación relativa: múltiplos a doce meses y pares', '06 · Relative Valuation: Forward Multiples and Peers'), this.T(`Consenso FactSet al ${this.date(FS.asOf)} · precio ORCL del ${this.date(px[0])} · VE = capitalización + deuda neta reportada (${this.qlab(M.lastQ)})`, `FactSet consensus as of ${this.date(FS.asOf)} · ORCL price of ${this.date(px[0])} · EV = market cap + reported net debt (${this.qlab(M.lastQ)})`));
+      let y = this.page('L', this.secHead('valuation', this.T('múltiplos a doce meses y pares', 'forward multiples and peers')), this.T(`Consenso FactSet al ${this.date(FS.asOf)} · precio ORCL del ${this.date(px[0])} · VE = capitalización + deuda neta reportada (${this.qlab(M.lastQ)})`, `FactSet consensus as of ${this.date(FS.asOf)} · ORCL price of ${this.date(px[0])} · EV = market cap + reported net debt (${this.qlab(M.lastQ)})`));
       const pt = fo.price_target, rt = fo.ratings;
       y = this.tiles([
         { v: fn.eps && fn.eps.mean > 0 ? M.fmtX(px[1] / fn.eps.mean) : '—', l: this.T(`P/U NTM · UPA consenso US$ ${this.n(fn.eps ? fn.eps.mean : 0, 2)} (No-GAAP)`, `NTM P/E · consensus EPS US$ ${this.n(fn.eps ? fn.eps.mean : 0, 2)} (non-GAAP)`) },
@@ -405,7 +470,7 @@
       const M = this.M, qs = M.Q.slice(-8).filter((q) => q.bs), lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ);
       const nds = qs.map((q) => ({ q, nd: M.netDebt(q), l: M.ltmFor(q) }));
       const D2 = M.REF.debt || {}; const rat = (D2.ratings || []).map((r) => r.rating).join(' · '), agencies = (D2.ratings || []).map((r) => r.agency.replace('S&P Global Ratings', 'S&P')).join(' · ');
-      let y = this.page('L', this.T('07 · Apalancamiento y perfil de deuda', '07 · Leverage and Debt Profile'), this.T(`US$ millones · balance del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · instrumentos de la nota de deuda del 10-K del AF2026, referencia actualizada ${this.date(M.REF.updatedAt)}`, `US$ million · ${this.qlab(lastQ)} balance sheet (${this.date(this.rel(lastQ))}) · instruments from the FY2026 10-K debt footnote, reference updated ${this.date(M.REF.updatedAt)}`));
+      let y = this.page('L', this.secHead('financing', this.T('apalancamiento y perfil de deuda', 'leverage and debt profile')), this.T(`US$ millones · balance del ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · instrumentos de la nota de deuda del 10-K del AF2026, referencia actualizada ${this.date(M.REF.updatedAt)}`, `US$ million · ${this.qlab(lastQ)} balance sheet (${this.date(this.rel(lastQ))}) · instruments from the FY2026 10-K debt footnote, reference updated ${this.date(M.REF.updatedAt)}`));
       const asOf = this.date(M.qEndDate(lastQ));
       y = this.tiles([
         { v: nd ? this.usdM(nd.net) : '—', l: this.T(`Deuda neta · ${asOf}`, `Net debt · ${asOf}`) },
@@ -436,7 +501,7 @@
       const h2 = 120;
       const img2 = this.chart({ type: 'bar', data: { labels: mb.map((b) => b.label), datasets: [{ label: this.T('Principal', 'Principal'), data: mb.map((b) => b.principal / 1000), backgroundColor: mb.map((b) => (b.matured ? alpha(PALETTE[0], 0.4) : PALETTE[0])), maxBarThickness: 30 }] }, options: { plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0, font: { size: 9 } } }, y: { beginAtZero: true, ticks: { callback: (v) => this.n(v, 0) } } } } }, Math.round(wr * 1.6), Math.round(h2 * 1.6));
       yr = this.image(img2, xr, yr, wr, h2) + 2;
-      yr = this.note(this.T(`Barra atenuada: vencida desde el 31 de mayo de 2026, pendiente de confirmación de pago en el 10-Q${cp ? `; excluye papel comercial (US$ ${this.n(cp.principalUsdM)} M)` : ''}. Detalle en la sección 11.`, `Shaded bar: matured since 31 May 2026, awaiting the 10-Q confirmation of repayment${cp ? `; excludes commercial paper (US$ ${this.n(cp.principalUsdM)} M)` : ''}. Detail in section 11.`), yr, 7, xr, wr);
+      yr = this.note(this.T(`Barra atenuada: vencida desde el 31 de mayo de 2026, pendiente de confirmación de pago en el 10-Q${cp ? `; excluye papel comercial (US$ ${this.n(cp.principalUsdM)} M)` : ''}. Detalle en la página de deuda siguiente.`, `Shaded bar: matured since 31 May 2026, awaiting the 10-Q confirmation of repayment${cp ? `; excludes commercial paper (US$ ${this.n(cp.principalUsdM)} M)` : ''}. Detail on the next debt page.`), yr, 7, xr, wr);
       const qr = nds.map((x) => [this.qlab(x.q), x.nd ? this.m(x.nd.gross) : '—', x.nd ? this.m(x.nd.cash) : '—', x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (US$ millones)', 'By quarter (US$ million)'), xr, yr + 6, 10);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda total', 'Total debt'), this.T('Efectivo e inv.', 'Cash & inv.'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('DN / EBITDA', 'ND / EBITDA')], body: qr, meta: qr.map(() => ['left', '', '', 'bold', '', 'bold']), cols: { 0: { halign: 'left' } } }, [8, 7.6, 7.2, 6.8], this.cur.y1 - 26);
@@ -448,7 +513,7 @@
       const M = this.M, lastQ = M.lastQ;
       const byFy = {}; for (const q of M.Q) if (q.kpi.dps != null) byFy[q.fy] = (byFy[q.fy] || 0) + q.kpi.dps;
       const fys = Object.keys(byFy).map(Number).sort();
-      let y = this.page('L', this.T('08 · Dividendos y generación de efectivo', '08 · Dividends and Cash Generation'), this.T(`US$ · dividendos declarados en cada comunicado de resultados hasta el ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · flujos de los Formularios 10-K`, `US$ · dividends declared in each earnings release through ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · cash flows from the Forms 10-K`));
+      let y = this.page('L', this.secHead('financing', this.T('dividendos y generación de efectivo', 'dividends and cash generation')), this.T(`US$ · dividendos declarados en cada comunicado de resultados hasta el ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · flujos de los Formularios 10-K`, `US$ · dividends declared in each earnings release through ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))}) · cash flows from the Forms 10-K`));
       const gap = 24, wl = this.width() * 0.42, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       let yl = this.heading(this.T('Dividendo declarado por acción, por año fiscal (US$)', 'Dividend declared per share, by fiscal year (US$)'), this.cur.x0, y, 10);
       const partial = fys.filter((fy) => M.Q.filter((q) => q.fy === fy && q.kpi.dps != null).length < 4);
@@ -472,7 +537,7 @@
         yr = this.image(img2, xr, yr, wr, h2);
       }
       yr = this.bullets([
-        this.T('Flujo libre = flujo operativo − capex; el flujo operativo de los últimos trimestres incluye prepagos de clientes por contratos de nube (sección 03). Los dividendos pagados y las recompras en efectivo no forman parte del modelo (las líneas del estado de flujos anual no se cosechan del 10-K); el dividendo por acción es el declarado, sumado por año fiscal.', 'Free cash flow = operating cash flow − capex; recent quarters\' operating cash flow includes customer prepayments on cloud contracts (section 03). Cash dividends paid and buybacks are not part of the model (the annual cash-flow lines are not harvested from the 10-K); dividend per share is the declared amount summed by fiscal year.'),
+        this.T('Flujo libre = flujo operativo − capex; el flujo operativo de los últimos trimestres incluye prepagos de clientes por contratos de nube. Los dividendos pagados y las recompras en efectivo no forman parte del modelo (las líneas del estado de flujos anual no se cosechan del 10-K); el dividendo por acción es el declarado, sumado por año fiscal.', 'Free cash flow = operating cash flow − capex; recent quarters\' operating cash flow includes customer prepayments on cloud contracts. Cash dividends paid and buybacks are not part of the model (the annual cash-flow lines are not harvested from the 10-K); dividend per share is the declared amount summed by fiscal year.'),
       ], xr, yr + 6, wr, 7.6, { gap: 2, color: MUTED });
       this.noteAbove(this.T(`* años parciales (menos de cuatro trimestres declarados). Razón de pago = dividendo del año ÷ UPA diluida GAAP del año fiscal; rendimiento sobre el cierre del 31 de mayo. El consejo declara el dividendo con cada reporte trimestral. Fuentes: comunicados de resultados (dividendos); Formularios 10-K (UPA, flujos); ${M.MK.prices.ORCL ? M.MK.prices.ORCL.source : 'Nasdaq'} (precios).`, `* partial years (fewer than four quarters declared). Payout = year's dividend ÷ GAAP diluted EPS of the fiscal year; yield on the 31 May close. The board declares the dividend with each quarterly report. Sources: earnings releases (dividends); Forms 10-K (EPS, cash flows); ${M.MK.prices.ORCL ? M.MK.prices.ORCL.source : 'Nasdaq'} (prices).`), Math.max(yl, yr) + 6);
     }
@@ -481,7 +546,7 @@
     obligationsPage() {
       const M = this.M, OB = M.OB, S = M.obligStats ? M.obligStats() : null; if (!OB || !S) return;
       const Lz = OB.leases || {}, bs = OB.balance_sheet || {}, po = OB.purchase_obligations || {}, un = Lz.uncommenced || {}, ga = OB.guarantees || {};
-      let y = this.page('L', this.T('11 · Financiamiento fuera de balance', '11 · Off-Balance-Sheet Financing'), this.T(`Formulario 10-Q al ${this.date(OB.as_of)} (notas de arrendamientos y compromisos) · deuda neta y EBITDA UDM del modelo (${M.lastLTM ? M.lastLTM.id : ''}) · razones derivadas`, `Form 10-Q at ${this.date(OB.as_of)} (leases and commitments notes) · model net debt and LTM EBITDA (${M.lastLTM ? M.lastLTM.id : ''}) · derived ratios`));
+      let y = this.page('L', this.secHead('obligations'), this.T(`Formulario 10-Q al ${this.date(OB.as_of)} (notas de arrendamientos y compromisos) · deuda neta y EBITDA UDM del modelo (${M.lastLTM ? M.lastLTM.id : ''}) · razones derivadas`, `Form 10-Q at ${this.date(OB.as_of)} (leases and commitments notes) · model net debt and LTM EBITDA (${M.lastLTM ? M.lastLTM.id : ''}) · derived ratios`));
       const bn = (m) => this.n(m / 1000, 1);
       y = this.tiles([
         { v: M.fmtX(S.ndEbitda, 2), l: this.T('deuda neta / EBITDA UDM, como se reporta', 'net debt / LTM EBITDA, as reported') },
@@ -520,13 +585,24 @@
         const prw = peers.map((p) => [p.name + (p.basis === 'pretax_plus_interest' ? ' *' : ''), p.ndEbitda != null ? M.fmtX(p.ndEbitda, 2) : '—', p.leaseAdj != null ? M.fmtX(p.leaseAdj, 2) : '—', p.opL != null ? bn(p.opL + (p.finL || 0)) : '—']);
         yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Emisor', 'Issuer'), this.T('Deuda neta / EBITDA', 'Net debt / EBITDA'), this.T('Ajustado / EBITDAR', 'Lease-adj. / EBITDAR'), this.T('Arrend. US$ mil M', 'Leases US$ bn')], body: prw, meta: prw.map((r, i) => [i === 0 ? 'left bold' : 'left', i === 0 ? 'bold' : '', i === 0 ? 'bold' : '', '']), size: 7.8, cols: { 0: { halign: 'left' } } });
       }
+      const XB = M.XB; if (XB && M.xbInstant) {
+        const end = OB.as_of, fyOf = (d) => { const [yy, mm] = d.split('-').map(Number); return mm >= 6 ? yy + 1 : yy; }, fy = fyOf(end);
+        const keys = ['remainder', 'y1', 'y2', 'y3', 'y4', 'y5', 'after'];
+        const lab = keys.map((k, i) => (k === 'remainder' ? this.T(`Resto AF${fy}`, `Rest of FY${fy}`) : k === 'after' ? this.T('Después', 'Thereafter') : `FY${fy + i}`));
+        const op = keys.map((k) => { const q = M.xbInstant(`op_lease_due_${k}`, end); return q ? q.value : null; }), fin = keys.map((k) => { const q = M.xbInstant(`fin_lease_due_${k}`, end); return q ? q.value : null; });
+        if (op.some((v) => v != null) && yr < this.cur.y1 - 150) {
+          const lr = lab.map((l, i) => [l, this.m(op[i]), this.m(fin[i])]); lr.push([this.T('Total sin descontar', 'Total undiscounted'), this.m(op.reduce((a, v) => a + (v || 0), 0)), this.m(fin.reduce((a, v) => a + (v || 0), 0))]);
+          yr = this.heading(this.T('Pagos de arrendamientos reconocidos por año fiscal (US$ millones, XBRL, sin descontar)', 'Recognised lease payments by fiscal year (US$ million, XBRL, undiscounted)'), xr, yr + 10, 10);
+          yr = this.table({ y: yr, x: xr, w: wr, head: [this.T('Periodo', 'Period'), this.T('Operativos', 'Operating'), this.T('Financieros', 'Finance')], body: lr, meta: lr.map((r, i) => [i === lr.length - 1 ? 'left bold' : 'left', i === lr.length - 1 ? 'bold' : '', i === lr.length - 1 ? 'bold' : '']), size: 8, cols: { 0: { halign: 'left' } } });
+        }
+      }
       this.noteAbove(this.T(`EBITDAR = EBITDA UDM (US$ ${this.m(S.ebitda)} M) + costo de arrendamientos operativos UDM (US$ ${this.m(S.olc)} M). La razón "incluyendo compromisos" suma el valor nominal de los arrendamientos no iniciados sin descontar ni proyectar EBITDA futuro: mide exposición, no deuda actual. Pares elegidos por el responsable; saldos al último balance y flujos del último año fiscal según sus datos XBRL en la SEC (* IBM no reporta utilidad de operación: EBIT = utilidad antes de impuestos + intereses). Garantías: ${ga.text_es || ''} Fuentes: Formulario 10-Q 1T27, 10-K AF2026, SEC XBRL.`, `EBITDAR = LTM EBITDA (US$ ${this.m(S.ebitda)} M) + LTM operating lease cost (US$ ${this.m(S.olc)} M). The commitment-inclusive ratio adds the nominal value of uncommenced leases without discounting or projecting future EBITDA: it measures exposure, not current debt. Peer set chosen by the owner; latest balance sheet and latest fiscal-year flows per their SEC XBRL data (* IBM reports no operating income: EBIT = pre-tax income + interest). Guarantees: ${ga.text_en || ''} Sources: 1Q27 Form 10-Q, FY2026 10-K, SEC XBRL.`), Math.max(yl, yr) + 8);
     }
 
     // ================= 13. 09 AI CLOUD INFRASTRUCTURE BUILDOUT =================
     buildoutPage() {
       const M = this.M, BO = M.BO, q = M.lastQ, ql = this.qlab(q), rec = M.revOnNewBasis(q);
-      let y = this.page('L', this.T('09 · La expansión de infraestructura de nube de IA', '09 · The AI Cloud Infrastructure Buildout'), this.T(`Cifras del ${ql} (${this.date(this.rel(q))}) y de las llamadas de resultados · US$`, `${ql} figures (${this.date(this.rel(q))}) and the earnings calls · US$`));
+      let y = this.page('L', this.secHead('sites', this.T('la expansión de infraestructura de nube de IA', 'the AI cloud infrastructure buildout')), this.T(`Cifras del ${ql} (${this.date(this.rel(q))}) y de las llamadas de resultados · US$`, `${ql} figures (${this.date(this.rel(q))}) and the earnings calls · US$`));
       const fyG = M.GV.slice().reverse().find((v) => v.items && v.items.fyRevenue);
       const cap = (BO && BO.capacity) || {}, cq = cap.quarters || [], fyMw = (cap.fiscal_years || [])[0], lastMw = cq[cq.length - 1], sec = cap.secured, fund = (BO && BO.funding && BO.funding.items) || [], sched = BO && BO.rpoSchedule;
       // five-step flow: contracts -> capacity -> spend -> funding -> revenue
@@ -562,7 +638,7 @@
     // ================= 14. 10 RPO EXPLAINED =================
     rpoPage() {
       const M = this.M, R = M.REF.rpo || {}, lastQ = M.lastQ, rpo = lastQ.kpi.rpo;
-      let y = this.page('L', this.T('10 · Qué es el RPO (obligaciones de desempeño restantes)', '10 · RPO (Remaining Performance Obligations) Explained'), this.T(`RPO de US$ ${this.n(rpo / 1000, 0)} mil M al ${R.latestQuarter || this.qlab(lastQ)} · calendario de reconocimiento del Formulario 10-Q${R.quoteSource ? ` (${this.date(R.quoteSource.date)})` : ''}`, `RPO of US$ ${this.n(rpo / 1000, 0)} bn at ${R.latestQuarter || this.qlab(lastQ)} · recognition schedule from the Form 10-Q${R.quoteSource ? ` (${this.date(R.quoteSource.date)})` : ''}`));
+      let y = this.page('L', this.secHead('rpo', this.T('qué es el RPO (obligaciones de desempeño restantes)', 'RPO (remaining performance obligations) explained')), this.T(`RPO de US$ ${this.n(rpo / 1000, 0)} mil M al ${R.latestQuarter || this.qlab(lastQ)} · calendario de reconocimiento del Formulario 10-Q${R.quoteSource ? ` (${this.date(R.quoteSource.date)})` : ''}`, `RPO of US$ ${this.n(rpo / 1000, 0)} bn at ${R.latestQuarter || this.qlab(lastQ)} · recognition schedule from the Form 10-Q${R.quoteSource ? ` (${this.date(R.quoteSource.date)})` : ''}`));
       // diagram: contract -> RPO -> capacity -> revenue
       const boxes = [
         [this.T('Contrato firmado', 'Contract signed'), this.T('Contrato plurianual de nube (OCI) para cargas de IA', 'Multi-year cloud (OCI) contract for AI workloads')],
@@ -578,7 +654,7 @@
       yl = this.text(M.L(R.plain), this.cur.x0, yl, wl, 8.6, 'normal', INK) + 6;
       if (R.quote) { yl = this.heading(this.T('Lo que dice Oracle en el 10-Q', 'What Oracle says in the 10-Q'), this.cur.x0, yl, 10); yl = this.text(M.L(R.quote), this.cur.x0, yl, wl, 8, 'italic', MUTED) + 2; if (R.quoteSource) yl = this.note(`${R.quoteSource.title} (${this.date(R.quoteSource.date)})`, yl, 7, this.cur.x0, wl) + 4; }
       yl = this.heading(this.T('Cómo leerlo', 'Reading it'), this.cur.x0, yl, 10);
-      yl = this.bullets([M.L(R.caution), this.T('Es un indicador adelantado, no ingreso asegurado: su conversión depende de la capacidad que Oracle construya y energice; por eso se lee junto con el capex (secciones 03 y 09).', 'It is a leading indicator, not assured revenue: conversion depends on the capacity Oracle builds and energises, which is why it is read with capex (sections 03 and 09).')], this.cur.x0, yl, wl, 8.2, { gap: 3 });
+      yl = this.bullets([M.L(R.caution), this.T('Es un indicador adelantado, no ingreso asegurado: su conversión depende de la capacidad que Oracle construya y energice; por eso se lee junto con el capex y los sitios.', 'It is a leading indicator, not assured revenue: conversion depends on the capacity Oracle builds and energises, which is why it is read with capex and the sites.')], this.cur.x0, yl, wl, 8.2, { gap: 3 });
       // right: schedule chart + table
       const sched = R.schedule || [];
       let yr = this.heading(this.T(`Calendario de reconocimiento (US$ mil millones del RPO de ${this.n(rpo / 1000, 0)})`, `Recognition schedule (US$ billion of the ${this.n(rpo / 1000, 0)} RPO)`), xr, y, 10);
@@ -603,7 +679,7 @@
       const end = M.qEndDate(lastQ); const lim = (months) => { const d = new Date(end + 'T12:00:00Z'); d.setUTCMonth(d.getUTCMonth() + months); return d.toISOString().slice(0, 10); };
       const within = (months) => dated.filter((i) => i.matures > end && i.matures <= lim(months)).reduce((a, i) => a + i.principalUsdM, 0);
       const m12 = within(12), m24 = within(24), cash = lastQ.bs ? lastQ.bs.cashAndInvestments : null;
-      let y = this.page('L', this.T('11 · Detalle de la deuda y riesgo de crédito', '11 · Debt Detail and Credit Risk'), this.T(`${all.length} instrumentos de la nota de deuda del 10-K del AF2026 (al 31 de mayo de 2026) · efectivo del balance del ${this.qlab(lastQ)} · US$ millones`, `${all.length} instruments from the FY2026 10-K debt footnote (as of 31 May 2026) · cash from the ${this.qlab(lastQ)} balance sheet · US$ million`));
+      let y = this.page('L', this.secHead('financing', this.T('detalle de la deuda y riesgo de crédito', 'debt detail and credit risk')), this.T(`${all.length} instrumentos de la nota de deuda del 10-K del AF2026 (al 31 de mayo de 2026) · efectivo del balance del ${this.qlab(lastQ)} · US$ millones`, `${all.length} instruments from the FY2026 10-K debt footnote (as of 31 May 2026) · cash from the ${this.qlab(lastQ)} balance sheet · US$ million`));
       y = this.tiles([
         { v: this.bn(total), l: this.T(`principal total · ${frn.length} nota(s) a tasa flotante fuera del promedio`, `total principal · ${frn.length} floating-rate note(s) outside the average`) },
         { v: this.pct(wavg(fixed), 2), l: this.T(`cupón promedio ponderado, bonos a tasa fija (${fixed.length})`, `weighted-average coupon, fixed-rate notes (${fixed.length})`) },
@@ -626,7 +702,7 @@
       const soon = all.filter((i) => i.matures && i.matures <= lim(36)).sort((a, b) => a.matures.localeCompare(b.matures));
       let yr = this.heading(this.T(`Instrumentos que vencen hasta ${this.date(lim(36))} (36 meses)`, `Instruments maturing through ${this.date(lim(36))} (36 months)`), xr, y, 10);
       const ir = soon.map((i) => [M.LS(i.name).replace(/^Fixed-Rate Senior Notes Due /i, this.T('Bonos senior ', 'Senior notes ')).replace(/^Floating-Rate Senior Notes Due /i, this.T('Bonos flotantes ', 'Floating notes ')), this.date(i.matures), this.n(i.principalUsdM), M.LS(i.rate) || '—']);
-      const noteStr = this.T(`Instrumentos vencidos después del 31 de mayo de 2026 se muestran atenuados hasta que el 10-Q confirme el pago. Cupón promedio ponderado por principal de los bonos a tasa fija de cada grupo. Fuentes: Formulario 10-K AF2026, nota de deuda; balance del ${this.qlab(lastQ)}; calificaciones en la sección 07. Referencia actualizada ${this.date(M.REF.updatedAt)}.`, `Instruments matured after 31 May 2026 are greyed until the 10-Q confirms repayment. Average coupon is principal-weighted across each group's fixed-rate notes. Sources: Form 10-K FY2026, debt footnote; ${this.qlab(lastQ)} balance sheet; ratings in section 07. Reference updated ${this.date(M.REF.updatedAt)}.`);
+      const noteStr = this.T(`Instrumentos vencidos después del 31 de mayo de 2026 se muestran atenuados hasta que el 10-Q confirme el pago. Cupón promedio ponderado por principal de los bonos a tasa fija de cada grupo. Fuentes: Formulario 10-K AF2026, nota de deuda; balance del ${this.qlab(lastQ)}; calificaciones en la página anterior. Referencia actualizada ${this.date(M.REF.updatedAt)}.`, `Instruments matured after 31 May 2026 are greyed until the 10-Q confirms repayment. Average coupon is principal-weighted across each group's fixed-rate notes. Sources: Form 10-K FY2026, debt footnote; ${this.qlab(lastQ)} balance sheet; ratings on the previous page. Reference updated ${this.date(M.REF.updatedAt)}.`);
       const noteH = this.measureText(noteStr, this.width(), 7.5, 1.25);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [M.t('instrument'), M.t('matures'), this.T('Principal (US$ M)', 'Principal (US$ M)'), M.t('rate')], body: ir, meta: soon.map((i) => [(i.matures < this.todayIso ? 'muted ' : '') + 'left', i.matures < this.todayIso ? 'muted' : '', i.matures < this.todayIso ? 'muted' : 'bold', 'left']), cols: { 0: { halign: 'left', cellWidth: wr * 0.4 }, 3: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [8, 7.6, 7.2, 6.8, 6.4], this.cur.y1 - noteH - 12);
       this.noteAbove(noteStr, Math.max(yl, yr) + 6);

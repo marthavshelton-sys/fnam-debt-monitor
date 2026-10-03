@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-02T21:51:05.811Z",
+  "generated": "2026-10-03T14:48:56.517Z",
   "summary": {
-    "checks": 349,
+    "checks": 417,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -2822,6 +2822,550 @@
       "note": null
     },
     {
+      "tag": "obligations/XBRL",
+      "check": "balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.operating_rou_assets = OperatingLeaseRightOfUseAsset (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.operating_liabilities_current = OperatingLeaseLiabilityCurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.operating_liabilities_noncurrent = OperatingLeaseLiabilityNoncurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.operating_liabilities_total = OperatingLeaseLiability (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.finance_rou_assets = FinanceLeaseRightOfUseAsset (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.finance_liabilities_current = FinanceLeaseLiabilityCurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.finance_liabilities_noncurrent = FinanceLeaseLiabilityNoncurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.finance_liabilities_total = FinanceLeaseLiability (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.imputed_interest_operating = LesseeOperatingLeaseLiabilityUndiscountedExcessAmount (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.imputed_interest_finance = FinanceLeaseLiabilityUndiscountedExcessAmount (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.cost.operating_lease_cost_1q27 = OperatingLeaseCost (FY2027Q1)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.cost.operating_lease_cost_1q26 = OperatingLeaseCost (FY2026Q1)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "leases.cost.operating_lease_cost_fy2026 = OperatingLeaseCost (FY2026)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.total = UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[0] = UnrecordedUnconditionalPurchaseObligationDueInRemainderOfFiscalYear",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[1] = UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[2] = UnrecordedUnconditionalPurchaseObligationBalanceOnSecondAnniversary",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[3] = UnrecordedUnconditionalPurchaseObligationBalanceOnThirdAnniversary",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[4] = UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[5] = UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "purchase_obligations.schedule[6] = UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2027Q1",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q4",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q3",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q2",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026Q1",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q4",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q3",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q2",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025Q1",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q4",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q3",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q2",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024Q1",
+      "check": "operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2024",
+      "check": "XBRL InterestExpense four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2025",
+      "check": "XBRL InterestExpense four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "FY2026",
+      "check": "XBRL InterestExpense four derived quarters sum to the annual",
+      "status": "ok",
+      "diff": 0,
+      "tol": 2,
+      "note": null
+    },
+    {
+      "tag": "xbrl",
+      "check": "latest period end matches the latest quarter in quarters.json",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "every item has an ISO date, theme, bilingual title, summary and why-it-matters",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "every theme used is declared",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "every item has at least one https source with a known tier",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "sources are listed primary first (SEC → company → agency → wire → press)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "an item labeled sec/company/agency leads with a source of that tier",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "SEC-sourced items carry an accession number",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "news",
+      "check": "no item is dated after as_of; ids are unique",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "sections",
+      "check": "every cross-reference (ref(), data-ref, {{sec:}}) names a registered section",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "sections",
+      "check": "every registered section exists once in index.html, in registry order",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "sections",
+      "check": "no hand-typed section number remains in the page, deck or data narrative",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
       "tag": "FY2017",
       "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
       "status": "warn",
@@ -2874,7 +3418,7 @@
     {
       "series": "Share price (ORCL close)",
       "lastDate": "2026-10-01",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
@@ -2882,7 +3426,7 @@
     {
       "series": "10-year Treasury (FRED DGS10)",
       "lastDate": "2026-10-01",
-      "ageDays": 2,
+      "ageDays": 3,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"
@@ -2890,7 +3434,7 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 23,
+      "ageDays": 24,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
@@ -2898,7 +3442,7 @@
     {
       "series": "EDGAR submissions snapshot",
       "lastDate": "2026-10-02",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs, weekdays 13:30 UTC"
@@ -2906,7 +3450,7 @@
     {
       "series": "Oracle IR press-release snapshot",
       "lastDate": "2026-10-02",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs"
@@ -2914,7 +3458,7 @@
     {
       "series": "Investor calendar",
       "lastDate": "2026-10-02",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-calendar.mjs"
@@ -2922,7 +3466,7 @@
     {
       "series": "Peer leverage (SEC XBRL)",
       "lastDate": "2026-10-02",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-peer-leverage.mjs"
@@ -2930,7 +3474,7 @@
     {
       "series": "FactSet consensus snapshot",
       "lastDate": "2026-10-02",
-      "ageDays": 1,
+      "ageDays": 2,
       "limitDays": 7,
       "status": "ok",
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
@@ -2938,7 +3482,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-09-27",
-      "ageDays": 6,
+      "ageDays": 7,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
@@ -2976,7 +3520,7 @@
     {
       "file": "obligations.json",
       "status": "ok",
-      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-09-24"
+      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-10-03"
     },
     {
       "file": "fiscal_years.json",
@@ -3009,6 +3553,835 @@
       "detail": "5 peers; fetched 2026-10-02"
     }
   ],
+  "modules": [
+    {
+      "id": "financials",
+      "label_en": "Statements (8-K releases)",
+      "label_es": "Estados financieros (comunicados 8-K)",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-09-10",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "xbrl",
+      "label_en": "XBRL facts (10-Q/10-K)",
+      "label_es": "Datos XBRL (10-Q/10-K)",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "obligations",
+      "label_en": "Leases and commitments notes",
+      "label_es": "Notas de arrendamientos y compromisos",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": true
+    },
+    {
+      "id": "guidance",
+      "label_en": "Guidance",
+      "label_es": "Guía",
+      "cadence": "filing",
+      "asOf": "2026-09-10",
+      "lastRefresh": "2026-09-10",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "comments",
+      "label_en": "Line comments",
+      "label_es": "Comentarios por renglón",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-09-23",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "summary",
+      "label_en": "Executive summary",
+      "label_es": "Resumen ejecutivo",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-09-23",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "buildout",
+      "label_en": "Buildout (calls)",
+      "label_es": "Expansión (llamadas)",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-09-24",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": true
+    },
+    {
+      "id": "reference",
+      "label_en": "Reference facts",
+      "label_es": "Hechos de referencia",
+      "cadence": "filing",
+      "asOf": "2026-08-31",
+      "lastRefresh": "2026-10-02",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "market",
+      "label_en": "Market (daily closes)",
+      "label_es": "Mercado (cierres diarios)",
+      "cadence": "daily",
+      "asOf": "2026-10-01",
+      "lastRefresh": "2026-10-01",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 5,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "factset",
+      "label_en": "FactSet consensus",
+      "label_es": "Consenso FactSet",
+      "cadence": "daily",
+      "asOf": "2026-10-02",
+      "lastRefresh": "2026-10-02",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 7,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "cds",
+      "label_en": "5-year CDS",
+      "label_es": "CDS a 5 años",
+      "cadence": "daily",
+      "asOf": null,
+      "lastRefresh": null,
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 7,
+      "stale": false,
+      "reason": "optional module, no data yet",
+      "textDerived": false
+    },
+    {
+      "id": "news",
+      "label_en": "News and events",
+      "label_es": "Noticias y eventos",
+      "cadence": "daily",
+      "asOf": "2026-10-03",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 3,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "calendar",
+      "label_en": "Investor calendar",
+      "label_es": "Calendario del inversionista",
+      "cadence": "daily",
+      "asOf": "2026-10-02",
+      "lastRefresh": "2026-10-02",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 10,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "peer_leverage",
+      "label_en": "Peer leverage (XBRL)",
+      "label_es": "Apalancamiento de pares (XBRL)",
+      "cadence": "daily",
+      "asOf": "2026-10-02",
+      "lastRefresh": "2026-10-02",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 10,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "risks",
+      "label_en": "Risk register",
+      "label_es": "Registro de riesgos",
+      "cadence": "filing",
+      "asOf": "2026-10-03",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": "2026-12-11",
+      "nextExpectedBasis": "assumed",
+      "deadline": "2026-12-18",
+      "maxAgeDays": null,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "quality",
+      "label_en": "Validation report",
+      "label_es": "Reporte de validación",
+      "cadence": "daily",
+      "asOf": "2026-10-03",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 4,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "changelog",
+      "label_en": "Change log",
+      "label_es": "Bitácora de cambios",
+      "cadence": "daily",
+      "asOf": "2026-10-03",
+      "lastRefresh": "2026-10-03",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 4,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    }
+  ],
+  "obligationsVerification": [
+    {
+      "path": "balance_sheet.notes_payable_current",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 7625,
+      "xbrl": {
+        "concept": "NotesPayableCurrent",
+        "value": 7625,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "balance_sheet.notes_payable_noncurrent",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 117712,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    },
+    {
+      "path": "balance_sheet.notes_payable_total",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 125337,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    },
+    {
+      "path": "balance_sheet.cash_and_equivalents",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 36369,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    },
+    {
+      "path": "balance_sheet.marketable_securities",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 708,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    },
+    {
+      "path": "leases.operating_rou_assets",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 33967,
+      "xbrl": {
+        "concept": "OperatingLeaseRightOfUseAsset",
+        "value": 33967,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.operating_liabilities_current",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 4027,
+      "xbrl": {
+        "concept": "OperatingLeaseLiabilityCurrent",
+        "value": 4027,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.operating_liabilities_noncurrent",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 30594,
+      "xbrl": {
+        "concept": "OperatingLeaseLiabilityNoncurrent",
+        "value": 30594,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.operating_liabilities_total",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 34621,
+      "xbrl": {
+        "concept": "OperatingLeaseLiability",
+        "value": 34621,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.finance_rou_assets",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 8856,
+      "xbrl": {
+        "concept": "FinanceLeaseRightOfUseAsset",
+        "value": 8856,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.finance_liabilities_current",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 749,
+      "xbrl": {
+        "concept": "FinanceLeaseLiabilityCurrent",
+        "value": 749,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.finance_liabilities_noncurrent",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 8436,
+      "xbrl": {
+        "concept": "FinanceLeaseLiabilityNoncurrent",
+        "value": 8436,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.finance_liabilities_total",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 9185,
+      "xbrl": {
+        "concept": "FinanceLeaseLiability",
+        "value": 9185,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.imputed_interest_operating",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 13429,
+      "xbrl": {
+        "concept": "LesseeOperatingLeaseLiabilityUndiscountedExcessAmount",
+        "value": 13429,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.imputed_interest_finance",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 6010,
+      "xbrl": {
+        "concept": "FinanceLeaseLiabilityUndiscountedExcessAmount",
+        "value": 6010,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.cost.operating_lease_cost_1q27",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 1101,
+      "xbrl": {
+        "concept": "OperatingLeaseCost",
+        "value": 1101,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.cost.operating_lease_cost_1q26",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 575,
+      "xbrl": {
+        "concept": "OperatingLeaseCost",
+        "value": 575,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.cost.operating_lease_cost_fy2026",
+      "source": "10k_fy26",
+      "filing": "Oracle Form 10-K for the fiscal year ended May 31, 2026",
+      "accession": "0001193125-26-277521",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "value": 2794,
+      "xbrl": {
+        "concept": "OperatingLeaseCost",
+        "value": 2794,
+        "accn": "0001193125-26-277521",
+        "form": "10-K",
+        "filed": "2026-06-22",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "leases.uncommenced.usd_bn",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "leases",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 288,
+      "xbrl": null,
+      "verdict": "needs_review",
+      "reason": "text-derived figure or statement; no XBRL concept exists"
+    },
+    {
+      "path": "purchase_obligations.total",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 34150,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount",
+        "value": 34150,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[0]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 5449,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationDueInRemainderOfFiscalYear",
+        "value": 5449,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[1]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 6176,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+        "value": 6176,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[2]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 3863,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceOnSecondAnniversary",
+        "value": 3863,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[3]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 4318,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceOnThirdAnniversary",
+        "value": 4318,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[4]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 6768,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary",
+        "value": 6768,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[5]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 954,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary",
+        "value": 954,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "purchase_obligations.schedule[6]",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 6622,
+      "xbrl": {
+        "concept": "UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+        "value": 6622,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "guarantees",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "commitments",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": null,
+      "xbrl": null,
+      "verdict": "needs_review",
+      "reason": "text-derived figure or statement; no XBRL concept exists"
+    },
+    {
+      "path": "vie",
+      "source": "10k_fy26",
+      "filing": "Oracle Form 10-K for the fiscal year ended May 31, 2026",
+      "accession": "0001193125-26-277521",
+      "note": "Note 1, Organization and significant accounting policies (consolidation)",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "value": null,
+      "xbrl": null,
+      "verdict": "needs_review",
+      "reason": "text-derived figure or statement; no XBRL concept exists"
+    },
+    {
+      "path": "prepayments.deferred_revenue_prepayments_financing_1q27",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "cash_flow",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 11363,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    },
+    {
+      "path": "preferred",
+      "source": "424b5_pref",
+      "filing": "Prospectus supplement, 100,000,000 depositary shares of 6.50% Series D Mandatory Convertible Preferred Stock (Feb 4, 2026)",
+      "accession": "0001193125-26-037818",
+      "note": "Prospectus supplement, Description of the mandatory convertible preferred stock",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526037818/d60756d424b5.htm",
+      "value": null,
+      "xbrl": null,
+      "verdict": "unverified",
+      "reason": "no XBRL concept mapped"
+    }
+  ],
+  "crossRefs": {
+    "ids": [
+      "summary",
+      "statements",
+      "guidance",
+      "rpo",
+      "capex",
+      "sites",
+      "financing",
+      "obligations",
+      "circular",
+      "valuation",
+      "news",
+      "risks",
+      "calendar",
+      "method"
+    ],
+    "unresolved": []
+  },
+  "amendments": [],
   "passed": [
     "FY2027Q1: revenue components sum to total revenue",
     "FY2027Q1: opex components sum to total opex",
@@ -3358,7 +4731,75 @@
     "factset: every fiscal-year record ends on 31 May and carries Oracle's own label",
     "factset: NTM history is dated and ascending",
     "factset: rating counts add up to the total",
-    "factset: at least six peers with price, market cap and NTM EPS"
+    "factset: at least six peers with price, market cap and NTM EPS",
+    "obligations/XBRL: balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
+    "obligations/XBRL: leases.operating_rou_assets = OperatingLeaseRightOfUseAsset (2026-08-31)",
+    "obligations/XBRL: leases.operating_liabilities_current = OperatingLeaseLiabilityCurrent (2026-08-31)",
+    "obligations/XBRL: leases.operating_liabilities_noncurrent = OperatingLeaseLiabilityNoncurrent (2026-08-31)",
+    "obligations/XBRL: leases.operating_liabilities_total = OperatingLeaseLiability (2026-08-31)",
+    "obligations/XBRL: leases.finance_rou_assets = FinanceLeaseRightOfUseAsset (2026-08-31)",
+    "obligations/XBRL: leases.finance_liabilities_current = FinanceLeaseLiabilityCurrent (2026-08-31)",
+    "obligations/XBRL: leases.finance_liabilities_noncurrent = FinanceLeaseLiabilityNoncurrent (2026-08-31)",
+    "obligations/XBRL: leases.finance_liabilities_total = FinanceLeaseLiability (2026-08-31)",
+    "obligations/XBRL: leases.imputed_interest_operating = LesseeOperatingLeaseLiabilityUndiscountedExcessAmount (2026-08-31)",
+    "obligations/XBRL: leases.imputed_interest_finance = FinanceLeaseLiabilityUndiscountedExcessAmount (2026-08-31)",
+    "obligations/XBRL: leases.cost.operating_lease_cost_1q27 = OperatingLeaseCost (FY2027Q1)",
+    "obligations/XBRL: leases.cost.operating_lease_cost_1q26 = OperatingLeaseCost (FY2026Q1)",
+    "obligations/XBRL: leases.cost.operating_lease_cost_fy2026 = OperatingLeaseCost (FY2026)",
+    "obligations/XBRL: purchase_obligations.total = UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount (2026-08-31)",
+    "obligations/XBRL: purchase_obligations.schedule[0] = UnrecordedUnconditionalPurchaseObligationDueInRemainderOfFiscalYear",
+    "obligations/XBRL: purchase_obligations.schedule[1] = UnrecordedUnconditionalPurchaseObligationBalanceOnFirstAnniversary",
+    "obligations/XBRL: purchase_obligations.schedule[2] = UnrecordedUnconditionalPurchaseObligationBalanceOnSecondAnniversary",
+    "obligations/XBRL: purchase_obligations.schedule[3] = UnrecordedUnconditionalPurchaseObligationBalanceOnThirdAnniversary",
+    "obligations/XBRL: purchase_obligations.schedule[4] = UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary",
+    "obligations/XBRL: purchase_obligations.schedule[5] = UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary",
+    "obligations/XBRL: purchase_obligations.schedule[6] = UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+    "FY2027Q1: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2027Q1: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2026Q4: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2026Q4: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2026Q3: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2026Q3: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2026Q2: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2026Q2: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2026Q1: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2026Q1: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2025Q4: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2025Q4: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2025Q3: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2025Q3: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2025Q2: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2025Q2: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2025Q1: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2025Q1: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2024Q4: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2024Q4: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2024Q3: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2024Q3: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2024Q2: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2024Q2: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2024Q1: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
+    "FY2024Q1: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
+    "FY2024: XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+    "FY2025: XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+    "FY2026: XBRL PaymentsToAcquirePropertyPlantAndEquipment four derived quarters sum to the annual",
+    "FY2024: XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+    "FY2025: XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+    "FY2026: XBRL NetCashProvidedByUsedInOperatingActivities four derived quarters sum to the annual",
+    "FY2024: XBRL InterestExpense four derived quarters sum to the annual",
+    "FY2025: XBRL InterestExpense four derived quarters sum to the annual",
+    "FY2026: XBRL InterestExpense four derived quarters sum to the annual",
+    "xbrl: latest period end matches the latest quarter in quarters.json",
+    "news: every item has an ISO date, theme, bilingual title, summary and why-it-matters",
+    "news: every theme used is declared",
+    "news: every item has at least one https source with a known tier",
+    "news: sources are listed primary first (SEC → company → agency → wire → press)",
+    "news: an item labeled sec/company/agency leads with a source of that tier",
+    "news: SEC-sourced items carry an accession number",
+    "news: no item is dated after as_of; ids are unique",
+    "sections: every cross-reference (ref(), data-ref, {{sec:}}) names a registered section",
+    "sections: every registered section exists once in index.html, in registry order",
+    "sections: no hand-typed section number remains in the page, deck or data narrative"
   ],
   "failures": [],
   "warnings": [
