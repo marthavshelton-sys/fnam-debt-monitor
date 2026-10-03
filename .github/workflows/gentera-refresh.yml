@@ -32,6 +32,7 @@ on:
   push:
     branches: ["main"]
     paths:
+      - "scripts/lib/bmv-events.mjs"
       - "scripts/gentera/**"
       - ".github/workflows/gentera-refresh.yml"
 
@@ -83,6 +84,16 @@ jobs:
           if [ "${{ github.event.inputs.full }}" = "true" ]; then ARGS="$ARGS --full"; fi
           if [ -n "${{ github.event.inputs.since }}" ]; then ARGS="$ARGS --since ${{ github.event.inputs.since }}"; fi
           python scripts/gentera/harvest.py $ARGS
+
+      # BMV eventos relevantes: archives filings the wire or IR site never carried, for the alert routine
+      # (scripts/lib/bmv-events.mjs; state tools/gentera/raw/bmv-events.json). A BMV outage is recorded there
+      # (the data-quality page flags it after 4 days) and never fails the run.
+      - name: Watch BMV eventos relevantes
+        if: always() && steps.plan.outputs.mode != 'market'
+        continue-on-error: true
+        run: |
+          pip install --quiet pdfplumber
+          node scripts/lib/bmv-events.mjs --company=gentera
 
       - name: Fetch monthly regulator tables (CNBV, SBS)
         if: always() && steps.plan.outputs.mode != 'market'

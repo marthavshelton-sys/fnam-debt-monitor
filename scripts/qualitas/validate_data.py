@@ -208,6 +208,20 @@ try:
 except Exception as ex:
     STALE.append({'series': 'reviewing routine (review.js)', 'lastDate': None, 'ageDays': None, 'limitDays': 2, 'status': 'warn', 'note': 'unreadable: %s' % ex})
 
+# BMV eventos relevantes: the shared watcher's fail-safe for filings that never reach the IR site (scripts/lib/bmv-events.mjs)
+try:
+    _bp = os.path.join(ROOT, 'tools', 'qualitas', 'raw', 'bmv-events.json')
+    if os.path.exists(_bp):
+        bm = json.load(open(_bp, encoding='utf-8'))
+        if bm.get('error'):
+            _note = {'es': 'error en la última corrida: %s' % bm['error'], 'en': 'error on the last run: %s' % bm['error']}
+        else:
+            _note = {'es': '%s avisos listados; %s archivados en esta corrida sin documento del sitio de RI' % (bm.get('rows'), bm.get('archived')),
+                     'en': '%s notices listed; %s archived on this run with no IR-site document' % (bm.get('rows'), bm.get('archived'))}
+        stale('BMV eventos relevantes (bmv-events.json)', (bm.get('checkedAt') or '')[:10] or None, 4, _note)
+except Exception as ex:
+    STALE.append({'series': 'BMV eventos relevantes (bmv-events.json)', 'lastDate': None, 'ageDays': None, 'limitDays': 4, 'status': 'warn', 'note': 'unreadable: %s' % ex})
+
 # latest quarter vs the results calendar: Quálitas reports ~3-4 weeks after quarter-end
 def expected_quarter(today):
     qe = [(today.year, 3, 31), (today.year, 6, 30), (today.year, 9, 30), (today.year, 12, 31), (today.year - 1, 12, 31), (today.year - 1, 9, 30), (today.year - 1, 6, 30)]

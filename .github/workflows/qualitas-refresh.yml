@@ -31,6 +31,7 @@ on:
   push:
     branches: ["main"]
     paths:
+      - "scripts/lib/bmv-events.mjs"
       - "scripts/qualitas/**"
       - ".github/workflows/qualitas-refresh.yml"
 
@@ -82,6 +83,16 @@ jobs:
           if [ "${{ github.event.inputs.full }}" = "true" ]; then ARGS="$ARGS --full"; fi
           if [ -n "${{ github.event.inputs.years }}" ]; then ARGS="$ARGS --years ${{ github.event.inputs.years }}"; fi
           python scripts/qualitas/harvest.py $ARGS
+
+      # BMV eventos relevantes: archives filings the wire or IR site never carried, for the alert routine
+      # (scripts/lib/bmv-events.mjs; state tools/qualitas/raw/bmv-events.json). A BMV outage is recorded there
+      # (the data-quality page flags it after 4 days) and never fails the run.
+      - name: Watch BMV eventos relevantes
+        if: always() && steps.plan.outputs.mode != 'market'
+        continue-on-error: true
+        run: |
+          pip install --quiet pdfplumber
+          node scripts/lib/bmv-events.mjs --company=qualitas
 
       # Parser unit tests on archived releases: a layout change in a report or a SIFIC filing fails here,
       # before anything is rebuilt, so the page keeps serving the last good data set.

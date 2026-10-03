@@ -36,11 +36,11 @@ scripts/airports/fetch-market.mjs --company=asur   Yahoo Finance + Banxico SIE (
 scripts/asur/harvest-releases.mjs                  PR Newswire organisation pages + keyword search (traffic, results, events)
                                                    asur.com.mx "Información financiera" (quarterly report and transcript PDFs;
                                                    URL pattern guessed for quarters the page does not link)
-                                                   BMV eventos relevantes (bmv.com.mx issuer page): every filing ASUR makes in
-                                                   Mexico; one already covered by a wire / IR document is only recorded, any other
-                                                   is archived from its PDF as class "other" (Spanish, *_bmv<id>_es.txt)
                                                    -> tools/asur/raw/releases/*.txt (+ manifest.json); PDFs converted with
                                                    scripts/airports/pdf2text.py (pdfplumber), PDFs themselves are not committed
+scripts/lib/bmv-events.mjs --company=asur         BMV eventos relevantes (shared watcher, all five BMV models): a notice no wire /
+                                                   IR document covers is archived as class "other" (Spanish, *_bmv<id>_es.txt);
+                                                   state tools/asur/raw/bmv-events.json
 scripts/asur/build-data.mjs                        raw text -> financials.js, traffic.js, guidance.js
 scripts/asur/validate-data.mjs                     tie-outs (scripts/airports/validate.mjs); a failure blocks the commit; also writes
                                                    site/asur/data/quality.js for the hidden data-quality page https://fnam.mx/asur/quality.html
@@ -56,9 +56,10 @@ git commit "[skip actions]" + push                 Cloudflare Pages deploys; the
   everything. Event releases are kept from 2024 onwards; traffic and results from 2016.
 * Why the BMV list (added 3-Oct-2026): ASUR's evento relevante of 28-Sep-2026 (offering disclosure: CPC Bridge
   Facility US$1,299 M, US$1,230 M drawn; pro forma balance sheet) went to the BMV and the SEC but not to PR Newswire,
-  so the harvest missed it. `manifest.bmv` records when the list was last read, the rows seen and any error; the
-  quality page shows it as "BMV eventos relevantes" (stale after 4 days). Traffic or results notices with no matching
-  English document are listed in `manifest.bmv.unmatched`. A bond priced abroad (144A/Reg S) may reach no filing at
+  so the harvest missed it. Since the same day the shared watcher `scripts/lib/bmv-events.mjs` does this for GAP, OMA,
+  Quálitas and Gentera too (it began inside this harvester; `tools/asur/raw/bmv-events.json` now holds the state and the
+  rules: same-day match for events, a day's grace for results and traffic, ambiguous days archived whole). The quality
+  page shows it as "BMV eventos relevantes" (stale after 4 days). A bond priced abroad (144A/Reg S) may reach no filing at
   all for days: the 1-Oct-2026 notes appeared only in the press (IFR, LatinFinance), so they sit in
   `reference.js → debt.events` labeled as press and enter no figure until ASUR files them.
 * Why PR Newswire and asur.com.mx rather than EDGAR: SEC EDGAR refuses GitHub-hosted runners. The

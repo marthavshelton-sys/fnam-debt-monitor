@@ -6,6 +6,7 @@
 // (window.GAP_QUALITY) by scripts/lib/quality-report.mjs.
 import { readFile } from 'node:fs/promises';
 import { createReport, expectedQuarter, expectedMonth, ageDays } from '../lib/quality-report.mjs';
+import { bmvHealth } from '../lib/bmv-events.mjs';
 
 async function load(rel) {
   const txt = await readFile(new URL(rel, import.meta.url), 'utf8');
@@ -142,6 +143,8 @@ const lastM = traffic.months.at(-1);
 Q.period('latest traffic month (traffic.js)', lastM && lastM.ym, expM, ageDays(lastM && lastM.source && lastM.source.date));
 Q.stale('guidance (latest vintage)', guidance.vintages.at(-1) && guidance.vintages.at(-1).date, 200, { es: `${guidance.vintages.at(-1).fy} ${guidance.vintages.at(-1).kind}; GAP publica la guía en febrero y la revisa con el 2T`, en: `${guidance.vintages.at(-1).fy} ${guidance.vintages.at(-1).kind}; GAP issues guidance in February and revises it with 2Q` });
 try { const ns = JSON.parse(await readFile(new URL('../../tools/gap/notify-state.json', import.meta.url), 'utf8')); Q.stale('alert routine (notify-state.json)', (ns.lastCheckedAt || ns.lastNotifiedAt || '').slice(0, 10) || null, ns.lastCheckedAt ? 3 : null, { es: `último aviso ${ns.lastNotifiedAt || '—'}; trimestre ${ns.lastQuarter}, tráfico ${ns.lastTrafficMonth}`, en: `last notification ${ns.lastNotifiedAt || '—'}; quarter ${ns.lastQuarter}, traffic ${ns.lastTrafficMonth}` }); } catch { /* optional */ }
+// BMV eventos relevantes: the shared watcher's fail-safe for filings that never reach the wire (scripts/lib/bmv-events.mjs)
+{ const b = await bmvHealth('gap'); if (b) Q.stale(b.series, b.lastDate, b.limit, b.note); }
 
 const cm = await loadJs('../../site/gap/data/comments.js', 'GAP_COMMENTS');
 const sm = await loadJs('../../site/gap/data/summary.js', 'GAP_SUMMARY');

@@ -28,6 +28,7 @@ on:
   push:
     branches: ["main", "claude/gap-financial-model-vfypi1"]
     paths:
+      - "scripts/lib/bmv-events.mjs"
       - "scripts/asur/**"
       - "scripts/airports/lib.mjs"
       - "scripts/airports/pdf2text.py"
@@ -77,6 +78,15 @@ jobs:
       - name: Harvest releases and PDF reports
         if: steps.plan.outputs.mode != 'market'
         run: node scripts/asur/harvest-releases.mjs ${{ github.event.inputs.full == 'true' && '--full' || '' }}
+
+      # BMV eventos relevantes: archives filings the wire or IR site never carried, for the alert routine
+      # (scripts/lib/bmv-events.mjs; state tools/asur/raw/bmv-events.json). A BMV outage is recorded there
+      # (the data-quality page flags it after 4 days) and never fails the run.
+      - name: Watch BMV eventos relevantes
+        if: always() && steps.plan.outputs.mode != 'market'
+        continue-on-error: true
+        run: |
+          node scripts/lib/bmv-events.mjs --company=asur
 
       # The steps below run even if a fetch failed, so whatever did refresh still gets committed
       # (the job itself stays red so the failure is visible in the Actions tab).

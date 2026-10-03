@@ -58,10 +58,13 @@ dashboards, everything built from public data by GitHub Actions.
   Airline route networks come only from lists the airline itself publishes (Volaris, Viva); never Wikipedia. Aeroméxico
   publishes none, so only its US routes are drawn, from the US DOT's T-100 (official, carrier-level). Mexicana: AIFA pairs of
   its own reservation system limited to the destinations its site publishes. See the runbook.
-- ASUR's harvest also reads the BMV's list of ASUR eventos relevantes (`scripts/asur/harvest-releases.mjs`): a filing no
-  PR Newswire / asur.com.mx document covers is archived as class "other" so the alert routine sees it (added after the
-  28-Sep-2026 offering disclosure was missed). Press-only facts (e.g. the 1-Oct-2026 notes) go in `debt.events` labeled
-  as press and enter no figure until ASUR files them.
+- BMV eventos relevantes watch (`scripts/lib/bmv-events.mjs --company=asur|oma|gap|qualitas|gentera`, a step in each
+  refresh workflow): reads the issuer's list on bmv.com.mx and archives every notice the company's own harvest did not
+  cover as `<date>_bmv<id>_es.txt` in the folder its alert routine reads (airports and GAP: their release folders;
+  Quálitas, Gentera: `tools/<slug>/raw/text/events/`, read via `notify-state.lastBmvFile`). State and errors in
+  `tools/<slug>/raw/bmv-events.json`; a BMV outage never fails a run. Added after ASUR's 28-Sep-2026 offering
+  disclosure was missed. Press-only facts (e.g. ASUR's 1-Oct-2026 notes) go in `debt.events` labeled as press and enter
+  no figure until the company files them.
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare
