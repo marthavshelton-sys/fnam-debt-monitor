@@ -9,9 +9,11 @@ Same visual system as the U.S. page at `/macro/`.
 
 ## How it stays current
 
-`.github/workflows/mx-macro-refresh.yml` runs every day: at 12:25, 18:25 and
-19:25 UTC on weekdays (INEGI releases at 06:00 Mexico City = 12:00 UTC;
-Banxico's FIX and policy decisions land in the afternoon), at 15:25 UTC on
+`.github/workflows/mx-macro-refresh.yml` runs every day: at 12:25, 18:25,
+19:25 and 22:25 UTC on weekdays (INEGI releases at 06:00 Mexico City = 12:00 UTC;
+Banxico's FIX and policy decisions land in the afternoon; the 22:25 run picks up
+the Fed's H.15 posting of the 10-year Treasury in FRED's DGS10, about 16:15 New
+York time, and the Tuesday primary auctions for the yield curve), at 15:25 UTC on
 Saturday and Sunday (the sources publish nothing on weekends; the run catches
 corrections and late postings), and on demand from the Actions tab. It:
 
@@ -55,7 +57,7 @@ Thresholds (edit them in `alerts.mjs`):
 | Trade | monthly balance changes sign, or export y/y shifts ≥10 pp |
 | Banxico policy rate | any change |
 | Peso (FIX) | USD/MXN ≥2% in a day or ≥4% in 5 sessions (one alert per 7 days) |
-| 10-year M bono | moves ≥50 bp month on month |
+| 10-year M bono | moves ≥50 bp from one auction to the next |
 | 12-month inflation expectations | move ≥0.3 pp |
 
 Delivery: the owner does not receive GitHub notification mail. The Claude
@@ -157,8 +159,8 @@ only as fallbacks. Ids confirmed with the BIE search / Banxico titles on
 GDP `736181` (quarterly real GDP, base 2018, seasonally adjusted levels),
 exports `65649` / imports `65651` (merchandise trade FOB, seasonally
 adjusted, millions of USD; originals `33860`/`33861` as first fallback),
-10-year M bond `SF44071` (Banxico primary auction yield; auction months
-only). IMSS formal employment (`imssJobs`) is a curated series kept in
+10-year M bond `SF44071` (Banxico primary auction yield, kept at each
+auction's own issue date since 2026-10-03; the OECD fallback is monthly). IMSS formal employment (`imssJobs`) is a curated series kept in
 `data/imss.json` — the one series that arrives by PR instead of an API,
 because IMSS formal employment has NO scriptable official source. How the
 file is filled (2026-09-30): each month's figures are read from IMSS's own
@@ -239,6 +241,44 @@ The answer is a table: row 0 is the header (a "Periodos" cell, then one cell
 per id with its frequency and unit), every other row a period ("2010/01")
 followed by one value per id. Unknown ids and outages both come back as
 HTTP 202 with `{"ErrorCode":"100","ErrorInfo":"No se encontraron resultados"}`.
+
+## Yield curve and the 10-year spread vs. the Treasury (added 2026-10-03)
+
+The Banxico view carries a Cetes/Bonos M curve and the 10-year M bond minus
+10-year U.S. Treasury spread. Sources, ids and titles confirmed by probe on
+2026-10-03 (all Banxico SIE table CF107, "Resultados de la subasta semanal,
+Tasa de rendimiento"):
+
+| Key | Id | Instrument |
+|---|---|---|
+| `cetes28` / `cetes91` / `cetes182` / `cetes364` | `SF43936` / `SF43939` / `SF43942` / `SF43945` | Cetes 28, 91, 182, 364 days |
+| `cetes728` | `SF349785` | Cetes 728 days (series starts Oct-2022) |
+| `mbono3` / `mbono5` / `mbono10` / `mbono20` / `mbono30` | `SF43883` / `SF43886` / `SF44071` / `SF45384` / `SF60696` | fixed-rate Bonos M |
+| `ust10` | FRED `DGS10` | 10-year Treasury, constant maturity (Fed H.15) |
+
+How it is built (all in `renderBanxico()`, composed at render time):
+
+- Banxico's SIE has no daily secondary-market yields (checked 2026-09-28), so
+  each tenor shows its **latest primary auction**. CF107 dates every auction at
+  its issue date ("Resultados de la subasta semanal a su fecha de colocación",
+  confirmed in the table's own title 2026-10-03): a Thursday, or the Wednesday
+  before a Thursday holiday. The auction is held two business days earlier
+  (Banxico, "Tipos de instrumentos y su colocación",
+  https://www.banxico.org.mx/elib/mercado-valores-gub/OEBPS/Text/ii.html).
+  The page labels the dates as issue dates ("Colocación"). Tenors are auctioned
+  on different weeks, so the dates differ; the table lists each one, and a date
+  more than 60 days older than the curve's latest turns amber.
+  A tenor with no auction in 120 days leaves the curve.
+- "A year earlier": each tenor's last auction on or before 365 days before the
+  curve's latest date (dropped if that is more than 120 days earlier still).
+- Spread: each 10-year auction yield minus DGS10 at the close of the auction
+  day (issue date minus two weekdays; Mexican holidays are not modelled) or,
+  failing that, the nearest earlier close within five days; in basis points.
+  The callout names the issue date and the Treasury close used.
+- The curve and spread charts size their viewBox to the panel's width, so the
+  text keeps its real size on a phone (the spread chart then shows the last
+  four or five years).
+- The 10-year M bond alert compares consecutive auctions (≥50 bp).
 
 ## Editing the page
 

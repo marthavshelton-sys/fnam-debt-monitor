@@ -122,6 +122,9 @@ dashboards, everything built from public data by GitHub Actions.
   section list both builders check against the page. Weekly "next" dates (NFCI, mortgage, EIA's SPR report) come
   from the publishers' calendars and are always the release after the one shown; extra refresh runs on Wednesdays
   (14:45, 15:45 UTC) and Thursdays (17:20 UTC) catch EIA's and Freddie Mac's releases.
+- The MX page's yield curve (Banxico view) is Cetes 28d–728d and Bonos M 3–30y from Banxico's primary auctions (SIE
+  CF107; latest auction per tenor at its issue date, "colocación") and the 10-year spread vs. FRED DGS10 at the auction
+  day's close; no daily secondary yields exist in SIE. Ids and method: `tools/mx-macro/README.md`.
 - IMSS formal employment for the MX page has no scriptable official source (INEGI banks, Banxico,
   IMSS's WAF-blocked portal, STPS viewers, Data México all audited 2026-09-29 — details in
   `tools/mx-macro/README.md`); do not re-hunt without a new lead. `data/imss.json` is filled from IMSS's

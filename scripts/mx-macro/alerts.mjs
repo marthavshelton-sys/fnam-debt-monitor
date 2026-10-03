@@ -117,7 +117,10 @@ const RELEASES = {
     const b = S('mbono10'); const L = last(b), P = last(b, 1); if (!L || !P) return null;
     const d = L[1] - P[1];
     return { period: L[0], title: '10-year M bono yield', views: ['bx'], material: Math.abs(d) >= 0.5,
-      headline: `10-year M bono ${mon(L[0])} ${L[1].toFixed(2)}% (${sg(d * 100, 0)} bp)` };
+      // Banxico's auction points carry their issue date (YYYY-MM-DD); the OECD fallback is monthly.
+      headline: L[0].length === 10
+        ? `10-year M bono auction, issued ${L[0]}: ${L[1].toFixed(2)}% (${sg(d * 100, 0)} bp vs. the auction issued ${P[0]})`
+        : `10-year M bono ${mon(L[0])} ${L[1].toFixed(2)}% (${sg(d * 100, 0)} bp)` };
   },
   inflExp: () => {
     const e = S('inflExp12m'); const L = last(e), P = last(e, 1); if (!L || !P) return null;
