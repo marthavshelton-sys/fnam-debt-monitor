@@ -51,7 +51,7 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 - The FY2023 quarter sums exceed the 10-K annual revenue lines by US$ 1 M (cloud services and total): rounding
   in Oracle's own quarterly releases, tolerated like the FY2026 artefact.
 
-## Buildout data (sections 03 and 09)
+## Buildout data (Power and Data-Center Sites; AI buildout narrative)
 
 - Megawatts delivered, GPU utilization, renewals and GPU deliveries are the figures management stated on the
   calls (page and speaker cited). Figures marked *derived* are computed from ratios management gave (4Q26 MW
@@ -66,14 +66,14 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
   operating cash flow, cloud and total revenue, guidance) and the buildout file (MW, secured capacity,
   funding items); nothing in it is typed into the page.
 
-## Maturity buckets (sections 07 and 11)
+## Maturity buckets (Financing and Balance Sheet; Off-Balance-Sheet Financing and Leases)
 
 - Principal is grouped by calendar year of maturity: 2026 (the July-2026 note, greyed until the 10-Q confirms
   repayment), 2027 to 2031 one by one, 2032–2036, and after 2036. Commercial paper has no fixed maturity and
   sits outside the buckets. Average coupons are principal-weighted over the fixed-rate notes; the second headline
   rate also includes the term loan and commercial paper at their effective rates; floating-rate notes are excluded.
 
-## Debt detail and credit risk (section 11)
+## Debt detail and credit risk (Financing and Balance Sheet)
 
 - Instruments are the 58 lines of the FY2026 10-K debt footnote (senior notes, floating-rate notes, term loan,
   commercial paper); principal reconciles to the disclosed gross total (US$ 130,105 M; US$ 129,541 M net of
@@ -87,7 +87,7 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 - CDS: 5-year senior unsecured mid spread in basis points, from the FactSet connector once authorised
   (`tools/oracle/data/cds.json`). Implied cumulative default probability uses the market convention
   PD = 1 − exp(−spread ÷ (1 − recovery) × tenor) with a 40% recovery assumption. It is a market price of
-  protection, not a rating; the page says so and points to the agency ratings in section 07.
+  protection, not a rating; the page says so and points to the agency ratings in the Financing and Balance Sheet section.
 
 ## DCF defaults (all editable on the page; the URL encodes any change; method in METHODOLOGY.md §8)
 

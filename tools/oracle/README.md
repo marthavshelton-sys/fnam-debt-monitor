@@ -38,7 +38,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `sources.json` | Registry of every source: title, form, URL, accession, `accessed` date | Every other file cites sources by key (`"source": "S-8K-FY2027Q1"`; transcripts `S-CALL-<id>`). Add the source here first. |
 | `quarters.json` | Quarterly GAAP + Non-GAAP income statement, balance-sheet highlights, cash flow, D&A, RPO, dividend declared, guidance issued | USD millions as printed; per-share in USD; `diluted_shares` in millions. The first record is the schema — copy it exactly. `null` = not disclosed, never 0. `revenue_basis` = `legacy_lines` \| `fy2026_lines`; FY2025 quarters carry `revenue_recast_fy2026_basis`. |
 | `fiscal_years.json` | Annual figures per fiscal year: FY2022→FY2026 from the 4Q releases (with Non-GAAP, D&A and the FY2025 recast); FY2017→FY2021 from the FY2019 and FY2021 10-Ks (`gaap.revenue` lines, opex, interest, tax, net income, EPS, shares, cash flow, D&A; `non_gaap: null`); FY2022 revenue lines from the FY2024 10-K | Same conventions; the tie-out sums the four quarters against it where all four exist. |
-| `calendar.json` | Investor calendar: upcoming and last-6-months events (earnings calls, analyst days, conferences) with webcast, release and announcement links; `estimates` = derived windows for the next results date, labelled `derived`; `manual_events` = hand-curated entries with a source (a date named on a call before the IR page lists it), preserved by the script | Written every weekday by `scripts/oracle/fetch-calendar.mjs` from the Oracle IR events list and the date-setting releases; emitted as `data/calendar.js` (`window.ORCL_CALENDAR`) for section 12 and the presentation |
+| `calendar.json` | Investor calendar: upcoming and last-6-months events (earnings calls, analyst days, conferences) with webcast, release and announcement links; `estimates` = derived windows for the next results date, labelled `derived`; `manual_events` = hand-curated entries with a source (a date named on a call before the IR page lists it), preserved by the script | Written every weekday by `scripts/oracle/fetch-calendar.mjs` from the Oracle IR events list and the date-setting releases; emitted as `data/calendar.js` (`window.ORCL_CALENDAR`) for the Investor Calendar section and the presentation |
 | `buildout.json` | Capacity delivered (MW) per quarter and fiscal year, capacity secured, GPU utilization / renewals / deliveries, named sites, RPO recognition schedule, funding items; each with source key or URL, page and speaker; `derived: true` marks figures computed from ratios management gave; each free-text site field (`capacity_text`, `customer`, `developer`, `financing`, `oracle_status`, `contracted`, `first_delivery`) has an `_es` counterpart | Curated after each call from the transcript; partner releases and wire reports only for site details Oracle has not disclosed. |
 | `dividends.json` | Each declaration: declared, amount, record, payment, source | Board declares quarterly; no AGM step. |
 | `market_reference.json` | Price snapshot, 10-year Treasury, `erp` (Damodaran's implied equity risk premium, monthly), credit ratings, `debt_instruments` (58 lines from the 10-K footnote) | `price_snapshot`, `treasury_10y`, `erp` and `refreshed_at` are rewritten by `fetch-market.mjs` (a failed ERP read keeps the stored value); ratings and instruments are curated from agency releases and the 10-K/8-K; a rating action older than 12 months is flagged on the page. |
@@ -46,10 +46,10 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `guidance.json` | Every vintage (initial, revised) per metric and period | Non-GAAP EPS and growth as Oracle states them; USD and constant currency kept separate; free-text notes bilingual (`_note`/`_note_es`, `fy_capex_note`/`fy_capex_note_es`, `multi_year_targets.note`/`note_es`). |
 | `transcripts.json` | Per call: date, quantified guidance from the CFO's remarks, short attributed quotes | Built by `merge-transcripts.mjs` from the owner-supplied PDFs, which live only in the private `oracle-model` repository (licensed material). Without the raw extractions the merge keeps the existing file. |
 | `comments.json` | Comments per quarter (`by_quarter.FY2027Q1.comments.<key>.{en,es,src}`), executive summary, headline | Merged from `_raw_comments_*.json` by `merge-comments.mjs`; reviewed before publishing. |
-| `special_situations.json`, `explainers.json`, `glossary.json` | Bilingual narrative for sections 09 and 10 and the glossary | These files narrate; figures quoted must already exist in `quarters.json`. |
+| `special_situations.json`, `explainers.json`, `glossary.json` | Bilingual narrative for the AI-buildout and RPO explainer blocks and the glossary | These files narrate; figures quoted must already exist in `quarters.json`. |
 | `cds.json` | FactSet CDS contract (schema documented in the file) | Still empty: the FactSet connector exposes no CDS or bond-price endpoint (see `PENDING.md`). `peers.json` is no longer curated; `data/peers.js` is generated from `factset.json`. |
 | `press.json` | Market concerns as stated in credible press and analyst publications: last 90 days, up to 8 items, four themes, bilingual one-line summaries, links | Refreshed weekly (Mondays) by the desktop task "FNAM Oracle: weekly press sweep" (`PRESS-SWEEP-PROMPT.md`); each summary states only what the piece reports. Feeds the executive-summary block and the deck page after it. |
-| `obligations.json` | Off-balance-sheet financing (section 11) and the dividends capital card: notes payable, operating and finance leases, uncommenced lease commitments with their history, purchase obligations by fiscal year, guarantees, prepayments, the 6.50% mandatory convertible preferred, the funding plan | Every figure transcribed from the 10-Q/10-K, the 424B5 or the call named in `source`; updated with each 10-Q/10-K (routine STEP 4); totals tie out in `validate-data.mjs`. Ratios (as reported, lease-adjusted / EBITDAR, commitment-inclusive) are computed on the page and labelled derived. |
+| `obligations.json` | Off-balance-sheet financing (Off-Balance-Sheet Financing and Leases section) and the dividends capital card: notes payable, operating and finance leases, uncommenced lease commitments with their history, purchase obligations by fiscal year, guarantees, prepayments, the 6.50% mandatory convertible preferred, the funding plan | Every figure transcribed from the 10-Q/10-K, the 424B5 or the call named in `source`; updated with each 10-Q/10-K (routine STEP 4); totals tie out in `validate-data.mjs`. Ratios (as reported, lease-adjusted / EBITDAR, commitment-inclusive) are computed on the page and labelled derived. |
 | `peer_leverage.json` | Lease-adjusted leverage inputs for the owner's Baa-range peer set (Broadcom, Dell, Intel, IBM, HPE) from SEC XBRL company facts | Written by `fetch-peer-leverage.mjs` on weekdays: latest balance sheet for stocks, latest fiscal year for flows, a tag accepted only when its period matches; each value carries accession and tag. Ratings are not in XBRL and are not shown. |
 | `factset.json` | FactSet consensus snapshot: Oracle NTM and fiscal-year estimates (EPS, sales, EBITDA, capex, FCF), point-in-time NTM history, price target and ratings; eight peers with FactSet price, market value, lease-inclusive net debt and NTM consensus | Written on weekdays by the cloud routine "FNAM Oracle: FactSet refresh" through the FactSet AI-Ready Data connector (`FACTSET-PROMPT.md` lists the calls); feeds `data/factset.js` and `data/peers.js`; the page computes every ratio. FactSet labels Oracle's fiscal year by its starting calendar year; records carry Oracle's label. |
 | `long_range_targets.json` | Management's long-range targets (FY2030 revenue and EPS; OCI revenue by year), each with call, page, speaker and status (`in_force` / `superseded` with date and source) | Curated after each call or investor day; never rewritten by merge-raw; the page shows each vintage beside the reported IaaS revenue (`quarters.json → iaas_revenue_bn`, re-read from each release headline by the parser tests) and the DCF "management targets" basis reads the in-force FY2030 revenue target. |
@@ -99,7 +99,7 @@ Assumptions in `ASSUMPTIONS.md`; open items in `PENDING.md`.
 
 ## Pipeline (`.github/workflows/oracle-refresh.yml`)
 
-Since 2026-09-24 the filings job also runs `fetch-peer-leverage.mjs` (SEC XBRL company facts for the peer table in section 11) right after the investor calendar; the weekly press sweep is a desktop task, not part of this workflow.
+Since 2026-09-24 the filings job also runs `fetch-peer-leverage.mjs` (SEC XBRL company facts for the peer leverage table in the Off-Balance-Sheet Financing and Leases section) right after the investor calendar; the weekly press sweep is a desktop task, not part of this workflow.
 
 ```
 scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED   -> tools/oracle/data/*.csv, market_reference.json
@@ -174,7 +174,7 @@ Oracle renames a caption, the test fails and the workflow commits nothing. Fix =
 bond is issued or repaid (`debt_instruments`; principal must still reconcile to the latest filed gross total),
 when the share count changes (`price_snapshot.orcl.shares_outstanding_millions`, from the 10-Q cover).
 
-**`special_situations.json`** (section 09, AI buildout) and **`explainers.json`** (section 10, RPO) — when
+**`special_situations.json`** (AI-buildout narrative) and **`explainers.json`** (RPO explainer) — when
 the story moves; both are bilingual `_en/_es` pairs and must not introduce numbers that are not in `quarters.json`.
 
 **`peers.json`, `cds.json`, `consensus.json`** — populate from FactSet once the connector is authorised
@@ -206,7 +206,7 @@ calculation the page shows. Language follows the ES/EN toggle; the file is named
 
 Deep link: `/oracle/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (16): cover (landscape, unnumbered) · executive summary (`data/summary.js`, two columns auto-fitted to one page;
+Pages (21 on the 2026-10-03 data): cover (landscape, unnumbered) · executive summary (`data/summary.js`, two columns auto-fitted to one page;
 bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with fetch timestamp in CDMX
 time, market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
 margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
@@ -214,9 +214,9 @@ margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidanc
 (portrait, GAAP with the Non-GAAP and EBITDA blocks, revenue lines on the FY2026 basis via Oracle's recast, with the
 `data/comments.js` call comments; the LTM page reuses the latest quarter's comments and says so) · guidance in force,
 FY targets initial vs latest, track record and vintages (landscape) · RPO, capex and cash flow by quarter (portrait) ·
-AI buildout sites and capacity (portrait, `data/buildout.js`) · sections 07 leverage, 08 dividends and cash
-generation (ten fiscal years), 09 AI buildout (five-step flow and tracker), 10 RPO explained, 11 debt detail and
-credit risk (landscape) · sources and methodology. Sections 04–06 (share price, DCF, relative valuation) are excluded
+AI buildout sites and capacity (portrait, `data/buildout.js`) · leverage, dividends and cash
+generation (ten fiscal years), AI buildout (five-step flow and tracker), RPO explained, debt detail and
+credit risk (landscape) · sources and methodology. The share-price, DCF and relative-valuation views are excluded
 on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
 
 Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, time, timezone, fiscal_period, source }`,
@@ -224,7 +224,7 @@ filled automatically by `scripts/oracle/fetch-calendar.mjs` (weekday workflow) f
 "Oracle Sets the Date" release, and emitted to `reference.js` → `calendar.nextResults` (shown as *confirmed*); it is
 `null` until Oracle announces the date and again after the call has taken place, so the PDF then assumes the median lag
 between quarter-end and release for the same fiscal quarter over the previous three years and labels it *assumed*.
-Never hand-edit it. The same file feeds section 12 (Investor calendar) with the full event list and its estimates.
+Never hand-edit it. The same file feeds the Investor Calendar section with the full event list and its estimates.
 
 The sites page draws a locator map from `site/assets/us-map.js` (contiguous-US outline and state borders from the U.S.
 Census Bureau boundary files in the `us-atlas` package, pre-projected with the US Albers equal-area conic and
@@ -239,7 +239,7 @@ than over the footer (`noteAbove`), a table that would still spill is logged in 
 
 ## Data quality page
 
-`site/oracle/quality.html` (hidden, linked from section 14 Methodology; https://fnam.mx/oracle/quality.html) renders `data/quality.js`,
+`site/oracle/quality.html` (hidden, linked from the Methodology section; https://fnam.mx/oracle/quality.html) renders `data/quality.js`,
 which `build-data.mjs` assembles from four files after every build:
 
 * `tools/oracle/data/quality_report.json` (written by `validate-data.mjs`): every tie-out as a structured record

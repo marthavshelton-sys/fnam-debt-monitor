@@ -115,7 +115,7 @@ The material-day email lists every merged PR with its link, so the owner can rev
 |---|---|---|---|
 | Share price, S&P 500, 10-year Treasury, market cap, multiples, DCF price inputs | GitHub Actions `oracle-refresh.yml` → Cloudflare Pages deploy | weekdays 13:30 and 21:45 UTC | No |
 | Filing archive (8-K, 10-Q, 10-K) and `state.json` | same workflow (EDGAR, IR JSON feed fallback) | weekdays 13:30 UTC | No |
-| Investor calendar (section 12): earnings calls, analyst days, conferences, estimated next-results window | same workflow, `scripts/oracle/fetch-calendar.mjs` → `tools/oracle/data/calendar.json` → `data/calendar.js` | weekdays 13:30 UTC | No; a newly announced date is reported in the routine's email |
+| Investor calendar (Investor Calendar section): earnings calls, analyst days, conferences, estimated next-results window | same workflow, `scripts/oracle/fetch-calendar.mjs` → `tools/oracle/data/calendar.json` → `data/calendar.js` | weekdays 13:30 UTC | No; a newly announced date is reported in the routine's email |
 | Statements, guidance, Comments, summary, buildout, debt, ratings, events | the cloud routine (`ROUTINE-CLOUD.md`), committing to main under the merge policy above, or pushing a branch when the condition fails | weekdays 14:35 UTC (08:35 Mexico City), from the cloud, no workstation needed | Only for press-sourced facts or a failed guard (the email names the branch) |
 | Transcript-based blocks (call quotes, MW delivered, promises, call-page comments) | this routine once the PDF is in the private `oracle-model` repo | after each call | Yes: supply the transcript PDF |
 | Peers, CDS, consensus | FactSet connector | daily once connected | Yes: authorise the connector |
@@ -152,7 +152,7 @@ the weekday routine above owns every other block, and STEP 4 now also refreshes 
 
 ## FactSet refresh (cloud routine)
 
-Section 06 (forward multiples, peers, Street view), the header tile and the DCF consensus seed read `tools/oracle/data/factset.json`.
+The Valuation Context section (forward multiples, peers, Street view), the header tile and the DCF consensus seed read `tools/oracle/data/factset.json`.
 A separate cloud routine, **FNAM Oracle: FactSet refresh (cloud)** (trig_01QQ7kxnQVSPQTZnzviJCwUq, weekdays 14:20 UTC, prompt in
 `FACTSET-PROMPT.md`, FactSet connector attached, no email), rewrites that one file from FactSet Estimates, Global Prices and
 Fundamentals, runs the build and pushes to `main`. GitHub Actions cannot reach FactSet, so this is the only path. Valuation

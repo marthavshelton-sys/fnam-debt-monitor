@@ -106,8 +106,20 @@ function main() {
       ["CF: customer prepayments with a significant financing component", numAfter(cfs, "customer prepayments with significant financing component"), prepayExpected],
       ["BS: deferred revenues (current)", numAfter(section(bs, /Current Liabilities/, /Total Current Liabilities/), "Deferred revenues"), b.current_deferred_revenue],
     ];
+    // From FY2027Q1 the IaaS headline and the prepayment line are required: a routine that adds a quarter without them is
+    // told exactly where they go (merge-raw.mjs copies them into quarters.json / fiscal_years.json).
+    const required = q.id >= "FY2027Q1" ? {
+      "Release KPI: Cloud Infrastructure (IaaS) revenue, US$ bn": `_raw_supplement.json → kpi_by_quarter.${q.id}.iaas_revenue_bn`,
+      "CF: customer prepayments with a significant financing component": q.fiscal_quarter === 1 ? `_raw_supplement.json → kpi_by_quarter.${q.id}.customer_prepayments (US$ m)` : q.fiscal_quarter === 4 ? `_raw_supplement.json → fiscal_year_cash_flow.FY${q.fiscal_year}.customer_prepayments (US$ m)` : null,
+    } : {};
     let qChecks = 0, qFailed = 0;
     for (const [label, parsed, expected] of checks) {
+      if (expected == null && parsed != null && required[label]) {
+        tested++; qChecks++; failed++; qFailed++;
+        mismatches.push({ quarter: q.id, check: label, parsed, expected: null, file });
+        console.log(`FAIL ${q.id} ${label}: the release prints ${parsed} but the data has none — record it in ${required[label]}, then run merge-raw.mjs (${file})`);
+        continue;
+      }
       if (expected == null) continue; // not captured in quarters.json (older quarters carry fewer balance-sheet lines)
       tested++; qChecks++;
       const tol = /EPS/.test(label) ? 0.005 : 0;

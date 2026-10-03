@@ -62,8 +62,12 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 
 - Investor Day 28-Oct-2026 (Las Vegas): add the new long-range targets to `long_range_targets.json` and mark the
   September-2025 OCI vintage's successor; the October-2025 figures were only on a slide and are not on file.
-- The cloud routines' stored prompts must match `ROUTINE-CLOUD-PROMPT.txt`, `NEWS-SWEEP-PROMPT.md` and
-  `FACTSET-PROMPT.md` (summary schema, site issues, `DEP_AMORT_EXP`).
+- Routine prompts (2026-10-03): the daily news sweep's stored prompt now matches `NEWS-SWEEP-PROMPT.md`. The FactSet
+  refresh (trig_01QQ7kxnQVSPQTZnzviJCwUq) and the weekday review (trig_01DyGkmYcX5gxPnEEaX4eHje) were created through
+  the API, so an agent cannot edit them: the owner pastes `FACTSET-PROMPT.md` (below the rule) and
+  `ROUTINE-CLOUD-PROMPT.txt` at https://claude.ai/code/routines/<id>. Until then: the FactSet prompt already says to
+  follow `FACTSET-PROMPT.md`'s call list (which has `DEP_AMORT_EXP`), and from FY2027Q1 the parser tests fail with the
+  exact file and key when a release prints the IaaS revenue or prepayment line that the data lacks.
 
 - Page numbers for 10-Q/10-K notes are null (inline XBRL); if the owner wants PDF page numbers, read the filing PDF
   in a workstation session and fill `obligations.json → provenance[].page`.
