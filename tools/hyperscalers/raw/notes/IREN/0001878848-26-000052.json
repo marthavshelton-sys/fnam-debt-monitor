@@ -13,379 +13,294 @@
   {
    "kind": "guarantee",
    "page": "3",
-   "text": "Except as required by law, we disclaim any obligation to update or revise, or to publicly announce any update or revision to, any of the forward-looking statements, whether as a result of new information, future events or otherwise. Factors that may materially affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our substantial and increasingly larger capital needs in connection with the ongoing expansion of our business, including in connection with our data center developments and hardware purchase commitments;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any future financing or grant of security, which could require us to comply with onerous covenants or restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid and air cooling systems, provide software, and operate and expand our AI Cloud Services business;   • our shorter operating history in new markets and geographies we have entered or may seek to enter, including the market for AI Cloud",
+   "match": "guarantees",
+   "text": "…le terms and in a timely manner to meet our substantial and increasingly larger capital needs in connection with the ongoing expansion of our business, including in connection with our data center developments and hardware purchase commitments;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any future financing or grant of security, which could require us to comply with onerous covenants or restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid and air cooling systems, provide software, and operate and expand our AI Cloud Services business;   • our shorter operating history in new markets and geographies we have entered or may seek to enter, including the market for AI Cloud Services, the expansion of our capabilities to include software offerings, and our expansion into new geographies for data centers such as Australia and Europe;   • our ability to remain competitive in highly competitive, dynamic and rapidly evolving industries;   • development and construction delays, increased costs and cost overruns affecting our data centers and our ability to construct, commis…",
    "amounts": []
   },
   {
    "kind": "purchase_obligation",
    "page": "3",
-   "text": "Except as required by law, we disclaim any obligation to update or revise, or to publicly announce any update or revision to, any of the forward-looking statements, whether as a result of new information, future events or otherwise. Factors that may materially affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our substantial and increasingly larger capital needs in connection with the ongoing expansion of our business, including in connection with our data center developments and hardware purchase commitments;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any future financing or grant of security, which could require us to comply with onerous covenants or restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid and air cooling systems, provide software, and operate and expand our AI Cloud Services business;   • our shorter operating history in new markets and geographies we have entered or may seek to enter, including the market for AI Cloud",
+   "match": "purchase commitments",
+   "text": "…ny of the forward-looking statements, whether as a result of new information, future events or otherwise.   Factors that may materially affect such forward-looking statements include, but are not limited to:   • our ability to obtain additional capital on commercially reasonable terms and in a timely manner to meet our substantial and increasingly larger capital needs in connection with the ongoing expansion of our business, including in connection with our data center developments and hardware purchase commitments;   • the amount and terms of any future financing or grant of security, or any refinancing, restructuring or modification to the terms of any future financing or grant of security, which could require us to comply with onerous covenants or restrictions or guarantees, and our ability to service our debt obligations;   • our ability to successfully execute on our growth strategies and operating plans, including our ability to continue to develop our existing data center sites, design and deploy direct-to-chip liquid and air cooling systems, provide software, and operate and expand our AI Cloud Services business;   • our shorter operating history in new markets and geographies we have entered or may seek to enter, including the market for AI Cloud Services, the expansion of our capabilities to include software offerings, and our expansion into new geographies for data c…",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "5",
-   "text": "(“Mirantis”), Ingenostrum, S.L. (trading as Nostrum Group) (“Nostrum Group”) and their respective subsidiaries into our business and operations and to achieve the anticipated benefits of such acquisitions;   • any pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to obtain any requisite regulatory approvals, to satisfy any closing conditions or to consummate any such transactions on terms favorable to the Group or at all, as well as to successfully integrate and achieve the anticipated benefits of any such acquisition that may be completed;   • unanticipated costs or liabilities associated with the acquisition of Mirantis or Nostrum Group, or any other future acquisitions, dispositions, joint ventures or other strategic transactions, and any failure to comply with laws, rules, regulations or business practices that we may become subject to as a result of any expansion of our business in connection with the acquisition of Mirantis or Nostrum Group or any other such acquisition, joint venture or other strategic transaction;   • our ability to operate in an evolving regulatory environment;   • our ability to successfully operate and maintain our property and infrastructure;   • reliability and performance of our infrastructure compared to expectations;   • malicious attacks, including cybersecurity attacks, on our p",
+   "match": "joint venture",
+   "text": "…sful or may be cost-prohibitive;   • the availability, suitability, reliability and cost of internet connections at our facilities;   • our ability to successfully integrate the businesses and operations of recently acquired Mirantis, Inc. (“Mirantis”), Ingenostrum, S.L. (trading as Nostrum Group) (“Nostrum Group”) and their respective subsidiaries into our business and operations and to achieve the anticipated benefits of such acquisitions;   • any pending or future acquisitions, dispositions, joint ventures or other strategic transactions, including our ability to obtain any requisite regulatory approvals, to satisfy any closing conditions or to consummate any such transactions on terms favorable to the Group or at all, as well as to successfully integrate and achieve the anticipated benefits of any such acquisition that may be completed;   • unanticipated costs or liabilities associated with the acquisition of Mirantis or Nostrum Group, or any other future acquisitions, dispositions, joint ventures or other strategic transactions, and any failure to comply with laws, rules, regulations or business practices that we may become subject to as a result of any expansion of our business in connection with the acquisition of Mirantis or Nostrum Group or any other such acquisition, joint venture or other strategic transaction;   • our ability to operate in an evolving regulatory env…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "11",
-   "text": "Table of Contents   publications and other third-party surveys and forecasts generally state that the information contained therein has been obtained from sources believed to be reliable, but that the accuracy and completeness of such information is not guaranteed. While we believe that such data is reliable, we have not independently verified such data and cannot guarantee the accuracy or completeness thereof.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "11",
-   "text": "Table of Contents   publications and other third-party surveys and forecasts generally state that the information contained therein has been obtained from sources believed to be reliable, but that the accuracy and completeness of such information is not guaranteed. While we believe that such data is reliable, we have not independently verified such data and cannot guarantee the accuracy or completeness thereof. Additionally, we cannot assure you that any of the assumptions underlying these statements are accurate or correctly reflect our position in the industry, and not all of our internal estimates have been verified by any independent sources.",
+   "match": "guaranteed",
+   "text": "Table of Contents   publications and other third-party surveys and forecasts generally state that the information contained therein has been obtained from sources believed to be reliable, but that the accuracy and completeness of such information is not guaranteed. While we believe that such data is reliable, we have not independently verified such data and cannot guarantee the accuracy or completeness thereof. Additionally, we cannot assure you that any of the assumptions underlying these statements are accurate or correctly reflect our position in the industry, and not all of our internal estimates have been verified by any independent sources. Furthermore, we cannot assure you that a third-party using different methods to assemble, analyze, or compute market data would obtain the same results. There is no precise definition for what constitutes the AI Cloud Services, the Bitcoin mining market, or any other market or industry referenced in this Annual Report. We do not intend, and do not assume any obligations, to update industry or market data set forth in this Annual Report. Finally, behavior, preferences, and trends in the marketpl…",
    "amounts": []
   },
   {
    "kind": "purchase_obligation",
    "page": "29",
-   "text": "Our business is capital intensive, we expect to continue to incur substantial capital expenditures to acquire, maintain, and upgrade our hardware over time, to acquire, construct and upgrade data center facilities, and to grow our business, and we may be unable to raise additional capital needed to fulfill our needs, grow our business, or achieve our goals. We will need to raise a substantial and increasingly larger amount of additional capital in connection with the ongoing expansion and operation of our business, including to finance our business operations, meet existing or new hardware purchase commitments, replace hardware (such as GPUs) as it ages, acquire, develop, construct and upgrade data center facilities, and to respond to competitive pressures or unanticipated working capital requirements. Furthermore, the rapid pace of technological advancements in GPU hardware presents a risk of hardware obsolescence.",
+   "match": "purchase commitments",
+   "text": "…to acquire, maintain, and upgrade our hardware over time, to acquire, construct and upgrade data center facilities, and to grow our business, and we may be unable to raise additional capital needed to fulfill our needs, grow our business, or achieve our goals.   We will need to raise a substantial and increasingly larger amount of additional capital in connection with the ongoing expansion and operation of our business, including to finance our business operations, meet existing or new hardware purchase commitments, replace hardware (such as GPUs) as it ages, acquire, develop, construct and upgrade data center facilities, and to respond to competitive pressures or unanticipated working capital requirements.   Furthermore, the rapid pace of technological advancements in GPU hardware presents a risk of hardware obsolescence. As newer and more efficient GPUs are continually developed, existing hardware may quickly become outdated, leading to reduced performance, compatibility issues with new software or systems, and potential difficulties in sourcing customers looking to utilize the hardware. As a result, we expect to incur capital expenditures in connection with the ongoing expansion and operation of our business, and to upgrade our hardware as our hardware ages, or becomes obsolete or outdated. These capital expenditures may be substantial, and in some cases may also be unexpect…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "30",
-   "text": "We have in the past and may continue to also seek to raise additional capital through various equipment or asset-based financing or leasing arrangements, which would also rank senior to our Ordinary shares upon our bankruptcy or liquidation. Such structures may involve the use of special purpose vehicles, which may be structured to be non-recourse or limited recourse to the rest of the Group or may be supported by guarantees or other forms of credit support from the Company or other members of the Group. Such financing or leasing structures would expose us and the relevant borrower entities to a range of risks.",
+   "match": "guarantees",
+   "text": "…sible to predict or estimate the amount, timing, or nature of future offerings.   We have in the past and may continue to also seek to raise additional capital through various equipment or asset-based financing or leasing arrangements, which would also rank senior to our Ordinary shares upon our bankruptcy or liquidation. Such structures may involve the use of special purpose vehicles, which may be structured to be non-recourse or limited recourse to the rest of the Group or may be supported by guarantees or other forms of credit support from the Company or other members of the Group. Such financing or leasing structures would expose us and the relevant borrower entities to a range of risks. In particular, the ability of the borrower or lessee in a limited recourse structure to satisfy obligations under any such financing or leasing arrangements may be adversely impacted by factors that impact the cash flow generated by the underlying assets, as well as other factors outside our control. For example, in the case of financing or leasing arrangements for GPUs, demand for our AI Cloud Services and our ability to enter into contracts that generate stable revenue streams could adversely impact the relevant borrower’s ability to satisfy obligations or comply with applicable covenants. In the event of any adverse impacts to the relevant borrower’s cash flows, any such borrower may not…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "30",
+   "match": "guarantees",
+   "text": "… to restructure, refinance or modify any such facility or obtain a waiver on commercially reasonable terms or otherwise, which could lead to a lender or lessor pursuing one or more remedies available to it, including foreclosing on any applicable collateral, any of which could lead to bankruptcy or liquidation of the relevant borrower and could also lead to claims against the Group or terminating a lease and repossessing the relevant equipment. Similarly, where such financing structures include guarantees or other forms of credit support from the Company or other members of the Group, the lender would seek to recover any amounts due under such guarantees or other credit support, which could adversely impact our financial condition, liquidity and cash flows.   We may not be able to obtain additional debt, equity or equity-linked financing, or other forms of financing, on favorable terms, if at all, which could impair our growth and our further development of AI Cloud Services, adversely affect our existing operations and require us to seek additional capital, sell assets or restructure or refinance our indebtedness. In addition, if the terms of additional financing are less favorable or require us to comply with more onerous covenants or restrictions, our business operations could be restricted. Even if we are able to raise such capital, we may not deploy it in such a fashion th…",
    "amounts": []
   },
   {
    "kind": "spv",
    "page": "30",
-   "text": "We have in the past and may continue to also seek to raise additional capital through various equipment or asset-based financing or leasing arrangements, which would also rank senior to our Ordinary shares upon our bankruptcy or liquidation. Such structures may involve the use of special purpose vehicles, which may be structured to be non-recourse or limited recourse to the rest of the Group or may be supported by guarantees or other forms of credit support from the Company or other members of the Group. Such financing or leasing structures would expose us and the relevant borrower entities to a range of risks.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "30",
-   "text": "In the event of any adverse impacts to the relevant borrower’s cash flows, any such borrower may not be able to restructure, refinance or modify any such facility or obtain a waiver on commercially reasonable terms or otherwise, which could lead to a lender or lessor pursuing one or more remedies available to it, including foreclosing on any applicable collateral, any of which could lead to bankruptcy or liquidation of the relevant borrower and could also lead to claims against the Group or terminating a lease and repossessing the relevant equipment. Similarly, where such financing structures include guarantees or other forms of credit support from the Company or other members of the Group, the lender would seek to recover any amounts due under such guarantees or other credit support, which could adversely impact our financial condition, liquidity and cash flows. We may not be able to obtain additional debt, equity or equity-linked financing, or other forms of financing, on favorable terms, if at all, which could impair our growth and our further development of AI Cloud Services, adversely affect our existing operations and require us to seek additional capital, sell assets or restructure or refinance our indebtedness.",
+   "match": "special purpose vehicle",
+   "text": "…rs. As the timing and nature of any future offering would depend on market conditions and other factors beyond our control, it is not possible to predict or estimate the amount, timing, or nature of future offerings.   We have in the past and may continue to also seek to raise additional capital through various equipment or asset-based financing or leasing arrangements, which would also rank senior to our Ordinary shares upon our bankruptcy or liquidation. Such structures may involve the use of special purpose vehicles, which may be structured to be non-recourse or limited recourse to the rest of the Group or may be supported by guarantees or other forms of credit support from the Company or other members of the Group. Such financing or leasing structures would expose us and the relevant borrower entities to a range of risks. In particular, the ability of the borrower or lessee in a limited recourse structure to satisfy obligations under any such financing or leasing arrangements may be adversely impacted by factors that impact the cash flow generated by the underlying assets, as well as other factors outside our control. For example, in the case of financing or leasing arrangements for GPUs, demand for our AI Cloud Services and our ability to enter into contracts that generate stable revenue streams could adversely impact the relevant borrower’s ability to satisfy obligations …",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "34",
-   "text": "Finance leases)), and approximately $1,825.4 million of trade and other payables. We have also entered into equipment leasing arrangements with respect to certain GPUs which are supported by guarantees from the Company. We may enter into additional equipment leasing agreements or other equipment financing arrangements from time to time, and expect to incur additional indebtedness to meet future financing needs.",
+   "match": "guarantees",
+   "text": "…, financial condition and results of operations.   As of June 30, 2026, excluding our intercompany indebtedness and liabilities, we had $7,976.0 million principal amount of outstanding indebtedness (consisting of $7,705.6 million of debt (see Note 23. Debt) and $270.4 million of finance leases (see Note 22. Finance leases)), and approximately $1,825.4 million of trade and other payables. We have also entered into equipment leasing arrangements with respect to certain GPUs which are supported by guarantees from the Company. We may enter into additional equipment leasing agreements or other equipment financing arrangements from time to time, and expect to incur additional indebtedness to meet future financing needs. For instance, given constrained GPU supply and long lead times, we may commit to purchases of GPU and related hardware and commence the related site development in advance of arranging the asset-backed financing secured against that hardware and the customer cash flows it supports, and in certain cases in advance of executing customer contracts for the related capacity. Our indebtedness and such liabilities could have significant negative consequences for our security holders and our business, results of operations and financial condition by, among other things:   • increasing our vulnerability to adverse economic and industry conditions and risk of default;   • limit…",
+   "amounts": [
+    {
+     "raw": "$270.4 million",
+     "usdM": 270.4
+    },
+    {
+     "raw": "$1,825.4 million",
+     "usdM": 1825.4
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "35",
+   "match": "guarantees",
+   "text": "…ured GPU financing arrangements secured by, among other things, the GPUs and other assets of, and the customer contract cash flows payable to, the relevant financing group entities. These arrangements contain financial and other covenants (including debt service coverage ratio requirements and mandatory prepayment triggers), restrict the ability of the relevant subsidiaries to distribute cash to the wider group, require certain amounts to be held as restricted cash, and are supported by limited guarantees from the Company in respect of certain performance and shortfall obligations. If the cash flows generated by the underlying assets (for example, the financed GPUs and the associated customer contracts in such financings and arrangements) are insufficient to service these arrangements, or if we fail to comply with the applicable covenants, the relevant lenders and noteholders could accelerate the relevant indebtedness and enforce their security over the relevant assets, and the Company could be required to make payments under any applicable limited guarantees, any of which could have a material adverse impact on our operating capacity as well as our business, results of operations and financial condition.   We also utilize equipment loans, equipment leases and other equipment financing arrangements to finance GPUs and other equipment required for our business. For example, in A…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "35",
-   "text": "For example, in May 2026, certain of our wholly owned subsidiaries entered into approximately $3.6 billion of secured GPU financing arrangements secured by, among other things, the GPUs and other assets of, and the customer contract cash flows payable to, the relevant financing group entities. These arrangements contain financial and other covenants (including debt service coverage ratio requirements and mandatory prepayment triggers), restrict the ability of the relevant subsidiaries to distribute cash to the wider group, require certain amounts to be held as restricted cash, and are supported by limited guarantees from the Company in respect of certain performance and shortfall obligations. If the cash flows generated by the underlying assets (for example, the financed GPUs and the associated customer contracts in such financings and arrangements) are insufficient to service these arrangements, or if we fail to comply with the applicable covenants, the relevant lenders and noteholders could accelerate the relevant indebtedness and enforce their security over the relevant assets, and the Company could be required to make payments under any applicable limited guarantees, any of which could have a material adverse impact on our operating capacity as well as our business, results of operations and financial condition.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "35",
-   "text": "These arrangements contain financial and other covenants (including debt service coverage ratio requirements and mandatory prepayment triggers), restrict the ability of the relevant subsidiaries to distribute cash to the wider group, require certain amounts to be held as restricted cash, and are supported by limited guarantees from the Company in respect of certain performance and shortfall obligations. If the cash flows generated by the underlying assets (for example, the financed GPUs and the associated customer contracts in such financings and arrangements) are insufficient to service these arrangements, or if we fail to comply with the applicable covenants, the relevant lenders and noteholders could accelerate the relevant indebtedness and enforce their security over the relevant assets, and the Company could be required to make payments under any applicable limited guarantees, any of which could have a material adverse impact on our operating capacity as well as our business, results of operations and financial condition. We also utilize equipment loans, equipment leases and other equipment financing arrangements to finance GPUs and other equipment required for our business.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "35",
-   "text": "For example, in August 2026, one of our wholly owned subsidiaries entered into financing agreements providing for approximately $2.4 billion of aggregate financing to finance GPU servers and ancillary equipment located at our Mackenzie data center facilities, with funding to occur on a pro rata basis as the relevant equipment is accepted through December 31, 2026. Although our existing equipment loans and leases are entered into through wholly owned special purpose subsidiaries of the Company, as borrowers or lessees, as applicable, payment with respect to such loans or leases are guaranteed by the Company. As a result, if the cash flows generated by the leased equipment are insufficient to fund payments under the applicable financing arrangement (for example, because of insufficient or variable demand for our AI Cloud Services), the relevant borrower’s or lessee’s ability to satisfy obligations under the applicable financing arrangement may be adversely impacted.",
+   "match": "guaranteed",
+   "text": "… agreements providing for approximately $2.4 billion of aggregate financing to finance GPU servers and ancillary equipment located at our Mackenzie data center facilities, with funding to occur on a pro rata basis as the relevant equipment is accepted through December 31, 2026. Although our existing equipment loans and leases are entered into through wholly owned special purpose subsidiaries of the Company, as borrowers or lessees, as applicable, payment with respect to such loans or leases are guaranteed by the Company. As a result, if the cash flows generated by the leased equipment are insufficient to fund payments under the applicable financing arrangement (for example, because of insufficient or variable demand for our AI Cloud Services), the relevant borrower’s or lessee’s ability to satisfy obligations under the applicable financing arrangement may be adversely impacted. In any such case, the relevant borrower or lessee may not be able to restructure, refinance or modify the applicable financing arrangement or obtain a waiver on commercially reasonable terms or otherwise, which could lead to the applicable lender or lessor seeking payment from the Company and/or pursuing one or more remedies available to it, including terminating the financing arrangement, taking possession of the relevant equipment and seeking to recover any losses or other damages from us. Any of the f…",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "52",
-   "text": "In addition, our customers may have the right to reduce their committed capacity or terminate their contracts in certain circumstances if we fail to meet our obligations under customer contracts. The acquisition or disposition of businesses, services or technologies, joint ventures or other strategic transactions may not be successful or may adversely affect our existing operations. As part of our strategy, we have and may continue to seek to acquire businesses, services or technologies or enter into joint ventures or other strategic transactions that we believe could complement or expand our current business, enhance our technical capabilities or otherwise offer growth opportunities.",
+   "match": "joint venture",
+   "text": "…to generate revenue under customer contracts may be delayed or forgone, and we may be required to provide service credits, delay credits, or other remedies, or incur liquidated or other damages, any of which could be significant. In addition, our customers may have the right to reduce their committed capacity or terminate their contracts in certain circumstances if we fail to meet our obligations under customer contracts.   The acquisition or disposition of businesses, services or technologies, joint ventures or other strategic transactions may not be successful or may adversely affect our existing operations.   As part of our strategy, we have and may continue to seek to acquire businesses, services or technologies or enter into joint ventures or other strategic transactions that we believe could complement or expand our current business, enhance our technical capabilities or otherwise offer growth opportunities.   For example, during fiscal year 2026, we announced or completed a number of strategic transactions, including our acquisition of Mirantis, Inc., a cloud infrastructure software company, our acquisition of Nostrum Group, a data center development platform in Spain, and our acquisition of Awaken, a creative agency. Because we have limited experience in integrating new businesses, we may encounter integration challenges and risk exposures that we cannot anticipate. For…",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "52",
-   "text": "The acquisition or disposition of businesses, services or technologies, joint ventures or other strategic transactions may not be successful or may adversely affect our existing operations. As part of our strategy, we have and may continue to seek to acquire businesses, services or technologies or enter into joint ventures or other strategic transactions that we believe could complement or expand our current business, enhance our technical capabilities or otherwise offer growth opportunities. For example, during fiscal year 2026, we announced or completed a number of strategic transactions, including our acquisition of Mirantis, Inc., a cloud infrastructure software company, our acquisition of Nostrum Group, a data center development platform in Spain, and our acquisition of Awaken, a creative agency.",
-   "amounts": []
-  },
-  {
-   "kind": "equity_method",
-   "page": "52",
-   "text": "We may not, in the future, be successful in identifying and acquiring additional suitable acquisition targets at an acceptable cost, or at all. Further, joint venture transactions typically involve a number of risks and present financial, managerial and operational challenges, including the existence of unknown potential disputes, liabilities or contingencies that arise after entering into the joint venture related to the counterparties to such joint venture. The pursuit of potential acquisitions, dispositions, joint ventures or other strategic transactions may divert the attention of management and cause us to incur various expenses in identifying, investigating and pursuing suitable acquisitions, regardless of whether or not they are ultimately completed.   52",
-   "amounts": []
-  },
-  {
-   "kind": "equity_method",
-   "page": "52",
-   "text": "Further, joint venture transactions typically involve a number of risks and present financial, managerial and operational challenges, including the existence of unknown potential disputes, liabilities or contingencies that arise after entering into the joint venture related to the counterparties to such joint venture. The pursuit of potential acquisitions, dispositions, joint ventures or other strategic transactions may divert the attention of management and cause us to incur various expenses in identifying, investigating and pursuing suitable acquisitions, regardless of whether or not they are ultimately completed.   52",
+   "match": "joint venture",
+   "text": "…suming unknown or contingent liabilities, and recognizing goodwill and other intangible assets that may subsequently be impaired. If we are unable to successfully integrate these or future acquisitions or realize their anticipated benefits, our business, financial condition and results of operations could be materially and adversely affected.   We may not, in the future, be successful in identifying and acquiring additional suitable acquisition targets at an acceptable cost, or at all. Further, joint venture transactions typically involve a number of risks and present financial, managerial and operational challenges, including the existence of unknown potential disputes, liabilities or contingencies that arise after entering into the joint venture related to the counterparties to such joint venture. The pursuit of potential acquisitions, dispositions, joint ventures or other strategic transactions may divert the attention of management and cause us to incur various expenses in identifying, investigating and pursuing suitable acquisitions, regardless of whether or not they are ultimately completed.   52",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "79",
-   "text": "In order to stay within the limits described above, we may need to take certain measures, which may include acquiring assets with our cash, liquidating our investment securities or seeking no-action relief or exemptive relief from the SEC if we are unable to acquire sufficient assets or liquidate sufficient investment securities in a timely manner. This may limit our ability to make certain investments or enter into joint ventures that could otherwise have a positive impact on our earnings. In any event, we do not intend to become an investment company engaged in the business of investing and trading securities.",
+   "match": "joint venture",
+   "text": "…of the 1940 Act, which might require us to register as an investment company.   In order to stay within the limits described above, we may need to take certain measures, which may include acquiring assets with our cash, liquidating our investment securities or seeking no-action relief or exemptive relief from the SEC if we are unable to acquire sufficient assets or liquidate sufficient investment securities in a timely manner. This may limit our ability to make certain investments or enter into joint ventures that could otherwise have a positive impact on our earnings. In any event, we do not intend to become an investment company engaged in the business of investing and trading securities.   If we were to be wrong with regard to our analysis under Rule 3a-1 under the 1940 and also if we were to be deemed an inadvertent investment company, we may seek to rely on Rule 3a-2 under the 1940 Act, which may be used no more than once every three years and which allows an inadvertent investment company a grace period of one year from the earlier of (a) the date on which the issuer owns securities and/or cash having a value exceeding 50% of the issuer’s total assets on either a consolidated or unconsolidated basis or (b) the date on which the issuer owns or proposes to acquire investment securities having a value exceeding 40% of the value of such issuer’s total assets (exclusive of U.S…",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "88",
-   "text": "In addition, technology stocks have historically experienced high levels of volatility. The market price for our Ordinary shares may be influenced by many factors, including:   • actual or anticipated fluctuations in our financial and operating results;   • changes in the market valuations of our competitors;   • rumors, publicity, and market speculation involving us, our management, our competitors, or our industry;   • announcements of new customer contracts, investments, new products, services or solutions, capital raising initiatives, acquisitions, strategic partnerships, joint ventures, capital commitments, integrations or capabilities, technologies, or innovations by us or our competitors;   • changes in financial estimates or recommendations by securities analysts;   • changes in laws or regulations applicable to us or our industry;   • the perception of our industry by the public, legislatures, regulators and the investment community;   88",
+   "match": "joint venture",
+   "text": "…ity. The market price for our Ordinary shares may be influenced by many factors, including:   • actual or anticipated fluctuations in our financial and operating results;   • changes in the market valuations of our competitors;   • rumors, publicity, and market speculation involving us, our management, our competitors, or our industry;   • announcements of new customer contracts, investments, new products, services or solutions, capital raising initiatives, acquisitions, strategic partnerships, joint ventures, capital commitments, integrations or capabilities, technologies, or innovations by us or our competitors;   • changes in financial estimates or recommendations by securities analysts;   • changes in laws or regulations applicable to us or our industry;   • the perception of our industry by the public, legislatures, regulators and the investment community;   88",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "96",
-   "text": "We also benefit from sales and use tax exemptions in certain jurisdictions in respect of equipment, electricity and other items purchased or consumed at certain of our data center sites, and we may seek additional exemptions in the future. Eligibility for these exemptions depends on our satisfying, and continuing to satisfy, specified certification, capital investment, employment, wage and other requirements, and on the relevant facilities and purchases qualifying under applicable law, and there can be no guarantee that any future application will be granted on favorable terms, or at all. These arrangements are subject to the conditions of the relevant abatement agreements, exemption certifications and applicable law, and we may not remain in compliance with all applicable conditions, and the abatements and exemptions may be challenged, revoked or adversely modified, including in connection with any amendments or recertifications we may seek in the future.",
+   "match": "guarantee",
+   "text": "…efit from sales and use tax exemptions in certain jurisdictions in respect of equipment, electricity and other items purchased or consumed at certain of our data center sites, and we may seek additional exemptions in the future. Eligibility for these exemptions depends on our satisfying, and continuing to satisfy, specified certification, capital investment, employment, wage and other requirements, and on the relevant facilities and purchases qualifying under applicable law, and there can be no guarantee that any future application will be granted on favorable terms, or at all. These arrangements are subject to the conditions of the relevant abatement agreements, exemption certifications and applicable law, and we may not remain in compliance with all applicable conditions, and the abatements and exemptions may be challenged, revoked or adversely modified, including in connection with any amendments or recertifications we may seek in the future. Laws and administrative interpretations, guidance or practices may change in ways that we do not anticipate, including as a result of legislative or regulatory action affecting the availability or scope of tax incentives for data centers, potentially affecting our ability to benefit from such abatements or exemptions. We may from time to time seek amendments to these property tax abatements, including to reflect changes in our operation…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "96",
-   "text": "Laws and administrative interpretations, guidance or practices may change in ways that we do not anticipate, including as a result of legislative or regulatory action affecting the availability or scope of tax incentives for data centers, potentially affecting our ability to benefit from such abatements or exemptions. We may from time to time seek amendments to these property tax abatements, including to reflect changes in our operations, but there can be no guarantee that such amendments will be granted on favorable terms, or at all. Any loss, early termination or adverse modification of these property tax abatement or sales and use tax exemption arrangements would subject us to some or all of the property taxes or sales and use taxes otherwise applicable to the relevant properties or purchases, and could result in the assessment of back taxes, interest and penalties in respect of prior periods, which could materially   96",
+   "match": "guarantee",
+   "text": "…fications we may seek in the future. Laws and administrative interpretations, guidance or practices may change in ways that we do not anticipate, including as a result of legislative or regulatory action affecting the availability or scope of tax incentives for data centers, potentially affecting our ability to benefit from such abatements or exemptions. We may from time to time seek amendments to these property tax abatements, including to reflect changes in our operations, but there can be no guarantee that such amendments will be granted on favorable terms, or at all. Any loss, early termination or adverse modification of these property tax abatement or sales and use tax exemption arrangements would subject us to some or all of the property taxes or sales and use taxes otherwise applicable to the relevant properties or purchases, and could result in the assessment of back taxes, interest and penalties in respect of prior periods, which could materially   96",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "105",
-   "text": "On August 10, 2023, the B.C. Supreme Court issued a ruling affirming the Company’s position that, among other things, the Bitcoin mined by the Company is not collateral securing such facilities and there is no parent guarantee with respect to the equipment financing facilities, and no relief in respect of substantive consolidation was granted. However, the B.C.",
+   "match": "guarantee",
+   "text": "…enerated by the Non-Recourse SPVs through the provision of hashpower services to the Company and Bitcoin mined by the Company was collateral securing the Facilities, as well as substantive consolidation of certain Group entities and claims of fraudulent conveyance and oppression.   On August 10, 2023, the B.C. Supreme Court issued a ruling affirming the Company’s position that, among other things, the Bitcoin mined by the Company is not collateral securing such facilities and there is no parent guarantee with respect to the equipment financing facilities, and no relief in respect of substantive consolidation was granted. However, the B.C. Supreme Court declared transactions pursuant to hashpower services provided by the relevant Non-Recourse SPVs to the Company to be void as fraudulent conveyances. Additionally, the B.C. Supreme Court dismissed NYDIG’s oppression remedy claim. The Company disagreed with the decision and certain factual findings and filed a notice to appeal with the British Columbia Court of Appeal (“B.C. Court of Appeal”) on August 21, 2023. NYDIG filed a cross-appeal on January 30, 2024, in respect of the orders dismissing the substantive consolidation and oppression claims. On June 27, 2024, the B.C. Court of Appeal released its judgment in which it allowed the appeal and set aside the B.C. Supreme Court’s declaration of fraudulent conveyances. The B.C. Court…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "121",
-   "text": "The GPU Financing is non-recourse to the general credit of the Group, except for limited guarantees provided by IREN Limited. No liability is recognized for these guarantees, which are guarantees by the IREN Limited of the obligations of consolidated subsidiaries.",
+   "match": "guarantees",
+   "text": "The GPU Financing is non-recourse to the general credit of the Group, except for limited guarantees provided by IREN Limited. No liability is recognized for these guarantees, which are guarantees by the IREN Limited of the obligations of consolidated subsidiaries.   Further, IREN Limited has guaranteed the Financing SPV’s payment obligations under its pre-closing interests rate and power hedge transactions to the hedge counterparties, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand.   If Microsoft validly terminates a funded tranche of the Microsoft Agreement an…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "121",
-   "text": "The GPU Financing is non-recourse to the general credit of the Group, except for limited guarantees provided by IREN Limited. No liability is recognized for these guarantees, which are guarantees by the IREN Limited of the obligations of consolidated subsidiaries. Further, IREN Limited has guaranteed the Financing SPV’s payment obligations under its pre-closing interests rate and power hedge transactions to the hedge counterparties, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn.",
+   "match": "guaranteed",
+   "text": "…m the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand.   If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.   IREN Limited has also guaranteed the full and timely performance by the data center provider, an indirect subsidiary of the Company, of its service obligations to the Financing SPV under the managed services agreement. This is …",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "121",
-   "text": "No liability is recognized for these guarantees, which are guarantees by the IREN Limited of the obligations of consolidated subsidiaries. Further, IREN Limited has guaranteed the Financing SPV’s payment obligations under its pre-closing interests rate and power hedge transactions to the hedge counterparties, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period.",
+   "match": "guarantee",
+   "text": "…the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.   IREN Limited has also guaranteed the full and timely performance by the data center provider, an indirect subsidiary of the Company, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings. It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent’s direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.   See Note 23. Debt to the audited consolidated financial statements included in this Annual Report for further information.   Equipment Leasing and Financing Agreements   During the year ended June 30, 2026, the Group entered into equipment leasing arrangements to finance GPU purchases.   In August 2025, the Group secured approximately $102 million under a 36-month lease with monthly payments, and a purchase option at the lower of fair market value and 18% of the initial purchase price. The Group also secured approximately $96 millio…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "121",
-   "text": "Further, IREN Limited has guaranteed the Financing SPV’s payment obligations under its pre-closing interests rate and power hedge transactions to the hedge counterparties, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand. If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period).",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand. If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates. IREN Limited has also guaranteed the full and timely performance by the data center provider, an indirect subsidiary of the Company, of its service obligations to the Financing SPV under the managed services agreement.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates. IREN Limited has also guaranteed the full and timely performance by the data center provider, an indirect subsidiary of the Company, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "IREN Limited has also guaranteed the full and timely performance by the data center provider, an indirect subsidiary of the Company, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings. It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent’s direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "121",
-   "text": "Finance leases to the audited consolidated financial statements included in this Annual Report for further information. IREN Limited provided parent guarantees for the payment obligations under these arrangements. Off-Balance Sheet Arrangements   During the years ended June 30, 2026, 2025 and 2024, we did not have any material off-balance sheet arrangements.   121",
-   "amounts": []
+   "match": "guarantees",
+   "text": "…o secured approximately $96 million under a 24-month lease with fixed monthly payments, and a $1 purchase option at maturity.   In November 2025, the Group further secured approximately $200 million to finance a portion of the Group’s GPU orders under a 24-month lease with fixed monthly payments, and a $1 purchase option at maturity. See Note 22. Finance leases to the audited consolidated financial statements included in this Annual Report for further information.   IREN Limited provided parent guarantees for the payment obligations under these arrangements.   Off-Balance Sheet Arrangements   During the years ended June 30, 2026, 2025 and 2024, we did not have any material off-balance sheet arrangements.   121",
+   "amounts": [
+    {
+     "raw": "$1 ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "guarantee",
    "page": "124",
-   "text": "In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company. Refer to Note 23.",
-   "amounts": []
+   "match": "guarantees",
+   "text": "Note 22. Finance leases to the audited consolidated financial statements included in this Annual Report for further information.   In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company. Refer to Note 23. Debt to the audited consolidated financial statements included in this Annual Report for further information.   As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded. Assuming the drawn and funded amounts remain outstanding and are not prepaid prior to maturity, we expect to make (i) principal repayments of $413 million under the DDTL Facility and $525 million under the USPP Senior Notes, both amortizing through 2031; and (ii) interest payments on drawn and funded amounts. The DDTL bears interest at a floating rate of SOFR + 2.25%; based on amounts drawn and rates in effect at June 30, 2026, DDTL interest is estimated at approximately $24.4 million per annum. The USPP Senior Notes bear interest at a fixed rate of 5.96% per annum, representing approximately $31.3 m…",
+   "amounts": [
+    {
+     "raw": "$1,545 million",
+     "usdM": 1545
+    },
+    {
+     "raw": "$2,100 million",
+     "usdM": 2100
+    },
+    {
+     "raw": "$413 million",
+     "usdM": 413
+    },
+    {
+     "raw": "$525 million",
+     "usdM": 525
+    }
+   ]
   },
   {
    "kind": "vie",
    "page": "seq139",
-   "text": "Intercompany balances and transactions have been eliminated in consolidation. Variable interest entities   The Consolidated Financial Statements include entities in which the Group holds a controlling financial interest. The Group evaluates whether an entity is a variable interest entity (“VIE”) and whether the Group is the primary beneficiary in accordance with ASC 810, Consolidation.",
-   "amounts": []
-  },
-  {
-   "kind": "vie",
-   "page": "seq139",
-   "text": "Variable interest entities   The Consolidated Financial Statements include entities in which the Group holds a controlling financial interest. The Group evaluates whether an entity is a variable interest entity (“VIE”) and whether the Group is the primary beneficiary in accordance with ASC 810, Consolidation. A VIE is consolidated by its primary beneficiary — the party that has both (i) the power to direct the activities that most significantly impact the VIE's economic performance and (ii) the obligation to absorb losses of, or the right to receive benefits from, the VIE that could potentially be significant to the VIE.",
-   "amounts": []
-  },
-  {
-   "kind": "vie",
-   "page": "seq139",
-   "text": "The Group evaluates whether an entity is a variable interest entity (“VIE”) and whether the Group is the primary beneficiary in accordance with ASC 810, Consolidation. A VIE is consolidated by its primary beneficiary — the party that has both (i) the power to direct the activities that most significantly impact the VIE's economic performance and (ii) the obligation to absorb losses of, or the right to receive benefits from, the VIE that could potentially be significant to the VIE. The Group reassesses whether it is the primary beneficiary on an ongoing basis.",
-   "amounts": []
-  },
-  {
-   "kind": "vie",
-   "page": "seq139",
-   "text": "A VIE is consolidated by its primary beneficiary — the party that has both (i) the power to direct the activities that most significantly impact the VIE's economic performance and (ii) the obligation to absorb losses of, or the right to receive benefits from, the VIE that could potentially be significant to the VIE. The Group reassesses whether it is the primary beneficiary on an ongoing basis. Liquidity   As of June 30, 2026, the Group had cash and cash equivalents of $ 5,895.6 million and restricted cash of $ 1,723.9 million.",
+   "match": "Variable interest entit",
+   "text": "…h U.S. generally accepted accounting principles (“GAAP”) and the rules of the Securities and Exchange Commission (the “SEC”). The Consolidated Financial Statements are presented in U.S. dollars.   These Consolidated Financial Statements of the Group include the accounts of the Company and its controlled subsidiaries. Consolidated subsidiaries’ results are included from the date the subsidiary was formed or acquired. Intercompany balances and transactions have been eliminated in consolidation.   Variable interest entities   The Consolidated Financial Statements include entities in which the Group holds a controlling financial interest. The Group evaluates whether an entity is a variable interest entity (“VIE”) and whether the Group is the primary beneficiary in accordance with ASC 810, Consolidation. A VIE is consolidated by its primary beneficiary — the party that has both (i) the power to direct the activities that most significantly impact the VIE's economic performance and (ii) the obligation to absorb losses of, or the right to receive benefits from, the VIE that could potentially be significant to the VIE. The Group reassesses whether it is the primary beneficiary on an ongoing basis.   Liquidity   As of June 30, 2026, the Group had cash and cash equivalents of $ 5,895.6 million and restricted cash of $ 1,723.9 million. For the year ended June 30, 2026, the Group generated…",
    "amounts": []
   },
   {
    "kind": "vie",
    "page": "seq163",
-   "text": "Debt and Note 26. Variable Interest Entity for further information. Note 15.",
-   "amounts": []
+   "match": "Variable Interest Entit",
+   "text": "…ry, and are pledged as collateral under the Group’s GPU Financing facility. These assets may be used only to settle obligations of IE US Hardware 3, LLC and are not available to satisfy claims of the general creditors of IREN Limited or any of its other subsidiaries until such time as the GPU Financing facility has been repaid and the security released. Depreciation on these assets is recorded on a straight-line basis over an estimated useful life of 5 years. Refer to Note 23. Debt and Note 26. Variable Interest Entity for further information.   Note 15. Goodwill and Intangible assets, net   Goodwill   The following table summarizes the changes to goodwill:   (in USD thousands) Total   Balance at July 1, 2024 $ —   Additions —   Balance at June 30, 2025 $ —   Additions 37,016   Foreign currency translation ( 439 )   Impairment losses —   Balance at June 30, 2026 $ 36,577   During the year ended June 30, 2026, the Group recognized goodwill of $ 37.0 million arising from business combinations completed during the period, primarily from the acquisition of Nostrum. Refer to Note 9. Business Combination for more information.   The Group also recorded goodwill of $ 1.2 million in connection with an immaterial business combination that occurred during the year ended June 30, 2026.   There were no impairment charges recorded to goodwill for any of the periods presented.   Intangible As…",
+   "amounts": [
+    {
+     "raw": "$ 36,577   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "leases_not_commenced",
    "page": "seq170",
-   "text": "Revenue for the Group’s disclosures. Deferred lease revenue — operating leases   Deferred lease revenue represents advance payments received under the customer contracts that are accounted for as leases in respect of separate portions of contracted capacity (“tranches”) that had not commenced as of June 30, 2026. These amounts will be recognized as lease revenue following the commencement of each tranche, consistent with the pattern in which lease income is recognized.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "As of June 30, 2026, the Group is in compliance with these requirements. The GPU Financing is structured as a non-recourse financing of the Financing SPV, with recourse to the Parent Entity limited to certain specified guarantees described below. No liability is recognized for these guarantees, which are guarantees by the Parent Entity of the obligations of consolidated subsidiaries that are not subject to recognition and whose underlying obligations are already consolidated.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "The GPU Financing is structured as a non-recourse financing of the Financing SPV, with recourse to the Parent Entity limited to certain specified guarantees described below. No liability is recognized for these guarantees, which are guarantees by the Parent Entity of the obligations of consolidated subsidiaries that are not subject to recognition and whose underlying obligations are already consolidated. The Group does not consider payment or performance under any of the guarantees to be probable.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "No liability is recognized for these guarantees, which are guarantees by the Parent Entity of the obligations of consolidated subsidiaries that are not subject to recognition and whose underlying obligations are already consolidated. The Group does not consider payment or performance under any of the guarantees to be probable. Hedge guarantees   The Parent Entity has guaranteed the Financing SPV's payment obligations under its pre-closing interest rate and power hedge transactions to the hedge counterparties, as interim credit support pending each hedge's transfer into the secured hedge structure, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "The Group does not consider payment or performance under any of the guarantees to be probable. Hedge guarantees   The Parent Entity has guaranteed the Financing SPV's payment obligations under its pre-closing interest rate and power hedge transactions to the hedge counterparties, as interim credit support pending each hedge's transfer into the secured hedge structure, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "Hedge guarantees   The Parent Entity has guaranteed the Financing SPV's payment obligations under its pre-closing interest rate and power hedge transactions to the hedge counterparties, as interim credit support pending each hedge's transfer into the secured hedge structure, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand. Remarketing Right guarantee   If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period).",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand. Remarketing Right guarantee   If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "Remarketing Right guarantee   If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates. Managed services performance guarantee   The Parent has guaranteed the full and timely performance by the data center provider, a subsidiary of the Parent, of its service obligations to the Financing SPV under the managed services agreement.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates. Managed services performance guarantee   The Parent has guaranteed the full and timely performance by the data center provider, a subsidiary of the Parent, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq176",
-   "text": "Managed services performance guarantee   The Parent has guaranteed the full and timely performance by the data center provider, a subsidiary of the Parent, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings. It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent's direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.",
+   "match": "not commenced",
+   "text": "…presents consideration received or receivable from customers for which the related performance obligations have not yet been satisfied, and is recognized as revenue as those obligations are satisfied. Refer to Note 4. Revenue for the Group’s disclosures.   Deferred lease revenue — operating leases   Deferred lease revenue represents advance payments received under the customer contracts that are accounted for as leases in respect of separate portions of contracted capacity (“tranches”) that had not commenced as of June 30, 2026. These amounts will be recognized as lease revenue following the commencement of each tranche, consistent with the pattern in which lease income is recognized. This balance is not a contract liability under ASC 606 and is not included in the contract-liability disclosures in Note 4. Revenue.   F-42",
    "amounts": []
   },
   {
    "kind": "vie",
    "page": "seq176",
-   "text": "It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent's direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement. The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable Interest Entity).",
-   "amounts": []
+   "match": "variable interest entit",
+   "text": "…arent, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings. It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent's direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.   The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable Interest Entity).   DDTL Facility   On May 29, 2026, the Financing SPV entered into a Credit Agreement providing for a $ 1,545 million senior secured delayed draw term loan facility with a syndicate of commercial bank lenders. Borrowings under the DDTL Facility bear interest at a floating rate equal to 1-month Term SOFR plus 2.25 % per annum, payable monthly in arrears. Principal is repayable monthly in accordance with the amortization schedule set out in the Credit Agreement. The DDTL Facility is drawn in four tranches aligned to the delivery milestones under the Microsoft Agreement, subject to satisfaction of specified conditions precedent.   F-48",
+   "amounts": [
+    {
+     "raw": "$ 1,545 million",
+     "usdM": 1545
+    }
+   ]
   },
   {
-   "kind": "vie",
+   "kind": "guarantee",
    "page": "seq176",
-   "text": "The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable Interest Entity). DDTL Facility   On May 29, 2026, the Financing SPV entered into a Credit Agreement providing for a $ 1,545 million senior secured delayed draw term loan facility with a syndicate of commercial bank lenders.",
+   "match": "guarantees",
+   "text": "…ng SPV, and maintenance and insurance requirements. As at June 30, 2026, the Group was in compliance with all financial and operational covenants. The GPU Financing also requires the Group to enter into interest rate hedge agreements and certain power cost hedging requirements. As of June 30, 2026, the Group is in compliance with these requirements.   The GPU Financing is structured as a non-recourse financing of the Financing SPV, with recourse to the Parent Entity limited to certain specified guarantees described below. No liability is recognized for these guarantees, which are guarantees by the Parent Entity of the obligations of consolidated subsidiaries that are not subject to recognition and whose underlying obligations are already consolidated. The Group does not consider payment or performance under any of the guarantees to be probable.   Hedge guarantees   The Parent Entity has guaranteed the Financing SPV's payment obligations under its pre-closing interest rate and power hedge transactions to the hedge counterparties, as interim credit support pending each hedge's transfer into the secured hedge structure, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfer…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq176",
+   "match": "guarantee",
+   "text": "…tructure, which occurs on a tranche-by-tranche basis as the related debt and notes are drawn. A counterparty may call the guarantee only after demanding payment from the Financing SPV and expiry of the applicable cure period. The guarantee steps down as each tranche transfers into the secured structure, with Tranche 1 having been transferred (and the balance is expected to transfer by the end of calendar 2026) and falls away for any tranche terminated and settled beforehand.   Remarketing Right guarantee   If Microsoft validly terminates a funded tranche of the Microsoft Agreement and a replacement qualified customer is not secured during the ensuing remarketing period, the Parent has guaranteed that (i) the debt and notes allocated to that tranche, net of any disposition proceeds realized from the sale of the GPUs associated with such terminated tranche and applied to prepayment, payable within five business days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.   Managed services performance guar…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "seq176",
+   "match": "guaranteed",
+   "text": "…days of demand, and (ii) any upfront amount owed to Microsoft on termination, payable when due (subject to a carve-out where the Collateral Agent enforces against the collateral during the remarketing period). The guarantee is released as each tranche is accepted by Microsoft and terminates on the earliest of discharge of the secured obligations, acceptance and funding of the final tranche, or the occurrence of all tranche release dates.   Managed services performance guarantee   The Parent has guaranteed the full and timely performance by the data center provider, a subsidiary of the Parent, of its service obligations to the Financing SPV under the managed services agreement. This is a performance guarantee and not a guarantee of the Financing SPV's borrowings. It terminates on the earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent's direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.   The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable Interest Entity).   DDTL Facility   On May 29, 2026, the Financing SPV entered into a Credit Agreement providing for a $ 1,545 million senior secured delayed draw term loan facilit…",
    "amounts": []
   },
   {
    "kind": "vie",
    "page": "seq183",
-   "text": "IREN Limited   Notes to the consolidated financial statements   For the years ended June 30, 2026, 2025, and 2024   Note 26. Variable Interest Entity   Consolidated VIE — IE US Hardware 3, LLC   IE US Hardware 3 LLC (the “Financing SPV”) is a wholly owned, limited-purpose subsidiary formed to hold and operate the GPU and related equipment supporting the Group’'s contract with Microsoft, financed with senior secured borrowings under the Group’s GPU Financing (see Note 23. Debt).",
-   "amounts": []
-  },
-  {
-   "kind": "vie",
-   "page": "seq183",
-   "text": "Debt). The Group has determined that the Financing SPV is a variable interest entity because its equity at risk is not sufficient to finance its activities without additional financial support from other parties, and that the Group is the primary beneficiary because it directs the activities that most significantly affect the entity’s economic performance, the operation and maintenance of the GPUs and management of performance under the customer contract, and through its equity interest and operating exposure, is obligated to absorb losses and has the right to receive benefits that could be significant. Accordingly, the Group consolidates the Financing SPV.",
+   "match": "Variable Interest Entit",
+   "text": "IREN Limited   Notes to the consolidated financial statements   For the years ended June 30, 2026, 2025, and 2024   Note 26. Variable Interest Entity   Consolidated VIE — IE US Hardware 3, LLC   IE US Hardware 3 LLC (the “Financing SPV”) is a wholly owned, limited-purpose subsidiary formed to hold and operate the GPU and related equipment supporting the Group’'s contract with Microsoft, financed with senior secured borrowings under the Group’s GPU Financing (see Note 23. Debt). The Group has determined that the Financing SPV is a variable interest entity because its equity at risk is not sufficient to finance its activities without additional financial support from other parties, and that the Group is the primary beneficiary because it directs the activities that most significantly affect the entity’s economic performance, the operation and maintenance of the GPUs and management of performance under the customer contract, and through its equity interest and operating exposure, is obligated to absorb losses and…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "seq183",
-   "text": "The assets of the Financing SPV may be used only to settle its obligations and are not available to satisfy the general obligations of the Group except for permitted equity distributions. The Financing SPV’s debt and hedging obligations are non-recourse to the general credit of the Group, except to the extent of limited parent guarantees provided by IREN Limited in respect of the Remarketing Right and the Financing SPV’s interest rate and power hedges. These two guarantees step down on a tranche-by-tranche basis and terminate on acceptance and funding of the final tranche of the Microsoft Agreement.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq183",
-   "text": "The Financing SPV’s debt and hedging obligations are non-recourse to the general credit of the Group, except to the extent of limited parent guarantees provided by IREN Limited in respect of the Remarketing Right and the Financing SPV’s interest rate and power hedges. These two guarantees step down on a tranche-by-tranche basis and terminate on acceptance and funding of the final tranche of the Microsoft Agreement. The Group has separately guaranteed the performance obligations under the managed services agreement relating to the financed assets.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq183",
-   "text": "These two guarantees step down on a tranche-by-tranche basis and terminate on acceptance and funding of the final tranche of the Microsoft Agreement. The Group has separately guaranteed the performance obligations under the managed services agreement relating to the financed assets. This performance guarantee is expected to remain outstanding for the term of the Microsoft Agreement.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq183",
-   "text": "The Group has separately guaranteed the performance obligations under the managed services agreement relating to the financed assets. This performance guarantee is expected to remain outstanding for the term of the Microsoft Agreement. These guarantees are described further in Note 23.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq183",
-   "text": "This performance guarantee is expected to remain outstanding for the term of the Microsoft Agreement. These guarantees are described further in Note 23. Debt.",
-   "amounts": []
-  },
-  {
-   "kind": "guarantee",
-   "page": "seq183",
-   "text": "Debt. Except to the extent of the guarantees described above, the creditors of the Financing SPV have no recourse to the general credit of the Group. The following table presents the carrying amounts of the Financing SPV’s assets and liabilities included in the Group’s consolidated balance sheet.",
+   "match": "guarantees",
+   "text": "…perating exposure, is obligated to absorb losses and has the right to receive benefits that could be significant. Accordingly, the Group consolidates the Financing SPV.   The assets of the Financing SPV may be used only to settle its obligations and are not available to satisfy the general obligations of the Group except for permitted equity distributions. The Financing SPV’s debt and hedging obligations are non-recourse to the general credit of the Group, except to the extent of limited parent guarantees provided by IREN Limited in respect of the Remarketing Right and the Financing SPV’s interest rate and power hedges. These two guarantees step down on a tranche-by-tranche basis and terminate on acceptance and funding of the final tranche of the Microsoft Agreement. The Group has separately guaranteed the performance obligations under the managed services agreement relating to the financed assets. This performance guarantee is expected to remain outstanding for the term of the Microsoft Agreement. These guarantees are described further in Note 23. Debt. Except to the extent of the guarantees described above, the creditors of the Financing SPV have no recourse to the general credit of the Group.   The following table presents the carrying amounts of the Financing SPV’s assets and liabilities included in the Group’s consolidated balance sheet.   Years ended June 30,   (in USD th…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "65",
-   "text": "Principal amounts outstanding under each drawdown of the MFSA and each Note issuance amortize in accordance with applicable amortization schedules. Guaranty and Security   On August 25, 2026, IREN Limited entered into a guaranty (the “Guaranty”) in favor of the Collateral Agent, pursuant to which IREN Limited unconditionally guarantees the Borrower’s payment obligations under the August 2026 Financing   65",
+   "match": "guarantees",
+   "text": "… 2026 Financing Agreements.   Borrowings under the MFSA bear interest at a per annum rate equal to 9.0%. The Notes will bear interest at a fixed rate of 9.0% per annum.   Principal amounts outstanding under each drawdown of the MFSA and each Note issuance amortize in accordance with applicable amortization schedules.   Guaranty and Security   On August 25, 2026, IREN Limited entered into a guaranty (the “Guaranty”) in favor of the Collateral Agent, pursuant to which IREN Limited unconditionally guarantees the Borrower’s payment obligations under the August 2026 Financing   65",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "66",
-   "text": "IREN Limited’s obligations under the Guaranty are limited to the payment obligations of the Borrower under the August 2026 Financing Agreements; IREN Limited does not guarantee performance of the Borrower’s other obligations under the August 2026 Financing Agreements. The Guaranty does not impose any financial maintenance covenants on IREN Limited and IREN Limited has not granted any security interest in any of its assets in connection with the August 2026 Financing Agreements or the Guaranty.",
+   "match": "guarantee",
+   "text": "Agreements, subject to the expiry of applicable cure periods therein. IREN Limited’s obligations under the Guaranty are limited to the payment obligations of the Borrower under the August 2026 Financing Agreements; IREN Limited does not guarantee performance of the Borrower’s other obligations under the August 2026 Financing Agreements. The Guaranty does not impose any financial maintenance covenants on IREN Limited and IREN Limited has not granted any security interest in any of its assets in connection with the August 2026 Financing Agreements or the Guaranty.   The obligations of the Borrower under the MFSA and the Note Purchase Agreement are secured by a first-priority security interest in the financed equipment and associated rights pursuant to a specific security agreement governed by laws of the Province of British Columbia and the federal laws of Canada applicable in British Columbia granted by the Borrower in favor of the Collateral Agent.   Covenants and Events of Default   The August 2026 Financing Agreements contain customary representations and warranties and covenants, including reporting obligations, rest…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "71",
-   "text": "1 0.37 #   Common Terms Agreement, dated as of May 29, 2026, among IE US Hardware 3 LLC, CSC Delaware Trust Company, as intercreditor agent, administrative agent, and collateral agent, the lenders and the purchasers party thereto and each other person that may become party from time to time.   10.38   Limited Parent Guarantee (MSA), dated as of May 29, 2026, between IREN limited and CSC Delaware Trust Company as collateral agent.   10.3 9 *+   Form of Indemnification Agreement entered into by and between Iris Energy Limited and each director and executive officer (incorporated herein by reference to Exhibit 10.2 to the Company’s Registration Statement on Form F-1 (File No. 333-260488) filed with the SEC on October 25, 2021).   10. 40 *+   2023 Long-Term Incentive Plan (2023 LTIP) (incorporated herein by reference to Exhibit 10.14 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.4 1 *+   2023 LTIP Form of Notice of Award (Non-Employee Directors) (incorporated herein by reference to Exhibit 10.15 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.4 2 *+   2023 LTIP Form of Notice of Award (Executive Officers) (incorporated herein by reference to Exhibit 10.16 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.4 3 *+   2023 Short-Term Incentive Plan (incorporated her",
+   "match": "Guarantee",
+   "text": "1 0.37 #   Common Terms Agreement, dated as of May 29, 2026, among IE US Hardware 3 LLC, CSC Delaware Trust Company, as intercreditor agent, administrative agent, and collateral agent, the lenders and the purchasers party thereto and each other person that may become party from time to time.   10.38   Limited Parent Guarantee (MSA), dated as of May 29, 2026, between IREN limited and CSC Delaware Trust Company as collateral agent.   10.3 9 *+   Form of Indemnification Agreement entered into by and between Iris Energy Limited and each director and executive officer (incorporated herein by reference to Exhibit 10.2 to the Company’s Registration Statement on Form F-1 (File No. 333-260488) filed with the SEC on October 25, 2021).   10. 40 *+   2023 Long-Term Incentive Plan (2023 LTIP) (incorporated herein by reference to Exhibit 10.14 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.4 1 *+   2023 LTIP Form of Notice of Award (Non-Employee Directors) (incorporated herein by reference to Exhibit 10.15 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.4 2 *+   2023 LTIP Form of Notice of Award (Executive Officers) (incorporated h…",
    "amounts": []
   },
   {
    "kind": "guarantee",
    "page": "72",
-   "text": "1 0.53+   Form of Restricted Stock Unit Award Agreement under the IREN Limited 2025 Omnibus Incentive Plan (Directors).   10.54   Limited Parent Guarantee (Remarketing Right), dated as of May 29, 2026, between IREN limited and CSC Delaware Trust Company as collateral agent.   19.1   Insider Trading Compliance Policy.   21.1   List of significant subsidiaries.   23.1   Consent of Raymond Chabot Grant Thornton LLP.   23.2   Consent of KPMG LLP.   31.1   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Co-Chief Executive Officer.   31.2   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Co-Chief Executive Officer.   31.3   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Chief Financial Officer.   32.1   Certification pursuant to 18 U.S.C. section 1350, as adopted pursuant to section 906 of the Sarbanes-Oxley Act of 2002, of the Co-Chief Executive Officer.   32.2   Certification pursuant to 18 U.S.C. section 1350, as adopted pursuant to section 906 of the Sarbanes-Oxley Act of 2002, of the Co-Chief Executive Officer.   32.3   Certification pursuant to 18 U.S.C. section 1350, as adopted pursuant to section 906 of the Sarbanes-Oxley Act of 2002, of the Chief Financial Officer.   97.1   Restatement Clawback Policy.   101.INS Inline XBRL Instance Document. (the instance document does not appear i",
+   "match": "Guarantee",
+   "text": "1 0.53+   Form of Restricted Stock Unit Award Agreement under the IREN Limited 2025 Omnibus Incentive Plan (Directors).   10.54   Limited Parent Guarantee (Remarketing Right), dated as of May 29, 2026, between IREN limited and CSC Delaware Trust Company as collateral agent.   19.1   Insider Trading Compliance Policy.   21.1   List of significant subsidiaries.   23.1   Consent of Raymond Chabot Grant Thornton LLP.   23.2   Consent of KPMG LLP.   31.1   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Co-Chief Executive Officer.   31.2   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Co-Chief Executive Officer.   31.3   Certification pursuant to section 302 of the Sarbanes-Oxley Act of 2002 of the Chief Financial Officer.   32.1   Certification pursuant to 18 U.S.C. section 1350, as adopted pursuant to section 906 of the Sarbanes-Oxley Act of 2002, of the Co-Chief Executive Officer.   32.2   Certification pursuant to 18 U.S.C. section 1350, as adopted pursuant to section…",
    "amounts": []
   }
  ]

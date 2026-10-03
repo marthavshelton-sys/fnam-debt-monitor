@@ -11,42 +11,25 @@
  "numberedPages": 67,
  "hits": [
   {
-   "kind": "equity_method",
-   "page": "9",
-   "text": "Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.",
-   "amounts": []
-  },
-  {
-   "kind": "equity_method",
-   "page": "9",
-   "text": "Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred. Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity.",
-   "amounts": []
-  },
-  {
    "kind": "vie",
    "page": "9",
-   "text": "For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred. Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE.",
+   "match": "variable interest entit",
+   "text": "…e of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting.   We have a long-term strategic partnership with OpenAI. In October 2025, we signed a new definitive agreement with OpenAI that extends this partnership. Additionally, OpenAI formed a public benefit corporation and completed a recapitalization (“O…",
    "amounts": []
   },
   {
-   "kind": "vie",
+   "kind": "equity_method",
    "page": "9",
-   "text": "We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE investments. Therefore, our VIE investments are not consolidated and the majority are accounted for under the equity method of accounting.",
+   "match": "Equity method investment",
+   "text": "…alue are measured using the equity method of accounting when required or measured at cost with adjustments for observable changes in price or impairments (referred to as the measurement alternative). For equity investments recorded at fair value, we perform a qualitative assessment on a periodic basis and recognize an impairment if there are sufficient indicators that the fair value of the investment is less than carrying value. Changes in fair value are recorded in other income (expense), net. Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity. We evaluate whether we have (1) the power to direct the activities that most significantly impact the VIE’s economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. We have determined we are not the primary beneficiary of any of our VIE in…",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "12",
-   "text": "PART I   Item 1   Other income (expense), net included $ 19 million of net losses and $ 5.9 billion of net gains for the three and nine months ended March 31, 2026, respectively, and $ 768 million and $ 2.7 billion of net losses for the three and nine months ended March 31, 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for the nine months ended March 31, 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.",
+   "match": "equity method investment",
+   "text": "PART I   Item 1   Other income (expense), net included $ 19 million of net losses and $ 5.9 billion of net gains for the three and nine months ended March 31, 2026, respectively, and $ 768 million and $ 2.7 billion of net losses for the three and nine months ended March 31, 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for the nine months ended March 31, 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.   Net Recognized Gains (Losses) on Investments   Net recognized gains (losses) on debt investments were as follows:   (In millions)   Three Months Ended   March 31,   Nine Months Ended   March 31,   2026   2025   2026   2025   Realized gains from sales of available-for-sale securities   $   54   $   8   $   89   $   25   Realized losses from sales of available-for-sale securities   ( 18   )   ( 17   )   ( 37   )   ( 51   )   Impairments and allowance for credit losses   ( 6   )   3   ( 23   )   1   Total   $   30   $   ( 6   )   $   29   $   ( 25   )   Net recognized gains (losses) on equity investments were as follows:   (In millions)   Three Months Ended   March 31,   Nine Months Ended   March 31,   202…",
    "amounts": [
-    {
-     "raw": "$ 19 million",
-     "usdM": 19
-    },
-    {
-     "raw": "$ 5.9 billion",
-     "usdM": 5900
-    },
     {
      "raw": "$ 768 million",
      "usdM": 768
@@ -60,7 +43,8 @@
   {
    "kind": "leases_not_commenced",
    "page": "23",
-   "text": "PART I   Item 1   Supplemental balance sheet information related to leases was as follows:   (In millions, except lease term and discount rate)   March 31,   2026   June 30,   2025   Operating Leases   Operating lease right-of-use assets   $   24,403   $   24,823   Other current liabilities   $   5,535   $   5,424   Operating lease liabilities   16,703   17,437   Total operating lease liabilities   $   22,238   $   22,861   Finance Leases   Property and equipment, at cost   $   77,633   $   53,876   Accumulated depreciation   ( 13,916   )   ( 9,861   )   Property and equipment, net   $   63,717   $   44,015   Other current liabilities   $   4,063   $   3,172   Other long-term liabilities   58,869   43,000   Total finance lease liabilities   $   62,932   $   46,172   Weighted Average Remaining Lease Term   Operating leases   6 years   6 years   Finance leases   13 years   13 years   Weighted Average Discount Rate   Operating leases   3.6 %   3.5 %   Finance leases   4.4 %   4.2 %   The following table outlines maturities of our lease liabilities as of March 31, 2026:   (In millions)   Year Ending June 30,   Operating Leases   Finance Leases   2026 (excluding the nine months ended March 31, 2026)   $   1,735   $   1,633   2027   5,910   6,786   2028   4,207   6,864   2029   3,011   6,232   2030   2,476   6,126   Thereafter   7,516   56,961   Total lease payments   24,855   84,602",
+   "match": "not yet commenced",
+   "text": "…1, 2026:   (In millions)   Year Ending June 30,   Operating Leases   Finance Leases   2026 (excluding the nine months ended March 31, 2026)   $   1,735   $   1,633   2027   5,910   6,786   2028   4,207   6,864   2029   3,011   6,232   2030   2,476   6,126   Thereafter   7,516   56,961   Total lease payments   24,855   84,602   Less imputed interest   ( 2,617   )   ( 21,670   )   Total   $   22,238   $   62,932   As of March 31, 2026, we had additional leases, primarily for datacenters, that had not yet commenced of $ 196.6 billion. These leases will commence between fiscal year 2026 and fiscal year 2031 with lease terms of 1 year to 21 years.   NOTE 13 — CONTINGENCIES   Irish Data Protection Commission Matter   In 2018, the Irish Data Protection Commission (“IDPC”) began investigating a complaint against LinkedIn as to whether LinkedIn’s targeted advertising practices violated the recently implemented European Union General Data Protection Regulation (“GDPR”). Microsoft cooperated throughout the period of inquiry. In October 2024, the IDPC provided LinkedIn with a final decision alleging GDPR violations and assessing a fine. In November 2024, LinkedIn appealed the final decision to the Irish courts. A preliminary hearing was held in December 2025.   23",
    "amounts": [
     {
      "raw": "$ 196.6 billion",
@@ -71,16 +55,9 @@
   {
    "kind": "equity_method",
    "page": "41",
-   "text": "Gains and losses from changes in fair values of derivatives that are not designated as hedging instruments are primarily recognized in other income (expense), net. Other income (expense), net included $19 million of net losses and $5.9 billion of net gains for the three and nine months ended March 31, 2026, respectively, and $768 million and $2.7 billion of net losses for the three and nine months ended March 31, 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for the nine months ended March 31, 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.",
+   "match": "equity method investment",
+   "text": "…es from changes in fair values of derivatives that are not designated as hedging instruments are primarily recognized in other income (expense), net.   Other income (expense), net included $19 million of net losses and $5.9 billion of net gains for the three and nine months ended March 31, 2026, respectively, and $768 million and $2.7 billion of net losses for the three and nine months ended March 31, 2025, respectively, from investments in OpenAI, primarily net recognized gains (losses) on our equity method investment reflected in Other, net. The net gains recorded for the nine months ended March 31, 2026 primarily relate to the dilution gain from the OpenAI Recapitalization.   Three Months Ended March 31, 2026 Compared with Three Months Ended March 31, 2025   Interest and dividends income increased primarily due to higher portfolio balances and higher yields on debt securities. Interest expense increased primarily due to higher finance lease interest expense, offset in part by higher capitalization of debt interest expense. Net recognized gains on investments increased primarily due to higher gains on equity securities in the current period. Net gains on derivatives decreased primarily due to lower gains on equity derivatives in the current period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI.   Nine Months Ended M…",
    "amounts": [
-    {
-     "raw": "$19 million",
-     "usdM": 19
-    },
-    {
-     "raw": "$5.9 billion",
-     "usdM": 5900
-    },
     {
      "raw": "$768 million",
      "usdM": 768
@@ -94,25 +71,15 @@
   {
    "kind": "equity_method",
    "page": "41",
-   "text": "Net gains on derivatives decreased primarily due to lower gains on equity derivatives in the current period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI. Nine Months Ended March 31, 2026 Compared with Nine Months Ended March 31, 2025   Interest and dividends income increased primarily due to higher portfolio balances and higher yields on debt securities.",
-   "amounts": []
-  },
-  {
-   "kind": "equity_method",
-   "page": "41",
-   "text": "Net gains on derivatives increased primarily due to gains on equity derivatives in the current period as compared to losses in the prior period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI.   41",
+   "match": "equity method investment",
+   "text": "… Interest expense increased primarily due to higher finance lease interest expense, offset in part by higher capitalization of debt interest expense. Net recognized gains on investments increased primarily due to higher gains on equity securities and lower impairments in the current period. Net gains on derivatives increased primarily due to gains on equity derivatives in the current period as compared to losses in the prior period. Other, net primarily reflects net recognized gains (losses) on equity method investments, including OpenAI.   41",
    "amounts": []
   },
   {
    "kind": "equity_method",
    "page": "51",
-   "text": "These factors could adversely affect our business, financial condition, and results of operations. Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy.",
-   "amounts": []
-  },
-  {
-   "kind": "equity_method",
-   "page": "51",
-   "text": "Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, in October 2023 we completed our acquisition of Activision Blizzard, Inc.",
+   "match": "joint venture",
+   "text": "…ons of mismanagement, driven by regulatory activity or negative public reaction to our practices or product experiences, could negatively impact product and feature adoption. Developing new technologies is complex. It can require long development and testing periods. We could experience significant delays in new releases or significant problems in creating new products or services. These factors could adversely affect our business, financial condition, and results of operations.   Acquisitions, joint ventures, and strategic alliances could have an adverse effect on our business. We expect to continue making acquisitions and entering into joint ventures and strategic alliances as part of our long-term business strategy. For example, in October 2023 we completed our acquisition of Activision Blizzard, Inc. Additionally, we have a long-term strategic partnership with OpenAI. Acquisitions and other transactions and arrangements involve significant challenges and risks, including that they do not advance our business strategy, that we get an unsatisfactory return on our investment, that they raise new compliance-related obligations and challenges, that we have difficulty integrating and retaining new employees, business systems, and technology, that they distract management from our other businesses, or that announced transactions may not be completed. If an arrangement fails to ade…",
    "amounts": []
   }
  ]

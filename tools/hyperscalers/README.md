@@ -61,6 +61,7 @@ has been read or confirmed absent; leases not yet commenced (undiscounted) are n
 
 - Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
   before that makes the watchdog report "late").
-- Phase 1b: curate `offbs.json` from the harvested notes for all ten companies (pages cited).
+- Text items in `offbs.json` (27 on 2026-10-03, all ten companies, pages cited) are `needs_review` until a second reading of the cited page; the Claude routine should verify them after each 10-Q/10-K harvest and set `verified`.
+- Oracle: the FY2026 10-K (p. 90) discloses a guarantee of up to $3.3bn of a lessor's borrowing (maturing September 2026) that `tools/oracle/data/obligations.json` records as not disclosed; the owner decides whether the Oracle page is corrected (not touched from this hub).
 - Nebius quarterly figures come from 6-K press releases (no XBRL): T1-furnished text, to be added as curated items.
 - Phase 2 (capacity, committed capacity, sites) and phase 3 (electricity, circular financing) need the owner's go.

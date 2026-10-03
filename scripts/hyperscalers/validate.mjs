@@ -65,7 +65,7 @@ const O = createReport({ slug: 'hiperescaladores/fuera-de-balance', key: 'HYP_OF
 const OB = F.offbs || { items: [], searched: [] };
 for (const i of OB.items) {
   O.record(`${i.ticker} ${i.item}`, 'filing accession cited', i.filing && i.filing.accn ? 'ok' : 'fail');
-  O.record(`${i.ticker} ${i.item}`, 'page cited', i.filing && i.filing.page ? 'ok' : 'warn', null, null, i.filing && i.filing.page ? null : L('Página por citar (la cifra viene del almacén verificado del modelo de Oracle, que cita la nota pero no la página)', 'Page to cite (the figure comes from the Oracle model\'s verified store, which cites the note but not the page)'));
+  O.record(`${i.ticker} ${i.item}`, 'page cited', i.filing && i.filing.page ? 'ok' : 'warn', null, null, i.filing && i.filing.page ? null : L('Página por citar', 'Page to cite'));
   O.record(`${i.ticker} ${i.item}`, 'verified against the filing', i.status === 'verified' ? 'ok' : 'warn');
   const age = ageDays(i.asOf);
   O.stale(`${i.ticker} ${i.item}`, i.asOf, 200, L('vigente mientras no haya un 10-Q/10-K posterior', 'current until a later 10-Q/10-K'));
@@ -75,7 +75,7 @@ const ITEMS = ['leases_not_commenced', 'vie_unconsolidated', 'jv_equity_method_d
 const XK = { vie_unconsolidated: 'vie_max_loss', jv_equity_method_debt: 'equity_method', purchase_obligation: 'purchase_oblig', guarantee: 'guarantees_max' };
 let gaps = 0;
 for (const c of Object.values(F.companies)) {
-  const missing = ITEMS.filter((it) => !OB.items.some((i) => i.ticker === c.ticker && i.item === it) && !(XK[it] && c.quarters.some((q) => q.m[XK[it]])) && !OB.searched.some((s) => s.ticker === c.ticker && s.item === it));
+  const missing = ITEMS.filter((it) => !OB.items.some((i) => i.ticker === c.ticker && i.item === it) && !(XK[it] && c.quarters.some((q) => q.m[XK[it]])) && !OB.searched.some((s) => s.ticker === c.ticker && s.item === it) && !(it === 'guarantee' && OB.items.some((i) => i.ticker === c.ticker && i.item === 'backstop')));
   gaps += missing.length;
   O.curated(`${c.ticker} coverage`, missing.length === 0, L(missing.length ? `pendientes de lectura: ${missing.join(', ')}` : 'completa', missing.length ? `pending reading: ${missing.join(', ')}` : 'complete'));
 }
