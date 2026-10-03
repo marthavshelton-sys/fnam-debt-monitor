@@ -1,0 +1,49 @@
+ticker,issue_date,class,tranches,amount_outstanding_usd_m,coupon_min_pct,coupon_max_pct,floating_tranche,tenor_min_years,tenor_max_years,seniority,non_usd_or_reg_s,report_date,matched_424b_accession,matched_424b_total_usd,status,pulled
+CRWV,2026-06-18,Private placement notes,1,2279,8.5,8.5,no,6.1,6.1,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2026-06-18,Bonds / notes,1,1250,9.625,9.625,no,6.1,6.1,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+AMZN,2026-06-12,Bonds / notes,5,9867.842,3.4,5,no,3.0,30.0,Senior Unsecured,yes,2026-06-30,0001104659-26-072332,10025573613,corroborated by 424B (T1),2026-10-03
+AMZN,2026-06-08,Term loan,1,0,,,yes,3.0,3.0,Senior Unsecured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+IREN,2026-05-29,Private placement notes,1,525,5.96,5.96,no,5.6,5.6,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+IREN,2026-05-29,Term loan,1,413,7.12,7.12,yes,5.6,5.6,Senior Secured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+APLD,2026-05-29,Revolving credit,1,0,,,yes,3.0,3.0,Senior Secured,no,2026-05-31,,,"FactSet only, needs review",2026-10-03
+AMZN,2026-05-28,Bonds / notes,6,3495.9399999999996,0.835,2.082,no,3.0,25.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2026-05-21,Bonds / notes,7,3547.146,1.965,4.599,no,3.0,40.0,Senior Unsecured,yes,2026-06-30,0001193125-26-228923,3644582121.64,corroborated by 424B (T1),2026-10-03
+IREN,2026-05-14,Convertible notes,1,2962.393,1,1,no,7.6,7.6,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2026-05-11,Bonds / notes,10,16280.89,3.2,5,no,4.0,37.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CORZ,2026-05-06,Bonds / notes,1,3300,7.75,7.75,no,5.0,5.0,Senior Secured (1st lien),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+META,2026-05-04,Bonds / notes,6,25000,4.55,6.45,no,5.0,40.0,Senior Unsecured,no,2026-06-30,0001193125-26-201738,24967390000,corroborated by 424B (T1),2026-10-03
+CRWV,2026-04-30,Term loan,1,1101,,,yes,5.5,5.5,Senior Secured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+APLD,2026-04-23,Term loan,1,300,,,yes,1.0,1.0,Senior Secured (1st lien),no,2026-05-31,,,"FactSet only, needs review",2026-10-03
+CRWV,2026-04-14,Convertible notes,1,4000,1.75,1.75,no,6.5,6.5,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2026-04-14,Bonds / notes,1,2750,9.75,9.75,no,5.5,5.5,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2026-03-30,Term loan,2,2837,7,7,yes,6.0,6.0,Senior Secured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+NBIS,2026-03-20,Bonds / notes,2,4337.5,1.25,2.625,no,5.0,7.0,Senior Unsecured,no,2026-03-31,,,"FactSet only, needs review",2026-10-03
+AMZN,2026-03-16,Bonds / notes,8,16577.85,2.5,4.85,yes,2.0,38.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+AMZN,2026-03-13,Bonds / notes,11,37000,3.85,6.05,yes,2.0,50.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+APLD,2026-03-10,Bonds / notes,1,2150,6.75,6.75,no,5.0,5.0,Senior Secured (1st lien),no,2026-05-31,,,"FactSet only, needs review",2026-10-03
+ORCL,2026-03-06,Revolving credit,1,0,,,yes,5.0,5.0,Senior Unsecured,no,2026-08-31,,,"FactSet only, needs review",2026-10-03
+GOOGL,2026-03-03,Bonds / notes,5,3787.2690000000002,0.427,1.868,no,3.0,25.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2026-02-13,Bonds / notes,12,27299.873999999996,3.7,6.125,no,3.0,100.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+ORCL,2026-02-04,Bonds / notes,8,25000,4.55,6.85,yes,3.0,40.0,Senior Unsecured,no,2026-08-31,,,"FactSet only, needs review",2026-10-03
+IREN,2025-12-22,Convertible notes,1,207.621,3.25,3.25,no,4.5,4.5,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2025-12-11,Convertible notes,1,2588,1.75,1.75,no,6.0,6.0,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+IREN,2025-12-08,Convertible notes,2,2272.62,0.25,1,no,6.5,7.5,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+APLD,2025-12-02,Convertible notes,1,450,2.75,2.75,no,4.5,4.5,Senior Convertible,no,2026-05-31,,,"FactSet only, needs review",2026-10-03
+AMZN,2025-11-20,Bonds / notes,6,15000,3.9,5.55,no,3.0,40.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+APLD,2025-11-20,Bonds / notes,1,2350,9.25,9.25,no,5.1,5.1,Senior Secured (1st lien),no,2026-05-31,,,"FactSet only, needs review",2026-10-03
+GOOGL,2025-11-06,Bonds / notes,14,24931.449999999997,2.375,5.7,yes,3.0,50.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+META,2025-11-03,Bonds / notes,6,30000,4.2,5.75,no,5.0,40.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+AMZN,2025-10-29,Revolving credit,1,0,,,yes,1.0,1.0,Senior Unsecured (364-day),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+IREN,2025-10-14,Convertible notes,1,981.814,0,0,no,5.7,5.7,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2025-09-29,Term loan,1,3000,9,9,yes,5.5,5.5,Senior Secured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+ORCL,2025-09-26,Bonds / notes,6,18000,4.45,6.1,no,5.0,40.0,Senior Unsecured,no,2026-08-31,,,"FactSet only, needs review",2026-10-03
+NBIS,2025-09-15,Convertible notes,2,3162.5,1,2.75,no,5.0,7.0,Senior Convertible,no,2026-03-31,,,"FactSet only, needs review",2026-10-03
+CRWV,2025-07-28,Term loan,1,2215,9,9,yes,5.1,5.1,Senior Secured (delayed-draw),no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+CRWV,2025-07-25,Bonds / notes,1,1750,9,9,no,5.5,5.5,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+IREN,2025-06-13,Convertible notes,1,228.343,3.5,3.5,no,4.5,4.5,Senior Convertible,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+NBIS,2025-06-05,Convertible notes,2,975,2,3,no,4.0,6.0,Senior Convertible,no,2026-03-31,,,"FactSet only, needs review",2026-10-03
+CRWV,2025-05-27,Bonds / notes,1,2000,9.25,9.25,no,5.0,5.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2025-05-06,Bonds / notes,5,7717.275,2.5,4,no,4.0,29.0,Senior Unsecured,yes,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2025-05-01,Bonds / notes,4,5000,4,5.3,no,5.0,40.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+GOOGL,2025-04-15,Revolving credit,1,0,,,yes,5.0,5.0,Senior Unsecured,no,2026-06-30,,,"FactSet only, needs review",2026-10-03
+ORCL,2025-02-03,Bonds / notes,6,7750,4.8,6.125,yes,3.5,40.5,Senior Unsecured,no,2026-08-31,,,"FactSet only, needs review",2026-10-03

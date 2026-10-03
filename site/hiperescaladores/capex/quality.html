@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es-MX">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Capex y financiamiento · Calidad de datos | Data quality</title>
+<meta name="theme-color" content="#f9f9f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0d0d0d" media="(prefers-color-scheme: dark)">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b4332'/%3E%3Ccircle cx='32' cy='32' r='15' fill='none' stroke='%23f9f9f7' stroke-width='6'/%3E%3Cpath d='M38 38l12 12' stroke='%23f9f9f7' stroke-width='7' stroke-linecap='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/quality.css">
+<!-- Data-quality page of the Hyperscaler Hub, module 3 (capex and financing). Reads data/quality.js, written by scripts/hyperscalers/validate.mjs after every refresh;
+     rendered by the shared assets/quality-page.js. Linked from the hub's methodology page. -->
+<script src="data/quality.js"></script>
+</head>
+<body>
+<div class="lang"><button type="button" id="es" class="active">ES</button><button type="button" id="en">EN</button></div>
+<div class="wrap">
+  <div class="eyebrow"><span class="es">Centro de Hiperescaladores · Módulo 3 · Capex y financiamiento</span><span class="en" hidden>Hyperscaler Hub · Module 3 · Capex and financing</span></div>
+  <h1><span class="es">Calidad de datos del módulo</span><span class="en" hidden>Module data quality</span></h1>
+  <p class="sub" id="meta"></p>
+  <div class="cards" id="cards"></div>
+  <section><h2><span class="es">Vigencia</span><span class="en" hidden>Freshness</span></h2><p class="sub"><span class="es">Último periodo de cada empresa frente a su siguiente presentación esperada (plazo de la SEC + 7 días).</span><span class="en" hidden>Each company's latest period against its next expected filing (SEC deadline + 7 days).</span></p><div class="tblwrap" id="stale"></div></section>
+  <section><h2><span class="es">Fuentes y archivos curados</span><span class="en" hidden>Sources and curated files</span></h2><p class="sub"><span class="es">Consulta a EDGAR, instantánea de FactSet y guías: fecha y antigüedad.</span><span class="en" hidden>EDGAR poll, FactSet snapshot and guidance: date and age.</span></p><div class="tblwrap" id="curated"></div></section>
+  <section><h2><span class="es">Presentación más reciente por empresa</span><span class="en" hidden>Latest filing by company</span></h2><p class="sub"><span class="es">Último 10-K, 10-Q o 20-F que alimenta las cifras.</span><span class="en" hidden>Latest 10-K, 10-Q or 20-F feeding the figures.</span></p><div class="tblwrap" id="origins"></div><p class="more" id="originsMore"></p></section>
+  <section><h2><span class="es">Avisos: atípicos, reexpresiones y errores</span><span class="en" hidden>Warnings: outliers, restatements and errors</span></h2><p class="sub"><span class="es">Valores marcados "revisar", reexpresiones encontradas en presentaciones posteriores y errores de la última consulta a EDGAR.</span><span class="en" hidden>Values flagged "needs review", restatements found in later filings and errors from the last EDGAR poll.</span></p><div class="tblwrap" id="parse"></div></section>
+  <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al módulo</span><span class="en" hidden>← Back to the module</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/hyperscalers-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
+</div>
+<script>window.QUALITY_PAGE = {"key":"HYP_CAPEX_QUALITY","name":"Hyperscalers","workflow":"hyperscalers-refresh.yml","validator":"scripts/hyperscalers/validate.mjs","lang":"hyp-lang"};</script>
+<script src="/assets/quality-page.js"></script>
+</body>
+</html>
