@@ -9,9 +9,11 @@
 #
 # Schedule (Mexico City is UTC-6 all year since 2022): INEGI publishes at 06:00 local = 12:00 UTC,
 # Banxico's FIX around 12:00 local = 18:00 UTC, and policy decisions at 13:00 local = 19:00 UTC.
-# Runs at 12:25, 18:25 and 19:25 UTC on weekdays, plus 15:25 UTC on Saturday and Sunday (the
+# Runs at 12:25, 18:25, 19:25 and 22:25 UTC on weekdays, plus 15:25 UTC on Saturday and Sunday (the
 # sources publish nothing on weekends, but the run catches corrections and late postings);
-# nothing is committed when nothing changed.
+# nothing is committed when nothing changed. The 22:25 run is for the yield curve: it lands after
+# the Fed's H.15 posting (about 16:15 New York time) reaches FRED's DGS10, which the 10-year spread
+# vs. the Treasury uses, and after the Tuesday primary auctions of Cetes and Bonos M.
 #
 # Health alarm: after every refresh, scripts/mx-macro/health.mjs flags any series no provider
 # has answered for in 7 days (the page silently keeps old data in that case), and the last step
@@ -39,6 +41,7 @@ on:
   schedule:
     - cron: "25 12 * * 1-5"
     - cron: "25 18,19 * * 1-5"
+    - cron: "25 22 * * 1-5"
     - cron: "25 15 * * 0,6"
   workflow_dispatch:
     inputs:

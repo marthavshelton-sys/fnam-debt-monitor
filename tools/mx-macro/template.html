@@ -555,6 +555,16 @@
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
   @media (max-width: 760px) { .two-col { grid-template-columns: 1fr; } }
   .sub-title { font-size: 12px; font-weight: 600; margin-bottom: 8px; }
+  /* yield-curve table: one row per tenor, figures right-aligned in the mono face */
+  .yc-table-wrap { margin-top: 12px; overflow-x: auto; }
+  .yc-table { width: 100%; border-collapse: collapse; font-size: 12px; color: var(--text-secondary); }
+  .yc-table th { font-size: 11px; font-weight: 600; color: var(--text-muted); text-align: right; padding: 4px 6px; border-bottom: 1px solid var(--baseline); white-space: nowrap; }
+  .yc-table td { padding: 4px 6px; border-bottom: 1px solid var(--gridline); text-align: right; font-family: "IBM Plex Mono", monospace; white-space: nowrap; }
+  .yc-table th:first-child, .yc-table td:first-child { text-align: left; font-family: inherit; }
+  .yc-table .yc-old { color: var(--cat-4); }
+  .yc-table .yc-sub { font-size: 11px; color: var(--text-muted); }
+  .yc-table { max-width: 760px; }
+  @media (max-width: 860px) { .yc-table { font-size: 11.5px; } .yc-table th, .yc-table td { padding: 4px 4px; } .yc-table th { white-space: normal; vertical-align: bottom; } }
   /* phones: nothing below 11 px, and the category grid must not force the page wider than the screen */
   @media (max-width: 860px) {
     .kpi-foot, .mstat-sub, .donut-center .s, .stable th, .note-sm, .tooltip .t-date, .exec-title, .cat-subset-tag, .soon-pill, .manual-badge, .stale-pill { font-size: 11px; }
@@ -1004,6 +1014,31 @@
       </div>
     </section>
 
+    <section id="bxYcSec">
+      <div class="section-head">
+        <h2 data-i18n="bxSecYc">Curva de rendimientos: Cetes y Bonos M</h2>
+        <span class="note" data-i18n="bxSecYcNote">%, subasta primaria más reciente de cada plazo vs. hace un año</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="bxYcLegend"></div>
+        <div class="chart-wrap"><svg id="bxYcChart" viewBox="0 0 920 250"></svg><div class="tooltip" id="bxYcTooltip"></div></div>
+        <div class="yc-table-wrap"><table class="yc-table" id="bxYcTable"></table></div>
+        <div class="callout" id="bxYcCallout"></div>
+      </div>
+    </section>
+
+    <section id="bxSpreadSec">
+      <div class="section-head">
+        <h2 data-i18n="bxSecSpread">Diferencial: Bono M a 10 años menos Tesoro de EE. UU. a 10 años</h2>
+        <span class="note" data-i18n="bxSecSpreadNote">Puntos base, en cada subasta del Bono M a 10 años</span>
+      </div>
+      <div class="panel">
+        <div class="legend" id="bxSpreadLegend"></div>
+        <div class="chart-wrap"><svg id="bxSpreadChart" viewBox="0 0 920 220"></svg><div class="tooltip" id="bxSpreadTooltip"></div></div>
+        <div class="callout" id="bxSpreadCallout"></div>
+      </div>
+    </section>
+
     <section id="bxResSec">
       <div class="section-head">
         <h2 data-i18n="bxSecRes">Reservas internacionales</h2>
@@ -1185,9 +1220,18 @@ const I18N = {
       "tiie28": "TIIE 28 días",
       "cetes28": "Cetes 28 días",
       "mbono10": "Bono M 10 años",
+      "cetes91": "Cetes 91 días",
+      "cetes182": "Cetes 182 días",
+      "cetes364": "Cetes 364 días",
+      "cetes728": "Cetes 728 días",
+      "mbono3": "Bono M 3 años",
+      "mbono5": "Bono M 5 años",
+      "mbono20": "Bono M 20 años",
+      "mbono30": "Bono M 30 años",
+      "ust10": "Tesoro de EE. UU. a 10 años",
       "inflExp12m": "Inflación esperada a 12 meses"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)", FedH15: "Reserva Federal (H.15)" },
 
     // ---- Activity ----
     acTitle: "Actividad económica: PIB e IGAE",
@@ -1302,7 +1346,7 @@ const I18N = {
 
     // ---- Banxico ----
     bxTitle: "Banxico y mercados",
-    bxDesc: "Tasa de política, tasas de mercado, tasas reales y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
+    bxDesc: "Tasa de política, tasas de mercado, curva de rendimientos, tasas reales y reservas internacionales. La Junta de Gobierno decide la tasa objetivo ocho veces al año.",
     bxNext: "Calendario de decisiones de política monetaria: banxico.org.mx",
     bxSecPolicy: "Tasa objetivo vs. inflación anual",
     bxSecPolicyNote: "%, mensual (tasa al cierre de cada mes)",
@@ -1310,9 +1354,13 @@ const I18N = {
     bxSecRealNote: "Tasa objetivo menos inflación observada (barras) y menos inflación esperada a 12 meses (línea), puntos porcentuales",
     bxSecCurve: "Tasas de mercado: Cetes 28, TIIE 28 y Bono M a 10 años",
     bxSecCurveNote: "%, promedio mensual",
+    bxSecYc: "Curva de rendimientos: Cetes y Bonos M",
+    bxSecYcNote: "%, subasta primaria más reciente de cada plazo vs. hace un año",
+    bxSecSpread: "Diferencial: Bono M a 10 años menos Tesoro de EE. UU. a 10 años",
+    bxSecSpreadNote: "Puntos base, en cada subasta del Bono M a 10 años",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. Curva de rendimientos: tasa de rendimiento de la subasta primaria más reciente de Cetes (28, 91, 182, 364 y 728 días) y Bonos M (3, 5, 10, 20 y 30 años), Banco de México, cuadro CF107 del SIE; cada subasta lleva la fecha de colocación con que la registra Banxico, dos días hábiles después de la subasta; Banxico no publica rendimientos diarios del mercado secundario. Tesoro de EE. UU. a 10 años: rendimiento a vencimiento constante (Reserva Federal, H.15, vía FRED DGS10); el diferencial resta el cierre del día de la subasta o, si no lo hay, el anterior más cercano. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
@@ -1332,6 +1380,27 @@ const I18N = {
     bxRealCallout: (m, v, a) => m + ": tasa real ex post de " + v + (a ? "; ex ante (con inflación esperada a 12 meses) de " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
+    legYcNow: "Última subasta de cada plazo",
+    legYcAgo: "Hace un año",
+    legSpread: "Bono M 10 años − Tesoro de EE. UU. 10 años",
+    ycTenor: (n, unit) => n + (unit === "d" ? "d" : "a"),
+    ycShort: (instr, n, unit) => (instr === "cetes" ? "Cetes " : "Bono ") + n + (unit === "d" ? "d" : "a"),
+    ycColTenor: "Plazo",
+    ycColYield: "Tasa, %",
+    ycColDate: "Colocación",
+    ycColPrev: "vs. previa, pb",
+    ycColYear: "vs. 1 año, pb",
+    ycOld: "más de 60 días sin subasta de este plazo",
+    bpUnit: "pb",
+    bxYcCallout: (slope, c, cd, b, bd) => "Pendiente Bono M 10 años − Cetes 28: " + slope + " (Cetes 28 " + c + ", colocación del " + cd + "; Bono M 10 años " + b + ", colocación del " + bd + ").",
+    bxYcCalloutNote: "Cada plazo muestra su subasta primaria más reciente con la fecha en que Banxico la registra, el día de colocación (dos días hábiles después de la subasta); por eso las fechas difieren entre plazos. \"Hace un año\" es la subasta de cada plazo más cercana, sin pasarla, a un año antes de la última fecha de la curva. Banxico no publica rendimientos diarios del mercado secundario.",
+    bxSpreadCallout: (d, b, u, ud, s) => "Colocación del " + d + ": Bono M a 10 años " + b + " menos Tesoro de EE. UU. a 10 años " + u + " (cierre del " + ud + ") = " + s + ".",
+    bxSpreadMethod: "El Tesoro se toma al cierre del día de la subasta (dos días hábiles antes de la colocación) o, si ese día no hubo cierre, al anterior más cercano.",
+    bxSpreadCalloutRange: (avg, y0, lo, lod, hi, hid) => "Promedio de los últimos 12 meses: " + avg + ". Desde " + y0 + ": mínimo " + lo + " (" + lod + "), máximo " + hi + " (" + hid + ").",
+    kpiSpread: "Bono M 10a − Tesoro EE. UU. 10a",
+    kpiDeltaBpAuction: "pb vs. subasta previa",
+    sumCurve: "Curva",
+    sumBxCurve: (shape, b, d, slope, spr) => "La curva de Cetes y Bonos M es " + ({up: "de pendiente positiva", inverted: "invertida", flat: "casi plana"})[shape] + ": el Bono M a 10 años rinde " + b + " (colocación del " + d + "), " + slope + " vs. Cetes 28" + (spr ? " y " + spr + " sobre el Tesoro de EE. UU. a 10 años" : "") + ".",
     kpiDeltaRes: "mil millones vs. hace un año"
   },
 
@@ -1490,9 +1559,18 @@ const I18N = {
       "tiie28": "28-day TIIE",
       "cetes28": "28-day Cetes",
       "mbono10": "10-year M bond",
+      "cetes91": "91-day Cetes",
+      "cetes182": "182-day Cetes",
+      "cetes364": "364-day Cetes",
+      "cetes728": "728-day Cetes",
+      "mbono3": "3-year M bond",
+      "mbono5": "5-year M bond",
+      "mbono20": "20-year M bond",
+      "mbono30": "30-year M bond",
+      "ust10": "10-year U.S. Treasury",
       "inflExp12m": "Expected inflation, 12 months ahead"
     },
-    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)" },
+    origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)", FedH15: "Federal Reserve (H.15)" },
 
     // ---- Activity ----
     acTitle: "Economic Activity: GDP & IGAE",
@@ -1607,7 +1685,7 @@ const I18N = {
 
     // ---- Banxico ----
     bxTitle: "Banxico & Markets",
-    bxDesc: "Policy rate, market rates, the real rate and international reserves. The Board of Governors sets the target rate eight times a year.",
+    bxDesc: "Policy rate, market rates, the yield curve, the real rate and international reserves. The Board of Governors sets the target rate eight times a year.",
     bxNext: "Monetary policy decision calendar: banxico.org.mx",
     bxSecPolicy: "Policy rate vs. headline inflation",
     bxSecPolicyNote: "%, monthly (rate at each month-end)",
@@ -1615,9 +1693,13 @@ const I18N = {
     bxSecRealNote: "Policy rate minus observed inflation (bars) and minus expected 12-month inflation (line), percentage points",
     bxSecCurve: "Market rates: 28-day Cetes, 28-day TIIE and 10-year M bond",
     bxSecCurveNote: "%, monthly average",
+    bxSecYc: "Yield curve: Cetes and M bonds",
+    bxSecYcNote: "%, latest primary auction of each tenor vs. a year earlier",
+    bxSecSpread: "Spread: 10-year M bond minus 10-year Treasury",
+    bxSecSpreadNote: "Basis points, at each 10-year M bond auction",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. Yield curve: latest primary auction yield of Cetes (28, 91, 182, 364 and 728 days) and fixed-rate M bonds (3, 5, 10, 20 and 30 years), Banco de México, SIE table CF107; each auction carries the issue date Banxico records it under, two business days after the auction; Banxico publishes no daily secondary-market yields. 10-year Treasury: constant-maturity yield (Federal Reserve, H.15, via FRED DGS10); the spread subtracts the close of the auction day or, if there is none, the nearest earlier one. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
@@ -1637,6 +1719,27 @@ const I18N = {
     bxRealCallout: (m, v, a) => m + ": ex post real rate of " + v + (a ? "; ex ante (using expected 12-month inflation) " + a : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
+    legYcNow: "Latest auction of each tenor",
+    legYcAgo: "A year earlier",
+    legSpread: "10-year M bond − 10-year Treasury",
+    ycTenor: (n, unit) => n + (unit === "d" ? "d" : "y"),
+    ycShort: (instr, n, unit) => (instr === "cetes" ? "Cetes " : "M bond ") + n + (unit === "d" ? "d" : "y"),
+    ycColTenor: "Tenor",
+    ycColYield: "Yield, %",
+    ycColDate: "Issue date",
+    ycColPrev: "vs. prior, bp",
+    ycColYear: "vs. 1 yr, bp",
+    ycOld: "no auction of this tenor in over 60 days",
+    bpUnit: "bp",
+    bxYcCallout: (slope, c, cd, b, bd) => "Slope, 10-year M bond − 28-day Cetes: " + slope + " (28-day Cetes " + c + ", issued " + cd + "; 10-year M bond " + b + ", issued " + bd + ").",
+    bxYcCalloutNote: "Each tenor shows its latest primary auction with the date Banxico records for it, the issue (settlement) date, two business days after the auction; that is why the dates differ across tenors. \"A year earlier\" is each tenor's last auction on or before one year before the curve's latest date. Banxico publishes no daily secondary-market yields.",
+    bxSpreadCallout: (d, b, u, ud, s) => "Issued " + d + ": 10-year M bond " + b + " minus 10-year Treasury " + u + " (close of " + ud + ") = " + s + ".",
+    bxSpreadMethod: "The Treasury is taken at the close of the auction day (two business days before the issue date) or, if there was no close that day, the nearest earlier one.",
+    bxSpreadCalloutRange: (avg, y0, lo, lod, hi, hid) => "Average over the last 12 months: " + avg + ". Since " + y0 + ": low " + lo + " (" + lod + "), high " + hi + " (" + hid + ").",
+    kpiSpread: "10y M bond − 10y Treasury",
+    kpiDeltaBpAuction: "bp vs. prior auction",
+    sumCurve: "The curve",
+    sumBxCurve: (shape, b, d, slope, spr) => "The Cetes and M bond curve is " + ({up: "upward-sloping", inverted: "inverted", flat: "nearly flat"})[shape] + ": the 10-year M bond yields " + b + " (issued " + d + "), " + slope + " vs. 28-day Cetes" + (spr ? " and " + spr + " over the 10-year Treasury" : "") + ".",
     kpiDeltaRes: "US$ billion vs. a year ago"
   }
 };
@@ -1733,7 +1836,9 @@ const ORIGIN = {
   gdp: {fred: "IMF"}, igae: {}, indprod: {fred: "OECD"}, unemployment: {fred: "OECD"}, imssJobs: {banxico: "IMSS", imss: "IMSS"},
   consumerConfidence: {fred: "OECD"}, remittances: {banxico: "Banxico"}, exports: {fred: "OECD"}, imports: {fred: "OECD"},
   usdmxn: {banxico: "Banxico", fred: "Fed"}, reserves: {banxico: "Banxico", fred: "IMF"}, policyRate: {banxico: "Banxico", fred: "OECD"},
-  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"}
+  tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"},
+  cetes91: {banxico: "Banxico"}, cetes182: {banxico: "Banxico"}, cetes364: {banxico: "Banxico"}, cetes728: {banxico: "Banxico"},
+  mbono3: {banxico: "Banxico"}, mbono5: {banxico: "Banxico"}, mbono20: {banxico: "Banxico"}, mbono30: {banxico: "Banxico"}, ust10: {fred: "FedH15"}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
@@ -1948,6 +2053,64 @@ function barList(containerId, items, fmtValue) {
       `<div class="derby-value">${esc(fmtValue(it.value))}</div>`;
     list.appendChild(row);
   });
+}
+// Inner width of a panel in the visible view. A hidden view measures 0, so charts that size their
+// viewBox to the screen (text at its real size on a phone) measure a panel that is on screen.
+function panelWidth() {
+  const ref = document.querySelector(".view.active .panel") || document.querySelector(".panel");
+  if (!ref || !ref.clientWidth) return 920;
+  const cs = getComputedStyle(ref);
+  return Math.max(240, Math.min(920, Math.round(ref.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight))));
+}
+// Yield curve on a categorical tenor axis. ticks: tenor labels; curves: [{label, color, dashed, vals:[{v, d}|null per tick]}];
+// opts.names: full tenor names for the tooltip, opts.fmt. The first curve's points carry their value labels.
+function curveChart(svgId, ticks, curves, opts) {
+  const svg = document.getElementById(svgId); if (!svg) return;
+  const H = Number(svg.getAttribute("viewBox").split(" ")[3]) || 250, W = panelWidth();
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const n = ticks.length, ML = 40, MR = 6, MT = 22, stagger = (W - ML - MR) / n < 40, MB = stagger ? 38 : 26;
+  const plotW = W - ML - MR, plotH = H - MT - MB, colW = plotW / n;
+  const fmtV = opts.fmt || (v => fmtLevelPct(v, 2));
+  const vals = curves.flatMap(c => c.vals.filter(Boolean).map(p => p.v)); if (!vals.length) return;
+  let lo = Math.min(...vals), hi = Math.max(...vals); const pad = (hi - lo) * 0.12 || 0.5; lo -= pad; hi += pad;
+  const step = niceStep(hi - lo, 5); lo = Math.floor(lo / step) * step; hi = Math.ceil(hi / step) * step;
+  const x = i => ML + (i + 0.5) * colW, y = v => MT + plotH - ((v - lo) / (hi - lo)) * plotH;
+  for (let v = lo; v <= hi + 1e-9; v += step) {
+    svg.appendChild(svgEl("line", {x1: ML, x2: W - MR, y1: y(v), y2: y(v), stroke: "var(--gridline)", "stroke-width": 1}));
+    svg.appendChild(axisText(ML - 8, y(v) + 3.5, "end", 11, (step < 1 ? r2(v).toFixed(1) : Math.round(v)) + "%"));
+  }
+  // tenor labels; on a narrow screen every other one drops to a second row so neighbours never touch
+  ticks.forEach((t, i) => svg.appendChild(axisText(x(i), H - 7 - (stagger && i % 2 === 0 ? 13 : 0), "middle", 11, t)));
+  curves.slice().reverse().forEach(c => {
+    let d = "", open = false;
+    c.vals.forEach((p, i) => { if (!p) { open = false; return; } d += (open ? "L" : "M") + x(i).toFixed(1) + "," + y(p.v).toFixed(1) + " "; open = true; });
+    const path = svgEl("path", {d: d.trim(), fill: "none", stroke: `var(${c.color})`, "stroke-width": 2, "stroke-linejoin": "round", "stroke-linecap": "round"});
+    if (c.dashed) path.setAttribute("stroke-dasharray", "4,3");
+    svg.appendChild(path);
+    c.vals.forEach((p, i) => { if (p) svg.appendChild(svgEl("circle", {cx: x(i), cy: y(p.v), r: 3.5, fill: "var(--surface-1)", stroke: `var(${c.color})`, "stroke-width": 2})); });
+  });
+  // value labels on the latest curve when each tenor has room for one: above the point, or below it
+  // when the other curve sits above at that tenor; a halo in the panel colour keeps them clear of lines
+  if (colW >= 44) curves[0].vals.forEach((p, i) => {
+    if (!p) return;
+    const other = curves[1] && curves[1].vals[i], below = other && other.v > p.v && y(p.v) + 20 < MT + plotH;
+    svg.appendChild(svgEl("text", {x: x(i), y: below ? y(p.v) + 18 : y(p.v) - 9, "text-anchor": "middle", "font-size": 11, "font-weight": 600, "font-family": "IBM Plex Mono, monospace",
+      fill: "var(--text-primary)", stroke: "var(--surface-1)", "stroke-width": 3, "paint-order": "stroke", "stroke-linejoin": "round"}, p.v.toFixed(2)));
+  });
+  if (opts.legendId) { const lg = document.getElementById(opts.legendId); if (lg) lg.innerHTML = curves.map(c => `<div class="legend-item"><span class="legend-swatch" style="background:var(${c.color})${c.dashed ? ";height:0;border-top:2px dashed var(" + c.color + ")" : ""}"></span>${esc(c.label)}</div>`).join(""); }
+  const tooltip = opts.tooltipId ? document.getElementById(opts.tooltipId) : null;
+  if (tooltip) {
+    ticks.forEach((t, i) => {
+      const hit = svgEl("rect", {x: (ML + i * colW).toFixed(1), y: MT, width: colW.toFixed(1), height: plotH, fill: "transparent"});
+      hit.addEventListener("mousemove", () => {
+        const r = svg.getBoundingClientRect(), inv = r.width / W, top = Math.min(...curves.map(c => c.vals[i] ? y(c.vals[i].v) : MT + plotH));
+        tooltip.style.left = (x(i) * inv) + "px"; tooltip.style.top = (Math.max(MT, top - 6) * inv) + "px"; tooltip.style.opacity = "1";
+        tooltip.innerHTML = `<div class="t-date">${esc((opts.names || ticks)[i])}</div>` + curves.map(c => { const p = c.vals[i]; return p ? `<div class="t-row"><span class="t-dot" style="background:var(${c.color})"></span>${esc(fmtV(p.v))} · ${esc(fmtDateDMY(p.d))}</div>` : ""; }).join("");
+      });
+      hit.addEventListener("mouseleave", () => { tooltip.style.opacity = "0"; });
+      svg.appendChild(hit);
+    });
+  }
 }
 function catCard(grid, name, pts, colorVar, fmt) {
   const vals = pts.map(p => p.yoy).filter(v => v !== null); if (!vals.length) return;
@@ -2310,13 +2473,60 @@ function shiftDays(d, n) { const dt = new Date(d + "T00:00:00Z"); dt.setUTCDate(
 // ================================================================
 //  View: Banxico and markets
 // ================================================================
+// Yield curve: the latest primary auction of each tenor (Banxico SIE table CF107). Each point keeps
+// the issue date Banxico records it under, so tenors auctioned on different weeks show different dates.
+// tick: label on the curve's tenor axis; n/unit: the instrument's own term (Cetes in days).
+const YC_TENORS = [
+  {key: "cetes28", instr: "cetes", n: 28, unit: "d", tick: [28, "d"]}, {key: "cetes91", instr: "cetes", n: 91, unit: "d", tick: [91, "d"]},
+  {key: "cetes182", instr: "cetes", n: 182, unit: "d", tick: [182, "d"]}, {key: "cetes364", instr: "cetes", n: 364, unit: "d", tick: [1, "y"]},
+  {key: "cetes728", instr: "cetes", n: 728, unit: "d", tick: [2, "y"]}, {key: "mbono3", instr: "bono", n: 3, unit: "y", tick: [3, "y"]},
+  {key: "mbono5", instr: "bono", n: 5, unit: "y", tick: [5, "y"]}, {key: "mbono10", instr: "bono", n: 10, unit: "y", tick: [10, "y"]},
+  {key: "mbono20", instr: "bono", n: 20, unit: "y", tick: [20, "y"]}, {key: "mbono30", instr: "bono", n: 30, unit: "y", tick: [30, "y"]}
+];
+const YC_KEYS = YC_TENORS.map(t => t.key).filter(k => k !== "cetes28" && k !== "mbono10").concat(["ust10"]);
+// Auction points of a Banxico series (dated YYYY-MM-DD); a monthly fallback provider is not an auction.
+function auctionPts(key) { const s = S(key); return s && s.provider === "banxico" ? P(key).filter(p => p.d.length === 10) : null; }
+// Rows of the curve: tenors auctioned within 120 days of the curve's latest auction, each with its
+// previous auction and the auction closest to (not after) one year before that latest date.
+function yieldCurveModel() {
+  const rows = YC_TENORS.map(t => { const pts = auctionPts(t.key); return pts && pts.length ? {...t, pts, l: last(pts)} : null; }).filter(Boolean);
+  if (rows.length < 3) return null;
+  const ref = rows.map(r => r.l.d).sort().pop(), agoD = shiftDays(ref, -365);
+  const live = rows.filter(r => r.l.d >= shiftDays(ref, -120));
+  live.forEach(r => {
+    r.prev = r.pts.length > 1 ? r.pts[r.pts.length - 2] : null;
+    const a = atOrBefore(r.pts, agoD); r.ago = a && a.d >= shiftDays(agoD, -120) ? a : null;
+    r.old = r.l.d < shiftDays(ref, -60);
+  });
+  return live.length >= 3 ? {rows: live, ref, agoD} : null;
+}
+// Banxico dates each auction at its settlement ("fecha de colocación", table CF107); the auction itself is
+// held two business days earlier (Banxico, "Tipos de instrumentos y su colocación"). Weekends only:
+// Mexican holidays are not modelled.
+function minusWeekdays(d, n) { let x = d; while (n > 0) { x = shiftDays(x, -1); const wd = new Date(x + "T00:00:00Z").getUTCDay(); if (wd !== 0 && wd !== 6) n--; } return x; }
+// 10-year M bond auction yield minus the 10-year Treasury (FRED DGS10) at the close of the auction day or,
+// failing that, the nearest earlier close within five days. Values in basis points; d is the issue date.
+function bonoUstSpread() {
+  const B = auctionPts("mbono10"), U = S("ust10") ? P("ust10") : null;
+  if (!B || !B.length || !U || !U.length) return [];
+  let j = 0;
+  return B.map(p => {
+    const day = minusWeekdays(p.d, 2);
+    while (j + 1 < U.length && U[j + 1].d <= day) j++;
+    const u = U[j];
+    return u.d <= day && u.d >= shiftDays(day, -5) ? {d: p.d, v: Math.round((p.v - u.v) * 100), b: p.v, u: u.v, ud: u.d} : null;
+  }).filter(Boolean);
+}
+function fmtBp(v, signed) { if (v === null || v === undefined || isNaN(v)) return "—"; return (signed ? fmtSigned(Math.round(v), 0) : fmtNum(Math.round(v), 0)) + " " + T.bpUnit; }
+
 function renderBanxico() {
-  if (!gate("bx", [], ["policyRate", "tiie28", "cetes28", "mbono10", "reserves"])) return;
+  if (!gate("bx", [], ["policyRate", "tiie28", "cetes28", "mbono10", "reserves"].concat(YC_KEYS))) return;
   const PR = S("policyRate") ? P("policyRate") : null, TI = S("tiie28") ? P("tiie28") : null, CE = S("cetes28") ? P("cetes28") : null;
   const BO = S("mbono10") ? P("mbono10") : null, RS = S("reserves") ? P("reserves") : null, H = S("inpc") ? withChanges(P("inpc")) : null;
   const prL = PR ? last(PR) : null, hL = H ? lastWith(H, "yoy") : null;
   const anyBx = [["policyRate", PR], ["tiie28", TI], ["cetes28", CE], ["mbono10", BO], ["reserves", RS]].filter(x => x[1]);
-  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "reserves"], true);
+  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "reserves"].concat(YC_KEYS), true);
+  const YC = yieldCurveModel(), SP = bonoUstSpread(), spL = last(SP);
 
   const row = document.getElementById("bxKpiRow");
   const bpDelta = (pts, l, days) => { const p = atOrBefore(pts, l.d.length === 10 ? shiftDays(l.d, -days) : prevMonthKey(l.d)); return p ? deltaText((l.v - p.v) * 100, T.kpiDeltaBp, 0, v => Math.abs(Math.round(v))) : ""; };
@@ -2324,7 +2534,15 @@ function renderBanxico() {
   if (PR) rateTile(T.kpiPolicy, PR, "--series-headline");
   if (TI) rateTile(T.kpiTiie, TI, "--cat-7");
   if (CE) rateTile(T.kpiCetes, CE, "--cat-3");
-  if (BO) rateTile(T.kpiBono, BO, "--cat-5");
+  if (BO) {
+    const l = last(BO), pv = BO.length > 1 ? BO[BO.length - 2] : null;
+    if (l.d.length === 10) kpiTile(row, {label: T.kpiBono, value: fmtLevelPct(l.v, 2), delta: pv ? deltaText((l.v - pv.v) * 100, T.kpiDeltaBpAuction, 0, v => Math.abs(Math.round(v))) : "", foot: fmtAny(l.d), spark: monthEnd(BO).slice(-24).map(p => p.v), color: "--cat-5"});
+    else rateTile(T.kpiBono, BO, "--cat-5");
+  }
+  if (spL) {
+    const pv = SP.length > 1 ? SP[SP.length - 2] : null;
+    kpiTile(row, {label: T.kpiSpread, value: fmtBp(spL.v), delta: pv ? deltaText(spL.v - pv.v, T.kpiDeltaBpAuction, 0, v => Math.abs(Math.round(v))) : "", foot: fmtDateDMY(spL.d), spark: SP.slice(-24).map(p => p.v), color: "--cat-6"});
+  }
   const EX = S("inflExp12m") ? P("inflExp12m") : null;
   const realSeries = (pm) => pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
   const exAnteSeries = (pm) => EX ? pm.map(p => { const e = EX.find(q => q.d === p.d); return {d: p.d, v: e ? r2(p.v - e.v) : null}; }).filter(p => p.v !== null) : [];
@@ -2362,6 +2580,39 @@ function renderBanxico() {
     ].filter(Boolean), {legendId: "bxCurveLegend", tooltipId: "bxCurveTooltip", calloutId: "bxCurveCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), labelFmt: fmtMonthYear,
         calloutLines: [T.bxCurveCallout(fmtMonthYear(lm.d), c ? fmtLevelPct(last(c).v, 2) : "—", t ? fmtLevelPct(last(t).v, 2) : "—", b ? fmtLevelPct(last(b).v, 2) : "—")]});
   }
+  showSec("bxYcSec", !!YC);
+  if (YC) {
+    const rows = YC.rows, narrow = panelWidth() < 480;
+    curveChart("bxYcChart", rows.map(r => T.ycTenor(r.tick[0], r.tick[1])), [
+      {label: T.legYcNow, color: "--series-core", vals: rows.map(r => r.l)},
+      {label: T.legYcAgo, color: "--cat-10", dashed: true, vals: rows.map(r => r.ago)}
+    ], {legendId: "bxYcLegend", tooltipId: "bxYcTooltip", names: rows.map(r => nameOf(r.key))});
+    // phones: the issue date moves under the tenor's name instead of taking a column of its own
+    const oldAttr = r => r.old ? ` class="yc-old" title="${esc(T.ycOld)}"` : "";
+    const head = `<thead><tr><th>${esc(narrow ? T.ycColTenor + " · " + T.ycColDate : T.ycColTenor)}</th><th>${esc(T.ycColYield)}</th>${narrow ? "" : `<th>${esc(T.ycColDate)}</th>`}<th>${esc(T.ycColPrev)}</th><th>${esc(T.ycColYear)}</th></tr></thead>`;
+    document.getElementById("bxYcTable").innerHTML = head + "<tbody>" + rows.map(r =>
+      (narrow ? `<tr><td>${esc(T.ycShort(r.instr, r.n, r.unit))}<div class="yc-sub"><span${oldAttr(r)}>${esc(fmtDateDMY(r.l.d))}</span></div></td>`
+              : `<tr><td>${esc(nameOf(r.key))}</td>`) +
+      `<td>${esc(r.l.v.toFixed(2))}</td>` + (narrow ? "" : `<td${oldAttr(r)}>${esc(fmtDateDMY(r.l.d))}</td>`) +
+      `<td>${r.prev ? esc(fmtSigned(Math.round((r.l.v - r.prev.v) * 100), 0)) : "—"}</td><td>${r.ago ? esc(fmtSigned(Math.round((r.l.v - r.ago.v) * 100), 0)) : "—"}</td></tr>`).join("") + "</tbody>";
+    const c = rows.find(r => r.key === "cetes28"), b = rows.find(r => r.key === "mbono10"), lines = [];
+    if (c && b) lines.push(T.bxYcCallout(fmtPP(b.l.v - c.l.v, 2), fmtLevelPct(c.l.v, 2), fmtDateDMY(c.l.d), fmtLevelPct(b.l.v, 2), fmtDateDMY(b.l.d)));
+    lines.push(T.bxYcCalloutNote);
+    document.getElementById("bxYcCallout").innerHTML = lines.map(l => `<div>${esc(l)}</div>`).join("");
+  }
+  showSec("bxSpreadSec", SP.length > 1);
+  if (SP.length > 1) {
+    const svg = document.getElementById("bxSpreadChart"), W = panelWidth();
+    svg.setAttribute("viewBox", `0 0 ${W} 220`);
+    // one year label per ~56 px: a phone shows the last five years, a desktop the whole history
+    const firstYear = String(Math.max(+SP[0].d.slice(0, 4), +spL.d.slice(0, 4) - Math.floor((W - 60) / 56) + 1));
+    const yr = SP.filter(p => p.d >= shiftDays(spL.d, -365)), avg = yr.reduce((a, p) => a + p.v, 0) / yr.length;
+    const lo = SP.reduce((m, p) => p.v < m.v ? p : m, SP[0]), hi = SP.reduce((m, p) => p.v > m.v ? p : m, SP[0]);
+    lineChart("bxSpreadChart", [{pts: SP.filter(p => p.d >= firstYear).map(p => ({d: p.d, v: p.v})), color: "--cat-6", label: T.legSpread}],
+      {legendId: "bxSpreadLegend", tooltipId: "bxSpreadTooltip", calloutId: "bxSpreadCallout", fmt: v => fmtBp(v), axisFmt: v => fmtNum(v, 0), labelFmt: fmtDateDMY,
+       calloutLines: [T.bxSpreadCallout(fmtDateDMY(spL.d), fmtLevelPct(spL.b, 2), fmtLevelPct(spL.u, 2), fmtDateDMY(spL.ud), fmtBp(spL.v)),
+                      T.bxSpreadCalloutRange(fmtBp(avg), SP[0].d.slice(0, 4), fmtBp(lo.v), fmtDateDMY(lo.d), fmtBp(hi.v), fmtDateDMY(hi.d)), T.bxSpreadMethod]});
+  }
   showSec("bxResSec", !!RS);
   if (RS) {
     const l = last(RS), ago = atOrBefore(RS, shiftDays(l.d.length === 10 ? l.d : l.d + "-01", -365));
@@ -2381,10 +2632,14 @@ function renderBanxico() {
       else { const rp = last(realSeries(monthEnd(PR))); if (rp) drvLine = [T.sumDriver, T.sumBxDriverPost(fmtLevelPct(rp.v, 1))]; }
     }
     const moveWord = bp !== null && bp < 0 ? T.sumBxMoveCuts : bp !== null && bp > 0 ? T.sumBxMoveHikes : T.sumBxMoveAny;
+    const ycC = YC && YC.rows.find(r => r.key === "cetes28"), ycB = YC && YC.rows.find(r => r.key === "mbono10");
+    const slope = ycC && ycB ? ycB.l.v - ycC.l.v : null;
+    const spOk = spL && ycB && spL.d === ycB.l.d;
     execSummary("bx", [
       [T.sumLatest, T.sumBxLatest(fmtLevelPct(prL.v, 2), chgTxt) + (hL ? " " + T.sumBxInfl(fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 1)) : "")],
       drvLine,
       [T.sumWhy, T.sumBxWhy],
+      slope !== null ? [T.sumCurve, T.sumBxCurve(slope > 0.25 ? "up" : slope < -0.25 ? "inverted" : "flat", fmtLevelPct(ycB.l.v, 2), fmtDateDMY(ycB.l.d), fmtPP(slope, 2), spOk ? fmtBp(spL.v) : null)] : null,
       [T.sumNext, T.sumBxNext(moveWord)]
     ]);
   } else execSummary("bx", []);
