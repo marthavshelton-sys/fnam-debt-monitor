@@ -1,8 +1,9 @@
 # Hyperscaler Hub — runbook
 
-Pages: `site/hiperescaladores/` (summary), `capex/` (module 3), `fuera-de-balance/` (module 6), `metodologia/`,
-`glosario/`, and the data-quality pages `capex/quality.html`, `fuera-de-balance/quality.html`. `/hyperscalers/*`
-redirects here. Modules 1, 2, 5 (phase 2) and 4, 7 (phase 3) are listed as "in preparation" and not built yet.
+Pages: `site/hiperescaladores/` (summary), `capacidad/` (module 1), `comprometida/` (2), `capex/` (3), `electricidad/`
+(4), `sitios/` (5), `fuera-de-balance/` (6), `circular/` (7), `metodologia/`, `glosario/`, and a data-quality page per
+module (`<module>/quality.html`). `/hyperscalers/*` redirects here. Phases 2–3 (modules 1, 2, 4, 5, 7) approved by the
+owner on 2026-10-03 ("when in doubt, the SEC filings reign supreme").
 
 Coverage (owner's choice, 2026-10-03): MSFT, GOOGL, AMZN, META, ORCL, CRWV (core) and NBIS, IREN, APLD, CORZ
 (listed neoclouds), in `companies.json`. Public for now; the owner plans a password in a few weeks — copy
@@ -14,7 +15,9 @@ Coverage (owner's choice, 2026-10-03): MSFT, GOOGL, AMZN, META, ORCL, CRWV (core
 |---|---|---|
 | EDGAR poll (submissions + XBRL companyfacts) | `scripts/hyperscalers/fetch-edgar.mjs` | `data/xbrl/<T>.json`, `data/filings.json`, `data/state.json` |
 | Build | `scripts/hyperscalers/build.mjs` | `site/hiperescaladores/data/{financials,changelog,status}.js`, `site/hiperescaladores/csv/*.csv`, `data/{metrics,changelog,derivations}.json` |
-| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/{capex,fuera-de-balance}/data/quality.js` |
+| Build modules 1, 2, 4, 5, 7 | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{capacity,sites,power,circular}.js`, module CSVs, `data/modules-log.json` |
+| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (seven modules) |
+| Base map (one-off, npm packages) | `scripts/hyperscalers/build-map.mjs` | `site/hiperescaladores/assets/map-data.js` |
 | Notes harvest (runner only) | `scripts/hyperscalers/harvest-notes.mjs` | `raw/notes/<T>/<accession>.json` |
 
 Schedule: `.github/workflows/hyperscalers-refresh.yml`, daily 13:20 and 22:20 UTC; commits only when a value,
@@ -57,11 +60,30 @@ read from `tools/oracle/data/obligations.json` (verified by the Oracle routine; 
 records items looked for and confirmed absent ("Not disclosed"). The look-through total is computed only when JV debt
 has been read or confirmed absent; leases not yet commenced (undiscounted) are never added to present-value debt.
 
+## Modules 1, 2, 4, 5, 7 (curated files)
+
+| File | Module | What it holds |
+|---|---|---|
+| `data/capacity.json` | 1, 2 | Current MW (company definition in `definitions`), pipeline by stage (contracted / under construction / announced), companies with no MW (`notDisclosed`, with what was searched). Oracle's MW come from `tools/oracle/data/buildout.json` (T2). |
+| `data/sites.json` | 5 | Sites the company names in a filing (T1); Oracle's from its store (T2). `lat`/`lon` = the locality the filing names, with `precision` (locality, county, state, country); never campus coordinates. A site whose location is withheld has no point. |
+| `data/power.json` | 4 | `companyDeals` (T1 filings / T2 company or counterparty releases) and `grid` (T3 EIA, ERCOT, PJM, NERC; T4 LBNL, IEA) with `editionDate` and `nextExpected` (amber in the browser 30 days after it). Never mixed or summed. |
+| `data/circular.json` | 7 | `flows` (from → to, type, amount and basis, accounting, citation), `concentration`, and FNAM `inferences` / `breakers`, each listing the flows it rests on (validator fails on an unknown id). |
+
+Every T1 item cites `src.k` = `"<TICKER> <form> <period end>"` (a harvested filing in `raw/notes/`), `page` (use
+`seqNN` when the filing has no printed number on that page) and `quote`. `build-modules.mjs` resolves the accession and
+URL and checks that the quote appears on that page of the harvested text ("quote matched"; misses are listed on the
+module 1 quality page). Items stay `needs_review` until a second reading (`verified`, `verifiedBy`, `verifiedOn`).
+MW of different definitions are never summed; contract MW (power) are never added to data center MW.
+
+Review cadence: after each 10-Q/10-K harvest and weekly for the T3/T4 grid sources (EIA STEO monthly, NERC LTRA
+yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) feeds the revenue shares in module 7.
+
 ## Open items
 
 - Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
   before that makes the watchdog report "late").
 - Text items in `offbs.json` (27 on 2026-10-03, all ten companies, pages cited) are `needs_review` until a second reading of the cited page; the Claude routine should verify them after each 10-Q/10-K harvest and set `verified`.
-- Oracle: the FY2026 10-K (p. 90) discloses a guarantee of up to $3.3bn of a lessor's borrowing (maturing September 2026) that `tools/oracle/data/obligations.json` records as not disclosed; the owner decides whether the Oracle page is corrected (not touched from this hub).
 - Nebius quarterly figures come from 6-K press releases (no XBRL): T1-furnished text, to be added as curated items.
-- Phase 2 (capacity, committed capacity, sites) and phase 3 (electricity, circular financing) need the owner's go.
+- Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow `meta-nbis-2` shows "reading pending").
+- Item 2 "Properties" of Microsoft and Oracle was not captured (upper-case heading); the harvester regex now matches it and the next `mode=notes force_notes=true` run will bring it in.
+- Weekly T3/T4 review is done in-session; a scheduled Claude routine for it needs the owner's go.

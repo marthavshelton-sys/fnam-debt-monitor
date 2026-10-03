@@ -128,6 +128,36 @@
   }
   function axisMoney(v) { return 'US$ ' + num(v, Math.abs(v) < 10 && v !== 0 ? 1 : 0) + (LANG === 'es' ? ' mil M' : ' bn'); }
 
+  // MW under the company's own definition: "850 MW", "3.1 GW"; qualifier over/approx → "> 850 MW" / "≈ 170 MW"
+  function mw(v, q) {
+    if (v == null || !isFinite(v)) return nd();
+    var s = v >= 1000 ? num(v / 1000, v % 1000 === 0 ? 0 : 1) + ' GW' : num(v, 0) + ' MW';
+    return (q === 'over' ? '> ' : q === 'approx' ? '≈ ' : '') + s;
+  }
+  // filing citation (resolved by build-modules.mjs) → rows for the ⓘ card
+  function citeRows(s) {
+    if (!s) return [];
+    var page = s.page ? s.page : s.pageSeq ? t('sin número impreso (secuencia ', 'no printed number (sequence ') + s.pageSeq + ')' : null;
+    var qc = s.quoteCheck === 'page' ? t('cita cotejada contra el texto de la página', 'quote matched against the page text') : s.quoteCheck === 'other_page' ? t('cita hallada en otra página (', 'quote found on another page (') + s.foundOn + ')' : s.quoteCheck ? t('cita no cotejada', 'quote not matched') : null;
+    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited') : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc]];
+  }
+  function cite(title, s, extra) { return s ? src({ title: title, rows: citeRows(s).concat(extra || []), url: s.url || null }) : ''; }
+  function status(st) { return st === 'verified' ? '<span class="flag ok">' + t('verificado', 'verified') + '</span>' : st === 'company_statement' ? '' : flag('review'); }
+  // T3/T4 freshness: amber after the publisher's next expected edition + 30 days (computed in the reader's browser)
+  function staleT3(next, today) {
+    if (!next) return { stale: false };
+    var now = today || new Date().toISOString().slice(0, 10);
+    var lim = new Date(Date.parse(next + 'T12:00:00Z') + 30 * 864e5).toISOString().slice(0, 10);
+    return { stale: now > lim, limit: lim };
+  }
+
+  // labels of the MW definitions (tools/hyperscalers/data/capacity.json → definitions)
+  function metricLabel(m) {
+    var L = { active_power: ['Potencia activa', 'Active power'], critical_it_operating: ['Carga crítica de TI en operación', 'Critical IT load operating'], operating_ai: ['Nube de IA en operación', 'AI cloud operating'], mining_dc: ['Centro de datos para minería', 'Bitcoin-mining data center'], hosting: ['Alojamiento (hosting)', 'Hosting'], billable: ['Potencia facturable', 'Billable power'], delivered: ['MW entregados en el periodo', 'MW delivered in the period'], contracted_power: ['Potencia contratada', 'Contracted power'], contracted_it: ['Carga de TI contratada', 'Contracted IT load'], leased_customer: ['Potencia arrendada a clientes', 'Customer leased power'], undelivered_leased: ['Potencia arrendada por entregar', 'Leased power not yet delivered'], grid_gross: ['Potencia bruta de red', 'Gross grid power'], secured_partners: ['Capacidad asegurada vía socios', 'Capacity secured via partners'], option: ['Opción del cliente', 'Customer option'], dc_development: ['Centro de datos en desarrollo', 'Data center in development'], planned_campus: ['Capacidad planeada del campus', 'Planned campus capacity'] }[m];
+    return L ? t(L[0], L[1]) : (m || '');
+  }
+  function coName(tk, F) { var c = (F || window.HYP_FIN).companies[tk]; return '<span class="sw" style="background:' + color(tk) + '"></span><b>' + esc(c ? c.name : tk) + '</b> <span class="muted small">' + tk + '</span>'; }
+
   function applyLang() {
     document.querySelectorAll('.es').forEach(function (e) { e.hidden = LANG !== 'es'; });
     document.querySelectorAll('.en').forEach(function (e) { e.hidden = LANG !== 'en'; });
@@ -156,6 +186,7 @@
   window.HUB = {
     get lang() { return LANG; }, t: t, esc: esc, onLang: function (fn) { listeners.push(fn); },
     color: color, css: css, isDark: isDark, nd: nd, nt: nt, nm: nm, num: num, money: money, moneyM: moneyM, pct: pct, mult: mult, date: date, fq: fq, cq: cq,
-    edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults
+    edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
+    mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, status: status, staleT3: staleT3
   };
 })();
