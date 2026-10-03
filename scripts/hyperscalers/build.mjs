@@ -312,11 +312,17 @@ out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source
 // change log: new periods and revised values against the previous build
 const entries = [];
 if (prevMetrics && prevMetrics.values) {
+  // a metric added to the tag map loads its whole history at once: one "metric added" entry, not one per period
+  const prevKeys = new Set(Object.keys(prevMetrics.values).map((id) => id.split('.')[1]));
+  const added = {};
   for (const [id, x] of Object.entries(flat)) {
     const o = prevMetrics.values[id];
+    const mk = id.split('.')[1];
+    if (!o && !prevKeys.has(mk)) { added[mk] = (added[mk] || 0) + 1; continue; }
     if (!o) entries.push({ at: stamp.iso, kind: 'new', id, value: x.v, accn: x.a });
     else if (o.v !== x.v) entries.push({ at: stamp.iso, kind: 'revised', id, old: o.v, value: x.v, oldAccn: o.a, accn: x.a });
   }
+  for (const [mk, n] of Object.entries(added)) entries.push({ at: stamp.iso, kind: 'metric_added', id: `*.${mk}`, value: n, note: 'metric added to the tag map; its tagged history loaded' });
   for (const id of Object.keys(prevMetrics.values)) if (!flat[id]) entries.push({ at: stamp.iso, kind: 'removed', id, old: prevMetrics.values[id].v });
 } else {
   entries.push({ at: stamp.iso, kind: 'initial', id: '*', value: Object.keys(flat).length, note: 'initial load of the XBRL-tagged history' });

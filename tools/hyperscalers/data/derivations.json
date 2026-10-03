@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T14:43:20Z",
+ "generated": "2026-10-03T15:56:15Z",
  "warnings": [
   {
    "ticker": "MSFT",
@@ -29,6 +29,14 @@
    "ticker": "MSFT",
    "tag": "FY2023",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -109,6 +117,14 @@
    "ticker": "MSFT",
    "tag": "FY2024",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -196,6 +212,14 @@
   {
    "ticker": "MSFT",
    "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2025",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -284,6 +308,14 @@
   {
    "ticker": "MSFT",
    "tag": "FY2026",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2026",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -348,6 +380,14 @@
   {
    "ticker": "GOOGL",
    "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2023",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -429,6 +469,14 @@
    "ticker": "GOOGL",
    "tag": "FY2024",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -532,6 +580,14 @@
   {
    "ticker": "GOOGL",
    "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 1,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2025",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -621,6 +677,14 @@
    "ticker": "AMZN",
    "tag": "FY2023",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "AMZN",
+   "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -716,6 +780,14 @@
   {
    "ticker": "AMZN",
    "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "AMZN",
+   "tag": "FY2024",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -789,6 +861,14 @@
    "ticker": "AMZN",
    "tag": "FY2025",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "AMZN",
+   "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -881,6 +961,14 @@
   {
    "ticker": "META",
    "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -1,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2023",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -953,6 +1041,14 @@
   {
    "ticker": "META",
    "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -1,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2024",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1009,6 +1105,14 @@
   {
    "ticker": "META",
    "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -1,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2025",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1050,6 +1154,14 @@
    "ticker": "ORCL",
    "tag": "FY2023",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1130,6 +1242,14 @@
    "ticker": "ORCL",
    "tag": "FY2024",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1218,6 +1338,14 @@
    "ticker": "ORCL",
    "tag": "FY2025",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1291,6 +1419,14 @@
    "tag": "FY2026",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2026",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 1,
    "status": "ok",
    "identity": true
   },
@@ -1382,6 +1518,14 @@
   {
    "ticker": "CRWV",
    "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "FY2024",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1456,6 +1600,14 @@
    "tag": "FY2025",
    "check": "ol_additions: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -0.42,
    "status": "ok",
    "identity": true
   },
@@ -1542,6 +1694,14 @@
   {
    "ticker": "IREN",
    "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "IREN",
+   "tag": "FY2025",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1590,6 +1750,14 @@
   {
    "ticker": "IREN",
    "tag": "FY2026",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "IREN",
+   "tag": "FY2026",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1618,6 +1786,16 @@
    "diff": 0,
    "status": "ok",
    "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "check": "RevenueFromContractWithCustomerExcludingAssessedTax FY2025Q3: 3-month fact 52921000 vs YTD difference 106481000",
+   "status": "warn"
+  },
+  {
+   "ticker": "APLD",
+   "check": "RevenueFromContractWithCustomerExcludingAssessedTax FY2026Q3: 3-month fact 126637000 vs YTD difference 161757000",
+   "status": "warn"
   },
   {
    "ticker": "APLD",
@@ -1672,6 +1850,14 @@
    "ticker": "APLD",
    "tag": "FY2023",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1767,6 +1953,14 @@
   {
    "ticker": "APLD",
    "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -0.002,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2024",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1842,6 +2036,14 @@
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -53.56,
+   "status": "warn",
    "identity": true
   },
   {
@@ -2012,6 +2214,14 @@
   {
    "ticker": "CORZ",
    "tag": "FY2023",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
+   "tag": "FY2023",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -2076,6 +2286,14 @@
   {
    "ticker": "CORZ",
    "tag": "FY2024",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
+   "tag": "FY2024",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -2133,6 +2351,14 @@
    "ticker": "CORZ",
    "tag": "FY2025",
    "check": "fl_principal: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
+   "tag": "FY2025",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2533,6 +2759,39 @@
   },
   {
    "ticker": "CRWV",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2025-01-01",
+   "end": "2025-03-31",
+   "old": 981632000,
+   "oldAccn": "0001769628-25-000014",
+   "value": 982000000,
+   "accn": "0001769628-26-000222",
+   "filed": "2026-05-08"
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2025-01-01",
+   "end": "2025-06-30",
+   "old": 2194420000,
+   "oldAccn": "0001769628-25-000041",
+   "value": 2194000000,
+   "accn": "0001769628-26-000366",
+   "filed": "2026-08-12"
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2025-04-01",
+   "end": "2025-06-30",
+   "old": 1212788000,
+   "oldAccn": "0001769628-25-000041",
+   "value": 1212000000,
+   "accn": "0001769628-26-000366",
+   "filed": "2026-08-12"
+  },
+  {
+   "ticker": "CRWV",
    "tag": "NetCashProvidedByUsedInOperatingActivities",
    "start": "2025-01-01",
    "end": "2025-03-31",
@@ -2913,6 +3172,50 @@
    "old": 15000000,
    "oldAccn": "0001558370-25-005991",
    "value": 14300000,
+   "accn": "0001104659-26-052948",
+   "filed": "2026-04-30"
+  },
+  {
+   "ticker": "NBIS",
+   "tag": "Revenues",
+   "start": "2022-01-01",
+   "end": "2022-12-31",
+   "old": 7417100000,
+   "oldAccn": "0001558370-23-006319",
+   "value": 13500000,
+   "accn": "0001558370-25-005991",
+   "filed": "2025-04-30"
+  },
+  {
+   "ticker": "NBIS",
+   "tag": "Revenues",
+   "start": "2023-01-01",
+   "end": "2023-12-31",
+   "old": 8921200000,
+   "oldAccn": "0001558370-24-005891",
+   "value": 20900000,
+   "accn": "0001558370-25-005991",
+   "filed": "2025-04-30"
+  },
+  {
+   "ticker": "NBIS",
+   "tag": "Revenues",
+   "start": "2023-01-01",
+   "end": "2023-12-31",
+   "old": 20900000,
+   "oldAccn": "0001558370-25-005991",
+   "value": 9800000,
+   "accn": "0001104659-26-052948",
+   "filed": "2026-04-30"
+  },
+  {
+   "ticker": "NBIS",
+   "tag": "Revenues",
+   "start": "2024-01-01",
+   "end": "2024-12-31",
+   "old": 117500000,
+   "oldAccn": "0001558370-25-005991",
+   "value": 91500000,
    "accn": "0001104659-26-052948",
    "filed": "2026-04-30"
   },
@@ -3300,6 +3603,50 @@
    "value": 0,
    "accn": "0001144879-24-000216",
    "filed": "2024-08-30"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2023-06-01",
+   "end": "2024-05-31",
+   "old": 165575000,
+   "oldAccn": "0001144879-24-000216",
+   "value": 136618000,
+   "accn": "0001144879-25-000021",
+   "filed": "2025-07-30"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2024-06-01",
+   "end": "2024-08-31",
+   "old": 60704000,
+   "oldAccn": "0001144879-24-000253",
+   "value": 34849000,
+   "accn": "0001144879-25-000069",
+   "filed": "2025-10-09"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2024-06-01",
+   "end": "2024-11-30",
+   "old": 124572000,
+   "oldAccn": "0001144879-25-000006",
+   "value": 71012000,
+   "accn": "0001144879-26-000006",
+   "filed": "2026-01-08"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "RevenueFromContractWithCustomerExcludingAssessedTax",
+   "start": "2024-09-01",
+   "end": "2024-11-30",
+   "old": 63868000,
+   "oldAccn": "0001144879-25-000006",
+   "value": 36163000,
+   "accn": "0001144879-26-000006",
+   "filed": "2026-01-08"
   },
   {
    "ticker": "APLD",

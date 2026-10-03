@@ -11,6 +11,73 @@
  "numberedPages": 76,
  "hits": [
   {
+   "kind": "concentration",
+   "page": "2",
+   "match": "Related party",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Condensed Consolidated Statements of Operations (Unaudited)   (In thousands, except share and per share data)   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Revenue:   Revenue $ 126,637 $ 52,921 $ 352,562 $ 175,567   Related party revenue — — — 1,926   Total revenue 126,637 52,921 352,562 177,493   Costs and expenses:   Cost of revenues (1)   72,832 49,141 235,398 162,562   Selling, general and administrative (2) (3)   79,723 22,723 166,814 66,852   Loss (gain) on classification of held for sale (4)   59,650 — 59,650 ( 24,616 )   Loss on abandonment of assets 99 — 2,343 769   Total costs and expenses 212,304 71,864 464,205 205,567   Operating loss ( 85,667 ) ( 18,943 ) ( 111,643 ) ( 28,074 )   Interest (income) expense, net ( 2,387 ) 8,897 18,883 23,687   Gain on change in fair value of derivatives ( 9,417 ) — ( 22,543 ) —   Gain on change in fair value of investment (5)   ( 3,305 ) — ( 6,072 ) —   Loss on conversion of debt — — — 33,612   Loss on change in fair value of debt — — — 85,439   Loss on extinguishment of debt — 1,177 — 1,177   Loss on change in fair value of warrants — 6,421 — 6,421   Net…",
+   "amounts": [
+    {
+     "raw": "$ 126,637 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 52,921 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 352,562 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 175,567   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "related party",
+   "text": "… 19.5 million and $ 17.5 million for the three months ended February 28, 2026 and February 28, 2025, and $ 30.4 million and $ 75.4 million for the nine months ended February 28, 2026 and February 28, 2025, respectively.   (2) Includes depreciation and amortization of $ 1.3 million and $ 1.2 million for the three months ended February 28, 2026 and February 28, 2025, and $ 3.1 million and $ 4.1 million for the nine months ended February 28, 2026 and February 28, 2025, respectively.   (3) Includes related party selling, general and administrative expense of $ 0.1 million for each of the three months ended February 28, 2026 and February 28, 2025, and $ 0.2 million for each of the nine months ended February 28, 2026 and February 28, 2025, respectively. See Note 5 - Related Party Transactions for further discussion of related party transactions.   (4) Includes $ 25 million received in connection with the sale of the Company’s Garden City facility upon the achievement of conditional approval requirements and escrowed funds were released during the nine months ended February 28, 2025.   (5) Includes related party gain on change in fair value of investment of $ 2.0 million for each of the three and nine months ended February 28, 2026. See Note 5 - Related Party Transactions for further discussion of related party transactions.   See accompanying notes to the unaudited condensed consolid…",
+   "amounts": [
+    {
+     "raw": "$ 1.3 million",
+     "usdM": 1.3
+    },
+    {
+     "raw": "$ 1.2 million",
+     "usdM": 1.2
+    },
+    {
+     "raw": "$ 3.1 million",
+     "usdM": 3.1
+    },
+    {
+     "raw": "$ 4.1 million",
+     "usdM": 4.1
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$ 0.2 million",
+     "usdM": 0.2
+    },
+    {
+     "raw": "$ 25 million",
+     "usdM": 25
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "7",
+   "match": "related party",
+   "text": "…026 and February 28, 2025   Nine Months Ended   February 28, 2026 February 28, 2025   CASH FLOW FROM OPERATING ACTIVITIES   Net loss $ ( 101,932 ) $ ( 178,528 )   Adjustments to reconcile net loss to net cash used in operating activities:   Depreciation and amortization 33,552 79,540   Stock-based compensation 94,741 10,233   Lease expense 16,310 23,911   Gain on change in fair value of derivatives ( 22,543 ) —   Gain on change in fair value of investment ( 6,072 ) —   Loss on extinguishment of related party debt   — 1,177   Non-cash interest expense 74,989 11,515   Loss (gain) on classification of held for sale 59,650 ( 24,616 )   Loss on conversion of debt — 33,612   Loss on change in fair value of debt — 85,439   Loss on abandonment of assets 2,343 769   Loss on change in fair value of warrants issued   — 6,421   Changes in operating assets and liabilities:   Accounts receivable ( 13,923 ) ( 10,722 )   Prepaid expenses and other current assets ( 88,229 ) ( 4,072 )   Customer deposits 627 2,306   Related party customer deposits — ( 1,549 )   Deferred revenue 8,956 ( 32,795 )   Related party deferred revenue — ( 1,692 )   Accounts payable ( 171,583 ) ( 88,378 )   Accrued liabilities 64,613 ( 12,319 )   Due to customer ( 2,149 ) ( 8,195 )   Lease assets and liabilities 14,773 ( 13,557 )   Other assets ( 6,983 ) ( 757 )   CASH FLOW USED IN OPERATING ACTIVITIES ( 42,860 ) ( 122,2…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "8",
    "match": "guarantee",
@@ -70,10 +137,24 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "11",
+   "match": "Interconnection",
+   "text": "…s (“tenant recoveries”) as revenue in the period the applicable expenses are incurred – which is generally on a ratable basis through the term of the lease. We account for and present rental revenue and tenant recoveries as a single component under rental and other services as the timing of recognition is the same, the pattern with which we transfer the right of use of the property and related services to the lessee are both on a straight-line basis and our leases qualify as operating leases.   Interconnection services include port and cross-connect services generally provided on terms that align with the respective lease term. We bill for these services on a monthly basis and recognize the revenue over the period the service is provided. Revenue for cross-connect installations is generally recognized in the period the cross-connect is installed.   Tenant fit-out services include the procurement and installation of customer equipment provided in accordance with the terms of the agreement with the customer. In the course of providing its services, the Company routinely subcontracts for services and incurs other direct costs on behalf of its clients which costs are passed through to the client and is recognized as revenue. The Company recognizes revenue using the percentage of completion model where by total costs incurred are divided by total costs expected to be incurred, which…",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "12",
    "match": "Variable Interest Entit",
    "text": "…2016-01, the Company records all equity investments with readily determinable fair values at fair value calculated by the publicly traded stock price at the close of the reporting period within gain (loss) on change in fair value of investments on the unaudited condensed consolidated statement of operations. .   For further discussion of the Company’s investments in equity securities, see Note 5 - Related Party Transactions, Note 7 - Balance Sheet Components , and Note 8 - Derivative Assets .   Variable Interest Entity   The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power   12",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Related Party",
+   "text": "… Measurement of Financial Assets and Financial Liabilities (“ASU 2016-01”). In accordance with ASU 2016-01, the Company records all equity investments with readily determinable fair values at fair value calculated by the publicly traded stock price at the close of the reporting period within gain (loss) on change in fair value of investments on the unaudited condensed consolidated statement of operations. .   For further discussion of the Company’s investments in equity securities, see Note 5 - Related Party Transactions, Note 7 - Balance Sheet Components , and Note 8 - Derivative Assets .   Variable Interest Entity   The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power   12",
    "amounts": []
   },
   {
@@ -105,6 +186,30 @@
    "match": "Guarantee",
    "text": "… the individual had ceased to be a beneficial owner of more than 5 % of such class of securities.   Base Electron   Base Electron, Inc., a Nevada corporation, (“Base Electron”) is an independent power producer owned and managed by a combination of third parties, as well as certain officers and directors of the Company acting in their individual capacities, for the purpose of developing stabilized power generation and infrastructure to support the broader AI industry.   The Company is party to a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which it has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the   16",
    "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "Related Party",
+   "text": "…d $ ( 12,625 ) $ —   Customer Deposits   Changes in the Company's customer deposits balances for the nine months ended February 28, 2026 and February 28, 2025, respectively, are shown in the following table (in thousands):   Nine Months Ended   February 28, 2026 February 28, 2025   Balance, beginning of period $ 16,125 $ 15,367   Customer deposits received 627 5,698   Customer deposits refunded — ( 3,373 )   Customer deposits applied   — ( 1,567 )   Balance, end of period $ 16,752 $ 16,125   5. Related Party Transactions   Related Party Revenue   Previously, related party revenue consisted of revenue from two customers, Customer E and Customer F. During the three months ended February 28, 2026 and 2025, there was no related party revenue. Similarly, during the nine months ended February 28, 2026, there was no related party revenue. During the nine months ended February 28, 2025, there was approximately $ 1.2 million of related party revenue from Customer E and approximately $ 0.7 million of related party revenue from Customer F, neither of which is currently a customer of the Company.   Customer E is a subsidiary of an entity which, during the first quarter of fiscal year 2025, was deemed to beneficially own over 5 % of the Company's outstanding common stock. As of July 25, 2024, the controlling individual of the entity filed a Schedule 13G to report the fact that as of the dat…",
+   "amounts": [
+    {
+     "raw": "$ 16,125 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 15,367   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16,752 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16,125   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "guarantee",
@@ -150,6 +255,40 @@
    ]
   },
   {
+   "kind": "capacity",
+   "page": "17",
+   "match": "1.2 GW",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $ 50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $ 50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $ 100 million. As of February 28, 2026, no liability has been recognized in the unaudited condensed consolidated financial…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "17",
+   "match": "utility",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $ 50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $ 50 million (if paid by August 1, 2026 and Base Electron is current in its payments to B&W) or $ 100 million. As of February 28, 2026, no liability has been recognized in the unaudited condensed consolidated financial statements, as the Company has determined that the likelihood of Base El…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "17",
+   "match": "Related Party",
+   "text": "…as it is an equity security without a readily determinable fair value and will be evaluated quarterly for impairment indicators. There were no impairment indicators during the quarter. As of February 28, 2026, the Company determined the fair value of the investment was $ 2.0 million, which was recorded as an other asset on the unaudited condensed consolidated balance sheets and a gain on change in fair value of investment on the unaudited condensed consolidated statements of operations.   Other Related Party Transactions   Related party transactions included within selling, general and administrative expense on the unaudited condensed consolidated statement of operations include software license fees of $ 0.1 million during the three months ended February 28, 2026 and 2025, each, respectively, and $ 0.2 million during the nine months ended February 28, 2026 and 2025, each, respectively, which were incurred with a company whose chairman is also a member of the Company’s Board of Directors.   6. Debt   The Company’s outstanding debt consisted of the following components (in thousands):   Interest Rate Maturity Date February 28, 2026 May 31, 2025   2030 Senior Secured Notes 9.25 % December 2030   $ 2,350,000 $ —   Convertible Notes, senior unsecured (1)   2.75 % June 2030   450,000 450,000   DevCo Facility 8.00 % December 2027 87,104 —   SMBC Loan (2)   (2)   August 2026   — 375,0…",
+   "amounts": [
+    {
+     "raw": "$ 2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$ 0.2 million",
+     "usdM": 0.2
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "18",
    "match": "guaranteed",
@@ -162,6 +301,13 @@
    ]
   },
   {
+   "kind": "gpu",
+   "page": "18",
+   "match": "GPU",
+   "text": "…was 7.82 %.   (3) The Starion Ellendale Loan is guaranteed by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in substantially all of the assets of the Ellendale Data Center Hosting facility (as defined in the Starion Ellendale Loan), and a security interest in the form of a collateral assignment of the Company’s rights and interests in all master hosting agreements related to APLD ELN-01 LLC.   (4) The Cornerstone Bank Loan is guaranteed by APLD GPU-01, LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in multiple Terms of Service Agreements for HPC based systems related to AI Cloud Computing Services, which are to be serviced at the Jamestown hosting facility.   (5) The Starion Term Loan is guaranteed by APLD Hosting, LLC, a wholly-owned subsidiary of the Company, and is secured by the Jamestown hosting facility, a security interest in substantially all of the assets of APLD Hosting LLC, and interests in all master hosting agreements related to the Jamestown hosting facility. The Starion Term Loan Agreement contains customary covenants, representations and warranties and events of default. The Company is subject to a debt service coverage ratio and is in compliance as of February 28, 2026.   (6) Inclusive in this number is $ 12.0 million of proceeds from the issuance of two SAFE agreements whi…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "19",
    "match": "guarantee",
@@ -172,6 +318,32 @@
      "usdM": 1.4
     }
    ]
+  },
+  {
+   "kind": "capacity",
+   "page": "19",
+   "match": "200 MW",
+   "text": "…e Loan bore interest at 8.0 % per annum. From the Closing Date and for the succeeding twelve months (the “PIK Period”), accrued interest was to be paid in kind, with such payment in kind being capitalized to principal monthly and at such other times as specified in the Promissory Note. After the PIK Period, accrued interest was to be paid in cash in certain circumstances. The Promissory Note was to mature on the earliest of (i) the date of acceleration of the Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027.   The Loan could be accelerated and the Company required to prepay the full outstanding principal balance of the Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (The Company may voluntarily prepay all or part of the Promissory Note at any time with no less than three ( 3 ) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with respect to the portion of the Loan then being prepaid, in each case, such prepayment is accompanied by the payment of amounts sufficient to achieve a rate of return…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "19",
+   "match": "100 MW",
+   "text": "…“Subsidiary Guarantors”) and Morgan Stanley & Co. LLC as the representative (the “Representative”) of the several initial purchasers (the “Initial Purchasers”) in a Rule 144A/Regulation S offering. The aggregate principal amount of Notes sold in the offering was $ 2.35 billion.   The 2030 Notes were issued at a price equal to 97 % of their aggregate principal amount. The Issuer intends to use the net proceeds from the offering to fund a portion of the construction and associated expenses of its 100 MW and 150 MW data centers, ELN-02 and ELN-03, respectively (the “Facilities”), at the Company’s 400MW Ellendale, North Dakota campus (“Polaris Forge 1”), repay the aggregate principal balance plus any accrued and unpaid interest under the SMBC Loan, fund debt service reserves, and pay transaction expenses.   19",
+   "amounts": [
+    {
+     "raw": "$ 2.35 billion",
+     "usdM": 2350
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "19",
+   "match": "campus in",
+   "text": "…yment of amounts sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10 x return hurdle applied to repayment at maturity. Amounts repaid under the Promissory Note are not available to be re-borrowed.   Proceeds of the Loan under the Promissory Note were used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, entered into a guarantee and collateral agreement, as grantors there…",
+   "amounts": []
   },
   {
    "kind": "guarantee",
@@ -195,6 +367,38 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "22",
+   "match": "related party",
+   "text": "…290   Prepaid expenses 14,136 1,421   Other current assets 76,565 1,472   Total Prepaid expenses and other current assets   $ 478,705 $ 9,652   February 28, 2026 May 31, 2025   Other assets   Long term lease incentive   $ 201,810 $ 84,416   Restricted cash   178,810 7,000   Deposits on assets & construction   40,424 69,500   Deferred construction costs 12 45   Deferred lease costs 12,566 7,342   Derivative assets (1)   98,833 —   Investments in other companies (2)   43,620 6,073   Investment in related party (3)   2,000 —   Other 15,633 4,977   Total Other assets $ 593,708 $ 179,353   (1) Balance as of February 28, 2026 consists of the fair value of derivative assets related to the preferred units and corresponding common units held by APLD HPC TopCo 2’s noncontrolling interest. See Note 13 - Temporary Equity and Note 8 - Derivative Assets for further discussion.   (2) Includes $ 20.9 million of warrants and $ 4.4 million of common shares issued by B&W to the Company in association with the Company’s investment in B&W. See further discussion of the transaction in Note 8 - Derivative Assets . The balance also includes a $ 15.0 million investment by the Company in Corintis SA (“Corintis”) in exchange for Series A1 preferred shares, approximating 6 % of Corintis’s outstanding equity. The Series A1 preferred shares are convertible preferred shares with no redemption rights. The inv…",
+   "amounts": [
+    {
+     "raw": "$ 593,708 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 179,353   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 20.9 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "22",
+   "match": "Related Party",
+   "text": "… 6 % of Corintis’s outstanding equity. The Series A1 preferred shares are convertible preferred shares with no redemption rights. The investment in Corintis will be accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value and will be evaluated quarterly for impairment indicators. There were no impairment indicators during the quarter.   (3) Includes a $ 2.0 million investment in Base Electron. See further discussion of the transaction in Note 5 - Related Party Transactions.   22",
+   "amounts": [
+    {
+     "raw": "$ 2.0 million",
+     "usdM": 2
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "24",
    "match": "Variable Interest Entit",
@@ -209,6 +413,29 @@
      "usdM": 19.2
     }
    ]
+  },
+  {
+   "kind": "power",
+   "page": "24",
+   "match": "natural gas",
+   "text": "… the Three and Nine Months Ended February 28, 2026   On November 4, 2025, the Company and B&W entered into an agreement under which the Company contributed $ 2.0 million to B&W in exchange for 500,000 shares of B&W’s common stock and a warrant to purchase 2.6 million shares of B&W’s common stock with an exercise price of $ 4.11 (the “Initial Warrant”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, B&W agreed to issue an additional warrant to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrant”) to the Company upon execution of such a definitive agreement. During the quarter ended February 28, 2026, a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. See Note 5 - Related Party Transactions.   The warrants were determined to be derivative assets and were required to be measured at fair value at issuance under ASC 815. They will be remeasured at fair value at each reporting date with changes in fair value reported on the unaudited condensed consolidated statement of operations. To allocate the initial contribution between the common stock and the warrants, the Company determined the fair value of ea…",
+   "amounts": [
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "24",
+   "match": "Related Party",
+   "text": "…W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, B&W agreed to issue an additional warrant to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrant”) to the Company upon execution of such a definitive agreement. During the quarter ended February 28, 2026, a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. See Note 5 - Related Party Transactions.   The warrants were determined to be derivative assets and were required to be measured at fair value at issuance under ASC 815. They will be remeasured at fair value at each reporting date with changes in fair value reported on the unaudited condensed consolidated statement of operations. To allocate the initial contribution between the common stock and the warrants, the Company determined the fair value of each and utilized the relative fair value allocation method. The B&W warrants are measured at fair value using the Black-Scholes Option Pricing model. Inherent in pricing models are assumptions related to expected share-price volatility, contractual term, risk-free interest rate and dividend yield, which are considered Level 3 inputs. The estimated fair value of the B&W Warrants are based on the following significant inputs:   November 4, 2025 February 28,…",
+   "amounts": []
   },
   {
    "kind": "vie",
@@ -227,6 +454,20 @@
    "page": "36",
    "match": "guaranteed",
    "text": "…h was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will e…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "36",
+   "match": "250 MW",
+   "text": "…ncontrolling interest consists of $ 891.0 million of contributions from noncontrolling interest, net of costs, $ 32.0 million of preferred stock dividends paid in-kind, and $ 0.1 million in current year net income attributable to non-controlling interest.   14. Leases   Lessor Accounting   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, the Company's subsidiaries, each entered into a data center lease with CoreWeave, Inc. (together, the \"CoreWeave Leases\") to deliver up to an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of Building 2, our 100 MW data center, which was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "36",
+   "match": "200MW",
+   "text": "…the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the   36",
    "amounts": []
   },
   {
@@ -261,6 +502,20 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "38",
+   "match": "1.2 GW",
+   "text": "…suant to which it has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   38",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "38",
+   "match": "utility",
+   "text": "… the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under a Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the MISO region.   38",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "39",
    "match": "Guarantee",
@@ -273,10 +528,86 @@
    ]
   },
   {
+   "kind": "power",
+   "page": "39",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   39",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "41",
+   "match": "Related party",
+   "text": "…ssets   515 598 1,240   Total costs and expenses 81,207 78,126 169,350   Segment profit (loss) $ 35,852 $ ( 24,919 ) $ 12,946   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   Nine Months Ended February 28, 2025   Data Center Hosting Business   Cloud Services Business   HPC Hosting Business   Revenue $ 104,254 $ 71,313 $ —   Related party revenue 1,926 — —   Total segment revenue 106,180 71,313 —   Costs and expenses:   Cost of revenues 70,607 91,359 100   Selling, general and administrative (1)   2,290 11,882 8,922   Gain on classification of held for sale ( 24,616 ) — —   Loss on abandonment of assets   718 — —   Total costs and expenses 48,999 103,241 9,022   Segment profit (loss) $ 57,181 $ ( 31,928 ) $ ( 9,022 )   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   41",
+   "amounts": [
+    {
+     "raw": "$ 104,254 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 71,313 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 57,181 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "44",
    "match": "guaranteed",
    "text": "…APLD ComputeCo 2 LLC and bear interest at a rate of 6.750 % per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 Notes Offering. The gross proceeds from the 2031 Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100 % of the aggregate principal amount thereof, plus accrued and unpaid inter…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "44",
+   "match": "electric service agreement",
+   "text": "…t forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 Notes Offering. The gross proceeds from the 2031 Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100 % of the aggregate principal amount thereof, plus accrued and unpaid interest.   B&W Warrants   On November 4, 2025, the Company and Babcock & Wilcox Enterprises (“BWE”) entered into an agreement under which the Company contributed $ 2.0 million to BWE in exchange for 500,000 shares of BWE’s common stock and warrants to purchase 2,600,000 shares of BWE’s common stock with an exercise…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "44",
+   "match": "natural gas",
+   "text": "…est.   B&W Warrants   On November 4, 2025, the Company and Babcock & Wilcox Enterprises (“BWE”) entered into an agreement under which the Company contributed $ 2.0 million to BWE in exchange for 500,000 shares of BWE’s common stock and warrants to purchase 2,600,000 shares of BWE’s common stock with an exercise price of $ 4.11 (the “Initial Warrants”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, BWE agreed to issue additional warrants to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrants”) to the Company upon execution of such a definitive agreement between B&W and the Company. As described in Note 5 - Related Party Transactions and Note 8 - Derivative Assets , on February 26, 2026 a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. Subsequent to the end of the quarter, the Company entered into an Assignment and Assumption Agreement, by and among the Company, Base Electron, BWE and B&W, pursuant to which the Company partially assigned its rights with respect to the Additional Warrants (such partial assignment representing the right to purchase up to 5,230,000 shares of BWE common stock) to Ba…",
+   "amounts": [
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "44",
+   "match": "Related Party",
+   "text": "…”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, BWE agreed to issue additional warrants to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrants”) to the Company upon execution of such a definitive agreement between B&W and the Company. As described in Note 5 - Related Party Transactions and Note 8 - Derivative Assets , on February 26, 2026 a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. Subsequent to the end of the quarter, the Company entered into an Assignment and Assumption Agreement, by and among the Company, Base Electron, BWE and B&W, pursuant to which the Company partially assigned its rights with respect to the Additional Warrants (such partial assignment representing the right to purchase up to 5,230,000 shares of BWE common stock) to Base Electron. The warrants were assigned by the Company to Base Electron in connection with Base Electron’s entry into a Design-Build Agreement with B&W. On March 18, 2026, the Company received the remaining Additional Warrants (representing the right to purchase up to 2,630,000 shares of BWE common stock). Base Electron is an independent power produ…",
+   "amounts": [
+    {
+     "raw": "$ 4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "46",
+   "match": "utility",
+   "text": "… key customers, including leases for our data center campuses;   • our ability to close the sale of our Cloud Services Business;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies;   • our ability to continue to grow sales in our hosting business;   • volatility of cryptoasset prices; and   • uncertainties of cryptoasset regulation policy; and   • our ability to keep up with the use and continued pace of developments in AI and evolving data center requirements and regulatory frameworks for AI.   You should carefully review the risks described in Item 1A of the Company’s Annual Report on Form 10-K for the year ended May 31, 2025, which was filed with the SEC on July 30, 2025, as well as any other c…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "46",
+   "match": "significant customer",
+   "text": "…at each of the Polaris Forge, Polaris Forge 2 and Delta Forge 1 campuses;   • our dependence on principal customers, including our ability to execute leases with key customers, including leases for our data center campuses;   • our ability to close the sale of our Cloud Services Business;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new data center facilities with the appropriate contractual margins and efficiencies;   • our ability to continue to grow sales in our hosting business;   • volatility of cryptoasset prices; and   • uncertainties of cryptoasset regulation policy; and   • our ability to keep up with the use and continued pace of developments in AI and evolving data center requirements and regulatory frameworks for AI.   You should carefully review the risks descri…",
    "amounts": []
   },
   {
@@ -287,11 +618,80 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "49",
+   "match": "106 MW",
+   "text": "…such, the net proceeds were first allocated to the derivatives at their fair value. The remainder of the proceeds were then allocated to the warrants and noncontrolling interests based on their relative fair values.   Business Update   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements.   As of February 28, 2026, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue to operate at full capacity.   We recognized $37.5 million and $117.1 million, in revenue from this business segment during the three and nine months ended February 28, 2026, respectively.   Cloud Services Business   Our Cloud Services Business provides high-performance computing power for artificial intelligence and machine learning applications. We recognized revenue of $18.1 million and $53.2 million from this business segment during the three and nine months ended February 28, 2026, respectively. We currently operate our Cloud Services Business in three states: Colorado, Minnesota, and Utah, by renting space at third party colocation centers and providing our customers with Company-owned equipment to generate revenue. As of February 28, 2026, this business segment had one customer a…",
+   "amounts": [
+    {
+     "raw": "$37.5 million",
+     "usdM": 37.5
+    },
+    {
+     "raw": "$117.1 million",
+     "usdM": 117.1
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "49",
+   "match": "14% of total revenue",
+   "text": "…ence and machine learning applications. We recognized revenue of $18.1 million and $53.2 million from this business segment during the three and nine months ended February 28, 2026, respectively. We currently operate our Cloud Services Business in three states: Colorado, Minnesota, and Utah, by renting space at third party colocation centers and providing our customers with Company-owned equipment to generate revenue. As of February 28, 2026, this business segment had one customer and generated 14% of total revenue for the fiscal quarter ended February 28, 2026.   As previously disclosed, during the fourth quarter of fiscal year 2025, we determined that the Cloud Services Business, which operates primarily through our wholly-owned subsidiary, Applied Digital Cloud Corporation, met the criteria to be classified as “held for sale.” As a sale would represent a strategic shift for the Company the Cloud Services Business was classified as discontinued operations. On December 30, 2025, the Company announced it had entered into a non-binding term sheet for a proposed business combination of the Cloud Services Business with EKSO Bionics Holdings, Inc. (Nasdaq: EKSO) (“EKSO”), which, once closed, will go forward as ChronoScale Corporation (“ChronoScale”), an accelerated compute platform purpose-built to support AI workloads (the “Proposed Transaction”).   On February 15, 2026, APLD Inte…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "50",
    "match": "guaranteed",
    "text": "… LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the second lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective Data Center Lease to which such subsidiary is a party.   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based invest…",
    "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "50",
+   "match": "100MW",
+   "text": "…trends using non-GAAP financial measures that exclude the results of this segment, and the non-GAAP financial measures presented herein exclude the Cloud Services Business.   HPC Hosting Business   Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   We recently commenced operations at our first HPC data center at our Polaris Forge 1 campus with 100MW of capacity. We continue building our second HPC data center at Polaris Forge 1 to provide an additional 150MW of capacity. These facilities are being designed and purpose-built to host high-density graphics processing unit architecture or other HPC applications, such as artificial intelligence, natural language processing, machine learning, and additional HPC developments. Our third HPC focused data center facility at Polaris Forge 1, which is expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in 2027.   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "50",
+   "match": "100 MW",
+   "text": "…aris Forge 1, which is expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in 2027.   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the second lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective Data Center Lease to which such subsidiary is a party.   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reach…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "50",
+   "match": "200 MW",
+   "text": "…obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   We recognized $71.0 million and $182.3 million , in revenue from this business segment during the three and nine months ended February 28, 2026, respectively.   50",
+   "amounts": [
+    {
+     "raw": "$71.0 million",
+     "usdM": 71
+    },
+    {
+     "raw": "$182.3 million",
+     "usdM": 182.3
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "50",
+   "match": "campus located",
+   "text": "…ampus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   We recognized $71.0 million and $182.3 million , in revenue from this business segment during the three and nine months ended February 28, 2026, respectively.   50",
+   "amounts": [
+    {
+     "raw": "$71.0 million",
+     "usdM": 71
+    },
+    {
+     "raw": "$182.3 million",
+     "usdM": 182.3
+    }
+   ]
   },
   {
    "kind": "equity_method",
@@ -308,10 +708,47 @@
    "amounts": []
   },
   {
+   "kind": "properties",
+   "page": "51",
+   "match": "campus in",
+   "text": "…of Series G Preferred Stock that have been or will be converted will be retired and resume the status of authorized but unissued shares.   On September 11, 2025, we entered into the second amendment (the “Second Amendment”) to the PEPA, dated April 30, 2025, by and between us and the investors signatory thereto, as amended by the First Amendment, dated August 14, 2025 in order to increase our access to capital to fund the continued construction and development of our Polaris Forge 1 data center campus in Ellendale, North Dakota and other general corporate purposes.   The Second Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of Series G Preferred Stock from $300 million to $450 million. Concurrent with the Second Amendment, the   51",
+   "amounts": [
+    {
+     "raw": "$300 million",
+     "usdM": 300
+    },
+    {
+     "raw": "$450 million",
+     "usdM": 450
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "52",
+   "match": "data center in Ellendale",
+   "text": "…as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from $12.50.   On October 7, 2025, the Company entered into the third amendment (the “Third Amendment”) to the PEPA, dated April 30, 2025, by and between the Company and the investors signatory thereto, as amended by the First Amendment and the Second Amendment, in order to increase its access to capital to fund the continued construction and development of its Polaris Forge I data center in Ellendale, North Dakota. The Third Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of the Series G Preferred Stock from 450.0 million to 590.0 million.   On October 21, 2025, Applied Digital entered into the fourth amendment (the “Fourth Amendment”) to the PEPA in order to increase its access to capital to fund the continued construction and development of its Polaris Forge 1 and Polaris Forge 2 data centers in Ellendale and Harwood, North Dakota, as well as general working capital purposes and for transaction expenses.   The Fourth Amendment amended the PEPA to, among other things: (i) increase the aggregate commitment amount of the shares of Series G Preferred Stock, from $590.0 million to $1.6 billion; (ii) subject to waiver by a majority-in-interest of the investors, (a) set the maximum put issuance amount to $75…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "53",
    "match": "guarantee",
    "text": "… to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   On November 28, 2025, the Company repaid the Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return.   Amended and Restated Unit Purchase Agreement   As previously disclosed, on January 13, 2025, APLD HPC Holdings LLC (formerly, APLD ELN-02 Holdings LLC), an indirect wholly owned subsidiary of the Company, entered into a Unit Purchase Agreement (the “Unit Purchase Agreement” or “UPA”) for its HPC Hosting Business with MIP VI HPC Holdings, LLC, which is an affiliate of funds and investment vehicles managed by entities within Macquarie Asset Management (“MAM”). On February 11, 2025, APLD HPC Holdings LLC novated and assigned its rights, title and interests and duties, liabilities and obligations under the UPA…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "53",
+   "match": "200 MW",
+   "text": "…nt in kind being capitalized to principal monthly and at such other times as may be specified in the Promissory Note. After the PIK Period, accrued interest will be paid in cash, provided that (i) the Post-Default Rate interest is payable in cash on demand and (ii) accrued interest on any principal amount repaid or prepaid is payable on the date of such repayment or prepayment. The Promissory Note matures on the earliest of (i) the date of acceleration of the Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027. The Loan will accelerate and we must mandatorily prepay the full outstanding principal balance of the Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (90) days following the occurrence of the 200 MW Lease Execution, and (c) within thirty (30) days following a Qualifying Preference Share Issuance (as defined therein).   We may voluntarily prepay all or part of the Promissory Note at any time with no less than three (3) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with respect to the p…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "53",
+   "match": "campus in",
+   "text": "…of amounts sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10x return hurdle applies to repayment at maturity. Amounts repaid under the Promissory Note will not be available to be re-borrowed.   Proceeds of the Loan under the Promissory Note will be used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors …",
    "amounts": []
   },
   {
@@ -351,6 +788,232 @@
     {
      "raw": "$50 million",
      "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "56",
+   "match": "1.2 GW",
+   "text": "…igital has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under that certain Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company’s obligations under the Guarantee are absolute and unconditional and continue until all obligations under the Design-Build Agreement have been fully performed or otherwise discharged. However, the Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $50 million (i…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "56",
+   "match": "electric service agreement",
+   "text": "…t forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier redeemed or repurchased in accordance with their terms. The 2031 Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 Notes Offering. The gross proceeds from the 2031 Notes Offering were deposited into a segregated escrow account pending the execution of an electric service agreement with certain providers on the terms and conditions of a related escrow agreement. Once the escrow release condition thereunder is satisfied, the escrowed funds will be released into the project accounts to fund the development and construction of the facilities. If the escrow release condition is not satisfied on or prior to June 30, 2026, or is deemed incapable of being satisfied by such date, the 2031 Notes will be subject to a special mandatory redemption at a price equal to 100% of the aggregate principal amount thereof, plus accrued and unpaid interest.   B&W Guarantee   On February 26, 2026, the Company entered into a Guarantee (the “Guarantee”) in favor of The Babcock & Wilcox Company (“B&W”), pursuant to which Applied Digital has agreed to unconditionally and irrevocably guarantee the full and timely performance by Base Electron, Inc., a Nevada corporat…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "56",
+   "match": "utility",
+   "text": "…nd timely performance by Base Electron, Inc., a Nevada corporation (“Base Electron”), of its obligations under that certain Design-Build Agreement, dated February 26, 2026, by and between Base Electron and B&W (the “Design-Build Agreement”). The Design-Build Agreement contemplates the engineering, procurement, construction and commissioning of a power generation facility with an expected nameplate capacity of approximately 1.2 GW anticipated to expand power and capacity supplied to the grid and utility customers in the Midcontinent Independent System Operator (“MISO”) region.   The Company’s obligations under the Guarantee are absolute and unconditional and continue until all obligations under the Design-Build Agreement have been fully performed or otherwise discharged. However, the Company may, in its sole discretion, terminate the Guarantee and all of its existing and future obligations thereunder upon the occurrence of any one of the following events, (i) the listing of Base Electron’s equity securities on a national securities exchange, (ii) the consummation by Base Electron of a financing transaction resulting in gross proceeds of at least $50 million (provided that Base Electron is current in its payments to B&W), or (iii) the payment by the Company of a termination fee equal to either $50 million (if paid by August 1, 2026 and Base Electron is current in its payments to …",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "56",
+   "match": "natural gas",
+   "text": "…   On November 4, 2025, the Company and Babcock & Wilcox Enterprises, Inc. (“BWE”), B&W’s parent, entered into an agreement under which the Company contributed $2.0 million to BWE in exchange for 500,000 shares of BWE’s common stock and warrants to purchase 2,600,000 shares of BWE’s common stock with an exercise price of $4.11 (the “Initial Warrants”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide on gigawatt of efficient energy for an APLD AI data center, BWE agreed to issue additional warrants to purchase 7,860,000 shares of common stock for $4.11 per share (the “Additional Warrants”) to the Company upon execution of such a definitive agreement between B&W and the Company. As described in Note 5 - Related Party Transaction and Note 8 - Derivative Assets, on February 26, 2026 a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. Subsequent to the end of the quarter, the Company entered into an Assignment and Assumption Agreement, by and among the Company, Base Electron, BWE and B&W, pursuant to which the Company partially assigned its rights with respect to the Additional Warrants (such partial assignment representing the right to purchase up to 5,230,000 shares of BWE common stock) to Base E…",
+   "amounts": [
+    {
+     "raw": "$4.11 ",
+     "usdM": null
+    },
+    {
+     "raw": "$4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "56",
+   "match": "Related Party",
+   "text": "…ts”). Additionally, under the agreement, to incentivize the Company to execute a definitive agreement with B&W related to B&W designing and installing natural gas technology that will provide on gigawatt of efficient energy for an APLD AI data center, BWE agreed to issue additional warrants to purchase 7,860,000 shares of common stock for $4.11 per share (the “Additional Warrants”) to the Company upon execution of such a definitive agreement between B&W and the Company. As described in Note 5 - Related Party Transaction and Note 8 - Derivative Assets, on February 26, 2026 a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. Subsequent to the end of the quarter, the Company entered into an Assignment and Assumption Agreement, by and among the Company, Base Electron, BWE and B&W, pursuant to which the Company partially assigned its rights with respect to the Additional Warrants (such partial assignment representing the right to purchase up to 5,230,000 shares of BWE common stock) to Base Electron. The warrants were assigned by the Company to Base Electron in connection with Base Electron’s entry into a Design-Build Agreement with B&W. On March 18, 2026, the Company received the remaining Additional Warrants (representing the right to purchase up to 2,630,000 shares of BWE common stock). Base Electron is an independent power produce…",
+   "amounts": [
+    {
+     "raw": "$4.11 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "58",
+   "match": "Related party",
+   "text": "Table of Contents   Results of Operations   Comparative Results for the Three and Nine Months Ended February 28, 2026 and February 28, 2025:   The following table sets forth key components of the results of operations (in thousands) during the three and nine months ended February 28, 2026 and February 28, 2025.   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Revenue:   Revenue $ 126,637 $ 52,921 $ 352,562 $ 175,567   Related party revenue — — — 1,926   Total revenue 126,637 52,921 352,562 177,493   Costs and expenses:   Cost of revenues (1)   72,832 49,141 235,398 162,562   Selling, general and administrative (2) (3)   79,723 22,723 166,814 66,852   Loss (gain) on classification as held for sale (4)   59,650 — 59,650 (24,616)   Loss on abandonment of assets 99 — 2,343 769   Total costs and expenses 212,304 71,864 464,205 205,567   Operating loss (85,667) (18,943) (111,643) (28,074)   Interest (income) expense, net (2,387) 8,897 18,883 23,687   Gain on change in fair value of derivatives (9,417) — (22,543) —   Gain on change in fair value of investment (5)   (3,305) — (6,072) —   Loss on conversion of debt   — — — 33,612   Loss on change in fair value of debt — — — 85,439   Loss on extinguishment of debt — 1,177 — 1,177   Loss on change in fair value of warrants   — 6,421 — 6,421   Net loss before inc…",
+   "amounts": [
+    {
+     "raw": "$ 126,637 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 52,921 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 352,562 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 175,567   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "59",
+   "match": "related party",
+   "text": "…ion of $19.5 million and $17.5 million for the three months ended February 28, 2026 and February 28, 2025, and $30.4 million and $75.4 million for the nine months ended February 28, 2026 and February 28, 2025, respectively.   (2) Includes depreciation and amortization of $1.3 million and $1.2 million for the three months ended February 28, 2026 and February 28, 2025, and $3.1 million and $4.1 million for the nine months ended February 28, 2026 and February 28, 2025, respectively.   (3) Includes related party selling, general and administrative expense of $0.1 million for each of the three months ended February 28, 2026 and February 28, 2025, and $0.2 million for each of the nine months ended February 28, 2026 and February 28, 2025, respectively. See Note 5 - Related Party Transactions for further discussion of related party transactions.   (4) Includes $25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released during the nine months ended February 28, 2025.   (5) Includes related party gain on change in fair value of investment of $2.0 million for each of the three and nine months ended February 28, 2026. See Note 5 - Related Party Transactions for further discussion of related party transactions.   (6) Adjusted Amounts and Other Financial Data are non-GAAP performance measures. T…",
+   "amounts": [
+    {
+     "raw": "$1.3 million",
+     "usdM": 1.3
+    },
+    {
+     "raw": "$1.2 million",
+     "usdM": 1.2
+    },
+    {
+     "raw": "$3.1 million",
+     "usdM": 3.1
+    },
+    {
+     "raw": "$4.1 million",
+     "usdM": 4.1
+    },
+    {
+     "raw": "$0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$0.2 million",
+     "usdM": 0.2
+    },
+    {
+     "raw": "$25 million",
+     "usdM": 25
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "60",
+   "match": "related party",
+   "text": "…he preferred units and corresponding common units held by APLD HPC TopCo 2’s noncontrolling interest. There was no such gain recorded in the prior year comparative period.   Gain on change in fair value of investment   Gain on change in fair value of investment was $3.3 million for the three months ended February 28, 2026, due to an increase of $1.3 million in the fair value of our investment in B&W common stock and an increase of $2.0 million in fair value of our investment in Base Electron, a related party. There was no such gain recorded in the prior year comparative period.   Commentary on Results of Operations Comparative Results for the Nine Months Ended February 28, 2026 compared to the Nine Months Ended February 28, 2025   Revenue   Revenue increased $177.0 million, or 101%, from $175.6 million for the nine months ended February 28, 2025 to $352.6 million for the nine months ended February 28, 2026. Our HPC Hosting Business commenced operations at our first HPC data center at our Polaris Forge 1 campus resulting in the recognition of approximately $182.3 million, with   60",
+   "amounts": [
+    {
+     "raw": "$3.3 million",
+     "usdM": 3.3
+    },
+    {
+     "raw": "$1.3 million",
+     "usdM": 1.3
+    },
+    {
+     "raw": "$2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$177.0 million",
+     "usdM": 177
+    },
+    {
+     "raw": "$175.6 million",
+     "usdM": 175.6
+    },
+    {
+     "raw": "$352.6 million",
+     "usdM": 352.6
+    }
+   ]
+  },
+  {
+   "kind": "gpu",
+   "page": "61",
+   "match": "GPU",
+   "text": "…s our first HPC data center at our Polaris Forge 1 campus became fully operational during the current fiscal year. Additionally, there was an increase of $12.8 million in revenue generated by our Data Center Hosting Business due to performance improvements compared to the nine months ended February 28, 2025. These increases were offset by a decrease of $18.1 million in revenue from our Cloud Services Business during the nine months ended February 28, 2026 due to a decrease in the fixed rate per GPU compared to the nine months ended February 28, 2025.   Cost of revenues   Cost of revenues increased by $72.8 million, or 45%, from $162.6 million for the nine months ended February 28, 2025 to $235.4 million for the nine months ended February 28, 2026. The increase was primarily driven by the growth in the business as more facilities were energized and more services were provided to customers compared to the nine months ended February 28, 2025. The increase in cost of revenues was categorized as follows:   • approximately $112.5 million increase in expenses associated with tenant fit-out services for our HPC Hosting Business which we began providing during the current fiscal year;   • approximately $14.3 million increase in energy costs associated with our Data Center Hosting Business; and   • approximately $5.7 million increase in other expenses such as personnel expenses directly …",
+   "amounts": [
+    {
+     "raw": "$18.1 million",
+     "usdM": 18.1
+    },
+    {
+     "raw": "$72.8 million",
+     "usdM": 72.8
+    },
+    {
+     "raw": "$162.6 million",
+     "usdM": 162.6
+    },
+    {
+     "raw": "$235.4 million",
+     "usdM": 235.4
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "62",
+   "match": "related party",
+   "text": "… to the preferred units and corresponding common units held by APLD HPC TopCo 2’s noncontrolling interest. There was no such gain recorded in the prior year comparative period.   Gain on change in fair value of investment   Gain on change in fair value of investment was $6.1 million for the nine months ended February 28, 2026, due to an increase of $4.1 million in fair value of our investment in B&W common stock and an increase of $2.0 million in fair value of our investment in Base Electron, a related party. There was no such gain recorded in the prior year comparative period.   Comparative Segment Data for the Three and Nine Months Ended February 28, 2026 and February 28, 2025:   The following table sets forth the operating (loss) profit for each of our segments for the three and nine months ended February 28, 2026 and February 28, 2025 (in thousands):   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Segment (loss) profit   Data Center Hosting Business   $ 13,859 $ 8,780 $ 35,852 $ 57,181   Cloud Services Business   (52,194) (10,308) (24,919) (31,928)   HPC Hosting Business   17,565 (222) 12,946 (9,022)   Total segment (loss) profit $ (20,770) $ (1,750) $ 23,879 $ 16,231   Commentary on Segment Data Comparative Results for the Three Months Ended February 28, 2026 compared to the Three Months Ended February 28, …",
+   "amounts": [
+    {
+     "raw": "$6.1 million",
+     "usdM": 6.1
+    },
+    {
+     "raw": "$4.1 million",
+     "usdM": 4.1
+    },
+    {
+     "raw": "$2.0 million",
+     "usdM": 2
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "64",
+   "match": "related party",
+   "text": "…ucturing expenses and other non-recurring expenses that Management believes are not representative of our expected ongoing costs. Adjusted net income (loss) is Adjusted operating income further adjusted for interest expense directly attributable to the Cloud Services Business, gain on change in fair value of derivative, gain on change in fair value of investment, loss on change in fair value of warrants, loss on conversion of debt, loss on change in fair value of debt, loss on extinguishment of related party debt and interest expense on convertible debt. We define “Adjusted net income (loss) per diluted share” as Adjusted net income (loss) divided by weighted average diluted share count.   EBITDA and Adjusted EBITDA   “EBITDA” is defined as earnings before interest expense, net, income tax expense, and depreciation and amortization and excluding results of the Cloud Services Business. “Adjusted EBITDA” also excludes results of the Cloud Services Business and is defined as EBITDA adjusted for stock-based compensation, non-recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, gain on classification of held for sale, gain on change in fair value of derivative, gain on change in fair value of investment, (gain) loss on abandonment of assets, loss on conversion of debt, loss on change in fair value of debt, loss on change in fa…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "64",
+   "match": "related party",
+   "text": "…ud Services Business and is defined as EBITDA adjusted for stock-based compensation, non-recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, gain on classification of held for sale, gain on change in fair value of derivative, gain on change in fair value of investment, (gain) loss on abandonment of assets, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of warrants, loss on extinguishment of related party debt, restructuring expenses and other non-recurring expenses that Management believes are not representative of our expected ongoing costs.   64",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "71",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   There are no other pending lawsuits that could reasonably be expected to have a material adverse effect on the results of the Company’s consolidated operations.   Item 1A. Risk Factors   As of the date of this filing, there have been no material changes to the risk factors associated with our business pre…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "72",
+   "match": "data center in Ellendale",
+   "text": "Item 2. Unregistered Sales of Equity Securities and Use of Proceeds   Series G Preferred Stock Offering   On October 21, 2025, we entered into the fourth amendment (the “Fourth Amendment”) to the PEPA, dated April 30, 2025, by and between the Company and the investors signatory thereto, as amended by the First Amendment, the Second Amendment, and the Third Amendment,in order to increase its access to capital to fund the continued construction and development of its Polaris Forge I data center in Ellendale, North Dakota.   The Fourth Amendment amended the PEPA to, among other things: (i) increase the aggregate commitment amount of the shares of Series G Preferred Stock, from $590.0 million to $1.6 billion; (ii) subject to waiver by a majority-in-interest of the investors, (a) set the maximum put issuance amount to $75.0 million per issuance, (b) set the limit to one put issuance per seven (7) business day period, and (c) set the maximum aggregate stated value of Series G Preferred Stock outstanding at any one time to $75.0 million; (iii) increase the original discount from 2% to 3%; (iv) eliminate the placement agent fee; and (v) eliminate the prohibition on Variable Rate Transactions (as defined in the PEPA).   The offer and sale of the Series G Preferred Stock pursuant to the Fourth Amendment, and the shares of common stock issuable upon the conversion of the Ser…",
+   "amounts": [
+    {
+     "raw": "$590.0 million",
+     "usdM": 590
+    },
+    {
+     "raw": "$1.6 billion",
+     "usdM": 1600
+    },
+    {
+     "raw": "$75.0 million",
+     "usdM": 75
     }
    ]
   },

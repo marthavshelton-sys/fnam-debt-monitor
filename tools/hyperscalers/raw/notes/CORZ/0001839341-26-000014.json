@@ -18,6 +18,46 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "13",
+   "match": "430 MW",
+   "text": "…the face of the Company's condensed consolidated statements of operations, but will result in additional disaggregated expense information in the notes to the Company's consolidated financial statements.   3. ASSET ACQUISITION   Hunt County Acquisition   On May 5, 2026, the Company completed an acquisition of land in Hunt County, Texas for an aggregate purchase price of approximately $ 233 million, and entered into a related electric service agreement, which is expected to support approximately 430 MW of gross utility power capacity. The Company intends to develop this land as a future data center site.   The acquisition was accounted for as an asset acquisition in accordance with ASC 805-50. The total consideration was allocated on a relative fair value basis, with $ 4.7 million allocated to land and $ 227.8 million allocated to development rights. The development rights are a finite-lived intangible asset with a weighted-average amortization period of approximately 30 years and no significant residual value. Amortization will begin when the related data center is placed in service, and no amortization expense was recognized during the periods presented.   As of June 30, 2026, the substantial majority of the “Intangibles, net” balance represents development rights recognized in connection with the Hunt County acquisition described above, with the remainder representing an imma…",
+   "amounts": [
+    {
+     "raw": "$ 233 million",
+     "usdM": 233
+    },
+    {
+     "raw": "$ 4.7 million",
+     "usdM": 4.7
+    },
+    {
+     "raw": "$ 227.8 million",
+     "usdM": 227.8
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "13",
+   "match": "electric service agreement",
+   "text": "…urement of the Company's expenses or the expense captions presented on the face of the Company's condensed consolidated statements of operations, but will result in additional disaggregated expense information in the notes to the Company's consolidated financial statements.   3. ASSET ACQUISITION   Hunt County Acquisition   On May 5, 2026, the Company completed an acquisition of land in Hunt County, Texas for an aggregate purchase price of approximately $ 233 million, and entered into a related electric service agreement, which is expected to support approximately 430 MW of gross utility power capacity. The Company intends to develop this land as a future data center site.   The acquisition was accounted for as an asset acquisition in accordance with ASC 805-50. The total consideration was allocated on a relative fair value basis, with $ 4.7 million allocated to land and $ 227.8 million allocated to development rights. The development rights are a finite-lived intangible asset with a weighted-average amortization period of approximately 30 years and no significant residual value. Amortization will begin when the related data center is placed in service, and no amortization expense was recognized during the periods presented.   As of June 30, 2026, the substantial majority of the “Intangibles, net” balance represents development rights recognized in connection with the Hunt Coun…",
+   "amounts": [
+    {
+     "raw": "$ 233 million",
+     "usdM": 233
+    },
+    {
+     "raw": "$ 4.7 million",
+     "usdM": 4.7
+    },
+    {
+     "raw": "$ 227.8 million",
+     "usdM": 227.8
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "17",
    "match": "not yet commenced",
@@ -52,6 +92,65 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "21",
+   "match": "440 MW",
+   "text": "…us any applicable fees. The Company generally has the right to cancel open purchase orders prior to delivery or terminate the contracts without cause.   Polaris DS LLC Merger Agreement   On May 5, 2026, the Company entered into an Agreement and Plan of Merger to acquire Polaris DS LLC, which owns an approximately 40 -acre site adjacent to the Company's existing Muskogee, Oklahoma data center operations, which contains an electrical substation, and electric service agreements providing for up to 440 MW of gross utility power capacity. The aggregate purchase price is approximately $ 421 million in cash, subject to customary adjustments, and will be increased by an additional $ 40 million in cash in the event that an additional 40 MW of firm electric capacity becomes available to Polaris DS LLC prior to December 31, 2026. As of June 30, 2026, the Company had deposited $ 120 million in cash into an escrow account, recorded in \"Restricted cash, current portion\" on the condensed consolidated balance sheets, which will be applied to the purchase price at closing. The transaction is subject to customary closing conditions and is expected to close in the third quarter of 2026.   Block, Inc. Contract Termination   During the three months ended June 30, 2026, the Company entered into a termination and settlement agreement with Block, Inc. and Proto Global LLC that terminated the Company's…",
+   "amounts": [
+    {
+     "raw": "$ 421 million",
+     "usdM": 421
+    },
+    {
+     "raw": "$ 40 million",
+     "usdM": 40
+    },
+    {
+     "raw": "$ 120 million",
+     "usdM": 120
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "21",
+   "match": "utility",
+   "text": "Core Scientific, Inc.   Notes to Unaudited Condensed Consolidated Financial Statements   10. COMMITMENTS AND CONTINGENCIES   Commitments   As of June 30, 2026, the Company had approximately $ 1.0 billion of expected future cash expenditures under its outstanding purchase and construction commitments, primarily related to infrastructure development costs, power utility deposits, equipment procurement, and labor. These commitments relate to the remaining build out at existing customer conversion sites, and new greenfield development undertaken for prospective customers. Of this amount, $ 264 million will be passed through to the Company’s customer as invoiced. Substantially all of these expenditures are expected to occur within the next 12 months.   The Company routinely engages with construction vendors for the construction of its facilities. These engagements are governed by contracts containing standard terms and conditions, including certain milestones that obligate the Company to pay as work is completed. In the event of termination of any of these contracts by the Company, the Company would be liable for all work that has been completed or is in process, plus any applicable fees. The Company generally has the right to cancel open purchase …",
+   "amounts": [
+    {
+     "raw": "$ 1.0 billion",
+     "usdM": 1000
+    },
+    {
+     "raw": "$ 264 million",
+     "usdM": 264
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "21",
+   "match": "electric service agreement",
+   "text": "…ork that has been completed or is in process, plus any applicable fees. The Company generally has the right to cancel open purchase orders prior to delivery or terminate the contracts without cause.   Polaris DS LLC Merger Agreement   On May 5, 2026, the Company entered into an Agreement and Plan of Merger to acquire Polaris DS LLC, which owns an approximately 40 -acre site adjacent to the Company's existing Muskogee, Oklahoma data center operations, which contains an electrical substation, and electric service agreements providing for up to 440 MW of gross utility power capacity. The aggregate purchase price is approximately $ 421 million in cash, subject to customary adjustments, and will be increased by an additional $ 40 million in cash in the event that an additional 40 MW of firm electric capacity becomes available to Polaris DS LLC prior to December 31, 2026. As of June 30, 2026, the Company had deposited $ 120 million in cash into an escrow account, recorded in \"Restricted cash, current portion\" on the condensed consolidated balance sheets, which will be applied to the purchase price at closing. The transaction is subject to customary closing conditions and is expected to close in the third quarter of 2026.   Block, Inc. Contract Termination   During the three months ended June 30, 2026, the Company entered into a termination and settlement agreement with Block, Inc. an…",
+   "amounts": [
+    {
+     "raw": "$ 421 million",
+     "usdM": 421
+    },
+    {
+     "raw": "$ 40 million",
+     "usdM": 40
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "28",
+   "match": "377 MW",
+   "text": "Core Scientific, Inc.   Notes to Unaudited Condensed Consolidated Financial Statements   15. SUBSEQUENT EVENTS   On July 27, 2026, the Company entered into Lease Agreements (collectively, the “AMD Leases”) with Advanced Micro Devices, Inc. (“AMD”) for an aggregate of 377 MW of critical IT capacity at the Company’s Pecos, TX; Muskogee, OK; and Hunt County, TX sites; and Lease Agreements (the “Neocloud Leases,” and collectively with the AMD Leases, the “Leases”) with a Neocloud (“Neocloud”), for 152 MW of critical IT capacity at the Company’s Auburn, AL and Dalton Phase 3, GA sites. Each of the Leases is for a fifteen year term with three five-year options. The AMD Leases provide AMD a reservation of capacity right to lease from the Company at certain times and under certain circumstances an additional 1,925 MWs of critical IT capacity through December 28, 2028.   In connection with the Neocloud Leases, each of the Company, Neocloud and AMD has entered into a Credit Support Agreement with respect to each Neocloud Lease: (i) establishing protections for AMD equipment held within the applicable Neocloud Lease premises, (ii) providing AMD the right, but n…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "29",
    "match": "guarantees",
@@ -66,10 +165,293 @@
    "amounts": []
   },
   {
+   "kind": "capacity",
+   "page": "29",
+   "match": "power capacity",
+   "text": "…hange Commission on March 2, 2026.   Overview   Core Scientific, Inc. is a leader in designing, building and operating large-scale purpose-built data centers for HDC services. We develop and operate facilities serving AI and HPC related workloads and are a provider of digital infrastructure to our third-party customers. The majority of our revenue is derived from HDC service.   Our strategic objective is to maximize the value of our large-scale data center infrastructure portfolio by converting power capacity across our facilities into long-term contracted HDC revenue streams. We believe this strategy enhances the predictability of future cash flows, reduces the relative contribution of bitcoin market volatility to our operating results, and increases the long-term value of our infrastructure platform relative to its historical use in digital asset mining operations.   In 2024, we announced our first HDC contract with CoreWeave, a provider of HPC services, which was subsequently expanded to approximately 590 MW of leased customer power capacity across five sites. As of June 30, 2026, approximately 395 MW has commenced billing. During the six months ended June 30, 2026, certain CoreWeave license agreements were assigned to a special purpose vehicle financing structure while CoreWeave remained a primary obligor under the agreements. See “Strategic Transition to High-Density Coloc…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "29",
+   "match": "power capacity",
+   "text": "…395 MW has commenced billing. During the six months ended June 30, 2026, certain CoreWeave license agreements were assigned to a special purpose vehicle financing structure while CoreWeave remained a primary obligor under the agreements. See “Strategic Transition to High-Density Colocation Services” below for a more detailed discussion of this arrangement and the associated risks. While our current colocation revenue remains concentrated with a single customer, we believe our available unleased power capacity provides a meaningful opportunity to diversify our customer base over time.   As of June 30, 2026, we controlled approximately 2.1 GW of gross utility power capacity, or approximately 1.3 GW of total leasable customer power capacity across 11 data centers in seven U.S. states including Alabama ( 1 ), Georgia ( 2) , Kentucky (1), North Carolina (1), North Dakota (1), Oklahoma (1), and Texas (4). We continue to develop, convert and expand most of our facilities to support AI and HPC workloads while pursuing additional land and power opportunities to expand our data center footprint.   We expect colocation revenue to increase as additional contracted capacity is commissioned and delivered to our existing customer and as we add new customer relationships over time. We continue to operate a self-mining fleet at two facilities and provide hosted mining services to one remaining …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "29",
+   "match": "2.5 GW",
+   "text": "…is commissioned and delivered to our existing customer and as we add new customer relationships over time. We continue to operate a self-mining fleet at two facilities and provide hosted mining services to one remaining customer. Our hosted mining operations are expected to conclude by December 31, 2026, while we continue to wind down our self-mining operations.   2026 Highlights:   • On July 28, 2026, we announced a strategic commercial relationship with AMD with the potential to support up to 2.5 GW of leasable capacity, anchored by a 15-year agreement for approximately 530 MW across five sites.   • On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031 (the \"Senior Secured Notes”). The net proceeds were used to fund a debt service reserve account and to repay in full and terminate our Term Loan Facility. The Senior Secured Notes and related guarantees are secured by first-priority liens, among other things, on substantially all assets of Core Scientific Finance and its subsidiary guarantors, which own or operate our specified data center development projects. For additional details, see Note 7 — Debt to our condensed consolidated financial statements.   29",
+   "amounts": [
+    {
+     "raw": "$3.3 billion",
+     "usdM": 3300
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "29",
+   "match": "data centers in seven",
+   "text": "…ition to High-Density Colocation Services” below for a more detailed discussion of this arrangement and the associated risks. While our current colocation revenue remains concentrated with a single customer, we believe our available unleased power capacity provides a meaningful opportunity to diversify our customer base over time.   As of June 30, 2026, we controlled approximately 2.1 GW of gross utility power capacity, or approximately 1.3 GW of total leasable customer power capacity across 11 data centers in seven U.S. states including Alabama ( 1 ), Georgia ( 2) , Kentucky (1), North Carolina (1), North Dakota (1), Oklahoma (1), and Texas (4). We continue to develop, convert and expand most of our facilities to support AI and HPC workloads while pursuing additional land and power opportunities to expand our data center footprint.   We expect colocation revenue to increase as additional contracted capacity is commissioned and delivered to our existing customer and as we add new customer relationships over time. We continue to operate a self-mining fleet at two facilities and provide hosted mining services to one remaining customer. Our hosted mining operations are expected to conclude by December 31, 2026, while we continue to wind down our self-mining operations.   2026 Highlights:   • On July 28, 2026, we announced a strategic commercial relationship with AMD with the poten…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "29",
+   "match": "utility",
+   "text": "…cing structure while CoreWeave remained a primary obligor under the agreements. See “Strategic Transition to High-Density Colocation Services” below for a more detailed discussion of this arrangement and the associated risks. While our current colocation revenue remains concentrated with a single customer, we believe our available unleased power capacity provides a meaningful opportunity to diversify our customer base over time.   As of June 30, 2026, we controlled approximately 2.1 GW of gross utility power capacity, or approximately 1.3 GW of total leasable customer power capacity across 11 data centers in seven U.S. states including Alabama ( 1 ), Georgia ( 2) , Kentucky (1), North Carolina (1), North Dakota (1), Oklahoma (1), and Texas (4). We continue to develop, convert and expand most of our facilities to support AI and HPC workloads while pursuing additional land and power opportunities to expand our data center footprint.   We expect colocation revenue to increase as additional contracted capacity is commissioned and delivered to our existing customer and as we add new customer relationships over time. We continue to operate a self-mining fleet at two facilities and provide hosted mining services to one remaining customer. Our hosted mining operations are expected to conclude by December 31, 2026, while we continue to wind down our self-mining operations.   2026 Highli…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "30",
+   "match": "power capacity",
+   "text": "• Billable customer power capacity of 395 MW as of June 30, 2026, against 590 MW of leased customer power capacity, with the remaining 195 MW in various stages of construction and commissioning.   • On May 5, 2026, we closed on the acquisition of land and related electrical power in Hunt County, Texas for approximately $233 million in cash, which is expected to support approximately 430 MW of gross power capacity, with an approved ERCOT interconnection ramp schedule. For additional details, see Note 3 — Asset Acquisition to our condensed consolidated financial statements.   • In May 2026, we announced our entry into an agreement and plan of merger to acquire Polaris DS LLC, for approximately $421 million in cash, subject to certain adjustments. The acquisition will add approximately 40 additional acres adjacent to our existing data center operating in Muskogee, Oklahoma, and will provide up to 440 MW of gro…",
+   "amounts": [
+    {
+     "raw": "$233 million",
+     "usdM": 233
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "30",
+   "match": "power capacity",
+   "text": "…ved ERCOT interconnection ramp schedule. For additional details, see Note 3 — Asset Acquisition to our condensed consolidated financial statements.   • In May 2026, we announced our entry into an agreement and plan of merger to acquire Polaris DS LLC, for approximately $421 million in cash, subject to certain adjustments. The acquisition will add approximately 40 additional acres adjacent to our existing data center operating in Muskogee, Oklahoma, and will provide up to 440 MW of gross utility power capacity. The transaction is expected to close in the third quarter of 2026. For additional details, see Note 10 — Commitments and Contingencies to our condensed consolidated financial statements.   These operational milestones, together with the strategic financing and portfolio developments outlined above, drove the financial results for the three and six months ended June 30, 2026, which are summarized below.   Financial Results:   • Total revenue for the three and six months ended June 30, 2026 was $164.2 million and $279.4 million, respectively, compared to $78.6 million and $158.2 million for the three and six months ended June 30, 2025.   ◦ Colocation revenue was $136.7 million and $214.2 million for the three and six months ended June 30, 2026, respectively, compared to $10.6 million and $19.1 million for the three and six months ended June 30, 2025, respectively. The incre…",
+   "amounts": [
+    {
+     "raw": "$421 million",
+     "usdM": 421
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "30",
+   "match": "power capacity",
+   "text": "…hree and six months ended June 30, 2026 was $164.2 million and $279.4 million, respectively, compared to $78.6 million and $158.2 million for the three and six months ended June 30, 2025.   ◦ Colocation revenue was $136.7 million and $214.2 million for the three and six months ended June 30, 2026, respectively, compared to $10.6 million and $19.1 million for the three and six months ended June 30, 2025, respectively. The increase in colocation revenue was driven by incremental billable customer power capacity delivered to our customer.   ◦ Digital asset self-mining revenue was $21.5 million and $51.6 million for the three and six months ended June 30, 2026, respectively, compared to $62.4 million and $129.6 million for the three and six months ended June 30, 2025, respectively. The decrease reflected a reduction in bitcoin mined of 53% and 49% for the three and six months ended June 30, 2026, respectively, compared to the three and six months ended June 30, 2025, as well as a decline in the average bitcoin price of 27% and 23% for the same periods, respectively.   ◦ The increase in colocation revenue and corresponding decline in self-mining revenue reflects the continued execution of our strategy to reallocate power capacity from digital asset mining to long-term contracted colocation services.   • Net loss for the three and six months ended June 30, 2026 was $1.2 billion and $…",
+   "amounts": [
+    {
+     "raw": "$10.6 million",
+     "usdM": 10.6
+    },
+    {
+     "raw": "$19.1 million",
+     "usdM": 19.1
+    },
+    {
+     "raw": "$21.5 million",
+     "usdM": 21.5
+    },
+    {
+     "raw": "$51.6 million",
+     "usdM": 51.6
+    },
+    {
+     "raw": "$62.4 million",
+     "usdM": 62.4
+    },
+    {
+     "raw": "$129.6 million",
+     "usdM": 129.6
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "30",
+   "match": "377 MW",
+   "text": "…onciliation to net loss.   • Capital expenditures were $954.2 million for the six months ended June 30, 2026, of which $180.9 million was funded by CoreWeave pursuant to its existing colocation service agreement with the Company.   • Cash and cash equivalents and digital assets totaled $1.8 billion as of June 30, 2026.   Recent Developments   On July 27, 2026, the Company entered into Lease Agreements (collectively, the “AMD Leases”) with Advanced Micro Devices, Inc. (“AMD”) for an aggregate of 377 MW of critical IT capacity at the Company’s Pecos, TX; Muskogee, OK; and Hunt County, TX sites; and Lease Agreements (the “Neocloud Leases,” and collectively with the AMD Leases, the “Leases”) with a Neocloud (“Neocloud”), for 152 MW of critical IT capacity at the Company’s Auburn, AL and Dalton Phase 3, GA sites. Each of the Leases is for a fifteen year term with three five-year options. The AMD Leases provide AMD a reservation of capacity right to lease from the Company at certain times and under certain circumstances an additional 1,925 MWs of critical IT capacity through December 28, 2028.   30",
+   "amounts": [
+    {
+     "raw": "$1.8 billion",
+     "usdM": 1800
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "30",
+   "match": "interconnection",
+   "text": "• Billable customer power capacity of 395 MW as of June 30, 2026, against 590 MW of leased customer power capacity, with the remaining 195 MW in various stages of construction and commissioning.   • On May 5, 2026, we closed on the acquisition of land and related electrical power in Hunt County, Texas for approximately $233 million in cash, which is expected to support approximately 430 MW of gross power capacity, with an approved ERCOT interconnection ramp schedule. For additional details, see Note 3 — Asset Acquisition to our condensed consolidated financial statements.   • In May 2026, we announced our entry into an agreement and plan of merger to acquire Polaris DS LLC, for approximately $421 million in cash, subject to certain adjustments. The acquisition will add approximately 40 additional acres adjacent to our existing data center operating in Muskogee, Oklahoma, and will provide up to 440 MW of gross utility power capacity. The transaction is expected to close in the third quarter of 2026. For additional details, see Note 10 — Commitments and Contingencies to our condensed consolidated financial statements.   These operational milestones, together with the strategic financing and portfolio developments outlined above, drove the financial results for the three and six months ended June 30, 2026, which are summar…",
+   "amounts": [
+    {
+     "raw": "$233 million",
+     "usdM": 233
+    },
+    {
+     "raw": "$421 million",
+     "usdM": 421
+    }
+   ]
+  },
+  {
    "kind": "spv",
    "page": "31",
    "match": "special purpose vehicle",
    "text": "…es. For the six months ended June 30, 2026, CoreWeave represented approximately 77% of our total revenue. This concentration means that our financial results, liquidity and cash flows are highly dependent on CoreWeave’s continued performance of its obligations under our license agreements, its financial health, and its ongoing demand for our data center capacity.   During the period, CoreWeave entered into assignment and assumption agreements transferring certain license agreements to CW SPV, a special purpose vehicle that is an indirect subsidiary of CoreWeave. CoreWeave remains a primary obligor under those   31",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "31",
+   "match": "power capacity",
+   "text": "…lity to service our debt obligations and fund our capital requirements. The factors below highlight key drivers that have affected, and may continue to affect, our financial performance.   Strategic Transition to High-Density Colocation Services   High-density colocation is now our primary business. For the six months ended June 30, 2026, colocation revenue represented 77% of total revenue, compared to 12% for the six months ended June 30, 2025, reflecting the rapid scaling of billable customer power capacity under our agreement with CoreWeave. We expect colocation to represent an increasingly dominant share of our results as additional capacity is commissioned and delivered, gradually reducing our exposure to bitcoin spot price volatility and the operational risks associated with digital asset mining. During the transition period, our consolidated results reflect both the ramp up of colocation revenue and the planned decline of our mining operations, and we expect this dynamic to continue as additional contracted capacity is placed in service.   The Colocation segment is characterized by the implementation of long-term contracts spanning 10 or more years with payment structures that provide terms and conditions resulting in stable, predictable revenue and cash flows over each contract period. As of June 30, 2026, we had contracted 590 MW of leased customer power capacity and w…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "31",
+   "match": "395 MW",
+   "text": "…lanned decline of our mining operations, and we expect this dynamic to continue as additional contracted capacity is placed in service.   The Colocation segment is characterized by the implementation of long-term contracts spanning 10 or more years with payment structures that provide terms and conditions resulting in stable, predictable revenue and cash flows over each contract period. As of June 30, 2026, we had contracted 590 MW of leased customer power capacity and were actively billing for 395 MW. The gap between leased and billable capacity represents our primary near-term revenue growth opportunity. The pace at which we convert leased capacity to billable capacity depends on a number of factors, including equipment lead times and availability, labor constraints, permitting and interconnection sequencing, supply chain and logistical challenges, and the pace of customer deployment under existing contracts. Changes in these inputs can affect when incremental capacity becomes billable and therefore may affect the timing of colocation revenue, cost of services and related cash flows.   In addition to converting our existing facilities we are also developing new data center sites, including our recently acquired Hunt County, Texas campus. Both conversion and new site development carry meaningful execution risks, including construction cost variability, equipment lead times, pe…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "31",
+   "match": "interconnection",
+   "text": "… conditions resulting in stable, predictable revenue and cash flows over each contract period. As of June 30, 2026, we had contracted 590 MW of leased customer power capacity and were actively billing for 395 MW. The gap between leased and billable capacity represents our primary near-term revenue growth opportunity. The pace at which we convert leased capacity to billable capacity depends on a number of factors, including equipment lead times and availability, labor constraints, permitting and interconnection sequencing, supply chain and logistical challenges, and the pace of customer deployment under existing contracts. Changes in these inputs can affect when incremental capacity becomes billable and therefore may affect the timing of colocation revenue, cost of services and related cash flows.   In addition to converting our existing facilities we are also developing new data center sites, including our recently acquired Hunt County, Texas campus. Both conversion and new site development carry meaningful execution risks, including construction cost variability, equipment lead times, permitting uncertainty, and technical requirements associated with high-density colocation workloads.   Our colocation revenue is currently derived entirely from a single customer, CoreWeave, a provider of HPC services. For the six months ended June 30, 2026, CoreWeave represented approximately 7…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "31",
+   "match": "customer concentration",
+   "text": "…tration pursuant to Section 4(a)(2) of the Securities Act of 1933, as amended (the “Securities Act”).   Key Factors Affecting Our Financial Performance   Our results of operations, liquidity and cash flows are affected by a number of factors, including (i) our ability to execute and scale our HDC business, retain our existing colocation customer and attract new colocation customers, (ii) our ability to complete construction of contracted data center capacity on schedule and within budget, (iii) customer concentration and the financial health of our primary colocation customer, (iv) bitcoin market conditions and network fundamentals that continue to affect our Digital Asset Self‑Mining segment during our transition period, (v) power costs and availability across our portfolio, (vi) broader macroeconomic, regulatory and tariff developments, and (vii) our ability to service our debt obligations and fund our capital requirements. The factors below highlight key drivers that have affected, and may continue to affect, our financial performance.   Strategic Transition to High-Density Colocation Services   High-density colocation is now our primary business. For the six months ended June 30, 2026, colocation revenue represented 77% of total revenue, compared to 12% for the six months ended June 30, 2025, reflecting the rapid scaling of billable customer power capacity under our agreeme…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "31",
+   "match": "77% of our total revenue",
+   "text": "…sites, including our recently acquired Hunt County, Texas campus. Both conversion and new site development carry meaningful execution risks, including construction cost variability, equipment lead times, permitting uncertainty, and technical requirements associated with high-density colocation workloads.   Our colocation revenue is currently derived entirely from a single customer, CoreWeave, a provider of HPC services. For the six months ended June 30, 2026, CoreWeave represented approximately 77% of our total revenue. This concentration means that our financial results, liquidity and cash flows are highly dependent on CoreWeave’s continued performance of its obligations under our license agreements, its financial health, and its ongoing demand for our data center capacity.   During the period, CoreWeave entered into assignment and assumption agreements transferring certain license agreements to CW SPV, a special purpose vehicle that is an indirect subsidiary of CoreWeave. CoreWeave remains a primary obligor under those   31",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "32",
+   "match": "contracted capacity",
+   "text": "…actical ability to enforce recourse against CoreWeave would depend on its financial condition at the time of any default.   Any material adverse change in CoreWeave’s business, financial condition or ability to perform under our license agreements could have a disproportionate impact on our revenue, results of operations and liquidity. Our deferred revenue balance as of June 30, 2026 includes significant customer prepayments for capacity not yet delivered. To the extent we are unable to deliver contracted capacity on schedule, or if our customer relationship was disrupted, our revenue recognition, deferred revenue obligations and capital recovery could be materially affected.   A key strategic priority is diversifying our customer base by signing new colocation customers. Our ability to do so depends on a number of factors, including the availability and timing of unleased capacity at our facilities, the competitive environment for high-power data center capacity, pricing dynamics in the colocation market, and our ability to demonstrate reliable execution on our existing contract. Until we successfully diversify our customer base, our financial results will remain highly sensitive to the performance of our relationship with CoreWeave.   Electricity Costs   In our Colocation segment, power costs are passed through to our customer without markup and are recognized as revenue on a…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "32",
+   "match": "power capacity",
+   "text": "… additional power allocations across our portfolio, and we believe our ability to secure and maintain these agreements is a key factor affecting our long-term growth and competitive positioning.   Bitcoin Market Conditions   Our Digital Asset Self-Mining segment revenue is directly dependent on the spot price of bitcoin. For the six months ended June 30, 2026, self-mining represented 18% of total revenue, down from 82% for the six months ended June 30, 2025, as we have strategically reallocated power capacity from mining to colocation operations.   Bitcoin prices continue to affect the performance of our Digital Asset Self-Mining segment, including mining revenue, the value of digital assets held on our balance sheet, and the recoverability of mining-related assets. During the six months ended June 30, 2026, deteriorating mining economics contributed to a $266.5 million impairment charge on mining-related assets. As our transition to colocation progresses, we expect bitcoin market conditions to have a diminishing effect on our overall financial results.   We continue to manage our self-mining fleet with a focus on generating cash flows and covering power expenses while we execute our colocation transition. We will be opportunistic in monetizing our bitcoin holdings, subject to market conditions and our treasury strategy.   Bitcoin Network Fundamentals   Our self-mining results …",
+   "amounts": [
+    {
+     "raw": "$266.5 million",
+     "usdM": 266.5
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "32",
+   "match": "utility",
+   "text": "…increased curtailments to support grid operators. Severe weather events, geopolitical developments, and macroeconomic factors can also affect power costs and availability in ways outside our control. As our colocation business grows and our mining operations wind down, the proportion of our cost base subject to direct power price exposure will decrease.   Beyond cost, the availability of sufficient electrical power is one of the most important constraints on our colocation growth. The timing of utility approvals, interconnection studies, and power delivery agreements can affect when new capacity becomes available and therefore may affect the timing of our capital deployment and revenue ramp. We continue to be in active discussions with both our existing and future potential utility providers regarding additional power allocations across our portfolio, and we believe our ability to secure and maintain these agreements is a key factor affecting our long-term growth and competitive positioning.   Bitcoin Market Conditions   Our Digital Asset Self-Mining segment revenue is directly dependent on the spot price of bitcoin. For the six months ended June 30, 2026, self-mining represented 18% of total revenue, down from 82% for the six months ended June 30, 2025, as we have strategically reallocated power capacity from mining to colocation operations.   Bitcoin prices continue to affect…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "32",
+   "match": "significant customer",
+   "text": "…and cash flows remain dependent on performance by entities within the CoreWeave corporate family. Our practical ability to enforce recourse against CoreWeave would depend on its financial condition at the time of any default.   Any material adverse change in CoreWeave’s business, financial condition or ability to perform under our license agreements could have a disproportionate impact on our revenue, results of operations and liquidity. Our deferred revenue balance as of June 30, 2026 includes significant customer prepayments for capacity not yet delivered. To the extent we are unable to deliver contracted capacity on schedule, or if our customer relationship was disrupted, our revenue recognition, deferred revenue obligations and capital recovery could be materially affected.   A key strategic priority is diversifying our customer base by signing new colocation customers. Our ability to do so depends on a number of factors, including the availability and timing of unleased capacity at our facilities, the competitive environment for high-power data center capacity, pricing dynamics in the colocation market, and our ability to demonstrate reliable execution on our existing contract. Until we successfully diversify our customer base, our financial results will remain highly sensitive to the performance of our relationship with CoreWeave.   Electricity Costs   In our Colocation s…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "32",
+   "match": "18% of total revenue",
+   "text": "…. We continue to be in active discussions with both our existing and future potential utility providers regarding additional power allocations across our portfolio, and we believe our ability to secure and maintain these agreements is a key factor affecting our long-term growth and competitive positioning.   Bitcoin Market Conditions   Our Digital Asset Self-Mining segment revenue is directly dependent on the spot price of bitcoin. For the six months ended June 30, 2026, self-mining represented 18% of total revenue, down from 82% for the six months ended June 30, 2025, as we have strategically reallocated power capacity from mining to colocation operations.   Bitcoin prices continue to affect the performance of our Digital Asset Self-Mining segment, including mining revenue, the value of digital assets held on our balance sheet, and the recoverability of mining-related assets. During the six months ended June 30, 2026, deteriorating mining economics contributed to a $266.5 million impairment charge on mining-related assets. As our transition to colocation progresses, we expect bitcoin market conditions to have a diminishing effect on our overall financial results.   We continue to manage our self-mining fleet with a focus on generating cash flows and covering power expenses while we execute our colocation transition. We will be opportunistic in monetizing our bitcoin holdings, …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "33",
+   "match": "power capacity",
+   "text": "…nths. The interaction between our debt service obligations, construction capital commitments, customer prepayment inflows, and operating cash flows is a key factor affecting our liquidity and capital allocation decisions. See \"Liquidity and Capital Resources\" below for further discussion.   Our Competition   In our Colocation segment, we compete for customers and capacity with major data center real estate investment trusts, developers of purpose-built data centers and other operators with high-power capacity suitable for AI and HPC workloads. Competition in this market focuses primarily on facility location, timing, power capacity availability and scale, reliability and uptime, reputation, technical specifications including power density and cooling capabilities, pricing and contract terms, speed of delivery, and track record of execution. Our ability to attract new colocation customers and diversify beyond our current single-customer concentration depends on our ability to compete effectively across these dimensions.   The market for HDC capacity serving AI workloads has grown rapidly, and competition for both customers and new sites has intensified. Competition for new power capacity and land sites is particularly acute, as utilities and grid operators have limited interconnection capacity in many markets and the lead times for securing new power agreements can be significan…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "33",
+   "match": "interconnection",
+   "text": "…ntract terms, speed of delivery, and track record of execution. Our ability to attract new colocation customers and diversify beyond our current single-customer concentration depends on our ability to compete effectively across these dimensions.   The market for HDC capacity serving AI workloads has grown rapidly, and competition for both customers and new sites has intensified. Competition for new power capacity and land sites is particularly acute, as utilities and grid operators have limited interconnection capacity in many markets and the lead times for securing new power agreements can be significant. Our ability to secure attractive new sites and power agreements before competitors do is an important factor affecting our long-term growth.   33",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "33",
+   "match": "customer concentration",
+   "text": "…f purpose-built data centers and other operators with high-power capacity suitable for AI and HPC workloads. Competition in this market focuses primarily on facility location, timing, power capacity availability and scale, reliability and uptime, reputation, technical specifications including power density and cooling capabilities, pricing and contract terms, speed of delivery, and track record of execution. Our ability to attract new colocation customers and diversify beyond our current single-customer concentration depends on our ability to compete effectively across these dimensions.   The market for HDC capacity serving AI workloads has grown rapidly, and competition for both customers and new sites has intensified. Competition for new power capacity and land sites is particularly acute, as utilities and grid operators have limited interconnection capacity in many markets and the lead times for securing new power agreements can be significant. Our ability to secure attractive new sites and power agreements before competitors do is an important factor affecting our long-term growth.   33",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "34",
+   "match": "IT load capacity",
+   "text": "…financial measures to evaluate our business, measure our performance, identify trends affecting our business, and make strategic decisions. These operating metrics and non‑GAAP financial measures should be considered in addition to, and not as a substitute for, our consolidated financial statements prepared in accordance with GAAP.   Management also uses the following data center capacity and power metrics (measured in megawatts) to evaluate the scale of our utility power footprint and customer IT load capacity, monitor customer commitments and remaining available capacity, assess commissioning progress and deployment pacing, and inform capital allocation and site planning decisions. Unless otherwise indicated, these metrics are presented as of period end and represent management estimates based on operational and engineering data and may not be comparable to similarly titled measures used by other operators.   Metric (MW) Definition How management uses it   Gross Utility Power Capacity   Total electric utility power capacity agreements associated with our data center sites under our control as of period end, including capacity that is commissioned for future use.   Used for portfolio planning and utility power allocation discussions.   Total Leasable Customer Power Capacity   Our estimate of the total non-redundant customer IT load that our data center sites could support in t…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "34",
+   "match": "Power Capacity",
+   "text": "…t customer IT load that our data center sites could support in the aggregate as of period end, regardless of whether such capacity has been contracted with customers or remains available for sale. This metric is representative of the amount of power available for customer use in servicing their workloads.   Used to assess total customer‑usable IT load available for leasing, evaluate leased versus unleased capacity, and plan conversion/development sequencing and sales capacity.   Leased Customer Power Capacity   Power capacity that is committed to customers under executed customer contracts, regardless of whether service has commenced as of period end. Used to monitor signed customer commitments and contracted backlog and to plan future deployment/commissioning requirements.   Unleased Customer Power Capacity   The portion of Total Leasable Customer Power Capacity not committed under customer contracts as of period end. This metric is calculated as Total Leasable Customer Power Capacity minus Leased Customer Power Capacity. Used to monitor remaining uncommitted customer IT load and to prioritize incremental contracting and conversion/commissioning plans.   Billable Customer Power Capacity   Portion of Leased Customer Power Capacity for which service has commenced and we are actively billing as of period end.   Used to monitor in-service customer power that is billing and to trac…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "34",
+   "match": "utility",
+   "text": "…resent known trends or uncertainties that may materially impact our operations, energy costs, or customer demand.   Regulatory developments affecting data centers, energy markets, AI infrastructure, and environmental matters could affect compliance costs, power availability and pricing, permitting timelines, and customer demand, each of which could impact our results of operations and liquidity. In particular, regulatory requirements governing data center construction, environmental impact, and utility interconnection could affect the timeline and cost of developing our new sites, and our ability to complete our contracted data center development projects on schedule. We continue to monitor these developments closely and incorporate regulatory considerations into our site selection, development planning, and capital allocation decisions.   Key Business Operating Metrics and Non-GAAP Financial Measures   In addition to our financial results, we use the following business operating metrics and non-GAAP financial measures to evaluate our business, measure our performance, identify trends affecting our business, and make strategic decisions. These operating metrics and non‑GAAP financial measures should be considered in addition to, and not as a substitute for, our consolidated financial statements prepared in accordance with GAAP.   Management also uses the following data center c…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "34",
+   "match": "utility",
+   "text": "…iness operating metrics and non-GAAP financial measures to evaluate our business, measure our performance, identify trends affecting our business, and make strategic decisions. These operating metrics and non‑GAAP financial measures should be considered in addition to, and not as a substitute for, our consolidated financial statements prepared in accordance with GAAP.   Management also uses the following data center capacity and power metrics (measured in megawatts) to evaluate the scale of our utility power footprint and customer IT load capacity, monitor customer commitments and remaining available capacity, assess commissioning progress and deployment pacing, and inform capital allocation and site planning decisions. Unless otherwise indicated, these metrics are presented as of period end and represent management estimates based on operational and engineering data and may not be comparable to similarly titled measures used by other operators.   Metric (MW) Definition How management uses it   Gross Utility Power Capacity   Total electric utility power capacity agreements associated with our data center sites under our control as of period end, including capacity that is commissioned for future use.   Used for portfolio planning and utility power allocation discussions.   Total Leasable Customer Power Capacity   Our estimate of the total non-redundant customer IT load that our…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "35",
+   "match": "Power Capacity",
+   "text": "Billable Customer Power Capacity is the primary driver of our Colocation segment revenue in each period, as revenue recognition commences when capacity is delivered and service begins. The gap between Leased Customer Power Capacity and Billable Customer Power Capacity represents contracted capacity for which we are constructing and commissioning infrastructure, and reflects our near-term revenue growth opportunity as that capacity is placed into service. Gross Utility Power Capacity and Total Leasable Customer Power Capacity are used primarily for portfolio planning and to evaluate our available capacity for future customer contracting.   The following table presents the values for these metrics as of the dates indicated (in megawatts):   June 30, 2026 March 31, 2026 December 31, 2025   Gross Utility Power Capacity   2,115 1,860 1,426   Total Leasable Customer Power Capacity   1,275 1,275 920   Leased Cus…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "35",
+   "match": "Power Capacity",
+   "text": "…t capacity is placed into service. Gross Utility Power Capacity and Total Leasable Customer Power Capacity are used primarily for portfolio planning and to evaluate our available capacity for future customer contracting.   The following table presents the values for these metrics as of the dates indicated (in megawatts):   June 30, 2026 March 31, 2026 December 31, 2025   Gross Utility Power Capacity   2,115 1,860 1,426   Total Leasable Customer Power Capacity   1,275 1,275 920   Leased Customer Power Capacity   590 590 590   Unleased Customer Power Capacity   685 685 330   Billable Customer Power Capacity   395 225 120   Adjusted EBITDA   We report our financial results in accordance with GAAP. To supplement our consolidated financial statements, we provide investors with Adjusted EBITDA, a non‑GAAP financial measure. Adjusted EBITDA is defined as our net loss, adjusted to eliminate the effect of (i) interest expense (income), net; (ii) provision for income taxes; (iii) depreciation and amortization; (iv) stock-based compensation expense; (v) loss on disposal and impairment of property, plant and equipment; (vi) loss on remeasurement of assets held for sale; (vii) loss on contract termination; (viii) colocation organizational startup costs primarily related to the initial ramp up of new colocation sits and the conversion of existing facilities to colocation data center operatio…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "35",
+   "match": "Utility",
+   "text": "Billable Customer Power Capacity is the primary driver of our Colocation segment revenue in each period, as revenue recognition commences when capacity is delivered and service begins. The gap between Leased Customer Power Capacity and Billable Customer Power Capacity represents contracted capacity for which we are constructing and commissioning infrastructure, and reflects our near-term revenue growth opportunity as that capacity is placed into service. Gross Utility Power Capacity and Total Leasable Customer Power Capacity are used primarily for portfolio planning and to evaluate our available capacity for future customer contracting.   The following table presents the values for these metrics as of the dates indicated (in megawatts):   June 30, 2026 March 31, 2026 December 31, 2025   Gross Utility Power Capacity   2,115 1,860 1,426   Total Leasable Customer Power Capacity   1,275 1,275 920   Leased Customer Power Capacity   590 590 590   Unleased Customer Power Capacity   685 685 330   Billable Customer Power Capacity   395 225 120   Adjusted EBITDA   We report our financial results in accordance with GAAP. To supplement our consolidated financial statements, we provide investors with Adjusted EBITDA, a non‑GAAP financial measure. Adjusted EBITDA is defined as our net loss, adjusted to eliminate the effect of (i) interest expense (income), …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "37",
+   "match": "power capacity",
+   "text": "Colocation revenue   Colocation revenue consists of fees charged to customers for licensed data center space, power and related services. Under our contract, the customer generally pays fixed monthly fees based on billable customer power capacity and variable usage‑based charges and other billable services. Power fees are passed through to our customer without markup and are recognized as revenue on a gross basis, with a corresponding charge to cost of colocation services. As a result, changes in power prices can cause fluctuations in colocation revenue that are not indicative of changes in our underlying colocation margins.   The increase in colocation revenue for the three and six months ended June 30, 2026, compared to the three and six months ended June 30, 2025, was primarily attributable to incremental billable customer power capacity.   Digital asset self-mining revenue   Digital asset self‑mining revenue consists primarily of bitcoin earned from operating our owned mining fleet. We participate in mining pools under which we receive consideration based on the hash rate we contribute to the pool.   The decrea…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "37",
+   "match": "power capacity",
+   "text": "…ths ended June 30, 2026, compared to the three and six months ended June 30, 2025, was driven primarily by incremental billable capacity, in line with increased colocation revenue.   Cost of digital asset self-mining   The decrease in cost of digital asset self-mining for the three and six months ended June 30, 2026, compared to the three and six months ended June 30, 2025, was driven primarily by reduced self-mining activity, including lower power consumption resulting from the reallocation of power capacity to colocation operations and lower depreciation expense.   37",
    "amounts": []
   },
   {
@@ -78,6 +460,25 @@
    "match": "guarantee",
    "text": "…ecured Notes due 2031. Core Scientific Finance used the net proceeds to fund a debt service reserve account and to make a distribution to the Company, a portion of which was used to repay and terminate the Term Loan Facility. As of June 30, 2026, $345 million remained in the debt service reserve account and is included in Restricted cash, net of current portion on our condensed consolidated balance sheet.   In connection with the Senior Secured Notes offering, we provided an uncapped completion guarantee for the benefit of the noteholders with respect to the completion of specified data center development projects. This guarantee reflects our commitment to complete the specified development projects and is consistent with our existing contractual construction obligation, which are discussed further below.   The Senior Secured Notes require semi-annual interest payments on May 15 and November 15, beginning November 15, 2026. Semi-annual principal amortization on May 15 and November 15 will commence on the First Installment Payment Date at an initial annual rate of 11.50% of the $3.30 billion original principal amount. We also have outstanding $460 million of 2029 Convertible Notes and $625 million of 2031 Convertible Notes. For maturity dates, amortization schedules, and full terms of all outstanding debt, see Note 7 — Debt to our consolidated financial statements.   40",
    "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "41",
+   "match": "contracted capacity",
+   "text": "Deferred Revenue   Customer prepayments received under our colocation license agreements represent a significant source of operating cash inflows and are recorded as deferred revenue until the related capacity is delivered and revenue is recognized. Colocation deferred revenue reflects advance payments received from our customer for contracted capacity, including prepaid base license fees received in connection with the customer-funded development of colocation facilities. During the initial billing period, CoreWeave receives build credits that offset a portion of amounts otherwise due, which affects the timing of cash collection relative to revenue recognition. Deferred revenue is recognized as revenue as capacity is placed into service over the course of several billing cycles as the prepaid fees are used up. Hosted mining deferred revenue reflects deposits received from customers in advance of providing equipment deployment, monitoring, and infrastructure services under our hosted mining arrangements. The following table presents a rollforward of deferred revenue for the six months ended June 30, 2026:   Deferred Revenue from Colocation Services   Deferred Revenue from Hosted Mining Services   Total Deferred Reve…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "41",
+   "match": "power capacity",
+   "text": "…in holdings to fund capital requirements.   • Non-cash charges: While net loss increased $1.1 billion year-over-year, this was substantially offset by a corresponding increase in non-cash charges, most notably the $787.8 million increase in fair value of warrant and contingent value rights liabilities and the $266.5 million impairment of property, plant and equipment recognized in the current period.   Continued growth and scaling of our colocation operations, including higher billable customer power capacity, increased customer prepayments received under our colocation arrangement, and the associated operating cash flows generated as our colocation business ramps towards full operational capacity also contributed to the overall improvement in operating cash flows.   41",
+   "amounts": [
+    {
+     "raw": "$266.5 million",
+     "usdM": 266.5
+    }
+   ]
   }
  ]
 }

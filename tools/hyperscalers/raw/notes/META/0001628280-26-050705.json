@@ -66,6 +66,26 @@
    ]
   },
   {
+   "kind": "properties",
+   "page": "17",
+   "match": "campus in",
+   "text": "… upward adjustments 559 429   Cumulative impairment/downward adjustments ( 624 ) ( 624 )   Non-marketable equity investments under measurement alternative 20,751 20,076   Non-marketable equity investments under equity method 9,406 7,448   Total carrying value of non-marketable equity investments $ 30,157 $ 27,524   Non-Marketable Equity Investments Under Equity Method   Our non-marketable equity method investments include an arrangement, entered into in October 2025, to co-develop a data center campus in Louisiana (the Venture), in which we hold a 20 % membership interest. This Venture provides strategic optionality and flexibility, which we expect will enable us to effectively meet future infrastructure capacity needs as AI markets and technologies develop. The parties have committed to fund their respective pro rata share of approximately $ 27 billion in total estimated development costs.   Our lease agreements with the Venture, which cover the right to use properties on the data center campus, will commence in 2029 and have an aggregate initial lease commitment of approximately $ 12.31 billion. Each leased property has an initial four-year lease term and options to renew for a total lease period of up to 20 years. In addition, we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $ 28 billion that decreases over time. If we decide to t…",
+   "amounts": [
+    {
+     "raw": "$ 30,157 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27,524   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27 billion",
+     "usdM": 27000
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "18",
    "match": "primary beneficiary",
@@ -93,6 +113,22 @@
     {
      "raw": "$ 3,687   ",
      "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "18",
+   "match": "data centers in El",
+   "text": "…r the three months ended June 30, 2026 and 2025, respectively, and $ 9.01 billion and $ 5.74 billion for the six months ended June 30, 2026 and 2025, respectively.   Held-for-sale Assets   In March 2026, we approved a plan to dispose of certain data center assets with a carrying value of $ 1.48 billion, consisting mostly of construction in progress and land. We expect to dispose of these assets in the third quarter of 2026 through a contribution to a third party for the purpose of co-developing data centers in El Paso, Texas. As of June 30, 2026, total held-for-sale assets, net, were $ 2.03 billion, included within prepaid expenses and other current assets on our condensed consolidated balance sheets. See Note 13 — Subsequent Event for additional information.   18",
+   "amounts": [
+    {
+     "raw": "$ 1.48 billion",
+     "usdM": 1480
+    },
+    {
+     "raw": "$ 2.03 billion",
+     "usdM": 2030
     }
    ]
   },
@@ -157,6 +193,18 @@
    ]
   },
   {
+   "kind": "properties",
+   "page": "30",
+   "match": "campus in",
+   "text": "Table of Contents   Note 13. Subsequent Event   In July 2026, we entered into an exclusivity agreement to co-develop a data center campus in El Paso, Texas, through a venture in which we would hold a 20 % membership interest. The transaction is subject to the execution of definitive agreements and customary closing conditions.   Upon closing, expected in the third quarter of 2026, we estimate that we will contribute approximately $ 2.3 billion of held-for-sale assets, net of liabilities, consisting mostly of construction in progress and land, and receive a one-time distribution of approximately $ 1 billion. We will enter into lease agreements for the use of properties to be developed on the data center campus. We will also provide residual value guarantees with a maximum aggregate exposure of approximately $ 13 billion.   30",
+   "amounts": [
+    {
+     "raw": "$ 2.3 billion",
+     "usdM": 2300
+    }
+   ]
+  },
+  {
    "kind": "purchase_obligation",
    "page": "46",
    "match": "purchase obligations",
@@ -216,6 +264,13 @@
    "amounts": []
   },
   {
+   "kind": "power",
+   "page": "60",
+   "match": "utility",
+   "text": "…hanges that may reduce traffic to features or products that we monetize at a higher rate, such as our Feed and Stories products, including as a result of increased usage of our Reels or other video or messaging products;   • reductions of advertising due to our efforts to implement or enforce advertising policies that protect the security and integrity of our platform or that we believe are needed to comply with global content, security, or integrity obligations;   • the availability, accuracy, utility, and security of analytics and measurement solutions offered by us or third parties that demonstrate the value of our ads to marketers, or our ability to further improve such tools;   60",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "62",
    "match": "guarantee",
@@ -240,6 +295,13 @@
      "usdM": 349310
     }
    ]
+  },
+  {
+   "kind": "properties",
+   "page": "75",
+   "match": "data centers in approximately",
+   "text": "…cluding our ability to quickly develop and launch new and innovative products. Any of these developments could negatively affect our business, reputation, or financial results.   We have significant international operations, which subject us to increased business, economic, and legal risks that could affect our financial results.   We have significant international operations. We currently make our Family products available in a total of more than 100 different languages, and we have offices or data centers in approximately 40 different countries. We may enter new international regions where we have limited or no experience in marketing, selling, and deploying our products. Our products are generally available globally, but some or all of our products or functionality may not be available in certain regions due to legal and regulatory complexities. For example, several of our products are not generally available in China. We also outsource certain operational functions to third parties globally. If we fail to deploy, manage, or oversee our international operations successfully, our business may suffer. In addition, we are subject to a variety of risks inherent in doing business internationally, including:   • political, social, or economic instability;   • risks related to legal, regulatory, and other government scrutiny applicable to U.S. companies with sales and operations in…",
+   "amounts": []
   },
   {
    "kind": "equity_method",

@@ -85,6 +85,102 @@ O.card(OB.items.filter((i) => i.status !== 'verified').length, 'por revisar', 't
 O.card(gaps, 'huecos de cobertura', 'coverage gaps');
 await O.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: F.generated });
 
-console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps`);
+// ---------------- modules 1, 2, 4, 5, 7 (curated text items; built by build-modules.mjs) ----------------
+async function loadW(file, name) { const t = await readFile(p(SITE + `data/${file}.js`), 'utf8'); return JSON.parse(t.slice(t.indexOf('=') + 1).trim().replace(/;\s*$/, '')); }
+const CAPD = await loadW('capacity', 'HYP_CAP'), SITD = await loadW('sites', 'HYP_SITES'), POWD = await loadW('power', 'HYP_POWER'), CIRD = await loadW('circular', 'HYP_CIRC');
+const TOL_TEXT = L('Cada cifra cita la presentación (número de acceso), la sección y la página, y la frase citada debe aparecer en el texto descargado de esa página ("cita cotejada"). La cifra queda "revisar" hasta una segunda lectura.', 'Every figure cites the filing (accession number), section and page, and the quoted sentence must appear in the downloaded text of that page ("quote matched"). The figure stays "needs review" until a second reading.');
+function citeChecks(Rp, tag, src, status) {
+  if (!src) { Rp.record(tag, 'source cited', 'fail'); fails.push(`${tag}: no source`); return; }
+  if (src.tier === 'T1') {
+    Rp.record(tag, 'filing accession cited', src.accn ? 'ok' : 'fail');
+    Rp.record(tag, 'quote matched on the cited page', src.quoteCheck === 'page' ? 'ok' : 'warn', null, null, src.quoteCheck === 'other_page' ? L(`la frase está en la página ${src.foundOn} del texto descargado`, `the sentence is on page ${src.foundOn} of the downloaded text`) : src.quoteCheck === 'page' ? null : L('frase no encontrada en el texto descargado', 'sentence not found in the downloaded text'));
+    if (status !== undefined) Rp.record(tag, 'verified (second reading)', status === 'verified' ? 'ok' : 'warn');
+  } else Rp.record(tag, 'company statement cited (T2)', src.title || src.url ? 'ok' : 'fail');
+}
+function originsOf(Rp, items) { const seen = new Set(); for (const s of items) if (s && s.accn && !seen.has(s.accn)) { seen.add(s.accn); Rp.R.origins.push({ id: s.k.split(' ')[0], origin: 'primary', title: s.k, url: s.url, date: s.filed, page: null, parts: s.accn }); } }
+const defsOK = (m) => !m || !!CAPD.definitions[m] || m === 'planned_campus';
+
+// module 1
+const M1 = createReport({ slug: 'hiperescaladores/capacidad', key: 'HYP_CAP1_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: TOL_TEXT });
+for (const x of CAPD.current) {
+  const tag = `${x.ticker} ${x.metric}`;
+  citeChecks(M1, tag, x.src, x.status);
+  M1.record(tag, 'MW definition recorded', defsOK(x.metric) ? 'ok' : 'fail');
+  if (!defsOK(x.metric)) fails.push(`${tag}: undefined MW metric`);
+  M1.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
+}
+for (const x of CAPD.notDisclosed) M1.curated(`${x.ticker} ${x.item}`, true, L(`no revelado; buscado en ${x.searched.join(', ')}`, `not disclosed; searched ${x.searched.join(', ')}`));
+if (CAPD.oracle) M1.curated('tools/oracle/data/buildout.json (Oracle, T2)', ageDays(CAPD.oracle.updated) <= 100, L(`almacén del modelo de Oracle al ${CAPD.oracle.updated}`, `Oracle model store as of ${CAPD.oracle.updated}`));
+M1.curated('tools/hyperscalers/data/capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
+originsOf(M1, CAPD.current.map((x) => x.src));
+const ml = await readJson(TOOLS + 'data/modules-log.json', { problems: [] });
+for (const pr of ml.problems) M1.R.parse.push({ file: pr.where, msg: `${pr.k || ''} ${pr.issue}` });
+M1.card(CAPD.current.length, 'cifras T1 de capacidad', 'T1 capacity figures');
+M1.card(CAPD.notDisclosed.filter((x) => x.item === 'mw').length, 'empresas sin MW en sus presentaciones', 'companies with no MW in filings');
+M1.card(CAPD.current.filter((x) => x.status !== 'verified').length, 'por revisar', 'to review');
+await M1.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CAPD.generated });
+
+// module 2
+const M2 = createReport({ slug: 'hiperescaladores/comprometida', key: 'HYP_CAP2_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: TOL_TEXT });
+for (const x of CAPD.pipeline) {
+  const tag = `${x.ticker} ${x.stage} ${x.metric}`;
+  citeChecks(M2, tag, x.src, x.tier === 'T2' ? undefined : x.status);
+  M2.record(tag, 'MW definition recorded', defsOK(x.metric) ? 'ok' : 'fail');
+  M2.record(tag, 'stage is contracted / under construction / announced', ['contracted', 'under_construction', 'announced'].includes(x.stage) ? 'ok' : 'fail');
+  if (x.asOf) M2.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
+}
+M2.curated('tools/hyperscalers/data/capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
+originsOf(M2, CAPD.pipeline.map((x) => x.src));
+M2.card(CAPD.pipeline.length, 'partidas comprometidas', 'committed items');
+M2.card(CAPD.pipeline.filter((x) => x.subsequent).length, 'posteriores al balance', 'after balance-sheet date');
+await M2.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CAPD.generated });
+
+// module 4
+const M4 = createReport({ slug: 'hiperescaladores/electricidad', key: 'HYP_POWER_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Contratos de las empresas (T1/T2) y proyecciones de red (T3/T4) nunca se suman ni se mezclan. Vigencia: T1 hasta la siguiente presentación; T3/T4 hasta la siguiente edición del publicador + 30 días.', 'Company contracts (T1/T2) and grid projections (T3/T4) are never added or mixed. Freshness: T1 until the next filing; T3/T4 until the publisher\'s next edition + 30 days.') });
+for (const d of POWD.companyDeals) { citeChecks(M4, `${d.ticker} ${d.id}`, d.src, d.tier === 'T1' ? 'needs_review' : undefined); M4.record(`${d.ticker} ${d.id}`, 'tier is T1 or T2', ['T1', 'T2'].includes(d.tier) ? 'ok' : 'fail'); }
+for (const g of POWD.grid) {
+  M4.record(g.id, 'tier is T3 or T4', ['T3', 'T4'].includes(g.tier) ? 'ok' : 'fail');
+  M4.record(g.id, 'source URL and page', g.url && g.page ? 'ok' : 'warn');
+  const lim = g.nextExpected ? Math.round((Date.parse(g.nextExpected) + 30 * 864e5 - Date.parse(g.editionDate)) / 864e5) : 400;
+  M4.stale(`${g.publisher} · ${g.edition}`, g.editionDate, lim, g.nextExpected ? L(`siguiente edición esperada ${g.nextExpected} (+30 días)`, `next edition expected ${g.nextExpected} (+30 days)`) : L('sin calendario publicado: revisión anual (400 días)', 'no published calendar: yearly review (400 days)'));
+}
+M4.curated('tools/hyperscalers/data/power.json', true, L(`actualizado ${POWD.updated}; revisión semanal de fuentes T3/T4`, `updated ${POWD.updated}; weekly review of T3/T4 sources`));
+originsOf(M4, POWD.companyDeals.map((d) => d.src).filter((s) => s && s.accn));
+M4.card(POWD.companyDeals.length, 'contratos de energía', 'power deals');
+M4.card(POWD.grid.length, 'fuentes de red (T3/T4)', 'grid sources (T3/T4)');
+await M4.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: POWD.generated });
+
+// module 5
+const M5 = createReport({ slug: 'hiperescaladores/sitios', key: 'HYP_SITES_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Ubicación del mapa = localidad nombrada en la presentación (localidad, condado, estado o país), nunca coordenadas del campus. Sitio sin ubicación revelada: sin punto en el mapa.', 'Map position = the locality the filing names (locality, county, state or country), never campus coordinates. A site whose location is not disclosed gets no map point.') });
+for (const s of SITD.sites) {
+  const tag = `${s.ticker} ${s.name || s.name_en}`;
+  citeChecks(M5, tag, s.src || (s.sources && s.sources[0]), undefined);
+  const hasPt = s.lat != null && s.lon != null;
+  M5.record(tag, 'map position has a stated precision', hasPt ? (s.precision ? 'ok' : 'fail') : (s.precision == null ? 'ok' : 'fail'));
+  if (hasPt) M5.record(tag, 'coordinates in range', Math.abs(s.lat) <= 90 && Math.abs(s.lon) <= 180 ? 'ok' : 'fail');
+  M5.record(tag, 'MW definition recorded', s.mw == null || defsOK(s.mwMetric) ? 'ok' : 'fail');
+}
+M5.curated('tools/hyperscalers/data/sites.json', true, L(`actualizado ${SITD.updated}`, `updated ${SITD.updated}`));
+originsOf(M5, SITD.sites.map((s) => s.src));
+M5.card(SITD.sites.length, 'sitios', 'sites');
+M5.card(SITD.sites.filter((s) => s.lat == null).length, 'sin ubicación revelada', 'location not disclosed');
+await M5.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: SITD.generated });
+
+// module 7
+const M7 = createReport({ slug: 'hiperescaladores/circular', key: 'HYP_CIRC_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia', 'Difference'), tolerances: L('Cada flujo cita su presentación; las inferencias de FNAM deben apoyarse solo en flujos registrados y se muestran como inferencia, nunca como hecho.', 'Every flow cites its filing; FNAM inferences must rest only on recorded flows and are shown as inference, never as fact.') });
+const flowIds = new Set(CIRD.flows.map((f) => f.id)), nodeIds = new Set(CIRD.nodes.map((n) => n.id));
+for (const f of CIRD.flows) {
+  citeChecks(M7, f.id, f.src || (f.srcT2 && { tier: 'T2', title: f.srcT2.title_en, url: f.srcT2.url }), f.src ? 'needs_review' : undefined);
+  M7.record(f.id, 'both parties are nodes', nodeIds.has(f.from) && nodeIds.has(f.to) ? 'ok' : 'fail');
+  if (f.shareOf && f.shareOf.calc) M7.record(f.id, 'revenue share computed from XBRL revenue', f.shareOf.pct != null ? 'ok' : 'warn');
+}
+for (const i of [...CIRD.inferences, ...CIRD.breakers]) { const bad = (i.rests_on || []).filter((id) => !flowIds.has(id)); M7.record(i.id || i.en.slice(0, 40), 'inference rests on recorded flows', bad.length ? 'fail' : 'ok', null, null, bad.length ? L(`faltan: ${bad.join(', ')}`, `missing: ${bad.join(', ')}`) : null); if (bad.length) fails.push(`circular inference cites unknown flows: ${bad.join(', ')}`); }
+M7.curated('tools/hyperscalers/data/circular.json', true, L(`actualizado ${CIRD.updated}`, `updated ${CIRD.updated}`));
+originsOf(M7, CIRD.flows.map((f) => f.src));
+M7.card(CIRD.flows.length, 'flujos', 'flows');
+M7.card(CIRD.inferences.length, 'inferencias FNAM', 'FNAM inferences');
+await M7.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CIRD.generated });
+
+console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps; modules 1/2/4/5/7: ${[M1, M2, M4, M5, M7].map((m) => `${m.R.checks.length} (${m.R.fails.length} fail)`).join(' / ')}`);
 if (fails.length || (state.errors || []).length === Object.keys(F.companies).length * 2) { console.error('HARD FAIL:\n  ' + fails.join('\n  ')); process.exit(1); }
 void TODAY;

@@ -11,10 +11,52 @@
  "numberedPages": 115,
  "hits": [
   {
+   "kind": "properties",
+   "page": "114",
+   "match": "Item 2.   Properties",
+   "text": "Table of Contents   ORACLE CO RPORATION   FISCAL YEAR 2026   FORM 10-K   ANNUAL REPORT   TABLE OF CONTENTS   Page   PART I.   Item 1.   Business   1   Item 1A.   Risk Factors   15   Item 1B.   Unresolved Staff Comments   34   Item 1C.   Cybersecurity   34   Item 2.   Properties   36   Item 3.   Legal Proceedings   36   Item 4.   Mine Safety Disclosures   36   PART II.   Item 5.   Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities   37   Item 6.   [Reserved]   38   Item 7.   Management’s Discussion and Analysis of Financial Condition and Results of Operations   39   Item 7A.   Quantitative and Qualitative Disclosures About Market Risk   56   Item 8.   Financial Statements and Supplementary Data   56   Item 9.   Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   57   Item 9A.   Controls and Procedures   57   Item 9B.   Other Information   58   Item 9C.   Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   58   PART III.   Item 10.   Directors, Executive Officers and Corporate Governance   59   Item 11.   Executive Compensation   59 …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "37% of our total revenue",
+   "text": "…xisting customers migrate their extensive installed base of on-premise and cloud-based applications and infrastructure technologies to the Oracle Cloud and we believe we are in the early stages of what we expect will be a material migration of our existing Oracle customer base from on-premise applications and infrastructure products and services to the Oracle Cloud. The proportion of our cloud revenues relative to our total revenues has increased, and our cloud revenues represented 51%, 43% and 37% of our total revenues during fiscal 2026, 2025 and 2024, respectively. We expect these trends to continue. During the past three fiscal years, customers with annual software   2",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "5",
+   "match": "GPU",
+   "text": "…plications for a variety of predictive use cases, including, among others, the servicing of machine parts that are at risk of failing, using generative AI for fault detection on an assembly line, improving customer experiences in the purchasing of consumer products, managing the supply chain to keep retailer store shelves refreshed, credit fraud detection and financial modeling to stay within a business’ forecasts.   OCI compute services range from virtual machines and graphics processing unit (GPU)-based offerings to bare metal servers, with options for high I/O workloads and high-performance computing to run traditional compute-intensive workloads and AI model training and inference. OCI storage offerings include block, file, object and archive storage services. In addition, our OCI offerings include networking, connectivity and edge services that help connect   5",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "8",
+   "match": "data centers in new",
+   "text": "…olated cloud-based instances for each of our customers to access the functionality of Oracle Cloud offerings via a broad spectrum of devices. Oracle Cloud Operations leverage automated software tools to enable the rapid delivery of the latest cloud technology capabilities to the Oracle Cloud as they become available and provide Oracle customers access to the latest Oracle releases. We have invested in the rapid expansion of the Oracle Cloud by increasing existing data center capacity and adding data centers in new geographic locations to meet current and expected customer demand. We expect this trend will continue.   Manufacturing   We rely on third-party manufacturing partners to produce most of our hardware products that we market and sell to customers and utilize internally to deliver Oracle Cloud offerings, and we distribute most of our hardware products from these partners’ facilities. Our manufacturing processes are substantially based on standardization of components across product types and centralization of assembly and distribution centers. Production of our   8",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "11",
    "match": "joint venture",
    "text": "…rms that may be partners in other areas of our business and other firms with whom we have not previously competed. For example, following our acquisition of Cerner Corporation, we also face competition from large healthcare IT providers such as Allscripts Healthcare Solutions, Inc., Arcadia Solutions, athenahealth, Inc., Epic Systems Corporation and InterSystems Corporation, among others. Moreover, we or our competitors may take certain strategic actions—including acquisitions, partnerships and joint ventures or repositioning of product lines—which invite even greater competition in one or more product offering categories.   11",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "11",
+   "match": "campus in",
+   "text": "… Foundation teaches young people how to innovate, solve problems with technology and shape a better future. Oracle Academy, our global philanthropic educational program, is helping build a scalable, job-ready talent pipeline for data centers by aligning education with industry needs through targeted curriculum, partnerships and educator support. Since 2014, Oracle has also partnered with Design Tech High School, a public charter school for which we built a home at our Redwood Shores, California campus in 2016. Most recently, Oracle has brought its philanthropic efforts to the communities near its data center sites, funding local nonprofit organizations that deliver a range of programs, including education, food security, housing and health.   Seasonality and Cyclicality   Our quarterly revenues have historically been affected by a variety of seasonal factors, including the structure of our sales force incentive compensation plans, which are common in the IT industry. In each fiscal year, our total revenues and operating margins are typically highest in our fourth fiscal quarter and lowest in our first fiscal quarter. See “Cloud and Software Business” in Item 7 of this Annual Report for more information regarding the seasonality and cyclicality of the revenues, expenses and margins of our cloud and software business, which is our largest business.   Competition   We face intense…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "11",
+   "match": "Microsoft",
+   "text": "…manding less complexity, more cost-effective and higher performance and availability in the implementation, sourcing, integration and ongoing maintenance of their IT environments. Our enterprise cloud, software and hardware offerings compete directly with certain offerings from some of the largest and most competitive companies in the world, including Adobe Systems Incorporated, Alphabet Inc., Amazon.com, Inc., Cisco Systems, Inc., Intel Corporation, International Business Machines Corporation, Microsoft Corporation, Salesforce, Inc. and SAP SE, as well as other companies like Hewlett-Packard Enterprise and Workday, Inc. In addition, due to the low barriers to entry in many of our market segments, new technologies and new and growing competitors frequently emerge to challenge our offerings. Our competitors range from companies offering broad IT solutions across many of our lines of business to vendors providing point solutions, or offerings focused on a specific functionality, product area or industry. In addition, as we expand into new market segments, we face increased competition as we compete with existing competitors, as well as firms that may be partners in other areas of our business and other firms with whom we have not previously competed. For example, following our acquisition of Cerner Corporation, we also face competition from large healthcare IT providers such as A…",
    "amounts": []
   },
   {
@@ -29,6 +71,48 @@
    "page": "16",
    "match": "guarantee",
    "text": "…ible Preferred Stock (Mandatory Convertible Preferred Stock) and our depositary shares, or the payment of dividends on Mandatory Convertible Preferred Stock in shares of common stock, or the issuance of shares of our common stock under the At the Market (ATM) Program will dilute the ownership interest of the holders of our common stock.   • The ATM Program, the Mandatory Convertible Preferred Stock or our depositary shares may adversely affect the market price of our common stock, and we cannot guarantee that our ATM Program will be fully implemented.   • Our common stock ranks junior to our Mandatory Convertible Preferred Stock with respect to the payment of dividends and amounts payable in the event of our liquidation, winding-up or dissolution.   • We cannot guarantee that our stock repurchase program will be fully implemented or that it will enhance long-term stockholder value.   General Risks   • Economic, political and market conditions can adversely affect our business, results of operations and financial condition, including our revenue growth and profitability, which in turn could adversely affect our stock price.   • Significant events in certain geographic locations could adversely affect our operating results and disrupt our business.   16",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "18",
+   "match": "data centers in new",
+   "text": "…se in customer adoption of and demand for our Oracle Cloud, which could adversely affect our revenues and profitability.   If we are unable to secure data center capacity at affordable rates or do not accurately plan for and manage our infrastructure capacity requirements, our profitability may decline. To grow our OCI business, which requires increased computing capacity, we must incur significant capital and operating expenditures to increase our existing data center capacity and to establish data centers in new geographic locations. In connection with these investments, we have entered, and expect to continue to enter, into long-term lease commitments with third-party data center providers and other significant commitments with suppliers of chips and other data center infrastructure. If we underestimate customer demand or our data center capacity needs, we may face shortages of available infrastructure, limiting our ability to support customer growth and potentially causing us to lose business to competitors. Conversely, if we overestimate customer demand or any of our key customers are unable to pay or   18",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "19",
+   "match": "Data centers in geographies",
+   "text": "…analysis mechanisms work properly, we may experience risks of non-payment and non-performance in our dealings with such parties. In certain OCI offerings, we are more concentrated among a number of large customers, which could increase these risks.   Our data center expansion depends on access to suitable, permitted build sites; reliable and predictable power sources; networking hardware; and server availability, including graphics processing units, memory devices and other critical components. Data centers in geographies that we rely on may be unavailable on commercially reasonable terms or at all. Government-imposed limits or moratoria on data center construction in a given market could hinder our ability to execute our expansion plans or prevent us from completing planned data center projects. Even where suitable sites and capacity are available, our data center expansion plans are complex and subject to execution risks, including, among others, delays or cost increases related to design, engineering, permitting, construction, utility interconnection, equipment delivery and contractor performance. Our ability to build and operate data centers also may be affected by existing and evolving laws, regulations and policies relating to land use and zoning, environmental permitting, energy usage, grid reliability, greenhouse gas emissions, water usage, building codes, health and sa…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "19",
+   "match": "utility",
+   "text": "…y be unavailable on commercially reasonable terms or at all. Government-imposed limits or moratoria on data center construction in a given market could hinder our ability to execute our expansion plans or prevent us from completing planned data center projects. Even where suitable sites and capacity are available, our data center expansion plans are complex and subject to execution risks, including, among others, delays or cost increases related to design, engineering, permitting, construction, utility interconnection, equipment delivery and contractor performance. Our ability to build and operate data centers also may be affected by existing and evolving laws, regulations and policies relating to land use and zoning, environmental permitting, energy usage, grid reliability, greenhouse gas emissions, water usage, building codes, health and safety, tax incentives and data localization. These requirements, or changes in their interpretation or enforcement, could increase our capital and operating costs, delay or prevent planned projects, limit where or how we build or operate data centers, or adversely affect our ability to meet customer commitments and anticipated demand.   In addition, we depend on third parties to develop and deliver certain data center capacity and related infrastructure, and their inability to obtain financing, complete construction on schedule or manage con…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "19",
+   "match": "power purchase agreement",
+   "text": "…er sources could disrupt operations at affected data centers or restrict our capacity to grow, adversely impacting our business, operating results, financial condition and prospects. In addition, power prices can be volatile, including due to extreme weather events and market structure in certain regions, and increases in energy costs can adversely affect our margins, particularly where customer pricing is fixed or committed. We also may enter into long-term power supply arrangements, including power purchase agreements or similar arrangements, that may extend beyond customer contract terms and expose us to counterparty risk, pricing risk and potential collateral or credit support requirements. We also may be unable to secure sufficient energy resources on acceptable terms to meet customer expectations or our sustainability goals. These investments and commitments may require significant cash outlays before, or in excess of, the revenues or cash flows generated by the related capacity, which could adversely affect our cash flows, increase our need for external financing or require us to reduce, delay or reprioritize other investments.   We also rely on third-party suppliers to provide equipment and components required to outfit these data centers on a timely basis. We do not control the operation of these third-party data centers, and they may suffer interruptions in service fr…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "20",
+   "match": "accelerators",
+   "text": "…ages have in some instances resulted in increases to the costs of production of our hardware products that we may not be able to pass on to our customers. In addition, we have in some instances responded to such shortages by committing to higher purchases and balances of hardware products that we market and sell to our customers and that we use as a part of our cloud infrastructure to deliver our cloud offerings, relative to our historical positions. For example, industry supply capacity for AI accelerators, including graphics processing units, as well as memory devices, is competitive, and we at times have to accept less favorable terms with suppliers to minimize supply constraints. While this permits us to secure cloud infrastructure capacity, it has increased excess and obsolescence risk of such hardware products and could adversely impact our profitability and cash flows. We expect these factors will continue to impact us in the future. In addition, the actual useful lives, performance characteristics or failure rates of certain components may differ from our expectations, and we may incur unplanned repair, replacement or refreshment costs, including in some cases outside applicable warranty coverage. Delays in delivery of critical components could cause us to incur operating costs for data center capacity that is not yet revenue-generating and, in some cases, could subject…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "21",
+   "match": "Microsoft",
+   "text": "…ture offerings.   In addition, use of our competitors’ technologies can influence a customer’s purchasing decision or create an environment that makes it less efficient to utilize or migrate to Oracle products and services. For example, we offer our customers multicloud services whereby our customers can combine cloud services from multiple clouds with the goal of optimizing cost, functionality and performance. OCI’s multicloud services work with a number of our competitors’ products, including Microsoft Azure, Amazon Web Services and Google Cloud. This multicloud strategy could lead our customers to migrate away from our cloud offerings to our competitors’ products or limit their purchases of additional Oracle products, either of which could adversely affect our revenues and profitability.   Our competitors may also seek to attract or retain customers who might otherwise purchase our products and services by offering competing products and services on terms that we may not generally find acceptable. We could lose customers if our competitors introduce new competitive products, add new functionality, acquire competitive products, reduce prices, better execute on their sales and marketing strategies, offer more flexible business practices, provide debt or equity financing to customers or form strategic alliances with other companies. Mergers, consolidations or alliances among ou…",
    "amounts": []
   },
   {
@@ -50,6 +134,13 @@
    "page": "28",
    "match": "guarantee",
    "text": "…and manage these risks. We monitor our operations and investigate allegations of improprieties relating to transactions and the way in which such transactions are recorded. Where warranted, we provide information and report our findings to government authorities who may conduct their own investigations, and we respond to their requests or demands for information. No assurance can be given that such authorities will not take action or that our compliance program will prove effective. There is no guarantee that our compliance policies and procedures will be followed at all times or will effectively detect and prevent all violations of laws, including economic and financial sanction laws and embargoes. In addition, we are currently navigating a period of geopolitical and regulatory volatility.   We face a variety of other risks and challenges in managing an organization operating globally, including those related to:   • general economic conditions in each country or region;   • political unrest, terrorism and war, including but not limited to the current Middle East conflicts and the Russia-Ukraine war and its potential economic and geopolitical impacts on Europe, where a material portion of our business is carried out;   • the potential for other hostilities, including but not limited to further destabilization in the Middle East and Venezuela and tensions between China and Taiw…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "28",
+   "match": "GPU",
+   "text": "…jurisdictions where we currently operate or have dealings, or in the future may operate or have dealings, can require suspension or termination of business (including financial transactions) in or with certain countries and territories or with certain customers. In addition, we continue to closely monitor international relations and it is difficult to anticipate the effect geopolitical developments may have on us. Evolving restrictions and rules governing access to cloud-based infrastructure or GPU-enabled services by customers in certain jurisdictions, could require additional compliance controls or limit our ability to provide, lease, host or otherwise make available such resources to affected customers. Compliance with any further sanctions, export controls or other regulatory restrictions (and any countermeasures thereto) taken by the U.S. or other countries could prevent us from serving certain customers or restrict us or our customers from operating in specific jurisdictions, which could have an adverse effect on our operations and results of operations.   Our success depends, in part, on our ability to anticipate and manage these risks. We monitor our operations and investigate allegations of improprieties relating to transactions and the way in which such transactions are recorded. Where warranted, we provide information and report our findings to government authorities…",
    "amounts": []
   },
   {
@@ -79,6 +170,41 @@
    ]
   },
   {
+   "kind": "concentration",
+   "page": "39",
+   "match": "86% of our total revenue",
+   "text": "…he information contained within Item 1 Business and Note 13 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report provide additional information related to our businesses and operating segments and align to how our chief operating decision makers (CODMs), which are our Chief Executive Officers and Chief Technology Officer, view our operating results and allocate resources.   Cloud and Software Business   Our cloud and software business, which represented 87% and 86% of our total revenues in fiscal 2026 and 2025, respectively, markets, sells and delivers a broad spectrum of enterprise applications and infrastructure technologies through our cloud and software offerings. Revenue streams included in our cloud and software business are:   • Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer’s option; and are recognized as revenues ratably over the contractual period of …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "40",
+   "match": "43% of our total revenue",
+   "text": "…our Oracle Cloud has increased. To address customer demand and enable customer choice, we have certain programs for customers to pivot their applications and infrastructure software licenses and the related software support to the Oracle Cloud for new deployments and to migrate to and expand with the Oracle Cloud for their existing workloads. The proportion of our cloud revenues relative to our total revenues has increased and we expect this trend to continue. Cloud revenues represented 51% and 43% of our total revenues during fiscal 2026 and 2025, respectively.   Our cloud and software business’ revenue growth is affected by many factors, including the strength of general economic and business conditions, including the effects of inflation, tariffs and trade policy, geopolitical conditions and other macroeconomic factors on customer demand; governmental budgetary constraints; the strategy for and competitive position of our offerings; customer satisfaction with our offerings; the continued renewal of our cloud and software support customer contracts by the customer contract base; substantially all customers continuing to purchase software support contracts in connection with their license purchases; the pricing of software support contracts sold in connection with the sales of licenses; the pricing, amounts and volumes of cloud services and licenses sold; our ability to manage…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "41",
+   "match": "5% of our total revenue",
+   "text": "…lly recognize at a point in time upon delivery; in each case over those four fiscal quarterly periods. Our margin for this business may be adversely impacted due to increases in supply chain and energy costs, the impact of tariffs and other trade barriers on our costs, and our ability to pass such costs on to customers; inflation; foreign currency rate fluctuations; governmental budgetary constraints; trade policy and other factors.   Hardware Business   Our hardware business, which represented 5% of our total revenues in each of fiscal 2026 and 2025, provides a broad selection of enterprise hardware products and hardware-related software products including Oracle Engineered Systems, servers, storage, industry-specific hardware offerings, operating systems, virtualization, management and other hardware-related software and related hardware support. Each hardware product and its related software, such as an operating system or firmware, are highly interdependent and interrelated and are accounted for as a combined performance obligation. The revenues for this combined performance obligation are generally recognized at the point in time that the hardware product and its related software are delivered to the customer and ownership is transferred to the customer. Our hardware support offerings provide customers with unspecified software updates for software components that are esse…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "42",
+   "match": "9% of our total revenue",
+   "text": "Table of Contents   Services Business   Our services business, which represented 8% and 9% of our total revenues in fiscal 2026 and 2025, respectively, helps customers and partners maximize the performance of their investments in Oracle applications and infrastructure technologies. We believe that our services are differentiated based on our focus on Oracle technologies, extensive experience, broad sets of intellectual property and best practices. Our services offerings include consulting services and customer success services (formerly referred to as advanced customer services). Services revenues are generally recognized over time as the services are performed. The cost of providing our services consists primarily of personnel-related expenses, technology infrastructure expenditures, facilities expenses and external contractor expenses. Our services business has lower margins than our cloud and software and hardware businesses. Our services revenues are affected by many fa…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "47",
+   "match": "data centers in new",
+   "text": "Table of Contents   relative to fiscal 2025. Our cloud and software expenses have grown in recent periods, and we expect this trend to continue during fiscal 2027 and in the next few fiscal years as we increase our existing data center capacity and establish data centers in new geographic locations in order to meet current and expected customer demand.   Excluding the effects of currency rate fluctuations, our cloud and software business’ total margin increased in fiscal 2026 relative to fiscal 2025 due to increases in total revenues for this business as discussed above. Total margin as a percentage of revenues in constant currency decreased in fiscal 2026 relative to fiscal 2025 due to an increase in total expenses driven by higher infrastructure expenses to support growth in our cloud infrastructure offering.   Hardware Business   Year Ended May 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   Hardware Revenues :   Americas   $   1,518   5%   5%   $   1,441   EMEA   923   3%   -2%   893   Asia Pacific   643   7%   7%   602   Total revenues   3,084   5%   3%   2,936   Expenses :   Hardware (1)   832   12%   9…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "50",
    "match": "equity method investment",
@@ -94,6 +220,18 @@
     {
      "raw": "$13.2 billion",
      "usdM": 13200
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "55",
+   "match": "data centers in new",
+   "text": "…l Statements included elsewhere in this Annual Report include additional information regarding our most material contractual obligations and contingencies.   Capital Expenditures : Cash used for capital expenditures increased from $21.2 billion in fiscal 2025 to $55.7 billion in fiscal 2026 primarily due to the expansion of our data centers. We expect this upward trend to continue during fiscal 2027 and in the following fiscal years as we increase our existing data center capacity and establish data centers in new geographic locations in order to meet current and expected customer demand for our cloud offerings.   We believe that our current cash, cash equivalents and marketable securities balances, together with cash generated from operations and available financing arrangements, will be sufficient to meet our working capital, committed capital expenditures and contractual obligations for at least the next twelve months. Thereafter, we expect that our existing sources of liquidity, together with potential access to additional financing, will continue to be sufficient for the foreseeable future. Further, we have flexibility in managing the timing of certain discretionary capital expenditures.   Remaining Performance Obligations from Contracts with Customers   Remaining performance obligations were $638 billion and $138 billion as of May 31, 2026 and 2025, respectively. The incr…",
+   "amounts": [
+    {
+     "raw": "$55.7 billion",
+     "usdM": 55700
     }
    ]
   },
@@ -141,6 +279,22 @@
    "match": "Joint Venture",
    "text": "…received cash proceeds of $ 4.3 billion in exchange for our equity, debt and call option interests in Ampere in the Ampere Acquisition. We recorded $ 2.7 billion of realized gain, which is included in the non-operating income (expenses), net line item in our consolidated statements of operations for the year ended May 31, 2026. We have no remaining investment in Ampere as of May 31, 2026. The substantial majority of the non-marketable investments we held as of May 31, 2026 were with TikTok USDS Joint Venture LLC, an equity method investee in which we have an ownership interest of 15 %.   Fair Values of Financial Instruments   We apply the provisions of ASC 820, Fair Value Measurement (ASC 820), to our assets and liabilities that we are required to measure at fair value pursuant to other accounting standards, including our investments in marketable debt and equity securities and our derivative financial instruments.   The additional disclosures regarding our fair value measurements are included in Note 3.   Allowances for Credit Losses   We record allowances for credit losses based upon a specific review of all significant outstanding invoices. For those invoices not specifically reviewed, provisions are provided at differing rates, based upon the age of the receivable, collection history and current economic conditions. We write-off a receivable and charge it against its record…",
    "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "74",
+   "match": "Related Party",
+   "text": "…riod. For investments through which we have significant influence in, but not control of, the investee, we account for such investments pursuant to the equity method of accounting whereby we record our proportionate share of the investee’s earnings or losses; amortization of certain differences between our investment basis and underlying equity in net assets of the investee; and impairment, if any, as a component of non-operating income (expenses), net for each reporting period. As per ASC 850, Related Party Disclosures , equity method investees are considered as related parties.   O ur investments in marketable debt and equity securities totaled $ 605 million and $ 417 million as of May 31, 2026 and 2025, respectively, and are included in current assets in the accompanying consolidated balance sheets.   Our non-marketable debt investments and equity securities and related instruments totaled $ 2.3 billion and $ 2.1 billion as of May 31, 2026 and 2025, respectively, and substantially all of the balance is included in other non-current assets in the accompanying consolidated balance sheets and is subject to periodic credit losses and impairment reviews . The majority of the non-marketable debt and equity investments we held as of May 31, 2025 were with Ampere Computing Holdings LLC (Ampere), an equity method investee. On November 25, 2025, SoftBank Group Corp. acquired all of th…",
+   "amounts": [
+    {
+     "raw": "$ 605 million",
+     "usdM": 605
+    },
+    {
+     "raw": "$ 417 million",
+     "usdM": 417
+    }
+   ]
   },
   {
    "kind": "equity_method",

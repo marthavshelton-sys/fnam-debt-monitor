@@ -74,10 +74,197 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "8",
+   "match": "Anthropic",
+   "text": "…9   Upward adjustments relating to equity investments in private companies 49 50,486 86 62,814   Foreign currency gains (losses), net 70 227 68 387   Other, net ( 2 ) ( 66 ) ( 35 ) ( 99 )   Total other income (expense), net $ 1,117 $ 53,415 $ 3,866 $ 69,062   The reclassification adjustments for the gains on available-for-sale debt securities of $ 3.3 billion and $ 4.5 billion for the six months ended June 30, 2025 and 2026 are primarily from the portions of our convertible notes investments in Anthropic, PBC (“Anthropic”) that were converted to nonvoting preferred stock during Q1 2025 and Q1 2026. The upward adjustments relating to equity investments in private companies of $ 50.5 billion in Q2 2026 and $ 62.8 billion for the six months ended June 30, 2026 reflect observable changes in prices, primarily from our nonvoting preferred stock in Anthropic.   8",
+   "amounts": [
+    {
+     "raw": "$ 3.3 billion",
+     "usdM": 3300
+    },
+    {
+     "raw": "$ 4.5 billion",
+     "usdM": 4500
+    },
+    {
+     "raw": "$ 50.5 billion",
+     "usdM": 50500
+    },
+    {
+     "raw": "$ 62.8 billion",
+     "usdM": 62800
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "10",
+   "match": "OpenAI",
+   "text": "…cognized in our financial statements. For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 496 billion as of June 30, 2026. The weighted-average remaining life of our long-term contracts is 6.4 years. The amount and timing of revenue recognition will be driven by customer usage and our performance in accordance with contractual obligations, which can extend beyond the original contractual duration and commitment.   In Q1 2026, AWS and OpenAI Group PBC (“OpenAI”) announced an expansion of the existing $ 38.0 billion multi-year commitment and commercial arrangement with OpenAI by $ 100.0 billion over 8.0 years, which includes contractual obligations related to the performance of AWS chips.   In Q2 2026, AWS and Anthropic announced an expansion of the strategic collaboration and existing multi-year commitment by more than $ 100.0 billion over 10.0 years, which includes contractual obligations related to the performance of AWS chips.   Accounting Pronouncements Not Yet Adopted   In November 2024, the FASB issued an ASU amending existing income statement disclosure guidance, primarily requiring more detailed disclosure for expenses. The ASU is effective for annual reporting periods beginning after December 15, 2026, and interim periods within fiscal years beginning after December 15, 2027, with early adoption permitted. Th…",
+   "amounts": [
+    {
+     "raw": "$ 38.0 billion",
+     "usdM": 38000
+    },
+    {
+     "raw": "$ 100.0 billion",
+     "usdM": 100000
+    },
+    {
+     "raw": "$ 100.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "11",
+   "match": "Anthropic",
+   "text": "…ntractual maturities of our cash equivalents and marketable debt securities as of June 30, 2026 (in millions):   Amortized Cost Estimated Fair Value   Due within one year $ 96,479 $ 96,471   Due after one year through five years 8,733 8,702   Due after five years through ten years 440 439   Due after ten years 926 906   Total $ 106,578 $ 106,518   Actual maturities may differ from the contractual maturities because borrowers may have certain prepayment conditions.   Non-Marketable Investments   Anthropic — From Q3 2023 to Q4 2025, we invested $ 8.0 billion in convertible notes from Anthropic, which are classified as available-for-sale and reported at fair value with unrealized gains and losses included in “Accumulated other comprehensive income (loss)” and as Level 3 assets. In making these estimates, we utilized valuation methods based on information available, including the rights and obligations of the convertible notes, other outstanding classes of securities, observable transactions such as new securities offerings, estimates of expected time to and type of liquidity events and anticipated securities offerings, and discounts for lack of marketability. The convertible notes are subject to our ownership cap, which may be waived at our election.   In Q1 2025 and Q1 2026, a portion of the then-outstanding notes was converted to nonvoting preferred stock. The investments in non…",
+   "amounts": [
+    {
+     "raw": "$ 106,578 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 106,518   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8.0 billion",
+     "usdM": 8000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "Table of Contents   recognized in “Other income (expense), net” on our consolidated statements of operations. As a result of these conversions, a portion of the unrealized gain associated with the notes included in “Accumulated other comprehensive income (loss)” was reclassified and gains of approximately $ 3.3 billion and $ 4.5 billion for the six months ended June 30, 2025 and 2026 were recorded in “Other income (expense), net.”   In Q2 2026, we invested $ 5.0 billion in Anthropic Series G nonvoting preferred stock. We also amended our commercial arrangement primarily for the provision of AWS cloud services, which includes contractual obligations related to the performance of AWS chips. Additionally, we entered into a financing arrangement to make available to Anthropic an aggregate facility not to exceed $ 20.0 billion that will expire 30 months after an Anthropic liquidity event, including an initial public offering (“IPO”). At inception, there is no amount available to be drawn against and as we reach certain delivery milestones of compute capacity under the amended commercial arrangement, amounts under this facility are made available for Anthropic to draw upon at its discretion. Draws against the facility will be in the form of new Anthropic convertible notes or, after an IPO or other liquidity event and subject to our ownership cap, Anthropic commo…",
+   "amounts": [
+    {
+     "raw": "$ 3.3 billion",
+     "usdM": 3300
+    },
+    {
+     "raw": "$ 4.5 billion",
+     "usdM": 4500
+    },
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$ 20.0 billion",
+     "usdM": 20000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "…ery milestones of compute capacity under the amended commercial arrangement, amounts under this facility are made available for Anthropic to draw upon at its discretion. Draws against the facility will be in the form of new Anthropic convertible notes or, after an IPO or other liquidity event and subject to our ownership cap, Anthropic common stock, which will be issued to us in exchange for cash. Under this financing arrangement, in Q2 2026, we exercised our option to participate in subsequent Anthropic equity financings by investing $ 5.0 billion in Anthropic Series H nonvoting preferred stock, which reduced the amount available under the facility to $ 15.0 billion.   We recorded upward adjustments of approximately $ 50.5 billion in Q2 2026 and $ 62.8 billion for the six months ended June 30, 2026 to our nonvoting preferred stock in “Other income (expense), net” to reflect observable changes in price related to Anthropic’s fundings. In making these Level 3 fair value measurements, we utilized valuation methods based on information available, including the rights and obligations of the nonvoting preferred stock, other outstanding classes of securities, estimates of expected time to and type of liquidity events and anticipated securities offerings, and discounts for lack of marketability.   As of December 31, 2025 and June 30, 2026, the amounts recorded on our consolidated bala…",
+   "amounts": [
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$ 50.5 billion",
+     "usdM": 50500
+    },
+    {
+     "raw": "$ 62.8 billion",
+     "usdM": 62800
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "…5 and June 30, 2026, the amounts recorded on our consolidated balance sheets for nonvoting preferred stock were approximately $ 14.8 billion and $ 92.5 billion. As of December 31, 2025 and June 30, 2026, the estimated fair value of our convertible notes recorded on our consolidated balance sheets was approximately $ 45.8 billion and $ 97.9 billion, and the associated unrealized gain included in “Accumulated other comprehensive income (loss)” was $ 39.5 billion and $ 92.0 billion.   In the event Anthropic consummates an IPO or other liquidity event, then-outstanding notes would be converted to nonvoting common stock, subject to our ownership cap, and nonvoting preferred stock would be converted to nonvoting common stock. Any then-outstanding notes that are not converted to nonvoting common stock would continue to be convertible to nonvoting common stock, subject to our ownership cap. We expect to be subject to a customary lock-up period following an IPO, and thereafter will remain subject to applicable securities laws restrictions.   OpenAI — In Q1 2026, we and OpenAI entered into (i) a commercial arrangement primarily for the provision of AWS cloud services, which includes the use and performance of AWS chips, and (ii) a joint collaboration agreement pursuant to which certain services using OpenAI models will be made available to the Company and on AWS. We also invested $ 15.0 …",
+   "amounts": [
+    {
+     "raw": "$ 45.8 billion",
+     "usdM": 45800
+    },
+    {
+     "raw": "$ 97.9 billion",
+     "usdM": 97900
+    },
+    {
+     "raw": "$ 39.5 billion",
+     "usdM": 39500
+    },
+    {
+     "raw": "$ 92.0 billion",
+     "usdM": 92000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "OpenAI",
+   "text": "…-up period following an IPO, and thereafter will remain subject to applicable securities laws restrictions.   OpenAI — In Q1 2026, we and OpenAI entered into (i) a commercial arrangement primarily for the provision of AWS cloud services, which includes the use and performance of AWS chips, and (ii) a joint collaboration agreement pursuant to which certain services using OpenAI models will be made available to the Company and on AWS. We also invested $ 15.0 billion in Series C Preferred Stock of OpenAI and entered into an equity commitment letter agreement (the “Letter Agreement”), pursuant to which we agreed to purchase additional shares of Series C Preferred Stock (the “Commitment Shares”) with an aggregate purchase price of $ 35.0 billion (the “Commitment Amount”). In Q2 2026, we invested $ 13.7 billion of the Commitment Amount in Series C Preferred Stock. We account for our $ 28.7 billion investment in Series C Preferred Stock recorded on our consolidated balance sheet as of June 30, 2026, and the remaining Commitment Amount as a component of our equity investments in private companies not accounted for under the equity-method, with future adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations.   In the event OpenAI consummates an IPO or …",
+   "amounts": [
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$ 35.0 billion",
+     "usdM": 35000
+    },
+    {
+     "raw": "$ 13.7 billion",
+     "usdM": 13700
+    },
+    {
+     "raw": "$ 28.7 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "OpenAI",
+   "text": "…ther income (expense), net” on our consolidated statements of operations.   In the event OpenAI consummates an IPO or other liquidity event, then-outstanding Series C Preferred Stock would be converted to common stock. We expect to be subject to a customary lock-up period following an IPO and thereafter will remain subject to applicable securities laws restrictions.   Subsequent to June 30, 2026, we invested the remaining $ 21.3 billion Commitment Amount in shares of Series C Preferred Stock of OpenAI.   As of December 31, 2025 and June 30, 2026, equity investments in private companies not accounted for under the equity-method, which primarily relate to nonvoting preferred stock in Anthropic and preferred stock in OpenAI, had a carrying value of $ 16.2 billion and $ 122.3 billion, with adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations.   As of December 31, 2025 and June 30, 2026, equity investments accounted for under the equity-method of accounting, including investments for which we have elected the fair value option, had a carrying value of $ 659 million and $ 395 million.   12",
+   "amounts": [
+    {
+     "raw": "$ 21.3 billion",
+     "usdM": 21300
+    },
+    {
+     "raw": "$ 16.2 billion",
+     "usdM": 16200
+    },
+    {
+     "raw": "$ 122.3 billion",
+     "usdM": 122300
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "13",
    "match": "primary beneficiary",
    "text": "… had a fair value of $ 2.7 billion and $ 4.3 billion, with gains and losses recognized in “Other income (expense), net” on our consolidated statements of operations. These warrants are classified as Level 2 and 3 assets.   These non-marketable investments are included within “Other assets” on our consolidated balance sheets.   Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in entities that we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.   Consolidated Statements of Cash Flows Reconciliation   The following table provides a reconciliation of the amount of cash, cash equivalents, and restricted cash reported within the consolidated balance sheets to the total of the same such amounts shown in the consolidated statements of cash flows (in millions):   December 31, 2025 June 30, 2026   Cash and cash equivalents $ 86,810 $ 78,213   Restricted cash included in “Accounts receivable, net and other”   300 283   Restricted cash included in “Other assets”   2,996 2,431   Total cash, cash equivalents, and restricted cash shown in the consolidated statements of cash flows $ 90,106 $ 80,927   Note 3 — LEASES   We have entered into non-cancellable operating and finance leases fo…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "13",
+   "match": "Anthropic",
+   "text": "…giving us the right to acquire stock of other companies. As of December 31, 2025 and June 30, 2026, these warrants had a fair value of $ 2.7 billion and $ 4.3 billion, with gains and losses recognized in “Other income (expense), net” on our consolidated statements of operations. These warrants are classified as Level 2 and 3 assets.   These non-marketable investments are included within “Other assets” on our consolidated balance sheets.   Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in entities that we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.   Consolidated Statements of Cash Flows Reconciliation   The following table provides a reconciliation of the amount of cash, cash equivalents, and restricted cash reported within the consolidated balance sheets to the total of the same such amounts shown in the consolidated statements of cash flows (in millions):   December 31, 2025 June 30, 2026   Cash and cash equivalents $ 86,810 $ 78,213   Restricted cash included in “Accounts receivable, net and other”   300 283   Restricted cash included in “Other assets”   2,996 2,431   Total cash, cash equivalents, and restricted cash shown in the consolidated statements of cas…",
    "amounts": []
   },
   {
@@ -179,6 +366,32 @@
    "amounts": []
   },
   {
+   "kind": "concentration",
+   "page": "15",
+   "match": "largest customer",
+   "text": "…al Globalstar shares, and automatically converts excess cash consideration into stock consideration on a pro rata basis and (ii) a downward adjustment of a maximum of $ 110 million in the event Globalstar does not meet certain operational milestones. As of the date of the merger agreement, the acquisition implied a value for Globalstar of approximately $ 10.9 billion, including its debt. On the date of the merger agreement, we also entered into agreements with Apple Inc. (“Apple”), Globalstar’s largest customer, to provide certain services after the acquisition and to redeem certain equity interests held by Apple in a Globalstar special purpose entity.   The acquisition is expected to close in 2027, subject to the satisfaction of certain closing conditions, including receipt of regulatory approvals and Globalstar’s achievement of certain satellite replacement milestones.   Other Contingencies   We are disputing claims and denials of refunds or credits, and monitoring or evaluating potential claims, related to various non-income taxes (such as sales, value added, consumption, service, and similar taxes), including in jurisdictions in which we already collect and remit these taxes. These non-income tax controversies typically include (i) the taxability of products and services, including cross-border intercompany transactions, (ii) collection and withholding on transactions with …",
+   "amounts": [
+    {
+     "raw": "$ 10.9 billion",
+     "usdM": 10900
+    }
+   ]
+  },
+  {
+   "kind": "gpu",
+   "page": "16",
+   "match": "NVIDIA",
+   "text": "…istrict Court for the Western District of Texas. The complaints allege, among other things, that certain versions of the AWS Nitro System infringe U.S. Patent Nos. 11,080,209; 10,649,924; 11,082,350; 10,223,297; 9,378,161; 9,436,640; and 10,212,092. The complaints seek an unspecified amount of damages, enhanced damages, attorneys’ fees, costs, interest, and injunctive relief. In May 2026, Xockets filed a complaint against Amazon.com, Inc., Amazon Web Services, Inc., Annapurna Labs (U.S.), Inc., NVIDIA Corporation, and Microsoft Corporation at the United States International Trade Commission alleging, among other things, that EC2 P6e-GB200 UltraServers, DGX Cloud with GB200 on AWS, SageMaker HyperPod, and EKS with P6e-GB200 UltraServers infringe U.S. Patent Nos. 10,223,297; 9,378,161; 10,212,092; 9,436,640; and 11,082,350 and seeking injunctive relief. In June 2026, the International Trade Commission instituted an investigation. We dispute the allegations of wrongdoing and intend to defend ourselves vigorously in these matters.   In addition, we are regularly subject to claims, litigation, and other proceedings, including government inquiries and investigations that could lead to the foregoing and potential regulatory proceedings, involving patent and other intellectual property matters, taxes, labor and employment, competition and antitrust, privacy and data protection, consume…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "NVIDIA",
+   "text": "…istrict Court for the Western District of Texas. The complaints allege, among other things, that certain versions of the AWS Nitro System infringe U.S. Patent Nos. 11,080,209; 10,649,924; 11,082,350; 10,223,297; 9,378,161; 9,436,640; and 10,212,092. The complaints seek an unspecified amount of damages, enhanced damages, attorneys’ fees, costs, interest, and injunctive relief. In May 2026, Xockets filed a complaint against Amazon.com, Inc., Amazon Web Services, Inc., Annapurna Labs (U.S.), Inc., NVIDIA Corporation, and Microsoft Corporation at the United States International Trade Commission alleging, among other things, that EC2 P6e-GB200 UltraServers, DGX Cloud with GB200 on AWS, SageMaker HyperPod, and EKS with P6e-GB200 UltraServers infringe U.S. Patent Nos. 10,223,297; 9,378,161; 10,212,092; 9,436,640; and 11,082,350 and seeking injunctive relief. In June 2026, the International Trade Commission instituted an investigation. We dispute the allegations of wrongdoing and intend to defend ourselves vigorously in these matters.   In addition, we are regularly subject to claims, litigation, and other proceedings, including government inquiries and investigations that could lead to the foregoing and potential regulatory proceedings, involving patent and other intellectual property matters, taxes, labor and employment, competition and antitrust, privacy and data protection, consume…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "18",
    "match": "guarantees",
@@ -195,6 +408,26 @@
     {
      "raw": "$ 13.4 billion",
      "usdM": 13400
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "22",
+   "match": "Anthropic",
+   "text": "…ably impacted by the U.S. federal research and development credit.   Our income tax provision for the six months ended June 30, 2025 was $ 7.2 billion, which included $ 753 million of net discrete tax benefits primarily attributable to excess tax benefits from stock-based compensation. Our income tax provision for the six months ended June 30, 2026 was $ 27.8 billion, which included $ 15.9 billion of net discrete tax expense primarily attributable to the upward adjustments to our investments in Anthropic.   On February 18, 2026, the IRS issued Notice 2026-7 (the “2026 Notice”), which included guidance on the U.S. tax treatment of previously capitalized domestic research and development costs. We expect the 2026 Notice, which applied retroactively to 2025, to result in a significant decrease of 2024 and 2025 cash taxes paid. Cash paid for income taxes, net of refunds was $ 4.8 billion and $ 2.7 billion in Q2 2025 and Q2 2026, and $ 5.6 billion and $ 4.0 billion for the six months ended June 30, 2025 and 2026.   As of December 31, 2025 and June 30, 2026, income tax contingencies were approximately $ 6.6 billion and $ 7.1 billion. Changes in tax laws, regulations, administrative practices, principles, and interpretations may impact our tax contingencies. Due to various factors, including the inherent complexities and uncertainties of the judicial, administrative, and regulatory pr…",
+   "amounts": [
+    {
+     "raw": "$ 27.8 billion",
+     "usdM": 27800
+    },
+    {
+     "raw": "$ 15.9 billion",
+     "usdM": 15900
+    },
+    {
+     "raw": "$ 4.8 billion",
+     "usdM": 4800
     }
    ]
   },
@@ -231,10 +464,121 @@
    ]
   },
   {
+   "kind": "concentration",
+   "page": "27",
+   "match": "Anthropic",
+   "text": "… technology infrastructure (the majority of which is to support AWS business growth) and in additional capacity to support our fulfillment network, both of which we expect to increase in 2026. We made cash payments, net of acquired cash, related to acquisition and other investment activity of $1.7 billion and $24.4 billion during Q2 2025 and Q2 2026, and $1.7 billion and $39.8 billion for the six months ended June 30, 2025 and 2026. In Q2 2025, we invested $1.3 billion in convertible notes from Anthropic. We invested $28.7 billion in OpenAI’s Series C Preferred Stock for the six months ended June 30, 2026, including $13.7 billion invested in Q2 2026. Subsequent to June 30, 2026, we funded   27",
+   "amounts": [
+    {
+     "raw": "$1.7 billion",
+     "usdM": 1700
+    },
+    {
+     "raw": "$24.4 billion",
+     "usdM": 24400
+    },
+    {
+     "raw": "$1.7 billion",
+     "usdM": 1700
+    },
+    {
+     "raw": "$39.8 billion",
+     "usdM": 39800
+    },
+    {
+     "raw": "$1.3 billion",
+     "usdM": 1300
+    },
+    {
+     "raw": "$28.7 billion",
+     "usdM": 28700
+    },
+    {
+     "raw": "$13.7 billion",
+     "usdM": 13700
+    }
+   ]
+  },
+  {
    "kind": "purchase_obligation",
    "page": "28",
    "match": "purchase obligations",
    "text": "…for Q2 2025 and Q2 2026, and $5.6 billion and $4.0 billion for the six months ended June 30, 2025 and 2026.   As of December 31, 2025 and June 30, 2026, restricted cash, cash equivalents, and marketable securities were $3.3 billion and $2.7 billion. See Item 1 of Part I, “Financial Statements — Note 4 — Commitments and Contingencies” and “Financial Statements — Note 5 — Debt” for additional discussion of our principal contractual commitments, as well as our pledged assets. Additionally, we have purchase obligations and open purchase orders, including for inventory and capital expenditures, that support normal operations and are primarily due in the next twelve months. These purchase obligations and open purchase orders are generally cancellable in full or in part through the contractual provisions.   We believe that cash flows generated from operations and our cash, cash equivalents, and marketable securities balances, as well as our borrowing arrangements and other financing activities, will be sufficient to meet our anticipated operating cash needs for at least the next twelve months. However, any projections of future cash needs and cash flows are subject to substantial uncertainty. See Item 1A of Part II, “Risk Factors.” We continually evaluate opportunities to sell additional equity or debt securities, obtain credit facilities, obtain finance and operating lease arrangemen…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "28",
+   "match": "Anthropic",
+   "text": "Table of Contents   the remaining Commitment Amount of $21.3 billion. In Q2 2026, we also invested $10.0 billion in Anthropic nonvoting preferred stock.   Cash provided by (used in) financing activities was $(2.5) billion and $10.1 billion for Q2 2025 and Q2 2026, and $(2.6) billion and $62.9 billion for the six months ended June 30, 2025 and 2026. Cash inflows from financing activities resulted from proceeds from short-term debt, and other and long-term debt of $2.1 billion and $22.9 billion for Q2 2025 and Q2 2026, and $4.7 billion and $82.4 billion for the six months ended June 30, 2025 and 2026. We expect to undertake additional financing activities in 2026. Cash outflows from financing activities resulted from payments of short-term debt, and other, long-term debt, finance leases, and financing obligations of $4.6 billion and $12.8 billion for Q2 2025 and Q2 2026, and $7.2 billion and $19.5 billion for the six months ended June 30, 2025 and 2026. Property and equipment acquired under finance leas…",
+   "amounts": [
+    {
+     "raw": "$21.3 billion",
+     "usdM": 21300
+    },
+    {
+     "raw": "$10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$10.1 billion",
+     "usdM": 10100
+    },
+    {
+     "raw": "$62.9 billion",
+     "usdM": 62900
+    },
+    {
+     "raw": "$2.1 billion",
+     "usdM": 2100
+    },
+    {
+     "raw": "$22.9 billion",
+     "usdM": 22900
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "33",
+   "match": "Anthropic",
+   "text": "…ted to equity securities valuations and adjustments, equity warrant valuations, foreign currency, and reclassification adjustments for gains (losses) on available-for-sale debt securities. The net gain of $1.1 billion in Q2 2025 is primarily from equity warrant valuations. The net gain of $3.9 billion for the six months ended June 30, 2025 is primarily from the reclassification adjustment for the gain on available-for-sale debt securities from the portion of our convertible notes investments in Anthropic that were converted to nonvoting preferred stock during the three months ended March 31, 2025. The net gain of $53.4 billion in Q2 2026 and $69.1 billion for the six months ended June 30, 2026 is primarily from upward adjustments for observable changes in price relating to our nonvoting preferred stock in Anthropic and the reclassification adjustment for the gains on available-for-sale debt securities from the portions of our convertible notes investments in Anthropic that were converted to nonvoting preferred stock during the three months ended March 31, 2026.   Income Taxes   Our income tax provision for the six months ended June 30, 2025 was $7.2 billion, which included $753 million of net discrete tax benefits primarily attributable to excess tax benefits from stock-based compensation. Our income tax provision for the six months ended June 30, 2026 was $27.8 billion, which …",
+   "amounts": [
+    {
+     "raw": "$3.9 billion",
+     "usdM": 3900
+    },
+    {
+     "raw": "$53.4 billion",
+     "usdM": 53400
+    },
+    {
+     "raw": "$69.1 billion",
+     "usdM": 69100
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "33",
+   "match": "Anthropic",
+   "text": "…red stock during the three months ended March 31, 2026.   Income Taxes   Our income tax provision for the six months ended June 30, 2025 was $7.2 billion, which included $753 million of net discrete tax benefits primarily attributable to excess tax benefits from stock-based compensation. Our income tax provision for the six months ended June 30, 2026 was $27.8 billion, which included $15.9 billion of net discrete tax expense primarily attributable to the upward adjustments to our investments in Anthropic. See Item 1 of Part I, “Financial Statements — Note 7 — Income Taxes” for additional information.   Non-GAAP Financial Measures   Regulation G, Conditions for Use of Non-GAAP Financial Measures, and other SEC regulations define and prescribe the conditions for use of certain non-GAAP financial information. Free cash flow and the effect of foreign exchange rates on our consolidated statements of operations meet the definition of non-GAAP financial measures.   Free Cash Flow   Our financial focus is on long-term, sustainable growth in free cash flow. We provide a free cash flow measure because we believe it provides additional perspective on the impact of acquiring property and equipment with cash. Free cash flow is cash flow from operations reduced by “Purchases of property and equipment, net of proceeds from sales and incentives.” The following is a reconciliation of free cash …",
+   "amounts": [
+    {
+     "raw": "$27.8 billion",
+     "usdM": 27800
+    },
+    {
+     "raw": "$15.9 billion",
+     "usdM": 15900
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "36",
+   "match": "Anthropic",
+   "text": "…ty, equity warrant, and convertible debt investments in public and private companies was $229.7 billion. Our equity and equity warrant investments in publicly traded companies represent $7.4 billion of our investments as of June 30, 2026, and are recorded at fair value, which is subject to market price volatility. We record our equity warrant investments in private companies at fair value and adjust our equity investments in private companies, which primarily relate to our equity investments in Anthropic and OpenAI, for observable price changes or impairments. We record our available-for-sale convertible debt investments in private companies at fair value, which primarily relate to Anthropic. Valuations of private companies are inherently more complex due to the lack of readily available market data. The current global economic conditions provide additional uncertainty. As such, we believe that market sensitivities are not practicable.   36",
    "amounts": []
   },
   {

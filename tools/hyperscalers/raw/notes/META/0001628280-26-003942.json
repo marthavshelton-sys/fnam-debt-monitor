@@ -11,10 +11,24 @@
  "numberedPages": 134,
  "hits": [
   {
+   "kind": "properties",
+   "page": "2",
+   "match": "Item 2.   Properties",
+   "text": "Meta Platforms, Inc.   Form 10-K   TABLE OF CONTENTS   Page   Note About Forward-Looking Statements   3   Limitations of Key Metrics and Other Data   4   PART I   Item 1.   Business   6   Item 1A.   Risk Factors   12   Item 1B.   Unresolved Staff Comments   48   Item 1C.   Cybersecurity   48   Item 2.   Properties   51   Item 3.   Legal Proceedings   51   Item 4.   Mine Safety Disclosures   57   PART II   Item 5.   Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities   58   Item 6.   [Reserved]   59   Item 7.   Management's Discussion and Analysis of Financial Condition and Results of Operations   60   Item 7A.   Quantitative and Qualitative Disclosures About Market Risk   80   Item 8.   Financial Statements and Supplementary Data   82   Item 9.   Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   128   Item 9A.   Controls and Procedures   128   Item 9B.   Other Information   128   Item 9C.   Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   129   PART III   Item 10.   Directors, Executive Officers and Corporate Governance   129   Item 11.   Executive Compensation   …",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "13",
    "match": "guarantee",
    "text": "…ay adversely impact our ability to deliver ad impressions and, in turn, our financial performance.   If people do not perceive our products to be useful, reliable, and trustworthy, we may not be able to attract or retain users or otherwise maintain or increase the frequency and duration of their engagement. A number of other social networking companies that achieved early popularity have since seen their active user bases or levels of engagement decline, in some cases precipitously. There is no guarantee that we will not experience a similar erosion of our active user base or engagement levels. Our user engagement patterns have changed over time, and user engagement can be difficult to measure, particularly as we and our competitors introduce new and different products and services. Any number of factors can negatively affect user retention, growth, and engagement, including if:   • users increasingly engage with other competitive products or services;   • we fail to introduce new features, products, or services that users find engaging or if we introduce new products or services, or make changes to existing products and services, that are not favorably received;   • users feel that their experience is diminished as a result of the decisions we make with respect to the frequency, prominence, format, size, and quality of ads that we display;   • users have difficulty installing,…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "16",
+   "match": "utility",
+   "text": "Table of Contents   • the availability, accuracy, utility, and security of analytics and measurement solutions offered by us or third parties that demonstrate the value of our ads to marketers, or our ability to further improve such tools;   • loss of advertising market share to our competitors, including if prices to purchase our ads increase or if competitors offer lower priced, more integrated, or otherwise more effective products;   • limitations on our ability to offer a number of our most significant products and services, including Facebook and Instagram, in Europe as a result of European courts invalidating the EU-U.S. DPF or regulators, courts, or legislative bodies determining that the legal bases we rely upon to transfer user data from the European Union to the United States are invalid;   • limitations on our ability to deliver ads to users under the age of 18 and, in some cases, to continue to offer certain products or serv…",
    "amounts": []
   },
   {
@@ -29,6 +43,13 @@
    "page": "19",
    "match": "guarantee",
    "text": "…ower, and related energy requirements, as to which we cannot control the availability or pricing, especially in a highly competitive environment.   We are also developing AI technology that we make available via open source, commercial, and non-commercial license agreements to third-parties that can use this technology for use in their own products and services. We may not have insight into, or control over, the practices of third parties who may utilize such AI technologies. As such, we cannot guarantee that third parties will not use such AI technologies for improper purposes, including through the dissemination of illegal, inaccurate, defamatory or harmful content, intellectual property infringement or misappropriation, furthering bias or discrimination, cybersecurity attacks including spear phishing attacks, data privacy violations, other societal harms, including activities that threaten people's safety or well-being on- or offline, or to develop competing technologies. While we may mitigate certain risks associated with the improper use of our AI models through both technical measures and the inclusion of contractual restrictions on third-party use in any agreement between us and any third party, we cannot guarantee that such measures will be effective. Such improper use by any third party could adversely affect our business, reputation, or financial results or subject us…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "30",
+   "match": "data centers in approximately",
+   "text": "…cluding our ability to quickly develop and launch new and innovative products. Any of these developments could negatively affect our business, reputation, or financial results.   We have significant international operations, which subject us to increased business, economic, and legal risks that could affect our financial results.   We have significant international operations. We currently make our Family products available in a total of more than 100 different languages, and we have offices or data centers in approximately 40 different countries. We may enter new international regions where we have limited or no experience in marketing, selling, and deploying our products. Our products are generally available globally, but some or all of our products or functionality may not be available in certain regions due to legal and regulatory complexities. For example, several of our products are not generally available in China. We also outsource certain operational functions to third parties globally. If we fail to deploy, manage, or oversee our international operations successfully, our business may suffer. In addition, we are subject to a variety of risks inherent in doing business internationally, including:   • political, social, or economic instability;   • risks related to legal, regulatory, and other government scrutiny applicable to U.S. companies with sales and operations in…",
    "amounts": []
   },
   {
@@ -71,6 +92,20 @@
    "page": "46",
    "match": "joint venture",
    "text": "…r company, or our failure to meet these estimates or the expectations of investors;   • additional shares of our stock being sold into the market by us, our existing stockholders, or in connection with acquisitions, or the anticipation of such sales;   • investor sentiment with respect to our competitors, our business partners, and our industry in general;   • announcements by us or our competitors of significant products or features, technical innovations, acquisitions, strategic partnerships, joint ventures, or capital commitments;   • announcements by us or estimates by third parties of actual or anticipated changes in the size of our user base, the level of user engagement, or the effectiveness of our ad products;   46",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "51",
+   "match": "Item 2. Properties",
+   "text": "Table of Contents   Item 2. Properties   Our corporate headquarters are located in Menlo Park, California. As of December 31, 2025, we owned and leased approximately 10 million square feet of office and building space for our corporate headquarters and in the surrounding areas, which included approximately two million square feet of unoccupied office and building space that we plan to either sublease, early terminate, or abandon. We also owned and leased approximately 62 acres of land to be developed to accommodate anticipated future growth.   In addition, we have offices in more than 90 cities across North America, Europe, the Middle East, Africa, Asia-Pacific, and Latin America. We own 30 data center locations globally and we also lease some data centers at selected locations.   We believe that our facilities, which are used by both reportable segments, are adequate for our current needs.   Item 3. Legal …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "57",
+   "match": "Anthropic",
+   "text": "…as to the named plaintiffs in the case. The parties will proceed to brief the remaining claim of copyright infringement due to alleged distribution of books to third parties during the downloading process. The court is scheduled to hear summary judgment motions on July 16, 2026. Beginning in November 2025, additional cases with similar claims were filed against us in the U.S. District Court for the Northern District of California ( Entrepreneur Media v. Meta Platforms, Inc., Carreyrou et al. v. Anthropic PBC, et al. and TED Entertainment, Inc. v. Meta Platforms, Inc .). We expect some of these cases will be set for trial beginning in mid-2027.   On April 30, 2024, the European Commission opened formal proceedings against us to assess Facebook and Instagram's compliance with certain requirements under Articles 14, 16, 17, 20, 24, 25, 34, 35, and 40 of the DSA, regarding a range of topics including elections, content reporting and appeals, third-party access to data, political content recommendations, potential deceptive advertising and disinformation, including the way in which we identified, assessed, and mitigated against certain systemic risks on Instagram and Facebook. The Commission issued preliminary findings with respect to some of these topics on October 24, 2025 reflecting its preliminary view that we have infringed DSA obligations related to notice and action mechanism…",
    "amounts": []
   },
   {
@@ -214,6 +249,26 @@
    ]
   },
   {
+   "kind": "properties",
+   "page": "106",
+   "match": "campus in",
+   "text": "…t Alternative   Our non-marketable equity investments accounted for under the measurement alternative mostly consist of our minority investments in Scale AI for $ 13.80 billion, which was closed during 2025, and our investment in Jio Platforms Limited of $ 5.82 billion as of December 31, 2025. We do not have significant influence over these investees' operations.   Non-Marketable Equity Investments Under Equity Method   In October 2025, we entered into an arrangement to co-develop a data center campus in Louisiana (the Venture). This Venture provides strategic optionality and flexibility, enabling us to effectively meet future infrastructure capacity needs as AI markets and technologies develop.   At Venture formation, we contributed $ 4.30 billion of held-for-sale assets, net of liabilities, and we received a one-time distribution of $ 2.55 billion. We hold a 20 % membership interest in the Venture, which is accounted for under the equity method included within non-marketable equity investments on the consolidated balance sheets. We provide construction management, administrative and property management services to the Venture. The parties have committed to fund their respective pro rata share of approximately $ 27 billion in total estimated development costs.   We also entered into lease agreements with the Venture for the use of properties on the data center campus, which wi…",
+   "amounts": [
+    {
+     "raw": "$ 5.82 billion",
+     "usdM": 5820
+    },
+    {
+     "raw": "$ 4.30 billion",
+     "usdM": 4300
+    },
+    {
+     "raw": "$ 2.55 billion",
+     "usdM": 2550
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "107",
    "match": "primary beneficiary",
@@ -260,6 +315,13 @@
      "usdM": 103770
     }
    ]
+  },
+  {
+   "kind": "concentration",
+   "page": "117",
+   "match": "Anthropic",
+   "text": "…as to the named plaintiffs in the case. The parties will proceed to brief the remaining claim of copyright infringement due to alleged distribution of books to third parties during the downloading process. The court is scheduled to hear summary judgment motions on July 16, 2026. Beginning in November 2025, additional cases with similar claims were filed against us in the U.S. District Court for the Northern District of California ( Entrepreneur Media v. Meta Platforms, Inc., Carreyrou et al. v. Anthropic PBC, et al. and TED Entertainment, Inc. v. Meta Platforms, Inc .). We expect some of these cases will be set for trial beginning in mid-2027.   117",
+   "amounts": []
   }
  ]
 }

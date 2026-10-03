@@ -1,0 +1,71 @@
+// Hyperscaler Hub · Module 4: electricity. Reads window.HYP_POWER (build-modules.mjs): companyDeals (T1 filings / T2
+// company or counterparty statements) and grid (T3 regulators and grid operators, T4 third-party estimates). The two
+// blocks are rendered in separate sections and never added or charted together; contract MW are one bar per contract,
+// never summed, and deployment goals are drawn apart from contract quantities.
+(function () {
+  'use strict';
+  var F = window.HYP_FIN, H = window.HUB, P = window.HYP_POWER;
+  if (!F || !H || !P) return;
+  var t = H.t, esc = H.esc, set = function (id, h) { var e = document.getElementById(id); if (e) e.innerHTML = h; };
+  var ORDER = Object.keys(F.companies), chart = null;
+  function nm(tk) { return F.companies[tk] ? F.companies[tk].name : tk; }
+  function typeL(k) { return { nuclear_restart: t('Nuclear (reapertura)', 'Nuclear (restart)'), nuclear_existing: t('Nuclear (planta existente)', 'Nuclear (existing plant)'), nuclear_smr: t('Nuclear (reactores modulares)', 'Nuclear (small modular reactors)'), nuclear_mixed: t('Nuclear (existente y nueva)', 'Nuclear (existing and new)'), fuel_cells: t('Celdas de combustible (gas)', 'Fuel cells (gas)'), renewables_mixed: t('Renovables / varias', 'Renewables / various'), hedge: t('Cobertura de precio', 'Price hedge'), guarantee: t('Respaldo financiero', 'Financial backstop'), not_disclosed: t('No revelado', 'Not disclosed') }[k] || k; }
+  function cp(d) { return d['counterparty_' + H.lang] || d.counterparty || ''; }
+  function asset(d) { return d['asset_' + H.lang] || d.asset || ''; }
+
+  function header() {
+    var stale = P.grid.filter(function (g) { return H.staleT3(g.nextExpected).stale; }).length;
+    set('asofRow', '<span><b>' + t('Contratos de empresas', 'Company contracts') + '</b> ' + P.companyDeals.length + '</span><span><b>' + t('Fuentes de red', 'Grid sources') + '</b> ' + P.grid.length + (stale ? ' (' + stale + ' ' + t('desactualizadas', 'stale') + ')' : '') + '</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(P.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(P.refreshedET) + '</span>');
+    set('notices', '<div class="notice"><b>' + t('Dos bloques separados.', 'Two separate blocks.') + '</b> ' + t('Secciones 01–02: contratos de las empresas (T1 presentaciones; T2 anuncios de la empresa o de su contraparte, no auditados). Sección 03: el sistema eléctrico según reguladores (T3) y estimadores independientes (T4). Un MW de contrato es capacidad de la planta o cantidad contractual, no carga de TI; no se suma a los módulos de capacidad.', 'Sections 01–02: the companies\' contracts (T1 filings; T2 announcements by the company or its counterparty, not audited). Section 03: the power system per regulators (T3) and independent estimators (T4). A contract MW is plant capacity or contract quantity, not IT load; it is not added to the capacity modules.') + '</div>');
+  }
+
+  function deals() {
+    set('dlDesc', t('Los hiperescaladores casi no detallan sus contratos de energía en el 10-K o el 10-Q; la mayoría se conoce por anuncios (T2). Lo que sí está en las presentaciones (T1): el PPA de Alphabet de ene-2026 contabilizado como arrendamiento, sus respaldos a contrapartes de PPAs futuros y las coberturas de IREN.', 'The hyperscalers barely itemize their power contracts in the 10-K or 10-Q; most are known from announcements (T2). What the filings do contain (T1): Alphabet\'s January 2026 PPA accounted for as a lease, its backstops to counterparties of future PPAs and IREN\'s hedges.'));
+    var withMW = P.companyDeals.filter(function (d) { return d.mw != null; }).sort(function (a, b) { return b.mw - a.mw; });
+    set('dcT', t('Un contrato, una barra', 'One contract, one bar')); set('dcC', t('MW de cada contrato según el anuncio. Relleno = cantidad contractual o capacidad de la planta; contorno = meta de despliegue ("hasta"), no contrato de compra. Las barras no se suman.', 'MW of each contract per the announcement. Filled = contract quantity or plant capacity; outline = deployment goal ("up to"), not an offtake contract. Bars are not added up.'));
+    var wrap = document.getElementById('dcWrap'); if (wrap) wrap.style.height = Math.max(260, withMW.length * 34 + 60) + 'px';
+    if (window.Chart) {
+      if (chart) chart.destroy();
+      chart = new Chart(document.getElementById('dc'), { type: 'bar', data: { labels: withMW.map(function (d) { return [nm(d.ticker) + ' · ' + cp(d).split('(')[0].trim(), typeL(d.source_type)]; }), datasets: [{ data: withMW.map(function (d) { return d.mw; }), backgroundColor: withMW.map(function (d) { return d.isGoal ? 'transparent' : H.color(d.ticker); }), borderColor: withMW.map(function (d) { return H.color(d.ticker); }), borderWidth: withMW.map(function (d) { return d.isGoal ? 2 : 0; }), borderRadius: 3, maxBarThickness: 22 }] },
+        options: { indexAxis: 'y', animation: false, scales: { x: { beginAtZero: true, ticks: { maxRotation: 0, maxTicksLimit: 6, callback: function (v) { return H.num(v, 0) + ' MW'; } } }, y: { grid: { display: false }, ticks: { autoSkip: false, font: { size: 11 } } } }, plugins: { tooltip: { callbacks: { label: function (c) { var d = withMW[c.dataIndex]; return H.num(d.mw, 0) + ' MW · ' + (d['mwBasis_' + H.lang] || ''); } } } } } });
+    }
+    set('dcLeg', '<span><i style="background:var(--text-secondary)"></i>' + t('contrato / capacidad de planta', 'contract / plant capacity') + '</span><span><i style="border:2px solid var(--text-secondary);background:transparent"></i>' + t('meta de despliegue ("hasta")', 'deployment goal ("up to")') + '</span>');
+    set('dcS', H.stamp({ tier: 'T2', refreshed: P.refreshedET, sources: [{ label: t('anuncios de las empresas y sus contrapartes (ver tabla)', 'company and counterparty announcements (see table)') }], note: t('Declaración de la empresa, no auditada', 'Company statement, not audited') }));
+    var rows = P.companyDeals.slice().sort(function (a, b) { return ORDER.indexOf(a.ticker) - ORDER.indexOf(b.ticker) || (b.announced || '').localeCompare(a.announced || ''); });
+    var body = rows.map(function (d) {
+      var mw = d.mw != null ? H.mw(d.mw) + (d.isGoal ? '<br><span class="small muted">' + t('meta', 'goal') + '</span>' : '') : '<span class="nd">' + t('no revelados', 'not disclosed') + '</span>';
+      var usd = d.usdM != null ? H.moneyM(d.usdM) : '';
+      var basis = [d['mwBasis_' + H.lang] ? 'MW: ' + d['mwBasis_' + H.lang] : '', d['usdBasis_' + H.lang] ? 'US$: ' + d['usdBasis_' + H.lang] : ''].filter(Boolean).join(' · ');
+      var term = [d.termYears ? d.termYears + t(' años', ' years') : '', d.end ? t('hasta ', 'through ') + d.end : '', d.target ? t('meta ', 'target ') + d.target : '', d['start_' + H.lang] || ''].filter(Boolean).join(' · ');
+      var srcBtn = d.src && d.src.k ? H.cite(nm(d.ticker) + ' · ' + cp(d), d.src) : H.src({ title: nm(d.ticker) + ' · ' + cp(d), rows: [[t('Nivel', 'Tier'), t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited')], [t('Fuente', 'Source'), d.src.title], [t('Texto', 'Text'), '“' + d.src.quote + '”'], d['structure_' + H.lang] ? [t('Estructura', 'Structure'), d['structure_' + H.lang]] : null, d.grid ? [t('Red', 'Grid'), d.grid] : null], url: d.src.url });
+      return '<tr><td class="l">' + H.coName(d.ticker) + '</td><td class="l" style="white-space:normal;min-width:250px"><b>' + esc(cp(d)) + '</b><br><span class="small muted">' + esc(asset(d)) + '</span>' + (basis ? '<br><span class="small" style="color:var(--text-secondary)">' + esc(basis) + '</span>' : '') + (d.seeModule6 ? '<br><a class="small" href="/hiperescaladores/fuera-de-balance/">' + t('ver módulo 6', 'see module 6') + '</a>' : '') + '</td><td class="l">' + esc(typeL(d.source_type)) + (d.grid ? '<br><span class="small muted">' + esc(d.grid) + '</span>' : '') + '</td><td>' + mw + '</td><td>' + usd + '</td><td class="l" style="white-space:normal;min-width:130px">' + esc(term) + '<br><span class="small muted">' + t('anuncio: ', 'announced: ') + H.date(d.announced) + '</span></td><td class="l">' + H.tier(d.tier) + srcBtn + '</td></tr>';
+    }).join('');
+    var mob = rows.map(function (d) { return '<div class="mrow"><div class="h"><b><span class="sw" style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:' + H.color(d.ticker) + '"></span>' + esc(nm(d.ticker)) + ' · ' + esc(cp(d)) + '</b><span class="v">' + (d.mw != null ? H.mw(d.mw) : d.usdM != null ? H.moneyM(d.usdM) : t('n.d.', 'n.d.')) + '</span></div><div class="c">' + esc(typeL(d.source_type)) + ' · ' + esc(asset(d)) + (d.isGoal ? ' · ' + t('meta de despliegue', 'deployment goal') : '') + ' · ' + d.tier + ' · ' + H.date(d.announced) + '</div></div>'; }).join('');
+    set('dlTbl', '<div class="only-d"><table class="compact"><thead><tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('Contraparte y activo', 'Counterparty and asset') + '</th><th class="l">' + t('Tipo', 'Type') + '</th><th>MW</th><th>US$</th><th class="l">' + t('Plazo / inicio / anuncio', 'Term / start / announced') + '</th><th class="l">' + t('Fuente', 'Source') + '</th></tr></thead><tbody>' + body + '</tbody></table></div><div class="only-m">' + mob + '</div>');
+    set('dlStamp', H.stamp({ refreshed: P.refreshedET, sources: [{ label: t('10-K y 10-Q (T1); comunicados de las empresas y contrapartes (T2)', '10-Ks and 10-Qs (T1); company and counterparty releases (T2)') }], csv: '/hiperescaladores/csv/power-company-deals.csv', note: '<a href="/hiperescaladores/electricidad/quality.html">' + t('Calidad de datos', 'Data quality') + '</a>' }));
+  }
+
+  function searched() {
+    set('srDesc', t('Lo que se buscó en las presentaciones de cada empresa y no está cuantificado. "No revelado" significa buscado y ausente.', 'What was searched for in each company\'s filings and is not quantified. "Not disclosed" means searched and absent.'));
+    set('srTbl', '<table class="collapse"><thead><tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('Resultado', 'Result') + '</th></tr></thead><tbody>' + P.searched.slice().sort(function (a, b) { return ORDER.indexOf(a.ticker) - ORDER.indexOf(b.ticker); }).map(function (s) { return '<tr><td class="l">' + H.coName(s.ticker) + '</td><td class="l wrap-cell" style="max-width:none">' + esc(s['note_' + H.lang]) + (s.src ? H.cite(nm(s.ticker), s.src) : '') + '</td></tr>'; }).join('') + '</tbody></table>');
+  }
+
+  function grid() {
+    set('grDesc', t('Proyecciones y mediciones del sistema eléctrico y del consumo total de los centros de datos. T3 = regulador u operador de red; T4 = estimación de terceros. No son cifras de las empresas y no se suman a sus contratos. Una tarjeta se marca "desactualizada" cuando pasan 30 días de la siguiente edición esperada del publicador sin actualizarla (cálculo en su navegador).', 'Projections and measurements of the power system and of total data center consumption. T3 = regulator or grid operator; T4 = third-party estimate. They are not company figures and are not added to their contracts. A card turns "stale" when 30 days pass after the publisher\'s next expected edition without an update (computed in your browser).'));
+    var G = P.grid.slice().sort(function (a, b) { return a.tier.localeCompare(b.tier); });
+    set('grGrid', G.map(function (g) {
+      var st = H.staleT3(g.nextExpected);
+      var vals = g.values.map(function (v) {
+        var num = v.vHigh != null ? H.num(v.v, 0) + '–' + H.num(v.vHigh, 0) : H.num(v.v, v.v % 1 ? (v.v < 10 ? 3 : 2) : 0);
+        if (v.unit === 'GW' && v.v % 1) num = H.num(v.v, v.v < 10 ? 3 : 1);
+        return '<div style="margin-top:10px"><div class="small muted">' + esc(v['label_' + H.lang]) + '</div><div style="font-size:21px;font-weight:700;font-variant-numeric:tabular-nums">' + (v.qualifier === 'approx' ? '≈ ' : '') + num + ' <span style="font-size:13px;font-weight:600;color:var(--text-secondary)">' + esc(v.unit) + '</span></div>' + (v['note_' + H.lang] ? '<div class="small muted">' + esc(v['note_' + H.lang]) + '</div>' : '') + '</div>';
+      }).join('');
+      return '<div class="card" style="' + (st.stale ? 'border-color:#f0cf7a;' : '') + '"><div style="display:flex;justify-content:space-between;gap:10px;align-items:flex-start"><h3>' + esc(g['title_' + H.lang]) + '</h3>' + H.tier(g.tier) + '</div><p class="cap">' + esc(g.publisher) + ' · ' + esc(g['edition_' + H.lang] || g.edition) + (st.stale ? ' <span class="flag stale">' + t('desactualizada', 'stale') + '</span>' : '') + '</p>' + vals + (g['context_' + H.lang] ? '<p class="cap" style="margin-top:10px">' + esc(g['context_' + H.lang]) + '</p>' : '') +
+        H.stamp({ asOf: H.date(g.editionDate), refreshed: P.refreshedET, sources: [{ label: g.publisher + (g.page ? ' · ' + (/^\d/.test(g.page) ? 'p. ' : '') + g.page : ''), url: g.url }], note: g.nextExpected ? t('siguiente edición esperada: ', 'next edition expected: ') + H.date(g.nextExpected) : t('sin calendario publicado', 'no published calendar') }) + '</div>';
+    }).join(''));
+    set('grStamp', H.stamp({ refreshed: P.refreshedET, sources: [{ label: 'EIA', url: 'https://www.eia.gov/outlooks/steo/' }, { label: 'ERCOT' }, { label: 'PJM' }, { label: 'NERC' }, { label: 'LBNL' }, { label: 'IEA' }], csv: '/hiperescaladores/csv/power-grid.csv', note: t('Revisión semanal de las fuentes T3/T4', 'T3/T4 sources reviewed weekly') }));
+  }
+
+  function foot() { set('foot', t('Fuentes: 10-K y 10-Q (SEC EDGAR); comunicados de Microsoft/Constellation, Amazon/Talen, Meta, Google, NextEra y Oracle (T2); EIA, ERCOT, PJM y NERC (T3); LBNL e IEA (T4). ', 'Sources: 10-Ks and 10-Qs (SEC EDGAR); releases by Microsoft/Constellation, Amazon/Talen, Meta, Google, NextEra and Oracle (T2); EIA, ERCOT, PJM and NERC (T3); LBNL and IEA (T4). ') + '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.')); }
+  H.onLang(function () { header(); deals(); searched(); grid(); foot(); });
+})();

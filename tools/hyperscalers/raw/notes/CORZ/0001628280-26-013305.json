@@ -65,6 +65,389 @@
    "match": "purchase commitments",
    "text": "…ations for property, and (iii) capital expenditure commitments related to the   conversion of a significant portion of our data centers to high-density colocation operations.   During 2025 and 2024, we spent $729.0 million and $95.0 million on capital expenditures, respectively. We expect to increase   capital expenditures in 2026 relative to 2025 to support our strategic shift to colocation services.   For additional information regarding our operating lease obligations, convertible notes, and purchase commitments, refer to   Note 7 — Leases , Note 8 — Convertible and Other Notes Payable , and Note 11 — Commitments and Contingencies , respectively , to   our consolidated financial statements included in Item 8 of Part II of this Annual Report on Form 10-K.   Critical Accounting Estimates   The critical accounting estimates, assumptions, judgments and the related policies that we believe have the most significant   impact on our consolidated financial statements are described below.   Property, Plant, and Equipment   The Company has made significant investments in Bitcoin mining equipment, which constitutes a substantial portion of its   property, plant, and equipment. Accounting for this equipment involves significant judgment and estimation uncertainty, particularly   regarding the determination of its estimated useful life for depreciation purposes and the assessment of pote…",
    "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "1.4   gigawatts",
+   "text": "…rge-scale,   purpose-built data centers that support high-density colocation services and digital asset mining for both our own account and to a   lesser extent, third- party customers. Our data centers are optimized for power-intensive, mission-critical computing workloads, with a   focus on artificial intelligence (“AI”) and other high-performance computing (“HPC”) applications.   As of December 31, 2025, we owned or leased ten data centers across seven U.S. states, representing approximately 1.4   gigawatts (“GW”) of gross utility power capacity, or approximately 920 megawatts (“MW”) of total leasable customer power   capacity. A portion of these facilities were in operation as of December 31, 2025, with the remainder under construction or in various   stages of development.   Since its inception in 2017, Core Scientific has been focused on building and operating high-power, purpose-built data centers,   initially for digital asset mining and hosting third-party digital asset mining customers. The Company historically targeted sites with   abundant, reliable and cost-effective power, strong network connectivity, available land or existing buildings suitable for   redevelopment, attractive economic incentives, and access to utilities. In developing its facilities, the Company typically designed   powered shells and sufficient fiber connectivity to high performance data center…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "16 MW",
+   "text": "…ng its facilities, the Company typically designed   powered shells and sufficient fiber connectivity to high performance data center standards, enabling flexibility to support increasing   power densities and evolving compute requirements over time.   In 2024, the Company announced its strategy to focus its data center infrastructure and expertise to the high-density colocation   compute business and in February 2024, entered into long-term contract with CoreWeave, Inc. (“CoreWeave”) to deliver 16 MW of   infrastructure at our Austin, Texas facility. In June 2024, Core Scientific announced that it had entered another contract with   CoreWeave for 200 MW of leased customer power capacity. Through the exercise of several contractual options during 2024 and into   early 2025, total leased customer power capacity under the relationship with CoreWeave increased to approximately 590 MW of   leased power capacity.   In 2025, we derived the majority of our revenue from earning digital assets for our own account but expect that a meaningful   amount of our revenue will be derived from high-density colocation (“HDC”) in 2026, as billable customer power capacity gets   delivered to our end customer. We intend to convert every megawatt in our portfolio to high-density colocation infrastructure over the   next three years, while continuing to digital asset mine during conversion only to mee…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…le customer power capacity gets   delivered to our end customer. We intend to convert every megawatt in our portfolio to high-density colocation infrastructure over the   next three years, while continuing to digital asset mine during conversion only to meet existing power commitments at facilities where   HDC conversion is taking place or to honor a small number of digital asset mining hosting commitments. We are also actively   evaluating opportunities to acquire new sites, including land and power capacity, to expand our data center footprint beyond our   current portfolio.   Industry Background   We participate in the third-party colocation market, providing customers with access to purpose-built data center environments   that deliver secure physical space, reliable electrical power, cooling systems and facility operations required to support IT and   networking equipment. Customers deploy and manage their own hardware, while the operator designs, builds and operates the   underlying infrastructure needed to maintain uptime, power availability and cooling requirements. Customers often utilize third-party   colocation services as part of a broader infrastructure strategy to accelerate deployment timelines, expand into additional   geographic markets or optimize capital allocation, while retaining control over their hardware, software and data.    Within the third-party colo…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…ir hardware, software and data.    Within the third-party colocation market, providers offer wholesale, retail or hybrid colocation services, which differ primarily   based on contract size, deployment scale and customer profile. Our operations are primarily focused on wholesale colocation, which   typically involves large, long-term agreements with a limited number of customers, often with initial terms of 10 years or more for   dedicated suites, halls or entire buildings, with leased customer power capacity that can range from several megawatts to tens or   hundreds of megawatts per customer. Wholesale customers are commonly hyperscale cloud providers, AI and other HPC operators   and large enterprises with the operational capability to manage hardware and networking at scale.   Wholesale colocation agreements are commonly structured as either triple-net or modified gross leases, which differ in how   operating costs are allocated between the operator and the customer. Under a triple-net structure, the customer is generally responsible   for substantially all operating expenses associated with the leased space, including power, maintenance, taxes,  insurance and other   facility-related costs. Modified gross leases, by contrast, typically involve the operator retaining responsibility for certain facility-level   operating expenses, while the customer is billed separately for …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…maintenance, taxes,  insurance and other   facility-related costs. Modified gross leases, by contrast, typically involve the operator retaining responsibility for certain facility-level   operating expenses, while the customer is billed separately for power and, in some cases, other variable operating costs. Both lease   8   Table of Contents   structures are frequently paired with long-term, take-or-pay contractual commitments, under which the customer is obligated to pay for   leased customer power capacity regardless of utilization, providing operators with revenue visibility over the contract term.    The colocation industry has evolved significantly in recent years, driven in particular by the large-scale deployment of   infrastructure to support AI and other HPC workloads. We expect demand for AI-focused compute resources to continue to grow   significantly as generative AI adoption accelerates and AI use cases expand across industries. These compute-intensive environments   require substantially higher rack power densities, specialized cooling technologies and access to large-scale, power capacity. As these   requirements continue to increase, demand is shifting toward operators capable of supporting high-density, accelerator-driven   workloads and delivering the associated power and cooling infrastructure at scale, trends that are expected to continue shaping the   indu…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…expertise as we repurpose existing facilities and   develop new infrastructure to support AI-related workloads and high-density colocation services.    Evolving utility requirements and commercial terms.    In response to the significant increase in power demand driven by the continued proliferation of AI infrastructure, a   growing number of electric utility providers have adjusted their commercial and operational requirements, particularly in markets with   limited availability of incremental power capacity, where the pace of new generation and grid infrastructure development has not kept   up with demand from large-scale data center projects. As a result, utilities have implemented more structured and disciplined   commercial frameworks designed to better align power reservations with demonstrated project execution and load growth. These   measures increasingly include the requirement for significant collateral postings at contract execution, minimum monthly demand   commitments and other financial assurances as conditions to reserving and delivering large amounts of power capacity.    Utilities may also impose requirements related to phased load ramping, minimum utilization thresholds, capacity reservation   charges or demand-based metrics, including kilovolt-amperes-based or similar measures. In some cases, these practices are intended to   discourage speculative capacity …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…ing high-voltage   transformers, switchgear, generators and advanced cooling systems, can require lead times of 12 to 18 months or longer, which can   materially affect data center construction schedules. In addition, demand for experienced data center contractors and specialized   subcontractors, including licensed electricians, engineers and commissioning professionals, has increased significantly across the   industry in recent years. As a result, while the ability to secure large amounts of power capacity is often viewed as a primary   bottleneck, we believe extended equipment lead times and skilled labor availability are likely to play an increasingly important   role in determining data center construction timelines over the coming years.    Data Center Portfolio   As of December 31, 2025, we owned or leased ten data centers in Alabama (1), Georgia (2), Kentucky (1), North Carolina (1),   North Dakota (1), Oklahoma (1), and Texas (3) totaling 920 MW of total leasable customer power capacity, or 1.4 GW on a gross   utility power capacity basis.   Business Operations and Segments   We have three operating segments: “Colocation,” consisting of providing high-density colocation services to third parties for   AI / HPC operations, “Digital Asset Self-Mining,” consisting of performing digital asset mining for our own account, and “Digital   Asset Hosted Mining,” consisting of p…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…   various facilities. These agreements provide for both firm and interruptible power supply through each provider’s transmission and   distribution systems to dedicated substations owned by the power provider, the local utility or the Company. We value our   relationships with our power providers and work to leverage our operating capabilities to take advantage of any interruptible programs   and cost saving opportunities.   10   Table of Contents   The table below summarizes the gross utility power capacity in MW by facility location and electric utility provider as of   December 31, 2025 :   Electric Utility Providers   Gross Utility Power   Capacity (MW)   Facility Location   Tennessee Valley Authority   150   Paducah-Calvert City, Kentucky   Murphy Electric Power Board   35   Marble, North Carolina   Duke Energy   82   Marble, North Carolina   Dalton Utilities   195   Dalton, Georgia   Nodak Electric Cooperative, Inc.   100   Grand Forks, North Dakota   Denton Municipal Electric   394   Dallas-Denton, Texas   Texas New-Mexico Power   300   Pecos, Texas   Oklahoma Gas & Electric   100   Muskogee, Oklahoma   Austin Energy   20   Austin, Texas   Alabama Power Company   50   Auburn, Alabama   Total   1,426   Facility Development   Our experienced in-house facility development teams, utilizing from time to time the expertise of third parties, focus on   sourcing, evaluating, de…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "100 megawatts",
+   "text": "…gy use by large-scale data center operators. Future regulatory action related to   the energy usage of data center operations, including possible reporting or operational requirements, could affect our colocation   activities.   In July 2025, the President signed an executive order titled “Accelerating Federal Permitting of Data Center Infrastructure,”   which directs federal agencies to streamline permitting and environmental review for large-scale AI data center projects requiring   more than 100 megawatts of new electrical load. The executive order also directs the Departments of the Interior, Energy, and Defense   to authorize data center construction on appropriate federal lands, and instructs the Secretary of Commerce to launch an initiative to   provide financial support for qualifying projects. While this executive order may benefit our colocation operations by reducing   permitting timelines for future expansion, the scope and durability of these measures remain uncertain and subject to change.   13   Table of Contents   State level regulation of large-scale data center operations is also developing. In June 2025, Texas enacted Senate Bill 6, which   introduces significant new requirements for large-load electricity customers, including data centers within the Electric Reliability   Council of Texas (“ERCOT”) region. SB 6 applies to customers with loads exceeding 75 me…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "100 megawatts",
+   "text": "…rvices in Muskogee, Oklahoma.   Kentucky’s expanded data center incentive program, enacted through House Bill 775 in 2025, broadened eligibility for sales   and use tax exemptions on qualified data center equipment statewide based on county population thresholds.   In Georgia, the Public Service Commission adopted a rule in January 2025 allowing Georgia Power to impose minimum billing   requirements, longer contract terms, and site-specific cost allocations on new large-load customers exceeding 100 megawatts,   including data centers. In December 2025, the Georgia PSC approved approximately 9,885 megawatts of new generation capacity,   driven largely by projected data center demand, with conditions requiring large-load customers to bear a significant share of associated   infrastructure costs.   In other locations where we operate, including North Carolina, North Dakota, and Alabama, no state statute presently restricts   data center operations, although state commissions and local zoning authorities continue to evaluate rules applicable to large electricity   load facilities and data centers. These state level developments may increase our compliance obligations, affect economic terms for   power, or restrict siting or loading of our colocation operations.   Regulatory frameworks include environmental requirements, zoning and land use considerations, cybersecurity expectations…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…sing transactions on that network and could have a material adverse effect on our business, financial condition and results   of operations.   Processing power on networks has been increasing rapidly over time, while the rewards and transaction fees available on those   networks tends to decline over time. In order to grow or maintain the revenue we generate from processing transactions on such   networks, we are required to invest significant capital to acquire new computer servers, expand our power capacity and otherwise   increase our effective processing power on such networks. In the event we are unable to invest sufficient capital to grow or maintain   the level of our processing power on a network relative to the total processing power of such network, our revenue from the applicable   network will decline over time and as a result, it could have a material adverse effect on our business, financial condition and results   of operations.   In addition, a decrease in the price of computer servers may result in an increase in transaction processors, which may lead to   more competition for fees in a particular network. In the event we are unable to realize adequate fees on a network due to increased   competition, our revenue from the applicable network will decline over time and in turn, it could have a material adverse effect on our   business, financial condition and res…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "590 megawatts",
+   "text": "…l asset mining for b oth our own account and to a   lesser extent, third-party customers. Our data centers are optimized for power-intensive, mission-critical computing workloads, with a   focus on artificial intelligence (“AI”) and other high-performance computing (“HPC”) applications.   In 2024, the Company announced its first high-density colocation contract with CoreWeave, Inc. (“CoreWeave), a provider of   high-performance computing (“HPC”) services, which subsequently had been expanded to 590 megawatts (“MW”) of leased customer   power capacity over the exercise of several contractual options. We believe leveraging our existing infrastructure for high-density   colocation services will provide more stable and predictable revenue streams, and represents substantially less risk over time than our   traditional hosted bitcoin mining or self-mining operations.   We are constructing, refurbishing , reallocating or converting our ten facilities in Alabama (1), Georgia (2), Kentucky (1), North   Carolina (1), North Dakota (1), Oklahoma (1), and Texas (3) to support artificial intelligence related workloads, in support of our   existing colocation customer, but also to support our commitment to meeting the growing demand for high-density colocation   solutions and diversifying our c ustomer base. This will be done as circumstances allow and in a manner designed to retain access t…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…one as circumstances allow and in a manner designed to retain access to   electrical power under our control, maximize the value of our digital asset mining equipment to third parties, and fulfill existing   obligations to suppliers and customers. We intend to convert every megawatt in our portfolio to high-density colocation infrastructure   over the next three years .  In addition to converting our existing portfolio, we are actively pursuing the acquisition of new sites,   including land and power capacity, to expand our data center footprint beyond our current facilities.   Currently, the vast majority of our revenue is from mining bitcoin for our own account (“self-mining”). We will continue to   mine digital assets and manage our self-mining fleet with a focus on power expense coverage and cash generation while we convert   our data centers for alternative high-density colocation service business opportunities. We expect to increase revenue derived from   high-density colocation (“HDC”) services as capacity gets delivered to our current end customer as well as when we sign and begin   generating revenue from new colocation customers.   50   As of December 31, 2025, we operated a diversified portfolio of ten data centers across seven U.S. states, representing   approximately 1.4 gigawatts (“GW”) of gross utility power capacity, or approximately 920 megawatts (“MW”) of tota…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…unities. We expect to increase revenue derived from   high-density colocation (“HDC”) services as capacity gets delivered to our current end customer as well as when we sign and begin   generating revenue from new colocation customers.   50   As of December 31, 2025, we operated a diversified portfolio of ten data centers across seven U.S. states, representing   approximately 1.4 gigawatts (“GW”) of gross utility power capacity, or approximately 920 megawatts (“MW”) of total leasable   customer power capacity. We continue to be in active discussions with both our existing and future potential utility providers   regarding additional power allocations.   During 2025, total revenue decreased to $319.0 million from $510.7 million , primarily due to lower digital asset self-mining   revenue and digital asset hosted mining revenue as we shifted capital and infrastructure toward colocation , partially offset by higher   colocation revenue from incremental billable customer power capacity. Operating loss increased to $245.6 million in 2025 from   $142.1 million in 2024. Net loss was $288.6 million in 2025 and included significant non-cash items, including changes of $33.1   million in the fair value of warrants and contingent value rights. Adjusted EBITDA decreased to $29.7 million in 2025 from $157.4   million in 2024. Adjusted EBITDA is a non-GAAP financial measure. See “ Key Busine…",
+   "amounts": [
+    {
+     "raw": "$319.0 million",
+     "usdM": 319
+    },
+    {
+     "raw": "$510.7 million",
+     "usdM": 510.7
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "IT load capacity",
+   "text": "…entify trends affecting our business, and make strategic decisions. These operating   metrics and non‑GAAP financial measures should be considered in addition to, and not as a substitute for, our consolidated financial   statements prepared in accordance with accounting principles generally accepted in the United States (“GAAP”).   Management also uses the following data center capacity and power metrics (measured in megawatts) to evaluate the scale of   our utility power footprint and customer IT load capacity, monitor customer commitments and remaining available capacity, assess   commissioning progress and deployment pacing, and inform capital allocation and site planning decisions. Unless otherwise indicated,   these metrics are presented as of period end and represent management estimates based on operational and engineering data and may   not be comparable to similarly titled measures used by other operators.   Metric (MW)   Definition   How management uses it   Gross Utility Power Capacity   Total electric utility power capacity agreements   associated with our data center sites under our   control as of period end, including capacity that   is commissioned for future use.   Used for portfolio planning and utility power   allocation discussions.   Total Leasable Customer Power   Capacity   Our estimate of the total non-redundant   customer IT load that our data center si…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "Power capacity",
+   "text": "…r sites could   support in the aggregate as of period end,   regardless of whether such capacity has been   contracted with customers or remains available   for sale. This metric is representative of the   amount of power available for customer use in   servicing their workloads.   Used to assess total customer‑usable IT load   available for leasing, evaluate leased versus   unleased capacity, and plan conversion/   development sequencing and sales capacity.   Leased Customer Power   Capacity   Power capacity that is committed to customers   under executed customer contracts, regardless of   whether service has commenced as of period   end.   Used to monitor signed customer commitments   and contracted backlog and to plan future   deployment/commissioning requirements.   Unleased Customer Power   Capacity   The portion of Total Leasable Customer Power   not committed under customer contracts as of   period end. This metric is calculated as Total   Leasable Customer Power minus Leased   Customer Power Capacity.   Used to monitor remaining uncommitted   customer IT load and to prioritize incremental   contracting and conversion/commissioning   plans.   Billable Customer Power   Capacity   Portion of Leased Customer Power Capacity for   which service has commenced and we are   actively billing as of period end.   Used to monitor in-service customer power that   is billing and to t…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "Power Capacity",
+   "text": "…tal   contracting and conversion/commissioning   plans.   Billable Customer Power   Capacity   Portion of Leased Customer Power Capacity for   which service has commenced and we are   actively billing as of period end.   Used to monitor in-service customer power that   is billing and to track deployment/   commissioning pace and near-term revenue   ramp.   55   The following table presents the values for these metrics as of December 31, 2025 (in megawatts).   December 31,   2025   Gross Utility Power Capacity   1,426   Total Leasable Customer Power Capacity   920   Leased Customer Power Capacity   590   Unleased Customer Power Capacity   330   Billable Customer Power Capacity   120   Adjusted EBITDA   We report our financial results in accordance with GAAP. To supplement our consolidated financial statements, we provide   investors with Adjusted EBITDA, which is a non‑GAAP financial measure. Adjusted EBITDA is defined as our net loss, adjusted to   eliminate the effect of (i) interest income, interest expense, and other income (expense), net; (ii) provision for income taxes;   (iii) depreciation and amortization; (iv) stock-based compensation expense; (v) Reorganization items, net; (vi) unrealized fair value   adjustment on energy derivatives; (vii) change in fair value of warrant and contingent value rights; (viii) Colocation segment startup   costs primarily related to the in…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…  Total revenue   $ 319,019   $ 510,672   $ (191,653)   Percentage of total revenue:   Colocation revenue   20 %   5 %   Digital asset self-mining revenue   72 %   80 %   Digital asset hosted mining revenue from customers   8 %   15 %   Total revenue   100 %   100 %   Colocation revenue   Colocation revenue consists of fees charged to customers for licensed data center space, power and related services. Under our   contracts, customers generally pay fixed monthly fees based on billable customer power capacity and variable usage‑based charges   and other billable services. P ower fees are passed through to customers without markup and are recognized as revenue on a gross   basis, with a corresponding charge to cost of colocation services. As a result, changes in power prices can cause fluctuations in   colocation revenue that are not indicative of changes in our underlying colocation margins.   The year over year increase in colocation revenue was primarily attributable to incremental billable customer power capacity at   our Denton, Texas and Marble, North Carolina data centers. In addition, lease operations at our Austin, Texas data center, which   commenced in the second quarter of 2024, contributed to higher colocation revenue.   Digital asset self-mining revenue   Digital asset self‑mining revenue consists primarily of bitcoin earned from operating our owned mining fleet. W…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…ily to our   strategic shift to colocation, (ii) the Bitcoin network’s halving, which reduced bitcoin earned per unit of hash rate beginning in April   2024, and (iii) more challenging network conditions, including higher network difficulty.   Digital asset hosted mining revenue   Digital asset hosted mining revenue represents fees earned for providing infrastructure, power and related services to third‑party   miners. Under our hosting contracts, customers are generally billed monthly based on power capacity and/or power consumption over   the term of the arrangement, which typically ranges from one to three years.   The year over year decrease in hosted mining revenue from customers was primarily driven by our shift to our Colocation   operations.   Cost of revenue   Year Ended December 31,   2025   2024   $ Change   Cost of revenue:   Cost of colocation services   $ 45,679   $ 21,709   $ 23,970   Cost of digital asset self-mining   218,868   314,335   (95,467)   Cost of digital asset hosted mining services   16,574   53,558   (36,984)   Total cost of revenue   $ 281,121   $ 389,602   $ (108,481)   Cost of revenue includes the costs to operate our colocation, digital asset self‑mining, and digital asset hosted mining   businesses, including power fees, depreciation, personnel and facility-related costs.   Colocation cost of revenue   The year over year increase in cost of col…",
+   "amounts": [
+    {
+     "raw": "$ 45,679   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 21,709 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "seq1",
+   "match": "power capacity",
+   "text": "…the Company   recognized digital asset hosted revenue from the contracts with these entities of $ 10.1 million .   110   Core Scientific, Inc.   Notes to Consolidated Financial Statements   18. SUBSEQUENT EVENTS   Subsequent to December 31, 2025 and through February 26, 2026 , the Company sold 1,924 bitcoin for aggregate proceeds of   $ 175.9 million .   In January 2026, the Company entered into a long-term power supply arrangement under which the Company is obligated to   purchase firm utility power capacity beginning in 2028. In connection with this arrangement, the Company made a cash deposit of   $ 80 million into a restricted, interest-bearing escrow account, subject to contractual terms, including termination provisions.   111   Item 9. Changes in and Disagreements With Accountants on Accounting and Financial Disclosures   Not applicable.   Item 9A. Controls and Procedures   Evaluation of Disclosure Controls and Procedures   Our management, with the participation of our Chief Executive Officer and our Chief Financial Officer, have conducted an   evaluation of the effectiveness of the design and operation of our disclosure controls and procedures (as defined in Rules 13a-15(e)   and 15d-15(e) under the Exchange Act) as of December 31, 2025.   Based on that evaluation, our Chief Executive Officer and our Chief Financial Officer have concluded that, as of December 31,   2025…",
+   "amounts": [
+    {
+     "raw": "$ 175.9 million",
+     "usdM": 175.9
+    },
+    {
+     "raw": "$ 80 million",
+     "usdM": 80
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "seq1",
+   "match": "Item 2.   Properties",
+   "text": "…NCORPORATED BY REFERENCE   Portions of the registrant's proxy statement related to its 2026 Annual Stockholders' Meeting to be filed subsequently are incorporated   by reference into Part III of this Form 10-K.   3   Table of Contents   TABLE OF CONTENTS   Summary of Selected Risk Factors   4   Cautionary Note Regarding Forward-Looking Statements   6   Part I   7   Item 1.   Business   7   Item 1A.   Risk Factors   15   Item 1B.   Unresolved Staff Comments   44   Item 1C.   Cybersecurity   44   Item 2.   Properties   45   Item 3.   Legal Proceedings   46   Item 4.   Mine Safety Disclosures   46   Part II   47   Item 5.   Market for Registrant's Common Equity, Related Stockholder Matters and Issuer Purchases of   Equity Securities   47   Item 6.   [Reserved]   48   Item 7.   Management's Discussion and Analysis of Financial Condition and Results of Operations   49   Item 7A.   Quantitative and Qualitative Disclosures About Market Risk   63   Item 8.   Financial Statements and Supplementary Data   64   Item 9.   Changes in and Disagreements With Accountants on Accounting and Financial Disclosures   111   Item 9A.   Controls and Procedures   111   Item 9B.   Other Information   114   Item 9C.   Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   114   Part III   115   Item 10.   Directors, Executive Officers and Corporate Governance   115   Item 11.   Executive C…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "seq1",
+   "match": "data centers in Alabama",
+   "text": "…, engineers and commissioning professionals, has increased significantly across the   industry in recent years. As a result, while the ability to secure large amounts of power capacity is often viewed as a primary   bottleneck, we believe extended equipment lead times and skilled labor availability are likely to play an increasingly important   role in determining data center construction timelines over the coming years.    Data Center Portfolio   As of December 31, 2025, we owned or leased ten data centers in Alabama (1), Georgia (2), Kentucky (1), North Carolina (1),   North Dakota (1), Oklahoma (1), and Texas (3) totaling 920 MW of total leasable customer power capacity, or 1.4 GW on a gross   utility power capacity basis.   Business Operations and Segments   We have three operating segments: “Colocation,” consisting of providing high-density colocation services to third parties for   AI / HPC operations, “Digital Asset Self-Mining,” consisting of performing digital asset mining for our own account, and “Digital   Asset Hosted Mining,” consisting of providing hosting services to third parties for digital asset mining. Prior to April 1, 2024, we   operated primarily in the Digital Asset Self-Mining and Digital Asset Hosted Mining segments. During fiscal year 2024, our   “Colocation” segment was referred to as “HPC Hosting.”   We derived the majority of our 2025 revenue from e…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "seq1",
+   "match": "data centers in the",
+   "text": "…te companies   such as:   • Aligned Data Centers;   • Compass Datacenters;   • Equinix, Inc.;   • Digital Realty Trust;   • NTT;   • QTS;   11   Table of Contents   • Switch, Inc.;   • Vantage Data Centers; and   • CyrusOne Inc.   Many of these competitors are more established, have better brand recognition, are well capitalized, and are organized to take   advantage of certain tax benefits for their investors, lowering their external cost of capital. Many of our competitors seek to establish   data centers in the same geographic regions as we do and compete for the same sources of power, equipment and customers as Core   Scientific. Competitors compete on price, facility location, reputation and perceived skill with respect to performance. We believe that   our experienced data center and engineering leadership team, our proven ability to rapidly deliver scalable, purpose-built data centers,   combined with cutting-edge, energy-efficient technologies, will enable us to compete favorably within the HDC market.   Additionally, we compete with other digital asset miners who have signed contracts with AI / HPC customers to convert   existing digital mining facilities into HDC facilities including:   • Applied Digital Corporation;   • Cipher Mining Inc.;   • Galaxy Digital;   • Hut 8 Corp.;   • IREN; and   • Terawulf, Inc.   Our digital asset self-mining operations compete globally…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "seq1",
+   "match": "Item 2. Properties",
+   "text": "…ility to consider and discuss our major financial risk   exposures, including risks from cybersecurity threats, and the steps our management has taken to monitor and control these exposures,   including guidelines and policies to govern the process by which risk assessment and management is undertaken. The Audit   Committee also monitors compliance with legal and regulatory requirements and is charged with oversight of the adequacy of   Company’s insurance programs, including cyber insurance.   Item 2. Properties.   Our corporate headquarters is located at 838 Walker Road, Suite 21-2105, Dover, Delaware 19904, and we also maintain leased   office space in Texas and Florida. Our data center facilities include leased sites in Alabama, North Dakota, and Texas and owned sites   in Georgia, Kentucky, North Carolina, and Oklahoma. We believe our facilities are suitable and adequate for our current operations.   46   Table of Contents   Item 3. Legal Proceedings.   We are involved in lawsuits, claims and other legal matters that arise in the ordinary course of business. The outcome of these   matters cannot be predicted with certainty; however, we believe that the ultimate resolution of these matters will not have a material   adverse effect on our consolidated financial position, results of operations or cash flows. To the extent that the ultimate resolution of   any matter differs f…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…er networks, has had and in the   future could have a negative impact on our ability to generate revenue which could have a material adverse effect on our   business, financial condition and results of operations.   • If the bitcoin rewards and/or transaction fees for solving blocks on other networks is not sufficiently high to incentivize   miners or validators, such miners or validators may reduce or cease expending processing power on a particular network,   which could negatively impact the utility of the network, reduce the value of its native digital assets and have a material   adverse effect on our business, financial condition and results of operations.   • Our compliance and risk management methods might not be effective and may result in outcomes that could adversely affect   our reputation, operating results, and financial condition.   • We may not have adequate sources of recovery if the bitcoin or other digital assets held by us are lost, stolen or destroyed due   to third-party digital asset services, which could have a material adverse effect on our business, financial condition and results   of operations.   6   Table of Contents   CAUTIONARY NOTE REGARDING FORWARD-LOOKING STATEMENTS   This Annual Report on Form 10-K, including, without limitation, statements under Item 1. — “Business” and Item 7. —   “ Management’s Discussion and Analysis of Financial Conditio…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…centers that support high-density colocation services and digital asset mining for both our own account and to a   lesser extent, third- party customers. Our data centers are optimized for power-intensive, mission-critical computing workloads, with a   focus on artificial intelligence (“AI”) and other high-performance computing (“HPC”) applications.   As of December 31, 2025, we owned or leased ten data centers across seven U.S. states, representing approximately 1.4   gigawatts (“GW”) of gross utility power capacity, or approximately 920 megawatts (“MW”) of total leasable customer power   capacity. A portion of these facilities were in operation as of December 31, 2025, with the remainder under construction or in various   stages of development.   Since its inception in 2017, Core Scientific has been focused on building and operating high-power, purpose-built data centers,   initially for digital asset mining and hosting third-party digital asset mining customers. The Company historically targeted sites with   abundant, reliable and cost-effective power, strong network connectivity, available land or existing buildings suitable for   redevelopment, attractive economic incentives, and access to utilities. In developing its facilities, the Company typically designed   powered shells and sufficient fiber connectivity to high performance data center standards, enabling flexibility…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "… electrical deployments, specialized cooling systems and complex facility operations. These operations have involved   managing significant power loads, coordinating with utilities, and maintaining continuous operations across geographically distributed   facilities. We believe this experience provides relevant technical and operational expertise as we repurpose existing facilities and   develop new infrastructure to support AI-related workloads and high-density colocation services.    Evolving utility requirements and commercial terms.    In response to the significant increase in power demand driven by the continued proliferation of AI infrastructure, a   growing number of electric utility providers have adjusted their commercial and operational requirements, particularly in markets with   limited availability of incremental power capacity, where the pace of new generation and grid infrastructure development has not kept   up with demand from large-scale data center projects. As a result, utilities have implemented more structured and disciplined   commercial frameworks designed to better align power reservations with demonstrated project execution and load growth. These   measures increasingly include the requirement for significant collateral postings at contract execution, minimum monthly demand   commitments and other financial assurances as conditions to reserving and de…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…ns to reserving and delivering large amounts of power capacity.    Utilities may also impose requirements related to phased load ramping, minimum utilization thresholds, capacity reservation   charges or demand-based metrics, including kilovolt-amperes-based or similar measures. In some cases, these practices are intended to   discourage speculative capacity reservations or “power banking” and to prioritize projects that demonstrate near-term readiness and    execution certainty. These evolving utility requirements can increase upfront costs, extend pre-construction timelines and add   complexity to power procurement, project planning and contracting for colocation providers and their customers, particularly in   markets with limited available capacity or constrained grid infrastructure.    Supply chain sourcing and availability of skilled labor play a key role in delivery timelines.    The development of large-scale data center infrastructure to support AI and other high-performance computing workloads is a   lengthy and complex process, with conventional large data centers typically requiring 18 to 24 months, or longer, from site selection    and permitting through construction and energization, excluding grid interconnection timelines. These timelines reflect the significant   upfront design and engineering work required to coordinate electrical, mechanical and cooling syste…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…primary   bottleneck, we believe extended equipment lead times and skilled labor availability are likely to play an increasingly important   role in determining data center construction timelines over the coming years.    Data Center Portfolio   As of December 31, 2025, we owned or leased ten data centers in Alabama (1), Georgia (2), Kentucky (1), North Carolina (1),   North Dakota (1), Oklahoma (1), and Texas (3) totaling 920 MW of total leasable customer power capacity, or 1.4 GW on a gross   utility power capacity basis.   Business Operations and Segments   We have three operating segments: “Colocation,” consisting of providing high-density colocation services to third parties for   AI / HPC operations, “Digital Asset Self-Mining,” consisting of performing digital asset mining for our own account, and “Digital   Asset Hosted Mining,” consisting of providing hosting services to third parties for digital asset mining. Prior to April 1, 2024, we   operated primarily in the Digital Asset Self-Mining and Digital Asset Hosted Mining segments. During fiscal year 2024, our   “Colocation” segment was referred to as “HPC Hosting.”   We derived the majority of our 2025 revenue from earning digital assets for our own account but expect to rapidly increase   revenue derived from high-density colocation (“HDC”) as capacity gets delivered to our existing and future end customers. We intend…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…ng operations in 2026 and future years and may not derive consequential digital asset hosting revenue in future periods .   Suppliers   Power Providers   We have fixed, variable and interruptible bi-lateral power supply consumption agreements with electric power suppliers at our   various facilities. These agreements provide for both firm and interruptible power supply through each provider’s transmission and   distribution systems to dedicated substations owned by the power provider, the local utility or the Company. We value our   relationships with our power providers and work to leverage our operating capabilities to take advantage of any interruptible programs   and cost saving opportunities.   10   Table of Contents   The table below summarizes the gross utility power capacity in MW by facility location and electric utility provider as of   December 31, 2025 :   Electric Utility Providers   Gross Utility Power   Capacity (MW)   Facility Location   Tennessee Valley Authority   150   Paducah-Calvert City, Kentucky   Murphy Electric Power Board   35   Marble, North Carolina   Duke Energy   82   Marble, North Carolina   Dalton Utilities   195   Dalton, Georgia   Nodak Electric Cooperative, Inc.   100   Grand Forks, North Dakota   Denton Municipal Electric   394   Dallas-Denton, Texas   Texas New-Mexico Power   300   Pecos, Texas   Oklahoma Gas & Electric   100   Muskogee, Okl…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "interconnection",
+   "text": "… uncertain and subject to change.   13   Table of Contents   State level regulation of large-scale data center operations is also developing. In June 2025, Texas enacted Senate Bill 6, which   introduces significant new requirements for large-load electricity customers, including data centers within the Electric Reliability   Council of Texas (“ERCOT”) region. SB 6 applies to customers with loads exceeding 75 megawatts at a single site and requires such   customers to contribute to transmission interconnection costs, disclose duplicative interconnection requests, and maintain backup   generation or load curtailment capability during grid emergencies. Facilities interconnecting after December 31, 2025 must install   remote-disconnect equipment to enable ERCOT-directed load shedding during grid stress events. The Public Utility Commission of   Texas is required to review and potentially revise the methodology for allocating wholesale transmission charges to large-load   customers by December 31, 2026.   Oklahoma’s HB 3594, effective November 2024, requires that any regulations imposed on digital asset mining businesses also   apply to traditional data centers and prohibits discriminatory electricity rates for such operations. This legislation supports our facility   under development for colocation services in Muskogee, Oklahoma.   Kentucky’s expanded data center incentive progra…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…available rewards on the Bitcoin network, or any   reduction of rewards on other networks, would have a negative impact on our revenues and may have a material adverse effect on our   business, financial condition and results of operations.   If the award of bitcoin and/or transaction fees for solving blocks is not sufficiently high to incentivize transaction   processors, such processors may reduce or cease expending processing power on a particular network, which could negatively   impact the utility of the network, reduce the value of its bitcoin and have a material adverse effect on our business, financial   condition and results of operations.   As the number of bitcoin rewarded to transaction processors for validating blocks in the Bitcoin network decreases, the   incentive for transaction processors to continue contributing processing power to the network may shift toward transaction fees. Such   a shift may increase the transaction fees on a network. Higher transaction fees may reduce the utility of a network for an end user,   which may cause end users to reduce or stop their use of that network. Existing users may be motivated to switch from one digital   asset to another or back to fiat currency. In such case, the price of the relevant digital asset may decline substantially and could go to   40   Table of Contents   zero. Such reduced price and demand for, and use o…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "… convert   our data centers for alternative high-density colocation service business opportunities. We expect to increase revenue derived from   high-density colocation (“HDC”) services as capacity gets delivered to our current end customer as well as when we sign and begin   generating revenue from new colocation customers.   50   As of December 31, 2025, we operated a diversified portfolio of ten data centers across seven U.S. states, representing   approximately 1.4 gigawatts (“GW”) of gross utility power capacity, or approximately 920 megawatts (“MW”) of total leasable   customer power capacity. We continue to be in active discussions with both our existing and future potential utility providers   regarding additional power allocations.   During 2025, total revenue decreased to $319.0 million from $510.7 million , primarily due to lower digital asset self-mining   revenue and digital asset hosted mining revenue as we shifted capital and infrastructure toward colocation , partially offset by higher   colocation revenue from incremental billable customer power capacity. Operating loss increased to $245.6 million in 2025 from   $142.1 million in 2024. Net loss was $288.6 million in 2025 and included significant non-cash items, including changes of $33.1   million in the fair value of warrants and contingent value rights. Adjusted EBITDA decreased to $29.7 million in 2025 from …",
+   "amounts": [
+    {
+     "raw": "$319.0 million",
+     "usdM": 319
+    },
+    {
+     "raw": "$510.7 million",
+     "usdM": 510.7
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "interconnection",
+   "text": "…and conditions resulting in stable, predictable revenue and cash flows over each period.   The pace of this transition, and the timing of related revenue and cash flows, depends on (i) customer deployment schedules   under existing and future contracts and (ii) the timing and cost of converting and commissioning incremental billable customer power   capacity. Conversion capital expenditures and timelines are sensitive to equipment lead times and availability, labor constraints,   permitting and interconnection sequencing, and supply chain and logistical challenges. Changes in these inputs can affect when   incremental capacity becomes billable and therefore may affect the timing of colocation revenue, cost of services and related cash   flows.   Bitcoin Market Conditions   Our Digital Asset Self-Mining segment is heavily dependent on the spot price of bitcoin. The prices of digital assets,   specifically bitcoin, have experienced substantial volatility, meaning that high or low prices may have little or no relationship to   identifiable market forces, may be subject to rapidly changing investor sentiment, and may be influenced by factors such as   technology, regulatory developments and enforcement actions. Bitcoin (as well as other digital assets) may have value based on   various factors, including their acceptance as a means of exchange by consumers and others, scarcity, and…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "natural gas",
+   "text": "…summer   months driving higher costs and increased curtailments to support grid operators. Severe winter weather can increase the cost of   electricity and the frequency of curtailments when it results in damage to power transmission infrastructure that reduces the grid’s   ability to deliver power. Geopolitical and macroeconomic factors, such as overseas military or economic conflict between states, can   adversely affect electricity costs by raising the cost of power generation inputs such as natural gas. Other events out of our control can   also impact electricity costs and availability. In our self‑mining and hosted mining operations, increases in power prices and/or   increased curtailments can materially reduce margins and cash generation. In our colocation operations, power costs are passed   through to customers and changes in power prices may increase revenue and cost of colocation services without a corresponding   change in gross profit.   Our Competition and Customers   In addition to factors underlying our mining business growth and profitability, the success of our Colocation business greatly   depends on our ability to retain and develop opportunities with our existing customers, secure additional infrastructure and attract new   customers.   Competition in digital asset mining is driven in part by access to low‑cost power, scale, fleet efficiency and capital av…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…business, measure our performance, identify trends affecting our business, and make strategic decisions. These operating   metrics and non‑GAAP financial measures should be considered in addition to, and not as a substitute for, our consolidated financial   statements prepared in accordance with accounting principles generally accepted in the United States (“GAAP”).   Management also uses the following data center capacity and power metrics (measured in megawatts) to evaluate the scale of   our utility power footprint and customer IT load capacity, monitor customer commitments and remaining available capacity, assess   commissioning progress and deployment pacing, and inform capital allocation and site planning decisions. Unless otherwise indicated,   these metrics are presented as of period end and represent management estimates based on operational and engineering data and may   not be comparable to similarly titled measures used by other operators.   Metric (MW)   Definition   How management uses it   Gross Utility Power Capacity   Total electric utility power capacity agreements   associated with our data center sites under our   control as of period end, including capacity that   is commissioned for future use.   Used for portfolio planning and utility power   allocation discussions.   Total Leasable Customer Power   Capacity   Our estimate of the total non-redundant   cus…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "Utility",
+   "text": "…incremental   contracting and conversion/commissioning   plans.   Billable Customer Power   Capacity   Portion of Leased Customer Power Capacity for   which service has commenced and we are   actively billing as of period end.   Used to monitor in-service customer power that   is billing and to track deployment/   commissioning pace and near-term revenue   ramp.   55   The following table presents the values for these metrics as of December 31, 2025 (in megawatts).   December 31,   2025   Gross Utility Power Capacity   1,426   Total Leasable Customer Power Capacity   920   Leased Customer Power Capacity   590   Unleased Customer Power Capacity   330   Billable Customer Power Capacity   120   Adjusted EBITDA   We report our financial results in accordance with GAAP. To supplement our consolidated financial statements, we provide   investors with Adjusted EBITDA, which is a non‑GAAP financial measure. Adjusted EBITDA is defined as our net loss, adjusted to   eliminate the effect of (i) interest income, interest expense, and other income (expense), net; (ii) provision for income taxes;   (iii) depreciation and amortization; (iv) stock-based compensation expense; (v) Reorganization items, net; (vi) unrealized fair value   adjustment on energy derivatives; (vii) change in fair value of warrant and contingent value rights; (viii) Colocation segment startup   costs primarily related t…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…e fixed lease payments. Power delivery services represent a stand ready obligation to make power available   to the customer over the coterminous lease term and have the same pattern of transfer as the related operating lease components.   Customers may request and the Company may provide maintenance services on customer assets during the coterminous lease term.   Customers are charged monthly for fees incurred on these maintenance services delivered and actual power costs incurred at current   utility or fuel cost rates. These payments from customers for power delivery and maintenance services are recognized as variable lease   payments in accordance with the practical expedient elected. Variable lease payments are presented on a gross basis and are included   in Colocation revenue in the c onsolidated statements of operations.   Revenue From Contracts With Customers - Digital Asset Self-Mining Revenue   The Company recognizes revenue in accordance with ASC Topic 606.   One of the Company’s ongoing major or central operations is to provide hash calculations to third-party pool operators as a   participant in mining pools. The Company considers the third-party mining pool operators to be its customers under ASC Topic 606.   Contract inception and the Company’s enforceable right to consideration begin when the Company commences providing hash   calculation services to the mining…",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "utility",
+   "text": "…, 2023, the Company   recognized digital asset hosted revenue from the contracts with these entities of $ 10.1 million .   110   Core Scientific, Inc.   Notes to Consolidated Financial Statements   18. SUBSEQUENT EVENTS   Subsequent to December 31, 2025 and through February 26, 2026 , the Company sold 1,924 bitcoin for aggregate proceeds of   $ 175.9 million .   In January 2026, the Company entered into a long-term power supply arrangement under which the Company is obligated to   purchase firm utility power capacity beginning in 2028. In connection with this arrangement, the Company made a cash deposit of   $ 80 million into a restricted, interest-bearing escrow account, subject to contractual terms, including termination provisions.   111   Item 9. Changes in and Disagreements With Accountants on Accounting and Financial Disclosures   Not applicable.   Item 9A. Controls and Procedures   Evaluation of Disclosure Controls and Procedures   Our management, with the participation of our Chief Executive Officer and our Chief Financial Officer, have conducted an   evaluation of the effectiveness of the design and operation of our disclosure controls and procedures (as defined in Rules 13a-15(e)   and 15d-15(e) under the Exchange Act) as of December 31, 2025.   Based on that evaluation, our Chief Executive Officer and our Chief Financial Officer have concluded that, as of December 31…",
+   "amounts": [
+    {
+     "raw": "$ 175.9 million",
+     "usdM": 175.9
+    },
+    {
+     "raw": "$ 80 million",
+     "usdM": 80
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "seq1",
+   "match": "Electric Service Agreement",
+   "text": "…ic Power Board and the   Tennessee Valley Authority, dated October 10, 2018 (incorporated by reference to Exhibit 10.5 to the Company’s   Registration Statement on Form S-4, filed with the SEC on August 11, 2021).   10.12++   Master Services Agreement by and between Core Scientific Holding Co. and Duke Energy Carolinas, LLC, dated   June 25, 2018 (incorporated by reference to Exhibit 10.6 to the Company’s Registration Statement on Form S-4 filed   with the SEC on August 11, 2021).   10.13††++   Electric Service Agreement by and between Core Scientific Holding Co. and Duke Energy Carolinas, LLC, dated   June 10, 2019 (incorporated by reference to Exhibit 10.7 to the Company’s Registration Statement on Form S-4, filed   with the SEC on August 11, 2021).   10.14††++   Amended and Restated Electric Service Agreement by and between American Property Acquisitions VII, LLC and   The Board of Water, Light and Sinking Fund Commissioners of the City of Dalton, Georgia, dated October 11, 2018   (Industrial South Premises) (incorporated by reference to Exhibit 10.8 to the Company’s Registration Statement on   Form S-4, filed with the SEC on August 11, 2021).   10.15††++   Amended and Restated Electric Service Agreement by and between American Property Acquisitions VII, LLC and   The Board of Water, Light and Sinking Fund Commissioners of the City of Dalton, Georgia, dated October 11, 2018 …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "seq1",
+   "match": "accelerator",
+   "text": "…structure to support AI and other HPC workloads. We expect demand for AI-focused compute resources to continue to grow   significantly as generative AI adoption accelerates and AI use cases expand across industries. These compute-intensive environments   require substantially higher rack power densities, specialized cooling technologies and access to large-scale, power capacity. As these   requirements continue to increase, demand is shifting toward operators capable of supporting high-density, accelerator-driven   workloads and delivering the associated power and cooling infrastructure at scale, trends that are expected to continue shaping the   industry.   Key Industry Trends     Significant increase in power density and infrastructure requirements driven by AI and HPC.     The rapid expansion of AI and other HPC workloads is driving materially higher infrastructure requirements across the   colocation industry. Traditional enterprise and cloud deployments have historically operated at rack power densities of approximately   5 to 15 kilowatts per rack, whereas AI and HPC workloads increasingly require 50 kilowatts per rack or more, with deployments   increasingly exceeding 100 kilowatts per rack. Supporting these higher-density environments requires substantially greater electrical   capacity, advanced cooling technologies and access to large, contiguous blocks of power, and …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "seq1",
+   "match": "GPUs",
+   "text": "…s to our mining services   or to those of our potential hosting customers, may have a material adverse effect on our business, financial condition and results of   operations.   To the extent that the profit margins of digital asset mining operations are not high, mining participants are more likely to   sell their earned bitcoin, which could constrain bitcoin prices.   Over the past few years, digital asset mining operations have evolved from individual users mining with computer processors,   GPUs and first-generation ASIC servers. Currently, new processing power is predominantly added by incorporated and   unincorporated “professionalized” mining operations. Professionalized mining operations may use proprietary hardware or   sophisticated ASIC machines acquired from ASIC manufacturers. They require the investment of significant capital to acquire this   hardware, to lease operating space (often in data centers or warehousing facilities), and to pay the costs of electricity and labor to   operate the mining farms. As a result, professionalized mining operations are of a greater scale than prior mining operations and have   more defined and regular expenses and liabilities. These regular expenses and liabilities require professionalized mining operations to   maintain profit margins on the sale of digital assets. To the extent the price of digital assets decline and such prof…",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "seq1",
+   "match": "accelerators",
+   "text": "…ces for AI and HPC workloads.   We focus primarily on contracting our digital infrastructure for Colocation, mining bitcoin , and enhancing efficiencies in our   operations. In self‑mining, we earn bitcoin by operating our owned mining fleet through mining pool arrangements, and in hosted   mining and colocation we earn fees for providing infrastructure, power and related services to third parties.   Our data centers house bitcoin mining computers and will increasingly house specialized compute accelerators, including   graphics processing units (“ GPUs ”). These facilities leverage our specialized design and construction capabilities by employing high-   density, innovative engineering , power designs and modular construction. For digital asset mining, our proprietary thermodynamic   structural design manages heat and airflow to deliver reliable operations to us and our customers. As part of our go-forward strategy,   w e are in the process of converting our entire data center portfolio to support our high-density Colocation operations for AI and HPC   workloads.   Business Strategy   Our strategy is to grow our revenue and profitability by converting and expanding our large-scale data center infrastructure   portfolio to deliver high-density colocation services for artificial intelligence and HPC workloads. We plan to develop and bring   online the infrastructure required to …",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "seq1",
+   "match": "Related Party",
+   "text": "…mergence from Bankruptcy   83   5 — Property, Plant, and Equipment   85   6 — Balance Sheet Components   86   7 — Leases   87   8 — Convertible and Other Notes Payable   90   9 — Warrant Liabilities and Contingent Value Rights   91   10 — Fair Value Measurements   92   11 — Commitments and Contingencies   95   12 — Income Taxes   96   13 — Stockholders' Deficit   100   14 — Net Loss Per Share   103   15 — Segment Reporting   104   16 — Supplemental Cash Flow and Noncash Information   109   17 — Related Party Transactions   109   18 — Subsequent Event   110   65   Report of Independent Registered Public Accounting Firm   To the Stockholders and the Board of Directors Core Scientific, Inc.:   Opinion on the Consolidated Financial Statements   We have audited the accompanying consolidated balance sheet of Core Scientific, Inc. and subsidiaries (the Company) as of December   31, 2025, the related consolidated statements of operations, changes in stockholders’ deficit, and cash flows for the year then ended,   and the related notes (collectively, the consolidated financial statements). In our opinion, the consolidated financial statements present   fairly, in all material respects, the financial position of the Company as of December 31, 2025, and the results of its operations and its   cash flows for the year then ended, in conformity with U.S. generally accepted accounting princip…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "seq1",
+   "match": "related parties",
+   "text": "… current year presentation.   See accompanying notes to consolidated financial statements.   69   Core Scientific, Inc.   Consolidated Statements of Operations   (in thousands, except per share amounts)   Year Ended December 31,   2025   2024   2023   Revenue:   Colocation revenue   $ 65,424   $ 24,378   $ —   Digital asset self-mining revenue   229,207   408,740   390,333   Digital asset hosted mining revenue from customers   24,388   77,554   102,005   Digital asset hosted mining revenue from related parties   —   —   10,062   Total revenue   319,019   510,672   502,400   Cost of revenue:   Cost of colocation services   45,679   21,709   —   Cost of digital asset self-mining   218,868   314,335   291,696   Cost of digital asset hosted mining services   16,574   53,558   87,245   Total cost of revenue   281,121   389,602   378,941   Gross profit   37,898   121,070   123,459   Decrease in fair value of digital assets   31,603   1,052   —   Gain from sale of digital assets   —   —   ( 3,893 )   Impairment of digital assets   —   —   4,406   Decrease in fair value of energy derivatives   —   2,757   3,918   Loss on disposal of property, plant and equipment   9,680   4,210   1,956   Impairment of property, plant and equipment   11,359   122,869   —   Colocation organizational and site startup costs   48,249   13,734   —   Advisor fees   23,372   4,822   —   Selling, general and ad…",
+   "amounts": [
+    {
+     "raw": "$ 65,424   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 24,378   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "seq1",
+   "match": "related parties",
+   "text": "…210   —   Decrease in fair value of contingent value rights   ( 906 )   ( 82,053 )   —   Loss (gain) on debt extinguishment   1,933   487   ( 20,065 )   Loss on issuance of notes payable through settlements   —   —   8,515   Amortization of debt discount   5,994   3,756   752   Non-cash reorganization items   —   ( 143,791 )   —   Non-cash PIK interest expense   —   3,676   —   Changes in operating assets and liabilities:   Accounts receivable, net   —   659   ( 767 )   Accounts receivable from related parties   —   —   23   Deposits for equipment for sales to customers   —   —   ( 2,403 )   Customer funding receivable and other current assets   16,223   ( 20,393 )   ( 18,351 )   Accounts payable   10,782   ( 12,272 )   118,911   Accrued expenses   ( 17,400 )   1,880   130,382   Deferred revenue from colocation services   536,093   17,785   —   Deferred revenue from hosted mining services   1,624   ( 9,481 )   ( 47,807 )   Other noncurrent assets and liabilities, net   ( 22,789 )   ( 5,815 )   ( 13,006 )   Net cash provided by operating activities   278,250   42,896   65,114   Cash flows from Investing Activities:   Purchases of property, plant and equipment   ( 729,000 )   ( 94,961 )   ( 16,161 )   Proceeds from sales of property and equipment   3,461   —   —   Proceeds from sale of Cedarvale   —   —   13,998   Purchase of equity investments   ( 5,000 )   —   —   Investments i…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "seq1",
+   "match": "RELATED PARTY",
+   "text": "…e of new common stock for PIK interest on New Secured Convertible Notes   —   3,677   —   Issuance of new common stock for New Secured Convertible Notes conversion   —   261,772   —   Property, plant and equipment disposed of through settlements   —   —   6,301   Purchase of insurance policies financed by short-term note payable   —   —   5,011   Decrease in equipment related to debt extinguishment   —   —   17,849   Decrease in notes payable in exchange for equipment   —   —   ( 38,610 )   17. RELATED PARTY TRANSACTIONS   There were no related party transactions during the years ended December 31, 2025 and 2024. During the year ended December   31, 2023. the Company had entered into various transactions with related parties in the ordinary course of business.   The Company previously had agreements to provide digital asset hosted services to various entities that are managed and   invested in by individuals that were directors and executives of the Company. For the year ended December 31, 2023, the Company   recognized digital asset hosted revenue from the contracts with these entities of $ 10.1 million .   110   Core Scientific, Inc.   Notes to Consolidated Financial Statements   18. SUBSEQUENT EVENTS   Subsequent to December 31, 2025 and through February 26, 2026 , the Company sold 1,924 bitcoin for aggregate proceeds of   $ 175.9 million .   In January 2026, the Company ent…",
+   "amounts": []
   }
  ]
 }

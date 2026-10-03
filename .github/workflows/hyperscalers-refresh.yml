@@ -69,6 +69,9 @@ jobs:
       - name: Build module data
         run: node scripts/hyperscalers/build.mjs
 
+      - name: Build modules 1, 2, 4, 5, 7 (capacity, sites, power, circular)
+        run: node scripts/hyperscalers/build-modules.mjs
+
       - name: Validate (writes the quality pages)
         run: node scripts/hyperscalers/validate.mjs
 

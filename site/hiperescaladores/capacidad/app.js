@@ -1,0 +1,95 @@
+// Hyperscaler Hub · Module 1: current capacity. Reads window.HYP_CAP (build-modules.mjs: T1 filing items with page and
+// quote; Oracle T2 from its calls) and HYP_FIN (companies, off-balance-sheet items for the dollar equivalent). Every MW
+// figure keeps the company's own definition; nothing is summed across definitions.
+(function () {
+  'use strict';
+  var F = window.HYP_FIN, H = window.HUB, C = window.HYP_CAP;
+  if (!F || !H || !C) return;
+  var t = H.t, esc = H.esc, set = function (id, h) { var e = document.getElementById(id); if (e) e.innerHTML = h; };
+  var ORDER = Object.keys(F.companies);
+  var charts = {};
+  function own(o) { return { owned: t('propios', 'owned'), leased: t('todos arrendados', 'all leased'), mixed: t('mixto', 'mixed'), build_to_suit: t('construido a la medida', 'build-to-suit'), colocation: t('coubicación', 'co-location') }[o] || ''; }
+  function nm(tk) { return F.companies[tk] ? F.companies[tk].name : tk; }
+  function def(m) { var d = C.definitions[m]; return d ? d[H.lang] : ''; }
+  function leasesNC(tk) { return ((F.offbs && F.offbs.items) || []).filter(function (i) { return i.ticker === tk && i.item === 'leases_not_commenced' && !i.subsequent; })[0]; }
+
+  function header() {
+    var n = C.current.length, rev = C.current.filter(function (x) { return x.status !== 'verified'; }).length;
+    set('asofRow', '<span><b>' + t('Cifras T1 de capacidad', 'T1 capacity figures') + '</b> ' + n + ' (' + rev + ' ' + t('por revisar', 'to review') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(C.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
+    set('notices', '<div class="notice warn"><b>' + t('Los MW no son comparables entre empresas.', 'MW are not comparable across companies.') + '</b> ' + t('Cada empresa define su megavatio a su manera (potencia activa, carga crítica de TI, potencia facturable, MW entregados en un trimestre). Se muestran lado a lado con su definición, nunca sumados. Microsoft, Alphabet, Amazon, Meta y Oracle no dan MW en sus 10-K ni 10-Q; las cifras de Oracle provienen de sus llamadas de resultados (T2).', 'Each company defines its megawatt its own way (active power, critical IT load, billable power, MW delivered in a quarter). They are shown side by side with their definition, never added. Microsoft, Alphabet, Amazon, Meta and Oracle give no MW in their 10-Ks or 10-Qs; Oracle\'s figures come from its earnings calls (T2).') + '</div>');
+  }
+
+  function rowsFor(tk) {
+    var out = [];
+    C.current.filter(function (x) { return x.ticker === tk; }).forEach(function (x) {
+      out.push({ tk: tk, label: H.metricLabel(x.metric), def: def(x.metric), mw: H.mw(x.mw, x.qualifier) + H.cite(nm(tk) + ' · ' + H.metricLabel(x.metric), x.src, [[t('Definición', 'Definition'), def(x.metric)]].concat(x.history ? [[t('Historia', 'History'), x.history.map(function (h) { return H.date(h.asOf) + ': ' + h.mw + ' MW / ' + h.dataCenters + t(' centros', ' data centers'); }).join(' · ')]] : [])), asOf: H.date(x.asOf), dc: x.dataCenters ? H.num(x.dataCenters, 0) : '', own: x.ownership ? own(x.ownership) + (x.ownershipSrc ? H.cite(nm(tk) + ' · ' + t('propiedad', 'ownership'), x.ownershipSrc) : x['ownershipNote_' + H.lang] ? H.src({ title: nm(tk), rows: [[t('Nota', 'Note'), x['ownershipNote_' + H.lang]]] }) : '') : '', gpu: x.gpus ? H.num(x.gpus, 0) + H.cite(nm(tk) + ' · GPU', x.gpuSrc, [[t('Alcance', 'Scope'), t('instalados o en pedido', 'installed or on order')]]) + '<br><span class="small muted">' + t('al ', 'at ') + H.date(x.gpusAsOf) + '</span>' : '', tier: H.tier('T1') + '<br>' + H.status(x.status), mwPlain: H.mw(x.mw, x.qualifier) });
+    });
+    if (tk === 'ORCL' && C.oracle) {
+      var O = C.oracle, fy = O.fiscalYears[O.fiscalYears.length - 1], q = O.quarters[O.quarters.length - 1];
+      if (fy) out.push({ tk: tk, label: H.metricLabel('delivered') + ' · ' + t('AF', 'FY') + fy.id.slice(2), def: def('delivered'), mw: H.mw(fy.mw, 'over') + H.src({ title: 'Oracle · ' + H.metricLabel('delivered'), rows: H.citeRows(fy.src).concat([[t('Texto', 'Text'), '“' + fy.text + '”'], [t('Orador', 'Speaker'), fy.speaker]]) }), asOf: t('AF', 'FY') + fy.id.slice(2), dc: '', own: t('arrendados vía socios', 'leased via partners'), gpu: '', tier: H.tier('T2'), mwPlain: H.mw(fy.mw, 'over') });
+      if (q) out.push({ tk: tk, label: H.metricLabel('delivered') + ' · ' + H.fq(q.id), def: def('delivered'), mw: H.mw(q.mw, q.approx ? 'approx' : null) + H.src({ title: 'Oracle · ' + H.fq(q.id), rows: H.citeRows(q.src).concat([[t('Texto', 'Text'), '“' + q.text + '”'], [t('Orador', 'Speaker'), q.speaker]]) }), asOf: H.fq(q.id), dc: '', own: '', gpu: q.gpus ? '> ' + H.num(q.gpus, 0) + H.src({ title: 'Oracle · GPU', rows: [[t('Alcance', 'Scope'), t('GPU entregados a clientes en el trimestre', 'GPUs delivered to customers in the quarter')]] }) : '', tier: H.tier('T2'), mwPlain: H.mw(q.mw) });
+    }
+    if (!out.length) {
+      var n = C.notDisclosed.filter(function (x) { return x.ticker === tk && x.item === 'mw'; })[0];
+      if (n) out.push({ tk: tk, label: t('MW', 'MW'), def: '', mw: H.nd(n['note_' + H.lang]) + H.src({ title: nm(tk), rows: [[t('Buscado en', 'Searched'), n.searched.join(', ')], [t('Resultado', 'Result'), n['note_' + H.lang]]] }), asOf: '', dc: n.sites ? H.num(n.sites.owned, 0) + ' ' + t('ubicaciones propias', 'owned locations') : '', own: n.sqft ? t('AWS: 50% propio (pies²)', 'AWS: 50% owned (sq ft)') : '', gpu: '', tier: '', mwPlain: t('No divulgado', 'Not disclosed'), nd: true });
+    }
+    return out;
+  }
+
+  function now() {
+    set('nowDesc', t('Una fila por cifra, con la definición de la empresa. "Revisar" = cifra leída del texto de la presentación, con la frase ya cotejada contra la página citada, pendiente de una segunda lectura humana. Oracle (T2) informa MW entregados a clientes en cada trimestre: es un flujo, no capacidad instalada.', 'One row per figure, with the company\'s definition. "Needs review" = figure read from the filing text, with the sentence already matched against the cited page, pending a second human reading. Oracle (T2) reports MW handed over to customers each quarter: a flow, not installed capacity.'));
+    var all = [];
+    ORDER.forEach(function (tk) { rowsFor(tk).forEach(function (r) { all.push(r); }); });
+    var head = '<tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('Medida (definición de la empresa)', 'Measure (company definition)') + '</th><th>MW</th><th>' + t('Al', 'As of') + '</th><th>' + t('Centros de datos', 'Data centers') + '</th><th class="l">' + t('Propiedad', 'Ownership') + '</th><th>GPU</th><th class="l">' + t('Fuente', 'Source') + '</th></tr>';
+    var last = null;
+    var body = all.map(function (r) { var first = r.tk !== last; last = r.tk; return '<tr><td class="l">' + (first ? H.coName(r.tk) : '') + '</td><td class="l" style="white-space:normal;min-width:170px">' + esc(r.label) + '</td><td>' + r.mw + '</td><td>' + r.asOf + '</td><td>' + r.dc + '</td><td class="l">' + r.own + '</td><td>' + r.gpu + '</td><td class="l" style="line-height:1.9">' + r.tier + '</td></tr>'; }).join('');
+    var mob = all.map(function (r) { return '<div class="mrow"><div class="h"><b><span class="sw" style="display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:6px;background:' + H.color(r.tk) + '"></span>' + esc(nm(r.tk)) + '</b><span class="v">' + r.mwPlain + '</span></div><div class="c">' + esc(r.label) + (r.asOf ? ' · ' + t('al ', 'as of ') + r.asOf.replace(/<[^>]+>/g, '') : '') + (r.dc ? ' · ' + r.dc.replace(/<[^>]+>/g, '') + (r.nd ? '' : ' ' + t('centros', 'data centers')) : '') + (r.nd ? '' : ' · ' + r.tier.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()) + '</div></div>'; }).join('');
+    set('nowTbl', '<div class="only-d"><table class="compact"><thead>' + head + '</thead><tbody>' + body + '</tbody></table></div><div class="only-m">' + mob + '<p class="small muted">' + t('Fuentes (ⓘ) en pantalla ancha o en el CSV.', 'Sources (ⓘ) on a wide screen or in the CSV.') + '</p></div>');
+    set('nowStamp', H.stamp({ asOf: t('varía por empresa (columna "Al")', 'varies by company ("As of" column)'), refreshed: C.refreshedET, sources: [{ label: t('10-K, 10-Q y 20-F (SEC EDGAR)', '10-K, 10-Q and 20-F (SEC EDGAR)') }, { label: t('llamadas de resultados de Oracle (T2)', 'Oracle earnings calls (T2)'), url: '/oracle/' }], csv: '/hiperescaladores/csv/capacity-current.csv', note: '<a href="/hiperescaladores/capacidad/quality.html">' + t('Calidad de datos', 'Data quality') + '</a>' }));
+  }
+
+  function bar(id, labels, data, colors, opts) {
+    if (!window.Chart) return;
+    if (charts[id]) charts[id].destroy();
+    var el = document.getElementById(id); if (!el) return;
+    charts[id] = new Chart(el, { type: 'bar', data: { labels: labels, datasets: [{ data: data, backgroundColor: colors, borderColor: opts && opts.borders || colors, borderWidth: opts && opts.borders ? 1.5 : 0, borderRadius: 3, maxBarThickness: 56 }] },
+      options: { animation: false, scales: { x: { grid: { display: false }, ticks: { autoSkip: false, maxRotation: 0 } }, y: { beginAtZero: true, ticks: { callback: function (v) { return H.num(v, 0) + ' MW'; } } } }, plugins: { tooltip: { callbacks: { label: function (c) { return (opts && opts.tip ? opts.tip[c.dataIndex] : '') || H.num(c.parsed.y, 0) + ' MW'; } } } } } });
+  }
+  function trend() {
+    set('trendDesc', t('Solo se grafican juntas las cifras que comparten definición. A la izquierda, potencia activa (CoreWeave y Nebius la definen igual: potencia que consume el equipo de TI y genera ingresos). A la derecha, los MW que Oracle dice haber entregado a clientes en cada trimestre (T2).', 'Only figures that share a definition are charted together. Left, active power (CoreWeave and Nebius define it the same way: power consumed by IT equipment and generating revenue). Right, the MW Oracle says it handed over to customers each quarter (T2).'));
+    var cw = C.current.filter(function (x) { return x.ticker === 'CRWV' && x.metric === 'active_power'; })[0], nb = C.current.filter(function (x) { return x.ticker === 'NBIS' && x.metric === 'active_power'; })[0];
+    var L = [], D = [], K = [], tip = [];
+    if (cw) { (cw.history || []).concat([{ asOf: cw.asOf, mw: cw.mw, dataCenters: cw.dataCenters, q: cw.qualifier }]).forEach(function (h) { L.push(['CoreWeave', H.date(h.asOf).replace(/^\d+ /, '')]); D.push(h.mw); K.push(H.color('CRWV')); tip.push(H.mw(h.mw, h.q === 'over' ? 'over' : null) + ' · ' + h.dataCenters + t(' centros', ' data centers')); }); }
+    if (nb) { L.push(['Nebius', H.date(nb.asOf).replace(/^\d+ /, '')]); D.push(nb.mw); K.push(H.color('NBIS')); tip.push(H.mw(nb.mw, 'approx')); }
+    set('c1t', t('Potencia activa', 'Active power')); set('c1c', t('MW al cierre del año. CoreWeave 2025: "más de 850 MW"; Nebius: "aproximadamente 170 MW".', 'MW at year-end. CoreWeave 2025: "over 850 MW"; Nebius: "approximately 170 MW".'));
+    bar('c1', L, D, K, { tip: tip });
+    set('c1s', H.stamp({ tier: 'T1', asOf: H.date(cw ? cw.asOf : nb.asOf), refreshed: C.refreshedET, sources: [{ label: 'CoreWeave 10-K p. 5', url: cw && cw.src.url }, { label: 'Nebius 20-F p. 35', url: nb && nb.src.url }] }));
+    var O = C.oracle;
+    if (O) {
+      var qs = O.quarters;
+      set('c2t', t('Oracle: MW entregados a clientes por trimestre', 'Oracle: MW handed over to customers per quarter')); set('c2c', t('Flujo del trimestre, no capacidad instalada. Barra clara = derivada de las razones que dio Oracle. AF2026 completo: más de 1.2 GW.', 'Quarterly flow, not installed capacity. Light bar = derived from ratios Oracle gave. Full FY2026: more than 1.2 GW.'));
+      bar('c2', qs.map(function (q) { return H.fq(q.id); }), qs.map(function (q) { return q.mw; }), qs.map(function (q) { return q.derived ? 'transparent' : H.color('ORCL'); }), { borders: qs.map(function () { return H.color('ORCL'); }), tip: qs.map(function (q) { return (q.approx ? '≈ ' : '') + H.num(q.mw, 0) + ' MW' + (q.derived ? ' · ' + t('derivado', 'derived') : '') + (q.gpus ? ' · > ' + H.num(q.gpus, 0) + ' GPU' : ''); }) });
+      set('c2s', H.stamp({ tier: 'T2', asOf: H.fq(qs[qs.length - 1].id), refreshed: C.refreshedET, sources: [{ label: t('llamadas de resultados de Oracle (almacén del modelo de Oracle)', 'Oracle earnings calls (Oracle model store)'), url: '/oracle/' }] }));
+    }
+  }
+
+  function defs() {
+    set('defsDesc', t('Las definiciones que usan las empresas de esta página. Un MW de "potencia bruta de red" no es un MW de "carga crítica de TI": la segunda descuenta enfriamiento y pérdidas (en un centro moderno la relación suele ser de 1.2 a 1.5 MW de red por MW de TI, según su PUE; supuesto, no dato de las empresas).', 'The definitions the companies on this page use. A MW of "gross grid power" is not a MW of "critical IT load": the latter excludes cooling and losses (in a modern facility the ratio is typically 1.2 to 1.5 grid MW per IT MW, depending on PUE; an assumption, not company data).'));
+    var used = {}; C.current.forEach(function (x) { used[x.metric] = 1; }); used.delivered = 1;
+    set('defsGrid', Object.keys(used).map(function (m) { var who = C.current.filter(function (x) { return x.metric === m; }).map(function (x) { return nm(x.ticker); }); if (m === 'delivered') who = ['Oracle']; return '<div class="card"><h3>' + esc(H.metricLabel(m)) + '</h3><p class="cap" style="font-size:13px">' + esc(def(m)) + '</p><p class="small muted" style="margin:6px 0 0">' + t('La usa: ', 'Used by: ') + esc(who.filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ')) + '</p></div>'; }).join(''));
+  }
+
+  function nd() {
+    set('ndDesc', t('Los cuatro hiperescaladores más grandes y Oracle no revelan MW en sus presentaciones. Revelan otras cosas: pies cuadrados (Amazon), número de ubicaciones (Meta) y, sobre todo, cuánto se comprometieron a pagar por centros de datos arrendados que aún no inician (módulo 6), que es la mejor señal de capacidad por venir que dan las presentaciones.', 'The four largest hyperscalers and Oracle disclose no MW in their filings. They disclose other things: square footage (Amazon), number of locations (Meta) and, above all, how much they have committed to pay for leased data centers not yet commenced (module 6), the best signal of capacity to come that the filings give.'));
+    var rows = C.notDisclosed.filter(function (x) { return x.item === 'mw'; });
+    set('ndTbl', '<table class="collapse"><thead><tr><th class="l">' + t('Empresa', 'Company') + '</th><th class="l">' + t('Qué se buscó', 'What was searched') + '</th><th class="l">' + t('Lo que sí revela', 'What it does reveal') + '</th><th>' + t('Arrend. firmados no iniciados (no desc.)', 'Leases signed, not commenced (undisc.)') + '</th></tr></thead><tbody>' + rows.map(function (x) {
+      var ln = leasesNC(x.ticker);
+      var reveal = x.sqft ? t('AWS: ' + H.num(x.sqft.leasedK / 1000, 1) + ' millones de pies² arrendados y ' + H.num(x.sqft.ownedK / 1000, 1) + ' millones propios (oficinas y centros de datos), al ' + H.date(x.sqft.asOf), 'AWS: ' + H.num(x.sqft.leasedK / 1000, 1) + ' million sq ft leased and ' + H.num(x.sqft.ownedK / 1000, 1) + ' million owned (offices and data centers), at ' + H.date(x.sqft.asOf)) : x.sites ? t(x.sites.owned + ' ubicaciones de centros de datos propias y algunas arrendadas, al ' + H.date(x.sites.asOf), x.sites.owned + ' owned data center locations and some leased, at ' + H.date(x.sites.asOf)) : x.ticker === 'ORCL' ? t('MW entregados según sus llamadas (sección 01, T2)', 'MW delivered per its calls (section 01, T2)') : x.ticker === 'GOOGL' ? t('Posee y arrienda centros de datos, sobre todo en Asia, Europa y Norteamérica', 'Owns and leases data centers, primarily in Asia, Europe and North America') : t('Capacidad expresada solo en dólares', 'Capacity expressed only in dollars');
+      return '<tr><td class="l">' + H.coName(x.ticker) + '</td><td class="l wrap-cell" data-h="' + t('Buscado', 'Searched') + '">' + esc(x.searched.join(', ')) + '</td><td class="l wrap-cell" data-h="' + t('Revela', 'Reveals') + '">' + esc(reveal) + (x.src ? H.cite(nm(x.ticker), x.src) : '') + '</td><td data-h="' + t('Arrend. no iniciados', 'Leases not commenced') + '">' + (ln ? H.moneyM(ln.amountUSDm) + '<br><span class="small muted">' + t('al ', 'at ') + H.date(ln.asOf) + ' · <a href="/hiperescaladores/fuera-de-balance/">' + t('módulo 6', 'module 6') + '</a></span>' : '<span class="small muted">' + t('ver módulo 6', 'see module 6') + '</span>') + '</td></tr>';
+    }).join('') + '</tbody></table>');
+    set('ndStamp', H.stamp({ tier: 'T1', refreshed: C.refreshedET, sources: [{ label: t('10-K y 10-Q (Item 2 y notas de arrendamientos)', '10-Ks and 10-Qs (Item 2 and lease notes)') }], note: t('Los montos no descontados de arrendamientos no iniciados no son valor presente ni deuda.', 'Undiscounted amounts of leases not commenced are neither present value nor debt.') }));
+  }
+
+  function foot() { set('foot', t('Fuentes: 10-K, 10-Q y 20-F (SEC EDGAR), con página y frase citadas; llamadas de resultados de Oracle (T2) del almacén del modelo de Oracle. ', 'Sources: 10-Ks, 10-Qs and 20-F (SEC EDGAR), with page and quoted sentence; Oracle earnings calls (T2) from the Oracle model store. ') + '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · <a href="/hiperescaladores/glosario/">' + t('Glosario', 'Glossary') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.')); }
+  H.onLang(function () { header(); now(); trend(); defs(); nd(); foot(); });
+})();
