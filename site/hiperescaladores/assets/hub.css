@@ -158,9 +158,9 @@ table td .sw{display:inline-block; width:9px; height:9px; border-radius:2px; mar
 .neg{color:var(--bad);}
 
 /* provenance: tier badge and source button on every figure */
-.tier{display:inline-block; font-size:10px; font-weight:700; letter-spacing:.03em; border-radius:4px; padding:0 5px; line-height:16px; border:1px solid currentColor; vertical-align:1px; white-space:nowrap;}
+.tier{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.03em; border-radius:4px; padding:0 5px; line-height:16px; border:1px solid currentColor; vertical-align:1px; white-space:nowrap;}
 .tier.T1{color:var(--t1);} .tier.T2{color:var(--t2);} .tier.T3{color:var(--t3);} .tier.T4{color:var(--t4);} .tier.C{color:var(--calc); border-style:dashed;} .tier.FS{color:var(--t3); border-style:dotted;}
-.flag{display:inline-block; font-size:10px; font-weight:700; border-radius:4px; padding:0 5px; line-height:16px; background:var(--warn-bg); color:var(--warn); white-space:nowrap; margin-left:4px;}
+.flag{display:inline-block; font-size:11px; font-weight:700; border-radius:4px; padding:0 5px; line-height:16px; background:var(--warn-bg); color:var(--warn); white-space:nowrap; margin-left:4px;}
 .flag.ok{background:var(--good-bg); color:var(--good);}
 .flag.stale{background:var(--bad-bg); color:var(--bad);}
 .src-btn{border:0; background:transparent; padding:0 0 0 3px; font:inherit; font-size:11px; color:var(--muted); cursor:pointer; vertical-align:1px; min-width:16px;}
@@ -207,7 +207,10 @@ footer.foot a{color:var(--muted);}
   table.collapse tr.grp td{padding-top:10px;}
 }
 /* phones: wide comparison tables scroll inside their card with the company column pinned */
-@media (max-width:640px){ .tblwrap table:not(.collapse) td:first-child:not([colspan]), .tblwrap table:not(.collapse) th:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);} .tblwrap table:not(.collapse) tr.grp td:first-child{position:static; box-shadow:none;} }
+/* wide comparison tables (all widths): the first column stays pinned while the rest scrolls inside the card */
+.tblwrap table:not(.collapse) td:first-child:not([colspan]), .tblwrap table:not(.collapse) th:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
+.tblwrap table:not(.collapse) tr.grp td:first-child{position:static; box-shadow:none;}
+.tblwrap table tr.src-row td, .tblwrap table tr.src-row td:first-child{background:var(--accent-soft);}
 @media print{ .lang-btn, nav.mods, nav.jump, .controls, .src-btn{display:none !important;} }
 /* desktop table vs phone summary (line item · latest period · y/y change, note beneath) */
 .only-m{display:none;}
@@ -218,3 +221,47 @@ footer.foot a{color:var(--muted);}
 .mrow .h .v{font-variant-numeric:tabular-nums; text-align:right; white-space:nowrap;}
 .mrow .c{font-size:11.5px; color:var(--muted); margin-top:2px; line-height:1.4;}
 table.compact th{min-width:0;} table.compact td, table.compact th{padding-left:6px; padding-right:6px;}
+
+/* module navigation: wraps onto a second line on wide screens instead of clipping; scrolls sideways on phones */
+@media (min-width:700px){ nav.mods .wrap{flex-wrap:wrap; overflow-x:visible; row-gap:0;} nav.mods a, nav.mods span.soon{padding:10px 10px;} }
+@media (max-width:699px){ nav.mods{background:linear-gradient(to left, var(--page) 0, transparent 28px) right/28px 100% no-repeat, var(--page);} }
+
+/* source card placement: bounded height; docked side panel when it fits neither below nor above; bottom sheet on phones */
+.pop{max-height:min(70vh, 560px); overflow:auto; overscroll-behavior:contain;}
+.pop:focus{outline:none;}
+.pop.side{position:fixed; top:72px; right:16px; left:auto; width:min(400px, calc(100vw - 32px)); max-width:none; max-height:calc(100vh - 96px);}
+.pop.sheet{position:fixed; left:8px; right:8px; bottom:8px; top:auto; max-width:none; max-height:62vh; border-radius:12px; padding-top:16px;}
+
+/* values more than 12 months old: grayed, dated, flagged, kept out of totals */
+.aged{color:var(--muted); opacity:.75;}
+.flag.old{background:var(--surface-2); color:var(--muted); border:1px solid var(--border-strong);}
+
+/* jargon on first use: dotted underline, definition on hover, focus or tap */
+abbr.term{text-decoration:underline dotted; text-underline-offset:3px; text-decoration-thickness:1px; cursor:help;}
+abbr.term:focus-visible{outline:2px solid var(--accent); outline-offset:2px; border-radius:2px;}
+
+/* sortable column headings */
+th.sortable{cursor:pointer; user-select:none;}
+th.sortable:hover{color:var(--text-primary);}
+th.sortable:focus-visible{outline:2px solid var(--accent); outline-offset:-2px;}
+th.sortable::after{content:" ↕"; opacity:.35; font-weight:400;}
+th.sortable[aria-sort="ascending"]::after{content:" ↑"; opacity:1;}
+th.sortable[aria-sort="descending"]::after{content:" ↓"; opacity:1;}
+@media (max-width:640px){ th.sortable::after{content:"";} }
+
+/* key-columns view */
+.kc-hide{display:none !important;}
+.keybar{margin-top:12px;}
+
+/* summary: what to know */
+.wtk{margin-top:22px; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--accent); border-radius:12px; padding:16px 18px 12px;}
+.wtk h2{font-size:19px;}
+.wtk ol{margin:10px 0 0; padding-left:22px;}
+.wtk li{margin:0 0 10px; font-size:14px; line-height:1.55; color:var(--text-secondary);}
+.wtk li b{color:var(--text-primary);}
+.wtk li .meta{display:block; font-size:12px; color:var(--muted); margin-top:2px;}
+.wtk li .meta a{font-weight:600;}
+.kpi-list{display:flex; flex-direction:column; gap:2px; font-size:13px; font-weight:400; line-height:1.35;}
+.kpi-list b{font-weight:700;}
+.kpi-list .muted{font-size:11.5px;}
+.wtk:empty{display:none;}
