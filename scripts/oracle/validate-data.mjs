@@ -3,11 +3,12 @@
 // Run: node scripts/oracle/validate-data.mjs
 // Exits non-zero (and fails CI) on any FAIL. WARN means "not enough data to check yet", not an error.
 
-import { readFileSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, existsSync, readdirSync } from "node:fs";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 
 import { ROOT, DATA, RAW } from "./paths.mjs";
+import { htmlToText, numAfter } from "./test-parsers.mjs";
 const TOL = 1; // $ millions tolerance for rounding in source releases
 const EPS_TOL = 0.02; // per-share tolerance (shares outstanding are printed rounded)
 
@@ -201,7 +202,28 @@ if (ob && xb) {
     const src = ob.sources?.[pv.source] || {};
     const base = { path, source: pv.source, filing: src.title || pv.source, accession: src.accession || null, note: pv.note, page: pv.page ?? null, url: src.url || null };
     const val = getPath(ob, path);
-    if (!pv.xbrl) { obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, verdict: pv.text_only ? "needs_review" : "unverified", reason: pv.text_only ? "text-derived figure or statement; no XBRL concept exists" : "no XBRL concept mapped" }); continue; }
+    // a total checked as the sum of its tagged parts (e.g. notes payable = current + non-current)
+    if (Array.isArray(pv.xbrl_sum)) {
+      const parts = pv.xbrl_sum.map((k) => inst(k, ob.as_of)); const ok = parts.every(Boolean) && typeof val === "number" ? near(val, parts.reduce((a, p) => a + p.value, 0), TOL) : null;
+      obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: parts.every(Boolean) ? { concept: pv.xbrl_sum.map((k) => xb.concepts[k]?.concept || k).join(" + "), value: parts.reduce((a, p) => a + p.value, 0), accn: parts[0].accn, form: parts[0].form, filed: parts[0].filed } : null, verdict: ok === null ? "unverified" : ok ? "verified" : "mismatch", method: "xbrl_sum", reason: ok === null ? "XBRL parts for this period not found" : null });
+      check(`obligations/XBRL: ${path} = ${pv.xbrl_sum.join(" + ")} (${ob.as_of})`, ok); continue;
+    }
+    // a figure the earnings release also prints: re-read from the archived 8-K exhibit (independent of the 10-Q transcription)
+    if (pv.release_check) {
+      const qr = (q?.quarters || []).find((x) => x.id === pv.release_check.quarter); const acc = qr ? (loadJSON("sources.json") || {})[qr.source]?.accession : null;
+      const dir = join(RAW, "8k"); const file = acc && existsSync(dir) ? readdirSync(dir).find((f) => f.includes(acc)) : null;
+      const parsed = file ? numAfter(htmlToText(readFileSync(join(dir, file), "utf8")), "customer prepayments with significant financing component") : null;
+      const ok = parsed != null && typeof val === "number" ? near(val, parsed, TOL) : null;
+      obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, release: file ? { file, parsed, accession: acc } : null, verdict: ok === null ? "unverified" : ok ? "verified_release" : "mismatch", method: "release", reason: ok === null ? "archived release not found or line not printed" : "custom (non-us-gaap) tag: checked against the archived earnings release instead" });
+      check(`obligations/release: ${path} = the archived ${pv.release_check.quarter} release`, ok); continue;
+    }
+    // prospectus terms recomputed by the tie-outs above (dividend = rate × proceeds ÷ 4; conversion rates = preference ÷ prices)
+    if (Array.isArray(pv.tie_checks)) {
+      const rs = pv.tie_checks.map((c) => results.find((r) => `${r.tag}: ${r.check}` === c)); const ok = rs.every(Boolean) ? rs.every((r) => r.status === "ok") : null;
+      obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, ties: pv.tie_checks, verdict: ok === null ? "unverified" : ok ? "verified_tie" : "mismatch", method: "tie_out", reason: "not an XBRL fact (prospectus): recomputed from the document's own terms" });
+      continue;
+    }
+    if (!pv.xbrl) { obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, verdict: pv.text_only ? "needs_review" : "unverified", method: pv.text_only ? "text" : null, reason: pv.text_only ? "text reading: no XBRL concept exists for this disclosure; kept for a second reading" : "no XBRL concept mapped" }); continue; }
     if (Array.isArray(pv.xbrl)) { // the purchase-obligation schedule, element by element
       const sched = Array.isArray(val) ? val : [];
       pv.xbrl.forEach((key, i) => { const p = inst(key, ob.as_of); const v = sched[i]?.usd_m ?? null; const ok = p && v != null ? near(v, p.value, TOL) : null; obligationsVerification.push({ ...base, path: `${path}[${i}]`, value: v, xbrl: p ? { concept: xb.concepts[key].concept, value: p.value, accn: p.accn, form: p.form, filed: p.filed } : null, verdict: ok === null ? "unverified" : ok ? "verified" : "mismatch", reason: ok === null ? "XBRL value for this period not found" : null }); check(`obligations/XBRL: ${path}[${i}] = ${xb.concepts[key]?.concept || key}`, ok); });
@@ -243,6 +265,46 @@ if (nws) {
   check("news: no item is dated after as_of; ids are unique", items.every((x) => x.date <= nws.as_of) && new Set(items.map((x) => x.id)).size === items.length);
 }
 
+// ---------- executive summary: its date covers every source it cites (a summary "written Sep 23" cannot cite Sep 24) ----------
+const MONTHS = { jan: 1, ene: 1, feb: 2, mar: 3, apr: 4, abr: 4, may: 5, jun: 6, jul: 7, aug: 8, ago: 8, sep: 9, oct: 10, nov: 11, dec: 12, dic: 12 };
+const dateInTitle = (t) => { const m = /(\d{1,2})\s+([A-Za-z]{3})[a-z]*\.?\s+(\d{4})/.exec(String(t || "")) || null; if (m && MONTHS[m[2].toLowerCase()]) return `${m[3]}-${String(MONTHS[m[2].toLowerCase()]).padStart(2, "0")}-${m[1].padStart(2, "0")}`; const n = /([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2}),\s+(\d{4})/.exec(String(t || "")); return n && MONTHS[n[1].toLowerCase()] ? `${n[3]}-${String(MONTHS[n[1].toLowerCase()]).padStart(2, "0")}-${n[2].padStart(2, "0")}` : null; };
+{
+  const cmj = loadJSON("comments.json"); const ids = Object.keys(cmj?.by_quarter || {}).sort(); const lastQid = (q?.quarters || []).map((x) => x.id).sort((a, b) => (a < b ? -1 : 1)).pop();
+  const es = cmj?.by_quarter?.[lastQid]?.exec_summary;
+  if (es) {
+    const upd = es.updated || cmj.by_quarter[lastQid].drafted || null;
+    check("summary: carries its own ISO date (exec_summary.updated)", /^\d{4}-\d{2}-\d{2}$/.test(upd || ""));
+    const cited = (es.watch_sources || []).map((x) => dateInTitle(x.title)).filter(Boolean);
+    check(`summary: dated ${upd} on or after every source it cites (latest ${cited.sort().pop() || "none"}) and its events_through`, !!upd && cited.every((d) => d <= upd) && (!es.events_through || es.events_through <= upd));
+    const watch = [...(es.watch?.en || []), ...(es.watch?.es || [])];
+    check("summary: what-to-watch items are short lines ({ h, lines[] }, each line ≤ 160 characters)", watch.every((x) => typeof x === "object" && x.h && Array.isArray(x.lines) && x.lines.every((l) => l.length <= 160)));
+    check("summary: no hand-typed section number (cross-references use {{sec:id}})", !/sec[ct]i[oó]n\s+\d\d\b/i.test(JSON.stringify(es)));
+  }
+}
+
+// ---------- buildout.json: the per-site issues column (dated, sourced, typed) ----------
+{
+  const boj = loadJSON("buildout.json");
+  if (boj) {
+    const kinds = new Set(["force_majeure", "power", "permit", "financing", "regulatory", "legal", "zoning", "safety", "scope", "schedule"]), bases = new Set(["company", "government", "wire", "press"]);
+    const all = (boj.sites || []).flatMap((x) => (x.issues || []).map((i) => ({ ...i, site: x.short || x.name, checked: x.issues_checked })));
+    check("sites: every campus has an issues list and the date its sources were checked", (boj.sites || []).every((x) => Array.isArray(x.issues) && /^\d{4}-\d{2}-\d{2}$/.test(x.issues_checked || "") && (x.issues.length || (x.issues_none_en && x.issues_none_es))));
+    check("sites: every issue is dated, typed, bilingual and sourced (https), dated no later than the check", all.every((i) => /^\d{4}-\d{2}-\d{2}$/.test(i.date) && kinds.has(i.kind) && bases.has(i.basis) && ["open", "closed"].includes(i.status) && i.en && i.es && /^https:\/\//.test(i.source?.url || "") && i.date <= i.checked && (!i.due || /^\d{4}-\d{2}-\d{2}$/.test(i.due))));
+  }
+}
+
+// ---------- long-range targets, risk notes, the DCF inputs that come from files ----------
+{
+  const lrt = loadJSON("long_range_targets.json"), srcs = loadJSON("sources.json") || {};
+  if (lrt) check("targets: every long-range target names its call, page and status (superseded ones say when and by what)", (lrt.targets || []).every((t) => srcs[t.source] && t.page && /^\d{4}-\d{2}-\d{2}$/.test(t.stated_on) && (t.status === "in_force" || (t.status === "superseded" && /^\d{4}-\d{2}-\d{2}$/.test(t.superseded_on) && t.superseded_en && t.superseded_es))));
+  const rkj = loadJSON("risks.json");
+  if (rkj) check("risks: every row note is dated, typed and bilingual", (rkj.items || []).every((r) => (r.notes || []).every((n) => /^\d{4}-\d{2}-\d{2}$/.test(n.date) && n.kind && n.en && n.es)));
+  const fsx = loadJSON("factset.json");
+  if (fsx) check("factset: consensus D&A (DEP_AMORT_EXP) is present for the fiscal years the DCF projects", (fsx.oracle?.fiscal || []).some((f) => f.da?.mean > 0) ? true : null);
+  const mr = loadJSON("market_reference.json");
+  check("market: implied equity risk premium (Damodaran) is a dated percentage", mr?.erp ? /^\d{4}-\d{2}-\d{2}$/.test(mr.erp.as_of) && mr.erp.erp_pct > 1 && mr.erp.erp_pct < 12 : null);
+}
+
 // ---------- sections.json: every cross-reference on the page resolves to a registered section ----------
 const secReg = loadJSON("sections.json");
 const crossRefs = { ids: [], unresolved: [] };
@@ -280,6 +342,7 @@ fresh("Oracle IR press-release snapshot", irf?.fetched, 4, "harvest-filings.mjs"
 fresh("Investor calendar", cal?.generated, 10, "fetch-calendar.mjs");
 fresh("Peer leverage (SEC XBRL)", plv?.fetched, 10, "fetch-peer-leverage.mjs");
 fresh("FactSet consensus snapshot", fsj?.fetched, 7, "cloud routine FactSet refresh, weekdays 14:20 UTC");
+fresh("Implied equity risk premium (Damodaran, monthly)", mref?.erp?.as_of, 45, "fetch-market.mjs reads Damodaran's home page; he posts on the first of each month");
 fresh("Market concerns (press sweep)", prs?.as_of, 10, "desktop task, Mondays");
 const pendingCount = (st?.pending_extraction || []).filter((p) => p.status === "pending").length;
 freshness.push({ series: "Filings pending extraction", lastDate: st?.last_harvest ? String(st.last_harvest).slice(0, 10) : null, ageDays: null, limitDays: null, status: pendingCount ? "warn" : "ok", note: pendingCount ? `${pendingCount} archived filing(s) waiting for the routine (state.json)` : "nothing pending (last harvest date shown)" });

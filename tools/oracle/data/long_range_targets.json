@@ -1,0 +1,32 @@
+{
+  "_comment": "Management's long-range targets (beyond the fiscal-year guidance), each with the call, page and speaker it comes from, its status (in_force | superseded) and the reported metric it is tracked against. Curated from the owner-supplied transcripts (transcripts.json); merge-raw.mjs never rewrites this file. The page shows each target beside the actuals computed from quarters.json (iaas_revenue_bn = 'Cloud Infrastructure (IaaS) revenue' printed in each release headline) and marks superseded vintages; the DCF 'guidance' basis reads the in-force FY2030 revenue target.",
+  "updated": "2026-10-03",
+  "targets": [
+    {
+      "id": "fy2030_revenue", "metric": "total_revenue", "fy": "FY2030", "usd_bn": 225, "cagr_pct": 31, "cagr_base_fy": "FY2025",
+      "stated_on": "2025-10-16", "source": "S-CALL-ANALYST_MEETING_2025_10", "page": 57, "speaker": "Doug Kehring",
+      "status": "in_force",
+      "text_en": "$225 billion of total revenue in fiscal 2030, a compound annual growth rate of over 31% over five years",
+      "text_es": "US$225 mil millones de ingresos totales en el AF2030, una tasa compuesta anual de más de 31% en cinco años",
+      "reconfirmed": [ { "date": "2026-06-10", "source": "S-CALL-FY2026Q4", "page": 8, "text_en": "'plus 31% revenue CAGR and plus 28% EPS CAGR through our fiscal year 2030'", "text_es": "'TCAC de ingresos de más de 31% y de UPA de más de 28% hasta nuestro año fiscal 2030'" } ]
+    },
+    {
+      "id": "fy2030_eps", "metric": "non_gaap_eps", "fy": "FY2030", "usd": 21, "cagr_pct": 28, "cagr_base_fy": "FY2025",
+      "stated_on": "2025-10-16", "source": "S-CALL-ANALYST_MEETING_2025_10", "page": 57, "speaker": "Doug Kehring",
+      "status": "in_force",
+      "text_en": "$21 of non-GAAP EPS in fiscal 2030, a compound annual growth rate of 28%",
+      "text_es": "UPA No-GAAP de US$21 en el AF2030, una tasa compuesta anual de 28%",
+      "reconfirmed": [ { "date": "2026-06-10", "source": "S-CALL-FY2026Q4", "page": 8 } ]
+    },
+    {
+      "id": "oci_revenue_2025_09", "metric": "oci_revenue", "actual_metric": "iaas_revenue_bn",
+      "by_fy": { "FY2026": 18, "FY2027": 32, "FY2028": 73, "FY2029": 114, "FY2030": 144 },
+      "stated_on": "2025-09-09", "source": "S-CALL-FY2026Q1", "page": 4, "speaker": "Safra A. Catz",
+      "text_en": "'Oracle Cloud Infrastructure will grow 77% to $18 billion this fiscal year, and then increase to $32 billion, $73 billion, $114 billion, and $144 billion over the following four years'",
+      "text_es": "'Oracle Cloud Infrastructure crecerá 77% a US$18 mil millones este año fiscal y después aumentará a US$32, US$73, US$114 y US$144 mil millones en los cuatro años siguientes'",
+      "status": "superseded", "superseded_on": "2025-10-16", "superseded_source": "S-CALL-ANALYST_MEETING_2025_10", "superseded_page": 16,
+      "superseded_en": "Raised at the 16-Oct-2025 financial analyst meeting ('even higher than we shared on our Q1 earnings call'); the new figures were shown on a slide and not read aloud, so they are not on file. The September 2025 figures remain the latest stated in a transcript.",
+      "superseded_es": "Elevados en la reunión con analistas del 16 de octubre de 2025 ('aún más altos que lo que compartimos en la llamada del 1T'); las nuevas cifras se mostraron en una lámina y no se leyeron, por lo que no están en el expediente. Las cifras de septiembre de 2025 siguen siendo las últimas dichas en una transcripción."
+    }
+  ]
+}

@@ -18,13 +18,15 @@ export function mergeComments() {
   out.by_quarter = out.by_quarter || {};
   out.by_year = out.by_year || {};
   let n = 0;
+  const before = JSON.stringify({ q: out.by_quarter, y: out.by_year });
   for (const f of files) {
     const raw = load(f);
     for (const [qid, entry] of Object.entries(raw.by_quarter || {})) { out.by_quarter[qid] = entry; n++; }
     for (const [yid, entry] of Object.entries(raw.by_year || {})) { out.by_year[yid] = entry; n++; }
     if (raw._notes) { out.notes = out.notes || {}; out.notes[f] = raw._notes; }
   }
-  out.updatedAt = new Date().toISOString().slice(0, 10);
+  // updatedAt moves only when a comment or the summary actually changed, so the page's refresh stamps stay truthful
+  if (JSON.stringify({ q: out.by_quarter, y: out.by_year }) !== before || !out.updatedAt) out.updatedAt = new Date().toISOString().slice(0, 10);
   writeFileSync(join(DATA, "comments.json"), JSON.stringify(out, null, 2) + "\n", "utf8");
   console.log(`merged comments for ${n} quarter(s) from ${files.length} file(s).`);
   return true;

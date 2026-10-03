@@ -30,10 +30,14 @@ Rules (the owner's, 2026-10-03):
    Spanish follows Mexican usage (the owner is Mexican).
 4. Never rewrite a prior item's facts without a new source; you may append a source to an existing item. Set `as_of`
    to today. Keep items within `window_days`.
-5. Run `node scripts/oracle/validate-data.mjs` (it checks the news rules) and `node scripts/oracle/build-data.mjs`.
-   Both must pass. Commit tools/oracle/data/news.json, tools/oracle/data/changelog.json and site/oracle/data to main
+5. Site-level events (one of the campuses in tools/oracle/data/buildout.json → sites) also go into that site's `issues`
+   list in the shape described by `_issues_note` (date, kind, status, basis, en, es, source {title, url}, `due` when a
+   decision or delivery date is named), newest first; set every site's `issues_checked` to today on each run, even when
+   nothing is added; mark an item `closed` only when a later source resolves it. Commit buildout.json with news.json.
+6. Run `node scripts/oracle/validate-data.mjs` (it checks the news rules) and `node scripts/oracle/build-data.mjs`.
+   Both must pass. Commit tools/oracle/data/news.json, tools/oracle/data/buildout.json, tools/oracle/data/changelog.json and site/oracle/data to main
    with the message "oracle: news sweep <date> [skip actions]" and push (rebase and retry up to 3 times if main moved).
    If validation fails, do not push; say so in one line.
-6. Final message on a day with additions, under 120 words: "Oracle news: <n> item(s) added", one line per item
+7. Final message on a day with additions, under 120 words: "Oracle news: <n> item(s) added", one line per item
    (date, title, basis, first source), then "Full detail: https://fnam.mx/oracle" and "Sent automatically by the
    Oracle news routine."

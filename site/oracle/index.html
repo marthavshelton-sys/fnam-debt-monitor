@@ -107,7 +107,8 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .notice{margin-top:18px; padding:12px 14px; border-radius:10px; background:var(--accent-soft); border:1px solid var(--accent-soft-border); color:var(--accent-ink); font-size:13px; line-height:1.5;}
 .notice b{color:inherit;}
 .notice.warn{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
-:root[data-theme="dark"] .notice.warn, :root:not([data-theme="light"]) .notice.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+:root[data-theme="dark"] .notice.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .notice.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}}
 
 /* ---------- KPI strip ---------- */
 .kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
@@ -115,11 +116,15 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .kpi .lbl{font-size:11.5px; font-weight:600; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
 .kpi .val{font-family:var(--sans); font-size:clamp(19px,2vw,26px); font-weight:700; margin-top:6px; line-height:1.15; overflow-wrap:normal;}
 .kpi .delta{font-size:12px; margin-top:6px; color:var(--text-secondary);}
+.kpi .knote{font-size:11px; margin-top:5px; color:var(--muted); line-height:1.35;}
 @media (max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr);}}
 /* Sites section: disclosed sites table — wrapped cells, readable line length */
-table.sites td{white-space:normal; vertical-align:top; min-width:150px; max-width:300px; line-height:1.4;}
+table.sites td, table.sites th{white-space:normal; vertical-align:top; min-width:150px; max-width:300px; line-height:1.4; text-align:left;}
 table.sites td .sub{display:block; font-size:11.5px; color:var(--muted); margin-top:3px; font-weight:400;}
-table.sites td:first-child{min-width:170px;} table.sites td:nth-child(2){min-width:130px;} table.sites td:last-child{min-width:150px;}
+table.sites td:first-child{min-width:170px;}
+table.sites td.issues{min-width:280px; max-width:360px; font-size:12px;}
+table.sites .issue{margin:0 0 7px; line-height:1.4;} table.sites .issue.closed{opacity:.65;} table.sites .issue a{text-decoration:none;}
+.rnote{display:block; margin-top:6px; color:var(--text-secondary);} table.sites td:nth-child(2){min-width:130px;} table.sites td:last-child{min-width:150px;}
 /* Sites section: contracts → capacity → spend → funding → revenue flow (HTML so it stays legible on a phone) */
 .flow{display:grid; grid-template-columns:repeat(5,1fr); gap:22px 26px; margin-top:12px; align-items:stretch;}
 .flow .step{background:var(--surface-2); border:1px solid var(--border); border-radius:10px; padding:12px 12px 10px; position:relative; min-width:0;}
@@ -165,7 +170,7 @@ section.block:first-of-type{border-top:none;}
 .chart-wrap{position:relative; height:300px; margin-top:14px;}
 .chart-wrap.short{height:220px;}
 .chart-wrap.tall{height:380px;}
-p.chart-src{font-size:11px; color:var(--muted); margin-top:8px;}
+p.chart-src{font-size:11px; color:var(--muted); margin-top:8px; overflow-wrap:anywhere;}
 table.cal tr.est td{background:color-mix(in srgb, var(--warn, #b7791f) 8%, transparent);}
 table.cal tr.past td{color:var(--muted);}
 table.cal tr.past td b{color:var(--text);}
@@ -256,9 +261,16 @@ input[type=number]{width:92px; text-align:right; font-variant-numeric:tabular-nu
 .sens td.center{text-align:center;}
 .sens td.hi{background:rgba(42,120,214,.12);}
 .sens td.now{outline:2px solid var(--accent); outline-offset:-2px; font-weight:700;}
+.callout.warn{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
+:root[data-theme="dark"] .callout.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .callout.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}}
+#dcfTable td, #dcfTable th{white-space:nowrap;}
+#dcfTable table{font-size:12px;} #dcfTable td, #dcfTable th{padding:5px 6px;}
+.inp select{max-width:190px;}
 
 /* ---------- Summary / guidance / timeline ---------- */
-.sum-grid{display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;}
+.sum-grid{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-top:16px;}
+@media (max-width:1000px){.sum-grid{grid-template-columns:1fr 1fr;}}
 .sum-grid .card h3{margin-bottom:6px;}
 .sum-grid ul{margin:0; padding-left:18px; font-size:13.5px; line-height:1.55; color:var(--text-secondary);}
 .sum-grid li{margin:6px 0;}
@@ -360,6 +372,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   #printClose .src-grid{display:grid !important; grid-template-columns:1fr 1fr; gap:10pt;}
   #printClose .fine{font-size:11.5pt; margin-top:14pt;}
   #printClose .conf{margin-top:14pt; font-weight:600;}
+  details.kn{display:block !important;} details.kn > summary{display:none;}
 }
 .press{margin:6px 0 0;padding-left:18px} .press li{margin:0 0 10px;line-height:1.45} .press li b{font-weight:600}
 .press-h,.card h4{margin:10px 0 4px;font-size:12.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
@@ -392,23 +405,57 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   /* thumb-sized hit areas for source links (inline padding widens the hit box without moving the text) */
   a[target="_blank"], .guide-quote a, .chart-src a, .cap a{padding:8px 0;}
   .gl{border-bottom:none;}
+  /* DCF bridge and the per-site issues read top to bottom on a phone: the explanation sits beneath its row */
+  #dcfBridge table, #dcfBridge tbody{display:block;}
+  #dcfBridge tr{display:grid; grid-template-columns:minmax(0,1fr) auto; column-gap:10px; padding:7px 0; border-bottom:1px solid var(--grid);}
+  #dcfBridge td{display:block; border:0; padding:0;}
+  #dcfBridge td:nth-child(3){grid-column:1 / -1; margin-top:3px; font-size:12px;}
+  #dcfBridge td:nth-child(3):empty{display:none;}
 }
 </style>
 
 <style>
+/* ---------- Summary: buildout panel and short "what to watch" lines ---------- */
+.build-panel{display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:18px;}
+.build-panel .bp{display:block; background:var(--surface); padding:14px 14px 12px; text-decoration:none; color:inherit; min-width:0;}
+.build-panel .bp:hover{background:var(--surface-2);}
+.build-panel .bp .k{font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:var(--muted);}
+.build-panel .bp .v{font-size:clamp(17px,1.7vw,21px); font-weight:800; margin-top:6px; line-height:1.15; overflow-wrap:anywhere;}
+.build-panel .bp .d{font-size:11.5px; color:var(--text-secondary); margin-top:6px; line-height:1.4;}
+@media (max-width:1000px){.build-panel{grid-template-columns:repeat(2,minmax(0,1fr));} .build-panel .bp:last-child{grid-column:1 / -1;}}
+@media (max-width:420px){.build-panel{grid-template-columns:1fr;}}
+.watch-card{margin-top:16px;}
+.watch-card > h3{margin-bottom:4px;}
+.watch-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:6px 26px;}
+.watch-item h4{font-family:var(--sans); font-size:12.5px; font-weight:700; color:var(--text-primary); margin:10px 0 2px; text-transform:none; letter-spacing:0;}
+.watch-item ul{margin:0; padding-left:16px; font-size:13px; line-height:1.5; color:var(--text-secondary);}
+.watch-item li{margin:2px 0;}
+@media (max-width:760px){.watch-grid{grid-template-columns:1fr;}}
+/* ---------- Collapse / expand per section, back to top ---------- */
+section.block.collapsed > :not(.sec-head){display:none !important;}
+section.block.collapsed{padding:18px 0;}
+.sec-toggle{border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:600 12px var(--sans); border-radius:6px; padding:3px 9px; cursor:pointer; align-self:center; white-space:nowrap;}
+.sec-toggle:hover{background:var(--surface-2); color:var(--text-primary);}
+nav.jump .navbtn{flex:0 0 auto; margin:6px 0 6px 8px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:600 12px var(--sans); border-radius:6px; padding:4px 10px; cursor:pointer; white-space:nowrap;}
+#toTop{position:fixed; right:16px; bottom:16px; z-index:45; display:none; align-items:center; gap:6px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-primary); font:700 12.5px var(--sans); border-radius:100px; padding:9px 14px; box-shadow:var(--shadow-hover); cursor:pointer;}
+#toTop.show{display:flex;}
+@media print{.sec-toggle, nav.jump .navbtn, #toTop{display:none !important;} section.block.collapsed > :not(.sec-head){display:revert !important;}}
 /* ---------- Generated numbering, stamps and the new sections (2026-10-03 rebuild) ---------- */
 .fignum{display:block; font-size:11px; font-weight:700; letter-spacing:.07em; text-transform:uppercase; color:var(--accent-ink); margin-bottom:4px;}
 .stamp{display:block; margin-top:4px; color:var(--muted);}
 .stamp .et{font-variant-numeric:tabular-nums;}
 .stale{display:inline-block; padding:1px 7px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.03em; background:#fff6df; border:1px solid #f0cf7a; color:#6b4b00; vertical-align:middle;}
-:root[data-theme="dark"] .stale, :root:not([data-theme="light"]) .stale{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+:root[data-theme="dark"] .stale{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .stale{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}}
 .badge{display:inline-block; padding:1px 7px; border-radius:100px; font-size:11px; font-weight:700; letter-spacing:.03em; border:1px solid var(--border-strong); color:var(--text-secondary); vertical-align:middle; white-space:nowrap;}
 .badge.ok{background:var(--accent-soft); border-color:var(--accent-soft-border); color:var(--accent-ink);}
 .badge.rev{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
 .badge.bad{background:#fde8e8; border-color:#f1b5b5; color:#8a1f1f;}
 .badge.est{background:var(--surface-2); color:var(--text-secondary); font-style:italic;}
-:root[data-theme="dark"] .badge.rev, :root:not([data-theme="light"]) .badge.rev{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
-:root[data-theme="dark"] .badge.bad, :root:not([data-theme="light"]) .badge.bad{background:#3a1a1a; border-color:#7a3a3a; color:#f0a0a0;}
+:root[data-theme="dark"] .badge.rev{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badge.rev{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}}
+:root[data-theme="dark"] .badge.bad{background:#3a1a1a; border-color:#7a3a3a; color:#f0a0a0;}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .badge.bad{background:#3a1a1a; border-color:#7a3a3a; color:#f0a0a0;}}
 .sec-head .sec-stamp{margin-left:auto; font-size:11.5px; color:var(--muted); font-family:var(--sans); white-space:nowrap;}
 @media (max-width:640px){.sec-head{flex-wrap:wrap;} .sec-head .sec-stamp{margin-left:0; flex-basis:100%; white-space:normal;}}
 a.xref{color:var(--accent-ink); text-decoration:none; border-bottom:1px dotted var(--accent-soft-border); white-space:nowrap;}
@@ -486,14 +533,18 @@ table.chg td{white-space:normal; vertical-align:top;}
   <section class="block" id="summary" data-sec="summary">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-meta" id="sumMeta"></p>
-    <div class="card" style="margin-top:18px">
-      <h3><span class="es">Cifras clave, con su fecha</span><span class="en" hidden>Key numbers, each with its date</span></h3>
-      <p class="cap"><span class="es">Cada cifra indica el periodo al que corresponde, la base (reportado, derivado, estimado) y la sección donde se detalla. Nada aquí se escribe a mano.</span><span class="en" hidden>Each figure names the period it belongs to, its basis (reported, derived, estimate) and the section with the detail. Nothing here is typed by hand.</span></p>
-      <div class="tblwrap" id="keyNumbers"></div>
-      <p class="chart-src" id="keyNumbersSrc"></p>
-    </div>
+    <!-- The buildout first: five computed numbers, each linking to its section -->
+    <div class="build-panel" id="sumBuild"></div>
     <div class="sum-grid" id="sumGrid"></div>
+    <div class="card watch-card" id="sumWatch"></div>
     <p class="chart-src" id="sumSrc"></p>
+    <details class="tbl kn" id="keyNumbersWrap"><summary><span class="es">Todas las cifras clave, con su fecha y su base</span><span class="en" hidden>Every key number, with its date and basis</span></summary>
+      <div class="card" style="margin-top:10px">
+        <h3><span class="es">Cifras clave, con su fecha</span><span class="en" hidden>Key numbers, each with its date</span></h3>
+        <div class="tblwrap" id="keyNumbers"></div>
+        <p class="chart-src" id="keyNumbersSrc"></p>
+      </div>
+    </details>
   </section>
 
   <!-- BUSINESS AND SEGMENTS: STATEMENTS -->
@@ -943,8 +994,8 @@ table.chg td{white-space:normal; vertical-align:top;}
   <section class="block" id="valuation" data-sec="valuation">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">La acción (NYSE: ORCL, dólares) frente al S&amp;P 500; múltiplos <b>a doce meses</b> sobre el consenso de FactSet, con pares de software e hiperescaladores; la visión del mercado (precio objetivo y recomendaciones); y un DCF editable cuyo resultado recalcula al instante. Nada aquí es una recomendación.</span>
-      <span class="en" hidden>The share (NYSE: ORCL, US dollars) against the S&amp;P 500; <b>forward</b> multiples over FactSet consensus, with software and hyperscaler peers; the Street view (price target and ratings); and an editable DCF that recalculates instantly. Nothing here is a recommendation.</span>
+      <span class="es">La acción (NYSE: ORCL, dólares) frente al S&amp;P 500; múltiplos <b>a doce meses</b> sobre el consenso de FactSet, con pares de software e hiperescaladores; y la visión del mercado (precio objetivo y recomendaciones). El DCF editable está en la sección siguiente.</span>
+      <span class="en" hidden>The share (NYSE: ORCL, US dollars) against the S&amp;P 500; <b>forward</b> multiples over FactSet consensus, with software and hyperscaler peers; and the Street view (price target and ratings). The editable DCF is in the next section.</span>
     </p>
     <p class="sec-meta" id="shareMeta"></p>
     <div class="controls">
@@ -1000,34 +1051,45 @@ table.chg td{white-space:normal; vertical-align:top;}
       <div class="notice" id="streetNote"></div>
       <p class="chart-src" id="streetSrc"></p>
     </div>
-    <h3 class="sub-h"><span class="es">Valuación por flujos descontados (DCF)</span><span class="en" hidden>Discounted-cash-flow valuation</span></h3>
+  </section>
+
+  <!-- DISCOUNTED CASH FLOW (own section since 2026-10-03; not in the board deck) -->
+  <section class="block" id="dcf" data-sec="dcf">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Flujo de efectivo libre a la firma en dólares nominales durante cinco años fiscales explícitos, descontado a un WACC construido con CAPM sobre el bono del Tesoro a 10 años. Oracle no tiene una concesión con fecha de término, así que el valor terminal por defecto es una <b>perpetuidad de Gordon</b>; puede cambiarlo a múltiplo de salida. Todos los supuestos son editables; el escenario queda en la URL para compartirlo.</span>
-      <span class="en" hidden>Unlevered free cash flow in nominal dollars over five explicit fiscal years, discounted at a CAPM-based WACC built on the 10-year Treasury. Oracle has no concession with an end date, so the default terminal value is a <b>Gordon perpetuity</b>; switch to an exit multiple if you prefer. Every assumption is editable; the scenario is kept in the URL to share it.</span>
+      <span class="es">Flujo libre a la firma por año fiscal de Oracle. Ingresos, EBITDA, D&amp;A y capex siguen el <b>consenso de FactSet</b> (o los objetivos de la administración); el EBITDA ajustado de los brokers se reduce por la <b>compensación en acciones</b>. Los <b>prepagos de clientes</b> compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato. El año en curso es un <b>periodo parcial</b>: excluye los trimestres ya reportados, cuyo efectivo está en la deuda neta. Los flujos se descuentan a <b>mitad de periodo</b> a la fecha del último cierre; el capex terminal se normaliza a un múltiplo de la D&amp;A. Todo es editable y el escenario queda en la URL.</span>
+      <span class="en" hidden>Unlevered free cash flow by Oracle fiscal year. Revenue, EBITDA, D&amp;A and capex follow <b>FactSet consensus</b> (or management's targets); the brokers' adjusted EBITDA is reduced by <b>stock-based compensation</b>. <b>Customer prepayments</b> offset capex when received and unwind as revenue without cash over the contract term. The current year is a <b>stub</b>: it excludes the quarters already reported, whose cash is in net debt. Flows are discounted at <b>mid-period</b> to the latest close; terminal capex is normalised to a multiple of D&amp;A. Everything is editable and the scenario is kept in the URL.</span>
     </p>
-    <p class="sec-meta" id="dcfMeta"></p>
     <div class="dcf-grid">
       <div class="card inputs" id="dcfInputs"></div>
       <div>
         <div class="card">
           <div class="hero"><div class="v" id="dcfHero">—</div><div class="l" id="dcfHeroLbl"></div></div>
           <div class="out-grid" id="dcfOutputs"></div>
-          <div class="callout" id="dcfNote"></div>
+          <div class="callout" id="dcfCheck"></div>
           <p class="chart-src" id="dcfOutSrc"></p>
         </div>
         <div class="card" style="margin-top:20px">
-          <h3><span class="es">Proyección de flujos</span><span class="en" hidden>Cash-flow projection</span></h3>
-          <p class="cap"><span class="es">US$ millones, nominales, por año fiscal</span><span class="en" hidden>US$ million, nominal, by fiscal year</span></p>
-          <div class="tblwrap" id="dcfTable"></div>
-          <p class="chart-src" id="dcfTableSrc"></p>
+          <h3><span class="es">Del valor de la empresa al valor por acción</span><span class="en" hidden>From enterprise value to value per share</span></h3>
+          <p class="cap"><span class="es">US$ millones salvo acciones y valor por acción</span><span class="en" hidden>US$ million except shares and value per share</span></p>
+          <div class="tblwrap" id="dcfBridge"></div>
         </div>
         <div class="card" style="margin-top:20px">
-          <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
-          <p class="cap" id="sensCap"></p>
-          <div class="tblwrap" id="dcfSens"></div>
-          <p class="chart-src" id="dcfSensSrc"></p>
+          <h3><span class="es">Beta: estimación por defecto y verificaciones cruzadas</span><span class="en" hidden>Beta: default estimate and cross-checks</span></h3>
+          <p class="cap"><span class="es">El mismo modelo con cada estimación de beta (regresión de rendimientos de ORCL contra el S&amp;P 500; ajuste de Blume = 0.67 × beta + 0.33)</span><span class="en" hidden>The same model at each beta estimate (regression of ORCL returns on the S&amp;P 500; Blume adjustment = 0.67 × beta + 0.33)</span></p>
+          <div class="tblwrap" id="dcfBeta"></div>
         </div>
       </div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Proyección de flujos</span><span class="en" hidden>Cash-flow projection</span></h3>
+      <p class="cap" id="dcfTableCap"></p>
+      <div class="tblwrap" id="dcfTable"></div>
+    </div>
+    <div class="card" style="margin-top:20px">
+      <h3><span class="es">Sensibilidad: valor por acción</span><span class="en" hidden>Sensitivity: value per share</span></h3>
+      <p class="cap" id="sensCap"></p>
+      <div class="tblwrap" id="dcfSens"></div>
     </div>
   </section>
 
@@ -1087,9 +1149,9 @@ table.chg td{white-space:normal; vertical-align:top;}
       <div class="prose">
         <p><span class="es"><b>GAAP y No-GAAP.</b> Oracle reporta bajo US GAAP y, en el mismo comunicado, cifras No-GAAP que excluyen la compensación basada en acciones, la amortización de intangibles adquiridos y los costos de reestructura y adquisición, con su efecto fiscal. Ambas bases aparecen conciliadas en cada reporte; el interruptor de la sección de estados financieros cambia entre ellas sin alterar los ingresos. El EBITDA no lo publica Oracle: aquí es utilidad de operación GAAP + depreciación y amortización del estado de flujos.</span><span class="en" hidden><b>GAAP and Non-GAAP.</b> Oracle reports under US GAAP and, in the same release, Non-GAAP figures that exclude stock-based compensation, amortization of acquired intangibles and restructuring and acquisition costs, with their tax effect. Both bases are reconciled in every release; the switch in the statements section flips between them without changing revenue. Oracle does not publish EBITDA: here it is GAAP operating income + depreciation and amortization from the cash-flow statement.</span></p>
         <p><span class="es"><b>Trimestres, acumulado y UDM.</b> Oracle imprime el estado de flujos de forma acumulada (seis, nueve y doce meses); los trimestres discretos se obtienen por diferencia contra el informe anterior y se verifican contra el total anual y contra los datos XBRL del 10-Q/10-K. El acumulado del año fiscal suma los trimestres reportados; los últimos doce meses suman los cuatro más recientes. El balance siempre es la posición al cierre del periodo. Las etiquetas siguen el año fiscal de Oracle (termina el 31 de mayo): 1T27 = junio–agosto de 2026.</span><span class="en" hidden><b>Quarters, year-to-date and LTM.</b> Oracle prints the cash-flow statement cumulatively (six, nine and twelve months); discrete quarters are derived by difference against the prior report and checked against the annual total and against the 10-Q/10-K XBRL data. Fiscal year-to-date sums the reported quarters; last twelve months sums the four most recent. The balance sheet is always the period-end position. Labels follow Oracle's fiscal year (ends 31 May): 1Q27 = June–August 2026.</span></p>
-        <p><span class="es"><b>Arrendamientos y compromisos (ASC 842, ASC 810).</b> Los pasivos por arrendamiento en el balance son el valor presente de los pagos; los arrendamientos firmados que aún no empiezan se muestran a valor nominal, por separado, y nunca se suman a la deuda sin decirlo. Oracle no consolida entidades de interés variable ni divulga garantías; si lo hiciera, una exposición máxima se mostraría como exposición, no como pasivo. Cada cifra transcrita de una nota lleva su reporte, nota, página y número de acceso, y la marca "verificado" solo cuando el dato XBRL de la SEC coincide; las lecturas de texto llevan "revisión pendiente".</span><span class="en" hidden><b>Leases and commitments (ASC 842, ASC 810).</b> Lease liabilities on the balance sheet are the present value of the payments; leases signed but not yet commenced are shown at nominal value, separately, and never added to debt without saying so. Oracle consolidates no variable-interest entities and discloses no guarantees; if it did, a maximum exposure would be shown as exposure, not as a liability. Every figure transcribed from a note carries its filing, note, page and accession number, and the "verified" mark only when the SEC's XBRL value matches; text readings carry "needs review".</span></p>
+        <p><span class="es"><b>Arrendamientos y compromisos (ASC 842, ASC 810).</b> Los pasivos por arrendamiento en el balance son el valor presente de los pagos; los arrendamientos firmados que aún no empiezan se muestran a valor nominal, por separado, y nunca se suman a la deuda sin decirlo. Lo que dicen los reportes sobre entidades de interés variable y garantías está en <a class="xref" data-ref="obligations" href="#obligations">la sección fuera de balance</a>, con su fuente; una garantía se muestra como exposición, nunca como pasivo. Cada cifra transcrita de una nota lleva su reporte, nota, página y número de acceso, y la marca "verificado" solo cuando el dato XBRL de la SEC coincide; las lecturas de texto llevan "revisión pendiente".</span><span class="en" hidden><b>Leases and commitments (ASC 842, ASC 810).</b> Lease liabilities on the balance sheet are the present value of the payments; leases signed but not yet commenced are shown at nominal value, separately, and never added to debt without saying so. What the filings say about variable-interest entities and guarantees is in <a class="xref" data-ref="obligations" href="#obligations">the off-balance-sheet section</a>, with its source; a guarantee is shown as exposure, never as a liability. Every figure transcribed from a note carries its filing, note, page and accession number, and the "verified" mark only when the SEC's XBRL value matches; text readings carry "needs review".</span></p>
         <p><span class="es"><b>Fechas y actualización.</b> Cada gráfica, tabla y cifra indica su fecha de corte (cierre del periodo), la hora de la última actualización en hora del Este (ET) y su fuente. EDGAR se consulta a diario; un 8-K, 10-Q o 10-K nuevo entra al modelo tras pasar los cuadres; las noticias se revisan a diario. Un módulo se marca <b>desactualizado</b> cuando pasa la siguiente fecha esperada de reporte más siete días, en vez de mostrar datos viejos como vigentes. Cada actualización compara con los valores anteriores y escribe la bitácora de abajo.</span><span class="en" hidden><b>Dates and refresh.</b> Every chart, table and figure shows its as-of date (period end), the time of its last refresh in Eastern Time (ET) and its source. EDGAR is polled daily; a new 8-K, 10-Q or 10-K enters the model after passing the tie-outs; news is reviewed daily. A module is flagged <b>stale</b> once the next expected filing date plus seven days has passed, rather than showing old data as current. Every refresh diffs against the prior values and writes the change log below.</span></p>
-        <p><span class="es"><b>DCF.</b> FCF = EBITDA − impuestos sobre la utilidad operativa − capex − Δ capital de trabajo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = Tesoro a 10 años y β calculada con dos años de rendimientos semanales contra el S&amp;P 500. Valor terminal por perpetuidad: FCF₆/(WACC−g); por múltiplo: EBITDA₅ × múltiplo. Valor del capital = VE − deuda neta. No es una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA − taxes on operating profit − capex − Δ working capital. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = 10-year Treasury and β from two years of weekly returns against the S&amp;P 500. Terminal value by perpetuity: FCF₆/(WACC−g); by multiple: EBITDA₅ × multiple. Equity value = EV − net debt. Not a recommendation.</span></p>
+        <p><span class="es"><b>DCF.</b> FCF = EBITDA (ajustado de los brokers − compensación en acciones) − impuestos sobre EBIT − capex bruto + prepagos de clientes recibidos − prepagos reconocidos como ingreso. El año en curso excluye los trimestres ya reportados; flujos a mitad de periodo. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), con Rf = Tesoro a 10 años, ERP = prima implícita de Damodaran, β de dos años semanales con verificaciones de cinco años y de Blume, Kd = Tesoro de hoy + diferencial de emisión del bono a 10 años más reciente. Valor terminal: FCF normalizado (capex = k × D&amp;A) ÷ (WACC − g). Valor por acción = (VE − deuda neta − arrendamientos financieros − preferentes) ÷ acciones diluidas. No es una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA (brokers' adjusted − stock-based compensation) − taxes on EBIT − gross capex + customer prepayments received − prepayments recognised as revenue. The current year excludes the quarters already reported; mid-period flows. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·Kd·(1−t), with Rf = 10-year Treasury, ERP = Damodaran's implied premium, β from two years of weekly returns with five-year and Blume cross-checks, Kd = today's Treasury + the issue spread of the latest 10-year note. Terminal value: normalised FCF (capex = k × D&amp;A) ÷ (WACC − g). Value per share = (EV − net debt − finance leases − preferred) ÷ diluted shares. Not a recommendation.</span></p>
         <p class="small muted"><span class="es">Nota completa de metodología y fuentes: <code>tools/oracle/METHODOLOGY.md</code> en el repositorio. <a href="quality.html">Página de calidad de datos ↗</a></span><span class="en" hidden>Full methodology and sources note: <code>tools/oracle/METHODOLOGY.md</code> in the repository. <a href="quality.html">Data-quality page ↗</a></span></p>
       </div>
       <div>
@@ -1116,7 +1178,8 @@ table.chg td{white-space:normal; vertical-align:top;}
 
 </main>
 
-<section class="block print-only" id="printClose"><div class="sec-head"><h2><span class="es">Fuentes y metodología</span><span class="en" hidden>Sources and method</span></h2></div><div id="printCloseBody"></div></section>
+<!-- The closing heading is written by app.js (setLang) in the reader's language only, never as two hidden spans. -->
+<section class="block print-only" id="printClose"><div class="sec-head"><h2></h2></div><div id="printCloseBody"></div></section>
 
 <footer id="sources">
   <div class="wrap">
@@ -1128,6 +1191,8 @@ table.chg td{white-space:normal; vertical-align:top;}
     </p>
   </div>
 </footer>
+
+<button type="button" id="toTop" aria-label="Back to top / Volver arriba">↑ <span class="es">Arriba</span><span class="en" hidden>Top</span></button>
 
 <script src="/assets/data-status.js" defer></script>
 <script src="app.js"></script>

@@ -89,25 +89,30 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
   PD = 1 − exp(−spread ÷ (1 − recovery) × tenor) with a 40% recovery assumption. It is a market price of
   protection, not a rating; the page says so and points to the agency ratings in section 07.
 
-## DCF defaults (all editable on the page; the URL encodes any change)
+## DCF defaults (all editable on the page; the URL encodes any change; method in METHODOLOGY.md §8)
 
 | Input | Default | Basis |
 |---|---|---|
-| Base revenue | LTM revenue | quarters.json |
-| Revenue growth, years 1–5 | 30 / 25 / 20 / 15 / 10 % | Assumption: year 1 consistent with FY2027 guidance of "at least US$ 90 bn" (+34% on FY2026), tapering as the AI buildout matures. Not a forecast. |
-| EBIT margin | LTM GAAP operating margin | computed |
-| Capex, years 1–5 | US$ 70 / 60 / 50 / 40 / 35 bn | Year 1 = FY2027 guidance of "around US$ 70 bn" net cash capex (reported capex of US$ 90–95 bn includes customer prepayments, 1Q27 call); the taper is a judgement, not guidance |
-| D&A % of revenue | LTM D&A / LTM revenue | computed from the cash-flow statements |
+| Projection basis | FactSet consensus | Fiscal-year means (sales, EBITDA, D&A, capex) for the years FactSet covers; "Management targets" uses the FY revenue guide and the in-force FY2030 revenue target |
+| Explicit years | 10, starting with the current fiscal year as a stub | Stub = full-year projection less the quarters already reported (their cash is in net debt) |
+| Revenue growth | Consensus, then halving each year to the terminal rate | Base = last reported fiscal year |
+| EBITDA margin | Consensus adjusted EBITDA / sales, held after the last consensus year | Brokers' basis (excludes SBC) |
+| Stock-based compensation | LTM SBC / LTM revenue (6.7% at 1Q27) | Non-GAAP reconciliation; deducted from adjusted EBITDA; 0 on the GAAP basis |
+| D&A % of revenue | Consensus D&A (`DEP_AMORT_EXP`) / sales, then held | FactSet; latest-quarter run-rate if missing |
+| Gross capex | Consensus; then capex/revenue converges linearly to k × D&A by the last explicit year | FactSet capex is gross (FY2027 mean ≈ the US$90–95 bn guide) |
+| Customer-funded share of capex | 1 − net cash cap ÷ gross midpoint of the FY capex guide (24.3% for FY2027), held through the consensus years, fading to 0 | Guidance text parsed automatically |
+| Prepayment unwind | 6 years | Oracle's illustrative six-year 1 GW deal (analyst meeting, 16-Oct-2025, p.10) |
+| Terminal capex / D&A (k) | 1 + g × L / 2 = 1.09 | L = 6-year server life (10-Q note 3); g = terminal growth |
 | Tax rate | LTM GAAP effective rate | computed |
-| Working capital | 0% of Δrevenue | Assumption; Oracle's deferred-revenue model makes working capital a source of cash in growth years |
-| Risk-free rate | 10-year Treasury, live | FRED / Treasury |
-| Equity risk premium | 4.5% | Assumption (in the range of published mature-market ERP estimates) |
-| Beta | Regression of two years of weekly ORCL returns on the S&P 500 | computed from the price CSVs |
-| Cost of debt | Coupon of Oracle's most recent ~10-year fixed-rate note (5.70% due Feb 2036) | 10-K debt footnote |
-| Target leverage | Current net debt / (net debt + market cap) | computed |
+| Risk-free rate | 10-year Treasury, latest | FRED DGS10 |
+| Equity risk premium | Damodaran implied ERP, latest month (4.14% on 1-Sep-2026) | fetched monthly by fetch-market.mjs; 4.5% only if no reading exists |
+| Beta | Two years of weekly returns, ORCL on the S&P 500 (raw) | cross-checks shown: five-year monthly, Blume-adjusted (0.67 β + 0.33) of both |
+| Cost of debt | Today's 10-year Treasury + the issue spread of the latest ~10-year fixed note (5.70% Feb-2036 note: 1.41 pp) | 10-K debt footnote + FRED DGS10 on the issue date |
+| Target leverage | Net debt / (net debt + market cap) | computed |
 | Terminal | Gordon growth 3.0% (or exit multiple 12× EBITDA) | Assumption |
-| Discounting | End-of-year, 5 explicit years | Convention |
-| Shares | Diluted shares of the latest quarter | quarters.json |
+| Discounting | Mid-period, to the latest close; TV at mid-year after the horizon | Convention |
+| Equity bridge | EV − net debt − finance-lease liabilities − mandatory convertible preferred (liquidation preference) | 10-Q (XBRL) |
+| Shares | 10-Q cover shares + dilutive securities (diluted − basic weighted average, latest quarter) | SEC XBRL (dei, us-gaap) |
 | Concession annuity method | Not offered | Oracle has no concession or licence end-date |
 
 ## Guidance
@@ -141,5 +146,5 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 - Oracle's own multiples use the model's price, shares and reported net debt (notes payable − cash and marketable securities). The peer table uses FactSet's basis for every row, including Oracle: FactSet price and market value, and FactSet net debt (FF_NET_DEBT), which includes lease liabilities. The two Oracle EV figures therefore differ by the lease liabilities; the captions say so.
 - FactSet labels Oracle's fiscal year by the calendar year in which it starts (FactSet 2026 = Oracle FY2027, ending 2027-05-31). `factset.json` stores Oracle's label and the fiscal end date; `validate-data.mjs` checks the mapping.
 - Historical forward multiples: point-in-time NTM consensus sampled at each Oracle fiscal quarter-end (FactSet consensus_rolling, NTMA, quarterly from 2021-08-31), against the quarter-end close, diluted shares and reported net debt.
-- DCF "consensus" basis: revenue growth and capex for the projection years covered by FactSet fiscal-year means (currently FY2028–FY2030 against the LTM base), then a taper (growth halves each year with a 4% floor; capex −15% a year). The EBITDA margin keeps the model's GAAP LTM default and shows the consensus (adjusted) margins for reference; the implied exit multiple is quoted on NTM consensus EBITDA. "Guidance" basis restores the previous management-guidance path.
+- DCF "consensus" basis (since 2026-10-03): revenue, adjusted EBITDA less stock-based compensation, D&A and gross capex from the FactSet fiscal-year means; see the DCF table above and METHODOLOGY.md §8. The implied exit multiple is quoted on NTM consensus EBITDA.
 - Price target and ratings are FactSet's sell-side consensus, shown as information with a not-a-recommendation note.

@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 // Parser tests against the archived releases: re-reads every 8-K exhibit in tools/oracle/raw/8k and checks that
 // the printed statement of operations (revenue lines, opex lines, operating income, interest, pretax and net
-// income, diluted EPS and share count) and the balance-sheet highlights still match tools/oracle/data/quarters.json.
+// income, diluted EPS and share count), the balance-sheet highlights, the IaaS revenue headline and the customer-prepayment
+// cash-flow line still match tools/oracle/data/quarters.json / fiscal_years.json.
 // If Oracle changes the release format, this fails the build — the page never sees a mis-parsed number.
 // Run: node scripts/oracle/test-parsers.mjs
 
@@ -34,6 +35,13 @@ export function numAfter(text, label) {
 // Kept for callers that used the original helper.
 export function firstFigureAfter(text, label) { return numAfter(text, label); }
 
+// Headline bullet of each release: "Cloud Infrastructure (IaaS) Revenue $4.9 billion" / "Cloud Infra (IaaS) Revenue up 121% ... to
+// $7.4 billion" (US$ billions as printed). The "Oracle Cloud Database (IaaS)" bullet never matches (no "Infra" before it).
+export function iaasRevenueBn(text) {
+  const m = /Cloud Infra(?:structure)?\s*(?:Revenue\s*)?\(IaaS\)\s*(?:Revenue)?[^$]{0,120}?\$\s*(\d+(?:\.\d+)?)\s*billion/i.exec(text);
+  return m ? Number(m[1]) : null;
+}
+
 function section(text, startRe, endRe) {
   const s = text.search(startRe); if (s < 0) return "";
   const rest = text.slice(s);
@@ -45,6 +53,7 @@ function main() {
   if (!existsSync(ARCHIVE)) { console.log("No archive at tools/oracle/raw/8k — nothing to test."); return; }
   const quarters = JSON.parse(readFileSync(join(DATA, "quarters.json"), "utf8")).quarters;
   const sources = JSON.parse(readFileSync(join(DATA, "sources.json"), "utf8"));
+  const fiscalYears = JSON.parse(readFileSync(join(DATA, "fiscal_years.json"), "utf8")).fiscal_years || {};
   const files = readdirSync(ARCHIVE);
   let tested = 0, failed = 0;
   const skipped = [], mismatches = [], perQuarter = []; // persisted to tools/oracle/data/parser_report.json for the quality page
@@ -60,6 +69,9 @@ function main() {
     const below = section(ops, /OPERATING INCOME/, /WEIGHTED AVERAGE/);
     const shares = section(ops, /WEIGHTED AVERAGE/, /\(1\)/);
     const bs = section(text, /CONDENSED CONSOLIDATED BALANCE SHEETS/i, /STATEMENTS OF CASH FLOWS/i);
+    const cfs = section(text, /STATEMENTS OF CASH FLOWS/i, /FREE CASH FLOW|RECONCILIATION/i) || text;
+    // the prepayment line is cumulative like the rest of the cash-flow statement: Q1 = the quarter, Q4 = the fiscal year
+    const prepayExpected = q.fiscal_quarter === 1 ? q.cash_flow?.customer_prepayments_quarter : q.fiscal_quarter === 4 ? fiscalYears[`FY${q.fiscal_year}`]?.gaap?.customer_prepayments : null;
     const legacy = q.revenue_basis !== "fy2026_lines";
     const g = q.gaap, r = g.revenue, o = g.opex, b = q.balance_sheet || {};
     // Through 3Q26 the release printed "Restructuring" and "Acquisition related and other" as two lines; from 4Q26 one line.
@@ -90,6 +102,8 @@ function main() {
       ["BS: total assets", numAfter(bs, "TOTAL ASSETS"), b.total_assets],
       ["BS: notes payable, current", numAfter(bs, "Notes payable and other borrowings, current"), b.short_term_debt],
       ["BS: notes payable, non-current", numAfter(bs, "Notes payable and other borrowings, non-current"), b.long_term_debt],
+      ["Release KPI: Cloud Infrastructure (IaaS) revenue, US$ bn", iaasRevenueBn(text), q.iaas_revenue_bn],
+      ["CF: customer prepayments with a significant financing component", numAfter(cfs, "customer prepayments with significant financing component"), prepayExpected],
       ["BS: deferred revenues (current)", numAfter(section(bs, /Current Liabilities/, /Total Current Liabilities/), "Deferred revenues"), b.current_deferred_revenue],
     ];
     let qChecks = 0, qFailed = 0;

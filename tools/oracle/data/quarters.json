@@ -155,7 +155,8 @@
         "capex_quarter": -28499,
         "free_cash_flow_quarter": -5396,
         "note_en": "Operating cash flow reflects a large receivables/collections swing tied to AI cloud contract billings; management flagged it is not representative of a run rate.",
-        "note_es": "El flujo operativo refleja un fuerte movimiento en cuentas por cobrar ligado a la facturación de contratos de nube de IA; la administración señaló que no es representativo de una tasa recurrente."
+        "note_es": "El flujo operativo refleja un fuerte movimiento en cuentas por cobrar ligado a la facturación de contratos de nube de IA; la administración señaló que no es representativo de una tasa recurrente.",
+        "customer_prepayments_quarter": 11363
       },
       "rpo": {
         "total": 664000,
@@ -204,7 +205,8 @@
         },
         "note": "Q1 release reports three months directly; discrete quarter = figure as printed. total_da = 3,156 + 202 = 3,358. Prior-year column (1,351 / 420) matches the Q1 FY2026 release."
       },
-      "revenue_basis": "fy2026_lines"
+      "revenue_basis": "fy2026_lines",
+      "iaas_revenue_bn": 7.4
     },
     {
       "id": "FY2026Q4",
@@ -326,7 +328,8 @@
           "amortization_of_intangibles": 1671
         },
         "note": "Release prints full-year (twelve-month) figures; discrete Q4 derived by subtracting the Q3 FY2026 nine-month figures. total_da = 2,415 + 432 = 2,847. Cross-check: four discrete FY2026 quarters sum to 7,623 / 1,671, equal to the twelve-month figures printed here. The same release's three-month income-statement 'Amortization of intangible assets' line prints 431; the $1M difference versus the derived 432 offsets the Q2 rounding difference (cumulative basis is authoritative here)."
-      }
+      },
+      "iaas_revenue_bn": 5.8
     },
     {
       "id": "FY2026Q3",
@@ -446,7 +449,8 @@
           "amortization_of_intangibles": 1239
         },
         "note": "Release prints cumulative nine-month figures; discrete Q3 derived by subtracting the Q2 FY2026 six-month figures. total_da = 2,153 + 413 = 2,566 (cumulative nine-month total 6,447)."
-      }
+      },
+      "iaas_revenue_bn": 4.9
     },
     {
       "id": "FY2026Q2",
@@ -550,7 +554,8 @@
           "amortization_of_intangibles": 826
         },
         "note": "Release prints cumulative six-month figures; discrete Q2 derived by subtracting the Q1 FY2026 three-month figures. total_da = 1,704 + 406 = 2,110 (cumulative six-month total 3,881). The same release's three-month income-statement 'Amortization of intangible assets' line prints 407; the $1M difference versus the derived 406 is an independent-rounding artifact of the cumulative cash-flow presentation."
-      }
+      },
+      "iaas_revenue_bn": 4.1
     },
     {
       "id": "FY2026Q1",
@@ -665,7 +670,8 @@
           "amortization_of_intangibles": 420
         },
         "note": "Q1 release reports three months directly; discrete quarter = figure as printed. total_da = 1,351 + 420 = 1,771. Prior-year column (804 / 624) matches the Q1 FY2025 release."
-      }
+      },
+      "iaas_revenue_bn": 3.3
     },
     {
       "id": "FY2025Q4",
@@ -789,7 +795,8 @@
         "total": 15903,
         "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526265848/orcl-ex99_1.htm",
         "note": "prior-year comparative column ('Three Months Ended May 31, 2025') of the Q4 FY2026 release's headline GAAP results table. Reconciles to the original Q4 FY2025 release: Cloud 6,737 = former 'Cloud services'; Software 6,968 = 2,007 + 4,961; Hardware 850 and Services 1,348 unchanged."
-      }
+      },
+      "iaas_revenue_bn": 3
     },
     {
       "id": "FY2025Q3",
@@ -903,7 +910,8 @@
         "total": 14130,
         "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526100148/orcl-ex99_1.htm",
         "note": "prior-year comparative column ('Three Months Ended February 28, 2025') of the Q3 FY2026 release's headline GAAP results table. Reconciles to the original Q3 FY2025 release: Cloud 6,210 = former 'Cloud services'; Software 5,926 = 1,129 + 4,797; Hardware 703 and Services 1,291 unchanged."
-      }
+      },
+      "iaas_revenue_bn": 2.7
     },
     {
       "id": "FY2025Q2",
@@ -1017,7 +1025,8 @@
         "total": 14059,
         "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525314207/orcl-ex99_1.htm",
         "note": "prior-year comparative column ('Three Months Ended November 30, 2024') of the Q2 FY2026 release's headline GAAP results table. Reconciles to the original Q2 FY2025 release: Cloud 5,937 = former 'Cloud services'; Software 6,064 = 1,195 + 4,869; Hardware 728 and Services 1,330 unchanged."
-      }
+      },
+      "iaas_revenue_bn": 2.4
     },
     {
       "id": "FY2025Q1",
@@ -1131,7 +1140,8 @@
         "total": 13307,
         "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525199175/orcl-ex99_1.htm",
         "note": "prior-year comparative column ('Three Months Ended August 31, 2024') of the Q1 FY2026 release's headline GAAP results table. Reconciles to the original Q1 FY2025 release: Cloud 5,623 = former 'Cloud services' sub-line; Software 5,766 = former 'Cloud license and on-premise license' 870 + 'License support' 4,896; Hardware 655 and Services 1,263 unchanged."
-      }
+      },
+      "iaas_revenue_bn": 2.2
     },
     {
       "id": "FY2024Q4",
@@ -1245,7 +1255,8 @@
       },
       "revenue_basis": "legacy_lines",
       "basis_note_en": "Revenue lines on this quarter's original release used Oracle's pre-FY2026 captions: 'cloud' = Cloud services and license support; 'software' = Cloud license and on-premise license. Total revenue is unaffected; only the cloud/software split is on a different basis from FY2026 onward.",
-      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026."
+      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026.",
+      "iaas_revenue_bn": 2
     },
     {
       "id": "FY2024Q3",
@@ -1353,7 +1364,8 @@
       },
       "revenue_basis": "legacy_lines",
       "basis_note_en": "Revenue lines on this quarter's original release used Oracle's pre-FY2026 captions: 'cloud' = Cloud services and license support; 'software' = Cloud license and on-premise license. Total revenue is unaffected; only the cloud/software split is on a different basis from FY2026 onward.",
-      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026."
+      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026.",
+      "iaas_revenue_bn": 1.8
     },
     {
       "id": "FY2024Q2",
@@ -1457,7 +1469,8 @@
       },
       "revenue_basis": "legacy_lines",
       "basis_note_en": "Revenue lines on this quarter's original release used Oracle's pre-FY2026 captions: 'cloud' = Cloud services and license support; 'software' = Cloud license and on-premise license. Total revenue is unaffected; only the cloud/software split is on a different basis from FY2026 onward.",
-      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026."
+      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026.",
+      "iaas_revenue_bn": 1.6
     },
     {
       "id": "FY2024Q1",
@@ -1562,7 +1575,8 @@
       },
       "revenue_basis": "legacy_lines",
       "basis_note_en": "Revenue lines on this quarter's original release used Oracle's pre-FY2026 captions: 'cloud' = Cloud services and license support; 'software' = Cloud license and on-premise license. Total revenue is unaffected; only the cloud/software split is on a different basis from FY2026 onward.",
-      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026."
+      "basis_note_es": "Los rubros de ingresos del reporte original de este trimestre usan las etiquetas de Oracle previas al AF2026: 'nube' = Servicios de nube y soporte de licencias; 'software' = Licencias de nube y en sitio. El ingreso total no cambia; solo la división nube/software está en una base distinta a partir del AF2026.",
+      "iaas_revenue_bn": 1.5
     },
     {
       "id": "FY2023Q4",

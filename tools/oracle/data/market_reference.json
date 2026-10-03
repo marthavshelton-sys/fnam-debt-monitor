@@ -532,5 +532,14 @@
     "Debt instrument table cross-validated internally: sum of all 58 listed instruments' principal_millions = 130,105, which matches Oracle's FY2026 10-K disclosed 'Total notes payable and other borrowings' (gross, before unamortized discount) of $130,105 million exactly (source: R55.htm within the same 10-K accession, filing index https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/). Current portion $7,199M; non-current $122,342M (net of $564M unamortized discount/issuance costs; net total $129,541M, the figure carried in quarters.json for FY2026Q4).",
     "Coupon rates for the 2 floating-rate senior notes (due Aug 2028 and Feb 2029) are reported as their SOFR spread (0.76% and 1.11% respectively), not an all-in rate, consistent with how the 10-K's 'stated interest rate percentage' field defines them. The Term Loan's coupon_pct (5.29%) is its FY2026 effective/all-in interest rate (after interest rate swaps), since its base rate is SOFR + 1.35% and an all-in comparable figure is more decision-useful for a board model; the raw SOFR+1.35% spread is noted in its series_name instead.",
     "Some duplicate-maturity series exist by design per the 10-K (e.g., two separate notes both maturing in May 2030, and both a fixed- and floating-rate tranche maturing in Aug 2028 and again in Feb 2029) -- these are distinct instruments, not data errors."
-  ]
+  ],
+  "erp": {
+    "erp_pct": 4.14,
+    "as_of": "2026-09-01",
+    "method": "Trailing 12 month, with adjusted payout",
+    "riskfree_used_pct": 4.75,
+    "source_url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm",
+    "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
+    "accessed": "2026-10-03"
+  }
 }

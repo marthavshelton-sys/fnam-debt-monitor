@@ -12,6 +12,7 @@
     { "id": "obligations", "en": "Off-Balance-Sheet Financing and Leases", "es": "Financiamiento fuera de balance y arrendamientos", "nav_en": "Off-balance-sheet", "nav_es": "Fuera de balance", "deck": true, "modules": ["obligations", "xbrl", "peer_leverage"] },
     { "id": "circular", "en": "Circular Financing and Customer Concentration", "es": "Financiamiento circular y concentración de clientes", "nav_en": "Circularity", "nav_es": "Circularidad", "deck": true, "modules": ["obligations", "buildout", "news"] },
     { "id": "valuation", "en": "Valuation Context", "es": "Contexto de valuación", "nav_en": "Valuation", "nav_es": "Valuación", "deck": true, "modules": ["market", "factset", "financials"] },
+    { "id": "dcf", "en": "Discounted Cash Flow (DCF) Valuation", "es": "Valuación por flujos descontados (DCF)", "nav_en": "DCF", "nav_es": "DCF", "deck": false, "modules": ["factset", "market", "financials", "xbrl"] },
     { "id": "news", "en": "News and Recent Events", "es": "Noticias y eventos recientes", "nav_en": "News", "nav_es": "Noticias", "deck": true, "modules": ["news"] },
     { "id": "risks", "en": "Risks", "es": "Riesgos", "nav_en": "Risks", "nav_es": "Riesgos", "deck": true, "modules": ["risks", "obligations"] },
     { "id": "calendar", "en": "Investor Calendar", "es": "Calendario del inversionista", "nav_en": "Calendar", "nav_es": "Calendario", "deck": false, "modules": ["calendar"] },

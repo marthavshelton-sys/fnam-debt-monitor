@@ -1,6 +1,6 @@
 {
   "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
-  "updated": "2026-09-24",
+  "updated": "2026-10-03",
   "capacity": {
     "unit": "MW",
     "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -200,8 +200,33 @@
       "first_revenue_en": "Generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe, 30 Sep 2025)",
       "first_revenue_es": "Genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe, 30 sep 2025)",
       "status_date": "2026-09-10",
-      "issues_en": "None reported in the sources tracked",
-      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
+      "issues": [
+        {
+          "date": "2026-06-25",
+          "kind": "safety",
+          "status": "open",
+          "basis": "press",
+          "en": "Worker-injury lawsuits against site contractors (Kiewit and MMR Group; DPR Construction in April 2026) and 14 emergency calls from the site since December 2024 (Taylor County Sheriff records). The claims are against the contractors, not Oracle.",
+          "es": "Demandas por lesiones de trabajadores contra contratistas del sitio (Kiewit y MMR Group; DPR Construction en abril de 2026) y 14 llamadas de emergencia desde el sitio desde diciembre de 2024 (registros del Sheriff del condado de Taylor). Las demandas son contra los contratistas, no contra Oracle.",
+          "source": {
+            "title": "TIME, 25 Jun 2026: Inside the worker safety concerns at Stargate data center",
+            "url": "https://time.com/article/2026/06/24/ai-data-center-stargate-abilene-texas-injuries/"
+          }
+        },
+        {
+          "date": "2026-03-27",
+          "kind": "scope",
+          "status": "closed",
+          "basis": "wire",
+          "en": "OpenAI chose not to expand the campus beyond the contracted ~1.2 GW (OpenAI's Sachin Katti: it 'chose to put that additional capacity in other locations'); Microsoft is taking the adjacent 900 MW expansion with Crusoe. No change to the contracted capacity.",
+          "es": "OpenAI decidió no ampliar el campus más allá de los ~1.2 GW contratados (Sachin Katti, de OpenAI: 'decidió poner esa capacidad adicional en otras ubicaciones'); Microsoft toma la ampliación contigua de 900 MW con Crusoe. Sin cambio en la capacidad contratada.",
+          "source": {
+            "title": "AP via WSLS, 27 Mar 2026: Microsoft takes over a Texas AI data center expansion after OpenAI backs away",
+            "url": "https://www.wsls.com/business/2026/03/27/microsoft-takes-over-a-texas-ai-data-center-expansion-after-openai-backs-away/"
+          }
+        }
+      ],
+      "issues_checked": "2026-10-03"
     },
     {
       "name": "Shackelford County, Texas (Vantage 'Frontier')",
@@ -259,8 +284,10 @@
       "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call)",
       "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
       "status_date": "2026-09-10",
-      "issues_en": "None reported in the sources tracked",
-      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
+      "issues": [],
+      "issues_checked": "2026-10-03",
+      "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
+      "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada)."
     },
     {
       "name": "Doña Ana County, New Mexico ('Project Jupiter')",
@@ -351,8 +378,59 @@
       "first_revenue_en": "First half of calendar 2027 (Oracle, 4Q26 call); 2028 online target for the full campus (Bloomberg, 24 Sep 2026)",
       "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26); objetivo de operación plena en 2028 (Bloomberg, 24 sep 2026)",
       "status_date": "2026-09-24",
-      "issues_en": "Force majeure notice sent by Oracle to the developer on 24 Sep 2026 (Bloomberg): it would let Oracle delay payments if the campus misses its 2028 online date. Oracle: \"Project Jupiter remains on our planned schedule\"; VP Michael Egbert: such notices \"do not, by themselves, establish a project delay\". Blue Owl: the notice \"does not change the financial commitments\". The US$18 bn project loans were quoted at 89–91 cents (FT, 18 Sep 2026).",
-      "issues_es": "Aviso de fuerza mayor enviado por Oracle al desarrollador el 24 sep 2026 (Bloomberg): le permitiría diferir pagos si el campus no entra en operación en 2028. Oracle: \"el Proyecto Júpiter sigue en el calendario previsto\"; Michael Egbert, VP: estos avisos \"no establecen por sí mismos un retraso del proyecto\". Blue Owl: el aviso \"no cambia los compromisos financieros\". Los US$18 mil millones de préstamos del proyecto se cotizaban a 89–91 centavos (FT, 18 sep 2026)."
+      "issues": [
+        {
+          "date": "2026-09-24",
+          "kind": "force_majeure",
+          "status": "open",
+          "basis": "press",
+          "en": "Force majeure notice from Oracle to the developer (Stack Infrastructure, a Blue Owl unit): it would let Oracle delay payments if the campus misses its 2028 online date. Oracle: the project 'remains on our planned schedule' (company statement, not audited).",
+          "es": "Aviso de fuerza mayor de Oracle al desarrollador (Stack Infrastructure, unidad de Blue Owl): le permitiría diferir pagos si el campus no entra en operación en 2028. Oracle: el proyecto 'sigue en el calendario previsto' (declaración de la empresa, no auditada).",
+          "source": {
+            "title": "Bloomberg, 24 Sep 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
+            "url": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
+          }
+        },
+        {
+          "date": "2026-09-24",
+          "kind": "power",
+          "status": "open",
+          "basis": "press",
+          "due": "2027-02-01",
+          "en": "Gas supply: the Energy Transfer pipeline to the site is delayed to February 1, 2027 after repeated permit denials and an August reroute.",
+          "es": "Suministro de gas: el gasoducto de Energy Transfer al sitio se pospuso al 1 de febrero de 2027 tras repetidas negativas de permisos y un cambio de ruta en agosto.",
+          "source": {
+            "title": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
+            "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
+          }
+        },
+        {
+          "date": "2026-09-24",
+          "kind": "permit",
+          "status": "open",
+          "basis": "press",
+          "due": "2026-11-23",
+          "en": "Air-quality permit for the on-site fuel cells is pending; the decision is due November 23, 2026.",
+          "es": "El permiso de calidad del aire de las celdas de combustible en sitio está pendiente; la decisión se espera el 23 de noviembre de 2026.",
+          "source": {
+            "title": "TechCrunch, 24 Sep 2026",
+            "url": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
+          }
+        },
+        {
+          "date": "2026-09-18",
+          "kind": "financing",
+          "status": "open",
+          "basis": "press",
+          "en": "About US$18 bn of project loans were quoted at 89–91 cents on the dollar by syndicate banks; selling the debt to a wider pool of investors stalled. The loans are the developer's, not Oracle's.",
+          "es": "Unos US$18 mil millones de préstamos del proyecto cotizaban a 89–91 centavos por dólar entre los bancos del sindicato; la venta de esa deuda a más inversionistas se estancó. Los préstamos son del desarrollador, no de Oracle.",
+          "source": {
+            "title": "Financial Times via Reuters, 18 Sep 2026: Oracle's $18 billion data center debt under pressure",
+            "url": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
+          }
+        }
+      ],
+      "issues_checked": "2026-10-03"
     },
     {
       "name": "Saline Township, Michigan (Stargate 'The Barn')",
@@ -410,8 +488,33 @@
       "first_revenue_en": "Second half of calendar 2027 (Oracle, 4Q26 call)",
       "first_revenue_es": "Segundo semestre de 2027 (Oracle, llamada 4T26)",
       "status_date": "2026-06-01",
-      "issues_en": "None reported in the sources tracked",
-      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
+      "issues": [
+        {
+          "date": "2026-08-07",
+          "kind": "regulatory",
+          "status": "open",
+          "basis": "government",
+          "en": "Michigan's Attorney General filed her brief in the Michigan Court of Appeals against the Public Service Commission's December 2025 conditional approval of DTE's two special contracts to supply 1.4 GW to the campus, seeking a contested case; Earthjustice, Sierra Club, the Michigan Environmental Council and NRDC filed a parallel brief.",
+          "es": "La Fiscal General de Michigan presentó su escrito ante la Corte de Apelaciones de Michigan contra la aprobación condicional de diciembre de 2025 de la Comisión de Servicios Públicos a los dos contratos especiales de DTE para suministrar 1.4 GW al campus, y pide un caso contencioso; Earthjustice, Sierra Club, el Michigan Environmental Council y NRDC presentaron un escrito paralelo.",
+          "source": {
+            "title": "Michigan Department of Attorney General, 7 Aug 2026: AG Nessel briefs appeal over MPSC approval of DTE's Saline data center contracts",
+            "url": "https://www.michigan.gov/ag/news/press-releases/2026/08/07/ag-nessel-briefs-appeal-over-mpsc-approval-of-dte-saline-data-center-contracts"
+          }
+        },
+        {
+          "date": "2025-09-12",
+          "kind": "zoning",
+          "status": "closed",
+          "basis": "press",
+          "en": "The township board voted 4–1 against the rezoning; Related Digital sued for exclusionary zoning on September 12, 2025 and the township settled weeks later, which let construction start.",
+          "es": "La junta del municipio votó 4–1 contra la rezonificación; Related Digital demandó por zonificación excluyente el 12 de septiembre de 2025 y el municipio llegó a un acuerdo semanas después, lo que permitió iniciar la obra.",
+          "source": {
+            "title": "Fortune, 6 May 2026: A Michigan farm town voted down plans for a giant OpenAI-Oracle data center. Weeks later, construction began",
+            "url": "https://fortune.com/2026/05/06/ai-data-center-michigan-saline-politics-farmland/"
+          }
+        }
+      ],
+      "issues_checked": "2026-10-03"
     },
     {
       "name": "Port Washington, Wisconsin (Vantage 'Lighthouse')",
@@ -469,8 +572,33 @@
       "first_revenue_en": "Second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage)",
       "first_revenue_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)",
       "status_date": "2026-09-10",
-      "issues_en": "None reported in the sources tracked",
-      "issues_es": "Sin incidencias reportadas en las fuentes seguidas"
+      "issues": [
+        {
+          "date": "2026-08-17",
+          "kind": "financing",
+          "status": "open",
+          "basis": "press",
+          "en": "Oracle dropped its court challenge (filed June 2026) to the Wisconsin PSC's April 2026 rule that data-center customers rated below A-/A3 post cash or letters of credit for new power infrastructure; Oracle had said the requirement could exceed US$100 million a year for this campus. The rule stands.",
+          "es": "Oracle desistió de su impugnación judicial (presentada en junio de 2026) contra la regla de abril de 2026 de la PSC de Wisconsin que obliga a los clientes de centros de datos con calificación inferior a A-/A3 a depositar efectivo o cartas de crédito por la nueva infraestructura eléctrica; Oracle había dicho que el requisito podría superar US$100 millones al año para este campus. La regla sigue vigente.",
+          "source": {
+            "title": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers",
+            "url": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
+          }
+        },
+        {
+          "date": "2026-07-13",
+          "kind": "legal",
+          "status": "open",
+          "basis": "press",
+          "en": "The Sierra Club sued the Wisconsin Department of Natural Resources to overturn the construction permit, issued without an environmental impact statement.",
+          "es": "Sierra Club demandó al Departamento de Recursos Naturales de Wisconsin para anular el permiso de construcción, emitido sin una declaración de impacto ambiental.",
+          "source": {
+            "title": "E&E News, 13 Jul 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review",
+            "url": "https://www.eenews.net/articles/lawsuit-15b-wisconsin-data-center-lacks-required-environmental-review/"
+          }
+        }
+      ],
+      "issues_checked": "2026-10-03"
     }
   ],
   "rpo_schedule": {
@@ -815,5 +943,6 @@
         "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
       }
     }
-  }
+  },
+  "_issues_note": "sites[].issues: dated adverse events per campus (newest first): kind (force_majeure, power, permit, financing, regulatory, legal, zoning, safety, scope), status (open | closed), basis (company | government | wire | press), bilingual one-line fact, the source, and `due` when the item names a decision or delivery date (the page counts down to it and flags it once passed). issues_checked = the date the sources were last searched; an empty list shows 'none reported' with that date. The daily news sweep (NEWS-SWEEP-PROMPT.md) appends site-level events here."
 }

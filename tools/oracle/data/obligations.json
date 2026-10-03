@@ -302,7 +302,7 @@
  "peers_note_en": "Peer leverage (off-balance-sheet section) comes from each company's SEC XBRL company facts (latest fiscal year for flows, latest balance sheet for stocks), fetched by scripts/oracle/fetch-peer-leverage.mjs; ratings shown only where the agency's own release is linked.",
  "peers_note_es": "El apalancamiento de los pares (sección fuera de balance) proviene de los datos XBRL de cada empresa en la SEC (último año fiscal para flujos, último balance para saldos), obtenidos por scripts/oracle/fetch-peer-leverage.mjs; las calificaciones se muestran solo cuando se enlaza el comunicado de la agencia.",
  "provenance": {
-  "_comment": "Filing, note, page and accession for every transcribed figure, keyed by the JSON path of the figure. page: null = the inline-XBRL filing carries no fixed pagination; the note name is the anchor. xbrl: the us-gaap concept that machine-checks the figure (validate-data.mjs writes the verdict to quality_report.obligations_verification; a figure without a concept keeps the needs-review flag until a second reading).",
+  "_comment": "Filing, note, page and accession for every transcribed figure, keyed by the JSON path of the figure. page: null = the inline-XBRL filing carries no fixed pagination; the note name is the anchor. How each figure is machine-checked (validate-data.mjs writes the verdict to quality_report.obligationsVerification): xbrl = the us-gaap concept for the same period (a list = a schedule, element by element); xbrl_sum = the figure equals the sum of these concepts; release_check = the same figure printed in the archived 8-K earnings release and re-read by test-parsers.mjs; tie_checks = validator tie-outs that recompute the figure from the document's own terms. text_only = a text reading with no machine check possible (no XBRL concept exists): it keeps the needs-review flag until a second reading.",
   "balance_sheet.notes_payable_current": {
    "source": "10q_1q27",
    "note": "balance",
@@ -313,25 +313,29 @@
    "source": "10q_1q27",
    "note": "balance",
    "page": null,
-   "xbrl": null
+   "xbrl": "notes_payable_noncurrent"
   },
   "balance_sheet.notes_payable_total": {
    "source": "10q_1q27",
    "note": "balance",
    "page": null,
-   "xbrl": null
+   "xbrl": null,
+   "xbrl_sum": [
+    "notes_payable_current",
+    "notes_payable_noncurrent"
+   ]
   },
   "balance_sheet.cash_and_equivalents": {
    "source": "10q_1q27",
    "note": "balance",
    "page": null,
-   "xbrl": null
+   "xbrl": "cash_equivalents"
   },
   "balance_sheet.marketable_securities": {
    "source": "10q_1q27",
    "note": "balance",
    "page": null,
-   "xbrl": null
+   "xbrl": "marketable_securities"
   },
   "leases.operating_rou_assets": {
    "source": "10q_1q27",
@@ -441,31 +445,54 @@
     "po_due_after_y5"
    ]
   },
-  "guarantees": {
+  "prepayments.deferred_revenue_prepayments_financing_1q27": {
    "source": "10q_1q27",
-   "note": "commitments",
+   "note": "cash_flow",
    "page": null,
    "xbrl": null,
-   "text_only": true
+   "release_check": {
+    "quarter": "FY2027Q1",
+    "check": "CF: customer prepayments with a significant financing component"
+   }
   },
-  "vie": {
+  "guarantees.usd_m": {
+   "source": "10k_fy26",
+   "note": "leases",
+   "page": 90,
+   "xbrl": null,
+   "text_only": true,
+   "quote_field": "guarantees.quote"
+  },
+  "vie.disclosed": {
    "source": "10k_fy26",
    "note": "Note 1, Organization and significant accounting policies (consolidation)",
    "page": null,
    "xbrl": null,
    "text_only": true
   },
-  "prepayments.deferred_revenue_prepayments_financing_1q27": {
+  "preferred.carrying_value_usd_m": {
    "source": "10q_1q27",
-   "note": "cash_flow",
+   "note": "balance",
    "page": null,
-   "xbrl": null
+   "xbrl": "preferred_stock_value"
   },
-  "preferred": {
+  "preferred.dividend_quarterly_usd_m": {
    "source": "424b5_pref",
    "note": "Prospectus supplement, Description of the mandatory convertible preferred stock",
    "page": null,
-   "xbrl": null
+   "xbrl": null,
+   "tie_checks": [
+    "obligations: preferred quarterly dividend = 6.50% × US$5 bn ÷ 4"
+   ]
+  },
+  "preferred.max_conversion_rate": {
+   "source": "424b5_pref",
+   "note": "Prospectus supplement, Description of the mandatory convertible preferred stock",
+   "page": null,
+   "xbrl": null,
+   "tie_checks": [
+    "obligations: preferred conversion rates = liquidation preference ÷ threshold and initial prices"
+   ]
   }
  },
  "vie": {
@@ -481,8 +508,8 @@
   "reported_es": "Como se reporta (balance US GAAP): deuda neta = notas por pagar y otros préstamos − efectivo, equivalentes e inversiones negociables; apalancamiento = deuda neta ÷ EBITDA UDM (utilidad de operación GAAP + D&A).",
   "lease_adjusted_en": "Lease-adjusted (ASC 842 view): adds the operating and finance lease liabilities already recognised on the balance sheet (present value of the lease payments at Oracle's incremental borrowing rate) to net debt, and the LTM operating lease cost back to EBITDA (EBITDAR), because operating lease cost sits in operating expenses while finance-lease cost is already in D&A and interest. This is close to what the rating agencies do.",
   "lease_adjusted_es": "Ajustado por arrendamientos (vista ASC 842): suma a la deuda neta los pasivos por arrendamientos operativos y financieros ya reconocidos en el balance (valor presente de los pagos a la tasa incremental de Oracle) y devuelve al EBITDA el costo de arrendamientos operativos UDM (EBITDAR), porque ese costo está en gastos de operación mientras el de los financieros ya está en D&A e intereses. Es cercano a lo que hacen las agencias.",
-  "lookthrough_en": "Look-through (ASC 810 and commitments view): asks what Oracle is committed to beyond the balance sheet. Oracle consolidates no VIE and reports no guarantees, so nothing is added as a liability; the US$288 bn of leases signed but not yet commenced is shown separately at its undiscounted nominal value (Oracle discloses no payment schedule, so it cannot be discounted to a present value without assumptions) and the purchase obligations at their undiscounted total. The developers' project debt (press-reported) is the developers', not Oracle's, and is listed per site for reference only. A maximum guarantee exposure, were one disclosed, would be shown as exposure, never as a liability.",
-  "lookthrough_es": "Transparente (vista ASC 810 y compromisos): pregunta a qué está comprometida Oracle más allá del balance. Oracle no consolida VIEs ni reporta garantías, por lo que nada se suma como pasivo; los US$288 mil millones de arrendamientos firmados y no iniciados se muestran aparte a su valor nominal sin descontar (Oracle no divulga el calendario de pagos, así que no puede descontarse a valor presente sin supuestos) y las obligaciones de compra a su total sin descontar. La deuda de proyecto de los desarrolladores (reportada por la prensa) es de ellos, no de Oracle, y se lista por sitio solo como referencia. Una exposición máxima por garantías, si se divulgara, se mostraría como exposición, nunca como pasivo.",
+  "lookthrough_en": "Look-through (ASC 810 and commitments view): asks what Oracle is committed to beyond the balance sheet. Nothing in this view is added as a liability. Leases signed but not yet commenced are shown separately at their undiscounted nominal value (Oracle discloses no payment schedule, so they cannot be discounted to a present value without assumptions) and the purchase obligations at their undiscounted total. A guarantee is shown as a maximum exposure, never as a liability. The developers' project debt (press-reported) is the developers', not Oracle's, and is listed per site for reference only. What the filings say about variable-interest entities and guarantees is stated below the table, with its source.",
+  "lookthrough_es": "Transparente (vista ASC 810 y compromisos): pregunta a qué está comprometida Oracle más allá del balance. Nada en esta vista se suma como pasivo. Los arrendamientos firmados y no iniciados se muestran aparte a su valor nominal sin descontar (Oracle no divulga el calendario de pagos, así que no pueden descontarse a valor presente sin supuestos) y las obligaciones de compra a su total sin descontar. Una garantía se muestra como exposición máxima, nunca como pasivo. La deuda de proyecto de los desarrolladores (reportada por la prensa) es de ellos, no de Oracle, y se lista por sitio solo como referencia. Lo que dicen los reportes sobre entidades de interés variable y garantías se indica debajo de la tabla, con su fuente.",
   "pv_estimate": {
    "label_en": "FNAM estimate, illustrative only",
    "label_es": "Estimación FNAM, solo ilustrativa",

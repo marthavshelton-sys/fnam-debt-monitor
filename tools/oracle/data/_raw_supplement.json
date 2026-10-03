@@ -329,10 +329,65 @@
       "hardware": 670,
       "services": 1349,
       "total": 14926,
-      "expected": { "cloud": 7186, "software": 5721, "hardware": 670, "services": 1349, "total": 14926 },
+      "expected": {
+        "cloud": 7186,
+        "software": 5721,
+        "hardware": 670,
+        "services": 1349,
+        "total": 14926
+      },
       "continuity_check": "PASS",
       "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526387905/orcl-ex99_1.htm",
       "_note": "prior-year comparative column ('Three Months Ended August 31, 2025') of the Q1 FY2027 release's headline GAAP results table; equals the expected values and the current-period column of the Q1 FY2026 release, confirming the FY2026 caption basis continues unchanged into FY2027."
+    }
+  },
+  "kpi_by_quarter": {
+    "_note": "Read from each quarter's Exhibit 99.1 earnings release (archived in tools/oracle/raw/8k): iaas_revenue_bn = the headline bullet 'Cloud Infrastructure (IaaS) Revenue ... $X billion' (US$ billions, one decimal as printed; the metric Oracle's OCI revenue targets refer to); customer_prepayments = the cash-flow line 'Increase in deferred revenues from customer prepayments with significant financing component' (US$ millions; first printed in the 4Q26 release, 12-month column). test-parsers.mjs re-reads both from the archived release.",
+    "FY2024Q1": {
+      "iaas_revenue_bn": 1.5
+    },
+    "FY2024Q2": {
+      "iaas_revenue_bn": 1.6
+    },
+    "FY2024Q3": {
+      "iaas_revenue_bn": 1.8
+    },
+    "FY2024Q4": {
+      "iaas_revenue_bn": 2
+    },
+    "FY2025Q1": {
+      "iaas_revenue_bn": 2.2
+    },
+    "FY2025Q2": {
+      "iaas_revenue_bn": 2.4
+    },
+    "FY2025Q3": {
+      "iaas_revenue_bn": 2.7
+    },
+    "FY2025Q4": {
+      "iaas_revenue_bn": 3
+    },
+    "FY2026Q1": {
+      "iaas_revenue_bn": 3.3
+    },
+    "FY2026Q2": {
+      "iaas_revenue_bn": 4.1
+    },
+    "FY2026Q3": {
+      "iaas_revenue_bn": 4.9
+    },
+    "FY2026Q4": {
+      "iaas_revenue_bn": 5.8
+    },
+    "FY2027Q1": {
+      "iaas_revenue_bn": 7.4,
+      "customer_prepayments": 11363
+    }
+  },
+  "fiscal_year_cash_flow": {
+    "_note": "Full-year cash-flow lines not in the release highlights: customer_prepayments from the 4Q release's 'Year Ended' column (none printed before FY2026).",
+    "FY2026": {
+      "customer_prepayments": 4592
     }
   }
 }

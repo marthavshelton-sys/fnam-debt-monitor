@@ -127,8 +127,8 @@ function isBlock(q) {
   };
 }
 function bsBlock(q) { const b = q.balance_sheet || {}; if (b.total_debt == null && b.total_assets == null) return null; return { cash: b.cash_and_equivalents, marketableSecurities: b.marketable_securities, cashAndInvestments: b.cash_and_investments_total, totalAssets: b.total_assets, deferredRevenueCurrent: b.current_deferred_revenue, debtCurrent: b.short_term_debt, debtLT: b.long_term_debt, totalDebt: b.total_debt, netDebt: b.total_debt != null ? b.total_debt - (b.cash_and_investments_total || 0) : null, equity: b.stockholders_equity }; }
-function cfBlock(q) { const c = q.cash_flow || {}, da = q.da || {}; if (c.operating_cash_flow_quarter == null) return null; return { cfo: c.operating_cash_flow_quarter, capex: c.capex_quarter, fcf: c.free_cash_flow_quarter, depreciation: da.depreciation ?? null, amortization: da.amortization_of_intangibles ?? null, da: da.total_da ?? null, capexToRevenue: pct(-c.capex_quarter, q.gaap.revenue.total) }; }
-function kpiBlock(q) { const rc = q.revenue_basis === "fy2026_lines" ? q.gaap.revenue : q.revenue_recast_fy2026_basis || null; return { rpo: q.rpo?.total ?? null, rpoYoyPct: q.rpo?.yoy_pct ?? null, cloudRev: rc ? rc.cloud : null, cloudShare: rc ? pct(rc.cloud, q.gaap.revenue.total) : null, dps: q.dividend_declared_per_share ?? null }; }
+function cfBlock(q) { const c = q.cash_flow || {}, da = q.da || {}; if (c.operating_cash_flow_quarter == null) return null; return { cfo: c.operating_cash_flow_quarter, capex: c.capex_quarter, fcf: c.free_cash_flow_quarter, depreciation: da.depreciation ?? null, amortization: da.amortization_of_intangibles ?? null, da: da.total_da ?? null, capexToRevenue: pct(-c.capex_quarter, q.gaap.revenue.total), prepay: c.customer_prepayments_quarter ?? null }; }
+function kpiBlock(q) { const rc = q.revenue_basis === "fy2026_lines" ? q.gaap.revenue : q.revenue_recast_fy2026_basis || null; return { rpo: q.rpo?.total ?? null, rpoYoyPct: q.rpo?.yoy_pct ?? null, cloudRev: rc ? rc.cloud : null, cloudShare: rc ? pct(rc.cloud, q.gaap.revenue.total) : null, dps: q.dividend_declared_per_share ?? null, iaasRevBn: q.iaas_revenue_bn ?? null }; }
 
 const finQuarters = quarters.map((q) => {
   const s = src(q.source);
@@ -148,13 +148,13 @@ const years = Object.entries(fiscalYears).map(([id, y]) => {
   // Years without four captured quarters (the FY2017-FY2021 backfill from the 10-Ks) carry their lines at year level.
   const gr = g.revenue || {};
   const is = { revTotal: g.revenue_total, revCloud: sum("revCloud") ?? gr.cloud ?? null, revSoftware: sum("revSoftware") ?? gr.software ?? null, revHardware: sum("revHardware") ?? gr.hardware ?? null, revServices: sum("revServices") ?? gr.services ?? null, totalOpex: sum("totalOpex") ?? g.opex_total ?? null, opIncome: g.operating_income, opMargin: pct(g.operating_income, g.revenue_total), netIncomeCommon: g.net_income, epsDiluted: g.diluted_eps, dilutedShares: qs.length === 4 ? null : (g.diluted_shares ?? null), ngOpIncome: ng.operating_income ?? null, ngOpMargin: pct(ng.operating_income, g.revenue_total), ngNetIncomeCommon: ng.net_income ?? null, ngEpsDiluted: ng.diluted_eps ?? null, da: da.total_da ?? null, ebitda, ebitdaMargin: pct(ebitda, g.revenue_total), interestExpense: sum("interestExpense") ?? g.interest_expense ?? null, nonOpIncome: g.nonoperating_income_net ?? null, incomeTax: sum("incomeTax") ?? g.tax_provision ?? null, pretaxIncome: sum("pretaxIncome") ?? g.pretax_income ?? null, netIncome: sum("netIncome") ?? g.net_income ?? null };
-  const cf = { cfo: g.operating_cash_flow, capex: g.capex, fcf: g.operating_cash_flow != null && g.capex != null ? g.operating_cash_flow + g.capex : null, depreciation: da.depreciation ?? null, amortization: da.amortization_of_intangibles ?? null, da: da.total_da ?? null, capexToRevenue: pct(-g.capex, g.revenue_total) };
+  const cf = { cfo: g.operating_cash_flow, capex: g.capex, fcf: g.operating_cash_flow != null && g.capex != null ? g.operating_cash_flow + g.capex : null, depreciation: da.depreciation ?? null, amortization: da.amortization_of_intangibles ?? null, da: da.total_da ?? null, capexToRevenue: pct(-g.capex, g.revenue_total), prepay: g.customer_prepayments ?? null };
   const q4 = qs.find((q) => q.q === 4);
   const rc = y.revenue_recast_fy2026_basis;
   const recast = rc ? { revCloud: rc.cloud, revSoftware: rc.software, revHardware: rc.hardware, revServices: rc.services, source: rc.source_url } : null;
   const basis = fy >= 2026 ? "fy2026_lines" : "legacy_lines";
   const cloudNew = basis === "fy2026_lines" ? is.revCloud : recast ? recast.revCloud : null;
-  return { id, fy, basis, recast, is, cf, bs: q4 ? q4.bs : null, kpi: { rpo: q4 ? q4.kpi.rpo : null, rpoYoyPct: q4 ? q4.kpi.rpoYoyPct : null, cloudRev: cloudNew, cloudShare: cloudNew != null ? pct(cloudNew, g.revenue_total) : null, dps: qs.reduce((a, q) => a + (q.kpi.dps || 0), 0) }, sources: { is: src(y.source), cf: src(y.source), bs: q4 ? q4.sources.bs : null, kpi: src(y.source) } };
+  return { id, fy, basis, recast, is, cf, bs: q4 ? q4.bs : null, kpi: { iaasRevBn: qs.length === 4 && qs.every((q) => q.kpi.iaasRevBn != null) ? Math.round(10 * qs.reduce((a, q) => a + q.kpi.iaasRevBn, 0)) / 10 : null, rpo: q4 ? q4.kpi.rpo : null, rpoYoyPct: q4 ? q4.kpi.rpoYoyPct : null, cloudRev: cloudNew, cloudShare: cloudNew != null ? pct(cloudNew, g.revenue_total) : null, dps: qs.reduce((a, q) => a + (q.kpi.dps || 0), 0) }, sources: { is: src(y.source), cf: src(y.source), bs: q4 ? q4.sources.bs : null, kpi: src(y.source) } };
 }).sort((a, b) => a.fy - b.fy);
 
 emit("financials.js", "ORCL_FIN", {
@@ -174,7 +174,7 @@ const ohlc = (() => { const p = join(DATA, "prices_orcl_daily.csv"); if (!exists
 const range52 = (() => { if (!ohlc.length) return null; const last = ohlc[ohlc.length - 1]; const from = new Date(last.d + "T00:00:00Z"); from.setUTCDate(from.getUTCDate() - 365); const fromIso = from.toISOString().slice(0, 10); const w = ohlc.filter((x) => x.d > fromIso && x.d <= last.d); if (!w.length) return null; const H = w.reduce((a, x) => (x.h > a.h ? x : a)), Lo = w.reduce((a, x) => (x.l < a.l ? x : a)); return { high: H.h, highDate: H.d, low: Lo.l, lowDate: Lo.d, from: w[0].d, to: last.d, basis: "intraday", source: mref.price_snapshot?.orcl?.source_name || null, note: "52-week high and low from daily intraday highs and lows over the 52 weeks ending at the latest close (window excludes the same date a year earlier)." }; })();
 const divs = (load("dividends.json", { dividends: [] }).dividends || []).filter((d) => d.payment_date && d.amount_per_share != null).map((d) => [d.payment_date, d.amount_per_share]).sort((a, b) => (a[0] < b[0] ? -1 : 1));
 emit("market.js", "ORCL_MARKET", {
-  generatedAt: mref.as_of ? mref.as_of + "T00:00:00Z" : now,
+  generatedAt: mref.refreshed_at || mref.as_of || now,
   prices: {
     ORCL: { name: "Oracle (NYSE: ORCL)", currency: "USD", exchange: "NYSE", source: mref.price_snapshot?.orcl?.source_name || "Public daily closes (Yahoo Finance chart API; Nasdaq/Stooq fallbacks)", sourceUrl: mref.price_snapshot?.orcl?.source_url || null, fetchedAt: mref.price_snapshot?.orcl?.accessed || null, points: orclPts },
     "^GSPC": { name: "S&P 500", currency: "USD", exchange: "index", source: mref.price_snapshot?.sp500?.source_name || "FRED SP500 / Yahoo Finance", sourceUrl: mref.price_snapshot?.sp500?.source_url || null, fetchedAt: mref.price_snapshot?.sp500?.accessed || null, points: spxPts },
@@ -220,7 +220,18 @@ emit("reference.js", "ORCL_REF", {
   },
   rpo: { title: { en: ex.title_en, es: ex.title_es }, plain: { en: ex.plain_en, es: ex.plain_es }, quote: { en: ex.quote_en, es: ex.quote_es }, quoteSource: src(ex.quote_source), schedule: ex.recognition_schedule || [], caution: { en: ex.caution_en, es: ex.caution_es }, latest: latest?.rpo?.total ?? null, latestQuarter: latest ? label(latest) : null },
   glossary: Object.values(gl),
-  dcf: { horizonYears: 5, terminalMethod: "perpetuity", revenueGrowthPct: [30, 25, 20, 15, 10], ebitdaMarginPct: null, capexUsdM: [70000, 60000, 50000, 40000, 35000], daPctRevenue: null, taxRatePct: null, nwcPctDeltaRevenue: 0, riskFreePct: null, erpPct: 4.5, beta: 1.0, costOfDebtPct: null, targetDebtPct: null, terminalGrowthPct: 3.0, exitMultiple: 12.0, notes: { en: "Defaults: year-1 growth consistent with the FY2027 guidance of at least US$90bn (+34%); capex tapering from the FY2027 guided US$70bn net cash outlay; margin, D&A, tax, beta, cost of debt and leverage computed from the data. Every input is editable and encoded in the URL.", es: "Supuestos por defecto: crecimiento del año 1 consistente con la guía AF2027 de al menos US$90 mil M (+34%); capex descendiendo desde el desembolso neto guiado de US$70 mil M para AF2027; margen, D&A, impuestos, beta, costo de deuda y apalancamiento calculados con los datos. Cada supuesto es editable y queda codificado en la URL." } },
+  // DCF defaults (owner-reviewed 2026-10-03; every input stays editable on the page and is encoded in the URL). Figures
+  // come from the data files at render time; these are only the method switches and the few assumptions with a source.
+  dcf: {
+    horizonYears: 10, terminalMethod: "perpetuity", terminalGrowthPct: 3.0, exitMultiple: 12.0,
+    taper: { en: "after the consensus years revenue growth halves each year down to the terminal rate", es: "después de los años de consenso el crecimiento de ingresos se reduce a la mitad cada año hasta la tasa terminal" },
+    terminalCapexToDa: null, // null = 1 + g × L / 2 (steady-state replacement plus growth capex for an asset life L)
+    prepayUnwindYears: 6, prepayUnwindSource: { en: "six-year contract in Oracle's illustrative 1 GW AI-infrastructure deal (financial analyst meeting, 16 Oct 2025, p.10)", es: "contrato de seis años del ejemplo ilustrativo de Oracle para un acuerdo de infraestructura de IA de 1 GW (reunión con analistas, 16 oct 2025, p.10)" },
+    erpFallbackPct: 4.5, betaMethod: "w2", costOfDebtMethod: "issue_spread",
+    notes: { en: "Revenue, EBITDA, D&A and capex follow FactSet consensus (or management's targets on the guidance basis); EBITDA is the brokers' adjusted figure less stock-based compensation; customer prepayments offset capex when received and unwind as revenue without cash over the contract term; the current fiscal year is a stub that excludes the quarters already in the balance sheet; flows are discounted at mid-period to the latest close.", es: "Ingresos, EBITDA, D&A y capex siguen el consenso de FactSet (o los objetivos de la administración en la base de guía); el EBITDA es la cifra ajustada de los brokers menos la compensación en acciones; los prepagos de clientes compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato; el año fiscal en curso es un periodo parcial que excluye los trimestres ya reflejados en el balance; los flujos se descuentan a mitad de periodo a la fecha del último cierre." },
+  },
+  erp: mref.erp ? { pct: mref.erp.erp_pct, asOf: mref.erp.as_of, method: mref.erp.method, riskfreeUsedPct: mref.erp.riskfree_used_pct, source: mref.erp.source_name, url: mref.erp.source_url, accessed: mref.erp.accessed } : null,
+  longRange: (load("long_range_targets.json", { targets: [] }).targets || []).map((t) => ({ ...t, sourceRef: src(t.source), supersededRef: t.superseded_source ? src(t.superseded_source) : null })),
   peers: ["Microsoft", "SAP", "Salesforce", "ServiceNow", "IBM", "Workday"],
 }, "Hand-curated, slow-moving facts for the Oracle model (ratings, instruments, AI buildout, RPO explainer, DCF defaults). Every block carries its source.");
 
@@ -268,14 +279,17 @@ emit("comments.js", "ORCL_COMMENTS", { updatedAt: cm.updatedAt || now.slice(0, 1
 const latestCm = latest ? cm.by_quarter?.[latest.id] : null;
 const sum = latestCm?.exec_summary || null;
 emit("summary.js", "ORCL_SUMMARY", {
-  updatedAt: latestCm?.drafted || cm.updatedAt || now.slice(0, 10),
+  // the summary's own date (exec_summary.updated, set when it is rewritten), never the date the line comments were drafted
+  updatedAt: sum?.updated || latestCm?.drafted || cm.updatedAt || now.slice(0, 10), commentsUpdatedAt: cm.updatedAt || null, eventsThrough: sum?.events_through || null,
   basis: { quarter: latest ? gid(latest) : null, resultsDate: latest?.release_date || null, guidanceDate: vint.at(-1)?.date || null, marketDate: mref.price_snapshot?.orcl?.close_date || null },
   headline: latestCm ? { en: latestCm.headline_en, es: latestCm.headline_es } : null,
+  watchSources: (sum?.watch_sources || []).filter((x) => x && x.title),
   sections: sum ? [
     { k: "ops", title: { es: "Operación", en: "Operations" }, es: sum.operations?.es || [], en: sum.operations?.en || [] },
     { k: "guidance", title: { es: "Guía y por qué cambió", en: "Guidance and why it changed" }, es: sum.guidance?.es || [], en: sum.guidance?.en || [] },
     { k: "debt", title: { es: "Deuda y razones", en: "Debt and ratios" }, es: sum.debt?.es || [], en: sum.debt?.en || [] },
-    { k: "watch", title: { es: "Qué observar en los próximos reportes", en: "What to watch in the next releases" }, es: sum.watch?.es || [], en: sum.watch?.en || [] },
+    // watch items are { h, lines[] } (short lines); the deck reads the flattened strings, the page the items
+    { k: "watch", title: { es: "Qué observar", en: "What to watch" }, items_es: (sum.watch?.es || []).map((x) => (typeof x === "string" ? { h: null, lines: [x] } : x)), items_en: (sum.watch?.en || []).map((x) => (typeof x === "string" ? { h: null, lines: [x] } : x)), es: (sum.watch?.es || []).map((x) => (typeof x === "string" ? x : `**${x.h}:** ${x.lines.join(" ")}`)), en: (sum.watch?.en || []).map((x) => (typeof x === "string" ? x : `**${x.h}:** ${x.lines.join(" ")}`)) },
   ] : [],
 }, "Executive summary — rewritten by the reviewing routine when new results, guidance or events land.");
 

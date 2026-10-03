@@ -6,6 +6,8 @@
 //   ORCL:   Nasdaq historical API → Yahoo Finance chart API → Stooq CSV
 //   S&P 500: FRED SP500 → Yahoo Finance chart API (^GSPC) → Stooq CSV
 //   10-year: FRED DGS10 → U.S. Treasury daily par yield curve CSV
+//   ERP:    Aswath Damodaran's implied equity risk premium for the S&P 500 (monthly, first of the month), read from
+//           his NYU Stern home page; a failed read keeps the stored value (the page dates it and flags it when old)
 // Run: node scripts/oracle/fetch-market.mjs
 
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
@@ -75,6 +77,24 @@ async function treasuryCSV() {
   return { rows, url };
 }
 
+// Damodaran posts "Implied ERP on <Month> <d>, <yyyy> = 4.14% (Trailing 12 month, with adjusted payout); ... (with the US
+// treasury rate of 4.75% used as the riskfree rate ...)". The first figure (trailing 12 months, adjusted payout) is his
+// headline estimate and the DCF default; the treasury rate he used is stored beside it.
+export function parseDamodaranErp(html) {
+  const t = String(html).replace(/<[^>]+>/g, " ").replace(/&nbsp;|&#160;/g, " ").replace(/\s+/g, " ");
+  const m = /Implied ERP on ([A-Z][a-z]+ \d{1,2}, \d{4})\s*=\s*(\d+)\s*\.\s*(\d+)\s*%\s*\(([^)]*)\)/.exec(t);
+  if (!m) return null;
+  const d = new Date(`${m[1]} 12:00 UTC`); if (isNaN(d)) return null;
+  const rf = /treasury rate of\s*(\d+(?:\.\d+)?)\s*%/i.exec(t.slice(m.index, m.index + 800));
+  return { erp_pct: Number(`${m[2]}.${m[3]}`), as_of: d.toISOString().slice(0, 10), method: m[4].trim(), riskfree_used_pct: rf ? Number(rf[1]) : null };
+}
+async function damodaranErp() {
+  const url = "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm";
+  const e = parseDamodaranErp(await (await get(url, "text/html")).text());
+  if (!e || !(e.erp_pct > 1 && e.erp_pct < 12)) throw new Error("implied ERP line not found or out of range");
+  return { ...e, source_url: url, source_name: "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)", accessed: today };
+}
+
 async function firstThatWorks(label, attempts) {
   const errors = [];
   for (const [name, fn] of attempts) {
@@ -121,10 +141,13 @@ async function main() {
     const last = tsy.rows.at(-1);
     ref.treasury_10y = { yield_pct: last.close, as_of_date: last.date, source_url: tsy.url, source_name: tsy.via, accessed: today };
   }
+  try { const e = await damodaranErp(); ref.erp = e; console.log(`OK   implied ERP ${e.erp_pct}% as of ${e.as_of}`); }
+  catch (e) { console.error(`WARN implied ERP not refreshed (${e.message}); keeping ${ref.erp ? `${ref.erp.erp_pct}% as of ${ref.erp.as_of}` : "none"}`); }
   ref.as_of = today;
+  ref.refreshed_at = new Date().toISOString(); // the page's market stamp shows this time in ET
   writeFileSync(refPath, JSON.stringify(ref, null, 2) + "\n", "utf8");
   console.log(`Updated tools/oracle/data/market_reference.json (as_of ${today}).`);
   if (!orcl || !spx || !tsy) process.exit(1);
 }
 
-main().catch((e) => { console.error(e); process.exit(1); });
+if (process.argv[1] === fileURLToPath(import.meta.url)) main().catch((e) => { console.error(e); process.exit(1); });

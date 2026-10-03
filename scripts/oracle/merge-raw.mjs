@@ -73,6 +73,17 @@ function normalizeQuarter(q) {
   return q;
 }
 
+// Re-running the merge must never lose what was curated after a raw file was written (Spanish notes, the FY2022 revenue
+// lines from the 10-K, the release KPIs): new values from the raw file win, keys present only in the existing record
+// are kept. Arrays are replaced whole.
+const isObj = (x) => x && typeof x === "object" && !Array.isArray(x);
+function keepCurated(prev, next) {
+  if (!isObj(prev) || !isObj(next)) return next === undefined ? prev : next;
+  const out = { ...prev };
+  for (const [k, v] of Object.entries(next)) out[k] = isObj(v) && isObj(prev[k]) ? keepCurated(prev[k], v) : v;
+  return out;
+}
+
 master.meta.extraction_notes = master.meta.extraction_notes || {};
 const fiscalYears = existsSync(join(DATA, "fiscal_years.json")) ? load("fiscal_years.json") : { meta: { currency: "USD", units: "millions, except per-share", fiscal_year_end: "May 31", note_en: "Annual figures from the Q4 release's full-year columns / the 10-K. net_income is net income available to common shareholders where preferred dividends exist.", note_es: "Cifras anuales de las columnas de año completo del reporte del 4T / el 10-K. La utilidad neta es la disponible para accionistas comunes cuando existen dividendos preferentes." }, fiscal_years: {} };
 
@@ -83,7 +94,7 @@ for (const f of rawFiles) {
   for (const q of raw.quarters) {
     const n = normalizeQuarter(q);
     const i = master.quarters.findIndex((r) => r.id === n.id);
-    if (i >= 0) master.quarters[i] = n; else master.quarters.push(n);
+    if (i >= 0) master.quarters[i] = keepCurated(master.quarters[i], n); else master.quarters.push(n);
     console.log(`merged ${n.id}`);
   }
   for (const [label, annual] of Object.entries(raw.fiscal_year_annual || {})) {
@@ -92,7 +103,7 @@ for (const f of rawFiles) {
     const key = q4 ? `S-8K-${label}Q4` : registerSource(`S-8K-${label}-ANNUAL`, annual.source, null);
     if (annual.gaap?.capex > 0) annual.gaap.capex = -annual.gaap.capex;
     const prevDa = fiscalYears.fiscal_years[label]?.da;
-    fiscalYears.fiscal_years[label] = { source: key, gaap: annual.gaap, non_gaap: annual.non_gaap, ...(annual.da || prevDa ? { da: annual.da || prevDa } : {}) };
+    fiscalYears.fiscal_years[label] = keepCurated(fiscalYears.fiscal_years[label], { source: key, gaap: annual.gaap, non_gaap: annual.non_gaap, ...(annual.da || prevDa ? { da: annual.da || prevDa } : {}) });
     console.log(`merged annual ${label}`);
   }
 }
@@ -118,7 +129,14 @@ if (existsSync(supPath)) {
   }
   const annualRecast = sup.revenue_recast_fy2026_basis?.FY2025;
   if (annualRecast && fiscalYears.fiscal_years.FY2025) fiscalYears.fiscal_years.FY2025.revenue_recast_fy2026_basis = { cloud: annualRecast.cloud, software: annualRecast.software, hardware: annualRecast.hardware, services: annualRecast.services, total: annualRecast.total, source_url: annualRecast.source_url };
-  console.log("merged supplement (D&A + recast revenue)");
+  // Release KPIs not in the statements: the IaaS revenue headline and the customer-prepayment cash-flow line.
+  for (const [id, k] of Object.entries(sup.kpi_by_quarter || {})) {
+    const q = master.quarters.find((r) => r.id === id); if (!q || id.startsWith("_")) continue;
+    if (k.iaas_revenue_bn != null) q.iaas_revenue_bn = k.iaas_revenue_bn;
+    if (k.customer_prepayments != null) { q.cash_flow = q.cash_flow || {}; q.cash_flow.customer_prepayments_quarter = k.customer_prepayments; }
+  }
+  for (const [label, c] of Object.entries(sup.fiscal_year_cash_flow || {})) { if (label.startsWith("_") || !fiscalYears.fiscal_years[label]) continue; Object.assign(fiscalYears.fiscal_years[label].gaap, c); }
+  console.log("merged supplement (D&A + recast revenue + release KPIs)");
 }
 
 master.quarters.sort((a, b) => (a.period_end < b.period_end ? 1 : -1));
@@ -146,9 +164,10 @@ save("fiscal_years.json", fiscalYears);
 save("sources.json", sources);
 
 // guidance.json — one vintage per release that issued any guidance (numeric or qualitative)
+const prevGuidance = existsSync(join(DATA, "guidance.json")) ? load("guidance.json") : { vintages: [] };
 const vintages = master.quarters
   .filter((q) => q.guidance_issued)
-  .map((q) => ({ issued_in: q.id, issued_on: q.release_date, source: q.source, ...q.guidance_issued }))
+  .map((q) => keepCurated((prevGuidance.vintages || []).find((v) => v.issued_in === q.id) || {}, { issued_in: q.id, issued_on: q.release_date, source: q.source, ...q.guidance_issued }))
   .sort((a, b) => (a.issued_on < b.issued_on ? 1 : -1));
 save("guidance.json", {
   meta: {

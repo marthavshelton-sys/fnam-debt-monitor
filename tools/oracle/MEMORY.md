@@ -21,6 +21,15 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   server-life sensitivity, agency-replicated leverage, "what changed since your last visit" banner, short interest.
   XBRL facts were used only where a requirement needed them (finance-lease additions, lease schedules, verification).
 
+- **2026-10-03 audit follow-up (21 items).** DCF rebuilt as its own numbered section `dcf` (not in the board deck): stub
+  year, mid-period discounting, consensus margin less SBC, prepayments as a capex offset that unwinds as revenue,
+  terminal capex = k × D&A, beta cross-checks, Damodaran ERP, Kd = Treasury + issue spread, bridge net of finance leases
+  and the preferred, diluted shares, and an acceptance statement (price bracketed or the implied WACC/g/beta). Summary
+  opens with five computed buildout numbers; watch items are short lines; sites carry a structured Issues list; OCI
+  targets shown against actuals (superseded vintages marked); ratings older than 12 months flagged; CDS "pending";
+  the as-of/refreshed stamp is written once per section (footers only when stale); sections can be collapsed (remembered
+  per browser) with a back-to-top control. Default DCF at 2026-10-03: US$126 vs US$138.07 (beta cross-checks US$132–156).
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
@@ -35,8 +44,26 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - The hand-typed-number check scans CSS comments too ("/* Section 03 … */" failed the build once).
 - Chart.js footers (`p.chart-src`) are re-rendered by each render function; `applyStamps()` runs after `renderAll()`
   and strips old stamps first, so never append a stamp inside a render function.
+- `fmtET()` of a date-only string printed the previous evening ("Sep 23, 8:00 PM ET" for 2026-09-24): date-only stamps
+  are now shown as dates. Write real ISO times (`market_reference.refreshed_at`) where a time exists.
+- Never name a local variable `ref` inside a render function: it shadows the cross-reference helper (a `ref is not a
+  function` error stopped every later section once).
+- Site fields are `<k>_en` / `<k>_es` (power, tenant, energized_text, first_revenue); the reader must try both before the
+  untagged field (the English view showed "—" for the power source until 2026-10-03).
+- Dark-mode overrides need `@media (prefers-color-scheme: dark)` around `:root:not([data-theme="light"])`; without it
+  the dark badge colours showed in light mode.
+- `merge-raw.mjs` used to replace whole records (losing Spanish notes and the FY2022 revenue lines); it now keeps keys
+  the raw file does not carry (`keepCurated`). Still review its diff before committing: it also re-adds raw-only keys.
+- Deck text from the data may carry `{{sec:id}}`: `present.js` resolves it in `text`/`bullets`/`measure*` overrides.
+- Before pushing a page change: `node scripts/oracle/build.mjs`, then `node scripts/oracle/render-check.mjs` with the
+  site served on :8123 (13 configurations), and build the PDF in both languages.
 
 ## Open items
+
+- Investor Day 28-Oct-2026 (Las Vegas): add the new long-range targets to `long_range_targets.json` and mark the
+  September-2025 OCI vintage's successor; the October-2025 figures were only on a slide and are not on file.
+- The cloud routines' stored prompts must match `ROUTINE-CLOUD-PROMPT.txt`, `NEWS-SWEEP-PROMPT.md` and
+  `FACTSET-PROMPT.md` (summary schema, site issues, `DEP_AMORT_EXP`).
 
 - Page numbers for 10-Q/10-K notes are null (inline XBRL); if the owner wants PDF page numbers, read the filing PDF
   in a workstation session and fill `obligations.json → provenance[].page`.

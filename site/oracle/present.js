@@ -47,6 +47,13 @@
     }
     // ----- shared pieces -----
     // Page title from the section registry: "NN · Title" (the number is generated, never typed) plus an optional subtitle.
+    // Narrative strings from the data files may carry section-token cross-references ({{sec:<id>}}): resolve them to "§NN Name" before any
+    // text is measured or drawn, so the deck never prints a raw token and the layout measures the final text.
+    xref(t) { const M = this.M; return typeof t === 'string' ? t.replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => `§${M.secNum(id)} ${M.secNav(id)}`) : t; }
+    text(str, ...a) { return super.text(this.xref(str), ...a); }
+    bullets(items, ...a) { return super.bullets((items || []).map((x) => this.xref(x)), ...a); }
+    measureBullets(items, ...a) { return super.measureBullets((items || []).map((x) => this.xref(x)), ...a); }
+    measureText(str, ...a) { return super.measureText(this.xref(str), ...a); }
     secHead(id, sub) { const M = this.M, n = M.secNum ? M.secNum(id) : ''; const title = sub ? (M.secNav ? M.secNav(id) : id) : (M.secTitle ? M.secTitle(id) : id); return `${n ? n + ' · ' : ''}${title}${sub ? ': ' + sub : ''}`; }
     bn(vM, d = 1) { return this.M.fmtBn(vM, d); }               // "US$ 19.3 bn" / "US$ 19.3 mil M" from millions
     usdM(v) { return v == null ? '—' : `US$ ${this.m(v)} M`; }
@@ -79,7 +86,7 @@
 
     // ================= 2. EXECUTIVE SUMMARY =================
     execSummary() {
-      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(x)) }));
+      const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(this.xref(x))) }));
       super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''));
     }
 
@@ -432,15 +439,16 @@
       const mapW = Math.round(W * 0.68), mapH = Math.round(mapW * 0.62);
       y = this.siteMap(this.cur.x0, y + 2, mapW, mapH, sites, this.cur.x0 + mapW + 14) + 10;
       // concise table: one line per campus, first clause of each disclosure
-      const sf = (s, k) => (this.es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
+      const sf = (s, k) => (this.es ? s[k + '_es'] : s[k + '_en']) || s[k] || '';
+      const latestIssue = (s) => (s.issues || []).filter((x) => x.status !== 'closed').sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))[0] || null;
       const first = (t, n = 60) => { let c = String(t).split(/;|\.\s/).map((x) => x.trim()).filter((x) => x && !/^(Contracted|Contratad[oa])/i.test(x))[0] || String(t).split(';')[0]; c = c.replace(/\s*\([^)]*\)\s*$/, '').trim(); if (c.length > n) c = c.slice(0, c.lastIndexOf(' ', n)) + '…'; return c; };
       const short = (t) => String(t).replace(/\s+(via|vía|a través de)\s+.*$/i, '').replace(/\s*\([^)]*\)/g, '').split(';')[0].trim();
-      const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], `${this.n(s.nameplate_mw || s.capacity_mw)} / ${s.energized_mw != null ? this.n(s.energized_mw) : '—'}`, short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), (s.issues_en && !/^None reported/i.test(s.issues_en) ? `${this.date(s.status_date)}: ${first(sf(s, 'issues'), 70)}` : first(sf(s, 'oracle_status'), 62))]);
+      const rows = sites.map((s, i) => [String(i + 1), s.short || s.name.split(' (')[0], `${this.n(s.nameplate_mw || s.capacity_mw)} / ${s.energized_mw != null ? this.n(s.energized_mw) : '—'}`, short(sf(s, 'customer')).replace(/^Not disclosed.*$/i, this.T('No divulgado', 'Not disclosed')).replace(/^No divulgad.*$/i, this.T('No divulgado', 'Not disclosed')), short(sf(s, 'developer')), short(sf(s, 'contracted')), first(sf(s, 'first_delivery'), 34), (latestIssue(s) ? `${this.date(latestIssue(s).date)}: ${first(M.L(latestIssue(s)), 70)}${(s.issues || []).filter((x) => x.status !== 'closed').length > 1 ? this.T(` (+${(s.issues || []).filter((x) => x.status !== 'closed').length - 1} más)`, ` (+${(s.issues || []).filter((x) => x.status !== 'closed').length - 1} more)`) : ''}` : first(sf(s, 'oracle_status'), 62))]);
       const promises = ((BO.promises && BO.promises.items) || []).slice(0, 4).map((x) => `**${M.boLabel(x.id)}** · ${M.L(x)}`);
       const noteStr = this.T('Ubicaciones aproximadas en el mapa (condado o municipio). Capacidad, cliente y desarrollador provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa citada en la página (detalle y enlaces por sitio en fnam.mx/oracle, sección de sitios). Utilización y renovaciones según las llamadas de resultados. Fuentes: transcripciones de las llamadas, comunicados de Oracle y de los desarrolladores.', 'Map locations are approximate (county or township). Capacity, customer and developer come from Oracle where it disclosed them, otherwise from the developers\' releases or the press cited on the page (detail and links per site at fnam.mx/oracle, sites section). Utilization and renewals as stated on the earnings calls. Sources: call transcripts, Oracle and developer releases.');
       const noteH = this.measureText(noteStr, W, 7.5, 1.25);
       const promH = promises.length ? 16 + this.measureBullets(promises, W, 7.8, { gap: 3 }) : 0;
-      y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), this.T('MW plan / en línea', 'MW plan / live'), this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Estado según Oracle', 'Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
+      y = this.fitTable({ y, head: ['#', this.T('Campus', 'Campus'), this.T('MW plan / en línea', 'MW plan / live'), this.T('Cliente', 'Customer'), this.T('Desarrollador', 'Developer'), this.T('Contratado', 'Contracted'), this.T('Primera entrega', 'First delivery'), this.T('Incidencia más reciente o estado según Oracle', 'Latest issue or Oracle\'s status')], body: rows, meta: rows.map(() => ['bold', 'bold left', 'bold', 'left', 'left', 'left', 'left', 'left small']), cols: { 0: { cellWidth: W * 0.035 }, 1: { halign: 'left', cellWidth: W * 0.15 }, 2: { cellWidth: W * 0.06 }, 3: { halign: 'left', cellWidth: W * 0.12 }, 4: { halign: 'left', cellWidth: W * 0.14 }, 5: { halign: 'left', cellWidth: W * 0.1 }, 6: { halign: 'left', cellWidth: W * 0.13 }, 7: { halign: 'left' } }, pad: { top: 2.4, bottom: 2.4, left: 3, right: 3 } }, [7.8, 7.4, 7, 6.6], this.cur.y1 - noteH - promH - 16);
       if (promises.length && y + promH + noteH + 12 < this.cur.y1) { y = this.heading(this.T('Lo que Oracle ha prometido entregar (llamada más reciente primero)', 'What Oracle has committed to deliver (latest call first)'), this.cur.x0, y + 8, 10); y = this.bullets(promises, this.cur.x0, y, W, 7.8, { gap: 3 }); }
       this.noteAbove(noteStr, y + 6);
     }
@@ -505,7 +513,7 @@
       const qr = nds.map((x) => [this.qlab(x.q), x.nd ? this.m(x.nd.gross) : '—', x.nd ? this.m(x.nd.cash) : '—', x.nd ? this.m(x.nd.net) : '—', x.l ? this.m(x.l.is.ebitda) : '—', x.nd && x.l && x.l.is.ebitda ? this.x(x.nd.net / x.l.is.ebitda, 2) : '—']);
       yr = this.heading(this.T('Por trimestre (US$ millones)', 'By quarter (US$ million)'), xr, yr + 6, 10);
       yr = this.fitTable({ y: yr, x: xr, w: wr, head: [this.T('Trimestre', 'Quarter'), this.T('Deuda total', 'Total debt'), this.T('Efectivo e inv.', 'Cash & inv.'), this.T('Deuda neta', 'Net debt'), 'EBITDA UDM', this.T('DN / EBITDA', 'ND / EBITDA')], body: qr, meta: qr.map(() => ['left', '', '', 'bold', '', 'bold']), cols: { 0: { halign: 'left' } } }, [8, 7.6, 7.2, 6.8], this.cur.y1 - 26);
-      this.noteAbove((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)}, ${this.date(r.date)})`).join(' · ') + this.T('. Fuentes: comunicados de resultados (balance); 10-K AF2026 (instrumentos); comunicados de acción de calificación de cada agencia.', '. Sources: earnings releases (balance sheet); FY2026 10-K (instruments); each agency\'s rating-action release.'), Math.max(yl, yr) + 4, 7);
+      this.noteAbove((D2.ratings || []).map((r) => `${r.agency}: ${r.rating} (${M.LS(r.outlook)}, ${this.date(r.date)}${r.date && (Date.now() - new Date(r.date + 'T12:00:00Z')) / 864e5 > ((M.SEC.freshness && M.SEC.freshness.rating_action_max_age_days) || 365) ? this.T(', acción antigua', ', aging action') : ''})`).join(' · ') + this.T('. Fuentes: comunicados de resultados (balance); 10-K AF2026 (instrumentos); comunicados de acción de calificación de cada agencia.', '. Sources: earnings releases (balance sheet); FY2026 10-K (instruments); each agency\'s rating-action release.'), Math.max(yl, yr) + 4, 7);
     }
 
     // ================= 12. 08 DIVIDENDS AND CASH RETURNS =================
@@ -569,7 +577,9 @@
       G(this.T('Compromisos contractuales futuros (fuera del balance)', 'Future contractual commitments (not on the balance sheet)'));
       Rw(this.T('Arrendamientos firmados, aún no iniciados', 'Leases signed, not yet commenced'), this.n(un.usd_bn, 0), this.T(`nota de arrendamientos · ${un.term_years_min}–${un.term_years_max} años · inician 2T27–AF2029 · nominal`, `leases note · ${un.term_years_min}–${un.term_years_max} years · commence 2Q27–FY2029 · nominal`));
       Rw(this.T('Obligaciones de compra', 'Purchase obligations'), bn(po.total), this.T('reportadas por separado en el 10-Q (nota de compromisos) · calendario a la derecha', 'reported separately in the 10-Q (commitments note) · schedule at right'));
-      Rw(this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('ni el 10-Q ni el 10-K revelan garantías fuera de balance', 'neither the 10-Q nor the 10-K discloses off-balance-sheet guarantees'));
+      // the same reading as the page (obligations.json → guarantees): a disclosed guarantee is shown as exposure, never as a liability
+      if (ga.disclosed && ga.usd_m != null) Rw(this.T('Garantía del préstamo de un arrendador (exposición máxima)', "Guarantee of a lessor's borrowing (maximum exposure)"), this.n(ga.usd_m / 1000, 1), this.T(`10-K AF2026, p. ${ga.page}; vence ${ga.matures}; exposición, no pasivo`, `FY2026 10-K, p. ${ga.page}; matures ${ga.matures}; exposure, not a liability`));
+      else Rw(this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('sin garantías reveladas en el 10-Q ni en el 10-K', 'none disclosed in the 10-Q or the 10-K'));
       let yl = this.heading(this.T('Lo que Oracle debe, en dos grupos (US$ mil millones)', 'What Oracle owes, in two groups (US$ billion)'), this.cur.x0, y, 10);
       yl = this.table({ y: yl, w: wl, head: [this.T('Partida', 'Item'), this.T('US$ mil M', 'US$ bn'), this.T('Dónde está', 'Where it sits')], body: rows, meta: rowMeta, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 3 : 0)), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.38 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });
       const hist = un.history || [];

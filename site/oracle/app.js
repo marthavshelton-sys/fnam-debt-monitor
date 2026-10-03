@@ -70,6 +70,7 @@
   const fmtBn = (vM, d = 1) => (vM == null || !isFinite(vM) ? '—' : 'US$ ' + fmtN(vM / 1000, d) + (LANG === 'es' ? ' mil M' : ' bn'));
   const fmtPct = (v, d = 1, sign = false) => (v == null || !isFinite(v) ? '—' : (sign && v > 0 ? '+' : '') + v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + '%');
   const fmtX = (v, d = 1) => (v == null || !isFinite(v) ? '—' : v.toLocaleString(locale(), { minimumFractionDigits: d, maximumFractionDigits: d }) + 'x');
+  const fmtMonth = (ym) => { const m = /^(\d{4})-(\d{2})/.exec(String(ym || '')); return m ? new Date(Date.UTC(+m[1], +m[2] - 1, 15)).toLocaleDateString(locale(), { month: 'short', year: 'numeric', timeZone: 'UTC' }) : (ym || '—'); };
   const fmtDate = (iso) => { if (!iso) return '—'; const d = new Date(iso + (iso.length === 10 ? 'T12:00:00Z' : '')); return d.toLocaleDateString(locale(), { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }); };
   const qLabel = (q) => (LANG === 'es' ? `${q.q}T${String(q.fy).slice(2)}` : `${q.q}Q${String(q.fy).slice(2)}`);
   const qLabelId = (id) => { const m = /^(\d{4})Q(\d)$/.exec(id || ''); return m ? qLabel({ fy: +m[1], q: +m[2] }) : id; };
@@ -220,22 +221,52 @@
     if (lastLTM && lastLTM.is && lastLTM.is.ebitda != null) k.push({ l: 'EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtBn(lastLTM.is.ebitda), d: `${t('margin')} ${fmtPct(lastLTM.is.ebitdaMargin)}` });
     const nd = netDebt(lastQ);
     if (nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} ${fmtBn(nd.net)}` });
-    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; const fn = fsNtm(); if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}` }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
-    html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div></div>`).join(''));
+    if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; const fn = fsNtm(); const Lz = (window.ORCL_OBLIG && window.ORCL_OBLIG.leases) || {}; const leases = (Lz.operating_liabilities_total || 0) + (Lz.finance_liabilities_total || 0);
+      if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}`,
+        n: leases ? (LANG === 'es' ? `${fmtX(ev / fn.ebitda.mean)} con la deuda neta reportada; ${fmtX((ev + leases) / fn.ebitda.mean)} al sumar US$ ${fmtN(leases / 1000, 1)} mil M de pasivos por arrendamiento (base de la tabla de pares)` : `${fmtX(ev / fn.ebitda.mean)} on reported net debt; ${fmtX((ev + leases) / fn.ebitda.mean)} adding US$ ${fmtN(leases / 1000, 1)} bn of lease liabilities (the peers table's basis)`) : '' }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
+    html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div>${x.n ? `<div class="knote">${x.n}</div>` : ''}</div>`).join(''));
     document.querySelectorAll('#genStamp, #genStamp2').forEach((e) => { e.textContent = fmtET(FIN.generatedAt || MK.generatedAt); });
   }
 
   // ================= 00 EXECUTIVE SUMMARY =================
   function renderSummary() {
-    renderKeyNumbers();
-    const b = SUM.basis || {};
+    renderBuildPanel(); renderKeyNumbers();
+    const b = SUM.basis || {}; const es = LANG === 'es';
     const qq = b.quarter && (qById[b.quarter] || { fy: +b.quarter.slice(0, 4), q: +b.quarter.slice(5) });
-    html('sumMeta', LANG === 'es'
-      ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}) y la guía del ${fmtDate(b.guidanceDate)} · redactado el ${fmtDate(SUM.updatedAt)}; se reescribe con cada reporte nuevo. Las cifras de mercado del encabezado son diarias.`
-      : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}) and the guidance of ${fmtDate(b.guidanceDate)} · written ${fmtDate(SUM.updatedAt)}; rewritten with each new report. Market figures in the header are daily.`);
-    if (!(SUM.sections || []).length) { html('sumGrid', `<div class="notice warn">${LANG === 'es' ? 'El resumen ejecutivo se redacta a partir del comunicado y la transcripción del último trimestre; pendiente de la primera corrida de la rutina de revisión.' : 'The executive summary is drafted from the latest release and call transcript; pending the first run of the reviewing routine.'}</div>`); return; }
-    html('sumGrid', (SUM.sections || []).map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
-    html('sumSrc', `${t('src')}: ${relLink()} · ${LANG === 'es' ? 'transcripción de la llamada de resultados' : 'earnings-call transcript'} · ${irLink()} · ${asOfQ()}${SUM.updatedAt ? ` · ${LANG === 'es' ? 'redactado el' : 'drafted'} ${fmtDate(SUM.updatedAt)}` : ''}`);
+    // the summary's own date (rewritten with each report or event), the date its events run through, and the
+    // news items that arrived after it, so the reader knows what it does not cover yet
+    const newer = NEWS && SUM.eventsThrough ? (NEWS.items || []).filter((x) => x.date > SUM.eventsThrough) : [];
+    html('sumMeta', (es
+      ? `Con base en los resultados del ${qq ? qLabel(qq) : '—'} (${fmtDate(b.resultsDate)}) y la guía del ${fmtDate(b.guidanceDate)} · actualizado el ${fmtDate(SUM.updatedAt)}${SUM.eventsThrough ? `, con eventos hasta el ${fmtDate(SUM.eventsThrough)}` : ''}. Las cifras del panel y de la tabla se calculan con los datos vigentes.`
+      : `Based on ${qq ? qLabel(qq) : '—'} results (${fmtDate(b.resultsDate)}) and the guidance of ${fmtDate(b.guidanceDate)} · updated ${fmtDate(SUM.updatedAt)}${SUM.eventsThrough ? `, events through ${fmtDate(SUM.eventsThrough)}` : ''}. The panel and table figures are computed from the current data.`)
+      + (newer.length ? ` <span class="badge rev">${es ? `${newer.length} noticia(s) posteriores` : `${newer.length} later news item(s)`}</span> ${es ? 'en' : 'in'} ${ref('news')}` : ''));
+    const secs = SUM.sections || [];
+    if (!secs.length) { html('sumGrid', `<div class="notice warn">${es ? 'El resumen ejecutivo se redacta a partir del comunicado y la transcripción del último trimestre; pendiente de la primera corrida de la rutina de revisión.' : 'The executive summary is drafted from the latest release and call transcript; pending the first run of the reviewing routine.'}</div>`); html('sumWatch', ''); return; }
+    html('sumGrid', secs.filter((x) => x.k !== 'watch').map((sec) => `<div class="card"><h3>${L(sec.title)}</h3><ul>${(sec[LANG] || sec.en || []).map((x) => `<li>${x}</li>`).join('')}</ul></div>`).join(''));
+    const w = secs.find((x) => x.k === 'watch'); const items = w ? (w['items_' + LANG] || w.items_en || []) : [];
+    html('sumWatch', w ? `<h3>${L(w.title)}</h3><div class="watch-grid">${items.map((it) => `<div class="watch-item">${it.h ? `<h4>${it.h}</h4>` : ''}<ul>${(it.lines || []).map((x) => `<li>${resolveRefs(x)}</li>`).join('')}</ul></div>`).join('')}</div>` : '');
+    const ws = (SUM.watchSources || []).map((x) => (x.url ? extLink(x.url, x.title) : x.title)).join(' · ');
+    html('sumSrc', `${t('src')}: ${relLink()} · ${es ? 'transcripción de la llamada de resultados' : 'earnings-call transcript'}${ws ? ` · ${ws}` : ''}`);
+  }
+  // ---- Summary, first panel: the buildout in five numbers (each computed from the data files, with its date)
+  function renderBuildPanel() {
+    if (!el('sumBuild') || !lastQ) return; const es = LANG === 'es';
+    const rr = BO && BO.rpoRecognition && BO.rpoRecognition.series ? BO.rpoRecognition.series.slice(-1)[0] : null;
+    const sites = (BO && BO.sites) || []; const live = sites.reduce((a, x) => a + (x.energized_mw || 0), 0), plan = sites.reduce((a, x) => a + (x.nameplate_mw || x.capacity_mw || 0), 0);
+    const cq = (BO && BO.capacity && BO.capacity.quarters) || []; const cum = cq.reduce((a, x) => a + x.mw, 0); const sec = BO && BO.capacity && BO.capacity.secured;
+    const fyNow = lastQ.fy; const fyQs = Q.filter((q) => q.fy === fyNow);
+    const gross = fyQs.reduce((a, q) => a + (q.cf && q.cf.capex != null ? -q.cf.capex : 0), 0), prepay = fyQs.reduce((a, q) => a + ((q.cf && q.cf.prepay) || 0), 0);
+    const cg = (() => { const gv = GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote && v.fyGuided === fyNow); const g = gv ? parseCapexGuide(gv.items.fyCapexNote) : null; return g && g.lo != null ? g : null; })();
+    const OBj = window.ORCL_OBLIG || {}; const un = (OBj.leases && OBj.leases.uncommenced) || {}; const hist = un.history || []; const prevU = hist.length > 1 ? hist[hist.length - 2] : null;
+    const fp = OBj.funding_plan || {}; const fsy = fsFiscal().find((f) => +f.fy.slice(2) === fyNow);
+    const tiles = [
+      { k: es ? 'Demanda contratada (RPO)' : 'Contracted demand (RPO)', v: lastQ.kpi.rpo != null ? fmtBn(lastQ.kpi.rpo, 0) : '—', d: `${qLabel(lastQ)}${rr ? ` · ${rr.m12_pct}% ${es ? 'a reconocer en 12 meses' : 'to be recognised within 12 months'}` : ''}`, r: 'rpo' },
+      { k: es ? 'Capacidad: energizada frente a contratada' : 'Capacity: energized vs contracted', v: `${fmtN(live)} MW ${es ? 'de' : 'of'} ${fmtN(plan / 1000, 1)} GW`, d: `${es ? `en los ${sites.length} campus nombrados` : `at the ${sites.length} named campuses`}${cum ? ` · ${fmtN(cum / 1000, 2)} GW ${es ? 'entregados desde el' : 'delivered since'} ${boLabel(cq[0].id)}` : ''}${sec ? ` · > ${fmtN(sec.gw)} GW ${es ? 'asegurados' : 'secured'}` : ''}`, r: 'sites' },
+      { k: es ? `Capex AF${fyNow}: bruto frente a neto en efectivo` : `${fyLabel(fyNow)} capex: gross vs net cash`, v: cg ? `US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} / ≤ ${fmtN(cg.netMax)}${es ? ' mil M' : ' bn'}` : '—', d: `${es ? 'guía' : 'guide'} · ${es ? 'a la fecha' : 'to date'} ${fmtBn(gross)} ${es ? 'bruto' : 'gross'} − ${fmtBn(prepay)} ${es ? 'prepagos' : 'prepayments'} = ${fmtBn(gross - prepay)} ${es ? 'neto' : 'net'} (${fyQs.map(qLabel).join(' + ')})`, r: 'capex' },
+      { k: es ? 'Arrendamientos firmados, no iniciados' : 'Leases signed, not yet commenced', v: un.usd_bn != null ? `US$ ${fmtN(un.usd_bn, 0)}${es ? ' mil M' : ' bn'}` : '—', d: `${OBj.as_of ? fmtDate(OBj.as_of) : ''}${prevU ? ` · ${es ? 'desde' : 'up from'} US$ ${fmtN(prevU.usd_bn, 0)}${es ? ' mil M al' : ' bn at'} ${fmtDate(prevU.as_of)}` : ''} · ${es ? 'nominal, fuera del balance' : 'nominal, off the balance sheet'}`, r: 'obligations' },
+      { k: es ? 'Brecha de financiamiento' : 'Funding gap', v: fp.remaining_fy27_usd_bn != null ? `≈ US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)}${es ? ' mil M' : ' bn'}` : '—', d: `${es ? 'por levantar del plan AF2027 (declaración de la empresa)' : 'still to raise under the FY2027 plan (company statement)'}${fsy && fsy.fcf ? ` · ${es ? 'flujo libre de consenso' : 'consensus FCF'} ${fmtBn(fsy.fcf.mean)}` : ''}`, r: 'financing' },
+    ];
+    html('sumBuild', tiles.map((x) => `<a class="bp" href="#${x.r}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}</div></a>`).join(''));
   }
 
   // ---------------- uniform source / timestamp pieces (every chart and table footer uses these) ----------------
@@ -243,7 +274,8 @@
   const NASDAQ_URL = 'https://www.nasdaq.com/market-activity/stocks/orcl/historical';
   const FRED_SPX = 'https://fred.stlouisfed.org/series/SP500', FRED_DGS10 = 'https://fred.stlouisfed.org/series/DGS10';
   const extLink = (url, label) => `<a href="${url}" target="_blank" rel="noopener">${label} ↗</a>`;
-  function asOfQ() { return lastQ ? `${LANG === 'es' ? 'al' : 'as of'} ${qLabel(lastQ)}, ${LANG === 'es' ? 'reportado el' : 'reported'} ${fmtDate(lastQ.releaseDate)}` : ''; }
+  // The latest quarter and its release date sit in each section head's stamp; footers no longer repeat them (empty on purpose).
+  function asOfQ() { return ''; }
   function relLink() { return lastQ && lastQ.sources && lastQ.sources.is ? link(lastQ.sources.is, t('release') + ' ↗') : ''; }
   function irLink() { return extLink(IR_EVENTS, LANG === 'es' ? 'llamadas de resultados (IR)' : 'earnings calls (IR)'); }
   function closeStamp() { const p = orclPx && orclPx.length ? orclPx[orclPx.length - 1] : null; return p ? `${LANG === 'es' ? 'cierre del' : 'close of'} ${fmtDate(p[0])}` : ''; }
@@ -700,13 +732,17 @@
     html('gpuUtilSrc', `${t('src')}: ${srcLine([...gu, ...rn].map((x) => x.sourceRef && { title: callRef(x.id, x.page), url: x.sourceRef.url }))} · ${irLink()} · ${gu.length ? `${LANG === 'es' ? 'al' : 'as of'} ${boLabel(gu[gu.length - 1].id)}` : ''}`);
     // Sites table
     const sites = BO.sites || [];
-    const sf = (s, k) => (LANG === 'es' && s[k + '_es'] ? s[k + '_es'] : s[k] || ''); // bilingual site field
+    const sf = (s, k) => (LANG === 'es' ? s[k + '_es'] : s[k + '_en']) || s[k] || ''; // bilingual site field: k_es / k_en, else the untagged (English) field
     const srcShort = (r) => { let label = r.short || r.title; if (LANG === 'es') label = label.replace(/\b(\d)Q(\d\d)\b/g, '$1T$2').replace(/\bcall\b/g, 'llamada').replace(/\bpress release\b/gi, 'comunicado').replace(/ and /g, ' y '); return r.url ? `<a href="${r.url}" target="_blank" rel="noopener" title="${(r.title || '').replace(/"/g, '&quot;')}">${label}</a>` : `<span title="${(r.title || '').replace(/"/g, '&quot;')}">${label}</span>`; };
-    const noIssue = (s) => !s.issues_en || /^None reported/i.test(s.issues_en);
+    // Issues column: dated adverse events per campus (buildout.json → sites[].issues), newest first; a decision or delivery
+    // date (`due`) is counted down and flagged once it has passed without an update; closed items are muted.
+    const basisBadge = (b) => `<span class="badge ${b === 'company' || b === 'government' ? '' : 'est'}">${{ company: LANG === 'es' ? 'empresa' : 'company', government: LANG === 'es' ? 'gobierno' : 'government', wire: LANG === 'es' ? 'agencia de noticias' : 'wire', press: LANG === 'es' ? 'prensa' : 'press' }[b] || b}</span>`;
+    const dueTxt = (d) => { const n = -daysSince(d); return n >= 0 ? `<span class="badge rev">${LANG === 'es' ? `fecha ${fmtDate(d)} · en ${n} días` : `due ${fmtDate(d)} · in ${n} days`}</span>` : `<span class="stale">${LANG === 'es' ? `la fecha ${fmtDate(d)} ya pasó: resultado sin registrar` : `${fmtDate(d)} has passed: outcome not yet recorded`}</span>`; };
+    const issuesCell = (s) => { const its = s.issues || []; if (!its.length) return `<span class="muted">${LANG === 'es' ? s.issues_none_es || 'Sin incidencias reportadas' : s.issues_none_en || 'None reported'}</span>`; return its.slice().sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)).map((it) => `<div class="issue ${it.status === 'closed' ? 'closed' : ''}"><b>${fmtDate(it.date)}</b> ${L(it)} ${basisBadge(it.basis)}${it.due ? ` ${dueTxt(it.due)}` : ''}${it.status === 'closed' ? ` <span class="badge">${LANG === 'es' ? 'cerrado' : 'closed'}</span>` : ''} ${it.source && it.source.url ? `<a href="${it.source.url}" target="_blank" rel="noopener" title="${(it.source.title || '').replace(/"/g, '&quot;')}">↗</a>` : ''}</div>`).join('') ; };
     const mwCell = (s) => `<b>${s.nameplate_mw || s.capacity_mw ? fmtN(s.nameplate_mw || s.capacity_mw) + ' MW' : '—'}</b><span class="sub">${LANG === 'es' ? 'planeados' : 'nameplate'}${s.nameplate_src ? ` (${s.nameplate_src})` : ''}${s.generation_mw ? ` · ${fmtN(s.generation_mw)} MW ${LANG === 'es' ? 'de generación en sitio' : 'on-site generation'}` : ''}</span><span class="sub"><b>${s.energized_mw != null ? fmtN(s.energized_mw) + ' MW' : '—'}</b> ${LANG === 'es' ? 'energizados' : 'energized'}${s.energized_as_of ? ` · ${boLabel(s.energized_as_of)}` : ''}</span>${sf(s, 'nameplate_note') ? `<span class="sub">${sf(s, 'nameplate_note')}</span>` : ''}`;
-    html('sitesTable', `<table class="sites"><thead><tr><th>${LANG === 'es' ? 'Sitio' : 'Site'}</th><th>${LANG === 'es' ? 'MW planeados · energizados' : 'MW nameplate · energized'}</th><th>${LANG === 'es' ? 'Energía' : 'Power source'}</th><th>${LANG === 'es' ? 'Desarrollador · inquilino · financiamiento' : 'Developer · tenant · financing'}</th><th>${LANG === 'es' ? 'Primeros ingresos' : 'First revenue'}</th><th>${LANG === 'es' ? 'Estado (con fecha) e incidencias' : 'Status (dated) and issues'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.name}</b><span class="sub">${s.location}</span></td><td>${mwCell(s)}</td><td>${sf(s, 'power') || '—'}</td><td><b>${sf(s, 'developer') || '—'}</b><span class="sub">${LANG === 'es' ? 'Inquilino' : 'Tenant'}: ${sf(s, 'tenant') || sf(s, 'customer') || '—'}</span>${sf(s, 'financing') ? `<span class="sub">${sf(s, 'financing')}</span>` : ''}</td><td>${sf(s, 'first_revenue') || sf(s, 'first_delivery') || '—'}</td><td>${s.status_date ? `<b>${fmtDate(s.status_date)}</b>: ` : ''}${sf(s, 'energized_text') || sf(s, 'oracle_status')}<span class="sub ${noIssue(s) ? '' : 'neg'}">${LANG === 'es' ? 'Incidencias' : 'Issues'}: ${sf(s, 'issues') || '—'}</span></td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
-    const energized = sites.reduce((a, s) => a + (s.energized_mw || 0), 0), statusMax = sites.map((s) => s.status_date || '').sort().slice(-1)[0];
-    el('sitesCap').textContent = LANG === 'es' ? `Los ${sites.length} campus que Oracle ha nombrado en sus llamadas: capacidad planeada ≈ ${fmtN(sitesMw / 1000, 1)} GW, energizados ${fmtN(energized)} MW según la última llamada. MW, fuente de energía, inquilino y primeros ingresos provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa enlazada en cada fila. El estado lleva fecha e incluye avisos de fuerza mayor, interconexiones y gasoductos. "No divulgado" significa que Oracle no lo ha dicho.` : `The ${sites.length} campuses Oracle has named on its calls: nameplate ≈ ${fmtN(sitesMw / 1000, 1)} GW, energized ${fmtN(energized)} MW per the latest call. MW, power source, tenant and first-revenue timing come from Oracle where it disclosed them, otherwise from the developers' releases or the press linked in each row. The status field is dated and carries force-majeure, interconnect and pipeline items. "Not disclosed" means Oracle has not said.`;
+    html('sitesTable', `<table class="sites"><thead><tr><th>${LANG === 'es' ? 'Sitio' : 'Site'}</th><th>${LANG === 'es' ? 'MW planeados · energizados' : 'MW nameplate · energized'}</th><th>${LANG === 'es' ? 'Estado (con fecha) y primeros ingresos' : 'Status (dated) and first revenue'}</th><th>${LANG === 'es' ? 'Incidencias' : 'Issues'}</th><th>${LANG === 'es' ? 'Energía' : 'Power source'}</th><th>${LANG === 'es' ? 'Desarrollador · inquilino · financiamiento' : 'Developer · tenant · financing'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.name}</b><span class="sub">${s.location}</span></td><td>${mwCell(s)}</td><td>${s.status_date ? `<b>${fmtDate(s.status_date)}</b>: ` : ''}${sf(s, 'energized_text') || sf(s, 'oracle_status')}<span class="sub">${LANG === 'es' ? 'Primeros ingresos' : 'First revenue'}: ${sf(s, 'first_revenue') || sf(s, 'first_delivery') || '—'}</span></td><td class="issues">${issuesCell(s)}</td><td>${sf(s, 'power') || '—'}</td><td><b>${sf(s, 'developer') || '—'}</b><span class="sub">${LANG === 'es' ? 'Inquilino' : 'Tenant'}: ${sf(s, 'tenant') || sf(s, 'customer') || '—'}</span>${sf(s, 'financing') ? `<span class="sub">${sf(s, 'financing')}</span>` : ''}</td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
+    const energized = sites.reduce((a, s) => a + (s.energized_mw || 0), 0), statusMax = sites.map((s) => s.status_date || '').sort().slice(-1)[0], checked = sites.map((s) => s.issues_checked || '').sort()[0];
+    el('sitesCap').textContent = LANG === 'es' ? `Los ${sites.length} campus que Oracle ha nombrado en sus llamadas: capacidad planeada ≈ ${fmtN(sitesMw / 1000, 1)} GW, energizados ${fmtN(energized)} MW según la última llamada. MW, fuente de energía, inquilino y primeros ingresos provienen de Oracle cuando lo divulga; en caso contrario, de los comunicados de los desarrolladores o de la prensa enlazada en cada fila. La columna de incidencias lista, con fecha, base y fuente, avisos de fuerza mayor, permisos, gasoductos, litigios y financiamiento; una fecha de decisión pendiente se cuenta hacia atrás y se marca si pasa sin registro${checked ? ` (fuentes revisadas el ${fmtDate(checked)})` : ''}. "No divulgado" significa que Oracle no lo ha dicho.` : `The ${sites.length} campuses Oracle has named on its calls: nameplate ≈ ${fmtN(sitesMw / 1000, 1)} GW, energized ${fmtN(energized)} MW per the latest call. MW, power source, tenant and first-revenue timing come from Oracle where it disclosed them, otherwise from the developers' releases or the press linked in each row. The Issues column lists, dated and sourced with their basis, force-majeure notices, permits, pipelines, litigation and financing; a pending decision date is counted down and flagged if it passes unrecorded${checked ? ` (sources checked ${fmtDate(checked)})` : ''}. "Not disclosed" means Oracle has not said.`;
     html('sitesSrc', `${t('src')}: ${LANG === 'es' ? 'transcripciones de las llamadas 4T26 y 1T27, comunicados de Oracle, de Crusoe, Vantage/DigitalBridge y Related, Bloomberg, TechCrunch, Financial Times vía Reuters, Albuquerque Journal, DCD, CNBC, Construction Dive (enlaces por fila)' : '4Q26 and 1Q27 call transcripts, Oracle, Crusoe, Vantage/DigitalBridge and Related releases, Bloomberg, TechCrunch, Financial Times via Reuters, Albuquerque Journal, DCD, CNBC, Construction Dive (links per row)'} · ${irLink()} · ${LANG === 'es' ? 'estado al' : 'status as of'} ${statusMax ? fmtDate(statusMax) : (lastQ ? qLabel(lastQ) : '')}${BO.updated ? ` (${LANG === 'es' ? 'revisado el' : 'reviewed'} ${fmtDate(BO.updated)})` : ''}`);
   }
   // ================= 09b BUILDOUT FLOW + TRACKER =================
@@ -777,154 +813,335 @@
     html('shareMeta', LANG === 'es' ? `Acciones en circulación: ${fmtN(sharesNow)} (${MK.sharesOutstanding ? MK.sharesOutstanding.source + ', ' + fmtDate(MK.sharesOutstanding.asOf) : ''}). Historial de precios disponible desde ${fmtDate(pts[0][0])}.` : `Shares outstanding: ${fmtN(sharesNow)} (${MK.sharesOutstanding ? MK.sharesOutstanding.source + ', ' + fmtDate(MK.sharesOutstanding.asOf) : ''}). Price history available from ${fmtDate(pts[0][0])}.`);
   }
 
-  // ================= 05 DCF =================
+  // ================= DCF (its own section; rebuilt 2026-10-03) =================
+  // Unlevered free cash flow by Oracle fiscal year, discounted at mid-period to the latest close. The current fiscal year is
+  // a stub: the quarters already reported are subtracted, because their cash is already in the balance-sheet net debt. Every
+  // default comes from the data files (FactSet consensus, the capex guidance, the 10-Q, the price series, the Treasury
+  // curve, Damodaran's implied ERP); nothing is typed here. Method and sources: tools/oracle/METHODOLOGY.md §DCF.
   const D = Object.assign({}, REF.dcf || {});
   const dcfState = {};
-  function betaFromMarket() {
+  const DCF_EDIT_YEARS = 5;
+  // ---- beta: OLS slope of ORCL log returns on the S&P 500, last close of each week (or month) over the window
+  function betaFrom(days, freq) {
     const g = px('ORCL'), m = px('^GSPC'); if (g.length < 120 || m.length < 120) return null;
     const mm = new Map(m.map((p) => [p[0], p[1]]));
-    const start = addDays(g[g.length - 1][0], -730);
-    const wk = (d) => { const dt = new Date(d + 'T12:00:00Z'); dt.setUTCDate(dt.getUTCDate() - ((dt.getUTCDay() + 6) % 7)); return dt.toISOString().slice(0, 10); };
-    const byWeek = new Map(); for (const p of g) if (p[0] >= start && mm.has(p[0])) byWeek.set(wk(p[0]), [p[1], mm.get(p[0])]);
-    const pts = [...byWeek.values()]; if (pts.length < 60) return null;
+    const end = g[g.length - 1][0], start = addDays(end, -days);
+    const key = (d) => { if (freq === 'm') return d.slice(0, 7); const dt = new Date(d + 'T12:00:00Z'); dt.setUTCDate(dt.getUTCDate() - ((dt.getUTCDay() + 6) % 7)); return dt.toISOString().slice(0, 10); };
+    const by = new Map(); for (const p of g) if (p[0] >= start && mm.has(p[0])) by.set(key(p[0]), [p[1], mm.get(p[0]), p[0]]);
+    const pts = [...by.values()]; if (pts.length < (freq === 'm' ? 36 : 60)) return null;
     const rg = [], rm = []; for (let i = 1; i < pts.length; i++) { rg.push(Math.log(pts[i][0] / pts[i - 1][0])); rm.push(Math.log(pts[i][1] / pts[i - 1][1])); }
     const mean = (a) => a.reduce((x, y) => x + y, 0) / a.length; const ag = mean(rg), am = mean(rm);
     let cov = 0, vr = 0; for (let i = 0; i < rg.length; i++) { cov += (rg[i] - ag) * (rm[i] - am); vr += (rm[i] - am) ** 2; }
-    return vr ? { beta: Math.round(100 * cov / vr) / 100, weeks: rg.length, from: [...byWeek.keys()][0] } : null;
+    return vr ? { beta: Math.round(100 * cov / vr) / 100, n: rg.length, from: pts[0][2], to: pts[pts.length - 1][2], freq, years: Math.round(days / 365) } : null;
   }
-  function kdFromDebt() { // coupon of the most recent ~10-year fixed-rate note
+  // Blume adjustment (0.67 × raw + 0.33 × 1): raw betas drift toward 1 over time; the adjusted figure is the forward-looking estimate most data services quote.
+  const blume = (b) => (b ? { ...b, raw: b.beta, beta: Math.round(100 * (0.67 * b.beta + 0.33)) / 100, blume: true } : null);
+  const BETAS = (() => { const w2 = betaFrom(730, 'w'), m5 = betaFrom(1826, 'm'); return { w2, w2b: blume(w2), m5, m5b: blume(m5) }; })();
+  const betaLabel = (k, short) => { const b = BETAS[k]; if (!b) return k; const es = LANG === 'es'; const win = short ? (b.freq === 'm' ? (es ? `${b.years} años, mens.` : `${b.years}y monthly`) : (es ? `${b.years} años, sem.` : `${b.years}y weekly`)) : b.freq === 'm' ? (es ? `${b.years} años, mensual` : `${b.years}-year monthly`) : (es ? `${b.years} años, semanal` : `${b.years}-year weekly`); return `${win}${b.blume ? (short ? ', Blume' : es ? ', ajustada (Blume)' : ', Blume-adjusted') : ''}`; };
+  function betaFromMarket() { return BETAS.w2; }
+  // ---- pre-tax cost of debt: the most recent ~10-year fixed-rate senior note's spread over the 10-year Treasury on its issue
+  // date, applied to today's Treasury (a coupon set months ago understates today's cost when rates or spreads have moved)
+  function kdFromDebt() {
     const ins = ((REF.debt && REF.debt.instruments) || []).filter((x) => x.issued && x.matures && x.ratePct != null && x.type && (typeof x.type === 'object' ? x.type.en === 'senior notes' : false));
     const tenor = (x) => (new Date(x.matures) - new Date(x.issued)) / (365.25 * 864e5);
     const ten = ins.filter((x) => tenor(x) >= 9 && tenor(x) <= 11).sort((a, b) => a.issued.localeCompare(b.issued));
-    const pick = ten[ten.length - 1] || ins.sort((a, b) => a.issued.localeCompare(b.issued))[ins.length - 1];
-    return pick ? { name: pick.name, rate: pick.ratePct, issued: pick.issued } : null;
+    const pick = ten[ten.length - 1] || ins.sort((a, b) => a.issued.localeCompare(b.issued))[ins.length - 1]; if (!pick) return null;
+    const atIssue = pointAtOrBefore(us10, pick.issued), now = us10.length ? us10[us10.length - 1] : null;
+    const spread = atIssue ? pick.ratePct - atIssue[1] : null;
+    return { name: pick.name, coupon: pick.ratePct, issued: pick.issued, tsyAtIssue: atIssue, spread, tsyNow: now, rate: spread != null && now ? Math.round(100 * (now[1] + spread)) / 100 : pick.ratePct };
   }
-  const BETA = betaFromMarket(), KD = kdFromDebt();
-  // Consensus path for the explicit years: revenue growth and capex from FactSet's fiscal-year means where they exist
-  // (labelled by Oracle fiscal year), tapering afterwards (growth halves each year, floor 4%; capex −15% a year).
-  function consensusPath() {
-    const fy = fsFiscal(); if (!fy.length || !lastLTM || !lastLTM.is || !lastQ) return null;
-    const byFy = {}; for (const f of fy) byFy[+f.fy.slice(2)] = f;
-    const revG = [], capex = [], years = [], margins = []; let prevRev = lastLTM.is.revTotal;
-    const base0 = lastQ.q === 4 ? lastQ.fy : lastQ.fy - 1;
-    for (let i = 0; i < 5; i++) { const f = byFy[base0 + 1 + i]; if (f && f.sales && f.sales.mean > 0 && prevRev) { revG.push(Math.round(10 * 100 * (f.sales.mean / prevRev - 1)) / 10); prevRev = f.sales.mean; years.push(f.fy); if (f.ebitda && f.ebitda.mean) margins.push(Math.round(10 * 100 * f.ebitda.mean / f.sales.mean) / 10); } else revG.push(null); capex.push(f && f.capex && f.capex.mean != null ? Math.round(f.capex.mean) : null); }
-    if (!years.length) return null;
-    for (let i = 0; i < 5; i++) { if (revG[i] == null) revG[i] = Math.max(4, Math.round(10 * (revG[i - 1] != null ? revG[i - 1] / 2 : 10)) / 10); if (capex[i] == null) capex[i] = Math.round((capex[i - 1] || 60000) * 0.85); }
-    return { revG, capex, years, margins };
+  const KD = kdFromDebt();
+  const ERP = REF.erp || null;
+  const XBq = (key) => (XB && XB.concepts[key] && (XB.concepts[key].quarters || [])) || [];
+  const XBp = (key) => (XB && XB.concepts[key] && (XB.concepts[key].periods || [])) || [];
+  // ---- the fiscal-year frame: the current fiscal year (stub when quarters are already reported) and the year before it
+  function dcfFrame() {
+    if (!lastQ) return null;
+    const curFy = lastQ.q === 4 ? lastQ.fy + 1 : lastQ.fy;
+    const ytdQs = lastQ.q === 4 ? [] : Q.filter((q) => q.fy === curFy);
+    const sumQ = (f) => ytdQs.reduce((a, q) => a + (f(q) || 0), 0);
+    const ytd = { months: ytdQs.length * 3, quarters: ytdQs.map((q) => q.id), rev: sumQ((q) => q.is.revTotal), ebitda: sumQ((q) => q.is.ebitda), da: sumQ((q) => q.is.da), sbc: sumQ((q) => q.is.ngSbc), capex: sumQ((q) => (q.cf && q.cf.capex != null ? -q.cf.capex : 0)), prepay: sumQ((q) => (q.cf ? q.cf.prepay : 0)) };
+    const prevY = Y.find((y) => y.fy === curFy - 1) || null;
+    const priorPrepay = []; for (const y of Y) if (y.fy < curFy && y.cf && y.cf.prepay) priorPrepay.push({ fy: y.fy, amount: y.cf.prepay });
+    return { curFy, ytd, prevY, priorPrepay, bsDate: qEndDate(lastQ), valDate: lastPx ? lastPx[0] : qEndDate(lastQ) };
   }
-  function dcfDefaults(basis) {
+  const fyEnd = (fy) => `${fy}-05-31`, fyStart = (fy) => `${fy - 1}-06-01`;
+  const yrsBetween = (a, b) => (new Date(b + 'T12:00:00Z') - new Date(a + 'T12:00:00Z')) / (365.25 * 864e5);
+  const midDate = (a, b) => { const t = (new Date(a + 'T12:00:00Z').getTime() + new Date(b + 'T12:00:00Z').getTime()) / 2; return new Date(t).toISOString().slice(0, 10); };
+  // ---- defaults for each basis: consensus (FactSet) or management targets (fiscal-year guide and the FY2030 revenue target)
+  function capexGuideFor(fy) { const gv = GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote && v.fyGuided === fy); const g = gv ? parseCapexGuide(gv.items.fyCapexNote) : null; return g && g.lo != null ? { ...g, mid: (g.lo + g.hi) / 2, v: gv } : null; }
+  function dcfDefaults(basis, N) {
+    const F = dcfFrame(); if (!F || !F.prevY) return null;
+    N = N || D.horizonYears || 10;
+    const g = D.terminalGrowthPct ?? 3;
+    const fs = {}; for (const f of fsFiscal()) fs[+f.fy.slice(2)] = f;
+    const useCons = basis !== 'guidance' && fs[F.curFy] && fs[F.curFy].sales;
+    const years = Array.from({ length: N }, (_, i) => F.curFy + i);
     const ltm = lastLTM && lastLTM.is ? lastLTM.is : {};
-    const rev = ltm.revTotal || 0, ebitda = ltm.ebitda || 0, da = ltm.da || 0;
+    const sbcPct = ltm.revTotal && ltm.ngSbc ? Math.round(10 * 100 * ltm.ngSbc / ltm.revTotal) / 10 : 0;
+    const qDaPct = lastQ.is.da != null && lastQ.is.revTotal ? 100 * lastQ.is.da / lastQ.is.revTotal : 15;
+    const life = (BO && BO.unitEconomics && BO.unitEconomics.gpu_life && BO.unitEconomics.gpu_life.useful_life_years) || 6;
+    const k = D.terminalCapexToDa ?? Math.round(100 * (1 + g / 100 * life / 2)) / 100;
+    // revenue path
+    const rev = [], marginAdj = [], daPct = [], capexPct = []; let prev = F.prevY.is.revTotal; let lastCons = -1;
+    const lr = (REF.longRange || []).find((t) => t.id === 'fy2030_revenue' && t.status === 'in_force');
+    const fyRevGuide = (() => { const v = GV.slice().reverse().find((x) => x.items && x.items.fyRevenue && x.fyGuided === F.curFy); return v ? v.items.fyRevenue.usdM : null; })();
+    for (let i = 0; i < N; i++) {
+      const fy = years[i], c = fs[fy];
+      let r = null;
+      if (useCons && c && c.sales && c.sales.mean > 0) { r = c.sales.mean; lastCons = i; }
+      else if (!useCons && i === 0 && fyRevGuide) { r = fyRevGuide; lastCons = i; }
+      else if (!useCons && lr && fy <= +lr.fy.slice(2) && fyRevGuide) { const n = +lr.fy.slice(2) - F.curFy; const gg = Math.pow(lr.usd_bn * 1000 / fyRevGuide, 1 / n); r = rev[i - 1] * gg; lastCons = i; }
+      if (r == null) { const pg = i > 0 ? (rev[i - 1] / (i > 1 ? rev[i - 2] : prev) - 1) * 100 : 10; r = (i > 0 ? rev[i - 1] : prev) * (1 + Math.max(g, pg / 2) / 100); }
+      rev.push(r);
+      // margins, D&A and capex intensity: consensus ratios where FactSet covers the year (also on the guidance basis)
+      marginAdj.push(c && c.ebitda && c.sales ? 100 * c.ebitda.mean / c.sales.mean : null);
+      daPct.push(c && c.da && c.sales ? 100 * c.da.mean / c.sales.mean : null);
+      capexPct.push(c && c.capex && c.sales ? 100 * c.capex.mean / c.sales.mean : null);
+    }
+    // fill gaps: hold the last known margin / D&A ratio; capex intensity fades linearly to the terminal ratio (k × D&A)
+    const hold = (a, fb) => { let last = a.find((x) => x != null); if (last == null) last = fb; return a.map((x) => (x == null ? last : (last = x))); };
+    const dap = hold(daPct, qDaPct);
+    const margin = basis === 'guidance' ? years.map(() => (ltm.ebitdaMargin != null ? Math.round(10 * ltm.ebitdaMargin) / 10 : 45)) : hold(marginAdj, ltm.ebitdaMargin != null ? ltm.ebitdaMargin + sbcPct : 50).map((x) => Math.round(10 * x) / 10);
+    const lastCx = capexPct.reduce((a, x, i) => (x != null ? i : a), -1);
+    const termCx = k * dap[N - 1];
+    const cxp = capexPct.map((x, i) => { if (x != null && i <= lastCx) return x; const from = lastCx >= 0 ? capexPct[lastCx] : (ltm.revTotal ? 100 * (lastLTM.cf ? -lastLTM.cf.capex : 0) / ltm.revTotal : 30); const steps = Math.max(1, N - 1 - lastCx); return from + (termCx - from) * (i - lastCx) / steps; });
+    // the current fiscal year's gross capex: the guided range's midpoint on the guidance basis, consensus otherwise
+    const cg = capexGuideFor(F.curFy);
+    const capex = rev.map((r, i) => Math.round(r * cxp[i] / 100));
+    if (basis === 'guidance' && cg) capex[0] = Math.round(cg.mid * 1000);
+    // customer-funded share of gross capex: the guide's gross-minus-net gap for the guided year, held through the consensus
+    // years, then fading linearly to zero by the last explicit year
+    const s0 = cg && cg.netMax ? Math.max(0, Math.round(10 * 100 * (1 - cg.netMax / cg.mid)) / 10) : 0;
+    const lastHold = Math.max(0, lastCx);
+    const cf = years.map((_, i) => (i <= lastHold ? s0 : Math.max(0, Math.round(10 * s0 * (1 - (i - lastHold) / Math.max(1, N - 1 - lastHold))) / 10)));
+    const revG = rev.map((r, i) => Math.round(10 * 100 * (r / (i ? rev[i - 1] : prev) - 1)) / 10);
     const nd = netDebt(lastQ); const mc = lastPx && sharesNow ? lastPx[1] * sharesNow / 1e6 : 0;
-    const cp = consensusPath(); const useCons = cp && basis !== 'guidance'; const fn = fsNtm();
     return {
-      baseRev: rev, baseEbitda: ebitda, ntmEbitda: fn.ebitda && fn.ebitda.mean > 0 ? fn.ebitda.mean : null, basis: useCons ? 'consensus' : 'guidance',
-      revG: useCons ? cp.revG.slice() : (D.revenueGrowthPct || [30, 25, 20, 15, 10]).slice(),
-      margin: D.ebitdaMarginPct ?? (rev ? Math.round(10 * 100 * ebitda / rev) / 10 : 35), capex: useCons ? cp.capex.slice() : (D.capexUsdM || [70000, 60000, 50000, 40000, 35000]).slice(),
-      daPct: D.daPctRevenue ?? (rev ? Math.round(10 * 100 * da / rev) / 10 : 10), tax: D.taxRatePct ?? (ltm.taxRate != null ? Math.round(10 * ltm.taxRate) / 10 : 15), nwc: D.nwcPctDeltaRevenue ?? 0,
-      rf: D.riskFreePct ?? (us10.length ? us10[us10.length - 1][1] : 4.5), erp: D.erpPct ?? 4.5, beta: BETA ? BETA.beta : (D.beta ?? 1.0), kd: KD ? KD.rate : (D.costOfDebtPct ?? 5.5), dw: D.targetDebtPct ?? (nd && mc ? Math.round(10 * 100 * nd.net / (nd.net + mc)) / 10 : 15),
-      method: D.terminalMethod || 'perpetuity', g: D.terminalGrowthPct ?? 3, mult: D.exitMultiple ?? 12,
-      baseYear: lastQ ? (lastQ.q === 4 ? lastQ.fy : lastQ.fy - 1) : new Date().getFullYear(),
+      v: 2, basis: useCons ? 'consensus' : 'guidance', N, years, baseRev: prev, baseFy: F.prevY.fy, consYears: lastCons + 1,
+      revG, margin, sbc: basis === 'guidance' ? 0 : sbcPct, daPct: dap.map((x) => Math.round(10 * x) / 10), capex, cf, unwind: D.prepayUnwindYears ?? 6,
+      tax: D.taxRatePct ?? (ltm.taxRate != null ? Math.round(10 * ltm.taxRate) / 10 : 15),
+      rf: us10.length ? us10[us10.length - 1][1] : 4.5, erp: ERP ? ERP.pct : D.erpFallbackPct ?? 4.5, betaKey: D.betaMethod || 'w2', beta: (BETAS[D.betaMethod || 'w2'] || BETAS.w2 || { beta: 1 }).beta,
+      kd: KD ? KD.rate : 5.5, dw: nd && mc ? Math.round(10 * 100 * nd.net / (nd.net + mc)) / 10 : 15,
+      method: D.terminalMethod || 'perpetuity', g, mult: D.exitMultiple ?? 12, k, life, s0, capexGuide: cg,
+      ntmEbitda: fsNtm().ebitda && fsNtm().ebitda.mean > 0 ? fsNtm().ebitda.mean : null,
     };
   }
-  function dcfInputsHtml(s) {
-    const num = (k, step = 0.1, min, max) => `<input type="number" step="${step}" ${min != null ? `min="${min}"` : ''} ${max != null ? `max="${max}"` : ''} data-k="${k}" value="${s[k]}">`;
-    const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}</div>`;
-    const years = Array.from({ length: 5 }, (_, i) => 'FY' + String(s.baseYear + 1 + i).slice(2));
-    const arr = (k, step, label) => `<div class="inp years"><div class="name">${label}</div><div class="row5">${years.map((y) => `<span>${y}</span>`).join('')}${s[k].map((v, i) => `<input type="number" step="${step}" data-k="${k}" data-i="${i}" value="${v}">`).join('')}</div></div>`;
-    const ltmM = lastLTM && lastLTM.is ? lastLTM.is.ebitdaMargin : null;
-    return `
-      <h4>${LANG === 'es' ? 'Operación' : 'Operations'}</h4>
-      ${consensusPath() ? row(LANG === 'es' ? 'Base de la proyección' : 'Projection basis', LANG === 'es' ? `ingresos y capex de ${consensusPath().years.join(', ')} del consenso de FactSet (${fmtDate(FS.asOf)}), después desaceleración` : `${consensusPath().years.join(', ')} revenue and capex from FactSet consensus (${fmtDate(FS.asOf)}), then taper`, `<select data-k="basis"><option value="consensus"${s.basis !== 'guidance' ? ' selected' : ''}>${LANG === 'es' ? 'Consenso FactSet' : 'FactSet consensus'}</option><option value="guidance"${s.basis === 'guidance' ? ' selected' : ''}>${LANG === 'es' ? 'Guía de la administración + desaceleración' : 'Management guidance + taper'}</option></select>`) : ''}
-      ${arr('revG', 0.5, LANG === 'es' ? 'Crecimiento de ingresos (%)' : 'Revenue growth (%)')}
-      ${row(LANG === 'es' ? 'Margen EBITDA (%)' : 'EBITDA margin (%)', `${LANG === 'es' ? 'UDM' : 'LTM'}: ${fmtPct(ltmM)}${consensusPath() && consensusPath().margins.length ? ` · ${LANG === 'es' ? 'consenso (EBITDA ajustado)' : 'consensus (adjusted EBITDA)'}: ${consensusPath().margins.map((m) => fmtPct(m, 0)).join(' / ')}` : ''}`, num('margin', 0.5, 5, 80))}
-      ${arr('capex', 1000, 'Capex (US$ M)')}
-      ${row(LANG === 'es' ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', '', num('daPct', 0.5))}
-      ${row(LANG === 'es' ? 'Tasa de impuestos (%)' : 'Tax rate (%)', LANG === 'es' ? 'tasa efectiva UDM por defecto' : 'LTM effective rate by default', num('tax', 1, 0, 60))}
-      ${row(LANG === 'es' ? 'Δ capital de trabajo (% de Δ ingresos)' : 'Δ working capital (% of Δ revenue)', '', num('nwc', 1))}
-      <h4>${LANG === 'es' ? 'Costo de capital' : 'Cost of capital'}</h4>
-      ${row(LANG === 'es' ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', us10.length ? `${LANG === 'es' ? 'Tesoro 10 años (FRED DGS10)' : '10-yr Treasury (FRED DGS10)'}: ${fmtPct(us10[us10.length - 1][1], 2)} ${fmtDate(us10[us10.length - 1][0])}` : '', num('rf', 0.05))}
-      ${row(LANG === 'es' ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', LANG === 'es' ? 'supuesto editable' : 'editable assumption', num('erp', 0.25))}
-      ${row('Beta', BETA ? (LANG === 'es' ? `calculada: ${BETA.weeks} rendimientos semanales ORCL vs S&P 500 desde ${fmtDate(BETA.from)}` : `computed: ${BETA.weeks} weekly returns ORCL vs S&P 500 since ${fmtDate(BETA.from)}`) : (LANG === 'es' ? 'supuesto de referencia' : 'reference default'), num('beta', 0.05))}
-      ${row(LANG === 'es' ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD ? (LANG === 'es' ? `${KD.name}: ${fmtPct(KD.rate, 2)} fija (${fmtDate(KD.issued)})` : `${KD.name}: ${fmtPct(KD.rate, 2)} fixed (${fmtDate(KD.issued)})`) : '', num('kd', 0.05))}
-      ${row(LANG === 'es' ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', LANG === 'es' ? 'por defecto: deuda neta / (deuda neta + capitalización)' : 'default: net debt / (net debt + market cap)', num('dw', 1, 0, 90))}
-      <h4>${t('tv')}</h4>
-      ${row(LANG === 'es' ? 'Método' : 'Method', '', `<select data-k="method"><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${LANG === 'es' ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${LANG === 'es' ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
-      ${row(LANG === 'es' ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', LANG === 'es' ? 'nominal, en dólares' : 'nominal, dollars', num('g', 0.25))}
-      ${row(LANG === 'es' ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', '', num('mult', 0.5))}
-      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="dcfReset">${LANG === 'es' ? 'Restablecer supuestos' : 'Reset assumptions'}</button><button type="button" class="btn" id="dcfCopy">${LANG === 'es' ? 'Copiar enlace del escenario' : 'Copy scenario link'}</button></div>`;
-  }
-  function dcfCompute(s, over = {}) {
-    const p = { ...s, ...over };
-    const wacc = (1 - p.dw / 100) * (p.rf + p.beta * p.erp) / 100 + (p.dw / 100) * (p.kd / 100) * (1 - p.tax / 100);
-    const rows = []; let rev = p.baseRev; let pv = 0;
-    for (let i = 0; i < 5; i++) {
-      const prevRev = rev; rev = rev * (1 + p.revG[i] / 100);
-      const ebitda = rev * p.margin / 100, da = rev * p.daPct / 100, ebit = ebitda - da, taxes = Math.max(0, ebit) * p.tax / 100;
-      const dnwc = (rev - prevRev) * p.nwc / 100; const capex = p.capex[i];
-      const fcf = ebitda - taxes - capex - dnwc; const df = 1 / Math.pow(1 + wacc, i + 1);
-      pv += fcf * df; rows.push({ year: p.baseYear + 1 + i, rev, ebitda, da, ebit, taxes, capex, dnwc, fcf, df, pv: fcf * df });
+  // ---- the engine
+  function dcfCompute(s0, over = {}) {
+    const s = { ...s0, ...over }, F = dcfFrame(); if (!F) return null;
+    const N = s.N, g = s.g / 100, ke = s.rf + s.beta * s.erp;
+    const wacc = ((1 - s.dw / 100) * ke + (s.dw / 100) * s.kd * (1 - s.tax / 100)) / 100;
+    // years beyond the editable columns follow the rules from the last editable column (growth halves to g; margin and
+    // D&A hold; capex intensity fades to k × D&A; the customer-funded share fades to zero)
+    const E = Math.min(DCF_EDIT_YEARS, N);
+    const revG = [], margin = [], daPct = [], capexPct = [], cfs = [];
+    let rev = s.baseRev; const revs = [];
+    for (let i = 0; i < N; i++) {
+      let gi, mi, di, ci, fi;
+      if (i < E) { gi = s.revG[i]; mi = s.margin[i]; di = s.daPct[i]; fi = s.cf[i]; }
+      else { gi = Math.max(s.g, revG[i - 1] / 2); mi = margin[E - 1]; di = daPct[E - 1]; const steps = Math.max(1, N - E); fi = cfs[E - 1] * (1 - (i - E + 1) / steps); }
+      rev = rev * (1 + gi / 100); revs.push(rev);
+      if (i < E) ci = 100 * s.capex[i] / rev; else { const from = capexPct[E - 1], to = s.k * daPct[E - 1]; ci = from + (to - from) * (i - E + 1) / Math.max(1, N - E); }
+      revG.push(gi); margin.push(mi); daPct.push(di); capexPct.push(ci); cfs.push(Math.max(0, fi));
     }
-    const last = rows[4]; const g = p.g / 100; let tv;
-    if (p.method === 'multiple') tv = last.ebitda * p.mult; else tv = wacc > g ? last.fcf * (1 + g) / (wacc - g) : NaN;
-    const pvTv = tv * last.df; const ev = pv + pvTv;
-    const nd = netDebt(lastQ); const netDebtM = nd ? nd.net : 0;
-    const eq = ev - netDebtM; const perShare = sharesNow ? eq * 1e6 / sharesNow : null;
-    return { wacc, rows, tv, pvTv, pvExplicit: pv, ev, netDebtM, eq, perShare, impliedMult: p.ntmEbitda ? ev / p.ntmEbitda : (p.baseEbitda ? ev / p.baseEbitda : null), impliedBasis: p.ntmEbitda ? 'ntm' : 'ltm' };
+    // customer prepayments: received with the capex they fund, recognised as revenue (without new cash) over `unwind` years
+    const L = Math.max(0, Math.round(s.unwind || 0));
+    const inflowByFy = {}; for (const p of F.priorPrepay) inflowByFy[p.fy] = (inflowByFy[p.fy] || 0) + p.amount;
+    const rows = []; let pvExplicit = 0;
+    for (let i = 0; i < N; i++) {
+      const fy = s.years ? s.years[i] : F.curFy + i;
+      const r = revs[i], ebitdaAdj = r * margin[i] / 100, sbc = r * s.sbc / 100, ebitda = ebitdaAdj - sbc, da = r * daPct[i] / 100, capex = r * capexPct[i] / 100, inflowFy = capex * cfs[i] / 100;
+      inflowByFy[fy] = (inflowByFy[fy] || 0) + inflowFy;
+      const stub = i === 0 && F.ytd.months > 0;
+      const months = stub ? 12 - F.ytd.months : 12;
+      // stub: the fiscal year less the quarters already reported (their cash is in the balance-sheet net debt)
+      const R = stub ? r - F.ytd.rev : r, EB = stub ? ebitda - F.ytd.ebitda : ebitda, DA = stub ? da - F.ytd.da : da, CX = stub ? capex - F.ytd.capex : capex, IN = stub ? Math.max(0, inflowFy - F.ytd.prepay) : inflowFy;
+      const unwind = L ? Object.entries(inflowByFy).reduce((a, [y, amt]) => { const age = fy - +y; return age >= 1 && age <= L ? a + amt / L : a; }, 0) * (months / 12) : 0;
+      const ebit = EB - DA, taxes = Math.max(0, ebit) * s.tax / 100;
+      const fcf = EB - taxes - CX + IN - unwind;
+      const start = stub ? F.bsDate : fyStart(fy), end = fyEnd(fy), t = yrsBetween(F.valDate, midDate(start, end));
+      const df = Math.pow(1 + wacc, -t); pvExplicit += fcf * df;
+      rows.push({ fy, stub, months, rev: R, revFull: r, growth: revG[i], marginAdj: margin[i], ebitdaAdj: stub ? ebitdaAdj - (F.ytd.ebitda + F.ytd.sbc) : ebitdaAdj, sbc: stub ? sbc - F.ytd.sbc : sbc, ebitda: EB, da: DA, daPct: daPct[i], ebit, taxes, capex: CX, capexPct: capexPct[i], cfPct: cfs[i], inflow: IN, unwind, fcf, t, df, pv: fcf * df });
+    }
+    const last = rows[N - 1], endN = fyEnd(last.fy), tEnd = yrsBetween(F.valDate, endN);
+    // unwinds of prepayments received inside the horizon that fall after it: explicit, finite, discounted at mid-year
+    let pvPost = 0; if (L) for (let y = last.fy + 1; y <= last.fy + L; y++) { const u = Object.entries(inflowByFy).reduce((a, [fy0, amt]) => { const age = y - +fy0; return age >= 1 && age <= L ? a + amt / L : a; }, 0); pvPost -= u * Math.pow(1 + wacc, -(yrsBetween(F.valDate, fyEnd(y)) - 0.5)); }
+    // terminal year: one more year at g, capex normalised to k × D&A, no customer funding (steady state)
+    const rT = last.revFull * (1 + g), ebT = rT * (margin[N - 1] - s.sbc) / 100, daT = rT * daPct[N - 1] / 100, cxT = s.k * daT, txT = Math.max(0, ebT - daT) * s.tax / 100, fcfT = ebT - txT - cxT;
+    let tv, pvTv;
+    if (s.method === 'multiple') { tv = last.revFull * (margin[N - 1] - s.sbc) / 100 * s.mult; pvTv = tv * Math.pow(1 + wacc, -tEnd); }
+    else { tv = wacc > g ? fcfT / (wacc - g) : NaN; pvTv = tv * Math.pow(1 + wacc, -(tEnd - 0.5)); }
+    const ev = pvExplicit + pvTv + pvPost;
+    // equity bridge: net debt and finance-lease liabilities at the balance-sheet date, the mandatory convertible preferred at its liquidation preference
+    const nd = netDebt(lastQ), netDebtM = nd ? nd.net : 0;
+    const flx = XBp('fin_lease_liability').filter((p) => p.period_end <= F.bsDate).pop();
+    const finLease = flx ? flx.value : OB && OB.leases && OB.leases.finance_liabilities_total != null ? OB.leases.finance_liabilities_total : 0;
+    const pf = (OB && OB.preferred) || {};
+    // after the mandatory conversion date the preferred is common stock already counted on the cover page
+    const pref = pf.mandatory_conversion_date && F.valDate >= pf.mandatory_conversion_date ? 0 : (pf.gross_proceeds_usd_m ?? pf.carrying_value_usd_m ?? 0);
+    const eq = ev - netDebtM - finLease - pref;
+    const sh = dilutedShares();
+    const perShare = sh && sh.total ? eq / sh.total : null;
+    return { wacc, ke, rows, finLeaseAsOf: flx ? flx.period_end : (OB && OB.as_of) || null, terminal: { rev: rT, ebitda: ebT, da: daT, capex: cxT, taxes: txT, fcf: fcfT, capexToDa: s.k, capexPct: 100 * cxT / rT }, tv, pvTv, pvExplicit, pvPost, ev, netDebtM, finLease, pref, eq, shares: sh, perShare,
+      impliedMult: s.ntmEbitda ? ev / s.ntmEbitda : null, tvShare: ev ? pvTv / ev : null, frame: F };
   }
-  const URL_KEYS = ['revG', 'margin', 'capex', 'daPct', 'tax', 'nwc', 'rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult', 'basis'];
-  function dcfFromUrl(base) { try { const p = new URLSearchParams(location.search).get('dcf'); if (!p) return base; const o = JSON.parse(decodeURIComponent(escape(atob(p.replace(/-/g, '+').replace(/_/g, '/'))))); for (const k of URL_KEYS) if (o[k] != null) base[k] = o[k]; } catch (e) { /* ignore */ } return base; }
+  // Diluted shares: the 10-Q cover count plus the dilutive securities of the latest quarter (diluted − basic weighted average, XBRL)
+  function dilutedShares() {
+    const cov = XBp('shares_cover'); const c = cov.length ? cov[cov.length - 1] : null;
+    const base = c ? { m: c.value, asOf: c.period_end, accn: c.accn, url: c.url } : sharesNow ? { m: sharesNow / 1e6, asOf: MK.sharesOutstanding ? MK.sharesOutstanding.asOf : null } : null;
+    if (!base) return null;
+    const bq = XBq('shares_basic').filter((x) => x.value != null), dq = XBq('shares_diluted').filter((x) => x.value != null);
+    const lb = bq[bq.length - 1], ld = lb ? dq.find((x) => x.quarter === lb.quarter) : null;
+    const dil = lb && ld ? Math.max(0, ld.value - lb.value) : 0;
+    return { cover: base.m, coverAsOf: base.asOf, coverUrl: base.url || null, dilutive: dil, dilutiveQuarter: lb ? lb.quarter : null, total: base.m + dil };
+  }
+  const dcfPrice = () => (lastPx ? lastPx[1] : null);
+  // what the price implies: solve for the WACC (moving the cost of equity) or the terminal growth that returns the price
+  function solve(fn, lo, hi, target) { let a = lo, b = hi, fa = fn(a) - target, fb = fn(b) - target; if (!isFinite(fa) || !isFinite(fb) || fa * fb > 0) return null; for (let i = 0; i < 60; i++) { const m = (a + b) / 2, fm = fn(m) - target; if (!isFinite(fm)) return null; if (fa * fm <= 0) { b = m; fb = fm; } else { a = m; fa = fm; } } return (a + b) / 2; }
+  function impliedWacc(s, price) { const r = dcfCompute(s); const lo = s.rf + ((s.g + 0.6) - 100 * r.wacc) / (1 - s.dw / 100); const x = solve((rf) => dcfCompute(s, { rf }).perShare, lo, s.rf + 25, price); return x == null ? null : dcfCompute(s, { rf: x }); }
+  function impliedG(s, price) { const r = dcfCompute(s); const hiG = 100 * r.wacc - 0.25; return s.method === 'multiple' ? null : solve((g) => dcfCompute(s, { g }).perShare, -3, hiG, price); }
+  const URL_KEYS = ['v', 'basis', 'N', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'unwind', 'tax', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'dw', 'method', 'g', 'mult', 'k'];
+  function dcfFromUrl(base) {
+    try {
+      const p = new URLSearchParams(location.search).get('dcf'); if (!p) return base;
+      const o = JSON.parse(decodeURIComponent(escape(atob(p.replace(/-/g, '+').replace(/_/g, '/')))));
+      // scenario links from the pre-2026-10-03 model (no version) carry a different year frame: keep only the scalar rates
+      const keys = o.v === 2 ? URL_KEYS : ['rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult'];
+      if (o.v === 2 && (o.N !== base.N || o.basis !== base.basis)) { const d = dcfDefaults(o.basis, o.N); if (d) Object.assign(base, d); }
+      for (const k of keys) if (o[k] != null && (!Array.isArray(base[k]) || (Array.isArray(o[k]) && o[k].length === base[k].length))) base[k] = o[k];
+    } catch (e) { /* ignore */ }
+    return base;
+  }
   function dcfToUrl(s) { const o = {}; for (const k of URL_KEYS) o[k] = s[k]; const enc = btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); const u = new URL(location.href); u.searchParams.set('dcf', enc); u.searchParams.set('lang', LANG); history.replaceState(null, '', u.toString()); return u.toString(); }
+  function dcfInputsHtml(s) {
+    const es = LANG === 'es';
+    const num = (k, step = 0.1, min, max) => `<input type="number" step="${step}" ${min != null ? `min="${min}"` : ''} ${max != null ? `max="${max}"` : ''} data-k="${k}" value="${s[k]}" aria-label="${k}">`;
+    const row = (name, sub, ctl) => `<div class="inp"><div class="name">${name}${sub ? `<small>${sub}</small>` : ''}</div>${ctl}</div>`;
+    const E = Math.min(DCF_EDIT_YEARS, s.N);
+    const yrs = s.years.slice(0, E).map((y, i) => `${es ? 'AF' : 'FY'}${String(y).slice(2)}${i === 0 && dcfFrame().ytd.months ? '*' : ''}`);
+    const arr = (k, step, label, sub, fmt = (v) => v) => `<div class="inp years"><div class="name">${label}${sub ? `<small>${sub}</small>` : ''}</div><div class="row5">${yrs.map((y) => `<span>${y}</span>`).join('')}${s[k].slice(0, E).map((v, i) => `<input type="number" step="${step}" data-k="${k}" data-i="${i}" value="${fmt(v)}" aria-label="${k} ${yrs[i]}">`).join('')}</div></div>`;
+    const cons = s.basis === 'consensus';
+    const bsel = Object.keys(BETAS).filter((k) => BETAS[k]).map((k) => `<option value="${k}"${s.betaKey === k ? ' selected' : ''}>${fmtN(BETAS[k].beta, 2)} · ${betaLabel(k, true)}</option>`).join('') + `<option value="custom"${s.betaKey === 'custom' ? ' selected' : ''}>${es ? 'personalizada' : 'custom'}</option>`;
+    return `
+      <h4>${es ? 'Operación' : 'Operations'}</h4>
+      ${row(es ? 'Base de la proyección' : 'Projection basis', cons ? (es ? `consenso de FactSet (${fmtDate(FS.asOf)}) para ${s.consYears} años fiscales, después reglas de desvanecimiento` : `FactSet consensus (${fmtDate(FS.asOf)}) for ${s.consYears} fiscal years, then fade rules`) : (es ? 'guía del AF y objetivo de ingresos AF2030 de la administración; razones de costo del consenso' : "management's FY guide and FY2030 revenue target; cost ratios from consensus"), `<select data-k="basis"><option value="consensus"${cons ? ' selected' : ''}>${es ? 'Consenso FactSet' : 'FactSet consensus'}</option><option value="guidance"${!cons ? ' selected' : ''}>${es ? 'Guía de la administración' : 'Management targets'}</option></select>`)}
+      ${row(es ? 'Años explícitos' : 'Explicit years', es ? 'incluye el año fiscal en curso como periodo parcial' : 'includes the current fiscal year as a stub', `<select data-k="N">${[5, 7, 10].map((n) => `<option value="${n}"${s.N === n ? ' selected' : ''}>${n}</option>`).join('')}</select>`)}
+      ${arr('revG', 0.5, es ? 'Crecimiento de ingresos (%)' : 'Revenue growth (%)', es ? `sobre el AF${String(s.baseFy).slice(2)} reportado (US$ ${fmtN(s.baseRev)} M)` : `on reported FY${String(s.baseFy).slice(2)} (US$ ${fmtN(s.baseRev)} M)`)}
+      ${arr('margin', 0.5, cons ? (es ? 'Margen EBITDA ajustado, antes de compensación en acciones (%)' : 'Adjusted EBITDA margin, before stock-based comp. (%)') : (es ? 'Margen EBITDA GAAP (%)' : 'GAAP EBITDA margin (%)'), cons ? (es ? 'base de los brokers (consenso de FactSet)' : 'brokers\' basis (FactSet consensus)') : (es ? 'UDM, ya neto de compensación en acciones' : 'LTM, already net of stock-based compensation'))}
+      ${row(es ? 'Compensación en acciones (% de ingresos)' : 'Stock-based compensation (% of revenue)', cons ? (es ? 'se resta del EBITDA ajustado; UDM por defecto' : 'deducted from adjusted EBITDA; LTM by default') : (es ? '0: ya está en el margen GAAP' : '0: already in the GAAP margin'), num('sbc', 0.1, 0, 20))}
+      ${arr('daPct', 0.5, es ? 'D&A (% de ingresos)' : 'D&A (% of revenue)', es ? 'consenso de FactSet donde existe' : 'FactSet consensus where available')}
+      ${arr('capex', 1000, es ? 'Capex bruto (US$ M)' : 'Gross capex (US$ M)', es ? 'antes de prepagos de clientes' : 'before customer prepayments')}
+      ${arr('cf', 1, es ? 'Financiado por clientes (% del capex)' : 'Customer-funded (% of capex)', s.capexGuide && s.capexGuide.netMax ? (es ? `guía AF${String(s.capexGuide.v.fyGuided).slice(2)}: US$ ${fmtN(s.capexGuide.lo)}–${fmtN(s.capexGuide.hi)} mil M bruto, neto ≤ US$ ${fmtN(s.capexGuide.netMax)} mil M` : `FY${String(s.capexGuide.v.fyGuided).slice(2)} guide: US$ ${fmtN(s.capexGuide.lo)}–${fmtN(s.capexGuide.hi)} bn gross, net ≤ US$ ${fmtN(s.capexGuide.netMax)} bn`) : '')}
+      ${row(es ? 'Reversión de prepagos (años)' : 'Prepayment unwind (years)', L(D.prepayUnwindSource), num('unwind', 1, 0, 15))}
+      ${row(es ? 'Tasa de impuestos (%)' : 'Tax rate (%)', es ? 'tasa efectiva UDM por defecto' : 'LTM effective rate by default', num('tax', 1, 0, 60))}
+      ${s.N > DCF_EDIT_YEARS ? `<p class="small muted" style="margin:6px 0 0">${es ? `Años ${DCF_EDIT_YEARS + 1}–${s.N}: el crecimiento se reduce a la mitad cada año hasta g; margen y D&A se mantienen; el capex/ingresos converge a k × D&A; la porción financiada por clientes baja a cero.` : `Years ${DCF_EDIT_YEARS + 1}–${s.N}: growth halves each year down to g; margin and D&A hold; capex/revenue converges to k × D&A; the customer-funded share fades to zero.`}</p>` : ''}
+      <h4>${es ? 'Costo de capital' : 'Cost of capital'}</h4>
+      ${row(es ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', us10.length ? `${es ? 'Tesoro 10 años (FRED DGS10)' : '10-yr Treasury (FRED DGS10)'} ${fmtDate(us10[us10.length - 1][0])}` : '', num('rf', 0.05))}
+      ${row(es ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', ERP ? `${es ? 'implícita S&P 500, Damodaran' : 'implied S&P 500, Damodaran'} ${fmtDate(ERP.asOf)}${daysSince(ERP.asOf) > 45 ? ` <span class="stale">${es ? 'antigua' : 'old'}</span>` : ''}` : (es ? 'supuesto (sin dato de Damodaran)' : 'assumption (no Damodaran reading)'), num('erp', 0.05))}
+      ${row('Beta', es ? 'ORCL contra S&P 500' : 'ORCL against the S&P 500', `<select data-k="betaKey">${bsel}</select>`)}
+      ${s.betaKey === 'custom' ? row(es ? 'Beta personalizada' : 'Custom beta', '', num('beta', 0.05)) : ''}
+      ${row(es ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD && KD.spread != null ? (es ? `Tesoro hoy + ${fmtN(KD.spread, 2)} pp de diferencial de emisión (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)})` : `Treasury today + ${fmtN(KD.spread, 2)} pp issue spread (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)})`) : '', num('kd', 0.05))}
+      ${row(es ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', es ? 'deuda neta / (deuda neta + capitalización)' : 'net debt / (net debt + market cap)', num('dw', 1, 0, 90))}
+      <h4>${t('tv')}</h4>
+      ${row(es ? 'Método' : 'Method', '', `<select data-k="method"><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${es ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${es ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
+      ${row(es ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', es ? 'nominal, en dólares' : 'nominal, dollars', num('g', 0.25))}
+      ${row(es ? 'Capex terminal / D&A (k)' : 'Terminal capex / D&A (k)', es ? `1 + g × vida útil / 2 (servidores: ${s.life} años, 10-Q)` : `1 + g × useful life / 2 (servers: ${s.life} years, 10-Q)`, num('k', 0.05, 0.8, 2))}
+      ${row(es ? 'Múltiplo de salida VE/EBITDA' : 'Exit EV/EBITDA multiple', '', num('mult', 0.5))}
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap"><button type="button" class="btn" id="dcfReset">${es ? 'Restablecer supuestos' : 'Reset assumptions'}</button><button type="button" class="btn" id="dcfCopy">${es ? 'Copiar enlace del escenario' : 'Copy scenario link'}</button></div>`;
+  }
   function renderDcf(reset) {
+    if (!el('dcfInputs')) return;
     if (reset || !dcfState.s) dcfState.s = reset ? dcfDefaults() : dcfFromUrl(dcfDefaults());
-    const s = dcfState.s;
+    const s = dcfState.s; if (!s) { html('dcfInputs', `<p class="muted small">${t('na')}</p>`); return; }
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s);
-    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener('input', () => { const k = inp.dataset.k; const v = inp.tagName === 'SELECT' ? inp.value : Number(inp.value); if (k === 'basis') { const d = dcfDefaults(v); s.basis = d.basis; s.revG = d.revG; s.capex = d.capex; dcfToUrl(s); renderDcf(); return; } if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v; dcfToUrl(s); renderDcfOutputs(); }));
+    box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener(inp.tagName === 'SELECT' ? 'change' : 'input', () => {
+      const k = inp.dataset.k; const v = inp.tagName === 'SELECT' && !['N'].includes(k) ? inp.value : Number(inp.value);
+      if (k === 'basis' || k === 'N') { const d = dcfDefaults(k === 'basis' ? v : s.basis, k === 'N' ? v : s.N); for (const kk of ['basis', 'N', 'years', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'consYears', 'baseRev', 'baseFy', 'k', 'capexGuide']) s[kk] = d[kk]; dcfToUrl(s); renderDcf(); return; }
+      if (k === 'betaKey') { s.betaKey = v; if (BETAS[v]) s.beta = BETAS[v].beta; dcfToUrl(s); renderDcf(); return; }
+      if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v;
+      if (k === 'g' && D.terminalCapexToDa == null) { s.k = Math.round(100 * (1 + v / 100 * s.life / 2)) / 100; const kin = box.querySelector('input[data-k="k"]'); if (kin) kin.value = s.k; }
+      dcfToUrl(s); renderDcfOutputs();
+    }));
     el('dcfReset').addEventListener('click', () => { const u = new URL(location.href); u.searchParams.delete('dcf'); history.replaceState(null, '', u.toString()); renderDcf(true); });
     el('dcfCopy').addEventListener('click', async () => { const u = dcfToUrl(s); try { await navigator.clipboard.writeText(u); el('dcfCopy').textContent = LANG === 'es' ? 'Enlace copiado' : 'Link copied'; } catch (e) { /* ignore */ } });
     renderDcfOutputs();
-    const cpm = consensusPath();
-    html('dcfMeta', (LANG === 'es' ? `Base: ingresos y EBITDA de los últimos doce meses al ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); deuda neta al cierre del mismo trimestre; ${fmtN(sharesNow)} acciones en circulación.` : `Base: last-twelve-month revenue and EBITDA at ${lastQ ? qLabel(lastQ) : '—'} (US$ ${fmtN(s.baseRev)} M / US$ ${fmtN(s.baseEbitda)} M); net debt at the same quarter-end; ${fmtN(sharesNow)} shares outstanding.`) + (s.basis === 'consensus' && cpm ? (LANG === 'es' ? ` Años ${cpm.years.join(', ')}: crecimiento de ingresos y capex del consenso de FactSet (${fmtDate(FS.asOf)}), después desaceleración; el margen EBITDA parte del UDM GAAP del modelo (el consenso, sobre EBITDA ajustado por los brokers, implica ${cpm.margins.map((m) => fmtPct(m, 0)).join(' / ')}) y es editable.` : ` Years ${cpm.years.join(', ')}: revenue growth and capex from FactSet consensus (${fmtDate(FS.asOf)}), then taper; the EBITDA margin starts from the model's GAAP LTM (consensus, on broker-adjusted EBITDA, implies ${cpm.margins.map((m) => fmtPct(m, 0)).join(' / ')}) and is editable.`) : ''));
   }
   function renderDcfOutputs() {
-    const s = dcfState.s; const r = dcfCompute(s);
-    const price = lastPx ? lastPx[1] : null;
+    const s = dcfState.s; const r = dcfCompute(s); if (!r) return; const es = LANG === 'es';
+    const price = dcfPrice(), F = r.frame;
     el('dcfHero').textContent = r.perShare != null && isFinite(r.perShare) ? 'US$ ' + fmtN(r.perShare, 0) : '—';
-    el('dcfHeroLbl').textContent = `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (US$ ${fmtN(price, 2)})` : ''}`;
-    let implied = null;
-    if (price && r.perShare != null) { let lo = -20, hi = 60; for (let i = 0; i < 40; i++) { const mid = (lo + hi) / 2; const v = dcfCompute(s, { rf: mid }).perShare; if (!isFinite(v) || v > price) lo = mid; else hi = mid; } implied = dcfCompute(s, { rf: (lo + hi) / 2 }).wacc; }
-    const outs = [
-      { v: fmtPct(100 * r.wacc, 2), l: t('wacc') + (implied != null && isFinite(implied) ? ` · ${LANG === 'es' ? 'implícito por el mercado' : 'market-implied'} ${fmtPct(100 * implied, 1)}` : '') },
+    el('dcfHeroLbl').textContent = `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (US$ ${fmtN(price, 2)}, ${fmtDate(lastPx[0])})` : ''}`;
+    const iwr = price ? impliedWacc(s, price) : null, iw = iwr ? iwr.wacc : null, ig = price ? impliedG(s, price) : null;
+    const ib = iwr ? (iwr.ke - s.rf) / s.erp : null; // the beta that would make the model return the price
+    html('dcfOutputs', [
+      { v: fmtPct(100 * r.wacc, 2), l: `WACC · Ke ${fmtPct(r.ke, 1)}${iw != null ? ` · ${es ? 'implícito por el precio' : 'implied by the price'} ${fmtPct(100 * iw, 1)}` : ''}` },
       { v: fmtBn(r.ev), l: t('ev') },
-      { v: fmtBn(r.eq), l: LANG === 'es' ? 'Valor del capital' : 'Equity value' },
-      { v: fmtPct(100 * r.pvTv / r.ev, 0), l: LANG === 'es' ? 'VP del valor terminal / VE' : 'PV of terminal value / EV' },
-      { v: fmtX(r.impliedMult), l: r.impliedBasis === 'ntm' ? (LANG === 'es' ? 'VE / EBITDA NTM implícito (consenso)' : 'Implied EV / NTM EBITDA (consensus)') : (LANG === 'es' ? 'VE / EBITDA UDM implícito' : 'Implied EV / LTM EBITDA') },
-      { v: fmtBn(r.netDebtM), l: t('nd') },
-    ];
-    html('dcfOutputs', outs.map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
-    html('dcfNote', LANG === 'es'
-      ? `<b>Lectura.</b> El valor terminal se calcula por ${s.method === 'perpetuity' ? `perpetuidad de Gordon (flujo del año 5 creciendo ${fmtPct(s.g)} a perpetuidad)` : `múltiplo de salida ${fmtX(s.mult)} sobre el EBITDA del año 5`}. Los flujos son a la firma, en dólares nominales por año fiscal; los impuestos se aplican sobre la utilidad operativa (EBITDA − D&amp;A). El capex por defecto sigue la guía de la administración para el AF2027 y desciende después; es el supuesto que más mueve el resultado. ${L(D.notes)}`
-      : `<b>Reading it.</b> The terminal value uses ${s.method === 'perpetuity' ? `a Gordon perpetuity (year-5 cash flow growing ${fmtPct(s.g)} forever)` : `a ${fmtX(s.mult)} exit multiple on year-5 EBITDA`}. Flows are to the firm in nominal dollars by fiscal year; taxes are charged on operating profit (EBITDA − D&amp;A). Default capex follows management's FY2027 guidance and tapers afterwards; it is the assumption that moves the result most. ${L(D.notes)}`);
-    const hdr = `<tr><th>${t('year')}</th>${r.rows.map((x) => `<th>FY${x.year}E</th>`).join('')}</tr>`;
-    const line = (l, f, d = 0) => `<tr><td>${l}</td>${r.rows.map((x) => `<td>${fmtN(f(x), d)}</td>`).join('')}</tr>`;
+      { v: fmtBn(r.eq), l: es ? 'Valor del capital común' : 'Common equity value' },
+      { v: fmtPct(100 * r.tvShare, 0), l: es ? `VP del valor terminal / VE (${s.N} años explícitos)` : `PV of terminal value / EV (${s.N} explicit years)` },
+      { v: `${fmtX(r.terminal.capexToDa, 2)} · ${fmtPct(r.terminal.capexPct, 0)}`, l: es ? 'capex terminal: × D&A · % de ingresos' : 'terminal capex: × D&A · % of revenue' },
+      { v: fmtX(r.impliedMult), l: es ? 'VE / EBITDA NTM implícito (consenso)' : 'implied EV / NTM EBITDA (consensus)' },
+    ].map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
+    // projection table: the stub year first (marked), the terminal year last
+    const cols = r.rows; const lastRow = cols[cols.length - 1];
+    const hdr = `<tr><th>${es ? 'Año fiscal' : 'Fiscal year'}</th>${cols.map((x) => `<th>${es ? 'AF' : 'FY'}${String(x.fy).slice(2)}E${x.stub ? `<span class="sub">${x.months} ${es ? 'meses' : 'months'}*</span>` : ''}</th>`).join('')}<th>${es ? 'Terminal' : 'Terminal'}<span class="sub">${es ? 'AF' : 'FY'}${String(lastRow.fy + 1).slice(2)}</span></th></tr>`;
+    const line = (l, f, d = 0, cls = '', tf) => `<tr class="${cls}"><td>${l}</td>${cols.map((x) => `<td>${fmtN(f(x), d)}</td>`).join('')}<td>${tf ? tf() : ''}</td></tr>`;
+    const T = r.terminal;
     html('dcfTable', `<table><thead>${hdr}</thead><tbody>
-      ${line(t('revenue'), (x) => x.rev)}
-      ${line('EBITDA', (x) => x.ebitda)}
-      ${line('− D&A', (x) => -x.da)}
-      ${line(LANG === 'es' ? '− Impuestos sobre EBIT' : '− Taxes on EBIT', (x) => -x.taxes)}
-      ${line('− Capex', (x) => -x.capex)}
-      ${line(LANG === 'es' ? '− Δ capital de trabajo' : '− Δ working capital', (x) => -x.dnwc)}
-      <tr class="total"><td>${LANG === 'es' ? 'Flujo libre a la firma' : 'Unlevered free cash flow'}</td>${r.rows.map((x) => `<td>${fmtN(x.fcf)}</td>`).join('')}</tr>
-      ${line(LANG === 'es' ? 'Factor de descuento' : 'Discount factor', (x) => x.df, 3)}
-      ${line(t('pv'), (x) => x.pv)}
-      <tr class="head"><td colspan="6">${t('tv')}: ${fmtN(r.tv)} · ${t('pv')}: ${fmtN(r.pvTv)} · ${LANG === 'es' ? 'VP flujos explícitos' : 'PV explicit flows'}: ${fmtN(r.pvExplicit)} · VE: ${fmtN(r.ev)}</td></tr></tbody></table>`);
+      ${line(t('revenue'), (x) => x.rev, 0, 'bold', () => fmtN(T.rev))}
+      ${line(es ? 'Crecimiento (%, año completo)' : 'Growth (%, full year)', (x) => x.growth, 1, 'sub', () => fmtN(s.g, 1))}
+      ${s.sbc ? line(es ? 'EBITDA ajustado' : 'Adjusted EBITDA', (x) => x.ebitdaAdj, 0, 'sub') + line(es ? '− Compensación en acciones' : '− Stock-based compensation', (x) => -x.sbc, 0, 'sub') : ''}
+      ${line(s.sbc ? (es ? 'EBITDA después de compensación en acciones' : 'EBITDA after stock-based compensation') : 'EBITDA', (x) => x.ebitda, 0, '', () => fmtN(T.ebitda))}
+      ${line('− D&A', (x) => -x.da, 0, 'sub', () => fmtN(-T.da))}
+      ${line(es ? '− Impuestos sobre EBIT' : '− Taxes on EBIT', (x) => -x.taxes, 0, 'sub', () => fmtN(-T.taxes))}
+      ${line(es ? '− Capex bruto' : '− Gross capex', (x) => -x.capex, 0, '', () => fmtN(-T.capex))}
+      ${line(es ? '+ Prepagos de clientes recibidos' : '+ Customer prepayments received', (x) => x.inflow, 0, 'sub', () => '0')}
+      ${line(es ? '− Prepagos reconocidos como ingreso (sin efectivo)' : '− Prepayments recognised as revenue (no cash)', (x) => -x.unwind, 0, 'sub', () => '—')}
+      <tr class="total"><td>${es ? 'Flujo libre a la firma' : 'Unlevered free cash flow'}</td>${cols.map((x) => `<td class="${cls(x.fcf)}">${fmtN(x.fcf)}</td>`).join('')}<td>${fmtN(T.fcf)}</td></tr>
+      ${line(es ? 'Años al punto medio' : 'Years to mid-period', (x) => x.t, 2, 'sub', () => '')}
+      ${line(es ? 'Factor de descuento' : 'Discount factor', (x) => x.df, 3, 'sub', () => '')}
+      ${line(t('pv'), (x) => x.pv, 0, '', () => fmtN(r.pvTv))}
+      <tr class="head"><td colspan="${cols.length + 2}">${es ? 'VP flujos explícitos' : 'PV explicit flows'} ${fmtN(r.pvExplicit)} · ${es ? 'VP valor terminal' : 'PV terminal value'} ${fmtN(r.pvTv)} (${s.method === 'multiple' ? `${fmtX(s.mult)} EBITDA` : `${es ? 'perpetuidad' : 'perpetuity'} g ${fmtPct(s.g, 2)}`})${r.pvPost ? ` · ${es ? 'reversión de prepagos después del horizonte' : 'prepayment unwind after the horizon'} ${fmtN(r.pvPost)}` : ''} · ${es ? 'VE' : 'EV'} ${fmtN(r.ev)}</td></tr></tbody></table>`);
+    el('dcfTableCap').textContent = es
+      ? `US$ millones por año fiscal (junio–mayo). *${F.ytd.months ? `AF${String(F.curFy).slice(2)}: solo los ${12 - F.ytd.months} meses posteriores al ${qLabel(lastQ)} (el año completo menos lo ya reportado, que está en la deuda neta al ${fmtDate(F.bsDate)}). ` : ''}Flujos descontados a mitad de periodo a la fecha del último cierre (${fmtDate(F.valDate)}); el valor terminal, a mitad del año siguiente al horizonte.`
+      : `US$ million by fiscal year (June–May). *${F.ytd.months ? `FY${String(F.curFy).slice(2)}: only the ${12 - F.ytd.months} months after ${qLabel(lastQ)} (the full year less what is already reported, which is in net debt at ${fmtDate(F.bsDate)}). ` : ''}Flows discounted at mid-period to the latest close (${fmtDate(F.valDate)}); the terminal value at the middle of the year after the horizon.`;
+    // equity bridge
+    const sh = r.shares, pf = (OB && OB.preferred) || {};
+    const br = [
+      [es ? 'Valor de la empresa (VE)' : 'Enterprise value (EV)', r.ev, es ? 'flujos explícitos + valor terminal + reversión de prepagos posterior' : 'explicit flows + terminal value + later prepayment unwind', 'bold'],
+      [es ? '− Deuda neta reportada' : '− Reported net debt', -r.netDebtM, `${es ? 'notas por pagar − efectivo e inversiones' : 'notes payable − cash and investments'}, ${fmtDate(F.bsDate)}`],
+      [`${es ? '− Pasivos por arrendamiento financiero' : '− Finance-lease liabilities'}${r.finLeaseAsOf && r.finLeaseAsOf !== F.bsDate ? ` (${fmtDate(r.finLeaseAsOf)})` : ''}`, -r.finLease, es ? 'deuda en sustancia: su costo (amortización e intereses) queda fuera del EBITDA; los operativos no se restan porque su renta ya está en el EBITDA' : 'debt in substance: their cost (amortization and interest) sits below EBITDA; operating leases are not deducted because their rent is already in EBITDA'],
+      [es ? '− Preferentes convertibles obligatorias' : '− Mandatory convertible preferred', r.pref ? -r.pref : 0, es ? `preferencia de liquidación (valor en libros US$ ${fmtN(pf.carrying_value_usd_m)} M); se convierten en ${fmtN((pf.shares_if_converted_m || {}).min, 1)}–${fmtN((pf.shares_if_converted_m || {}).max, 1)} M de acciones el ${fmtDate(pf.mandatory_conversion_date)}` : `liquidation preference (carrying value US$ ${fmtN(pf.carrying_value_usd_m)} M); converts into ${fmtN((pf.shares_if_converted_m || {}).min, 1)}–${fmtN((pf.shares_if_converted_m || {}).max, 1)} M shares on ${fmtDate(pf.mandatory_conversion_date)}`],
+      [es ? '= Valor del capital común' : '= Common equity value', r.eq, '', 'total'],
+      [es ? 'Acciones diluidas (millones)' : 'Diluted shares (millions)', sh ? sh.total : null, sh ? (es ? `${fmtN(sh.cover, 1)} M en la portada del 10-Q (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M de valores dilutivos (diluidas − básicas, ${boLabel(sh.dilutiveQuarter)}, XBRL)` : `${fmtN(sh.cover, 1)} M on the 10-Q cover (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M dilutive securities (diluted − basic, ${boLabel(sh.dilutiveQuarter)}, XBRL)`) : '', 'sub'],
+      [es ? '= Valor por acción (US$)' : '= Value per share (US$)', r.perShare, price ? `${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${es ? 'frente a' : 'vs'} US$ ${fmtN(price, 2)}` : '', 'total'],
+    ];
+    html('dcfBridge', `<table><tbody>${br.map((x, i) => `<tr class="${x[3] || ''}"><td>${x[0]}</td><td>${x[1] == null ? '—' : i === 5 ? fmtN(x[1], 1) : i === 6 ? fmtN(x[1], 2) : fmtN(x[1])}</td><td class="small muted" style="text-align:left;white-space:normal">${x[2]}</td></tr>`).join('')}</tbody></table>`);
+    // beta cross-check: the same model at each beta estimate
+    const bRows = Object.keys(BETAS).filter((k) => BETAS[k]).map((k) => { const b = BETAS[k]; const x = dcfCompute(s, { beta: b.beta }); return { k, b, x }; });
+    html('dcfBeta', `<table><thead><tr><th>${es ? 'Estimación de beta' : 'Beta estimate'}</th><th>Beta</th><th>${es ? 'Costo de capital' : 'Cost of equity'}</th><th>WACC</th><th>${es ? 'Valor por acción' : 'Value per share'}</th><th>${es ? 'vs precio' : 'vs price'}</th></tr></thead><tbody>${bRows.map(({ k, b, x }) => `<tr class="${k === s.betaKey ? 'bold' : ''}"><td>${betaLabel(k)}${k === (D.betaMethod || 'w2') ? ` <span class="badge">${es ? 'por defecto' : 'default'}</span>` : ''}<span class="sub">${b.n} ${b.freq === 'm' ? (es ? 'meses' : 'months') : (es ? 'semanas' : 'weeks')} · ${fmtDate(b.from)} → ${fmtDate(b.to)}</span></td><td>${fmtN(b.beta, 2)}</td><td>${fmtPct(x.ke, 1)}</td><td>${fmtPct(100 * x.wacc, 2)}</td><td><b>${fmtN(x.perShare, 0)}</b></td><td class="${cls(price ? x.perShare - price : null)}">${price ? fmtPct(100 * (x.perShare / price - 1), 0, true) : '—'}</td></tr>`).join('')}</tbody></table>`);
+    // sensitivity: WACC (moved through the cost of equity) × terminal growth or exit multiple
     const waccs = [-1, -0.5, 0, 0.5, 1].map((d) => r.wacc * 100 + d);
     const gsx = s.method === 'multiple' ? [-2, -1, 0, 1, 2].map((d) => s.mult + d) : [-1, -0.5, 0, 0.5, 1].map((d) => s.g + d);
-    const cell = (w, g) => { const over = s.method === 'multiple' ? { mult: g } : { g }; const deltaW = w / 100 - r.wacc; over.rf = s.rf + 100 * deltaW / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
-    html('dcfSens', `<table class="sens"><thead><tr><th>WACC ↓ / ${s.method === 'multiple' ? (LANG === 'es' ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gsx.map((g) => `<th>${s.method === 'multiple' ? fmtX(g) : fmtPct(g, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gsx.map((g, j) => { const v = cell(w, g); const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
-    el('sensCap').textContent = LANG === 'es' ? `US$ por acción; sombreado = por encima del precio actual (US$ ${fmtN(price, 2)}); recuadro = caso base` : `US$ per share; shaded = above the current price (US$ ${fmtN(price, 2)}); outlined = base case`;
-    const dcfSrc = `${t('src')}: ${LANG === 'es' ? 'cálculo del modelo sobre' : 'model computation on'} ${relLink()} (${LANG === 'es' ? 'UDM y deuda neta' : 'LTM and net debt'} ${asOfQ()}) · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${extLink(FRED_DGS10, LANG === 'es' ? 'Tesoro 10 años (FRED DGS10)' : '10-yr Treasury (FRED DGS10)')}${us10.length ? ` ${fmtDate(us10[us10.length - 1][0])}` : ''} · ${MK.sharesOutstanding && MK.sharesOutstanding.url ? extLink(MK.sharesOutstanding.url, LANG === 'es' ? 'acciones: portada del 10-Q' : 'shares: 10-Q cover') + ` ${fmtDate(MK.sharesOutstanding.asOf)}` : ''} · ${LANG === 'es' ? 'supuestos por defecto' : 'defaults'}: data/reference.js ${fmtDate(REF.updatedAt)}`;
-    html('dcfOutSrc', dcfSrc); html('dcfTableSrc', dcfSrc); html('dcfSensSrc', dcfSrc);
+    const cell = (w, gv) => { const over = s.method === 'multiple' ? { mult: gv } : { g: gv }; over.rf = s.rf + (w - r.wacc * 100) / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
+    const grid = waccs.map((w) => gsx.map((gv) => cell(w, gv)));
+    html('dcfSens', `<table class="sens"><thead><tr><th>WACC ↓ / ${s.method === 'multiple' ? (es ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gsx.map((gv) => `<th>${s.method === 'multiple' ? fmtX(gv) : fmtPct(gv, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gsx.map((gv, j) => { const v = grid[i][j]; const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
+    el('sensCap').textContent = es ? `US$ por acción; sombreado = por encima del precio (US$ ${fmtN(price, 2)}); recuadro = caso base. La WACC se mueve a través del costo de capital.` : `US$ per share; shaded = above the price (US$ ${fmtN(price, 2)}); outlined = base case. WACC moves through the cost of equity.`;
+    // acceptance check: does the grid (and the beta cross-check) bracket the price? If not, say why, with what the price implies
+    const flat = grid.flat().filter((v) => isFinite(v)), gmin = Math.min(...flat), gmax = Math.max(...flat);
+    const bvals = bRows.map((x) => x.x.perShare).filter((v) => isFinite(v)), bmin = Math.min(...bvals), bmax = Math.max(...bvals);
+    const inGrid = price >= gmin && price <= gmax, inBeta = price >= bmin && price <= bmax;
+    const parts = [];
+    parts.push(es ? `La cuadrícula va de US$ ${fmtN(gmin, 0)} a US$ ${fmtN(gmax, 0)} y las estimaciones de beta de US$ ${fmtN(bmin, 0)} a US$ ${fmtN(bmax, 0)}; el precio de US$ ${fmtN(price, 2)} ${inGrid ? 'queda dentro de la cuadrícula' : 'queda fuera de la cuadrícula'}${inBeta ? ' y dentro del rango de betas' : ''}.` : `The grid spans US$ ${fmtN(gmin, 0)} to US$ ${fmtN(gmax, 0)} and the beta estimates US$ ${fmtN(bmin, 0)} to US$ ${fmtN(bmax, 0)}; the US$ ${fmtN(price, 2)} price ${inGrid ? 'lies inside the grid' : 'lies outside the grid'}${inBeta ? ' and inside the beta range' : ''}.`);
+    parts.push(es ? `Con el resto de los supuestos sin cambio, el precio implica una WACC de ${iw != null ? fmtPct(100 * iw, 1) : 'n/d'}${ig != null ? ` o un crecimiento terminal de ${fmtPct(ig, 1)}` : ''}.` : `Holding everything else, the price implies a WACC of ${iw != null ? fmtPct(100 * iw, 1) : 'n/a'}${ig != null ? ` or terminal growth of ${fmtPct(ig, 1)}` : ''}.`);
+    if (ib != null) parts.push(es ? `Esa WACC equivale a una beta de ${fmtN(ib, 2)} (las estimaciones en archivo van de ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} a ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}).` : `That WACC is equivalent to a beta of ${fmtN(ib, 2)} (the estimates on file range from ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} to ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}).`);
+    if (!inGrid && !inBeta) parts.push(es ? `El precio queda fuera porque ${r.perShare > price ? 'el mercado exige un rendimiento mayor (o espera menos flujo) que el consenso de los brokers descontado a la WACC por defecto' : 'el mercado descuenta más flujo (o un rendimiento menor) que el consenso de los brokers descontado a la WACC por defecto'}; las cifras anteriores dicen cuánto.` : `The price is outside because ${r.perShare > price ? 'the market requires a higher return (or expects less cash) than the brokers\' consensus discounted at the default WACC' : 'the market prices more cash (or a lower return) than the brokers\' consensus discounted at the default WACC'}; the figures above say by how much.`);
+    html('dcfCheck', `<b>${inGrid || inBeta ? (es ? 'Prueba de aceptación: el precio queda dentro.' : 'Acceptance check: the price is bracketed.') : (es ? 'Prueba de aceptación: el precio queda fuera.' : 'Acceptance check: the price is not bracketed.')}</b> ${parts.join(' ')}`);
+    el('dcfCheck').className = `callout ${inGrid || inBeta ? '' : 'warn'}`;
+    // one source line for the whole section (the section head carries the as-of / refreshed stamp)
+    const sh2 = r.shares;
+    const dcfSrc = `${t('src')}: ${FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} (${es ? 'consenso por año fiscal' : 'fiscal-year consensus'} ${FS ? fmtDate(FS.asOf) : ''}) · ${relLink()} (${es ? 'trimestres reportados y deuda neta' : 'reported quarters and net debt'} ${asOfQ()}) · ${OB ? extLink((obSrc('10q_1q27') || {}).url || '#', es ? '10-Q (arrendamientos financieros, preferentes)' : '10-Q (finance leases, preferred)') : ''} · ${XB ? extLink(XB.source.url, es ? 'SEC XBRL (acciones)' : 'SEC XBRL (shares)') : ''} · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${extLink(FRED_DGS10, 'FRED DGS10')}${us10.length ? ` ${fmtDate(us10[us10.length - 1][0])}` : ''}${ERP ? ` · ${extLink(ERP.url, es ? 'ERP implícita (Damodaran)' : 'implied ERP (Damodaran)')} ${fmtDate(ERP.asOf)}` : ''}`;
+    html('dcfOutSrc', dcfSrc);
   }
 
   // ================= 06 RELATIVE =================
@@ -944,10 +1161,10 @@
       if (fn.fcf && fn.fcf.mean != null) rows.push([es ? 'Rendimiento FCF NTM / capitalización' : 'NTM FCF yield / market cap', fmtPct(100 * fn.fcf.mean / mcM), `${fmtN(fn.fcf.mean)} M ${es ? 'consenso NTM (negativo: capex de la expansión)' : 'NTM consensus (negative: buildout capex)'}`]);
       const declLast = (REF.dividends || []).slice(-1)[0];
       if (declLast) rows.push([es ? 'Rendimiento por dividendo (anualizado)' : 'Dividend yield (annualised)', fmtPct(100 * declLast.dps * 4 / price), `US$ ${fmtN(declLast.dps, 2)} × 4 (${es ? 'último declarado' : 'latest declared'})`]);
-      const ref = es ? 'referencia UDM' : 'LTM reference';
-      if (evM != null && ltm.ebitda) rows.push([`<span class="muted">${es ? 'VE / EBITDA UDM' : 'EV / EBITDA LTM'}</span>`, `<span class="muted">${fmtX(evM / ltm.ebitda)}</span>`, `${ref} · EBITDA ${fmtN(ltm.ebitda)} M (GAAP + D&A)`]);
-      if (ltm.epsDiluted) rows.push([`<span class="muted">${es ? 'P / U UDM GAAP' : 'P / E LTM GAAP'}</span>`, `<span class="muted">${fmtX(price / ltm.epsDiluted)}</span>`, `${ref} · ${es ? 'UPA' : 'EPS'} US$ ${fmtN(ltm.epsDiluted, 2)}`]);
-      if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), es ? 'UDM reportado (convención de crédito, secciones 07 y 11)' : 'reported LTM (credit convention, sections 07 and 11)']);
+      const refLbl = es ? 'referencia UDM' : 'LTM reference';
+      if (evM != null && ltm.ebitda) rows.push([`<span class="muted">${es ? 'VE / EBITDA UDM' : 'EV / EBITDA LTM'}</span>`, `<span class="muted">${fmtX(evM / ltm.ebitda)}</span>`, `${refLbl} · EBITDA ${fmtN(ltm.ebitda)} M (GAAP + D&A)`]);
+      if (ltm.epsDiluted) rows.push([`<span class="muted">${es ? 'P / U UDM GAAP' : 'P / E LTM GAAP'}</span>`, `<span class="muted">${fmtX(price / ltm.epsDiluted)}</span>`, `${refLbl} · ${es ? 'UPA' : 'EPS'} US$ ${fmtN(ltm.epsDiluted, 2)}`]);
+      if (nd && ltm.ebitda) rows.push([t('lev'), fmtX(nd.net / ltm.ebitda, 2), es ? `UDM reportado (convención de crédito; ${ref('financing')} y ${ref('obligations')})` : `reported LTM (credit convention; ${ref('financing')} and ${ref('obligations')})`]);
     }
     html('multTable', `<table><thead><tr><th>${t('metric')}</th><th>${t('value')}</th><th>${t('basis')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td></tr>`).join('')}</tbody></table>`);
     el('multCap').textContent = lastPx ? `${t('price')} ORCL ${fmtDate(lastPx[0])} · ${es ? 'múltiplos a doce meses sobre el consenso de FactSet' : 'forward multiples on FactSet consensus'}${FS ? ` (${fmtDate(FS.asOf)})` : ''} · ${es ? 'estados financieros al' : 'financials as of'} ${lastQ ? qLabel(lastQ) : ''}` : '';
@@ -1098,10 +1315,15 @@
     mkChart('chartMaturity', { type: 'bar', data: { labels: mb.map((b) => b.label), datasets: [{ label: t('principal'), data: mb.map((b) => b.principal), backgroundColor: mb.map((b) => (b.matured ? c[3] : c[0])) }] }, options: { plugins: { tooltip: { callbacks: { label: (x) => `US$ ${fmtN(x.parsed.y)} M · ${mb[x.dataIndex].n} ${mb[x.dataIndex].n === 1 ? (LANG === 'es' ? 'instrumento' : 'instrument') : (LANG === 'es' ? 'instrumentos' : 'instruments')}` } } }, scales: { x: { grid: { display: false }, ticks: { maxRotation: 0, autoSkip: false } }, y: { ticks: axisM(), beginAtZero: true } }, datasets: { bar: { maxBarThickness: 40, borderWidth: 0 } } } });
     const cp = (D2.instruments || []).find((i) => !i.matures);
     html('maturitySrc', `${t('src')}: ${tenKLink()} (${LANG === 'es' ? 'nota de deuda, al 31 de mayo de 2026' : 'debt footnote, as of 31 May 2026'}) · ${LANG === 'es' ? 'años calendario de vencimiento; la barra atenuada (2026) venció en julio y espera la confirmación de pago del 10-Q' : 'calendar years of maturity; the shaded bar (2026) matured in July and awaits the 10-Q confirmation of repayment'}${cp ?` · ${LANG === 'es' ? 'excluye papel comercial' : 'excludes commercial paper'} (US$ ${fmtN(cp.principalUsdM)} M)` : ''}`);
-    const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td>${r.rating}</td><td>${LS(r.outlook)}</td><td>${LS(r.scope)}</td><td>${fmtDate(r.date)}</td><td class="muted small">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${LS(r.source)}</a>` : LS(r.source)}</td></tr>`).join('');
+    // a rating action older than the rule (freshness.json, 12 months by default) is flagged as aging: the agency may have
+    // moved without a release this page can reach, so the row says how old it is instead of presenting it as current
+    const maxAge = (SEC.freshness && SEC.freshness.rating_action_max_age_days) || 365;
+    const ageMo = (d) => Math.floor(daysSince(d) / 30.44);
+    const aging = (D2.ratings || []).filter((r) => r.date && daysSince(r.date) > maxAge);
+    const ratings = (D2.ratings || []).map((r) => `<tr><td>${r.agency}</td><td>${r.rating}</td><td>${LS(r.outlook)}</td><td>${LS(r.scope)}</td><td>${fmtDate(r.date)}${r.date && daysSince(r.date) > maxAge ? ` <span class="stale" title="${LANG === 'es' ? 'acción de calificación de hace más de 12 meses' : 'rating action more than 12 months old'}">${LANG === 'es' ? `antigua · ${ageMo(r.date)} meses` : `aging · ${ageMo(r.date)} months`}</span>` : ''}</td><td class="muted small">${r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${LS(r.source)}</a>` : LS(r.source)}</td></tr>`).join('');
     html('ratingsTable', `<table><thead><tr><th>${t('rating')}</th><th>${LANG === 'es' ? 'Nivel' : 'Level'}</th><th>${LANG === 'es' ? 'Perspectiva' : 'Outlook'}</th><th>${LANG === 'es' ? 'Alcance' : 'Scope'}</th><th>${t('date')}</th><th>${t('src')}</th></tr></thead><tbody>${ratings}</tbody></table>`);
     el('instrCap').textContent = LANG === 'es' ? `Calificaciones de las agencias (comunicados de acción de calificación); instrumentos de la nota de deuda del 10-K (data/reference.js, actualizado ${fmtDate(REF.updatedAt)})` : `Agency ratings (rating-action releases); instruments from the 10-K debt footnote (data/reference.js, updated ${fmtDate(REF.updatedAt)})`;
-    html('instrNote', LS(D2.instrumentsNote));
+    html('instrNote', (aging.length ? `<b>${LANG === 'es' ? 'Calificaciones antiguas.' : 'Aging ratings.'}</b> ${aging.map((r) => `${r.agency} ${r.rating} (${LS(r.outlook)})`).join(', ')}: ${LANG === 'es' ? `la última acción localizada tiene más de ${Math.round(maxAge / 30.44)} meses; los prospectos posteriores de Oracle siguen citando ese nivel, pero no hay un comunicado reciente de la agencia en archivo.` : `the latest action located is more than ${Math.round(maxAge / 30.44)} months old; Oracle's later prospectuses still cite that level, but no recent agency release is on file.`}<br>` : '') + LS(D2.instrumentsNote));
     const lastRating = (D2.ratings || []).map((r) => r.date).filter(Boolean).sort().slice(-1)[0];
     html('instrSrc', `${t('src')}: ${LANG === 'es' ? 'calificaciones: comunicados de acción de calificación de cada agencia (enlaces por fila)' : 'ratings: each agency\'s rating-action release (links per row)'}${lastRating ? ` · ${LANG === 'es' ? 'última acción' : 'latest action'} ${fmtDate(lastRating)}` : ''} · ${LANG === 'es' ? 'instrumentos' : 'instruments'}: ${tenKLink()} (${LANG === 'es' ? 'nota de deuda, al 31 de mayo de 2026' : 'debt footnote, as of 31 May 2026'}) · data/reference.js ${fmtDate(REF.updatedAt)}`);
   }
@@ -1130,10 +1352,8 @@
     html('aiTimeline', (A.timeline || []).map((e) => `<li><b>${fmtDate(e.date)}</b>${L(e)}</li>`).join(''));
     html('aiSrc', `${t('src')}: ${(A.facts || []).some((f) => f.source) ? (LANG === 'es' ? 'enlaces en cada cifra' : 'links on each figure') : (LS(A.sources) || []).join(' · ')} · ${relLink()} · ${irLink()} · ${asOfQ()} · data/reference.js ${fmtDate(REF.updatedAt)}`);
     html('aiPending', LS(A.pending));
-    // long-range targets from the calls / analyst meeting, if the guidance file carries them
-    const tg = GV.filter((v) => v.multiYear && v.multiYear.oci_revenue_usd_bn);
-    const mm = tg.length ? tg[tg.length - 1].multiYear : null;
-    html('aiTargets', mm ? `<div class="card" style="margin-top:16px"><h3>${LANG === 'es' ? 'Objetivos de ingresos de OCI comunicados por la administración' : 'OCI revenue targets stated by management'}</h3><div class="tblwrap"><table><thead><tr>${Object.keys(mm.oci_revenue_usd_bn).map((y) => `<th>${y}</th>`).join('')}</tr></thead><tbody><tr>${Object.values(mm.oci_revenue_usd_bn).map((v) => `<td>US$ ${fmtN(v)} ${LANG === 'es' ? 'mil M' : 'bn'}</td>`).join('')}</tr></tbody></table></div><p class="chart-src">${t('src')}: ${gLink(tg[tg.length - 1], `${LANG === 'es' ? 'transcripción / comunicado' : 'transcript / release'} (${fmtDate(tg[tg.length - 1].date)})`)}${mm.rpo_expectation ? ` · ${mm.rpo_expectation}` : ''}</p></div>` : '');
+    // Long-range targets (long_range_targets.json): each vintage beside the reported actuals, superseded vintages marked
+    renderTargets();
     const R = REF.rpo || {};
     html('rpoProse', `<p><b>${LANG === 'es' ? 'En una frase.' : 'In one sentence.'}</b> ${L(R.plain)}</p><p class="quote">${L(R.quote)}<span class="who">${R.quoteSource ? link(R.quoteSource, LANG === 'es' ? `Formulario 10-Q de Oracle (${fmtDate(R.quoteSource.date)})` : R.quoteSource.title) : ''}</span></p><p>${L(R.caution)}</p>`);
     const sched = (R.schedule || []).map((s) => `<tr><td>${LANG === 'es' ? s.bucket_es : s.bucket_en}</td><td>${fmtPct(s.pct, 0)}</td><td>US$ ${fmtN(s.amount_bn)} ${LANG === 'es' ? 'mil M' : 'bn'}</td></tr>`).join('');
@@ -1141,6 +1361,29 @@
     el('rpoCap').textContent = R.latest ? (LANG === 'es' ? `RPO total al ${R.latestQuarter}: US$ ${fmtN(R.latest / 1000, 0)} mil M, según el calendario que Oracle revela en el 10-Q` : `Total RPO at ${R.latestQuarter}: US$ ${fmtN(R.latest / 1000, 0)} bn, per the schedule Oracle discloses in the 10-Q`) : '';
     html('rpoCaution', `<b>${LANG === 'es' ? 'Lectura.' : 'Reading it.'}</b> ${LANG === 'es' ? `El RPO es un indicador adelantado, no ingreso asegurado: su conversión depende de la capacidad de centros de datos que Oracle logre construir y energizar, por eso se lee junto con el capex de ${ref('capex')} y los sitios de ${ref('sites')}.` : `RPO is a leading indicator, not assured revenue: its conversion depends on the data-center capacity Oracle manages to build and energise, which is why it is read alongside the capex in ${ref('capex')} and the sites in ${ref('sites')}.`}`);
     html('rpoSrc', `${t('src')}: ${R.quoteSource ? link(R.quoteSource, (LANG === 'es' ? `Formulario 10-Q de Oracle (${fmtDate(R.quoteSource.date)})` : R.quoteSource.title) + ' ↗') : ''} · ${relLink()} (RPO) · ${R.latestQuarter ? `${LANG === 'es' ? 'al' : 'as of'} ${R.latestQuarter}` : asOfQ()}`);
+  }
+
+  // OCI (IaaS) revenue targets against the actuals printed in each release headline (quarters.json iaas_revenue_bn):
+  // full years summed from four quarters, the current year as year-to-date with its share of the target and the run-rate.
+  function renderTargets() {
+    const box = el('aiTargets'); if (!box) return; const es = LANG === 'es';
+    const T = REF.longRange || []; if (!T.length) { box.innerHTML = ''; return; }
+    const iaasFy = (fy) => { const qs = Q.filter((q) => q.fy === fy && q.kpi.iaasRevBn != null); return qs.length ? { sum: qs.reduce((a, q) => a + q.kpi.iaasRevBn, 0), n: qs.length, last: qs[qs.length - 1] } : null; };
+    const oci = T.filter((t) => t.metric === 'oci_revenue');
+    const tbl = oci.map((t) => {
+      const fys = Object.keys(t.by_fy);
+      const head = `<tr><th>${es ? 'Ingresos de OCI (IaaS), US$ mil M' : 'OCI (IaaS) revenue, US$ bn'}</th>${fys.map((f) => `<th>${f}</th>`).join('')}</tr>`;
+      const tgt = `<tr><td>${es ? 'Objetivo' : 'Target'} · ${fmtDate(t.stated_on)}${t.status === 'superseded' ? ` <span class="stale">${es ? 'sustituido' : 'superseded'} ${fmtDate(t.superseded_on)}</span>` : ''}</td>${fys.map((f) => `<td>${fmtN(t.by_fy[f], 0)}</td>`).join('')}</tr>`;
+      const act = `<tr class="bold"><td>${es ? 'Real (encabezado de cada comunicado)' : 'Actual (each release headline)'}</td>${fys.map((f) => { const a = iaasFy(+f.slice(2)); return `<td>${a ? `${fmtN(a.sum, 1)}${a.n < 4 ? `<span class="sub">${a.n === 1 ? (es ? '1 trimestre' : '1 quarter') : `${a.n} ${es ? 'trimestres' : 'quarters'}`}</span>` : ''}` : '—'}</td>`; }).join('')}</tr>`;
+      const pace = `<tr class="sub"><td>${es ? 'Avance frente al objetivo' : 'Progress against target'}</td>${fys.map((f) => { const a = iaasFy(+f.slice(2)); if (!a) return '<td></td>'; const pct = 100 * a.sum / t.by_fy[f]; const rr = a.n < 4 ? 4 * a.last.kpi.iaasRevBn : null; return `<td class="${a.n === 4 ? cls(a.sum - t.by_fy[f]) : rr != null ? cls(rr - t.by_fy[f]) : ''}">${fmtPct(pct, 0)}${rr != null ? `<span class="sub">${es ? 'ritmo anualizado' : 'annualised run-rate'} ${fmtN(rr, 1)}</span>` : ''}</td>`; }).join('')}</tr>`;
+      const sup = t.status === 'superseded' ? `<p class="small" style="margin:8px 0 0"><span class="badge rev">${es ? 'sustituido' : 'superseded'}</span> ${L({ es: t.superseded_es, en: t.superseded_en })}${t.supersededRef ? ` <span class="muted">(${t.supersededRef.title.replace(/ — .*$/, '')}, p.${t.superseded_page})</span>` : ''}</p>` : '';
+      return `<div class="tblwrap"><table>${head}${tgt}${act}${pace}</table></div><p class="small muted" style="margin:6px 0 0">“${L({ es: t.text_es, en: t.text_en })}” — ${t.speaker}, ${t.sourceRef ? t.sourceRef.title.replace(/ — .*$/, '') : ''}, p.${t.page}</p>${sup}`;
+    }).join('');
+    const inForce = T.filter((t) => t.metric !== 'oci_revenue' && t.status === 'in_force');
+    const fyLast = Y[Y.length - 1];
+    const lr = inForce.length ? `<ul class="small" style="margin:10px 0 0;padding-left:18px">${inForce.map((t) => `<li><b>${t.fy}</b>: ${L({ es: t.text_es, en: t.text_en })} <span class="badge ok">${es ? 'vigente' : 'in force'}</span> <span class="muted">(${fmtDate(t.stated_on)}${(t.reconfirmed || []).length ? `; ${es ? 'reconfirmado el' : 'reconfirmed'} ${t.reconfirmed.map((x) => fmtDate(x.date)).join(', ')}` : ''})</span>${t.metric === 'total_revenue' && fyLast ? ` · ${es ? 'real' : 'actual'} ${fyLabel(fyLast.fy)}: ${fmtBn(fyLast.is.revTotal)} (${fmtPct(100 * fyLast.is.revTotal / (t.usd_bn * 1000), 0)} ${es ? 'del objetivo' : 'of the target'})` : ''}</li>`).join('')}</ul>` : '';
+    const lastI = Q.filter((q) => q.kpi.iaasRevBn != null).slice(-1)[0];
+    box.innerHTML = `<div class="card" style="margin-top:16px"><h3>${es ? 'Objetivos de largo plazo de la administración frente a lo reportado' : "Management's long-range targets against what has been reported"}</h3>${tbl}${lr}<p class="chart-src">${t('src')}: ${es ? 'transcripciones de las llamadas (orador y página arriba)' : 'call transcripts (speaker and page above)'} · ${es ? 'real: encabezado "Cloud Infrastructure (IaaS) Revenue" de cada comunicado (8-K, Anexo 99.1), releído por las pruebas del analizador' : 'actuals: the "Cloud Infrastructure (IaaS) Revenue" headline of each release (8-K, Exhibit 99.1), re-read by the parser tests'} · ${relLink()}${lastI ? ` · ${es ? 'al' : 'as of'} ${qLabel(lastI)}` : ''}</p></div>`;
   }
 
   // ================= 09c UNIT ECONOMICS + RPO RECOGNITION PACE =================
@@ -1220,6 +1463,21 @@
     }
     return rows;
   }
+  // What the filings say about VIEs and guarantees, composed from obligations.json so the page never contradicts the data:
+  // a disclosed guarantee is named with its amount, page and maturity (exposure, never a liability); the VIE reading keeps
+  // its review flag; a guarantee whose scheduled maturity has passed says so until a filing reports its release.
+  function obsDisclosure(es) {
+    if (!OB) return ''; const vie = OB.vie || {}, ga = OB.guarantees || {}; const sV = obSrc(vie.source), sG = obSrc(ga.source);
+    const vieTxt = vie.disclosed ? (es ? 'Oracle revela entidades de interés variable (ver nota)' : 'Oracle discloses variable-interest entities (see note)') : (es ? `No se ha identificado ninguna entidad de interés variable consolidada en ${sV ? sV.title.replace(/^Oracle /, '') : 'los reportes'} ni en el 10-Q más reciente (lectura de texto, revisión pendiente)` : `No consolidated variable-interest entity has been identified in the ${sV ? sV.title.replace(/^Oracle /, '') : 'filings'} or the latest 10-Q (text reading, needs review)`);
+    let gaTxt = es ? 'Oracle no revela garantías' : 'Oracle discloses no guarantees';
+    if (ga.disclosed && ga.usd_m != null) {
+      const [my, mm] = String(ga.matures || '').split('-').map(Number); const matEnd = my && mm ? new Date(Date.UTC(my, mm, 0)).toISOString().slice(0, 10) : null;
+      const mat = matEnd ? new Date(matEnd + 'T12:00:00Z').toLocaleDateString(locale(), { month: 'long', year: 'numeric', timeZone: 'UTC' }) : ga.matures;
+      gaTxt = es ? `${sG ? sG.title.replace(/^Oracle /, '') : 'El 10-K'} (p. ${ga.page}) revela una garantía de hasta US$ ${fmtN(ga.usd_m / 1000, 1)} mil M del préstamo de un arrendador, con vencimiento en ${mat}; se muestra como exposición, nunca como pasivo` : `The ${sG ? sG.title.replace(/^Oracle /, '') : '10-K'} (p. ${ga.page}) discloses a guarantee of up to US$ ${fmtN(ga.usd_m / 1000, 1)} bn of a lessor's borrowing, maturing ${mat}; it is shown as exposure, never as a liability`;
+      if (matEnd && todayIso() > matEnd) gaTxt += es ? `. Su vencimiento programado ya pasó; el 10-Q al ${fmtDate(OB.as_of)} no la repite y el siguiente 10-Q dirá si se liberó` : `. Its scheduled maturity has passed; the 10-Q at ${fmtDate(OB.as_of)} does not repeat it and the next 10-Q will show whether it was released`;
+    }
+    return `${vieTxt}. ${gaTxt}.`;
+  }
   function renderObligations() {
     if (!OB || !el('obTable')) return; const es = LANG === 'es', c = SERIES(), S = obligStats(); const Lz = OB.leases || {}, bs = OB.balance_sheet || {}, un = Lz.uncommenced || {}, po = OB.purchase_obligations || {}, ga = OB.guarantees || {};
     const q10 = obSrc(Lz.source || '10q_1q27'); const tenQ = q10 ? extLink(q10.url, es ? '10-Q 1T27' : '1Q27 10-Q') : '';
@@ -1242,7 +1500,7 @@
     const commit = [
       { l: es ? 'Arrendamientos firmados, aún no iniciados' : 'Leases signed, not yet commenced', v: (un.usd_bn || 0) * 1000, n: es ? `nota de arrendamientos del 10-Q · casi todos de centros de datos · plazos de ${un.term_years_min}–${un.term_years_max} años · inician entre el 2T27 y el AF2029` : `10-Q leases note · substantially all data centers · ${un.term_years_min}–${un.term_years_max}-year terms · commence between 2Q27 and FY2029` },
       { l: es ? 'Obligaciones de compra (energía, equipo y otros)' : 'Purchase obligations (power, equipment and other)', v: po.total, n: es ? 'Oracle las reporta por separado en el 10-Q (nota de compromisos, no la de arrendamientos) · no cancelables · calendario por año fiscal abajo' : 'Oracle reports them separately in the 10-Q (commitments note, not the leases note) · non-cancelable · schedule by fiscal year below' },
-      { l: es ? 'Garantías a arrendadores u otras' : 'Lessor or other guarantees', v: null, n: es ? ga.text_es : ga.text_en },
+      { l: es ? 'Garantía del préstamo de un arrendador (exposición máxima)' : "Guarantee of a lessor's borrowing (maximum exposure)", v: ga.disclosed ? ga.usd_m : null, exposure: true, n: ga.disclosed ? (es ? `${obSrc(ga.source) ? '10-K, p. ' + ga.page : ''} · vence en ${fmtMonth(ga.matures)} · exposición, no se suma a ninguna razón` : `${obSrc(ga.source) ? '10-K, p. ' + ga.page : ''} · matures ${fmtMonth(ga.matures)} · exposure, not added to any ratio`) : (es ? 'no divulgada' : 'not disclosed') },
     ];
     const obRow = (x) => `<tr><td>${x.l}</td><td><b>${x.v == null ? (es ? 'no divulgadas' : 'not disclosed') : bnf(x.v)}</b></td><td class="small muted">${x.n}</td></tr>`;
     const obHead = `<thead><tr><th>${es ? 'Partida' : 'Item'}</th><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Detalle' : 'Detail'}</th></tr></thead>`;
@@ -1250,7 +1508,7 @@
     const obCash = `<tr class="muted"><td>${es ? 'Nota: efectivo e inversiones negociables' : 'Memo: cash and marketable securities'}</td><td>(${bnf(bs.cash_and_investments || 0)})</td><td class="small">${es ? 'se resta de los préstamos para obtener la deuda neta' : 'netted against borrowings for net debt'}</td></tr>`;
     const obNote = `<tr><td colspan="3" class="small muted">${es ? 'Montos nominales, sin descontar; no incluidos en los pasivos reconocidos de arriba.' : 'Nominal amounts, undiscounted; not included in the recognized liabilities above.'}</td></tr>`;
     html('obTable', `<div class="obgrp recog"><h4>${grpRecog}</h4><div class="tblwrap"><table>${obHead}<tbody>${recog.map(obRow).join('')}${obTotal}${obCash}</tbody></table></div></div><div class="obgrp commit"><h4>${grpCommit}</h4><div class="tblwrap"><table>${obHead}<tbody>${commit.map(obRow).join('')}${obNote}</tbody></table></div></div>`);
-    const bars = [...recog.map((x) => ({ ...x, g: 0 })), ...commit.filter((x) => x.v != null && x.v > 0).map((x) => ({ ...x, g: 1 }))];
+    const bars = [...recog.map((x) => ({ ...x, g: 0 })), ...commit.filter((x) => x.v != null && x.v > 0 && !x.exposure).map((x) => ({ ...x, g: 1 }))];
     mkChart('chartOblig', { type: 'bar', data: { labels: bars.map((x) => x.l), datasets: [
       { label: es ? 'Pasivos reconocidos' : 'Recognized liabilities', data: bars.map((x) => (x.g === 0 ? x.v / 1000 : null)), backgroundColor: c[0] },
       { label: es ? 'Compromisos contractuales futuros' : 'Future contractual commitments', data: bars.map((x) => (x.g === 1 ? x.v / 1000 : null)), backgroundColor: c[1] },
@@ -1305,6 +1563,8 @@
 
   // ================= 13 METHOD / SOURCES =================
   function renderMethod() {
+    // static cross-references in the page markup: numbered from the registry in the language of the span they sit in
+    document.querySelectorAll('a.xref[data-ref]').forEach((a) => { const e = secIndex()[a.dataset.ref]; if (!e) return; const es = !!a.closest('.es'); a.textContent = `${e.n != null ? '§' + secNum(a.dataset.ref) + ' ' : ''}${es ? e.s.nav_es : e.s.nav_en}`; });
     const rows = [
       [LANG === 'es' ? 'Estados financieros trimestrales, acumulados y anuales' : 'Quarterly, YTD and annual statements', LANG === 'es' ? 'diario, tras cada 8-K' : 'daily, after each 8-K', LANG === 'es' ? 'GitHub Actions cosecha los 8-K de SEC EDGAR; las cifras entran a tools/oracle/data/quarters.json y pasan scripts/oracle/validate-data.mjs antes de publicarse' : 'GitHub Actions harvests the 8-Ks from SEC EDGAR; figures enter tools/oracle/data/quarters.json and pass scripts/oracle/validate-data.mjs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [LANG === 'es' ? 'Guía de la administración' : 'Management guidance', LANG === 'es' ? 'con cada reporte / transcripción' : 'with each report / transcript', 'data/guidance.js', fmtDate((GD.generatedAt || '').slice(0, 10))],
@@ -1364,12 +1624,13 @@
     }
     // navigation from the registry
     const nav = el('jumpNav');
-    if (nav) nav.innerHTML = secList().map((s) => `<a href="#${s.id}">${idx[s.id].n != null ? `<span class="muted">${String(idx[s.id].n).padStart(2, '0')}</span> ` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`).join('') + `<a href="#sources">${es ? 'Fuentes' : 'Sources'}</a>`;
+    if (nav) nav.innerHTML = secList().map((s) => `<a href="#${s.id}">${idx[s.id].n != null ? `<span class="muted">${String(idx[s.id].n).padStart(2, '0')}</span> ` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`).join('') + `<a href="#sources">${es ? 'Fuentes' : 'Sources'}</a><button type="button" class="navbtn" id="btnCollapseAll"></button>`;
+    const ca = el('btnCollapseAll'); if (ca) ca.addEventListener('click', () => { const ids = secList().map((x) => x.id).filter((x) => x !== 'summary'); if (ca.dataset.mode === 'collapse') ids.forEach((x) => collapsed.add(x)); else collapsed.clear(); saveCollapsed(); applyCollapse(); });
   }
   numberSections.fig = 0; numberSections.tbl = 0;
 
   // ---- freshness: as-of (period end) and last refresh (ET) per data module; stale past the next expected filing + grace ----
-  const fmtET = (iso) => { if (!iso) return '—'; const d = new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? iso + 'T00:00:00Z' : iso); if (isNaN(d)) return '—'; return d.toLocaleString(locale(), { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET'; };
+  const fmtET = (iso) => { if (!iso) return '—'; if (/^\d{4}-\d{2}-\d{2}$/.test(String(iso))) return fmtDate(iso); const d = new Date(iso); if (isNaN(d)) return '—'; return d.toLocaleString(locale(), { day: 'numeric', month: 'short', year: 'numeric', hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }) + ' ET'; };
   const todayIso = () => new Date().toISOString().slice(0, 10);
   const MOD_REFRESH = {
     financials: () => FIN.generatedAt, xbrl: () => XB && XB.fetched, obligations: () => OB && (OB.generatedAt || OB.updated), guidance: () => GD.generatedAt, comments: () => CM.updatedAt, summary: () => SUM.updatedAt,
@@ -1390,7 +1651,8 @@
     if (r.cadence === 'filing') { const nx = nextExpectedFiling(); if (nx) { const d = new Date(nx.date + 'T00:00:00Z'); d.setUTCDate(d.getUTCDate() + grace); const deadline = d.toISOString().slice(0, 10); if (todayIso() > deadline) { stale = true; reason = LANG === 'es' ? `pasó la siguiente fecha esperada de reporte (${fmtDate(nx.date)}, ${nx.basis === 'confirmed' ? 'confirmada' : 'supuesta'}) + ${grace} días` : `past the next expected filing (${fmtDate(nx.date)}, ${nx.basis}) + ${grace} days`; } } if (asOf && lastQ && asOf < qEndDate(lastQ) && !['guidance', 'reference', 'risks'].includes(id)) { stale = true; reason = LANG === 'es' ? `datos al ${fmtDate(asOf)}; el último trimestre cierra el ${fmtDate(qEndDate(lastQ))}` : `data as of ${fmtDate(asOf)} while the latest quarter ends ${fmtDate(qEndDate(lastQ))}`; } }
     else { const age = daysSince(refreshed ? String(refreshed).slice(0, 10) : null); const lim = r.max_age_days || 7; if (refreshed == null) { if (!r.optional) { stale = true; reason = LANG === 'es' ? 'sin datos' : 'no data'; } } else if (age > lim) { stale = true; reason = LANG === 'es' ? `última actualización hace ${age} días (límite ${lim})` : `last refresh ${age} days ago (limit ${lim})`; } }
     if (srv && srv.stale && !stale) { stale = true; reason = srv.reason; }
-    return { id, label: L({ es: r.label_es, en: r.label_en }) || id, cadence: r.cadence, asOf, refreshed, stale, reason, textDerived: !!r.text_derived, nextExpected: r.cadence === 'filing' ? nextExpectedFiling() : null, maxAgeDays: r.max_age_days || null };
+    const pending = !!r.optional && refreshed == null && !(MOD_ASOF[id] && MOD_ASOF[id]());
+    return { id, label: L({ es: r.label_es, en: r.label_en }) || id, cadence: r.cadence, asOf, refreshed, stale, pending, reason, textDerived: !!r.text_derived, nextExpected: r.cadence === 'filing' ? nextExpectedFiling() : null, maxAgeDays: r.max_age_days || null };
   }
   const stampHtml = (asOf, refreshed, stale) => `<span class="stamp">${LANG === 'es' ? 'Corte' : 'As of'}: <b>${asOf ? fmtDate(String(asOf).slice(0, 10)) : '—'}</b> · ${LANG === 'es' ? 'actualizado' : 'refreshed'} <span class="et">${fmtET(refreshed)}</span>${stale ? ` <span class="stale">${LANG === 'es' ? 'DESACTUALIZADO' : 'STALE'}</span>` : ''}</span>`;
   // Every chart, table and metric footer in a section gets the as-of date, the ET refresh time and the stale flag of
@@ -1399,9 +1661,11 @@
     for (const sec of document.querySelectorAll('section.block[data-sec]')) {
       const reg = secList().find((s) => s.id === sec.dataset.sec); if (!reg) continue;
       const sts = (reg.modules || []).map(moduleStatus);
-      const asOf = sts.length ? sts[0].asOf : null; const refreshed = sts.map((s) => s.refreshed).filter(Boolean).sort().pop() || null; const stale = sts.some((s) => s.stale);
+      const live = sts.filter((s) => !s.pending); const asOf = live.length ? live[0].asOf : null; const refreshed = live.map((s) => s.refreshed).filter(Boolean).sort().pop() || null; const stale = live.some((s) => s.stale);
       sec.querySelectorAll('.stamp, .sec-stamp').forEach((e) => e.remove());
-      for (const p of sec.querySelectorAll('p.chart-src')) p.insertAdjacentHTML('beforeend', stampHtml(asOf, refreshed, stale));
+      // The as-of / refreshed stamp is written once, in the section head (owner's request 2026-10-03: no repeated captions);
+      // a footer repeats it only when the section is stale, so the STALE flag still sits under every figure it affects.
+      for (const p of sec.querySelectorAll('p.chart-src')) { p.innerHTML = p.innerHTML.replace(/(\s*·\s*)+$/, '').replace(/·(\s*·)+/g, '·'); if (stale) p.insertAdjacentHTML('beforeend', stampHtml(asOf, refreshed, stale)); }
       const head = sec.querySelector('.sec-head'); if (head) head.insertAdjacentHTML('beforeend', `<span class="sec-stamp">${stampHtml(asOf, refreshed, stale)}</span>`);
     }
   }
@@ -1511,7 +1775,7 @@
     ];
     html('obViews', `<table class="views"><thead><tr><th>US$ ${es ? 'mil M' : 'bn'}</th><th>${es ? 'Reportado' : 'Reported'}</th><th>${es ? 'Ajustado por arrendamientos (ASC 842)' : 'Lease-adjusted (ASC 842)'}</th><th>${es ? 'Transparente (ASC 810 + compromisos)' : 'Look-through (ASC 810 + commitments)'}</th><th>${es ? 'Qué es' : 'What it is'}</th></tr></thead><tbody>${rows.map((r) => `<tr class="${r.cls || ''}"><td>${r.l}</td><td>${r.a}</td><td>${r.b}</td><td>${r.c}</td><td class="desc">${r.d}</td></tr>`).join('')}</tbody></table>`);
     el('obViewsCap').textContent = es ? `Al ${fmtDate(OB.as_of)} (10-Q) con el EBITDA UDM del modelo (${lastLTM ? lastLTM.id : ''}). Las razones son derivadas. Las filas "memo" de la vista transparente son exposición, no deuda, y nunca entran en una razón salvo la marcada como tal.` : `At ${fmtDate(OB.as_of)} (10-Q) with the model's LTM EBITDA (${lastLTM ? lastLTM.id : ''}). Ratios are derived. The "memo" rows of the look-through view are exposure, not debt, and never enter a ratio except the one marked as such.`;
-    html('obViewsMethod', `<div class="callout"><b>${es ? 'Cómo leer las tres vistas.' : 'How to read the three views.'}</b><br><b>${es ? 'Reportado.' : 'Reported.'}</b> ${L({ es: lt.reported_es, en: lt.reported_en })}<br><b>${es ? 'Ajustado por arrendamientos.' : 'Lease-adjusted.'}</b> ${L({ es: lt.lease_adjusted_es, en: lt.lease_adjusted_en })}<br><b>${es ? 'Transparente.' : 'Look-through.'}</b> ${L({ es: lt.lookthrough_es, en: lt.lookthrough_en })}</div>`);
+    html('obViewsMethod', `<div class="callout"><b>${es ? 'Cómo leer las tres vistas.' : 'How to read the three views.'}</b><br><b>${es ? 'Reportado.' : 'Reported.'}</b> ${L({ es: lt.reported_es, en: lt.reported_en })}<br><b>${es ? 'Ajustado por arrendamientos.' : 'Lease-adjusted.'}</b> ${L({ es: lt.lease_adjusted_es, en: lt.lease_adjusted_en })}<br><b>${es ? 'Transparente.' : 'Look-through.'}</b> ${L({ es: lt.lookthrough_es, en: lt.lookthrough_en })}<br><b>${es ? 'Qué dicen los reportes.' : 'What the filings say.'}</b> ${obsDisclosure(es)}</div>`);
     const q10 = obSrc(Lz.source);
     html('obViewsSrc', `${t('src')}: ${q10 ? extLink(q10.url, q10.title) : ''}${q10 && q10.accession ? ` · ${es ? 'acceso' : 'accession'} <span class="mono">${q10.accession}</span>` : ''} · ${es ? 'deuda neta y EBITDA UDM del modelo' : 'model net debt and LTM EBITDA'} (${ref('financing')}) · ${asOfQ()}`);
     // uncommenced leases: what is and is not disclosed
@@ -1546,7 +1810,7 @@
     const sV = obSrc(vie.source), sG = obSrc(ga.source);
     html('obVie', `<div class="grid-2 eq" style="margin-top:0"><div class="callout" style="margin-top:12px"><b>${es ? 'Entidades de interés variable y vehículos de propósito especial (ASC 810).' : 'Variable-interest entities and special-purpose vehicles (ASC 810).'}</b> <span class="badge rev">${es ? 'revisión pendiente' : 'needs review'}</span><br>${L({ es: vie.text_es, en: vie.text_en })}${sV ? `<br><span class="small muted">${t('src')}: ${extLink(sV.url, sV.title)}${sV.accession ? ` · <span class="mono">${sV.accession}</span>` : ''}</span>` : ''}</div><div class="callout" style="margin-top:12px"><b>${es ? 'Garantías a arrendadores y de valor residual.' : 'Lessor and residual-value guarantees.'}</b> <span class="badge rev">${es ? 'texto · revisión' : 'text · review'}</span><br>${L({ es: ga.text_es, en: ga.text_en })}${sG ? `<br><span class="small muted">${t('src')}: ${extLink(sG.url, sG.title)}${sG.accession ? ` · <span class="mono">${sG.accession}</span>` : ''}</span>` : ''}</div></div>`);
     const sites = (BO && BO.sites) || [];
-    const sf = (s, k) => (es && s[k + '_es'] ? s[k + '_es'] : s[k] || '');
+    const sf = (s, k) => (es ? s[k + '_es'] : s[k + '_en']) || s[k] || '';
     const srcShort = (r) => (r.url ? `<a href="${r.url}" target="_blank" rel="noopener">${r.short || r.title}</a>` : `<span>${r.short || r.title}</span>`);
     html('obDevFin', `<table class="sites"><thead><tr><th>${es ? 'Sitio' : 'Site'}</th><th>${es ? 'Desarrollador' : 'Developer'}</th><th>${es ? 'Financiamiento del desarrollador (según su comunicado o la prensa)' : 'Developer financing (per its release or the press)'}</th><th>${es ? 'Exposición de Oracle' : 'Oracle\'s exposure'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.short || s.name}</b></td><td>${sf(s, 'developer')}</td><td>${sf(s, 'financing')} <span class="badge">${es ? 'no es de Oracle' : 'not Oracle\'s'}</span></td><td class="small">${es ? 'Oracle no divulga su compromiso por sitio; el arrendamiento entra al balance al iniciar' : 'Oracle discloses no per-site commitment; the lease comes onto the balance sheet at commencement'}</td><td class="small">${(s.sources || []).map(srcShort).join(' · ')}</td></tr>`).join('')}</tbody></table>`);
     el('obVieCap').textContent = es ? 'Lo que los reportes de Oracle dicen (y no dicen) sobre entidades consolidadas y garantías, y los financiamientos de proyecto de los desarrolladores detrás de los campus arrendados. La deuda de los desarrolladores es de ellos: aquí se lista como referencia y nunca se trata como pasivo de Oracle.' : 'What Oracle\'s filings say (and do not say) about consolidated entities and guarantees, and the developers\' project financings behind the leased campuses. The developers\' debt is theirs: it is listed for reference and never treated as an Oracle liability.';
@@ -1557,19 +1821,22 @@
     const ver = (QR && QR.obligationsVerification) || [];
     const prov = OB.provenance || {};
     const getPath = (o, path) => path.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
-    const label = (path) => path.replace(/^balance_sheet\./, es ? 'Balance: ' : 'Balance sheet: ').replace(/^leases\.cost\./, es ? 'Arrendamientos, costo: ' : 'Leases, cost: ').replace(/^leases\.uncommenced\./, es ? 'Arrendamientos no iniciados: ' : 'Uncommenced leases: ').replace(/^leases\./, es ? 'Arrendamientos: ' : 'Leases: ').replace(/^purchase_obligations\./, es ? 'Obligaciones de compra: ' : 'Purchase obligations: ').replace(/^prepayments\./, es ? 'Prepagos: ' : 'Prepayments: ').replace(/_/g, ' ');
-    const badge = (v) => v === 'verified' ? `<span class="badge ok">${es ? 'verificado (XBRL)' : 'verified (XBRL)'}</span>` : v === 'mismatch' ? `<span class="badge bad">${es ? 'no coincide' : 'mismatch'}</span>` : v === 'needs_review' ? `<span class="badge rev">${es ? 'revisión pendiente' : 'needs review'}</span>` : `<span class="badge">${es ? 'sin verificar' : 'unverified'}</span>`;
+    const NAMED = { 'guarantees.usd_m': [`Garantía del préstamo de un arrendador (exposición máxima)`, `Guarantee of a lessor's borrowing (maximum exposure)`], 'vie.disclosed': ['Entidades de interés variable consolidadas', 'Consolidated variable-interest entities'], 'preferred.carrying_value_usd_m': ['Preferentes: valor en libros', 'Preferred stock: carrying value'], 'preferred.dividend_quarterly_usd_m': ['Preferentes: dividendo trimestral', 'Preferred stock: quarterly dividend'], 'preferred.max_conversion_rate': ['Preferentes: tasa máxima de conversión (acciones por preferente)', 'Preferred stock: maximum conversion rate (shares per preferred share)'], 'prepayments.deferred_revenue_prepayments_financing_1q27': ['Prepagos de clientes con componente de financiamiento, 1T27', 'Customer prepayments with a financing component, 1Q27'] };
+    const label = (path) => NAMED[path] ? NAMED[path][es ? 0 : 1] : path.replace(/^balance_sheet\./, es ? 'Balance: ' : 'Balance sheet: ').replace(/^leases\.cost\./, es ? 'Arrendamientos, costo: ' : 'Leases, cost: ').replace(/^leases\.uncommenced\./, es ? 'Arrendamientos no iniciados: ' : 'Uncommenced leases: ').replace(/^leases\./, es ? 'Arrendamientos: ' : 'Leases: ').replace(/^purchase_obligations\./, es ? 'Obligaciones de compra: ' : 'Purchase obligations: ').replace(/^prepayments\./, es ? 'Prepagos: ' : 'Prepayments: ').replace(/_/g, ' ');
+    const badge = (v) => v === 'verified' ? `<span class="badge ok">${es ? 'verificado (XBRL)' : 'verified (XBRL)'}</span>` : v === 'verified_release' ? `<span class="badge ok">${es ? 'verificado (comunicado)' : 'verified (release)'}</span>` : v === 'verified_tie' ? `<span class="badge ok">${es ? 'verificado (cuadre)' : 'verified (tie-out)'}</span>` : v === 'mismatch' ? `<span class="badge bad">${es ? 'no coincide' : 'mismatch'}</span>` : v === 'needs_review' ? `<span class="badge rev">${es ? 'lectura de texto · revisión' : 'text reading · review'}</span>` : `<span class="badge">${es ? 'sin verificar' : 'unverified'}</span>`;
     const rows = Object.entries(prov).filter(([k]) => !k.startsWith('_')).map(([path, p]) => {
       const s = (OB.sources || {})[p.source] || {}; const noteName = s.notes && s.notes[p.note] ? s.notes[p.note] : p.note;
       const vs = ver.filter((v) => v.path === path || v.path.startsWith(path + '['));
-      const val = getPath(OB, path); const vTxt = typeof val === 'number' ? fmtM(val) : Array.isArray(val) ? `${val.length} ${es ? 'renglones' : 'rows'}` : val && typeof val === 'object' ? (es ? 'bloque de texto' : 'text block') : String(val ?? '—');
+      const val = getPath(OB, path); const vTxt = typeof val === 'boolean' ? (val ? (es ? 'sí' : 'yes') : (es ? 'ninguna identificada' : 'none identified')) : typeof val === 'number' ? (path.endsWith('conversion_rate') ? fmtN(val, 4) : fmtM(val)) : Array.isArray(val) ? `${val.length} ${es ? 'renglones' : 'rows'}` : val && typeof val === 'object' ? (es ? 'bloque de texto' : 'text block') : String(val ?? '—');
       const verdict = vs.length ? (vs.every((v) => v.verdict === 'verified') ? 'verified' : vs.some((v) => v.verdict === 'mismatch') ? 'mismatch' : vs[0].verdict) : (p.text_only ? 'needs_review' : 'unverified');
-      const xb = vs.find((v) => v.xbrl) ? vs.find((v) => v.xbrl).xbrl : null;
-      return `<tr><td>${label(path)}</td><td>${vTxt}</td><td class="small">${s.url ? extLink(s.url, (s.title || p.source).replace(/^Oracle /, '')) : p.source}${s.filed ? `<span class="sub">${es ? 'presentado' : 'filed'} ${fmtDate(s.filed)}</span>` : ''}</td><td class="small">${noteName || '—'}</td><td class="small">${p.page != null ? p.page : `<span class="muted" title="${es ? 'reporte en XBRL en línea sin paginación fija; la nota es el ancla' : 'inline-XBRL filing without fixed pagination; the note is the anchor'}">n/p</span>`}</td><td class="mono small">${s.accession || '—'}</td><td class="small">${xb ? `${xb.concept}<span class="sub">${fmtM(xb.value)} · ${xb.form} ${xb.accn}</span>` : p.xbrl ? (Array.isArray(p.xbrl) ? p.xbrl.length + ' ' + (es ? 'conceptos' : 'concepts') : '—') : (es ? 'sin concepto XBRL' : 'no XBRL concept')}</td><td>${badge(verdict)}</td></tr>`;
+      const xb = vs.find((v) => v.xbrl) ? vs.find((v) => v.xbrl).xbrl : null; const v0 = vs[0] || {};
+      // how the figure is checked when there is no single XBRL fact: an archived-release re-read, a tie-out, or nothing (text)
+      const how = v0.method === 'release' && v0.release ? `${es ? 'releído del comunicado 8-K' : 're-read from the 8-K release'}<span class="sub">${fmtM(v0.release.parsed)} · ${v0.release.accession}</span>` : v0.method === 'tie_out' ? `${es ? 'cuadre con los términos del prospecto' : 'tie-out to the prospectus terms'}<span class="sub">${es ? 'no es un dato XBRL' : 'not an XBRL fact'}</span>` : v0.method === 'text' ? `${es ? 'sin concepto XBRL para esta revelación' : 'no XBRL concept exists for this disclosure'}<span class="sub">${es ? 'se mantiene para una segunda lectura' : 'kept for a second reading'}</span>` : null;
+      return `<tr><td>${label(path)}</td><td>${vTxt}</td><td class="small">${s.url ? extLink(s.url, (s.title || p.source).replace(/^Oracle /, '')) : p.source}${s.filed ? `<span class="sub">${es ? 'presentado' : 'filed'} ${fmtDate(s.filed)}</span>` : ''}</td><td class="small">${noteName || '—'}</td><td class="small">${p.page != null ? p.page : `<span class="muted" title="${es ? 'reporte en XBRL en línea sin paginación fija; la nota es el ancla' : 'inline-XBRL filing without fixed pagination; the note is the anchor'}">n/p</span>`}</td><td class="mono small">${s.accession || '—'}</td><td class="small">${xb ? `${xb.concept}<span class="sub">${fmtM(xb.value)} · ${xb.form} ${xb.accn}</span>` : how || (p.xbrl ? (Array.isArray(p.xbrl) ? p.xbrl.length + ' ' + (es ? 'conceptos' : 'concepts') : '—') : '—')}</td><td>${badge(verdict)}</td></tr>`;
     });
     html('obProvenance', `<table class="prov"><thead><tr><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Valor (US$ M)' : 'Value (US$ M)'}</th><th>${es ? 'Reporte' : 'Filing'}</th><th>${es ? 'Nota / sección' : 'Note / section'}</th><th>${es ? 'Pág.' : 'Page'}</th><th>${es ? 'No. de acceso' : 'Accession no.'}</th><th>${es ? 'Verificación XBRL' : 'XBRL check'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
-    const n = { v: ver.filter((v) => v.verdict === 'verified').length, r: ver.filter((v) => v.verdict === 'needs_review').length, m: ver.filter((v) => v.verdict === 'mismatch').length };
-    el('obProvCap').textContent = es ? `${n.v} cifras verificadas contra el dato XBRL de la SEC del mismo periodo, ${n.r} lecturas de texto con revisión pendiente, ${n.m} discrepancias. "n/p" = Oracle presenta XBRL en línea sin paginación fija; el nombre de la nota es el ancla. Los números de nota siguen el orden del 10-K del AF2026 y se releen con cada 10-Q.` : `${n.v} figures verified against the SEC's XBRL value for the same period, ${n.r} text readings with review pending, ${n.m} mismatches. "n/p" = Oracle files inline XBRL without fixed pagination; the note name is the anchor. Note numbers follow the FY2026 10-K order and are re-read with each 10-Q.`;
+    const n = { v: ver.filter((v) => /^verified/.test(v.verdict)).length, r: ver.filter((v) => v.verdict === 'needs_review').length, m: ver.filter((v) => v.verdict === 'mismatch').length, u: ver.filter((v) => v.verdict === 'unverified').length };
+    el('obProvCap').textContent = es ? `${n.v} cifras verificadas (dato XBRL de la SEC del mismo periodo, comunicado archivado o cuadre con el prospecto), ${n.r} lecturas de texto sin concepto XBRL posible, ${n.m} discrepancias${n.u ? `, ${n.u} sin verificar` : ''}. "n/p" = Oracle presenta XBRL en línea sin paginación fija; el nombre de la nota es el ancla. Los números de nota siguen el orden del 10-K del AF2026 y se releen con cada 10-Q.` : `${n.v} figures verified (the SEC's XBRL value for the same period, the archived release or a tie-out to the prospectus), ${n.r} text readings with no XBRL concept possible, ${n.m} mismatches${n.u ? `, ${n.u} unverified` : ''}. "n/p" = Oracle files inline XBRL without fixed pagination; the note name is the anchor. Note numbers follow the FY2026 10-K order and are re-read with each 10-Q.`;
     html('obProvSrc', `${t('src')}: ${es ? 'reportes enlazados por fila' : 'filings linked per row'} · ${XB ? extLink(XB.source.url, 'SEC XBRL company facts') : ''} · ${es ? 'verificación' : 'verification'}: scripts/oracle/validate-data.mjs${QR && QR.generated ? ` (${fmtET(QR.generated)})` : ''} · ${asOfQ()}`);
   }
 
@@ -1635,7 +1902,7 @@
   // ================= RISKS =================
   function renderRisks() {
     if (!RK || !el('risksTable')) return; const es = LANG === 'es';
-    html('risksTable', `<table class="risks"><thead><tr><th>${es ? 'Riesgo' : 'Risk'}</th><th>${es ? 'Evidencia pública' : 'Public evidence'}</th><th>${es ? 'Dónde' : 'Where'}</th><th>${es ? 'Qué observar' : 'What to watch'}</th><th>${t('src')}</th></tr></thead><tbody>${(RK.items || []).map((r) => `<tr><td><b>${L(r)}</b></td><td class="small">${resolveRefs(L({ es: r.evidence_es, en: r.evidence_en }))}</td><td class="small">${(r.where || []).map(ref).join('<br>')}</td><td class="small">${L({ es: r.watch_es, en: r.watch_en })}</td><td class="small">${r.source ? extLink(r.source.url, r.source.title) : ''}</td></tr>`).join('')}</tbody></table>`);
+    html('risksTable', `<table class="risks"><thead><tr><th>${es ? 'Riesgo' : 'Risk'}</th><th>${es ? 'Evidencia pública' : 'Public evidence'}</th><th>${es ? 'Dónde' : 'Where'}</th><th>${es ? 'Qué observar' : 'What to watch'}</th><th>${t('src')}</th></tr></thead><tbody>${(RK.items || []).map((r) => `<tr><td><b>${L(r)}</b></td><td class="small">${resolveRefs(L({ es: r.evidence_es, en: r.evidence_en }))}${(r.notes || []).map((n) => `<span class="rnote"><span class="badge ${n.kind === 'press' ? 'est' : 'rev'}">${n.kind === 'press' ? (es ? 'prensa' : 'press') : n.kind} · ${fmtDate(n.date)}${daysSince(n.date) > 30 ? ` · ${es ? `hace ${daysSince(n.date)} días` : `${daysSince(n.date)} days old`}` : ''}</span> ${L(n)}</span>`).join('')}</td><td class="small">${(r.where || []).map(ref).join('<br>')}</td><td class="small">${L({ es: r.watch_es, en: r.watch_en })}</td><td class="small">${r.source ? extLink(r.source.url, r.source.title) : ''}</td></tr>`).join('')}</tbody></table>`);
     html('risksMeta', es ? `Registro revisado el ${fmtDate(RK.updated)}; cada riesgo cita la cifra o el reporte que lo sustenta.` : `Register reviewed ${fmtDate(RK.updated)}; each risk cites the figure or filing behind it.`);
     html('risksSrc', `${t('src')}: ${es ? 'enlaces por fila' : 'links per row'} · ${relLink()} · ${asOfQ()}`);
   }
@@ -1644,7 +1911,7 @@
   function renderModules() {
     if (!el('modulesTable')) return; const es = LANG === 'es';
     const mods = Object.keys((SEC.freshness && SEC.freshness.modules) || {}).map(moduleStatus);
-    html('modulesTable', `<table><thead><tr><th>${es ? 'Módulo' : 'Module'}</th><th>${es ? 'Corte' : 'As of'}</th><th>${es ? 'Actualizado (ET)' : 'Refreshed (ET)'}</th><th>${es ? 'Regla' : 'Rule'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${mods.map((m) => `<tr><td>${m.label}${m.textDerived ? ` <span class="badge rev" title="${es ? 'cifras tomadas de texto: revisión pendiente hasta confirmarlas' : 'text-derived figures: needs review until confirmed'}">${es ? 'texto' : 'text'}</span>` : ''}</td><td>${m.asOf ? fmtDate(String(m.asOf).slice(0, 10)) : '—'}</td><td class="small">${fmtET(m.refreshed)}</td><td class="small muted">${m.cadence === 'filing' ? (m.nextExpected ? `${es ? 'siguiente reporte' : 'next filing'} ${fmtDate(m.nextExpected.date)} (${m.nextExpected.basis === 'confirmed' ? (es ? 'confirmado' : 'confirmed') : (es ? 'supuesto' : 'assumed')}) + ${(SEC.freshness && SEC.freshness.grace_days) || 7} ${es ? 'días' : 'days'}` : (es ? 'por reporte' : 'per filing')) : `${es ? 'diario · máx.' : 'daily · max'} ${m.maxAgeDays} ${es ? 'días' : 'days'}`}</td><td>${m.stale ? `<span class="stale">${es ? 'DESACTUALIZADO' : 'STALE'}</span> <span class="small muted">${m.reason || ''}</span>` : `<span class="badge ok">${es ? 'vigente' : 'current'}</span>`}</td></tr>`).join('')}</tbody></table>`);
+    html('modulesTable', `<table><thead><tr><th>${es ? 'Módulo' : 'Module'}</th><th>${es ? 'Corte' : 'As of'}</th><th>${es ? 'Actualizado (ET)' : 'Refreshed (ET)'}</th><th>${es ? 'Regla' : 'Rule'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${mods.map((m) => `<tr><td>${m.label}${m.textDerived ? ` <span class="badge rev" title="${es ? 'cifras tomadas de texto: revisión pendiente hasta confirmarlas' : 'text-derived figures: needs review until confirmed'}">${es ? 'texto' : 'text'}</span>` : ''}</td><td>${m.asOf ? fmtDate(String(m.asOf).slice(0, 10)) : '—'}</td><td class="small">${fmtET(m.refreshed)}</td><td class="small muted">${m.cadence === 'filing' ? (m.nextExpected ? `${es ? 'siguiente reporte' : 'next filing'} ${fmtDate(m.nextExpected.date)} (${m.nextExpected.basis === 'confirmed' ? (es ? 'confirmado' : 'confirmed') : (es ? 'supuesto' : 'assumed')}) + ${(SEC.freshness && SEC.freshness.grace_days) || 7} ${es ? 'días' : 'days'}` : (es ? 'por reporte' : 'per filing')) : `${es ? 'diario · máx.' : 'daily · max'} ${m.maxAgeDays} ${es ? 'días' : 'days'}`}</td><td>${m.pending ? `<span class="badge rev">${es ? 'pendiente' : 'pending'}</span> <span class="small muted">${es ? 'sin datos todavía' : 'no data yet'}</span>` : m.stale ? `<span class="stale">${es ? 'DESACTUALIZADO' : 'STALE'}</span> <span class="small muted">${m.reason || ''}</span>` : `<span class="badge ok">${es ? 'vigente' : 'current'}</span>`}</td></tr>`).join('')}</tbody></table>`);
     html('modulesSrc', `${es ? 'Reglas' : 'Rules'}: tools/oracle/freshness.json · ${es ? 'evaluadas en el servidor (validate-data.mjs) y de nuevo en su navegador' : 'evaluated on the server (validate-data.mjs) and again in your browser'} · ${QR && QR.generated ? `${es ? 'última validación' : 'last validation'} ${fmtET(QR.generated)}` : ''}`);
   }
   function renderChangelog() {
@@ -1655,12 +1922,30 @@
     el('changelogCap').textContent = es ? `Últimas ${ents.length} entradas de ${(CL.entries || []).length} publicadas; cada actualización compara los archivos de datos nuevos con los anteriores (sin contar las marcas de tiempo). Bitácora completa en la página de calidad de datos.` : `Last ${ents.length} of ${(CL.entries || []).length} published entries; every refresh diffs the new data files against the previous ones (generation stamps excluded). Full log on the data-quality page.`;
     html('changelogSrc', `tools/oracle/data/changelog.json · scripts/oracle/build-data.mjs · <a href="quality.html">quality.html</a>`);
   }
+  // ---- collapse / expand per section (remembered in this browser only) and a back-to-top control ----
+  const collapsed = (() => { try { return new Set(JSON.parse(localStorage.getItem('orcl-collapsed') || '[]')); } catch (e) { return new Set(); } })();
+  const saveCollapsed = () => { try { localStorage.setItem('orcl-collapsed', JSON.stringify([...collapsed])); } catch (e) { /* ignore */ } };
+  function applyCollapse() {
+    const es = LANG === 'es';
+    for (const sec of document.querySelectorAll('section.block[data-sec]')) {
+      const id = sec.dataset.sec; if (id === 'summary') continue;
+      const head = sec.querySelector('.sec-head'); if (!head) continue;
+      let b = head.querySelector('.sec-toggle');
+      if (!b) { b = document.createElement('button'); b.type = 'button'; b.className = 'sec-toggle'; const h2 = head.querySelector('h2'); (h2 || head.lastChild).insertAdjacentElement('afterend', b); b.addEventListener('click', () => { if (collapsed.has(id)) collapsed.delete(id); else collapsed.add(id); saveCollapsed(); applyCollapse(); }); }
+      const c = collapsed.has(id) && !PRINT; sec.classList.toggle('collapsed', c);
+      b.textContent = c ? (es ? '▸ Mostrar' : '▸ Show') : (es ? '▾ Ocultar' : '▾ Hide'); b.setAttribute('aria-expanded', String(!c));
+      b.title = c ? (es ? 'Mostrar esta sección' : 'Show this section') : (es ? 'Ocultar esta sección' : 'Hide this section');
+    }
+    const all = el('btnCollapseAll'); if (all) { const anyOpen = [...document.querySelectorAll('section.block[data-sec]')].some((x) => x.dataset.sec !== 'summary' && !x.classList.contains('collapsed')); all.textContent = anyOpen ? (es ? 'Ocultar todo' : 'Collapse all') : (es ? 'Mostrar todo' : 'Expand all'); all.dataset.mode = anyOpen ? 'collapse' : 'expand'; }
+  }
   function wireNav() {
     const navLinks = [...document.querySelectorAll('nav.jump a')];
     const sections = navLinks.map((a) => document.querySelector(a.getAttribute('href'))).filter(Boolean);
     if (wireNav.io) wireNav.io.disconnect();
     wireNav.io = new IntersectionObserver((entries) => { entries.forEach((en) => { if (en.isIntersecting) navLinks.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + en.target.id)); }); }, { rootMargin: '-40% 0px -55% 0px' });
     sections.forEach((s2) => wireNav.io.observe(s2));
+    // a jump to a collapsed section opens it
+    navLinks.forEach((a) => { if (a.dataset.wired) return; a.dataset.wired = '1'; a.addEventListener('click', () => { const id = a.getAttribute('href').slice(1); if (collapsed.has(id)) { collapsed.delete(id); saveCollapsed(); applyCollapse(); } }); });
   }
 
   // ================= wiring =================
@@ -1668,12 +1953,14 @@
   function renderAll() {
     chartDefaults();
     renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderCapex(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderObViews(); renderLeaseMaturity(); renderObVie(); renderObProvenance(); renderCircular(); renderCredit(); renderNews(); renderRisks(); renderCalendar(); renderMethod(); renderModules(); renderChangelog();
-    numberSections(); applyStamps(); wireNav();
+    numberSections(); applyStamps(); applyCollapse(); wireNav();
   }
   function setLang(lang) {
     LANG = lang;
     el('btnLangEs').classList.toggle('active', lang === 'es'); el('btnLangEn').classList.toggle('active', lang === 'en');
     document.documentElement.setAttribute('lang', lang === 'es' ? 'es-MX' : 'en');
+    document.title = lang === 'es' ? 'Oracle · Modelo financiero interactivo | Oracle Corporation (ORCL)' : 'Oracle · Interactive financial model | Oracle Corporation (ORCL)';
+    const pc = document.querySelector('#printClose h2'); if (pc) pc.textContent = lang === 'es' ? 'Fuentes y metodología' : 'Sources and Methodology';
     document.querySelectorAll('.es').forEach((e) => { e.hidden = lang !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = lang !== 'en'; });
     try { localStorage.setItem('orcl-lang', lang); } catch (e) { /* ignore */ }
     fillSelects(); renderAll();
@@ -1702,7 +1989,7 @@
     if (on === PRINT) return;
     PRINT = on;
     const root = document.documentElement;
-    if (on) { prevTheme = root.getAttribute('data-theme'); root.setAttribute('data-theme', 'light'); if (hasChart()) { prevAnim = Chart.defaults.animation; Chart.defaults.animation = false; } renderAll(); renderPrintExtras(); if (hasChart()) for (const c of Object.values(Chart.instances)) { c.options.responsive = false; c.resize(930, 240); } }
+    if (on) { const kn = el('keyNumbersWrap'); if (kn) kn.open = true; prevTheme = root.getAttribute('data-theme'); root.setAttribute('data-theme', 'light'); if (hasChart()) { prevAnim = Chart.defaults.animation; Chart.defaults.animation = false; } renderAll(); renderPrintExtras(); if (hasChart()) for (const c of Object.values(Chart.instances)) { c.options.responsive = false; c.resize(930, 240); } }
     else { if (prevTheme) root.setAttribute('data-theme', prevTheme); else root.removeAttribute('data-theme'); if (hasChart()) Chart.defaults.animation = prevAnim; renderAll(); }
   }
   window.addEventListener('beforeprint', () => setPrintMode(true));
@@ -1721,6 +2008,7 @@
   seg('segOpsMetric', (v) => { op.metric = v; renderOperating(); });
   seg('segRange', (v) => { sh.range = v; renderShare(); });
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => renderAll());
+  const toTop = el('toTop'); if (toTop) { const upd = () => toTop.classList.toggle('show', window.scrollY > 900); window.addEventListener('scroll', upd, { passive: true }); upd(); toTop.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' })); }
 
   // Read-only view of the model for the presentation builder (present.js): the same data, helpers and
   // calculations the page renders, so the PDF and the screen can never disagree.
@@ -1732,7 +2020,7 @@
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
     pctChange, OB, PL, obligStats, peerLeverage, SEC, NEWS, XB, RK, CL, secNum, secTitle, secNav, secList, moduleStatus, fmtET, nextExpectedFiling, xbQ, xbQuarters, xbInstant, parseCapexGuide, gCapexNote,
-    FS, fsNtm, fsFiscal, peersOwnRow, consensusPath,
+    FS, fsNtm, fsFiscal, peersOwnRow, dcfDefaults, dcfCompute, dilutedShares, BETAS,
   };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');

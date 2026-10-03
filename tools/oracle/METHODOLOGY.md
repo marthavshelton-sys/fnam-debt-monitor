@@ -19,8 +19,9 @@ version of this note; the data-quality page (`/oracle/quality.html`, unlinked) s
 5. **Major wires and financial press** (Reuters, Bloomberg, Financial Times, Wall Street Journal; trade press only for
    site-level detail). A fact that rests only on press is labeled *press* and never enters a figure.
 
-Nothing is interpolated or estimated silently. The only estimate on the page (the present value of the uncommenced
-leases) is labeled *FNAM estimate, illustrative only*, states every assumption and is never added to debt or a ratio.
+Nothing is interpolated or estimated silently. Outside the DCF (§8, an editable model whose every input is shown), the
+only estimate on the page (the present value of the uncommenced leases) is labeled *FNAM estimate, illustrative only*,
+states every assumption and is never added to debt or a ratio.
 "Not disclosed" is written where Oracle discloses nothing.
 
 ## 2. Organization and numbering
@@ -56,22 +57,31 @@ reference does not resolve, when the DOM order differs from the registry, or whe
 * **Lease-adjusted (ASC 842).** Adds the operating and finance lease liabilities already recognised (present value of
   the payments at Oracle's incremental borrowing rate, 5.7% weighted average at FY2026) to net debt, and the LTM
   operating lease cost back to EBITDA. Close to the rating agencies' adjusted leverage.
-* **Look-through (ASC 810 and commitments).** Asks what Oracle is committed to beyond the balance sheet. Oracle
-  consolidates no variable-interest entity and discloses no guarantees (text readings, flagged *needs review* until the
-  routine re-reads both filings), so nothing is added as a liability. Leases signed but not yet commenced (US$288 bn at
-  31-Aug-2026, undiscounted, 15–19-year terms, commencing 2Q27–FY2029) and purchase obligations (US$34.2 bn) are shown
-  separately at nominal value. The developers' project debt (press-reported) is the developers', listed per site for
-  reference only. A maximum guarantee exposure, were one disclosed, would be shown as exposure, never as a liability.
+* **Look-through (ASC 810 and commitments).** Asks what Oracle is committed to beyond the balance sheet; nothing in
+  this view is added as a liability. No consolidated variable-interest entity has been identified in the FY2026 10-K or
+  the 1Q27 10-Q (a text reading, flagged *needs review* until a second reading). The FY2026 10-K (leases note, p. 90)
+  discloses a guarantee of up to US$3.3 bn of a lessor's borrowing maturing September 2026: it is shown as a maximum
+  exposure, never as a liability, and once its scheduled maturity passes the page says so until a filing reports its
+  release. Leases signed but not yet commenced and purchase obligations are shown separately at nominal value. The
+  developers' project debt (press-reported) is the developers', listed per site for reference only. The page composes
+  these sentences from `obligations.json` (`vie`, `guarantees`), so the text cannot contradict the data.
 
-Every figure in this section carries filing, note, page, accession and the verdict of the XBRL cross-check
-(`quality_report.obligationsVerification`): *verified* when the XBRL value for the same period matches within US$1 M;
-*needs review* for text-only readings; *mismatch* stops publication.
+Every figure in this section carries filing, note, page, accession and the verdict of a machine check
+(`quality_report.obligationsVerification`): *verified (XBRL)* when the SEC's XBRL value for the same period matches within
+US$1 M (a total may be checked as the sum of its tagged parts; a key may pool a concept Oracle re-tagged, e.g.
+`LongTermNotesPayable` → `LongTermNotesAndLoans` in FY2027); *verified (release)* when the figure carries a custom tag and
+is re-read from the archived 8-K earnings release instead (customer prepayments); *verified (tie-out)* for prospectus
+terms recomputed from the document's own terms (preferred dividend, conversion rates); *text reading · review* only where
+no XBRL concept exists for the disclosure (uncommenced leases, the lessor guarantee, VIEs); *mismatch* stops publication.
 
 ## 5. Timestamps, refresh and staleness
 
-* Every chart, table and metric footer shows **as of** (the period end or close date of the section's primary module),
-  **refreshed** (the generation time of the module's data file, in Eastern Time) and a **STALE** flag when any module
-  behind the section is stale. The section head repeats the stamp.
+* Every section head shows **as of** (the period end or close date of the section's primary module), **refreshed** (the
+  generation time of the module's data file, in Eastern Time; a file that records only a date shows the date, never an
+  invented time) and a **STALE** flag when any module behind the section is stale. Since 2026-10-03 (owner's request to
+  cut repeated captions) the stamp is written once per section; card footers repeat it only when the section is stale,
+  so the flag still sits under every figure it affects. An optional module with no data yet (the CDS) is *pending*,
+  never *current*.
 * **Rules** (`tools/oracle/freshness.json`): a filing-driven module is stale once today is past the next expected
   filing date (Oracle's confirmed date, else the end of the window derived from the median release lag of the same
   quarter over three years, labeled *assumed*) plus 7 days; a daily module when its last refresh is older than its
@@ -102,3 +112,53 @@ FCF, D&A, recasts, four quarters to the fiscal year), parser re-reads of 26 prin
 obligations identities, XBRL cross-checks (obligations, capex, operating cash flow, four quarters to the year),
 news and sections checks, module staleness. 0 failures required to publish; warnings mean insufficient data to check.
 Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
+
+## 8. DCF (its own section since 2026-10-03; not in the board deck)
+
+* **Frame.** Oracle fiscal years (June–May). The current fiscal year is a **stub**: the full-year projection less the
+  quarters already reported (revenue, EBITDA, D&A, capex, prepayments), because their cash is already in the
+  balance-sheet net debt. Ten explicit years by default (5, 7 or 10 selectable). Flows are discounted at **mid-period**
+  to the latest close; the Gordon terminal value at the middle of the year after the horizon (an exit multiple at its end).
+* **Basis.** *Consensus* (default): revenue, EBITDA, D&A (`DEP_AMORT_EXP`) and capex are FactSet fiscal-year means.
+  Consensus EBITDA is the brokers' adjusted figure, which excludes **stock-based compensation**, so SBC (LTM share of
+  revenue, from the Non-GAAP reconciliation) is deducted. *Management targets*: the fiscal-year revenue guide and the
+  in-force FY2030 revenue target (`long_range_targets.json`) with a GAAP EBITDA margin (already net of SBC) and the
+  consensus cost and capex ratios. After the years the basis covers, growth halves each year down to the terminal rate,
+  margin and D&A hold, and capex/revenue converges linearly to the terminal ratio.
+* **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
+  gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
+  recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,
+  analyst meeting 16-Oct-2025, p.10), including the prepayments already received (FY2026 and the current year to date,
+  from the release cash-flow line). The share holds through the consensus years and fades to zero by the last explicit
+  year; unwinds that fall after the horizon are discounted explicitly.
+* **Terminal year.** Capex is normalised to **k × D&A** with k = 1 + g × L / 2 (replacement plus growth for an asset life
+  L = 6 years, Oracle's server life, 10-Q note 3): 1.09 at g = 3%. No customer funding in the steady state.
+* **Discount rate.** Rf = 10-year Treasury (FRED DGS10, latest). ERP = Aswath Damodaran's implied ERP for the S&P 500
+  (trailing 12 months, adjusted payout; posted on the first of each month and read by `fetch-market.mjs`; flagged when
+  older than 45 days). β = OLS slope of weekly log returns of ORCL on the S&P 500 over two years (default), with
+  cross-checks shown beside it: five-year monthly and the Blume-adjusted versions of both (0.67 β + 0.33); the table shows
+  the WACC and value per share at each. Kd = today's Treasury + the issue spread of Oracle's most recent ~10-year fixed
+  note over the Treasury on its issue date. Weights = net debt / (net debt + market cap).
+* **Equity bridge.** EV − reported net debt − finance-lease liabilities (their cost sits below EBITDA; operating leases
+  are not deducted because their rent is already in EBITDA) − the mandatory convertible preferred at its liquidation
+  preference (until its conversion date) = common equity, divided by **diluted shares**: the 10-Q cover count plus the
+  dilutive securities of the latest quarter (diluted − basic weighted average, XBRL).
+* **Acceptance check.** The section states whether the sensitivity grid and the beta cross-checks bracket the price; it
+  always shows the WACC and the terminal growth the price implies (holding everything else) and the beta equivalent to
+  that WACC, so a gap between model and market is explained with figures rather than hidden.
+
+## 9. Summary, sites and targets
+
+* The summary opens with five computed buildout numbers (RPO, MW energized vs contracted, capex gross vs net cash,
+  uncommenced leases, funding still to raise); the drafted bullets follow, and *What to watch* is short lines grouped
+  under headings. The summary carries its own date (`exec_summary.updated`) and the date its events run through; the
+  validator fails the build when a cited source is dated after the summary, and the page counts the news items newer
+  than the summary.
+* Each campus has an **Issues** list (`buildout.json → sites[].issues`): dated, typed, with basis (company, government,
+  wire, press) and source; a named decision or delivery date is counted down and flagged once passed without an update.
+* Long-range targets (`long_range_targets.json`) are shown beside the reported actuals (the IaaS revenue headline of
+  each release, re-read by the parser tests); superseded vintages are marked with the date and source that superseded
+  them, never deleted.
+* Ratings older than 12 months (`freshness.json → rating_action_max_age_days`) are flagged as aging on the page and in
+  the deck.
+
