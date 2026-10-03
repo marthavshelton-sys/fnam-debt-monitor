@@ -114,6 +114,8 @@ if (last) Q.period('latest quarter (financials.js)', last.id, expQ, ageDays(((la
 const lastM = traffic.months.at(-1);
 Q.period('latest traffic month (traffic.js)', lastM && lastM.ym, expM, ageDays(lastM && lastM.source && lastM.source.date));
 try { const ns = JSON.parse(await readFile(new URL(`../../tools/${COMPANY}/notify-state.json`, import.meta.url), 'utf8')); Q.stale('alert routine (notify-state.json)', (ns.lastCheckedAt || ns.lastNotifiedAt || '').slice(0, 10) || null, ns.lastCheckedAt ? 3 : null, { es: `último aviso ${ns.lastNotifiedAt || '—'}; trimestre ${ns.lastQuarter || '—'}, tráfico ${ns.lastTrafficMonth || '—'}`, en: `last notification ${ns.lastNotifiedAt || '—'}; quarter ${ns.lastQuarter || '—'}, traffic ${ns.lastTrafficMonth || '—'}` }); } catch { /* optional */ }
+// BMV eventos relevantes: the harvester's fail-safe for filings that never reach the wire (ASUR; see harvest-releases.mjs)
+try { const mf = JSON.parse(await readFile(new URL(`../../tools/${COMPANY}/raw/manifest.json`, import.meta.url), 'utf8')); const b = mf.bmv; if (b) Q.stale('BMV eventos relevantes (manifest.json)', (b.checkedAt || '').slice(0, 10) || null, 4, b.error ? { es: `error en la última corrida: ${b.error}`, en: `error on the last run: ${b.error}` } : { es: `${b.rows} avisos listados; ${b.archived} nuevos sin comunicado en PR Newswire archivados en esta corrida`, en: `${b.rows} notices listed; ${b.archived} new ones without a PR Newswire release archived on this run` }); } catch { /* optional */ }
 
 const cm = await loadJs(`../../site/${COMPANY}/data/comments.js`, `${KEY}_COMMENTS`);
 const sm = await loadJs(`../../site/${COMPANY}/data/summary.js`, `${KEY}_SUMMARY`);

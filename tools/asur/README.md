@@ -36,6 +36,9 @@ scripts/airports/fetch-market.mjs --company=asur   Yahoo Finance + Banxico SIE (
 scripts/asur/harvest-releases.mjs                  PR Newswire organisation pages + keyword search (traffic, results, events)
                                                    asur.com.mx "Información financiera" (quarterly report and transcript PDFs;
                                                    URL pattern guessed for quarters the page does not link)
+                                                   BMV eventos relevantes (bmv.com.mx issuer page): every filing ASUR makes in
+                                                   Mexico; one already covered by a wire / IR document is only recorded, any other
+                                                   is archived from its PDF as class "other" (Spanish, *_bmv<id>_es.txt)
                                                    -> tools/asur/raw/releases/*.txt (+ manifest.json); PDFs converted with
                                                    scripts/airports/pdf2text.py (pdfplumber), PDFs themselves are not committed
 scripts/asur/build-data.mjs                        raw text -> financials.js, traffic.js, guidance.js
@@ -51,6 +54,13 @@ git commit "[skip actions]" + push                 Cloudflare Pages deploys; the
   (`workflow_dispatch`, inputs `mode` = market | filings | all, `full` = re-download everything).
 * The harvester is incremental (releases already in the manifest are skipped). `--full` redoes
   everything. Event releases are kept from 2024 onwards; traffic and results from 2016.
+* Why the BMV list (added 3-Oct-2026): ASUR's evento relevante of 28-Sep-2026 (offering disclosure: CPC Bridge
+  Facility US$1,299 M, US$1,230 M drawn; pro forma balance sheet) went to the BMV and the SEC but not to PR Newswire,
+  so the harvest missed it. `manifest.bmv` records when the list was last read, the rows seen and any error; the
+  quality page shows it as "BMV eventos relevantes" (stale after 4 days). Traffic or results notices with no matching
+  English document are listed in `manifest.bmv.unmatched`. A bond priced abroad (144A/Reg S) may reach no filing at
+  all for days: the 1-Oct-2026 notes appeared only in the press (IFR, LatinFinance), so they sit in
+  `reference.js → debt.events` labeled as press and enter no figure until ASUR files them.
 * Why PR Newswire and asur.com.mx rather than EDGAR: SEC EDGAR refuses GitHub-hosted runners. The
   PR Newswire release carries only the summary tables; the full statements, Tables 1–7, the country
   reviews and the airport traffic tables come from the quarterly-report PDF on asur.com.mx.
@@ -148,4 +158,4 @@ material change in ASUR data today."
 - The executive summary writes the next-results date as `{nextResults}`; the page and the deck compute it from the same release-lag rule (comparative-column sources are ignored).
 - `?lang=en|es` overrides the stored language; the two statement periods can never be equal.
 - Debt instruments are a dated snapshot (`debt.instrumentsAsOf`) with post-quarter issues and repayments in `debt.events[]`; the page prints subtotals against the balance sheet, the deck a maturity profile by year.
-- Leverage: the page's 0.78× divides net debt by consolidated LTM EBITDA; ASUR's Table 6 prints 0.9× on the same net debt with a denominator it does not itemize; both are shown. The country-review passenger figures include transit and general aviation (the report's own note), the traffic tables do not; the page footnotes both bases. Motiva: only ASUR's filings feed the page (US$936 M JPMorgan loan, R$5.1 bn price); press-only figures are named in the status text and not used.
+- Leverage: the page's 0.8× (shown to one decimal, as every leverage ratio on the page and in the deck) divides net debt by consolidated LTM EBITDA; ASUR's Table 6 prints 0.9× on the same net debt with a denominator it does not itemize, and its evento relevante of 28-Sep-2026 prints 0.8× on adjusted LTM EBITDA of Ps. 19,449 M; all are noted. The country-review passenger figures include transit and general aviation (the report's own note), the traffic tables do not; the page footnotes both bases. Motiva: only ASUR's filings feed the page (R$5.1 bn price; CPC Bridge Facility US$1,299 M signed 14-Aug-2026, US$1,230 M drawn at closing, per the 28-Sep-2026 evento relevante; the US$936.0 M JPMorgan figure of the 2Q26 report was the facility arranged with the offer); press-only figures are named in the status text and not used.
