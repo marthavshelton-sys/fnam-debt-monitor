@@ -48,13 +48,25 @@ function resolve(src, where) {
 }
 function resolveAll(obj, where) {
   for (const key of ['src', 'ownershipSrc', 'gpuSrc', 'valueSrc']) if (obj[key] && obj[key].k) obj[key] = resolve(obj[key], `${where}.${key}`);
+  // the item's review state travels with each of its citations, so every source card says who verified it and when
+  if (obj.status) for (const key of ['src', 'ownershipSrc', 'gpuSrc', 'valueSrc']) if (obj[key]) Object.assign(obj[key], { status: obj.status, verifiedBy: obj.verifiedBy || null, verifiedOn: obj.verifiedOn || null });
   return obj;
 }
 
 // ---- Oracle (T2): capacity and sites from the Oracle model's store
 function oSrc(key, page) {
   const s = orclSrc[key] || (orclSrc.sources || {})[key];
-  return s ? { tier: 'T2', title: 'Oracle ' + String(s.title).replace(/\s*—.*$/, ''), date: s.filing_date, url: s.url || null, page: page || null, key } : { tier: 'T2', title: key, page: page || null, key };
+  if (!s) return { tier: 'T2', title: key, page: page || null, key, noUrl: true };
+  const out = { tier: 'T2', title: 'Oracle ' + String(s.title).replace(/\s*—.*$/, ''), date: s.filing_date, url: s.url || null, page: page || null, key };
+  // Earnings-call transcripts are licensed copies supplied by the owner: no public URL. The reader gets the call date and
+  // the same-day earnings release (8-K Ex. 99.1, public on EDGAR), labeled as not containing the quoted sentence.
+  if (!out.url) {
+    out.noUrl = true;
+    const m = /^S-CALL-(FY\d{4}Q\d)$/.exec(key);
+    const rel = m && (orclSrc[`S-8K-${m[1]}`] || (orclSrc.sources || {})[`S-8K-${m[1]}`]);
+    if (rel && rel.url) out.companion = { title: rel.title, url: rel.url, accn: rel.accession || null, date: rel.filing_date || null };
+  }
+  return out;
 }
 const orclCap = orcl ? {
   updated: orcl.updated,

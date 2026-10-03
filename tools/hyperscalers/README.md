@@ -51,6 +51,22 @@ After each 10-Q season (and after each earnings call for guidance):
    capex guidance is read from `tools/oracle/data/guidance.json` (the Oracle model's store) — keep them consistent.
 3. Run build + validate, look at the quality pages, commit.
 
+## Reader-facing rules added 2026-10-03 (owner's review)
+
+- Summary "What to know" box (`site/hiperescaladores/app.js → whatToKnow()`): composed at page load from the module data;
+  only T1 figures that are verified (text items) or quote-matched (flows), under 12 months old. A takeaway whose inputs
+  are missing is dropped; never hand-write its text.
+- 12-month rule (`HUB.aged/agedCell`): a value dated more than 365 days before today is grayed, dated, flagged and kept out
+  of totals and KPIs. Capex guidance not updated for more than two quarters gets an amber age note.
+- Cross-company sums use one calendar quarter (`HUB.calTTM`); the offset of May/August closes is printed with the figure.
+- Capex / OCF prints "n.s." when OCF ≤ 0 or the ratio is above 500% (`HUB.capexOcf`). RPO is shown by company, never summed.
+- Oracle T2 figures from earnings calls have no public URL (licensed transcripts): `build-modules.mjs` marks them `noUrl`
+  and attaches the same-day 8-K Ex. 99.1 as `companion` (labeled as not containing the quote).
+- Shared UI in `hub.js`: sortable headings, key-column toggle (`data-keycols` on a `.tblwrap`), jargon tooltips (first
+  use per page; glossary anchors `g-*`), source cards that stay inside the viewport. Reader-facing text never shows
+  repository paths (`HUB.plain`).
+- Glossary and methodology carry a "Last reviewed" date: update it when you edit either page.
+
 ## Module 6 text items
 
 `data/offbs.json` holds items read from the notes (leases not yet commenced, VIEs, JV debt, SPVs, RVGs, guarantees,
@@ -82,7 +98,13 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 
 - Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
   before that makes the watchdog report "late").
-- Text items in `offbs.json` (27 on 2026-10-03, all ten companies, pages cited) are `needs_review` until a second reading of the cited page; the Claude routine should verify them after each 10-Q/10-K harvest and set `verified`.
+- Text items in `offbs.json`: 24 of 25 verified on 2026-10-03 (second reading of the cited page in the harvested SEC text);
+  Applied Digital's SPV amount (US$4.5bn) stays `needs_review` because it comes from FactSet, not the cited 10-K pages.
+  Capacity and pipeline records in `capacity.json`: all 20 T1 records verified the same day. New items start as `needs_review`.
+- CoreWeave active power: the 10-Q for 2026-06-30 states no active-power figure (searched); keep the 10-K figure until a
+  filing updates it (`newerFilingSearched` on the record).
+- Module 3 debt deals: 40 FactSet deals carry "needs review" because no 424B matches (144A notes and loans have none).
+  Matching them needs an 8-K or offering-memorandum source; they stay FactSet-tier until then.
 - Nebius quarterly figures come from 6-K press releases (no XBRL): T1-furnished text, to be added as curated items.
 - Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow `meta-nbis-2` shows "reading pending").
 - Item 2 "Properties" of Microsoft and Oracle was not captured (upper-case heading); the harvester regex now matches it and the next `mode=notes force_notes=true` run will bring it in.

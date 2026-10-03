@@ -71,24 +71,46 @@
 
   // provenance card: a small ⓘ button; the card opens on click (keyboard reachable), closes on Esc / outside click
   function src(p) { provs.push(p); return '<button type="button" class="src-btn" data-prov="' + (provs.length - 1) + '" aria-label="' + t('Fuente', 'Source') + '">ⓘ</button>'; }
-  var popEl = null;
-  function closePop() { if (popEl) { popEl.remove(); popEl = null; } }
+  var popEl = null, popRow = null, popBtn = null;
+  function closePop() { if (popEl) { popEl.remove(); popEl = null; flushMO(); } if (popRow) { popRow.classList.remove('src-row'); popRow = null; } if (popBtn) { try { popBtn.focus({ preventScroll: true }); } catch (e) { /* ignore */ } popBtn = null; } }
+  // Placement: below the button when the card fits in the viewport, else above it; when neither fits, a panel docked to
+  // the side of the viewport (phones: a bottom sheet). The card scrolls inside itself and never runs off-screen; the
+  // row it belongs to is highlighted so the reader keeps track of it.
+  function openPop(b, html) {
+    closePop();
+    popBtn = b;
+    popEl = document.createElement('div'); popEl.className = 'pop'; popEl.setAttribute('role', 'dialog'); popEl.setAttribute('tabindex', '-1');
+    popEl.innerHTML = '<button type="button" class="x" aria-label="' + t('Cerrar', 'Close') + '">×</button>' + html;
+    document.body.appendChild(popEl);
+    flushMO();
+    popRow = b.closest('tr'); if (popRow) popRow.classList.add('src-row');
+    var vw = document.documentElement.clientWidth, vh = window.innerHeight, r = b.getBoundingClientRect();
+    if (vw < 700) { popEl.classList.add('sheet'); }
+    else {
+      var w = popEl.offsetWidth, h = popEl.offsetHeight, below = vh - r.bottom - 12, above = r.top - 12;
+      if (h <= below || h <= above) {
+        popEl.style.top = (window.scrollY + (h <= below ? r.bottom + 6 : r.top - h - 6)) + 'px';
+        popEl.style.left = Math.max(12, Math.min(window.scrollX + r.left - 20, window.scrollX + vw - w - 12)) + 'px';
+      } else popEl.classList.add('side');
+    }
+    popEl.querySelector('.x').addEventListener('click', closePop);
+    try { popEl.focus({ preventScroll: true }); } catch (e) { /* ignore */ }
+  }
   document.addEventListener('click', function (e) {
+    var tm = e.target.closest && e.target.closest('abbr.term');
+    if (tm) { e.stopPropagation(); var g = GLOSS[tm.getAttribute('data-term')]; if (g) openPop(tm, '<b>' + esc(g.label[LANG]) + '</b><br>' + esc(g.def[LANG]) + '<br><a href="/hiperescaladores/glosario/#' + g.id + '">' + t('Ver en el glosario', 'See the glossary') + ' →</a>'); return; }
     var b = e.target.closest && e.target.closest('.src-btn');
     if (!b) { if (popEl && !popEl.contains(e.target)) closePop(); return; }
-    e.stopPropagation(); closePop();
+    e.stopPropagation();
     var p = provs[+b.getAttribute('data-prov')]; if (!p) return;
-    popEl = document.createElement('div'); popEl.className = 'pop'; popEl.setAttribute('role', 'dialog');
-    popEl.innerHTML = '<button type="button" class="x" aria-label="' + t('Cerrar', 'Close') + '">×</button>' + (p.title ? '<b>' + esc(p.title) + '</b><br>' : '') +
-      (p.rows || []).filter(function (r) { return r && r[1] != null && r[1] !== ''; }).map(function (r) { return '<span class="muted">' + esc(r[0]) + ':</span> ' + (r[2] ? r[1] : esc(r[1])); }).join('<br>') +
-      (p.url ? '<br><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + t('Abrir la fuente', 'Open the source') + ' ↗</a>' : '');
-    document.body.appendChild(popEl);
-    var r = b.getBoundingClientRect(), w = popEl.offsetWidth;
-    popEl.style.top = (window.scrollY + r.bottom + 6) + 'px';
-    popEl.style.left = Math.max(12, Math.min(window.scrollX + r.left - 20, window.scrollX + document.documentElement.clientWidth - w - 12)) + 'px';
-    popEl.querySelector('.x').addEventListener('click', closePop);
+    openPop(b, (p.title ? '<b>' + esc(p.title) + '</b><br>' : '') +
+      (p.rows || []).filter(function (r) { return r && r[1] != null && r[1] !== ''; }).map(function (r) { return '<span class="muted">' + esc(r[0]) + ':</span> ' + (r[2] ? r[1] : esc(plain(r[1]))); }).join('<br>') +
+      (p.url ? '<br><a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + t('Abrir la fuente', 'Open the source') + ' ↗</a>' : ''));
   });
-  document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closePop(); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closePop();
+    if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('abbr.term')) { e.preventDefault(); e.target.click(); }
+  });
 
   // as-of + last refreshed + sources + CSV, under every chart and table
   function stamp(o) {
@@ -139,8 +161,18 @@
     if (!s) return [];
     var page = s.page ? s.page : s.pageSeq ? t('sin número impreso (secuencia ', 'no printed number (sequence ') + s.pageSeq + ')' : null;
     var qc = s.quoteCheck === 'page' ? t('cita cotejada contra el texto de la página', 'quote matched against the page text') : s.quoteCheck === 'other_page' ? t('cita hallada en otra página (', 'quote found on another page (') + s.foundOn + ')' : s.quoteCheck ? t('cita no cotejada', 'quote not matched') : null;
-    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited') : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc]];
+    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited') : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title + (s.date && !s.form ? ' · ' + date(s.date) : '')], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc], s.status ? [t('Verificación', 'Verification'), s.status === 'verified' ? t('verificado', 'verified') + (s.verifiedOn ? ' ' + date(s.verifiedOn) : '') + (s.verifiedBy ? ' · ' + s.verifiedBy : '') : t('pendiente de segunda lectura', 'pending second reading')] : null].concat(noUrlRows(s));
   }
+  // T2 statements whose document has no public address (licensed call transcripts): say so, and point to the nearest
+  // public document (the same-day earnings release on EDGAR), which does not contain the quoted sentence
+  function noUrlRows(s) {
+    if (!s || s.url || !s.noUrl) return [];
+    var r = [[t('Enlace', 'Link'), t('Sin enlace público: transcripción con licencia de la llamada de resultados; no se puede rastrear en línea. La repetición de la llamada está en el sitio de relación con inversionistas de la empresa.', 'No public link: licensed transcript of the earnings call; not traceable online. The call replay is on the company\'s investor-relations site.')]];
+    if (s.companion && s.companion.url) r.push([t('Documento público del mismo día', 'Same-day public document'), '<a href="' + esc(s.companion.url) + '" target="_blank" rel="noopener">' + esc(s.companion.title) + '</a> ' + t('(no contiene esta frase)', '(does not contain this sentence)'), true]);
+    return r;
+  }
+  // reader-facing text never shows repository paths (e.g. "(tools/…/notes/)")
+  function plain(v) { return String(v == null ? '' : v).replace(/\s*\((?:[^()]*?\s)?(?:tools|scripts|site)\/[^()]*\)/g, '').replace(/\s*(?:tools|scripts)\/[\w./<>-]+/g, ''); }
   function cite(title, s, extra) { return s ? src({ title: title, rows: citeRows(s).concat(extra || []), url: s.url || null }) : ''; }
   function status(st) { return st === 'verified' ? '<span class="flag ok">' + t('verificado', 'verified') + '</span>' : st === 'company_statement' ? '' : flag('review'); }
   // T3/T4 freshness: amber after the publisher's next expected edition + 30 days (computed in the reader's browser)
@@ -158,6 +190,202 @@
   }
   function coName(tk, F) { var c = (F || window.HYP_FIN).companies[tk]; return '<span class="sw" style="background:' + color(tk) + '"></span><b>' + esc(c ? c.name : tk) + '</b> <span class="muted small">' + tk + '</span>'; }
 
+  // ---- age of a dated value: older than 12 months (365 days) against today, in the reader's browser. Such a value is
+  // shown grayed with its date and a flag, and is never used in a total, a KPI or a takeaway.
+  function aged(end, today) {
+    if (!end) return false;
+    var now = Date.parse((today || new Date().toISOString().slice(0, 10)) + 'T12:00:00Z');
+    return now - Date.parse(String(end).slice(0, 10) + 'T12:00:00Z') > 365 * 864e5;
+  }
+  function agedCell(html, end) {
+    if (!aged(end)) return html;
+    return '<span class="aged" title="' + esc(t('Dato de hace más de 12 meses: no se usa en totales ni indicadores', 'Value more than 12 months old: not used in totals or indicators')) + '">' + html + '</span> <span class="flag old">' + t('> 12 meses', '> 12 months') + '</span><br><span class="small muted">' + t('al ', 'at ') + date(end) + '</span>';
+  }
+  // capex / operating cash flow: "n.s." when the flow is zero or negative, or smaller than a fifth of capex (ratio above
+  // 500%): the ratio then says more about the denominator than about capex (owner's rule, 2026-10-03)
+  var CO_MAX = 5;
+  function capexOcf(r) {
+    if (r == null || !isFinite(r)) return nm(t('El flujo de operación es cero o negativo', 'Operating cash flow is zero or negative'));
+    if (r > CO_MAX) return nm(t('No significativo: el flujo de operación es menor que la quinta parte del capex (razón de ', 'Not meaningful: operating cash flow is less than a fifth of capex (ratio of ') + num(r * 100, 0) + '%)');
+    return num(r * 100, 0) + '%';
+  }
+  // an ISO timestamp (UTC) in US Eastern time: "2026-10-03 11:30 ET"
+  function etTime(iso) {
+    if (!iso) return '';
+    try {
+      var p = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false }).formatToParts(new Date(iso));
+      var g = function (k) { return (p.find(function (x) { return x.type === k; }) || {}).value; };
+      return g('year') + '-' + g('month') + '-' + g('day') + ' ' + g('hour').replace('24', '00') + ':' + g('minute') + ' ET';
+    } catch (e) { return String(iso).replace('T', ' ').slice(0, 16) + ' UTC'; }
+  }
+
+  // ---- calendarized trailing twelve months for cross-company sums: every company at the same calendar quarter (the
+  // latest one all of them have reported). A fiscal quarter counts in the calendar quarter that contains its last month,
+  // or the one ending a month later for February/May/August/November closes (Oracle, Applied Digital): those are one
+  // month earlier than the window, and the offset is listed. Values more than 12 months old are left out.
+  function calTTM(cos, k) {
+    var have = cos.map(function (c) { var qs = c.quarters.filter(function (q) { return q.ttm && q.ttm[k] != null && !aged(q.end); }); return qs.length ? qs[qs.length - 1].cal : null; });
+    var miss = cos.filter(function (c, i) { return !have[i]; });
+    var cal = have.filter(Boolean).sort()[0];
+    if (!cal) return null;
+    var prevCal = (+cal.slice(0, 4) - 1) + cal.slice(4);
+    var calEnd = (function (c) { var y = +c.slice(0, 4), qn = +c.slice(-1); return new Date(Date.UTC(y, qn * 3, 0)).toISOString().slice(0, 10); })(cal);
+    var rows = [], total = 0, prev = 0, prevOk = true;
+    cos.forEach(function (c) {
+      var q = c.quarters.find(function (x) { return x.cal === cal && x.ttm && x.ttm[k] != null; }); if (!q) return;
+      var p = c.quarters.find(function (x) { return x.cal === prevCal && x.ttm && x.ttm[k] != null; });
+      var off = Math.round((Date.parse(calEnd) - Date.parse(q.end)) / (30.44 * 864e5));
+      rows.push({ c: c, q: q, v: q.ttm[k], prev: p ? p.ttm[k] : null, offset: off });
+      total += q.ttm[k]; if (p) prev += p.ttm[k]; else prevOk = false;
+    });
+    return { cal: cal, calEnd: calEnd, rows: rows, total: total, prev: prevOk ? prev : null, missing: miss.map(function (c) { return c.name; }), offsets: rows.filter(function (r) { return r.offset; }) };
+  }
+  // the ⓘ rows of a calendarized sum: each company, its fiscal quarter and period end
+  function calRows(x, fmt) {
+    return x.rows.map(function (r) { return [r.c.name, (fmt || money)(r.v).replace(/<[^>]+>/g, '') + ' · ' + fq(r.q.id) + ' · ' + t('cierre ', 'period end ') + date(r.q.end) + (r.offset ? ' (' + t('un mes antes de la ventana', 'one month before the window') + ')' : '')]; });
+  }
+  function offsetNote(x) {
+    return x.offsets.length ? x.offsets.map(function (r) { return r.c.name; }).join(', ') + t(' cierra su trimestre un mes antes (', ' closes its quarter one month earlier (') + x.offsets.map(function (r) { return date(r.q.end); }).filter(function (v, i, a) { return a.indexOf(v) === i; }).join(', ') + ').' : '';
+  }
+
+  // ---- jargon: the first visible use of each term on a page gets a dotted underline; hover shows the definition,
+  // click or Enter opens it with a link to the glossary row
+  var GLOSS = {
+    udm: { id: 'g-udm', re: { es: /\bUDM\b/, en: /\bTTM\b/ }, label: { es: 'UDM (últimos doce meses)', en: 'TTM (trailing twelve months)' }, def: { es: 'Suma de los cuatro trimestres más recientes de la empresa.', en: 'Sum of the company\'s four most recent quarters.' } },
+    rpo: { id: 'g-rpo', re: { es: /\bRPO\b/, en: /\bRPO\b/ }, label: { es: 'RPO (obligaciones de desempeño pendientes)', en: 'RPO (remaining performance obligations)' }, def: { es: 'Ingresos ya contratados que la empresa reconocerá en el futuro: demanda, no capacidad ni efectivo cobrado.', en: 'Revenue already contracted that the company will recognize in the future: demand, not capacity or cash collected.' } },
+    vie: { id: 'g-vie', re: { es: /\bEIV\b/, en: /\bVIEs?\b/ }, label: { es: 'EIV (entidad de interés variable)', en: 'VIE (variable interest entity)' }, def: { es: 'Vehículo cuyo control no depende de los votos; lo consolida quien dirige sus decisiones clave y absorbe sus resultados.', en: 'A vehicle whose control does not depend on votes; whoever directs its key decisions and absorbs its results consolidates it.' } },
+    spv: { id: 'g-spv', re: { es: /\bSPVs?\b/, en: /\bSPVs?\b/ }, label: { es: 'SPV (vehículo de propósito específico)', en: 'SPV (special-purpose vehicle)' }, def: { es: 'Sociedad creada para un proyecto, con deuda propia, a menudo sin recurso contra la empresa.', en: 'An entity created for one project, with its own debt, often non-recourse to the company.' } },
+    xbrl: { id: 'g-xbrl', re: { es: /\bXBRL\b/, en: /\bXBRL\b/ }, label: { es: 'XBRL', en: 'XBRL' }, def: { es: 'Etiquetas con que las empresas marcan cada cifra de sus estados financieros ante la SEC; permiten leerlas automáticamente.', en: 'Tags companies attach to each figure of their SEC financial statements, so they can be read automatically.' } },
+    tiers: { id: 'g-tiers', re: { es: /\bT[1-4](?![\s\u00a0]*\d{4})(?:[–-]T[1-4])?\b/, en: /\bT[1-4](?:[–-]T[1-4])?\b/ }, label: { es: 'Niveles de fuente T1–T4', en: 'Source tiers T1–T4' }, def: { es: 'T1 = presentación ante la SEC; T2 = material de la empresa, no auditado; T3 = regulador u operador de red; T4 = estimación de terceros. Nunca se mezclan en una cifra.', en: 'T1 = SEC filing; T2 = company material, not audited; T3 = regulator or grid operator; T4 = third-party estimate. Never mixed within one figure.' } }
+  };
+  var GLOSS_SCOPE = 'header .lede, .sec-desc, .kpi .lbl, .kpi .sub, .wtk li, .card .cap, .callout';
+  function glossify() {
+    var seen = {};
+    document.querySelectorAll('abbr.term').forEach(function (a) { if (!a.closest('[hidden]')) seen[a.getAttribute('data-term')] = 1; });
+    var nodes = [];
+    document.querySelectorAll(GLOSS_SCOPE).forEach(function (el) {
+      if (el.closest('[hidden]') || el.closest('.pop')) return;
+      var w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, { acceptNode: function (n) { var pe = n.parentElement; return !pe || pe.closest('a, abbr, button, .tier, .flag, script, style, [hidden]') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT; } });
+      var n; while ((n = w.nextNode())) nodes.push(n);
+    });
+    Object.keys(GLOSS).forEach(function (k) {
+      if (seen[k]) return;
+      var re = GLOSS[k].re[LANG];
+      for (var i = 0; i < nodes.length; i++) {
+        var n = nodes[i], m = re.exec(n.nodeValue);
+        if (!m) continue;
+        var after = n.splitText(m.index); after.splitText(m[0].length);
+        var ab = document.createElement('abbr'); ab.className = 'term'; ab.setAttribute('data-term', k); ab.setAttribute('tabindex', '0'); ab.title = GLOSS[k].def[LANG]; ab.textContent = m[0];
+        after.parentNode.replaceChild(ab, after);
+        nodes[i] = ab.nextSibling && ab.nextSibling.nodeType === 3 ? ab.nextSibling : n;
+        seen[k] = 1; break;
+      }
+    });
+    flushMO();
+  }
+
+  // ---- sortable tables: every column heading of a data table sorts its rows (click or Enter; again to reverse).
+  // Group rows (core six / neoclouds) stay in place and rows sort within their group; a detail row spanning the table
+  // travels with the row above it. Totals stay last. The order survives re-renders (language, filters).
+  var SORT = {};
+  var MONTHS = { ene: 1, jan: 1, feb: 2, mar: 3, abr: 4, apr: 4, may: 5, jun: 6, jul: 7, ago: 8, aug: 8, sep: 9, oct: 10, nov: 11, dic: 12, dec: 12 };
+  function sortKey(td) {
+    if (!td) return null;
+    if (td.hasAttribute('data-sort')) { var ds = td.getAttribute('data-sort'); return ds === '' ? null : isNaN(+ds) ? ds.toLowerCase() : +ds; }
+    var c = td.cloneNode(true); c.querySelectorAll('.src-btn, .flag, .tier, .small, br').forEach(function (x) { x.replaceWith(' '); });
+    var s = (c.textContent || '').replace(/\s+/g, ' ').trim();
+    if (!s || /^(no divulgad|not disclosed|sin etiqueta|not tagged|n\.s\.|n\.m\.|pendiente|pending|no revelad|n\.d\.)/i.test(s)) return null;
+    var d = /^(\d{1,2}) ([a-z]{3}) (\d{4})/i.exec(s) || /^()([a-z]{3}) (\d{4})$/i.exec(s);
+    if (d && MONTHS[d[2].toLowerCase()]) return +d[3] * 1e4 + MONTHS[d[2].toLowerCase()] * 100 + (+d[1] || 0);
+    var fy = /^(?:AF|FY)(\d{4}) (?:T|Q)(\d)/.exec(s); if (fy) return +fy[1] * 1e4 + +fy[2] * 100;
+    var m = /(-?)\s?([\d,]+(?:\.\d+)?)/.exec(s.replace(/[−–](?=\s?\d)/, '-'));
+    if (!m || /^[A-Za-zÁÉÍÓÚáéíóúñ]{3,}/.test(s.replace(/^(US\$|≈|>|<|\+)\s?/, ''))) return s.toLowerCase();
+    var v = parseFloat(m[2].replace(/,/g, '')) * (m[1] ? -1 : 1);
+    if (/mil M|\bbn\b/.test(s)) v *= 1e9; else if (/\d\s?M\b/.test(s)) v *= 1e6; else if (/\bGW\b/.test(s)) v *= 1000;
+    return v;
+  }
+  function colIndex(th) { var i = 0, x = th; while ((x = x.previousElementSibling)) i += x.colSpan || 1; return i; }
+  function cellAt(tr, idx) { var i = 0; for (var k = 0; k < tr.cells.length; k++) { if (i === idx) return tr.cells[k]; i += tr.cells[k].colSpan || 1; } return null; }
+  function tableKey(tbl) { var h = tbl.closest('[id]'); return (h ? h.id : '') + ':' + Array.prototype.indexOf.call(document.querySelectorAll('main table'), tbl); }
+  function sortTable(tbl, idx, dir) {
+    var tb = tbl.tBodies[0]; if (!tb) return;
+    var ncol = 0; Array.prototype.forEach.call(tbl.tHead.rows[tbl.tHead.rows.length - 1].cells, function (c) { ncol += c.colSpan || 1; });
+    var groups = [[]], units = null;
+    Array.prototype.forEach.call(tb.rows, function (tr) {
+      var span = tr.cells.length === 1 && (tr.cells[0].colSpan || 1) >= ncol - 1;
+      if (tr.classList.contains('grp')) { groups.push({ head: tr }); groups.push([]); return; }
+      var g = groups[groups.length - 1];
+      if (span && g.length) { g[g.length - 1].rows.push(tr); return; }
+      g.push({ rows: [tr], total: tr.classList.contains('total'), k: sortKey(cellAt(tr, idx)), i: g.length });
+    });
+    groups.forEach(function (g) {
+      if (!Array.isArray(g)) { tb.appendChild(g.head); return; }
+      var body = g.filter(function (u) { return !u.total; }), tot = g.filter(function (u) { return u.total; });
+      body.sort(function (a, b) {
+        if (a.k == null && b.k == null) return a.i - b.i; if (a.k == null) return 1; if (b.k == null) return -1;
+        var r = typeof a.k === 'number' && typeof b.k === 'number' ? a.k - b.k : String(a.k).localeCompare(String(b.k), loc());
+        return (r || a.i - b.i) * (typeof a.k === 'number' && typeof b.k === 'number' ? dir : dir);
+      });
+      body.concat(tot).forEach(function (u) { u.rows.forEach(function (r) { tb.appendChild(r); }); });
+    });
+  }
+  var busy = false;
+  function decorate() {
+    if (busy) return; busy = true;
+    try {
+      document.querySelectorAll('main .tblwrap table').forEach(function (tbl) {
+        if (!tbl.tHead || !tbl.tBodies[0] || tbl.closest('[data-nosort]') || tbl.tBodies[0].rows.length < 3) return;
+        var hr = tbl.tHead.rows[tbl.tHead.rows.length - 1], key = tableKey(tbl);
+        Array.prototype.forEach.call(hr.cells, function (th) {
+          if (th.classList.contains('sortable')) return;
+          th.classList.add('sortable'); th.tabIndex = 0; th.setAttribute('aria-sort', 'none');
+          th.title = t('Ordenar por esta columna', 'Sort by this column');
+        });
+        var st = SORT[key];
+        if (st && !tbl.dataset.sorted) {
+          var th = Array.prototype.find.call(hr.cells, function (c) { return colIndex(c) === st.idx; });
+          if (th) { sortTable(tbl, st.idx, st.dir); th.setAttribute('aria-sort', st.dir > 0 ? 'ascending' : 'descending'); }
+        }
+        tbl.dataset.sorted = '1';
+      });
+      document.querySelectorAll('[data-keycols]').forEach(keyCols);
+    } finally { busy = false; flushMO(); }
+  }
+  // our own DOM changes (sorting, toggles, glossary marks) must not wake the observer that watches for re-renders
+  var MO = null;
+  function flushMO() { if (MO) MO.takeRecords(); }
+  function onSort(th) {
+    var tbl = th.closest('table'), idx = colIndex(th), key = tableKey(tbl);
+    var cur = SORT[key], dir = cur && cur.idx === idx ? -cur.dir : (th.classList.contains('l') || idx === 0 ? 1 : -1);
+    SORT[key] = { idx: idx, dir: dir };
+    busy = true;
+    try {
+      sortTable(tbl, idx, dir);
+      Array.prototype.forEach.call(th.parentNode.cells, function (c) { c.setAttribute('aria-sort', 'none'); });
+      th.setAttribute('aria-sort', dir > 0 ? 'ascending' : 'descending');
+    } finally { busy = false; flushMO(); }
+  }
+  document.addEventListener('click', function (e) { var th = e.target.closest && e.target.closest('th.sortable'); if (th && !e.target.closest('.src-btn, a')) onSort(th); });
+  document.addEventListener('keydown', function (e) { if ((e.key === 'Enter' || e.key === ' ') && e.target.matches && e.target.matches('th.sortable')) { e.preventDefault(); onSort(e.target); } });
+
+  // ---- "key columns" view: a container with data-keycols="0,1,4" gets a toggle above its table that hides the other
+  // columns (the choice is remembered per table in this browser)
+  function keyCols(box) {
+    var tbl = box.querySelector('table'); if (!tbl || !tbl.tHead) return;
+    var keys = box.getAttribute('data-keycols').split(',').map(Number), id = box.id, on = true;
+    try { on = localStorage.getItem('hyp-keycols-' + id) !== 'all'; } catch (e) { /* storage blocked */ }
+    var bar = box.previousElementSibling;
+    if (!bar || !bar.classList.contains('keybar')) { bar = document.createElement('div'); bar.className = 'keybar controls'; box.parentNode.insertBefore(bar, box); }
+    bar.innerHTML = '<span class="ctl-lbl">' + t('Columnas', 'Columns') + '</span><div class="seg"><button type="button" data-k="key"' + (on ? ' class="active"' : '') + '>' + t('Clave', 'Key') + '</button><button type="button" data-k="all"' + (on ? '' : ' class="active"') + '>' + t('Todas', 'All') + '</button></div>';
+    bar.querySelectorAll('button').forEach(function (b) { b.onclick = function () { try { localStorage.setItem('hyp-keycols-' + id, b.getAttribute('data-k')); } catch (e) { /* ignore */ } keyCols(box); flushMO(); }; });
+    var ncol = 0; Array.prototype.forEach.call(tbl.tHead.rows[tbl.tHead.rows.length - 1].cells, function (c) { ncol += c.colSpan || 1; });
+    Array.prototype.forEach.call(tbl.rows, function (tr) {
+      if (tr.cells.length === 1 && (tr.cells[0].colSpan || 1) >= ncol - 1) return;
+      var i = 0;
+      Array.prototype.forEach.call(tr.cells, function (c) { c.classList.toggle('kc-hide', on && keys.indexOf(i) < 0 && (c.colSpan || 1) === 1); i += c.colSpan || 1; });
+    });
+  }
+
   function applyLang() {
     document.querySelectorAll('.es').forEach(function (e) { e.hidden = LANG !== 'es'; });
     document.querySelectorAll('.en').forEach(function (e) { e.hidden = LANG !== 'en'; });
@@ -167,7 +395,11 @@
     if (es) es.classList.toggle('active', LANG === 'es'); if (en) en.classList.toggle('active', LANG === 'en');
     provs = []; closePop();
     listeners.forEach(function (fn) { try { fn(LANG); } catch (e) { console.error(e); } });
+    try { glossify(); decorate(); } catch (e) { console.error(e); }
   }
+  // modules re-render tables on filter changes: decorate them again (sort order and key-column choice persist)
+  var moTimer = null;
+  if (window.MutationObserver) (MO = new MutationObserver(function () { if (busy) return; clearTimeout(moTimer); moTimer = setTimeout(function () { try { decorate(); glossify(); } catch (e) { console.error(e); } }, 30); })).observe(document.documentElement, { childList: true, subtree: true });
   function setLang(l) {
     LANG = l; try { localStorage.setItem('hyp-lang', l); } catch (e) { /* ignore */ }
     var u = new URL(location.href); u.searchParams.set('lang', l); history.replaceState(null, '', u);
@@ -187,6 +419,7 @@
     get lang() { return LANG; }, t: t, esc: esc, onLang: function (fn) { listeners.push(fn); },
     color: color, css: css, isDark: isDark, nd: nd, nt: nt, nm: nm, num: num, money: money, moneyM: moneyM, pct: pct, mult: mult, date: date, fq: fq, cq: cq,
     edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
-    mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, status: status, staleT3: staleT3
+    mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
+    aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify
   };
 })();
