@@ -1,85 +1,85 @@
 {
-  "generated": "2026-10-02T21:51:06.101Z",
-  "checks": 338,
+  "generated": "2026-10-03T23:44:37.422Z",
+  "checks": 353,
   "failed": 0,
   "quartersTested": 13,
   "perQuarter": [
     {
       "quarter": "FY2027Q1",
       "file": "2026-09-10_8K_0001193125-26-387905_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 28,
       "failed": 0
     },
     {
       "quarter": "FY2026Q4",
       "file": "2026-06-10_8K_0001193125-26-265848_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 28,
       "failed": 0
     },
     {
       "quarter": "FY2026Q3",
       "file": "2026-03-10_8K_0001193125-26-100148_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2026Q2",
       "file": "2025-12-10_8K_0001193125-25-314207_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2026Q1",
       "file": "2025-09-09_8K_0001193125-25-199175_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2025Q4",
       "file": "2025-06-11_8K_0000950170-25-084831_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2025Q3",
       "file": "2025-03-10_8K_0000950170-25-036295_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2025Q2",
       "file": "2024-12-09_8K_0000950170-24-134537_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2025Q1",
       "file": "2024-09-09_8K_0000950170-24-104753_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2024Q4",
       "file": "2024-06-11_8K_0000950170-24-071916_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2024Q3",
       "file": "2024-03-11_8K_0000950170-24-029250_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2024Q2",
       "file": "2023-12-11_8K_0000950170-23-069410_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     },
     {
       "quarter": "FY2024Q1",
       "file": "2023-09-11_8K_0000950170-23-047471_orcl-ex99_1.htm",
-      "checks": 26,
+      "checks": 27,
       "failed": 0
     }
   ],

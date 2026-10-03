@@ -74,13 +74,21 @@ const CONCEPTS = [
   ["ContractWithCustomerLiabilityNoncurrent", "deferred_revenue_noncurrent", "instant", "Deferred revenues, non-current"],
   ["NetCashProvidedByUsedInOperatingActivities", "cfo", "duration", "Net cash provided by operating activities"],
   ["NotesPayableCurrent", "notes_payable_current", "instant", "Notes payable and other borrowings, current"],
-  ["LongTermNotesPayable", "notes_payable_noncurrent", "instant", "Notes payable and other borrowings, non-current"],
+  [["LongTermNotesPayable", "LongTermNotesAndLoans"], "notes_payable_noncurrent", "instant", "Notes payable and other borrowings, non-current (Oracle moved to LongTermNotesAndLoans in FY2027)"],
   ["DebtLongtermAndShorttermCombinedAmount", "debt_total_carrying", "instant", "Notes payable and other borrowings, total carrying amount"],
   ["DebtInstrumentCarryingAmount", "debt_principal_gross", "instant", "Senior notes and other borrowings, principal (gross of unamortized discount)"],
   ["InterestExpense", "interest_expense", "duration", "Interest expense"],
   ["InterestPaidNet", "interest_paid", "duration", "Interest paid, net"],
   ["RepaymentsOfDebt", "debt_repaid", "duration", "Repayments of borrowings"],
   ["ProceedsFromIssuanceOfSeniorLongTermDebt", "debt_issued", "duration", "Proceeds from issuance of senior notes"],
+  // balance-sheet lines behind net debt, the preferred stock and the share counts (DCF equity bridge, provenance checks)
+  ["CashAndCashEquivalentsAtCarryingValue", "cash_equivalents", "instant", "Cash and cash equivalents"],
+  [["MarketableSecuritiesCurrent", "AvailableForSaleSecuritiesDebtSecuritiesCurrent"], "marketable_securities", "instant", "Marketable securities (current)"],
+  ["PreferredStockValue", "preferred_stock_value", "instant", "Preferred stock, carrying value (6.50% Series D mandatory convertible)"],
+  ["ShareBasedCompensation", "sbc", "duration", "Stock-based compensation (cash-flow statement)"],
+  ["WeightedAverageNumberOfSharesOutstandingBasic", "shares_basic", "average", "Weighted-average basic shares (millions)"],
+  ["WeightedAverageNumberOfDilutedSharesOutstanding", "shares_diluted", "average", "Weighted-average diluted shares (millions)"],
+  ["dei:EntityCommonStockSharesOutstanding", "shares_cover", "instant", "Common shares outstanding on the cover page (millions)"],
 ];
 const SINCE = "2023-06-01";
 
@@ -103,19 +111,22 @@ async function main() {
 
   const out = { note: "Oracle XBRL facts from the SEC company-facts API (us-gaap taxonomy). US$ millions unless the unit says otherwise. Latest-filed value per period wins; superseded accessions listed. Discrete quarters for duration concepts are derived by subtraction within the fiscal year and flagged. Written by scripts/oracle/fetch-xbrl-facts.mjs.", cik: CIK, fetched: new Date().toISOString(), source: { title: "SEC EDGAR XBRL company facts, Oracle Corporation (CIK 1341439)", url: `https://data.sec.gov/api/xbrl/companyfacts/CIK${CIK}.json` }, concepts: {}, amendments: [], missing: [] };
   const amendSet = new Set();
-  for (const [concept, key, kind, label] of CONCEPTS) {
-    const f = facts[concept];
-    if (!f) { out.missing.push({ concept, key, note: "not tagged by Oracle" }); continue; }
-    const unit = Object.keys(f.units)[0];
-    const scale = unit === "USD" ? 1e6 : 1;
-    const vals = f.units[unit].filter((v) => v.end >= SINCE && /^10-[QK]/.test(v.form));
+  for (const [names, key, kind, label] of CONCEPTS) {
+    // A key may list alternative concepts (a company re-tags a line between filings): values from every listed
+    // concept are pooled and, per period, the one filed last wins; each value records the concept it came from.
+    const found = (Array.isArray(names) ? names : [names]).map((n) => { const [tax, c] = n.includes(":") ? n.split(":") : ["us-gaap", n]; const f = (cf.facts[tax] || {})[c]; return f ? { c, f } : null; }).filter(Boolean);
+    const concept = found.length ? found.map((x) => x.c).join(" | ") : (Array.isArray(names) ? names.join(" | ") : names);
+    if (!found.length) { out.missing.push({ concept, key, note: "not tagged by Oracle" }); continue; }
+    const unit = Object.keys(found[0].f.units)[0];
+    const scale = unit === "USD" || unit === "shares" ? 1e6 : 1;
+    const vals = found.flatMap((x) => (x.f.units[unit] || []).map((v) => ({ ...v, concept: x.c }))).filter((v) => v.end >= SINCE && /^10-[QK]/.test(v.form));
     for (const v of vals) if (/\/A$/.test(v.form)) amendSet.add(JSON.stringify({ form: v.form, accn: v.accn, filed: v.filed, period_end: v.end }));
-    const rec = { concept, label, kind, unit: unit === "USD" ? "USD millions" : unit, periods: [] };
+    const rec = { concept, label, kind, unit: unit === "USD" ? "USD millions" : unit === "shares" ? "shares, millions" : unit, periods: [] };
     if (kind === "instant") {
       const byEnd = new Map();
       for (const v of vals.slice().sort((a, b) => a.filed.localeCompare(b.filed) || a.accn.localeCompare(b.accn))) {
         const prev = byEnd.get(v.end);
-        const entry = { period_end: v.end, fiscal: fq(v.end).id, value: Math.round((v.val / scale) * 1000) / 1000, form: v.form, accn: v.accn, filed: v.filed, fy: v.fy, fp: v.fp, url: accUrl(v.accn, docs[v.accn]?.doc), superseded: prev ? [...(prev.superseded || []), { accn: prev.accn, form: prev.form, filed: prev.filed, value: prev.value }] : [] };
+        const entry = { period_end: v.end, fiscal: fq(v.end).id, value: Math.round((v.val / scale) * 1000) / 1000, form: v.form, accn: v.accn, filed: v.filed, fy: v.fy, fp: v.fp, url: accUrl(v.accn, docs[v.accn]?.doc), ...(found.length > 1 ? { concept: v.concept } : {}), superseded: prev && !(prev.accn === v.accn && prev.value === Math.round((v.val / scale) * 1000) / 1000) ? [...(prev.superseded || []), { accn: prev.accn, form: prev.form, filed: prev.filed, value: prev.value }] : prev ? prev.superseded : [] };
         byEnd.set(v.end, entry);
       }
       rec.periods = [...byEnd.values()].sort((a, b) => a.period_end.localeCompare(b.period_end));
@@ -136,6 +147,7 @@ async function main() {
       for (const s of spans.slice().sort((a, b) => a.end.localeCompare(b.end) || a.months - b.months)) {
         const q = fq(s.end);
         if (s.months === 3) { push({ quarter: q.id, period_end: s.end, value: s.value, derived: false, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }], url: s.url, filed: s.filed }); continue; }
+        if (kind === "average") continue; // weighted-average share counts are not additive: no subtraction
         const prevEnd = spans.find((p) => p.start === s.start && p.months === s.months - 3);
         if (prevEnd) push({ quarter: q.id, period_end: s.end, value: Math.round((s.value - prevEnd.value) * 1000) / 1000, derived: true, method: `${s.months}-month cumulative (${s.form} ${s.accn}) minus ${prevEnd.months}-month cumulative (${prevEnd.form} ${prevEnd.accn})`, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }, { accn: prevEnd.accn, form: prevEnd.form, span: `${prevEnd.start}→${prevEnd.end}`, value: prevEnd.value }], url: s.url, filed: s.filed });
         else push({ quarter: q.id, period_end: s.end, value: null, derived: true, method: `${s.months}-month cumulative available (${s.value}) but the prior cumulative period is not tagged; quarter not derivable`, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }], url: s.url, filed: s.filed });
@@ -147,9 +159,10 @@ async function main() {
     out.concepts[key] = rec;
   }
   out.amendments = [...amendSet].map((s) => JSON.parse(s)).sort((a, b) => b.filed.localeCompare(a.filed));
-  const latestEnd = Object.values(out.concepts).flatMap((c) => (c.periods || c.cumulative || []).map((p) => p.period_end || p.end)).sort().pop() || null;
+  const periodConcepts = Object.entries(out.concepts).filter(([k]) => k !== "shares_cover").map(([, c]) => c); // the cover-page date is not a period end
+  const latestEnd = periodConcepts.flatMap((c) => (c.periods || c.cumulative || []).map((p) => p.period_end || p.end)).sort().pop() || null;
   out.latest_period_end = latestEnd;
-  out.latest_filing = latestEnd ? Object.values(out.concepts).flatMap((c) => (c.periods || c.cumulative || [])).filter((p) => (p.period_end || p.end) === latestEnd).map((p) => ({ accn: p.accn, form: p.form, filed: p.filed, url: p.url })).sort((a, b) => b.filed.localeCompare(a.filed))[0] : null;
+  out.latest_filing = latestEnd ? periodConcepts.flatMap((c) => (c.periods || c.cumulative || [])).filter((p) => (p.period_end || p.end) === latestEnd).map((p) => ({ accn: p.accn, form: p.form, filed: p.filed, url: p.url })).sort((a, b) => b.filed.localeCompare(a.filed))[0] : null;
   writeFileSync(join(DATA, "xbrl_facts.json"), JSON.stringify(out, null, 2) + "\n", "utf8");
   console.log(`xbrl_facts.json: ${Object.keys(out.concepts).length} concepts, latest period ${latestEnd}, ${out.amendments.length} amended filing(s) seen, ${out.missing.length} concept(s) not tagged.`);
 }

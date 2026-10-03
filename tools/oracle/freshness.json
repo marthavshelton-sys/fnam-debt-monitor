@@ -1,6 +1,7 @@
 {
   "_comment": "Staleness rules per data module (owner's rule, 2026-10-03): a filing-driven module is stale when today is past the next expected filing date plus `grace_days`; a daily module when its last refresh is older than `max_age_days`. The next expected filing date is calendar.json → nextResults (confirmed) or the end of its derived window (assumed), both labelled. Evaluated in scripts/oracle/validate-data.mjs (quality_report.modules) and again in the browser (app.js moduleStatus), so a halted pipeline never shows old data as current. `text_derived` modules carry a 'needs review' flag until a figure is confirmed by XBRL or a second reading (validate-data writes the per-figure verdicts).",
   "grace_days": 7,
+  "rating_action_max_age_days": 365,
   "modules": {
     "financials": { "label_en": "Statements (8-K releases)", "label_es": "Estados financieros (comunicados 8-K)", "cadence": "filing", "asof": "period_end", "source_file": "quarters.json" },
     "xbrl": { "label_en": "XBRL facts (10-Q/10-K)", "label_es": "Datos XBRL (10-Q/10-K)", "cadence": "filing", "asof": "period_end", "source_file": "xbrl_facts.json" },

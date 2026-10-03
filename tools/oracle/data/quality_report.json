@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-03T15:14:31.397Z",
+  "generated": "2026-10-03T23:44:37.219Z",
   "summary": {
-    "checks": 417,
+    "checks": 433,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -2831,6 +2831,38 @@
     },
     {
       "tag": "obligations/XBRL",
+      "check": "balance_sheet.notes_payable_noncurrent = LongTermNotesPayable | LongTermNotesAndLoans (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "balance_sheet.notes_payable_total = notes_payable_current + notes_payable_noncurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "balance_sheet.cash_and_equivalents = CashAndCashEquivalentsAtCarryingValue (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "balance_sheet.marketable_securities = AvailableForSaleSecuritiesDebtSecuritiesCurrent (2026-08-31)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
       "check": "leases.operating_rou_assets = OperatingLeaseRightOfUseAsset (2026-08-31)",
       "status": "ok",
       "diff": 0,
@@ -2992,6 +3024,22 @@
     {
       "tag": "obligations/XBRL",
       "check": "purchase_obligations.schedule[6] = UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/release",
+      "check": "prepayments.deferred_revenue_prepayments_financing_1q27 = the archived FY2027Q1 release",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "obligations/XBRL",
+      "check": "preferred.carrying_value_usd_m = PreferredStockValue (2026-08-31)",
       "status": "ok",
       "diff": 0,
       "tol": 1,
@@ -3342,6 +3390,86 @@
       "note": null
     },
     {
+      "tag": "summary",
+      "check": "carries its own ISO date (exec_summary.updated)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "summary",
+      "check": "dated 2026-10-03 on or after every source it cites (latest 2026-09-24) and its events_through",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "summary",
+      "check": "what-to-watch items are short lines ({ h, lines[] }, each line ≤ 160 characters)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "summary",
+      "check": "no hand-typed section number (cross-references use {{sec:id}})",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "sites",
+      "check": "every campus has an issues list and the date its sources were checked",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "sites",
+      "check": "every issue is dated, typed, bilingual and sourced (https), dated no later than the check",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "targets",
+      "check": "every long-range target names its call, page and status (superseded ones say when and by what)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "risks",
+      "check": "every row note is dated, typed and bilingual",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "factset",
+      "check": "consensus D&A (DEP_AMORT_EXP) is present for the fiscal years the DCF projects",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "market",
+      "check": "implied equity risk premium (Damodaran) is a dated percentage",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
       "tag": "sections",
       "check": "every cross-reference (ref(), data-ref, {{sec:}}) names a registered section",
       "status": "ok",
@@ -3480,6 +3608,14 @@
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
     },
     {
+      "series": "Implied equity risk premium (Damodaran, monthly)",
+      "lastDate": "2026-09-01",
+      "ageDays": 33,
+      "limitDays": 45,
+      "status": "ok",
+      "note": "fetch-market.mjs reads Damodaran's home page; he posts on the first of each month"
+    },
+    {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-09-27",
       "ageDays": 7,
@@ -3515,7 +3651,7 @@
     {
       "file": "buildout.json",
       "status": "ok",
-      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-09-24"
+      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-03"
     },
     {
       "file": "obligations.json",
@@ -3650,7 +3786,7 @@
       "label_es": "Expansión (llamadas)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-09-24",
+      "lastRefresh": "2026-10-03",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3840,9 +3976,16 @@
       "page": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 117712,
-      "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "xbrl": {
+        "concept": "LongTermNotesPayable | LongTermNotesAndLoans",
+        "value": 117712,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
     },
     {
       "path": "balance_sheet.notes_payable_total",
@@ -3853,9 +3996,16 @@
       "page": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 125337,
-      "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "xbrl": {
+        "concept": "NotesPayableCurrent + LongTermNotesPayable | LongTermNotesAndLoans",
+        "value": 125337,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11"
+      },
+      "verdict": "verified",
+      "method": "xbrl_sum",
+      "reason": null
     },
     {
       "path": "balance_sheet.cash_and_equivalents",
@@ -3866,9 +4016,16 @@
       "page": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 36369,
-      "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "xbrl": {
+        "concept": "CashAndCashEquivalentsAtCarryingValue",
+        "value": 36369,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
     },
     {
       "path": "balance_sheet.marketable_securities",
@@ -3879,9 +4036,16 @@
       "page": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 708,
-      "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "xbrl": {
+        "concept": "AvailableForSaleSecuritiesDebtSecuritiesCurrent",
+        "value": 708,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
     },
     {
       "path": "leases.operating_rou_assets",
@@ -4154,7 +4318,8 @@
       "value": 288,
       "xbrl": null,
       "verdict": "needs_review",
-      "reason": "text-derived figure or statement; no XBRL concept exists"
+      "method": "text",
+      "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
     },
     {
       "path": "purchase_obligations.total",
@@ -4310,32 +4475,6 @@
       "reason": null
     },
     {
-      "path": "guarantees",
-      "source": "10q_1q27",
-      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
-      "accession": "0001193125-26-389274",
-      "note": "commitments",
-      "page": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
-      "value": null,
-      "xbrl": null,
-      "verdict": "needs_review",
-      "reason": "text-derived figure or statement; no XBRL concept exists"
-    },
-    {
-      "path": "vie",
-      "source": "10k_fy26",
-      "filing": "Oracle Form 10-K for the fiscal year ended May 31, 2026",
-      "accession": "0001193125-26-277521",
-      "note": "Note 1, Organization and significant accounting policies (consolidation)",
-      "page": null,
-      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
-      "value": null,
-      "xbrl": null,
-      "verdict": "needs_review",
-      "reason": "text-derived figure or statement; no XBRL concept exists"
-    },
-    {
       "path": "prepayments.deferred_revenue_prepayments_financing_1q27",
       "source": "10q_1q27",
       "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
@@ -4345,21 +4484,96 @@
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 11363,
       "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "release": {
+        "file": "2026-09-10_8K_0001193125-26-387905_orcl-ex99_1.htm",
+        "parsed": 11363,
+        "accession": "0001193125-26-387905"
+      },
+      "verdict": "verified_release",
+      "method": "release",
+      "reason": "custom (non-us-gaap) tag: checked against the archived earnings release instead"
     },
     {
-      "path": "preferred",
+      "path": "guarantees.usd_m",
+      "source": "10k_fy26",
+      "filing": "Oracle Form 10-K for the fiscal year ended May 31, 2026",
+      "accession": "0001193125-26-277521",
+      "note": "leases",
+      "page": 90,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "value": 3300,
+      "xbrl": null,
+      "verdict": "needs_review",
+      "method": "text",
+      "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
+    },
+    {
+      "path": "vie.disclosed",
+      "source": "10k_fy26",
+      "filing": "Oracle Form 10-K for the fiscal year ended May 31, 2026",
+      "accession": "0001193125-26-277521",
+      "note": "Note 1, Organization and significant accounting policies (consolidation)",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "value": null,
+      "xbrl": null,
+      "verdict": "needs_review",
+      "method": "text",
+      "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
+    },
+    {
+      "path": "preferred.carrying_value_usd_m",
+      "source": "10q_1q27",
+      "filing": "Oracle Form 10-Q for the quarter ended August 31, 2026",
+      "accession": "0001193125-26-389274",
+      "note": "balance",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+      "value": 4954,
+      "xbrl": {
+        "concept": "PreferredStockValue",
+        "value": 4954,
+        "accn": "0001193125-26-389274",
+        "form": "10-Q",
+        "filed": "2026-09-11",
+        "derived": false
+      },
+      "verdict": "verified",
+      "reason": null
+    },
+    {
+      "path": "preferred.dividend_quarterly_usd_m",
       "source": "424b5_pref",
       "filing": "Prospectus supplement, 100,000,000 depositary shares of 6.50% Series D Mandatory Convertible Preferred Stock (Feb 4, 2026)",
       "accession": "0001193125-26-037818",
       "note": "Prospectus supplement, Description of the mandatory convertible preferred stock",
       "page": null,
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526037818/d60756d424b5.htm",
-      "value": null,
+      "value": 81.25,
       "xbrl": null,
-      "verdict": "unverified",
-      "reason": "no XBRL concept mapped"
+      "ties": [
+        "obligations: preferred quarterly dividend = 6.50% × US$5 bn ÷ 4"
+      ],
+      "verdict": "verified_tie",
+      "method": "tie_out",
+      "reason": "not an XBRL fact (prospectus): recomputed from the document's own terms"
+    },
+    {
+      "path": "preferred.max_conversion_rate",
+      "source": "424b5_pref",
+      "filing": "Prospectus supplement, 100,000,000 depositary shares of 6.50% Series D Mandatory Convertible Preferred Stock (Feb 4, 2026)",
+      "accession": "0001193125-26-037818",
+      "note": "Prospectus supplement, Description of the mandatory convertible preferred stock",
+      "page": null,
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526037818/d60756d424b5.htm",
+      "value": 624.7657,
+      "xbrl": null,
+      "ties": [
+        "obligations: preferred conversion rates = liquidation preference ÷ threshold and initial prices"
+      ],
+      "verdict": "verified_tie",
+      "method": "tie_out",
+      "reason": "not an XBRL fact (prospectus): recomputed from the document's own terms"
     }
   ],
   "crossRefs": {
@@ -4374,6 +4588,7 @@
       "obligations",
       "circular",
       "valuation",
+      "dcf",
       "news",
       "risks",
       "calendar",
@@ -4733,6 +4948,10 @@
     "factset: rating counts add up to the total",
     "factset: at least six peers with price, market cap and NTM EPS",
     "obligations/XBRL: balance_sheet.notes_payable_current = NotesPayableCurrent (2026-08-31)",
+    "obligations/XBRL: balance_sheet.notes_payable_noncurrent = LongTermNotesPayable | LongTermNotesAndLoans (2026-08-31)",
+    "obligations/XBRL: balance_sheet.notes_payable_total = notes_payable_current + notes_payable_noncurrent (2026-08-31)",
+    "obligations/XBRL: balance_sheet.cash_and_equivalents = CashAndCashEquivalentsAtCarryingValue (2026-08-31)",
+    "obligations/XBRL: balance_sheet.marketable_securities = AvailableForSaleSecuritiesDebtSecuritiesCurrent (2026-08-31)",
     "obligations/XBRL: leases.operating_rou_assets = OperatingLeaseRightOfUseAsset (2026-08-31)",
     "obligations/XBRL: leases.operating_liabilities_current = OperatingLeaseLiabilityCurrent (2026-08-31)",
     "obligations/XBRL: leases.operating_liabilities_noncurrent = OperatingLeaseLiabilityNoncurrent (2026-08-31)",
@@ -4754,6 +4973,8 @@
     "obligations/XBRL: purchase_obligations.schedule[4] = UnrecordedUnconditionalPurchaseObligationBalanceOnFourthAnniversary",
     "obligations/XBRL: purchase_obligations.schedule[5] = UnrecordedUnconditionalPurchaseObligationBalanceOnFifthAnniversary",
     "obligations/XBRL: purchase_obligations.schedule[6] = UnrecordedUnconditionalPurchaseObligationDueAfterFiveYears",
+    "obligations/release: prepayments.deferred_revenue_prepayments_financing_1q27 = the archived FY2027Q1 release",
+    "obligations/XBRL: preferred.carrying_value_usd_m = PreferredStockValue (2026-08-31)",
     "FY2027Q1: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
     "FY2027Q1: operating cash flow (release) = XBRL NetCashProvidedByUsedInOperatingActivities (10-Q/10-K)",
     "FY2026Q4: capex (release, derived quarter) = XBRL PaymentsToAcquirePropertyPlantAndEquipment (10-Q/10-K, derived quarter)",
@@ -4797,6 +5018,16 @@
     "news: an item labeled sec/company/agency leads with a source of that tier",
     "news: SEC-sourced items carry an accession number",
     "news: no item is dated after as_of; ids are unique",
+    "summary: carries its own ISO date (exec_summary.updated)",
+    "summary: dated 2026-10-03 on or after every source it cites (latest 2026-09-24) and its events_through",
+    "summary: what-to-watch items are short lines ({ h, lines[] }, each line ≤ 160 characters)",
+    "summary: no hand-typed section number (cross-references use {{sec:id}})",
+    "sites: every campus has an issues list and the date its sources were checked",
+    "sites: every issue is dated, typed, bilingual and sourced (https), dated no later than the check",
+    "targets: every long-range target names its call, page and status (superseded ones say when and by what)",
+    "risks: every row note is dated, typed and bilingual",
+    "factset: consensus D&A (DEP_AMORT_EXP) is present for the fiscal years the DCF projects",
+    "market: implied equity risk premium (Damodaran) is a dated percentage",
     "sections: every cross-reference (ref(), data-ref, {{sec:}}) names a registered section",
     "sections: every registered section exists once in index.html, in registry order",
     "sections: no hand-typed section number remains in the page, deck or data narrative"

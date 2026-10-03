@@ -41,7 +41,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `calendar.json` | Investor calendar: upcoming and last-6-months events (earnings calls, analyst days, conferences) with webcast, release and announcement links; `estimates` = derived windows for the next results date, labelled `derived`; `manual_events` = hand-curated entries with a source (a date named on a call before the IR page lists it), preserved by the script | Written every weekday by `scripts/oracle/fetch-calendar.mjs` from the Oracle IR events list and the date-setting releases; emitted as `data/calendar.js` (`window.ORCL_CALENDAR`) for section 12 and the presentation |
 | `buildout.json` | Capacity delivered (MW) per quarter and fiscal year, capacity secured, GPU utilization / renewals / deliveries, named sites, RPO recognition schedule, funding items; each with source key or URL, page and speaker; `derived: true` marks figures computed from ratios management gave; each free-text site field (`capacity_text`, `customer`, `developer`, `financing`, `oracle_status`, `contracted`, `first_delivery`) has an `_es` counterpart | Curated after each call from the transcript; partner releases and wire reports only for site details Oracle has not disclosed. |
 | `dividends.json` | Each declaration: declared, amount, record, payment, source | Board declares quarterly; no AGM step. |
-| `market_reference.json` | Price snapshot, 10-year Treasury, credit ratings, `debt_instruments` (58 lines from the 10-K footnote) | `price_snapshot` is rewritten by `fetch-market.mjs`; ratings and instruments are curated from agency releases and the 10-K/8-K. |
+| `market_reference.json` | Price snapshot, 10-year Treasury, `erp` (Damodaran's implied equity risk premium, monthly), credit ratings, `debt_instruments` (58 lines from the 10-K footnote) | `price_snapshot`, `treasury_10y`, `erp` and `refreshed_at` are rewritten by `fetch-market.mjs` (a failed ERP read keeps the stored value); ratings and instruments are curated from agency releases and the 10-K/8-K; a rating action older than 12 months is flagged on the page. |
 | `prices_orcl_daily.csv`, `prices_spx_daily.csv`, `treasury_10y.csv` | Daily series | Overwritten by `fetch-market.mjs`. |
 | `guidance.json` | Every vintage (initial, revised) per metric and period | Non-GAAP EPS and growth as Oracle states them; USD and constant currency kept separate; free-text notes bilingual (`_note`/`_note_es`, `fy_capex_note`/`fy_capex_note_es`, `multi_year_targets.note`/`note_es`). |
 | `transcripts.json` | Per call: date, quantified guidance from the CFO's remarks, short attributed quotes | Built by `merge-transcripts.mjs` from the owner-supplied PDFs, which live only in the private `oracle-model` repository (licensed material). Without the raw extractions the merge keeps the existing file. |
@@ -52,6 +52,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `obligations.json` | Off-balance-sheet financing (section 11) and the dividends capital card: notes payable, operating and finance leases, uncommenced lease commitments with their history, purchase obligations by fiscal year, guarantees, prepayments, the 6.50% mandatory convertible preferred, the funding plan | Every figure transcribed from the 10-Q/10-K, the 424B5 or the call named in `source`; updated with each 10-Q/10-K (routine STEP 4); totals tie out in `validate-data.mjs`. Ratios (as reported, lease-adjusted / EBITDAR, commitment-inclusive) are computed on the page and labelled derived. |
 | `peer_leverage.json` | Lease-adjusted leverage inputs for the owner's Baa-range peer set (Broadcom, Dell, Intel, IBM, HPE) from SEC XBRL company facts | Written by `fetch-peer-leverage.mjs` on weekdays: latest balance sheet for stocks, latest fiscal year for flows, a tag accepted only when its period matches; each value carries accession and tag. Ratings are not in XBRL and are not shown. |
 | `factset.json` | FactSet consensus snapshot: Oracle NTM and fiscal-year estimates (EPS, sales, EBITDA, capex, FCF), point-in-time NTM history, price target and ratings; eight peers with FactSet price, market value, lease-inclusive net debt and NTM consensus | Written on weekdays by the cloud routine "FNAM Oracle: FactSet refresh" through the FactSet AI-Ready Data connector (`FACTSET-PROMPT.md` lists the calls); feeds `data/factset.js` and `data/peers.js`; the page computes every ratio. FactSet labels Oracle's fiscal year by its starting calendar year; records carry Oracle's label. |
+| `long_range_targets.json` | Management's long-range targets (FY2030 revenue and EPS; OCI revenue by year), each with call, page, speaker and status (`in_force` / `superseded` with date and source) | Curated after each call or investor day; never rewritten by merge-raw; the page shows each vintage beside the reported IaaS revenue (`quarters.json → iaas_revenue_bn`, re-read from each release headline by the parser tests) and the DCF "management targets" basis reads the in-force FY2030 revenue target. |
 | `alerts.json` | Owner thresholds for the routine's email (1-day share move, max net debt / LTM EBITDA, guidance tracking) | Read by the reviewing routine. |
 | `state.json` | Automation state: accessions seen, filings pending extraction, log | Written by `harvest-filings.mjs`; the routine marks extractions `done`. |
 | `quality_report.json` | Last tie-out: checks, failures, warnings, stale series | Written by `validate-data.mjs`. |
@@ -63,6 +64,23 @@ operating-expense lines and total, operating income, interest expense, pretax an
 share count, and the balance-sheet cash, marketable securities, total assets, current and non-current borrowings
 and current deferred revenue). 338 checks across the 13 archived quarters; any mismatch fails the build.
 
+## DCF section (2026-10-03)
+
+The DCF is its own registered section (`dcf`, after valuation; `deck: false`, the board deck excludes it). Inputs and
+method: `ASSUMPTIONS.md` (DCF defaults) and `METHODOLOGY.md` §8. Its defaults read `factset.json` (fiscal-year sales,
+EBITDA, `da` = DEP_AMORT_EXP, capex), the capex guidance text, `quarters.json` (stub year, SBC, customer prepayments),
+`xbrl_facts.json` (finance-lease liabilities, cover and weighted shares), `obligations.json` (preferred) and
+`market_reference.json` (`erp`). The section always states whether the price is bracketed, with the implied WACC,
+terminal growth and beta.
+
+## Render check
+
+With the site served (`python3 -m http.server 8123 --directory site`, detached), `node scripts/oracle/render-check.mjs`
+loads the page in Spanish and English at 1280, 390 and 360 px in light and dark mode and in print emulation: no script
+error, no `undefined`/`NaN`, no horizontal overflow, nothing under 11 px on phones, no other-language text, the tab title
+in the reader's language, every section numbered, a finite DCF with its acceptance statement, the Issues column for every
+campus, working collapse toggles and back-to-top. `--shots <dir>` saves screenshots. Run it before pushing a page change.
+
 ## Numbering, cross-references and stamps (2026-10-03)
 
 `sections.json` is the only place a section is defined. `app.js numberSections()` numbers the sections (the summary is
@@ -70,8 +88,10 @@ unnumbered), the figures (cards with a chart) and the tables (cards with a table
 labels every card "Figure n / Table n". Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
 the JSON narrative (resolved by `html()`); the deck titles its pages with `secHead(id)`. `validate-data.mjs` fails when a
 reference does not resolve, when the `<section data-sec>` order differs from the registry, or when a literal "section NN"
-remains in the page, deck or data. Every `p.chart-src` footer and section head gets an as-of / refreshed (ET) / STALE
-stamp from the section's modules (`applyStamps()`); rules in `tools/oracle/freshness.json`.
+remains in the page, deck or data. Each section head gets an as-of / refreshed (ET) / STALE stamp from the section's
+modules (`applyStamps()`); card footers repeat it only when the section is stale; rules in `tools/oracle/freshness.json`.
+Every numbered section has a hide/show toggle (remembered in the reader's browser) and the navigation a collapse-all
+control; printing and the PDF always show everything.
 
 Conventions: nominal USD as reported; thousands shown as millions; outflows stored negative
 (`capex_quarter: -28499`); ISO dates; one decimal on percentages applied at render time, never in the data.
