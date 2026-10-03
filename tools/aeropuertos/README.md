@@ -47,6 +47,14 @@ at runtime and needs no step here.
   12 months (65 at Aug-2026). AFAC's workbook lists 66 (San Cristóbal de las Casas, idle since 2010, stays in it with
   zeros); idle airports are left off the map and named in the note under it. `airports.json` also holds the closed Terán
   airport (TGZ0), which only maps old AFAC rows onto Tuxtla (TGZ) and is never published.
+- **ASUR + Motiva (CPC Aeroportos)** block under the tiles (3-Oct-2026): static facts in the markup (20 airports, closed
+  1-Sep-2026, outside Mexico so not on the map nor in AFAC's totals; the `/trafico/` "Company reports" basis uses only
+  ASUR's Mexican airports) and a live status line read at runtime from `/asur/data/reference.js` (`perimeter`) and
+  `/asur/data/traffic.js`, with the ASUR model's rule: awaiting the first ASUR traffic report that carries the new
+  countries (next report date = median release day of the last twelve), missing from a report, or reported since a month
+  (CPC passengers and share of the consolidated total, from ASUR's report). If either file does not load (e.g. the ASUR
+  password gate is on) the static text stays. The map note lists the 20 airports among those not drawn. Runbook for the
+  rule: `tools/asur/README.md` → "Traffic perimeter change".
 - Map pointer: markers overlap (AICM and AIFA, Monterrey and Del Norte), so neither map uses per-marker hit circles.
   The pointer is resolved on the svg: the marker it sits most centrally in wins (distance / radius, small markers counted
   at their minimum reach); outside every marker, the nearest within that reach. Keyboard focus stays on each marker.

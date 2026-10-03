@@ -65,6 +65,10 @@ dashboards, everything built from public data by GitHub Actions.
   `tools/<slug>/raw/bmv-events.json`; a BMV outage never fails a run. Added after ASUR's 28-Sep-2026 offering
   disclosure was missed. Press-only facts (e.g. ASUR's 1-Oct-2026 notes) go in `debt.events` labeled as press and enter
   no figure until the company files them.
+- ASUR traffic perimeter (Motiva / CPC airports, closed 1-Sep-2026; ASUR reports them from September 2026 traffic): facts in
+  `site/asur/data/reference.js → perimeter`, status computed from `traffic.js` by the model, the deck, the hub block and the
+  validator. Growth across perimeters prints "n.c." with the legacy-perimeter change beside it; never estimate CPC passengers.
+  Runbook: `tools/asur/README.md` → "Traffic perimeter change".
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

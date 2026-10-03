@@ -98,6 +98,34 @@ header h1{font-size:clamp(26px,4.2vw,44px); font-weight:700; margin-top:14px; li
 .notice b{color:inherit;}
 .notice.warn{background:#fff6df; border-color:#f0cf7a; color:#6b4b00;}
 :root[data-theme="dark"] .notice.warn, :root:not([data-theme="light"]) .notice.warn{background:#2a2410; border-color:#6b5a1f; color:#f0d58a;}
+/* Traffic perimeter status card (Motiva / CPC airports), rendered by renderPerimeter() in airport-model.js */
+.perim{--pe:#c98a00; margin:16px 0 6px; padding:14px 16px 12px; border-radius:12px; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--pe); box-shadow:var(--shadow);}
+.perim.ok{--pe:var(--accent);} .perim.warn{--pe:var(--critical);}
+.perim-head{display:flex; flex-wrap:wrap; align-items:center; gap:6px 12px; margin-bottom:10px;}
+.perim-head h3{font-size:17px;}
+.perim-badge{font-size:11.5px; font-weight:700; letter-spacing:.02em; padding:3px 10px; border-radius:100px; background:#fff3d6; color:#6b4b00; border:1px solid #f0cf7a;}
+.perim-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+.perim-badge.warn{background:#fde8e4; color:#8a1c12; border-color:#f2b8ad;}
+.perim-facts{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; margin-bottom:10px;}
+.perim-facts div{background:var(--surface-2); border-radius:8px; padding:9px 11px; min-width:0;}
+.perim-facts b{display:block; font-family:var(--serif); font-size:20px; line-height:1.2; color:var(--text-primary);}
+.perim-facts span{display:block; font-size:12px; color:var(--text-secondary); line-height:1.4; margin-top:2px;}
+.perim-lines{margin:0; padding-left:18px; font-size:13px; line-height:1.55;}
+.perim-lines li + li{margin-top:4px;}
+.perim-lines li:last-child{color:var(--text-secondary); font-size:12.5px;}
+.perim-src{margin:8px 0 0; font-size:12px; color:var(--muted); overflow-wrap:anywhere;}
+@media (max-width:700px){.perim{padding:12px 13px 10px;} .perim-facts{grid-template-columns:1fr; gap:6px;} .perim-facts div{display:flex; gap:10px; align-items:baseline; padding:7px 10px;} .perim-facts b{flex:0 0 auto; font-size:16px;} .perim-facts span{margin-top:0;}}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .perim-badge{background:#2a2410; color:#f0d58a; border-color:#6b5a1f;}
+  :root:not([data-theme="light"]) .perim-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+  :root:not([data-theme="light"]) .perim-badge.warn{background:#3a1714; color:#f4b4aa; border-color:#7a2a22;}
+}
+:root[data-theme="dark"] .perim-badge{background:#2a2410; color:#f0d58a; border-color:#6b5a1f;}
+:root[data-theme="dark"] .perim-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+:root[data-theme="dark"] .perim-badge.warn{background:#3a1714; color:#f4b4aa; border-color:#7a2a22;}
+.nc{color:var(--muted); font-weight:600; cursor:help;}
+.seg button:disabled{opacity:.45; cursor:not-allowed;}
+.seg button:disabled:hover{background:transparent; color:var(--text-secondary);}
 
 /* ---------- KPI strip ---------- */
 .kpi-strip{display:grid; grid-template-columns:repeat(5,1fr); gap:1px; background:var(--border); border:1px solid var(--border); border-radius:12px; overflow:hidden; margin-top:26px;}
@@ -550,10 +578,17 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
   <section class="block" id="traffic">
     <div class="sec-head"><span class="sec-num">03</span><h2><span class="es">Tráfico de Pasajeros</span><span class="en" hidden>Passenger Traffic</span></h2></div>
     <p class="sec-desc">
-      <span class="es">Pasajeros (nacionales e internacionales) por aeropuerto y por país, según los reportes mensuales de tráfico de ASUR: nueve aeropuertos en el sureste de México (Cancún concentra unos siete de cada diez pasajeros mexicanos), San Juan de Puerto Rico (Aerostar, 60%) y seis aeropuertos en Colombia (Airplan). México y Colombia excluyen pasajeros en tránsito y aviación general; San Juan los incluye. Los 20 aeropuertos adquiridos a Motiva (Brasil, Ecuador, Costa Rica y Curazao) se añadirán cuando ASUR empiece a reportarlos.</span><span class="en" hidden>Passengers (domestic and international) by airport and by country, from ASUR's monthly traffic reports: nine airports in south-east Mexico (Cancún carries about seven of every ten Mexican passengers), San Juan, Puerto Rico (Aerostar, 60%) and six airports in Colombia (Airplan). Mexico and Colombia exclude transit and general-aviation passengers; San Juan includes them. The 20 airports acquired from Motiva (Brazil, Ecuador, Costa Rica and Curaçao) will be added once ASUR reports them.</span>
+      <span class="es">Pasajeros (nacionales e internacionales) por aeropuerto y por país, según los reportes mensuales de tráfico de ASUR: nueve aeropuertos en el sureste de México (Cancún concentra unos siete de cada diez pasajeros mexicanos), San Juan de Puerto Rico (Aerostar, 60%) y seis aeropuertos en Colombia (Airplan). México y Colombia excluyen pasajeros en tránsito y aviación general; San Juan los incluye. Los 20 aeropuertos adquiridos a Motiva (Brasil, Ecuador, Costa Rica y Curazao) entran en la vista «Consolidado» con el primer reporte de ASUR que los incluya; la tarjeta de estado dice si ya llegó, y la vista «Perímetro anterior» mantiene las comparaciones homogéneas.</span><span class="en" hidden>Passengers (domestic and international) by airport and by country, from ASUR's monthly traffic reports: nine airports in south-east Mexico (Cancún carries about seven of every ten Mexican passengers), San Juan, Puerto Rico (Aerostar, 60%) and six airports in Colombia (Airplan). Mexico and Colombia exclude transit and general-aviation passengers; San Juan includes them. The 20 airports acquired from Motiva (Brazil, Ecuador, Costa Rica and Curaçao) enter the "Consolidated" view with ASUR's first report that includes them; the status card says whether it has arrived, and the "Legacy perimeter" view keeps comparisons like for like.</span>
     </p>
     <p class="sec-meta" id="trafficMeta"></p>
+    <div class="perim" id="perimCard" role="region" aria-label="Motiva (CPC Aeroportos)" hidden></div>
     <div class="controls">
+      <div class="ctl" id="ctlBasis" hidden><label class="lbl"><span class="es">Perímetro</span><span class="en" hidden>Perimeter</span></label>
+        <div class="seg" id="segTrafBasis">
+          <button type="button" data-v="legacy" class="active"><span class="es">Perímetro anterior</span><span class="en" hidden>Legacy perimeter</span></button>
+          <button type="button" data-v="cons" disabled><span class="es">Consolidado</span><span class="en" hidden>Consolidated</span></button>
+        </div>
+      </div>
       <div class="ctl"><label class="lbl"><span class="es">Frecuencia</span><span class="en" hidden>Frequency</span></label>
         <div class="seg" id="segTrafFreq">
           <button type="button" data-v="m" class="active"><span class="es">Mensual</span><span class="en" hidden>Monthly</span></button>

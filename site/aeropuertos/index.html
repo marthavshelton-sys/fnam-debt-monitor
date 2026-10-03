@@ -470,6 +470,25 @@ footer .links{display:flex; flex-wrap:wrap; gap:6px 18px;}
 }
 .tile-foot .deck:hover, .tile-foot .deck:focus-visible{border-color:var(--accent); outline:none;}
 .tiles-note{margin:12px 0 0; font-size:12.5px; line-height:1.5; color:var(--muted); max-width:100ch;}
+/* ASUR perimeter status (Motiva / CPC airports): static facts in the markup, live status from /asur/data/ (script below) */
+.perim-hub{margin-top:14px; background:var(--surface); border:1px solid var(--border); border-left:4px solid var(--c-asur); border-radius:12px; padding:12px 14px; box-shadow:var(--shadow); font-size:13px; line-height:1.5; color:var(--text-secondary);}
+.perim-hub .ph-top{display:flex; flex-wrap:wrap; align-items:center; gap:6px 10px; margin-bottom:4px;}
+.perim-hub h3{margin:0; font-family:var(--serif); font-size:15.5px; color:var(--text-primary);}
+.perim-hub .ph-badge{font-size:11.5px; font-weight:700; padding:2px 9px; border-radius:100px; background:#fff3d6; color:#6b4b00; border:1px solid #f0cf7a;}
+.perim-hub .ph-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+.perim-hub .ph-badge.warn{background:#fde8e4; color:#8a1c12; border-color:#f2b8ad;}
+.perim-hub p{margin:4px 0 0;}
+.perim-hub b{color:var(--text-primary);}
+.perim-hub .ph-src{font-size:12px; color:var(--muted); overflow-wrap:anywhere;}
+.perim-hub a{color:var(--accent-ink);}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]) .perim-hub .ph-badge{background:#2a2410; color:#f0d58a; border-color:#6b5a1f;}
+  :root:not([data-theme="light"]) .perim-hub .ph-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+  :root:not([data-theme="light"]) .perim-hub .ph-badge.warn{background:#3a1714; color:#f4b4aa; border-color:#7a2a22;}
+}
+:root[data-theme="dark"] .perim-hub .ph-badge{background:#2a2410; color:#f0d58a; border-color:#6b5a1f;}
+:root[data-theme="dark"] .perim-hub .ph-badge.ok{background:var(--accent-soft); color:var(--accent-ink); border-color:var(--accent-soft-border);}
+:root[data-theme="dark"] .perim-hub .ph-badge.warn{background:#3a1714; color:#f4b4aa; border-color:#7a2a22;}
 
 /* ---------- data stamp under every chart ---------- */
 .stamp{font-size:11.5px; line-height:1.45; color:var(--muted); margin-top:8px; font-variant-numeric:tabular-nums;}
@@ -593,7 +612,7 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="tile-tick">BMV: ASUR · NYSE: ASR</span>
           </div>
           <a class="tile-link" href="/asur/"><span class="tile-full">Grupo Aeroportuario del Sureste</span></a>
-          <p><span class="en">9 airports · southeast, Cancún · Puerto Rico · Colombia · Motiva's 20 from Sep-2026</span><span class="es">9 aeropuertos · sureste, Cancún · Puerto Rico · Colombia · 20 de Motiva desde sep-2026</span></p>
+          <p><span class="en">9 airports · southeast, Cancún · Puerto Rico · Colombia · 20 Motiva (CPC) airports since Sep 1, 2026</span><span class="es">9 aeropuertos · sureste, Cancún · Puerto Rico · Colombia · 20 aeropuertos de Motiva (CPC) desde el 1 sep 2026</span></p>
           <div class="tile-foot">
             <a class="deck" data-base="/asur/" href="/asur/?present=1" title="Presentación para el consejo (PDF) / Board presentation (PDF)"><span class="en">Board PDF</span><span class="es">PDF consejo</span></a>
             <span class="cta"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h10M9 4l4 4-4 4"/></svg></span>
@@ -604,6 +623,15 @@ table.reg .ref a:hover{text-decoration:underline;}
         <span class="en">The three models share one structure so they read side by side; "Board PDF" builds the presentation from the figures on the page.</span>
         <span class="es">Los tres modelos comparten estructura para leerlos en paralelo; «PDF consejo» genera la presentación con las cifras de la página.</span>
       </p>
+      <div class="perim-hub" id="motiva-status" role="region" aria-labelledby="motiva-status-h">
+        <div class="ph-top">
+          <h3 id="motiva-status-h"><span class="en">ASUR + Motiva (CPC Aeroportos)</span><span class="es">ASUR + Motiva (CPC Aeroportos)</span></h3>
+          <span class="ph-badge" id="motiva-badge" hidden></span>
+        </div>
+        <p><span class="en"><b>20 airports</b> (17 in Brazil, Quito, San José in Costa Rica and Curaçao) joined ASUR when the acquisition closed on <b>September 1, 2026</b>. They are outside Mexico, so they are not on the map below and do not enter AFAC's national totals (the traffic dashboard's "Company reports" basis also uses only ASUR's Mexican airports); ASUR's group total stops being comparable year over year once its monthly report includes them.</span><span class="es"><b>20 aeropuertos</b> (17 en Brasil, Quito, San José de Costa Rica y Curazao) se sumaron a ASUR al cerrar la compra el <b>1 de septiembre de 2026</b>. Están fuera de México, así que no aparecen en el mapa ni entran en los totales nacionales de la AFAC (la base «Reportes de las empresas» del panel de tráfico también usa solo los aeropuertos mexicanos de ASUR); el total del grupo ASUR deja de ser comparable año contra año en cuanto su reporte mensual los incluya.</span></p>
+        <p id="motiva-live"><span class="en">Whether ASUR's monthly traffic report already includes them is shown in the <a href="/asur/#traffic">ASUR model, traffic section</a>.</span><span class="es">Si el reporte mensual de tráfico de ASUR ya los incluye se indica en el <a href="/asur/#traffic">modelo de ASUR, sección de tráfico</a>.</span></p>
+        <p class="ph-src" id="motiva-src"><span class="en">Source: ASUR, release of Sep 1, 2026 (closing) and evento relevante of Sep 28, 2026 (BMV).</span><span class="es">Fuente: ASUR, comunicado del 1 sep 2026 (cierre) y evento relevante del 28 sep 2026 (BMV).</span></p>
+      </div>
     </div>
   </section>
 
@@ -643,8 +671,8 @@ table.reg .ref a:hover{text-decoration:underline;}
             <span class="es">Fuente: AFAC, estadística operativa de aeropuertos (pasajeros contados en cada aeropuerto, llegadas y salidas).</span>
           </span>
           <span>
-            <span class="en">Not on the map: GAP's Montego Bay and Kingston (Jamaica); ASUR's San Juan (Puerto Rico) and six airports in Colombia.</span>
-            <span class="es">Fuera del mapa: Montego Bay y Kingston (Jamaica) de GAP; San Juan (Puerto Rico) y seis aeropuertos en Colombia de ASUR.</span>
+            <span class="en">Not on the map: GAP's Montego Bay and Kingston (Jamaica); ASUR's San Juan (Puerto Rico), six airports in Colombia and, since Sep 1, 2026, the 20 Motiva (CPC) airports in Brazil, Ecuador, Costa Rica and Curaçao.</span>
+            <span class="es">Fuera del mapa: Montego Bay y Kingston (Jamaica) de GAP; de ASUR, San Juan (Puerto Rico), seis aeropuertos en Colombia y, desde el 1 sep 2026, los 20 de Motiva (CPC) en Brasil, Ecuador, Costa Rica y Curazao.</span>
           </span>
           <span id="mapcount-note"></span>
         </div>
@@ -1225,6 +1253,71 @@ window.addEventListener("DOMContentLoaded", function(){
   }
   draw();
   new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
+});
+</script>
+<script>
+/* ASUR perimeter status (Motiva / CPC airports). Reads /asur/data/reference.js (the perimeter facts, with sources) and
+   /asur/data/traffic.js (whether a monthly report already carries the new countries), with the same rule as the ASUR
+   model (renderPerimeter in /assets/airport-model.js). If either file cannot be loaded the static text stays. Every
+   passenger figure shown is ASUR's; none is typed here. */
+window.addEventListener("DOMContentLoaded", function(){
+  var box = document.getElementById("motiva-status"); if (!box) return;
+  var load = function(src){ return new Promise(function(res){ var s = document.createElement("script"); s.src = src; s.async = true; s.onload = function(){ res(true); }; s.onerror = function(){ res(false); }; document.head.appendChild(s); }); };
+  var R = null, T = null;
+  Promise.all([window.ASUR_REF ? true : load("/asur/data/reference.js"), window.ASUR_TRAFFIC ? true : load("/asur/data/traffic.js")]).then(function(){
+    R = window.ASUR_REF && window.ASUR_REF.perimeter; T = window.ASUR_TRAFFIC;
+    if (!R || !R.countries || !R.firstMonth || !T || !T.months || !T.months.length) return;
+    draw();
+    new MutationObserver(draw).observe(document.documentElement, {attributes:true, attributeFilter:["lang"]});
+  });
+  var addYm = function(ym, n){ var y = +ym.slice(0, 4), m = +ym.slice(5, 7) + n; while (m > 12) { m -= 12; y++; } while (m < 1) { m += 12; y--; } return y + "-" + (m < 10 ? "0" : "") + m; };
+  var esc = function(x){ return String(x == null ? "" : x).replace(/[&<>"]/g, function(c){ return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]; }); };
+  function draw(){
+    var es = document.documentElement.getAttribute("lang") !== "en", loc = es ? "es-MX" : "en-US";
+    var L = function(o){ return o ? (es ? o.es : o.en) : ""; };
+    var codes = R.countries.map(function(c){ return c.code; });
+    var newAir = (T.airports || []).filter(function(a){ return codes.indexOf(a.country) >= 0; }).map(function(a){ return a.code; });
+    var cv = function(m, c){ return m.countries && m.countries[c] && m.countries[c].total != null ? m.countries[c].total : null; };
+    var has = function(m){ return codes.some(function(c){ return cv(m, c) != null; }) || newAir.some(function(c){ return m.total && m.total[c] != null; }); };
+    var first = null; T.months.forEach(function(m){ if (!first && m.ym >= R.firstMonth && has(m)) first = m; });
+    var last = T.months[T.months.length - 1];
+    var day = function(iso){ if (!iso) return "—"; var d = new Date(iso.slice(0, 10) + "T12:00:00Z"); return d.toLocaleDateString(loc, {day:"numeric", month:"short", year:"numeric", timeZone:"UTC"}).replace(".", ""); };
+    var mon = function(ym){ return new Date(Date.UTC(+ym.slice(0, 4), +ym.slice(5, 7) - 1, 15)).toLocaleDateString(loc, {month:"long", year:"numeric", timeZone:"UTC"}); };
+    var num = function(v, d){ return new Intl.NumberFormat(loc, {minimumFractionDigits:d, maximumFractionDigits:d}).format(v); };
+    // next report: the month after the latest, on ASUR's usual day (median of the last twelve release dates)
+    var days = T.months.slice(-12).map(function(m){ return m.source && m.source.date ? +m.source.date.slice(8, 10) : null; }).filter(Boolean).sort(function(a, b){ return a - b; });
+    var dd = days.length ? days[Math.floor((days.length - 1) / 2)] : 5, nym = addYm(last.ym, 1), ndate = addYm(nym, 1) + "-" + (dd < 10 ? "0" : "") + dd;
+    var link = '<a href="/asur/#traffic">' + (es ? "modelo de ASUR" : "ASUR model") + "</a>";
+    var badge = document.getElementById("motiva-badge"), live = document.getElementById("motiva-live"), src = document.getElementById("motiva-src");
+    var b, txt;
+    if (first) {
+      var added = 0; codes.forEach(function(c){ added += cv(last, c) || 0; }); if (!added) newAir.forEach(function(c){ added += (last.total && last.total[c]) || 0; });
+      var legacy = 0; (R.legacy || []).forEach(function(c){ legacy += cv(last, c) || 0; });
+      var share = legacy + added ? 100 * added / (legacy + added) : null, until = addYm(first.ym, 11);
+      b = ["ok", (es ? "En el tráfico de ASUR desde " : "In ASUR's traffic since ") + mon(first.ym)];
+      txt = es
+        ? "<b>Primer reporte con estos aeropuertos: tráfico de " + mon(first.ym) + "</b> (publicado el " + day(first.source && first.source.date) + "). En " + mon(last.ym) + ": " + num(added, 1) + " mil pasajeros, " + (share != null ? num(share, 1) + "%" : "—") + " del total consolidado de ASUR. Hasta " + mon(until) + " ese total no es comparable año contra año; el " + link + " muestra por separado el perímetro anterior (comparable) y el consolidado."
+        : "<b>First report with these airports: " + mon(first.ym) + " traffic</b> (published " + day(first.source && first.source.date) + "). In " + mon(last.ym) + ": " + num(added, 1) + " thousand passengers, " + (share != null ? num(share, 1) + "%" : "—") + " of ASUR's consolidated total. Through " + mon(until) + " that total is not comparable year over year; the " + link + " shows the legacy perimeter (like for like) and the consolidated total separately.";
+    } else if (last.ym >= R.firstMonth) {
+      b = ["warn", (es ? "Ausentes del reporte de " : "Absent from the report for ") + mon(last.ym)];
+      txt = es
+        ? "El reporte de tráfico de ASUR de " + mon(last.ym) + " (publicado el " + day(last.source && last.source.date) + ") no incluye estos aeropuertos. Siguiente: tráfico de " + mon(nym) + ", esperado hacia el " + day(ndate) + ". Detalle en el " + link + "."
+        : "ASUR's traffic report for " + mon(last.ym) + " (published " + day(last.source && last.source.date) + ") does not include these airports. Next: " + mon(nym) + " traffic, expected around " + day(ndate) + ". Detail in the " + link + ".";
+    } else {
+      var r6 = (R.paxReported || []).filter(function(x){ return x.period === "6M26"; })[0];
+      var scale = r6 && R.legacyPax6M26 ? (es
+        ? " Para escala, ASUR reportó ≈" + num(r6.v, 0) + " M de pasajeros en esos aeropuertos en el primer semestre de 2026, frente a " + num(R.legacyPax6M26 / 1000, 1) + " M en sus 16 aeropuertos (evento relevante del 28 sep 2026)."
+        : " For scale, ASUR reported ≈" + num(r6.v, 0) + " M passengers at those airports in the first half of 2026, against " + num(R.legacyPax6M26 / 1000, 1) + " M at its 16 airports (evento relevante of Sep 28, 2026).") : "";
+      b = ["", es ? "Esperando el primer reporte de tráfico" : "Awaiting first traffic print"];
+      txt = es
+        ? "<b>Ningún reporte mensual de ASUR los incluye todavía</b>: el último es el de " + mon(last.ym) + " (publicado el " + day(last.source && last.source.date) + ")." + (R.announced ? " ASUR anunció el " + day(R.announced.date) + " que los incluirá a partir de su reporte de " + mon(R.firstMonth) + "." : "") + " Siguiente reporte: tráfico de " + mon(nym) + ", esperado hacia el " + day(ndate) + " (día mediano de los últimos doce reportes)." + scale + " Hasta entonces el " + link + " compara todo sobre el perímetro anterior."
+        : "<b>No ASUR monthly report includes them yet</b>: the latest is for " + mon(last.ym) + " (published " + day(last.source && last.source.date) + ")." + (R.announced ? " On " + day(R.announced.date) + " ASUR announced it will include them starting with its " + mon(R.firstMonth) + " report." : "") + " Next report: " + mon(nym) + " traffic, expected around " + day(ndate) + " (median day of the last twelve reports)." + scale + " Until then the " + link + " compares everything on the legacy perimeter.";
+    }
+    badge.className = "ph-badge" + (b[0] ? " " + b[0] : ""); badge.textContent = b[1]; badge.hidden = false;
+    live.innerHTML = txt;
+    var srcs = (R.sources || []).map(function(x){ return '<a href="' + esc(x.url) + '" target="_blank" rel="noopener">' + esc(L(x)) + " (" + day(x.date) + ")</a>"; });
+    if (srcs.length) src.innerHTML = (es ? "Fuentes: " : "Sources: ") + srcs.join(" · ") + (es ? " · tráfico: reporte mensual de ASUR del " : " · traffic: ASUR monthly report of ") + day(last.source && last.source.date) + ".";
+  }
 });
 </script>
 </body>

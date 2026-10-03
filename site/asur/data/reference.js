@@ -105,6 +105,40 @@ window.ASUR_REF = {
       es: ["Comunicados de ASUR 30-jul-2025, 18-nov-2025, 11-dic-2025, 23-jun-2026, 20-ago-2026 y 1-sep-2026 (PR Newswire)", "Informe y transcripción del 2T26 de ASUR (23-jul-2026)"]
     }
   },
+  // Traffic perimeter change: the CPC (Motiva) airports. The page's traffic section, the operating-metrics table, the
+  // deck and the airports hub read this block; whether ASUR has started reporting these airports is worked out from
+  // traffic.js (the first month at or after firstMonth that carries one of these countries), never typed here.
+  // Passenger figures below are only the ones ASUR has filed; none of them enters a chart or a total.
+  perimeter: {
+    key: "cpc",
+    name: { es: "Motiva (CPC Aeroportos)", en: "Motiva (CPC Aeroportos)" },
+    closed: "2026-09-01",
+    firstMonth: "2026-09",
+    legacy: ["MX", "PR", "CO"],
+    airports: 20,
+    // ASUR's own words in the August 2026 traffic release (8-Sep-2026): the August figures exclude these airports and
+    // its monthly report includes them from September 2026 traffic on.
+    announced: { date: "2026-09-08", es: "ASUR anunció que los incluirá a partir de su reporte de tráfico de septiembre de 2026; las cifras de agosto no los contienen", en: "ASUR announced it will include them starting with its September 2026 traffic report; the August figures exclude them", url: "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-august-2026-302872657.html" },
+    countries: [
+      { code: "BR", es: "Brasil", en: "Brazil", airports: 17, detail: { es: "Confins, Pampulha y los aeropuertos de los bloques Sul y Central", en: "Confins, Pampulha and the Bloco Sul and Bloco Central airports" } },
+      { code: "EC", es: "Ecuador", en: "Ecuador", airports: 1, detail: { es: "Aeropuerto Internacional de Quito", en: "Quito International Airport" } },
+      { code: "CR", es: "Costa Rica", en: "Costa Rica", airports: 1, detail: { es: "Aeropuerto Internacional Juan Santamaría (San José)", en: "Juan Santamaría International Airport (San José)" } },
+      { code: "CW", es: "Curazao", en: "Curaçao", airports: 1, detail: { es: "Aeropuerto Internacional de Curazao", en: "Curaçao International Airport" } }
+    ],
+    // ASUR's evento relevante of 28-Sep-2026: passengers served by the CPC airports (approximate, millions) and, in the same
+    // filing, the 16 existing airports' 6M26 total (36,214.3 thousand) for scale.
+    paxReported: [
+      { period: "FY2025", v: 48 }, { period: "6M25", v: 23 }, { period: "6M26", v: 24 }
+    ],
+    legacyPax6M26: 36214.3,
+    minorities: { es: "CPC tiene participaciones: algunos concesionarios conservan accionistas minoritarios (en Confins, Infraero 49% y Zurich una participación indirecta de 12.75%, cuya compra se espera en diciembre de 2026). ASUR no ha dicho si su reporte mensual contará estos aeropuertos al 100%.", en: "CPC holds stakes: some concessionaires keep minority shareholders (at Confins, Infraero 49% and Zurich an indirect 12.75%, whose purchase is expected in December 2026). ASUR has not said whether its monthly report will count these airports at 100%." },
+    sources: [
+      { date: "2025-11-18", es: "Comunicado de ASUR: firma (20 aeropuertos, 17 en Brasil)", en: "ASUR release: signing (20 airports, 17 in Brazil)", url: "https://www.prnewswire.com/news-releases/asur-signs-deal-to-acquire-motivas-stake-in-airport-business-in-brazil-ecuador-costa-rica-and-curacao-302619317.html" },
+      { date: "2026-09-01", es: "Comunicado de ASUR: cierre", en: "ASUR release: closing", url: "https://www.prnewswire.com/news-releases/asur-closes-acquisition-of-motivas-interests-in-airports-in-brazil-ecuador-costa-rica-and-curacao-302866774.html" },
+      { date: "2026-09-08", es: "Reporte de tráfico de agosto de 2026 (aviso de inclusión desde septiembre)", en: "August 2026 traffic report (notice of inclusion from September)", url: "https://www.prnewswire.com/news-releases/asur-announces-total-passenger-traffic-for-august-2026-302872657.html" },
+      { date: "2026-09-28", es: "Evento relevante de ASUR en la BMV (pasajeros de CPC, minoritarios)", en: "ASUR evento relevante at the BMV (CPC passengers, minorities)", url: "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591573_1.pdf" }
+    ]
+  },
   explainer: {
     rows: [
       { label: { es: "Aerostar Airport Holdings (Puerto Rico)", en: "Aerostar Airport Holdings (Puerto Rico)" }, value: { es: "ASUR 60%; opera el aeropuerto Luis Muñoz Marín de San Juan bajo un arrendamiento de 40 años (2013–2053), única APP concluida bajo el programa piloto de la FAA. Se consolida al 100%; el 40% aparece como participación no controladora.", en: "ASUR 60%; operates San Juan's Luis Muñoz Marín airport under a 40-year lease (2013–2053), the only completed PPP under the FAA pilot program. Fully consolidated; the 40% appears as non-controlling interest." } },

@@ -160,6 +160,14 @@ const AIRPORTS = [
   { code: 'MTR', en: 'Montería', es: 'Montería', country: 'CO', group: 'colombia' }, { code: 'APO', en: 'Carepa', es: 'Carepa', country: 'CO', group: 'colombia' }, { code: 'UIB', en: 'Quibdó', es: 'Quibdó', country: 'CO', group: 'colombia' }, { code: 'CZU', en: 'Corozal', es: 'Corozal', country: 'CO', group: 'colombia' },
 ];
 const COUNTRIES = [{ code: 'MX', en: 'Mexico', es: 'México' }, { code: 'PR', en: 'Puerto Rico', es: 'Puerto Rico' }, { code: 'CO', en: 'Colombia', es: 'Colombia' }];
+// The CPC (Motiva) airports, closed 1-Sep-2026 (site/asur/data/reference.js -> perimeter). ASUR's first release that carries
+// them had not been seen when this was written, so only their country labels are known: a country appears in traffic.js
+// once a release prints it, and an airport row printed under one of these countries' tables is listed with the name the
+// release gives it. Anything the parser cannot place leaves the airports-sum identity unbalanced, so the validator stops
+// the commit rather than publishing a group total that mixes perimeters.
+const NEW_COUNTRIES = [{ code: 'BR', en: 'Brazil', es: 'Brasil', re: /^bra[sz]il$/i }, { code: 'EC', en: 'Ecuador', es: 'Ecuador', re: /^ecuador$/i }, { code: 'CR', en: 'Costa Rica', es: 'Costa Rica', re: /^costa rica$/i }, { code: 'CW', en: 'Curaçao', es: 'Curazao', re: /^cura[cç]ao$|^curazao$/i }];
+const COUNTRY_CODES = ['MX', 'PR', 'CO', ...NEW_COUNTRIES.map((c) => c.code), 'TOTAL'];
+const newCountryOf = (label) => (NEW_COUNTRIES.find((c) => c.re.test(String(label).trim())) || {}).code || null;
 const thousands = (v) => (v == null ? null : Math.round(v) / 1000);
 
 // ---------------------------------------------------------------------------------------------
@@ -316,7 +324,7 @@ function parseTraffic(text, meta) {
   const tm = (meta.title || '').match(/passenger traffic for (January|February|March|April|May|June|July|August|September|October|November|December),? (20\d\d)/i) || head.match(/passenger traffic for (January|February|March|April|May|June|July|August|September|October|November|December),? (20\d\d)/i);
   if (!tm) return null;
   const ym = `${tm[2]}-${String(MONTHS_EN.indexOf(tm[1].toLowerCase()) + 1).padStart(2, '0')}`;
-  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, prior: { dom: {}, intl: {}, total: {} }, warnings: [] };
+  const rel = { ym, source: meta, dom: {}, intl: {}, total: {}, prior: { dom: {}, intl: {}, total: {} }, names: {}, countryOf: {}, warnings: [] };
   const lines = text.split('\n');
   let table = null, seg = null; // table: 'summary' | 'MX' | 'PR' | 'CO'; seg: dom | intl | total
   const setv = (segK, code, cur, prev) => { rel[segK][code] = cur; if (prev != null) rel.prior[segK][code] = prev; };
@@ -347,18 +355,27 @@ function parseTraffic(text, meta) {
     if (/passenger traffic/.test(l) && /mexico|m[eé]xico/.test(l) && !/\d/.test(l)) { if (!enter('MX')) break; continue; }
     if (/passenger traffic|san juan airport/.test(l) && /san juan|puerto rico|\(lmm\)/.test(l) && !/\d/.test(l.replace(/\(lmm\)/, ''))) { if (!enter('PR')) break; continue; }
     if (/passenger traffic/.test(l) && /colombia|airplan/.test(l) && !/\d/.test(l)) { if (!enter('CO')) break; continue; }
+    { const nc = /passenger traffic/.test(l) && !/\d/.test(l) ? NEW_COUNTRIES.find((c) => new RegExp(c.re.source.replace(/\^|\$/g, ''), 'i').test(l)) : null; if (nc) { if (!enter(nc.code)) break; continue; } }
     if (!table) continue;
     const rawCells = raw.split('|').map((c) => c.trim());
+    // a CPC country printed as a heading line inside the summary table: its domestic / international rows belong to it
+    if (table === 'summary' && rawCells.filter(Boolean).length === 1 && newCountryOf(rawCells.filter(Boolean)[0])) { seg = newCountryOf(rawCells.filter(Boolean)[0]); continue; }
     if (rawCells.some((c) => /^20\d\d$/.test(c)) && rawCells.every((c) => c === '' || /^20\d\d$/.test(c))) { let n = 0, started = false; for (const c of rawCells) { if (/^20\d\d$/.test(c)) { n++; started = true; } else if (started) break; } if (n >= 4) n = n / 2; if (n >= 2) ypg = n; continue; }
     let cells = rawCells.filter(Boolean);
     if (cells.length < 3) continue;
     let code = null;
-    if (/^[A-Z]{3}$/.test(cells[0]) && /[A-Za-z]/.test(cells[1]) && !/\d/.test(cells[1])) { code = cells[0]; cells = cells.slice(2); }      // "CUN | Cancun | ..."
-    else if (/^[A-Z]{3} [A-Za-z]/.test(cells[0]) && !/\d/.test(cells[0]) && !/ total$/i.test(cells[0])) { code = cells[0].slice(0, 3); cells = cells.slice(1); }      // "CUN Cancun | ..." (2020)
+    // airport rows live in the country tables; in the summary table a label like "CPC Aeroportos" is a country block, not
+    // an airport coded "CPC" (that reading once let an unknown block pass the airports-sum identity)
+    if (table !== 'summary' && /^[A-Z]{3}$/.test(cells[0]) && /[A-Za-z]/.test(cells[1]) && !/\d/.test(cells[1])) { code = cells[0]; rel.names[code] = cells[1]; if (table !== 'summary') rel.countryOf[code] = table; cells = cells.slice(2); }      // "CUN | Cancun | ..."
+    else if (table !== 'summary' && /^[A-Z]{3} [A-Za-z]/.test(cells[0]) && !/\d/.test(cells[0]) && !/ total$/i.test(cells[0])) { code = cells[0].slice(0, 3); cells = cells.slice(1); }      // "CUN Cancun | ..." (2020)
     else { const label = cells[0]; cells = cells.slice(1);
       if (table === 'summary') {
         if (/^m[eé]xico$/i.test(label)) { seg = 'MX'; code = 'MX'; } else if (/puerto rico|san juan/i.test(label)) { seg = 'PR'; code = 'PR'; } else if (/^colombia$/i.test(label)) { seg = 'CO'; code = 'CO'; } else if (/^total traffic$/i.test(label)) { seg = 'TOTAL'; code = 'TOTAL'; }
+        else if (newCountryOf(label)) { seg = newCountryOf(label); code = seg; }
         else if (/^domestic traffic$/i.test(label) && seg) { code = seg; cells.unshift('__dom'); } else if (/^international traffic$/i.test(label) && seg) { code = seg; cells.unshift('__intl'); }
+        // any other labelled row with figures closes the current country, so its domestic / international rows can never
+        // overwrite the previous country's (a summary that adds countries this parser does not know)
+        else { seg = null; if (cells.some((c) => /^\(?-?[\d,]+(\.\d+)?\)?$/.test(c))) rel.warnings.push(`summary row not recognised: ${label}`); }
       } else if (table === 'PR') {
         if (/^(sju|lmm) total$/i.test(label)) { code = 'SJU'; seg = 'total'; } else if (/^domestic traffic$/i.test(label)) { code = 'SJU'; seg = 'dom'; } else if (/^international traffic$/i.test(label)) { code = 'SJU'; seg = 'intl'; }
       } else {
@@ -375,7 +392,7 @@ function parseTraffic(text, meta) {
     if (vals.length < ypg) continue;
     const prev = thousands(vals[ypg - 2]), cur = thousands(vals[ypg - 1]);
     if (!kind) continue;
-    if (['MX', 'PR', 'CO', 'TOTAL'].includes(code)) { (rel.countries ??= {}); ((rel.countries[code] ??= {}))[kind] = cur; ((rel.prior.countries ??= {})[code] ??= {})[kind] = prev; if (code === 'TOTAL') setv(kind, 'TOTAL', cur, prev); }
+    if (COUNTRY_CODES.includes(code)) { (rel.countries ??= {}); ((rel.countries[code] ??= {}))[kind] = cur; ((rel.prior.countries ??= {})[code] ??= {})[kind] = prev; if (code === 'TOTAL') setv(kind, 'TOTAL', cur, prev); }
     else setv(kind, code, cur, prev);
   }
   return finishTraffic(rel);
@@ -466,7 +483,13 @@ async function main() {
     if (!byMonth[prevYm] && Object.keys(t.prior.total).length >= 10) { byMonth[prevYm] = { ym: prevYm, dom: t.prior.dom, intl: t.prior.intl, total: t.prior.total, countries: t.prior.countries || null, source: { url: t.source.url, date: t.source.date, note: "prior-year comparative column of the following year's release" } }; }
   }
   const months = Object.values(byMonth).sort((a, b) => a.ym.localeCompare(b.ym));
-  const tr = { generatedAt: new Date().toISOString(), units: 'thousands of passengers', airports: AIRPORTS, countries: COUNTRIES, months, coverage: [months[0]?.ym, months.at(-1)?.ym], note: 'Mexico and Colombia exclude transit and general-aviation passengers; San Juan includes them. Persons converted to thousands. Airports acquired from Motiva (Brazil, Costa Rica, Curaçao, Ecuador) report from September 2026.' };
+  // CPC countries and airports join the lists only once a release prints them (country order, then as printed)
+  const newSeen = NEW_COUNTRIES.filter((c) => months.some((m) => m.countries && m.countries[c.code]) || traffic.some((t) => Object.values(t.countryOf).includes(c.code)));
+  const known = new Set(AIRPORTS.map((a) => a.code)), extra = [];
+  for (const c of newSeen) for (const t of traffic.slice().sort((a, b) => b.ym.localeCompare(a.ym))) for (const [code, ctry] of Object.entries(t.countryOf)) if (ctry === c.code && !known.has(code)) { known.add(code); extra.push({ code, en: t.names[code] || code, es: t.names[code] || code, country: c.code, group: 'cpc' }); }
+  const airportsOut = [...AIRPORTS, ...extra], countriesOut = [...COUNTRIES, ...newSeen.map(({ code, en, es }) => ({ code, en, es }))];
+  if (extra.length || newSeen.length) console.log(`traffic: CPC perimeter in the releases: ${newSeen.map((c) => c.code).join(', ')}; ${extra.length} airports itemized (${extra.map((a) => a.code).join(', ')})`);
+  const tr = { generatedAt: new Date().toISOString(), units: 'thousands of passengers', airports: airportsOut, countries: countriesOut, months, coverage: [months[0]?.ym, months.at(-1)?.ym], note: 'Mexico and Colombia exclude transit and general-aviation passengers; San Juan includes them. Persons converted to thousands. Airports acquired from Motiva (Brazil, Costa Rica, Curaçao, Ecuador) report from September 2026.' };
   const trChanged = await writeData(OUT('traffic.js'), 'ASUR_TRAFFIC', tr, GEN);
   console.log(`traffic.js${trChanged ? '' : ' (unchanged)'}: ${months.length} months (${tr.coverage.join(' → ')})`);
 
