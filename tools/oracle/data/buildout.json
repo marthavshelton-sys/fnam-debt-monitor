@@ -1,6 +1,6 @@
 {
  "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
- "updated": "2026-10-03",
+ "updated": "2026-10-04",
  "capacity": {
   "unit": "MW",
   "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -226,7 +226,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-03",
+   "issues_checked": "2026-10-04",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -238,6 +238,15 @@
      "src": "Crusoe PR",
      "en": "contracted; construction began June 2024; 1,200 MW nameplate across 8 buildings (Crusoe)",
      "es": "contratado; construcción iniciada en junio de 2024; 1,200 MW nominales en 8 edificios (Crusoe)"
+    },
+    {
+     "when": "2025-06",
+     "kind": "delivered",
+     "mw": null,
+     "basis": "company",
+     "src": "Crusoe PR",
+     "en": "first NVIDIA GB200 racks delivered June 2025; the campus is live and generating revenue since 2025 (Crusoe, 30 Sep 2025); MW of that first delivery not disclosed",
+     "es": "primeros racks NVIDIA GB200 entregados en junio de 2025; el campus opera y genera ingresos desde 2025 (Crusoe, 30 sep 2025); MW de esa primera entrega no divulgados"
     },
     {
      "when": "FY2026Q4",
@@ -257,15 +266,6 @@
      "src": "1Q27 call p.6",
      "en": "618 MW delivered, 6 of 8 buildings live (Oracle, 1Q27 call p.6)",
      "es": "618 MW entregados, 6 de 8 edificios operando (Oracle, llamada 1T27 p.6)"
-    },
-    {
-     "when": "2025-06",
-     "kind": "expected",
-     "mw": null,
-     "basis": "company",
-     "src": "Crusoe PR",
-     "en": "generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe)",
-     "es": "genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe)"
     }
    ]
   },
@@ -326,7 +326,7 @@
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
    "status_date": "2026-09-10",
    "issues": [],
-   "issues_checked": "2026-10-03",
+   "issues_checked": "2026-10-04",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
    "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
    "tenant_openai": true,
@@ -519,7 +519,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-03",
+   "issues_checked": "2026-10-04",
    "tenant_openai": true,
    "tenant_basis": "press",
    "mw_series": [
@@ -634,7 +634,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-03",
+   "issues_checked": "2026-10-04",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -703,6 +703,11 @@
      "title": "Oracle press release, 2 Oct 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)",
      "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/",
      "short": "Oracle PR 2 Oct 2026"
+    },
+    {
+     "title": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter (Aterio: grid approval could push first power past 2H 2027)",
+     "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832",
+     "short": "The Register 2 Oct 2026"
     }
    ],
    "capacity_text_es": "“Cerca de un gigavatio” en cuatro centros de datos; inversión de US$15 mil M+ (Vantage / DigitalBridge)",
@@ -729,6 +734,18 @@
    "first_revenue_es": "Segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)",
    "status_date": "2026-09-10",
    "issues": [
+    {
+     "date": "2026-10-02",
+     "kind": "power",
+     "status": "open",
+     "basis": "press",
+     "en": "Aterio sees a material risk the campus misses Oracle's 2H 2027 target: the ATC interconnection awaits PSC approval (first application returned in August); base case partial power Dec 2027, full supply Oct 2028. The Register adds Oracle could face more than US$100 million a year to guarantee the power commitments (Oracle's own figure, June 2026 court filing).",
+     "es": "Aterio ve un riesgo material de que el campus no cumpla el 2S 2027 fijado por Oracle: la interconexión de ATC espera la aprobación de la PSC (primera solicitud devuelta en agosto); caso base energía parcial dic 2027, suministro completo oct 2028. The Register añade que Oracle podría enfrentar más de US$100 millones al año por garantizar los compromisos de energía (cifra de la propia Oracle, escrito judicial de junio de 2026).",
+     "source": {
+      "title": "The Register, 2 Oct 2026: Power approval set to delay Oracle's Wisconsin AI datacenter",
+      "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832"
+     }
+    },
     {
      "date": "2026-10-02",
      "kind": "power",
@@ -766,7 +783,7 @@
      }
     }
    ],
-   "issues_checked": "2026-10-03",
+   "issues_checked": "2026-10-04",
    "tenant_openai": true,
    "tenant_basis": "company",
    "mw_series": [
@@ -794,8 +811,10 @@
      "mw": null,
      "basis": "company",
      "src": "4Q26 call p.7",
-     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage)",
-     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)"
+     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage). At risk: the grid interconnection awaits PSC approval; Aterio's base case is partial power Dec 2027, full supply Oct 2028 (press)",
+     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage). En riesgo: la interconexión a la red espera la aprobación de la PSC; caso base de Aterio: energía parcial dic 2027, suministro completo oct 2028 (prensa)",
+     "at_risk": true,
+     "risk_src": "The Register 2 Oct 2026"
     }
    ]
   }

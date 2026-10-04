@@ -143,26 +143,33 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   in-force FY2030 revenue target (`long_range_targets.json`) with a GAAP EBITDA margin (already net of SBC) and the
   consensus cost and capex ratios. After the years the basis covers, growth halves each year down to the terminal rate,
   margin and D&A hold, and capex/revenue converges linearly to the terminal ratio.
-* **Scenarios (owner's, 2026-10-04; Bull rebuilt in round 3 the same day).** *Base = FactSet consensus as it stands*, and
-  the page says so plainly with the figures it implies (at 2026-10-04: FY2028 revenue growth +45%, a 54% EBITDA margin
-  after SBC from FY2030 held through the terminal year — the most optimistic anchor on file, not a midpoint). *Bear* =
-  three documented adjustments to the consensus revenue path, in order: (1) RPO conversion slips one year (from the
-  second explicit year revenue takes the prior year's consensus level; margin, D&A and capex intensity lag with it; the
-  current year's capex stands because it is contracted); (2) Project Jupiter is two quarters late (its share of the
-  named nameplate capacity × half of the first incremental year after the slip moves to the following year); (3) OpenAI
-  volume −25% (S&P estimates about half of RPO is OpenAI, so 12.5% of the incremental revenue above the last reported
-  fiscal year is removed every year). *Bull* = the same three levers set to the plan, in the same order, so the two cases
-  are symmetrical in method: (1) RPO conversion runs one year ahead of the 10-Q schedule (from the second explicit year
-  revenue takes the following year's consensus level; margin, D&A and capex intensity lead with it; the current year's
-  capex stands); (2) Project Jupiter on time (the consensus timing: the Bear's slip is not applied); (3) OpenAI volume at
-  plan (the contracted volume in full: the Bear's haircut is not applied; RPO is the ceiling of contracted revenue, so no
-  volume above plan is assumed, which is why the Bull's levers 2 and 3 are "at plan" rather than mirrored upward). The
-  *management target* (the in-force FY2030 revenue target on the consensus cost structure: the target year's revenue is
-  lifted to the target, later years keep the consensus growth ratios; margins, D&A and capex/revenue as consensus) is kept
-  as a separate, fourth variant. At 2026-10-04: Bear US$70, Base US$114, Bull US$141, management target US$120 against
-  the US$138.07 close. The scenarios table shows value per share, the terminal-value share of EV, the WACC the price
-  implies and the implied terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual
-  change makes the scenario "custom".
+* **Scenarios (owner's, 2026-10-04; Bull rebuilt in round 3 and again in round 4 the same day).** *Base (consensus) = FactSet
+  consensus as it stands*, and the page says so plainly with the figures it implies (at 2026-10-04: FY2028 revenue growth +45%,
+  a 54% EBITDA margin after SBC from FY2030 held through the terminal year); it is the anchor the other rows are measured
+  against. *Bear* = three documented adjustments to the consensus revenue path, in order: (1) RPO conversion slips one year
+  (from the second explicit year revenue takes the prior year's consensus level; margin and D&A lag with it; the current year's
+  capex stands because it is contracted); (2) Project Jupiter is two quarters late (its share of the named nameplate capacity ×
+  half of the first incremental year after the slip moves to the following year); (3) OpenAI volume −25% (S&P estimates about
+  half of RPO is OpenAI, so 12.5% of the incremental revenue above the last reported fiscal year is removed every year). *Bull*
+  (round 4) = the same three levers set to the plan, in the same order, on a path that never exceeds management's in-force
+  FY2030 revenue target: (1) RPO conversion runs one year ahead of the 10-Q schedule — from the second explicit year revenue
+  takes the following year's consensus level; it is the same contracted volume arriving sooner, not more of it (RPO is the
+  ceiling), so the target year is capped at the FY2030 target and from the year after the last consensus year the path rejoins
+  the consensus level; margin and D&A lead with the revenue level (the mirror of the Bear's lag); (2) Project Jupiter on time
+  (the consensus timing: the Bear's slip is not applied); (3) OpenAI volume at plan (the contracted volume in full: the Bear's
+  haircut is not applied; nothing above plan is assumed). **Capex in both cases (round 4)** follows one rule: the contracted
+  build plan (each year's consensus capex) stands and capex moves with the scenario's revenue difference against consensus at
+  the model's terminal capex intensity (k × D&A ÷ revenue, about 15%, the intensity once the buildout is complete), so capex
+  rises with revenue in every scenario while the current year's capex stays as guided. Holding each year's consensus
+  capex/revenue ratio instead would charge the front-loaded buildout intensity (about 70% of revenue in FY2028) on revenue the
+  plan's capacity already produces and would value the Bull below the Base (US$107 against US$112 at 2026-10-04); the page's
+  recipe text says so, so the choice stays visible. The *management target* (the in-force FY2030 revenue target on the
+  consensus cost structure: the target year's revenue is lifted to the target, later years keep the consensus growth ratios;
+  margins, D&A and capex/revenue as consensus) is kept as a separate, fourth row. At 2026-10-04 (US$142.30 close): Bear US$77,
+  Base US$112, Bull US$118, management target US$117 (round 3, at US$138.07 and the earlier capex rules: US$70 / 114 / 141 /
+  120). The scenarios table shows value per share, the terminal-value share of EV, the WACC the price implies and the implied
+  terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual change of the operating inputs
+  makes the scenario *Custom* (the Base button is no longer highlighted and a Custom badge appears).
 * **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
   gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
   recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,

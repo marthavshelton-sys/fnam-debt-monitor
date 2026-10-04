@@ -81,6 +81,38 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   model's figures (2.60x / 3.54x: release D&A, EBITDAR) with the reason, same date. Word count fell (EN 31.2k → see render
   check), so no new material had to be collapsed.
 
+- **2026-10-04 round 4 (owner's 24-item list: refresh, DCF, sources, deck, phones).** Data: price refreshed to the 2-Oct close
+  (US$142.30, +3.06%) by `fetch-market.mjs`; FRED is unreachable from the sandbox (503 through the proxy), so the fetcher now
+  merges a fallback source into the stored history (adds missing dates, never truncates: the Treasury's yearly CSV holds one
+  year, FRED decades). News: Tencent lease (FT, press-reported, unconfirmed) and Port Washington grid timing (Aterio via The
+  Register) added; the Jupiter floods and Point Beach items were already on file; sweep and ratings check dated 2026-10-04
+  (`credit_ratings.checked`). Summary "What to watch" carries the four items; `events_through` = the latest news item (builder).
+  **DCF:** Bull = the Bear's three levers at plan on a path capped at management's FY2030 target that rejoins consensus after the
+  last consensus year; margin and D&A lead with the revenue level; **one capex rule for Bear and Bull** (contracted plan ±
+  revenue difference × terminal intensity k × D&A/revenue), so capex rises with revenue in every row (the round-3 Bear let the
+  slipped build plan's intensity run on, US$68 → US$77). Values at US$142.30: Bear 77 / Base 112 / Bull 118 / management
+  target 117; leases operating / mixed / finance 112 / 100 / 57. Labels: "Base (consensus)", "Custom" (a manual edit re-renders
+  the preset bar: Base un-highlighted, Custom badge). **One refresh time** (`REFRESHED_AT` = the build's `generatedAt`) on every
+  stamp, the header and the deck cover; per-module fetch times only in the methodology modules table ("Data fetched") and on
+  quality.html; the calendar prints ET only (CT and CDMX columns removed). Sources: July-2026 notes marked *inferred* with the
+  10-Q linked; Figure 17's 2.7x/4.1x vs 2.60x/3.54x explanation cites the XBRL D&A and the release D&A with links; the five
+  Source cells and the RPO-recognition Source line that had no link now link or say why (owner-supplied transcripts, FNAM
+  calculation); the change-log caption explains the 600 kept leaves vs the 250 shown; megawatt timeline rows print "MW not
+  disclosed" and Abilene's June-2025 row is an actual delivery; Port Washington's expected row carries an "at risk" badge.
+  **Deck:** DCF page (`dcfPage`, section `dcf` now `deck: true`, deck_order 12; news/risks/method 13–15), the six-number chain
+  strip on the executive summary (`present-core execSummary(sections, subtitle, pre)`), cover without credits or the
+  confidentiality notice (`cfg.credits: false`, `cfg.confidential` = the source line, `cfg.coverLines` = the refresh time),
+  `{{sec:}}`/`{{fact:}}` resolved in every table cell, a guard that refuses to save a deck with an unresolved token, and
+  `scripts/oracle/deck-check.mjs` (builds both languages headlessly, compares price/DCF/Bear/Bull/delta with the page, PyMuPDF
+  second layer and page images). **Phones** (≤760 px and landscape ≤500 px tall): compact header (title, price, status line,
+  "More figures" toggle), the language/PDF pill inside the header bar, one fixed bottom bar for ☰ Sections and ↑ Top with body
+  padding so content never ends under it, verdict clamped to four lines with "Read the full verdict", chain 2×3 with
+  two-line details, 44 px controls, 16 px DCF inputs, 12 px type floor, pinned first column on tables wider than the screen
+  (`markWideTables`), key rows only on the five longest tables (`limitRows`, `KEY_ROW_TABLES`), chart tooltips in a box below
+  the plot (`externalTip`) with at most six x labels. Render check: 12 px floor, 44 px controls, 16 px inputs, nothing fixed
+  over the nav, verdict and chain in the first screen, Custom state after an edit, per-language word ceilings
+  (`--max-words-en/--max-words-es`; baselines 2026-10-04 before round 4: EN 29,337, ES 32,648 expanded).
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
@@ -129,14 +161,24 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   narrative JSON; `render-check.mjs` scans visible text). Internal keys (`sources_note`, `files`, `src`, `url`, `key`) are
   excluded; put technical detail on `quality.html`.
 - `{{fact:id}}` tokens in the narrative must name a key of `FACTS` in `app.js` (validator check).
+- `fetch-market.mjs`: a fallback source (Yahoo, the Treasury's yearly CSV) covers a shorter window than FRED; since round 4 it is
+  merged into the stored CSV (missing dates added), never written over it. FRED answers the GitHub runner, not the sandbox.
+- The deck's `OracleDoc.text/bullets/measure*` resolve `{{sec:}}` and `{{fact:}}`, but table cells go through `fitTable` /
+  `table` directly: pass every narrative cell through `this.xref()` first. `finish()` throws on any `{{` drawn (the guard wraps
+  `this.pdf.text`, which jsPDF-AutoTable also calls), so a missed token fails the build instead of printing.
+- Phone CSS lives in the last `<style>` block of `index.html` (`@media (max-width:760px)` and the landscape block); the summary
+  section is a flex column there with `order` values, so new summary children need an `order` or they land at the end.
+- `markWideTables()` runs after every render and after a section opens (`applyCollapse`): a table hidden in a collapsed section
+  has no width, so the sticky-column class is only decided once it is visible.
 
 ## Open items
 
 - Deck: the executive-summary page could carry the verdict paragraph and the six-number chain (page-only today); the
   owner decides (one-page auto-fit may need a layout pass).
-- Bull case: the owner may prefer a fully mirrored Bull (Jupiter two quarters early, OpenAI volume +25%, ≈ US$157 at
-  2026-10-04) to the "levers at plan" version built in round 3 (US$141); the recipe text names the choice and why
-  (RPO is the ceiling of contracted revenue).
+- Bull case (round 4): built as "levers at plan", capped at management's FY2030 target, with one capex rule shared with the Bear.
+  Two choices the owner may want to revisit: capex at the terminal intensity on the revenue difference (holding each year's
+  consensus capex/revenue would put the Bull at US$107, below the Base), and the Bear's capex now falling with its revenue
+  shortfall (round 3 kept the slipped plan's intensity: US$68 vs US$77). Both are stated in the scenario recipes on the page.
 - Counterparty amounts: Oracle's filings name customers (FWP) but give no amounts; if a 10-Q ever discloses a split of
   RPO by customer or by funding type, replace S&P's estimate and the press figures in `buildout.json →
   unit_economics.concentration`.

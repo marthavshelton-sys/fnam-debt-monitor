@@ -537,16 +537,100 @@ table.su tr.grp td{font-weight:700; color:var(--muted); font-size:11px; text-tra
 table.cp td{white-space:normal; vertical-align:top;}
 table.mw td{white-space:normal; vertical-align:top;}
 @media print{.paths, #secMenuBtn, #secMenu, .chain .box::after{display:none !important;} .chain{grid-template-columns:repeat(3,1fr) !important;} .sec-lead{font-size:12.5pt !important;} .appendix{border-top:none;}}
+<style>
+/* ---------- Round 4 (2026-10-04): phones. Compact header behind a More toggle, the language pill in the header bar, one bottom bar
+   for the section menu and back-to-top, 44 px controls, a 12 px type floor, pinned first columns, key rows, chart tooltips below
+   the plot, the verdict clamped to its first lines, landscape header. Desktop is unchanged. ---------- */
+.hdr-compact, .hdr-more, .chart-tip, .kr-btn, .vmore{display:none;}
+#mobar{display:contents;}
+@media (max-width:760px){
+  header.top{padding:12px 0 12px;}
+  header.top .fnam-bar{margin-bottom:6px; gap:8px 10px;}
+  header.top .eyebrow{display:none;}
+  header h1{font-size:22px; margin-top:2px; line-height:1.15;}
+  .hdr-compact{display:block; margin-top:4px; font-size:14px; line-height:1.4; padding-right:120px; position:relative;}
+  .hdr-compact .px{font-size:22px; font-weight:800; letter-spacing:-0.01em;}
+  .hdr-compact .st{display:block; font-size:12.5px; color:var(--muted); margin-top:2px;}
+  .hdr-more{display:inline-flex; align-items:center; min-height:44px; position:absolute; right:16px; top:calc(100% - 44px); transform:translateY(-100%); border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:600 12.5px var(--sans); border-radius:8px; padding:0 12px; cursor:pointer;}
+  header.top .wrap{position:relative;}
+  nav.jump .navbtn{margin:0 0 0 8px;}
+  header.top:not(.more) #asofRow, header.top:not(.more) #kpiStrip{display:none;}
+  header.top #asofRow{margin-top:12px;} header.top #kpiStrip{margin-top:12px;}
+  .kpi-strip .kpi:last-child:nth-child(odd){grid-column:1 / -1;}
+  .lang-btn{position:static; margin-left:auto; box-shadow:none;}
+  .lang-btn button{min-height:44px; padding:0 12px; font-size:13px;}
+  body{padding-bottom:68px;}
+  #mobar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:46; height:58px; align-items:center; justify-content:space-between; gap:8px; padding:0 12px; background:var(--surface); border-top:1px solid var(--border-strong); box-shadow:0 -4px 16px rgba(11,11,11,.06);}
+  #mobar #secMenuBtn, #mobar #toTop{position:static; min-height:44px; box-shadow:none; display:none;}
+  #mobar #secMenuBtn{display:inline-flex;} #mobar #toTop.show{display:inline-flex;}
+  #secMenu{bottom:66px;}
+  section#summary{display:flex; flex-direction:column;}
+  section#summary > .sec-head{order:0;} section#summary > #sumVerdict{order:1;} section#summary > #sumChain{order:2;} section#summary > #readingPaths{order:3;} section#summary > #sumMeta{order:4;} section#summary > #sumGrid{order:5;} section#summary > #sumWatch{order:6;} section#summary > #sumSrc{order:7;} section#summary > #keyNumbersWrap{order:8;}
+  main{padding-top:10px;} section.block{padding:28px 0;} section#summary{padding-top:8px;}
+  .verdict{margin-top:8px; padding:12px 14px; font-size:14.5px; line-height:1.5;}
+  .verdict .vh{font-size:16px; margin-bottom:4px;}
+  .verdict:not(.open) .vt{display:-webkit-box; -webkit-line-clamp:5; -webkit-box-orient:vertical; overflow:hidden;}
+  .vmore{display:inline-flex; align-items:center; min-height:44px; border:0; background:transparent; color:var(--accent-ink); font:700 13px var(--sans); padding:0; cursor:pointer;}
+  .chain{grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:10px;}
+  .chain .box{padding:8px 10px 7px;} .chain .box .v{font-size:15px; margin-top:2px;} .chain .box .d{font-size:12px; margin-top:2px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;}
+  .verdict:not(.open) .vt{-webkit-line-clamp:3;}
+  section#summary > .sec-head .sec-stamp{display:none;} section#summary > .sec-head{margin-bottom:2px;}
+  header.top .fnam-back{display:none;}
+  .paths{margin-top:12px;}
+  /* tap targets: every control at least 44 px tall */
+  .sec-toggle, .chip, .btn, .seg button, nav.jump a, nav.jump .navbtn, #secMenu a, details.tbl summary, .presets .btn, .kr-btn, .hdr-more, .vmore{min-height:44px; display:inline-flex; align-items:center;}
+  nav.jump a{padding:0 13px;} .seg button{padding:0 12px;} .chip{padding:0 12px;} .sec-toggle{padding:0 12px;} details.tbl summary{display:flex;} #secMenu a{display:flex;}
+  select, input[type=number], input[type=text], .inp select, .inp input[type=number], .controls select{min-height:44px; font-size:16px; padding:6px 10px;}
+  .inp.years .row5 input{font-size:16px; padding:6px 2px; min-height:44px;}
+  .inp.years .row5{gap:3px;}
+  .inp{grid-template-columns:1fr;} .inp .name{margin-bottom:2px;} .inp select{max-width:100%; width:100%;} .inp input[type=number]{width:100%; text-align:left;}
+  .switch input{width:44px; height:26px;} .switch input:after{width:22px; height:22px;} .switch input:checked:after{left:20px;}
+  a[target="_blank"], .guide-quote a, .chart-src a, .cap a, a.xref{padding:15px 0;}
+  .switch{min-height:44px;}
+  /* type floor: nothing reader-facing under 12 px */
+  .small, p.chart-src, .kpi .lbl, .kpi .delta, .kpi .knote, .inp .name small, table th, .badge, .stale, .fignum, .stat .l, .out .l, .chain .box .k, .flow .step .k, .flow .step .sub, .fact .l, .build-panel .bp .k, .build-panel .bp .d, .news-item .srcs, .mono, table td .sub, table th .sub, .inp.years .row5 span, .sec-head .sec-stamp, .tier, .guide-chip, table.sites td .sub, table.sites td.issues, .timeline li b, .card .cap, .asof-row, .sec-meta, .stamp, .hero .l, .inp, .quote .who, .stmt-table tr.grp-head .cnt, .guide-table td .was, .chain .box .d .badge, .mwtl .pt, .legend-row, .controls .ctl, .controls label.lbl, .fnam-back, #dcfTable table, .src-grid .item, footer .fine, .stmt-table td.cmt, #dcfBridge td:nth-child(3), .news-item .when, .watch-item h4, .sec-lead b, table tr.head td, table.su tr.grp td, nav.jump .navsep, #dcfTable td, #dcfTable th, table td.est, .stmt-table th.cmt{font-size:12px !important;}
+  .kpi .val{font-size:19px;}
+  /* widest tables scroll sideways with the first column pinned */
+  .tblwrap.sticky1 table th:first-child, .tblwrap.sticky1 table td:first-child{position:sticky; left:0; z-index:1; background:var(--surface); box-shadow:1px 0 0 var(--border);}
+  .tblwrap.sticky1 table tr.total td:first-child, .tblwrap.sticky1 table tr.head td:first-child{background:var(--surface);}
+  /* key rows only on the longest tables */
+  .tblwrap.kr-only tr.kr-hide{display:none;}
+  .kr-btn{display:inline-flex; align-items:center; min-height:44px; margin-top:8px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:600 13px var(--sans); border-radius:8px; padding:0 14px; cursor:pointer;}
+  /* chart tooltips render below the plot, never over it */
+  .chart-tip{display:block; margin-top:6px; font-size:12.5px; line-height:1.5; color:var(--text-secondary); padding:8px 10px; border:1px solid var(--border); border-radius:8px; background:var(--surface-2);}
+  .chart-tip[hidden]{display:none;}
+  .chart-tip b{display:block; color:var(--text-primary);} .chart-tip span{display:block;} .chart-tip i{display:inline-block; width:9px; height:9px; border-radius:2px; margin-right:6px; vertical-align:middle;} .chart-tip em{display:block; font-style:italic; margin-top:4px;}
+}
+@media (max-width:370px){
+  header.top{padding:8px 0 10px;} header h1{font-size:20px;}
+  .verdict:not(.open) .vt{-webkit-line-clamp:2;}
+  .chain{gap:6px;} .chain .box{padding:6px 9px 6px;} .chain .box .v{font-size:14px;}
+  section#summary > .sec-head h2{font-size:20px;}
+}
+@media (max-height:500px) and (orientation:landscape){
+  header.top{padding:6px 0 8px;}
+  header.top .fnam-bar{margin-bottom:2px;} header.top .fnam-bar .fnam-brand, header.top .fnam-bar .fnam-back{display:none;}
+  header.top .eyebrow{display:none;} header h1{font-size:18px; margin-top:0; display:inline-block; margin-right:12px;}
+  .hdr-compact{display:inline-block; font-size:13px; margin-top:0; vertical-align:baseline;} .hdr-compact .px{font-size:17px;} .hdr-compact .st{display:inline; margin-left:6px;}
+  .hdr-more{display:inline-flex; align-items:center; min-height:40px; margin-left:10px; border:1px solid var(--border-strong); background:var(--surface); color:var(--text-secondary); font:600 12.5px var(--sans); border-radius:8px; padding:0 12px; cursor:pointer;}
+  header.top:not(.more) #asofRow, header.top:not(.more) #kpiStrip{display:none;}
+  .lang-btn{position:static; margin-left:auto; box-shadow:none;} .lang-btn button{min-height:40px;}
+  nav.jump a{padding:0 10px; min-height:40px; display:inline-flex; align-items:center;}
+  main{padding-top:8px;} section#summary{padding-top:6px;} section#summary > .sec-head .sec-stamp{display:none;} section#summary > .sec-head{margin-bottom:0;} section#summary > .sec-head h2{font-size:18px;}
+  .verdict{margin-top:6px; padding:8px 12px; font-size:13.5px;} .verdict .vh{font-size:15px;}
+  .verdict:not(.open) .vt{display:-webkit-box; -webkit-line-clamp:3; -webkit-box-orient:vertical; overflow:hidden;}
+  .vmore{display:inline-flex; align-items:center; min-height:40px; border:0; background:transparent; color:var(--accent-ink); font:700 13px var(--sans); padding:0; cursor:pointer;}
+  .chain{grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin-top:8px;} .chain .box{padding:8px 10px 6px;} .chain .box .v{font-size:15px;} .chain .box .d{font-size:12px;}
+  body{padding-bottom:58px;}
+  #mobar{display:flex; position:fixed; left:0; right:0; bottom:0; z-index:46; height:48px; align-items:center; justify-content:space-between; padding:0 12px; background:var(--surface); border-top:1px solid var(--border-strong);}
+  #mobar #secMenuBtn, #mobar #toTop{position:static; min-height:40px; box-shadow:none; display:none;} #mobar #secMenuBtn{display:inline-flex;} #mobar #toTop.show{display:inline-flex;}
+  #secMenu{bottom:56px; max-height:70vh;}
+}
+@media print{.hdr-compact, .hdr-more, .kr-btn, .vmore, .chart-tip, #mobar{display:none !important;} header.top #asofRow, header.top #kpiStrip{display:block !important;} .kpi-strip{display:grid !important;} .verdict .vt{display:block !important; -webkit-line-clamp:unset !important;} .tblwrap tr.kr-hide{display:table-row !important;}}
 </style>
 </head>
 
 <body>
-
-<div class="lang-btn">
-  <button type="button" id="btnLangEs" class="active">ES</button>
-  <button type="button" id="btnLangEn">EN</button>
-  <button type="button" id="btnPrint" class="print-btn" title="Descargar la presentación en PDF / Download the presentation as PDF">📄 <span class="es">Presentación (PDF)</span><span class="en" hidden>Presentation (PDF)</span></button>
-</div>
 
 <header class="top">
   <div class="wrap">
@@ -559,12 +643,21 @@ table.mw td{white-space:normal; vertical-align:top;}
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 8H3M7 4L3 8l4 4"/></svg>
         <span class="es">Todos los paneles</span><span class="en" hidden>All dashboards</span>
       </a>
+      <!-- language and PDF controls: fixed top-right on desktop, part of this bar on phones (round 4) -->
+      <div class="lang-btn">
+        <button type="button" id="btnLangEs" class="active">ES</button>
+        <button type="button" id="btnLangEn">EN</button>
+        <button type="button" id="btnPrint" class="print-btn" title="Descargar la presentación en PDF / Download the presentation as PDF">📄 <span class="es">Presentación (PDF)</span><span class="en" hidden>Presentation (PDF)</span></button>
+      </div>
     </div>
     <span class="eyebrow"><span class="live" data-status-dot="oracle"></span>
       <span class="es">Modelo financiero interactivo · Datos públicos (SEC EDGAR)</span>
       <span class="en" hidden>Interactive financial model · Public data (SEC EDGAR)</span>
     </span>
     <h1>Oracle Corporation <span class="muted" style="font-weight:600">(ORCL)</span></h1>
+    <!-- phones: price and one status line, then a toggle for the as-of row and the KPI strip (round 4) -->
+    <div class="hdr-compact" id="hdrCompact"></div>
+    <button type="button" class="hdr-more" id="hdrMore" aria-controls="asofRow kpiStrip"></button>
     <div class="asof-row" id="asofRow"></div>
     <div id="dataNotice" hidden></div>
     <div class="kpi-strip" id="kpiStrip"></div>
@@ -1044,8 +1137,8 @@ table.mw td{white-space:normal; vertical-align:top;}
   <section class="block" id="dcf" data-sec="dcf">
     <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
     <p class="sec-desc">
-      <span class="es">Flujo libre a la firma por año fiscal de Oracle. Tres escenarios (pesimista, base = consenso, optimista), una tasa de impuestos normalizada, el tratamiento de los arrendamientos no iniciados y una prueba que dice qué tiene que ser cierto para justificar el precio. Ingresos, EBITDA, D&amp;A y capex siguen el <b>consenso de FactSet</b> (o los objetivos de la administración); el EBITDA ajustado de los brokers se reduce por la <b>compensación en acciones</b>. Los <b>prepagos de clientes</b> compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato. El año en curso es un <b>periodo parcial</b>: excluye los trimestres ya reportados, cuyo efectivo está en la deuda neta. Los flujos se descuentan a <b>mitad de periodo</b> a la fecha del último cierre; el capex terminal se normaliza a un múltiplo de la D&amp;A. Todo es editable y el escenario queda en la URL.</span>
-      <span class="en" hidden>Unlevered free cash flow by Oracle fiscal year. Three scenarios (bear, base = consensus, bull), a normalized tax rate, the treatment of the uncommenced leases and a test that says what has to be true to justify the price. Revenue, EBITDA, D&amp;A and capex follow <b>FactSet consensus</b> (or management's targets); the brokers' adjusted EBITDA is reduced by <b>stock-based compensation</b>. <b>Customer prepayments</b> offset capex when received and unwind as revenue without cash over the contract term. The current year is a <b>stub</b>: it excludes the quarters already reported, whose cash is in net debt. Flows are discounted at <b>mid-period</b> to the latest close; terminal capex is normalised to a multiple of D&amp;A. Everything is editable and the scenario is kept in the URL.</span>
+      <span class="es">Flujo libre a la firma por año fiscal de Oracle. Cuatro filas de escenario (pesimista, base = consenso, optimista con tope en el objetivo de la administración, y el objetivo de la administración como variante aparte), una tasa de impuestos normalizada, el tratamiento de los arrendamientos no iniciados y una prueba que dice qué tiene que ser cierto para justificar el precio. Ingresos, EBITDA, D&amp;A y capex siguen el <b>consenso de FactSet</b> (o los objetivos de la administración); el EBITDA ajustado de los brokers se reduce por la <b>compensación en acciones</b>. Los <b>prepagos de clientes</b> compensan el capex al recibirse y se revierten como ingreso sin efectivo durante el plazo del contrato. El año en curso es un <b>periodo parcial</b>: excluye los trimestres ya reportados, cuyo efectivo está en la deuda neta. Los flujos se descuentan a <b>mitad de periodo</b> a la fecha del último cierre; el capex terminal se normaliza a un múltiplo de la D&amp;A. Todo es editable y el escenario queda en la URL.</span>
+      <span class="en" hidden>Unlevered free cash flow by Oracle fiscal year. Four scenario rows (Bear, Base = consensus, Bull capped at management's target, and the management target as a separate variant), a normalized tax rate, the treatment of the uncommenced leases and a test that says what has to be true to justify the price. Revenue, EBITDA, D&amp;A and capex follow <b>FactSet consensus</b> (or management's targets); the brokers' adjusted EBITDA is reduced by <b>stock-based compensation</b>. <b>Customer prepayments</b> offset capex when received and unwind as revenue without cash over the contract term. The current year is a <b>stub</b>: it excludes the quarters already reported, whose cash is in net debt. Flows are discounted at <b>mid-period</b> to the latest close; terminal capex is normalised to a multiple of D&amp;A. Everything is editable and the scenario is kept in the URL.</span>
     </p>
     <div class="dcf-grid">
       <div class="card inputs" id="dcfInputs"></div>
@@ -1074,7 +1167,7 @@ table.mw td{white-space:normal; vertical-align:top;}
       <div class="tblwrap" id="dcfTruth"></div>
     </div>
     <div class="card" style="margin-top:20px">
-      <h3><span class="es">Escenarios: pesimista, base y optimista</span><span class="en" hidden>Scenarios: bear, base and bull</span></h3>
+      <h3><span class="es">Escenarios: pesimista, base (consenso), optimista y el objetivo de la administración</span><span class="en" hidden>Scenarios: Bear, Base (consensus), Bull and the management target</span></h3>
       <p class="cap" id="dcfPresetsCap"></p>
       <div class="tblwrap" id="dcfPresets"></div>
       <p class="chart-src" id="dcfPresetsSrc"></p>
