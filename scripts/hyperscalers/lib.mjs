@@ -106,10 +106,80 @@ export function resolveCite(FILINGS, src) {
   return { k: src.k, tier: 'T1', form: f.form, accn: f.accn, url: f.url, filed: f.filed, report: f.report, page: printed, pageSeq: printed ? null : String(src.page).replace('seq', ''), section: src.section, quote: src.quote, quoteCheck: check, foundOn };
 }
 
-export function nowET() {
-  const d = new Date();
+// Quote check for records that cite a filing by accession number (off-balance-sheet items, page citations): the quoted
+// text, split at "…" / "..." into fragments, must appear in the harvested text of the cited page(s). Page spellings the
+// curated files use: "78", "17–18", "121, 124", "not printed (130th page of the document)" → seq130. Bracketed insertions
+// ("[million]") are editorial and are dropped before matching. Returns the harvested filing too (main document URL, filed date).
+export function pagesOf(page) {
+  // "17–18" → ['17','18']; "121, 124" → both; "not printed (130th page)" → ['seq130']; "124; 176th page (no printed number)" → ['124','seq176'].
+  const s = String(page || '');
+  const out = [];
+  for (const m of s.matchAll(/(\d+)(?:st|nd|rd|th) page/g)) out.push('seq' + m[1]);
+  const rest = s.replace(/(\d+)(?:st|nd|rd|th) page/g, ' ').replace(/\([^)]*\)/g, ' ');
+  for (const x of rest.split(/[,;–\-]/)) { const t = x.trim(); if (/^(seq)?\d+$/.test(t)) out.push(t); }
+  return out;
+}
+export function quoteCheckAccn(FILINGS, accn, page, quote) {
+  const f = Object.values(FILINGS).find((x) => x.accn === accn) || null;
+  if (!f) return { quoteCheck: 'no_harvest', foundOn: null, filing: null };
+  const frags = String(quote || '').split(/\s*(?:\.\.\.|…)\s*/).map((q) => normQuote(q.replace(/\[[^\]]*\]/g, ' '))).filter((q) => q.length >= 12);
+  const pages = pagesOf(page);
+  // A fragment matches when every character is on the page; the fallback ignores spacing only, so a word the harvest split ("a nd") still counts.
+  const hit = (t, q) => { const n = normQuote(t); return n.includes(q) || n.replace(/\s+/g, '').includes(q.replace(/\s+/g, '')); };
+  const onPages = (pgs) => frags.length > 0 && frags.every((q) => pgs.some((pg) => (f.pages[pg] || []).some((t) => hit(t, q))));
+  let check = 'not_found', foundOn = null;
+  if (pages.length && onPages(pages)) check = 'page';
+  else { const all = Object.keys(f.pages); for (const pg of all) if (onPages([pg])) { check = 'other_page'; foundOn = pg; break; } if (check === 'not_found' && frags.length > 1 && onPages(all)) { check = 'other_page'; foundOn = all.filter((pg) => frags.some((q) => (f.pages[pg] || []).some((t) => hit(t, q)))).join(', '); } }
+  return { quoteCheck: check, foundOn, filing: f };
+}
+
+// SEC periodic-report deadlines by filer category (Exchange Act Forms 10-Q and 10-K general instructions): 10-Q 40 days for
+// large accelerated and accelerated filers, 45 for non-accelerated; 10-K 60 / 75 / 90 days; 20-F 120 days after the fiscal
+// year-end. "Non-accelerated filer" must not match /accelerated/ loosely (CoreWeave is non-accelerated: 45 and 90 days).
+export function filerDays(category) {
+  const c = String(category || '').trim();
+  if (/^large accelerated/i.test(c)) return { q: 40, k: 60, label: 'large accelerated filer' };
+  if (/^accelerated/i.test(c)) return { q: 40, k: 75, label: 'accelerated filer' };
+  return { q: 45, k: 90, label: c ? 'non-accelerated filer' : 'filer category unknown (non-accelerated deadlines assumed)' };
+}
+// A due date that falls on a weekend or an SEC holiday rolls to the next business day (Exchange Act Rule 0-3(a)).
+// Federal holidays as observed by the SEC, 2026–2027.
+const SEC_HOLIDAYS = new Set(['2026-01-01', '2026-01-19', '2026-02-16', '2026-05-25', '2026-06-19', '2026-07-03', '2026-09-07', '2026-10-12', '2026-11-11', '2026-11-26', '2026-12-25',
+  '2027-01-01', '2027-01-18', '2027-02-15', '2027-05-31', '2027-06-18', '2027-07-05', '2027-09-06', '2027-10-11', '2027-11-11', '2027-11-25', '2027-12-24']);
+export function rollBusinessDay(iso) {
+  let d = new Date(iso + 'T12:00:00Z');
+  for (let i = 0; i < 10; i++) {
+    const s = d.toISOString().slice(0, 10), wd = d.getUTCDay();
+    if (wd !== 0 && wd !== 6 && !SEC_HOLIDAYS.has(s)) return s;
+    d = new Date(d.getTime() + 864e5);
+  }
+  return d.toISOString().slice(0, 10);
+}
+
+// Internal provenance (who read or verified a record, and the tooling that did it) stays in the curated files; the site
+// gets only verifiedHow ("automated" when the status is verified) and the ET instant. Applied to every object the
+// generators write for the browser, so no tool name reaches a reader.
+export function scrubProvenance(o) {
+  if (Array.isArray(o)) { for (const x of o) scrubProvenance(x); return o; }
+  if (!o || typeof o !== 'object') return o;
+  if ('verifiedBy' in o || 'readBy' in o) {
+    if (o.status && !('verifiedHow' in o)) o.verifiedHow = o.status === 'verified' || o.status === 'matched' ? 'automated' : null;
+    delete o.verifiedBy; delete o.readBy;
+  }
+  for (const v of Object.values(o)) if (v && typeof v === 'object') scrubProvenance(v);
+  return o;
+}
+
+// An ISO instant in US Eastern time, "YYYY-MM-DD HH:MM ET" (the only clock the hub prints)
+export function etOf(iso) {
+  const d = new Date(iso);
+  if (isNaN(d.getTime())) return null;
   const s = d.toLocaleString('en-US', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', hour12: false });
   const [md, hm] = s.split(', ');
   const [mo, da, yr] = md.split('/');
-  return { iso: d.toISOString().slice(0, 19) + 'Z', et: `${yr}-${mo}-${da} ${hm.replace(/^24/, '00')} ET` };
+  return `${yr}-${mo}-${da} ${hm.replace(/^24/, '00')} ET`;
+}
+export function nowET() {
+  const d = new Date();
+  return { iso: d.toISOString().slice(0, 19) + 'Z', et: etOf(d.toISOString()) };
 }

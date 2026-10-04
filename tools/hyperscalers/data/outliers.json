@@ -1,6 +1,6 @@
 {
  "_comment": "Hyperscaler Hub, module 3: quarterly flow values the build flags as outliers (more than 5x the median of the four quarters before, above US$1bn) that were read in the filing and either confirmed (result: confirmed; the needs-review flag is cleared and the cell shows 'matched' with the quote) or explained without clearing the flag (result: reclassified). The build applies a record only when its valueUSDm matches the derived value within 0.5%. Quotes are checked against the harvested page of the cited filing (tools/hyperscalers/raw/notes). reviewedBy is a person's sign-off, null until someone signs.",
- "updatedAt": "2026-10-04T05:00:00Z",
+ "updatedAt": "2026-10-04T14:44:12Z",
  "method": {
   "en": "Each flagged quarter was read in the primary document on EDGAR (cash-flow statement, equity note or liquidity section); the quote is checked against the harvested page by the build, and the amount is reconciled to the tagged facts the quarter is derived from.",
   "es": "Cada trimestre marcado se leyó en el documento primario en EDGAR (estado de flujos, nota de capital o sección de liquidez); el cotejo de la cita contra la página cosechada lo hace la construcción, y el monto se concilia con los hechos etiquetados de los que se deriva el trimestre."
@@ -22,8 +22,8 @@
     "quote": "Repayments of debt ( 3,000 ) 0 ( 3,000 ) ( 966 )"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -42,8 +42,8 @@
     "quote": "Proceeds from long-term debt 746 53,441 746 68,368"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -62,8 +62,8 @@
     "quote": "Proceeds from long-term debt — — 15,673"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -82,8 +82,8 @@
     "quote": "During the first quarter ended August 31, 2026, we fully utilized the ATM Program and issued 141 million shares of common stock under the ATM Program for net proceeds of $ 19.9 billion."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -102,8 +102,8 @@
     "quote": "Proceeds from issuances of common stock 1,308 307"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -122,8 +122,8 @@
     "quote": "Net cash provided by operating activities $ 1,499,051 $ 2,562,436"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -142,8 +142,8 @@
     "quote": "Net cash provided by operating activities was $3.1 billion for the year ended December 31, 2025, as compared to $2.7 billion for the year ended December 31, 2024. The increase was primarily driven by cash received for upfront payments from our committed contracts from new and expanded customer contracts."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -162,8 +162,8 @@
     "quote": "For the year ended June 30, 2026, the Group generated net cash from operating activities of $ 2,100.4 million."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -182,8 +182,8 @@
     "quote": "On November 20, 2025, our subsidiary APLD ComputeCo, closed a $2.35 billion offering (the “Notes Offering”) of 9.250% senior secured notes due 2030 (the “Notes”) at an issue price of 97.000%."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -202,8 +202,8 @@
     "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -222,8 +222,8 @@
     "quote": "Repayments of debt ( 11,589 ) 0 ( 16,005 ) ( 1,750 )"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -242,8 +242,8 @@
     "quote": "Financing cash flows used for financing leases are included within financing activities as repayments of debt. The year ended December 31, 2025 includes $ 1.1 billion of prepayments for finance leases not yet commenced."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -262,8 +262,8 @@
     "quote": "Proceeds from issuance of debt, net of costs 4,875 31,378"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -282,8 +282,8 @@
     "quote": "Repayments of long-term debt ( 2,000 ) ( 4,169 ) ( 3,386 ) ( 4,499 ) ( 4,643 ) ( 4,789 )"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -302,8 +302,8 @@
     "quote": "Repayments of long-term debt — ( 2,183 ) ( 3,386 ) ( 6,682 ) ( 4,643 ) ( 6,972 )"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -322,8 +322,8 @@
     "quote": "Issuance of Ordinary shares – Equity Offering, net of issuance costs 39,699,102 1,634,847"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   }
  ]

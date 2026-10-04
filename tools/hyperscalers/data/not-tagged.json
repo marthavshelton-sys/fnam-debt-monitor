@@ -1,7 +1,7 @@
 {
- "_comment": "Why a figure the hub shows is absent from the XBRL feed (SEC companyfacts API), one record per company × metric, written after reading the filing or its XBRL (owner's third review, 2026-10-03). result: none = the line does not exist for this company (no such instrument or activity); text = the figure is in the filing text and is shown from it (amountUSDm, src with page and quote, checked by build.mjs against the harvested page); fy_only / ytd_only = tagged only in the annual report / as a year-to-date figure (amountUSDm, period); custom_tag = the company tags the line with a company-specific concept the API does not serve; not_disclosed = searched in the filing (EDGAR full-text search of the primary document, or the harvested text) and absent; unknown = not tagged and not yet resolved (stays 'not tagged' on the page). evidence: what was checked (XBRL companyfacts concepts, EDGAR full-text search hits, harvested page). A cell with a record is shown as an explained gap, never as 'not tagged' without a reason. Metrics follow scripts/hyperscalers/tags.mjs. Amounts in US$ millions. reviewedBy stays null until a person signs off.",
- "updatedAt": "2026-10-04T03:50:00Z",
- "readBy": "Claude session 2026-10-03 (XBRL companyfacts of the ten companies, EDGAR full-text search, harvested filing pages)",
+ "_comment": "Why a figure the hub shows is absent from the XBRL feed (SEC companyfacts API), one record per company × metric, written after reading the filing or its XBRL (owner's third review, 2026-10-03). result: none = the line does not exist for this company (no such instrument or activity); text = the figure is in the filing text and is shown from it (amountUSDm, src with page and quote, checked by build.mjs against the harvested page); fy_only / ytd_only = tagged only in the annual report / as a year-to-date figure (amountUSDm, period); custom_tag = the company tags the line with a company-specific concept the API does not serve; not_disclosed = searched in the filing (EDGAR full-text search of the primary document, or the harvested text) and absent; unknown = not tagged and not yet resolved (stays 'not tagged' on the page). evidence: what was checked (XBRL companyfacts concepts, EDGAR full-text search hits, harvested page). A cell with a record is shown as an explained gap, never as 'not tagged' without a reason. Metrics follow scripts/hyperscalers/tags.mjs. Amounts in US$ millions. reviewedBy stays null until a person signs off. result last_tagged = the company stopped tagging the concept (the latest fact is shown with its date; no later figure exists). derived = a trailing-twelve-month figure built from tagged facts plus periods whose cash-flow statement carries no such line (listed in zeroPeriods and read as zero: a complete statement omits a line only when it is nil), with every input's accession; rendered as 'derived' with the method in the ⓘ card and counted as a value present (FNAM calculation), never as quote-matched.",
+ "updatedAt": "2026-10-04T14:44:12Z",
+ "readBy": "automated read, 3 Oct 2026 ET (XBRL companyfacts of the ten companies, EDGAR full-text search, harvested filing pages); internal provenance, not emitted to the site",
  "items": [
   {
    "ticker": "MSFT",
@@ -16,8 +16,8 @@
    "form": "10-K",
    "accn": "0001193125-26-323660",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -33,8 +33,8 @@
    "form": "10-K",
    "accn": "0001193125-26-323660",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -50,8 +50,8 @@
    "form": "10-K",
    "accn": "0001193125-26-323660",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -67,8 +67,8 @@
    "form": "10-K",
    "accn": "0001193125-26-323660",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -84,8 +84,8 @@
    "form": "10-K",
    "accn": "0001193125-26-323660",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -101,8 +101,8 @@
     "quote": "Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -120,8 +120,8 @@
     "quote": "The following table summarizes the payments due by fiscal year for our outstanding contractual obligations as of June 30, 2026"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page; amount in tools/hyperscalers/data/offbs.json)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page; amount in tools/hyperscalers/data/offbs.json)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -141,8 +141,8 @@
     "es": "Saldo XBRL CommercialPaper = 0 al 2026-06-30 (10-Q 0001652044-26-000071)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -161,9 +161,44 @@
    "form": "10-Q",
    "accn": "0001652044-26-000071",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 30499,
+    "period": "12 months to 30 Jun 2026",
+    "method_en": "TTM = H1 2026 (US$30,499m, tagged) + H2 2025 (0: no issuance line in the FY2025 10-K) ; Q2 2026 = H1 2026 − Q1 2026 (0: no line in the Q1 10-Q) = US$30,499m. Periods with no line in a complete cash-flow statement are read as zero and listed; nothing else is imputed.",
+    "method_es": "UDM = 1S 2026 (US$30,499 M, etiquetado) + 2S 2025 (0: sin línea de emisión en el 10-K 2025); 2T 2026 = 1S 2026 − 1T 2026 (0: sin línea en el 10-Q del 1T) = US$30,499 M. Los periodos sin línea en un estado de flujos completo se leen como cero y se listan; nada más se imputa.",
+    "inputs": [
+     {
+      "period": "H1 2026",
+      "amountUSDm": 30499,
+      "tag": "ProceedsFromIssuanceOfCommonStock",
+      "accn": "0001652044-26-000071"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "H2 2025",
+      "accn": "0001652044-26-000018",
+      "why_en": "the FY2025 10-K cash-flow statement carries no common-stock issuance line (no tagged fact; the H1 2025 comparative is tagged as 0)",
+      "why_es": "el estado de flujos del 10-K 2025 no tiene línea de emisión de acciones comunes (sin hecho etiquetado; el comparativo del 1S 2025 está etiquetado en 0)"
+     },
+     {
+      "period": "Q1 2026",
+      "accn": "0001652044-26-000048",
+      "why_en": "the Q1 2026 10-Q contains no \"issuance of common stock\" line (EDGAR full-text index, 0 hits in that filing)",
+      "why_es": "el 10-Q del 1T 2026 no contiene la línea «issuance of common stock» (índice de texto completo de EDGAR, 0 resultados en esa presentación)"
+     }
+    ]
+   },
+   "src": {
+    "k": "GOOGL 10-Q 2026-06-30",
+    "page": "9",
+    "section": "Condensed consolidated statements of cash flows",
+    "quote": "Proceeds from issuance of common stock, net of costs 0 30,499"
+   }
   },
   {
    "ticker": "GOOGL",
@@ -181,9 +216,44 @@
    "form": "10-Q",
    "accn": "0001652044-26-000071",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 19063,
+    "period": "12 months to 30 Jun 2026",
+    "method_en": "TTM = H1 2026 (US$19,063m, tagged) + H2 2025 (0: no preferred stock existed); Q2 2026 = H1 2026 (the issuance was on 5 June 2026). Zero periods are listed; nothing else is imputed.",
+    "method_es": "UDM = 1S 2026 (US$19,063 M, etiquetado) + 2S 2025 (0: no existían preferentes); 2T 2026 = 1S 2026 (la emisión fue el 5 de junio de 2026). Los periodos en cero se listan; nada más se imputa.",
+    "inputs": [
+     {
+      "period": "H1 2026",
+      "amountUSDm": 19063,
+      "tag": "ProceedsFromIssuanceOfConvertiblePreferredStock",
+      "accn": "0001652044-26-000071"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "H2 2025",
+      "accn": "0001652044-26-000018",
+      "why_en": "no preferred stock existed before June 2026 (the 10-Q: 0 and 19 million shares outstanding at 31 Dec 2025 and 30 Jun 2026)",
+      "why_es": "no existían acciones preferentes antes de junio de 2026 (el 10-Q: 0 y 19 millones de acciones al 31 dic 2025 y 30 jun 2026)"
+     },
+     {
+      "period": "Q1 2026",
+      "accn": "0001652044-26-000048",
+      "why_en": "the mandatory convertible preferred stock was issued on 5 June 2026 (tagged issuance date), after the first quarter",
+      "why_es": "las acciones preferentes convertibles obligatorias se emitieron el 5 de junio de 2026 (fecha etiquetada), después del primer trimestre"
+     }
+    ]
+   },
+   "src": {
+    "k": "GOOGL 10-Q 2026-06-30",
+    "page": "9",
+    "section": "Condensed consolidated statements of cash flows",
+    "quote": "Proceeds from issuance of mandatory convertible preferred stock, net of costs 0 19,063"
+   }
   },
   {
    "ticker": "GOOGL",
@@ -198,26 +268,26 @@
    "form": "10-Q",
    "accn": "0001652044-26-000071",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
    "metric": "equity_method",
-   "result": "fy_only",
+   "result": "last_tagged",
    "amountUSDm": 2300,
    "period": "30 Sep 2025",
    "asOf": "2025-09-30",
-   "note_en": "Equity-method investments were last tagged at 30 Sep 2025 (US$2.3bn); later filings fold them into non-marketable investments.",
-   "note_es": "Las inversiones por método de participación se etiquetaron por última vez al 30 sep 2025 (US$2.3 mil M); presentaciones posteriores las agrupan en inversiones no negociables.",
+   "note_en": "Last tagged at 30 Sep 2025 (US$2.3bn, 10-Q 0001652044-25-000091). The FY2025 10-K and the 2026 10-Qs fold equity-method investments into non-marketable investments and tag no separate concept, so no later figure exists to read.",
+   "note_es": "Última etiqueta al 30 sep 2025 (US$2.3 mil M, 10-Q 0001652044-25-000091). El 10-K 2025 y los 10-Q de 2026 incluyen las inversiones por el método de participación dentro de las inversiones no negociables y no etiquetan un concepto aparte, así que no hay cifra posterior que leer.",
    "evidence": {
     "en": "XBRL EquityMethodInvestments, last fact 2025-09-30 (10-Q)",
     "es": "XBRL EquityMethodInvestments, último hecho 2025-09-30 (10-Q)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -233,8 +303,8 @@
     "quote": "There were no repurchases of our common stock during the six months ended June 30, 2025 or 2026. As of June 30, 2026, we have $6.1 billion remaining under the repurchase program."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -250,8 +320,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -267,8 +337,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -284,8 +354,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -301,8 +371,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -318,8 +388,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -335,8 +405,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -354,8 +424,8 @@
     "quote": "For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $496 billion as of June 30, 2026."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -371,8 +441,8 @@
     "quote": "Standby letters of credit are guarantees issued by financial institutions on our behalf, which can only be drawn in the event we fail to perform under the underlying obligation"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -388,8 +458,8 @@
    "form": "10-Q",
    "accn": "0001018724-26-000026",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -405,8 +475,8 @@
     "quote": "Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -416,15 +486,15 @@
    "amountUSDm": 613,
    "period": "FY2025",
    "asOf": "2025-12-31",
-   "note_en": "Right-of-use assets obtained under finance leases are tagged only in the 10-K (FY2025: US$613m); the 10-Q omits the supplemental line.",
-   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-K (AF2025: US$613 M); el 10-Q omite la línea complementaria.",
+   "note_en": "Right-of-use assets obtained under finance leases are tagged only in the 10-K (FY2025: US$613m, 0001628280-26-003942). Meta's 10-Q supplemental cash-flow disclosure lists no finance-lease line (10-Q 0001628280-26-050705), so there is no year-to-date figure to subtract: neither a quarter nor a trailing twelve months can be derived.",
+   "note_es": "Los activos por derecho de uso obtenidos por arrendamientos financieros se etiquetan solo en el 10-K (2025: US$613 M, 0001628280-26-003942). La información suplementaria del estado de flujos del 10-Q de Meta no tiene línea de arrendamientos financieros (10-Q 0001628280-26-050705), así que no hay acumulado que restar: no se puede derivar ni un trimestre ni doce meses.",
    "evidence": {
     "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: one fact, FY2025 (10-K 0001628280-26-003942)",
     "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: un hecho, AF2025 (10-K 0001628280-26-003942)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -434,15 +504,15 @@
    "amountUSDm": 7017,
    "period": "FY2025",
    "asOf": "2025-12-31",
-   "note_en": "Right-of-use assets obtained under operating leases are tagged only in the 10-K (FY2025: US$7.0bn).",
-   "note_es": "Los activos por derecho de uso de arrendamientos operativos se etiquetan solo en el 10-K (AF2025: US$7.0 mil M).",
+   "note_en": "Right-of-use assets obtained under operating leases are tagged only in the 10-K (FY2025: US$7.0bn, 0001628280-26-003942); the 10-Q supplemental cash-flow disclosure gives no year-to-date figure, so no quarter or trailing twelve months can be derived.",
+   "note_es": "Los activos por derecho de uso obtenidos por arrendamientos operativos se etiquetan solo en el 10-K (2025: US$7.0 mil M, 0001628280-26-003942); la información suplementaria del 10-Q no da acumulado, así que no se puede derivar ni un trimestre ni doce meses.",
    "evidence": {
     "en": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: one fact, FY2025 (10-K 0001628280-26-003942)",
     "es": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: un hecho, AF2025 (10-K 0001628280-26-003942)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -452,15 +522,15 @@
    "amountUSDm": 1184,
    "period": "31 Dec 2025",
    "asOf": "2025-12-31",
-   "note_en": "Finance lease liabilities are tagged only in the 10-K (US$1.18bn at 31 Dec 2025); the 10-Q tags none, so lease-adjusted figures at June 2026 cannot be computed on one date.",
-   "note_es": "Los pasivos por arrendamiento financiero se etiquetan solo en el 10-K (US$1.18 mil M al 31 dic 2025); el 10-Q no los etiqueta, así que las cifras ajustadas por arrendamientos a junio de 2026 no se calculan en una sola fecha.",
+   "note_en": "Finance lease liabilities are tagged only in the 10-K (US$1.18bn at 31 Dec 2025, 0001628280-26-003942); the 10-Q balance sheet folds them into other liabilities with no separate tag, so lease-adjusted net debt at 30 Jun 2026 cannot be built on one date (a balance, not a flow: nothing to subtract).",
+   "note_es": "Los pasivos por arrendamiento financiero se etiquetan solo en el 10-K (US$1.18 mil M al 31 dic 2025, 0001628280-26-003942); el balance del 10-Q los incluye en otros pasivos sin etiqueta aparte, así que la deuda neta ajustada al 30 jun 2026 no se puede construir a una sola fecha (es un saldo, no un flujo: nada que restar).",
    "evidence": {
     "en": "XBRL FinanceLeaseLiability: one fact, 2025-12-31 (10-K 0001628280-26-003942)",
     "es": "XBRL FinanceLeaseLiability: un hecho, 2025-12-31 (10-K 0001628280-26-003942)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -479,9 +549,50 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 54816,
+    "period": "12 months to 30 Jun 2026",
+    "method_en": "TTM = Q4 2025 (FY2025 − 9M 2025 = 29,906 − 0) + Q1 2026 (0: no issuance line in the Q1 10-Q) + Q2 2026 (H1 2026 − Q1 2026 = 24,910) = US$54,816m. The zero period is listed; nothing else is imputed.",
+    "method_es": "UDM = 4T 2025 (AF2025 − 9M 2025 = 29,906 − 0) + 1T 2026 (0: sin línea de emisión en el 10-Q del 1T) + 2T 2026 (1S 2026 − 1T 2026 = 24,910) = US$54,816 M. El periodo en cero se lista; nada más se imputa.",
+    "inputs": [
+     {
+      "period": "FY2025",
+      "amountUSDm": 29906,
+      "tag": "ProceedsFromIssuanceOfLongTermDebt",
+      "accn": "0001628280-26-003942"
+     },
+     {
+      "period": "9M 2025",
+      "amountUSDm": 0,
+      "tag": "ProceedsFromIssuanceOfLongTermDebt",
+      "accn": "0001628280-25-047240"
+     },
+     {
+      "period": "H1 2026",
+      "amountUSDm": 24910,
+      "tag": "ProceedsFromIssuanceOfLongTermDebt",
+      "accn": "0001628280-26-050705"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "Q1 2026",
+      "accn": "0001628280-26-028526",
+      "why_en": "the Q1 2026 10-Q contains no \"Proceeds from issuance of long-term debt\" line (EDGAR full-text index, 0 hits in that filing); the US$25bn notes priced on 30 Apr 2026 (FWP 0001193125-26-197902)",
+      "why_es": "el 10-Q del 1T 2026 no contiene la línea «Proceeds from issuance of long-term debt» (índice de texto completo de EDGAR, 0 resultados); las notas por US$25 mil M se colocaron el 30 abr 2026 (FWP 0001193125-26-197902)"
+     }
+    ]
+   },
+   "src": {
+    "k": "META 10-Q 2026-06-30",
+    "page": "10",
+    "section": "Condensed consolidated statements of cash flows",
+    "quote": "Proceeds from issuance of long-term debt, net 24,910 —"
+   }
   },
   {
    "ticker": "META",
@@ -496,8 +607,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -513,8 +624,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -530,8 +641,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -547,8 +658,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -568,8 +679,8 @@
     "es": "Búsqueda de texto completo del 10-Q 0001628280-26-050705 por «capitalized interest»: 1 resultado; sin concepto InterestCostsCapitalized en XBRL"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page, full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page, full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -585,8 +696,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -604,8 +715,8 @@
     "quote": "we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $28 billion that decreases over time"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -621,8 +732,8 @@
    "form": "10-Q",
    "accn": "0001628280-26-050705",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -639,9 +750,37 @@
     "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 4 hechos (años fiscales y primeros trimestres), último 2026-08-31 (10-Q 0001193125-26-389274)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 5363,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = 4,946 − 1,122 + 1,539 = US$5,363m, all three tagged (the same method as the segment TTM); the quarterly series cannot be split because the half-year is not tagged.",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = 4,946 − 1,122 + 1,539 = US$5,363 M, los tres etiquetados (mismo método que el UDM de segmentos); la serie trimestral no se puede separar porque el semestre no está etiquetado.",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 4946,
+      "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+      "accn": "0001193125-26-277521"
+     },
+     {
+      "period": "Q1 FY2026",
+      "amountUSDm": 1122,
+      "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+      "accn": "0001193125-25-200095"
+     },
+     {
+      "period": "Q1 FY2027",
+      "amountUSDm": 1539,
+      "tag": "RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability",
+      "accn": "0001193125-26-389274"
+     }
+    ],
+    "zeroPeriods": []
+   }
   },
   {
    "ticker": "ORCL",
@@ -657,26 +796,54 @@
     "es": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: 4 hechos, último 2026-08-31 (10-Q 0001193125-26-389274)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 19968,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = 18,246 − 3,181 + 4,903 = US$19,968m, all three tagged.",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = 18,246 − 3,181 + 4,903 = US$19,968 M, los tres etiquetados.",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 18246,
+      "tag": "RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability",
+      "accn": "0001193125-26-277521"
+     },
+     {
+      "period": "Q1 FY2026",
+      "amountUSDm": 3181,
+      "tag": "RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability",
+      "accn": "0001193125-25-200095"
+     },
+     {
+      "period": "Q1 FY2027",
+      "amountUSDm": 4903,
+      "tag": "RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability",
+      "accn": "0001193125-26-389274"
+     }
+    ],
+    "zeroPeriods": []
+   }
   },
   {
    "ticker": "ORCL",
    "metric": "fl_principal",
-   "result": "ytd_only",
+   "result": "last_tagged",
    "amountUSDm": 286,
    "period": "9 months to Feb 2026",
    "asOf": "2026-02-28",
-   "note_en": "Finance-lease principal payments were last tagged for the nine months to February 2026; the 10-K and the August 2026 10-Q do not tag the line.",
-   "note_es": "Los pagos de principal de arrendamientos financieros se etiquetaron por última vez para los nueve meses a febrero de 2026; el 10-K y el 10-Q de agosto de 2026 no etiquetan la línea.",
+   "note_en": "Last tagged for the nine months to 28 Feb 2026 (US$286m, 10-Q 0001193125-26-101045). The FY2026 10-K and the Q1 FY2027 10-Q present no finance-lease principal line (their cash-flow statements show only \"Repayments of senior notes, term loan credit agreements and other borrowings\"), so neither FY2026 nor a trailing twelve months can be built.",
+   "note_es": "Última etiqueta: nueve meses al 28 feb 2026 (US$286 M, 10-Q 0001193125-26-101045). El 10-K 2026 y el 10-Q del 1T AF2027 no presentan línea de principal de arrendamientos financieros (sus estados de flujos solo muestran «Repayments of senior notes, term loan credit agreements and other borrowings»), así que no se puede construir ni el AF2026 ni doce meses.",
    "evidence": {
     "en": "XBRL FinanceLeasePrincipalPayments: 3 facts, last 2026-02-28 (10-Q 0001193125-26-101045)",
     "es": "XBRL FinanceLeasePrincipalPayments: 3 hechos, último 2026-02-28 (10-Q 0001193125-26-101045)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -692,8 +859,8 @@
    "form": "10-Q",
    "accn": "0001193125-26-389274",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -716,9 +883,38 @@
     "es": "XBRL ProceedsFromIssuanceOfSeniorLongTermDebt AF2026 = 46,093 (US$ M, 10-K 0001193125-26-277521)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 46093,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = 46,093 − 0 + 0 = US$46,093m; Q1 FY2026 is tagged as 0 and Q1 FY2027 has no issuance line in its cash-flow statement (read as 0 and listed).",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = 46,093 − 0 + 0 = US$46,093 M; el 1T AF2026 está etiquetado en 0 y el 1T AF2027 no tiene línea de emisión en su estado de flujos (se lee como 0 y se lista).",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 46093,
+      "tag": "ProceedsFromIssuanceOfSeniorLongTermDebt",
+      "accn": "0001193125-26-277521"
+     },
+     {
+      "period": "Q1 FY2026",
+      "amountUSDm": 0,
+      "tag": "ProceedsFromIssuanceOfLongTermDebt",
+      "accn": "0001193125-25-200095"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "Q1 FY2027",
+      "accn": "0001193125-26-389274",
+      "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
+      "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
+     }
+    ]
+   }
   },
   {
    "ticker": "ORCL",
@@ -736,9 +932,43 @@
    "form": "10-K",
    "accn": "0001193125-26-277521",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": -2047,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = −2,285 − (−238) + 0 = −US$2,047m (net repayments). Q1 FY2026 = −238 is the comparative column of the Q1 FY2027 cash-flow statement (\"Repayments of commercial paper, net — (238)\"); Q1 FY2027 = 0 (tagged).",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = −2,285 − (−238) + 0 = −US$2,047 M (repagos netos). 1T AF2026 = −238 es la columna comparativa del estado de flujos del 1T AF2027 («Repayments of commercial paper, net — (238)»); 1T AF2027 = 0 (etiquetado).",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": -2285,
+      "tag": "ProceedsFromRepaymentsOfCommercialPaper",
+      "accn": "0001193125-26-277521"
+     },
+     {
+      "period": "Q1 FY2026",
+      "amountUSDm": -238,
+      "tag": "cash-flow statement line (comparative column)",
+      "accn": "0001193125-26-389274"
+     },
+     {
+      "period": "Q1 FY2027",
+      "amountUSDm": 0,
+      "tag": "RepaymentsOfCommercialPaper",
+      "accn": "0001193125-26-389274"
+     }
+    ],
+    "zeroPeriods": []
+   },
+   "src": {
+    "k": "ORCL 10-Q 2026-08-31",
+    "page": "5",
+    "section": "Condensed consolidated statements of cash flows",
+    "quote": "Repayments of commercial paper, net — ( 238 )"
+   }
   },
   {
    "ticker": "ORCL",
@@ -756,9 +986,38 @@
    "form": "10-K",
    "accn": "0001193125-26-277521",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 4954,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = 4,954 − 0 + 0 = US$4,954m; both quarters have no preferred-stock line (read as 0 and listed).",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = 4,954 − 0 + 0 = US$4,954 M; ambos trimestres no tienen línea de preferentes (se leen como 0 y se listan).",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 4954,
+      "tag": "ProceedsFromIssuanceOfConvertiblePreferredStock",
+      "accn": "0001193125-26-277521"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "Q1 FY2026",
+      "accn": "0001193125-25-200095",
+      "why_en": "the Series D preferred stock was issued in February 2026 (Q3 FY2026); the Q1 FY2026 10-Q tags no preferred issuance",
+      "why_es": "las preferentes Serie D se emitieron en febrero de 2026 (3T AF2026); el 10-Q del 1T AF2026 no etiqueta emisión de preferentes"
+     },
+     {
+      "period": "Q1 FY2027",
+      "accn": "0001193125-26-389274",
+      "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
+      "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
+     }
+    ]
+   }
   },
   {
    "ticker": "ORCL",
@@ -776,9 +1035,38 @@
    "form": "10-K",
    "accn": "0001193125-26-277521",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 0,
+    "period": "12 months to 31 Aug 2026",
+    "method_en": "TTM = FY2026 − Q1 FY2026 + Q1 FY2027 = 95 − 95 + 0 = US$0m: the only fiscal-2026 repurchases (US$95m) fell in the quarter to Aug 2025, and the quarter to Aug 2026 has no repurchase line (read as 0 and listed).",
+    "method_es": "UDM = AF2026 − 1T AF2026 + 1T AF2027 = 95 − 95 + 0 = US$0 M: las únicas recompras del AF2026 (US$95 M) cayeron en el trimestre a ago-2025, y el trimestre a ago-2026 no tiene línea de recompras (se lee como 0 y se lista).",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 95,
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "accn": "0001193125-26-277521"
+     },
+     {
+      "period": "Q1 FY2026",
+      "amountUSDm": 95,
+      "tag": "PaymentsForRepurchaseOfCommonStock",
+      "accn": "0001193125-25-200095"
+     }
+    ],
+    "zeroPeriods": [
+     {
+      "period": "Q1 FY2027",
+      "accn": "0001193125-26-389274",
+      "why_en": "the Q1 FY2027 cash-flow statement (p. 5) lists no such line: its financing section carries ATM stock proceeds, employee stock programs, dividends, commercial paper, short-term capex financing and repayments only",
+      "why_es": "el estado de flujos del 1T AF2027 (p. 5) no tiene esa línea: su sección de financiamiento solo trae acciones vía ATM, programas de empleados, dividendos, papel comercial, financiamiento de corto plazo de capex y repagos"
+     }
+    ]
+   }
   },
   {
    "ticker": "ORCL",
@@ -787,8 +1075,8 @@
    "amountUSDm": 3896,
    "period": "FY2026",
    "asOf": "2026-05-31",
-   "note_en": "Interest paid is tagged only in the 10-K (FY2026: US$3.9bn); the August 2026 10-Q does not disclose it.",
-   "note_es": "Los intereses pagados se etiquetan solo en el 10-K (AF2026: US$3.9 mil M); el 10-Q de agosto de 2026 no los divulga.",
+   "note_en": "Interest paid is tagged only in the 10-K (FY2026: US$3.9bn, 0001193125-26-277521); the Q1 FY2027 10-Q (0001193125-26-389274) has no supplemental interest-paid disclosure (EDGAR full-text index: 0 hits for \"interest paid\"), so no trailing twelve months to Aug 2026 can be built. The implied cost of debt uses the fiscal year.",
+   "note_es": "Los intereses pagados se etiquetan solo en el 10-K (AF2026: US$3.9 mil M, 0001193125-26-277521); el 10-Q del 1T AF2027 (0001193125-26-389274) no tiene divulgación suplementaria de intereses pagados (índice de texto completo de EDGAR: 0 resultados para «interest paid»), así que no se pueden construir doce meses a ago-2026. El costo implícito de la deuda usa el año fiscal.",
    "evidence": {
     "en": "XBRL InterestPaidNet: one fact, FY2026; EDGAR full-text search of 10-Q 0001193125-26-389274 for \"interest paid\": 0 hits",
     "es": "XBRL InterestPaidNet: un hecho, AF2026; búsqueda de texto completo del 10-Q 0001193125-26-389274 por «interest paid»: 0 resultados"
@@ -796,8 +1084,8 @@
    "form": "10-K",
    "accn": "0001193125-26-277521",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -813,8 +1101,8 @@
    "form": "10-Q",
    "accn": "0001193125-26-389274",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and harvested text)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and harvested text)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -832,8 +1120,8 @@
     "quote": "These additional lease commitments include a lease for which we have guaranteed up to $3.3 billion of the lessor's borrowing, which matures in September 2026."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -849,8 +1137,8 @@
     "quote": "The substantial majority of the non-marketable investments we held as of August 31, 2026 were with TikTok USDS Joint Venture LLC, an equity method investee in which we have an ownership interest of 15%."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -872,8 +1160,8 @@
     "es": "XBRL MinorityInterest = 424 (US$ M) al 2026-08-31"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -883,15 +1171,15 @@
    "amountUSDm": 343,
    "period": "FY2025",
    "asOf": "2025-12-31",
-   "note_en": "Right-of-use assets obtained under finance leases are tagged only in the 10-K (FY2025: US$343m).",
-   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-K (AF2025: US$343 M).",
+   "note_en": "Right-of-use assets obtained under finance leases are tagged for 2025 only (H1 and 9M 2025: US$123m; FY2025: US$343m, so Q4 2025 = US$220m). The 2026 10-Qs (0001769628-26-000222, 0001769628-26-000366) tag no such fact and their supplemental cash-flow passages carry no finance-lease line, so no 2026 quarter and no trailing twelve months to June 2026 can be built.",
+   "note_es": "Los activos por derecho de uso obtenidos por arrendamientos financieros se etiquetan solo para 2025 (1S y 9M 2025: US$123 M; AF2025: US$343 M, así que 4T 2025 = US$220 M). Los 10-Q de 2026 (0001769628-26-000222, 0001769628-26-000366) no etiquetan ese hecho y sus pasajes suplementarios del estado de flujos no tienen línea de arrendamientos financieros, así que no se puede construir ningún trimestre de 2026 ni doce meses a junio de 2026.",
    "evidence": {
     "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 3 facts, all 10-K (0001769628-26-000104)",
     "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 3 hechos, todos del 10-K (0001769628-26-000104)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -908,9 +1196,37 @@
     "es": "XBRL FinanceLeasePrincipalPayments: 4 hechos, último 2026-06-30 (10-Q 0001769628-26-000366)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated derivation from tagged facts and the cited cash-flow statement lines (4 Oct 2026); quote checked by build.mjs",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 63,
+    "period": "12 months to 30 Jun 2026",
+    "method_en": "TTM = FY2025 − H1 2025 + H1 2026 = 58 − 28 + 33 = US$63m, all three tagged (the 9-month 2025 figure is not tagged, so Q3 and Q4 2025 cannot be split).",
+    "method_es": "UDM = AF2025 − 1S 2025 + 1S 2026 = 58 − 28 + 33 = US$63 M, los tres etiquetados (el acumulado a 9 meses de 2025 no está etiquetado, así que 3T y 4T 2025 no se pueden separar).",
+    "inputs": [
+     {
+      "period": "FY2025",
+      "amountUSDm": 58,
+      "tag": "FinanceLeasePrincipalPayments",
+      "accn": "0001769628-26-000104"
+     },
+     {
+      "period": "H1 2025",
+      "amountUSDm": 28,
+      "tag": "FinanceLeasePrincipalPayments",
+      "accn": "0001769628-26-000366"
+     },
+     {
+      "period": "H1 2026",
+      "amountUSDm": 33,
+      "tag": "FinanceLeasePrincipalPayments",
+      "accn": "0001769628-26-000366"
+     }
+    ],
+    "zeroPeriods": []
+   }
   },
   {
    "ticker": "CRWV",
@@ -925,8 +1241,8 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -945,8 +1261,8 @@
     "quote": "In April 2026, we issued approximately 9 million shares of our Class A common stock in a private placement at a price of $109.00 per share, for aggregate gross proceeds of $1.0 billion."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -962,8 +1278,8 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -979,8 +1295,8 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -996,8 +1312,8 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1013,8 +1329,8 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "src": {
     "k": "CRWV 10-Q 2026-06-30",
@@ -1036,8 +1352,8 @@
     "quote": "or obligations of certain of the Company’s subsidiaries that are unconditionally and irrevocably guaranteed by CoreWeave, Inc."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1053,28 +1369,28 @@
    "form": "10-Q",
    "accn": "0001769628-26-000366",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
    "ticker": "CRWV",
    "metric": "equity_method",
-   "result": "fy_only",
-   "amountUSDm": 51,
-   "period": "31 Dec 2025",
-   "asOf": "2025-12-31",
-   "note_en": "Equity-method investments were tagged in the 10-K (US$51m at 31 Dec 2025); the 10-Q states US$221m of the US$479m carried in data-center joint-venture VIEs is accounted for under the equity method, without the standard tag.",
-   "note_es": "Las inversiones por método de participación se etiquetaron en el 10-K (US$51 M al 31 dic 2025); el 10-Q indica que US$221 M de los US$479 M registrados en las coinversiones de centros de datos (EIV) se contabilizan por método de participación, sin la etiqueta estándar.",
+   "result": "text",
+   "amountUSDm": 221,
+   "period": "30 Jun 2026",
+   "asOf": "2026-06-30",
+   "note_en": "Equity-method share of the two data-center joint-venture VIEs, read from the 10-Q text (US$221m of the US$479m carried at 30 Jun 2026). The standard tag was last used in the 10-K (US$51m at 31 Dec 2025); other equity-method investments, if any, are not stated separately in the 10-Q.",
+   "note_es": "Parte por el método de participación de las dos coinversiones (EIV) de centros de datos, leída del texto del 10-Q (US$221 M de los US$479 M registrados al 30 jun 2026). La etiqueta estándar se usó por última vez en el 10-K (US$51 M al 31 dic 2025); otras inversiones por el método de participación, si existen, no se detallan en el 10-Q.",
    "src": {
     "k": "CRWV 10-Q 2026-06-30",
     "page": "16",
-    "section": "Note — Variable interest entities (joint ventures)",
+    "section": "Note — Unconsolidated variable interest entities",
     "quote": "The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated quote check against the harvested page (4 Oct 2026)",
+   "verifiedOn": "2026-10-04T14:44:12Z",
    "reviewedBy": null
   },
   {
@@ -1091,8 +1407,8 @@
    "accn": "0001104659-26-052948",
    "assumeZero": true,
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1109,8 +1425,8 @@
    "accn": "0001104659-26-052948",
    "assumeZero": true,
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1127,8 +1443,8 @@
    "accn": "0001104659-26-052948",
    "assumeZero": true,
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1145,8 +1461,8 @@
    "accn": "0001104659-26-052948",
    "assumeZero": true,
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1162,8 +1478,8 @@
    "form": "20-F",
    "accn": "0001104659-26-052948",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1182,8 +1498,8 @@
     "quote": "gross proceeds from sale of equity securities of $1,150.0 million"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1199,8 +1515,8 @@
    "form": "20-F",
    "accn": "0001104659-26-052948",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1216,8 +1532,8 @@
     "quote": "$10.0 million paid to repurchase equity-classified awards associated with one of our business units"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1233,8 +1549,8 @@
    "form": "20-F",
    "accn": "0001104659-26-052948",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1250,8 +1566,8 @@
     "quote": "The Group has entered into purchase commitments for power and utilities of rented data center facilities (co-location agreement) with future payments (net of VAT) amounting to $ 6.8 in 2026, $ 7.0 in 2027, $ 7.2 in 2028, and $ 5.6 in 2029. The Group also has purchase commitments for other goods and services with future payments (net of VAT) amounting to $ 0.6 in 2026, $ 1.0 in 2027, $ 0.4 in 2028, $ 0.4 in 2029 and $ 0.1 in 2030."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "amountUSDm": 29.1,
    "period": "FY2025",
@@ -1276,8 +1592,8 @@
     "quote": "Nebius Group does not currently engage in material off balance sheet financing arrangements, and does not have any material interest or obligation, including any contingent obligation arising out of a variable interest in entities referred to as variable interest entities"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1293,8 +1609,8 @@
     "quote": "does not have any material interest or obligation, including any contingent obligation"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1310,8 +1626,8 @@
     "quote": "which include special purpose entities and other structured finance entities"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1327,26 +1643,26 @@
    "form": "20-F",
    "accn": "0001104659-26-052948",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
    "ticker": "IREN",
    "metric": "fl_additions",
-   "result": "ytd_only",
+   "result": "last_tagged",
    "amountUSDm": 292,
    "period": "9 months to Mar 2026",
    "asOf": "2026-03-31",
-   "note_en": "Right-of-use assets obtained under finance leases are tagged in the March 2026 10-Q only (US$292m for nine months); the FY2026 10-K does not tag the line.",
-   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-Q de marzo de 2026 (US$292 M en nueve meses); el 10-K del AF2026 no etiqueta la línea.",
+   "note_en": "Last tagged for the nine months to 31 Mar 2026 (US$292m, 10-Q 0001878848-26-000026). The FY2026 10-K (0001878848-26-000052) tags no finance-lease right-of-use additions and its harvested cash-flow passages carry no such line, so neither FY2026 nor Q4 FY2026 can be read.",
+   "note_es": "Última etiqueta: nueve meses al 31 mar 2026 (US$292 M, 10-Q 0001878848-26-000026). El 10-K AF2026 (0001878848-26-000052) no etiqueta activos por derecho de uso por arrendamientos financieros y sus pasajes del estado de flujos no tienen esa línea, así que no se puede leer ni el AF2026 ni el 4T AF2026.",
    "evidence": {
     "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 2 facts, last 2026-03-31 (10-Q 0001878848-26-000026)",
     "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 2 hechos, último 2026-03-31 (10-Q 0001878848-26-000026)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1362,8 +1678,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1379,19 +1695,19 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
    "ticker": "IREN",
    "metric": "equity_proceeds",
-   "result": "ytd_only",
-   "amountUSDm": 2631,
-   "period": "9 months to Mar 2026",
-   "asOf": "2026-03-31",
-   "note_en": "Common-stock proceeds were tagged through the March 2026 10-Q (US$2.63bn for nine months, at-the-market program); the FY2026 10-K tags no equity-issuance concept, so the fiscal year is not readable.",
-   "note_es": "Los recursos por acciones comunes se etiquetaron hasta el 10-Q de marzo de 2026 (US$2.63 mil M en nueve meses, programa at-the-market); el 10-K del AF2026 no etiqueta un concepto de emisión de acciones, así que el año fiscal no es legible.",
+   "result": "text",
+   "amountUSDm": 4742.8,
+   "period": "FY2026",
+   "asOf": "2026-06-30",
+   "note_en": "The FY2026 10-K tags no equity-issuance concept, but its MD&A states fiscal-2026 proceeds from the issuance of ordinary shares (US$4,742.8m); shown from the text with its page.",
+   "note_es": "El 10-K AF2026 no etiqueta un concepto de emisión de acciones, pero su MD&A indica los ingresos del AF2026 por emisión de acciones ordinarias (US$4,742.8 M); se muestra del texto con su página.",
    "evidence": {
     "en": "XBRL ProceedsFromIssuanceOfCommonStock: 3 facts, last 2026-03-31; EDGAR full-text search of 10-K 0001878848-26-000052 for \"at-the-market\": 1 hit",
     "es": "XBRL ProceedsFromIssuanceOfCommonStock: 3 hechos, último 2026-03-31; búsqueda de texto completo del 10-K 0001878848-26-000052 por «at-the-market»: 1 resultado"
@@ -1399,9 +1715,37 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
-   "verifiedOn": "2026-10-03",
-   "reviewedBy": null
+   "verifiedBy": "automated quote check against the harvested page (4 Oct 2026)",
+   "verifiedOn": "2026-10-04T14:44:12Z",
+   "reviewedBy": null,
+   "src": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "123",
+    "section": "Item 7. MD&A — Liquidity and capital resources (cash flows from financing activities)",
+    "quote": "$4,742.8 million from the issuance of Ordinary shares of which $1,631.5 million related to a registered direct offering"
+   },
+   "derived": {
+    "kind": "ttm",
+    "amountUSDm": 4742.8,
+    "period": "12 months to 30 Jun 2026 (fiscal 2026)",
+    "method_en": "FY2026 proceeds from the issuance of ordinary shares are stated in the 10-K text (US$4,742.8m, including a US$1,631.5m registered direct offering; the rest under the at-the-market program); Q4 FY2026 = FY2026 − 9M FY2026 = 4,742.8 − 2,630.8 = US$2,112.0m.",
+    "method_es": "Los ingresos del AF2026 por emisión de acciones ordinarias constan en el texto del 10-K (US$4,742.8 M, incluida una colocación directa registrada de US$1,631.5 M; el resto vía el programa ATM); 4T AF2026 = AF2026 − 9M AF2026 = 4,742.8 − 2,630.8 = US$2,112.0 M.",
+    "inputs": [
+     {
+      "period": "FY2026",
+      "amountUSDm": 4742.8,
+      "tag": "text (10-K p. 123)",
+      "accn": "0001878848-26-000052"
+     },
+     {
+      "period": "9M FY2026",
+      "amountUSDm": 2630.8,
+      "tag": "ProceedsFromIssuanceOfCommonStock",
+      "accn": "0001878848-26-000026"
+     }
+    ],
+    "zeroPeriods": []
+   }
   },
   {
    "ticker": "IREN",
@@ -1416,8 +1760,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1433,8 +1777,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1450,8 +1794,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1467,8 +1811,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1484,8 +1828,8 @@
     "quote": "Consolidated VIE — IE US Hardware 3, LLC"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1501,8 +1845,8 @@
     "quote": "This is a performance guarantee and not a guarantee of the Financing SPV's borrowings."
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1518,8 +1862,8 @@
     "quote": "is a wholly owned, limited-purpo"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1535,8 +1879,8 @@
    "form": "10-K",
    "accn": "0001878848-26-000052",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1552,8 +1896,8 @@
    "form": "10-K",
    "accn": "0001144879-26-000048",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1573,8 +1917,8 @@
     "es": "Búsqueda de texto completo del 10-K 0001144879-26-000048 por «capitalized interest»: 0 resultados"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page and full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1590,8 +1934,8 @@
    "form": "10-K",
    "accn": "0001144879-26-000048",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1607,8 +1951,8 @@
    "form": "10-K",
    "accn": "0001144879-26-000048",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1624,8 +1968,8 @@
    "form": "10-K",
    "accn": "0001144879-26-000048",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1643,8 +1987,8 @@
     "quote": "As of May 31, 2026, the carrying value of the Company's investment in Base Electron was $2.0 million and the outstanding balance of the related party promissory note w"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page; note balance on p. 93 and p. 101)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page; note balance on p. 93 and p. 101)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1660,8 +2004,8 @@
     "quote": "On May 29, 2026, the Guarantee was terminated, effective upon payment of $37.0 million by or on behalf of Base Electron"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1679,8 +2023,8 @@
     "quote": "Noncontrolling interest 7,032"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1696,8 +2040,8 @@
     "quote": "The investment in Base Electron will be accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1713,8 +2057,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1730,8 +2074,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1750,8 +2094,8 @@
     "quote": "On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1767,8 +2111,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1784,8 +2128,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1801,8 +2145,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1822,8 +2166,8 @@
     "es": "sin concepto PaymentsForRepurchaseOfCommonStock en XBRL companyfacts"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1839,8 +2183,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1856,8 +2200,8 @@
     "quote": "Operating lease payments expected to be received exclude $3.1 billion in total future noncancellable operating lease payments expected to be received for operating leases that have not yet commenced as of June 30, 2026"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (second read of the cited page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1873,8 +2217,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and harvested text)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check and harvested text)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1890,8 +2234,8 @@
     "quote": "The Senior Secured Notes and related guarantees are secured by first-priority liens, among other things, on substantially all assets of Core Scientific Finance and its subsidiary guarantors"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1907,8 +2251,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1924,8 +2268,8 @@
    "form": "10-Q",
    "accn": "0001839341-26-000014",
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (XBRL concept check)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1941,8 +2285,8 @@
     "quote": "The following table presents the components of interest expense for the periods indicated (in thousands)"
    },
    "status": "verified",
-   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   }
  ]

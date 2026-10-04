@@ -1,6 +1,6 @@
 {
- "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (Claude routine or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here. reviewedBy: a person's sign-off (name and date); null until an analyst reviews the item. Verification = automated quote-match plus a second AI read, never an analyst review.",
- "updated": "2026-10-03",
+ "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (the automated second read or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here. reviewedBy: a person's sign-off (name and date); null until an analyst reviews the item. Verification = automated quote-match plus a second automated read, never an analyst review. build.mjs checks every quote against the harvested page of the cited accession (quoteCheck), links the main filing document and records its filed date; readBy/verifiedBy are internal provenance and are not emitted to the site.",
+ "updated": "2026-10-04",
  "items": [
   {
    "ticker": "MSFT",
@@ -40,7 +40,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -57,14 +57,16 @@
     "section": "Item 7 — Contractual obligations",
     "page": "44"
    },
-   "quote": "Purchase commitments $194,060 million (2027: $169,008 million; thereafter $25,052 million). Purchase commitments primarily relate to datacenters and include open purchase orders and take-or-pay contracts that are not presented as construction commitments above. Construction commitments: $34,566 million.",
+   "quote": "Purchase commitments (d) 169,008 25,052 194,060 ... (d) Purchase commitments primarily relate to datacenters and include open purchase orders and take-or-pay contracts that are not presented as construction commitments above.",
    "accounting": "ASC 440",
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "note_en": "Contractual obligations table (MD&A): US$169,008m due in fiscal 2027 and US$25,052m thereafter. Construction commitments (US$34,566m) are shown as a separate line and are not included.",
+   "note_es": "Tabla de obligaciones contractuales (MD&A): US$169,008 M vencen en el AF2027 y US$25,052 M después. Los compromisos de construcción (US$34,566 M) son una línea aparte y no se incluyen."
   },
   {
    "ticker": "MSFT",
@@ -85,9 +87,13 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "fundedUSDm": 11900,
+   "remainingUSDm": 1100,
+   "note_en": "Total funding commitment US$13.0bn, of which US$11.9bn funded at 30 Jun 2026; US$1.1bn remains to be funded.",
+   "note_es": "Compromiso total de fondeo US$13.0 mil M, de los cuales US$11.9 mil M ya fondeados al 30 jun 2026; faltan US$1.1 mil M."
   },
   {
    "ticker": "GOOGL",
@@ -127,7 +133,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -161,7 +167,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -183,7 +189,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -208,7 +214,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -230,7 +236,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -247,7 +253,7 @@
     "section": "Note 4 — Commitments and contingencies (table)",
     "page": "15"
    },
-   "quote": "Leases not yet commenced: 4,018 (remainder of 2026), 11,732 (2027), 9,278 (2028), 9,483 (2029), 9,227 (2030), 93,476 (thereafter), total $137,214 million, in the table of principal contractual commitments as of June 30, 2026.",
+   "quote": "Leases not yet commenced 4,018 11,732 9,278 9,483 9,227 93,476 137,214",
    "history": [
     {
      "as_of": "2025-12-31",
@@ -264,9 +270,11 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "note_en": "Row of the principal contractual commitments table as of June 30, 2026 (US$ millions): six months to Dec 2026, then 2027–2030 and thereafter; total US$137,214m.",
+   "note_es": "Fila de la tabla de compromisos contractuales principales al 30 de junio de 2026 (US$ millones): seis meses a dic-2026, 2027–2030 y después; total US$137,214 M."
   },
   {
    "ticker": "AMZN",
@@ -281,14 +289,16 @@
     "section": "Note 4 — Commitments and contingencies (table)",
     "page": "15"
    },
-   "quote": "Unconditional purchase obligations: total $130,065 million as of June 30, 2026 (other commitments: $18,366 million; total commitments $650,034 million).",
+   "quote": "Unconditional purchase obligations (2) 23,452 33,026 9,326 7,961 7,659 48,641 130,065",
    "accounting": "ASC 440",
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewedBy": null
+   "reviewedBy": null,
+   "note_en": "Row of the principal contractual commitments table as of June 30, 2026 (US$ millions); other commitments (US$18,366m) and total commitments (US$650,034m) are separate rows.",
+   "note_es": "Fila de la tabla de compromisos contractuales principales al 30 de junio de 2026 (US$ millones); otros compromisos (US$18,366 M) y el total (US$650,034 M) son filas aparte."
   },
   {
    "ticker": "AMZN",
@@ -309,7 +319,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -351,7 +361,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -384,7 +394,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -400,9 +410,9 @@
     "accn": "0001628280-26-050705",
     "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/0001628280-26-050705-index.htm",
     "section": "Note 5 — Equity method investments (the Venture)",
-    "page": "17–18"
+    "page": "17"
    },
-   "quote": "Our non-marketable equity method investments include an arrangement, entered into in October 2025, to co-develop a data center campus in Louisiana (the Venture), in which we hold a 20% membership interest... The parties have committed to fund their respective pro rata share of approximately $27 billion in total estimated development costs. Our lease agreements with the Venture... will commence in 2029 and have an aggregate initial lease commitment of approximately $12.31 billion... we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $28 billion that decreases over time... our maximum exposure to loss related to the Venture was $46.03 billion... consisting of the carrying value of our equity investment, the lease commitments, our estimated future funding commitments, and the maximum RVG threshold.",
+   "quote": "Our non-marketable equity method investments include an arrangement, entered into in October 2025, to co-develop a data center campus in Louisiana (the Venture), in which we hold a 20% membership interest... The parties have committed to fund their respective pro rata share of approximately $27 billion in total estimated development costs... Our lease agreements with the Venture, which cover the right to use properties on the data center campus, will commence in 2029 and have an aggregate initial lease commitment of approximately $12.31 billion.",
    "lookthrough": {
     "sharePct": 20,
     "amountUSDm": null,
@@ -412,7 +422,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -437,7 +447,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -462,7 +472,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -484,7 +494,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -509,7 +519,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -532,7 +542,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -549,7 +559,7 @@
     "section": "Note 8 — Leases (leases not yet commenced)",
     "page": "24"
    },
-   "quote": "As of June 30, 2026, the Company executed additional lease agreements, primarily for data centers, equipment, and office buildings, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $35.5 billion. These leases will commence between 2026 and 2029 with estimated lease terms of seven to sixteen years. Not included in the preceding amount... are [lease arrangements] which include significant uncertainties regarding the amount of future lease payments.",
+   "quote": "As of June 30, 2026, the Company executed additional lease agreements, primarily for data centers, equipment, and office buildings, that had not yet commenced. The aggregate amount of estimated future undiscounted lease payments associated with such leases is $35.5 billion. These leases will commence between 2026 and 2029 with estimated lease terms of seven to sixteen years. Not included in the preceding amount of estimated future undiscounted lease payments are the following lease arrangements, which include significant uncertainties regarding the amount of future lease payments.",
    "commence": {
     "from": "2026",
     "to": "2029"
@@ -562,7 +572,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -580,12 +590,12 @@
     "section": "Note — Variable interest entities (joint ventures)",
     "page": "16"
    },
-   "quote": "The Company's maximum exposure to loss related to these joint ventures is limited to its total funding commitments of $1.7 billion as of June 30, 2026. The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment.",
+   "quote": "The Company's maximum exposure to loss related to these joint ventures is limited to its total funding commitments of $1.7 billion as of June 30, 2026. The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment and is included in other non-current assets on the condensed consolidated balance sheets.",
    "accounting": "ASC 810 / ASC 323",
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -611,7 +621,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -641,7 +651,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -656,17 +666,17 @@
     "form": "10-K",
     "accn": "0001878848-26-000052",
     "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/0001878848-26-000052-index.htm",
-    "section": "Item 7 — Liquidity; Note 23 — Debt",
-    "page": "121, 124"
+    "section": "Item 7 — Liquidity (p. 124); Note 23 — Debt (176th page)",
+    "page": "124; 176th page (no printed number)"
    },
-   "quote": "In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company... As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded. ... The Financing SPV is a variable interest entity of which the Company is the primary beneficiary.",
+   "quote": "In May 2026, the Group entered into a DDTL Facility providing for up to $1,545 million of commitments, and issued $2,100 million of USPP Senior Notes. The DDTL Facility and the USPP Senior Notes are non-recourse to the general credit of the Group, except for limited guarantees provided by the Company... As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded. ... The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable interest entity).",
    "note_en": "Consolidated: the drawn amounts are already in debt; the undrawn remainder ($2,707m) is a commitment, not a liability. Parent guarantees cover the remarketing right and hedges, stepping down tranche by tranche.",
    "note_es": "Consolidado: lo dispuesto ya está en la deuda; el remanente no dispuesto (US$2,707 M) es un compromiso, no un pasivo. Las garantías de la matriz cubren el derecho de recomercialización y las coberturas, y bajan por tramo.",
    "accounting": "ASC 810 (consolidated VIE)",
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "reviewedBy": null
   },
@@ -691,7 +701,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited pages in the harvested SEC text (US$2.35bn on 10-Q p. 19 and p. 17; US$2.15bn on 10-K p. 49; recourse terms on 10-K pp. 48–49)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
    "filing2": {
     "form": "10-Q",
@@ -724,7 +734,7 @@
    "tier": "T1",
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the harvested SEC text (investment and note balances confirmed on pp. 93, 101 and 105)",
-   "verifiedOn": "2026-10-03",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner",
    "reviewedBy": null
   }
@@ -864,8 +874,19 @@
    "accn": "0001193125-26-389274",
    "section": "Note — Leases",
    "page": "13",
-   "source": "tools/hyperscalers/raw/notes/ORCL/0001193125-26-389274.json"
+   "source": "tools/hyperscalers/raw/notes/ORCL/0001193125-26-389274.json",
+   "quote": "As of August 31, 2026, we had $288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 and fiscal 2029 and for terms of fifteen to nineteen years that were not reflected on our condensed consolidated balance sheets as of August 31, 2026 or in the maturities table above."
+  },
+  {
+   "ticker": "ORCL",
+   "item": "prepayment",
+   "accn": "0001193125-26-389274",
+   "section": "Condensed consolidated statements of cash flows",
+   "page": "5",
+   "quote": "Increase in deferred revenues from customer prepayments with significant financing component 11,363 —",
+   "note_en": "Cash-flow statement line for the quarter to 31 Aug 2026 (US$ millions; none in the comparable quarter). MD&A p. 33 describes the same inflow as \"$11.4 billion of customer prepayments with a significant financing component\".",
+   "note_es": "Línea del estado de flujos del trimestre al 31 ago 2026 (US$ millones; ninguna en el trimestre comparable). El MD&A, p. 33, describe el mismo flujo como «$11.4 billion of customer prepayments with a significant financing component»."
   }
  ],
- "updatedAt": "2026-10-04T02:45:00Z"
+ "updatedAt": "2026-10-04T14:44:12Z"
 }

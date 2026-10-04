@@ -1,0 +1,50 @@
+{
+ "_comment": "Reader-facing log of curated edits to the Hyperscaler Hub (wording, structure, review counts, explained gaps, thesis changes). at = UTC instant; the pages print it in ET. build.mjs merges it into site/hiperescaladores/data/changelog.js (HYP_LOG.curated). Append one entry per edit; never rewrite history.",
+ "entries": [
+  {
+   "at": "2026-10-03T23:36:10Z",
+   "modules": [
+    "home",
+    "capacidad",
+    "fuera-de-balance"
+   ],
+   "en": "Headline takeaways composed from data; text figures verified by a second automated read; 12-month rule for old values; usability fixes.",
+   "es": "Conclusiones redactadas a partir de los datos; cifras de texto verificadas con una segunda lectura automática; regla de 12 meses para valores viejos; mejoras de uso."
+  },
+  {
+   "at": "2026-10-04T01:11:32Z",
+   "modules": [
+    "home",
+    "retorno",
+    "fuera-de-balance",
+    "electricidad"
+   ],
+   "en": "One-sentence thesis, five \"What to know\" lines, heat map and reading paths on the home page; module 8 (payoff and cost of money) added; leases compared undiscounted on both sides; scope notes; one unit per page.",
+   "es": "Tesis en una frase, cinco líneas de «Lo que hay que saber», mapa de calor y rutas de lectura en el inicio; módulo 8 (retorno y costo del dinero); arrendamientos comparados sin descontar en ambos lados; notas de alcance; una unidad por página."
+  },
+  {
+   "at": "2026-10-04T03:34:31Z",
+   "modules": [
+    "home",
+    "capex",
+    "retorno"
+   ],
+   "en": "\"Verified\" defined on every page; analyst-review field added (empty until a person signs); explained XBRL gaps (108 records); debt deals matched through EDGAR's full-text index; secondary-source badges on press-sourced ratings; phone menu.",
+   "es": "«Verificado» definido en cada página; campo de revisión de analista (vacío hasta que firme una persona); huecos XBRL explicados (108 registros); operaciones de deuda cotejadas con el índice de EDGAR; insignia de fuente secundaria en calificaciones de prensa; menú para teléfonos."
+  },
+  {
+   "at": "2026-10-04T14:44:12Z",
+   "modules": [
+    "home",
+    "capex",
+    "fuera-de-balance",
+    "retorno",
+    "comprometida",
+    "sitios",
+    "metodologia"
+   ],
+   "en": "Fourth review: internal tool names removed from every card; \"verified\" credited only with a stored quote check (28 off-balance items now checked against the harvested page; capex status split into quote-matched, XBRL tag-matched and value present; concept checks shown as tag-matched; coverage stated two ways, explained gaps in the denominator); 12 of 20 annual/year-to-date gaps filled from the filings (11 derived with method and zero periods listed, 1 read from the 10-K text), the other 8 given a specific reason; thesis regrouped (core six and four listed neoclouds, each company in one group; Amazon, Oracle and CoreWeave named above cash flow); Amazon's 1.0x lease ratio called \"about equal\"; Applied Digital's multiple shown as \"more than 10x\" (rounded 100 MW); backlog ratios on matching revenue (Google Cloud, AWS); Amazon's US$496bn backlog on the home page with its quote; Nebius added to the lease comparison (8.8x) and its committed multiple dated on both sides; \"older than 2 quarters\" badges; every date in ET from one build time; Data rebuilt and Last EDGAR poll shown apart; filer-category deadlines (CoreWeave non-accelerated) rolled to business days; results dates flagged when FactSet projects them after the SEC deadline; FactSet calendar re-pulled; off-balance items link the main document with its filed date; Oracle prepayment quoted from the cash-flow statement; Microsoft's OpenAI commitment shown as committed, funded and remaining; this log; phone fixes (sites map fallback, 44 px ⓘ, legend above the capex chart, horizontal bars, folded secondary tables).",
+   "es": "Cuarta revisión: se retiran los nombres de herramientas internas de todas las fichas; «verificado» solo con cotejo de cita almacenado (las 28 partidas fuera de balance ahora se cotejan contra la página cosechada; el estado del capex se separa en cita cotejada, etiqueta XBRL cotejada y valor presente; los controles de concepto se muestran como etiqueta cotejada; la cobertura se dice de dos maneras, con los huecos explicados en el denominador); 12 de 20 huecos anuales/acumulados llenados desde las presentaciones (11 derivados con método y periodos en cero listados, 1 leído del texto del 10-K), los otros 8 con motivo específico; tesis reagrupada (seis principales y cuatro neonubes listadas, cada empresa en un grupo; Amazon, Oracle y CoreWeave nombradas por encima de su flujo); la razón de arrendamientos de Amazon (1.0x) se llama «casi igual»; el múltiplo de Applied Digital se muestra como «más de 10 veces» (100 MW redondeados); razones de cartera sobre ingresos comparables (Google Cloud, AWS); la cartera de Amazon (US$496 mil M) en el inicio con su cita; Nebius en la comparación de arrendamientos (8.8x) y su múltiplo comprometido fechado en ambos lados; insignias «más de 2 trimestres»; todas las fechas en ET desde una sola hora de reconstrucción; «Datos reconstruidos» y «Última consulta a EDGAR» por separado; plazos por categoría de emisor (CoreWeave no acelerado) movidos a día hábil; fechas de resultados marcadas cuando FactSet las proyecta después del plazo de la SEC; calendario de FactSet renovado; las partidas fuera de balance enlazan el documento principal con su fecha; prepago de Oracle citado del estado de flujos; compromiso de Microsoft con OpenAI mostrado como comprometido, fondeado y pendiente; este registro; arreglos para teléfonos (mapa de sitios con respaldo, ⓘ de 44 px, leyenda sobre la gráfica de capex, barras horizontales, tablas secundarias plegadas)."
+  }
+ ]
+}

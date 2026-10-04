@@ -93,6 +93,8 @@ nav.jump .wrap{display:flex; gap:2px; overflow-x:auto; scrollbar-width:none;}
 nav.jump .wrap::-webkit-scrollbar{display:none;}
 nav.jump a{flex:0 0 auto; padding:9px 11px; font-size:12.5px; font-weight:600; color:var(--muted); text-decoration:none; white-space:nowrap;}
 nav.jump a:hover{color:var(--text-primary);}
+/* on desktop the section links wrap onto a second row instead of running past the viewport (methodology has 13) */
+@media (min-width:641px){ nav.jump .nav-links{display:flex; flex-wrap:wrap; gap:2px;} }
 
 /* sections */
 main{padding:28px 0 20px;}
@@ -284,7 +286,7 @@ table.heat td .small{font-weight:400;}
 .wtk summary .num-i{color:var(--accent-ink); font-weight:700; flex:none;}
 .wtk .det{font-size:13.5px; line-height:1.55; color:var(--text-secondary); margin:6px 0 2px 24px;}
 .wtk .det .meta{display:block; font-size:12px; color:var(--muted); margin-top:4px;}
-.wtk .infer-tag{display:inline-block; font-size:10.5px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px dashed currentColor; color:var(--t4); border-radius:4px; padding:0 4px; margin-right:4px; vertical-align:1px;}
+.wtk .infer-tag{display:inline-block; font-size:11px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; border:1px dashed currentColor; color:var(--t4); border-radius:4px; padding:0 4px; margin-right:4px; vertical-align:1px;}
 .paths{display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-top:16px;}
 @media (max-width:900px){.paths{grid-template-columns:1fr;}}
 .paths .path{background:var(--surface); border:1px solid var(--border); border-radius:12px; padding:14px 16px;}
@@ -425,3 +427,23 @@ td .nd.nx + .src-btn, td .ntx-val + .src-btn{margin-right:2px;}
 }
 /* long tokens (XBRL concepts, accession numbers) in prose and lists must wrap at phone width */
 @media (max-width:640px){ main p, main li, main code, main td, main .det{overflow-wrap:anywhere;} }
+
+/* ---- round 5 (owner's fourth review, 2026-10-04): older-than-two-quarters badge, folded tables on phones, 44 px ⓘ at phone
+   width whatever the pointer, the sites map's phone fallback, chart legends above the canvas ---- */
+.flag.old2{background:var(--surface-2); color:var(--muted); border:1px dashed var(--border-strong); font-weight:600;}
+.fold-btn{display:none;}
+.legend.above{margin:4px 0 6px;}
+@media (max-width:640px){
+  .src-btn{min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; margin:-14px -10px -14px -8px; padding:0; vertical-align:middle;}
+  .thesis .src-btn, .wtk summary .src-btn, .kpi .src-btn, .sowhat .src-btn{margin:-12px -8px -12px -6px;}
+  .card.folded > :not(.fold-btn){display:none !important;}
+  .fold-btn{display:flex; width:100%; justify-content:space-between; align-items:center; gap:10px; min-height:44px; border:0; background:transparent; font:inherit; font-size:13.5px; font-weight:700; color:var(--text-primary); text-align:left; padding:2px 0; cursor:pointer;}
+  .fold-btn .chev{display:inline-flex; align-items:center; justify-content:center; width:24px; height:24px; border:1px solid var(--border-strong); border-radius:6px; color:var(--muted); font-size:15px;}
+  .card:not(.folded) > .fold-btn{border-bottom:1px solid var(--grid); margin-bottom:10px;}
+  #mapCtl, #mapInfo{display:none !important;}
+  #mapFallback{display:block;}
+  header h1, .sowhat, .thesis, .kpi .val{overflow-wrap:anywhere; max-width:100%;}
+}
+#mapFallback{display:none; margin-top:10px; font-size:13px; color:var(--text-secondary); line-height:1.5;}
+/* 250% desktop zoom (512 px CSS width): the headline and the "so what" box keep the page margins */
+@media (max-width:560px){ header h1{font-size:clamp(22px,6vw,28px);} .sowhat{font-size:14.5px; padding:9px 12px;} .kpis{grid-template-columns:1fr;} }

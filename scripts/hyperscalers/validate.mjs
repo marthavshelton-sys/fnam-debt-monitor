@@ -7,7 +7,7 @@
 // that flag the affected figures "needs review" on the pages.
 import { readFile } from 'node:fs/promises';
 import { createReport, ageDays, TODAY } from '../lib/quality-report.mjs';
-import { readJson, TOOLS, SITE, p } from './lib.mjs';
+import { readJson, TOOLS, SITE, p, etOf } from './lib.mjs';
 
 const src = await readFile(p(SITE + 'data/financials.js'), 'utf8');
 const F = JSON.parse(src.slice(src.indexOf('=') + 1).trim().replace(/;\s*$/, ''));
@@ -15,11 +15,13 @@ const der = await readJson(TOOLS + 'data/derivations.json', { warnings: [], rest
 const state = await readJson(TOOLS + 'data/state.json', {});
 const fails = [];
 const L = (es, en) => ({ es, en });
-// verification wording (owner's third review): "verified" = automated quote-match plus a second AI read, never an analyst's
-// sign-off; the reviewedBy field carries a person's review and is counted apart on every quality page
-const VERIF = L('verificado = cotejo automático de la cita más una segunda lectura por IA; sin revisión de analista', 'verified = automated quote-match plus a second AI read; not analyst-reviewed');
+// verification wording (owner's third and fourth reviews): "verified" = automated quote-match on the cited page plus a second
+// automated read, never an analyst's sign-off; the reviewedBy field carries a person's review and is counted apart on every
+// quality page. No tool name is printed anywhere.
+const VERIF = L('verificado = cotejo automático de la cita en la página citada más una segunda lectura automática; sin revisión de analista', 'verified = automated quote-match on the cited page plus a second automated read; not analyst-reviewed');
 const reviewedCard = (Rp, items, es, en) => { Rp.card(items.filter((i) => i.reviewedBy).length + ' / ' + items.length, es, en); };
-const VLABEL = 'verified (automated second read)';
+const VLABEL = 'verified (automated quote-match and second read)';
+const et = (iso) => (iso ? etOf(iso) || iso : '—');
 
 // ---------------- module 3: capex and financing ----------------
 const Q = createReport({ slug: 'hiperescaladores/capex', key: 'HYP_CAPEX_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia (US$ M)', 'Difference (US$ m)'), tolerances: L('Trimestres vs. año fiscal: US$2 M o 0.2%. Hecho de 3 meses vs. diferencia de acumulados: 0.5%. Deuda XBRL vs. FactSet a la misma fecha: 2%. Operación de deuda vs. 424B: ±7 días y ±3%; si no hay 424B, la presentación (8-K, FWP, 6-K) que el índice de texto completo de EDGAR devuelve para el cupón y vencimiento del tramo en ±12/25 días, y la página del 10-K/10-Q que nombra el instrumento. Huecos XBRL: cada uno con su motivo en not-tagged.json. ' + VERIF.es, 'Quarters vs. fiscal year: US$2m or 0.2%. 3-month fact vs. year-to-date difference: 0.5%. XBRL debt vs. FactSet at the same date: 2%. Debt deal vs. 424B: ±7 days and ±3%; without a 424B, the filing (8-K, FWP, 6-K) EDGAR\'s full-text index returns for the tranche\'s coupon and maturity within −12/+25 days, and the 10-K/10-Q page that names the instrument. XBRL gaps: each with its reason in not-tagged.json. ' + VERIF.en) });
@@ -60,14 +62,18 @@ for (const d of deals.filter((x) => !x.match)) {
   Q.record(tag, 'SEC filing found for the deal (EDGAR full-text index)', d.fs.result === 'filing' ? 'ok' : 'warn', null, null, d.fs.result === 'filing' ? (d.fs.filing ? L(`${d.fs.filing.form} ${d.fs.filing.accn} (${d.fs.filing.filed})`, `${d.fs.filing.form} ${d.fs.filing.accn} (${d.fs.filing.filed})`) : null) : L(d.fs.note_es || d.fs.result, d.fs.note_en || d.fs.result));
   if (d.fs.textSrc) Q.record(tag, 'instrument named on a harvested 10-K/10-Q page (quote matched)', d.fs.textSrc.quoteCheck === 'page' ? 'ok' : 'warn', null, null, d.fs.textSrc.quoteCheck === 'page' ? L(`${d.fs.textSrc.form} p. ${d.fs.textSrc.page || 'seq ' + d.fs.textSrc.pageSeq}`, `${d.fs.textSrc.form} p. ${d.fs.textSrc.page || 'seq ' + d.fs.textSrc.pageSeq}`) : L('la frase no está en la página citada del texto cosechado', 'the sentence is not on the cited page of the harvested text'));
 }
-// explained XBRL gaps: every record cites its evidence; a text figure's quote must sit on the cited harvested page
+// explained XBRL gaps: every record cites its evidence; a text figure's quote must sit on the cited harvested page; a
+// record established by an XBRL concept check alone is "tag-checked" (never "verified"); a derived trailing figure lists its inputs
 for (const i of F.notTagged || []) {
   const tag = `${i.ticker} ${i.metric}`;
-  Q.record(tag, `gap explained (${i.result})`, i.result === 'unknown' ? 'warn' : 'ok', null, null, i.result === 'unknown' ? L('sin resolver: ' + (i.note_es || ''), 'unresolved: ' + (i.note_en || '')) : null);
+  const how = i.check === 'quote' ? 'quote matched' : i.check === 'derived' ? 'derived from tagged facts' : i.check === 'quote_unmatched' ? 'quote NOT matched' : 'tag-checked (XBRL concept / full-text search), not verified';
+  Q.record(tag, `gap explained (${i.result}; ${how})`, i.result === 'unknown' || i.check === 'quote_unmatched' ? 'warn' : 'ok', null, null, i.result === 'unknown' ? L('sin resolver: ' + (i.note_es || ''), 'unresolved: ' + (i.note_en || '')) : null);
   if (i.src) Q.record(tag, 'reason quoted on a harvested filing page (quote matched)', i.src.quoteCheck === 'page' ? 'ok' : 'warn', null, null, i.src.quoteCheck === 'page' ? null : L('la frase no está en la página citada', 'the sentence is not on the cited page'));
+  if (i.derived) Q.record(tag, `trailing figure derived: ${i.derived.amountUSDm} (US$ m, ${i.derived.period}; ${(i.derived.inputs || []).length} tagged inputs, ${(i.derived.zeroPeriods || []).length} periods read as zero)`, 'ok', null, null, L(i.derived.method_es || '', i.derived.method_en || ''));
 }
-Q.curated('tools/hyperscalers/data/not-tagged.json', (F.notTagged || []).length > 0, L(`${(F.notTagged || []).length} huecos explicados; ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} sin resolver; actualizado ${(F.notTaggedMeta || {}).updatedAt || '—'}`, `${(F.notTagged || []).length} gaps explained; ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} unresolved; updated ${(F.notTaggedMeta || {}).updatedAt || '—'}`));
-Q.curated('tools/hyperscalers/data/deal-matches.json', deals.filter((d) => !d.match && !d.fs).length === 0, L(`${deals.filter((d) => d.fs).length} operaciones con presentación; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} sin resolver`, `${deals.filter((d) => d.fs).length} deals with a filing; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} unresolved`));
+const ntTag = (F.notTagged || []).filter((i) => i.check === 'xbrl_concept').length, ntDer = (F.notTagged || []).filter((i) => i.check === 'derived').length;
+Q.curated('tools/hyperscalers/data/not-tagged.json', (F.notTagged || []).length > 0, L(`${(F.notTagged || []).length} huecos explicados (${ntTag} con etiqueta cotejada, ${ntDer} derivados); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} sin resolver; actualizado ${et((F.notTaggedMeta || {}).updatedAt)}`, `${(F.notTagged || []).length} gaps explained (${ntTag} tag-checked, ${ntDer} derived); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} unresolved; updated ${et((F.notTaggedMeta || {}).updatedAt)}`));
+Q.curated('tools/hyperscalers/data/deal-matches.json', deals.filter((d) => !d.match && !d.fs).length === 0, L(`${deals.filter((d) => d.fs).length} operaciones con presentación; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} sin resolver; actualizado ${et((F.dealMatchesMeta || {}).updatedAt)}`, `${deals.filter((d) => d.fs).length} deals with a filing; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} unresolved; updated ${et((F.dealMatchesMeta || {}).updatedAt)}`));
 // quarterly outliers read in the filing (tools/hyperscalers/data/outliers.json): a confirmed record clears the flag when its
 // value matches the derived quarter; a reclassified one keeps the flag and explains it; every quote must sit on its cited page
 const outl = (F.outliers && F.outliers.items) || [];
@@ -78,11 +84,12 @@ for (const o of outl) {
 }
 const flaggedAnom = Object.values(F.companies).flatMap((c) => (c.anomalies || []).filter((a) => a.result === 'flagged').map((a) => `${c.ticker} ${a.k} ${a.id}`));
 for (const a of flaggedAnom) Q.record(a, 'outlier read in the filing', 'warn', null, null, L('sin registro en outliers.json: sigue «por revisar»', 'no record in outliers.json: still "needs review"'));
-Q.curated('tools/hyperscalers/data/outliers.json', outl.length > 0 && flaggedAnom.length === 0, L(`${outl.filter((o) => o.result === 'confirmed' && o.applied).length} atípicos confirmados, ${outl.filter((o) => o.result !== 'confirmed').length} explicados con aviso, ${flaggedAnom.length} sin leer; actualizado ${(F.outliers || {}).updatedAt || '—'}`, `${outl.filter((o) => o.result === 'confirmed' && o.applied).length} outliers confirmed, ${outl.filter((o) => o.result !== 'confirmed').length} explained with the flag kept, ${flaggedAnom.length} unread; updated ${(F.outliers || {}).updatedAt || '—'}`));
+Q.curated('tools/hyperscalers/data/outliers.json', outl.length > 0 && flaggedAnom.length === 0, L(`${outl.filter((o) => o.result === 'confirmed' && o.applied).length} atípicos confirmados, ${outl.filter((o) => o.result !== 'confirmed').length} explicados con aviso, ${flaggedAnom.length} sin leer; actualizado ${et((F.outliers || {}).updatedAt)}`, `${outl.filter((o) => o.result === 'confirmed' && o.applied).length} outliers confirmed, ${outl.filter((o) => o.result !== 'confirmed').length} explained with the flag kept, ${flaggedAnom.length} unread; updated ${et((F.outliers || {}).updatedAt)}`));
 Q.card(deals.filter((d) => d.fs && d.fs.result === 'unresolved').length + (F.notTagged || []).filter((i) => i.result === 'unknown').length + flaggedAnom.length, 'huecos sin resolver', 'unresolved gaps');
+Q.card(ntTag, 'huecos con etiqueta cotejada (no verificados)', 'gaps tag-checked (not verified)');
 reviewedCard(Q, [...(F.notTagged || []), ...deals.filter((d) => d.fs).map((d) => d.fs), ...outl], 'revisados por analista (huecos, operaciones y atípicos)', 'analyst-reviewed (gaps, deals and outliers)');
 const fsAge = F.debt ? ageDays(F.debt.pulledAt) : null;
-Q.curated(`FactSet debt snapshot (${F.debt ? F.debt.file : 'none'})`, fsAge != null && fsAge <= 100, L(`tomada el ${F.debt && F.debt.pulledAt} (${fsAge} días); renovar en sesión tras cada temporada de 10-Q`, `pulled ${F.debt && F.debt.pulledAt} (${fsAge} days); renew in-session after each 10-Q season`));
+Q.curated(`FactSet debt snapshot (${F.debt ? F.debt.file : 'none'})`, fsAge != null && fsAge <= 100, L(`tomada el ${F.debt && F.debt.pulledAt} (${fsAge} días); renovar tras cada temporada de 10-Q`, `pulled ${F.debt && F.debt.pulledAt} (${fsAge} days); renew after each 10-Q season`));
 const gAge = F.guidance ? ageDays(F.guidance.pulledAt) : null;
 Q.curated('tools/hyperscalers/data/guidance.json', gAge != null && gAge <= 100, L(`guías T2 al ${F.guidance && F.guidance.pulledAt} (${gAge} días); actualizar tras cada llamada`, `T2 guidance as of ${F.guidance && F.guidance.pulledAt} (${gAge} days); update after each call`));
 Q.curated('EDGAR poll (state.json)', !(state.errors || []).length, L(`última corrida ${state.lastRun || '—'}; última exitosa ${state.lastSuccess || '—'}; fallas seguidas ${state.consecutiveFailures || 0}`, `last run ${state.lastRun || '—'}; last success ${state.lastSuccess || '—'}; consecutive failures ${state.consecutiveFailures || 0}`));
@@ -99,10 +106,10 @@ const OB = F.offbs || { items: [], searched: [] };
 for (const i of OB.items) {
   O.record(`${i.ticker} ${i.item}`, 'filing accession cited', i.filing && i.filing.accn ? 'ok' : 'fail');
   O.record(`${i.ticker} ${i.item}`, 'page cited', i.filing && i.filing.page ? 'ok' : 'warn', null, null, i.filing && i.filing.page ? null : L('Página por citar', 'Page to cite'));
+  O.record(`${i.ticker} ${i.item}`, 'main filing document linked with its filed date', i.filing && i.filing.filed && !/-index\.htm$/.test(i.filing.url || '') ? 'ok' : 'warn', null, null, L('la presentación no está en el texto cosechado: solo se enlaza el índice', 'the filing is not in the harvested text: only the index page is linked'));
+  O.record(`${i.ticker} ${i.item}`, 'quote matched on the cited page (harvested text)', i.quoteCheck === 'page' ? 'ok' : 'warn', null, null, i.quoteCheck === 'page' ? null : i.quoteCheck === 'other_page' ? L(`la frase está en la página ${i.foundOn}`, `the sentence is on page ${i.foundOn}`) : L(i.reviewNote_es || 'frase no encontrada en la página citada', i.reviewNote_en || 'sentence not found on the cited page'));
   O.record(`${i.ticker} ${i.item}`, VLABEL, i.status === 'verified' ? 'ok' : 'warn');
-  const age = ageDays(i.asOf);
   O.stale(`${i.ticker} ${i.item}`, i.asOf, 200, L('vigente mientras no haya un 10-Q/10-K posterior', 'current until a later 10-Q/10-K'));
-  void age;
 }
 const ITEMS = ['leases_not_commenced', 'vie_unconsolidated', 'jv_equity_method_debt', 'spv', 'rvg', 'purchase_obligation', 'guarantee'];
 const XK = { vie_unconsolidated: 'vie_max_loss', jv_equity_method_debt: 'equity_method', purchase_obligation: 'purchase_oblig', guarantee: 'guarantees_max' };
@@ -112,8 +119,9 @@ for (const c of Object.values(F.companies)) {
   gaps += missing.length;
   O.curated(`${c.ticker} coverage`, missing.length === 0, L(missing.length ? `pendientes de lectura: ${missing.join(', ')}` : 'completa', missing.length ? `pending reading: ${missing.join(', ')}` : 'complete'));
 }
-O.curated('tools/hyperscalers/data/offbs.json', true, L(`actualizado ${OB.updated}`, `updated ${OB.updated}`));
+O.curated('tools/hyperscalers/data/offbs.json', true, L(`actualizado ${et(OB.updatedAt) || OB.updated}`, `updated ${et(OB.updatedAt) || OB.updated}`));
 O.card(OB.items.length, 'partidas de texto', 'text items');
+O.card(OB.items.filter((i) => i.quoteCheck === 'page').length + ' / ' + OB.items.length, 'citas cotejadas en la página', 'quotes matched on the page');
 O.card(OB.items.filter((i) => i.status !== 'verified').length, 'por revisar', 'to review');
 reviewedCard(O, OB.items, 'revisadas por analista', 'analyst-reviewed');
 O.card(gaps, 'huecos de cobertura', 'coverage gaps');
@@ -247,11 +255,14 @@ try {
     M8.stale(tag, it.asOf, 365, L('una calificación con más de 12 meses se muestra en gris y fuera de los indicadores', 'a rating over 12 months old is grayed and kept out of indicators'));
   }
   for (const t of PAYD.termSheets) M8.record(`${t.ticker} ${t.form} ${t.date}`, 'term sheet read twice (automated; not analyst-reviewed)', t.status === 'verified' ? 'ok' : 'warn');
-  for (const r of PAYD.ratings) for (const it of r.items) if (it.tier === 'T4') M8.record(`${r.ticker} ${it.agency} ${it.rating}`, 'secondary source labeled (agency page and SEC filings checked, not available)', it.secondary ? 'ok' : 'warn', null, null, it.agencyChecked ? L(it.agencyChecked.es || it.agencyChecked.en, it.agencyChecked.en) : null);
+  for (const r of PAYD.ratings) for (const it of r.items) if (it.tier === 'T4') M8.record(`${r.ticker} ${it.agency} ${it.rating}`, 'secondary source labeled (agency page and SEC filings checked, not available)', it.secondary ? 'ok' : 'warn', null, null, it.agencyChecked ? L(it.agencyChecked.note_es || it.agencyChecked.es || it.agencyChecked.note_en || it.agencyChecked.en, it.agencyChecked.note_en || it.agencyChecked.en) : null);
+  for (const r of PAYD.ratings) for (const it of r.items) if (it.laterActionsChecked) M8.record(`${r.ticker} ${it.agency} ${it.rating}`, `term-sheet rating checked for later agency actions (${it.laterActionsChecked.result}, ${et(it.laterActionsChecked.checkedAt)})`, it.laterActionsChecked.result === 'none_found' ? 'ok' : 'warn', null, null, L(it.laterActionsChecked.note_es || '', it.laterActionsChecked.note_en || ''));
   for (const e of PAYD.mwEstimates) M8.record(`${e.publisher} ${e.date}`, 'third-party estimate labeled T4 with a URL and date', e.tier === 'T4' && e.url && e.date ? 'ok' : 'fail');
   const calAge = PAYD.calendar ? ageDays(PAYD.calendar.pulledAt) : null;
-  M8.curated('FactSet earnings calendar (raw/factset/<date>-calendar.json)', calAge != null && calAge <= 45, L(`tomado el ${PAYD.calendar && PAYD.calendar.pulledAt} (${calAge} días); renovar en sesión cada mes y tras cada temporada`, `pulled ${PAYD.calendar && PAYD.calendar.pulledAt} (${calAge} days); renew in-session monthly and after each season`));
-  M8.curated('tools/hyperscalers/data/payoff.json', ageDays(PAYD.updated) <= 100, L(`actualizado ${PAYD.updated}; repasar tras cada temporada de 10-Q`, `updated ${PAYD.updated}; review after each 10-Q season`));
+  M8.curated('FactSet earnings calendar (raw/factset/<date>-calendar.json)', calAge != null && calAge <= 45, L(`tomado el ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} días); renovar cada mes y tras cada temporada`, `pulled ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} days); renew monthly and after each season`));
+  // a FactSet projection dated after the company's SEC deadline for the same period is flagged on the page; count them here
+  for (const c of Object.values(F.companies)) { const ev = (PAYD.calendar ? PAYD.calendar.events : []).filter((e) => e.ticker === c.ticker && e.date >= TODAY).sort((a, b) => a.date.localeCompare(b.date))[0]; if (ev && c.nextFilingDue && ev.status !== 'confirmed' && ev.date > c.nextFilingDue) M8.record(`${c.ticker} results ${ev.date}`, `FactSet projection falls after the SEC deadline for the ${c.nextFilingForm} (${c.nextFilingDue})`, 'warn', null, null, L(`estimación de FactSet modificada el ${ev.modified}; la empresa aún no confirma`, `FactSet estimate last modified ${ev.modified}; not yet confirmed by the company`)); }
+  M8.curated('tools/hyperscalers/data/payoff.json', ageDays(PAYD.updated) <= 100, L(`actualizado ${et(PAYD.updatedAt) || PAYD.updated}; repasar tras cada temporada de 10-Q`, `updated ${et(PAYD.updatedAt) || PAYD.updated}; review after each 10-Q season`));
   originsOf(M8, [...PAYD.segments.map((x) => x.src), ...PAYD.rpoTiming.map((x) => x.src), ...PAYD.usefulLives.map((x) => x.src)]);
   for (const t of PAYD.termSheets) M8.R.origins.push({ id: t.ticker, origin: 'primary', title: `${t.ticker} ${t.form} ${t.date}`, url: t.url, date: t.date, page: null, parts: t.accn });
   M8.card(PAYD.segments.length, 'segmentos de nube', 'cloud segments');

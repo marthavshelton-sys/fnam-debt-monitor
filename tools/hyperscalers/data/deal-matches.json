@@ -1,6 +1,6 @@
 {
  "_comment": "Debt deals in the FactSet snapshot (tools/hyperscalers/raw/factset/<date>-debt.json) that no 424B filing-fee exhibit matched (144A notes, converts placed via 6-K/8-K, loans): the SEC filing that documents each deal. filing = an EDGAR full-text search (efts.sec.gov) over the issuer's 8-K / 424B / FWP / 6-K filings within −12/+25 days of the FactSet issue date returned the tranche's coupon-and-maturity phrase or facility type in that filing (accession, filed date, documents, phrases); the index confirms the phrase, the document text was not read in this session. textSrc = a passage of a 10-K/10-Q/20-F already harvested (raw/notes/) that names the instrument, with page and quote (checked against the harvested page by build.mjs). result: filing | partial (filing describes a related facility or the date differs) | unresolved (no filing found or FactSet's record does not match the filings read; reason given). Amounts stay FactSet's. Written 2026-10-03 (owner's third review). reviewedBy stays null until a person signs off.",
- "updatedAt": "2026-10-04T04:40:00Z",
+ "updatedAt": "2026-10-04T14:44:12Z",
  "method": {
   "en": "EDGAR full-text search (efts.sec.gov/LATEST/search-index) by CIK, form and date window for the phrase \"<coupon>% notes due <year>\", \"convertible senior notes due <year>\", \"term loan\", \"credit agreement\" or \"revolving credit\"; hits list the filing's accession and the documents that contain the phrase.",
   "es": "Búsqueda de texto completo en EDGAR (efts.sec.gov/LATEST/search-index) por CIK, forma y ventana de fechas de la frase «<cupón>% notes due <año>», «convertible senior notes due <año>», «term loan», «credit agreement» o «revolving credit»; los resultados dan el número de acceso de la presentación y los documentos que contienen la frase."
@@ -36,8 +36,8 @@
     "quote": "€2.0 billion in aggregate principal amount of euro-denominated 8.500% Senior Notes due 2032"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -70,8 +70,8 @@
     "quote": "$1.3 billion aggregate principal amount of 2032 9.625% Senior Notes"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -106,8 +106,8 @@
     "quote": "In June 2026, we entered into a $17.5 billion unsecured delayed draw term loan with a syndicate of lenders (“Term Loan”), which matures three years from the date of borrowing"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -123,8 +123,8 @@
     "quote": "The USPP Senior Notes bear interest at a fixed rate of 5.96% per annum"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -157,8 +157,8 @@
     "quote": "As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded."
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -193,8 +193,8 @@
    "note_en": "The 10-K names the 2026 Revolving Credit Facility: a Credit Agreement of 29 May 2026 between APLD Intermediate HoldCo LLC (and subsidiary guarantors) and First National Bank of Omaha, which replaced the US$65m 2025 facility (p. 48, 50); the 8-K of 9 Jun 2026 is the filing found by the EDGAR index. FactSet records the facility as undrawn at the report date.",
    "note_es": "El 10-K nombra la línea revolvente de 2026: un contrato de crédito del 29 de mayo de 2026 entre APLD Intermediate HoldCo LLC (y filiales garantes) y First National Bank of Omaha, que sustituyó la línea de US$65 M de 2025 (pp. 48 y 50); el 8-K del 9 de junio de 2026 es la presentación que devuelve el índice de EDGAR. FactSet registra la línea sin disponer a la fecha del reporte.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -213,8 +213,8 @@
    "note_en": "The 10-Q for 30 Jun 2026 lists the May 2026 Swiss franc-denominated notes: CHF 2.8bn, maturities 2029–2051, coupons 0.84%–2.08%, face value US$3,487m, which matches FactSet's US$3,496m (converted). Swiss franc notes are sold outside the SEC shelf, so there is no 424B; the 10-Q is the SEC document that names them.",
    "note_es": "El 10-Q al 30 de junio de 2026 enumera los bonos en francos suizos de mayo de 2026: CHF 2.8 mil M, vencimientos 2029–2051, cupones de 0.84% a 2.08%, valor nominal US$3,487 M, que coincide con los US$3,496 M de FactSet (convertidos). Los bonos en francos suizos se colocan fuera del programa registrado ante la SEC, por eso no hay 424B; el 10-Q es el documento ante la SEC que los nombra.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "filing": {
     "form": "10-Q",
@@ -269,8 +269,8 @@
     "quote": "Convertible Notes May 14, 2026 1.00 % 3,000,000"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -304,8 +304,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -338,8 +338,8 @@
     "quote": "On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -376,8 +376,8 @@
    "note_en": "FactSet dates the US$1.1bn term loan 30 Apr 2026; the 10-Q names the DDTL 5.0 Facility (US$3.1bn, 15 May 2026) and an 8-K exhibit of 18 May 2026 mentions it. The facility-to-record mapping is FNAM's reading.",
    "note_es": "FactSet fecha el préstamo a plazo de US$1.1 mil M el 30 abr 2026; el 10-Q nombra la línea DDTL 5.0 (US$3.1 mil M, 15 may 2026) y un anexo de 8-K del 18 may 2026 la menciona. La correspondencia línea-registro es lectura de FNAM.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -395,8 +395,8 @@
    "note_en": "The 10-K dates the US$300m Bridge Facility (Goldman Sachs, APLD ComputeCo 3) 1 May 2026; FactSet records 23 Apr 2026. It was refinanced on 16 Jun 2026 with the 7.000% notes due 2031 (10-K p. 51), after the 31 May 2026 balance date FactSet reports.",
    "note_es": "El 10-K fecha la línea puente de US$300 M (Goldman Sachs, APLD ComputeCo 3) el 1 may 2026; FactSet registra el 23 abr 2026. Se refinanció el 16 jun 2026 con las notas al 7.000% con vencimiento en 2031 (10-K p. 51), después de la fecha de balance del 31 may 2026 que FactSet reporta.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -430,8 +430,8 @@
     "quote": "$4.0 billion aggregate principal amount of 2032 Convertible Senior Notes"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -466,8 +466,8 @@
     "quote": "$2.8 billion aggregate principal amount of 2031 9.75% Senior Notes"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -504,8 +504,8 @@
    "note_en": "FactSet dates the US$2.8bn term loan 30 Mar 2026; an 8-K exhibit of 31 Mar 2026 mentions a delayed draw term loan and the 10-Q describes the non-recourse DDTL 4.0 Facility secured by CCAC VIII assets. The mapping is FNAM's reading.",
    "note_es": "FactSet fecha el préstamo a plazo de US$2.8 mil M el 30 mar 2026; un anexo de 8-K del 31 mar 2026 menciona un préstamo a plazo de disposición diferida y el 10-Q describe la línea DDTL 4.0 sin recurso garantizada con activos de CCAC VIII. La correspondencia es lectura de FNAM.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -536,8 +536,8 @@
    "note_en": "FactSet labels these notes senior unsecured; the 6-K of 20 Mar 2026 and its exhibits describe convertible notes due 2031 and 2033 (full-text hits for \"convertible\" and \"notes due 2031\").",
    "note_es": "FactSet etiqueta estas notas como senior no garantizadas; el 6-K del 20 mar 2026 y sus anexos describen notas convertibles con vencimiento en 2031 y 2033 (resultados de texto completo para «convertible» y «notes due 2031»).",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -569,8 +569,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -602,8 +602,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -637,8 +637,8 @@
     "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -654,8 +654,8 @@
     "quote": "All amounts borrowed under the Revolving Credit Agreement will become due on March 6, 2031"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -684,8 +684,8 @@
    "note_en": "Swiss franc, not euro: FactSet's tranches of 3 Mar 2026 carry Reg S identifiers and coupons of 0.43%–1.58%, which match the 10-Q's \"2026 Swiss franc notes\" (coupons 0.43%–1.87%, maturities 2029–2051, face value US$3,772m against FactSet's US$3,787m converted). The 10-Q for 30 Jun 2026 names the issue: CHF 3.1bn Swiss franc-denominated notes issued in the first quarter of 2026. Swiss franc notes are sold outside the SEC shelf, so there is no 424B.",
    "note_es": "Francos suizos, no euros: los tramos de FactSet del 3 de marzo de 2026 llevan identificadores Reg S y cupones de 0.43% a 1.58%, que coinciden con los «2026 Swiss franc notes» del 10-Q (cupones de 0.43% a 1.87%, vencimientos 2029–2051, valor nominal US$3,772 M frente a US$3,787 M convertidos por FactSet). El 10-Q al 30 de junio de 2026 nombra la emisión: CHF 3.1 mil M en bonos denominados en francos suizos emitidos en el primer trimestre de 2026. Los bonos en francos suizos se colocan fuera del programa registrado ante la SEC, por eso no hay 424B.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "textSrc": {
     "k": "GOOGL 10-Q 2026-06-30",
@@ -722,8 +722,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -764,8 +764,8 @@
    "note_en": "The 8-K of 4 Feb 2026 and the FWP of 2 Feb 2026 (US$25bn) match; the FY2026 10-K totals the year's senior notes at US$43.0bn (US$18bn Sep 2025 + US$25bn Feb 2026).",
    "note_es": "El 8-K del 4 feb 2026 y el FWP del 2 feb 2026 (US$25 mil M) coinciden; el 10-K del AF2026 totaliza las notas senior del año en US$43.0 mil M (US$18 mil M sep 2025 + US$25 mil M feb 2026).",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -777,8 +777,8 @@
    "note_en": "The series exists but FactSet's date is not an issue date: the 3.25% Convertible Senior Notes due 2030 were issued in December 2024 (indenture and form of note filed with the 6-K of 6 Dec 2024, listed as exhibits in the 10-K, p. 70). The FY2026 10-K records repurchases of these notes accounted for as induced conversions; the US$207.6m FactSet shows is what remained outstanding. Matched to the series, with the date caveat.",
    "note_es": "La serie existe, pero la fecha de FactSet no es de emisión: los bonos convertibles al 3.25% con vencimiento en 2030 se emitieron en diciembre de 2024 (contrato de emisión y modelo de título presentados con el 6-K del 6 de diciembre de 2024, listados como anexos en el 10-K, p. 70). El 10-K del año fiscal 2026 registra recompras de estos bonos contabilizadas como conversiones inducidas; los US$207.6 M de FactSet son el saldo que quedaba. Cotejado con la serie, con la salvedad de la fecha.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "filing": {
     "form": "10-K",
@@ -832,8 +832,8 @@
     "quote": "In December 2025, we issued $2.6 billion aggregate principal amount of 1.75% Convertible Senior Notes due 2031"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -870,8 +870,8 @@
     "quote": "Convertible Notes December 08, 2025 1.00 % 1,150,000"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -889,8 +889,8 @@
    "note_en": "The 2.75% convertible notes due 2030 (US$450m) were already outstanding at 31 May 2025 per the 10-Q table; FactSet's issue date of 2 Dec 2025 does not match the original issuance. Terms and amount confirmed; date not.",
    "note_es": "Las notas convertibles al 2.75% con vencimiento en 2030 (US$450 M) ya estaban vigentes al 31 may 2025 según la tabla del 10-Q; la fecha de emisión de FactSet (2 dic 2025) no coincide con la emisión original. Términos y monto confirmados; la fecha no.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -919,8 +919,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -955,8 +955,8 @@
     "quote": "The aggregate principal amount of Notes sold in the offering was $2.35 billion. The 2030 Notes were issued at a price equal to 97% of their aggregate principal amount."
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -996,8 +996,8 @@
     "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1026,8 +1026,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1062,8 +1062,8 @@
    "note_en": "Undrawn 364-day facility; the 10-Q confirms no borrowings under the Short-Term Credit Agreement at 31 Dec 2025 and 30 Jun 2026.",
    "note_es": "Línea de 364 días sin disponer; el 10-Q confirma que no había préstamos bajo el Short-Term Credit Agreement al 31 dic 2025 ni al 30 jun 2026.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1091,8 +1091,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1123,8 +1123,8 @@
    "note_en": "FactSet dates a US$3.0bn term loan 29 Sep 2025; an 8-K exhibit of 2 Oct 2025 (EX-10.1, a credit agreement) and a 424B3 of 26 Sep 2025 mention a term loan.",
    "note_es": "FactSet fecha un préstamo a plazo de US$3.0 mil M el 29 sep 2025; un anexo de 8-K del 2 oct 2025 (EX-10.1, contrato de crédito) y un 424B3 del 26 sep 2025 mencionan un préstamo a plazo.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1165,8 +1165,8 @@
    "note_en": "The 8-K of 26 Sep 2025 and the FWP of 24 Sep 2025 match; see the FY2026 10-K total of US$43.0bn.",
    "note_es": "El 8-K del 26 sep 2025 y el FWP del 24 sep 2025 coinciden; ver el total del 10-K del AF2026 de US$43.0 mil M.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1205,8 +1205,8 @@
     "quote": "In September 2025, we issued additional convertible notes in an aggregate principal amount of $3,162"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1245,8 +1245,8 @@
    "note_en": "FactSet dates a US$2.2bn term loan 28 Jul 2025; the 10-K describes the DDTL 3.0 Facility entered in July 2025 (up to US$2.6bn) and an 8-K exhibit of 31 Jul 2025 mentions it.",
    "note_es": "FactSet fecha un préstamo a plazo de US$2.2 mil M el 28 jul 2025; el 10-K describe la línea DDTL 3.0 celebrada en julio de 2025 (hasta US$2.6 mil M) y un anexo de 8-K del 31 jul 2025 la menciona.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1280,8 +1280,8 @@
     "quote": "In July 2025, we issued $1.75 billion in aggregate principal amount of 2031 Senior Notes."
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1309,8 +1309,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1346,8 +1346,8 @@
    "note_en": "The 20-F states US$1,000.0m issued in June 2025 in two equal tranches; FactSet shows US$975m outstanding (two tranches of US$487.5m), presumably after conversions or repurchases.",
    "note_es": "El 20-F indica US$1,000.0 M emitidos en junio de 2025 en dos tramos iguales; FactSet muestra US$975 M vigentes (dos tramos de US$487.5 M), presumiblemente tras conversiones o recompras.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1381,8 +1381,8 @@
     "quote": "In May 2025, we issued $2.0 billion in aggregate principal amount of 2030 Senior Notes."
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1419,8 +1419,8 @@
     "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1457,8 +1457,8 @@
     "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   },
   {
@@ -1470,8 +1470,8 @@
    "note_en": "The 10-Q for 30 Jun 2025 describes the facilities FactSet dates 15 Apr 2025: US$10.0bn of revolving credit, US$4.0bn expiring April 2026 (364-day) and US$6.0bn expiring April 2030 (five-year), undrawn. Credit agreements are not filed with a 424B; the 10-Q is the SEC document that names them.",
    "note_es": "El 10-Q al 30 de junio de 2025 describe las líneas que FactSet fecha el 15 de abril de 2025: US$10.0 mil M de crédito revolvente, US$4.0 mil M con vencimiento en abril de 2026 (364 días) y US$6.0 mil M en abril de 2030 (cinco años), sin disponer. Los contratos de crédito no se presentan con un 424B; el 10-Q es el documento ante la SEC que los nombra.",
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null,
    "filing": {
     "form": "10-Q",
@@ -1525,8 +1525,8 @@
     "method": "edgar-fts"
    },
    "status": "matched",
-   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
-   "verifiedOn": "2026-10-03",
+   "verifiedBy": "automated read, 3 Oct 2026 ET (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03T23:36:10Z",
    "reviewedBy": null
   }
  ]

@@ -42,7 +42,10 @@
 
   function header() {
     var withPt = S.sites.filter(function (s) { return s.lat != null; }).length;
-    set('asofRow', '<span><b>' + t('Sitios', 'Sites') + '</b> ' + S.sites.length + ' (' + (S.sites.length - withPt) + ' ' + t('sin ubicación revelada', 'location not disclosed') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.curatedDate(S) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(S.refreshedET) + '</span>');
+    set('asofRow', '<span><b>' + t('Sitios', 'Sites') + '</b> ' + S.sites.length + ' (' + (S.sites.length - withPt) + ' ' + t('sin ubicación revelada', 'location not disclosed') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.curatedDate(S) + '</span>' + H.buildRow());
+    // phones (under 600 px): the map, its controls and the "select a dot" prompt are hidden; this note takes their place
+    var byCo = {}; S.sites.forEach(function (s) { byCo[s.ticker] = (byCo[s.ticker] || 0) + 1; });
+    set('mapFallback', '<b>' + t('Mapa oculto en pantallas angostas.', 'Map hidden on narrow screens.') + '</b> ' + t('Los ' + S.sites.length + ' sitios (' + withPt + ' con localidad) están en la tabla de abajo, uno por tarjeta, con su ficha ⓘ: ', 'All ' + S.sites.length + ' sites (' + withPt + ' with a locality) are in the table below, one card each, with their ⓘ: ') + ORDER.filter(function (tk) { return byCo[tk]; }).map(function (tk) { return esc(nm(tk)) + ' ' + byCo[tk]; }).join(' · ') + '. <a href="#table">' + t('Ir a la tabla', 'Go to the table') + ' ↓</a>');
     set('notices', '<div class="notice warn"><b>' + t('Cobertura desigual.', 'Uneven coverage.') + '</b> ' + t('Las neonubes nombran sus campus en el 10-K; Microsoft, Alphabet y Amazon no nombran ninguno en sus presentaciones, y Meta solo sus coinversiones. Los campus de Oracle provienen de sus llamadas y comunicados (T2). La ausencia de un hiperescalador en el mapa es falta de divulgación, no falta de centros de datos.', 'The neoclouds name their campuses in the 10-K; Microsoft, Alphabet and Amazon name none in their filings, and Meta only its ventures. Oracle\'s campuses come from its calls and releases (T2). A hyperscaler missing from the map reflects missing disclosure, not missing data centers.') + '</div>');
   }
 

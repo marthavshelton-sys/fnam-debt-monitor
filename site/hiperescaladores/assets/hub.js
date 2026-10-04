@@ -49,6 +49,7 @@
   function mult(x, d) { return x == null || !isFinite(x) ? nm(t('EBITDA o intereses no positivos, o un insumo no divulgado', 'EBITDA or interest not positive, or an input not disclosed')) : num(x, d == null ? 1 : d) + 'x'; }
   function date(iso) {
     if (!iso) return '';
+    if (/^\d{4}-\d{2}-\d{2}T/.test(String(iso))) return etDate(iso);   // an instant: its ET calendar date, never the UTC day
     var m = /^(\d{4})-(\d{2})(?:-(\d{2}))?/.exec(String(iso));
     if (!m) return String(iso);
     return (m[3] ? (+m[3]) + ' ' : '') + MON[LANG][+m[2] - 1] + ' ' + m[1];
@@ -73,9 +74,9 @@
   };
   function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' || k === 'T4S' ? 'T4' : k === 'T2N' ? 'T2' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
   // the verification method, stated wherever a figure is called "verified" (owner's third review, 2026-10-03): the checks
-  // are an automated quote-match against the harvested filing page plus a second AI read; an analyst's sign-off is a
-  // separate field (reviewedBy) and is shown apart
-  var VERIF = { es: 'cotejo automático de la cita más una segunda lectura por IA; sin revisión de analista', en: 'automated quote-match plus a second AI read; not analyst-reviewed' };
+  // are an automated quote-match against the harvested filing page plus a second automated read; an analyst's sign-off is
+  // a separate field (reviewedBy) and is shown apart. No tool name is ever printed.
+  var VERIF = { es: 'cotejo automático de la cita más una segunda lectura automática; sin revisión de analista', en: 'automated quote-match plus a second automated read; not analyst-reviewed' };
   function verifText(reviewedBy) { return reviewedBy ? t('revisado por analista: ', 'analyst-reviewed: ') + esc(reviewedBy) : t(VERIF.es, VERIF.en); }
   // "needs review" and "mixed tag" are no longer printed in every cell: a small dot marks the cell (shaded by decorate()),
   // the reason is on hover, and the page's data-quality line counts them. Stale and age flags stay visible.
@@ -91,20 +92,32 @@
   // (none: the line does not exist for this company; text: the figure is in the filing text and shown from it; fy_only:
   // tagged only in the annual report; custom_tag: a company-specific tag the SEC API does not serve; not_disclosed:
   // searched and absent). The cell is not counted as "not tagged" in the data-quality line; the reason is on hover and in ⓘ.
-  var NTR = { none: ['no aplica', 'n/a'], text: ['texto', 'text'], fy_only: ['solo anual', 'annual only'], ytd_only: ['solo acumulado', 'YTD only'], custom_tag: ['etiqueta propia', 'custom tag'], not_disclosed: ['No divulgado', 'Not disclosed'], unknown: ['s.e.', 'n.t.'] };
+  var NTR = { none: ['no aplica', 'n/a'], text: ['texto', 'text'], fy_only: ['solo anual', 'annual only'], ytd_only: ['solo acumulado', 'YTD only'], last_tagged: ['última etiqueta', 'last tagged'], custom_tag: ['etiqueta propia', 'custom tag'], not_disclosed: ['No divulgado', 'Not disclosed'], unknown: ['s.e.', 'n.t.'] };
+  var NTS = { none: ['no aplica: la partida no existe para esta empresa', 'not applicable: the line does not exist for this company'], text: ['cifra leída del texto de la presentación (sin etiqueta XBRL estándar)', 'figure read from the filing text (no standard XBRL tag)'], fy_only: ['etiquetada solo en el informe anual', 'tagged only in the annual report'], ytd_only: ['etiquetada solo como acumulado del año (el trimestre se deriva o falta)', 'tagged only year-to-date (the quarter is derived or missing)'], last_tagged: ['la empresa dejó de etiquetar el concepto: se muestra el último valor con su fecha', 'the company stopped tagging the concept: the latest value is shown with its date'], custom_tag: ['la empresa usa una etiqueta propia que la API de la SEC no publica', 'the company uses a custom tag the SEC API does not serve'], not_disclosed: ['buscado en la presentación y ausente', 'searched in the filing and absent'], unknown: ['sin etiqueta XBRL; motivo no resuelto', 'not tagged in XBRL; reason not resolved'] };
   function ntReason(tk, metric) { var F = window.HYP_FIN; var L = (F && F.notTagged) || []; for (var i = 0; i < L.length; i++) if (L[i].ticker === tk && L[i].metric === metric) return L[i]; return null; }
-  // not-tagged cell with its reason when one is recorded, else the plain "n.t." mark; `amt` formats a text figure
+  // how a gap's explanation was established (check, from build.mjs): a quote matched on the cited page; a derivation from
+  // tagged facts; or an XBRL concept check / EDGAR full-text search alone, which the pages call "tag-checked", never "verified"
+  function ntCheck(r) { return r.check === 'quote' ? t('cita cotejada en la página citada de la presentación', 'quote matched on the cited filing page') : r.check === 'derived' ? t('derivado de hechos etiquetados y de líneas del estado de flujos (método abajo); cálculo FNAM', 'derived from tagged facts and cash-flow statement lines (method below); FNAM calculation') : r.check === 'quote_unmatched' ? t('la cita no está en la página citada del texto cosechado: por revisar', 'the quote is not on the cited page of the harvested text: needs review') : t('control de concepto XBRL o búsqueda de texto completo en EDGAR: etiqueta cotejada, no verificado', 'XBRL concept check or EDGAR full-text search: tag-checked, not verified'); }
+  // not-tagged cell with its reason when one is recorded, else the plain "n.t." mark; a text figure prints its amount; a
+  // derived trailing-twelve-month figure prints in TTM cells only (opts.ttm) with its method in the ⓘ card
   function ntCell(tk, metric, opts) {
     var r = ntReason(tk, metric);
     if (!r) return nt(opts && opts.why);
-    var lb = NTR[r.result] || NTR.unknown, lab = t(lb[0], lb[1]), note = r['note_' + LANG] || r.note_en || '';
-    var rows = [[t('Situación', 'Status'), t({ none: 'no aplica: la partida no existe para esta empresa', text: 'cifra leída del texto de la presentación (sin etiqueta XBRL estándar)', fy_only: 'etiquetada solo en el informe anual', ytd_only: 'etiquetada solo como acumulado del año (el trimestre se deriva o falta)', custom_tag: 'la empresa usa una etiqueta propia que la API de la SEC no publica', not_disclosed: 'buscado en la presentación y ausente', unknown: 'sin etiqueta XBRL; motivo no resuelto' }[r.result], { none: 'not applicable: the line does not exist for this company', text: 'figure read from the filing text (no standard XBRL tag)', fy_only: 'tagged only in the annual report', ytd_only: 'tagged only year-to-date (the quarter is derived or missing)', custom_tag: 'the company uses a custom tag the SEC API does not serve', not_disclosed: 'searched in the filing and absent', unknown: 'not tagged in XBRL; reason not resolved' }[r.result])], [t('Motivo', 'Reason'), note]];
+    var lb = NTR[r.result] || NTR.unknown, lab = t(lb[0], lb[1]), note = r['note_' + LANG] || r.note_en || '', st = NTS[r.result] || NTS.unknown;
+    var d = r.derived && opts && opts.ttm ? r.derived : null;
+    var rows = [[t('Situación', 'Status'), t(st[0], st[1])], [t('Motivo', 'Reason'), note], [t('Cómo se estableció', 'How it was established'), ntCheck(r)]];
     if (r.evidence) rows.push([t('Evidencia', 'Evidence'), r.evidence[LANG] || r.evidence.en || r.evidence]);
+    if (d) {
+      rows.push([t('Derivación (cálculo FNAM)', 'Derivation (FNAM calculation)'), d['method_' + LANG] || d.method_en]);
+      rows.push([t('Insumos', 'Inputs'), (d.inputs || []).map(function (x) { return x.period + ': ' + (x.amountUSDm != null ? money(x.amountUSDm * 1e6).replace(/<[^>]+>/g, '') : '') + ' (' + x.tag + ' · ' + x.accn + ')'; }).join(' · ')]);
+      if ((d.zeroPeriods || []).length) rows.push([t('Periodos leídos como cero', 'Periods read as zero'), d.zeroPeriods.map(function (z) { return z.period + ' (' + z.accn + '): ' + (z['why_' + LANG] || z.why_en); }).join(' · ')]);
+    }
     rows = rows.concat(citeRows(r.src));
     if (!r.src && r.accn) rows.push([t('Presentación', 'Filing'), (r.form || '') + ' · ' + r.accn]);
     var card = src({ title: (window.HYP_FIN && window.HYP_FIN.companies[tk] ? window.HYP_FIN.companies[tk].name : tk) + ' · ' + ((window.HYP_FIN && window.HYP_FIN.defs[metric]) ? window.HYP_FIN.defs[metric][LANG] : metric), rows: rows, url: (r.src && r.src.url) || (r.url || null) });
+    if (d) return '<span class="ntx-val">' + money(d.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(d['method_' + LANG] || d.method_en) + '">' + t('derivado', 'derived') + ' · ' + esc(d.period) + '</span>';
     if (r.result === 'text' && r.amountUSDm != null) return '<span class="ntx-val">' + money(r.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(note) + '">' + lab + (r.asOf ? ' · ' + date(r.asOf) : '') + '</span>';
-    if ((r.result === 'fy_only' || r.result === 'ytd_only') && r.amountUSDm != null) return '<span class="ntx-val">' + money(r.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(note) + '">' + lab + (r.period ? ' · ' + esc(r.period) : '') + '</span>';
+    if ((r.result === 'fy_only' || r.result === 'ytd_only' || r.result === 'last_tagged') && r.amountUSDm != null) return '<span class="ntx-val">' + money(r.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(note) + '">' + lab + (r.period ? ' · ' + esc(r.period) : '') + '</span>';
     return '<span class="nd nx" title="' + esc(note) + '" aria-label="' + esc(note) + '">' + lab + '</span>' + card;
   }
 
@@ -158,7 +171,7 @@
     var parts = [];
     if (o.tier) parts.push(tier(o.tier));
     if (o.asOf) parts.push('<span><b>' + t('Al cierre de', 'As of') + '</b> ' + esc(o.asOf) + '</span>');
-    parts.push('<span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(o.refreshed || F.refreshedET || '') + '</span>');
+    parts.push('<span><b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(o.refreshed || F.refreshedET || '') + '</span>');
     if (o.sources && o.sources.length) parts.push('<span>' + t('Fuente', 'Source') + ': ' + o.sources.map(function (s) { return s.url ? '<a href="' + esc(s.url) + '" target="_blank" rel="noopener">' + esc(s.label) + '</a>' : esc(s.label); }).join(' · ') + '</span>');
     if (o.note) parts.push('<span>' + o.note + '</span>');
     if (o.csv) parts.push('<a class="csv" href="' + esc(o.csv) + '" download>CSV ↓</a>');
@@ -219,11 +232,42 @@
   function plain(v) { return String(v == null ? '' : v).replace(/\s*\((?:[^()]*?\s)?(?:tools|scripts|site)\/[^()]*\)/g, '').replace(/\s*(?:tools|scripts)\/[\w./<>-]+/g, ''); }
   function cite(title, s, extra) { return s ? src({ title: title, rows: citeRows(s).concat(extra || []), url: s.url || null }) : ''; }
   function status(st, reviewedBy) { return st === 'verified' ? '<span class="vchk' + (reviewedBy ? ' an' : '') + '" title="' + esc(t('Verificado: ', 'Verified: ') + verifText(reviewedBy)) + '">✓</span>' : st === 'company_statement' ? '' : flag('review', t('cifra leída del texto, pendiente de la segunda lectura automática de la página citada', 'figure read from the text, pending the automated second read of the cited page')); }
-  // "verified N of M · analyst-reviewed R of M" for a list of curated items (each with status / reviewedBy)
+  // a curated item counts as verified only with stored evidence: its quote matched on the cited harvested page (quoteCheck
+  // "page", on the item or its citation). A term sheet read twice has no harvested text to match and keeps its status.
+  function quoteOk(i) { var s = i.src || null, qc = s && s.quoteCheck != null ? s.quoteCheck : i.quoteCheck; if (qc != null) return qc === 'page'; return !s && !i.filing; }
+  // "verified N of M (method) · K tag-checked · analyst-reviewed R of M" for a list of curated items (status / check / reviewedBy)
   function verifSummary(items) {
-    var n = items.length, v = items.filter(function (i) { return i.status === 'verified'; }).length, r = items.filter(function (i) { return i.reviewedBy; }).length;
-    return '<span class="vsum" title="' + esc(t('Verificado = ', 'Verified = ') + VERIF[LANG] + t('. Revisado por analista = firma de una persona en el campo reviewedBy.', '. Analyst-reviewed = a person\'s sign-off in the reviewedBy field.')) + '">' + t(v + ' de ' + n + ' verificadas (' + VERIF.es + ') · revisadas por analista: ' + r + ' de ' + n, v + ' of ' + n + ' verified (' + VERIF.en + ') · analyst-reviewed: ' + r + ' of ' + n) + '</span>';
+    var n = items.length, v = items.filter(function (i) { return i.status === 'verified' && i.check !== 'xbrl_concept' && quoteOk(i); }).length, tg = items.filter(function (i) { return i.status === 'verified' && i.check === 'xbrl_concept'; }).length, r = items.filter(function (i) { return i.reviewedBy; }).length;
+    return '<span class="vsum" title="' + esc(t('Verificado = ', 'Verified = ') + VERIF[LANG] + t('; solo cuenta con la cita cotejada en la página citada. Etiqueta cotejada = control de concepto XBRL o búsqueda de texto completo, sin cita. Revisado por analista = firma de una persona en el campo reviewedBy.', '; counted only with the quote matched on the cited page. Tag-checked = an XBRL concept check or full-text search, no quote. Analyst-reviewed = a person\'s sign-off in the reviewedBy field.')) + '">' + t(v + ' de ' + n + ' verificadas (' + VERIF.es + ')' + (tg ? ' · ' + tg + ' con etiqueta cotejada, no verificadas' : '') + ' · revisadas por analista: ' + r + ' de ' + n, v + ' of ' + n + ' verified (' + VERIF.en + ')' + (tg ? ' · ' + tg + ' tag-checked, not verified' : '') + ' · analyst-reviewed: ' + r + ' of ' + n) + '</span>';
   }
+  // header fields every page shares, kept apart: the build time (one stamp per rebuild) and the last successful EDGAR poll
+  function buildRow() {
+    var F = window.HYP_FIN || {}, S = window.HYP_STATUS || {};
+    var poll = S.lastEdgarSuccessET || (S.lastEdgarSuccess ? etTime(S.lastEdgarSuccess) : '');
+    return '<span><b>' + t('Datos reconstruidos', 'Data rebuilt') + '</b> ' + esc(S.refreshedET || F.refreshedET || '') + '</span>' + (poll ? '<span><b>' + t('Última consulta a EDGAR', 'Last EDGAR poll') + '</b> ' + esc(poll) + '</span>' : '');
+  }
+  // older than two quarters: more than two calendar quarter-ends have passed since the value's date (computed in the browser)
+  function oldQ(end, today) {
+    if (!end) return false;
+    var d = new Date(String(end).slice(0, 10) + 'T12:00:00Z'), now = new Date((today || new Date().toISOString().slice(0, 10)) + 'T12:00:00Z');
+    var m = d.getUTCMonth(), q = new Date(Date.UTC(d.getUTCFullYear(), m - (m % 3) + 3, 0)), n = 0;
+    if (q <= d) q = new Date(Date.UTC(q.getUTCFullYear(), q.getUTCMonth() + 4, 0));
+    while (q <= now && n < 40) { n++; q = new Date(Date.UTC(q.getUTCFullYear(), q.getUTCMonth() + 4, 0)); }
+    return n > 2;
+  }
+  function oldFlag(end) { return oldQ(end) && !aged(end) ? ' <span class="flag old2" title="' + esc(t('Dato de hace más de dos trimestres; se revisa si hay una presentación más reciente (la ficha dice cuál se buscó)', 'Value more than two quarters old; newer filings are checked (the card says which were searched)')) + '">' + t('> 2 trim.', '> 2 qtrs') + '</span>' : ''; }
+  // committed ÷ operating multiple: when the operating figure is a rounded "approximately" number the filing itself rounds,
+  // the quotient is an order of magnitude ("more than 10x") with the note, never a decimal
+  function capMult(b, a) {
+    var r = b.mw / a.mw;
+    if (a.qualifier === 'approx' && a.rounded_en) { var fl = r >= 10 ? Math.floor(r / 10) * 10 : Math.floor(r); return { r: r, text: t('más de ' + num(fl, 0) + ' veces', 'more than ' + num(fl, 0) + 'x'), short: '> ' + num(fl, 0) + 'x', note: a['rounded_' + LANG] || a.rounded_en, approx: true }; }
+    var ap = !!(a.qualifier || b.qualifier);
+    return { r: r, text: (ap ? '≈ ' : '') + num(r, 1) + (LANG === 'es' ? ' veces' : 'x'), short: (ap ? '≈ ' : '') + num(r, 1) + 'x', note: ap ? t('cifras «más de» / «aprox.» en la presentación: el múltiplo es aproximado', '"over" / "approx." figures in the filing: the multiple is approximate') : null, approx: ap };
+  }
+  // leases signed but not commenced against recognized payments: within ±5% of 1.0x the two are "about equal", not "exceed"
+  function leaseCmp(r) { return r > 1.05 ? 'above' : r < 0.95 ? 'below' : 'equal'; }
+  function leaseCmpText(r) { var k = leaseCmp(r); return k === 'equal' ? t('casi iguales', 'about equal') : k === 'above' ? t('superan', 'exceed') : t('no alcanzan', 'fall short of'); }
+  function narrow() { return window.innerWidth < 640; }
   // T3/T4 freshness: amber after the publisher's next expected edition + 30 days (computed in the reader's browser)
   function staleT3(next, today) {
     if (!next) return { stale: false };
@@ -247,7 +291,7 @@
     return now - Date.parse(String(end).slice(0, 10) + 'T12:00:00Z') > 365 * 864e5;
   }
   function agedCell(html, end) {
-    if (!aged(end)) return html;
+    if (!aged(end)) return html + oldFlag(end);
     return '<span class="aged" title="' + esc(t('Dato de hace más de 12 meses: no se usa en totales ni indicadores', 'Value more than 12 months old: not used in totals or indicators')) + '">' + html + '</span> <span class="flag old">' + t('> 12 meses', '> 12 months') + '</span><br><span class="small muted">' + t('al ', 'at ') + date(end) + '</span>';
   }
   // capex / operating cash flow: "n.s." when the flow is zero or negative, or smaller than a fifth of capex (ratio above
@@ -408,8 +452,21 @@
         tbl.dataset.sorted = '1';
       });
       document.querySelectorAll('[data-keycols]').forEach(keyCols);
-      cards(); shade(); dqLine();
+      cards(); shade(); dqLine(); foldM();
     } finally { busy = false; flushMO(); }
+  }
+  // phones: secondary tables (cards marked data-fold) start folded behind a button, so the longest pages scroll less
+  function foldM() {
+    document.querySelectorAll('.card[data-fold]').forEach(function (card) {
+      var b = card.querySelector(':scope > .fold-btn');
+      var lbl = card.getAttribute('data-fold-' + LANG) || t('Mostrar tabla', 'Show table');
+      if (b) { b.querySelector('span').textContent = lbl; return; }
+      if (window.innerWidth > 640) return;
+      b = document.createElement('button'); b.type = 'button'; b.className = 'fold-btn'; b.setAttribute('aria-expanded', 'false');
+      b.innerHTML = '<span>' + esc(lbl) + '</span><span class="chev" aria-hidden="true">+</span>';
+      card.classList.add('folded'); card.insertBefore(b, card.firstChild);
+      b.addEventListener('click', function () { var folded = card.classList.toggle('folded'); b.setAttribute('aria-expanded', String(!folded)); b.querySelector('.chev').textContent = folded ? '+' : '–'; });
+    });
   }
   // our own DOM changes (sorting, toggles, glossary marks) must not wake the observer that watches for re-renders
   var MO = null;
@@ -480,22 +537,30 @@
   var MODULE_IDS = ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'];
   function dqLatest(c) { return c.latest ? c.quarters.filter(function (q) { return q.id === c.latest.id; })[0] : null; }
   function dqLastWith(c, k) { for (var i = c.quarters.length - 1; i >= 0; i--) if (c.quarters[i].m[k]) return c.quarters[i]; return null; }
-  function dqNew(id) { return { id: id, ok: 0, review: [], nt: [], explained: [], statements: 0, secondary: 0, curated: { n: 0, verified: 0, reviewed: 0 } }; }
+  // Three kinds of credit, never blended (owner's fourth review): quote = a quoted sentence matched on the cited harvested
+  // page (text items, 424B totals, filings found by EDGAR's index, term sheets read twice); tag = a value under a standard
+  // XBRL concept that passes the identity checks; present = a figure FNAM computes from those inputs (TTM sums, ratios,
+  // derived trailing figures). Explained gaps and unexplained "not tagged" cells are counted apart and enter the "all
+  // figures" denominator; "needs review" items are shown with their reason.
+  function dqNew(id) { return { id: id, quote: 0, tag: 0, present: 0, review: [], nt: [], explained: [], statements: 0, secondary: 0, curated: { n: 0, verified: 0, tagChecked: 0, reviewed: 0, t1: 0, t2: 0 } }; }
   function dqItem(D, kind, who, what, why, href) { D[kind].push({ who: who, what: what, why: why || '', href: href || null }); }
-  function dqCurated(D, items) { items.forEach(function (i) { D.curated.n++; if (i.status === 'verified') D.curated.verified++; if (i.reviewedBy) D.curated.reviewed++; }); }
-  // an XBRL-fed cell: present → ok (or review when flagged); absent → explained (curated reason) or not tagged
-  function dqXbrl(D, c, k, present, flagged, what, why) {
+  function dqCurated(D, items) { items.forEach(function (i) { D.curated.n++; if (i.status === 'verified' && i.check === 'xbrl_concept') D.curated.tagChecked++; else if ((i.status === 'verified' || i.status === 'matched') && quoteOk(i)) D.curated.verified++; if (i.reviewedBy) D.curated.reviewed++; }); }
+  // an XBRL-fed cell: present → tag-matched (or review when flagged); absent → a derived trailing figure counts as a value
+  // present (TTM cells only), else explained (curated reason) or not tagged
+  function dqXbrl(D, c, k, present, flagged, what, why, opts) {
     var F = window.HYP_FIN, name = c.name, label = (F.defs[k] ? F.defs[k][LANG] : k) + (what ? ' · ' + what : '');
-    if (present) { if (flagged) dqItem(D, 'review', name, label, why || t('falla un control de identidad o de valores atípicos', 'fails an identity or outlier check')); else D.ok++; return; }
+    if (present) { if (flagged) dqItem(D, 'review', name, label, why || t('falla un control de identidad o de valores atípicos', 'fails an identity or outlier check')); else D.tag++; return; }
     var r = ntReason(c.ticker, k);
+    if (r && r.derived && opts && opts.ttm) { D.present++; return; }
     if (r && r.result !== 'unknown') dqItem(D, 'explained', name, label, t(NTR[r.result][0], NTR[r.result][1]) + ': ' + (r['note_' + LANG] || r.note_en || ''));
     else dqItem(D, 'nt', name, label, r ? (r['note_' + LANG] || r.note_en || '') : t('sin etiqueta XBRL estándar; motivo no registrado', 'no standard XBRL tag; reason not recorded'));
   }
+  // text items: credited only with the stored quote check on the cited page (no default); the reason otherwise
   function dqText(D, items, who, what) {
     items.forEach(function (i) {
-      var s = i.src || (i.filing ? { quoteCheck: 'page' } : null);
-      var okQ = !s || s.quoteCheck === 'page' || s.quoteCheck == null;
-      if (i.status === 'verified' && okQ) D.ok++; else dqItem(D, 'review', who(i), what(i), i.status !== 'verified' ? t('pendiente de la segunda lectura automática', 'pending the automated second read') : t('la cita no está en la página citada', 'quote not on the cited page'));
+      var s = i.src || null, qc = s && s.quoteCheck != null ? s.quoteCheck : i.quoteCheck;
+      if (i.status === 'verified' && quoteOk(i)) D.quote++;
+      else dqItem(D, 'review', who(i), what(i), i.status !== 'verified' ? (i['reviewNote_' + LANG] || i.reviewNote_en || t('pendiente de la segunda lectura automática', 'pending the automated second read')) : qc === 'other_page' ? t('la cita está en otra página del texto cosechado', 'the quote is on another page of the harvested text') : qc == null ? t('cita sin cotejar contra la página citada', 'quote not checked against the cited page') : t('la cita no está en la página citada', 'quote not on the cited page'));
     });
     dqCurated(D, items);
   }
@@ -506,17 +571,18 @@
       cos.forEach(function (c) {
         var q = dqLatest(c); if (!q) return;
         var i = c.quarters.indexOf(q), four = c.quarters.slice(Math.max(0, i - 3), i + 1);
-        ttmK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; var fl = four.some(function (x) { return x.m[k] && x.m[k][4]; }); dqXbrl(D, c, k, pres, fl, t('UDM', 'TTM'), fl ? t('un trimestre de la suma falla un control (ver la ficha ⓘ)', 'one quarter in the sum fails a check (see the ⓘ card)') : ''); });
-        derK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; if (pres) { D.ok++; return; } var dep = k === 'capex_incl_fl' ? 'fl_additions' : k === 'fcf_after_fl' ? 'fl_principal' : 'ocf'; dqXbrl(D, c, dep, false, false, t('insumo de ', 'input of ') + k.replace(/_/g, ' ')); });
+        ttmK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; var fl = four.some(function (x) { return x.m[k] && x.m[k][4]; }); dqXbrl(D, c, k, pres, fl, t('UDM', 'TTM'), fl ? t('un trimestre de la suma falla un control (ver la ficha ⓘ)', 'one quarter in the sum fails a check (see the ⓘ card)') : '', { ttm: true }); });
+        derK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; if (pres) { D.present++; return; } var dep = k === 'capex_incl_fl' ? 'fl_additions' : k === 'fcf_after_fl' ? 'fl_principal' : 'ocf'; dqXbrl(D, c, dep, false, false, t('insumo de ', 'input of ') + k.replace(/_/g, ' '), '', { ttm: true }); });
         var bq = dqLastWith(c, 'debt') || q;
         balK.forEach(function (k) { dqXbrl(D, c, k, !!bq.m[k], bq.m[k] && bq.m[k][4], date(bq.end)); });
         if (bq.d && bq.d.lease_adj_net_debt == null && bq.m.debt) dqXbrl(D, c, 'fl_liab', false, false, t('insumo de deuda neta ajustada', 'input of lease-adjusted net debt'));
+        // the FactSet cross-check confirms a debt figure already counted; only a miss is listed
         var fs = F.debt && F.debt.totals[c.ticker];
-        if (fs && bq.m.debt && fs.report === bq.end) { if (Math.abs(fs.total * 1e6 - bq.m.debt[0]) / Math.max(1, Math.abs(bq.m.debt[0])) <= 0.02) D.ok++; else dqItem(D, 'review', c.name, t('deuda total: XBRL vs. FactSet', 'total debt: XBRL vs FactSet'), t('difieren más de 2% a la misma fecha', 'differ by more than 2% at the same date')); }
+        if (fs && bq.m.debt && fs.report === bq.end && Math.abs(fs.total * 1e6 - bq.m.debt[0]) / Math.max(1, Math.abs(bq.m.debt[0])) > 0.02) dqItem(D, 'review', c.name, t('deuda total: XBRL vs. FactSet', 'total debt: XBRL vs FactSet'), t('difieren más de 2% a la misma fecha', 'differ by more than 2% at the same date'));
       });
       ((F.debt && F.debt.deals) || []).forEach(function (d) {
         var who = (F.companies[d.ticker] || {}).name || d.ticker, what = date(d.issued) + ' · ' + d.klass + (d.amount ? ' · ' + money(d.amount * 1e6).replace(/<[^>]+>/g, '') : '');
-        if (d.match || (d.fs && d.fs.result === 'filing')) D.ok++;
+        if (d.match || (d.fs && d.fs.result === 'filing')) D.quote++;
         else if (d.fs && d.fs.result === 'partial') dqItem(D, 'explained', who, what, t('cotejo parcial: ', 'partial match: ') + (d.fs['note_' + LANG] || d.fs.note_en || ''));
         else dqItem(D, 'review', who, what, d.fs ? (d.fs['note_' + LANG] || d.fs.note_en || t('sin resolver', 'unresolved')) : t('solo FactSet: sin presentación cotejada', 'FactSet only: no filing matched'));
       });
@@ -532,23 +598,27 @@
       });
       return D;
     },
-    capacidad: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('capacidad'); dqText(D, C.current, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); if (C.oracle) D.statements += (C.oracle.quarters || []).length + (C.oracle.fiscalYears || []).length; return D; },
-    comprometida: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('comprometida'); var t1 = C.pipeline.filter(function (x) { return x.tier !== 'T2'; }); dqText(D, t1, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.statements += C.pipeline.length - t1.length; return D; },
-    electricidad: function () { var P = window.HYP_POWER, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('electricidad'); P.companyDeals.forEach(function (d) { if (d.src && d.src.tier === 'T1') { if (d.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', F.companies[d.ticker].name, d.counterparty || d.counterparty_en || d.id, t('la cita no está en la página citada', 'quote not on the cited page')); } else D.statements++; }); D.curated.n = P.companyDeals.length; D.curated.verified = P.companyDeals.filter(function (d) { return d.src && d.src.quoteCheck === 'page'; }).length; D.curated.reviewed = P.companyDeals.filter(function (d) { return d.reviewedBy; }).length; return D; },
-    sitios: function () { var S = window.HYP_SITES, F = window.HYP_FIN; if (!S || !F) return null; var D = dqNew('sitios'); S.sites.forEach(function (x) { if (x.src && x.src.tier === 'T1') { if (x.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', F.companies[x.ticker].name, x.name || x.name_en, t('la cita no está en la página citada', 'quote not on the cited page')); } else D.statements++; }); D.curated.n = S.sites.length; D.curated.verified = S.sites.filter(function (x) { return x.src && x.src.quoteCheck === 'page'; }).length; D.curated.reviewed = S.sites.filter(function (x) { return x.reviewedBy; }).length; return D; },
-    circular: function () { var C = window.HYP_CIRC; if (!C) return null; var D = dqNew('circular'); C.flows.forEach(function (f) { if (f.src && f.src.tier === 'T1') { if (f.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', f.from + ' → ' + f.to, f.type, t('la cita no está en la página citada', 'quote not on the cited page')); } else if (f.pending_en) dqItem(D, 'review', f.from + ' → ' + f.to, f.type, f['pending_' + LANG] || f.pending_en); else D.statements++; }); D.curated.n = C.flows.length; D.curated.verified = C.flows.filter(function (f) { return f.src && f.src.quoteCheck === 'page'; }).length; D.curated.reviewed = C.flows.filter(function (f) { return f.reviewedBy; }).length; return D; },
+    capacidad: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('capacidad'); dqText(D, C.current, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.curated.t1 = C.current.length; if (C.oracle) D.statements += (C.oracle.quarters || []).length + (C.oracle.fiscalYears || []).length; return D; },
+    comprometida: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('comprometida'); var t1 = C.pipeline.filter(function (x) { return x.tier !== 'T2'; }); dqText(D, t1, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.curated.t1 = t1.length; D.statements += C.pipeline.length - t1.length; return D; },
+    electricidad: function () { var P = window.HYP_POWER, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('electricidad'); P.companyDeals.forEach(function (d) { if (d.src && d.src.tier === 'T1') { D.curated.t1++; if (d.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', F.companies[d.ticker].name, d.counterparty || d.counterparty_en || d.id, t('la cita no está en la página citada', 'quote not on the cited page')); } else { D.statements++; D.curated.t2++; } }); D.curated.n = P.companyDeals.length; D.curated.verified = P.companyDeals.filter(function (d) { return d.src && d.src.quoteCheck === 'page'; }).length; D.curated.reviewed = P.companyDeals.filter(function (d) { return d.reviewedBy; }).length; return D; },
+    sitios: function () { var S = window.HYP_SITES, F = window.HYP_FIN; if (!S || !F) return null; var D = dqNew('sitios'); S.sites.forEach(function (x) { if (x.src && x.src.tier === 'T1') { D.curated.t1++; if (x.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', F.companies[x.ticker].name, x.name || x.name_en, t('la cita no está en la página citada', 'quote not on the cited page')); } else { D.statements++; D.curated.t2++; } }); D.curated.n = S.sites.length; D.curated.verified = S.sites.filter(function (x) { return x.src && x.src.quoteCheck === 'page'; }).length; D.curated.reviewed = S.sites.filter(function (x) { return x.reviewedBy; }).length; return D; },
+    circular: function () { var C = window.HYP_CIRC; if (!C) return null; var D = dqNew('circular'); C.flows.forEach(function (f) { if (f.src && f.src.tier === 'T1') { D.curated.t1++; if (f.src.quoteCheck === 'page') D.quote++; else dqItem(D, 'review', f.from + ' → ' + f.to, f.type, t('la cita no está en la página citada', 'quote not on the cited page')); } else if (f.pending_en) { D.curated.t1++; dqItem(D, 'review', f.from + ' → ' + f.to, f.type, f['pending_' + LANG] || f.pending_en); } else { D.statements++; D.curated.t2++; } }); D.curated.n = C.flows.length; D.curated.verified = C.flows.filter(function (f) { return f.src && f.src.quoteCheck === 'page'; }).length; D.curated.reviewed = C.flows.filter(function (f) { return f.reviewedBy; }).length; return D; },
     retorno: function () {
       var P = window.HYP_PAY, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('retorno');
       var items = [].concat(P.segments, P.rpoTiming, P.usefulLives, P.capexPerMW);
       dqText(D, items, function (x) { return F.companies[x.ticker].name; }, function (x) { return x.segment_en ? x['segment_' + LANG] : x.rpoUSDm ? 'RPO' : x.servers_en ? t('vida útil', 'useful life') : t('capex por GW', 'capex per GW'); });
-      P.termSheets.forEach(function (x) { if (x.status === 'verified') D.ok++; else dqItem(D, 'review', F.companies[x.ticker].name, x.form + ' ' + date(x.date), t('hoja de términos pendiente de segunda lectura', 'term sheet pending second read')); }); dqCurated(D, P.termSheets);
-      P.ratings.forEach(function (r) { r.items.forEach(function (it) { if (it.supersededBy) return; if (it.tier === 'T1') D.ok++; else D.secondary++; }); });
-      Object.keys(F.companies).forEach(function (k) { var c = F.companies[k], q = dqLatest(c); if (!q) return; dqXbrl(D, c, 'interest_paid', q.ttm && q.ttm.interest_paid != null, false, t('UDM', 'TTM')); });
+      P.termSheets.forEach(function (x) { if (x.status === 'verified') D.quote++; else dqItem(D, 'review', F.companies[x.ticker].name, x.form + ' ' + date(x.date), t('hoja de términos pendiente de segunda lectura', 'term sheet pending second read')); }); dqCurated(D, P.termSheets);
+      D.curated.t1 = D.curated.n;
+      P.ratings.forEach(function (r) { r.items.forEach(function (it) { if (it.supersededBy) return; if (it.tier === 'T1') D.quote++; else D.secondary++; }); });
+      Object.keys(F.companies).forEach(function (k) { var c = F.companies[k], q = dqLatest(c); if (!q) return; dqXbrl(D, c, 'interest_paid', q.ttm && q.ttm.interest_paid != null, false, t('UDM', 'TTM'), '', { ttm: true }); });
       return D;
     }
   };
   function dqModule(id) { var f = DQ[id]; if (!f) return null; try { return f(); } catch (e) { console.error(e); return null; } }
-  function dqPct(D) { var shown = D.ok + D.review.length; return { shown: shown, pct: shown ? Math.round(D.ok / shown * 100) : 100 }; }
+  // two shares, both stated: of all figures (explained gaps and unexplained cells in the denominator) and of figures with a value
+  function dqPct(D) { var ok = D.quote + D.tag + D.present, shown = ok + D.review.length, all = shown + D.explained.length + D.nt.length; return { ok: ok, shown: shown, all: all, pct: shown ? Math.round(ok / shown * 100) : 100, pctAll: all ? Math.round(ok / all * 100) : 100 }; }
+  function dqKinds(D) { return t(D.quote + ' con cita cotejada, ' + D.tag + ' con etiqueta XBRL cotejada, ' + D.present + ' valores presentes (cálculo FNAM)', D.quote + ' quote-matched, ' + D.tag + ' XBRL tag-matched, ' + D.present + ' values present (FNAM calculation)'); }
+  function dqAnalyst(D) { if (!D.curated.n) return ''; var mix = D.curated.t1 && D.curated.t2 ? ' (' + t(D.curated.t1 + ' cifras T1 y ' + D.curated.t2 + ' declaraciones T2', D.curated.t1 + ' T1 figures and ' + D.curated.t2 + ' T2 statements') + ')' : ''; return ' · ' + t('revisadas por analista: ' + D.curated.reviewed + ' de ' + D.curated.n + ' partidas curadas', 'analyst-reviewed: ' + D.curated.reviewed + ' of ' + D.curated.n + ' curated items') + mix + (D.curated.tagChecked ? ' · ' + t(D.curated.tagChecked + ' huecos con etiqueta cotejada (control de concepto, no verificados)', D.curated.tagChecked + ' gaps tag-checked (concept check, not verified)') : ''); }
   function dqList(D) {
     var li = function (kind, label) { return D[kind].length ? '<li><span class="k">' + label + '</span> ' + D[kind].map(function (x) { return '<b>' + esc(x.who) + '</b> · ' + esc(plain(x.what)) + (x.why ? ' <span class="muted">(' + esc(plain(x.why)) + ')</span>' : ''); }).join('; ') + '</li>' : ''; };
     return '<ul>' + li('review', t('Por revisar', 'Needs review')) + li('nt', t('Sin etiqueta XBRL', 'Not tagged')) + li('explained', t('Huecos explicados', 'Explained gaps')) + '</ul>';
@@ -559,28 +629,31 @@
     if (!host) { var a = document.getElementById('asofRow'); if (!a) return; host = document.createElement('div'); host.id = 'dqLine'; host.className = 'dq-line'; a.parentNode.insertBefore(host, a.nextSibling); }
     if (!mid) { host.innerHTML = ''; return; }
     var D = dqModule(mid); if (!D) { host.innerHTML = ''; return; }
-    var P = dqPct(D), open = location.hash === '#dq';
-    host.innerHTML = '<b>' + t('Calidad de los datos', 'Data quality') + '</b> ' + t(P.pct + '% de las ' + P.shown + ' cifras de esta página está verificado o cotejado (' + VERIF.es + ')', P.pct + '% of the ' + P.shown + ' figures on this page are verified or matched (' + VERIF.en + ')') +
-      (D.curated.n ? ' · ' + t('revisadas por analista: ' + D.curated.reviewed + ' de ' + D.curated.n + ' partidas curadas', 'analyst-reviewed: ' + D.curated.reviewed + ' of ' + D.curated.n + ' curated items') : '') +
+    var P = dqPct(D), open = location.hash === '#dq', gaps = D.explained.length + D.nt.length;
+    host.innerHTML = '<b>' + t('Calidad de los datos', 'Data quality') + '</b> ' + t(P.pctAll + '% de las ' + P.all + ' cifras de esta página está verificado o cotejado' + (gaps ? ' (incluye ' + gaps + ' huecos en el denominador)' : '') + '; ' + P.pct + '% de las ' + P.shown + ' cifras con valor', P.pctAll + '% of all ' + P.all + ' figures on this page are verified or matched' + (gaps ? ' (' + gaps + ' gaps in the denominator)' : '') + '; ' + P.pct + '% of the ' + P.shown + ' figures with a value') + ' · ' + dqKinds(D) + ' · ' + t('verificado = ', 'verified = ') + VERIF[LANG] +
+      dqAnalyst(D) +
       (D.review.length ? ' · <span class="sw-review"></span>' + t(D.review.length + ' por revisar', D.review.length === 1 ? '1 needs review' : D.review.length + ' need review') : '') +
       (D.nt.length ? ' · <span class="sw-nt"></span>' + t(D.nt.length + ' sin etiqueta XBRL sin explicar', D.nt.length + ' not tagged in XBRL, unexplained') : '') +
-      (D.explained.length ? ' · ' + t(D.explained.length + ' huecos explicados (n/a, texto, solo anual)', D.explained.length + ' explained gaps (n/a, text, annual only)') : '') +
+      (D.explained.length ? ' · ' + t(D.explained.length + ' huecos explicados (n/a, texto, solo anual, última etiqueta)', D.explained.length + ' explained gaps (n/a, text, annual only, last tagged)') : '') +
       (D.statements ? ' · ' + t(D.statements + ' declaraciones de la empresa (T2)', D.statements + ' company statements (T2)') : '') + (D.secondary ? ' · ' + t(D.secondary + ' de fuente secundaria (T4)', D.secondary + ' from a secondary source (T4)') : '') +
       (QPAGE ? ' · <a href="' + QPAGE + '">' + t('página de calidad', 'quality page') + '</a>' : '') +
       (D.review.length + D.nt.length + D.explained.length ? '<details id="dq"' + (open ? ' open' : '') + '><summary>' + t('Lista de partidas', 'Item list') + '</summary>' + dqList(D) + '</details>' : '');
   }
-  // summary page: every module's line, weakest first; the counts link to that module's list (#dq)
+  // summary page: hub-wide coverage first (all figures, explained gaps included, and figures with a value), then every
+  // module's line, weakest first; the counts link to that module's list (#dq)
   function dqRollup(hostId) {
     var host = document.getElementById(hostId); if (!host) return;
     var rows = MODULE_IDS.map(function (id) { var D = dqModule(id); return D ? { id: id, D: D, P: dqPct(D), m: MODS.filter(function (x) { return x.p === id; })[0] } : null; }).filter(Boolean);
-    rows.sort(function (a, b) { return (a.P.pct - b.P.pct) || ((b.D.review.length + b.D.nt.length) - (a.D.review.length + a.D.nt.length)); });
+    rows.sort(function (a, b) { return (a.P.pctAll - b.P.pctAll) || ((b.D.review.length + b.D.nt.length) - (a.D.review.length + a.D.nt.length)); });
     if (!rows.length) { host.innerHTML = ''; return; }
-    var w = rows[0], totalRev = rows.reduce(function (s, r) { return s + r.D.review.length; }, 0), totalNt = rows.reduce(function (s, r) { return s + r.D.nt.length; }, 0), totalEx = rows.reduce(function (s, r) { return s + r.D.explained.length; }, 0), cur = rows.reduce(function (s, r) { return { n: s.n + r.D.curated.n, r: s.r + r.D.curated.reviewed }; }, { n: 0, r: 0 });
+    var w = rows[0], T = rows.reduce(function (s, r) { return { ok: s.ok + r.P.ok, shown: s.shown + r.P.shown, all: s.all + r.P.all, q: s.q + r.D.quote, tg: s.tg + r.D.tag, pr: s.pr + r.D.present, rev: s.rev + r.D.review.length, nt: s.nt + r.D.nt.length, ex: s.ex + r.D.explained.length, cn: s.cn + r.D.curated.n, cr: s.cr + r.D.curated.reviewed, tc: s.tc + r.D.curated.tagChecked }; }, { ok: 0, shown: 0, all: 0, q: 0, tg: 0, pr: 0, rev: 0, nt: 0, ex: 0, cn: 0, cr: 0, tc: 0 });
+    var pctAll = T.all ? Math.round(T.ok / T.all * 100) : 100, pctVal = T.shown ? Math.round(T.ok / T.shown * 100) : 100;
     var link = function (r, kind, n) { return n ? '<a href="/hiperescaladores/' + r.id + '/#dq">' + n + '</a>' : '0'; };
-    host.innerHTML = '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ' + t('El módulo más débil es ', 'The weakest module is ') + '<a href="/hiperescaladores/' + w.id + '/#dq">' + esc(modLabel(w.m)) + '</a>: ' + t(w.P.pct + '% de ' + w.P.shown + ' cifras verificadas o cotejadas, ' + w.D.review.length + ' por revisar, ' + w.D.nt.length + ' sin etiqueta XBRL sin explicar', w.P.pct + '% of ' + w.P.shown + ' figures verified or matched, ' + (w.D.review.length === 1 ? '1 needs review, ' : w.D.review.length + ' need review, ') + w.D.nt.length + ' not tagged in XBRL and unexplained') + '. ' +
-      t('En los ocho módulos: ' + (totalRev === 1 ? '1 partida por revisar, ' : totalRev + ' partidas por revisar, ') + totalNt + ' sin etiqueta sin explicar, ' + totalEx + ' huecos explicados; revisadas por analista: ' + cur.r + ' de ' + cur.n + ' partidas curadas. Verificado significa ' + VERIF.es + '.', 'Across the eight modules: ' + (totalRev === 1 ? '1 item needs review, ' : totalRev + ' items need review, ') + totalNt + ' not tagged and unexplained, ' + totalEx + ' explained gaps; analyst-reviewed: ' + cur.r + ' of ' + cur.n + ' curated items. Verified means ' + VERIF.en + '.') +
-      '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th class="l">' + t('Módulo', 'Module') + '</th><th>' + t('Verificado o cotejado', 'Verified or matched') + '</th><th>' + t('Por revisar', 'Needs review') + '</th><th>' + t('Sin etiqueta', 'Not tagged') + '</th><th>' + t('Explicados', 'Explained') + '</th><th>' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
-      rows.map(function (r, i) { return '<tr' + (i === 0 ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td><td data-l="' + esc(t('Verificado o cotejado', 'Verified or matched')) + '">' + r.P.pct + '% · ' + r.P.shown + '</td><td data-l="' + esc(t('Por revisar', 'Needs review')) + '">' + link(r, 'review', r.D.review.length) + '</td><td data-l="' + esc(t('Sin etiqueta', 'Not tagged')) + '">' + link(r, 'nt', r.D.nt.length) + '</td><td data-l="' + esc(t('Explicados', 'Explained')) + '">' + link(r, 'explained', r.D.explained.length) + '</td><td data-l="' + esc(t('Analista', 'Analyst')) + '">' + r.D.curated.reviewed + ' / ' + r.D.curated.n + '</td></tr>'; }).join('') + '</tbody></table></div>';
+    host.innerHTML = '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ' + t(pctAll + '% de las ' + T.all + ' cifras de los ocho módulos está verificado o cotejado, con los ' + T.ex + ' huecos explicados y los ' + T.nt + ' sin explicar en el denominador; ' + pctVal + '% de las ' + T.shown + ' cifras con valor. ', pctAll + '% of all ' + T.all + ' figures across the eight modules are verified or matched, with the ' + T.ex + ' explained gaps and ' + T.nt + ' unexplained in the denominator; ' + pctVal + '% of the ' + T.shown + ' figures with a value. ') + t('Del total cotejado: ' + T.q + ' con cita cotejada, ' + T.tg + ' con etiqueta XBRL cotejada, ' + T.pr + ' valores presentes (cálculo FNAM). ', 'Of those: ' + T.q + ' quote-matched, ' + T.tg + ' XBRL tag-matched, ' + T.pr + ' values present (FNAM calculation). ') +
+      t('El módulo más débil es ', 'The weakest module is ') + '<a href="/hiperescaladores/' + w.id + '/#dq">' + esc(modLabel(w.m)) + '</a>: ' + t(w.P.pctAll + '% de ' + w.P.all + ' cifras, ' + w.D.review.length + ' por revisar, ' + w.D.nt.length + ' sin etiqueta XBRL sin explicar', w.P.pctAll + '% of ' + w.P.all + ' figures, ' + (w.D.review.length === 1 ? '1 needs review, ' : w.D.review.length + ' need review, ') + w.D.nt.length + ' not tagged in XBRL and unexplained') + '. ' +
+      t((T.rev === 1 ? '1 partida por revisar' : T.rev + ' partidas por revisar') + ' en total; revisadas por analista: ' + T.cr + ' de ' + T.cn + ' partidas curadas' + (T.tc ? '; ' + T.tc + ' huecos con etiqueta cotejada (control de concepto, no verificados)' : '') + '. Verificado significa ' + VERIF.es + '.', (T.rev === 1 ? '1 item needs review' : T.rev + ' items need review') + ' in total; analyst-reviewed: ' + T.cr + ' of ' + T.cn + ' curated items' + (T.tc ? '; ' + T.tc + ' gaps tag-checked (concept check, not verified)' : '') + '. Verified means ' + VERIF.en + '.') +
+      '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th class="l">' + t('Módulo', 'Module') + '</th><th>' + t('Verificado, todas las cifras', 'Verified, all figures') + '</th><th>' + t('Verificado, con valor', 'Verified, with a value') + '</th><th>' + t('Cita', 'Quote') + '</th><th>' + t('Etiqueta', 'Tag') + '</th><th>' + t('Presente', 'Present') + '</th><th>' + t('Por revisar', 'Needs review') + '</th><th>' + t('Sin etiqueta', 'Not tagged') + '</th><th>' + t('Explicados', 'Explained') + '</th><th>' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
+      rows.map(function (r, i) { var c = function (l, v) { return '<td data-l="' + esc(l) + '">' + v + '</td>'; }; return '<tr' + (i === 0 ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td>' + c(t('Todas', 'All'), r.P.pctAll + '% · ' + r.P.all) + c(t('Con valor', 'With value'), r.P.pct + '% · ' + r.P.shown) + c(t('Cita', 'Quote'), r.D.quote) + c(t('Etiqueta', 'Tag'), r.D.tag) + c(t('Presente', 'Present'), r.D.present) + c(t('Por revisar', 'Needs review'), link(r, 'review', r.D.review.length)) + c(t('Sin etiqueta', 'Not tagged'), link(r, 'nt', r.D.nt.length)) + c(t('Explicados', 'Explained'), link(r, 'explained', r.D.explained.length)) + c(t('Analista', 'Analyst'), r.D.curated.reviewed + ' / ' + r.D.curated.n) + '</tr>'; }).join('') + '</tbody></table></div>';
   }
   var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
 
@@ -679,6 +752,7 @@
     mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
     aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify,
     soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend,
-    ntReason: ntReason, ntCell: ntCell, verifText: verifText, verifSummary: verifSummary, VERIF: VERIF, etDate: etDate, curatedDate: curatedDate, dqModule: dqModule, dqRollup: dqRollup, dqPct: dqPct
+    ntReason: ntReason, ntCell: ntCell, ntCheck: ntCheck, verifText: verifText, verifSummary: verifSummary, quoteOk: quoteOk, VERIF: VERIF, etDate: etDate, curatedDate: curatedDate, dqModule: dqModule, dqRollup: dqRollup, dqPct: dqPct,
+    buildRow: buildRow, oldQ: oldQ, oldFlag: oldFlag, capMult: capMult, leaseCmp: leaseCmp, leaseCmpText: leaseCmpText, narrow: narrow
   };
 })();

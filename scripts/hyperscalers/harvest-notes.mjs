@@ -5,7 +5,7 @@
 //   leases not yet commenced · residual value guarantees · variable interest entities / maximum exposure to loss ·
 //   equity-method investees · guarantees · purchase / take-or-pay commitments · special-purpose / developer vehicles
 // Output: tools/hyperscalers/raw/notes/<TICKER>/<accession>.json (passages and dollar amounts found in them).
-// Nothing here reaches the page directly: a person or the Claude routine reads the passages, confirms the figure
+// Nothing here reaches the page directly: a person or the automated second read goes through the passages, confirms the figure
 // against the cited page and records it in tools/hyperscalers/data/offbs.json ("needs review" until then).
 // Usage: node scripts/hyperscalers/harvest-notes.mjs [--force] [--ticker=MSFT] [--accn=0001193125-26-027207,…]
 // (--accn harvests named older filings too, e.g. the quarters cited by tools/hyperscalers/data/outliers.json)
