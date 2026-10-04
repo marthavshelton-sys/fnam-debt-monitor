@@ -89,6 +89,17 @@ const CONCEPTS = [
   ["WeightedAverageNumberOfSharesOutstandingBasic", "shares_basic", "average", "Weighted-average basic shares (millions)"],
   ["WeightedAverageNumberOfDilutedSharesOutstanding", "shares_diluted", "average", "Weighted-average diluted shares (millions)"],
   ["dei:EntityCommonStockSharesOutstanding", "shares_cover", "instant", "Common shares outstanding on the cover page (millions)"],
+  // income-tax rate reconciliation (DCF tax normalization, tools/oracle/data/tax.json): percentages as tagged, kept per span, never derived by subtraction
+  ["EffectiveIncomeTaxRateContinuingOperations", "tax_rate_effective", "rate", "Effective income tax rate (as tagged, per period)"],
+  ["EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate", "tax_rate_statutory", "rate", "US federal statutory income tax rate"],
+  ["EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential", "tax_rate_foreign", "rate", "Rate reconciliation: foreign tax effects"],
+  ["EffectiveIncomeTaxRateReconciliationChangeInEnactedTaxRate", "tax_rate_enacted", "rate", "Rate reconciliation: changes in tax laws or rates enacted in the period"],
+  ["EffectiveIncomeTaxRateReconciliationTaxCredits", "tax_rate_credits", "rate", "Rate reconciliation: tax credits"],
+  ["EffectiveIncomeTaxRateReconciliationNondeductibleExpense", "tax_rate_nondeductible", "rate", "Rate reconciliation: nontaxable or nondeductible items (incl. stock-based compensation)"],
+  ["EffectiveIncomeTaxRateReconciliationNondeductibleExpenseShareBasedCompensationCost", "tax_rate_sbc", "rate", "Rate reconciliation: stock-based compensation"],
+  ["EffectiveIncomeTaxRateReconciliationTaxContingencies", "tax_rate_contingencies", "rate", "Rate reconciliation: changes in unrecognized tax benefits"],
+  ["EffectiveIncomeTaxRateReconciliationOtherAdjustments", "tax_rate_other", "rate", "Rate reconciliation: other adjustments (incl. state taxes net of federal benefit)"],
+  ["IncomeTaxExpenseBenefit", "tax_provision", "duration", "Provision for income taxes"],
 ];
 const SINCE = "2023-06-01";
 
@@ -118,10 +129,10 @@ async function main() {
     const concept = found.length ? found.map((x) => x.c).join(" | ") : (Array.isArray(names) ? names.join(" | ") : names);
     if (!found.length) { out.missing.push({ concept, key, note: "not tagged by Oracle" }); continue; }
     const unit = Object.keys(found[0].f.units)[0];
-    const scale = unit === "USD" || unit === "shares" ? 1e6 : 1;
+    const scale = unit === "USD" || unit === "shares" ? 1e6 : unit === "pure" && kind === "rate" ? 0.01 : 1; // rates are tagged as fractions: stored in percent
     const vals = found.flatMap((x) => (x.f.units[unit] || []).map((v) => ({ ...v, concept: x.c }))).filter((v) => v.end >= SINCE && /^10-[QK]/.test(v.form));
     for (const v of vals) if (/\/A$/.test(v.form)) amendSet.add(JSON.stringify({ form: v.form, accn: v.accn, filed: v.filed, period_end: v.end }));
-    const rec = { concept, label, kind, unit: unit === "USD" ? "USD millions" : unit === "shares" ? "shares, millions" : unit, periods: [] };
+    const rec = { concept, label, kind, unit: unit === "USD" ? "USD millions" : unit === "shares" ? "shares, millions" : kind === "rate" ? "percent" : unit, periods: [] };
     if (kind === "instant") {
       const byEnd = new Map();
       for (const v of vals.slice().sort((a, b) => a.filed.localeCompare(b.filed) || a.accn.localeCompare(b.accn))) {
@@ -147,7 +158,7 @@ async function main() {
       for (const s of spans.slice().sort((a, b) => a.end.localeCompare(b.end) || a.months - b.months)) {
         const q = fq(s.end);
         if (s.months === 3) { push({ quarter: q.id, period_end: s.end, value: s.value, derived: false, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }], url: s.url, filed: s.filed }); continue; }
-        if (kind === "average") continue; // weighted-average share counts are not additive: no subtraction
+        if (kind === "average" || kind === "rate") continue; // weighted-average share counts and rates are not additive: no subtraction
         const prevEnd = spans.find((p) => p.start === s.start && p.months === s.months - 3);
         if (prevEnd) push({ quarter: q.id, period_end: s.end, value: Math.round((s.value - prevEnd.value) * 1000) / 1000, derived: true, method: `${s.months}-month cumulative (${s.form} ${s.accn}) minus ${prevEnd.months}-month cumulative (${prevEnd.form} ${prevEnd.accn})`, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }, { accn: prevEnd.accn, form: prevEnd.form, span: `${prevEnd.start}→${prevEnd.end}`, value: prevEnd.value }], url: s.url, filed: s.filed });
         else push({ quarter: q.id, period_end: s.end, value: null, derived: true, method: `${s.months}-month cumulative available (${s.value}) but the prior cumulative period is not tagged; quarter not derivable`, from: [{ accn: s.accn, form: s.form, span: `${s.start}→${s.end}`, value: s.value }], url: s.url, filed: s.filed });

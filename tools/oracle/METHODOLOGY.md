@@ -1,6 +1,6 @@
 # Oracle page — methodology and sources note
 
-Companion to the page at https://fnam.mx/oracle/ (rebuilt 2026-10-03). The page's methodology section is the short
+Companion to the page at https://fnam.mx/oracle/ (rebuilt 2026-10-03; round 2 on 2026-10-04: valuation integrity, missing analyses, reader flow). The page's methodology section is the short
 version of this note; the data-quality page (`/oracle/quality.html`, unlinked) shows every check the pipeline ran.
 
 ## 1. Sources, in order of precedence
@@ -24,14 +24,25 @@ only estimate on the page (the present value of the uncommenced leases) is label
 states every assumption and is never added to debt or a ratio.
 "Not disclosed" is written where Oracle discloses nothing.
 
-## 2. Organization and numbering
+## 2. Organization, numbering and reader flow
 
 `tools/oracle/data/sections.json` is the single registry of sections: order, bilingual titles, the data modules behind
-each section and whether the board deck builds a page for it. `app.js` numbers sections, figures (cards with a chart)
-and tables (cards with a table) from the DOM order at render time, builds the navigation and resolves every
-cross-reference (`ref('id')` in code, `{{sec:id}}` in the JSON narrative) to "§NN Title". `present.js` titles its pages
-from the same registry and chooses pages by section id, never by number. The validator fails the build when a
-reference does not resolve, when the DOM order differs from the registry, or when a hand-typed "section NN" remains.
+each section, whether the board deck builds a page for it (`deck`, in `deck_order`) and, since 2026-10-04, the
+`group` (`reference` = the collapsed Reference appendix), an optional `label` instead of a number (the Summary is
+"Start here") and the reading `path`s that open the section (5 = five minutes, 20 = twenty minutes; the full path
+opens everything). The page follows the story order — Start here, Contracts, Capacity, Capex, Funding,
+Off-balance-sheet, Credit, Circularity, Multiples, DCF, Risks, News, Calendar — then the appendix (Statements,
+Guidance, Methodology / provenance / glossary / change log, numbered R1–R3). `app.js` numbers sections, figures
+(cards with a chart) and tables (cards with a table) from the DOM order at render time, builds the navigation and
+the phone menu, and resolves every cross-reference (`ref('id')` in code, `{{sec:id}}` in the JSON narrative) to
+"§NN Title". `present.js` titles its pages from the same registry and orders them by `deck_order` (the board order),
+choosing pages by section id, never by number. The validator fails the build when a reference does not resolve, when
+the DOM order differs from the registry, or when a hand-typed "section NN" remains.
+
+Every section opens with a **lead**: a headline that states the takeaway and one line on what it means for
+valuation, both composed at render time from the same figures as the charts (`sectionLeads()` in `app.js`), never
+hand-written. Sections are **collapsed by default** except the Summary; the set of open sections is remembered in the
+reader's browser, a deep link or a cross-reference opens its target, and a collapsed section still shows its lead.
 
 ## 3. Accounting hygiene
 
@@ -103,7 +114,9 @@ no XBRL concept exists for the disclosure (uncommenced leases, the lessor guaran
 accounting and filings, leadership and governance), a one-line factual summary, why it matters for Oracle's financials,
 and sources ordered primary first (SEC → company → agency → wire → press → trade). The validator checks the ordering,
 that SEC-based items carry an accession number, that every source is https, and that no item is dated after the sweep.
-No rumors or unattributed claims; the sweep prompt forbids them.
+No rumors or unattributed claims; the sweep prompt forbids them. When the latest item is older than the sweep date the
+page says so in one sentence ("the sweep of <date> found no event between <day after the latest item> and <date> that met
+the rules"); a manual in-session sweep records its scope in `news.json → sweep_note_en/es`, shown beside it.
 
 ## 7. Validation (every build)
 
@@ -113,7 +126,7 @@ obligations identities, XBRL cross-checks (obligations, capex, operating cash fl
 news and sections checks, module staleness. 0 failures required to publish; warnings mean insufficient data to check.
 Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
 
-## 8. DCF (its own section since 2026-10-03; not in the board deck)
+## 8. DCF (its own section since 2026-10-03; round 2 on 2026-10-04; not in the board deck)
 
 * **Frame.** Oracle fiscal years (June–May). The current fiscal year is a **stub**: the full-year projection less the
   quarters already reported (revenue, EBITDA, D&A, capex, prepayments), because their cash is already in the
@@ -125,40 +138,112 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   in-force FY2030 revenue target (`long_range_targets.json`) with a GAAP EBITDA margin (already net of SBC) and the
   consensus cost and capex ratios. After the years the basis covers, growth halves each year down to the terminal rate,
   margin and D&A hold, and capex/revenue converges linearly to the terminal ratio.
+* **Scenarios (owner's, 2026-10-04).** *Base = FactSet consensus as it stands*, and the page says so plainly with the
+  figures it implies (at 2026-10-04: FY2028 revenue growth +45%, a 54% EBITDA margin after SBC from FY2030 held through
+  the terminal year — the most optimistic anchor on file, not a midpoint). *Bull* = management's in-force FY2030 revenue
+  target on the consensus cost structure (the target year's revenue is lifted to the target, later years keep the
+  consensus growth ratios; margins, D&A and capex/revenue as consensus). *Bear* = three documented adjustments to the
+  consensus revenue path, in order: (1) RPO conversion slips one year (from the second explicit year revenue takes the
+  prior year's consensus level; margin, D&A and capex intensity lag with it; the current year's capex stands because it
+  is contracted); (2) Project Jupiter is two quarters late (its share of the named nameplate capacity × half of the first
+  incremental year after the slip moves to the following year); (3) OpenAI volume −25% (S&P estimates about half of
+  RPO is OpenAI, so 12.5% of the incremental revenue above the last reported fiscal year is removed every year). The
+  scenarios table shows value per share, the terminal-value share of EV, the WACC the price implies and the implied
+  terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual change makes the
+  scenario "custom".
 * **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
   gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
   recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,
   analyst meeting 16-Oct-2025, p.10), including the prepayments already received (FY2026 and the current year to date,
   from the release cash-flow line). The share holds through the consensus years and fades to zero by the last explicit
   year; unwinds that fall after the horizon are discounted explicitly.
+* **Taxes (2026-10-04).** The LTM effective rate (about 13%) is not a steady-state rate: the FY2026 10-K reconciliation
+  (`tools/oracle/data/tax.json`, every line cross-checked against the SEC XBRL rate-reconciliation facts) puts it
+  8.4 pp below the 21% statutory rate because of the excess tax benefit on stock-based compensation (−10.6 pp, which
+  depends on the share price) and credits (−8.1 pp), partly offset by one-time items (enacted law +4.8 pp, unrecognized
+  benefits +4.3 pp). The **normalized rate** is the federal statutory rate plus state taxes net of federal benefit
+  (0.9 pp, the FY2025 line, the latest year the 10-K shows it separately) = 21.9%. Three modes: hold the LTM rate;
+  **ramp** linearly from the LTM rate to the normalized rate by the last explicit year (default); normalized from year 1.
+  The terminal year and the tax shield in the WACC use the terminal rate of the chosen mode. The tax note shows the
+  value per share under all three.
 * **Terminal year.** Capex is normalised to **k × D&A** with k = 1 + g × L / 2 (replacement plus growth for an asset life
-  L = 6 years, Oracle's server life, 10-Q note 3): 1.09 at g = 3%. No customer funding in the steady state.
+  L = 6 years, Oracle's server life, 10-Q note 3): 1.09 at g = 3%. No customer funding in the steady state. The outputs
+  show the cross-check between the two terminal methods: under the perpetuity, the terminal EV/EBITDA it implies (on
+  the terminal-year EBITDA and on the last explicit year's); under an exit multiple, the perpetual growth it implies
+  (g* = WACC − FCF(N+1) ÷ TV, holding the normalised terminal-year FCF).
 * **Discount rate.** Rf = 10-year Treasury (FRED DGS10, latest). ERP = Aswath Damodaran's implied ERP for the S&P 500
   (trailing 12 months, adjusted payout; posted on the first of each month and read by `fetch-market.mjs`; flagged when
   older than 45 days). β = OLS slope of weekly log returns of ORCL on the S&P 500 over two years (default), with
   cross-checks shown beside it: five-year monthly and the Blume-adjusted versions of both (0.67 β + 0.33); the table shows
   the WACC and value per share at each. Kd = today's Treasury + the issue spread of Oracle's most recent ~10-year fixed
-  note over the Treasury on its issue date. Weights = net debt / (net debt + market cap).
-* **Equity bridge.** EV − reported net debt − finance-lease liabilities (their cost sits below EBITDA; operating leases
-  are not deducted because their rent is already in EBITDA) − the mandatory convertible preferred at its liquidation
-  preference (until its conversion date) = common equity, divided by **diluted shares**: the 10-Q cover count plus the
-  dilutive securities of the latest quarter (diluted − basic weighted average, XBRL).
-* **Acceptance check.** The section states whether the sensitivity grid and the beta cross-checks bracket the price; it
-  always shows the WACC and the terminal growth the price implies (holding everything else) and the beta equivalent to
-  that WACC, so a gap between model and market is explained with figures rather than hidden.
+  note over the Treasury on its issue date, applied to net debt and to the finance leases. The mandatory convertible
+  preferred costs its 6.50% dividend rate with no tax shield. **Weights (2026-10-04)** use exactly the claims the bridge
+  deducts: D = net debt + finance-lease liabilities + preferred at liquidation preference; E = market cap; the inputs
+  card prints the components so the two definitions cannot drift apart.
+* **Leases in the DCF (2026-10-04).** The bridge deducts the finance-lease liabilities already recognised (their cost
+  sits below EBITDA) and not the operating-lease liabilities (their rent is in opex, inside EBITDA). FactSet publishes
+  the EBITDA and capex the brokers submit on Oracle's reported statements; consensus capex is cash capex (≈ the gross
+  guide) and excludes lease payments and finance-lease additions; FactSet does not state whether each broker's margin
+  path carries the rent of the US$288 bn of leases signed but not yet commenced. The DCF therefore offers two
+  treatments: *operating* (default: the rent is assumed inside the consensus margin, nothing deducted) and *finance*
+  (the illustrative present value of the uncommenced leases, the same estimate as the off-balance-sheet section, is
+  deducted in the bridge; if the consensus margin already carries that rent this counts the cost twice, so it is a
+  floor, not a value). The "Leases in the DCF" note shows both values per share and ties the two sections together.
+* **Equity bridge.** EV − reported net debt − finance-lease liabilities − the mandatory convertible preferred at its
+  liquidation preference (until its conversion date) [− PV of the uncommenced leases under the finance treatment] =
+  common equity, divided by **diluted shares**: the 10-Q cover count plus the dilutive securities of the latest quarter
+  (diluted − basic weighted average, XBRL).
+* **What has to be true (replaces the "bracketed" test, 2026-10-04).** A wide grid always brackets the price, so the
+  section no longer reports that. It states what has to be true to justify the price: the WACC (and equivalent beta)
+  the price implies holding the scenario's flows, and, at the model's WACC and at 9% and 8%, the uniform terminal
+  margin shift, the multiplier on every explicit growth rate after the current year, and the terminal growth that each
+  return the price (one assumption moved at a time, everything else held). The sensitivity grid stays as a reference.
 
 ## 9. Summary, sites and targets
 
-* The summary opens with five computed buildout numbers (RPO, MW energized vs contracted, capex gross vs net cash,
-  uncommenced leases, funding still to raise); the drafted bullets follow, and *What to watch* is short lines grouped
-  under headings. The summary carries its own date (`exec_summary.updated`) and the date its events run through; the
-  validator fails the build when a cited source is dated after the summary, and the page counts the news items newer
-  than the summary.
+* The summary ("Start here") opens with the **reading paths**, the **verdict** (one paragraph that says what the numbers
+  add up to, composed at render time) and the **chain**: six numbers from contracts to valuation, each linking to its
+  section (RPO and the 12-month share; MW energized of the GW named; the gross and net capex guide; the funding gap the
+  company stated and the uncommenced leases, with the verification badge of the lease figure; the S&P rating and
+  lease-adjusted leverage; the DCF value of the scenario on screen against the price). The drafted bullets follow, and
+  *What to watch* is short lines grouped under headings. The summary carries its own date (`exec_summary.updated`) and
+  the date its events run through; the validator fails the build when a cited source is dated after the summary, and
+  the page counts the news items newer than the summary.
 * Each campus has an **Issues** list (`buildout.json → sites[].issues`): dated, typed, with basis (company, government,
   wire, press) and source; a named decision or delivery date is counted down and flagged once passed without an update.
+  The **megawatt timeline** (contracted date, nameplate, energized and as-of quarter, expected first deliveries or
+  revenue, sources) is drawn from the same records.
 * Long-range targets (`long_range_targets.json`) are shown beside the reported actuals (the IaaS revenue headline of
   each release, re-read by the parser tests); superseded vintages are marked with the date and source that superseded
   them, never deleted.
 * Ratings older than 12 months (`freshness.json → rating_action_max_age_days`) are flagged as aging on the page and in
   the deck.
 
+## 10. Analyses added on 2026-10-04 (owner's round-2 list)
+
+* **Sources and uses, FY2027–FY2030** (Funding section). Sources: operating cash flow (consensus free cash flow plus
+  consensus capex, labeled derived) with the customer prepayments the DCF assumes as a memo line, the ATM equity
+  completed in 1Q27, the remainder of the FY2027 plan Oracle stated, and the latest fiscal year's finance-lease
+  additions as a non-cash memo. Uses: consensus gross capex, dividends (latest declared × 4 × cover shares, plus the
+  preferred), and the principal maturing in each fiscal year from the 10-K debt footnote; interest sits inside
+  operating cash flow. The funding need (−free cash flow + dividends + maturities) is reconciled with the company's
+  US$20.1 bn gap and the three assumptions that explain the difference are stated (cash on hand, prepayments inside
+  consensus operating cash flow, the company's figure being debt and equity rather than cash). Every row carries a
+  consensus / reported / company / FNAM-calculation / estimate badge.
+* **Counterparties** (Circularity section). Oracle names six OCI customers (AMD, Meta, NVIDIA, OpenAI, TikTok, xAI) in
+  the free writing prospectus of 1-Feb-2026 (SEC) but no amounts; S&P's "about half of RPO" (rating action 9-Jul-2026)
+  is the only public split and is the only one charted; contract sizes exist only in press reports (WSJ US$300 bn /
+  4.5 GW for OpenAI; Reuters/CNBC about US$20 bn for Meta) and are shown as press, never as figures. The
+  counterparty-capacity note (press figures on OpenAI's annualised revenue and funding rounds against the annual payments
+  the press-reported contract implies) is labeled an FNAM estimate.
+* **RPO-to-revenue bridge** (Contracts section). The 10-Q recognition schedule (12 months; months 13–36; months 37–60) is
+  laid month by month onto Oracle's fiscal years with even recognition inside each bucket (stated assumption) and set
+  against consensus revenue: already reported, contracted conversion, remainder to be contracted, coverage.
+* **Oracle against the hyperscalers** (Credit section). Read from the Hyperscaler Hub's own data file
+  (`site/hiperescaladores/data/financials.js`, SEC XBRL, T1) with the hub's definitions: TTM capex / revenue, capex /
+  operating cash flow, RPO as tagged and RPO / TTM revenue, net debt / EBITDA and lease-adjusted net debt / EBITDA
+  (leases already recognised, never the uncommenced ones). Oracle's row uses the same XBRL facts; its EBITDAR-based
+  3.5× sits beside it with a cross-reference. The chart shows the core six; the neoclouds appear in the table only.
+* **Glossary.** `tools/oracle/data/glossary.json` (bilingual definitions with first-use match patterns) feeds the
+  table in the Reference appendix and `glossify()`, which wraps the first visible occurrence of each term in the main
+  content in a definition tooltip (hover; tap on a phone).

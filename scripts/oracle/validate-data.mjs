@@ -223,7 +223,12 @@ if (ob && xb) {
       obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, ties: pv.tie_checks, verdict: ok === null ? "unverified" : ok ? "verified_tie" : "mismatch", method: "tie_out", reason: "not an XBRL fact (prospectus): recomputed from the document's own terms" });
       continue;
     }
-    if (!pv.xbrl) { obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, verdict: pv.text_only ? "needs_review" : "unverified", method: pv.text_only ? "text" : null, reason: pv.text_only ? "text reading: no XBRL concept exists for this disclosure; kept for a second reading" : "no XBRL concept mapped" }); continue; }
+    if (!pv.xbrl) {
+      // a text-only figure clears its review flag once a second, dated reading of the same note confirms it (second_reading.matches)
+      const sr = pv.text_only && pv.second_reading && pv.second_reading.matches && /^\d{4}-\d{2}-\d{2}$/.test(pv.second_reading.date || "") ? pv.second_reading : null;
+      obligationsVerification.push({ ...base, value: typeof val === "number" ? val : null, xbrl: null, verdict: sr ? "verified_text" : pv.text_only ? "needs_review" : "unverified", method: pv.text_only ? "text" : null, secondReading: sr ? sr.date : null, reason: sr ? `text reading confirmed by a second reading on ${sr.date} (no XBRL concept exists for this disclosure)` : pv.text_only ? "text reading: no XBRL concept exists for this disclosure; kept for a second reading" : "no XBRL concept mapped" });
+      continue;
+    }
     if (Array.isArray(pv.xbrl)) { // the purchase-obligation schedule, element by element
       const sched = Array.isArray(val) ? val : [];
       pv.xbrl.forEach((key, i) => { const p = inst(key, ob.as_of); const v = sched[i]?.usd_m ?? null; const ok = p && v != null ? near(v, p.value, TOL) : null; obligationsVerification.push({ ...base, path: `${path}[${i}]`, value: v, xbrl: p ? { concept: xb.concepts[key].concept, value: p.value, accn: p.accn, form: p.form, filed: p.filed } : null, verdict: ok === null ? "unverified" : ok ? "verified" : "mismatch", reason: ok === null ? "XBRL value for this period not found" : null }); check(`obligations/XBRL: ${path}[${i}] = ${xb.concepts[key]?.concept || key}`, ok); });
@@ -249,6 +254,19 @@ if (ob && xb) {
     for (const fy of c.fiscal_years || []) { const yr = Number(fy.fiscal_year.slice(2)); const qs = (c.quarters || []).filter((x) => x.quarter.startsWith(`FY${yr}Q`)); if (qs.length === 4 && qs.every((x) => x.value != null)) check(`${fy.fiscal_year}: XBRL ${c.concept} four derived quarters sum to the annual`, near(qs.reduce((a, x) => a + x.value, 0), fy.value, TOL * 2)); }
   }
   check("xbrl: latest period end matches the latest quarter in quarters.json", xb.latest_period_end === (q?.quarters || []).map((x) => x.period_end).sort().pop());
+}
+
+// ---------- tax.json: the rate-reconciliation lines behind the DCF tax normalization, checked against XBRL ----------
+{
+  const tx = loadJSON("tax.json");
+  if (tx && xb) {
+    const fyRate = (key) => { const c = xb.concepts[key]; const f = c && (c.fiscal_years || []).find((x) => x.fiscal_year === "FY2026"); return f ? f.value : null; };
+    check("tax: FY2026 effective and statutory rates match XBRL", near(tx.fy2026.effective_rate_pct, fyRate("tax_rate_effective"), 0.05) && near(tx.fy2026.statutory_rate_pct, fyRate("tax_rate_statutory"), 0.05));
+    for (const l of tx.fy2026.lines || []) { const v = fyRate(l.xbrl); check(`tax: FY2026 reconciliation line '${l.k}' (${l.pct} pp) matches XBRL ${l.xbrl}`, v == null ? null : near(Math.abs(l.pct), Math.abs(v), 0.05)); }
+    check("tax: reconciliation lines sum from the statutory rate to the effective rate (±0.2 pp)", near(tx.fy2026.statutory_rate_pct + (tx.fy2026.lines || []).reduce((a, l) => a + l.pct, 0), tx.fy2026.effective_rate_pct, 0.2));
+    check("tax: FY2026 provision matches XBRL IncomeTaxExpenseBenefit", near(tx.fy2026.provision_usd_m, fyRate("tax_provision"), TOL));
+    check("tax: normalized rate = statutory + state line", near(tx.normalized.pct, tx.fy2026.statutory_rate_pct + tx.state.pct, 0.05));
+  }
 }
 
 // ---------- news.json: dated, themed, sourced (primary first), no rumors ----------

@@ -31,6 +31,9 @@ for (const c of configs) {
   const errs = []; page.on("pageerror", (e) => errs.push(e.message)); page.on("console", (m) => { if (m.type() === "error" && !/ERR_FAILED|net::/.test(m.text())) errs.push(m.text()); });
   await page.goto(`${BASE}/oracle/?lang=${c.lang}`, { waitUntil: "load" });
   await page.waitForTimeout(900);
+  // sections are collapsed by default (except the Summary): the check reads the page on the full reading path
+  const defaultOpen = await page.evaluate(() => [...document.querySelectorAll("section.block[data-sec]")].filter((s) => !s.classList.contains("collapsed")).map((s) => s.dataset.sec));
+  await page.click('#readingPaths button[data-path="full"]'); await page.waitForTimeout(300);
   const r = await page.evaluate(({ lang, esRe, enRe }) => {
     const ES = new RegExp(esRe), EN = new RegExp(enRe);
     const visible = (e) => { if (!e) return false; const cs = getComputedStyle(e); if (cs.display === "none" || cs.visibility === "hidden") return false; const rc = e.getClientRects(); return rc.length > 0 && rc[0].width > 0; };
@@ -46,9 +49,15 @@ for (const c of configs) {
     const secs = [...document.querySelectorAll("section.block[data-sec]")];
     out.unnumbered = secs.filter((s) => s.dataset.sec !== "summary" && !s.querySelector(".sec-num").textContent.trim()).map((s) => s.dataset.sec);
     out.title = document.title;
-    out.dcf = { hero: (document.getElementById("dcfHero") || {}).textContent, check: (document.getElementById("dcfCheck") || {}).textContent || "", bridge: !!document.querySelector("#dcfBridge table"), beta: document.querySelectorAll("#dcfBeta tbody tr").length };
+    out.dcf = { hero: (document.getElementById("dcfHero") || {}).textContent, check: (document.getElementById("dcfCheck") || {}).textContent || "", bridge: !!document.querySelector("#dcfBridge table"), beta: document.querySelectorAll("#dcfBeta tbody tr").length, presets: document.querySelectorAll("#dcfPresets tbody tr").length, tax: document.querySelectorAll("#dcfTaxNote table").length, lease: !!document.querySelector("#dcfLeaseNote table") };
     out.issues = document.querySelectorAll("#sitesTable td.issues").length;
     out.toggles = document.querySelectorAll(".sec-toggle").length;
+    out.chain = document.querySelectorAll("#sumChain .box").length; out.verdict = (document.getElementById("sumVerdict") || {}).textContent || "";
+    out.leads = document.querySelectorAll("section.block > .sec-lead").length;
+    out.gloss = document.querySelectorAll("main abbr.gl").length;
+    out.tables = { su: !!document.querySelector("#suTable table"), hyp: document.querySelectorAll("#hypTable tbody tr").length, cp: document.querySelectorAll("#cpTable tbody tr").length, bridge: document.querySelectorAll("#rpoBridgeTable tbody tr").length, mw: document.querySelectorAll("#mwTable tbody tr").length, gl: document.querySelectorAll("#glossaryTable tbody tr").length };
+    out.secNums = [...document.querySelectorAll("section.block[data-sec] .sec-num")].map((n) => n.textContent.trim());
+    out.cdsPath = /tools\/oracle/.test((document.getElementById("cdsNote") || {}).textContent || "");
     return out;
   }, { lang: c.lang, esRe: ES_ONLY.source, enRe: EN_ONLY.source });
   const f = (m) => failures.push(`${tag}: ${m}`);
@@ -60,21 +69,36 @@ for (const c of configs) {
   if (r.unnumbered.length) f(`sections without a number: ${r.unnumbered.join(", ")}`);
   if (c.lang === "en" ? !/Interactive financial model/.test(r.title) : !/Modelo financiero interactivo/.test(r.title)) f(`tab title not in ${c.lang}: ${r.title}`);
   if (!/US\$\s*\d/.test(r.dcf.hero || "")) f(`DCF value not finite: ${r.dcf.hero}`);
-  if (!/bracketed|dentro|fuera|not bracketed/i.test(r.dcf.check)) f("DCF acceptance statement missing");
+  if (!/has to be true|tiene que ser cierto/i.test(r.dcf.check)) f("DCF 'what has to be true' statement missing");
   if (!r.dcf.bridge || r.dcf.beta < 2) f("DCF bridge or beta cross-check missing");
+  if (r.dcf.presets !== 3 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} presets, ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
+  if (r.chain !== 6) f(`summary chain has ${r.chain} boxes (expected 6)`);
+  if (!/US\$/.test(r.verdict)) f("summary verdict missing");
+  if (r.leads < 14) f(`section leads: ${r.leads}`);
+  if (r.gloss < 10) f(`glossary first-use definitions: ${r.gloss}`);
+  if (!r.tables.su || r.tables.hyp < 5 || r.tables.cp < 5 || r.tables.bridge < 3 || r.tables.mw < 5 || r.tables.gl < 20) f(`round-2 tables incomplete: ${JSON.stringify(r.tables)}`);
+  if (!(defaultOpen.length === 1 && defaultOpen[0] === "summary")) f(`default open sections: ${defaultOpen.join(",")} (expected only summary)`);
+  if (!r.secNums.some((x) => /^R1$/.test(x)) || !r.secNums.some((x) => /^01$/.test(x))) f(`section numbering: ${r.secNums.join(" ")}`);
+  if (r.cdsPath) f("CDS note exposes an internal path");
   if (r.issues !== 5) f(`sites Issues column: ${r.issues} cells (expected 5)`);
   if (r.toggles < 10) f(`section toggles: ${r.toggles}`);
   // collapse works and survives a re-render; then expand everything again
   if (c.vp[0] === 1280 && c.theme === "light") {
     await page.click('#dcf .sec-toggle'); await page.waitForTimeout(150);
-    const hidden = await page.evaluate(() => getComputedStyle(document.querySelector("#dcf .dcf-grid")).display === "none");
-    if (!hidden) f("collapse toggle did not hide the section");
+    const hidden = await page.evaluate(() => getComputedStyle(document.querySelector("#dcf .dcf-grid")).display === "none" && getComputedStyle(document.querySelector("#dcf .sec-lead")).display !== "none");
+    if (!hidden) f("collapse toggle did not hide the section (or hid its headline)");
     await page.click('#dcf .sec-toggle');
+    // the Bear preset changes the value and the on-screen label
+    const before = await page.evaluate(() => document.getElementById("dcfHero").textContent);
+    await page.click('#dcfInputs button.preset[data-preset="bear"]'); await page.waitForTimeout(300);
+    const after = await page.evaluate(() => ({ v: document.getElementById("dcfHero").textContent, l: document.getElementById("dcfHeroLbl").textContent }));
+    if (after.v === before || !/Bear|Pesimista/.test(after.l)) f(`bear preset did not apply (${before} → ${after.v})`);
+    await page.click('#dcfInputs button.preset[data-preset="base"]'); await page.waitForTimeout(200);
     await page.evaluate(() => window.scrollTo(0, 4000)); await page.waitForTimeout(250);
     if (!(await page.evaluate(() => document.getElementById("toTop").classList.contains("show")))) f("back-to-top control not shown after scrolling");
   }
   if (SHOTS) await page.screenshot({ path: join(SHOTS, `oracle-${c.lang}-${c.vp[0]}-${c.theme}.png`), fullPage: false });
-  console.log(`${failures.some((x) => x.startsWith(tag)) ? "FAIL" : "ok  "} ${tag} · DCF ${r.dcf.hero} · overflow ${r.overflow}`);
+  console.log(`${failures.some((x) => x.startsWith(tag)) ? "FAIL" : "ok  "} ${tag} · DCF ${r.dcf.hero} · overflow ${r.overflow} · gloss ${r.gloss} · leads ${r.leads}`);
   await page.close();
 }
 // print emulation in English: the closing heading and every section expanded, no Spanish

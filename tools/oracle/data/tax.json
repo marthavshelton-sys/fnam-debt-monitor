@@ -1,0 +1,112 @@
+{
+  "_comment": "Income-tax facts behind the DCF tax-normalization input (added 2026-10-04). Every percentage is transcribed from Oracle's FY2026 Form 10-K rate reconciliation (income taxes note, the table 'for the year ended May 31, 2026', p. 96) and cross-checked by validate-data.mjs against the SEC XBRL facts in xbrl_facts.json (concept keys in `xbrl`). The state line is not shown separately in FY2026 (folded into 'Other adjustments', which the 10-K footnote says includes 'state taxes, net of federal benefit'); the latest year with a separate state line is FY2025. `normalized` is the DCF default for a normalized rate: the US federal statutory rate plus the latest separately disclosed state line. Nothing here is estimated.",
+  "updated": "2026-10-04",
+  "source": {
+    "title": "Oracle Form 10-K for the fiscal year ended May 31, 2026, income taxes note, rate reconciliation (ASU 2023-09 format)",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+    "accession": "0001193125-26-277521",
+    "filed": "2026-06-22",
+    "page": 96
+  },
+  "fy2026": {
+    "pretax_income_usd_m": 19552,
+    "pretax_note": "derived: US$4,106 M tax at the 21% statutory rate ÷ 0.21 (the reconciliation table states the amount, not the base)",
+    "provision_usd_m": 2467,
+    "effective_rate_pct": 12.6,
+    "statutory_rate_pct": 21.0,
+    "lines": [
+      {
+        "k": "foreign",
+        "en": "Foreign tax effects (Switzerland, Malta, Bermuda, other jurisdictions)",
+        "es": "Efectos fiscales en el extranjero (Suiza, Malta, Bermudas, otras jurisdicciones)",
+        "usd_m": -77,
+        "pct": -0.4,
+        "xbrl": "tax_rate_foreign"
+      },
+      {
+        "k": "enacted",
+        "en": "Effect of changes in tax laws or rates enacted in the period (U.S. One, Big, Beautiful Bill Act)",
+        "es": "Efecto de cambios en leyes o tasas promulgados en el periodo (One, Big, Beautiful Bill Act)",
+        "usd_m": 933,
+        "pct": 4.8,
+        "xbrl": "tax_rate_enacted"
+      },
+      {
+        "k": "credits",
+        "en": "Tax credits (federal R&D −3.2 pp, foreign tax credits −4.9 pp)",
+        "es": "Créditos fiscales (I+D federal −3.2 pp, créditos por impuestos extranjeros −4.9 pp)",
+        "usd_m": -1587,
+        "pct": -8.1,
+        "xbrl": "tax_rate_credits"
+      },
+      {
+        "k": "sbc",
+        "en": "Nontaxable or nondeductible items, of which stock-based compensation −10.6 pp",
+        "es": "Partidas no gravables o no deducibles, de las cuales compensación en acciones −10.6 pp",
+        "usd_m": -1970,
+        "pct": -10.1,
+        "xbrl": "tax_rate_nondeductible",
+        "sbc_pct": -10.6,
+        "sbc_xbrl": "tax_rate_sbc"
+      },
+      {
+        "k": "utb",
+        "en": "Changes in unrecognized tax benefits",
+        "es": "Cambios en beneficios fiscales no reconocidos",
+        "usd_m": 847,
+        "pct": 4.3,
+        "xbrl": "tax_rate_contingencies"
+      },
+      {
+        "k": "other",
+        "en": "Other adjustments (valuation allowances, cross-border tax laws and state taxes net of federal benefit; California, Virginia and Missouri are the majority of the state taxes)",
+        "es": "Otros ajustes (reservas de valuación, leyes fiscales transfronterizas e impuestos estatales netos del beneficio federal; California, Virginia y Misuri son la mayoría de los impuestos estatales)",
+        "usd_m": 215,
+        "pct": 1.1,
+        "xbrl": "tax_rate_other"
+      }
+    ]
+  },
+  "state": {
+    "fy": "FY2025",
+    "usd_m": 128,
+    "pretax_income_usd_m": 14162,
+    "pct": 0.9,
+    "note_en": "State tax expense, net of federal benefit, FY2025 (the latest year the 10-K shows it as a separate line): US$128 M on US$14,162 M of pretax income (US$2,974 M ÷ 0.21) = 0.9 pp. FY2024: US$81 M, 0.7 pp.",
+    "note_es": "Impuesto estatal, neto del beneficio federal, AF2025 (el último año en que el 10-K lo muestra por separado): US$128 M sobre US$14,162 M de utilidad antes de impuestos (US$2,974 M ÷ 0.21) = 0.9 pp. AF2024: US$81 M, 0.7 pp.",
+    "source": {
+      "title": "Oracle Form 10-K FY2026, income taxes note, reconciliation for the years ended May 31, 2025 and 2024",
+      "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "accession": "0001193125-26-277521",
+      "page": 97
+    }
+  },
+  "normalized": {
+    "pct": 21.9,
+    "method_en": "US federal statutory rate (21.0%) plus state taxes net of federal benefit (0.9 pp, FY2025 line). Credits, the excess tax benefit on stock-based compensation and foreign rate differentials are treated as non-recurring in the steady state; unrecognized-benefit and enacted-law effects are one-time.",
+    "method_es": "Tasa federal estatutaria (21.0%) más impuestos estatales netos del beneficio federal (0.9 pp, línea del AF2025). Los créditos, el beneficio fiscal excedente de la compensación en acciones y los diferenciales de tasa extranjeros se tratan como no recurrentes en el estado estable; los efectos de beneficios no reconocidos y de leyes promulgadas son únicos."
+  },
+  "quarterly_effective_pct": [
+    {
+      "quarter": "FY2026Q1",
+      "pct": 14.6
+    },
+    {
+      "quarter": "FY2026Q2",
+      "pct": 3.3
+    },
+    {
+      "quarter": "FY2026Q3",
+      "pct": 15.7
+    },
+    {
+      "quarter": "FY2026",
+      "pct": 12.6
+    },
+    {
+      "quarter": "FY2027Q1",
+      "pct": 15.1
+    }
+  ],
+  "quarterly_note": "EffectiveIncomeTaxRateContinuingOperations as tagged (discrete quarters where Oracle tags them; FY2026Q4 is not tagged separately). The page's LTM rate is computed from the four reported quarters' provision ÷ pretax income."
+}

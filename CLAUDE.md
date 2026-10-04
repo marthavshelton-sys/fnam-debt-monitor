@@ -74,8 +74,12 @@ dashboards, everything built from public data by GitHub Actions.
   Timestamps on that page are ET only; the refresh workflow runs daily incl. weekends; news comes from the daily cloud
   routine (`tools/oracle/NEWS-SWEEP-PROMPT.md`). Off-balance-sheet figures carry filing/note/accession and an XBRL
   verdict; uncommenced leases are never added to debt. Read `tools/oracle/MEMORY.md` and `METHODOLOGY.md` first. The DCF is its own
-  section (not in the deck; method in METHODOLOGY.md §8); before pushing a page change run `scripts/oracle/build.mjs` and
-  `scripts/oracle/render-check.mjs` (site served on :8123) and build the PDF in both languages.
+  section (not in the deck; method in METHODOLOGY.md §8: Bear / Base = consensus / Bull presets, tax normalization, lease
+  treatment, "what has to be true" instead of a bracketing test). Since 2026-10-04 the page follows the story order
+  (Start here → Contracts → … → DCF → Risks → News → Calendar) with a collapsed Reference appendix (R1–R3); every section
+  carries a composed lead and is collapsed by default except the Summary; the deck keeps the board order (`deck_order`).
+  Before pushing a page change run `scripts/oracle/build.mjs` and `scripts/oracle/render-check.mjs` (site served on
+  :8123) and build the PDF in both languages.
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
   `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, `metodologia/`,
   `glosario/`, quality page per module. Modules 1, 2, 4, 5, 7 come from curated files (`tools/hyperscalers/data/
