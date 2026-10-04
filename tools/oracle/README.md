@@ -72,20 +72,24 @@ and current deferred revenue). 338 checks across the 13 archived quarters; any m
 
 ## DCF section (2026-10-03; round 2 on 2026-10-04)
 
-The DCF is its own registered section (`dcf`, after the multiples; `deck: false`, the board deck excludes it). Inputs and
+The DCF is its own registered section (`dcf`, after the multiples; since round 4, 2026-10-04, `deck: true` with `deck_order`
+12: the board deck carries one DCF page with the value per share, WACC, the four scenario rows, the lease sensitivity, the
+bridge and the "what has to be true" test, all read from `window.ORCL_MODEL`). Inputs and
 method: `ASSUMPTIONS.md` (DCF defaults) and `METHODOLOGY.md` §8. Its defaults read `factset.json` (fiscal-year sales,
 EBITDA, `da` = DEP_AMORT_EXP, capex), the capex guidance text, `quarters.json` (stub year, SBC, customer prepayments),
 `xbrl_facts.json` (finance-lease liabilities, cover and weighted shares, tax rates), `obligations.json` (preferred,
-uncommenced leases and their illustrative PV), `tax.json` (normalized rate) and `market_reference.json` (`erp`). The
-section offers Bear / Base (= consensus) / Bull presets, three tax modes, two lease treatments, the implied terminal
-EV/EBITDA or implied g cross-check, and states what has to be true to justify the price (implied WACC and beta; the
-margin, growth pace and terminal g needed at the model's WACC, 9% and 8%) instead of whether a grid brackets it.
+uncommenced leases and their illustrative PV), `tax.json` (normalized rate) and `market_reference.json` (`erp`). The section offers Bear / Base (consensus) / Bull presets plus the management-target row, three tax modes, three lease
+treatments, the implied terminal EV/EBITDA or implied g cross-check, and states what has to be true to justify the price
+(implied WACC and beta; the margin, growth pace and terminal g needed at the model's WACC, 9% and 8%) instead of whether a
+grid brackets it. Round 4: the Bull is the Bear's three levers at plan, capped at management's FY2030 target, and one capex
+rule (contracted plan ± revenue difference × terminal intensity) applies to both cases; the recipes sit in a closed panel
+under the scenarios table; a manual edit of an operating input turns the scenario Custom.
 
-## Render check
+## Render check and deck check
 
 With the site served (`python3 -m http.server 8123 --directory site`, detached), `node scripts/oracle/render-check.mjs`
 loads the page in Spanish and English at 1280, 390 and 360 px in light and dark mode and in print emulation: no script
-error, no `undefined`/`NaN`, no horizontal overflow, nothing under 11 px on phones, no other-language text, the tab title
+error, no `undefined`/`NaN`, no horizontal overflow, nothing under 12 px on phones (round 4; 11 px before), no other-language text, the tab title
 in the reader's language, every section numbered (01… and R1…), only the Summary open by default, a finite DCF with its
 "what has to be true" statement, the three scenarios and the tax and lease notes, the Bear preset applying, the six-box
 chain and the verdict, a lead on every section, the glossary first-use definitions, the round-2 tables (sources and
@@ -93,8 +97,19 @@ uses, hyperscalers, counterparties, RPO bridge, megawatts, glossary), the CDS no
 column for every campus, working collapse toggles (the lead stays visible) and back-to-top. Since round 3 (2026-10-04) it
 also fails on any anchor without a real href (empty, `undefined`, `null`), on any repository or tool path in visible text,
 on a "Source:" line with no source or a table row with an empty Source cell, on fewer than four scenario rows, and, with
-`--max-words <n>`, when the expanded page's visible word count exceeds the ceiling (the owner's rule: it must not grow).
-`--shots <dir>` saves screenshots. Run it before pushing a page change.
+`--max-words <n>` (or `--max-words-en` / `--max-words-es`, one ceiling per language), when the expanded page's visible word
+count exceeds the ceiling (the owner's rule: it must not grow by more than 3%; text inside a closed `<details>` panel does not
+count, so new material goes into collapsed panels; baselines measured 2026-10-04 before round 4: EN 26,557, ES 29,710). Round 4
+added the phone rules: every control at least 44 px tall, DCF inputs at 16 px or more, nothing fixed over the sticky nav, the
+verdict and the six-box chain inside the first screen at 390 and 360 px, and a manual edit of an operating input switching the
+scenario to Custom. `--shots <dir>` saves screenshots. Run it before pushing a page change.
+
+`node scripts/oracle/deck-check.mjs [--out <dir>] [--shots <dir>]` builds the board presentation in both languages from the
+served page (Playwright clicks the PDF button), saves the PDFs and fails when the build throws (the builder refuses to save a
+deck with an unresolved `{{token}}`), when any drawn string carries `{{`, `undefined`, `NaN` or `null`, when the English deck
+carries Spanish words or a repository path, or when the deck's price, DCF value, Bear, Bull or delta against the price differ
+from the page's. With PyMuPDF installed it also reads the saved PDF's text as a second layer and, with `--shots`, rasterises
+every page. Run it with the render check before pushing a change to `present.js`, `present-core.js` or the DCF.
 
 ## Numbering, cross-references and stamps (2026-10-03)
 
@@ -224,9 +239,11 @@ calculation the page shows. Language follows the ES/EN toggle; the file is named
 
 Deep link: `/oracle/?present=1&lang=es` (or `lang=en`) opens the page, sets the language and builds the PDF on arrival; the landing pages' "Board presentations (PDF)" links use it and pass the reader's current language.
 
-Pages (21 on the 2026-10-03 data): cover (landscape, unnumbered) · executive summary (`data/summary.js`, two columns auto-fitted to one page;
-bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with fetch timestamp in CDMX
-time, market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
+Pages (22 on the 2026-10-04 data): cover (landscape, unnumbered; since round 4 without the "Powered by" credits and the
+confidentiality notice: the footer line reads "Source: public filings, FactSet consensus; not investment advice" and the cover
+carries the page's refresh time in ET) · executive summary (`data/summary.js`, two columns auto-fitted to one page under the
+six-number chain strip; bullets without `**markers**` get their lead clause emphasised) · tear sheet (ORCL price with the page's refresh time in ET,
+market cap, YTD and 12-month change vs the S&P 500, 52-week range, dividend yield, LTM and quarter EBITDA, Non-GAAP
 margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidance in force, next results; ORCL vs S&P
 500 rebased and 3-year price) · operating metrics, income statement of the latest quarter, LTM and latest fiscal year
 (portrait, GAAP with the Non-GAAP and EBITDA blocks, revenue lines on the FY2026 basis via Oracle's recast, with the
@@ -234,8 +251,9 @@ margin, net debt/EBITDA, EV/EBITDA, P/E, cash flows, RPO, cloud revenue, guidanc
 FY targets initial vs latest, track record and vintages (landscape) · RPO, capex and cash flow by quarter (portrait) ·
 AI buildout sites and capacity (portrait, `data/buildout.js`) · leverage, dividends and cash
 generation (ten fiscal years), AI buildout (five-step flow and tracker), RPO explained, debt detail and
-credit risk (landscape) · sources and methodology. The share-price, DCF and relative-valuation views are excluded
-on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
+credit risk (landscape) · multiples · DCF (round 4) · news · risks · sources and methodology. The share-price view is excluded
+on purpose. Every page after the cover carries the source footer and "Page X of Y". Narrative cells may carry `{{sec:id}}` and
+`{{fact:id}}` tokens: `OracleDoc.xref()` resolves them and `finish()` refuses to save a deck in which any `{{` was drawn.
 
 The estimate written when Oracle has not announced the date (`calendar.json → estimates[]`) carries the window
 (`window_start`/`window_end`), the `median` of the prior three years' dates and that `history`; the page shows the median
@@ -302,3 +320,9 @@ release left unquantified, and rewrites `transcripts.json`.
 `fetch-market` passes every price series through `scripts/lib/completed-sessions.mjs`: a bar dated today is kept only after that exchange's close in its own time zone (BMV 15:30 Mexico City, NYSE/Nasdaq 16:15 New York, B3 18:15 São Paulo, BME 17:45 Madrid). The morning run therefore publishes the previous close; the evening run adds the day's close. The same helper serves GAP, OMA, ASUR, Quálitas, Gentera and Oracle.
 
 Oracle's evening run (21:45 UTC) often finds no new close because Nasdaq's historical endpoint posts the day later in the evening; the next morning's run adds it. This is a one-session lag, never an intraday price.
+
+Since round 4 (2026-10-04) a fallback source (Yahoo for the S&P 500, the Treasury's yearly CSV for the 10-year) is merged into the stored CSV, adding only the dates it brings: a one-day FRED outage can no longer truncate the committed history (FRED answers the runner; it does not answer the sandbox).
+
+## Timestamps (round 4)
+
+Every stamp on the page (section heads, the header, the deck cover and tear sheet) prints one refresh time, `REFRESHED_AT` = the `generatedAt` of the build that wrote the data files, in Eastern Time. Per-module fetch times appear only in the methodology section's modules table ("Data fetched") and on quality.html. The investor calendar prints event times in ET only.

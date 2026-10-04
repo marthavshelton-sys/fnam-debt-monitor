@@ -27,10 +27,14 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - Non-GAAP reconciling items for the FY2022–FY2024 quarters where the release printed them differently.
 - Debt: the July-2026 notes (US$ 3,000 M) are marked `status: repaid` in `market_reference.json` → `debt_instruments` with the
   1Q27 10-Q evidence (XBRL RepaymentsOfDebt US$ 4,202 M in the quarter; notes payable 129,541 → 125,337); they stay in the
-  list because the book reconciles to the 10-K gross total at 31 May 2026. Still to do: add any issuance after 31 May 2026
-  from each 8-K, and re-base the book on the FY2027 10-K when it is filed.
+  list because the book reconciles to the 10-K gross total at 31 May 2026. The 10-Q does not itemize this note, so the page
+  calls the repayment *inferred* from those two figures and links the filing (round 4, 2026-10-04; a full-text read of the
+  10-Q from this sandbox found no sentence naming the note or a US$3.1 bn scheduled repayment). Still to do: add any issuance
+  after 31 May 2026 from each 8-K, and re-base the book on the FY2027 10-K when it is filed.
 - Ratings: the Moody's (Jul-2025) and Fitch (Feb-2026) actions are cited to press articles (investing.com,
   StreetInsider); replace with the agencies' own rating-action releases when accessible (Moody's requires a login).
+  Last check for a new action: 2026-10-04 (`market_reference.json → credit_ratings.checked`, shown in the credit section's
+  source line): none since S&P's 9-Jul-2026 downgrade; no Oracle 8-K since 14-Sep-2026.
 - Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
   source-cited but not machine-checked; the 338 parser checks and 329 tie-outs cover the statements only.
 
@@ -42,6 +46,10 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   the placeholder; the chart and stats appear automatically once `points` is filled.
 - Peer ratings (Off-Balance-Sheet Financing and Leases, peer leverage table): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
+- News (round 4, 2026-10-04): the Tencent lease (FT, 30 Sep; US$7 bn, five years, about 100,000 chips, about 30% upfront) is on the
+  page as *press-reported, unconfirmed*; it enters no figure (not the RPO, not the counterparty table, not the DCF prepayments)
+  until Oracle files or confirms it. The Port Washington grid timing (Aterio via The Register, 2 Oct) is a press item and an
+  open issue on the campus; Oracle's 2H 2027 target stands as the company statement.
 - News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
   (`NEWS-SWEEP-PROMPT.md`); the desktop task "FNAM Oracle: weekly press sweep" and `press.js` are retired — **owner:
   disable the desktop task**. `press.json` stays in the repository as the archive of the earlier sweeps.

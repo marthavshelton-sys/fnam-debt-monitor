@@ -249,11 +249,15 @@
       this.font('bold', 17, ACCENT); this.pdf.text(tx(this.cfg.tickerLine), cx, y); y += 34;
       this.font('normal', 15, INK); this.pdf.text(tx(this.longDate(this.today)), cx, y); y += 46;
       this.pdf.setDrawColor(...GRID); this.pdf.setLineWidth(0.8); this.pdf.line(cx, y, cx + 300, y); y += 26;
-      this.font('normal', 12, INK); this.pdf.text(tx(`Powered by ${POWERED_BY}`), cx, y); y += 20;
-      this.pdf.text(tx(`Prompted by ${PROMPTED_BY}`), cx, y); y += 18;
-      this.pdf.text(tx(PROMPTED_ROLE), cx, y); y += 20;
+      // cfg.credits === false drops the "Powered by / Prompted by" lines (the Oracle deck, owner's request 2026-10-04); other decks keep them
+      if (this.cfg.credits !== false) {
+        this.font('normal', 12, INK); this.pdf.text(tx(`Powered by ${POWERED_BY}`), cx, y); y += 20;
+        this.pdf.text(tx(`Prompted by ${PROMPTED_BY}`), cx, y); y += 18;
+        this.pdf.text(tx(PROMPTED_ROLE), cx, y); y += 20;
+      }
       this.font('normal', 10, MUTED);
-      const basis = [dataLine, this.T(`Elaborado únicamente con información pública (${this.cfg.publicSources || 'comunicados de la empresa'}) · ${this.cfg.url}`, `Built only from public information (${this.cfg.publicSourcesEn || 'company releases'}) · ${this.cfg.url}`)].filter(Boolean);
+      // cfg.coverLines: extra basis lines a builder adds (e.g. the data refresh time)
+      const basis = [dataLine, this.T(`Elaborado únicamente con información pública (${this.cfg.publicSources || 'comunicados de la empresa'}) · ${this.cfg.url}`, `Built only from public information (${this.cfg.publicSourcesEn || 'company releases'}) · ${this.cfg.url}`), ...(this.cfg.coverLines || [])].filter(Boolean);
       this.pdf.text(basis.map(tx), cx, c.h - 96);
       this.font('bold', 10, ACCENT); this.pdf.text(tx(this.confidential()), cx, c.h - 56);
     }
@@ -266,9 +270,11 @@
       const v = !n || !n.date ? this.T('fecha por confirmar', 'date to be confirmed') : n.kind === 'confirmed' ? this.T(`${this.date(n.date)}, confirmada`, `${this.date(n.date)}, confirmed`) : this.T(`≈${this.date(n.date)}, fecha supuesta`, `≈${this.date(n.date)}, assumed`);
       return String(text).replace(/\{\{nextResults\}\}/g, v);
     }
-    execSummary(sections, subtitle) {
+    // `pre(y)` (optional) draws a strip under the page title (e.g. the Oracle deck's six-number chain) and returns the new y.
+    execSummary(sections, subtitle, pre) {
       sections = sections.map((sec) => ({ ...sec, items: (sec.items || []).map((x) => this.tokens(x)) }));
       let y = this.page('L', this.T('Resumen ejecutivo', 'Executive Summary'), subtitle);
+      if (typeof pre === 'function') y = pre(y);
       const gap = 22, colW = (this.width() - gap) / 2, availH = this.cur.y1 - y - 4;
       const half = Math.ceil(sections.length / 2), cols = [sections.slice(0, half), sections.slice(half)];
       let size;

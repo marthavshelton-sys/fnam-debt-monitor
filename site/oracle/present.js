@@ -10,7 +10,9 @@
   const { INK, MUTED, ACCENT, GRID, HEAD, PALETTE } = P.C;
   const alpha = (hex, a) => hex + Math.round(a * 255).toString(16).padStart(2, '0');
 
-  const CFG = { slug: 'oracle', short: 'Oracle', name: 'Oracle Corporation', tickerLine: 'NYSE: ORCL', url: 'fnam.mx/oracle', fileStem: 'Oracle_ORCL', publicSources: 'SEC EDGAR, comunicados y llamadas de resultados de la empresa', publicSourcesEn: 'SEC EDGAR, company releases and earnings calls' };
+  const CFG = { slug: 'oracle', short: 'Oracle', name: 'Oracle Corporation', tickerLine: 'NYSE: ORCL', url: 'fnam.mx/oracle', fileStem: 'Oracle_ORCL', publicSources: 'SEC EDGAR, comunicados y llamadas de resultados de la empresa', publicSourcesEn: 'SEC EDGAR, company releases and earnings calls',
+    // round 4 (owner's request 2026-10-04): no "Powered by" credits and no confidentiality notice; the footer line names the sources instead
+    credits: false, confidential: { es: 'Fuente: reportes públicos, consenso de FactSet; no es asesoría de inversión.', en: 'Source: public filings, FactSet consensus; not investment advice.' } };
 
   // ---------- builder ----------
   async function build() {
@@ -32,6 +34,7 @@
         obligations: () => doc.obligationsPage(),
         circular: () => doc.circularPage(),
         valuation: () => doc.valuationPage(),
+        dcf: () => doc.dcfPage(),
         news: () => doc.newsPage(),
         risks: () => doc.risksPage(),
         method: () => doc.sourcesPage(),
@@ -48,13 +51,26 @@
       // Eastern Time is the Oracle page's only time zone (owner's rule): the cover date and "today" for maturities follow it
       if (typeof M.todayET === 'function') { this.todayIso = M.todayET(); this.today = new Date(this.todayIso + 'T12:00:00Z'); }
       this.next = this.nextResults();
+      // the single refresh time of the page, in ET, on the cover (round 4)
+      if (M.REFRESHED_AT && M.fmtET) this.cfg.coverLines = [this.T(`Datos actualizados: ${M.fmtET(M.REFRESHED_AT)}`, `Data refreshed: ${M.fmtET(M.REFRESHED_AT)}`)];
+      // every string drawn is checked for an unresolved {{token}} (and recorded when a check asks for it); finish() refuses to
+      // save a deck that would print one, so a placeholder can never reach the owner (round 4)
+      const origText = this.pdf.text.bind(this.pdf); this.unresolved = []; this.drawn = window.ORCL_DECK_CAPTURE ? [] : null;
+      this.pdf.text = (str, ...rest) => { for (const x of (Array.isArray(str) ? str : [str])) { const v = String(x == null ? '' : x); if (/\{\{[^}]*\}\}/.test(v)) this.unresolved.push(v.slice(0, 100)); if (this.drawn) this.drawn.push(v); } return origText(str, ...rest); };
+    }
+    // Eastern Time for every timestamp in the deck (the page's only time zone)
+    stamp(iso) { return this.M.fmtET ? this.M.fmtET(iso) : super.stamp(iso); }
+    finish() {
+      if (this.unresolved.length) throw new Error(this.T(`marcadores sin resolver en la presentación: ${[...new Set(this.unresolved)].slice(0, 4).join(' | ')}`, `unresolved placeholders in the deck: ${[...new Set(this.unresolved)].slice(0, 4).join(' | ')}`));
+      if (this.drawn) window.__deckText = this.drawn.slice();
+      super.finish();
     }
     longDate(d) { return d.toLocaleDateString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); }
     // ----- shared pieces -----
     // Page title from the section registry: "NN · Title" (the number is generated, never typed) plus an optional subtitle.
     // Narrative strings from the data files may carry section-token cross-references ({{sec:<id>}}): resolve them to "§NN Name" before any
     // text is measured or drawn, so the deck never prints a raw token and the layout measures the final text.
-    xref(t) { const M = this.M; return typeof t === 'string' ? t.replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => `§${M.secNum(id)} ${M.secNav(id)}`) : t; }
+    xref(t) { const M = this.M; return typeof t === 'string' ? t.replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => `§${M.secNum(id)} ${M.secNav(id)}`).replace(/\{\{fact:([a-z_]+)\}\}/g, (m, id) => (typeof M.factText === 'function' ? M.factText(id) : '')) : t; }
     text(str, ...a) { return super.text(this.xref(str), ...a); }
     bullets(items, ...a) { return super.bullets((items || []).map((x) => this.xref(x)), ...a); }
     measureBullets(items, ...a) { return super.measureBullets((items || []).map((x) => this.xref(x)), ...a); }
@@ -92,7 +108,9 @@
     // ================= 2. EXECUTIVE SUMMARY =================
     execSummary() {
       const M = this.M, secs = (M.SUM.sections || []).map((s) => ({ title: M.L(s.title), items: (s[M.LANG] || s.en || []).map((x) => this.autoBold(this.xref(x))) }));
-      super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''));
+      const chain = typeof M.chainBoxes === 'function' ? M.chainBoxes() : [];
+      const strip = chain.length ? (y) => this.tiles(chain.map((b) => { const v = tx(b.v); return { v, l: `${tx(b.k)} · ${tx(b.d)}`, size: v.length > 20 ? 9.5 : v.length > 14 ? 11 : 13 }; }), y, 54) : null;
+      super.execSummary(secs, this.basisLine() + (M.SUM.updatedAt ? this.T(` · redactado el ${this.date(M.SUM.updatedAt)}`, ` · written ${this.date(M.SUM.updatedAt)}`) : ''), strip);
     }
 
     // ================= NEWS AND RECENT EVENTS (dated, themed, primary sources first) =================
@@ -102,10 +120,62 @@
       let y = this.page('L', this.secHead('news'), this.T(`Eventos de los últimos ${N.windowDays} días · barrido al ${this.date(N.asOf)} · cada resumen se limita al hecho reportado; fuentes primarias primero (SEC, Oracle, agencias); enlaces en fnam.mx/oracle`, `Events of the last ${N.windowDays} days · swept ${this.date(N.asOf)} · each summary is limited to the reported fact; primary sources first (SEC, Oracle, agencies); links at fnam.mx/oracle`));
       const theme = (id) => { const th = (N.themes || []).find((x) => x.id === id); return th ? M.L(th) : id; };
       const basis = (x) => ({ sec: this.T('reporte SEC', 'SEC filing'), company: this.T('empresa, no auditado', 'company, not audited'), agency: this.T('agencia', 'rating agency'), press: this.T('prensa', 'press') }[x.basis] || x.basis);
-      const rows = items.map((x) => [this.date(x.date), theme(x.theme), this.es ? x.title_es : x.title_en, this.es ? x.why_es : x.why_en, `${basis(x)} · ${(x.sources || []).slice(0, 2).map((sr) => sr.title.replace(/\s*\(accession.*$/, '').slice(0, 70)).join(' · ')}`]);
+      const rows = items.map((x) => [this.date(x.date), theme(x.theme), this.xref(this.es ? x.title_es : x.title_en), this.xref(this.es ? x.why_es : x.why_en), `${basis(x)} · ${(x.sources || []).slice(0, 2).map((sr) => sr.title.replace(/\s*\(accession.*$/, '').slice(0, 70)).join(' · ')}`]);
       const W = this.width();
       y = this.fitTable({ y, head: [M.t('date'), this.T('Tema', 'Theme'), this.T('Qué pasó', 'What happened'), this.T('Por qué importa', 'Why it matters'), this.T('Base y fuente', 'Basis and source')], body: rows, meta: rows.map(() => ['left', 'left small', 'left bold', 'left small', 'left small']), cols: { 0: { cellWidth: W * 0.08, halign: 'left' }, 1: { cellWidth: W * 0.1, halign: 'left' }, 2: { cellWidth: W * 0.3, halign: 'left' }, 3: { cellWidth: W * 0.32, halign: 'left' }, 4: { cellWidth: W * 0.2, halign: 'left' } } }, [8, 7.6, 7.2, 6.8, 6.4, 6], this.cur.y1 - 26);
       this.noteAbove(this.T('Sin rumores ni afirmaciones sin atribución. Las declaraciones de Oracle se marcan como declaración de la empresa, no auditada; lo que descansa solo en prensa se marca como prensa. Barrido diario (rutina en la nube); enlaces a cada fuente en la página.', 'No rumors or unattributed claims. Oracle statements are labeled company statement, not audited; what rests on press alone is labeled press. Daily sweep (cloud routine); links to every source on the page.'), y + 6);
+    }
+
+    // ================= DCF (round 4, 2026-10-04): the same calculations the page shows, read through the model =================
+    dcfPage() {
+      const M = this.M, now = typeof M.dcfNow === 'function' ? M.dcfNow() : null; if (!now || !now.r) return;
+      const s = now.s, r = now.r, price = M.dcfPrice(), es = this.es, pct = (v, d = 1, sign) => M.fmtPct(v, d, sign);
+      const sr = M.scenarioRange(s) || {}, pn = price ? M.priceNeeds(s, price) : null, cl = M.bridgeClaims(), sh = M.dilutedShares();
+      const E = Math.min(M.DCF_EDIT_YEARS || 5, s.N), yr = (i) => `${es ? 'AF' : 'FY'}${String(s.years[i]).slice(2)}`;
+      const base0 = M.dcfDefaults(s.basis === 'guidance' ? 'consensus' : s.basis, s.N);
+      const carry = (p) => { for (const kk of ['taxMode', 'taxNorm', 'leases', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'kp', 'dw', 'method', 'g', 'mult', 'k', 'unwind']) p[kk] = s[kk]; return p; };
+      const path = (sp) => { const out = []; let v = sp.baseRev; for (let i = 0; i < E; i++) { v *= 1 + sp.revG[i] / 100; out.push(v); } return out; };
+      const scen = (M.PRESET_LIST || ['bear', 'base', 'bull', 'mgmt']).map((p) => { const sp = carry(M.dcfPreset(p, base0)); const rr = M.dcfCompute(sp); const iw = price ? M.impliedWacc(sp, price) : null; return { p, sp, rr, iw: iw ? iw.wacc : null, ig: price ? M.impliedG(sp, price) : null }; });
+      const sub = this.T(`Flujo libre a la firma por año fiscal · base = consenso de FactSet (${this.date(M.FS.asOf)}) · ${s.N} años explícitos, descuento a mitad de periodo · impuestos: ${({ ltm: 'tasa UDM constante', ramp: 'rampa a la tasa normalizada', normalized: 'normalizada desde el año 1' })[s.taxMode]} · arrendamientos no iniciados: tratamiento ${M.leaseLabel(s.leases)} · precio US$ ${M.fmtN(price, 2)} (cierre del ${this.date(M.lastPx[0])})`,
+        `Unlevered free cash flow by fiscal year · Base = FactSet consensus (${this.date(M.FS.asOf)}) · ${s.N} explicit years, mid-period discounting · taxes: ${({ ltm: 'LTM rate held', ramp: 'ramp to the normalized rate', normalized: 'normalized from year 1' })[s.taxMode]} · uncommenced leases: ${M.leaseLabel(s.leases)} treatment · price US$ ${M.fmtN(price, 2)} (close of ${this.date(M.lastPx[0])})`);
+      let y = this.page('L', this.secHead('dcf'), sub);
+      const up = price && r.perShare != null ? pct(100 * (r.perShare / price - 1), 0, true) : '—';
+      y = this.tiles([
+        { v: `US$ ${M.fmtN(r.perShare, 0)}`, l: this.T(`por acción · escenario ${M.presetLabel(s.preset)} · ${up} frente a US$ ${M.fmtN(price, 2)}`, `per share · ${M.presetLabel(s.preset)} scenario · ${up} vs US$ ${M.fmtN(price, 2)}`), size: 16 },
+        { v: pct(100 * r.wacc, 2), l: this.T(`WACC · Ke ${pct(r.ke, 1)} · pasivos ${pct(r.costD, 1)} · beta ${M.fmtN(s.beta, 2)}`, `WACC · Ke ${pct(r.ke, 1)} · claims ${pct(r.costD, 1)} · beta ${M.fmtN(s.beta, 2)}`), size: 16 },
+        { v: pn && pn.iw != null ? pct(100 * pn.iw, 1) : '—', l: this.T(`WACC implícita por el precio (beta ${pn && pn.ib != null ? M.fmtN(pn.ib, 2) : '—'})`, `WACC implied by the price (beta ${pn && pn.ib != null ? M.fmtN(pn.ib, 2) : '—'})`), size: 16 },
+        { v: `US$ ${M.fmtN(sr.bear, 0)} · ${M.fmtN(sr.base, 0)} · ${M.fmtN(sr.bull, 0)}`, l: this.T(`Pesimista · Base (consenso) · Optimista; objetivo de la administración US$ ${M.fmtN(sr.mgmt, 0)}`, `Bear · Base (consensus) · Bull; management target US$ ${M.fmtN(sr.mgmt, 0)}`), size: 13 },
+        { v: `US$ ${M.fmtN(sr.leaseOp, 0)} · ${M.fmtN(sr.leaseMix, 0)} · ${M.fmtN(sr.leaseFin, 0)}`, l: this.T(`arrendamientos no iniciados: operativos · mixto (${pct(100 * (cl.finShare || 0), 0)}) · financieros (VP de US$ ${M.fmtN((cl.uncNominal || 0) / 1000, 0)} mil M restado)`, `uncommenced leases: operating · mixed (${pct(100 * (cl.finShare || 0), 0)}) · finance (PV of US$ ${M.fmtN((cl.uncNominal || 0) / 1000, 0)} bn deducted)`), size: 13 },
+        { v: `${pct(100 * r.tvShare, 0)} · ${M.fmtX(r.impliedMult)}`, l: this.T(`VP del valor terminal / VE · VE / EBITDA NTM implícito (consenso)`, `PV of terminal value / EV · implied EV / NTM EBITDA (consensus)`), size: 16 },
+      ], y, 56);
+      const W = this.width(), gap = 18, wl = W * 0.56, xr = this.cur.x0 + wl + gap, wr = W - wl - gap;
+      // left: the four scenario rows, as on the page
+      let yl = this.heading(this.T('Escenarios (mismo costo de capital, impuestos y arrendamientos)', 'Scenarios (same cost of capital, taxes and leases)'), this.cur.x0, y, 10);
+      const srows = scen.map(({ p, sp, rr, iw, ig }) => [M.presetLabel(p) + (p === s.preset ? this.T(' (en pantalla)', ' (on screen)') : ''), this.bn(path(sp)[E - 1], 0), pct(sp.margin[E - 1] - sp.sbc, 1), `US$ ${M.fmtN(rr.perShare, 0)}`, price ? pct(100 * (rr.perShare / price - 1), 0, true) : '—', pct(100 * rr.tvShare, 0), iw != null ? pct(100 * iw, 1) : '—', ig != null ? pct(ig, 1) : '—']);
+      yl = this.table({ y: yl, w: wl, head: [this.T('Escenario', 'Scenario'), `${this.T('Ingresos', 'Revenue')} ${yr(E - 1)}`, this.T('Margen terminal', 'Terminal margin'), this.T('Valor / acción', 'Value / share'), this.T('vs precio', 'vs price'), this.T('VP terminal / VE', 'PV of TV / EV'), this.T('WACC implícita', 'Implied WACC'), this.T('g implícita', 'Implied g')], body: srows, meta: srows.map((row, i) => ['left bold', '', '', 'bold', this.cls(parseFloat(String(row[4]).replace(',', ''))), '', '', '']), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.24 } } });
+      const bull = scen.find((x) => x.p === 'bull'), bear = scen.find((x) => x.p === 'bear'); const bu = (bull && bull.sp.bullRecipe) || {}, bp = (bear && bear.sp.bearRecipe) || {};
+      const recipe = [
+        this.T(`**Base** = consenso de FactSet tal cual: crecimiento ${yr(1)} ${pct(base0.revG[1], 0, true)}, margen EBITDA ${pct(base0.margin[E - 1] - base0.sbc, 0)} después de compensación en acciones, mantenido para siempre.`, `**Base** = FactSet consensus as it stands: ${yr(1)} growth ${pct(base0.revG[1], 0, true)}, ${pct(base0.margin[E - 1] - base0.sbc, 0)} EBITDA margin after stock-based compensation, held forever.`),
+        this.T(`**Pesimista** = conversión del RPO un año tarde, Project Jupiter ${bp.quarters || 2} trimestres tarde, volumen de OpenAI −${pct(100 * (bp.haircut || 0.25), 0)} (S&P: ≈ la mitad del RPO).`, `**Bear** = RPO conversion one year late, Project Jupiter ${bp.quarters || 2} quarters late, OpenAI volume −${pct(100 * (bp.haircut || 0.25), 0)} (S&P: about half of RPO).`),
+        this.T(`**Optimista** = las mismas palancas en el plan: conversión un año antes, topada en el objetivo AF2030 de la administración${bu.tgt ? ` (US$ ${M.fmtN(bu.tgt / 1000, 0)} mil M)` : ''}; Jupiter a tiempo; OpenAI según el plan; razones de margen, D&A y capex/ingresos del consenso de cada año (el capex sube con los ingresos).`, `**Bull** = the same levers at plan: conversion one year early, capped at management's FY2030 target${bu.tgt ? ` (US$ ${M.fmtN(bu.tgt / 1000, 0)} bn)` : ''}; Jupiter on time; OpenAI at plan; each year's consensus margin, D&A and capex/revenue ratios (capex rises with revenue).`),
+        this.T(`**Objetivo de la administración** = el objetivo de ingresos AF2030 sobre la estructura de costos del consenso (variante aparte).`, `**Management target** = the FY2030 revenue target on the consensus cost structure (separate variant).`),
+      ];
+      yl = this.bullets(recipe, this.cur.x0, yl + 6, wl, 7.4, { gap: 2 });
+      // right: the equity bridge, as on the page
+      let yr2 = this.heading(this.T('Del valor de la empresa al valor por acción (US$ M)', 'From enterprise value to value per share (US$ M)'), xr, y, 10);
+      const brows = [[this.T('Valor de la empresa (VE)', 'Enterprise value (EV)'), M.fmtN(r.ev)], [this.T('− Deuda neta reportada', '− Reported net debt'), M.fmtN(-r.netDebtM)], [this.T('− Pasivos por arrendamientos financieros', '− Finance-lease liabilities'), M.fmtN(-r.finLease)], [this.T('− Preferentes convertibles obligatorias', '− Mandatory convertible preferred'), M.fmtN(r.pref ? -r.pref : 0)]];
+      if (r.uncDeduct) brows.push([this.T(`− VP de los arrendamientos no iniciados (${M.leaseLabel(s.leases)})`, `− PV of the uncommenced leases (${M.leaseLabel(s.leases)})`), M.fmtN(-r.uncDeduct)]);
+      brows.push([this.T('= Valor del capital común', '= Common equity value'), M.fmtN(r.eq)], [this.T('Acciones diluidas (millones)', 'Diluted shares (millions)'), sh ? M.fmtN(sh.total, 1) : '—'], [this.T('= Valor por acción (US$)', '= Value per share (US$)'), M.fmtN(r.perShare, 2)]);
+      yr2 = this.table({ y: yr2, x: xr, w: wr, head: null, body: brows, meta: brows.map((row) => [/^=/.test(row[0]) ? 'left bold' : 'left', /^=/.test(row[0]) ? 'bold' : '']), size: 8, cols: { 0: { halign: 'left', cellWidth: wr * 0.68 } } });
+      // the acceptance test: the same sentence as the page, plus the three-WACC rows
+      const sentence = typeof M.dcfCheckSentence === 'function' ? M.dcfCheckSentence(s, r, price) : '';
+      yr2 = this.heading(this.T(`Qué tiene que ser cierto para justificar US$ ${M.fmtN(price, 2)}`, `What has to be true to justify US$ ${M.fmtN(price, 2)}`), xr, yr2 + 8, 10);
+      yr2 = this.text(tx(sentence), xr, yr2, wr, 7.6, 'normal', INK, 1.3);
+      const truth = typeof M.dcfTruthRows === 'function' ? M.dcfTruthRows(s, r, price) : []; const mN = s.margin[E - 1] - s.sbc, g2 = s.revG[1];
+      const trows = truth.map((x) => [pct(x.w, 1) + (x.model ? this.T(' (modelo)', ' (model)') : ''), `US$ ${M.fmtN(x.v, 0)}`, x.dm == null ? this.T('fuera de ±40 pp', 'outside ±40 pp') : `${pct(mN + x.dm, 1)} (${x.dm >= 0 ? '+' : ''}${M.fmtN(x.dm, 1)} pp)`, x.gm == null ? this.T('fuera de 0–3×', 'outside 0–3×') : `${M.fmtX(x.gm, 2)} (${yr(1)} ${pct(g2 * x.gm, 0, true)})`, x.ig == null ? '—' : pct(x.ig, 1)]);
+      if (trows.length) yr2 = this.table({ y: yr2 + 2, x: xr, w: wr, head: ['WACC', this.T('Valor', 'Value'), this.T('Margen terminal necesario', 'Terminal margin needed'), this.T('o ritmo de crecimiento', 'or growth pace'), this.T('o g terminal', 'or terminal g')], body: trows, meta: trows.map((row, i) => [truth[i].model ? 'left bold' : 'left', '', '', '', '']), size: 7.4, cols: { 0: { halign: 'left' } } });
+      this.noteAbove(this.T(`Fuentes: FactSet Estimates (consenso por año fiscal, ${this.date(M.FS.asOf)}); comunicados de resultados (trimestres reportados, deuda neta); 10-Q 1T27 (arrendamientos financieros, preferentes); 10-K AF2026 (conciliación de la tasa de impuestos); SEC XBRL (acciones); Nasdaq (cierre); Tesoro a 10 años ${M.us10 && M.us10.length ? pct(M.us10[M.us10.length - 1][1], 2) : ''}; ERP implícita de Damodaran ${M.ERP ? pct(M.ERP.pct, 2) : ''}. Cada cifra es la misma que muestra la página; el detalle (tabla de proyección, sensibilidad, notas de impuestos y arrendamientos) está en fnam.mx/oracle.`,
+        `Sources: FactSet Estimates (fiscal-year consensus, ${this.date(M.FS.asOf)}); earnings releases (reported quarters, net debt); 1Q27 10-Q (finance leases, preferred); FY2026 10-K (tax-rate reconciliation); SEC XBRL (shares); Nasdaq (close); 10-year Treasury ${M.us10 && M.us10.length ? pct(M.us10[M.us10.length - 1][1], 2) : ''}; Damodaran implied ERP ${M.ERP ? pct(M.ERP.pct, 2) : ''}. Every figure is the one the page shows; the detail (projection table, sensitivity, tax and lease notes) is at fnam.mx/oracle.`), Math.max(yl, yr2) + 8);
     }
 
     // ================= RISKS =================
@@ -113,7 +183,7 @@
       const M = this.M, R = M.RK; if (!R || !(R.items || []).length) return;
       let y = this.page('L', this.secHead('risks'), this.T(`Registro revisado el ${this.date(R.updated)} · cada riesgo cita la cifra o el reporte que lo sustenta`, `Register reviewed ${this.date(R.updated)} · each risk cites the figure or filing behind it`));
       const strip = (t) => String(t).replace(/\{\{sec:([a-z_]+)\}\}/g, (m, id) => (M.secNav ? M.secNav(id) : id));
-      const rows = R.items.map((r) => [M.L(r), strip(this.es ? r.evidence_es : r.evidence_en), (r.where || []).map((id) => `${M.secNum(id)} ${M.secNav(id)}`).join(' · '), this.es ? r.watch_es : r.watch_en]);
+      const rows = R.items.map((r) => [this.xref(M.L(r)), this.xref(strip(this.es ? r.evidence_es : r.evidence_en)), (r.where || []).map((id) => `${M.secNum(id)} ${M.secNav(id)}`).join(' · '), this.xref(this.es ? r.watch_es : r.watch_en)]);
       const W = this.width();
       y = this.fitTable({ y, head: [this.T('Riesgo', 'Risk'), this.T('Evidencia pública', 'Public evidence'), this.T('Dónde', 'Where'), this.T('Qué observar', 'What to watch')], body: rows, meta: rows.map(() => ['left bold', 'left', 'left', 'left']), cols: { 0: { cellWidth: W * 0.22, halign: 'left' }, 1: { cellWidth: W * 0.4, halign: 'left' }, 2: { cellWidth: W * 0.12, halign: 'left' }, 3: { cellWidth: W * 0.26, halign: 'left' } } }, [10.5, 10, 9.5, 9, 8.5, 8, 7.5, 7], this.cur.y1 - 26);
       this.noteAbove(this.T('Fuentes: reportes 10-Q/10-K y comunicados enlazados por fila en la página; estimaciones de terceros marcadas como tales.', 'Sources: 10-Q/10-K filings and releases linked per row on the page; third-party estimates labeled as such.'), y + 6);
@@ -157,7 +227,7 @@
     // ================= 3. TEAR SHEET =================
     tearSheet() {
       const M = this.M, lastQ = M.lastQ, L = M.lastLTM, nd = M.netDebt(lastQ), px = M.lastPx, orcl = M.orclPx, meta = M.MK.prices.ORCL || {};
-      const sub = this.T(`Mercado: cierre del ${this.date(px[0])} (datos obtenidos ${this.stamp(meta.fetchedAt || M.MK.generatedAt)}) · Financieros: ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`, `Market: close of ${this.date(px[0])} (data fetched ${this.stamp(meta.fetchedAt || M.MK.generatedAt)}) · Financials: ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`);
+      const sub = this.T(`Mercado: cierre del ${this.date(px[0])} (datos actualizados ${this.stamp(M.REFRESHED_AT || M.MK.generatedAt)}) · Financieros: ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`, `Market: close of ${this.date(px[0])} (data refreshed ${this.stamp(M.REFRESHED_AT || M.MK.generatedAt)}) · Financials: ${this.qlab(lastQ)} (${this.date(this.rel(lastQ))})`);
       let y = this.page('L', this.T('Ficha técnica', 'Tear Sheet'), sub);
       const colW = this.width() * 0.5 - 10, xr = this.cur.x0 + colW + 20;
       const yAgo = M.pointAtOrBefore(orcl, M.addDays(px[0], -365)), yStart = M.pointAtOrBefore(orcl, `${px[0].slice(0, 4)}-01-01`);

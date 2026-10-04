@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Render check for site/oracle (Playwright Chromium): every configuration must load without a script error, show no
-// "undefined"/"NaN", keep the page within the viewport, keep visible text at 11 px or more on phones, show the reader's
+// "undefined"/"NaN", keep the page within the viewport, keep visible text at 12 px or more on phones (round 4; 11 px before), show the reader's
 // language only (tab title included), number every section, and produce a finite DCF with its acceptance statement.
 // Run with the site served locally:  python3 -m http.server 8123 --directory site   (detached), then
 //   node scripts/oracle/render-check.mjs [--base http://localhost:8123] [--shots <dir>]
@@ -13,7 +13,8 @@ const require = createRequire(import.meta.url);
 let chromium;
 try { ({ chromium } = require("playwright")); } catch (e) { ({ chromium } = createRequire("/opt/node22/lib/node_modules/")("playwright")); }
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
-const BASE = arg("--base", "http://localhost:8123"), SHOTS = arg("--shots", null), MAX_WORDS = Number(arg("--max-words", 0)) || 0; // --max-words: the owner's ceiling on the expanded page (round 3: it must not grow)
+const BASE = arg("--base", "http://localhost:8123"), SHOTS = arg("--shots", null), MAX_WORDS = Number(arg("--max-words", 0)) || 0; // --max-words: the owner's ceiling on the expanded page (round 3: it must not grow); --max-words-en / --max-words-es set one per language
+const MAX_WORDS_LANG = { en: Number(arg("--max-words-en", 0)) || MAX_WORDS, es: Number(arg("--max-words-es", 0)) || MAX_WORDS };
 if (SHOTS) mkdirSync(SHOTS, { recursive: true });
 
 // Words that only appear in the other language's copy (whole words, visible text only).
@@ -33,10 +34,13 @@ for (const c of configs) {
   await page.waitForTimeout(900);
   // sections are collapsed by default (except the Summary): the check reads the page on the full reading path
   const defaultOpen = await page.evaluate(() => [...document.querySelectorAll("section.block[data-sec]")].filter((s) => !s.classList.contains("collapsed")).map((s) => s.dataset.sec));
+  // phones: the verdict and the six-box chain must start inside the first screen (round 4)
+  const first = c.vp[0] <= 400 ? await page.evaluate(() => { const g = (sel) => { const e = document.querySelector(sel); if (!e) return null; const r2 = e.getBoundingClientRect(); return { top: Math.round(r2.top), bottom: Math.round(r2.bottom) }; }; return { vh: window.innerHeight, verdict: g("#sumVerdict"), chain: g("#sumChain") }; }) : null;
   await page.click('#readingPaths button[data-path="full"]'); await page.waitForTimeout(300);
   const r = await page.evaluate(({ lang, esRe, enRe }) => {
     const ES = new RegExp(esRe), EN = new RegExp(enRe);
-    const visible = (e) => { if (!e) return false; const cs = getComputedStyle(e); if (cs.display === "none" || cs.visibility === "hidden") return false; const rc = e.getClientRects(); return rc.length > 0 && rc[0].width > 0; };
+    // closed <details> panels keep layout boxes in Chromium (content-visibility), so their content is excluded explicitly (round 4)
+    const visible = (e) => { if (!e) return false; const cs = getComputedStyle(e); if (cs.display === "none" || cs.visibility === "hidden") return false; const d = e.closest("details:not([open])"); if (d && !e.closest("summary")) return false; const rc = e.getClientRects(); return rc.length > 0 && rc[0].width > 0; };
     const out = { bad: [], wrongLang: [], small: [], overflow: document.documentElement.scrollWidth - window.innerWidth };
     const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     while (w.nextNode()) {
@@ -44,7 +48,7 @@ for (const c of configs) {
       if (/\bundefined\b|\bNaN\b/.test(t)) out.bad.push(t.slice(0, 120));
       if (lang === "en" && ES.test(t) && !p.closest("[lang]:not(html)") && !/^“|^"/.test(t)) out.wrongLang.push(t.slice(0, 120));
       if (lang === "es" && EN.test(t) && !p.closest(".quote, .guide-quote, i, .small.muted") && !/^“|^"|'/.test(t)) out.wrongLang.push(t.slice(0, 120));
-      if (window.innerWidth <= 400 && parseFloat(getComputedStyle(p).fontSize) < 11 && !p.closest("canvas, .fignum")) out.small.push(`${parseFloat(getComputedStyle(p).fontSize)}px: ${t.slice(0, 60)}`);
+      if (window.innerWidth <= 400 && parseFloat(getComputedStyle(p).fontSize) < 12 && !p.closest("canvas")) out.small.push(`${parseFloat(getComputedStyle(p).fontSize)}px: ${t.slice(0, 60)}`);
     }
     const secs = [...document.querySelectorAll("section.block[data-sec]")];
     out.unnumbered = secs.filter((s) => s.dataset.sec !== "summary" && !s.querySelector(".sec-num").textContent.trim()).map((s) => s.dataset.sec);
@@ -64,6 +68,14 @@ for (const c of configs) {
     out.paths = []; out.words = 0;
     { const w2 = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); while (w2.nextNode()) { const n = w2.currentNode, tx = n.textContent.replace(/\s+/g, " ").trim(); if (!tx) continue; const p = n.parentElement; if (!p || !visible(p) || p.closest("script,style,noscript")) continue; out.words += tx.split(" ").length; if (pathRe.test(tx) && !p.closest("a[href$='quality.html']")) out.paths.push(tx.slice(0, 100)); } }
     out.sourceless = [...document.querySelectorAll("p.chart-src")].filter((p) => visible(p) && /^(Source|Fuente)s?:\s*(·\s*)*$/i.test(p.textContent.replace(/\s+/g, " ").trim())).map((p) => p.id || p.textContent.slice(0, 40));
+    // phones (round 4): every control at least 44 px tall, DCF inputs at 16 px or more (no iOS zoom), nothing fixed over the nav
+    if (window.innerWidth <= 760) {
+      const ctl = [...document.querySelectorAll("button, select, input:not(label.switch input), summary, nav.jump a, .chip, #secMenu a, .sec-toggle, label.switch")].filter(visible);
+      out.smallCtl = ctl.filter((e) => e.getBoundingClientRect().height < 43.5).map((e) => `${e.tagName.toLowerCase()}${e.id ? "#" + e.id : ""}.${[...e.classList].slice(0, 2).join(".")} ${Math.round(e.getBoundingClientRect().height)}px`).slice(0, 5);
+      out.smallInputs = [...document.querySelectorAll("#dcfInputs input, #dcfInputs select")].filter((e) => parseFloat(getComputedStyle(e).fontSize) < 16).length;
+      const nav = document.querySelector("nav.jump").getBoundingClientRect();
+      out.overNav = [...document.querySelectorAll("*")].filter((e) => getComputedStyle(e).position === "fixed" && visible(e) && e !== document.querySelector("nav.jump") && !e.closest("nav.jump")).filter((e) => { const r2 = e.getBoundingClientRect(); return r2.bottom > nav.top && r2.top < nav.bottom && r2.width > 0; }).map((e) => `${e.tagName.toLowerCase()}#${e.id}.${[...e.classList].join(".")}`);
+    }
     out.emptySrcCells = [...document.querySelectorAll("table")].filter(visible).flatMap((tb) => { const ths = [...tb.querySelectorAll("thead th")].map((x) => x.textContent.trim()); const i = ths.findIndex((x) => /^(source|fuente)s?$/i.test(x)); if (i < 0) return []; return [...tb.querySelectorAll("tbody tr")].filter((tr) => tr.children[i] && !tr.children[i].textContent.trim()).map((tr) => tr.children[0].textContent.trim().slice(0, 60)); });
     return out;
   }, { lang: c.lang, esRe: ES_ONLY.source, enRe: EN_ONLY.source });
@@ -72,7 +84,7 @@ for (const c of configs) {
   if (r.bad.length) f(`undefined/NaN shown: ${r.bad.slice(0, 3).join(" | ")}`);
   if (r.overflow > 1) f(`horizontal overflow ${r.overflow}px`);
   if (r.wrongLang.length) f(`other-language text: ${r.wrongLang.slice(0, 3).join(" | ")}`);
-  if (r.small.length) f(`text under 11px: ${r.small.slice(0, 3).join(" | ")}`);
+  if (r.small.length) f(`text under 12px: ${r.small.slice(0, 3).join(" | ")}`);
   if (r.unnumbered.length) f(`sections without a number: ${r.unnumbered.join(", ")}`);
   if (c.lang === "en" ? !/Interactive financial model/.test(r.title) : !/Modelo financiero interactivo/.test(r.title)) f(`tab title not in ${c.lang}: ${r.title}`);
   if (!/US\$\s*\d/.test(r.dcf.hero || "")) f(`DCF value not finite: ${r.dcf.hero}`);
@@ -80,10 +92,14 @@ for (const c of configs) {
   if (!r.dcf.bridge || r.dcf.beta < 2) f("DCF bridge or beta cross-check missing");
   if (r.dcf.presets !== 4 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} scenario rows, ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
   if (r.badHrefs.length) f(`anchors without a real href: ${r.badHrefs.slice(0, 3).join(" | ")}`);
+  if (r.smallCtl && r.smallCtl.length) f(`controls under 44 px on a phone: ${r.smallCtl.join(" | ")}`);
+  if (r.smallInputs) f(`${r.smallInputs} DCF inputs under 16 px on a phone`);
+  if (r.overNav && r.overNav.length) f(`fixed element over the sticky nav: ${r.overNav.join(" | ")}`);
+  if (first && !(first.verdict && first.chain && first.verdict.top < first.vh && first.chain.top + 40 < first.vh)) f(`first viewport misses the verdict or the chain: ${JSON.stringify(first)}`);
   if (r.paths.length) f(`repository or tool path in visible text: ${r.paths.slice(0, 3).join(" | ")}`);
   if (r.sourceless.length) f(`"Source:" lines with no source: ${r.sourceless.join(", ")}`);
   if (r.emptySrcCells.length) f(`table rows with an empty Source cell: ${r.emptySrcCells.join(", ")}`);
-  if (MAX_WORDS && r.words > MAX_WORDS) f(`visible words ${r.words} exceed --max-words ${MAX_WORDS}`);
+  if (MAX_WORDS_LANG[c.lang] && r.words > MAX_WORDS_LANG[c.lang]) f(`visible words ${r.words} exceed the ${c.lang} ceiling ${MAX_WORDS_LANG[c.lang]}`);
   if (r.chain !== 6) f(`summary chain has ${r.chain} boxes (expected 6)`);
   if (!/US\$/.test(r.verdict)) f("summary verdict missing");
   if (r.leads < 14) f(`section leads: ${r.leads}`);
@@ -105,6 +121,11 @@ for (const c of configs) {
     await page.click('#dcfInputs button.preset[data-preset="bear"]'); await page.waitForTimeout(300);
     const after = await page.evaluate(() => ({ v: document.getElementById("dcfHero").textContent, l: document.getElementById("dcfHeroLbl").textContent }));
     if (after.v === before || !/Bear|Pesimista/.test(after.l)) f(`bear preset did not apply (${before} → ${after.v})`);
+    await page.click('#dcfInputs button.preset[data-preset="base"]'); await page.waitForTimeout(200);
+    // a manual edit of an operating input turns the scenario Custom: no highlighted preset, a Custom badge, the hero label says so
+    await page.fill('#dcfInputs input[data-k="margin"][data-i="1"]', '55'); await page.waitForTimeout(250);
+    const custom = await page.evaluate(() => ({ primary: document.querySelectorAll('#dcfInputs button.preset.primary').length, badge: (document.querySelector('#dcfInputs .presets .badge') || {}).textContent || '', lbl: document.getElementById('dcfHeroLbl').textContent }));
+    if (custom.primary !== 0 || !/Custom|Personalizado/.test(custom.badge) || !/Custom|Personalizado/.test(custom.lbl)) f(`manual edit did not switch the scenario to Custom: ${JSON.stringify(custom)}`);
     await page.click('#dcfInputs button.preset[data-preset="base"]'); await page.waitForTimeout(200);
     await page.evaluate(() => window.scrollTo(0, 4000)); await page.waitForTimeout(250);
     if (!(await page.evaluate(() => document.getElementById("toTop").classList.contains("show")))) f("back-to-top control not shown after scrolling");
