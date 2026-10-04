@@ -18,6 +18,7 @@
     { "id": "airline-traffic", "section": "companies", "name": { "es": "Tráfico por Aerolínea", "en": "Traffic by Airline" }, "url": "/aeropuertos/aerolineas/", "workflows": ["aerolineas-refresh.yml"], "alertLabels": [] },
     { "id": "qualitas", "section": "companies", "name": { "es": "Quálitas", "en": "Quálitas" }, "url": "/qualitas/", "workflows": ["qualitas-refresh.yml"], "alertLabels": [] },
     { "id": "gentera", "section": "companies", "name": { "es": "Gentera", "en": "Gentera" }, "url": "/gentera/", "workflows": ["gentera-refresh.yml"], "alertLabels": [] },
-    { "id": "oracle", "section": "companies", "name": { "es": "Oracle", "en": "Oracle" }, "url": "/oracle/", "workflows": ["oracle-refresh.yml"], "alertLabels": [] }
+    { "id": "oracle", "section": "companies", "name": { "es": "Oracle", "en": "Oracle" }, "url": "/oracle/", "workflows": ["oracle-refresh.yml"], "alertLabels": [] },
+    { "id": "hyperscalers", "section": "companies", "name": { "es": "Centro de Hiperescaladores", "en": "Hyperscaler Hub" }, "url": "/hiperescaladores/", "workflows": ["hyperscalers-refresh.yml"], "alertLabels": ["hyperscalers-health"] }
   ]
 }
