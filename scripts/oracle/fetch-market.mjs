@@ -97,12 +97,27 @@ async function damodaranErp() {
 
 async function firstThatWorks(label, attempts) {
   const errors = [];
-  for (const [name, fn] of attempts) {
-    try { const out = await fn(); console.log(`OK   ${label} via ${name}: ${out.rows.length} rows`); return { ...out, via: name }; }
+  for (const [i, [name, fn]] of attempts.entries()) {
+    try { const out = await fn(); console.log(`OK   ${label} via ${name}: ${out.rows.length} rows`); return { ...out, via: name, fallback: i > 0 }; }
     catch (e) { errors.push(`${name}: ${e.message}`); }
   }
   console.error(`FAIL ${label}: ${errors.join(" | ")}`);
   return null;
+}
+// A fallback source may cover a shorter window than the stored series (the Treasury's yearly CSV holds one calendar year;
+// FRED holds decades). When the primary source failed, keep every stored row and add only the dates the fallback brings,
+// so a one-day outage of the primary never truncates the committed history (2026-10-04).
+function readCSV(path) {
+  if (!existsSync(path)) return [];
+  return readFileSync(path, "utf8").trim().split(/\r?\n/).slice(1).map((l) => { const c = l.split(","); return { date: c[0], open: num(c[1]), high: num(c[2]), low: num(c[3]), close: num(c[4]), volume: num(c[5]) }; }).filter((r) => r.close != null && /^\d{4}-\d{2}-\d{2}$/.test(r.date));
+}
+function mergeFallback(series, path) {
+  if (!series || !series.fallback) return series;
+  const stored = readCSV(path); if (!stored.length) return series;
+  const have = new Set(stored.map((r) => r.date)); const added = series.rows.filter((r) => !have.has(r.date));
+  const rows = stored.concat(added).sort((a, b) => (a.date < b.date ? -1 : 1));
+  console.log(`     ${series.via} is a fallback: kept ${stored.length} stored rows, added ${added.length} new date(s)`);
+  return { ...series, rows };
 }
 
 async function main() {
@@ -112,9 +127,10 @@ async function main() {
 
   // closes only: the 13:30 UTC run is at the NYSE open, so a bar dated today is dropped until 16:15 New York time
   for (const x of [orcl, spx]) if (x) x.rows = completedSessions(x.rows, { exchange: "NYSE" });
-  if (orcl) writeFileSync(join(DATA, "prices_orcl_daily.csv"), toCSV(orcl.rows), "utf8");
-  if (spx) writeFileSync(join(DATA, "prices_spx_daily.csv"), toCSV(spx.rows), "utf8");
-  if (tsy) writeFileSync(join(DATA, "treasury_10y.csv"), toCSV(tsy.rows), "utf8");
+  const orclM = mergeFallback(orcl, join(DATA, "prices_orcl_daily.csv")), spxM = mergeFallback(spx, join(DATA, "prices_spx_daily.csv")), tsyM = mergeFallback(tsy, join(DATA, "treasury_10y.csv"));
+  if (orclM) { orcl.rows = orclM.rows; writeFileSync(join(DATA, "prices_orcl_daily.csv"), toCSV(orcl.rows), "utf8"); }
+  if (spxM) { spx.rows = spxM.rows; writeFileSync(join(DATA, "prices_spx_daily.csv"), toCSV(spx.rows), "utf8"); }
+  if (tsyM) { tsy.rows = tsyM.rows; writeFileSync(join(DATA, "treasury_10y.csv"), toCSV(tsy.rows), "utf8"); }
 
   const refPath = join(DATA, "market_reference.json");
   const ref = existsSync(refPath) ? JSON.parse(readFileSync(refPath, "utf8")) : { as_of: today, price_snapshot: {}, treasury_10y: {}, credit_ratings: {}, debt_instruments: [], notes: [] };

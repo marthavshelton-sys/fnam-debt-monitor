@@ -1053,8 +1053,8 @@
         }
       },
       "exec_summary": {
-        "updated": "2026-10-03",
-        "events_through": "2026-09-25",
+        "updated": "2026-10-04",
+        "events_through": "2026-10-02",
         "operations": {
           "en": [
             "Record revenue $19.3bn, +30%; Cloud +62%, IaaS +121% after 850 MW of new capacity; Software -3%.",
@@ -1101,15 +1101,22 @@
                 "Force majeure notice to the developer, Sep 24 (Bloomberg); Oracle says the site is on schedule.",
                 "Gas pipeline delayed to Feb 1, 2027; fuel-cell air permit decision due Nov 23 (TechCrunch).",
                 "US$18bn of project loans quoted at 89–91 cents (FT, Sep 18).",
-                "Watch: first energized MW against the 1H 2027 target."
+                "Floods reached the campus Sep 30; Oracle: no critical damage, schedule holds. Watch: first energized MW against the 1H 2027 target."
               ]
             },
             {
               "h": "The other four campuses",
               "lines": [
                 "Saline Twp., MI: Attorney General's appeal of the DTE power contracts (brief filed Aug 7).",
-                "Port Washington, WI: collateral rule for issuers rated below A stands; Sierra Club permit suit.",
+                "Port Washington, WI: grid approval pending; Aterio sees partial power Dec 2027 vs Oracle's 2H 2027 (The Register, Oct 2); collateral >US$100m a year.",
                 "Watch: energized MW per site after each call ({{sec:sites}})."
+              ]
+            },
+            {
+              "h": "Power and new demand (Sep 30 – Oct 2)",
+              "lines": [
+                "Point Beach (Oct 2): Oracle to subscribe to the plant's output and fund the campus's energy costs (~US$300m); Wisconsin PSC approval pending.",
+                "Tencent (FT, Sep 30): ~US$7bn, five-year lease of ~100,000 chips in Southeast Asia, ~30% upfront; neither company has confirmed (press)."
               ]
             },
             {
@@ -1135,15 +1142,22 @@
                 "Aviso de fuerza mayor al desarrollador, 24 sep (Bloomberg); Oracle dice que el sitio va en calendario.",
                 "Gasoducto pospuesto al 1 feb 2027; decisión del permiso de aire de las celdas de combustible el 23 nov (TechCrunch).",
                 "US$18 mil millones de préstamos del proyecto cotizan a 89–91 centavos (FT, 18 sep).",
-                "Vigilar: primeros MW energizados frente al objetivo del 1S 2027."
+                "Las inundaciones llegaron al campus el 30 sep; Oracle: sin daño crítico, el calendario se mantiene. Vigilar: primeros MW energizados frente al 1S 2027."
               ]
             },
             {
               "h": "Los otros cuatro campus",
               "lines": [
                 "Saline, MI: apelación de la Fiscal General contra los contratos eléctricos de DTE (escrito del 7 ago).",
-                "Port Washington, WI: sigue vigente la regla de garantías para emisores con calificación inferior a A; demanda de Sierra Club contra el permiso.",
+                "Port Washington, WI: aprobación de la red pendiente; Aterio ve energía parcial en dic 2027 vs 2S 2027 de Oracle (The Register, 2 oct); garantías >US$100 M/año.",
                 "Vigilar: MW energizados por sitio tras cada llamada ({{sec:sites}})."
+              ]
+            },
+            {
+              "h": "Energía y nueva demanda (30 sep – 2 oct)",
+              "lines": [
+                "Point Beach (2 oct): Oracle suscribirá generación de la planta y financiará la energía del campus (~US$300 M); aprobación de la PSC de Wisconsin pendiente.",
+                "Tencent (FT, 30 sep): ~US$7 mil M a cinco años por ~100,000 chips en el sudeste asiático, ~30% por adelantado; ninguna empresa lo confirma (prensa)."
               ]
             },
             {
@@ -1195,6 +1209,22 @@
           {
             "title": "4Q26 call p.8 (Investor Day Oct 28); 1Q27 call",
             "url": null
+          },
+          {
+            "title": "Oracle press release, 30 Sep 2026 (Project Jupiter floods)",
+            "url": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
+          },
+          {
+            "title": "Reuters via U.S. News, 30 Sep 2026 (Tencent lease, FT report)",
+            "url": "https://money.usnews.com/investing/news/articles/2026-09-30/chinas-tencent-leases-100-000-chips-from-oracle-to-accelerate-ai-push-ft-reports"
+          },
+          {
+            "title": "Oracle press release, 2 Oct 2026 (Point Beach)",
+            "url": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
+          },
+          {
+            "title": "The Register, 2 Oct 2026 (Port Washington grid, Aterio)",
+            "url": "https://www.theregister.com/on-prem/2026/10/02/power-approval-set-to-delay-oracles-wisconsin-ai-datacenter/5300832"
           }
         ]
       },
