@@ -1,18 +1,18 @@
 ticker,kind,agency_or_tranche,value,outlook,as_of,tier,source,url,refreshed_et
-MSFT,rating,Moody's,Aaa,stable,2026-08-21,T4,"Investing.com, “Moody’s affirms Microsoft stock Aaa rating; outlook stable”",https://uk.investing.com/news/stock-market-news/moodys-affirms-microsoft-stock-aaa-rating-outlook-stable-93CH-4843325,2026-10-04 11:13 ET
-GOOGL,rating,Moody's,Aa2,stable,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 11:13 ET
-GOOGL,rating,S&P,AA+,stable,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 11:13 ET
-AMZN,rating,Moody's,A1,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 11:13 ET
-AMZN,rating,S&P,AA,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 11:13 ET
-AMZN,rating,Fitch,AA-,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 11:13 ET
-META,rating,Moody's,Aa3,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 11:13 ET
-META,rating,S&P,AA-,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 11:13 ET
-ORCL,rating,Moody's,Baa2,negative,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 11:13 ET
-ORCL,rating,S&P,BBB,negative,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 11:13 ET
-ORCL,rating,S&P,BBB-,stable,2026-07-09,T4,"Yahoo Finance, “Oracle stock shrugs off S&P downgrade to ’BBB-’”",https://finance.yahoo.com/markets/stocks/articles/oracle-stock-shrugs-off-p-185346661.html,2026-10-04 11:13 ET
-ORCL,rating,Fitch,BBB,stable,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 11:13 ET
-CRWV,rating,S&P,B+,positive,2026-04-09,T4,"Investing.com, “CoreWeave outlook revised to positive by S&P, B+ rating affirmed”",https://www.investing.com/news/stock-market-news/coreweave-outlook-revised-to-positive-by-sp-b-rating-affirmed-93CH-4606449,2026-10-04 11:13 ET
-ORCL,new-issue spread,5.7% notes due 2036,145 bps,,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 11:13 ET
-META,new-issue spread,5.25% notes due 2036,90 bps,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 11:13 ET
-AMZN,new-issue spread,5.3% notes due 2036,80 bps,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 11:13 ET
-GOOGL,new-issue spread,5.45% notes due 2036,85 bps,,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 11:13 ET
+MSFT,rating,Moody's,Aaa,stable,2026-08-21,T4,"Investing.com, “Moody’s affirms Microsoft stock Aaa rating; outlook stable”",https://uk.investing.com/news/stock-market-news/moodys-affirms-microsoft-stock-aaa-rating-outlook-stable-93CH-4843325,2026-10-04 14:22 ET
+GOOGL,rating,Moody's,Aa2,stable,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 14:22 ET
+GOOGL,rating,S&P,AA+,stable,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 14:22 ET
+AMZN,rating,Moody's,A1,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 14:22 ET
+AMZN,rating,S&P,AA,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 14:22 ET
+AMZN,rating,Fitch,AA-,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 14:22 ET
+META,rating,Moody's,Aa3,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 14:22 ET
+META,rating,S&P,AA-,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 14:22 ET
+ORCL,rating,Moody's,Baa2,negative,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 14:22 ET
+ORCL,rating,S&P,BBB,negative,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 14:22 ET
+ORCL,rating,S&P,BBB-,stable,2026-07-09,T4,"Yahoo Finance, “Oracle stock shrugs off S&P downgrade to ’BBB-’”",https://finance.yahoo.com/markets/stocks/articles/oracle-stock-shrugs-off-p-185346661.html,2026-10-04 14:22 ET
+ORCL,rating,Fitch,BBB,stable,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 14:22 ET
+CRWV,rating,S&P,B+,positive,2026-04-09,T4,"Investing.com, “CoreWeave outlook revised to positive by S&P, B+ rating affirmed”",https://www.investing.com/news/stock-market-news/coreweave-outlook-revised-to-positive-by-sp-b-rating-affirmed-93CH-4606449,2026-10-04 14:22 ET
+ORCL,new-issue spread,5.7% notes due 2036,145 bps,,2026-02-02,T1,FWP 0001193125-26-033882,https://www.sec.gov/Archives/edgar/data/1341439/000119312526033882/d44245dfwp.htm,2026-10-04 14:22 ET
+META,new-issue spread,5.25% notes due 2036,90 bps,,2026-04-30,T1,FWP 0001193125-26-197902,https://www.sec.gov/Archives/edgar/data/1326801/000119312526197902/d148113dfwp.htm,2026-10-04 14:22 ET
+AMZN,new-issue spread,5.3% notes due 2036,80 bps,,2026-07-07,T1,FWP 0001104659-26-081334,https://www.sec.gov/Archives/edgar/data/1018724/000110465926081334/tm2619352d3_fwp.htm,2026-10-04 14:22 ET
+GOOGL,new-issue spread,5.45% notes due 2036,85 bps,,2026-08-06,T1,FWP 0001193125-26-338750,https://www.sec.gov/Archives/edgar/data/1652044/000119312526338750/d159970dfwp.htm,2026-10-04 14:22 ET
