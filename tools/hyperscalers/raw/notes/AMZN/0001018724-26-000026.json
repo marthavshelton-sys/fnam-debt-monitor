@@ -11,6 +11,52 @@
  "numberedPages": 51,
  "hits": [
   {
+   "kind": "cash_flow",
+   "page": "3",
+   "match": "net cash from operating activities",
+   "text": "…NANCIAL INFORMATION   Item 1. Financial Statements   AMAZON.COM, INC.   CONSOLIDATED STATEMENTS OF CASH FLOWS   (in millions)   (unaudited)   Three Months Ended June 30, Six Months Ended June 30, Twelve Months Ended June 30,   2025 2026 2025 2026 2025 2026   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, BEGINNING OF PERIOD $ 69,893 $ 104,692 $ 82,312 $ 90,106 $ 71,673 $ 61,453   OPERATING ACTIVITIES:   Net income 18,164 62,647 35,291 92,902 70,623 135,281   Adjustments to reconcile net income to net cash from operating activities:   Depreciation and amortization of property and equipment and capitalized content costs, operating lease assets, and other 15,227 19,988 29,489 38,933 58,562 75,200   Stock-based compensation 6,534 6,038 10,223 10,070 20,551 19,314   Non-operating expense (income), net ( 1,258 ) ( 53,381 ) ( 4,075 ) ( 69,013 ) ( 4,702 ) ( 79,818 )   Deferred income taxes 11 17,691 518 30,489 ( 2,407 ) 41,441   Changes in operating assets and liabilities:   Inventories ( 4,054 ) ( 1,818 ) ( 5,276 ) ( 196 ) ( 5,851 ) 2,078   Accounts receivable, net and other ( 1,125 ) ( 8,204 ) 122 ( 13,954 ) ( 4,602 ) ( 21,409 )   Other assets ( 2,971 ) ( 4,717 ) ( 6,373 ) ( 8,528 ) ( 15,100 ) ( 17,787 )   Accounts payable 7,058 9,442 ( 1,985 ) 705 6,264 13,921   Accrued expenses and other ( 4,952 ) ( 2,018 ) ( 9,013 ) ( 10,063 ) ( 4,842 ) ( 6,069 )   Unearned revenue ( 119 ) ( 281 ) 6…",
+   "amounts": [
+    {
+     "raw": "$ 69,893 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 104,692 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 82,312 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 90,106 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 71,673 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 61,453   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "3",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…) 41,441   Changes in operating assets and liabilities:   Inventories ( 4,054 ) ( 1,818 ) ( 5,276 ) ( 196 ) ( 5,851 ) 2,078   Accounts receivable, net and other ( 1,125 ) ( 8,204 ) 122 ( 13,954 ) ( 4,602 ) ( 21,409 )   Other assets ( 2,971 ) ( 4,717 ) ( 6,373 ) ( 8,528 ) ( 15,100 ) ( 17,787 )   Accounts payable 7,058 9,442 ( 1,985 ) 705 6,264 13,921   Accrued expenses and other ( 4,952 ) ( 2,018 ) ( 9,013 ) ( 10,063 ) ( 4,842 ) ( 6,069 )   Unearned revenue ( 119 ) ( 281 ) 609 74 2,641 ( 749 )   Net cash provided by (used in) operating activities 32,515 45,387 49,530 71,419 121,137 161,403   INVESTING ACTIVITIES:   Purchases of property and equipment ( 32,183 ) ( 54,208 ) ( 57,202 ) ( 98,411 ) ( 107,656 ) ( 173,028 )   Proceeds from property and equipment sales and incentives 815 1,132 1,579 2,101 4,703 4,021   Acquisitions, net of cash acquired, non-marketable investments, and other, net ( 1,700 ) ( 24,359 ) ( 1,652 ) ( 39,767 ) ( 4,809 ) ( 41,956 )   Sales and maturities of marketable securities 11,441 24,196 19,178 41,882 30,924 67,090   Purchases of marketable securities ( 17,797 ) ( 26,006 ) ( 31,130 ) ( 49,262 ) ( 46,731 ) ( 72,902 )   Net cash provided by (used in) investing activities ( 39,424 ) ( 79,245 ) ( 69,227 ) ( 143,457 ) ( 123,569 ) ( 216,775 )   FINANCING ACTIVITIES:   Proceeds from short-term debt, and other 2,093 9,368 3,908 15,386 8,187 20,798   Repayments of…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "3",
+   "match": "Proceeds from long-term debt",
+   "text": "…rketable securities 11,441 24,196 19,178 41,882 30,924 67,090   Purchases of marketable securities ( 17,797 ) ( 26,006 ) ( 31,130 ) ( 49,262 ) ( 46,731 ) ( 72,902 )   Net cash provided by (used in) investing activities ( 39,424 ) ( 79,245 ) ( 69,227 ) ( 143,457 ) ( 123,569 ) ( 216,775 )   FINANCING ACTIVITIES:   Proceeds from short-term debt, and other 2,093 9,368 3,908 15,386 8,187 20,798   Repayments of short-term debt, and other ( 1,392 ) ( 9,573 ) ( 3,474 ) ( 15,682 ) ( 7,901 ) ( 20,634 )   Proceeds from long-term debt — 13,557 746 66,998 746 81,925   Repayments of long-term debt ( 2,751 ) ( 2,752 ) ( 2,751 ) ( 2,752 ) ( 7,434 ) ( 5,022 )   Principal repayments of finance leases ( 411 ) ( 395 ) ( 821 ) ( 863 ) ( 1,556 ) ( 1,599 )   Principal repayments of financing obligations ( 78 ) ( 59 ) ( 194 ) ( 174 ) ( 694 ) ( 308 )   Net cash provided by (used in) financing activities ( 2,539 ) 10,146 ( 2,586 ) 62,913 ( 8,652 ) 75,160   Foreign currency effect on cash, cash equivalents, and restricted cash 1,008 ( 53 ) 1,424 ( 54 ) 864 ( 314 )   Net increase (decrease) in cash, cash equivalents, and restricted cash ( 8,440 ) ( 23,765 ) ( 20,859 ) ( 9,179 ) ( 10,220 ) 19,474   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, END OF PERIOD $ 61,453 $ 80,927 $ 61,453 $ 80,927 $ 61,453 $ 80,927   See accompanying notes to consolidated financial statements.   3",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "4",
    "match": "Equity-method investment",
@@ -411,6 +457,46 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "17",
+   "match": "Notes issuance of",
+   "text": "…or cash flows.   See also “Note 7 — Income Taxes.”   Note 5 — DEBT   As of June 30, 2026, we had $ 132.1 billion of unsecured senior notes outstanding (the “Notes”), including foreign currency-denominated Notes issued for general corporate purposes, the carrying values of which are subject to foreign exchange rate fluctuations. Our total long-term debt obligations are as follows (in millions):   Maturities (1) Stated Interest Rates Effective Interest Rates December 31, 2025 June 30, 2026   2014 Notes issuance of $ 6.0 billion   2034 - 2044 4.80 % - 4.95 %   4.93 % - 5.12 %   2,750 2,750   2017 Notes issuance of $ 17.0 billion   2027 - 2057 3.15 % - 4.25 %   3.25 % - 4.33 %   12,000 12,000   2020 Notes issuance of $ 10.0 billion   2027 - 2060 1.20 % - 2.70 %   1.26 % - 2.77 %   7,750 7,750   2021 Notes issuance of $ 18.5 billion   2028 - 2061 1.65 % - 3.25 %   1.70 % - 3.31 %   15,000 12,250   April 2022 Notes issuance of $ 12.8 billion   2027 - 2062 3.30 % - 4.10 %   3.40 % - 4.15 %   9,750 9,750   December 2022 Notes issuance of $ 8.3 billion   2027 - 2032 4.55 % - 4.70 %   4.61 % - 4.74 %   5,750 5,750   2025 Notes issuance of $ 15.0 billion   2028 - 2065 3.90 % - 5.55 %   3.99 % - 5.62 %   15,000 15,000   March 2026 Notes issuance of $ 37.0 billion (2)   2028 - 2076 3.85 % - 6.05 %   3.96 % - 6.12 %   — 37,000   March 2026 Euro-denominated Notes issuance of € 14.5 billion (3…",
+   "amounts": [
+    {
+     "raw": "$ 6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$ 17.0 billion",
+     "usdM": 17000
+    },
+    {
+     "raw": "$ 10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$ 18.5 billion",
+     "usdM": 18500
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "17",
+   "match": "Notes issuance of",
+   "text": "…%   9,750 9,750   December 2022 Notes issuance of $ 8.3 billion   2027 - 2032 4.55 % - 4.70 %   4.61 % - 4.74 %   5,750 5,750   2025 Notes issuance of $ 15.0 billion   2028 - 2065 3.90 % - 5.55 %   3.99 % - 5.62 %   15,000 15,000   March 2026 Notes issuance of $ 37.0 billion (2)   2028 - 2076 3.85 % - 6.05 %   3.96 % - 6.12 %   — 37,000   March 2026 Euro-denominated Notes issuance of € 14.5 billion (3)   2028 - 2064 2.50 % - 4.85 %   2.59 % - 4.88 %   — 16,550   May 2026 Swiss franc-denominated Notes issuance of CHF 2.8 billion   2029 - 2051 0.84 % - 2.08 %   0.90 % - 2.10 %   — 3,487   June 2026 Canadian Dollar-denominated Notes issuance of C$ 14.0 billion   2029 - 2056 3.40 % - 5.00 %   3.46 % - 5.05 %   — 9,853   Other long-term debt 836 855   Total face value of long-term debt 68,836 132,995   Unamortized discount and issuance costs, net ( 440 ) ( 771 )   Less: current portion of long-term debt ( 2,748 ) ( 3,330 )   Long-term debt $ 65,648 $ 128,894   ___________________   (1) The weighted-average remaining lives of the 2014, 2017, 2020, 2021, April 2022, December 2022, 2025, March 2026, March 2026 Euro-denominated, May 2026 Swiss franc-denominated, and June 2026 Canadian Dollar-denominated Notes were 13.9 , 14.9 , 17.6 , 15.6 , 13.3 , 3.9 , 15.1 , 16.4 , 10.1 , 8.9 , and 14.8 years as of June 30, 2026. The combined weighted-average remaining life of the Notes was 14.2 year…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 billion",
+     "usdM": 37000
+    },
+    {
+     "raw": "$ 14.0 billion",
+     "usdM": 14000
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "18",
    "match": "guarantees",
@@ -439,6 +525,26 @@
     {
      "raw": "$ 17.5 billion",
      "usdM": 17500
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "18",
+   "match": "revolving credit facilit",
+   "text": "… we may from time to time issue unsecured commercial paper up to a total of $ 30.0 billion (including up to € 3.0 billion) at the date of issue, with individual maturities that may vary but will not exceed 397 days from the date of issue. There were no borrowings outstanding under the Commercial Paper Programs as of December 31, 2025 and June 30, 2026. We use the net proceeds from the issuance of commercial paper for general corporate purposes.   We have an aggregate $ 20.0 billion in unsecured revolving credit facilities with syndicates of lenders, consisting of a $ 15.0 billion facility (the “Credit Agreement”) and a $ 5.0 billion 364-day facility (the “Short-Term Credit Agreement”). The Credit Agreement has a term that extends to November 2028 and may be extended for one or more additional one-year terms subject to approval by the lenders. The interest rate applicable to outstanding balances under the Credit Agreement is the applicable benchmark rate specified in the Credit Agreement plus 0.45 %, with a commitment fee of 0.03 % on the undrawn portion of the credit facility. The Short-Term Credit Agreement matures in October 2026 and may be extended for one additional period of 364 days subject to approval by the lenders. The interest rate applicable to outstanding balances under the Short-Term Credit Agreement is the SOFR specified in the Short-Term Credit Agreement plus 0.4…",
+   "amounts": [
+    {
+     "raw": "$ 20.0 billion",
+     "usdM": 20000
+    },
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
     }
    ]
   },
@@ -696,6 +802,30 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "28",
+   "match": "revolving credit facilit",
+   "text": "…m payments of short-term debt, and other, long-term debt, finance leases, and financing obligations of $4.6 billion and $12.8 billion for Q2 2025 and Q2 2026, and $7.2 billion and $19.5 billion for the six months ended June 30, 2025 and 2026. Property and equipment acquired under finance leases was $937 million and $563 million during Q2 2025 and Q2 2026, and $991 million and $2.1 billion for the six months ended June 30, 2025 and 2026.   We had no borrowings outstanding under the two unsecured revolving credit facilities or the commercial paper programs as of June 30, 2026. See Item 1 of Part I, “Financial Statements — Note 5 — Debt” for additional information.   Certain foreign subsidiary earnings and losses are subject to current U.S. taxation and the subsequent repatriation of those earnings is not subject to tax in the U.S. We intend to invest substantially all of our foreign subsidiary earnings, as well as our capital in our foreign subsidiaries, indefinitely outside of the U.S. in those jurisdictions in which we would incur significant, additional costs upon repatriation of such amounts.   Our U.S. taxable income is reduced by accelerated depreciation deductions and the amortization of previously capitalized research and development costs. U.S. tax rules provide for enhanced accelerated depreciation deductions by allowing the election of full expensing of qualified prope…",
+   "amounts": [
+    {
+     "raw": "$937 million",
+     "usdM": 937
+    },
+    {
+     "raw": "$563 million",
+     "usdM": 563
+    },
+    {
+     "raw": "$991 million",
+     "usdM": 991
+    },
+    {
+     "raw": "$2.1 billion",
+     "usdM": 2100
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "28",
    "match": "Anthropic",
@@ -788,6 +918,26 @@
     },
     {
      "raw": "$2.",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "33",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…nancial measures.   Free Cash Flow   Our financial focus is on long-term, sustainable growth in free cash flow. We provide a free cash flow measure because we believe it provides additional perspective on the impact of acquiring property and equipment with cash. Free cash flow is cash flow from operations reduced by “Purchases of property and equipment, net of proceeds from sales and incentives.” The following is a reconciliation of free cash flow to the most comparable GAAP cash flow measure, “Net cash provided by (used in) operating activities,” for the trailing twelve months ended June 30, 2025 and 2026 (in millions):   Twelve Months Ended June 30,   2025 2026   Net cash provided by (used in) operating activities $ 121,137 $ 161,403   Purchases of property and equipment, net of proceeds from sales and incentives (102,953) (169,007)   Free cash flow $ 18,184 $ (7,604)   Net cash provided by (used in) investing activities $ (123,569) $ (216,775)   Net cash provided by (used in) financing activities $ (8,652) $ 75,160   Free cash flow has limitations as it omits certain components of the overall cash flow statement and does not represent the residual cash flow available for discretionary expenditures. For example, free cash flow does not incorporate the portion of payments representing principal reductions of debt or cash payments for business acquisitions. Additionally, our mi…",
+   "amounts": [
+    {
+     "raw": "$ 121,137 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 161,403   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,184 ",
      "usdM": null
     }
    ]

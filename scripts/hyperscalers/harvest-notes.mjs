@@ -7,12 +7,14 @@
 // Output: tools/hyperscalers/raw/notes/<TICKER>/<accession>.json (passages and dollar amounts found in them).
 // Nothing here reaches the page directly: a person or the Claude routine reads the passages, confirms the figure
 // against the cited page and records it in tools/hyperscalers/data/offbs.json ("needs review" until then).
-// Usage: node scripts/hyperscalers/harvest-notes.mjs [--force] [--ticker=MSFT]
+// Usage: node scripts/hyperscalers/harvest-notes.mjs [--force] [--ticker=MSFT] [--accn=0001193125-26-027207,…]
+// (--accn harvests named older filings too, e.g. the quarters cited by tools/hyperscalers/data/outliers.json)
 import { readJson, writeJson, UA, TOOLS, accnPath } from './lib.mjs';
 
 const args = process.argv.slice(2);
 const FORCE = args.includes('--force');
 const ONLY = (args.find((a) => a.startsWith('--ticker=')) || '').split('=')[1] || null;
+const EXTRA = new Set(((args.find((a) => a.startsWith('--accn=')) || '').split('=')[1] || '').split(',').filter(Boolean));
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const KINDS = [
   ['leases_not_commenced', /(not yet commenced|have not commenced|has not commenced|yet to commence|not commenced|additional (?:operating |finance )?lease(?:s| commitments)? .{0,120}(?:commence|not reflected))/i],
@@ -35,6 +37,8 @@ const KINDS = [
   ['depreciation', /depreciation expense|depreciation and amortization expense/i],
   ['estimate_change', /effect of (?:this|the) change in (?:accounting )?estimate|financial impact of this change|change in (?:accounting )?estimate will/i],
   ['credit_rating', /credit ratings?|Moody's|Standard (?:&|and) Poor's|S&P Global Ratings|\bFitch\b|investment[- ]grade/i],
+  // round 4 (2026-10-04): cash-flow statement lines and financing events behind the quarterly outlier checks (tools/hyperscalers/data/outliers.json)
+  ['cash_flow', /Repayments of (?:long-term )?debt\b|Proceeds from (?:issuances? of )?(?:long-term debt|common stock|convertible notes|medium-term notes)|Net cash (?:provided by|from) (?:\(used in\) )?operating activities|at-the-market|closed a \$\s?[\d.]+ billion offering|Deferred revenue[ ,]|contract prepayments|revolving credit facilit|Notes issuance of|Convertible Senior Notes due|entered into a Credit Agreement|we issued (?:fixed-rate )?senior unsecured notes|Proceeds from issuance of debt|Equity Offering, net of issuance costs|Financing cash flows used for finance leases/i],
   ['concentration', /\d{1,3}(?:\.\d)?%\s+of\s+(?:our\s+)?(?:total\s+)?revenue|significant customer|customer concentration|largest customer|related part(?:y|ies)|\bOpenAI\b|\bAnthropic\b|\bMicrosoft\b|\bNVIDIA\b/]
 ];
 
@@ -78,6 +82,7 @@ for (const c of companies) {
   if (ONLY && c.ticker !== ONLY) continue;
   const list = (filings.companies[c.ticker] || {}).filings || [];
   const pick = [list.find((f) => /^10-K$|^20-F$/.test(f.form)), list.find((f) => f.form === '10-Q')].filter(Boolean);
+  for (const f of list) if (EXTRA.has(f.accn) && !pick.includes(f)) pick.push(f);
   for (const f of pick) {
     if (!FORCE && state.notes[f.accn]) continue;
     if (!f.doc) continue;

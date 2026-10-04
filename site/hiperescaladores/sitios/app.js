@@ -42,7 +42,7 @@
 
   function header() {
     var withPt = S.sites.filter(function (s) { return s.lat != null; }).length;
-    set('asofRow', '<span><b>' + t('Sitios', 'Sites') + '</b> ' + S.sites.length + ' (' + (S.sites.length - withPt) + ' ' + t('sin ubicación revelada', 'location not disclosed') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(S.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(S.refreshedET) + '</span>');
+    set('asofRow', '<span><b>' + t('Sitios', 'Sites') + '</b> ' + S.sites.length + ' (' + (S.sites.length - withPt) + ' ' + t('sin ubicación revelada', 'location not disclosed') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.curatedDate(S) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(S.refreshedET) + '</span>');
     set('notices', '<div class="notice warn"><b>' + t('Cobertura desigual.', 'Uneven coverage.') + '</b> ' + t('Las neonubes nombran sus campus en el 10-K; Microsoft, Alphabet y Amazon no nombran ninguno en sus presentaciones, y Meta solo sus coinversiones. Los campus de Oracle provienen de sus llamadas y comunicados (T2). La ausencia de un hiperescalador en el mapa es falta de divulgación, no falta de centros de datos.', 'The neoclouds name their campuses in the 10-K; Microsoft, Alphabet and Amazon name none in their filings, and Meta only its ventures. Oracle\'s campuses come from its calls and releases (T2). A hyperscaler missing from the map reflects missing disclosure, not missing data centers.') + '</div>');
   }
 
@@ -87,7 +87,7 @@
       });
     });
     var off = pts.length - marks.length;
-    var r = VIEW === 'world' ? 4.2 : 5.5;
+    var r = (VIEW === 'world' ? 4.2 : 5.5) * (window.innerWidth < 700 ? 1.6 : window.innerWidth < 900 ? 1.3 : 1);
     var svg = '<svg viewBox="0 0 ' + V.w + ' ' + V.h + '" role="img" aria-label="' + t('Mapa de sitios', 'Sites map') + '" style="width:100%;height:auto;display:block">' +
       '<path d="' + V.land + '" fill="var(--surface-2)" stroke="none"/>' + (V.states ? '<path d="' + V.states + '" fill="none" stroke="var(--grid)" stroke-width="0.7"/>' : '') + '<path d="' + V.borders + '" fill="none" stroke="var(--baseline)" stroke-width="0.8"/>' +
       marks.map(function (m) {
@@ -106,7 +106,7 @@
     var used = {}; S.sites.forEach(function (s) { if (CO === 'all' || s.ticker === CO) used[s.ticker] = 1; });
     set('mapLeg', ORDER.filter(function (tk) { return used[tk]; }).map(function (tk) { return '<span><i style="background:' + H.color(tk) + ';border-radius:50%"></i>' + esc(nm(tk)) + '</span>'; }).join('') +
       '<span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--text-secondary)"/></svg>' + t('en operación', 'operating') + '</span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="var(--text-secondary)"/><circle cx="7" cy="7" r="2.2" fill="var(--surface)"/></svg>' + t('parcial', 'partial') + '</span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="var(--text-secondary)" stroke-width="2"/></svg>' + t('en construcción / contratado', 'under construction / contracted') + '</span><span><svg width="14" height="14" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="var(--text-secondary)" stroke-width="2" stroke-dasharray="2.5 1.8"/></svg>' + t('en desarrollo / anunciado', 'in development / announced') + '</span><span><svg width="14" height="14" aria-hidden="true"><rect x="3" y="3" width="8" height="8" transform="rotate(45 7 7)" fill="none" stroke="var(--text-secondary)" stroke-width="1.6"/></svg>' + t('ubicación aproximada: estado o país', 'approximate location: state or country') + '</span>');
-    set('mapDesc', t('Toque un punto para ver la ficha del sitio. Círculo = localidad o condado que nombra la empresa; rombo = solo el estado o país. Puntos que coinciden se separan ligeramente. El tamaño es fijo: los MW usan definiciones distintas por empresa.', 'Tap a dot to see the site card. Circle = locality or county the company names; diamond = state or country only. Overlapping dots are spread slightly. Size is fixed: MW use different definitions per company.'));
+    set('mapDesc', '<span class="map-narrow-note">' + t('En pantallas angostas el mapa se oculta: la tabla de abajo lista todos los sitios con su ficha. ', 'On narrow screens the map is hidden: the table below lists every site with its card. ') + '</span>' + t('Toque un punto para ver la ficha del sitio. Círculo = localidad o condado que nombra la empresa; rombo = solo el estado o país. Puntos que coinciden se separan ligeramente. El tamaño es fijo: los MW usan definiciones distintas por empresa.', 'Tap a dot to see the site card. Circle = locality or county the company names; diamond = state or country only. Overlapping dots are spread slightly. Size is fixed: MW use different definitions per company.'));
     set('mapStamp', H.stamp({ asOf: t('varía por sitio', 'varies by site'), refreshed: S.refreshedET, sources: [{ label: t('10-K, 10-Q y 20-F (SEC EDGAR)', '10-K, 10-Q and 20-F (SEC EDGAR)') }, { label: t('Oracle (T2)', 'Oracle (T2)'), url: '/oracle/' }, { label: M ? (H.lang === 'es' ? 'Mapa base: Natural Earth; Censo de EE. UU.' : 'Base map: Natural Earth; U.S. Census Bureau') : '' }], csv: '/hiperescaladores/csv/sites.csv', note: '<a href="/hiperescaladores/sitios/quality.html">' + t('Calidad de datos', 'Data quality') + '</a>' }));
   }
 
@@ -143,4 +143,5 @@
 
   function foot() { set('foot', t('Fuentes: 10-K, 10-Q y 20-F (SEC EDGAR), con página y frase citadas; Oracle (T2): llamadas de resultados y comunicados, del almacén del modelo de Oracle. Mapa base: Natural Earth (world-atlas) y Oficina del Censo de EE. UU. (us-atlas). ', 'Sources: 10-Ks, 10-Qs and 20-F (SEC EDGAR), with page and quoted sentence; Oracle (T2): earnings calls and releases, from the Oracle model store. Base map: Natural Earth (world-atlas) and U.S. Census Bureau (us-atlas). ') + '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.')); }
   H.onLang(function () { header(); conclusion(); controls(); map(); info(); table(); foot(); });
+  var rz = null; window.addEventListener('resize', function () { clearTimeout(rz); rz = setTimeout(map, 150); });
 })();

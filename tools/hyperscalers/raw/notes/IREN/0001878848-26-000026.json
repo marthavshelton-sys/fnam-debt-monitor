@@ -102,6 +102,110 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "Deferred revenue,",
+   "text": "…1,805 32,916   Financial assets 8 — 211,617   Derivative assets 10 192,000 122,100   Other non-current assets 4,994 486   Total non-current assets   4,840,411 2,299,150   Total assets $ 7,264,897 $ 2,940,323   Liabilities and stockholders’ equity   Current liabilities   Accounts payable and accrued expenses 13 $ 461,836 $ 144,115   Operating lease liability, current portion 14 540 404   Finance lease liability, current portion 9, 14   122,168 —   Income taxes payable, current portion 20 910 —   Deferred revenue, current portion — 21,790 884   Other liabilities, current portion 15 44,112 3,945   Total current liabilities   651,356 149,347   Non-current liabilities   Operating lease liability, less current portion 14 2,285 1,063   Finance lease liability, less current portion 9, 14   152,088 —   Convertible notes payable 16 3,687,832 962,765   Deferred revenue, less current portion 5 98,598 —   Deferred tax liabilities 20 640 7,971   Income taxes payable, less current portion 20 2,662 1,454   Other liabilities, less current portion 15 4,907 234   Total non-current liabilities   3,949,013 973,488   Total liabilities 4,600,369 1,122,835   Commitments and contingencies (See Note 21)   Stockholders’ equity   Ordinary shares, no par value; 340,979,966 and 258,103,209 shares issued and outstanding as of March 31, 2026 and June 30, 2025, respectively   17 5,047,083 2,355,056   B Class s…",
+   "amounts": [
+    {
+     "raw": "$ 461,836 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 144,115   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "12",
+   "match": "at-the-market",
+   "text": "IREN Limited   Condensed Consolidated Statements of Stockholders’ Equity   (Unaudited, in USD thousands, except share and per share data)   Nine Months Ended March 31, 2026   Ordinary shares Additional Paid-in Capital Accumulated Deficit Accumulated Other  Comprehensive Income (Loss) Total Stockholders’ Equity   Shares Amount   Balance, June 30, 2025 257,211,899 $ 2,355,056 $ 88,672 $ ( 596,167 ) $ ( 30,073 ) $ 1,817,488   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 23,041,102 599,918 — — — 599,918   Issuance of Ordinary shares – restricted stock units 314,237 1,787 — — — 1,787   Issuance of Ordinary shares – stock options 2,309,065 8,827 — — — 8,827   Stock-based compensation — 68,994 — — 68,994   Change in foreign currency translation adjustments — — — — ( 5,458 ) ( 5,458 )   Net income (loss) — — — 384,611 — 384,611   Balance, September 30, 2025 282,876,303 2,965,588 157,666 ( 211,556 ) ( 35,531 ) 2,876,167   Issuance of Ordinary shares – at-the-market offering, net of issuance costs — — — — — —   Issuance of Ordinary shares – Equity Offering, net of issuance costs 39,699,102 1,634,847 — — — 1,634,847   Issuance of Ordinary shares – restricted stock units 9,122,733 67,806 — — — 67,806   Issuance of Ordinary shares – stock options 61,039 131 — — — 131   Stock-based compensation — — ( 9,574 ) — — ( 9,57…",
+   "amounts": [
+    {
+     "raw": "$ 2,355,056 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 88,672 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,817,488   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "12",
+   "match": "at-the-market",
+   "text": "…81,018 )   Reclassification of 2030 Prepaid Forward Contract and 2029 Prepaid Forward Contract — — ( 665,400 ) — — ( 665,400 )   Reclassification of 2030 Capped Call Transactions and 2029 Capped Call Transactions — — ( 259,600 ) — — ( 259,600 )   Change in foreign currency translation adjustments — — — — 3,241 3,241   Net income (loss) — — — ( 155,407 ) — ( 155,407 )   Balance, December 31, 2025 331,759,177 4,668,372 ( 1,757,926 ) ( 366,963 ) ( 32,290 ) 2,511,193   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 8,857,303 376,806 — — — 376,806   Issuance of Ordinary shares – restricted stock units 363,486 1,905 — — — 1,905   Issuance of Ordinary shares – stock options — — — — — —   Stock-based compensation — — 29,559 — — 29,559   Change in foreign currency translation adjustments — — — — ( 7,108 ) ( 7,108 )   Net income (loss) — — — ( 247,827 ) — ( 247,827 )   Balance, March 31, 2026 340,979,966 5,047,083 ( 1,728,367 ) ( 614,790 ) ( 39,398 ) 2,664,528   12",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "13",
+   "match": "at-the-market",
+   "text": "IREN Limited   Condensed Consolidated Statements of Stockholders’ Equity (continued)   (Unaudited, in USD thousands, except share and per share data)   Nine Months Ended March 31, 2025   Ordinary shares Additional Paid-in Capital Accumulated Deficit Accumulated Other  Comprehensive Income (Loss) Total Stockholders’ Equity   Shares Amount   Balance, June 30, 2024 186,367,686 $ 1,764,289 $ 51,286 $ ( 683,109 ) $ ( 34,994 ) $ 1,097,471   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 9,138,867 73,145 — — — 73,145   Issuance of Ordinary shares – restricted stock units 1,132,733 4,758 — — — 4,758   Issuance of Ordinary shares – stock options 490,196 991 — — — 991   Stock-based compensation — 3,160 — — 3,160   Change in foreign currency translation adjustments — — — — 1,854 1,854   Net income (loss) — — — ( 51,703 ) — ( 51,703 )   Balance, September 30, 2024 197,129,482 1,843,183 54,446 ( 734,812 ) ( 33,140 ) 1,129,677   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 16,268,604 141,818 — — — 141,818   Issuance of Ordinary shares – restricted stock units 14,940 5 — — — 5   Issuance of Ordinary shares – stock options 91,962 99 — — — 99   Stock-based compensation — — 7,893 — — 7,893   Change in foreign currency translation adjustments — — — — ( 11,959 ) ( 11,959 )   Net income (loss) — — — ( 21,888 …",
+   "amounts": [
+    {
+     "raw": "$ 1,764,289 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 51,286 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,097,471   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "13",
+   "match": "at-the-market",
+   "text": "…f issuance costs 16,268,604 141,818 — — — 141,818   Issuance of Ordinary shares – restricted stock units 14,940 5 — — — 5   Issuance of Ordinary shares – stock options 91,962 99 — — — 99   Stock-based compensation — — 7,893 — — 7,893   Change in foreign currency translation adjustments — — — — ( 11,959 ) ( 11,959 )   Net income (loss) — — — ( 21,888 ) — ( 21,888 )   Balance, December 31, 2024 213,504,988 $ 1,985,105 $ 62,339 $ ( 756,700 ) $ ( 45,099 ) $ 1,245,645   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 10,022,708 107,263 — — — 107,263   Issuance of Ordinary shares – restricted stock units 29,881 140 — — — 140   Issuance of Ordinary shares – stock options — — — — — —   Stock-based compensation — — 7,630 — — 7,630   Change in foreign currency translation adjustments — — — — 24 24   Net income (loss) — — — ( 16,144 ) — ( 16,144 )   Balance, March 31, 2025 223,557,577 $ 2,092,508 $ 69,969 $ ( 772,844 ) $ ( 45,075 ) $ 1,344,558   See accompanying Notes to the Unaudited Condensed Consolidated Financial Statements.   13",
+   "amounts": [
+    {
+     "raw": "$ 1,985,105 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 62,339 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,245,645   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "14",
+   "match": "net cash from (used in) operating activities",
+   "text": "IREN Limited   Condensed Consolidated Statements of Cash Flows   (Unaudited, in USD thousands)   Nine Months Ended  March 31,   2026 2025   Operating activities   Net income (loss)   $ ( 18,622 ) $ ( 89,735 )   Adjustments to reconcile net income (loss) to net cash from (used in) operating activities:   Depreciation and amortization 305,647 117,319   Impairment of assets 188,423 6,942   Change in fair value of assets held for sale 8,484 2,161   Realized (gain) loss on financial instruments 8,666 4,215   Unrealized (gain) loss on financial instruments ( 533,942 ) 70,200   Debt conversion inducement expense 111,799 —   Other (income) expense — 3,176   (Gain) loss on disposal of property, plant and equipment ( 228 ) ( 1,678 )   Foreign exchange loss (gain) 6,961 6,474   Stock-based compensation expense 162,123 23,929   Amortization of debt issuance costs 6,125 702   Changes in assets and liabilities:   Accounts receivable and other receivables ( 92,361 ) ( 8,210 )   Other assets ( 4,507 ) ( 39 )   Financial asset, current — 6,530   Tax related liabilities 219 6,716   Accounts payable and accrued expenses 6,861 10,229   Other liabilities 44,84…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "14",
+   "match": "Deferred revenue ",
+   "text": "…ss on disposal of property, plant and equipment ( 228 ) ( 1,678 )   Foreign exchange loss (gain) 6,961 6,474   Stock-based compensation expense 162,123 23,929   Amortization of debt issuance costs 6,125 702   Changes in assets and liabilities:   Accounts receivable and other receivables ( 92,361 ) ( 8,210 )   Other assets ( 4,507 ) ( 39 )   Financial asset, current — 6,530   Tax related liabilities 219 6,716   Accounts payable and accrued expenses 6,861 10,229   Other liabilities 44,840 9,987   Deferred revenue 119,504 ( 887 )   Prepayments and deposits ( 32,024 ) ( 25,667 )   Operating lease liabilities 1,358 381   Net cash from (used in) operating activities 289,326 142,745   Investing activities   Payments for property, plant and equipment, net of computer hardware ( 1,669,157 ) ( 389,342 )   Payments for computer hardware ( 685,777 ) ( 625,413 )   Payments for intangible assets ( 107,573 ) —   Payments for other prepayments and deposits ( 159,059 ) ( 5,996 )   Proceeds from disposal of property, plant and equipment 22,819 9,970   Proceeds from release of deposits — 470   Deposits paid for right-of-use assets ( 10,184 ) —   Net cash from (used in) investing activities ( 2,608,931 ) ( 1,010,311 )   Financing activities   Payment of offering costs for the issuance of Ordinary shares ( 23,979 ) ( 1,150 )   Proceeds from the issuance of Ordinary shares 2,630,814 339,272   Paymen…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "14",
+   "match": "Proceeds from convertible notes",
+   "text": "…roceeds from release of deposits — 470   Deposits paid for right-of-use assets ( 10,184 ) —   Net cash from (used in) investing activities ( 2,608,931 ) ( 1,010,311 )   Financing activities   Payment of offering costs for the issuance of Ordinary shares ( 23,979 ) ( 1,150 )   Proceeds from the issuance of Ordinary shares 2,630,814 339,272   Payment for induced conversion of convertible notes ( 1,623,484 ) —   Proceeds from loan funded shares 658 858   Proceeds from exercise of options 6,597 —   Proceeds from convertible notes 3,299,555 311,646   Payment of capped call transactions ( 252,252 ) —   Payment of borrowing transaction costs ( 51,528 ) ( 1,815 )   Repayment of lease liabilities ( 17,612 ) —   Net cash from (used in) financing activities 3,968,769 648,811   Net increase (decrease) in cash and cash equivalents   1,649,164 ( 218,755 )   Cash and cash equivalents at the beginning of the period   564,526 404,601   Effects of exchange rate changes on cash and cash equivalents   ( 416 ) ( 1,513 )   Cash and cash equivalents at the end of period $ 2,213,274 $ 184,333   See accompanying Notes to the Unaudited Condensed Consolidated Financial Statements   IREN Limited   Condensed Consolidated Statements of Cash Flows (continued)   (Unaudited, in USD thousands)   Nine Months Ended  March 31,   2026 2025   Supplemental cash flow information:   Cash paid for interest $ 21,162 $ 97…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "15",
    "match": "GPU",
@@ -158,6 +262,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "17",
+   "match": "Convertible Senior Notes due",
+   "text": "…on should be accounted for as an induced conversion or extinguishment of convertible debt when changes are made to conversion features as part of an offer to settle the instrument. ASU 2024-04 is effective for reporting periods beginning after December 15, 2025, and interim periods within those annual reporting periods. The Group early adopted ASU 2024-04 on July 1, 2025, using the prospective transition approach. As a result of our adoption, the Group accounted for the repurchase of the 3.25 % Convertible Senior Notes due 2030 (the “2030 Convertible Notes”) and 3.50 % Convertible Senior Notes due 2029 (the “2029 Convertible Notes”), as an induced conversion. Refer to Note 16 Convertible notes payable for additional details.   In July 2025, the FASB issued ASU 2025-05, Financial Instruments—Credit Losses (Topic 326): Measurement of Credit Losses for Accounts Receivable and Contract Assets (“ASU 2025-05”). ASU 2025-05 provides entities with a practical expedient in developing reasonable and supportable forecasts as part of estimating expected credit losses, where entities may elect a practical expedient that assumes that current conditions as of the balance sheet date do not change for the remaining life of the asset. ASU 2025-05 is effective for reporting periods beginning after December 15, 2025, and interim periods within those annual reporting periods. Early adoption is perm…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "19",
    "match": "GPU",
@@ -196,6 +307,30 @@
     },
     {
      "raw": "$ 265,198,000 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "19",
+   "match": "Deferred revenue,",
+   "text": "…da.   Contract Balances   The timing of revenue recognition, billings and cash collections result in accounts receivable and deferred revenue. A receivable is recorded at the invoice amount, net of an allowance for credit losses, and is recognized in the period when the Group has the right to invoice its customers and when its right to consideration is unconditional. Payment terms and conditions vary by contract type, although terms generally include a requirement of payment within 5-10 days.   Deferred revenue, including current and non-current balances as of March 31, 2026 and June 30, 2025, was $ 120,388,000 and $ 884,000 , respectively. For the three and nine months ended March 31, 2026, revenue recognized from deferred revenue at the beginning of the period was $ 4,855,000 and $ 862,000 , respectively. For the three and nine months ended March 31, 2025, revenue recognized from deferred revenue at the beginning of the period was $ 1,610,000 and $ 480,000 , respectively.   Remaining Performance Obligations (“RPO”)   As of March 31, 2026, the Group had $ 710,272,000 of unsatisfied RPO, of which $ 307,950,000 is expected to be recognized over the initial 12 months ending March 31, 2027, $ 265,198,000 between months 13 and 24, and the remaining balance recognized between months 25 and 60.   Strategic Customer Agreement   On November 2, 2025, the Group entered into an agreement …",
+   "amounts": [
+    {
+     "raw": "$ 120,388,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 884,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,855,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 862,000 ",
      "usdM": null
     }
    ]
@@ -310,6 +445,32 @@
     },
     {
      "raw": "$ 4,349 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "27",
+   "match": "Convertible Senior Notes due",
+   "text": "…s upon any conversion of the 2029 Convertible Notes and/or offset any cash payments the Group is required to make in excess of the principal amount of the 2029 Convertible Notes upon conversion of the 2029 Convertible Notes in the event that the market price per share of our Ordinary shares is greater than the strike price of the 2029 Capped Call Transactions, with such reduction and/or offset subject to a cap.   2031 Capped Call Transactions   In conjunction with the Group’s offering of 0.00 % Convertible Senior Notes due 2031 (the “2031 Convertible Notes”), the Group entered into the capped call transactions with certain financial institutions (the “2031 Capped Call Transactions”). The 2031 Capped Call Transactions are generally expected to reduce potential dilution to holders of the Group's Ordinary shares upon any conversion of the 2031 Convertible Notes and/or offset any cash payments the Group is required to make in excess of the principal amount of the 2031 Convertible Notes upon conversion of the 2031 Convertible Notes in the event that the market price per share of our Ordinary shares is greater than the strike price of the 2031 Capped Call Transactions, with such reduction and/or offset subject to a cap.   2032 and 2033 Capped Call Transactions   In conjunction with the Group’s offering of 0.25 % Convertible Senior Notes due 2032 (the “2032 Convertible Notes”) and 1.0…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "27",
+   "match": "Convertible Senior Notes due",
+   "text": "…he Group is required to make in excess of the principal amount of the 2031 Convertible Notes upon conversion of the 2031 Convertible Notes in the event that the market price per share of our Ordinary shares is greater than the strike price of the 2031 Capped Call Transactions, with such reduction and/or offset subject to a cap.   2032 and 2033 Capped Call Transactions   In conjunction with the Group’s offering of 0.25 % Convertible Senior Notes due 2032 (the “2032 Convertible Notes”) and 1.00 % Convertible Senior Notes due 2033 (the “2033 Convertible Notes”), the Group entered into the capped call transactions with certain financial institutions (the “2032 Capped Call Transactions” and the “2033 Capped Call Transactions”, respectively). The 2032 Capped Call Transactions and 2033 Capped Call Transactions are generally expected to reduce potential dilution to holders of the Group's Ordinary shares upon any conversion of the 2032 Convertible Notes and 2033 Convertible Notes and/or offset any cash payments the Group is required to make in excess of the principal amount of the 2032 Convertible Notes and 2033 Convertible Notes upon conversion of the 2032 Convertible Notes and 2033 Convertible Notes in the event that the market price per share of our Ordinary shares is greater than the strike price of the 2032 Capped Call Transactions or 2033 Capped Call Transactions, with such reduct…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "36",
+   "match": "At-the-Market",
+   "text": "…he above 2032 Convertible Notes and 2033 Convertible Notes and Repurchase, on December 2, 2025, the Company entered into certain share purchase agreements. Refer to Note 17.   Note 17. Stockholders’ equity   We do not have a limit on our authorized share capital and do not recognize the concept of par value under Australian law.   The total number of Ordinary shares outstanding (including loan-funded shares) was 341,501,172 and 258,103,209 as at March 31, 2026 and June 30, 2025, respectively.   At-the-Market facility   On January 21, 2025, the Company filed a registration statement, including an accompanying at-the-market prospectus supplement relating to the offer and sale of $ 1,000,000,000 additional Ordinary shares. As of December 31, 2025, the Company had issued 66,707,732 Ordinary shares under an At Market Sales Agreement (the “Sales Agreement”) generating   36",
+   "amounts": [
+    {
+     "raw": "$ 1,000,000,000 ",
      "usdM": null
     }
    ]
@@ -587,6 +748,25 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "57",
+   "match": "at-the-market",
+   "text": "Liquidity and Capital Resources   As of March 31, 2026, we had cash and cash equivalents of $2,213.3 million. For the nine months ended March 31, 2026, we had net income (loss) of $(18.6) million and net operating cash inflow of $289.3 million.   Our primary sources of liquidity and capital during the nine months ended March 31, 2026, included available cash and cash equivalents, proceeds from sales under our at-the-market facility, proceeds from issuances of convertible notes, equipment financing, and cash inflows from operations. Our primary cash requirements have been for capital needs to support capital expenditure for our data center platform, and the purchase of GPUs, as well as investments in growth and development initiatives.   Based on our current operating plans and business conditions, we believe that our existing cash and cash equivalents, expected cash flows from operations and proceeds from future financing activities will be sufficient to satisfy our anticipated liquidity requirements for the next 12 months and for the reasonably foreseeable future.   Our liquidity outlook could be adversely affected by events that materially reduce our access to the capital markets or impair our production capabilities, including, but not limited to, our ability to maintain our existing opera…",
+   "amounts": [
+    {
+     "raw": "$289.3 million",
+     "usdM": 289.3
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "57",
+   "match": "At-the-market",
+   "text": "…ital to support the continued expansion in this segment.   We continue to monitor funding markets for opportunities to raise additional unsecured and secured debt, equity or equity-linked capital to fund further capital or liquidity needs and our growth plans, and we are actively exploring alternative financings. Any such financings are subject to market conditions and there can be no assurance as to the structure, timing, amount or other terms of any such financing but any could be material.   At-the-market facilities   We are party to an At Market Sales Agreement (the “Sales Agreement”) with B. Riley Securities, Inc., Cantor Fitzgerald & Co., Compass Point Research & Trading, LLC, Canaccord Genuity LLC, Citigroup Global Markets, Roth Capital Partners, LLC and Macquarie Capital (USA) Inc, to which Citizens JMP Securities, LLC, Goldman Sachs & Co. LLC and Jefferies LLC were joined on March 4, 2026. Pursuant to the Sales Agreement, we may offer and sell our Ordinary shares from time to time in an amount not to exceed the lesser of the amount registered on an effective registration statement and for which we have filed a prospectus, and the amount authorized from time to time to be issued and sold under the Sales Agreement by the Board. As a result, we may increase the amount of our Ordinary shares that may be sold from time to time pursuant to the Sales Agreement in accordance w…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "57",
    "match": "Microsoft",
@@ -626,6 +806,13 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "58",
+   "match": "Net cash from (used in) operating activities",
+   "text": "…o provide a parent guarantee with respect to all payment obligations under this facility.   Off-Balance Sheet Arrangements   As of March 31, 2026, there have been no material changes to our off-balance sheet arrangements as reported under Item 7 in the Annual Report.   Historical Cash Flows   The following table sets forth a summary of our historical cash flows for the nine months ended March 31, 2026 and 2025 presented.   Nine Months Ended  March 31,   2026 2025   ($ thousands) ($ thousands)   Net cash from (used in) operating activities   289,326 142,745   Net cash from (used in) investing activities   (2,608,931) (1,010,311)   Net cash from (used in) financing activities   3,968,769 648,811   Net cash and cash equivalents increase/(decrease) 1,649,164 (218,755)   Cash and cash equivalents at the beginning of the period   564,526 404,601   Effects of exchange rate changes on cash and cash equivalents   (416) (1,513)   Net cash and cash equivalents at the end of the period $ 2,213,274 $ 184,333   Operating activities   Our net cash from operating activities was $289.3 million for the nine months ended March 31, 2026 , compared to net cash from operating activities of $142.7 million for the nine months ended March 31, 2025 .   58",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "59",
    "match": "GPU",
@@ -638,6 +825,94 @@
     {
      "raw": "$1,669.2 million",
      "usdM": 1669.2
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "59",
+   "match": "net cash from (used in) operating activities",
+   "text": "Our net cash from (used in) operating activities was $289.3 million for the nine months ended March 31, 2026, compared to net income (loss) of $(18.6) million. The difference in net income (loss) to net cash from (used in) operating activities primarily reflects non-cash adjustments of $264.1 million, which is driven by unrealized (gain) loss on financial instruments of $(533.9) million, debt conversion inducement expense of $111.8 million , depreciation and amortization of $305.6 million, stock-based compensation expense of $162.1 million, and impairment of assets of $188.4 million. Other non-cash items, including realized gain (loss) on financial instruments, foreign exchange (gain) loss, amortization of debt issuance costs, change in fair value of assets held for sale and (gain) loss on disposal of property, plant and equipment, collectively contributed $30.0 million. Refer to “—Results o…",
+   "amounts": [
+    {
+     "raw": "$289.3 million",
+     "usdM": 289.3
+    },
+    {
+     "raw": "$264.1 million",
+     "usdM": 264.1
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "59",
+   "match": "deferred revenue ",
+   "text": "… stock-based compensation reflects the amortization expense associated with the issuance of equity incentives.   Changes in operating assets and liabilities resulted in a net cash increase of $43.9 million, primarily due to an increase in tax related liabilities of $0.2 million, an increase in accounts payable and accrued liabilities of $6.9 million , an increase in other liabilities of $44.8 million reflecting an increase in accrued payroll taxes on stock-based compensation, and an increase in deferred revenue of $119.5 million from AI Cloud Services contracts. This was partly offset by increases in accounts receivable and other receivables of $92.4 million related to AI Cloud Services contracts, and a $32.0 million increase in prepayments and deposits reflecting an increase in computer hardware prepayments and deposits for land options and other deposits.   Investing activities   Our net cash used in investing activities was $2,608.9 million for the nine months ended March 31, 2026 , compared to net cash used in investing activities of $1,010.3 million for the nine months ended March 31, 2025 . For the nine months ended March 31, 2026 , the increase in cash outflows of $1,598.7 million was attributable to an increase in payments for computer hardware, payments for property, plant and equipment, net of computer hardware and payments for intangible assets for connection rights …",
+   "amounts": [
+    {
+     "raw": "$0.2 million",
+     "usdM": 0.2
+    },
+    {
+     "raw": "$6.9 million",
+     "usdM": 6.9
+    },
+    {
+     "raw": "$44.8 million",
+     "usdM": 44.8
+    },
+    {
+     "raw": "$119.5 million",
+     "usdM": 119.5
+    },
+    {
+     "raw": "$92.4 million",
+     "usdM": 92.4
+    },
+    {
+     "raw": "$32.0 million",
+     "usdM": 32
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "59",
+   "match": "at-the-market",
+   "text": "…on for the nine months ended March 31, 2026 , compared to net cash from financing activities of $648.8 million for the nine months ended March 31, 2025. For the nine months ended March 31, 2026, our cash inflows comprised primarily of $3,299.6 million in proceeds from the issuance of convertible senior notes, $2,630.8 million from the issuance of Ordinary shares, and $6.6 million in proceeds from the exercise of options. These cash inflows were partially offset by offerings costs related to the at-the-market program of $24.0 million, payments made for entering into the Capped Call Transactions of $252.3 million, the aggregate induced conversion of the convertible notes of $1,623.5 million, payments for borrowing transaction costs of $51.5 million and repayment of finance lease liabilities of $17.6 million.   Contractual Obligations   As of March 31, 2026, the Group had commitments of $11,902.5 million, as compared to $368.8 million as of June 30, 2025. The increase in total commitments was primarily due to an increase in commitments related to our expansion into HPC and AI services and includes committed capital expenditure on computer hardware and infrastructure related to site development at Horizon 1-4 at the Childress site, the Sweetwater 1 and Sweetwater 2 sites and the transition of the British Columbia data centers to AI Cloud.   Assuming the remaining outstanding 2030 C…",
+   "amounts": [
+    {
+     "raw": "$2,630.8 million",
+     "usdM": 2630.8
+    },
+    {
+     "raw": "$6.6 million",
+     "usdM": 6.6
+    },
+    {
+     "raw": "$24.0 million",
+     "usdM": 24
+    },
+    {
+     "raw": "$252.3 million",
+     "usdM": 252.3
+    },
+    {
+     "raw": "$1,623.5 million",
+     "usdM": 1623.5
+    },
+    {
+     "raw": "$51.5 million",
+     "usdM": 51.5
+    },
+    {
+     "raw": "$17.6 million",
+     "usdM": 17.6
+    },
+    {
+     "raw": "$11",
+     "usdM": null
     }
    ]
   },

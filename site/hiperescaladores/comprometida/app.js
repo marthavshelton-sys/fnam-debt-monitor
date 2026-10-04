@@ -16,7 +16,7 @@
 
   function header() {
     var P = C.pipeline;
-    set('asofRow', '<span><b>' + t('Partidas', 'Items') + '</b> ' + P.length + ' (' + P.filter(function (x) { return x.subsequent; }).length + ' ' + t('posteriores al balance', 'after the balance-sheet date') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(C.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
+    set('asofRow', '<span><b>' + t('Partidas', 'Items') + '</b> ' + P.length + ' (' + P.filter(function (x) { return x.subsequent; }).length + ' ' + t('posteriores al balance', 'after the balance-sheet date') + ')</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.curatedDate(C) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
     set('notices', '<div class="notice warn"><b>' + t('Tres etapas que no se suman.', 'Three stages that are not added up.') + '</b> ' + t('Contratada = firmada con un cliente o asegurada con terreno y energía; en construcción = por entregar en sitios ya arrendados o en obra; anunciada = potencia de red asegurada sin cliente. Varias cifras "contratadas" de las empresas ya incluyen la capacidad que opera hoy; se indica en cada fila.', 'Contracted = signed with a customer or secured with land and power; under construction = to be delivered at leased sites or in construction; announced = grid power secured without a customer. Several companies\' "contracted" figures already include the capacity operating today; each row says so.') + '</div>');
   }
 

@@ -332,6 +332,129 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "50",
+   "match": "repayments of debt",
+   "text": "…ng restructuring plans.   Interest Expense :   Year Ended May 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   Interest expense   $   4,599   29%   29%   $   3,578   Interest expense increased in fiscal 2026 relative to fiscal 2025 primarily due to higher average borrowings from the issuances of $43.0 billion of senior notes in fiscal 2026 and an aggregate of $14.0 billion of senior notes in fiscal 2025, partially offset by lower interest expense due to scheduled repayments of debt made during fiscal 2026 and 2025.   Non-Operating Income, net : Non-operating income, net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.   Year Ended May 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   I…",
+   "amounts": [
+    {
+     "raw": "$43.0 billion",
+     "usdM": 43000
+    },
+    {
+     "raw": "$14.0 billion",
+     "usdM": 14000
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "52",
+   "match": "repayments of debt",
+   "text": "…ry Convertible Preferred Stock, net of issuance costs; $4.9 billion of cash inflows from the sale of our investments, primarily in Ampere; $3.3 billion of cash inflows from short-term financing related to capital expenditures, net; and $1.3 billion of net cash provided by our employee stock programs, partially offset by $55.7 billion of cash used for capital expenditures; $5.8 billion of cash used to pay dividends to our common and preferred stockholders; $5.0 billion of cash used for scheduled repayments of debt; $851 million of cash used for repayment of commercial paper, net; $337 million of cash outflows for other financing activities, net; $864 million of cash used for purchases of non-current investments; and $95 million of cash used for repurchases of our common stock, in each case during fiscal 2026. Our cash and cash equivalents may be impacted by some or all of the aforementioned factors in future periods, the amounts and timing of which are variable.   Year Ended May 31,   (Dollars in millions)   2026   Change   2025   Net cash provided by operating activities   $   31,977   54%   $   20,821   Net cash used for investing activities   $   (51,854   )   139%   $   (21,711   )   Net cash provided by financing activities   $   40,284   *   $   1,098   *   Not meaningful   Cash flows from operating activities : Our largest source of operating cash flows is cash collection…",
+   "amounts": [
+    {
+     "raw": "$55.7 billion",
+     "usdM": 55700
+    },
+    {
+     "raw": "$5.8 billion",
+     "usdM": 5800
+    },
+    {
+     "raw": "$5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$851 million",
+     "usdM": 851
+    },
+    {
+     "raw": "$337 million",
+     "usdM": 337
+    },
+    {
+     "raw": "$864 million",
+     "usdM": 864
+    },
+    {
+     "raw": "$95 million",
+     "usdM": 95
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "52",
+   "match": "Net cash provided by operating activities",
+   "text": "…r largest source of operating cash flows is cash collections from our customers following the purchase and renewal of their cloud and software support agreements. Over the course of a fiscal year, we also generate cash from the sales of software licenses, hardware offerings and other services. Our primary uses of cash from operating activities are typically for employee-related expenditures, expenses related to data center leases and power for our cloud business, taxes, and interest payments.   Net cash provided by operating activities increased by $11.2 billion in fiscal 2026 relative to fiscal 2025 primarily due to higher net income adjusted for certain non-cash charges and higher cash favorable working capital changes, net, which includes $4.6 billion cash inflows from customer prepayments with significant financing component.   Cash flows from investing activities : The changes in cash flows from investing activities primarily relate to our investments in capital assets to support the growth in our cloud and software business and purchases, maturities and sales of our investments in marketable securities and other instruments.   Net cash used for investing activities increased by $30.1 billion in fiscal 2026 relative to fiscal 2025 primarily due to a $34.4 billion increase in capital expenditures, partially offset by $4.3 billion of cash proceeds from the sale of our invest…",
+   "amounts": [
+    {
+     "raw": "$11.2 billion",
+     "usdM": 11200
+    },
+    {
+     "raw": "$4.6 billion",
+     "usdM": 4600
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "52",
+   "match": "repayments of debt",
+   "text": "… cash flows from financing activities primarily relate to borrowings and repayments related to our debt instruments, issuance of other financing or equity instruments, stock repurchases, dividend payments and net proceeds related to employee stock programs.   Net cash provided by financing activities increased by $39.2 billion in fiscal 2026 relative to fiscal 2025 primarily due to an increase of $28.8 billion in proceeds from the issuance of senior notes, net of issuance costs; lower scheduled repayments of debt of $5.2 billion; proceeds from the issuance of Mandatory Convertible Preferred Stock of $5.0 billion; higher net cash proceeds from short-term financing related to capital expenditures of $1.9 billion; higher net cash proceeds from our employee stock programs of $1.6 billion; and lower stock repurchases of $505 million, in each case during fiscal 2026 relative to fiscal 2025. These increases were partially offset by higher repayments of commercial paper notes, net of issuances, of $2.7 billion and higher dividend payments of $1.0 billion. Further, during fiscal 2025, we refinanced our term loan credit agreement that we entered into in fiscal 2023, which resulted in no net impact on financing cash flows for the period reported.   52",
+   "amounts": [
+    {
+     "raw": "$39.2 billion",
+     "usdM": 39200
+    },
+    {
+     "raw": "$28.8 billion",
+     "usdM": 28800
+    },
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$1.9 billion",
+     "usdM": 1900
+    },
+    {
+     "raw": "$1.6 billion",
+     "usdM": 1600
+    },
+    {
+     "raw": "$505 million",
+     "usdM": 505
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "Net cash provided by operating activities",
+   "text": "…m our operations. We believe that free cash flow is also useful as one of the bases for comparing our performance with that of our competitors. The presentation of non-GAAP free cash flow is not meant to be considered in isolation or as an alternative to net income as an indicator of our performance, or as an alternative to cash flows from operating activities as a measure of liquidity. We calculate free cash flow as follows:   Year Ended May 31,   (Dollars in millions)   2026   Change   2025   Net cash provided by operating activities   $   31,977   54%   $   20,821   Capital expenditures   (55,663   )   162%   (21,215   )   Free cash flow   $   (23,686   )   *   $   (394   )   Net income   $   17,087   $   12,443   Net cash provided by operating activities as a percent of net income   187%   167%   Free cash flow as percent of net income   -139%   -3%   *   Not meaningful   Recent Financing Activities :   Revolving Credit Agreement : In March 2026, we terminated our existing $6.0 billion, five-year revolving credit agreement. On the same date, we entered into a new $10.0 billion, five-year revolving credit agreement (the Revolving Credit Agreement). As of May 31, 2026, we did not have any outstanding borrowings under the Revolving Credit Agreement. The description above is a summary and is qualified in its entirety by reference to the full text of the Revolving Credit Agreeme…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "at-the-market",
+   "text": "…ceeds of $5.0 billion, net of issuance costs. The other terms and conditions of the Mandatory Convertible Preferred Stock are set forth in the Certificate of Designations, which is incorporated by reference herein as Exhibit 3.03.   Common Stock : On February 2, 2026, we entered into an equity distribution agreement with ‎certain sales agents party thereto, pursuant to which we may sell shares of our common stock having aggregate sales proceeds of up to $20 billion from time to time through an “at-the-market” offering program (the ATM Program). As of May 31, 2026, we have not sold any shares of our common stock under the ATM Program.   53",
+   "amounts": [
+    {
+     "raw": "$20 billion",
+     "usdM": 20000
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "54",
    "match": "not yet commenced",
@@ -370,6 +493,20 @@
      "usdM": 138000
     }
    ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "68",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   ORACLE CORPORATION   CONSOLIDATED STATEM ENTS OF CASH FLOWS   For the Years Ended May 31, 2026, 2025 and 2024   Year Ended May 31,   (in millions)   2026   2025   2024   Cash flows from operating activities:   Net income   $   17,087   $   12,443   $   10,467   Adjustments to reconcile net income to net cash provided by operating activities:   Depreciation   7,623   3,867   3,129   Amortization of intangible assets   1,671   2,307   3,010   Deferred income taxes   ( 917   )   ( 1,637   )   ( 2,139   )   Stock-based compensation   4,811   4,674   3,974   Gains from investments and other, net   ( 2,433   )   667   720   Changes in operating assets and liabilities:   Increase in trade receivables, net   ( 2,190   )   ( 653   )   ( 965   )   Decrease in prepaid expenses and other assets   2,179   266   542   Decrease in accounts payable and other liabilities   ( 240   )   ( 608   )   ( 594   )   Decrease in income taxes payable   ( 256   )   ( 659   )   ( 127   )   Increase in deferred revenues from customer prepayments with significant financing component   4,592   —   —   Increase in other deferred revenues   50   154   656   Net cash provided by operating activities   31,977   20,821…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "68",
+   "match": "Proceeds from issuances of common stock",
+   "text": "…ating activities   31,977   20,821   18,673   Cash flows from investing activities:   Purchases of marketable securities and other investments and acquisitions   ( 2,039   )   ( 1,272   )   ( 1,066   )   Proceeds from sales and maturities of marketable securities and other investments   5,848   776   572   Capital expenditures   ( 55,663   )   ( 21,215   )   ( 6,866   )   Net cash used for investing activities   ( 51,854   )   ( 21,711   )   ( 7,360   )   Cash flows from financing activities:   Proceeds from issuances of common stock   1,449   653   742   Payments for repurchases of common stock   ( 95   )   ( 600   )   ( 1,202   )   Shares repurchased for tax withholdings upon vesting of restricted stock-based awards   ( 111   )   ( 900   )   ( 2,040   )   Proceeds from issuances of mandatory convertible preferred stock, net of issuance costs   4,954   —   —   Payments of dividends to stockholders   ( 5,787   )   ( 4,743   )   ( 4,391   )   (Repayments of) proceeds from issuances of commercial paper, net   ( 2,285   )   1,889   ( 167   )   Proceeds from short-term financing related to capital expenditures, net   3,345   1,422   —   Proceeds from issuances of senior notes, term loan credit agreements and other borrowings, net of issuance costs   46,093   19,548   —   Repayments of senior notes, term loan credit agreements and other borrowings   ( 6,942   )   ( 15,841   )   ( 3,…",
+   "amounts": []
   },
   {
    "kind": "segment",
@@ -622,6 +759,18 @@
     {
      "raw": "$ 19 billion",
      "usdM": 19000
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "91",
+   "match": "at-the-market",
+   "text": "…Mandatory Convertible Preferred Stock will not be redeemable at our election before the mandatory conversion date. The holders of the Mandatory Convertible Preferred Stock will not have any voting rights, with limited exceptions.   Common Stock   On February 2, 2026, we entered into an equity distribution agreement with ‎certain sales agents party thereto, pursuant to which we may sell shares of our common stock having aggregate sales proceeds of up to $ 20 billion from time to time through an “at-the-market” offering program (the ATM Program).   Subject to the terms and conditions of the agreement, we may sell shares of common stock through the sales agents listed in the agreement in amounts and at times to be determined by us. In addition, we may elect to sell, through the sales agents or through others (whether acting as agent or principal), shares of our common stock for forward settlement. We are not obligated to sell any of the shares of our common stock under the ATM Program. The proceeds from offerings under the ATM Program, if any, will be used for general corporate purposes, which may include capital expenditures, repayment of indebtedness, future investments or acquisitions and payment of cash dividends on or repurchases of our common stock. As of May 31, 2026 , we have no t sold any shares of our common stock under the ATM Program.   Common Stock Repurchases   Our B…",
+   "amounts": [
+    {
+     "raw": "$ 20 billion",
+     "usdM": 20000
     }
    ]
   },

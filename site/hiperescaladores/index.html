@@ -22,6 +22,8 @@
 <script src="/hiperescaladores/data/capacity.js"></script>
 <script src="/hiperescaladores/data/circular.js"></script>
 <script src="/hiperescaladores/data/payoff.js"></script>
+<script src="/hiperescaladores/data/sites.js"></script>
+<script src="/hiperescaladores/data/power.js"></script>
 <script src="/hiperescaladores/data/scope.js"></script>
 <script src="/hiperescaladores/assets/hub.js"></script>
 </head>
@@ -41,6 +43,7 @@
     <p class="lede"><span class="es">Diez empresas: Microsoft, Alphabet, Amazon, Meta, Oracle y CoreWeave, más las neonubes listadas Nebius, IREN, Applied Digital y Core Scientific. Cada cifra lleva su nivel de fuente (T1 = presentación ante la SEC) y abre su origen con ⓘ.</span><span class="en" hidden>Ten companies: Microsoft, Alphabet, Amazon, Meta, Oracle and CoreWeave, plus the listed neoclouds Nebius, IREN, Applied Digital and Core Scientific. Every figure carries its source tier (T1 = SEC filing) and opens its origin with ⓘ.</span></p>
     <div class="asof-row" id="asofRow"></div>
     <div id="notices"></div>
+    <div class="dq-roll" id="dqRoll"></div>
     <section class="wtk" id="wtk" aria-label="Lo que hay que saber / What to know"></section>
     <div class="kpis" id="kpis"></div>
   </div>
@@ -75,7 +78,7 @@
     <div class="sec-head"><h2><span class="es">Qué Cambió Este Trimestre</span><span class="en" hidden>What Changed This Quarter</span></h2></div>
     <p class="sec-desc" id="changedDesc"></p>
     <div class="card"><ul class="changes-list" id="changedList"></ul><div id="changedStamp"></div>
-      <details class="tech" id="techLog"><summary><span class="es">Registro técnico de cambios (valores XBRL nuevos, revisados y reexpresados)</span><span class="en" hidden>Technical change log (new, revised and restated XBRL values)</span></summary><p class="small muted" id="logDesc"></p><div class="tblwrap" data-nocards id="logTbl"></div><div id="logStamp"></div></details>
+      <details class="tech" id="techLog"><summary><span class="es">Registro técnico de cambios (valores XBRL nuevos, revisados y reexpresados)</span><span class="en" hidden>Technical change log (new, revised and restated XBRL values)</span></summary><p class="small muted" id="logDesc"></p><div class="tblwrap" id="logTbl"></div><div id="logStamp"></div></details>
     </div>
   </section>
   <section class="block" id="calendar">

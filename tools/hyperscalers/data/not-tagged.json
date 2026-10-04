@@ -1,0 +1,1949 @@
+{
+ "_comment": "Why a figure the hub shows is absent from the XBRL feed (SEC companyfacts API), one record per company × metric, written after reading the filing or its XBRL (owner's third review, 2026-10-03). result: none = the line does not exist for this company (no such instrument or activity); text = the figure is in the filing text and is shown from it (amountUSDm, src with page and quote, checked by build.mjs against the harvested page); fy_only / ytd_only = tagged only in the annual report / as a year-to-date figure (amountUSDm, period); custom_tag = the company tags the line with a company-specific concept the API does not serve; not_disclosed = searched in the filing (EDGAR full-text search of the primary document, or the harvested text) and absent; unknown = not tagged and not yet resolved (stays 'not tagged' on the page). evidence: what was checked (XBRL companyfacts concepts, EDGAR full-text search hits, harvested page). A cell with a record is shown as an explained gap, never as 'not tagged' without a reason. Metrics follow scripts/hyperscalers/tags.mjs. Amounts in US$ millions. reviewedBy stays null until a person signs off.",
+ "updatedAt": "2026-10-04T03:50:00Z",
+ "readBy": "Claude session 2026-10-03 (XBRL companyfacts of the ten companies, EDGAR full-text search, harvested filing pages)",
+ "items": [
+  {
+   "ticker": "MSFT",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "Microsoft discloses no capitalized-interest amount: the FY2026 10-K does not contain the term.",
+   "note_es": "Microsoft no divulga intereses capitalizados: el 10-K del AF2026 no contiene el término.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001193125-26-323660 for \"capitalized interest\": 0 hits; no InterestCostsCapitalized concept in XBRL",
+    "es": "Búsqueda de texto completo en EDGAR del 10-K 0001193125-26-323660 por «capitalized interest»: 0 resultados; sin concepto InterestCostsCapitalized en XBRL"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-323660",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "No net commercial-paper flow in fiscal 2026: Microsoft tags short-term debt maturing in three months or less at US$0 (proceeds and repayments).",
+   "note_es": "Sin flujo neto de papel comercial en el año fiscal 2026: Microsoft etiqueta la deuda a corto plazo con vencimiento a tres meses o menos en US$0 (emisiones y pagos).",
+   "evidence": {
+    "en": "XBRL ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess = 0 (FY2026, 10-K 0001193125-26-323660); the concept is now read by the tag map",
+    "es": "XBRL ProceedsFromRepaymentsOfShortTermDebtMaturingInThreeMonthsOrLess = 0 (AF2026, 10-K 0001193125-26-323660); el mapa de etiquetas ya lee el concepto"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-323660",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "Microsoft has issued no preferred stock.",
+   "note_es": "Microsoft no ha emitido acciones preferentes.",
+   "evidence": {
+    "en": "no preferred-stock concept in XBRL companyfacts (10-K 0001193125-26-323660)",
+    "es": "sin concepto de acciones preferentes en XBRL companyfacts (10-K 0001193125-26-323660)"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-323660",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "guarantees_max",
+   "result": "not_disclosed",
+   "note_en": "The FY2026 10-K discloses no guarantees of third-party obligations.",
+   "note_es": "El 10-K del AF2026 no divulga garantías de obligaciones de terceros.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001193125-26-323660 for \"guarantee\": 0 hits",
+    "es": "Búsqueda de texto completo en EDGAR del 10-K 0001193125-26-323660 por «guarantee»: 0 resultados"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-323660",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "Microsoft reports no noncontrolling interests.",
+   "note_es": "Microsoft no reporta participaciones no controladoras.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001193125-26-323660 for \"noncontrolling\": 0 hits; no NCI balance concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-K 0001193125-26-323660 por «noncontrolling»: 0 resultados; sin concepto de saldo de participación no controladora en XBRL"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-323660",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "vie_max_loss",
+   "result": "not_disclosed",
+   "note_en": "Microsoft is not the primary beneficiary of any of its VIE investments and gives no maximum-exposure amount.",
+   "note_es": "Microsoft no es beneficiario primario de ninguna de sus inversiones en EIV y no da monto de exposición máxima.",
+   "src": {
+    "k": "MSFT 10-K 2026-06-30",
+    "page": "59",
+    "section": "Note 1 — Investments (variable interest entities)",
+    "quote": "Investments that are considered variable interest entities (“VIEs”) are evaluated to determine whether we are the primary beneficiary of the VIE, in which case we would be required to consolidate the entity."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "purchase_oblig",
+   "result": "text",
+   "amountUSDm": 194060,
+   "asOf": "2026-06-30",
+   "note_en": "Purchase commitments are in the contractual-obligations table of the 10-K, not tagged with the standard concept.",
+   "note_es": "Los compromisos de compra están en la tabla de obligaciones contractuales del 10-K, sin etiqueta con el concepto estándar.",
+   "src": {
+    "k": "MSFT 10-K 2026-06-30",
+    "page": "44",
+    "section": "Item 7 — Contractual obligations",
+    "quote": "The following table summarizes the payments due by fiscal year for our outstanding contractual obligations as of June 30, 2026"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page; amount in tools/hyperscalers/data/offbs.json)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "Alphabet nets commercial paper inside its debt issuance and repayment lines; no commercial paper was outstanding at 31 Dec 2025 or 30 Jun 2026.",
+   "note_es": "Alphabet neta el papel comercial dentro de sus líneas de emisión y pago de deuda; no tenía papel comercial vigente al 31 dic 2025 ni al 30 jun 2026.",
+   "src": {
+    "k": "GOOGL 10-K 2025-12-31",
+    "page": "seq72",
+    "section": "Note 6 — Debt (short-term debt)",
+    "quote": "We had $2.3 billion of commercial paper outstanding with a weighted-average effective interest rate of 4.4% as of December 31, 2024 and no commercial paper outstanding as of December 31, 2025."
+   },
+   "evidence": {
+    "en": "XBRL CommercialPaper balance = 0 at 2026-06-30 (10-Q 0001652044-26-000071)",
+    "es": "Saldo XBRL CommercialPaper = 0 al 2026-06-30 (10-Q 0001652044-26-000071)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "equity_proceeds",
+   "result": "ytd_only",
+   "amountUSDm": 30499,
+   "period": "H1 2026",
+   "asOf": "2026-06-30",
+   "note_en": "Tagged as a six-month figure only (the trailing twelve months cannot be built: no issuance line in the 2025 quarters). The amount is flagged as an outlier until the filing text is read; the 10-Q mentions an at-the-market program.",
+   "note_es": "Etiquetado solo como cifra de seis meses (no se puede construir el acumulado de doce meses: sin línea de emisión en los trimestres de 2025). El monto está marcado como atípico hasta leer el texto; el 10-Q menciona un programa at-the-market.",
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfCommonStock, 6 months to 2026-06-30 (10-Q 0001652044-26-000071); EDGAR full-text search of that 10-Q for \"at-the-market\": 1 hit",
+    "es": "XBRL ProceedsFromIssuanceOfCommonStock, 6 meses al 2026-06-30 (10-Q 0001652044-26-000071); búsqueda de texto completo en ese 10-Q por «at-the-market»: 1 resultado"
+   },
+   "form": "10-Q",
+   "accn": "0001652044-26-000071",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "pref_proceeds",
+   "result": "ytd_only",
+   "amountUSDm": 19063,
+   "period": "H1 2026",
+   "asOf": "2026-06-30",
+   "note_en": "Convertible preferred stock issued in the first half of 2026, tagged as a six-month figure only.",
+   "note_es": "Acciones preferentes convertibles emitidas en el primer semestre de 2026, etiquetadas solo como cifra de seis meses.",
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfConvertiblePreferredStock, 6 months to 2026-06-30; PreferredStockSharesOutstanding 19 million (10-Q 0001652044-26-000071)",
+    "es": "XBRL ProceedsFromIssuanceOfConvertiblePreferredStock, 6 meses al 2026-06-30; PreferredStockSharesOutstanding 19 millones (10-Q 0001652044-26-000071)"
+   },
+   "form": "10-Q",
+   "accn": "0001652044-26-000071",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "interest_paid",
+   "result": "not_disclosed",
+   "note_en": "Alphabet's 10-Q does not disclose cash interest paid; interest expense is tagged instead.",
+   "note_es": "El 10-Q de Alphabet no divulga los intereses pagados en efectivo; el gasto por intereses sí está etiquetado.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001652044-26-000071 for \"cash paid for interest\": 0 hits; no InterestPaid concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001652044-26-000071 por «cash paid for interest»: 0 resultados; sin concepto InterestPaid en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001652044-26-000071",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "equity_method",
+   "result": "fy_only",
+   "amountUSDm": 2300,
+   "period": "30 Sep 2025",
+   "asOf": "2025-09-30",
+   "note_en": "Equity-method investments were last tagged at 30 Sep 2025 (US$2.3bn); later filings fold them into non-marketable investments.",
+   "note_es": "Las inversiones por método de participación se etiquetaron por última vez al 30 sep 2025 (US$2.3 mil M); presentaciones posteriores las agrupan en inversiones no negociables.",
+   "evidence": {
+    "en": "XBRL EquityMethodInvestments, last fact 2025-09-30 (10-Q)",
+    "es": "XBRL EquityMethodInvestments, último hecho 2025-09-30 (10-Q)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "buybacks",
+   "result": "none",
+   "note_en": "No share repurchases in the six months to June 2026 or 2025; US$6.1bn remains under the 2022 program.",
+   "note_es": "Sin recompras de acciones en los seis meses a junio de 2026 ni de 2025; quedan US$6.1 mil M del programa de 2022.",
+   "src": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "18",
+    "section": "Note 6 — Stockholders' equity",
+    "quote": "There were no repurchases of our common stock during the six months ended June 30, 2025 or 2026. As of June 30, 2026, we have $6.1 billion remaining under the repurchase program."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "Amazon pays no common dividend: its cash-flow statement has no dividend line.",
+   "note_es": "Amazon no paga dividendo común: su estado de flujos no tiene línea de dividendos.",
+   "evidence": {
+    "en": "no dividend concept in XBRL companyfacts for any period since 2021 (10-Q 0001018724-26-000026)",
+    "es": "sin concepto de dividendos en XBRL companyfacts para ningún periodo desde 2021 (10-Q 0001018724-26-000026)"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "equity_proceeds",
+   "result": "none",
+   "note_en": "Amazon issues no common stock for cash: no equity-issuance line in the cash-flow statement.",
+   "note_es": "Amazon no emite acciones comunes por efectivo: sin línea de emisión de acciones en el estado de flujos.",
+   "evidence": {
+    "en": "no ProceedsFromIssuance* equity concept in XBRL companyfacts (10-Q 0001018724-26-000026)",
+    "es": "sin concepto ProceedsFromIssuance* de acciones en XBRL companyfacts (10-Q 0001018724-26-000026)"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "No preferred stock outstanding (500 million shares authorized, none issued).",
+   "note_es": "Sin acciones preferentes en circulación (500 millones autorizadas, ninguna emitida).",
+   "evidence": {
+    "en": "XBRL PreferredStockSharesIssued = 0 at 2026-06-30 (10-Q 0001018724-26-000026)",
+    "es": "XBRL PreferredStockSharesIssued = 0 al 2026-06-30 (10-Q 0001018724-26-000026)"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "cp_net",
+   "result": "custom_tag",
+   "note_en": "Amazon reports proceeds and repayments of short-term debt as single lines (US$9.4bn and US$9.6bn in the first half of 2026) and does not separate commercial paper.",
+   "note_es": "Amazon reporta emisiones y pagos de deuda a corto plazo en líneas únicas (US$9.4 mil M y US$9.6 mil M en el primer semestre de 2026) y no separa el papel comercial.",
+   "evidence": {
+    "en": "XBRL ProceedsFromShortTermDebt 9,368 and RepaymentsOfShortTermDebt 9,573 (US$ m, H1 2026, 10-Q 0001018724-26-000026); no commercial-paper flow concept",
+    "es": "XBRL ProceedsFromShortTermDebt 9,368 y RepaymentsOfShortTermDebt 9,573 (US$ M, 1S26, 10-Q 0001018724-26-000026); sin concepto de flujo de papel comercial"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "interest_paid",
+   "result": "custom_tag",
+   "note_en": "Amazon discloses cash paid for interest net of capitalized interest in its supplemental cash-flow information, under a company-specific tag the SEC API does not serve.",
+   "note_es": "Amazon divulga los intereses pagados netos de capitalizados en su información complementaria de flujos, con una etiqueta propia que la API de la SEC no publica.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001018724-26-000026 for \"net of capitalized interest\": 1 hit; no standard InterestPaid concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001018724-26-000026 por «net of capitalized interest»: 1 resultado; sin concepto estándar InterestPaid en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "Amazon states interest paid net of capitalized interest; the capitalized amount itself is not tagged.",
+   "note_es": "Amazon indica intereses pagados netos de capitalizados; el monto capitalizado no está etiquetado.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001018724-26-000026 for \"capitalized interest\": 1 hit (the net-of phrase); no InterestCostsCapitalized concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001018724-26-000026 por «capitalized interest»: 1 resultado (la frase «net of»); sin concepto InterestCostsCapitalized en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "rpo",
+   "result": "text",
+   "amountUSDm": 496000,
+   "asOf": "2026-06-30",
+   "note_en": "Amazon gives its remaining performance obligations in the revenue note, not with the standard XBRL concept.",
+   "note_es": "Amazon da sus obligaciones de desempeño pendientes en la nota de ingresos, no con el concepto XBRL estándar.",
+   "src": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "10",
+    "section": "Note 1 — Unearned revenue",
+    "quote": "For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $496 billion as of June 30, 2026."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "guarantees_max",
+   "result": "not_disclosed",
+   "note_en": "Amazon discloses no guarantees of third-party obligations; the US$13.4bn of standby letters of credit are issued by banks on Amazon's behalf.",
+   "note_es": "Amazon no divulga garantías de obligaciones de terceros; las cartas de crédito contingentes por US$13.4 mil M las emiten bancos a favor de Amazon.",
+   "src": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "18",
+    "section": "Note 5 — Debt",
+    "quote": "Standby letters of credit are guarantees issued by financial institutions on our behalf, which can only be drawn in the event we fail to perform under the underlying obligation"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "Amazon reports no noncontrolling interests.",
+   "note_es": "Amazon no reporta participaciones no controladoras.",
+   "evidence": {
+    "en": "no NCI balance concept in XBRL companyfacts (10-Q 0001018724-26-000026)",
+    "es": "sin concepto de saldo de participación no controladora en XBRL companyfacts (10-Q 0001018724-26-000026)"
+   },
+   "form": "10-Q",
+   "accn": "0001018724-26-000026",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "vie_max_loss",
+   "result": "not_disclosed",
+   "note_en": "The unconsolidated VIEs (Anthropic, OpenAI) exist, but Amazon states no amount: exposure is 'generally limited to the current carrying values of these investments and any future funding commitments'.",
+   "note_es": "Las EIV no consolidadas (Anthropic, OpenAI) existen, pero Amazon no da monto: la exposición «se limita generalmente al valor en libros de estas inversiones y a compromisos de fondeo futuros».",
+   "src": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "13",
+    "section": "Note 1 — Investments",
+    "quote": "Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "fl_additions",
+   "result": "fy_only",
+   "amountUSDm": 613,
+   "period": "FY2025",
+   "asOf": "2025-12-31",
+   "note_en": "Right-of-use assets obtained under finance leases are tagged only in the 10-K (FY2025: US$613m); the 10-Q omits the supplemental line.",
+   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-K (AF2025: US$613 M); el 10-Q omite la línea complementaria.",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: one fact, FY2025 (10-K 0001628280-26-003942)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: un hecho, AF2025 (10-K 0001628280-26-003942)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "ol_additions",
+   "result": "fy_only",
+   "amountUSDm": 7017,
+   "period": "FY2025",
+   "asOf": "2025-12-31",
+   "note_en": "Right-of-use assets obtained under operating leases are tagged only in the 10-K (FY2025: US$7.0bn).",
+   "note_es": "Los activos por derecho de uso de arrendamientos operativos se etiquetan solo en el 10-K (AF2025: US$7.0 mil M).",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: one fact, FY2025 (10-K 0001628280-26-003942)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: un hecho, AF2025 (10-K 0001628280-26-003942)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "fl_liab",
+   "result": "fy_only",
+   "amountUSDm": 1184,
+   "period": "31 Dec 2025",
+   "asOf": "2025-12-31",
+   "note_en": "Finance lease liabilities are tagged only in the 10-K (US$1.18bn at 31 Dec 2025); the 10-Q tags none, so lease-adjusted figures at June 2026 cannot be computed on one date.",
+   "note_es": "Los pasivos por arrendamiento financiero se etiquetan solo en el 10-K (US$1.18 mil M al 31 dic 2025); el 10-Q no los etiqueta, así que las cifras ajustadas por arrendamientos a junio de 2026 no se calculan en una sola fecha.",
+   "evidence": {
+    "en": "XBRL FinanceLeaseLiability: one fact, 2025-12-31 (10-K 0001628280-26-003942)",
+    "es": "XBRL FinanceLeaseLiability: un hecho, 2025-12-31 (10-K 0001628280-26-003942)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "debt_proceeds",
+   "result": "ytd_only",
+   "amountUSDm": 24910,
+   "period": "H1 2026",
+   "asOf": "2026-06-30",
+   "note_en": "Debt proceeds are tagged as a six-month figure; the first-quarter 10-Q had no issuance line (the US$25bn notes priced in April 2026), so the quarter and the trailing twelve months cannot be derived.",
+   "note_es": "Los recursos de deuda están etiquetados como cifra de seis meses; el 10-Q del primer trimestre no tenía línea de emisión (las notas por US$25 mil M se colocaron en abril de 2026), así que ni el trimestre ni los doce meses se pueden derivar.",
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfLongTermDebt, 6 months to 2026-06-30 (10-Q 0001628280-26-050705); FWP 0001193125-26-197902 (30 Apr 2026)",
+    "es": "XBRL ProceedsFromIssuanceOfLongTermDebt, 6 meses al 2026-06-30 (10-Q 0001628280-26-050705); FWP 0001193125-26-197902 (30 abr 2026)"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "debt_repaid",
+   "result": "none",
+   "note_en": "Meta has repaid no debt: its earliest notes mature in 2027 and the cash-flow statement has no repayment line.",
+   "note_es": "Meta no ha pagado deuda: sus primeras notas vencen en 2027 y el estado de flujos no tiene línea de pagos.",
+   "evidence": {
+    "en": "no Repayments* concept in XBRL companyfacts (10-Q 0001628280-26-050705)",
+    "es": "sin concepto Repayments* en XBRL companyfacts (10-Q 0001628280-26-050705)"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "Meta has no commercial paper program: the 10-Q does not mention commercial paper.",
+   "note_es": "Meta no tiene programa de papel comercial: el 10-Q no menciona papel comercial.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001628280-26-050705 for \"commercial paper\": 0 hits",
+    "es": "Búsqueda de texto completo del 10-Q 0001628280-26-050705 por «commercial paper»: 0 resultados"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "equity_proceeds",
+   "result": "none",
+   "note_en": "Meta issues no common stock for cash: no equity-issuance line in the cash-flow statement.",
+   "note_es": "Meta no emite acciones comunes por efectivo: sin línea de emisión de acciones en el estado de flujos.",
+   "evidence": {
+    "en": "no ProceedsFromIssuance* equity concept in XBRL companyfacts (10-Q 0001628280-26-050705)",
+    "es": "sin concepto ProceedsFromIssuance* de acciones en XBRL companyfacts (10-Q 0001628280-26-050705)"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "Meta has issued no preferred stock.",
+   "note_es": "Meta no ha emitido acciones preferentes.",
+   "evidence": {
+    "en": "no preferred-stock concept in XBRL companyfacts (10-Q 0001628280-26-050705)",
+    "es": "sin concepto de acciones preferentes en XBRL companyfacts (10-Q 0001628280-26-050705)"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "Meta capitalizes interest on construction in progress but tags no amount; the 10-Q mentions capitalized interest without a figure.",
+   "note_es": "Meta capitaliza intereses en obras en proceso pero no etiqueta un monto; el 10-Q menciona intereses capitalizados sin cifra.",
+   "src": {
+    "k": "META 10-K 2025-12-31",
+    "page": "99",
+    "section": "Note 1 — Property and equipment",
+    "quote": "We also capitalize interest on our debt related to certain eligible CIP assets and depreciate the capitalized interest over the u"
+   },
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001628280-26-050705 for \"capitalized interest\": 1 hit; no InterestCostsCapitalized concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001628280-26-050705 por «capitalized interest»: 1 resultado; sin concepto InterestCostsCapitalized en XBRL"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page, full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "rpo",
+   "result": "none",
+   "note_en": "Meta discloses no remaining performance obligations: it sells advertising, not multi-year contracts.",
+   "note_es": "Meta no revela obligaciones de desempeño pendientes: vende publicidad, no contratos plurianuales.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001628280-26-050705 for \"remaining performance obligation\": 0 hits; no RevenueRemainingPerformanceObligation concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001628280-26-050705 por «remaining performance obligation»: 0 resultados; sin concepto RevenueRemainingPerformanceObligation en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "guarantees_max",
+   "result": "text",
+   "amountUSDm": 28000,
+   "asOf": "2026-06-30",
+   "note_en": "Meta's guarantee-type exposure is the residual value guarantee to the Louisiana campus venture (threshold about US$28bn, a ceiling, not a liability); it is not tagged with the standard concept.",
+   "note_es": "La exposición tipo garantía de Meta es la garantía de valor residual a la coinversión del campus de Luisiana (umbral de unos US$28 mil M, un tope, no un pasivo); no está etiquetada con el concepto estándar.",
+   "src": {
+    "k": "META 10-Q 2026-06-30",
+    "page": "17",
+    "section": "Note 5 — Equity method investments (the Venture)",
+    "quote": "we have provided residual value guarantees (RVG) with an aggregate threshold of approximately $28 billion that decreases over time"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "META",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "Meta reports no noncontrolling interests.",
+   "note_es": "Meta no reporta participaciones no controladoras.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001628280-26-050705 for \"noncontrolling\": 0 hits; no NCI balance concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001628280-26-050705 por «noncontrolling»: 0 resultados; sin concepto de saldo de participación no controladora en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001628280-26-050705",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "fl_additions",
+   "result": "ytd_only",
+   "amountUSDm": 1539,
+   "period": "Q1 FY2027",
+   "asOf": "2026-08-31",
+   "note_en": "Tagged in the 10-K and the first-quarter 10-Qs only, so the trailing twelve months cannot be built; the latest tagged figure is the quarter to August 2026.",
+   "note_es": "Etiquetado solo en el 10-K y en los 10-Q del primer trimestre, así que no se puede construir el acumulado de doce meses; la cifra más reciente es el trimestre a agosto de 2026.",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 4 facts (fiscal years and first quarters), last 2026-08-31 (10-Q 0001193125-26-389274)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 4 hechos (años fiscales y primeros trimestres), último 2026-08-31 (10-Q 0001193125-26-389274)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "ol_additions",
+   "result": "ytd_only",
+   "amountUSDm": 4903,
+   "period": "Q1 FY2027",
+   "asOf": "2026-08-31",
+   "note_en": "Tagged in the 10-K and the first-quarter 10-Qs only; the latest tagged figure is the quarter to August 2026.",
+   "note_es": "Etiquetado solo en el 10-K y en los 10-Q del primer trimestre; la cifra más reciente es el trimestre a agosto de 2026.",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: 4 facts, last 2026-08-31 (10-Q 0001193125-26-389274)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForOperatingLeaseLiability: 4 hechos, último 2026-08-31 (10-Q 0001193125-26-389274)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "fl_principal",
+   "result": "ytd_only",
+   "amountUSDm": 286,
+   "period": "9 months to Feb 2026",
+   "asOf": "2026-02-28",
+   "note_en": "Finance-lease principal payments were last tagged for the nine months to February 2026; the 10-K and the August 2026 10-Q do not tag the line.",
+   "note_es": "Los pagos de principal de arrendamientos financieros se etiquetaron por última vez para los nueve meses a febrero de 2026; el 10-K y el 10-Q de agosto de 2026 no etiquetan la línea.",
+   "evidence": {
+    "en": "XBRL FinanceLeasePrincipalPayments: 3 facts, last 2026-02-28 (10-Q 0001193125-26-101045)",
+    "es": "XBRL FinanceLeasePrincipalPayments: 3 hechos, último 2026-02-28 (10-Q 0001193125-26-101045)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "Oracle does not disclose a capitalized-interest amount in the FY2026 10-K or the August 2026 10-Q.",
+   "note_es": "Oracle no divulga un monto de intereses capitalizados en el 10-K del AF2026 ni en el 10-Q de agosto de 2026.",
+   "evidence": {
+    "en": "EDGAR full-text search for \"capitalized interest\": 0 hits in 10-K 0001193125-26-277521 and 10-Q 0001193125-26-389274",
+    "es": "Búsqueda de texto completo por «capitalized interest»: 0 resultados en el 10-K 0001193125-26-277521 y el 10-Q 0001193125-26-389274"
+   },
+   "form": "10-Q",
+   "accn": "0001193125-26-389274",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "debt_proceeds",
+   "result": "fy_only",
+   "amountUSDm": 46093,
+   "period": "FY2026",
+   "asOf": "2026-05-31",
+   "note_en": "No debt was issued in the quarter to August 2026 (no line in the 10-Q); fiscal 2026 proceeds were US$46.1bn (US$43.0bn of senior notes plus other borrowings).",
+   "note_es": "No se emitió deuda en el trimestre a agosto de 2026 (sin línea en el 10-Q); los recursos del año fiscal 2026 fueron US$46.1 mil M (US$43.0 mil M de notas senior más otros préstamos).",
+   "src": {
+    "k": "ORCL 10-K 2026-05-31",
+    "page": "84",
+    "section": "Note 6 — Notes payable and other borrowings",
+    "quote": "In fiscal 2026, we issued $43.0 billion of senior notes for general corporate purposes"
+   },
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfSeniorLongTermDebt FY2026 = 46,093 (US$ m, 10-K 0001193125-26-277521)",
+    "es": "XBRL ProceedsFromIssuanceOfSeniorLongTermDebt AF2026 = 46,093 (US$ M, 10-K 0001193125-26-277521)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "cp_net",
+   "result": "fy_only",
+   "amountUSDm": -2285,
+   "period": "FY2026",
+   "asOf": "2026-05-31",
+   "note_en": "Net commercial paper was −US$2.3bn in fiscal 2026 (repayments); the quarter to August 2026 tags repayments of US$0.",
+   "note_es": "El papel comercial neto fue −US$2.3 mil M en el año fiscal 2026 (pagos); el trimestre a agosto de 2026 etiqueta pagos de US$0.",
+   "evidence": {
+    "en": "XBRL ProceedsFromRepaymentsOfCommercialPaper FY2026 = −2,285; RepaymentsOfCommercialPaper Q1 FY2027 = 0 (US$ m)",
+    "es": "XBRL ProceedsFromRepaymentsOfCommercialPaper AF2026 = −2,285; RepaymentsOfCommercialPaper 1T AF2027 = 0 (US$ M)"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-277521",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "pref_proceeds",
+   "result": "fy_only",
+   "amountUSDm": 4954,
+   "period": "FY2026",
+   "asOf": "2026-05-31",
+   "note_en": "The Series D mandatory convertible preferred stock (February 2026, US$4.95bn net) is tagged in the 10-K; nothing was issued in the quarter to August 2026.",
+   "note_es": "Las acciones preferentes convertibles obligatorias Serie D (febrero de 2026, US$4.95 mil M netos) están etiquetadas en el 10-K; no hubo emisión en el trimestre a agosto de 2026.",
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfConvertiblePreferredStock FY2026 = 4,954 (US$ m, 10-K 0001193125-26-277521)",
+    "es": "XBRL ProceedsFromIssuanceOfConvertiblePreferredStock AF2026 = 4,954 (US$ M, 10-K 0001193125-26-277521)"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-277521",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "buybacks",
+   "result": "fy_only",
+   "amountUSDm": 95,
+   "period": "FY2026",
+   "asOf": "2026-05-31",
+   "note_en": "Repurchases have nearly stopped: US$95m in fiscal 2026 (10-K); the quarter to August 2026 tags no repurchase line.",
+   "note_es": "Las recompras casi se detuvieron: US$95 M en el año fiscal 2026 (10-K); el trimestre a agosto de 2026 no etiqueta la línea.",
+   "evidence": {
+    "en": "XBRL PaymentsForRepurchaseOfCommonStock FY2026 = 95 (US$ m, 10-K 0001193125-26-277521); no fact in 10-Q 0001193125-26-389274",
+    "es": "XBRL PaymentsForRepurchaseOfCommonStock AF2026 = 95 (US$ M, 10-K 0001193125-26-277521); sin hecho en el 10-Q 0001193125-26-389274"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-277521",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "interest_paid",
+   "result": "fy_only",
+   "amountUSDm": 3896,
+   "period": "FY2026",
+   "asOf": "2026-05-31",
+   "note_en": "Interest paid is tagged only in the 10-K (FY2026: US$3.9bn); the August 2026 10-Q does not disclose it.",
+   "note_es": "Los intereses pagados se etiquetan solo en el 10-K (AF2026: US$3.9 mil M); el 10-Q de agosto de 2026 no los divulga.",
+   "evidence": {
+    "en": "XBRL InterestPaidNet: one fact, FY2026; EDGAR full-text search of 10-Q 0001193125-26-389274 for \"interest paid\": 0 hits",
+    "es": "XBRL InterestPaidNet: un hecho, AF2026; búsqueda de texto completo del 10-Q 0001193125-26-389274 por «interest paid»: 0 resultados"
+   },
+   "form": "10-K",
+   "accn": "0001193125-26-277521",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "vie_max_loss",
+   "result": "not_disclosed",
+   "note_en": "Oracle's FY2026 10-K and August 2026 10-Q contain no variable-interest-entity disclosure.",
+   "note_es": "El 10-K del AF2026 y el 10-Q de agosto de 2026 de Oracle no contienen revelación sobre entidades de interés variable.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001193125-26-389274 for \"variable interest\": 0 hits; harvested 10-K passages: no VIE hit",
+    "es": "Búsqueda de texto completo del 10-Q 0001193125-26-389274 por «variable interest»: 0 resultados; pasajes cosechados del 10-K: sin EIV"
+   },
+   "form": "10-Q",
+   "accn": "0001193125-26-389274",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and harvested text)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "guarantees_max",
+   "result": "text",
+   "amountUSDm": 3300,
+   "asOf": "2026-05-31",
+   "note_en": "Oracle's one disclosed guarantee is of up to US$3.3bn of a data-center lessor's borrowing (FY2026 10-K); it is not tagged with the standard concept and the August 2026 10-Q does not repeat it.",
+   "note_es": "La única garantía que Oracle divulga es de hasta US$3.3 mil M de la deuda de un arrendador de centros de datos (10-K del AF2026); no está etiquetada con el concepto estándar y el 10-Q de agosto de 2026 no la repite.",
+   "src": {
+    "k": "ORCL 10-K 2026-05-31",
+    "page": "90",
+    "section": "Note 9 — Leases (lease commitments not yet commenced)",
+    "quote": "These additional lease commitments include a lease for which we have guaranteed up to $3.3 billion of the lessor's borrowing, which matures in September 2026."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "equity_method",
+   "result": "not_disclosed",
+   "note_en": "Oracle tags no equity-method balance; its equity-method investee (TikTok USDS Joint Venture, 15%) sits inside non-marketable investments, whose August 2026 balance is not legible in the harvested text.",
+   "note_es": "Oracle no etiqueta un saldo por método de participación; su participada por método de participación (TikTok USDS Joint Venture, 15%) está dentro de las inversiones no negociables, cuyo saldo a agosto de 2026 no es legible en el texto cosechado.",
+   "src": {
+    "k": "ORCL 10-Q 2026-08-31",
+    "page": "7",
+    "section": "Note 1 — Investments",
+    "quote": "The substantial majority of the non-marketable investments we held as of August 31, 2026 were with TikTok USDS Joint Venture LLC, an equity method investee in which we have an ownership interest of 15%."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "nci_vie",
+   "result": "text",
+   "amountUSDm": 424,
+   "asOf": "2026-08-31",
+   "note_en": "Oracle's noncontrolling interests (US$424m, XBRL MinorityInterest) belong to majority-owned subsidiaries (Oracle Financial Services Software, Oracle Japan), not to variable interest entities.",
+   "note_es": "Las participaciones no controladoras de Oracle (US$424 M, XBRL MinorityInterest) corresponden a subsidiarias de mayoría (Oracle Financial Services Software, Oracle Japan), no a entidades de interés variable.",
+   "src": {
+    "k": "ORCL 10-Q 2026-08-31",
+    "page": "7",
+    "section": "Note 1 — Non-operating income",
+    "quote": "the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan)"
+   },
+   "evidence": {
+    "en": "XBRL MinorityInterest = 424 (US$ m) at 2026-08-31",
+    "es": "XBRL MinorityInterest = 424 (US$ M) al 2026-08-31"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "fl_additions",
+   "result": "fy_only",
+   "amountUSDm": 343,
+   "period": "FY2025",
+   "asOf": "2025-12-31",
+   "note_en": "Right-of-use assets obtained under finance leases are tagged only in the 10-K (FY2025: US$343m).",
+   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-K (AF2025: US$343 M).",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 3 facts, all 10-K (0001769628-26-000104)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 3 hechos, todos del 10-K (0001769628-26-000104)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "fl_principal",
+   "result": "ytd_only",
+   "amountUSDm": 33,
+   "period": "H1 2026",
+   "asOf": "2026-06-30",
+   "note_en": "Finance-lease principal payments are small (US$33m in the first half of 2026) and tagged for too few periods to build twelve months.",
+   "note_es": "Los pagos de principal de arrendamientos financieros son pequeños (US$33 M en el primer semestre de 2026) y están etiquetados en muy pocos periodos para construir doce meses.",
+   "evidence": {
+    "en": "XBRL FinanceLeasePrincipalPayments: 4 facts, last 2026-06-30 (10-Q 0001769628-26-000366)",
+    "es": "XBRL FinanceLeasePrincipalPayments: 4 hechos, último 2026-06-30 (10-Q 0001769628-26-000366)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "CoreWeave has no commercial paper program; the 10-Q mentions commercial paper only as an investment it holds.",
+   "note_es": "CoreWeave no tiene programa de papel comercial; el 10-Q menciona papel comercial solo como inversión que posee.",
+   "evidence": {
+    "en": "no commercial-paper flow or balance concept in XBRL companyfacts; EDGAR full-text hit for \"commercial paper\" in 10-Q 0001769628-26-000366 (investments note)",
+    "es": "sin concepto de flujo o saldo de papel comercial en XBRL companyfacts; resultado de texto completo por «commercial paper» en el 10-Q 0001769628-26-000366 (nota de inversiones)"
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "equity_proceeds",
+   "result": "text",
+   "amountUSDm": 3000,
+   "asOf": "2026-06-30",
+   "period": "H1 2026",
+   "note_en": "Two private placements in the first half of 2026 (US$2.0bn to NVIDIA in January; US$1.0bn in April); the cash-flow line is not tagged with the standard concept in the 10-Q.",
+   "note_es": "Dos colocaciones privadas en el primer semestre de 2026 (US$2.0 mil M a NVIDIA en enero; US$1.0 mil M en abril); la línea del estado de flujos no está etiquetada con el concepto estándar en el 10-Q.",
+   "src": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "48",
+    "section": "Item 2 — Liquidity (equity financing)",
+    "quote": "In April 2026, we issued approximately 9 million shares of our Class A common stock in a private placement at a price of $109.00 per share, for aggregate gross proceeds of $1.0 billion."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "No preferred stock outstanding since the IPO (the pre-IPO redeemable preferred tag is zero).",
+   "note_es": "Sin acciones preferentes en circulación desde la OPI (la etiqueta de preferentes redimibles previas a la OPI es cero).",
+   "evidence": {
+    "en": "XBRL PreferredStockSharesOutstanding = 0 at 2026-06-30; ProceedsFromIssuanceOfRedeemablePreferredStock = 0 (FY2025)",
+    "es": "XBRL PreferredStockSharesOutstanding = 0 al 2026-06-30; ProceedsFromIssuanceOfRedeemablePreferredStock = 0 (AF2025)"
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "buybacks",
+   "result": "none",
+   "note_en": "CoreWeave repurchases no shares (the one tagged repurchase fact, Q3 2025, is zero).",
+   "note_es": "CoreWeave no recompra acciones (el único hecho etiquetado de recompra, 3T25, es cero).",
+   "evidence": {
+    "en": "XBRL PaymentsForRepurchaseOfCommonStock: one fact, 0 (2025-09-30)",
+    "es": "XBRL PaymentsForRepurchaseOfCommonStock: un hecho, 0 (2025-09-30)"
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "CoreWeave pays no dividend (dividends per share declared are tagged as zero).",
+   "note_es": "CoreWeave no paga dividendos (los dividendos declarados por acción están etiquetados en cero).",
+   "evidence": {
+    "en": "XBRL CommonStockDividendsPerShareDeclared = 0 through 2026-06-30; PaymentsOfDividendsPreferredStockAndPreferenceStock = 0",
+    "es": "XBRL CommonStockDividendsPerShareDeclared = 0 hasta 2026-06-30; PaymentsOfDividendsPreferredStockAndPreferenceStock = 0"
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "purchase_oblig",
+   "result": "not_disclosed",
+   "note_en": "Neither the FY2025 10-K nor the June 2026 10-Q quantifies purchase commitments: Note 9 (Commitments and Contingencies) covers indemnifications and litigation, and the liquidity section lists 'routine commitments for the purchase of goods or services' among contractual commitments without an amount. Both primary documents were searched on 3 Oct 2026.",
+   "note_es": "Ni el 10-K de 2025 ni el 10-Q de junio de 2026 cuantifican compromisos de compra: la nota 9 (Commitments and Contingencies) trata indemnizaciones y litigios, y la sección de liquidez enumera «compromisos rutinarios de compra de bienes o servicios» entre los compromisos contractuales sin monto. Ambos documentos primarios se buscaron el 3 de octubre de 2026.",
+   "evidence": {
+    "en": "10-Q for 30 Jun 2026, p. 25 (Note 9 opens with indemnifications) and p. 47 (contractual-commitments list); 10-K for 2025 searched for 'purchase commitments / purchase obligations': no amount.",
+    "es": "10-Q al 30 de junio de 2026, p. 25 (la nota 9 abre con indemnizaciones) y p. 47 (lista de compromisos contractuales); 10-K de 2025 buscado por «purchase commitments / purchase obligations»: sin monto."
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "src": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "47",
+    "section": "Liquidity and Capital Resources — Contractual Obligations",
+    "quote": "other contractual commitments associated with agreements that are enforceable and legally binding, such as routine commitments for the purchase of goods or services entered into in the ordinary course of business including the purchase of technology equipment and enterprise software and service arrangements."
+   }
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "guarantees_max",
+   "result": "not_disclosed",
+   "note_en": "CoreWeave, Inc. guarantees its subsidiaries' delayed-draw term loans and notes (US$35.6bn of principal in total at 30 Jun 2026); no separate maximum-exposure figure for guarantees of others is given.",
+   "note_es": "CoreWeave, Inc. garantiza los préstamos a plazo y las notas de sus subsidiarias (US$35.6 mil M de principal en total al 30 jun 2026); no da una cifra separada de exposición máxima por garantías a terceros.",
+   "src": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "28",
+    "section": "Note 10 — Debt",
+    "quote": "or obligations of certain of the Company’s subsidiaries that are unconditionally and irrevocably guaranteed by CoreWeave, Inc."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "CoreWeave reports no noncontrolling interests.",
+   "note_es": "CoreWeave no reporta participaciones no controladoras.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001769628-26-000366 for \"noncontrolling\": 0 hits; no NCI balance concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001769628-26-000366 por «noncontrolling»: 0 resultados; sin concepto de saldo de participación no controladora en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001769628-26-000366",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "equity_method",
+   "result": "fy_only",
+   "amountUSDm": 51,
+   "period": "31 Dec 2025",
+   "asOf": "2025-12-31",
+   "note_en": "Equity-method investments were tagged in the 10-K (US$51m at 31 Dec 2025); the 10-Q states US$221m of the US$479m carried in data-center joint-venture VIEs is accounted for under the equity method, without the standard tag.",
+   "note_es": "Las inversiones por método de participación se etiquetaron en el 10-K (US$51 M al 31 dic 2025); el 10-Q indica que US$221 M de los US$479 M registrados en las coinversiones de centros de datos (EIV) se contabilizan por método de participación, sin la etiqueta estándar.",
+   "src": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "16",
+    "section": "Note — Variable interest entities (joint ventures)",
+    "quote": "The carrying value of the Company's investment in these VIEs was $479 million as of June 30, 2026, of which $221 million is accounted for as an equity method investment"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "fl_liab",
+   "result": "none",
+   "note_en": "Nebius reports no finance leases: the 20-F has no finance-lease concept and does not use the term.",
+   "note_es": "Nebius no reporta arrendamientos financieros: el 20-F no tiene concepto de arrendamiento financiero ni usa el término.",
+   "evidence": {
+    "en": "EDGAR full-text search of 20-F 0001104659-26-052948 for \"finance lease\": 0 hits; no FinanceLease* concept in XBRL",
+    "es": "Búsqueda de texto completo del 20-F 0001104659-26-052948 por «finance lease»: 0 resultados; sin concepto FinanceLease* en XBRL"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "assumeZero": true,
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "fl_additions",
+   "result": "none",
+   "note_en": "No finance leases, so no finance-lease additions; capex including finance leases equals cash capex.",
+   "note_es": "Sin arrendamientos financieros, no hay adiciones por arrendamiento financiero; el capex con arrendamientos financieros es igual al capex en efectivo.",
+   "evidence": {
+    "en": "see fl_liab (20-F 0001104659-26-052948)",
+    "es": "ver fl_liab (20-F 0001104659-26-052948)"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "assumeZero": true,
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "fl_principal",
+   "result": "none",
+   "note_en": "No finance leases, so no finance-lease principal payments.",
+   "note_es": "Sin arrendamientos financieros, no hay pagos de principal de arrendamientos financieros.",
+   "evidence": {
+    "en": "see fl_liab (20-F 0001104659-26-052948)",
+    "es": "ver fl_liab (20-F 0001104659-26-052948)"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "assumeZero": true,
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "fl_pay_due",
+   "result": "none",
+   "note_en": "No finance leases, so no finance-lease payments due.",
+   "note_es": "Sin arrendamientos financieros, no hay pagos de arrendamientos financieros por vencer.",
+   "evidence": {
+    "en": "see fl_liab (20-F 0001104659-26-052948)",
+    "es": "ver fl_liab (20-F 0001104659-26-052948)"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "assumeZero": true,
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "Nebius has no commercial paper program (the 20-F does not mention commercial paper).",
+   "note_es": "Nebius no tiene programa de papel comercial (el 20-F no menciona papel comercial).",
+   "evidence": {
+    "en": "EDGAR full-text search of 20-F 0001104659-26-052948 for \"commercial paper\": 0 hits",
+    "es": "Búsqueda de texto completo del 20-F 0001104659-26-052948 por «commercial paper»: 0 resultados"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "equity_proceeds",
+   "result": "text",
+   "amountUSDm": 1150,
+   "asOf": "2025-12-31",
+   "period": "FY2025",
+   "note_en": "Gross proceeds from the sale of equity securities were US$1,150m in 2025; the 20-F tags no equity-issuance concept.",
+   "note_es": "Los recursos brutos por venta de acciones fueron US$1,150 M en 2025; el 20-F no etiqueta un concepto de emisión de acciones.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Liquidity (cash flows from financing)",
+    "quote": "gross proceeds from sale of equity securities of $1,150.0 million"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "Nebius has issued no preferred shares.",
+   "note_es": "Nebius no ha emitido acciones preferentes.",
+   "evidence": {
+    "en": "no preferred-stock concept in XBRL companyfacts (20-F 0001104659-26-052948)",
+    "es": "sin concepto de acciones preferentes en XBRL companyfacts (20-F 0001104659-26-052948)"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "buybacks",
+   "result": "none",
+   "note_en": "No share buybacks; the 20-F reports US$10.0m paid to repurchase equity-classified awards of a business unit.",
+   "note_es": "Sin recompra de acciones; el 20-F reporta US$10.0 M pagados por recomprar premios clasificados como capital de una unidad de negocio.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Liquidity (cash flows from financing)",
+    "quote": "$10.0 million paid to repurchase equity-classified awards associated with one of our business units"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "Nebius pays no dividend (no dividend line in the cash-flow statement).",
+   "note_es": "Nebius no paga dividendos (sin línea de dividendos en el estado de flujos).",
+   "evidence": {
+    "en": "no dividend-payment concept in XBRL companyfacts (20-F 0001104659-26-052948)",
+    "es": "sin concepto de pago de dividendos en XBRL companyfacts (20-F 0001104659-26-052948)"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "purchase_oblig",
+   "result": "text",
+   "note_en": "Note 11 of the 20-F quantifies two purchase commitments, both net of VAT: power and utilities of rented data centers (US$6.8m in 2026, US$7.0m in 2027, US$7.2m in 2028, US$5.6m in 2029 = US$26.6m) and other goods and services (US$0.6m, US$1.0m, US$0.4m, US$0.4m and US$0.1m over 2026–2030 = US$2.5m). FNAM sum US$29.1m. The note quantifies no other purchase commitment; none is tagged with the standard XBRL concept.",
+   "note_es": "La nota 11 del 20-F cuantifica dos compromisos de compra, ambos netos de IVA: energía y servicios de los centros de datos rentados (US$6.8 M en 2026, US$7.0 M en 2027, US$7.2 M en 2028, US$5.6 M en 2029 = US$26.6 M) y otros bienes y servicios (US$0.6 M, US$1.0 M, US$0.4 M, US$0.4 M y US$0.1 M en 2026–2030 = US$2.5 M). Suma FNAM: US$29.1 M. La nota no cuantifica otro compromiso de compra; ninguno lleva la etiqueta XBRL estándar.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "seq134",
+    "section": "Note 11. Commitments and Contingencies",
+    "quote": "The Group has entered into purchase commitments for power and utilities of rented data center facilities (co-location agreement) with future payments (net of VAT) amounting to $ 6.8 in 2026, $ 7.0 in 2027, $ 7.2 in 2028, and $ 5.6 in 2029. The Group also has purchase commitments for other goods and services with future payments (net of VAT) amounting to $ 0.6 in 2026, $ 1.0 in 2027, $ 0.4 in 2028, $ 0.4 in 2029 and $ 0.1 in 2030."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "amountUSDm": 29.1,
+   "period": "FY2025",
+   "asOf": "2025-12-31",
+   "evidence": {
+    "en": "20-F for 2025, Note 11 'Commitments and Contingencies' (F-pages, unnumbered: sequence page 134), read in the primary document on 3 Oct 2026; figures in millions of US dollars as the note states.",
+    "es": "20-F de 2025, nota 11 «Commitments and Contingencies» (páginas F, sin numerar: página de secuencia 134), leída en el documento primario el 3 de octubre de 2026; cifras en millones de dólares como indica la nota."
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948"
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "vie_max_loss",
+   "result": "none",
+   "note_en": "Nebius states it has no material interest in variable interest entities or off-balance-sheet arrangements.",
+   "note_es": "Nebius declara que no tiene interés material en entidades de interés variable ni arreglos fuera de balance.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Off-balance sheet items",
+    "quote": "Nebius Group does not currently engage in material off balance sheet financing arrangements, and does not have any material interest or obligation, including any contingent obligation arising out of a variable interest in entities referred to as variable interest entities"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "guarantees_max",
+   "result": "none",
+   "note_en": "No guarantees disclosed: the 20-F states Nebius has no material contingent obligation from off-balance-sheet arrangements.",
+   "note_es": "Sin garantías divulgadas: el 20-F declara que Nebius no tiene obligación contingente material por arreglos fuera de balance.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Off-balance sheet items",
+    "quote": "does not have any material interest or obligation, including any contingent obligation"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "Nebius consolidates no variable interest entities; its noncontrolling interests (Avride, Toloka) are ordinary subsidiaries.",
+   "note_es": "Nebius no consolida entidades de interés variable; sus participaciones no controladoras (Avride, Toloka) son subsidiarias ordinarias.",
+   "src": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Off-balance sheet items",
+    "quote": "which include special purpose entities and other structured finance entities"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "NBIS",
+   "metric": "equity_method",
+   "result": "not_disclosed",
+   "note_en": "The equity-method balance is not tagged; the 20-F tags the share of investees' losses (−US$24m) and purchases of equity-method investments (US$43m) for 2025.",
+   "note_es": "El saldo por método de participación no está etiquetado; el 20-F etiqueta la participación en pérdidas de participadas (−US$24 M) y compras de inversiones por método de participación (US$43 M) en 2025.",
+   "evidence": {
+    "en": "XBRL IncomeLossFromEquityMethodInvestments −24, PaymentsToAcquireEquityMethodInvestments 43 (US$ m, FY2025, 20-F 0001104659-26-052948); no EquityMethodInvestments balance",
+    "es": "XBRL IncomeLossFromEquityMethodInvestments −24, PaymentsToAcquireEquityMethodInvestments 43 (US$ M, AF2025, 20-F 0001104659-26-052948); sin saldo EquityMethodInvestments"
+   },
+   "form": "20-F",
+   "accn": "0001104659-26-052948",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "fl_additions",
+   "result": "ytd_only",
+   "amountUSDm": 292,
+   "period": "9 months to Mar 2026",
+   "asOf": "2026-03-31",
+   "note_en": "Right-of-use assets obtained under finance leases are tagged in the March 2026 10-Q only (US$292m for nine months); the FY2026 10-K does not tag the line.",
+   "note_es": "Los activos por derecho de uso de arrendamientos financieros se etiquetan solo en el 10-Q de marzo de 2026 (US$292 M en nueve meses); el 10-K del AF2026 no etiqueta la línea.",
+   "evidence": {
+    "en": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 2 facts, last 2026-03-31 (10-Q 0001878848-26-000026)",
+    "es": "XBRL RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability: 2 hechos, último 2026-03-31 (10-Q 0001878848-26-000026)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "IREN's FY2026 10-K does not disclose a capitalized-interest amount.",
+   "note_es": "El 10-K del AF2026 de IREN no divulga un monto de intereses capitalizados.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001878848-26-000052 for \"capitalized interest\": 0 hits; no InterestCostsCapitalized concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-K 0001878848-26-000052 por «capitalized interest»: 0 resultados; sin concepto InterestCostsCapitalized en XBRL"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "IREN has no commercial paper program (the only mention in the 10-K filing is permitted investments in a financing agreement exhibit).",
+   "note_es": "IREN no tiene programa de papel comercial (la única mención en el 10-K está en inversiones permitidas de un anexo de financiamiento).",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001878848-26-000052 for \"commercial paper\": 1 hit, in exhibit a1037commontermsagreemen.htm only",
+    "es": "Búsqueda de texto completo del 10-K 0001878848-26-000052 por «commercial paper»: 1 resultado, solo en el anexo a1037commontermsagreemen.htm"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "equity_proceeds",
+   "result": "ytd_only",
+   "amountUSDm": 2631,
+   "period": "9 months to Mar 2026",
+   "asOf": "2026-03-31",
+   "note_en": "Common-stock proceeds were tagged through the March 2026 10-Q (US$2.63bn for nine months, at-the-market program); the FY2026 10-K tags no equity-issuance concept, so the fiscal year is not readable.",
+   "note_es": "Los recursos por acciones comunes se etiquetaron hasta el 10-Q de marzo de 2026 (US$2.63 mil M en nueve meses, programa at-the-market); el 10-K del AF2026 no etiqueta un concepto de emisión de acciones, así que el año fiscal no es legible.",
+   "evidence": {
+    "en": "XBRL ProceedsFromIssuanceOfCommonStock: 3 facts, last 2026-03-31; EDGAR full-text search of 10-K 0001878848-26-000052 for \"at-the-market\": 1 hit",
+    "es": "XBRL ProceedsFromIssuanceOfCommonStock: 3 hechos, último 2026-03-31; búsqueda de texto completo del 10-K 0001878848-26-000052 por «at-the-market»: 1 resultado"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "IREN has issued no preferred shares.",
+   "note_es": "IREN no ha emitido acciones preferentes.",
+   "evidence": {
+    "en": "no preferred-stock concept in XBRL companyfacts (10-K 0001878848-26-000052)",
+    "es": "sin concepto de acciones preferentes en XBRL companyfacts (10-K 0001878848-26-000052)"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "buybacks",
+   "result": "none",
+   "note_en": "No share buybacks (the 10-K's mentions of repurchases are convertible-note and award terms).",
+   "note_es": "Sin recompra de acciones (las menciones de recompra en el 10-K son términos de notas convertibles y de premios).",
+   "evidence": {
+    "en": "no PaymentsForRepurchaseOfCommonStock concept in XBRL companyfacts (10-K 0001878848-26-000052)",
+    "es": "sin concepto PaymentsForRepurchaseOfCommonStock en XBRL companyfacts (10-K 0001878848-26-000052)"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "IREN pays no dividend (dividends per share declared are tagged as zero).",
+   "note_es": "IREN no paga dividendos (los dividendos declarados por acción están etiquetados en cero).",
+   "evidence": {
+    "en": "XBRL CommonStockDividendsPerShareDeclared = 0 through FY2026 (10-K 0001878848-26-000052)",
+    "es": "XBRL CommonStockDividendsPerShareDeclared = 0 hasta el AF2026 (10-K 0001878848-26-000052)"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "ol_pay_due",
+   "result": "not_disclosed",
+   "note_en": "The FY2026 10-K tags no operating-lease maturity total; operating leases were immaterial (US$2m of payments due at 30 Jun 2025).",
+   "note_es": "El 10-K del AF2026 no etiqueta un total de vencimientos de arrendamientos operativos; eran inmateriales (US$2 M de pagos por vencer al 30 jun 2025).",
+   "evidence": {
+    "en": "XBRL LesseeOperatingLeaseLiabilityPaymentsDue: one fact, 2025-06-30 = 2 (US$ m)",
+    "es": "XBRL LesseeOperatingLeaseLiabilityPaymentsDue: un hecho, 2025-06-30 = 2 (US$ M)"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "vie_max_loss",
+   "result": "none",
+   "note_en": "IREN's only variable interest entity, the GPU-financing SPV (IE US Hardware 3, LLC), is consolidated; there is no unconsolidated VIE.",
+   "note_es": "La única entidad de interés variable de IREN, el SPV de financiamiento de GPU (IE US Hardware 3, LLC), está consolidada; no hay EIV no consolidadas.",
+   "src": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq183",
+    "section": "Note 26 — Variable interest entity",
+    "quote": "Consolidated VIE — IE US Hardware 3, LLC"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "guarantees_max",
+   "result": "not_disclosed",
+   "note_en": "IREN Limited gives a performance guarantee to the Financing SPV (not a guarantee of its borrowings) and, from 25 Aug 2026, guarantees the borrower's payment obligations under the August 2026 financing; no maximum-exposure amount is disclosed.",
+   "note_es": "IREN Limited da una garantía de desempeño al SPV de financiamiento (no de sus préstamos) y, desde el 25 ago 2026, garantiza las obligaciones de pago del deudor bajo el financiamiento de agosto de 2026; no se divulga un monto de exposición máxima.",
+   "src": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq176",
+    "section": "Note 23 — Debt (GPU financing)",
+    "quote": "This is a performance guarantee and not a guarantee of the Financing SPV's borrowings."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "The consolidated Financing SPV is wholly owned: no noncontrolling interest.",
+   "note_es": "El SPV de financiamiento consolidado es de propiedad total: sin participación no controladora.",
+   "src": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq183",
+    "section": "Note 26 — Variable interest entity",
+    "quote": "is a wholly owned, limited-purpo"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "equity_method",
+   "result": "none",
+   "note_en": "IREN holds no equity-method investments (no concept tagged; the 10-K's mentions are generic risk language).",
+   "note_es": "IREN no tiene inversiones por método de participación (sin concepto etiquetado; las menciones del 10-K son lenguaje genérico de riesgos).",
+   "evidence": {
+    "en": "no EquityMethodInvestments concept in XBRL companyfacts (10-K 0001878848-26-000052)",
+    "es": "sin concepto EquityMethodInvestments en XBRL companyfacts (10-K 0001878848-26-000052)"
+   },
+   "form": "10-K",
+   "accn": "0001878848-26-000052",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "Applied Digital has no commercial paper program (the 10-K does not mention commercial paper).",
+   "note_es": "Applied Digital no tiene programa de papel comercial (el 10-K no menciona papel comercial).",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001144879-26-000048 for \"commercial paper\": 0 hits",
+    "es": "Búsqueda de texto completo del 10-K 0001144879-26-000048 por «commercial paper»: 0 resultados"
+   },
+   "form": "10-K",
+   "accn": "0001144879-26-000048",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "interest_cap",
+   "result": "not_disclosed",
+   "note_en": "Applied Digital capitalizes interest during construction (10-K p. 95) but tags no amount and the 10-K does not use the term 'capitalized interest'.",
+   "note_es": "Applied Digital capitaliza intereses durante la construcción (10-K p. 95) pero no etiqueta un monto y el 10-K no usa el término «capitalized interest».",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "95",
+    "section": "Note — Interest expense",
+    "quote": "Interest and related amortization of debt issuance costs and discounts recognized during construction projects are capitalized and included in the cost of project."
+   },
+   "evidence": {
+    "en": "EDGAR full-text search of 10-K 0001144879-26-000048 for \"capitalized interest\": 0 hits",
+    "es": "Búsqueda de texto completo del 10-K 0001144879-26-000048 por «capitalized interest»: 0 resultados"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "No common dividend; preferred dividends of US$6m in fiscal 2026 are tagged separately (PaymentsOfDividendsPreferredStockAndPreferenceStock).",
+   "note_es": "Sin dividendo común; los dividendos preferentes de US$6 M en el año fiscal 2026 se etiquetan aparte (PaymentsOfDividendsPreferredStockAndPreferenceStock).",
+   "evidence": {
+    "en": "no common-dividend concept in XBRL companyfacts; PaymentsOfDividendsPreferredStockAndPreferenceStock FY2026 = 6 (US$ m, 10-K 0001144879-26-000048)",
+    "es": "sin concepto de dividendo común en XBRL companyfacts; PaymentsOfDividendsPreferredStockAndPreferenceStock AF2026 = 6 (US$ M, 10-K 0001144879-26-000048)"
+   },
+   "form": "10-K",
+   "accn": "0001144879-26-000048",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "revenue",
+   "result": "custom_tag",
+   "note_en": "Revenue for the quarter to May 2026 is tagged with a concept the hub's tag map does not read in that period (the fiscal-year and nine-month figures are tagged); the quarter is derived from the year when both are present.",
+   "note_es": "Los ingresos del trimestre a mayo de 2026 están etiquetados con un concepto que el mapa de etiquetas no lee en ese periodo (el año fiscal y los nueve meses sí están etiquetados); el trimestre se deriva del año cuando ambos existen.",
+   "evidence": {
+    "en": "XBRL RevenueFromContractWithCustomerExcludingAssessedTax: identity checks flag the FY2025 and FY2026 quarters (restated segments); see the quality page",
+    "es": "XBRL RevenueFromContractWithCustomerExcludingAssessedTax: los controles de identidad marcan los trimestres de AF2025 y AF2026 (segmentos reexpresados); ver la página de calidad"
+   },
+   "form": "10-K",
+   "accn": "0001144879-26-000048",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "rpo",
+   "result": "none",
+   "note_en": "Applied Digital is a lessor: its contracts are leases (about US$36.2bn of contracted revenue, module 2), not remaining performance obligations.",
+   "note_es": "Applied Digital es arrendador: sus contratos son arrendamientos (unos US$36.2 mil M de ingresos contratados, módulo 2), no obligaciones de desempeño pendientes.",
+   "evidence": {
+    "en": "no RevenueRemainingPerformanceObligation concept in XBRL companyfacts (10-K 0001144879-26-000048)",
+    "es": "sin concepto RevenueRemainingPerformanceObligation en XBRL companyfacts (10-K 0001144879-26-000048)"
+   },
+   "form": "10-K",
+   "accn": "0001144879-26-000048",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "vie_max_loss",
+   "result": "text",
+   "amountUSDm": 60.6,
+   "asOf": "2026-05-31",
+   "note_en": "Base Electron (related-party power developer) is the one unconsolidated VIE: a US$2.0m equity investment plus a US$58.6m related-party promissory note, both at 31 May 2026 (FNAM sum of the two disclosed figures).",
+   "note_es": "Base Electron (desarrollador de energía, parte relacionada) es la única EIV no consolidada: una inversión de US$2.0 M más un pagaré con parte relacionada de US$58.6 M, ambos al 31 may 2026 (suma FNAM de las dos cifras divulgadas).",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "105",
+    "section": "Note 11 — Variable interest entities (unconsolidated VIE)",
+    "quote": "As of May 31, 2026, the carrying value of the Company's investment in Base Electron was $2.0 million and the outstanding balance of the related party promissory note w"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page; note balance on p. 93 and p. 101)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "guarantees_max",
+   "result": "not_disclosed",
+   "note_en": "Applied Digital gives completion guarantees for its project notes and guarantees its lessor subsidiaries' lease obligations; the B&W guarantee for Base Electron was terminated on 29 May 2026 against a US$37.0m payment. No maximum-exposure amount is disclosed.",
+   "note_es": "Applied Digital da garantías de terminación para las notas de sus proyectos y garantiza las obligaciones de arrendamiento de sus subsidiarias arrendadoras; la garantía a B&W por Base Electron se terminó el 29 may 2026 contra un pago de US$37.0 M. No se divulga un monto de exposición máxima.",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "121",
+    "section": "Note — Commitments and contingencies (B&W guarantee)",
+    "quote": "On May 29, 2026, the Guarantee was terminated, effective upon payment of $37.0 million by or on behalf of Base Electron"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "nci_vie",
+   "result": "text",
+   "amountUSDm": 7.032,
+   "asOf": "2026-05-31",
+   "note_en": "Noncontrolling interest of US$7.0m in stockholders' equity; the third-party preferred units in APLD HPC TopCo 2 are presented as temporary equity. Neither is tagged as an interest in a variable interest entity.",
+   "note_es": "Participación no controladora de US$7.0 M en el capital contable; las unidades preferentes de terceros en APLD HPC TopCo 2 se presentan como capital temporal. Ninguna está etiquetada como interés en una entidad de interés variable.",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "71",
+    "section": "Consolidated balance sheets",
+    "quote": "Noncontrolling interest 7,032"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "equity_method",
+   "result": "none",
+   "note_en": "No equity-method investments: the Base Electron stake (about 10%) is carried at cost under ASC 321 (US$2.0m).",
+   "note_es": "Sin inversiones por método de participación: la participación en Base Electron (alrededor de 10%) se registra al costo bajo ASC 321 (US$2.0 M).",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "93",
+    "section": "Note 7 — Related party transactions (Base Electron)",
+    "quote": "The investment in Base Electron will be accounted for at cost under ASC 321 as it is an equity security without a readily determinable fair value"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "fl_additions",
+   "result": "custom_tag",
+   "note_en": "Finance-lease additions are not tagged with the standard supplemental concept, although finance lease liabilities are tagged.",
+   "note_es": "Las adiciones por arrendamiento financiero no se etiquetan con el concepto complementario estándar, aunque los pasivos por arrendamiento financiero sí están etiquetados.",
+   "evidence": {
+    "en": "no RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability concept in XBRL companyfacts; FinanceLeaseLiability is tagged (10-Q 0001839341-26-000014)",
+    "es": "sin concepto RightOfUseAssetObtainedInExchangeForFinanceLeaseLiability en XBRL companyfacts; FinanceLeaseLiability sí está etiquetado (10-Q 0001839341-26-000014)"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "interest_cap",
+   "result": "custom_tag",
+   "note_en": "The 10-Q mentions capitalized interest, but the amount is not tagged with a standard concept.",
+   "note_es": "El 10-Q menciona intereses capitalizados, pero el monto no está etiquetado con un concepto estándar.",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001839341-26-000014 for \"capitalized interest\": 1 hit; no InterestCostsCapitalized concept in XBRL",
+    "es": "Búsqueda de texto completo del 10-Q 0001839341-26-000014 por «capitalized interest»: 1 resultado; sin concepto InterestCostsCapitalized en XBRL"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search and XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "debt_proceeds",
+   "result": "text",
+   "amountUSDm": 3300,
+   "asOf": "2026-06-30",
+   "period": "H1 2026",
+   "note_en": "The US$3.3bn of 7.75% senior secured notes issued on 6 May 2026 (gross) are described in the 10-Q; the cash-flow proceeds line is not tagged with a standard concept.",
+   "note_es": "Las notas senior garantizadas al 7.75% por US$3.3 mil M emitidas el 6 may 2026 (bruto) se describen en el 10-Q; la línea de recursos del estado de flujos no está etiquetada con un concepto estándar.",
+   "src": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "29",
+    "section": "Item 2 — MD&A (2026 highlights)",
+    "quote": "On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "cp_net",
+   "result": "none",
+   "note_en": "Core Scientific has no commercial paper program (the 10-Q does not mention commercial paper).",
+   "note_es": "Core Scientific no tiene programa de papel comercial (el 10-Q no menciona papel comercial).",
+   "evidence": {
+    "en": "EDGAR full-text search of 10-Q 0001839341-26-000014 for \"commercial paper\": 0 hits",
+    "es": "Búsqueda de texto completo del 10-Q 0001839341-26-000014 por «commercial paper»: 0 resultados"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "equity_proceeds",
+   "result": "none",
+   "note_en": "No shares were sold for cash in the period: no equity-issuance concept is tagged and the 10-Q does not mention an at-the-market program.",
+   "note_es": "No se vendieron acciones por efectivo en el periodo: no hay concepto de emisión de acciones etiquetado y el 10-Q no menciona un programa at-the-market.",
+   "evidence": {
+    "en": "no ProceedsFromIssuance* equity concept in XBRL companyfacts; EDGAR full-text search of 10-Q 0001839341-26-000014 for \"at-the-market\": 0 hits",
+    "es": "sin concepto ProceedsFromIssuance* de acciones en XBRL companyfacts; búsqueda de texto completo del 10-Q 0001839341-26-000014 por «at-the-market»: 0 resultados"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and full-text search)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "pref_proceeds",
+   "result": "none",
+   "note_en": "Core Scientific has issued no preferred stock.",
+   "note_es": "Core Scientific no ha emitido acciones preferentes.",
+   "evidence": {
+    "en": "no preferred-stock concept in XBRL companyfacts (10-Q 0001839341-26-000014)",
+    "es": "sin concepto de acciones preferentes en XBRL companyfacts (10-Q 0001839341-26-000014)"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "buybacks",
+   "result": "none",
+   "note_en": "No share buybacks (the 10-Q's mention of repurchases is covenant language in the notes indenture).",
+   "note_es": "Sin recompra de acciones (la mención de recompras en el 10-Q es lenguaje de covenants del contrato de las notas).",
+   "src": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "18",
+    "section": "Note 7 — Debt (senior secured notes covenants)",
+    "quote": "hold assets or conduct operations unrelated to the operation of the Facilities (as defined in the indenture) and certain additional projects"
+   },
+   "evidence": {
+    "en": "no PaymentsForRepurchaseOfCommonStock concept in XBRL companyfacts",
+    "es": "sin concepto PaymentsForRepurchaseOfCommonStock en XBRL companyfacts"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "dividends",
+   "result": "none",
+   "note_en": "Core Scientific pays no dividend (no dividend-payment concept tagged; the 10-Q's mention is covenant language).",
+   "note_es": "Core Scientific no paga dividendos (sin concepto de pago de dividendos etiquetado; la mención del 10-Q es lenguaje de covenants).",
+   "evidence": {
+    "en": "no dividend-payment concept in XBRL companyfacts (10-Q 0001839341-26-000014)",
+    "es": "sin concepto de pago de dividendos en XBRL companyfacts (10-Q 0001839341-26-000014)"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "rpo",
+   "result": "none",
+   "note_en": "Core Scientific is a colocation lessor: its future receipts are lease payments (US$6.1bn due plus US$3.1bn for leases not yet commenced), not remaining performance obligations.",
+   "note_es": "Core Scientific es arrendador de colocación: sus cobros futuros son pagos de arrendamiento (US$6.1 mil M por vencer más US$3.1 mil M de arrendamientos no iniciados), no obligaciones de desempeño pendientes.",
+   "src": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "17",
+    "section": "Note 6 — Leases (lessor)",
+    "quote": "Operating lease payments expected to be received exclude $3.1 billion in total future noncancellable operating lease payments expected to be received for operating leases that have not yet commenced as of June 30, 2026"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (second read of the cited page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "vie_max_loss",
+   "result": "none",
+   "note_en": "Core Scientific describes no variable interest entities.",
+   "note_es": "Core Scientific no describe entidades de interés variable.",
+   "evidence": {
+    "en": "no VariableInterestEntity concept in XBRL companyfacts; harvested 10-K and 10-Q passages: no VIE hit",
+    "es": "sin concepto VariableInterestEntity en XBRL companyfacts; pasajes cosechados del 10-K y 10-Q: sin EIV"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check and harvested text)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "guarantees_max",
+   "result": "none",
+   "note_en": "The only guarantees are those of its own subsidiaries for the senior secured notes; no guarantee of third-party obligations is disclosed.",
+   "note_es": "Las únicas garantías son las de sus propias subsidiarias por las notas senior garantizadas; no se divulgan garantías de obligaciones de terceros.",
+   "src": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "29",
+    "section": "Item 2 — MD&A (2026 highlights)",
+    "quote": "The Senior Secured Notes and related guarantees are secured by first-priority liens, among other things, on substantially all assets of Core Scientific Finance and its subsidiary guarantors"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "nci_vie",
+   "result": "none",
+   "note_en": "Core Scientific reports no noncontrolling interests.",
+   "note_es": "Core Scientific no reporta participaciones no controladoras.",
+   "evidence": {
+    "en": "no NCI balance concept in XBRL companyfacts (10-Q 0001839341-26-000014)",
+    "es": "sin concepto de saldo de participación no controladora en XBRL companyfacts (10-Q 0001839341-26-000014)"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "equity_method",
+   "result": "none",
+   "note_en": "Core Scientific holds no equity-method investments.",
+   "note_es": "Core Scientific no tiene inversiones por método de participación.",
+   "evidence": {
+    "en": "no EquityMethodInvestments concept in XBRL companyfacts (10-Q 0001839341-26-000014)",
+    "es": "sin concepto EquityMethodInvestments en XBRL companyfacts (10-Q 0001839341-26-000014)"
+   },
+   "form": "10-Q",
+   "accn": "0001839341-26-000014",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (XBRL concept check)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CORZ",
+   "metric": "interest_exp",
+   "result": "custom_tag",
+   "note_en": "Interest expense is presented in a components table (coupon interest, amortization) and not tagged with a standard total for every quarter, so the trailing twelve months cannot be built.",
+   "note_es": "El gasto por intereses se presenta en una tabla de componentes (cupón, amortización) y no se etiqueta con un total estándar en todos los trimestres, así que no se construyen los doce meses.",
+   "src": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "17",
+    "section": "Note 7 — Debt (interest expense)",
+    "quote": "The following table presents the components of interest expense for the periods indicated (in thousands)"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (harvested page and XBRL)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  }
+ ]
+}

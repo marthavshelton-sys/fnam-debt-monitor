@@ -8,7 +8,6 @@
 import { readdir } from 'node:fs/promises';
 import { readJson, writeJson, writeText, TOOLS, SITE, nowET } from './lib.mjs';
 
-const stamp = nowET();
 const { companies } = await readJson(TOOLS + 'companies.json');
 const CO = Object.fromEntries(companies.map((c) => [c.ticker, c]));
 const cap = await readJson(TOOLS + 'data/capacity.json');
@@ -21,6 +20,9 @@ const orcl = await readJson('tools/oracle/data/buildout.json', null);
 const orclSrc = await readJson('tools/oracle/data/sources.json', {});
 const finSrc = await import('node:fs/promises').then((m) => m.readFile(SITE + 'data/financials.js', 'utf8'));
 const FIN = JSON.parse(finSrc.slice(finSrc.indexOf('=') + 1).trim().replace(/;\s*$/, ''));
+// one refresh time per build: the stamp build.mjs wrote into financials.js (owner's third review: the page header and
+// the footers used to show two different times because each script took its own clock reading)
+const stamp = FIN.generated && FIN.refreshedET ? { iso: FIN.generated, et: FIN.refreshedET } : nowET();
 
 // ---- harvested filings: key -> { form, accn, url, filed, report, pages: { page: [text…] } }
 const FILINGS = {};
@@ -34,7 +36,7 @@ for (const c of companies) {
     FILINGS[`${c.ticker} ${j.form} ${j.report}`] = { ticker: c.ticker, form: j.form, accn: j.accn, url: j.url, filed: j.filed, report: j.report, harvested: j.harvested, pages };
   }
 }
-const norm = (s) => String(s || '').replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\s ​]+/g, ' ').replace(/\s+([%,.)])/g, '$1').replace(/\$\s+/g, '$').trim().toLowerCase();
+const norm = (s) => String(s || '').replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\s ​]+/g, ' ').replace(/\s+([%,.)])/g, '$1').replace(/([$€£])\s+/g, '$1').trim().toLowerCase();
 const problems = [];
 function resolve(src, where) {
   if (!src || !src.k) return null;
@@ -48,11 +50,12 @@ function resolve(src, where) {
   const printed = /^seq/.test(String(src.page)) ? null : src.page;
   return { k: src.k, tier: 'T1', form: f.form, accn: f.accn, url: f.url, filed: f.filed, report: f.report, page: printed, pageSeq: printed ? null : String(src.page).replace('seq', ''), section: src.section, quote: src.quote, quoteCheck: check, foundOn };
 }
-const SRC_KEYS = ['src', 'src2', 'src3', 'src4', 'ownershipSrc', 'gpuSrc', 'valueSrc'];
+const SRC_KEYS = ['src', 'src2', 'src3', 'src4', 'ownershipSrc', 'gpuSrc', 'valueSrc', 'definitionSrc'];
 function resolveAll(obj, where) {
   for (const key of SRC_KEYS) if (obj[key] && obj[key].k) obj[key] = resolve(obj[key], `${where}.${key}`);
-  // the item's review state travels with each of its citations, so every source card says who verified it and when
-  if (obj.status) for (const key of SRC_KEYS) if (obj[key]) Object.assign(obj[key], { status: obj.status, verifiedBy: obj.verifiedBy || null, verifiedOn: obj.verifiedOn || null });
+  // the item's review state travels with each of its citations, so every source card says who verified it and when;
+  // reviewedBy (an analyst's sign-off) is a separate field, null until a person signs
+  if (obj.status) { if (!('reviewedBy' in obj)) obj.reviewedBy = null; for (const key of SRC_KEYS) if (obj[key]) Object.assign(obj[key], { status: obj.status, verifiedBy: obj.verifiedBy || null, verifiedOn: obj.verifiedOn || null, reviewedBy: obj.reviewedBy || null, reviewedOn: obj.reviewedOn || null }); }
   return obj;
 }
 
@@ -90,7 +93,7 @@ for (const [i, x] of cap.pipeline.entries()) {
   pipeline.push(resolveAll(x, `capacity.pipeline[${i}]`));
 }
 for (const [i, x] of cap.notDisclosed.entries()) resolveAll(x, `capacity.notDisclosed[${i}]`);
-const capacityOut = { generated: stamp.iso, refreshedET: stamp.et, updated: cap.updated, readBy: cap.readBy, definitions: cap.definitions, current: cap.current, pipeline, notDisclosed: cap.notDisclosed, oracle: orclCap };
+const capacityOut = { generated: stamp.iso, refreshedET: stamp.et, updated: cap.updated, updatedAt: cap.updatedAt || null, readBy: cap.readBy, definitions: cap.definitions, current: cap.current, pipeline, notDisclosed: cap.notDisclosed, oracle: orclCap };
 
 // ---- module 5
 const siteRows = [];
@@ -104,12 +107,12 @@ for (const [i, s] of sites.sites.entries()) {
   }
   siteRows.push({ ...resolveAll({ ...s }, `sites[${i}]`), tier: 'T1' });
 }
-const sitesOut = { generated: stamp.iso, refreshedET: stamp.et, updated: sites.updated, readBy: sites.readBy, sites: siteRows };
+const sitesOut = { generated: stamp.iso, refreshedET: stamp.et, updated: sites.updated, updatedAt: sites.updatedAt || null, readBy: sites.readBy, sites: siteRows };
 
 // ---- module 4
 for (const [i, d] of power.companyDeals.entries()) if (d.src && d.src.k) d.src = resolve(d.src, `power.companyDeals[${i}]`); else if (d.src) d.src = { ...d.src, tier: d.tier };
 for (const [i, s] of power.searched.entries()) if (s.src) s.src = resolve(s.src, `power.searched[${i}]`);
-const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, readBy: power.readBy, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
+const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, updatedAt: power.updatedAt || null, readBy: power.readBy, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
 
 // ---- module 7: revenue shares computed from T1 revenue (fiscal year or trailing four quarters ending at the flow date)
 function revenueAt(tk, period, asOf) {
@@ -130,7 +133,7 @@ for (const [i, c] of circ.concentration.entries()) {
   if (c.calcRevenue) { const f = circ.flows.find((x) => x.id === c.flow); if (f && f.shareOf && f.shareOf.pct != null) { c.pct = f.shareOf.pct; c.calcMethod = f.shareOf.method; } }
   if (c.calc) { c.pct = Math.round(c.calc.num / c.calc.den * 1000) / 10; c.calcMethod = `${c.calc.num} / ${c.calc.den}`; }
 }
-const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, readBy: circ.readBy, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
+const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, readBy: circ.readBy, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
 
 // ---- module 8: payoff and cost of money (curated, T1 text items; FWP term sheets read in session; T4 kept apart)
 let payOut = null;
@@ -141,16 +144,17 @@ if (pay) {
     if (it.termSheet) {
       const t = TS[it.termSheet];
       if (!t) { problems.push({ where: `payoff.ratings.${r.ticker}`, issue: `unknown term sheet ${it.termSheet}` }); continue; }
-      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, status: t.status, verifiedBy: t.verifiedBy, verifiedOn: t.verifiedOn };
+      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, status: t.status, verifiedBy: t.verifiedBy, verifiedOn: t.verifiedOn, reviewedBy: t.reviewedBy || null };
     }
   }
+  for (const t of pay.termSheets || []) if (!('reviewedBy' in t)) t.reviewedBy = null;
   // earnings calendar: newest FactSet calendar snapshot (pulled in a Claude session; FactSet is not available on the runner)
   const fsDir = 'tools/hyperscalers/raw/factset/';
   const calFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-calendar\.json$/.test(f)).sort();
   const cal = calFiles.length ? await readJson(fsDir + calFiles.at(-1)) : null;
-  payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, readBy: pay.readBy, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
+  payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, updatedAt: pay.updatedAt || null, readBy: pay.readBy, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
     rpoTiming: pay.rpoTiming, rpoSearched: pay.rpoSearched, usefulLives: pay.usefulLives, capexPerMW: pay.capexPerMW, ratings: pay.ratings, ratingsSearched: pay.ratingsSearched,
-    termSheets: pay.termSheets, mwEstimates: pay.mwEstimates, powerBridge: pay.powerBridge,
+    termSheets: pay.termSheets, mwEstimates: pay.mwEstimates, powerBridge: pay.powerBridge, segmentNote_es: pay.segmentNote_es || null, segmentNote_en: pay.segmentNote_en || null,
     calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, events: cal.events } : null };
 }
 
@@ -160,7 +164,7 @@ await js('capacity', 'HYP_CAP', capacityOut, 'Hyperscaler Hub modules 1–2: cur
 await js('sites', 'HYP_SITES', sitesOut, 'Hyperscaler Hub module 5: sites named by the companies (T1 filings; Oracle T2). Map positions are localities, not campus coordinates.');
 await js('power', 'HYP_POWER', powerOut, 'Hyperscaler Hub module 4: company power deals (T1/T2) kept apart from grid projections (T3 regulators, T4 estimates).');
 if (payOut) await js('payoff', 'HYP_PAY', payOut, 'Hyperscaler Hub module 8: segment results, backlog timing, useful lives, ratings and new-issue spreads (T1 filings and term sheets); third-party estimates (T4) kept apart; FactSet earnings calendar (dated snapshot).');
-await js('scope', 'HYP_SCOPE', { generated: stamp.iso, refreshedET: stamp.et, updated: scope.updated, notes: scope.notes }, 'Hyperscaler Hub: figures that look alike across modules but measure different scopes, and why they differ.');
+await js('scope', 'HYP_SCOPE', { generated: stamp.iso, refreshedET: stamp.et, updated: scope.updated, updatedAt: scope.updatedAt || null, notes: scope.notes }, 'Hyperscaler Hub: figures that look alike across modules but measure different scopes, and why they differ.');
 await js('circular', 'HYP_CIRC', circOut, 'Hyperscaler Hub module 7: money flows between clouds, chip makers, AI labs and neoclouds (T1 filings of the covered companies).');
 
 const csv = (rows) => rows.map((r) => r.map((v) => { const s = v == null ? '' : String(v); return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s; }).join(',')).join('\n') + '\n';

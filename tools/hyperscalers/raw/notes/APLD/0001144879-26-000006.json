@@ -1,0 +1,896 @@
+{
+ "ticker": "APLD",
+ "cik": 1144879,
+ "form": "10-Q",
+ "accn": "0001144879-26-000006",
+ "filed": "2026-01-08",
+ "report": "2025-11-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000006/apld-20251130.htm",
+ "harvested": "2026-10-04",
+ "pageCount": 69,
+ "numberedPages": 68,
+ "hits": [
+  {
+   "kind": "cash_flow",
+   "page": "1",
+   "match": "Deferred revenue ",
+   "text": "…ight of use assets, net 656 960   Finance lease right of use assets, net 1,532 17,820   Other assets 508,389 180,776   TOTAL ASSETS $ 5,229,344 $ 1,870,090   LIABILITIES, TEMPORARY EQUITY AND STOCKHOLDERS' EQUITY   Current liabilities:   Accounts payable $ 92,911 $ 247,528   Accrued liabilities 207,454 29,549   Current portion of operating lease liability 632 692   Current portion of finance lease liability 1,366 13,633   Current portion of debt 12,555 10,331   Customer deposits 16,752 16,125   Deferred revenue 29,444 —   Due to customer 2,658 4,807   Current liabilities held-for-sale 161,318 216,047   Other current liabilities 38,311 19,432   Total current liabilities 563,401 558,144   Long-term portion of operating lease liability 105 381   Long-term portion of finance lease liability 8 15   Long-term debt 2,594,011 677,825   Total liabilities 3,157,525 1,236,365   Commitments and contingencies (Note 15)   Temporary equity   Series E preferred stock, $ 0.001 par value, 2,000,000 shares authorized, 301,673 shares issued and 281,673 shares outstanding at November 30, 2025, and 301,673 shares issued and outstanding at May 31, 2025   6,432 6,932   Series E-1 preferred stock, $ 0.001 par value, 62,500 shares authorized, 62,500 shares issued and 62,260 shares outstanding at November 30, 2025, and 62,500 shares issued and 62,485 shares outstanding at May 31, 2025   56,796 57,011   S…",
+   "amounts": [
+    {
+     "raw": "$ 92,911 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 247,528   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "Related party",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Condensed Consolidated Statements of Operations (Unaudited)   (In thousands, except share and per share data)   Three Months Ended Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024   Revenue:   Revenue $ 126,589 $ 36,163 $ 190,805 $ 69,086   Related party revenue — — — 1,926   Total revenue 126,589 36,163 190,805 71,012   Costs and expenses:   Cost of revenues 100,553 22,661 156,158 45,404   Selling, general and administrative (1)   56,993 25,974 86,145 36,966   Loss (gain) on classification of held for sale (2)   — 192 — ( 24,616 )   Loss on abandonment of assets — 141 1,751 769   Total costs and expenses 157,546 48,968 244,054 58,523   Operating (loss) income ( 30,957 ) ( 12,805 ) ( 53,249 ) 12,489   Interest expense, net 11,484 2,929 15,431 5,888   Gain on change in fair value of derivative   ( 13,126 ) — ( 13,126 ) —   Gain on change in fair value of investment   ( 2,767 ) — ( 2,767 ) —   Loss on conversion of debt — 25,410 — 33,612   Loss on change in fair value of debt — 87,218 — 85,439   Net loss from continuing operations before income tax expense   ( 26,548 ) ( 128,362 ) ( 52,787 ) ( 112,450 )   Income tax expense 1…",
+   "amounts": [
+    {
+     "raw": "$ 126,589 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36,163 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 190,805 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 69,086   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "2",
+   "match": "related party",
+   "text": "…0,363 ) 21,434 ( 30,522 )   Net loss $ ( 19,082 ) $ ( 139,355 ) $ ( 37,583 ) $ ( 143,646 )   Basic and diluted net loss per share attributable to common stockholders   Continuing operations $ ( 0.11 ) $ ( 0.61 ) $ ( 0.22 ) $ ( 0.63 )   Discontinued operations 0.04 ( 0.05 ) 0.08 ( 0.17 )   Basic and diluted net loss per share $ ( 0.07 ) $ ( 0.66 ) $ ( 0.14 ) $ ( 0.80 )   Basic and diluted weighted average number of shares outstanding 277,423,733 209,560,339 266,599,490 179,119,398   (1) Includes related party selling, general and administrative expense of $ 0.1 million for each of the three months ended November 30, 2025 and November 30, 2024, and for each of the six months ended November 30, 2025 and November 30, 2024, respectively. See Note 6 - Related Party Transactions for further discussion of related party transactions.   (2) Includes $ 25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released during the six months ended November 30, 2024.   See accompanying notes to the unaudited condensed consolidated financial statements   2",
+   "amounts": [
+    {
+     "raw": "$ 0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$ 25 million",
+     "usdM": 25
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "7",
+   "match": "Deferred revenue ",
+   "text": "…value of investment ( 2,767 ) —   Amortization of debt issuance costs 11,700 2,424   Gain on classification of held for sale   — ( 24,616 )   Loss on conversion of debt — 33,612   Loss on change in fair value of debt — 85,439   Loss on abandonment of assets 2,243 769   Changes in operating assets and liabilities:   Accounts receivable ( 15,545 ) ( 8,466 )   Prepaid expenses and other current assets ( 6,247 ) ( 7,153 )   Customer deposits 627 2,306   Related party customer deposits — ( 1,549 )   Deferred revenue 26,002 ( 31,487 )   Related party deferred revenue — ( 1,692 )   Accounts payable ( 159,003 ) ( 82,849 )   Accrued liabilities 21,026 ( 2,515 )   Due to customer ( 2,149 ) ( 5,647 )   Lease assets and liabilities 5,207 ( 19,382 )   Other assets ( 2,617 ) ( 1,058 )   CASH FLOW USED IN OPERATING ACTIVITIES ( 97,868 ) ( 128,154 )   CASH FLOW FROM INVESTING ACTIVITIES   Purchases of property and equipment and other assets ( 801,490 ) ( 225,847 )   Proceeds from satisfaction of contingency on sale of assets — 25,000   Finance lease prepayments   — ( 5,270 )   Investment in companies   ( 17,000 ) ( 1,422 )   CASH FLOW USED IN INVESTING ACTIVITIES ( 818,490 ) ( 207,539 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 70,050 ) ( 62,170 )   Borrowings of long-term debt 2,419,863 275,000   Repayments of long-term debt ( 430,286 ) ( 133,314 )   Payment of def…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "7",
+   "match": "Proceeds from issuance of common stock",
+   "text": "… ( 1,422 )   CASH FLOW USED IN INVESTING ACTIVITIES ( 818,490 ) ( 207,539 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 70,050 ) ( 62,170 )   Borrowings of long-term debt 2,419,863 275,000   Repayments of long-term debt ( 430,286 ) ( 133,314 )   Payment of deferred financing costs ( 78,699 ) ( 28,927 )   Tax payments for restricted stock upon vesting ( 15,467 ) —   Noncontrolling interest contributions 562,500 —   Noncontrolling interest issuance costs   ( 61,819 ) —   Proceeds from issuance of common stock 196,366 191,590   Common stock issuance costs ( 5,949 ) ( 10,233 )   Proceeds from issuance of preferred stock 589,999 67,085   Preferred stock issuance costs ( 11,796 ) ( 5,947 )   Redemption of preferred stock   ( 725 ) —   Dividends issued on preferred stock ( 3,146 ) ( 672 )   Warrant issuance costs   ( 8,250 ) —   Exercise of warrants   6,265 —   Proceeds from issuance of SAFE agreement included in long-term debt — 12,000   Repurchase of shares — ( 31,342 )   Proceeds from convertible notes — 450,000   Purchase of capped call options — ( 51,750 )   Purchase of prepaid forward contract — ( 52,736 )   CASH FLOW PROVIDED BY FINANCING ACTIVITIES 3,088,806 618,584   7",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "7",
+   "match": "Related party",
+   "text": "…ivative ( 13,126 ) —   Gain on change in fair value of investment ( 2,767 ) —   Amortization of debt issuance costs 11,700 2,424   Gain on classification of held for sale   — ( 24,616 )   Loss on conversion of debt — 33,612   Loss on change in fair value of debt — 85,439   Loss on abandonment of assets 2,243 769   Changes in operating assets and liabilities:   Accounts receivable ( 15,545 ) ( 8,466 )   Prepaid expenses and other current assets ( 6,247 ) ( 7,153 )   Customer deposits 627 2,306   Related party customer deposits — ( 1,549 )   Deferred revenue 26,002 ( 31,487 )   Related party deferred revenue — ( 1,692 )   Accounts payable ( 159,003 ) ( 82,849 )   Accrued liabilities 21,026 ( 2,515 )   Due to customer ( 2,149 ) ( 5,647 )   Lease assets and liabilities 5,207 ( 19,382 )   Other assets ( 2,617 ) ( 1,058 )   CASH FLOW USED IN OPERATING ACTIVITIES ( 97,868 ) ( 128,154 )   CASH FLOW FROM INVESTING ACTIVITIES   Purchases of property and equipment and other assets ( 801,490 ) ( 225,847 )   Proceeds from satisfaction of contingency on sale of assets — 25,000   Finance lease prepayments   — ( 5,270 )   Investment in companies   ( 17,000 ) ( 1,422 )   CASH FLOW USED IN INVESTING ACTIVITIES ( 818,490 ) ( 207,539 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 70,050 ) ( 62,170 )   Borrowings of long-term debt 2,419,863 275,000   Repayments of long-term…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "9",
+   "match": "variable interest entit",
+   "text": "…nnual consolidated financial statements on Form 10-K have been condensed or omitted. The unaudited condensed consolidated balance sheet as of May 31, 2025 has been derived from the audited consolidated financial statements as of that date, but does not include all disclosures required for audited annual financial statements.   The unaudited condensed consolidated financial statements include the accounts of the Company and its consolidated subsidiaries and entities that meet the definition of a variable interest entity (“VIE”) for which the Company is considered the primary beneficiary. See Note 9 - Variable Interest Entity for further discussion.   In the Company’s opinion, all necessary adjustments have been made for the fair presentation of the results of the interim periods presented. The results of operations for such interim periods are not necessarily indicative of the results to be expected for the full year. For further information, please refer to and read these interim unaudited condensed consolidated financial statements in conjunction with the Company's audited consolidated financial statements included in the Company's Annual Report on Form 10-K for the fiscal year ended May 31, 2025 filed with the SEC on July 30, 2025.   Significant Accounting Policies and Use of Estimates   Use of Estimates   The preparation of the unaudited condensed consolidated financial stat…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "9",
+   "match": "deferred revenue ",
+   "text": "…he customers’ operations. Customers pay a fixed rate to the Company in exchange for a managed hosting environment supported by customer-provided equipment. Revenue is recognized based on the contractual fixed rate, net of any credits for non-performance, over the term of the agreements. Any ancillary revenue for other services is generally recognized at a point in time when the services are complete. Customer contracts include advance payment terms. All advanced service payments are recorded as deferred revenue and are recognized as revenue once the related service is provided.   HPC Hosting Revenue   9",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "10",
+   "match": "Variable Interest Entit",
+   "text": "…es, Inc. (“B&W”) Investment   The Company accounted for the warrants received from B&W under Accounting Standard Codification (“ASC”) 815 and concluded that the warrants met the definition of a derivative asset that needs to be fair valued at inception and each reporting period.   Corintis Investment   The Company accounted for the investment at cost under Accounting Standard Codification (“ASC”) 321, adjusted for impairment since the investment did not have a readily determinable fair value.   Variable Interest Entity   The Company consolidates a VIE where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations. The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its   10",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "11",
+   "match": "Joint Venture",
+   "text": "…ctive relative fair values. The Company will not subsequently remeasure the temporary equity classified noncontrolling interest until it is probable that the noncontrolling interest will become redeemable. However, the noncontrolling interest balance will be adjusted for the attribution of net income or loss of the Subsidiary to the noncontrolling interest holder as prescribed by ASC 810.   Recent Accounting Pronouncements   In August 2023, the FASB issued ASU No. 2023-05, Business Combinations-Joint Venture Formations (Subtopic 805-60): Recognition and Initial Measurement, which is intended to provide guidance for the formation of a joint venture, including the initial measurement of assets and liabilities, the formation date, and basis of accounting. This new standard became effective for annual reporting periods beginning on or after January 1, 2025, with early adoption permitted. The Company adopted the ASU with the execution of the Unit Purchase Agreement (as defined and described below).   In December 2023, the FASB issued ASU 2023-09, Income Taxes (\"Topic 740\"): Improvements to Income Tax Disclosures. This ASU is intended to enhance the transparency and decision usefulness of income tax disclosures, primarily related to standardization and disaggregation of rate reconciliation categories and income taxes paid by jurisdiction. The guidance is effective for fiscal years be…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "12",
+   "match": "segment results",
+   "text": "…t represents a strategic shift that has a major effect on the Company's operations and financial results. During the fiscal quarter ended May 31, 2025, the Company deemed its Cloud Services Business to be discontinued operations due to the disposal group meeting all three criteria. As such, the results of the Cloud Services Business are presented as discontinued operations in the unaudited condensed consolidated statements of operations and have been excluded from both continuing operations and segment results for all periods presented .   Reclassifications   The Company reclassified certain prior period amounts in its unaudited condensed consolidated balance sheets to conform to our current period presentation. Specifically, we have reclassified certain amounts in “Property and equipment, net” to “Other assets”. This reclassification has no impact on total assets or cash flows.   Cash, Cash Equivalents, and Restricted Cash   The Company’s restricted cash balances consist of debt service reserves and letters of credit.   The debt service reserves are held in separate accounts and are to be used to fund interest and principal on the Senior Secured Notes (as defined below) during construction. See further discussion in Note 7 - Debt. Additionally, the Company has letters of credit totaling $ 23.5 million and $ 31.3 million, as of November 30, 2025 and May 31, 2025, respectively, …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "13",
+   "match": "Useful Life",
+   "text": "…ated statements of cash flows as of November 30, 2025 and May 31, 2025 were as follows (in thousands):   November 30, 2025 May 31, 2025   Cash and cash equivalents $ 1,913,436 $ 41,552   Restricted cash   205,121 72,368   Restricted cash included in other assets 177,207 7,000   Total cash, cash equivalents, and restricted cash $ 2,295,764 $ 120,920   3. Property and Equipment   Property and equipment consisted of the following as of November 30, 2025 and May 31, 2025 (in thousands):   Estimated Useful Life November 30, 2025 May 31, 2025   Networking equipment, electrical equipment, and software   3 years - 5 years   $ 37,177 $ 32,938   Mechanical infrastructure   20 years 71,868 —   Electrical infrastructure   15 years 103,485 —   Electric generation and transformers 15 years - 25 years   177,706 9,914   Land and building   Building 39 years 272,885 109,672   Building improvements   15 years - 25 years   625,129 —   Land 31,922 20,047   Land improvements 15 years 43,026 1,423   Leasehold improvements 3 years - 7 years   444 444   Construction in progress 642,575 1,087,256   Other equipment and fixtures 5 years - 10 years   29,237 2,126   Total cost of property and equipment 2,035,454 1,263,820   Accumulated depreciation ( 34,004 ) ( 23,879 )   Property and equipment, net $ 2,001,450 $ 1,239,941   Depreciation expense totaled $ 7.4 million and $ 10.1 million for the three and si…",
+   "amounts": [
+    {
+     "raw": "$ 2,295,764 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 120,920   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 37,177 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 32,938   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "13",
+   "match": "Depreciation expense",
+   "text": "…nd and building   Building 39 years 272,885 109,672   Building improvements   15 years - 25 years   625,129 —   Land 31,922 20,047   Land improvements 15 years 43,026 1,423   Leasehold improvements 3 years - 7 years   444 444   Construction in progress 642,575 1,087,256   Other equipment and fixtures 5 years - 10 years   29,237 2,126   Total cost of property and equipment 2,035,454 1,263,820   Accumulated depreciation ( 34,004 ) ( 23,879 )   Property and equipment, net $ 2,001,450 $ 1,239,941   Depreciation expense totaled $ 7.4 million and $ 10.1 million for the three and six months ended November 30, 2025, respectively, and $ 2.6 million and $ 5.2 million for the three and six months ended November 30, 2024, respectively.   4. Revenue from Contracts with Customers   Below is a summary of the Company’s revenue concentration by major customers for the three and six months ended November 30, 2025 and November 30, 2024, respectively.   Three Months Ended Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024   Customer A 67 % — % 58 % — %   Customer B 33 % 90 % 42 % 87 %   13",
+   "amounts": [
+    {
+     "raw": "$ 2,001,450 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,239,941   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7.4 million",
+     "usdM": 7.4
+    },
+    {
+     "raw": "$ 10.1 million",
+     "usdM": 10.1
+    },
+    {
+     "raw": "$ 2.6 million",
+     "usdM": 2.6
+    },
+    {
+     "raw": "$ 5.2 million",
+     "usdM": 5.2
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "14",
+   "match": "Deferred Revenue ",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Six Months Ended November 30, 2025   Deferred Revenue   Changes in the Company's deferred revenue balances for the six months ended November 30, 2025 and November 30, 2024, respectively, are shown in the following table (in thousands):   Six Months Ended   November 30, 2025 November 30, 2024   Balance, beginning of period $ — $ 8,188   Advance billings 208,854 59,248   Revenue recognized ( 179,501 ) ( 70,763 )   Other adjustments 91 3,756   Balance, end of period $ 29,444 $ 429   Customer Deposits   Changes in the Company's customer deposits balances for the six months ended November 30, 2025 and November 30, 2024, respectively, are shown in the following table (in thousands):   Six Months Ended   November 30, 2025 November 30, 2024   Balance, beginning of period $ 16,125 $ 15,367   Customer deposits received 627 5,698   Customer deposits refunded — ( 3,373 )   Customer deposits applied   — ( 1,567 )   Balance, end of perio…",
+   "amounts": [
+    {
+     "raw": "$ 8,188   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "15",
+   "match": "deferred revenue ",
+   "text": "…88   Prepaid expenses and other current assets 560 223   Property and equipment, net 16,741 10,922   Operating lease right of use asset, net 93,995 91,374   Finance lease right of use asset, net 193,067 195,495   Other assets 8 —   Total current assets held for sale $ 313,404 $ 304,200   Liabilities:   Accounts payable $ 3,182 $ 3,962   Accrued liabilities 1,534 572   Current portion of operating lease liability 17,090 16,093   Current portion of finance lease liability 74,794 133,406   Current deferred revenue 152 3,594   Long-term portion of operating lease liability 49,594 58,420   Long-term portion of finance lease liability 14,972 —   Total current liabilities held for sale $ 161,318 $ 216,047   15",
+   "amounts": [
+    {
+     "raw": "$ 313,404 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 304,200   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,182 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,962   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 161,318 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 216,047   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "Related Party",
+   "text": "… presented (in thousands):   Six Months Ended   November 30, 2025 November 30, 2024   Depreciation and amortization $ — $ 51,951   Stock-based compensation $ 167 $ ( 1,664 )   Purchases of property and equipment and other assets $ ( 6,311 ) $ 657   Finance lease prepayments $ — $ —   Operating right-of-use assets obtained by lease obligation $ — $ —   Finance right-of-use assets obtained by lease obligation $ 4,973 $ 68,329   Property and equipment in AP and accrued liabilities $ — $ 1,931   6. Related Party Transactions   Related Party Revenue   Related party revenue consisted of revenue from two customers, Customer D and Customer E. During the three months ended November 30, 2025 and 2024, there was no related party revenue. Similarly, during the six months ended November 30, 2025, there was no related party revenue. During the six months ended November 30, 2024, there was approximately $ 1.2 million of related party revenue from Customer D and approximately $ 0.7 million of related party revenue from Customer E.   Customer D is a subsidiary of an entity which, during the first quarter of fiscal year 2025, was deemed to beneficially own over 5 % of the Company's outstanding common stock. As of July 25, 2024, the controlling individual of the entity filed a Schedule 13G to report the fact that as of the date thereof, the entity had ceased to be a beneficial owner of more than …",
+   "amounts": [
+    {
+     "raw": "$ 4,973 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68,329   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,931   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "16",
+   "match": "Related Party",
+   "text": "… the date thereof, the entity had ceased to be a beneficial owner of more than 5 % of such class of securities.   Customer E is 60 % owned by an individual who, during the first quarter of fiscal year 2025, was deemed to beneficially own over 5 % of the Company's outstanding common stock. As of July 25, 2024, the individual filed a Schedule 13G to report the fact that as of the date thereof, the individual had ceased to be a beneficial owner of more than 5 % of such class of securities.   Other Related Party Transactions   Related party transactions included within selling, general and administrative expense on the unaudited condensed consolidated statement of operations include software license fees of $ 74,250 and $ 72,000 during the three months ended November 30, 2025 and 2024, respectively, and $ 148,500 and $ 142,875 during the six months ended November 30, 2025 and 2024, respectively, were incurred with a company whose chairman is also a member of the Company’s Board of Directors.   16",
+   "amounts": [
+    {
+     "raw": "$ 74,250 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 72,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 148,500 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 142,875 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "17",
+   "match": "guaranteed",
+   "text": "… debt (6)   31,891 12,275   Deferred financing costs, net of amortization   ( 252,494 ) ( 181,329 )   Less: Current portion of debt   ( 12,555 ) ( 10,331 )   Long-term debt, net $ 2,594,011 $ 677,825   (1) The net carrying amount of the Convertible Notes was $ 274.6 million and $ 273.3 million and the remaining unamortized deferred financing costs related to the issuance was $ 175.4 million and $ 176.7 million, each as of November 30, 2025 and May 31, 2025, respectively.   (2) The SMBC Loan was guaranteed by APLD HPC TopCo LLC, a wholly-owned subsidiary of the Company, and was secured by a continuing security interest in all of the membership interests of the borrower, APLD HPC Holdings LLC, including a mortgage on certain properties as defined in the collateral agency, security and depositary agreement. During the quarter ended November 30, 2025, concurrent with the closing of the Senior Secured Notes offering (see below), the Company repaid in full the aggregate principal balance plus accrued interest. As of May 31, 2025, there were $ 4.4 million of unamortized deferred financing costs. The average SOFR plus the applicable margin for the fiscal year ended May 31, 2025 was 7.82 %.   (3) The Starion Ellendale Loan is guaranteed by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in substantially all of the assets of the Ellendale …",
+   "amounts": [
+    {
+     "raw": "$ 274.6 million",
+     "usdM": 274.6
+    },
+    {
+     "raw": "$ 273.3 million",
+     "usdM": 273.3
+    },
+    {
+     "raw": "$ 175.4 million",
+     "usdM": 175.4
+    },
+    {
+     "raw": "$ 176.7 million",
+     "usdM": 176.7
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "17",
+   "match": "guaranteed",
+   "text": "…ended May 31, 2025 was 7.82 %.   (3) The Starion Ellendale Loan is guaranteed by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in substantially all of the assets of the Ellendale Data Center Hosting facility (as defined in the Starion Ellendale Loan), and a security interest in the form of a collateral assignment of the Company’s rights and interests in all master hosting agreements related to APLD ELN-01 LLC.   (4) The Cornerstone Bank Loan is guaranteed by APLD GPU-01, LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in multiple Terms of Service Agreements for HPC based systems related to AI Cloud Computing Services, which are to be serviced at the Jamestown hosting facility.   (5) The Starion Term Loan is guaranteed by APLD Hosting, LLC, a wholly-owned subsidiary of the Company, and is secured by the Jamestown hosting facility, a security interest in substantially all of the assets of APLD Hosting LLC, and interests in all master hosting agreements related to the Jamestown hosting facility. The Starion Term Loan Agreement contains customary covenants, representations and warranties and events of default. The Company is subject to a debt service coverage ratio and is in compliance as of November 30, 2025.   (6) Inclusive in this number is $ 12.0 million of proceeds from the issuance of two …",
+   "amounts": []
+  },
+  {
+   "kind": "gpu",
+   "page": "17",
+   "match": "GPU",
+   "text": "…was 7.82 %.   (3) The Starion Ellendale Loan is guaranteed by APLD ELN-01 LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in substantially all of the assets of the Ellendale Data Center Hosting facility (as defined in the Starion Ellendale Loan), and a security interest in the form of a collateral assignment of the Company’s rights and interests in all master hosting agreements related to APLD ELN-01 LLC.   (4) The Cornerstone Bank Loan is guaranteed by APLD GPU-01, LLC, a wholly-owned subsidiary of the Company, and is secured by a security interest in multiple Terms of Service Agreements for HPC based systems related to AI Cloud Computing Services, which are to be serviced at the Jamestown hosting facility.   (5) The Starion Term Loan is guaranteed by APLD Hosting, LLC, a wholly-owned subsidiary of the Company, and is secured by the Jamestown hosting facility, a security interest in substantially all of the assets of APLD Hosting LLC, and interests in all master hosting agreements related to the Jamestown hosting facility. The Starion Term Loan Agreement contains customary covenants, representations and warranties and events of default. The Company is subject to a debt service coverage ratio and is in compliance as of November 30, 2025.   (6) Inclusive in this number is $ 12.0 million of proceeds from the issuance of two SAFE agreements whi…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "18",
+   "match": "200 MW",
+   "text": "…e Loan bore interest at 8.0 % per annum. From the Closing Date and for the succeeding twelve months (the “PIK Period”), accrued interest was to be paid in kind, with such payment in kind being capitalized to principal monthly and at such other times as specified in the Promissory Note. After the PIK Period, accrued interest was to be paid in cash in certain circumstances. The Promissory Note was to mature on the earliest of (i) the date of acceleration of the Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027.   The Loan could be accelerated and the Company required to prepay the full outstanding principal balance of the Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (The Company may voluntarily prepay all or part of the Promissory Note at any time with no less than three ( 3 ) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with respect to the portion of the Loan then being prepaid, in each case, such prepayment is accompanied by the payment of amounts sufficient to achieve a rate of return…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "18",
+   "match": "Revolving Credit Facilit",
+   "text": "…November 30, 2025, the Company had letters of credit totaling $ 23.5 million. The Company has restricted cash related to its letters of credit and is required to keep these balances in separate accounts for the duration of the letter of credit agreements. The Company presents all restricted cash amounts with letter of credit terms of 12 months or less within the Restricted Cash caption within current assets and any amounts with related letter of credit terms of over 12 months in Other Assets.   Revolving Credit Facility   On November 10, 2025, the Company entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $ 65 million. Amounts borrowed and repaid are available for future borrowing. Interest accrues on the outstanding balance at a rate of SOFR plus 2.75 % per annum. Additionally, there is an unused facility fee of 0.35 % per annum based on the daily average unused amount, payable quarterly in arrears at the end of each quarter. The loan is secured by all of the Company’s (but none of its subsidiaries’) assets. As of November 30, 2025, there have been no draws on the facility.   Promissory Note   On September 9, 2025, APLD FAR-01 LLC, a subsidiary of the Company, entered into a promiss…",
+   "amounts": [
+    {
+     "raw": "$ 65 million",
+     "usdM": 65
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "19",
+   "match": "guarantee",
+   "text": "…, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   On November 28, 2025, the Company repaid the Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return. As a result, the accrued interest and rate of return on the Macquarie Promissory Note of $ 1.4 million was capitalized to CIP commensurate with the use of proceeds associated with construction.   Senior Secured Notes   On November 20, 2025, APLD ComputeCo LLC (“Issuer”), a subsidiary of the Company, completed a private offering of 9.25 % Senior Secured Notes due 2030 (the “Notes”). The Notes were sold pursuant to the terms of a purchase agreement, dated as of November 13, 2025 and as amended thereafter, entered into by and among the Issuer, the subsidiary guarantors party thereto (the “Subsidiary Guarantors”…",
+   "amounts": [
+    {
+     "raw": "$ 1.4 million",
+     "usdM": 1.4
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "19",
+   "match": "guarantee",
+   "text": "…t of the notes redeemed, plus a “make-whole” premium and accrued and unpaid interest, if any. In addition, prior to December 15, 2027, the Issuer may redeem up to 40 % of the aggregate principal amount of the notes in an amount not to exceed the amount of the proceeds of certain equity offerings, at the redemption price set forth in the Indenture, plus accrued and unpaid interest.   The Indenture limits the ability of the Issuer and the Subsidiary Guarantors to, among other things: (i) incur or guarantee additional indebtedness; (ii) pay dividends or distributions on, or redeem or repurchase, capital stock and make other restricted payments; (iii) make certain investments; (iv) create or incur liens; (v) consummate certain asset sales; (vi) enter into sale and lease back transactions; (vii) hold assets or conduct operations unrelated to the operation of the Facilities and certain additional projects; (viii) engage in certain transactions with its affiliates; and (ix) merge, consolidate or transfer or   19",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "19",
+   "match": "100 MW",
+   "text": "…(the “Subsidiary Guarantors”) and Morgan Stanley & Co. LLC as the representative (the “Representative”) of the several initial purchasers (the “Initial Purchasers”) in a Rule 144A/Regulation S offering. The aggregate principal amount of Notes sold in the offering was $ 2.35 billion.   The Notes were issued at a price equal to 97 % of their aggregate principal amount. The Issuer intends to use the net proceeds from the offering to fund a portion of the construction and associated expenses of its 100 MW and 150 MW data centers, ELN-02 and ELN-03, respectively (the “Facilities”), at the Company’s 400MW Ellendale, North Dakota campus (“Polaris Forge 1”), repay the aggregate principal balance plus any accrued and unpaid interest under the SMBC Loan, fund debt service reserves, and pay transaction expenses.   Also on November 20, 2025, the Issuer, APLD HPC Holdings 2 LLC (the direct parent of the Issuer) and the Subsidiary Guarantors entered into an indenture (the “Indenture”) with respect to the Notes with Wilmington Trust, National Association, as trustee (the “Trustee”) and collateral agent (the “Collateral Agent”). The Notes are senior secured obligations of the Issuer and bear interest at a rate of 9.25 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on June 15, 2026. The Notes will mature on December 15, 2030, unless earlier rede…",
+   "amounts": [
+    {
+     "raw": "$ 2.35 billion",
+     "usdM": 2350
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "19",
+   "match": "campus in",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Six Months Ended November 30, 2025   Proceeds of the Loan under the Promissory Note were used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, entered into a guarantee and collateral agreement, as grantors there…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "20",
+   "match": "guarantee",
+   "text": "…l all or substantially all of its assets. These covenants are subject to a number of important qualifications and exceptions as set forth in the Indenture. Additionally, upon the occurrence of specified change of control events, the Issuer must offer to repurchase the notes at 101 % of the principal amount, plus accrued and unpaid interest, if any, to, but excluding, the purchase date. The Indenture also provides for customary events of default.   The Company will provide a customary completion guarantee with respect to each Project (as defined in the Indenture) related to the Facilities, which will require the Company to provide the Issuer funds as necessary to ensure the achievement of the applicable Commencement Date (as defined in the Indenture) under the respective datacenter lease in the event that the proceeds of the Notes and the available funds (including previous equity contributions from the Company) are insufficient to do so.   As of November 30, 2025, remaining unamortized deferred financing costs related to the issuance of the loan was $ 6.2 million.   8. Balance Sheet Components   Certain balance sheet components are as follows (in thousands):   November 30, 2025 May 31, 2025   Prepaid expenses and other current assets   Short term equipment deposit $ 256,672 $ —   Deferred issuance costs 182 5,443   Short term lease incentive 3,413 1,290   Prepaid expenses 5,721…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "21",
+   "match": "Variable Interest Entit",
+   "text": "…rminable fair value and evaluated annually for impairment indicators.   November 30, 2025 May 31, 2025   Accrued liabilities   Accrued construction payables $ 172,552 $ —   Accrued expenses 21,779 22,782   Accrued interest 6,862 2,694   Other accrued liabilities   6,261 4,073   Total Accrued liabilities   $ 207,454 $ 29,549   November 30, 2025 May 31, 2025   Other current liabilities   Construction retainer $ 38,228 $ 19,338   Other 83 94   Total Other current liabilities $ 38,311 $ 19,432   9. Variable Interest Entity   Based upon the criteria set forth in ASC 810, Consolidation , the Company consolidates variable interest entities (“VIEs”) in which it has a controlling financial interest and is therefore deemed the primary beneficiary. A controlling financial interest will have both of the following characteristics: (a) the power to direct the VIE activities that most significantly impact economic performance; and (b) the obligation to absorb the VIE losses and the right to receive benefits that are significant to the VIE. As of November 30, 2025, the Company has determined that it was the primary beneficiary of one VIE, APLD HPC TopCo 2 LLC (“TopCo 2”), as it has both the power to direct the activities that most significantly impact the entity’s economic performance and the obligation to absorb losses or the right to receive benefits that could potentially be significant to …",
+   "amounts": [
+    {
+     "raw": "$ 207,454 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 29,549   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,228 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 19,338   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,311 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 19,432   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "22",
+   "match": "deferred revenue ",
+   "text": "…as of November 30, 2025, which are included in the unaudited condensed consolidated balance sheets (in thousands):   November 30, 2025   Assets:   Cash and cash equivalents $ 1,639,558   Restricted cash   178,208   Accounts receivable 10,314   Prepaid expenses and other current assets 265,885   Property and equipment, net 1,831,519   Other assets 466,101   Total assets   $ 4,391,585   Liabilities:   Accounts payable $ 75,980   Accrued liabilities 193,045   Current portion of debt   10   Current deferred revenue 29,339   Other current liabilities   38,228   Long-term debt   2,273,309   Total liabilities   $ 2,609,911   Third-party equity ownership interests in APLD HPC TopCo 2 LLC represents a noncontrolling interest and is presented as temporary equity in the unaudited condensed consolidated balance sheets separate from the Company’s stockholders’ equity. The amount of net income attributable to noncontrolling interests is disclosed in the unaudited condensed consolidated statement of operations.   10. Stockholders' Equity   Common Stock   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $ 200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, t…",
+   "amounts": [
+    {
+     "raw": "$ 4,391,585   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 75,980   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,609,911   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "31",
+   "match": "Variable Interest Entit",
+   "text": "…pectively, for gross proceeds of $ 415.0 million and $ 590.0 million, respectively. During the three and six months ended November 30, 2025, 380,800 and 638,800 shares of Series G Preferred Stock, respectively, were converted into 15.4 million and 43.6 million shares of the Company’s common stock, respectively. As of November 30, 2025, 43,250 shares of Series G Preferred Stock were issued and outstanding.   Redeemable Noncontrolling Interest   APLD HPC TopCo 2 LLC   As discussed within Note 9 - Variable Interest Entity above, APLD HPC TopCo 2 LLC (“TopCo 2”) completed two closings under its A&R UPA during the quarter ended November 30, 2025, issuing 562,500 preferred units and 75,000   31",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "33",
+   "match": "guaranteed",
+   "text": "…h was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will e…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "33",
+   "match": "250 MW",
+   "text": "… noncontrolling interest consists of $ 513.9 million of contributions from noncontrolling interest, net of costs, $ 3.1 million of preferred stock dividends paid in-kind, and $ 0.1 million in current year net loss attributable to non-controlling interest.   14. Leases   Lessor Accounting   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, the Company's subsidiaries, each entered into a data center lease with CoreWeave, Inc. (together, the \"CoreWeave Leases\") to deliver up to an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of Building 2, our 100 MW data center, which was completed and became operational in November 2025. The second lease is for the full capacity of Building 3, a 150 MW data center that is also under construction and is expected to become operational during the calendar year 2026.   On August 28, 2025, APLD ELN-02 C LLC, a subsidiary of the Company, entered into a third data center lease with CoreWeave to deliver an additional 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2…",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "33",
+   "match": "200MW",
+   "text": "…the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the   33",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "33",
+   "match": "investment grade",
+   "text": "…onal 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the   33",
+   "amounts": []
+  },
+  {
+   "kind": "rvg",
+   "page": "34",
+   "match": "residual value guarantee",
+   "text": "…25   option or the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY26 $ 72,000   FY27 479,540   FY28 855,950   FY29 883,279   FY30 908,393   Thereafter 12,351,943   Total $ 15,551,105   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   Components of lease expense were as follows (in thousands):   Three Months Ended Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024   Operating lease cost:   Operating lease expense $ 174 $ 174 $ 348 $ 348   Short-term lease expense 108 51 806 85   Total operating lease cost 282 225 1,154 433   Finance lease expense:   Amortization of right-of-use assets (1)   5,570 2,091 6,528 3,570   Interest on lease liabilities 724 619 1,020 834   Total finance lease cost 6,294 2,710 7,548 4,404   Variable lease cost ( 21 ) 62 ( 2 ) 118   Total net lease cost $ 6,555 $ 2,…",
+   "amounts": [
+    {
+     "raw": "$ 15,551,105   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "34",
+   "match": "guarantees",
+   "text": "…the lessee has the sole ability to exercise the option. Reimbursements of operating expenses and variable rent increases are excluded from the table below (in thousands):   Minimum Contracted Payments   FY26 $ 72,000   FY27 479,540   FY28 855,950   FY29 883,279   FY30 908,393   Thereafter 12,351,943   Total $ 15,551,105   Lessee Accounting   From time to time, the Company enters into leases for equipment and office space. The Company’s lease agreements do not contain any material residual value guarantees or material restrictive covenants. The Company presents operating and finance lease right of use assets and liabilities separately on the unaudited condensed consolidated balance sheets as their own captions, with the liabilities split between current and long-term.   Components of lease expense were as follows (in thousands):   Three Months Ended Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024   Operating lease cost:   Operating lease expense $ 174 $ 174 $ 348 $ 348   Short-term lease expense 108 51 806 85   Total operating lease cost 282 225 1,154 433   Finance lease expense:   Amortization of right-of-use assets (1)   5,570 2,091 6,528 3,570   Interest on lease liabilities 724 619 1,020 834   Total finance lease cost 6,294 2,710 7,548 4,404   Variable lease cost ( 21 ) 62 ( 2 ) 118   Total net lease cost $ 6,555 $ 2,997 $ 8,700 $ 4…",
+   "amounts": [
+    {
+     "raw": "$ 15,551,105   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "36",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   As of November 30, 2025, there were no other pending or threatened lawsuits that could reasonably be expected to have a material effect on the results of the Company’s consolidated operations. There are also no legal proceedings in which any of the Company’s management or affiliates is an adverse party or…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "37",
+   "match": "segment results",
+   "text": "…ch is the Company’s Chief Executive Officer.   The Company's CODM evaluates performance and makes operating decisions primarily based on revenue and segment profit (loss) on a consolidated basis and for each of the Company's reportable segments. Operating results by segment include costs or expenses directly attributable to each segment, which include selling, general, and administrative expenses, gain on classification of held for sale and loss on abandonment of assets. The Company derives the segment results from its internal management reporting system. The accounting policies the Company uses to derive reportable segment results are the same as those used for external reporting purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest expense, net, gain on change in fair value of derivative, gain on change in fair value of investment, loss on conversion of debt, loss on change in fair value of debt or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance. The \"Other\" includes corporate related items not allocated to report…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "37",
+   "match": "segment results",
+   "text": "…ing these expenses is beneficial in evaluating segment performance. The \"Other\" includes corporate related items not allocated to reportable segments for purposes of making operating decisions or assessing financial performance.   In accordance with applicable accounting guidance, the results of the Cloud Services Business are presented as discontinued operations in the unaudited condensed consolidated statements of operations and, as such, have been excluded from both continuing operations and segment results for all periods presented. See \"Note 5 - Discontinued Operations\" for operations and segment results for the Cloud Services Business.   The following tables present segment information, including revenue by segment and segment profit (loss) for the three months ended November 30, 2025 and November 30, 2024 (in thousands):   Three Months Ended November 30, 2025 Six Months Ended November 30, 2025   Data Center Hosting Business   HPC Hosting Business Data Center Hosting Business HPC Hosting Business   Revenue $ 41,597 $ 84,992 $ 79,517 $ 111,288   Related party revenue — — — —   Total segment revenue 41,597 84,992 79,517 111,288   Costs and expenses   Cost of revenues 25,153 75,447 55,562 100,631   Selling, general and administrative (1)   485 12,141 1,450 14,036   Loss on abandonment of assets   — — 512 1,239   Total costs and expenses 25,638 87,588 57,524 115,906   Segment…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "37",
+   "match": "Related party",
+   "text": "…ed Operations\" for operations and segment results for the Cloud Services Business.   The following tables present segment information, including revenue by segment and segment profit (loss) for the three months ended November 30, 2025 and November 30, 2024 (in thousands):   Three Months Ended November 30, 2025 Six Months Ended November 30, 2025   Data Center Hosting Business   HPC Hosting Business Data Center Hosting Business HPC Hosting Business   Revenue $ 41,597 $ 84,992 $ 79,517 $ 111,288   Related party revenue — — — —   Total segment revenue 41,597 84,992 79,517 111,288   Costs and expenses   Cost of revenues 25,153 75,447 55,562 100,631   Selling, general and administrative (1)   485 12,141 1,450 14,036   Loss on abandonment of assets   — — 512 1,239   Total costs and expenses 25,638 87,588 57,524 115,906   Segment profit (loss) $ 15,959 $ ( 2,596 ) $ 21,993 $ ( 4,618 )   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   37",
+   "amounts": [
+    {
+     "raw": "$ 41,597 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 84,992 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,517 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 111,288   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 15,959 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 21,993 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "38",
+   "match": "Related party",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Six Months Ended November 30, 2025   Three Months Ended November 30, 2024 Six Months Ended November 30, 2024   Data Center Hosting Business   HPC Hosting Business Data Center Hosting Business HPC Hosting Business   Revenue $ 36,163 $ — $ 69,086 $ —   Related party revenue — — 1,926 —   Total segment revenue 36,163 — 71,012 —   Costs and expenses   Cost of revenues 22,537 31 44,943 55   Selling, general and administrative (1)   795 5,813 1,567 8,740   Gain on classification of held for sale   192 — ( 24,616 ) —   Loss on abandonment of assets   90 — 718 —   Total costs and expenses 23,614 5,844 22,612 8,795   Segment profit (loss) $ 12,549 $ ( 5,844 ) $ 48,400 $ ( 8,795 )   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   The following tables presents reconciliation to net (loss) income from continuing operations before income tax expense (in thousands):   Three Months Ended   Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024…",
+   "amounts": [
+    {
+     "raw": "$ 36,163 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 69,086 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 12,549 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "41",
+   "match": "guarantee",
+   "text": "…or (iii) December 18, 2027 (the “Maturity Date”).   Proceeds from the Loan will be used, in part, to (i) pay transaction expenses, and (ii) fund the purchase, development and improvement of, and the purchase of equipment for, the Company’s latest new project under development.   In connection with the Loan, (i) the Borrower, APLD Intermediate HoldCo LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the Borrower, and the Borrower’s subsidiaries have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   Cloud Services Business Update   On December 30, 2025, the Company announced it had entered into a non-binding term sheet for a proposed business combination of the Cloud Services Business, Applied Digital Cloud, with EKSO Bionics Holdings, Inc. (Nasdaq: EKSO) (“EKSO”), which, once closed, will go forward as ChronoScale Corporation, an accelerated compute platform purpose-built to support AI workloads (the “Proposed Transaction”).   Upon closing of the Proposed Transaction, the Company expects to initially own over 80 % of the combined company, which will operate under the name ChronoScale. The Applied Digital Cloud and EKSO businesses would continue to operate upon consummation of the Proposed Transaction.   The Proposed Transaction is subject to execution of …",
+   "amounts": []
+  },
+  {
+   "kind": "power",
+   "page": "43",
+   "match": "utility",
+   "text": "…ability to execute leases with key customers, including leases for our Polaris Forge 1 and Polaris Forge 2 data center campuses;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new hosting facilities with the appropriate contractual margins and efficiencies;   • our ability to continue to grow sales in our hosting business;   • volatility of cryptoasset prices; and   • uncertainties of cryptoasset regulation policy; and   • our ability to keep up with the use and continued pace of developments in AI and evolving data center requirements and regulatory frameworks for AI.   You should carefully review the risks described in Item 1A of the Company’s Annual Report on Form 10-K for the year ended May 31, 2025, which was filed with the SEC on July 30, 2025, as well as any other cauti…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "43",
+   "match": "significant customer",
+   "text": "… of our Cloud Services Business that is currently held for sale and treated as discontinued operations;   • our dependence on principal customers, including our ability to execute leases with key customers, including leases for our Polaris Forge 1 and Polaris Forge 2 data center campuses;   • availability of financing to continue to grow our business;   • labor and other workforce shortages and challenges;   • power or other supply disruptions and equipment failures;   • the addition or loss of significant customers or material changes to our relationships with these customers;   • delays or denials of entitlements or permits, including zoning, siting, utility and other permits, or other delays resulting from requirements of public agencies and utility companies;   • our sensitivity to general economic conditions including changes in disposable income levels and consumer spending trends;   • our ability to timely and successfully build new hosting facilities with the appropriate contractual margins and efficiencies;   • our ability to continue to grow sales in our hosting business;   • volatility of cryptoasset prices; and   • uncertainties of cryptoasset regulation policy; and   • our ability to keep up with the use and continued pace of developments in AI and evolving data center requirements and regulatory frameworks for AI.   You should carefully review the risks described …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "44",
+   "match": "Variable Interest Entit",
+   "text": "…cale expertise, proprietary waterless cooling, and rapid deployment capabilities to deliver secure, scalable compute at industry-leading speed and efficiency, while creating economic opportunities in underserved communities through its award-winning Polaris Forge AI Factory model. We operate in two distinct business segments, data center hosting (the \"Data Center Hosting Business\") and HPC data center hosting (the \"HPC Hosting Business\"), as further discussed below.   The Company consolidates a Variable Interest Entity (“VIE”) where it has been determined that the Company is the primary beneficiary of the entity's operation in accordance with ASC Topic 810, Consolidations . The primary beneficiary is the party that has both the power to direct the activities that most significantly impact the VIE's economic performance and the obligation to absorb losses or the right to receive benefits of the VIE that could potentially be significant to the VIE. In evaluating whether the Company is the primary beneficiary, the Company evaluates its power to direct the most significant activities of the VIE by considering the purpose and design of the entity and the risks the entity was designed to create and pass through to its variable interest holders. The Company also evaluates its economic interests in the VIE.   During the fiscal quarter ended May 31, 2025, we determined that our Cloud Se…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "44",
+   "match": "segment results",
+   "text": "…ders. The Company also evaluates its economic interests in the VIE.   During the fiscal quarter ended May 31, 2025, we determined that our Cloud Services Business met the criteria for held for sale and discontinued operations. As such, the results of the Cloud Services Business, which was previously included as a reportable segment, are presented as discontinued operations in the unaudited condensed consolidated statements of operations and have been excluded from both continuing operations and segment results for all periods presented.   Trends and Other Factors Affecting Our Business   Regulatory Environment   The regulatory landscape surrounding AI and blockchain hosting services is evolving rapidly, and we anticipate increased scrutiny and potential regulation in the near and long term. Any such developments may significantly impact our business and operations in ways that are difficult to predict.   Governments and regulatory bodies are considering measures to ensure the responsible development and deployment of AI systems, including transparency, accountability, and fairness guidelines. For example, in the U.S Senate, committees of jurisdiction have passed several AI bills that establish industry standards and impose significant obligations in relation to the use of AI systems. On the state level, several U.S. states have considered AI legislation, which aims to reduce ri…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "45",
+   "match": "guaranteed",
+   "text": "… LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the second lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective Data Center Lease to which such subsidiary is a party.   45",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "45",
+   "match": "106 MW",
+   "text": "…such, the net proceeds were first allocated to the derivatives at their fair value. The remainder of the proceeds were then allocated to the warrants and noncontrolling interests based on their relative fair values.   Business Update   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure services to crypto mining customers. Our custom-designed data centers allow customers to rent space based on their power requirements.   As of November 30, 2025, our 106 MW facility in Jamestown, North Dakota and our 180 MW facility in Ellendale, North Dakota continue to operate at full capacity.   We recognized $41.6 million and $79.5 million, in revenue from this business segment during the three and six months ended November 30, 2025, respectively.   HPC Hosting Business   Our HPC Hosting Business designs, constructs, and operates next-generation data centers, which are designed to provide massive computing power and support HPC applications within a cost-effective model.   We recently commenced operations at our first HPC data center at our Polaris Forge 1 campus with 100MW of capacity. We continue building our second HPC data center at Polaris Forge 1 to provide an additional 150MW of capacity. These facilities are being designed and purpose-built to host high-density graphics processing unit architecture or other HPC applications, such as artif…",
+   "amounts": [
+    {
+     "raw": "$41.6 million",
+     "usdM": 41.6
+    },
+    {
+     "raw": "$79.5 million",
+     "usdM": 79.5
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "45",
+   "match": "150MW",
+   "text": "…ampus with 100MW of capacity. We continue building our second HPC data center at Polaris Forge 1 to provide an additional 150MW of capacity. These facilities are being designed and purpose-built to host high-density graphics processing unit architecture or other HPC applications, such as artificial intelligence, natural language processing, machine learning, and additional HPC developments. Our third HPC focused data center facility at Polaris Forge 1, which is expected to provide an additional 150MW of capacity, is currently under construction, with an anticipated ready for service date in 2027.   On May 28, 2025, APLD ELN-02 LLC and APLD ELN-03 LLC, our subsidiaries, each entered into a data center lease (together, the “Data Center Leases”) with CoreWeave, Inc. (“CoreWeave”) to deliver an aggregate of 250 MW of infrastructure to host CoreWeave’s HPC operations at Polaris Forge 1. The first lease is for the full capacity of our 100 MW data center that was completed and became operational in October 2025, and the second lease is for the full capacity of our 150 MW data center that is also under construction. We have guaranteed the obligations of APLD ELN-02 LLC and APLD ELN-03 LLC under the respective Data Center Lease to which such subsidiary is a party.   45",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "match": "joint venture",
+   "text": "…uded a series of steps such as renaming certain existing entities and forming new direct and indirect wholly owned subsidiaries of APLD HPC Holdings LLC and APLD HPC Holdings 2 LLC, including APLD ComputeCo LLC, the issuer of the Notes (“APLD ComputeCo LLC”), and additional internal transactions, including equity distributions and contributions and asset transfers, resulting in APLD ELN-02 LLC, APLD ELN-03 LLC, ELN-02 and ELN-03 being owned by APLD ComputeCo. APLD ComputeCo is wholly owned by a joint venture entity, APLD HPC TopCo 2, in which we own 92.5% of fully diluted common equity, and an affiliate of funds and investment vehicles managed by entities within MAM owns 7.5% of fully diluted common equity, as well as preferred equity.   46",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "46",
+   "match": "guaranteed",
+   "text": "Table of Contents   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   We recognized $85.0 million and $111.3 million , in revenue from this business segment during the three and six months ended November 30, 2025, respectively.   Discontinued Operations   The Cloud Services Business provides high-performance computing power for AI and machine learning applications. Near the end of the fiscal …",
+   "amounts": []
+  },
+  {
+   "kind": "capacity",
+   "page": "46",
+   "match": "150 MW",
+   "text": "Table of Contents   On August 28, 2025, APLD ELN-02 C LLC, our subsidiary, entered into a third data center lease, the (“Building 4 Lease”) with CoreWeave to deliver an additional 150 MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   We recognized $85.0 million and $111.3 million , in revenue from this business segment during the three and six months ended November 30, 2025, respectively.   Discontinued Operations   The Cloud Services Business pro…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "46",
+   "match": "investment grade",
+   "text": "…o 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   We recognized $85.0 million and $111.3 million , in revenue from this business segment during the three and six months ended November 30, 2025, respectively.   Discontinued Operations   The Cloud Services Business provides high-performance computing power for AI and machine learning applications. Near the end of the fiscal third quarter 2024, this business began generating revenue. In the fourth quarter of fiscal year 2025, we determined that the Cloud Services Business met the criteria to be classified as “held for sale,” and as the sale represents a strategic shift for the Company, discontinued operations. As such, for the three and six months ended November 30, 2025, we have reported the Cloud Services Business as held for sale on the unaudited condensed consolidated balance sheets and discont…",
+   "amounts": [
+    {
+     "raw": "$85.0 million",
+     "usdM": 85
+    },
+    {
+     "raw": "$111.3 million",
+     "usdM": 111.3
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "47",
+   "match": "campus in",
+   "text": "…of Series G Preferred Stock that have been or will be converted will be retired and resume the status of authorized but unissued shares.   On September 11, 2025, we entered into the second amendment (the “Second Amendment”) to the PEPA, dated April 30, 2025, by and between us and the investors signatory thereto, as amended by the First Amendment, dated August 14, 2025 in order to increase our access to capital to fund the continued construction and development of our Polaris Forge 1 data center campus in Ellendale, North Dakota and other general corporate purposes.   The Second Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of Series G Preferred Stock from $300 million to $450 million. Concurrent with the Second Amendment, the Company filed an amendment to the Certificate of Designations to increase the number of shares authorized for issuance as Series G Preferred Stock from 156,000 to 204,000 shares.   On September 25, 2025, the Company filed an amendment (the “Third CoD Amendment”) to the Series G Certificate of Designation, originally filed with the Secretary of State of the State of Nevada on April 30, 2025, as amended. The Third CoD Amendment amended the Series G Certificate of Designation, as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from $…",
+   "amounts": [
+    {
+     "raw": "$300 million",
+     "usdM": 300
+    },
+    {
+     "raw": "$450 million",
+     "usdM": 450
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "47",
+   "match": "data center in Ellendale",
+   "text": "…as amended, to increase the Floor Price (as set forth in Section 1.5(c)(i) of the Certificate of Designation) to $22.00 from $12.50.   On October 7, 2025, the Company entered into the third amendment (the “Third Amendment”) to the PEPA, dated April 30, 2025, by and between the Company and the investors signatory thereto, as amended by the First Amendment and the Second Amendment, in order to increase its access to capital to fund the continued construction and development of its Polaris Forge I data center in Ellendale, North Dakota. The Third Amendment amends the PEPA to, among other things, increase the aggregate commitment amount of the shares of the Series G Preferred Stock from 450.0 million to 590.0 million.   On October 21, 2025, Applied Digital entered into the fourth amendment (the “Fourth Amendment”) to the PEPA in order to increase its access to capital to fund the continued construction and development of its Polaris Forge 1 and Polaris Forge 2 data centers in Ellendale and Harwood, North Dakota, as well as general working capital purposes and for transaction expenses.   The Fourth Amendment amended the PEPA to, among other things: (i) increase the aggregate commitment amount of the shares of Series G Preferred Stock, from $590.0 million to $1.6 billion; (ii) subject to waiver by a majority-in-interest of the investors, (a) set the maximum put issuance amount to $75…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "47",
+   "match": "At-the-Market",
+   "text": "Table of Contents   Debt and Equity Offerings and Changes to Equity   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.   Series G Preferred Stock   On August 14, 2025, we entered into the first amendment (the “First Amendment”) to the Preferred Equity Purchase Agreement (the “PEPA”), dated April 30, 2025, to, among other things, (i) increase the aggregate commitment amount of the shares of Series G Convertible Preferred Stock (the “Series G Preferred Stock”) from $150 million to $300 million, and (ii) increase our access to cap…",
+   "amounts": [
+    {
+     "raw": "$200,000,000 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "capacity",
+   "page": "48",
+   "match": "200 MW",
+   "text": "…nt in kind being capitalized to principal monthly and at such other times as may be specified in the Promissory Note. After the PIK Period, accrued interest will be paid in cash, provided that (i) the Post-Default Rate interest is payable in cash on demand and (ii) accrued interest on any principal amount repaid or prepaid is payable on the date of such repayment or prepayment. The Promissory Note matures on the earliest of (i) the date of acceleration of the Loan, (ii) February 1, 2026, if the 200 MW Lease Execution (as defined therein) has not occurred on or before October 31, 2025, or (iii) September 9, 2027. The Loan will accelerate and we must mandatorily prepay the full outstanding principal balance of the Promissory Note, together with accrued interest to the date of prepayment on the principal amount prepaid and any other amounts then due and payable, upon the occurrence of any of the following conditions: (a) a Change of Control (as defined therein), (b) within ninety (90) days following the occurrence of the 200 MW Lease Execution, and (c) within thirty (30) days following a Qualifying Preference Share Issuance (as defined therein).   We may voluntarily prepay all or part of the Promissory Note at any time with no less than three (3) business days’ notice with accrued interest to the date of prepayment on the principal amount prepaid, so long as, with respect to the p…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "49",
+   "match": "guarantee",
+   "text": "… to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   On November 28, 2025, the Company repaid the Promissory Note in full, including all outstanding and unpaid principal, accrued interest, and rate of return.   Amended and Restated Unit Purchase Agreement   As previously disclosed, on January 13, 2025, APLD HPC Holdings LLC (formerly, APLD ELN-02 Holdings LLC), an indirect wholly owned subsidiary of the Company, entered into a Unit Purchase Agreement (the “Unit Purchase Agreement” or “UPA”) for its HPC Hosting Business with MIP VI HPC Holdings, LLC, which is an affiliate of funds and investment vehicles managed by entities within Macquarie Asset Management (“MAM”). On February 11, 2025, APLD HPC Holdings LLC novated and assigned its rights, title and interests and duties, liabilities and obligations under the UPA…",
+   "amounts": []
+  },
+  {
+   "kind": "properties",
+   "page": "49",
+   "match": "campus in",
+   "text": "Table of Contents   located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors …",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "50",
+   "match": "guaranteed",
+   "text": "… ComputeCo and bear interest at a rate of 9.250% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on June 15, 2026. The principal amount of the notes will amortize on a semi-annual basis on June 15 and December 15 of each year, beginning on December 15, 2027, in amounts set forth in the Indenture. The Notes will mature on December 15, 2030, unless earlier redeemed or repurchased in accordance with their terms. The Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo. Other than a customary completion guarantee, the Company is not providing credit support for the Notes Offering.   SMBC Loan Extinguishment   Concurrently with the closing of the Notes Offering, we repaid in full the aggregate principal balance plus accrued interest under the Credit and Guaranty Agreement, dated as of February 11, 2025, by and among APLD HPC Holdings LLC, the Subsidiary Guarantors thereunder (as defined therein), the lenders party thereto and Sumitomo Mitsui Banking Corporation (“SMBC”), as administrative agent.   Recent Developments   Additional Issuance under the A&R UPA   As described above, on October 3, 2025, the Company, TopCo 1, APLD HPC TopCo 2 LLC, an indirect wholly-owned subsidiary of the Company (the “Subsidiary Issuer”), and MIP HPC Holdings, LLC (formerly,…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "50",
+   "match": "Revolving Credit Facilit",
+   "text": "…oration, increasing the number of shares of common stock authorized for issuance thereunder to 600,000,000 shares, which became effective upon filing on November 6, 2025.   Increase in 2024 Plan Authorized Shares   On November 5, 2025, at the Annual Stockholders’ Meeting, the Company’s stockholders approved an amendment to the Applied Digital Corporation 2024 Omnibus Equity Incentive Plan to increase the number of shares of common stock authorized for issuance thereunder by 15,000,000 shares.   Revolving Credit Facility   On November 10, 2025, we entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million. Amounts borrowed and repaid are available for future borrowing. Interest accrues on the outstanding balance at a rate of SOFR plus 2.75% per annum. The loan is secured by all of the Company’s (but none of its subsidiaries’) assets. As of November 30, 2025, there have been no draws on the facility.   Senior Secured Notes   On November 20, 2025, our subsidiary APLD ComputeCo, closed a $2.35 billion offering (the “Notes Offering”) of 9.250% senior secured notes due 2030 (the “Notes”) at an issue price of 97.000%. The Notes were issued and sold in a private offering to persons reaso…",
+   "amounts": [
+    {
+     "raw": "$65 million",
+     "usdM": 65
+    }
+   ]
+  },
+  {
+   "kind": "guarantee",
+   "page": "51",
+   "match": "guarantee",
+   "text": "…18, 2026, or (iii) December 18, 2027 (the “Maturity Date”).   Proceeds from the Loan will be used, in part, to (i) pay transaction expenses, and (ii) fund the purchase, development and improvement of, and the purchase of equipment for, our latest new project under development.   In connection with the Loan, (i) the Borrower, APLD Intermediate HoldCo LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the Borrower, and the Borrower’s subsidiaries have entered into a guarantee and collateral agreement, as grantors thereunder, in favor of the Lender (the “Guarantee and Collateral Agreement”).   Mr. Cummins Award   On January 6, 2026 (the “Grant Date”), our Board of Directors (the “Board”), based on the recommendation of the Compensation Committee of the Board (the “Compensation Committee”), unanimously approved the grant of 4,500,000 performance stock units (“PSUs”) and 1,500,000 restricted stock units (the “RSUs”) to Wes Cummins, Chairman and Chief Executive Officer of the Company, under the Company’s 2024 Omnibus Equity Incentive Plan (as amended from time to time, the “Plan”). Each PSU and RSU represents a right to receive one share of the Company’s common stock upon vesting, subject to the terms and conditions described below. RSUs are subject to time based vesting conditions as further described in “Note 18 – Subsequent Events” of our unaudited c…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "52",
+   "match": "Related party",
+   "text": "Table of Contents   Results of Operations   Comparative Results for the Three and Six Months Ended November 30, 2025 and November 30, 2024:   The following table sets forth key components of the results of operations (in thousands) during the three and six months ended November 30, 2025 and November 30, 2024.   Three Months Ended Six Months Ended   November 30, 2025 November 30, 2024 November 30, 2025 November 30, 2024   Revenue:   Revenue $ 126,589 $ 36,163 $ 190,805 $ 69,086   Related party revenue — — — 1,926   Total revenue 126,589 36,163 190,805 71,012   Costs and expenses:   Cost of revenues 100,553 22,661 156,158 45,404   Selling, general and administrative (1)   56,993 25,974 86,145 36,966   Loss (gain) on classification as held for sale (2)   — 192 — (24,616)   Loss on abandonment of assets — 141 1,751 769   Total costs and expenses 157,546 48,968 244,054 58,523   Operating (loss) income (30,957) (12,805) (53,249) 12,489   Interest expense, net   11,484 2,929 15,431 5,888   Gain on change in fair value of derivative   (13,126) — (13,126) —   Gain on change in fair value of investment   (2,767) — (2,767) —   Loss on conversion of debt   — 25,410 — 33,612   Loss on change in fair value of debt — 87,218 — 85,439   Net loss from continuing operations before income tax expense   (26,548) (128,362) (52,787) (112,450)   Income tax expense 15 1 23 1   Net loss …",
+   "amounts": [
+    {
+     "raw": "$ 126,589 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36,163 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 190,805 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 69,086   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "53",
+   "match": "related party",
+   "text": "…9   Adjusted operating margin 9 % 4 % 4 % 5 %   Adjusted net income (loss) from continuing operations $ 115 $ (1,515) $ (7,455) $ (2,310)   Adjusted net income (loss) from continuing operations per diluted share $ — $ (0.01) $ (0.03) $ (0.01)   Other Financial Data (3)   EBITDA $ (6,478) $ (120,721) $ (24,617) $ (97,707)   as a percentage of revenues (5) % (334) % (13) % (138) %   Adjusted EBITDA $ 20,200 $ 6,127 $ 20,738 $ 12,389   as a percentage of revenues 16 % 17 % 11 % 17 %   (1) Includes related party selling, general and administrative expense of $0.1 million for each of the three months ended November 30, 2025 and November 30, 2024, and for each of the six months ended November 30, 2025 and November 30, 2024, respectively. See Note 6 - Related Party Transactions for further discussion of related party transactions.   (2) Includes $25 million received in connection with the sale of our Garden City facility once conditional approval requirements were met and escrowed funds were released during the six months ended November 30, 2024.   (3) Adjusted Amounts and Other Financial Data are non-GAAP performance measures. A reconciliation of reported amounts to adjusted amounts can be found in the \"Non-GAAP Measures and Reconciliation\" section of Management’s Discussion and Analysis.   Commentary on Results of Operations Comparative Results for the Three Months Ended November 30…",
+   "amounts": [
+    {
+     "raw": "$ 20,200 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6,127 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 20,738 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 12,389   ",
+     "usdM": null
+    },
+    {
+     "raw": "$0.1 million",
+     "usdM": 0.1
+    },
+    {
+     "raw": "$25 million",
+     "usdM": 25
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "59",
+   "match": "Depreciation and Amortization expense",
+   "text": "…sts incurred in association with certain discrete transactions and projects.   (3) Represents non-recurring litigation expense associated with our defense of class action lawsuits and legal fees related to matters with certain former employees. We do not expect to incur these expenses on a regular basis.   (4) Represents the acceleration of expense related to assets that were abandoned by us due to operational failure or other reasons. Depreciation and amortization in this amount is included in Depreciation and Amortization expense within our calculation of EBITDA, and therefore is not added back as a management adjustment in our calculation of Adjusted EBITDA.   (5) Represents non-recurring expenses associated with employee separations.   (6) Represents expenses that are not representative of our expected ongoing costs.   Sources of Liquidity   As of November 30, 2025, we had unrestricted cash and cash equivalents of $1.9 billion and restricted cash of $382.3 million. Historically, we have incurred losses and have relied on equity and debt financings to fund our operations. We have primarily generated cash in the last 12 months from the proceeds of our term loans, issuances of common stock, preferred stock, convertible promissory notes, senior unsecured convertible notes, debt facilities and the receipt of contractual deposits and revenue payments from customers.   We believe …",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "59",
+   "match": "At-the-Market",
+   "text": "…kets will provide sufficient liquidity to meet our debt obligations, including any repayment of debt or refinancing of debt, working capital needs, planned capital expenditures, and other contractual obligations, for at least the next twelve months.   Recent Financing Activities   See Note 7 - Debt in the notes to the unaudited condensed consolidated financial statements included in this Quarterly Report on Form 10-Q for more information on our term loans and other debt instruments.   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.   Series G Convertible Preferred Stock   During the three and six months ended November 30, 2025, the Company issued and sold 424,050 and 604,050 shares of Series G Preferred Stock, respectively, for gross proceeds of $415.0 million and $590.0 million, respectively. During the three and six months ended November 30, 2025, 380,800 and 638,800 shares of Series G Preferred Stock, respectively, were converted into …",
+   "amounts": [
+    {
+     "raw": "$200,000,000 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "60",
+   "match": "not yet commenced",
+   "text": "…urther discussion.   (2) Estimated interest payments on our debt obligations include estimated future interest payments based on the terms of the debt agreements. See Note 7 to the unaudited condensed consolidated financial statements for further discussion.   (3) Operating lease obligations include future minimum payments for our operating leases.   (4) Financing lease obligations include future minimum payments for our finance leases. We have entered into various leases which are executed but not yet commenced with total minimum payments of approximately $16.6 million and terms of 1.5 years to 2.0 years.   (5) Power commitments represents our obligation related to the energy services agreement for our Jamestown, North Dakota co-hosting facility payable. See Note 15 to the unaudited condensed consolidated financial statements for further discussion.   (6) Preferred share dividends represent estimated future dividend payments per year in accordance with preferred stock that has been issued. The estimated future dividend payments will continue until preferred stock is redeemed.   60",
+   "amounts": [
+    {
+     "raw": "$16.6 million",
+     "usdM": 16.6
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "60",
+   "match": "Revolving Credit Facilit",
+   "text": "… rate of return.   Amended and Restated Unit Purchase Agreement   On October 6, 2025, as described above, the Subsidiary Issuer sold to the Purchaser 112,500 Preferred Units in the Subsidiary Issuer at a price per Preferred Unit of $1,000, for an aggregate purchase price of $112.5 million. On November 25, 2025, the Subsidiary Issuer sold to the Purchaser 450,000 Preferred Units in the Subsidiary Issuer at a price per Preferred Unit of $1,000, for an aggregate purchase price of $450.0 million.   Revolving Credit Facility   On November 10, 2025, we entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million. As of November 30, 2025, there have been no draws on the facility.   Senior Secured Notes   On November 20, 2025, our subsidiary APLD ComputeCo LLC closed a $2.35 billion offering of 9.250% Senior Secured Notes due 2030 at an issue price of 97.000%. The net proceeds from the Senior Secured Notes after issuance costs and repayment of the SMBC loan were approximately $1.9 billion.   Material Contractual Obligations   In the ordinary course of business, we enter into contractual arrangements that require future cash payments. The following table sets forth information regarding our…",
+   "amounts": [
+    {
+     "raw": "$112.5 million",
+     "usdM": 112.5
+    },
+    {
+     "raw": "$1,000, ",
+     "usdM": null
+    },
+    {
+     "raw": "$450.0 million",
+     "usdM": 450
+    },
+    {
+     "raw": "$65 million",
+     "usdM": 65
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "61",
+   "match": "deferred revenue ",
+   "text": "… fair value of debt and the gain on classification of held for sale, as well as a decrease in accounts payable due to the timing of payments. Also contributing to the increase was a decrease in depreciation and amortization due to the Cloud Services Business being classified as held for sale during the six months ended November 30, 2025. These impacts were partially offset by an increase in stock based compensation expense due to awards granted between the comparative periods and an increase in deferred revenue associated with our tenant fit-out services.   Investing Activities   The net cash used in investing activities increased by $611.0 million, or 294%, from $207.5 million for the six months ended November 30, 2024, to $818.5 million for the six months ended November 30, 2025. This increase was primarily due to an increase of approximately $575.6 million in investments in property and equipment during the six months ended November 30, 2025 as our payments in the current periods for construction of the Polaris Forge 1 data center facilities outpaced the comparative period construction payments as well as an increase in investments in other companies. Additionally, there were no proceeds from sale of assets during the six months ended November 30, 2025, compared to the six months ended November 30, 2024 to offset the increase in cash used in investing activities.   Financing…",
+   "amounts": [
+    {
+     "raw": "$611.0 million",
+     "usdM": 611
+    },
+    {
+     "raw": "$207.5 million",
+     "usdM": 207.5
+    },
+    {
+     "raw": "$818.5 million",
+     "usdM": 818.5
+    },
+    {
+     "raw": "$575.6 million",
+     "usdM": 575.6
+    }
+   ]
+  },
+  {
+   "kind": "power",
+   "page": "63",
+   "match": "utility",
+   "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   The Company is unable to estimate a range of loss, if any, that could result were there to be an adverse final decision in this action. If an unfavorable action were to occur, it is possible that the impact could be material to the Company’s results of operations in the period(s) in which any such outcome becomes probable and estimable.   There are no other pending lawsuits that could reasonably be expected to have a material adverse effect on the results of the Company’s consolidated operations.   Item 1A. Risk Factors   As of the date of this filing, there have been no material changes to the risk factors associated with our business pre…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "65",
+   "match": "Guarantee",
+   "text": "…rence to Exhibit 4.1 to the Company ’ s Current Report on Form 8-K filed with the SEC on N ovember 20, 2025 ) .   4.3 Form of Note representing the 9.250% Senior Secured Notes due 2030 (included as Exhibit A to Exhibit 4.1).   10.1†   Promissory Note, dated September 9, 2025, issued by APLD FAR-01 LLC and payable to Macquarie Equipment Capital, Inc. ( Incorporated by reference to Exhibit 10.1 to the Company ’ s Current Report on Form 8-K filed with the SEC on September 12, 2025 ).   10.2 Parent Guarantee, dated September 9, 2025, issued by Applied Digital Corporation in favor of Macquarie Equipment Capital, Inc. ( Incorporated by reference to Exhibit 10. 2 to the Company’s Current Report on Form 8-K filed with the SEC on September 12, 2025 ) .   10.3^   Guarantee and Collateral Agreement, dated September 9, 2025, by and among APLD FAR-01 LLC, APLD FAR Holdings LLC, APLD FAR-02 LLC, and Macquarie Equipment Capital, Inc. ( Incorporated by reference to Exhibit 10. 3 to the Company’s Current Report on Form 8-K filed with the SEC on September 12, 2025 ) .   10.4^   Form of Second Amendment to Preferred Equity Purchase Agreement, dated September 11, 2025, by and between the Company and the investors signatory thereto. ( Incorporated by reference to Exhibit 10. 4 to the Company’s Current Report on Form 8-K filed with the SEC on September 12, 2025 ) .   10.5^   Amended and Restated Uni…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "66",
+   "match": "Guarantee",
+   "text": "…10#   First Amendment to the Applied Digital Corporation 2024 Omnibus Equity Incentive Plan ( Incorporated by reference to Exhibit 10.1 to the Company ’ s Current Report on Form 8-K filed with the SEC on November 6, 2025 ).   10.11^†   Promissory Note, dated December 18, 2025, issued by APLD DevCo LLC and payable to Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.1 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.12†   Parent Guarantee, dated December 18, 2025, issued by Applied Digital Corporation in favor of Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.2 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.13^†   Guarantee and Collateral Agreement, dated December 18, 2025, by APLD DevCo LLC, APLD Intermediate HoldCo LLC, and the other Grantors defined therein in favor of Macquarie Equipment Capital, Inc. (Incorporated by reference to Exhibit 10.3 to the Company’s Current Report on Form 8-K filed with the SEC on December 22, 2025) .   10.14#   Performance Stock Unit Award, dated January 6, 2026, by and between Applied Digital Corporation and Wes Cummins (Incorporated by reference to Exhibit 1 0.1 to the Company ’ s Current Report on Form 8-K Filed with the SEC on January 8, 2026) .   10.15#   Restr icted Stock Unit Award, dated January 6, 2…",
+   "amounts": []
+  }
+ ]
+}

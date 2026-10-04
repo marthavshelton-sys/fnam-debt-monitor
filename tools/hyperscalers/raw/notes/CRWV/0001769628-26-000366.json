@@ -39,6 +39,30 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "6",
+   "match": "Deferred revenue,",
+   "text": "…88   Restricted cash and cash equivalents, non-current 507 184   Property and equipment, net 46,736 30,557   Operating lease right-of-use assets 16,595 8,231   Intangible assets, net 245 235   Goodwill 1,101 1,101   Other non-current assets   2,366 1,506   Total assets $ 77,070 $ 49,302   Liabilities and stockholders' equity   Current liabilities   Accounts payable $ 3,633 $ 1,623   Accrued liabilities 6,424 5,773   Recourse debt, current   6,235 6,118   Non-recourse debt, current   1,278 590   Deferred revenue, current 2,686 1,709   Operating lease liabilities, current 584 427   Finance lease liabilities, current 7 38   Other current liabilities   70 162   Total current liabilities 20,917 16,440   Recourse debt, non-current   25,170 14,608   Non-recourse debt, non-current   2,385 57   Deferred revenue, non-current 7,006 6,476   Operating lease liabilities, non-current 15,735 7,768   Finance lease liabilities, non-current 214 216   Deferred tax liabilities, non-current 256 115   Other non-current liabilities 363 287   Total liabilities 72,046 45,967   Commitments and contingencies ( Note 9 )   Stockholders' equity   Preferred stock, $ 0.000005 par value per share, 100 shares authorized as of June 30, 2026 and December 31, 2025; no shares issued and outstanding as of June 30, 2026 and December 31, 2025   — —   Class A common stock, $ 0.000005 par value per share, 3,000 shares au…",
+   "amounts": [
+    {
+     "raw": "$ 77,070 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 49,302   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,633 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,623   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "equity_method",
    "page": "11",
    "match": "joint venture",
@@ -46,6 +70,29 @@
    "amounts": [
     {
      "raw": "$ 3,663 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "11",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   COREWEAVE, INC.   CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS   (in millions)   (unaudited)   Six Months Ended June 30,   2026 2025   Cash flows from operating activities:   Net loss $ ( 1,366 ) $ ( 605 )   Adjustments to reconcile net loss to net cash provided by operating activities   Depreciation and amortization 2,540 1,003   Amortization of debt discounts and issuance costs and accretion of redemption premiums 86 67   Stock-based compensation expense 318 329   Non-cash lease expense 365 144   Deferred income taxes 140 91   Gain on fair value adjustments — ( 27 )   Other non-cash reconciling items 97 39   Changes in operating assets and liabilities, net of effect of business acquisitions:   Accounts receivable 607 ( 1,505 )   Prepaid expenses and other assets ( 611 ) ( 70 )   Accounts payable and accrued expenses 304 ( 289 )   Deferred revenue 1,365 743   Lease liabilities ( 182 ) ( 110 )   Net cash provided by (used in) operating activities $ 3,663 $ ( 190 )   Cash flows from investing activities:   Purchase of property and equipment, including capitalized internal-use software $ ( 14,117 ) $ ( 3,860 )   Maturities and sa…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "11",
+   "match": "Repayments of debt",
+   "text": "…aturities and sales of marketable securities 18 29   Investments related to joint ventures ( 550 ) ( 32 )   Purchase of strategic investments ( 138 ) —   Sales of warrants received as lease incentive — 101   Issuance of notes receivable — ( 73 )   Business combination, net of cash acquired — ( 46 )   Other investing activities ( 87 ) 6   Net cash used in investing activities $ ( 14,874 ) $ ( 3,875 )   Cash flows from financing activities:   Proceeds from issuance of debt, net $ 16,747 $ 4,396   Repayments of debt ( 5,219 ) ( 1,575 )   Purchase of capped calls related to convertible senior notes ( 492 ) —   Issuance of common stock in private placements, net of issuance costs 2,982 —   Payment of tax withholdings on settlement of restricted stock units — ( 133 )   Proceeds from initial public offering, net of underwriting discounts and commissions — 1,491   Redeemable convertible preferred stock cash dividends paid — ( 29 )   Other financing activities ( 33 ) ( 66 )   Net cash provided by financing activities $ 13,985 $ 4,084   Net increase (decrease) in cash, cash equivalents, and restricted cash $ 2,774 $ 19   Cash, cash equivalents, and restricted cash—beginning of period 4,130 2,035   Cash, cash equivalents, and restricted cash—end of period $ 6,904 $ 2,054   Supplemental disclosures of cash flow information:   Cash paid for interest, net of capitalized amounts $ 806 $ 362  …",
+   "amounts": [
+    {
+     "raw": "$ 16,747 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,396   ",
      "usdM": null
     }
    ]
@@ -105,6 +152,30 @@
     {
      "raw": "$ 103.7 billion",
      "usdM": 103700
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "15",
+   "match": "Deferred revenue,",
+   "text": "…% 72 %   Customer B 26 % * 23 % *   Customer C 10 % * * *   Customer D * * * *   * Customer did not represent 10% or more of revenue.   The customer references of A through D may represent different customers than those reported in a previous period.   Customers A and B accounted for 32 % and 32 %, of accounts receivable, net, respectively, as of June 30, 2026. Customers A and D accounted for 68 % and 11 % of accounts receivable, net, respectively, as of December 31, 2025.   Contract Balances   Deferred revenue, including current and non-current balances as of June 30, 2026 and December 31, 2025, was $ 9.7 billion and $ 8.2 billion, respectively. For the six months ended June 30, 2026 and 2025, revenue recognized from deferred revenue at the beginning of the period was $ 554 million and $ 603 million, respectively. Contract assets, including current and non-current balances, as of June 30, 2026 were $ 179 million. Contract assets, including current and non-current balances, as of December 31, 2025 were not material.   Remaining Performance Obligations (\"RPO\")   RPO represents the aggregate amount of the transaction price, net of estimated variable consideration, allocated to performance obligations not delivered, or partially undelivered, as of the end of the reporting period. Variable consideration primarily consists of potential reductions to the transaction price in the futu…",
+   "amounts": [
+    {
+     "raw": "$ 9.7 billion",
+     "usdM": 9700
+    },
+    {
+     "raw": "$ 8.2 billion",
+     "usdM": 8200
+    },
+    {
+     "raw": "$ 554 million",
+     "usdM": 554
+    },
+    {
+     "raw": "$ 603 million",
+     "usdM": 603
     }
    ]
   },
@@ -326,6 +397,26 @@
     },
     {
      "raw": "$ 208   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "20",
+   "match": "Deferred revenue,",
+   "text": "…tions and comprehensive loss during the year ended December 31, 2025.   The fair values of assets acquired and liabilities assumed on the acquisition date are summarized as follows (in millions):   Cash and cash equivalents $ 51   Accounts receivable, net 13   Prepaid expenses and other current assets 2   Property and equipment, net 1   Operating lease right-of-use assets 1   Intangible assets, net 208   Goodwill 793   Total assets acquired $ 1,069   Accounts payable 1   Accrued liabilities 7   Deferred revenue, current 25   Operating lease liabilities, non-current 1   Deferred tax liabilities, non-current 6   Total liabilities assumed $ 40   Total purchase price $ 1,029   The acquired assets and assumed liabilities were recorded at their estimated fair values. The following table presents the amounts allocated to the intangible assets identified as of the date of acquisition and the estimated useful lives (in millions):   Fair Value Useful Lives  (in years)   Customer relationships $ 36 12   Developed technology 162 5 - 7   Trade name 10 5   Total $ 208   The excess of the purchase price over the fair value of the net assets acquired was allocated to goodwill, none of which is expected to be deductible for tax purposes. Goodwill is primarily attributable to the assembled workforce as well as the anticipated synergies from the integration of Weights & Biases’ technology with th…",
+   "amounts": [
+    {
+     "raw": "$ 1,069   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 40   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,029   ",
      "usdM": null
     }
    ]
@@ -609,6 +700,18 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "46",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…including operating expenses, working capital, and current commitments for capital expenditures. Our future capital requirements may depend on many factors, including those set forth in the section of this Quarterly Report on Form 10-Q entitled \"Risk Factors.\" We anticipate that future investments may require significant debt and/or equity financing. The sale of additional equity would result in dilution to our stockholders.   Cash Flows   Six Months Ended June 30,   2026 2025   (in millions)   Net cash provided by (used in) operating activities $ 3,663 $ (190)   Net cash used in investing activities (14,874) (3,875)   Net cash provided by financing activities 13,985 4,084   46",
+   "amounts": [
+    {
+     "raw": "$ 3,663 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "47",
    "match": "not yet commenced",
@@ -650,6 +753,22 @@
     {
      "raw": "$4.1 billion",
      "usdM": 4100
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "47",
+   "match": "Net cash provided by operating activities",
+   "text": "Table of Contents   Operating Activities   Net cash provided by operating activities was $3.7 billion for the six months ended June 30, 2026, as compared to net cash used in operating activities of $190 million for the six months ended June 30, 2025. The increase was primarily driven by an increase in cash received from customers and timing of payments for operating expenses.   Investing Activities   Net cash used in investing activities was $14.9 billion for the six months ended June 30, 2026, as compared to $3.9 billion for the six months ended June 30, 2025. The increase was driven by higher capital investments in our infrastructure, including our GPU fleet, networking equipment, servers, switches and other necessary equipment for infrastructure asset compared to the six months ended June 30, 2025.   Financing Activities   Net cash provided by financing activities was $14.0 billion for the six months ended June 30, 2026, as co…",
+   "amounts": [
+    {
+     "raw": "$3.7 billion",
+     "usdM": 3700
+    },
+    {
+     "raw": "$190 million",
+     "usdM": 190
     }
    ]
   },
@@ -1168,6 +1287,38 @@
    "match": "guarantees",
    "text": "…. These letters of credit are part of a letter of credit subfacility under our Revolving Credit Facility, where they continue to secure the related lease obligations, and reduce availability under our Revolving Credit Facility.   Certain of our debt agreements impose significant operating and financial restrictions on us and our subsidiaries, which may prevent us from capitalizing on business opportunities.   The credit agreements that govern our Credit Facilities, as well as the related parent guarantees, and the indentures that govern the Notes impose significant operating and financial restrictions on us. These restrictions will limit our ability and/or the ability of our subsidiaries to, among other things:   • incur or guarantee additional debt or issue disqualified stock or preferred stock;   • pay dividends and make other distributions on, or redeem or repurchase, capital stock;   • make certain investments or acquisitions;   • incur certain liens;   • enter into transactions with our affiliates;   • merge or consolidate;   • enter into agreements that restrict the ability of restricted subsidiaries to make dividends or other payments to the lenders;   94",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "94",
+   "match": "net cash provided by operating activities",
+   "text": "…perations or that future borrowings will be available to us in an amount sufficient to enable us to service our debt, to refinance our debt or to fund our other liquidity needs. For the six months ended June 30, 2026, our cash flows dedicated for debt service requirements totaled approximately $6.2 billion, consisting of $5.2 billion of principal payments and $982 million of interest payments, inclusive of $176 million related to capitalized interest. For the six months ended June 30, 2026, our net cash provided by operating activities was $3.7 billion, which includes interest paid, net of capitalized amounts of $806 million. If our cash flows and capital resources are insufficient to fund our debt service obligations, we could face substantial liquidity problems and could be forced to reduce or delay investments and capital expenditures or to dispose of material assets or operations, seek additional debt or equity capital or restructure or refinance our indebtedness. Further, any refinancing or restructuring of our indebtedness could be at higher interest rates, may cause us to incur debt extinguishment costs, and may require us to comply with more onerous covenants that could further restrict our business operations. Moreover, in the event of a default, the holders of our indebtedness could elect to declare such indebtedness to be due and payable and/or elect to exercise othe…",
+   "amounts": [
+    {
+     "raw": "$6.2 billion",
+     "usdM": 6200
+    },
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$982 million",
+     "usdM": 982
+    },
+    {
+     "raw": "$176 million",
+     "usdM": 176
+    },
+    {
+     "raw": "$3.7 billion",
+     "usdM": 3700
+    },
+    {
+     "raw": "$806 million",
+     "usdM": 806
+    }
+   ]
   },
   {
    "kind": "guarantee",

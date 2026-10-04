@@ -11,11 +11,66 @@
  "numberedPages": 95,
  "hits": [
   {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   META PLATFORMS, INC.   CONDENSED CONSOLIDATED STATEMENTS OF CASH FLOWS   (In millions)   (Unaudited)   Six Months Ended June 30,   2026 2025   Cash flows from operating activities   Net income $ 42,621 $ 34,981   Adjustments to reconcile net income to net cash provided by operating activities:   Depreciation and amortization 12,355 8,242   Share-based compensation 13,690 8,981   Deferred income taxes 1,568 ( 2,163 )   Unrealized loss on equity investments 1,185 320   Other ( 73 ) ( 376 )   Changes in assets and liabilities:   Accounts receivable ( 2,273 ) 1,466   Prepaid expenses and other current assets ( 3,230 ) 686   Other assets ( 2,535 ) ( 242 )   Accounts payable ( 354 ) ( 574 )   Accrued expenses and other current liabilities 5,662 ( 3,338 )   Other liabilities ( 4,528 ) 1,604   Net cash provided by operating activities 64,088 49,587   Cash flows from investing activities   Purchases of property and equipment ( 49,113 ) ( 29,479 )   Purchases of marketable securities ( 75,592 ) ( 19,509 )   Sales and maturities of marketable securities 44,036 19,057   Purchases of non-marketable equity investments ( 1,670 ) ( 15,214 )   Payment…",
+   "amounts": [
+    {
+     "raw": "$ 42,621 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 34,981   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "Proceeds from issuance of long-term debt",
+   "text": "…equity investments ( 1,670 ) ( 15,214 )   Payments for held-for-sale assets ( 674 ) ( 775 )   Acquisitions of businesses and intangible assets ( 474 ) ( 62 )   Other investing activities 156 14   Net cash used in investing activities ( 83,331 ) ( 45,968 )   Cash flows from financing activities   Taxes paid related to net share settlement of equity awards ( 8,704 ) ( 8,993 )   Repurchases of Class A common stock — ( 22,921 )   Payments for dividends and dividend equivalents ( 2,699 ) ( 2,656 )   Proceeds from issuance of long-term debt, net 24,910 —   Principal payments on finance leases ( 1,805 ) ( 1,225 )   Other financing activities ( 2,288 ) 323   Net cash provided by (used in) financing activities 9,414 ( 35,472 )   Effect of exchange rate changes on cash, cash equivalents, restricted cash, and restricted cash equivalents — 243   Net decrease in cash, cash equivalents, restricted cash, and restricted cash equivalents ( 9,829 ) ( 31,610 )   Cash, cash equivalents, restricted cash, and restricted cash equivalents at beginning of the period 39,100 45,438   Cash, cash equivalents, restricted cash, and restricted cash equivalents at end of the period $ 29,271 $ 13,828   See Accompanying Notes to Condensed Consolidated Financial Statements.   10",
+   "amounts": []
+  },
+  {
    "kind": "useful_life",
    "page": "12",
    "match": "useful lives",
    "text": "… values of our assets and liabilities, which are not readily apparent from other sources. We base our estimates and judgments on historical information and on various other assumptions that we believe are reasonable under the circumstances. GAAP requires us to make estimates and judgments in several areas, including, but not limited to, those related to loss contingencies, income taxes, valuation of non-marketable equity investments, valuation of long-lived assets and their associated estimated useful lives, revenue recognition, valuation of goodwill, credit losses of available-for-sale debt securities, accounts receivable, and fair value of financial instruments and leases. These estimates are based on management's knowledge about current events, interpretation of regulations, and expectations about actions we may undertake in the future. Actual results could differ materially from those estimates.   Significant Accounting Policies   There have been no material changes to our significant accounting policies from our Annual Report on Form 10-K for the year ended December 31, 2025.   Accounting Pronouncements Not Yet Adopted   In May 2026, the FASB issued Accounting Standards Update (ASU) No. 2026-02, Environmental Credits and Environmental Credit Obligations (Topic 818) . This standard establishes guidance for the recognition, measurement and disclosure of environmental credits…",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "13",
+   "match": "Deferred revenue ",
+   "text": "…ollowing (in millions):   Three Months Ended June 30, Six Months Ended June 30,   2026 2025 2026 2025   United States and Canada $ 23,863 $ 18,454 $ 45,129 $ 35,323   Europe (1)   14,009 11,128 27,249 20,749   Asia-Pacific 16,073 12,858 31,518 24,097   Rest of World (1)   6,856 5,076 13,215 9,661   Total revenue $ 60,801 $ 47,516 $ 117,111 $ 89,830   ____________________________________   (1) Europe includes Russia and Turkey. Rest of World includes Africa, Latin America, and the Middle East.   Deferred revenue was $ 1.16 billion and $ 1.08 billion as of June 30, 2026 and December 31, 2025, respectively. Our deferred revenue mostly relates to advertising prepayments and credits, as well as software updates and upgrades associated with Reality Labs hardware sales, the substantial majority of which are expected to be realized in less than a year.   13",
+   "amounts": [
+    {
+     "raw": "$ 60,801 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 47,516 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 117,111 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 89,830   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.16 billion",
+     "usdM": 1160
+    },
+    {
+     "raw": "$ 1.08 billion",
+     "usdM": 1080
+    }
+   ]
   },
   {
    "kind": "purchase_obligation",
@@ -333,6 +388,30 @@
     {
      "raw": "$8.67 billion",
      "usdM": 8670
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "46",
+   "match": "Net cash provided by operating activities",
+   "text": "…i-year infrastructure purchase agreements. These funds are restricted from general corporate use and are expected to be released between 2028 and 2030 upon satisfying the underlying purchase obligations. See Note 4 — Financial Instruments in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information.   The following table presents our cash flows (in millions):   Six Months Ended June 30,   2026 2025   Net cash provided by operating activities $ 64,088 $ 49,587   Net cash used in investing activities $ (83,331) $ (45,968)   Net cash provided by (used in) financing activities $ 9,414 $ (35,472)   Cash Provided by Operating Activities   Cash provided by operating activities during the six months ended June 30, 2026 mostly consisted of $42.62 billion net income adjusted for certain non-cash items, such as $13.69 billion of share-based compensation expense and $12.35 billion of depreciation and amortization expense. The increase in cash flows from operating activities during the six months ended June 30, 2026, compared to the same period in 2025, was due primarily to an increase in cash collections from our customers driven by higher revenue, and a decrease in cash tax payments, partially offset by higher operational spending.   Cash Used in Investing Activities   Cash used in investing ac…",
+   "amounts": [
+    {
+     "raw": "$ 64,088 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 49,587   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,414 ",
+     "usdM": null
+    },
+    {
+     "raw": "$42.62 billion",
+     "usdM": 42620
     }
    ]
   },

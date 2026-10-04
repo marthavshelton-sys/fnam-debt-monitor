@@ -74,6 +74,34 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "23",
+   "match": "revolving credit facilit",
+   "text": "…ties resulted from proceeds from short-term debt, and other and long-term-debt of $5.1 billion and $25.0 billion in 2024 and 2025. Cash outflows from financing activities resulted from payments of short-term debt, and other, long-term debt, finance leases, and financing obligations of $17.0 billion and $15.3 billion in 2024 and 2025. Property and equipment acquired under finance leases was $854 million and $2.9 billion in 2024 and 2025.   We had no borrowings outstanding under the two unsecured revolving credit facilities or the commercial paper programs as of December 31, 2025. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 6 — Debt” for additional information.   As of December 31, 2025, cash, cash equivalents, and marketable securities held by foreign subsidiaries were $7.1 billion. We intend to invest substantially all of our foreign subsidiary earnings, as well as our capital in our foreign subsidiaries, indefinitely outside of the U.S. in those jurisdictions in which we would incur significant, additional costs upon repatriation of such amounts.   Our U.S. taxable income is reduced by accelerated depreciation deductions and the resulting U.S. tax liability is reduced by tax credits, primarily related to the U.S. federal research and development credit. The One Big Beautiful Bill Act of 2025 (the “2025 Tax Act”) made changes to the U.S. corporate…",
+   "amounts": [
+    {
+     "raw": "$17.0 billion",
+     "usdM": 17000
+    },
+    {
+     "raw": "$15.3 billion",
+     "usdM": 15300
+    },
+    {
+     "raw": "$854 million",
+     "usdM": 854
+    },
+    {
+     "raw": "$2.9 billion",
+     "usdM": 2900
+    },
+    {
+     "raw": "$7.1 billion",
+     "usdM": 7100
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "23",
    "match": "Anthropic",
@@ -229,6 +257,30 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "28",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…nancial measures.   Free Cash Flow   Our financial focus is on long-term, sustainable growth in free cash flow. We provide a free cash flow measure because we believe it provides additional perspective on the impact of acquiring property and equipment with cash. Free cash flow is cash flow from operations reduced by “Purchases of property and equipment, net of proceeds from sales and incentives.” The following is a reconciliation of free cash flow to the most comparable GAAP cash flow measure, “Net cash provided by (used in) operating activities,” for 2024 and 2025 (in millions):   Year Ended December 31,   2024 2025   Net cash provided by (used in) operating activities $ 115,877 $ 139,514   Purchases of property and equipment, net of proceeds from sales and incentives (77,658) (128,320)   Free cash flow $ 38,219 $ 11,194   Net cash provided by (used in) investing activities $ (94,342) $ (142,545)   Net cash provided by (used in) financing activities $ (11,812) $ 9,661   Free cash flow has limitations as it omits certain components of the overall cash flow statement and does not represent the residual cash flow available for discretionary expenditures. For example, free cash flow does not incorporate the portion of payments representing principal reductions of debt or cash payments for business acquisitions. Additionally, our mix of property and equipment acquisitions with cash…",
+   "amounts": [
+    {
+     "raw": "$ 115,877 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 139,514   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,219 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,194   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "28",
    "match": "Anthropic",
@@ -247,6 +299,33 @@
    "page": "32",
    "match": "Anthropic",
    "text": "…ts in public and private companies was $69.1 billion. Our equity and equity warrant investments in publicly traded companies, which include our equity investment in Rivian, represent $5.0 billion of our investments as of December 31, 2025, and are recorded at fair value, which is subject to market price volatility. We record our equity warrant investments in private companies at fair value and adjust our equity investments in private companies, which primarily relate to our equity investment in Anthropic, for observable price changes or impairments. We record our available-for-sale convertible debt investments in private companies at fair value, which primarily relate to Anthropic. Valuations of private companies are inherently more complex due to the lack of readily available market data. The current global economic conditions provide additional uncertainty. As such, we believe that market sensitivities are not practicable. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 1 — Description of Business, Accounting Policies, and Supplemental Disclosures” for additional information.   32",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "36",
+   "match": "net cash from operating activities",
+   "text": "Table of Contents   AMAZON.COM, INC.   CONSOLIDATED STATEMENTS OF CASH FLOWS   (in millions)   Year Ended December 31,   2023 2024 2025   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, BEGINNING OF PERIOD $ 54,253 $ 73,890 $ 82,312   OPERATING ACTIVITIES:   Net income 30,425 59,248 77,670   Adjustments to reconcile net income to net cash from operating activities:   Depreciation and amortization of property and equipment and capitalized content costs, operating lease assets, and other 48,663 52,795 65,756   Stock-based compensation 24,023 22,011 19,467   Non-operating expense (income), net ( 748 ) 2,012 ( 14,880 )   Deferred income taxes ( 5,876 ) ( 4,648 ) 11,470   Changes in operating assets and liabilities:   Inventories 1,449 ( 1,884 ) ( 3,002 )   Accounts receivable, net and other ( 8,348 ) ( 3,249 ) ( 7,333 )   Other assets ( 12,265 ) ( 14,483 ) ( 15,632 )   Accounts payable 5,473 2,972 11,231   Accrued expenses and other ( 2,428 ) ( 2,904 ) ( 5,019 )   Unearned revenue 4,578 4,007 ( 214 )   Net cash provided by (used in) operating activities 84,946 115,877 139,514   INVESTING ACTIVITIES:   Purchases of property and equipment ( 52,729 ) ( 82,999 ) ( 131,819 )   Proceeds from property and equipment sales an…",
+   "amounts": [
+    {
+     "raw": "$ 54,253 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 73,890 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 82,312   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "36",
+   "match": "Proceeds from long-term debt",
+   "text": "…9   Acquisitions, net of cash acquired, non-marketable investments, and other, net ( 5,839 ) ( 7,082 ) ( 3,841 )   Sales and maturities of marketable securities 5,627 16,403 44,386   Purchases of marketable securities ( 1,488 ) ( 26,005 ) ( 54,770 )   Net cash provided by (used in) investing activities ( 49,833 ) ( 94,342 ) ( 142,545 )   FINANCING ACTIVITIES:   Proceeds from short-term debt, and other 18,129 5,142 9,320   Repayments of short-term debt, and other ( 25,677 ) ( 5,060 ) ( 8,426 )   Proceeds from long-term debt — — 15,673   Repayments of long-term debt ( 3,676 ) ( 9,182 ) ( 5,021 )   Principal repayments of finance leases ( 4,384 ) ( 2,043 ) ( 1,557 )   Principal repayments of financing obligations ( 271 ) ( 669 ) ( 328 )   Net cash provided by (used in) financing activities ( 15,879 ) ( 11,812 ) 9,661   Foreign currency effect on cash, cash equivalents, and restricted cash 403 ( 1,301 ) 1,164   Net increase (decrease) in cash, cash equivalents, and restricted cash 19,637 8,422 7,794   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, END OF PERIOD $ 73,890 $ 82,312 $ 90,106   See accompanying notes to consolidated financial statements.   36",
    "amounts": []
   },
   {
@@ -578,6 +657,62 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "58",
+   "match": "Notes issuance of",
+   "text": "Table of Contents   Note 6 — DEBT   As of December 31, 2025, we had $ 68.0 billion of unsecured senior notes outstanding (the “Notes”), including $ 15.0 billion issued in November 2025 for general corporate purposes. Our total long-term debt obligations are as follows (in millions):   Maturities (1) Stated Interest Rates Effective Interest Rates December 31, 2024 December 31, 2025   2014 Notes issuance of $ 6.0 billion   2034 - 2044 4.80 % - 4.95 %   4.93 % - 5.12 %   $ 2,750 $ 2,750   2017 Notes issuance of $ 17.0 billion   2027 - 2057 3.15 % - 4.25 %   3.25 % - 4.33 %   13,000 12,000   2020 Notes issuance of $ 10.0 billion   2027 - 2060 1.20 % - 2.70 %   1.26 % - 2.77 %   9,000 7,750   2021 Notes issuance of $ 18.5 billion   2026 - 2061 1.00 % - 3.25 %   1.14 % - 3.31 %   15,000 15,000   April 2022 Notes issuance of $ 12.8 billion   2027 - 2062 3.30 % - 4.10 %   3.40 % - 4.15 %   11,250 9,750   December 2022 Notes issuance of $ 8.3 billion   2027 - 2032 4.55 % - 4.70 %   4.61 % - 4.74 %   7,000 5,750   2025 Notes issuance of $ 15.0 billion   2028 - 2065 3.90 % - 5.55 %   3.99 % - 5.62 %   — 15,000   Other long-term debt — 836   Total face value of long-term debt 58,000 68,836   Unamortized discount and issuance costs, net ( 360 ) ( 440 )   Less: current portion of long…",
+   "amounts": [
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$ 6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$ 2,750 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,750   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17.0 billion",
+     "usdM": 17000
+    },
+    {
+     "raw": "$ 10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$ 18.5 billion",
+     "usdM": 18500
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "58",
+   "match": "revolving credit facilit",
+   "text": "…n the Notes is payable semi-annually in arrears. We may redeem the Notes at any time in whole, or from time to time, in part at specified redemption prices. We are not subject to any financial covenants under the Notes. The estimated fair value of the Notes was approximately $ 50.2 billion and $ 61.1 billion as of December 31, 2024 and 2025, which is based on quoted prices for our debt as of those dates.   As of September 30, 2024, we had repaid outstanding borrowings and terminated the secured revolving credit facility with a lender that was secured by certain seller receivables (the “Credit Facility”). The Credit Facility bore interest based on the daily Secured Overnight Financing Rate plus 1.25 %, and had a commitment fee of up to 0.45 % on the undrawn portion. There were $ 682 million of borrowings outstanding under the Credit Facility as of December 31, 2023, which had an interest rate of 6.6 %.   As of December 31, 2025, future principal payments for our total long-term debt were as follows (in millions):   Year Ended December 31,   2026 $ 2,752   2027 8,832   2028 4,752   2029 3,000   2030 4,500   Thereafter 45,000   $ 68,836   In January 2023, we entered into an $ 8.0 billion unsecured 364-day term loan with a syndicate of lenders (the “Term Loan”), maturing in January 2024 and bearing interest at the Secured Overnight Financing Rate specified in the Term Loan plus 0.7…",
+   "amounts": [
+    {
+     "raw": "$ 50.2 billion",
+     "usdM": 50200
+    },
+    {
+     "raw": "$ 61.1 billion",
+     "usdM": 61100
+    },
+    {
+     "raw": "$ 682 million",
+     "usdM": 682
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "59",
    "match": "not yet commenced",
@@ -665,6 +800,18 @@
     {
      "raw": "$ 6.6 billion",
      "usdM": 6600
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "59",
+   "match": "revolving credit facilit",
+   "text": "Table of Contents   Commercial Paper Programs as of December 31, 2024 and 2025. We use the net proceeds from the issuance of commercial paper for general corporate purposes.   We have a $ 15.0 billion unsecured revolving credit facility with a syndicate of lenders (the “Credit Agreement”), with a term that extends to November 2028 and may be extended for one or more additional one-year terms subject to approval by the lenders. The interest rate applicable to outstanding balances under the Credit Agreement is the applicable benchmark rate specified in the Credit Agreement plus 0.45 %, with a commitment fee of 0.03 % on the undrawn portion of the credit facility. There were no borrowings outstanding under the Credit Agreement as of December 31, 2024 and 2025.   In October 2025, we entered into a $ 5.0 billion unsecured 364-day revolving credit facility with a syndicate of lenders (the “Short-Term Credit Agreement”), which replaced the prior 364-day revolving credit agreement entered into in October 2024. The Short-Term Credit Agreement matures in October 2026 and may be extended for one additiona…",
+   "amounts": [
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
     }
    ]
   },

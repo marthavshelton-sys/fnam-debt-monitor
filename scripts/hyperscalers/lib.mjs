@@ -1,6 +1,6 @@
 // Shared helpers for the Hyperscaler Hub pipeline (scripts/hyperscalers/*). Paths, the EDGAR fetcher with the
 // SEC's required User-Agent, date and fiscal-period helpers, and the ET timestamp the pages print.
-import { readFile, writeFile, mkdir } from 'node:fs/promises';
+import { readFile, writeFile, mkdir, readdir } from 'node:fs/promises';
 import { dirname } from 'node:path';
 
 export const ROOT = new URL('../../', import.meta.url);
@@ -72,6 +72,38 @@ export function fiscalOf(end, fyEnd) {
 export function calQuarter(y, m) {
   const mm = m % 3 === 2 ? m + 1 : m;           // Feb→Mar, May→Jun, Aug→Sep, Nov→Dec
   return `${y}-Q${Math.ceil(mm / 3)}`;
+}
+
+// ---- harvested filing passages (tools/hyperscalers/raw/notes/<T>/<accn>.json) keyed "<TICKER> <form> <period end>",
+// and the mechanical quote check every curated citation goes through: the quoted sentence must appear in the harvested
+// text of the cited page ("page"), else on another page ("other_page") or nowhere ("not_found"). The check is automated
+// and does not replace an analyst's review (reviewedBy).
+export async function loadHarvest(companies) {
+  const FILINGS = {};
+  for (const c of companies) {
+    let files = [];
+    try { files = await readdir(p(`${TOOLS}raw/notes/${c.ticker}`)); } catch { continue; }
+    for (const f of files) {
+      const j = await readJson(`${TOOLS}raw/notes/${c.ticker}/${f}`);
+      if (!j || !j.hits) continue;
+      const pages = {};
+      for (const h of j.hits) (pages[h.page] ||= []).push(h.text);
+      FILINGS[`${c.ticker} ${j.form} ${j.report}`] = { ticker: c.ticker, form: j.form, accn: j.accn, url: j.url, filed: j.filed, report: j.report, harvested: j.harvested, pages };
+    }
+  }
+  return FILINGS;
+}
+export const normQuote = (s) => String(s || '').replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[\s ​]+/g, ' ').replace(/\s+([%,.)])/g, '$1').replace(/([$€£])\s+/g, '$1').trim().toLowerCase();
+export function resolveCite(FILINGS, src) {
+  if (!src || !src.k) return null;
+  const f = FILINGS[src.k];
+  if (!f) return { ...src, tier: 'T1', quoteCheck: 'no_harvest' };
+  const q = normQuote(src.quote);
+  let check = 'not_found', foundOn = null;
+  if (q && (f.pages[src.page] || []).some((t) => normQuote(t).includes(q))) check = 'page';
+  else if (q) for (const [pg, ts] of Object.entries(f.pages)) if (ts.some((t) => normQuote(t).includes(q))) { check = 'other_page'; foundOn = pg; break; }
+  const printed = /^seq/.test(String(src.page)) ? null : src.page;
+  return { k: src.k, tier: 'T1', form: f.form, accn: f.accn, url: f.url, filed: f.filed, report: f.report, page: printed, pageSeq: printed ? null : String(src.page).replace('seq', ''), section: src.section, quote: src.quote, quoteCheck: check, foundOn };
 }
 
 export function nowET() {

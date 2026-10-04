@@ -30,6 +30,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "6",
+   "match": "Repayments of debt",
+   "text": "…8   1,076   215   642   Other long-term assets   ( 932   )   ( 518   )   ( 2,614   )   ( 3,368   )   Accounts payable   2,320   1,179   2,903   1,221   Unearned revenue   ( 166   )   ( 1,032   )   ( 13,067   )   ( 12,923   )   Income taxes   2,296   1,298   ( 1,568   )   ( 1,081   )   Other current liabilities   2,539   2,839   ( 166   )   576   Other long-term liabilities   ( 1,616   )   ( 391   )   ( 3,286   )   292   Net cash from operations   46,679   37,044   127,494   93,515   Financing   Repayments of debt, maturities of 90 days or less   0   0   0   ( 5,746   )   Repayments of debt   0   ( 2,250   )   ( 3,000   )   ( 3,216   )   Common stock issued   541   546   1,489   1,508   Common stock repurchased   ( 4,627   )   ( 4,781   )   ( 17,692   )   ( 13,874   )   Common stock cash dividends paid   ( 6,756   )   ( 6,169   )   ( 19,687   )   ( 17,913   )   Other, net   ( 509   )   ( 382   )   ( 1,877   )   ( 1,614   )   Net cash used in financing   ( 11,351   )   ( 13,036   )   ( 40,767   )   ( 40,855   )   Investing   Additions to property and equipment   ( 30,876   )   ( 16,745   )   ( 80,146   )   ( 47,472   )   Acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets   ( 258   )   ( 981   )   ( 1,291   )   ( 4,235   )   Purchases of investments   ( 12,006   )   ( 4,474   )   ( 39,522   )   ( 8,144   )   Maturities of …",
+   "amounts": []
+  },
+  {
    "kind": "useful_life",
    "page": "8",
    "match": "useful lives",
@@ -573,6 +580,50 @@
     {
      "raw": "$3.8 billion",
      "usdM": 3800
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "44",
+   "match": "repayments of debt",
+   "text": "…pendent recalculation of prices where appropriate.   Cash Flows   Cash from operations increased $34.0 billion to $127.5 billion for the nine months ended March 31, 2026, primarily due to an increase in cash received from customers and a decrease in cash used to pay income taxes, offset in part by an increase in cash paid to suppliers. Cash used in financing decreased $88 million to $40.8 billion for the nine months ended March 31, 2026, primarily due to a $6.0 billion decrease in cash used for repayments of debt, offset in part by a $3.8 billion increase in common stock repurchases and a $1.8 billion increase in dividends paid. Cash used in investing increased $42.6 billion to $84.7 billion for the nine months ended March 31, 2026, primarily due to a $32.7 billion increase in additions to property and equipment, a $9.1 billion increase in other investing primarily to facilitate the purchase of components, and a $3.8 billion decrease in cash from net investment purchases, sales, and maturities.   Debt Proceeds   We issue debt to take advantage of favorable pricing and liquidity in the debt markets, reflecting our credit rating. The proceeds of these issuances were or will be used for general corporate purposes, which may include, among other things, funding for working capital, capital expenditures, repurchases of capital stock, acquisitions, and repayment of existing debt. Ref…",
+   "amounts": [
+    {
+     "raw": "$88 million",
+     "usdM": 88
+    },
+    {
+     "raw": "$40.8 billion",
+     "usdM": 40800
+    },
+    {
+     "raw": "$6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$3.8 billion",
+     "usdM": 3800
+    },
+    {
+     "raw": "$1.8 billion",
+     "usdM": 1800
+    },
+    {
+     "raw": "$42.6 billion",
+     "usdM": 42600
+    },
+    {
+     "raw": "$84.7 billion",
+     "usdM": 84700
+    },
+    {
+     "raw": "$32.7 billion",
+     "usdM": 32700
+    },
+    {
+     "raw": "$9.1 billion",
+     "usdM": 9100
     }
    ]
   },

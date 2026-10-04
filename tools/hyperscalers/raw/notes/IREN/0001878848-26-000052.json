@@ -820,6 +820,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "48",
+   "match": "deferred revenue,",
+   "text": "…ce interruptions or equipment failures could result in significant payments under those contracts being reduced or delayed, expose us to service credits, damages or other liability, or give rise to termination rights, and a court may not enforce any contractual limitations on our liability in the event of a claim arising from a service interruption or similar event. Extreme heat or weather events can also disrupt or delay development of new data centers, which could result in project delays and deferred revenue, the impacts of which can be significant. Significant or frequent service interruptions could also damage our brand and reputation, reduce the confidence of current and prospective customers and impair our ability to attract new customers or re-contract existing capacity.   Serial defects in equipment may result in failure or underperformance relative to expectations and impact our operations and financial performance.   Our operations contain certain items of equipment that have a high concentration from one manufacturer (for example, our GPUs). Additionally, the equipment we rely on may experience defects in workmanship or performance on arrival or throughout its operational life. If such defects are widespread across equipment we have used in the construction of our facilities, we could suffer material outages or underperformance compared to expectations. Such circums…",
+   "amounts": []
+  },
+  {
    "kind": "properties",
    "page": "49",
    "match": "data centers in Australia",
@@ -866,6 +873,13 @@
    "page": "54",
    "match": "GPUs",
    "text": "…tion of our data centers could also result in a failure to deliver contracted capacity or meet committed availability dates for our AI Cloud Services customers, and could expose us to service credits, penalties or termination rights under customer contracts and adversely affect our reputation and customer relationships, any of which could have a material adverse impact on our business, operating results, financial condition and future prospects.   The reliability and operating efficiency of our GPUs, ASICs, and other equipment are linked to weather conditions, including temperature and humidity. If we are unable to appropriately manage climatic conditions for the operating equipment inside our data centers, whether as a result of long- or short-term variations in weather conditions outside of optimal operating thresholds or failures of our cooling and ventilation equipment, our GPUs, ASICs and other equipment may be subject to reduced operating efficiency, increased equipment failure and higher operating and/or maintenance costs. More severe or sustained climate-related events have the potential to disrupt our business and may cause us to experience higher equipment failure rates, losses and substantial additional costs to resume operations.   Our properties may experience damages, including damages that are not covered by insurance.   Our current and planned operations, includ…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "54",
+   "match": "deferred revenue,",
+   "text": "… our infrastructure, which could impact the operational efficiency of our assets or disrupt our supply chain and ultimately our business operations. Extreme heat and increased temperatures could lead to increased demand for cooling systems, grid instability and stressed cooling systems, which could disrupt our operations and result in substantial costs. In addition, disruption of transportation, power and distribution systems could result in delays to potential expansion and construction plans, deferred revenue, substantial, additional costs or reduced operational efficiency. Delays in the delivery of equipment or in the construction and energization of our data centers could also result in a failure to deliver contracted capacity or meet committed availability dates for our AI Cloud Services customers, and could expose us to service credits, penalties or termination rights under customer contracts and adversely affect our reputation and customer relationships, any of which could have a material adverse impact on our business, operating results, financial condition and future prospects.   The reliability and operating efficiency of our GPUs, ASICs, and other equipment are linked to weather conditions, including temperature and humidity. If we are unable to appropriately manage climatic conditions for the operating equipment inside our data centers, whether as a result of long- …",
    "amounts": []
   },
   {
@@ -1456,6 +1470,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "119",
+   "match": "at-the-market",
+   "text": "…PU acquisitions and the development of additional data center capacity. We also expect to continue progressing development activities at other sites to support this transition and broader growth plan. We expect these and other planned investments to require substantial additional capital to support the continued expansion in this segment.   Our primary sources of liquidity and capital during the year ended June 30, 2026 included available cash and cash equivalents, proceeds from sales under our at-the-market facility and registered direct offering, proceeds from issuances of debt including convertible notes, GPU Financing, and cash inflows from operations, including AI Cloud Services contract prepayments reflected in deferred revenue. Given constrained GPU supply and long lead times, we may commit to purchases of GPU and related hardware and commence the related site development in advance of arranging the related financing, and in certain cases in advance of executing customer contracts for the related capacity. We intend to fund our planned investments through a range of funding sources and financing initiatives, which may include customer prepayments, cash on hand, asset-backed GPU and data center financing facilities, equipment financing arrangements, convertible note issuances and equity. We continue to monitor funding markets for opportunities to raise additional unsecure…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "119",
    "match": "Microsoft",
@@ -1579,6 +1600,77 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "122",
+   "match": "Net cash from (used in) operating activities",
+   "text": "Historical Cash Flows   Comparison of cash flows for the years ended June 30, 2026 and 2025   The following table sets forth a summary of our historical cash flows for the years ended June 30, 2026 and 2025 presented.   Year Ended June 30,   2026 2025   ($ thousands) ($ thousands)   Net cash from (used in) operating activities   2,100,418 245,886   Net cash from (used in) investing activities   (4,722,984) (1,380,487)   Net cash from (used in) financing activities   9,680,050 1,294,735   Net cash and cash equivalents increase/(decrease) 7,057,484 160,134   Cash and cash equivalents at the beginning of the period 564,526 404,601   Effects of exchange rate changes on cash and cash equivalents and restricted cash (2,483) (209)   Net cash and cash equivalents at the end of the period $ 7,619,527 $ 564,526   Operating activities   Our net cash from operating activities was $2,100.4 million for the year ended June 30, 2026, compared to net cash from operating activities of $245.9 million for the year ended June 30, 2025, an increase of $1,854.5 million.   In addition, for the year ended June 30, 2026, our net income (loss) was $(702.6) million, compared to $86.9 million f…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "122",
+   "match": "net cash from (used in) operating activities",
+   "text": "…equivalents at the end of the period $ 7,619,527 $ 564,526   Operating activities   Our net cash from operating activities was $2,100.4 million for the year ended June 30, 2026, compared to net cash from operating activities of $245.9 million for the year ended June 30, 2025, an increase of $1,854.5 million.   In addition, for the year ended June 30, 2026, our net income (loss) was $(702.6) million, compared to $86.9 million for the year ended June 30, 2025. The increase in net income (loss) to net cash from (used in) operating activities primarily reflects noncash adjustments of $978.3 million, which is driven by unrealized (gain) loss on financial instruments of $(558.5) million, debt conversion inducement expense of $111.8 million, depreciation and amortization of $417.7 million, stock-based compensation expense of $205.0 million, impairment of assets of $638.8 million and change in fair value of assets held for sale of $110.6 million. Other noncash items, including realized gain (loss) on financial instruments, foreign exchange (gain) loss, amortization of debt issuance costs and (gain) loss on disposal of property, plant and equipment, collectively contributed $52.9 million. Refer to “—Results of Operations” for further detail of associated costs.   Unrealized (gain) loss on financial instruments reflects the changes in fair value of the Capped Call Transactions and Prepai…",
+   "amounts": [
+    {
+     "raw": "$1,854.5 million",
+     "usdM": 1854.5
+    },
+    {
+     "raw": "$86.9 million",
+     "usdM": 86.9
+    },
+    {
+     "raw": "$978.3 million",
+     "usdM": 978.3
+    },
+    {
+     "raw": "$111.8 million",
+     "usdM": 111.8
+    },
+    {
+     "raw": "$417.7 million",
+     "usdM": 417.7
+    },
+    {
+     "raw": "$205.0 million",
+     "usdM": 205
+    },
+    {
+     "raw": "$638.8 million",
+     "usdM": 638.8
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "122",
+   "match": "deferred revenue ",
+   "text": "…nd and fourth quarter of the fiscal year 2025, and Capped Call Transactions which were entered into during the second and fourth quarter of the fiscal year 2026. Depreciation and amortization reflects ongoing investment in property, plant, and equipment, and stock-based compensation reflects the amortization expense associated with the issuance of equity incentives.   Changes in operating assets and liabilities resulted in a net cash increase of $1,824.7 million, primarily due to an increase in deferred revenue of $1,841.7 million from AI Cloud Services contract prepayments, an increase in accounts payable and accrued liabilities of $38.0 million and an increase in other liabilities of $49.5 million reflecting an increase in accrued payroll taxes on stock-based compensation. This was partly offset by an increase in prepayments and deposits of $67.7 million reflecting an increase in computer hardware prepayments and deposits for land options and other deposits, increases in accounts receivable and other receivables of $29.4 million primarily related to AI Cloud Services contracts and an increase of $9.1 million in tax-related liabilities.   Investing activities   Our net cash used in investing activities was $4,723.0 million for the year ended June 30, 2026, compared to net cash used in investing activities of $1,380.5 million for the year ended June 30, 2025, an increase of $3,…",
+   "amounts": [
+    {
+     "raw": "$1,824.7 million",
+     "usdM": 1824.7
+    },
+    {
+     "raw": "$1,841.7 million",
+     "usdM": 1841.7
+    },
+    {
+     "raw": "$38.0 million",
+     "usdM": 38
+    },
+    {
+     "raw": "$49.5 million",
+     "usdM": 49.5
+    },
+    {
+     "raw": "$67.7 million",
+     "usdM": 67.7
+    }
+   ]
+  },
+  {
    "kind": "gpu",
    "page": "123",
    "match": "GPU",
@@ -1587,6 +1679,42 @@
     {
      "raw": "$270.4 million",
      "usdM": 270.4
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "123",
+   "match": "at-the-market",
+   "text": "…ended June 30, 2026, our cash inflows comprised primarily of $7,237.6 million in proceeds from the issuance of convertible senior notes and debt financing facilities, $4,742.8 million from the issuance of Ordinary shares of which $1,631.5 million related to a registered direct offering, $38.8 million in proceeds from the unwind of certain capped call transactions and $6.6 million in proceeds from the exercise of options. These cash inflows were partially offset by offerings costs related to the at-the-market program of $50.4 million , payments made for entering into the Capped Call Transactions of $448.9 million , the aggregate induced conversion of the convertible notes of $1,623.5 million , payments for borrowing transaction costs of $165.5 million and repayment of finance lease liabilities and debt of $58.1 million .   Contractual Obligations   As of June 30, 2026, the Group had commitments of $13,810.0 million, as compared to $368.8 million as of June 30, 2025. These commitments include committed capital expenditure on AI hardware and infrastructure related to site development.   The increase in total commitments was primarily due to an increase in commitments related to our expansion into AI Cloud Services and includes committed capital expenditure on computer hardware and infrastructure related to site development of Horizons 1-4 at the Childress site, the Sweetwater 1 an…",
+   "amounts": [
+    {
+     "raw": "$38.8 million",
+     "usdM": 38.8
+    },
+    {
+     "raw": "$6.6 million",
+     "usdM": 6.6
+    },
+    {
+     "raw": "$50.4 million",
+     "usdM": 50.4
+    },
+    {
+     "raw": "$448.9 million",
+     "usdM": 448.9
+    },
+    {
+     "raw": "$1,623.5 million",
+     "usdM": 1623.5
+    },
+    {
+     "raw": "$165.5 million",
+     "usdM": 165.5
+    },
+    {
+     "raw": "$58.1 million",
+     "usdM": 58.1
     }
    ]
   },
@@ -1687,6 +1815,88 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "seq134",
+   "match": "Deferred revenue,",
+   "text": "…l assets 13 — 211,617   Derivative assets 17 415,641 122,100   Other assets 11 58,670 486   Total non-current assets   7,903,863 2,299,150   Total assets $ 15,790,039 $ 2,940,323   Liabilities and stockholders' equity   Current liabilities   Accounts payable and accrued expenses 19 $ 1,825,392 $ 144,115   Operating lease liability, current portion 555 404   Finance lease liability, current portion 22 125,340 —   Debt, current portion 23 169,370 —   Income taxes payable, current portion 28 — —   Deferred revenue, current portion 20 46,491 884   Other liabilities, current portion 21 53,952 3,945   Total current liabilities   2,221,100 149,347   Non-current liabilities   Operating lease liability, less current portion 2,231 1,063   Finance lease liability, less current portion 22 118,456 —   Debt, less current portion 23 7,423,574 962,765   Deferred revenue, less current portion 20 1,796,055 —   Deferred tax liabilities 28 30,832 7,971   Income taxes payable, less current portion 28 4,283 1,454   Other liabilities, less current portion 21 7,894 234   Total non-current liabilities   9,383,326 973,488   Total liabilities 11,604,426 1,122,835   Commitments and contingencies (See Note 29)   Stockholders' equity   Ordinary shares, no par value; 380,193,608 and 258,103,209 shares issued and outstanding as of June 30, 2026 and June 30, 2025, respectively   24 7,172,887 2,355,056   B Clas…",
+   "amounts": [
+    {
+     "raw": "$ 1,825,392 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 144,115   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq136",
+   "match": "at-the-market",
+   "text": "… ended June 30, 2026, 2025, and 2024   (in USD thousands, except share and per share data) Ordinary shares Additional Paid-in Capital Retained Earnings (Accumulated Deficit) Accumulated Other  Comprehensive Income (Loss) Total Stockholders' Equity   Shares Amount   Balance, June 30, 2023 64,747,477 $ 965,857 $ 28,435 $ ( 654,189 ) $ ( 34,655 ) $ 305,448   Issuance of Ordinary shares – Committed Equity Facility, net of issuance costs 12,887,814 49,717 — — — 49,717   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 108,063,868 746,999 — — — 746,999   Issuance of Ordinary shares – restricted stock units 104,559 118 — — — 118   Issuance of Ordinary shares – stock options 457,281 1,279 — — — 1,279   Stock-based compensation — — 22,851 — — 22,851   Other comprehensive income (loss) — — — — ( 339 ) ( 339 )   Issuance of Ordinary shares - third party issuance 106,687 319 — — — 319   Net income (loss) — — ( 28,920 ) — ( 28,920 )   Balance, June 30, 2024 186,367,686 $ 1,764,289 $ 51,286 $ ( 683,109 ) $ ( 34,994 ) $ 1,097,471   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 69,074,101 584,747 — — — 584,747   Issuance of Ordinary shares – restricted stock units 1,770,112 6,020 — — — 6,020   Stock-based compensation — — 37,386 — — 37,386   Other comprehensive income (loss) — — — — 4,921 4,921   Net income (loss) — — — 86,941 — 86,941  …",
+   "amounts": [
+    {
+     "raw": "$ 965,857 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 28,435 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 305,448   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq136",
+   "match": "at-the-market",
+   "text": "…09 ) $ ( 34,994 ) $ 1,097,471   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 69,074,101 584,747 — — — 584,747   Issuance of Ordinary shares – restricted stock units 1,770,112 6,020 — — — 6,020   Stock-based compensation — — 37,386 — — 37,386   Other comprehensive income (loss) — — — — 4,921 4,921   Net income (loss) — — — 86,941 — 86,941   Balance, June 30, 2025 257,211,899 $ 2,355,056 $ 88,672 $ ( 596,167 ) $ ( 30,073 ) $ 1,817,488   Issuance of Ordinary shares – at-the-market offering, net of issuance costs 70,206,940 3,058,036 — — — 3,058,036   Issuance of Ordinary shares – Equity Offering, net of issuance costs 39,699,102 1,631,451 — — — 1,631,451   Issuance of Ordinary shares – restricted stock units 9,863,884 71,803 — — — 71,803   Issuance of Ordinary shares – stock options 2,374,359 9,051 — — — 9,051   Issuance of Ordinary shares – Nostrum acquisition 837,424 47,490 — — — 47,490   Stock-based compensation — — 131,474 — — 131,474   Repurchase of the 2030 Convertible Notes and 2029 Convertible Notes — — ( 981,018 ) — — ( 981,018 )   F-8",
+   "amounts": [
+    {
+     "raw": "$ 2,355,056 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 88,672 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,817,488   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq138",
+   "match": "net cash from (used in) operating activities",
+   "text": "IREN Limited   Consolidated Statements of Cash Flows   For the years ended June 30, 2026, 2025, and 2024   (in USD thousands) Years ended June 30,   2026 2025 2024   Operating activities   Net income (loss) $ ( 702,621 ) $ 86,941 $ ( 28,920 )   Adjustments to reconcile net income (loss) to net cash from (used in) operating activities:   Depreciation and amortization 417,729 181,136 50,470   Impairment of assets 638,805 7,223 —   Change in fair value of assets held for sale 110,622 2,160 —   Other non-operating income — — ( 108 )   Realized (gain) loss on financial asset 8,667 4,215 ( 4,121 )   Unrealized (gain) loss on financial instrument ( 558,541 ) ( 77,518 ) 3,448   Debt conversion inducement expense 111,799 — —   Other (income) expense — 11,811 —   Other finance expense — 586 —   (Gain) loss on disposal of property, plant and equipment 24,908 ( 4,002 ) ( 43 )   Foreign exchange loss (gain) 9,919 3,821 ( 3,507 )   Gain on partial extinguishment of financial liabilities — ( 9,093 ) —   Amortization of debt issuance costs 9,408 1,400 —   Stock-based compensation expense 205,023 42,642 23,636   Changes in assets and liabilities:   Accounts receivable and other receivables…",
+   "amounts": [
+    {
+     "raw": "$ 86,941 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq138",
+   "match": "Deferred revenue ",
+   "text": "…ancial liabilities — ( 9,093 ) —   Amortization of debt issuance costs 9,408 1,400 —   Stock-based compensation expense 205,023 42,642 23,636   Changes in assets and liabilities:   Accounts receivable and other receivables ( 29,434 ) ( 9,656 ) ( 5,588 )   Financial asset, current — 6,530 —   Accounts payable and accrued expenses 38,017 16,689 10,072   Other assets 494 —   Tax related receivables — ( 2,581 ) —   Tax related liabilities ( 9,136 ) 4,911 1,357   Other liabilities 49,506 2,718 409   Deferred revenue 1,841,662 ( 1,674 ) 2,558   Prepayments and deposits ( 67,727 ) ( 22,227 ) 2,940   Operating lease liabilities 1,319 ( 146 ) ( 384 )   Net cash from (used in) operating activities 2,100,418 245,886 52,219   Investing activities   Payments for property, plant and equipment, net of computer hardware ( 2,998,006 ) ( 573,456 ) ( 141,855 )   Payments for computer hardware ( 1,335,081 ) ( 799,171 ) ( 338,054 )   Payments for intangible assets ( 107,573 ) — —   Payments for other prepayments and deposits ( 203,439 ) ( 19,502 ) ( 18,600 )   Proceeds from disposal of property, plant and equipment 23,782 11,172 43   Deposits paid for right-of-use assets ( 10,184 ) — —   Payment for the acquisition of subsidiaries ( 92,483 ) — —   Proceeds from release of deposits — 470 —   Net cash from (used in) investing activities ( 4,722,984 ) ( 1,380,487 ) ( 498,466 )   IREN Limited   Consoli…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq138",
+   "match": "Proceeds from convertible notes",
+   "text": "…026, 2025, and 2024   Financing activities   Payment of offering costs for committed equity facility — — ( 213 )   Proceeds from committed equity facility — — 51,352   Payment of offering costs for the issuance of Ordinary shares ( 50,380 ) ( 1,069 ) ( 733 )   Proceeds from the issuance of Ordinary shares 4,742,839 601,805 731,717   Payment for induced conversion of convertible notes ( 1,623,484 ) — —   Proceeds from loan funded shares 658 876 503   Proceeds from exercise of options 6,597 — —   Proceeds from convertible notes 6,299,555 701,211 —   Proceeds from financing facilities 938,000 — —   Repayment of debt ( 9,213 ) — —   Payment of capped call transactions ( 448,922 ) — —   Settlement of capped call transactions 38,812 — —   Repayment of finance lease liabilities ( 48,876 ) — —   Payment of borrowing transaction costs ( 165,536 ) ( 8,088 ) —   Net cash from (used in) financing activities 9,680,050 1,294,735 782,626   Net increase (decrease) in cash, cash equivalents and restricted cash 7,057,484 160,134 336,379   Cash, cash equivalents and restricted cash — beginning of period 564,526 404,601 68,894   Effects of exchange rate changes on cash, cash equivalents and restricted cash ( 2,483 ) ( 209 ) ( 672 )   Cash, cash equivalents and restricted cash — end of period $ 7,619,527 $ 564,526 $ 404,601   (in USD thousands) Years ended June 30,   2026 2025 2024   Supplemental c…",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "seq139",
    "match": "Variable interest entit",
@@ -1699,6 +1909,30 @@
    "match": "GPUs",
    "text": "…mary beneficiary on an ongoing basis.   Liquidity   As of June 30, 2026, the Group had cash and cash equivalents of $ 5,895.6 million and restricted cash of $ 1,723.9 million. For the year ended June 30, 2026, the Group generated net cash from operating activities of $ 2,100.4 million.   The Group operates a capital-intensive business and expects to continue to incur significant capital expenditures associated with the development and expansion of its data center platform and the acquisition of GPUs and related infrastructure. As of June 30, 2026, the Group had capital commitments of $ 13,810.0 million as outlined in Note 29. Commitments and contingencies. The Group has evaluated its anticipated liquidity requirements, including its contractual commitments and planned capital expenditures.   Based on this assessment, which included consideration of the timing of contractual commitments, the Group believes that its existing cash and cash equivalents, expected cash flows from operations and proceeds from financing activities will be sufficient to satisfy its obligations as they become due for at least 12 months from the date of these consolidated financial statements. The Group may also access debt, equity or other financing sources from time to time to fund additional growth and development initiatives.   Use of Estimates and Assumptions   The preparation of financial statements…",
    "amounts": [
+    {
+     "raw": "$ 2,100.4 million",
+     "usdM": 2100.4
+    },
+    {
+     "raw": "$ 13,810.0 million",
+     "usdM": 13810
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq139",
+   "match": "net cash from operating activities",
+   "text": "…o direct the activities that most significantly impact the VIE's economic performance and (ii) the obligation to absorb losses of, or the right to receive benefits from, the VIE that could potentially be significant to the VIE. The Group reassesses whether it is the primary beneficiary on an ongoing basis.   Liquidity   As of June 30, 2026, the Group had cash and cash equivalents of $ 5,895.6 million and restricted cash of $ 1,723.9 million. For the year ended June 30, 2026, the Group generated net cash from operating activities of $ 2,100.4 million.   The Group operates a capital-intensive business and expects to continue to incur significant capital expenditures associated with the development and expansion of its data center platform and the acquisition of GPUs and related infrastructure. As of June 30, 2026, the Group had capital commitments of $ 13,810.0 million as outlined in Note 29. Commitments and contingencies. The Group has evaluated its anticipated liquidity requirements, including its contractual commitments and planned capital expenditures.   Based on this assessment, which included consideration of the timing of contractual commitments, the Group believes that its existing cash and cash equivalents, expected cash flows from operations and proceeds from financing activities will be sufficient to satisfy its obligations as they become due for at least 12 months fro…",
+   "amounts": [
+    {
+     "raw": "$ 5,895.6 million",
+     "usdM": 5895.6
+    },
+    {
+     "raw": "$ 1,723.9 million",
+     "usdM": 1723.9
+    },
     {
      "raw": "$ 2,100.4 million",
      "usdM": 2100.4
@@ -1787,6 +2021,45 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq153",
+   "match": "Convertible Senior Notes due",
+   "text": "…on should be accounted for as an induced conversion or extinguishment of convertible debt when changes are made to conversion features as part of an offer to settle the instrument. ASU 2024-04 is effective for reporting periods beginning after December 15, 2025, and interim periods within those annual reporting periods. The Group early adopted ASU 2024-04 on July 1, 2025, using the prospective transition approach. As a result of our adoption, the Group accounted for the repurchase of the 3.25 % Convertible Senior Notes due 2030 (the “2030 Convertible Notes”) and 3.50 % Convertible Senior Notes due 2029 (the “2029 Convertible Notes”) as an induced conversion. Refer to Note 23. Debt for additional details.   In July 2025, the FASB issued ASU 2025-05, Financial Instruments—Credit Losses (Topic 326): Measurement of Credit Losses for Accounts Receivable and Contract Assets (“ASU 2025-05”). ASU 2025-05 provides entities with a practical expedient in developing reasonable and supportable forecasts as part of estimating expected credit losses, where entities may elect a practical expedient that assumes that current conditions as of the balance sheet date do not change for the remaining life of the asset. ASU 2025-05 is effective for reporting periods beginning after December 15, 2025, and interim periods within those annual reporting periods. Early adoption is permitted. The Group earl…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq155",
+   "match": "Deferred revenue,",
+   "text": "… credit losses, and is recognized in the period when the Group has the right to invoice its customers and when its right to consideration is unconditional. Payment terms and conditions vary by contract type, although terms generally include a requirement of payment within 30 days or less.   Accounts receivable, net, was $ 21.1 million and $ 1.6 million as of June 30, 2026 and June 30, 2025, respectively, and consisted entirely of amounts receivable from the Group’s AI Cloud Service customers.   Deferred revenue, including current and non-current balances as of June 30, 2026 and June 30, 2025, was $ 219.1 million and $ 0.9 million, respectively. For the year ended June 30, 2026, revenue recognized from deferred revenue at the beginning of the period was $ 0.9 million. For the year ended June 30, 2025, revenue recognized from deferred revenue at the beginning of the period was $ 0.5 million.   F-27",
+   "amounts": [
+    {
+     "raw": "$ 21.1 million",
+     "usdM": 21.1
+    },
+    {
+     "raw": "$ 1.6 million",
+     "usdM": 1.6
+    },
+    {
+     "raw": "$ 219.1 million",
+     "usdM": 219.1
+    },
+    {
+     "raw": "$ 0.9 million",
+     "usdM": 0.9
+    },
+    {
+     "raw": "$ 0.9 million",
+     "usdM": 0.9
+    },
+    {
+     "raw": "$ 0.5 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "gpu",
    "page": "seq156",
    "match": "GPU",
@@ -1798,6 +2071,26 @@
    "page": "seq156",
    "match": "Remaining Performance Obligations",
    "text": "…ximately three to five years .   The underlying GPU equipment and data center assets remain classified within property and equipment and continue to be depreciated in accordance with the Group’s accounting policies. See Note 14. Property, plant and equipment, net.   No lease revenue was recognized during the periods presented in the Consolidated Statements of Operations and Comprehensive Income (Loss). See Note 20. Deferred revenue, for additional information regarding deferred lease revenue.   Remaining Performance Obligations (“RPO”)   As of June 30, 2026, the Group had $ 5.1 billion of unsatisfied RPO, of which $ 0.9 billion is expected to be recognized over the initial 12 months ending June 30, 2027, $ 1.3 billion between months 13 and 24, and the remaining balance recognized between months 25 and 60.   As of June 30, 2026, the aggregate contracted value of lease arrangements was approximately $ 11.4 billion.   As of June 30, 2026, the Group’s unsatisfied remaining performance obligations under ASC 606 and the aggregate contracted value of lease arrangements under ASC 842 totaled approximately $ 16.6 billion.   Note 5. Cost of revenue   The components of cost of revenue (exclusive of depreciation and amortization) are as follows:   Year ended June 30, 2026   (in USD thousands) AI Cloud Bitcoin Mining Total   Electricity $ 4,502 $ 186,576 $ 191,078   Employee benefits 8,538 …",
+   "amounts": [
+    {
+     "raw": "$ 5.1 billion",
+     "usdM": 5100
+    },
+    {
+     "raw": "$ 0.9 billion",
+     "usdM": 900
+    },
+    {
+     "raw": "$ 1.3 billion",
+     "usdM": 1300
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq156",
+   "match": "Deferred revenue,",
+   "text": "…ses commence upon customer acceptance and generally have terms ranging from approximately three to five years .   The underlying GPU equipment and data center assets remain classified within property and equipment and continue to be depreciated in accordance with the Group’s accounting policies. See Note 14. Property, plant and equipment, net.   No lease revenue was recognized during the periods presented in the Consolidated Statements of Operations and Comprehensive Income (Loss). See Note 20. Deferred revenue, for additional information regarding deferred lease revenue.   Remaining Performance Obligations (“RPO”)   As of June 30, 2026, the Group had $ 5.1 billion of unsatisfied RPO, of which $ 0.9 billion is expected to be recognized over the initial 12 months ending June 30, 2027, $ 1.3 billion between months 13 and 24, and the remaining balance recognized between months 25 and 60.   As of June 30, 2026, the aggregate contracted value of lease arrangements was approximately $ 11.4 billion.   As of June 30, 2026, the Group’s unsatisfied remaining performance obligations under ASC 606 and the aggregate contracted value of lease arrangements under ASC 842 totaled approximately $ 16.6 billion.   Note 5. Cost of revenue   The components of cost of revenue (exclusive of depreciation and amortization) are as follows:   Year ended June 30, 2026   (in USD thousands) AI Cloud Bitcoin …",
    "amounts": [
     {
      "raw": "$ 5.1 billion",
@@ -1995,6 +2288,30 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq170",
+   "match": "Deferred revenue ",
+   "text": "IREN Limited   Notes to the consolidated financial statements   For the years ended June 30, 2026, 2025, and 2024   Note 19. Accounts payable and accrued expenses   The components of accounts payable and accrued expenses are as follows:   (in USD thousands) June 30, 2026 June 30, 2025   Accounts payable   $ 1,297,478 $ 81,747   Accrued expenses   527,113 42,368   Loss contingencies — 20,000   Other payables   801 —   Total accounts payable and accrued expenses   $ 1,825,392 $ 144,115   Note 20. Deferred revenue   Deferred revenue comprises consideration received in advance of the Group's satisfaction of the related performance obligations under contracts with customers, and consideration received in advance of the commencement of arrangements accounted for as leases. Deferred revenue is disaggregated as follows:   (in USD thousands) June 30, 2026 June 30, 2025   Current   Deferred revenue — contracts with customers $ 46,491 $ 884   Deferred lease revenue — operating leases — —   $ 46,491 $ 884   Non-current   Deferred revenue — contracts with customers $ 172,575 $ —   Deferred lease revenue — operating leases 1,623,480 —   $ 1,796,055 $ —   Total deferred revenue $ 1,842,546 $ 884   Deferred revenue — contracts with customers   Deferred revenue represents consideration received or receivable from customers for which the related performance obligations have not yet been satisfie…",
+   "amounts": [
+    {
+     "raw": "$ 1,297,478 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 81,747   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,825,392 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 144,115   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "gpu",
    "page": "seq174",
    "match": "GPU",
@@ -2080,6 +2397,18 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq176",
+   "match": "entered into a Credit Agreement",
+   "text": "…he earliest of discharge of the secured obligations, the data center provider ceasing to be a Group affiliate, its replacement at the Collateral Agent's direction, or termination of the agreement, and accordingly may remain outstanding for the term of the Microsoft Agreement.   The Financing SPV is a variable interest entity of which the Company is the primary beneficiary and which is consolidated (refer to Note 26. Variable Interest Entity).   DDTL Facility   On May 29, 2026, the Financing SPV entered into a Credit Agreement providing for a $ 1,545 million senior secured delayed draw term loan facility with a syndicate of commercial bank lenders. Borrowings under the DDTL Facility bear interest at a floating rate equal to 1-month Term SOFR plus 2.25 % per annum, payable monthly in arrears. Principal is repayable monthly in accordance with the amortization schedule set out in the Credit Agreement. The DDTL Facility is drawn in four tranches aligned to the delivery milestones under the Microsoft Agreement, subject to satisfaction of specified conditions precedent.   F-48",
+   "amounts": [
+    {
+     "raw": "$ 1,545 million",
+     "usdM": 1545
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "seq176",
    "match": "Microsoft",
@@ -2107,6 +2436,22 @@
     {
      "raw": "$ 1,575 million",
      "usdM": 1575
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq177",
+   "match": "At-the-Market",
+   "text": "…itment remained available subject to the conditions precedent.   Refer to Note 17. Derivatives for the Group’s interest rate cash flow hedge position in relation to the GPU Financing.   Note 24. Stockholders’ equity   We do not have a limit on our authorized share capital and do not recognize the concept of par value under Australian law.   The total number of Ordinary shares outstanding (including loan-funded shares) was 380,710,559 and 258,103,209 as at June 30, 2026 and 2025, respectively.   At-the-Market facility   On January 21, 2025, the Company filed a registration statement, including an accompanying at-the-market prospectus supplement relating to the offer and sale of $ 1,000,000,000 additional Ordinary shares. The Company had issued 66,707,732 Ordinary shares under this At Market Sales Agreement (the “Sales Agreement”) generating an aggregate of approximately $ 999,999,452 in proceeds through September 2025, with no further amounts remaining available for sale under that prospectus supplement.   On March 4, 2026, the Company filed a new prospectus supplement relating to the offer and sale of up to $ 6,000,000,000 of its Ordinary shares under the Sales Agreement. The newly filed prospectus supplement replaces and supersedes the prospectus supplement noted above relating to the offer and sale of up to $ 1,000,000,000 of the Company’s Ordinary shares. As of June 30, 2026…",
+   "amounts": [
+    {
+     "raw": "$ 1,000,000,000 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 999,999,452 ",
+     "usdM": null
     }
    ]
   },
@@ -2170,6 +2515,30 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq183",
+   "match": "Deferred revenue,",
+   "text": "… $ —   Restricted cash, current portion 1,670,252 —   Other Assets and Other Receivables 56,768 1   Restricted cash, less current portion 53,684 —   Property and equipment, net 1,487,112 —   Deposits and prepaid expenses, less current portion 4,089 —   Derivative assets 3,141 —   Total assets $ 3,275,046 $ 1   Liabilities   Accounts payable and accrued expenses $ 1,127,716 $ —   Other liabilities, current portion 1,738 —   Debt, current portion 152,629 —   Debt, less current portion 765,574 —   Deferred revenue, less current portion 1,013,120 —   Total liabilities $ 3,060,777 $ —   F-55",
+   "amounts": [
+    {
+     "raw": "$ 3,275,046 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,127,716 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,060,777 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "seq183",
    "match": "Microsoft",
@@ -2228,6 +2597,27 @@
    "page": "68",
    "match": "Microsoft",
    "text": "…ust 28, 2024).   10.5*#§   Supplemental Agreement to certain Future Sales and Purchase Agreements and Notice of Exercise, dated as of June 4, 2025, between Bitmain Technologies Delaware Limited and IE US Hardware 1 Inc. (incorporated herein by reference to Exhibit 10.4 to the Company’s Annual Report on Form 10-K filed with the SEC on August 28, 2025).   10.6*#   Partner Statement of Work, dated as of November 2, 2025, between IE US Hardware 3 Inc. (a wholly owned subsidiary of IREN Limited) and Microsoft Corporation and Dell Canada Inc. (incorporated herein by reference to Exhibit 10.3 to the Company’s Quarterly Report on Form 10-Q filed with the SEC on February 5, 2026).   10.7*#   Purchase Agreement, dated as of November 2, 2025, between IE US Hardware 3 Inc. (a wholly owned subsidiary of IREN Limited) and Dell Marketing L.P. and Dell Canada Inc. (incorporated herein by reference to Exhibit 10.4 to the Company’s Quarterly Report on Form 10-Q filed with the SEC on February 5, 2026).   10.8*#   Non-Cancellable Non-Returnable (NCNR) and Supplemental Terms Agreement, dated as of November 2, 2025, between IE US Hardware 3 Inc. (a wholly owned subsidiary of IREN Limited) and Dell Marketing L.P. (incorporated herein by reference to Exhibit 10.5 to the Company’s Quarterly Report on Form 10-Q filed with the SEC on February 5, 2026).   68",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "70",
+   "match": "Convertible Senior Notes due",
+   "text": "10.23 *#   Indenture, dated as of December 6, 2024, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 6-K filed with the SEC on December 6, 2024).   1 0.24*   Form of certificate representing the 3.25% Convertible Senior Notes due 2030 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 6-K filed with the SEC on December 6, 2024).   1 0.25*#   Indenture, dated as of June 13, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 6-K filed with the SEC on June 13, 2025).   1 0.26*   Form of certificate representing the 3.50% Convertible Senior Notes due 2029 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 6-K filed with the SEC on June 13, 2025).   10.27*#   Indenture, dated as of October 14, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 8-K filed with the SEC on October 14, 2025).   1 0.28*…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "70",
+   "match": "Convertible Senior Notes due",
+   "text": "…e representing the 3.50% Convertible Senior Notes due 2029 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 6-K filed with the SEC on June 13, 2025).   10.27*#   Indenture, dated as of October 14, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 8-K filed with the SEC on October 14, 2025).   1 0.28*   Form of certificates representing the 0.00% Convertible Senior Notes due 2031 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 8-K filed with the SEC on October 14, 2025).   1 0.29*#   Indenture, dated as of December 8, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025).   10.30*   Form of certificates representing the 0.25% Convertible Senior Notes due 2032 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025).   10.31*#   Indenture, dated as of December 8, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.3 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025). …",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "70",
+   "match": "Convertible Senior Notes due",
+   "text": "…epresenting the 0.25% Convertible Senior Notes due 2032 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025).   10.31*#   Indenture, dated as of December 8, 2025, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.3 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025).   1 0.32*   Form of certificates representing the 1.00% Convertible Senior Notes due 2033 (incorporated herein by reference to Exhibit 4.4 to the Company’s Report on Form 8-K filed with the SEC on December 8, 2025).   1 0.33*#   Indenture, dated as of May 14, 2026, between IREN Limited and U.S. Bank Trust Company, National Association, as trustee (incorporated herein by reference to Exhibit 4.1 to the Company’s Report on Form 8-K filed with the SEC on May 14, 2026).   1 0.34*   Form of certificates representing the 1.00% Convertible Senior Notes due 2033 (incorporated herein by reference to Exhibit 4.2 to the Company’s Report on Form 8-K filed with the SEC on May 14, 2026).   1 0.35 #   Credit Agreement, dated as of May 29, 2026, among IE US Hardware 3 LLC, the lenders party thereto, CSC Delaware Trust Company as administrative agent, and Goldman Sachs Bank USA and JPMorgan Chase Bank, N.A. as joint lead arrangers and joint bookrunners   1 0.…",
    "amounts": []
   },
   {

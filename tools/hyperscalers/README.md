@@ -135,17 +135,84 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - **Caching**: `site/_headers` serves the hub's data, CSVs, `hub.js`, `hub.css` and page scripts with `no-store` (the zone's
   4-hour browser TTL overrides a `max-age=0`).
 
+## Round 4 (owner's third review, 2026-10-04)
+
+- **"Verified" means what it says.** Every reader-facing "verified" now reads *automated quote-match plus a second AI read;
+  not analyst-reviewed* (`HUB.VERIF`, `F.verification`, both languages). *Matched* stays the mechanical check (quote on the
+  cited page, 424B total within 3%, XBRL vs FactSet within 2%). Human sign-off is a separate field: every curated item
+  (offbs, capacity, sites, power, circular, payoff, not-tagged, deal-matches, outliers) carries `reviewedBy` (null until a
+  person writes name and date) and `reviewedOn`; each page prints "analyst-reviewed: N of M" beside the verified share
+  (`HUB.verifSummary`), and the quality pages carry an "analyst-reviewed" card.
+- **Data-quality counts come from the data, not the DOM** (`HUB.dqModule`): per module, the figures shown, those that are
+  verified or matched, those that need review, those not tagged in XBRL and unexplained, the explained gaps, the T2 statements
+  and the T4 secondary sources, each with the list of items (`#dq` → "Item list"). The summary page rolls the eight modules up
+  (`HUB.dqRollup`): the weakest module first, hub-wide totals, and a table with every count linked to that module's list.
+  The home line can never read 100% while a module carries an unresolved item.
+- **Explained XBRL gaps** (`data/not-tagged.json`, 108 records, one per company × metric): `none` (the line does not exist
+  for the company), `text` (figure read from the filing, shown from it with its date), `fy_only` / `ytd_only` (tagged only
+  annually or year-to-date), `custom_tag` (company extension the SEC API does not serve), `not_disclosed` (searched, absent).
+  Every record cites evidence; a quoted sentence is checked against the harvested page by `build.mjs` (`resolveCite`).
+  `assumeZero: true` lets a `none` input count as 0 in a derivation (Nebius finance leases), marked `_zero` in the output.
+  Cells render through `HUB.ntCell` (reason on hover, ⓘ card with the evidence) and are counted as explained, not as gaps.
+- **Debt deals without a 424B** (`data/deal-matches.json`, 45 FactSet deals): matched to the SEC filing the EDGAR full-text
+  index returns for the issue window (8-K, FWP, 6-K; `efts.sec.gov/LATEST/search-index`), and, where a harvested 10-K/10-Q
+  page names the instrument, to that page with a checked quote. 144A notes, Swiss-franc notes and credit agreements have no
+  424B; the 10-Q/10-K debt note is the SEC document that names them. Status `matched` / `needs_review`; the capex page shows
+  the filing link and the method in the ⓘ card.
+- **Quarterly outliers** (`data/outliers.json`): a flow more than 5× the median of the non-zero quarters among the four before
+  it (and above US$1bn) is flagged "needs review" until read in the filing; a line that is starting (first dividend, first
+  bond) has no baseline and is not flagged. A `confirmed` record (value within 0.5% of the derived quarter, quote checked on
+  the harvested page) clears the flag and the cell shows "matched" with the quote; `reclassified` keeps the flag and explains
+  it (Oracle's Q2 FY2026 common-stock proceeds: the FY2027 10-Q restated the comparative quarter to 0 under the tag, so the
+  six-month figure lands in one quarter; the year still sums). The harvester keeps a `cash_flow` passage kind (cash-flow
+  statement lines, at-the-market programs, note offerings, credit agreements) so these quotes can be checked, and
+  `--accn=` harvests older quarters a record cites.
+- **One timestamp per build.** `build.mjs` stamps `generated` (ISO) and `refreshedET`; `build-modules.mjs` and
+  `validate.mjs` reuse that stamp instead of their own clock, so every page, footer and quality page shows the same ET
+  minute. Curated files carry `updatedAt` (ISO) and pages print it through `HUB.curatedDate` (ET date); no UTC date is
+  shown anywhere on the hub, and the methodology states the EDGAR poll times in ET.
+- **Summary page.** Thesis in two sentences of at most 35 words: the core six (capex as % of operating cash flow, with a
+  source card) and the names of the companies that spent more than their cash flow (Amazon, Oracle and the five neoclouds),
+  whose gap is financed with debt and equity while a larger stack of signed obligations sits off the balance sheet (leases
+  not commenced are future obligations, not a source of funds). Every number in the thesis and in the five "What to know"
+  headlines opens its own ⓘ card (form, accession, page, quote); the detail sits behind the expander. Line 5 names the two
+  documented concentration cases (CoreWeave: Microsoft 67% of 2025 revenue per the 10-K, largest customer 36% of Q2 2026
+  revenue, unnamed in the 10-Q; Core Scientific: CoreWeave 77% of H1 2026 revenue) and says IREN, Nebius and Applied Digital
+  give no per-customer share. Oracle T2 capacity figures stay out of the thesis and "What to know".
+- **Module 8.** Segment definitions quoted from each 10-K beside the margins (`payoff.json → segments[].definition_*`,
+  `definitionSrc`, quote-checked) with a note that the segments are not like-for-like; margin chart horizontal with value
+  labels; ratings known only from press carry T4 with a "secondary source" badge and the agency page that was checked (the
+  agency sites answer 403 to the session); capex per GW collapsed to a one-line note (CoreWeave only, with why the others lack
+  it); useful-life table prints "Not disclosed" / "No change disclosed" instead of blanks; the implied-cost table carries an
+  "as of" line (quarter ends and FactSet snapshot date); the FactSet earnings calendar dates are labeled "estimated by
+  FactSet, not confirmed by the company" with the estimate's last-modified and pull dates; jargon (RPO, TTM, OCF, D&A, EBITDA,
+  XBRL, bp, n.m.) is expanded on first use per page with a link to the glossary (`HUB.GLOSS`).
+- **Phones (390 px).** Module navigation and the in-page jump links fold behind a toggle (`.nav-toggle`, CSS-only); heat-map
+  cards separate label from value and give every ⓘ a 44×44 px hit area on coarse pointers; the sites map is hidden under
+  600 px and the table cards take over; the home roll-up table stacks one block per module; long tokens wrap. Checked with
+  `scratchpad/mobile.mjs` at 390, 360 and 512 px (250% desktop zoom): no horizontal scroll, nothing clipped.
+- **Reading EDGAR from a session.** Since 2026-10-04 the session can fetch `www.sec.gov/Archives` primary documents (a
+  declared User-Agent is required); `harvest-notes.mjs` runs in-session too. The EDGAR full-text index answers without
+  snippets; `forms=8-K/A` breaks it.
+
 ## Open items
 
 - Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
   before that makes the watchdog report "late").
-- Text items in `offbs.json`: 24 of 25 verified on 2026-10-03 (second reading of the cited page in the harvested SEC text);
-  Applied Digital's SPV amount (US$4.5bn) stays `needs_review` because it comes from FactSet, not the cited 10-K pages.
+- Text items in `offbs.json`: 26 of 26 verified (automated second read) as of 2026-10-04; Applied Digital's SPV amount
+  (US$4.5bn) is now quoted from the 10-K (US$2.15bn notes) and the 10-Q (US$2.35bn notes).
   Capacity and pipeline records in `capacity.json`: all 20 T1 records verified the same day. New items start as `needs_review`.
 - CoreWeave active power: the 10-Q for 2026-06-30 states no active-power figure (searched); keep the 10-K figure until a
   filing updates it (`newerFilingSearched` on the record).
-- Module 3 debt deals: 40 FactSet deals carry "needs review" because no 424B matches (144A notes and loans have none).
-  Matching them needs an 8-K or offering-memorandum source; they stay FactSet-tier until then.
+- Module 3 debt deals: 44 of 45 FactSet deals without a 424B are matched to an SEC filing (`deal-matches.json`); Alphabet's
+  3 Mar 2026 Swiss-franc notes rest on the 10-Q debt note. FactSet dates IREN's 3.25% converts due 2030 at 22 Dec 2025, which
+  is not their issue date (December 2024): kept with the caveat.
+- Quarterly derivation across a reclassified comparative (Oracle Q2 FY2026 common-stock proceeds): the build takes the
+  latest-filed fact for every period, so a comparative restated under another tag misallocates a quarter without breaking
+  the fiscal-year tie-out. A "same vintage" rule (derive a fiscal year's quarters from that year's own filings unless the
+  year total is restated too) would fix it; it changes many derived values and needs the owner's go.
+- `reviewedBy` is empty everywhere: no item has a human sign-off yet. The owner's initials and the date in that field are
+  what turns "verified (automated)" into "analyst-reviewed".
 - Nebius quarterly figures come from 6-K press releases (no XBRL): T1-furnished text, to be added as curated items.
 - Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow `meta-nbis-2` shows "reading pending").
 - Item 2 "Properties" of Microsoft and Oracle was not captured (upper-case heading); the harvester regex now matches it and the next `mode=notes force_notes=true` run will bring it in.

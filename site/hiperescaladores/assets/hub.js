@@ -65,18 +65,47 @@
     T4: { es: 'T4 · estimación', en: 'T4 · estimate', tip: { es: 'Estimación de terceros; nunca se mezcla con cifras de las empresas', en: 'Third-party estimate; never blended into company figures' } },
     C: { es: 'Cálculo FNAM', en: 'FNAM calc.', tip: { es: 'Calculado por FNAM a partir de cifras T1; el método está en la ficha de la cifra', en: 'Computed by FNAM from T1 figures; the method is in the figure\'s source card' } },
     T4R: { es: 'T4 · terceros', en: 'T4 · third party', tip: { es: 'Opinión de un tercero (acción de una calificadora, según nota de prensa fechada); nunca se mezcla con cifras de las empresas', en: 'Third-party opinion (a rating agency action, per a dated press report); never blended into company figures' } },
+    // a rating action known only through the press (the agency's own page or an SEC filing was not available): secondary source
+    T4S: { es: 'T4 · fuente secundaria', en: 'T4 · secondary source', tip: { es: 'Acción de una calificadora conocida por una nota de prensa fechada, no por la página de la agencia ni por una presentación ante la SEC; nunca se mezcla con cifras de las empresas', en: 'Rating action known from a dated press report, not from the agency\'s own page or an SEC filing; never blended into company figures' } },
+    // a company statement whose document has no public address (licensed earnings-call transcript)
+    T2N: { es: 'T2 · declaración de la empresa, sin enlace público', en: 'T2 · company statement, no public link', tip: { es: 'Declaración de la empresa en su llamada de resultados (transcripción con licencia): no auditada y sin documento público que enlazar', en: 'Company statement on its earnings call (licensed transcript): not audited and no public document to link' } },
     FS: { es: 'FactSet', en: 'FactSet', tip: { es: 'Instantánea fechada de FactSet (agregación de presentaciones); no es T1 hasta cotejarse con el 424B/8-K', en: 'Dated FactSet snapshot (aggregated from filings); not T1 until matched to the 424B/8-K' } }
   };
-  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' ? 'T4' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
+  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' || k === 'T4S' ? 'T4' : k === 'T2N' ? 'T2' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
+  // the verification method, stated wherever a figure is called "verified" (owner's third review, 2026-10-03): the checks
+  // are an automated quote-match against the harvested filing page plus a second AI read; an analyst's sign-off is a
+  // separate field (reviewedBy) and is shown apart
+  var VERIF = { es: 'cotejo automático de la cita más una segunda lectura por IA; sin revisión de analista', en: 'automated quote-match plus a second AI read; not analyst-reviewed' };
+  function verifText(reviewedBy) { return reviewedBy ? t('revisado por analista: ', 'analyst-reviewed: ') + esc(reviewedBy) : t(VERIF.es, VERIF.en); }
   // "needs review" and "mixed tag" are no longer printed in every cell: a small dot marks the cell (shaded by decorate()),
   // the reason is on hover, and the page's data-quality line counts them. Stale and age flags stay visible.
   function flag(kind, why) {
     if (kind === 'review' || kind === 'mixed') {
-      var w = (kind === 'review' ? t('Por revisar', 'Needs review') : t('Etiqueta mixta', 'Mixed tag')) + (why ? ': ' + why : kind === 'review' ? t(': falla un control de identidad o de valores atípicos, o espera una segunda lectura; detalle en la ficha ⓘ y en la página de calidad', ': fails an identity or outlier check, or awaits a second reading; detail in the ⓘ card and on the quality page') : t(': un trimestre usa otra etiqueta XBRL que el resto de su año', ': one quarter uses a different XBRL tag from the rest of its year'));
+      var w = (kind === 'review' ? t('Por revisar', 'Needs review') : t('Etiqueta mixta', 'Mixed tag')) + (why ? ': ' + why : kind === 'review' ? t(': falla un control de identidad o de valores atípicos, o espera la segunda lectura automática; detalle en la ficha ⓘ y en la lista de calidad de esta página', ': fails an identity or outlier check, or awaits the automated second read; detail in the ⓘ card and in this page\'s data-quality list') : t(': un trimestre usa otra etiqueta XBRL que el resto de su año', ': one quarter uses a different XBRL tag from the rest of its year'));
       return '<span class="rvw ' + kind + '" title="' + esc(w) + '" aria-label="' + esc(w) + '"></span>';
     }
-    var m = { stale: [t('desactualizado', 'stale'), 'stale'], ok: [t('cotejado', 'matched'), 'ok'] }[kind];
-    return m ? '<span class="flag ' + m[1] + '">' + m[0] + '</span>' : '';
+    var m = { stale: [t('desactualizado', 'stale'), 'stale'], ok: [t('cotejado', 'matched'), 'ok'], sec: [t('fuente secundaria', 'secondary source'), 'sec'] }[kind];
+    return m ? '<span class="flag ' + m[1] + '"' + (kind === 'sec' ? ' title="' + esc(t('Acción de la agencia conocida por una nota de prensa; la página de la agencia y las presentaciones ante la SEC no la publican', 'Agency action known from a press report; neither the agency\'s page nor an SEC filing publishes it')) + '"' : '') + '>' + m[0] + '</span>' : '';
+  }
+  // an explained gap: the cell has no XBRL value and the curated file tools/hyperscalers/data/not-tagged.json says why
+  // (none: the line does not exist for this company; text: the figure is in the filing text and shown from it; fy_only:
+  // tagged only in the annual report; custom_tag: a company-specific tag the SEC API does not serve; not_disclosed:
+  // searched and absent). The cell is not counted as "not tagged" in the data-quality line; the reason is on hover and in ⓘ.
+  var NTR = { none: ['no aplica', 'n/a'], text: ['texto', 'text'], fy_only: ['solo anual', 'annual only'], ytd_only: ['solo acumulado', 'YTD only'], custom_tag: ['etiqueta propia', 'custom tag'], not_disclosed: ['No divulgado', 'Not disclosed'], unknown: ['s.e.', 'n.t.'] };
+  function ntReason(tk, metric) { var F = window.HYP_FIN; var L = (F && F.notTagged) || []; for (var i = 0; i < L.length; i++) if (L[i].ticker === tk && L[i].metric === metric) return L[i]; return null; }
+  // not-tagged cell with its reason when one is recorded, else the plain "n.t." mark; `amt` formats a text figure
+  function ntCell(tk, metric, opts) {
+    var r = ntReason(tk, metric);
+    if (!r) return nt(opts && opts.why);
+    var lb = NTR[r.result] || NTR.unknown, lab = t(lb[0], lb[1]), note = r['note_' + LANG] || r.note_en || '';
+    var rows = [[t('Situación', 'Status'), t({ none: 'no aplica: la partida no existe para esta empresa', text: 'cifra leída del texto de la presentación (sin etiqueta XBRL estándar)', fy_only: 'etiquetada solo en el informe anual', ytd_only: 'etiquetada solo como acumulado del año (el trimestre se deriva o falta)', custom_tag: 'la empresa usa una etiqueta propia que la API de la SEC no publica', not_disclosed: 'buscado en la presentación y ausente', unknown: 'sin etiqueta XBRL; motivo no resuelto' }[r.result], { none: 'not applicable: the line does not exist for this company', text: 'figure read from the filing text (no standard XBRL tag)', fy_only: 'tagged only in the annual report', ytd_only: 'tagged only year-to-date (the quarter is derived or missing)', custom_tag: 'the company uses a custom tag the SEC API does not serve', not_disclosed: 'searched in the filing and absent', unknown: 'not tagged in XBRL; reason not resolved' }[r.result])], [t('Motivo', 'Reason'), note]];
+    if (r.evidence) rows.push([t('Evidencia', 'Evidence'), r.evidence[LANG] || r.evidence.en || r.evidence]);
+    rows = rows.concat(citeRows(r.src));
+    if (!r.src && r.accn) rows.push([t('Presentación', 'Filing'), (r.form || '') + ' · ' + r.accn]);
+    var card = src({ title: (window.HYP_FIN && window.HYP_FIN.companies[tk] ? window.HYP_FIN.companies[tk].name : tk) + ' · ' + ((window.HYP_FIN && window.HYP_FIN.defs[metric]) ? window.HYP_FIN.defs[metric][LANG] : metric), rows: rows, url: (r.src && r.src.url) || (r.url || null) });
+    if (r.result === 'text' && r.amountUSDm != null) return '<span class="ntx-val">' + money(r.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(note) + '">' + lab + (r.asOf ? ' · ' + date(r.asOf) : '') + '</span>';
+    if ((r.result === 'fy_only' || r.result === 'ytd_only') && r.amountUSDm != null) return '<span class="ntx-val">' + money(r.amountUSDm * 1e6) + '</span>' + card + '<span class="nd nx small" title="' + esc(note) + '">' + lab + (r.period ? ' · ' + esc(r.period) : '') + '</span>';
+    return '<span class="nd nx" title="' + esc(note) + '" aria-label="' + esc(note) + '">' + lab + '</span>' + card;
   }
 
   // provenance card: a small ⓘ button; the card opens on click (keyboard reachable), closes on Esc / outside click
@@ -112,6 +141,7 @@
     var b = e.target.closest && e.target.closest('.src-btn');
     if (!b) { if (popEl && !popEl.contains(e.target)) closePop(); return; }
     e.stopPropagation();
+    if (b.closest('summary')) e.preventDefault();   // a ⓘ inside a <summary> opens its card without toggling the expander
     var p = provs[+b.getAttribute('data-prov')]; if (!p) return;
     openPop(b, (p.title ? '<b>' + esc(p.title) + '</b><br>' : '') +
       (p.rows || []).filter(function (r) { return r && r[1] != null && r[1] !== ''; }).map(function (r) { return '<span class="muted">' + esc(r[0]) + ':</span> ' + (r[2] ? r[1] : esc(plain(r[1]))); }).join('<br>') +
@@ -175,7 +205,7 @@
     if (!s) return [];
     var page = s.page ? s.page : s.pageSeq ? t('sin número impreso (secuencia ', 'no printed number (sequence ') + s.pageSeq + ')' : null;
     var qc = s.quoteCheck === 'page' ? t('cita cotejada contra el texto de la página', 'quote matched against the page text') : s.quoteCheck === 'other_page' ? t('cita hallada en otra página (', 'quote found on another page (') + s.foundOn + ')' : s.quoteCheck ? t('cita no cotejada', 'quote not matched') : null;
-    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited') : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title + (s.date && !s.form ? ' · ' + date(s.date) : '')], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc], s.status ? [t('Verificación', 'Verification'), s.status === 'verified' ? t('verificado', 'verified') + (s.verifiedOn ? ' ' + date(s.verifiedOn) : '') + (s.verifiedBy ? ' · ' + s.verifiedBy : '') : t('pendiente de segunda lectura', 'pending second reading')] : null].concat(noUrlRows(s));
+    return [[t('Nivel', 'Tier'), s.tier === 'T1' ? 'T1 · SEC' : s.tier === 'T2' ? (s.noUrl ? t('T2 · declaración de la empresa, sin enlace público', 'T2 · company statement, no public link') : t('T2 · declaración de la empresa, no auditada', 'T2 · company statement, not audited')) : s.tier], [t('Presentación', 'Filing'), s.form ? s.form + ' · ' + s.accn + (s.filed ? ' · ' + t('presentada ', 'filed ') + date(s.filed) : '') : s.title + (s.date && !s.form ? ' · ' + date(s.date) : '')], [t('Sección', 'Section'), s.section], [t('Página', 'Page'), page], s.quote ? [t('Texto', 'Text'), '“' + s.quote + '”'] : null, [t('Cotejo', 'Check'), qc], s.status ? [t('Verificación', 'Verification'), s.status === 'verified' ? t('verificado ', 'verified ') + (s.verifiedOn ? date(s.verifiedOn) + ' · ' : '') + t(VERIF.es, VERIF.en) : t('pendiente de la segunda lectura automática', 'pending the automated second read')] : null, s.status ? [t('Revisión de analista', 'Analyst review'), s.reviewedBy ? esc(s.reviewedBy) + (s.reviewedOn ? ' · ' + date(s.reviewedOn) : '') : t('ninguna', 'none')] : null].concat(noUrlRows(s));
   }
   // T2 statements whose document has no public address (licensed call transcripts): say so, and point to the nearest
   // public document (the same-day earnings release on EDGAR), which does not contain the quoted sentence
@@ -188,7 +218,12 @@
   // reader-facing text never shows repository paths (e.g. "(tools/…/notes/)")
   function plain(v) { return String(v == null ? '' : v).replace(/\s*\((?:[^()]*?\s)?(?:tools|scripts|site)\/[^()]*\)/g, '').replace(/\s*(?:tools|scripts)\/[\w./<>-]+/g, ''); }
   function cite(title, s, extra) { return s ? src({ title: title, rows: citeRows(s).concat(extra || []), url: s.url || null }) : ''; }
-  function status(st) { return st === 'verified' ? '<span class="vchk" title="' + esc(t('Verificado: segunda lectura de la página citada', 'Verified: second reading of the cited page')) + '">✓</span>' : st === 'company_statement' ? '' : flag('review', t('cifra leída del texto, pendiente de una segunda lectura de la página citada', 'figure read from the text, pending a second reading of the cited page')); }
+  function status(st, reviewedBy) { return st === 'verified' ? '<span class="vchk' + (reviewedBy ? ' an' : '') + '" title="' + esc(t('Verificado: ', 'Verified: ') + verifText(reviewedBy)) + '">✓</span>' : st === 'company_statement' ? '' : flag('review', t('cifra leída del texto, pendiente de la segunda lectura automática de la página citada', 'figure read from the text, pending the automated second read of the cited page')); }
+  // "verified N of M · analyst-reviewed R of M" for a list of curated items (each with status / reviewedBy)
+  function verifSummary(items) {
+    var n = items.length, v = items.filter(function (i) { return i.status === 'verified'; }).length, r = items.filter(function (i) { return i.reviewedBy; }).length;
+    return '<span class="vsum" title="' + esc(t('Verificado = ', 'Verified = ') + VERIF[LANG] + t('. Revisado por analista = firma de una persona en el campo reviewedBy.', '. Analyst-reviewed = a person\'s sign-off in the reviewedBy field.')) + '">' + t(v + ' de ' + n + ' verificadas (' + VERIF.es + ') · revisadas por analista: ' + r + ' de ' + n, v + ' of ' + n + ' verified (' + VERIF.en + ') · analyst-reviewed: ' + r + ' of ' + n) + '</span>';
+  }
   // T3/T4 freshness: amber after the publisher's next expected edition + 30 days (computed in the reader's browser)
   function staleT3(next, today) {
     if (!next) return { stale: false };
@@ -232,6 +267,10 @@
       return g('year') + '-' + g('month') + '-' + g('day') + ' ' + g('hour').replace('24', '00') + ':' + g('minute') + ' ET';
     } catch (e) { return String(iso).replace('T', ' ').slice(0, 16) + ' UTC'; }
   }
+  // the ET calendar date of an ISO timestamp (UTC), printed like other dates ("3 Oct 2026"); never the UTC date
+  function etDate(iso) { if (!iso) return ''; var s = etTime(iso); return /ET$/.test(s) ? date(s.slice(0, 10)) : date(String(iso).slice(0, 10)); }
+  // the date a curated file was last edited: its updatedAt timestamp in ET when present, else its stated date
+  function curatedDate(o) { return o ? (o.updatedAt ? etDate(o.updatedAt) : date(o.updated)) : ''; }
 
   // ---- calendarized trailing twelve months for cross-company sums: every company at the same calendar quarter (the
   // latest one all of them have reported). A fiscal quarter counts in the calendar quarter that contains its last month,
@@ -270,9 +309,15 @@
     vie: { id: 'g-vie', re: { es: /\bEIV\b/, en: /\bVIEs?\b/ }, label: { es: 'EIV (entidad de interés variable)', en: 'VIE (variable interest entity)' }, def: { es: 'Vehículo cuyo control no depende de los votos; lo consolida quien dirige sus decisiones clave y absorbe sus resultados.', en: 'A vehicle whose control does not depend on votes; whoever directs its key decisions and absorbs its results consolidates it.' } },
     spv: { id: 'g-spv', re: { es: /\bSPVs?\b/, en: /\bSPVs?\b/ }, label: { es: 'SPV (vehículo de propósito específico)', en: 'SPV (special-purpose vehicle)' }, def: { es: 'Sociedad creada para un proyecto, con deuda propia, a menudo sin recurso contra la empresa.', en: 'An entity created for one project, with its own debt, often non-recourse to the company.' } },
     xbrl: { id: 'g-xbrl', re: { es: /\bXBRL\b/, en: /\bXBRL\b/ }, label: { es: 'XBRL', en: 'XBRL' }, def: { es: 'Etiquetas con que las empresas marcan cada cifra de sus estados financieros ante la SEC; permiten leerlas automáticamente.', en: 'Tags companies attach to each figure of their SEC financial statements, so they can be read automatically.' } },
-    tiers: { id: 'g-tiers', re: { es: /\bT[1-4](?![\s\u00a0]*\d{4})(?:[–-]T[1-4])?\b/, en: /\bT[1-4](?:[–-]T[1-4])?\b/ }, label: { es: 'Niveles de fuente T1–T4', en: 'Source tiers T1–T4' }, def: { es: 'T1 = presentación ante la SEC; T2 = material de la empresa, no auditado; T3 = regulador u operador de red; T4 = estimación de terceros. Nunca se mezclan en una cifra.', en: 'T1 = SEC filing; T2 = company material, not audited; T3 = regulator or grid operator; T4 = third-party estimate. Never mixed within one figure.' } }
+    tiers: { id: 'g-tiers', re: { es: /\bT[1-4](?![\s\u00a0]*\d{4})(?:[–-]T[1-4])?\b/, en: /\bT[1-4](?:[–-]T[1-4])?\b/ }, label: { es: 'Niveles de fuente T1–T4', en: 'Source tiers T1–T4' }, def: { es: 'T1 = presentación ante la SEC; T2 = material de la empresa, no auditado; T3 = regulador u operador de red; T4 = estimación de terceros. Nunca se mezclan en una cifra.', en: 'T1 = SEC filing; T2 = company material, not audited; T3 = regulator or grid operator; T4 = third-party estimate. Never mixed within one figure.' } },
+    // jargon expanded on first use per page (owner's third review): OCF, D&A, EBITDA, bp and "n.m."
+    ocf: { id: 'g-ocf', re: { es: /\bFEO\b/, en: /\bOCF\b/ }, label: { es: 'FEO (flujo de efectivo de operación)', en: 'OCF (operating cash flow)' }, def: { es: 'Efectivo que genera la operación en el periodo, antes de inversiones y financiamiento (estado de flujos de efectivo).', en: 'Cash the operations generate in the period, before investing and financing (cash-flow statement).' } },
+    da: { id: 'g-da', re: { es: /\bD&A\b/, en: /\bD&A\b/ }, label: { es: 'D&A (depreciación y amortización)', en: 'D&A (depreciation and amortization)' }, def: { es: 'Cargo contable que reparte el costo de los activos (servidores, edificios, intangibles) a lo largo de su vida útil; no es una salida de efectivo del periodo.', en: 'The accounting charge that spreads the cost of assets (servers, buildings, intangibles) over their useful lives; not a cash outflow of the period.' } },
+    ebitda: { id: 'g-ebitda', re: { es: /\bEBITDA\b/, en: /\bEBITDA\b/ }, label: { es: 'EBITDA', en: 'EBITDA' }, def: { es: 'Utilidad de operación más depreciación y amortización (utilidad antes de intereses, impuestos, depreciación y amortización); aquí, cálculo FNAM con cifras T1.', en: 'Operating income plus depreciation and amortization (earnings before interest, taxes, depreciation and amortization); here an FNAM calculation on T1 figures.' } },
+    bp: { id: 'g-bp', re: { es: /\bpb\b/, en: /\bbps?\b/ }, label: { es: 'pb (puntos base)', en: 'bp (basis points)' }, def: { es: 'Centésimas de punto porcentual: 100 pb = 1%. Un diferencial de 145 pb es 1.45% sobre el bono de referencia.', en: 'Hundredths of a percentage point: 100 bp = 1%. A 145 bp spread is 1.45% over the benchmark bond.' } },
+    nm: { id: 'g-nm', re: { es: /\bn\.s\./, en: /\bn\.m\./ }, label: { es: 'n.s. (no significativo)', en: 'n.m. (not meaningful)' }, def: { es: 'La razón no se muestra porque el denominador es cero, negativo o tan pequeño que el cociente dice más del denominador que del numerador (por ejemplo, capex / flujo de operación cuando el flujo es ≤ 0).', en: 'The ratio is not shown because the denominator is zero, negative or so small that the quotient says more about the denominator than the numerator (for example capex / operating cash flow when the flow is ≤ 0).' } }
   };
-  var GLOSS_SCOPE = 'header .lede, .sec-desc, .kpi .lbl, .kpi .sub, .wtk li, .card .cap, .callout';
+  var GLOSS_SCOPE = 'header .lede, .sec-desc, .kpi .lbl, .kpi .sub, .wtk li, .wtk summary, .wtk .det, .thesis, .thesis-meta, .card .cap, .card h3, .callout, .sowhat, .dq-line, main th, .stamp, .changes-list, .paths, main td .nd';
   function glossify() {
     var seen = {};
     document.querySelectorAll('abbr.term').forEach(function (a) { if (!a.closest('[hidden]')) seen[a.getAttribute('data-term')] = 1; });
@@ -414,7 +459,7 @@
     document.querySelectorAll('main .tblwrap table').forEach(function (tbl) {
       if (tbl.closest('.only-d') || tbl.closest('[data-nocards]') || !tbl.tHead) return;
       var hr = tbl.tHead.rows[tbl.tHead.rows.length - 1], heads = [];
-      Array.prototype.forEach.call(hr.cells, function (th) { for (var k = 0; k < (th.colSpan || 1); k++) heads.push((th.textContent || '').replace(/[↕↑↓]/g, '').trim()); });
+      Array.prototype.forEach.call(hr.cells, function (th) { for (var k = 0; k < (th.colSpan || 1); k++) heads.push(th.getAttribute('data-short') || (th.textContent || '').replace(/[↕↑↓]/g, '').trim()); });
       tbl.classList.add('collapse', 'cards');
       Array.prototype.forEach.call(tbl.tBodies[0] ? tbl.tBodies[0].rows : [], function (tr) {
         var i = 0; Array.prototype.forEach.call(tr.cells, function (td) { if (i > 0 && (td.colSpan || 1) === 1 && heads[i] && !td.hasAttribute('data-h')) td.setAttribute('data-h', heads[i]); i += td.colSpan || 1; });
@@ -428,15 +473,114 @@
       if (rv && !td.title) td.title = rv.getAttribute('title');
     });
   }
+  // ---- data quality, computed from the data each page shows (not from cells): one function per module gives the figures
+  // shown, how many are verified or matched, the items that need review, the XBRL gaps that remain unexplained and the gaps
+  // the curated file explains (not-tagged.json). Every page prints the line with the verification method and the item lists
+  // folded beneath (#dq); the summary page rolls all modules up, weakest first, and links each count to that list.
+  var MODULE_IDS = ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'];
+  function dqLatest(c) { return c.latest ? c.quarters.filter(function (q) { return q.id === c.latest.id; })[0] : null; }
+  function dqLastWith(c, k) { for (var i = c.quarters.length - 1; i >= 0; i--) if (c.quarters[i].m[k]) return c.quarters[i]; return null; }
+  function dqNew(id) { return { id: id, ok: 0, review: [], nt: [], explained: [], statements: 0, secondary: 0, curated: { n: 0, verified: 0, reviewed: 0 } }; }
+  function dqItem(D, kind, who, what, why, href) { D[kind].push({ who: who, what: what, why: why || '', href: href || null }); }
+  function dqCurated(D, items) { items.forEach(function (i) { D.curated.n++; if (i.status === 'verified') D.curated.verified++; if (i.reviewedBy) D.curated.reviewed++; }); }
+  // an XBRL-fed cell: present → ok (or review when flagged); absent → explained (curated reason) or not tagged
+  function dqXbrl(D, c, k, present, flagged, what, why) {
+    var F = window.HYP_FIN, name = c.name, label = (F.defs[k] ? F.defs[k][LANG] : k) + (what ? ' · ' + what : '');
+    if (present) { if (flagged) dqItem(D, 'review', name, label, why || t('falla un control de identidad o de valores atípicos', 'fails an identity or outlier check')); else D.ok++; return; }
+    var r = ntReason(c.ticker, k);
+    if (r && r.result !== 'unknown') dqItem(D, 'explained', name, label, t(NTR[r.result][0], NTR[r.result][1]) + ': ' + (r['note_' + LANG] || r.note_en || ''));
+    else dqItem(D, 'nt', name, label, r ? (r['note_' + LANG] || r.note_en || '') : t('sin etiqueta XBRL estándar; motivo no registrado', 'no standard XBRL tag; reason not recorded'));
+  }
+  function dqText(D, items, who, what) {
+    items.forEach(function (i) {
+      var s = i.src || (i.filing ? { quoteCheck: 'page' } : null);
+      var okQ = !s || s.quoteCheck === 'page' || s.quoteCheck == null;
+      if (i.status === 'verified' && okQ) D.ok++; else dqItem(D, 'review', who(i), what(i), i.status !== 'verified' ? t('pendiente de la segunda lectura automática', 'pending the automated second read') : t('la cita no está en la página citada', 'quote not on the cited page'));
+    });
+    dqCurated(D, items);
+  }
+  var DQ = {
+    capex: function () {
+      var F = window.HYP_FIN; if (!F) return null; var D = dqNew('capex'), cos = Object.keys(F.companies).map(function (k) { return F.companies[k]; });
+      var ttmK = ['capex_cash', 'fl_additions', 'ocf', 'debt_proceeds', 'debt_repaid', 'cp_net', 'equity_proceeds', 'pref_proceeds', 'buybacks', 'dividends', 'interest_cap'], derK = ['capex_incl_fl', 'fcf', 'fcf_after_fl'], balK = ['cash', 'debt', 'ol_liab', 'fl_liab'];
+      cos.forEach(function (c) {
+        var q = dqLatest(c); if (!q) return;
+        var i = c.quarters.indexOf(q), four = c.quarters.slice(Math.max(0, i - 3), i + 1);
+        ttmK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; var fl = four.some(function (x) { return x.m[k] && x.m[k][4]; }); dqXbrl(D, c, k, pres, fl, t('UDM', 'TTM'), fl ? t('un trimestre de la suma falla un control (ver la ficha ⓘ)', 'one quarter in the sum fails a check (see the ⓘ card)') : ''); });
+        derK.forEach(function (k) { var pres = q.ttm && q.ttm[k] != null; if (pres) { D.ok++; return; } var dep = k === 'capex_incl_fl' ? 'fl_additions' : k === 'fcf_after_fl' ? 'fl_principal' : 'ocf'; dqXbrl(D, c, dep, false, false, t('insumo de ', 'input of ') + k.replace(/_/g, ' ')); });
+        var bq = dqLastWith(c, 'debt') || q;
+        balK.forEach(function (k) { dqXbrl(D, c, k, !!bq.m[k], bq.m[k] && bq.m[k][4], date(bq.end)); });
+        if (bq.d && bq.d.lease_adj_net_debt == null && bq.m.debt) dqXbrl(D, c, 'fl_liab', false, false, t('insumo de deuda neta ajustada', 'input of lease-adjusted net debt'));
+        var fs = F.debt && F.debt.totals[c.ticker];
+        if (fs && bq.m.debt && fs.report === bq.end) { if (Math.abs(fs.total * 1e6 - bq.m.debt[0]) / Math.max(1, Math.abs(bq.m.debt[0])) <= 0.02) D.ok++; else dqItem(D, 'review', c.name, t('deuda total: XBRL vs. FactSet', 'total debt: XBRL vs FactSet'), t('difieren más de 2% a la misma fecha', 'differ by more than 2% at the same date')); }
+      });
+      ((F.debt && F.debt.deals) || []).forEach(function (d) {
+        var who = (F.companies[d.ticker] || {}).name || d.ticker, what = date(d.issued) + ' · ' + d.klass + (d.amount ? ' · ' + money(d.amount * 1e6).replace(/<[^>]+>/g, '') : '');
+        if (d.match || (d.fs && d.fs.result === 'filing')) D.ok++;
+        else if (d.fs && d.fs.result === 'partial') dqItem(D, 'explained', who, what, t('cotejo parcial: ', 'partial match: ') + (d.fs['note_' + LANG] || d.fs.note_en || ''));
+        else dqItem(D, 'review', who, what, d.fs ? (d.fs['note_' + LANG] || d.fs.note_en || t('sin resolver', 'unresolved')) : t('solo FactSet: sin presentación cotejada', 'FactSet only: no filing matched'));
+      });
+      dqCurated(D, (F.notTagged || []).concat(((F.debt && F.debt.deals) || []).filter(function (d) { return d.fs; }).map(function (d) { return d.fs; })));
+      return D;
+    },
+    'fuera-de-balance': function () {
+      var F = window.HYP_FIN; if (!F) return null; var D = dqNew('fuera-de-balance'), OB = F.offbs || { items: [] }, cos = Object.keys(F.companies).map(function (k) { return F.companies[k]; });
+      var L = { leases_not_commenced: t('arrend. no iniciados', 'leases not commenced'), vie_unconsolidated: t('EIV no consolidada', 'unconsolidated VIE'), jv_equity_method_debt: t('deuda de coinversión', 'JV debt'), spv: 'SPV', rvg: t('garantía de valor residual', 'residual value guarantee'), guarantee: t('garantía', 'guarantee'), backstop: 'backstop', purchase_obligation: t('obligación de compra', 'purchase obligation'), prepayment: t('prepagos', 'prepayments'), funding_commitment: t('compromiso de fondeo', 'funding commitment') };
+      dqText(D, OB.items, function (i) { return (F.companies[i.ticker] || {}).name || i.ticker; }, function (i) { return (L[i.item] || i.item) + ' · ' + money(i.amountUSDm != null ? i.amountUSDm * 1e6 : null).replace(/<[^>]+>/g, ''); });
+      ['rpo', 'purchase_oblig', 'vie_max_loss', 'guarantees_max', 'equity_method', 'nci_vie', 'ol_pay_due', 'fl_pay_due', 'ol_liab', 'fl_liab', 'debt'].forEach(function (k) {
+        cos.forEach(function (c) { var q = dqLastWith(c, k); dqXbrl(D, c, k, !!q, q && q.m[k][4], q ? date(q.end) : t('último balance', 'latest balance sheet')); });
+      });
+      return D;
+    },
+    capacidad: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('capacidad'); dqText(D, C.current, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); if (C.oracle) D.statements += (C.oracle.quarters || []).length + (C.oracle.fiscalYears || []).length; return D; },
+    comprometida: function () { var C = window.HYP_CAP, F = window.HYP_FIN; if (!C || !F) return null; var D = dqNew('comprometida'); var t1 = C.pipeline.filter(function (x) { return x.tier !== 'T2'; }); dqText(D, t1, function (x) { return F.companies[x.ticker].name; }, function (x) { return metricLabel(x.metric) + ' · ' + mw(x.mw, x.qualifier); }); D.statements += C.pipeline.length - t1.length; return D; },
+    electricidad: function () { var P = window.HYP_POWER, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('electricidad'); P.companyDeals.forEach(function (d) { if (d.src && d.src.tier === 'T1') { if (d.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', F.companies[d.ticker].name, d.counterparty || d.counterparty_en || d.id, t('la cita no está en la página citada', 'quote not on the cited page')); } else D.statements++; }); D.curated.n = P.companyDeals.length; D.curated.verified = P.companyDeals.filter(function (d) { return d.src && d.src.quoteCheck === 'page'; }).length; D.curated.reviewed = P.companyDeals.filter(function (d) { return d.reviewedBy; }).length; return D; },
+    sitios: function () { var S = window.HYP_SITES, F = window.HYP_FIN; if (!S || !F) return null; var D = dqNew('sitios'); S.sites.forEach(function (x) { if (x.src && x.src.tier === 'T1') { if (x.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', F.companies[x.ticker].name, x.name || x.name_en, t('la cita no está en la página citada', 'quote not on the cited page')); } else D.statements++; }); D.curated.n = S.sites.length; D.curated.verified = S.sites.filter(function (x) { return x.src && x.src.quoteCheck === 'page'; }).length; D.curated.reviewed = S.sites.filter(function (x) { return x.reviewedBy; }).length; return D; },
+    circular: function () { var C = window.HYP_CIRC; if (!C) return null; var D = dqNew('circular'); C.flows.forEach(function (f) { if (f.src && f.src.tier === 'T1') { if (f.src.quoteCheck === 'page') D.ok++; else dqItem(D, 'review', f.from + ' → ' + f.to, f.type, t('la cita no está en la página citada', 'quote not on the cited page')); } else if (f.pending_en) dqItem(D, 'review', f.from + ' → ' + f.to, f.type, f['pending_' + LANG] || f.pending_en); else D.statements++; }); D.curated.n = C.flows.length; D.curated.verified = C.flows.filter(function (f) { return f.src && f.src.quoteCheck === 'page'; }).length; D.curated.reviewed = C.flows.filter(function (f) { return f.reviewedBy; }).length; return D; },
+    retorno: function () {
+      var P = window.HYP_PAY, F = window.HYP_FIN; if (!P || !F) return null; var D = dqNew('retorno');
+      var items = [].concat(P.segments, P.rpoTiming, P.usefulLives, P.capexPerMW);
+      dqText(D, items, function (x) { return F.companies[x.ticker].name; }, function (x) { return x.segment_en ? x['segment_' + LANG] : x.rpoUSDm ? 'RPO' : x.servers_en ? t('vida útil', 'useful life') : t('capex por GW', 'capex per GW'); });
+      P.termSheets.forEach(function (x) { if (x.status === 'verified') D.ok++; else dqItem(D, 'review', F.companies[x.ticker].name, x.form + ' ' + date(x.date), t('hoja de términos pendiente de segunda lectura', 'term sheet pending second read')); }); dqCurated(D, P.termSheets);
+      P.ratings.forEach(function (r) { r.items.forEach(function (it) { if (it.supersededBy) return; if (it.tier === 'T1') D.ok++; else D.secondary++; }); });
+      Object.keys(F.companies).forEach(function (k) { var c = F.companies[k], q = dqLatest(c); if (!q) return; dqXbrl(D, c, 'interest_paid', q.ttm && q.ttm.interest_paid != null, false, t('UDM', 'TTM')); });
+      return D;
+    }
+  };
+  function dqModule(id) { var f = DQ[id]; if (!f) return null; try { return f(); } catch (e) { console.error(e); return null; } }
+  function dqPct(D) { var shown = D.ok + D.review.length; return { shown: shown, pct: shown ? Math.round(D.ok / shown * 100) : 100 }; }
+  function dqList(D) {
+    var li = function (kind, label) { return D[kind].length ? '<li><span class="k">' + label + '</span> ' + D[kind].map(function (x) { return '<b>' + esc(x.who) + '</b> · ' + esc(plain(x.what)) + (x.why ? ' <span class="muted">(' + esc(plain(x.why)) + ')</span>' : ''); }).join('; ') + '</li>' : ''; };
+    return '<ul>' + li('review', t('Por revisar', 'Needs review')) + li('nt', t('Sin etiqueta XBRL', 'Not tagged')) + li('explained', t('Huecos explicados', 'Explained gaps')) + '</ul>';
+  }
   function dqLine() {
     var host = document.getElementById('dqLine');
+    var mid = curMod() > 0 && MODS[curMod()].n ? MODS[curMod()].p : null;
     if (!host) { var a = document.getElementById('asofRow'); if (!a) return; host = document.createElement('div'); host.id = 'dqLine'; host.className = 'dq-line'; a.parentNode.insertBefore(host, a.nextSibling); }
-    var cells = Array.prototype.filter.call(document.querySelectorAll('main td, main .kpi .val'), function (td) { return !td.closest('[hidden]') && !td.closest('.only-m') && (td.querySelector('.src-btn') || td.querySelector('.nt') || td.querySelector('.rvw')); });
-    var rv = cells.filter(function (td) { return td.querySelector('.rvw'); }).length, n = cells.filter(function (td) { return !td.querySelector('.rvw') && td.querySelector('.nt'); }).length;
-    var shown = cells.length - n;
-    if (!cells.length) { host.innerHTML = ''; return; }
-    var ok = shown ? Math.round((shown - rv) / shown * 100) : 100;
-    host.innerHTML = '<b>' + t('Calidad de los datos', 'Data quality') + '</b> ' + t(ok + '% de las ' + shown + ' cifras de esta página está verificado o cotejado', ok + '% of the ' + shown + ' figures on this page are verified or matched') + (rv ? ' · <span class="sw-review"></span>' + t(rv + ' por revisar (celda sombreada; el motivo al pasar el cursor y en la ficha ⓘ)', rv + ' need review (shaded cell; the reason on hover and in the ⓘ card)') : '') + (n ? ' · <span class="sw-nt"></span>' + t(n + ' sin etiqueta XBRL («s.e.»: la empresa no la etiqueta; no es lo mismo que «no divulgado»)', n + ' not tagged in XBRL ("n.t.": the company does not tag it; not the same as "not disclosed")') : '') + (QPAGE ? ' · <a href="' + QPAGE + '">' + t('página de calidad', 'quality page') + '</a>' : '');
+    if (!mid) { host.innerHTML = ''; return; }
+    var D = dqModule(mid); if (!D) { host.innerHTML = ''; return; }
+    var P = dqPct(D), open = location.hash === '#dq';
+    host.innerHTML = '<b>' + t('Calidad de los datos', 'Data quality') + '</b> ' + t(P.pct + '% de las ' + P.shown + ' cifras de esta página está verificado o cotejado (' + VERIF.es + ')', P.pct + '% of the ' + P.shown + ' figures on this page are verified or matched (' + VERIF.en + ')') +
+      (D.curated.n ? ' · ' + t('revisadas por analista: ' + D.curated.reviewed + ' de ' + D.curated.n + ' partidas curadas', 'analyst-reviewed: ' + D.curated.reviewed + ' of ' + D.curated.n + ' curated items') : '') +
+      (D.review.length ? ' · <span class="sw-review"></span>' + t(D.review.length + ' por revisar', D.review.length === 1 ? '1 needs review' : D.review.length + ' need review') : '') +
+      (D.nt.length ? ' · <span class="sw-nt"></span>' + t(D.nt.length + ' sin etiqueta XBRL sin explicar', D.nt.length + ' not tagged in XBRL, unexplained') : '') +
+      (D.explained.length ? ' · ' + t(D.explained.length + ' huecos explicados (n/a, texto, solo anual)', D.explained.length + ' explained gaps (n/a, text, annual only)') : '') +
+      (D.statements ? ' · ' + t(D.statements + ' declaraciones de la empresa (T2)', D.statements + ' company statements (T2)') : '') + (D.secondary ? ' · ' + t(D.secondary + ' de fuente secundaria (T4)', D.secondary + ' from a secondary source (T4)') : '') +
+      (QPAGE ? ' · <a href="' + QPAGE + '">' + t('página de calidad', 'quality page') + '</a>' : '') +
+      (D.review.length + D.nt.length + D.explained.length ? '<details id="dq"' + (open ? ' open' : '') + '><summary>' + t('Lista de partidas', 'Item list') + '</summary>' + dqList(D) + '</details>' : '');
+  }
+  // summary page: every module's line, weakest first; the counts link to that module's list (#dq)
+  function dqRollup(hostId) {
+    var host = document.getElementById(hostId); if (!host) return;
+    var rows = MODULE_IDS.map(function (id) { var D = dqModule(id); return D ? { id: id, D: D, P: dqPct(D), m: MODS.filter(function (x) { return x.p === id; })[0] } : null; }).filter(Boolean);
+    rows.sort(function (a, b) { return (a.P.pct - b.P.pct) || ((b.D.review.length + b.D.nt.length) - (a.D.review.length + a.D.nt.length)); });
+    if (!rows.length) { host.innerHTML = ''; return; }
+    var w = rows[0], totalRev = rows.reduce(function (s, r) { return s + r.D.review.length; }, 0), totalNt = rows.reduce(function (s, r) { return s + r.D.nt.length; }, 0), totalEx = rows.reduce(function (s, r) { return s + r.D.explained.length; }, 0), cur = rows.reduce(function (s, r) { return { n: s.n + r.D.curated.n, r: s.r + r.D.curated.reviewed }; }, { n: 0, r: 0 });
+    var link = function (r, kind, n) { return n ? '<a href="/hiperescaladores/' + r.id + '/#dq">' + n + '</a>' : '0'; };
+    host.innerHTML = '<b>' + t('Calidad de los datos del centro', 'Hub data quality') + '</b> ' + t('El módulo más débil es ', 'The weakest module is ') + '<a href="/hiperescaladores/' + w.id + '/#dq">' + esc(modLabel(w.m)) + '</a>: ' + t(w.P.pct + '% de ' + w.P.shown + ' cifras verificadas o cotejadas, ' + w.D.review.length + ' por revisar, ' + w.D.nt.length + ' sin etiqueta XBRL sin explicar', w.P.pct + '% of ' + w.P.shown + ' figures verified or matched, ' + (w.D.review.length === 1 ? '1 needs review, ' : w.D.review.length + ' need review, ') + w.D.nt.length + ' not tagged in XBRL and unexplained') + '. ' +
+      t('En los ocho módulos: ' + (totalRev === 1 ? '1 partida por revisar, ' : totalRev + ' partidas por revisar, ') + totalNt + ' sin etiqueta sin explicar, ' + totalEx + ' huecos explicados; revisadas por analista: ' + cur.r + ' de ' + cur.n + ' partidas curadas. Verificado significa ' + VERIF.es + '.', 'Across the eight modules: ' + (totalRev === 1 ? '1 item needs review, ' : totalRev + ' items need review, ') + totalNt + ' not tagged and unexplained, ' + totalEx + ' explained gaps; analyst-reviewed: ' + cur.r + ' of ' + cur.n + ' curated items. Verified means ' + VERIF.en + '.') +
+      '<div class="tblwrap" data-nosort data-nocards><table><thead><tr><th class="l">' + t('Módulo', 'Module') + '</th><th>' + t('Verificado o cotejado', 'Verified or matched') + '</th><th>' + t('Por revisar', 'Needs review') + '</th><th>' + t('Sin etiqueta', 'Not tagged') + '</th><th>' + t('Explicados', 'Explained') + '</th><th>' + t('Analista', 'Analyst') + '</th></tr></thead><tbody>' +
+      rows.map(function (r, i) { return '<tr' + (i === 0 ? ' class="worst"' : '') + '><td class="l"><a href="/hiperescaladores/' + r.id + '/">' + esc(modLabel(r.m)) + '</a></td><td data-l="' + esc(t('Verificado o cotejado', 'Verified or matched')) + '">' + r.P.pct + '% · ' + r.P.shown + '</td><td data-l="' + esc(t('Por revisar', 'Needs review')) + '">' + link(r, 'review', r.D.review.length) + '</td><td data-l="' + esc(t('Sin etiqueta', 'Not tagged')) + '">' + link(r, 'nt', r.D.nt.length) + '</td><td data-l="' + esc(t('Explicados', 'Explained')) + '">' + link(r, 'explained', r.D.explained.length) + '</td><td data-l="' + esc(t('Analista', 'Analyst')) + '">' + r.D.curated.reviewed + ' / ' + r.D.curated.n + '</td></tr>'; }).join('') + '</tbody></table></div>';
   }
   var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
 
@@ -459,8 +603,21 @@
   // the static navigation in each page lists the same order; its labels are re-written here so every page matches
   function navLabels() {
     var nav = document.querySelector('nav.mods .wrap'); if (!nav) return;
-    var i = curMod();
-    nav.innerHTML = MODS.map(function (x, k) { return '<a href="' + modHref(x) + '"' + (k === i ? ' class="active" aria-current="page"' : '') + '>' + (x.n ? '<span class="n">' + x.n + '</span>' : '') + esc(x[LANG]) + '</a>'; }).join('');
+    var i = curMod(), cur = i >= 0 ? MODS[i] : null;
+    var links = MODS.map(function (x, k) { return '<a href="' + modHref(x) + '"' + (k === i ? ' class="active" aria-current="page"' : '') + '>' + (x.n ? '<span class="n">' + x.n + '</span>' : '') + esc(x[LANG]) + '</a>'; }).join('');
+    nav.innerHTML = '<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="modLinks"><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span><span>' + t('Módulos', 'Modules') + '</span>' + (cur ? '<span class="cur">· ' + esc(modLabel(cur)) + '</span>' : '') + '</button><div class="nav-links" id="modLinks">' + links + '</div>';
+    wireToggle(nav);
+    var jump = document.querySelector('nav.jump .wrap');
+    if (jump && !jump.querySelector('.nav-toggle')) {
+      var inner = jump.innerHTML;
+      jump.innerHTML = '<button type="button" class="nav-toggle" aria-expanded="false" aria-controls="jumpLinks"><span class="ic" aria-hidden="true"><i></i><i></i><i></i></span><span>' + t('Secciones de esta página', 'Sections on this page') + '</span></button><div class="nav-links" id="jumpLinks">' + inner + '</div>';
+      wireToggle(jump);
+    } else if (jump) { var lb = jump.querySelector('.nav-toggle > span:nth-child(2)'); if (lb) lb.textContent = t('Secciones de esta página', 'Sections on this page'); }
+  }
+  function wireToggle(box) {
+    var b = box.querySelector('.nav-toggle'), links = box.querySelector('.nav-links'); if (!b || !links) return;
+    b.addEventListener('click', function () { var open = !links.classList.contains('open'); links.classList.toggle('open', open); b.setAttribute('aria-expanded', String(open)); });
+    links.addEventListener('click', function (e) { if (e.target.closest('a') && box.closest('nav.jump')) { links.classList.remove('open'); b.setAttribute('aria-expanded', 'false'); } });
   }
   // "so what": one sentence under the module title, composed by the module from its data (never hand-written figures)
   function soWhat(html) {
@@ -521,6 +678,7 @@
     edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
     mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
     aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify,
-    soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend
+    soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend,
+    ntReason: ntReason, ntCell: ntCell, verifText: verifText, verifSummary: verifSummary, VERIF: VERIF, etDate: etDate, curatedDate: curatedDate, dqModule: dqModule, dqRollup: dqRollup, dqPct: dqPct
   };
 })();

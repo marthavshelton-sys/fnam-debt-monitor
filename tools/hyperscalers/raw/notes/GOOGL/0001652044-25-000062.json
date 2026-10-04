@@ -1,0 +1,855 @@
+{
+ "ticker": "GOOGL",
+ "cik": 1652044,
+ "form": "10-Q",
+ "accn": "0001652044-25-000062",
+ "filed": "2025-07-24",
+ "report": "2025-06-30",
+ "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000062/goog-20250630.htm",
+ "harvested": "2026-10-04",
+ "pageCount": 56,
+ "numberedPages": 56,
+ "hits": [
+  {
+   "kind": "cash_flow",
+   "page": "5",
+   "match": "Deferred revenue ",
+   "text": "…le securities 37,982 52,574   Deferred income taxes 17,180 19,289   Property and equipment, net 171,036 203,231   Operating lease assets 13,588 14,255   Goodwill 31,885 32,335   Other non-current assets 14,874 14,153   Total assets $ 450,256 $ 502,053   Liabilities and Stockholders’ Equity   Current liabilities:   Accounts payable $ 7,987 $ 8,347   Accrued compensation and benefits 15,069 12,168   Accrued expenses and other current liabilities 51,228 52,039   Accrued revenue share 9,802 9,787   Deferred revenue 5,036 4,969   Total current liabilities 89,122 87,310   Long-term debt 10,883 23,607   Income taxes payable, non-current 8,782 10,027   Operating lease liabilities 11,691 11,952   Other long-term liabilities 4,694 6,241   Total liabilities 125,172 139,137   Commitments and Contingencies (Note 10)   Stockholders’ equity:   Preferred stock, $ 0.001 par value per share, 100 shares authorized; no shares issued and outstanding   0 0   Class A, Class B, and Class C stock and additional paid-in capital, $ 0.001 par value per share: 300,000 shares authorized (Class A 180,000 , Class B 60,000 , Class C 60,000 ); 12,211 (Class A 5,835 , Class B 861 , Class C 5,515 ) and 12,104 (Class A 5,816 , Class B 849 , Class C 5,439 ) s hares issued and outstanding   84,800 89,283   Accumulated other comprehensive income (loss) ( 4,800 ) ( 2,127 )   Retained earnings 245,084 275,760   Total s…",
+   "amounts": [
+    {
+     "raw": "$ 7,987 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,347   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.001 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "10",
+   "match": "Deferred revenue ",
+   "text": "…85   Stock-based compensation expense 11,129 11,514   Deferred income taxes ( 2,738 ) ( 1,596 )   Loss (gain) on debt and equity securities, net ( 757 ) ( 11,411 )   Other 1,185 1,041   Changes in assets and liabilities, net of effects of acquisitions:   Accounts receivable, net 110 ( 1,201 )   Income taxes, net ( 889 ) ( 2,434 )   Other assets ( 1,532 ) ( 2,767 )   Accounts payable ( 563 ) ( 327 )   Accrued expenses and other liabilities ( 5,176 ) ( 1,560 )   Accrued revenue share 97 ( 219 )   Deferred revenue 220 636   Net cash provided by operating activities 55,488 63,897   Investing activities   Purchases of property and equipment ( 25,198 ) ( 39,643 )   Purchases of marketable securities ( 43,011 ) ( 39,870 )   Maturities and sales of marketable securities 58,577 40,930   Purchases of non-marketable securities ( 2,199 ) ( 2,312 )   Maturities and sales of non-marketable securities 605 873   Acquisitions, net of cash acquired, and purchases of intangible assets ( 87 ) ( 353 )   Other investing activities ( 32 ) ( 363 )   Net cash used in investing activities ( 11,345 ) ( 40,738 )   Financing activities   Net payments related to stock-based award activities ( 6,138 ) ( 5,731 )   Repurchases of stock ( 31,380 ) ( 28,706 )   Dividend payments ( 2,466 ) ( 4,977 )   Proceeds from issuance of debt, net of costs 4,875 31,378   Repayments of debt ( 5,502 ) ( 18,397 )   Proceeds fr…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "12",
+   "match": "Google Cloud",
+   "text": "…egated Revenues   The following table presents revenues disaggregated by type (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Google Search & other $ 48,509 $ 54,190 $ 94,665 $ 104,892   YouTube ads 8,663 9,796 16,753 18,723   Google Network 7,444 7,354 14,857 14,610   Google advertising 64,616 71,340 126,275 138,225   Google subscriptions, platforms, and devices   9,312 11,203 18,051 21,582   Google Services total 73,928 82,543 144,326 159,807   Google Cloud 10,347 13,624 19,921 25,884   Other Bets 365 373 860 823   Hedging gains (losses) 102 ( 112 ) 174 148   Total revenues $ 84,742 $ 96,428 $ 165,281 $ 186,662   The following table presents revenues disaggregated by geography, based on the addresses of our customers (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   United States $ 41,196 49 % $ 46,063 48 % $ 79,933 48 % $ 90,027 48 %   EMEA (1)   24,683 29 28,262 29 48,471 29 54,185 29   APAC (1)   13,823 16 16,480 17 27,112 17 31,334 17   Other Americas (1)   4,938 6 5,735 6 9,591 6 10,968 6   Hedging gains (losses) 102 0 ( 112 ) 0 174 0 148 0   Total revenues $ 84,742 100 % $ 96,428 100 % $ 165,281 100 % $ 186,662 100 %   (1) Regions represent Europe, the Middle East, and Africa (EMEA); Asia-Pacific (APAC); and Canada and Latin America (\"Other Americas\").   Revenue Backlog   As …",
+   "amounts": [
+    {
+     "raw": "$ 84,742 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 96,428 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 165,281 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 186,662   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 41,196 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "12",
+   "match": "Google Cloud",
+   "text": "… 16,480 17 27,112 17 31,334 17   Other Americas (1)   4,938 6 5,735 6 9,591 6 10,968 6   Hedging gains (losses) 102 0 ( 112 ) 0 174 0 148 0   Total revenues $ 84,742 100 % $ 96,428 100 % $ 165,281 100 % $ 186,662 100 %   (1) Regions represent Europe, the Middle East, and Africa (EMEA); Asia-Pacific (APAC); and Canada and Latin America (\"Other Americas\").   Revenue Backlog   As of June 30, 2025, we had $ 108.2 billion of remaining performance obligations (“revenue backlog”), primarily related to Google Cloud. Revenue backlog represents commitm ents in customer contracts for future services that have not yet been recognized as revenue. We expect to r ecognize approximately 55 % of the revenue backlog as revenues over the next 24 months with the remainder to be recognized thereafter. The estimated revenue backlog and timing of revenue recognition for these commitments is largely driven by our ability to deliver in accordance with relevant contract terms and when our customers utilize services. Revenue backlog includes related deferred revenue currently recorded as well as amounts that will be invoiced in future periods, and excludes contracts with an original expected term of one year or less and cancellable contracts.   Deferred Revenues   We record deferred revenues when cash payments are received or due in advance of our performance, including amounts which are refundable. Defe…",
+   "amounts": [
+    {
+     "raw": "$ 108.2 billion",
+     "usdM": 108200
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "12",
+   "match": "Google Cloud",
+   "text": "…e with relevant contract terms and when our customers utilize services. Revenue backlog includes related deferred revenue currently recorded as well as amounts that will be invoiced in future periods, and excludes contracts with an original expected term of one year or less and cancellable contracts.   Deferred Revenues   We record deferred revenues when cash payments are received or due in advance of our performance, including amounts which are refundable. Deferred revenues primarily relate to Google Cloud and Google s ubscriptions, platforms, and devices. Total deferred revenue as of December 31, 2024 was $ 6.0 billion, of which $ 3.5 billion was recognized as revenues for the six months ended June 30, 2025. Total deferred revenue as of June 30, 2025 was $ 6.8 billion.   Note 3. Financial Instruments   Fair Value Measurements   Investments Measured at Fair Value on a Recurring Basis   Cash, cash equivalents, and marketable equity securities are measured at fair value and classified within   12",
+   "amounts": [
+    {
+     "raw": "$ 6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$ 3.5 billion",
+     "usdM": 3500
+    },
+    {
+     "raw": "$ 6.8 billion",
+     "usdM": 6800
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "12",
+   "match": "remaining performance obligations",
+   "text": "…   EMEA (1)   24,683 29 28,262 29 48,471 29 54,185 29   APAC (1)   13,823 16 16,480 17 27,112 17 31,334 17   Other Americas (1)   4,938 6 5,735 6 9,591 6 10,968 6   Hedging gains (losses) 102 0 ( 112 ) 0 174 0 148 0   Total revenues $ 84,742 100 % $ 96,428 100 % $ 165,281 100 % $ 186,662 100 %   (1) Regions represent Europe, the Middle East, and Africa (EMEA); Asia-Pacific (APAC); and Canada and Latin America (\"Other Americas\").   Revenue Backlog   As of June 30, 2025, we had $ 108.2 billion of remaining performance obligations (“revenue backlog”), primarily related to Google Cloud. Revenue backlog represents commitm ents in customer contracts for future services that have not yet been recognized as revenue. We expect to r ecognize approximately 55 % of the revenue backlog as revenues over the next 24 months with the remainder to be recognized thereafter. The estimated revenue backlog and timing of revenue recognition for these commitments is largely driven by our ability to deliver in accordance with relevant contract terms and when our customers utilize services. Revenue backlog includes related deferred revenue currently recorded as well as amounts that will be invoiced in future periods, and excludes contracts with an original expected term of one year or less and cancellable contracts.   Deferred Revenues   We record deferred revenues when cash payments are received or due…",
+   "amounts": [
+    {
+     "raw": "$ 165,281 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 186,662 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 108.2 billion",
+     "usdM": 108200
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "12",
+   "match": "deferred revenue ",
+   "text": "…s commitm ents in customer contracts for future services that have not yet been recognized as revenue. We expect to r ecognize approximately 55 % of the revenue backlog as revenues over the next 24 months with the remainder to be recognized thereafter. The estimated revenue backlog and timing of revenue recognition for these commitments is largely driven by our ability to deliver in accordance with relevant contract terms and when our customers utilize services. Revenue backlog includes related deferred revenue currently recorded as well as amounts that will be invoiced in future periods, and excludes contracts with an original expected term of one year or less and cancellable contracts.   Deferred Revenues   We record deferred revenues when cash payments are received or due in advance of our performance, including amounts which are refundable. Deferred revenues primarily relate to Google Cloud and Google s ubscriptions, platforms, and devices. Total deferred revenue as of December 31, 2024 was $ 6.0 billion, of which $ 3.5 billion was recognized as revenues for the six months ended June 30, 2025. Total deferred revenue as of June 30, 2025 was $ 6.8 billion.   Note 3. Financial Instruments   Fair Value Measurements   Investments Measured at Fair Value on a Recurring Basis   Cash, cash equivalents, and marketable equity securities are measured at fair value and classified within…",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "15",
+   "match": "variable interest entit",
+   "text": "…sses 7 14 3 28   Total gain (loss) on debt securities recognized in other income (expense), net $ ( 310 ) $ 165 $ ( 772 ) $ 367   Equity Investments   The carrying value of equity securities is measured as the total initial cost plus the cumulative net gain (loss). Gains and losses, including impairments, are included as a component of OI&E in the Consolidated Statements of Income. See Note 7 for further details on OI&E. Certain of our non-marketable equity securities include our investments in variable interest entities (VIE) where we are not the primary beneficiary. See Note 5 for further details on VIE.   15",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "16",
+   "match": "primary beneficiary",
+   "text": "…ecurities Accounted for Under the Equity Method   As of December 31, 2024 and June 30, 2025, equity securities accounted for under the equity method had a carrying value of approximately $ 2.0 billion and $ 2.3 billion, respectively. Our share of gains and losses, including impairments, are included as a component of OI&E, in the Consolidated Statements of Income. See Note 7 for further details on OI&E. Certain of our equity method securities include our investments in VIEs where we are not the primary beneficiary. See Note 5 for further details on VIEs.   Convertible Notes   16",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "22",
+   "match": "not yet commenced",
+   "text": "…Cash Flows as repayments of debt.   Future lease payments as of June 30, 2025 were as follows (in millions):   Operating Leases Finance  Leases   Remainder of 2025 $ 2,095 $ 162   2026 3,078 299   2027 2,549 301   2028 2,042 290   2029 1,630 268   Thereafter 6,035 1,310   Total future lease payments 17,429 2,630   Less imputed interest ( 2,470 ) ( 528 )   Total lease liability balance $ 14,959 $ 2,102   As of June 30, 2025, we have entered into leases primarily related to data centers that have not yet commenced with future lease payments of $ 23.9 billion, that are not yet recorded on our Consolidated Balance Sheets. These leases will commence between 2025 and 2031 with non-cancelable lease terms between one and 25 years.   22",
+   "amounts": [
+    {
+     "raw": "$ 14,959 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,102   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23.9 billion",
+     "usdM": 23900
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "22",
+   "match": "Financing cash flows used for finance leases",
+   "text": "…1   Accrued expenses and other liabilities $ 235 $ 100   Other long-term liabilities 1,442 2,002   Total finance lease liabilities $ 1,677 $ 2,102   Supplemental cash flow information related to leases was as follows (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Cash payments for lease liabilities:   Operating cash flows used for operating leases   $ 844 $ 783 $ 1,686 $ 1,661   Operating cash flows used for finance leases   $ 7 $ 16 $ 14 $ 31   Financing cash flows used for finance leases (1)   $ 97 $ 110 $ 187 $ 302   Assets obtained in exchange for lease liabilities:   Operating leases $ 493 $ 831 $ 897 $ 1,528   Finance leases $ 146 $ 83 $ 165 $ 606   (1) Financing cash flows used for financing leases are included within financing activities of the Consolidated Statements of Cash Flows as repayments of debt.   Future lease payments as of June 30, 2025 were as follows (in millions):   Operating Leases Finance  Leases   Remainder of 2025 $ 2,095 $ 162   2026 3,078 299   2027 2,549 301   2028 2,042 290   2029 1,630 268   Thereafter 6,035 1,310   Total future lease payments 17,429 2,630   Less imputed interest ( 2,470 ) ( 528 )   Total lease liability balance $ 14,959 $ 2,102   As of June 30, 2025, we have entered into leases primarily related to data centers that have not yet commenced with future lease payments of $ 23.9 billi…",
+   "amounts": [
+    {
+     "raw": "$ 844 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 783 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,686 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,661   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 31   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 97 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 110 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 187 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 302   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 493 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 831 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 897 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,528   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 146 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 83 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 165 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 606   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "23",
+   "match": "Variable Interest Entit",
+   "text": "Note 5. Variable Interest Entities   Consolidated VIEs   We consolidate VIEs in which we hold a variable interest and are the primary beneficiary. The results of operations and financial position of these VIEs are included in our consolidated financial statements.   For certain consolidated VIEs, their assets are not available to us, and their creditors do not have recourse to us. As of December 31, 2024 and June 30, 2025, assets that can only be used to settle obligations of these VIEs were $ 8.7 billion an d $ 7.0 billion, respectively, and are primarily included in cash and cash equivalents on our Consolidated Balance Sheets. As of December 31, 2024 and June 30, 2025, liabilities for which creditors only have recourse to the VIEs were $ 2.3 billion and $ 1.8 billion, respectively. We may continue to fund ongoing operations of certain VIEs that are included within Other Bets.   As of December …",
+   "amounts": []
+  },
+  {
+   "kind": "vie",
+   "page": "23",
+   "match": "primary beneficiary",
+   "text": "…(NCI) in our consolidated subsidiaries were $ 4.2 billion and $ 4.3 billion, respectively, of which $ 1.1 billion was redeemable noncontrolling interests (RNCI) in each period. NCI and RNCI are included within additional paid-in capital. Net loss attributable to noncontrolling interests was not material for any period presented and is included within the \"other\" component of OI&E. See Note 7 for further details on OI&E.   Unconsolidated VIEs   We have investments in VIEs in which we are not the primary beneficiary. These VIEs include private companies that are primarily early stage companies and certain renewable energy entities in which activities involve power generation using renewable sources.   We have determined that the governance structures of these entities do not allow us to direct the activities that would significantly affect their economic performance. Therefore, we are not the primary beneficiary, and the results of operations and financial position of these VIEs are not included in our consolidated financial statements. We account for these investments primarily as non-marketable equity securities or equity method investments, which are included within non-marketable securities on our Consolidated Balance Sheets. The maximum exposure of these unconsolidated VIEs is generally based on the current carrying value of the investments and any future funding commitments…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "23",
+   "match": "equity method investment",
+   "text": "…ies in which activities involve power generation using renewable sources.   We have determined that the governance structures of these entities do not allow us to direct the activities that would significantly affect their economic performance. Therefore, we are not the primary beneficiary, and the results of operations and financial position of these VIEs are not included in our consolidated financial statements. We account for these investments primarily as non-marketable equity securities or equity method investments, which are included within non-marketable securities on our Consolidated Balance Sheets. The maximum exposure of these unconsolidated VIEs is generally based on the current carrying value of the investments and any future funding commitments. As of December 31, 2024 and June 30, 2025, our future funding commitments related to unconsolidated VIE investments were $ 1.5 billion and $ 1.4 billion, respectively.   Note 6. Debt   Short-Term Debt   We have a short-term debt financing program of up to $ 25.0 billion through the issuance of commercial paper. Net proceeds from this program are used for general corporate purposes. We had $ 2.3 billion and $ 3.0 billion of commercial paper outstanding as of December 31, 2024 and June 30, 2025, respectively, with a weighted-average effective interest rate of 4.4 % in each period. The estimated fair value of the commercial pa…",
+   "amounts": [
+    {
+     "raw": "$ 1.5 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "24",
+   "match": "revolving credit facilit",
+   "text": "…le semi-annually, except for the euro-denominated notes, which are payable annually.   The total estimated fair value of the outstanding notes was approximately $ 9.0 billion and $ 21.9 billion as of December 31, 2024 and June 30, 2025, respectively. The fair value was determined based on observable market prices of identical instruments in less active markets and is categorized accordingly as Level 2 in the fair value hierarchy.   Credit Facility   As of June 30, 2025, we had $ 10.0 billion of revolving credit facilities, of which $ 4.0 billion expires in April 2026 a nd $ 6.0 billion e xpires in April 2030. The interest rates for all credit facilities are determined based on a formula using certain market rates. No amoun ts were outstanding under the credit facilities as of December 31, 2024 and June 30, 2025.   Note 7. Supplemental Financial Statement Information   Accounts Receivable   The allowance for credit losses on accounts receivable was $ 879 million an d $ 878 million as of December 31, 2024 and June 30, 2025, respectively.   Property and Equipment, Net   Property and equipment, net, co nsisted of the following (in millions):   As of  December 31, 2024 As of June 30, 2025   Technical infrastructure (1)   $ 139,596 $ 167,467   Office space 43,714 45,493   Corporate and other assets 16,519 17,920   Property and equipment, in service 199,829 230,880   Less: accumulated…",
+   "amounts": [
+    {
+     "raw": "$ 10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$ 4.0 billion",
+     "usdM": 4000
+    },
+    {
+     "raw": "$ 6.0 billion",
+     "usdM": 6000
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "26",
+   "match": "equity method investment",
+   "text": "…were as follows (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Interest income $ 1,090 $ 1,050 $ 2,151 $ 2,051   Interest expense (1)   ( 67 ) ( 261 ) ( 161 ) ( 295 )   Foreign currency exchange gain (loss), net ( 173 ) ( 69 ) ( 411 ) ( 175 )   Gain (loss) on debt securities, net ( 310 ) 165 ( 772 ) 367   Gain (loss) on equity securities, net ( 714 ) 1,286 1,529 11,044   Performance fees 128 ( 83 ) 232 ( 123 )   Income (loss) and impairment from equity method investments, net 32 419 6 397   Other 140 155 395 579   Other income (expense), net $ 126 $ 2,662 $ 2,969 $ 13,845   (1) Interest expense is net of interest capitalized of $ 43 million and $ 92 million for the three months ended June 30, 2024 and 2025, respectively, and $ 86 million and $ 171 million for the six months ended June 30, 2024 and 2025, respectively.   Note 8. Acquisitions   Pending Acquisition   In March 2025, we entered into a definitive agreement to acquire Wiz, a leading cloud security platform, for $ 32.0 billion, subject to closing adjustments, in an all-cash transaction. The acquisition of Wiz is expected to close in 2026, subject to customary closing conditions, including the receipt of regulatory approvals. Upon the close of the acquisition, Wiz will be part of the Google Cloud segment.   26",
+   "amounts": [
+    {
+     "raw": "$ 126 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,662 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,969 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,845   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 43 million",
+     "usdM": 43
+    },
+    {
+     "raw": "$ 92 million",
+     "usdM": 92
+    },
+    {
+     "raw": "$ 86 million",
+     "usdM": 86
+    },
+    {
+     "raw": "$ 171 million",
+     "usdM": 171
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "26",
+   "match": "Google Cloud",
+   "text": "…lion for the six months ended June 30, 2024 and 2025, respectively.   Note 8. Acquisitions   Pending Acquisition   In March 2025, we entered into a definitive agreement to acquire Wiz, a leading cloud security platform, for $ 32.0 billion, subject to closing adjustments, in an all-cash transaction. The acquisition of Wiz is expected to close in 2026, subject to customary closing conditions, including the receipt of regulatory approvals. Upon the close of the acquisition, Wiz will be part of the Google Cloud segment.   26",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "27",
+   "match": "guaranteed",
+   "text": "…n the carrying amount of goodwill for the six months ended June 30, 2025 were as follows (in millions):   Google Services Google Cloud Other Bets Total   Balance as of December 31, 2024 $ 23,521 $ 7,490 $ 874 $ 31,885   Additions   289 9 0 298   Foreign currency translation and other adjustments 160 15 ( 23 ) 152   Balance as of June 30, 2025 $ 23,970 $ 7,514 $ 851 $ 32,335   Note 10. Commitments and Contingencies   Commitments   We have content licensing agreements with future fixed or minimum guaranteed commitments of $ 8.2 billion as of June 30, 2025, of which the majority is paid quarterly through the first quarter of 2030.   Indemnifications   In the normal course of business, including to facilitate transactions in our services and products and corporate activities, we indemnify certain parties, including advertisers, Google Network partners, distribution partners, customers of Google Cloud offerings, lessors, and service providers with respect to certain matters. We have agreed to defend and/or indemnify certain parties against losses arising from a breach of representations or covenants, or out of intellectual property infringement or other claims made against certain parties. Several of these agreements limit the time within which an indemnification claim can be made and the amount of the claim. In addition, we have entered into indemnification agreements with our offi…",
+   "amounts": [
+    {
+     "raw": "$ 23,970 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,514 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 851 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 32,335   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8.2 billion",
+     "usdM": 8200
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "27",
+   "match": "Google Cloud",
+   "text": "Note 9. Goodwill   Changes in the carrying amount of goodwill for the six months ended June 30, 2025 were as follows (in millions):   Google Services Google Cloud Other Bets Total   Balance as of December 31, 2024 $ 23,521 $ 7,490 $ 874 $ 31,885   Additions   289 9 0 298   Foreign currency translation and other adjustments 160 15 ( 23 ) 152   Balance as of June 30, 2025 $ 23,970 $ 7,514 $ 851 $ 32,335   Note 10. Commitments and Contingencies   Commitments   We have content licensing agreements with future fixed or minimum guaranteed commitments of $ 8.2 billion as of June 30, 2025, of which the majority is paid quarterly through the first quarter of 2030.   Indemnifications   In the normal course of business, including to facilitate transactions in our services and products and corporate activities, we indemnify certain parties, including advertisers, Google Network partners, distribution partners, customers of Google Cloud offerings, lessors, and service providers with respect to certain matters. We have agreed to defend and/or indem…",
+   "amounts": [
+    {
+     "raw": "$ 23,521 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,490 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 874 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 31,885   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,970 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,514 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 851 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 32,335   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "33",
+   "match": "segment results",
+   "text": "…2025, respectively.   On July 4, 2025, the One Big Beautiful Bill Act (OBBBA) was signed into law. This legislation includes changes to U.S. federal tax law, which may be subject to further clarification and the issuance of interpretive guidance. We are assessing the legislation and its effect on our consolidated financial statements, which we expect to begin reflecting in the three month period ended September 30, 2025.   Note 15. Information about Segments and Geographic Areas   We report our segment results as Google Services, Google Cloud, and Other Bets:   • Google Services includes products and services such as ads, Android, Chrome, devices, Google Maps, Google Play, Search, and YouTube. Google Services generates revenues primarily from advertising; fees received for consumer subscription-based products such as YouTube TV, YouTube Music and Premium, and NFL Sunday Ticket, as well as Google One; the sale of apps and in-app purchases; and devices.   • Google Cloud includes infrastructure and platform services, applications, and other services for enterprise customers. Google Cloud generates revenues primarily from consumption-based fees and subscriptions received for Google Cloud Platform services, Google Workspace communication and collaboration tools, and other enterprise services.   33",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "34",
+   "match": "segment operating income",
+   "text": "…AI models; corporate initiatives such as our philanthropic activities; corporate shared costs such as certain finance, human resource, and legal costs, including certain fines and settlements. Charges associated with employee severance and office space reductions are also not allocated to our segments. Additionally, hedging gains (losses) related to revenue are not allocated to our segments.   Our Chief Operating Decision Maker (CODM) is our Chief Executive Officer, Sundar Pichai. Our CODM uses segment operating income (loss) to allocate resources to our segments in our annual planning process and to assess the performance of our segments, primarily by monitoring actual results versus the annual plan. Our operating segments are not evaluated using asset information.   The following table presents revenue, profitability, and expense information about our segments (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Revenues:   Google Services $ 73,928 $ 82,543 $ 144,326 $ 159,807   Google Cloud 10,347 13,624 19,921 25,884   Other Bets 365 373 860 823   Hedging gains (losses) 102 ( 112 ) 174 148   Total revenues $ 84,742 $ 96,428 $ 165,281 $ 186,662   Operating income (loss):   Google Services $ 29,674 $ 33,063 $ 57,571 $ 65,745   Google Cloud 1,172 2,826 2,072 5,003   Other Bets ( 1,134 ) ( 1,246 ) ( 2,154 ) ( 2,472 )   Alphabet-level …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "34",
+   "match": "Google Cloud",
+   "text": "…loud 1,172 2,826 2,072 5,003   Other Bets ( 1,134 ) ( 1,246 ) ( 2,154 ) ( 2,472 )   Alphabet-level activities   ( 2,287 ) ( 3,372 ) ( 4,592 ) ( 6,399 )   Total income from operations $ 27,425 $ 31,271 $ 52,897 $ 61,877   Supplemental information about segment expenses:   Google Services:   Employee compensation expenses   $ 11,240 $ 11,306 $ 22,751 $ 22,643   Other costs and expenses   33,014 38,174 64,004 71,419   Total Google Services costs and expenses   $ 44,254 $ 49,480 $ 86,755 $ 94,062   Google Cloud:   Employee compensation expenses   $ 5,175 $ 5,517 $ 10,332 $ 10,929   Other costs and expenses   4,000 5,281 7,517 9,952   Total Google Cloud costs and expenses   $ 9,175 $ 10,798 $ 17,849 $ 20,881   34",
+   "amounts": [
+    {
+     "raw": "$ 11,240 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,306 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 22,751 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 22,643   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 44,254 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 49,480 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 86,755 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 94,062   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5,175 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5,517 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,332 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,929   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,175 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,798 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,849 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 20,881   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "35",
+   "match": "Google Cloud",
+   "text": "Google Services and Google Cloud employee compensation expenses include the costs associated with direct and allocated employees. Google Services and Google Cloud other costs and expenses primarily include direct costs, such as advertising and promotional activities and third party services fees as well as allocated costs, such as technical infrastructure and office facilities usage costs. Additionally, Google Services other costs and expenses include content and traffic acquisition costs and device costs.   See Note 2 for information relating to revenues by geography.   The following table presents long-lived assets by geographic area, which includes property and equipment, net and operating lease assets (in millions):   As of  December 31, 2024 As of June 30, 2025   Long-lived assets:   United States $ 138,993 $ 160,877   International 45,631 56,609   Total long-lived assets $ 184,624 $ 217,486   35",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "36",
+   "match": "Google Cloud",
+   "text": "… results of operations together with \"Note About Forward-Looking Statements\" and our consolidated financial statements and related notes included under Item 1 of this Quarterly Report on Form 10-Q as well as our Annual Report on Form 10-K for the fiscal year ended December 31, 2024, including Part I, Item 1A \"Risk Factors.\"   Understanding Alphabet’s Financial Results   Alphabet is a collection of businesses — the largest of which is Google. We report Google in two segments, Google Services and Google Cloud; we also report all non-Google businesses collectively as Other Bets. For further details on our segments, see Note 15 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   Revenues and Monetization Metrics   We generate revenues by delivering relevant, cost-effective online advertising; cloud-based solutions that provide enterprise customers of all sizes with infrastructure, platform services, and applications; sales of other products and services, such as fees received for subscription-based products, apps and in-app purchases, and devices. For additional information on how we recognize revenue, see Note 1 of the Notes to Consolidated Financial Statements included in Part II, Item 8 in our Annual Report on Form 10-K for the fiscal year ended December 31, 2024.   In addition to the long-term trends and their financial …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "36",
+   "match": "Google Cloud",
+   "text": "… resulting from changes in fee structures, discounts, and customer incentives;   • general economic conditions and various external dynamics, including geopolitical events, regulations, and other measures and their effect on advertiser, consumer, and enterprise spending;   • new product, service, and market launches; and   • seasonality.   Additionally, fluctuations in our revenues generated from advertising (\"Google advertising\"), other sources (\"Google subscriptions, platforms, and devices\"), Google Cloud, and Other Bets have been, and may continue to be, affected by other factors unique to each set of revenues, as described below.   Google Services   Google Services revenues consist of Google advertising as well as Google subscriptions, platforms, and devices revenues.   Google Advertising   Google advertising revenues are comprised of the following:   • Google Search & other, which includes revenues generated on Google search properties (including revenues from traffic generated by search distribution partners who use Google.com as their default search in browsers, toolbars, etc.), and other Google owned and operated properties like Gmail, Google Maps, and Google Play;   • YouTube ads, which includes revenues generated on YouTube properties; and   • Google Network, which includes revenues generated on Google Network properties participating in AdMob, AdSense, and Google Ad …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "37",
+   "match": "Google Cloud",
+   "text": "… platforms, which primarily include revenues from Google Play sales of apps and in-app purchases;   • devices, which primarily include sales of the Pixel family of devices; and   • other products and services.   Fluctuations in our Google subscriptions, platforms, and devices revenues have been, and may continue to be, affected by factors in addition to the general factors described above, such as changes in customer usage and demand, number of subscribers, and the timing of product launches.   Google Cloud   Google Cloud revenues are comprised of the following:   • Google Cloud Platform, which generates consumption-based fees and subscriptions for infrastructure, platform, and other services. These services provide access to solutions such as AI offerings including our AI infrastructure, Vertex AI platform, and Gemini for Google Cloud: cybersecurity; and data and analytics;   • Google Workspace, which includes subscriptions for cloud-based communication and collaboration tools for enterprises, such as Calendar, Gmail, Docs, Drive, and Meet, with integrated features like Gemini for Google Workspace; and   • other enterprise services.   Fluctuations in our Google Cloud revenues have been, and may continue to be, affected by factors in addition to the general factors described above, such as changes in customer usage and demand.   Other Bets   Revenues from Other Bets are generat…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "38",
+   "match": "depreciation expense",
+   "text": "…oviders, mobile carriers, original equipment manufacturers, and software developers; and   ◦ amounts paid to Google Network partners primarily for ads displayed on their properties.   • Other cost of revenues primarily includes:   ◦ content acquisition costs, which are payments to content providers from whom we license video and other content for distribution, primarily related to YouTube (we pay fees to these content providers based on revenues generated, subscriber counts, or a flat fee);   ◦ depreciation expense related to our technical infrastructure;   ◦ employee compensation expenses related to our technical infrastructure and other operations such as content review and customer and product support;   ◦ inventory and other costs related to the devices we sell; and   ◦ other technical infrastructure operations costs, including network capacity, energy, and equipment costs.   TAC as a percentage of revenues generated from ads placed on Google Network properties are significantly higher than TAC as a percentage of revenues generated from ads placed on Google Search & other properties, because most of the advertiser revenues from ads served on Google Network properties are paid as TAC to our Google Network partners.   Operating Expenses   Operating expenses are generally incurred during our normal course of business, which we categorize as either R&D, sales and marketing, or …",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "39",
+   "match": "equity method investment",
+   "text": "• third-party services fees, including audit, consulting, outside legal, and other outsourced administrative services.   Other Income (Expense), Net   OI&E, net primarily consists of interest income (expense), the effect of foreign currency exchange gains (losses), net gains (losses) and impairment on our marketable and non-marketable securities, performance fees, and income (loss) and impairment from our equity method investments.   For additional information, including how we account for our investments and factors that can drive fluctuations in the value of our investments, see Note 1 of the Notes to Consolidated Financial Statements included in Part II, Item 8 and Item 7A, “Quantitative and Qualitative Disclosur es About Market Risk” in our An nual Report on Form 10-K for the fiscal year ended December 31, 2024 as well as Note 3 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   Provision for Income Taxes   Provision for income taxes represents the estimated amount of federal, state, and foreign income taxes incurred in the U.S. and the many jurisdictions in which we operate. The provision includes the effect of reserve provisions and changes to reserves that are considered appropriate as well as the related net interest and p…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "39",
+   "match": "Google Cloud",
+   "text": "….42 22 %   (1) See \"Use of Non-GAAP Constant Currency Information\" below for details relating to our use of constant currency information.   (2) For additional information on the calculation of diluted EPS, see Note 12 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   • R evenues were $96.4 billion, an increase of 14% year over year, primarily driven by an increase in Google Services revenues of $8.6 billion, or 12%, and an increase in Google Cloud revenues of $3.3 billion, or 32%.   • Total constant currency revenues, which exclude the effect of hedging, increased 13% y ear over year.   • Cost of revenues was $39.0 billion, an increase of 10% year over year, primarily driven by increases in TAC, content acquisition costs, and depreciation expense.   39",
+   "amounts": [
+    {
+     "raw": "$96.4 billion",
+     "usdM": 96400
+    },
+    {
+     "raw": "$8.6 billion",
+     "usdM": 8600
+    },
+    {
+     "raw": "$3.3 billion",
+     "usdM": 3300
+    },
+    {
+     "raw": "$39.0 billion",
+     "usdM": 39000
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "39",
+   "match": "depreciation expense",
+   "text": "…uarterly Report on Form 10-Q.   • R evenues were $96.4 billion, an increase of 14% year over year, primarily driven by an increase in Google Services revenues of $8.6 billion, or 12%, and an increase in Google Cloud revenues of $3.3 billion, or 32%.   • Total constant currency revenues, which exclude the effect of hedging, increased 13% y ear over year.   • Cost of revenues was $39.0 billion, an increase of 10% year over year, primarily driven by increases in TAC, content acquisition costs, and depreciation expense.   39",
+   "amounts": [
+    {
+     "raw": "$39.0 billion",
+     "usdM": 39000
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "40",
+   "match": "Google Cloud",
+   "text": "… Financial Results   Revenues   The following table presents revenues by type (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Google Search & other $ 48,509 $ 54,190 $ 94,665 $ 104,892   YouTube ads 8,663 9,796 16,753 18,723   Google Network 7,444 7,354 14,857 14,610   Google advertising 64,616 71,340 126,275 138,225   Google subscriptions, platforms, and devices   9,312 11,203 18,051 21,582   Google Services total 73,928 82,543 144,326 159,807   Google Cloud 10,347 13,624 19,921 25,884   Other Bets 365 373 860 823   Hedging gains (losses) 102 (112) 174 148   Total revenues $ 84,742 $ 96,428 $ 165,281 $ 186,662   Google Services   Google advertising revenues   Google Search & other   Google Search & other revenues increased $5.7 billion and $10.2 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025. The overall growth was driven by interrelated factors including increases in search queries resulting from growth in user adoption and usage on mobile devices; growth in advertiser spending; and improvements we have made in ad formats and delivery.   40",
+   "amounts": [
+    {
+     "raw": "$ 84,742 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 96,428 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 165,281 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 186,662   ",
+     "usdM": null
+    },
+    {
+     "raw": "$5.7 billion",
+     "usdM": 5700
+    },
+    {
+     "raw": "$10.2 billion",
+     "usdM": 10200
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "40",
+   "match": "depreciation expense",
+   "text": "• Operating expenses were $26.1 billion, an increase of 20% year over year, primarily driven by increases in expenses related to legal and other matters, employee compensation expenses, and depreciation expense.   Other Information:   • General and administrative expenses of $5.2 billion for the three months ended June 30, 2025 included a $1.4 billion charge in our Google Services segment related to a settlement in principle of certain legal matters.   • In May 2025, Alphabet issued fixed-rate senior unsecured notes for net proceeds of $12.5 billion to be used for general corporate purposes. For additional information, see Note 6 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   • Repurchases of Class A and Class C shares were $2.5 billion and $10.7 billion, respectively, totaling $13.3 billion for the three months ended June 30, 2025. For additional information, see Note 11 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   • Operating cash flow was $27.7 …",
+   "amounts": [
+    {
+     "raw": "$26.1 billion",
+     "usdM": 26100
+    },
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$1.4 billion",
+     "usdM": 1400
+    },
+    {
+     "raw": "$12.5 billion",
+     "usdM": 12500
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "41",
+   "match": "Google Cloud",
+   "text": "…x, and changes in foreign currency exchange rates.   Google subscriptions, platforms, and devices   Google subscriptions, platforms, and devices revenu es increased $1.9 billion and $3.5 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025. The growth was primarily driven by an increase in subscription revenues. This increase was primarily due to the contribution from growth in paid subscriptions across both YouTube services and Google One.   Google Cloud   Google Cloud revenues increased $3.3 billion and $6.0 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025 primarily driven by growth in Google Cloud Platform largely from infrastructure services.   41",
+   "amounts": [
+    {
+     "raw": "$3.3 billion",
+     "usdM": 3300
+    },
+    {
+     "raw": "$6.0 billion",
+     "usdM": 6000
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "44",
+   "match": "depreciation expense",
+   "text": "…s substantially consistent from the three months ended June 30, 2024 to the three months ended June 30, 2025 and decreased from the six months ended June 30, 2024 to the six months ended June 30, 2025 due to a combination of factors, none of which were individually significant.   The increase in other cost of revenues from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025 was primarily due to increases in content acquisition costs, largely for YouTube, depreciation expense, and certain app and platform distribution costs.   Research and Development   The following table presents R&D expenses (in millions, except percentages):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Research and development expenses $ 11,860 $ 13,808 $ 23,763 $ 27,364   Research and development expenses as a percentage of revenues 14 % 14 % 14 % 15 %   R&D expenses increased $1.9 billion and $3.6 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025, primarily driven by increases in employee compensation expenses of $851 million and $1.5 billion as well as depreciation expense of $575 million and $1.1 billion, respectively.   Sales and Marketing   The following table presents sales and marketing expenses (in millions, except percentages):   Three Months Ended Six Months Ended  …",
+   "amounts": [
+    {
+     "raw": "$ 11,860 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,808 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,763 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 27,364   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "45",
+   "match": "segment results",
+   "text": "… 8,748   General and administrative expenses as a percentage of revenues 4 % 5 % 4 % 5 %   General and administrative expenses increased $2.1 billion and $2.6 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025, primarily driven by an increase in expenses related to legal and other matters of $2.3 billion and $2.6 billion, respectively, largely due to a settlement in principle of certain legal matters.   Segment Profitability   We report our segment results as Google Services, Google Cloud, and Other Bets. Additionally, certain costs are not allocated to our segments because they represent Alphabet-level activities. For further details on our segments, Note 15 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   The following table presents segment operating income (loss) (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Operating income (loss):   Google Services $ 29,674 $ 33,063 $ 57,571 $ 65,745   Google Cloud 1,172 2,826 2,072 5,003   Other Bets (1,134) (1,246) (2,154) (2,472)   Alphabet-level activities (1)   (2,287) (3,372) (4,592) (6,399)   Total income from operations $ 27,425 $ 31,271 $ 52,897 $ 61,877   (1) In addition to the costs included in Alphabet-level activities, hedging gains (losses) related to revenue w…",
+   "amounts": [
+    {
+     "raw": "$2.3 billion",
+     "usdM": 2300
+    },
+    {
+     "raw": "$2.6 billion",
+     "usdM": 2600
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "45",
+   "match": "Google Cloud",
+   "text": "…June 30, 2025. The increase in operating income was primarily driven by an increase in revenues, partially offset by increases in expenses related to legal and other matters, TAC, and content acquisition costs.   Google Services operating income increased $8.2 billion from the six months ended June 30, 2024 to the six months ended June 30, 2025. The increase in operating income was primarily driven by an increase in revenues, partially offset by increases in TAC and content acquisition costs.   Google Cloud   Google Cloud operating income increased $1.7 billion and $2.9 billion from the three and six months ended June 30, 2024 to the three and six months ended June 30, 2025, respectively. The increase in operating income was primarily driven by an increase in revenues, partially offset by increases in usage costs for technical infrastructure and employee compensation expenses.   Other Bets   45",
+   "amounts": [
+    {
+     "raw": "$8.2 billion",
+     "usdM": 8200
+    },
+    {
+     "raw": "$1.7 billion",
+     "usdM": 1700
+    },
+    {
+     "raw": "$2.9 billion",
+     "usdM": 2900
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "46",
+   "match": "equity method investment",
+   "text": "…pense), Net   The following table presents OI&E (in millions):   Three Months Ended Six Months Ended   June 30, June 30,   2024 2025 2024 2025   Interest income $ 1,090 $ 1,050 $ 2,151 $ 2,051   Interest expense (67) (261) (161) (295)   Foreign currency exchange gain (loss), net (173) (69) (411) (175)   Gain (loss) on debt securities, net (310) 165 (772) 367   Gain (loss) on equity securities, net (714) 1,286 1,529 11,044   Performance fees 128 (83) 232 (123)   Income (loss) and impairment from equity method investments, net 32 419 6 397   Other 140 155 395 579   Other income (expense), net $ 126 $ 2,662 $ 2,969 $ 13,845   OI&E, net increased $2.5 billion from the three months ended June 30, 2024 to the three months ended June 30, 2025 primarily due to an increase in net gains on equity and debt securities. The increase was primarily due to an increase in net unrealized gains on equity securities resulting from market-driven changes and fair value adjustments related to observable transactions, and increased net gains on debt securities due to lower market interest rates.   OI&E, net increased $10.9 billion from the six months ended June 30, 2024 to the six months ended June 30, 2025. The increase was primarily due to an increase in net unrealized gains on equity securities resulting from fair value adjustments related to observable transactions and market-driven changes.   For…",
+   "amounts": [
+    {
+     "raw": "$ 126 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,662 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,969 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,845   ",
+     "usdM": null
+    },
+    {
+     "raw": "$2.5 billion",
+     "usdM": 2500
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "47",
+   "match": "Google Cloud",
+   "text": "…ng activities $ 55,488 $ 63,897   Net cash used in investing activities $ (11,345) $ (40,738)   Net cash used in financing activities $ (40,603) $ (26,033)   Cash Provided by Operating Activities   Our largest source of cash provided by operations are advertising revenues generated by Google Search & other properties, Google Network properties, and YouTube properties. In Google Services, we also generate cash through consumer subscriptions, the sale of apps and in-app purchases, and devices. In Google Cloud, we generate cash through consumption-based fees and subscriptions for infrastructure, platform, applications, and other cloud services.   Our primary uses of cash from operating activities include payments to distribution and Google Network partners, to employees for compensation, and to content providers. Other uses of cash from operating activities include payments to suppliers for devices, to tax authorities for income taxes, and other general corporate expenditures.   Net cash provided by operating activities increased from the six months ended June 30, 2024 to the six months ended June 30, 2025 due to an increase in cash received from customers, partially offset by an increase in cash payments for cost of revenues and operating expenses and an increase in income tax payments.   Cash Used in Investing Activities   Cash provided by investing activities consists primarily…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "47",
+   "match": "Net cash provided by operating activities",
+   "text": "…s of Cash and Related Trends   Our principal sources of liquidity are cash, cash equivalents, and marketable securities, as well as the cash flow that we generate from operations. The primary use of capital continues to be to invest for the long-term growth of the business. We regularly evaluate our cash and capital structure, including the size, pace, and form of capital return to stockholders.   The following table presents cash flows (in millions):   Six Months Ended   June 30,   2024 2025   Net cash provided by operating activities $ 55,488 $ 63,897   Net cash used in investing activities $ (11,345) $ (40,738)   Net cash used in financing activities $ (40,603) $ (26,033)   Cash Provided by Operating Activities   Our largest source of cash provided by operations are advertising revenues generated by Google Search & other properties, Google Network properties, and YouTube properties. In Google Services, we also generate cash through consumer subscriptions, the sale of apps and in-app purchases, and devices. In Google Cloud, we generate cash through consumption-based fees and subscriptions for infrastructure, platform, applications, and other cloud services.   Our primary uses of cash from operating activities include payments to distribution and Google Network partners, to employees for compensation, and to content providers. Other uses of cash from operating activities inclu…",
+   "amounts": [
+    {
+     "raw": "$ 55,488 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 63,897   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "47",
+   "match": "Net cash provided by operating activities",
+   "text": "…ices. In Google Cloud, we generate cash through consumption-based fees and subscriptions for infrastructure, platform, applications, and other cloud services.   Our primary uses of cash from operating activities include payments to distribution and Google Network partners, to employees for compensation, and to content providers. Other uses of cash from operating activities include payments to suppliers for devices, to tax authorities for income taxes, and other general corporate expenditures.   Net cash provided by operating activities increased from the six months ended June 30, 2024 to the six months ended June 30, 2025 due to an increase in cash received from customers, partially offset by an increase in cash payments for cost of revenues and operating expenses and an increase in income tax payments.   Cash Used in Investing Activities   Cash provided by investing activities consists primarily of maturities and sales of investments in marketable and non-marketable securities. Cash used in investing activities consists primarily of purchases of marketable and non-marketable securities, purchases of property and equipment, and payments for acquisitions.   Net cash used in investing activities increased from the six months ended June 30, 2024 to the six months ended June 30, 2025 primarily due to a decrease in maturities and sales of marketable securities and an increase in pur…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "47",
+   "match": "proceeds from issuance of debt",
+   "text": "… securities, purchases of property and equipment, and payments for acquisitions.   Net cash used in investing activities increased from the six months ended June 30, 2024 to the six months ended June 30, 2025 primarily due to a decrease in maturities and sales of marketable securities and an increase in purchases of property and equipment primarily driven by investments in technical infrastructure.   Cash Used in Financing Activities   Cash provided by financing activities consists primarily of proceeds from issuance of debt and proceeds from the sale of interests in consolidated entities. Cash used in financing activities consists primarily of repurchases of stock, net payments related to stock-based award activities, payment of dividends, and repayments of debt.   Net cash used in financing activities decreased from the six months ended June 30, 2024 to the six months ended June 30, 2025 due to an increase in proceeds from issuance of debt, net of repayments.   47",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "48",
+   "match": "not yet commenced",
+   "text": "…vices. Depreciation of our property and equipment commences when such assets are ready for our intended use. For the six months ended June 30, 2024 and 2025, depreciation on property and equipment was $7.1 billion and $9.5 billion, respectively.   Leases   As of June 30, 2025, the amount of total future lease payments under operating and finance leases was $17.4 billion and $2.6 billion, respectively.   As of June 30, 2025, we have entered into leases primarily related to data centers that have not yet commenced with future lease payments of $23.9 billion. These leases will commence between 2025 and 2031 with non-cancelable lease terms between one and 25 years.   For additional information on leases, see Note 4 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   Financing   We have a short-term debt financing program of up to $25.0 billion through the issuance of commercial paper. Net proceeds from this program are used for general corporate purposes. As of June 30, 2025, we had $3.0 billion of short-term commercial paper outstanding.   In May 2025, we issued $5.0 billion of U.S. dollar-denominated fixed-rate senior unsecured notes in four tranches: $750 million of 4.00% notes due 2030, $1.25 billion of 4.50% notes due 2035, $1.5 billion of 5.25% notes due 2055, and $1.5 billion of 5.30% notes due 2065. Additionally in M…",
+   "amounts": [
+    {
+     "raw": "$17.4 billion",
+     "usdM": 17400
+    },
+    {
+     "raw": "$2.6 billion",
+     "usdM": 2600
+    },
+    {
+     "raw": "$23.9 billion",
+     "usdM": 23900
+    },
+    {
+     "raw": "$25.",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "48",
+   "match": "revolving credit facilit",
+   "text": "… fixed-rate senior unsecured notes in five tranches: €1.5 billion of 2.50% notes due 2029, €1.5 billion of 3.00% notes due 2033, €1.25 billion of 3.38% notes due 2037, €1.25 billion of 3.88% notes due 2045, and €1.25 billion of 4.00% notes due 2054. The net proceeds from all notes issued in May 2025 are used for general corporate purposes.   As of June 30, 2025, we had senior unsecured notes outstanding with a total carrying value of $24.6 billion.   As of June 30, 2025, we had $10.0 billion of revolving credit facilities, $4.0 billion expiring in April 2026 and $6.0 billion expiring in April 2030. The interest rates for all credit facilities are determined based on a formula using certain market rates. No amounts have been borrowed under the credit facilities.   For additional information, see Note 6 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   48",
+   "amounts": [
+    {
+     "raw": "$24.6 billion",
+     "usdM": 24600
+    },
+    {
+     "raw": "$10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$4.0 billion",
+     "usdM": 4000
+    },
+    {
+     "raw": "$6.0 billion",
+     "usdM": 6000
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "49",
+   "match": "Purchase Commitments",
+   "text": "… the General Court's decision to the European Court of Justice.   We included the outstanding EC fines, including any under appeal, in accrued expenses and other current liabilities on our Consolidated Balance Sheets. For additional information, see Note 10 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   Taxes   As of June 30, 2025, we had long-term income taxes payable of $10.0 billion primarily related to uncertain tax positions.   Purchase Commitments and Other Contractual Obligations   49",
+   "amounts": [
+    {
+     "raw": "$10.0 billion",
+     "usdM": 10000
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "50",
+   "match": "purchase commitments",
+   "text": "As of June 30, 2025, we had material purchase commitments and other contractual obligations of $72.5 billion, of which $51.0 billion was short-term. These amounts primarily consist of purchase orders for certain technical infrastructure as well as the non-cancelable portion or the minimum cancellation fee in certain agreements related to commitments to purchase licenses, including content licenses, inventory, and network capacity. For those agreements with variable term s, we do not estimate the non-cancelable obligation beyond any minimum quantities and/or pricing as of June 30, 2025. In certain instances, the amount of our contractual obligations may change based on the expected t iming of order fulfillment from our suppliers. For more information related to our content licenses, see Note 10 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   In addition, we regula…",
+   "amounts": [
+    {
+     "raw": "$72.5 billion",
+     "usdM": 72500
+    },
+    {
+     "raw": "$51.0 billion",
+     "usdM": 51000
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "50",
+   "match": "purchase commitments",
+   "text": "…Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   In addition, we regularly enter into multi-year, non-cancellable agreements to purchase renewable energy and energy attributes, such as renewable energy certificates. These agreements do not include a minimum dollar commitment. The amounts to be paid under these agreements are based on the actual volumes to be generated and are not readily determinable.   We may experience increases in the costs associated with our purchase commitments and other contractual obligations as a result of ongoing developments surrounding international trade. For details on risks related to our manufacturing and supply chain and other risks, refer to Part I, Item 1A, \"Risk Factors\" in our Annual Report on Form 10-K for the fiscal year ending December 31, 2024.   Pending Acquisition   In March 2025, we entered into a definitive agreement to acquire Wiz, a leading cloud security platform, for $32.0 billion, subject to closing adjustments, in an all-cash transaction. The acquisition of Wiz is expected to close in 2026, subject to customary closing conditions, including the receipt of regulatory approvals. For additional information, see Note 8 of the Notes to Consolidated Financial Statements included in Item 1 of this Quarterly Report on Form 10-Q.   Critical Accounting Estimates   See Part II, Item 7, \"Critical Accounting…",
+   "amounts": []
+  }
+ ]
+}

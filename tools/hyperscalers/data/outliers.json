@@ -1,0 +1,330 @@
+{
+ "_comment": "Hyperscaler Hub, module 3: quarterly flow values the build flags as outliers (more than 5x the median of the four quarters before, above US$1bn) that were read in the filing and either confirmed (result: confirmed; the needs-review flag is cleared and the cell shows 'matched' with the quote) or explained without clearing the flag (result: reclassified). The build applies a record only when its valueUSDm matches the derived value within 0.5%. Quotes are checked against the harvested page of the cited filing (tools/hyperscalers/raw/notes). reviewedBy is a person's sign-off, null until someone signs.",
+ "updatedAt": "2026-10-04T05:00:00Z",
+ "method": {
+  "en": "Each flagged quarter was read in the primary document on EDGAR (cash-flow statement, equity note or liquidity section); the quote is checked against the harvested page by the build, and the amount is reconciled to the tagged facts the quarter is derived from.",
+  "es": "Cada trimestre marcado se leyó en el documento primario en EDGAR (estado de flujos, nota de capital o sección de liquidez); el cotejo de la cita contra la página cosechada lo hace la construcción, y el monto se concilia con los hechos etiquetados de los que se deriva el trimestre."
+ },
+ "items": [
+  {
+   "ticker": "MSFT",
+   "metric": "debt_repaid",
+   "quarter": "FY2026Q2",
+   "end": "2025-12-31",
+   "valueUSDm": 3000,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: the cash-flow statement shows US$3.0bn of debt repaid in the quarter to 31 Dec 2025 and none in the quarter before; a lumpy financing line, consistent with the 10-Q's US$3.7bn decrease in six-month repayments versus a year earlier.",
+   "note_es": "Cifra trimestral reportada: el estado de flujos muestra US$3.0 mil M de deuda pagada en el trimestre al 31 de diciembre de 2025 y nada en el trimestre anterior; una partida de financiamiento irregular por naturaleza, congruente con la baja de US$3.7 mil M en los pagos semestrales que describe el 10-Q.",
+   "src": {
+    "k": "MSFT 10-Q 2025-12-31",
+    "page": "6",
+    "section": "Cash Flows Statements",
+    "quote": "Repayments of debt ( 3,000 ) 0 ( 3,000 ) ( 966 )"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "debt_proceeds",
+   "quarter": "FY2026Q1",
+   "end": "2026-03-31",
+   "valueUSDm": 53441,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: US$53.4bn of long-term debt proceeds in the quarter to 31 Mar 2026 (US$0.7bn a year earlier); matches the US$37.0bn notes of 13 Mar 2026 and the US$16.6bn notes of 16 Mar 2026 in the deals table, both matched to SEC filings (net of discounts and fees).",
+   "note_es": "Cifra trimestral reportada: US$53.4 mil M de recursos por deuda de largo plazo en el trimestre al 31 de marzo de 2026 (US$0.7 mil M un año antes); coincide con los bonos por US$37.0 mil M del 13 de marzo de 2026 y por US$16.6 mil M del 16 de marzo de 2026 de la tabla de operaciones, ambos cotejados con presentaciones ante la SEC (netos de descuentos y gastos).",
+   "src": {
+    "k": "AMZN 10-Q 2026-03-31",
+    "page": "3",
+    "section": "Consolidated Statements of Cash Flows",
+    "quote": "Proceeds from long-term debt 746 53,441 746 68,368"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "debt_proceeds",
+   "quarter": "FY2025Q4",
+   "end": "2025-12-31",
+   "valueUSDm": 14927,
+   "result": "confirmed",
+   "note_en": "Derived quarter: FY2025 proceeds of US$15,673m (10-K cash-flow statement) less US$746m in the nine months to 30 Sep 2025 (10-Q) = US$14,927m in Q4 2025; matches the US$15.0bn notes of 20 Nov 2025 in the deals table (matched to an SEC filing).",
+   "note_es": "Trimestre derivado: recursos del año 2025 por US$15,673 M (estado de flujos del 10-K) menos US$746 M de los nueve meses al 30 de septiembre de 2025 (10-Q) = US$14,927 M en el 4T25; coincide con los bonos por US$15.0 mil M del 20 de noviembre de 2025 de la tabla de operaciones (cotejados con una presentación ante la SEC).",
+   "src": {
+    "k": "AMZN 10-K 2025-12-31",
+    "page": "36",
+    "section": "Consolidated Statements of Cash Flows",
+    "quote": "Proceeds from long-term debt — — 15,673"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "equity_proceeds",
+   "quarter": "FY2027Q1",
+   "end": "2026-08-31",
+   "valueUSDm": 19909,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: Oracle sold 141 million shares through its at-the-market program for net proceeds of US$19.9bn in the quarter to 31 Aug 2026 (Note 7); the cash-flow statement line reads 'Proceeds from issuances of common stock via at-the-market program, net of issuance costs 19,909'. Employee stock-program proceeds (US$41m) are on a separate line in this filing.",
+   "note_es": "Cifra trimestral reportada: Oracle vendió 141 millones de acciones mediante su programa at-the-market por recursos netos de US$19.9 mil M en el trimestre al 31 de agosto de 2026 (nota 7); la línea del estado de flujos dice «Proceeds from issuances of common stock via at-the-market program, net of issuance costs 19,909». Los recursos de los planes de acciones para empleados (US$41 M) van en otra línea en esta presentación.",
+   "src": {
+    "k": "ORCL 10-Q 2026-08-31",
+    "page": "13",
+    "section": "Note 7. Stockholders' Equity",
+    "quote": "During the first quarter ended August 31, 2026, we fully utilized the ATM Program and issued 141 million shares of common stock under the ATM Program for net proceeds of $ 19.9 billion."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "ORCL",
+   "metric": "equity_proceeds",
+   "quarter": "FY2026Q2",
+   "end": "2025-11-30",
+   "valueUSDm": 1308,
+   "result": "reclassified",
+   "note_en": "Derivation artifact, flag kept: the six-month figure of US$1,308m (10-Q to 30 Nov 2025, 'Proceeds from issuances of common stock') includes employee stock-program proceeds, but the FY2027 first-quarter 10-Q restated the prior-year quarter to 0 under this tag (it now reports employee programs on a separate line, US$1,153m). Subtracting the restated 0 assigns the whole six months to Q2; on the original basis the quarter would be about US$138m (1,308 less 1,170 reported in the original Q1 10-Q). The year still sums (FY2026 US$1,449m), so the identity check passes while the quarter is misallocated.",
+   "note_es": "Artefacto de derivación, aviso conservado: la cifra semestral de US$1,308 M (10-Q al 30 de noviembre de 2025, «Proceeds from issuances of common stock») incluye los recursos de los planes de acciones para empleados, pero el 10-Q del primer trimestre del año fiscal 2027 reexpresó el trimestre comparable a 0 bajo esta etiqueta (ahora reporta los planes para empleados en otra línea, US$1,153 M). Restar ese 0 reexpresado asigna todo el semestre al 2T; sobre la base original el trimestre sería de unos US$138 M (1,308 menos 1,170 reportados en el 10-Q original del 1T). El año sigue cuadrando (año fiscal 2026: US$1,449 M), así que el control de identidad pasa aunque el trimestre esté mal asignado.",
+   "src": {
+    "k": "ORCL 10-Q 2025-11-30",
+    "page": "5",
+    "section": "Condensed Consolidated Statements of Cash Flows",
+    "quote": "Proceeds from issuances of common stock 1,308 307"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "ocf",
+   "quarter": "FY2025Q3",
+   "end": "2025-09-30",
+   "valueUSDm": 1689,
+   "result": "confirmed",
+   "note_en": "Derived quarter: nine-month operating cash flow of US$1,499m (10-Q to 30 Sep 2025) less the six-month figure of −US$190m (as reported in the June 2026 10-Q's comparative) = US$1,689m; CoreWeave's operating cash flow moves with upfront payments on committed contracts (deferred revenue rose US$1,402m in the nine months).",
+   "note_es": "Trimestre derivado: flujo de operación de nueve meses de US$1,499 M (10-Q al 30 de septiembre de 2025) menos la cifra semestral de −US$190 M (comparativo del 10-Q de junio de 2026) = US$1,689 M; el flujo de operación de CoreWeave se mueve con los pagos anticipados de los contratos comprometidos (los ingresos diferidos subieron US$1,402 M en los nueve meses).",
+   "src": {
+    "k": "CRWV 10-Q 2025-09-30",
+    "page": "55",
+    "section": "Liquidity and Capital Resources — Cash Flows",
+    "quote": "Net cash provided by operating activities $ 1,499,051 $ 2,562,436"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "CRWV",
+   "metric": "ocf",
+   "quarter": "FY2025Q4",
+   "end": "2025-12-31",
+   "valueUSDm": 1559,
+   "result": "confirmed",
+   "note_en": "Derived quarter: FY2025 operating cash flow of US$3,058m (10-K) less the nine-month figure of US$1,499m = US$1,559m in Q4 2025; the 10-K attributes the year's operating cash flow to upfront payments on committed contracts (deferred revenue +US$4,174m in 2025).",
+   "note_es": "Trimestre derivado: flujo de operación del año 2025 de US$3,058 M (10-K) menos la cifra de nueve meses de US$1,499 M = US$1,559 M en el 4T25; el 10-K atribuye el flujo de operación del año a los pagos anticipados de los contratos comprometidos (ingresos diferidos +US$4,174 M en 2025).",
+   "src": {
+    "k": "CRWV 10-K 2025-12-31",
+    "page": "76",
+    "section": "Liquidity and Capital Resources — Cash Flows",
+    "quote": "Net cash provided by operating activities was $3.1 billion for the year ended December 31, 2025, as compared to $2.7 billion for the year ended December 31, 2024. The increase was primarily driven by cash received for upfront payments from our committed contracts from new and expanded customer contracts."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "ocf",
+   "quarter": "FY2026Q4",
+   "end": "2026-06-30",
+   "valueUSDm": 1811.092,
+   "result": "confirmed",
+   "note_en": "Derived quarter: FY2026 operating cash flow of US$2,100.4m (10-K) less US$289.3m in the nine months to 31 Mar 2026 (10-Q) = US$1,811m in the June 2026 quarter. The 10-K tags a US$1,842m increase in contract liabilities for FY2026 (XBRL IncreaseDecreaseInContractWithCustomerLiability) against US$120m for the nine months: the quarter's cash came from customer prepayments reflected in deferred revenue, as the 10-K's liquidity section describes.",
+   "note_es": "Trimestre derivado: flujo de operación del año fiscal 2026 de US$2,100.4 M (10-K) menos US$289.3 M de los nueve meses al 31 de marzo de 2026 (10-Q) = US$1,811 M en el trimestre de junio de 2026. El 10-K etiqueta un aumento de US$1,842 M en pasivos por contratos para el año (XBRL IncreaseDecreaseInContractWithCustomerLiability) frente a US$120 M en los nueve meses: el efectivo del trimestre vino de pagos anticipados de clientes reflejados en ingresos diferidos, como describe la sección de liquidez del 10-K.",
+   "src": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq139",
+    "section": "Notes — Liquidity",
+    "quote": "For the year ended June 30, 2026, the Group generated net cash from operating activities of $ 2,100.4 million."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "debt_proceeds",
+   "quarter": "FY2026Q2",
+   "end": "2025-11-30",
+   "valueUSDm": 2419.798,
+   "result": "confirmed",
+   "note_en": "Derived quarter: six-month proceeds (10-Q to 30 Nov 2025) less the first quarter = US$2,420m in the quarter to 30 Nov 2025: the US$2.35bn 9.250% senior secured notes closed on 20 Nov 2025 (US$2.28bn at the 97% issue price) plus smaller borrowings; the notes are matched to an SEC filing in the deals table.",
+   "note_es": "Trimestre derivado: recursos semestrales (10-Q al 30 de noviembre de 2025) menos el primer trimestre = US$2,420 M en el trimestre al 30 de noviembre de 2025: los bonos garantizados al 9.250% por US$2.35 mil M cerrados el 20 de noviembre de 2025 (US$2.28 mil M al precio de emisión de 97%) más préstamos menores; los bonos están cotejados con una presentación ante la SEC en la tabla de operaciones.",
+   "src": {
+    "k": "APLD 10-Q 2025-11-30",
+    "page": "50",
+    "section": "Liquidity and Capital Resources — Senior Secured Notes",
+    "quote": "On November 20, 2025, our subsidiary APLD ComputeCo, closed a $2.35 billion offering (the “Notes Offering”) of 9.250% senior secured notes due 2030 (the “Notes”) at an issue price of 97.000%."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "metric": "debt_proceeds",
+   "quarter": "FY2026Q4",
+   "end": "2026-05-31",
+   "valueUSDm": 2450.464,
+   "result": "confirmed",
+   "note_en": "Derived quarter: FY2026 proceeds (10-K) less the nine months = US$2,450m in the quarter to 31 May 2026: the US$2.15bn 6.750% senior secured notes closed on 10 Mar 2026 (US$2.11bn at the 98% issue price) and the US$300m term loan of 23 Apr 2026, both matched to SEC filings in the deals table.",
+   "note_es": "Trimestre derivado: recursos del año fiscal 2026 (10-K) menos los nueve meses = US$2,450 M en el trimestre al 31 de mayo de 2026: los bonos garantizados al 6.750% por US$2.15 mil M cerrados el 10 de marzo de 2026 (US$2.11 mil M al precio de emisión de 98%) y el préstamo a plazo por US$300 M del 23 de abril de 2026, ambos cotejados con presentaciones ante la SEC en la tabla de operaciones.",
+   "src": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "49",
+    "section": "Note — Debt: 6.750% Senior Secured Notes due 2031",
+    "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "MSFT",
+   "metric": "debt_repaid",
+   "quarter": "FY2024Q3",
+   "end": "2024-03-31",
+   "valueUSDm": 11589,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: the cash-flow statement shows US$11.6bn of debt repaid in the quarter to 31 Mar 2024 (none a year earlier; US$16.0bn in the nine months), beside US$6.4bn of new debt issued in the quarter; a lumpy financing line.",
+   "note_es": "Cifra trimestral reportada: el estado de flujos muestra US$11.6 mil M de deuda pagada en el trimestre al 31 de marzo de 2024 (nada un año antes; US$16.0 mil M en nueve meses), junto a US$6.4 mil M de deuda nueva en el trimestre; una partida de financiamiento irregular por naturaleza.",
+   "src": {
+    "k": "MSFT 10-Q 2024-03-31",
+    "page": "6",
+    "section": "Cash Flows Statements",
+    "quote": "Repayments of debt ( 11,589 ) 0 ( 16,005 ) ( 1,750 )"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "fl_principal",
+   "quarter": "FY2025Q4",
+   "end": "2025-12-31",
+   "valueUSDm": 1594,
+   "result": "confirmed",
+   "note_en": "Derived quarter: FY2025 financing cash flows for finance leases of US$1,988m (10-K lease note) less US$394m in the nine months = US$1,594m in Q4 2025; the 10-K says the year includes US$1.1bn of prepayments for finance leases not yet commenced, which explains the jump.",
+   "note_es": "Trimestre derivado: flujos de financiamiento por arrendamientos financieros del año 2025 de US$1,988 M (nota de arrendamientos del 10-K) menos US$394 M de los nueve meses = US$1,594 M en el 4T25; el 10-K dice que el año incluye US$1.1 mil M de pagos anticipados por arrendamientos financieros aún no iniciados, lo que explica el salto.",
+   "src": {
+    "k": "GOOGL 10-K 2025-12-31",
+    "page": "seq70",
+    "section": "Note 4. Leases — supplemental cash flow information",
+    "quote": "Financing cash flows used for financing leases are included within financing activities as repayments of debt. The year ended December 31, 2025 includes $ 1.1 billion of prepayments for finance leases not yet commenced."
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "GOOGL",
+   "metric": "debt_proceeds",
+   "quarter": "FY2025Q2",
+   "end": "2025-06-30",
+   "valueUSDm": 26846,
+   "result": "confirmed",
+   "note_en": "Derived quarter: six-month proceeds of US$31,378m (10-Q to 30 Jun 2025) less US$4,532m in the first quarter (10-Q to 31 Mar 2025) = US$26,846m in Q2 2025. Alphabet's cash-flow line \"Proceeds from issuance of debt, net of costs\" covers every debt instrument, not only the notes in the deals table (US$5.0bn of 1 May 2025 and €6.75bn of 6 May 2025, both matched to SEC filings).",
+   "note_es": "Trimestre derivado: recursos semestrales de US$31,378 M (10-Q al 30 de junio de 2025) menos US$4,532 M del primer trimestre (10-Q al 31 de marzo de 2025) = US$26,846 M en el 2T25. La línea del estado de flujos de Alphabet «Proceeds from issuance of debt, net of costs» cubre todo instrumento de deuda, no solo los bonos de la tabla de operaciones (US$5.0 mil M del 1 de mayo de 2025 y €6.75 mil M del 6 de mayo de 2025, ambos cotejados con presentaciones ante la SEC).",
+   "src": {
+    "k": "GOOGL 10-Q 2025-06-30",
+    "page": "10",
+    "section": "Consolidated Statements of Cash Flows",
+    "quote": "Proceeds from issuance of debt, net of costs 4,875 31,378"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "debt_repaid",
+   "quarter": "FY2024Q2",
+   "end": "2024-06-30",
+   "valueUSDm": 4169,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: the cash-flow statement shows US$4,169m of long-term debt repaid in the quarter to 30 Jun 2024 (US$2,000m a year earlier): scheduled note maturities, a lumpy line.",
+   "note_es": "Cifra trimestral reportada: el estado de flujos muestra US$4,169 M de deuda de largo plazo pagada en el trimestre al 30 de junio de 2024 (US$2,000 M un año antes): vencimientos programados de bonos, una partida irregular por naturaleza.",
+   "src": {
+    "k": "AMZN 10-Q 2024-06-30",
+    "page": "3",
+    "section": "Consolidated Statements of Cash Flows",
+    "quote": "Repayments of long-term debt ( 2,000 ) ( 4,169 ) ( 3,386 ) ( 4,499 ) ( 4,643 ) ( 4,789 )"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "AMZN",
+   "metric": "debt_repaid",
+   "quarter": "FY2024Q3",
+   "end": "2024-09-30",
+   "valueUSDm": 2183,
+   "result": "confirmed",
+   "note_en": "Reported three-month figure: the cash-flow statement shows US$2,183m of long-term debt repaid in the quarter to 30 Sep 2024 (none a year earlier; US$6,682m in the nine months): scheduled note maturities, a lumpy line.",
+   "note_es": "Cifra trimestral reportada: el estado de flujos muestra US$2,183 M de deuda de largo plazo pagada en el trimestre al 30 de septiembre de 2024 (nada un año antes; US$6,682 M en nueve meses): vencimientos programados de bonos, una partida irregular por naturaleza.",
+   "src": {
+    "k": "AMZN 10-Q 2024-09-30",
+    "page": "3",
+    "section": "Consolidated Statements of Cash Flows",
+    "quote": "Repayments of long-term debt — ( 2,183 ) ( 3,386 ) ( 6,682 ) ( 4,643 ) ( 6,972 )"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "ticker": "IREN",
+   "metric": "equity_proceeds",
+   "quarter": "FY2026Q2",
+   "end": "2025-12-31",
+   "valueUSDm": 1632.427,
+   "result": "confirmed",
+   "note_en": "Derived quarter (six months less three months, both tagged): IREN sold 39.7 million ordinary shares in an underwritten equity offering in the quarter to 31 Dec 2025 for US$1,634.8m net of issuance costs (statement of stockholders' equity); the cash-flow figure of US$1,632.4m differs by the timing of issuance costs.",
+   "note_es": "Trimestre derivado (seis meses menos tres, ambos etiquetados): IREN vendió 39.7 millones de acciones ordinarias en una oferta pública en el trimestre al 31 de diciembre de 2025 por US$1,634.8 M netos de gastos de emisión (estado de cambios en el capital); la cifra del estado de flujos, US$1,632.4 M, difiere por el momento de pago de los gastos de emisión.",
+   "src": {
+    "k": "IREN 10-Q 2025-12-31",
+    "page": "11",
+    "section": "Condensed Consolidated Statements of Stockholders' Equity",
+    "quote": "Issuance of Ordinary shares – Equity Offering, net of issuance costs 39,699,102 1,634,847"
+   },
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  }
+ ]
+}
