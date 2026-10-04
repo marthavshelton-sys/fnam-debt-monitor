@@ -6,7 +6,7 @@
  "filed": "2026-04-08",
  "report": "2026-02-28",
  "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000030/apld-20260228.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 77,
  "numberedPages": 76,
  "hits": [
@@ -137,6 +137,13 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "10",
+   "match": "segment information",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   The Company has restated its comparative financial statements for prior periods to reflect this change in classification. The statements of operations, cash flows, and segment information for prior periods have been adjusted to include the results of the Cloud Services Business within continuing operations rather than within discontinued operations, and previously classified assets and liabilities of the Cloud Services Business are presented within the respective held‑and‑used asset and liability line items as of each balance sheet date.   Revenues, income (loss) before income taxes, net income (loss), total assets and liabilities, and cash flows previously reported as related to discontinued operations and asset and liabilities held for sale of the Cloud Services Business are now reported in the corresponding line items within continuing operations and held‑and‑used asset and liability categories for all periods presented. There was no material impact on the Company’s previously reported net income, total assets, or equity as a result of this reclassi…",
+   "amounts": []
+  },
+  {
    "kind": "power",
    "page": "11",
    "match": "Interconnection",
@@ -177,6 +184,54 @@
     {
      "raw": "$ 123,318   ",
      "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "15",
+   "match": "Useful Life",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   reporting periods. The Company is currently evaluating the impact the adoption of ASU 2025-12 may have on the Company’s consolidated financial statements.   3. Property and Equipment   Property and equipment consisted of the following as of February 28, 2026 and May 31, 2025 (in thousands):   Estimated Useful Life February 28, 2026 May 31, 2025   Networking equipment, electrical equipment, and software   3 years - 5 years   $ 38,163 $ 33,611   Mechanical infrastructure   20 years 71,934 —   Electrical infrastructure   15 years 104,238 —   Electric generation and transformers 15 years - 30 years   193,828 9,914   Land and building   Building 39 years 278,456 109,672   Building improvements   15 years - 25 years   677,001 —   Land 59,713 20,047   Land improvements 15 years 43,729 1,423   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 1,544,734 1,090,587   Other equipment and fixtures 5 years - 10 years   55,616 12,447   Total cost of property and equipment 3,068,554 1,278,843   Accumulated depreciation ( 56,803 ) ( 26,556 )   Property and equipment, net $ 3,011,751 $ 1,252,287   Depreciation expense totaled $ 17.6 million and $ 27.7 million for the thre…",
+   "amounts": [
+    {
+     "raw": "$ 38,163 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 33,611   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "15",
+   "match": "Depreciation expense",
+   "text": "…building   Building 39 years 278,456 109,672   Building improvements   15 years - 25 years   677,001 —   Land 59,713 20,047   Land improvements 15 years 43,729 1,423   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 1,544,734 1,090,587   Other equipment and fixtures 5 years - 10 years   55,616 12,447   Total cost of property and equipment 3,068,554 1,278,843   Accumulated depreciation ( 56,803 ) ( 26,556 )   Property and equipment, net $ 3,011,751 $ 1,252,287   Depreciation expense totaled $ 17.6 million and $ 27.7 million for the three and nine months ended February 28, 2026, respectively, and $ 3.2 million and $ 9.3 million for the three and nine months ended February 28, 2025, respectively.   4. Revenue from Contracts with Customers   Below is a summary of the Company’s revenue concentration by major customers for the three and nine months ended February 28, 2026 and February 28, 2025, respectively.   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Customer A 56 % — % 52 % — %   Customer B 30 % 66 % 33 % 54 %   Customer C 14 % 34 % 15 % 29 %   Customer D — % — % — % 11 %   Deferred Revenue   Changes in the Company's deferred revenue balances for the nine months ended February 28, 2026 and February 28, 2025, respectively, are shown in the following table (in thousands):   Nine M…",
+   "amounts": [
+    {
+     "raw": "$ 3,011,751 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,252,287   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17.6 million",
+     "usdM": 17.6
+    },
+    {
+     "raw": "$ 27.7 million",
+     "usdM": 27.7
+    },
+    {
+     "raw": "$ 3.2 million",
+     "usdM": 3.2
+    },
+    {
+     "raw": "$ 9.3 million",
+     "usdM": 9.3
     }
    ]
   },
@@ -471,6 +526,13 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "36",
+   "match": "investment grade",
+   "text": "…onal 150MW at Polaris Forge 1, bringing the total capacity under contract at Polaris Forge 1 to 400 MW. The Company has guaranteed the obligations of APLD ELN-02 C LLC under the data center lease. The third lease is for the full capacity of Building 4, which is currently in the design phase and is expected to be service-ready in middle of calendar year 2027.   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   A summary of minimum lease payments due from these leases is shown below. These amounts do not reflect future rental revenues from renewal or replacement of existing leases unless the Company is reasonably certain it will exercise the   36",
+   "amounts": []
+  },
+  {
    "kind": "rvg",
    "page": "37",
    "match": "residual value guarantee",
@@ -533,6 +595,53 @@
    "match": "utility",
    "text": "…ent” within the meaning of Nasdaq listing rules. On February 27, 2024, the derivative plaintiff filed an amended complaint asserting the same claims as the original complaint.   On June 5, 2024, following briefing and argument on the defendants’ motion to dismiss the Derivative Lawsuit, the Court entered an order granting the defendants’ motion without prejudice and dismissing all claims against all defendants, including the Company, on the grounds that the plaintiff failed to plead (1) demand futility as to each of plaintiff’s claims or (2) a claim for breach of fiduciary duty. The order dismissed all claims against all defendants, including the Company. The plaintiff can seek leave to file an amended complaint but to date has not done so.   39",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "40",
+   "match": "segment results",
+   "text": "…ch is the Company’s Chief Executive Officer.   The Company's CODM evaluates performance and makes operating decisions primarily based on revenue and segment profit (loss) on a consolidated basis and for each of the Company's reportable segments. Operating results by segment include costs or expenses directly attributable to each segment, which include selling, general, and administrative expenses, gain on classification of held for sale and loss on abandonment of assets. The Company derives the segment results from its internal management reporting system. The accounting policies the Company uses to derive reportable segment results are the same as those used for external reporting purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest (income) expense, net, gain on change in fair value of derivatives, gain on change in fair value of investment, loss on conversion of debt, loss on change in fair value of debt, loss on extinguishment of debt, loss on change in fair value of warrants or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segme…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "40",
+   "match": "segment information",
+   "text": "…on of debt, loss on change in fair value of debt, loss on extinguishment of debt, loss on change in fair value of warrants or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance. The \"Other\" includes corporate related items not allocated to reportable segments for purposes of making operating decisions or assessing financial performance.   The following tables present segment information, including revenue by segment and segment profit (loss) for the three months ended February 28, 2026 and February 28, 2025 (in thousands):   Three Months Ended February 28, 2026   Data Center Hosting Business   Cloud Services Business HPC Hosting Business   Revenue $ 37,542 $ 18,087 $ 71,008   Costs and expenses:   Cost of revenues 22,992 6,282 43,558   Selling, general and administrative (1)   688 4,242 9,885   Loss on classification of held for sale — 59,650 —   Loss on abandonment of assets   3 107 —   Total costs and expenses 23,683 70,281 53,443   Segment profit (loss) $ 13,859 $ ( 52,194 ) $ 17,565   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   40",
+   "amounts": [
+    {
+     "raw": "$ 37,542 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,087 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 71,008   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "41",
+   "match": "segment information",
+   "text": "…  Revenue $ 35,167 $ 17,754 $ —   Costs and expenses:   Cost of revenues 25,664 23,342 45   Selling, general and administrative (1)   723 4,720 177   Total costs and expenses 26,387 28,062 222   Segment profit (loss) $ 8,780 $ ( 10,308 ) $ ( 222 )   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   The following tables present segment information, including revenue by segment and segment profit (loss) for the nine months ended February 28, 2026 and February 28, 2025 (in thousands):   Nine Months Ended February 28, 2026   Data Center Hosting Business   Cloud Services Business   HPC Hosting Business   Revenue $ 117,059 $ 53,207 $ 182,296   Costs and expenses:   Cost of revenues 78,554 12,690 144,189   Selling, general and administrative (1)   2,138 5,188 23,921   Loss on classification of held for sale — 59,650 —   Loss on abandonment of assets   515 598 1,240   Total costs and expenses 81,207 78,126 169,350   Segment profit (loss) $ 35,852 $ ( 24,919 ) $ 12,946   (1) Does not include selling, general and administrative expense that is not allocated to reportable segments, such as certain amounts of stock-based compensation, personnel expenses, and professional service expenses.   Nine Months Ended February 28, …",
+   "amounts": [
+    {
+     "raw": "$ 117,059 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 53,207 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 182,296   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -618,6 +727,13 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "47",
+   "match": "segment information",
+   "text": "…rvices Business, which had previously been classified and reported as held for sale in accordance with ASC 360-10 and discontinued operations in accordance with ASC 205-20, no longer met the criteria for classification as held for sale and discontinued operations due to the Company entering into the Contribution and Exchange Agreement.   We have restated our comparative financial statements for prior periods to reflect this change in classification. The statements of operations, cash flows, and segment information for prior periods have been adjusted to include the results of the Cloud Services Business within continuing operations rather than within discontinued operations, and previously classified assets and liabilities of the Cloud Services Business are presented within the respective held‑and‑used asset and liability line items as of each balance sheet date.   Revenues, income (loss) before income taxes, net income (loss), total assets and liabilities, and cash flows previously reported as related to discontinued operations and asset and liabilities held for sale of the Cloud Services Business are now   47",
+   "amounts": []
+  },
+  {
    "kind": "capacity",
    "page": "49",
    "match": "106 MW",
@@ -682,6 +798,22 @@
    "page": "50",
    "match": "campus located",
    "text": "…ampus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   We recognized $71.0 million and $182.3 million , in revenue from this business segment during the three and nine months ended February 28, 2026, respectively.   50",
+   "amounts": [
+    {
+     "raw": "$71.0 million",
+     "usdM": 71
+    },
+    {
+     "raw": "$182.3 million",
+     "usdM": 182.3
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "50",
+   "match": "investment grade",
+   "text": "…o 400 MW. We have guaranteed the obligations of APLD ELN-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in 2026 and reaching full capacity in early 2027. On October 22, 2025, we announced that we entered into an approximately 15-year lease agreement with a U.S. based investment grade hyperscaler for 200 MW of critical IT load at our Polaris Forge 2 campus.   On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   We recognized $71.0 million and $182.3 million , in revenue from this business segment during the three and nine months ended February 28, 2026, respectively.   50",
    "amounts": [
     {
      "raw": "$71.0 million",
@@ -865,6 +997,26 @@
    ]
   },
   {
+   "kind": "depreciation",
+   "page": "59",
+   "match": "depreciation and amortization expense",
+   "text": "… 2026. The increase in cost of revenues was categorized as follows:   • approximately $18.0 million increase in expenses associated with tenant fit-out services for our HPC Hosting Business;   • approximately $4.8 million increase in personnel expenses due to the increases in headcount as well as other related costs directly supporting revenue;   • approximately $4.1 million increase in energy costs associated with our Data Center Hosting Business; and   • approximately $2.0 million increase in depreciation and amortization expense due to an increase in owned and leased assets in-service directly supporting revenue.   These increases were partially offset by a decrease of $5.2 million in lease and lease related expenses due to the renegotiations of certain of our leases during fiscal year 2026.   59",
+   "amounts": [
+    {
+     "raw": "$4.1 million",
+     "usdM": 4.1
+    },
+    {
+     "raw": "$2.0 million",
+     "usdM": 2
+    },
+    {
+     "raw": "$5.2 million",
+     "usdM": 5.2
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "59",
    "match": "related party",
@@ -957,6 +1109,46 @@
    ]
   },
   {
+   "kind": "depreciation",
+   "page": "61",
+   "match": "depreciation and amortization expense",
+   "text": "…ows:   • approximately $112.5 million increase in expenses associated with tenant fit-out services for our HPC Hosting Business which we began providing during the current fiscal year;   • approximately $14.3 million increase in energy costs associated with our Data Center Hosting Business; and   • approximately $5.7 million increase in other expenses such as personnel expenses directly attributable to generating revenue.   These increases were partially offset by a decrease of $45.0 million in depreciation and amortization expense and a decrease of $14.7 million in lease and related expenses for the nine months ended February 28, 2026 compared to the nine months ended February 28, 2025, primarily due to the Cloud Services Business being classified as held for sale until February 15, 2026, as well as due to the renegotiations of certain of our leases during fiscal year 2026.   Selling, general and administrative expense   Selling, general and administrative expense increased by $100.0 million, or 150%, from $66.9 million for the nine months ended February 28, 2025 to $166.8 million for the nine months ended February 28, 2026. The increase was primarily due to the overall growth in the business. The change in selling, general and administrative expense was categorized as follows:   • approximately $81.5 million increase in stock based compensation primarily due to an increase in…",
+   "amounts": [
+    {
+     "raw": "$5.7 million",
+     "usdM": 5.7
+    },
+    {
+     "raw": "$45.0 million",
+     "usdM": 45
+    },
+    {
+     "raw": "$14.7 million",
+     "usdM": 14.7
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "61",
+   "match": "depreciation and amortization expense",
+   "text": "…travel, computer and software expenses;   • approximately $10.4 million increase in professional service expense primarily related to legal services provided on discrete transactions and projects, as well as general support of the business; and   • approximately $8.1 million increase in personnel expenses, related to the increase in headcount period over period.   These increases were partially offset by a decrease of $10.7 million in lease and related expenses and a decrease of $1.0 million in depreciation and amortization expense for the nine months ended February 28, 2026 compared to the nine months ended February 28, 2025, primarily due to the Cloud Services Business being classified as held for sale until February 15, 2026, which resulted in decreased depreciation and amortization recorded as well as due to the renegotiations of certain of our leases during fiscal year 2026.   Loss (gain) on classification of held for sale   Loss (gain) on classification of held for sale changed by $84.3 million, or 342%, from a gain of $24.6 million for the nine months ended February 28, 2025 to a loss of $59.7 million for the nine months ended February 28, 2026. The loss during the nine months ended February 28, 2026 was due to the write down of the Cloud Services Business assets to their carrying value as of February 15, 2026 when it no longer qualified as held for sale. See further dis…",
+   "amounts": [
+    {
+     "raw": "$8.1 million",
+     "usdM": 8.1
+    },
+    {
+     "raw": "$10.7 million",
+     "usdM": 10.7
+    },
+    {
+     "raw": "$1.0 million",
+     "usdM": 1
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "62",
    "match": "related party",
@@ -988,6 +1180,13 @@
    "page": "64",
    "match": "related party",
    "text": "…ud Services Business and is defined as EBITDA adjusted for stock-based compensation, non-recurring repair expenses, diligence, acquisition, disposition and integration expenses, litigation expenses, gain on classification of held for sale, gain on change in fair value of derivative, gain on change in fair value of investment, (gain) loss on abandonment of assets, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of warrants, loss on extinguishment of related party debt, restructuring expenses and other non-recurring expenses that Management believes are not representative of our expected ongoing costs.   64",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "66",
+   "match": "Depreciation and Amortization expense",
+   "text": "…sts incurred in association with certain discrete transactions and projects.   (3) Represents non-recurring litigation expense associated with our defense of class action lawsuits and legal fees related to matters with certain former employees. We do not expect to incur these expenses on a regular basis.   (4) Represents the acceleration of expense related to assets that were abandoned by us due to operational failure or other reasons. Depreciation and amortization in this amount is included in Depreciation and Amortization expense within our calculation of EBITDA, and therefore is not added back as a management adjustment in our calculation of Adjusted EBITDA.   (5) Represents non-recurring expenses associated with employee separations.   (6) Represents expenses that are not representative of our expected ongoing costs.   (7) Represents interest expense excluded from the calculation of Adjusted net income (loss) per diluted share (Non-GAAP) that would occur if the Convertible Notes had been converted into stock at the beginning of the period. This adjustment is only present in periods where its effect would be dilutive.   (8) Includes shares that would be issued upon conversion of our outstanding Convertible Notes totaling 46,144,395 shares.   Sources of Liquidity   As of February 28, 2026, we had unrestricted cash and cash equivalents of $1.7 billion and restricted cash of $3…",
    "amounts": []
   },
   {

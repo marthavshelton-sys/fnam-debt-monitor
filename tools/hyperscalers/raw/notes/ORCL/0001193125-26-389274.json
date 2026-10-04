@@ -6,16 +6,80 @@
  "filed": "2026-09-11",
  "report": "2026-08-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 42,
  "numberedPages": 40,
  "hits": [
+  {
+   "kind": "rpo",
+   "page": "6",
+   "match": "Remaining Performance Obligations",
+   "text": "…al Report on Form 10-K for the fiscal year ended May 31, 2026 that had a significant impact on our condensed consolidated financial statements or notes thereto as of and for the three months ended August 31, 2026 .   Cash, Cash Equivalents and Restricted Cash   Restricted cash as of August 31, 2026 was $ 2.6 billion and was included within prepaid expenses and other current assets as presented within our condensed consolidated balance sheets. Restricted cash as of May 31, 2026 was immaterial.   Remaining Performance Obligations from Contracts with Customers   Trade receivables, net of allowances for credit losses, and deferred revenues are reported net of related uncollected deferred revenues in our condensed consolidated balance sheets as of August 31, 2026 and May 31, 2026. The revenues recognized during the three months ended August 31, 2026 and 2025 that were included in the opening deferred revenues balances as of May 31, 2026 and 2025 were approximately $ 4.0 billion during each period. Revenues recognized from performance obligations satisfied in prior periods and impairment losses recognized on our receivables were immaterial in each of the three months ended August 31, 2026 and 2025.   6",
+   "amounts": [
+    {
+     "raw": "$ 2.6 billion",
+     "usdM": 2600
+    }
+   ]
+  },
   {
    "kind": "equity_method",
    "page": "7",
    "match": "Joint Venture",
    "text": "…d $ 2.3 billion as of August 31, 2026 and May 31, 2026, respectively, and substantially all of the balance is included in other non-current assets in the accompanying condensed consolidated balance sheets and is subject to periodic credit losses and impairment reviews. Certain of these non-marketable equity securities are adjusted for observable price changes from orderly transactions. The substantial majority of the non-marketable investments we held as of August 31, 2026 were with TikTok USDS Joint Venture LLC, an equity method investee in which we have an ownership interest of 15 %.   Non-Operating Income, net   Non-operating income, net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.   7",
    "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "7",
+   "match": "Remaining performance obligations",
+   "text": "Table of Contents   ORACLE CORPORATION   NOTES TO CONDENSED CONSOLIDATED FINANCIAL STATEMENTS—(Continued)   August 31, 2026   (Unaudited)   Remaining performance obligations were $ 664 billion as of August 31, 2026 , of which we expect to recognize approximately 13 % as revenues over the next twelve months , 37 % over the subsequent month 13 to month 36 , 34 % over the subsequent month 37 to month 60 and the remainder thereafter. We have elected the optional exemption to not disclose the variable consideration for contracts in which the variable consideration expected to be received over the duration of the contract is allocated entirely to the wholly unsatisfied performance obligations. Refer to Note 1 of Notes to Consolidated Financial Statements included in our Annual Report on Form 10-K for the fiscal year ended May 31, 2026 for more information about our remaining performance obligations.   Customer Prepayments and Sales of Financing Receivables   Certain of our customer contracts include a significant financing compone…",
+   "amounts": [
+    {
+     "raw": "$ 664 billion",
+     "usdM": 664000
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "9",
+   "match": "Useful Life",
+   "text": "…orrowings and the related fair value hedges, if any, that we had outstanding as of August 31, 2026 and May 31, 2026, respectively, the estimated fair values of the senior notes and other long-term borrowings and the related fair value hedges, if any, using Level 2 inputs at August 31, 2026 and May 31, 2026 were $ 105.7 billion and $ 114.4 billion, respectively.   3. PROPERTY, PLANT AND EQUIPMENT   Property, plant and equipment, net consisted of the following:   (Dollars in millions)   Estimated Useful Life   August 31, 2026   May 31, 2026   Computer, network, machinery and equipment   1 - 6 years (1)   $   77,755   $   59,634   Buildings and improvements   1 - 40 years   25,539   21,263   Furniture, fixtures and other   5 - 15 years   427   452   Land   —   1,329   1,329   Construction in progress (2)   —   48,546   39,973   Total property, plant and equipment   1 - 40 years   153,596   122,651   Accumulated depreciation   ( 25,751   )   ( 22,694   )   Total property, plant and equipment, net   $   127,845   $   99,957   (1) Comprised primarily of servers and networking equipment with estimated useful life of six years .   9",
+   "amounts": [
+    {
+     "raw": "$ 105.7 billion",
+     "usdM": 105700
+    },
+    {
+     "raw": "$ 114.4 billion",
+     "usdM": 114400
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "10",
+   "match": "Depreciation expense",
+   "text": "Table of Contents   ORACLE CORPORATION   NOTES TO CONDENSED CONSOLIDATED FINANCIAL STATEMENTS—(Continued)   August 31, 2026   (Unaudited)   (2) Comprised primarily of servers, networking equipment and leasehold improvements to be deployed at our data centers .   Depreciation expenses on property, plant and equipment during the three months ended August 31, 2026 and 2025 were $ 3.2 billion and $ 1.4 billion, respectively. Property, plant and equipment, net includes right-of-use (ROU) assets recorded in connection with lease arrangements that are accounted for as finance leases, totaling $ 8.9 billion and $ 7.5 billion as of August 31, 2026 and May 31, 2026 , respectively.   4. RESTRUCTURING AND OTHER EXPENSES   The restructuring and other expenses line item on our condensed consolidated statement of operations consist of restructuring expenses for employee severance costs, contract termination costs and certain other exit costs to improve our cost structure prospectively. The restructuring expenses resulted from the execution of management-approved restructuring plans that were developed for certain strategic initiatives and/or to improve operati…",
+   "amounts": [
+    {
+     "raw": "$ 3.2 billion",
+     "usdM": 3200
+    },
+    {
+     "raw": "$ 1.4 billion",
+     "usdM": 1400
+    },
+    {
+     "raw": "$ 8.9 billion",
+     "usdM": 8900
+    },
+    {
+     "raw": "$ 7.5 billion",
+     "usdM": 7500
+    }
+   ]
   },
   {
    "kind": "leases_not_commenced",
@@ -34,6 +98,27 @@
    "page": "13",
    "match": "purchase obligations",
    "text": "… of August 31, 2026 , we had $ 288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 a nd fiscal 2029 and for terms of fifteen to nineteen years that were not reflected on our condensed consolidated balance sheets as of August 31, 2026 or in the maturities table above.   Unconditional Obligations   In the ordinary course of business, we enter into certain unconditional purchase obligations with our suppliers. These are agreements that are enforceable and legally binding and specify terms, including: fixed or minimum quantities to be purchased; fixed, minimum or variable price provisions; and the approximate timing of the payment. As of August 31, 2026, our unconditional purchase and certain other obligations with terms of one year or greater, which were primarily related to long-term supply arrangements for purchasing components for cloud infrastructure assets and power supply arrangements for data centers, were as follows (in millions):   Remainder of fiscal 2027   $   5,449   Fiscal 2028   6,176   Fiscal 2029   3,863   Fiscal 2030   4,318   Fiscal 2031   6,768   Fiscal 2032   954   Thereafter   6,622   Total   $   34,150   7. STOCKHOLDERS’ EQUITY   Common Stock   On February 2, 2026, we entered into an equity distribution agreement with certain sales…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "16",
+   "match": "SEGMENT INFORMATION",
+   "text": "…ued)   August 31, 2026   (Unaudited)   we determine the liabilities are no longer necessary. If our estimates of the federal, state and foreign income tax liabilities and indirect tax liabilities are less than the ultimate assessment, it could result in a further charge to expense.   We believe that we have adequately provided under GAAP for outcomes related to our tax audits. However, there can be no assurances as to the possible outcomes or any related financial statement effect thereof.   9. SEGMENT INFORMATION   ASC 280, Segment Reporting , establishes standards for reporting information about operating segments. Operating segments are defined as components of an enterprise about which separate financial information is available that is evaluated regularly by the chief operating decision maker, or decision-making group, in deciding how to allocate resources and in assessing performance. Our chief operating decision makers (CODMs) are our Chief Executive Officers and Chief Technology Officer . We are organized by line of business and geographically. While our CODMs evaluate results in a number of different ways, the line of business management structure is the primary basis for which the allocation of resources and financial results are assessed .   We have three businesses: (1) cloud and software, (2) hardware and (3) services— each of which is comprised of a single operati…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "20",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…n of proceedings. On September 25, 2025, Oracle opposed that motion. The court has not yet ruled on that motion.   We believe that we have meritorious defenses against this action, including defenses to the quantum of damages claimed, and we will continue to vigorously defend it.   While the final outcome of this matter cannot be predicted with certainty, we do not believe that it will have a material impact on our financial position or results of operations.   Securities Class Action Regarding Oracle Cloud Infrastructure   On February 3, 2026, a putative class action, brought by an alleged stockholder of Oracle, was filed in the U.S. District Court for the District of Delaware, and on July 14, 2026, the plaintiff filed an amended class action complaint against us, our Chief Technology Officer, one of our Chief Executive Officers, two other Oracle executives, and one member of the Board. The plaintiff seeks to represent a class of Oracle stockholders, alleging that the defendants made or are responsible for false and misleading statements regarding Oracle’s cloud infrastructure business. The plaintiff seeks a ruling that this case may proceed as a class action and seeks damages, equitable relief, and attorneys’ fees and costs. The defendants must respond to the amended complaint by September 16, 2026. If the defendants move to dismiss the amended complaint, that motion will be …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "21",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…h our cloud and software offerings. Revenue streams included in our cloud and software business are:   • Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer’s option; and are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time; and   21",
    "amounts": []
   },
   {
@@ -58,6 +143,13 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "24",
+   "match": "Segment Results",
+   "text": "…in the area of income taxes.   During the first quarter of fiscal 2027, there were no significant changes to our critical accounting estimates. Refer to “Critical Accounting Estimates” under Management’s Discussion and Analysis of Financial Condition and Results of Operations contained in Part II, Item 7 of our Annual Report on Form 10-K for the fiscal year ended May 31, 2026 for a more complete discussion of our critical accounting estimates.   Results of Operations   Presentation of Operating Segment Results and Other Financial Information   In our results of operations discussion below, we provide an overview of our total consolidated revenues, total consolidated operating expenses and total consolidated operating margin, all of which are presented on a GAAP basis. We also present a GAAP-based discussion below for substantially all of the other expense items as presented in our condensed consolidated statements of operations that are not directly attributable to our three businesses.   In addition, we discuss below the results of each of our three businesses—cloud and software, hardware and services—which are our operating segments as defined pursuant to ASC 280, Segment Reporting . The financial reporting for our three businesses that is presented below is presented in a manner that is consistent with that used by our CODMs. Our operating segment presentation below reflects…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "24",
    "match": "8% of our total revenue",
@@ -69,6 +161,49 @@
    "page": "28",
    "match": "data centers in new",
    "text": "…iscal 2027, the constant currency increase in expenses was primarily due to a $2.8 billion increase in infrastructure expenses, partially offset by a $240 million decrease in sales and marketing expenses in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026. Our cloud and software expenses have grown in recent periods, and we expect this trend to continue during fiscal 2027 and in the next few fiscal years as we increase our existing data center capacity and establish data centers in new geographic locations in order to meet current and expected customer demand.   Excluding the effects of currency rate fluctuations, our cloud and software business’ total margin increased in the first quarter of fiscal 2027, relative to the first quarter of fiscal 2026, due to increases in total revenues for this business as discussed above. Total margin as a percentage of revenues in constant currency decreased in the first quarter of fiscal 2027, relative to the first quarter of fiscal 2026, due to an increase in cloud and software business’ total expenses driven by higher infrastructure expenses to support growth in our cloud infrastructure offering.   28",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "28",
+   "match": "segment results",
+   "text": "…fic   9%   11%   Revenues by Offerings :   Cloud applications   $   4,219   10%   10%   $   3,839   Cloud infrastructure   7,388   121%   120%   3,347   Software license   655   -15%   -14%   766   Software support   4,895   -1%   -1%   4,955   Total revenues   $   17,157   33%   33%   $   12,907   (1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Our cloud and software business’ total revenues increased by $4.3 billion in reported currency in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026 due to an increase in cloud revenues as customers purchased our applications and infrastructure technologies and renewed their related cloud contracts. Excluding the unfavorable impact of currency rate fluctuations of less than 1% in the first quarter of fiscal 2027, cloud infrastructure and cloud applications contributed 91% and 9%, respectively, to the constant currency growth in cloud revenues in the first quarter of fiscal 2027. The Americas, the EMEA and the Asia Pacific regions contributed 91%, 6% and 3%, respectively, to the cons…",
+   "amounts": [
+    {
+     "raw": "$4.3 billion",
+     "usdM": 4300
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "29",
+   "match": "segment results",
+   "text": "…dware (1)   272   62%   61%   169   Sales and marketing (1)   50   -9%   -9%   54   Total expenses (1)   322   44%   44%   223   Total Margin   $   452   1%   2%   $   447   Total Margin %   58%   67%   % Revenues by Geography :   Americas   48%   47%   EMEA   27%   30%   Asia Pacific   25%   23%   (1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Total hardware revenues increased by $104 million in reported currency in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026. Excluding the unfavorable impact of currency rate fluctuations of 1% in the first quarter of fiscal 2027, the increase in hardware revenues was primarily due to the growth in revenues from our Oracle Exadata and certain other strategic hardware product offerings, partially offset by the continued emphasis we have placed on the marketing and sale of our growing cloud-based infrastructure technologies. The Americas, the EMEA and the Asia Pacific regions contributed 47%, 10% and 43%, respectively, to the constant currency revenue growth for this business during …",
+   "amounts": [
+    {
+     "raw": "$104 million",
+     "usdM": 104
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "30",
+   "match": "segment results",
+   "text": "…337   Asia Pacific   156   -6%   -3%   167   Total revenues   1,414   5%   5%   1,349   Total Expenses (1)   969   -5%   -5%   1,017   Total Margin   $   445   34%   34%   $   332   Total Margin %   31%   25%   % Revenues by Geography :   Americas   64%   63%   EMEA   25%   25%   Asia Pacific   11%   12%   (1) Excludes stock-based compensation and certain allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Total services revenues increased by $65 million in reported currency in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026. The increase in services revenues in reported currency was due to an $88 million increase in our consulting services revenues, partially offset by a $23 million decrease in our customer success services revenues in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026. Excluding the unfavorable impact of currency rate fluctuations of less than 1% in the first quarter of fiscal 2027, the constant currency increase in services revenues in the Americas and the EMEA regions was partially offset by a constant currency decrease in services re…",
+   "amounts": [
+    {
+     "raw": "$65 million",
+     "usdM": 65
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "31",
+   "match": "useful lives",
+   "text": "…   $   376   0%   0%   $   376   % of Total Revenues   2%   2%   (1) Excluding stock-based compensation   Total general and administrative expenses remained flat in both reported and constant currency in the first quarter of fiscal 2027 relative to the first quarter of fiscal 2026.   Amortization of Intangible Assets : Substantially all our intangible assets were acquired through our business combinations. We amortize our intangible assets over, and monitor the appropriateness of, the estimated useful lives of these assets. We also periodically review these intangible assets for potential impairment based upon relevant facts and circumstances. Refer to Note 5 of Notes to Consolidated Financial Statements included in our Annual Report on Form 10-K for the fiscal year ended May 31, 2026 for additional information regarding our intangible assets and related amortization.   Three Months Ended August 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   Cloud and software agreements and related relationships   $   133   -10%   -10%   $   149   Developed technology   32   -79%   -79%   154   Other   37   -69%   -69%   117   Total amortization of intangible assets   $   202   -52%   -52%   $   420   Amortization of intangible assets decreased by $218 million in reported currency in the first quarter of fiscal 2027, relative to the first quarter of fiscal 202…",
    "amounts": []
   },
   {
@@ -94,6 +229,22 @@
     {
      "raw": "$28.5 billion",
      "usdM": 28500
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "35",
+   "match": "Remaining Performance Obligations",
+   "text": "…her with cash generated from operations and available financing arrangements, will be sufficient to meet our working capital, committed capital expenditures and contractual obligations for at least the next twelve months. Thereafter, we expect that our existing sources of liquidity, together with potential access to additional financing, will continue to be sufficient for the foreseeable future. Further, we have flexibility in managing the timing of certain discretionary capital expenditures.   Remaining Performance Obligations from Contracts with Customers   Remaining performance obligations were $664 billion and $455 billion as of August 31, 2026 and 2025, respectively. The increase in remaining performance obligations as of August 31, 2026 in comparison to August 31, 2025 was primarily attributable to certain significant cloud contracts that were entered into during the period. For more information about our remaining performance obligations, see Note 1 of Notes to Condensed Consolidated Financial Statements included elsewhere in this Quarterly Report.   Recent Accounting Pronouncements   For information with respect to recent accounting pronouncements, and the impact of these pronouncements on our consolidated financial statements, see Note 1 of Notes to Condensed Consolidated Financial Statements included elsewhere in this Quarterly Report.   Item 3. Quantitative and Quali…",
+   "amounts": [
+    {
+     "raw": "$664 billion",
+     "usdM": 664000
+    },
+    {
+     "raw": "$455 billion",
+     "usdM": 455000
     }
    ]
   }

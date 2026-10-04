@@ -21,6 +21,8 @@
 <script src="/hiperescaladores/data/changelog.js"></script>
 <script src="/hiperescaladores/data/capacity.js"></script>
 <script src="/hiperescaladores/data/circular.js"></script>
+<script src="/hiperescaladores/data/payoff.js"></script>
+<script src="/hiperescaladores/data/scope.js"></script>
 <script src="/hiperescaladores/assets/hub.js"></script>
 </head>
 <body data-title-es="Centro de Hiperescaladores | FNAM" data-title-en="Hyperscaler Hub | FNAM">
@@ -34,7 +36,9 @@
     </div>
     <span class="eyebrow"><span class="live" data-status-dot="hyperscalers"></span><span class="es">Expansión de centros de datos de IA · Datos públicos</span><span class="en" hidden>AI datacenter buildout · Public data</span></span>
     <h1><span class="es">Centro de Hiperescaladores</span><span class="en" hidden>Hyperscaler Hub</span></h1>
-    <p class="lede"><span class="es">Quién está construyendo la infraestructura de IA, cuánto invierte, quién la paga y dónde están los riesgos. Diez empresas: Microsoft, Alphabet, Amazon, Meta, Oracle y CoreWeave, más las neonubes listadas Nebius, IREN, Applied Digital y Core Scientific. Cada cifra lleva su nivel de fuente (T1 = presentación ante la SEC) y abre su origen con ⓘ.</span><span class="en" hidden>Who is building the AI infrastructure, how much they spend, who pays for it and where the risks are. Ten companies: Microsoft, Alphabet, Amazon, Meta, Oracle and CoreWeave, plus the listed neoclouds Nebius, IREN, Applied Digital and Core Scientific. Every figure carries its source tier (T1 = SEC filing) and opens its origin with ⓘ.</span></p>
+    <p class="thesis" id="thesis"></p>
+    <p class="thesis-meta" id="thesisMeta"></p>
+    <p class="lede"><span class="es">Diez empresas: Microsoft, Alphabet, Amazon, Meta, Oracle y CoreWeave, más las neonubes listadas Nebius, IREN, Applied Digital y Core Scientific. Cada cifra lleva su nivel de fuente (T1 = presentación ante la SEC) y abre su origen con ⓘ.</span><span class="en" hidden>Ten companies: Microsoft, Alphabet, Amazon, Meta, Oracle and CoreWeave, plus the listed neoclouds Nebius, IREN, Applied Digital and Core Scientific. Every figure carries its source tier (T1 = SEC filing) and opens its origin with ⓘ.</span></p>
     <div class="asof-row" id="asofRow"></div>
     <div id="notices"></div>
     <section class="wtk" id="wtk" aria-label="Lo que hay que saber / What to know"></section>
@@ -44,43 +48,64 @@
 
 <nav class="mods" aria-label="Módulos / Modules">
   <div class="wrap">
-    <a href="/hiperescaladores/" class="active"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
-    <a href="/hiperescaladores/capacidad/">1 <span class="es">Capacidad actual</span><span class="en" hidden>Current capacity</span></a>
-    <a href="/hiperescaladores/comprometida/">2 <span class="es">Capacidad comprometida</span><span class="en" hidden>Committed capacity</span></a>
-    <a href="/hiperescaladores/capex/">3 <span class="es">Capex y financiamiento</span><span class="en" hidden>Capex and financing</span></a>
-    <a href="/hiperescaladores/electricidad/">4 <span class="es">Electricidad</span><span class="en" hidden>Electricity</span></a>
-    <a href="/hiperescaladores/sitios/">5 <span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
-    <a href="/hiperescaladores/fuera-de-balance/">6 <span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
-    <a href="/hiperescaladores/circular/">7 <span class="es">Financiamiento circular</span><span class="en" hidden>Circular financing</span></a>
+    <a href="/hiperescaladores/" class="active" aria-current="page"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
+    <a href="/hiperescaladores/capacidad/"><span class="n">1</span><span class="es">Capacidad</span><span class="en" hidden>Capacity</span></a>
+    <a href="/hiperescaladores/comprometida/"><span class="n">2</span><span class="es">Comprometida</span><span class="en" hidden>Committed</span></a>
+    <a href="/hiperescaladores/capex/"><span class="n">3</span><span class="es">Capex</span><span class="en" hidden>Capex</span></a>
+    <a href="/hiperescaladores/electricidad/"><span class="n">4</span><span class="es">Energía</span><span class="en" hidden>Power</span></a>
+    <a href="/hiperescaladores/sitios/"><span class="n">5</span><span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
+    <a href="/hiperescaladores/fuera-de-balance/"><span class="n">6</span><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
+    <a href="/hiperescaladores/circular/"><span class="n">7</span><span class="es">Circular</span><span class="en" hidden>Circular</span></a>
+    <a href="/hiperescaladores/retorno/"><span class="n">8</span><span class="es">Retorno</span><span class="en" hidden>Payoff</span></a>
     <a href="/hiperescaladores/metodologia/"><span class="es">Metodología</span><span class="en" hidden>Methodology</span></a>
     <a href="/hiperescaladores/glosario/"><span class="es">Glosario</span><span class="en" hidden>Glossary</span></a>
   </div>
 </nav>
-
 <main class="wrap">
-  <section class="block" id="modules">
-    <div class="sec-head"><h2><span class="es">Módulos</span><span class="en" hidden>Modules</span></h2></div>
-    <div class="tiles" id="tiles"></div>
+  <section class="block" id="paths">
+    <div class="sec-head"><h2><span class="es">Cómo Leer Este Centro</span><span class="en" hidden>How to Read This Hub</span></h2></div>
+    <div class="paths" id="pathsBox"></div>
   </section>
-  <section class="block" id="glance">
-    <div class="sec-head"><h2><span class="es">Las Diez Empresas de un Vistazo</span><span class="en" hidden>The Ten Companies at a Glance</span></h2></div>
-    <p class="sec-desc" id="glanceDesc"></p>
-    <div class="card"><div class="tblwrap" id="glanceTbl"></div><div id="glanceStamp"></div></div>
+  <section class="block" id="heat">
+    <div class="sec-head"><h2 id="heatH"></h2></div>
+    <p class="sec-desc" id="heatDesc"></p>
+    <div class="card"><div class="tblwrap" data-nosort id="heatTbl"></div><div id="heatStamp"></div></div>
+  </section>
+  <section class="block" id="changed">
+    <div class="sec-head"><h2><span class="es">Qué Cambió Este Trimestre</span><span class="en" hidden>What Changed This Quarter</span></h2></div>
+    <p class="sec-desc" id="changedDesc"></p>
+    <div class="card"><ul class="changes-list" id="changedList"></ul><div id="changedStamp"></div>
+      <details class="tech" id="techLog"><summary><span class="es">Registro técnico de cambios (valores XBRL nuevos, revisados y reexpresados)</span><span class="en" hidden>Technical change log (new, revised and restated XBRL values)</span></summary><p class="small muted" id="logDesc"></p><div class="tblwrap" data-nocards id="logTbl"></div><div id="logStamp"></div></details>
+    </div>
+  </section>
+  <section class="block" id="calendar">
+    <div class="sec-head"><h2><span class="es">Próximos Resultados y Presentaciones</span><span class="en" hidden>Upcoming Results and Filings</span></h2></div>
+    <p class="sec-desc" id="calDesc"></p>
+    <div class="card"><div class="tblwrap" id="calTbl"></div><div id="calStamp"></div></div>
+  </section>
+  <section class="block" id="core">
+    <div class="sec-head"><h2 id="coreH"></h2></div>
+    <p class="sec-desc" id="coreDesc"></p>
+    <div class="card"><div class="tblwrap" data-keycols="0,2,4,5,7" id="coreTbl"></div><div id="coreStamp"></div></div>
+  </section>
+  <section class="block" id="neo">
+    <div class="sec-head"><h2 id="neoH"></h2></div>
+    <p class="sec-desc" id="neoDesc"></p>
+    <div class="card"><div class="tblwrap" data-keycols="0,2,4,5,7" id="neoTbl"></div><div id="neoStamp"></div></div>
+  </section>
+  <section class="block" id="ocf">
+    <div class="sec-head"><h2 id="ocfH"></h2></div>
+    <p class="sec-desc" id="ocfDesc"></p>
+    <div class="card"><h3 id="ocfT"></h3><p class="cap" id="ocfC"></p><div class="chart-wrap"><canvas id="chOCF" role="img"></canvas></div><div id="ocfStamp"></div></div>
   </section>
   <section class="block" id="ttmTrend">
-    <div class="sec-head"><h2><span class="es">El Ritmo de la Inversión</span><span class="en" hidden>The Pace of Investment</span></h2></div>
+    <div class="sec-head"><h2 id="trendH"></h2></div>
     <p class="sec-desc" id="trendDesc"></p>
     <div class="card"><h3 id="trendT"></h3><p class="cap" id="trendC"></p><div class="chart-wrap"><canvas id="chTTM" role="img"></canvas></div><div class="legend" id="trendLegend"></div><div id="trendStamp"></div></div>
   </section>
-  <section class="block" id="status">
-    <div class="sec-head"><h2><span class="es">Estado de los Datos y Próximas Presentaciones</span><span class="en" hidden>Data Status and Next Filings</span></h2></div>
-    <p class="sec-desc" id="statusDesc"></p>
-    <div class="card"><div class="tblwrap" id="statusTbl"></div><div id="statusStamp"></div></div>
-  </section>
-  <section class="block" id="changes">
-    <div class="sec-head"><h2><span class="es">Registro de Cambios</span><span class="en" hidden>Change Log</span></h2></div>
-    <p class="sec-desc" id="logDesc"></p>
-    <div class="card"><div class="tblwrap" id="logTbl"></div><div id="logStamp"></div></div>
+  <section class="block" id="modules">
+    <div class="sec-head"><h2><span class="es">Los Ocho Módulos</span><span class="en" hidden>The Eight Modules</span></h2></div>
+    <div class="tiles" id="tiles"></div>
   </section>
 </main>
 

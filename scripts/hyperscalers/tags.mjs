@@ -22,6 +22,7 @@ export const TAGS = {
   equity_proceeds: { kind: 'flow', tags: ['us-gaap:ProceedsFromIssuanceOfCommonStock'], en: 'Proceeds from common stock issued (as tagged)', es: 'Recursos por emisión de acciones comunes (según etiqueta)' },
   pref_proceeds: { kind: 'flow', tags: ['us-gaap:ProceedsFromIssuanceOfConvertiblePreferredStock', 'us-gaap:ProceedsFromIssuanceOfPreferredStockAndPreferenceStock', 'us-gaap:ProceedsFromIssuanceOfRedeemablePreferredStock'], en: 'Proceeds from preferred stock issued (as tagged)', es: 'Recursos por emisión de acciones preferentes (según etiqueta)' },
   buybacks: { kind: 'flow', tags: ['us-gaap:PaymentsForRepurchaseOfCommonStock', 'us-gaap:PaymentsForRepurchaseOfEquity'], en: 'Share repurchases', es: 'Recompra de acciones' },
+  interest_paid: { kind: 'flow', tags: ['us-gaap:InterestPaidNet', 'us-gaap:InterestPaid'], en: 'Interest paid, net of capitalized interest (cash-flow supplement)', es: 'Intereses pagados, netos de capitalizados (complemento de flujos)' },
   dividends: { kind: 'flow', tags: ['us-gaap:PaymentsOfDividends', 'us-gaap:PaymentsOfDividendsCommonStock'], en: 'Dividends paid', es: 'Dividendos pagados' },
 
   cash: { kind: 'instant', recipes: [
@@ -41,6 +42,10 @@ export const TAGS = {
   ], en: 'Total debt (carrying amount)', es: 'Deuda total (valor en libros)' },
   ol_liab: { kind: 'instant', recipes: [{ req: ['us-gaap:OperatingLeaseLiability'] }, { req: ['us-gaap:OperatingLeaseLiabilityNoncurrent'], opt: ['us-gaap:OperatingLeaseLiabilityCurrent'] }], en: 'Operating lease liabilities', es: 'Pasivos por arrendamiento operativo' },
   fl_liab: { kind: 'instant', recipes: [{ req: ['us-gaap:FinanceLeaseLiability'] }, { req: ['us-gaap:FinanceLeaseLiabilityNoncurrent'], opt: ['us-gaap:FinanceLeaseLiabilityCurrent'] }], en: 'Finance lease liabilities', es: 'Pasivos por arrendamiento financiero' },
+  // undiscounted lease payments of leases already recognized (the maturity table's total before the interest that brings
+  // it to present value): the like-for-like comparator of leases signed but not yet commenced, which are undiscounted
+  ol_pay_due: { kind: 'instant', recipes: [{ req: ['us-gaap:LesseeOperatingLeaseLiabilityPaymentsDue'] }], en: 'Operating lease payments due, undiscounted (maturity table)', es: 'Pagos de arrendamientos operativos por vencer, sin descontar (tabla de vencimientos)' },
+  fl_pay_due: { kind: 'instant', recipes: [{ req: ['us-gaap:FinanceLeaseLiabilityPaymentsDue'] }], en: 'Finance lease payments due, undiscounted (maturity table)', es: 'Pagos de arrendamientos financieros por vencer, sin descontar (tabla de vencimientos)' },
   rpo: { kind: 'instant', recipes: [{ req: ['us-gaap:RevenueRemainingPerformanceObligation'] }], en: 'Remaining performance obligations (RPO)', es: 'Obligaciones de desempeño pendientes (RPO)' },
   purchase_oblig: { kind: 'instant', recipes: [{ req: ['us-gaap:UnrecordedUnconditionalPurchaseObligationBalanceSheetAmount'] }, { req: ['us-gaap:PurchaseObligation'] }], en: 'Unrecorded purchase obligations', es: 'Obligaciones de compra no registradas' },
   vie_max_loss: { kind: 'instant', recipes: [{ req: ['us-gaap:VariableInterestEntityEntityMaximumLossExposureAmount'] }, { req: ['us-gaap:VariableInterestEntityReportingEntityInvolvementMaximumLossExposureAmount'] }], en: 'Unconsolidated VIEs: maximum exposure to loss', es: 'EIV no consolidadas: exposición máxima a pérdida' },

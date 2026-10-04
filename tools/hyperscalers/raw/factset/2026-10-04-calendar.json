@@ -1,0 +1,26 @@
+{
+ "source": "FactSet Calendar Events (in-session pull; ConfirmedEarningsRelease / ProjectedEarningsRelease)",
+ "pulledAt": "2026-10-04",
+ "note": "Projected = FactSet's estimate until the company confirms the date; confirmed = announced by the company. Times not given unless FactSet states them.",
+ "events": [
+  { "ticker": "APLD", "date": "2026-10-07", "status": "confirmed", "period": "FY2027 Q1", "time": "after market", "modified": "2026-09-28" },
+  { "ticker": "NBIS", "date": "2026-10-22", "status": "projected", "period": "2026 Q3", "modified": "2026-02-02" },
+  { "ticker": "MSFT", "date": "2026-10-27", "status": "projected", "period": "FY2027 Q1", "modified": "2026-01-08" },
+  { "ticker": "GOOGL", "date": "2026-10-27", "status": "projected", "period": "2026 Q3", "modified": "2026-01-22" },
+  { "ticker": "META", "date": "2026-10-28", "status": "projected", "period": "2026 Q3", "modified": "2026-01-15" },
+  { "ticker": "AMZN", "date": "2026-10-29", "status": "projected", "period": "2026 Q3", "modified": "2026-09-09" },
+  { "ticker": "CORZ", "date": "2026-11-11", "status": "projected", "period": "2026 Q3", "modified": "2025-10-27" },
+  { "ticker": "CRWV", "date": "2026-11-16", "status": "projected", "period": "2026 Q3", "modified": "2026-02-06" },
+  { "ticker": "IREN", "date": "2026-12-01", "status": "projected", "period": "FY2027 Q1", "modified": "2025-10-23" },
+  { "ticker": "ORCL", "date": "2026-12-14", "status": "projected", "period": "FY2027 Q2", "modified": "2025-12-02" },
+  { "ticker": "APLD", "date": "2027-01-12", "status": "projected", "period": "FY2027 Q2", "modified": "2025-12-19" },
+  { "ticker": "MSFT", "date": "2027-01-26", "status": "projected", "period": "FY2027 Q2", "modified": "2026-01-08" },
+  { "ticker": "GOOGL", "date": "2027-02-02", "status": "projected", "period": "2026 Q4", "modified": "2026-01-22" },
+  { "ticker": "META", "date": "2027-02-03", "status": "projected", "period": "2026 Q4", "modified": "2026-01-15" },
+  { "ticker": "AMZN", "date": "2027-02-04", "status": "projected", "period": "2026 Q4", "modified": "2026-01-23" },
+  { "ticker": "NBIS", "date": "2027-02-16", "status": "projected", "period": "2026 Q4", "modified": "2026-02-02" },
+  { "ticker": "IREN", "date": "2027-02-17", "status": "projected", "period": "FY2027 Q2", "modified": "2026-01-23" },
+  { "ticker": "CRWV", "date": "2027-03-04", "status": "projected", "period": "2026 Q4", "modified": "2026-02-06" },
+  { "ticker": "CORZ", "date": "2027-03-30", "status": "projected", "period": "2026 Q4", "modified": "2026-02-23" }
+ ]
+}

@@ -6,7 +6,7 @@
  "filed": "2026-04-30",
  "report": "2025-12-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 153,
  "numberedPages": 93,
  "hits": [
@@ -32,6 +32,13 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "8",
+   "match": "useful lives",
+   "text": "… system of internal controls, we may not be able to accurately or timely report our financial condition or results of operations, which may adversely affect our business.   ● Changes in the tax laws, regulations and systems in the countries in which we operate, or unpredictable or unforeseen application of existing rules, may materially adversely affect our reported financial results.   ● Our results of operations may be adversely affected if we are not able to accurately estimate the value and useful lives of our long-term infrastructure assets or to amortize them over the periods we anticipate.   ● We are exposed to fluctuations in currency exchange rates, which could negatively affect our results of operations.   Risks Related to Our Class A Ordinary Shares   ● The market price of our Class A shares has been and may continue to be volatile, including as a result of general market and industry developments that are outside our control. These risks may be exacerbated by volatility in the emerging industry in which we operate and the relative lack of comparable publicly traded peers.   ● We expect to issue additional equity or equity-linked securities from time to time, which may dilute the interest of our existing shareholders in our company.   ● Future sales of Class A shares by existing shareholders could put pressure on our share price.   ● We do not intend to pay dividends…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "9",
    "match": "GPUs",
@@ -43,6 +50,13 @@
    "page": "10",
    "match": "guarantee",
    "text": "… on our expansion, revenues, cash flow, financial condition and results of operations. In addition, equity or convertible debt issuances could result in our existing shareholders suffering significant dilution and/or result in the issuance of securities that have preferential rights and privileges in addition to those of our existing Class A shares, and debt financings could entail significant additional cost and operational complexity. Even if we are able to raise sufficient capital, we cannot guarantee that we will deploy it in a manner that allows us to achieve better operating results or grow our business.  c. Our businesses face significant and evolving competition, and any inability to adapt to new and changing technologies and customer requirements or specifications could negatively affect our financial condition, results of operations and future prospects.   The market for our offerings is intensely competitive and evolving at a rapid pace. To remain competitive, we must evolve our products and differentiate our offerings from those of our competitors while the market experiences volatility, changes in customer requirements and industry standards, regulatory developments, advancements in technology, and the frequent introduction of new or improved solutions. Additionally, we may incur significant costs and may experience delays in developing new solutions and enhancemen…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "10",
+   "match": "Google Cloud",
+   "text": "…ngs in order to adapt to the changing AI landscape, and may not achieve our desired return on any investment. A failure to compete successfully could materially adversely affect our financial condition, results of operations and future prospects.   For our core AI infrastructure business, our key competitors are specialized cloud service providers focused on AI, including CoreWeave, Crusoe and Lambda. We also compete with general purpose cloud computing providers including Amazon (AWS), Google (Google Cloud Platform), Microsoft (Azure), and Oracle. In addition, national governments have announced or launched initiatives in certain jurisdictions, including the U.S., to sponsor, support or otherwise encourage the development of AI infrastructure, which may intensify the competition in our core sector. Our smaller business units also face significant competition in their respective sectors. Many of our competitors have greater financial, technical, marketing, sales, and other resources, greater name recognition, longer operating histories, and a larger customer base. We expect to continue to face intense competition from current and new entrants into the market. Our ability to compete effectively depends on a number of factors, many of which are beyond our control, including those described elsewhere in this “Risk Factors” section, and in particular:  • the potential ability of la…",
    "amounts": []
   },
   {
@@ -207,6 +221,27 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "27",
+   "match": "useful lives",
+   "text": "…ng our operations may introduce additional operational and organizational complexity, and could give rise to further tax implications, including changes in the tax treatment of our activities, recognition of deferred tax liabilities, or other unintended tax consequences. Any of these factors could adversely affect our business, financial condition, results of operations, or prospects.  d. Our results of operations may be adversely affected if we are not able to accurately estimate the value and useful lives of our long-term infrastructure assets or to amortize them over the periods we anticipate.   Our management must make certain estimates and assumptions that affect the amounts reported in our consolidated financial statements, including with respect to the useful lives of our long-lived assets. Our estimates of useful lives of property, plant and equipment primarily relate to our server and network equipment, and to a lesser extent to the investments in infrastructure and our own-built data center facilities. Such estimates are based in part on our historical experience in operating assets of a similar nature, market inputs, if available, and multiple other assumptions that we believe to be reasonable.   We anticipate that depreciation and amortization expense will increase in absolute terms as we continue to invest in our technology infrastructure and data center facilities…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "27",
+   "match": "useful lives",
+   "text": "…art on our historical experience in operating assets of a similar nature, market inputs, if available, and multiple other assumptions that we believe to be reasonable.   We anticipate that depreciation and amortization expense will increase in absolute terms as we continue to invest in our technology infrastructure and data center facilities. Given our limited history of operations in respect of our current business, and the immature and evolving market in which we operate, our estimates of the useful lives of such assets may be subject to change. Our reported results of operations may be adversely affected if our assumptions change or if actual circumstances differ from those in our assumptions.  e. We are exposed to fluctuations in currency exchange rates, which could negatively affect our results of operations.   We operate internationally and have experienced, and may continue to experience, gains and losses resulting from fluctuations in foreign currency exchange rates. The functional currency of our parent company, Nebius Group N.V., is the U.S. dollar, while the functional currency of our group’s other businesses is generally the respective local currency. Accordingly, fluctuating foreign currency exchange rates have a direct impact on how our international results of operations translate into U.S. dollars.  27",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "27",
+   "match": "depreciation and amortization expense",
+   "text": "…ing with respect to the useful lives of our long-lived assets. Our estimates of useful lives of property, plant and equipment primarily relate to our server and network equipment, and to a lesser extent to the investments in infrastructure and our own-built data center facilities. Such estimates are based in part on our historical experience in operating assets of a similar nature, market inputs, if available, and multiple other assumptions that we believe to be reasonable.   We anticipate that depreciation and amortization expense will increase in absolute terms as we continue to invest in our technology infrastructure and data center facilities. Given our limited history of operations in respect of our current business, and the immature and evolving market in which we operate, our estimates of the useful lives of such assets may be subject to change. Our reported results of operations may be adversely affected if our assumptions change or if actual circumstances differ from those in our assumptions.  e. We are exposed to fluctuations in currency exchange rates, which could negatively affect our results of operations.   We operate internationally and have experienced, and may continue to experience, gains and losses resulting from fluctuations in foreign currency exchange rates. The functional currency of our parent company, Nebius Group N.V., is the U.S. dollar, while the fun…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "28",
    "match": "joint venture",
@@ -368,6 +403,13 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "41",
+   "match": "Google Cloud",
+   "text": "… stake in Toloka, a leading data provider for LLM and GenAI developers, which was spun off from the group in May 2025.   Competition   The markets that we target are highly competitive and rapidly changing. Given the current pace of innovation and technological advancement, we anticipate continued high levels of competition in the industry.  As a full-stack AI cloud provider, we face competition from cloud computing providers that are scaling AI-specific offerings, such as Amazon (AWS), Google (Google Cloud Platform), Microsoft (Azure) and Oracle.   Given the breadth of our services, we also face different competitors across the AI cloud stack. For example, on the compute layer, we see other AI-centric providers offering bare-metal GPU clusters and GPU-centric data center operations. This group of competitors includes CoreWeave, Crusoe, and Lambda Labs, among others. Solutions such as Token Factory may face competition from AI-native inference-as-a-service solutions such as Fireworks AI and Together AI.  We believe that our core competitive advantages include:  ● Our full-stack, AI-native cloud approach from silicon to software, with offerings spanning the entire AI cloud value chain - from data center compute, hardware to software solutions and production-scale token generation;   ● Leading team of AI / ML and cloud engineers focused on developing our growing portfolio of tool…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "41",
    "match": "Microsoft",
@@ -482,6 +524,13 @@
    "amounts": []
   },
   {
+   "kind": "depreciation",
+   "page": "47",
+   "match": "Depreciation and amortization expense",
+   "text": "…n sales and promotion of products to the market, or performing general or administrative functions, including share-based compensation expenses; rental of office space and related utilities in proportion to the number of employees performing these functions; training and hiring expenses; advertising and marketing expenses, including the costs of organizing promotions; legal and audit services; and other expenses related to the group’s wider operating activities.  Depreciation and amortization   Depreciation and amortization expenses relates to the depreciation of property and equipment, mainly servers and networking equipment, data center related infrastructure equipment and office furniture, and the amortization of intangible assets.  Share-based compensation   In the consolidated statements of operations, share-based compensation expense is recorded in the same functional area as the expense for the recipient’s cash compensation. As a result, share-based compensation expense is allocated among the cost of revenues; product development expenses; and sales, general and administrative expenses.  Interest income   Interest income is mainly generated from short-term bank deposits and cash account balances.  Interest expense   Interest expense primarily consists of contractual interest and the amortization of debt discounts and issuance costs associated with our outstanding debt ob…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "48",
    "match": "equity method investment",
@@ -546,6 +595,13 @@
      "usdM": 77.1
     }
    ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "51",
+   "match": "Depreciation and Amortization Expense",
+   "text": "Table of Contents   Depreciation and Amortization Expenses   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   Changes   ​   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   ​   2023 to 2024   ​ ​ ​   2024 to 2025   ​   ​   (in millions of U.S. dollars)   ​   (as a percentage, %)   Depreciation and amortization expenses  29.3  77.1  417.9  ​   163  %   442  %   as a percentage of operating costs and expenses   10   %   16   %   37   %   ​   ​   ​   ​   Depreciation and amortization expenses for the year ended December 31, 2025 increased by $340.8 million, or 442%, from $77.1 million in 2024 to $417.9 million in 2025. Depreciation and amortization expenses for the year ended December 31, 2024 increased by $47.8 million, or 163%, from $29.3 million in 2023 to $77.1 million in 2024. The increases in both periods were primarily attributable to higher depreciation expenses related…",
+   "amounts": []
   },
   {
    "kind": "equity_method",
@@ -637,6 +693,63 @@
    "match": "GPUs",
    "text": "…are refresh cycles, utilization levels, historical retirement patterns, and the period over which the assets are expected to provide economic benefit. Changes in estimated useful lives can materially affect depreciation expenses and our results of operations. Given the rapidly evolving nature of our young industry and our limited history operating under our current business model, there may be a greater risk that our estimates of useful lives may be subject to change over time. Our main assets, GPUs, are currently depreciated over four years.   In January 2026, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to evaluate the appropriateness of our estimated useful lives and may r…",
    "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "56",
+   "match": "Useful Lives",
+   "text": "Table of Contents   under different assumptions or conditions. The significant accounting policies affecting our financial condition and results of operations are more fully described in Note 1 — “Description of Business and Summary of Significant Accounting Policies” of the consolidated financial statements included elsewhere in this Annual Report.  We believe the following estimates are most critical to aid in understanding and evaluating our reported financial results:  Useful Lives of Property and Equipment   Property and equipment are depreciated over their estimated useful lives on a straight-line basis. We monitor conditions related to these assets to determine whether events and circumstances warrant a revision to the remaining amortization or depreciation period. We test these assets for potential impairment whenever management concludes that events or changes in circumstances indicate that the carrying amount may not be recoverable. In estimating useful lives, we consider factors such as technological obsolescence, expected hardware refresh cycles, utilization levels, historical retirement patterns, and the period over which the assets are expected to provide economic benefit. Changes in estimated useful lives can materially affect depreciation expenses and our results of operations. Given the rapidly evolving nature of our young industry and our…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "56",
+   "match": "useful lives",
+   "text": "…onsider factors such as technological obsolescence, expected hardware refresh cycles, utilization levels, historical retirement patterns, and the period over which the assets are expected to provide economic benefit. Changes in estimated useful lives can materially affect depreciation expenses and our results of operations. Given the rapidly evolving nature of our young industry and our limited history operating under our current business model, there may be a greater risk that our estimates of useful lives may be subject to change over time. Our main assets, GPUs, are currently depreciated over four years.   In January 2026, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to ev…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "56",
+   "match": "useful lives",
+   "text": "…ation of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to evaluate the appropriateness of our estimated useful lives and may revise them in future periods if warranted. Any such revisions will be accounted for prospectively.  Recoverability of Deferred Tax Assets   We recognize deferred tax assets for deductible temporary differences and net operating loss carryforwards. The recoverability of these deferred tax assets requires significant management judgment because realization depends on our ability to generate sufficient future taxable income within the applicable carryforward periods. In assessing recoverability, we evaluate both positive and negative evidence, including historical operating results, forecasts of future taxable income, the timing of reversal of existing temporary differences, and available tax planning strategies. A valuation allowance is recorded when, based on the weight of available evidence, it is more likely than not that some or all of the deferred tax assets will…",
+   "amounts": [
+    {
+     "raw": "$167.6 million",
+     "usdM": 167.6
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "56",
+   "match": "depreciation expense",
+   "text": "…depreciation period. We test these assets for potential impairment whenever management concludes that events or changes in circumstances indicate that the carrying amount may not be recoverable. In estimating useful lives, we consider factors such as technological obsolescence, expected hardware refresh cycles, utilization levels, historical retirement patterns, and the period over which the assets are expected to provide economic benefit. Changes in estimated useful lives can materially affect depreciation expenses and our results of operations. Given the rapidly evolving nature of our young industry and our limited history operating under our current business model, there may be a greater risk that our estimates of useful lives may be subject to change over time. Our main assets, GPUs, are currently depreciated over four years.   In January 2026, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce t…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "56",
+   "match": "depreciation expense",
+   "text": "… useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to evaluate the appropriateness of our estimated useful lives and may revise them in future periods if warranted. Any such revisions will be accounted for prospectively.  Recoverability of Deferred Tax Assets   We recognize deferred tax assets for deductible temporary differences and net operating loss carryforwards. The recoverability of these deferred tax assets requires significant management judgment because realization depends on our ability to generate sufficient future taxable income within the applicable carryforward periods. In assessing recoverability, we evaluate both positive and negative evidence, including historical operating results, forecasts of future tax…",
+   "amounts": [
+    {
+     "raw": "$167.6 million",
+     "usdM": 167.6
+    }
+   ]
+  },
+  {
+   "kind": "estimate_change",
+   "page": "56",
+   "match": "change in accounting estimate will",
+   "text": "…26, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to evaluate the appropriateness of our estimated useful lives and may revise them in future periods if warranted. Any such revisions will be accounted for prospectively.  Recoverability of Deferred Tax Assets   We recognize deferred tax assets for deductible temporary differences and net operating loss carryforwards. The recoverability of these deferred tax assets requires significant management judgment because realization depends on our ability to generate sufficient future taxable income within the applicable carryforward periods. In assessing recoverability, we evaluate both positive and negative evidence, including histori…",
+   "amounts": [
+    {
+     "raw": "$167.6 million",
+     "usdM": 167.6
+    }
+   ]
   },
   {
    "kind": "equity_method",
@@ -773,6 +886,13 @@
    "amounts": []
   },
   {
+   "kind": "depreciation",
+   "page": "seq94",
+   "match": "depreciation expense",
+   "text": "…apitalization and depreciation. We evaluated the Company’s accounting policies for consistency with applicable accounting standards. For selected additions, we inspected supporting documentation to assess whether costs were appropriately capitalized, and procedures performed to test the existence of selected assets. We evaluated management’s determination of placed-in-use dates and tested the timing of depreciation commencement for a sample of assets. We also tested the mathematical accuracy of depreciation expense and evaluated the adequacy of related disclosures.  ​   ​   ​   ​   /s/ Reanda Audit & Assurance B.V.   We have served as the Company's auditor since 2024. Amsterdam, the Netherlands   April 30, 2026  F-4",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "seq98",
    "match": "Equity method investment",
@@ -784,6 +904,13 @@
    "page": "seq99",
    "match": "equity method investment",
    "text": "…ve (1)   ​   ​   ​   159.5   255.5   ​   380.1   Depreciation and amortization   ​   7, 9  ​   29.3   77.1   ​   417.9   Total operating costs and expenses  ​   ​   ​   295.5   491.1   ​   1,141.5   Loss from operations   ​   ​   ​   ( 285.7 )   ( 399.6 )   ​   ( 611.7 )   Interest income  ​   4  ​   3.3   63.6   ​   31.8   Interest expense  ​   4  ​   ​   —  ​   —  ​   ( 61.5 )  Gain from revaluation of investments in equity securities  ​   5  ​   ​   —  ​   —  ​   598.9   Income / (loss) from equity method investments  ​   ​   ​   ​   ( 10.9 )  ​   0.4   ​   ( 24.3 )  Other income / (loss), net  ​   4  ​   ​   ( 3.7 )  ​   ( 17.4 )  ​   80.6   Net income / (loss) before income taxes   ​   ​   ( 297.0 )   ( 353.0 )   ​   13.8   Income tax expense / (benefit)  ​   10  ​   2.0   ( 1.0 )  ​   4.0   Net income / (loss) from continuing operations   ​   ​   ( 299.0 )   ( 352.0 )   ​   9.8   Net income / (loss) from discontinued operations   ​   3  ​   ​   564.9   ​   ( 289.4 )   ​   72.7   Net income / (loss)   ​   ​   ​   ​   265.9   ​   ( 641.4 )   ​   82.5   Net income from discontinued operations attributable to non-controlling interests  ​   ​   ​   ( 24.6 )  —  ​   —  Net income / (loss) attributable to Nebius Group N.V.   ​   ​   ​   ​   241.3   ​   ( 641.4 )   ​   82.5   Net income / (loss) from continuing operations per Class A and Class B share:  ​   ​   ​   ​   ​   ​   ​ …",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq99",
+   "match": "depreciation and amortization expense",
+   "text": "…  ( 1.03 )  ​   0.29   Net income / (loss) per Class A and Class B share:  ​   ​   ​   ​   ​   ​   ​   ​   ​   Basic  ​   2  ​   ​   0.65   ​   ( 2.28 )  ​   0.34   Diluted  ​   2  ​   ​   0.65   ​   ( 2.28 )  ​   0.33   Weighted average number of Class A and Class B shares used in per share computation:  ​   ​   ​   ​   ​   ​   ​   ​   ​   Basic  2  ​   370,839,686   281,005,226   ​   242,531,291   Diluted  2  ​   370,839,686   ​   281,005,226   ​   247,679,946   ​   (1) These balances exclude depreciation and amortization expenses, which are presented separately, and include share-based compensation expenses of:   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Cost of revenues  ​ ​ ​  ​   ​   0.2   ​ ​ ​  0.2   ​ ​ ​  0.5   Product development  ​   ​   20.9   9.6   16.6   Sales, general and administrative  ​   ​   7.7   44.7   66.1   ​   The accompanying notes are an integral part of the consolidated financial statements.  ​   F-9",
    "amounts": []
   },
   {
@@ -805,6 +932,20 @@
    "page": "seq104",
    "match": "GPU",
    "text": "… THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   1. DE SCRIPTION OF BUSINESS AND SUMMARY OF SIGNIFICANT ACCOUNTING POLICIES   Description of Business   Nebius Group N.V., the parent company (the “Company”), together with its consolidated subsidiaries (collectively, “Nebius Group” or the “Group”), is a technology company building full-stack infrastructure to service the high-growth global AI industry, including large-scale GPU clusters, cloud platforms, and tools and services for developers. The Group also operates additional businesses, currently including autonomous driving technologies (Avride) and education technology (“edtech”) (TripleTen).   On May 7, 2025, the Company announced a strategic investment transaction in Toloka, the Group’s data-for-generative AI solutions business, led by Bezos Expeditions with participation from Mikhail Parakhin, CTO of Shopify. Following the completion of the investment transaction in Toloka, the Company continued to hold a significant equity stake but ceased to hold majority voting power in Toloka, no longer includes Toloka’s results in the Group’s consolidated financial statements, and reports its stake in Toloka as a combination of equity method investment and investment in non-marketable equity securities (See Note 3 – “Acquisitions, Disposals and Discontinued Oper…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq105",
+   "match": "useful lives",
+   "text": "… as discontinued operations.  Use of Estimates   The preparation of consolidated financial statements in conformity with U.S. GAAP requires management to make estimates and assumptions that affect the reported amounts of assets and liabilities, disclosure of contingent assets and liabilities at the date of the consolidated financial statements and amounts of revenues and expenses for the reporting period. Actual results could differ from those estimates. The most significant estimates relate to useful lives of property and equipment, recoverability of deferred tax assets, accounting for leases, fair values of share-based awards and valuation of investments in non-marketable equity securities. The Group bases its estimates on historical experience and on various other assumptions that are believed to be reasonable, the results of which form the basis for making judgments about the carrying values of assets and liabilities.  In January 2026, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years . Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026.   Foreign Currency Translation   The functional cu…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "seq106",
+   "match": "credit rating",
+   "text": "…, as well as customer and supplier concentrations, as the primary areas of potential risk.   Credit Risk Exposure   Financial instruments that potentially expose the Company to significant concentration of credit risk consist primarily of cash, cash equivalents, restricted cash and accounts receivable. The Group’s treasury policy addresses the level of credit exposure by working with different geographically diversified banking institutions, subject to their conformity to an established minimum credit rating for banking relationships. The Company extends credit to its customers in the ordinary course of business, which exposes it to credit risk in the event of nonpayment by customers. The Company has not experienced any material losses from these accounts.  Significant Customers   The Group’s businesses operate primarily in the United States, the European Union (“EU”) and Israel. A significant portion of the Group’s revenue is derived from the core AI infrastructure business and to a lesser extent from fees collected from users of TripleTen’s edtech platform. A substantial portion of the Group’s revenue is collected on a prepaid basis.  The following customers accounted for 10% or more of the Company’s revenue for the years ended December 31, 2023, 2024, and 2025 after deconsolidation of Toloka entities:  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,  …",
    "amounts": []
   },
   {
@@ -897,10 +1038,52 @@
    ]
   },
   {
+   "kind": "rpo",
+   "page": "seq108",
+   "match": "Remaining Performance Obligations",
+   "text": "…to the performance obligation of providing the course to the student, which is typically the fixed price at inception of the course. Revenue is recognized proportionally over the duration of the course provided to a student, including course extensions. Advance payments received by the Group from customers for services not yet rendered are recorded as deferred revenue in the Group’s consolidated balance sheets and recognized as revenue in the period services are provided.  Contract Balances and Remaining Performance Obligations   The timing of revenue recognition, billings and cash collections result in accounts receivable and deferred revenue.   Accounts receivable represent the Group’s unconditional right to consideration for goods or services transferred to customers, where only the passage of time is required before payment is due, and are recorded at the invoiced amount, net of an allowance for credit losses. Accounts receivable are recognized in the period in which the Group has the right to invoice the customer and when its right to consideration is unconditional. Deferred revenue arises when the Group receives payments or has the unconditional right to receive payments in advance of satisfying the related performance obligations. Deferred revenue primarily consists of billings or payments received in advance of revenue recognition.  The Group assesses the timing of the …",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "seq108",
+   "match": "Remaining performance obligations",
+   "text": "…ansfer of deliverables is a year or less. If the difference in timing arises for reasons other than the provision of finance either to the customer or to the Group, no financing component is deemed to exist. If a significant financing component exists from a payment from the customer to the Group in advance of the satisfaction of the performance obligation, the interest on the borrowing cost component is recorded as interest expense and revenue, based on an appropriate implicit borrowing rate.  Remaining performance obligations (\"RPO\") represent the transaction price allocated to performance obligations that are unsatisfied or partially unsatisfied as of the end of the reporting period. RPO consists of deferred revenue and unbilled contract revenue, which includes non-cancelable contracts where the Group has not yet invoiced, maintains an obligation to perform, and has not recognized revenue in the financial statements.   Cost of Revenues   Cost of revenues primarily consists of costs of co-location of data center facilities, the electricity, utility and maintenance costs in data centers, personnel costs, payment processing and students’ tuition fees and other related expenses. The Group’s owned data centers together with leased data center facilities are significant components of the Group’s cost of revenues.  F-18",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq111",
+   "match": "useful life",
+   "text": "…s grants related to assets or grants related to income based on the nature of the underlying expenditures. Government grants relating to multiple activities are separated into components and accounted for based on the nature of the related costs or obligations. A government grant is measured at the amount of cash received or receivable.  Government grants related to assets are presented separately as deferred income (as Accounts payable, accrued and other liabilities) that is amortized over the useful life of the asset (gross presentation). Government grants related to income are offset against the related expenses and recognized over the periods in which the related costs are incurred. Cash receipts from government grants are classified by the Group as cash flows provided by operating activities in the consolidated statements of cash flows. Government grants are derecognized as the related deferred income is fully recognized in profit or loss over the applicable period or when the grant becomes repayable.  Repayments of grants related to income are applied first against any unamortized deferred income recognized in respect of the grant. To the extent that the repayment exceeds the deferred income balance, or where no deferred income exists, the excess is recognized immediately in profit or loss. Repayments of grants related to assets are recognized by either increasing the car…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq112",
+   "match": "useful lives",
+   "text": "… N.V.   NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   repayable. Any cumulative additional depreciation that would have been recognized in profit or loss to date in the absence of the grant is recognized immediately in profit or loss.  Property and Equipment   Property and equipment are recorded at cost and depreciated using the straight-line method over their useful lives. Capital expenditures incurred before property and equipment are ready for their intended use are capitalized as assets not yet in use.  The depreciable amount of property and equipment is its cost less its residual (salvage) value (if applicable). Depreciation is computed under the straight-line method using estimated useful lives as follows:  ​   ​   ​   ​   ​   ​ ​ ​  Estimated useful lives   Server and network equipment  ​   4.0 years  Infrastructure systems and equipment  ​   3.0 - 10.0 years  Office furniture and equipment  ​   3.0 years  Buildings  ​   20.0 years  Other property and equipment  ​   2.0 - 10.0 years  ​   Land is not depreciated.  Depreciation of assets included in assets not yet in use commences when they are ready for the intended use. Assets not yet in use include prepayments made for property, plant and equipment.  Capitalized Interest Costs   ​   In…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq112",
+   "match": "useful lives",
+   "text": "…rest Costs   ​   In accordance with ASC 835-20, the Group capitalizes interest associated with the construction of data centers and purchases of related server and network equipment during the period in which expenditures for qualifying assets have been incurred, activities necessary to prepare the assets for their intended use are in progress, and interest costs are being incurred. Such capitalized interest is considered part of the assets’ historical cost and is depreciated over the estimated useful lives of the underlying assets.  Leases   The Company leases co-location space at data center facilities and, to a lesser extent, corporate offices, all of which are operating leases.  The Group determines if an arrangement is or contains a lease at inception by assessing whether the arrangement contains an identified asset and whether it has the right to control the identified asset. Right-of-use (“ROU”) assets represent the Group’s right to use an underlying asset for the lease term and lease liabilities represent the Group’s obligation to make lease payments arising from the lease. Lease liabilities are recognized at the lease commencement date based on the present value of future lease payments over the lease term. ROU assets are based on the measurement of the lease liability and also include any lease payments made prior to or on lease commencement and exclude lease incentiv…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "seq113",
    "match": "Equity Method Investment",
    "text": "…s to account for the unmodified original contract and a separate new contract arising from the modification. If the modification is not a separate contract, the Group remeasures the corresponding ROU asset and lease liability, adjusted for the circumstances of the particular contract and its modification. In the event of a full or a partial termination, any difference between the changes in lease liability and ROU asset is recognized in profit or loss at the effective date of the modification.  Equity Method Investments   Investments in the common stock or in-substance common stock of entities in which the Group can exercise significant influence but does not own a majority equity interest or otherwise control are accounted for under the equity method. The Group records its share of the results of these companies and the amortization of basis differences within the income/(loss) from equity method investments line on the consolidated statements of operations or as an adjustment to equity to reflect the Group’s share in the changes of the investee’s capital.  Following the loss of significant influence over equity method investments without readily determinable fair values, the Group accounts for these investments under the measurement alternative at cost less impairment.  The Group reviews its equity method investments for other-than-temporary impairment whenever events or chan…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq114",
+   "match": "useful lives",
+   "text": "…n are presented within results of discontinued operations in the Group’s consolidated statement of operations.  Intangible Assets Other Than Goodwill   Other intangible assets include technologies and licenses and Assets not yet in use. Intangible assets are initially recognized at cost. After initial recognition, intangible assets are measured at cost less accumulated amortization and impairment losses.  The Group amortizes other intangible assets using the straight-line method using estimated useful lives as follows:  ​   ​   ​   ​   ​   ​ ​ ​   Estimated useful lives   Other technologies and licenses   ​   the shorter of 5.0 years or the underlying license terms  ​   Impairment of Long-lived Assets Other Than Goodwill   The Group evaluates the carrying value of long-lived assets other than goodwill for impairment whenever events or changes in business circumstances indicate that the carrying amounts of the assets may not be recoverable. When such a determination is made, management’s estimate of undiscounted cash flows to be generated by the assets is compared to the carrying value of the assets to determine whether impairment is indicated. If impairment is indicated, the amount of the impairment recognized in the consolidated financial statements is determined by estimating the fair value of the assets and recording a loss for the amount by which the carrying value exceeds …",
    "amounts": []
   },
   {
@@ -949,6 +1132,18 @@
    "amounts": []
   },
   {
+   "kind": "rpo",
+   "page": "seq124",
+   "match": "Remaining performance obligations",
+   "text": "…2024 and 2025, which was included in the deferred revenue balances at the beginning of each respective period, was $ 6.9 and $ 16.3 , respectively.  During the year ended December 31, 2025, total deferred revenue increased by $ 1,561.2 primarily due to the recognition of prepayments received in advance for future services to be rendered under strategic customer agreements (Note 1). Deferred revenue is expected to be recognized as revenue over the period ranging from one to five calendar years.  Remaining performance obligations   As of December 31, 2025, the aggregate transaction price allocated to the RPO was $ 21,333.0 , of which 28 % is expected to be recognized over the 24 months ending December 31, 2027, 39 % between months 25 and 48, and the remainder recognized thereafter. The amounts disclosed include the Group's best estimate of variable consideration which is subject to change due to the timing and performance constraints. The amounts do not include performance obligations with an original duration of one year and less.  Interest income   The Group recognized interest income for the years ended December 31, 2023, 2024 and 2025 in the amounts of $ 3.3 , $ 63.6 and $ 31.8 , respectively. Interest income is earned from the Group’s cash and cash equivalents, represented by current accounts and other high liquid financial instruments such as bank deposits with maturities o…",
+   "amounts": [
+    {
+     "raw": "$ 21,333.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "equity_method",
    "page": "seq125",
    "match": "Equity method investment",
@@ -965,6 +1160,13 @@
    "page": "seq126",
    "match": "equity method investment",
    "text": "Table of Contents   NEBIUS GROUP N.V.   NOTES TO CONSOLIDATED FINANCIAL STATEMENTS (Continued)   FOR THE YEARS ENDED DECEMBER 31, 2023, 2024 AND 2025   (in millions of U.S. dollars (“$”), except share and per share data)   The carrying value of the Group’s equity method investments as of December 31, 2024 and 2025 were as follows:  ​   ​   ​   ​   ​   ​   ​   ​   2024   ​   2025   Venture capital fund  ​   6.4   ​   6.4   Toloka  ​   —  ​   4.7   Total equity method investments   ​   6.4   ​   11.1   ​   Included in the carrying value of the Toloka investment is the basis difference, net of amortization, between the original cost of the investment and the Group's proportionate share of the net assets of Toloka. The carrying value of the equity method investment is primarily adjusted for the Group’s share in the losses of Toloka and amortization of basis differences.  The table below provides the composition of the basis difference as of December 31, 2025:  ​   ​   ​   ​   ​   ​   2025   Intangible assets, net of accumulated amortization  ​   ( 8.3 )  Deferred tax liabilities  ​   1.6   Basis difference   ​   ( 6.7 )   ​   The Group amortiz…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq126",
+   "match": "useful lives",
+   "text": "… value of the equity method investment is primarily adjusted for the Group’s share in the losses of Toloka and amortization of basis differences.  The table below provides the composition of the basis difference as of December 31, 2025:  ​   ​   ​   ​   ​   ​   2025   Intangible assets, net of accumulated amortization  ​   ( 8.3 )  Deferred tax liabilities  ​   1.6   Basis difference   ​   ( 6.7 )   ​   The Group amortizes the basis difference related to the intangible assets over the estimated useful lives of the assets that gave rise to the difference using the straight-line method. The weighted-average remaining useful life of the intangible assets is approximately 5.4 years as of December 31, 2025.  Investments in non-marketable equity securities   The Group’s non-marketable equity securities are investments in privately held companies without readily determinable fair values and are summarized as follows:  ​   ​   ​   ​   ​   ​   ​   ​   2024   ​   2025   ClickHouse  ​   89.7   ​   737.1   Investment in preferred shares of Toloka  ​   —  ​   97.0   Other  ​   1.0   ​   2.5   Total Investments in non-marketable equity securities   ​   90.7   ​   836.6   ​   ClickHouse   ​   In 2021, the Group effected a spin-off of ClickHouse Inc. (or “ClickHouse”), an open-source database management system. In 2022, the Group lost significant influence over ClickHouse. As a result, the inv…",
    "amounts": []
   },
   {
@@ -987,6 +1189,26 @@
    ]
   },
   {
+   "kind": "depreciation",
+   "page": "seq128",
+   "match": "Depreciation expense",
+   "text": "…her equipment  12.7   ​   68.8   Assets not yet in use  163.8   ​   2,417.4   Total  1,083.0   ​   6,190.3   Less: accumulated depreciation  ( 236.3 )  ​   ( 637.0 )  Total property and equipment   846.7   ​   5,553.3   ​   Assets not yet in use primarily represent server and network equipment, infrastructure systems, equipment and other assets under installation, including related prepayments, and comprise the cost of the assets and other direct costs applicable to purchase and installation.   Depreciation expenses related to property and equipment for the years ended December 31, 2023, 2024 and 2025 amounted to $ 27.9 , $ 75.2 and $ 411.0 respectively.   F-38",
+   "amounts": [
+    {
+     "raw": "$ 27.9 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 75.2 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 411.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "seq130",
    "match": "additional lease agreements, primarily for data centers, that had not yet commence",
@@ -1001,6 +1223,13 @@
      "usdM": null
     }
    ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq130",
+   "match": "useful life",
+   "text": "…f December 31, 2024 and 2025 consisted of the following:   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   As of December 31, 2024   ​   As of December 31, 2025   ​   ​   Gross   ​   Less: accumulated   ​   Net   ​   Gross   ​   Less: accumulated   ​   Net   ​   Weighted-average   ​   ​   carrying   ​   amortization   ​   carrying   ​   carrying   ​   amortization   ​   carrying   ​   remaining   ​   ​   amount   ​   ​   ​   amount   ​   amount   ​   ​   ​   amount   ​   useful life   ​   ​ ​ ​  ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​ ​ ​  (in years)   Technologies and licenses  ​   6.4   ​   ( 3.7 )  ​   2.7   ​   29.7   ​   ( 10.6 )  ​   19.1   ​   3.4   Assets not yet in use  ​   2.2   ​   —  ​   2.2   ​   0.6   ​   —  ​   0.6   ​   —  Total intangible assets   8.6   ​   ( 3.7 )   ​   4.9   30.3   ​   ( 10.6 )   ​   19.7   ​   ​   ​   Amortization expenses of intangible assets for the years ended December 31, 2023, 2024 and 2025 were $ 1.4 , $ 1.9 and $ 6.9 , respectively. No impairment of intangible assets was identified or recorded in any of these years.  Estimated amortization expense over the remaining useful life for intangible assets subject to amortization as of December 31, 2025 was as follows:  ​   ​   ​   ​   ​   ​ ​ ​   ​   Other   ​   ​   ​   intangible   ​   ​   ​   assets   2026  6.9   2027  ​   ​   4.6   2028  ​   ​   4.0   2029  …",
+   "amounts": []
   },
   {
    "kind": "equity_method",

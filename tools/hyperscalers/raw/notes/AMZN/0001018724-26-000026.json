@@ -6,7 +6,7 @@
  "filed": "2026-07-31",
  "report": "2026-06-30",
  "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 52,
  "numberedPages": 51,
  "hits": [
@@ -74,6 +74,18 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "7",
+   "match": "useful lives",
+   "text": "…nd expenses, and related disclosures of contingent liabilities in the consolidated financial statements and accompanying notes. Estimates are used for, but not limited to, collectability of receivables, commitments and contingencies, impairment of property and equipment and operating leases, income taxes, inventory valuation, self-insurance liabilities, stock-based compensation forfeiture rates, the determination of when to capitalize certain costs relating to new products or service offerings, useful lives of equipment, valuation and impairment of investments, valuation of acquired intangibles and goodwill, valuation of derivative instruments, vendor funding, and viewing patterns of capitalized video content. Actual results could differ materially from these estimates. We review the useful lives of equipment on an ongoing basis.   During Q2 2026, we received approximately $ 640 million of tariff refunds under the International Emergency Economic Powers Act (“IEEPA”). These tariff refunds were primarily recorded as a reduction to “Cost of sales” and primarily impacted our North America segment. This represents the significant majority of refunds we expect to receive.   7",
+   "amounts": [
+    {
+     "raw": "$ 640 million",
+     "usdM": 640
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "8",
    "match": "Anthropic",
@@ -96,6 +108,13 @@
      "usdM": 62800
     }
    ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "10",
+   "match": "investment grade",
+   "text": "…y adoption permitted. The amendments can be applied on either a prospective or retroactive basis. We are currently evaluating the ASU to determine its impact on our disclosures.   Note 2 — FINANCIAL INSTRUMENTS   Cash, Cash Equivalents, Restricted Cash, and Marketable Securities   As of December 31, 2025 and June 30, 2026, our cash, cash equivalents, restricted cash, and marketable securities primarily consisted of cash, AAA-rated money market funds, U.S. government and agency securities, other investment grade securities, and marketable equity securities. Cash equivalents and marketable securities are recorded at fair value. Fair value is defined as the price that would be received to sell an asset or paid to transfer a liability in an orderly transaction between market participants at the measurement date. To increase the comparability of fair value measures, the following hierarchy prioritizes the inputs to valuation methodologies used to measure fair value:   Level 1 — Valuations based on quoted prices for identical assets and liabilities in active markets.   Level 2 — Valuations based on observable inputs other than quoted prices included in Level 1, such as quoted prices for identical unrestricted assets in active markets, similar assets and liabilities in active markets, quoted prices for identical or similar assets and liabilities in markets that are not active, or othe…",
+   "amounts": []
   },
   {
    "kind": "concentration",
@@ -412,6 +431,25 @@
    ]
   },
   {
+   "kind": "credit_rating",
+   "page": "18",
+   "match": "credit ratings",
+   "text": "…45 %, with a commitment fee of 0.03 % on the undrawn portion. There were no borrowings outstanding under the Credit Agreement and the Short-Term Credit Agreement as of December 31, 2025 and June 30, 2026.   In June 2026, we entered into a $ 17.5 billion unsecured delayed draw term loan with a syndicate of lenders (“Term Loan”), which matures three years from the date of borrowing and bears interest at the SOFR specified in the Term Loan plus a margin ranging from 0.625 % to 0.875 % based on our credit ratings. We may draw up to $ 17.5 billion in a single draw on any business day on or prior to September 30, 2026, after which any undrawn commitments will automatically terminate. Amounts borrowed and repaid may not be reborrowed. There were no borrowings outstanding under the Term Loan as of June 30, 2026.   We also utilize other short-term credit facilities for working capital purposes. There were $ 455 million and $ 325 million of borrowings outstanding under these facilities as of December 31, 2025 and June 30, 2026, which were included in “Accrued expenses and other” on our consolidated balance sheets.   Standby letters of credit are guarantees issued by financial institutions on our behalf, which can only be drawn in the event we fail to perform under the underlying obligation, and do not reduce the amount of borrowings available under our credit facilities. As of June 30, 2…",
+   "amounts": [
+    {
+     "raw": "$ 17.5 billion",
+     "usdM": 17500
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "22",
+   "match": "SEGMENT INFORMATION",
+   "text": "…ian tax authority (“ITA”) has asserted that tax applies to cloud services fees paid to Amazon in the U.S. We will need to remit taxes related to this matter until it is resolved, which payments could be significant in the aggregate. We believe the ITA’s position is without merit, we are defending our position vigorously, and we expect to recoup taxes paid. If this matter is adversely resolved, we could recognize significant additional tax expense, including for taxes previously paid.   Note 8 — SEGMENT INFORMATION   We have organized our operations into three segments: North America, International, and AWS. We allocate to segment results the operating expenses “Fulfillment,” “Technology and infrastructure,” “Sales and marketing,” and “General and administrative” based on usage, which is generally reflected in the segment in which the costs are incurred. The majority of technology costs recorded in “Technology and infrastructure” are incurred in the U.S. and are included in our North America and AWS segments. The majority of infrastructure costs recorded in “Technology and infrastructure” are allocated to the AWS segment based on usage. There are no internal revenue transactions between our reportable segments. Our chief operating decision maker (“CODM”) is our President and Chief Executive Officer. Our CODM regularly reviews consolidated net sales, consolidated operating expens…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "22",
    "match": "Anthropic",
@@ -459,6 +497,157 @@
     },
     {
      "raw": "$ 92,902   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "23",
+   "match": "AWS   Net sales",
+   "text": "…egments and reconciliation to consolidated net income is as follows (in millions):   Three Months Ended June 30, Six Months Ended June 30,   2025 2026 2025 2026   North America   Net sales $ 100,068 $ 116,177 $ 192,955 $ 220,320   Operating expenses 92,551 107,054 179,597 202,930   Operating income $ 7,517 $ 9,123 $ 13,358 $ 17,390   International   Net sales $ 36,761 $ 42,197 $ 70,274 $ 81,986   Operating expenses 35,267 40,480 67,763 78,845   Operating income $ 1,494 $ 1,717 $ 2,511 $ 3,141   AWS   Net sales $ 30,873 $ 42,232 $ 60,140 $ 79,819   Operating expenses 20,713 25,611 38,433 49,037   Operating income $ 10,160 $ 16,621 $ 21,707 $ 30,782   Consolidated   Net sales $ 167,702 $ 200,606 $ 323,369 $ 382,125   Operating expenses 148,531 173,145 285,793 330,812   Operating income 19,171 27,461 37,576 51,313   Total non-operating income 1,686 53,396 4,960 69,378   Provision for income taxes ( 2,678 ) ( 18,199 ) ( 7,231 ) ( 27,759 )   Equity-method investment activity, net of tax ( 15 ) ( 11 ) ( 14 ) ( 30 )   Net income $ 18,164 $ 62,647 $ 35,291 $ 92,902   23",
+   "amounts": [
+    {
+     "raw": "$ 7,517 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,123 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 13,358 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,390   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36,761 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,197 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 70,274 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 81,986   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,494 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,717 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,511 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,141   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,873 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 42,232 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 60,140 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,819   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 10,160 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 16,621 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 21,707 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,782   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 167,702 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 200,606 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 323,369 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 382,125   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "24",
+   "match": "depreciation and amortization expense",
+   "text": "…rious other offerings (such as shipping services, healthcare services, and certain licensing and distribution of video content) and our co-branded credit card agreements.   Total segment assets exclude corporate assets, such as cash and cash equivalents, marketable securities, other long-term investments, corporate facilities, goodwill and other acquired intangible assets, and tax assets. Technology infrastructure assets, which are included in property and equipment, net, net additions, and the depreciation and amortization expense on these assets, are allocated among the segments based on usage, with the majority allocated to the AWS segment. Usage of technology infrastructure assets by the North America and International segments, and the related allocation of total net additions, can fluctuate on a quarter-to-quarter basis, and is affected by seasonality, peak periods, new product or service offerings, and other factors.   Total segment assets reconciled to consolidated amounts are as follows (in millions):   December 31, 2025 June 30, 2026   North America (1) $ 235,652 $ 249,006   International (1) 81,984 85,271   AWS (2) 252,588 350,170   Corporate 247,818 411,242   Consolidated $ 818,042 $ 1,095,689   ___________________   (1) North America and International segment assets primarily consist of property and equipment, operating leases, inventory, accounts receivable, and d…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "25",
+   "match": "Depreciation and amortization expense",
+   "text": "…298 996   Consolidated $ 30,761 $ 63,891 $ 58,210 $ 118,648   ___________________   (1) Includes property and equipment added under finance leases of $ 21 million and $ 235 million in Q2 2025 and Q2 2026, and $ 75 million and $ 472 million for the six months ended June 30, 2025 and 2026.   (2) Includes property and equipment added under finance leases of $ 916 million and $ 328 million in Q2 2025 and Q2 2026, and $ 916 million and $ 1.7 billion for the six months ended June 30, 2025 and 2026.   Depreciation and amortization expense on property and equipment, including corporate property and equipment, are allocated to all segments based on usage.   Total depreciation and amortization expense, by segment, is as follows (in millions):   Three Months Ended June 30, Six Months Ended June 30,   2025 2026 2025 2026   North America $ 3,742 $ 4,500 $ 7,272 $ 8,780   International 1,180 1,293 2,316 2,570   AWS 4,844 8,076 9,234 15,353   Consolidated $ 9,766 $ 13,869 $ 18,822 $ 26,703   25",
+   "amounts": [
+    {
+     "raw": "$ 916 million",
+     "usdM": 916
+    },
+    {
+     "raw": "$ 328 million",
+     "usdM": 328
+    },
+    {
+     "raw": "$ 916 million",
+     "usdM": 916
+    },
+    {
+     "raw": "$ 1.7 billion",
+     "usdM": 1700
+    },
+    {
+     "raw": "$ 3,742 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,500 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,272 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,780   ",
      "usdM": null
     }
    ]
@@ -539,6 +728,71 @@
    ]
   },
   {
+   "kind": "segment",
+   "page": "29",
+   "match": "Segment Information",
+   "text": "Table of Contents   Results of Operations   We have organized our operations into three segments: North America, International, and AWS. These segments reflect the way the Company evaluates its business performance and manages its operations. See Item 1 of Part I, “Financial Statements — Note 8 — Segment Information.”   Overview   Macroeconomic factors, including changes in inflation and interest rates, resource and supply volatility, global economic and geopolitical developments, including unpredictable shifts in global tariff and trade policies, and the development and adoption of technologies and services, including artificial intelligence, have direct and indirect impacts on our results of operations that are difficult to predict, isolate, and quantify. These could affect customer demand for our products and services, our ability to forecast growth needs, expenses, and benefits from new technologies. Further, we expect to continue making additional investments in our artificial intelligence initiatives. We expect some or all of these factors to continue to impact our results of operations into Q3 2026.   Net Sales   Net sales include product and service sales. Product sales r…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "29",
+   "match": "AWS 17 37 17 33   Consolidated 12 20 11 17   Net Sales",
+   "text": "…2026   Net Sales:   North America $ 100,068 $ 116,177 $ 192,955 $ 220,320   International 36,761 42,197 70,274 81,986   AWS 30,873 42,232 60,140 79,819   Consolidated $ 167,702 $ 200,606 $ 323,369 $ 382,125   Year-over-year Percentage Growth:   North America 11 % 16 % 9 % 14 %   International 16 15 10 17   AWS 17 37 17 33   Consolidated 13 20 11 18   Year-over-year Percentage Growth, excluding the effect of foreign exchange rates:   North America 11 % 16 % 10 % 14 %   International 11 15 9 13   AWS 17 37 17 33   Consolidated 12 20 11 17   Net Sales Mix:   North America 60 % 58 % 60 % 58 %   International 22 21 22 21   AWS 18 21 18 21   Consolidated 100 % 100 % 100 % 100 %   Sales increased 20% in Q2 2026, and 18% for the six months ended June 30, 2026 compared to the comparable prior year periods. Changes in foreign exchange rates did not significantly impact net sales for Q2 2026, but increased net sales by $3.0 billion for the six months ended June 30, 2026. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.   North America sales increased 16% in Q2 2026, and 14% for the six months ended June 30, 2026 compared to the comparable prior year periods. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sale…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "32",
+   "match": "segment operating income",
+   "text": "… 21,707 30,782   Consolidated $ 19,171 $ 27,461 $ 37,576 $ 51,313   Operating income increased from $19.2 billion in Q2 2025 to $27.5 billion in Q2 2026, and increased from $37.6 billion for the six months ended June 30, 2025 to $51.3 billion for the six months ended June 30, 2026. We believe that operating income is a more meaningful measure than gross profit and gross margin due to the diversity of our product categories and services. For more information on the operating expenses that impact segment operating income, see “Operating Expenses” and the descriptions of operating expense line item changes on pages 30 to 32, and “Note 8 — Segment Information” on page 22.   The increase in North America operating income in Q2 2026 and for the six months ended June 30, 2026, compared to the comparable prior year periods, is primarily due to increased unit sales and increased advertising sales, partially offset by increased shipping, fulfillment, and technology and infrastructure costs.   The increase in International operating income in Q2 2026 and for the six months ended June 30, 2026, compared to the comparable prior year periods, is primarily due to increased unit sales and increased advertising sales, partially offset by increased shipping and fulfillment costs. Changes in foreign exchange rates did not significantly impact operating income for Q2 2026, but positively impacted …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "32",
+   "match": "AWS operating income",
+   "text": "…sts.   The increase in International operating income in Q2 2026 and for the six months ended June 30, 2026, compared to the comparable prior year periods, is primarily due to increased unit sales and increased advertising sales, partially offset by increased shipping and fulfillment costs. Changes in foreign exchange rates did not significantly impact operating income for Q2 2026, but positively impacted operating income by $304 million for the six months ended June 30, 2026.   The increase in AWS operating income in Q2 2026 and for the six months ended June 30, 2026, compared to the comparable prior year periods, is primarily due to increased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates did not significantly impact operating income for Q2 2026, but negatively impacted operating income by $395 million for the six months ended June 30, 2026.   32",
+   "amounts": [
+    {
+     "raw": "$304 million",
+     "usdM": 304
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "33",
+   "match": "investment grade",
+   "text": "Table of Contents   Interest Income and Expense   Our interest income was $1.1 billion and $1.3 billion during Q2 2025 and Q2 2026, and $2.2 billion and $2.4 billion for the six months ended June 30, 2025 and 2026, primarily due to a higher average balance of invested funds, offset by a decrease in prevailing rates. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.   Interest expense was $516 million and $1.3 billion during Q2 2025 and Q2 2026, and $1.1 billion and $2.1 billion for the six months ended June 30, 2025 and 2026, and was primarily related to debt, including new issuances of Notes, and finance leases. See Item 1 of Part I, “Financial Statements — Note 3 — Leases and Note 5 — Debt” for additional information.   Other Income (Expense), Net   Other income (expense), net was $1.1 billion and $53.4 billion during Q2 2025 and Q2 2026, and $3.9 billion and $69.1 billion for the six months ended June 30, 2025 and 2026. The primary components of other inco…",
+   "amounts": [
+    {
+     "raw": "$2.2 billion",
+     "usdM": 2200
+    },
+    {
+     "raw": "$2.4 billion",
+     "usdM": 2400
+    },
+    {
+     "raw": "$516 million",
+     "usdM": 516
+    },
+    {
+     "raw": "$1.3 billion",
+     "usdM": 1300
+    },
+    {
+     "raw": "$1.1 billion",
+     "usdM": 1100
+    },
+    {
+     "raw": "$2.",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "33",
    "match": "Anthropic",
@@ -573,6 +827,13 @@
      "usdM": 15900
     }
    ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "36",
+   "match": "investment grade",
+   "text": "…ates relates primarily to our investment portfolio and our debt. Our long-term debt primarily bears interest at fixed rates and is carried at amortized cost and fluctuations in interest rates do not impact our consolidated financial statements. However, the fair value of our long-term debt will generally fluctuate with movements of interest rates, increasing in periods of declining rates of interest and declining in periods of increasing rates of interest. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Marketable debt securities with fixed interest rates may have their fair market value adversely affected due to a rise in interest rates, and we may suffer losses in principal if forced to sell securities that have declined in market value due to changes in interest rates.   Foreign Exchange Risk   During Q2 2026, net sales from our International segment accounted for 21% of our consolidated revenues. Net sales and related expenses generated from our internationally-focused stores, including within Canada and Mexico (which are included in our North America segment), are primarily denominated in the functional currencies of the corresponding stores and primarily include Euros, British Pounds, and Japanese Yen. The results of operations of, and certain of our intercompany balances asso…",
+   "amounts": []
   },
   {
    "kind": "concentration",

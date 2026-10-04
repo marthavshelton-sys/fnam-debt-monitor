@@ -19,6 +19,7 @@
 <script src="/hiperescaladores/data/financials.js"></script>
 <script src="/hiperescaladores/data/status.js"></script>
 <script src="/hiperescaladores/data/capacity.js"></script>
+<script src="/hiperescaladores/data/scope.js"></script>
 <script src="/hiperescaladores/assets/hub.js"></script>
 </head>
 <body data-title-es="Capacidad Comprometida · Hiperescaladores | FNAM" data-title-en="Committed Capacity · Hyperscalers | FNAM">
@@ -41,13 +42,14 @@
 <nav class="mods" aria-label="Módulos / Modules">
   <div class="wrap">
     <a href="/hiperescaladores/"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
-    <a href="/hiperescaladores/capacidad/">1 <span class="es">Capacidad actual</span><span class="en" hidden>Current capacity</span></a>
-    <a href="/hiperescaladores/comprometida/" class="active">2 <span class="es">Capacidad comprometida</span><span class="en" hidden>Committed capacity</span></a>
-    <a href="/hiperescaladores/capex/">3 <span class="es">Capex y financiamiento</span><span class="en" hidden>Capex and financing</span></a>
-    <a href="/hiperescaladores/electricidad/">4 <span class="es">Electricidad</span><span class="en" hidden>Electricity</span></a>
-    <a href="/hiperescaladores/sitios/">5 <span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
-    <a href="/hiperescaladores/fuera-de-balance/">6 <span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
-    <a href="/hiperescaladores/circular/">7 <span class="es">Financiamiento circular</span><span class="en" hidden>Circular financing</span></a>
+    <a href="/hiperescaladores/capacidad/"><span class="n">1</span><span class="es">Capacidad</span><span class="en" hidden>Capacity</span></a>
+    <a href="/hiperescaladores/comprometida/" class="active" aria-current="page"><span class="n">2</span><span class="es">Comprometida</span><span class="en" hidden>Committed</span></a>
+    <a href="/hiperescaladores/capex/"><span class="n">3</span><span class="es">Capex</span><span class="en" hidden>Capex</span></a>
+    <a href="/hiperescaladores/electricidad/"><span class="n">4</span><span class="es">Energía</span><span class="en" hidden>Power</span></a>
+    <a href="/hiperescaladores/sitios/"><span class="n">5</span><span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
+    <a href="/hiperescaladores/fuera-de-balance/"><span class="n">6</span><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
+    <a href="/hiperescaladores/circular/"><span class="n">7</span><span class="es">Circular</span><span class="en" hidden>Circular</span></a>
+    <a href="/hiperescaladores/retorno/"><span class="n">8</span><span class="es">Retorno</span><span class="en" hidden>Payoff</span></a>
     <a href="/hiperescaladores/metodologia/"><span class="es">Metodología</span><span class="en" hidden>Methodology</span></a>
     <a href="/hiperescaladores/glosario/"><span class="es">Glosario</span><span class="en" hidden>Glossary</span></a>
   </div>
@@ -62,7 +64,7 @@
 <main class="wrap">
   <section class="block" id="stages">
     <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Contratada, en Construcción y Anunciada</span><span class="en" hidden>Contracted, Under Construction and Announced</span></h2></div>
-    <p class="sec-desc" id="stDesc"></p><div class="card"><div class="tblwrap" id="stTbl"></div><div id="stStamp"></div></div>
+    <p class="sec-desc" id="stDesc"></p><div class="card"><div class="tblwrap" data-keycols="0,1,2,3,4" id="stTbl"></div><div id="stStamp"></div></div>
   </section>
   <section class="block" id="ratio">
     <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Lo Comprometido Frente a Lo Que Opera</span><span class="en" hidden>Committed Versus Operating</span></h2></div>

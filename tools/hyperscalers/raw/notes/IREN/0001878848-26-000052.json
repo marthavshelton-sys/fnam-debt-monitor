@@ -6,7 +6,7 @@
  "filed": "2026-08-27",
  "report": "2026-06-30",
  "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/iren-20260630.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 202,
  "numberedPages": 137,
  "hits": [
@@ -67,6 +67,13 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "4",
+   "match": "useful life",
+   "text": "…nterparty risk associated with any current or future customers and other counterparties (including credit risk associated with such customers or other counterparties, and the risk that such customers or other counterparties may terminate, default on or underperform their contractual obligations) associated with any current or future customers, including particularly in customers of our AI Cloud Services business, which has significant customer concentration;   • expectations with respect to the useful life and obsolescence of hardware (including GPUs, hardware for Bitcoin mining and any current or future services we offer) and the related impairment charges we may incur upon retirement thereof, which could be material;   • our ability to, and costs associated with, re-purposing data centers historically used for Bitcoin mining, along with the related impairment charges we may incur upon retirement of existing Bitcoin mining hardware, which could be material;   • changing political and geopolitical conditions, including changing international trade policies and the implementation of wide-ranging, reciprocal and retaliatory tariffs, surtaxes and other similar import or export duties, or trade restrictions;   • Bitcoin price, Bitcoin global hashrate and foreign currency exchange rate fluctuations;   • expectations with respect to the ongoing profitability, viability, operability, …",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "4",
    "match": "significant customer",
@@ -113,6 +120,13 @@
    "page": "9",
    "match": "significant customer",
    "text": "…s   Risks Related to AI Cloud Services   • We may be unable to construct the data centers that support our AI Cloud Services, or to commission and deliver contracted AI Cloud Services capacity on schedule, or at all.   • Testing and acceptance conditions, ramp periods, service level commitments, service credits, delay credits, indemnities and termination rights in our customer contracts could adversely affect our revenue, margins and results of operations.   • Our AI Cloud Services business has significant customer concentration, we are exposed to counterparty credit risk, and we may be unable to diversify our customer base.   • We may not succeed in maintaining or expanding a customer base for our AI Cloud Services business, may not be successful in generating a recurring stream of revenue from that business and may not be able to provide the right combination of AI Cloud Services.   • We depend on the timely supply of GPUs, networking and storage equipment from a limited number of suppliers, and the equipment we deploy is subject to rapid technological change and obsolescence.   • Our results depend on our ability to match customer contracts, capital expenditures, power commitments and financing, and any mismatch could adversely affect our business and financial condition.   • Our AI Cloud Services depend on software for orchestration, monitoring, support and workload managem…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "10",
+   "match": "useful life",
+   "text": "…ss) and Net income (loss) margin, as applicable, determined in accordance with GAAP. They are supplemental measures of our operating performance only, and as a result you should not consider these measures in isolation from, or as a substitute analysis for, our net income (loss) as determined in accordance with GAAP, which we consider to be the most comparable GAAP financial measure. For example, we expect depreciation of our fixed assets will be a large recurring expense over the course of the useful life of our assets, and that stock-based compensation is an important part of compensating certain employees, officers and directors. Adjusted EBITDA and Adjusted EBITDA Margin do not have any standardized meaning prescribed by GAAP and therefore are not necessarily comparable to similarly titled measures used by other companies, limiting their usefulness as a comparative tool. Our presentation of Adjusted EBITDA should not be construed as an inference that our future results will be unaffected by these items.   A reconciliation of Adjusted E BITDA to net income (loss) and a reconciliation of Adjusted EBITDA margin to net income (loss), the most di rectly comparable GAAP measures, can be found in “Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations”.   Market Share and Other Information   This Annual Report includes market, economic and in…",
    "amounts": []
   },
   {
@@ -290,6 +304,25 @@
    "match": "GPUs",
    "text": "… and Oracle Cloud, as well as specialized AI Cloud Services providers, including CoreWeave, Nebius, Crusoe, Lambda, Nscale, SpaceX and others. Certain companies may be our customers, suppliers or partners in one context and our competitors in another.   Competition also occurs at individual layers of the AI infrastructure stack. We compete with data center developers and infrastructure owners for land, power, interconnection capacity, equipment, labor and capital; with other cloud providers for GPUs and customers; and with software providers offering orchestration, monitoring and AI infrastructure management tools.   We believe the principal competitive factors in our industry include access to secured and energized power; ability to procure and deploy current and next-generation compute; speed and scale of construction and commissioning; access to capital; price and total cost of ownership; workload performance and reliability; networking, storage and software   16",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "16",
+   "match": "Google Cloud",
+   "text": "…pment financing, including approximately $3.6 billion of investment-grade rated GPU financing in May 2026. This diversified funding platform reduces reliance on any single source of capital and helps us to align financing structures with customer contracts and the expected lives of the underlying assets.   Our Competition   The AI Cloud Services market is highly competitive and rapidly evolving. As a global AI Cloud Services provider, we compete with hyperscalers, including Amazon Web Services, Google Cloud, Microsoft Azure and Oracle Cloud, as well as specialized AI Cloud Services providers, including CoreWeave, Nebius, Crusoe, Lambda, Nscale, SpaceX and others. Certain companies may be our customers, suppliers or partners in one context and our competitors in another.   Competition also occurs at individual layers of the AI infrastructure stack. We compete with data center developers and infrastructure owners for land, power, interconnection capacity, equipment, labor and capital; with other cloud providers for GPUs and customers; and with software providers offering orchestration, monitoring and AI infrastructure management tools.   We believe the principal competitive factors in our industry include access to secured and energized power; ability to procure and deploy current and next-generation compute; speed and scale of construction and commissioning; access to capital; p…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "16",
+   "match": "investment-grade",
+   "text": "…AI infrastructure is capital-intensive, and access to cost-effective capital is a key constraint on industry growth. We believe we have demonstrated an ability to raise capital across public and private markets, providing us with the flexibility to finance data center development and deploy compute at scale. To date, our primary sources of financing have included customer prepayments, common equity, convertible notes, subsidiary-level equipment financing, including approximately $3.6 billion of investment-grade rated GPU financing in May 2026. This diversified funding platform reduces reliance on any single source of capital and helps us to align financing structures with customer contracts and the expected lives of the underlying assets.   Our Competition   The AI Cloud Services market is highly competitive and rapidly evolving. As a global AI Cloud Services provider, we compete with hyperscalers, including Amazon Web Services, Google Cloud, Microsoft Azure and Oracle Cloud, as well as specialized AI Cloud Services providers, including CoreWeave, Nebius, Crusoe, Lambda, Nscale, SpaceX and others. Certain companies may be our customers, suppliers or partners in one context and our competitors in another.   Competition also occurs at individual layers of the AI infrastructure stack. We compete with data center developers and infrastructure owners for land, power, interconnection…",
+   "amounts": [
+    {
+     "raw": "$3.6 billion",
+     "usdM": 3600
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -955,6 +988,20 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "61",
+   "match": "useful life",
+   "text": "…ther liability, or give rise to termination rights under our customer contracts, any of which could have a material adverse impact on our business, operating results, financial condition and future prospects.   In addition, the equipment we deploy is subject to rapid technological change. Successive generations of GPUs and supporting infrastructure are being released on short development cycles, and customer demand may concentrate on the newest generations of hardware. As a result, the economic useful life and residual value of our deployed equipment may be shorter or lower than we anticipate, pricing for services delivered on older generations of hardware may decline, and we may be required to make substantial ongoing capital expenditures to refresh our fleet and to modify our facilities to meet the power density, cooling and other requirements of new hardware. If we do not manage technological transitions effectively, our competitive position, the utilization and value of our assets, our depreciation profile and our results of operations and financial condition could be materially and adversely affected.   See also “—Risks Related to Our Business—Our business is highly dependent on a small number of equipment suppliers, and any failure by us or our suppliers to perform under the relevant supply contracts could materially impact our operating results and financial condition.” …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "61",
+   "match": "useful life",
+   "text": "…or the associated capacity. Conversely, where we enter into customer contracts before the associated capacity has been constructed and commissioned, we bear delivery risk under those contracts.   If we are unable to contract capacity in the amounts and on the timelines we anticipate, our assets, power commitments and financing obligations may be underutilized while remaining fixed, which would adversely affect our margins and cash flows. If the term of our customer contracts is shorter than the useful life of the associated assets or the tenor of the associated power commitments and financing, we are exposed to re-contracting and pricing risk at the end of contract terms. Our ability to obtain financing, and the cost and terms of that financing, also depend in part on the credit quality, duration and structure of our customer contracts, and any deterioration in our contracted revenue base could reduce the availability, or increase the cost, of financing for our expansion. Any failure to appropriately match customer contracts, capital expenditures, power commitments and financing, or to commission and deliver contracted capacity on schedule could have a material adverse effect on our business, results of operations, financial condition and cash flows, including our ability to meet contractual payments when due. Further, any such failure may affect our ability to meet our deliver…",
+   "amounts": []
+  },
+  {
    "kind": "capacity",
    "page": "62",
    "match": "5GW",
@@ -1060,6 +1107,13 @@
    "page": "96",
    "match": "guarantee",
    "text": "…fications we may seek in the future. Laws and administrative interpretations, guidance or practices may change in ways that we do not anticipate, including as a result of legislative or regulatory action affecting the availability or scope of tax incentives for data centers, potentially affecting our ability to benefit from such abatements or exemptions. We may from time to time seek amendments to these property tax abatements, including to reflect changes in our operations, but there can be no guarantee that such amendments will be granted on favorable terms, or at all. Any loss, early termination or adverse modification of these property tax abatement or sales and use tax exemption arrangements would subject us to some or all of the property taxes or sales and use taxes otherwise applicable to the relevant properties or purchases, and could result in the assessment of back taxes, interest and penalties in respect of prior periods, which could materially   96",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "101",
+   "match": "useful lives",
+   "text": "other sources. Significant assumptions and estimates used in preparing our consolidated financial statements include but are not limited to those related to estimates associated with determining the useful lives and recoverability of long-lived assets, valuation of derivatives and financial assets classified under Level 3 of the fair value hierarchy, stock-based compensation, legal accruals and contingent liabilities, and current and deferred income tax assets (including the associated valuation allowance) and liabilities. Our operating results may be adversely affected if our assumptions change or if actual circumstances differ from those in our assumptions, which could cause our operating results to fall below the expectations of industry or financial analysts and investors, resulting in a potential decline in the market price of our Ordinary shares.   Additionally, we regularly monitor our compliance with applicable financial reporting standards and review new pronouncements and drafts thereof that are relevant to us. As a result of new standards, changes to existing standards, a…",
    "amounts": []
   },
   {
@@ -1274,6 +1328,13 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "112",
+   "match": "useful lives",
+   "text": "…ge of suppliers to secure access to GPUs and related infrastructure to ensure we can support our planned expansion. Tariffs, trade restrictions and supply chain disruptions may affect the availability, cost and delivery timing of GPUs, servers, networking and storage equipment and specialized electrical and cooling components.   Compute hardware is subject to rapid technological change, and the introduction of new architectures may reduce the market rate for earlier generations. We estimate the useful lives of GPUs and related equipment based on expected utilization and technological developments. We manage our exposure by maintaining a multi-generation fleet, and by matching hardware generations to different customer workload and cost requirements, and by seeking contract terms and durations that support recovery of the associated capital cost over the contracted period.   Contract pricing, utilization and financing economics   The returns we generate on AI Cloud Services depend on the price at which capacity is contracted, the proportion of installed capacity that is contracted, the capital cost of the associated infrastructure, the useful life of the associated infrastructure and the cost and structure of the financing used to fund it.   Pricing for AI compute capacity is influenced by the hardware generation and configuration, contract term, prepayments, creditworthiness of…",
+   "amounts": []
+  },
+  {
    "kind": "capacity",
    "page": "113",
    "match": "contracted capacity",
@@ -1288,10 +1349,37 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "114",
+   "match": "useful life",
+   "text": "…ss) and Net income (loss) margin, as applicable, determined in accordance with GAAP. They are supplemental measures of our operating performance only, and as a result you should not consider these measures in isolation from, or as a substitute analysis for, our net income (loss) as determined in accordance with GAAP, which we consider to be the most comparable GAAP financial measure. For example, we expect depreciation of our fixed assets will be a large recurring expense over the course of the useful life of our assets, and that stock-based compensation is an important part of compensating certain employees, officers and directors. Adjusted EBITDA and Adjusted EBITDA Margin do not have any standardized meaning prescribed by GAAP and therefore are not necessarily comparable to similarly titled measures used by other companies, limiting their usefulness as a comparative tool.   The following table shows a reconciliation of net income (loss) to Adjusted EBITDA and Adjusted EBITDA Margin:   Year Ended June 30,   2026 2025   ($ thousands) ($ thousands)   Net income (loss) (702,621) 86,941   Income tax expense (benefit) (6,062) 6,560   Finance expense 59,251 11,045   Interest income (80,631) (7,504)   Depreciation and amortization 417,729 181,136   Unrealized (gain) loss on financial instruments (558,541) (77,518)   Debt conversion inducement expense (1) 111,799 —   (Increase) decre…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "116",
    "match": "GPUs",
    "text": "…ult of the expansion of our business operations and ongoing expenses as a publicly listed company.   Depreciation and amortization   Depreciation and amortization consist primarily of the depreciation of HPC hardware and data centers, and Bitcoin mining hardware. Depreciation expense for the years ended June 30, 2026 and 2025 was $417.7 million and $181.1 million, respectively, an increase of $236.6 million. The increase was primarily due to higher operating capacity at Childress and additional GPUs placed into service during the year ended June 30, 2026.   116",
+   "amounts": [
+    {
+     "raw": "$417.7 million",
+     "usdM": 417.7
+    },
+    {
+     "raw": "$181.1 million",
+     "usdM": 181.1
+    },
+    {
+     "raw": "$236.6 million",
+     "usdM": 236.6
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "116",
+   "match": "Depreciation expense",
+   "text": "…ofessional fees, a $17.4 million increase in sponsorships and marketing, a $2.9 million increase in insurance costs, a $10.5 million increase in non-refundable provincial sales tax, and a $6.2 million increase in property taxes as a result of the expansion of our business operations and ongoing expenses as a publicly listed company.   Depreciation and amortization   Depreciation and amortization consist primarily of the depreciation of HPC hardware and data centers, and Bitcoin mining hardware. Depreciation expense for the years ended June 30, 2026 and 2025 was $417.7 million and $181.1 million, respectively, an increase of $236.6 million. The increase was primarily due to higher operating capacity at Childress and additional GPUs placed into service during the year ended June 30, 2026.   116",
    "amounts": [
     {
      "raw": "$417.7 million",
@@ -1527,6 +1615,20 @@
    ]
   },
   {
+   "kind": "useful_life",
+   "page": "124",
+   "match": "useful lives",
+   "text": "…ed awards is determined using valuation models such as the Black-Scholes-Merton option-pricing model and Monte Carlo simulations, which reflect the specific terms of the award. In applying these models, management uses judgment in estimating key assumptions, including expected volatility, grant-date stock price, expected term of the award, and the risk-free interest rate. See Note 25 to our consolidated financial statements included in this Annual Report for the key assumptions.   Estimation of useful lives of assets   We determine the estimated useful lives, residual values, and related depreciation expense for property, plant, and equipment based on historical experience and expected future usage. Determining useful lives requires judgment and is subject to uncertainty, particularly in industries where assets may become obsolete due to technological innovation or changes in business strategy. If actual useful lives are shorter than those originally estimated, depreciation expense will increase. In addition, assets that are determined to be obsolete, non-strategic, abandoned, or sold are written down or written off, which could result in material charges to earnings.   124",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "124",
+   "match": "depreciation expense",
+   "text": "…model and Monte Carlo simulations, which reflect the specific terms of the award. In applying these models, management uses judgment in estimating key assumptions, including expected volatility, grant-date stock price, expected term of the award, and the risk-free interest rate. See Note 25 to our consolidated financial statements included in this Annual Report for the key assumptions.   Estimation of useful lives of assets   We determine the estimated useful lives, residual values, and related depreciation expense for property, plant, and equipment based on historical experience and expected future usage. Determining useful lives requires judgment and is subject to uncertainty, particularly in industries where assets may become obsolete due to technological innovation or changes in business strategy. If actual useful lives are shorter than those originally estimated, depreciation expense will increase. In addition, assets that are determined to be obsolete, non-strategic, abandoned, or sold are written down or written off, which could result in material charges to earnings.   124",
+   "amounts": []
+  },
+  {
    "kind": "capacity",
    "page": "126",
    "match": "contracted capacity",
@@ -1608,10 +1710,59 @@
    ]
   },
   {
+   "kind": "segment",
+   "page": "seq140",
+   "match": "Segment Information",
+   "text": "…he most significant accounting estimates inherent in the preparation of the Group’s Consolidated Financial Statements include estimates associated with determining the useful lives and recoverability of long-lived assets, valuation of derivatives and financial assets classified under Level 3 of the fair value hierarchy, stock-based compensation, legal accruals and contingent liabilities, and current and deferred income tax assets (including the associated valuation allowance) and liabilities.   Segment Information   An operating segment is a component of an enterprise that engages in business activities from which it may earn revenues and incur expenses, for which discrete financial information is available, whose operating results are regularly evaluated by the chief operating decision maker (“CODM”) to assess performance and allocate resources. The Group’s CODM is its Co-Chief Executive Officers. As of June 30, 2026, the Company has identified two reportable segments, each evaluated separately by the CODM: Bitcoin mining and AI Cloud Services. The segments are organized by product lines rather than geographical location. The Bitcoin mining segment generates revenue by mining Bitcoin with the Group’s ASIC hardware, whereas the AI Cloud Services segment earns revenue from providing AI Cloud Services to third-party customers.   During the year ended June 30, 2026, the Group disa…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "seq140",
+   "match": "Segment information",
+   "text": "…revenue (exclusive of depreciation and amortization expenses). The CODM is not provided with segment-specific operating expenses beyond cost of revenue; all other expenses are managed on a consolidated basis. Accordingly, the only expense category included in segment gross profit (loss) is cost of revenue, as there are no other segment items for the reportable segments. The CODM does not evaluate performance or allocate resources based on segment asset or liability information. Refer to Note 3. Segment information for further information regarding entity-wide disclosures.   Cash, Cash Equivalents and Restricted Cash   Cash and cash equivalents include cash on hand, demand deposits, and other short-term, highly liquid investments with original maturities of three months or less from the date of purchase that are readily convertible to known amounts of cash and subject to an insignificant risk of changes in value.   Restricted cash comprises cash held in collection, reserve and operating accounts that is restricted as to withdrawal or use under the terms of the Group's secured debt financing (refer to Note 10. Cash, cash equivalents and restricted cash). Restricted cash is classified as current or non-current based on the expected timing of release from the applicable restriction.   Accounts receivable, net   Accounts receivable, net consists primarily of amounts due from the Gro…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq140",
+   "match": "useful lives",
+   "text": "…estimates on historical experience and on various other assumptions believed to be reasonable, the results of which form the basis for making judgments about the carrying values of assets and liabilities. Actual results inevitably will differ from those estimates, and such differences may be material to the financial statements. The most significant accounting estimates inherent in the preparation of the Group’s Consolidated Financial Statements include estimates associated with determining the useful lives and recoverability of long-lived assets, valuation of derivatives and financial assets classified under Level 3 of the fair value hierarchy, stock-based compensation, legal accruals and contingent liabilities, and current and deferred income tax assets (including the associated valuation allowance) and liabilities.   Segment Information   An operating segment is a component of an enterprise that engages in business activities from which it may earn revenues and incur expenses, for which discrete financial information is available, whose operating results are regularly evaluated by the chief operating decision maker (“CODM”) to assess performance and allocate resources. The Group’s CODM is its Co-Chief Executive Officers. As of June 30, 2026, the Company has identified two reportable segments, each evaluated separately by the CODM: Bitcoin mining and AI Cloud Services. The se…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq140",
+   "match": "depreciation and amortization expense",
+   "text": "…, 2026, the Group disaggregated its reportable segments to better align with its evolving business operations and strategic objectives. Accordingly, comparative information for prior periods has been recast to conform to the current-period presentation. Previously, the Group operated and reported as a single segment.   The CODM evaluates performance and allocates resources primarily using segment gross profit (loss), which is defined as segment revenue less segment cost of revenue (exclusive of depreciation and amortization expenses). The CODM is not provided with segment-specific operating expenses beyond cost of revenue; all other expenses are managed on a consolidated basis. Accordingly, the only expense category included in segment gross profit (loss) is cost of revenue, as there are no other segment items for the reportable segments. The CODM does not evaluate performance or allocate resources based on segment asset or liability information. Refer to Note 3. Segment information for further information regarding entity-wide disclosures.   Cash, Cash Equivalents and Restricted Cash   Cash and cash equivalents include cash on hand, demand deposits, and other short-term, highly liquid investments with original maturities of three months or less from the date of purchase that are readily convertible to known amounts of cash and subject to an insignificant risk of changes in val…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq145",
+   "match": "useful lives",
+   "text": "…rent levels of the fair value hierarchy. In those instances, the fair value measurement is required to be classified using the lowest level of input that is significant to the fair value measurement. Such determination requires significant management judgment. Refer to Note 18. Fair value measurement for further information.   Property, plant and equipment   Property, plant and equipment are stated at cost, net of impairment, and are depreciated using the straight-line method over the estimated useful lives of the assets. Cost includes expenditures that are directly attributable to the acquisition of the asset and cost to prepare it for its intended use. Construction in progress is not depreciated until the work is completed and the assets are placed in service.   F-17",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq146",
+   "match": "useful lives",
+   "text": "IREN Limited   Notes to the consolidated financial statements   For the years ended June 30, 2026, 2025, and 2024   The estimated useful lives of the Group’s property, plant and equipment are generally as follows:   Useful life (in years)   Buildings 20   Other PPE 3 - 10   Mining hardware 4   HPC hardware   5   Leasehold improvements Lesser of the life of the lease or the useful life of the improvement   The residual values, useful lives and depreciation methods are reviewed, and adjusted if appropriate, at each reporting date.   Development assets consist of data center sites under development. Development assets are not depreciated until they are available for use. Once an asset becomes available for use, it is transferred to another category within property, plant and equipment and depreciated over its useful economic life.   Mining and HPC hardware include both installed hardware units and units that have been delivered but are in storage, yet to be installed. Depreciation of mining and HPC hardware commences …",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "seq147",
    "match": "GPU",
    "text": "…etermined through various valuation techniques, including discounted cash flow models, quoted market values and related adjustments for similar assets, and third-party independent appraisals, as necessary. When recognized, impairment losses related to long-lived assets to be held and used in operations are recorded in the Group’s Consolidated Statements of Operations and Comprehensive Income (Loss).   Leases   Finance leases - the Group as lessee   The Group’s finance leases primarily relate to GPU hardware.   For leases that are classified as finance leases, the Group recognizes a right‑of‑use asset and a corresponding finance lease liability at lease commencement, measured at the present value of future lease payments, using the interest rate implicit in the lease, or where that rate cannot be readily determined, its incremental borrowing rate.   The Group assesses at lease commencement whether it is reasonably certain to exercise a purchase option, considering factors such as the option price relative to the asset’s expected fair value, the significance of leasehold improvements, and operational requirements. When exercise is reasonably certain, the option price is included in the measurement of the right-of-use asset and lease liability.   The Group accounts for certain finance leases related to GPU financing arrangements using a portfolio approach under ASC Topic 842, Leas…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq147",
+   "match": "Useful lives",
+   "text": "…omic benefits are probable. Assets acquired in a business combination are initially measured at acquisition-date fair value, while separately acquired assets and assets acquired in an asset acquisition are measured at cost, including directly attributable costs.   Connection rights with determinable terms or benefit periods and software licenses are finite-lived and amortized on a straight-line basis over the shorter of their contractual or license term and estimated period of economic benefit. Useful lives, residual values and amortization methods are reviewed at least annually, with changes accounted for prospectively. Connection rights with no foreseeable limit on the period of expected economic benefit are classified as indefinite-lived and are not amortized. This classification is reassessed each reporting period.   Finite-lived intangible assets are carried at cost or acquisition-date fair value, as applicable, less accumulated amortization and impairment, and are tested for recoverability when impairment indicators arise. If the carrying amount is not recoverable based on undiscounted future cash flows, an impairment loss is recognized for the excess of carrying amount over fair value. Indefinite-lived intangible assets are carried at cost or acquisition-date fair value, as applicable, less accumulated impairment and are tested for impairment at least annually, or more f…",
    "amounts": []
   },
   {
@@ -1622,11 +1773,45 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "seq148",
+   "match": "useful life",
+   "text": "…mon assumptions for the portfolio and reassesses the appropriateness of the portfolio approach when there are changes in facts and circumstances, including changes to contractual terms, commencement timing, or other factors that could result in material differences compared to individual-lease accounting.   The finance lease right‑of‑use asset is included within “Property, plant and equipment, net” on the Consolidated Balance Sheets and is depreciated on a straight‑line basis over the estimated useful life of the underlying asset, as the Group is reasonably certain to exercise its purchase options. Interest expense on finance lease liabilities is recognized using the effective interest method over the lease term and is generally presented within “Finance expense” in the Consolidated Statements of Operations and Comprehensive Income (Loss).   Refer to Note 22. Finance leases for further information.   Derivatives   The Group evaluates its financing and service arrangements to determine whether certain arrangements contain features that qualify as embedded derivatives requiring bifurcation in accordance with ASC 815. Embedded derivatives that are required to be bifurcated from the host instrument or arrangement are accounted for and valued as separate financial instruments. The Group classifies derivative assets or liabilities on the Consolidated Balance Sheets as current or non-…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "seq153",
+   "match": "Segment information",
+   "text": "…igability of the required interim disclosures, clarifying when that guidance is applicable and requiring entities to disclose events since the end of the last annual reporting period that have a material impact on the entity. ASU 2025-11 is effective for annual periods beginning after December 15, 2027 and interim periods within annual reporting periods beginning after December 15, 2028; early adoption is permitted. The Group is currently assessing the impact of adopting the standard.   Note 3. Segment information   The Group’s significant expense categories and amounts that are regularly provided to, and used by, the CODM in assessing performance and allocating resources and that are included in each reported measure of segment profit or loss are presented by reportable segments in Note 5. Cost of revenue.   F-25",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "seq156",
    "match": "GPU",
    "text": "… Component   Certain customer contracts include significant advance prepayments. The Group assessed whether these terms create a significant financing component under ASC Topic 606, Revenue from Contracts with Customers. Interest expense related to significant financing components was nil for the years ended June 30, 2026, 2025, and 2024, respectively.   Lease Revenue (ASC 842)   During the year ended June 30, 2026, the Group entered into agreements to provide customers with access to dedicated GPU computing capacity. The Group determined that these arrangements contain leases of specified GPU equipment and dedicated data center space. These lease components are classified and accounted for as operating leases under ASC 842, Leases, with the Group as lessor.   The Group elected the practical expedient, by class of underlying asset, to combine the lease components with the associated non-lease service components, including power, cooling, network connectivity and monitoring. The combined component is accounted for as an operating lease under ASC 842 because the lease component is predominant. The leases commence upon customer acceptance and generally have terms ranging from approximately three to five years .   The underlying GPU equipment and data center assets remain classified within property and equipment and continue to be depreciated in accordance with the Group’s accounti…",
    "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "seq156",
+   "match": "Remaining Performance Obligations",
+   "text": "…ximately three to five years .   The underlying GPU equipment and data center assets remain classified within property and equipment and continue to be depreciated in accordance with the Group’s accounting policies. See Note 14. Property, plant and equipment, net.   No lease revenue was recognized during the periods presented in the Consolidated Statements of Operations and Comprehensive Income (Loss). See Note 20. Deferred revenue, for additional information regarding deferred lease revenue.   Remaining Performance Obligations (“RPO”)   As of June 30, 2026, the Group had $ 5.1 billion of unsatisfied RPO, of which $ 0.9 billion is expected to be recognized over the initial 12 months ending June 30, 2027, $ 1.3 billion between months 13 and 24, and the remaining balance recognized between months 25 and 60.   As of June 30, 2026, the aggregate contracted value of lease arrangements was approximately $ 11.4 billion.   As of June 30, 2026, the Group’s unsatisfied remaining performance obligations under ASC 606 and the aggregate contracted value of lease arrangements under ASC 842 totaled approximately $ 16.6 billion.   Note 5. Cost of revenue   The components of cost of revenue (exclusive of depreciation and amortization) are as follows:   Year ended June 30, 2026   (in USD thousands) AI Cloud Bitcoin Mining Total   Electricity $ 4,502 $ 186,576 $ 191,078   Employee benefits 8,538 …",
+   "amounts": [
+    {
+     "raw": "$ 5.1 billion",
+     "usdM": 5100
+    },
+    {
+     "raw": "$ 0.9 billion",
+     "usdM": 900
+    },
+    {
+     "raw": "$ 1.3 billion",
+     "usdM": 1300
+    }
+   ]
   },
   {
    "kind": "gpu",
@@ -1713,6 +1898,42 @@
    ]
   },
   {
+   "kind": "depreciation",
+   "page": "seq162",
+   "match": "Depreciation and amortization expense",
+   "text": "… 2025   GPU Hardware $ 2,034,811 $ 76,001   Buildings 864,255 639,750   Right-of-use assets - Finance lease 301,848 —   Other PPE 69,237 10,002   Land 139,074 13,086   Leasehold improvements 32 43   Construction in progress 3,657,072 237,734   Mining hardware 596,988 1,135,584   Property and equipment, gross $ 7,663,316 $ 2,112,200   Less: Accumulated depreciation ( 425,643 ) ( 181,246 )   Less: Accumulated impairment ( 484,491 ) ( 385 )   Property and equipment, net   $ 6,753,183 $ 1,930,567   Depreciation and amortization expense related to property, plant and equipment was $ 417.2 million, $ 181.1 million, and $ 50.4 million for the years ended June 30, 2026, 2025, and 2024, respectively.   During the year ended June 30, 2026, the Group entered into lease financing arrangements for the acquisition of GPUs, together with related ancillary equipment. The arrangements provide financing for 100 % of the purchase price and are structured as 36-month and 24-month leases, respectively. A portion of the finance leases commenced during the year ended June 30, 2026, at which time the corresponding right-of-use assets and lease liabilities were recognized. The lease commencement dates for the remaining GPUs are expected to occur subsequent to June 30, 2026, at which time the corresponding right-of-use assets and lease liabilities will be recognized.   Impairment   Impairment charges on…",
+   "amounts": [
+    {
+     "raw": "$ 7,663,316 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,112,200   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6,753,183 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,930,567   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 417.2 million",
+     "usdM": 417.2
+    },
+    {
+     "raw": "$ 181.1 million",
+     "usdM": 181.1
+    },
+    {
+     "raw": "$ 50.4 million",
+     "usdM": 50.4
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "seq163",
    "match": "Variable Interest Entit",
@@ -1735,6 +1956,13 @@
      "usdM": 1487.1
     }
    ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq163",
+   "match": "useful life",
+   "text": "…subsidiary of the Company), the Company's financing subsidiary, and are pledged as collateral under the Group’s GPU Financing facility. These assets may be used only to settle obligations of IE US Hardware 3, LLC and are not available to satisfy claims of the general creditors of IREN Limited or any of its other subsidiaries until such time as the GPU Financing facility has been repaid and the security released. Depreciation on these assets is recorded on a straight-line basis over an estimated useful life of 5 years. Refer to Note 23. Debt and Note 26. Variable Interest Entity for further information.   Note 15. Goodwill and Intangible assets, net   Goodwill   The following table summarizes the changes to goodwill:   (in USD thousands) Total   Balance at July 1, 2024 $ —   Additions —   Balance at June 30, 2025 $ —   Additions 37,016   Foreign currency translation ( 439 )   Impairment losses —   Balance at June 30, 2026 $ 36,577   During the year ended June 30, 2026, the Group recognized goodwill of $ 37.0 million arising from business combinations completed during the period, primarily from the acquisition of Nostrum. Refer to Note 9. Business Combination for more information.   The Group also recorded goodwill of $ 1.2 million in connection with an immaterial business combination that occurred during the year ended June 30, 2026.   There were no impairment charges recorded t…",
+   "amounts": []
   },
   {
    "kind": "gpu",
