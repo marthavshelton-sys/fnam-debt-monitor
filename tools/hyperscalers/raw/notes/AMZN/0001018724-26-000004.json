@@ -6,7 +6,7 @@
  "filed": "2026-02-06",
  "report": "2025-12-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000004/amzn-20251231.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 79,
  "numberedPages": 78,
  "hits": [
@@ -15,6 +15,13 @@
    "page": "2",
    "match": "Item 2. Properties",
    "text": "Table of Contents   AMAZON.COM, INC.   FORM 10-K   For the Fiscal Year Ended December 31, 2025   INDEX   Page   PART I   Item 1. Business   3   Item 1A. Risk Factors   6   Item 1B. Unresolved Staff Comments   17   Item 1C. Cybersecurity   17   Item 2. Properties   18   Item 3. Legal Proceedings   18   Item 4. Mine Safety Disclosures   18   PART II   Item 5. Market for the Registrant’s Common Stock, Related Shareholder Matters, and Issuer Purchases of Equity Securities   19   Item 6. Reserved   19   Item 7. Management’s Discussion and Analysis of Financial Condition and Results of Operations   20   Item 7A. Quantitative and Qualitative Disclosures About Market Risk   31   Item 8. Financial Statements and Supplementary Data   33   Item 9. Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   72   Item 9A. Controls and Procedures   72   Item 9B. Other Information   74   Item 9C. Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   74   PART III   Item 10. Directors, Executive Officers, and Corporate Governance   74   Item 11. Executive Compensation   74   Item 12. Security Ownersh…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "3",
+   "match": "Segment Information",
+   "text": "…ur segments, we serve our primary customer sets, consisting of consumers, sellers, developers, enterprises, content creators, advertisers, and employees.   We have organized our operations into three segments: North America, International, and Amazon Web Services (“AWS”). These segments reflect the way the Company evaluates its business performance and manages its operations. Information on our net sales is contained in Item 8 of Part II, “Financial Statements and Supplementary Data — Note 10 — Segment Information.”   Consumers   We serve consumers through our online and physical stores and focus on selection, price, and convenience. We design our stores to enable hundreds of millions of unique products to be sold by us and by third parties across dozens of product categories. Customers access our offerings through our websites, mobile apps, Alexa, devices, streaming, and physically visiting our stores. We also manufacture and sell electronic devices, including Kindle, Fire tablet, Fire TV, Echo, Ring, Blink, and eero, and we develop and produce media content. We seek to offer our customers low prices, fast and free delivery, easy-to-use functionality, and timely customer service. In addition, we offer subscription services such as Amazon Prime, a membership program that includes fast, free shipping on tens of millions of items, access to award-winning movies and series, live s…",
    "amounts": []
   },
   {
@@ -50,6 +57,13 @@
    "page": "18",
    "match": "Item 2. Properties",
    "text": "Table of Contents   Item 2. Properties   As of December 31, 2025, we operated the following facilities (in thousands):   Description of Use Leased Square Footage (1) Owned Square Footage Location   Office space 31,028 9,160 North America   Office space 26,495 1,802 International   Physical stores (2) 23,932 706 North America   Physical stores (2) 148 — International   Fulfillment, data centers, and other 474,128 45,803 North America   Fulfillment, data centers, and other 185,814 20,660 International   Total 741,545 78,131   ___________________   (1) For leased properties, represents the total leased space excluding sub-leased space.   (2) This includes 615 North America and 8 International stores as of December 31, 2025.   Segment Leased Square Footage (1) Owned Square Footage (1)   North America 481,153 25,437   International 174,499 13,263   AWS 28,370 28,469   Total 684,022 67,169   ___________________  …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "18",
+   "match": "Segment Information",
+   "text": "…ional stores as of December 31, 2025.   Segment Leased Square Footage (1) Owned Square Footage (1)   North America 481,153 25,437   International 174,499 13,263   AWS 28,370 28,469   Total 684,022 67,169   ___________________   (1) Segment amounts exclude corporate facilities. Shared facilities are allocated among the segments based on usage and primarily relate to facilities that hold our technology infrastructure. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 10 — Segment Information.”   We own and lease our corporate headquarters in Washington’s Puget Sound region and Arlington, Virginia.   Item 3. Legal Proceedings   See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 7 — Commitments and Contingencies — Legal Proceedings.”   Item 4. Mine Safety Disclosures   Not applicable.   18",
    "amounts": []
   },
   {
@@ -92,6 +106,113 @@
    ]
   },
   {
+   "kind": "segment",
+   "page": "24",
+   "match": "Segment Information",
+   "text": "Table of Contents   Results of Operations   We have organized our operations into three segments: North America, International, and AWS. These segments reflect the way the Company evaluates its business performance and manages its operations. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 10 — Segment Information.”   Overview   Macroeconomic factors, including changes in inflation and interest rates, resource and supply volatility, global economic and geopolitical developments, including unpredictable shifts in global tariff and trade policies, and the development and adoption of technologies and services, including artificial intelligence, have direct and indirect impacts on our results of operations that are difficult to predict, isolate, and quantify. These could affect customer demand for our products and services, our ability to forecast growth needs, expenses, and benefits from new technologies. Further, we expect to continue making additional investments in our artificial intelligence initiatives. We expect some or all of these factors to continue to impact our results of operations into Q1 2026.   Net Sales   Net sales include product and service sales. Product sales r…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "24",
+   "match": "AWS 19 20   Consolidated 11 12   Net Sales",
+   "text": "…content subscriptions. Net sales information is as follows (in millions):   Year Ended December 31,   2024 2025   Net Sales:   North America $ 387,497 $ 426,305   International 142,906 161,894   AWS 107,556 128,725   Consolidated $ 637,959 $ 716,924   Year-over-year Percentage Growth:   North America 10 % 10 %   International 9 13   AWS 19 20   Consolidated 11 12   Year-over-year Percentage Growth, excluding the effect of foreign exchange rates:   North America 10 % 10 %   International 10 10   AWS 19 20   Consolidated 11 12   Net Sales Mix:   North America 61 % 59 %   International 22 23   AWS 17 18   Consolidated 100 % 100 %   Sales increased 12% in 2025, compared to the prior year. Changes in foreign exchange rates increased net sales by $4.4 billion in 2025. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.   North America sales increased 10% in 2025, compared to the prior year. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely by our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates reduced North America net sales by $454 million in 2025.   International sales increased 13% in…",
+   "amounts": [
+    {
+     "raw": "$4.4 billion",
+     "usdM": 4400
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "27",
+   "match": "AWS 39,834 45,606   Consolidated $ 68,593 $ 79,975   Operating income",
+   "text": "…on during 2024 and 2025. The increase in 2025 was primarily related to the settlement of a lawsuit with the Federal Trade Commission (the “FTC”) in Q3 2025, and also included the resolution of tax disputes associated with our stores business in Italy, and physical stores and other asset impairments.   Operating Income   Operating income by segment is as follows (in millions):   Year Ended December 31,   2024 2025   Operating Income   North America $ 24,967 $ 29,619   International 3,792 4,750   AWS 39,834 45,606   Consolidated $ 68,593 $ 79,975   Operating income was $68.6 billion and $80.0 billion for 2024 and 2025. Operating income for 2025 includes charges of $2.5 billion we recorded in Q3 2025 related to the settlement of a lawsuit with the FTC and $2.7 billion, of which $1.8 billion was recorded in Q3 2025, of estimated severance costs primarily related to planned role eliminations. We believe that operating income is a more meaningful measure than gross profit and gross margin due to the diversity of our product categories and services. For more information on the operating expenses that impact segment operating income, see “Operating Expenses” and the descriptions of operating expense line item changes on pages 25 to 27, and “Note 10 — Segment Information” on page 67.   The increase in North America operating income in 2025, compared to the prior year, is primarily due t…",
+   "amounts": [
+    {
+     "raw": "$ 24,967 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 29,619   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68,593 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 79,975   ",
+     "usdM": null
+    },
+    {
+     "raw": "$68.6 billion",
+     "usdM": 68600
+    },
+    {
+     "raw": "$80.0 billion",
+     "usdM": 80000
+    },
+    {
+     "raw": "$2.5 billion",
+     "usdM": 2500
+    },
+    {
+     "raw": "$2.7 billion",
+     "usdM": 2700
+    },
+    {
+     "raw": "$1.8 billion",
+     "usdM": 1800
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "27",
+   "match": "AWS operating income",
+   "text": "…technology and infrastructure, shipping, and other operating costs. Changes in foreign exchange rates negatively impacted operating income by $204 million in 2025.   The increase in International operating income in 2025, compared to the prior year, is primarily due to increased unit sales and increased advertising sales, partially offset by increased fulfillment and shipping costs. Changes in foreign exchange rates positively impacted operating income by $903 million in 2025.   The increase in AWS operating income in 2025, compared to the prior year, is primarily due to increased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates negatively impacted operating income by $341 million in 2025.   Interest Income and Expense   Our interest income was $4.7 billion and $4.4 billion during 2024 and 2025, primarily due to a decrease in prevailing rates, offset by a higher average balance of invested funds. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.   Interest expense was…",
+   "amounts": [
+    {
+     "raw": "$903 million",
+     "usdM": 903
+    },
+    {
+     "raw": "$341 million",
+     "usdM": 341
+    },
+    {
+     "raw": "$4.7 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "27",
+   "match": "investment grade",
+   "text": "…ased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates negatively impacted operating income by $341 million in 2025.   Interest Income and Expense   Our interest income was $4.7 billion and $4.4 billion during 2024 and 2025, primarily due to a decrease in prevailing rates, offset by a higher average balance of invested funds. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.   Interest expense was $2.4 billion and $2.3 billion in 2024 and 2025 and was primarily related to debt and finance leases. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 4 — Leases and Note 6 — Debt” for additional information.   Our long-term lease liabilities were $78.3 billion and $87.3 billion as of December 31, 2024 and 2025. Our long-term debt was $52.6 billion and $65.6 billion as of December 31, 2024 and 2025. See Item 8 of Part II, “Financial Statements and Supplementary Data — Note 4 — Leases and Note 6 — Debt” for additional information.   Other Income (Expen…",
+   "amounts": [
+    {
+     "raw": "$4.7 billion",
+     "usdM": 4700
+    },
+    {
+     "raw": "$4.4 billion",
+     "usdM": 4400
+    },
+    {
+     "raw": "$2.4 billion",
+     "usdM": 2400
+    },
+    {
+     "raw": "$2.3 billion",
+     "usdM": 2300
+    }
+   ]
+  },
+  {
    "kind": "equity_method",
    "page": "28",
    "match": "Equity-Method Investment",
@@ -112,6 +233,13 @@
    "page": "28",
    "match": "Anthropic",
    "text": "Table of Contents   preferred stock in Anthropic, and the reclassification adjustments for the gains on available-for-sale debt securities from the portions of our convertible notes investments in Anthropic that were converted to nonvoting preferred stock during 2025.   Income Taxes   Our effective tax rate is subject to significant variation due to several factors, including variability in our pre-tax and taxable income and loss and the mix of jurisdictions to which they relate, intercompany transactions, the applicability of special tax regimes, changes in how we do business, acquisitions, investments, developments in tax controversies, changes in our stock price, changes in our deferred tax assets and liabilities and their valuation, foreign currency gains (losses), changes in statutes, regulations, case law, and administrative practices, principles, and interpretations related to tax, including changes to the global tax f…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "31",
+   "match": "investment grade",
+   "text": "…st rates relates primarily to our investment portfolio and our debt. Our long-term debt is carried at amortized cost and fluctuations in interest rates do not impact our consolidated financial statements. However, the fair value of our long-term debt, which pays interest at a fixed rate, will generally fluctuate with movements of interest rates, increasing in periods of declining rates of interest and declining in periods of increasing rates of interest.   We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Marketable debt securities with fixed interest rates may have their fair market value adversely affected due to a rise in interest rates, and we may suffer losses in principal if forced to sell securities that have declined in market value due to changes in interest rates. The following table provides information about our cash equivalents and marketable debt securities, including principal cash flows by expected maturity and the related weighted-average interest rates as of December 31, 2025 (in millions, except percentages):   2026 2027 2028 2029 2030 Thereafter Total Estimated Fair Value as of December 31, 2025   Money market funds $ 29,046 $ — $ — $ — $ — $ — $ 29,046 $ 29,777   Weighted average interest rate 3.73 % — % — % — % — % — % 3.73 %   Corporate debt securities 63,890 2,…",
    "amounts": []
   },
   {
@@ -173,11 +301,65 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "41",
+   "match": "Segment Information",
+   "text": "…h offers a broad set of on-demand technology services, including compute, storage, database, analytics, artificial intelligence and machine learning, and other services. We also manufacture and sell electronic devices. In addition, we provide advertising services to sellers, vendors, publishers, authors, and others, through programs such as sponsored ads, display, and video advertising.   We have organized our operations into three segments: North America, International, and AWS. See “Note 10 — Segment Information.”   Principles of Consolidation   The consolidated financial statements include the accounts of Amazon.com, Inc. and its consolidated entities (collectively, the “Company”), consisting of its wholly-owned subsidiaries and those entities in which we have a variable interest and of which we are the primary beneficiary, including certain entities in India and certain entities that support our healthcare services and production and distribution of video content. Intercompany balances and transactions between consolidated entities are eliminated.   Use of Estimates   The preparation of financial statements in conformity with GAAP requires estimates and assumptions that affect the reported amounts of assets and liabilities, revenues and expenses, and related disclosures of contingent liabilities in the consolidated financial statements and accompanying notes. Estimates are …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "41",
+   "match": "useful lives",
+   "text": "…nd expenses, and related disclosures of contingent liabilities in the consolidated financial statements and accompanying notes. Estimates are used for, but not limited to, collectability of receivables, commitments and contingencies, impairment of property and equipment and operating leases, income taxes, inventory valuation, self-insurance liabilities, stock-based compensation forfeiture rates, the determination of when to capitalize certain costs relating to new products or service offerings, useful lives of equipment, valuation and impairment of investments, valuation of acquired intangibles and goodwill, valuation of derivative instruments, vendor funding, and viewing patterns of capitalized video content. Actual results could differ materially from these estimates. We review the useful lives of equipment on an ongoing basis.   Effective January 1, 2025 we changed our estimate of the useful lives of a subset of our servers and networking equipment from six years to five years . The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning. The effect of this change in estimate for the year ended December 31, 2025, based on servers and networking equipment that were included in “Property and equipment, net” as of December 31, 2024 and those acquired during the year ended December 31,…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "41",
+   "match": "depreciation and amortization expense",
+   "text": "…of our servers and networking equipment from six years to five years . The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning. The effect of this change in estimate for the year ended December 31, 2025, based on servers and networking equipment that were included in “Property and equipment, net” as of December 31, 2024 and those acquired during the year ended December 31, 2025, was an increase in depreciation and amortization expense of $ 1.4 billion and a reduction in net income of $ 1.0 billion, or $ 0.10 per basic share and $ 0.10 per diluted share, which primarily impacted our AWS segment.   During Q3 2025, we recorded $ 2.5 billion of expense related to the settlement of a lawsuit with the FTC. This charge was recorded in “Other operating expense (income), net” and impacted our North America segment.   During Q4 2025, we recorded $ 2.4 billion of expense related to settlements of a lawsuit and tax disputes, severance costs, and asset impairments. Of this total, $ 1.1 billion related to the resolution of tax disputes associated with our stores business in Italy, and the settlement of a lawsuit, recorded primarily in “Other operating expense (income), net” and “Fulfillment,” and primarily impacted our International segment.   For the year ended December 31, 2025, we recorded a…",
+   "amounts": [
+    {
+     "raw": "$ 1.4 billion",
+     "usdM": 1400
+    },
+    {
+     "raw": "$ 1.0 billion",
+     "usdM": 1000
+    },
+    {
+     "raw": "$ 0.10 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 0.10 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2.5 billion",
+     "usdM": 2500
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "43",
    "match": "guarantee",
    "text": "…y consist of those costs incurred in operating and staffing our North America and International segments’ fulfillment centers, physical stores, and customer service centers, including facilities and equipment expenses, such as depreciation and amortization, and rent; costs attributable to buying, receiving, inspecting, and warehousing inventories; picking, packaging, and preparing customer orders for shipment; payment processing and related transaction costs, including costs associated with our guarantee for certain seller transactions; responding to inquiries from customers; and supply chain management for our manufactured electronic devices. Fulfillment costs also include amounts paid to third parties that assist us in fulfillment and customer service operations.   43",
    "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "44",
+   "match": "depreciation and amortization expense",
+   "text": "…lso participate in cooperative advertising arrangements with certain of our vendors, and other third parties.   Advertising and other promotional costs to market our products and services are expensed as incurred and were $ 20.3 billion, $ 21.4 billion, and $ 23.5 billion in 2023, 2024, and 2025.   General and Administrative   General and administrative expenses primarily consist of costs for corporate functions, including payroll and related expenses; facilities and equipment expenses, such as depreciation and amortization expense and rent; and professional fees.   Stock-Based Compensation   Compensation cost for all equity-classified stock awards expected to vest is measured at fair value on the date of grant and recognized over the service period. The fair value of restricted stock units is determined based on the number of shares granted and the quoted price of our common stock. Such value is recognized as expense over the service period, net of estimated forfeitures, using the accelerated method. Under this method, approximately 50 % of the grant date fair value is recognized as expense in the first year of grant for the majority of our stock-based compensation awards. The accelerated method also adds a higher level of sensitivity and complexity in estimating forfeitures. If an award is forfeited early in its life, the adjustment to compensation expense is much greater und…",
+   "amounts": [
+    {
+     "raw": "$ 23.5 billion",
+     "usdM": 23500
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -210,10 +392,45 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "47",
+   "match": "useful lives",
+   "text": "…s. Property includes buildings and land that we own, along with property we have acquired under build-to-suit lease arrangements when we have control over the building during the construction period and finance lease arrangements. Heavy equipment consists primarily of assets that support the infrastructure of our fulfillment network and data centers. Other equipment consists primarily of fulfillment equipment. Depreciation and amortization is recorded on a straight-line basis over the estimated useful lives of the assets and classified within the corresponding operating expense categories on our consolidated statements of operations. The estimated useful lives as of December 31, 2025, are as follows:   Property and equipment Estimated useful life   Buildings Lesser of forty years or the remaining life of the underlying building   Servers and networking equipment Five to six years (1)   Heavy equipment Ten to thirteen years (2)   Other equipment Three to ten years   ___________________   (1) Effective January 1, 2024, we changed our estimate of the useful lives for our servers from five to six years , and effective January 1, 2025, we changed our estimate of the useful lives of a subset of our servers and networking equipment from six to five years .   (2) Ten years prior to January 1, 2025.   Leases   We categorize leases with contractual terms longer than twelve months as eith…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "47",
+   "match": "useful life",
+   "text": "…he present value of the fixed lease payments, reduced by landlord incentives using a discount rate based on similarly secured borrowings available to us. Lease assets are recognized based on the initial present value of the fixed lease payments, reduced by landlord incentives, plus any direct costs from executing the leases or lease prepayments reclassified from “Other assets” upon lease commencement. Leasehold improvements are capitalized at cost and amortized over the lesser of their expected useful life or the lease term.   47",
+   "amounts": []
+  },
+  {
    "kind": "spv",
    "page": "48",
    "match": "build-to-suit",
    "text": "…e and recognized using the effective interest method over the lease term.   We establish assets and liabilities for the present value of estimated future costs to retire long-lived assets at the termination or expiration of a lease. Such assets are amortized over the lease period into operating expense, and the recorded liabilities are accreted to the future value of the estimated retirement costs.   Financing Obligations   We record assets and liabilities for estimated construction costs under build-to-suit lease arrangements when we have control over the building during the construction period. If we continue to control the building after the construction period, the arrangement is classified as a financing obligation instead of a lease. The building is depreciated over the shorter of its useful life or the term of the obligation.   If we do not control the building after the construction period ends, the assets and liabilities for construction costs are derecognized, and we classify the lease as operating.   Goodwill and Indefinite-Lived Intangible Assets   We evaluate goodwill and indefinite-lived intangible assets for impairment annually or more frequently when an event occurs or circumstances change that indicate the carrying value may not be recoverable. We may elect to utilize a qualitative assessment to evaluate whether it is more likely than not that the fair value of…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "48",
+   "match": "useful lives",
+   "text": "…assification and measurement of the lease. Our leases may include variable payments based on measures that include changes in price indices, market interest rates, or the level of sales at a physical store, which are expensed as incurred.   Costs associated with operating lease assets are recognized on a straight-line basis within operating expenses over the term of the lease. Finance lease assets are amortized within operating expenses on a straight-line basis over the shorter of the estimated useful lives of the assets or, in the instance where title does not transfer at the end of the lease term, the lease term. The interest component of a finance lease is included in interest expense and recognized using the effective interest method over the lease term.   We establish assets and liabilities for the present value of estimated future costs to retire long-lived assets at the termination or expiration of a lease. Such assets are amortized over the lease period into operating expense, and the recorded liabilities are accreted to the future value of the estimated retirement costs.   Financing Obligations   We record assets and liabilities for estimated construction costs under build-to-suit lease arrangements when we have control over the building during the construction period. If we continue to control the building after the construction period, the arrangement is classified a…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "48",
+   "match": "useful life",
+   "text": "…e, and the recorded liabilities are accreted to the future value of the estimated retirement costs.   Financing Obligations   We record assets and liabilities for estimated construction costs under build-to-suit lease arrangements when we have control over the building during the construction period. If we continue to control the building after the construction period, the arrangement is classified as a financing obligation instead of a lease. The building is depreciated over the shorter of its useful life or the term of the obligation.   If we do not control the building after the construction period ends, the assets and liabilities for construction costs are derecognized, and we classify the lease as operating.   Goodwill and Indefinite-Lived Intangible Assets   We evaluate goodwill and indefinite-lived intangible assets for impairment annually or more frequently when an event occurs or circumstances change that indicate the carrying value may not be recoverable. We may elect to utilize a qualitative assessment to evaluate whether it is more likely than not that the fair value of a reporting unit or indefinite-lived intangible asset is less than its carrying value and if so, we perform a quantitative test. We compare the carrying value of each reporting unit and indefinite-lived intangible asset to its estimated fair value and if the fair value is determined to be less than t…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "49",
+   "match": "investment grade",
+   "text": "…ent, and music as of December 31, 2024 and 2025 were $ 19.6 billion and $ 21.3 billion. Total video and music expense was $ 20.4 billion and $ 22.4 billion for the year ended December 31, 2024 and 2025. Total video and music expense includes licensing and production costs associated with content offered within Amazon Prime memberships, and costs associated with digital subscriptions and sold or rented content.   Cash Equivalents and Marketable Securities   We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Such investments are included in “Cash and cash equivalents” or “Marketable securities” on the accompanying consolidated balance sheets.   Marketable debt securities are classified as available-for-sale and reported at fair value with unrealized gains and losses included in “Accumulated other comprehensive income (loss).” Each reporting period, we evaluate whether declines in fair value below carrying value are due to expected credit losses, as well as our ability and intent to hold the investment until a forecasted recovery occurs. Expected credit losses are recorded as an allowance through “Other income (expense), net” on our consolidated statements of operations.   Equity investments that have readily determinable fair values, including investments for which we have elected the fa…",
    "amounts": []
   },
   {
@@ -272,6 +489,73 @@
    "match": "Anthropic",
    "text": "Table of Contents   2026 financial statements, we will also record an upward adjustment of approximately $ 12 billion to our nonvoting preferred stock as of December 31, 2025 in “Other income (expense), net” to reflect observable changes in price.   Equity investments in private companies not accounted for under the equity-method, which primarily relate to nonvoting preferred stock in Anthropic, are accounted for at cost, with adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations. Each reporting period, we perform a qualitative assessment to evaluate whether the investment is impaired. Our assessment includes a review of recent operating results and trends, recent sales/acquisitions of the investee securities, and other publicly available data. If the investment is impaired, we write it down to its estimated fair value. As of December 31, 2024 and 2025, these investments had a carrying value of $ 989 million and $ 16.2 billion.   Equity investments where we can exercise significant influence, but not control, over an investee are accounted for using the equity-method of accounting, or at fair value if we elect the fair value optio…",
    "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "52",
+   "match": "investment grade",
+   "text": "Table of Contents   Note 2 — FINANCIAL INSTRUMENTS   Cash, Cash Equivalents, Restricted Cash, and Marketable Securities   As of December 31, 2024 and 2025, our cash, cash equivalents, restricted cash, and marketable securities primarily consisted of cash, AAA-rated money market funds, U.S. government and agency securities, other investment grade securities, and marketable equity securities. Cash equivalents and marketable securities are recorded at fair value. The following table summarizes, by major investment type, our cash, cash equivalents, restricted cash, and marketable securities that are measured at fair value on a recurring basis and are categorized using the fair value hierarchy (in millions):   December 31, 2024   Cost or Amortized Cost Gross Unrealized Gains Gross Unrealized Losses Total Estimated Fair Value   Cash and time deposits $ 17,055 $ — $ — $ 17,055   Level 1:   Money market funds 28,282 — — 28,282   Equity securities (1) 3,318   Level 2:   U.S. government and agency securities 3,452 1 ( 52 ) 3,401   Corporate debt securities 50,959 3 ( 50 ) 50,912   Asset-backed securities 1,539 2 ( 18 ) 1,523   Other financial instruments 245 — ( 1 ) 244   $ 101,532 $ 6 $ ( 121 ) $ 104,735   Less: Restrict…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "54",
+   "match": "Depreciation and amortization expense",
+   "text": "…,819   Construction in progress 46,636 71,745   Gross property and equipment 394,055 534,098   Total accumulated depreciation and amortization (1) 141,390 177,073   Total property and equipment, net $ 252,665 $ 357,025   __________________   (1) Includes the original cost and accumulated depreciation of fully-depreciated assets.   Property and equipment acquired but not yet paid are included within “Accounts payable” and were $ 16.8 billion and $ 27.0 billion as of December 31, 2024 and 2025.   Depreciation and amortization expense on property and equipment was $ 30.2 billion, $ 32.1 billion, and $ 41.9 billion which includes amortization of property and equipment acquired under finance leases of $ 5.9 billion, $ 3.9 billion, and $ 3.3 billion for 2023, 2024, and 2025.   54",
+   "amounts": [
+    {
+     "raw": "$ 16.8 billion",
+     "usdM": 16800
+    },
+    {
+     "raw": "$ 27.0 billion",
+     "usdM": 27000
+    },
+    {
+     "raw": "$ 30.2 billion",
+     "usdM": 30200
+    },
+    {
+     "raw": "$ 32.1 billion",
+     "usdM": 32100
+    },
+    {
+     "raw": "$ 41.9 billion",
+     "usdM": 41900
+    },
+    {
+     "raw": "$ 5.9 billion",
+     "usdM": 5900
+    },
+    {
+     "raw": "$ 3.9 billion",
+     "usdM": 3900
+    },
+    {
+     "raw": "$ 3.3 billion",
+     "usdM": 3300
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "57",
+   "match": "useful lives",
+   "text": "… Customer-related 764 ( 282 ) 482 654 ( 237 ) 417 5.2   Total finite-lived intangible assets $ 10,406 $ ( 2,967 ) $ 7,439 $ 11,587 $ ( 3,553 ) $ 8,034 14.5   IPR&D and other (3) $ 1,163 $ 1,163 $ 1,163 $ 1,163   Total acquired intangibles $ 11,569 $ ( 2,967 ) $ 8,602 $ 12,750 $ ( 3,553 ) $ 9,197   ___________________   (1) Excludes the original cost and accumulated amortization of fully-amortized intangibles.   (2) Finite-lived intangible assets, excluding acquired video content, have estimated useful lives of between one and forty years , and are being amortized to operating expenses on a straight-line basis.   (3) Intangible assets acquired in a business combination that are in-process and used in research and development activities (“IPR&D”) are considered indefinite-lived until the completion or abandonment of the research and development efforts. Once the research and development efforts are completed, we reclassify the cost of the IPR&D assets to finite-lived intangible assets, determine the useful life, and begin amortization.   Amortization expense for acquired finite-lived intangibles was $ 706 million, $ 838 million, and $ 817 million in 2023, 2024, and 2025. Expected future amortization expense of acquired finite-lived intangible assets as of December 31, 2025, is as follows (in millions):   Year Ended December 31,   2026 $ 1,085   2027 962   2028 764   2029 690   20…",
+   "amounts": [
+    {
+     "raw": "$ 8,602 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 12,750 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,197   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "leases_not_commenced",
@@ -372,6 +656,13 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "67",
+   "match": "SEGMENT INFORMATION",
+   "text": "…, regulations, administrative practices, principles, and interpretations may impact our tax contingencies. Due to various factors, including the inherent complexities and uncertainties of the judicial, administrative, and regulatory processes in certain jurisdictions, the timing of the resolution of income tax controversies is highly uncertain, and the amounts ultimately paid, if any, upon resolution of the issues raised by the taxing authorities may differ from the amounts accrued.   Note 10 — SEGMENT INFORMATION   We have organized our operations into three segments: North America, International, and AWS. We allocate to segment results the operating expenses “Fulfillment,” “Technology and infrastructure,” “Sales and marketing,” and “General and administrative” based on usage, which is generally reflected in the segment in which the costs are incurred. The majority of technology costs recorded in “Technology and infrastructure” are incurred in the U.S. and are included in our North America and AWS segments. The majority of infrastructure costs recorded in “Technology and infrastructure” are allocated to the AWS segment based on usage. There are no internal revenue transactions between our reportable segments. Our chief operating decision maker (“CODM”) is our President and Chief Executive Officer. Our CODM regularly reviews consolidated net sales, consolidated operating expens…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "68",
    "match": "Equity-method investment",
@@ -399,6 +690,102 @@
     },
     {
      "raw": "$ 77,670   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "68",
+   "match": "AWS   Net sales",
+   "text": "…agencies, and academic institutions.   Information on reportable segments and reconciliation to consolidated net income is as follows (in millions):   Year Ended December 31,   2023 2024 2025   North America   Net sales $ 352,828 $ 387,497 $ 426,305   Operating expenses 337,951 362,530 396,686   Operating income $ 14,877 $ 24,967 $ 29,619   International   Net sales $ 131,200 $ 142,906 $ 161,894   Operating expenses 133,856 139,114 157,144   Operating income (loss) $ ( 2,656 ) $ 3,792 $ 4,750   AWS   Net sales $ 90,757 $ 107,556 $ 128,725   Operating expenses 66,126 67,722 83,119   Operating income $ 24,631 $ 39,834 $ 45,606   Consolidated   Net sales $ 574,785 $ 637,959 $ 716,924   Operating expenses 537,933 569,366 636,949   Operating income 36,852 68,593 79,975   Total non-operating income 705 21 17,336   Provision for income taxes ( 7,120 ) ( 9,265 ) ( 19,087 )   Equity-method investment activity, net of tax ( 12 ) ( 101 ) ( 554 )   Net income $ 30,425 $ 59,248 $ 77,670   68",
+   "amounts": [
+    {
+     "raw": "$ 14,877 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 24,967 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 29,619   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 131,200 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 142,906 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 161,894   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,792 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,750   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 90,757 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 107,556 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 128,725   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 24,631 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 39,834 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 45,606   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 574,785 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 637,959 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 716,924   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "69",
+   "match": "AWS purposes, the selling entity.   Net sales",
+   "text": "…g.   (5) Includes annual and monthly fees associated with Amazon Prime memberships, as well as digital video, audiobook, digital music, e-book, and other non-AWS subscription services.   (6) Includes sales related to various other offerings (such as shipping services, healthcare services, and certain licensing and distribution of video content) and our co-branded credit card agreements.   Net sales are attributed to countries primarily based on country-focused online and physical stores or, for AWS purposes, the selling entity.   Net sales attributed to countries that represent a significant portion of consolidated net sales are as follows (in millions):   Year Ended December 31,   2023 2024 2025   United States $ 395,637 $ 438,015 $ 489,657   Germany 37,588 40,856 45,900   United Kingdom 33,591 37,855 43,212   Japan 26,002 27,401 30,688   Rest of world 81,967 93,832 107,467   Consolidated $ 574,785 $ 637,959 $ 716,924   69",
+   "amounts": [
+    {
+     "raw": "$ 395,637 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 438,015 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 489,657   ",
      "usdM": null
     }
    ]
@@ -468,6 +855,33 @@
     {
      "raw": "$ 421 million",
      "usdM": 421
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "70",
+   "match": "depreciation and amortization expense",
+   "text": "Table of Contents   Total segment assets exclude corporate assets, such as cash and cash equivalents, marketable securities, other long-term investments, corporate facilities, goodwill and other acquired intangible assets, and tax assets. Technology infrastructure assets, which are included in property and equipment, net, net additions, and the depreciation and amortization expense on these assets, are allocated among the segments based on usage, with the majority allocated to the AWS segment. Usage of technology infrastructure assets by the North America and International segments, and the related allocation of total net additions, can fluctuate on a quarter-to-quarter basis, and is affected by seasonality, peak periods, new product or service offerings, and other factors.   Total segment assets reconciled to consolidated amounts are as follows (in millions):   December 31,   2023 2024 2025   North America (1) $ 196,029 $ 210,120 $ 235,652   International (1) 69,718 69,487 81,984   AWS (2) 108,533 155,953 252,588   Corporate 153,574 189,334 247,818   Consolidated $ 527,854 $ 624,894 $ 818,042   ___________________   (1) North America and International segment assets primarily consist of property and equipment, operating leases…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "71",
+   "match": "Depreciation and amortization expense",
+   "text": "Table of Contents   Depreciation and amortization expense on property and equipment, including corporate property and equipment, are allocated to all segments based on usage.   Total depreciation and amortization expense, by segment, is as follows (in millions):   Year Ended December 31,   2023 2024 2025   North America $ 13,678 $ 14,285 $ 15,503   International 4,016 4,462 4,907   AWS 12,531 13,320 21,450   Consolidated $ 30,225 $ 32,067 $ 41,860   71",
+   "amounts": [
+    {
+     "raw": "$ 13,678 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,285 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 15,503   ",
+     "usdM": null
     }
    ]
   }

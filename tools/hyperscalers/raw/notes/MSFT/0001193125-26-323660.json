@@ -6,7 +6,7 @@
  "filed": "2026-07-29",
  "report": "2026-06-30",
  "url": "https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 102,
  "numberedPages": 100,
  "hits": [
@@ -37,6 +37,34 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "4",
+   "match": "Microsoft Cloud",
+   "text": "PART I   Item 1   The Microsoft Cloud provides integration across the technology stack while offering openness, improving time to value, reducing costs, and increasing agility. Our cloud business benefits from three economies of scale: datacenters that deploy computational resources at significantly lower cost per unit than smaller ones; datacenters that coordinate and aggregate diverse customer, geographic, and application demand patterns, improving the utilization of computing, storage, and network resources; and multi-tenancy locations that lower application maintenance labor costs.   We prioritize security above all else and we offer our customers integrated AI-driven products addressing security, compliance, identity, management, and privacy across customers’ multi-cloud, application, and device assets.   The Ambitions That Drive Us   To achieve our vision, our research and development efforts focus on t…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "4",
+   "match": "intelligent cloud",
+   "text": "…ze security above all else and we offer our customers integrated AI-driven products addressing security, compliance, identity, management, and privacy across customers’ multi-cloud, application, and device assets.   The Ambitions That Drive Us   To achieve our vision, our research and development efforts focus on three interconnected ambitions:   • Reinvent productivity and business processes to help organizations and individuals work and collaborate more securely and efficiently.   • Build the intelligent cloud and intelligent edge platform to provide a foundation for our customers’ digital workloads, including hybrid consistency, developer productivity, data and AI capabilities, and trusted security and compliance.   • Create more personal computing experiences that empower people to play, create, and interact with technology in more intuitive, engaging, and dynamic ways.   Our Future Opportunity   We are focused on helping customers use the breadth and depth of the Microsoft Cloud to get the most value out of their digital spend while leading the AI platform wave across our solution areas. We continue to develop complete, intelligent solutions for our customers that empower people to be productive and collaborate, while safeguarding businesses and simplifying IT management. Our goal is to lead the industry in several distinct areas of technology over the long term, which we …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "5",
+   "match": "Intelligent Cloud",
+   "text": "…ed goals to become a carbon negative, water positive, and zero waste company by 2030. Since announcing these goals, we have seen major changes in both the technology sector and in our understanding of what it will take to meet our goals. More information about our progress toward these goals can be found in our annual Environmental Sustainability Report.   OPERATING SEGMENTS   We operate our business and report our financial performance using three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. Our segments provide management with a comprehensive financial view of our key businesses. The segments enable the alignment of strategies and objectives across the development, sales, marketing, and services organizations, and they provide a framework for timely and rational allocation of resources within businesses.   Additional information on our operating segments and geographic and product information is contained in Note 18 – Segment Information and Geographic Data of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   Our reportable segments are described below.   Productivity and Business Processes   Our Productivity and Business Processes segment consists of products and services in our portfolio of productivity, communication, and information services, spanning a variety of devices and platforms. This segment …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "6",
+   "match": "Intelligent Cloud",
+   "text": "…on vendors.   LinkedIn faces competition from online professional networks; recruiting, talent management, and human resource services companies; job boards; companies that provide learning and development products and services; online and offline outlets that generate revenue from advertisers and marketers; and online and offline outlets for companies with lead generation and customer intelligence and insights.   Dynamics competes with cloud-based and on-premises business solution providers.   Intelligent Cloud   Our Intelligent Cloud segment consists of our public, private, and hybrid server products and cloud services that power modern business and developers. This segment primarily comprises:   • Server products and cloud services, including Azure and other cloud services, comprising cloud and AI consumption-based services, GitHub cloud services, Health and Life Sciences cloud services (formerly Nuance Healthcare cloud services), virtual desktop offerings, and other cloud services; and Server products, comprising SQL Server, Windows Server, Visual Studio, System Center, related Client Access Licenses (“CALs”), and other on-premises offerings.   • Enterprise and partner services, including Enterprise Support Services, Industry Solutions, Microsoft Partner Network, and Learning Experience.   6",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "13",
    "match": "microsoft",
@@ -55,6 +83,13 @@
    "page": "14",
    "match": "utility",
    "text": "…ntegrated capabilities, including developing proprietary hardware, infrastructure, and artificial intelligence (“AI”) models, could increase our cost structure, reduce margins, and expose us to operational risks.   • We derive substantial revenue from licenses of Windows operating systems on PCs. We face significant competition from competing platforms developed for new types of devices, including smartphones and tablets. These devices compete on multiple bases including price and the perceived utility of the device and its platform. Users continue to turn to these devices to perform functions that in the past were performed by PCs. Even if many users view these devices as complementary to a PC, the prevalence of these devices may make it more difficult to attract application developers to our PC operating system platforms. Competing with operating systems licensed at low or no cost may decrease our PC operating system margins. Popular products or services offered on competing platforms could increase their competitive strength. In addition, some of our devices compete with products made by our OEM partners, which may affect their commitment to our platform.   • Competing platforms have content and application marketplaces with scale and significant installed bases. The variety and utility of content and applications available on a platform are important to device purchasing de…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "15",
+   "match": "credit ratings",
+   "text": "…e associated revenue may not be realized in the expected timeframes or at expected levels. Our capital and operational investments are complex and involve projects in multiple locations around the world that expose us to increased compliance risks and political challenges, among others. Our ability to fund these investments depends on our ability to generate sufficient cash flows and obtain financing on acceptable terms. Adverse changes in interest rates, credit markets, investor sentiment, our credit ratings, or other factors affecting capital availability could increase our cost of capital or limit our ability to execute our infrastructure strategy. The financial success of these investments depends on a number of uncertain factors, including customer demand for cloud-based and AI products and services and continued customer use of Azure to build, train, deploy, and run AI workloads, our ability to price and monetize those services at levels sufficient to recover our costs, competitive dynamics affecting pricing, and the pace of adoption of AI. Customers may reduce, delay, or shift AI workloads to competing platforms, on-premises or local deployments, or other alternatives. If adoption of our AI services develops more slowly than expected, or if customers do not continue to utilize Azure for AI workloads at anticipated levels, we may not realize the expected returns on our in…",
    "amounts": []
   },
   {
@@ -93,11 +128,99 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "27",
+   "match": "credit rating",
+   "text": "…ffs of accounts receivable may increase.   We maintain an investment portfolio of various holdings, types, and maturities. These investments are subject to general credit, liquidity, market, and interest rate risks, which may be exacerbated by market downturns or events that affect global financial markets. A significant part of our investment portfolio consists of U.S. government securities. If global financial markets decline for long periods, or if there is a downgrade of the U.S. government credit rating due to an actual or threatened default on government debt, our investment portfolio could be adversely affected and we could determine that more of our investments have experienced a decline in fair value, requiring impairment charges that could adversely affect our financial condition and results of operations.   Catastrophic events or geopolitical conditions could disrupt our business. A disruption or failure of our systems, operations, or supply chain because of a major earthquake, weather event, cyberattack, terrorist attack, pandemic, or other catastrophic event could cause delays in completing sales, providing services, or performing other critical functions. As an example, our corporate headquarters, a significant portion of our research and development activities, and certain other essential business operations are in the Seattle, Washington area, and we have other …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "34",
+   "match": "Microsoft Cloud",
+   "text": "…businesses; licensing and supporting an array of software products; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.   Highlights from fiscal year 2026 compared with fiscal year 2025 included:   • Microsoft Cloud revenue increased 27% to $214.4 billion.   • Commercial remaining performance obligation increased 84% to $678 billion.   • Microsoft 365 Commercial cloud revenue increased 17%.   • Microsoft 365 Consumer cloud revenue increased 28%.   • LinkedIn revenue increased 11%.   • Dynamics 365 revenue increased 18%.   • Azure and other cloud services revenue increased 41%.   • Windows OEM and Devices revenue decreased slightly.   • XBOX content and services revenue decreased 5%.   • Search advertising (formerly Search and news advertising) revenue excluding traffic acquisition costs increased 12%.   Industry Trends and Opportunities   Our industry is dynamic and highly competitive, with frequent changes in both technologies and business models. Each industry shift is an opportunity to conceive new products, new technologies, or new ideas that can further transform the industry an…",
+   "amounts": [
+    {
+     "raw": "$214.4 billion",
+     "usdM": 214400
+    },
+    {
+     "raw": "$678 billion",
+     "usdM": 678000
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "34",
+   "match": "Commercial remaining performance",
+   "text": "…ducts; delivering relevant online advertising to a global audience; and designing and selling devices. Our most significant expenses are related to compensating employees; supporting and investing in our cloud-based services, including datacenter operations; designing, manufacturing, marketing, and selling our other products and services; and income taxes.   Highlights from fiscal year 2026 compared with fiscal year 2025 included:   • Microsoft Cloud revenue increased 27% to $214.4 billion.   • Commercial remaining performance obligation increased 84% to $678 billion.   • Microsoft 365 Commercial cloud revenue increased 17%.   • Microsoft 365 Consumer cloud revenue increased 28%.   • LinkedIn revenue increased 11%.   • Dynamics 365 revenue increased 18%.   • Azure and other cloud services revenue increased 41%.   • Windows OEM and Devices revenue decreased slightly.   • XBOX content and services revenue decreased 5%.   • Search advertising (formerly Search and news advertising) revenue excluding traffic acquisition costs increased 12%.   Industry Trends and Opportunities   Our industry is dynamic and highly competitive, with frequent changes in both technologies and business models. Each industry shift is an opportunity to conceive new products, new technologies, or new ideas that can further transform the industry and our business. At Microsoft, we push the boundaries of what …",
+   "amounts": [
+    {
+     "raw": "$214.4 billion",
+     "usdM": 214400
+    },
+    {
+     "raw": "$678 billion",
+     "usdM": 678000
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "34",
    "match": "OpenAI",
    "text": "… frequent changes in both technologies and business models. Each industry shift is an opportunity to conceive new products, new technologies, or new ideas that can further transform the industry and our business. At Microsoft, we push the boundaries of what is possible through a broad range of research and development activities that seek to identify and address the changing demands of customers and users, industry trends, and competitive forces.   We have a long-term strategic partnership with OpenAI which was originally established in 2019. In October 2025 and April 2026, we extended this partnership and continue to build on our shared vision to advance artificial intelligence responsibly and make its benefits broadly accessible. Microsoft is a major investor in OpenAI and will continue to receive revenue-sharing payments. We hold rights to OpenAI’s intellectual property, including models and infrastructure, for integration into our products.   34",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "35",
+   "match": "Intelligent Cloud",
+   "text": "…affect our results of operations.   Refer to Risk Factors (Part I, Item 1A of this Form 10-K) for a discussion of these factors and other risks.   Seasonality   Our revenue fluctuates quarterly and is generally higher in the fourth quarter of our fiscal year. Fourth quarter revenue is driven by a higher volume of multi-year contracts executed during the period.   Reportable Segments   We report our financial performance based on the following three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing. The segment amounts included in MD&A are presented on a basis consistent with our internal management reporting.   Additional information on our reportable segments is contained in Note 18 – Segment Information and Geographic Data of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   35",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "36",
+   "match": "Microsoft Cloud",
+   "text": "…l portion of LinkedIn, Dynamics products and cloud services, and Enterprise and partner services. Our commercial metrics allow management and investors to assess the overall health of our commercial business and include leading indicators of future performance.   Commercial remaining performance obligation   Commercial portion of revenue allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods   Microsoft Cloud revenue and revenue growth   Revenue from Microsoft 365 Commercial cloud, Azure and other cloud services, the commercial portion of LinkedIn, and Dynamics 365   Microsoft Cloud gross margin percentage   Gross margin percentage for our Microsoft Cloud business   Productivity and Business Processes and Intelligent Cloud   Metrics related to our Productivity and Business Processes and Intelligent Cloud segments assess the health of our core businesses within these segments. The metrics primarily reflect growth across our cloud services.   Microsoft 365 Commercial cloud revenue growth   Revenue from Microsoft 365 Commercial subscriptions, comprising Microsoft 365 Commercial, Enterprise Mobility + Security, the cloud portion of Windows Commercial, the per-user portion of Power BI, Exchange, SharePoint, Microsoft Teams, Microsoft 365 Security and Compliance, and Microsoft 365 C…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "36",
+   "match": "Commercial remaining performance",
+   "text": "…se updates, Microsoft 365 Consumer subscribers was removed as a metric.   Commercial   Our commercial business primarily consists of Server products and cloud services, Microsoft 365 Commercial products and cloud services, the commercial portion of LinkedIn, Dynamics products and cloud services, and Enterprise and partner services. Our commercial metrics allow management and investors to assess the overall health of our commercial business and include leading indicators of future performance.   Commercial remaining performance obligation   Commercial portion of revenue allocated to remaining performance obligations, which includes unearned revenue and amounts that will be invoiced and recognized as revenue in future periods   Microsoft Cloud revenue and revenue growth   Revenue from Microsoft 365 Commercial cloud, Azure and other cloud services, the commercial portion of LinkedIn, and Dynamics 365   Microsoft Cloud gross margin percentage   Gross margin percentage for our Microsoft Cloud business   Productivity and Business Processes and Intelligent Cloud   Metrics related to our Productivity and Business Processes and Intelligent Cloud segments assess the health of our core businesses within these segments. The metrics primarily reflect growth across our cloud services.   Microsoft 365 Commercial cloud revenue growth   Revenue from Microsoft 365 Commercial subscriptions, compr…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "37",
+   "match": "Microsoft Cloud",
+   "text": "…n-GAAP)   17.28   14.13   22%   Adjusted net income and adjusted diluted earnings per share (“EPS”) are non-GAAP financial measures. These non-GAAP financial measures exclude net gains and losses from investments in OpenAI. Refer to the Non-GAAP Financial Measures section below for a reconciliation of our financial results reported in accordance with GAAP to non-GAAP financial results.   Fiscal Year 2026 Compared with Fiscal Year 2025   Revenue increased $50.1 billion or 18% driven by growth in Microsoft Cloud. Intelligent Cloud revenue increased driven by Azure. Productivity and Business Processes revenue increased driven by Microsoft 365 Commercial cloud. More Personal Computing revenue decreased driven by XBOX (formerly Gaming), offset in part by growth in Search advertising.   Cost of revenue increased $18.5 billion or 21% driven by growth in Microsoft Cloud.   Gross margin increased $31.6 billion or 16% with growth across each of our segments.   • Gross margin percentage decreased slightly driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains across the Microsoft Cloud.   • Microsoft Cloud gross margin percentage decreased to 66% driven by continued investments in AI infrastructure and growing AI product usage, offset in part by efficiency gains in Azure and Microsoft 365 Commercial cloud.   Operating expenses…",
+   "amounts": [
+    {
+     "raw": "$50.1 billion",
+     "usdM": 50100
+    },
+    {
+     "raw": "$18.5 billion",
+     "usdM": 18500
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "37",
+   "match": "Intelligent Cloud",
+   "text": "…zure and Microsoft 365 Commercial cloud.   Operating expenses increased $4.9 billion or 7% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio, impairment and other related expenses in our XBOX business, investments in commercial sales, and higher Copilot advertising expenses.   Operating income increased $26.7 billion or 21% driven by growth in Productivity and Business Processes and Intelligent Cloud.   Revenue and operating income both included a favorable foreign currency impact of 2%.   37",
+   "amounts": [
+    {
+     "raw": "$26.7 billion",
+     "usdM": 26700
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -108,6 +231,30 @@
     {
      "raw": "$50.1 billion",
      "usdM": 50100
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "38",
+   "match": "SEGMENT RESULTS",
+   "text": "PART II   Item 7   Current year net income and diluted EPS were positively impacted by net gains from investments in OpenAI, which resulted in an increase in net income and diluted EPS of $5.0 billion and $0.67, respectively. Prior year net income and diluted EPS were negatively impacted by net losses from investments in OpenAI, which resulted in a decrease in net income and diluted EPS of $3.6 billion and $0.49, respectively.   SEGMENT RESULTS OF OPERATIONS   (In millions, except percentages)   2026   2025   Percentage Change   Productivity and Business Processes   Revenue   $   139,996   $   120,810   16%   Cost of revenue   25,017   22,422   12%   Operating expenses   31,100   28,615   9%   Operating income   $   83,879   $   69,773   20%   Intelligent Cloud   Revenue   $   137,791   $   106,265   30%   Cost of revenue   57,876   40,171   44%   Operating expenses   22,943   21,505   7%   Operating income   $   56,972   $   44,589   28%   More Personal Computing   Revenue   $   54,052   $   54,649   (1)%   Cost of revenue   23,481   25,238   (7)%   Operating expenses   16,185   15,245   6%   Operating income   $   14,386   $   14,166   2%   Total   Revenue   $   331,839   $   281,724   18%   Cost of revenue   106,374   87,831   21%   Operating expenses   70,228   65,365   7%   Operating income   $   155,237   …",
+   "amounts": [
+    {
+     "raw": "$5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$0.67, ",
+     "usdM": null
+    },
+    {
+     "raw": "$3.6 billion",
+     "usdM": 3600
+    },
+    {
+     "raw": "$0.49, ",
+     "usdM": null
     }
    ]
   },
@@ -132,6 +279,22 @@
     {
      "raw": "$0.49, ",
      "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "39",
+   "match": "Intelligent Cloud",
+   "text": "…continued investments in AI infrastructure and growing AI product usage.   • Operating expenses increased $2.5 billion or 9% driven by continued investments in research and development compute capacity, AI talent, and data to support product development that benefits the entire portfolio, as well as investments in commercial sales and higher Copilot advertising expenses.   Revenue, gross margin, and operating income included a favorable foreign currency impact of 2%, 3%, and 3%, respectively.   Intelligent Cloud   Revenue increased $31.5 billion or 30%.   • Server products and cloud services revenue increased $31.0 billion or 31% driven by Azure and other cloud services. Azure and other cloud services revenue grew 41% driven by demand for services across the platform with continued growth across all workloads. Server products revenue increased 1% primarily driven by higher purchases of licenses running in multi-cloud environments, offset in part by continued customer shift to cloud.   • Enterprise and partner services revenue increased $500 million or 6% driven by growth in Enterprise Support Services.   Operating income increased $12.4 billion or 28%.   • Cost of revenue increased $17.7 billion or 44% driven by investments in AI infrastructure to support growing customer demand.   • Gross margin increased $13.8 billion or 21% driven by growth in Azure. Gross margin percentage …",
+   "amounts": [
+    {
+     "raw": "$31.5 billion",
+     "usdM": 31500
+    },
+    {
+     "raw": "$31.0 billion",
+     "usdM": 31000
     }
    ]
   },
@@ -194,6 +357,34 @@
    ]
   },
   {
+   "kind": "credit_rating",
+   "page": "43",
+   "match": "investment-grade",
+   "text": "PART II   Item 7   Cash, Cash Equivalents, and Investments   Cash, cash equivalents, and short-term investments totaled $76.8 billion and $94.6 billion as of June 30, 2026 and 2025, respectively. Equity and other investments were $36.3 billion and $15.4 billion as of June 30, 2026 and 2025, respectively. Our short-term investments are primarily intended to facilitate liquidity and capital preservation. They consist predominantly of highly liquid investment-grade fixed-income securities, diversified among industries and individual issuers. The investments are predominantly U.S. dollar-denominated securities, but also include foreign currency-denominated securities to diversify risk. Our fixed-income investments are exposed to interest rate risk and credit risk. The credit risk and average maturity of our fixed-income portfolio are managed to achieve economic returns that correlate to certain fixed-income indices. The settlement risk related to these investments is insignificant given that the short-term investments held are primarily highly liquid investment-grade fixed-income securities.   Valuation   In general, and where applicable, we use quoted prices in active markets for identical assets or liabilities to determine the fair value of our financial instruments. This pricing methodology applies to our Level 1 investments, suc…",
+   "amounts": [
+    {
+     "raw": "$36.3 billion",
+     "usdM": 36300
+    },
+    {
+     "raw": "$15.4 billion",
+     "usdM": 15400
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "43",
+   "match": "credit rating",
+   "text": "… and a $22.2 billion increase in cash used in other investing primarily to facilitate the purchase of components, offset in part by a $4.2 billion decrease in cash used in the acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets and a $2.4 billion decrease in cash used in net investment purchases, sales, and maturities.   Debt Proceeds   We issue debt to take advantage of favorable pricing and liquidity in the debt markets, reflecting our credit rating. The proceeds of these issuances were or will be used for general corporate purposes, which may include, among other things, funding for working capital, capital expenditures, repurchases of capital stock, acquisitions, and repayment of existing debt. Refer to Note 10 – Debt of the Notes to Financial Statements (Part II, Item 8 of this Form 10-K).   43",
+   "amounts": [
+    {
+     "raw": "$2.4 billion",
+     "usdM": 2400
+    }
+   ]
+  },
+  {
    "kind": "purchase_obligation",
    "page": "44",
    "match": "Purchase commitments",
@@ -212,6 +403,41 @@
    "page": "46",
    "match": "Equity method investment",
    "text": "…across our portfolio of contracts.   Measurement and Impairment of Investment Securities   Investments purchased by Microsoft are typically accounted for as available-for-sale debt securities, equity investments with readily determinable fair values, or equity investments without readily determinable fair values measured using either the equity method when required or at cost less impairments, if any, with adjustments for observable changes in price (referred to as the measurement alternative). Equity method investments may be recorded on a lag of up to three months when sufficient financial information is not available in a timely manner. For equity method investments recorded on a lag, we recognize the impact of intervening events that have a material impact on our consolidated financial statements in the period in which they occurred.   We review debt investments quarterly for credit losses and impairment. If the cost of an investment exceeds its fair value, we evaluate, among other factors, general market conditions, credit quality of debt instrument issuers, and the extent to which the fair value is less than cost. This determination requires significant judgment. In making this judgment, we employ a systematic methodology that considers available quantitative and qualitative evidence in evaluating potential impairment of our investments. In addition, we consider specific …",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "46",
+   "match": "Remaining performance obligations",
+   "text": "…ld with a right of return, we may provide other credits or incentives, and in certain instances we estimate customer usage of our products and services, which are accounted for as variable consideration when determining the amount of revenue to recognize. Returns and credits are estimated at contract inception and updated at the end of each reporting period if additional information becomes available. Changes to our estimated variable consideration were not material for the periods presented.   Remaining performance obligations represent the revenue we expect to recognize for our products and services for which control has not yet been transferred to customers. We estimate total consideration to be received at the outset of the agreement and throughout the term of the agreement. Estimating the total consideration and revenue that will be allocated to remaining performance obligation can involve significant judgments, including identifying and assessing variable consideration and potential renegotiation of commitments. We consider factors such as the nature of the terms and duration of the contract across our portfolio of contracts.   Measurement and Impairment of Investment Securities   Investments purchased by Microsoft are typically accounted for as available-for-sale debt securities, equity investments with readily determinable fair values, or equity investments without read…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "49",
+   "match": "investment-grade",
+   "text": "…tions, including hedges. Principal currency exposures include the Euro, Japanese yen, British pound, Canadian dollar, and Australian dollar.   Interest Rate   Securities held in our fixed-income portfolio are subject to different interest rate risks based on their maturities. We manage the average maturity of the fixed-income portfolio to achieve economic returns that correlate to certain global fixed-income indices.   Credit   Our fixed-income portfolio is diversified and consists primarily of investment-grade securities. We manage credit exposures relative to broad-based indices to facilitate portfolio diversification.   Equity   Securities held in our equity investments portfolio are subject to price risk.   SENSITIVITY ANALYSIS   The following table sets forth the potential loss in future earnings or fair values, including associated derivatives, resulting from hypothetical changes in relevant market rates or prices:   (In millions)   Risk Categories   Hypothetical Change   June 30,   2026   Impact   Foreign currency – Revenue   10% decrease in foreign exchange rates   $   (13,653   )   Earnings   Foreign currency – Investments   10% decrease in foreign exchange rates   (5   )   Fair Value   Interest rate   100 basis point increase in U.S. treasury interest rates   (1,201   )   Fair Value   Credit   100 basis point increase in credit spreads   (412   )   Fair Value   Equity…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "55",
+   "match": "useful lives",
+   "text": "…ts, liabilities, revenue, and expenses. Examples of estimates and assumptions include: for revenue recognition, determining the nature and timing of satisfaction of performance obligations, and determining the standalone selling price (“SSP”) of performance obligations, variable consideration, and other obligations such as product returns and refunds; loss contingencies; the fair value of and/or potential impairment of goodwill and intangible assets for our reporting units; product life cycles; useful lives of our tangible and intangible assets; allowances for doubtful accounts; stock-based compensation forfeiture rates; when technological feasibility is achieved for our products; the potential outcome of uncertain tax positions that have been recognized in our consolidated financial statements or tax returns; and determining the timing and amount of measurement adjustments or impairments for investments. Actual results and outcomes may differ from management’s estimates and assumptions due to risks and uncertainties.   Foreign Currencies   Assets and liabilities recorded in foreign currencies are translated at the exchange rate on the balance sheet date. Revenue and expenses are translated at average rates of exchange prevailing during the year. Translation adjustments resulting from this process are recorded to other comprehensive income.   Revenue   Product Revenue and Servi…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "56",
+   "match": "Segment Information",
+   "text": "…ulting services is recognized as services are provided.   Our hardware is generally highly dependent on, and interrelated with, the underlying operating system and cannot function without the operating system. In these cases, the hardware and software license are accounted for as a single performance obligation and revenue is recognized at the point in time when ownership is transferred to resellers or directly to end customers through retail stores and online marketplaces.   Refer to Note 18 – Segment Information and Geographic Data for further information, including revenue by significant product and service offering.   Significant Judgments   Our contracts with customers often include promises to transfer multiple products and services to a customer. Determining whether products and services are considered distinct performance obligations that should be accounted for separately versus together may require significant judgment. When a cloud-based service includes both on-premises software licenses and cloud services, judgment is required to determine whether the software license is considered distinct and accounted for separately, or not distinct and accounted for together with the cloud service and recognized over time. Certain cloud services, primarily Office 365, depend on a significant level of integration, interdependency, and interrelation between the desktop applicatio…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "57",
+   "match": "remaining performance obligations",
+   "text": "…er credits or incentives, and in certain instances we estimate customer usage of our products and services, which are accounted for as variable consideration when determining the amount of revenue to recognize. Returns and credits are estimated at contract inception and updated at the end of each reporting period if additional information becomes available. Changes to our estimated variable consideration were not material for the periods presented.   Estimating revenue that will be allocated to remaining performance obligations can involve significant judgments, including identifying and assessing variable consideration and potential renegotiation of commitments. We consider factors such as the nature of the terms and duration of the contract across our portfolio of contracts.   Contract Balances and Other Receivables   Timing of revenue recognition may differ from the timing of invoicing to customers. We record a receivable when revenue is recognized prior to invoicing, or unearned revenue when revenue is recognized subsequent to invoicing. For multi-year agreements, we generally invoice customers annually at the beginning of each annual coverage period. We record a receivable related to revenue recognized for multi-year on-premises licenses as we have an unconditional right to invoice and receive payment in the future related to those licenses.   Unearned revenue comprises ma…",
    "amounts": []
   },
   {
@@ -255,6 +481,20 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "61",
+   "match": "useful life",
+   "text": "…e investments are determined based on valuation techniques using the best information available, and may include quoted market prices, market comparables, and discounted cash flow projections.   Our other current financial assets and current financial liabilities have fair values that approximate their carrying values.   Property and Equipment   Property and equipment is stated at cost less accumulated depreciation and depreciated using the straight-line method over the shorter of the estimated useful life of the asset or the lease term. The estimated useful lives of our property and equipment are generally as follows: software developed or acquired for internal use, three years ; servers and network equipment, two to six years ; buildings and improvements, five to 15 years ; leasehold improvements, three to 15 years ; and furniture and equipment, one to 10 years . Land is not depreciated.   Leases   We determine if an arrangement is a lease at inception. Operating leases are included in operating lease right-of-use (“ROU”) assets, other current liabilities, and operating lease liabilities in our consolidated balance sheets. Finance leases are included in property and equipment, other current liabilities, and other long-term liabilities in our consolidated balance sheets.   ROU assets represent our right to use an underlying asset for the lease term and lease liabilities repres…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "61",
+   "match": "useful life",
+   "text": "… account for the operating lease ROU assets and liabilities.   Goodwill   Goodwill is tested for impairment at the reporting unit level (operating segment or one level below an operating segment) on an annual basis (May 1) and between annual tests if an event occurs or circumstances change that would more likely than not reduce the fair value of a reporting unit below its carrying value.   Intangible Assets   Our intangible assets are subject to amortization and are amortized over the estimated useful life in proportion to the economic benefits received. We evaluate the recoverability of intangible assets periodically by taking into account events or circumstances that may warrant revised estimates of useful lives or that indicate the asset may be impaired.   Recent Accounting Guidance   Recently Adopted Accounting Guidance   Income Taxes – Improvements to Income Tax Disclosures   In December 2023, the Financial Accounting Standards Board (“FASB”) issued a new standard to improve income tax disclosures. The guidance requires additional disclosure of disaggregated income taxes paid and prescribes standardized categories for the components of the effective tax rate reconciliation. We adopted the standard prospectively beginning with our annual reporting for fiscal year 2026. The adoption resulted in incremental income tax disclosures. Refer to Note 11 – Income Taxes.   61",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "62",
    "match": "equity method investment",
@@ -295,6 +535,79 @@
    ]
   },
   {
+   "kind": "credit_rating",
+   "page": "67",
+   "match": "investment-grade",
+   "text": "… to certain broad-based fixed-income indices using option, futures, and swap contracts. These contracts are not designated as hedging instruments and are included in “Other contracts” in the tables below.   Equity   Securities held in our equity investments portfolio are subject to market price risk. At times, we may hold options, futures, and swap contracts. These contracts are not designated as hedging instruments.   Credit   Our fixed-income portfolio is diversified and consists primarily of investment-grade securities. We use credit default swap contracts to manage credit exposures relative to broad-based indices and to facilitate portfolio diversification. These contracts are not designated as hedging instruments and are included in “Other contracts” in the tables below.   Credit-Risk-Related Contingent Features   Certain counterparty agreements for derivative instruments contain provisions that require our issued and outstanding long-term unsecured debt to maintain an investment grade credit rating and require us to maintain minimum liquidity of $ 1.0 billion. To the extent we fail to meet these requirements, we will be required to post collateral, similar to the standard convention related to over-the-counter derivatives. As of June 30, 2026, our long-term unsecured debt rating was AAA , and cash investments were in excess of $ 1.0 billion. As a result, no collateral was…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "69",
+   "match": "depreciation expense",
+   "text": "…onents of property and equipment were as follows:   (In millions)   June 30,   2026   2025   Land   $   10,546   $   9,338   Buildings and improvements   182,749   137,921   Leasehold improvements   16,348   12,117   Servers, network equipment, and software   215,874   132,836   Furniture and equipment   6,250   6,407   Total, at cost   431,767   298,619   Accumulated depreciation   ( 118,691   )   ( 93,653   )   Total, net   $   313,076   $   204,966   During fiscal years 2026, 2025, and 2024, depreciation expense was $ 34.3 billion, $ 22.0 billion, and $ 15.2 billion, respectively.   As of June 30, 2026, 2025, and 2024, purchases of property and equipment remaining in accounts payable were $ 26.7 billion, $ 6.9 billion, and $ 4.3 billion, respectively. As of June 30, 2026, we have committed $ 34.6 billion for the construction of new buildings, building improvements, and leasehold improvements, primarily related to datacenters.   NOTE 7 — BUSINESS COMBINATIONS   Activision Blizzard, Inc.   On October 13, 2023 , we completed our acquisition of Activision Blizzard, Inc. (“Activision Blizzard”) for a total purchase price of $ 75.4 billion, consisting primarily of cash. Activision Blizzard is a leader in game development and an interactive entertainment content publisher. The acquisition will accelerate the growth in our gaming business across mobile, PC, console, and cloud gaming…",
+   "amounts": [
+    {
+     "raw": "$ 34.3 billion",
+     "usdM": 34300
+    },
+    {
+     "raw": "$ 22.0 billion",
+     "usdM": 22000
+    },
+    {
+     "raw": "$ 15.2 billion",
+     "usdM": 15200
+    },
+    {
+     "raw": "$ 26.7 billion",
+     "usdM": 26700
+    },
+    {
+     "raw": "$ 6.9 billion",
+     "usdM": 6900
+    },
+    {
+     "raw": "$ 4.3 billion",
+     "usdM": 4300
+    },
+    {
+     "raw": "$ 34.6 billion",
+     "usdM": 34600
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "70",
+   "match": "Intelligent Cloud",
+   "text": "…ated to purchase accounting, primarily amortization of intangible assets. Acquisition costs and other nonrecurring charges were immaterial and are included in the earliest period presented.   NOTE 8 — GOODWILL   Changes in the carrying amount of goodwill were as follows:   (In millions)   June 30,   2024   Acquisitions   Other   June 30,   2025   Acquisitions   Other   June 30, 2026   Productivity and Business Processes   $   31,361   $   0   $   96   $   31,457   $   67   $   46   $   31,570   Intelligent Cloud   25,648   0   41   25,689   36   16   25,741   More Personal Computing   62,211   0   152   62,363   5   ( 28   )   62,340   Total   $   119,220   $   0   $   289   $   119,509   $   108   $   34   $   119,651   70",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "77",
+   "match": "Intelligent Cloud",
+   "text": "…t to income tax in many jurisdictions outside the U.S., some of which are currently under audit by local tax authorities. The resolution of these audits is not expected to be material to our consolidated financial statements. Our operations in Ireland remain subject to examination for tax years 2021 and thereafter .   NOTE 12 — UNEARNED REVENUE   Unearned revenue by segment was as follows:   (In millions)   June 30,   2026   2025   Productivity and Business Processes   $   57,936   $   50,567   Intelligent Cloud   14,942   14,022   More Personal Computing   2,834   2,676   Total   $   75,712   $   67,265   Changes in unearned revenue were as follows:   (In millions)   Year Ended June 30, 2026   Balance, beginning of period   $   67,265   Deferral of revenue   194,184   Recognition of unearned revenue   ( 185,737   )   Balance, end of period   $   75,712   Revenue allocated to remaining performance obligations, which includes unearned revenue and amounts expected to be invoiced and recognized as revenue in future periods, was $ 684 billion as of June 30, 2026. Revenue allocated to remaining performance obligations related to the commercial portion of revenue was $ 678 billion as of June 30, 2026, with a weighted average duration of approximately 2.3 years. We expect to recognize approximately 30 % of both our total company remaining performance obligation revenue and commercial …",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "77",
+   "match": "remaining performance obligations",
+   "text": "…ws:   (In millions)   June 30,   2026   2025   Productivity and Business Processes   $   57,936   $   50,567   Intelligent Cloud   14,942   14,022   More Personal Computing   2,834   2,676   Total   $   75,712   $   67,265   Changes in unearned revenue were as follows:   (In millions)   Year Ended June 30, 2026   Balance, beginning of period   $   67,265   Deferral of revenue   194,184   Recognition of unearned revenue   ( 185,737   )   Balance, end of period   $   75,712   Revenue allocated to remaining performance obligations, which includes unearned revenue and amounts expected to be invoiced and recognized as revenue in future periods, was $ 684 billion as of June 30, 2026. Revenue allocated to remaining performance obligations related to the commercial portion of revenue was $ 678 billion as of June 30, 2026, with a weighted average duration of approximately 2.3 years. We expect to recognize approximately 30 % of both our total company remaining performance obligation revenue and commercial remaining performance obligation revenue over the next 12 months and the remainder thereafter.   NOTE 13 — LEASES   We have operating and finance leases for datacenters, corporate offices, research and development facilities, and certain equipment. Our leases have remaining lease terms of less than 1 year to 20 years, some of which include options to extend the leases for up to 5 years,…",
+   "amounts": [
+    {
+     "raw": "$ 684 billion",
+     "usdM": 684000
+    },
+    {
+     "raw": "$ 678 billion",
+     "usdM": 678000
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "78",
    "match": "not yet commenced",
@@ -307,11 +620,52 @@
    ]
   },
   {
+   "kind": "segment",
+   "page": "83",
+   "match": "SEGMENT INFORMATION",
+   "text": "PART II   Item 8   NOTE 18 — SEGMENT INFORMATION AND GEOGRAPHIC DATA   In its operation of the business, management, including our chief operating decision maker (“CODM”), who is also our Chief Executive Officer , reviews certain financial information, including segmented internal profit and loss statements. The primary profitability measure used by the CODM to review segment operating results is operating income. The CODM uses operating income to allocate resources during our annual planning process and throughout the year, as well as to assess the performance of our segments, primarily by monitoring actual results compared to prior periods and expected results. During the periods presented, we reported our financial performance based on the following three segments: Productivity and Business Processes, Intelligent Cloud, and More Personal Computing.   Our reportable segments are described below.   Productivity and…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "83",
+   "match": "Intelligent Cloud",
+   "text": "… on-premises.   • Microsoft 365 Consumer products and cloud services, including Microsoft 365 Consumer subscriptions, Office licensed on-premises, and other consumer services.   • LinkedIn, including Talent Solutions, Marketing Solutions, Premium Subscriptions, and Sales Solutions.   • Dynamics products and cloud services, including Dynamics 365, comprising a set of intelligent, cloud-based applications across ERP, CRM, Power Apps, and Power Automate; and on-premises ERP and CRM applications.   Intelligent Cloud   Our Intelligent Cloud segment consists of our public, private, and hybrid server products and cloud services that power modern business and developers. This segment primarily comprises:   • Server products and cloud services, including Azure and other cloud services, comprising cloud and AI consumption-based services, GitHub cloud services, Health and Life Sciences cloud services (formerly Nuance Healthcare cloud services), virtual desktop offerings, and other cloud services; and Server products, comprising SQL Server, Windows Server, Visual Studio, System Center, related Client Access Licenses, and other on-premises offerings.   • Enterprise and partner services, including Enterprise Support Services, Industry Solutions, Microsoft Partner Network, and Learning Experience.   More Personal Computing   Our More Personal Computing segment consists of products and service…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "84",
+   "match": "Intelligent Cloud",
+   "text": "…ted and is generally based on relative gross margin or relative headcount.   Segment revenue, cost of revenue, operating expenses, and operating income were as follows during the periods presented:   (In millions)   Year Ended June 30,   2026   2025   2024   Productivity and Business Processes   Revenue   $   139,996   $   120,810   $   106,820   Cost of revenue   25,017   22,422   19,611   Operating expenses   31,100   28,615   27,548   Operating income   $   83,879   $   69,773   $   59,661   Intelligent Cloud   Revenue   $   137,791   $   106,265   $   87,464   Cost of revenue   57,876   40,171   29,611   Operating expenses   22,943   21,505   20,040   Operating income   $   56,972   $   44,589   $   37,813   More Personal Computing   Revenue   $   54,052   $   54,649   $   50,838   Cost of revenue   23,481   25,238   24,892   Operating expenses   16,185   15,245   13,987   Operating income   $   14,386   $   14,166   $   11,959   Total   Revenue   $   331,839   $   281,724   $   245,122   Cost of revenue   106,374   87,831   74,114   Operating expenses   70,228   65,365   61,575   Operating income   $   155,237   $   128,528   $   109,433   No sales to an individual customer or country other than the United States accounted for more than 10% of revenue for fiscal years 2026, 2025, or 2024. Revenue, classified by the major geographic areas in which our customers were located…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "84",
    "match": "10% of revenue",
    "text": "…54,052   $   54,649   $   50,838   Cost of revenue   23,481   25,238   24,892   Operating expenses   16,185   15,245   13,987   Operating income   $   14,386   $   14,166   $   11,959   Total   Revenue   $   331,839   $   281,724   $   245,122   Cost of revenue   106,374   87,831   74,114   Operating expenses   70,228   65,365   61,575   Operating income   $   155,237   $   128,528   $   109,433   No sales to an individual customer or country other than the United States accounted for more than 10% of revenue for fiscal years 2026, 2025, or 2024. Revenue, classified by the major geographic areas in which our customers were located, was as follows:   (In millions)   Year Ended June 30,   2026   2025   2024   United States (a)   $   170,794   $   144,546   $   124,704   Other countries   161,045   137,178   120,418   Total   $   331,839   $   281,724   $   245,122   (a) Includes billings to OEMs and certain multinational organizations because of the nature of these businesses and the impracticability of determining the geographic source of the revenue.   84",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "85",
+   "match": "Microsoft Cloud",
+   "text": "…ducts and cloud services   101,997   87,767   76,969   XBOX   21,790   23,455   21,503   LinkedIn   19,817   17,812   16,372   Windows and Devices   17,084   17,314   17,026   Search advertising   15,176   13,878   12,306   Microsoft 365 Consumer products and cloud services   9,175   7,404   6,648   Dynamics products and cloud services   9,006   7,827   6,831   Enterprise and partner services   8,260   7,760   7,594   Other   109   72   45   Total   $   331,839   $   281,724   $   245,122   Our Microsoft Cloud revenue, which includes Microsoft 365 Commercial cloud, Azure and other cloud services, the commercial portion of LinkedIn, and Dynamics 365, was $ 214.4 billion, $ 168.9 billion, and $ 137.7 billion in fiscal years 2026, 2025, and 2024, respectively. These amounts are included in Server products and cloud services, Microsoft 365 Commercial products and cloud services, LinkedIn, and Dynamics products and cloud services in the table above.   Assets are not allocated to segments for internal reporting presentations. A portion of amortization and depreciation is included with various other costs in an overhead allocation to each segment. It is impracticable for us to separately identify the amount of amortization and depreciation by segment that is included in the measure of segment profit or loss.   Long-lived assets, excluding financial instruments and tax assets, classifi…",
+   "amounts": [
+    {
+     "raw": "$ 214.4 billion",
+     "usdM": 214400
+    },
+    {
+     "raw": "$ 168.9 billion",
+     "usdM": 168900
+    },
+    {
+     "raw": "$ 137.7 billion",
+     "usdM": 137700
+    }
+   ]
   }
  ]
 }

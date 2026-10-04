@@ -6,7 +6,7 @@
  "filed": "2026-03-02",
  "report": "2025-12-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000104/crwv-20251231.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 143,
  "numberedPages": 143,
  "hits": [
@@ -15,6 +15,13 @@
    "page": "2",
    "match": "Item 2.   Properties",
    "text": "Table of Contents   TABLE OF CONTENTS   S pecial Note Regarding Fo rward Looking Statements   3   PART I   Item 1.   Business   5   Item 1A.   Risk Factors   13   Item 1B.   Unresolved Staff Comments   61   Item 1C.   C ybersecurity   61   Item 2.   Properties   62   Item 3.   Legal Proceedings   63   Item 4.   Mine Safety Disclosures   63   PART II   Item 5.   Market for the Registrant's Common Equity, Related Stockholder Matters, and Issuer Purchases of Equity Securities   64   Item 6.   [ Reserved ]   65   Item 7.   Management’s Discussion and Analysis of Financial Condition and Results of Operations   66   Item 7A.   Quantitative and Qualitative Disclosures about Market Risk   79   Item 8.   Financial Statements and Supplementary Data   81   Item 9.   Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   132   Item 9A.   Controls and Procedures   132   Item 9B.   Other Information   133   Item 9C.   Disclosure Regarding Foreign Jurisdiction that Prevent Inspections   135   PART III   Item 10.   Directors, Executive Officers, and Corporate Governance   136   Item 11.   Executive Compensa…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "3",
+   "match": "remaining performance obligations",
+   "text": "…ve and maintain future profitability;   • our business plan and our ability to effectively manage our growth and maintain our corporate culture;   • anticipated trends, growth rates, and challenges in our business and in the markets in which we operate;   • market acceptance of our platform, solutions, and services;   • beliefs and objectives for future operations;   • our ability to successfully retain and expand usage of our existing customers and attract new customers;   • the percentages of remaining performance obligations that we expect to recognize as revenue over respective future periods;   • our ability to realize and the expected timing for the benefits and impacts of our acquisitions of Weights & Biases, Inc., OpenPipe Inc., Marimo Inc., and Monolith AI Limited;   • future acquisitions or investments in complementary companies or products;   • our ability to develop, introduce, and/or deploy new products, solutions, technology, and data center capacity and bring them to market in a timely manner;   • our expectations concerning relationships with third parties, including data center providers, IT service providers, business partners, vendors, suppliers, and cloud-based service providers;   • our ability to maintain, protect, and enhance our intellectual property rights;   • our ability to expand internationally;   • the effects of increased competition in our market…",
    "amounts": []
   },
   {
@@ -60,6 +67,34 @@
    "match": "GPU",
    "text": "…ia high-speed Direct Connect tailored to a wide range of requirements—with physical connectivity options of 10Gbps, 100 Gbps, and 400 Gbps of bandwidth. We continue to enhance our networking backbone to serve the evolving business needs of our customers, including large AI labs leveraging our backbone to connect multi-cloud inference infrastructures.   Foundational Infrastructure. Our purpose-built foundational infrastructure maximizes performance with first-to-market Graphics Processing Unit (\"GPU\") clusters, ultra-high density, and high-speed interconnects, supporting complex AI workloads while improving efficiency and lowering total cost of ownership. Our track record and ability to   6",
    "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "6",
+   "match": "remaining performance obligations",
+   "text": "…es deploying AI at scale across a variety of use cases. Customers generally access our platform through multi-year committed contracts, under which they purchase a specified amount of capacity on a take-or-pay basis over the contract term. A number of our customers have expanded their initial commitments over time by contracting for additional capacity as their AI workloads have grown. We also offer on-demand access through a pay-as-you-go model. As of December 31, 2025, we had $60.7 billion of remaining performance obligations (\"RPO\"), compared to $15.1 billion of RPO as of December 31, 2024. As of December 31, 2025, our committed contracts had a weighted-average contract duration of approximately five years.   Our business has grown rapidly since inception. Our revenue was $5.1 billion, $1.9 billion, and $229 million for the years ended December 31, 2025, 2024, and 2023, respectively. During these periods, we continued to invest significantly in expanding our infrastructure and operations. As a result, we incurred net losses of $1.2 billion, $863 million, and $594 million for the years ended December 31, 2025, 2024, and 2023, respectively.   CoreWeave Cloud Platform and Product Offerings   A Comprehensive AI-Native Stack Powers Our Purpose-Built AI Cloud   CoreWeave is the Essential Cloud for AI, purpose-built to accelerate breakthroughs by AI pioneers, from leading research …",
+   "amounts": [
+    {
+     "raw": "$60.7 billion",
+     "usdM": 60700
+    },
+    {
+     "raw": "$15.1 billion",
+     "usdM": 15100
+    },
+    {
+     "raw": "$5.1 billion",
+     "usdM": 5100
+    },
+    {
+     "raw": "$1.9 billion",
+     "usdM": 1900
+    },
+    {
+     "raw": "$229 million",
+     "usdM": 229
+    }
+   ]
   },
   {
    "kind": "gpu",
@@ -340,10 +375,31 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "22",
+   "match": "useful life",
+   "text": "…e will be unable to compete as effectively and our business, operating results, financial condition, and prospects will be adversely affected.   We continually work to upgrade and enhance our platform, solutions, and services in response to customer demand and to keep up with technological changes. Part of this process entails cycling out older components of our infrastructure and replacing them with the latest technology available. This requires us to make certain estimates with respect to the useful life of the components of our infrastructure and to maximize the value of the components of our infrastructure, including our GPUs, to the fullest extent possible. We cannot guarantee that our estimates will be accurate or that our attempts at maximizing value will be successful. Any changes to the significant assumptions underlying our estimates or to the estimates of our components' useful lives, or any inability to redeploy components of our existing infrastructure to extend past their contracted life could significantly affect our business, operating results, financial condition, and prospects.   Our platform must also integrate with a variety of network, hardware, storage, and software technologies, and we need to continuously modify and enhance the capabilities of our platform to adapt to changes and innovation in these technologies. If our customers widely adopt new technol…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "23",
+   "match": "remaining performance obligations",
+   "text": "… operating results may fluctuate significantly, which could make our future results difficult to predict and could cause our operating results to fall below expectations.   Our operating results have varied significantly from period to period in the past, and we expect that our operating results will continue to vary significantly in the future such that period-to-period comparisons of our operating results may not be meaningful. In addition, in future periods, we may experience fluctuations in remaining performance obligations, given the nature of our committed contract business, the size of those contracts, and period-to-period variation in new business signed and revenue recognized from existing contracts. This could adversely affect our business, operating results, financial condition, and prospects. Accordingly, our financial results in any one quarter should not be relied upon as indicative of future performance. Fluctuations in quarterly results may negatively impact the trading price of our Class A common stock. Our quarterly financial results may fluctuate as a result of a number of factors, many of which are outside of our control and may be difficult to predict, including, without limitation:   • the amount and timing of operating costs and capital expenditures related to the expansion of our business;   • any power outages, shortages, supply chain issues, capacity c…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "24",
    "match": "GPU",
    "text": "…ability to reduce our cost of capital over time;   • decisions by organizations to purchase specialized AI cloud infrastructure from larger, more established vendors;   • our ability to successfully and timely deliver our solutions and services to customers under our committed contracts, including due to data center lead times;   • our ability to successfully and timely deploy launches of additional data centers;   • the timing and success of the integration of new infrastructure, including new GPU generations, into our platform;   • changes in our pricing policies or those of our competitors;   • insolvency or credit difficulties confronting our customers, including bankruptcy or liquidation, due to individual, macroeconomic, and regulatory factors, including those specifically impacting early-stage AI ventures, affecting their ability to purchase or pay for our platform;   • significant security breaches of, technical difficulties with, or interruptions to, the use of our platform or other cybersecurity incidents;   • extraordinary expenses such as litigation or other dispute-related settlement payments or outcomes, taxes, regulatory fines or penalties;   • the timing of revenue recognition and revenue deferrals;   • future accounting pronouncements or changes in our accounting policies or practices;   • negative media coverage or publicity; and   • increases or decreases in …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "26",
+   "match": "Google Cloud",
+   "text": "…rs and other armed conflicts, such as the conflicts in the Middle East and Ukraine, the tensions between China and Taiwan, and instability in Venezuela.   Many of our competitors have greater financial, technical, marketing, sales, and other resources, greater name recognition, longer operating histories, and a larger base of customers than we do. Key competitors that offer general purpose cloud computing services as part of a broader, diversified product portfolio include Amazon (AWS), Google (Google Cloud Platform), Microsoft (Azure), and Oracle, a number of which are also our current customers. Our competitors may be able to devote significantly greater resources to the development, promotion, and sale of their solutions and services than we can, and they may offer lower pricing than we do or bundle certain competing solutions and services at lower prices. Our competitors may also have greater resources for research and development of new technologies, customer support, and to pursue acquisitions, and they have other financial, technical, or other resource advantages. Our competitors may engage in business practices that make our products and services more difficult to transition to or more expensive (for example, by charging data egress fees). Our larger competitors have substantially broader and more diverse solution and service offerings and more mature distribution and g…",
    "amounts": []
   },
   {
@@ -541,6 +597,13 @@
    "amounts": []
   },
   {
+   "kind": "depreciation",
+   "page": "49",
+   "match": "depreciation expense",
+   "text": "… in July 2025 had a significant impact on our effective tax rate for the third quarter of 2025. It contains tax provisions, such as the permanent extension or revision of certain expiring provisions of the Tax Cuts and Jobs Act enacted in 2017, as well as modifications to the international tax framework and the restoration of favorable tax treatment for certain business provisions. Among other items, the tax law changes will impact us by changing the timing and amount of certain tax deductions, depreciation expense, U.S. domestic R&D expenditures and interest expense. The legislation has multiple effective dates, with certain provisions effective now and others to be implemented through 2027. The issuance of additional regulatory or accounting guidance related to the OBBBA or other executive or Congressional actions in the United States or globally could materially affect our tax obligations and significantly impact our effective tax rate in the period such guidance is issued or such actions take effect. In addition, the Organization for Economic Cooperation and Development (\"OECD\") has issued Pillar Two model rules, introducing a new global minimum tax of 15%. While the United States has not adopted Pillar Two, other countries have enacted such legislation or are considering implementation. Given the scope of our foreign operations, Pillar Two has not increased our global tax …",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "51",
    "match": "variable interest entit",
@@ -592,6 +655,18 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "64",
+   "match": "Standard & Poor's",
+   "text": "…erformance graph shall not be deemed \"soliciting material\" or to be \"filed\" with the SEC for purposes of Section 18 of the Exchange Act, or incorporated by reference into any of our filings under the Securities Act or the Exchange Act.   The performance graph below shows the cumulative total return to holders of Class A common stock between March 28, 2025 (the date that our Class A common stock commenced trading on the Nasdaq Global Select Market) through December 31, 2025, in comparison to the Standard & Poor's 500 Stock Index (\"S&P 500 Index\"), the Nasdaq Composite Index, and the Dow Jones U.S. Technology Index. The graph assumes that $100 was invested in our Class A common stock and each index at their closing prices on March 28, 2025 and data for the indexes assumes reinvestment of any dividends. The stock price performance shown in the graph represents past performance and is not necessarily indicative of future stock price performance.   64",
+   "amounts": [
+    {
+     "raw": "$100 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "gpu",
    "page": "66",
    "match": "GPU",
@@ -617,6 +692,36 @@
    "page": "67",
    "match": "GPUs",
    "text": "…liers on future capacity to ensure that our future resource needs are met while continuing to develop our relationships with leading component providers to incorporate the latest hardware innovations and assemble highly performant AI compute solutions for our customers.   Investing in Innovation and Technology Leadership   Our success is dependent on our ability to sustain innovation and technology leadership in order to maintain the competitive advantage of our solution and to bring the latest GPUs to market faster than our competition. We have built a highly differentiated full stack solution for running AI training and inference workloads at maximum performance and efficiency, which we intend to continue to adapt and evolve with the support of our AI specific expertise. We plan to maintain our prioritization of investments in our engineering and product teams to continue to extend our technology leadership in AI infrastructure. Our engineering-led culture, coupled with our team's embedded philosophy of embracing complex technical challenges, will be a critical factor to our future performance and our ability to continue innovating.   Our CoreWeave Cloud Platform is a critical part of the daily operations of the AI developers and providers of AI products and services that rely on our platform to train and inference their models. We remain committed to investing in and growing…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "67",
+   "match": "remaining performance obligations",
+   "text": "…zations as they train new models and build new AI capabilities for businesses and individuals, and on enabling them to maintain their innovation edge and accelerate the speed to market of their next generation of models. The significant benefits we deliver to these customers in terms of overall performance, efficiency, and reduced cost of ownership results in them making large initial commitments and expanding those commitments with us over time. As of December 31, 2025, we had $60.7 billion of remaining performance obligations (RPO), reflecting an increase of 302%, from $15.1 billion as of December 31, 2024.   Driving the continued retention and expansion of our customers will depend on our ability to handle the scale, performance, and efficiency required to accelerate their path to market and enable them to produce better AI products and services. Given the large initial commitments customers make for access to our CoreWeave Cloud Platform, we expect the   67",
+   "amounts": [
+    {
+     "raw": "$60.7 billion",
+     "usdM": 60700
+    },
+    {
+     "raw": "$15.1 billion",
+     "usdM": 15100
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "68",
+   "match": "remaining performance obligations",
+   "text": "Table of Contents   growth of our remaining performance obligations to be in steps, which may include periods of decline, versus a smooth linear trajectory.   Increasing Customer Adoption of our CoreWeave Cloud Platform   We expect to see increasing adoption of AI globally as existing industries innovate with AI and new industries arise. We anticipate that AI will expand beyond first movers to a broader set of enterprises that will utilize AI to drive internal efficiencies and implement AI into their products and services. These organizations are in their early stages of adopting the latest innovations in AI such as generative AI, and are currently focused on running proof-of-concepts and beginning to scale them into production, adapting foundational models to optimize them for their specific use-cases and infusing them with their proprietary data for a broad range of vertical applications, from high frequency trading to…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "68",
+   "match": "investment grade",
+   "text": "…structures that have enabled us to grow our business at a rapid pace through timely and flexible access to capital. These include our use of DDTLs that are collateralized by contractual cash flows and infrastructure assets. These structures have allowed us to leverage the valuable infrastructure underpinning our contracts, the strong credit quality of many of our customers, and high visibility of our customer payments to drive down our cost of capital. We have also incorporated features such as investment grade tranches, as in the case of the DDTL 2.0 Facility, to further reduce our cost of capital. We expect to continue to incur indebtedness to meet our capital needs. However, we also expect our cost of capital to continue to decrease as we benefit from economies of scale and access new forms of financing including asset backed securitizations and rated parent level debt, such as the issuances of our 9.25% senior notes due 2030 (the \"2023 Senior Notes\"), 9.00% senior notes due 2031 (the \"2031 Senior Notes\"), and 1.75% convertible senior notes due 2031 (the 2031 Convertible Notes,\" and together with the 2030 Senior Notes and the 2031 Senior Notes, the \"Notes\") that were all completed in 2025 at incrementally improved rates. We expect this trajectory towards a lower cost of capital will enable us to accelerate our growth at the pace of innovation and help us to drive continued i…",
    "amounts": []
   },
   {
@@ -648,6 +753,33 @@
    "page": "77",
    "match": "not yet commenced",
    "text": "Table of Contents   Contractual Obligations   Our significant contractual obligations as of December 31, 2025 consisted of:   • our Notes and other borrowings that are included in our consolidated balance sheet and the related periodic interest payments;   • lease liabilities that are included in our consolidated balance sheet;   • lease commitments that have not yet commenced and were not included in our consolidated balance sheet; and   • other contractual commitments associated with agreements that are enforceable and legally binding, such as routine commitments for the purchase of goods or services entered into in the ordinary course of business including the purchase of technology equipment and enterprise software and service arrangements.   Refer to Note 8—Leases, Note 9—Commitments and Contingencies, and Note 10—Debt of the Notes to the Consolidated Financial Statements included in Part II, Item 8 of this Annual Report on Form 10-K for the years ended December 31, 2025, 2024, and 2023 for additional information.   Equity Financing   In March 2025, we completed our IPO, in which we issued and sold 36,590,000 shares of our Class A common stock at a public offering price of $40.00 per share, which resulted in net proceeds of $1.4 billion …",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "77",
+   "match": "investment grade",
+   "text": "…ed from us an additional 1,760,000 shares of our Class A common stock at the public offering price, which resulted in net proceeds to us of $68 million after deducting the underwriting discounts and commissions.   Debt Financing   As of December 31, 2025, we had $9.7 billion outstanding under our delayed draw term loan facilities. These delayed draw term loan facilities are collateralized with the assets underlying the contributed contracts and the pledged contractual cash flows, generally from investment grade counterparties. They are drawn as we build infrastructure to support customer requirements, and amortize over time as contracted cash flows are generated in a regular and predictable manner, with excess cash made available to us.   During the year ended December 31, 2025, we issued $6.4 billion aggregate principal amount of Notes composed of the following:   • $2.0 billion aggregate principal amount of 2030 Senior Notes;   • $1.8 billion aggregate principal amount of 2031 Senior Notes;   • $2.6 billion aggregate principal amount of 2031 Convertible Senior Notes.   We also enter into various agreements with original equipment manufacturers and a software license vendor, (the \"OEM and Software Financing Arrangements\"), whereby we obtained financing for certain equipment and software license. As of December 31, 2025, the aggregate notional balance of our OEM and Software Fi…",
+   "amounts": [
+    {
+     "raw": "$9.7 billion",
+     "usdM": 9700
+    },
+    {
+     "raw": "$6.4 billion",
+     "usdM": 6400
+    },
+    {
+     "raw": "$2.0 billion",
+     "usdM": 2000
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "79",
+   "match": "useful life",
+   "text": "…ilize our incremental borrowing rate to discount the present value of the remaining lease payments. The IBR is based on our estimated rate of interest for a collateralized borrowing with a similar term and payments and in economic environments where the leased asset was located.   The expected lease term is used in determining whether the lease is accounted for as an operating lease or a finance lease. We consider a lease to be a finance lease if the lease term exceeds 75% of the leased asset's useful life. For finance leases, ROU assets are amortized over the shorter of the lease term or the useful life of the underlying asset, unless the lease transfers ownership of the underlying asset or includes a purchase option that is reasonably certain to be exercised, in which case the asset is amortized over its useful life.   Many of our leases include escalation clauses, renewal options and termination options that are factored into the determination of lease payments when reasonably certain that we would exercise that option. Certain future minimum lease payments due under the lease agreements contain rent-free periods or escalating rent payment provisions. Our finance leases generally include purchase options and declining minimum payments.   Recent Accounting Pronouncements   See the sections titled \"Recent Accounting Pronouncements Adopted\" and \"Recent Accounting Pronouncements…",
    "amounts": []
   },
   {
@@ -702,10 +834,59 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "91",
+   "match": "useful lives",
+   "text": "…tible preferred stock. All share and per share information has been retroactively adjusted to reflect the stock split for all periods presented.   Use of Estimates   The preparation of consolidated financial statements in conformity with U.S. GAAP requires the Company to make estimates and assumptions that affect the amounts reported in the consolidated financial statements and the accompanying notes. Actual results could differ materially from these estimates. Significant estimates include the useful lives assigned to property and equipment; the fair value of lease assets; the discount rates used for operating and finance leases; accounting for income taxes, including the valuation allowance on deferred tax assets and the measurement of uncertain tax positions; stock-based compensation, including the determination of the fair value of the Company's common stock prior to the IPO; the fair value of financial assets and liabilities; valuation of acquired intangible assets; and the assessment of recoverability of intangible assets and their estimated useful lives. Assumptions are reviewed regularly to ensure they remain relevant and reasonable, particularly in areas of high subjectivity. The Company bases its estimates on historical experience and assumptions that management considers reasonable.   Foreign Currency   The reporting currency of the Company is the U.S. dollar. The fu…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "91",
    "match": "significant customer",
    "text": "…tatements of operations and comprehensive loss. Foreign currency transaction losses were $ 60 million for the year ended December 31, 2025. Foreign currency transaction gains and losses were not material for the years ended December 31, 2024 and 2023.   Concentration of Risk   The Company is subject to certain risks and uncertainties that could have a material adverse effect on its business, financial condition, results of operations, or cash flows primarily due to concentration of credit risk, significant customers, and supplier concentration.   Concentration of Credit Risk   Financial instruments that potentially expose the Company to significant concentration of credit risk consist primarily of cash, cash equivalents, restricted cash, accounts receivable, and marketable securities. The Company maintains its cash, cash equivalents, restricted cash, and marketable securities with high-quality financial institutions mainly in the United States, where the composition and maturities are regularly monitored by the Company. The Company grants credit to its customers in the normal course of business, exposing it to credit risk in the event of nonrepayment by customers. The Company has not experienced any material losses in such accounts.   Customer Concentration   91",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "94",
+   "match": "useful lives",
+   "text": "…24, the carrying value of the Company's strategic investments was $ 117 million and $ 102 million, respectively.   Property and Equipment, Net   Property and equipment, net is stated at historical cost less accumulated depreciation and amortization. Construction in progress is related to the construction or development of property and equipment that has not yet been placed into service for its intended use. Depreciation and amortization are calculated on a straight-line basis over the estimated useful lives of the respective assets. Expenditures for maintenance and repairs that do not extend the lives of the respective assets are expensed as incurred.   Effective January 1, 2023, the Company changed its estimate of the useful life for its computing equipment utilized in data centers from five to six years , reflecting continuous advancements in hardware performance, software optimization, and data center design improvements. The effects of this change in estimate for the year ended December 31, 2023 on computing equipment that was included in property and equipment, net on the consolidated balance sheets as of December 31, 2023 was a reduction in total expenses of $ 20 million. The per share impact of the change in estimate was a $ 0.10 increase for the year ended December 31, 2023.   The estimated useful lives of the Company's property and equipment are as follows:   Technolog…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "94",
+   "match": "useful life",
+   "text": "…t was included in property and equipment, net on the consolidated balance sheets as of December 31, 2023 was a reduction in total expenses of $ 20 million. The per share impact of the change in estimate was a $ 0.10 increase for the year ended December 31, 2023.   The estimated useful lives of the Company's property and equipment are as follows:   Technology equipment 6 years   Software 3 - 6 years   Data center equipment and leasehold improvements   Shorter of remaining lease term or estimated useful life of up to 12 years   Furniture, fixtures, and other assets 3 - 5 years   Capitalized Interest Costs   The Company capitalizes certain interest costs associated with the construction of data centers and purchases of related technology equipment during the period in which expenditures have been made and activities are in progress to prepare the assets for their intended use. The interest costs incurred in the construction of the data centers are considered a part of the assets' historical cost and are depreciated over the estimated useful lives of the underlying assets.   Capitalized Internal-Use Software   The Company capitalizes costs incurred to acquire, internally develop, or modify software solely for the Company's internal use, including hosted applications used to deliver the Company's support services, and certain implementation   94",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "95",
+   "match": "useful life",
+   "text": "…in development efforts. Costs incurred during the preliminary project stage and during the post-implementation operational stage, including maintenance costs, are expensed as incurred. Costs incurred for software upgrades are capitalized if they result in additional functionalities or substantial enhancements. Capitalized software development costs are included in property and equipment, net on the consolidated balance sheets, are amortized on a straight-line basis over the software's estimated useful life, which is between three and six years , and amortization is recorded in technology and infrastructure in the consolidated statements of operations and comprehensive loss.   Asset Retirement Obligations   An asset retirement obligation represents a legal obligation associated with the retirement of a tangible long-lived asset that is incurred upon the acquisition, construction, development or normal operation of that long-lived asset. The Company accounts for these obligations in accordance with Accounting Standards Codification (\"ASC\") 410, Asset Retirement and Environmental Regulations . The Company recognizes asset retirement obligations in the period in which they are placed in service, if a reasonable estimate of fair value can be made. Asset retirement obligations are initially measured at fair value and subsequently adjusted for changes in fair value. The corresponding …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "95",
+   "match": "useful life",
+   "text": "…fication (\"ASC\") 410, Asset Retirement and Environmental Regulations . The Company recognizes asset retirement obligations in the period in which they are placed in service, if a reasonable estimate of fair value can be made. Asset retirement obligations are initially measured at fair value and subsequently adjusted for changes in fair value. The corresponding asset retirement costs are capitalized as part of the carrying amount of the related long-lived asset and depreciated over its estimated useful life or lease term, as applicable. The Company's asset retirement obligations primarily relate to contractual requirements under certain data center lease agreements to remove specified equipment and restore the premises to an agreed-upon condition upon lease termination.   Business Combinations   When the Company acquires a business, the purchase price is allocated to the tangible assets acquired, liabilities assumed, and intangible assets acquired based on their estimated respective fair values. The excess of the fair value of purchase consideration over the fair values of these identifiable assets and liabilities is recorded as goodwill. Significant estimates in valuing certain intangible assets include, but are not limited to, future expected cash flows from acquired users and acquired technology from a market participant perspective, future changes in technology, royalty rate…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "95",
+   "match": "useful lives",
+   "text": "…ssumed, and intangible assets acquired based on their estimated respective fair values. The excess of the fair value of purchase consideration over the fair values of these identifiable assets and liabilities is recorded as goodwill. Significant estimates in valuing certain intangible assets include, but are not limited to, future expected cash flows from acquired users and acquired technology from a market participant perspective, future changes in technology, royalty rates for similar assets, useful lives and discount rates. For certain assets where the replacement cost valuation methodology is applied, significant estimates include the cost to recreate such assets. These estimates are inherently uncertain and unpredictable. During the measurement period, which may be up to one year from the acquisition date, adjustments to the fair value of these tangible and intangible assets acquired and liabilities assumed may be recorded, with the corresponding offset to goodwill. Upon the conclusion of the measurement period or final determination of the fair value of assets acquired or liabilities assumed, whichever comes first, any subsequent adjustments are recorded in the Company's consolidated statements of operations and comprehensive loss. The Company includes the results of operations of the business that it acquires as of the acquisition date. Acquisition-related expenses are e…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "95",
+   "match": "useful lives",
+   "text": "…Based on the Company's qualitative assessment, if it is determined that the fair value of the reporting unit is, more likely than not, less than its carrying amount, then the quantitative assessment is performed. Any excess of the reporting unit's carrying amount over its fair value is recorded as an impairment loss.   The Company's definite-lived intangible assets are carried at cost, net of accumulated amortization. Intangible assets are amortized on a straight-line basis over their estimated useful lives. The Company estimates the useful life by estimating the expected period of economic benefit. The estimated weighted-average useful lives for each class of intangible assets are as follows:   Acquired technologies 5 years   Customer relationships 11 years   Trade names 5 years   95",
    "amounts": []
   },
   {
@@ -758,11 +939,41 @@
    "amounts": []
   },
   {
+   "kind": "rpo",
+   "page": "99",
+   "match": "Remaining performance obligations",
+   "text": "…r the periods presented.   Contract liabilities consist of deferred revenue. Revenue is deferred when the Company invoices in advance of performance under a contract. The current portion of the deferred revenue balance is expected to be recognized as revenue during the 12-month period after the consolidated balance sheet date. The non-current portion of the deferred revenue balance is expected to be recognized as revenue following the 12-month period after the consolidated balance sheet date.   Remaining performance obligations (\"RPO\") represent the aggregate amount of the transaction price, net of estimated variable consideration, allocated to performance obligations not delivered, or partially undelivered, as of the end of the reporting period. Variable consideration primarily consists of potential reductions to the transaction price in the future, such as estimates of future potential credits to customers under availability of service agreements, amounts that may not be recognized as revenue due to delivery delays, and estimates of committed cloud computing capacity that the Company has the right to resell. The Company's estimate of such variable consideration is based on both historical experience and the specific facts and circumstances of the committed contracts included in the Company's RPO. RPO includes both billed and unbilled consideration from the Company's committed…",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "101",
    "match": "Variable Interest Entit",
    "text": "…mber 15, 2026, and for interim periods within fiscal years beginning after December 15, 2027. Early adoption is permitted. Upon adoption, the guidance can be applied either prospectively or retrospectively. The Company is currently evaluating the impact this amended guidance may have on its consolidated financial statements.   In May 2025, the FASB issued ASU No. 2025-03, Business Combinations (Topic 805) and Consolidation (Topic 810): Determining the Accounting Acquirer in the Acquisition of a Variable Interest Entity , which provides clarifying guidance on determining the accounting acquirer in certain transactions involving VIEs. The update aims to improve consistency and comparability in financial reporting. The guidance will be effective for annual periods beginning after December 15, 2026, including interim periods within those annual periods. Early adoption is permitted. Upon adoption, the guidance will be applied prospectively. The Company is currently evaluating the impact this amended guidance may have on its consolidated financial statements.   In May 2025, the FASB issued ASU No. 2025-04, Compensation—Stock Compensation (Topic 718) and Revenue from Contracts with Customers (Topic 606): Clarifications to Share-Based Consideration Payable to a Customer , to reduce diversity in practice and improve the decision usefulness and operability of the guidance for share-based…",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "101",
+   "match": "Segment Information",
+   "text": "Table of Contents   Comprehensive Loss   Comprehensive loss consists of net loss, unrealized gains or losses on available-for-sale marketable investments and changes in the fair value of derivative instruments designated as accounting hedges. The Company presents comprehensive loss as part of the consolidated statements of operations and comprehensive loss. The changes in the accumulated balances of the components of other comprehensive loss were not material for the periods presented.   Segment Information   The Company's chief operating decision maker (\"CODM\"), the chief executive officer, reviews discrete financial information presented on a consolidated basis for purposes of regularly making operating decisions, allocation of resources, and assessing financial performance. The Company operates its business in one operating segment and, therefore, has one reportable segment.   The CODM uses consolidated net loss to measure segment profit or loss in order to identify underlying trends in the performance of the business for purposes of allocating resources and evaluating financial performance. The Company's objective in making resource allocation decisions is to optimize the consolidated financial results. Significant segment expenses that the CODM reviews and utilizes to manage the Company's operations are cost of revenue, technology and infrastructure, sales and marke…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "102",
+   "match": "RPO",
+   "text": "…5, 2024, and 2023, respectively.   Deferred Revenue   Deferred revenue, including current and non-current balances as of December 31, 2025 and 2024 was $ 8.2 billion and $ 4.1 billion, respectively. For the years ended December 31, 2025 and 2024, revenue recognized from deferred revenue at the beginning of the period was $ 780 million and $ 225 million, respectively. The increase in deferred revenue balances as of December 31, 2025 as compared to December 31, 2024 is attributed to the growth in RPO from committed contracts, which typically provide for certain prepayments at contract inception.   102",
+   "amounts": [
+    {
+     "raw": "$ 780 million",
+     "usdM": 780
+    },
+    {
+     "raw": "$ 225 million",
+     "usdM": 225
+    }
+   ]
   },
   {
    "kind": "vie",
@@ -852,6 +1063,18 @@
    ]
   },
   {
+   "kind": "rpo",
+   "page": "103",
+   "match": "Remaining Performance Obligations",
+   "text": "Table of Contents   Remaining Performance Obligations   As of December 31, 2025, the Company had $ 60.7 billion of unsatisfied RPO, of which 43 % is expected to be recognized over the initial 24 months ending December 31, 2027, 38 % between months 25 and 48, and the remaining balance recognized between months 49 and 84.   3. Investments and Fair Value Measurements   Investments   The Company's investments on the consolidated balance sheets consisted of the following (in millions):   December 31, 2025 December 31, 2024   Marketable securities:   Commercial paper $ 12 $ —   Corporate bonds 22 —   Total marketable securities $ 34 $ —   Non-marketable equity securities:   Strategic investments $ 117 $ 102   Equity method investments 51 —   Total non-marketable equity securities 168 102   Total investments $ 202 $ 102   Marketable Securities   For the years ended December 31, 2025, 2024, and 2023, the Company di…",
+   "amounts": [
+    {
+     "raw": "$ 60.7 billion",
+     "usdM": 60700
+    }
+   ]
+  },
+  {
    "kind": "vie",
    "page": "104",
    "match": "maximum exposure to loss",
@@ -899,6 +1122,66 @@
     },
     {
      "raw": "$ 4 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "107",
+   "match": "useful lives",
+   "text": "… Goodwill 793   Total assets acquired $ 1,069   Accounts payable 1   Accrued liabilities 7   Deferred revenue, current 25   Operating lease liabilities, non-current 1   Deferred tax liabilities, non-current 6   Total liabilities assumed $ 40   Total purchase price $ 1,029   The acquired assets and assumed liabilities were recorded at their estimated fair values. The following table presents the amounts allocated to the intangible assets identified as of the date of acquisition and the estimated useful lives (in millions):   Fair Value Useful Lives  (in years)   Customer relationships $ 36 12   Developed technology 162 5 - 7   Trade name 10 5   Total $ 208   The excess of the purchase price over the fair value of the net assets acquired was allocated to goodwill, none of which is expected to be deductible for tax purposes. Goodwill is primarily attributable to the assembled workforce as well as the anticipated synergies from the integration of Weights & Biases' technology with the Company's technology.   From the date of the acquisition, the financial results of Weights & Biases are not material to the Company's consolidated financial statements. Pro forma revenue and net income have not been presented because the historical results would not have been material to the consolidated financial statements in any period presented.   Other Acquisitions   During the year ended December…",
+   "amounts": [
+    {
+     "raw": "$ 1,029   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 208   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "109",
+   "match": "Useful Lives",
+   "text": "Table of Contents   Intangible Assets, Net   Intangible assets, net consisted of the following (in millions, except years):   December 31, 2025 December 31, 2024   Weighted-Average Remaining Useful Lives (in years)   Acquired Intangibles, Gross Accumulated Amortization Acquired Intangibles, Net Acquired Intangibles, Gross Accumulated Amortization Acquired Intangibles, Net   Acquired technologies 5 $ 206 $ ( 27 ) $ 179 $ 5 $ ( 3 ) $ 2   Other (1)   9 61 ( 5 ) 56 4 ( 1 ) 3   Total $ 267 $ ( 32 ) $ 235 $ 9 $ ( 4 ) $ 5   (1) Includes customer relationships and trade names.   Amortization expenses for intangible assets were $ 27 million for the year ended December 31, 2025 and not material for the years ended December 31, 2024 and 2023.   As of December 31, 2025, the expected future amortization expense related to intangible assets was as follows (in millions):   Years Ending December 31, Amount   2026 $ 45   2027 45   2028 43   2029 43   2030 23   Thereafter 36   Total expected future amortization expense $ 235   109",
+   "amounts": [
+    {
+     "raw": "$ 206 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 179 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 267 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 235 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5   ",
      "usdM": null
     }
    ]
@@ -970,6 +1253,18 @@
     {
      "raw": "$ 116 million",
      "usdM": 116
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "119",
+   "match": "useful life",
+   "text": "…P Service Agreement, the Company continues to control the Existing Critical Infrastructure Assets and the Company recorded a financing obligation related to the consideration received for the Existing Critical Infrastructure Assets. The financing obligation is payable over a term of 14 years and has an imputed interest rate of 15 %. The Existing Critical Infrastructure Assets are included in property and equipment, net, on the consolidated balance sheets and are depreciated over their estimated useful life.   Additionally, the Company entered into a lease for data center infrastructure assets with the DCSP. The arrangement commenced in April 2025 and is accounted for as a finance lease, with an initial term of 14 years and an imputed interest rate of 13 %. The Company recorded finance lease right-of-use assets acquired through lease liability of $ 123 million for the year ended December 31, 2025 associated with this arrangement. For the year ended December 31, 2025, the amortization expense related to this finance lease right-of-use asset was not material.   As of December 31, 2025, the future contractual principal payments under the financing obligation and finance lease due to the DCSP were as follows (in millions):   119",
+   "amounts": [
+    {
+     "raw": "$ 123 million",
+     "usdM": 123
     }
    ]
   },

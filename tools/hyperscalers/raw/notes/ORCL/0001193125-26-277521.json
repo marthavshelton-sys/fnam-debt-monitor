@@ -6,7 +6,7 @@
  "filed": "2026-06-22",
  "report": "2026-05-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 117,
  "numberedPages": 115,
  "hits": [
@@ -15,6 +15,13 @@
    "page": "114",
    "match": "Item 2.   Properties",
    "text": "Table of Contents   ORACLE CO RPORATION   FISCAL YEAR 2026   FORM 10-K   ANNUAL REPORT   TABLE OF CONTENTS   Page   PART I.   Item 1.   Business   1   Item 1A.   Risk Factors   15   Item 1B.   Unresolved Staff Comments   34   Item 1C.   Cybersecurity   34   Item 2.   Properties   36   Item 3.   Legal Proceedings   36   Item 4.   Mine Safety Disclosures   36   PART II.   Item 5.   Market for Registrant’s Common Equity, Related Stockholder Matters and Issuer Purchases of Equity Securities   37   Item 6.   [Reserved]   38   Item 7.   Management’s Discussion and Analysis of Financial Condition and Results of Operations   39   Item 7A.   Quantitative and Qualitative Disclosures About Market Risk   56   Item 8.   Financial Statements and Supplementary Data   56   Item 9.   Changes in and Disagreements with Accountants on Accounting and Financial Disclosure   57   Item 9A.   Controls and Procedures   57   Item 9B.   Other Information   58   Item 9C.   Disclosure Regarding Foreign Jurisdictions that Prevent Inspections   58   PART III.   Item 10.   Directors, Executive Officers and Corporate Governance   59   Item 11.   Executive Compensation   59 …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "1",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…choice and flexibility to our customers as to when and how they deploy Oracle applications and infrastructure technologies. We believe that offering customers broad, comprehensive, flexible and interoperable deployment models for Oracle applications and infrastructure technologies is important to our growth strategy, an important element of our corporate strategy and better addresses customer needs relative to our competitors.   Oracle cloud offerings include Oracle Cloud Applications (OCA) and Oracle Cloud Infrastructure (OCI, and collectively with OCA, Oracle Cloud), which provide comprehensive and integrated applications and infrastructure services, enabling our customers to choose the best option that meets their specific business needs. Oracle Cloud integrates IT components in a cloud-based IT environment that Oracle deploys and manages for customers and is accessible by utilizing common web browsers via a broad spectrum of devices. AI technologies embedded in Oracle Cloud offerings are designed to support the improvement of our customers’ existing and new workflows and business processes, including automation and data analyses. Oracle Cloud is designed to be:   • rapidly deployable to enable customers shorter time to innovation;   • intuitive for both casual and experienced users;   • easily maintainable to reduce upgrade, integration and testing work;   • connectable amo…",
    "amounts": []
   },
   {
@@ -29,6 +36,13 @@
    "page": "5",
    "match": "GPU",
    "text": "…plications for a variety of predictive use cases, including, among others, the servicing of machine parts that are at risk of failing, using generative AI for fault detection on an assembly line, improving customer experiences in the purchasing of consumer products, managing the supply chain to keep retailer store shelves refreshed, credit fraud detection and financial modeling to stay within a business’ forecasts.   OCI compute services range from virtual machines and graphics processing unit (GPU)-based offerings to bare metal servers, with options for high I/O workloads and high-performance computing to run traditional compute-intensive workloads and AI model training and inference. OCI storage offerings include block, file, object and archive storage services. In addition, our OCI offerings include networking, connectivity and edge services that help connect   5",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "5",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…r to deploy, extend, interconnect, manage and maintain for our customers and to improve computing performance relative to our competitors’ offerings. For example, the Oracle Exadata Database Machine integrates multiple Oracle technology components to work together to deliver improved performance, availability, scalability, security and operational efficiency of Oracle AI Database workloads relative to our competitors’ products. Our primary infrastructure offerings are further described below.   Oracle Cloud Infrastructure (OCI)   OCI offerings are designed to deliver our infrastructure technologies, including compute, storage, networking, and cloud-native services, along with new and innovative solutions such as AI Infrastructure, generative AI and agentic AI. OCI offerings include our Oracle Autonomous AI Database offerings, among others, that Oracle runs, manages, upgrades and supports on behalf of the customer. We also offer a portfolio of specialized databases to address specific customer requirements, including MySQL, the world’s most popular open source database, as a cloud service with Oracle MySQL HeatWave. By utilizing OCI, customers can leverage the Oracle Cloud for enterprise-grade, high-performance, scalable, cost-effective and secure infrastructure technologies that are designed to be rapidly deployable and provide real-time elasticity while reducing the amount of …",
    "amounts": []
   },
   {
@@ -57,6 +71,13 @@
    "page": "11",
    "match": "Microsoft",
    "text": "…manding less complexity, more cost-effective and higher performance and availability in the implementation, sourcing, integration and ongoing maintenance of their IT environments. Our enterprise cloud, software and hardware offerings compete directly with certain offerings from some of the largest and most competitive companies in the world, including Adobe Systems Incorporated, Alphabet Inc., Amazon.com, Inc., Cisco Systems, Inc., Intel Corporation, International Business Machines Corporation, Microsoft Corporation, Salesforce, Inc. and SAP SE, as well as other companies like Hewlett-Packard Enterprise and Workday, Inc. In addition, due to the low barriers to entry in many of our market segments, new technologies and new and growing competitors frequently emerge to challenge our offerings. Our competitors range from companies offering broad IT solutions across many of our lines of business to vendors providing point solutions, or offerings focused on a specific functionality, product area or industry. In addition, as we expand into new market segments, we face increased competition as we compete with existing competitors, as well as firms that may be partners in other areas of our business and other firms with whom we have not previously competed. For example, following our acquisition of Cerner Corporation, we also face competition from large healthcare IT providers such as A…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "13",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "… Executive Vice President, Chief Accounting Officer   Mr. Ellison, 81, has been our Executive Chair of the Board and Chief Technology Officer since September 2014. He served as our Chief Executive Officer from June 1977, when he founded Oracle, until September 2014. He has served as a Director since June 1977. He previously served as our Chairman of the Board from May 1995 to January 2004.   Mr. Magouyrk, 39, has been our Chief Executive Officer since September 2025. He served as our President, Oracle Cloud Infrastructure from June to September 2025. From December 2019 to June 2025, he served as an Executive Vice President in various roles, including Executive Vice President, Cloud Infrastructure and Executive Vice President, Oracle Cloud Infrastructure Engineering. Prior to being named Executive Vice President, Mr. Magouyrk held various other positions with us since joining Oracle in 2014. Prior to joining Oracle, he was a senior engineer at Amazon and Amazon Web Services from 2008 to 2014.   Mr. Sicilia, 55, has been our Chief Executive Officer since September 2025. He served as our President, Industries from June to September 2025. From October 2019 to June 2025, he served as an Executive Vice President in various roles, including Executive Vice President, Industries and Executive Vice President, Global Business Units. Prior to being named Executive Vice President, Mr. Sicil…",
    "amounts": []
   },
   {
@@ -102,10 +123,31 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "19",
+   "match": "useful lives",
+   "text": "…e third-party data centers, and they may suffer interruptions in service from events beyond our control, including from acts of government, natural events, power loss, break-ins or misconduct by those third parties. Ongoing or future delays or the inability to meet customer demand could cause the loss of additional sales, delay our revenue recognition or increase our costs, all of which could adversely affect the margins of our business. We typically depreciate these assets over their estimated useful lives, which could be shortened should our cloud strategies change, which could adversely affect our profitability. Further, evolving customer requirements and technological changes in data center design and equipment may   19",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "20",
    "match": "accelerators",
    "text": "…ages have in some instances resulted in increases to the costs of production of our hardware products that we may not be able to pass on to our customers. In addition, we have in some instances responded to such shortages by committing to higher purchases and balances of hardware products that we market and sell to our customers and that we use as a part of our cloud infrastructure to deliver our cloud offerings, relative to our historical positions. For example, industry supply capacity for AI accelerators, including graphics processing units, as well as memory devices, is competitive, and we at times have to accept less favorable terms with suppliers to minimize supply constraints. While this permits us to secure cloud infrastructure capacity, it has increased excess and obsolescence risk of such hardware products and could adversely impact our profitability and cash flows. We expect these factors will continue to impact us in the future. In addition, the actual useful lives, performance characteristics or failure rates of certain components may differ from our expectations, and we may incur unplanned repair, replacement or refreshment costs, including in some cases outside applicable warranty coverage. Delays in delivery of critical components could cause us to incur operating costs for data center capacity that is not yet revenue-generating and, in some cases, could subject…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "20",
+   "match": "useful lives",
+   "text": "…pply capacity for AI accelerators, including graphics processing units, as well as memory devices, is competitive, and we at times have to accept less favorable terms with suppliers to minimize supply constraints. While this permits us to secure cloud infrastructure capacity, it has increased excess and obsolescence risk of such hardware products and could adversely impact our profitability and cash flows. We expect these factors will continue to impact us in the future. In addition, the actual useful lives, performance characteristics or failure rates of certain components may differ from our expectations, and we may incur unplanned repair, replacement or refreshment costs, including in some cases outside applicable warranty coverage. Delays in delivery of critical components could cause us to incur operating costs for data center capacity that is not yet revenue-generating and, in some cases, could subject us to penalties or other contractual remedies.   We outsource most of our manufacturing, assembly, delivery and technology of, and certain component designs for, our hardware products to a variety of companies, many of which are located outside the U.S. From time to time, these partners experience production problems or delays or cannot meet our demand for products on a timely or cost-effective basis, including as a result of changes to trade laws or regulations, tariffs, s…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "21",
+   "match": "Google Cloud",
+   "text": "… competitors’ technologies can influence a customer’s purchasing decision or create an environment that makes it less efficient to utilize or migrate to Oracle products and services. For example, we offer our customers multicloud services whereby our customers can combine cloud services from multiple clouds with the goal of optimizing cost, functionality and performance. OCI’s multicloud services work with a number of our competitors’ products, including Microsoft Azure, Amazon Web Services and Google Cloud. This multicloud strategy could lead our customers to migrate away from our cloud offerings to our competitors’ products or limit their purchases of additional Oracle products, either of which could adversely affect our revenues and profitability.   Our competitors may also seek to attract or retain customers who might otherwise purchase our products and services by offering competing products and services on terms that we may not generally find acceptable. We could lose customers if our competitors introduce new competitive products, add new functionality, acquire competitive products, reduce prices, better execute on their sales and marketing strategies, offer more flexible business practices, provide debt or equity financing to customers or form strategic alliances with other companies. Mergers, consolidations or alliances among our competitors, or acquisitions of our com…",
    "amounts": []
   },
   {
@@ -151,6 +193,20 @@
    "amounts": []
   },
   {
+   "kind": "rpo",
+   "page": "32",
+   "match": "remaining performance obligations",
+   "text": "…ated disclosures. We base our estimates, judgments and assumptions on information available to us at the time that they are made, as discussed in “Critical Accounting Estimates” under Item 7 Management's Discussion and Analysis of Financial Condition and Results of Operations and in “Significant Accounting Policies” discussed in Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report. For example, we make certain judgments related to revenue recognition and remaining performance obligations. While we believe these judgments and assumptions are reasonable under the circumstances, they are subject to uncertainties and actual results may differ.   Risks Related to Our Common and Preferred Stock   Our stock price could become more volatile and your investment could lose value. All of the factors discussed within this Risk Factors section have affected and could in the future affect our stock price. The timing of announcements in the public market by us or by our competitors regarding new cloud services, AI advancements, products, product enhancements, technological advances, data center capacity, acquisitions, joint ventures and strategic alliances or major transactions could also affect our stock price. Changes in the amounts and frequency of stock repurchases or dividends could affect our stock price. Our stock price could also be affected by…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "32",
+   "match": "credit rating",
+   "text": "… including reduced liquidity, changes in creditor sentiment or lender concentration limits, could increase our borrowing costs or limit our ability to access debt financing on acceptable terms, or at all.   Should we incur future increases in interest expense, our ability to utilize certain of our foreign tax credits to reduce our U.S. federal income tax could be limited, which could unfavorably affect our provision for income taxes and effective tax rate. In addition, changes to our outlook or credit rating or a withdrawal by any rating agency could negatively affect the value of both our debt and equity securities and increase the interest amounts we pay on certain outstanding or future debt. A downgrade could also reduce our access to, or increase the cost of, commercial paper or other short-term financing, affect the terms or availability of certain long-term commitments (including data center leases), limit eligibility to contract with certain customers, and increase collateral, letter of credit or other credit support requirements under certain contractual arrangements. These risks could adversely affect our financial condition and results of operations.   If our accounting estimates and judgments turn out to be inaccurate, our future financial results could fall short of expectations, which could have a material adverse effect on our stock price. The preparation of finan…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "33",
    "match": "guarantee",
@@ -168,6 +224,20 @@
      "usdM": null
     }
    ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "33",
+   "match": "credit ratings",
+   "text": "Table of Contents   of which are beyond our control, including, among others: speculation in the press, social media and the analyst community; changes in recommendations or earnings-related estimates by financial analysts; changes in investors’ or analysts’ valuation measures for our stock; negative analyst surveys or channel check surveys; earnings announcements where our financial results differ from our guidance or investors’ expectations; our credit ratings; dissemination of inaccurate information or misinformation about our business and results of operations (including through the malicious use of generative AI tools); the enforcement or non-enforcement of laws and regulations; and market trends unrelated to our performance. The stock market in general, and the market for technology companies in particular, has experienced extreme price and volume fluctuations that have often been unrelated or disproportionate to the operating performance of those companies. We are a named defendant, along with certain of our officers and a director, in a putative class action brought by an alleged stockholder that alleges various violations of securities laws in connection with a drop in our stock price. Additional information regarding this lawsuit is discussed under Note 15 of Notes to Consolidated Financial Statements included elsewhere …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "39",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…h our cloud and software offerings. Revenue streams included in our cloud and software business are:   • Cloud revenues, which are earned by providing customers access to Oracle Cloud applications and infrastructure technologies via cloud-based deployment models that Oracle develops, provides unspecified updates and enhancements for, deploys, hosts, manages and supports and that customers access by entering into a subscription agreement with us for a stated period. Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud) arrangements generally: have durations of one to five years; are renewed at the customer’s option; and are recognized as revenues ratably over the contractual period of the cloud contract or, in the case of usage model contracts, as the cloud services are consumed over time; and   • Software revenues, which include:   o software license revenues, which are generated from licensing our software products, including Oracle Applications, Oracle Database, Oracle Middleware and Java, among others, for deployment by our customers in cloud-based, on-premise or other IT environments. Our software license transactions are generally perpetual in nature and are generally recognized as revenues up front at the point in time when the software is made available to the customer to download and use. Revenues from usage-based royalty arrangements for…",
+   "amounts": []
   },
   {
    "kind": "concentration",
@@ -198,10 +268,60 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "43",
+   "match": "Segment Results",
+   "text": "…gs or deductions that differ from our estimates. To the extent that the final outcome of these matters is different than the amounts recorded, such differences generally will impact our provision for income taxes in the period in which such a determination is made. Our provisions for income taxes include the impact of reserve provisions and changes to reserves that are considered appropriate and also include the related interest and penalties.   Results of Operations   Presentation of Operating Segment Results and Other Financial Information   In our results of operations discussion below, we provide an overview of our total consolidated revenues, total consolidated operating expenses and total consolidated operating margin, all of which are presented on a GAAP basis. We also present a GAAP-based discussion below for substantially all of the other expense items as presented in our consolidated statements of operations that are not directly attributable to our three businesses.   In addition, we discuss below the results of each of our three businesses—cloud and software, hardware and services—which are our operating segments as defined pursuant to ASC 280, Segment Reporting . The financial reporting for our three businesses that is presented below is presented in a manner that is consistent with that used by our CODMs. Our operating segment presentation below reflects revenues,…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "46",
+   "match": "segment results",
+   "text": "…1%   12%   Revenues by Offerings :   Cloud applications   $   15,888   11%   10%   $   14,272   Cloud infrastructure   18,101   77%   75%   10,234   Software license   4,737   -9%   -10%   5,201   Software support   19,804   1%   -1%   19,523   Total revenues   $   58,530   19%   17%   $   49,230   (1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Our cloud and software business’ total revenues increased by $9.3 billion in reported currency in fiscal 2026 relative to fiscal 2025 primarily due to an increase in cloud revenues as customers purchased our applications and infrastructure technologies and renewed their related cloud contracts. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, cloud applications and cloud infrastructure contributed 16% and 84%, respectively, to the constant currency growth in cloud revenues in fiscal 2026. The Americas, the EMEA and the Asia Pacific regions contributed 87%, 6% and 7%, respectively, to the constant currency revenue growth for this business during fiscal 2026.   Our cloud and so…",
+   "amounts": [
+    {
+     "raw": "$9.3 billion",
+     "usdM": 9300
+    }
+   ]
+  },
+  {
    "kind": "properties",
    "page": "47",
    "match": "data centers in new",
    "text": "Table of Contents   relative to fiscal 2025. Our cloud and software expenses have grown in recent periods, and we expect this trend to continue during fiscal 2027 and in the next few fiscal years as we increase our existing data center capacity and establish data centers in new geographic locations in order to meet current and expected customer demand.   Excluding the effects of currency rate fluctuations, our cloud and software business’ total margin increased in fiscal 2026 relative to fiscal 2025 due to increases in total revenues for this business as discussed above. Total margin as a percentage of revenues in constant currency decreased in fiscal 2026 relative to fiscal 2025 due to an increase in total expenses driven by higher infrastructure expenses to support growth in our cloud infrastructure offering.   Hardware Business   Year Ended May 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   Hardware Revenues :   Americas   $   1,518   5%   5%   $   1,441   EMEA   923   3%   -2%   893   Asia Pacific   643   7%   7%   602   Total revenues   3,084   5%   3%   2,936   Expenses :   Hardware (1)   832   12%   9…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "47",
+   "match": "segment results",
+   "text": "…   832   12%   9%   742   Sales and marketing (1)   235   -15%   -17%   276   Total expenses (1)   1,067   5%   2%   1,018   Total Margin   $   2,017   5%   3%   $   1,918   Total Margin %   65%   65%   % Revenues by Geography :   Americas   49%   49%   EMEA   30%   30%   Asia Pacific   21%   21%   (1) Excludes stock-based compensation and certain expense allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Total hardware revenues increased by $148 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, the increase in hardware revenues was primarily due to the growth in revenues from our Oracle Exadata and certain other strategic hardware product offerings. Geographically, we experienced a constant currency increase in hardware revenues in the Americas and the Asia Pacific regions, partially offset by a constant currency decrease in hardware revenues in the EMEA region in fiscal 2026.   Total hardware expenses increased by $49 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavora…",
+   "amounts": [
+    {
+     "raw": "$148 million",
+     "usdM": 148
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "48",
+   "match": "segment results",
+   "text": "… Asia Pacific   664   -4%   -3%   690   Total revenues   5,743   10%   8%   5,233   Total Expenses (1)   4,210   -1%   -2%   4,240   Total Margin   $   1,533   54%   51%   $   993   Total Margin %   27%   19%   % Revenues by Geography :   Americas   64%   61%   EMEA   25%   26%   Asia Pacific   11%   13%   (1) Excludes stock-based compensation and certain allocations. Also excludes amortization of intangible assets and certain other GAAP-based expenses, which were not allocated to our operating segment results for purposes of reporting to and review by our CODMs, as further described under “Presentation of Operating Segment Results and Other Financial Information” above.   Total services revenues increased by $510 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the favorable impact of currency rate fluctuations of 2% in fiscal 2026, the increase in services revenues was primarily due to increases in our consulting services revenues in fiscal 2026 relative to fiscal 2025. The constant currency increase in services revenues in the Americas region was partially offset by a constant currency decrease in services revenues in the EMEA and the Asia Pacific regions in fiscal 2026.   Total services expenses decreased by $30 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavorable effects of currency rate fluctuations o…",
+   "amounts": [
+    {
+     "raw": "$510 million",
+     "usdM": 510
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "49",
+   "match": "useful lives",
+   "text": "…increased by $16 million in reported currency in fiscal 2026 relative to fiscal 2025. Excluding the unfavorable effects of currency rate fluctuations of 1% in fiscal 2026, general and administrative expenses in constant currency remained flat in fiscal 2026 relative to fiscal 2025.   Amortization of Intangible Assets : Substantially all our intangible assets were acquired through our business combinations. We amortize our intangible assets over, and monitor the appropriateness of, the estimated useful lives of these assets. We also periodically review these intangible assets for potential impairment based upon relevant facts and circumstances. Refer to Note 5 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report for additional information regarding our intangible assets and related amortization.   Year Ended May 31,   Percent Change   (Dollars in millions)   2026   Actual   Constant   2025   Cloud and software agreements and related relationships   $   558   -53%   -53%   $   1,176   Developed technology   627   -2%   -2%   642   Other   486   -1%   -1%   489   Total amortization of intangible assets   $   1,671   -28%   -28%   $   2,307   Amortization of intangible assets decreased by $636 million in reported currency in fiscal 2026 relative to fiscal 2025 due to a reduction in expenses associated with certain of our intangible assets that beca…",
    "amounts": []
   },
   {
@@ -236,11 +356,53 @@
    ]
   },
   {
+   "kind": "rpo",
+   "page": "55",
+   "match": "Remaining Performance Obligations",
+   "text": "…her with cash generated from operations and available financing arrangements, will be sufficient to meet our working capital, committed capital expenditures and contractual obligations for at least the next twelve months. Thereafter, we expect that our existing sources of liquidity, together with potential access to additional financing, will continue to be sufficient for the foreseeable future. Further, we have flexibility in managing the timing of certain discretionary capital expenditures.   Remaining Performance Obligations from Contracts with Customers   Remaining performance obligations were $638 billion and $138 billion as of May 31, 2026 and 2025, respectively. The increase in remaining performance obligations as of May 31, 2026 in comparison to May 31, 2025 was primarily attributable to certain significant cloud contracts that were entered into during the period. For more information about our remaining performance obligations, see Note 1 of Notes to Consolidated Financial Statements included elsewhere in this Annual Report.   Stock-Based Awards   Our stock-based compensation program is a key component of the compensation package we provide to attract and retain certain of our talented employees and align their interests with the interests of existing stockholders. We recognize that stock-based awards dilute existing stockholders and have sought to control the number o…",
+   "amounts": [
+    {
+     "raw": "$638 billion",
+     "usdM": 638000
+    },
+    {
+     "raw": "$138 billion",
+     "usdM": 138000
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "69",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…uild, run and support enterprise information technology (IT) frameworks. Our products and services include enterprise applications and infrastructure offerings that incorporate and are enhanced by artificial intelligence (AI) technologies. We deliver our products and services to customers worldwide through a variety of flexible and interoperable IT deployment models. These models include cloud-based, on-premise and hybrid deployments. Oracle cloud offerings include Oracle Cloud Applications and Oracle Cloud Infrastructure (collectively Oracle Cloud), which provide comprehensive and integrated applications and infrastructure services, enabling our customers to choose the best option that meets their specific business needs. Customers may also elect to purchase Oracle software licenses and hardware products and related services to manage their own cloud-based or on-premise IT environments. Customers that purchase our software licenses may elect to purchase software support contracts, which provide our customers with rights to unspecified license upgrades and enhancements during the term of the support period as well as technical support assistance. Customers that purchase our hardware products may elect to purchase hardware support contracts, which provide customers with software updates and can include product repairs, maintenance services and technical support services. We also…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "71",
    "match": "guarantee",
    "text": "…ion of the services by the customer.   Revenue Recognition for Software – License and Support   Revenues from distinct software license performance obligations are generally recognized upfront at the point in time when the software is made available to the customer to download and use. Revenues from usage-based royalty arrangements for distinct software licenses are recognized at the point in time when the software end user usage occurs. For usage-based royalty arrangements with a fixed minimum guarantee amount, the minimum amount is generally recognized upfront when the software is made available to the royalty customer.   Oracle’s primary performance obligations with respect to software support contracts is to provide customers with technical support as needed and unspecified software product upgrades, maintenance releases and patches during the term of the support period, if and when they are available. Oracle is obligated to make the software support services available continuously throughout the contract period. Therefore, revenues for software support contracts is generally recognized ratably over the contractual periods that the support services are provided.   Revenue Recognition for Hardware – Product and Support   The hardware product and related software, such as an operating system or firmware, are highly interdependent and interrelated and are accounted for as a co…",
    "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "72",
+   "match": "Remaining Performance Obligations",
+   "text": "…ble) and a representative SSP is not discernible from past transactions or other observable evidence. As a result, the SSP for a software license included in a contract with multiple performance obligations is generally determined by applying a residual approach whereby all other performance obligations within a contract are first allocated a portion of the transaction price based upon their respective SSPs, with any residual amount of transaction price allocated to software license revenues.   Remaining Performance Obligations from Contracts with Customers   Trade receivables, net of allowance for credit losses, and deferred revenues are reported net of related uncollected deferred revenues in our consolidated balance sheets as of May 31, 2026 and 2025. The revenues recognized during the year ended May 31, 2026 and 2025 that were included in the opening deferred revenues balances as of May 31, 2025 and 2024 were approximately $ 9.4 billion and $ 9.3 billion, respectively. Revenues recognized from performance obligations satisfied in prior periods and impairment losses recognized on our receivables were immaterial during each year ended May 31, 2026, 2025 and 2024.   Remaining performance obligations represent contracted revenues that had not yet been recognized, and include deferred revenues; invoices that have been issued to customers but were uncollected and have not been re…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "72",
+   "match": "remaining performance obligations",
+   "text": "… and amounts of customer contracts that we book and total revenues that we recognize are impacted by a variety of seasonal factors and the timing of booking of large contracts. In each fiscal year, the amounts and volumes of contracting activity, other than the impact of booking of large contracts, and our total revenues are typically highest in our fourth fiscal quarter and lowest in our first fiscal quarter. These seasonal impacts and the timing of booking of large contracts influence how our remaining performance obligations change over time and, combined with foreign exchange rate fluctuations and other factors, influence the amount of remaining performance obligations that we report at a point in time. As of May 31, 2026, our remaining performance obligations were $ 638 billion , of which we expect to recognize approximately 12 % as revenues over the next twelve months , 34 % over the subsequent month 13 to month 36 , 34 % over the subsequent month 37 to month 60 and the remainder thereafter.   72",
+   "amounts": [
+    {
+     "raw": "$ 638 billion",
+     "usdM": 638000
+    }
+   ]
   },
   {
    "kind": "equity_method",
@@ -281,6 +443,13 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "74",
+   "match": "investment-grade",
+   "text": "…ons of Risk   Financial instruments that are potentially subject to concentrations of credit risk consist primarily of cash and cash equivalents, marketable securities, derivatives, trade receivables and non-marketable investments. Our cash and cash equivalents are generally held with large, diverse financial institutions worldwide to reduce the amount of exposure to any single financial institution. Investment policies have been implemented that limit purchases of marketable debt securities to investment-grade securities. Our derivative contracts are transacted with various financial institutions with high credit standings and any exposure to counterparty credit-related losses in these contracts is largely mitigated with collateral security agreements that provide for collateral to be received or posted when the net fair values of these contracts fluctuate from contractually established thresholds. Refer to “Marketable   74",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "74",
    "match": "Related Party",
@@ -297,10 +466,103 @@
    ]
   },
   {
+   "kind": "useful_life",
+   "page": "75",
+   "match": "useful lives",
+   "text": "…ed by our sales force that are considered to be incremental and recoverable costs of obtaining a cloud, software support and hardware support cont ract. Initial sales commissions for the majority of these aforementioned contracts are generally deferred and amortized on a straight-line basis over an average benefit period that we estimate to be four years. We determine the period of benefit by taking into consideration the historical and expected durations of our customer contracts, the expected useful lives of our technologies and other factors. Sales commissions for renewal contracts relating to certain of our cloud-based arrangements are generally deferred and then amortized on a straight-line basis over the related contractual renewal period, which is generally one to three years. Amortization of deferred sales commissions is included as a component of sales and marketing expenses in our consolidated statements of operations and asset balances for deferred sales commissions are included in other current assets and other non-current assets in our consolidated balance sheets.   Property, Plant and Equipment   Property, plant and equipment are stated at cost, less accumulated depreciation. Costs incurred are accumulated as construction in progress until the asset is brought into the condition and at the location for its intended use. Once the asset is in the condition and at th…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "75",
+   "match": "useful lives",
+   "text": "…urrent assets and other non-current assets in our consolidated balance sheets.   Property, Plant and Equipment   Property, plant and equipment are stated at cost, less accumulated depreciation. Costs incurred are accumulated as construction in progress until the asset is brought into the condition and at the location for its intended use. Once the asset is in the condition and at the location for its intended use, it is amortized using the straight-line method of depreciation based on estimated useful lives of the assets, which range from one to 40 years. Finance lease Right-of-Use (ROU) assets are amortized over the lease term. Leasehold improvements are amortized over the lesser of the estimated useful lives of the improvements or the lease terms, as appropriate. Property, plant and equipment are periodically reviewed for impairment whenever events or changes in circumstances indicate that the carrying amount of an asset may not be recoverable at an appropriate asset or asset group level. We did not recognize any significant property impairment charges in fiscal 2026, 2025 or 2024 . Note 4 below provides additional information regarding our Property, Plant and Equipment.   75",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "76",
+   "match": "useful life",
+   "text": "Table of Contents   Goodwill, Intangible Assets and Impairment Assessments   Goodwill represents the excess of the purchase price in a business combination over the fair value of net tangible and intangible assets acquired. Intangible assets that are not considered to have an indefinite useful life are itemized in Note 5 belo w and are amortized over their useful lives, which generally range from one to 10 years . At least annually, we assess the useful lives of our finite lived intangible assets and may adjust the period over which these assets are amortized whenever events or changes in circumstances indicate that a shorter amortization period is more reflective of the period in which these assets contribute to our cash flows. Intangible assets are included within other non-current assets on our consolidated balance sheets.   The carrying amounts of our goodwill and intangible assets are reviewed for impairment annually and whenever events or changes in circumstances indicate that the carrying value of these assets may not be recoverable. When goodwill is assessed for impairment, we have the option to perform an assessment of qualitative factors of impairment (optiona…",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "78",
    "match": "equity method investment",
    "text": "…d financial statements in fiscal 2026, 2025 and 2024 .   Non-Operating Income (Expenses), net   Non-operating income (expenses), net consists primarily of interest income, net foreign currency exchange losses, the noncontrolling interests in the net profits of our majority-owned subsidiaries (primarily Oracle Financial Services Software Limited and Oracle Corporation Japan), net gains and losses related to marketable and non-marketable investments, including net gains and losses attributable to equity method investments and net other income and expenses, including net gains and losses from our investment portfolio related to our deferred compensation plan, for which an equal and offsetting amount was recorded to our operating expenses during the same period, and non-service net periodic pension income and losses.   78",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "80",
+   "match": "investment-grade",
+   "text": "…87   $   2,220   Time deposits and other   739   585   Total investments   $   24,126   $   2,805   Investments classified as cash equivalents   $   23,521   $   2,388   Investments classified as marketable securities   $   605   $   417   As of May 31, 2026 and 2025, all of our marketable debt securities investments mature within one year. Our investment portfolio is subject to market risk due to changes in interest rates. As described above, we limit purchases of marketable debt securities to investment-grade securities, which have high credit ratings and also limit the amount of credit exposure to any one issuer. As stated in our investment policy, we are averse to principal loss and seek to preserve our invested funds by limiting default risk and market risk.   Restricted cash that was included within cash and cash equivalents as presented within our consolidated balance sheets as of May 31, 2026 and 2025 and our consolidated statements of cash flows for the years ended May 31, 2026, 2025 and 2024 was immaterial.   3. FAIR VALUE MEASUREMENTS   We perform fair value measurements in accordance with ASC 820. ASC 820 defines fair value as the price that would be received from selling an asset or paid to transfer a liability in an orderly transaction between market participants at the measurement date. When determining the fair value measurements for assets and liabilities requi…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "81",
+   "match": "Useful Life",
+   "text": "…long-term borrowings and the related fair value hedges, if any, that we had outstanding as of May 31, 2026 and 2025, respectively, the estimated fair values of the senior notes and other long-term borrowings and the related fair value hedges, if any, using Level 2 inputs at May 31, 2026 and 2025 were $ 114.4 billion and $ 81.3 billion, respectively.   4. PROPERTY, PLANT AND EQUIPMENT   Property, plant and equipment, net consisted of the following:   Estimated   May 31,   (Dollars in millions)   Useful Life   2026   2025   Computer, network, machinery and equipment   1 - 6 years (1)   $   59,634   $   30,345   Buildings and improvements   1 - 40 years   21,263   10,881   Furniture, fixtures and other   5 - 15 years   452   466   Land   —   1,329   1,352   Construction in progress (2)   —   39,973   16,510   Total property, plant and equipment   1 - 40 years   122,651   59,554   Accumulated depreciation   ( 22,694   )   ( 16,032   )   Total property, plant and equipment, net   $   99,957   $   43,522   (1) Comprised primarily of servers and networking equipment with estimated useful life of six years .   (2) Comprised primarily of servers, networking equipment and leasehold improvements to be deployed at our data centers.   Depreciation expense on property, plant and equipment in fiscal 2026, 2025 and 2024 were $ 7.6 billion, $ 3.9 billion and $ 3.1 billion, respectively. Propert…",
+   "amounts": [
+    {
+     "raw": "$ 114.4 billion",
+     "usdM": 114400
+    },
+    {
+     "raw": "$ 81.3 billion",
+     "usdM": 81300
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "81",
+   "match": "Depreciation expense",
+   "text": "…   —   1,329   1,352   Construction in progress (2)   —   39,973   16,510   Total property, plant and equipment   1 - 40 years   122,651   59,554   Accumulated depreciation   ( 22,694   )   ( 16,032   )   Total property, plant and equipment, net   $   99,957   $   43,522   (1) Comprised primarily of servers and networking equipment with estimated useful life of six years .   (2) Comprised primarily of servers, networking equipment and leasehold improvements to be deployed at our data centers.   Depreciation expense on property, plant and equipment in fiscal 2026, 2025 and 2024 were $ 7.6 billion, $ 3.9 billion and $ 3.1 billion, respectively. Property, plant and equipment, net includes ROU assets recorded in connection with lease arrangements that are accounted for as finance leases, totaling $ 7.5 billion and $ 2.9 billion as of May 31, 2026 and 2025, respectively.   81",
+   "amounts": [
+    {
+     "raw": "$ 7.6 billion",
+     "usdM": 7600
+    },
+    {
+     "raw": "$ 3.9 billion",
+     "usdM": 3900
+    },
+    {
+     "raw": "$ 3.1 billion",
+     "usdM": 3100
+    },
+    {
+     "raw": "$ 7.5 billion",
+     "usdM": 7500
+    },
+    {
+     "raw": "$ 2.9 billion",
+     "usdM": 2900
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "84",
+   "match": "credit rating",
+   "text": "…s were repaid in full upon maturity in July 2025.   (2) In fiscal 2023, we entered into certain interest rate swap agreements that have the economic effect of converting our $ 4.7 billion of floating-rate borrowings pursuant to the Term Loan Credit Agreement (defined below) until its repayment and subsequently, borrowings under the Term Loan Credit Agreement 2 (defined below) for the same amount to fixed-rate borrowings with a fixed annual interest rate of 3.07 %, plus a margin depending on the credit rating assigned to our long-term senior unsecured debt, as further discussed below. The effective interest rates after consideration of the interest rate swap agreements were 4.74 % for each of fiscal 2026 and 2025, for borrowings under the Term Loan Credit Agreement 2 (defined below). Refer to Note 1 for a description of our accounting for cash flow hedges.   (3) In fiscal 2026, we issued $ 43.0 billion of senior notes for general corporate purposes, which may include capital expenditures, repayment of indebtedness, future investments or acquisitions and payment of cash dividends on or repurchases of our common stock.   Future principal payments for all of our borrowings at May 31, 2026 were as follows (in millions):   Fiscal 2027   $   7,210   Fiscal 2028   10,145   Fiscal 2029   5,500   Fiscal 2030   7,250   Fiscal 2031   9,750   Thereafter   90,250   Total   $   130,105   Seni…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "85",
+   "match": "credit rating",
+   "text": "… during the term of the Revolving Credit Agreement. All amounts borrowed under the Revolving Credit Agreement will become due on March 6, 2031 , unless the commitments are terminated earlier either at our request or, if an event of default occurs, by the lenders (or automatically in the case of certain bankruptcy-related events). Interest is based on either (a) a Term Secured Overnight Financing Rate (SOFR)-based formula plus a margin of 87.5 basis points to 150.0 basis points, depending on the credit rating assigned to our long-term senior unsecured debt, or (b) a Base Rate formula plus a margin of 0.0 basis point to 50.0 basis points, depending on the same such credit rating, each as set forth in the Revolving Credit Agreement. As of May 31, 2026 , we did no t have any outstanding borrowings under the Revolving Credit Agreement.   The Revolving Credit Agreement contains certain customary representations and warranties, covenants and events of default, including the requirement that the ratio of “Consolidated EBITDA” to “Consolidated Net Interest Expense” (each term as defined in the Revolving Credit Agreement) of Oracle and its subsidiaries shall not be less than 3.0 to 1.0 at the end of any fiscal quarter during the period that the Revolving Credit Agreement is effective. If an event of default occurs under the Revolving Credit Agreement and is not cured within applicable gr…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "85",
+   "match": "credit rating",
+   "text": "…he critical terms of the Term Loan Credit Agreement 2 are similar to the critical terms of the Term Loan Credit Agreement, except for terms related to the interest, the consolidation of two term loan facilities under Term Loan Credit Agreement into a single facility under the Term Loan Credit Agreement 2 and the options to extend the Term Loan Credit Agreement 2. Interest is based on either (a) a Term SOFR-based formula plus a margin of 112.5 basis points to 162.5 basis points, depending on the credit rating assigned to our long-term senior unsecured debt, or (b) a Base Rate formula plus a margin of 12.5 basis points to 62.5 basis points, depending on the same such credit rating, each as set forth in the Term Loan Credit Agreement 2.   The Term Loan Credit Agreement 2 provides for repayment of borrowing as follows:   • an amount equal to the amount borrowed reduced by any prepayments multiplied by 1.25 % on September 30, 2024 and quarterly thereafter until June 30, 2026 ;   • an amount equal to the amount borrowed reduced by any prepayments multiplied by 2.50 % on September 30, 2026 and quarterly thereafter until June 30, 2027 ; and   85",
    "amounts": []
   },
   {
@@ -362,6 +624,25 @@
      "usdM": 19000
     }
    ]
+  },
+  {
+   "kind": "segment",
+   "page": "100",
+   "match": "SEGMENT INFORMATION",
+   "text": "… GAAP for outcomes related to our tax audits. However, there can be no assurances as to the possible outcomes or any related financial statement effect thereof.   Pursuant to the U.S. One, Big, Beautiful Bill Act that was signed into law on July 4, 2025, we recorded a net tax expense of $ 933 million during fiscal 2026, primarily related to the remeasurement of a deferred tax liability previously recorded during fiscal 2021 as part of the partial realignment of our legal entity structure.   13. SEGMENT INFORMATION   ASC 280, Segment Reporting , establishes standards for reporting information about operating segments. Operating segments are defined as components of an enterprise about which separate financial information is available that is evaluated regularly by the chief operating decision maker, or decision-making group, in deciding how to allocate resources and in assessing performance. Our chief operating decision makers (CODMs) are our Chief Executive Officers and Chief Technology Officer . We are organized by line of business and geographically. While our CODMs evaluate results in a number of different ways, the line of business management structure is the primary basis for which the allocation of resources and financial results are assessed.   We have three businesses—cloud and software (formerly referred to as cloud and license), hardware and services— each of which is…",
+   "amounts": [
+    {
+     "raw": "$ 933 million",
+     "usdM": 933
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "104",
+   "match": "Oracle Cloud Infrastructure",
+   "text": "…n of proceedings. On September 25, 2025, Oracle opposed that motion. The court has not yet ruled on that motion.   We believe that we have meritorious defenses against this action, including defenses to the quantum of damages claimed, and we will continue to vigorously defend it.   While the final outcome of this matter cannot be predicted with certainty, we do not believe that it will have a material impact on our financial position or results of operations.   Securities Class Action Regarding Oracle Cloud Infrastructure   On February 3, 2026, a putative class action, brought by an alleged stockholder of Oracle, was filed in the U.S. District Court for the District of Delaware against us, our Chief Technology Officer, our two Chief Executive Officers, two other Oracle executives, and one member of the Board. The plaintiff alleges that defendants made or are responsible for false and misleading statements regarding Oracle’s cloud infrastructure business. The plaintiff seeks a ruling that this case may proceed as a class action and seeks damages and attorneys’ fees and costs. The court entered a scheduling order, under which plaintiff is scheduled to file an amended complaint by July 14, 2026, and defendants must respond to the complaint by September 16, 2026. If defendants move to dismiss the amended complaint, that motion will be fully briefed by December 18, 2026.   We believ…",
+   "amounts": []
   }
  ]
 }

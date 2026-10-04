@@ -6,7 +6,7 @@
  "filed": "2026-03-02",
  "report": "2025-12-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1839341/000162828026013305/core-20251231.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 1,
  "numberedPages": 0,
  "hits": [
@@ -410,6 +410,162 @@
    "page": "seq1",
    "match": "accelerators",
    "text": "…ces for AI and HPC workloads.   We focus primarily on contracting our digital infrastructure for Colocation, mining bitcoin , and enhancing efficiencies in our   operations. In self‑mining, we earn bitcoin by operating our owned mining fleet through mining pool arrangements, and in hosted   mining and colocation we earn fees for providing infrastructure, power and related services to third parties.   Our data centers house bitcoin mining computers and will increasingly house specialized compute accelerators, including   graphics processing units (“ GPUs ”). These facilities leverage our specialized design and construction capabilities by employing high-   density, innovative engineering , power designs and modular construction. For digital asset mining, our proprietary thermodynamic   structural design manages heat and airflow to deliver reliable operations to us and our customers. As part of our go-forward strategy,   w e are in the process of converting our entire data center portfolio to support our high-density Colocation operations for AI and HPC   workloads.   Business Strategy   Our strategy is to grow our revenue and profitability by converting and expanding our large-scale data center infrastructure   portfolio to deliver high-density colocation services for artificial intelligence and HPC workloads. We plan to develop and bring   online the infrastructure required to …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq1",
+   "match": "useful life",
+   "text": "… assumptions, judgments and the related policies that we believe have the most significant   impact on our consolidated financial statements are described below.   Property, Plant, and Equipment   The Company has made significant investments in Bitcoin mining equipment, which constitutes a substantial portion of its   property, plant, and equipment. Accounting for this equipment involves significant judgment and estimation uncertainty, particularly   regarding the determination of its estimated useful life for depreciation purposes and the assessment of potential impairment.   The Company depreciates its Bitcoin mining equipment using the straight-line method over an estimated useful life of three   years. This estimate reflects management’s judgment based on the current state of technology and industry practices. However, the   actual useful life of this equipment is uncertain due to the rapid pace of technological advancements in the Bitcoin mining industry .   63   The Company evaluates its Bitcoin mining equipment for impairment whenever events or changes in circumstances indicate   that the carrying amount of the equipment may not be recoverable. Recoverability is assessed by comparing the carrying amount of the   asset to the sum of the undiscounted futures cash flows expected from its use and disposal. If the carrying amount is not recoverable,   the impairment loss is m…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq1",
+   "match": "useful lives",
+   "text": "…ipment includes the cost of land, buildings, and improvements for datacenter and support facilities and   the Company’s corporate office space. Property and equipment further consists of computer, mining, network, electrical and other   equipment, including property and equipment under finance leases. Property, plant and equipment, net is stated at cost less   accumulated depreciation and amortization. Depreciation and amortization is computed using the straight-line method over the   estimated useful lives of the assets. Leasehold improvements are capitalized at cost and amortized over the shorter of their estimated   useful lives or the lease term. Future obligations related to finance leases are presented as Finance lease liabilities, current portion and   Finance lease liabilities, net of current portion in the Company’s consolidated balance sheets. Depreciation expense, including   amortization of assets held under finance leases, is primarily included in Cost of revenue in the Company’s consolidated statements of   operations.   Property, plant and equipment capitalized costs include the directly identifiable costs incurred to acquire, construct, install, or   otherwise prepare the asset for its intended use and to put it into service. Directly identifiable costs include construction payroll and   benefits and other direct capital project costs.   77   Core Scientific, In…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq1",
+   "match": "useful life",
+   "text": "…   Property, plant and equipment capitalized costs include the directly identifiable costs incurred to acquire, construct, install, or   otherwise prepare the asset for its intended use and to put it into service. Directly identifiable costs include construction payroll and   benefits and other direct capital project costs.   77   Core Scientific, Inc.   Notes to Consolidated Financial Statements   When management decides to abandon long-lived assets before the end of their previously estimated useful life, the Company   considers whether an impairment of the related asset group has been triggered. If that asset group is no longer recoverable, an   impairment is recognized for any excess of the asset group’s carrying value above its fair value. Thereafter, the estimated useful life,   salvage value, and prospective depreciation of the affected assets are revised to reflect their shortened remaining useful life. The   historical cost of assets, and related accumulated depreciation, are written off at the time that assets are removed from service.   Leases   The Company has entered into operating and finance leases for office space, data facilities, computer and networking   equipment, electrical infrastructure and office equipment, with lease periods expiring through 2051. The Company determines whether   an arrangement contains a lease at the inception of the arrangement. If a …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq1",
+   "match": "useful lives",
+   "text": "…ion. If the terms and conditions of the lease are changed, the lease payments are adjusted accordingly and the lease liability is   remeasured using a revised discount rate. Any resulting changes in the lease liability are recognized in the carrying amount of the   related right-of-use asset.   Long-Lived Asset Impairments   The Company tests long-lived asset groups for recoverability whenever events or changes in circumstances have occurred that   may affect the recoverability or the estimated useful lives of long-lived assets. Long-lived assets include property, plant and equipment   and intangible assets subject to amortization. A long-lived asset may be impaired when the estimated future undiscounted cash flows   are less than the carrying amount of the asset. If that comparison indicates that the asset’s carrying value may not be recoverable, the   impairment is measured based on the difference between the carrying amount and the estimated fair value of the asset. Long-lived   assets to be disposed of are reported at the lower of the carrying amount or estimated fair value less costs to sell.   Deferred Revenue   Deferred revenue from colocation services relate to prepaid base license fees for colocation lease arrangements which are   accounted for under Accounting Standards Codification (“ASC”) 842, Leases (“ASC Topic 842”) . Prepaid base license fees relate to   capital …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "seq1",
+   "match": "useful life",
+   "text": "…ng and improvements   278,222   186,267   10 to 39 years   Mining and network equipment   408,777   413,296   3 to 10 years   Electrical equipment   77,348   74,077   15 years   Other property, plant and equipment   3,010   2,764   5 to 7 years   Total   789,126   693,619   Less: accumulated depreciation and amortization   406,893   372,112   Total   382,233   321,507   Add: Construction in progress   911,066   111,966   Property, plant and equipment, net   $ 1,293,299   $ 433,473   1 Estimated useful life of improvements. Land is not depreciated.   86   Core Scientific, Inc.   Notes to Consolidated Financial Statements   Property, plant and equipment, net being leased to customers were immaterial as of December 31, 2024. As of December 31,   2025, property, plant and equipment, net being leased to customers consisted of the following (in thousands):   December 31,   2025   Land and improvements   $ 5,546   Building and improvements   146,082   Mining and network equipment   8   Electrical equipment   19,146   Other property, plant and equipment   218   Total   171,000   Less: accumulated depreciation and amortization   9,856   Property, plant and equipment, net leased to customers   $ 161,144   Depreciation expense for the year s ended December 31, 2025 , 2024 and 2023 , was $ 68.1 million , $ 112.3 million , and   $ 95.7 million , respectively .   During the years ended Decem…",
+   "amounts": [
+    {
+     "raw": "$ 1,293,299   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 433,473   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "Depreciation expense",
+   "text": "…umulated depreciation and amortization. Depreciation and amortization is computed using the straight-line method over the   estimated useful lives of the assets. Leasehold improvements are capitalized at cost and amortized over the shorter of their estimated   useful lives or the lease term. Future obligations related to finance leases are presented as Finance lease liabilities, current portion and   Finance lease liabilities, net of current portion in the Company’s consolidated balance sheets. Depreciation expense, including   amortization of assets held under finance leases, is primarily included in Cost of revenue in the Company’s consolidated statements of   operations.   Property, plant and equipment capitalized costs include the directly identifiable costs incurred to acquire, construct, install, or   otherwise prepare the asset for its intended use and to put it into service. Directly identifiable costs include construction payroll and   benefits and other direct capital project costs.   77   Core Scientific, Inc.   Notes to Consolidated Financial Statements   When management decides to abandon long-lived assets before the end of their previously estimated useful life, the Company   considers whether an impairment of the related asset group has been triggered. If that asset group is no longer recoverable, an   impairment is recognized for any excess of the asset group’s …",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "Depreciation and amortization expense",
+   "text": "…act inception.   The Company measures the non-cash consideration using the spot rate for Bitcoin as quoted on Coinbase Global, Inc., the   Company’s principal market. The Company recognizes non-cash consideration on the same day that control of the contracted service   is transferred to the pool operator, which is the same day as the contract inception.   Direct expenses associated with providing hash calculation services to a third-party operated mining pool are recorded as cost   of revenues. Depreciation and amortization expenses on fixed and right-of-use assets, including digital asset mining equipment, used   to provide the services are also recorded as a component of cost of revenues.   Revenue From Contracts With Customers - Digital Asset Hosted Mining Services   The Company generates revenue from contracts with customers from digital asset hosted mining services. The Company   recognizes revenue when the promised service is performed. Revenue excludes any amounts collected on behalf of third parties,   including sales and indirect taxes.   Hosting Services   The Company regularly enters contracts that include hosting services, for which revenue is recognized as services are   performed on a variable basis. The Company performs hosting services that enable customers to run blockchain and other high-   performance computing operations. The Company’s performance obligation…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "depreciation expense",
+   "text": "…ceed one year (typically ranging from 15 to 24 months ), the Company expected to recognize approximately $ 8.4 million of revenue   in the future related to performance obligations associated with existing hosted mining contracts. The Company recognized   approximately 100 % of this amount over the next 12 months .   Costs of Revenue   The Company’s Cost of colocation services, Cost of digital asset self-mining and Cost of digital asset hosted mining services   primarily consist of p ower fees, depreciation expense, facility operations expense and employee compensation, including stock-based   compensation .   Stock-Based Compensation   Under ASC 718, Stock Compensation , the Company accounts for stock-based compensation expense using a fair-value-based   method. Stock-based compensation expense is measured at the grant date based on the estimated fair value of the equity award. The   estimated fair value of restricted stock units (“RSUs”) with only service conditions is based on the closing market price of the   Company’s common stock on the date of grant. The estimated fair value of RSUs that include market conditions (“MSUs”) is   estimated on the date of grant using the Monte Carlo pricing model for each service and market condition tranche. The estimated fair   value of RSUs that include performance conditions (“PSUs”) is generally based on the closing market price of the …",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "Depreciation expense",
+   "text": "…cember 31, 2024. As of December 31,   2025, property, plant and equipment, net being leased to customers consisted of the following (in thousands):   December 31,   2025   Land and improvements   $ 5,546   Building and improvements   146,082   Mining and network equipment   8   Electrical equipment   19,146   Other property, plant and equipment   218   Total   171,000   Less: accumulated depreciation and amortization   9,856   Property, plant and equipment, net leased to customers   $ 161,144   Depreciation expense for the year s ended December 31, 2025 , 2024 and 2023 , was $ 68.1 million , $ 112.3 million , and   $ 95.7 million , respectively .   During the years ended December 31, 2025 and 2024 , $ 153.1 million and $ 169.3 million , respectively, of construction in   progress was placed into service.   During the years ended December 31, 2025 and 2024, the Company recognized impairment charges of $ 11.4 million and   $ 122.9 million , respectively, related to property, plant and equipment committed to demolition in connection with the conversion of   data center facilities from digital asset mining to high-density colocation operations. These charges represent the excess of the carrying   value of the identified assets over their estimated fair value. The fair value measurement date is the date on which the commitment to   demolish is made, which generally coincides with th…",
+   "amounts": [
+    {
+     "raw": "$ 161,144   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 68.1 million",
+     "usdM": 68.1
+    },
+    {
+     "raw": "$ 112.3 million",
+     "usdM": 112.3
+    },
+    {
+     "raw": "$ 95.7 million",
+     "usdM": 95.7
+    },
+    {
+     "raw": "$ 153.1 million",
+     "usdM": 153.1
+    },
+    {
+     "raw": "$ 169.3 million",
+     "usdM": 169.3
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "Depreciation expense",
+   "text": "…nue and gross profit by reportable segment for the periods presented (in thousands):   Year Ended December 31,   2025   2024   2023   (in thousands, except percentages)   Colocation Segment   Colocation revenue:   License fees   $ 47,861   $ 17,498   $ —   Power fees passed through to customer   15,914   6,807   —   Maintenance and other   1,649   73   —   Total colocation revenue   65,424   24,378   —   Cost of colocation services:   Power fees passed through to customer   15,914   6,807   —   Depreciation expense   1,065   3   —   Employee compensation   7,208   2,514   —   Facility operations expense   18,927   11,907   —   Other segment items   2,565   478   —   Total cost of colocation services   45,679   21,709   —   Colocation gross profit   $ 19,745   $ 2,669   $ —   Colocation gross margin   30 %   11 %   — %   Digital Asset Self-Mining Segment   Digital asset self-mining revenue   $ 229,207   $ 408,740   $ 390,333   Cost of digital asset self-mining:   Power fees   122,408   160,833   165,848   Depreciation expense   65,565   108,499   88,628   Employee compensation   18,530   26,129   16,853   Facility operations expense   9,570   13,274   14,055   Other segment items   2,795   5,600   6,312   Total cost of digital asset self-mining   218,868   314,335   $ 291,696   Digital Asset Self-Mining gross profit   $ 10,339   $ 94,405   $ 98,637   Digital Asset Self-Mining gr…",
+   "amounts": [
+    {
+     "raw": "$ 19,745   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,669   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "seq1",
+   "match": "Depreciation expense",
+   "text": "…nse   9,570   13,274   14,055   Other segment items   2,795   5,600   6,312   Total cost of digital asset self-mining   218,868   314,335   $ 291,696   Digital Asset Self-Mining gross profit   $ 10,339   $ 94,405   $ 98,637   Digital Asset Self-Mining gross margin   5 %   23 %   25 %   Digital Asset Hosted Mining Segment   Digital asset hosted mining revenue from customers   $ 24,388   $ 77,554   $ 112,067   Cost of digital asset hosted mining services:   Power fees   12,597   35,408   62,366   Depreciation expense   1,173   3,604   6,806   Employee compensation   1,635   4,933   6,337   Facility operations expense   904   2,765   5,285   Other segment items   265   6,848   6,451   Total cost of digital asset hosted mining services   16,574   53,558   $ 87,245   Digital Asset Hosted Mining gross profit   $ 7,814   $ 23,996   $ 24,822   Digital Asset Hosted Mining gross margin   32 %   31 %   22 %   Consolidated   Consolidated total revenue   $ 319,019   $ 510,672   $ 502,400   Consolidated cost of revenue   $ 281,121   $ 389,602   $ 378,941   Consolidated gross profit   $ 37,898   $ 121,070   $ 123,459   Consolidated gross margin   12 %   24 %   25 %   107   Core Scientific, Inc.   Notes to Consolidated Financial Statements   A reconciliation of the reportable segment gross profit to loss before income taxes included in the Company’s c onsolidated   statements of operations for…",
+   "amounts": [
+    {
+     "raw": "$ 24,388   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 77,554   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 112,067   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 87,245   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 7,814   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,996   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 24,822   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "seq1",
+   "match": "credit ratings",
+   "text": "…ts through cash flows from operation and external borrowings. These   sources of capital may not be available to us in the future. Our ability to arrange new financing, either at the corporate level, a non-   recourse project-level subsidiary or otherwise, and the costs of such capital, are dependent on numerous factors, including credit   availability from banks and other financial institutions, investor confidence in us and the regional markets in which we operate,   maintenance of acceptable credit ratings or our financial performance and level of indebtedness. Other companies with which we   compete may have greater liquidity, more unencumbered assets, less indebtedness, greater access to credit and other financial   resources, lower cost structures, more effective risk management policies and procedures, greater ability to incur losses, longer-   standing relationships with customers, or greater flexibility in the timing of their sale of generation capacity and ancillary services than   we do. If we are unable to fund capital expenditures for any reason, we may not be able to capture available growth opportunities and   any such failure could have a material adverse effect on our results of operations and financial condition.   Our indebtedness and liabilities could limit the cash flow available for our operations, expose us to risks that could adversely   affect our busin…",
    "amounts": []
   },
   {

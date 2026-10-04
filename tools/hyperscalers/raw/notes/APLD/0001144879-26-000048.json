@@ -6,7 +6,7 @@
  "filed": "2026-07-29",
  "report": "2026-05-31",
  "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/apld-20260531.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 143,
  "numberedPages": 141,
  "hits": [
@@ -60,6 +60,20 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "5",
+   "match": "investment-grade",
+   "text": "Item 1. Business   Overview   Our Business   We are a U.S.-based designer, developer, owner, and operator of large-scale, purpose-built data centers engineered to support high-performance computing (“HPC”) workloads, including artificial intelligence (“AI”), machine learning, and other accelerated-compute applications. We design, build, and operate high-performance, sustainably engineered data centers—which we refer to as AI factories—and deliver that capacity to investment-grade hyperscalers and other leading compute customers under long-term lease and hosting arrangements. Our standardized, repeatable design model spans site selection, design, construction, and operations, and has been qualified by major hyperscalers, enabling rapid, flexible deployment in both air-cooled and liquid-cooled configurations.   Over the past several fiscal years, we have evolved from a company focused on blockchain hosting into a purpose-built HPC data center platform organized around our proprietary AI factory model. Today, our growth, capital allocation, and operating focus are centered on developing and operating HPC data centers, while our legacy blockchain hosting operations represent a smaller, single-customer component of our business that we expect to continue to decline in relative significance over time.   We conduct our business through two reportable se…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "5",
+   "match": "investment-grade",
+   "text": "… new HPC capacity and a core differentiator for us from many of our competitors.   Purpose-built, high-density design   Our campuses are engineered for liquid-cooled, high-density graphics processing unit (GPU) deployments, with redundant electrical and mechanical systems designed to meet the uptime and performance requirements of mission-critical AI workloads.   Long-term contracted revenue with high-quality counterparties   Our HPC capacity is contracted under long-term leases, including with investment-grade hyperscalers, providing long-dated revenue visibility.   Standardized, repeatable AI factory platform   We develop our campuses using a standardized, franchise-style design that is engineered to deliver state-of-the-art data centers of approximately 150 MW in approximately 14 to 18 months, with low water usage. A scalable operating model which standardizes operations and leverages the same core roles across campuses and our master service and master telecom service agreements with leading hyperscalers—agreements that are difficult to obtain—position us to move quickly as hyperscaler AI infrastructure investment accelerates.   HPC Hosting Business   Our HPC Hosting Business designs, constructs, owns, and operates next-generation data centers purpose-built to host high-density GPU and other accelerated-compute infrastructure for AI, machine learning, and other HPC applicat…",
+   "amounts": []
+  },
+  {
    "kind": "guarantee",
    "page": "6",
    "match": "guaranteed",
@@ -102,6 +116,29 @@
    "match": "campus located",
    "text": "…ur Polaris Forge 2 data center campus near Harwood, North Dakota, with an initial 200 MW data center. We currently anticipate reaching initial capacity in the second half of calendar year 2026 and full capacity in early calendar year 2027. On October 22, 2025, we entered into an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 MW of critical IT load at the campus.   Delta Forge 1   On January 22, 2026, we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market. On April 23, 2026, we entered into two approximately 15-year leases with a second U.S.-based investment-grade hyperscaler for an aggregate 300 MW of critical IT load at the campus.   Polaris Forge 3   Polaris Forge 3 is a 300 MW critical IT load data center campus located in our northern United States region, currently under construction across two buildings. The aggregate 300 MW of critical IT load is contracted under two approximately 15-year leases (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $7.5 billion of contracted revenue over the base term, with expected delivery beginning in the second half of calendar year 2027 through the second half of calendar year 2028.   Delta Forge 2   Delta Forge 2 is a 210 MW critical IT load campus located in our southern region, comprisi…",
    "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "6",
+   "match": "investment-grade",
+   "text": "…em 7. Management's Discussion and Analysis of Financial Condition and Results of Operations – Business Overview.\"   Polaris Forge 2   On August 18, 2025, we broke ground on our Polaris Forge 2 data center campus near Harwood, North Dakota, with an initial 200 MW data center. We currently anticipate reaching initial capacity in the second half of calendar year 2026 and full capacity in early calendar year 2027. On October 22, 2025, we entered into an approximately 15-year lease with a U.S.-based investment-grade hyperscaler for 200 MW of critical IT load at the campus.   Delta Forge 1   On January 22, 2026, we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market. On April 23, 2026, we entered into two approximately 15-year leases with a second U.S.-based investment-grade hyperscaler for an aggregate 300 MW of critical IT load at the campus.   Polaris Forge 3   Polaris Forge 3 is a 300 MW critical IT load data center campus located in our northern United States region, currently under construction across two buildings. The aggregate 300 MW of critical IT load is contracted under two approximately 15-year leases (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $7.5 billion of contracted revenue over the base term, with expected delivery beginning in the second half of …",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "6",
+   "match": "investment-grade",
+   "text": "…erscaler, representing approximately $7.5 billion of contracted revenue over the base term, with expected delivery beginning in the second half of calendar year 2027 through the second half of calendar year 2028.   Delta Forge 2   Delta Forge 2 is a 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The full 210 MW of critical IT load is contracted under an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   Contracted Lease Portfolio   As of May 31, 2026, we had executed long-term leases representing approximately 1,410 MW of contracted critical IT load across five campuses, representing approximately $36.2 billion of total contracted revenue over the initial 15-year base lease terms. Each lease is a direct, long-term agreement with CoreWeave or an investment-grade hyperscaler, is structured   6",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$36.2 billion",
+     "usdM": 36200
+    }
+   ]
   },
   {
    "kind": "purchase_obligation",
@@ -174,6 +211,38 @@
    "match": "utility",
    "text": "… revenue-generating. Each megawatt in this category is backed by land under our control and/or an executed utility power agreement.   Active pipeline   We are advancing an active development pipeline of over 3 GW of utility (gross) power, consisting of near-term greenfield sites in multiple states together with expansion capacity at our existing campuses, certain of which are scalable to 1 GW or more.   Extended pipeline   We are additionally evaluating an extended pipeline of more than 5 GW of utility (gross) power that is in earlier stages of discussion or due diligence.   In addition, through our partnership with Base Electron Corporation (\"Base Electron\"), an independent power producer, we are pursuing the development of approximately 1.2 GW of front-of-the-meter, natural gas-fired generation in the Dakotas, which we expect to unlock additional power capacity for our development pipeline.   Data Center Hosting Business   Our Data Center Hosting Business provides energized infrastructure allowing the customer to deploy equipment based on its power requirements. This is a legacy line of business: we currently serve a single crypto mining customer under a contract with a remaining term of approximately one and a half years, and we expect this segment to represent a declining share of our business as we scale our HPC operations. We operate hosting sites in Jamestown, North Dako…",
    "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "7",
+   "match": "Investment-grade",
+   "text": "on a take-or-pay basis, and is non-cancellable, such that a termination for convenience would require payment of the full remaining contractual value. The following table summarizes our contracted HPC lease portfolio as of May 31, 2026:   Campus Anchor Tenant Contracted Critical IT Load Lease Term Total Contracted Revenue (1)   Expected Delivery (2)   Polaris Forge 1 CoreWeave 400 MW 15 years ~$11.0B 2H25–1H27   Polaris Forge 2 Investment-grade hyperscaler 200 MW 15 years ~$5.0B 2H26–1H27   Polaris Forge 3 High investment-grade hyperscaler 300 MW 15 years ~$7.5B 2H27–2H28   Delta Forge 1 High investment-grade hyperscaler 300 MW 15 years ~$7.5B 1H27–1H28   Delta Forge 2 High investment-grade hyperscaler 210 MW 15 years ~$5.2B 1H28   Total / Portfolio 1,410 MW ~$36.2B 2H25–2H28   (1) Total contracted revenue reflects the initial 15-year base term of each lease and excludes renewal options. Each lease includes multiple five-year renewal options (three five-year options, except Polaris Forge 2, which includes two five-year options), which are not reflected in the amounts shown.   (2) Expected delivery reflects management’s current estimates of the periods during which contracted capacity is expected to be placed in service and is subject to construction, permitting, interconnection, and other risks. Expected delive…",
+   "amounts": [
+    {
+     "raw": "$11.0",
+     "usdM": null
+    },
+    {
+     "raw": "$5.0",
+     "usdM": null
+    },
+    {
+     "raw": "$7.5",
+     "usdM": null
+    },
+    {
+     "raw": "$7.5",
+     "usdM": null
+    },
+    {
+     "raw": "$5.2",
+     "usdM": null
+    },
+    {
+     "raw": "$36.2",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "capacity",
@@ -435,6 +504,13 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "42",
+   "match": "investment-grade",
+   "text": "…N-02 C LLC under the Building 4 Lease.   On August 18, 2025, we also announced that we would be breaking ground on our Polaris Forge 2 campus with an initial 200 MW data center near Harwood, North Dakota. The project has begun and we currently anticipate reaching initial capacity in the calendar year 2026 and reaching full capacity in early calendar year 2027. On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S.-based investment-grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   42",
+   "amounts": []
+  },
+  {
    "kind": "capacity",
    "page": "43",
    "match": "300 MW",
@@ -466,6 +542,13 @@
    "page": "43",
    "match": "campus located",
    "text": "On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during calendar year 2027. On May 20, 2026, a different subsidiary of the Company entered into a data center lease with the same U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI and HPC infrastructure at Polaris Forge 3. Initial operations at Polaris Forge 3 are anticipated to commence during calendar year 2027.   We began to generate revenue from this business s…",
+   "amounts": []
+  },
+  {
+   "kind": "credit_rating",
+   "page": "43",
+   "match": "investment-grade",
+   "text": "On January 22, 2026 we announced that we broke ground on Delta Forge 1, a 300 MW critical IT load campus located in a strategic southern U.S. market.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during calendar year 2027. On May 20, 2026, a different subsidiary of the Company entered into a data center lease with the same U.S.-based investment-grade hyperscaler to deliver a combined 300MW of critical IT load to support the second hyperscaler’s AI and HPC infrastructure at Polaris Forge 3. Initial operations at Polaris Forge 3 are anticipated to commence during calendar year 2027.   We began to generate revenue from this business segment in fiscal year 2026, recognizing $385.3 million in revenue during the fiscal year ended May 31, 2026, with $270.6 million related to services revenue and $114.7 million related to data center rental and other revenue.   Data Center Host…",
    "amounts": []
   },
   {
@@ -627,6 +710,22 @@
    ]
   },
   {
+   "kind": "credit_rating",
+   "page": "51",
+   "match": "investment-grade",
+   "text": "Delta Forge 2 Lease   On June 5, 2026, we entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at our Delta Forge 2 210 MW critical IT load campus located in our southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $1.59 Billion Senior Secured Notes due 2031   On June 16, 2026, APLD ComputeCo 3 refinanced the Bridge Facility with the closing of a $1.59 billion offering (the “2031 7.000% Notes Offering”) of 7.000% senior secured notes due 2031 (the “2031 7.000% Notes”) at an issue price of 100.000% of par. The 2031 7.000% Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000% per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principa…",
+   "amounts": [
+    {
+     "raw": "$5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$1.59 Billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "53",
    "match": "Related party",
@@ -706,6 +805,38 @@
     {
      "raw": "$5.7 million",
      "usdM": 5.7
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "55",
+   "match": "depreciation and amortization expense",
+   "text": "…s for our HPC Hosting Business which we began providing during the current fiscal year;   • approximately $2.1 million increase in energy costs associated with our Data Center Hosting Business; and   • approximately $1.0 million increase in other expenses directly attributable to generating revenue primarily related to repairs and maintenance, security, and property insurance associated with our data centers.   These increases were partially offset by decreases of approximately $62.3 million in depreciation and amortization expense and approximately $17.2 million in lease and related expense primarily due to the renegotiations of certain of our leases during fiscal year ended May 31, 2026 as well as due to our cloud services business (the “Cloud Services Business”) being classified as held for sale until February 15, 2026, which resulted in decreased depreciation and amortization recorded and a decrease of $1.2 million in personnel expenses due to the closing of the Cloud transaction.   Data center rental and other cost of revenue was $56.8 million for the fiscal year ended May 31, 2026, which is when we commenced our data center rental operations within our HPC Hosting Business. The primary components of data center rental and other cost of revenue were categorized as follows:   • approximately $32.2 million in depreciation and amortization expenses associated with our HPC Hos…",
+   "amounts": [
+    {
+     "raw": "$62.3 million",
+     "usdM": 62.3
+    },
+    {
+     "raw": "$17.2 million",
+     "usdM": 17.2
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "55",
+   "match": "depreciation and amortization expense",
+   "text": "…ects as well as general support of the business;   • approximately $15.4 million increase in personnel expenses largely driven by increases in headcount to support the business; and   • approximately $6.2 million increase in other selling, general, and administrative expense primarily related to travel, computer and software expenses.   These increases were partially offset by a decrease of approximately $11.2 million in lease and related expenses and a decrease of approximately $0.5 million in depreciation and amortization expense for the fiscal year ended May 31, 2026 compared to the fiscal year ended May 31, 2025, primarily due to the renegotiations of certain of our leases during fiscal   55",
+   "amounts": [
+    {
+     "raw": "$11.2 million",
+     "usdM": 11.2
+    },
+    {
+     "raw": "$0.5 million",
+     "usdM": 0.5
     }
    ]
   },
@@ -791,6 +922,13 @@
    "page": "60",
    "match": "related party",
    "text": "…4   Diligence, acquisition, disposition and integration expenses (2)   27,938 17,269 5,545   Litigation expenses (3)   1,179 1,389 1,589   (Gain) loss on classification as held for sale — (24,616) 15,417   Loss on abandonment of assets 1,799 1,138 —   Gain on change in fair value of derivatives (75,818) — —   Gain on change in fair value of investments (10,840) — —   Loss on conversion of debt   — 33,612 —   Loss on change in fair value of debt   — 85,439 7,401   Loss on change in fair value of related party debt — — 8,116   Loss on change in fair value of warrants   2,212 6,421 —   Loss on change in fair value of warrants issued to related parties   — — 5,696   Loss on extinguishment of debt — 1,177 —   Loss on extinguishment of related party debt — — 2,507   Loss on legal settlement — — 2,380   Restructuring expenses (5)   1,469 711 —   Other non-recurring expenses (6)   5,219 627 169   60",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "61",
+   "match": "Depreciation and Amortization expense",
+   "text": "…sts incurred in association with certain discrete transactions and projects.   (3) Represents non-recurring litigation expense associated with our defense of class action lawsuits and legal fees related to matters with certain former employees. We do not expect to incur these expenses on a regular basis.   (4) Represents the acceleration of expense related to assets that were abandoned by us due to operational failure or other reasons. Depreciation and amortization in this amount is included in Depreciation and Amortization expense within our calculation of EBITDA, and therefore is not added back as a management adjustment in our calculation of Adjusted EBITDA.   (5) Represents non-recurring expenses associated with employee separations.   (6) Represents expenses that are not representative of our expected ongoing costs.   (7) Potentially dilutive securities or other contracts to issue common stock are only included for each period if the effect is dilutive to Adjusted net income (loss) from continuing operations per diluted share.   Funding Requirements   We have experienced net losses through the period ended May 31, 2026. Our transition to profitability is dependent on the successful operation of our business.   We expect to have sufficient liquidity, including cash on hand, payments from customers, access to debt financing, and access to public capital markets, to support o…",
    "amounts": []
   },
   {
@@ -1033,11 +1171,88 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "83",
+   "match": "useful lives",
+   "text": "…3,950   Restricted cash (1)   2,381,027 72,368   Restricted cash included in other assets 180,415 7,000   Total Cash, Cash Equivalents, and Restricted Cash $ 4,153,430 $ 123,318   (1) Presented as restricted cash - funds for construction and restricted cash - letters of credit on the balance sheet in the prior fiscal year.   Property and Equipment   Property and equipment are stated at cost less accumulated depreciation. Depreciation is computed using the straight-line method over the estimated useful lives of the assets (see Note 4 - Property and Equipment ). Once an asset is identified for retirement or disposition, the related cost and accumulated depreciation or amortization are removed, and a gain or loss is included in earnings. Depreciation expense includes the amortization of assets recorded in association with the Company's leases. Leasehold improvements and assets recorded in association with the Company's leases are amortized over the shorter of the expected lease term or the estimated useful life of the asset. Construction in progress represents assets received but not placed into service as of the fiscal years ended May 31, 2026 and May 31, 2025.   Impairment or Disposal of Long-Lived Assets   The Company's long-lived assets are reviewed for impairment on an annual basis or whenever events or changes in circumstances indicate that the carrying value of the asset ma…",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "83",
+   "match": "useful lives",
+   "text": "…d but not placed into service as of the fiscal years ended May 31, 2026 and May 31, 2025.   Impairment or Disposal of Long-Lived Assets   The Company's long-lived assets are reviewed for impairment on an annual basis or whenever events or changes in circumstances indicate that the carrying value of the asset may not be recoverable. The Company also evaluates the period of depreciation and amortization of long-lived assets to determine whether events or circumstances warrant revised estimates of useful lives. When indicators of impairment are present, the Company determines the recoverability of its long-lived assets by comparing the carrying value of its long-lived assets to future undiscounted net cash flows expected to result from the use of the assets and their eventual disposition. If the estimated future undiscounted cash flows demonstrate the long-lived assets are not recoverable, an impairment loss would be calculated based on the excess of the carrying   83",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "83",
+   "match": "Depreciation expense",
+   "text": "…tricted cash - letters of credit on the balance sheet in the prior fiscal year.   Property and Equipment   Property and equipment are stated at cost less accumulated depreciation. Depreciation is computed using the straight-line method over the estimated useful lives of the assets (see Note 4 - Property and Equipment ). Once an asset is identified for retirement or disposition, the related cost and accumulated depreciation or amortization are removed, and a gain or loss is included in earnings. Depreciation expense includes the amortization of assets recorded in association with the Company's leases. Leasehold improvements and assets recorded in association with the Company's leases are amortized over the shorter of the expected lease term or the estimated useful life of the asset. Construction in progress represents assets received but not placed into service as of the fiscal years ended May 31, 2026 and May 31, 2025.   Impairment or Disposal of Long-Lived Assets   The Company's long-lived assets are reviewed for impairment on an annual basis or whenever events or changes in circumstances indicate that the carrying value of the asset may not be recoverable. The Company also evaluates the period of depreciation and amortization of long-lived assets to determine whether events or circumstances warrant revised estimates of useful lives. When indicators of impairment are present, …",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "84",
    "match": "related parties",
    "text": "… primarily comprised of billed and unbilled receivables for which the Company has an unconditional right to consideration and the performance obligations have been satisfied. Accounts receivable are recorded at the invoiced amount, net of an allowance for credit losses recognized in accordance with the current expected credit loss (\"CECL\") model under ASC 326, Financial Instruments - Credit Losses (\"ASC 326\") .   The Company periodically provides financing arrangements to strategic partners and related parties. Loans receivable are recorded at amortized cost, net of an allowance for credit losses recognized in accordance with the CECL model under ASC 326.   The allowance for expected credit losses reflects management’s estimate of lifetime expected credit losses on accounts receivable and loans receivable. The Company bases its estimate on multiple factors, including historical experience with bad debts, the Company's relationship with its counterparties and their credit quality, the aging of respective asset balances, current macroeconomic conditions, and management's reasonable and supportable forecasts of future economic conditions that may affect collectibility. The allowance for credit losses is reassessed each reporting period, with changes in expected credit losses recognized in earnings. The Company writes off accounts receivable and loans receivable in the period when …",
    "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "88",
+   "match": "useful lives",
+   "text": "… 54,513   The fair value of acquired accounts receivable was approximately $ 4.1 million as of the acquisition date. ChronoScale expects to collect substantially all acquired receivables.   The fair value of acquired intangible assets consists of Ekso's developed technology and trade name. The valuations of the developed technology and trade name were performed by a third-party valuation specialist using the relief-from-royalty method. Acquired intangible assets are amortized over the estimated useful lives on a straight-line basis.   In connection with the transaction, ChronoScale arranged a private investment in public equity (“PIPE”), which refers to a private placement of ChronoScale’s equity to select investors concurrent with closing. Pursuant to the PIPE Agreement, ChronoScale agreed to issue and sell 1,311,407 shares of its common stock to Contributor at a price of $ 12.01 per share, resulting in aggregate gross proceeds of approximately $ 15.7 million, net of $ 0.8 million in offering costs.   The business combination resulted in the recognition of goodwill of approximately $ 54.5 million, which is calculated as the excess of the consideration transferred over the fair value of the identifiable net assets acquired. The goodwill is primarily attributed to the expected operational synergies, assembled workforce, public company platform benefits, and other intangible bene…",
+   "amounts": [
+    {
+     "raw": "$ 12.01 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "89",
+   "match": "Useful Life",
+   "text": "… 243,220   Net loss $ ( 203,175 ) $ ( 245,278 )   The unaudited pro forma results include adjustments directly attributable to the acquisition, including amortization of acquired intangible assets and the related income tax effects. No additional earnings per share impacts were identified other than the impact of amortization of acquired intangible assets.   4. Property and Equipment   Property and equipment, net consisted of the following as of May 31, 2026 and 2025 (in thousands):   Estimated Useful Life May 31, 2026 May 31, 2025   Networking equipment, electrical equipment, and software   3 years - 5 years   $ 38,669 $ 33,611   Mechanical infrastructure 20 years 71,939 —   Electrical infrastructure 15 years 104,491 —   Electric generation and transformers 15 years - 30 years   188,110 9,914   Land and building   Building 39 years 279,308 109,672   Building improvements 15 years - 25 years   682,348 —   Land 59,713 20,047   Land improvements 15 years 43,786 1,423   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 2,776,232 1,090,587   Other equipment and fixtures 5 years - 10 years   68,128 12,447   Total cost of property and equipment 4,313,866 1,278,843   Accumulated depreciation ( 77,566 ) ( 26,556 )   Property and equipment, net $ 4,236,300 $ 1,252,287   Depreciation expense totaled $ 48.5 million, $ 12.5 million, and $ 15.8 million for th…",
+   "amounts": [
+    {
+     "raw": "$ 38,669 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 33,611   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "89",
+   "match": "Depreciation expense",
+   "text": "…d building   Building 39 years 279,308 109,672   Building improvements 15 years - 25 years   682,348 —   Land 59,713 20,047   Land improvements 15 years 43,786 1,423   Leasehold improvements 3 years - 7 years   1,142 1,142   Construction in progress 2,776,232 1,090,587   Other equipment and fixtures 5 years - 10 years   68,128 12,447   Total cost of property and equipment 4,313,866 1,278,843   Accumulated depreciation ( 77,566 ) ( 26,556 )   Property and equipment, net $ 4,236,300 $ 1,252,287   Depreciation expense totaled $ 48.5 million, $ 12.5 million, and $ 15.8 million for the fiscal years ended May 31, 2026, 2025, and 2024, respectively.   89",
+   "amounts": [
+    {
+     "raw": "$ 4,236,300 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,252,287   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 48.5 million",
+     "usdM": 48.5
+    },
+    {
+     "raw": "$ 12.5 million",
+     "usdM": 12.5
+    },
+    {
+     "raw": "$ 15.8 million",
+     "usdM": 15.8
+    }
+   ]
   },
   {
    "kind": "vie",
@@ -1414,6 +1629,13 @@
    "amounts": []
   },
   {
+   "kind": "credit_rating",
+   "page": "119",
+   "match": "investment grade",
+   "text": "…V for the remaining term of the ELN-03 Parent Lease and releasing CoreWeave from the ELN-03 Parent Lease. In addition, CoreWeave also provided an Unconditional Springing Guaranty of Payment and Performance in connection with CoreWeave SPV’s obligations under the ELN-03 Parent Lease (the “ELN-03 Guaranty”), similar to the ELN-02 Guaranty.   Hyperscaler Leases   On October 20, 2025, APLD FAR-01 LLC and APLD FAR-02 LLC, the Company’s subsidiaries, entered into a data center lease with a U.S. based investment grade hyperscaler to deliver 200MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Polaris Forge 2, which is currently under construction. The initial 200 MW are phased within two buildings expected to begin to come online during the calendar year 2026.   On April 20, 2026 and April 22, 2026, APLD AEX-01 LLC and APLD AEX-02 LLC, respectively, each a subsidiary of the Company, entered into separate data center leases with a second U.S. based investment grade hyperscaler to deliver a combined 300MW of critical IT load to support the hyperscaler’s AI and HPC infrastructure at Delta Forge 1. Initial operations at Delta Forge 1 are anticipated to commence during the calendar year 2027.   On May 20, 2026, the Company entered into a data center lease with the second U.S. based investment grade hyperscaler to deliver a combined 300MW of critical IT load t…",
+   "amounts": []
+  },
+  {
    "kind": "rvg",
    "page": "120",
    "match": "residual value guarantee",
@@ -1478,11 +1700,38 @@
    "amounts": []
   },
   {
+   "kind": "segment",
+   "page": "122",
+   "match": "segment results",
+   "text": "…'s CODM.   The Company's CODM evaluates performance and makes operating decisions primarily based on revenue and segment profit (loss) on a consolidated basis and for each of the Company's reportable segments. Operating results by segment include costs or expenses directly attributable to each segment, which include selling, general, and administrative expenses, loss (gain) on classification of held for sale, loss on abandonment of assets, and loss from legal settlement. The Company derives the segment results from its internal management reporting system. The accounting policies the Company uses to derive reportable segment results are the same as those used for external reporting purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest (income) expense, net, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on extinguishment of debt, loss on extinguishment of related party debt, loss on change in fair value of warrants, loss on change in fair value of related party warrants or income tax …",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "122",
    "match": "related party",
    "text": "…purposes. Segment revenues and segment profit are regularly reviewed by the CODM and compared against historical results, forecast and budget information in order to make decisions about how to allocate capital and other resources to each segment.   The Company does not allocate interest (income) expense, net, gain on change in fair value of derivatives, gain on change in fair value of investments, loss on conversion of debt, loss on change in fair value of debt, loss on change in fair value of related party debt, loss on extinguishment of debt, loss on extinguishment of related party debt, loss on change in fair value of warrants, loss on change in fair value of related party warrants or income tax expense to these segments for internal reporting purposes, as the Company does not believe that allocating these expenses is beneficial in evaluating segment performance.   122",
    "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "123",
+   "match": "segment information",
+   "text": "APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Consolidated Financial Statements   For the Fiscal Year Ended May 31, 2026   The following tables present segment information, including revenue by segment and segment profit (loss) for the fiscal years ended May 31, 2026, 2025, and 2024 (in thousands):   Fiscal Year Ended May 31, 2026   Data Center Hosting Business   HPC Hosting Business   Revenue:   Services revenue $ 154,403 $ 270,602   Data center rental and other revenue $ — $ 114,702   Total segment revenue   154,403 385,304   Costs and expenses:   Services cost of revenue 102,980 258,147   Data center rental and other cost of revenue — 56,773   Selling, general and administrative 2,516 30,017   Loss on abandonment of assets 570 1,240   Total costs and expenses 106,066 346,177   Segment profit $ 48,337 $ 39,127   Fiscal Year Ended May 31, 2025   Data Center Hosting Business   HPC Hosting Business   Revenue:   Services revenue $ 142,267 $ —   Data center rental and other revenue $ — $ —   Related party revenue 1,926 —   Total segment re…",
+   "amounts": [
+    {
+     "raw": "$ 154,403 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 270,602   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 114,702   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -1552,6 +1801,26 @@
    "page": "126",
    "match": "campus located",
    "text": "…investor for equity in Cloud, which was, at that time, a wholly-owned subsidiary, for aggregate proceeds of $ 12.0 million. On June 2, 2026, following an agreement reached with the investor, the Company paid off all amounts outstanding under the SAFEs, totaling $ 13.3 million.   Delta Forge 2 Lease   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $ 1.59 billion Senior Secured Notes   On June 16, 2026, APLD ComputeCo 3 LLC refinanced the Bridge Facility with the closing of a $ 1.59 billion offering (the “2031 7.000 % Notes Offering”) of 7.000 % senior secured notes due 2031 (the “2031 7.000 % Notes”) at an issue price of 100.000 % of par. The 2031 7.000 % Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The principal amount of the 2031 7.000 % Notes will amortize on a semi-annual basi…",
+   "amounts": [
+    {
+     "raw": "$ 13.3 million",
+     "usdM": 13.3
+    },
+    {
+     "raw": "$ 5.2 billion",
+     "usdM": 5200
+    },
+    {
+     "raw": "$ 1.59 billion",
+     "usdM": 1590
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "126",
+   "match": "investment-grade",
+   "text": "…ny entered into two Simple Agreements for Future Equity (“SAFEs”) with an investor for equity in Cloud, which was, at that time, a wholly-owned subsidiary, for aggregate proceeds of $ 12.0 million. On June 2, 2026, following an agreement reached with the investor, the Company paid off all amounts outstanding under the SAFEs, totaling $ 13.3 million.   Delta Forge 2 Lease   On June 5, 2026, the Company entered into an approximately 15-year lease (with three five-year renewal options) with a high investment-grade hyperscaler at its Delta Forge 2 210 MW critical IT load campus located in its southern region, comprising a single building under construction. The lease is for the full 210 MW of critical IT load, representing approximately $ 5.2 billion of contracted revenue over the base term, with expected delivery in the first half of calendar year 2028.   $ 1.59 billion Senior Secured Notes   On June 16, 2026, APLD ComputeCo 3 LLC refinanced the Bridge Facility with the closing of a $ 1.59 billion offering (the “2031 7.000 % Notes Offering”) of 7.000 % senior secured notes due 2031 (the “2031 7.000 % Notes”) at an issue price of 100.000 % of par. The 2031 7.000 % Notes are senior secured obligations of APLD ComputeCo 3 and bear interest at a rate of 7.000 % per annum, payable semi-annually in arrears on June 15 and December 15 of each year, beginning on December 15, 2026. The prin…",
    "amounts": [
     {
      "raw": "$ 13.3 million",

@@ -6,7 +6,7 @@
  "filed": "2026-08-12",
  "report": "2026-06-30",
  "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 108,
  "numberedPages": 108,
  "hits": [
@@ -22,6 +22,13 @@
    "page": "3",
    "match": "campus in",
    "text": "…ral economic conditions in the United States and globally, including the effects of global geopolitical conflicts, inflation, tariffs, trade controls, interest rates, any instability in the global banking sector, and foreign currency exchange rates;   • our ability to operate and grow our business in light of macroeconomic uncertainty;   • our estimates of the maximum funding exposure to fund potential construction and development costs for our joint venture to acquire and develop a data center campus in New Jersey;   • our ability to remediate our material weaknesses in our internal control over financial reporting; and   • other statements regarding our future operations, financial condition, and prospects and business strategies.   We caution you that the foregoing list may not contain all of the forward-looking statements made in this Quarterly Report on Form 10-Q.   3",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "3",
+   "match": "remaining performance obligations",
+   "text": "…ve and maintain future profitability;   • our business plan and our ability to effectively manage our growth and maintain our corporate culture;   • anticipated trends, growth rates, and challenges in our business and in the markets in which we operate;   • market acceptance of our platform, solutions, and services;   • beliefs and objectives for future operations;   • our ability to successfully retain and expand usage of our existing customers and attract new customers;   • the percentages of remaining performance obligations that we expect to recognize as revenue over respective future periods;   • our ability to develop and introduce new products and solutions and bring them to market in a timely manner;   • our expectations concerning relationships with third parties, including IT service providers, business partners, vendors, suppliers, and cloud-based service providers;   • our ability to maintain, protect, and enhance our intellectual property rights;   • our ability to expand internationally;   • the effects of increased competition in our markets and our ability to compete effectively;   • our ability to identify, recruit, hire, and retain skilled personnel, including key members of senior management;   • our intention to continue to make investments in talent and our platform infrastructure;   • our ability to realize and the expected timing for the benefits and impa…",
    "amounts": []
   },
   {
@@ -49,6 +56,57 @@
    "match": "variable interest entit",
    "text": "…se and also reclassified the respective balances as of December 31, 2025 to conform to the current period's presentation in the condensed consolidated balance sheets. The reclassification had no impact on the Company's previously reported total current liabilities or total liabilities as of December 31, 2025.   The Company determines at inception of each arrangement whether an entity in which the Company has made an investment or in which the Company has other variable interests is considered a variable interest entity (\"VIE\"). Investments that are considered VIEs are evaluated to determine whether the Company is the primary beneficiary of the VIE, in which case it would be required to consolidate the entity. The Company evaluates whether it has (1) the power to direct the activities that most significantly impact the VIE's economic performance, and (2) the obligation to absorb losses or the right to receive benefits from the VIE that could potentially be significant to the VIE. If the Company is not the primary beneficiary of the VIE, the investment or other variable interest is accounted for in accordance with applicable U.S. GAAP.   In circumstances where an entity does not have the characteristics of a VIE, it would be considered a voting interest entity (\"VOE\"). The Company would consolidate a VOE when the Company has a majority equity interest and has control over signifi…",
    "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "13",
+   "match": "useful lives",
+   "text": "…k. All share and per share information has been retroactively adjusted to reflect the stock split for all periods presented.   Use of Estimates   The preparation of condensed consolidated financial statements in conformity with U.S. GAAP requires the Company to make estimates and assumptions that affect the amounts reported in the condensed consolidated financial statements and the accompanying notes. Actual results could differ materially from these estimates. Significant estimates include the useful lives assigned to property and equipment; the fair value of lease assets; the discount rates used for operating and finance leases; accounting for income taxes, including the valuation allowance on deferred tax assets and the measurement of uncertain tax positions; stock-based compensation, including the determination of the fair value of the Company's common stock prior to the IPO; the fair value of financial assets and liabilities; valuation of acquired intangible assets; and the assessment of recoverability of intangible assets and their estimated useful lives. Assumptions are reviewed regularly to ensure they remain relevant and reasonable, particularly in areas of high subjectivity. The Company bases its estimates on historical experience and assumptions that management considers reasonable.   Significant Accounting Policies   There have been no material changes to the Compan…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "14",
+   "match": "Segment Information",
+   "text": "Table of Contents   Research and Development   Research and development costs were $ 117 million and $ 80 million for the three months ended June 30, 2026 and 2025, respectively, and $ 221 million and $ 150 million for the six months ended June 30, 2026 and 2025, respectively, and are included within technology and infrastructure expense in the condensed consolidated statements of operations and comprehensive loss.   Segment Information   The Company's chief operating decision maker (\"CODM\"), the chief executive officer, reviews discrete financial information presented on a consolidated basis for purposes of regularly making operating decisions, allocation of resources, and assessing financial performance. The Company operates its business in one operating segment and, therefore, has one reportable segment.   The CODM uses consolidated net loss to measure segment profit or loss in order to identify underlying trends in the performance of the business for purposes of allocating resources and evaluating financial performance. The Company's objective in making resource allocation decisions is to optimize the consolidated financial results. Significant segment expenses that the CODM reviews and utilizes to manage the Company's operations are cost of revenue, technology and infrastructure, sales and marke…",
+   "amounts": [
+    {
+     "raw": "$ 221 million",
+     "usdM": 221
+    },
+    {
+     "raw": "$ 150 million",
+     "usdM": 150
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "15",
+   "match": "Remaining Performance Obligations",
+   "text": "…t and non-current balances as of June 30, 2026 and December 31, 2025, was $ 9.7 billion and $ 8.2 billion, respectively. For the six months ended June 30, 2026 and 2025, revenue recognized from deferred revenue at the beginning of the period was $ 554 million and $ 603 million, respectively. Contract assets, including current and non-current balances, as of June 30, 2026 were $ 179 million. Contract assets, including current and non-current balances, as of December 31, 2025 were not material.   Remaining Performance Obligations (\"RPO\")   RPO represents the aggregate amount of the transaction price, net of estimated variable consideration, allocated to performance obligations not delivered, or partially undelivered, as of the end of the reporting period. Variable consideration primarily consists of potential reductions to the transaction price in the future, such as estimates of future potential credits to customers under availability of service agreements, amounts that may not be recognized as revenue due to delivery delays, and estimates of committed cloud computing capacity that the Company has the right to resell. The Company's estimate of such variable consideration is based on both historical experience and the specific facts and circumstances of the committed contracts included in the Company's RPO. RPO includes both billed and unbilled consideration from the Company's co…",
+   "amounts": [
+    {
+     "raw": "$ 603 million",
+     "usdM": 603
+    },
+    {
+     "raw": "$ 179 million",
+     "usdM": 179
+    }
+   ]
+  },
+  {
+   "kind": "rpo",
+   "page": "15",
+   "match": "RPO",
+   "text": "…ot be recognized as revenue due to delivery delays, and estimates of committed cloud computing capacity that the Company has the right to resell. The Company's estimate of such variable consideration is based on both historical experience and the specific facts and circumstances of the committed contracts included in the Company's RPO. RPO includes both billed and unbilled consideration from the Company's committed contracts.   As of June 30, 2026, the Company had $ 103.7 billion of unsatisfied RPO, of which 41 % was expected to be recognized over the initial 24 months ending June 30, 2028, 39 % between months 25 and 48, and the remaining balance recognized between months 49 and 78.   15",
+   "amounts": [
+    {
+     "raw": "$ 103.7 billion",
+     "usdM": 103700
+    }
+   ]
   },
   {
    "kind": "concentration",
@@ -253,6 +311,50 @@
    ]
   },
   {
+   "kind": "useful_life",
+   "page": "20",
+   "match": "useful lives",
+   "text": "… Goodwill 793   Total assets acquired $ 1,069   Accounts payable 1   Accrued liabilities 7   Deferred revenue, current 25   Operating lease liabilities, non-current 1   Deferred tax liabilities, non-current 6   Total liabilities assumed $ 40   Total purchase price $ 1,029   The acquired assets and assumed liabilities were recorded at their estimated fair values. The following table presents the amounts allocated to the intangible assets identified as of the date of acquisition and the estimated useful lives (in millions):   Fair Value Useful Lives  (in years)   Customer relationships $ 36 12   Developed technology 162 5 - 7   Trade name 10 5   Total $ 208   The excess of the purchase price over the fair value of the net assets acquired was allocated to goodwill, none of which is expected to be deductible for tax purposes. Goodwill is primarily attributable to the assembled workforce as well as the anticipated synergies from the integration of Weights & Biases’ technology with the Company’s technology.   From the date of the acquisition, the financial results of Weights & Biases are not material to the Company’s consolidated financial statements. Pro forma revenue and net income have not been presented because the historical results would not have been material to the condensed consolidated financial statements in any period presented.   20",
+   "amounts": [
+    {
+     "raw": "$ 1,029   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 36 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 208   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "useful_life",
+   "page": "22",
+   "match": "Useful Lives",
+   "text": "Table of Contents   6. Goodwill and Intangible Assets   Goodwill   There were no additions or impairment charges recorded to goodwill for any of the periods presented.   Intangible Assets, Net   Intangible assets, net consisted of the following (in millions, except years):   June 30, 2026 December 31, 2025   Weighted-Average Remaining Useful Lives (in years) Acquired Intangibles, Gross Accumulated Amortization Acquired Intangibles, Net Acquired Intangibles, Gross Accumulated Amortization Acquired Intangibles, Net   Acquired technologies 4 $ 208 $ ( 46 ) $ 162 $ 206 $ ( 27 ) $ 179   Other (1)   9 61 ( 8 ) 53 61 ( 5 ) 56   Finite-lived intangible assets 269 ( 54 ) 215 267 ( 32 ) 235   Indefinite-lived intangible assets N/A 30 — 30 — — —   Total $ 299 $ ( 54 ) $ 245 $ 267 $ ( 32 ) $ 235   (1) Includes customer relationships and trade names.   Amortization expenses for intangible assets were not material for the three months ended June 30, 2026 and 2025. Amortization expenses for intangible assets were $ 22 million for the six months ended June 30, 2026 and not material for the six months ended June 30, 2025.   As of June 30, 2026, the expected future amortization expense related to intangible assets was as follows (in mi…",
+   "amounts": [
+    {
+     "raw": "$ 208 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 162 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 206 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 179   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "24",
    "match": "Not Yet Commenced",
@@ -389,6 +491,13 @@
    ]
   },
   {
+   "kind": "useful_life",
+   "page": "32",
+   "match": "useful life",
+   "text": "…Agreement, the Company continues to control the Existing Critical Infrastructure Assets and the Company recorded a financing obligation related to the consideration received for the Existing Critical Infrastructure Assets. The financing obligation is payable over a term of 14 years and has an imputed interest rate of 15 %. The Existing Critical Infrastructure Assets are included in property and equipment, net, on the condensed consolidated balance sheets and are depreciated over their estimated useful life.   Additionally, the Company entered into a lease for data center infrastructure assets with the DCSP. The arrangement commenced in April 2025 and is accounted for as a finance lease, with an initial term of 14 years and an imputed interest rate of 13 %. The Company did not record any finance lease right-of-use assets acquired through lease liability for the three   32",
+   "amounts": []
+  },
+  {
    "kind": "vie",
    "page": "33",
    "match": "primary beneficiary",
@@ -399,6 +508,13 @@
      "usdM": 16
     }
    ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "38",
+   "match": "depreciation expense",
+   "text": "…the six months ended June 30, 2026 and 2025, respectively.   The Company recorded income tax expense in all periods presented despite experiencing losses before income taxes primarily due to limitations on the Company's ability to realize certain tax benefits, which has resulted in the Company maintaining a valuation allowance on its U.S. deferred tax assets. The change in period-over-period income tax expense primarily resulted from an increase in losses before income taxes, an increase in tax depreciation expense from new assets placed in service, and the inability to record a tax benefit from deferred tax assets generated.   13. Net Loss Per Share Attributable to Common Stockholders   The Company computes net loss per share utilizing the two-class method required for participating securities. The two-class method determines net loss per share for each class of common stock and participating securities according to dividends declared or accumulated and participation rights in undistributed income. The rights, including the liquidation and dividend rights, of the holders of the Company's Class A common stock and Class B common stock are identical, except with respect to voting. As a result, the basic and diluted net loss per share of Class A common stock and Class B common stock are the same and therefore presented on a combined basis.   38",
+   "amounts": []
   },
   {
    "kind": "concentration",
@@ -550,6 +666,26 @@
     {
      "raw": "$87.20 ",
      "usdM": null
+    },
+    {
+     "raw": "$2.0 billion",
+     "usdM": 2000
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "48",
+   "match": "investment grade",
+   "text": "…ent at a price of $109.00 per share, for aggregate gross proceeds of $1.0 billion. The par value of the shares issued was recorded to Class A common stock, with the remainder recorded to additional paid-in capital.   Debt Financing   As of June 30, 2026, we had $13.6 billion outstanding under our delayed draw term loan facilities. These delayed draw term loan facilities are collateralized with the assets underlying the contributed contracts and the pledged contractual cash flows, generally from investment grade counterparties. They are drawn as we build infrastructure to support customer requirements, and amortize over time as contracted cash flows are generated in a regular and predictable manner, with excess cash made available to us.   As of June 30, 2026, we had $16.6 billion aggregate outstanding principal amount of Notes composed of the following:   • $2.0 billion aggregate principal amount of 2030 Senior Notes;   • $1.8 billion aggregate principal amount of 2031 9.00% Senior Notes;   • $2.8 billion aggregate principal amount of 2031 9.75% Senior Notes;   • $1.3 billion aggregate principal amount of 2032 9.625% Senior Notes;   • $2.3 billion aggregate principal amount of 2032 EUR Senior Notes;   • $2.6 billion aggregate principal amount of 2031 Convertible Senior Notes;   • $4.0 billion aggregate principal amount of 2032 Convertible Senior Notes.   We have also entered in…",
+   "amounts": [
+    {
+     "raw": "$13.6 billion",
+     "usdM": 13600
+    },
+    {
+     "raw": "$16.6 billion",
+     "usdM": 16600
     },
     {
      "raw": "$2.0 billion",
@@ -758,10 +894,31 @@
    "amounts": []
   },
   {
+   "kind": "useful_life",
+   "page": "61",
+   "match": "useful life",
+   "text": "…e will be unable to compete as effectively and our business, operating results, financial condition, and prospects will be adversely affected.   We continually work to upgrade and enhance our platform, solutions, and services in response to customer demand and to keep up with technological changes. Part of this process entails cycling out older components of our infrastructure and replacing them with the latest technology available. This requires us to make certain estimates with respect to the useful life of the components of our infrastructure and to maximize the value of the components of our infrastructure, including our GPUs, to the fullest extent possible. We cannot guarantee that our estimates will be accurate or that our attempts at maximizing value will be successful. Any changes to the significant assumptions underlying our estimates or to the estimates of our components' useful lives, or any inability to redeploy components of our existing infrastructure to extend past their contracted life could significantly affect our business, operating results, financial condition, and prospects.   Our platform must also integrate with a variety of network, hardware, storage, and software technologies, and we need to continuously modify and enhance the capabilities of our platform to adapt to changes and innovation in these technologies. If our customers widely adopt new technol…",
+   "amounts": []
+  },
+  {
+   "kind": "rpo",
+   "page": "63",
+   "match": "remaining performance obligations",
+   "text": "… operating results may fluctuate significantly, which could make our future results difficult to predict and could cause our operating results to fall below expectations.   Our operating results have varied significantly from period to period in the past, and we expect that our operating results will continue to vary significantly in the future such that period-to-period comparisons of our operating results may not be meaningful. In addition, in future periods, we may experience fluctuations in remaining performance obligations, given the nature of our committed contract business, the size of those contracts, and period-to-period variation in new business signed and revenue recognized from existing contracts. This could adversely affect our business, operating results, financial condition, and prospects. Accordingly, our financial results in any one quarter should not be relied upon as indicative of future performance. Fluctuations in quarterly results may negatively impact the trading price of our Class A common stock. Our quarterly financial results may fluctuate as a result of a number of factors, many of which are outside of our control and may be difficult to predict, including, without limitation:   • the amount and timing of operating costs and capital expenditures related to the expansion of our business;   • any power outages, shortages, supply chain issues, capacity c…",
+   "amounts": []
+  },
+  {
    "kind": "gpu",
    "page": "64",
    "match": "GPU",
    "text": "…ability to reduce our cost of capital over time;   • decisions by organizations to purchase specialized AI cloud infrastructure from larger, more established vendors;   • our ability to successfully and timely deliver our solutions and services to customers under our committed contracts, including due to data center lead times;   • our ability to successfully and timely deploy launches of additional data centers;   • the timing and success of the integration of new infrastructure, including new GPU generations, into our platform;   • changes in our pricing policies or those of our competitors;   • insolvency or credit difficulties confronting our customers, including bankruptcy or liquidation, due to individual, macroeconomic, and regulatory factors, including those specifically impacting early-stage AI ventures, affecting their ability to purchase or pay for our platform;   • significant security breaches of, technical difficulties with, or interruptions to, the use of our platform or other cybersecurity incidents;   • extraordinary expenses such as litigation or other dispute-related settlement payments or outcomes, taxes, regulatory fines or penalties;   • the timing of revenue recognition and revenue deferrals;   • future accounting pronouncements or changes in our accounting policies or practices;   • negative media coverage or publicity; and   • increases or decreases in …",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "66",
+   "match": "Google Cloud",
+   "text": "…seases or pandemics and wars and other armed conflicts, such as the conflicts in the Middle East and Ukraine, and the tensions between China and Taiwan.   Many of our competitors have greater financial, technical, marketing, sales, and other resources, greater name recognition, longer operating histories, and a larger base of customers than we do. Key competitors that offer general purpose cloud computing services as part of a broader, diversified product portfolio include Amazon (AWS), Google (Google Cloud Platform), Microsoft (Azure), and Oracle, a number of which are also our current customers. Our competitors may be able to devote significantly greater resources to the development, promotion, and sale of their solutions and services than we can, and they may offer lower pricing than we do or bundle certain competing solutions and services at lower prices. Our competitors may also have greater resources for research and development of new technologies, customer support, and to pursue acquisitions, and they have other financial, technical, or other resource advantages. Our competitors may engage in business practices that make our products and services more difficult to transition to or more expensive (for example, by charging data egress fees). Our larger competitors have substantially broader and more diverse solution and service offerings and more mature distribution and g…",
    "amounts": []
   },
   {
@@ -963,6 +1120,13 @@
    "page": "87",
    "match": "50 megawatts",
    "text": "…and energy efficiency requirements, privacy and data protection laws, AI, financial services laws, anti-bribery laws, sanctions, national security, import and export controls, anti-boycott, federal securities laws, and tax laws and regulations.   For example, government authorities have in the past sought to restrict data center development based on environmental considerations and have imposed moratoria on data center development, such as the moratorium on the development of data centers using 50 megawatts of power or more in the State of New York that was announced in July 2026. Government authorities have also cited concerns about energy usage, required new data centers to meet energy efficiency requirements, or regulated the use of power by large energy consumers. We may face higher costs from any laws imposing moratoria on data center development, requiring enhanced energy efficiency measures, changes to cooling systems, caps on energy usage, land use restrictions, limitations on back-up power sources, or other environmental requirements.   In certain foreign jurisdictions, these regulatory requirements may be more stringent than those in the United States. These laws and regulations are subject to change over time and thus we must continue to monitor and dedicate resources to ensure continued compliance. In particular, the global AI regulatory environment continues to evo…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "90",
+   "match": "depreciation expense",
+   "text": "…uly 2025 that had a significant impact on our effective tax rate for the third quarter of 2025. It contains tax provisions, such as the permanent extension or revision of certain expiring provisions of the Tax Cuts and Jobs Act enacted in 2017, as well as modifications to the international tax framework and the restoration of favorable tax treatment for certain business provisions. Among other items, the tax law changes will impact us by changing the timing and amount of certain tax deductions, depreciation expense, U.S. domestic R&D expenditures and interest expense. The legislation has multiple effective dates, with certain provisions effective now and others to be implemented through 2027. The issuance of additional regulatory or accounting guidance related to the OBBBA or other executive or Congressional actions in the United States or globally could materially affect our tax obligations and significantly impact our effective tax rate in the period such guidance is issued or such actions take effect. In addition, the Organization for Economic Cooperation and Development (\"OECD\") has issued Pillar Two model rules, introducing a new global minimum tax of 15%. While the United States has not adopted Pillar Two, other countries have enacted such legislation or are considering implementation. Given the scope of our foreign operations, Pillar Two has not increased our global tax …",
    "amounts": []
   },
   {

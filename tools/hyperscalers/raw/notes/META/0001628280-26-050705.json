@@ -6,10 +6,17 @@
  "filed": "2026-07-30",
  "report": "2026-06-30",
  "url": "https://www.sec.gov/Archives/edgar/data/1326801/000162828026050705/meta-20260630.htm",
- "harvested": "2026-10-03",
+ "harvested": "2026-10-04",
  "pageCount": 96,
  "numberedPages": 95,
  "hits": [
+  {
+   "kind": "useful_life",
+   "page": "12",
+   "match": "useful lives",
+   "text": "… values of our assets and liabilities, which are not readily apparent from other sources. We base our estimates and judgments on historical information and on various other assumptions that we believe are reasonable under the circumstances. GAAP requires us to make estimates and judgments in several areas, including, but not limited to, those related to loss contingencies, income taxes, valuation of non-marketable equity investments, valuation of long-lived assets and their associated estimated useful lives, revenue recognition, valuation of goodwill, credit losses of available-for-sale debt securities, accounts receivable, and fair value of financial instruments and leases. These estimates are based on management's knowledge about current events, interpretation of regulations, and expectations about actions we may undertake in the future. Actual results could differ materially from those estimates.   Significant Accounting Policies   There have been no material changes to our significant accounting policies from our Annual Report on Form 10-K for the year ended December 31, 2025.   Accounting Pronouncements Not Yet Adopted   In May 2026, the FASB issued Accounting Standards Update (ASU) No. 2026-02, Environmental Credits and Environmental Credit Obligations (Topic 818) . This standard establishes guidance for the recognition, measurement and disclosure of environmental credits…",
+   "amounts": []
+  },
   {
    "kind": "purchase_obligation",
    "page": "16",
@@ -133,6 +140,46 @@
    ]
   },
   {
+   "kind": "depreciation",
+   "page": "18",
+   "match": "Depreciation expense",
+   "text": "…7 55,568   Leasehold improvements 8,464 8,346   Equipment and other 10,209 9,377   Finance lease right-of-use assets 9,467 8,187   Construction in progress (1)   80,345 50,521   Property and equipment, gross 292,872 233,726   Less: Accumulated depreciation ( 67,148 ) ( 57,326 )   Property and equipment, net $ 225,724 $ 176,400   ____________________________________   (1) Construction in progress includes costs mostly related to construction of data centers, servers and network infrastructure.   Depreciation expense on property and equipment was $ 6.00 billion and $ 4.28 billion for the three months ended June 30, 2026 and 2025, respectively, and $ 11.67 billion and $ 8.12 billion for the six months ended June 30, 2026 and 2025, respectively. Within property and equipment, our servers and network assets depreciation expense was $ 4.62 billion and $ 3.12 billion for the three months ended June 30, 2026 and 2025, respectively, and $ 9.01 billion and $ 5.74 billion for the six months ended June 30, 2026 and 2025, respectively.   Held-for-sale Assets   In March 2026, we approved a plan to dispose of certain data center assets with a carrying value of $ 1.48 billion, consisting mostly of construction in progress and land. We expect to dispose of these assets in the third quarter of 2026 through a contribution to a third party for the purpose of co-developing data centers in El Paso, …",
+   "amounts": [
+    {
+     "raw": "$ 225,724 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 176,400   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 6.00 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$ 4.28 billion",
+     "usdM": 4280
+    },
+    {
+     "raw": "$ 11.67 billion",
+     "usdM": 11670
+    },
+    {
+     "raw": "$ 8.12 billion",
+     "usdM": 8120
+    },
+    {
+     "raw": "$ 4.62 billion",
+     "usdM": 4620
+    },
+    {
+     "raw": "$ 3.12 billion",
+     "usdM": 3120
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "20",
    "match": "not yet commenced",
@@ -159,6 +206,13 @@
      "usdM": 10800
     }
    ]
+  },
+  {
+   "kind": "segment",
+   "page": "29",
+   "match": "Segment Information",
+   "text": "…rmination and do not reflect offsets, including reduction in tax we would owe under the mandatory transition tax on accumulated foreign earnings, global intangible low-taxed income tax, and foreign-derived intangible income deduction from the 2017 Tax Cuts and Jobs Act. We do not agree with the IRS' position and filed a petition with the Tax Court in December 2025 to challenge the 2017-2019 Notice. As of June 30, 2026, we believe our accrual for unrecognized tax benefits is adequate.   Note 12. Segment Information   We report our financial results for our two reportable segments: Family of Apps (FoA) and Reality Labs (RL). FoA includes Facebook, Instagram, Messenger, WhatsApp, and other services. RL includes our virtual and augmented reality related consumer hardware, software, and content. Our operating segments are the same as our reportable segments.   The following table sets forth our segment information of revenue, expenses, and income (loss) from operations (in millions):   Three Months Ended June 30, Six Months Ended June 30,   2026 2025 2026 2025   Family of Apps:   Revenue $ 60,370 $ 47,146 $ 116,278 $ 89,048   Employee compensation (1)   ( 14,571 ) ( 9,336 ) ( 26,650 ) ( 18,366 )   Other costs and expenses (2)   ( 22,405 ) ( 12,839 ) ( 39,334 ) ( 23,946 )   Income from operations $ 23,394 $ 24,971 $ 50,294 $ 46,736   Reality Labs:   Revenue $ 431 $ 370 $ 833 $ 782   …",
+   "amounts": []
   },
   {
    "kind": "rvg",
@@ -205,6 +259,32 @@
    ]
   },
   {
+   "kind": "segment",
+   "page": "32",
+   "match": "Segment Results",
+   "text": "Table of Contents   Consolidated and Segment Results   We report our financial results for our two reportable segments: Family of Apps (FoA) and Reality Labs (RL). FoA includes Facebook, Instagram, Messenger, WhatsApp, and other services. RL includes our virtual and augmented reality related consumer hardware, software, and content.   Family of Apps Reality Labs Total   Three Months Ended June 30,   % change Three Months Ended June 30,  % change Three Months Ended June 30,   % change   2026 2025 2026 2025 2026 2025   (in millions, except percentages)   Revenue $ 60,370 $ 47,146 28% $ 431 $ 370 16% $ 60,801 $ 47,516 28%   Costs and expenses 36,976 22,175 67% 5,050 4,900 3% 42,026 27,075 55%   Income (loss) from operations $ 23,394 $ 24,971 (6)% $ (4,619) $ (4,530) (2)% $ 18,775 $ 20,441 (8)%   Operating margin 39 % 53 % (1,072) % (1,224) % 31 % 43 %   • Net income was $15.85 billion, with diluted earnings per share (EPS) of …",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "40",
+   "match": "depreciation expense",
+   "text": "…ns, and revenue from various other sources.   Reality Labs (RL)   RL revenue is generated from the delivery of consumer hardware products, such as Meta Quest and AI glasses, and related software and content.   Cost of Revenue and Operating Expenses   Cost of revenue. Our cost of revenue consists of expenses associated with the delivery and distribution of our products. These mainly include infrastructure expenses related to the operation of our data centers and technical infrastructure, such as depreciation expense from servers, network infrastructure and buildings, employee compensation which includes payroll, share-based compensation and benefits for employees on our operations teams, energy and bandwidth costs, as well as third-party cloud costs. Cost of revenue also consists of processing fees and traffic acquisition costs, which include credit card and other fees related to processing customer transactions; RL inventory costs, which consist of cost of products sold and estimated losses on non-cancelable contractual commitments; and content and creator costs, which include payments to content creators from whom we license content for distribution, as well as incentive payments made to creators based on engagement.   Research and development. Research and development expenses consist mostly of employee compensation, which includes payroll, share-based compensation and benefi…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "44",
+   "match": "Segment Information",
+   "text": "…s; legal-related costs; and third-party AI token costs.   Reality Labs   RL loss from operations in the three months ended June 30, 2026 increased $89 million, or 2%, compared to the same period in 2025, driven by higher RL costs and expenses partially offset by an increase in revenue.   RL loss from operations in the six months ended June 30, 2026 decreased $92 million, or 1%, compared to the same period in 2025, driven by an increase in revenue and lower RL costs and expenses.   See Note 12 — Segment Information in the notes to the condensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information regarding segment employee compensation.   44",
+   "amounts": [
+    {
+     "raw": "$92 million",
+     "usdM": 92
+    }
+   ]
+  },
+  {
    "kind": "purchase_obligation",
    "page": "46",
    "match": "purchase obligations",
@@ -217,6 +297,42 @@
     {
      "raw": "$ 49,587   ",
      "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "46",
+   "match": "depreciation and amortization expense",
+   "text": "… 30,   2026 2025   Net cash provided by operating activities $ 64,088 $ 49,587   Net cash used in investing activities $ (83,331) $ (45,968)   Net cash provided by (used in) financing activities $ 9,414 $ (35,472)   Cash Provided by Operating Activities   Cash provided by operating activities during the six months ended June 30, 2026 mostly consisted of $42.62 billion net income adjusted for certain non-cash items, such as $13.69 billion of share-based compensation expense and $12.35 billion of depreciation and amortization expense. The increase in cash flows from operating activities during the six months ended June 30, 2026, compared to the same period in 2025, was due primarily to an increase in cash collections from our customers driven by higher revenue, and a decrease in cash tax payments, partially offset by higher operational spending.   Cash Used in Investing Activities   Cash used in investing activities during the six months ended June 30, 2026 mostly consisted of $49.11 billion of purchases of property and equipment as we continued to invest in servers, data centers, and network infrastructure, and $31.56 billion of net purchases of marketable securities. The increase in cash used in investing activities during the six months ended June 30, 2026, compared to the same period in 2025, was mostly due to increases in net purchases of marketable securities and property a…",
+   "amounts": [
+    {
+     "raw": "$42.62 billion",
+     "usdM": 42620
+    },
+    {
+     "raw": "$13.69 billion",
+     "usdM": 13690
+    },
+    {
+     "raw": "$12.35 billion",
+     "usdM": 12350
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "46",
+   "match": "investment grade",
+   "text": "…ensed consolidated financial statements included in Part I, Item 1, of this Quarterly Report on Form 10-Q for additional information regarding income tax contingencies.   Liquidity and Capital Resources   Our principal sources of liquidity are our cash, cash equivalents, marketable securities, and cash generated from operations. Cash, cash equivalents, and marketable securities are comprised of cash on deposit with banks, time deposits, money market funds, U.S. government and agency securities, investment grade corporate debt securities, and marketable equity securities. As part of our cash management strategy, we concentrate cash deposits with large financial institutions and our investment holdings are in diversified highly rated securities.   Cash, cash equivalents, and marketable securities were $90.26 billion as of June 30, 2026, an increase of $8.67 billion from December 31, 2025. The increase was due to $64.09 billion of cash generated from operations and $24.91 billion of net proceeds from the issuance of fixed-rate senior unsecured notes (the Notes) in May 2026. These increases were partially offset by $50.92 billion of capital expenditures, which includes purchases of property and equipment and principal payments on finance leases; $8.70 billion of taxes paid related to net share settlement of employee restricted stock unit (RSU) awards; $2.70 billion of payments of d…",
+   "amounts": [
+    {
+     "raw": "$90.26 billion",
+     "usdM": 90260
+    },
+    {
+     "raw": "$8.67 billion",
+     "usdM": 8670
     }
    ]
   },
