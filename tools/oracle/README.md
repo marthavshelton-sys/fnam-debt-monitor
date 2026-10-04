@@ -90,8 +90,11 @@ in the reader's language, every section numbered (01… and R1…), only the Sum
 "what has to be true" statement, the three scenarios and the tax and lease notes, the Bear preset applying, the six-box
 chain and the verdict, a lead on every section, the glossary first-use definitions, the round-2 tables (sources and
 uses, hyperscalers, counterparties, RPO bridge, megawatts, glossary), the CDS note free of internal paths, the Issues
-column for every campus, working collapse toggles (the lead stays visible) and back-to-top. `--shots <dir>` saves
-screenshots. Run it before pushing a page change.
+column for every campus, working collapse toggles (the lead stays visible) and back-to-top. Since round 3 (2026-10-04) it
+also fails on any anchor without a real href (empty, `undefined`, `null`), on any repository or tool path in visible text,
+on a "Source:" line with no source or a table row with an empty Source cell, on fewer than four scenario rows, and, with
+`--max-words <n>`, when the expanded page's visible word count exceeds the ceiling (the owner's rule: it must not grow).
+`--shots <dir>` saves screenshots. Run it before pushing a page change.
 
 ## Numbering, cross-references and stamps (2026-10-03)
 
@@ -233,6 +236,10 @@ AI buildout sites and capacity (portrait, `data/buildout.js`) · leverage, divid
 generation (ten fiscal years), AI buildout (five-step flow and tracker), RPO explained, debt detail and
 credit risk (landscape) · sources and methodology. The share-price, DCF and relative-valuation views are excluded
 on purpose. Every page after the cover carries the confidentiality footer and "Page X of Y".
+
+The estimate written when Oracle has not announced the date (`calendar.json → estimates[]`) carries the window
+(`window_start`/`window_end`), the `median` of the prior three years' dates and that `history`; the page shows the median
+("median of the prior three years' release dates", with the dates) and uses the window's end only as the staleness deadline.
 
 Next results date: `tools/oracle/data/calendar.json` → `nextResults: { date, time, timezone, fiscal_period, source }`,
 filled automatically by `scripts/oracle/fetch-calendar.mjs` (weekday workflow) from Oracle IR's events list and the

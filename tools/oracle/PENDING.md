@@ -25,8 +25,10 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - Full balance sheets (total liabilities, working-capital lines) and full cash-flow statements from the
   10-Q/10-K, beyond the highlight lines the releases print, so the balance-sheet equation can join the tie-out.
 - Non-GAAP reconciling items for the FY2022–FY2024 quarters where the release printed them differently.
-- Debt: confirm from the 1Q27 10-Q that the July-2026 notes (US$ 3,000 M) were repaid and drop them from
-  `market_reference.json` → `debt_instruments`; add any issuance after 31 May 2026.
+- Debt: the July-2026 notes (US$ 3,000 M) are marked `status: repaid` in `market_reference.json` → `debt_instruments` with the
+  1Q27 10-Q evidence (XBRL RepaymentsOfDebt US$ 4,202 M in the quarter; notes payable 129,541 → 125,337); they stay in the
+  list because the book reconciles to the 10-K gross total at 31 May 2026. Still to do: add any issuance after 31 May 2026
+  from each 8-K, and re-base the book on the FY2027 10-K when it is filed.
 - Ratings: the Moody's (Jul-2025) and Fitch (Feb-2026) actions are cited to press articles (investing.com,
   StreetInsider); replace with the agencies' own rating-action releases when accessible (Moody's requires a login).
 - Narrative facts drafted from the transcripts (executive summary, Comments, AI-buildout timeline) are
@@ -43,6 +45,9 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
   (`NEWS-SWEEP-PROMPT.md`); the desktop task "FNAM Oracle: weekly press sweep" and `press.js` are retired — **owner:
   disable the desktop task**. `press.json` stays in the repository as the archive of the earlier sweeps.
+- US$288 bn of uncommenced leases: no XBRL concept carries the amount (SEC company-facts API searched 2026-10-04; only
+  `CommitmentsAndContingencies`, without a value), so the figure rests on the two readings of the note and keeps the "text ·
+  second reading" badge; re-run the search after each 10-Q in case Oracle adds a custom tag.
 - Obligations provenance: `page` is null for every note (Oracle files inline XBRL without fixed pagination); the note
   numbers in `obligations.json → sources.10q_1q27.notes` follow the FY2026 10-K order and need a re-read of the 1Q27 10-Q.
   VIE/SPV and guarantees are text readings flagged *needs review* until the routine greps the archived filings.

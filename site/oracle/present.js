@@ -45,8 +45,11 @@
   class OracleDoc extends P.Doc {
     constructor(M) {
       super(M, { ...CFG, name: (M.REF.company && M.REF.company.name) || CFG.name });
+      // Eastern Time is the Oracle page's only time zone (owner's rule): the cover date and "today" for maturities follow it
+      if (typeof M.todayET === 'function') { this.todayIso = M.todayET(); this.today = new Date(this.todayIso + 'T12:00:00Z'); }
       this.next = this.nextResults();
     }
+    longDate(d) { return d.toLocaleDateString(this.es ? 'es-MX' : 'en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }); }
     // ----- shared pieces -----
     // Page title from the section registry: "NN · Title" (the number is generated, never typed) plus an optional subtitle.
     // Narrative strings from the data files may carry section-token cross-references ({{sec:<id>}}): resolve them to "§NN Name" before any
@@ -121,14 +124,14 @@
       const M = this.M, BO = M.BO, OB = M.OB, XB = M.XB; if (!BO || !OB) return;
       const U = BO.unitEconomics || {}, fm = U.funding_mix || {}, cn = U.concentration || {}, pp = OB.prepayments || {};
       const fund = (BO.funding && BO.funding.items) || [], prepayCum = fund.find((f) => /prepay|prepago/i.test(f.en));
-      const sites = BO.sites || [], openai = sites.filter((s) => /OpenAI/i.test(s.tenant_en || s.customer || '')).length;
+      const sites = BO.sites || [], oa = typeof M.openaiTenants === 'function' ? M.openaiTenants() : { company: sites.filter((s) => s.tenant_openai && s.tenant_basis === 'company').length, press: 0, n: sites.length };
       const def = XB && XB.concepts.deferred_revenue_total ? XB.concepts.deferred_revenue_total.periods.slice(-10) : [], last = def[def.length - 1];
       let y = this.page('L', this.secHead('circular'), this.T(`Quién paga la capacidad y quién la usa · 10-Q al ${this.date(OB.as_of)}, llamadas de resultados, S&P · lo reportado se separa de lo estimado`, `Who pays for the capacity and who uses it · 10-Q at ${this.date(OB.as_of)}, earnings calls, S&P · reported figures kept apart from estimates`));
       y = this.tiles([
         pp.deferred_revenue_prepayments_financing_1q27 != null && { v: this.bn(pp.deferred_revenue_prepayments_financing_1q27), l: this.T('prepagos de clientes cobrados en el 1T27 (10-Q, reportado)', 'customer prepayments collected in 1Q27 (10-Q, reported)') },
         last && { v: this.bn(last.value), l: this.T(`ingresos diferidos al ${this.date(last.period_end)} (XBRL)`, `deferred revenue at ${this.date(last.period_end)} (XBRL)`) },
         prepayCum && { v: `≈ US$ ${this.n(prepayCum.usd_bn)} ${this.T('mil M', 'bn')}`, l: this.T('prepagos y hardware del cliente, acumulado (llamada 4T26, no auditado)', 'prepayments and BYOH, cumulative (4Q26 call, not audited)') },
-        { v: `${openai}/${sites.length}`, l: this.T('campus nombrados con OpenAI como inquilino', 'named campuses with OpenAI as tenant') },
+        { v: `${oa.company}/${oa.n}`, l: this.T(`campus nombrados con OpenAI como inquilino según la empresa o el desarrollador${oa.press ? `; ${oa.press} más solo por prensa` : ''}`, `named campuses with OpenAI as tenant per the company or the developer${oa.press ? `; ${oa.press} more per press only` : ''}`) },
       ].filter(Boolean), y, 48);
       const gap = 24, wl = this.width() * 0.46, xr = this.cur.x0 + wl + gap, wr = this.width() - wl - gap;
       let yl = this.heading(this.T('Ingresos diferidos por trimestre (US$ millones, XBRL)', 'Deferred revenue by quarter (US$ million, XBRL)'), this.cur.x0, y, 10);
@@ -556,7 +559,7 @@
     obligationsPage() {
       const M = this.M, OB = M.OB, S = M.obligStats ? M.obligStats() : null; if (!OB || !S) return;
       const Lz = OB.leases || {}, bs = OB.balance_sheet || {}, po = OB.purchase_obligations || {}, un = Lz.uncommenced || {}, ga = OB.guarantees || {};
-      let y = this.page('L', this.secHead('obligations'), this.T(`Formulario 10-Q al ${this.date(OB.as_of)} (notas de arrendamientos y compromisos) · deuda neta y EBITDA UDM del modelo (${M.lastLTM ? M.lastLTM.id : ''}) · razones derivadas`, `Form 10-Q at ${this.date(OB.as_of)} (leases and commitments notes) · model net debt and LTM EBITDA (${M.lastLTM ? M.lastLTM.id : ''}) · derived ratios`));
+      let y = this.page('L', this.secHead('obligations'), this.T(`Formulario 10-Q al ${this.date(OB.as_of)} (notas de arrendamientos y compromisos) · deuda neta y EBITDA UDM del modelo (${typeof M.ltmLabel === 'function' ? M.ltmLabel() : (M.lastLTM ? M.lastLTM.id : '')}) · razones derivadas`, `Form 10-Q at ${this.date(OB.as_of)} (leases and commitments notes) · model net debt and LTM EBITDA (${typeof M.ltmLabel === 'function' ? M.ltmLabel() : (M.lastLTM ? M.lastLTM.id : '')}) · derived ratios`));
       const bn = (m) => this.n(m / 1000, 1);
       y = this.tiles([
         { v: M.fmtX(S.ndEbitda, 2), l: this.T('deuda neta / EBITDA UDM, como se reporta', 'net debt / LTM EBITDA, as reported') },
@@ -580,7 +583,7 @@
       Rw(this.T('Arrendamientos firmados, aún no iniciados', 'Leases signed, not yet commenced'), this.n(un.usd_bn, 0), this.T(`nota de arrendamientos · ${un.term_years_min}–${un.term_years_max} años · inician 2T27–AF2029 · nominal`, `leases note · ${un.term_years_min}–${un.term_years_max} years · commence 2Q27–FY2029 · nominal`));
       Rw(this.T('Obligaciones de compra', 'Purchase obligations'), bn(po.total), this.T('reportadas por separado en el 10-Q (nota de compromisos) · calendario a la derecha', 'reported separately in the 10-Q (commitments note) · schedule at right'));
       // the same reading as the page (obligations.json → guarantees): a disclosed guarantee is shown as exposure, never as a liability
-      if (ga.disclosed && ga.usd_m != null) Rw(this.T('Garantía del préstamo de un arrendador (exposición máxima)', "Guarantee of a lessor's borrowing (maximum exposure)"), this.n(ga.usd_m / 1000, 1), this.T(`10-K AF2026, p. ${ga.page}; vence ${ga.matures}; exposición, no pasivo`, `FY2026 10-K, p. ${ga.page}; matures ${ga.matures}; exposure, not a liability`));
+      if (ga.disclosed && ga.usd_m != null) Rw(this.T('Garantía del préstamo de un arrendador (exposición máxima)', "Guarantee of a lessor's borrowing (maximum exposure)"), this.n(ga.usd_m / 1000, 1), this.T(`10-K AF2026, p. ${ga.page}; ${(typeof M.guaranteeStatus === 'function' && M.guaranteeStatus()) ? M.guaranteeStatus().short : `vence ${ga.matures}`}; exposición, no pasivo`, `FY2026 10-K, p. ${ga.page}; ${(typeof M.guaranteeStatus === 'function' && M.guaranteeStatus()) ? M.guaranteeStatus().short : `matures ${ga.matures}`}; exposure, not a liability`));
       else Rw(this.T('Garantías a arrendadores u otras', 'Lessor or other guarantees'), this.T('no divulgadas', 'not disclosed'), this.T('sin garantías reveladas en el 10-Q ni en el 10-K', 'none disclosed in the 10-Q or the 10-K'));
       let yl = this.heading(this.T('Lo que Oracle debe, en dos grupos (US$ mil millones)', 'What Oracle owes, in two groups (US$ billion)'), this.cur.x0, y, 10);
       yl = this.table({ y: yl, w: wl, head: [this.T('Partida', 'Item'), this.T('US$ mil M', 'US$ bn'), this.T('Dónde está', 'Where it sits')], body: rows, meta: rowMeta, rowSpan: rows.map((r) => (r[1] === '' && r[2] === '' ? 3 : 0)), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.38 }, 1: { cellWidth: wl * 0.14 }, 2: { halign: 'left' } } });

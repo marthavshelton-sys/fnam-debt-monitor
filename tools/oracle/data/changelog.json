@@ -3,1959 +3,6 @@
  "entries": [
   {
    "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[3].match_en",
-   "old": null,
-   "new": "\\bNon-GAAP\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[3].match_es",
-   "old": null,
-   "new": "\\bNo-GAAP\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[4].id",
-   "old": null,
-   "new": "net_debt"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[4].match_en",
-   "old": null,
-   "new": "\\b[Nn]et debt\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[4].match_es",
-   "old": null,
-   "new": "\\b[Dd]euda neta\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[5].id",
-   "old": null,
-   "new": "market_cap"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[5].match_en",
-   "old": null,
-   "new": "\\b[Mm]arket cap(?:italization)?\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[5].match_es",
-   "old": null,
-   "new": "\\b[Cc]apitalización(?: de mercado)?\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[6].id",
-   "old": null,
-   "new": "ev_ebitda"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[6].match_en",
-   "old": null,
-   "new": "\\bEV\\s*/\\s*EBITDA\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[6].match_es",
-   "old": null,
-   "new": "\\bVE\\s*/\\s*EBITDA\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[7].id",
-   "old": null,
-   "new": "pe"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[7].match_en",
-   "old": null,
-   "new": "\\bP\\s*/\\s*E\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[7].match_es",
-   "old": null,
-   "new": "\\bP\\s*/\\s*U\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[8].id",
-   "old": null,
-   "new": "fcf"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[8].match_en",
-   "old": null,
-   "new": "\\b[Ff]ree cash flow\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[8].match_es",
-   "old": null,
-   "new": "\\b[Ff]lujo (?:de efectivo )?libre\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[9].id",
-   "old": null,
-   "new": "capex"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[9].match_en",
-   "old": null,
-   "new": "\\b[Cc]apex\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[9].match_es",
-   "old": null,
-   "new": "\\b[Cc]apex\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[10].id",
-   "old": null,
-   "new": "wacc"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[10].match_en",
-   "old": null,
-   "new": "\\bWACC\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[10].match_es",
-   "old": null,
-   "new": "\\bWACC\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[11].id",
-   "old": null,
-   "new": "beta"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[11].match_en",
-   "old": null,
-   "new": "\\b[Bb]eta\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[11].match_es",
-   "old": null,
-   "new": "\\b[Bb]eta\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[12].id",
-   "old": null,
-   "new": "erp"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[12].match_en",
-   "old": null,
-   "new": "\\b[Ee]quity risk premium\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[12].match_es",
-   "old": null,
-   "new": "\\b[Pp]rima de riesgo(?: de mercado)?\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[13].id",
-   "old": null,
-   "new": "gordon"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[13].match_en",
-   "old": null,
-   "new": "\\bGordon\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[13].match_es",
-   "old": null,
-   "new": "\\bGordon\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[14].id",
-   "old": null,
-   "new": "exit_multiple"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[14].match_en",
-   "old": null,
-   "new": "\\b[Ee]xit multiple\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[14].match_es",
-   "old": null,
-   "new": "\\b[Mm]últiplo de salida\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[15].id",
-   "old": null,
-   "new": "guidance"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[15].match_en",
-   "old": null,
-   "new": "\\b[Gg]uidance\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[15].match_es",
-   "old": null,
-   "new": "\\b[Gg]uía\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].id",
-   "old": null,
-   "new": "byoh"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].term_en",
-   "old": null,
-   "new": "BYOH (bring your own hardware)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].term_es",
-   "old": null,
-   "new": "BYOH (hardware del cliente)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].en",
-   "old": null,
-   "new": "A contract where the customer buys and owns the GPUs or servers and Oracle supplies the data-center space, power and operations, so Oracle funds less capex per megawatt."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].es",
-   "old": null,
-   "new": "Contrato en el que el cliente compra y posee las GPU o servidores y Oracle aporta el espacio, la energía y la operación del centro de datos, de modo que Oracle financia menos capex por megavatio."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].match_en",
-   "old": null,
-   "new": "\\bBYOH\\b|\\bbring-your-own-hardware\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[16].match_es",
-   "old": null,
-   "new": "\\bBYOH\\b|\\bhardware del cliente\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].id",
-   "old": null,
-   "new": "asc842"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].term_en",
-   "old": null,
-   "new": "ASC 842 (lease accounting)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].term_es",
-   "old": null,
-   "new": "ASC 842 (contabilidad de arrendamientos)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].en",
-   "old": null,
-   "new": "The US GAAP standard that puts leases on the balance sheet: a right-of-use asset and a lease liability equal to the present value of the payments; leases signed but not yet commenced stay off the balance sheet until the asset is handed over."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].es",
-   "old": null,
-   "new": "La norma US GAAP que lleva los arrendamientos al balance: un activo por derecho de uso y un pasivo igual al valor presente de los pagos; los arrendamientos firmados que aún no empiezan quedan fuera del balance hasta que el activo se entrega."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].match_en",
-   "old": null,
-   "new": "\\bASC 842\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[17].match_es",
-   "old": null,
-   "new": "\\bASC 842\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].id",
-   "old": null,
-   "new": "vie"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].term_en",
-   "old": null,
-   "new": "VIE (variable-interest entity)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].term_es",
-   "old": null,
-   "new": "VIE (entidad de interés variable)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].en",
-   "old": null,
-   "new": "An entity a company controls through contracts rather than voting shares (ASC 810); if a company is the primary beneficiary it consolidates the entity and its debt, otherwise it discloses its maximum exposure to loss."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].es",
-   "old": null,
-   "new": "Entidad que una empresa controla por contratos y no por acciones con voto (ASC 810); si la empresa es el beneficiario principal la consolida con su deuda, de lo contrario revela su exposición máxima a pérdidas."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].match_en",
-   "old": null,
-   "new": "\\bVIEs?\\b|\\bvariable-interest entit(?:y|ies)\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[18].match_es",
-   "old": null,
-   "new": "\\bVIEs?\\b|\\bentidad(?:es)? de interés variable\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].id",
-   "old": null,
-   "new": "bp"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].term_en",
-   "old": null,
-   "new": "bp (basis point)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].term_es",
-   "old": null,
-   "new": "pb (punto base)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].en",
-   "old": null,
-   "new": "One hundredth of a percentage point: 100 bp = 1.00%. Credit spreads and rate moves are quoted in basis points."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].es",
-   "old": null,
-   "new": "Una centésima de punto porcentual: 100 pb = 1.00%. Los diferenciales de crédito y los movimientos de tasas se cotizan en puntos base."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].match_en",
-   "old": null,
-   "new": "\\bbp\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[19].match_es",
-   "old": null,
-   "new": "\\bpb\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].id",
-   "old": null,
-   "new": "mw_gw"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].term_en",
-   "old": null,
-   "new": "MW and GW (megawatt, gigawatt)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].term_es",
-   "old": null,
-   "new": "MW y GW (megavatio, gigavatio)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].en",
-   "old": null,
-   "new": "Data-center capacity is sized by the electrical power it can draw: 1 GW = 1,000 MW. A gigawatt-scale campus hosts on the order of hundreds of thousands of GPUs; capacity is contracted, built and energized in megawatts before it earns revenue."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].es",
-   "old": null,
-   "new": "La capacidad de un centro de datos se mide por la potencia eléctrica que puede consumir: 1 GW = 1,000 MW. Un campus de escala gigavatio aloja del orden de cientos de miles de GPU; la capacidad se contrata, construye y energiza en megavatios antes de generar ingresos."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].match_en",
-   "old": null,
-   "new": "\\b(?:MW|GW)\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[20].match_es",
-   "old": null,
-   "new": "\\b(?:MW|GW)\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].id",
-   "old": null,
-   "new": "prepayment_unwind"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].term_en",
-   "old": null,
-   "new": "Prepayment unwind"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].term_es",
-   "old": null,
-   "new": "Reversión de prepagos"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].en",
-   "old": null,
-   "new": "Cash a customer pays in advance is booked as deferred revenue and recognised as revenue over the contract term without new cash; in the DCF the cash counts when received and the later revenue is removed so it is not counted twice."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].es",
-   "old": null,
-   "new": "El efectivo que un cliente paga por adelantado se registra como ingreso diferido y se reconoce como ingreso a lo largo del contrato sin nuevo efectivo; en el DCF el efectivo cuenta al recibirse y el ingreso posterior se descuenta para no contarlo dos veces."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].match_en",
-   "old": null,
-   "new": "\\b[Pp]repayment unwind\\b|\\b[Uu]nwind(?:s|ing)?\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[21].match_es",
-   "old": null,
-   "new": "\\b[Rr]eversión de (?:los )?prepagos\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].id",
-   "old": null,
-   "new": "ebitdar"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].term_en",
-   "old": null,
-   "new": "EBITDAR"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].term_es",
-   "old": null,
-   "new": "EBITDAR"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].en",
-   "old": null,
-   "new": "EBITDA plus operating lease cost (rent): the earnings measure that pairs with lease-adjusted debt, so leases are not counted in the debt without adding their cost back to earnings."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].es",
-   "old": null,
-   "new": "EBITDA más el costo de arrendamientos operativos (renta): la medida de utilidad que acompaña a la deuda ajustada por arrendamientos, para no sumar los arrendamientos a la deuda sin devolver su costo a la utilidad."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].match_en",
-   "old": null,
-   "new": "\\bEBITDAR\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[22].match_es",
-   "old": null,
-   "new": "\\bEBITDAR\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].id",
-   "old": null,
-   "new": "sbc"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].term_en",
-   "old": null,
-   "new": "Stock-based compensation (SBC)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].term_es",
-   "old": null,
-   "new": "Compensación en acciones"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].en",
-   "old": null,
-   "new": "Pay in shares or options; a real cost that Oracle’s Non-GAAP figures and the brokers’ adjusted EBITDA exclude, so the DCF deducts it."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].es",
-   "old": null,
-   "new": "Pago en acciones u opciones; un costo real que las cifras No-GAAP de Oracle y el EBITDA ajustado de los brokers excluyen, por lo que el DCF lo resta."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].match_en",
-   "old": null,
-   "new": "\\b[Ss]tock-based compensation\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[23].match_es",
-   "old": null,
-   "new": "\\b[Cc]ompensación en acciones\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].id",
-   "old": null,
-   "new": "terminal_value"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].term_en",
-   "old": null,
-   "new": "Terminal value"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].term_es",
-   "old": null,
-   "new": "Valor terminal"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].en",
-   "old": null,
-   "new": "The value of all cash flows after the explicit projection years, either a perpetuity growing at g (Gordon) or an exit multiple of the final year’s EBITDA; usually most of a DCF’s enterprise value."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].es",
-   "old": null,
-   "new": "El valor de todos los flujos posteriores a los años explícitos, sea una perpetuidad que crece a g (Gordon) o un múltiplo de salida sobre el EBITDA del último año; suele ser la mayor parte del valor de la empresa en un DCF."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].match_en",
-   "old": null,
-   "new": "\\b[Tt]erminal value\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "glossary[24].match_es",
-   "old": null,
-   "new": "\\b[Vv]alor terminal\\b"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.source.title",
-   "old": null,
-   "new": "Oracle Form 10-K for the fiscal year ended May 31, 2026, income taxes note, rate reconciliation (ASU 2023-09 format)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.source.url",
-   "old": null,
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.source.accession",
-   "old": null,
-   "new": "0001193125-26-277521"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.source.filed",
-   "old": null,
-   "new": "2026-06-22"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.source.page",
-   "old": null,
-   "new": 96
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.pretax_income_usd_m",
-   "old": null,
-   "new": 19552
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.pretax_note",
-   "old": null,
-   "new": "derived: US$4,106 M tax at the 21% statutory rate ÷ 0.21 (the reconciliation table states the amount, not the base)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.provision_usd_m",
-   "old": null,
-   "new": 2467
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.effective_rate_pct",
-   "old": null,
-   "new": 12.6
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "reference.js",
-   "path": "(more)",
-   "old": null,
-   "new": "1421 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[0].issues_checked",
-   "old": "2026-10-03",
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[1].issues_checked",
-   "old": "2026-10-03",
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].date",
-   "old": "2026-09-24",
-   "new": "2026-09-30"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].kind",
-   "old": "force_majeure",
-   "new": "safety"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].source.title",
-   "old": "Bloomberg, 24 Sep 2026: Oracle cites 'force majeure' to shield itself on controversial data center",
-   "new": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[0].source.url",
-   "old": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center",
-   "new": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].kind",
-   "old": "power",
-   "new": "force_majeure"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].due",
-   "old": "2027-02-01",
-   "new": null
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].source.title",
-   "old": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center",
-   "new": "Bloomberg, 24 Sep 2026: Oracle cites 'force majeure' to shield itself on controversial data center"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[1].source.url",
-   "old": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/",
-   "new": "https://www.bloomberg.com/news/articles/2026-09-24/oracle-cites-force-majeure-to-shield-itself-on-controversial-data-center"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].kind",
-   "old": "permit",
-   "new": "power"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].due",
-   "old": "2026-11-23",
-   "new": "2027-02-01"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].en",
-   "old": "Air-quality permit for the on-site fuel cells is pending; the decision is due November 23, 2026.",
-   "new": "Gas supply: the Energy Transfer pipeline to the site is delayed to February 1, 2027 after repeated permit denials and an August reroute."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[2].source.title",
-   "old": "TechCrunch, 24 Sep 2026",
-   "new": "TechCrunch, 24 Sep 2026: Oracle sends force majeure notice on its New Mexico Stargate data center"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].date",
-   "old": "2026-09-18",
-   "new": "2026-09-24"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].kind",
-   "old": "financing",
-   "new": "permit"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].source.title",
-   "old": "Financial Times via Reuters, 18 Sep 2026: Oracle's $18 billion data center debt under pressure",
-   "new": "TechCrunch, 24 Sep 2026"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].source.url",
-   "old": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html",
-   "new": "https://techcrunch.com/2026/09/24/oracle-sends-force-majeure-notice-on-its-new-mexico-stargate-data-center/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues_checked",
-   "old": "2026-10-03",
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[3].issues_checked",
-   "old": "2026-10-03",
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].date",
-   "old": "2026-08-17",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].kind",
-   "old": "financing",
-   "new": "power"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].basis",
-   "old": "press",
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].source.title",
-   "old": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers",
-   "new": "Oracle press release, 2 Oct 2026: Oracle Announces Commitment to Absorb $300 Million in Rising Point Beach Energy Costs for Wisconsin Residents"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[0].source.url",
-   "old": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers",
-   "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].date",
-   "old": "2026-07-13",
-   "new": "2026-08-17"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].kind",
-   "old": "legal",
-   "new": "financing"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].en",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].es",
-   "old": "(text)",
-   "new": "(text changed)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].source.title",
-   "old": "E&E News, 13 Jul 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review",
-   "new": "WPR, 17 Aug 2026: Oracle drops Wisconsin suit over financial requirements tied to data centers"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[1].source.url",
-   "old": "https://www.eenews.net/articles/lawsuit-15b-wisconsin-data-center-lacks-required-environmental-review/",
-   "new": "https://www.wpr.org/news/oracle-drops-wisconsin-suit-financial-requirements-data-centers"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues_checked",
-   "old": "2026-10-03",
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].title",
-   "old": null,
-   "new": "Oracle press release, 30 Sep 2026: Project Jupiter Statement on Southern New Mexico Floods"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].url",
-   "old": null,
-   "new": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].sources[10].short",
-   "old": null,
-   "new": "Oracle PR 30 Sep 2026"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[3].due",
-   "old": null,
-   "new": "2026-11-23"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].date",
-   "old": null,
-   "new": "2026-09-18"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].kind",
-   "old": null,
-   "new": "financing"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].status",
-   "old": null,
-   "new": "open"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].en",
-   "old": null,
-   "new": "About US$18 bn of project loans were quoted at 89–91 cents on the dollar by syndicate banks; selling the debt to a wider pool of investors stalled. The loans are the developer's, not Oracle's."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].es",
-   "old": null,
-   "new": "Unos US$18 mil millones de préstamos del proyecto cotizaban a 89–91 centavos por dólar entre los bancos del sindicato; la venta de esa deuda a más inversionistas se estancó. Los préstamos son del desarrollador, no de Oracle."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].source.title",
-   "old": null,
-   "new": "Financial Times via Reuters, 18 Sep 2026: Oracle's $18 billion data center debt under pressure"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[2].issues[4].source.url",
-   "old": null,
-   "new": "https://www.aol.com/articles/oracles-18-billion-data-center-220302000.html"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].sources[4].title",
-   "old": null,
-   "new": "Oracle press release, 2 Oct 2026: commitment to absorb Point Beach energy costs (Project Lighthouse)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].sources[4].url",
-   "old": null,
-   "new": "https://www.oracle.com/news/announcement/oracle-announces-commitment-to-absorb-rising-point-beach-energy-costs-2026-10-02/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].sources[4].short",
-   "old": null,
-   "new": "Oracle PR 2 Oct 2026"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].date",
-   "old": null,
-   "new": "2026-07-13"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].kind",
-   "old": null,
-   "new": "legal"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].status",
-   "old": null,
-   "new": "open"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].en",
-   "old": null,
-   "new": "The Sierra Club sued the Wisconsin Department of Natural Resources to overturn the construction permit, issued without an environmental impact statement."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].es",
-   "old": null,
-   "new": "Sierra Club demandó al Departamento de Recursos Naturales de Wisconsin para anular el permiso de construcción, emitido sin una declaración de impacto ambiental."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].source.title",
-   "old": null,
-   "new": "E&E News, 13 Jul 2026: Lawsuit: $15B Wisconsin data center lacks required environmental review"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "sites[4].issues[2].source.url",
-   "old": null,
-   "new": "https://www.eenews.net/articles/lawsuit-15b-wisconsin-data-center-lacks-required-environmental-review/"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[0]",
-   "old": null,
-   "new": "AMD"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[1]",
-   "old": null,
-   "new": "Meta"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[2]",
-   "old": null,
-   "new": "NVIDIA"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[3]",
-   "old": null,
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[4]",
-   "old": null,
-   "new": "TikTok"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.names[5]",
-   "old": null,
-   "new": "xAI"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.text_en",
-   "old": null,
-   "new": "Oracle is raising money in order to build additional capacity to meet the contracted demand from our largest Oracle Cloud Infrastructure customers, including AMD, Meta, NVIDIA, OpenAI, TikTok, xAI and others."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.text_es",
-   "old": null,
-   "new": "Oracle levanta capital para construir capacidad adicional que atienda la demanda contratada de sus mayores clientes de Oracle Cloud Infrastructure, entre ellos AMD, Meta, NVIDIA, OpenAI, TikTok y xAI (cita del prospecto en inglés)."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.basis",
-   "old": null,
-   "new": "sec"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.source.title",
-   "old": null,
-   "new": "Oracle free writing prospectus (Form FWP), filed 1 Feb 2026: equity and debt financing plan for calendar 2026"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.source.url",
-   "old": null,
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526032650/d36096dfwp.htm"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.source.accession",
-   "old": null,
-   "new": "0001193125-26-032650"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.source.date",
-   "old": null,
-   "new": "2026-02-01"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.amounts_note_en",
-   "old": null,
-   "new": "The prospectus names the customers but gives no amount per customer; Oracle's 10-K and 10-Q name none. Contract sizes exist only in press reports and are shown as press, never as figures."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.named_customers.amounts_note_es",
-   "old": null,
-   "new": "El prospecto nombra a los clientes pero no da montos por cliente; el 10-K y el 10-Q no nombran a ninguno. Los tamaños de contrato solo existen en reportes de prensa y se muestran como prensa, nunca como cifras."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].counterparty",
-   "old": null,
-   "new": "OpenAI"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].usd_bn",
-   "old": null,
-   "new": 300
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].term_text_en",
-   "old": null,
-   "new": "about five years from 2027, 4.5 GW of capacity"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].term_text_es",
-   "old": null,
-   "new": "unos cinco años desde 2027, 4.5 GW de capacidad"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].date",
-   "old": null,
-   "new": "2025-09-10"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].source.title",
-   "old": null,
-   "new": "Wall Street Journal, 10 Sep 2025 (as reported by Reuters / U.S. News): OpenAI, Oracle sign $300 billion computing deal"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[0].source.url",
-   "old": null,
-   "new": "https://money.usnews.com/investing/news/articles/2025-09-10/openai-oracle-sign-300-billion-computing-deal-wsj-reports"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].counterparty",
-   "old": null,
-   "new": "Meta"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].usd_bn",
-   "old": null,
-   "new": 20
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].term_text_en",
-   "old": null,
-   "new": "multi-year cloud deal, about US$20 bn (talks reported by Reuters; Oracle later confirmed a Meta deal without an amount)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].term_text_es",
-   "old": null,
-   "new": "acuerdo de nube plurianual de unos US$20 mil millones (negociaciones reportadas por Reuters; Oracle confirmó después un acuerdo con Meta sin monto)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].basis",
-   "old": null,
-   "new": "press"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].date",
-   "old": null,
-   "new": "2025-10-16"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].source.title",
-   "old": null,
-   "new": "CNBC, 16 Oct 2025: Oracle stock rises as company confirms Meta cloud deal"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.press_contracts[1].source.url",
-   "old": null,
-   "new": "https://www.cnbc.com/2025/10/16/oracle-confirms-meta-cloud-deal-.html"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.label_en",
-   "old": null,
-   "new": "FNAM estimate from press reports; not an Oracle figure"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.label_es",
-   "old": null,
-   "new": "Estimación FNAM a partir de reportes de prensa; no es una cifra de Oracle"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.arr_usd_bn",
-   "old": null,
-   "new": 40
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.arr_text_en",
-   "old": null,
-   "new": "annualized revenue past US$40 bn (Quartz, 29 Sep 2026, citing Bloomberg); other outlets quote a run rate nearing US$70 bn"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.arr_text_es",
-   "old": null,
-   "new": "ingresos anualizados por encima de US$40 mil millones (Quartz, 29 sep 2026, citando a Bloomberg); otros medios citan un ritmo cercano a US$70 mil millones"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.raised_usd_bn",
-   "old": null,
-   "new": 122
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.raised_text_en",
-   "old": null,
-   "new": "US$122 bn round closed March 2026 at a US$852 bn post-money valuation"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.raised_text_es",
-   "old": null,
-   "new": "ronda de US$122 mil millones cerrada en marzo de 2026 a una valuación post-money de US$852 mil millones"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.seeking_usd_bn",
-   "old": null,
-   "new": 30
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.seeking_text_en",
-   "old": null,
-   "new": "seeking at least US$30 bn at about US$1.4 trillion (Bloomberg, 29 Sep 2026; early talks, terms could change)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.seeking_text_es",
-   "old": null,
-   "new": "busca al menos US$30 mil millones a unos US$1.4 billones (Bloomberg, 29 sep 2026; negociaciones preliminares, términos sujetos a cambio)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[0].title",
-   "old": null,
-   "new": "Quartz, 29 Sep 2026 (citing Bloomberg): OpenAI targets $30 billion funding round at $1.4 trillion valuation"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[0].url",
-   "old": null,
-   "new": "https://qz.com/openai-funding-round-30-billion-valuation-092926"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[1].title",
-   "old": null,
-   "new": "Reuters via Investing.com, 29 Sep 2026: OpenAI targets $30 billion funding at $1.4 trillion valuation, Bloomberg News reports"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "buildout.js",
-   "path": "unitEconomics.concentration.counterparty_capacity.openai.sources[1].url",
-   "old": null,
-   "new": "https://www.investing.com/news/stock-market-news/openai-targets-30-billion-funding-at-14-trillion-valuation-bloomberg-news-reports-4923324"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.date",
-   "old": null,
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.by",
-   "old": null,
-   "new": "FNAM, second reading of the 1Q27 10-Q leases note text on EDGAR (full HTML, accession 0001193125-26-389274)"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.quote",
-   "old": null,
-   "new": "As of August 31, 2026, we had $288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 and fiscal 2029 and for terms of fifteen to nineteen years that were not reflected on our condensed consolidated balance sheets as of August 31, 2026 or in the maturities table above."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.matches",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.note_en",
-   "old": null,
-   "new": "Text reading confirmed by a second, independent reading of the same note (no XBRL concept exists for this disclosure); the figure keeps the 'text' basis badge but no longer needs review."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "leases.uncommenced.second_reading.note_es",
-   "old": null,
-   "new": "Lectura de texto confirmada por una segunda lectura independiente de la misma nota (no existe concepto XBRL para esta revelación); la cifra conserva la base 'texto' pero ya no está en revisión."
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "provenance.leases.uncommenced.usd_bn.second_reading.date",
-   "old": null,
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "obligations.js",
-   "path": "provenance.leases.uncommenced.usd_bn.second_reading.matches",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[0].nav_en",
-   "old": "Summary",
-   "new": "Start here"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[0].nav_es",
-   "old": "Resumen",
-   "new": "Empiece aquí"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].id",
-   "old": "statements",
-   "new": "rpo"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].en",
-   "old": "Business and Segments: Comparable Financial Statements",
-   "new": "Contracts: RPO and Backlog"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].es",
-   "old": "Negocio y segmentos: estados financieros comparables",
-   "new": "Contratos: RPO y cartera"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].nav_en",
-   "old": "Statements",
-   "new": "Contracts"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].nav_es",
-   "old": "Estados financieros",
-   "new": "Contratos"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[1].modules[1]",
-   "old": "comments",
-   "new": "buildout"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].id",
-   "old": "guidance",
-   "new": "sites"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].en",
-   "old": "Management Guidance",
-   "new": "Capacity: Power and Data-Center Sites"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].es",
-   "old": "Guía de la administración",
-   "new": "Capacidad: energía y sitios de centros de datos"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].nav_en",
-   "old": "Guidance",
-   "new": "Capacity"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].nav_es",
-   "old": "Guía",
-   "new": "Capacidad"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].modules[0]",
-   "old": "guidance",
-   "new": "buildout"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[2].modules[1]",
-   "old": "financials",
-   "new": "reference"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].id",
-   "old": "rpo",
-   "new": "capex"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].en",
-   "old": "RPO and Backlog",
-   "new": "Capex and Free Cash Flow"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].es",
-   "old": "RPO y cartera de contratos",
-   "new": "Capex y flujo de efectivo libre"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].nav_en",
-   "old": "RPO",
-   "new": "Capex"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].nav_es",
-   "old": "RPO",
-   "new": "Capex"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].modules[1]",
-   "old": "buildout",
-   "new": "xbrl"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[3].modules[2]",
-   "old": "reference",
-   "new": "guidance"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].id",
-   "old": "capex",
-   "new": "financing"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].en",
-   "old": "Capex and Free Cash Flow",
-   "new": "Funding: Financing and Balance Sheet"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].es",
-   "old": "Capex y flujo de efectivo libre",
-   "new": "Financiamiento y balance"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].nav_en",
-   "old": "Capex & FCF",
-   "new": "Funding"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].nav_es",
-   "old": "Capex y flujo libre",
-   "new": "Financiamiento"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].modules[1]",
-   "old": "xbrl",
-   "new": "reference"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[4].modules[2]",
-   "old": "guidance",
-   "new": "obligations"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].id",
-   "old": "sites",
-   "new": "obligations"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].en",
-   "old": "Power and Data-Center Sites",
-   "new": "Off-Balance-Sheet Financing and Leases"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].es",
-   "old": "Energía y sitios de centros de datos",
-   "new": "Financiamiento fuera de balance y arrendamientos"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].nav_en",
-   "old": "Sites & power",
-   "new": "Off-balance-sheet"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].nav_es",
-   "old": "Sitios y energía",
-   "new": "Fuera de balance"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].modules[0]",
-   "old": "buildout",
-   "new": "obligations"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[5].modules[1]",
-   "old": "reference",
-   "new": "xbrl"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].id",
-   "old": "financing",
-   "new": "credit"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].en",
-   "old": "Financing and Balance Sheet",
-   "new": "Credit: Ratings, Maturities and Leverage"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].es",
-   "old": "Financiamiento y balance",
-   "new": "Crédito: calificaciones, vencimientos y apalancamiento"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].nav_en",
-   "old": "Financing",
-   "new": "Credit"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].nav_es",
-   "old": "Financiamiento",
-   "new": "Crédito"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].modules[0]",
-   "old": "financials",
-   "new": "reference"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].modules[1]",
-   "old": "reference",
-   "new": "financials"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[6].modules[3]",
-   "old": "cds",
-   "new": "peer_leverage"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[7].id",
-   "old": "obligations",
-   "new": "circular"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[7].en",
-   "old": "Off-Balance-Sheet Financing and Leases",
-   "new": "Circularity: Circular Financing and Customer Concentration"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[7].es",
-   "old": "Financiamiento fuera de balance y arrendamientos",
-   "new": "Circularidad: financiamiento circular y concentración de clientes"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[7].nav_en",
-   "old": "Off-balance-sheet",
-   "new": "Circularity"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "sections.js",
-   "path": "sections[7].nav_es",
-   "old": "Fuera de balance",
-   "new": "Circularidad"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
    "file": "sections.js",
    "path": "sections[7].modules[1]",
    "old": "xbrl",
@@ -4200,7 +2247,1960 @@
    "path": "sweepNote.date",
    "old": null,
    "new": "2026-10-04"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].status",
+   "old": null,
+   "new": "repaid"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.quarter",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.source",
+   "old": null,
+   "new": "10q_1q27"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.xbrl",
+   "old": null,
+   "new": "debt_repaid"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.xbrl_concept",
+   "old": null,
+   "new": "RepaymentsOfDebt"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.xbrl_value_usd_m",
+   "old": null,
+   "new": 4202
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.note_en",
+   "old": null,
+   "new": "Form 10-Q for the quarter ended 31-Aug-2026: repayments of borrowings of US$4,202 M in the quarter (XBRL RepaymentsOfDebt, discrete) and notes payable and other borrowings down from US$129,541 M (31-May-2026) to US$125,337 M; the notes matured 15-Jul-2026 inside the quarter."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.note_es",
+   "old": null,
+   "new": "Formulario 10-Q del trimestre terminado el 31-ago-2026: pagos de préstamos por US$4,202 M en el trimestre (XBRL RepaymentsOfDebt, trimestre discreto) y notas por pagar y otros préstamos de US$129,541 M (31-may-2026) a US$125,337 M; los bonos vencieron el 15-jul-2026, dentro del trimestre."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.url",
+   "old": null,
+   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.accession",
+   "old": null,
+   "new": "0001193125-26-389274"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[1].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[1].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[2].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[2].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[3].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[3].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[4].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[4].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[5].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[5].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[6].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[6].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[7].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[7].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[8].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[8].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[9].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[9].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[10].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[10].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[11].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[11].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[12].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[12].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[13].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[13].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[14].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[14].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[15].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[15].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[16].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[16].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[17].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[17].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[18].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[18].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[19].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[19].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[20].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[20].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[21].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[21].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[22].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[22].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[23].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[23].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[24].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[24].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[25].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[25].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[26].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[26].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[27].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[27].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[28].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[28].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[29].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[29].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[30].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[30].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[31].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[31].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[32].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[32].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[33].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[33].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[34].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[34].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[35].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[35].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[36].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[36].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[37].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[37].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[38].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[38].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[39].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[39].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[40].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[40].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[41].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[41].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[42].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[42].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[43].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[43].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[44].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[44].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[45].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[45].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[46].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[46].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[47].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[47].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[48].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[48].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[49].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[49].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[50].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[50].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[51].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[51].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[52].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[52].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[53].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[53].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[54].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[54].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[55].status",
+   "old": null,
+   "new": "outstanding"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "debt.instruments[55].repaid",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
+   "path": "(more)",
+   "old": null,
+   "new": "1547 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "summary.js",
+   "path": "eventsThrough",
+   "old": "2026-09-25",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "summary.js",
+   "path": "eventsThroughBasis",
+   "old": null,
+   "new": "news"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "summary.js",
+   "path": "draftedEventsThrough",
+   "old": null,
+   "new": "2026-09-25"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "calendar.js",
+   "path": "estimates[0].source.title",
+   "old": "tools/oracle/data/quarters.json (release dates)",
+   "new": "Oracle release dates of the same fiscal quarter, prior three years"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "calendar.js",
+   "path": "estimates[0].median",
+   "old": null,
+   "new": "2026-12-10"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "calendar.js",
+   "path": "estimates[0].history[0]",
+   "old": null,
+   "new": "2023-12-11"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "calendar.js",
+   "path": "estimates[0].history[1]",
+   "old": null,
+   "new": "2024-12-09"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "calendar.js",
+   "path": "estimates[0].history[2]",
+   "old": null,
+   "new": "2025-12-10"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].tenant_openai",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].tenant_basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].when",
+   "old": null,
+   "new": "2024-06"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].kind",
+   "old": null,
+   "new": "contracted"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].mw",
+   "old": null,
+   "new": 1200
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].src",
+   "old": null,
+   "new": "Crusoe PR"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].en",
+   "old": null,
+   "new": "contracted; construction began June 2024; 1,200 MW nameplate across 8 buildings (Crusoe)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[0].es",
+   "old": null,
+   "new": "contratado; construcción iniciada en junio de 2024; 1,200 MW nominales en 8 edificios (Crusoe)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].when",
+   "old": null,
+   "new": "FY2026Q4"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].mw",
+   "old": null,
+   "new": 504
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].derived",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].en",
+   "old": null,
+   "new": "42% of capacity delivered (Oracle, 4Q26 call p.7): about 504 MW of 1,200, derived"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[1].es",
+   "old": null,
+   "new": "42% de la capacidad entregada (Oracle, llamada 4T26 p.7): unos 504 MW de 1,200, derivado"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].when",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].mw",
+   "old": null,
+   "new": 618
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].src",
+   "old": null,
+   "new": "1Q27 call p.6"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].en",
+   "old": null,
+   "new": "618 MW delivered, 6 of 8 buildings live (Oracle, 1Q27 call p.6)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[2].es",
+   "old": null,
+   "new": "618 MW entregados, 6 de 8 edificios operando (Oracle, llamada 1T27 p.6)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].when",
+   "old": null,
+   "new": "2025-06"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].kind",
+   "old": null,
+   "new": "expected"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].mw",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].src",
+   "old": null,
+   "new": "Crusoe PR"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].en",
+   "old": null,
+   "new": "generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[0].mw_series[3].es",
+   "old": null,
+   "new": "genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].tenant_openai",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].tenant_basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].when",
+   "old": null,
+   "new": "2025-08"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].kind",
+   "old": null,
+   "new": "contracted"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].mw",
+   "old": null,
+   "new": 1400
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].src",
+   "old": null,
+   "new": "Vantage/DigitalBridge PR 18 Aug 2025"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].en",
+   "old": null,
+   "new": "contracted August 2025; 1.4 GW across 10 buildings, US$25 bn+ (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[0].es",
+   "old": null,
+   "new": "contratado en agosto de 2025; 1.4 GW en 10 edificios, US$25 mil M+ (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].when",
+   "old": null,
+   "new": "FY2026Q4"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].mw",
+   "old": null,
+   "new": 115
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].en",
+   "old": null,
+   "new": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[1].es",
+   "old": null,
+   "new": "115 MW de capacidad eléctrica en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].when",
+   "old": null,
+   "new": "2027-H1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].kind",
+   "old": null,
+   "new": "expected"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].mw",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].en",
+   "old": null,
+   "new": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); first facility in service 2H 2026, completion 2028 (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[1].mw_series[2].es",
+   "old": null,
+   "new": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); primera instalación en servicio en el 2S 2026, terminación en 2028 (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].tenant_openai",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].tenant_basis",
+   "old": null,
+   "new": "press"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].when",
+   "old": null,
+   "new": "2025-09"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].kind",
+   "old": null,
+   "new": "contracted"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].mw",
+   "old": null,
+   "new": 1000
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].en",
+   "old": null,
+   "new": "contracted September 2025; about 1 GW (\"around 1 gigawatt a piece\", Oracle, 4Q26 call p.7)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[0].es",
+   "old": null,
+   "new": "contratado en septiembre de 2025; cerca de 1 GW (\"around 1 gigawatt a piece\", Oracle, llamada 4T26 p.7)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].when",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].mw",
+   "old": null,
+   "new": 0
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].src",
+   "old": null,
+   "new": "1Q27 call Q&A p.9-10"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].en",
+   "old": null,
+   "new": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR 28 Jul 2026)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[1].es",
+   "old": null,
+   "new": "nada energizado todavía; construcción 26% completa en julio de 2026 (comunicado de Oracle, 28 jul 2026)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].when",
+   "old": null,
+   "new": "2027-H1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].kind",
+   "old": null,
+   "new": "expected"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].mw",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].en",
+   "old": null,
+   "new": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, 24 Sep 2026)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[2].mw_series[2].es",
+   "old": null,
+   "new": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); objetivo de campus completo en 2028 (Bloomberg, 24 sep 2026)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].tenant_openai",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].tenant_basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].when",
+   "old": null,
+   "new": "2025-10"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].kind",
+   "old": null,
+   "new": "contracted"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].mw",
+   "old": null,
+   "new": 1000
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].src",
+   "old": null,
+   "new": "Related PR 30 Oct 2025"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].en",
+   "old": null,
+   "new": "contracted October 2025; more than 1 GW (OpenAI, Oracle and Related Digital release)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[0].es",
+   "old": null,
+   "new": "contratado en octubre de 2025; más de 1 GW (comunicado de OpenAI, Oracle y Related Digital)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].when",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].mw",
+   "old": null,
+   "new": 0
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].src",
+   "old": null,
+   "new": "Oracle PR 1 Jun 2026"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].en",
+   "old": null,
+   "new": "nothing energized yet; under construction since about March 2026 (Walbridge)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[1].es",
+   "old": null,
+   "new": "nada energizado todavía; en construcción desde marzo de 2026 aproximadamente (Walbridge)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].when",
+   "old": null,
+   "new": "2027-H2"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].kind",
+   "old": null,
+   "new": "expected"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].mw",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].src",
+   "old": null,
+   "new": "4Q26 call p.7"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].en",
+   "old": null,
+   "new": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[3].mw_series[2].es",
+   "old": null,
+   "new": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].tenant_openai",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].tenant_basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].when",
+   "old": null,
+   "new": "2025-09"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].kind",
+   "old": null,
+   "new": "contracted"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].mw",
+   "old": null,
+   "new": 1000
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].src",
+   "old": null,
+   "new": "Business Wire 22 Oct 2025"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].en",
+   "old": null,
+   "new": "contracted September 2025, announced 22 Oct 2025; close to a gigawatt across four data centers (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[0].es",
+   "old": null,
+   "new": "contratado en septiembre de 2025, anunciado el 22 oct 2025; cerca de un gigavatio en cuatro centros de datos (Vantage)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].when",
+   "old": null,
+   "new": "FY2027Q1"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].kind",
+   "old": null,
+   "new": "energized"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].mw",
+   "old": null,
+   "new": 0
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].src",
+   "old": null,
+   "new": "1Q27 call Q&A p.9-10"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].en",
+   "old": null,
+   "new": "nothing energized yet; ground broken December 2025 (Construction Dive)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[1].es",
+   "old": null,
+   "new": "nada energizado todavía; primera piedra en diciembre de 2025 (Construction Dive)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[2].when",
+   "old": null,
+   "new": "2027-H2"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[2].kind",
+   "old": null,
+   "new": "expected"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[2].mw",
+   "old": null,
+   "new": null
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "sites[4].mw_series[2].basis",
+   "old": null,
+   "new": "company"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "buildout.js",
+   "path": "(more)",
+   "old": null,
+   "new": "957 leaves compared; further changes in this file not listed"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.date",
+   "old": null,
+   "new": "2026-10-04"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.result",
+   "old": null,
+   "new": "no_concept"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.en",
+   "old": null,
+   "new": "SEC company-facts API searched on 2026-10-04: no us-gaap or Oracle-specific concept carries this amount at Aug 31, 2026 (the only commitments concept, CommitmentsAndContingencies, has no value), so the figure cannot be machine-verified and rests on the two readings of the note."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.es",
+   "old": null,
+   "new": "API de datos de compañía de la SEC consultada el 2026-10-04: ningún concepto us-gaap ni propio de Oracle lleva este monto al 31 de agosto de 2026 (el único concepto de compromisos, CommitmentsAndContingencies, no tiene valor), así que la cifra no puede verificarse por máquina y descansa en las dos lecturas de la nota."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.date",
+   "old": null,
+   "new": "2026-10-04"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.result",
+   "old": null,
+   "new": "no_concept"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.en",
+   "old": null,
+   "new": "SEC company-facts API searched on 2026-10-04: no us-gaap or Oracle-specific concept carries this amount at Aug 31, 2026 (the only commitments concept, CommitmentsAndContingencies, has no value), so the figure cannot be machine-verified and rests on the two readings of the note."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.es",
+   "old": null,
+   "new": "API de datos de compañía de la SEC consultada el 2026-10-04: ningún concepto us-gaap ni propio de Oracle lleva este monto al 31 de agosto de 2026 (el único concepto de compromisos, CommitmentsAndContingencies, no tiene valor), así que la cifra no puede verificarse por máquina y descansa en las dos lecturas de la nota."
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "news.js",
+   "path": "sweepNote.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "news.js",
+   "path": "sweepNote.es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "risks.js",
+   "path": "items[3].evidence_en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "risks.js",
+   "path": "items[3].evidence_es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "buildout.js",
+   "path": "sites[0].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "buildout.js",
+   "path": "sites[1].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "buildout.js",
+   "path": "sites[2].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "buildout.js",
+   "path": "sites[3].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "buildout.js",
+   "path": "sites[4].issues_checked",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.date",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.date",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "leases.uncommenced.second_reading.xbrl_search.es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.date",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.date",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "obligations.js",
+   "path": "provenance.leases.uncommenced.usd_bn.second_reading.xbrl_search.es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "news.js",
+   "path": "asOf",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "news.js",
+   "path": "sweepNote.en",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "news.js",
+   "path": "sweepNote.es",
+   "old": "(text)",
+   "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T02:50:54.287Z",
+   "file": "news.js",
+   "path": "sweepNote.date",
+   "old": "2026-10-04",
+   "new": "2026-10-03"
   }
  ],
- "generated": "2026-10-04T01:09:09.855Z"
+ "generated": "2026-10-04T02:53:34.805Z"
 }

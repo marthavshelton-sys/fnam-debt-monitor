@@ -64,7 +64,19 @@
       "issued_date": "2016-07-07",
       "maturity_date": "2026-07-15",
       "principal_millions": 3000,
-      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+      "status": "repaid",
+      "repaid_quarter": "FY2027Q1",
+      "repaid_evidence": {
+        "source": "10q_1q27",
+        "xbrl": "debt_repaid",
+        "xbrl_concept": "RepaymentsOfDebt",
+        "xbrl_value_usd_m": 4202,
+        "note_en": "Form 10-Q for the quarter ended 31-Aug-2026: repayments of borrowings of US$4,202 M in the quarter (XBRL RepaymentsOfDebt, discrete) and notes payable and other borrowings down from US$129,541 M (31-May-2026) to US$125,337 M; the notes matured 15-Jul-2026 inside the quarter.",
+        "note_es": "Formulario 10-Q del trimestre terminado el 31-ago-2026: pagos de préstamos por US$4,202 M en el trimestre (XBRL RepaymentsOfDebt, trimestre discreto) y notas por pagar y otros préstamos de US$129,541 M (31-may-2026) a US$125,337 M; los bonos vencieron el 15-jul-2026, dentro del trimestre.",
+        "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+        "accession": "0001193125-26-389274"
+      }
     },
     {
       "series_name": "Fixed-Rate Senior Notes Due April 2027",

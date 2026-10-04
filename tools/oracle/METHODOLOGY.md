@@ -19,6 +19,11 @@ version of this note; the data-quality page (`/oracle/quality.html`, unlinked) s
 5. **Major wires and financial press** (Reuters, Bloomberg, Financial Times, Wall Street Journal; trade press only for
    site-level detail). A fact that rests only on press is labeled *press* and never enters a figure.
 
+A source without a public URL (an owner-supplied call transcript) is cited as text, never as a link (`extLink()` guards
+it; the validator and the render check fail on any empty, `undefined` or `null` href). Repository and tool paths never
+appear in reader-facing text (validator and render check); the technical detail of the pipeline lives on the hidden
+data-quality page.
+
 Nothing is interpolated or estimated silently. Outside the DCF (§8, an editable model whose every input is shown), the
 only estimate on the page (the present value of the uncommenced leases) is labeled *FNAM estimate, illustrative only*,
 states every assumption and is never added to debt or a ratio.
@@ -138,19 +143,26 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   in-force FY2030 revenue target (`long_range_targets.json`) with a GAAP EBITDA margin (already net of SBC) and the
   consensus cost and capex ratios. After the years the basis covers, growth halves each year down to the terminal rate,
   margin and D&A hold, and capex/revenue converges linearly to the terminal ratio.
-* **Scenarios (owner's, 2026-10-04).** *Base = FactSet consensus as it stands*, and the page says so plainly with the
-  figures it implies (at 2026-10-04: FY2028 revenue growth +45%, a 54% EBITDA margin after SBC from FY2030 held through
-  the terminal year — the most optimistic anchor on file, not a midpoint). *Bull* = management's in-force FY2030 revenue
-  target on the consensus cost structure (the target year's revenue is lifted to the target, later years keep the
-  consensus growth ratios; margins, D&A and capex/revenue as consensus). *Bear* = three documented adjustments to the
-  consensus revenue path, in order: (1) RPO conversion slips one year (from the second explicit year revenue takes the
-  prior year's consensus level; margin, D&A and capex intensity lag with it; the current year's capex stands because it
-  is contracted); (2) Project Jupiter is two quarters late (its share of the named nameplate capacity × half of the first
-  incremental year after the slip moves to the following year); (3) OpenAI volume −25% (S&P estimates about half of
-  RPO is OpenAI, so 12.5% of the incremental revenue above the last reported fiscal year is removed every year). The
-  scenarios table shows value per share, the terminal-value share of EV, the WACC the price implies and the implied
-  terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual change makes the
-  scenario "custom".
+* **Scenarios (owner's, 2026-10-04; Bull rebuilt in round 3 the same day).** *Base = FactSet consensus as it stands*, and
+  the page says so plainly with the figures it implies (at 2026-10-04: FY2028 revenue growth +45%, a 54% EBITDA margin
+  after SBC from FY2030 held through the terminal year — the most optimistic anchor on file, not a midpoint). *Bear* =
+  three documented adjustments to the consensus revenue path, in order: (1) RPO conversion slips one year (from the
+  second explicit year revenue takes the prior year's consensus level; margin, D&A and capex intensity lag with it; the
+  current year's capex stands because it is contracted); (2) Project Jupiter is two quarters late (its share of the
+  named nameplate capacity × half of the first incremental year after the slip moves to the following year); (3) OpenAI
+  volume −25% (S&P estimates about half of RPO is OpenAI, so 12.5% of the incremental revenue above the last reported
+  fiscal year is removed every year). *Bull* = the same three levers set to the plan, in the same order, so the two cases
+  are symmetrical in method: (1) RPO conversion runs one year ahead of the 10-Q schedule (from the second explicit year
+  revenue takes the following year's consensus level; margin, D&A and capex intensity lead with it; the current year's
+  capex stands); (2) Project Jupiter on time (the consensus timing: the Bear's slip is not applied); (3) OpenAI volume at
+  plan (the contracted volume in full: the Bear's haircut is not applied; RPO is the ceiling of contracted revenue, so no
+  volume above plan is assumed, which is why the Bull's levers 2 and 3 are "at plan" rather than mirrored upward). The
+  *management target* (the in-force FY2030 revenue target on the consensus cost structure: the target year's revenue is
+  lifted to the target, later years keep the consensus growth ratios; margins, D&A and capex/revenue as consensus) is kept
+  as a separate, fourth variant. At 2026-10-04: Bear US$70, Base US$114, Bull US$141, management target US$120 against
+  the US$138.07 close. The scenarios table shows value per share, the terminal-value share of EV, the WACC the price
+  implies and the implied terminal growth for each, on the same cost of capital, taxes and lease treatment. Any manual
+  change makes the scenario "custom".
 * **Customer prepayments.** The capex guide states gross capex and a cap on net cash capex; the gap is the share of
   gross capex customers fund in advance (24% for FY2027). Prepayments are received with the capex they fund and
   recognised as revenue **without new cash** over the contract term (6 years: Oracle's illustrative six-year 1 GW deal,
@@ -185,10 +197,17 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   the EBITDA and capex the brokers submit on Oracle's reported statements; consensus capex is cash capex (≈ the gross
   guide) and excludes lease payments and finance-lease additions; FactSet does not state whether each broker's margin
   path carries the rent of the US$288 bn of leases signed but not yet commenced. The DCF therefore offers two
-  treatments: *operating* (default: the rent is assumed inside the consensus margin, nothing deducted) and *finance*
-  (the illustrative present value of the uncommenced leases, the same estimate as the off-balance-sheet section, is
-  deducted in the bridge; if the consensus margin already carries that rent this counts the cost twice, so it is a
-  floor, not a value). The "Leases in the DCF" note shows both values per share and ties the two sections together.
+  treatments: *operating* (default: the rent is assumed inside the consensus margin, nothing deducted), *mixed* (round 3,
+  2026-10-04: the finance share of the lease liabilities Oracle has recognized at the 10-Q date — finance ÷ (operating +
+  finance), 21% at 31-Aug-2026 — applied to the illustrative present value; the only operating/finance mix Oracle
+  discloses, used as the stated basis of a middle case) and *finance* (the full illustrative present value of the
+  uncommenced leases, the same estimate as the off-balance-sheet section, is deducted in the bridge; if the consensus
+  margin already carries that rent this counts the cost twice, so it is a floor, not a value). The "Leases in the DCF"
+  note shows the three values per share, says which treatment the Summary verdict uses (the one on screen; operating by
+  default) and ranks the lease swing against the other single switches on the page (Bear vs Base, one point of WACC, the
+  tax mode), composed at render time; at 2026-10-04 the lease treatment moves the value more than any other single
+  assumption (US$114 → US$59; US$102 on the mixed case). The Summary's verdict states the range (Bear to Bull, the
+  management-target variant and the lease sensitivity), not only the Base number.
 * **Equity bridge.** EV − reported net debt − finance-lease liabilities − the mandatory convertible preferred at its
   liquidation preference (until its conversion date) [− PV of the uncommenced leases under the finance treatment] =
   common equity, divided by **diluted shares**: the 10-Q cover count plus the dilutive securities of the latest quarter
@@ -198,17 +217,36 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   the price implies holding the scenario's flows, and, at the model's WACC and at 9% and 8%, the uniform terminal
   margin shift, the multiplier on every explicit growth rate after the current year, and the terminal growth that each
   return the price (one assumption moved at a time, everything else held). The sensitivity grid stays as a reference.
+  Since round 3 the Summary verdict and this box read the same helper (`priceNeeds()`): "the price needs a WACC of about
+  X% (beta b)" plus the beta estimates on file whose value reaches about the price (within 3%: at 2026-10-04 the two
+  Blume-adjusted betas, US$137 and US$141), never "justified only with".
 
 ## 9. Summary, sites and targets
 
 * The summary ("Start here") opens with the **reading paths**, the **verdict** (one paragraph that says what the numbers
-  add up to, composed at render time) and the **chain**: six numbers from contracts to valuation, each linking to its
+  add up to, composed at render time, closing with the scenario range and the lease sensitivity) and the **chain**: six numbers from contracts to valuation, each linking to its
   section (RPO and the 12-month share; MW energized of the GW named; the gross and net capex guide; the funding gap the
   company stated and the uncommenced leases, with the verification badge of the lease figure; the S&P rating and
   lease-adjusted leverage; the DCF value of the scenario on screen against the price). The drafted bullets follow, and
-  *What to watch* is short lines grouped under headings. The summary carries its own date (`exec_summary.updated`) and
-  the date its events run through; the validator fails the build when a cited source is dated after the summary, and
-  the page counts the news items newer than the summary.
+  *What to watch* is short lines grouped under headings. The summary carries its own date (`exec_summary.updated`); the
+  date its events run through is derived by the builder from the latest news item (round 3; the drafted
+  `events_through` is kept beside it as `draftedEventsThrough`), the validator fails the build when a cited source is
+  dated after the summary, and the page counts the news items dated after the summary's own date.
+* **Facts quoted in more than one place** (round 3) have one source of truth in `app.js`: `openaiTenants()` counts the
+  campuses whose `tenant_openai` / `tenant_basis` fields in `buildout.json` say OpenAI is the tenant, split into *named by
+  Oracle or the developer's own release* (4 of 5 at 2026-10-04) and *press only* (Project Jupiter: Oracle has not named
+  the customer); the circularity table, its stat tile, the deck and the risk register (through the `{{fact:openai_campuses}}`
+  token the narrative resolves at render time) all print that one value. `guaranteeStatus()` composes the lessor
+  guarantee's status (past tense once the scheduled maturity has passed, until a filing reports its release);
+  `maturedNote()` composes the status of instruments matured since the 10-K (repaid with the 10-Q evidence recorded in
+  `market_reference.json → debt_instruments[].repaid_evidence`, or awaiting the next 10-Q). The next-results estimate shows
+  the **median** of the prior three years' release dates (`calendar.json → estimates[].median`, with the dates); the end of
+  the window only sets the staleness deadline. The hyperscaler comparison keeps the hub's definitions for Oracle's row and
+  prints the model's figures beside them with the reason they differ (XBRL-tagged D&A vs the release cash-flow D&A; EBITDA
+  vs EBITDAR), same date.
+* **Dates are Eastern Time throughout** (round 3): a timestamp prints its ET date (`fmtDate`), "today" for countdowns,
+  maturities and staleness is the ET calendar date (`todayET()`), and the builder dates its date-only stamps in ET, so a
+  build at 01:09 UTC on the 4th never shows "Oct 4" next to an "Oct 3, 9:09 PM ET" refresh stamp.
 * Each campus has an **Issues** list (`buildout.json → sites[].issues`): dated, typed, with basis (company, government,
   wire, press) and source; a named decision or delivery date is counted down and flagged once passed without an update.
   The **megawatt timeline** (contracted date, nameplate, energized and as-of quarter, expected first deliveries or

@@ -189,7 +189,9 @@ async function main() {
       const hist = quarters.filter((x) => x.fiscal_quarter === nq.q && x.release_date && x.fiscal_year >= nq.fy - 3 && x.fiscal_year < nq.fy).map((x) => x.release_date).sort();
       const after = latest.release_date || today;
       const cands = hist.map((d) => { let y = Number(d.slice(0, 4)); let c = d; while (c <= after) { y += 1; c = `${y}${d.slice(4)}`; } return c; }).sort();
-      if (cands.length) estimates.push({ fiscal_period: fp, label_en: `${qShort(fp).en} results`, label_es: `Resultados ${qShort(fp).es}`, window_start: cands[0], window_end: cands[cands.length - 1], derived: true, basis_en: `Estimated from Oracle's ${qShort(fp).en.slice(0, 2)} release dates of the last ${hist.length} fiscal years (${hist.join(", ")}); Oracle has not announced the date.`, basis_es: `Estimado a partir de las fechas de publicación del ${qShort(fp).es.slice(0, 2)} en los últimos ${hist.length} años fiscales (${hist.join(", ")}); Oracle no ha anunciado la fecha.`, source: { title: "tools/oracle/data/quarters.json (release dates)", url: NEWS_PAGE } });
+      // median of the candidate dates (the lower middle one for an even count), so the page shows one date, never the window's end
+      const median = cands.length ? cands[Math.floor((cands.length - 1) / 2)] : null;
+      if (cands.length) estimates.push({ fiscal_period: fp, label_en: `${qShort(fp).en} results`, label_es: `Resultados ${qShort(fp).es}`, window_start: cands[0], window_end: cands[cands.length - 1], median, history: hist, derived: true, basis_en: `Estimated from Oracle's ${qShort(fp).en.slice(0, 2)} release dates of the last ${hist.length} fiscal years (${hist.join(", ")}); Oracle has not announced the date.`, basis_es: `Estimado a partir de las fechas de publicación del ${qShort(fp).es.slice(0, 2)} en los últimos ${hist.length} años fiscales (${hist.join(", ")}); Oracle no ha anunciado la fecha.`, source: { title: "Oracle release dates of the same fiscal quarter, prior three years", url: NEWS_PAGE } });
     }
   }
 
