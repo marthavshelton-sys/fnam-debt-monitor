@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-04T05:34:43Z",
+  "checkedAt": "2026-10-04T20:48:26Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -26,12 +26,12 @@
       },
       "url": "/macro/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T02:39:48Z",
+      "lastSuccess": "2026-10-04T19:35:36Z",
       "lastAttempt": {
-        "at": "2026-10-04T02:39:48Z",
+        "at": "2026-10-04T19:35:36Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T14:05:00Z",
+      "requiredSince": "2026-10-03T20:05:00Z",
       "alerts": 0
     },
     {
@@ -43,12 +43,12 @@
       },
       "url": "/fiscal/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T02:53:20Z",
+      "lastSuccess": "2026-10-04T18:26:09Z",
       "lastAttempt": {
-        "at": "2026-10-04T02:53:20Z",
+        "at": "2026-10-04T18:26:09Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T13:15:00Z",
+      "requiredSince": "2026-10-03T21:30:00Z",
       "alerts": 0
     },
     {
@@ -60,12 +60,12 @@
       },
       "url": "/mx/macro/",
       "status": "ok",
-      "lastSuccess": "2026-10-03T19:44:05Z",
+      "lastSuccess": "2026-10-04T20:44:49Z",
       "lastAttempt": {
-        "at": "2026-10-03T19:44:05Z",
+        "at": "2026-10-04T20:44:49Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-02T22:25:00Z",
+      "requiredSince": "2026-10-03T15:25:00Z",
       "alerts": 0
     },
     {
@@ -150,7 +150,7 @@
         "at": "2026-10-03T20:55:48Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-02T17:30:00Z",
+      "requiredSince": "2026-10-03T17:30:00Z",
       "alerts": 0
     },
     {
@@ -179,12 +179,12 @@
       },
       "url": "/qualitas/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T02:59:19Z",
+      "lastSuccess": "2026-10-04T20:38:31Z",
       "lastAttempt": {
-        "at": "2026-10-04T02:59:19Z",
+        "at": "2026-10-04T20:38:31Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T14:50:00Z",
+      "requiredSince": "2026-10-03T23:00:00Z",
       "alerts": 0
     },
     {
@@ -212,13 +212,13 @@
         "en": "Oracle"
       },
       "url": "/oracle/",
-      "status": "ok",
+      "status": "late",
       "lastSuccess": "2026-10-02T21:53:54Z",
       "lastAttempt": {
         "at": "2026-10-02T21:53:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-02T21:45:00Z",
+      "requiredSince": "2026-10-03T13:30:00Z",
       "alerts": 0
     },
     {
@@ -230,12 +230,12 @@
       },
       "url": "/hiperescaladores/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T02:55:29Z",
+      "lastSuccess": "2026-10-04T18:22:46Z",
       "lastAttempt": {
-        "at": "2026-10-04T02:55:29Z",
+        "at": "2026-10-04T18:22:46Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T13:20:00Z",
+      "requiredSince": "2026-10-03T22:20:00Z",
       "alerts": 0
     }
   ]
