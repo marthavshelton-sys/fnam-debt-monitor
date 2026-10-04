@@ -385,6 +385,50 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "43",
+   "match": "repayments of debt",
+   "text": "…riod-over-period fluctuations, and independent recalculation of prices where appropriate.   Cash Flows   Cash from operations increased $46.8 billion to $182.9 billion for fiscal year 2026, primarily due to an increase in cash received from customers and a decrease in cash used to pay income taxes, offset in part by an increase in cash paid to suppliers. Cash used in financing increased $847 million to $52.5 billion for fiscal year 2026, primarily due to a $6.0 billion decrease in cash used for repayments of debt, offset in part by a $3.9 billion increase in common stock repurchases and a $2.4 billion increase in dividends paid. Cash used in investing increased $66.9 billion to $139.5 billion for fiscal year 2026, primarily due to a $51.4 billion increase in additions to property and equipment and a $22.2 billion increase in cash used in other investing primarily to facilitate the purchase of components, offset in part by a $4.2 billion decrease in cash used in the acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets and a $2.4 billion decrease in cash used in net investment purchases, sales, and maturities.   Debt Proceeds   We issue debt to take advantage of favorable pricing and liquidity in the debt markets, reflecting our credit rating. The proceeds of these issuances were or will be used for general corporate purpos…",
+   "amounts": [
+    {
+     "raw": "$847 million",
+     "usdM": 847
+    },
+    {
+     "raw": "$52.5 billion",
+     "usdM": 52500
+    },
+    {
+     "raw": "$6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$3.9 billion",
+     "usdM": 3900
+    },
+    {
+     "raw": "$2.4 billion",
+     "usdM": 2400
+    },
+    {
+     "raw": "$66.9 billion",
+     "usdM": 66900
+    },
+    {
+     "raw": "$139.5 billion",
+     "usdM": 139500
+    },
+    {
+     "raw": "$51.4 billion",
+     "usdM": 51400
+    },
+    {
+     "raw": "$22.2 billion",
+     "usdM": 22200
+    }
+   ]
+  },
+  {
    "kind": "purchase_obligation",
    "page": "44",
    "match": "Purchase commitments",
@@ -417,6 +461,13 @@
    "page": "49",
    "match": "investment-grade",
    "text": "…tions, including hedges. Principal currency exposures include the Euro, Japanese yen, British pound, Canadian dollar, and Australian dollar.   Interest Rate   Securities held in our fixed-income portfolio are subject to different interest rate risks based on their maturities. We manage the average maturity of the fixed-income portfolio to achieve economic returns that correlate to certain global fixed-income indices.   Credit   Our fixed-income portfolio is diversified and consists primarily of investment-grade securities. We manage credit exposures relative to broad-based indices to facilitate portfolio diversification.   Equity   Securities held in our equity investments portfolio are subject to price risk.   SENSITIVITY ANALYSIS   The following table sets forth the potential loss in future earnings or fair values, including associated derivatives, resulting from hypothetical changes in relevant market rates or prices:   (In millions)   Risk Categories   Hypothetical Change   June 30,   2026   Impact   Foreign currency – Revenue   10% decrease in foreign exchange rates   $   (13,653   )   Earnings   Foreign currency – Investments   10% decrease in foreign exchange rates   (5   )   Fair Value   Interest rate   100 basis point increase in U.S. treasury interest rates   (1,201   )   Fair Value   Credit   100 basis point increase in credit spreads   (412   )   Fair Value   Equity…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "Proceeds from issuance of debt",
+   "text": "…648   )   Other long-term assets   ( 3,964   )   ( 2,950   )   ( 6,817   )   Accounts payable   5,268   569   3,545   Unearned revenue   9,361   5,438   5,348   Income taxes   ( 1,875   )   ( 38   )   1,687   Other current liabilities   6,847   5,922   4,867   Other long-term liabilities   ( 4,707   )   ( 975   )   749   Net cash from operations   182,935   136,162   118,548   Financing   Proceeds from issuance (repayments) of debt, maturities of 90 days or less, net   0   ( 5,746   )   5,250   Proceeds from issuance of debt   0   0   24,395   Repayments of debt   ( 3,000   )   ( 3,216   )   ( 29,070   )   Common stock issued   2,009   2,056   2,002   Common stock repurchased   ( 22,271   )   ( 18,420   )   ( 17,254   )   Common stock cash dividends paid   ( 26,445   )   ( 24,082   )   ( 21,771   )   Other, net   ( 2,839   )   ( 2,291   )   ( 1,309   )   Net cash used in financing   ( 52,546   )   ( 51,699   )   ( 37,757   )   Investing   Additions to property and equipment   ( 115,948   )   ( 64,551   )   ( 44,477   )   Acquisition of companies, net of cash acquired and divestitures, and purchases of intangible and other assets   ( 1,743   )   ( 5,978   )   ( 69,132   )   Purchases of investments   ( 58,351   )   ( 29,775   )   ( 17,732   )   Maturities of investments   34,605   16,079   24,775   Sales of investments   21,798   9,309   10,894   Other, net   ( 19,861   )   2,31…",
    "amounts": []
   },
   {

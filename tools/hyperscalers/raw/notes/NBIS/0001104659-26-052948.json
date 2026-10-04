@@ -648,6 +648,18 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "at-the-market",
+   "text": "…uring the first half of 2025. Adjusted EBITDA loss of TripleTen improved by $6.2 million in 2024 compared to 2023, primarily driven by revenue growth.   Liquidity and Capital Resources   The group’s principal sources of liquidity to date are a combination of equity and debt financing, including convertible notes issued in June 2025 and September 2025, a public equity offering completed in September 2025 and advances received from strategic customer contracts. In November 2025, we established an at-the-market equity program covering up to 25 million Class A shares, enabling us to access equity funding on an ongoing basis. We have not used the program to date.   Before 2025, the Group’s principal source of liquidity was the cash consideration received in connection with the divestment completed in 2024.   As of December 31, 2025, $3,678.1 million was recorded in cash and cash equivalents. Cash equivalents mainly consist of bank deposits with original maturities of three months or fewer and investments in money market funds.  The group’s main cash outflows are as follows: acquisitions of server and infrastructure equipment, investments in construction of new capacities at our proprietary data center in Finland, in build-to-suit facilities and in new greenfield sites (including land acquisition), lease payments for co-location agreements and other general corporate activities. Our …",
+   "amounts": [
+    {
+     "raw": "$3,678.1 million",
+     "usdM": 3678.1
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "54",
    "match": "not yet commenced",
@@ -660,6 +672,22 @@
    "match": "purchase commitments",
    "text": "Table of Contents   businesses expect to fund their operations, to the extent required, through debt or equity financing, as well as achieve positive operating cash flow.  Contractual Obligations   We have various contractual obligations and commitments, such as long-term leases, purchase commitments and long-term debt, that are disclosed in the footnotes to the consolidated financial statements.   See Note 8 — “Leases” and Note 11 — “ Commitments and Contingencies” of the consolidated financial statements included elsewhere in this Annual Report for more information on our lease contracts, including leases not yet commenced, and purchase commitments and other non-cancellable purchase obligations.   Cash Flows   Set out below is a summary of cash flows from continuing operations for the years ended December 31, 2023, 2024 and 2025.  ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   ​   ​   (in millions of U.S. dollars)   Net cash (used in)/provided by operating activities  (222.0)   (269.9)   401.9   Net cash (used in)/provided by investing activities  (92.9)   672.0   (4,229.2)   Net cash provided by f…",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "54",
+   "match": "net cash provided by operating activities",
+   "text": "…rovided by financing activities  —   656.8   5,125.5   Cash flows (used in)/provided by operating activities.   Our primary source of cash from operating activities is cash collections from sales to our customers. Cash used in operating activities primarily consists of payments to employees and payments for operating expenses, including rent and utilities, payments to suppliers for professional and other services, and other general corporate expenditures.   For the year ended December 31, 2025, net cash provided by operating activities was $401.9 million. The increase mainly resulted from advances received from customers under strategic customer agreements in amount of $982.5 million and changes in working capital reflecting improved operating margins in our Nebius AI cloud business. This was offset by changes in operating assets and liabilities primarily driven by increases in accounts receivable, VAT receivable, and other assets.  For the year ended December 31, 2024, net cash used in operating activities was $269.9 million. Changes in operating assets and liabilities resulted in a net cash outflow of $72.4 million, primarily due to changes in interest receivable, accounts payable, other accrued liabilities, and prepaid expenses.  Cash flows (used in)/provided by investing activities .   For the year ended December 31, 2025, net cash used in investing activities was $4,229.2 …",
+   "amounts": [
+    {
+     "raw": "$401.9 million",
+     "usdM": 401.9
+    },
+    {
+     "raw": "$982.5 million",
+     "usdM": 982.5
+    }
+   ]
   },
   {
    "kind": "vie",
@@ -684,6 +712,38 @@
     {
      "raw": "$5,125.5 million",
      "usdM": 5125.5
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "55",
+   "match": "proceeds from issuance of convertible notes",
+   "text": "… equipment and intangible assets are our capital expenditures relating primarily to our investments in GPUs and data center hardware. After the completion of the divestment in July 2024 we substantially increased the pace of our investments in this area to support the growth of our core AI cloud business.   Cash flows provided by financing activities.   For the year ended December 31, 2025, net cash provided by financing activities was $5,125.5 million. The amount was primarily related to gross proceeds from issuance of convertible notes of $4,162.5 million, gross proceeds from sale of equity securities of $1,150.0 million, proceeds from issuance by Avride of SAFE instruments of $100.0 million and proceeds from exercise of share options of $8.4 million.   In June 2025, we issued convertible notes in an aggregate principal amount of $1,000.0 million, in two equal tranches due 2029 and 2031. In September 2025, we issued additional convertible notes in an aggregate principal amount of $3,162.5 million, in two equal tranches due 2030 and 2032. The convertible notes represent senior unsecured obligations of the company. Concurrently with the September 2025 convertible notes offering, we issued 12.4 million Class A shares in a public offering for aggregate gross proceeds of $1,150.0 million.  Proceeds from financing activities were partially offset by $89.3 million of issuance costs …",
+   "amounts": [
+    {
+     "raw": "$5,125.5 million",
+     "usdM": 5125.5
+    },
+    {
+     "raw": "$4,162.5 million",
+     "usdM": 4162.5
+    },
+    {
+     "raw": "$1,150.0 million",
+     "usdM": 1150
+    },
+    {
+     "raw": "$100.0 million",
+     "usdM": 100
+    },
+    {
+     "raw": "$8.4 million",
+     "usdM": 8.4
+    },
+    {
+     "raw": "$1,000.0 million",
+     "usdM": 1000
     }
    ]
   },
@@ -853,6 +913,13 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "76",
+   "match": "At-the-market",
+   "text": "…-35173) filed with the Securities and Exchange Commission on June 2, 2025 and June 5, 2025, exhibit 99.1 of our Form 6-K (file no. 001-35173) filed with the Securities and Exchange Commission on September 15, 2025, and exhibit 99.1 of our Form 6-K (file no. 001-35173) filed with the Securities and Exchange Commission on March 20, 2026. See “Operating and Financial Review and Prospects” for further information regarding the June 5, 2025, and September 15, 2025, convertible notes issuances.   ​   At-the-market Equity Program   ​   In November 2025, we established an at-the-market (ATM) equity program for the offer and sale from time to time of up to 25 million Class A shares and entered into an equity distribution agreement dated November 12, 2025, with Goldman Sachs & Co. LLC, Morgan Stanley & Co. LLC, BofA Securities, Inc., and Citigroup Global Markets Inc. for the distribution of our Class A shares in connection with that program. No Class A shares have been offered or sold under the ATM equity program to date.   Exchange Controls   Under existing laws of the Netherlands, there are no exchange controls applicable to the transfer to persons outside of the Netherlands of dividends or other distributions with respect to, or of the proceeds from the sale of, shares   76",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "76",
    "match": "NVIDIA",
@@ -900,6 +967,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq98",
+   "match": "Deferred revenue,",
+   "text": "…​   11.8   Other non-current assets   4  13.4   ​   367.9   Non-current assets of discontinued operations   ​   3  ​   ​   0.7   ​   —  Total non-current assets   ​   ​   ​   ​   1,015.3   ​   7,719.2   TOTAL ASSETS   ​   ​   3,548.6   ​   12,430.6   LIABILITIES AND SHAREHOLDERS’ EQUITY   ​   ​   ​   ​   ​   ​   ​   Accounts payable, accrued and other liabilities   4  228.0   ​   1,210.1   Debt, current   ​   12  ​   6.1   ​   24.5   Income and non-income taxes payable   ​   4  5.5   ​   17.7   Deferred revenue, current   ​   4  16.3   ​   275.5   Current liabilities of discontinued operations   ​   3  ​   ​   8.1   ​   —  Total current liabilities   ​   ​   264.0   ​   1,527.8   Operating lease liabilities   ​   8  ​   ​   30.3   ​   760.5   Debt, non-current   ​   12  ​   ​   —  ​   4,103.2   Deferred revenue, non-current   ​   4  ​   ​   —  ​   1,302.0   Other accrued liabilities   ​   4  ​   ​   0.6   ​   143.1   Total non-current liabilities   ​   ​   30.9   ​   6,308.8   Total liabilities   ​   ​   294.9   ​   7,836.6   Commitments and contingencies  11  ​   ​   ​   ​   ​   Shareholders’ equity:  ​   ​   ​   ​   ​   ​   ​   Ordinary shares: par value (Class A € 0.01 , Class B € 0.10 and Class C € 0.09 ); shares authorized (Class A: 500,000,000 , Class B: 37,138,658 and 35,698,674 , respectively, and Class C: 37,748,658 and 35,698,674 , respectively); shares issued (Class …",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "seq99",
    "match": "equity method investment",
@@ -918,6 +992,27 @@
    "page": "seq101",
    "match": "equity method investment",
    "text": "… ​   8.7   ​   50.6   Amortization of debt discount and issuance costs, net of interest expense capitalized   ​   12  ​   ​   —  ​   —  ​   21.2   Share-based compensation expense   ​   14  28.8   ​   54.5   ​   83.2   Deferred income tax expense / (benefit)   ​   10  ( 1.3 )  ​   ( 2.8 )  ​   ( 3.4 )  Foreign exchange (gains) / losses   ​   4  2.4   ​   17.8   ​   ( 27.2 )  Gain from revaluation of investments in equity securities   ​   ​   ​   ​   —  ​   —  ​   ( 598.9 )  Income / (loss) from equity method investments   ​   ​   ​   ​   10.9   ​   ( 0.4 )  ​   24.3   Provision for expected credit losses   ​   4  ​   ​   ( 0.2 )  ​   0.2   ​   5.5   Other   ​   ​   ​   ​   0.9   ​   ( 0.6 )  ​   55.5   Changes in operating assets and liabilities excluding the effect of acquisitions:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Accounts receivable   ​   ​   2.3   ​   ( 9.8 )  ​   ( 714.6 )  Prepaid expenses   ​   ​   ( 5.6 )  ​   ( 14.8 )  ​   ( 17.8 )  Accounts payable, accrued and other liabilities and non-income taxes payable   ​   ​   1.5   ​   ( 28.0 )  ​   ( 29.0 )  Deferred revenue   ​   ​   1.9   ​   10.0   ​   1,565.8   Other assets   ​   ​   ​   ​   ( 7.8 )  ​   ( 23.7 )  ​   ( 339.2 )  VAT reclaimable   ​   ​   ​   ​   6.8   ​   ( 6.1 )  ​   ( 101.8 )  Net cash provided by / (used in) operating activities – continuing operations   ​   ​   ( 222.0 )   ( 269.9 )   401.9   Net …",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq101",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   NEBIUS GROUP N.V .   CONSOLID ATED STATEMENTS OF CASH FLOWS   (In millions of U.S. dollars)   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​ ​ ​   Notes   ​ ​ ​   ​ ​ ​   2023   ​ ​ ​   2024   ​ ​ ​   2025   CASH FLOWS PROVIDED BY OPERATING ACTIVITIES:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Net income / (loss) from continuing operations  ​   ​   ( 299.0 )  ​   ( 352.0 )  9.8   Adjustments to reconcile net income / (loss) to net cash provided by operating activities:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Depreciation of property and equipment   ​   7  27.9   ​   75.2   ​   411.0   Amortization of intangible assets   ​   9  1.4   ​   1.9   ​   6.9   Operating lease right-of-use assets amortization   ​   8  ​   ​   7.1   ​   8.7   ​   50.6   Amortization of debt discount and issuance costs, net of interest expense capitalized   ​   12  ​   ​   —  ​   —  ​   21.2   Share-based compensation expense   ​   14  28.8   ​   54.5   ​   83.2   Deferred income tax expense / (benefit)   ​   10  ( 1.3 )  ​   ( 2.8 )  ​   ( 3.4 )  Foreign exchange (gains) / losses   ​   4  2.4   ​   17.8   ​   ( 27.2 )  Gain from revaluation of investments in equity securities   ​   ​   ​   ​   —  ​   —  ​   ( 598.9 )  Income / (loss) from equity method investments   ​   ​   ​   ​   10.9   ​   ( 0.4 )  ​   24.3   Provision for expected cre…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq101",
+   "match": "Deferred revenue ",
+   "text": "…ion for expected credit losses   ​   4  ​   ​   ( 0.2 )  ​   0.2   ​   5.5   Other   ​   ​   ​   ​   0.9   ​   ( 0.6 )  ​   55.5   Changes in operating assets and liabilities excluding the effect of acquisitions:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Accounts receivable   ​   ​   2.3   ​   ( 9.8 )  ​   ( 714.6 )  Prepaid expenses   ​   ​   ( 5.6 )  ​   ( 14.8 )  ​   ( 17.8 )  Accounts payable, accrued and other liabilities and non-income taxes payable   ​   ​   1.5   ​   ( 28.0 )  ​   ( 29.0 )  Deferred revenue   ​   ​   1.9   ​   10.0   ​   1,565.8   Other assets   ​   ​   ​   ​   ( 7.8 )  ​   ( 23.7 )  ​   ( 339.2 )  VAT reclaimable   ​   ​   ​   ​   6.8   ​   ( 6.1 )  ​   ( 101.8 )  Net cash provided by / (used in) operating activities – continuing operations   ​   ​   ( 222.0 )   ( 269.9 )   401.9   Net cash provided by / (used in) operating activities – discontinued operations   ​   ​   ​   ​   1,051.8   ​   515.5   ​   ( 17.1 )  Net cash provided by / (used in) operating activities   ​   ​   ​   ​   829.8   ​   245.6   ​   384.8   CASH FLOWS PROVIDED BY/(USED IN) INVESTING ACTIVITIES:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Purchases of property and equipment and intangible assets  ​   ​   ( 82.9 )  ( 807.5 )  ( 4,066.0 )  Proceeds from Divestment, net of cash of discontinued operations sold  ​   3  ​   ​   —  ​   1,283.2   ​   —  Proceeds from the sale of the remaining equ…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq101",
+   "match": "Proceeds from issuance of convertible notes",
+   "text": "… in) investing activities – continuing operations   ​   ​   ​   ​   ( 92.9 )   ​   672.0   ​   ( 4,229.2 )   Net cash used in investing activities– discontinued operations   ​   ​   ​   ​   ( 1,119.2 )  ​   ( 360.4 )  ​   ( 0.1 )  Net cash provided by / (used in) investing activities   ​   ​   ( 1,212.1 )   311.6   ( 4,229.3 )   CASH FLOWS PROVIDED BY FINANCING ACTIVITIES:   ​   ​   ​   ​   ​   ​   ​   ​   ​   Proceeds from sale of equity securities  ​   13  ​   ​   —  ​   700.0   ​   1,150.0   Proceeds from issuance of convertible notes  ​   ​   ​   ​   —  ​   —  ​   4,162.5   Convertible notes issuance costs  ​   ​   ​   ​   —  ​   —  ​   ( 89.3 )  Treasury shares issuance costs  ​   13  ​   ​   —  ​   ( 32.5 )  ​   ( 23.8 )  Withholding tax paid  ​   ​   ​   ​   —  ​   —  ​   ( 181.5 )  Proceeds from issuance of SAFE instruments  ​   ​   ​   ​   —  ​   —  ​   100.0   Repayments of debt  ​   12  ​   ​   —  ​   ( 0.7 )  ​   ( 0.8 )  Proceeds from exercise of share options / (Repurchase of equity classified awards)  ​   ​   ​   ​   —  ​   ( 10.0 )  ​   8.4   Net cash provided by financing activities – continuing operations   ​   ​   ​   ​   —   ​   656.8   ​   5,125.5   Net cash provided by financing activities– discontinued operations   ​   ​   ​   ​   375.6   ​   168.7   ​   —  Net cash provided by financing activities   ​   ​   ​   ​   375.6   ​   825.5   ​   5,125.5   Effec…",
    "amounts": []
   },
   {
@@ -998,6 +1093,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq107",
+   "match": "deferred revenue ",
+   "text": "…orm of service level credits and other contractual adjustments — is estimated based on the specific facts and circumstances of the committed contracts. We allocate the variable consideration to the month in which we have the contractual right to bill under the contract as this represents the amount of consideration to which we expect to be entitled for the transfer of services during that month.  Advance payments received by the Group from customers for services not yet rendered are recorded as deferred revenue on the Group’s consolidated balance sheets and recognized as revenue in the period when services are provided.  Significant Customer Agreements   During the year ended December 31, 2025, the Group entered into two significant customer agreements for cloud computing services. In applying ASC 606, the Group assessed each contract to determine whether it met the definition of a lease and is within the scope of ASC 842, “Leases” , which requires the transfer of control of identified assets and ability of the customer to direct the use of those assets. The Group determined that significant customer arrangements are classified as service contracts under ASC 606 and not as leases under ASC 842.   Each contract has multiple standalone performance obligations in the form of provision of computing capacity in clusters and related services. The performance obligations are delivered…",
+   "amounts": []
+  },
+  {
    "kind": "concentration",
    "page": "seq107",
    "match": "Significant Customer",
@@ -1052,6 +1154,27 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq108",
+   "match": "deferred revenue ",
+   "text": "… providing students with access to educational content, such as lessons, materials, and resources. The fees for educational courses are allocated to the performance obligation of providing the course to the student, which is typically the fixed price at inception of the course. Revenue is recognized proportionally over the duration of the course provided to a student, including course extensions. Advance payments received by the Group from customers for services not yet rendered are recorded as deferred revenue in the Group’s consolidated balance sheets and recognized as revenue in the period services are provided.  Contract Balances and Remaining Performance Obligations   The timing of revenue recognition, billings and cash collections result in accounts receivable and deferred revenue.   Accounts receivable represent the Group’s unconditional right to consideration for goods or services transferred to customers, where only the passage of time is required before payment is due, and are recorded at the invoiced amount, net of an allowance for credit losses. Accounts receivable are recognized in the period in which the Group has the right to invoice the customer and when its right to consideration is unconditional. Deferred revenue arises when the Group receives payments or has the unconditional right to receive payments in advance of satisfying the related performance obligatio…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq108",
+   "match": "Deferred revenue ",
+   "text": "…ansferred to customers, where only the passage of time is required before payment is due, and are recorded at the invoiced amount, net of an allowance for credit losses. Accounts receivable are recognized in the period in which the Group has the right to invoice the customer and when its right to consideration is unconditional. Deferred revenue arises when the Group receives payments or has the unconditional right to receive payments in advance of satisfying the related performance obligations. Deferred revenue primarily consists of billings or payments received in advance of revenue recognition.  The Group assesses the timing of the transfer of goods or services to the customer as compared to the timing of payments to determine whether a significant financing component exists. As a practical expedient, the Group does not assess the existence of a significant financing component when the difference between payment and transfer of deliverables is a year or less. If the difference in timing arises for reasons other than the provision of finance either to the customer or to the Group, no financing component is deemed to exist. If a significant financing component exists from a payment from the customer to the Group in advance of the satisfaction of the performance obligation, the interest on the borrowing cost component is recorded as interest expense and revenue, based on an appr…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq108",
+   "match": "deferred revenue ",
+   "text": "… significant financing component exists from a payment from the customer to the Group in advance of the satisfaction of the performance obligation, the interest on the borrowing cost component is recorded as interest expense and revenue, based on an appropriate implicit borrowing rate.  Remaining performance obligations (\"RPO\") represent the transaction price allocated to performance obligations that are unsatisfied or partially unsatisfied as of the end of the reporting period. RPO consists of deferred revenue and unbilled contract revenue, which includes non-cancelable contracts where the Group has not yet invoiced, maintains an obligation to perform, and has not recognized revenue in the financial statements.   Cost of Revenues   Cost of revenues primarily consists of costs of co-location of data center facilities, the electricity, utility and maintenance costs in data centers, personnel costs, payment processing and students’ tuition fees and other related expenses. The Group’s owned data centers together with leased data center facilities are significant components of the Group’s cost of revenues.  F-18",
+   "amounts": []
+  },
+  {
    "kind": "useful_life",
    "page": "seq111",
    "match": "useful life",
@@ -1101,6 +1224,13 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "seq120",
+   "match": "Deferred revenue ",
+   "text": "…   2.0   Total current assets from discontinued operations   ​   21.4   Property and equipment   ​   0.3   Operating lease right-of-use assets   ​   0.2   Deferred tax assets   ​   0.1   Other non-current assets   ​   0.1   Total non-current assets from discontinued operations   ​   0.7   TOTAL ASSETS FROM DISCONTINUED OPERATIONS   ​   22.1   LIABILITIES AND SHAREHOLDERS’ EQUITY   ​   ​   Accounts payable, accrued and other liabilities   ​   7.5   Income and non-income taxes payable   ​   0.4   Deferred revenue   ​   0.2   Total current liabilities from discontinued operations   ​   8.1   TOTAL LIABILITIES FROM DISCONTINUED OPERATIONS   ​   8.1   ​   The Company reclassified the following operations to discontinued operations for the years ended December 31, 2023, 2024 and 2025, respectively.   ​   ​   ​   ​   ​   ​   ​   ​   ​   ​   Year ended December 31,   ​   ​   2023   ​   2024   ​   2025   Revenues  ​   11.1   ​   26.1   ​   6.4   Operating costs and expenses:  ​   ​   ​   ​   ​   ​   Cost of revenues   ​   12.3   29.7   ​   8.4   Product development   ​   25.2   14.9   ​   3.4   Sales, general and administrative   ​   15.5   22.3   ​   7.4   Depreciation and amortization   ​   —  0.2   ​   0.1   Total operating costs and expenses  ​   53.0   67.1   ​   19.3   Loss from discontinued operations   ​   ( 41.9 )   ( 41.0 )   ​   ( 12.9 )   Interest income  ​   —  —  ​   0.1  …",
+   "amounts": []
+  },
+  {
    "kind": "equity_method",
    "page": "seq121",
    "match": "joint venture",
@@ -1139,6 +1269,22 @@
    "amounts": [
     {
      "raw": "$ 21,333.0 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "seq124",
+   "match": "Deferred Revenue ",
+   "text": "…ants related to income were offset against the following related expenses:  ​   ​   ​   ​   ​   ​ ​ ​   2025   Consolidated Statement of Operations   ​   ​   Operating costs and expenses (contra-expense):  ​   ​   Cost of revenues   ( 0.8 )  Sales, general and administrative   ​   ( 0.1 )  ​   The grant may be required to be repaid if the Group fails to comply with applicable conditions. The Group believes that this is unlikely to occur, as it is in compliance with all applicable requirements.  Deferred Revenue   The Group recognizes deferred revenue when cash is received and before performance obligations are fulfilled, including amounts that may be refundable. Deferred revenue balances primarily relate to strategic customer agreements.  As of December 31, 2024 and 2025, the balance of deferred revenue, including current and non-current portion, was $ 16.3 and $ 1,577.5 , respectively. Revenue recognized during the years ended December 31, 2024 and 2025, which was included in the deferred revenue balances at the beginning of each respective period, was $ 6.9 and $ 16.3 , respectively.  During the year ended December 31, 2025, total deferred revenue increased by $ 1,561.2 primarily due to the recognition of prepayments received in advance for future services to be rendered under strategic customer agreements (Note 1). Deferred revenue is expected to be recognized as revenue ove…",
+   "amounts": [
+    {
+     "raw": "$ 16.3 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,577.5 ",
      "usdM": null
     }
    ]

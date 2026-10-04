@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-04T01:08:51Z",
+ "generated": "2026-10-04T03:28:38Z",
  "warnings": [
   {
    "ticker": "MSFT",
@@ -61,6 +61,22 @@
    "ticker": "MSFT",
    "tag": "FY2023",
    "check": "interest_exp: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2023",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2023",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -149,6 +165,30 @@
    "ticker": "MSFT",
    "tag": "FY2024",
    "check": "interest_exp: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2024",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2024",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2024",
+   "check": "cp_net: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -252,6 +292,30 @@
   {
    "ticker": "MSFT",
    "tag": "FY2025",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2025",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2025",
+   "check": "cp_net: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2025",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -348,6 +412,14 @@
   {
    "ticker": "MSFT",
    "tag": "FY2026",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "MSFT",
+   "tag": "FY2026",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -429,6 +501,14 @@
    "ticker": "GOOGL",
    "tag": "FY2023",
    "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2023",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -525,6 +605,14 @@
    "ticker": "GOOGL",
    "tag": "FY2024",
    "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2024",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -629,6 +717,14 @@
    "ticker": "GOOGL",
    "tag": "FY2025",
    "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "GOOGL",
+   "tag": "FY2025",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1409,6 +1505,14 @@
   {
    "ticker": "ORCL",
    "tag": "FY2025",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2025",
    "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1482,6 +1586,14 @@
    "ticker": "ORCL",
    "tag": "FY2026",
    "check": "interest_exp: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "ORCL",
+   "tag": "FY2026",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2057,6 +2169,14 @@
   {
    "ticker": "APLD",
    "tag": "FY2024",
+   "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2024",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -2161,6 +2281,14 @@
   {
    "ticker": "APLD",
    "tag": "FY2025",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2025",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -2209,6 +2337,14 @@
   {
    "ticker": "APLD",
    "tag": "FY2026",
+   "check": "revenue: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": -35.12,
+   "status": "warn",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2026",
    "check": "ocf: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -2242,6 +2378,14 @@
    "ticker": "APLD",
    "tag": "FY2026",
    "check": "debt_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2026",
+   "check": "debt_repaid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true

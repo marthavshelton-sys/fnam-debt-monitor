@@ -648,6 +648,38 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "53",
+   "match": "net cash provided by operating activities",
+   "text": "… cash flow from operations or that future borrowings will be available to us in an amount sufficient to enable us to service our debt, to refinance our debt or to fund our other liquidity needs. For the year ended December 31, 2025, our cash flows dedicated for debt service requirements totaled $4.4 billion, which includes principal payments of $3.4 billion and interest payments of $1.0 billion, inclusive of $159 million related to capitalized interest. For the year ended December 31, 2025, our net cash provided by operating activities was $3.1 billion, which includes interest paid, net of capitalized amounts, of $869 million. If our cash flows and capital resources are insufficient to fund our debt service obligations, we could face substantial liquidity problems and could be forced to reduce or delay investments and capital expenditures or to dispose of material assets or operations, seek additional debt or equity capital or restructure or refinance our indebtedness. Further, any refinancing or restructuring of our indebtedness could be at higher interest rates, may cause us to incur debt extinguishment costs, and may require us to comply with more onerous covenants that could further restrict our business operations. Moreover, in the event of a default, the holders of our indebtedness could elect to declare such indebtedness be due and payable and/or elect to exercise other …",
+   "amounts": [
+    {
+     "raw": "$4.4 billion",
+     "usdM": 4400
+    },
+    {
+     "raw": "$3.4 billion",
+     "usdM": 3400
+    },
+    {
+     "raw": "$1.0 billion",
+     "usdM": 1000
+    },
+    {
+     "raw": "$159 million",
+     "usdM": 159
+    },
+    {
+     "raw": "$3.1 billion",
+     "usdM": 3100
+    },
+    {
+     "raw": "$869 million",
+     "usdM": 869
+    }
+   ]
+  },
+  {
    "kind": "properties",
    "page": "62",
    "match": "Item 2. Properties",
@@ -749,6 +781,34 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "76",
+   "match": "Net cash provided by operating activities",
+   "text": "Table of Contents   Year Ended December 31,   2025 2024 2023   Net cash provided by operating activities $ 3,058 $ 2,749 $ 1,833   Net cash used in investing activities   (10,271) (8,658) (3,148)   Net cash provided by financing activities 9,308 7,464 1,788   Cash Flows From Operating Activities   Net cash provided by operating activities was $3.1 billion for the year ended December 31, 2025, as compared to $2.7 billion for the year ended December 31, 2024. The increase was primarily driven by cash received for upfront payments from our committed contracts from new and expanded customer contracts. The increase was partially offset by an increase in accounts receivable.   Net cash provided by operating activities was $2.7 billion for the year ended December 31, 2024, as compared to $1.8 billion for the year ended December 31, 2023. The increase was driven by cash received for upfront payments from our committed contracts from new and expanded custome…",
+   "amounts": [
+    {
+     "raw": "$ 3,058 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2,749 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,833   ",
+     "usdM": null
+    },
+    {
+     "raw": "$3.1 billion",
+     "usdM": 3100
+    },
+    {
+     "raw": "$2.7 billion",
+     "usdM": 2700
+    }
+   ]
+  },
+  {
    "kind": "leases_not_commenced",
    "page": "77",
    "match": "not yet commenced",
@@ -804,6 +864,30 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "84",
+   "match": "Deferred revenue,",
+   "text": "…rent 184 637   Restricted marketable securities, non-current — 29   Property and equipment, net 30,557 11,915   Operating lease right-of-use assets 8,231 2,590   Intangible assets, net 235 5   Goodwill 1,101 20   Other non-current assets (a)   1,506 721   Total assets $ 49,302 $ 17,833   Liabilities, Redeemable Convertible Preferred Stock, and Stockholders' Equity (Deficit)   Current liabilities   Accounts payable $ 1,623 $ 868   Accrued liabilities 5,773 356   Debt, current (a)   6,708 2,468   Deferred revenue, current 1,709 769   Operating lease liabilities, current 427 213   Finance lease liabilities, current 38 58   Other current liabilities (a)   162 231   Total current liabilities 16,440 4,963   Debt, non-current (a)   14,665 5,458   Derivative and warrant liabilities 1 200   Deferred revenue, non-current 6,476 3,295   Operating lease liabilities, non-current 7,768 2,389   Finance lease liabilities, non-current 216 34   Deferred tax liabilities, non-current 115 149   Other non-current liabilities 286 37   Total liabilities 45,967 16,525   Commitments and contingencies ( Note 9)   Redeemable convertible preferred stock (a)   Redeemable convertible preferred stock, $ 0.000005 par value per share, no and 206 shares authorized as of December 31, 2025 and 2024, respectively; no and 185 shares issued and outstanding as of December 31, 2025 and 2024, respectively   — 1,722   Sto…",
+   "amounts": [
+    {
+     "raw": "$ 49,302 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,833   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,623 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 868   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "84",
    "match": "related party",
@@ -824,6 +908,20 @@
    "page": "85",
    "match": "related party",
    "text": "…per share attributable to common stockholders, basic $ ( 2.75 ) $ ( 4.30 ) $ ( 3.09 )   Net loss per share attributable to common stockholders, diluted $ ( 2.81 ) $ ( 4.30 ) $ ( 3.09 )   Weighted-average shares used in computing net loss per share attributable to common stockholders, basic 435 218 192   Weighted-average shares used in computing net loss per share attributable to common stockholders, diluted 436 218 192   (a) Refer to Note 14—Related-Party Transactions for further information on related party arrangements.   The accompanying notes are an integral part of these consolidated financial statements.   85",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "89",
+   "match": "net cash provided by operating activities",
+   "text": "Table of Contents   COREWEAVE, INC.   CONSOLIDATED STATEMENTS OF CASH FLOWS   (in millions)   Year Ended December 31,   2025 2024 2023   Cash flows from operating activities:   Net loss $ ( 1,167 ) $ ( 863 ) $ ( 594 )   Adjustments to reconcile net loss to net cash provided by operating activities   Depreciation and amortization 2,454 863 103   Amortization of debt discounts and issuance costs and accretion of redemption premiums 110 33 16   Stock-based compensation expense 630 31 15   Non-cash lease expense 357 123 20   Deferred income taxes ( 53 ) 113 36   Loss (gain) on fair value adjustments ( 27 ) 756 534   Debt extinguishment loss 19 12 —   Other non-cash reconciling items 103 3 1   Changes in operating assets and liabilities, net of effect of business acquisitions:   Accounts receivable ( 2,749 ) ( 280 ) ( 162 )   Prepaid expenses and other assets ( 784 ) ( 514 ) ( 139 )   Accounts payable and accrued expenses 253 511 27   Deferred revenue 4,174 2,049 1,986   Lease liabilities ( 262 ) ( 88 ) ( 9 )   Other liabilities — — ( 1 )   Net cash provided by operating activities $ 3,058 $ 2,749 $ 1,833   Cash flows from investing activities:…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "89",
+   "match": "Repayments of debt",
+   "text": "…urchases of marketable securities ( 47 ) ( 34 ) ( 172 )   Maturities and sales of marketable securities 43 188 6   Sales of warrants received as lease incentive 254 — —   Business combinations, net of cash acquired ( 108 ) — —   Issuance of notes receivable ( 90 ) ( 60 ) —   Other investing activities ( 14 ) ( 50 ) ( 39 )   Net cash used in investing activities $ ( 10,271 ) $ ( 8,658 ) $ ( 3,148 )   Cash flows from financing activities:   Proceeds from issuance of debt, net 11,829 7,018 1,404   Repayments of debt ( 3,399 ) ( 589 ) ( 2 )   Purchase of capped calls related to convertible senior notes ( 340 ) — —   Proceeds from initial public offering, net of underwriting discounts and commissions 1,491 — —   Redeemable convertible preferred stock cash dividends paid ( 29 ) ( 58 ) —   Issuance of redeemable convertible preferred stock, net of issuance costs — 1,172 421   Payment of tax withholdings on settlement of restricted stock units ( 144 ) — —   Proceeds from exercise of stock options 20 3 2   Proceeds from issuance of common stock — — 15   Other financing activities ( 120 ) ( 82 ) ( 52 )   Net cash provided by financing activities $ 9,308 $ 7,464 $ 1,788   Net increase in cash, cash equivalents, and restricted cash $ 2,095 $ 1,555 $ 473   Cash, cash equivalents, and restricted cash—beginning of period 2,035 480 7   Cash, cash equivalents, and restricted cash—end of period …",
    "amounts": []
   },
   {
@@ -939,10 +1037,24 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "98",
+   "match": "deferred revenue ",
+   "text": "…arrangements provide customers with access to cloud computing capacity across the Company's various data centers over a specified duration. Revenue is recognized ratably over the contract period. The initial contract period generally ranges from one to six years . The terms of these contracts are typically structured as \"take-or-pay\" agreements, requiring payment regardless of the level of utilization. Additionally, customers under committed contracts often make a prepayment that is recorded as deferred revenue and consumed based on the terms of the contract.   On-Demand Contracts —These service arrangements provide customers with access to the Company's cloud computing capacity on a consumption basis, with billing occurring monthly in arrears based on actual hourly usage of compute, storage, and other services. Revenue is recognized as the services are consumed. Customers may also prepay for on-demand services. The prepayments are initially recorded as deferred revenue and recognized as the cloud computing services are transferred to the customer.   The Company's contracts with customers may contain multiple promised services. To the extent a customer contract includes multiple promised services, the Company determines whether promised services should be accounted for as a separate performance obligation. Contracts with options to purchase additional capacity or extend terms a…",
+   "amounts": []
+  },
+  {
    "kind": "rpo",
    "page": "99",
    "match": "Remaining performance obligations",
    "text": "…r the periods presented.   Contract liabilities consist of deferred revenue. Revenue is deferred when the Company invoices in advance of performance under a contract. The current portion of the deferred revenue balance is expected to be recognized as revenue during the 12-month period after the consolidated balance sheet date. The non-current portion of the deferred revenue balance is expected to be recognized as revenue following the 12-month period after the consolidated balance sheet date.   Remaining performance obligations (\"RPO\") represent the aggregate amount of the transaction price, net of estimated variable consideration, allocated to performance obligations not delivered, or partially undelivered, as of the end of the reporting period. Variable consideration primarily consists of potential reductions to the transaction price in the future, such as estimates of future potential credits to customers under availability of service agreements, amounts that may not be recognized as revenue due to delivery delays, and estimates of committed cloud computing capacity that the Company has the right to resell. The Company's estimate of such variable consideration is based on both historical experience and the specific facts and circumstances of the committed contracts included in the Company's RPO. RPO includes both billed and unbilled consideration from the Company's committed…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "99",
+   "match": "deferred revenue ",
+   "text": "… the customer contract may occur before invoicing the customer, resulting in an unbilled accounts receivable. These unbilled accounts receivable represent amounts earned but not yet invoiced and are recognized in accordance with the performance obligations satisfied. Such amounts have not been material for the periods presented.   Contract liabilities consist of deferred revenue. Revenue is deferred when the Company invoices in advance of performance under a contract. The current portion of the deferred revenue balance is expected to be recognized as revenue during the 12-month period after the consolidated balance sheet date. The non-current portion of the deferred revenue balance is expected to be recognized as revenue following the 12-month period after the consolidated balance sheet date.   Remaining performance obligations (\"RPO\") represent the aggregate amount of the transaction price, net of estimated variable consideration, allocated to performance obligations not delivered, or partially undelivered, as of the end of the reporting period. Variable consideration primarily consists of potential reductions to the transaction price in the future, such as estimates of future potential credits to customers under availability of service agreements, amounts that may not be recognized as revenue due to delivery delays, and estimates of committed cloud computing capacity that the…",
    "amounts": []
   },
   {
@@ -965,6 +1077,30 @@
    "match": "RPO",
    "text": "…5, 2024, and 2023, respectively.   Deferred Revenue   Deferred revenue, including current and non-current balances as of December 31, 2025 and 2024 was $ 8.2 billion and $ 4.1 billion, respectively. For the years ended December 31, 2025 and 2024, revenue recognized from deferred revenue at the beginning of the period was $ 780 million and $ 225 million, respectively. The increase in deferred revenue balances as of December 31, 2025 as compared to December 31, 2024 is attributed to the growth in RPO from committed contracts, which typically provide for certain prepayments at contract inception.   102",
    "amounts": [
+    {
+     "raw": "$ 780 million",
+     "usdM": 780
+    },
+    {
+     "raw": "$ 225 million",
+     "usdM": 225
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "102",
+   "match": "Deferred Revenue ",
+   "text": "…dance may have on its consolidated financial statements.   2. Revenue   Disaggregation of Revenue   The Company primarily generates its revenue through providing cloud computing services, which include both committed contracts and on-demand services. Revenue recognized related to customer commitments, including revenue from delivering capacity prior to commitment start dates, represented 98 %, 96 %, and 88 % of total revenue for the years ended December 31, 2025, 2024, and 2023, respectively.   Deferred Revenue   Deferred revenue, including current and non-current balances as of December 31, 2025 and 2024 was $ 8.2 billion and $ 4.1 billion, respectively. For the years ended December 31, 2025 and 2024, revenue recognized from deferred revenue at the beginning of the period was $ 780 million and $ 225 million, respectively. The increase in deferred revenue balances as of December 31, 2025 as compared to December 31, 2024 is attributed to the growth in RPO from committed contracts, which typically provide for certain prepayments at contract inception.   102",
+   "amounts": [
+    {
+     "raw": "$ 8.2 billion",
+     "usdM": 8200
+    },
+    {
+     "raw": "$ 4.1 billion",
+     "usdM": 4100
+    },
     {
      "raw": "$ 780 million",
      "usdM": 780
@@ -1147,6 +1283,26 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "107",
+   "match": "Deferred revenue,",
+   "text": "Table of Contents   Cash and cash equivalents $ 51   Accounts receivable, net 13   Prepaid expenses and other current assets 2   Property and equipment, net 1   Operating lease right-of-use assets 1   Intangible assets, net 208   Goodwill 793   Total assets acquired $ 1,069   Accounts payable 1   Accrued liabilities 7   Deferred revenue, current 25   Operating lease liabilities, non-current 1   Deferred tax liabilities, non-current 6   Total liabilities assumed $ 40   Total purchase price $ 1,029   The acquired assets and assumed liabilities were recorded at their estimated fair values. The following table presents the amounts allocated to the intangible assets identified as of the date of acquisition and the estimated useful lives (in millions):   Fair Value Useful Lives  (in years)   Customer relationships $ 36 12   Developed technology 162 5 - 7   Trade name 10 5   Total $ 208   The excess of the purchase price over the fair value of the net assets acquired was allocated to goodwill, none of which is expected to be deductible for tax purposes. Goodwill is primarily attributable to the assembled workforce as well as the anticipated synergies from the integration of Weights & Biases' technology with th…",
+   "amounts": [
+    {
+     "raw": "$ 1,069   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 40   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,029   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "useful_life",
    "page": "109",
    "match": "Useful Lives",
@@ -1277,6 +1433,22 @@
     {
      "raw": "$ 50 million",
      "usdM": 50
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "127",
+   "match": "Deferred revenue ",
+   "text": "…)   Effective tax rate   ( 16.1 ) % ( 6.4 ) %   Deferred income taxes reflect the net tax effects of temporary differences between the carrying amounts of assets and liabilities for financial reporting purposes and the amounts used for income tax purposes. The Company's deferred tax assets and liabilities as of December 31, 2025 and 2024, were as follows (in millions):   December 31, 2025 December 31, 2024   Deferred tax assets:   Net operating losses $ 971 $ 767   Lease liabilities 2,065 540   Deferred revenue   768 309   Other 217 103   Total deferred tax assets 4,021 1,719   Valuation allowance ( 636 ) ( 181 )   Deferred tax assets, net of valuation allowance 3,385 1,538   Deferred tax liabilities:   Property and equipment ( 1,330 ) ( 1,147 )   Intangible assets ( 46 ) ( 1 )   127",
+   "amounts": [
+    {
+     "raw": "$ 971 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 767   ",
+     "usdM": null
     }
    ]
   },

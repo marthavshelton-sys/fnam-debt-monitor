@@ -20,7 +20,7 @@
   function amt(f) { return f.amountUSDm != null ? H.moneyM(f.amountUSDm) : f.mw ? H.mw(f.mw) + H.scope(f.scope) : '<span class="nd">' + t('monto no revelado', 'amount not disclosed') + '</span>'; }
 
   function header() {
-    set('asofRow', '<span><b>' + t('Flujos', 'Flows') + '</b> ' + C.flows.length + '</span><span><b>' + t('Inferencias FNAM', 'FNAM inferences') + '</b> ' + C.inferences.length + '</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(C.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
+    set('asofRow', '<span><b>' + t('Flujos', 'Flows') + '</b> ' + C.flows.length + '</span><span><b>' + t('Inferencias FNAM', 'FNAM inferences') + '</b> ' + C.inferences.length + '</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.curatedDate(C) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
     set('notices', '<div class="notice"><b>' + t('Hechos y análisis, separados.', 'Facts and analysis, kept apart.') + '</b> ' + t('Secciones 01–03: solo flujos revelados en presentaciones de las empresas cubiertas (T1), cada uno con su página. Sección 04: inferencia de FNAM, marcada como tal y con los flujos en los que se apoya. Los montos tienen bases distintas (efectivo, valor "hasta", exposición máxima) y no se suman.', 'Sections 01–03: only flows disclosed in filings of the covered companies (T1), each with its page. Section 04: FNAM inference, labeled as such and listing the flows it rests on. Amounts have different bases (cash, "up to" value, maximum exposure) and are not added up.') + '</div>');
   }
 

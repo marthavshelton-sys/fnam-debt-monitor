@@ -767,6 +767,12 @@
  "errors": [],
  "runs": [
   {
+   "at": "2026-10-04T02:34:59Z",
+   "ok": true,
+   "newFilings": 0,
+   "errors": 0
+  },
+  {
    "at": "2026-10-04T00:26:06Z",
    "ok": true,
    "newFilings": 0,
@@ -805,15 +811,15 @@
  ],
  "consecutiveFailures": 0,
  "newFilings": [],
- "lastRun": "2026-10-04T00:26:06Z",
- "lastSuccess": "2026-10-04T00:26:06Z",
+ "lastRun": "2026-10-04T02:34:59Z",
+ "lastSuccess": "2026-10-04T02:34:59Z",
  "notes": {
   "0001193125-26-323660": {
    "ticker": "MSFT",
    "form": "10-K",
    "filed": "2026-07-29",
    "harvested": "2026-10-04",
-   "hits": 64,
+   "hits": 66,
    "status": "pending_review"
   },
   "0001193125-26-191507": {
@@ -821,7 +827,7 @@
    "form": "10-Q",
    "filed": "2026-04-29",
    "harvested": "2026-10-04",
-   "hits": 57,
+   "hits": 59,
    "status": "pending_review"
   },
   "0001652044-26-000018": {
@@ -829,7 +835,7 @@
    "form": "10-K",
    "filed": "2026-02-05",
    "harvested": "2026-10-04",
-   "hits": 91,
+   "hits": 103,
    "status": "pending_review"
   },
   "0001652044-26-000071": {
@@ -837,7 +843,7 @@
    "form": "10-Q",
    "filed": "2026-07-23",
    "harvested": "2026-10-04",
-   "hits": 60,
+   "hits": 72,
    "status": "pending_review"
   },
   "0001018724-26-000004": {
@@ -845,7 +851,7 @@
    "form": "10-K",
    "filed": "2026-02-06",
    "harvested": "2026-10-04",
-   "hits": 56,
+   "hits": 63,
    "status": "pending_review"
   },
   "0001018724-26-000026": {
@@ -853,7 +859,7 @@
    "form": "10-Q",
    "filed": "2026-07-31",
    "harvested": "2026-10-04",
-   "hits": 46,
+   "hits": 54,
    "status": "pending_review"
   },
   "0001628280-26-003942": {
@@ -861,7 +867,7 @@
    "form": "10-K",
    "filed": "2026-01-29",
    "harvested": "2026-10-04",
-   "hits": 59,
+   "hits": 65,
    "status": "pending_review"
   },
   "0001628280-26-050705": {
@@ -869,7 +875,7 @@
    "form": "10-Q",
    "filed": "2026-07-30",
    "harvested": "2026-10-04",
-   "hits": 36,
+   "hits": 40,
    "status": "pending_review"
   },
   "0001193125-26-277521": {
@@ -877,7 +883,7 @@
    "form": "10-K",
    "filed": "2026-06-22",
    "harvested": "2026-10-04",
-   "hits": 72,
+   "hits": 81,
    "status": "pending_review"
   },
   "0001193125-26-389274": {
@@ -885,7 +891,7 @@
    "form": "10-Q",
    "filed": "2026-09-11",
    "harvested": "2026-10-04",
-   "hits": 24,
+   "hits": 31,
    "status": "pending_review"
   },
   "0001769628-26-000104": {
@@ -893,7 +899,7 @@
    "form": "10-K",
    "filed": "2026-03-02",
    "harvested": "2026-10-04",
-   "hits": 154,
+   "hits": 164,
    "status": "pending_review"
   },
   "0001769628-26-000366": {
@@ -901,7 +907,7 @@
    "form": "10-Q",
    "filed": "2026-08-12",
    "harvested": "2026-10-04",
-   "hits": 116,
+   "hits": 124,
    "status": "pending_review"
   },
   "0001104659-26-052948": {
@@ -909,7 +915,7 @@
    "form": "20-F",
    "filed": "2026-04-30",
    "harvested": "2026-10-04",
-   "hits": 161,
+   "hits": 175,
    "status": "pending_review"
   },
   "0001878848-26-000052": {
@@ -917,7 +923,7 @@
    "form": "10-K",
    "filed": "2026-08-27",
    "harvested": "2026-10-04",
-   "hits": 257,
+   "hits": 281,
    "status": "pending_review"
   },
   "0001878848-26-000026": {
@@ -925,7 +931,7 @@
    "form": "10-Q",
    "filed": "2026-05-08",
    "harvested": "2026-10-04",
-   "hits": 71,
+   "hits": 90,
    "status": "pending_review"
   },
   "0001144879-26-000048": {
@@ -933,7 +939,7 @@
    "form": "10-K",
    "filed": "2026-07-29",
    "harvested": "2026-10-04",
-   "hits": 178,
+   "hits": 213,
    "status": "pending_review"
   },
   "0001144879-26-000030": {
@@ -941,7 +947,7 @@
    "form": "10-Q",
    "filed": "2026-04-08",
    "harvested": "2026-10-04",
-   "hits": 99,
+   "hits": 114,
    "status": "pending_review"
   },
   "0001628280-26-013305": {
@@ -949,7 +955,7 @@
    "form": "10-K",
    "filed": "2026-03-02",
    "harvested": "2026-10-04",
-   "hits": 67,
+   "hits": 74,
    "status": "pending_review"
   },
   "0001839341-26-000014": {
@@ -957,7 +963,87 @@
    "form": "10-Q",
    "filed": "2026-07-28",
    "harvested": "2026-10-04",
-   "hits": 57,
+   "hits": 64,
+   "status": "pending_review"
+  },
+  "0001193125-26-027207": {
+   "ticker": "MSFT",
+   "form": "10-Q",
+   "filed": "2026-01-28",
+   "harvested": "2026-10-04",
+   "hits": 58,
+   "status": "pending_review"
+  },
+  "0001018724-26-000014": {
+   "ticker": "AMZN",
+   "form": "10-Q",
+   "filed": "2026-04-30",
+   "harvested": "2026-10-04",
+   "hits": 51,
+   "status": "pending_review"
+  },
+  "0001193125-25-315925": {
+   "ticker": "ORCL",
+   "form": "10-Q",
+   "filed": "2025-12-11",
+   "harvested": "2026-10-04",
+   "hits": 30,
+   "status": "pending_review"
+  },
+  "0001769628-25-000062": {
+   "ticker": "CRWV",
+   "form": "10-Q",
+   "filed": "2025-11-13",
+   "harvested": "2026-10-04",
+   "hits": 107,
+   "status": "pending_review"
+  },
+  "0001144879-26-000006": {
+   "ticker": "APLD",
+   "form": "10-Q",
+   "filed": "2026-01-08",
+   "harvested": "2026-10-04",
+   "hits": 72,
+   "status": "pending_review"
+  },
+  "0001652044-25-000062": {
+   "ticker": "GOOGL",
+   "form": "10-Q",
+   "filed": "2025-07-24",
+   "harvested": "2026-10-04",
+   "hits": 46,
+   "status": "pending_review"
+  },
+  "0000950170-24-048288": {
+   "ticker": "MSFT",
+   "form": "10-Q",
+   "filed": "2024-04-25",
+   "harvested": "2026-10-04",
+   "hits": 51,
+   "status": "pending_review"
+  },
+  "0001018724-24-000161": {
+   "ticker": "AMZN",
+   "form": "10-Q",
+   "filed": "2024-11-01",
+   "harvested": "2026-10-04",
+   "hits": 43,
+   "status": "pending_review"
+  },
+  "0001018724-24-000130": {
+   "ticker": "AMZN",
+   "form": "10-Q",
+   "filed": "2024-08-02",
+   "harvested": "2026-10-04",
+   "hits": 41,
+   "status": "pending_review"
+  },
+  "0001878848-26-000015": {
+   "ticker": "IREN",
+   "form": "10-Q",
+   "filed": "2026-02-05",
+   "harvested": "2026-10-04",
+   "hits": 92,
    "status": "pending_review"
   }
  }

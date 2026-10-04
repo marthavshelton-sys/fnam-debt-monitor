@@ -13,7 +13,7 @@
 //   fiscal years.
 // * Nothing is imputed: a missing input leaves the derived figure null ("Not disclosed").
 import { readdir } from 'node:fs/promises';
-import { readJson, writeJson, writeText, TOOLS, SITE, ROOT, fiscalOf, durQ, days, nowET, filingIndexUrl } from './lib.mjs';
+import { readJson, writeJson, writeText, TOOLS, SITE, ROOT, fiscalOf, durQ, days, nowET, filingIndexUrl, loadHarvest, resolveCite } from './lib.mjs';
 import { TAGS, FLOW, INSTANT } from './tags.mjs';
 
 const FIRST_FY_END = '2022-06-01';   // history kept from fiscal 2023 quarters onward (≥ 3 years)
@@ -29,9 +29,19 @@ const debtSnap = fsFiles.length ? { file: `tools/hyperscalers/raw/factset/${fsFi
 const guidance = await readJson(TOOLS + 'data/guidance.json', null);
 const offbsCur = await readJson(TOOLS + 'data/offbs.json', { items: [], searched: [] });
 const orclOblig = await readJson('tools/oracle/data/obligations.json', null);
+// curated explanations of the gaps (tools/hyperscalers/data/not-tagged.json) and the SEC filing behind each FactSet deal
+// that no 424B fee exhibit matched (deal-matches.json); their citations are checked against the harvested filing pages
+const notTaggedCur = await readJson(TOOLS + 'data/not-tagged.json', { items: [] });
+const OUTL = await readJson(TOOLS + 'data/outliers.json', { items: [] });   // quarterly outliers read in the filing (confirmed or explained)
+const dealMatchesCur = await readJson(TOOLS + 'data/deal-matches.json', { matches: [] });
+const HARVEST = await loadHarvest(companies);
+// the one refresh time of this build: build-modules.mjs and validate.mjs reuse it, so every page shows the same ET stamp
 const stamp = nowET();
 const warnings = [];
 const restated = [];
+// a gap the curated file explains as "none" (the line does not exist for the company, e.g. no finance leases) counts as
+// zero in the derived figures that need it; the derivation records which input was taken as zero and why
+const assumeZero = (tk, k) => notTaggedCur.items.some((i) => i.ticker === tk && i.metric === k && i.result === 'none' && i.assumeZero);
 
 const short = (t) => t.replace(/^us-gaap:/, '');
 
@@ -85,7 +95,22 @@ function flowQuarters(ticker, fyEnd, xb, tag) {
   // fiscal-year totals (for the tie-out and the annual view)
   const fyTot = {};
   for (const [fy, ks] of Object.entries(ytd)) if (ks[4]) fyTot[`FY${fy}`] = { v: ks[4].v, t: short(tag), a: [ks[4].a], end: ks[4].e, form: ks[4].f, filed: ks[4].d };
-  return { q: out, fy: fyTot };
+  return { q: out, fy: fyTot, ytd, tag: short(tag) };
+}
+// A company that re-tags a line mid-year (Alphabet's dividends became "ordinary dividends" when it started paying preferred
+// dividends in 2026) leaves YTD(n) under one tag and YTD(n−1) under another: the quarter is derived across the two tags
+// and marked "mixed", with both tags and both accessions in the cell's card. Nothing is imputed: both facts must exist.
+function crossTagQuarters(per, fy) {
+  const out = {};
+  for (const k of [2, 3, 4]) {
+    let cur = null, prev = null;
+    for (const r of per) { const x = r.ytd && r.ytd[fy] && r.ytd[fy][k]; if (x && !cur) cur = { f: x, tag: r.tag }; }
+    if (!cur) continue;
+    for (const r of per) { const x = r.ytd && r.ytd[fy] && r.ytd[fy][k - 1]; if (x && r.tag !== cur.tag && !prev) prev = { f: x, tag: r.tag }; }
+    if (!prev) continue;
+    out[`FY${fy}Q${k}`] = { v: cur.f.v - prev.f.v, t: `${cur.tag} − ${prev.tag}`, a: [cur.f.a, prev.f.a], m: k === 4 ? 'fy_minus_9m' : 'ytd_subtraction', end: cur.f.e, form: cur.f.f, filed: cur.f.d, mixed: true };
+  }
+  return out;
 }
 
 function instantAt(ticker, xb, recipes, ends) {
@@ -134,14 +159,18 @@ for (const c of companies) {
       const score = per.map((r) => Object.keys(r.q || {}).filter((id) => id.startsWith(fy + 'Q')).length + (r.fy && r.fy[fy] ? 0.5 : 0));
       const best = score.indexOf(Math.max(...score));
       const order = [best, ...per.map((_, i) => i).filter((i) => i !== best)];
+      const cross = crossTagQuarters(per, fy.slice(2));
       for (let n = 1; n <= 4; n++) {
         const id = `${fy}Q${n}`;
+        let found = false;
         for (const i of order) {
           const x = per[i].q && per[i].q[id];
           if (!x || x.end < FIRST_FY_END) continue;
           ensure(id, x.end).m[k] = i === best ? x : { ...x, mixed: true };
+          found = true;
           break;
         }
+        if (!found && cross[id] && cross[id].end >= FIRST_FY_END) ensure(id, cross[id].end).m[k] = cross[id];
       }
       for (const i of order) {
         const x = per[i].fy && per[i].fy[fy];
@@ -172,15 +201,19 @@ for (const c of companies) {
       warnings.push({ ticker: c.ticker, tag: fy, check: `${k}: Q1+Q2+Q3+Q4 = fiscal year`, diff: (s - f.m[k].v) / 1e6, status: ok ? 'ok' : 'warn', identity: true });
     }
   }
-  // derived quarterly figures (FNAM calculation; null when an input is not disclosed)
+  // derived quarterly figures (FNAM calculation; null when an input is not disclosed, unless the curated file explains the
+  // input as "none" for the company, in which case it is zero and the derivation says so: d._zero lists those inputs)
+  const zeroK = ['fl_additions', 'fl_principal', 'fl_liab', 'ol_liab'].filter((k) => assumeZero(c.ticker, k));
   for (const q of quarters) {
-    const g = (k) => (q.m[k] ? q.m[k].v : null);
+    const g = (k) => (q.m[k] ? q.m[k].v : zeroK.includes(k) ? 0 : null);
     const d = {};
     if (g('capex_cash') != null && g('fl_additions') != null) d.capex_incl_fl = g('capex_cash') + g('fl_additions');
     if (g('ocf') != null && g('capex_cash') != null) { d.fcf = g('ocf') - g('capex_cash'); d.capex_ocf = g('ocf') > 0 ? g('capex_cash') / g('ocf') : null; }
     if (d.fcf != null && g('fl_principal') != null) d.fcf_after_fl = d.fcf - g('fl_principal');
     if (g('debt') != null && g('cash') != null) d.net_debt = g('debt') - g('cash');
     if (d.net_debt != null && g('ol_liab') != null && g('fl_liab') != null) d.lease_adj_net_debt = d.net_debt + g('ol_liab') + g('fl_liab');
+    const used = zeroK.filter((k) => !q.m[k] && ((k === 'fl_additions' && d.capex_incl_fl != null) || (k === 'fl_principal' && d.fcf_after_fl != null) || ((k === 'fl_liab' || k === 'ol_liab') && d.lease_adj_net_debt != null)));
+    if (used.length) d._zero = used;
     q.d = d;
   }
   // trailing twelve months: the last four consecutive fiscal quarters (no gaps) for each flow metric
@@ -197,6 +230,7 @@ for (const c of companies) {
       const v = ttmAt(i, k);
       if (v != null) t[k] = v;
       else if (fyRow && fyRow.m[k] && fyRow.end === q.end) { t[k] = fyRow.m[k].v; (t._fromFY ||= []).push(k); }   // 12 months to fiscal year-end = the fiscal year
+      else if (zeroK.includes(k)) { t[k] = 0; (t._zero ||= []).push(k); }                                     // explained as "none" in not-tagged.json
     }
     if (t.op_income != null && t.da != null) t.ebitda = t.op_income + t.da;
     if (t.capex_cash != null && t.fl_additions != null) t.capex_incl_fl = t.capex_cash + t.fl_additions;
@@ -209,19 +243,33 @@ for (const c of companies) {
     q.ttm = t;
   });
 
-  // anomaly flags: a flow value more than 5x the median of the four quarters before it (and above $1bn), or a
-  // sign change in an outflow line; these print "needs review" on the page until the filing text is checked
+  // anomaly flags: a flow value more than 5x the median of the non-zero quarters among the four before it (and above
+  // $1bn); these print "needs review" on the page until the filing text is read (tools/hyperscalers/data/outliers.json)
   const anomalies = [];
   for (const k of FLOW) {
     quarters.forEach((q, i) => {
       if (!q.m[k] || i < 4) return;
-      const prev = quarters.slice(i - 4, i).map((x) => x.m[k] && Math.abs(x.m[k].v)).filter((x) => x != null).sort((a, b) => a - b);
+      // baseline: the non-zero quarters among the four before; a line that is starting (a first dividend, a first bond) has
+      // no baseline and is not an outlier of anything, so it is not flagged (the identity check still applies to it)
+      const prev = quarters.slice(i - 4, i).map((x) => x.m[k] && Math.abs(x.m[k].v)).filter((x) => x != null && x > 0).sort((a, b) => a - b);
       if (prev.length < 3) return;
       const med = prev[Math.floor(prev.length / 2)];
       const v = Math.abs(q.m[k].v);
-      if (v > 1e9 && med >= 0 && v > 5 * Math.max(med, 1)) { anomalies.push({ id: q.id, k, v: q.m[k].v, median: med }); q.m[k].review = true; }
+      if (v > 1e9 && med >= 0 && v > 5 * Math.max(med, 1)) { q.m[k].anomaly = med; anomalies.push({ id: q.id, k, v: q.m[k].v, median: med, result: 'flagged' }); }
     });
   }
+  // curated readings of the filing (tools/hyperscalers/data/outliers.json): a record whose value matches the derived
+  // quarter (within 0.5%) attaches its quote to the cell; 'confirmed' clears the anomaly flag, 'reclassified' keeps it and
+  // explains it. A record for a quarter the rule no longer flags still attaches (the reading stays visible in the ⓘ card).
+  for (const rec of OUTL.items.filter((r) => r.ticker === c.ticker)) {
+    const q = quarters.find((x) => x.id === rec.quarter), x = q && q.m[rec.metric];
+    if (!x || Math.abs(rec.valueUSDm * 1e6 - x.v) > Math.max(1e6, Math.abs(x.v) * 0.005)) continue;
+    x.conf = { result: rec.result, note_en: rec.note_en, note_es: rec.note_es, src: resolveCite(HARVEST, rec.src), status: rec.status, verifiedBy: rec.verifiedBy, verifiedOn: rec.verifiedOn, reviewedBy: rec.reviewedBy ?? null, medianUSDm: x.anomaly != null ? Math.round(x.anomaly / 1e5) / 10 : null, flagged: x.anomaly != null };
+    rec._applied = true;
+    const a = anomalies.find((y) => y.id === rec.quarter && y.k === rec.metric);
+    if (a) a.result = rec.result;
+  }
+  for (const q of quarters) for (const x of Object.values(q.m)) if (x.anomaly != null && !(x.conf && x.conf.result === 'confirmed')) x.review = true;
 
   // staleness: next expected filing = next period end + the SEC deadline for the filer category (+7 days grace)
   const last = quarters.filter((q) => q.m.capex_cash || q.m.ocf || (q.ttm && q.ttm.capex_cash != null)).pop();
@@ -245,7 +293,7 @@ for (const c of companies) {
     ticker: c.ticker, cik: c.cik, name: c.name, group: c.group, color: c.color, fyEnd: c.fyEnd, category: cat || null,
     note: c.note_en ? { en: c.note_en, es: c.note_es } : null,
     latest: last ? { id: last.id, end: last.end, cal: last.cal } : null, nextPeriodEnd: nextEnd, nextFilingDue: due,
-    quarters: quarters.filter((q) => Object.keys(q.m).length).map((q) => ({ id: q.id, end: q.end, cal: q.cal, m: Object.fromEntries(Object.entries(q.m).map(([k, x]) => [k, [x.v, x.t, x.a, x.m, x.review ? 1 : 0, x.mixed ? 1 : 0]])), d: q.d, ttm: q.ttm })),
+    quarters: quarters.filter((q) => Object.keys(q.m).length).map((q) => ({ id: q.id, end: q.end, cal: q.cal, m: Object.fromEntries(Object.entries(q.m).map(([k, x]) => [k, [x.v, x.t, x.a, x.m, x.review ? 1 : 0, x.mixed ? 1 : 0, x.conf || 0]])), d: q.d, ttm: q.ttm })),
     fy: Object.values(FY).sort((a, b) => a.end.localeCompare(b.end)).map((f) => ({ id: f.id, end: f.end, m: Object.fromEntries(Object.entries(f.m).map(([k, x]) => [k, [x.v, x.t, x.a]])) })),
     anomalies, filings: lastFilings,
   };
@@ -278,13 +326,22 @@ if (debtSnap) {
     // FactSet converts non-USD tranches at a spot rate, which leaves amounts with 2+ decimals (EUR 1,250m → 1,429.125); convertibles are excluded because partial conversions leave odd USD amounts
     const nonUSD = klass !== 'Convertible notes' && ts.some((t) => !Number.isInteger(Math.round(t[4] * 1000) / 100));
     const match = out.offerings.find((o) => o.ticker === ticker && Math.abs(Date.parse(o.date) - Date.parse(issued)) <= 7 * 864e5 && amount > 0 && Math.abs(o.amount / 1e6 - amount) / amount <= 0.03);
+    // the curated SEC filing behind a deal no fee exhibit matched (EDGAR full-text index and/or a harvested 10-K/10-Q passage)
+    const cur = (dealMatchesCur.matches || []).find((m) => m.key === k);
+    const fs = cur ? { result: cur.result, filing: cur.filing || null, textSrc: cur.textSrc ? resolveCite(HARVEST, cur.textSrc) : null, note_en: cur.note_en || null, note_es: cur.note_es || null, status: cur.status, verifiedBy: cur.verifiedBy || null, verifiedOn: cur.verifiedOn || null, reviewedBy: cur.reviewedBy || null } : null;
     deals.push({ ticker, issued, klass, tranches: ts.length, amount, couponMin: cps.length ? Math.min(...cps) : null, couponMax: cps.length ? Math.max(...cps) : null,
       floating: ts.some((t) => t[6] === 'Variable'), tenorMin: ten.length ? Math.min(...ten) : null, tenorMax: ten.length ? Math.max(...ten) : null, maturityLast: ts.map((t) => t[8]).sort().at(-1),
       seniority: [...new Set(ts.map((t) => t[3]))].join('; '), nonUSD, undrawn: amount === 0, reportDate: ts[0][9], ids: ts.map((t) => t[1]),
-      match: match ? { accn: match.accn, url: match.url, date: match.date, amount: match.amount } : null });
+      match: match ? { accn: match.accn, url: match.url, date: match.date, amount: match.amount } : null, fs: match ? null : fs });
   }
   deals.sort((a, b) => b.issued.localeCompare(a.issued) || b.amount - a.amount);
 }
+// explained gaps: each record's citation checked against the harvested page (quoteCheck), ready for the pages' ⓘ cards
+out.notTagged = (notTaggedCur.items || []).map((i) => ({ ...i, src: i.src ? resolveCite(HARVEST, i.src) : null, url: i.src ? null : (i.accn ? filingIndexUrl(companies.find((c) => c.ticker === i.ticker).cik, i.accn) : null) }));
+out.notTaggedMeta = { updatedAt: notTaggedCur.updatedAt || null, readBy: notTaggedCur.readBy || null };
+out.dealMatchesMeta = { updatedAt: dealMatchesCur.updatedAt || null, method: dealMatchesCur.method || null };
+out.outliers = { updatedAt: OUTL.updatedAt || null, method: OUTL.method || null, items: OUTL.items.map((r) => ({ ...r, src: resolveCite(HARVEST, r.src), applied: !!r._applied, _applied: undefined })) };
+out.verification = { en: 'automated quote-match plus a second AI read; not analyst-reviewed', es: 'cotejo automático de la cita más una segunda lectura por IA; sin revisión de analista' };
 out.guidance = guidance;
 
 // Off-balance-sheet text items: the curated file plus Oracle's items read from the Oracle model's verified store
@@ -296,17 +353,18 @@ if (orclOblig && orclOblig.leases && orclOblig.leases.uncommenced) {
   offItems.push({ ticker: 'ORCL', item: 'leases_not_commenced', amountUSDm: u.usd_bn * 1000, basis: 'undiscounted', asOf: orclOblig.as_of,
     filing: { form: '10-Q', accn: accn ? accn.replace(/(\d{10})(\d{2})(\d{6})/, '$1-$2-$3') : null, url: src.url || null, section: 'Leases note', page: null },
     quote: u.text_en, commence: { from: u.commence_from, to: u.commence_to }, termYears: [u.term_years_min, u.term_years_max], history: u.history,
-    accounting: 'ASC 842', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, pagePending: true });
+    accounting: 'ASC 842', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true });
 }
 if (orclOblig && orclOblig.prepayments && orclOblig.prepayments.deferred_revenue_prepayments_financing_1q27 != null) {
   const src = orclOblig.sources['10q_1q27'] || {};
   offItems.push({ ticker: 'ORCL', item: 'prepayment', amountUSDm: orclOblig.prepayments.deferred_revenue_prepayments_financing_1q27, basis: 'carrying', asOf: orclOblig.as_of,
     filing: { form: '10-Q', accn: '0001193125-26-389274', url: src.url || null, section: 'Cash-flow statement', page: null }, quote: orclOblig.prepayments.text_en,
-    accounting: 'ASC 606 (significant financing component)', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, pagePending: true });
+    accounting: 'ASC 606 (significant financing component)', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true });
 }
+for (const i of offItems) if (!('reviewedBy' in i)) i.reviewedBy = null;
 // page citations found in the harvested notes for items that come from another store (Oracle)
 for (const pc of offbsCur.pageCites || []) for (const i of offItems) if (i.ticker === pc.ticker && i.item === pc.item && i.filing && i.filing.accn === pc.accn && !i.filing.page) { i.filing.page = pc.page; i.filing.section = pc.section || i.filing.section; delete i.pagePending; }
-out.offbs = { updated: offbsCur.updated, items: offItems, searched: offbsCur.searched || [] };
+out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [] };
 out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: debtSnap.notes, tranches: debtSnap.tranches, deals } : null;
 
 // change log: new periods and revised values against the previous build

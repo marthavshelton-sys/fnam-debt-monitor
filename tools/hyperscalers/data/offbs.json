@@ -1,5 +1,5 @@
 {
- "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (Claude routine or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here.",
+ "_comment": "Off-balance-sheet items read from filing TEXT (lease, VIE, commitments, guarantees and equity-method notes), one record per item. XBRL-tagged items (RPO, purchase obligations, VIE maximum exposure, guarantees, equity-method investments) come from the automated feed and are not repeated here. Each record: ticker, item (leases_not_commenced | vie_unconsolidated | vie_consolidated | jv_equity_method_debt | spv | rvg | take_or_pay | guarantee | purchase_obligation | prepayment), amountUSDm (null when the filing gives none), basis (undiscounted | present_value | max_exposure | notional | carrying), asOf, filing {form, accn, url, section, page}, quote (the sentence the figure comes from), commence (for leases: from/to), counterparty, lookthrough {sharePct, amountUSDm, method} when a proportional view applies, accounting (ASC topic), tier T1, status needs_review | verified, verifiedBy, verifiedOn. Items may carry subsequent: true (signed after the balance-sheet date; never added to that date's totals), includedIn (already counted in another item) and note_en/note_es. Searched results: none (looked for and absent) or amount_not_disclosed (exists, no amount). Text-derived numbers stay needs_review until a second reading of the cited page confirms them (Claude routine or the owner). Oracle's items are read from the Oracle model's verified store (tools/oracle/data/obligations.json) by scripts/hyperscalers/build.mjs and are not duplicated here. reviewedBy: a person's sign-off (name and date); null until an analyst reviews the item. Verification = automated quote-match plus a second AI read, never an analyst review.",
  "updated": "2026-10-03",
  "items": [
   {
@@ -41,7 +41,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "MSFT",
@@ -62,7 +63,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "MSFT",
@@ -84,7 +86,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
@@ -125,7 +128,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
@@ -158,7 +162,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
@@ -179,7 +184,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
@@ -203,7 +209,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "GOOGL",
@@ -224,7 +231,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "AMZN",
@@ -257,7 +265,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "AMZN",
@@ -278,7 +287,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "AMZN",
@@ -300,7 +310,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -341,7 +352,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -373,7 +385,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -400,7 +413,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -424,7 +438,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -448,7 +463,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "META",
@@ -469,7 +485,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "ORCL",
@@ -493,7 +510,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "ORCL",
@@ -515,7 +533,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "CRWV",
@@ -544,7 +563,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "CRWV",
@@ -566,7 +586,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "CRWV",
@@ -591,7 +612,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "NBIS",
@@ -620,7 +642,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "IREN",
@@ -644,7 +667,8 @@
    "status": "verified",
    "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the SEC filing text harvested on the runner (figure, date, basis and definition confirmed)",
    "verifiedOn": "2026-10-03",
-   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)"
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
+   "reviewedBy": null
   },
   {
    "ticker": "APLD",
@@ -658,19 +682,51 @@
     "accn": "0001144879-26-000048",
     "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/0001144879-26-000048-index.htm",
     "section": "Item 7 — Financing (2030 9.250% and 2031 6.750% Notes)",
-    "page": "48–49"
+    "page": "49"
    },
-   "quote": "The 2030 9.250% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo. Other than a customary completion guarantee, the Company is not providing credit support for the 2030 9.250% Notes Offering. ... The 2031 6.750% Notes are fully and unconditionally guaranteed by the subsidiary guarantors, all of which are wholly owned subsidiaries of APLD ComputeCo 2. The Company provided a customary completion guarantee for the 2031 6.750% Notes Offering.",
-   "note_en": "Amount = $2,350m + $2,150m outstanding per the FactSet snapshot (the passage does not repeat the amounts). Consolidated, so already in debt; the point is recourse: project-level, with only completion guarantees from the parent.",
-   "note_es": "Monto = US$2,350 M + US$2,150 M vigentes según la instantánea de FactSet (el pasaje no repite los montos). Consolidado, ya está en la deuda; lo relevante es el recurso: a nivel proyecto, con solo garantías de terminación de la matriz.",
+   "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 6.750% Notes”) at an issue price of 98.000% of par.",
+   "note_en": "Amount = US$2,350m (2030 9.250% notes, 10-Q for 28 Feb 2026 p. 19 and the debt table p. 17) + US$2,150m (2031 6.750% notes, 10-K p. 49), the principal amounts the filings state; FactSet shows the same amounts outstanding at 31 May 2026. Consolidated, so already in debt; the point is recourse: project-level, with only completion guarantees from the parent.",
+   "note_es": "Monto = US$2,350 M (notas 9.250% 2030, 10-Q al 28 feb 2026 p. 19 y tabla de deuda p. 17) + US$2,150 M (notas 6.750% 2031, 10-K p. 49), los principales que indican las presentaciones; FactSet muestra los mismos montos vigentes al 31 may 2026. Consolidado, ya está en la deuda; lo relevante es el recurso: a nivel proyecto, con solo garantías de terminación de la matriz.",
    "accounting": "ASC 810 (consolidated subsidiaries)",
    "tier": "T1",
-   "status": "needs_review",
-   "verifiedBy": null,
-   "verifiedOn": null,
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03: second reading of the cited pages in the harvested SEC text (US$2.35bn on 10-Q p. 19 and p. 17; US$2.15bn on 10-K p. 49; recourse terms on 10-K pp. 48–49)",
+   "verifiedOn": "2026-10-03",
    "readBy": "Claude session 2026-10-03, from the page text harvested on the runner (tools/hyperscalers/raw/notes/)",
-   "reviewNote_en": "Kept as needs review: the amount comes from the FactSet snapshot; the cited 10-K pages do not state it.",
-   "reviewNote_es": "Se mantiene por revisar: el monto viene de la instantánea de FactSet; las páginas citadas del 10-K no lo indican."
+   "filing2": {
+    "form": "10-Q",
+    "accn": "0001144879-26-000030",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000030/0001144879-26-000030-index.htm",
+    "section": "Note 6 — Debt (2030 Senior Secured Notes)",
+    "page": "19",
+    "quote": "The aggregate principal amount of Notes sold in the offering was $2.35 billion. The 2030 Notes were issued at a price equal to 97% of their aggregate principal amount."
+   },
+   "reviewedBy": null
+  },
+  {
+   "ticker": "APLD",
+   "item": "vie_unconsolidated",
+   "amountUSDm": 60.6,
+   "basis": "max_exposure",
+   "asOf": "2026-05-31",
+   "counterparty": "Base Electron Corp. (related-party power developer, ~10% owned)",
+   "filing": {
+    "form": "10-K",
+    "accn": "0001144879-26-000048",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000114487926000048/0001144879-26-000048-index.htm",
+    "section": "Note 11 — Variable interest entities (unconsolidated VIE)",
+    "page": "105"
+   },
+   "quote": "As of May 31, 2026, the carrying value of the Company's investment in Base Electron was $2.0 million and the outstanding balance of the related party promissory note w",
+   "note_en": "Maximum exposure = US$2.0m investment (ASC 321, at cost) + US$58.6m related-party promissory note (10-K p. 93, p. 101): FNAM sum of the two disclosed figures. Base Electron is a VIE Applied Digital does not consolidate (not the primary beneficiary).",
+   "note_es": "Exposición máxima = inversión de US$2.0 M (ASC 321, al costo) + pagaré con parte relacionada de US$58.6 M (10-K p. 93, p. 101): suma FNAM de las dos cifras divulgadas. Base Electron es una EIV que Applied Digital no consolida (no es beneficiario primario).",
+   "accounting": "ASC 810",
+   "tier": "T1",
+   "status": "verified",
+   "verifiedBy": "Claude session 2026-10-03: second reading of the cited page in the harvested SEC text (investment and note balances confirmed on pp. 93, 101 and 105)",
+   "verifiedOn": "2026-10-03",
+   "readBy": "Claude session 2026-10-03, from the page text harvested on the runner",
+   "reviewedBy": null
   }
  ],
  "searched": [
@@ -810,5 +866,6 @@
    "page": "13",
    "source": "tools/hyperscalers/raw/notes/ORCL/0001193125-26-389274.json"
   }
- ]
+ ],
+ "updatedAt": "2026-10-04T02:45:00Z"
 }

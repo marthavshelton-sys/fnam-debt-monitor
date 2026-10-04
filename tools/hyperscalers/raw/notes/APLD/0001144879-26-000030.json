@@ -11,6 +11,18 @@
  "numberedPages": 76,
  "hits": [
   {
+   "kind": "cash_flow",
+   "page": "1",
+   "match": "Deferred revenue ",
+   "text": "…, net 77,457 92,335   Finance lease right of use assets, net 135,581 213,315   Other assets 593,708 179,353   TOTAL ASSETS $ 6,246,818 $ 1,870,090   LIABILITIES, TEMPORARY EQUITY AND STOCKHOLDERS' EQUITY   Current liabilities:   Accounts payable $ 377,429 $ 251,491   Accrued liabilities 376,985 30,121   Current portion of operating lease liability 18,101 16,785   Current portion of finance lease liability 51,151 147,040   Current portion of debt 98,174 10,331   Customer deposits 16,752 16,125   Deferred revenue 12,550 3,594   Due to customer 2,658 4,807   Other current liabilities 65,518 19,431   Total current liabilities 1,019,318 499,725   Long-term portion of operating lease liability 45,051 58,800   Long-term portion of finance lease liability 20,502 15   Long-term debt 2,594,501 677,825   Total liabilities 3,679,372 1,236,365   Commitments and contingencies (Note 14)   Temporary equity   Series E preferred stock, $ 0.001 par value, 2,000,000 shares authorized, 301,673 shares issued and 281,673 shares outstanding at February 28, 2026, and 301,673 shares issued and outstanding at May 31, 2025   6,432 6,932   Series E-1 preferred stock, $ 0.001 par value, 62,500 shares authorized, 62,500 shares issued and 62,189 shares outstanding at February 28, 2026, and 62,500 shares issued and 62,485 shares outstanding at May 31, 2025   56,728 57,011   Series G preferred stock, $ 0.001 pa…",
+   "amounts": [
+    {
+     "raw": "$ 251,491   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "2",
    "match": "Related party",
@@ -69,6 +81,20 @@
      "usdM": 25
     }
    ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "7",
+   "match": "Deferred revenue ",
+   "text": "…989 11,515   Loss (gain) on classification of held for sale 59,650 ( 24,616 )   Loss on conversion of debt — 33,612   Loss on change in fair value of debt — 85,439   Loss on abandonment of assets 2,343 769   Loss on change in fair value of warrants issued   — 6,421   Changes in operating assets and liabilities:   Accounts receivable ( 13,923 ) ( 10,722 )   Prepaid expenses and other current assets ( 88,229 ) ( 4,072 )   Customer deposits 627 2,306   Related party customer deposits — ( 1,549 )   Deferred revenue 8,956 ( 32,795 )   Related party deferred revenue — ( 1,692 )   Accounts payable ( 171,583 ) ( 88,378 )   Accrued liabilities 64,613 ( 12,319 )   Due to customer ( 2,149 ) ( 8,195 )   Lease assets and liabilities 14,773 ( 13,557 )   Other assets ( 6,983 ) ( 757 )   CASH FLOW USED IN OPERATING ACTIVITIES ( 42,860 ) ( 122,257 )   CASH FLOW FROM INVESTING ACTIVITIES   Purchases of property and equipment and other assets ( 1,576,697 ) ( 483,340 )   Proceeds from satisfaction of contingency on sale of assets — 25,000   Finance lease prepayments   — ( 4,840 )   Investment in companies   ( 17,000 ) ( 2,498 )   CASH FLOW USED IN INVESTING ACTIVITIES ( 1,593,697 ) ( 465,678 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 94,455 ) ( 93,992 )   Borrowings of long-term debt 2,504,863 650,000   Repayments of long-term debt ( 432,536 ) ( 290,535 )   Payment of …",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "7",
+   "match": "Proceeds from issuance of common stock",
+   "text": "…   CASH FLOW USED IN INVESTING ACTIVITIES ( 1,593,697 ) ( 465,678 )   CASH FLOW FROM FINANCING ACTIVITIES   Repayment of finance leases ( 94,455 ) ( 93,992 )   Borrowings of long-term debt 2,504,863 650,000   Repayments of long-term debt ( 432,536 ) ( 290,535 )   Payment of deferred financing costs ( 81,168 ) ( 42,903 )   Tax payments for restricted stock upon vesting ( 24,838 ) ( 2,970 )   Noncontrolling interest contributions 900,000 —   Noncontrolling interest issuance costs   ( 62,018 ) —   Proceeds from issuance of common stock 196,366 191,590   Common stock issuance costs ( 5,949 ) ( 10,253 )   Proceeds from issuance of preferred stock 739,998 100,489   Preferred stock issuance costs ( 11,868 ) ( 8,914 )   Redemption of preferred stock   ( 793 ) —   Dividends issued on preferred stock ( 4,705 ) ( 1,213 )   Warrant issuance costs   ( 8,250 ) —   Exercise of warrants   6,265 —   Proceeds from issuance of SAFE agreement included in long-term debt — 12,000   Repurchase of shares — ( 31,342 )   Proceeds from convertible notes — 450,000   Purchase of capped call options — ( 51,750 )   Purchase of prepaid forward contract — ( 52,736 )   CASH FLOW PROVIDED BY FINANCING ACTIVITIES 3,620,912 817,471   7",
+   "amounts": []
   },
   {
    "kind": "concentration",
@@ -148,6 +174,20 @@
    "page": "11",
    "match": "Interconnection",
    "text": "…s (“tenant recoveries”) as revenue in the period the applicable expenses are incurred – which is generally on a ratable basis through the term of the lease. We account for and present rental revenue and tenant recoveries as a single component under rental and other services as the timing of recognition is the same, the pattern with which we transfer the right of use of the property and related services to the lessee are both on a straight-line basis and our leases qualify as operating leases.   Interconnection services include port and cross-connect services generally provided on terms that align with the respective lease term. We bill for these services on a monthly basis and recognize the revenue over the period the service is provided. Revenue for cross-connect installations is generally recognized in the period the cross-connect is installed.   Tenant fit-out services include the procurement and installation of customer equipment provided in accordance with the terms of the agreement with the customer. In the course of providing its services, the Company routinely subcontracts for services and incurs other direct costs on behalf of its clients which costs are passed through to the client and is recognized as revenue. The Company recognizes revenue using the percentage of completion model where by total costs incurred are divided by total costs expected to be incurred, which…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "11",
+   "match": "deferred revenue ",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   for other services is generally recognized at a point in time when the services are complete. Customer contracts include advance payment terms. All advanced service payments are recorded as deferred revenue and are recognized as revenue once the related service is provided.   HPC Hosting Revenue   We generate the majority of our HPC hosting revenue by leasing our properties to customers under operating lease agreements, which are accounted for under ASC 842, Leases (“ASC 842”). We recognize the total minimum lease payments provided for under the leases on a straight-line basis over the lease term if we determine it is probable that substantially all of the lease payments will be collected over the lease term. We commence recognition of revenue from rentals at the date the property is ready for its intended use by the tenant and the tenant takes possession or controls the physical use of the leased asset. The excess of rents recognized as revenue over amounts contractually due pursuant to the underlying leases is included in Accounts receivable and Other assets on the unaudi…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "11",
+   "match": "Deferred revenue ",
+   "text": "…ease term. We commence recognition of revenue from rentals at the date the property is ready for its intended use by the tenant and the tenant takes possession or controls the physical use of the leased asset. The excess of rents recognized as revenue over amounts contractually due pursuant to the underlying leases is included in Accounts receivable and Other assets on the unaudited condensed consolidated balance sheets. Rental payments received in excess of revenue recognized are classified as Deferred revenue on the unaudited condensed consolidated balance sheets.   Generally, under the terms of our leases, the majority of our rental expenses, including power and security cost, are recovered from our customers. We record amounts reimbursable by customers (“tenant recoveries”) as revenue in the period the applicable expenses are incurred – which is generally on a ratable basis through the term of the lease. We account for and present rental revenue and tenant recoveries as a single component under rental and other services as the timing of recognition is the same, the pattern with which we transfer the right of use of the property and related services to the lessee are both on a straight-line basis and our leases qualify as operating leases.   Interconnection services include port and cross-connect services generally provided on terms that align with the respective lease term.…",
    "amounts": []
   },
   {
@@ -232,6 +272,22 @@
     {
      "raw": "$ 9.3 million",
      "usdM": 9.3
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "15",
+   "match": "Deferred Revenue ",
+   "text": "…onths ended February 28, 2025, respectively.   4. Revenue from Contracts with Customers   Below is a summary of the Company’s revenue concentration by major customers for the three and nine months ended February 28, 2026 and February 28, 2025, respectively.   Three Months Ended Nine Months Ended   February 28, 2026 February 28, 2025 February 28, 2026 February 28, 2025   Customer A 56 % — % 52 % — %   Customer B 30 % 66 % 33 % 54 %   Customer C 14 % 34 % 15 % 29 %   Customer D — % — % — % 11 %   Deferred Revenue   Changes in the Company's deferred revenue balances for the nine months ended February 28, 2026 and February 28, 2025, respectively, are shown in the following table (in thousands):   Nine Months Ended   February 28, 2026 February 28, 2025   Balance, beginning of period $ 3,593 $ 39,366   Advance billings 300,141 136,559   Revenue recognized ( 295,209 ) ( 177,243 )   Other adjustments 4,025 6,197   Balance, end of period $ 12,550 $ 4,879   15",
+   "amounts": [
+    {
+     "raw": "$ 3,593 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 39,366   ",
+     "usdM": null
     }
    ]
   },
@@ -363,6 +419,18 @@
    "amounts": []
   },
   {
+   "kind": "cash_flow",
+   "page": "18",
+   "match": "Revolving Credit Facilit",
+   "text": "…6, the Company had letters of credit secured by cash totaling $ 16.5 million. The Company has restricted cash related to its letters of credit and is required to keep these balances in separate accounts for the duration of the letter of credit agreements. The Company presents all restricted cash amounts with letter of credit terms of 12 months or less within the Restricted Cash caption within current assets and any amounts with related letter of credit terms of over 12 months in Other Assets.   Revolving Credit Facility   On November 10, 2025, the Company entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $ 65 million. Amounts borrowed and repaid are available for future borrowing. Interest accrues on the outstanding balance at a rate of SOFR plus 2.75 % per annum. Additionally, there is an unused facility fee of 0.35 % per annum based on the daily average unused amount, payable quarterly in arrears at the end of each quarter. The loan is secured by all of the Company’s (but none of its subsidiaries’) assets. As of February 28, 2026, approximately $ 61.9 million of letters of credit were issued under the revolving credit facility.   18",
+   "amounts": [
+    {
+     "raw": "$ 65 million",
+     "usdM": 65
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "19",
    "match": "guarantee",
@@ -491,6 +559,26 @@
    "match": "Related Party",
    "text": "…W related to B&W designing and installing natural gas technology that will provide one gigawatt of efficient energy for an APLD AI data center, B&W agreed to issue an additional warrant to purchase 7,860,000 shares of common stock for $ 4.11 per share (the “Additional Warrant”) to the Company upon execution of such a definitive agreement. During the quarter ended February 28, 2026, a definitive agreement was executed between Base Electron and B&W, with the Company as the guarantor. See Note 5 - Related Party Transactions.   The warrants were determined to be derivative assets and were required to be measured at fair value at issuance under ASC 815. They will be remeasured at fair value at each reporting date with changes in fair value reported on the unaudited condensed consolidated statement of operations. To allocate the initial contribution between the common stock and the warrants, the Company determined the fair value of each and utilized the relative fair value allocation method. The B&W warrants are measured at fair value using the Black-Scholes Option Pricing model. Inherent in pricing models are assumptions related to expected share-price volatility, contractual term, risk-free interest rate and dividend yield, which are considered Level 3 inputs. The estimated fair value of the B&W Warrants are based on the following significant inputs:   November 4, 2025 February 28,…",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "25",
+   "match": "deferred revenue ",
+   "text": "…as of February 28, 2026, which are included in the unaudited condensed consolidated balance sheets (in thousands):   February 28, 2026   Assets:   Cash and cash equivalents $ 1,364,118   Restricted cash   179,820   Accounts receivable 8,329   Prepaid expenses and other current assets 469,040   Property and equipment, net 2,752,211   Other assets 506,191   Total assets   $ 5,279,709   Liabilities:   Accounts payable $ 332,849   Accrued liabilities 355,340   Current portion of debt   11   Current deferred revenue 12,293   Other current liabilities   65,489   Long-term debt   2,276,420   Total liabilities   $ 3,042,402   Third-party equity ownership interests in APLD HPC TopCo 2 LLC represents a noncontrolling interest and is presented as temporary equity in the unaudited condensed consolidated balance sheets separate from the Company’s stockholders’ equity. The amount of net income (loss) attributable to noncontrolling interests is disclosed in the unaudited condensed consolidated statement of operations.   10. Stockholders' Equity   Common Stock   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $ 200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this re…",
+   "amounts": [
+    {
+     "raw": "$ 5,279,709   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 332,849   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3,042,402   ",
+     "usdM": null
+    }
+   ]
   },
   {
    "kind": "vie",
@@ -694,6 +782,18 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "44",
+   "match": "closed a $ 2.15 billion offering",
+   "text": "Table of Contents   APPLIED DIGITAL CORPORATION AND SUBSIDIARIES   Notes to the Condensed Consolidated Financial Statements (Unaudited)   For the Three and Nine Months Ended February 28, 2026   18. Subsequent Events   2031 Senior Secured Notes   On March 10, 2026, our subsidiary APLD ComputeCo 2 LLC, closed a $ 2.15 billion offering (the “2031 Notes Offering”) of 6.750 % senior secured notes due 2031 (the “2031 Notes”) at an issue price of 98.000 %. The 2031 Notes were issued and sold in a private offering to persons reasonably believed to be qualified institutional buyers in reliance on Rule 144A under the Securities Act of 1933, as amended, and outside the United States to non-U.S. persons in reliance on Regulation S under the Securities Act. The 2031 Notes are senior secured obligations of APLD ComputeCo 2 LLC and bear interest at a rate of 6.750 % per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earlier…",
+   "amounts": [
+    {
+     "raw": "$ 2.15 billion",
+     "usdM": 2150
+    }
+   ]
+  },
+  {
    "kind": "concentration",
    "page": "44",
    "match": "Related Party",
@@ -856,6 +956,18 @@
    ]
   },
   {
+   "kind": "cash_flow",
+   "page": "51",
+   "match": "At-the-Market",
+   "text": "…y distributions and contributions and asset transfers. Under the resulting structure, APLD FAR-01 LLC and APLD FAR-02 LLC are owned by APLD ComputeCo 2. APLD ComputeCo 2 is wholly owned by a joint venture entity, APLD HPC TopCo 2, in which we own 90.0% of fully diluted common equity, and an affiliate of funds and investment vehicles managed by entities within MAM owns 10.0% of fully diluted common equity, as well as preferred equity.   Debt and Equity Offerings and Changes to Equity   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.   Series G Preferred Stock   On August 14, 2025, we entered into the first amendment (the “First Amendment”) to the Preferred Equity Purchase Agreement (the “PEPA”), dated April 30, 2025, to, among other things, (i) increase the aggregate commitment amount of the shares of Series G Convertible Preferred Stock (the “Series G Preferred Stock”) from $150 million to $300 million, and (ii) increase our access to cap…",
+   "amounts": [
+    {
+     "raw": "$200,000,000 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "properties",
    "page": "52",
    "match": "data center in Ellendale",
@@ -882,6 +994,18 @@
    "match": "campus in",
    "text": "…of amounts sufficient to achieve a rate of return that equals or exceeds 1.10 to 1.00. The same 1.10x return hurdle applies to repayment at maturity. Amounts repaid under the Promissory Note will not be available to be re-borrowed.   Proceeds of the Loan under the Promissory Note will be used, in part, to (i) pay transaction costs, (ii) pay transaction expenses in connection with the Note Documents (as defined therein), (iii) fund the purchase of the financed properties located on the Company’s campus in Harwood, ND (“Polaris Forge 2”), including all associated closing costs, title fees, and legal expenses, (iv) finance improvements to the Polaris Forge 2 properties, (v) fund the purchase of the Transformers (as defined therein) and other equipment expected to be installed and used for the improvements of the Polaris Forge 2 properties, (v) to pay any other costs, fees, expenses, or amounts related to or in connection with the development and construction of Polaris Forge 2, and (vi) for general corporate working capital purposes.   In connection with the Loan, (i) APLD FAR-01 LLC, APLD FAR Holdings LLC (“Intermediate Holdings”), a Delaware limited liability company, as parent of the APLD FAR-01 LLC, and APLD FAR-02 LLC (“FAR-02”), a Delaware limited liability company, as a subsidiary of Intermediate Holdings, have entered into a guarantee and collateral agreement, as grantors …",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "54",
+   "match": "Revolving Credit Facilit",
+   "text": "…oration, increasing the number of shares of common stock authorized for issuance thereunder to 600,000,000 shares, which became effective upon filing on November 6, 2025.   Increase in 2024 Plan Authorized Shares   On November 5, 2025, at the Annual Stockholders’ Meeting, the Company’s stockholders approved an amendment to the Applied Digital Corporation 2024 Omnibus Equity Incentive Plan to increase the number of shares of common stock authorized for issuance thereunder by 15,000,000 shares.   Revolving Credit Facility   On November 10, 2025, we entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million. Amounts borrowed and repaid are available for future borrowing. Interest accrues on the outstanding balance at a rate of SOFR plus 2.75% per annum. The loan is secured by all of the Company’s (but none of its subsidiaries’) assets. As of February 28, 2026, approximately $61.9 million of letters of credit were issued under the revolving credit facility.   Senior Secured Notes   On November 20, 2025, our subsidiary APLD ComputeCo, closed a $2.35 billion offering (the “2030 Notes Offering”) of 9.250% senior secured notes due 2030 (the “2030 Notes”) at an issue price of 97.000%. The…",
+   "amounts": [
+    {
+     "raw": "$65 million",
+     "usdM": 65
+    }
+   ]
   },
   {
    "kind": "guarantee",
@@ -957,6 +1081,18 @@
     {
      "raw": "$4.11 ",
      "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "56",
+   "match": "closed a $2.15 billion offering",
+   "text": "Table of Contents   Recent Developments   2031 Senior Secured Notes   On March 10, 2026, our subsidiary APLD ComputeCo 2 LLC, closed a $2.15 billion offering (the “2031 Notes Offering”) of 6.750% senior secured notes due 2031 (the “2031 Notes”) at an issue price of 98.000% of par. The 2031 Notes were issued and sold in a private offering to persons reasonably believed to be qualified institutional buyers in reliance on Rule 144A under the Securities Act of 1933, as amended, and outside the United States to non-U.S. persons in reliance on Regulation S under the Securities Act. The 2031 Notes are senior secured obligations of APLD ComputeCo 2 LLC and bear interest at a rate of 6.750% per annum, payable semi-annually in arrears on March 15 and September 15 of each year, beginning on September 15, 2026. The principal amount of the 2031 Notes will amortize on a semi-annual basis on March 15 and September 15 of each year, in amounts set forth in the Indenture. The 2031 Notes will mature on March 15, 2031, unless earl…",
+   "amounts": [
+    {
+     "raw": "$2.15 billion",
+     "usdM": 2150
     }
    ]
   },
@@ -1188,6 +1324,66 @@
    "match": "Depreciation and Amortization expense",
    "text": "…sts incurred in association with certain discrete transactions and projects.   (3) Represents non-recurring litigation expense associated with our defense of class action lawsuits and legal fees related to matters with certain former employees. We do not expect to incur these expenses on a regular basis.   (4) Represents the acceleration of expense related to assets that were abandoned by us due to operational failure or other reasons. Depreciation and amortization in this amount is included in Depreciation and Amortization expense within our calculation of EBITDA, and therefore is not added back as a management adjustment in our calculation of Adjusted EBITDA.   (5) Represents non-recurring expenses associated with employee separations.   (6) Represents expenses that are not representative of our expected ongoing costs.   (7) Represents interest expense excluded from the calculation of Adjusted net income (loss) per diluted share (Non-GAAP) that would occur if the Convertible Notes had been converted into stock at the beginning of the period. This adjustment is only present in periods where its effect would be dilutive.   (8) Includes shares that would be issued upon conversion of our outstanding Convertible Notes totaling 46,144,395 shares.   Sources of Liquidity   As of February 28, 2026, we had unrestricted cash and cash equivalents of $1.7 billion and restricted cash of $3…",
    "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "67",
+   "match": "At-the-Market",
+   "text": "…ell as commercial borrowings, to fund this development activity. We are and expect to be constantly exploring, negotiating and consummating financing transactions, which may include refinancing existing capital arrangements as well as new issuances.   Recent Financing Activities   See Note 6 - Debt in the notes to the unaudited condensed consolidated financial statements included in this Quarterly Report on Form 10-Q for more information on our term loans and other debt instruments.   June 2025 At-the-Market Sales Agreement   On June 2, 2025, the Company entered into a Sales Agreement with Northland Securities, Inc. and Wells Fargo Securities, LLC (the “June 2025 Sales Agreement”), pursuant to which, up to $200,000,000 of shares of the Company's common stock may be issued if and when sold. As of the date of this report, the Company has issued and sold approximately 15.3 million shares under the June 2025 Sales Agreement for gross proceeds of approximately $196.4 million.   Series G Convertible Preferred Stock   During the three and nine months ended February 28, 2026, the Company issued and sold 154,500 and 758,550 shares of Series G Preferred Stock, respectively, for gross proceeds of $150.0 million and $740.0 million, respectively. During the three and nine months ended February 28, 2026, 197,750 and 836,550 shares of Series G Preferred Stock, respectively, were converted int…",
+   "amounts": [
+    {
+     "raw": "$200,000,000 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "67",
+   "match": "Revolving Credit Facilit",
+   "text": "…diary Issuer sold to the Purchaser 450,000 Preferred Units in the Subsidiary Issuer at a price per Preferred Unit of $1,000, for an aggregate purchase price of $450.0 million. On December 9, 2025, the Subsidiary Issuer sold to the Purchaser an additional 27,778 common units and 337,500 Preferred Units in the Subsidiary Issuer at a price per Preferred Unit of $1,000, for an aggregate purchase price of $337.5 million, bringing the total amount funded to date under the A&R UPA to $900.0 million.   Revolving Credit Facility   On November 10, 2025, we entered into a loan and security agreement with First National Bank of Omaha, pursuant to which the lender agreed to make one or more revolving loans, and issue letters of credit, from time to time to the Company in an aggregate principal amount of $65 million. As of February 28, 2026, approximately $61.9 million of letters of credit were issued under the revolving credit facility.   2030 Senior Secured Notes   On November 20, 2025, our subsidiary, APLD ComputeCo LLC, closed a $2.35 billion offering of 9.25% Senior Secured Notes due 2030 at an issue price of 97.0%. The net proceeds from the 2030 Notes after issuance costs and repayment of the SMBC loan were approximately $1.9 billion.   67",
+   "amounts": [
+    {
+     "raw": "$1,000, ",
+     "usdM": null
+    },
+    {
+     "raw": "$337.5 million",
+     "usdM": 337.5
+    },
+    {
+     "raw": "$900.0 million",
+     "usdM": 900
+    },
+    {
+     "raw": "$65 million",
+     "usdM": 65
+    },
+    {
+     "raw": "$61.9 million",
+     "usdM": 61.9
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "69",
+   "match": "repayments of long-term debt",
+   "text": "…ase in receipt of net proceeds from offerings of our common and preferred stock of approximately $645.6 million during the nine months ended February 28, 2026. Also contributing to the increase was a capital contribution from our noncontrolling interest partners of $900.0 million. These increases were partially offset by a decrease of $450.0 million in borrowings under our Convertible Notes which occurred during the nine months ended February 28, 2025 as well as an increase of $142.0 million in repayments of long-term debt during the nine months ended February 28, 2026 compared to the nine months ended February 28, 2025.   Item 3. Quantitative and Qualitative Disclosures About Market Risk   There have been no material changes in our exposure to market risk from the information provided in Item 7A. Quantitative and Qualitative Disclosures About Market Risk of our Annual Report on Form 10-K for the fiscal year ended May 31, 2025.   Item 4. Controls and Procedures   Management’s Evaluation of Disclosure Controls and Procedures   We maintain a system of disclosure controls and procedures that is designed to ensure that information required to be disclosed in the reports that we file or submit under the Exchange Act is recorded, processed, summarized and reported   69",
+   "amounts": [
+    {
+     "raw": "$900.0 million",
+     "usdM": 900
+    },
+    {
+     "raw": "$450.0 million",
+     "usdM": 450
+    },
+    {
+     "raw": "$142.0 million",
+     "usdM": 142
+    }
+   ]
   },
   {
    "kind": "power",

@@ -1,0 +1,892 @@
+{
+ "ticker": "AMZN",
+ "cik": 1018724,
+ "form": "10-Q",
+ "accn": "0001018724-26-000014",
+ "filed": "2026-04-30",
+ "report": "2026-03-31",
+ "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000014/amzn-20260331.htm",
+ "harvested": "2026-10-04",
+ "pageCount": 50,
+ "numberedPages": 49,
+ "hits": [
+  {
+   "kind": "cash_flow",
+   "page": "3",
+   "match": "net cash from operating activities",
+   "text": "Table of Contents   PART I. FINANCIAL INFORMATION   Item 1. Financial Statements   AMAZON.COM, INC.   CONSOLIDATED STATEMENTS OF CASH FLOWS   (in millions)   (unaudited)   Three Months Ended March 31, Twelve Months Ended March 31,   2025 2026 2025 2026   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, BEGINNING OF PERIOD $ 82,312 $ 90,106 $ 73,332 $ 69,893   OPERATING ACTIVITIES:   Net income 17,127 30,255 65,944 90,798   Adjustments to reconcile net income to net cash from operating activities:   Depreciation and amortization of property and equipment and capitalized content costs, operating lease assets, and other 14,262 18,945 55,373 70,439   Stock-based compensation 3,689 4,032 20,739 19,810   Non-operating expense (income), net ( 2,817 ) ( 15,632 ) ( 3,539 ) ( 27,695 )   Deferred income taxes 507 12,798 ( 3,203 ) 23,761   Changes in operating assets and liabilities:   Inventories ( 1,222 ) 1,622 ( 4,882 ) ( 158 )   Accounts receivable, net and other 1,247 ( 5,750 ) ( 5,686 ) ( 14,330 )   Other assets ( 3,402 ) ( 3,811 ) ( 15,184 ) ( 16,041 )   Accounts payable ( 9,043 ) ( 8,737 ) 5,211 11,537   Accrued expenses and other ( 4,061 ) ( 8,045 ) ( 4,037 ) ( 9,003 )   Unearned revenue 728 355 3,167 ( 587 )   Net cash provided by (used in) operating activities 17,015 26,032 113,903 148,531   INVESTING ACTIVITIES:   Purchases of property and equi…",
+   "amounts": [
+    {
+     "raw": "$ 82,312 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 90,106 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 73,332 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 69,893   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "3",
+   "match": "Proceeds from long-term debt",
+   "text": "…le investments, and other, net 48 ( 15,408 ) ( 3,680 ) ( 19,297 )   Sales and maturities of marketable securities 7,737 17,686 22,748 54,335   Purchases of marketable securities ( 13,333 ) ( 23,256 ) ( 37,373 ) ( 64,693 )   Net cash provided by (used in) investing activities ( 29,803 ) ( 64,212 ) ( 106,283 ) ( 176,954 )   FINANCING ACTIVITIES:   Proceeds from short-term debt, and other 1,815 6,018 6,619 13,523   Repayments of short-term debt, and other ( 2,082 ) ( 6,109 ) ( 6,738 ) ( 12,453 )   Proceeds from long-term debt 746 53,441 746 68,368   Repayments of long-term debt — — ( 8,852 ) ( 5,021 )   Principal repayments of finance leases ( 410 ) ( 468 ) ( 1,683 ) ( 1,615 )   Principal repayments of financing obligations ( 116 ) ( 115 ) ( 695 ) ( 327 )   Net cash provided by (used in) financing activities ( 47 ) 52,767 ( 10,603 ) 62,475   Foreign currency effect on cash, cash equivalents, and restricted cash 416 ( 1 ) ( 456 ) 747   Net increase (decrease) in cash, cash equivalents, and restricted cash ( 12,419 ) 14,586 ( 3,439 ) 34,799   CASH, CASH EQUIVALENTS, AND RESTRICTED CASH, END OF PERIOD $ 69,893 $ 104,692 $ 69,893 $ 104,692   See accompanying notes to consolidated financial statements.   3",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "4",
+   "match": "Equity-method investment",
+   "text": "…93 27,289   Technology and infrastructure 22,994 29,567   Sales and marketing 9,763 10,314   General and administrative 2,628 2,587   Other operating expense (income), net 308 447   Total operating expenses 137,262 157,667   Operating income 18,405 23,852   Interest income 1,066 1,135   Interest expense ( 541 ) ( 800 )   Other income (expense), net 2,749 15,647   Total non-operating income 3,274 15,982   Income before income taxes 21,679 39,834   Provision for income taxes ( 4,553 ) ( 9,560 )   Equity-method investment activity, net of tax 1 ( 19 )   Net income $ 17,127 $ 30,255   Basic earnings per share $ 1.62 $ 2.82   Diluted earnings per share $ 1.59 $ 2.78   Weighted-average shares used in computation of earnings per share:   Basic 10,603 10,743   Diluted 10,793 10,874   See accompanying notes to consolidated financial statements.   4",
+   "amounts": [
+    {
+     "raw": "$ 17,127 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,255   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.62 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2.82   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1.59 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 2.78   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "7",
+   "match": "primary beneficiary",
+   "text": "…conjunction with the audited consolidated financial statements and accompanying notes in Item 8 of Part II, “Financial Statements and Supplementary Data,” of our 2025 Annual Report on Form 10-K.   Principles of Consolidation   The consolidated financial statements include the accounts of Amazon.com, Inc. and its consolidated entities (collectively, the “Company”), consisting of its wholly-owned subsidiaries and those entities in which we have a variable interest (“VIEs”) and of which we are the primary beneficiary, including certain entities in India and certain entities that support our healthcare services and production and distribution of video content. We are the primary beneficiary if we have the power to direct the activities of the VIE and absorb the losses or benefits that would be significant to the VIE. Intercompany balances and transactions between consolidated entities are eliminated.   Use of Estimates   The preparation of financial statements in conformity with GAAP requires estimates and assumptions that affect the reported amounts of assets and liabilities, revenues and expenses, and related disclosures of contingent liabilities in the consolidated financial statements and accompanying notes. Estimates are used for, but not limited to, collectability of receivables, commitments and contingencies, impairment of property and equipment and operating leases, income …",
+   "amounts": []
+  },
+  {
+   "kind": "useful_life",
+   "page": "7",
+   "match": "useful lives",
+   "text": "…nd expenses, and related disclosures of contingent liabilities in the consolidated financial statements and accompanying notes. Estimates are used for, but not limited to, collectability of receivables, commitments and contingencies, impairment of property and equipment and operating leases, income taxes, inventory valuation, self-insurance liabilities, stock-based compensation forfeiture rates, the determination of when to capitalize certain costs relating to new products or service offerings, useful lives of equipment, valuation and impairment of investments, valuation of acquired intangibles and goodwill, valuation of derivative instruments, vendor funding, and viewing patterns of capitalized video content. Actual results could differ materially from these estimates. We review the useful lives of equipment on an ongoing basis.   Supplemental Cash Flow Information   The following table shows supplemental cash flow information (in millions):   Three Months Ended March 31, Twelve Months Ended March 31,   2025 2026 2025 2026   SUPPLEMENTAL CASH FLOW INFORMATION:   Cash paid for interest on debt, net of capitalized interest $ 236 $ 274 $ 1,825 $ 1,496   Cash paid for operating leases 3,562 4,315 12,571 15,791   Cash paid for interest on finance leases 71 102 284 326   Cash paid for interest on financing obligations 55 76 210 217   Cash paid for income taxes, net of refunds 877 1,…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "8",
+   "match": "Anthropic",
+   "text": "… gains (losses) on available-for-sale debt securities, net 3,263 4,479   Upward adjustments relating to equity investments in private companies 37 12,328   Foreign currency gains (losses), net ( 2 ) 160   Other, net ( 33 ) ( 33 )   Total other income (expense), net $ 2,749 $ 15,647   The reclassification adjustments for the gains on available-for-sale debt securities of $ 3.3 billion and $ 4.5 billion in Q1 2025 and Q1 2026 are primarily from the portions of our convertible notes investments in Anthropic, PBC (“Anthropic”) that were converted to nonvoting preferred stock during Q1 2025 and Q1 2026. The upward adjustments relating to equity investments in private companies of $ 12.3 billion in Q1 2026 reflect observable changes in prices, primarily from our nonvoting preferred stock in Anthropic.   Derivatives and Hedging   Energy Contracts — We enter into energy contracts to secure electricity supply for our existing and future operations, some of which extend 20 years. We may make or receive net cash payments, rather than take delivery of electricity, when our consumption is less than committed quantities due to operational variability. Because we may make or receive net cash payments, these contracts are derivative instruments. These contracts are not traded on exchanges or transacted in secondary markets and are not used for trading or speculative purposes.   Derivative inst…",
+   "amounts": [
+    {
+     "raw": "$ 2,749 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 15,647   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 3.3 billion",
+     "usdM": 3300
+    },
+    {
+     "raw": "$ 4.5 billion",
+     "usdM": 4500
+    },
+    {
+     "raw": "$ 12.3 billion",
+     "usdM": 12300
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "9",
+   "match": "Notes issuance of",
+   "text": "… subject to regulatory approval and are exempt from derivative guidance until the approval is obtained. If possible, we may elect the normal purchases and normal sales (NPNS) scope exemption from derivative guidance for energy contracts where we expect to consume substantially all committed quantities. A contract that no longer meets the NPNS exemption must be measured at fair value with immediate recognition in our financial statements.   Net Investment Hedges — Our March 2026 Euro-denominated Notes issuance of € 14.5 billion creates an exposure to changes in foreign exchange rates. We designated these notes as net investment hedges to mitigate foreign currency exposures related to the translation of our investments in foreign operations to U.S. dollars. Foreign currency unrealized gains and losses on these notes are included in “Accumulated other comprehensive income (loss),” a separate component of stockholders’ equity, until the foreign operations are sold or substantially liquidated, at which point these amounts and any translation adjustment of the foreign operations are reclassified to our consolidated statements of operations.   Inventories   Inventories, consisting of products available for sale, are primarily accounted for using the first-in, first-out method, and are valued at the lower of cost and net realizable value. This valuation requires us to make judgments, b…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "9",
+   "match": "OpenAI",
+   "text": "…ognized in our financial statements. For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $ 364 billion as of March 31, 2026. The weighted-average remaining life of our long-term contracts is 5.5 years. The amount and timing of revenue recognition will be driven by customer usage and our performance in accordance with contractual obligations, which can extend beyond the original contractual duration and commitment.   In Q1 2026, AWS and OpenAI Group PBC (“OpenAI”) announced an expansion of the existing $ 38.0 billion multi-year commitment and commercial arrangement with OpenAI by $ 100.0 billion over 8.0 years, which includes contractual obligations related to the performance of AWS chips.   9",
+   "amounts": [
+    {
+     "raw": "$ 38.0 billion",
+     "usdM": 38000
+    },
+    {
+     "raw": "$ 100.0 billion",
+     "usdM": 100000
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "10",
+   "match": "investment grade",
+   "text": "… adoption permitted. The amendments can be applied on either a prospective or retroactive basis. We are currently evaluating the ASU to determine its impact on our disclosures.   Note 2 — FINANCIAL INSTRUMENTS   Cash, Cash Equivalents, Restricted Cash, and Marketable Securities   As of December 31, 2025 and March 31, 2026, our cash, cash equivalents, restricted cash, and marketable securities primarily consisted of cash, AAA-rated money market funds, U.S. government and agency securities, other investment grade securities, and marketable equity securities. Cash equivalents and marketable securities are recorded at fair value. Fair value is defined as the price that would be received to sell an asset or paid to transfer a liability in an orderly transaction between market participants at the measurement date. To increase the comparability of fair value measures, the following hierarchy prioritizes the inputs to valuation methodologies used to measure fair value:   Level 1 — Valuations based on quoted prices for identical assets and liabilities in active markets.   Level 2 — Valuations based on observable inputs other than quoted prices included in Level 1, such as quoted prices for similar assets and liabilities in active markets, quoted prices for identical or similar assets and liabilities in markets that are not active, or other inputs that are observable or can be corroborat…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "11",
+   "match": "Anthropic",
+   "text": "…actual maturities of our cash equivalents and marketable debt securities as of March 31, 2026 (in millions):   Amortized Cost Estimated Fair Value   Due within one year $ 119,054 $ 119,043   Due after one year through five years 8,083 8,076   Due after five years through ten years 463 461   Due after ten years 949 929   Total $ 128,549 $ 128,509   Actual maturities may differ from the contractual maturities because borrowers may have certain prepayment conditions.   Non-Marketable Investments   Anthropic — From Q3 2023 to Q4 2025, we invested $ 8.0 billion in convertible notes from Anthropic, which are classified as available-for-sale and reported at fair value with unrealized gains and losses included in “Accumulated other comprehensive income (loss)” and as Level 3 assets. In making these estimates, we utilized valuation methods based on information available, including the rights and obligations of the convertible notes, other outstanding classes of securities, observable transactions such as new securities offerings, estimates of expected time to and type of liquidity events and anticipated securities offerings, and discounts for lack of marketability.   In Q1 2025 and Q1 2026, a portion of the then-outstanding notes was converted to nonvoting preferred stock. The investments in nonvoting preferred stock are initially recorded at their estimated fair value at the time of ea…",
+   "amounts": [
+    {
+     "raw": "$ 128,549 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 128,509   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8.0 billion",
+     "usdM": 8000
+    }
+   ]
+  },
+  {
+   "kind": "vie",
+   "page": "12",
+   "match": "primary beneficiary",
+   "text": "… fair value of $ 2.7 billion and $ 2.4 billion, with gains and losses recognized in “Other income (expense), net” on our consolidated statements of operations. These warrants are classified as Level 2 and 3 assets.   These non-marketable investments are included within “Other assets” on our consolidated balance sheets.   Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in an entity for which we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.   12",
+   "amounts": []
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "12",
+   "match": "purchase commitment",
+   "text": "…extent that we have not done so previously, we are obligated to purchase all remaining Commitment Shares upon the earlier to occur of (i) OpenAI meeting specified milestones, and (ii) OpenAI directly or indirectly consummating an initial public offering or direct listing of equity securities in the United States (a “Public Listing Transaction”), in each case subject to certain terms and conditions. If certain conditions are not satisfied until after a Public Listing Transaction occurs, then our purchase commitment will relate to the class of OpenAI’s common stock that is publicly traded at the same effective price per share as the Series C Preferred Stock price. The parties’ obligations under the Letter Agreement will terminate if we have not invested the Commitment Amount by December 31, 2028, which date may accelerate under certain circumstances. We account for our investment in Series C Preferred Stock and purchase commitment as a component of our equity investments in private companies not accounted for under the equity-method, with future adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations. Additionally, in Q1 2026, we and an affiliate of OpenAI entered into (i) a commercial arrangement primarily for the provision of AWS cloud servic…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "…er 31, 2025 and March 31, 2026, the estimated fair value of our convertible notes recorded on our consolidated balance sheets was approximately $ 45.8 billion and $ 42.2 billion, and the associated unrealized gain included in “Accumulated other comprehensive income (loss)” was $ 39.5 billion and $ 36.3 billion. We also have a commercial arrangement primarily for the provision of AWS cloud services, which includes the use of AWS chips.   Subsequent to March 31, 2026, we invested $ 5.0 billion in Anthropic nonvoting preferred stock. Additionally, we amended our commercial arrangement which is primarily for the provision of AWS cloud services and includes contractual obligations related to the performance of AWS chips. Furthermore, we entered into a financing arrangement to make available to Anthropic an aggregate facility not to exceed $ 20.0 billion that will expire 30 months after a liquidity event, as defined, such as an Anthropic initial public offering or direct listing of equity securities. At inception, there is no amount available to be drawn against and as we reach certain delivery milestones of compute capacity under the amended commercial arrangement, amounts under this facility are made available for Anthropic to draw upon at its discretion. Draws against the facility will be in the form of new Anthropic convertible notes or, after a liquidity event, Anthropic common …",
+   "amounts": [
+    {
+     "raw": "$ 39.5 billion",
+     "usdM": 39500
+    },
+    {
+     "raw": "$ 36.3 billion",
+     "usdM": 36300
+    },
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$ 20.0 billion",
+     "usdM": 20000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "… inception, there is no amount available to be drawn against and as we reach certain delivery milestones of compute capacity under the amended commercial arrangement, amounts under this facility are made available for Anthropic to draw upon at its discretion. Draws against the facility will be in the form of new Anthropic convertible notes or, after a liquidity event, Anthropic common stock, which will be issued to us in exchange for cash. We also have an option to invest up to $ 5.0 billion in Anthropic’s future equity financings which if elected would reduce the amount available under the facility by the amount exercised under the option.   OpenAI — In Q1 2026, we invested $ 15.0 billion in Series C Preferred Stock of OpenAI, and we also entered into an equity commitment letter agreement (the “Letter Agreement”), pursuant to which we agreed to purchase additional shares of Series C Preferred Stock (the “Commitment Shares”) with an aggregate purchase price of $ 35.0 billion (the “Commitment Amount”). We may, in our sole discretion, elect to purchase all or any portion of the Commitment Shares at any time pursuant to the Letter Agreement. To the extent that we have not done so previously, we are obligated to purchase all remaining Commitment Shares upon the earlier to occur of (i) OpenAI meeting specified milestones, and (ii) OpenAI directly or indirectly consummating an initia…",
+   "amounts": [
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
+    },
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "OpenAI",
+   "text": "…re obligated to purchase all remaining Commitment Shares upon the earlier to occur of (i) OpenAI meeting specified milestones, and (ii) OpenAI directly or indirectly consummating an initial public offering or direct listing of equity securities in the United States (a “Public Listing Transaction”), in each case subject to certain terms and conditions. If certain conditions are not satisfied until after a Public Listing Transaction occurs, then our purchase commitment will relate to the class of OpenAI’s common stock that is publicly traded at the same effective price per share as the Series C Preferred Stock price. The parties’ obligations under the Letter Agreement will terminate if we have not invested the Commitment Amount by December 31, 2028, which date may accelerate under certain circumstances. We account for our investment in Series C Preferred Stock and purchase commitment as a component of our equity investments in private companies not accounted for under the equity-method, with future adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations. Additionally, in Q1 2026, we and an affiliate of OpenAI entered into (i) a commercial arrangement primarily for the provision of AWS cloud services, which includes the use of AWS chips, and (ii…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "OpenAI",
+   "text": "…under the equity-method, with future adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations. Additionally, in Q1 2026, we and an affiliate of OpenAI entered into (i) a commercial arrangement primarily for the provision of AWS cloud services, which includes the use of AWS chips, and (ii) a joint collaboration agreement pursuant to which certain services using OpenAI models will be made available to the Company and on AWS.   As of December 31, 2025 and March 31, 2026, equity investments in private companies not accounted for under the equity-method, which primarily relate to nonvoting preferred stock in Anthropic and preferred stock in OpenAI, had a carrying value of $ 16.2 billion and $ 48.1 billion, with adjustments for observable changes in prices or impairments representing Level 3 fair value measurements recognized in “Other income (expense), net” on our consolidated statements of operations.   As of December 31, 2025 and March 31, 2026, equity investments accounted for under the equity-method of accounting, including investments for which we have elected the fair value option, had a carrying value of $ 659 million and $ 923 million.   We hold equity warrants giving us the right to acquire stock of other companies. As of December 31, 2025…",
+   "amounts": [
+    {
+     "raw": "$ 16.2 billion",
+     "usdM": 16200
+    },
+    {
+     "raw": "$ 48.1 billion",
+     "usdM": 48100
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "12",
+   "match": "Anthropic",
+   "text": "…iving us the right to acquire stock of other companies. As of December 31, 2025 and March 31, 2026, these warrants had a fair value of $ 2.7 billion and $ 2.4 billion, with gains and losses recognized in “Other income (expense), net” on our consolidated statements of operations. These warrants are classified as Level 2 and 3 assets.   These non-marketable investments are included within “Other assets” on our consolidated balance sheets.   Certain of our investments, including our investments in Anthropic and OpenAI, represent a variable interest in an entity for which we do not consolidate because we are not the primary beneficiary. Our maximum exposure to loss is generally limited to the current carrying values of these investments and any future funding commitments.   12",
+   "amounts": []
+  },
+  {
+   "kind": "leases_not_commenced",
+   "page": "15",
+   "match": "not yet commenced",
+   "text": "… of March 31, 2026 (in millions):   Nine Months Ended December 31, Year Ended December 31,   2026 2027 2028 2029 2030 Thereafter Total   Long-term debt principal and interest $ 5,937 $ 13,583 $ 16,657 $ 11,076 $ 10,710 $ 145,575 $ 203,538   Operating lease liabilities 11,746 13,867 12,934 11,597 10,369 49,622 110,135   Finance lease liabilities, including interest 1,488 1,742 1,848 1,413 1,238 8,767 16,496   Financing obligations, including interest (1) 432 627 638 648 660 7,178 10,183   Leases not yet commenced 5,135 9,617 7,215 7,296 7,292 69,792 106,347   Unconditional purchase obligations (2) 19,143 15,825 8,482 7,327 7,330 45,661 103,768   Other commitments (3) 2,608 1,804 1,171 998 967 11,265 18,813   Total commitments $ 46,489 $ 57,065 $ 48,945 $ 40,355 $ 38,566 $ 337,860 $ 569,280   ___________________   (1) Includes non-cancellable financing obligations for fulfillment network and data center facilities. Excluding interest, current financing obligations of $ 358 million and $ 340 million are recorded within “Accrued expenses and other” and $ 7.8 billion and $ 8.2 billion are recorded within “Other long-term liabilities” as of December 31, 2025 and March 31, 2026. The weighted-average remaining term of the financing obligations was 15.0 years and the weighted-average imputed interest rate was 2.9 % and 3.1 % as of December 31, 2025 and March 31, 2026.   (2) Includes unc…",
+   "amounts": [
+    {
+     "raw": "$ 46,489 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 57,065 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 48,945 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 40,355 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,566 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 337,860 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 569,280   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "match": "purchase obligations",
+   "text": "…ecember 31,   2026 2027 2028 2029 2030 Thereafter Total   Long-term debt principal and interest $ 5,937 $ 13,583 $ 16,657 $ 11,076 $ 10,710 $ 145,575 $ 203,538   Operating lease liabilities 11,746 13,867 12,934 11,597 10,369 49,622 110,135   Finance lease liabilities, including interest 1,488 1,742 1,848 1,413 1,238 8,767 16,496   Financing obligations, including interest (1) 432 627 638 648 660 7,178 10,183   Leases not yet commenced 5,135 9,617 7,215 7,296 7,292 69,792 106,347   Unconditional purchase obligations (2) 19,143 15,825 8,482 7,327 7,330 45,661 103,768   Other commitments (3) 2,608 1,804 1,171 998 967 11,265 18,813   Total commitments $ 46,489 $ 57,065 $ 48,945 $ 40,355 $ 38,566 $ 337,860 $ 569,280   ___________________   (1) Includes non-cancellable financing obligations for fulfillment network and data center facilities. Excluding interest, current financing obligations of $ 358 million and $ 340 million are recorded within “Accrued expenses and other” and $ 7.8 billion and $ 8.2 billion are recorded within “Other long-term liabilities” as of December 31, 2025 and March 31, 2026. The weighted-average remaining term of the financing obligations was 15.0 years and the weighted-average imputed interest rate was 2.9 % and 3.1 % as of December 31, 2025 and March 31, 2026.   (2) Includes unconditional purchase obligations related to long-term agreements to procure ener…",
+   "amounts": [
+    {
+     "raw": "$ 46,489 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 57,065 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 48,945 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 40,355 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 38,566 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 337,860 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 569,280   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "15",
+   "match": "Purchase obligations",
+   "text": "… and March 31, 2026.   (2) Includes unconditional purchase obligations related to long-term agreements to procure energy, acquire and license digital media content, acquire property and equipment, and license software that are not reflected on the consolidated balance sheets. For those agreements with variable terms or subject to certain regulatory approvals, we do not estimate the total obligation beyond any minimum quantities and/or pricing, or termination penalties, as of the reporting date. Purchase obligations associated with renewal provisions solely at the option of the content provider are included to the extent such commitments are fixed or a minimum amount is specified. Energy agreements based on actual generation without a fixed or minimum volume commitment are not included. Certain of our energy agreements also provide the right to receive energy certificates.   (3) Includes asset retirement obligations, the estimated timing and amounts of payments for rent and tenant improvements associated with build-to-suit lease arrangements that are under construction, and liabilities associated with digital media content agreements with initial terms greater than one year. Excludes approximately $ 6.7 billion of income tax contingencies for which we cannot make a reasonably reliable estimate of the amount and period of payment, if any.   On April 13, 2026, Amazon entered into …",
+   "amounts": []
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "match": "build-to-suit",
+   "text": "…ociated with renewal provisions solely at the option of the content provider are included to the extent such commitments are fixed or a minimum amount is specified. Energy agreements based on actual generation without a fixed or minimum volume commitment are not included. Certain of our energy agreements also provide the right to receive energy certificates.   (3) Includes asset retirement obligations, the estimated timing and amounts of payments for rent and tenant improvements associated with build-to-suit lease arrangements that are under construction, and liabilities associated with digital media content agreements with initial terms greater than one year. Excludes approximately $ 6.7 billion of income tax contingencies for which we cannot make a reasonably reliable estimate of the amount and period of payment, if any.   On April 13, 2026, Amazon entered into a definitive merger agreement to acquire Globalstar, Inc. (“Globalstar”), a Delaware corporation, for a mix of cash and stock consideration. Under the terms of the merger agreement, prior to closing, Globalstar stockholders will elect to receive, for each share of Globalstar common stock they own, either (i) $ 90.00 in cash or (ii) 0.3210 shares of Amazon common stock (with a value capped at $ 90.00 per share). The value of the total consideration will vary based on the price of shares of Amazon common stock and the el…",
+   "amounts": [
+    {
+     "raw": "$ 6.7 billion",
+     "usdM": 6700
+    }
+   ]
+  },
+  {
+   "kind": "spv",
+   "page": "15",
+   "match": "special purpose entit",
+   "text": "…rd adjustment of a maximum of $ 110 million in the event Globalstar does not meet certain operational milestones. As of the date of the merger agreement, the acquisition implied a value for Globalstar of approximately $ 10.9 billion, including its debt. On the date of the merger agreement, we also entered into agreements with Apple Inc. (“Apple”), Globalstar’s largest customer, to provide certain services after the acquisition and to redeem certain equity interests held by Apple in a Globalstar special purpose entity.   The acquisition is expected to close in 2027, subject to the satisfaction of certain closing conditions, including receipt of regulatory approvals and Globalstar’s achievement of certain satellite replacement milestones.   Other Contingencies   We are disputing claims and denials of refunds or credits, and monitoring or evaluating potential claims, related to various non-income taxes (such as sales, value added, consumption, service, and similar taxes), including in jurisdictions in which we already collect and remit these taxes. These non-income tax controversies typically include (i) the taxability of products and services, including cross-border intercompany transactions, (ii) collection and withholding on transactions with   15",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "15",
+   "match": "largest customer",
+   "text": "…al Globalstar shares, and automatically converts excess cash consideration into stock consideration on a pro rata basis and (ii) a downward adjustment of a maximum of $ 110 million in the event Globalstar does not meet certain operational milestones. As of the date of the merger agreement, the acquisition implied a value for Globalstar of approximately $ 10.9 billion, including its debt. On the date of the merger agreement, we also entered into agreements with Apple Inc. (“Apple”), Globalstar’s largest customer, to provide certain services after the acquisition and to redeem certain equity interests held by Apple in a Globalstar special purpose entity.   The acquisition is expected to close in 2027, subject to the satisfaction of certain closing conditions, including receipt of regulatory approvals and Globalstar’s achievement of certain satellite replacement milestones.   Other Contingencies   We are disputing claims and denials of refunds or credits, and monitoring or evaluating potential claims, related to various non-income taxes (such as sales, value added, consumption, service, and similar taxes), including in jurisdictions in which we already collect and remit these taxes. These non-income tax controversies typically include (i) the taxability of products and services, including cross-border intercompany transactions, (ii) collection and withholding on transactions with …",
+   "amounts": [
+    {
+     "raw": "$ 10.9 billion",
+     "usdM": 10900
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "17",
+   "match": "Notes issuance of",
+   "text": "Table of Contents   Note 5 — DEBT   As of March 31, 2026, we had $ 121.8 billion of unsecured senior notes outstanding (the “Notes”), including € 14.5 billion ($ 16.8 billion) and $ 37.0 billion issued in March 2026 for general corporate purposes. Our total long-term debt obligations are as follows (in millions):   Maturities (1) Stated Interest Rates Effective Interest Rates December 31, 2025 March 31, 2026   2014 Notes issuance of $ 6.0 billion   2034 - 2044 4.80 % - 4.95 %   4.93 % - 5.12 %   2,750 2,750   2017 Notes issuance of $ 17.0 billion   2027 - 2057 3.15 % - 4.25 %   3.25 % - 4.33 %   12,000 12,000   2020 Notes issuance of $ 10.0 billion   2027 - 2060 1.20 % - 2.70 %   1.26 % - 2.77 %   7,750 7,750   2021 Notes issuance of $ 18.5 billion   2026 - 2061 1.00 % - 3.25 %   1.14 % - 3.31 %   15,000 15,000   April 2022 Notes issuance of $ 12.8 billion   2027 - 2062 3.30 % - 4.10 %   3.40 % - 4.15 %   9,750 9,750   December 2022 Notes issuance of $ 8.3 billion   2027 - 2032 4.55 % - 4.70 %   4.61 % - 4.74 %   5,750 5,750   2025 Notes issuance of $ 15.0 billion   2028 - 2065 3.90 % - 5.55 %   3.99 % - 5.62 %   15,000 15,000   March 2026 Notes issuance of $ 37.0 billion (2)   2028 - 2076 3.85 % - 6.05 %   3.97 % - 6.12 %   — 37,000   March 2026 Euro-denominated Notes issuance of € 14.5 billion (3…",
+   "amounts": [
+    {
+     "raw": "$ 37.0 billion",
+     "usdM": 37000
+    },
+    {
+     "raw": "$ 6.0 billion",
+     "usdM": 6000
+    },
+    {
+     "raw": "$ 17.0 billion",
+     "usdM": 17000
+    },
+    {
+     "raw": "$ 10.0 billion",
+     "usdM": 10000
+    },
+    {
+     "raw": "$ 18.5 billion",
+     "usdM": 18500
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "18",
+   "match": "revolving credit facilit",
+   "text": "Table of Contents   We have an aggregate $ 20.0 billion in unsecured revolving credit facilities with syndicates of lenders, consisting of a $ 15.0 billion facility (the “Credit Agreement”) and a $ 5.0 billion 364-day facility (the “Short-Term Credit Agreement”). The Credit Agreement has a term that extends to November 2028 and may be extended for one or more additional one-year terms subject to approval by the lenders. The interest rate applicable to outstanding balances under the Credit Agreement is the applicable benchmark rate specified in the Credit Agreement plus 0.45 %, with a commitment fee of 0.03 % on the undrawn portion of the credit facility. The Short-Term Credit Agreement matures in October 2026 and may be extended for one additional period of 364 days subject to approval by the lenders. The interest rate applicable to outstanding balances under the Short-Term Credit Agreement is the SOFR specified in the Short-Term Credit Agreement plus 0.4…",
+   "amounts": [
+    {
+     "raw": "$ 20.0 billion",
+     "usdM": 20000
+    },
+    {
+     "raw": "$ 15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$ 5.0 billion",
+     "usdM": 5000
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "21",
+   "match": "SEGMENT INFORMATION",
+   "text": "…ian tax authority (“ITA”) has asserted that tax applies to cloud services fees paid to Amazon in the U.S. We will need to remit taxes related to this matter until it is resolved, which payments could be significant in the aggregate. We believe the ITA’s position is without merit, we are defending our position vigorously, and we expect to recoup taxes paid. If this matter is adversely resolved, we could recognize significant additional tax expense, including for taxes previously paid.   Note 8 — SEGMENT INFORMATION   We have organized our operations into three segments: North America, International, and AWS. We allocate to segment results the operating expenses “Fulfillment,” “Technology and infrastructure,” “Sales and marketing,” and “General and administrative” based on usage, which is generally reflected in the segment in which the costs are incurred. The majority of technology costs recorded in “Technology and infrastructure” are incurred in the U.S. and are included in our North America and AWS segments. The majority of infrastructure costs recorded in “Technology and infrastructure” are allocated to the AWS segment based on usage. There are no internal revenue transactions between our reportable segments. Our chief operating decision maker (“CODM”) is our President and Chief Executive Officer. Our CODM regularly reviews consolidated net sales, consolidated operating expens…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "21",
+   "match": "Anthropic",
+   "text": "…ur effective tax rate will be adversely affected by state income taxes and favorably impacted by the U.S. federal research and development credit.   Our income tax provision for the three months ended March 31, 2025 was $ 4.6 billion, which included $ 559 million of net discrete tax expense. Our income tax provision for the three months ended March 31, 2026 was $ 9.6 billion, which included $ 4.1 billion of net discrete tax expense primarily attributable to the net gains from our investments in Anthropic.   On February 18, 2026, the IRS issued Notice 2026-7 (the “2026 Notice”), which included guidance on the U.S. tax treatment of previously capitalized domestic research and development costs. We expect the 2026 Notice, which applied retroactively to 2025, to result in a significant decrease of 2024 and 2025 cash taxes paid. Cash paid for income taxes, net of refunds was $ 877 million and $ 1.3 billion in Q1 2025 and Q1 2026.   As of December 31, 2025 and March 31, 2026, income tax contingencies were approximately $ 6.6 billion and $ 6.7 billion. Changes in tax laws, regulations, administrative practices, principles, and interpretations may impact our tax contingencies. Due to various factors, including the inherent complexities and uncertainties of the judicial, administrative, and regulatory processes in certain jurisdictions, the timing of the resolution of income tax controv…",
+   "amounts": [
+    {
+     "raw": "$ 559 million",
+     "usdM": 559
+    },
+    {
+     "raw": "$ 9.6 billion",
+     "usdM": 9600
+    },
+    {
+     "raw": "$ 4.1 billion",
+     "usdM": 4100
+    },
+    {
+     "raw": "$ 877 million",
+     "usdM": 877
+    }
+   ]
+  },
+  {
+   "kind": "equity_method",
+   "page": "22",
+   "match": "Equity-method investment",
+   "text": "…erating expenses 87,046 95,876   Operating income $ 5,841 $ 8,267   International   Net sales $ 33,513 $ 39,789   Operating expenses 32,496 38,365   Operating income $ 1,017 $ 1,424   AWS   Net sales $ 29,267 $ 37,587   Operating expenses 17,720 23,426   Operating income $ 11,547 $ 14,161   Consolidated   Net sales $ 155,667 $ 181,519   Operating expenses 137,262 157,667   Operating income 18,405 23,852   Total non-operating income 3,274 15,982   Provision for income taxes ( 4,553 ) ( 9,560 )   Equity-method investment activity, net of tax 1 ( 19 )   Net income $ 17,127 $ 30,255   22",
+   "amounts": [
+    {
+     "raw": "$ 11,547 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,161   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 155,667 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 181,519   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,127 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,255   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "22",
+   "match": "AWS   Net sales",
+   "text": "…age, database, and other services for start-ups, enterprises, government agencies, and academic institutions.   Information on reportable segments and reconciliation to consolidated net income is as follows (in millions):   Three Months Ended March 31,   2025 2026   North America   Net sales $ 92,887 $ 104,143   Operating expenses 87,046 95,876   Operating income $ 5,841 $ 8,267   International   Net sales $ 33,513 $ 39,789   Operating expenses 32,496 38,365   Operating income $ 1,017 $ 1,424   AWS   Net sales $ 29,267 $ 37,587   Operating expenses 17,720 23,426   Operating income $ 11,547 $ 14,161   Consolidated   Net sales $ 155,667 $ 181,519   Operating expenses 137,262 157,667   Operating income 18,405 23,852   Total non-operating income 3,274 15,982   Provision for income taxes ( 4,553 ) ( 9,560 )   Equity-method investment activity, net of tax 1 ( 19 )   Net income $ 17,127 $ 30,255   22",
+   "amounts": [
+    {
+     "raw": "$ 92,887 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 104,143   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 5,841 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,267   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 33,513 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 39,789   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,017 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,424   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 29,267 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 37,587   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 11,547 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 14,161   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 155,667 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 181,519   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 17,127 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 30,25",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "depreciation",
+   "page": "23",
+   "match": "depreciation and amortization expense",
+   "text": "…rious other offerings (such as shipping services, healthcare services, and certain licensing and distribution of video content) and our co-branded credit card agreements.   Total segment assets exclude corporate assets, such as cash and cash equivalents, marketable securities, other long-term investments, corporate facilities, goodwill and other acquired intangible assets, and tax assets. Technology infrastructure assets, which are included in property and equipment, net, net additions, and the depreciation and amortization expense on these assets, are allocated among the segments based on usage, with the majority allocated to the AWS segment. Usage of technology infrastructure assets by the North America and International segments, and the related allocation of total net additions, can fluctuate on a quarter-to-quarter basis, and is affected by seasonality, peak periods, new product or service offerings, and other factors.   Total segment assets reconciled to consolidated amounts are as follows (in millions):   December 31, 2025 March 31, 2026   North America (1) $ 235,652 $ 241,817   International (1) 81,984 81,000   AWS (2) 252,588 294,121   Corporate 247,818 299,692   Consolidated $ 818,042 $ 916,630   ___________________   (1) North America and International segment assets primarily consist of property and equipment, operating leases, inventory, accounts receivable, and di…",
+   "amounts": []
+  },
+  {
+   "kind": "depreciation",
+   "page": "24",
+   "match": "Depreciation and amortization expense",
+   "text": "…d equipment are as follows (in millions):   Three Months Ended March 31,   2025 2026   North America (1) $ 5,096 $ 11,126   International (1) 1,506 1,727   AWS (2) 20,464 41,516   Corporate 383 388   Consolidated $ 27,449 $ 54,757   ___________________   (1) Includes property and equipment added under finance leases of $ 54 million and $ 237 million in Q1 2025 and Q1 2026.   (2) Includes property and equipment added under finance leases of $ 0 million and $ 1.3 billion in Q1 2025 and Q1 2026.   Depreciation and amortization expense on property and equipment, including corporate property and equipment, are allocated to all segments based on usage.   Total depreciation and amortization expense, by segment, is as follows (in millions):   Three Months Ended March 31,   2025 2026   North America $ 3,530 $ 4,280   International 1,136 1,277   AWS 4,390 7,277   Consolidated $ 9,056 $ 12,834   24",
+   "amounts": [
+    {
+     "raw": "$ 54 million",
+     "usdM": 54
+    },
+    {
+     "raw": "$ 237 million",
+     "usdM": 237
+    },
+    {
+     "raw": "$ 0 million",
+     "usdM": 0
+    },
+    {
+     "raw": "$ 1.3 billion",
+     "usdM": 1300
+    },
+    {
+     "raw": "$ 3,530 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 4,280   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 9,056 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 12,834   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "26",
+   "match": "OpenAI",
+   "text": "…d Q1 2026, which primarily reflect investments in technology infrastructure (the majority of which is to support AWS business growth) and in additional capacity to support our fulfillment network, both of which we expect to increase in 2026. We did not have significant acquisition and other investment activity during Q1 2025. We made cash payments, net of acquired cash, related to acquisition and other investment activity of $15.4 billion during Q1 2026. In Q1 2026, we invested $15.0 billion in OpenAI’s Series C Preferred Stock and entered into an equity commitment letter agreement to purchase an additional $35.0 billion of OpenAI’s Series C Preferred Stock, subject to certain conditions. We expect to fund this investment with cash on hand.   26",
+   "amounts": [
+    {
+     "raw": "$15.4 billion",
+     "usdM": 15400
+    },
+    {
+     "raw": "$15.0 billion",
+     "usdM": 15000
+    },
+    {
+     "raw": "$35.0 billion",
+     "usdM": 35000
+    }
+   ]
+  },
+  {
+   "kind": "purchase_obligation",
+   "page": "27",
+   "match": "purchase obligations",
+   "text": "…) and foreign income taxes (net of refunds) totaled $877 million and $1.3 billion for Q1 2025 and Q1 2026.   As of December 31, 2025 and March 31, 2026, restricted cash, cash equivalents, and marketable securities were $3.3 billion and $2.9 billion. See Item 1 of Part I, “Financial Statements — Note 4 — Commitments and Contingencies” and “Financial Statements — Note 5 — Debt” for additional discussion of our principal contractual commitments, as well as our pledged assets. Additionally, we have purchase obligations and open purchase orders, including for inventory and capital expenditures, that support normal operations and are primarily due in the next twelve months. These purchase obligations and open purchase orders are generally cancellable in full or in part through the contractual provisions.   We believe that cash flows generated from operations and our cash, cash equivalents, and marketable securities balances, as well as our borrowing arrangements and other financing activities, will be sufficient to meet our anticipated operating cash needs for at least the next twelve months. However, any projections of future cash needs and cash flows are subject to substantial uncertainty. See Item 1A of Part II, “Risk Factors.” We continually evaluate opportunities to sell additional equity or debt securities, obtain credit facilities, obtain finance and operating lease arrangemen…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "27",
+   "match": "revolving credit facilit",
+   "text": "…6 billion and $59.5 billion for Q1 2025 and Q1 2026. We expect to undertake additional financing activities in 2026. Cash outflows from financing activities resulted from payments of short-term debt, and other, long-term debt, finance leases, and financing obligations of $2.6 billion and $6.7 billion for Q1 2025 and Q1 2026. Property and equipment acquired under finance leases was $54 million and $1.6 billion during Q1 2025 and Q1 2026.   We had no borrowings outstanding under the two unsecured revolving credit facilities or the commercial paper programs as of March 31, 2026. See Item 1 of Part I, “Financial Statements — Note 5 — Debt” for additional information.   Certain foreign subsidiary earnings and losses are subject to current U.S. taxation and the subsequent repatriation of those earnings is not subject to tax in the U.S. We intend to invest substantially all of our foreign subsidiary earnings, as well as our capital in our foreign subsidiaries, indefinitely outside of the U.S. in those jurisdictions in which we would incur significant, additional costs upon repatriation of such amounts.   Our U.S. taxable income is reduced by accelerated depreciation deductions and the amortization of previously capitalized research and development costs. U.S. tax rules provide for enhanced accelerated depreciation deductions by allowing the election of full expensing of qualified prop…",
+   "amounts": [
+    {
+     "raw": "$2.6 billion",
+     "usdM": 2600
+    },
+    {
+     "raw": "$6.7 billion",
+     "usdM": 6700
+    },
+    {
+     "raw": "$54 million",
+     "usdM": 54
+    },
+    {
+     "raw": "$1.6 billion",
+     "usdM": 1600
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "28",
+   "match": "Segment Information",
+   "text": "Table of Contents   Results of Operations   We have organized our operations into three segments: North America, International, and AWS. These segments reflect the way the Company evaluates its business performance and manages its operations. See Item 1 of Part I, “Financial Statements — Note 8 — Segment Information.”   Overview   Macroeconomic factors, including changes in inflation and interest rates, resource and supply volatility, global economic and geopolitical developments, including unpredictable shifts in global tariff and trade policies, and the development and adoption of technologies and services, including artificial intelligence, have direct and indirect impacts on our results of operations that are difficult to predict, isolate, and quantify. These could affect customer demand for our products and services, our ability to forecast growth needs, expenses, and benefits from new technologies. Further, we expect to continue making additional investments in our artificial intelligence initiatives. We expect some or all of these factors to continue to impact our results of operations into Q2 2026.   Net Sales   Net sales include product and service sales. Product sales r…",
+   "amounts": []
+  },
+  {
+   "kind": "segment",
+   "page": "28",
+   "match": "AWS 17 28   Consolidated 10 15   Net Sales",
+   "text": "…dia content subscriptions. Net sales information is as follows (in millions):   Three Months Ended March 31,   2025 2026   Net Sales:   North America $ 92,887 $ 104,143   International 33,513 39,789   AWS 29,267 37,587   Consolidated $ 155,667 $ 181,519   Year-over-year Percentage Growth:   North America 8 % 12 %   International 5 19   AWS 17 28   Consolidated 9 17   Year-over-year Percentage Growth, excluding the effect of foreign exchange rates:   North America 8 % 12 %   International 8 11   AWS 17 28   Consolidated 10 15   Net Sales Mix:   North America 60 % 57 %   International 21 22   AWS 19 21   Consolidated 100 % 100 %   Sales increased 17% in Q1 2026 compared to the comparable prior year period. Changes in foreign exchange rates increased net sales by $2.9 billion for Q1 2026. For a discussion of the effect of foreign exchange rates on sales growth, see “Effect of Foreign Exchange Rates” below.   North America sales increased 12% in Q1 2026 compared to the comparable prior year period. The sales growth primarily reflects increased unit sales, including sales by third-party sellers, advertising sales, and subscription services. Increased unit sales were driven largely by our continued focus on price, selection, and convenience for our customers, including from our fast shipping offers. Changes in foreign exchange rates increased North America net sales by $346 million f…",
+   "amounts": [
+    {
+     "raw": "$2.9 billion",
+     "usdM": 2900
+    }
+   ]
+  },
+  {
+   "kind": "properties",
+   "page": "31",
+   "match": "data centers in the",
+   "text": "…luded in sales and marketing expense, we view these offers as effective worldwide marketing tools, and intend to continue offering them indefinitely.   General and Administrative   General and administrative costs in Q1 2026 did not significantly change compared to the comparable prior year period.   Other Operating Expense (Income), Net   Other operating expense (income), net was $308 million and $447 million for Q1 2025 and Q1 2026, and was primarily related to charges associated with damaged data centers in the Middle East in Q1 2026, asset impairments, and the amortization of intangible assets.   Operating Income   Operating income by segment is as follows (in millions):   Three Months Ended March 31,   2025 2026   Operating Income   North America $ 5,841 $ 8,267   International 1,017 1,424   AWS 11,547 14,161   Consolidated $ 18,405 $ 23,852   Operating income increased from $18.4 billion in Q1 2025 to $23.9 billion in Q1 2026. We believe that operating income is a more meaningful measure than gross profit and gross margin due to the diversity of our product categories and services. For more information on the operating expenses that impact segment operating income, see “Operating Expenses” and the descriptions of operating expense line item changes on pages 29 to 31, and “Note 8 — Segment Information” on page 21.   The increase in North America operating income in Q1 2026…",
+   "amounts": [
+    {
+     "raw": "$308 million",
+     "usdM": 308
+    },
+    {
+     "raw": "$447 million",
+     "usdM": 447
+    },
+    {
+     "raw": "$ 5,841 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,267   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,405 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,852   ",
+     "usdM": null
+    },
+    {
+     "raw": "$18.4 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "31",
+   "match": "AWS 11,547 14,161   Consolidated $ 18,405 $ 23,852   Operating income",
+   "text": "…Operating Expense (Income), Net   Other operating expense (income), net was $308 million and $447 million for Q1 2025 and Q1 2026, and was primarily related to charges associated with damaged data centers in the Middle East in Q1 2026, asset impairments, and the amortization of intangible assets.   Operating Income   Operating income by segment is as follows (in millions):   Three Months Ended March 31,   2025 2026   Operating Income   North America $ 5,841 $ 8,267   International 1,017 1,424   AWS 11,547 14,161   Consolidated $ 18,405 $ 23,852   Operating income increased from $18.4 billion in Q1 2025 to $23.9 billion in Q1 2026. We believe that operating income is a more meaningful measure than gross profit and gross margin due to the diversity of our product categories and services. For more information on the operating expenses that impact segment operating income, see “Operating Expenses” and the descriptions of operating expense line item changes on pages 29 to 31, and “Note 8 — Segment Information” on page 21.   The increase in North America operating income in Q1 2026, compared to the comparable prior year period, is primarily due to increased unit sales and increased advertising sales, partially offset by increased shipping, fulfillment, and technology and infrastructure costs.   The increase in International operating income in Q1 2026, compared to the comparable prio…",
+   "amounts": [
+    {
+     "raw": "$ 5,841 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 8,267   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 18,405 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 23,852   ",
+     "usdM": null
+    },
+    {
+     "raw": "$18.4 billion",
+     "usdM": 18400
+    },
+    {
+     "raw": "$23.9 billion",
+     "usdM": 23900
+    }
+   ]
+  },
+  {
+   "kind": "segment",
+   "page": "31",
+   "match": "AWS operating income",
+   "text": "… unit sales and increased advertising sales, partially offset by increased shipping, fulfillment, and technology and infrastructure costs.   The increase in International operating income in Q1 2026, compared to the comparable prior year period, is primarily due to increased unit sales and increased advertising sales, partially offset by increased shipping and fulfillment costs. Changes in foreign exchange rates positively impacted operating income by $347 million for Q1 2026.   The increase in AWS operating income in Q1 2026, compared to the comparable prior year period, is primarily due to increased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates negatively impacted operating income by $339 million for Q1 2026.   Interest Income and Expense   Our interest income was $1.1 billion during Q1 2025 and Q1 2026, primarily due to a decrease in prevailing rates, offset by a higher average balance of invested funds. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.   Intere…",
+   "amounts": [
+    {
+     "raw": "$347 million",
+     "usdM": 347
+    },
+    {
+     "raw": "$339 million",
+     "usdM": 339
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "31",
+   "match": "investment grade",
+   "text": "…o increased sales, partially offset by spending on technology infrastructure that was primarily driven by additional investments to support AWS business growth. Changes in foreign exchange rates negatively impacted operating income by $339 million for Q1 2026.   Interest Income and Expense   Our interest income was $1.1 billion during Q1 2025 and Q1 2026, primarily due to a decrease in prevailing rates, offset by a higher average balance of invested funds. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Our interest income corresponds with the average balance of invested funds based on the prevailing rates, which vary depending on the geographies and currencies in which they are invested.   Interest expense was $541 million and $800 million during Q1 2025 and Q1 2026, and was primarily related to debt and finance leases. See Item 1 of Part I, “Financial Statements — Note 3 — Leases and Note 5 — Debt” for additional information.   Other Income (Expense), Net   Other income (expense), net was $2.7 billion and $15.6 billion during Q1 2025 and Q1 2026. The primary components of other income (expense), net are related to equity securities valuations and adjustments, equity warrant valuations, foreign currency, and reclassification adjustments for gains (losses) on available-for-sale debt…",
+   "amounts": [
+    {
+     "raw": "$1.1 billion",
+     "usdM": 1100
+    },
+    {
+     "raw": "$541 million",
+     "usdM": 541
+    },
+    {
+     "raw": "$800 million",
+     "usdM": 800
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "31",
+   "match": "Anthropic",
+   "text": "…lion and $15.6 billion during Q1 2025 and Q1 2026. The primary components of other income (expense), net are related to equity securities valuations and adjustments, equity warrant valuations, foreign currency, and reclassification adjustments for gains (losses) on available-for-sale debt securities. The net gain of $2.7 billion in Q1 2025 is primarily from the reclassification adjustment for the gain on available-for-sale debt securities from the portion of our convertible notes investments in Anthropic that were converted to nonvoting preferred stock during Q1 2025. The net gain of $15.6 billion in Q1 2026 is primarily from an upward adjustment for observable changes in price relating to our nonvoting preferred stock in   31",
+   "amounts": [
+    {
+     "raw": "$2.7 billion",
+     "usdM": 2700
+    },
+    {
+     "raw": "$15.6 billion",
+     "usdM": 15600
+    }
+   ]
+  },
+  {
+   "kind": "cash_flow",
+   "page": "32",
+   "match": "Net cash provided by (used in) operating activities",
+   "text": "…nancial measures.   Free Cash Flow   Our financial focus is on long-term, sustainable growth in free cash flow. We provide a free cash flow measure because we believe it provides additional perspective on the impact of acquiring property and equipment with cash. Free cash flow is cash flow from operations reduced by “Purchases of property and equipment, net of proceeds from sales and incentives.” The following is a reconciliation of free cash flow to the most comparable GAAP cash flow measure, “Net cash provided by (used in) operating activities,” for the trailing twelve months ended March 31, 2025 and 2026 (in millions):   Twelve Months Ended March 31,   2025 2026   Net cash provided by (used in) operating activities $ 113,903 $ 148,531   Purchases of property and equipment, net of proceeds from sales and incentives (87,978) (147,299)   Free cash flow $ 25,925 $ 1,232   Net cash provided by (used in) investing activities $ (106,283) $ (176,954)   Net cash provided by (used in) financing activities $ (10,603) $ 62,475   Free cash flow has limitations as it omits certain components of the overall cash flow statement and does not represent the residual cash flow available for discretionary expenditures. For example, free cash flow does not incorporate the portion of payments representing principal reductions of debt or cash payments for business acquisitions. Additionally, our mi…",
+   "amounts": [
+    {
+     "raw": "$ 113,903 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 148,531   ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 25,925 ",
+     "usdM": null
+    },
+    {
+     "raw": "$ 1,232   ",
+     "usdM": null
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "32",
+   "match": "Anthropic",
+   "text": "Table of Contents   Anthropic and the reclassification adjustment for the gains on available-for-sale debt securities from the portions of our convertible notes investments in Anthropic that were converted to nonvoting preferred stock during Q1 2026.   Income Taxes   Our income tax provision for the three months ended March 31, 2025 was $4.6 billion, which included $559 million of net discrete tax expense. Our income tax provision for the three months ended March 31, 2026 was $9.6 billion, which included $4.1 billion of net discrete tax expense primarily attributable to the net gains from our investments in Anthropic. See Item 1 of Part I, “Financial Statements — Note 7 — Income Taxes” for additional information.   Non-GAAP Financial Measures   Regulation G, Conditions for Use of Non-GAAP Financial Measures, and other SEC regulations define and prescribe the conditions for use of certain non-GAAP financial …",
+   "amounts": [
+    {
+     "raw": "$4.6 billion",
+     "usdM": 4600
+    },
+    {
+     "raw": "$559 million",
+     "usdM": 559
+    }
+   ]
+  },
+  {
+   "kind": "credit_rating",
+   "page": "34",
+   "match": "investment grade",
+   "text": "…ates relates primarily to our investment portfolio and our debt. Our long-term debt primarily bears interest at fixed rates and is carried at amortized cost and fluctuations in interest rates do not impact our consolidated financial statements. However, the fair value of our long-term debt will generally fluctuate with movements of interest rates, increasing in periods of declining rates of interest and declining in periods of increasing rates of interest. We generally invest our excess cash in investment grade short- to intermediate-term marketable debt securities and AAA-rated money market funds. Marketable debt securities with fixed interest rates may have their fair market value adversely affected due to a rise in interest rates, and we may suffer losses in principal if forced to sell securities that have declined in market value due to changes in interest rates.   Foreign Exchange Risk   During Q1 2026, net sales from our International segment accounted for 22% of our consolidated revenues. Net sales and related expenses generated from our internationally-focused stores, including within Canada and Mexico (which are included in our North America segment), are primarily denominated in the functional currencies of the corresponding stores and primarily include Euros, British Pounds, and Japanese Yen. The results of operations of, and certain of our intercompany balances asso…",
+   "amounts": []
+  },
+  {
+   "kind": "cash_flow",
+   "page": "34",
+   "match": "Notes issuance of",
+   "text": "…nd 20% adverse change to foreign exchange would result in declines of $1.1 billion, $2.2 billion, and $4.4 billion.   We also have foreign exchange risk related to our intercompany balances denominated in various currencies. Based on the intercompany balances as of March 31, 2026, an assumed 5%, 10%, and 20% adverse change to foreign exchange rates would result in losses of $525 million, $1.0 billion, and $2.1 billion, recorded to “Other income (expense), net.”   Our March 2026 Euro-denominated Notes issuance of €14.5 billion creates an exposure to changes in foreign exchange rates. We designated these notes as net investment hedges to mitigate foreign currency exposures related to the translation of our investments in foreign operations to U.S. dollars. Foreign currency unrealized gains and losses on these notes are included in “Accumulated other comprehensive income (loss)” until the foreign operations are sold or substantially liquidated, at which point these amounts and any translation adjustment of the foreign operations are reclassified to our consolidated statements of operations.   See Item 2 of Part I, “Management’s Discussion and Analysis of Financial Condition and Results of Operations — Results of Operations — Effect of Foreign Exchange Rates” for additional information on the effect on reported results of changes in foreign exchange rates.   Equity Investment Risk …",
+   "amounts": [
+    {
+     "raw": "$525 million",
+     "usdM": 525
+    },
+    {
+     "raw": "$1.0 billion",
+     "usdM": 1000
+    },
+    {
+     "raw": "$2.1 billion",
+     "usdM": 2100
+    }
+   ]
+  },
+  {
+   "kind": "concentration",
+   "page": "34",
+   "match": "Anthropic",
+   "text": "…ty, equity warrant, and convertible debt investments in public and private companies was $96.5 billion. Our equity and equity warrant investments in publicly traded companies represent $3.8 billion of our investments as of March 31, 2026, and are recorded at fair value, which is subject to market price volatility. We record our equity warrant investments in private companies at fair value and adjust our equity investments in private companies, which primarily relate to our equity investments in Anthropic and OpenAI, for observable price changes or impairments. We record our available-for-sale convertible debt investments in private companies at fair value, which primarily relate to Anthropic. Valuations of private companies are inherently more complex due to the lack of readily available market data. The current global economic conditions provide additional uncertainty. As such, we believe that market sensitivities are not practicable.   34",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "38",
+   "match": "Guarantee",
+   "text": "…iptions, and to prevent sellers in our stores or through other stores from selling unlawful, counterfeit, pirated, or stolen goods, selling goods in an unlawful or unethical manner, violating the proprietary rights of others, or otherwise violating our policies. When these policies and processes are circumvented or fail to operate sufficiently, it can harm our business or damage our reputation and we could face civil or criminal liability for unlawful activities by our sellers. Under our A-to-z Guarantee, we may reimburse customers for payments up to certain limits in these situations, and as our third-party seller sales grow, the cost of this program will increase and could negatively affect our operating results.   We Face Risks Related to Adequately Protecting Our Intellectual Property Rights and Being Accused of Infringing Intellectual Property Rights of Third Parties   We regard our trademarks, service marks, copyrights, patents, trade dress, trade secrets, proprietary technology, and similar intellectual property as critical to our success, and we rely on trademark, copyright, and patent law, trade secret protection, and confidentiality and/or license agreements with our employees, customers, and others to protect our proprietary rights. Effective intellectual property protection is not available in every country in which our products and services are made available. We a…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "42",
+   "match": "guarantee",
+   "text": "…on, our response to any organizational efforts could be perceived negatively and harm our business and reputation.   Our Supplier Relationships Subject Us to a Number of Risks   We have significant suppliers, including content and technology licensors, and in some cases, limited or single-sources of supply, that are important to our sourcing, services, manufacturing, and any related ongoing servicing of merchandise and content. We do not have long-term arrangements with most of our suppliers to guarantee availability of merchandise, content, components, or services, particular payment terms, or the extension of credit limits. Decisions by our current suppliers to limit or stop selling or licensing merchandise, content, components, or services to us on acceptable terms, or delay delivery, including as a result of one or more supplier bankruptcies due to poor economic conditions, natural or human-caused disasters (including public health crises), geopolitical events, labor and trade disputes, or for other reasons, may result in our being unable to procure alternatives from other suppliers in a timely and efficient manner and on acceptable terms, or at all. For example, we rely on a limited group of suppliers for semiconductor products, including products related to artificial intelligence infrastructure such as graphics processing units. Constraints on the availability of these p…",
+   "amounts": []
+  },
+  {
+   "kind": "equity_method",
+   "page": "43",
+   "match": "joint venture",
+   "text": "Table of Contents   • difficulty integrating under the commercial agreements.   Our Business Suffers When We Are Unsuccessful in Making, Integrating, and Maintaining Acquisitions and Investments   We have acquired and invested in a number of companies, and we may in the future acquire or invest in or enter into joint ventures with additional companies. These transactions involve risks such as:   • disruption of our ongoing business, including loss of management focus on and diversion of resources from existing businesses;   • problems retaining key personnel;   • additional operating losses and expenses of the businesses we acquired or in which we invested;   • the potential impairment of tangible and intangible assets and goodwill, including as a result of acquisitions;   • the potential impairment of customer and other relationships of the company we acquired or in which we invested or our own customers as a result of any integration of operations;   • the difficulty of completing such transactions, including obtaining regulatory approvals or satisfying other closing conditions, and achieving anticipated benefits within expected timeframes, or at all;   • the difficulty of incorporating acqui…",
+   "amounts": []
+  },
+  {
+   "kind": "guarantee",
+   "page": "46",
+   "match": "Guarantee",
+   "text": "…perations.   We Are Subject to Product Liability Claims When People or Property Are Harmed by the Products We Sell or Manufacture   Some of the products we sell or manufacture expose us to product liability or food safety claims relating to personal injury or illness, death, or environmental or property damage, and can require product recalls or other actions. Third parties who sell products using our services and stores also expose us to product liability claims. Additionally, under our A-to-z Guarantee, we may reimburse customers for certain product liability claims up to certain limits in these situations, and as our third-party seller sales grow, the cost of this program will increase and could negatively affect our operating results. Although we maintain liability insurance, we cannot be certain that our coverage will be adequate for liabilities actually incurred or that insurance will continue to be available to us on economically reasonable terms, or at all. Although we impose contractual terms on sellers that are intended to prohibit sales of certain type of products, we may not be able to detect, enforce, or collect sufficient damages for breaches of such agreements. In addition, some of our agreements with our vendors and sellers do not indemnify us from product liability.   We Face Additional Tax Liabilities and Collection Obligations   We are subject to a variety of…",
+   "amounts": []
+  },
+  {
+   "kind": "concentration",
+   "page": "49",
+   "match": "OpenAI",
+   "text": "…cate of Amazon.com, Inc., dated as of March 16, 2026, containing Form of Floating Rate Note due 2028, Form of 2.800% Note due 2028, Form of 3.100% Note due 2030, Form of 3.350% Note due 2032, Form of 3.700% Note due 2035, Form of 4.050% Note due 2039, Form of 4.450% Note due 2045, and Form of 4.850% Note due 2064 (incorporated by reference to the Company’s Current Report on Form 8-K, filed March 16, 2026 ).   10.1* Equity Commitment Letter Agreement dated as of February 27, 2026, by and between OpenAI Group PBC and Amazon.com NV Investment Holdings LLC, and solely as guarantor, Amazon.com, Inc. (incorporated by reference to the Company’s Current Report on Form 8-K, filed February 27, 2026).   31.1 Certification of Andrew R. Jassy, President and Chief Executive Officer of Amazon.com, Inc., pursuant to Rule 13a-14(a) under the Securities Exchange Act of 1934.   31.2 Certification of Brian T. Olsavsky, Senior Vice President and Chief Financial Officer of Amazon.com, Inc., pursuant to Rule 13a-14(a) under the Securities Exchange Act of 1934.   32.1 Certification of Andrew R. Jassy, President and Chief Executive Officer of Amazon.com, Inc., pursuant to 18 U.S.C. Section 1350.   32.2 Certification of Brian T. Olsavsky, Senior Vice President and Chief Financial Officer of Amazon.com, Inc., pursuant to 18 U.S.C. Section 1350.   101 The following financial statements from the Company’s …",
+   "amounts": []
+  }
+ ]
+}

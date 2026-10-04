@@ -354,3 +354,74 @@ th.sortable[aria-sort="descending"]::after{content:" ↓"; opacity:1;}
 
 /* third-party (T4) estimates beside "Not disclosed": visibly apart from company figures */
 .t4-beside{margin-top:4px; padding:2px 6px; border:1px dashed var(--t4); border-radius:6px; font-size:12px; white-space:nowrap; display:inline-block; color:var(--text-secondary);}
+
+/* ---- round 4 (owner's third review, 2026-10-03): verification wording, explained gaps, secondary sources, mobile ---- */
+.flag.sec{background:var(--surface-2); color:var(--t4); border:1px dashed var(--t4);}
+.vchk.an{color:var(--accent-ink);}
+.vsum{font-size:12.5px; color:var(--muted);}
+/* an explained gap (n/a, text figure, annual only…): neutral, never shaded like "not tagged" */
+.nd.nx{font-style:normal; font-size:11.5px; letter-spacing:.02em; color:var(--muted);}
+.ntx-val{font-variant-numeric:tabular-nums;}
+td .nd.nx + .src-btn, td .ntx-val + .src-btn{margin-right:2px;}
+/* data-quality line: the method stated, the items listed beneath (folded) */
+.dq-line details{margin-top:4px;}
+.dq-line summary{cursor:pointer; font-weight:600; color:var(--text-secondary);}
+.dq-line ul{margin:4px 0 0; padding-left:18px; font-size:12px; line-height:1.5; color:var(--text-secondary);}
+.dq-line li{margin:2px 0;}
+.dq-line .k{display:inline-block; min-width:92px; color:var(--muted);}
+.dq-roll{margin-top:14px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
+.dq-roll table{font-size:12.5px; margin-top:8px;}
+.dq-roll td, .dq-roll th{padding:4px 8px;}
+.dq-roll .worst td{font-weight:600;}
+/* ⓘ: a 44×44 px hit area on touch screens (negative margins keep the layout as before) */
+@media (pointer: coarse){
+  .src-btn{min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; margin:-14px -10px -14px -8px; padding:0; vertical-align:middle;}
+  abbr.term{padding:6px 0;}
+}
+/* module navigation on phones: a menu button that unfolds the links (nothing off screen) */
+.nav-toggle{display:none;}
+@media (max-width:640px){
+  nav.mods .wrap, nav.jump .wrap{display:block; overflow:visible; padding-top:4px; padding-bottom:4px;}
+  nav.mods{background:var(--page);}
+  .nav-toggle{display:flex; align-items:center; gap:8px; width:100%; min-height:44px; border:0; background:transparent; font:inherit; font-size:13.5px; font-weight:700; color:var(--text-primary); text-align:left; padding:6px 0; cursor:pointer;}
+  .nav-toggle .ic{display:inline-flex; flex-direction:column; gap:3px; width:18px;}
+  .nav-toggle .ic i{display:block; height:2px; background:currentColor; border-radius:1px;}
+  .nav-toggle .cur{color:var(--muted); font-weight:500;}
+  .nav-toggle[aria-expanded="true"] .cur{display:none;}
+  .nav-links{display:none; flex-wrap:wrap; gap:4px 6px; padding:4px 0 8px;}
+  .nav-links.open{display:flex;}
+  nav.mods .nav-links a, nav.jump .nav-links a{padding:9px 10px; border:1px solid var(--border); border-radius:8px; white-space:normal; min-height:40px; display:inline-flex; align-items:center;}
+  nav.mods .nav-links a.active{border-color:var(--accent); background:var(--accent-soft);}
+}
+/* heat-map cards on phones: label on its own line, the value and date beneath, roomier */
+@media (max-width:640px){
+  table.heat.cards td{padding:8px 0 10px; text-align:left;}
+  table.heat.cards td[data-h]::before{display:block; content:attr(data-h); color:var(--muted); font-size:11.5px; font-weight:600; letter-spacing:.03em; text-transform:uppercase; margin-bottom:2px;}
+  table.heat.cards td .hd{display:inline; margin-left:6px; font-size:12px;}
+  table.heat.cards td .src-btn{min-width:44px; min-height:44px; display:inline-flex; align-items:center; justify-content:center; margin:-12px 0 -12px 2px; font-size:14px;}
+  table.heat.cards tbody tr{padding:6px 12px;}
+  table.heat.cards td:first-child{padding-bottom:4px; font-size:14px;}
+}
+/* sites map: hidden under 600px (the table cards list every site); larger dots and legend on tablets */
+@media (max-width:599px){ #mapBox, #mapLeg{display:none !important;} .map-narrow-note{display:block;} }
+.map-narrow-note{display:none; font-size:12.5px; color:var(--text-secondary); margin-top:8px;}
+@media (max-width:900px){ #mapLeg{font-size:13px; gap:8px 16px;} #mapLeg svg, #mapLeg i{transform:scale(1.25);} }
+/* calendar: estimated dates */
+.est{color:var(--warn); font-weight:600;}
+/* thesis: two sentences; ⓘ inside the sentences */
+.thesis .src-btn{font-size:13px; vertical-align:2px;}
+.wtk summary .src-btn{font-size:12px;}
+/* round 4 follow-up: long XBRL concept names in the data-quality lists must wrap at phone width */
+.dq-line, .dq-roll, .dq-line li, .dq-roll li{overflow-wrap:anywhere;}
+/* home roll-up table at phone width: one block per module, cell labels from data-l (no horizontal scroll) */
+@media (max-width:640px){
+  .dq-roll .tblwrap{overflow:visible;}
+  .dq-roll table, .dq-roll tbody, .dq-roll tr{display:block; width:100%;}
+  .dq-roll thead{display:none;}
+  .dq-roll tr{border-top:1px solid rgba(128,128,128,.28); padding:6px 0;}
+  .dq-roll td{display:inline-block; width:auto; padding:1px 10px 1px 0; text-align:left; border:0;}
+  .dq-roll td.l{display:block; font-weight:600; padding-bottom:2px;}
+  .dq-roll td[data-l]::before{content:attr(data-l) ': '; color:var(--text-secondary);}
+}
+/* long tokens (XBRL concepts, accession numbers) in prose and lists must wrap at phone width */
+@media (max-width:640px){ main p, main li, main code, main td, main .det{overflow-wrap:anywhere;} }

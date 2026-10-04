@@ -1,0 +1,1533 @@
+{
+ "_comment": "Debt deals in the FactSet snapshot (tools/hyperscalers/raw/factset/<date>-debt.json) that no 424B filing-fee exhibit matched (144A notes, converts placed via 6-K/8-K, loans): the SEC filing that documents each deal. filing = an EDGAR full-text search (efts.sec.gov) over the issuer's 8-K / 424B / FWP / 6-K filings within −12/+25 days of the FactSet issue date returned the tranche's coupon-and-maturity phrase or facility type in that filing (accession, filed date, documents, phrases); the index confirms the phrase, the document text was not read in this session. textSrc = a passage of a 10-K/10-Q/20-F already harvested (raw/notes/) that names the instrument, with page and quote (checked against the harvested page by build.mjs). result: filing | partial (filing describes a related facility or the date differs) | unresolved (no filing found or FactSet's record does not match the filings read; reason given). Amounts stay FactSet's. Written 2026-10-03 (owner's third review). reviewedBy stays null until a person signs off.",
+ "updatedAt": "2026-10-04T04:40:00Z",
+ "method": {
+  "en": "EDGAR full-text search (efts.sec.gov/LATEST/search-index) by CIK, form and date window for the phrase \"<coupon>% notes due <year>\", \"convertible senior notes due <year>\", \"term loan\", \"credit agreement\" or \"revolving credit\"; hits list the filing's accession and the documents that contain the phrase.",
+  "es": "Búsqueda de texto completo en EDGAR (efts.sec.gov/LATEST/search-index) por CIK, forma y ventana de fechas de la frase «<cupón>% notes due <año>», «convertible senior notes due <año>», «term loan», «credit agreement» o «revolving credit»; los resultados dan el número de acceso de la presentación y los documentos que contienen la frase."
+ },
+ "matches": [
+  {
+   "key": "CRWV|2026-06-18|Private placement notes",
+   "ticker": "CRWV",
+   "issued": "2026-06-18",
+   "klass": "Private placement notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000291",
+    "filed": "2026-06-18",
+    "items": "1.01, 2.03, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000291/0001769628-26-000291-index.htm",
+    "docs": [
+     "crwv-20260618.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2032\""
+    ],
+    "others": [
+     "8-K 0001769628-26-000278 (2026-06-11)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "93",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "€2.0 billion in aggregate principal amount of euro-denominated 8.500% Senior Notes due 2032"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2026-06-18|Bonds / notes",
+   "ticker": "CRWV",
+   "issued": "2026-06-18",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000291",
+    "filed": "2026-06-18",
+    "items": "1.01, 2.03, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000291/0001769628-26-000291-index.htm",
+    "docs": [
+     "crwv-20260618.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2032\""
+    ],
+    "others": [
+     "8-K 0001769628-26-000278 (2026-06-11)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "48",
+    "section": "Item 2 — Liquidity (debt financing)",
+    "quote": "$1.3 billion aggregate principal amount of 2032 9.625% Senior Notes"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2026-06-08|Term loan",
+   "ticker": "AMZN",
+   "issued": "2026-06-08",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001104659-26-072140",
+    "filed": "2026-06-10",
+    "items": "1.01, 2.03, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926072140/0001104659-26-072140-index.htm",
+    "docs": [
+     "tm2613616d4_8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [
+     "424B5 0001104659-26-071190 (2026-06-08)",
+     "424B5 0001104659-26-072332 (2026-06-10)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "18",
+    "section": "Note 5 — Debt",
+    "quote": "In June 2026, we entered into a $17.5 billion unsecured delayed draw term loan with a syndicate of lenders (“Term Loan”), which matures three years from the date of borrowing"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2026-05-29|Private placement notes",
+   "ticker": "IREN",
+   "issued": "2026-05-29",
+   "klass": "Private placement notes",
+   "result": "filing",
+   "textSrc": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "124",
+    "section": "Item 7 — Liquidity (GPU financing)",
+    "quote": "The USPP Senior Notes bear interest at a fixed rate of 5.96% per annum"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2026-05-29|Term loan",
+   "ticker": "IREN",
+   "issued": "2026-05-29",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001140361-26-023427",
+    "filed": "2026-06-01",
+    "items": "1.01, 2.03",
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126023427/0001140361-26-023427-index.htm",
+    "docs": [
+     "ef20075181_8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"term loan\"",
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "124",
+    "section": "Item 7 — Liquidity (GPU financing)",
+    "quote": "As of June 30, 2026, $413 million was drawn under the DDTL Facility and $525 million of the USPP Senior Notes had been funded."
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "APLD|2026-05-29|Revolving credit",
+   "ticker": "APLD",
+   "issued": "2026-05-29",
+   "klass": "Revolving credit",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001493152-26-027857",
+    "filed": "2026-06-09",
+    "items": "7.01, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000149315226027857/0001493152-26-027857-index.htm",
+    "docs": [
+     "ex99-1.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"revolving credit\""
+    ],
+    "others": [
+     "8-K 0001493152-26-028899 (2026-06-16)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "50",
+    "section": "Note — Debt: 2026 Revolving Credit Facility",
+    "quote": "On May 29, 2026, APLD Intermediate HoldCo LLC, a Delaware limited liability company and a first-tier subsidiary of the Company (\"APLD Intermediate HoldCo\"), and certain other subsidiaries of the Company as subsidiary guarantors entered into a Credit Agreement (the “Revolving Credit Agreement”) with First National Bank of Omaha"
+   },
+   "note_en": "The 10-K names the 2026 Revolving Credit Facility: a Credit Agreement of 29 May 2026 between APLD Intermediate HoldCo LLC (and subsidiary guarantors) and First National Bank of Omaha, which replaced the US$65m 2025 facility (p. 48, 50); the 8-K of 9 Jun 2026 is the filing found by the EDGAR index. FactSet records the facility as undrawn at the report date.",
+   "note_es": "El 10-K nombra la línea revolvente de 2026: un contrato de crédito del 29 de mayo de 2026 entre APLD Intermediate HoldCo LLC (y filiales garantes) y First National Bank of Omaha, que sustituyó la línea de US$65 M de 2025 (pp. 48 y 50); el 8-K del 9 de junio de 2026 es la presentación que devuelve el índice de EDGAR. FactSet registra la línea sin disponer a la fecha del reporte.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2026-05-28|Bonds / notes",
+   "ticker": "AMZN",
+   "issued": "2026-05-28",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filingCandidates": [
+    "8-K 0001104659-26-065717 (2026-05-22) 8-K: \"notes due 2032\"",
+    "8-K 0001104659-26-072140 (2026-06-10) 8-K: \"notes due 2032\"",
+    "8-K 0001104659-26-073562 (2026-06-12) EX-1.1: \"notes due 2029\" | \"notes due 2029\" | \"notes due 2029\" | \"notes due 2029\" | \"notes due 2032\"",
+    "FWP 0001104659-26-071456 (2026-06-08) FWP: \"notes due 2029\"",
+    "424B5 0001104659-26-072332 (2026-06-10) EX-FILING FEES: \"notes due 2029\" | \"notes due 2029\""
+   ],
+   "note_en": "The 10-Q for 30 Jun 2026 lists the May 2026 Swiss franc-denominated notes: CHF 2.8bn, maturities 2029–2051, coupons 0.84%–2.08%, face value US$3,487m, which matches FactSet's US$3,496m (converted). Swiss franc notes are sold outside the SEC shelf, so there is no 424B; the 10-Q is the SEC document that names them.",
+   "note_es": "El 10-Q al 30 de junio de 2026 enumera los bonos en francos suizos de mayo de 2026: CHF 2.8 mil M, vencimientos 2029–2051, cupones de 0.84% a 2.08%, valor nominal US$3,487 M, que coincide con los US$3,496 M de FactSet (convertidos). Los bonos en francos suizos se colocan fuera del programa registrado ante la SEC, por eso no hay 424B; el 10-Q es el documento ante la SEC que los nombra.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001018724-26-000026",
+    "filed": "2026-07-31",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/0001018724-26-000026-index.htm",
+    "docs": [
+     "amzn-20260630.htm"
+    ],
+    "phrases": [
+     "May 2026 Swiss franc-denominated Notes issuance of CHF 2.8 billion"
+    ],
+    "others": [],
+    "method": "primary document read"
+   },
+   "textSrc": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "17",
+    "section": "Note 6 — Debt",
+    "quote": "May 2026 Swiss franc-denominated Notes issuance of CHF 2.8 billion 2029 - 2051 0.84 % - 2.08 % 0.90 % - 2.10 % — 3,487"
+   }
+  },
+  {
+   "key": "IREN|2026-05-14|Convertible notes",
+   "ticker": "IREN",
+   "issued": "2026-05-14",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001140361-26-021285",
+    "filed": "2026-05-14",
+    "items": "1.01, 2.03, 3.02, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036126021285/0001140361-26-021285-index.htm",
+    "docs": [
+     "ef20073507_8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2033\""
+    ],
+    "others": [
+     "8-K 0001140361-26-020669 (2026-05-12)",
+     "8-K 0001140361-26-020370 (2026-05-11)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq174",
+    "section": "Note 23 — Debt (table of convertible notes and GPU financing)",
+    "quote": "Convertible Notes May 14, 2026 1.00 % 3,000,000"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2026-05-11|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2026-05-11",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-26-216986",
+    "filed": "2026-05-11",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312526216986/0001193125-26-216986-index.htm",
+    "docs": [
+     "d109021d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"3.200% notes due 2030\"",
+     "\"notes due 2030\"",
+     "\"3.650% notes due 2031\"",
+     "\"notes due 2031\"",
+     "\"3.450% notes due 2032\""
+    ],
+    "others": [
+     "8-K 0001193125-26-234488 (2026-05-21)",
+     "8-K 0001193125-26-257724 (2026-06-04)",
+     "8-K 0001193125-26-259830 (2026-06-05)",
+     "8-K 0001652044-26-000043 (2026-04-29)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CORZ|2026-05-06|Bonds / notes",
+   "ticker": "CORZ",
+   "issued": "2026-05-06",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-26-208905",
+    "filed": "2026-05-06",
+    "items": "1.01, 1.02, 2.03, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1839341/000119312526208905/0001193125-26-208905-index.htm",
+    "docs": [
+     "d47435d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2031\""
+    ],
+    "others": [
+     "8-K 0001628280-26-031246 (2026-05-06)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CORZ 10-Q 2026-06-30",
+    "page": "29",
+    "section": "Item 2 — MD&A (2026 highlights)",
+    "quote": "On May 6, 2026, our indirect wholly-owned subsidiary, Core Scientific Finance completed a $3.3 billion offering of 7.75% Senior Secured Notes due 2031"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2026-04-30|Term loan",
+   "ticker": "CRWV",
+   "issued": "2026-04-30",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000236",
+    "filed": "2026-05-18",
+    "items": "1.01, 2.03, 7.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000236/0001769628-26-000236-index.htm",
+    "docs": [
+     "ex9912.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"term loan\"",
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [
+     "8-K 0001769628-26-000220 (2026-05-07)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "93",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "On May 15, 2026, CoreWeave Financing DDTL V, LLC, our indirect subsidiary, entered into the DDTL 5.0 Facility, providing for a $3.1 billion delayed draw term loan facility"
+   },
+   "note_en": "FactSet dates the US$1.1bn term loan 30 Apr 2026; the 10-Q names the DDTL 5.0 Facility (US$3.1bn, 15 May 2026) and an 8-K exhibit of 18 May 2026 mentions it. The facility-to-record mapping is FNAM's reading.",
+   "note_es": "FactSet fecha el préstamo a plazo de US$1.1 mil M el 30 abr 2026; el 10-Q nombra la línea DDTL 5.0 (US$3.1 mil M, 15 may 2026) y un anexo de 8-K del 18 may 2026 la menciona. La correspondencia línea-registro es lectura de FNAM.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "APLD|2026-04-23|Term loan",
+   "ticker": "APLD",
+   "issued": "2026-04-23",
+   "klass": "Term loan",
+   "result": "filing",
+   "textSrc": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "49",
+    "section": "Item 7 — Financing (Bridge Facility)",
+    "quote": "providing for a bridge loan facility in an aggregate principal amount of $300 million (the “Bridge Facility”)"
+   },
+   "note_en": "The 10-K dates the US$300m Bridge Facility (Goldman Sachs, APLD ComputeCo 3) 1 May 2026; FactSet records 23 Apr 2026. It was refinanced on 16 Jun 2026 with the 7.000% notes due 2031 (10-K p. 51), after the 31 May 2026 balance date FactSet reports.",
+   "note_es": "El 10-K fecha la línea puente de US$300 M (Goldman Sachs, APLD ComputeCo 3) el 1 may 2026; FactSet registra el 23 abr 2026. Se refinanció el 16 jun 2026 con las notas al 7.000% con vencimiento en 2031 (10-K p. 51), después de la fecha de balance del 31 may 2026 que FactSet reporta.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2026-04-14|Convertible notes",
+   "ticker": "CRWV",
+   "issued": "2026-04-14",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000164",
+    "filed": "2026-04-14",
+    "items": "1.01, 2.03, 3.02, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000164/0001769628-26-000164-index.htm",
+    "docs": [
+     "crwv-20260409.htm [8-K]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2031\"",
+     "\"convertible senior notes due 2032\""
+    ],
+    "others": [
+     "8-K 0001193125-26-148912 (2026-04-09)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "48",
+    "section": "Item 2 — Liquidity (debt financing)",
+    "quote": "$4.0 billion aggregate principal amount of 2032 Convertible Senior Notes"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2026-04-14|Bonds / notes",
+   "ticker": "CRWV",
+   "issued": "2026-04-14",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000164",
+    "filed": "2026-04-14",
+    "items": "1.01, 2.03, 3.02, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000164/0001769628-26-000164-index.htm",
+    "docs": [
+     "crwv-20260409.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2031\"",
+     "\"notes due 2032\""
+    ],
+    "others": [
+     "8-K 0001193125-26-148912 (2026-04-09)",
+     "8-K 0001769628-26-000183 (2026-04-21)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "48",
+    "section": "Item 2 — Liquidity (debt financing)",
+    "quote": "$2.8 billion aggregate principal amount of 2031 9.75% Senior Notes"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2026-03-30|Term loan",
+   "ticker": "CRWV",
+   "issued": "2026-03-30",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-26-000129",
+    "filed": "2026-03-31",
+    "items": "1.01, 2.03, 7.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962826000129/0001769628-26-000129-index.htm",
+    "docs": [
+     "ex991.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"term loan\"",
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [
+     "8-K 0001769628-26-000164 (2026-04-14)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-Q 2026-06-30",
+    "page": "29",
+    "section": "Note 10 — Debt (DDTL 4.0 Facility)",
+    "quote": "The DDTL 4.0 Facility is non-recourse, except for limited guarantees related to customary non-recourse carve-out obligations."
+   },
+   "note_en": "FactSet dates the US$2.8bn term loan 30 Mar 2026; an 8-K exhibit of 31 Mar 2026 mentions a delayed draw term loan and the 10-Q describes the non-recourse DDTL 4.0 Facility secured by CCAC VIII assets. The mapping is FNAM's reading.",
+   "note_es": "FactSet fecha el préstamo a plazo de US$2.8 mil M el 30 mar 2026; un anexo de 8-K del 31 mar 2026 menciona un préstamo a plazo de disposición diferida y el 10-Q describe la línea DDTL 4.0 sin recurso garantizada con activos de CCAC VIII. La correspondencia es lectura de FNAM.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "NBIS|2026-03-20|Bonds / notes",
+   "ticker": "NBIS",
+   "issued": "2026-03-20",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "6-K",
+    "accn": "0001104659-26-032735",
+    "filed": "2026-03-20",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465926032735/0001104659-26-032735-index.htm",
+    "docs": [
+     "tm268409d4_6k.htm [6-K]"
+    ],
+    "phrases": [
+     "\"notes due 2031\"",
+     "\"notes due 2033\""
+    ],
+    "others": [
+     "6-K 0001104659-26-029074 (2026-03-17)",
+     "6-K 0001104659-26-029863 (2026-03-18)"
+    ],
+    "method": "edgar-fts"
+   },
+   "note_en": "FactSet labels these notes senior unsecured; the 6-K of 20 Mar 2026 and its exhibits describe convertible notes due 2031 and 2033 (full-text hits for \"convertible\" and \"notes due 2031\").",
+   "note_es": "FactSet etiqueta estas notas como senior no garantizadas; el 6-K del 20 mar 2026 y sus anexos describen notas convertibles con vencimiento en 2031 y 2033 (resultados de texto completo para «convertible» y «notes due 2031»).",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2026-03-16|Bonds / notes",
+   "ticker": "AMZN",
+   "issued": "2026-03-16",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001104659-26-028556",
+    "filed": "2026-03-16",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926028556/0001104659-26-028556-index.htm",
+    "docs": [
+     "tm266670d9_8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"2.800% notes due 2028\"",
+     "\"notes due 2028\"",
+     "\"3.100% notes due 2030\""
+    ],
+    "others": [
+     "8-K 0001104659-26-041034 (2026-04-09)",
+     "8-K 0001104659-26-027729 (2026-03-13)",
+     "FWP 0001104659-26-026393 (2026-03-11)",
+     "FWP 0001104659-26-025948 (2026-03-10)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2026-03-13|Bonds / notes",
+   "ticker": "AMZN",
+   "issued": "2026-03-13",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001104659-26-027729",
+    "filed": "2026-03-13",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465926027729/0001104659-26-027729-index.htm",
+    "docs": [
+     "tm266670d8_ex1-1.htm [EX-1.1]"
+    ],
+    "phrases": [
+     "\"notes due 2028\"",
+     "\"3.850% notes due 2028\"",
+     "\"notes due 2029\""
+    ],
+    "others": [
+     "8-K 0001104659-26-028556 (2026-03-16)",
+     "FWP 0001104659-26-025948 (2026-03-10)",
+     "FWP 0001104659-26-026393 (2026-03-11)",
+     "424B5 0001104659-26-027125 (2026-03-12)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "APLD|2026-03-10|Bonds / notes",
+   "ticker": "APLD",
+   "issued": "2026-03-10",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001493152-26-009538",
+    "filed": "2026-03-10",
+    "items": "1.01, 2.03, 5.02, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000149315226009538/0001493152-26-009538-index.htm",
+    "docs": [
+     "form8-k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2031\""
+    ],
+    "others": [
+     "8-K 0001493152-26-008772 (2026-03-04)",
+     "8-K 0001493152-26-008549 (2026-03-02)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "APLD 10-K 2026-05-31",
+    "page": "49",
+    "section": "Item 7 — Financing (6.750% Senior Secured Notes due 2031)",
+    "quote": "On March 10, 2026, APLD ComputeCo 2 LLC, a subsidiary of the Company (“APLD ComputeCo 2”), closed a $2.15 billion offering (the “2031 6.750% Notes Offering”) of 6.750% senior secured notes due 2031"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "ORCL|2026-03-06|Revolving credit",
+   "ticker": "ORCL",
+   "issued": "2026-03-06",
+   "klass": "Revolving credit",
+   "result": "filing",
+   "textSrc": {
+    "k": "ORCL 10-K 2026-05-31",
+    "page": "85",
+    "section": "Note 6 — Notes payable and other borrowings (Revolving Credit Agreement)",
+    "quote": "All amounts borrowed under the Revolving Credit Agreement will become due on March 6, 2031"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2026-03-03|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2026-03-03",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-26-000071",
+    "filed": "2026-07-23",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/0001652044-26-000071-index.htm",
+    "docs": [
+     "goog-20260630.htm"
+    ],
+    "phrases": [
+     "CHF 3.1 billion Swiss Franc-denominated notes with a weighted-average coupon rate of 1.06 %"
+    ],
+    "others": [
+     "8-K 0001652044-26-000026 (2026-03-06) (notes due 2029, one phrase)"
+    ],
+    "method": "primary document read"
+   },
+   "note_en": "Swiss franc, not euro: FactSet's tranches of 3 Mar 2026 carry Reg S identifiers and coupons of 0.43%–1.58%, which match the 10-Q's \"2026 Swiss franc notes\" (coupons 0.43%–1.87%, maturities 2029–2051, face value US$3,772m against FactSet's US$3,787m converted). The 10-Q for 30 Jun 2026 names the issue: CHF 3.1bn Swiss franc-denominated notes issued in the first quarter of 2026. Swiss franc notes are sold outside the SEC shelf, so there is no 424B.",
+   "note_es": "Francos suizos, no euros: los tramos de FactSet del 3 de marzo de 2026 llevan identificadores Reg S y cupones de 0.43% a 1.58%, que coinciden con los «2026 Swiss franc notes» del 10-Q (cupones de 0.43% a 1.87%, vencimientos 2029–2051, valor nominal US$3,772 M frente a US$3,787 M convertidos por FactSet). El 10-Q al 30 de junio de 2026 nombra la emisión: CHF 3.1 mil M en bonos denominados en francos suizos emitidos en el primer trimestre de 2026. Los bonos en francos suizos se colocan fuera del programa registrado ante la SEC, por eso no hay 424B.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "textSrc": {
+    "k": "GOOGL 10-Q 2026-06-30",
+    "page": "25",
+    "section": "Note 6. Debt — Long-Term Debt",
+    "quote": "CHF 3.1 billion Swiss Franc-denominated notes with a weighted-average coupon rate of 1.06 % and a weighted-average maturity of 10 years"
+   }
+  },
+  {
+   "key": "GOOGL|2026-02-13|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2026-02-13",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001652044-26-000012",
+    "filed": "2026-02-04",
+    "items": "2.02, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204426000012/0001652044-26-000012-index.htm",
+    "docs": [
+     "goog-20260204.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2029\"",
+     "\"notes due 2031\""
+    ],
+    "others": [
+     "8-K 0001652044-26-000026 (2026-03-06)",
+     "8-K 0001193125-26-051423 (2026-02-13)",
+     "FWP 0001193125-26-043127 (2026-02-10)",
+     "FWP 0001193125-26-044473 (2026-02-10)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "ORCL|2026-02-04|Bonds / notes",
+   "ticker": "ORCL",
+   "issued": "2026-02-04",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-26-037840",
+    "filed": "2026-02-04",
+    "items": "1.01, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526037840/0001193125-26-037840-index.htm",
+    "docs": [
+     "d23732d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2029\"",
+     "\"4.550% notes due 2029\"",
+     "\"4.950% notes due 2031\"",
+     "\"notes due 2031\"",
+     "\"5.350% notes due 2033\""
+    ],
+    "others": [
+     "FWP 0001193125-26-033882 (2026-02-02)",
+     "424B2 0001193125-26-032739 (2026-02-02)",
+     "424B2 0001193125-26-035603 (2026-02-03)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "ORCL 10-K 2026-05-31",
+    "page": "84",
+    "section": "Note 6 — Notes payable and other borrowings",
+    "quote": "In fiscal 2026, we issued $43.0 billion of senior notes for general corporate purposes"
+   },
+   "note_en": "The 8-K of 4 Feb 2026 and the FWP of 2 Feb 2026 (US$25bn) match; the FY2026 10-K totals the year's senior notes at US$43.0bn (US$18bn Sep 2025 + US$25bn Feb 2026).",
+   "note_es": "El 8-K del 4 feb 2026 y el FWP del 2 feb 2026 (US$25 mil M) coinciden; el 10-K del AF2026 totaliza las notas senior del año en US$43.0 mil M (US$18 mil M sep 2025 + US$25 mil M feb 2026).",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2025-12-22|Convertible notes",
+   "ticker": "IREN",
+   "issued": "2025-12-22",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "note_en": "The series exists but FactSet's date is not an issue date: the 3.25% Convertible Senior Notes due 2030 were issued in December 2024 (indenture and form of note filed with the 6-K of 6 Dec 2024, listed as exhibits in the 10-K, p. 70). The FY2026 10-K records repurchases of these notes accounted for as induced conversions; the US$207.6m FactSet shows is what remained outstanding. Matched to the series, with the date caveat.",
+   "note_es": "La serie existe, pero la fecha de FactSet no es de emisión: los bonos convertibles al 3.25% con vencimiento en 2030 se emitieron en diciembre de 2024 (contrato de emisión y modelo de título presentados con el 6-K del 6 de diciembre de 2024, listados como anexos en el 10-K, p. 70). El 10-K del año fiscal 2026 registra recompras de estos bonos contabilizadas como conversiones inducidas; los US$207.6 M de FactSet son el saldo que quedaba. Cotejado con la serie, con la salvedad de la fecha.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "filing": {
+    "form": "10-K",
+    "accn": "0001878848-26-000052",
+    "filed": "2026-08-27",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000187884826000052/0001878848-26-000052-index.htm",
+    "docs": [
+     "iren-20260630.htm"
+    ],
+    "phrases": [
+     "3.25% Convertible Senior Notes due 2030"
+    ],
+    "others": [
+     "6-K of 6 Dec 2024 (indenture and form of note, exhibits 10.23–10.24 of the 10-K)"
+    ],
+    "method": "primary document read"
+   },
+   "textSrc": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq153",
+    "section": "Note 2 — Recently adopted accounting standards",
+    "quote": "the Group accounted for the repurchase of the 3.25 % Convertible Senior Notes due 2030 (the “2030 Convertible Notes”) and 3.50 % Convertible Senior Notes due 2029 (the “2029 Convertible Notes”) as an induced conversion"
+   }
+  },
+  {
+   "key": "CRWV|2025-12-11|Convertible notes",
+   "ticker": "CRWV",
+   "issued": "2025-12-11",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-25-000105",
+    "filed": "2025-12-11",
+    "items": "1.01, 3.02, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000105/0001769628-25-000105-index.htm",
+    "docs": [
+     "exhibit991pressrelease.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2031\""
+    ],
+    "others": [],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-K 2025-12-31",
+    "page": "52",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "In December 2025, we issued $2.6 billion aggregate principal amount of 1.75% Convertible Senior Notes due 2031"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2025-12-08|Convertible notes",
+   "ticker": "IREN",
+   "issued": "2025-12-08",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001140361-25-044888",
+    "filed": "2025-12-08",
+    "items": "1.01, 2.03, 3.02, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036125044888/0001140361-25-044888-index.htm",
+    "docs": [
+     "ef20060782_ex99-1.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2032\"",
+     "\"convertible senior notes due 2033\""
+    ],
+    "others": [
+     "8-K 0001140361-25-044095 (2025-12-03)",
+     "8-K 0001140361-25-043803 (2025-12-01)",
+     "FWP 0001140361-25-044082 (2025-12-03)",
+     "424B5 0001140361-25-043802 (2025-12-01)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "IREN 10-K 2026-06-30",
+    "page": "seq174",
+    "section": "Note 23 — Debt (table of convertible notes and GPU financing)",
+    "quote": "Convertible Notes December 08, 2025 1.00 % 1,150,000"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "APLD|2025-12-02|Convertible notes",
+   "ticker": "APLD",
+   "issued": "2025-12-02",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "textSrc": {
+    "k": "APLD 10-Q 2026-02-28",
+    "page": "17",
+    "section": "Note 6 — Debt (table)",
+    "quote": "Convertible Notes, senior unsecured (1) 2.75 % June 2030 450,000 450,000"
+   },
+   "note_en": "The 2.75% convertible notes due 2030 (US$450m) were already outstanding at 31 May 2025 per the 10-Q table; FactSet's issue date of 2 Dec 2025 does not match the original issuance. Terms and amount confirmed; date not.",
+   "note_es": "Las notas convertibles al 2.75% con vencimiento en 2030 (US$450 M) ya estaban vigentes al 31 may 2025 según la tabla del 10-Q; la fecha de emisión de FactSet (2 dic 2025) no coincide con la emisión original. Términos y monto confirmados; la fecha no.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2025-11-20|Bonds / notes",
+   "ticker": "AMZN",
+   "issued": "2025-11-20",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001104659-25-114647",
+    "filed": "2025-11-20",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465925114647/0001104659-25-114647-index.htm",
+    "docs": [
+     "tm2530638d3_ex1-1.htm [EX-1.1]"
+    ],
+    "phrases": [
+     "\"3.900% notes due 2028\"",
+     "\"4.100% notes due 2030\""
+    ],
+    "others": [
+     "FWP 0001104659-25-113283 (2025-11-17)",
+     "424B5 0001104659-25-114098 (2025-11-19)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "APLD|2025-11-20|Bonds / notes",
+   "ticker": "APLD",
+   "issued": "2025-11-20",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001493152-25-024479",
+    "filed": "2025-11-20",
+    "items": "1.01, 2.03, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1144879/000149315225024479/0001493152-25-024479-index.htm",
+    "docs": [
+     "form8-k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2030\""
+    ],
+    "others": [
+     "8-K 0001493152-25-021400 (2025-11-10)",
+     "8-K 0001493152-25-022506 (2025-11-14)",
+     "8-K 0001493152-25-021404 (2025-11-10)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "APLD 10-Q 2026-02-28",
+    "page": "19",
+    "section": "Note 6 — Debt (2030 Senior Secured Notes)",
+    "quote": "The aggregate principal amount of Notes sold in the offering was $2.35 billion. The 2030 Notes were issued at a price equal to 97% of their aggregate principal amount."
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2025-11-06|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2025-11-06",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-269979",
+    "filed": "2025-11-06",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312525269979/0001193125-25-269979-index.htm",
+    "docs": [
+     "d56115d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2028\"",
+     "\"3.875% notes due 2028\"",
+     "\"4.100% notes due 2030\"",
+     "\"notes due 2030\"",
+     "\"4.375% notes due 2032\""
+    ],
+    "others": [
+     "FWP 0001193125-25-263045 (2025-11-04)",
+     "FWP 0001193125-25-262837 (2025-11-03)",
+     "424B2 0001193125-25-267244 (2025-11-05)",
+     "424B2 0001193125-25-267232 (2025-11-05)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "GOOGL 10-K 2025-12-31",
+    "page": "seq72",
+    "section": "Note 6 — Debt (long-term debt)",
+    "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "META|2025-11-03|Bonds / notes",
+   "ticker": "META",
+   "issued": "2025-11-03",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-262593",
+    "filed": "2025-11-03",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1326801/000119312525262593/0001193125-25-262593-index.htm",
+    "docs": [
+     "d75422d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2030\"",
+     "\"notes due 2032\""
+    ],
+    "others": [
+     "FWP 0001193125-25-258837 (2025-10-30)",
+     "424B2 0001193125-25-261217 (2025-11-03)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "AMZN|2025-10-29|Revolving credit",
+   "ticker": "AMZN",
+   "issued": "2025-10-29",
+   "klass": "Revolving credit",
+   "result": "filing",
+   "filing": {
+    "form": "424B5",
+    "accn": "0001104659-25-112970",
+    "filed": "2025-11-17",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1018724/000110465925112970/0001104659-25-112970-index.htm",
+    "docs": [
+     "tm2530638-1_424b5.htm [424B5]"
+    ],
+    "phrases": [
+     "\"revolving credit\""
+    ],
+    "others": [
+     "424B5 0001104659-25-114098 (2025-11-19)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "AMZN 10-Q 2026-06-30",
+    "page": "18",
+    "section": "Note 5 — Debt",
+    "quote": "There were no borrowings outstanding under the Credit Agreement and the Short-Term Credit Agreement as of December 31, 2025 and June 30, 2026."
+   },
+   "note_en": "Undrawn 364-day facility; the 10-Q confirms no borrowings under the Short-Term Credit Agreement at 31 Dec 2025 and 30 Jun 2026.",
+   "note_es": "Línea de 364 días sin disponer; el 10-Q confirma que no había préstamos bajo el Short-Term Credit Agreement al 31 dic 2025 ni al 30 jun 2026.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2025-10-14|Convertible notes",
+   "ticker": "IREN",
+   "issued": "2025-10-14",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001140361-25-038083",
+    "filed": "2025-10-14",
+    "items": "1.01, 2.03, 3.02, 8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036125038083/0001140361-25-038083-index.htm",
+    "docs": [
+     "ef20056955_8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2031\""
+    ],
+    "others": [
+     "8-K 0001140361-25-037753 (2025-10-09)",
+     "8-K 0001140361-25-037488 (2025-10-07)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2025-09-29|Term loan",
+   "ticker": "CRWV",
+   "issued": "2025-09-29",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-227562",
+    "filed": "2025-10-02",
+    "items": "1.01, 2.03, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000119312525227562/0001193125-25-227562-index.htm",
+    "docs": [
+     "d910811dex101.htm [EX-10.1]"
+    ],
+    "phrases": [
+     "\"term loan\"",
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [
+     "424B3 0001140361-25-036349 (2025-09-26)"
+    ],
+    "method": "edgar-fts"
+   },
+   "note_en": "FactSet dates a US$3.0bn term loan 29 Sep 2025; an 8-K exhibit of 2 Oct 2025 (EX-10.1, a credit agreement) and a 424B3 of 26 Sep 2025 mention a term loan.",
+   "note_es": "FactSet fecha un préstamo a plazo de US$3.0 mil M el 29 sep 2025; un anexo de 8-K del 2 oct 2025 (EX-10.1, contrato de crédito) y un 424B3 del 26 sep 2025 mencionan un préstamo a plazo.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "ORCL|2025-09-26|Bonds / notes",
+   "ticker": "ORCL",
+   "issued": "2025-09-26",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-220445",
+    "filed": "2025-09-26",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525220445/0001193125-25-220445-index.htm",
+    "docs": [
+     "d31817d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"4.450% notes due 2030\"",
+     "\"notes due 2030\"",
+     "\"4.800% notes due 2032\"",
+     "\"notes due 2032\"",
+     "\"5.200% notes due 2035\""
+    ],
+    "others": [
+     "FWP 0001193125-25-215807 (2025-09-24)",
+     "424B2 0001193125-25-214032 (2025-09-24)",
+     "424B2 0001193125-25-217490 (2025-09-25)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "ORCL 10-K 2026-05-31",
+    "page": "84",
+    "section": "Note 6 — Notes payable and other borrowings",
+    "quote": "In fiscal 2026, we issued $43.0 billion of senior notes for general corporate purposes"
+   },
+   "note_en": "The 8-K of 26 Sep 2025 and the FWP of 24 Sep 2025 match; see the FY2026 10-K total of US$43.0bn.",
+   "note_es": "El 8-K del 26 sep 2025 y el FWP del 24 sep 2025 coinciden; ver el total del 10-K del AF2026 de US$43.0 mil M.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "NBIS|2025-09-15|Convertible notes",
+   "ticker": "NBIS",
+   "issued": "2025-09-15",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "6-K",
+    "accn": "0001104659-25-089969",
+    "filed": "2025-09-15",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925089969/0001104659-25-089969-index.htm",
+    "docs": [
+     "tm2525580d4_6k.htm [6-K]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2030\"",
+     "\"convertible notes due 2030\"",
+     "\"convertible senior notes due 2032\"",
+     "\"convertible notes due 2032\""
+    ],
+    "others": [
+     "6-K 0001410578-25-002149 (2025-09-12)",
+     "6-K 0001104659-25-091939 (2025-09-22)",
+     "FWP 0001104659-25-089208 (2025-09-11)",
+     "424B5 0001410578-25-002147 (2025-09-12)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Liquidity (cash flows from financing)",
+    "quote": "In September 2025, we issued additional convertible notes in an aggregate principal amount of $3,162"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2025-07-28|Term loan",
+   "ticker": "CRWV",
+   "issued": "2025-07-28",
+   "klass": "Term loan",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-25-000033",
+    "filed": "2025-07-31",
+    "items": "1.01, 2.03, 7.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000033/0001769628-25-000033-index.htm",
+    "docs": [
+     "ddtl30pressrelease-ex991x6.htm [EX-99.1]"
+    ],
+    "phrases": [
+     "\"term loan\"",
+     "\"credit agreement\"",
+     "\"delayed draw\""
+    ],
+    "others": [
+     "8-K 0001193125-25-161520 (2025-07-21)",
+     "8-K 0001769628-25-000039 (2025-08-12)",
+     "8-K 0001193125-25-165924 (2025-07-28)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-K 2025-12-31",
+    "page": "52",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "In July 2025, CoreWeave Compute Acquisition Co. V, LLC, our direct, wholly owned subsidiary, and CoreWeave Compute Acquisition Co. VII, LLC, our indirect subsidiary, entered into the DDTL 3.0 Facility"
+   },
+   "note_en": "FactSet dates a US$2.2bn term loan 28 Jul 2025; the 10-K describes the DDTL 3.0 Facility entered in July 2025 (up to US$2.6bn) and an 8-K exhibit of 31 Jul 2025 mentions it.",
+   "note_es": "FactSet fecha un préstamo a plazo de US$2.2 mil M el 28 jul 2025; el 10-K describe la línea DDTL 3.0 celebrada en julio de 2025 (hasta US$2.6 mil M) y un anexo de 8-K del 31 jul 2025 la menciona.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2025-07-25|Bonds / notes",
+   "ticker": "CRWV",
+   "issued": "2025-07-25",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-165924",
+    "filed": "2025-07-28",
+    "items": "1.01, 2.03, 7.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000119312525165924/0001193125-25-165924-index.htm",
+    "docs": [
+     "d73657d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2031\""
+    ],
+    "others": [
+     "8-K 0001193125-25-161520 (2025-07-21)",
+     "8-K 0001769628-25-000030 (2025-07-22)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-K 2025-12-31",
+    "page": "52",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "In July 2025, we issued $1.75 billion in aggregate principal amount of 2031 Senior Notes."
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "IREN|2025-06-13|Convertible notes",
+   "ticker": "IREN",
+   "issued": "2025-06-13",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "6-K",
+    "accn": "0001140361-25-022454",
+    "filed": "2025-06-13",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1878848/000114036125022454/0001140361-25-022454-index.htm",
+    "docs": [
+     "ef20050570_6k.htm [6-K]"
+    ],
+    "phrases": [
+     "\"convertible senior notes due 2029\""
+    ],
+    "others": [
+     "6-K 0001140361-25-022117 (2025-06-11)",
+     "6-K 0001140361-25-022103 (2025-06-11)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "NBIS|2025-06-05|Convertible notes",
+   "ticker": "NBIS",
+   "issued": "2025-06-05",
+   "klass": "Convertible notes",
+   "result": "filing",
+   "filing": {
+    "form": "6-K",
+    "accn": "0001104659-25-056817",
+    "filed": "2025-06-05",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1513845/000110465925056817/0001104659-25-056817-index.htm",
+    "docs": [
+     "tm2517269d1_6k.htm [6-K]"
+    ],
+    "phrases": [
+     "\"convertible notes due 2029\"",
+     "\"convertible notes due 2031\""
+    ],
+    "others": [
+     "6-K 0001104659-25-055197 (2025-06-02)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "NBIS 20-F 2025-12-31",
+    "page": "55",
+    "section": "Item 5 — Liquidity (cash flows from financing)",
+    "quote": "In June 2025, we issued convertible notes in an aggregate principal amount of $1,000.0 million, in two equal tranches due 2029 and 2031."
+   },
+   "note_en": "The 20-F states US$1,000.0m issued in June 2025 in two equal tranches; FactSet shows US$975m outstanding (two tranches of US$487.5m), presumably after conversions or repurchases.",
+   "note_es": "El 20-F indica US$1,000.0 M emitidos en junio de 2025 en dos tramos iguales; FactSet muestra US$975 M vigentes (dos tramos de US$487.5 M), presumiblemente tras conversiones o recompras.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "CRWV|2025-05-27|Bonds / notes",
+   "ticker": "CRWV",
+   "issued": "2025-05-27",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001769628-25-000025",
+    "filed": "2025-05-28",
+    "items": "1.01, 2.03, 7.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000025/0001769628-25-000025-index.htm",
+    "docs": [
+     "crwv-20250527.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2030\""
+    ],
+    "others": [
+     "8-K 0001769628-25-000019 (2025-05-21)",
+     "8-K 0001193125-25-122115 (2025-05-19)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "CRWV 10-K 2025-12-31",
+    "page": "52",
+    "section": "Item 1A — Risk factors (indebtedness)",
+    "quote": "In May 2025, we issued $2.0 billion in aggregate principal amount of 2030 Senior Notes."
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2025-05-06|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2025-05-06",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-113864",
+    "filed": "2025-05-06",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312525113864/0001193125-25-113864-index.htm",
+    "docs": [
+     "d859422d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"2.500% notes due 2029\"",
+     "\"notes due 2029\"",
+     "\"3.000% notes due 2033\"",
+     "\"notes due 2033\""
+    ],
+    "others": [
+     "FWP 0001193125-25-103574 (2025-04-29)",
+     "424B2 0001193125-25-110061 (2025-05-01)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "GOOGL 10-K 2025-12-31",
+    "page": "seq72",
+    "section": "Note 6 — Debt (long-term debt)",
+    "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2025-05-01|Bonds / notes",
+   "ticker": "GOOGL",
+   "issued": "2025-05-01",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-110020",
+    "filed": "2025-05-01",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000119312525110020/0001193125-25-110020-index.htm",
+    "docs": [
+     "d884388d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"4.000% notes due 2030\"",
+     "\"notes due 2030\"",
+     "\"4.500% notes due 2035\"",
+     "\"notes due 2035\""
+    ],
+    "others": [
+     "FWP 0001193125-25-100802 (2025-04-28)",
+     "424B2 0001193125-25-107005 (2025-04-30)"
+    ],
+    "method": "edgar-fts"
+   },
+   "textSrc": {
+    "k": "GOOGL 10-K 2025-12-31",
+    "page": "seq72",
+    "section": "Note 6 — Debt (long-term debt)",
+    "quote": "During 2025, we issued $22.5 billion of US dollar-denominated senior unsecured notes and €13.25 billion of euro-denominated senior unsecured notes for general corporate pur"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index and second read of the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  },
+  {
+   "key": "GOOGL|2025-04-15|Revolving credit",
+   "ticker": "GOOGL",
+   "issued": "2025-04-15",
+   "klass": "Revolving credit",
+   "result": "filing",
+   "note_en": "The 10-Q for 30 Jun 2025 describes the facilities FactSet dates 15 Apr 2025: US$10.0bn of revolving credit, US$4.0bn expiring April 2026 (364-day) and US$6.0bn expiring April 2030 (five-year), undrawn. Credit agreements are not filed with a 424B; the 10-Q is the SEC document that names them.",
+   "note_es": "El 10-Q al 30 de junio de 2025 describe las líneas que FactSet fecha el 15 de abril de 2025: US$10.0 mil M de crédito revolvente, US$4.0 mil M con vencimiento en abril de 2026 (364 días) y US$6.0 mil M en abril de 2030 (cinco años), sin disponer. Los contratos de crédito no se presentan con un 424B; el 10-Q es el documento ante la SEC que los nombra.",
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (primary document read on EDGAR, quote checked against the harvested page)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null,
+   "filing": {
+    "form": "10-Q",
+    "accn": "0001652044-25-000062",
+    "filed": "2025-07-24",
+    "items": null,
+    "url": "https://www.sec.gov/Archives/edgar/data/1652044/000165204425000062/0001652044-25-000062-index.htm",
+    "docs": [
+     "goog-20250630.htm"
+    ],
+    "phrases": [
+     "$10.0 billion of revolving credit facilities, $4.0 billion expiring in April 2026 and $6.0 billion expiring in April 2030"
+    ],
+    "others": [],
+    "method": "primary document read"
+   },
+   "textSrc": {
+    "k": "GOOGL 10-Q 2025-06-30",
+    "page": "48",
+    "section": "Liquidity and Capital Resources — Financing",
+    "quote": "As of June 30, 2025, we had $10.0 billion of revolving credit facilities, $4.0 billion expiring in April 2026 and $6.0 billion expiring in April 2030."
+   }
+  },
+  {
+   "key": "ORCL|2025-02-03|Bonds / notes",
+   "ticker": "ORCL",
+   "issued": "2025-02-03",
+   "klass": "Bonds / notes",
+   "result": "filing",
+   "filing": {
+    "form": "8-K",
+    "accn": "0001193125-25-019281",
+    "filed": "2025-02-03",
+    "items": "8.01, 9.01",
+    "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525019281/0001193125-25-019281-index.htm",
+    "docs": [
+     "d927919d8k.htm [8-K]"
+    ],
+    "phrases": [
+     "\"notes due 2028\"",
+     "\"4.800% notes due 2028\"",
+     "\"5.250% notes due 2032\"",
+     "\"notes due 2032\"",
+     "\"5.500% notes due 2035\""
+    ],
+    "others": [
+     "FWP 0001193125-25-017365 (2025-01-30)",
+     "424B2 0001193125-25-016274 (2025-01-30)",
+     "424B2 0001193125-25-018491 (2025-01-31)"
+    ],
+    "method": "edgar-fts"
+   },
+   "status": "matched",
+   "verifiedBy": "Claude session 2026-10-03 (EDGAR full-text index)",
+   "verifiedOn": "2026-10-03",
+   "reviewedBy": null
+  }
+ ]
+}
