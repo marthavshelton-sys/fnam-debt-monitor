@@ -197,8 +197,6 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 
 ## Open items
 
-- Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
-  before that makes the watchdog report "late").
 - Text items in `offbs.json`: 26 of 26 verified (automated second read) as of 2026-10-04; Applied Digital's SPV amount
   (US$4.5bn) is now quoted from the 10-K (US$2.15bn notes) and the 10-Q (US$2.35bn notes).
   Capacity and pipeline records in `capacity.json`: all 20 T1 records verified the same day. New items start as `needs_review`.
