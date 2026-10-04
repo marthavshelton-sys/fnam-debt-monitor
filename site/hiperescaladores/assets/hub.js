@@ -31,14 +31,17 @@
   function nd(why) { return '<span class="nd" title="' + esc(why || '') + '">' + t('No divulgado', 'Not disclosed') + '</span>'; }
   // "Not tagged": absent from the XBRL feed. Kept apart from "Not disclosed", which is reserved for an item searched in
   // the filing text and confirmed absent.
-  function nt(why) { return '<span class="nd" title="' + esc(why || t('La empresa no etiqueta esta cifra con un concepto XBRL estándar para este periodo; puede estar solo en el texto de la presentación', 'The company does not tag this figure with a standard XBRL concept for this period; it may be in the filing text only')) + '">' + t('Sin etiqueta XBRL', 'Not tagged') + '</span>'; }
+  // compact mark (the per-page data-quality line explains it; the full reason is on hover and in the cell's title)
+  function nt(why) { var w = t('Sin etiqueta XBRL: ', 'Not tagged: ') + (why || t('la empresa no etiqueta esta cifra con un concepto XBRL estándar para este periodo; puede estar solo en el texto de la presentación', 'the company does not tag this figure with a standard XBRL concept for this period; it may be in the filing text only')); return '<span class="nd nt" title="' + esc(w) + '" aria-label="' + esc(w) + '">' + t('s.e.', 'n.t.') + '</span>'; }
   function nm(why) { return '<span class="nd" title="' + esc(why || '') + '">' + t('n.s.', 'n.m.') + '</span>'; }
   function num(v, d) { return v.toLocaleString(loc(), { minimumFractionDigits: d, maximumFractionDigits: d }); }
-  // US$ figures: billions with one decimal ("US$ 12.3 mil M" / "US$ 12.3 bn"), millions below US$1bn
+  // US$ figures: always billions, one unit on every page (owner's review, 2026-10-04): one decimal from US$1bn, two
+  // below it, three below US$10m ("US$ 12.3 bn", "US$ 0.85 bn", "US$ 0.003 bn"; ES "mil M")
   function money(usd, d, opts) {
     if (usd == null || !isFinite(usd)) return (opts && opts.blank) ? '' : nd(opts && opts.why);
     var a = Math.abs(usd);
-    var s = a >= 1e9 ? num(usd / 1e9, d == null ? 1 : d) + (LANG === 'es' ? ' mil M' : ' bn') : num(usd / 1e6, 0) + ' M';
+    var dd = d != null ? d : a >= 1e9 ? 1 : a >= 1e7 ? 2 : a === 0 ? 0 : 3;
+    var s = num(usd / 1e9, dd) + (LANG === 'es' ? ' mil M' : ' bn');
     return (usd < 0 ? '<span class="neg">' : '') + 'US$ ' + s + (usd < 0 ? '</span>' : '');
   }
   function moneyM(m, d) { return m == null ? nd() : money(m * 1e6, d); }
@@ -61,11 +64,18 @@
     T3: { es: 'T3 · regulador', en: 'T3 · regulator', tip: { es: 'Regulador u operador de red', en: 'Regulator or grid operator' } },
     T4: { es: 'T4 · estimación', en: 'T4 · estimate', tip: { es: 'Estimación de terceros; nunca se mezcla con cifras de las empresas', en: 'Third-party estimate; never blended into company figures' } },
     C: { es: 'Cálculo FNAM', en: 'FNAM calc.', tip: { es: 'Calculado por FNAM a partir de cifras T1; el método está en la ficha de la cifra', en: 'Computed by FNAM from T1 figures; the method is in the figure\'s source card' } },
+    T4R: { es: 'T4 · terceros', en: 'T4 · third party', tip: { es: 'Opinión de un tercero (acción de una calificadora, según nota de prensa fechada); nunca se mezcla con cifras de las empresas', en: 'Third-party opinion (a rating agency action, per a dated press report); never blended into company figures' } },
     FS: { es: 'FactSet', en: 'FactSet', tip: { es: 'Instantánea fechada de FactSet (agregación de presentaciones); no es T1 hasta cotejarse con el 424B/8-K', en: 'Dated FactSet snapshot (aggregated from filings); not T1 until matched to the 424B/8-K' } }
   };
-  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + k + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
-  function flag(kind) {
-    var m = { review: [t('revisar', 'needs review'), ''], stale: [t('desactualizado', 'stale'), 'stale'], ok: [t('cotejado', 'matched'), 'ok'], mixed: [t('etiqueta mixta', 'mixed tag'), ''] }[kind];
+  function tier(k) { var x = TIER[k] || TIER.C; return '<span class="tier ' + (k === 'T4R' ? 'T4' : k) + '" title="' + esc(x.tip[LANG]) + '">' + x[LANG] + '</span>'; }
+  // "needs review" and "mixed tag" are no longer printed in every cell: a small dot marks the cell (shaded by decorate()),
+  // the reason is on hover, and the page's data-quality line counts them. Stale and age flags stay visible.
+  function flag(kind, why) {
+    if (kind === 'review' || kind === 'mixed') {
+      var w = (kind === 'review' ? t('Por revisar', 'Needs review') : t('Etiqueta mixta', 'Mixed tag')) + (why ? ': ' + why : kind === 'review' ? t(': falla un control de identidad o de valores atípicos, o espera una segunda lectura; detalle en la ficha ⓘ y en la página de calidad', ': fails an identity or outlier check, or awaits a second reading; detail in the ⓘ card and on the quality page') : t(': un trimestre usa otra etiqueta XBRL que el resto de su año', ': one quarter uses a different XBRL tag from the rest of its year'));
+      return '<span class="rvw ' + kind + '" title="' + esc(w) + '" aria-label="' + esc(w) + '"></span>';
+    }
+    var m = { stale: [t('desactualizado', 'stale'), 'stale'], ok: [t('cotejado', 'matched'), 'ok'] }[kind];
     return m ? '<span class="flag ' + m[1] + '">' + m[0] + '</span>' : '';
   }
 
@@ -150,12 +160,16 @@
   }
   function axisMoney(v) { return 'US$ ' + num(v, Math.abs(v) < 10 && v !== 0 ? 1 : 0) + (LANG === 'es' ? ' mil M' : ' bn'); }
 
-  // MW under the company's own definition: "850 MW", "3.1 GW"; qualifier over/approx → "> 850 MW" / "≈ 170 MW"
+  // capacity under the company's own definition, always in GW (one unit on every page): "0.85 GW", "3.1 GW", "0.04 GW";
+  // qualifier over/approx → "> 0.85 GW" / "≈ 0.17 GW". The quoted filing text in the source card keeps the company's MW.
   function mw(v, q) {
     if (v == null || !isFinite(v)) return nd();
-    var s = v >= 1000 ? num(v / 1000, v % 1000 === 0 ? 0 : 1) + ' GW' : num(v, 0) + ' MW';
+    var g = v / 1000, dd = g >= 10 ? 1 : g >= 1 ? 2 : 3;
+    var s = num(g, dd).replace(/(\.\d*?[1-9])0+$|\.0+$/, '$1') + ' GW';
     return (q === 'over' ? '> ' : q === 'approx' ? '≈ ' : '') + s;
   }
+  // the as-of date of a filing item: a month the filing states only as a month ("As of February 2026") prints as a month
+  function itemDate(x) { if (!x || !x.asOf) return ''; var d = new Date(x.asOf + 'T12:00:00Z'), day = d.getUTCDate(); return x.src && x.src.quote && !new RegExp('\\b' + day + ',\\s*' + d.getUTCFullYear()).test(x.src.quote) && /\b(January|February|March|April|May|June|July|August|September|October|November|December) \d{4}\b/.test(x.src.quote) ? date(x.asOf.slice(0, 7)) : date(x.asOf); }
   // filing citation (resolved by build-modules.mjs) → rows for the ⓘ card
   function citeRows(s) {
     if (!s) return [];
@@ -174,7 +188,7 @@
   // reader-facing text never shows repository paths (e.g. "(tools/…/notes/)")
   function plain(v) { return String(v == null ? '' : v).replace(/\s*\((?:[^()]*?\s)?(?:tools|scripts|site)\/[^()]*\)/g, '').replace(/\s*(?:tools|scripts)\/[\w./<>-]+/g, ''); }
   function cite(title, s, extra) { return s ? src({ title: title, rows: citeRows(s).concat(extra || []), url: s.url || null }) : ''; }
-  function status(st) { return st === 'verified' ? '<span class="flag ok">' + t('verificado', 'verified') + '</span>' : st === 'company_statement' ? '' : flag('review'); }
+  function status(st) { return st === 'verified' ? '<span class="vchk" title="' + esc(t('Verificado: segunda lectura de la página citada', 'Verified: second reading of the cited page')) + '">✓</span>' : st === 'company_statement' ? '' : flag('review', t('cifra leída del texto, pendiente de una segunda lectura de la página citada', 'figure read from the text, pending a second reading of the cited page')); }
   // T3/T4 freshness: amber after the publisher's next expected edition + 30 days (computed in the reader's browser)
   function staleT3(next, today) {
     if (!next) return { stale: false };
@@ -294,7 +308,7 @@
     if (td.hasAttribute('data-sort')) { var ds = td.getAttribute('data-sort'); return ds === '' ? null : isNaN(+ds) ? ds.toLowerCase() : +ds; }
     var c = td.cloneNode(true); c.querySelectorAll('.src-btn, .flag, .tier, .small, br').forEach(function (x) { x.replaceWith(' '); });
     var s = (c.textContent || '').replace(/\s+/g, ' ').trim();
-    if (!s || /^(no divulgad|not disclosed|sin etiqueta|not tagged|n\.s\.|n\.m\.|pendiente|pending|no revelad|n\.d\.)/i.test(s)) return null;
+    if (!s || /^(no divulgad|not disclosed|sin etiqueta|not tagged|s\.e\.|n\.t\.|n\.s\.|n\.m\.|pendiente|pending|no revelad|n\.d\.)/i.test(s)) return null;
     var d = /^(\d{1,2}) ([a-z]{3}) (\d{4})/i.exec(s) || /^()([a-z]{3}) (\d{4})$/i.exec(s);
     if (d && MONTHS[d[2].toLowerCase()]) return +d[3] * 1e4 + MONTHS[d[2].toLowerCase()] * 100 + (+d[1] || 0);
     var fy = /^(?:AF|FY)(\d{4}) (?:T|Q)(\d)/.exec(s); if (fy) return +fy[1] * 1e4 + +fy[2] * 100;
@@ -349,6 +363,7 @@
         tbl.dataset.sorted = '1';
       });
       document.querySelectorAll('[data-keycols]').forEach(keyCols);
+      cards(); shade(); dqLine();
     } finally { busy = false; flushMO(); }
   }
   // our own DOM changes (sorting, toggles, glossary marks) must not wake the observer that watches for re-renders
@@ -386,6 +401,90 @@
     });
   }
 
+  // ---- heat-map cell: a single-hue scale (light → dark) of how strongly a metric points to risk, 0..1; the value is
+  // always printed in the cell, so the colour never carries the information alone
+  function heat(level) { if (level == null || !isFinite(level)) return ''; var l = Math.max(0, Math.min(1, level)); return ' data-heat="' + Math.round(l * 4) + '"'; }
+  function heatLegend() { return '<span class="heat-legend"><span>' + t('menor', 'lower') + '</span>' + [0, 1, 2, 3, 4].map(function (k) { return '<i data-heat="' + k + '"></i>'; }).join('') + '<span>' + t('mayor riesgo o presión', 'higher risk or strain') + '</span></span>'; }
+
+  // ---- data quality: cells holding a "needs review" mark or a "not tagged" mark get a subtle shade (the reason is on
+  // hover); one line under the page header counts the figures shown and the share verified or matched
+  // phones: every data table without its own phone summary becomes a stack of cards (one per row, each value under its
+  // column heading); the key-column choice still applies
+  function cards() {
+    document.querySelectorAll('main .tblwrap table').forEach(function (tbl) {
+      if (tbl.closest('.only-d') || tbl.closest('[data-nocards]') || !tbl.tHead) return;
+      var hr = tbl.tHead.rows[tbl.tHead.rows.length - 1], heads = [];
+      Array.prototype.forEach.call(hr.cells, function (th) { for (var k = 0; k < (th.colSpan || 1); k++) heads.push((th.textContent || '').replace(/[↕↑↓]/g, '').trim()); });
+      tbl.classList.add('collapse', 'cards');
+      Array.prototype.forEach.call(tbl.tBodies[0] ? tbl.tBodies[0].rows : [], function (tr) {
+        var i = 0; Array.prototype.forEach.call(tr.cells, function (td) { if (i > 0 && (td.colSpan || 1) === 1 && heads[i] && !td.hasAttribute('data-h')) td.setAttribute('data-h', heads[i]); i += td.colSpan || 1; });
+      });
+    });
+  }
+  function shade() {
+    document.querySelectorAll('main td, main .kpi .val, main .mrow').forEach(function (td) {
+      var rv = td.querySelector('.rvw'), n = td.querySelector('.nt');
+      td.classList.toggle('cell-review', !!rv); td.classList.toggle('cell-nt', !rv && !!n);
+      if (rv && !td.title) td.title = rv.getAttribute('title');
+    });
+  }
+  function dqLine() {
+    var host = document.getElementById('dqLine');
+    if (!host) { var a = document.getElementById('asofRow'); if (!a) return; host = document.createElement('div'); host.id = 'dqLine'; host.className = 'dq-line'; a.parentNode.insertBefore(host, a.nextSibling); }
+    var cells = Array.prototype.filter.call(document.querySelectorAll('main td, main .kpi .val'), function (td) { return !td.closest('[hidden]') && !td.closest('.only-m') && (td.querySelector('.src-btn') || td.querySelector('.nt') || td.querySelector('.rvw')); });
+    var rv = cells.filter(function (td) { return td.querySelector('.rvw'); }).length, n = cells.filter(function (td) { return !td.querySelector('.rvw') && td.querySelector('.nt'); }).length;
+    var shown = cells.length - n;
+    if (!cells.length) { host.innerHTML = ''; return; }
+    var ok = shown ? Math.round((shown - rv) / shown * 100) : 100;
+    host.innerHTML = '<b>' + t('Calidad de los datos', 'Data quality') + '</b> ' + t(ok + '% de las ' + shown + ' cifras de esta página está verificado o cotejado', ok + '% of the ' + shown + ' figures on this page are verified or matched') + (rv ? ' · <span class="sw-review"></span>' + t(rv + ' por revisar (celda sombreada; el motivo al pasar el cursor y en la ficha ⓘ)', rv + ' need review (shaded cell; the reason on hover and in the ⓘ card)') : '') + (n ? ' · <span class="sw-nt"></span>' + t(n + ' sin etiqueta XBRL («s.e.»: la empresa no la etiqueta; no es lo mismo que «no divulgado»)', n + ' not tagged in XBRL ("n.t.": the company does not tag it; not the same as "not disclosed")') : '') + (QPAGE ? ' · <a href="' + QPAGE + '">' + t('página de calidad', 'quality page') + '</a>' : '');
+  }
+  var QPAGE = (function () { var m = /^\/hiperescaladores\/([a-z-]+)\/$/.exec(location.pathname); return m && ['capacidad', 'comprometida', 'capex', 'electricidad', 'sitios', 'fuera-de-balance', 'circular', 'retorno'].indexOf(m[1]) >= 0 ? location.pathname + 'quality.html' : null; })();
+
+  // ---- module order: compact navigation, previous / next links and the module's "so what" line
+  var MODS = [
+    { p: '', es: 'Resumen', en: 'Summary' }, { p: 'capacidad', n: 1, es: 'Capacidad', en: 'Capacity' }, { p: 'comprometida', n: 2, es: 'Comprometida', en: 'Committed' },
+    { p: 'capex', n: 3, es: 'Capex', en: 'Capex' }, { p: 'electricidad', n: 4, es: 'Energía', en: 'Power' }, { p: 'sitios', n: 5, es: 'Sitios', en: 'Sites' },
+    { p: 'fuera-de-balance', n: 6, es: 'Fuera de balance', en: 'Off-balance-sheet' }, { p: 'circular', n: 7, es: 'Circular', en: 'Circular' },
+    { p: 'retorno', n: 8, es: 'Retorno', en: 'Payoff' }, { p: 'metodologia', es: 'Metodología', en: 'Methodology' }, { p: 'glosario', es: 'Glosario', en: 'Glossary' }
+  ];
+  function curMod() { var m = /^\/hiperescaladores\/(?:([a-z-]+)\/)?(?:index\.html)?$/.exec(location.pathname); return m ? MODS.findIndex(function (x) { return x.p === (m[1] || ''); }) : -1; }
+  function modHref(x) { return '/hiperescaladores/' + (x.p ? x.p + '/' : ''); }
+  function modLabel(x) { return (x.n ? x.n + ' · ' : '') + x[LANG]; }
+  function pager() {
+    var i = curMod(), main = document.querySelector('main'); if (i < 0 || !main) return;
+    var el = document.getElementById('pager'); if (!el) { el = document.createElement('nav'); el.id = 'pager'; el.className = 'pager wrap'; el.setAttribute('aria-label', 'Módulos / Modules'); main.parentNode.insertBefore(el, main.nextSibling); }
+    var prev = MODS[i - 1], next = MODS[i + 1];
+    el.innerHTML = (prev ? '<a class="prev" href="' + modHref(prev) + '"><span class="k">← ' + t('Anterior', 'Previous') + '</span><b>' + esc(modLabel(prev)) + '</b></a>' : '<span></span>') + (next ? '<a class="next" href="' + modHref(next) + '"><span class="k">' + t('Siguiente', 'Next') + ' →</span><b>' + esc(modLabel(next)) + '</b></a>' : '<span></span>');
+  }
+  // the static navigation in each page lists the same order; its labels are re-written here so every page matches
+  function navLabels() {
+    var nav = document.querySelector('nav.mods .wrap'); if (!nav) return;
+    var i = curMod();
+    nav.innerHTML = MODS.map(function (x, k) { return '<a href="' + modHref(x) + '"' + (k === i ? ' class="active" aria-current="page"' : '') + '>' + (x.n ? '<span class="n">' + x.n + '</span>' : '') + esc(x[LANG]) + '</a>'; }).join('');
+  }
+  // "so what": one sentence under the module title, composed by the module from its data (never hand-written figures)
+  function soWhat(html) {
+    var el = document.getElementById('sowhat');
+    if (!el) { var h = document.querySelector('header .lede'); if (!h) return; el = document.createElement('p'); el.id = 'sowhat'; el.className = 'sowhat'; h.parentNode.insertBefore(el, h); }
+    el.innerHTML = html ? '<b>' + t('En una frase: ', 'So what: ') + '</b>' + html : '';
+    el.hidden = !html;
+  }
+  // a module title that states its conclusion, composed from data when it depends on figures (fallback: the static one)
+  function title(es, en) { var h = document.querySelector('header h1'); if (!h || !es) return; h.innerHTML = '<span class="es"' + (LANG === 'es' ? '' : ' hidden') + '>' + esc(es) + '</span><span class="en"' + (LANG === 'en' ? '' : ' hidden') + '>' + esc(en) + '</span>'; }
+
+  // ---- scope notes: figures that look alike across modules but measure different things (data/scope.js)
+  function scope(id, label) {
+    var S = window.HYP_SCOPE, n = S && S.notes.find(function (x) { return x.id === id; }); if (!n) return '';
+    return '<button type="button" class="scope-btn" data-scope="' + esc(id) + '">' + esc(label || t('alcance distinto', 'different scope')) + ' ⓘ</button>';
+  }
+  function scopeHtml(n) {
+    return '<b>' + esc(n['title_' + LANG]) + '</b><ul class="plain">' + n.figures.map(function (f) { return '<li>' + (f.mw != null ? '<b>' + mw(f.mw) + '</b> ' : '') + esc(f[LANG]) + ' · <a href="/hiperescaladores/' + MODS.find(function (x) { return x.n === f.module; }).p + '/">' + t('módulo ', 'module ') + f.module + '</a></li>'; }).join('') + '</ul>' + esc(n['why_' + LANG]) + '<br><a href="/hiperescaladores/metodologia/#scope">' + t('Todas las diferencias de alcance', 'All scope differences') + ' →</a>';
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest && e.target.closest('.scope-btn'); if (!b) return;
+    e.stopPropagation(); var S = window.HYP_SCOPE, n = S && S.notes.find(function (x) { return x.id === b.getAttribute('data-scope'); }); if (n) openPop(b, scopeHtml(n));
+  });
+
   function applyLang() {
     document.querySelectorAll('.es').forEach(function (e) { e.hidden = LANG !== 'es'; });
     document.querySelectorAll('.en').forEach(function (e) { e.hidden = LANG !== 'en'; });
@@ -394,6 +493,7 @@
     var es = document.getElementById('btnLangEs'), en = document.getElementById('btnLangEn');
     if (es) es.classList.toggle('active', LANG === 'es'); if (en) en.classList.toggle('active', LANG === 'en');
     provs = []; closePop();
+    try { navLabels(); pager(); } catch (e) { console.error(e); }
     listeners.forEach(function (fn) { try { fn(LANG); } catch (e) { console.error(e); } });
     try { glossify(); decorate(); } catch (e) { console.error(e); }
   }
@@ -420,6 +520,7 @@
     color: color, css: css, isDark: isDark, nd: nd, nt: nt, nm: nm, num: num, money: money, moneyM: moneyM, pct: pct, mult: mult, date: date, fq: fq, cq: cq,
     edgar: edgar, tier: tier, flag: flag, src: src, stamp: stamp, stale: stale, axisMoney: axisMoney, chartDefaults: chartDefaults,
     mw: mw, metricLabel: metricLabel, coName: coName, cite: cite, citeRows: citeRows, noUrlRows: noUrlRows, plain: plain, status: status, staleT3: staleT3,
-    aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify
+    aged: aged, agedCell: agedCell, capexOcf: capexOcf, CO_MAX: CO_MAX, calTTM: calTTM, calRows: calRows, offsetNote: offsetNote, etTime: etTime, glossify: glossify,
+    soWhat: soWhat, title: title, itemDate: itemDate, scope: scope, scopeHtml: scopeHtml, MODS: MODS, heat: heat, heatLegend: heatLegend
   };
 })();

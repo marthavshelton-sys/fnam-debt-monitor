@@ -62,6 +62,31 @@
 /aeropuertos/data/status.js
   Cache-Control: no-store
 
+# Hyperscaler Hub: data files, CSVs, the shared script and style and each page's script change under fixed URLs with every
+# refresh (twice a day) and every page change. no-store, like the other dashboards (the zone's 4-hour Browser Cache TTL
+# would otherwise let a returning reader run an old build with an old "last refreshed" stamp). The base map
+# (assets/map-data.js) is static and stays cacheable.
+/hiperescaladores/data/*
+  Cache-Control: no-store
+
+/hiperescaladores/:module/data/*
+  Cache-Control: no-store
+
+/hiperescaladores/csv/*
+  Cache-Control: no-store
+
+/hiperescaladores/assets/hub.js
+  Cache-Control: no-store
+
+/hiperescaladores/assets/hub.css
+  Cache-Control: no-store
+
+/hiperescaladores/app.js
+  Cache-Control: no-store
+
+/hiperescaladores/:module/app.js
+  Cache-Control: no-store
+
 # Hand-curated tariffs table: edited with the page, so it must never outlive the page in a cache.
 /aeropuertos/data/regulation.js
   Cache-Control: no-store

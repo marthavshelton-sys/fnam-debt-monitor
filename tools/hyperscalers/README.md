@@ -1,8 +1,8 @@
 # Hyperscaler Hub — runbook
 
 Pages: `site/hiperescaladores/` (summary), `capacidad/` (module 1), `comprometida/` (2), `capex/` (3), `electricidad/`
-(4), `sitios/` (5), `fuera-de-balance/` (6), `circular/` (7), `metodologia/`, `glosario/`, and a data-quality page per
-module (`<module>/quality.html`). `/hyperscalers/*` redirects here. Phases 2–3 (modules 1, 2, 4, 5, 7) approved by the
+(4), `sitios/` (5), `fuera-de-balance/` (6), `circular/` (7), `retorno/` (8, payoff and cost of money), `metodologia/`,
+`glosario/`, and a data-quality page per module (`<module>/quality.html`). `/hyperscalers/*` redirects here. Phases 2–3 (modules 1, 2, 4, 5, 7) approved by the
 owner on 2026-10-03 ("when in doubt, the SEC filings reign supreme").
 
 Coverage (owner's choice, 2026-10-03): MSFT, GOOGL, AMZN, META, ORCL, CRWV (core) and NBIS, IREN, APLD, CORZ
@@ -15,8 +15,8 @@ Coverage (owner's choice, 2026-10-03): MSFT, GOOGL, AMZN, META, ORCL, CRWV (core
 |---|---|---|
 | EDGAR poll (submissions + XBRL companyfacts) | `scripts/hyperscalers/fetch-edgar.mjs` | `data/xbrl/<T>.json`, `data/filings.json`, `data/state.json` |
 | Build | `scripts/hyperscalers/build.mjs` | `site/hiperescaladores/data/{financials,changelog,status}.js`, `site/hiperescaladores/csv/*.csv`, `data/{metrics,changelog,derivations}.json` |
-| Build modules 1, 2, 4, 5, 7 | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{capacity,sites,power,circular}.js`, module CSVs, `data/modules-log.json` |
-| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (seven modules) |
+| Build modules 1, 2, 4, 5, 7, 8 | `scripts/hyperscalers/build-modules.mjs` | `site/hiperescaladores/data/{capacity,sites,power,circular,payoff,scope}.js`, module CSVs, `data/modules-log.json` |
+| Validate | `scripts/hyperscalers/validate.mjs` | `site/hiperescaladores/<module>/data/quality.js` (eight modules) |
 | Base map (one-off, npm packages) | `scripts/hyperscalers/build-map.mjs` | `site/hiperescaladores/assets/map-data.js` |
 | Notes harvest (runner only) | `scripts/hyperscalers/harvest-notes.mjs` | `raw/notes/<T>/<accession>.json` |
 
@@ -94,6 +94,47 @@ MW of different definitions are never summed; contract MW (power) are never adde
 Review cadence: after each 10-Q/10-K harvest and weekly for the T3/T4 grid sources (EIA STEO monthly, NERC LTRA
 yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) feeds the revenue shares in module 7.
 
+## Round 3 (owner's second review, 2026-10-04)
+
+- **Summary page.** Opens with a one-sentence thesis (`app.js → thesis()`): three clauses, each linked to its module, each
+  number T1 with its as-of date in the line beneath; a clause whose inputs are missing is dropped. "What to know" is five
+  headline lines, each a `<details>` that opens to its detail. Line 2 compares leases signed but not commenced with the
+  **undiscounted** payments of recognized leases (XBRL `LesseeOperatingLeaseLiabilityPaymentsDue` +
+  `FinanceLeaseLiabilityPaymentsDue`) at the same date; a company without both is left out and named. Line 3 pairs operating
+  and contracted MW only at the same date (CoreWeave's 10-Q for 30 Jun 2026 updates neither figure: searched). Line 5 is
+  labeled "FNAM inference" and says why its flows (cash in a period, multi-year contract value, one year of revenue,
+  cumulative commitment) are not netted. Then a reading-path box, the heat map (five signals, value and date in every cell,
+  colour cuts in the stamp), "what changed this quarter" in words (technical log folded beneath), the results calendar, and
+  separate core-six and neocloud tables.
+- **Module 8 (`retorno/`, curated `data/payoff.json`).** Cloud segment revenue and margin (Alphabet/Amazon/Oracle 12 months =
+  FY − prior YTD + current YTD, components cited), cloud revenue ÷ company capex, Microsoft's OpenAI revenue as the only
+  quantified AI revenue, backlog timing (share within 12/24 months read from the text: the SEC API does not publish the
+  dimensioned percentage), D&A ÷ capex and server useful lives with their reported earnings effect, capex per GW added
+  (CoreWeave only), ratings and new-issue spreads from SEC-filed term sheets (FWP, read twice, T1) and later agency actions
+  from dated press reports (T4 "third party"), implied cost of debt (interest paid ÷ average debt, net of capitalized
+  interest), coupons since 2025 (FactSet). Refresh after each 10-Q season: re-read the segment, RPO and useful-life passages
+  (the harvester keeps `segment`, `rpo`, `useful_life`, `depreciation`, `estimate_change`, `credit_rating` passages) and look
+  for new FWPs (`data.sec.gov` submissions, form FWP).
+- **Earnings calendar.** FactSet Calendar Events pulled in session → `raw/factset/<date>-calendar.json` (newest wins). The page
+  flags the snapshot after 45 days and any date that passed without a new snapshot; the module 8 quality page warns too.
+- **T4 capacity estimates** (`payoff.json → mwEstimates`): ABI Research (US active IT load) and Jefferies via Axios (North
+  American controlled power footprint), shown beside "Not disclosed" in module 1 and in their own section; never in a figure.
+- **Power bridge** (module 4, `payoff.json → powerBridge`): contracted GW × 8.76 × load factor (80%, range 60–90%), FNAM
+  calculation, per company, not summed, apart from the T3/T4 grid cards.
+- **Obligation stack** (module 6): debt (carrying), recognized leases at present value and undiscounted, reported total,
+  JV look-through, then memo columns (not commenced, guarantees/backstops/RVGs at maximum exposure, VIEs, purchase
+  obligations) that are never added. The chart compares the two undiscounted lease figures; debt sits beside them.
+- **Scope differences** (`data/scope.json` → `scope.js`): figures that look alike across modules but measure different things
+  (Core Scientific 590/395/195/377/152 MW; Oracle Jupiter 2.45 GW generation vs 1 GW campus; IREN Childress 750 MW grid vs
+  company-wide operating MW; lease bases). Records carry `"scope": "<id>"`; pages show a "different scope ⓘ" button and the
+  methodology page lists them all. Add a note whenever the same company, site or deal shows different MW in two modules.
+- **Reader UI** (`hub.js`): one unit per page (US$ bn, GW); compact navigation with module numbers; previous/next links; a
+  module title that states its conclusion and a "so what" line, both composed from data (`HUB.title`, `HUB.soWhat`);
+  key-column view (about five columns) on every wide table; card layout on phones; one data-quality line per page instead
+  of per-cell "needs review"/"Not tagged" badges (the cell is shaded, the reason is on hover and in the ⓘ card).
+- **Caching**: `site/_headers` serves the hub's data, CSVs, `hub.js`, `hub.css` and page scripts with `no-store` (the zone's
+  4-hour browser TTL overrides a `max-age=0`).
+
 ## Open items
 
 - Register `hyperscalers` in `tools/watchdog/dashboards.json` once the first scheduled run has landed (registering
@@ -109,3 +150,6 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - Nebius's March 2026 agreement with Meta: amount on 20-F pp. 75–76 falls outside the harvested passage (flow `meta-nbis-2` shows "reading pending").
 - Item 2 "Properties" of Microsoft and Oracle was not captured (upper-case heading); the harvester regex now matches it and the next `mode=notes force_notes=true` run will bring it in.
 - Weekly T3/T4 review is done in-session; a scheduled Claude routine for it needs the owner's go.
+- Module 8: Microsoft's S&P rating and CoreWeave's Moody's rating are not shown (no dated source read in session); Microsoft
+  has no registered bond since 2017, so no term sheet. Daily market spreads have no public source; only new-issue spreads.
+- Amazon reports its AWS backlog only as an amount and a weighted-average life (6.4 years), not a 12-month share.

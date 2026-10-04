@@ -19,6 +19,8 @@
 <script src="/hiperescaladores/data/financials.js"></script>
 <script src="/hiperescaladores/data/status.js"></script>
 <script src="/hiperescaladores/data/capacity.js"></script>
+<script src="/hiperescaladores/data/payoff.js"></script>
+<script src="/hiperescaladores/data/scope.js"></script>
 <script src="/hiperescaladores/assets/hub.js"></script>
 </head>
 <body data-title-es="Capacidad Actual · Hiperescaladores | FNAM" data-title-en="Current Capacity · Hyperscalers | FNAM">
@@ -41,13 +43,14 @@
 <nav class="mods" aria-label="Módulos / Modules">
   <div class="wrap">
     <a href="/hiperescaladores/"><span class="es">Resumen</span><span class="en" hidden>Summary</span></a>
-    <a href="/hiperescaladores/capacidad/" class="active">1 <span class="es">Capacidad actual</span><span class="en" hidden>Current capacity</span></a>
-    <a href="/hiperescaladores/comprometida/">2 <span class="es">Capacidad comprometida</span><span class="en" hidden>Committed capacity</span></a>
-    <a href="/hiperescaladores/capex/">3 <span class="es">Capex y financiamiento</span><span class="en" hidden>Capex and financing</span></a>
-    <a href="/hiperescaladores/electricidad/">4 <span class="es">Electricidad</span><span class="en" hidden>Electricity</span></a>
-    <a href="/hiperescaladores/sitios/">5 <span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
-    <a href="/hiperescaladores/fuera-de-balance/">6 <span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
-    <a href="/hiperescaladores/circular/">7 <span class="es">Financiamiento circular</span><span class="en" hidden>Circular financing</span></a>
+    <a href="/hiperescaladores/capacidad/" class="active" aria-current="page"><span class="n">1</span><span class="es">Capacidad</span><span class="en" hidden>Capacity</span></a>
+    <a href="/hiperescaladores/comprometida/"><span class="n">2</span><span class="es">Comprometida</span><span class="en" hidden>Committed</span></a>
+    <a href="/hiperescaladores/capex/"><span class="n">3</span><span class="es">Capex</span><span class="en" hidden>Capex</span></a>
+    <a href="/hiperescaladores/electricidad/"><span class="n">4</span><span class="es">Energía</span><span class="en" hidden>Power</span></a>
+    <a href="/hiperescaladores/sitios/"><span class="n">5</span><span class="es">Sitios</span><span class="en" hidden>Sites</span></a>
+    <a href="/hiperescaladores/fuera-de-balance/"><span class="n">6</span><span class="es">Fuera de balance</span><span class="en" hidden>Off-balance-sheet</span></a>
+    <a href="/hiperescaladores/circular/"><span class="n">7</span><span class="es">Circular</span><span class="en" hidden>Circular</span></a>
+    <a href="/hiperescaladores/retorno/"><span class="n">8</span><span class="es">Retorno</span><span class="en" hidden>Payoff</span></a>
     <a href="/hiperescaladores/metodologia/"><span class="es">Metodología</span><span class="en" hidden>Methodology</span></a>
     <a href="/hiperescaladores/glosario/"><span class="es">Glosario</span><span class="en" hidden>Glossary</span></a>
   </div>
@@ -58,12 +61,13 @@
   <a href="#trend">02 <span class="es">Misma Definición, Mismo Gráfico</span><span class="en" hidden>Same Definition, Same Chart</span></a>
   <a href="#defs">03 <span class="es">Por Qué Los MW No Se Suman</span><span class="en" hidden>Why the MW Are Not Added Up</span></a>
   <a href="#nd">04 <span class="es">Lo Que Revelan Quienes No Dan MW</span><span class="en" hidden>What the Companies Without MW Do Reveal</span></a>
+  <a href="#t4">05 <span class="es">Estimaciones de Terceros (T4)</span><span class="en" hidden>Third-Party Estimates (T4)</span></a>
 </div></nav>
 
 <main class="wrap">
   <section class="block" id="now">
     <div class="sec-head"><span class="sec-num">01</span><h2><span class="es">Lo Que Revela Cada Empresa</span><span class="en" hidden>What Each Company Discloses</span></h2></div>
-    <p class="sec-desc" id="nowDesc"></p><div class="card"><div class="tblwrap" id="nowTbl"></div><div id="nowStamp"></div></div>
+    <p class="sec-desc" id="nowDesc"></p><div class="card"><div class="tblwrap" data-keycols="0,1,2,3,7" id="nowTbl"></div><div id="nowStamp"></div></div>
   </section>
   <section class="block" id="trend">
     <div class="sec-head"><span class="sec-num">02</span><h2><span class="es">Misma Definición, Mismo Gráfico</span><span class="en" hidden>Same Definition, Same Chart</span></h2></div>
@@ -76,6 +80,10 @@
   <section class="block" id="nd">
     <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Lo Que Revelan Quienes No Dan MW</span><span class="en" hidden>What the Companies Without MW Do Reveal</span></h2></div>
     <p class="sec-desc" id="ndDesc"></p><div class="card"><div class="tblwrap" id="ndTbl"></div><div id="ndStamp"></div></div>
+  </section>
+  <section class="block" id="t4">
+    <div class="sec-head"><span class="sec-num">05</span><h2 id="t4H"><span class="es">Estimaciones de Terceros (T4)</span><span class="en" hidden>Third-Party Estimates (T4)</span></h2></div>
+    <p class="sec-desc" id="t4Desc"></p><div class="card"><div class="tblwrap" id="t4Tbl"></div><div id="t4Stamp"></div></div>
   </section>
 </main>
 

@@ -17,13 +17,22 @@
   function typeL(k) { return { equity: t('capital', 'equity'), equity_right: t('derecho a invertir', 'right to invest'), credit_facility: t('línea de crédito', 'credit facility'), revenue: t('ingresos', 'revenue'), contract: t('contrato de capacidad', 'capacity contract'), lease: t('arrendamiento / licencia', 'lease / license'), purchase: t('compras', 'purchases'), backstop: t('respaldo crediticio', 'credit backstop'), venture: t('coinversión', 'venture') }[k] || k; }
   function basisL(k) { return { commitment: t('comprometido', 'committed'), revenue_fy: t('ingreso del año fiscal', 'fiscal-year revenue'), revenue_h1: t('ingreso del semestre', 'half-year revenue'), tcv: t('valor total del contrato', 'total contract value'), tcv_upto: t('valor del contrato, "hasta"', 'contract value, "up to"'), cash: t('efectivo invertido', 'cash invested'), right_upto: t('derecho, "hasta"', 'right, "up to"'), facility_upto: t('línea, "hasta"', 'facility, "up to"'), commitment_over: t('compromiso, "más de"', 'commitment, "more than"'), max_exposure: t('exposición máxima', 'maximum exposure'), share_of_purchases: t('participación en compras', 'share of purchases'), mw: 'MW', not_disclosed: t('no revelado', 'not disclosed') }[k] || k; }
   function col(k) { return { invest: H.css('--t4'), commercial: H.css('--t3'), contingent: H.css('--warn') }[k]; }
-  function amt(f) { return f.amountUSDm != null ? H.moneyM(f.amountUSDm) : f.mw ? H.mw(f.mw) : '<span class="nd">' + t('monto no revelado', 'amount not disclosed') + '</span>'; }
+  function amt(f) { return f.amountUSDm != null ? H.moneyM(f.amountUSDm) : f.mw ? H.mw(f.mw) + H.scope(f.scope) : '<span class="nd">' + t('monto no revelado', 'amount not disclosed') + '</span>'; }
 
   function header() {
     set('asofRow', '<span><b>' + t('Flujos', 'Flows') + '</b> ' + C.flows.length + '</span><span><b>' + t('Inferencias FNAM', 'FNAM inferences') + '</b> ' + C.inferences.length + '</span><span><b>' + t('Archivo curado', 'Curated file') + '</b> ' + H.date(C.updated) + '</span><span><b>' + t('Última actualización', 'Last refreshed') + '</b> ' + esc(C.refreshedET) + '</span>');
     set('notices', '<div class="notice"><b>' + t('Hechos y análisis, separados.', 'Facts and analysis, kept apart.') + '</b> ' + t('Secciones 01–03: solo flujos revelados en presentaciones de las empresas cubiertas (T1), cada uno con su página. Sección 04: inferencia de FNAM, marcada como tal y con los flujos en los que se apoya. Los montos tienen bases distintas (efectivo, valor "hasta", exposición máxima) y no se suman.', 'Sections 01–03: only flows disclosed in filings of the covered companies (T1), each with its page. Section 04: FNAM inference, labeled as such and listing the flows it rests on. Amounts have different bases (cash, "up to" value, maximum exposure) and are not added up.') + '</div>');
   }
 
+  function conclusion() {
+    var inv = {}, cust = {};
+    // a pair counts when the investor is also the investee's customer or supplier (a contract, revenue, lease or purchase flow either way)
+    C.flows.forEach(function (f) { if (/equity|credit_facility|venture/.test(f.type)) inv[f.from + '>' + f.to] = 1; if (/contract|revenue|lease|purchase/.test(f.type)) { cust[f.to + '>' + f.from] = 1; cust[f.from + '>' + f.to] = 1; } });
+    var both = Object.keys(inv).filter(function (k) { return cust[k]; });
+    H.title('Inversionistas que También Son Clientes o Proveedores: Hechos Revelados, Inferencia Aparte', 'Investors Who Are Also Customers or Suppliers: Disclosed Facts, Inference Apart');
+    var top = C.concentration.filter(function (x) { return x.pct != null && !/FNAM/.test(x.what_en || ''); }).sort(function (a, b) { return b.pct - a.pct; })[0];
+    H.soWhat(t(C.flows.length + ' flujos revelados en presentaciones; en ' + both.length + ' pares, quien invierte también compra o vende al mismo socio (' + both.map(function (k) { var p = k.split('>'); return nname(p[0]) + ' → ' + nname(p[1]); }).join(', ') + ').' + (top ? ' La mayor dependencia revelada: ' + top.pct + '% ' + esc(top.what_es) + ' de ' + F.companies[top.ticker].name + '.' : '') + ' Lo que eso implica es inferencia de FNAM (sección 04), marcada como tal.', C.flows.length + ' flows disclosed in filings; in ' + both.length + ' pairs the investor also buys from or sells to the same partner (' + both.map(function (k) { var p = k.split('>'); return nname(p[0]) + ' → ' + nname(p[1]); }).join(', ') + ').' + (top ? ' The largest disclosed dependence: ' + top.pct + '% of ' + F.companies[top.ticker].name + '\'s ' + esc(top.what_en.replace(/^of /, '')) + '.' : '') + ' What that implies is FNAM inference (section 04), labeled as such.'));
+  }
   function edges() {
     var g = {};
     C.flows.forEach(function (f) { if (FILTER !== 'all' && cat(f) !== FILTER) return; var k = f.from + '>' + f.to; (g[k] ||= { from: f.from, to: f.to, flows: [] }).flows.push(f); });
@@ -104,5 +113,5 @@
   }
 
   function foot() { set('foot', t('Fuentes: 10-K, 10-Q y 20-F de Microsoft, Alphabet, Amazon, Meta, CoreWeave, Nebius, IREN, Applied Digital y Core Scientific (SEC EDGAR); Oracle (T2). Las contrapartes fuera de la cobertura (OpenAI, Anthropic, NVIDIA, AMD) aparecen solo por lo que revelan las empresas cubiertas. ', 'Sources: 10-Ks, 10-Qs and 20-F of Microsoft, Alphabet, Amazon, Meta, CoreWeave, Nebius, IREN, Applied Digital and Core Scientific (SEC EDGAR); Oracle (T2). Counterparties outside coverage (OpenAI, Anthropic, NVIDIA, AMD) appear only through what the covered companies disclose. ') + '<a href="/hiperescaladores/metodologia/">' + t('Metodología', 'Methodology') + '</a> · ' + t('Nada en esta página es una recomendación de inversión.', 'Nothing on this page is investment advice.')); }
-  H.onLang(function () { header(); diagram(); flows(); conc(); breaks(); foot(); });
+  H.onLang(function () { header(); conclusion(); diagram(); flows(); conc(); breaks(); foot(); });
 })();

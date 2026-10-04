@@ -77,7 +77,8 @@ dashboards, everything built from public data by GitHub Actions.
   section (not in the deck; method in METHODOLOGY.md §8); before pushing a page change run `scripts/oracle/build.mjs` and
   `scripts/oracle/render-check.mjs` (site served on :8123) and build the PDF in both languages.
 - Hyperscaler Hub `site/hiperescaladores/` (`/hyperscalers/*` redirects): summary, modules 1 `capacidad/`, 2
-  `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, `metodologia/`,
+  `comprometida/`, 3 `capex/`, 4 `electricidad/`, 5 `sitios/`, 6 `fuera-de-balance/`, 7 `circular/`, 8 `retorno/` (payoff and
+  cost of money, curated `payoff.json`; ratings from SEC-filed term sheets), `metodologia/`,
   `glosario/`, quality page per module. Modules 1, 2, 4, 5, 7 come from curated files (`tools/hyperscalers/data/
   {capacity,sites,power,circular}.json`) whose quotes `build-modules.mjs` checks against the harvested filing page; MW
   keep each company's definition and are never summed; map dots are named localities, never campus coordinates; grid
@@ -85,7 +86,10 @@ dashboards, everything built from public data by GitHub Actions.
   Ten companies in `tools/hyperscalers/companies.json`. Every datum carries a
   source tier (T1 SEC, T2 company, T3 regulator, T4 estimate; FactSet = dated snapshot, not T1 until matched) and an ⓘ
   card; "Not tagged" (absent from XBRL) is never written as "Not disclosed"; nothing is imputed; leases not yet commenced
-  are never added to present-value debt. Timestamps in ET on this hub (owner's request). Runbook `tools/hyperscalers/README.md`.
+  are never added to present-value debt; signed leases are compared only with undiscounted recognized lease payments. One unit
+  per page (US$ bn, GW). Thesis, "What to know", module titles and "so what" lines are composed from data. Figures that differ
+  in scope across modules carry a `scope` note (`data/scope.json`). Timestamps in ET on this hub (owner's request). Runbook
+  `tools/hyperscalers/README.md` (round 3 section).
 - The Oracle "research" page was an experiment and is retired; `/oracle/research/*` redirects to `/oracle/`.
   Do not recreate it or reference it.
 - `site/404.html` answers every address the site does not have, with status 404 (since 1-Oct-2026; before, Cloudflare

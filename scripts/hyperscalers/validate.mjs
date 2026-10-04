@@ -1,6 +1,7 @@
 // Hyperscaler Hub: validation and data-quality reports. Runs after build.mjs and writes
 //   site/hiperescaladores/capex/data/quality.js              (window.HYP_CAPEX_QUALITY)
 //   site/hiperescaladores/fuera-de-balance/data/quality.js   (window.HYP_OFFBS_QUALITY)
+//   and one per curated module (1, 2, 4, 5, 7, 8: HYP_CAP1/CAP2/POWER/SITES/CIRC/PAY_QUALITY)
 // rendered by the shared owner pages (site/assets/quality-page.js). Exit code 1 only on hard failures: a company
 // with no stored XBRL extract, a non-USD monetary fact, or every EDGAR call failing; identity misses are warnings
 // that flag the affected figures "needs review" on the pages.
@@ -181,6 +182,49 @@ M7.card(CIRD.flows.length, 'flujos', 'flows');
 M7.card(CIRD.inferences.length, 'inferencias FNAM', 'FNAM inferences');
 await M7.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: CIRD.generated });
 
-console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps; modules 1/2/4/5/7: ${[M1, M2, M4, M5, M7].map((m) => `${m.R.checks.length} (${m.R.fails.length} fail)`).join(' / ')}`);
+// module 8: payoff and cost of money (segments, backlog timing, useful lives, ratings, new-issue spreads, T4 estimates)
+let M8 = null;
+try {
+  const PAYD = await loadW('payoff', 'HYP_PAY');
+  M8 = createReport({ slug: 'hiperescaladores/retorno', key: 'HYP_PAY_QUALITY', generator: 'scripts/hyperscalers/validate.mjs', diffUnit: L('Diferencia (US$ M)', 'Difference (US$ m)'), tolerances: L('Cifras de texto: cita cotejada en la página y segunda lectura. Segmentos UDM = año fiscal − acumulado del año anterior + acumulado actual (cálculo FNAM, componentes T1). Calificaciones: hoja de términos registrada ante la SEC (T1) o nota de prensa de la acción de la agencia (T4). Estimaciones de capacidad de terceros (T4): nunca se suman a cifras de las empresas.', 'Text figures: quote matched on the page and a second reading. Segment TTM = fiscal year − prior year-to-date + current year-to-date (FNAM calculation on T1 components). Ratings: SEC-filed term sheet (T1) or a press report of the agency action (T4). Third-party capacity estimates (T4): never added to company figures.') });
+  for (const x of PAYD.segments) {
+    const tag = `${x.ticker} ${x.segment_en}`;
+    for (const k of ['src', 'src2', 'src3', 'src4']) if (x[k]) citeChecks(M8, `${tag} (${k})`, x[k], k === 'src' ? x.status : undefined);
+    if (x.calc && x.quarter && x.calc.ytd.revenue != null) M8.record(tag, 'latest quarter ≤ current year-to-date', x.quarter.revenue <= x.calc.ytd.revenue + 0.5 ? 'ok' : 'fail');
+    M8.stale(tag, x.end, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
+  }
+  // segment revenue vs XBRL company revenue: a segment can never exceed the company's TTM revenue at the same date
+  for (const x of PAYD.segments) {
+    const c = F.companies[x.ticker], q = c && c.quarters.find((z) => z.end === x.end), rev = x.calc ? x.calc.fy.revenue - x.calc.ytdPrev.revenue + x.calc.ytd.revenue : x.revenue;
+    if (q && q.ttm && q.ttm.revenue) M8.record(`${x.ticker} ${x.segment_en}`, 'segment TTM revenue ≤ company TTM revenue (XBRL)', rev * 1e6 <= q.ttm.revenue * 1.001 ? 'ok' : 'fail', (rev * 1e6 - q.ttm.revenue) / 1e6);
+  }
+  for (const x of PAYD.rpoTiming) {
+    citeChecks(M8, `${x.ticker} RPO timing`, x.src, x.status);
+    const c = F.companies[x.ticker], q = c && c.quarters.find((z) => z.end === x.asOf && z.m.rpo);
+    if (q) M8.identity(`${x.ticker} RPO`, 'RPO in the text = RPO tagged in XBRL', x.rpoUSDm, q.m.rpo[0] / 1e6, Math.max(100, x.rpoUSDm * 0.002), { soft: true });
+  }
+  for (const x of PAYD.usefulLives) citeChecks(M8, `${x.ticker} useful lives`, x.src, x.status);
+  for (const x of PAYD.capexPerMW) citeChecks(M8, `${x.ticker} capex per MW`, x.src, x.status);
+  const TSid = new Set(PAYD.termSheets.map((t) => t.id));
+  for (const r of PAYD.ratings) for (const it of r.items) {
+    const tag = `${r.ticker} ${it.agency} ${it.rating}`;
+    M8.record(tag, it.tier === 'T1' ? 'rating from an SEC-filed term sheet' : 'rating from a dated press report (T4)', it.tier === 'T1' ? (it.termSheet && TSid.has(it.termSheet) ? 'ok' : 'fail') : (it.src && it.src.url && it.asOf ? 'ok' : 'fail'));
+    M8.stale(tag, it.asOf, 365, L('una calificación con más de 12 meses se muestra en gris y fuera de los indicadores', 'a rating over 12 months old is grayed and kept out of indicators'));
+  }
+  for (const t of PAYD.termSheets) M8.record(`${t.ticker} ${t.form} ${t.date}`, 'term sheet read twice (verified)', t.status === 'verified' ? 'ok' : 'warn');
+  for (const e of PAYD.mwEstimates) M8.record(`${e.publisher} ${e.date}`, 'third-party estimate labeled T4 with a URL and date', e.tier === 'T4' && e.url && e.date ? 'ok' : 'fail');
+  const calAge = PAYD.calendar ? ageDays(PAYD.calendar.pulledAt) : null;
+  M8.curated('FactSet earnings calendar (raw/factset/<date>-calendar.json)', calAge != null && calAge <= 45, L(`tomado el ${PAYD.calendar && PAYD.calendar.pulledAt} (${calAge} días); renovar en sesión cada mes y tras cada temporada`, `pulled ${PAYD.calendar && PAYD.calendar.pulledAt} (${calAge} days); renew in-session monthly and after each season`));
+  M8.curated('tools/hyperscalers/data/payoff.json', ageDays(PAYD.updated) <= 100, L(`actualizado ${PAYD.updated}; repasar tras cada temporada de 10-Q`, `updated ${PAYD.updated}; review after each 10-Q season`));
+  originsOf(M8, [...PAYD.segments.map((x) => x.src), ...PAYD.rpoTiming.map((x) => x.src), ...PAYD.usefulLives.map((x) => x.src)]);
+  for (const t of PAYD.termSheets) M8.R.origins.push({ id: t.ticker, origin: 'primary', title: `${t.ticker} ${t.form} ${t.date}`, url: t.url, date: t.date, page: null, parts: t.accn });
+  M8.card(PAYD.segments.length, 'segmentos de nube', 'cloud segments');
+  M8.card(PAYD.rpoTiming.length, 'calendarios de cartera', 'backlog schedules');
+  M8.card(PAYD.ratings.reduce((s, r) => s + r.items.length, 0), 'calificaciones', 'ratings');
+  M8.card(PAYD.mwEstimates.length, 'estimaciones T4', 'T4 estimates');
+  await M8.write({ latestQuarter: null, expectedQuarter: null, financialsGeneratedAt: PAYD.generated });
+} catch (e) { if (e.code !== 'ENOENT') throw e; }
+
+console.log(`validate: capex ${Q.R.checks.length} checks (${Q.R.fails.length} fail, ${Q.R.warns.length} warn); off-BS ${O.R.checks.length} checks, ${gaps} coverage gaps; modules 1/2/4/5/7/8: ${[M1, M2, M4, M5, M7, M8].filter(Boolean).map((m) => `${m.R.checks.length} (${m.R.fails.length} fail)`).join(' / ')}`);
 if (fails.length || (state.errors || []).length === Object.keys(F.companies).length * 2) { console.error('HARD FAIL:\n  ' + fails.join('\n  ')); process.exit(1); }
 void TODAY;
