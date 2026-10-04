@@ -13,7 +13,7 @@ const require = createRequire(import.meta.url);
 let chromium;
 try { ({ chromium } = require("playwright")); } catch (e) { ({ chromium } = createRequire("/opt/node22/lib/node_modules/")("playwright")); }
 const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? process.argv[i + 1] : d; };
-const BASE = arg("--base", "http://localhost:8123"), SHOTS = arg("--shots", null);
+const BASE = arg("--base", "http://localhost:8123"), SHOTS = arg("--shots", null), MAX_WORDS = Number(arg("--max-words", 0)) || 0; // --max-words: the owner's ceiling on the expanded page (round 3: it must not grow)
 if (SHOTS) mkdirSync(SHOTS, { recursive: true });
 
 // Words that only appear in the other language's copy (whole words, visible text only).
@@ -58,6 +58,13 @@ for (const c of configs) {
     out.tables = { su: !!document.querySelector("#suTable table"), hyp: document.querySelectorAll("#hypTable tbody tr").length, cp: document.querySelectorAll("#cpTable tbody tr").length, bridge: document.querySelectorAll("#rpoBridgeTable tbody tr").length, mw: document.querySelectorAll("#mwTable tbody tr").length, gl: document.querySelectorAll("#glossaryTable tbody tr").length };
     out.secNums = [...document.querySelectorAll("section.block[data-sec] .sec-num")].map((n) => n.textContent.trim());
     out.cdsPath = /tools\/oracle/.test((document.getElementById("cdsNote") || {}).textContent || "");
+    // every anchor has a real href (a source without a URL renders as text); no repository or tool path in visible text; word count
+    out.badHrefs = [...document.querySelectorAll("a")].filter((a) => { const h = a.getAttribute("href"); return h == null || h === "" || /^(undefined|null)$/.test(h); }).map((a) => a.textContent.trim().slice(0, 80));
+    const pathRe = /(tools\/oracle|scripts\/oracle|\.github\/|\b[a-z_-]+\.mjs\b|\bdata\/[a-z_]+\.js\b|\b[a-z_]+\.json\b)/;
+    out.paths = []; out.words = 0;
+    { const w2 = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT); while (w2.nextNode()) { const n = w2.currentNode, tx = n.textContent.replace(/\s+/g, " ").trim(); if (!tx) continue; const p = n.parentElement; if (!p || !visible(p) || p.closest("script,style,noscript")) continue; out.words += tx.split(" ").length; if (pathRe.test(tx) && !p.closest("a[href$='quality.html']")) out.paths.push(tx.slice(0, 100)); } }
+    out.sourceless = [...document.querySelectorAll("p.chart-src")].filter((p) => visible(p) && /^(Source|Fuente)s?:\s*(·\s*)*$/i.test(p.textContent.replace(/\s+/g, " ").trim())).map((p) => p.id || p.textContent.slice(0, 40));
+    out.emptySrcCells = [...document.querySelectorAll("table")].filter(visible).flatMap((tb) => { const ths = [...tb.querySelectorAll("thead th")].map((x) => x.textContent.trim()); const i = ths.findIndex((x) => /^(source|fuente)s?$/i.test(x)); if (i < 0) return []; return [...tb.querySelectorAll("tbody tr")].filter((tr) => tr.children[i] && !tr.children[i].textContent.trim()).map((tr) => tr.children[0].textContent.trim().slice(0, 60)); });
     return out;
   }, { lang: c.lang, esRe: ES_ONLY.source, enRe: EN_ONLY.source });
   const f = (m) => failures.push(`${tag}: ${m}`);
@@ -71,7 +78,12 @@ for (const c of configs) {
   if (!/US\$\s*\d/.test(r.dcf.hero || "")) f(`DCF value not finite: ${r.dcf.hero}`);
   if (!/has to be true|tiene que ser cierto/i.test(r.dcf.check)) f("DCF 'what has to be true' statement missing");
   if (!r.dcf.bridge || r.dcf.beta < 2) f("DCF bridge or beta cross-check missing");
-  if (r.dcf.presets !== 3 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} presets, ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
+  if (r.dcf.presets !== 4 || r.dcf.tax < 2 || !r.dcf.lease) f(`DCF scenarios/tax/leases notes incomplete (${r.dcf.presets} scenario rows, ${r.dcf.tax} tax tables, lease ${r.dcf.lease})`);
+  if (r.badHrefs.length) f(`anchors without a real href: ${r.badHrefs.slice(0, 3).join(" | ")}`);
+  if (r.paths.length) f(`repository or tool path in visible text: ${r.paths.slice(0, 3).join(" | ")}`);
+  if (r.sourceless.length) f(`"Source:" lines with no source: ${r.sourceless.join(", ")}`);
+  if (r.emptySrcCells.length) f(`table rows with an empty Source cell: ${r.emptySrcCells.join(", ")}`);
+  if (MAX_WORDS && r.words > MAX_WORDS) f(`visible words ${r.words} exceed --max-words ${MAX_WORDS}`);
   if (r.chain !== 6) f(`summary chain has ${r.chain} boxes (expected 6)`);
   if (!/US\$/.test(r.verdict)) f("summary verdict missing");
   if (r.leads < 14) f(`section leads: ${r.leads}`);
@@ -98,7 +110,7 @@ for (const c of configs) {
     if (!(await page.evaluate(() => document.getElementById("toTop").classList.contains("show")))) f("back-to-top control not shown after scrolling");
   }
   if (SHOTS) await page.screenshot({ path: join(SHOTS, `oracle-${c.lang}-${c.vp[0]}-${c.theme}.png`), fullPage: false });
-  console.log(`${failures.some((x) => x.startsWith(tag)) ? "FAIL" : "ok  "} ${tag} · DCF ${r.dcf.hero} · overflow ${r.overflow} · gloss ${r.gloss} · leads ${r.leads}`);
+  console.log(`${failures.some((x) => x.startsWith(tag)) ? "FAIL" : "ok  "} ${tag} · DCF ${r.dcf.hero} · overflow ${r.overflow} · gloss ${r.gloss} · leads ${r.leads} · words ${r.words}`);
   await page.close();
 }
 // print emulation in English: the closing heading and every section expanded, no Spanish

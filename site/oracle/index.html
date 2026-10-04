@@ -293,6 +293,7 @@ table td .sub, table th .sub{display:block; font-size:11px; color:var(--muted); 
 .timeline li{position:relative; padding:0 0 16px 18px; font-size:13px; color:var(--text-secondary); line-height:1.55;}
 .timeline li:before{content:""; position:absolute; left:-7px; top:5px; width:12px; height:12px; border-radius:50%; background:var(--accent); border:2px solid var(--surface);}
 .timeline li b{display:block; color:var(--text-primary); font-size:12px; letter-spacing:.03em; text-transform:uppercase; margin-bottom:2px;}
+.mwtl .pt{margin:3px 0 0; font-size:12.5px; line-height:1.5;} .mwtl .pt .k{font-weight:600; color:var(--text-primary);} .mwtl li{padding-bottom:12px;}
 .fact-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:16px;}
 @media (max-width:700px){.fact-grid{grid-template-columns:repeat(2,1fr);}}
 .fact{padding:12px 14px; border:1px solid var(--border); border-radius:10px; background:var(--surface);}
@@ -672,8 +673,10 @@ table.mw td{white-space:normal; vertical-align:top;}
         <div class="callout" id="aiPending"></div>
       </div>
       <div class="card">
-        <h3><span class="es">Cronología</span><span class="en" hidden>Timeline</span></h3>
-        <ul class="timeline" id="aiTimeline"></ul>
+        <h3><span class="es">Cronología de megavatios por campus</span><span class="en" hidden>Megawatt timeline by campus</span></h3>
+        <p class="cap"><span class="es">Contratado → energizado → fecha esperada, con la fuente de cada punto (↗ enlaza el comunicado; las llamadas se citan por página). "Derivado" = calculado con una razón que dio la administración.</span><span class="en" hidden>Contracted → energized → expected date, each point with its source (↗ links the release; calls are cited by page). "Derived" = computed from a ratio management gave.</span></p>
+        <div id="mwSeries"></div>
+        <details class="tbl"><summary><span class="es">Cronología de resultados (RPO y capex por trimestre, levantamiento de capital)</span><span class="en" hidden>Results timeline (RPO and capex by quarter, capital raise)</span></summary><ul class="timeline" id="aiTimeline"></ul></details>
         <p class="chart-src" id="aiSrc"></p>
       </div>
     </div>
@@ -899,7 +902,6 @@ table.mw td{white-space:normal; vertical-align:top;}
         <div class="chart-wrap short"><canvas id="chartMaturity"></canvas></div>
         <div class="tblwrap" id="schedTable"></div>
         <p class="chart-src" id="schedSrc"></p>
-        <p class="chart-src" id="maturitySrc"></p>
       </div>
     </div>
     <div class="grid-2 eq" style="margin-top:20px">
@@ -989,7 +991,7 @@ table.mw td{white-space:normal; vertical-align:top;}
           <button type="button" data-v="1y"><span class="es">1 año</span><span class="en" hidden>1 yr</span></button>
           <button type="button" data-v="3y" class="active"><span class="es">3 años</span><span class="en" hidden>3 yrs</span></button>
           <button type="button" data-v="5y"><span class="es">5 años</span><span class="en" hidden>5 yrs</span></button>
-          <button type="button" data-v="max">Máx</button>
+          <button type="button" data-v="max"><span class="es">Máx</span><span class="en" hidden>Max</span></button>
         </div>
       </div>
     </div>
@@ -1287,7 +1289,7 @@ table.mw td{white-space:normal; vertical-align:top;}
         <p><span class="es"><b>Arrendamientos y compromisos (ASC 842, ASC 810).</b> Los pasivos por arrendamiento en el balance son el valor presente de los pagos; los arrendamientos firmados que aún no empiezan se muestran a valor nominal, por separado, y nunca se suman a la deuda sin decirlo. Lo que dicen los reportes sobre entidades de interés variable y garantías está en <a class="xref" data-ref="obligations" href="#obligations">la sección fuera de balance</a>, con su fuente; una garantía se muestra como exposición, nunca como pasivo. Cada cifra transcrita de una nota lleva su reporte, nota, página y número de acceso, y la marca "verificado" solo cuando el dato XBRL de la SEC coincide; las lecturas de texto llevan "revisión pendiente" hasta una segunda lectura fechada o una coincidencia XBRL.</span><span class="en" hidden><b>Leases and commitments (ASC 842, ASC 810).</b> Lease liabilities on the balance sheet are the present value of the payments; leases signed but not yet commenced are shown at nominal value, separately, and never added to debt without saying so. What the filings say about variable-interest entities and guarantees is in <a class="xref" data-ref="obligations" href="#obligations">the off-balance-sheet section</a>, with its source; a guarantee is shown as exposure, never as a liability. Every figure transcribed from a note carries its filing, note, page and accession number, and the "verified" mark only when the SEC's XBRL value matches; text readings carry "needs review" until a dated second reading or an XBRL match.</span></p>
         <p><span class="es"><b>Fechas y actualización.</b> Cada gráfica, tabla y cifra indica su fecha de corte (cierre del periodo), la hora de la última actualización en hora del Este (ET) y su fuente. EDGAR se consulta a diario; un 8-K, 10-Q o 10-K nuevo entra al modelo tras pasar los cuadres; las noticias se revisan a diario. Un módulo se marca <b>desactualizado</b> cuando pasa la siguiente fecha esperada de reporte más siete días, en vez de mostrar datos viejos como vigentes. Cada actualización compara con los valores anteriores y escribe la bitácora de abajo.</span><span class="en" hidden><b>Dates and refresh.</b> Every chart, table and figure shows its as-of date (period end), the time of its last refresh in Eastern Time (ET) and its source. EDGAR is polled daily; a new 8-K, 10-Q or 10-K enters the model after passing the tie-outs; news is reviewed daily. A module is flagged <b>stale</b> once the next expected filing date plus seven days has passed, rather than showing old data as current. Every refresh diffs against the prior values and writes the change log below.</span></p>
         <p><span class="es"><b>DCF.</b> FCF = EBITDA (ajustado de los brokers − compensación en acciones) − impuestos sobre EBIT − capex bruto + prepagos de clientes recibidos − prepagos reconocidos como ingreso. El año en curso excluye los trimestres ya reportados; flujos a mitad de periodo. La tasa de impuestos sube por defecto en rampa desde la efectiva UDM hasta la normalizada (estatutaria federal + estatal del 10-K) en el último año explícito. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·[Kd·(1−t) para la deuda neta y los arrendamientos financieros; la tasa del dividendo, sin escudo fiscal, para las preferentes], donde D son exactamente los pasivos que resta el puente (deuda neta + arrendamientos financieros + preferentes); Rf = Tesoro a 10 años, ERP = prima implícita de Damodaran, β de dos años semanales con verificaciones de cinco años y de Blume, Kd = Tesoro de hoy + diferencial de emisión del bono a 10 años más reciente. Valor terminal: FCF normalizado (capex = k × D&amp;A) ÷ (WACC − g), con el VE/EBITDA que implica (o la g que implica un múltiplo de salida). Valor por acción = (VE − deuda neta − arrendamientos financieros − preferentes [− VP de los arrendamientos no iniciados, si se eligen como financieros]) ÷ acciones diluidas. Escenarios pesimista / base = consenso / optimista; la prueba final dice qué tiene que ser cierto para justificar el precio. No es una recomendación.</span><span class="en" hidden><b>DCF.</b> FCF = EBITDA (brokers' adjusted − stock-based compensation) − taxes on EBIT − gross capex + customer prepayments received − prepayments recognised as revenue. The current year excludes the quarters already reported; mid-period flows. The tax rate ramps by default from the LTM effective rate to the normalized rate (federal statutory + state, from the 10-K) by the last explicit year. WACC = E/(D+E)·[Rf + β·ERP] + D/(D+E)·[Kd·(1−t) for net debt and finance leases; the dividend rate, with no tax shield, for the preferred], where D is exactly the set of claims the bridge deducts (net debt + finance leases + preferred); Rf = 10-year Treasury, ERP = Damodaran's implied premium, β from two years of weekly returns with five-year and Blume cross-checks, Kd = today's Treasury + the issue spread of the latest 10-year note. Terminal value: normalised FCF (capex = k × D&amp;A) ÷ (WACC − g), with the EV/EBITDA it implies (or the g an exit multiple implies). Value per share = (EV − net debt − finance leases − preferred [− PV of the uncommenced leases when treated as finance leases]) ÷ diluted shares. Bear / base = consensus / bull scenarios; the final test says what has to be true to justify the price. Not a recommendation.</span></p>
-        <p class="small muted"><span class="es">Nota completa de metodología y fuentes: <code>tools/oracle/METHODOLOGY.md</code> en el repositorio. <a href="quality.html">Página de calidad de datos ↗</a></span><span class="en" hidden>Full methodology and sources note: <code>tools/oracle/METHODOLOGY.md</code> in the repository. <a href="quality.html">Data-quality page ↗</a></span></p>
+        <p class="small muted"><span class="es">La nota completa de metodología y fuentes y el detalle técnico del flujo de datos están en la <a href="quality.html">página de calidad de datos ↗</a>.</span><span class="en" hidden>The full methodology and sources note and the technical detail of the data flow are on the <a href="quality.html">data-quality page ↗</a>.</span></p>
       </div>
       <div>
         <div class="card">
@@ -1299,7 +1301,7 @@ table.mw td{white-space:normal; vertical-align:top;}
         <div class="card" style="margin-top:20px">
           <h3><span class="es">Cómo se actualiza cada bloque</span><span class="en" hidden>How each block is refreshed</span></h3>
           <div class="tblwrap" id="refreshTable"></div>
-          <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/oracle/*</code> y <code>.github/workflows/oracle-refresh.yml</code> en el repositorio; runbook en <code>tools/oracle/README.md</code>; cada cifra se valida con <code>scripts/oracle/validate-data.mjs</code> antes de publicarse.</span><span class="en" hidden>Data flow: <code>scripts/oracle/*</code> and <code>.github/workflows/oracle-refresh.yml</code> in the repository; runbook in <code>tools/oracle/README.md</code>; every figure passes <code>scripts/oracle/validate-data.mjs</code> before publishing.</span></p>
+          <p class="chart-src"><span class="es">Flujo de datos: cosecha diaria de SEC EDGAR y de las demás fuentes, cuadres y pruebas del analizador, publicación solo si todo pasa; el detalle técnico (scripts, flujo de trabajo, runbook) está en la <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: daily harvest from SEC EDGAR and the other sources, tie-outs and parser tests, publication only when everything passes; the technical detail (scripts, workflow, runbook) is on the <a href="quality.html">data-quality page</a>.</span></p>
         </div>
       </div>
     </div>
