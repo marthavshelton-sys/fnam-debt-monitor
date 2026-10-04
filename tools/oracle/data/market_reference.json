@@ -18,20 +18,20 @@
       "source_name": "Nasdaq"
     },
     "sp500": {
-      "close": 7722.72021484375,
+      "close": 7722.72,
       "close_date": "2026-10-02",
       "one_day_change_pct": 0.73,
       "one_year_change_pct": 15,
-      "source_url": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5y&interval=1d",
-      "source_name": "Yahoo Finance",
+      "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500",
+      "source_name": "FRED SP500",
       "accessed": "2026-10-04"
     }
   },
   "treasury_10y": {
-    "yield_pct": 5.28,
-    "as_of_date": "2026-10-02",
-    "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/daily-treasury-rates.csv/2026/all?type=daily_treasury_yield_curve&field_tdr_date_value=2026&page&_format=csv",
-    "source_name": "U.S. Treasury CSV",
+    "yield_pct": 5.24,
+    "as_of_date": "2026-10-01",
+    "source_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=DGS10",
+    "source_name": "FRED DGS10",
     "accessed": "2026-10-04"
   },
   "credit_ratings": {
@@ -554,5 +554,5 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-04"
   },
-  "refreshed_at": "2026-10-04T14:39:16.085Z"
+  "refreshed_at": "2026-10-04T15:32:59.379Z"
 }

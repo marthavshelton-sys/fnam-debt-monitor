@@ -4,34 +4,6 @@
   {
    "at": "2026-10-04T00:59:06.195Z",
    "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].superseded[0].value",
-   "old": null,
-   "new": 10.9
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].superseded[1].accn",
-   "old": null,
-   "new": "0000950170-25-087926"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].superseded[1].form",
-   "old": null,
-   "new": "10-K"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].superseded[1].filed",
-   "old": null,
-   "new": "2025-06-18"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
    "path": "concepts.tax_rate_effective.cumulative[5].superseded[1].value",
    "old": null,
    "new": 10.9
@@ -4200,7 +4172,35 @@
    "path": "items[3].why_es",
    "old": "(text)",
    "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-04T15:33:06.372Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.source",
+   "old": "Yahoo Finance",
+   "new": "FRED SP500"
+  },
+  {
+   "at": "2026-10-04T15:33:06.372Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.sourceUrl",
+   "old": "https://query1.finance.yahoo.com/v8/finance/chart/%5EGSPC?range=5y&interval=1d",
+   "new": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=SP500"
+  },
+  {
+   "at": "2026-10-04T15:33:06.372Z",
+   "file": "market.js",
+   "path": "rates.US10Y.source",
+   "old": "U.S. Treasury CSV",
+   "new": "FRED DGS10"
+  },
+  {
+   "at": "2026-10-04T15:33:06.372Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16174,
+   "new": 16173
   }
  ],
- "generated": "2026-10-04T15:19:01.870Z"
+ "generated": "2026-10-04T15:33:06.372Z"
 }

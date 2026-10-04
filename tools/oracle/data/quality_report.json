@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04T15:19:01.533Z",
+  "generated": "2026-10-04T15:33:06.103Z",
   "summary": {
     "checks": 447,
     "failed": 0,
@@ -3671,8 +3671,8 @@
     },
     {
       "series": "10-year Treasury (FRED DGS10)",
-      "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "lastDate": "2026-10-01",
+      "ageDays": 4,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"
@@ -3687,32 +3687,32 @@
     },
     {
       "series": "EDGAR submissions snapshot",
-      "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "lastDate": "2026-10-04",
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs, weekdays 13:30 UTC"
     },
     {
       "series": "Oracle IR press-release snapshot",
-      "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "lastDate": "2026-10-04",
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs"
     },
     {
       "series": "Investor calendar",
-      "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "lastDate": "2026-10-04",
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-calendar.mjs"
     },
     {
       "series": "Peer leverage (SEC XBRL)",
-      "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "lastDate": "2026-10-04",
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-peer-leverage.mjs"
@@ -3743,7 +3743,7 @@
     },
     {
       "series": "Filings pending extraction",
-      "lastDate": "2026-10-02",
+      "lastDate": "2026-10-04",
       "ageDays": null,
       "limitDays": null,
       "status": "ok",
@@ -3804,7 +3804,7 @@
     {
       "file": "peer_leverage.json",
       "status": "ok",
-      "detail": "5 peers; fetched 2026-10-02"
+      "detail": "5 peers; fetched 2026-10-04"
     }
   ],
   "modules": [
@@ -3993,8 +3993,8 @@
       "label_en": "Investor calendar",
       "label_es": "Calendario del inversionista",
       "cadence": "daily",
-      "asOf": "2026-10-02",
-      "lastRefresh": "2026-10-02",
+      "asOf": "2026-10-04",
+      "lastRefresh": "2026-10-04",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4008,8 +4008,8 @@
       "label_en": "Peer leverage (XBRL)",
       "label_es": "Apalancamiento de pares (XBRL)",
       "cadence": "daily",
-      "asOf": "2026-10-02",
-      "lastRefresh": "2026-10-02",
+      "asOf": "2026-10-04",
+      "lastRefresh": "2026-10-04",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
