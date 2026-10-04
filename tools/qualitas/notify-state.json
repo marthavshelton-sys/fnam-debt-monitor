@@ -4,19 +4,20 @@
   "lastQuarterReleaseDate": "2026-07-21",
   "lastOpsQuarter": "2026Q2",
   "lastGuidanceDate": "2026-07-21",
-  "lastReferenceUpdatedAt": "2026-09-22",
-  "lastReferenceSha": "01bb83da9278bb41aa481ec453c3e8c4668bd175",
+  "lastReferenceUpdatedAt": "2026-10-04",
+  "lastReferenceSha": "356fe97fabcb243a4a807965405729ebeef87c61",
   "lastCommentsUpdatedAt": "2026-09-22",
-  "lastSummaryUpdatedAt": "2026-09-22",
-  "lastMarketDate": "2026-09-25",
+  "lastSummaryUpdatedAt": "2026-10-04",
+  "lastMarketDate": "2026-10-02",
   "lastAlertKeys": [],
-  "lastNotifiedAt": "2026-09-28T15:51:52Z",
+  "lastNotifiedAt": "2026-10-04T15:51:33Z",
   "lastFailureNote": null,
-  "lastCheckedAt": "2026-10-03T15:51:37Z",
-  "lastCheckResult": "quiet",
+  "lastCheckedAt": "2026-10-04T15:51:33Z",
+  "lastCheckResult": "material",
   "pendingFromOwner": [
     "earnings-call transcript for 3Q26 once available",
     "consensus / peer connector authorisation",
     "password decision (QUALITAS_PASSWORD)"
-  ]
+  ],
+  "lastBmvFile": "2026-09-25_bmv1591504_es.txt"
 }

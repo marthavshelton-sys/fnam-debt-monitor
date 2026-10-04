@@ -3,7 +3,7 @@
 // defaults. Updated by reviewed commit when an event lands (AGM, rating action, material event).
 // Figures quoted come from Quálitas' IR site (results reports, material events) and the BMV.
 window.Q_REF = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-10-04",
   company: {
     name: "Quálitas Controladora, S.A.B. de C.V.", short: "Quálitas", ticker: "Q*", bmv: "Q", bloomberg: "Q* MM", exchange: "BMV",
     sector: { es: "Seguros de automóviles (daños)", en: "Motor insurance (P&C)" },
@@ -32,6 +32,7 @@ window.Q_REF = {
     { agency: "Fitch Ratings", date: "2025-12-08", entity: "Quálitas Compañía de Seguros / QIC", rating: "BBB (IFS internacional) · AAA(mex)", outlook: { es: "Estable", en: "Stable" }, holding: "Quálitas Controladora: IDR BBB- · AAA(mex)", source: { url: "https://qinversionistas.qualitas.com.mx/ES/eventos-relevantes", es: "evento relevante 8 dic 2025", en: "material event 8 Dec 2025" } },
     { agency: "AM Best", date: "2025-10-22", entity: "Quálitas Compañía de Seguros", rating: "FSR B+ (Good) · ICR bbb- · NSR aa-.MX", outlook: { es: "Negativa (antes estable): dividendos elevados limitan el crecimiento orgánico del capital y sube el apalancamiento de suscripción", en: "Negative (from stable): sizeable dividends limit organic capital growth and underwriting leverage is trending up" }, source: { url: "https://qinversionistas.qualitas.com.mx/ES/eventos-relevantes", es: "evento relevante 22 oct 2025", en: "material event 22 Oct 2025" } },
     { agency: "S&P National Ratings", date: "2026-05-28", entity: "Quálitas Compañía de Seguros", rating: "mxAAA (fortaleza financiera) · mxAAA (crediticia)", outlook: { es: "Estable", en: "Stable" }, source: { url: "https://qinversionistas.qualitas.com.mx/ES/eventos-relevantes", es: "evento relevante 28 may 2026", en: "material event 28 May 2026" } },
+    { agency: "S&P Global Ratings", date: "2026-09-25", entity: "Quálitas Compañía de Seguros", rating: "BBB+ (fortaleza financiera, escala global) · BBB+ (emisor de largo plazo, escala global)", outlook: { es: "Negativa: refleja la de la calificación soberana de México en moneda local, que limita la calificación; supera la prueba de estrés soberano en moneda extranjera (un nivel arriba de la soberana en moneda extranjera)", en: "Negative: mirrors the outlook on Mexico's local-currency sovereign rating, which caps the rating; passes the foreign-currency sovereign stress test (one notch above the foreign-currency sovereign)" }, source: { url: "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591503_1.pdf", es: "evento relevante 25 sep 2026 (BMV)", en: "material event 25 Sep 2026 (BMV)" } },
   ],
   analysts: [{ firm: "Citigroup", analyst: "Arnon Shirazi", date: "2026-06-07", target: 180, rating: "Neutral", source: { es: "evento relevante 8 jun 2026 (inicio de cobertura)", en: "material event 8 Jun 2026 (initiation)" } }],
   // Debt instruments: none. The CNSF balance sheet lines "financiamientos obtenidos" and "emisión de deuda" are

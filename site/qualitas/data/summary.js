@@ -2,7 +2,7 @@
 // results reports and the earnings-call transcripts; rewritten with each new report. Figures quoted are as of
 // the `basis` periods (not live market data — the header strip is daily).
 window.Q_SUMMARY = {
-  updatedAt: "2026-09-22",
+  updatedAt: "2026-10-04",
   basis: { quarter: "2026Q2", resultsDate: "2026-07-21", callDate: "2026-07-22", guidanceDate: "2026-07-22" },
   sections: [
     {
@@ -36,12 +36,12 @@ window.Q_SUMMARY = {
       es: [
         "Índice de solvencia 341% al 2T26 (RCS Ps. 6,646 M, margen Ps. 15,984 M), desde 362% al cierre de 2025 tras el dividendo de mayo; reservas técnicas Ps. 69,240 M (+12.5%) y capital contable Ps. 25,053 M (+3.9%). Activos totales Ps. 123,702 M.",
         "Dividendo 2026 de Ps. 9.0 por acción (71% de pago; Ps. 4.5 el 13 de mayo y Ps. 4.5 el 5 de noviembre) y fondo de recompra renovado por Ps. 800 M (≈6.2 M de acciones en tesorería, Ps. 784 M disponibles). Política: 40–90% de la utilidad; la administración descarta dividendos extraordinarios por ahora.",
-        "Calificaciones: Fitch BBB / AAA(mex) estable (dic 2025); S&P mxAAA estable (may 2026); AM Best B+ / bbb- con perspectiva negativa (oct 2025) por dividendos elevados y mayor apalancamiento de suscripción. Citi inició cobertura en junio 2026 (Neutral, PO Ps. 180).",
+        "Calificaciones: Fitch BBB / AAA(mex) estable (dic 2025); S&P mxAAA estable (may 2026) y, desde el 25 sep 2026, BBB+ global con perspectiva negativa (topada por la soberana en moneda local); AM Best B+ / bbb- con perspectiva negativa (oct 2025) por dividendos elevados y mayor apalancamiento de suscripción. Citi inició cobertura en junio 2026 (Neutral, PO Ps. 180).",
       ],
       en: [
         "Solvency index 341% at 2Q26 (RCS Ps. 6,646 M, margin Ps. 15,984 M), down from 362% at end-2025 after the May dividend; technical reserves Ps. 69,240 M (+12.5%) and equity Ps. 25,053 M (+3.9%). Total assets Ps. 123,702 M.",
         "2026 dividend of Ps. 9.0 per share (71% payout; Ps. 4.5 on 13 May and Ps. 4.5 on 5 November) and the buyback fund renewed at Ps. 800 M (≈6.2 M treasury shares, Ps. 784 M available). Policy: 40–90% of net income; management rules out extraordinary dividends for now.",
-        "Ratings: Fitch BBB / AAA(mex) stable (Dec 2025); S&P mxAAA stable (May 2026); AM Best B+ / bbb- with a negative outlook (Oct 2025) on high dividends and rising underwriting leverage. Citi initiated in June 2026 (Neutral, PT Ps. 180).",
+        "Ratings: Fitch BBB / AAA(mex) stable (Dec 2025); S&P mxAAA stable (May 2026) and, since 25 Sep 2026, global BBB+ with a negative outlook (capped by the local-currency sovereign); AM Best B+ / bbb- with a negative outlook (Oct 2025) on high dividends and rising underwriting leverage. Citi initiated in June 2026 (Neutral, PT Ps. 180).",
       ],
     },
     {
