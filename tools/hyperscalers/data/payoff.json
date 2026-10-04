@@ -1,7 +1,7 @@
 {
- "_comment": "Hyperscaler Hub module 8 (payoff and cost of money). Curated from the harvested SEC text (raw/notes/, quotes checked by build-modules.mjs against the cited page) and from SEC-filed pricing term sheets (FWP, read in-session twice). Third-party items (rating actions reported by the press, capacity estimates) carry tier T4 and are never added to company figures. Amounts in US$ millions unless stated. Runbook: tools/hyperscalers/README.md → Module 8.",
- "updated": "2026-10-03",
- "readBy": "Claude session 2026-10-04 (first reading of the harvested passages and term sheets; second reading of each cited page/term sheet the same day); third review 2026-10-03 (segment definitions quoted from the harvested pages; secondary-source flags on press-sourced ratings)",
+ "_comment": "Hyperscaler Hub module 8 (payoff and cost of money). Curated from the harvested SEC text (raw/notes/, quotes checked by build-modules.mjs against the cited page) and from SEC-filed pricing term sheets (FWP, read twice by the automated pipeline). Third-party items (rating actions reported by the press, capacity estimates) carry tier T4 and are never added to company figures. Amounts in US$ millions unless stated. Runbook: tools/hyperscalers/README.md → Module 8.",
+ "updated": "2026-10-04",
+ "readBy": "automated first reading of the harvested passages and term sheets (3 Oct 2026 ET) and automated second reading of each cited page the same day; internal provenance, not emitted to the site",
  "segments": [
   {
    "ticker": "MSFT",
@@ -25,7 +25,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04",
+   "verifiedOn": "2026-10-04T03:34:31Z",
    "definition_es": "Intelligent Cloud: productos de servidor y servicios de nube públicos, privados e híbridos (Azure y otros servicios de nube, SQL Server, Windows Server, Visual Studio, System Center, GitHub, Nuance y servicios empresariales y de socios). Más amplio que una nube pura: incluye software de servidor y servicios.",
    "definition_en": "Intelligent Cloud: public, private and hybrid server products and cloud services (Azure and other cloud services, SQL Server, Windows Server, Visual Studio, System Center, GitHub, Nuance, and Enterprise and partner services). Broader than a pure cloud: it includes server software and services.",
    "definitionSrc": {
@@ -93,7 +93,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited pages)",
-   "verifiedOn": "2026-10-04",
+   "verifiedOn": "2026-10-04T03:34:31Z",
    "definition_es": "Google Cloud: Google Cloud Platform (infraestructura, plataforma y otros servicios por consumo) y Google Workspace (suscripciones). Sin productos de servidor para instalación local.",
    "definition_en": "Google Cloud: Google Cloud Platform (consumption-based infrastructure, platform and other services) and Google Workspace (subscriptions). No on-premises server products.",
    "definitionSrc": {
@@ -149,7 +149,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited pages)",
-   "verifiedOn": "2026-10-04",
+   "verifiedOn": "2026-10-04T03:34:31Z",
    "definition_es": "AWS: servicios tecnológicos bajo demanda (cómputo, almacenamiento, base de datos, analítica, IA y aprendizaje automático y otros). Solo nube; sin software local ni dispositivos.",
    "definition_en": "AWS: on-demand technology services (compute, storage, database, analytics, AI and machine learning, and other services). Cloud only; no on-premises software or devices.",
    "definitionSrc": {
@@ -202,7 +202,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited pages)",
-   "verifiedOn": "2026-10-04",
+   "verifiedOn": "2026-10-04T03:34:31Z",
    "definition_es": "Oracle Cloud Infrastructure (OCI): cómputo, almacenamiento, redes y servicios nativos de nube. Solo ingresos: Oracle no reporta margen de OCI por separado.",
    "definition_en": "Oracle Cloud Infrastructure (OCI): compute, storage, networking and cloud-native services. Revenue only: Oracle reports no separate OCI margin.",
    "definitionSrc": {
@@ -244,7 +244,10 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "company",
+   "basisNote_en": "company-wide RPO ÷ company revenue (XBRL), 12 months",
+   "basisNote_es": "RPO de toda la empresa ÷ ingresos de la empresa (XBRL), 12 meses"
   },
   {
    "ticker": "ORCL",
@@ -261,7 +264,10 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "company",
+   "basisNote_en": "company-wide RPO ÷ company revenue (XBRL), 12 months",
+   "basisNote_es": "RPO de toda la empresa ÷ ingresos de la empresa (XBRL), 12 meses"
   },
   {
    "ticker": "GOOGL",
@@ -278,7 +284,10 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "segment",
+   "basisNote_en": "Google Cloud backlog ÷ Google Cloud revenue (segment note), 12 months",
+   "basisNote_es": "Cartera de Google Cloud ÷ ingresos de Google Cloud (nota de segmentos), 12 meses"
   },
   {
    "ticker": "AMZN",
@@ -291,11 +300,14 @@
     "k": "AMZN 10-Q 2026-06-30",
     "page": "10",
     "section": "Note — Unearned revenue",
-    "quote": "The weighted-average remaining life of our long-term contracts is 6.4 years."
+    "quote": "For contracts with original terms that exceed one year, those commitments not yet recognized were approximately $496 billion as of June 30, 2026. The weighted-average remaining life of our long-term contracts is 6.4 years."
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "segment",
+   "basisNote_en": "AWS commitments ÷ AWS revenue (segment note), 12 months",
+   "basisNote_es": "Compromisos de AWS ÷ ingresos de AWS (nota de segmentos), 12 meses"
   },
   {
    "ticker": "CRWV",
@@ -311,7 +323,10 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "company",
+   "basisNote_en": "company-wide RPO ÷ company revenue (XBRL), 12 months",
+   "basisNote_es": "RPO de toda la empresa ÷ ingresos de la empresa (XBRL), 12 meses"
   },
   {
    "ticker": "IREN",
@@ -329,7 +344,10 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z",
+   "revenueBasis": "company",
+   "basisNote_en": "company-wide RPO ÷ company revenue (XBRL), 12 months",
+   "basisNote_es": "RPO de toda la empresa ÷ ingresos de la empresa (XBRL), 12 meses"
   }
  ],
  "rpoSearched": [
@@ -369,7 +387,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "GOOGL",
@@ -385,7 +403,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "AMZN",
@@ -410,7 +428,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "META",
@@ -435,7 +453,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "ORCL",
@@ -451,7 +469,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "CRWV",
@@ -475,7 +493,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "NBIS",
@@ -499,7 +517,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "IREN",
@@ -515,7 +533,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "APLD",
@@ -531,7 +549,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "ticker": "CORZ",
@@ -547,7 +565,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   }
  ],
  "capexPerMW": [
@@ -574,7 +592,7 @@
    },
    "status": "verified",
    "verifiedBy": "Claude session (second reading of the cited page)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   }
  ],
  "ratings": [
@@ -599,10 +617,18 @@
      },
      "secondary": true,
      "agencyChecked": {
-      "en": "Agency page (moodys.com / spglobal.com) and SEC filings checked 3 Oct 2026: the agency pages answer 403 from this session and no SEC filing of the issuer states the rating (EDGAR full-text search).",
-      "es": "Página de la agencia (moodys.com / spglobal.com) y presentaciones ante la SEC revisadas el 3 oct 2026: las páginas de las agencias responden 403 desde esta sesión y ninguna presentación del emisor indica la calificación (búsqueda de texto completo en EDGAR)."
+      "checkedAt": "2026-10-04T14:44:12Z",
+      "note_en": "Agency pages checked 4 Oct 2026: ratings.moodys.com and spglobal.com do not serve the press release to the build environment (empty page / 403) and no SEC filing of the company states the rating; the action is known from the dated press reports listed.",
+      "note_es": "Páginas de las agencias revisadas el 4 oct 2026: ratings.moodys.com y spglobal.com no entregan el comunicado al entorno de construcción (página vacía / 403) y ninguna presentación de la empresa ante la SEC indica la calificación; la acción se conoce por las notas de prensa fechadas."
      },
-     "agencyPage": "https://www.moodys.com/credit-ratings/Microsoft-Corporation-credit-rating-698200"
+     "agencyPage": "https://www.moodys.com/credit-ratings/Microsoft-Corporation-credit-rating-698200",
+     "alsoReported": [
+      {
+       "title": "Investing.com (international edition), \"Moody’s affirms Microsoft Aaa rating; outlook stable\"",
+       "date": "2026-08-21",
+       "url": "https://www.investing.com/news/stock-market-news/moodys-affirms-microsoft-stock-aaa-rating-outlook-stable-93CH-4872059"
+      }
+     ]
     }
    ],
    "noTermSheet_es": "Microsoft no ha colocado bonos registrados desde 2017: no hay hoja de términos reciente en EDGAR con su calificación.",
@@ -686,7 +712,20 @@
      "outlook_en": "negative",
      "asOf": "2026-02-02",
      "tier": "T1",
-     "termSheet": "orcl-2026-02"
+     "termSheet": "orcl-2026-02",
+     "laterActionsChecked": {
+      "checkedAt": "2026-10-04T14:44:12Z",
+      "result": "none_found",
+      "note_en": "Press search on 4 Oct 2026 found no Moody's action on Oracle after the 2 Feb 2026 affirmation of Baa2 (negative) on the equity announcement; the term-sheet rating is treated as current.",
+      "note_es": "La búsqueda en prensa del 4 oct 2026 no halló ninguna acción de Moody's sobre Oracle posterior a la ratificación de Baa2 (negativa) del 2 feb 2026; la calificación de la hoja de términos se considera vigente.",
+      "sources": [
+       {
+        "title": "StreetInsider, \"Moody's affirms Oracle rating at Baa2 with negative outlook\"",
+        "date": "2026-02-02",
+        "url": "https://www.streetinsider.com/Corporate+News/Moodys+affirms+Oracle+rating+at+Baa2+with+negative+outlook/25927273.html"
+       }
+      ]
+     }
     },
     {
      "agency": "S&P",
@@ -717,10 +756,18 @@
      },
      "secondary": true,
      "agencyChecked": {
-      "en": "Agency page (moodys.com / spglobal.com) and SEC filings checked 3 Oct 2026: the agency pages answer 403 from this session and no SEC filing of the issuer states the rating (EDGAR full-text search).",
-      "es": "Página de la agencia (moodys.com / spglobal.com) y presentaciones ante la SEC revisadas el 3 oct 2026: las páginas de las agencias responden 403 desde esta sesión y ninguna presentación del emisor indica la calificación (búsqueda de texto completo en EDGAR)."
+      "checkedAt": "2026-10-04T14:44:12Z",
+      "note_en": "Agency pages checked 4 Oct 2026: ratings.moodys.com and spglobal.com do not serve the press release to the build environment (empty page / 403) and no SEC filing of the company states the rating; the action is known from the dated press reports listed.",
+      "note_es": "Páginas de las agencias revisadas el 4 oct 2026: ratings.moodys.com y spglobal.com no entregan el comunicado al entorno de construcción (página vacía / 403) y ninguna presentación de la empresa ante la SEC indica la calificación; la acción se conoce por las notas de prensa fechadas."
      },
-     "agencyPage": "https://www.spglobal.com/ratings/en/events/webinars/oracle-downgrade-explained"
+     "agencyPage": "https://www.spglobal.com/ratings/en/events/webinars/oracle-downgrade-explained",
+     "alsoReported": [
+      {
+       "title": "heise online, \"S&P downgrades Oracle to BBB-: only one notch above junk level\"",
+       "date": "2026-07-09",
+       "url": "https://www.heise.de/en/news/S-P-downgrades-Oracle-to-BBB-only-one-notch-above-junk-level-11363472.html"
+      }
+     ]
     },
     {
      "agency": "Fitch",
@@ -729,7 +776,20 @@
      "outlook_en": "stable",
      "asOf": "2026-02-02",
      "tier": "T1",
-     "termSheet": "orcl-2026-02"
+     "termSheet": "orcl-2026-02",
+     "laterActionsChecked": {
+      "checkedAt": "2026-10-04T14:44:12Z",
+      "result": "none_found",
+      "note_en": "Press search on 4 Oct 2026 found no Fitch action on Oracle after it rated the February 2026 notes BBB and affirmed the BBB issuer rating (stable); the term-sheet rating is treated as current.",
+      "note_es": "La búsqueda en prensa del 4 oct 2026 no halló ninguna acción de Fitch sobre Oracle posterior a la calificación BBB de las notas de febrero de 2026 y la ratificación del emisor en BBB (estable); la calificación de la hoja de términos se considera vigente.",
+      "sources": [
+       {
+        "title": "StreetInsider, \"Fitch rates Oracle senior notes 'BBB', affirms IDR with stable outlook\"",
+        "date": "2026-02-02",
+        "url": "https://www.streetinsider.com/Credit+Ratings/Fitch+rates+Oracle+senior+notes+'BBB',+affirms+IDR+with+stable+outlook/25927130.html"
+       }
+      ]
+     }
     }
    ],
    "context_es": "BBB- es el último escalón de grado de inversión en S&P; la perspectiva negativa de Moody's (a la fecha de la hoja de términos) indica que puede bajar.",
@@ -756,10 +816,18 @@
      },
      "secondary": true,
      "agencyChecked": {
-      "en": "Agency page (moodys.com / spglobal.com) and SEC filings checked 3 Oct 2026: the agency pages answer 403 from this session and no SEC filing of the issuer states the rating (EDGAR full-text search).",
-      "es": "Página de la agencia (moodys.com / spglobal.com) y presentaciones ante la SEC revisadas el 3 oct 2026: las páginas de las agencias responden 403 desde esta sesión y ninguna presentación del emisor indica la calificación (búsqueda de texto completo en EDGAR)."
+      "checkedAt": "2026-10-04T14:44:12Z",
+      "note_en": "Agency pages checked 4 Oct 2026: ratings.moodys.com and spglobal.com do not serve the press release to the build environment (empty page / 403) and no SEC filing of the company states the rating; the action is known from the dated press reports listed.",
+      "note_es": "Páginas de las agencias revisadas el 4 oct 2026: ratings.moodys.com y spglobal.com no entregan el comunicado al entorno de construcción (página vacía / 403) y ninguna presentación de la empresa ante la SEC indica la calificación; la acción se conoce por las notas de prensa fechadas."
      },
-     "agencyPage": "https://www.spglobal.com/ratings/"
+     "agencyPage": "https://www.spglobal.com/ratings/",
+     "alsoReported": [
+      {
+       "title": "Cbonds, \"S&P Global Ratings revised outlook on CoreWeave to positive and affirmed at B+\"",
+       "date": "2026-04-09",
+       "url": "https://cbonds.com/news/3865295/"
+      }
+     ]
     }
    ],
    "context_es": "B+ es grado especulativo (cuatro escalones debajo de grado de inversión en S&P).",
@@ -807,7 +875,7 @@
    "ratingsText": "Baa2 (negative) / BBB (negative) / BBB (stable)",
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "id": "meta-2026-04",
@@ -827,7 +895,7 @@
    "ratingsText": "Aa3 (Moody's Investors Service, Inc.) AA- (Standard & Poor's Ratings Services)",
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "id": "amzn-2026-07",
@@ -847,7 +915,7 @@
    "ratingsText": "A1 by Moody's Investor Service, Inc., AA by Standard & Poor's Ratings Services, AA- by Fitch Ratings Inc.",
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   },
   {
    "id": "googl-2026-08",
@@ -867,7 +935,7 @@
    "ratingsText": "Moody's: Aa2 (Stable); S&P: AA+ (Stable)",
    "status": "verified",
    "verifiedBy": "Claude session (two readings of the term sheet)",
-   "verifiedOn": "2026-10-04"
+   "verifiedOn": "2026-10-04T03:34:31Z"
   }
  ],
  "mwEstimates": [
@@ -966,5 +1034,5 @@
  },
  "segmentNote_es": "Las definiciones de segmento difieren: Intelligent Cloud de Microsoft incluye productos de servidor y otros servicios; AWS y Google Cloud son más estrechos. Los márgenes no son comparables uno a uno; la definición de cada unidad está en su ficha ⓘ.",
  "segmentNote_en": "Segment definitions differ: Microsoft's Intelligent Cloud includes server products and other items; AWS and Google Cloud are narrower. Margins are not comparable one to one; each unit's definition is in its ⓘ card.",
- "updatedAt": "2026-10-04T02:50:00Z"
+ "updatedAt": "2026-10-04T14:44:12Z"
 }

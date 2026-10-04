@@ -74,7 +74,7 @@
       <span class="ctl-lbl"><span class="es">Grupo</span><span class="en" hidden>Group</span></span><div class="seg" id="segGroup"></div>
       <span class="ctl-lbl"><span class="es">Medida</span><span class="en" hidden>Measure</span></span><div class="seg" id="segMeasure"></div>
     </div>
-    <div class="card"><h3 id="trendTitle"></h3><p class="cap" id="trendCap"></p><div class="chart-wrap"><canvas id="chTrend" role="img"></canvas></div><div class="legend" id="trendLegend"></div><div id="trendStamp"></div></div>
+    <div class="card"><h3 id="trendTitle"></h3><p class="cap" id="trendCap"></p><div class="legend above" id="trendLegend"></div><div class="chart-wrap"><canvas id="chTrend" role="img"></canvas></div><div id="trendStamp"></div></div>
   </section>
 
   <section class="block" id="company">
@@ -86,7 +86,7 @@
       <div class="card"><h3 id="coChart1T"></h3><p class="cap" id="coChart1C"></p><div class="chart-wrap short"><canvas id="chCo1" role="img"></canvas></div><div class="legend" id="coLegend1"></div></div>
       <div class="card"><h3 id="coChart2T"></h3><p class="cap" id="coChart2C"></p><div class="chart-wrap short"><canvas id="chCo2" role="img"></canvas></div><div class="legend" id="coLegend2"></div></div>
     </div>
-    <div class="card"><h3 id="coTblT"></h3><p class="cap" id="coTblC"></p><div class="tblwrap" data-nosort id="coTbl"></div><div id="coStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar partidas trimestrales" data-fold-en="Show quarterly line items"><h3 id="coTblT"></h3><p class="cap" id="coTblC"></p><div class="tblwrap" data-nosort id="coTbl"></div><div id="coStamp"></div></div>
   </section>
 
   <section class="block" id="ttm">
@@ -94,19 +94,19 @@
     <p class="sec-desc" id="ttmDesc"></p>
     <div class="card"><h3 id="ocfT"></h3><p class="cap" id="ocfC"></p><div class="chart-wrap"><canvas id="chOCF" role="img"></canvas></div><div id="ocfStamp"></div></div>
     <div class="card"><div class="tblwrap" data-keycols="0,1,2,6,7" id="ttmTbl"></div><div id="ttmStamp"></div></div>
-    <div class="card"><h3 id="guideT"></h3><p class="cap" id="guideC"></p><div class="tblwrap" data-keycols="0,1,2,3,5" id="guideTbl"></div><div id="guideStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar la guía de capex" data-fold-en="Show capex guidance"><h3 id="guideT"></h3><p class="cap" id="guideC"></p><div class="tblwrap" data-keycols="0,1,2,3,5" id="guideTbl"></div><div id="guideStamp"></div></div>
   </section>
 
   <section class="block" id="funding">
     <div class="sec-head"><span class="sec-num">04</span><h2><span class="es">Con Qué Se Paga: Fuentes y Usos del Efectivo</span><span class="en" hidden>How It Is Paid For: Sources and Uses of Cash</span></h2></div>
     <p class="sec-desc" id="fundDesc"></p>
-    <div class="card"><div class="tblwrap" data-keycols="0,2,3,4,9" id="fundTbl"></div><div id="fundStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar fuentes y usos del efectivo" data-fold-en="Show sources and uses of cash"><div class="tblwrap" data-keycols="0,2,3,4,9" id="fundTbl"></div><div id="fundStamp"></div></div>
   </section>
 
   <section class="block" id="leverage">
     <div class="sec-head"><span class="sec-num">05</span><h2><span class="es">Deuda, Arrendamientos y Cobertura</span><span class="en" hidden>Debt, Leases and Coverage</span></h2></div>
     <p class="sec-desc" id="levDesc"></p>
-    <div class="card"><div class="tblwrap" data-keycols="0,3,8,11,12" id="levTbl"></div><div id="levStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar deuda, arrendamientos y cobertura" data-fold-en="Show debt, leases and coverage"><div class="tblwrap" data-keycols="0,3,8,11,12" id="levTbl"></div><div id="levStamp"></div></div>
   </section>
 
   <section class="block" id="issued">
@@ -114,15 +114,15 @@
     <p class="sec-desc" id="issDesc"></p>
     <div class="card"><h3 id="issChartT"></h3><p class="cap" id="issChartC"></p><div class="chart-wrap short"><canvas id="chIss" role="img"></canvas></div><div class="legend" id="issLegend"></div></div>
     <div class="controls"><span class="ctl-lbl"><span class="es">Empresa</span><span class="en" hidden>Company</span></span><select id="selIss" aria-label="Empresa / Company"></select></div>
-    <div class="card"><h3 id="issTblT"></h3><div class="tblwrap" data-keycols="0,1,4,6,7" id="issTbl"></div><div id="issStamp"></div></div>
-    <div class="card"><h3 id="offT"></h3><p class="cap" id="offC"></p><div class="tblwrap" id="offTbl"></div><div id="offStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar las operaciones" data-fold-en="Show the deals"><h3 id="issTblT"></h3><div class="tblwrap" data-keycols="0,1,4,6,7" id="issTbl"></div><div id="issStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar colocaciones registradas" data-fold-en="Show registered offerings"><h3 id="offT"></h3><p class="cap" id="offC"></p><div class="tblwrap" id="offTbl"></div><div id="offStamp"></div></div>
     <div id="issNotes"></div>
   </section>
 
   <section class="block" id="structure">
     <div class="sec-head"><span class="sec-num">07</span><h2><span class="es">Estructura de la Deuda Vigente</span><span class="en" hidden>Structure of Debt Outstanding</span></h2></div>
     <p class="sec-desc" id="strDesc"></p>
-    <div class="card"><div class="tblwrap" data-keycols="0,2,4,8,11" id="strTbl"></div><div id="strStamp"></div></div>
+    <div class="card" data-fold data-fold-es="Mostrar la estructura de la deuda" data-fold-en="Show the debt structure"><div class="tblwrap" data-keycols="0,2,4,8,11" id="strTbl"></div><div id="strStamp"></div></div>
   </section>
 </main>
 

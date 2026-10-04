@@ -6,7 +6,7 @@
 // mechanical and does not replace the second reading that turns "needs review" into "verified".
 // Writes site/hiperescaladores/data/{capacity,sites,power,circular}.js, the module CSVs and data/modules-log.json.
 import { readdir } from 'node:fs/promises';
-import { readJson, writeJson, writeText, TOOLS, SITE, nowET } from './lib.mjs';
+import { readJson, writeJson, writeText, TOOLS, SITE, nowET, scrubProvenance } from './lib.mjs';
 
 const { companies } = await readJson(TOOLS + 'companies.json');
 const CO = Object.fromEntries(companies.map((c) => [c.ticker, c]));
@@ -53,11 +53,15 @@ function resolve(src, where) {
 const SRC_KEYS = ['src', 'src2', 'src3', 'src4', 'ownershipSrc', 'gpuSrc', 'valueSrc', 'definitionSrc'];
 function resolveAll(obj, where) {
   for (const key of SRC_KEYS) if (obj[key] && obj[key].k) obj[key] = resolve(obj[key], `${where}.${key}`);
-  // the item's review state travels with each of its citations, so every source card says who verified it and when;
-  // reviewedBy (an analyst's sign-off) is a separate field, null until a person signs
-  if (obj.status) { if (!('reviewedBy' in obj)) obj.reviewedBy = null; for (const key of SRC_KEYS) if (obj[key]) Object.assign(obj[key], { status: obj.status, verifiedBy: obj.verifiedBy || null, verifiedOn: obj.verifiedOn || null, reviewedBy: obj.reviewedBy || null, reviewedOn: obj.reviewedOn || null }); }
+  // the item's review state travels with each of its citations, so every source card says how it was verified and when
+  // (verifiedHow: automated; the ET instant); reviewedBy (an analyst's sign-off) is a separate field, null until a person
+  // signs. Who or what performed the reading stays in the curated file (scrubProvenance strips it before the write).
+  if (obj.status) { if (!('reviewedBy' in obj)) obj.reviewedBy = null; for (const key of SRC_KEYS) if (obj[key]) Object.assign(obj[key], { status: obj.status, verifiedHow: obj.status === 'verified' ? 'automated' : null, verifiedOn: obj.verifiedOn || null, reviewedBy: obj.reviewedBy || null, reviewedOn: obj.reviewedOn || null }); }
   return obj;
 }
+// a curated file edited after this build started would print a later time than the build: say so in the log
+for (const [name, obj] of [['capacity', cap], ['sites', sites], ['power', power], ['circular', circ], ['payoff', pay || {}], ['scope', scope]])
+  if (obj.updatedAt && obj.updatedAt > stamp.iso) problems.push({ where: name + '.json', issue: `updatedAt ${obj.updatedAt} is after the build time ${stamp.iso}` });
 
 // ---- Oracle (T2): capacity and sites from the Oracle model's store
 function oSrc(key, page) {
@@ -93,7 +97,7 @@ for (const [i, x] of cap.pipeline.entries()) {
   pipeline.push(resolveAll(x, `capacity.pipeline[${i}]`));
 }
 for (const [i, x] of cap.notDisclosed.entries()) resolveAll(x, `capacity.notDisclosed[${i}]`);
-const capacityOut = { generated: stamp.iso, refreshedET: stamp.et, updated: cap.updated, updatedAt: cap.updatedAt || null, readBy: cap.readBy, definitions: cap.definitions, current: cap.current, pipeline, notDisclosed: cap.notDisclosed, oracle: orclCap };
+const capacityOut = { generated: stamp.iso, refreshedET: stamp.et, updated: cap.updated, updatedAt: cap.updatedAt || null, definitions: cap.definitions, current: cap.current, pipeline, notDisclosed: cap.notDisclosed, oracle: orclCap };
 
 // ---- module 5
 const siteRows = [];
@@ -107,12 +111,12 @@ for (const [i, s] of sites.sites.entries()) {
   }
   siteRows.push({ ...resolveAll({ ...s }, `sites[${i}]`), tier: 'T1' });
 }
-const sitesOut = { generated: stamp.iso, refreshedET: stamp.et, updated: sites.updated, updatedAt: sites.updatedAt || null, readBy: sites.readBy, sites: siteRows };
+const sitesOut = { generated: stamp.iso, refreshedET: stamp.et, updated: sites.updated, updatedAt: sites.updatedAt || null, sites: siteRows };
 
 // ---- module 4
 for (const [i, d] of power.companyDeals.entries()) if (d.src && d.src.k) d.src = resolve(d.src, `power.companyDeals[${i}]`); else if (d.src) d.src = { ...d.src, tier: d.tier };
 for (const [i, s] of power.searched.entries()) if (s.src) s.src = resolve(s.src, `power.searched[${i}]`);
-const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, updatedAt: power.updatedAt || null, readBy: power.readBy, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
+const powerOut = { generated: stamp.iso, refreshedET: stamp.et, updated: power.updated, updatedAt: power.updatedAt || null, companyDeals: power.companyDeals, searched: power.searched, grid: power.grid };
 
 // ---- module 7: revenue shares computed from T1 revenue (fiscal year or trailing four quarters ending at the flow date)
 function revenueAt(tk, period, asOf) {
@@ -133,9 +137,9 @@ for (const [i, c] of circ.concentration.entries()) {
   if (c.calcRevenue) { const f = circ.flows.find((x) => x.id === c.flow); if (f && f.shareOf && f.shareOf.pct != null) { c.pct = f.shareOf.pct; c.calcMethod = f.shareOf.method; } }
   if (c.calc) { c.pct = Math.round(c.calc.num / c.calc.den * 1000) / 10; c.calcMethod = `${c.calc.num} / ${c.calc.den}`; }
 }
-const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, readBy: circ.readBy, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
+const circOut = { generated: stamp.iso, refreshedET: stamp.et, updated: circ.updated, updatedAt: circ.updatedAt || null, nodes: circ.nodes, flows: circ.flows, concentration: circ.concentration, inferences: circ.inferences, breakers: circ.breakers };
 
-// ---- module 8: payoff and cost of money (curated, T1 text items; FWP term sheets read in session; T4 kept apart)
+// ---- module 8: payoff and cost of money (curated, T1 text items; FWP term sheets read twice by the automated pipeline; T4 kept apart)
 let payOut = null;
 if (pay) {
   for (const k of ['segments', 'rpoTiming', 'usefulLives', 'capexPerMW']) for (const [i, x] of (pay[k] || []).entries()) resolveAll(x, `payoff.${k}[${i}]`);
@@ -144,22 +148,23 @@ if (pay) {
     if (it.termSheet) {
       const t = TS[it.termSheet];
       if (!t) { problems.push({ where: `payoff.ratings.${r.ticker}`, issue: `unknown term sheet ${it.termSheet}` }); continue; }
-      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, status: t.status, verifiedBy: t.verifiedBy, verifiedOn: t.verifiedOn, reviewedBy: t.reviewedBy || null };
+      it.src = { tier: 'T1', form: t.form, accn: t.accn, url: t.url, filed: t.date, section: 'Pricing term sheet', quote: t.ratingsText, status: t.status, verifiedHow: t.status === 'verified' ? 'automated' : null, verifiedOn: t.verifiedOn, reviewedBy: t.reviewedBy || null };
     }
   }
   for (const t of pay.termSheets || []) if (!('reviewedBy' in t)) t.reviewedBy = null;
-  // earnings calendar: newest FactSet calendar snapshot (pulled in a Claude session; FactSet is not available on the runner)
+  // earnings calendar: newest FactSet calendar snapshot (pulled outside the automated run; FactSet is not available on the
+  // runner). pulledAt is a UTC instant; the page prints it in ET.
   const fsDir = 'tools/hyperscalers/raw/factset/';
   const calFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-calendar\.json$/.test(f)).sort();
   const cal = calFiles.length ? await readJson(fsDir + calFiles.at(-1)) : null;
-  payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, updatedAt: pay.updatedAt || null, readBy: pay.readBy, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
+  payOut = { generated: stamp.iso, refreshedET: stamp.et, updated: pay.updated, updatedAt: pay.updatedAt || null, segments: pay.segments, noCloudSegment: pay.noCloudSegment, aiRevenue: pay.aiRevenue,
     rpoTiming: pay.rpoTiming, rpoSearched: pay.rpoSearched, usefulLives: pay.usefulLives, capexPerMW: pay.capexPerMW, ratings: pay.ratings, ratingsSearched: pay.ratingsSearched,
     termSheets: pay.termSheets, mwEstimates: pay.mwEstimates, powerBridge: pay.powerBridge, segmentNote_es: pay.segmentNote_es || null, segmentNote_en: pay.segmentNote_en || null,
     calendar: cal ? { pulledAt: cal.pulledAt, source: cal.source, note: cal.note, events: cal.events } : null };
 }
 
 // ---- write
-async function js(file, name, data, comment) { await writeText(`${SITE}data/${file}.js`, `// ${comment}\n// Generated by scripts/hyperscalers/build-modules.mjs — do not hand-edit.\nwindow.${name} = ${JSON.stringify(data)};\n`); }
+async function js(file, name, data, comment) { await writeText(`${SITE}data/${file}.js`, `// ${comment}\n// Generated by scripts/hyperscalers/build-modules.mjs — do not hand-edit.\nwindow.${name} = ${JSON.stringify(scrubProvenance(data))};\n`); }
 await js('capacity', 'HYP_CAP', capacityOut, 'Hyperscaler Hub modules 1–2: current and committed capacity (T1 filings; Oracle T2 from its calls).');
 await js('sites', 'HYP_SITES', sitesOut, 'Hyperscaler Hub module 5: sites named by the companies (T1 filings; Oracle T2). Map positions are localities, not campus coordinates.');
 await js('power', 'HYP_POWER', powerOut, 'Hyperscaler Hub module 4: company power deals (T1/T2) kept apart from grid projections (T3 regulators, T4 estimates).');

@@ -1,26 +1,281 @@
 {
- "source": "FactSet Calendar Events (in-session pull; ConfirmedEarningsRelease / ProjectedEarningsRelease)",
- "pulledAt": "2026-10-04",
- "note": "Projected = FactSet's estimate until the company confirms the date; confirmed = announced by the company. Times not given unless FactSet states them.",
+ "source": "FactSet Calendar Events snapshot (ConfirmedEarningsRelease / ProjectedEarningsRelease)",
+ "pulledAt": "2026-10-04T14:36:25Z",
+ "note": "Projected = FactSet's estimate until the company confirms the date; confirmed = announced by the company. 'modified' = FactSet's last-modified timestamp of the estimate (UTC). Times not given unless FactSet states them. pulledAt is a UTC instant; the pages print it in ET.",
  "events": [
-  { "ticker": "APLD", "date": "2026-10-07", "status": "confirmed", "period": "FY2027 Q1", "time": "after market", "modified": "2026-09-28" },
-  { "ticker": "NBIS", "date": "2026-10-22", "status": "projected", "period": "2026 Q3", "modified": "2026-02-02" },
-  { "ticker": "MSFT", "date": "2026-10-27", "status": "projected", "period": "FY2027 Q1", "modified": "2026-01-08" },
-  { "ticker": "GOOGL", "date": "2026-10-27", "status": "projected", "period": "2026 Q3", "modified": "2026-01-22" },
-  { "ticker": "META", "date": "2026-10-28", "status": "projected", "period": "2026 Q3", "modified": "2026-01-15" },
-  { "ticker": "AMZN", "date": "2026-10-29", "status": "projected", "period": "2026 Q3", "modified": "2026-09-09" },
-  { "ticker": "CORZ", "date": "2026-11-11", "status": "projected", "period": "2026 Q3", "modified": "2025-10-27" },
-  { "ticker": "CRWV", "date": "2026-11-16", "status": "projected", "period": "2026 Q3", "modified": "2026-02-06" },
-  { "ticker": "IREN", "date": "2026-12-01", "status": "projected", "period": "FY2027 Q1", "modified": "2025-10-23" },
-  { "ticker": "ORCL", "date": "2026-12-14", "status": "projected", "period": "FY2027 Q2", "modified": "2025-12-02" },
-  { "ticker": "APLD", "date": "2027-01-12", "status": "projected", "period": "FY2027 Q2", "modified": "2025-12-19" },
-  { "ticker": "MSFT", "date": "2027-01-26", "status": "projected", "period": "FY2027 Q2", "modified": "2026-01-08" },
-  { "ticker": "GOOGL", "date": "2027-02-02", "status": "projected", "period": "2026 Q4", "modified": "2026-01-22" },
-  { "ticker": "META", "date": "2027-02-03", "status": "projected", "period": "2026 Q4", "modified": "2026-01-15" },
-  { "ticker": "AMZN", "date": "2027-02-04", "status": "projected", "period": "2026 Q4", "modified": "2026-01-23" },
-  { "ticker": "NBIS", "date": "2027-02-16", "status": "projected", "period": "2026 Q4", "modified": "2026-02-02" },
-  { "ticker": "IREN", "date": "2027-02-17", "status": "projected", "period": "FY2027 Q2", "modified": "2026-01-23" },
-  { "ticker": "CRWV", "date": "2027-03-04", "status": "projected", "period": "2026 Q4", "modified": "2026-02-06" },
-  { "ticker": "CORZ", "date": "2027-03-30", "status": "projected", "period": "2026 Q4", "modified": "2026-02-23" }
+  {
+   "ticker": "APLD",
+   "date": "2026-10-07",
+   "status": "confirmed",
+   "period": "FY2027 Q1",
+   "modified": "2026-09-28T21:56:08Z",
+   "time": "after market"
+  },
+  {
+   "ticker": "NBIS",
+   "date": "2026-10-22",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2026-02-02T07:18:07Z"
+  },
+  {
+   "ticker": "GOOGL",
+   "date": "2026-10-27",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2026-01-22T02:34:07Z"
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2026-10-27",
+   "status": "projected",
+   "period": "FY2027 Q1",
+   "modified": "2026-01-08T05:18:10Z"
+  },
+  {
+   "ticker": "META",
+   "date": "2026-10-28",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2026-01-15T08:18:08Z"
+  },
+  {
+   "ticker": "AMZN",
+   "date": "2026-10-29",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2026-09-09T14:12:09Z"
+  },
+  {
+   "ticker": "CORZ",
+   "date": "2026-11-11",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2025-10-27T09:06:08Z"
+  },
+  {
+   "ticker": "CRWV",
+   "date": "2026-11-16",
+   "status": "projected",
+   "period": "2026 Q3",
+   "modified": "2026-02-06T07:34:08Z"
+  },
+  {
+   "ticker": "IREN",
+   "date": "2026-12-01",
+   "status": "projected",
+   "period": "FY2027 Q1",
+   "modified": "2025-10-23T18:18:09Z"
+  },
+  {
+   "ticker": "ORCL",
+   "date": "2026-12-14",
+   "status": "projected",
+   "period": "FY2027 Q2",
+   "modified": "2025-12-02T19:34:17Z"
+  },
+  {
+   "ticker": "APLD",
+   "date": "2027-01-12",
+   "status": "projected",
+   "period": "FY2027 Q2",
+   "modified": "2025-12-19T08:18:08Z"
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2027-01-26",
+   "status": "projected",
+   "period": "FY2027 Q2",
+   "modified": "2026-01-08T05:18:10Z"
+  },
+  {
+   "ticker": "GOOGL",
+   "date": "2027-02-02",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-01-22T02:34:07Z"
+  },
+  {
+   "ticker": "META",
+   "date": "2027-02-03",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-01-15T08:18:08Z"
+  },
+  {
+   "ticker": "AMZN",
+   "date": "2027-02-04",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-01-23T05:34:08Z"
+  },
+  {
+   "ticker": "NBIS",
+   "date": "2027-02-16",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-02-02T07:18:07Z"
+  },
+  {
+   "ticker": "IREN",
+   "date": "2027-02-17",
+   "status": "projected",
+   "period": "FY2027 Q2",
+   "modified": "2026-01-23T06:36:08Z"
+  },
+  {
+   "ticker": "CRWV",
+   "date": "2027-03-04",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-02-06T07:34:08Z"
+  },
+  {
+   "ticker": "CORZ",
+   "date": "2027-03-30",
+   "status": "projected",
+   "period": "2026 Q4",
+   "modified": "2026-02-23T19:34:08Z"
+  },
+  {
+   "ticker": "APLD",
+   "date": "2027-04-15",
+   "status": "projected",
+   "period": "FY2027 Q3",
+   "modified": "2026-03-20T07:34:07Z"
+  },
+  {
+   "ticker": "GOOGL",
+   "date": "2027-04-27",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-04-08T07:34:08Z"
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2027-04-27",
+   "status": "projected",
+   "period": "FY2027 Q3",
+   "modified": "2026-04-09T07:04:08Z"
+  },
+  {
+   "ticker": "META",
+   "date": "2027-04-28",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-04-14T05:08:08Z"
+  },
+  {
+   "ticker": "NBIS",
+   "date": "2027-04-28",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-05-04T13:48:08Z"
+  },
+  {
+   "ticker": "AMZN",
+   "date": "2027-04-29",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-04-16T02:04:08Z"
+  },
+  {
+   "ticker": "CORZ",
+   "date": "2027-05-12",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-05-07T12:48:07Z"
+  },
+  {
+   "ticker": "IREN",
+   "date": "2027-05-12",
+   "status": "projected",
+   "period": "FY2027 Q3",
+   "modified": "2026-04-24T09:34:08Z"
+  },
+  {
+   "ticker": "CRWV",
+   "date": "2027-05-19",
+   "status": "projected",
+   "period": "2027 Q1",
+   "modified": "2026-04-20T07:48:08Z"
+  },
+  {
+   "ticker": "ORCL",
+   "date": "2027-06-14",
+   "status": "projected",
+   "period": "FY2027 Q4",
+   "modified": "2026-06-03T09:04:08Z"
+  },
+  {
+   "ticker": "GOOGL",
+   "date": "2027-07-27",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-09T06:04:18Z"
+  },
+  {
+   "ticker": "MSFT",
+   "date": "2027-07-27",
+   "status": "projected",
+   "period": "FY2027 Q4",
+   "modified": "2026-07-09T04:04:08Z"
+  },
+  {
+   "ticker": "META",
+   "date": "2027-07-28",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-15T02:48:08Z"
+  },
+  {
+   "ticker": "NBIS",
+   "date": "2027-07-28",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-29T18:48:08Z"
+  },
+  {
+   "ticker": "APLD",
+   "date": "2027-08-03",
+   "status": "projected",
+   "period": "FY2027 Q4",
+   "modified": "2026-07-16T04:02:09Z"
+  },
+  {
+   "ticker": "AMZN",
+   "date": "2027-08-05",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-17T01:34:07Z"
+  },
+  {
+   "ticker": "CORZ",
+   "date": "2027-08-12",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-28T17:04:11Z"
+  },
+  {
+   "ticker": "CRWV",
+   "date": "2027-08-17",
+   "status": "projected",
+   "period": "2027 Q2",
+   "modified": "2026-07-28T01:48:08Z"
+  },
+  {
+   "ticker": "IREN",
+   "date": "2027-09-02",
+   "status": "projected",
+   "period": "FY2027 Q4",
+   "modified": "2026-08-14T07:34:07Z"
+  },
+  {
+   "ticker": "ORCL",
+   "date": "2027-09-13",
+   "status": "projected",
+   "period": "FY2028 Q1",
+   "modified": "2026-09-03T11:48:07Z"
+  }
  ]
 }

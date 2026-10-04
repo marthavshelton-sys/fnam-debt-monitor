@@ -195,10 +195,54 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
   declared User-Agent is required); `harvest-notes.mjs` runs in-session too. The EDGAR full-text index answers without
   snippets; `forms=8-K/A` breaks it.
 
+## Round 5 (owner's fourth review, 2026-10-04)
+
+- **No tool names in reader-facing text.** `build.mjs` writes `verification = { en, es }` ("automated quote-match plus a
+  second automated read; not analyst-reviewed") and every page prints that string; both `js()` writers pass each object
+  through `scrubProvenance()` (`lib.mjs`), which drops `verifiedBy`/`readBy` and leaves `verifiedHow: 'automated'`, so the
+  curated JSON under `tools/` keeps its provenance and nothing in `site/` names a tool. FactSet rows read
+  "FactSet snapshot, pulled <date ET>". `scratchpad/render.mjs` (Playwright, 11 pages × ES/EN × 1280/390/512 px) greps
+  the rendered text for the forbidden words and fails on any.
+- **Honest "verified".** `quoteCheckAccn(FILINGS, accn, page, quote)` in `lib.mjs` checks every item of `offbs.json`
+  (and the `pageCites` overrides) against the harvested page text by accession: fragments split at "…", bracketed
+  insertions ignored, page lists ("17–18", "121, 124", "124; 176th page (no printed number)") understood, and a
+  spacing-insensitive fallback for words the harvest split ("fiscal 2027 a nd fiscal 2029"). An item keeps `verified` only
+  when the quote sits on the cited page; otherwise it is demoted to `needs_review` with a `reviewNote_en/es` and a build
+  warning. 28 of 28 pass as of 2026-10-04 (four quotes were made verbatim: CoreWeave's leases and VIE sentences completed,
+  IREN's VIE sentence cited on its own page). Capex credit is split into quote-matched / XBRL tag-matched / value present
+  (`dqNew`, `dqXbrl`, `dqKinds` in `hub.js`); not-tagged records carry `check` (quote | derived | xbrl_concept |
+  quote_unmatched) and tag-checked gaps are counted as "tag-matched", never "verified". Coverage is stated two ways
+  (`dqPct` → `pct` of figures with a value, `pctAll` with explained gaps in the denominator) and the home page carries the
+  hub roll-up (`dqRollup`, ten columns). Of the 20 fillable gaps, 12 are filled (11 TTM derivations with inputs and
+  zero periods under `not-tagged.json → derived`, 1 read from the 10-K text) and 8 carry a specific reason each.
+  `reviewedBy` is still empty everywhere: "analyst-reviewed: 0 of N" is the truth until the owner signs an item.
+- **Thesis.** One grouping (core six incl. CoreWeave; four listed neoclouds), three sentences of 35 words or fewer,
+  84% labeled an aggregate with Amazon, Oracle and CoreWeave named above OCF; `leaseCmp()` prints "about equal" for
+  0.95–1.05x (Amazon 1.0x) and `capMult()` prints "more than 10x" when the operating figure is a rounded number in the
+  filing (Applied Digital "approximately 100 MW").
+- **Backlog.** `payoff.json → revenueBasis` (segment revenue for Google Cloud and AWS, company revenue otherwise) with a
+  basis note; Amazon's US$496bn text RPO on the home KPI with the quote extended; Nebius in the lease comparison (8.8x);
+  `oldQ()` adds the "> 2 qtrs" badge to any figure whose period end is more than two quarter-ends old.
+- **Dates in ET.** `etOf()` in `lib.mjs`; `H.date()` converts ISO instants; `buildRow()` prints "Data rebuilt" (the build
+  stamp) and "Last EDGAR poll" apart on every page; SEC deadlines from `filerDays()` (large accelerated 40/60, accelerated
+  40/75, non-accelerated 45/90, 20-F 120) rolled by `rollBusinessDay()` over weekends and `SEC_HOLIDAYS`; the calendar
+  flags a FactSet projection after the SEC deadline (IREN, Core Scientific) and an estimate untouched for six months;
+  every curated file has `updatedAt` and the build warns when a curated file is newer than the stamp.
+- **Sources.** Each off-balance item links the main document (`filing.url` from the harvest, `indexUrl` beside it) with
+  its filed date; Oracle's prepayment is quoted from the cash-flow line (10-Q p. 5, `pageCites`); Microsoft's OpenAI
+  commitment shows committed, funded and remaining; ratings stay T4 "secondary source" because the agency pages are
+  unreadable from the session (`agencyChecked`, `alsoReported`, `laterActionsChecked` recorded in `payoff.json`).
+- **Changelog.** `tools/hyperscalers/data/curated-log.json` (ISO instant, modules, en/es) is written to
+  `changelog.js → curated` and rendered on the home page's "what changed" card and the methodology page.
+- **Phones.** `data-fold` cards fold behind a button at ≤640 px (`foldM()`), chart legends sit above the canvas, bar charts
+  turn horizontal when `H.narrow()`, every `.src-btn` is 44×44 px at ≤640 px, `#mapFallback` replaces the sites map, the
+  jump-link bar wraps on desktop (methodology has 13 links) and no text is under 11 px. `render.mjs` reports zero
+  flags (forbidden words, overflow, small text, small ⓘ at 390 px, undefined/NaN, console errors) on all 66 renders.
+
 ## Open items
 
-- Text items in `offbs.json`: 26 of 26 verified (automated second read) as of 2026-10-04; Applied Digital's SPV amount
-  (US$4.5bn) is now quoted from the 10-K (US$2.15bn notes) and the 10-Q (US$2.35bn notes).
+- Text items in `offbs.json`: 28 of 28 quote-matched on their cited pages (`quoteCheckAccn`) as of 2026-10-04; Applied
+  Digital's SPV amount (US$4.5bn) is quoted from the 10-K (US$2.15bn notes) and the 10-Q (US$2.35bn notes).
   Capacity and pipeline records in `capacity.json`: all 20 T1 records verified the same day. New items start as `needs_review`.
 - CoreWeave active power: the 10-Q for 2026-06-30 states no active-power figure (searched); keep the 10-K figure until a
   filing updates it (`newerFilingSearched` on the record).
@@ -217,4 +261,10 @@ yearly, ERCOT/PJM as published). XBRL revenue (`revenue` tag, added 2026-10-03) 
 - Weekly T3/T4 review is done in-session; a scheduled Claude routine for it needs the owner's go.
 - Module 8: Microsoft's S&P rating and CoreWeave's Moody's rating are not shown (no dated source read in session); Microsoft
   has no registered bond since 2017, so no term sheet. Daily market spreads have no public source; only new-issue spreads.
+  The three press-sourced ratings (MSFT Aaa, ORCL BBB-, CRWV B+) stay T4: ratings.moodys.com returns an empty page,
+  spglobal.com 403 and fitchratings.com is blocked from the session; no 8-K or term sheet states them.
+- FactSet still projects IREN's next results (1 Dec 2026) and Core Scientific's (11 Nov 2026) after their SEC deadlines
+  (IREN 10-Q 16 Nov, CORZ 10-Q 9 Nov); the calendar flags both. Re-pull the snapshot after the companies confirm.
+- `www.sec.gov/Archives` answered 403 to this session on 2026-10-04 (it answered on 2026-10-03), so the page recheck used
+  the harvested text (`raw/notes/`) rather than the documents; the quote check is the mechanical substitute.
 - Amazon reports its AWS backlog only as an amount and a weighted-average life (6.4 years), not a 12-month share.

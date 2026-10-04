@@ -13,7 +13,7 @@
 //   fiscal years.
 // * Nothing is imputed: a missing input leaves the derived figure null ("Not disclosed").
 import { readdir } from 'node:fs/promises';
-import { readJson, writeJson, writeText, TOOLS, SITE, ROOT, fiscalOf, durQ, days, nowET, filingIndexUrl, loadHarvest, resolveCite } from './lib.mjs';
+import { readJson, writeJson, writeText, TOOLS, SITE, ROOT, fiscalOf, durQ, days, nowET, etOf, filingIndexUrl, loadHarvest, resolveCite, quoteCheckAccn, filerDays, rollBusinessDay, scrubProvenance } from './lib.mjs';
 import { TAGS, FLOW, INSTANT } from './tags.mjs';
 
 const FIRST_FY_END = '2022-06-01';   // history kept from fiscal 2023 quarters onward (≥ 3 years)
@@ -22,7 +22,9 @@ const filings = await readJson(TOOLS + 'data/filings.json', { companies: {} });
 const state = await readJson(TOOLS + 'data/state.json', {});
 const prevMetrics = await readJson(TOOLS + 'data/metrics.json', null);
 const prevLog = await readJson(TOOLS + 'data/changelog.json', { entries: [] });
-// latest FactSet debt snapshot (tools/hyperscalers/raw/factset/<date>-debt.json, pulled in a Claude session)
+// reader-facing log of curated edits (tools/hyperscalers/data/curated-log.json): merged into the change log the home page shows
+const curatedLog = await readJson(TOOLS + 'data/curated-log.json', { entries: [] });
+// latest FactSet debt snapshot (tools/hyperscalers/raw/factset/<date>-debt.json, pulled outside the automated run; dated)
 const fsDir = new URL('tools/hyperscalers/raw/factset/', ROOT);
 const fsFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-debt\.json$/.test(f)).sort();
 const debtSnap = fsFiles.length ? { file: `tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`, ...(await readJson(`tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`)) } : null;
@@ -264,35 +266,39 @@ for (const c of companies) {
   for (const rec of OUTL.items.filter((r) => r.ticker === c.ticker)) {
     const q = quarters.find((x) => x.id === rec.quarter), x = q && q.m[rec.metric];
     if (!x || Math.abs(rec.valueUSDm * 1e6 - x.v) > Math.max(1e6, Math.abs(x.v) * 0.005)) continue;
-    x.conf = { result: rec.result, note_en: rec.note_en, note_es: rec.note_es, src: resolveCite(HARVEST, rec.src), status: rec.status, verifiedBy: rec.verifiedBy, verifiedOn: rec.verifiedOn, reviewedBy: rec.reviewedBy ?? null, medianUSDm: x.anomaly != null ? Math.round(x.anomaly / 1e5) / 10 : null, flagged: x.anomaly != null };
+    x.conf = { result: rec.result, note_en: rec.note_en, note_es: rec.note_es, src: resolveCite(HARVEST, rec.src), status: rec.status, verifiedHow: rec.status === 'verified' ? 'automated' : null, verifiedOn: rec.verifiedOn, reviewedBy: rec.reviewedBy ?? null, medianUSDm: x.anomaly != null ? Math.round(x.anomaly / 1e5) / 10 : null, flagged: x.anomaly != null };
     rec._applied = true;
     const a = anomalies.find((y) => y.id === rec.quarter && y.k === rec.metric);
     if (a) a.result = rec.result;
   }
   for (const q of quarters) for (const x of Object.values(q.m)) if (x.anomaly != null && !(x.conf && x.conf.result === 'confirmed')) x.review = true;
 
-  // staleness: next expected filing = next period end + the SEC deadline for the filer category (+7 days grace)
+  // staleness: next expected filing = next period end + the SEC deadline for the filer category (filerDays: 40/60 large
+  // accelerated and 40/75 accelerated, 45/90 non-accelerated, 120 for the 20-F), rolled to the next business day when it
+  // falls on a weekend or SEC holiday; the page adds 7 days of grace before calling the company stale
   const last = quarters.filter((q) => q.m.capex_cash || q.m.ocf || (q.ttm && q.ttm.capex_cash != null)).pop();
   const cat = fl.category || '';
   const fpi = c.ticker === 'NBIS';
-  const qDays = /Large accelerated/i.test(cat) ? 40 : /Accelerated/i.test(cat) ? 40 : 45;
-  const kDays = /Large accelerated/i.test(cat) ? 60 : /Accelerated/i.test(cat) ? 75 : 90;
-  let nextEnd = null, due = null;
+  const fd = filerDays(cat);
+  let nextEnd = null, due = null, dueRaw = null, dueForm = null;
   if (last) {
     const d = new Date(last.end + 'T12:00:00Z');
     const months = fpi ? 12 : 3;
     const ne = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth() + months + 1, 0));
     nextEnd = ne.toISOString().slice(0, 10);
     const isK = fiscalOf(nextEnd, c.fyEnd).q === 4;
-    const add = fpi ? 120 : isK ? kDays : qDays;
-    due = new Date(ne.getTime() + add * 864e5).toISOString().slice(0, 10);
+    dueForm = fpi ? '20-F' : isK ? '10-K' : '10-Q';
+    const add = fpi ? 120 : isK ? fd.k : fd.q;
+    dueRaw = new Date(ne.getTime() + add * 864e5).toISOString().slice(0, 10);
+    due = rollBusinessDay(dueRaw);
   }
   const lastFilings = (fl.filings || []).filter((f) => /^(10-K|10-Q|20-F|6-K|8-K)/.test(f.form)).slice(0, 12)
     .map((f) => ({ form: f.form, filed: f.filed, report: f.report, accn: f.accn, items: f.items, url: filingIndexUrl(c.cik, f.accn) }));
   out.companies[c.ticker] = {
     ticker: c.ticker, cik: c.cik, name: c.name, group: c.group, color: c.color, fyEnd: c.fyEnd, category: cat || null,
+    filer: { category: cat || null, label: fd.label, qDays: fpi ? null : fd.q, kDays: fpi ? 120 : fd.k },
     note: c.note_en ? { en: c.note_en, es: c.note_es } : null,
-    latest: last ? { id: last.id, end: last.end, cal: last.cal } : null, nextPeriodEnd: nextEnd, nextFilingDue: due,
+    latest: last ? { id: last.id, end: last.end, cal: last.cal } : null, nextPeriodEnd: nextEnd, nextFilingDue: due, nextFilingDueRaw: dueRaw, nextFilingForm: dueForm,
     quarters: quarters.filter((q) => Object.keys(q.m).length).map((q) => ({ id: q.id, end: q.end, cal: q.cal, m: Object.fromEntries(Object.entries(q.m).map(([k, x]) => [k, [x.v, x.t, x.a, x.m, x.review ? 1 : 0, x.mixed ? 1 : 0, x.conf || 0]])), d: q.d, ttm: q.ttm })),
     fy: Object.values(FY).sort((a, b) => a.end.localeCompare(b.end)).map((f) => ({ id: f.id, end: f.end, m: Object.fromEntries(Object.entries(f.m).map(([k, x]) => [k, [x.v, x.t, x.a]])) })),
     anomalies, filings: lastFilings,
@@ -328,7 +334,7 @@ if (debtSnap) {
     const match = out.offerings.find((o) => o.ticker === ticker && Math.abs(Date.parse(o.date) - Date.parse(issued)) <= 7 * 864e5 && amount > 0 && Math.abs(o.amount / 1e6 - amount) / amount <= 0.03);
     // the curated SEC filing behind a deal no fee exhibit matched (EDGAR full-text index and/or a harvested 10-K/10-Q passage)
     const cur = (dealMatchesCur.matches || []).find((m) => m.key === k);
-    const fs = cur ? { result: cur.result, filing: cur.filing || null, textSrc: cur.textSrc ? resolveCite(HARVEST, cur.textSrc) : null, note_en: cur.note_en || null, note_es: cur.note_es || null, status: cur.status, verifiedBy: cur.verifiedBy || null, verifiedOn: cur.verifiedOn || null, reviewedBy: cur.reviewedBy || null } : null;
+    const fs = cur ? { result: cur.result, filing: cur.filing || null, textSrc: cur.textSrc ? resolveCite(HARVEST, cur.textSrc) : null, note_en: cur.note_en || null, note_es: cur.note_es || null, status: cur.status, verifiedHow: cur.status === 'matched' || cur.status === 'verified' ? 'automated' : null, verifiedOn: cur.verifiedOn || null, reviewedBy: cur.reviewedBy || null } : null;
     deals.push({ ticker, issued, klass, tranches: ts.length, amount, couponMin: cps.length ? Math.min(...cps) : null, couponMax: cps.length ? Math.max(...cps) : null,
       floating: ts.some((t) => t[6] === 'Variable'), tenorMin: ten.length ? Math.min(...ten) : null, tenorMax: ten.length ? Math.max(...ten) : null, maturityLast: ts.map((t) => t[8]).sort().at(-1),
       seniority: [...new Set(ts.map((t) => t[3]))].join('; '), nonUSD, undrawn: amount === 0, reportDate: ts[0][9], ids: ts.map((t) => t[1]),
@@ -336,16 +342,30 @@ if (debtSnap) {
   }
   deals.sort((a, b) => b.issued.localeCompare(a.issued) || b.amount - a.amount);
 }
-// explained gaps: each record's citation checked against the harvested page (quoteCheck), ready for the pages' ⓘ cards
-out.notTagged = (notTaggedCur.items || []).map((i) => ({ ...i, src: i.src ? resolveCite(HARVEST, i.src) : null, url: i.src ? null : (i.accn ? filingIndexUrl(companies.find((c) => c.ticker === i.ticker).cik, i.accn) : null) }));
-out.notTaggedMeta = { updatedAt: notTaggedCur.updatedAt || null, readBy: notTaggedCur.readBy || null };
+// explained gaps: each record's citation checked against the harvested page (quoteCheck), ready for the pages' ⓘ cards.
+// check: how the gap's explanation was established — 'quote' (a sentence matched on the cited harvested page), 'derived' (a
+// trailing-twelve-month figure built from tagged facts and listed zero periods), 'xbrl_concept' (an XBRL concept check or
+// EDGAR full-text search alone: shown as "tag-checked", never as "verified"), 'quote_unmatched' (a cited sentence the
+// harvested page does not carry: needs review)
+out.notTagged = (notTaggedCur.items || []).map((i) => {
+  const src = i.src ? resolveCite(HARVEST, i.src) : null;
+  const check = i.derived ? 'derived' : src ? (src.quoteCheck === 'page' ? 'quote' : 'quote_unmatched') : 'xbrl_concept';
+  const { verifiedBy, readBy, ...rest } = i;
+  return { ...rest, src, url: src ? null : (i.accn ? filingIndexUrl(companies.find((c) => c.ticker === i.ticker).cik, i.accn) : null), check, verifiedHow: i.status === 'verified' ? 'automated' : null };
+});
+out.notTaggedMeta = { updatedAt: notTaggedCur.updatedAt || null };
 out.dealMatchesMeta = { updatedAt: dealMatchesCur.updatedAt || null, method: dealMatchesCur.method || null };
-out.outliers = { updatedAt: OUTL.updatedAt || null, method: OUTL.method || null, items: OUTL.items.map((r) => ({ ...r, src: resolveCite(HARVEST, r.src), applied: !!r._applied, _applied: undefined })) };
-out.verification = { en: 'automated quote-match plus a second AI read; not analyst-reviewed', es: 'cotejo automático de la cita más una segunda lectura por IA; sin revisión de analista' };
+out.outliers = { updatedAt: OUTL.updatedAt || null, method: OUTL.method || null, items: OUTL.items.map((r) => { const { verifiedBy, readBy, ...rest } = r; return { ...rest, src: resolveCite(HARVEST, r.src), applied: !!r._applied, _applied: undefined, verifiedHow: r.status === 'verified' ? 'automated' : null }; }) };
+out.verification = { en: 'automated quote-match plus a second automated read; not analyst-reviewed', es: 'cotejo automático de la cita más una segunda lectura automática; sin revisión de analista' };
 out.guidance = guidance;
+// one build time: a curated file edited after this build started would print a later time than the build; say so
+for (const [name, obj] of [['offbs', offbsCur], ['not-tagged', notTaggedCur], ['deal-matches', dealMatchesCur], ['outliers', OUTL], ['curated-log', { updatedAt: (curatedLog.entries || []).map((e) => e.at).sort().pop() }]])
+  if (obj.updatedAt && obj.updatedAt > stamp.iso) warnings.push({ ticker: '*', check: `${name}.json updatedAt ${obj.updatedAt} is after this build (${stamp.iso}); the pages derive every time from the build`, status: 'warn' });
 
 // Off-balance-sheet text items: the curated file plus Oracle's items read from the Oracle model's verified store
-// (one source of truth; the Oracle page and this hub show the same figure).
+// (one source of truth; the Oracle page and this hub show the same figure). Every item's quote is checked against the
+// harvested text of the cited page (quoteCheck); "verified" needs that match, otherwise the item drops to "needs review"
+// and says why. The item links the main filing document with its filed date (the index page is kept as indexUrl).
 const offItems = [...(offbsCur.items || [])];
 if (orclOblig && orclOblig.leases && orclOblig.leases.uncommenced) {
   const u = orclOblig.leases.uncommenced, src = orclOblig.sources[u.source] || {};
@@ -353,17 +373,33 @@ if (orclOblig && orclOblig.leases && orclOblig.leases.uncommenced) {
   offItems.push({ ticker: 'ORCL', item: 'leases_not_commenced', amountUSDm: u.usd_bn * 1000, basis: 'undiscounted', asOf: orclOblig.as_of,
     filing: { form: '10-Q', accn: accn ? accn.replace(/(\d{10})(\d{2})(\d{6})/, '$1-$2-$3') : null, url: src.url || null, section: 'Leases note', page: null },
     quote: u.text_en, commence: { from: u.commence_from, to: u.commence_to }, termYears: [u.term_years_min, u.term_years_max], history: u.history,
-    accounting: 'ASC 842', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true });
+    accounting: 'ASC 842', tier: 'T1', status: 'verified', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true, fromStore: 'oracle' });
 }
 if (orclOblig && orclOblig.prepayments && orclOblig.prepayments.deferred_revenue_prepayments_financing_1q27 != null) {
   const src = orclOblig.sources['10q_1q27'] || {};
   offItems.push({ ticker: 'ORCL', item: 'prepayment', amountUSDm: orclOblig.prepayments.deferred_revenue_prepayments_financing_1q27, basis: 'carrying', asOf: orclOblig.as_of,
     filing: { form: '10-Q', accn: '0001193125-26-389274', url: src.url || null, section: 'Cash-flow statement', page: null }, quote: orclOblig.prepayments.text_en,
-    accounting: 'ASC 606 (significant financing component)', tier: 'T1', status: 'verified', verifiedBy: 'Oracle model routine (tools/oracle/data/obligations.json)', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true });
+    accounting: 'ASC 606 (significant financing component)', tier: 'T1', status: 'verified', verifiedOn: orclOblig.updated, reviewedBy: null, pagePending: true, fromStore: 'oracle' });
 }
 for (const i of offItems) if (!('reviewedBy' in i)) i.reviewedBy = null;
-// page citations found in the harvested notes for items that come from another store (Oracle)
-for (const pc of offbsCur.pageCites || []) for (const i of offItems) if (i.ticker === pc.ticker && i.item === pc.item && i.filing && i.filing.accn === pc.accn && !i.filing.page) { i.filing.page = pc.page; i.filing.section = pc.section || i.filing.section; delete i.pagePending; }
+// page citations (and the verbatim sentence) found in the harvested notes for items that come from another store (Oracle)
+for (const pc of offbsCur.pageCites || []) for (const i of offItems) if (i.ticker === pc.ticker && i.item === pc.item && i.filing && i.filing.accn === pc.accn && !i.filing.page) { i.filing.page = pc.page; i.filing.section = pc.section || i.filing.section; if (pc.quote) i.quote = pc.quote; if (pc.note_en) { i.note_en = pc.note_en; i.note_es = pc.note_es; } delete i.pagePending; }
+for (const i of offItems) {
+  const qc = i.filing && i.filing.accn ? quoteCheckAccn(HARVEST, i.filing.accn, i.filing.page, i.quote) : { quoteCheck: 'no_harvest', foundOn: null, filing: null };
+  i.quoteCheck = qc.quoteCheck; i.foundOn = qc.foundOn;
+  if (i.filing) {
+    if (/-index\.htm$/.test(i.filing.url || '')) i.filing.indexUrl = i.filing.url;
+    if (qc.filing) { i.filing.indexUrl = i.filing.indexUrl || filingIndexUrl(companies.find((c) => c.ticker === i.ticker).cik, i.filing.accn); i.filing.url = qc.filing.url; i.filing.filed = qc.filing.filed; i.filing.report = qc.filing.report; }
+  }
+  i.verifiedHow = i.status === 'verified' ? 'automated' : null;
+  if (i.status === 'verified' && i.quoteCheck !== 'page') {
+    i.status = 'needs_review'; i.verifiedHow = null;
+    i.reviewNote_en = i.quoteCheck === 'no_harvest' ? 'the cited filing is not in the harvested text, so the quote could not be checked against its page' : i.quoteCheck === 'other_page' ? `the quoted sentence sits on page ${i.foundOn} of the harvested text, not on the cited page` : i.filing && !i.filing.page ? 'no page is cited, so the quote could not be checked' : 'the quoted sentence was not found on the cited page of the harvested text';
+    i.reviewNote_es = i.quoteCheck === 'no_harvest' ? 'la presentación citada no está en el texto cosechado, así que la cita no se pudo cotejar con su página' : i.quoteCheck === 'other_page' ? `la frase citada está en la página ${i.foundOn} del texto cosechado, no en la citada` : i.filing && !i.filing.page ? 'no se cita página, así que la cita no se pudo cotejar' : 'la frase citada no se encontró en la página citada del texto cosechado';
+    warnings.push({ ticker: i.ticker, check: `offbs ${i.item}: ${i.reviewNote_en}`, status: 'warn' });
+  }
+  delete i.readBy; delete i.verifiedBy;
+}
 out.offbs = { updated: offbsCur.updated, updatedAt: offbsCur.updatedAt || null, items: offItems, searched: offbsCur.searched || [] };
 out.debt = debtSnap ? { file: debtSnap.file, pulledAt: debtSnap.pulledAt, source: debtSnap.source, totals: debtSnap.totals, notes: debtSnap.notes, tranches: debtSnap.tranches, deals } : null;
 
@@ -391,10 +427,10 @@ await writeJson(TOOLS + 'data/metrics.json', { generated: stamp.iso, values: fla
 await writeJson(TOOLS + 'data/changelog.json', log);
 await writeJson(TOOLS + 'data/derivations.json', { generated: stamp.iso, warnings, restated });
 
-const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} by scripts/hyperscalers/build.mjs — do not hand-edit.\nwindow.${key} = ${JSON.stringify(obj)};\n`);
+const js = (name, key, obj, note) => writeText(`${SITE}data/${name}.js`, `// ${note}\n// Generated ${stamp.iso} by scripts/hyperscalers/build.mjs — do not hand-edit.\nwindow.${key} = ${JSON.stringify(scrubProvenance(obj))};\n`);
 await js('financials', 'HYP_FIN', out, 'Hyperscaler Hub financials: XBRL-tagged values from SEC companyfacts (T1), quarters derived from year-to-date facts, ratios computed (FNAM calculation).');
-await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200) }, 'Hyperscaler Hub change log: what each refresh added or revised, and restatements found in later filings.');
-await js('status', 'HYP_STATUS', { generated: stamp.iso, refreshedET: stamp.et, lastEdgarRun: state.lastRun || null, lastEdgarSuccess: state.lastSuccess || null, edgarErrors: state.errors || [], consecutiveFailures: state.consecutiveFailures || 0 }, 'Hyperscaler Hub refresh status (EDGAR poll).');
+await js('changelog', 'HYP_LOG', { generated: stamp.iso, refreshedET: stamp.et, entries: log.entries.slice(0, 200), restated: restated.slice(-200), curated: (curatedLog.entries || []).slice().sort((a, b) => String(b.at).localeCompare(String(a.at))) }, 'Hyperscaler Hub change log: what each refresh added or revised, restatements found in later filings, and the log of curated edits.');
+await js('status', 'HYP_STATUS', { generated: stamp.iso, refreshedET: stamp.et, lastEdgarRun: state.lastRun || null, lastEdgarRunET: state.lastRun ? etOf(state.lastRun) : null, lastEdgarSuccess: state.lastSuccess || null, lastEdgarSuccessET: state.lastSuccess ? etOf(state.lastSuccess) : null, edgarErrors: state.errors || [], consecutiveFailures: state.consecutiveFailures || 0 }, 'Hyperscaler Hub refresh status (EDGAR poll).');
 
 // CSV downloads: one per table family (static files, so they work without JavaScript)
 const csvEsc = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v).replace(/"/g, '""')}"` : String(v));
