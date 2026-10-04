@@ -170,6 +170,10 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   section is a flex column there with `order` values, so new summary children need an `order` or they land at the end.
 - `markWideTables()` runs after every render and after a section opens (`applyCollapse`): a table hidden in a collapsed section
   has no width, so the sticky-column class is only decided once it is visible.
+- `.github/workflows/oracle-refresh.yml`: a step `name:` that contains ": " must be quoted. The 3-Oct-2026 edit left one unquoted, so
+  GitHub could not parse the file and every run (push-triggered and the 13:30/21:45 schedules) failed at startup with no jobs until
+  4 Oct; the stale 2-Oct close the owner noticed in round 4 was that outage. Parse every workflow with `python3 -c "import yaml; ..."`
+  before pushing a workflow change.
 
 ## Open items
 
