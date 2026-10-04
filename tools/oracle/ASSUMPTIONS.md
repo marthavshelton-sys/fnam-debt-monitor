@@ -103,17 +103,37 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 | Customer-funded share of capex | 1 − net cash cap ÷ gross midpoint of the FY capex guide (24.3% for FY2027), held through the consensus years, fading to 0 | Guidance text parsed automatically |
 | Prepayment unwind | 6 years | Oracle's illustrative six-year 1 GW deal (analyst meeting, 16-Oct-2025, p.10) |
 | Terminal capex / D&A (k) | 1 + g × L / 2 = 1.09 | L = 6-year server life (10-Q note 3); g = terminal growth |
-| Tax rate | LTM GAAP effective rate | computed |
+| Tax rate | Ramp from the LTM effective rate (provision ÷ pretax income, four quarters) to the normalized rate by the last explicit year; modes: hold LTM, ramp (default), normalized from year 1 | `tax.json`: normalized = 21.0% federal statutory + 0.9 pp state net of federal benefit (FY2026 10-K rate reconciliation, cross-checked against XBRL) = 21.9% |
+| Uncommenced leases | Operating (default: rent assumed inside the consensus margin, nothing deducted) or finance (the illustrative PV of the US$288 bn is deducted in the bridge) | 1Q27 10-Q leases note (second reading 2026-10-04); PV method as in the off-balance-sheet section |
 | Risk-free rate | 10-year Treasury, latest | FRED DGS10 |
 | Equity risk premium | Damodaran implied ERP, latest month (4.14% on 1-Sep-2026) | fetched monthly by fetch-market.mjs; 4.5% only if no reading exists |
 | Beta | Two years of weekly returns, ORCL on the S&P 500 (raw) | cross-checks shown: five-year monthly, Blume-adjusted (0.67 β + 0.33) of both |
-| Cost of debt | Today's 10-year Treasury + the issue spread of the latest ~10-year fixed note (5.70% Feb-2036 note: 1.41 pp) | 10-K debt footnote + FRED DGS10 on the issue date |
-| Target leverage | Net debt / (net debt + market cap) | computed |
+| Cost of debt | Today's 10-year Treasury + the issue spread of the latest ~10-year fixed note (5.70% Feb-2036 note: 1.41 pp); applied to net debt and finance leases | 10-K debt footnote + FRED DGS10 on the issue date |
+| Cost of the preferred | 6.50% dividend rate, no tax shield | 424B5 prospectus (Feb 2026) |
+| Weights | (net debt + finance-lease liabilities + preferred) / (that + market cap): the same claims the bridge deducts | computed; owner's rule 2026-10-04 |
+| Scenarios | Base = consensus unadjusted; Bull = FY2030 revenue target on consensus economics; Bear = RPO conversion slips one year + Project Jupiter two quarters late (18% of named nameplate × ½ year) + OpenAI volume −25% on S&P's "about half of RPO" (12.5% of incremental revenue) | METHODOLOGY.md §8 |
+| Acceptance | "What has to be true": implied WACC/beta, and at the model's WACC, 9% and 8% the uniform margin shift, growth multiplier and terminal g that return the price | computed; replaces the bracketing test (2026-10-04) |
 | Terminal | Gordon growth 3.0% (or exit multiple 12× EBITDA) | Assumption |
 | Discounting | Mid-period, to the latest close; TV at mid-year after the horizon | Convention |
-| Equity bridge | EV − net debt − finance-lease liabilities − mandatory convertible preferred (liquidation preference) | 10-Q (XBRL) |
+| Equity bridge | EV − net debt − finance-lease liabilities − mandatory convertible preferred (liquidation preference) [− PV of uncommenced leases under the finance treatment] | 10-Q (XBRL) |
 | Shares | 10-Q cover shares + dilutive securities (diluted − basic weighted average, latest quarter) | SEC XBRL (dei, us-gaap) |
 | Concession annuity method | Not offered | Oracle has no concession or licence end-date |
+
+## Sources and uses, counterparties, RPO bridge (2026-10-04)
+
+- Sources and uses: consensus rows are FactSet fiscal-year means (free cash flow, capex; operating cash flow = FCF + capex,
+  derived); customer prepayments = the DCF's customer-funded share × gross capex (estimate, memo); dividends = latest
+  declared DPS × 4 × 10-Q cover shares + the preferred's quarterly dividend × 4 (FNAM calculation); maturities = principal
+  of the 10-K debt-footnote instruments maturing in each fiscal year (reported); the company's FY2027 plan (US$40 bn ≈
+  US$19.9 bn ATM done + US$20.1 bn to raise) is a company statement. Interest is not a separate use (inside consensus OCF).
+- Counterparties: names from the FWP of 1-Feb-2026 (SEC); OpenAI ≈ half of RPO is S&P's estimate (9-Jul-2026); contract
+  sizes are press (WSJ, Reuters/CNBC) and never enter a figure; the counterparty-capacity note (OpenAI annualised revenue
+  and funding rounds, press) is an FNAM estimate and says so.
+- RPO-to-revenue bridge: even monthly recognition inside each 10-Q bucket (Oracle gives no monthly profile); fiscal years
+  June–May; consensus revenue from FactSet. Coverage = (already reported + contracted conversion) ÷ consensus.
+- Hyperscaler comparison: the hub's definitions (TTM = four consecutive XBRL quarters; capex = cash purchases of PP&E;
+  lease-adjusted net debt = debt − cash + recognised operating and finance lease liabilities; EBITDA = operating income +
+  D&A); Oracle's leverage in that table is on EBITDA, not EBITDAR, to match the hub.
 
 ## Guidance
 

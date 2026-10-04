@@ -1,7 +1,7 @@
 {
   "note": "Oracle XBRL facts from the SEC company-facts API (us-gaap taxonomy). US$ millions unless the unit says otherwise. Latest-filed value per period wins; superseded accessions listed. Discrete quarters for duration concepts are derived by subtraction within the fiscal year and flagged. Written by scripts/oracle/fetch-xbrl-facts.mjs.",
   "cik": "0001341439",
-  "fetched": "2026-10-03T23:16:56.827Z",
+  "fetched": "2026-10-04T00:38:44.061Z",
   "source": {
     "title": "SEC EDGAR XBRL company facts, Oracle Corporation (CIK 1341439)",
     "url": "https://data.sec.gov/api/xbrl/companyfacts/CIK0001341439.json"
@@ -12383,6 +12383,1529 @@
           "fp": "Q1",
           "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
           "superseded": []
+        }
+      ]
+    },
+    "tax_rate_effective": {
+      "concept": "EffectiveIncomeTaxRateContinuingOperations",
+      "label": "Effective income tax rate (as tagged, per period)",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2023-06-01",
+          "end": "2023-08-31",
+          "months": 3,
+          "value": -1.9,
+          "form": "10-Q",
+          "accn": "0000950170-24-104905",
+          "filed": "2024-09-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-047713",
+              "form": "10-Q",
+              "filed": "2023-09-12",
+              "value": -1.9
+            }
+          ],
+          "fiscal": "FY2024Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2023-11-30",
+          "months": 6,
+          "value": 3.4,
+          "form": "10-Q",
+          "accn": "0000950170-24-134973",
+          "filed": "2024-12-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-069682",
+              "form": "10-Q",
+              "filed": "2023-12-12",
+              "value": 3.4
+            }
+          ],
+          "fiscal": "FY2024Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2023-09-01",
+          "end": "2023-11-30",
+          "months": 3,
+          "value": 8,
+          "form": "10-Q",
+          "accn": "0000950170-24-134973",
+          "filed": "2024-12-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-069682",
+              "form": "10-Q",
+              "filed": "2023-12-12",
+              "value": 8
+            }
+          ],
+          "fiscal": "FY2024Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2024-02-29",
+          "months": 9,
+          "value": 8,
+          "form": "10-Q",
+          "accn": "0000950170-25-037143",
+          "filed": "2025-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-029904",
+              "form": "10-Q",
+              "filed": "2024-03-12",
+              "value": 8
+            }
+          ],
+          "fiscal": "FY2024Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2023-12-01",
+          "end": "2024-02-29",
+          "months": 3,
+          "value": 16.2,
+          "form": "10-Q",
+          "accn": "0000950170-25-037143",
+          "filed": "2025-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-029904",
+              "form": "10-Q",
+              "filed": "2024-03-12",
+              "value": 16.2
+            }
+          ],
+          "fiscal": "FY2024Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2024-05-31",
+          "months": 12,
+          "value": 10.9,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-075605",
+              "form": "10-K",
+              "filed": "2024-06-20",
+              "value": 10.9
+            },
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 10.9
+            }
+          ],
+          "fiscal": "FY2024Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2024-08-31",
+          "months": 3,
+          "value": 7.6,
+          "form": "10-Q",
+          "accn": "0001193125-25-200095",
+          "filed": "2025-09-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-104905",
+              "form": "10-Q",
+              "filed": "2024-09-10",
+              "value": 7.6
+            }
+          ],
+          "fiscal": "FY2025Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2024-11-30",
+          "months": 6,
+          "value": 7.3,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "filed": "2024-12-10",
+              "value": 7.3
+            }
+          ],
+          "fiscal": "FY2025Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2024-09-01",
+          "end": "2024-11-30",
+          "months": 3,
+          "value": 7.1,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "filed": "2024-12-10",
+              "value": 7.1
+            }
+          ],
+          "fiscal": "FY2025Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2025-02-28",
+          "months": 9,
+          "value": 9.9,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "filed": "2025-03-11",
+              "value": 9.9
+            }
+          ],
+          "fiscal": "FY2025Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2024-12-01",
+          "end": "2025-02-28",
+          "months": 3,
+          "value": 14.9,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "filed": "2025-03-11",
+              "value": 14.9
+            }
+          ],
+          "fiscal": "FY2025Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2025-05-31",
+          "months": 12,
+          "value": 12.1,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 12.1
+            }
+          ],
+          "fiscal": "FY2025Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2025-08-31",
+          "months": 3,
+          "value": 14.6,
+          "form": "10-Q",
+          "accn": "0001193125-26-389274",
+          "filed": "2026-09-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "superseded": [
+            {
+              "accn": "0001193125-25-200095",
+              "form": "10-Q",
+              "filed": "2025-09-10",
+              "value": 14.6
+            }
+          ],
+          "fiscal": "FY2026Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2025-11-30",
+          "months": 6,
+          "value": 7.2,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2025-09-01",
+          "end": "2025-11-30",
+          "months": 3,
+          "value": 3.3,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2026-02-28",
+          "months": 9,
+          "value": 9.9,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2025-12-01",
+          "end": "2026-02-28",
+          "months": 3,
+          "value": 15.7,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 12.6,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2026-06-01",
+          "end": "2026-08-31",
+          "months": 3,
+          "value": 15.1,
+          "form": "10-Q",
+          "accn": "0001193125-26-389274",
+          "filed": "2026-09-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "superseded": [],
+          "fiscal": "FY2027Q1",
+          "ytd_months": 3
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2024",
+          "period_end": "2024-05-31",
+          "value": 10.9,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2025",
+          "period_end": "2025-05-31",
+          "value": 12.1,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 12.6,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": [
+        {
+          "quarter": "FY2024Q1",
+          "period_end": "2023-08-31",
+          "value": -1.9,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-24-104905",
+              "form": "10-Q",
+              "span": "2023-06-01→2023-08-31",
+              "value": -1.9
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm",
+          "filed": "2024-09-10"
+        },
+        {
+          "quarter": "FY2024Q2",
+          "period_end": "2023-11-30",
+          "value": 8,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "span": "2023-09-01→2023-11-30",
+              "value": 8
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "filed": "2024-12-10"
+        },
+        {
+          "quarter": "FY2024Q3",
+          "period_end": "2024-02-29",
+          "value": 16.2,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "span": "2023-12-01→2024-02-29",
+              "value": 16.2
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "filed": "2025-03-11"
+        },
+        {
+          "quarter": "FY2025Q1",
+          "period_end": "2024-08-31",
+          "value": 7.6,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-200095",
+              "form": "10-Q",
+              "span": "2024-06-01→2024-08-31",
+              "value": 7.6
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm",
+          "filed": "2025-09-10"
+        },
+        {
+          "quarter": "FY2025Q2",
+          "period_end": "2024-11-30",
+          "value": 7.1,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-315925",
+              "form": "10-Q",
+              "span": "2024-09-01→2024-11-30",
+              "value": 7.1
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "filed": "2025-12-11"
+        },
+        {
+          "quarter": "FY2025Q3",
+          "period_end": "2025-02-28",
+          "value": 14.9,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2024-12-01→2025-02-28",
+              "value": 14.9
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "filed": "2026-03-11"
+        },
+        {
+          "quarter": "FY2026Q1",
+          "period_end": "2025-08-31",
+          "value": 14.6,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-389274",
+              "form": "10-Q",
+              "span": "2025-06-01→2025-08-31",
+              "value": 14.6
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "filed": "2026-09-11"
+        },
+        {
+          "quarter": "FY2026Q2",
+          "period_end": "2025-11-30",
+          "value": 3.3,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-315925",
+              "form": "10-Q",
+              "span": "2025-09-01→2025-11-30",
+              "value": 3.3
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "filed": "2025-12-11"
+        },
+        {
+          "quarter": "FY2026Q3",
+          "period_end": "2026-02-28",
+          "value": 15.7,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2025-12-01→2026-02-28",
+              "value": 15.7
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "filed": "2026-03-11"
+        },
+        {
+          "quarter": "FY2027Q1",
+          "period_end": "2026-08-31",
+          "value": 15.1,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-389274",
+              "form": "10-Q",
+              "span": "2026-06-01→2026-08-31",
+              "value": 15.1
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "filed": "2026-09-11"
+        }
+      ]
+    },
+    "tax_rate_statutory": {
+      "concept": "EffectiveIncomeTaxRateReconciliationAtFederalStatutoryIncomeTaxRate",
+      "label": "US federal statutory income tax rate",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2023-06-01",
+          "end": "2024-05-31",
+          "months": 12,
+          "value": 21,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-075605",
+              "form": "10-K",
+              "filed": "2024-06-20",
+              "value": 21
+            },
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 21
+            }
+          ],
+          "fiscal": "FY2024Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2025-05-31",
+          "months": 12,
+          "value": 21,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 21
+            }
+          ],
+          "fiscal": "FY2025Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 21,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2024",
+          "period_end": "2024-05-31",
+          "value": 21,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2025",
+          "period_end": "2025-05-31",
+          "value": 21,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 21,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_foreign": {
+      "concept": "EffectiveIncomeTaxRateReconciliationForeignIncomeTaxRateDifferential",
+      "label": "Rate reconciliation: foreign tax effects",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": -0.4,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": -0.4,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_enacted": {
+      "concept": "EffectiveIncomeTaxRateReconciliationChangeInEnactedTaxRate",
+      "label": "Rate reconciliation: changes in tax laws or rates enacted in the period",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 4.8,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 4.8,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_credits": {
+      "concept": "EffectiveIncomeTaxRateReconciliationTaxCredits",
+      "label": "Rate reconciliation: tax credits",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 8.1,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 8.1,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_nondeductible": {
+      "concept": "EffectiveIncomeTaxRateReconciliationNondeductibleExpense",
+      "label": "Rate reconciliation: nontaxable or nondeductible items (incl. stock-based compensation)",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": -10.1,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": -10.1,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_sbc": {
+      "concept": "EffectiveIncomeTaxRateReconciliationNondeductibleExpenseShareBasedCompensationCost",
+      "label": "Rate reconciliation: stock-based compensation",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": -10.6,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": -10.6,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_contingencies": {
+      "concept": "EffectiveIncomeTaxRateReconciliationTaxContingencies",
+      "label": "Rate reconciliation: changes in unrecognized tax benefits",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 4.3,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 4.3,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_rate_other": {
+      "concept": "EffectiveIncomeTaxRateReconciliationOtherAdjustments",
+      "label": "Rate reconciliation: other adjustments (incl. state taxes net of federal benefit)",
+      "kind": "rate",
+      "unit": "percent",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 1.1,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 1.1,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": []
+    },
+    "tax_provision": {
+      "concept": "IncomeTaxExpenseBenefit",
+      "label": "Provision for income taxes",
+      "kind": "duration",
+      "unit": "USD millions",
+      "periods": [],
+      "cumulative": [
+        {
+          "start": "2023-06-01",
+          "end": "2023-08-31",
+          "months": 3,
+          "value": -45,
+          "form": "10-Q",
+          "accn": "0000950170-24-104905",
+          "filed": "2024-09-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-047713",
+              "form": "10-Q",
+              "filed": "2023-09-12",
+              "value": -45
+            }
+          ],
+          "fiscal": "FY2024Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2023-11-30",
+          "months": 6,
+          "value": 172,
+          "form": "10-Q",
+          "accn": "0000950170-24-134973",
+          "filed": "2024-12-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-069682",
+              "form": "10-Q",
+              "filed": "2023-12-12",
+              "value": 172
+            }
+          ],
+          "fiscal": "FY2024Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2023-09-01",
+          "end": "2023-11-30",
+          "months": 3,
+          "value": 217,
+          "form": "10-Q",
+          "accn": "0000950170-24-134973",
+          "filed": "2024-12-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-23-069682",
+              "form": "10-Q",
+              "filed": "2023-12-12",
+              "value": 217
+            }
+          ],
+          "fiscal": "FY2024Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2024-02-29",
+          "months": 9,
+          "value": 636,
+          "form": "10-Q",
+          "accn": "0000950170-25-037143",
+          "filed": "2025-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-029904",
+              "form": "10-Q",
+              "filed": "2024-03-12",
+              "value": 636
+            }
+          ],
+          "fiscal": "FY2024Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2023-12-01",
+          "end": "2024-02-29",
+          "months": 3,
+          "value": 464,
+          "form": "10-Q",
+          "accn": "0000950170-25-037143",
+          "filed": "2025-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-029904",
+              "form": "10-Q",
+              "filed": "2024-03-12",
+              "value": 464
+            }
+          ],
+          "fiscal": "FY2024Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2023-06-01",
+          "end": "2024-05-31",
+          "months": 12,
+          "value": 1274,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-075605",
+              "form": "10-K",
+              "filed": "2024-06-20",
+              "value": 1274
+            },
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 1274
+            }
+          ],
+          "fiscal": "FY2024Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2024-08-31",
+          "months": 3,
+          "value": 240,
+          "form": "10-Q",
+          "accn": "0001193125-25-200095",
+          "filed": "2025-09-10",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-104905",
+              "form": "10-Q",
+              "filed": "2024-09-10",
+              "value": 240
+            }
+          ],
+          "fiscal": "FY2025Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2024-11-30",
+          "months": 6,
+          "value": 480,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "filed": "2024-12-10",
+              "value": 480
+            }
+          ],
+          "fiscal": "FY2025Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2024-09-01",
+          "end": "2024-11-30",
+          "months": 3,
+          "value": 239,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "filed": "2024-12-10",
+              "value": 239
+            }
+          ],
+          "fiscal": "FY2025Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2025-02-28",
+          "months": 9,
+          "value": 992,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "filed": "2025-03-11",
+              "value": 992
+            }
+          ],
+          "fiscal": "FY2025Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2024-12-01",
+          "end": "2025-02-28",
+          "months": 3,
+          "value": 512,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "filed": "2025-03-11",
+              "value": 512
+            }
+          ],
+          "fiscal": "FY2025Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2024-06-01",
+          "end": "2025-05-31",
+          "months": 12,
+          "value": 1717,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [
+            {
+              "accn": "0000950170-25-087926",
+              "form": "10-K",
+              "filed": "2025-06-18",
+              "value": 1717
+            }
+          ],
+          "fiscal": "FY2025Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2025-08-31",
+          "months": 3,
+          "value": 500,
+          "form": "10-Q",
+          "accn": "0001193125-26-389274",
+          "filed": "2026-09-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "superseded": [
+            {
+              "accn": "0001193125-25-200095",
+              "form": "10-Q",
+              "filed": "2025-09-10",
+              "value": 500
+            }
+          ],
+          "fiscal": "FY2026Q1",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2025-11-30",
+          "months": 6,
+          "value": 707,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q2",
+          "ytd_months": 6
+        },
+        {
+          "start": "2025-09-01",
+          "end": "2025-11-30",
+          "months": 3,
+          "value": 207,
+          "form": "10-Q",
+          "accn": "0001193125-25-315925",
+          "filed": "2025-12-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q2",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2026-02-28",
+          "months": 9,
+          "value": 1402,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q3",
+          "ytd_months": 9
+        },
+        {
+          "start": "2025-12-01",
+          "end": "2026-02-28",
+          "months": 3,
+          "value": 695,
+          "form": "10-Q",
+          "accn": "0001193125-26-101045",
+          "filed": "2026-03-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q3",
+          "ytd_months": 3
+        },
+        {
+          "start": "2025-06-01",
+          "end": "2026-05-31",
+          "months": 12,
+          "value": 2467,
+          "form": "10-K",
+          "accn": "0001193125-26-277521",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "superseded": [],
+          "fiscal": "FY2026Q4",
+          "ytd_months": 12
+        },
+        {
+          "start": "2026-06-01",
+          "end": "2026-08-31",
+          "months": 3,
+          "value": 847,
+          "form": "10-Q",
+          "accn": "0001193125-26-389274",
+          "filed": "2026-09-11",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "superseded": [],
+          "fiscal": "FY2027Q1",
+          "ytd_months": 3
+        }
+      ],
+      "fiscal_years": [
+        {
+          "fiscal_year": "FY2024",
+          "period_end": "2024-05-31",
+          "value": 1274,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2025",
+          "period_end": "2025-05-31",
+          "value": 1717,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        },
+        {
+          "fiscal_year": "FY2026",
+          "period_end": "2026-05-31",
+          "value": 2467,
+          "accn": "0001193125-26-277521",
+          "form": "10-K",
+          "filed": "2026-06-22",
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm"
+        }
+      ],
+      "quarters": [
+        {
+          "quarter": "FY2024Q1",
+          "period_end": "2023-08-31",
+          "value": -45,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-24-104905",
+              "form": "10-Q",
+              "span": "2023-06-01→2023-08-31",
+              "value": -45
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024104905/orcl-20240831.htm",
+          "filed": "2024-09-10"
+        },
+        {
+          "quarter": "FY2024Q2",
+          "period_end": "2023-11-30",
+          "value": 217,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-24-134973",
+              "form": "10-Q",
+              "span": "2023-09-01→2023-11-30",
+              "value": 217
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017024134973/orcl-20241130.htm",
+          "filed": "2024-12-10",
+          "cross_check": {
+            "value": 217,
+            "method": "6-month cumulative (10-Q 0000950170-24-134973) minus 3-month cumulative (10-Q 0000950170-24-104905)",
+            "diff": 0
+          }
+        },
+        {
+          "quarter": "FY2024Q3",
+          "period_end": "2024-02-29",
+          "value": 464,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "span": "2023-12-01→2024-02-29",
+              "value": 464
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000095017025037143/orcl-20250228.htm",
+          "filed": "2025-03-11",
+          "cross_check": {
+            "value": 464,
+            "method": "9-month cumulative (10-Q 0000950170-25-037143) minus 6-month cumulative (10-Q 0000950170-24-134973)",
+            "diff": 0
+          }
+        },
+        {
+          "quarter": "FY2024Q4",
+          "period_end": "2024-05-31",
+          "value": 638,
+          "derived": true,
+          "method": "12-month cumulative (10-K 0001193125-26-277521) minus 9-month cumulative (10-Q 0000950170-25-037143)",
+          "from": [
+            {
+              "accn": "0001193125-26-277521",
+              "form": "10-K",
+              "span": "2023-06-01→2024-05-31",
+              "value": 1274
+            },
+            {
+              "accn": "0000950170-25-037143",
+              "form": "10-Q",
+              "span": "2023-06-01→2024-02-29",
+              "value": 636
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "filed": "2026-06-22"
+        },
+        {
+          "quarter": "FY2025Q1",
+          "period_end": "2024-08-31",
+          "value": 240,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-200095",
+              "form": "10-Q",
+              "span": "2024-06-01→2024-08-31",
+              "value": 240
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm",
+          "filed": "2025-09-10"
+        },
+        {
+          "quarter": "FY2025Q2",
+          "period_end": "2024-11-30",
+          "value": 239,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-315925",
+              "form": "10-Q",
+              "span": "2024-09-01→2024-11-30",
+              "value": 239
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "filed": "2025-12-11",
+          "cross_check": {
+            "value": 240,
+            "method": "6-month cumulative (10-Q 0001193125-25-315925) minus 3-month cumulative (10-Q 0001193125-25-200095)",
+            "diff": 1
+          }
+        },
+        {
+          "quarter": "FY2025Q3",
+          "period_end": "2025-02-28",
+          "value": 512,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2024-12-01→2025-02-28",
+              "value": 512
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "filed": "2026-03-11",
+          "cross_check": {
+            "value": 512,
+            "method": "9-month cumulative (10-Q 0001193125-26-101045) minus 6-month cumulative (10-Q 0001193125-25-315925)",
+            "diff": 0
+          }
+        },
+        {
+          "quarter": "FY2025Q4",
+          "period_end": "2025-05-31",
+          "value": 725,
+          "derived": true,
+          "method": "12-month cumulative (10-K 0001193125-26-277521) minus 9-month cumulative (10-Q 0001193125-26-101045)",
+          "from": [
+            {
+              "accn": "0001193125-26-277521",
+              "form": "10-K",
+              "span": "2024-06-01→2025-05-31",
+              "value": 1717
+            },
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2024-06-01→2025-02-28",
+              "value": 992
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "filed": "2026-06-22"
+        },
+        {
+          "quarter": "FY2026Q1",
+          "period_end": "2025-08-31",
+          "value": 500,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-389274",
+              "form": "10-Q",
+              "span": "2025-06-01→2025-08-31",
+              "value": 500
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "filed": "2026-09-11"
+        },
+        {
+          "quarter": "FY2026Q2",
+          "period_end": "2025-11-30",
+          "value": 207,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-25-315925",
+              "form": "10-Q",
+              "span": "2025-09-01→2025-11-30",
+              "value": 207
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm",
+          "filed": "2025-12-11",
+          "cross_check": {
+            "value": 207,
+            "method": "6-month cumulative (10-Q 0001193125-25-315925) minus 3-month cumulative (10-Q 0001193125-26-389274)",
+            "diff": 0
+          }
+        },
+        {
+          "quarter": "FY2026Q3",
+          "period_end": "2026-02-28",
+          "value": 695,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2025-12-01→2026-02-28",
+              "value": 695
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526101045/orcl-20260228.htm",
+          "filed": "2026-03-11",
+          "cross_check": {
+            "value": 695,
+            "method": "9-month cumulative (10-Q 0001193125-26-101045) minus 6-month cumulative (10-Q 0001193125-25-315925)",
+            "diff": 0
+          }
+        },
+        {
+          "quarter": "FY2026Q4",
+          "period_end": "2026-05-31",
+          "value": 1065,
+          "derived": true,
+          "method": "12-month cumulative (10-K 0001193125-26-277521) minus 9-month cumulative (10-Q 0001193125-26-101045)",
+          "from": [
+            {
+              "accn": "0001193125-26-277521",
+              "form": "10-K",
+              "span": "2025-06-01→2026-05-31",
+              "value": 2467
+            },
+            {
+              "accn": "0001193125-26-101045",
+              "form": "10-Q",
+              "span": "2025-06-01→2026-02-28",
+              "value": 1402
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526277521/orcl-20260531.htm",
+          "filed": "2026-06-22"
+        },
+        {
+          "quarter": "FY2027Q1",
+          "period_end": "2026-08-31",
+          "value": 847,
+          "derived": false,
+          "from": [
+            {
+              "accn": "0001193125-26-389274",
+              "form": "10-Q",
+              "span": "2026-06-01→2026-08-31",
+              "value": 847
+            }
+          ],
+          "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
+          "filed": "2026-09-11"
         }
       ]
     }

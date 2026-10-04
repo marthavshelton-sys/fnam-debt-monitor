@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-03T23:44:37.219Z",
+  "generated": "2026-10-04T01:09:09.598Z",
   "summary": {
-    "checks": 433,
+    "checks": 443,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -3334,6 +3334,86 @@
       "note": null
     },
     {
+      "tag": "tax",
+      "check": "FY2026 effective and statutory rates match XBRL",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'foreign' (-0.4 pp) matches XBRL tax_rate_foreign",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'enacted' (4.8 pp) matches XBRL tax_rate_enacted",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'credits' (-8.1 pp) matches XBRL tax_rate_credits",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'sbc' (-10.1 pp) matches XBRL tax_rate_nondeductible",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'utb' (4.3 pp) matches XBRL tax_rate_contingencies",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 reconciliation line 'other' (1.1 pp) matches XBRL tax_rate_other",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "reconciliation lines sum from the statutory rate to the effective rate (±0.2 pp)",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.2,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "FY2026 provision matches XBRL IncomeTaxExpenseBenefit",
+      "status": "ok",
+      "diff": 0,
+      "tol": 1,
+      "note": null
+    },
+    {
+      "tag": "tax",
+      "check": "normalized rate = statutory + state line",
+      "status": "ok",
+      "diff": 0,
+      "tol": 0.05,
+      "note": null
+    },
+    {
       "tag": "news",
       "check": "every item has an ISO date, theme, bilingual title, summary and why-it-matters",
       "status": "ok",
@@ -3651,12 +3731,12 @@
     {
       "file": "buildout.json",
       "status": "ok",
-      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-03"
+      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-04"
     },
     {
       "file": "obligations.json",
       "status": "ok",
-      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-10-03"
+      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-10-04"
     },
     {
       "file": "fiscal_years.json",
@@ -3711,7 +3791,7 @@
       "label_es": "Datos XBRL (10-Q/10-K)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-03",
+      "lastRefresh": "2026-10-04",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3726,7 +3806,7 @@
       "label_es": "Notas de arrendamientos y compromisos",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-03",
+      "lastRefresh": "2026-10-04",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3786,7 +3866,7 @@
       "label_es": "Expansión (llamadas)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-03",
+      "lastRefresh": "2026-10-04",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3860,8 +3940,8 @@
       "label_en": "News and events",
       "label_es": "Noticias y eventos",
       "cadence": "daily",
-      "asOf": "2026-10-03",
-      "lastRefresh": "2026-10-03",
+      "asOf": "2026-10-04",
+      "lastRefresh": "2026-10-04",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -3920,8 +4000,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-03",
-      "lastRefresh": "2026-10-03",
+      "asOf": "2026-10-04",
+      "lastRefresh": "2026-10-04",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -3935,8 +4015,8 @@
       "label_en": "Change log",
       "label_es": "Bitácora de cambios",
       "cadence": "daily",
-      "asOf": "2026-10-03",
-      "lastRefresh": "2026-10-03",
+      "asOf": "2026-10-04",
+      "lastRefresh": "2026-10-04",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4317,9 +4397,10 @@
       "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
       "value": 288,
       "xbrl": null,
-      "verdict": "needs_review",
+      "verdict": "verified_text",
       "method": "text",
-      "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
+      "secondReading": "2026-10-04",
+      "reason": "text reading confirmed by a second reading on 2026-10-04 (no XBRL concept exists for this disclosure)"
     },
     {
       "path": "purchase_obligations.total",
@@ -4505,6 +4586,7 @@
       "xbrl": null,
       "verdict": "needs_review",
       "method": "text",
+      "secondReading": null,
       "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
     },
     {
@@ -4519,6 +4601,7 @@
       "xbrl": null,
       "verdict": "needs_review",
       "method": "text",
+      "secondReading": null,
       "reason": "text reading: no XBRL concept exists for this disclosure; kept for a second reading"
     },
     {
@@ -4579,19 +4662,20 @@
   "crossRefs": {
     "ids": [
       "summary",
-      "statements",
-      "guidance",
       "rpo",
-      "capex",
       "sites",
+      "capex",
       "financing",
       "obligations",
+      "credit",
       "circular",
       "valuation",
       "dcf",
-      "news",
       "risks",
+      "news",
       "calendar",
+      "statements",
+      "guidance",
       "method"
     ],
     "unresolved": []
@@ -5011,6 +5095,16 @@
     "FY2025: XBRL InterestExpense four derived quarters sum to the annual",
     "FY2026: XBRL InterestExpense four derived quarters sum to the annual",
     "xbrl: latest period end matches the latest quarter in quarters.json",
+    "tax: FY2026 effective and statutory rates match XBRL",
+    "tax: FY2026 reconciliation line 'foreign' (-0.4 pp) matches XBRL tax_rate_foreign",
+    "tax: FY2026 reconciliation line 'enacted' (4.8 pp) matches XBRL tax_rate_enacted",
+    "tax: FY2026 reconciliation line 'credits' (-8.1 pp) matches XBRL tax_rate_credits",
+    "tax: FY2026 reconciliation line 'sbc' (-10.1 pp) matches XBRL tax_rate_nondeductible",
+    "tax: FY2026 reconciliation line 'utb' (4.3 pp) matches XBRL tax_rate_contingencies",
+    "tax: FY2026 reconciliation line 'other' (1.1 pp) matches XBRL tax_rate_other",
+    "tax: reconciliation lines sum from the statutory rate to the effective rate (±0.2 pp)",
+    "tax: FY2026 provision matches XBRL IncomeTaxExpenseBenefit",
+    "tax: normalized rate = statutory + state line",
     "news: every item has an ISO date, theme, bilingual title, summary and why-it-matters",
     "news: every theme used is declared",
     "news: every item has at least one https source with a known tier",

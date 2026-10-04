@@ -222,15 +222,15 @@
     const nd = netDebt(lastQ);
     if (nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) k.push({ l: t('lev'), v: fmtX(nd.net / lastLTM.is.ebitda, 2), d: `${t('nd')} ${fmtBn(nd.net)}` });
     if (lastPx && sharesNow && nd && lastLTM && lastLTM.is && lastLTM.is.ebitda) { const ev = lastPx[1] * sharesNow / 1e6 + nd.net; const fn = fsNtm(); const Lz = (window.ORCL_OBLIG && window.ORCL_OBLIG.leases) || {}; const leases = (Lz.operating_liabilities_total || 0) + (Lz.finance_liabilities_total || 0);
-      if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}`,
-        n: leases ? (LANG === 'es' ? `${fmtX(ev / fn.ebitda.mean)} con la deuda neta reportada; ${fmtX((ev + leases) / fn.ebitda.mean)} al sumar US$ ${fmtN(leases / 1000, 1)} mil M de pasivos por arrendamiento (base de la tabla de pares)` : `${fmtX(ev / fn.ebitda.mean)} on reported net debt; ${fmtX((ev + leases) / fn.ebitda.mean)} adding US$ ${fmtN(leases / 1000, 1)} bn of lease liabilities (the peers table's basis)`) : '' }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
-    html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div>${x.n ? `<div class="knote">${x.n}</div>` : ''}</div>`).join(''));
+      if (fn.ebitda && fn.ebitda.mean > 0) k.push({ l: (LANG === 'es' ? 'VE' : 'EV') + ' / EBITDA NTM', v: fmtX(ev / fn.ebitda.mean) + (leases ? '<sup>1</sup>' : ''), d: `${fn.eps && fn.eps.mean > 0 ? `${LANG === 'es' ? 'P/U' : 'P/E'} NTM ${fmtX(lastPx[1] / fn.eps.mean)} · ` : ''}${LANG === 'es' ? 'consenso FactSet' : 'FactSet consensus'} ${fmtDate(FS.asOf)}`,
+        n: leases ? (LANG === 'es' ? `¹ ${fmtX(ev / fn.ebitda.mean)} con la deuda neta reportada; ${fmtX((ev + leases) / fn.ebitda.mean)} al sumar US$ ${fmtN(leases / 1000, 1)} mil M de pasivos por arrendamiento, la base de la tabla de pares de FactSet (${ref('valuation')})` : `¹ ${fmtX(ev / fn.ebitda.mean)} on reported net debt; ${fmtX((ev + leases) / fn.ebitda.mean)} adding US$ ${fmtN(leases / 1000, 1)} bn of lease liabilities, the basis of the FactSet peers table (${ref('valuation')})`) : '' }); else k.push({ l: 'VE / EBITDA ' + (LANG === 'es' ? 'UDM' : 'LTM'), v: fmtX(ev / lastLTM.is.ebitda), d: lastLTM.is.epsDiluted ? `P/U ${fmtX(lastPx[1] / lastLTM.is.epsDiluted)} GAAP` : '' }); }
+    html('kpiStrip', k.map((x) => `<div class="kpi"><div class="lbl">${x.l}</div><div class="val">${x.v}</div><div class="delta">${x.d || ''}</div>${x.n ? `<div class="knote">${resolveRefs(x.n)}</div>` : ''}</div>`).join(''));
     document.querySelectorAll('#genStamp, #genStamp2').forEach((e) => { e.textContent = fmtET(FIN.generatedAt || MK.generatedAt); });
   }
 
   // ================= 00 EXECUTIVE SUMMARY =================
   function renderSummary() {
-    renderBuildPanel(); renderKeyNumbers();
+    renderVerdict(); renderChain(); renderPaths(); renderKeyNumbers();
     const b = SUM.basis || {}; const es = LANG === 'es';
     const qq = b.quarter && (qById[b.quarter] || { fy: +b.quarter.slice(0, 4), q: +b.quarter.slice(5) });
     // the summary's own date (rewritten with each report or event), the date its events run through, and the
@@ -248,32 +248,13 @@
     const ws = (SUM.watchSources || []).map((x) => (x.url ? extLink(x.url, x.title) : x.title)).join(' · ');
     html('sumSrc', `${t('src')}: ${relLink()} · ${es ? 'transcripción de la llamada de resultados' : 'earnings-call transcript'}${ws ? ` · ${ws}` : ''}`);
   }
-  // ---- Summary, first panel: the buildout in five numbers (each computed from the data files, with its date)
-  function renderBuildPanel() {
-    if (!el('sumBuild') || !lastQ) return; const es = LANG === 'es';
-    const rr = BO && BO.rpoRecognition && BO.rpoRecognition.series ? BO.rpoRecognition.series.slice(-1)[0] : null;
-    const sites = (BO && BO.sites) || []; const live = sites.reduce((a, x) => a + (x.energized_mw || 0), 0), plan = sites.reduce((a, x) => a + (x.nameplate_mw || x.capacity_mw || 0), 0);
-    const cq = (BO && BO.capacity && BO.capacity.quarters) || []; const cum = cq.reduce((a, x) => a + x.mw, 0); const sec = BO && BO.capacity && BO.capacity.secured;
-    const fyNow = lastQ.fy; const fyQs = Q.filter((q) => q.fy === fyNow);
-    const gross = fyQs.reduce((a, q) => a + (q.cf && q.cf.capex != null ? -q.cf.capex : 0), 0), prepay = fyQs.reduce((a, q) => a + ((q.cf && q.cf.prepay) || 0), 0);
-    const cg = (() => { const gv = GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote && v.fyGuided === fyNow); const g = gv ? parseCapexGuide(gv.items.fyCapexNote) : null; return g && g.lo != null ? g : null; })();
-    const OBj = window.ORCL_OBLIG || {}; const un = (OBj.leases && OBj.leases.uncommenced) || {}; const hist = un.history || []; const prevU = hist.length > 1 ? hist[hist.length - 2] : null;
-    const fp = OBj.funding_plan || {}; const fsy = fsFiscal().find((f) => +f.fy.slice(2) === fyNow);
-    const tiles = [
-      { k: es ? 'Demanda contratada (RPO)' : 'Contracted demand (RPO)', v: lastQ.kpi.rpo != null ? fmtBn(lastQ.kpi.rpo, 0) : '—', d: `${qLabel(lastQ)}${rr ? ` · ${rr.m12_pct}% ${es ? 'a reconocer en 12 meses' : 'to be recognised within 12 months'}` : ''}`, r: 'rpo' },
-      { k: es ? 'Capacidad: energizada frente a contratada' : 'Capacity: energized vs contracted', v: `${fmtN(live)} MW ${es ? 'de' : 'of'} ${fmtN(plan / 1000, 1)} GW`, d: `${es ? `en los ${sites.length} campus nombrados` : `at the ${sites.length} named campuses`}${cum ? ` · ${fmtN(cum / 1000, 2)} GW ${es ? 'entregados desde el' : 'delivered since'} ${boLabel(cq[0].id)}` : ''}${sec ? ` · > ${fmtN(sec.gw)} GW ${es ? 'asegurados' : 'secured'}` : ''}`, r: 'sites' },
-      { k: es ? `Capex AF${fyNow}: bruto frente a neto en efectivo` : `${fyLabel(fyNow)} capex: gross vs net cash`, v: cg ? `US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} / ≤ ${fmtN(cg.netMax)}${es ? ' mil M' : ' bn'}` : '—', d: `${es ? 'guía' : 'guide'} · ${es ? 'a la fecha' : 'to date'} ${fmtBn(gross)} ${es ? 'bruto' : 'gross'} − ${fmtBn(prepay)} ${es ? 'prepagos' : 'prepayments'} = ${fmtBn(gross - prepay)} ${es ? 'neto' : 'net'} (${fyQs.map(qLabel).join(' + ')})`, r: 'capex' },
-      { k: es ? 'Arrendamientos firmados, no iniciados' : 'Leases signed, not yet commenced', v: un.usd_bn != null ? `US$ ${fmtN(un.usd_bn, 0)}${es ? ' mil M' : ' bn'}` : '—', d: `${OBj.as_of ? fmtDate(OBj.as_of) : ''}${prevU ? ` · ${es ? 'desde' : 'up from'} US$ ${fmtN(prevU.usd_bn, 0)}${es ? ' mil M al' : ' bn at'} ${fmtDate(prevU.as_of)}` : ''} · ${es ? 'nominal, fuera del balance' : 'nominal, off the balance sheet'}`, r: 'obligations' },
-      { k: es ? 'Brecha de financiamiento' : 'Funding gap', v: fp.remaining_fy27_usd_bn != null ? `≈ US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)}${es ? ' mil M' : ' bn'}` : '—', d: `${es ? 'por levantar del plan AF2027 (declaración de la empresa)' : 'still to raise under the FY2027 plan (company statement)'}${fsy && fsy.fcf ? ` · ${es ? 'flujo libre de consenso' : 'consensus FCF'} ${fmtBn(fsy.fcf.mean)}` : ''}`, r: 'financing' },
-    ];
-    html('sumBuild', tiles.map((x) => `<a class="bp" href="#${x.r}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}</div></a>`).join(''));
-  }
-
   // ---------------- uniform source / timestamp pieces (every chart and table footer uses these) ----------------
   const IR_EVENTS = 'https://investor.oracle.com/events-and-presentations/default.aspx';
   const NASDAQ_URL = 'https://www.nasdaq.com/market-activity/stocks/orcl/historical';
   const FRED_SPX = 'https://fred.stlouisfed.org/series/SP500', FRED_DGS10 = 'https://fred.stlouisfed.org/series/DGS10';
   const extLink = (url, label) => `<a href="${url}" target="_blank" rel="noopener">${label} ↗</a>`;
+  // one wording for every "as of" in a source line (owner's request 2026-10-04): "as of 1 Oct 2026" / "al 1 oct 2026"
+  const asOf = (d) => (d ? `${LANG === 'es' ? 'al' : 'as of'} ${fmtDate(String(d).slice(0, 10))}` : '');
   // The latest quarter and its release date sit in each section head's stamp; footers no longer repeat them (empty on purpose).
   function asOfQ() { return ''; }
   function relLink() { return lastQ && lastQ.sources && lastQ.sources.is ? link(lastQ.sources.is, t('release') + ' ↗') : ''; }
@@ -865,6 +846,24 @@
     const priorPrepay = []; for (const y of Y) if (y.fy < curFy && y.cf && y.cf.prepay) priorPrepay.push({ fy: y.fy, amount: y.cf.prepay });
     return { curFy, ytd, prevY, priorPrepay, bsDate: qEndDate(lastQ), valDate: lastPx ? lastPx[0] : qEndDate(lastQ) };
   }
+  // ---- income tax: the LTM effective rate (computed from the four reported quarters), the normalized rate (US statutory +
+  // state, tools/oracle/data/tax.json, cross-checked against XBRL) and the mode that joins them (hold LTM / ramp / normalized)
+  const TAX = REF.tax || null;
+  // ---- the claims the equity bridge deducts after EV: reported net debt, finance-lease liabilities (debt in substance), the
+  // mandatory convertible preferred at its liquidation preference, and (optional, labeled estimate) the present value of the
+  // leases signed but not yet commenced. The WACC weights use exactly the same claims (owner's rule, 2026-10-04).
+  function bridgeClaims() {
+    const F = dcfFrame(); const bsDate = F ? F.bsDate : (lastQ ? qEndDate(lastQ) : null), valDate = F ? F.valDate : bsDate;
+    const nd = netDebt(lastQ), netDebtM = nd ? nd.net : 0;
+    const flx = XBp('fin_lease_liability').filter((p) => p.period_end <= bsDate).pop();
+    const finLease = flx ? flx.value : OB && OB.leases && OB.leases.finance_liabilities_total != null ? OB.leases.finance_liabilities_total : 0;
+    const pf = (OB && OB.preferred) || {};
+    // after the mandatory conversion date the preferred is common stock already counted on the cover page
+    const pref = pf.mandatory_conversion_date && valDate >= pf.mandatory_conversion_date ? 0 : (pf.gross_proceeds_usd_m ?? pf.carrying_value_usd_m ?? 0);
+    const Lz = (OB && OB.leases) || {}, un = Lz.uncommenced || {}, pv = OB && OB.lookthrough ? OB.lookthrough.pv_estimate : null;
+    let uncPv = null; if (pv && un.usd_bn) { const r = pv.discount_rate_pct / 100, n = pv.term_years, pay = un.usd_bn * 1000 / n; uncPv = pay * (1 - Math.pow(1 + r, -n)) / r / Math.pow(1 + r, pv.start_offset_years); }
+    return { netDebtM, finLease, finLeaseAsOf: flx ? flx.period_end : (OB && OB.as_of) || null, pref, prefRate: pf.dividend_rate_pct || null, uncNominal: un.usd_bn ? un.usd_bn * 1000 : null, uncPv, uncPvMethod: pv, total: netDebtM + finLease + pref };
+  }
   const fyEnd = (fy) => `${fy}-05-31`, fyStart = (fy) => `${fy - 1}-06-01`;
   const yrsBetween = (a, b) => (new Date(b + 'T12:00:00Z') - new Date(a + 'T12:00:00Z')) / (365.25 * 864e5);
   const midDate = (a, b) => { const t = (new Date(a + 'T12:00:00Z').getTime() + new Date(b + 'T12:00:00Z').getTime()) / 2; return new Date(t).toISOString().slice(0, 10); };
@@ -916,22 +915,68 @@
     const lastHold = Math.max(0, lastCx);
     const cf = years.map((_, i) => (i <= lastHold ? s0 : Math.max(0, Math.round(10 * s0 * (1 - (i - lastHold) / Math.max(1, N - 1 - lastHold))) / 10)));
     const revG = rev.map((r, i) => Math.round(10 * 100 * (r / (i ? rev[i - 1] : prev) - 1)) / 10);
-    const nd = netDebt(lastQ); const mc = lastPx && sharesNow ? lastPx[1] * sharesNow / 1e6 : 0;
+    // capital-structure weights on the same claims the bridge deducts: net debt + finance leases + preferred (owner's rule)
+    const cl = bridgeClaims(); const mc = lastPx && sharesNow ? lastPx[1] * sharesNow / 1e6 : 0;
+    const taxLtm = ltm.taxRate != null ? Math.round(10 * ltm.taxRate) / 10 : (TAX ? TAX.fy2026.effective_rate_pct : 15);
     return {
-      v: 2, basis: useCons ? 'consensus' : 'guidance', N, years, baseRev: prev, baseFy: F.prevY.fy, consYears: lastCons + 1,
+      v: 3, basis: useCons ? 'consensus' : 'guidance', preset: useCons ? 'base' : 'custom', N, years, baseRev: prev, baseFy: F.prevY.fy, consYears: lastCons + 1,
       revG, margin, sbc: basis === 'guidance' ? 0 : sbcPct, daPct: dap.map((x) => Math.round(10 * x) / 10), capex, cf, unwind: D.prepayUnwindYears ?? 6,
-      tax: D.taxRatePct ?? (ltm.taxRate != null ? Math.round(10 * ltm.taxRate) / 10 : 15),
+      tax: taxLtm, taxMode: D.taxMode || 'ramp', taxNorm: TAX && TAX.normalized ? TAX.normalized.pct : 21.9,
+      leases: D.leases || 'operating',
       rf: us10.length ? us10[us10.length - 1][1] : 4.5, erp: ERP ? ERP.pct : D.erpFallbackPct ?? 4.5, betaKey: D.betaMethod || 'w2', beta: (BETAS[D.betaMethod || 'w2'] || BETAS.w2 || { beta: 1 }).beta,
-      kd: KD ? KD.rate : 5.5, dw: nd && mc ? Math.round(10 * 100 * nd.net / (nd.net + mc)) / 10 : 15,
+      kd: KD ? KD.rate : 5.5, kp: cl.prefRate || 6.5, pw: cl.total ? Math.round(10 * 100 * cl.pref / cl.total) / 10 : 0,
+      dw: cl.total && mc ? Math.round(10 * 100 * cl.total / (cl.total + mc)) / 10 : 15,
       method: D.terminalMethod || 'perpetuity', g, mult: D.exitMultiple ?? 12, k, life, s0, capexGuide: cg,
       ntmEbitda: fsNtm().ebitda && fsNtm().ebitda.mean > 0 ? fsNtm().ebitda.mean : null,
     };
+  }
+  // ---- presets (owner's, 2026-10-04): Base = FactSet consensus as it stands; Bull = management's FY2030 revenue target on
+  // the consensus cost structure; Bear = three documented adjustments to the consensus revenue path (RPO conversion slips one
+  // year; Project Jupiter two quarters late; OpenAI volume −25% on S&P's "about half of RPO"). Every step is arithmetic on
+  // figures already on the page; nothing is typed in.
+  const PRESET_BEAR = { openaiShare: 0.5, haircut: 0.25, jupiterQuarters: 2 };
+  function dcfPreset(name, base) {
+    const d = base || dcfDefaults(); if (!d) return null; const s = JSON.parse(JSON.stringify(d)); s.preset = name;
+    const E = Math.min(DCF_EDIT_YEARS, s.N);
+    const cons = []; let r0 = s.baseRev; for (let i = 0; i < E; i++) { r0 = r0 * (1 + s.revG[i] / 100); cons.push(r0); }
+    const growthOf = (path) => path.map((v, i) => Math.round(10 * 100 * (v / (i ? path[i - 1] : s.baseRev) - 1)) / 10);
+    if (name === 'bull') {
+      const lr = (REF.longRange || []).find((t) => t.id === 'fy2030_revenue' && t.status === 'in_force');
+      if (lr) { const j = s.years.indexOf(+lr.fy.slice(2)); if (j > 0 && j < E) { const tgt = lr.usd_bn * 1000; const path = cons.slice(); path[j] = Math.max(tgt, cons[j]); for (let i = j + 1; i < E; i++) path[i] = path[i - 1] * (cons[i] / cons[i - 1]); s.revG = growthOf(path); s.capex = path.map((v, i) => Math.round(v * (s.capex[i] / cons[i]))); s.bullTarget = { fy: lr.fy, usd_bn: lr.usd_bn, consensus: cons[j], stated_on: lr.stated_on, page: lr.page, speaker: lr.speaker }; } }
+      return s;
+    }
+    if (name === 'bear') {
+      const lagArr = (a) => a.map((v, i) => (i === 0 ? v : a[i - 1]));
+      // 1) RPO conversion slips one year: from the second explicit year the path takes the prior year's consensus level; margin, D&A and capex intensity lag with it
+      const lag = lagArr(cons); s.margin = lagArr(s.margin); s.daPct = lagArr(s.daPct);
+      const cxLag = lagArr(s.capex.map((c, i) => c / cons[i]));
+      // 2) Project Jupiter two quarters late: its share of the named nameplate capacity × half of the first incremental year moves to the following year
+      const sites = (BO && BO.sites) || []; const jup = sites.find((x) => /Jupiter/i.test(x.name)); const plan = sites.reduce((a, x) => a + (x.nameplate_mw || x.capacity_mw || 0), 0);
+      const jShare = jup && plan ? (jup.nameplate_mw || jup.capacity_mw) / plan : 0;
+      const path = lag.slice(); let moved = 0, jFrom = null;
+      for (let i = 1; i < E - 1; i++) { const inc = lag[i] - lag[i - 1]; if (inc > 0) { moved = (PRESET_BEAR.jupiterQuarters / 4) * jShare * inc; path[i] -= moved; path[i + 1] += moved; jFrom = i; break; } }
+      // 3) OpenAI volume −25%: S&P estimates about half of RPO is OpenAI, so 12.5% of the incremental revenue above the last reported year is removed every year
+      const cut = PRESET_BEAR.openaiShare * PRESET_BEAR.haircut;
+      for (let i = 0; i < E; i++) path[i] = s.baseRev + (path[i] - s.baseRev) * (1 - cut);
+      s.revG = growthOf(path);
+      // capex: the current year's consensus (the guided, contracted spend) stands; later years follow the lagged consensus intensity on the lower revenue
+      s.capex = path.map((v, i) => (i === 0 ? s.capex[0] : Math.round(v * cxLag[i])));
+      s.bearRecipe = { jShare, jupiterMw: jup ? (jup.nameplate_mw || jup.capacity_mw) : null, planMw: plan, moved, jFrom, cut, openaiShare: PRESET_BEAR.openaiShare, haircut: PRESET_BEAR.haircut, quarters: PRESET_BEAR.jupiterQuarters, path, cons };
+      return s;
+    }
+    return s;
   }
   // ---- the engine
   function dcfCompute(s0, over = {}) {
     const s = { ...s0, ...over }, F = dcfFrame(); if (!F) return null;
     const N = s.N, g = s.g / 100, ke = s.rf + s.beta * s.erp;
-    const wacc = ((1 - s.dw / 100) * ke + (s.dw / 100) * s.kd * (1 - s.tax / 100)) / 100;
+    // tax: LTM effective held, a linear ramp from the LTM rate to the normalized rate by the last explicit year, or the normalized rate throughout
+    const taxAt = (i) => (s.taxMode === 'normalized' ? s.taxNorm : s.taxMode === 'ramp' ? s.tax + (s.taxNorm - s.tax) * (N > 1 ? i / (N - 1) : 1) : s.tax);
+    const taxT = s.taxMode === 'ltm' ? s.tax : s.taxNorm;
+    // cost of the non-equity claims: net debt and finance leases at Kd after the (terminal) tax shield; the preferred at its
+    // 6.50% dividend rate, which carries no tax shield (dividends are not deductible)
+    const pw = (s.pw || 0) / 100, costD = (1 - pw) * s.kd * (1 - taxT / 100) + pw * s.kp;
+    const wacc = ((1 - s.dw / 100) * ke + (s.dw / 100) * costD) / 100;
     // years beyond the editable columns follow the rules from the last editable column (growth halves to g; margin and
     // D&A hold; capex intensity fades to k × D&A; the customer-funded share fades to zero)
     const E = Math.min(DCF_EDIT_YEARS, N);
@@ -958,33 +1003,35 @@
       // stub: the fiscal year less the quarters already reported (their cash is in the balance-sheet net debt)
       const R = stub ? r - F.ytd.rev : r, EB = stub ? ebitda - F.ytd.ebitda : ebitda, DA = stub ? da - F.ytd.da : da, CX = stub ? capex - F.ytd.capex : capex, IN = stub ? Math.max(0, inflowFy - F.ytd.prepay) : inflowFy;
       const unwind = L ? Object.entries(inflowByFy).reduce((a, [y, amt]) => { const age = fy - +y; return age >= 1 && age <= L ? a + amt / L : a; }, 0) * (months / 12) : 0;
-      const ebit = EB - DA, taxes = Math.max(0, ebit) * s.tax / 100;
+      const taxRate = taxAt(i);
+      const ebit = EB - DA, taxes = Math.max(0, ebit) * taxRate / 100;
       const fcf = EB - taxes - CX + IN - unwind;
       const start = stub ? F.bsDate : fyStart(fy), end = fyEnd(fy), t = yrsBetween(F.valDate, midDate(start, end));
       const df = Math.pow(1 + wacc, -t); pvExplicit += fcf * df;
-      rows.push({ fy, stub, months, rev: R, revFull: r, growth: revG[i], marginAdj: margin[i], ebitdaAdj: stub ? ebitdaAdj - (F.ytd.ebitda + F.ytd.sbc) : ebitdaAdj, sbc: stub ? sbc - F.ytd.sbc : sbc, ebitda: EB, da: DA, daPct: daPct[i], ebit, taxes, capex: CX, capexPct: capexPct[i], cfPct: cfs[i], inflow: IN, unwind, fcf, t, df, pv: fcf * df });
+      rows.push({ fy, stub, months, rev: R, revFull: r, growth: revG[i], marginAdj: margin[i], ebitdaAdj: stub ? ebitdaAdj - (F.ytd.ebitda + F.ytd.sbc) : ebitdaAdj, sbc: stub ? sbc - F.ytd.sbc : sbc, ebitda: EB, ebitdaFull: ebitda, da: DA, daPct: daPct[i], ebit, taxRate, taxes, capex: CX, capexPct: capexPct[i], cfPct: cfs[i], inflow: IN, unwind, fcf, t, df, pv: fcf * df });
     }
     const last = rows[N - 1], endN = fyEnd(last.fy), tEnd = yrsBetween(F.valDate, endN);
     // unwinds of prepayments received inside the horizon that fall after it: explicit, finite, discounted at mid-year
     let pvPost = 0; if (L) for (let y = last.fy + 1; y <= last.fy + L; y++) { const u = Object.entries(inflowByFy).reduce((a, [fy0, amt]) => { const age = y - +fy0; return age >= 1 && age <= L ? a + amt / L : a; }, 0); pvPost -= u * Math.pow(1 + wacc, -(yrsBetween(F.valDate, fyEnd(y)) - 0.5)); }
-    // terminal year: one more year at g, capex normalised to k × D&A, no customer funding (steady state)
-    const rT = last.revFull * (1 + g), ebT = rT * (margin[N - 1] - s.sbc) / 100, daT = rT * daPct[N - 1] / 100, cxT = s.k * daT, txT = Math.max(0, ebT - daT) * s.tax / 100, fcfT = ebT - txT - cxT;
+    // terminal year: one more year at g, capex normalised to k × D&A, no customer funding (steady state), the terminal tax rate
+    const rT = last.revFull * (1 + g), ebT = rT * (margin[N - 1] - s.sbc) / 100, daT = rT * daPct[N - 1] / 100, cxT = s.k * daT, txT = Math.max(0, ebT - daT) * taxT / 100, fcfT = ebT - txT - cxT;
     let tv, pvTv;
     if (s.method === 'multiple') { tv = last.revFull * (margin[N - 1] - s.sbc) / 100 * s.mult; pvTv = tv * Math.pow(1 + wacc, -tEnd); }
     else { tv = wacc > g ? fcfT / (wacc - g) : NaN; pvTv = tv * Math.pow(1 + wacc, -(tEnd - 0.5)); }
     const ev = pvExplicit + pvTv + pvPost;
-    // equity bridge: net debt and finance-lease liabilities at the balance-sheet date, the mandatory convertible preferred at its liquidation preference
-    const nd = netDebt(lastQ), netDebtM = nd ? nd.net : 0;
-    const flx = XBp('fin_lease_liability').filter((p) => p.period_end <= F.bsDate).pop();
-    const finLease = flx ? flx.value : OB && OB.leases && OB.leases.finance_liabilities_total != null ? OB.leases.finance_liabilities_total : 0;
-    const pf = (OB && OB.preferred) || {};
-    // after the mandatory conversion date the preferred is common stock already counted on the cover page
-    const pref = pf.mandatory_conversion_date && F.valDate >= pf.mandatory_conversion_date ? 0 : (pf.gross_proceeds_usd_m ?? pf.carrying_value_usd_m ?? 0);
-    const eq = ev - netDebtM - finLease - pref;
+    // cross-checks between the two terminal methods (owner's request): the EV/EBITDA the perpetuity implies, and the
+    // perpetual growth the exit multiple implies (TV = FCF(N+1) ÷ (WACC − g*), holding the normalized terminal-year FCF)
+    const ebFullN = last.ebitdaFull;
+    const impliedTermMult = s.method === 'perpetuity' && isFinite(tv) ? { onNext: tv / ebT, onLast: tv / ebFullN } : null;
+    const impliedTermG = s.method === 'multiple' && tv > 0 ? 100 * (wacc - fcfT / tv) : null;
+    // equity bridge: the claims in bridgeClaims(); the uncommenced leases' PV only when the reader chooses the finance-lease treatment
+    const cl = bridgeClaims();
+    const uncDeduct = s.leases === 'finance_pv' && cl.uncPv ? cl.uncPv : 0;
+    const eq = ev - cl.netDebtM - cl.finLease - cl.pref - uncDeduct;
     const sh = dilutedShares();
     const perShare = sh && sh.total ? eq / sh.total : null;
-    return { wacc, ke, rows, finLeaseAsOf: flx ? flx.period_end : (OB && OB.as_of) || null, terminal: { rev: rT, ebitda: ebT, da: daT, capex: cxT, taxes: txT, fcf: fcfT, capexToDa: s.k, capexPct: 100 * cxT / rT }, tv, pvTv, pvExplicit, pvPost, ev, netDebtM, finLease, pref, eq, shares: sh, perShare,
-      impliedMult: s.ntmEbitda ? ev / s.ntmEbitda : null, tvShare: ev ? pvTv / ev : null, frame: F };
+    return { wacc, ke, costD, taxT, rows, finLeaseAsOf: cl.finLeaseAsOf, terminal: { rev: rT, ebitda: ebT, da: daT, capex: cxT, taxes: txT, taxRate: taxT, fcf: fcfT, capexToDa: s.k, capexPct: 100 * cxT / rT }, tv, pvTv, pvExplicit, pvPost, ev, netDebtM: cl.netDebtM, finLease: cl.finLease, pref: cl.pref, uncDeduct, uncPv: cl.uncPv, uncNominal: cl.uncNominal, eq, shares: sh, perShare,
+      impliedMult: s.ntmEbitda ? ev / s.ntmEbitda : null, impliedTermMult, impliedTermG, ebitdaN: ebFullN, tvShare: ev ? pvTv / ev : null, frame: F };
   }
   // Diluted shares: the 10-Q cover count plus the dilutive securities of the latest quarter (diluted − basic weighted average, XBRL)
   function dilutedShares() {
@@ -997,23 +1044,29 @@
     return { cover: base.m, coverAsOf: base.asOf, coverUrl: base.url || null, dilutive: dil, dilutiveQuarter: lb ? lb.quarter : null, total: base.m + dil };
   }
   const dcfPrice = () => (lastPx ? lastPx[1] : null);
-  // what the price implies: solve for the WACC (moving the cost of equity) or the terminal growth that returns the price
+  // what the price implies: solve for the WACC (moving the cost of equity), the terminal growth, a uniform margin shift or a
+  // growth multiplier that returns the price (bisection)
   function solve(fn, lo, hi, target) { let a = lo, b = hi, fa = fn(a) - target, fb = fn(b) - target; if (!isFinite(fa) || !isFinite(fb) || fa * fb > 0) return null; for (let i = 0; i < 60; i++) { const m = (a + b) / 2, fm = fn(m) - target; if (!isFinite(fm)) return null; if (fa * fm <= 0) { b = m; fb = fm; } else { a = m; fa = fm; } } return (a + b) / 2; }
+  const rfForWacc = (s, waccPct) => s.rf + (waccPct - 100 * dcfCompute(s).wacc) / (1 - s.dw / 100); // the WACC moves through the cost of equity only
   function impliedWacc(s, price) { const r = dcfCompute(s); const lo = s.rf + ((s.g + 0.6) - 100 * r.wacc) / (1 - s.dw / 100); const x = solve((rf) => dcfCompute(s, { rf }).perShare, lo, s.rf + 25, price); return x == null ? null : dcfCompute(s, { rf: x }); }
-  function impliedG(s, price) { const r = dcfCompute(s); const hiG = 100 * r.wacc - 0.25; return s.method === 'multiple' ? null : solve((g) => dcfCompute(s, { g }).perShare, -3, hiG, price); }
-  const URL_KEYS = ['v', 'basis', 'N', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'unwind', 'tax', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'dw', 'method', 'g', 'mult', 'k'];
+  function impliedG(s, price, waccPct) { const over = waccPct != null ? { rf: rfForWacc(s, waccPct) } : {}; const r = dcfCompute(s, over); const hiG = 100 * r.wacc - 0.25; return s.method === 'multiple' ? null : solve((g) => dcfCompute(s, { ...over, g }).perShare, -3, hiG, price); }
+  function impliedMarginShift(s, price, waccPct) { const over = waccPct != null ? { rf: rfForWacc(s, waccPct) } : {}; return solve((d) => dcfCompute(s, { ...over, margin: s.margin.map((x) => x + d) }).perShare, -40, 40, price); }
+  function impliedGrowthMult(s, price, waccPct) { const over = waccPct != null ? { rf: rfForWacc(s, waccPct) } : {}; return solve((m) => dcfCompute(s, { ...over, revG: s.revG.map((x, i) => (i === 0 ? x : x * m)) }).perShare, 0, 3, price); }
+  const URL_KEYS = ['v', 'basis', 'preset', 'N', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'unwind', 'tax', 'taxMode', 'taxNorm', 'leases', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'kp', 'pw', 'dw', 'method', 'g', 'mult', 'k'];
   function dcfFromUrl(base) {
     try {
       const p = new URLSearchParams(location.search).get('dcf'); if (!p) return base;
       const o = JSON.parse(decodeURIComponent(escape(atob(p.replace(/-/g, '+').replace(/_/g, '/')))));
-      // scenario links from the pre-2026-10-03 model (no version) carry a different year frame: keep only the scalar rates
-      const keys = o.v === 2 ? URL_KEYS : ['rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult'];
-      if (o.v === 2 && (o.N !== base.N || o.basis !== base.basis)) { const d = dcfDefaults(o.basis, o.N); if (d) Object.assign(base, d); }
+      // scenario links from older models carry a different frame or no tax/lease switches: keep only what still applies
+      const keys = o.v >= 2 ? URL_KEYS : ['rf', 'erp', 'beta', 'kd', 'dw', 'method', 'g', 'mult'];
+      if (o.v >= 2 && (o.N !== base.N || o.basis !== base.basis)) { const d = dcfDefaults(o.basis, o.N); if (d) Object.assign(base, d); }
       for (const k of keys) if (o[k] != null && (!Array.isArray(base[k]) || (Array.isArray(o[k]) && o[k].length === base[k].length))) base[k] = o[k];
+      if (o.v === 2) base.preset = 'custom';
     } catch (e) { /* ignore */ }
     return base;
   }
   function dcfToUrl(s) { const o = {}; for (const k of URL_KEYS) o[k] = s[k]; const enc = btoa(unescape(encodeURIComponent(JSON.stringify(o)))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, ''); const u = new URL(location.href); u.searchParams.set('dcf', enc); u.searchParams.set('lang', LANG); history.replaceState(null, '', u.toString()); return u.toString(); }
+  const presetLabel = (p) => ({ bear: LANG === 'es' ? 'Pesimista' : 'Bear', base: LANG === 'es' ? 'Base' : 'Base', bull: LANG === 'es' ? 'Optimista' : 'Bull', custom: LANG === 'es' ? 'personalizado' : 'custom' })[p] || p;
   function dcfInputsHtml(s) {
     const es = LANG === 'es';
     const num = (k, step = 0.1, min, max) => `<input type="number" step="${step}" ${min != null ? `min="${min}"` : ''} ${max != null ? `max="${max}"` : ''} data-k="${k}" value="${s[k]}" aria-label="${k}">`;
@@ -1023,7 +1076,12 @@
     const arr = (k, step, label, sub, fmt = (v) => v) => `<div class="inp years"><div class="name">${label}${sub ? `<small>${sub}</small>` : ''}</div><div class="row5">${yrs.map((y) => `<span>${y}</span>`).join('')}${s[k].slice(0, E).map((v, i) => `<input type="number" step="${step}" data-k="${k}" data-i="${i}" value="${fmt(v)}" aria-label="${k} ${yrs[i]}">`).join('')}</div></div>`;
     const cons = s.basis === 'consensus';
     const bsel = Object.keys(BETAS).filter((k) => BETAS[k]).map((k) => `<option value="${k}"${s.betaKey === k ? ' selected' : ''}>${fmtN(BETAS[k].beta, 2)} · ${betaLabel(k, true)}</option>`).join('') + `<option value="custom"${s.betaKey === 'custom' ? ' selected' : ''}>${es ? 'personalizada' : 'custom'}</option>`;
+    const cl = bridgeClaims();
+    const pbtn = (p) => `<button type="button" class="btn preset ${s.preset === p ? 'primary' : ''}" data-preset="${p}">${presetLabel(p)}</button>`;
     return `
+      <h4>${es ? 'Escenario' : 'Scenario'}</h4>
+      <div class="presets">${['bear', 'base', 'bull'].map(pbtn).join('')}${s.preset === 'custom' ? `<span class="badge">${presetLabel('custom')}</span>` : ''}</div>
+      <p class="small muted" style="margin:6px 0 0">${es ? 'Base = consenso de FactSet tal cual; Pesimista y Optimista se derivan de él con las reglas descritas en la tabla de escenarios. Cualquier cambio manual convierte el escenario en personalizado.' : 'Base = FactSet consensus as it stands; Bear and Bull are derived from it with the rules described in the scenarios table. Any manual change turns the scenario into custom.'}</p>
       <h4>${es ? 'Operación' : 'Operations'}</h4>
       ${row(es ? 'Base de la proyección' : 'Projection basis', cons ? (es ? `consenso de FactSet (${fmtDate(FS.asOf)}) para ${s.consYears} años fiscales, después reglas de desvanecimiento` : `FactSet consensus (${fmtDate(FS.asOf)}) for ${s.consYears} fiscal years, then fade rules`) : (es ? 'guía del AF y objetivo de ingresos AF2030 de la administración; razones de costo del consenso' : "management's FY guide and FY2030 revenue target; cost ratios from consensus"), `<select data-k="basis"><option value="consensus"${cons ? ' selected' : ''}>${es ? 'Consenso FactSet' : 'FactSet consensus'}</option><option value="guidance"${!cons ? ' selected' : ''}>${es ? 'Guía de la administración' : 'Management targets'}</option></select>`)}
       ${row(es ? 'Años explícitos' : 'Explicit years', es ? 'incluye el año fiscal en curso como periodo parcial' : 'includes the current fiscal year as a stub', `<select data-k="N">${[5, 7, 10].map((n) => `<option value="${n}"${s.N === n ? ' selected' : ''}>${n}</option>`).join('')}</select>`)}
@@ -1034,15 +1092,20 @@
       ${arr('capex', 1000, es ? 'Capex bruto (US$ M)' : 'Gross capex (US$ M)', es ? 'antes de prepagos de clientes' : 'before customer prepayments')}
       ${arr('cf', 1, es ? 'Financiado por clientes (% del capex)' : 'Customer-funded (% of capex)', s.capexGuide && s.capexGuide.netMax ? (es ? `guía AF${String(s.capexGuide.v.fyGuided).slice(2)}: US$ ${fmtN(s.capexGuide.lo)}–${fmtN(s.capexGuide.hi)} mil M bruto, neto ≤ US$ ${fmtN(s.capexGuide.netMax)} mil M` : `FY${String(s.capexGuide.v.fyGuided).slice(2)} guide: US$ ${fmtN(s.capexGuide.lo)}–${fmtN(s.capexGuide.hi)} bn gross, net ≤ US$ ${fmtN(s.capexGuide.netMax)} bn`) : '')}
       ${row(es ? 'Reversión de prepagos (años)' : 'Prepayment unwind (years)', L(D.prepayUnwindSource), num('unwind', 1, 0, 15))}
-      ${row(es ? 'Tasa de impuestos (%)' : 'Tax rate (%)', es ? 'tasa efectiva UDM por defecto' : 'LTM effective rate by default', num('tax', 1, 0, 60))}
+      ${row(es ? 'Arrendamientos no iniciados' : 'Uncommenced leases', es ? `US$ ${fmtN((cl.uncNominal || 0) / 1000, 0)} mil M nominales (${ref('obligations')}); ver la nota "Arrendamientos en el DCF"` : `US$ ${fmtN((cl.uncNominal || 0) / 1000, 0)} bn nominal (${ref('obligations')}); see the "Leases in the DCF" note`, `<select data-k="leases"><option value="operating"${s.leases === 'operating' ? ' selected' : ''}>${es ? 'Operativos: renta en el EBITDA' : 'Operating: rent in EBITDA'}</option><option value="finance_pv"${s.leases === 'finance_pv' ? ' selected' : ''}>${es ? 'Financieros: restar su VP' : 'Finance: deduct their PV'}</option></select>`)}
+      <h4>${es ? 'Impuestos' : 'Taxes'}</h4>
+      ${row(es ? 'Normalización de la tasa' : 'Tax normalization', es ? 'ver la nota "Tasa de impuestos" abajo' : 'see the "Tax rate" note below', `<select data-k="taxMode"><option value="ltm"${s.taxMode === 'ltm' ? ' selected' : ''}>${es ? 'Efectiva UDM, constante' : 'LTM effective, held'}</option><option value="ramp"${s.taxMode === 'ramp' ? ' selected' : ''}>${es ? 'Rampa UDM → normalizada' : 'Ramp LTM → normalized'}</option><option value="normalized"${s.taxMode === 'normalized' ? ' selected' : ''}>${es ? 'Normalizada desde el año 1' : 'Normalized from year 1'}</option></select>`)}
+      ${row(es ? 'Tasa efectiva UDM (%)' : 'LTM effective rate (%)', es ? 'provisión ÷ utilidad antes de impuestos, cuatro trimestres' : 'provision ÷ pretax income, four quarters', num('tax', 0.5, 0, 60))}
+      ${row(es ? 'Tasa normalizada (%)' : 'Normalized rate (%)', TAX ? (es ? `federal ${fmtPct(TAX.fy2026.statutory_rate_pct, 1)} + estatal ${fmtPct(TAX.state.pct, 1)} (10-K)` : `federal ${fmtPct(TAX.fy2026.statutory_rate_pct, 1)} + state ${fmtPct(TAX.state.pct, 1)} (10-K)`) : '', num('taxNorm', 0.5, 0, 60))}
       ${s.N > DCF_EDIT_YEARS ? `<p class="small muted" style="margin:6px 0 0">${es ? `Años ${DCF_EDIT_YEARS + 1}–${s.N}: el crecimiento se reduce a la mitad cada año hasta g; margen y D&A se mantienen; el capex/ingresos converge a k × D&A; la porción financiada por clientes baja a cero.` : `Years ${DCF_EDIT_YEARS + 1}–${s.N}: growth halves each year down to g; margin and D&A hold; capex/revenue converges to k × D&A; the customer-funded share fades to zero.`}</p>` : ''}
       <h4>${es ? 'Costo de capital' : 'Cost of capital'}</h4>
       ${row(es ? 'Tasa libre de riesgo (%)' : 'Risk-free rate (%)', us10.length ? `${es ? 'Tesoro 10 años (FRED DGS10)' : '10-yr Treasury (FRED DGS10)'} ${fmtDate(us10[us10.length - 1][0])}` : '', num('rf', 0.05))}
       ${row(es ? 'Prima de riesgo de mercado (%)' : 'Equity risk premium (%)', ERP ? `${es ? 'implícita S&P 500, Damodaran' : 'implied S&P 500, Damodaran'} ${fmtDate(ERP.asOf)}${daysSince(ERP.asOf) > 45 ? ` <span class="stale">${es ? 'antigua' : 'old'}</span>` : ''}` : (es ? 'supuesto (sin dato de Damodaran)' : 'assumption (no Damodaran reading)'), num('erp', 0.05))}
       ${row('Beta', es ? 'ORCL contra S&P 500' : 'ORCL against the S&P 500', `<select data-k="betaKey">${bsel}</select>`)}
       ${s.betaKey === 'custom' ? row(es ? 'Beta personalizada' : 'Custom beta', '', num('beta', 0.05)) : ''}
-      ${row(es ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD && KD.spread != null ? (es ? `Tesoro hoy + ${fmtN(KD.spread, 2)} pp de diferencial de emisión (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)})` : `Treasury today + ${fmtN(KD.spread, 2)} pp issue spread (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)})`) : '', num('kd', 0.05))}
-      ${row(es ? 'Deuda / (deuda + capital) (%)' : 'Debt / (debt + equity) (%)', es ? 'deuda neta / (deuda neta + capitalización)' : 'net debt / (net debt + market cap)', num('dw', 1, 0, 90))}
+      ${row(es ? 'Costo de deuda antes de impuestos (%)' : 'Pre-tax cost of debt (%)', KD && KD.spread != null ? (es ? `Tesoro hoy + ${fmtN(KD.spread, 2)} pp de diferencial de emisión (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)}); también para los arrendamientos financieros` : `Treasury today + ${fmtN(KD.spread, 2)} pp issue spread (${KD.name}, ${fmtPct(KD.coupon, 2)}, ${fmtDate(KD.issued)}); also applied to the finance leases`) : '', num('kd', 0.05))}
+      ${row(es ? 'Costo de las preferentes (%)' : 'Cost of the preferred (%)', es ? `dividendo ${fmtPct(cl.prefRate, 2)} del prospecto, sin escudo fiscal; ${fmtPct(s.pw, 1)} de los pasivos ponderados` : `${fmtPct(cl.prefRate, 2)} dividend per the prospectus, no tax shield; ${fmtPct(s.pw, 1)} of the weighted claims`, num('kp', 0.05))}
+      ${row(es ? 'Pasivos / (pasivos + capital) (%)' : 'Claims / (claims + equity) (%)', es ? `deuda neta US$ ${fmtN(cl.netDebtM / 1000, 1)} + arrend. financieros US$ ${fmtN(cl.finLease / 1000, 1)} + preferentes US$ ${fmtN(cl.pref / 1000, 1)} mil M = US$ ${fmtN(cl.total / 1000, 1)} mil M: los mismos pasivos que resta el puente` : `net debt US$ ${fmtN(cl.netDebtM / 1000, 1)} + finance leases US$ ${fmtN(cl.finLease / 1000, 1)} + preferred US$ ${fmtN(cl.pref / 1000, 1)} bn = US$ ${fmtN(cl.total / 1000, 1)} bn: the same claims the bridge deducts`, num('dw', 1, 0, 90))}
       <h4>${t('tv')}</h4>
       ${row(es ? 'Método' : 'Method', '', `<select data-k="method"><option value="perpetuity"${s.method === 'perpetuity' ? ' selected' : ''}>${es ? 'Perpetuidad (Gordon)' : 'Perpetuity (Gordon)'}</option><option value="multiple"${s.method === 'multiple' ? ' selected' : ''}>${es ? 'Múltiplo de salida' : 'Exit multiple'}</option></select>`)}
       ${row(es ? 'Crecimiento terminal (%)' : 'Terminal growth (%)', es ? 'nominal, en dólares' : 'nominal, dollars', num('g', 0.25))}
@@ -1057,12 +1120,15 @@
     const box = el('dcfInputs'); box.innerHTML = dcfInputsHtml(s);
     box.querySelectorAll('input,select').forEach((inp) => inp.addEventListener(inp.tagName === 'SELECT' ? 'change' : 'input', () => {
       const k = inp.dataset.k; const v = inp.tagName === 'SELECT' && !['N'].includes(k) ? inp.value : Number(inp.value);
-      if (k === 'basis' || k === 'N') { const d = dcfDefaults(k === 'basis' ? v : s.basis, k === 'N' ? v : s.N); for (const kk of ['basis', 'N', 'years', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'consYears', 'baseRev', 'baseFy', 'k', 'capexGuide']) s[kk] = d[kk]; dcfToUrl(s); renderDcf(); return; }
+      if (k === 'basis' || k === 'N') { const d = dcfDefaults(k === 'basis' ? v : s.basis, k === 'N' ? v : s.N); for (const kk of ['basis', 'N', 'years', 'revG', 'margin', 'sbc', 'daPct', 'capex', 'cf', 'consYears', 'baseRev', 'baseFy', 'k', 'capexGuide']) s[kk] = d[kk]; s.preset = d.basis === 'consensus' ? 'base' : 'custom'; dcfToUrl(s); renderDcf(); return; }
       if (k === 'betaKey') { s.betaKey = v; if (BETAS[v]) s.beta = BETAS[v].beta; dcfToUrl(s); renderDcf(); return; }
       if (inp.dataset.i != null) s[k][+inp.dataset.i] = v; else s[k] = v;
+      if (['revG', 'margin', 'daPct', 'capex', 'cf', 'sbc'].includes(k)) s.preset = 'custom';
       if (k === 'g' && D.terminalCapexToDa == null) { s.k = Math.round(100 * (1 + v / 100 * s.life / 2)) / 100; const kin = box.querySelector('input[data-k="k"]'); if (kin) kin.value = s.k; }
+      if (['taxMode', 'leases', 'method'].includes(k)) { dcfToUrl(s); renderDcf(); return; }
       dcfToUrl(s); renderDcfOutputs();
     }));
+    box.querySelectorAll('button.preset').forEach((b) => b.addEventListener('click', () => { const p = dcfPreset(b.dataset.preset, dcfDefaults(s.basis, s.N)); if (!p) return; for (const kk of ['taxMode', 'taxNorm', 'leases', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'kp', 'dw', 'method', 'g', 'mult', 'k', 'unwind']) p[kk] = s[kk]; dcfState.s = p; dcfToUrl(p); renderDcf(); }));
     el('dcfReset').addEventListener('click', () => { const u = new URL(location.href); u.searchParams.delete('dcf'); history.replaceState(null, '', u.toString()); renderDcf(true); });
     el('dcfCopy').addEventListener('click', async () => { const u = dcfToUrl(s); try { await navigator.clipboard.writeText(u); el('dcfCopy').textContent = LANG === 'es' ? 'Enlace copiado' : 'Link copied'; } catch (e) { /* ignore */ } });
     renderDcfOutputs();
@@ -1071,16 +1137,20 @@
     const s = dcfState.s; const r = dcfCompute(s); if (!r) return; const es = LANG === 'es';
     const price = dcfPrice(), F = r.frame;
     el('dcfHero').textContent = r.perShare != null && isFinite(r.perShare) ? 'US$ ' + fmtN(r.perShare, 0) : '—';
-    el('dcfHeroLbl').textContent = `${t('perShare')}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (US$ ${fmtN(price, 2)}, ${fmtDate(lastPx[0])})` : ''}`;
+    el('dcfHeroLbl').textContent = `${t('perShare')} · ${es ? 'escenario' : 'scenario'} ${presetLabel(s.preset)}${price && r.perShare ? ` · ${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${t('upside')} (US$ ${fmtN(price, 2)}, ${fmtDate(lastPx[0])})` : ''}`;
     const iwr = price ? impliedWacc(s, price) : null, iw = iwr ? iwr.wacc : null, ig = price ? impliedG(s, price) : null;
     const ib = iwr ? (iwr.ke - s.rf) / s.erp : null; // the beta that would make the model return the price
     html('dcfOutputs', [
-      { v: fmtPct(100 * r.wacc, 2), l: `WACC · Ke ${fmtPct(r.ke, 1)}${iw != null ? ` · ${es ? 'implícito por el precio' : 'implied by the price'} ${fmtPct(100 * iw, 1)}` : ''}` },
+      { v: fmtPct(100 * r.wacc, 2), l: `WACC · Ke ${fmtPct(r.ke, 1)} · ${es ? 'costo de los pasivos' : 'cost of the claims'} ${fmtPct(r.costD, 1)}${iw != null ? ` · ${es ? 'implícita por el precio' : 'implied by the price'} ${fmtPct(100 * iw, 1)}` : ''}` },
       { v: fmtBn(r.ev), l: t('ev') },
       { v: fmtBn(r.eq), l: es ? 'Valor del capital común' : 'Common equity value' },
       { v: fmtPct(100 * r.tvShare, 0), l: es ? `VP del valor terminal / VE (${s.N} años explícitos)` : `PV of terminal value / EV (${s.N} explicit years)` },
+      s.method === 'perpetuity'
+        ? { v: r.impliedTermMult ? `${fmtX(r.impliedTermMult.onNext)} · ${fmtX(r.impliedTermMult.onLast)}` : '—', l: es ? `VE/EBITDA terminal implícito por la perpetuidad (sobre el EBITDA del año terminal · del AF${String(r.rows[r.rows.length - 1].fy).slice(2)})` : `terminal EV/EBITDA implied by the perpetuity (on terminal-year EBITDA · on FY${String(r.rows[r.rows.length - 1].fy).slice(2)} EBITDA)` }
+        : { v: r.impliedTermG != null ? fmtPct(r.impliedTermG, 2) : '—', l: es ? `crecimiento perpetuo implícito por el múltiplo de salida de ${fmtX(s.mult)}` : `perpetual growth implied by the ${fmtX(s.mult)} exit multiple` },
       { v: `${fmtX(r.terminal.capexToDa, 2)} · ${fmtPct(r.terminal.capexPct, 0)}`, l: es ? 'capex terminal: × D&A · % de ingresos' : 'terminal capex: × D&A · % of revenue' },
       { v: fmtX(r.impliedMult), l: es ? 'VE / EBITDA NTM implícito (consenso)' : 'implied EV / NTM EBITDA (consensus)' },
+      { v: `${fmtPct(r.rows[0].taxRate, 1)} → ${fmtPct(r.taxT, 1)}`, l: es ? `tasa de impuestos: año 1 → terminal (${({ ltm: 'efectiva UDM constante', ramp: 'rampa', normalized: 'normalizada' })[s.taxMode]})` : `tax rate: year 1 → terminal (${({ ltm: 'LTM held', ramp: 'ramp', normalized: 'normalized' })[s.taxMode]})` },
     ].map((o) => `<div class="out"><div class="v">${o.v}</div><div class="l">${o.l}</div></div>`).join(''));
     // projection table: the stub year first (marked), the terminal year last
     const cols = r.rows; const lastRow = cols[cols.length - 1];
@@ -1093,6 +1163,7 @@
       ${s.sbc ? line(es ? 'EBITDA ajustado' : 'Adjusted EBITDA', (x) => x.ebitdaAdj, 0, 'sub') + line(es ? '− Compensación en acciones' : '− Stock-based compensation', (x) => -x.sbc, 0, 'sub') : ''}
       ${line(s.sbc ? (es ? 'EBITDA después de compensación en acciones' : 'EBITDA after stock-based compensation') : 'EBITDA', (x) => x.ebitda, 0, '', () => fmtN(T.ebitda))}
       ${line('− D&A', (x) => -x.da, 0, 'sub', () => fmtN(-T.da))}
+      ${line(es ? 'Tasa de impuestos (%)' : 'Tax rate (%)', (x) => x.taxRate, 1, 'sub', () => fmtN(T.taxRate, 1))}
       ${line(es ? '− Impuestos sobre EBIT' : '− Taxes on EBIT', (x) => -x.taxes, 0, 'sub', () => fmtN(-T.taxes))}
       ${line(es ? '− Capex bruto' : '− Gross capex', (x) => -x.capex, 0, '', () => fmtN(-T.capex))}
       ${line(es ? '+ Prepagos de clientes recibidos' : '+ Customer prepayments received', (x) => x.inflow, 0, 'sub', () => '0')}
@@ -1112,11 +1183,12 @@
       [es ? '− Deuda neta reportada' : '− Reported net debt', -r.netDebtM, `${es ? 'notas por pagar − efectivo e inversiones' : 'notes payable − cash and investments'}, ${fmtDate(F.bsDate)}`],
       [`${es ? '− Pasivos por arrendamiento financiero' : '− Finance-lease liabilities'}${r.finLeaseAsOf && r.finLeaseAsOf !== F.bsDate ? ` (${fmtDate(r.finLeaseAsOf)})` : ''}`, -r.finLease, es ? 'deuda en sustancia: su costo (amortización e intereses) queda fuera del EBITDA; los operativos no se restan porque su renta ya está en el EBITDA' : 'debt in substance: their cost (amortization and interest) sits below EBITDA; operating leases are not deducted because their rent is already in EBITDA'],
       [es ? '− Preferentes convertibles obligatorias' : '− Mandatory convertible preferred', r.pref ? -r.pref : 0, es ? `preferencia de liquidación (valor en libros US$ ${fmtN(pf.carrying_value_usd_m)} M); se convierten en ${fmtN((pf.shares_if_converted_m || {}).min, 1)}–${fmtN((pf.shares_if_converted_m || {}).max, 1)} M de acciones el ${fmtDate(pf.mandatory_conversion_date)}` : `liquidation preference (carrying value US$ ${fmtN(pf.carrying_value_usd_m)} M); converts into ${fmtN((pf.shares_if_converted_m || {}).min, 1)}–${fmtN((pf.shares_if_converted_m || {}).max, 1)} M shares on ${fmtDate(pf.mandatory_conversion_date)}`],
+      s.leases === 'finance_pv' ? [es ? '− VP de los arrendamientos no iniciados (estimación)' : '− PV of the uncommenced leases (estimate)', -r.uncDeduct, es ? `tratamiento como arrendamientos financieros elegido en los supuestos: US$ ${fmtN(r.uncNominal / 1000, 0)} mil M nominales descontados con el método ilustrativo de ${ref('obligations')}; estimación FNAM, no una cifra de Oracle` : `finance-lease treatment chosen in the inputs: US$ ${fmtN(r.uncNominal / 1000, 0)} bn nominal discounted with the illustrative method of ${ref('obligations')}; FNAM estimate, not an Oracle figure`] : null,
       [es ? '= Valor del capital común' : '= Common equity value', r.eq, '', 'total'],
-      [es ? 'Acciones diluidas (millones)' : 'Diluted shares (millions)', sh ? sh.total : null, sh ? (es ? `${fmtN(sh.cover, 1)} M en la portada del 10-Q (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M de valores dilutivos (diluidas − básicas, ${boLabel(sh.dilutiveQuarter)}, XBRL)` : `${fmtN(sh.cover, 1)} M on the 10-Q cover (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M dilutive securities (diluted − basic, ${boLabel(sh.dilutiveQuarter)}, XBRL)`) : '', 'sub'],
-      [es ? '= Valor por acción (US$)' : '= Value per share (US$)', r.perShare, price ? `${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${es ? 'frente a' : 'vs'} US$ ${fmtN(price, 2)}` : '', 'total'],
-    ];
-    html('dcfBridge', `<table><tbody>${br.map((x, i) => `<tr class="${x[3] || ''}"><td>${x[0]}</td><td>${x[1] == null ? '—' : i === 5 ? fmtN(x[1], 1) : i === 6 ? fmtN(x[1], 2) : fmtN(x[1])}</td><td class="small muted" style="text-align:left;white-space:normal">${x[2]}</td></tr>`).join('')}</tbody></table>`);
+      [es ? 'Acciones diluidas (millones)' : 'Diluted shares (millions)', sh ? sh.total : null, sh ? (es ? `${fmtN(sh.cover, 1)} M en la portada del 10-Q (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M de valores dilutivos (diluidas − básicas, ${boLabel(sh.dilutiveQuarter)}, XBRL)` : `${fmtN(sh.cover, 1)} M on the 10-Q cover (${fmtDate(sh.coverAsOf)}) + ${fmtN(sh.dilutive, 0)} M dilutive securities (diluted − basic, ${boLabel(sh.dilutiveQuarter)}, XBRL)`) : '', 'sub', 'shares'],
+      [es ? '= Valor por acción (US$)' : '= Value per share (US$)', r.perShare, price ? `${fmtPct(100 * (r.perShare / price - 1), 1, true)} ${es ? 'frente a' : 'vs'} US$ ${fmtN(price, 2)}` : '', 'total', 'ps'],
+    ].filter(Boolean);
+    html('dcfBridge', `<table><tbody>${br.map((x) => `<tr class="${x[3] || ''}"><td>${x[0]}</td><td>${x[1] == null ? '—' : x[4] === 'shares' ? fmtN(x[1], 1) : x[4] === 'ps' ? fmtN(x[1], 2) : fmtN(x[1])}</td><td class="small muted" style="text-align:left;white-space:normal">${resolveRefs(x[2])}</td></tr>`).join('')}</tbody></table>`);
     // beta cross-check: the same model at each beta estimate
     const bRows = Object.keys(BETAS).filter((k) => BETAS[k]).map((k) => { const b = BETAS[k]; const x = dcfCompute(s, { beta: b.beta }); return { k, b, x }; });
     html('dcfBeta', `<table><thead><tr><th>${es ? 'Estimación de beta' : 'Beta estimate'}</th><th>Beta</th><th>${es ? 'Costo de capital' : 'Cost of equity'}</th><th>WACC</th><th>${es ? 'Valor por acción' : 'Value per share'}</th><th>${es ? 'vs precio' : 'vs price'}</th></tr></thead><tbody>${bRows.map(({ k, b, x }) => `<tr class="${k === s.betaKey ? 'bold' : ''}"><td>${betaLabel(k)}${k === (D.betaMethod || 'w2') ? ` <span class="badge">${es ? 'por defecto' : 'default'}</span>` : ''}<span class="sub">${b.n} ${b.freq === 'm' ? (es ? 'meses' : 'months') : (es ? 'semanas' : 'weeks')} · ${fmtDate(b.from)} → ${fmtDate(b.to)}</span></td><td>${fmtN(b.beta, 2)}</td><td>${fmtPct(x.ke, 1)}</td><td>${fmtPct(100 * x.wacc, 2)}</td><td><b>${fmtN(x.perShare, 0)}</b></td><td class="${cls(price ? x.perShare - price : null)}">${price ? fmtPct(100 * (x.perShare / price - 1), 0, true) : '—'}</td></tr>`).join('')}</tbody></table>`);
@@ -1126,22 +1198,88 @@
     const cell = (w, gv) => { const over = s.method === 'multiple' ? { mult: gv } : { g: gv }; over.rf = s.rf + (w - r.wacc * 100) / (1 - s.dw / 100); return dcfCompute(s, over).perShare; };
     const grid = waccs.map((w) => gsx.map((gv) => cell(w, gv)));
     html('dcfSens', `<table class="sens"><thead><tr><th>WACC ↓ / ${s.method === 'multiple' ? (es ? 'múltiplo →' : 'multiple →') : 'g →'}</th>${gsx.map((gv) => `<th>${s.method === 'multiple' ? fmtX(gv) : fmtPct(gv, 2)}</th>`).join('')}</tr></thead><tbody>${waccs.map((w, i) => `<tr><td>${fmtPct(w, 2)}</td>${gsx.map((gv, j) => { const v = grid[i][j]; const now = i === 2 && j === 2; const hi = price && v > price; return `<td class="center ${hi ? 'hi' : ''} ${now ? 'now' : ''}">${fmtN(v, 0)}</td>`; }).join('')}</tr>`).join('')}</tbody></table>`);
-    el('sensCap').textContent = es ? `US$ por acción; sombreado = por encima del precio (US$ ${fmtN(price, 2)}); recuadro = caso base. La WACC se mueve a través del costo de capital.` : `US$ per share; shaded = above the price (US$ ${fmtN(price, 2)}); outlined = base case. WACC moves through the cost of equity.`;
-    // acceptance check: does the grid (and the beta cross-check) bracket the price? If not, say why, with what the price implies
-    const flat = grid.flat().filter((v) => isFinite(v)), gmin = Math.min(...flat), gmax = Math.max(...flat);
-    const bvals = bRows.map((x) => x.x.perShare).filter((v) => isFinite(v)), bmin = Math.min(...bvals), bmax = Math.max(...bvals);
-    const inGrid = price >= gmin && price <= gmax, inBeta = price >= bmin && price <= bmax;
-    const parts = [];
-    parts.push(es ? `La cuadrícula va de US$ ${fmtN(gmin, 0)} a US$ ${fmtN(gmax, 0)} y las estimaciones de beta de US$ ${fmtN(bmin, 0)} a US$ ${fmtN(bmax, 0)}; el precio de US$ ${fmtN(price, 2)} ${inGrid ? 'queda dentro de la cuadrícula' : 'queda fuera de la cuadrícula'}${inBeta ? ' y dentro del rango de betas' : ''}.` : `The grid spans US$ ${fmtN(gmin, 0)} to US$ ${fmtN(gmax, 0)} and the beta estimates US$ ${fmtN(bmin, 0)} to US$ ${fmtN(bmax, 0)}; the US$ ${fmtN(price, 2)} price ${inGrid ? 'lies inside the grid' : 'lies outside the grid'}${inBeta ? ' and inside the beta range' : ''}.`);
-    parts.push(es ? `Con el resto de los supuestos sin cambio, el precio implica una WACC de ${iw != null ? fmtPct(100 * iw, 1) : 'n/d'}${ig != null ? ` o un crecimiento terminal de ${fmtPct(ig, 1)}` : ''}.` : `Holding everything else, the price implies a WACC of ${iw != null ? fmtPct(100 * iw, 1) : 'n/a'}${ig != null ? ` or terminal growth of ${fmtPct(ig, 1)}` : ''}.`);
-    if (ib != null) parts.push(es ? `Esa WACC equivale a una beta de ${fmtN(ib, 2)} (las estimaciones en archivo van de ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} a ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}).` : `That WACC is equivalent to a beta of ${fmtN(ib, 2)} (the estimates on file range from ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} to ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}).`);
-    if (!inGrid && !inBeta) parts.push(es ? `El precio queda fuera porque ${r.perShare > price ? 'el mercado exige un rendimiento mayor (o espera menos flujo) que el consenso de los brokers descontado a la WACC por defecto' : 'el mercado descuenta más flujo (o un rendimiento menor) que el consenso de los brokers descontado a la WACC por defecto'}; las cifras anteriores dicen cuánto.` : `The price is outside because ${r.perShare > price ? 'the market requires a higher return (or expects less cash) than the brokers\' consensus discounted at the default WACC' : 'the market prices more cash (or a lower return) than the brokers\' consensus discounted at the default WACC'}; the figures above say by how much.`);
-    html('dcfCheck', `<b>${inGrid || inBeta ? (es ? 'Prueba de aceptación: el precio queda dentro.' : 'Acceptance check: the price is bracketed.') : (es ? 'Prueba de aceptación: el precio queda fuera.' : 'Acceptance check: the price is not bracketed.')}</b> ${parts.join(' ')}`);
-    el('dcfCheck').className = `callout ${inGrid || inBeta ? '' : 'warn'}`;
+    el('sensCap').textContent = es ? `US$ por acción; sombreado = por encima del precio (US$ ${fmtN(price, 2)}); recuadro = caso en pantalla. La WACC se mueve a través del costo de capital. Una cuadrícula amplia siempre abarca el precio: la prueba está en el recuadro "Qué tiene que ser cierto".` : `US$ per share; shaded = above the price (US$ ${fmtN(price, 2)}); outlined = the case on screen. WACC moves through the cost of equity. A wide grid always brackets the price: the test is the "What has to be true" box.`;
+    // what has to be true to justify the price (replaces the bracketing test, owner's request 2026-10-04): at the model's
+    // WACC and at 8% and 9%, the uniform margin shift and the growth multiplier that return the price, plus the implied g
+    const waccNow = 100 * r.wacc;
+    const rowsW = [waccNow, 9, 8].map((w) => { const over = w === waccNow ? {} : { rf: rfForWacc(s, w) }; const v = dcfCompute(s, over).perShare; return { w, v, dm: impliedMarginShift(s, price, w === waccNow ? null : w), gm: impliedGrowthMult(s, price, w === waccNow ? null : w), ig: impliedG(s, price, w === waccNow ? null : w) }; });
+    const mN = s.margin[Math.min(DCF_EDIT_YEARS, s.N) - 1] - s.sbc;
+    const g2 = s.revG[1];
+    const fmtDm = (dm) => (dm == null ? (es ? 'fuera de ±40 pp' : 'outside ±40 pp') : `${fmtPct(mN + dm, 1)} (${dm >= 0 ? '+' : ''}${fmtN(dm, 1)} pp)`);
+    const fmtGm = (gm) => (gm == null ? (es ? 'fuera de 0–3×' : 'outside 0–3×') : `${fmtX(gm, 2)} ${es ? 'del ritmo del consenso' : 'of the consensus pace'} (${es ? 'AF' : 'FY'}${String(s.years[1]).slice(2)} ${fmtPct(g2 * gm, 0, true)})`);
+    const need = rowsW.map((x) => `<tr class="${x.w === waccNow ? 'bold' : ''}"><td>${fmtPct(x.w, 1)}${x.w === waccNow ? ` <span class="badge">${es ? 'modelo' : 'model'}</span>` : ''}</td><td>US$ ${fmtN(x.v, 0)}</td><td>${fmtDm(x.dm)}</td><td>${fmtGm(x.gm)}</td><td>${x.ig == null ? '—' : fmtPct(x.ig, 1)}</td></tr>`).join('');
+    const scen = s.preset === 'base' ? (es ? 'los flujos del consenso' : 'consensus flows') : (es ? `los flujos del escenario ${presetLabel(s.preset)}` : `the ${presetLabel(s.preset)} scenario's flows`);
+    const verdict = r.perShare != null && price ? (r.perShare >= price
+      ? (es ? `A la WACC del modelo (${fmtPct(waccNow, 1)}), ${scen} devuelven US$ ${fmtN(r.perShare, 0)}, por encima del precio de US$ ${fmtN(price, 2)}: el precio queda justificado con margen; el mercado exige al menos una WACC de ${iw != null ? fmtPct(100 * iw, 1) : 'n/d'} (beta ${ib != null ? fmtN(ib, 2) : 'n/d'}) para no pagar más.` : `At the model's ${fmtPct(waccNow, 1)} WACC, ${scen} return US$ ${fmtN(r.perShare, 0)}, above the US$ ${fmtN(price, 2)} price: the price is justified with room to spare; the market would need a WACC of at least ${iw != null ? fmtPct(100 * iw, 1) : 'n/a'} (beta ${ib != null ? fmtN(ib, 2) : 'n/a'}) to pay no more.`)
+      : (es ? `A la WACC del modelo (${fmtPct(waccNow, 1)}), ${scen} devuelven US$ ${fmtN(r.perShare, 0)}, ${fmtPct(100 * (1 - r.perShare / price), 0)} por debajo de US$ ${fmtN(price, 2)}. Para justificar el precio tiene que ser cierto uno de estos: una WACC de ${iw != null ? fmtPct(100 * iw, 1) : 'n/d'} (beta ${ib != null ? fmtN(ib, 2) : 'n/d'}, con las estimaciones en archivo entre ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} y ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}), o, a cada WACC de la tabla, el margen terminal o el ritmo de crecimiento que se indica.` : `At the model's ${fmtPct(waccNow, 1)} WACC, ${scen} return US$ ${fmtN(r.perShare, 0)}, ${fmtPct(100 * (1 - r.perShare / price), 0)} below US$ ${fmtN(price, 2)}. To justify the price one of these has to be true: a WACC of ${iw != null ? fmtPct(100 * iw, 1) : 'n/a'} (beta ${ib != null ? fmtN(ib, 2) : 'n/a'}, against estimates on file of ${fmtN(Math.min(...bRows.map((x) => x.b.beta)), 2)} to ${fmtN(Math.max(...bRows.map((x) => x.b.beta)), 2)}), or, at each WACC in the table, the terminal margin or the growth pace shown.`)) : '';
+    html('dcfCheck', `<b>${es ? `Qué tiene que ser cierto para justificar US$ ${fmtN(price, 2)}.` : `What has to be true to justify US$ ${fmtN(price, 2)}.`}</b> ${verdict}`);
+    html('dcfTruth', `<table><thead><tr><th>WACC</th><th>${es ? 'Valor con los flujos actuales' : 'Value on the current flows'}</th><th>${es ? `Margen EBITDA terminal necesario (hoy ${fmtPct(mN, 1)} tras comp. en acciones)` : `Terminal EBITDA margin needed (now ${fmtPct(mN, 1)} after stock-based comp.)`}</th><th>${es ? 'o ritmo de crecimiento necesario' : 'or growth pace needed'}</th><th>${es ? 'o g terminal necesaria' : 'or terminal g needed'}</th></tr></thead><tbody>${need}</tbody></table>`);
+    el('dcfTruthCap').textContent = es ? `Precio de US$ ${fmtN(price, 2)} (${fmtDate(lastPx[0])}) frente a los flujos del escenario ${presetLabel(s.preset)}. Cada columna mueve un solo supuesto y deja el resto como está: el margen suma el mismo número de puntos a todos los años; el ritmo multiplica cada tasa de crecimiento explícita después del año en curso; la g terminal mueve solo la perpetuidad. La WACC se mueve a través del costo de capital.` : `US$ ${fmtN(price, 2)} price (${fmtDate(lastPx[0])}) against the ${presetLabel(s.preset)} scenario's flows. Each column moves one assumption and holds the rest: the margin adds the same number of points to every year; the pace multiplies every explicit growth rate after the current year; terminal g moves the perpetuity only. WACC moves through the cost of equity.`;
+    el('dcfCheck').className = `callout ${r.perShare != null && price && r.perShare < price ? 'warn' : ''}`;
+    renderDcfPresets(s, price);
+    renderDcfTaxNote(s, price);
+    renderDcfLeaseNote(s, price);
     // one source line for the whole section (the section head carries the as-of / refreshed stamp)
-    const sh2 = r.shares;
-    const dcfSrc = `${t('src')}: ${FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} (${es ? 'consenso por año fiscal' : 'fiscal-year consensus'} ${FS ? fmtDate(FS.asOf) : ''}) · ${relLink()} (${es ? 'trimestres reportados y deuda neta' : 'reported quarters and net debt'} ${asOfQ()}) · ${OB ? extLink((obSrc('10q_1q27') || {}).url || '#', es ? '10-Q (arrendamientos financieros, preferentes)' : '10-Q (finance leases, preferred)') : ''} · ${XB ? extLink(XB.source.url, es ? 'SEC XBRL (acciones)' : 'SEC XBRL (shares)') : ''} · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${extLink(FRED_DGS10, 'FRED DGS10')}${us10.length ? ` ${fmtDate(us10[us10.length - 1][0])}` : ''}${ERP ? ` · ${extLink(ERP.url, es ? 'ERP implícita (Damodaran)' : 'implied ERP (Damodaran)')} ${fmtDate(ERP.asOf)}` : ''}`;
+    const dcfSrc = `${t('src')}: ${FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} (${es ? 'consenso por año fiscal' : 'fiscal-year consensus'} ${FS ? asOf(FS.asOf) : ''}) · ${relLink()} (${es ? 'trimestres reportados y deuda neta' : 'reported quarters and net debt'}) · ${OB ? extLink((obSrc('10q_1q27') || {}).url || '#', es ? '10-Q (arrendamientos financieros, preferentes)' : '10-Q (finance leases, preferred)') : ''} · ${TAX ? extLink(TAX.source.url, es ? '10-K (conciliación de la tasa de impuestos)' : '10-K (tax-rate reconciliation)') : ''} · ${XB ? extLink(XB.source.url, es ? 'SEC XBRL (acciones, tasas)' : 'SEC XBRL (shares, rates)') : ''} · ${extLink(NASDAQ_URL, 'Nasdaq')} ${closeStamp()} · ${extLink(FRED_DGS10, 'FRED DGS10')}${us10.length ? ` ${asOf(us10[us10.length - 1][0])}` : ''}${ERP ? ` · ${extLink(ERP.url, es ? 'ERP implícita (Damodaran)' : 'implied ERP (Damodaran)')} ${asOf(ERP.asOf)}` : ''}`;
     html('dcfOutSrc', dcfSrc);
+  }
+  // ---- scenarios table: Bear / Base / Bull on the same cost of capital, with what each one assumes, spelled out from the data
+  function renderDcfPresets(s, price) {
+    if (!el('dcfPresets')) return; const es = LANG === 'es';
+    const base0 = dcfDefaults(s.basis === 'guidance' ? 'consensus' : s.basis, s.N); if (!base0) return;
+    const carry = (p) => { for (const kk of ['taxMode', 'taxNorm', 'leases', 'rf', 'erp', 'betaKey', 'beta', 'kd', 'kp', 'dw', 'method', 'g', 'mult', 'k', 'unwind']) p[kk] = s[kk]; return p; };
+    const rows = ['bear', 'base', 'bull'].map((p) => { const sp = carry(dcfPreset(p, base0)); const r = dcfCompute(sp); const iw = price ? impliedWacc(sp, price) : null; return { p, s: sp, r, iw: iw ? iw.wacc : null, ig: price ? impliedG(sp, price) : null }; });
+    const E = Math.min(DCF_EDIT_YEARS, s.N);
+    const basePath = (sp) => { const out = []; let v = sp.baseRev; for (let i = 0; i < E; i++) { v *= 1 + sp.revG[i] / 100; out.push(v); } return out; };
+    const yr = (i) => `${es ? 'AF' : 'FY'}${String(base0.years[i]).slice(2)}`;
+    const mT = base0.margin[E - 1] - base0.sbc, mAdj = base0.margin[E - 1];
+    const desc = {
+      base: es ? `<b>Base = consenso de FactSet (${fmtDate(FS.asOf)}), sin ajustes.</b> Crecimiento de ingresos ${yr(1)} ${fmtPct(base0.revG[1], 1, true)} (${yr(2)} ${fmtPct(base0.revG[2], 1, true)}, ${yr(3)} ${fmtPct(base0.revG[3], 1, true)}); margen EBITDA ajustado ${fmtPct(mAdj, 1)} menos ${fmtPct(base0.sbc, 1)} de compensación en acciones = <b>${fmtPct(mT, 1)} después de compensación, mantenido para siempre</b> (desde ${yr(base0.consYears - 1)} hasta el año terminal). Es el ancla más optimista disponible, no un punto medio.` : `<b>Base = FactSet consensus (${fmtDate(FS.asOf)}), unadjusted.</b> Revenue growth ${yr(1)} ${fmtPct(base0.revG[1], 1, true)} (${yr(2)} ${fmtPct(base0.revG[2], 1, true)}, ${yr(3)} ${fmtPct(base0.revG[3], 1, true)}); adjusted EBITDA margin ${fmtPct(mAdj, 1)} less ${fmtPct(base0.sbc, 1)} of stock-based compensation = <b>${fmtPct(mT, 1)} after stock-based comp., held forever</b> (from ${yr(base0.consYears - 1)} through the terminal year). It is the most optimistic anchor on file, not a midpoint.`,
+    };
+    const bull = rows.find((x) => x.p === 'bull').s, bear = rows.find((x) => x.p === 'bear').s;
+    desc.bull = bull.bullTarget ? (es ? `<b>Optimista = objetivo de ingresos de la administración</b> (US$ ${fmtN(bull.bullTarget.usd_bn)} mil M en el ${bull.bullTarget.fy}, ${bull.bullTarget.speaker}, ${fmtDate(bull.bullTarget.stated_on)}, p.${bull.bullTarget.page}) sobre la estructura de costos del consenso: el consenso del ${bull.bullTarget.fy} es US$ ${fmtN(bull.bullTarget.consensus / 1000, 1)} mil M, así que el objetivo añade ${fmtPct(100 * (Math.max(bull.bullTarget.usd_bn * 1000, bull.bullTarget.consensus) / bull.bullTarget.consensus - 1), 1, true)} ese año; márgenes, D&A y capex/ingresos iguales al consenso.` : `<b>Bull = management's revenue target</b> (US$ ${fmtN(bull.bullTarget.usd_bn)} bn in ${bull.bullTarget.fy}, ${bull.bullTarget.speaker}, ${fmtDate(bull.bullTarget.stated_on)}, p.${bull.bullTarget.page}) on the consensus cost structure: consensus for ${bull.bullTarget.fy} is US$ ${fmtN(bull.bullTarget.consensus / 1000, 1)} bn, so the target adds ${fmtPct(100 * (Math.max(bull.bullTarget.usd_bn * 1000, bull.bullTarget.consensus) / bull.bullTarget.consensus - 1), 1, true)} that year; margins, D&A and capex/revenue as consensus.`) : (es ? 'Optimista: sin objetivo de largo plazo vigente; igual al consenso.' : 'Bull: no long-range target in force; equals consensus.');
+    const bp = bear.bearRecipe || {}; const bPath = basePath(bear), cPath = basePath(base0);
+    desc.bear = es ? `<b>Pesimista = tres ajustes al consenso, en este orden.</b> (1) La conversión del RPO se retrasa un año: desde ${yr(1)} los ingresos toman el nivel del consenso del año anterior (margen, D&A y capex/ingresos se retrasan con ellos; el capex ${yr(0)} se mantiene porque ya está contratado). (2) Project Jupiter llega ${bp.quarters} trimestres tarde: ${fmtPct(100 * (bp.jShare || 0), 0)} de la capacidad nominal nombrada (${fmtN(bp.jupiterMw)} de ${fmtN(bp.planMw)} MW) × medio año del primer incremento tras el retraso = US$ ${fmtN((bp.moved || 0) / 1000, 1)} mil M pasan de ${bp.jFrom != null ? yr(bp.jFrom) : '—'} a ${bp.jFrom != null ? yr(bp.jFrom + 1) : '—'}. (3) Volumen de OpenAI −${fmtPct(100 * (bp.haircut || 0), 0)}: S&P estima que cerca de la mitad del RPO es OpenAI, así que ${fmtPct(100 * (bp.cut || 0), 1)} del incremento de ingresos sobre el AF${String(base0.baseFy).slice(2)} se elimina cada año. Resultado: ingresos ${yr(E - 1)} de US$ ${fmtN(bPath[E - 1] / 1000, 0)} mil M frente a US$ ${fmtN(cPath[E - 1] / 1000, 0)} mil M del consenso.` : `<b>Bear = three adjustments to consensus, in this order.</b> (1) RPO conversion slips one year: from ${yr(1)} revenue takes the prior year's consensus level (margin, D&A and capex/revenue lag with it; ${yr(0)} capex stands because it is already contracted). (2) Project Jupiter is ${bp.quarters} quarters late: ${fmtPct(100 * (bp.jShare || 0), 0)} of the named nameplate capacity (${fmtN(bp.jupiterMw)} of ${fmtN(bp.planMw)} MW) × half a year of the first incremental year after the slip = US$ ${fmtN((bp.moved || 0) / 1000, 1)} bn moves from ${bp.jFrom != null ? yr(bp.jFrom) : '—'} to ${bp.jFrom != null ? yr(bp.jFrom + 1) : '—'}. (3) OpenAI volume −${fmtPct(100 * (bp.haircut || 0), 0)}: S&P estimates about half of RPO is OpenAI, so ${fmtPct(100 * (bp.cut || 0), 1)} of the incremental revenue above FY${String(base0.baseFy).slice(2)} is removed every year. Result: ${yr(E - 1)} revenue of US$ ${fmtN(bPath[E - 1] / 1000, 0)} bn against US$ ${fmtN(cPath[E - 1] / 1000, 0)} bn for consensus.`;
+    html('dcfPresets', `<table><thead><tr><th>${es ? 'Escenario' : 'Scenario'}</th><th>${es ? 'Ingresos' : 'Revenue'} ${yr(E - 1)}</th><th>${es ? 'Margen terminal' : 'Terminal margin'}</th><th>${es ? 'Valor por acción' : 'Value per share'}</th><th>${es ? 'vs precio' : 'vs price'}</th><th>${es ? 'VP terminal / VE' : 'PV of TV / EV'}</th><th>${es ? 'WACC implícita por el precio' : 'WACC implied by the price'}</th><th>${es ? 'g implícita' : 'implied g'}</th></tr></thead><tbody>${rows.map(({ p, s: sp, r, iw, ig }) => `<tr class="${sp.preset === s.preset ? 'bold' : ''}"><td>${presetLabel(p)}${p === s.preset ? ` <span class="badge ok">${es ? 'en pantalla' : 'on screen'}</span>` : ''}</td><td>${fmtBn(basePath(sp)[E - 1], 0)}</td><td>${fmtPct(sp.margin[E - 1] - sp.sbc, 1)}</td><td><b>US$ ${fmtN(r.perShare, 0)}</b></td><td class="${cls(price ? r.perShare - price : null)}">${price ? fmtPct(100 * (r.perShare / price - 1), 0, true) : '—'}</td><td>${fmtPct(100 * r.tvShare, 0)}</td><td>${iw != null ? fmtPct(100 * iw, 1) : '—'}</td><td>${ig != null ? fmtPct(ig, 1) : '—'}</td></tr>`).join('')}</tbody></table><div class="callout" style="margin-top:10px"><p style="margin:0 0 6px">${desc.base}</p><p style="margin:0 0 6px">${desc.bull}</p><p style="margin:0">${desc.bear}</p></div>`);
+    el('dcfPresetsCap').textContent = es ? `Los tres escenarios comparten el costo de capital, los impuestos y el tratamiento de arrendamientos en pantalla (WACC ${fmtPct(100 * rows[1].r.wacc, 2)}); solo cambian ingresos, márgenes y capex. La WACC implícita es la que devolvería el precio con los flujos de cada escenario; la g implícita, el crecimiento terminal que lo haría a la WACC en pantalla.` : `The three scenarios share the cost of capital, taxes and lease treatment on screen (WACC ${fmtPct(100 * rows[1].r.wacc, 2)}); only revenue, margins and capex change. The implied WACC is the one that would return the price with each scenario's flows; the implied g, the terminal growth that would at the WACC on screen.`;
+    html('dcfPresetsSrc', `${t('src')}: ${FS && FS.source && FS.source.url ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} ${FS ? asOf(FS.asOf) : ''} · ${es ? 'objetivo AF2030' : 'FY2030 target'}: ${irLink()} · ${es ? 'capacidad nominal por campus' : 'nameplate capacity per campus'}: ${ref('sites')} · ${es ? 'OpenAI ≈ la mitad del RPO' : 'OpenAI ≈ half of RPO'}: ${(BO && BO.unitEconomics && BO.unitEconomics.concentration && BO.unitEconomics.concentration.source) ? extLink(BO.unitEconomics.concentration.source.url, 'S&P Global Ratings, 9 Jul 2026') : 'S&P'} (${es ? 'estimación de un tercero' : 'third-party estimate'})`);
+  }
+  // ---- tax note: the LTM rate is not a steady-state rate; what the 10-K reconciliation says and what each mode is worth
+  function renderDcfTaxNote(s, price) {
+    if (!el('dcfTaxNote')) return; const es = LANG === 'es';
+    const vals = ['ltm', 'ramp', 'normalized'].map((m) => ({ m, r: dcfCompute(s, { taxMode: m }) }));
+    const lbl = { ltm: es ? `efectiva UDM (${fmtPct(s.tax, 1)}) constante` : `LTM effective (${fmtPct(s.tax, 1)}) held`, ramp: es ? `rampa de ${fmtPct(s.tax, 1)} a ${fmtPct(s.taxNorm, 1)} en el último año explícito` : `ramp from ${fmtPct(s.tax, 1)} to ${fmtPct(s.taxNorm, 1)} by the last explicit year`, normalized: es ? `${fmtPct(s.taxNorm, 1)} desde el año 1` : `${fmtPct(s.taxNorm, 1)} from year 1` };
+    const tbl = `<table><thead><tr><th>${es ? 'Modo' : 'Mode'}</th><th>${es ? 'Tasa año 1 → terminal' : 'Rate year 1 → terminal'}</th><th>${es ? 'Valor por acción' : 'Value per share'}</th><th>${es ? 'vs precio' : 'vs price'}</th></tr></thead><tbody>${vals.map(({ m, r }) => `<tr class="${m === s.taxMode ? 'bold' : ''}"><td>${lbl[m]}${m === s.taxMode ? ` <span class="badge ok">${es ? 'en pantalla' : 'on screen'}</span>` : ''}${m === (D.taxMode || 'ramp') ? ` <span class="badge">${es ? 'por defecto' : 'default'}</span>` : ''}</td><td>${fmtPct(r.rows[0].taxRate, 1)} → ${fmtPct(r.taxT, 1)}</td><td><b>US$ ${fmtN(r.perShare, 0)}</b></td><td class="${cls(price ? r.perShare - price : null)}">${price ? fmtPct(100 * (r.perShare / price - 1), 0, true) : '—'}</td></tr>`).join('')}</tbody></table>`;
+    let rec = '';
+    if (TAX) {
+      const q = XB && XB.concepts.tax_rate_effective ? (XB.concepts.tax_rate_effective.fiscal_years || []).find((x) => x.fiscal_year === 'FY2026') : null;
+      const ok = (l) => { const c = XB && XB.concepts[l.xbrl]; const f = c && (c.fiscal_years || []).find((x) => x.fiscal_year === 'FY2026'); return f && Math.abs(Math.abs(f.value) - Math.abs(l.pct)) < 0.051 ? `<span class="badge ok" title="SEC XBRL ${c.concept}">XBRL ✓</span>` : `<span class="badge">${es ? 'texto' : 'text'}</span>`; };
+      rec = `<table style="margin-top:10px"><thead><tr><th>${es ? 'Conciliación de la tasa, AF2026 (10-K)' : 'Rate reconciliation, FY2026 (10-K)'}</th><th>US$ M</th><th>pp</th><th></th></tr></thead><tbody><tr class="bold"><td>${es ? 'Tasa federal estatutaria' : 'US federal statutory rate'}</td><td>${fmtN(TAX.fy2026.pretax_income_usd_m * TAX.fy2026.statutory_rate_pct / 100)}</td><td>${fmtN(TAX.fy2026.statutory_rate_pct, 1)}</td><td>${q ? `<span class="badge ok">XBRL ✓</span>` : ''}</td></tr>${TAX.fy2026.lines.map((l) => `<tr class="sub"><td>${L(l)}</td><td>${fmtN(l.usd_m)}</td><td>${l.pct > 0 ? '+' : ''}${fmtN(l.pct, 1)}</td><td>${ok(l)}</td></tr>`).join('')}<tr class="total"><td>${es ? 'Tasa efectiva AF2026' : 'FY2026 effective rate'}</td><td>${fmtN(TAX.fy2026.provision_usd_m)}</td><td>${fmtN(TAX.fy2026.effective_rate_pct, 1)}</td><td>${q ? `<span class="badge ok">XBRL ✓</span>` : ''}</td></tr></tbody></table>`;
+    }
+    const why = TAX ? (es ? `<b>Por qué no se mantiene la tasa UDM.</b> La tasa efectiva del AF2026 (${fmtPct(TAX.fy2026.effective_rate_pct, 1)}) está ${fmtN(TAX.fy2026.statutory_rate_pct - TAX.fy2026.effective_rate_pct, 1)} pp por debajo de la estatutaria por partidas que no son de estado estable: las partidas no gravables o no deducibles (${fmtN(TAX.fy2026.lines.find((l) => l.k === 'sbc').pct, 1)} pp, de las cuales el beneficio fiscal excedente de la compensación en acciones ${fmtN(TAX.fy2026.lines.find((l) => l.k === 'sbc').sbc_pct, 1)} pp, que depende del precio de la acción) y los créditos (${fmtN(TAX.fy2026.lines.find((l) => l.k === 'credits').pct, 1)} pp), parcialmente compensados por partidas únicas (ley promulgada +${fmtN(TAX.fy2026.lines.find((l) => l.k === 'enacted').pct, 1)} pp, beneficios no reconocidos +${fmtN(TAX.fy2026.lines.find((l) => l.k === 'utb').pct, 1)} pp). La tasa normalizada por defecto es la estatutaria (${fmtPct(TAX.fy2026.statutory_rate_pct, 1)}) más los impuestos estatales netos del beneficio federal (${fmtN(TAX.state.pct, 1)} pp, línea del ${TAX.state.fy}, el último año en que el 10-K la muestra por separado) = <b>${fmtPct(TAX.normalized.pct, 1)}</b>; la rampa (por defecto) deja que los créditos y el beneficio por acciones se agoten durante el horizonte en vez de desaparecer el primer año.` : `<b>Why the LTM rate is not held.</b> The FY2026 effective rate (${fmtPct(TAX.fy2026.effective_rate_pct, 1)}) sits ${fmtN(TAX.fy2026.statutory_rate_pct - TAX.fy2026.effective_rate_pct, 1)} pp below the statutory rate because of items that are not steady state: nontaxable or nondeductible items (${fmtN(TAX.fy2026.lines.find((l) => l.k === 'sbc').pct, 1)} pp, of which the excess tax benefit on stock-based compensation ${fmtN(TAX.fy2026.lines.find((l) => l.k === 'sbc').sbc_pct, 1)} pp, which depends on the share price) and credits (${fmtN(TAX.fy2026.lines.find((l) => l.k === 'credits').pct, 1)} pp), partly offset by one-time items (enacted law +${fmtN(TAX.fy2026.lines.find((l) => l.k === 'enacted').pct, 1)} pp, unrecognized benefits +${fmtN(TAX.fy2026.lines.find((l) => l.k === 'utb').pct, 1)} pp). The default normalized rate is the statutory rate (${fmtPct(TAX.fy2026.statutory_rate_pct, 1)}) plus state taxes net of federal benefit (${fmtN(TAX.state.pct, 1)} pp, the ${TAX.state.fy} line, the latest year the 10-K shows it separately) = <b>${fmtPct(TAX.normalized.pct, 1)}</b>; the ramp (default) lets the credits and the stock-based benefit run off over the horizon instead of vanishing in year one.`) : '';
+    html('dcfTaxNote', `<p class="small" style="margin:0 0 8px">${why}</p><div class="tblwrap">${tbl}</div><div class="tblwrap">${rec}</div>`);
+    html('dcfTaxSrc', `${t('src')}: ${TAX ? extLink(TAX.source.url, es ? `10-K AF2026, nota de impuestos, p. ${TAX.source.page}` : `FY2026 10-K, income taxes note, p. ${TAX.source.page}`) + ` · <span class="mono">${TAX.source.accession}</span>` : ''} · ${XB ? extLink(XB.source.url, 'SEC XBRL') : ''} · ${es ? 'tasa UDM: comunicados de resultados (provisión ÷ utilidad antes de impuestos de los cuatro trimestres)' : 'LTM rate: earnings releases (provision ÷ pretax income of the four quarters)'} ${relLink()}`);
+  }
+  // ---- leases note: ties the off-balance-sheet section to the DCF (what the bridge deducts, what consensus includes, what the
+  // US$288 bn of uncommenced leases would do under each treatment)
+  function renderDcfLeaseNote(s, price) {
+    if (!el('dcfLeaseNote')) return; const es = LANG === 'es';
+    const cl = bridgeClaims(); const Lz = (OB && OB.leases) || {}, cost = Lz.cost || {}, un = Lz.uncommenced || {}, pv = cl.uncPvMethod;
+    const a = dcfCompute(s, { leases: 'operating' }), b = dcfCompute(s, { leases: 'finance_pv' });
+    const fla = XB && XB.concepts.fin_lease_additions ? (XB.concepts.fin_lease_additions.fiscal_years || []).slice(-1)[0] : null;
+    const rows = [
+      [es ? 'Pasivos por arrendamientos financieros (en balance)' : 'Finance-lease liabilities (on the balance sheet)', fmtBn(cl.finLease), es ? 'restados en el puente: su costo (amortización del activo e intereses) queda por debajo del EBITDA' : 'deducted in the bridge: their cost (asset amortization and interest) sits below EBITDA'],
+      [es ? 'Pasivos por arrendamientos operativos (en balance)' : 'Operating-lease liabilities (on the balance sheet)', fmtBn(Lz.operating_liabilities_total), es ? `no se restan: la renta (US$ ${fmtN((cost.operating_lease_cost_ltm || 0) / 1000, 1)} mil M UDM) está en los gastos de operación y, por tanto, dentro del EBITDA` : `not deducted: the rent (US$ ${fmtN((cost.operating_lease_cost_ltm || 0) / 1000, 1)} bn LTM) is in operating expenses and therefore inside EBITDA`],
+      [es ? 'Arrendamientos firmados, no iniciados (nominal)' : 'Leases signed, not yet commenced (nominal)', `US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M' : 'bn'}`, es ? `inician entre ${boLabel(un.commence_from)} y ${un.commence_to}, plazos ${un.term_years_min}–${un.term_years_max} años; Oracle no dice si serán operativos o financieros` : `commence between ${boLabel(un.commence_from)} and ${un.commence_to}, ${un.term_years_min}–${un.term_years_max}-year terms; Oracle does not say whether they will be operating or finance leases`],
+      [es ? 'Su valor presente (estimación ilustrativa)' : 'Their present value (illustrative estimate)', cl.uncPv ? `≈ ${fmtBn(cl.uncPv)}` : '—', pv ? L({ es: pv.method_es, en: pv.method_en }) : ''],
+      [es ? 'Adiciones por arrendamiento financiero, último año fiscal (XBRL)' : 'Finance-lease additions, latest fiscal year (XBRL)', fla ? fmtBn(fla.value) : (es ? 'no etiquetado' : 'not tagged'), es ? 'capacidad que entra sin pasar por el capex en efectivo; el consenso de capex no la incluye' : 'capacity that arrives without passing through cash capex; consensus capex does not include it'],
+    ];
+    const treat = es
+      ? `<b>Cómo trata el consenso los arrendamientos.</b> FactSet publica el EBITDA y el capex que envían los brokers sobre los estados reportados de Oracle: el costo de los arrendamientos operativos está en los gastos (dentro del EBITDA) y el de los financieros por debajo; el capex del consenso (US$ ${fmtN((fsFiscal()[0] && fsFiscal()[0].capex ? fsFiscal()[0].capex.mean : 0) / 1000, 1)} mil M ${fsFiscal()[0] ? fsFiscal()[0].fy : ''}, ≈ la guía bruta) es capex en efectivo y excluye los pagos de arrendamiento y las adiciones por arrendamiento financiero. FactSet no indica si la trayectoria de margen de cada broker incluye la renta de los US$ ${fmtN(un.usd_bn, 0)} mil M que aún no empiezan. Por eso el DCF ofrece dos tratamientos: <b>operativos</b> (por defecto: la renta se supone dentro del margen del consenso, sin deducción) y <b>financieros</b> (se resta su valor presente estimado en el puente; si el margen del consenso ya carga esa renta, esto cuenta el costo dos veces y es un piso, no un valor).`
+      : `<b>How consensus treats the leases.</b> FactSet publishes the EBITDA and capex the brokers submit on Oracle's reported statements: operating-lease cost sits in opex (inside EBITDA) and finance-lease cost below it; consensus capex (US$ ${fmtN((fsFiscal()[0] && fsFiscal()[0].capex ? fsFiscal()[0].capex.mean : 0) / 1000, 1)} bn ${fsFiscal()[0] ? fsFiscal()[0].fy : ''}, ≈ the gross guide) is cash capex and excludes lease payments and finance-lease additions. FactSet does not state whether each broker's margin path carries the rent of the US$ ${fmtN(un.usd_bn, 0)} bn not yet commenced. The DCF therefore offers two treatments: <b>operating</b> (default: the rent is assumed inside the consensus margin, nothing deducted) and <b>finance</b> (their estimated present value is deducted in the bridge; if the consensus margin already carries that rent this counts the cost twice, so it is a floor, not a value).`;
+    html('dcfLeaseNote', `<p class="small" style="margin:0 0 8px">${treat}</p><div class="tblwrap"><table><tbody>${rows.map((x) => `<tr><td>${x[0]}</td><td><b>${x[1]}</b></td><td class="small muted" style="white-space:normal">${x[2]}</td></tr>`).join('')}</tbody></table></div><div class="stat-row" style="margin-top:10px"><div class="stat"><div class="v">US$ ${fmtN(a.perShare, 0)}</div><div class="l">${es ? 'por acción, tratamiento operativo' : 'per share, operating treatment'}${s.leases === 'operating' ? ` · <span class="badge ok">${es ? 'en pantalla' : 'on screen'}</span>` : ''}</div></div><div class="stat"><div class="v">US$ ${fmtN(b.perShare, 0)}</div><div class="l">${es ? 'por acción, VP de los no iniciados restado' : 'per share, PV of the uncommenced leases deducted'}${s.leases === 'finance_pv' ? ` · <span class="badge ok">${es ? 'en pantalla' : 'on screen'}</span>` : ''}</div></div><div class="stat"><div class="v">${fmtPct(100 * (b.perShare / a.perShare - 1), 0, true)}</div><div class="l">${es ? 'diferencia entre tratamientos' : 'difference between treatments'}</div></div></div><p class="small muted" style="margin:8px 0 0">${es ? `Las cifras y su procedencia están en ${ref('obligations')}; la lectura de los arrendamientos no iniciados fue confirmada por una segunda lectura del 10-Q.` : `Figures and their provenance are in ${ref('obligations')}; the uncommenced-lease reading was confirmed by a second reading of the 10-Q.`}</p>`);
+    const q10 = obSrc(Lz.source);
+    html('dcfLeaseSrc', `${t('src')}: ${q10 ? extLink(q10.url, es ? '10-Q 1T27, nota de arrendamientos' : '1Q27 10-Q, leases note') : ''} · ${XB ? extLink(XB.source.url, 'SEC XBRL') : ''} · ${FS && FS.source ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} ${FS ? asOf(FS.asOf) : ''} · ${es ? 'VP ilustrativo' : 'illustrative PV'}: ${ref('obligations')}`);
   }
 
   // ================= 06 RELATIVE =================
@@ -1264,6 +1402,7 @@
     const pts = CDS.points || [];
     const R = (CDS.recoveryPct ?? 40) / 100, T = CDS.tenor || 5;
     const pd = (bp) => 100 * (1 - Math.exp(-(bp / 10000) / (1 - R) * T));
+    const cdsWrap = el('cdsChartWrap'); if (cdsWrap) cdsWrap.hidden = !pts.length;
     if (pts.length) {
       const last = pts[pts.length - 1]; const yAgo = pointAtOrBefore(pts, addDays(last[0], -365));
       mkChart('chartCds', { type: 'line', data: { labels: pts.map((p) => p[0]), datasets: [{ label: `CDS ${T}Y (bp)`, data: pts.map((p) => p[1]), borderColor: c[7], backgroundColor: c[7] + '1a', fill: true }] }, options: { plugins: { tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${fmtN(x.parsed.y)} bp · PD ${fmtPct(pd(x.parsed.y))}` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => pts[i] ? pts[i][0].slice(0, 7) : '' }, grid: { display: false } }, y: { ticks: { callback: (v) => v + ' bp' }, beginAtZero: true } } } });
@@ -1272,12 +1411,12 @@
       html('cdsSrc', `${t('src')}: ${CDS.source} · ${fmtDate(CDS.updatedAt)}`);
       html('cdsNote', LANG === 'es' ? `<b>Lectura.</b> El spread es lo que cuesta asegurar US$ 10,000 de deuda senior de Oracle por año durante ${T} años, en puntos base; la PD implícita es la probabilidad acumulada de incumplimiento que ese precio implica bajo el supuesto de recuperación estándar. Léalo junto con las calificaciones (tabla a la izquierda): el CDS reacciona antes que las agencias.` : `<b>Reading it.</b> The spread is the annual cost, in basis points, of insuring US$ 10,000 of Oracle senior debt for ${T} years; the implied PD is the cumulative default probability that price implies under the standard recovery assumption. Read it with the ratings (table at left): the CDS moves before the agencies do.`);
     } else {
-      el('cdsCap').textContent = t('pending');
+      // no series yet: one line that says so, with the latest press reading linked from the news file (never an internal path)
+      const nw2 = NEWS ? (NEWS.items || []).filter((x) => /credit default swap|CDS/i.test(x.summary_en || '')).sort((a, b) => (a.date < b.date ? 1 : -1))[0] : null;
+      el('cdsCap').textContent = '';
       html('cdsStats', '');
-      html('cdsNote', LANG === 'es'
-        ? `<b>Pendiente del conector de FactSet.</b> Contrato listo en <code>tools/oracle/data/cds.json</code>: <code>points</code> = [fecha, spread en pb] del CDS senior a ${T} años (cláusula ${CDS.docClause || 'XR14'}), <code>recoveryPct</code> = ${fmtN(100 * R)}. Al llenarse, esta tarjeta muestra la serie, el spread más reciente, su variación a 1 año y la probabilidad de incumplimiento implícita PD = 1 − exp(−spread ÷ (1 − recuperación) × ${T}). Referencia: un spread de 100 pb equivale a ≈ ${fmtPct(pd(100))} de PD acumulada a ${T} años; 200 pb ≈ ${fmtPct(pd(200))}.`
-        : `<b>Pending the FactSet connector.</b> Contract ready in <code>tools/oracle/data/cds.json</code>: <code>points</code> = [date, spread in bp] of the ${T}-year senior CDS (${CDS.docClause || 'XR14'} clause), <code>recoveryPct</code> = ${fmtN(100 * R)}. Once filled, this card shows the series, the latest spread, its 1-year change and the implied default probability PD = 1 − exp(−spread ÷ (1 − recovery) × ${T}). For reference, a 100 bp spread equals ≈ ${fmtPct(pd(100))} cumulative ${T}-year PD; 200 bp ≈ ${fmtPct(pd(200))}.`);
-      html('cdsSrc', `${t('src')}: ${LANG === 'es' ? 'FactSet (conector pendiente de autorización)' : CDS.source} · ${t('pending')}`);
+      html('cdsNote', `<b>${LANG === 'es' ? 'CDS: no hay serie disponible.' : 'CDS: no series available.'}</b> ${LANG === 'es' ? `El conector de FactSet no expone precios de CDS ni de bonos (verificado ${fmtDate(QR && QR.generated ? QR.generated : new Date().toISOString())}); la tarjeta se llenará con la serie a ${T} años y la probabilidad de incumplimiento implícita (recuperación ${fmtPct(100 * R, 0)}) cuando exista.` : `The FactSet connector exposes no CDS or bond-price content set (checked ${fmtDate(QR && QR.generated ? QR.generated : new Date().toISOString())}); this card fills with the ${T}-year series and the implied default probability (${fmtPct(100 * R, 0)} recovery) once one exists.`}${nw2 ? ` ${LANG === 'es' ? 'Última lectura de prensa' : 'Latest press reading'}: ${extLink(nw2.sources[0].url, `${nw2.sources[0].title.replace(/:.*$/, '')}`)} (${fmtDate(nw2.date)}, ${LANG === 'es' ? 'prensa, no entra a ninguna cifra' : 'press, enters no figure'}).` : ''}`);
+      html('cdsSrc', `${t('src')}: FactSet (${LANG === 'es' ? 'sin conjunto de datos de CDS en el conector' : 'no CDS content set in the connector'})${nw2 ? ` · ${LANG === 'es' ? 'prensa enlazada en' : 'press linked in'} ${ref('news')}` : ''}`);
       if (hasChart() && charts.chartCds) { charts.chartCds.destroy(); delete charts.chartCds; }
     }
   }
@@ -1598,8 +1737,10 @@
   // data/sections.js (tools/oracle/data/sections.json) is the only source of section order, titles and numbers.
   // Nothing on the page types a section, figure or table number; ref(sectionId) resolves to "§NN Title" at render time.
   const secList = () => SEC.sections || [];
-  const secIndex = () => { let n = 0; const m = {}; for (const s of secList()) { if (s.numbered === false) { m[s.id] = { n: null, s }; continue; } n++; m[s.id] = { n, s }; } return m; };
-  const secNum = (id) => { const e = secIndex()[id]; return e && e.n != null ? String(e.n).padStart(2, '0') : ''; };
+  // main sections are numbered 01, 02…; the Reference appendix (group: reference) R1, R2…; an unnumbered section may carry a label ("Start here")
+  const secIndex = () => { let n = 0, r = 0; const m = {}; for (const s of secList()) { const label = L({ es: s.label_es, en: s.label_en }) || null; if (s.numbered === false) { m[s.id] = { n: null, label, s }; continue; } if (s.group === 'reference') { r++; m[s.id] = { n: r, num: 'R' + r, group: 'reference', s }; continue; } n++; m[s.id] = { n, num: String(n).padStart(2, '0'), s }; } return m; };
+  const secNum = (id) => { const e = secIndex()[id]; return e ? (e.num || e.label || '') : ''; };
+  const deckList = () => secList().filter((s) => s.deck).slice().sort((a, b) => (a.deck_order || 99) - (b.deck_order || 99));
   const secTitle = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.es, en: e.s.en }) : id; };
   const secNav = (id) => { const e = secIndex()[id]; return e ? L({ es: e.s.nav_es, en: e.s.nav_en }) : id; };
   const ref = (id) => { const e = secIndex()[id]; if (!e) return `<a class="xref" href="#${id}">${id}</a>`; return `<a class="xref" href="#${id}">${e.n != null ? '§' + secNum(id) + ' ' : ''}${secNav(id)}</a>`; };
@@ -1610,7 +1751,7 @@
     for (const sec of secs) {
       const e = idx[sec.dataset.sec]; if (!e) continue;
       const num = sec.querySelector('.sec-head .sec-num'), h2 = sec.querySelector('.sec-head h2');
-      if (num) { num.textContent = e.n != null ? String(e.n).padStart(2, '0') : ''; num.hidden = e.n == null; }
+      if (num) { num.textContent = e.num || e.label || ''; num.hidden = !(e.num || e.label); num.classList.toggle('label', !e.num && !!e.label); }
       if (h2) h2.textContent = L({ es: e.s.es, en: e.s.en });
       // figures (cards with a chart) and tables (cards with a table) numbered in reading order, once per card
       for (const card of sec.querySelectorAll('.card')) {
@@ -1624,7 +1765,9 @@
     }
     // navigation from the registry
     const nav = el('jumpNav');
-    if (nav) nav.innerHTML = secList().map((s) => `<a href="#${s.id}">${idx[s.id].n != null ? `<span class="muted">${String(idx[s.id].n).padStart(2, '0')}</span> ` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`).join('') + `<a href="#sources">${es ? 'Fuentes' : 'Sources'}</a><button type="button" class="navbtn" id="btnCollapseAll"></button>`;
+    const navLink = (s) => `<a href="#${s.id}">${idx[s.id].num ? `<span class="muted">${idx[s.id].num}</span> ` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`;
+    if (nav) nav.innerHTML = secList().filter((s) => s.group !== 'reference').map(navLink).join('') + `<span class="navsep">${es ? 'Referencia' : 'Reference'}</span>` + secList().filter((s) => s.group === 'reference').map(navLink).join('') + `<a href="#sources">${es ? 'Fuentes' : 'Sources'}</a><button type="button" class="navbtn" id="btnCollapseAll"></button>`;
+    renderMobileMenu();
     const ca = el('btnCollapseAll'); if (ca) ca.addEventListener('click', () => { const ids = secList().map((x) => x.id).filter((x) => x !== 'summary'); if (ca.dataset.mode === 'collapse') ids.forEach((x) => collapsed.add(x)); else collapsed.clear(); saveCollapsed(); applyCollapse(); });
   }
   numberSections.fig = 0; numberSections.tbl = 0;
@@ -1687,7 +1830,7 @@
       [es ? 'Flujo de efectivo libre del trimestre' : 'Quarterly free cash flow', lastQ.cf && lastQ.cf.fcf != null ? fmtBn(lastQ.cf.fcf) : '—', `${ql}`, B.der, 'capex'],
       [es ? 'Deuda neta · deuda neta / EBITDA UDM' : 'Net debt · net debt / LTM EBITDA', nd ? `${fmtBn(nd.net)} · ${eb ? fmtX(nd.net / eb, 2) : '—'}` : '—', `${qe}`, B.der, 'financing'],
       [es ? 'Pasivos por arrendamiento (operativos + financieros)' : 'Lease liabilities (operating + finance)', Lz.operating_liabilities_total != null ? fmtBn((Lz.operating_liabilities_total || 0) + (Lz.finance_liabilities_total || 0)) : '—', OB ? fmtDate(OB.as_of) : '', B.rep, 'obligations'],
-      [es ? 'Arrendamientos firmados, no iniciados (nominal)' : 'Leases signed, not yet commenced (nominal)', un.usd_bn != null ? `US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M' : 'bn'}` : '—', OB ? fmtDate(OB.as_of) : '', B.txt, 'obligations'],
+      [es ? 'Arrendamientos firmados, no iniciados (nominal)' : 'Leases signed, not yet commenced (nominal)', un.usd_bn != null ? `US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M' : 'bn'}` : '—', OB ? fmtDate(OB.as_of) : '', uncBadge(), 'obligations'],
       [es ? 'Obligaciones de compra (nominal)' : 'Purchase obligations (nominal)', OB && OB.purchase_obligations ? fmtBn(OB.purchase_obligations.total) : '—', OB ? fmtDate(OB.as_of) : '', B.rep, 'obligations'],
       [es ? 'Precio ORCL · capitalización' : 'ORCL price · market cap', lastPx ? `US$ ${fmtN(lastPx[1], 2)}${sharesNow ? ` · ${fmtBn(lastPx[1] * sharesNow / 1e6, 0)}` : ''}` : '—', lastPx ? `${es ? 'cierre' : 'close'} ${fmtDate(lastPx[0])}` : '', B.mkt, 'valuation'],
       [es ? 'Próximos resultados' : 'Next results', nx ? fmtDate(nx.date) : '—', nx ? (nx.basis === 'confirmed' ? (es ? 'confirmado por Oracle' : 'confirmed by Oracle') : (es ? 'mediana de los tres años anteriores' : 'median of the prior three years')) : '', nx && nx.basis === 'confirmed' ? B.co : B.est, 'calendar'],
@@ -1765,7 +1908,7 @@
       { l: es ? '= Deuda neta ajustada' : '= Adjusted net debt', a: `<b>${bn(S.net)}</b>`, b: `<b>${bn(S.adjDebt)}</b>`, c: `<b>${bn(S.adjDebt)}</b>`, d: '' , cls: 'total' },
       { l: es ? 'EBITDA UDM · EBITDAR UDM (+ costo de arrendamientos operativos)' : 'LTM EBITDA · LTM EBITDAR (+ operating lease cost)', a: bn(S.ebitda), b: bn(S.ebitdar), c: bn(S.ebitdar), d: es ? `costo de arrendamientos operativos UDM US$ ${fmtN(S.olc)} M` : `LTM operating lease cost US$ ${fmtN(S.olc)} M` },
       { l: es ? 'Apalancamiento' : 'Leverage', a: `<b>${fmtX(S.ndEbitda, 2)}</b>`, b: `<b>${fmtX(S.leaseAdj, 2)}</b>`, c: `<b>${fmtX(S.leaseAdj, 2)}</b>`, d: es ? 'la vista transparente no cambia la razón: nada de abajo es pasivo' : 'the look-through view leaves the ratio unchanged: nothing below is a liability', cls: 'total' },
-      { l: es ? 'Memo: arrendamientos firmados, no iniciados (nominal, sin descontar)' : 'Memo: leases signed, not yet commenced (nominal, undiscounted)', a: dash, b: dash, c: `${fmtN(un.usd_bn, 0)} <span class="badge rev">${es ? 'texto · revisión' : 'text · review'}</span>`, d: es ? `fuera del balance hasta que cada sitio se entregue; plazos ${un.term_years_min}–${un.term_years_max} años; nunca se suman a la deuda` : `off the balance sheet until each site is handed over; ${un.term_years_min}–${un.term_years_max}-year terms; never added to debt`, cls: 'sub' },
+      { l: es ? 'Memo: arrendamientos firmados, no iniciados (nominal, sin descontar)' : 'Memo: leases signed, not yet commenced (nominal, undiscounted)', a: dash, b: dash, c: `${fmtN(un.usd_bn, 0)} ${uncBadge()}`, d: es ? `fuera del balance hasta que cada sitio se entregue; plazos ${un.term_years_min}–${un.term_years_max} años; nunca se suman a la deuda` : `off the balance sheet until each site is handed over; ${un.term_years_min}–${un.term_years_max}-year terms; never added to debt`, cls: 'sub' },
       { l: es ? 'Memo: valor presente de esos arrendamientos' : 'Memo: present value of those leases', a: dash, b: dash, c: pvVal != null ? `≈ ${bn(pvVal)} <span class="badge est">${L({ es: pv.label_es, en: pv.label_en })}</span>` : nd, d: pv ? L({ es: pv.method_es, en: pv.method_en }) : '', cls: 'sub' },
       { l: es ? 'Memo: razón incluyendo compromisos (nominal)' : 'Memo: commitment-inclusive ratio (nominal)', a: dash, b: dash, c: `${fmtX(S.commit, 1)} <span class="badge est">${es ? 'exposición, no deuda' : 'exposure, not debt'}</span>`, d: es ? '(deuda neta ajustada + arrendamientos no iniciados a valor nominal) ÷ EBITDAR, sin proyectar EBITDA' : '(adjusted net debt + uncommenced leases at nominal) ÷ EBITDAR, without projecting EBITDA', cls: 'sub' },
       { l: es ? 'Memo: obligaciones de compra (nominal)' : 'Memo: purchase obligations (nominal)', a: dash, b: dash, c: bn(po.total), d: es ? 'energía, componentes y otros; nota de compromisos del 10-Q' : 'power, components and other; 10-Q commitments note', cls: 'sub' },
@@ -1823,15 +1966,15 @@
     const getPath = (o, path) => path.split('.').reduce((a, k) => (a == null ? a : a[k]), o);
     const NAMED = { 'guarantees.usd_m': [`Garantía del préstamo de un arrendador (exposición máxima)`, `Guarantee of a lessor's borrowing (maximum exposure)`], 'vie.disclosed': ['Entidades de interés variable consolidadas', 'Consolidated variable-interest entities'], 'preferred.carrying_value_usd_m': ['Preferentes: valor en libros', 'Preferred stock: carrying value'], 'preferred.dividend_quarterly_usd_m': ['Preferentes: dividendo trimestral', 'Preferred stock: quarterly dividend'], 'preferred.max_conversion_rate': ['Preferentes: tasa máxima de conversión (acciones por preferente)', 'Preferred stock: maximum conversion rate (shares per preferred share)'], 'prepayments.deferred_revenue_prepayments_financing_1q27': ['Prepagos de clientes con componente de financiamiento, 1T27', 'Customer prepayments with a financing component, 1Q27'] };
     const label = (path) => NAMED[path] ? NAMED[path][es ? 0 : 1] : path.replace(/^balance_sheet\./, es ? 'Balance: ' : 'Balance sheet: ').replace(/^leases\.cost\./, es ? 'Arrendamientos, costo: ' : 'Leases, cost: ').replace(/^leases\.uncommenced\./, es ? 'Arrendamientos no iniciados: ' : 'Uncommenced leases: ').replace(/^leases\./, es ? 'Arrendamientos: ' : 'Leases: ').replace(/^purchase_obligations\./, es ? 'Obligaciones de compra: ' : 'Purchase obligations: ').replace(/^prepayments\./, es ? 'Prepagos: ' : 'Prepayments: ').replace(/_/g, ' ');
-    const badge = (v) => v === 'verified' ? `<span class="badge ok">${es ? 'verificado (XBRL)' : 'verified (XBRL)'}</span>` : v === 'verified_release' ? `<span class="badge ok">${es ? 'verificado (comunicado)' : 'verified (release)'}</span>` : v === 'verified_tie' ? `<span class="badge ok">${es ? 'verificado (cuadre)' : 'verified (tie-out)'}</span>` : v === 'mismatch' ? `<span class="badge bad">${es ? 'no coincide' : 'mismatch'}</span>` : v === 'needs_review' ? `<span class="badge rev">${es ? 'lectura de texto · revisión' : 'text reading · review'}</span>` : `<span class="badge">${es ? 'sin verificar' : 'unverified'}</span>`;
+    const badge = (v) => v === 'verified' ? `<span class="badge ok">${es ? 'verificado (XBRL)' : 'verified (XBRL)'}</span>` : v === 'verified_text' ? `<span class="badge ok">${es ? 'texto · segunda lectura' : 'text · second reading'}</span>` : v === 'verified_release' ? `<span class="badge ok">${es ? 'verificado (comunicado)' : 'verified (release)'}</span>` : v === 'verified_tie' ? `<span class="badge ok">${es ? 'verificado (cuadre)' : 'verified (tie-out)'}</span>` : v === 'mismatch' ? `<span class="badge bad">${es ? 'no coincide' : 'mismatch'}</span>` : v === 'needs_review' ? `<span class="badge rev">${es ? 'lectura de texto · revisión' : 'text reading · review'}</span>` : `<span class="badge">${es ? 'sin verificar' : 'unverified'}</span>`;
     const rows = Object.entries(prov).filter(([k]) => !k.startsWith('_')).map(([path, p]) => {
       const s = (OB.sources || {})[p.source] || {}; const noteName = s.notes && s.notes[p.note] ? s.notes[p.note] : p.note;
       const vs = ver.filter((v) => v.path === path || v.path.startsWith(path + '['));
       const val = getPath(OB, path); const vTxt = typeof val === 'boolean' ? (val ? (es ? 'sí' : 'yes') : (es ? 'ninguna identificada' : 'none identified')) : typeof val === 'number' ? (path.endsWith('conversion_rate') ? fmtN(val, 4) : fmtM(val)) : Array.isArray(val) ? `${val.length} ${es ? 'renglones' : 'rows'}` : val && typeof val === 'object' ? (es ? 'bloque de texto' : 'text block') : String(val ?? '—');
-      const verdict = vs.length ? (vs.every((v) => v.verdict === 'verified') ? 'verified' : vs.some((v) => v.verdict === 'mismatch') ? 'mismatch' : vs[0].verdict) : (p.text_only ? 'needs_review' : 'unverified');
+      const verdict = vs.length ? (vs.every((v) => v.verdict === 'verified') ? 'verified' : vs.some((v) => v.verdict === 'mismatch') ? 'mismatch' : vs[0].verdict) : (p.text_only ? (p.second_reading && p.second_reading.matches ? 'verified_text' : 'needs_review') : 'unverified');
       const xb = vs.find((v) => v.xbrl) ? vs.find((v) => v.xbrl).xbrl : null; const v0 = vs[0] || {};
       // how the figure is checked when there is no single XBRL fact: an archived-release re-read, a tie-out, or nothing (text)
-      const how = v0.method === 'release' && v0.release ? `${es ? 'releído del comunicado 8-K' : 're-read from the 8-K release'}<span class="sub">${fmtM(v0.release.parsed)} · ${v0.release.accession}</span>` : v0.method === 'tie_out' ? `${es ? 'cuadre con los términos del prospecto' : 'tie-out to the prospectus terms'}<span class="sub">${es ? 'no es un dato XBRL' : 'not an XBRL fact'}</span>` : v0.method === 'text' ? `${es ? 'sin concepto XBRL para esta revelación' : 'no XBRL concept exists for this disclosure'}<span class="sub">${es ? 'se mantiene para una segunda lectura' : 'kept for a second reading'}</span>` : null;
+      const how = v0.method === 'text' && v0.secondReading ? `${es ? 'segunda lectura del texto' : 'second reading of the text'}<span class="sub">${fmtDate(v0.secondReading)}</span>` : v0.method === 'release' && v0.release ? `${es ? 'releído del comunicado 8-K' : 're-read from the 8-K release'}<span class="sub">${fmtM(v0.release.parsed)} · ${v0.release.accession}</span>` : v0.method === 'tie_out' ? `${es ? 'cuadre con los términos del prospecto' : 'tie-out to the prospectus terms'}<span class="sub">${es ? 'no es un dato XBRL' : 'not an XBRL fact'}</span>` : v0.method === 'text' ? `${es ? 'sin concepto XBRL para esta revelación' : 'no XBRL concept exists for this disclosure'}<span class="sub">${es ? 'se mantiene para una segunda lectura' : 'kept for a second reading'}</span>` : null;
       return `<tr><td>${label(path)}</td><td>${vTxt}</td><td class="small">${s.url ? extLink(s.url, (s.title || p.source).replace(/^Oracle /, '')) : p.source}${s.filed ? `<span class="sub">${es ? 'presentado' : 'filed'} ${fmtDate(s.filed)}</span>` : ''}</td><td class="small">${noteName || '—'}</td><td class="small">${p.page != null ? p.page : `<span class="muted" title="${es ? 'reporte en XBRL en línea sin paginación fija; la nota es el ancla' : 'inline-XBRL filing without fixed pagination; the note is the anchor'}">n/p</span>`}</td><td class="mono small">${s.accession || '—'}</td><td class="small">${xb ? `${xb.concept}<span class="sub">${fmtM(xb.value)} · ${xb.form} ${xb.accn}</span>` : how || (p.xbrl ? (Array.isArray(p.xbrl) ? p.xbrl.length + ' ' + (es ? 'conceptos' : 'concepts') : '—') : '—')}</td><td>${badge(verdict)}</td></tr>`;
     });
     html('obProvenance', `<table class="prov"><thead><tr><th>${es ? 'Cifra' : 'Figure'}</th><th>${es ? 'Valor (US$ M)' : 'Value (US$ M)'}</th><th>${es ? 'Reporte' : 'Filing'}</th><th>${es ? 'Nota / sección' : 'Note / section'}</th><th>${es ? 'Pág.' : 'Page'}</th><th>${es ? 'No. de acceso' : 'Accession no.'}</th><th>${es ? 'Verificación XBRL' : 'XBRL check'}</th><th>${es ? 'Estado' : 'Status'}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
@@ -1895,7 +2038,8 @@
     const themeOf = (id) => { const th = themes.find((x) => x.id === id); return th ? L(th) : id; };
     const vis = items.filter((x) => nw.theme === 'all' || x.theme === nw.theme);
     html('newsList', vis.length ? vis.map((x) => `<article class="news-item"><div class="when"><b>${fmtDate(x.date)}</b><span class="theme"><span class="badge">${themeOf(x.theme)}</span></span><span class="theme">${basis(x)}</span></div><div><h4>${L({ es: x.title_es, en: x.title_en })}</h4><p>${L({ es: x.summary_es, en: x.summary_en })}</p><p><b>${es ? 'Por qué importa.' : 'Why it matters.'}</b> ${resolveRefs(L({ es: x.why_es, en: x.why_en }))}</p><div class="srcs">${t('src')}: ${(x.sources || []).map((s) => `<span class="badge">${tierLabel[s.tier] || s.tier}</span> ${extLink(s.url, s.title)}${s.accession ? ` <span class="mono">${s.accession}</span>` : ''}`).join('<br>')}</div></div></article>`).join('') : `<p class="muted">${es ? 'Sin eventos en este tema.' : 'No events under this theme.'}</p>`);
-    html('newsMeta', es ? `${items.length} eventos de los últimos ${NEWS.windowDays} días · barrido al ${fmtDate(NEWS.asOf)} · fuentes primarias primero (SEC, Oracle, agencias), luego cables y prensa.` : `${items.length} events from the last ${NEWS.windowDays} days · swept ${fmtDate(NEWS.asOf)} · primary sources first (SEC, Oracle, agencies), then wires and press.`);
+    const latest = items.length ? items[0].date : null; const gapTxt = latest && NEWS.asOf > latest ? (es ? ` El barrido del ${fmtDate(NEWS.asOf)} no encontró ningún evento entre el ${fmtDate(addDays(latest, 1))} y el ${fmtDate(NEWS.asOf)} que cumpla las reglas (reporte a la SEC, comunicado de Oracle, agencia o cable).` : ` The ${fmtDate(NEWS.asOf)} sweep found no event between ${fmtDate(addDays(latest, 1))} and ${fmtDate(NEWS.asOf)} that met the rules (SEC filing, Oracle release, agency or wire).`) : '';
+    html('newsMeta', (es ? `${items.length} eventos de los últimos ${NEWS.windowDays} días · barrido al ${fmtDate(NEWS.asOf)} · fuentes primarias primero (SEC, Oracle, agencias), luego cables y prensa.` : `${items.length} events from the last ${NEWS.windowDays} days · swept ${fmtDate(NEWS.asOf)} · primary sources first (SEC, Oracle, agencies), then wires and press.`) + gapTxt + (NEWS.sweepNote && (!NEWS.sweepNote.date || NEWS.sweepNote.date === NEWS.asOf) ? ` ${L(NEWS.sweepNote)}` : ''));
     html('newsSrc', `${t('src')}: ${es ? 'enlaces en cada evento' : 'links on each event'} · ${extLink('https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&CIK=0001341439', 'SEC EDGAR')} · ${irLink()} · ${es ? 'barrido diario (rutina en la nube) al' : 'daily sweep (cloud routine) as of'} ${fmtDate(NEWS.asOf)}`);
   }
 
@@ -1916,15 +2060,30 @@
   }
   function renderChangelog() {
     if (!CL || !el('changelogTable')) return; const es = LANG === 'es';
-    const ents = (CL.entries || []).slice(0, 60);
-    const fmtV = (v) => (v == null ? '—' : typeof v === 'number' ? fmtN(v, Math.abs(v) < 10 ? 2 : 0) : String(v).length > 60 ? String(v).slice(0, 57) + '…' : String(v));
-    html('changelogTable', ents.length ? `<table class="chg"><thead><tr><th>${es ? 'Cuándo (ET)' : 'When (ET)'}</th><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Dato' : 'Leaf'}</th><th>${es ? 'Antes' : 'Before'}</th><th>${es ? 'Después' : 'After'}</th></tr></thead><tbody>${ents.map((e) => `<tr><td class="small">${fmtET(e.at)}</td><td class="mono">${e.file}</td><td class="mono small">${e.path}</td><td class="small">${fmtV(e.old)}</td><td class="small"><b>${fmtV(e.new)}</b></td></tr>`).join('')}</tbody></table>` : `<p class="muted small">${es ? 'Sin cambios registrados todavía.' : 'No changes recorded yet.'}</p>`);
-    el('changelogCap').textContent = es ? `Últimas ${ents.length} entradas de ${(CL.entries || []).length} publicadas; cada actualización compara los archivos de datos nuevos con los anteriores (sin contar las marcas de tiempo). Bitácora completa en la página de calidad de datos.` : `Last ${ents.length} of ${(CL.entries || []).length} published entries; every refresh diffs the new data files against the previous ones (generation stamps excluded). Full log on the data-quality page.`;
-    html('changelogSrc', `tools/oracle/data/changelog.json · scripts/oracle/build-data.mjs · <a href="quality.html">quality.html</a>`);
+    const all = CL.entries || [];
+    // meaningful = a data value a reader would act on: statements, guidance, buildout, obligations, consensus, reference facts, news,
+    // risks and the summary; not XBRL re-tags, registry edits, stamps, URLs, accession strings or "(more)" markers
+    const FILES = { 'financials.js': 1, 'guidance.js': 1, 'buildout.js': 1, 'obligations.js': 1, 'factset.js': 1, 'reference.js': 1, 'news.js': 1, 'risks.js': 1, 'summary.js': 1, 'market.js': 1, 'peers.js': 1, 'calendar.js': 1 };
+    const noise = /(^|\.)(generatedAt|generated|fetched|updated|updatedAt|asOf|as_of|priceDate|price_date|accessed|issues_checked|_comment|url|accn|accession|form|filed|superseded|sourceRef|short|title|text|note|notes|key|id)(\[|\.|$)|\(more\)|\(file\)|\.length$|_en$|_es$|\.(en|es)$/;
+    const meaningful = all.filter((e) => FILES[e.file] && !noise.test(e.path) && !(typeof e.new === 'string' && /^\(text/.test(e.new)));
+    const byBuild = new Map(); for (const e of meaningful) { const k = e.at; if (!byBuild.has(k)) byBuild.set(k, []); byBuild.get(k).push(e); }
+    const builds = [...byBuild.entries()].sort((a, b) => (a[0] < b[0] ? 1 : -1)).slice(0, 25);
+    const fmtV = (v) => (v == null ? '—' : typeof v === 'number' ? fmtN(v, Math.abs(v) < 10 ? 2 : 0) : String(v).length > 48 ? String(v).slice(0, 45) + '…' : String(v));
+    const fileLabel = (f) => ({ 'financials.js': es ? 'estados financieros' : 'statements', 'guidance.js': es ? 'guía' : 'guidance', 'buildout.js': es ? 'expansión y sitios' : 'buildout and sites', 'obligations.js': es ? 'fuera de balance' : 'off-balance-sheet', 'factset.js': es ? 'consenso FactSet' : 'FactSet consensus', 'reference.js': es ? 'hechos de referencia' : 'reference facts', 'news.js': es ? 'noticias' : 'news', 'risks.js': es ? 'riesgos' : 'risks', 'summary.js': es ? 'resumen' : 'summary', 'market.js': es ? 'mercado' : 'market', 'peers.js': es ? 'pares' : 'peers', 'calendar.js': es ? 'calendario' : 'calendar' })[f] || f;
+    html('changelogTable', builds.length ? `<table class="chg"><thead><tr><th>${es ? 'Cuándo (ET)' : 'When (ET)'}</th><th>${es ? 'Qué cambió' : 'What changed'}</th><th>${es ? 'Ejemplos (dato: antes → después)' : 'Examples (leaf: before → after)'}</th></tr></thead><tbody>${builds.map(([at, ents]) => { const files = [...new Set(ents.map((e) => e.file))]; return `<tr><td class="small">${fmtET(at)}</td><td class="small">${files.map((f) => `<b>${fileLabel(f)}</b> (${ents.filter((e) => e.file === f).length})`).join(' · ')}</td><td class="small">${ents.slice(0, 4).map((e) => `<span class="mono">${e.path.replace(/^concepts\./, '')}</span>: ${fmtV(e.old)} → <b>${fmtV(e.new)}</b>`).join('<br>')}${ents.length > 4 ? `<br><span class="muted">+${ents.length - 4}</span>` : ''}</td></tr>`; }).join('')}</tbody></table>` : `<p class="muted small">${es ? 'Sin cambios de datos registrados todavía.' : 'No data changes recorded yet.'}</p>`);
+    el('changelogCap').textContent = es ? `${meaningful.length} cambios de datos en ${builds.length} ${builds.length === 1 ? 'actualización' : 'actualizaciones'} (de ${all.length} hojas publicadas); se omiten las re-etiquetas XBRL, las marcas de tiempo, los enlaces y los textos. Las diferencias en bruto están abajo y la bitácora completa en la página de calidad de datos.` : `${meaningful.length} data changes across ${builds.length} ${builds.length === 1 ? 'refresh' : 'refreshes'} (of ${all.length} published leaves); XBRL re-tags, timestamps, links and text blocks are left out. The raw differences are below and the full log on the data-quality page.`;
+    const raw = el('changelogRaw'); if (raw) raw.innerHTML = `<table class="chg"><thead><tr><th>${es ? 'Cuándo (ET)' : 'When (ET)'}</th><th>${es ? 'Archivo' : 'File'}</th><th>${es ? 'Dato' : 'Leaf'}</th><th>${es ? 'Antes' : 'Before'}</th><th>${es ? 'Después' : 'After'}</th></tr></thead><tbody>${all.slice(0, 250).map((e) => `<tr><td class="small">${fmtET(e.at)}</td><td class="mono">${e.file}</td><td class="mono small">${e.path}</td><td class="small">${fmtV(e.old)}</td><td class="small"><b>${fmtV(e.new)}</b></td></tr>`).join('')}</tbody></table>`;
+    html('changelogSrc', `${es ? 'Bitácora escrita por el generador de datos en cada actualización' : 'Log written by the data builder on every refresh'} · <a href="quality.html">quality.html</a>`);
   }
   // ---- collapse / expand per section (remembered in this browser only) and a back-to-top control ----
-  const collapsed = (() => { try { return new Set(JSON.parse(localStorage.getItem('orcl-collapsed') || '[]')); } catch (e) { return new Set(); } })();
-  const saveCollapsed = () => { try { localStorage.setItem('orcl-collapsed', JSON.stringify([...collapsed])); } catch (e) { /* ignore */ } };
+  // Sections are collapsed by default except the Summary (owner's rule, 2026-10-04: a phone reader faced a 97,000 px page);
+  // the set of OPEN sections is remembered in this browser; reading paths and deep links add to it.
+  const OPEN_KEY = 'orcl-open-v2';
+  let openSet = (() => { try { const v = localStorage.getItem(OPEN_KEY); return v ? new Set(JSON.parse(v)) : null; } catch (e) { return null; } })();
+  if (!openSet) { openSet = new Set(secList().filter((s) => (s.path || []).includes(5)).map((s) => s.id)); openSet.add('summary'); }
+  { const h0 = location.hash.replace('#', ''); if (h0 && secList().some((s) => s.id === h0)) openSet.add(h0); }
+  const collapsed = { has: (id) => !openSet.has(id), add: (id) => openSet.delete(id), delete: (id) => openSet.add(id), clear: () => secList().forEach((s) => openSet.add(s.id)) };
+  const saveCollapsed = () => { try { localStorage.setItem(OPEN_KEY, JSON.stringify([...openSet])); } catch (e) { /* ignore */ } };
   function applyCollapse() {
     const es = LANG === 'es';
     for (const sec of document.querySelectorAll('section.block[data-sec]')) {
@@ -1937,6 +2096,7 @@
       b.title = c ? (es ? 'Mostrar esta sección' : 'Show this section') : (es ? 'Ocultar esta sección' : 'Hide this section');
     }
     const all = el('btnCollapseAll'); if (all) { const anyOpen = [...document.querySelectorAll('section.block[data-sec]')].some((x) => x.dataset.sec !== 'summary' && !x.classList.contains('collapsed')); all.textContent = anyOpen ? (es ? 'Ocultar todo' : 'Collapse all') : (es ? 'Mostrar todo' : 'Expand all'); all.dataset.mode = anyOpen ? 'collapse' : 'expand'; }
+    renderPaths();
   }
   function wireNav() {
     const navLinks = [...document.querySelectorAll('nav.jump a')];
@@ -1948,12 +2108,271 @@
     navLinks.forEach((a) => { if (a.dataset.wired) return; a.dataset.wired = '1'; a.addEventListener('click', () => { const id = a.getAttribute('href').slice(1); if (collapsed.has(id)) { collapsed.delete(id); saveCollapsed(); applyCollapse(); } }); });
   }
 
+  // ================= ROUND 2 (2026-10-04): verdict, chain, section leads, reading paths, new analyses, glossary =================
+  const HYP = window.HYP_FIN || null;
+  const spRating = () => ((REF.debt && REF.debt.ratings) || []).find((r) => /S&P/.test(r.agency)) || null;
+  const dcfNow = () => { try { const s = dcfState.s || dcfFromUrl(dcfDefaults()); return s ? { s, r: dcfCompute(s) } : null; } catch (e) { return null; } };
+  const uncVerdict = () => { const v = QR && (QR.obligationsVerification || []).find((x) => x.path === 'leases.uncommenced.usd_bn'); return v ? v.verdict : 'needs_review'; };
+  const uncBadge = () => { const es = LANG === 'es'; const v = uncVerdict(); return v === 'verified_text' ? `<span class="badge ok">${es ? 'texto · segunda lectura' : 'text · second reading'}</span>` : `<span class="badge rev">${es ? 'texto · revisión pendiente' : 'text · needs review'}</span>`; };
+  const capexGuideNow = () => { const fyNow = lastQ ? lastQ.fy : null; const gv = GV.slice().reverse().find((v) => v.items && v.items.fyCapexNote && v.fyGuided === fyNow); const g = gv ? parseCapexGuide(gv.items.fyCapexNote) : null; return g && g.lo != null ? { ...g, fy: fyNow, v: gv } : null; };
+  const sitesMw = () => { const sites = (BO && BO.sites) || []; return { n: sites.length, live: sites.reduce((a, x) => a + (x.energized_mw || 0), 0), plan: sites.reduce((a, x) => a + (x.nameplate_mw || x.capacity_mw || 0), 0) }; };
+  // ---- the chain: six numbers from contracts to valuation, each linking to its section (replaces the five-tile panel)
+  function renderChain() {
+    if (!el('sumChain') || !lastQ) return; const es = LANG === 'es';
+    const rr = BO && BO.rpoRecognition && BO.rpoRecognition.series ? BO.rpoRecognition.series.slice(-1)[0] : null;
+    const mw = sitesMw(); const cg = capexGuideNow(); const OBj = OB || {}; const un = (OBj.leases && OBj.leases.uncommenced) || {}; const fp = OBj.funding_plan || {};
+    const S = obligStats(); const sp = spRating(); const d = dcfNow(); const price = dcfPrice();
+    const boxes = [
+      { k: es ? 'Contratos' : 'Contracts', v: lastQ.kpi.rpo != null ? fmtBn(lastQ.kpi.rpo, 0) : '—', d: `RPO ${qLabel(lastQ)}${rr ? ` · ${rr.m12_pct}% ${es ? 'en 12 meses' : 'within 12 months'}` : ''}`, r: 'rpo' },
+      { k: es ? 'Capacidad' : 'Capacity', v: `${fmtN(mw.live)} MW ${es ? 'de' : 'of'} ${fmtN(mw.plan / 1000, 1)} GW`, d: es ? `energizados en los ${mw.n} campus nombrados` : `energized at the ${mw.n} named campuses`, r: 'sites' },
+      { k: 'Capex', v: cg ? `US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} ${es ? 'mil M' : 'bn'}` : '—', d: cg ? (es ? `bruto ${fyLabel(cg.fy)} · neto ≤ US$ ${fmtN(cg.netMax)} mil M (guía)` : `gross ${fyLabel(cg.fy)} · net ≤ US$ ${fmtN(cg.netMax)} bn (guide)`) : '', r: 'capex' },
+      { k: es ? 'Financiamiento' : 'Funding', v: fp.remaining_fy27_usd_bn != null ? `US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} ${es ? 'mil M' : 'bn'}` : '—', d: `${es ? 'brecha por levantar (empresa)' : 'gap still to raise (company)'}${un.usd_bn != null ? ` · US$ ${fmtN(un.usd_bn, 0)} ${es ? 'mil M de arrendamientos no iniciados' : 'bn of uncommenced leases'} ${uncBadge()}` : ''}`, r: 'financing' },
+      { k: es ? 'Crédito' : 'Credit', v: sp ? sp.rating : '—', d: `${sp ? `S&P · ${fmtDate(sp.date)}` : ''}${S ? ` · ${fmtX(S.leaseAdj, 1)} ${es ? 'ajustado por arrendamientos' : 'lease-adjusted'}` : ''}`, r: 'credit' },
+      { k: es ? 'Valuación' : 'Valuation', v: d && d.r && d.r.perShare != null ? `US$ ${fmtN(d.r.perShare, 0)} ${es ? 'vs' : 'vs'} US$ ${fmtN(price, 2)}` : '—', d: d ? `${es ? 'DCF' : 'DCF'} ${presetLabel(d.s.preset)} ${es ? 'vs cierre' : 'vs close'} ${fmtDate(lastPx[0])}` : '', r: 'dcf' },
+    ];
+    html('sumChain', boxes.map((x) => `<a class="box" href="#${x.r}"><div class="k">${x.k}</div><div class="v">${x.v}</div><div class="d">${x.d}</div></a>`).join(''));
+  }
+  // ---- the verdict: one paragraph composed from the same figures as the chain
+  function renderVerdict() {
+    if (!el('sumVerdict') || !lastQ) return; const es = LANG === 'es';
+    const rr = BO && BO.rpoRecognition && BO.rpoRecognition.series ? BO.rpoRecognition.series.slice(-1)[0] : null;
+    const mw = sitesMw(); const cg = capexGuideNow(); const OBj = OB || {}; const un = (OBj.leases && OBj.leases.uncommenced) || {}; const fp = OBj.funding_plan || {};
+    const S = obligStats(); const sp = spRating(); const d = dcfNow(); const price = dcfPrice();
+    const atm = ((fp.items || []).filter((x) => x.kind === 'done' && /ATM|at-the-market/i.test(x.en)).slice(-1)[0] || {}).usd_bn;
+    const base = d ? dcfDefaults() : null; const E = base ? Math.min(DCF_EDIT_YEARS, base.N) : 0;
+    const g2 = base ? base.revG[1] : null, mT = base ? base.margin[E - 1] - base.sbc : null;
+    const iw = d && price ? impliedWacc(d.s, price) : null;
+    const rpoBn = lastQ.kpi.rpo != null ? fmtN(lastQ.kpi.rpo / 1000, 0) : '—';
+    const txt = es
+      ? `<span class="vh">Qué suman los números.</span>Oracle tiene contratados <b>US$ ${rpoBn} mil M</b> de ingresos futuros (RPO, ${qLabel(lastQ)})${rr ? `, de los que <b>${rr.m12_pct}%</b> se reconocen en doce meses` : ''}, frente a <b>${fmtN(mw.live)} MW energizados de los ${fmtN(mw.plan / 1000, 1)} GW</b> que ha nombrado. Convertir el resto exige el capex del ${cg ? fyLabel(cg.fy) : '—'}${cg ? ` de <b>US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} mil M brutos</b> (≤ US$ ${fmtN(cg.netMax)} mil M netos de prepagos)` : ''}, financiado con ${atm != null ? `US$ ${fmtN(atm, 1)} mil M de capital ya levantados, ` : ''}${fp.remaining_fy27_usd_bn != null ? `<b>US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} mil M por levantar</b> (cifra de la empresa) ` : ''}y <b>US$ ${fmtN(un.usd_bn, 0)} mil M de arrendamientos</b> que aún no están en el balance. Los acreedores ven <b>${sp ? sp.rating : '—'}</b> (S&P, ${sp ? fmtDate(sp.date) : '—'})${S ? ` y <b>${fmtX(S.leaseAdj, 1)}</b> de deuda neta ajustada por arrendamientos sobre EBITDAR` : ''}. Sobre el consenso de FactSet, que ya supone un crecimiento de ingresos de ${g2 != null ? fmtPct(g2, 0, true) : '—'} en el ${base ? fyLabel(base.years[1]) : '—'} y un margen EBITDA de ${mT != null ? fmtPct(mT, 0) : '—'} después de compensación en acciones mantenido para siempre, el DCF devuelve <b>US$ ${d && d.r ? fmtN(d.r.perShare, 0) : '—'} por acción frente a US$ ${fmtN(price, 2)}</b>${iw ? `: el precio solo se justifica con una WACC de ${fmtPct(100 * iw.wacc, 1)} o con más margen o más crecimiento que el consenso (${ref('dcf')})` : ''}.`
+      : `<span class="vh">What the numbers add up to.</span>Oracle has contracted <b>US$ ${rpoBn} bn</b> of future revenue (RPO, ${qLabel(lastQ)})${rr ? `, of which <b>${rr.m12_pct}%</b> is recognised within twelve months` : ''}, against <b>${fmtN(mw.live)} MW energized of the ${fmtN(mw.plan / 1000, 1)} GW</b> it has named. Converting the rest needs the ${cg ? fyLabel(cg.fy) : '—'} capex${cg ? ` of <b>US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} bn gross</b> (≤ US$ ${fmtN(cg.netMax)} bn net of prepayments)` : ''}, funded by ${atm != null ? `US$ ${fmtN(atm, 1)} bn of equity already raised, ` : ''}${fp.remaining_fy27_usd_bn != null ? `<b>US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} bn still to raise</b> (the company's figure) ` : ''}and <b>US$ ${fmtN(un.usd_bn, 0)} bn of leases</b> not yet on the balance sheet. Creditors see <b>${sp ? sp.rating : '—'}</b> (S&P, ${sp ? fmtDate(sp.date) : '—'})${S ? ` and <b>${fmtX(S.leaseAdj, 1)}</b> lease-adjusted net debt to EBITDAR` : ''}. On FactSet consensus, which already assumes ${g2 != null ? fmtPct(g2, 0, true) : '—'} revenue growth in ${base ? fyLabel(base.years[1]) : '—'} and a ${mT != null ? fmtPct(mT, 0) : '—'} EBITDA margin after stock-based compensation held forever, the DCF returns <b>US$ ${d && d.r ? fmtN(d.r.perShare, 0) : '—'} per share against US$ ${fmtN(price, 2)}</b>${iw ? `: the price is justified only with a ${fmtPct(100 * iw.wacc, 1)} WACC or with more margin or growth than consensus (${ref('dcf')})` : ''}.`;
+    html('sumVerdict', txt);
+  }
+  // ---- reading paths: which sections open; everything else stays collapsed until the reader asks
+  const PATHS = [{ id: '5', es: '5 minutos', en: '5 minutes', has: (s) => (s.path || []).includes(5) }, { id: '20', es: '20 minutos', en: '20 minutes', has: (s) => (s.path || []).some((p) => p === 5 || p === 20) }, { id: 'full', es: 'referencia completa', en: 'full reference', has: () => true }];
+  function applyPath(id) { const P = PATHS.find((p) => p.id === id); if (!P) return; openSet.clear(); for (const s of secList()) if (P.has(s)) openSet.add(s.id); openSet.add('summary'); saveCollapsed(); applyCollapse(); renderPaths(); }
+  function currentPath() { const ids = new Set(secList().map((s) => s.id)); for (const P of PATHS) { const want = new Set(secList().filter(P.has).map((s) => s.id)); want.add('summary'); if ([...ids].every((id) => openSet.has(id) === want.has(id))) return P.id; } return null; }
+  function renderPaths() {
+    const box = el('readingPaths'); if (!box) return; const es = LANG === 'es'; const cur = currentPath();
+    box.innerHTML = `<span>${es ? 'Rutas de lectura:' : 'Reading paths:'}</span>` + PATHS.map((P) => `<button type="button" class="chip ${cur === P.id ? 'active' : ''}" data-path="${P.id}">${es ? P.es : P.en}</button>`).join('') + `<span class="muted small">${es ? 'Las secciones cerradas muestran su titular; ábralas con ▸ o desde el menú.' : 'Closed sections show their headline; open them with ▸ or from the menu.'}</span>`;
+    box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => applyPath(b.dataset.path)));
+  }
+  // ---- section leads: a headline that states the takeaway and one line on what it means for valuation, composed at render time
+  function sectionLeads() {
+    const es = LANG === 'es'; const out = {}; if (!lastQ) return out;
+    const rr = BO && BO.rpoRecognition && BO.rpoRecognition.series ? BO.rpoRecognition.series.slice(-1)[0] : null; const mw = sitesMw(); const cg = capexGuideNow(); const S = obligStats(); const sp = spRating(); const d = dcfNow(); const price = dcfPrice();
+    const un = (OB && OB.leases && OB.leases.uncommenced) || {}; const fp = (OB && OB.funding_plan) || {}; const fn = fsNtm(); const fsy = fsFiscal().find((f) => +f.fy.slice(2) === lastQ.fy);
+    const nd = netDebt(lastQ); const mc = lastPx && sharesNow ? lastPx[1] * sharesNow / 1e6 : null; const evM = nd && mc ? mc + nd.net : null;
+    const rpoBn = lastQ.kpi.rpo != null ? fmtN(lastQ.kpi.rpo / 1000, 0) : '—'; const yoy = lastQ.kpi.rpoYoyPct;
+    const cn = (BO && BO.unitEconomics && BO.unitEconomics.concentration) || {}; const named = cn.named_customers ? cn.named_customers.names.length : 0;
+    const prevQ = qById[yoyQid(lastQ)]; const revG = prevQ && prevQ.is ? 100 * (lastQ.is.revTotal / prevQ.is.revTotal - 1) : null;
+    const gv = GV[GV.length - 1]; const nx = nextExpectedFiling(); const openIssues = ((BO && BO.sites) || []).reduce((a, x) => a + (x.issues || []).filter((i) => i.status !== 'closed').length, 0);
+    const latestNews = NEWS ? (NEWS.items || []).map((x) => x.date).sort().pop() : null; const nRisks = RK ? (RK.items || []).length : 0;
+    const vps = d && d.r ? d.r.perShare : null; const up = vps != null && price ? 100 * (vps / price - 1) : null;
+    const fyGuide = GV.slice().reverse().find((v) => v.items && v.items.fyRevenue && v.fyGuided === lastQ.fy);
+    out.rpo = es ? { h: `US$ ${rpoBn} mil M contratados${yoy != null ? ` (${fmtPct(yoy, 0, true)} a/a)` : ''}; solo ${rr ? rr.m12_pct : '—'}% se cobra en doce meses.`, sw: `La valuación depende de cuándo se convierte el RPO, no de su tamaño: cada año de retraso mueve el DCF (escenario pesimista en ${ref('dcf')}).` } : { h: `US$ ${rpoBn} bn contracted${yoy != null ? ` (${fmtPct(yoy, 0, true)} y/y)` : ''}; only ${rr ? rr.m12_pct : '—'}% turns into revenue within twelve months.`, sw: `Valuation hinges on when RPO converts, not on its size: each year of slippage moves the DCF (bear case in ${ref('dcf')}).` };
+    out.sites = es ? { h: `${fmtN(mw.live)} MW energizados de ${fmtN(mw.plan / 1000, 1)} GW nombrados; ${openIssues} incidencias abiertas en los ${mw.n} campus.`, sw: `Sin megavatios no hay conversión: el consenso supone que los campus llegan a tiempo; Jupiter (≈ 1 GW) es el que más incidencias acumula.` } : { h: `${fmtN(mw.live)} MW energized of ${fmtN(mw.plan / 1000, 1)} GW named; ${openIssues} open issues across the ${mw.n} campuses.`, sw: `No megawatts, no conversion: consensus assumes the campuses arrive on time; Jupiter (≈ 1 GW) carries the most open issues.` };
+    out.capex = es ? { h: cg ? `Capex ${fyLabel(cg.fy)} de US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} mil M brutos, ≤ US$ ${fmtN(cg.netMax)} mil M netos; flujo libre del ${qLabel(lastQ)}: ${fmtBn(lastQ.cf ? lastQ.cf.fcf : null)}.` : 'Sin guía de capex.', sw: `El DCF descuenta el capex bruto y suma los prepagos al recibirse; el flujo libre de consenso sigue negativo hasta ${(() => { const f = fsFiscal().find((x) => x.fcf && x.fcf.mean > 0); return f ? f.fy : '—'; })()}.` } : { h: cg ? `${fyLabel(cg.fy)} capex of US$ ${fmtN(cg.lo)}–${fmtN(cg.hi)} bn gross, ≤ US$ ${fmtN(cg.netMax)} bn net; ${qLabel(lastQ)} free cash flow ${fmtBn(lastQ.cf ? lastQ.cf.fcf : null)}.` : 'No capex guidance.', sw: `The DCF deducts gross capex and counts prepayments when received; consensus free cash flow stays negative until ${(() => { const f = fsFiscal().find((x) => x.fcf && x.fcf.mean > 0); return f ? f.fy : '—'; })()}.` };
+    out.financing = es ? { h: `Deuda neta ${nd ? fmtBn(nd.net) : '—'}; faltan ≈ US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} mil M del plan AF2027${fsy && fsy.fcf ? ` frente a un flujo libre de consenso de ${fmtBn(fsy.fcf.mean)}` : ''}.`, sw: `Cada dólar que no cubren los prepagos o el flujo operativo entra como deuda, preferentes o acciones nuevas: diluye o encarece el capital que descuenta el DCF.` } : { h: `Net debt ${nd ? fmtBn(nd.net) : '—'}; about US$ ${fmtN(fp.remaining_fy27_usd_bn, 1)} bn of the FY2027 plan still to raise${fsy && fsy.fcf ? ` against consensus free cash flow of ${fmtBn(fsy.fcf.mean)}` : ''}.`, sw: `Every dollar prepayments or operating cash do not cover comes in as debt, preferred or new shares: it dilutes or raises the cost of capital the DCF discounts.` };
+    out.obligations = es ? { h: `US$ ${fmtN(un.usd_bn, 0)} mil M de arrendamientos firmados fuera del balance${S ? `; ${fmtX(S.ndEbitda, 1)} reportado → ${fmtX(S.leaseAdj, 1)} ajustado` : ''}.`, sw: `Son deuda en sustancia cuando empiezan: el DCF resta los financieros ya reconocidos y ofrece restar el VP de los no iniciados (nota "Arrendamientos en el DCF").` } : { h: `US$ ${fmtN(un.usd_bn, 0)} bn of signed leases off the balance sheet${S ? `; ${fmtX(S.ndEbitda, 1)} reported → ${fmtX(S.leaseAdj, 1)} lease-adjusted` : ''}.`, sw: `They are debt in substance once they commence: the DCF deducts the finance leases already recognised and offers to deduct the PV of the uncommenced ones ("Leases in the DCF" note).` };
+    out.credit = es ? { h: `${sp ? `${sp.rating} (S&P, ${fmtDate(sp.date)})` : 'Sin acción reciente de S&P'}${S ? `, ${fmtX(S.leaseAdj, 1)} ajustado por arrendamientos` : ''}: un escalón sobre el grado especulativo.`, sw: `Una rebaja encarecería la deuda nueva (Kd del DCF) y activaría requisitos de garantías para la energía; la WACC del modelo usa el diferencial de la última emisión a 10 años.` } : { h: `${sp ? `${sp.rating} (S&P, ${fmtDate(sp.date)})` : 'No recent S&P action'}${S ? `, ${fmtX(S.leaseAdj, 1)} lease-adjusted` : ''}: one notch above speculative grade.`, sw: `A downgrade would raise the cost of new debt (the DCF's Kd) and trigger power-collateral rules; the model's WACC uses the spread of the latest 10-year issue.` };
+    out.circular = es ? { h: `Oracle nombra ${named} clientes de OCI en un prospecto pero ningún monto; S&P estima que cerca de la mitad del RPO es OpenAI.`, sw: `La mitad del flujo contratado depende de una contraparte que se financia con capital de riesgo: el escenario pesimista le aplica un recorte de 25%.` } : { h: `Oracle names ${named} OCI customers in a prospectus but no amounts; S&P estimates about half of RPO is OpenAI.`, sw: `Half the contracted flow depends on one counterparty funded by private capital: the bear case haircuts its volume by 25%.` };
+    out.valuation = es ? { h: evM && fn.ebitda ? `${fmtX(evM / fn.ebitda.mean)} VE/EBITDA NTM y ${fn.eps ? fmtX(lastPx[1] / fn.eps.mean) : '—'} P/U NTM al cierre del ${fmtDate(lastPx[0])}.` : 'Múltiplos pendientes.', sw: `Los múltiplos ya descuentan el consenso; el DCF dice qué parte de ese consenso tiene que cumplirse.` } : { h: evM && fn.ebitda ? `${fmtX(evM / fn.ebitda.mean)} EV/EBITDA NTM and ${fn.eps ? fmtX(lastPx[1] / fn.eps.mean) : '—'} P/E NTM at the ${fmtDate(lastPx[0])} close.` : 'Multiples pending.', sw: `The multiples already price consensus; the DCF says how much of that consensus has to come true.` };
+    out.dcf = es ? { h: vps != null ? `US$ ${fmtN(vps, 0)} por acción en el escenario ${presetLabel(d.s.preset)} frente a US$ ${fmtN(price, 2)} (${fmtPct(up, 0, true)}).` : 'DCF pendiente.', sw: `La prueba no es si una cuadrícula abarca el precio, sino qué margen, crecimiento o WACC lo justifican: recuadro "Qué tiene que ser cierto".` } : { h: vps != null ? `US$ ${fmtN(vps, 0)} per share in the ${presetLabel(d.s.preset)} scenario against US$ ${fmtN(price, 2)} (${fmtPct(up, 0, true)}).` : 'DCF pending.', sw: `The test is not whether a grid brackets the price but which margin, growth or WACC justifies it: the "What has to be true" box.` };
+    out.risks = es ? { h: `${nRisks} riesgos documentados, cada uno con su evidencia y la sección donde vive la cifra.`, sw: `Ejecución, concentración y financiamiento son los tres que mueven el DCF; los demás mueven el costo de capital.` } : { h: `${nRisks} documented risks, each with its evidence and the section where the figure lives.`, sw: `Execution, concentration and funding are the three that move the DCF; the rest move the cost of capital.` };
+    out.news = es ? { h: NEWS ? `${(NEWS.items || []).length} eventos en ${NEWS.windowDays} días; el más reciente del ${fmtDate(latestNews)}, barrido al ${fmtDate(NEWS.asOf)}.` : '', sw: `Lo que cambia un supuesto del modelo entra a la sección correspondiente; lo que descansa solo en prensa se marca y no entra a ninguna cifra.` } : { h: NEWS ? `${(NEWS.items || []).length} events in ${NEWS.windowDays} days; the latest dated ${fmtDate(latestNews)}, swept ${fmtDate(NEWS.asOf)}.` : '', sw: `What changes a model assumption goes into its section; what rests on press alone is labeled and enters no figure.` };
+    out.calendar = es ? { h: nx ? `Próximos resultados: ${fmtDate(nx.date)} (${nx.basis === 'confirmed' ? 'confirmado' : 'supuesto'}).` : 'Sin fecha.', sw: `El 2T27 trae el siguiente RPO, los MW entregados y la guía: las tres cifras que recalibran el DCF.` } : { h: nx ? `Next results: ${fmtDate(nx.date)} (${nx.basis}).` : 'No date.', sw: `2Q27 brings the next RPO, MW delivered and guidance: the three figures that recalibrate the DCF.` };
+    out.statements = es ? { h: `${qLabel(lastQ)}: ingresos ${fmtBn(lastQ.is.revTotal)}${revG != null ? ` (${fmtPct(revG, 0, true)} a/a)` : ''}, margen operativo No-GAAP ${fmtPct(lastQ.is.ngOpMargin, 0)}.`, sw: `Los estados reportados son la base del año fiscal en curso del DCF; el resto es consenso.` } : { h: `${qLabel(lastQ)}: revenue ${fmtBn(lastQ.is.revTotal)}${revG != null ? ` (${fmtPct(revG, 0, true)} y/y)` : ''}, Non-GAAP operating margin ${fmtPct(lastQ.is.ngOpMargin, 0)}.`, sw: `The reported statements anchor the DCF's current fiscal year; everything after it is consensus.` };
+    out.guidance = es ? { h: fyGuide ? `Guía ${fyLabel(fyGuide.fyGuided)}: ingresos de al menos ${fmtBn(fyGuide.items.fyRevenue.usdM, 0)}${gv ? `, emitida el ${fmtDate(gv.date)}` : ''}.` : 'Sin guía anual.', sw: `El consenso del primer año del DCF se compara con esta guía; el escenario optimista usa el objetivo AF2030.` } : { h: fyGuide ? `${fyLabel(fyGuide.fyGuided)} guidance: revenue of at least ${fmtBn(fyGuide.items.fyRevenue.usdM, 0)}${gv ? `, issued ${fmtDate(gv.date)}` : ''}.` : 'No annual guidance.', sw: `The DCF's first consensus year is checked against this guide; the bull case uses the FY2030 target.` };
+    out.method = es ? { h: `Cada cifra lleva reporte, nota, número de acceso y una verificación XBRL, de comunicado o de segunda lectura.`, sw: `Nada estimado entra a una razón sin etiqueta; el glosario define cada término al pasar el cursor.` } : { h: `Every figure carries its filing, note, accession number and an XBRL, release or second-reading verification.`, sw: `Nothing estimated enters a ratio unlabeled; the glossary defines each term on hover.` };
+    return out;
+  }
+  function renderLeads() {
+    const leads = sectionLeads(); const es = LANG === 'es';
+    for (const sec of document.querySelectorAll('section.block[data-sec]')) {
+      const id = sec.dataset.sec; sec.querySelectorAll(':scope > .sec-lead').forEach((e) => e.remove());
+      const L2 = leads[id]; if (!L2 || !L2.h) continue;
+      const head = sec.querySelector(':scope > .sec-head'); if (!head) continue;
+      head.insertAdjacentHTML('afterend', `<p class="sec-lead"><b>${L2.h}</b><span class="sw"><i>${es ? 'Para la valuación:' : 'So what for valuation:'}</i> ${resolveRefs(L2.sw)}</span></p>`);
+    }
+  }
+  // ---- sources and uses, FY2027–FY2030: consensus flows, known commitments and the company's own funding figures, reconciled
+  function fyOfIso(iso) { const y = +iso.slice(0, 4), m = +iso.slice(5, 7); return m >= 6 ? y + 1 : y; }
+  function renderSourcesUses() {
+    if (!el('suTable') || !lastQ) return; const es = LANG === 'es';
+    const fys = fsFiscal().filter((f) => f.fcf && f.capex && f.sales).slice(0, 4); if (!fys.length) { html('suTable', `<p class="muted small">${t('na')}</p>`); return; }
+    const yrs = fys.map((f) => +f.fy.slice(2));
+    const d0 = dcfDefaults(); const cl = bridgeClaims(); const pf = (OB && OB.preferred) || {}; const fp = (OB && OB.funding_plan) || {};
+    const ins = (REF.debt && REF.debt.instruments) || []; const matIn = (fy) => ins.filter((i) => i.matures && fyOfIso(i.matures) === fy).reduce((a, i) => a + (i.principalUsdM || 0), 0);
+    const decl = (REF.dividends || []).slice(-1)[0]; const sh = dilutedShares(); const commonDiv = decl && sh ? decl.dps * 4 * sh.cover : null; const prefDiv = pf.dividend_quarterly_usd_m ? pf.dividend_quarterly_usd_m * 4 : 0;
+    const flaFy = XB && XB.concepts.fin_lease_additions ? (XB.concepts.fin_lease_additions.fiscal_years || []).slice(-1)[0] : null;
+    const rows = fys.map((f, i) => { const capex = f.capex.mean, fcf = f.fcf.mean, ocf = fcf + capex; const prepay = d0 ? capex * (d0.cf[i] ?? 0) / 100 : null; const rep = matIn(yrs[i]); const div = (commonDiv || 0) + prefDiv; const need = -fcf + div + rep; return { fy: f.fy, ocf, capex, fcf, prepay, rep, div, need }; });
+    const atm = ((fp.items || []).filter((x) => x.kind === 'done' && /ATM|at-the-market/i.test(x.en)).slice(-1)[0] || {}).usd_bn; const rem = fp.remaining_fy27_usd_bn;
+    const cash = lastQ.bs ? lastQ.bs.cashAndInvestments : null;
+    const fmtB = (v) => (v == null ? '—' : fmtN(v / 1000, 1));
+    const C = `<span class="badge">${es ? 'consenso' : 'consensus'}</span>`, K = `<span class="badge">${es ? 'cálculo FNAM' : 'FNAM calc.'}</span>`, R = `<span class="badge ok">${es ? 'reportado' : 'reported'}</span>`, CO = `<span class="badge">${es ? 'empresa' : 'company'}</span>`, E = `<span class="badge est">${es ? 'estimación' : 'estimate'}</span>`;
+    const tr = (label, f, badge, cls2 = '') => `<tr class="${cls2}"><td>${label} ${badge}</td>${rows.map((r) => `<td>${f(r)}</td>`).join('')}</tr>`;
+    const grp = (label) => `<tr class="grp"><td colspan="${rows.length + 1}">${label}</td></tr>`;
+    html('suTable', `<table class="su"><thead><tr><th>US$ ${es ? 'mil M' : 'bn'}</th>${rows.map((r) => `<th>${r.fy}E</th>`).join('')}</tr></thead><tbody>
+      ${grp(es ? 'Fuentes' : 'Sources')}
+      ${tr(es ? 'Flujo de efectivo de operación (flujo libre + capex del consenso)' : 'Operating cash flow (consensus free cash flow + capex)', (r) => fmtB(r.ocf), C)}
+      ${tr(es ? 'de los cuales prepagos de clientes (porción financiada por clientes × capex bruto; memo)' : 'of which customer prepayments (customer-funded share × gross capex; memo)', (r) => (r.prepay != null ? fmtB(r.prepay) : '—'), E, 'sub')}
+      ${tr(es ? 'Capital: emisión ATM completada en el 1T27' : 'Equity: at-the-market issuance completed in 1Q27', (r, i) => (r.fy === fys[0].fy && atm != null ? fmtN(atm, 1) : '—'), R)}
+      ${tr(es ? 'Deuda o capital por levantar del plan AF2027 (instrumento no anunciado)' : 'Debt or equity still to raise under the FY2027 plan (instrument not announced)', (r) => (r.fy === fys[0].fy && rem != null ? fmtN(rem, 1) : '—'), CO)}
+      ${tr(es ? 'Arrendamientos financieros: capacidad que entra sin efectivo (último AF, XBRL; memo)' : 'Finance leases: capacity that arrives without cash (latest FY, XBRL; memo)', (r) => (r.fy === fys[0].fy && flaFy ? fmtB(flaFy.value) : '—'), R, 'sub')}
+      ${grp(es ? 'Usos' : 'Uses')}
+      ${tr(es ? 'Capex bruto' : 'Gross capex', (r) => fmtB(r.capex), C)}
+      ${tr(es ? 'Dividendos comunes (último declarado × 4 × acciones en portada) y preferentes' : 'Common dividends (latest declared × 4 × cover shares) and preferred', (r) => fmtB(r.div), K)}
+      ${tr(es ? 'Vencimientos de deuda en el año fiscal (nota de deuda del 10-K)' : 'Debt maturing in the fiscal year (10-K debt footnote)', (r) => fmtB(r.rep), R)}
+      ${tr(es ? 'Intereses' : 'Interest', (r, i) => (r.fy === fys[0].fy ? (es ? 'dentro del flujo de operación, todos los años' : 'inside operating cash flow, every year') : ''), C, 'sub')}
+      ${grp(es ? 'Saldo' : 'Balance')}
+      ${tr(es ? 'Flujo libre (consenso)' : 'Free cash flow (consensus)', (r) => `<span class="${cls(r.fcf)}">${fmtB(r.fcf)}</span>`, C, 'bold')}
+      ${tr(es ? 'Necesidad de financiamiento = −flujo libre + dividendos + vencimientos' : 'Funding need = −free cash flow + dividends + maturities', (r) => `<b>${fmtB(r.need)}</b>`, K, 'total')}
+      ${tr(es ? 'Fuentes identificadas (ATM + plan por levantar)' : 'Identified sources (ATM + plan still to raise)', (r) => (r.fy === fys[0].fy && atm != null && rem != null ? fmtN(atm + rem, 1) : '—'), CO)}
+      ${tr(es ? 'Diferencia = uso de efectivo en caja o financiamiento adicional' : 'Difference = cash drawdown or additional funding', (r) => (r.fy === fys[0].fy && atm != null && rem != null ? `<b>${fmtB(r.need - 1000 * (atm + rem))}</b>` : `<span class="muted">${es ? 'sin plan anunciado' : 'no plan announced'}</span>`), K)}
+      ${tr(es ? `Memo: efectivo e inversiones al ${fmtDate(qEndDate(lastQ))}` : `Memo: cash and investments at ${fmtDate(qEndDate(lastQ))}`, (r) => (r.fy === fys[0].fy ? fmtB(cash) : ''), R, 'sub')}
+    </tbody></table>`);
+    const r0 = rows[0]; const gapCo = rem != null ? 1000 * rem : null; const diff = gapCo != null ? r0.need - 1000 * ((atm || 0) + rem) : null;
+    el('suCap').textContent = es ? `US$ mil millones por año fiscal de Oracle (junio–mayo). Flujos del consenso de FactSet (${fmtDate(FS.asOf)}); dividendos y vencimientos calculados por FNAM a partir de la última declaración y de la nota de deuda; la porción financiada por clientes es el supuesto del DCF (${fmtPct(d0 ? d0.cf[0] : null, 0)} en ${fys[0].fy}, de la guía bruta frente a neta). Las filas "memo" no se suman.` : `US$ billion by Oracle fiscal year (June–May). FactSet consensus flows (${fmtDate(FS.asOf)}); dividends and maturities computed by FNAM from the latest declaration and the debt footnote; the customer-funded share is the DCF's assumption (${fmtPct(d0 ? d0.cf[0] : null, 0)} in ${fys[0].fy}, from the gross-versus-net guide). "Memo" rows are not added.`;
+    html('suNote', `<b>${es ? 'Conciliación con la brecha de la empresa.' : 'Reconciliation with the company\'s gap.'}</b> ${es
+      ? `Oracle dijo que levantará unos US$ 40 mil M en el AF2027: US$ ${fmtN(atm, 1)} mil M ya emitidos (ATM) + ≈ US$ ${fmtN(rem, 1)} mil M por levantar. El flujo libre de consenso del ${fys[0].fy} es ${fmtB(r0.fcf)} mil M; sumando dividendos (${fmtB(r0.div)}) y vencimientos (${fmtB(r0.rep)}), la necesidad es US$ ${fmtB(r0.need)} mil M, ${fmtB(r0.need - 1000 * (atm + rem))} mil M más que las fuentes identificadas. Tres supuestos explican la diferencia: (1) el efectivo en caja (US$ ${fmtB(cash)} mil M al ${fmtDate(qEndDate(lastQ))}) puede cubrirla sin nueva emisión; (2) el consenso trata el capex como bruto (US$ ${fmtB(r0.capex)} mil M ≈ la guía) y su flujo de operación ya incluye los prepagos (≈ US$ ${fmtB(r0.prepay)} mil M al ${fmtPct(d0 ? d0.cf[0] : null, 0)}): si los brokers modelaron menos prepagos, la brecha de la empresa es menor que la del consenso; (3) la cifra de Oracle es deuda y capital, no efectivo: no incluye los vencimientos ni los dividendos que esta tabla sí resta. Nada aquí es una proyección propia: las filas del consenso son de FactSet y las demás, aritmética sobre cifras reportadas.`
+      : `Oracle said it would raise about US$ 40 bn in FY2027: US$ ${fmtN(atm, 1)} bn already issued (ATM) + about US$ ${fmtN(rem, 1)} bn still to raise. Consensus free cash flow for ${fys[0].fy} is ${fmtB(r0.fcf)} bn; adding dividends (${fmtB(r0.div)}) and maturities (${fmtB(r0.rep)}), the need is US$ ${fmtB(r0.need)} bn, ${fmtB(r0.need - 1000 * (atm + rem))} bn more than the identified sources. Three assumptions explain the difference: (1) cash on hand (US$ ${fmtB(cash)} bn at ${fmtDate(qEndDate(lastQ))}) can cover it without a new issue; (2) consensus treats capex as gross (US$ ${fmtB(r0.capex)} bn ≈ the guide) and its operating cash flow already includes the prepayments (≈ US$ ${fmtB(r0.prepay)} bn at ${fmtPct(d0 ? d0.cf[0] : null, 0)}): if the brokers modeled fewer prepayments, the company's gap is smaller than the consensus one; (3) Oracle's figure is debt and equity, not cash: it excludes the maturities and dividends this table does subtract. Nothing here is an in-house projection: the consensus rows are FactSet's and the rest is arithmetic on reported figures.`}`);
+    html('suSrc', `${t('src')}: ${FS && FS.source ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} (${es ? 'flujo libre, capex, ventas por año fiscal' : 'free cash flow, capex, sales by fiscal year'} ${asOf(FS.asOf)}) · ${relLink()} (${es ? 'dividendo declarado, efectivo' : 'dividend declared, cash'}) · ${tenKLink()} (${es ? 'vencimientos' : 'maturities'}) · ${XB ? extLink(XB.source.url, es ? 'SEC XBRL (acciones, arrendamientos financieros)' : 'SEC XBRL (shares, finance leases)') : ''} · ${es ? 'plan de financiamiento' : 'funding plan'}: ${irLink()} (${es ? 'llamada 4T26 y 10-Q 1T27' : '4Q26 call and 1Q27 10-Q'})`);
+    html('fundingMeta', es ? `Balance del ${qLabel(lastQ)}; plan de financiamiento según la llamada del 4T26 y el 10-Q del 1T27; consenso de FactSet al ${fmtDate(FS.asOf)}.` : `${qLabel(lastQ)} balance sheet; funding plan per the 4Q26 call and the 1Q27 10-Q; FactSet consensus as of ${fmtDate(FS.asOf)}.`);
+  }
+  // ---- counterparties: whom Oracle names (SEC prospectus), what S&P estimates, what the press reports, and the counterparty's capacity (press, labeled)
+  function renderCounterparties() {
+    if (!el('cpTable') || !BO) return; const es = LANG === 'es', c = SERIES();
+    const cn = (BO.unitEconomics && BO.unitEconomics.concentration) || {}; const nc = cn.named_customers || null; const pc = cn.press_contracts || []; const cap = cn.counterparty_capacity || null;
+    const rpo = lastQ && lastQ.kpi.rpo != null ? lastQ.kpi.rpo : null;
+    const B = { sec: `<span class="badge ok">${es ? 'reporte a la SEC' : 'SEC filing'}</span>`, third: `<span class="badge est">${es ? 'estimación de un tercero' : 'third-party estimate'}</span>`, press: `<span class="badge est">${es ? 'prensa' : 'press'}</span>`, nd: `<span class="badge rev">${es ? 'no divulgado' : 'not disclosed'}</span>`, fnam: `<span class="badge est">${es ? 'estimación FNAM' : 'FNAM estimate'}</span>` };
+    const names = nc ? nc.names : [];
+    const rows = names.map((n) => { const p = pc.find((x) => x.counterparty === n); const isOpenAI = /OpenAI/i.test(n); return `<tr><td><b>${n}</b></td><td>${nc ? `${B.sec} <span class="small muted">${es ? 'nombrado en el prospecto (FWP) del 1 feb 2026' : 'named in the FWP prospectus of 1 Feb 2026'}</span>` : ''}</td><td>${isOpenAI && rpo ? `≈ ${fmtPct(50, 0)} ${B.third}<span class="sub">S&P: ${es ? 'cerca de la mitad del RPO' : 'about half of RPO'} (US$ ${fmtN(rpo / 2000, 0)} ${es ? 'mil M' : 'bn'} ${es ? 'sobre' : 'on'} US$ ${fmtN(rpo / 1000, 0)} ${es ? 'mil M' : 'bn'})</span>` : B.nd}</td><td>${p ? `US$ ${fmtN(p.usd_bn)} ${es ? 'mil M' : 'bn'} ${B.press}<span class="sub">${L({ es: p.term_text_es, en: p.term_text_en })} · ${fmtDate(p.date)}</span>` : B.nd}</td><td class="small">${p && p.source ? extLink(p.source.url, p.source.title.replace(/:.*$/, '')) : nc ? extLink(nc.source.url, 'FWP') : ''}</td></tr>`; });
+    html('cpTable', `<table class="cp"><thead><tr><th>${es ? 'Contraparte' : 'Counterparty'}</th><th>${es ? 'Nombrada por Oracle' : 'Named by Oracle'}</th><th>${es ? 'Porción del RPO' : 'Share of RPO'}</th><th>${es ? 'Tamaño del contrato' : 'Contract size'}</th><th>${t('src')}</th></tr></thead><tbody>${rows.join('')}</tbody></table>`);
+    el('cpCap').textContent = nc ? L({ es: nc.amounts_note_es, en: nc.amounts_note_en }) : '';
+    // counterparty capacity (OpenAI): press figures on funding and revenue against the annual payments the press-reported contract implies
+    let capTxt = '';
+    if (cap && cap.openai) { const o = cap.openai; const p = pc.find((x) => /OpenAI/i.test(x.counterparty)); const annual = p ? p.usd_bn / 5 : null;
+      capTxt = `<b>${es ? 'Capacidad de la contraparte (OpenAI).' : 'Counterparty capacity (OpenAI).'}</b> ${B.fnam} ${es
+        ? `Según la prensa, OpenAI ${o.arr_text_es}; ${o.raised_text_es}; ${o.seeking_text_es}. El contrato reportado por el WSJ (US$ ${p ? fmtN(p.usd_bn) : '—'} mil M en unos cinco años desde 2027) implica pagos del orden de US$ ${annual ? fmtN(annual) : '—'} mil M al año, ${o.arr_usd_bn && annual ? `${fmtX(annual / o.arr_usd_bn, 1)} de sus ingresos anualizados reportados` : ''}: la capacidad de pago depende de que siga levantando capital. ${L({ es: cap.label_es, en: cap.label_en })}.`
+        : `Per the press, OpenAI ${o.arr_text_en}; ${o.raised_text_en}; ${o.seeking_text_en}. The contract the WSJ reported (US$ ${p ? fmtN(p.usd_bn) : '—'} bn over about five years from 2027) implies payments on the order of US$ ${annual ? fmtN(annual) : '—'} bn a year, ${o.arr_usd_bn && annual ? `${fmtX(annual / o.arr_usd_bn, 1)} its reported annualized revenue` : ''}: its ability to pay depends on continuing to raise capital. ${L({ es: cap.label_es, en: cap.label_en })}.`}`; }
+    html('cpNote', capTxt || (es ? 'Sin datos de capacidad de contraparte.' : 'No counterparty-capacity data.'));
+    html('cpSrc', `${t('src')}: ${nc ? extLink(nc.source.url, es ? 'Oracle FWP, 1 feb 2026' : 'Oracle FWP, 1 Feb 2026') + ` <span class="mono">${nc.source.accession}</span>` : ''} · ${cn.source ? extLink(cn.source.url, 'S&P Global Ratings, 9 Jul 2026') : ''} · ${pc.map((p) => (p.source ? extLink(p.source.url, p.counterparty + ' (' + (es ? 'prensa' : 'press') + ')') : '')).join(' · ')}${cap && cap.openai ? ' · ' + cap.openai.sources.map((s) => extLink(s.url, s.title.replace(/:.*$/, ''))).join(' · ') : ''}`);
+    // concentration chart: S&P's estimate against the rest; nothing else is split because nothing else is disclosed
+    if (rpo) { const half = rpo / 2;
+      mkChart('chartConc', { type: 'doughnut', data: { labels: [es ? 'OpenAI (≈ la mitad, estimación de S&P)' : 'OpenAI (≈ half, S&P estimate)', es ? `Otros: ${names.filter((n) => !/OpenAI/i.test(n)).join(', ')} y no divulgados` : `Others: ${names.filter((n) => !/OpenAI/i.test(n)).join(', ')} and undisclosed`], datasets: [{ data: [half / 1000, (rpo - half) / 1000], backgroundColor: [c[1], c[0]], borderWidth: 0 }] }, options: { cutout: '55%', plugins: { legend: { display: true, position: 'bottom' }, tooltip: { callbacks: { label: (x) => `${x.label}: US$ ${fmtN(x.parsed, 0)} ${es ? 'mil M' : 'bn'}` } } } } });
+      el('concCap').textContent = es ? `RPO de US$ ${fmtN(rpo / 1000, 0)} mil M al ${qLabel(lastQ)}. Oracle no divulga la concentración dentro del RPO; la única división pública es la estimación de S&P (≈ la mitad OpenAI). El resto no se reparte porque no hay cifra que lo sustente.` : `RPO of US$ ${fmtN(rpo / 1000, 0)} bn at ${qLabel(lastQ)}. Oracle does not disclose concentration within RPO; the only public split is S&P's estimate (≈ half OpenAI). The rest is not divided because no figure supports it.`;
+      html('concSrc', `${t('src')}: ${relLink()} (RPO) · ${cn.source ? extLink(cn.source.url, 'S&P Global Ratings, 9 Jul 2026') : ''} (${es ? 'estimación de un tercero' : 'third-party estimate'}) · ${nc ? extLink(nc.source.url, 'Oracle FWP') : ''}`);
+    }
+  }
+  // ---- RPO to revenue: the contracted conversion schedule laid onto fiscal years against consensus revenue
+  function renderRpoBridge() {
+    if (!el('rpoBridgeTable') || !BO || !BO.rpoRecognition) return; const es = LANG === 'es', c = SERIES();
+    const ser = BO.rpoRecognition.series || []; const last = ser[ser.length - 1]; if (!last) return;
+    const rpo = last.rpo_bn * 1000; const asOfD = last.as_of; const m0 = +asOfD.slice(0, 4) * 12 + (+asOfD.slice(5, 7)); // month index of the as-of date
+    const buckets = [{ from: 1, to: 12, pct: last.m12_pct }, { from: 13, to: 36, pct: last.m13_36_pct }, { from: 37, to: 60, pct: last.m37_60_pct }];
+    const fyOfMonth = (mi) => { const y = Math.floor((mi - 1) / 12), m = ((mi - 1) % 12) + 1; return m >= 6 ? y + 1 : y; };
+    const fys = fsFiscal().filter((f) => f.sales).slice(0, 4); const byFy = {};
+    for (const b of buckets) { const perMonth = rpo * b.pct / 100 / (b.to - b.from + 1); for (let k = b.from; k <= b.to; k++) { const fy = fyOfMonth(m0 + k); byFy[fy] = (byFy[fy] || 0) + perMonth; } }
+    const reported = {}; for (const q of Q) if (q.fy === lastQ.fy) reported[q.fy] = (reported[q.fy] || 0) + q.is.revTotal;
+    const rows = fys.map((f) => { const fy = +f.fy.slice(2); const con = byFy[fy] || 0, rep = reported[fy] || 0, cons = f.sales.mean; return { fy: f.fy, con, rep, cons, rest: cons - con - rep, share: 100 * (con + rep) / cons }; });
+    mkChart('chartRpoBridge', { type: 'bar', data: { labels: rows.map((r) => r.fy), datasets: [
+      { label: es ? 'Ya reportado' : 'Already reported', data: rows.map((r) => r.rep / 1000), backgroundColor: c[2], stack: 'a' },
+      { label: es ? 'Conversión contratada del RPO (calendario del 10-Q)' : 'Contracted RPO conversion (10-Q schedule)', data: rows.map((r) => r.con / 1000), backgroundColor: c[0], stack: 'a' },
+      { label: es ? 'Resto: aún no contratado al cierre' : 'Remainder: not yet contracted at quarter-end', data: rows.map((r) => Math.max(0, r.rest) / 1000), backgroundColor: alpha(c[3], 0.6), stack: 'a' },
+      { label: es ? 'Ingresos de consenso' : 'Consensus revenue', type: 'line', data: rows.map((r) => r.cons / 1000), borderColor: c[7], backgroundColor: c[7], pointRadius: 3 },
+    ] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: US$ ${fmtN(x.parsed.y, 1)} ${es ? 'mil M' : 'bn'}` } } }, scales: { x: { stacked: true, grid: { display: false } }, y: { stacked: true, ticks: { callback: (v) => fmtN(v, 0) }, beginAtZero: true } }, datasets: { bar: { maxBarThickness: 44, borderWidth: 0 } } } });
+    html('rpoBridgeTable', `<table><thead><tr><th>${es ? 'Año fiscal' : 'Fiscal year'}</th><th>${es ? 'Ya reportado' : 'Already reported'}</th><th>${es ? 'Conversión contratada' : 'Contracted conversion'}</th><th>${es ? 'Consenso' : 'Consensus'}</th><th>${es ? 'Cubierto por contratos + reportado' : 'Covered by contracts + reported'}</th><th>${es ? 'Resto por contratar' : 'Remainder to be contracted'}</th></tr></thead><tbody>${rows.map((r) => `<tr><td><b>${r.fy}</b></td><td>${r.rep ? fmtBn(r.rep) : '—'}</td><td>${fmtBn(r.con)}</td><td>${fmtBn(r.cons)}</td><td><b>${fmtPct(r.share, 0)}</b></td><td class="${r.rest < 0 ? 'neg' : ''}">${fmtBn(r.rest)}</td></tr>`).join('')}</tbody></table>`);
+    el('rpoBridgeCap').textContent = es ? `US$ mil millones. Calendario de reconocimiento del 10-Q al ${fmtDate(asOfD)} (${last.m12_pct}% en 12 meses, ${last.m13_36_pct}% en los meses 13–36, ${last.m37_60_pct}% en los meses 37–60) repartido por meses sobre los años fiscales de Oracle, con reconocimiento uniforme dentro de cada tramo (supuesto FNAM: Oracle no da el perfil mensual). Consenso de FactSet por año fiscal (${fmtDate(FS.asOf)}).` : `US$ billion. 10-Q recognition schedule at ${fmtDate(asOfD)} (${last.m12_pct}% within 12 months, ${last.m13_36_pct}% in months 13–36, ${last.m37_60_pct}% in months 37–60) laid month by month onto Oracle's fiscal years, with even recognition inside each bucket (FNAM assumption: Oracle gives no monthly profile). FactSet consensus by fiscal year (${fmtDate(FS.asOf)}).`;
+    const r1 = rows[1] || rows[0];
+    html('rpoBridgeNote', `<b>${es ? 'Lectura.' : 'Reading it.'}</b> ${es ? `Lo contratado al ${fmtDate(asOfD)} cubre ${fmtPct(rows[0].share, 0)} del consenso ${rows[0].fy} y ${fmtPct(r1.share, 0)} del ${r1.fy}; el resto tiene que firmarse, renovarse o facturarse por uso. El RPO incluye todo lo contratado (soporte de software y nube), así que la cobertura no es solo IA. Una conversión más lenta que el calendario del 10-Q mueve el DCF (${ref('dcf')}, escenario pesimista).` : `What was contracted at ${fmtDate(asOfD)} covers ${fmtPct(rows[0].share, 0)} of ${rows[0].fy} consensus and ${fmtPct(r1.share, 0)} of ${r1.fy}; the rest has to be signed, renewed or billed by usage. RPO includes everything contracted (software support and cloud), so the coverage is not AI alone. A slower conversion than the 10-Q schedule moves the DCF (${ref('dcf')}, bear case).`}`);
+    html('rpoBridgeSrc', `${t('src')}: ${last.source ? extLink(last.source.url, last.source.title) : ''} (${es ? 'calendario de reconocimiento' : 'recognition schedule'}) · ${relLink()} (RPO, ${es ? 'ingresos reportados' : 'reported revenue'}) · ${FS && FS.source ? extLink(FS.source.url, 'FactSet Estimates') : 'FactSet'} ${asOf(FS.asOf)}`);
+  }
+  // ---- megawatts by campus: contracted, energized and the expected date, every cell with its source
+  function renderMwTimeline() {
+    if (!el('mwTable') || !BO) return; const es = LANG === 'es', c = SERIES();
+    const sites = BO.sites || []; const sf = (s, k) => (es ? s[k + '_es'] : s[k + '_en']) || s[k] || '';
+    const srcShort = (r) => (r.url ? `<a href="${r.url}" target="_blank" rel="noopener" title="${(r.title || '').replace(/"/g, '&quot;')}">${r.short || r.title}</a>` : `<span title="${(r.title || '').replace(/"/g, '&quot;')}">${r.short || r.title}</span>`);
+    mkChart('chartMw', { type: 'bar', data: { labels: sites.map((s) => s.short || s.name), datasets: [
+      { label: es ? 'Energizados (MW)' : 'Energized (MW)', data: sites.map((s) => s.energized_mw || 0), backgroundColor: c[2], stack: 'a' },
+      { label: es ? 'Pendiente hasta la capacidad nominal (MW)' : 'Remaining to nameplate (MW)', data: sites.map((s) => Math.max(0, (s.nameplate_mw || s.capacity_mw || 0) - (s.energized_mw || 0))), backgroundColor: alpha(c[0], 0.45), stack: 'a' },
+    ] }, options: { indexAxis: 'y', plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${fmtN(x.parsed.x)} MW` } } }, scales: { x: { stacked: true, ticks: { callback: (v) => fmtN(v) + ' MW' }, beginAtZero: true }, y: { stacked: true, grid: { display: false } } }, datasets: { bar: { maxBarThickness: 26, borderWidth: 0 } } } });
+    html('mwTable', `<table class="mw"><thead><tr><th>${es ? 'Campus' : 'Campus'}</th><th>${es ? 'Contratado' : 'Contracted'}</th><th>${es ? 'Nominal (MW)' : 'Nameplate (MW)'}</th><th>${es ? 'Energizados (MW) · al' : 'Energized (MW) · as of'}</th><th>${es ? 'Fecha esperada (primeras entregas / ingresos)' : 'Expected date (first deliveries / revenue)'}</th><th>${t('src')}</th></tr></thead><tbody>${sites.map((s) => `<tr><td><b>${s.short || s.name}</b><span class="sub">${sf(s, 'tenant') || sf(s, 'customer') || ''}</span></td><td>${sf(s, 'contracted') || '—'}</td><td>${fmtN(s.nameplate_mw || s.capacity_mw)}${s.nameplate_src ? `<span class="sub">${s.nameplate_src}</span>` : ''}</td><td>${fmtN(s.energized_mw || 0)}${s.energized_as_of ? `<span class="sub">${boLabel(s.energized_as_of)}</span>` : ''}</td><td>${sf(s, 'first_revenue') || sf(s, 'first_delivery') || '—'}</td><td class="small">${(s.sources || []).slice(0, 3).map(srcShort).join(' · ')}</td></tr>`).join('')}<tr class="total"><td>${t('total')}</td><td></td><td>${fmtN(sites.reduce((a, s) => a + (s.nameplate_mw || s.capacity_mw || 0), 0))}</td><td>${fmtN(sites.reduce((a, s) => a + (s.energized_mw || 0), 0))}</td><td></td><td></td></tr></tbody></table>`);
+    el('mwCap').textContent = es ? 'Capacidad nominal y megavatios energizados según Oracle (llamadas) o el desarrollador; "contratado" es la fecha en que Oracle anunció el campus; la fecha esperada es la que Oracle dio en la llamada citada, con la del desarrollador cuando difiere. Las fechas son declaraciones de la empresa, no auditadas.' : 'Nameplate and energized megawatts per Oracle (calls) or the developer; "contracted" is when Oracle announced the campus; the expected date is the one Oracle gave on the cited call, with the developer\'s when it differs. Dates are company statements, not audited.';
+    html('mwSrc', `${t('src')}: ${es ? 'transcripciones de las llamadas y comunicados enlazados por fila' : 'call transcripts and releases linked per row'} · ${irLink()} · ${BO.updated ? `${es ? 'revisado el' : 'reviewed'} ${fmtDate(BO.updated)}` : ''}`);
+  }
+  // ---- Oracle against the hyperscalers: the hub's own figures and definitions (TTM capex / revenue, RPO / TTM revenue, lease-adjusted net debt / TTM EBITDA)
+  function renderHyperscalers() {
+    if (!el('hypTable')) return; const es = LANG === 'es', c = SERIES();
+    if (!HYP || !HYP.companies) { html('hypTable', `<p class="muted small">${es ? 'Datos del hub de hiperescaladores no disponibles.' : 'Hyperscaler Hub data not available.'}</p>`); return; }
+    const tier = (k, tip) => `<span class="tier ${k}" title="${tip}">${k === 'T1' ? 'T1 · SEC' : k === 'C' ? (es ? 'Cálculo FNAM' : 'FNAM calc.') : k}</span>`;
+    const rows = Object.values(HYP.companies).map((co) => { const qs = co.quarters || []; const q = qs[qs.length - 1]; if (!q || !q.ttm) return null; const tt = q.ttm; const rq = qs.slice().reverse().find((x) => x.m && x.m.rpo); return { t: co.ticker, name: co.name, group: co.group, end: q.end, rev: tt.revenue, capex: tt.capex_cash, fl: tt.fl_additions ?? null, rpo: rq ? rq.m.rpo[0] : null, rpoEnd: rq ? rq.end : null, nd: tt.nd_ebitda, land: tt.land_ebitda, cxOcf: tt.capex_ocf }; }).filter(Boolean).sort((a, b) => (a.t === 'ORCL' ? -1 : b.t === 'ORCL' ? 1 : (b.capex / b.rev) - (a.capex / a.rev)));
+    const S = obligStats();
+    const fmtY = (v) => (v == null ? '—' : fmtN(v, 1) + (es ? ' años' : ' yrs'));
+    html('hypTable', `<table><thead><tr><th>${es ? 'Empresa' : 'Company'}</th><th>${es ? 'UDM al' : 'TTM to'}</th><th>${es ? 'Capex / ingresos' : 'Capex / revenue'}</th><th>${es ? 'Capex / flujo de operación' : 'Capex / operating cash flow'}</th><th>RPO</th><th>${es ? 'RPO / ingresos UDM' : 'RPO / TTM revenue'}</th><th>${es ? 'DN / EBITDA' : 'ND / EBITDA'}</th><th>${es ? 'DN ajustada por arrend. / EBITDA' : 'Lease-adj. ND / EBITDA'}</th></tr></thead><tbody>${rows.map((r) => `<tr class="${r.t === 'ORCL' ? 'bold' : ''}"><td>${r.name}${r.group === 'neocloud' ? ` <span class="badge est">neocloud</span>` : ''}</td><td class="small">${fmtDate(r.end)}</td><td>${fmtPct(100 * r.capex / r.rev, 0)}</td><td>${r.cxOcf != null && r.cxOcf > 0 && r.cxOcf < 5 ? fmtPct(100 * r.cxOcf, 0) : 'n.s.'}</td><td>${r.rpo != null ? fmtBn(r.rpo / 1e6, r.rpo < 10e9 ? 1 : 0) : `<span class="muted">${es ? 'no etiquetado' : 'not tagged'}</span>`}</td><td>${r.rpo != null ? fmtY(r.rpo / r.rev) : '—'}</td><td>${r.nd != null ? fmtX(r.nd, 1) : '—'}</td><td>${r.land != null ? fmtX(r.land, 1) : '—'}${r.t === 'ORCL' && S ? `<span class="sub">${fmtX(S.leaseAdj, 1)} ${es ? 'sobre EBITDAR en' : 'on EBITDAR in'} ${ref('obligations')}</span>` : ''}</td></tr>`).join('')}</tbody></table>`);
+    const top = rows.filter((r) => r.group !== 'neocloud').slice(0, 8);
+    mkChart('chartHyp', { type: 'bar', data: { labels: top.map((r) => r.t), datasets: [
+      { label: es ? 'Capex / ingresos UDM (%)' : 'TTM capex / revenue (%)', data: top.map((r) => 100 * r.capex / r.rev), backgroundColor: top.map((r) => (r.t === 'ORCL' ? c[1] : c[0])), yAxisID: 'y' },
+      { label: es ? 'DN ajustada por arrendamientos / EBITDA (x)' : 'Lease-adjusted ND / EBITDA (x)', type: 'line', data: top.map((r) => r.land), borderColor: c[7], backgroundColor: c[7], pointRadius: 4, yAxisID: 'y2', showLine: false },
+    ] }, options: { plugins: { legend: { display: true, position: 'top', align: 'end' }, tooltip: { callbacks: { label: (x) => `${x.dataset.label}: ${x.dataset.yAxisID === 'y2' ? fmtX(x.parsed.y, 1) : fmtPct(x.parsed.y, 0)}` } } }, scales: { x: { grid: { display: false } }, y: { ticks: { callback: (v) => v + '%' }, beginAtZero: true, title: { display: true, text: es ? 'capex / ingresos (barras)' : 'capex / revenue (bars)' } }, y2: { position: 'right', grid: { display: false }, ticks: { callback: (v) => v + 'x' }, title: { display: true, text: es ? 'apalancamiento (puntos)' : 'leverage (points)' } } }, datasets: { bar: { maxBarThickness: 36, borderWidth: 0 } } } });
+    el('hypCap').innerHTML = `${tier('T1', es ? 'SEC XBRL, datos de cada empresa' : 'SEC XBRL, each company\'s own facts')} ${tier('C', es ? 'razones calculadas por FNAM sobre cifras T1' : 'ratios computed by FNAM on T1 figures')} ${es ? 'Mismas definiciones y niveles de fuente que el <a href="/hiperescaladores/capex/">Hyperscaler Hub (módulo 3)</a>: UDM = cuatro trimestres XBRL consecutivos al último trimestre de cada empresa (cierres distintos); capex = compras de propiedades y equipo en efectivo; RPO como lo etiqueta cada empresa (Microsoft incluye contratos comerciales de software, no solo infraestructura); deuda neta ajustada = deuda − efectivo + pasivos por arrendamiento operativo y financiero ya reconocidos (nunca los no iniciados); EBITDA = utilidad de operación + D&A. El apalancamiento de Oracle en esta tabla usa EBITDA, no EBITDAR, para comparar con el hub. La gráfica muestra las seis grandes; los neoclouds solo en la tabla.' : 'Same definitions and source tiers as the <a href="/hiperescaladores/capex/">Hyperscaler Hub (module 3)</a>: TTM = four consecutive XBRL quarters to each company\'s latest quarter (period ends differ); capex = cash purchases of property and equipment; RPO as each company tags it (Microsoft includes commercial software contracts, not only infrastructure); lease-adjusted net debt = debt − cash + operating and finance lease liabilities already recognised (never the uncommenced ones); EBITDA = operating income + D&A. Oracle\'s leverage in this table uses EBITDA, not EBITDAR, to compare with the hub. The chart shows the core six; the neoclouds appear in the table only.'}`;
+    html('hypSrc', `${t('src')}: ${extLink('https://www.sec.gov/search-filings/edgar-application-programming-interfaces', 'SEC EDGAR XBRL company facts')} ${es ? 'vía' : 'via'} <a href="/hiperescaladores/">Hyperscaler Hub</a> (${es ? 'generado' : 'generated'} ${fmtET(HYP.generated)}) · ${es ? 'Oracle: mismos datos XBRL; su cifra sobre EBITDAR está en' : 'Oracle: the same XBRL facts; its EBITDAR-based figure is in'} ${ref('obligations')}`);
+  }
+  // ---- glossary: the table in the Reference appendix and the first-use hover definitions
+  const GLOSS = (REF.glossary || []).filter((g) => g && g.id);
+  function renderGlossary() {
+    if (!el('glossaryTable')) return; const es = LANG === 'es';
+    const items = GLOSS.slice().sort((a, b) => (es ? a.term_es : a.term_en).localeCompare(es ? b.term_es : b.term_en, locale()));
+    html('glossaryTable', `<table><tbody>${items.map((g) => `<tr id="gl-${g.id}"><td style="white-space:normal;min-width:160px"><b>${es ? g.term_es : g.term_en}</b></td><td class="small" style="white-space:normal;text-align:left">${es ? g.es : g.en}</td></tr>`).join('')}</tbody></table>`);
+  }
+  function glossify() {
+    const main = document.querySelector('main'); if (!main || !GLOSS.length) return; const es = LANG === 'es';
+    main.querySelectorAll('abbr.gl').forEach((a) => { a.replaceWith(document.createTextNode(a.textContent)); });
+    const pending = GLOSS.map((g) => { const src = es ? g.match_es : g.match_en; if (!src) return null; try { return { g, re: new RegExp(src) }; } catch (e) { return null; } }).filter(Boolean);
+    const skip = 'script,style,canvas,select,input,button,textarea,code,abbr,a,h2,.sec-num,.fignum,.stamp,.sec-stamp,#glossaryTable,#dcfInputs,.mono,.quote,.guide-quote,i,nav';
+    const walker = document.createTreeWalker(main, NodeFilter.SHOW_TEXT, { acceptNode: (n) => (n.parentElement && !n.parentElement.closest(skip) && n.textContent.trim() ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT) });
+    const nodes = []; while (walker.nextNode()) nodes.push(walker.currentNode);
+    for (let node of nodes) {
+      if (!pending.length) break;
+      let guard = 0;
+      while (node && guard++ < 6) {
+        const text = node.textContent; let best = null;
+        for (const p of pending) { const m = p.re.exec(text); if (m && (!best || m.index < best.m.index)) best = { p, m }; }
+        if (!best) break;
+        const { p, m } = best; const abbr = document.createElement('abbr'); abbr.className = 'gl'; abbr.dataset.gl = p.g.id; abbr.title = `${es ? p.g.term_es : p.g.term_en}: ${es ? p.g.es : p.g.en}`; abbr.textContent = m[0];
+        const after = node.splitText(m.index); after.textContent = after.textContent.slice(m[0].length); node.parentNode.insertBefore(abbr, after);
+        pending.splice(pending.indexOf(p), 1); node = after;
+      }
+    }
+  }
+  // tap-friendly definition popover (the title attribute covers hover on a desktop)
+  document.addEventListener('click', (e) => {
+    const a = e.target.closest && e.target.closest('abbr.gl'); const old = document.querySelector('.gl-pop'); if (old) old.remove();
+    if (!a) return; e.preventDefault(); const g = GLOSS.find((x) => x.id === a.dataset.gl); if (!g) return; const es = LANG === 'es';
+    const pop = document.createElement('div'); pop.className = 'gl-pop'; pop.innerHTML = `<b>${es ? g.term_es : g.term_en}</b>${es ? g.es : g.en} <a href="#gl-${g.id}">${es ? 'Glosario →' : 'Glossary →'}</a>`;
+    document.body.appendChild(pop); const r = a.getBoundingClientRect(); const w = pop.offsetWidth; pop.style.top = `${window.scrollY + r.bottom + 6}px`; pop.style.left = `${Math.max(8, Math.min(window.scrollX + r.left, window.scrollX + document.documentElement.clientWidth - w - 8))}px`;
+    pop.querySelector('a').addEventListener('click', () => { openSection('method'); pop.remove(); });
+  });
+  // ---- sticky section menu (phones): the same list as the top navigation, reachable from the thumb
+  function renderMobileMenu() {
+    let btn = el('secMenuBtn'), menu = el('secMenu'); const es = LANG === 'es';
+    if (!btn) { btn = document.createElement('button'); btn.type = 'button'; btn.id = 'secMenuBtn'; document.body.appendChild(btn); menu = document.createElement('div'); menu.id = 'secMenu'; document.body.appendChild(menu); btn.addEventListener('click', () => menu.classList.toggle('open')); document.addEventListener('click', (e) => { if (!menu.contains(e.target) && e.target !== btn) menu.classList.remove('open'); }); }
+    btn.innerHTML = `☰ ${es ? 'Secciones' : 'Sections'}`;
+    const idx = secIndex();
+    menu.innerHTML = secList().map((s) => `<a href="#${s.id}" data-sec="${s.id}">${idx[s.id].n != null || idx[s.id].label ? `<span class="muted">${secNum(s.id)}</span>` : ''}${L({ es: s.nav_es, en: s.nav_en })}</a>`).join('');
+    menu.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => { openSection(a.dataset.sec); menu.classList.remove('open'); }));
+  }
+  function openSection(id) { if (!id || !secList().some((s) => s.id === id)) return; if (!openSet.has(id)) { openSet.add(id); saveCollapsed(); applyCollapse(); renderPaths(); } }
+  window.addEventListener('hashchange', () => openSection(location.hash.replace('#', '')));
+  document.addEventListener('click', (e) => { const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return; const id = a.getAttribute('href').slice(1); if (secList().some((s) => s.id === id)) openSection(id); });
+
   // ================= wiring =================
   function seg(id, onChange) { const box = el(id); if (!box) return; box.querySelectorAll('button').forEach((b) => b.addEventListener('click', () => { box.querySelectorAll('button').forEach((x) => x.classList.toggle('active', x === b)); onChange(b.dataset.v); })); }
   function renderAll() {
     chartDefaults();
-    renderHeader(); renderSummary(); renderStatements(); renderGuidance(); renderOperating(); renderCapex(); renderBuildout(); renderShare(); renderDcf(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderObViews(); renderLeaseMaturity(); renderObVie(); renderObProvenance(); renderCircular(); renderCredit(); renderNews(); renderRisks(); renderCalendar(); renderMethod(); renderModules(); renderChangelog();
-    numberSections(); applyStamps(); applyCollapse(); wireNav();
+    renderHeader(); renderStatements(); renderGuidance(); renderOperating(); renderCapex(); renderBuildout(); renderShare(); renderDcf(); renderSummary(); renderRelative(); renderDebt(); renderDividends(); renderCapital(); renderAi(); renderUnitEconomics(); renderRpoRecognition(); renderBuildoutFlow(); renderObligations(); renderObViews(); renderLeaseMaturity(); renderObVie(); renderObProvenance(); renderCircular(); renderCredit(); renderNews(); renderRisks(); renderCalendar(); renderMethod(); renderModules(); renderChangelog();
+    renderSourcesUses(); renderCounterparties(); renderRpoBridge(); renderMwTimeline(); renderHyperscalers(); renderGlossary();
+    numberSections(); renderLeads(); applyStamps(); applyCollapse(); wireNav(); glossify();
   }
   function setLang(lang) {
     LANG = lang;
@@ -2020,7 +2439,7 @@
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
     pctChange, OB, PL, obligStats, peerLeverage, SEC, NEWS, XB, RK, CL, secNum, secTitle, secNav, secList, moduleStatus, fmtET, nextExpectedFiling, xbQ, xbQuarters, xbInstant, parseCapexGuide, gCapexNote,
-    FS, fsNtm, fsFiscal, peersOwnRow, dcfDefaults, dcfCompute, dilutedShares, BETAS,
+    FS, fsNtm, fsFiscal, peersOwnRow, dcfDefaults, dcfCompute, dcfPreset, bridgeClaims, dilutedShares, BETAS, deckList, sectionLeads, TAX, HYP,
   };
   let initial = 'es'; try { initial = new URLSearchParams(location.search).get('lang') || localStorage.getItem('orcl-lang') || 'es'; } catch (e) { /* ignore */ }
   fillSelects('yoy');

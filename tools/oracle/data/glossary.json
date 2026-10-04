@@ -1,21 +1,205 @@
 {
-  "_comment": "One-sentence bilingual definitions shown as tooltips on the page. Keys are referenced from site/app.js.",
+  "_comment": "One-sentence bilingual definitions shown as hover/tap tooltips on the first use of each term in the page (app.js glossify) and listed in the Reference appendix. `match_en` / `match_es` are case-sensitive regular expressions for the first-use match in each language (whole words; the page wraps the first visible occurrence only). Keys are referenced from site/oracle/app.js.",
   "terms": {
-    "rpo": { "term_en": "RPO (remaining performance obligations)", "term_es": "RPO (obligaciones de desempeño restantes)", "en": "Contracted revenue not yet recognized because the service has not been delivered — Oracle's order backlog.", "es": "Ingresos contratados aún no reconocidos porque el servicio no se ha entregado — la cartera de pedidos de Oracle." },
-    "ebitda": { "term_en": "EBITDA", "term_es": "EBITDA", "en": "Operating income before depreciation and amortization; a rough proxy for operating cash generation.", "es": "Utilidad operativa antes de depreciación y amortización; una aproximación de la generación operativa de efectivo." },
-    "ltm": { "term_en": "LTM (last twelve months)", "term_es": "UDM (últimos doce meses)", "en": "The sum of the four most recent quarters, which removes seasonality when comparing with a share price.", "es": "La suma de los cuatro trimestres más recientes, que elimina la estacionalidad al comparar contra el precio de la acción." },
-    "non_gaap": { "term_en": "Non-GAAP", "term_es": "No-GAAP", "en": "Oracle's own adjusted figures, which exclude stock-based compensation, amortization of acquired intangibles, restructuring and acquisition costs — reconciled to GAAP in every release.", "es": "Cifras ajustadas de la propia Oracle, que excluyen compensación en acciones, amortización de intangibles adquiridos, reestructura y costos de adquisición — conciliadas con GAAP en cada reporte." },
-    "net_debt": { "term_en": "Net debt", "term_es": "Deuda neta", "en": "Total borrowings minus cash, cash equivalents and marketable securities.", "es": "Deuda total menos efectivo, equivalentes e inversiones negociables." },
-    "market_cap": { "term_en": "Market capitalization", "term_es": "Capitalización de mercado", "en": "Share price multiplied by shares outstanding — the market's value of the equity.", "es": "Precio de la acción multiplicado por las acciones en circulación — el valor de mercado del capital." },
-    "ev_ebitda": { "term_en": "EV / EBITDA", "term_es": "VE / EBITDA", "en": "Enterprise value (market cap plus net debt) divided by EBITDA — a valuation multiple that is indifferent to how the company is financed.", "es": "Valor de la empresa (capitalización más deuda neta) dividido entre EBITDA — un múltiplo de valuación que no depende de cómo se financia la compañía." },
-    "pe": { "term_en": "P/E", "term_es": "P/U", "en": "Share price divided by earnings per share.", "es": "Precio de la acción dividido entre la utilidad por acción." },
-    "fcf": { "term_en": "Free cash flow", "term_es": "Flujo libre de efectivo", "en": "Operating cash flow minus capital expenditure — cash available to lenders and shareholders.", "es": "Flujo operativo menos gasto de capital — efectivo disponible para acreedores y accionistas." },
-    "capex": { "term_en": "Capex", "term_es": "Capex", "en": "Capital expenditure: cash spent on property, data centers and equipment.", "es": "Gasto de capital: efectivo invertido en propiedades, centros de datos y equipo." },
-    "wacc": { "term_en": "WACC", "term_es": "CCPP (WACC)", "en": "Weighted average cost of capital — the blended return lenders and shareholders require, used as the DCF discount rate.", "es": "Costo promedio ponderado de capital — el rendimiento combinado que exigen acreedores y accionistas, usado como tasa de descuento del DCF." },
-    "beta": { "term_en": "Beta", "term_es": "Beta", "en": "How much the share moves relative to the market; computed here from two years of weekly returns against the S&P 500.", "es": "Cuánto se mueve la acción respecto al mercado; calculada aquí con dos años de rendimientos semanales contra el S&P 500." },
-    "erp": { "term_en": "Equity risk premium", "term_es": "Prima de riesgo de mercado", "en": "The extra return investors demand for holding equities rather than government bonds.", "es": "El rendimiento adicional que exigen los inversionistas por tener acciones en lugar de bonos gubernamentales." },
-    "gordon": { "term_en": "Gordon perpetuity", "term_es": "Perpetuidad de Gordon", "en": "Terminal value that assumes cash flow grows at a constant rate forever after the projection years.", "es": "Valor terminal que supone que el flujo crece a una tasa constante para siempre después de los años proyectados." },
-    "exit_multiple": { "term_en": "Exit multiple", "term_es": "Múltiplo de salida", "en": "Terminal value set as a multiple of final-year EBITDA, as if the business were sold then.", "es": "Valor terminal fijado como un múltiplo del EBITDA del último año, como si el negocio se vendiera en ese momento." },
-    "guidance": { "term_en": "Guidance", "term_es": "Guía", "en": "Management's own forecast ranges for the next quarter or year, stated on the earnings release or call.", "es": "Los rangos de pronóstico de la propia administración para el siguiente trimestre o año, expresados en el comunicado o la llamada de resultados." }
+    "rpo": {
+      "term_en": "RPO (remaining performance obligations)",
+      "term_es": "RPO (obligaciones de desempeño restantes)",
+      "en": "Contracted revenue not yet recognized because the service has not been delivered — Oracle's order backlog.",
+      "es": "Ingresos contratados aún no reconocidos porque el servicio no se ha entregado — la cartera de pedidos de Oracle.",
+      "match_en": "\\bRPO\\b",
+      "match_es": "\\bRPO\\b"
+    },
+    "ebitda": {
+      "term_en": "EBITDA",
+      "term_es": "EBITDA",
+      "en": "Operating income before depreciation and amortization; a rough proxy for operating cash generation.",
+      "es": "Utilidad operativa antes de depreciación y amortización; una aproximación de la generación operativa de efectivo.",
+      "match_en": "\\bEBITDA\\b(?!R)",
+      "match_es": "\\bEBITDA\\b(?!R)"
+    },
+    "ltm": {
+      "term_en": "LTM (last twelve months)",
+      "term_es": "UDM (últimos doce meses)",
+      "en": "The sum of the four most recent quarters, which removes seasonality when comparing with a share price.",
+      "es": "La suma de los cuatro trimestres más recientes, que elimina la estacionalidad al comparar contra el precio de la acción.",
+      "match_en": "\\bLTM\\b",
+      "match_es": "\\bUDM\\b"
+    },
+    "non_gaap": {
+      "term_en": "Non-GAAP",
+      "term_es": "No-GAAP",
+      "en": "Oracle's own adjusted figures, which exclude stock-based compensation, amortization of acquired intangibles, restructuring and acquisition costs — reconciled to GAAP in every release.",
+      "es": "Cifras ajustadas de la propia Oracle, que excluyen compensación en acciones, amortización de intangibles adquiridos, reestructura y costos de adquisición — conciliadas con GAAP en cada reporte.",
+      "match_en": "\\bNon-GAAP\\b",
+      "match_es": "\\bNo-GAAP\\b"
+    },
+    "net_debt": {
+      "term_en": "Net debt",
+      "term_es": "Deuda neta",
+      "en": "Total borrowings minus cash, cash equivalents and marketable securities.",
+      "es": "Deuda total menos efectivo, equivalentes e inversiones negociables.",
+      "match_en": "\\b[Nn]et debt\\b",
+      "match_es": "\\b[Dd]euda neta\\b"
+    },
+    "market_cap": {
+      "term_en": "Market capitalization",
+      "term_es": "Capitalización de mercado",
+      "en": "Share price multiplied by shares outstanding — the market's value of the equity.",
+      "es": "Precio de la acción multiplicado por las acciones en circulación — el valor de mercado del capital.",
+      "match_en": "\\b[Mm]arket cap(?:italization)?\\b",
+      "match_es": "\\b[Cc]apitalización(?: de mercado)?\\b"
+    },
+    "ev_ebitda": {
+      "term_en": "EV / EBITDA",
+      "term_es": "VE / EBITDA",
+      "en": "Enterprise value (market cap plus net debt) divided by EBITDA — a valuation multiple that is indifferent to how the company is financed.",
+      "es": "Valor de la empresa (capitalización más deuda neta) dividido entre EBITDA — un múltiplo de valuación que no depende de cómo se financia la compañía.",
+      "match_en": "\\bEV\\s*/\\s*EBITDA\\b",
+      "match_es": "\\bVE\\s*/\\s*EBITDA\\b"
+    },
+    "pe": {
+      "term_en": "P/E",
+      "term_es": "P/U",
+      "en": "Share price divided by earnings per share.",
+      "es": "Precio de la acción dividido entre la utilidad por acción.",
+      "match_en": "\\bP\\s*/\\s*E\\b",
+      "match_es": "\\bP\\s*/\\s*U\\b"
+    },
+    "fcf": {
+      "term_en": "Free cash flow",
+      "term_es": "Flujo libre de efectivo",
+      "en": "Operating cash flow minus capital expenditure — cash available to lenders and shareholders.",
+      "es": "Flujo operativo menos gasto de capital — efectivo disponible para acreedores y accionistas.",
+      "match_en": "\\b[Ff]ree cash flow\\b",
+      "match_es": "\\b[Ff]lujo (?:de efectivo )?libre\\b"
+    },
+    "capex": {
+      "term_en": "Capex",
+      "term_es": "Capex",
+      "en": "Capital expenditure: cash spent on property, data centers and equipment.",
+      "es": "Gasto de capital: efectivo invertido en propiedades, centros de datos y equipo.",
+      "match_en": "\\b[Cc]apex\\b",
+      "match_es": "\\b[Cc]apex\\b"
+    },
+    "wacc": {
+      "term_en": "WACC",
+      "term_es": "CCPP (WACC)",
+      "en": "Weighted average cost of capital — the blended return lenders and shareholders require, used as the DCF discount rate.",
+      "es": "Costo promedio ponderado de capital — el rendimiento combinado que exigen acreedores y accionistas, usado como tasa de descuento del DCF.",
+      "match_en": "\\bWACC\\b",
+      "match_es": "\\bWACC\\b"
+    },
+    "beta": {
+      "term_en": "Beta",
+      "term_es": "Beta",
+      "en": "How much the share moves relative to the market; computed here from two years of weekly returns against the S&P 500.",
+      "es": "Cuánto se mueve la acción respecto al mercado; calculada aquí con dos años de rendimientos semanales contra el S&P 500.",
+      "match_en": "\\b[Bb]eta\\b",
+      "match_es": "\\b[Bb]eta\\b"
+    },
+    "erp": {
+      "term_en": "Equity risk premium",
+      "term_es": "Prima de riesgo de mercado",
+      "en": "The extra return investors demand for holding equities rather than government bonds.",
+      "es": "El rendimiento adicional que exigen los inversionistas por tener acciones en lugar de bonos gubernamentales.",
+      "match_en": "\\b[Ee]quity risk premium\\b",
+      "match_es": "\\b[Pp]rima de riesgo(?: de mercado)?\\b"
+    },
+    "gordon": {
+      "term_en": "Gordon perpetuity",
+      "term_es": "Perpetuidad de Gordon",
+      "en": "Terminal value that assumes cash flow grows at a constant rate forever after the projection years.",
+      "es": "Valor terminal que supone que el flujo crece a una tasa constante para siempre después de los años proyectados.",
+      "match_en": "\\bGordon\\b",
+      "match_es": "\\bGordon\\b"
+    },
+    "exit_multiple": {
+      "term_en": "Exit multiple",
+      "term_es": "Múltiplo de salida",
+      "en": "Terminal value set as a multiple of final-year EBITDA, as if the business were sold then.",
+      "es": "Valor terminal fijado como un múltiplo del EBITDA del último año, como si el negocio se vendiera en ese momento.",
+      "match_en": "\\b[Ee]xit multiple\\b",
+      "match_es": "\\b[Mm]últiplo de salida\\b"
+    },
+    "guidance": {
+      "term_en": "Guidance",
+      "term_es": "Guía",
+      "en": "Management's own forecast ranges for the next quarter or year, stated on the earnings release or call.",
+      "es": "Los rangos de pronóstico de la propia administración para el siguiente trimestre o año, expresados en el comunicado o la llamada de resultados.",
+      "match_en": "\\b[Gg]uidance\\b",
+      "match_es": "\\b[Gg]uía\\b"
+    },
+    "byoh": {
+      "term_en": "BYOH (bring your own hardware)",
+      "term_es": "BYOH (hardware del cliente)",
+      "en": "A contract where the customer buys and owns the GPUs or servers and Oracle supplies the data-center space, power and operations, so Oracle funds less capex per megawatt.",
+      "es": "Contrato en el que el cliente compra y posee las GPU o servidores y Oracle aporta el espacio, la energía y la operación del centro de datos, de modo que Oracle financia menos capex por megavatio.",
+      "match_en": "\\bBYOH\\b|\\bbring-your-own-hardware\\b",
+      "match_es": "\\bBYOH\\b|\\bhardware del cliente\\b"
+    },
+    "asc842": {
+      "term_en": "ASC 842 (lease accounting)",
+      "term_es": "ASC 842 (contabilidad de arrendamientos)",
+      "en": "The US GAAP standard that puts leases on the balance sheet: a right-of-use asset and a lease liability equal to the present value of the payments; leases signed but not yet commenced stay off the balance sheet until the asset is handed over.",
+      "es": "La norma US GAAP que lleva los arrendamientos al balance: un activo por derecho de uso y un pasivo igual al valor presente de los pagos; los arrendamientos firmados que aún no empiezan quedan fuera del balance hasta que el activo se entrega.",
+      "match_en": "\\bASC 842\\b",
+      "match_es": "\\bASC 842\\b"
+    },
+    "vie": {
+      "term_en": "VIE (variable-interest entity)",
+      "term_es": "VIE (entidad de interés variable)",
+      "en": "An entity a company controls through contracts rather than voting shares (ASC 810); if a company is the primary beneficiary it consolidates the entity and its debt, otherwise it discloses its maximum exposure to loss.",
+      "es": "Entidad que una empresa controla por contratos y no por acciones con voto (ASC 810); si la empresa es el beneficiario principal la consolida con su deuda, de lo contrario revela su exposición máxima a pérdidas.",
+      "match_en": "\\bVIEs?\\b|\\bvariable-interest entit(?:y|ies)\\b",
+      "match_es": "\\bVIEs?\\b|\\bentidad(?:es)? de interés variable\\b"
+    },
+    "bp": {
+      "term_en": "bp (basis point)",
+      "term_es": "pb (punto base)",
+      "en": "One hundredth of a percentage point: 100 bp = 1.00%. Credit spreads and rate moves are quoted in basis points.",
+      "es": "Una centésima de punto porcentual: 100 pb = 1.00%. Los diferenciales de crédito y los movimientos de tasas se cotizan en puntos base.",
+      "match_en": "\\bbp\\b",
+      "match_es": "\\bpb\\b"
+    },
+    "mw_gw": {
+      "term_en": "MW and GW (megawatt, gigawatt)",
+      "term_es": "MW y GW (megavatio, gigavatio)",
+      "en": "Data-center capacity is sized by the electrical power it can draw: 1 GW = 1,000 MW. A gigawatt-scale campus hosts on the order of hundreds of thousands of GPUs; capacity is contracted, built and energized in megawatts before it earns revenue.",
+      "es": "La capacidad de un centro de datos se mide por la potencia eléctrica que puede consumir: 1 GW = 1,000 MW. Un campus de escala gigavatio aloja del orden de cientos de miles de GPU; la capacidad se contrata, construye y energiza en megavatios antes de generar ingresos.",
+      "match_en": "\\b(?:MW|GW)\\b",
+      "match_es": "\\b(?:MW|GW)\\b"
+    },
+    "prepayment_unwind": {
+      "term_en": "Prepayment unwind",
+      "term_es": "Reversión de prepagos",
+      "en": "Cash a customer pays in advance is booked as deferred revenue and recognised as revenue over the contract term without new cash; in the DCF the cash counts when received and the later revenue is removed so it is not counted twice.",
+      "es": "El efectivo que un cliente paga por adelantado se registra como ingreso diferido y se reconoce como ingreso a lo largo del contrato sin nuevo efectivo; en el DCF el efectivo cuenta al recibirse y el ingreso posterior se descuenta para no contarlo dos veces.",
+      "match_en": "\\b[Pp]repayment unwind\\b|\\b[Uu]nwind(?:s|ing)?\\b",
+      "match_es": "\\b[Rr]eversión de (?:los )?prepagos\\b"
+    },
+    "ebitdar": {
+      "term_en": "EBITDAR",
+      "term_es": "EBITDAR",
+      "en": "EBITDA plus operating lease cost (rent): the earnings measure that pairs with lease-adjusted debt, so leases are not counted in the debt without adding their cost back to earnings.",
+      "es": "EBITDA más el costo de arrendamientos operativos (renta): la medida de utilidad que acompaña a la deuda ajustada por arrendamientos, para no sumar los arrendamientos a la deuda sin devolver su costo a la utilidad.",
+      "match_en": "\\bEBITDAR\\b",
+      "match_es": "\\bEBITDAR\\b"
+    },
+    "sbc": {
+      "term_en": "Stock-based compensation (SBC)",
+      "term_es": "Compensación en acciones",
+      "en": "Pay in shares or options; a real cost that Oracle’s Non-GAAP figures and the brokers’ adjusted EBITDA exclude, so the DCF deducts it.",
+      "es": "Pago en acciones u opciones; un costo real que las cifras No-GAAP de Oracle y el EBITDA ajustado de los brokers excluyen, por lo que el DCF lo resta.",
+      "match_en": "\\b[Ss]tock-based compensation\\b",
+      "match_es": "\\b[Cc]ompensación en acciones\\b"
+    },
+    "terminal_value": {
+      "term_en": "Terminal value",
+      "term_es": "Valor terminal",
+      "en": "The value of all cash flows after the explicit projection years, either a perpetuity growing at g (Gordon) or an exit multiple of the final year’s EBITDA; usually most of a DCF’s enterprise value.",
+      "es": "El valor de todos los flujos posteriores a los años explícitos, sea una perpetuidad que crece a g (Gordon) o un múltiplo de salida sobre el EBITDA del último año; suele ser la mayor parte del valor de la empresa en un DCF.",
+      "match_en": "\\b[Tt]erminal value\\b",
+      "match_es": "\\b[Vv]alor terminal\\b"
+    }
   }
 }

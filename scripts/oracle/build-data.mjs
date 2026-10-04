@@ -219,7 +219,9 @@ emit("reference.js", "ORCL_REF", {
     sources: { en: [...new Set(quarters.map((q) => src(q.source)?.title).filter(Boolean))], es: [...new Set(quarters.map((q) => src(q.source)?.title).filter(Boolean))] },
   },
   rpo: { title: { en: ex.title_en, es: ex.title_es }, plain: { en: ex.plain_en, es: ex.plain_es }, quote: { en: ex.quote_en, es: ex.quote_es }, quoteSource: src(ex.quote_source), schedule: ex.recognition_schedule || [], caution: { en: ex.caution_en, es: ex.caution_es }, latest: latest?.rpo?.total ?? null, latestQuarter: latest ? label(latest) : null },
-  glossary: Object.values(gl),
+  glossary: Object.entries(gl).map(([id, g]) => ({ id, ...g })),
+  // income-tax facts behind the DCF tax-normalization input (tools/oracle/data/tax.json; cross-checked against XBRL by validate-data.mjs)
+  tax: load("tax.json", null),
   // DCF defaults (owner-reviewed 2026-10-03; every input stays editable on the page and is encoded in the URL). Figures
   // come from the data files at render time; these are only the method switches and the few assumptions with a source.
   dcf: {
@@ -361,7 +363,7 @@ const nws = load("news.json", null);
 if (nws) {
   const cut = new Date((nws.as_of || now.slice(0, 10)) + "T00:00:00Z"); cut.setUTCDate(cut.getUTCDate() - (nws.window_days || 120)); const cutIso = cut.toISOString().slice(0, 10);
   const items = (nws.items || []).filter((x) => x.date >= cutIso).sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : a.id.localeCompare(b.id)));
-  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], items }, "News and recent events for the Oracle page — tools/oracle/data/news.json, refreshed daily by the cloud routine; each item dated, themed, with primary sources first.");
+  emit("news.js", "ORCL_NEWS", { generatedAt: now, asOf: nws.as_of, windowDays: nws.window_days || 120, themes: nws.themes || [], sweepNote: nws.sweep_note_en ? { en: nws.sweep_note_en, es: nws.sweep_note_es, date: nws.sweep_note_date || null } : null, items }, "News and recent events for the Oracle page — tools/oracle/data/news.json, refreshed daily by the cloud routine; each item dated, themed, with primary sources first.");
 }
 
 // ---------- xbrl.js (Oracle's own XBRL facts: leases, capex, finance-lease additions, commitments) ----------

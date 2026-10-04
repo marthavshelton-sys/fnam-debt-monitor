@@ -3,10 +3,14 @@
 The interactive model lives at `site/oracle/` (`index.html` + `app.js`, plus the unlinked `quality.html`) and is
 served at **https://fnam.mx/oracle/** (password: see *Access*). It is a port of the GAP model — same HTML/CSS,
 same `app.js` structure and controls, same family of `data/*.js` contracts (`window.ORCL_*` mirrors
-`window.GAP_*`). Rebuilt 2026-10-03 (audit + new architecture, owner-approved): summary with dated key numbers →
-statements → guidance → RPO → capex and FCF → sites and power → financing → off-balance-sheet and leases → circular
-financing and concentration → valuation → news → risks → calendar → methodology and change log. Section order,
-titles and numbering come from `tools/oracle/data/sections.json` (see *Numbering*). Every figure on the page comes from
+`window.GAP_*`). Rebuilt 2026-10-03 (audit + new architecture, owner-approved) and reordered 2026-10-04 (round 2) to follow the story:
+Start here (reading paths, verdict, six-number chain) → Contracts (RPO, RPO-to-revenue bridge) → Capacity (sites,
+megawatt timeline) → Capex and FCF → Funding (balance sheet, funding plan, sources and uses) → Off-balance-sheet and
+leases → Credit (ratings, maturities, instruments, CDS note, peer and hyperscaler leverage) → Circularity (deferred
+revenue, counterparties, RPO concentration) → Multiples → DCF (scenarios, tax and lease notes, what has to be true) →
+Risks → News → Calendar, then a collapsed Reference appendix (R1 Statements, R2 Guidance, R3 Methodology, provenance,
+glossary, change log). Every section has a composed headline and is collapsed by default except the Summary. Section
+order, titles and numbering come from `tools/oracle/data/sections.json` (see *Numbering*). Every figure on the page comes from
 a data file in `site/oracle/data/`; nothing is hard-coded. Method and sources: `METHODOLOGY.md`; memory: `MEMORY.md`.
 
 Unlike the Mexican models, the page data is **generated** from a curated layer: `tools/oracle/data/*.json`
@@ -54,6 +58,8 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `factset.json` | FactSet consensus snapshot: Oracle NTM and fiscal-year estimates (EPS, sales, EBITDA, capex, FCF), point-in-time NTM history, price target and ratings; eight peers with FactSet price, market value, lease-inclusive net debt and NTM consensus | Written on weekdays by the cloud routine "FNAM Oracle: FactSet refresh" through the FactSet AI-Ready Data connector (`FACTSET-PROMPT.md` lists the calls); feeds `data/factset.js` and `data/peers.js`; the page computes every ratio. FactSet labels Oracle's fiscal year by its starting calendar year; records carry Oracle's label. |
 | `long_range_targets.json` | Management's long-range targets (FY2030 revenue and EPS; OCI revenue by year), each with call, page, speaker and status (`in_force` / `superseded` with date and source) | Curated after each call or investor day; never rewritten by merge-raw; the page shows each vintage beside the reported IaaS revenue (`quarters.json → iaas_revenue_bn`, re-read from each release headline by the parser tests) and the DCF "management targets" basis reads the in-force FY2030 revenue target. |
 | `alerts.json` | Owner thresholds for the routine's email (1-day share move, max net debt / LTM EBITDA, guidance tracking) | Read by the reviewing routine. |
+| `tax.json` | FY2026 10-K income-tax rate reconciliation (statutory, each reconciling line, effective), the latest separately disclosed state line and the normalized rate behind the DCF tax input | Transcribed from the 10-K; `validate-data.mjs` checks every line against the XBRL rate-reconciliation facts (`fetch-xbrl-facts.mjs`, kind `rate`); emitted into `reference.js → tax`. |
+| `glossary.json` | Bilingual one-sentence definitions with first-use match patterns (`match_en` / `match_es`) | Feeds the Reference glossary and the first-use tooltips (`app.js glossify`). |
 | `state.json` | Automation state: accessions seen, filings pending extraction, log | Written by `harvest-filings.mjs`; the routine marks extractions `done`. |
 | `quality_report.json` | Last tie-out: checks, failures, warnings, stale series | Written by `validate-data.mjs`. |
 
@@ -64,34 +70,43 @@ operating-expense lines and total, operating income, interest expense, pretax an
 share count, and the balance-sheet cash, marketable securities, total assets, current and non-current borrowings
 and current deferred revenue). 338 checks across the 13 archived quarters; any mismatch fails the build.
 
-## DCF section (2026-10-03)
+## DCF section (2026-10-03; round 2 on 2026-10-04)
 
-The DCF is its own registered section (`dcf`, after valuation; `deck: false`, the board deck excludes it). Inputs and
+The DCF is its own registered section (`dcf`, after the multiples; `deck: false`, the board deck excludes it). Inputs and
 method: `ASSUMPTIONS.md` (DCF defaults) and `METHODOLOGY.md` §8. Its defaults read `factset.json` (fiscal-year sales,
 EBITDA, `da` = DEP_AMORT_EXP, capex), the capex guidance text, `quarters.json` (stub year, SBC, customer prepayments),
-`xbrl_facts.json` (finance-lease liabilities, cover and weighted shares), `obligations.json` (preferred) and
-`market_reference.json` (`erp`). The section always states whether the price is bracketed, with the implied WACC,
-terminal growth and beta.
+`xbrl_facts.json` (finance-lease liabilities, cover and weighted shares, tax rates), `obligations.json` (preferred,
+uncommenced leases and their illustrative PV), `tax.json` (normalized rate) and `market_reference.json` (`erp`). The
+section offers Bear / Base (= consensus) / Bull presets, three tax modes, two lease treatments, the implied terminal
+EV/EBITDA or implied g cross-check, and states what has to be true to justify the price (implied WACC and beta; the
+margin, growth pace and terminal g needed at the model's WACC, 9% and 8%) instead of whether a grid brackets it.
 
 ## Render check
 
 With the site served (`python3 -m http.server 8123 --directory site`, detached), `node scripts/oracle/render-check.mjs`
 loads the page in Spanish and English at 1280, 390 and 360 px in light and dark mode and in print emulation: no script
 error, no `undefined`/`NaN`, no horizontal overflow, nothing under 11 px on phones, no other-language text, the tab title
-in the reader's language, every section numbered, a finite DCF with its acceptance statement, the Issues column for every
-campus, working collapse toggles and back-to-top. `--shots <dir>` saves screenshots. Run it before pushing a page change.
+in the reader's language, every section numbered (01… and R1…), only the Summary open by default, a finite DCF with its
+"what has to be true" statement, the three scenarios and the tax and lease notes, the Bear preset applying, the six-box
+chain and the verdict, a lead on every section, the glossary first-use definitions, the round-2 tables (sources and
+uses, hyperscalers, counterparties, RPO bridge, megawatts, glossary), the CDS note free of internal paths, the Issues
+column for every campus, working collapse toggles (the lead stays visible) and back-to-top. `--shots <dir>` saves
+screenshots. Run it before pushing a page change.
 
 ## Numbering, cross-references and stamps (2026-10-03)
 
 `sections.json` is the only place a section is defined. `app.js numberSections()` numbers the sections (the summary is
-unnumbered), the figures (cards with a chart) and the tables (cards with a table) in DOM order, builds the navigation and
-labels every card "Figure n / Table n". Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
+labeled "Start here"; the Reference appendix is R1, R2…), the figures (cards with a chart) and the tables (cards with a
+table) in DOM order, builds the navigation (and the phone menu) and labels every card "Figure n / Table n". The deck orders
+its pages by `deck_order` (the board order: summary, statements, guidance, …), independent of the page's story order. Cross-references are `ref('id')` in `app.js`/`present.js` and `{{sec:id}}` inside
 the JSON narrative (resolved by `html()`); the deck titles its pages with `secHead(id)`. `validate-data.mjs` fails when a
 reference does not resolve, when the `<section data-sec>` order differs from the registry, or when a literal "section NN"
 remains in the page, deck or data. Each section head gets an as-of / refreshed (ET) / STALE stamp from the section's
 modules (`applyStamps()`); card footers repeat it only when the section is stale; rules in `tools/oracle/freshness.json`.
-Every numbered section has a hide/show toggle (remembered in the reader's browser) and the navigation a collapse-all
-control; printing and the PDF always show everything.
+Every section but the Summary has a hide/show toggle and is collapsed by default (the set of open sections is remembered
+in the reader's browser; reading paths in the Summary open the 5-minute, 20-minute or full set; a deep link or a
+cross-reference opens its target); the navigation has a collapse-all/expand-all control; printing and the PDF always show
+everything. A collapsed section keeps its composed lead (headline + "so what for valuation") visible.
 
 Conventions: nominal USD as reported; thousands shown as millions; outflows stored negative
 (`capex_quarter: -28499`); ISO dates; one decimal on percentages applied at render time, never in the data.

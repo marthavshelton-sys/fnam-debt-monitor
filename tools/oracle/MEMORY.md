@@ -30,6 +30,29 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   the as-of/refreshed stamp is written once per section (footers only when stale); sections can be collapsed (remembered
   per browser) with a back-to-top control. Default DCF at 2026-10-03: US$126 vs US$138.07 (beta cross-checks US$132–156).
 
+- **2026-10-04 round 2 (owner's 22-item list).** DCF: tax normalization (ramp from the LTM effective rate to 21.9% =
+  21% statutory + 0.9 pp state, `tax.json` cross-checked against the XBRL rate-reconciliation facts; the three modes
+  shown side by side), the uncommenced leases offered as operating (default) or finance (PV deducted) with a "Leases in
+  the DCF" note tying the off-balance-sheet section to the DCF, WACC weights on the same claims the bridge deducts
+  (net debt + finance leases + preferred at its 6.50% with no shield), Bear / Base = consensus / Bull presets with the
+  recipe spelled out from the data, the implied terminal EV/EBITDA (Gordon) and implied g (exit multiple), and the
+  bracketing test replaced by "what has to be true" (implied WACC/beta; margin, growth pace and g needed at the model's
+  WACC, 9% and 8%). Default at 2026-10-04: US$114 vs US$138.07 (US$126 was the pre-round value with the LTM tax rate
+  held and net debt alone in the weights; the tax note shows all three tax modes). New analyses: sources and uses
+  FY2027–FY2030 reconciled to the company's US$20.1 bn gap; counterparties (FWP names six OCI customers; S&P's half;
+  press contract sizes as press), RPO concentration chart, counterparty capacity (estimate); RPO-to-revenue bridge;
+  megawatt timeline per campus; Oracle against the hyperscalers on the hub's data and definitions; glossary with
+  first-use tooltips. Flow: Start here (reading paths, verdict, six-box chain), story order Contracts → Capacity →
+  Capex → Funding → Off-balance-sheet → Credit (new section: ratings, maturities, instruments, CDS note, peer and
+  hyperscaler leverage) → Circularity → Multiples → DCF → Risks → News → Calendar, Reference appendix R1–R3
+  (Statements, Guidance, Methodology + provenance + glossary + change log) collapsed; every section has a composed
+  headline + "so what for valuation" and is collapsed by default except the Summary; sticky phone menu; change log
+  shows meaningful changes with the raw leaves behind a toggle. Cleanup: CDS card is a one-line note (no internal
+  path); US$288 bn confirmed by a second reading of the 10-Q (`verified_text`, badge consistent on the chain, Table 1
+  and the three views); news swept in-session for 26-Sep–3-Oct (three items added, sweep note on the page); the header
+  EV/EBITDA carries its footnote; `asOf()` helper for source lines. The deck keeps the board order (`deck_order`); its
+  executive-summary page does not yet carry the verdict paragraph (owner's call).
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
@@ -57,8 +80,25 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - Deck text from the data may carry `{{sec:id}}`: `present.js` resolves it in `text`/`bullets`/`measure*` overrides.
 - Before pushing a page change: `node scripts/oracle/build.mjs`, then `node scripts/oracle/render-check.mjs` with the
   site served on :8123 (13 configurations), and build the PDF in both languages.
+- Sections are collapsed by default: a Playwright check must click the "full reference" reading path (or open the
+  section) before reading a section's content; `render-check.mjs` does. Collapsed sections keep their lead visible.
+- The DCF scenario buttons re-run `dcfDefaults()` and carry over the cost-of-capital, tax and lease inputs on screen;
+  any manual edit of the operating arrays turns the scenario into "custom" (the URL carries `preset`).
+- `glossify()` runs last in `renderAll()` and wraps only the first visible occurrence per term and language; it skips
+  links, inputs, headings, code, quotes and the glossary table itself. Add a term with its `match_en` / `match_es`
+  regex in `glossary.json`; the validator does not check the patterns, so test both languages.
+- The Hyperscaler Hub's data file is loaded by the Oracle page (`/hiperescaladores/data/financials.js`); a schema change
+  in `scripts/hyperscalers/build.mjs` (`companies[].quarters[].ttm`, `m.rpo`) breaks the credit section's comparison —
+  `renderHyperscalers()` degrades to a one-line note when the global is missing, not when a key is renamed.
+- The verdict reads the DCF, so `renderSummary()` runs after `renderDcf()` in `renderAll()`; keep that order.
 
 ## Open items
+
+- Deck: the executive-summary page could carry the verdict paragraph and the six-number chain (page-only today); the
+  owner decides (one-page auto-fit may need a layout pass).
+- Counterparty amounts: Oracle's filings name customers (FWP) but give no amounts; if a 10-Q ever discloses a split of
+  RPO by customer or by funding type, replace S&P's estimate and the press figures in `buildout.json →
+  unit_economics.concentration`.
 
 - Investor Day 28-Oct-2026 (Las Vegas): add the new long-range targets to `long_range_targets.json` and mark the
   September-2025 OCI vintage's successor; the October-2025 figures were only on a slide and are not on file.

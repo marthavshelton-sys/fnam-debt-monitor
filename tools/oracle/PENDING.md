@@ -35,7 +35,9 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - FactSet (connected 2026-09-27): consensus, prices, market values and peers' net debt now flow through `factset.json`
   (cloud routine "FNAM Oracle: FactSet refresh"). **CDS still pending**: the connector exposes Estimates, Global Prices,
   Fundamentals, Debt Capital Structure and Terms & Conditions, but no CDS or bond-price endpoint; ask FactSet whether the
-  Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine.
+  Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine. Since 2026-10-04 the
+  page shows a one-line "no series available" note (with the latest press reading linked from the news file) instead of
+  the placeholder; the chart and stats appear automatically once `points` is filled.
 - Peer ratings (Off-Balance-Sheet Financing and Leases, peer leverage table): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
 - News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
@@ -57,6 +59,6 @@ policy note, medium); Form 4 insider transactions (EDGAR, easy); rating-agency l
 ## Page features still to build
 
 - Segment / geography statements with the A-vs-B controls (Oracle reports segments in the 10-Q/10-K, not in the release).
-- Glossary tooltips (the bilingual glossary is already in `reference.js`), "what changed since your last visit"
-  banner, full accessibility pass, print layout verified in a real print dialog.
+- "What changed since your last visit" banner, full accessibility pass, print layout verified in a real print dialog.
+  (Glossary tooltips: done 2026-10-04, first-use definitions from `glossary.json`.)
 - Peer statements with the same model once the FactSet connector is live.

@@ -18,7 +18,8 @@
     await P.run(M, ['/assets/us-map.js'], async () => {
       const doc = new OracleDoc(M);
       // Pages follow the section registry (data/sections.js): a section is in the deck when its registry entry says
-      // deck: true, in registry order; sections are addressed by id, never by number.
+      // deck: true, in the deck order the registry gives (deck_order; the page itself follows the story order);
+      // sections are addressed by id, never by number.
       const PAGES = {
         summary: () => { doc.execSummary(); doc.tearSheet(); },
         statements: () => { doc.opsPage(); doc.incomePage('q'); doc.incomePage('ltm'); doc.incomePage('fy'); },
@@ -26,7 +27,8 @@
         rpo: () => doc.rpoPage(),
         capex: () => doc.rpoCloudPage(),
         sites: () => { doc.sitesPage(); doc.buildoutPage(); },
-        financing: () => { doc.debtPage(); doc.creditPage(); doc.dividendPage(); },
+        financing: () => { doc.debtPage(); doc.dividendPage(); },
+        credit: () => doc.creditPage(),
         obligations: () => doc.obligationsPage(),
         circular: () => doc.circularPage(),
         valuation: () => doc.valuationPage(),
@@ -35,7 +37,7 @@
         method: () => doc.sourcesPage(),
       };
       doc.cover();
-      for (const sec of (M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) PAGES[sec.id]();
+      for (const sec of (M.deckList ? M.deckList() : M.secList ? M.secList() : [])) if (sec.deck && PAGES[sec.id]) PAGES[sec.id]();
       doc.finish();
     });
   }
@@ -689,7 +691,7 @@
       const end = M.qEndDate(lastQ); const lim = (months) => { const d = new Date(end + 'T12:00:00Z'); d.setUTCMonth(d.getUTCMonth() + months); return d.toISOString().slice(0, 10); };
       const within = (months) => dated.filter((i) => i.matures > end && i.matures <= lim(months)).reduce((a, i) => a + i.principalUsdM, 0);
       const m12 = within(12), m24 = within(24), cash = lastQ.bs ? lastQ.bs.cashAndInvestments : null;
-      let y = this.page('L', this.secHead('financing', this.T('detalle de la deuda y riesgo de crédito', 'debt detail and credit risk')), this.T(`${all.length} instrumentos de la nota de deuda del 10-K del AF2026 (al 31 de mayo de 2026) · efectivo del balance del ${this.qlab(lastQ)} · US$ millones`, `${all.length} instruments from the FY2026 10-K debt footnote (as of 31 May 2026) · cash from the ${this.qlab(lastQ)} balance sheet · US$ million`));
+      let y = this.page('L', this.secHead('credit', this.T('detalle de la deuda y riesgo de crédito', 'debt detail and credit risk')), this.T(`${all.length} instrumentos de la nota de deuda del 10-K del AF2026 (al 31 de mayo de 2026) · efectivo del balance del ${this.qlab(lastQ)} · US$ millones`, `${all.length} instruments from the FY2026 10-K debt footnote (as of 31 May 2026) · cash from the ${this.qlab(lastQ)} balance sheet · US$ million`));
       y = this.tiles([
         { v: this.bn(total), l: this.T(`principal total · ${frn.length} nota(s) a tasa flotante fuera del promedio`, `total principal · ${frn.length} floating-rate note(s) outside the average`) },
         { v: this.pct(wavg(fixed), 2), l: this.T(`cupón promedio ponderado, bonos a tasa fija (${fixed.length})`, `weighted-average coupon, fixed-rate notes (${fixed.length})`) },
@@ -706,7 +708,7 @@
       yl = this.table({ y: yl, w: wl, head: [this.T('Año de vencimiento', 'Maturity year'), this.T('Instr.', 'Instr.'), M.t('principal'), this.T('% del total', '% of total'), this.T('Acumulado', 'Cumulative'), this.T('Cupón prom.', 'Avg. coupon')], body: rows, meta: rows.map((r, i) => (i === rows.length - 1 ? ['bold left', 'bold', 'bold', 'bold', '', 'bold'] : [r[0].includes('(') && i < mb.length ? 'muted left' : 'left', '', '', '', '', ''])), size: 8, cols: { 0: { halign: 'left', cellWidth: wl * 0.3 } } });
       // CDS box
       const pts = CDS.points || [];
-      const cdsTxt = pts.length ? this.T(`CDS a ${CDS.tenor || 5} años: ${this.n(pts[pts.length - 1][1])} pb al ${this.date(pts[pts.length - 1][0])} (${CDS.source}).`, `${CDS.tenor || 5}-year CDS: ${this.n(pts[pts.length - 1][1])} bp at ${this.date(pts[pts.length - 1][0])} (${CDS.source}).`) : this.T(`CDS a ${CDS.tenor || 5} años: pendiente del conector de FactSet; al conectarse, esta página mostrará el spread, su variación a 1 año y la probabilidad de incumplimiento implícita.`, `${CDS.tenor || 5}-year CDS: pending the FactSet connector; once connected this page shows the spread, its 1-year change and the implied default probability.`);
+      const cdsTxt = pts.length ? this.T(`CDS a ${CDS.tenor || 5} años: ${this.n(pts[pts.length - 1][1])} pb al ${this.date(pts[pts.length - 1][0])} (${CDS.source}).`, `${CDS.tenor || 5}-year CDS: ${this.n(pts[pts.length - 1][1])} bp at ${this.date(pts[pts.length - 1][0])} (${CDS.source}).`) : this.T(`CDS a ${CDS.tenor || 5} años: no hay serie disponible (el conector de FactSet no expone precios de CDS).`, `${CDS.tenor || 5}-year CDS: no series available (the FactSet connector exposes no CDS prices).`);
       yl = this.bullets([cdsTxt, M.LS(D2.instrumentsNote) || ''].filter(Boolean), this.cur.x0, yl + 8, wl, 7.6, { gap: 3, color: MUTED });
       // right: instruments maturing within 36 months (plus the one just matured)
       const soon = all.filter((i) => i.matures && i.matures <= lim(36)).sort((a, b) => a.matures.localeCompare(b.matures));
