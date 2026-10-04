@@ -1,6 +1,27 @@
 {
  "entries": [
   {
+   "at": "2026-10-04T00:26:06Z",
+   "kind": "metric_added",
+   "id": "*.ol_pay_due",
+   "value": 102,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
+   "at": "2026-10-04T00:26:06Z",
+   "kind": "metric_added",
+   "id": "*.fl_pay_due",
+   "value": 91,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
+   "at": "2026-10-04T00:26:06Z",
+   "kind": "metric_added",
+   "id": "*.interest_paid",
+   "value": 68,
+   "note": "metric added to the tag map; its tagged history loaded"
+  },
+  {
    "at": "2026-10-03T15:30:57Z",
    "kind": "metric_added",
    "id": "*.revenue",

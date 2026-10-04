@@ -27,6 +27,13 @@ const KINDS = [
   ['properties', /\b(?:Item|ITEM)\s*2\.?\s*(?:Properties|PROPERTIES)\b|data cent(?:er|re)s? (?:located )?in [A-Z][a-z]+|campus (?:in|located)/],
   ['power', /power purchase agreement|\bPPAs?\b|nuclear|small modular reactor|natural gas|interconnection|electric(?:ity)? (?:supply|service) agreement|utility/i],
   ['gpu', /\bGPUs?\b|accelerators?\b|\bNVIDIA\b|Blackwell|\bGB[23]00\b|\bH[12]00\b/],
+  // round 3 (2026-10-04): the payoff side and the cost of money — segment results, RPO timing, useful lives and
+  // depreciation, credit ratings
+  ['segment', /segment operating income|segment information|segment results|Intelligent Cloud|Microsoft Cloud|Google Cloud|Oracle Cloud Infrastructure|cloud services and license support|\bAWS\b.{0,60}(?:net sales|operating income)/i],
+  ['rpo', /remaining performance obligations?|\bRPO\b|commercial remaining performance/i],
+  ['useful_life', /useful li(?:fe|ves)|depreciable li(?:fe|ves)|estimated li(?:fe|ves) of (?:our )?servers/i],
+  ['depreciation', /depreciation expense|depreciation and amortization expense/i],
+  ['credit_rating', /credit ratings?|Moody's|Standard (?:&|and) Poor's|S&P Global Ratings|\bFitch\b|investment[- ]grade/i],
   ['concentration', /\d{1,3}(?:\.\d)?%\s+of\s+(?:our\s+)?(?:total\s+)?revenue|significant customer|customer concentration|largest customer|related part(?:y|ies)|\bOpenAI\b|\bAnthropic\b|\bMicrosoft\b|\bNVIDIA\b/]
 ];
 

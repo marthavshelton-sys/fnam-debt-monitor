@@ -343,8 +343,8 @@ const csvEsc = (v) => (v == null ? '' : /[",\n]/.test(String(v)) ? `"${String(v)
 const csv = (rows) => rows.map((r) => r.map(csvEsc).join(',')).join('\n') + '\n';
 const head = ['ticker', 'company', 'fiscal_quarter', 'period_end', 'calendar_quarter', 'metric', 'value_usd', 'basis', 'method', 'xbrl_tag', 'accessions', 'tier', 'needs_review', 'refreshed_et'];
 const rowsCapex = [head], rowsBal = [head], rowsOff = [head];
-const capexKeys = ['capex_cash', 'fl_additions', 'fl_principal', 'ol_additions', 'ocf', 'op_income', 'da', 'interest_exp', 'interest_cap', 'debt_proceeds', 'debt_repaid', 'cp_net', 'equity_proceeds', 'pref_proceeds', 'buybacks', 'dividends'];
-const balKeys = ['cash', 'debt', 'ol_liab', 'fl_liab', 'ppe_net'];
+const capexKeys = ['capex_cash', 'fl_additions', 'fl_principal', 'ol_additions', 'ocf', 'op_income', 'da', 'interest_exp', 'interest_cap', 'debt_proceeds', 'debt_repaid', 'cp_net', 'equity_proceeds', 'pref_proceeds', 'buybacks', 'dividends', 'interest_paid'];
+const balKeys = ['cash', 'debt', 'ol_liab', 'fl_liab', 'ol_pay_due', 'fl_pay_due', 'ppe_net'];
 const offKeys = ['rpo', 'purchase_oblig', 'vie_max_loss', 'guarantees_max', 'equity_method', 'nci_vie'];
 for (const c of Object.values(out.companies)) {
   for (const q of c.quarters) {

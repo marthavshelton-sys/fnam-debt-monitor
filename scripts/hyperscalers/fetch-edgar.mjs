@@ -47,6 +47,9 @@ for (const c of companies) {
         const units = v.units.USD ? { USD: v.units.USD } : v.units;
         const facts = Object.values(units)[0].filter((f) => f.end >= SINCE && (ns === 'ffd' || /^(10-K|10-Q|20-F|40-F)/.test(f.form)))
           .map((f) => ({ v: f.val, s: f.start || null, e: f.end, a: f.accn, f: f.form, d: f.filed, fp: f.fp || null }));
+        // a tag found only in a former reporting currency (Nebius's RUB years, before 2025) is history, not a change of
+        // currency: it is dropped; a non-USD fact dated 2025 or later is kept so the validator fails on it
+        if (!v.units.USD && ns !== 'ffd' && facts.every((f) => f.e < '2025-01-01')) continue;
         if (facts.length) out.facts[key] = { label: v.label || tag, unit: Object.keys(units)[0], facts };
       }
     }

@@ -1,5 +1,5 @@
 {
- "generated": "2026-10-03T23:31:06Z",
+ "generated": "2026-10-04T00:26:06Z",
  "warnings": [
   {
    "ticker": "MSFT",
@@ -1009,6 +1009,14 @@
   {
    "ticker": "META",
    "tag": "FY2023",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2023",
    "check": "dividends: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1081,6 +1089,14 @@
   {
    "ticker": "META",
    "tag": "FY2024",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2024",
    "check": "dividends: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
@@ -1138,6 +1154,14 @@
    "ticker": "META",
    "tag": "FY2025",
    "check": "buybacks: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "META",
+   "tag": "FY2025",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1589,6 +1613,14 @@
   },
   {
    "ticker": "CRWV",
+   "tag": "FY2024",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CRWV",
    "tag": "FY2025",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -1676,6 +1708,14 @@
    "identity": true
   },
   {
+   "ticker": "CRWV",
+   "tag": "FY2025",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
    "ticker": "IREN",
    "tag": "FY2025",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
@@ -1733,6 +1773,14 @@
   },
   {
    "ticker": "IREN",
+   "tag": "FY2025",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "IREN",
    "tag": "FY2026",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -1783,6 +1831,14 @@
    "ticker": "IREN",
    "tag": "FY2026",
    "check": "interest_exp: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "IREN",
+   "tag": "FY2026",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -1920,6 +1976,14 @@
   },
   {
    "ticker": "APLD",
+   "tag": "FY2023",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
    "tag": "FY2024",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -2002,6 +2066,14 @@
    "ticker": "APLD",
    "tag": "FY2024",
    "check": "pref_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2024",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2104,6 +2176,14 @@
   },
   {
    "ticker": "APLD",
+   "tag": "FY2025",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
    "tag": "FY2026",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -2178,6 +2258,14 @@
    "ticker": "APLD",
    "tag": "FY2026",
    "check": "pref_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "APLD",
+   "tag": "FY2026",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2269,6 +2357,14 @@
   },
   {
    "ticker": "CORZ",
+   "tag": "FY2023",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
    "tag": "FY2024",
    "check": "capex_cash: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
@@ -2327,6 +2423,14 @@
    "ticker": "CORZ",
    "tag": "FY2024",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
+   "tag": "FY2024",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2399,6 +2503,14 @@
    "ticker": "CORZ",
    "tag": "FY2025",
    "check": "equity_proceeds: Q1+Q2+Q3+Q4 = fiscal year",
+   "diff": 0,
+   "status": "ok",
+   "identity": true
+  },
+  {
+   "ticker": "CORZ",
+   "tag": "FY2025",
+   "check": "interest_paid: Q1+Q2+Q3+Q4 = fiscal year",
    "diff": 0,
    "status": "ok",
    "identity": true
@@ -2974,6 +3086,28 @@
    "old": 1574867000,
    "oldAccn": "0001769628-25-000041",
    "value": 1575000000,
+   "accn": "0001769628-26-000366",
+   "filed": "2026-08-12"
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "InterestPaidNet",
+   "start": "2025-01-01",
+   "end": "2025-03-31",
+   "old": 142193000,
+   "oldAccn": "0001769628-25-000014",
+   "value": 142000000,
+   "accn": "0001769628-26-000222",
+   "filed": "2026-05-08"
+  },
+  {
+   "ticker": "CRWV",
+   "tag": "InterestPaidNet",
+   "start": "2025-01-01",
+   "end": "2025-06-30",
+   "old": 361557000,
+   "oldAccn": "0001769628-25-000041",
+   "value": 362000000,
    "accn": "0001769628-26-000366",
    "filed": "2026-08-12"
   },
@@ -4197,6 +4331,17 @@
    "value": 121237000,
    "accn": "0001628280-25-017684",
    "filed": "2025-04-14"
+  },
+  {
+   "ticker": "APLD",
+   "tag": "InterestPaidNet",
+   "start": "2022-06-01",
+   "end": "2023-05-31",
+   "old": 1570000,
+   "oldAccn": "0001144879-23-000176",
+   "value": 1118000,
+   "accn": "0001144879-24-000216",
+   "filed": "2024-08-30"
   },
   {
    "ticker": "APLD",
