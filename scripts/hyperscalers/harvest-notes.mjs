@@ -33,6 +33,7 @@ const KINDS = [
   ['rpo', /remaining performance obligations?|\bRPO\b|commercial remaining performance/i],
   ['useful_life', /useful li(?:fe|ves)|depreciable li(?:fe|ves)|estimated li(?:fe|ves) of (?:our )?servers/i],
   ['depreciation', /depreciation expense|depreciation and amortization expense/i],
+  ['estimate_change', /effect of (?:this|the) change in (?:accounting )?estimate|financial impact of this change|change in (?:accounting )?estimate will/i],
   ['credit_rating', /credit ratings?|Moody's|Standard (?:&|and) Poor's|S&P Global Ratings|\bFitch\b|investment[- ]grade/i],
   ['concentration', /\d{1,3}(?:\.\d)?%\s+of\s+(?:our\s+)?(?:total\s+)?revenue|significant customer|customer concentration|largest customer|related part(?:y|ies)|\bOpenAI\b|\bAnthropic\b|\bMicrosoft\b|\bNVIDIA\b/]
 ];
