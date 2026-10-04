@@ -1,7 +1,7 @@
 {
  "_comment": "Off-balance-sheet financing and capital-structure facts for the off-balance-sheet section and the financing section. Every figure is transcribed from the filing named in `source`; derived ratios are computed on the page from these inputs plus the model's LTM EBITDA and are labelled derived. US$ millions unless stated. Update with each 10-Q/10-K (the routine's STEP 4).",
  "as_of": "2026-08-31",
- "updated": "2026-10-04",
+ "updated": "2026-10-03",
  "sources": {
   "10q_1q27": {
    "title": "Oracle Form 10-Q for the quarter ended August 31, 2026",
@@ -148,12 +148,18 @@
     "text_es": "No divulgado por Oracle. Los desarrolladores de los cinco campus nombrados (Crusoe, Vantage Data Centers, BorderPlex / Stack Infrastructure, Related Digital) provienen de sus propios comunicados o de la prensa y se listan por sitio en la sección de sitios, con su fuente."
    },
    "second_reading": {
-    "date": "2026-10-04",
+    "date": "2026-10-03",
     "by": "FNAM, second reading of the 1Q27 10-Q leases note text on EDGAR (full HTML, accession 0001193125-26-389274)",
     "quote": "As of August 31, 2026, we had $288 billion of additional lease commitments, substantially all related to data center arrangements, that are generally expected to commence between the second quarter of fiscal 2027 and fiscal 2029 and for terms of fifteen to nineteen years that were not reflected on our condensed consolidated balance sheets as of August 31, 2026 or in the maturities table above.",
     "matches": true,
     "note_en": "Text reading confirmed by a second, independent reading of the same note (no XBRL concept exists for this disclosure); the figure keeps the 'text' basis badge but no longer needs review.",
-    "note_es": "Lectura de texto confirmada por una segunda lectura independiente de la misma nota (no existe concepto XBRL para esta revelación); la cifra conserva la base 'texto' pero ya no está en revisión."
+    "note_es": "Lectura de texto confirmada por una segunda lectura independiente de la misma nota (no existe concepto XBRL para esta revelación); la cifra conserva la base 'texto' pero ya no está en revisión.",
+    "xbrl_search": {
+     "date": "2026-10-03",
+     "result": "no_concept",
+     "en": "SEC company-facts API searched on 2026-10-03 (ET): no us-gaap or Oracle-specific concept carries this amount at Aug 31, 2026 (the only commitments concept, CommitmentsAndContingencies, has no value), so the figure cannot be machine-verified and rests on the two readings of the note.",
+     "es": "API de datos de compañía de la SEC consultada el 2026-10-03 (hora del Este): ningún concepto us-gaap ni propio de Oracle lleva este monto al 31 de agosto de 2026 (el único concepto de compromisos, CommitmentsAndContingencies, no tiene valor), así que la cifra no puede verificarse por máquina y descansa en las dos lecturas de la nota."
+    }
    }
   },
   "discount_rate_pct": {
@@ -433,8 +439,14 @@
    "xbrl": null,
    "text_only": true,
    "second_reading": {
-    "date": "2026-10-04",
-    "matches": true
+    "date": "2026-10-03",
+    "matches": true,
+    "xbrl_search": {
+     "date": "2026-10-03",
+     "result": "no_concept",
+     "en": "SEC company-facts API searched on 2026-10-03 (ET): no us-gaap or Oracle-specific concept carries this amount at Aug 31, 2026 (the only commitments concept, CommitmentsAndContingencies, has no value), so the figure cannot be machine-verified and rests on the two readings of the note.",
+     "es": "API de datos de compañía de la SEC consultada el 2026-10-03 (hora del Este): ningún concepto us-gaap ni propio de Oracle lleva este monto al 31 de agosto de 2026 (el único concepto de compromisos, CommitmentsAndContingencies, no tiene valor), así que la cifra no puede verificarse por máquina y descansa en las dos lecturas de la nota."
+    }
    }
   },
   "purchase_obligations.total": {

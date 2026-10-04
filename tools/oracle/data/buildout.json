@@ -1,6 +1,6 @@
 {
  "_comment": "Oracle's AI-infrastructure buildout as Oracle discloses it: capacity delivered, GPU fleet metrics, secured capacity, and the named data-center sites. Every figure carries its source (call transcript page, Oracle press release, partner release or wire report). Derived figures are flagged. Updated by hand after each call; the routine adds the new quarter.",
- "updated": "2026-10-04",
+ "updated": "2026-10-03",
  "capacity": {
   "unit": "MW",
   "note_en": "Megawatts of data-center capacity handed over to customers in the quarter, as stated on the earnings calls. 4Q26 is derived from Oracle's own ratios (1Q27 = almost 3x 4Q26 and 73% of FY2026); 1Q26 is not disclosed separately.",
@@ -226,7 +226,48 @@
      }
     }
    ],
-   "issues_checked": "2026-10-04"
+   "issues_checked": "2026-10-03",
+   "tenant_openai": true,
+   "tenant_basis": "company",
+   "mw_series": [
+    {
+     "when": "2024-06",
+     "kind": "contracted",
+     "mw": 1200,
+     "basis": "company",
+     "src": "Crusoe PR",
+     "en": "contracted; construction began June 2024; 1,200 MW nameplate across 8 buildings (Crusoe)",
+     "es": "contratado; construcción iniciada en junio de 2024; 1,200 MW nominales en 8 edificios (Crusoe)"
+    },
+    {
+     "when": "FY2026Q4",
+     "kind": "energized",
+     "mw": 504,
+     "derived": true,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "42% of capacity delivered (Oracle, 4Q26 call p.7): about 504 MW of 1,200, derived",
+     "es": "42% de la capacidad entregada (Oracle, llamada 4T26 p.7): unos 504 MW de 1,200, derivado"
+    },
+    {
+     "when": "FY2027Q1",
+     "kind": "energized",
+     "mw": 618,
+     "basis": "company",
+     "src": "1Q27 call p.6",
+     "en": "618 MW delivered, 6 of 8 buildings live (Oracle, 1Q27 call p.6)",
+     "es": "618 MW entregados, 6 de 8 edificios operando (Oracle, llamada 1T27 p.6)"
+    },
+    {
+     "when": "2025-06",
+     "kind": "expected",
+     "mw": null,
+     "basis": "company",
+     "src": "Crusoe PR",
+     "en": "generating revenue since 2025; first NVIDIA GB200 racks delivered June 2025 (Crusoe)",
+     "es": "genera ingresos desde 2025; primeros racks NVIDIA GB200 entregados en junio de 2025 (Crusoe)"
+    }
+   ]
   },
   {
    "name": "Shackelford County, Texas (Vantage 'Frontier')",
@@ -285,9 +326,40 @@
    "first_revenue_es": "Primer semestre de 2027 (Oracle, llamada 4T26)",
    "status_date": "2026-09-10",
    "issues": [],
-   "issues_checked": "2026-10-04",
+   "issues_checked": "2026-10-03",
    "issues_none_en": "None reported in the sources tracked (Oracle calls and releases, the developer's releases, wires and trade press).",
-   "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada)."
+   "issues_none_es": "Sin incidencias reportadas en las fuentes seguidas (llamadas y comunicados de Oracle, comunicados del desarrollador, agencias de noticias y prensa especializada).",
+   "tenant_openai": true,
+   "tenant_basis": "company",
+   "mw_series": [
+    {
+     "when": "2025-08",
+     "kind": "contracted",
+     "mw": 1400,
+     "basis": "company",
+     "src": "Vantage/DigitalBridge PR 18 Aug 2025",
+     "en": "contracted August 2025; 1.4 GW across 10 buildings, US$25 bn+ (Vantage)",
+     "es": "contratado en agosto de 2025; 1.4 GW en 10 edificios, US$25 mil M+ (Vantage)"
+    },
+    {
+     "when": "FY2026Q4",
+     "kind": "energized",
+     "mw": 115,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7)",
+     "es": "115 MW de capacidad eléctrica en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7)"
+    },
+    {
+     "when": "2027-H1",
+     "kind": "expected",
+     "mw": null,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); first facility in service 2H 2026, completion 2028 (Vantage)",
+     "es": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); primera instalación en servicio en el 2S 2026, terminación en 2028 (Vantage)"
+    }
+   ]
   },
   {
    "name": "Doña Ana County, New Mexico ('Project Jupiter')",
@@ -447,7 +519,38 @@
      }
     }
    ],
-   "issues_checked": "2026-10-04"
+   "issues_checked": "2026-10-03",
+   "tenant_openai": true,
+   "tenant_basis": "press",
+   "mw_series": [
+    {
+     "when": "2025-09",
+     "kind": "contracted",
+     "mw": 1000,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "contracted September 2025; about 1 GW (\"around 1 gigawatt a piece\", Oracle, 4Q26 call p.7)",
+     "es": "contratado en septiembre de 2025; cerca de 1 GW (\"around 1 gigawatt a piece\", Oracle, llamada 4T26 p.7)"
+    },
+    {
+     "when": "FY2027Q1",
+     "kind": "energized",
+     "mw": 0,
+     "basis": "company",
+     "src": "1Q27 call Q&A p.9-10",
+     "en": "nothing energized yet; construction 26% complete in July 2026 (Oracle PR 28 Jul 2026)",
+     "es": "nada energizado todavía; construcción 26% completa en julio de 2026 (comunicado de Oracle, 28 jul 2026)"
+    },
+    {
+     "when": "2027-H1",
+     "kind": "expected",
+     "mw": null,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "first deliveries in the first half of calendar 2027 (Oracle, 4Q26 call); full campus online target 2028 (Bloomberg, 24 Sep 2026)",
+     "es": "primeras entregas en el primer semestre de 2027 (Oracle, llamada 4T26); objetivo de campus completo en 2028 (Bloomberg, 24 sep 2026)"
+    }
+   ]
   },
   {
    "name": "Saline Township, Michigan (Stargate 'The Barn')",
@@ -531,7 +634,38 @@
      }
     }
    ],
-   "issues_checked": "2026-10-04"
+   "issues_checked": "2026-10-03",
+   "tenant_openai": true,
+   "tenant_basis": "company",
+   "mw_series": [
+    {
+     "when": "2025-10",
+     "kind": "contracted",
+     "mw": 1000,
+     "basis": "company",
+     "src": "Related PR 30 Oct 2025",
+     "en": "contracted October 2025; more than 1 GW (OpenAI, Oracle and Related Digital release)",
+     "es": "contratado en octubre de 2025; más de 1 GW (comunicado de OpenAI, Oracle y Related Digital)"
+    },
+    {
+     "when": "FY2027Q1",
+     "kind": "energized",
+     "mw": 0,
+     "basis": "company",
+     "src": "Oracle PR 1 Jun 2026",
+     "en": "nothing energized yet; under construction since about March 2026 (Walbridge)",
+     "es": "nada energizado todavía; en construcción desde marzo de 2026 aproximadamente (Walbridge)"
+    },
+    {
+     "when": "2027-H2",
+     "kind": "expected",
+     "mw": null,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call)",
+     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26)"
+    }
+   ]
   },
   {
    "name": "Port Washington, Wisconsin (Vantage 'Lighthouse')",
@@ -632,7 +766,38 @@
      }
     }
    ],
-   "issues_checked": "2026-10-04"
+   "issues_checked": "2026-10-03",
+   "tenant_openai": true,
+   "tenant_basis": "company",
+   "mw_series": [
+    {
+     "when": "2025-09",
+     "kind": "contracted",
+     "mw": 1000,
+     "basis": "company",
+     "src": "Business Wire 22 Oct 2025",
+     "en": "contracted September 2025, announced 22 Oct 2025; close to a gigawatt across four data centers (Vantage)",
+     "es": "contratado en septiembre de 2025, anunciado el 22 oct 2025; cerca de un gigavatio en cuatro centros de datos (Vantage)"
+    },
+    {
+     "when": "FY2027Q1",
+     "kind": "energized",
+     "mw": 0,
+     "basis": "company",
+     "src": "1Q27 call Q&A p.9-10",
+     "en": "nothing energized yet; ground broken December 2025 (Construction Dive)",
+     "es": "nada energizado todavía; primera piedra en diciembre de 2025 (Construction Dive)"
+    },
+    {
+     "when": "2027-H2",
+     "kind": "expected",
+     "mw": null,
+     "basis": "company",
+     "src": "4Q26 call p.7",
+     "en": "first deliveries in the second half of calendar 2027 (Oracle, 4Q26 call); completion 2028 (Vantage)",
+     "es": "primeras entregas en el segundo semestre de 2027 (Oracle, llamada 4T26); terminación en 2028 (Vantage)"
+    }
+   ]
   }
  ],
  "rpo_schedule": {
@@ -764,7 +929,9 @@
   ]
  },
  "_notes": {
-  "sites_coordinates": "lat/lon are approximate campus locations (county seat or township), used only for the schematic map in the board presentation; short is the map label."
+  "sites_coordinates": "lat/lon are approximate campus locations (county seat or township), used only for the schematic map in the board presentation; short is the map label.",
+  "tenant_basis": "tenant_openai / tenant_basis: whether OpenAI is the campus tenant and on what basis — 'company' = named in Oracle's own or the developer's release, 'press' = reported only by the press (Oracle has not named the customer), 'not_disclosed'. The page counts the campuses from these two fields (app.js openaiTenants) so every mention derives from one value.",
+  "mw_series": "mw_series: dated megawatt points per campus (kind contracted | energized | expected; mw null when the point is a date, not a figure; derived = computed from a ratio management gave). `src` names the `short` of one of the site's own sources, so each point links to a source already on the record. Drawn in the Capacity section's timeline panel."
  },
  "rpo_recognition": {
   "note_en": "Share of remaining performance obligations Oracle expects to recognise as revenue over the next twelve months, months 13–36 and months 37–60, as stated in each 10-Q and 10-K. The implied 12-month revenue is RPO × the 12-month share (derived).",

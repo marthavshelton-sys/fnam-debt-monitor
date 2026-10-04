@@ -104,11 +104,17 @@
       "label_es": "Resultados 2T27",
       "window_start": "2026-12-09",
       "window_end": "2026-12-11",
+      "median": "2026-12-10",
+      "history": [
+        "2023-12-11",
+        "2024-12-09",
+        "2025-12-10"
+      ],
       "derived": true,
       "basis_en": "Estimated from Oracle's 2Q release dates of the last 3 fiscal years (2023-12-11, 2024-12-09, 2025-12-10); Oracle has not announced the date.",
       "basis_es": "Estimado a partir de las fechas de publicación del 2T en los últimos 3 años fiscales (2023-12-11, 2024-12-09, 2025-12-10); Oracle no ha anunciado la fecha.",
       "source": {
-        "title": "tools/oracle/data/quarters.json (release dates)",
+        "title": "Oracle release dates of the same fiscal quarter, prior three years",
         "url": "https://investor.oracle.com/investor-news/default.aspx"
       }
     }

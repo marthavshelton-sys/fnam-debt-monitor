@@ -63,8 +63,8 @@
       "id": "concentration",
       "en": "Customer concentration: Oracle names no customer; S&P estimates about half of RPO is OpenAI",
       "es": "Concentración de clientes: Oracle no nombra clientes; S&P estima que cerca de la mitad del RPO es OpenAI",
-      "evidence_en": "Oracle's 10-K discloses only that no customer exceeded 10% of revenue in fiscal 2026; S&P's July 2026 rating action estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (third-party estimate, not an Oracle disclosure). Four of the five named campuses list OpenAI as the tenant.",
-      "evidence_es": "El 10-K de Oracle solo revela que ningún cliente superó el 10% de los ingresos en el AF2026; la acción de calificación de S&P de julio de 2026 estima que cerca de la mitad de los US$638 mil millones de RPO al 31 de mayo de 2026 corresponde a OpenAI (estimación de un tercero, no una revelación de Oracle). Cuatro de los cinco campus nombrados tienen a OpenAI como inquilino.",
+      "evidence_en": "Oracle's 10-K discloses only that no customer exceeded 10% of revenue in fiscal 2026; S&P's July 2026 rating action estimates roughly half of the US$638 bn RPO at May 31, 2026 is tied to OpenAI (third-party estimate, not an Oracle disclosure). {{fact:openai_campuses}}",
+      "evidence_es": "El 10-K de Oracle solo revela que ningún cliente superó el 10% de los ingresos en el AF2026; la acción de calificación de S&P de julio de 2026 estima que cerca de la mitad de los US$638 mil millones de RPO al 31 de mayo de 2026 corresponde a OpenAI (estimación de un tercero, no una revelación de Oracle).{{fact:openai_campuses}}",
       "where": [
         "circular"
       ],

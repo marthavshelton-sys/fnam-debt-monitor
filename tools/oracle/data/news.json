@@ -1,6 +1,6 @@
 {
  "_comment": "News and recent events for the Oracle page (section 'news') and the deck. Rules (owner's, 2026-10-03): every item has a date, a one-line factual summary (what happened, no inference), why it matters for Oracle's financials, a theme tag and its sources with the primary source FIRST (SEC filings and 8-Ks, Oracle releases and earnings materials, rating agencies' own releases, then major wires and financial press). No rumors, no unattributed claims. A fact that rests only on a press report is labeled `basis: press`; an Oracle statement quoted from a release is `company statement, not audited`. Newest first on the page (sorted at build time). Refreshed daily by the cloud routine 'FNAM Oracle: daily news sweep' (tools/oracle/NEWS-SWEEP-PROMPT.md); `as_of` is the date of the last sweep. source.tier: sec | company | agency | wire | press | trade. The sweep may add items, never rewrite a prior item's facts without a new source.",
- "as_of": "2026-10-04",
+ "as_of": "2026-10-03",
  "window_days": 120,
  "themes": [
   {
@@ -432,7 +432,7 @@
    ]
   }
  ],
- "sweep_note_en": "Manual sweep on 2026-10-04 (FNAM, in-session) covering 26 Sep to 3 Oct 2026: SEC EDGAR (edgar_recent.json: only Forms 4 and 144 in the window), Oracle's newsroom and the wires. Three items added; no 8-K, 10-Q or rating action in the window.",
- "sweep_note_es": "Barrido manual del 2026-10-04 (FNAM, en sesión) que cubre del 26 sep al 3 oct 2026: SEC EDGAR (edgar_recent.json: solo Formas 4 y 144 en la ventana), la sala de prensa de Oracle y los cables. Se agregaron tres eventos; sin 8-K, 10-Q ni acción de calificación en la ventana.",
- "sweep_note_date": "2026-10-04"
+ "sweep_note_en": "Manual sweep on 2026-10-03 (ET; FNAM, in-session) covering 26 Sep to 3 Oct 2026: SEC EDGAR's filing index (only Forms 4 and 144 in the window), Oracle's newsroom and the wires. Three items added; no 8-K, 10-Q or rating action in the window.",
+ "sweep_note_es": "Barrido manual del 2026-10-03 (hora del Este; FNAM, en sesión) que cubre del 26 sep al 3 oct 2026: el índice de reportes de SEC EDGAR (solo Formas 4 y 144 en la ventana), la sala de prensa de Oracle y los cables. Se agregaron tres eventos; sin 8-K, 10-Q ni acción de calificación en la ventana.",
+ "sweep_note_date": "2026-10-03"
 }

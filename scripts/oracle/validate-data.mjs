@@ -336,6 +336,19 @@ if (secReg) {
   check("sections: every cross-reference (ref(), data-ref, {{sec:}}) names a registered section", crossRefs.unresolved.length === 0);
   check("sections: every registered section exists once in index.html, in registry order", domSecs.length === (secReg.sections || []).length && domSecs.every((id, i) => id === secReg.sections[i].id));
   check("sections: no hand-typed section number remains in the page, deck or data narrative", !/sec[ct]i[oó]n\s+\d\d\b/i.test([html, ...["site/oracle/app.js", "site/oracle/present.js"].map((f) => (existsSync(join(ROOT, f)) ? readFileSync(join(ROOT, f), "utf8") : ""))].join("\n")));
+  // links: the markup carries no empty or literal "undefined"/"null" href (the render check repeats this on the rendered DOM,
+  // where a source without a URL must render as text); a fact token names a fact the page composes; the reader-facing markup and
+  // the narrative data carry no repository path (the technical detail lives on quality.html)
+  const appJs = existsSync(join(ROOT, "site/oracle/app.js")) ? readFileSync(join(ROOT, "site/oracle/app.js"), "utf8") : "";
+  check("links: no empty, undefined or null href in index.html", !/href=(""|''|"undefined"|"null"|"#")/.test(html));
+  const factIds = new Set([...appJs.matchAll(/^\s*const FACTS = \{([^\n]*)\}/gm)].flatMap((m) => [...m[1].matchAll(/([a-z_]+):/g)].map((x) => x[1])));
+  const factTokens = []; for (const f of ["risks.json", "news.json", "obligations.json", "explainers.json", "special_situations.json", "comments.json", "buildout.json"]) { const fp = join(DATA, f); if (!existsSync(fp)) continue; for (const m of readFileSync(fp, "utf8").matchAll(/\{\{fact:([a-z_]+)\}\}/g)) factTokens.push({ f, id: m[1] }); }
+  check("facts: every {{fact:id}} token in the narrative names a fact the page composes", factTokens.every((x) => factIds.has(x.id)));
+  const visibleHtml = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "");
+  const pathRe = /(tools\/oracle|scripts\/oracle|\.github\/|\b[a-z_-]+\.mjs\b|\bdata\/[a-z_]+\.js\b|\b[a-z_]+\.json\b)/;
+  check("paths: no repository or tool path in the page's reader-facing markup", !pathRe.test(visibleHtml));
+  const narrative = ["news.json", "risks.json", "comments.json", "explainers.json", "special_situations.json"].map((f) => { const fp = join(DATA, f); if (!existsSync(fp)) return ""; const j = JSON.parse(readFileSync(fp, "utf8")); const strip = (o) => (Array.isArray(o) ? o.map(strip) : o && typeof o === "object" ? Object.fromEntries(Object.entries(o).filter(([k]) => !/^(_comment|_notes?|source|sources|sources_note|url|file|files|key|accession)$/.test(k) && !/\.(json|mjs|js|md)$/.test(k)).map(([k, v]) => [k, strip(v)])) : o); return JSON.stringify(strip(j)); }).join("\n");
+  check("paths: no repository or tool path in the narrative data the page prints", !pathRe.test(narrative));
 }
 
 // ---------- module staleness (owner's rule: stale past the next expected filing + grace days; never show old data as current) ----------
@@ -411,7 +424,7 @@ writeFileSync(join(DATA, "quality_report.json"), JSON.stringify({
   generated: today.toISOString(),
   summary: { checks, failed: failures.length, warnings: warnings.length, stale: stale.length },
   latestQuarter: latestId, latestPeriodEnd: latest?.period_end || null, latestReleaseDate: latest?.release_date || null,
-  nextResults: nextRes, nextResultsEstimate: est ? { start: est.window_start, end: est.window_end } : null,
+  nextResults: nextRes, nextResultsEstimate: est ? { start: est.window_start, end: est.window_end, median: est.median || null, history: est.history || null } : null,
   tolerances: { usdM: TOL, eps: EPS_TOL },
   coverage: { quarters: [first?.id || null, latestId], years: [fyKeys[0] || null, lastFy] },
   checks: [...results, ...warnOnly],

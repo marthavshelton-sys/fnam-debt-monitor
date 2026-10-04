@@ -53,6 +53,34 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   EV/EBITDA carries its footnote; `asOf()` helper for source lines. The deck keeps the board order (`deck_order`); its
   executive-summary page does not yet carry the verdict paragraph (owner's call).
 
+- **2026-10-04 round 3 (owner's 18-item list: consistency, source hygiene, scenario range).** Sources: `extLink()` renders a
+  source without a URL as text (the call-transcript sources `call_3q26`, `call_4q26`, `S-CALL-*` have none); the validator
+  fails on an empty/`undefined`/`null`/`#` href in the markup and on any repository path in the reader-facing markup or the
+  narrative data, and the render check fails on both in the rendered DOM plus on "Source:" lines with no source and empty
+  Source cells. Repository paths left the page (refresh table, module rules, provenance footer, methodology footer, news sweep
+  note); the technical detail is a section of `quality.html`. One source of truth for the facts quoted more than once:
+  `openaiTenants()` (from `buildout.json → sites[].tenant_openai / tenant_basis`; 4 of 5 named by Oracle or the developer,
+  Jupiter press-only; `{{fact:openai_campuses}}` resolves it inside `risks.json`), `guaranteeStatus()` (past tense once the
+  scheduled maturity has passed), `maturedNote()` (the July-2026 notes: repaid, evidence in `market_reference.json →
+  debt_instruments[].repaid_evidence` = 1Q27 10-Q XBRL RepaymentsOfDebt US$4,202 M; the 10-Q HTML itself is not archived under
+  `tools/oracle/raw`, EDGAR Archives refuse the sandbox), `priceNeeds()` (verdict and acceptance box: "needs a WACC of about X%"
+  plus the betas on file that reach the price), `scenarioRange()`. Next results: the median of the prior three years' dates
+  (`calendar.json → estimates[].median` + `history`, written by `fetch-calendar.mjs`), not the window's end (Dec 10, not Dec 11);
+  the window's end only sets the staleness deadline. Summary "events through" = the latest news item (builder). Dates: `fmtDate`
+  prints a timestamp's ET date, `todayET()` drives countdowns/maturities/staleness, the builder dates `updatedAt` in ET. EN
+  view: LTM labels composed at render time (`ltmLabel()`), "Max" button; one Source line per card in the maturity schedule.
+  DCF: Bull = the Bear's three levers set to the plan (conversion one year ahead of the 10-Q schedule; Jupiter on time; OpenAI at
+  plan) = US$141 vs the US$138.07 price; the management target is a fourth preset `mgmt` (US$120); lease treatments operating /
+  mixed (finance share of recognized leases, 21%) / finance = US$114 / 102 / 59; the lease note ranks that swing against the
+  other single switches and names the treatment the verdict uses; the verdict ends with the range sentence. Capacity: the
+  Timeline panel is the megawatt series by campus (`buildout.json → sites[].mw_series`, each point sourced from the site's own
+  sources by `short`); the RPO/capex results timeline sits behind a toggle. Change log: the raw table renders only when its
+  toggle is opened. US$288 bn: no XBRL concept carries it (SEC company-facts API searched 2026-10-04, recorded in
+  `obligations.json → provenance…second_reading.xbrl_search`); the badge's tooltip and the memo rows say what the second reading
+  was and when. Hyperscaler table: Oracle's row keeps the hub's basis (2.7x / 4.1x: XBRL-tagged D&A, EBITDA) and prints the
+  model's figures (2.60x / 3.54x: release D&A, EBITDAR) with the reason, same date. Word count fell (EN 31.2k → see render
+  check), so no new material had to be collapsed.
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
@@ -91,11 +119,24 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   in `scripts/hyperscalers/build.mjs` (`companies[].quarters[].ttm`, `m.rpo`) breaks the credit section's comparison —
   `renderHyperscalers()` degrades to a one-line note when the global is missing, not when a key is renamed.
 - The verdict reads the DCF, so `renderSummary()` runs after `renderDcf()` in `renderAll()`; keep that order.
+- `lastLTM` is built once at load, before the language is known: never print `lastLTM.id`; use `ltmLabel()` (the EN view
+  showed "LTM 1T27" until round 3).
+- A date-only string and a timestamp are different things on this page: `fmtDate` prints a timestamp's ET date, so pass the
+  full ISO string, never `.slice(0, 10)` (that re-introduces the UTC date and the "Oct 4 next to Oct 3 ET" mismatch).
+- Never emit `href="${x}"` directly from a source object; go through `extLink()`/`link()`, which render text when there is no
+  URL. The validator scans `index.html` and the render check scans the DOM for empty, `undefined`, `null` or `#` hrefs.
+- Repository paths in reader-facing strings fail the build (`validate-data.mjs` "paths" checks scan `index.html` and the
+  narrative JSON; `render-check.mjs` scans visible text). Internal keys (`sources_note`, `files`, `src`, `url`, `key`) are
+  excluded; put technical detail on `quality.html`.
+- `{{fact:id}}` tokens in the narrative must name a key of `FACTS` in `app.js` (validator check).
 
 ## Open items
 
 - Deck: the executive-summary page could carry the verdict paragraph and the six-number chain (page-only today); the
   owner decides (one-page auto-fit may need a layout pass).
+- Bull case: the owner may prefer a fully mirrored Bull (Jupiter two quarters early, OpenAI volume +25%, ≈ US$157 at
+  2026-10-04) to the "levers at plan" version built in round 3 (US$141); the recipe text names the choice and why
+  (RPO is the ceiling of contracted revenue).
 - Counterparty amounts: Oracle's filings name customers (FWP) but give no amounts; if a 10-Q ever discloses a split of
   RPO by customer or by funding type, replace S&P's estimate and the press figures in `buildout.json →
   unit_economics.concentration`.

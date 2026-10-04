@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-04T01:09:09.598Z",
+  "generated": "2026-10-04T02:53:34.544Z",
   "summary": {
-    "checks": 443,
+    "checks": 447,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -12,7 +12,13 @@
   "nextResults": null,
   "nextResultsEstimate": {
     "start": "2026-12-09",
-    "end": "2026-12-11"
+    "end": "2026-12-11",
+    "median": "2026-12-10",
+    "history": [
+      "2023-12-11",
+      "2024-12-09",
+      "2025-12-10"
+    ]
   },
   "tolerances": {
     "usdM": 1,
@@ -3574,6 +3580,38 @@
       "note": null
     },
     {
+      "tag": "links",
+      "check": "no empty, undefined or null href in index.html",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "facts",
+      "check": "every {{fact:id}} token in the narrative names a fact the page composes",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "paths",
+      "check": "no repository or tool path in the page's reader-facing markup",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "paths",
+      "check": "no repository or tool path in the narrative data the page prints",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
       "tag": "FY2017",
       "check": "fewer than 4 quarters captured yet — annual roll-up check skipped",
       "status": "warn",
@@ -3731,12 +3769,12 @@
     {
       "file": "buildout.json",
       "status": "ok",
-      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-04"
+      "detail": "promises through FY2027Q1; 5 sites; reviewed 2026-10-03"
     },
     {
       "file": "obligations.json",
       "status": "ok",
-      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-10-04"
+      "detail": "as of 2026-08-31 (10-Q notes); updated 2026-10-03"
     },
     {
       "file": "fiscal_years.json",
@@ -3806,7 +3844,7 @@
       "label_es": "Notas de arrendamientos y compromisos",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-04",
+      "lastRefresh": "2026-10-03",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3866,7 +3904,7 @@
       "label_es": "Expansión (llamadas)",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-04",
+      "lastRefresh": "2026-10-03",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -3940,8 +3978,8 @@
       "label_en": "News and events",
       "label_es": "Noticias y eventos",
       "cadence": "daily",
-      "asOf": "2026-10-04",
-      "lastRefresh": "2026-10-04",
+      "asOf": "2026-10-03",
+      "lastRefresh": "2026-10-03",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,
@@ -4399,8 +4437,8 @@
       "xbrl": null,
       "verdict": "verified_text",
       "method": "text",
-      "secondReading": "2026-10-04",
-      "reason": "text reading confirmed by a second reading on 2026-10-04 (no XBRL concept exists for this disclosure)"
+      "secondReading": "2026-10-03",
+      "reason": "text reading confirmed by a second reading on 2026-10-03 (no XBRL concept exists for this disclosure)"
     },
     {
       "path": "purchase_obligations.total",
@@ -5124,7 +5162,11 @@
     "market: implied equity risk premium (Damodaran) is a dated percentage",
     "sections: every cross-reference (ref(), data-ref, {{sec:}}) names a registered section",
     "sections: every registered section exists once in index.html, in registry order",
-    "sections: no hand-typed section number remains in the page, deck or data narrative"
+    "sections: no hand-typed section number remains in the page, deck or data narrative",
+    "links: no empty, undefined or null href in index.html",
+    "facts: every {{fact:id}} token in the narrative names a fact the page composes",
+    "paths: no repository or tool path in the page's reader-facing markup",
+    "paths: no repository or tool path in the narrative data the page prints"
   ],
   "failures": [],
   "warnings": [
