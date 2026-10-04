@@ -740,6 +740,18 @@
    ]
   },
   {
+   "kind": "estimate_change",
+   "page": "56",
+   "match": "change in accounting estimate will",
+   "text": "…26, the Company completed an assessment of the useful lives of servers and network equipment based on updated information and usage patterns obtained subsequent to year-end and concluded that the estimated useful lives of such assets should be extended from four to five years. Management is considering the application of this change in accounting estimate prospectively beginning January 1, 2026. Based on the servers and network equipment placed in service as of December 31, 2025, we expect this change in accounting estimate will reduce the depreciation expenses for fiscal year 2026 by approximately $167.6 million. The actual impact in future periods will depend on the timing and level of future capital expenditures and asset retirements. We will continue to evaluate the appropriateness of our estimated useful lives and may revise them in future periods if warranted. Any such revisions will be accounted for prospectively.  Recoverability of Deferred Tax Assets   We recognize deferred tax assets for deductible temporary differences and net operating loss carryforwards. The recoverability of these deferred tax assets requires significant management judgment because realization depends on our ability to generate sufficient future taxable income within the applicable carryforward periods. In assessing recoverability, we evaluate both positive and negative evidence, including histori…",
+   "amounts": [
+    {
+     "raw": "$167.6 million",
+     "usdM": 167.6
+    }
+   ]
+  },
+  {
    "kind": "equity_method",
    "page": "57",
    "match": "equity method investment",

@@ -308,6 +308,26 @@
    ]
   },
   {
+   "kind": "estimate_change",
+   "page": "94",
+   "match": "financial impact of this change",
+   "text": "…wledge about current events, interpretation of regulations, and expectations about actions we may undertake in the future. Actual results could differ materially from those estimates.   In January 2025, we completed an assessment of the useful lives of property and equipment, which resulted in an increase in the estimated useful lives of most servers and network assets to 5.5 years, effective January 1, 2025. Based on the servers and network assets placed in service as of December 31, 2024, the financial impact of this change in estimate included a reduction in depreciation expense of $ 2.92 billion and an increase in net income of $ 2.59 billion, or $ 1.00 per diluted share, for the year ended December 31, 2025.   Revenue Recognition   We recognize revenue under Accounting Standards Codification (ASC) 606 Revenue from Contracts with Customers . Revenue is recognized when control of the promised goods or services is transferred to our customers, in an amount that reflects the consideration we expect to be entitled to in exchange for those goods or services.   Sales commissions we pay in connection with contracts are expensed when incurred because the amortization period is one year or less. These costs are recorded within marketing and sales on our consolidated statements of income. We do not disclose the value of unsatisfied performance obligations for contracts with an origin…",
+   "amounts": [
+    {
+     "raw": "$ 2.92 billion",
+     "usdM": 2920
+    },
+    {
+     "raw": "$ 2.59 billion",
+     "usdM": 2590
+    },
+    {
+     "raw": "$ 1.00 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "95",
    "match": "guaranteed",

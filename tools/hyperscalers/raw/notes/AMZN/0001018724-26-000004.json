@@ -343,6 +343,26 @@
    ]
   },
   {
+   "kind": "estimate_change",
+   "page": "41",
+   "match": "effect of this change in estimate",
+   "text": "…or funding, and viewing patterns of capitalized video content. Actual results could differ materially from these estimates. We review the useful lives of equipment on an ongoing basis.   Effective January 1, 2025 we changed our estimate of the useful lives of a subset of our servers and networking equipment from six years to five years . The shorter useful lives are due to the increased pace of technology development, particularly in the area of artificial intelligence and machine learning. The effect of this change in estimate for the year ended December 31, 2025, based on servers and networking equipment that were included in “Property and equipment, net” as of December 31, 2024 and those acquired during the year ended December 31, 2025, was an increase in depreciation and amortization expense of $ 1.4 billion and a reduction in net income of $ 1.0 billion, or $ 0.10 per basic share and $ 0.10 per diluted share, which primarily impacted our AWS segment.   During Q3 2025, we recorded $ 2.5 billion of expense related to the settlement of a lawsuit with the FTC. This charge was recorded in “Other operating expense (income), net” and impacted our North America segment.   During Q4 2025, we recorded $ 2.4 billion of expense related to settlements of a lawsuit and tax disputes, severance costs, and asset impairments. Of this total, $ 1.1 billion related to the resolution of tax dis…",
+   "amounts": [
+    {
+     "raw": "$ 1.4 billion",
+     "usdM": 1400
+    },
+    {
+     "raw": "$ 1.0 billion",
+     "usdM": 1000
+    },
+    {
+     "raw": "$ 0.10 ",
+     "usdM": null
+    }
+   ]
+  },
+  {
    "kind": "guarantee",
    "page": "43",
    "match": "guarantee",
