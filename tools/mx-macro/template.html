@@ -1360,15 +1360,15 @@ const I18N = {
     bxSecSpreadNote: "Puntos base, en cada subasta del Bono M a 10 años",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. Curva de rendimientos: tasa de rendimiento de la subasta primaria más reciente de Cetes (28, 91, 182, 364 y 728 días) y Bonos M (3, 5, 10, 20 y 30 años), Banco de México, cuadro CF107 del SIE; cada subasta lleva la fecha de colocación con que la registra Banxico, dos días hábiles después de la subasta; Banxico no publica rendimientos diarios del mercado secundario. Tesoro de EE. UU. a 10 años: rendimiento a vencimiento constante (Reserva Federal, H.15, vía FRED DGS10); el diferencial resta el cierre del día de la subasta o, si no lo hay, el anterior más cercano. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante descuenta la mediana de la inflación esperada a 12 meses en la Encuesta de Banxico a especialistas del sector privado.",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. Curva de rendimientos: tasa de rendimiento de la subasta primaria más reciente de Cetes (28, 91, 182, 364 y 728 días) y Bonos M (3, 5, 10, 20 y 30 años), Banco de México, cuadro CF107 del SIE; cada subasta lleva la fecha de colocación con que la registra Banxico, dos días hábiles después de la subasta; Banxico no publica rendimientos diarios del mercado secundario. Tesoro de EE. UU. a 10 años: rendimiento a vencimiento constante (Reserva Federal, H.15, vía FRED DGS10); el diferencial resta el cierre del día de la subasta o, si no lo hay, el anterior más cercano. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante resta la mediana de la inflación general esperada para los 12 meses que siguen al mes de la encuesta, de la Encuesta de Banxico a especialistas del sector privado (SIE SR16774, serie \"mes t+1\": la cifra que Banxico destaca en el Cuadro 2 de la encuesta y la misma que muestra el monitor fiscal de México; la variante \"mes t\", SR14195, cuenta los 12 meses desde el mes de la encuesta y no se usa).",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
     kpiBono: "Bono M 10 años",
     kpiReal: "Tasa real ex post",
     kpiRealExAnte: "Tasa real ex ante",
-    legExp: "Inflación esperada a 12 meses (encuesta Banxico)",
-    kpiExpFoot: "tasa objetivo menos inflación esperada",
+    legExp: "Inflación esperada, 12 meses siguientes a la encuesta (Banxico, mediana)",
+    kpiExpFoot: "tasa objetivo menos la mediana de inflación esperada (encuesta Banxico, 12 meses siguientes)",
     kpiReserves: "Reservas internacionales",
     legPolicy: "Tasa objetivo",
     legInflation: "Inflación general anual",
@@ -1699,15 +1699,15 @@ const I18N = {
     bxSecSpreadNote: "Basis points, at each 10-year M bond auction",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. Yield curve: latest primary auction yield of Cetes (28, 91, 182, 364 and 728 days) and fixed-rate M bonds (3, 5, 10, 20 and 30 years), Banco de México, SIE table CF107; each auction carries the issue date Banxico records it under, two business days after the auction; Banxico publishes no daily secondary-market yields. 10-year Treasury: constant-maturity yield (Federal Reserve, H.15, via FRED DGS10); the spread subtracts the close of the auction day or, if there is none, the nearest earlier one. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median 12-month inflation expectation from Banxico's survey of private-sector economists.",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. Yield curve: latest primary auction yield of Cetes (28, 91, 182, 364 and 728 days) and fixed-rate M bonds (3, 5, 10, 20 and 30 years), Banco de México, SIE table CF107; each auction carries the issue date Banxico records it under, two business days after the auction; Banxico publishes no daily secondary-market yields. 10-year Treasury: constant-maturity yield (Federal Reserve, H.15, via FRED DGS10); the spread subtracts the close of the auction day or, if there is none, the nearest earlier one. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median expected headline inflation over the 12 months after the survey month, from Banxico's survey of private-sector economists (SIE SR16774, the \"month t+1\" series: the figure Banxico headlines in Table 2 of the survey and the same one the Mexico fiscal monitor shows; the \"month t\" variant, SR14195, counts the 12 months from the survey month itself and is not used).",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
     kpiBono: "10-year M bond",
     kpiReal: "Ex post real rate",
     kpiRealExAnte: "Ex ante real rate",
-    legExp: "Expected inflation, 12 months ahead (Banxico survey)",
-    kpiExpFoot: "policy rate minus expected inflation",
+    legExp: "Expected inflation, 12 months after the survey month (Banxico, median)",
+    kpiExpFoot: "policy rate minus the median expected inflation (Banxico survey, next 12 months)",
     kpiReserves: "International reserves",
     legPolicy: "Policy rate",
     legInflation: "Headline inflation, YoY",
@@ -1838,7 +1838,8 @@ const ORIGIN = {
   usdmxn: {banxico: "Banxico", fred: "Fed"}, reserves: {banxico: "Banxico", fred: "IMF"}, policyRate: {banxico: "Banxico", fred: "OECD"},
   tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"},
   cetes91: {banxico: "Banxico"}, cetes182: {banxico: "Banxico"}, cetes364: {banxico: "Banxico"}, cetes728: {banxico: "Banxico"},
-  mbono3: {banxico: "Banxico"}, mbono5: {banxico: "Banxico"}, mbono20: {banxico: "Banxico"}, mbono30: {banxico: "Banxico"}, ust10: {fred: "FedH15"}
+  mbono3: {banxico: "Banxico"}, mbono5: {banxico: "Banxico"}, mbono20: {banxico: "Banxico"}, mbono30: {banxico: "Banxico"}, ust10: {fred: "FedH15"},
+  inflExp12m: {banxico: "Banxico"}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
@@ -2525,7 +2526,7 @@ function renderBanxico() {
   const BO = S("mbono10") ? P("mbono10") : null, RS = S("reserves") ? P("reserves") : null, H = S("inpc") ? withChanges(P("inpc")) : null;
   const prL = PR ? last(PR) : null, hL = H ? lastWith(H, "yoy") : null;
   const anyBx = [["policyRate", PR], ["tiie28", TI], ["cetes28", CE], ["mbono10", BO], ["reserves", RS]].filter(x => x[1]);
-  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "reserves"].concat(YC_KEYS), true);
+  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "inflExp12m", "reserves"].concat(YC_KEYS), true);
   const YC = yieldCurveModel(), SP = bonoUstSpread(), spL = last(SP);
 
   const row = document.getElementById("bxKpiRow");
