@@ -1,6 +1,6 @@
 {
   "_comment": "Section registry for site/oracle (the single source of section order, numbering, titles, module staleness and deck inclusion). The page numbers sections, figures, tables and cross-references from this list at render time (app.js numberSections); present.js titles its pages from it; validate-data.mjs fails when a cross-reference (ref('id') in app.js / present.js, data-ref in index.html, {{sec:id}} in the JSON narrative) names an id that is not here. Never type a section number anywhere else. `modules` lists the data files that feed the section (keys of freshness.modules), so every chart footer can show the period end, the ET refresh time and a stale flag of the right module. `deck` = the board presentation builds a page for it; `deck_order` = the order of the deck pages (the page follows the story order below; the deck keeps the board order). `group: reference` = the section lives in the collapsed Reference appendix and is numbered R1, R2… `label_*` = a label shown instead of a number (the Summary is 'Start here'). `path` = which reading paths open the section by default (5 = five minutes, 20 = twenty minutes; the full path opens everything).",
-  "updated": "2026-10-04",
+  "updated": "2026-10-05",
   "sections": [
     {
       "id": "summary",
@@ -242,6 +242,21 @@
       "modules": [
         "guidance",
         "financials"
+      ]
+    },
+    {
+      "id": "analysts",
+      "en": "Analyst Opinions: Sell-Side Research and Consensus",
+      "es": "Opiniones de analistas: investigación del lado vendedor y consenso",
+      "nav_en": "Analysts",
+      "nav_es": "Analistas",
+      "group": "reference",
+      "deck": false,
+      "path": [],
+      "modules": [
+        "analysts",
+        "factset",
+        "market"
       ]
     },
     {

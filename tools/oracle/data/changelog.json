@@ -2,195 +2,6 @@
  "note": "Change log of the page data files, written by scripts/oracle/build-data.mjs on every build: one entry per data leaf that changed since the previous build (ignoring generation stamps). Read by site/oracle (methodology section) and quality.html.",
  "entries": [
   {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].value",
-   "old": null,
-   "new": 7.3
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].form",
-   "old": null,
-   "new": "10-Q"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].accn",
-   "old": null,
-   "new": "0001193125-25-315925"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].filed",
-   "old": null,
-   "new": "2025-12-11"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].url",
-   "old": null,
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525315925/orcl-20251130.htm"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].superseded[0].accn",
-   "old": null,
-   "new": "0000950170-24-134973"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].superseded[0].form",
-   "old": null,
-   "new": "10-Q"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].superseded[0].filed",
-   "old": null,
-   "new": "2024-12-10"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].superseded[0].value",
-   "old": null,
-   "new": 7.3
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].fiscal",
-   "old": null,
-   "new": "FY2025Q2"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].ytd_months",
-   "old": null,
-   "new": 6
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "(more)",
-   "old": null,
-   "new": "9573 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-04T01:02:32.669Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.lines[3].sbc_pct",
-   "old": null,
-   "new": -10.6
-  },
-  {
-   "at": "2026-10-04T01:02:32.669Z",
-   "file": "reference.js",
-   "path": "tax.fy2026.lines[3].sbc_xbrl",
-   "old": null,
-   "new": "tax_rate_sbc"
-  },
-  {
-   "at": "2026-10-04T01:02:32.669Z",
-   "file": "news.js",
-   "path": "sweepNote.en",
-   "old": null,
-   "new": "Manual sweep on 2026-10-04 (FNAM, in-session) covering 26 Sep to 3 Oct 2026: SEC EDGAR (edgar_recent.json: only Forms 4 and 144 in the window), Oracle's newsroom and the wires. Three items added; no 8-K, 10-Q or rating action in the window."
-  },
-  {
-   "at": "2026-10-04T01:02:32.669Z",
-   "file": "news.js",
-   "path": "sweepNote.es",
-   "old": null,
-   "new": "Barrido manual del 2026-10-04 (FNAM, en sesión) que cubre del 26 sep al 3 oct 2026: SEC EDGAR (edgar_recent.json: solo Formas 4 y 144 en la ventana), la sala de prensa de Oracle y los cables. Se agregaron tres eventos; sin 8-K, 10-Q ni acción de calificación en la ventana."
-  },
-  {
-   "at": "2026-10-04T01:08:08.765Z",
-   "file": "sections.js",
-   "path": "sections[5].deck_order",
-   "old": 9,
-   "new": 8
-  },
-  {
-   "at": "2026-10-04T01:08:08.765Z",
-   "file": "sections.js",
-   "path": "sections[6].deck_order",
-   "old": 8,
-   "new": 9
-  },
-  {
-   "at": "2026-10-04T01:09:09.855Z",
-   "file": "news.js",
-   "path": "sweepNote.date",
-   "old": null,
-   "new": "2026-10-04"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].status",
-   "old": null,
-   "new": "repaid"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.quarter",
-   "old": null,
-   "new": "FY2027Q1"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.source",
-   "old": null,
-   "new": "10q_1q27"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.xbrl",
-   "old": null,
-   "new": "debt_repaid"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.xbrl_concept",
-   "old": null,
-   "new": "RepaymentsOfDebt"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.xbrl_value_usd_m",
-   "old": null,
-   "new": 4202
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.note_en",
-   "old": null,
-   "new": "Form 10-Q for the quarter ended 31-Aug-2026: repayments of borrowings of US$4,202 M in the quarter (XBRL RepaymentsOfDebt, discrete) and notes payable and other borrowings down from US$129,541 M (31-May-2026) to US$125,337 M; the notes matured 15-Jul-2026 inside the quarter."
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.note_es",
-   "old": null,
-   "new": "Formulario 10-Q del trimestre terminado el 31-ago-2026: pagos de préstamos por US$4,202 M en el trimestre (XBRL RepaymentsOfDebt, trimestre discreto) y notas por pagar y otros préstamos de US$129,541 M (31-may-2026) a US$125,337 M; los bonos vencieron el 15-jul-2026, dentro del trimestre."
-  },
-  {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "reference.js",
    "path": "debt.instruments[0].repaid.evidence.url",
@@ -4200,7 +4011,196 @@
    "path": "spreads.BBB_OAS.points.length",
    "old": null,
    "new": 786
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].id",
+   "old": "method",
+   "new": "analysts"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].en",
+   "old": "Methodology, Sources, Provenance, Glossary and Change Log",
+   "new": "Analyst Opinions: Sell-Side Research and Consensus"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].es",
+   "old": "Metodología, fuentes, procedencia, glosario y bitácora de cambios",
+   "new": "Opiniones de analistas: investigación del lado vendedor y consenso"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].nav_en",
+   "old": "Methodology",
+   "new": "Analysts"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].nav_es",
+   "old": "Metodología",
+   "new": "Analistas"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].deck",
+   "old": true,
+   "new": false
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].deck_order",
+   "old": 15,
+   "new": null
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].modules[0]",
+   "old": "quality",
+   "new": "analysts"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].modules[1]",
+   "old": "changelog",
+   "new": "factset"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[15].modules[2]",
+   "old": "obligations",
+   "new": "market"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].id",
+   "old": null,
+   "new": "method"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].en",
+   "old": null,
+   "new": "Methodology, Sources, Provenance, Glossary and Change Log"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].es",
+   "old": null,
+   "new": "Metodología, fuentes, procedencia, glosario y bitácora de cambios"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].nav_en",
+   "old": null,
+   "new": "Methodology"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].nav_es",
+   "old": null,
+   "new": "Metodología"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].group",
+   "old": null,
+   "new": "reference"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].deck",
+   "old": null,
+   "new": true
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].deck_order",
+   "old": null,
+   "new": 15
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].modules[0]",
+   "old": null,
+   "new": "quality"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].modules[1]",
+   "old": null,
+   "new": "changelog"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "sections[16].modules[2]",
+   "old": null,
+   "new": "obligations"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.label_en",
+   "old": null,
+   "new": "Sell-side research sweep"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.label_es",
+   "old": null,
+   "new": "Barrido de investigación del lado vendedor"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.cadence",
+   "old": null,
+   "new": "daily"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.max_age_days",
+   "old": null,
+   "new": 60
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.source_file",
+   "old": null,
+   "new": "analysts.json"
+  },
+  {
+   "at": "2026-10-05T14:03:31.734Z",
+   "file": "sections.js",
+   "path": "freshness.modules.analysts.manual",
+   "old": null,
+   "new": true
   }
  ],
- "generated": "2026-10-05T13:43:33.763Z"
+ "generated": "2026-10-05T14:03:31.734Z"
 }

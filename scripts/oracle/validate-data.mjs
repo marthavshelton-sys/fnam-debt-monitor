@@ -283,6 +283,25 @@ if (nws) {
   check("news: no item is dated after as_of; ids are unique", items.every((x) => x.date <= nws.as_of) && new Set(items.map((x) => x.id)).size === items.length);
 }
 
+// ---------- analysts.json: sell-side opinions by house (reports on file, StreetAccount-reported houses) and the consensus snapshot ----------
+const anj = loadJSON("analysts.json");
+if (anj) {
+  const iso = (d) => /^\d{4}-\d{2}-\d{2}$/.test(d || "");
+  const winStart = (() => { if (!iso(anj.as_of) || !(anj.window_days > 0)) return null; const d = new Date(anj.as_of + "T00:00:00Z"); d.setUTCDate(d.getUTCDate() - anj.window_days); return d.toISOString().slice(0, 10); })();
+  const classes = new Set(["buy", "hold", "sell", "credit"]);
+  const houses = anj.houses || [], reported = anj.reported || [];
+  const inWin = (d) => iso(d) && winStart && d >= winStart && d <= anj.as_of;
+  check("analysts: as_of is an ISO date, the window is positive and window_start matches it", iso(anj.as_of) && anj.window_days > 0 && anj.window_start === winStart);
+  check("analysts: every house has an id, name, kind, analysts, a date inside the window, title, bilingual thesis, method and basis, and a source of basis 'report'", houses.length > 0 && houses.every((h) => h.id && h.house && ["equity", "credit"].includes(h.kind) && h.analysts && inWin(h.date) && h.title && h.thesis_en && h.thesis_es && h.method_en && h.method_es && h.basis_short_en && h.basis_short_es && h.source && h.source.basis === "report" && h.source.title));
+  check("analysts: ratings carry a known class and targets are positive numbers (null only when the report states none)", [...houses, ...reported].every((h) => (h.rating_class == null || classes.has(h.rating_class)) && (h.target_usd == null || h.target_usd > 0) && (h.rating == null) === (h.rating_class == null) && (h.target_prev_usd == null || h.target_prev_usd > 0) && (h.price_at_report == null || h.price_at_report > 0)));
+  check("analysts: every StreetAccount-reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount'", reported.every((r) => r.id && r.house && r.analysts && inWin(r.date) && r.rating && r.target_usd > 0 && r.note_en && r.note_es && r.basis_short_en && r.basis_short_es && r.source && r.source.basis === "streetaccount" && r.source.title));
+  check("analysts: ids are unique across houses and reported", new Set([...houses, ...reported].map((x) => x.id)).size === houses.length + reported.length);
+  check("analysts: target histories, estimates and earlier notes are dated, positive and bilingual", houses.every((h) => (h.target_history || []).every((x) => iso(x.date) && x.usd > 0) && Object.values(h.estimates || {}).every((v) => v.revenue_usd_bn > 0 && v.eps > 0) && (h.earlier || []).every((e) => inWin(e.date) && e.title && e.note_en && e.note_es)));
+  const pts = (anj.consensus_history || {}).points || [];
+  check("analysts: consensus history is dated, ascending, no later than as_of, and its rating counts add up", pts.length > 3 && iso((anj.consensus_history || {}).fetched) && pts.every((p, i) => iso(p.date) && p.date <= anj.as_of && (i === 0 || pts[i - 1].date < p.date) && p.mean > 0 && p.median > 0 && p.high >= p.mean && p.low <= p.mean && p.count > 0 && p.buy + p.overweight + p.hold + p.underweight + p.sell === p.total));
+  check("analysts: bilingual library and price notes present", !!(anj.library_note_en && anj.library_note_es && anj.price_note_en && anj.price_note_es));
+}
+
 // ---------- executive summary: its date covers every source it cites (a summary "written Sep 23" cannot cite Sep 24) ----------
 const MONTHS = { jan: 1, ene: 1, feb: 2, mar: 3, apr: 4, abr: 4, may: 5, jun: 6, jul: 7, aug: 8, ago: 8, sep: 9, oct: 10, nov: 11, dec: 12, dic: 12 };
 const dateInTitle = (t) => { const m = /(\d{1,2})\s+([A-Za-z]{3})[a-z]*\.?\s+(\d{4})/.exec(String(t || "")) || null; if (m && MONTHS[m[2].toLowerCase()]) return `${m[3]}-${String(MONTHS[m[2].toLowerCase()]).padStart(2, "0")}-${m[1].padStart(2, "0")}`; const n = /([A-Za-z]{3})[a-z]*\.?\s+(\d{1,2}),\s+(\d{4})/.exec(String(t || "")); return n && MONTHS[n[1].toLowerCase()] ? `${n[3]}-${String(MONTHS[n[1].toLowerCase()]).padStart(2, "0")}-${n[2].padStart(2, "0")}` : null; };
@@ -347,7 +366,7 @@ if (secReg) {
   const visibleHtml = html.replace(/<!--[\s\S]*?-->/g, "").replace(/<script[\s\S]*?<\/script>/g, "").replace(/<style[\s\S]*?<\/style>/g, "");
   const pathRe = /(tools\/oracle|scripts\/oracle|\.github\/|\b[a-z_-]+\.mjs\b|\bdata\/[a-z_]+\.js\b|\b[a-z_]+\.json\b)/;
   check("paths: no repository or tool path in the page's reader-facing markup", !pathRe.test(visibleHtml));
-  const narrative = ["news.json", "risks.json", "comments.json", "explainers.json", "special_situations.json"].map((f) => { const fp = join(DATA, f); if (!existsSync(fp)) return ""; const j = JSON.parse(readFileSync(fp, "utf8")); const strip = (o) => (Array.isArray(o) ? o.map(strip) : o && typeof o === "object" ? Object.fromEntries(Object.entries(o).filter(([k]) => !/^(_comment|_notes?|source|sources|sources_note|url|file|files|key|accession)$/.test(k) && !/\.(json|mjs|js|md)$/.test(k)).map(([k, v]) => [k, strip(v)])) : o); return JSON.stringify(strip(j)); }).join("\n");
+  const narrative = ["news.json", "risks.json", "comments.json", "explainers.json", "special_situations.json", "analysts.json"].map((f) => { const fp = join(DATA, f); if (!existsSync(fp)) return ""; const j = JSON.parse(readFileSync(fp, "utf8")); const strip = (o) => (Array.isArray(o) ? o.map(strip) : o && typeof o === "object" ? Object.fromEntries(Object.entries(o).filter(([k]) => !/^(_comment|_notes?|source|sources|sources_note|url|file|files|key|accession)$/.test(k) && !/\.(json|mjs|js|md)$/.test(k)).map(([k, v]) => [k, strip(v)])) : o); return JSON.stringify(strip(j)); }).join("\n");
   check("paths: no repository or tool path in the narrative data the page prints", !pathRe.test(narrative));
 }
 
@@ -376,6 +395,7 @@ fresh("Peer leverage (SEC XBRL)", plv?.fetched, 10, "fetch-peer-leverage.mjs");
 fresh("FactSet consensus snapshot", fsj?.fetched, 7, "cloud routine FactSet refresh, weekdays 14:20 UTC");
 fresh("Implied equity risk premium (Damodaran, monthly)", mref?.erp?.as_of, 45, "fetch-market.mjs reads Damodaran's home page; he posts on the first of each month");
 fresh("Market concerns (press sweep)", prs?.as_of, 10, "desktop task, Mondays");
+fresh("Sell-side research sweep (analyst opinions)", anj?.as_of, anj?.window_days || 60, "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt");
 const pendingCount = (st?.pending_extraction || []).filter((p) => p.status === "pending").length;
 freshness.push({ series: "Filings pending extraction", lastDate: st?.last_harvest ? String(st.last_harvest).slice(0, 10) : null, ageDays: null, limitDays: null, status: pendingCount ? "warn" : "ok", note: pendingCount ? `${pendingCount} archived filing(s) waiting for the routine (state.json)` : "nothing pending (last harvest date shown)" });
 const stale = freshness.filter((f) => f.status === "warn").map((f) => `${f.series}: ${f.lastDate || "—"}${f.ageDays != null ? ` (${f.ageDays} days)` : ""}${f.note ? " — " + f.note : ""}`);
@@ -396,6 +416,7 @@ cur("calendar.json", !!cal, cal ? `${(cal.events || []).length} events; next res
 cur("press.json", !!(prs && (prs.items || []).length && daysSince(prs.as_of) <= 10), prs ? `${(prs.items || []).length} items, as of ${prs.as_of}` : "missing");
 cur("factset.json", !!(fsj && daysSince(fsj.fetched) <= 7), fsj ? `consensus ${fsj.as_of}; prices ${fsj.price_date}; ${(fsj.peers || []).length} peers; fetched ${fsj.fetched}` : "missing");
 cur("peer_leverage.json", !!(plv && (plv.peers || []).some((p) => !p.error)), plv ? `${(plv.peers || []).filter((p) => !p.error).length} peers; fetched ${plv.fetched}` : "missing");
+cur("analysts.json", !!(anj && daysSince(anj.as_of) <= (anj.window_days || 60)), anj ? `${(anj.houses || []).length} houses from reports, ${(anj.reported || []).length} reported via StreetAccount; swept ${anj.as_of}, ${anj.window_days}-day window` : "missing");
 
 // Next expected filing: Oracle's confirmed date, else the end of the derived window (assumed); a filing-driven module
 // is stale once today > that date + grace. Daily modules are stale past max_age_days.
@@ -405,9 +426,9 @@ if (fr) {
   const nwsJ = loadJSON("news.json"), rk = loadJSON("risks.json"), chl = loadJSON("changelog.json"), xbJ = loadJSON("xbrl_facts.json");
   const lastRefreshOf = {
     financials: latest?.release_date, xbrl: xbJ?.fetched, obligations: ob?.updated, guidance: gv?.issued_on, comments: cmQ?.drafted || cm?.updatedAt, summary: cmQ?.drafted || cm?.updatedAt, buildout: bo?.updated, reference: mref?.price_snapshot?.orcl?.accessed,
-    market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.fetched, cds: loadJSON("cds.json")?.updated_at || null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString(), changelog: chl?.generated || null,
+    market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.fetched, analysts: anj?.as_of, cds: loadJSON("cds.json")?.updated_at || null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString(), changelog: chl?.generated || null,
   };
-  const asOfOf = { financials: latest?.period_end, xbrl: xbJ?.latest_period_end, obligations: ob?.as_of, guidance: gv?.issued_on, comments: latest?.period_end, summary: latest?.period_end, buildout: latest?.period_end, reference: latest?.period_end, market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.as_of, cds: null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString().slice(0, 10), changelog: chl?.generated };
+  const asOfOf = { financials: latest?.period_end, xbrl: xbJ?.latest_period_end, obligations: ob?.as_of, guidance: gv?.issued_on, comments: latest?.period_end, summary: latest?.period_end, buildout: latest?.period_end, reference: latest?.period_end, market: mref?.price_snapshot?.orcl?.close_date, factset: fsj?.as_of, analysts: anj?.as_of, cds: null, news: nwsJ?.as_of, calendar: cal?.generated, peer_leverage: plv?.fetched, risks: rk?.updated, quality: today.toISOString().slice(0, 10), changelog: chl?.generated };
   for (const [id, m] of Object.entries(fr.modules || {})) {
     const last = lastRefreshOf[id] ? String(lastRefreshOf[id]).slice(0, 10) : null; const asOf = asOfOf[id] ? String(asOfOf[id]).slice(0, 10) : null;
     let stale = false, reason = null, deadline = null;

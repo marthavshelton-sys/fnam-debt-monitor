@@ -34,6 +34,7 @@
 <script src="data/news.js"></script>
 <script src="data/risks.js"></script>
 <script src="data/changelog.js"></script>
+<script src="data/analysts.js"></script>
 <!-- Hyperscaler Hub financials (window.HYP_FIN, scripts/hyperscalers/build.mjs): read for the credit section's comparison, same definitions and tiers as the hub. -->
 <script src="/hiperescaladores/data/financials.js"></script>
 
@@ -1247,7 +1248,7 @@ table.mw td{white-space:normal; vertical-align:top;}
 
   <!-- REFERENCE APPENDIX: statements, guidance, methodology/provenance/glossary/change log (collapsed by default) -->
   <div class="appendix" id="reference">
-    <div class="appendix-head"><h2><span class="es">Referencia</span><span class="en" hidden>Reference</span></h2><p class="sec-desc"><span class="es">Los estados financieros comparables con los comentarios de las llamadas, la guía de la administración con su historial, la procedencia de cada cifra fuera de balance, el glosario y la bitácora de cambios. Abra cada bloque cuando lo necesite.</span><span class="en" hidden>The comparable statements with the call comments, management guidance with its history, the provenance of every off-balance-sheet figure, the glossary and the change log. Open each block when you need it.</span></p></div>
+    <div class="appendix-head"><h2><span class="es">Referencia</span><span class="en" hidden>Reference</span></h2><p class="sec-desc"><span class="es">Los estados financieros comparables con los comentarios de las llamadas, la guía de la administración con su historial, las opiniones de los analistas del lado vendedor (reportes por casa y consenso de FactSet), la procedencia de cada cifra fuera de balance, el glosario y la bitácora de cambios. Abra cada bloque cuando lo necesite.</span><span class="en" hidden>The comparable statements with the call comments, management guidance with its history, the sell-side analysts' opinions (reports by house and the FactSet consensus), the provenance of every off-balance-sheet figure, the glossary and the change log. Open each block when you need it.</span></p></div>
 
   <!-- BUSINESS AND SEGMENTS: STATEMENTS -->
   <section class="block" id="statements" data-sec="statements">
@@ -1370,6 +1371,40 @@ table.mw td{white-space:normal; vertical-align:top;}
     </div>
 
     <details class="tbl" id="guideAllWrap"><summary><span class="es">Todas las guías registradas (con enlace al comunicado o transcripción)</span><span class="en" hidden>Every guidance vintage (with a link to the release or transcript)</span></summary><div class="tblwrap" id="guideAll"></div></details>
+  </section>
+
+  <!-- ANALYST OPINIONS: sell-side research by house (owner's library, summarised in-session), StreetAccount-reported houses, FactSet consensus -->
+  <section class="block" id="analysts" data-sec="analysts">
+    <div class="sec-head"><span class="sec-num"></span><h2></h2></div>
+    <p class="sec-desc">
+      <span class="es">Lo que las casas de bolsa publican sobre Oracle: los reportes de la ventana indicada abajo en la biblioteca de investigación de la responsable, leídos completos y resumidos por casa (tesis, método de valuación, precio objetivo y recomendación), las casas que FactSet StreetAccount reportó en sus resúmenes y el consenso de FactSet (precio objetivo y recomendaciones, actualizado en días hábiles). Son opiniones de terceros, no del modelo: la opinión propia de esta página es el DCF. Los reportes son material con licencia y no se republican.</span>
+      <span class="en" hidden>What the sell side publishes on Oracle: the reports of the window shown below in the owner's research library, read in full and summarized by house (thesis, valuation method, price target and rating), the houses FactSet StreetAccount reported in its summaries, and FactSet's consensus (price target and ratings, refreshed on weekdays). These are third-party opinions, not the model's: the page's own view is the DCF. The reports are licensed material and are not republished.</span>
+    </p>
+    <p class="sec-meta" id="anMeta"></p>
+    <div class="stat-row" id="anStats"></div>
+    <div class="card" style="margin-top:22px">
+      <h3><span class="es">Por casa: recomendación, precio objetivo y base de valuación</span><span class="en" hidden>By house: rating, price target and valuation basis</span></h3>
+      <p class="cap" id="anCap"></p>
+      <div class="tblwrap" id="anTable"></div>
+      <details class="tbl" id="anDetailWrap"><summary><span class="es">Tesis, método y riesgos por casa (resúmenes de FNAM)</span><span class="en" hidden>Thesis, method and risks by house (FNAM summaries)</span></summary><div id="anDetail"></div></details>
+      <p class="chart-src" id="anSrc"></p>
+    </div>
+    <div class="grid-2 eq">
+      <div class="card">
+        <h3><span class="es">Precios objetivo por casa frente al precio, el consenso y el DCF</span><span class="en" hidden>Price targets by house against the price, the consensus and the DCF</span></h3>
+        <p class="cap" id="anChartCap"></p>
+        <div class="chart-wrap tall"><canvas id="chartAnTargets"></canvas></div>
+        <p class="chart-src" id="anChartSrc"></p>
+      </div>
+      <div class="card">
+        <h3><span class="es">Consenso FactSet: objetivo medio y mediano frente al precio, semanal</span><span class="en" hidden>FactSet consensus: mean and median target against the price, weekly</span></h3>
+        <p class="cap" id="anHistCap"></p>
+        <div class="chart-wrap tall"><canvas id="chartAnHist"></canvas></div>
+        <details class="tbl" id="anHistWrap"><summary><span class="es">Serie semanal (objetivo y recomendaciones)</span><span class="en" hidden>Weekly series (target and ratings)</span></summary><div class="tblwrap" id="anHistTable"></div></details>
+        <p class="chart-src" id="anHistSrc"></p>
+      </div>
+    </div>
+    <div class="notice" id="anNote"></div>
   </section>
 
   <!-- METHODOLOGY, SOURCES AND CHANGE LOG -->

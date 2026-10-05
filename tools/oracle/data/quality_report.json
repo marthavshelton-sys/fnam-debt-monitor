@@ -1,7 +1,7 @@
 {
-  "generated": "2026-10-05T13:43:33.549Z",
+  "generated": "2026-10-05T14:03:31.344Z",
   "summary": {
-    "checks": 447,
+    "checks": 455,
     "failed": 0,
     "warnings": 6,
     "stale": 0
@@ -3476,6 +3476,70 @@
       "note": null
     },
     {
+      "tag": "analysts",
+      "check": "as_of is an ISO date, the window is positive and window_start matches it",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "every house has an id, name, kind, analysts, a date inside the window, title, bilingual thesis, method and basis, and a source of basis 'report'",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "ratings carry a known class and targets are positive numbers (null only when the report states none)",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "every StreetAccount-reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount'",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "ids are unique across houses and reported",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "target histories, estimates and earlier notes are dated, positive and bilingual",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "consensus history is dated, ascending, no later than as_of, and its rating counts add up",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
+      "tag": "analysts",
+      "check": "bilingual library and price notes present",
+      "status": "ok",
+      "diff": null,
+      "tol": null,
+      "note": null
+    },
+    {
       "tag": "summary",
       "check": "carries its own ISO date (exec_summary.updated)",
       "status": "ok",
@@ -3750,6 +3814,14 @@
       "note": "desktop task, Mondays"
     },
     {
+      "series": "Sell-side research sweep (analyst opinions)",
+      "lastDate": "2026-10-05",
+      "ageDays": 1,
+      "limitDays": 60,
+      "status": "ok",
+      "note": "in-session sweep of the owner's research library (Dropbox) and FactSet StreetAccount; refresh with the analysts sweep prompt"
+    },
+    {
       "series": "Filings pending extraction",
       "lastDate": "2026-10-05",
       "ageDays": null,
@@ -3813,6 +3885,11 @@
       "file": "peer_leverage.json",
       "status": "ok",
       "detail": "5 peers; fetched 2026-10-05"
+    },
+    {
+      "file": "analysts.json",
+      "status": "ok",
+      "detail": "8 houses from reports, 6 reported via StreetAccount; swept 2026-10-05, 60-day window"
     }
   ],
   "modules": [
@@ -3947,6 +4024,21 @@
       "nextExpectedBasis": null,
       "deadline": null,
       "maxAgeDays": 5,
+      "stale": false,
+      "reason": null,
+      "textDerived": false
+    },
+    {
+      "id": "analysts",
+      "label_en": "Sell-side research sweep",
+      "label_es": "Barrido de investigación del lado vendedor",
+      "cadence": "daily",
+      "asOf": "2026-10-05",
+      "lastRefresh": "2026-10-05",
+      "nextExpected": null,
+      "nextExpectedBasis": null,
+      "deadline": null,
+      "maxAgeDays": 60,
       "stale": false,
       "reason": null,
       "textDerived": false
@@ -4722,6 +4814,7 @@
       "calendar",
       "statements",
       "guidance",
+      "analysts",
       "method"
     ],
     "unresolved": []
@@ -5158,6 +5251,14 @@
     "news: an item labeled sec/company/agency leads with a source of that tier",
     "news: SEC-sourced items carry an accession number",
     "news: no item is dated after as_of; ids are unique",
+    "analysts: as_of is an ISO date, the window is positive and window_start matches it",
+    "analysts: every house has an id, name, kind, analysts, a date inside the window, title, bilingual thesis, method and basis, and a source of basis 'report'",
+    "analysts: ratings carry a known class and targets are positive numbers (null only when the report states none)",
+    "analysts: every StreetAccount-reported house has a name, analysts, a date inside the window, rating, target, bilingual note and a source of basis 'streetaccount'",
+    "analysts: ids are unique across houses and reported",
+    "analysts: target histories, estimates and earlier notes are dated, positive and bilingual",
+    "analysts: consensus history is dated, ascending, no later than as_of, and its rating counts add up",
+    "analysts: bilingual library and price notes present",
     "summary: carries its own ISO date (exec_summary.updated)",
     "summary: dated 2026-10-04 on or after every source it cites (latest 2026-10-02) and its events_through",
     "summary: what-to-watch items are short lines ({ h, lines[] }, each line ≤ 160 characters)",
