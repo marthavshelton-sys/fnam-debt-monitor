@@ -25,9 +25,8 @@
 // sends "Authorization: Bearer <SITE_PASSWORD>" on each request. The GitHub repository secret SITE_PASSWORD
 // must therefore hold the same value as the Cloudflare variable.
 //
-// The section gates (functions/gap, oracle, oma, asur, qualitas) still run after this one. With SITE_PASSWORD
-// set they are redundant: a section whose own *_PASSWORD is also set asks the visitor a second time, so
-// remove those variables to rely on the site password alone, or keep one for an extra layer on that section.
+// One password for everything: the section gates (functions/gap, oracle, oma, asur, qualitas) run after this one
+// and stand down while SITE_PASSWORD is set, whatever their own *_PASSWORD variables hold; nothing to unset.
 //
 // Sessions are HMAC-signed cookies (nothing is stored server-side), the same design as the section gates.
 
