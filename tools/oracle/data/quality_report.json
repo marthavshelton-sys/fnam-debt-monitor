@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T14:04:51.451Z",
+  "generated": "2026-10-05T14:23:35.931Z",
   "summary": {
     "checks": 455,
     "failed": 0,
@@ -3791,8 +3791,8 @@
     },
     {
       "series": "FactSet consensus snapshot",
-      "lastDate": "2026-10-02",
-      "ageDays": 4,
+      "lastDate": "2026-10-05",
+      "ageDays": 1,
       "limitDays": 7,
       "status": "ok",
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
@@ -3879,7 +3879,7 @@
     {
       "file": "factset.json",
       "status": "ok",
-      "detail": "consensus 2026-10-02; prices 2026-10-01; 8 peers; fetched 2026-10-02"
+      "detail": "consensus 2026-10-05; prices 2026-10-02; 8 peers; fetched 2026-10-05"
     },
     {
       "file": "peer_leverage.json",
@@ -4048,8 +4048,8 @@
       "label_en": "FactSet consensus",
       "label_es": "Consenso FactSet",
       "cadence": "daily",
-      "asOf": "2026-10-02",
-      "lastRefresh": "2026-10-02",
+      "asOf": "2026-10-05",
+      "lastRefresh": "2026-10-05",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,

@@ -3,958 +3,6 @@
  "entries": [
   {
    "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.url",
-   "old": null,
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[0].repaid.evidence.accession",
-   "old": null,
-   "new": "0001193125-26-389274"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[1].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[1].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[2].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[2].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[3].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[3].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[4].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[4].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[5].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[5].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[6].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[6].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[7].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[7].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[8].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[8].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[9].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[9].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[10].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[10].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[11].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[11].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[12].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[12].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[13].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[13].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[14].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[14].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[15].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[15].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[16].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[16].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[17].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[17].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[18].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[18].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[19].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[19].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[20].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[20].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[21].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[21].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[22].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[22].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[23].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[23].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[24].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[24].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[25].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[25].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[26].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[26].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[27].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[27].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[28].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[28].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[29].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[29].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[30].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[30].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[31].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[31].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[32].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[32].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[33].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[33].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[34].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[34].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[35].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[35].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[36].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[36].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[37].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[37].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[38].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[38].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[39].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[39].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[40].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[40].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[41].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[41].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[42].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[42].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[43].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[43].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[44].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[44].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[45].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[45].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[46].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[46].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[47].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[47].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[48].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[48].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[49].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[49].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[50].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[50].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[51].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[51].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[52].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[52].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[53].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[53].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[54].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[54].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[55].status",
-   "old": null,
-   "new": "outstanding"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "debt.instruments[55].repaid",
-   "old": null,
-   "new": null
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "reference.js",
-   "path": "(more)",
-   "old": null,
-   "new": "1547 leaves compared; further changes in this file not listed"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "summary.js",
-   "path": "eventsThrough",
-   "old": "2026-09-25",
-   "new": "2026-10-02"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "summary.js",
-   "path": "eventsThroughBasis",
-   "old": null,
-   "new": "news"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "summary.js",
-   "path": "draftedEventsThrough",
-   "old": null,
-   "new": "2026-09-25"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "calendar.js",
-   "path": "estimates[0].source.title",
-   "old": "tools/oracle/data/quarters.json (release dates)",
-   "new": "Oracle release dates of the same fiscal quarter, prior three years"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "calendar.js",
-   "path": "estimates[0].median",
-   "old": null,
-   "new": "2026-12-10"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "calendar.js",
-   "path": "estimates[0].history[0]",
-   "old": null,
-   "new": "2023-12-11"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "calendar.js",
-   "path": "estimates[0].history[1]",
-   "old": null,
-   "new": "2024-12-09"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "calendar.js",
-   "path": "estimates[0].history[2]",
-   "old": null,
-   "new": "2025-12-10"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].tenant_openai",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].tenant_basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].when",
-   "old": null,
-   "new": "2024-06"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].kind",
-   "old": null,
-   "new": "contracted"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].mw",
-   "old": null,
-   "new": 1200
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].src",
-   "old": null,
-   "new": "Crusoe PR"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].en",
-   "old": null,
-   "new": "contracted; construction began June 2024; 1,200 MW nameplate across 8 buildings (Crusoe)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[0].es",
-   "old": null,
-   "new": "contratado; construcción iniciada en junio de 2024; 1,200 MW nominales en 8 edificios (Crusoe)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].when",
-   "old": null,
-   "new": "FY2026Q4"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].kind",
-   "old": null,
-   "new": "energized"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].mw",
-   "old": null,
-   "new": 504
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].derived",
-   "old": null,
-   "new": true
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].src",
-   "old": null,
-   "new": "4Q26 call p.7"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
    "path": "sites[0].mw_series[1].en",
    "old": null,
@@ -4200,7 +3248,959 @@
    "path": "freshness.modules.analysts.manual",
    "old": null,
    "new": true
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "asOf",
+   "old": "2026-10-02",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.price",
+   "old": 138.07,
+   "new": 142.3
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.price_date",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.market_cap_usd_m",
+   "old": 417487,
+   "new": 430278
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.mean",
+   "old": 9.116,
+   "new": 9.14
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.median",
+   "old": 9.079,
+   "new": 9.103
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.high",
+   "old": 10.047,
+   "new": 10.087
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.low",
+   "old": 8.746,
+   "new": 8.762
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.eps.sd",
+   "old": 0.258,
+   "new": 0.263
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.mean",
+   "old": 58922,
+   "new": 59104
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.median",
+   "old": 60210,
+   "new": 60405
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.high",
+   "old": 71530,
+   "new": 71763
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.low",
+   "old": 48528,
+   "new": 48630
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.ebitda.sd",
+   "old": 5499,
+   "new": 5530
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.mean",
+   "old": 104363,
+   "new": 104700
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.median",
+   "old": 104384,
+   "new": 104722
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.high",
+   "old": 107980,
+   "new": 108374
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.low",
+   "old": 98890,
+   "new": 99127
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.sales.sd",
+   "old": 1644,
+   "new": 1673
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.mean",
+   "old": -36457,
+   "new": -36442
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.median",
+   "old": -34565,
+   "new": -34536
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.high",
+   "old": -20522,
+   "new": -20386
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.low",
+   "old": -76618,
+   "new": -76602
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.ntm.fcf.sd",
+   "old": 13193,
+   "new": 13233
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].sales.mean",
+   "old": 90437,
+   "new": 90438
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].sales.up",
+   "old": 14,
+   "new": 13
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].eps.down",
+   "old": 2,
+   "new": 1
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].ebitda.up",
+   "old": 13,
+   "new": 12
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].capex.up",
+   "old": 12,
+   "new": 11
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].da.as_of",
+   "old": "2026-10-03",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[0].fcf.down",
+   "old": 3,
+   "new": 2
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].sales.up",
+   "old": 13,
+   "new": 12
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].ebitda.up",
+   "old": 11,
+   "new": 10
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].capex.up",
+   "old": 5,
+   "new": 4
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].da.as_of",
+   "old": "2026-10-03",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[1].fcf.down",
+   "old": 8,
+   "new": 7
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].sales.down",
+   "old": 1,
+   "new": 0
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].ebitda.up",
+   "old": 8,
+   "new": 7
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].capex.up",
+   "old": 4,
+   "new": 3
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].da.as_of",
+   "old": "2026-10-03",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[2].fcf.down",
+   "old": 5,
+   "new": 4
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.fiscal[3].da.as_of",
+   "old": "2026-10-03",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "factset.js",
+   "path": "oracle.price_target.down",
+   "old": 12,
+   "new": 11
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].price",
+   "old": 512.8,
+   "new": 517.53
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].marketCapUsdM",
+   "old": 3807820,
+   "new": 3842943
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].evUsdM",
+   "old": 3859790,
+   "new": 3894913
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEps",
+   "old": 20.7,
+   "new": 20.742
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmEbitda",
+   "old": 255853,
+   "new": 256463
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].ntmSales",
+   "old": 410180,
+   "new": 411074
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].peNtm",
+   "old": 24.77294685990338,
+   "new": 24.95082441423199
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].evEbitdaNtm",
+   "old": 15.085967332804383,
+   "new": 15.18703672654535
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].evSalesNtm",
+   "old": 9.409990735774539,
+   "new": 9.474968010625824
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].fy1.eps",
+   "old": 19.735,
+   "new": 19.741
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].fy2.eps",
+   "old": 23.485,
+   "new": 23.507
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].epsGrowthFy2Pct",
+   "old": 19.001773498859897,
+   "new": 19.077047768603418
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[0].divYieldPct",
+   "old": 0.7644305772230889,
+   "new": 0.7574440129074643
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].price",
+   "old": 210.79,
+   "new": 208.57
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].marketCapUsdM",
+   "old": 243295,
+   "new": 240732
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].evUsdM",
+   "old": 242641,
+   "new": 240078
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEps",
+   "old": 9.119,
+   "new": 9.131
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmEbitda",
+   "old": 16488,
+   "new": 16507
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].ntmSales",
+   "old": 50098,
+   "new": 50142
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].peNtm",
+   "old": 23.115473187849545,
+   "new": 22.84196692585697
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].evEbitdaNtm",
+   "old": 14.716217855409996,
+   "new": 14.544011631429091
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].evSalesNtm",
+   "old": 4.843327078925307,
+   "new": 4.787962187387818
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[1].divYieldPct",
+   "old": 1.3952274775843254,
+   "new": 1.4100781512202136
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].price",
+   "old": 236.69,
+   "new": 234.69
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].marketCapUsdM",
+   "old": 194796,
+   "new": 193150
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].evUsdM",
+   "old": 225769,
+   "new": 224123
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEps",
+   "old": 16.298,
+   "new": 16.292
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmEbitda",
+   "old": 20289,
+   "new": 20297
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].ntmSales",
+   "old": 49350,
+   "new": 49387
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].peNtm",
+   "old": 14.522640814823907,
+   "new": 14.4052295605205
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].evEbitdaNtm",
+   "old": 11.127655379762432,
+   "new": 11.042173720254224
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].evSalesNtm",
+   "old": 4.5748530901722395,
+   "new": 4.5380970700791705
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[2].divYieldPct",
+   "old": 0.7435886602729308,
+   "new": 0.7499254335506412
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].price",
+   "old": 137.76,
+   "new": 134.38
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].marketCapUsdM",
+   "old": 142425,
+   "new": 138930
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].evUsdM",
+   "old": 146205,
+   "new": 142710
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEps",
+   "old": 4.784,
+   "new": 4.792
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmEbitda",
+   "old": 7251,
+   "new": 7261
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].ntmSales",
+   "old": 18499,
+   "new": 18524
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].peNtm",
+   "old": 28.795986622073578,
+   "new": 28.042570951585976
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].evEbitdaNtm",
+   "old": 20.163425734381466,
+   "new": 19.654317587109215
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[3].evSalesNtm",
+   "old": 7.9034001837937184,
+   "new": 7.704059598358886
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].price",
+   "old": 225.62,
+   "new": 222.64
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].marketCapUsdM",
+   "old": 212564,
+   "new": 209757
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].evUsdM",
+   "old": 269659,
+   "new": 266852
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmEps",
+   "old": 12.939,
+   "new": 12.946
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmEbitda",
+   "old": 20456,
+   "new": 20467
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].ntmSales",
+   "old": 72402,
+   "new": 72424
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].peNtm",
+   "old": 17.437205348172192,
+   "new": 17.197589989185847
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].evEbitdaNtm",
+   "old": 13.182391474384044,
+   "new": 13.038158987638639
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].evSalesNtm",
+   "old": 3.7244689373221735,
+   "new": 3.6845796973378993
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[4].divYieldPct",
+   "old": 2.9961882811807463,
+   "new": 3.0362917714696374
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].price",
+   "old": 186.75,
+   "new": 186.14
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].marketCapUsdM",
+   "old": 45007,
+   "new": 44860
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].evUsdM",
+   "old": 45369,
+   "new": 45222
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEps",
+   "old": 12.53,
+   "new": 12.548
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmEbitda",
+   "old": 3987,
+   "new": 3992
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].ntmSales",
+   "old": 11413,
+   "new": 11422
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].peNtm",
+   "old": 14.904229848363928,
+   "new": 14.8342365317182
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].evEbitdaNtm",
+   "old": 11.37923250564334,
+   "new": 11.32815631262525
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[5].evSalesNtm",
+   "old": 3.9752037150617716,
+   "new": 3.9592015408860095
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].price",
+   "old": 248.23,
+   "new": 251.52
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].marketCapUsdM",
+   "old": 2677487,
+   "new": 2712974
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].evUsdM",
+   "old": 2796211,
+   "new": 2831698
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmEps",
+   "old": 11.155,
+   "new": 11.142
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmEbitda",
+   "old": 266781,
+   "new": 267517
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].ntmSales",
+   "old": 919874,
+   "new": 920871
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].peNtm",
+   "old": 22.25280143433438,
+   "new": 22.574044157242867
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].evEbitdaNtm",
+   "old": 10.481297393742432,
+   "new": 10.585114217040413
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].evSalesNtm",
+   "old": 3.0397760997701857,
+   "new": 3.075021365641876
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].fy1.eps",
+   "old": 12.773,
+   "new": 12.774
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].fy2.eps",
+   "old": 10.625,
+   "new": 10.631
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[6].epsGrowthFy2Pct",
+   "old": -16.816722774602678,
+   "new": -16.77626428683262
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].priceDate",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].price",
+   "old": 338.24,
+   "new": 343.5
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].marketCapUsdM",
+   "old": 3835950,
+   "new": 3896772
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].evUsdM",
+   "old": 3710824,
+   "new": 3771646
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmEps",
+   "old": 16.497,
+   "new": 16.452
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmEbitda",
+   "old": 282070,
+   "new": 282583
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].ntmSales",
+   "old": 584960,
+   "new": 585910
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].peNtm",
+   "old": 20.503121779717524,
+   "new": 20.87892049598833
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].evEbitdaNtm",
+   "old": 13.15568475910235,
+   "new": 13.347037861442479
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].evSalesNtm",
+   "old": 6.343722647702407,
+   "new": 6.4372446280145414
+  },
+  {
+   "at": "2026-10-05T14:23:32.430Z",
+   "file": "peers.js",
+   "path": "peers[7].divYieldPct",
+   "old": 0.26017029328287605,
+   "new": 0.2561863173216885
   }
  ],
- "generated": "2026-10-05T14:04:51.720Z"
+ "generated": "2026-10-05T14:23:36.266Z"
 }
