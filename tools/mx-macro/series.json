@@ -13,7 +13,7 @@
   "A candidate may override `freq` (e.g. a monthly FRED fallback for a daily Banxico series) and carry a bilingual `note` {es,en} shown next to the source line. A candidate whose last observation is older than the freshness limit for its frequency (monthly 15 months, quarterly 12 months, daily/weekly 120 days) is treated as discontinued and skipped.",
   "Banxico IDs confirmed against the titles the API reported on 2026-09-13: SP1 (INPC general), SP74625-SP74631 (subyacente, mercancías, mercancías no alimenticias, servicios, otros servicios, no subyacente, energéticos y tarifas), SF43718, SF61745, SF43783, SF43936, SE27803, SF43707. SP74639 (tarifas autorizadas) confirmed on the second run. SP2-SP8 are NOT the INPC spending-purpose groups (they are producer-price and construction-cost indices); the spending groups still need their SIE IDs looked up in the catalog. Not yet sourced: IGAE (SR16734 is the old 2013-base series, discontinued 2023), IMSS jobs, industrial production, consumer confidence (FRED's OECD mirror ended 2023-12); these need INEGI indicator IDs confirmed in the INEGI catalog.",
   "SR14195 confirmed by probe on 2026-09-13: Encuesta de expectativas, inflación general para los próximos 12 meses, mediana (SR14194 is the mean). NOT used since 2026-10-05: it is the 'mes t' variant (the 12 months counted from the survey month itself).",
-  "inflExp12m since 2026-10-05: SR16774, the median expected headline inflation for the 12 months that FOLLOW the survey month ('Para los próximos 12 meses (mes t+1)' in SIE table CR155; SR16773 is its mean). It is the figure Banxico headlines in the survey PDF (Cuadro 2, footnote 1: 'se considera el mes posterior al levantamiento de la encuesta') and the one the Mexico fiscal monitor prints, so both pages show one number. The 'mes t' median (SR14195) differs month by month (Feb-2018 to Sep-2026: -0.29 to +0.13 pp, mean -0.04; Sep-2026: 4.16 vs 4.08) and must not be mixed in. The API carries SR16774 only from Feb-2018 (N/E before, although the table lists Jan-1999), so the ex ante history starts in 2018 (SR14195 reached back to 2010). Ids, labels and the Jul-Sep 2026 values were read from the public CR155 table on 2026-10-05; the fetcher's title check confirms the id on every run.",
+  "Expected 12-month inflation since 2026-10-05: two statistics of the same Banxico survey, both for the 12 months that FOLLOW the survey month ('Para los próximos 12 meses (mes t+1)' in SIE table CR155): inflExp12mMean = SR16773 (mean) and inflExp12m = SR16774 (median). The mean drives the ex ante real rate because that is Banxico's own definition (Informe Trimestral abril-junio 2026, note 1 to the chart 'Tasa real ex ante de corto plazo': the target minus 'la media de las expectativas de inflación a 12 meses'; its August 2026 figure, 2.35%, is 6.50 - 4.15); the median, the figure Banxico headlines in Cuadro 2 of the survey PDF and the statistic consensus surveys (Citi, Bloomberg) report, is printed beside it. The fiscal monitor shows the same pair. The 'mes t' variants (SR14194 mean, SR14195 median) count the 12 months from the survey month itself and differ month by month (Feb-2018 to Sep-2026 medians: -0.29 to +0.13 pp; Sep-2026: 4.16 vs 4.08): never mix them. The API carries the 'mes t+1' series only from Feb-2018 (N/E before, although the table lists Jan-1999). Ids, labels and the Jul-Sep 2026 values were read from the public CR155 table on 2026-10-05; the fetcher's title check confirms each id on every run.",
   "banxico candidates carry `page`: the public SIE table (consultarCuadro) that holds the series, used as the source link on the page because the API endpoint the fetcher reads needs a token and shows an error to a reader. Mapped by hand on 2026-09-28 from the SIE directory; a new banxico candidate needs one too.",
   "Yield curve (added 2026-10-03; ids and titles confirmed by probe that day): Cetes primary-auction yields SF43936 (28 days), SF43939 (91), SF43942 (182), SF43945 (364), SF349785 (728, since Oct-2022) and fixed-rate Bonos M SF43883 (3 years), SF43886 (5), SF44071 (10), SF45384 (20), SF60696 (30), all from Banxico table CF107; the 10-year U.S. Treasury is FRED DGS10 (Federal Reserve H.15). Banxico's SIE has no daily secondary-market yields (checked 2026-09-28), so each tenor shows its latest auction, at the issue date Banxico records it under (CF107 is 'a su fecha de colocación'; the auction is two business days earlier)."
  ],
@@ -670,8 +670,25 @@
      "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=24&accion=consultarCuadro&idCuadro=CR155&locale=es",
      "title": "expectativas de inflaci(ó|o)n.*12 meses.*inflaci(ó|o)n general.*\\(mes t\\s*\\+\\s*1\\).*mediana",
      "note": {
-      "es": "Encuesta de Banxico a especialistas del sector privado: mediana de la inflación general esperada para los 12 meses que siguen al mes de la encuesta (serie \"mes t+1\" del SIE, la cifra que Banxico destaca en el Cuadro 2 de la encuesta); la misma serie alimenta la tasa real ex ante del monitor fiscal",
-      "en": "Banxico survey of private-sector economists: median expected headline inflation over the 12 months after the survey month (the SIE's \"month t+1\" series, the figure Banxico headlines in Table 2 of the survey); the same series feeds the ex ante real rate on the fiscal monitor"
+      "es": "Encuesta de Banxico a especialistas del sector privado: mediana de la inflación general esperada para los 12 meses que siguen al mes de la encuesta (serie \"mes t+1\" del SIE; la cifra que Banxico destaca en el Cuadro 2 de la encuesta y la estadística que reportan las encuestas de consenso); se muestra junto a la media, que es la que mueve la tasa real ex ante",
+      "en": "Banxico survey of private-sector economists: median expected headline inflation over the 12 months after the survey month (the SIE's \"month t+1\" series; the figure Banxico headlines in Table 2 of the survey and the statistic consensus surveys report); shown beside the mean, which drives the ex ante real rate"
+     }
+    }
+   ]
+  },
+  "inflExp12mMean": {
+   "freq": "M",
+   "unit": "pct",
+   "since": "2010-01-01",
+   "candidates": [
+    {
+     "provider": "banxico",
+     "id": "SR16773",
+     "page": "https://www.banxico.org.mx/SieInternet/consultarDirectorioInternetAction.do?sector=24&accion=consultarCuadro&idCuadro=CR155&locale=es",
+     "title": "expectativas de inflaci(ó|o)n.*12 meses.*inflaci(ó|o)n general.*\\(mes t\\s*\\+\\s*1\\)\\s*media\\s*$",
+     "note": {
+      "es": "Encuesta de Banxico a especialistas del sector privado: media de la inflación general esperada para los 12 meses que siguen al mes de la encuesta (serie \"mes t+1\" del SIE); es la estadística con la que Banxico calcula su tasa real ex ante (Informe Trimestral), y la que mueve la tasa real ex ante de esta página y del monitor fiscal",
+      "en": "Banxico survey of private-sector economists: mean expected headline inflation over the 12 months after the survey month (the SIE's \"month t+1\" series); the statistic Banxico uses for its own ex ante real rate (Quarterly Report), and the one behind the ex ante real rate on this page and on the fiscal monitor"
      }
     }
    ]

@@ -1147,9 +1147,9 @@ const I18N = {
     sumBxLatest: (r, chg) => "La tasa objetivo está en " + r + " (" + chg + " en tres meses).",
     sumBxInfl: (m, v) => "La inflación anual es de " + v + " (" + m + ").",
     sumBxNoChange: "sin cambios",
-    sumBxDriverAbove: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ": por arriba del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno restrictivo.",
-    sumBxDriverWithin: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ", dentro del rango neutral que estima Banxico (1.8–3.4%).",
-    sumBxDriverBelow: (v) => "La tasa real ex ante (tasa menos inflación esperada a 12 meses) es de " + v + ": por debajo del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno acomodaticio.",
+    sumBxDriverAbove: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por arriba del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno restrictivo.",
+    sumBxDriverWithin: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ", dentro del rango neutral que estima Banxico (1.8–3.4%).",
+    sumBxDriverBelow: (v, med) => "La tasa real ex ante (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico) es de " + v + (med ? " (" + med + " con la mediana)" : "") + ": por debajo del rango neutral que estima Banxico (1.8–3.4%), es decir, terreno acomodaticio.",
     sumBxDriverPost: (v) => "La tasa real ex post (tasa menos inflación observada) es de " + v + ".",
     sumBxWhy: "Esa distancia define qué tan restrictiva es la política monetaria: guía el costo del crédito y el atractivo del peso.",
     sumBxNext: (w) => "Las decisiones siguen el calendario de Banxico. La señal: si la inflación converge al 3% y da espacio para " + w + ".",
@@ -1229,7 +1229,8 @@ const I18N = {
       "mbono20": "Bono M 20 años",
       "mbono30": "Bono M 30 años",
       "ust10": "Tesoro de EE. UU. a 10 años",
-      "inflExp12m": "Inflación esperada a 12 meses"
+      "inflExp12m": "Inflación esperada a 12 meses (mediana)",
+      "inflExp12mMean": "Inflación esperada a 12 meses (media)"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OCDE / INEGI", IMF: "FMI / INEGI", Fed: "Reserva Federal (H.10)", FedH15: "Reserva Federal (H.15)" },
 
@@ -1360,15 +1361,15 @@ const I18N = {
     bxSecSpreadNote: "Puntos base, en cada subasta del Bono M a 10 años",
     bxSecRes: "Reservas internacionales",
     bxSecResNote: "Miles de millones de dólares, semanal",
-    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. Curva de rendimientos: tasa de rendimiento de la subasta primaria más reciente de Cetes (28, 91, 182, 364 y 728 días) y Bonos M (3, 5, 10, 20 y 30 años), Banco de México, cuadro CF107 del SIE; cada subasta lleva la fecha de colocación con que la registra Banxico, dos días hábiles después de la subasta; Banxico no publica rendimientos diarios del mercado secundario. Tesoro de EE. UU. a 10 años: rendimiento a vencimiento constante (Reserva Federal, H.15, vía FRED DGS10); el diferencial resta el cierre del día de la subasta o, si no lo hay, el anterior más cercano. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante resta la mediana de la inflación general esperada para los 12 meses que siguen al mes de la encuesta, de la Encuesta de Banxico a especialistas del sector privado (SIE SR16774, serie \"mes t+1\": la cifra que Banxico destaca en el Cuadro 2 de la encuesta y la misma que muestra el monitor fiscal de México; la variante \"mes t\", SR14195, cuenta los 12 meses desde el mes de la encuesta y no se usa).",
+    footerBanxico: "Tasa objetivo, TIIE a 28 días, Cetes a 28 días (tasa de rendimiento en subasta primaria) y reservas internacionales: Banco de México. Bono M a 10 años: tasa de rendimiento de la subasta primaria (Banco de México); la serie mensual de la OCDE vía FRED es el respaldo. Curva de rendimientos: tasa de rendimiento de la subasta primaria más reciente de Cetes (28, 91, 182, 364 y 728 días) y Bonos M (3, 5, 10, 20 y 30 años), Banco de México, cuadro CF107 del SIE; cada subasta lleva la fecha de colocación con que la registra Banxico, dos días hábiles después de la subasta; Banxico no publica rendimientos diarios del mercado secundario. Tesoro de EE. UU. a 10 años: rendimiento a vencimiento constante (Reserva Federal, H.15, vía FRED DGS10); el diferencial resta el cierre del día de la subasta o, si no lo hay, el anterior más cercano. La tasa real ex post se calcula como tasa objetivo menos la inflación anual del INPC del mismo mes; la ex ante resta la media de la inflación general esperada para los 12 meses que siguen al mes de la encuesta, de la Encuesta de Banxico a especialistas del sector privado (SIE SR16773, serie \"mes t+1\"), que es como Banxico calcula su tasa real ex ante (Informe Trimestral, nota de la gráfica \"Tasa real ex ante de corto plazo\"); la mediana de la misma encuesta (SIE SR16774, la cifra que Banxico destaca en el Cuadro 2 de la encuesta y la estadística que reportan las encuestas de consenso) se muestra junto a ella. El monitor fiscal de México muestra las mismas dos cifras. Las variantes \"mes t\" (SR14194 media, SR14195 mediana) cuentan los 12 meses desde el mes de la encuesta y no se usan.",
     kpiPolicy: "Tasa objetivo",
     kpiTiie: "TIIE 28 días",
     kpiCetes: "Cetes 28 días",
     kpiBono: "Bono M 10 años",
     kpiReal: "Tasa real ex post",
     kpiRealExAnte: "Tasa real ex ante",
-    legExp: "Inflación esperada, 12 meses siguientes a la encuesta (Banxico, mediana)",
-    kpiExpFoot: "tasa objetivo menos la mediana de inflación esperada (encuesta Banxico, 12 meses siguientes)",
+    legExp: "Inflación esperada a 12 meses (media de la encuesta de Banxico, meses siguientes a la encuesta)",
+    kpiExpFoot: (med) => "objetivo menos la media de la inflación esperada a 12 meses (definición de Banxico)" + (med ? "; con la mediana, " + med : ""),
     kpiReserves: "Reservas internacionales",
     legPolicy: "Tasa objetivo",
     legInflation: "Inflación general anual",
@@ -1377,7 +1378,7 @@ const I18N = {
     legBono: "Bono M 10 años",
     legReserves: "Reservas (miles de millones de dólares)",
     bxPolicyCallout: (d, r, m, i) => "Tasa objetivo " + r + " (" + d + "); inflación anual " + i + " (" + m + ").",
-    bxRealCallout: (m, v, a) => m + ": tasa real ex post de " + v + (a ? "; ex ante (con inflación esperada a 12 meses) de " + a : "") + ".",
+    bxRealCallout: (m, v, a, am) => m + ": tasa real ex post de " + v + (a ? "; ex ante de " + a + " (tasa menos la media de la inflación esperada a 12 meses, como la calcula Banxico" + (am ? "; con la mediana, " + am : "") + ")" : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": Cetes 28 " + c + ", TIIE 28 " + t + ", Bono M 10 años " + b + ".",
     bxResCallout: (d, v, y) => d + ": " + v + " mil millones de dólares, " + y + " en un año.",
     legYcNow: "Última subasta de cada plazo",
@@ -1486,9 +1487,9 @@ const I18N = {
     sumBxLatest: (r, chg) => "The policy rate stands at " + r + " (" + chg + " over three months).",
     sumBxInfl: (m, v) => "Annual inflation is " + v + " (" + m + ").",
     sumBxNoChange: "unchanged",
-    sumBxDriverAbove: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ": above the neutral range Banxico estimates (1.8–3.4%), i.e., restrictive territory.",
-    sumBxDriverWithin: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ", inside the neutral range Banxico estimates (1.8–3.4%).",
-    sumBxDriverBelow: (v) => "The ex ante real rate (policy rate minus 12-month expected inflation) is " + v + ": below the neutral range Banxico estimates (1.8–3.4%), i.e., accommodative territory.",
+    sumBxDriverAbove: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": above the neutral range Banxico estimates (1.8–3.4%), i.e., restrictive territory.",
+    sumBxDriverWithin: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ", inside the neutral range Banxico estimates (1.8–3.4%).",
+    sumBxDriverBelow: (v, med) => "The ex ante real rate (policy rate minus the mean 12-month expected inflation, Banxico's own definition) is " + v + (med ? " (" + med + " with the median)" : "") + ": below the neutral range Banxico estimates (1.8–3.4%), i.e., accommodative territory.",
     sumBxDriverPost: (v) => "The ex post real rate (policy rate minus observed inflation) is " + v + ".",
     sumBxWhy: "That distance defines how restrictive monetary policy is: it drives the cost of credit and the peso's carry appeal.",
     sumBxNext: (w) => "Decisions follow Banxico's calendar. Watch whether inflation converges to 3% and makes room for " + w + ".",
@@ -1568,7 +1569,8 @@ const I18N = {
       "mbono20": "20-year M bond",
       "mbono30": "30-year M bond",
       "ust10": "10-year U.S. Treasury",
-      "inflExp12m": "Expected inflation, 12 months ahead"
+      "inflExp12m": "Expected inflation, 12 months ahead (median)",
+      "inflExp12mMean": "Expected inflation, 12 months ahead (mean)"
     },
     origins: { INEGI: "INEGI", Banxico: "Banco de México", IMSS: "IMSS", OECD: "OECD / INEGI", IMF: "IMF / INEGI", Fed: "Federal Reserve (H.10)", FedH15: "Federal Reserve (H.15)" },
 
@@ -1699,15 +1701,15 @@ const I18N = {
     bxSecSpreadNote: "Basis points, at each 10-year M bond auction",
     bxSecRes: "International reserves",
     bxSecResNote: "Billions of US dollars, weekly",
-    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. Yield curve: latest primary auction yield of Cetes (28, 91, 182, 364 and 728 days) and fixed-rate M bonds (3, 5, 10, 20 and 30 years), Banco de México, SIE table CF107; each auction carries the issue date Banxico records it under, two business days after the auction; Banxico publishes no daily secondary-market yields. 10-year Treasury: constant-maturity yield (Federal Reserve, H.15, via FRED DGS10); the spread subtracts the close of the auction day or, if there is none, the nearest earlier one. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the median expected headline inflation over the 12 months after the survey month, from Banxico's survey of private-sector economists (SIE SR16774, the \"month t+1\" series: the figure Banxico headlines in Table 2 of the survey and the same one the Mexico fiscal monitor shows; the \"month t\" variant, SR14195, counts the 12 months from the survey month itself and is not used).",
+    footerBanxico: "Policy target rate, 28-day TIIE, 28-day Cetes (primary auction yield) and international reserves: Banco de México. 10-year M bond: primary auction yield (Banco de México); the OECD monthly series via FRED is the fallback. Yield curve: latest primary auction yield of Cetes (28, 91, 182, 364 and 728 days) and fixed-rate M bonds (3, 5, 10, 20 and 30 years), Banco de México, SIE table CF107; each auction carries the issue date Banxico records it under, two business days after the auction; Banxico publishes no daily secondary-market yields. 10-year Treasury: constant-maturity yield (Federal Reserve, H.15, via FRED DGS10); the spread subtracts the close of the auction day or, if there is none, the nearest earlier one. The ex post real rate is the policy rate minus the same month's 12-month INPC inflation; the ex ante rate subtracts the mean expected headline inflation over the 12 months after the survey month, from Banxico's survey of private-sector economists (SIE SR16773, the \"month t+1\" series), which is how Banxico computes its own ex ante real rate (Quarterly Report, note to the chart \"Tasa real ex ante de corto plazo\"); the median of the same survey (SIE SR16774, the figure Banxico headlines in Table 2 of the survey and the statistic consensus surveys report) is shown beside it. The Mexico fiscal monitor shows the same two figures. The \"month t\" variants (SR14194 mean, SR14195 median) count the 12 months from the survey month itself and are not used.",
     kpiPolicy: "Policy rate",
     kpiTiie: "28-day TIIE",
     kpiCetes: "28-day Cetes",
     kpiBono: "10-year M bond",
     kpiReal: "Ex post real rate",
     kpiRealExAnte: "Ex ante real rate",
-    legExp: "Expected inflation, 12 months after the survey month (Banxico, median)",
-    kpiExpFoot: "policy rate minus the median expected inflation (Banxico survey, next 12 months)",
+    legExp: "Expected inflation, 12 months ahead (Banxico survey mean, months after the survey)",
+    kpiExpFoot: (med) => "target minus the mean 12-month expected inflation (Banxico's definition)" + (med ? "; with the median, " + med : ""),
     kpiReserves: "International reserves",
     legPolicy: "Policy rate",
     legInflation: "Headline inflation, YoY",
@@ -1716,7 +1718,7 @@ const I18N = {
     legBono: "10-year M bond",
     legReserves: "Reserves (US$ billion)",
     bxPolicyCallout: (d, r, m, i) => "Policy rate " + r + " (" + d + "); headline inflation " + i + " (" + m + ").",
-    bxRealCallout: (m, v, a) => m + ": ex post real rate of " + v + (a ? "; ex ante (using expected 12-month inflation) " + a : "") + ".",
+    bxRealCallout: (m, v, a, am) => m + ": ex post real rate of " + v + (a ? "; ex ante " + a + " (policy rate minus the mean 12-month expected inflation, Banxico's own definition" + (am ? "; with the median, " + am : "") + ")" : "") + ".",
     bxCurveCallout: (m, c, t, b) => m + ": 28-day Cetes " + c + ", 28-day TIIE " + t + ", 10-year M bond " + b + ".",
     bxResCallout: (d, v, y) => d + ": US$" + v + " billion, " + y + " over one year.",
     legYcNow: "Latest auction of each tenor",
@@ -1839,7 +1841,7 @@ const ORIGIN = {
   tiie28: {banxico: "Banxico"}, cetes28: {banxico: "Banxico"}, mbono10: {banxico: "Banxico", fred: "OECD"},
   cetes91: {banxico: "Banxico"}, cetes182: {banxico: "Banxico"}, cetes364: {banxico: "Banxico"}, cetes728: {banxico: "Banxico"},
   mbono3: {banxico: "Banxico"}, mbono5: {banxico: "Banxico"}, mbono20: {banxico: "Banxico"}, mbono30: {banxico: "Banxico"}, ust10: {fred: "FedH15"},
-  inflExp12m: {banxico: "Banxico"}
+  inflExp12m: {banxico: "Banxico"}, inflExp12mMean: {banxico: "Banxico"}
 };
 function originOf(key, s) { const o = (ORIGIN[key] || {})[s.provider] || "INEGI"; return T.origins[o] || o; }
 function sourceLine(elId, keys) {
@@ -2526,7 +2528,7 @@ function renderBanxico() {
   const BO = S("mbono10") ? P("mbono10") : null, RS = S("reserves") ? P("reserves") : null, H = S("inpc") ? withChanges(P("inpc")) : null;
   const prL = PR ? last(PR) : null, hL = H ? lastWith(H, "yoy") : null;
   const anyBx = [["policyRate", PR], ["tiie28", TI], ["cetes28", CE], ["mbono10", BO], ["reserves", RS]].filter(x => x[1]);
-  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "inflExp12m", "reserves"].concat(YC_KEYS), true);
+  headerMeta("bx", anyBx.map(x => nameOf(x[0]) + " " + fmtAny(last(x[1]).d)).slice(0, 2).join(" · "), T.bxNext, ["policyRate", "tiie28", "cetes28", "mbono10", "inflExp12mMean", "inflExp12m", "reserves"].concat(YC_KEYS), true);
   const YC = yieldCurveModel(), SP = bonoUstSpread(), spL = last(SP);
 
   const row = document.getElementById("bxKpiRow");
@@ -2544,14 +2546,19 @@ function renderBanxico() {
     const pv = SP.length > 1 ? SP[SP.length - 2] : null;
     kpiTile(row, {label: T.kpiSpread, value: fmtBp(spL.v), delta: pv ? deltaText(spL.v - pv.v, T.kpiDeltaBpAuction, 0, v => Math.abs(Math.round(v))) : "", foot: fmtDateDMY(spL.d), spark: SP.slice(-24).map(p => p.v), color: "--cat-6"});
   }
-  const EX = S("inflExp12m") ? P("inflExp12m") : null;
+  // Expected 12-month inflation: two statistics of the same Banxico survey (both "mes t+1"). The mean drives the chart line
+  // and the ex ante real rate because that is Banxico's own definition (Informe Trimestral: target minus the mean of 12-month
+  // expectations); the median, the consensus-survey statistic, is printed beside it. The fiscal monitor shows the same pair.
+  const EX = S("inflExp12mMean") ? P("inflExp12mMean") : null, EXD = S("inflExp12m") ? P("inflExp12m") : null;
   const realSeries = (pm) => pm.map(p => { const h = H.find(q => q.d === p.d); return {d: p.d, v: h && h.yoy !== null ? r2(p.v - h.yoy) : null}; }).filter(p => p.v !== null);
-  const exAnteSeries = (pm) => EX ? pm.map(p => { const e = EX.find(q => q.d === p.d); return {d: p.d, v: e ? r2(p.v - e.v) : null}; }).filter(p => p.v !== null) : [];
+  const exAnteWith = (pm, src) => src ? pm.map(p => { const e = src.find(q => q.d === p.d); return {d: p.d, v: e ? r2(p.v - e.v) : null}; }).filter(p => p.v !== null) : [];
+  const exAnteSeries = (pm) => exAnteWith(pm, EX);
+  const exAnteMedian = (pm) => EX ? exAnteWith(pm, EXD) : [];
   if (PR && H) {
     const realPts = realSeries(monthEnd(PR)), rl = last(realPts);
     kpiTile(row, {label: T.kpiReal, value: fmtLevelPct(rl.v, 2), foot: fmtMonthYear(rl.d), spark: realPts.slice(-24).map(p => p.v), color: "--cat-9"});
-    const ea = exAnteSeries(monthEnd(PR)), el = last(ea);
-    if (el) kpiTile(row, {label: T.kpiRealExAnte, value: fmtLevelPct(el.v, 2), foot: fmtMonthYear(el.d) + " · " + T.kpiExpFoot, spark: ea.slice(-24).map(p => p.v), color: "--cat-5"});
+    const ea = exAnteSeries(monthEnd(PR)), el = last(ea), em = last(exAnteMedian(monthEnd(PR)));
+    if (el) kpiTile(row, {label: T.kpiRealExAnte, value: fmtLevelPct(el.v, 2), foot: fmtMonthYear(el.d) + " · " + T.kpiExpFoot(em && em.d === el.d ? fmtLevelPct(em.v, 2) : null), spark: ea.slice(-24).map(p => p.v), color: "--cat-5"});
   }
   if (RS) {
     const l = last(RS), ago = atOrBefore(RS, shiftDays(l.d.length === 10 ? l.d : l.d + "-01", -365));
@@ -2567,10 +2574,10 @@ function renderBanxico() {
       EX ? {pts: EX.filter(p => p.d >= "2012-01"), color: "--cat-5", label: T.legExp, dashed: true, noDot: true} : null
     ].filter(Boolean), {legendId: "bxPolicyLegend", tooltipId: "bxPolicyTooltip", calloutId: "bxPolicyCallout", zeroBase: true, fmt: v => fmtLevelPct(v, 2), target: {value: 3, label: T.target}, labelFmt: fmtMonthYear,
         calloutLines: [T.bxPolicyCallout(fmtAny(prL.d), fmtLevelPct(prL.v, 2), fmtMonthYear(hL.d), fmtLevelPct(hL.yoy, 2))]});
-    const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea);
+    const realPts = realSeries(pm), rl = last(realPts), ea = exAnteSeries(pm).slice(-36), el = last(ea), em = last(exAnteMedian(pm));
     columns("bxRealChart", realPts.slice(-36), "--cat-9", {fmt: v => fmtPP(v, 2), axisFmt: v => v.toFixed(0), tickEvery: 6, labelFmt: fmtMonthYear, colorFn: v => v >= 0 ? "--cat-9" : "--cat-8", overlay: ea});
     document.getElementById("bxRealLegend").innerHTML = `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-9)"></span>${esc(T.kpiReal)}</div>` + (el ? `<div class="legend-item"><span class="legend-swatch" style="background:var(--cat-5)"></span>${esc(T.kpiRealExAnte)}</div>` : "");
-    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), el ? fmtPP(el.v, 2) : null))}</div>`;
+    document.getElementById("bxRealCallout").innerHTML = `<div>${esc(T.bxRealCallout(fmtMonthYear(rl.d), fmtPP(rl.v, 2), el ? fmtPP(el.v, 2) : null, el && em && em.d === el.d ? fmtPP(em.v, 2) : null))}</div>`;
   }
   showSec("bxCurveSec", !!(CE || TI || BO));
   if (CE || TI || BO) {
@@ -2628,8 +2635,8 @@ function renderBanxico() {
     const chgTxt = bp === null ? "—" : bp === 0 ? T.sumBxNoChange : fmtSigned(bp, 0) + " " + (LANG === "es" ? "pb" : "bp");
     let drvLine = null, realV = null;
     if (H) {
-      const eaPts = exAnteSeries(monthEnd(PR)), eaL = last(eaPts);
-      if (eaL) { realV = eaL.v; drvLine = [T.sumDriver, (realV > 3.4 ? T.sumBxDriverAbove : realV < 1.8 ? T.sumBxDriverBelow : T.sumBxDriverWithin)(fmtLevelPct(realV, 1))]; }
+      const eaPts = exAnteSeries(monthEnd(PR)), eaL = last(eaPts), emL = last(exAnteMedian(monthEnd(PR)));
+      if (eaL) { realV = eaL.v; drvLine = [T.sumDriver, (realV > 3.4 ? T.sumBxDriverAbove : realV < 1.8 ? T.sumBxDriverBelow : T.sumBxDriverWithin)(fmtLevelPct(realV, 1), emL && emL.d === eaL.d ? fmtLevelPct(emL.v, 1) : null)]; }
       else { const rp = last(realSeries(monthEnd(PR))); if (rp) drvLine = [T.sumDriver, T.sumBxDriverPost(fmtLevelPct(rp.v, 1))]; }
     }
     const moveWord = bp !== null && bp < 0 ? T.sumBxMoveCuts : bp !== null && bp > 0 ? T.sumBxMoveHikes : T.sumBxMoveAny;
