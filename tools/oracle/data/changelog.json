@@ -4,76 +4,6 @@
   {
    "at": "2026-10-04T00:59:06.195Z",
    "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].superseded[1].value",
-   "old": null,
-   "new": 10.9
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].fiscal",
-   "old": null,
-   "new": "FY2024Q4"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[5].ytd_months",
-   "old": null,
-   "new": 12
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].start",
-   "old": null,
-   "new": "2024-06-01"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].end",
-   "old": null,
-   "new": "2024-08-31"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].months",
-   "old": null,
-   "new": 3
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].value",
-   "old": null,
-   "new": 7.6
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].form",
-   "old": null,
-   "new": "10-Q"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].accn",
-   "old": null,
-   "new": "0001193125-25-200095"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].filed",
-   "old": null,
-   "new": "2025-09-10"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
    "path": "concepts.tax_rate_effective.cumulative[6].url",
    "old": null,
    "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm"
@@ -4200,7 +4130,77 @@
    "path": "rates.US10Y.points.length",
    "old": 16174,
    "new": 16173
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "prices.ORCL.sourceUrl",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-04&todate=2026-10-04&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-05&todate=2026-10-05&limit=10000"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-04",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "prices.ORCL.points.length",
+   "old": 1255,
+   "new": 1254
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.source",
+   "old": "FRED DGS10",
+   "new": "U.S. Treasury daily par yield curve"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16173,
+   "new": 16174
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.sourceUrl",
+   "old": null,
+   "new": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.series",
+   "old": null,
+   "new": "10-year par yield, daily"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": null,
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": null,
+   "new": 5.28
+  },
+  {
+   "at": "2026-10-05T11:29:10.201Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": null,
+   "new": "2026-10-05"
   }
  ],
- "generated": "2026-10-04T15:33:06.372Z"
+ "generated": "2026-10-05T11:29:10.201Z"
 }
