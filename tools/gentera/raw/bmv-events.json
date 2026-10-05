@@ -2,11 +2,196 @@
  "issuer": "GENTERA-7472-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": null,
- "rows": 0,
- "archived": 0,
+ "checkedAt": "2026-10-05T14:52:04.903Z",
+ "rows": 210,
+ "archived": 20,
  "pending": 0,
  "unmatched": [],
- "error": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GENTERA-7472-CGEN_CAPIT -> gave up (HTTP 503)",
- "seen": []
+ "error": null,
+ "seen": [
+  {
+   "id": "1592057",
+   "date": "2026-09-29",
+   "title": "GENTERA announces debt issuance by its subsidiary FinCrementar, a company within ConCrédito",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1592057_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-29_bmv1592057_es.txt"
+  },
+  {
+   "id": "1592053",
+   "date": "2026-09-29",
+   "title": "GENTERA anuncia colocación de deuda por su subsidiaria FinCrementar, empresa que conforma ConCrédito",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1592053_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-29_bmv1592053_es.txt"
+  },
+  {
+   "id": "1590954",
+   "date": "2026-09-23",
+   "title": "GENTERA announces the renewal of of its Market Maker agreement with BTG Pactual",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1590954_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-23_bmv1590954_es.txt"
+  },
+  {
+   "id": "1590953",
+   "date": "2026-09-23",
+   "title": "GENTERA anuncia la renovación de servicio de Formador de Mercado con BTG Pactual",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1590953_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-23_bmv1590953_es.txt"
+  },
+  {
+   "id": "1588437",
+   "date": "2026-09-11",
+   "title": "GENTERA informs the actions taken by FITCH Ratings over Banco Compartamos' ratings",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1588437_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-11_bmv1588437_es.txt"
+  },
+  {
+   "id": "1588434",
+   "date": "2026-09-11",
+   "title": "GENTERA informa acciones de FITCH Ratings sobre las calificaciones de Compartamos Banco",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1588434_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-09-11_bmv1588434_es.txt"
+  },
+  {
+   "id": "1585646",
+   "date": "2026-08-31",
+   "title": "GENTERA, informa sobre los movimientos en el volumen de los valores representativos del capital social de \"GENTERA\", serie \"*\"",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1585646_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-08-31_bmv1585646_es.txt"
+  },
+  {
+   "id": "1584330",
+   "date": "2026-08-25",
+   "title": "GENTERA Announces Successful Placement of Four Social Bonds COMPART 26S, COMPART 26-2S, COMPART 26-3S, and COMPART 26-4S Issued by its Subsidiary Banco Compartamos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1584330_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-08-25_bmv1584330_es.txt"
+  },
+  {
+   "id": "1584327",
+   "date": "2026-08-25",
+   "title": "GENTERA anuncia exitosa colocación de cuatro Bonos Sociales COMPART 26S, COMPART26-2S, COMPART26-3S y COMPART 26-4S realizada por su subsidiaria Banco Compartamos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1584327_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-08-25_bmv1584327_es.txt"
+  },
+  {
+   "id": "1576004",
+   "date": "2026-07-22",
+   "title": "GENTERA REPORTS 2Q26 RESULTS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576004_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-07-22_bmv1576004_es.txt"
+  },
+  {
+   "id": "1576000",
+   "date": "2026-07-22",
+   "title": "GENTERA REPORTA RESULTADOS DEL 2T26",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1576000_1.pdf",
+   "coveredBy": "release:2026Q2"
+  },
+  {
+   "id": "1572702",
+   "date": "2026-07-06",
+   "title": "GENTERA announces that S&P Global affirmed Banco Compartamos' national scale ratings",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1572702_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-07-06_bmv1572702_es.txt"
+  },
+  {
+   "id": "1572701",
+   "date": "2026-07-06",
+   "title": "GENTERA informa ratificación de calificaciones en escala nacional por S&P Global a Banco Compartamos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1572701_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-07-06_bmv1572701_es.txt"
+  },
+  {
+   "id": "1568420",
+   "date": "2026-06-17",
+   "title": "GENTERA announces that Moody's Local affirmed Banco Compartamos' ratings.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1568420_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-06-17_bmv1568420_es.txt"
+  },
+  {
+   "id": "1568413",
+   "date": "2026-06-17",
+   "title": "GENTERA informa ratificación de calificaciones por Moody's Local a Banco Compartamos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1568413_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-06-17_bmv1568413_es.txt"
+  },
+  {
+   "id": "1567376",
+   "date": "2026-06-12",
+   "title": "Gentera anuncia líneas de crédito obtenidas por empresas de su subsidiaria ConCrédito.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1567376_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-06-12_bmv1567376_es.txt"
+  },
+  {
+   "id": "1560854",
+   "date": "2026-05-18",
+   "title": "Gentera anuncia incremento en línea de crédito en Banco Compartamos",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1560854_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-05-18_bmv1560854_es.txt"
+  },
+  {
+   "id": "1550313",
+   "date": "2026-04-22",
+   "title": "GENTERA REPORTS 1Q26 RESULTS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550313_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-04-22_bmv1550313_es.txt"
+  },
+  {
+   "id": "1550312",
+   "date": "2026-04-22",
+   "title": "GENTERA REPORTA RESULTADOS DEL 1T26",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550312_1.pdf",
+   "coveredBy": "release:2026Q1"
+  },
+  {
+   "id": "1547778",
+   "date": "2026-04-10",
+   "title": "GENTERA anuncia cambios en el Consejo de Administración",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1547778_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-04-10_bmv1547778_es.txt"
+  },
+  {
+   "id": "1536681",
+   "date": "2026-02-25",
+   "title": "GENTERA REPORTS 4Q25 RESULTS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1536681_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-02-25_bmv1536681_es.txt"
+  },
+  {
+   "id": "1536678",
+   "date": "2026-02-25",
+   "title": "GENTERA REPORTA RESULTADOS DEL 4T25",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1536678_1.pdf",
+   "coveredBy": "release:2025Q4"
+  },
+  {
+   "id": "1535293",
+   "date": "2026-02-19",
+   "title": "GENTERA anuncia colocación de deuda por su subsidiaria en Perú, Compartamos Banco.",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1535293_1.pdf",
+   "file": "tools/gentera/raw/text/events/2026-02-19_bmv1535293_es.txt"
+  }
+ ]
 }
