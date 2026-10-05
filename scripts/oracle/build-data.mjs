@@ -164,7 +164,7 @@ emit("financials.js", "ORCL_FIN", {
   fiscalYearEnd: "05-31", layout, quarters: finQuarters, ytd: [], years,
   coverage: { quarters: [finQuarters[0]?.id, finQuarters.at(-1)?.id], years: [years[0]?.id, years.at(-1)?.id], releasesParsed: finQuarters.length },
   basisNotes: load("quarters.json").meta,
-}, "Oracle quarterly and annual statements — built from tools/oracle/data/quarters.json + tools/oracle/data/fiscal_years.json (tie-out validated).");
+}, "Oracle quarterly and annual statements — built from the tie-out-validated quarterly and fiscal-year stores.");
 
 // ---------- market.js ----------
 const mref = load("market_reference.json", {});
@@ -333,7 +333,7 @@ if (obl) emit("obligations.js", "ORCL_OBLIG", { ...obl, generatedAt: now }, "Off
 
 // ---------- peer_leverage.js (Baa-range technology issuers, SEC XBRL) ----------
 const plv = load("peer_leverage.json", null);
-if (plv) emit("peer_leverage.js", "ORCL_PEER_LEV", plv, "Lease-adjusted leverage inputs for peer issuers from SEC XBRL company facts (scripts/oracle/fetch-peer-leverage.mjs); ratios are computed on the page and labelled derived.");
+if (plv) emit("peer_leverage.js", "ORCL_PEER_LEV", plv, "Lease-adjusted leverage inputs for peer issuers from SEC XBRL company facts; ratios are computed on the page and labelled derived.");
 
 // ---------- cds.js ----------
 const cds = load("cds.json", { tenor: 5, recoveryPct: 40, points: [], source: "FactSet (pending authorisation)", updatedAt: null });
@@ -358,7 +358,7 @@ if (fsd) {
   });
   emit("peers.js", "ORCL_PEERS", { updatedAt: fsd.as_of, priceDate: fsd.price_date, source: fsd.source, groups: fsd.peer_groups || null, peers }, "Peer forward multiples — FactSet consensus (NTM EPS, EBITDA, sales; FY1/FY2 EPS) with FactSet prices, market values and latest reported net debt; Oracle's own row is computed live in the page.");
 } else {
-  emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until tools/oracle/data/factset.json exists.");
+  emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until a FactSet snapshot exists.");
 }
 
 // ---------- analysts.js (sell-side opinions by house: reports in the owner's library summarised in-session, StreetAccount-reported houses, consensus snapshot) ----------

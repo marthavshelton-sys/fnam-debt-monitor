@@ -1,5 +1,5 @@
 /* Quálitas interactive financial model — page logic.
-   Data contracts (window.Q_*) are documented in tools/qualitas/README.md. Everything here is derived from
+   Data contracts (window.Q_*) are documented in the model's runbook. Everything here is derived from
    those files at render time; no figures are hard-coded. Structure mirrors the GAP model (site/gap/app.js). */
 (function () {
   'use strict';
@@ -127,7 +127,7 @@
   const yoyQid = (q) => `${q.fy - 1}Q${q.q}`;
   const sumParts = (objs) => { const o = {}; for (const x of objs) for (const [k, v] of Object.entries(x || {})) if (typeof v === 'number') o[k] = (o[k] || 0) + v; return o; };
   const POINT_KPI = ['units', 'rcs', 'solvMargin', 'solvIndex', 'fiPct', 'duration', 'float', 'invTotal', 'roe12', 'roePeriod', 'acqRatioRep', 'lossRatioRep', 'opRatioRep', 'combinedRep', 'combinedAdjRep'];
-  // Ratios recomputed from an income statement (same formulas as scripts/qualitas/build_data.py).
+  // Ratios recomputed from an income statement (same formulas as the data builder).
   function ratiosFrom(is, sharesK) {
     const k = {}; if (!is) return k; const g = (x) => is[x];
     if (g('acqCost') != null && g('retained')) k.acqRatio = 100 * g('acqCost') / g('retained');
@@ -996,7 +996,7 @@
   function renderMethod() {
     const es = LANG === 'es';
     const rows = [
-      [es ? 'Estados financieros trimestrales, acumulados y anuales; unidades y primas por línea' : 'Quarterly, YTD and annual statements; units and premiums by line', es ? 'diario 14:50 UTC (informes y SIFIC nuevos) y 23:00 UTC (mercado)' : 'daily 14:50 UTC (new reports and SIFIC filings) and 23:00 UTC (market)', es ? 'GitHub Actions descarga los informes trimestrales y reportes SIFIC del sitio de RI, los convierte en tablas y valida cuadres antes de publicar' : 'GitHub Actions downloads the quarterly reports and SIFIC filings from the IR site, parses the tables and validates tie-outs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
+      [es ? 'Estados financieros trimestrales, acumulados y anuales; unidades y primas por línea' : 'Quarterly, YTD and annual statements; units and premiums by line', es ? 'diario 14:50 UTC (informes y SIFIC nuevos) y 23:00 UTC (mercado)' : 'daily 14:50 UTC (new reports and SIFIC filings) and 23:00 UTC (market)', es ? 'Un proceso automático descarga los informes trimestrales y reportes SIFIC del sitio de RI, los convierte en tablas y valida cuadres antes de publicar' : 'An automated job downloads the quarterly reports and SIFIC filings from the IR site, parses the tables and validates tie-outs before publishing', fmtDate((FIN.generatedAt || '').slice(0, 10))],
       [es ? 'Expectativas de la administración' : 'Management expectations', es ? 'por trimestre (revisado)' : 'per quarter (reviewed)', 'data/guidance.js', GD.updatedAt ? fmtDate(GD.updatedAt) : '—'],
       [es ? 'Comentarios de los estados financieros' : 'Statement comments', es ? 'por trimestre (borrador de la rutina, revisado)' : 'per quarter (drafted by the routine, reviewed)', 'data/comments.js', CM.updatedAt ? fmtDate(CM.updatedAt) : '—'],
       [es ? 'Resumen ejecutivo' : 'Executive summary', es ? 'con cada reporte (rutina)' : 'with each report (routine)', 'data/summary.js', SUM.updatedAt ? fmtDate(SUM.updatedAt) : '—'],
@@ -1005,8 +1005,8 @@
       [es ? 'Múltiplos de pares' : 'Peer multiples', es ? 'pendiente' : 'pending', 'FactSet → data/peers.js', PEERS.updatedAt ? fmtDate(PEERS.updatedAt) : '—'],
       [es ? 'Consenso de analistas' : 'Sell-side consensus', es ? 'pendiente' : 'pending', es ? 'conector → data/consensus.js' : 'connector → data/consensus.js', CONS && CONS.updatedAt ? fmtDate(CONS.updatedAt) : '—'],
       [es ? 'Glosario y umbrales de alerta' : 'Glossary and alert thresholds', es ? 'por evento (commit revisado)' : 'event-driven (reviewed commit)', 'data/glossary.js · data/alerts.js', window.Q_GLOSSARY && window.Q_GLOSSARY.updatedAt ? fmtDate(window.Q_GLOSSARY.updatedAt) : '—'],
-      [es ? 'Cuadres y salud del pipeline' : 'Tie-outs and pipeline health', es ? 'con cada construcción de datos' : 'with every data build', es ? '<a href="quality.html">quality.html</a> ← validate_data.py (pruebas de parseo: test_parsers.py)' : '<a href="quality.html">quality.html</a> ← validate_data.py (parser tests: test_parsers.py)', fmtDate((FIN.generatedAt || '').slice(0, 10))],
-      [es ? 'Rutina de revisión (correo)' : 'Reviewing routine (email)', es ? 'diario 09:50 CDMX (15:50 UTC)' : 'daily 09:50 CDMX (15:50 UTC)', es ? 'tools/qualitas/ROUTINE.md; estado en notify-state.json; escribe data/review.js cada día y los archivos curados cuando hay cambios materiales' : 'tools/qualitas/ROUTINE.md; state in notify-state.json; writes data/review.js every day and the curated files on material change', window.Q_REVIEW && window.Q_REVIEW.lastRunAt ? fmtDate(window.Q_REVIEW.lastRunAt) : '—'],
+      [es ? 'Cuadres y salud del pipeline' : 'Tie-outs and pipeline health', es ? 'con cada construcción de datos' : 'with every data build', es ? '<a href="quality.html">quality.html</a> ← validador (con pruebas de parseo)' : '<a href="quality.html">quality.html</a> ← validator (with parser tests)', fmtDate((FIN.generatedAt || '').slice(0, 10))],
+      [es ? 'Rutina de revisión (correo)' : 'Reviewing routine (email)', es ? 'diario 09:50 CDMX (15:50 UTC)' : 'daily 09:50 CDMX (15:50 UTC)', es ? 'rutina diaria de revisión; escribe data/review.js cada día y los archivos curados cuando hay cambios materiales' : 'daily reviewing routine; writes data/review.js every day and the curated files on material change', window.Q_REVIEW && window.Q_REVIEW.lastRunAt ? fmtDate(window.Q_REVIEW.lastRunAt) : '—'],
     ];
     html('refreshTable', `<table><thead><tr><th>${t('block')}</th><th>${t('cadence')}</th><th>${t('mechanism')}</th><th>${t('lastUpdate')}</th></tr></thead><tbody>${rows.map((r) => `<tr><td>${r[0]}</td><td>${r[1]}</td><td class="muted small">${r[2]}</td><td>${r[3]}</td></tr>`).join('')}</tbody></table>`);
     html('srcGrid', (REF.sources || []).map((s) => `<div class="item"><div class="t"><a href="${s.u}" target="_blank" rel="noopener">${L(s.t)} ↗</a></div><div class="d">${L(s.d)}</div></div>`).join(''));

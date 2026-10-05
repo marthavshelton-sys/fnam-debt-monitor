@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <script src="/assets/vendor/chart.umd.4.4.0.min.js" integrity="sha384-FcQlsUOd0TJjROrBxhJdUhXTUgNJQxTMcxZe6nHbaEfFL1zjQ+bq/uRoBQxb0KMo" crossorigin="anonymous"></script>
-<!-- Data files. Each is refreshed on its own cadence by .github/workflows/gap-refresh.yml
+<!-- Data files. Each is refreshed on its own cadence by the scheduled refresh
      (market: daily · financials/traffic: after each release) or by reviewed PR (reference, peers). -->
 <script src="data/market.js"></script>
 <script src="data/financials.js"></script>
@@ -798,7 +798,7 @@ footer .fine{margin-top:26px; font-size:12px; color:var(--muted); max-width:90ch
       <div class="card">
         <h3><span class="es">Cómo Se Actualiza Cada Bloque</span><span class="en" hidden>How Each Block Is Refreshed</span></h3>
         <div class="tblwrap" id="refreshTable"></div>
-        <p class="chart-src"><span class="es">Flujo de datos: <code>scripts/gap/*</code> y <code>.github/workflows/gap-refresh.yml</code> en el repositorio; runbook en <code>tools/gap/README.md</code>. Estado del pipeline (cuadres, avisos de parseo, series vencidas): <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: <code>scripts/gap/*</code> and <code>.github/workflows/gap-refresh.yml</code> in the repository; runbook in <code>tools/gap/README.md</code>. Pipeline health (tie-outs, parse warnings, stale series): <a href="quality.html">data-quality page</a>.</span></p>
+        <p class="chart-src"><span class="es">Flujo de datos: descarga automática de los informes de la empresa y de las fuentes de mercado, conversión a tablas y cuadres antes de publicar. Estado del pipeline (cuadres, avisos de parseo, series vencidas): <a href="quality.html">página de calidad de datos</a>.</span><span class="en" hidden>Data flow: automated download of the company's reports and the market sources, parsing into tables and tie-outs before publishing. Pipeline health (tie-outs, parse warnings, stale series): <a href="quality.html">data-quality page</a>.</span></p>
       </div>
     </div>
   </section>

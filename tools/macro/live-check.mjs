@@ -44,6 +44,22 @@ const summaryFile = opt("--summary", process.env.GITHUB_STEP_SUMMARY);
 const reportFile = opt("--report");
 const local = args.includes("--local");
 const origin = new URL(pageUrl).origin;
+// The site-wide password gate (functions/_middleware.js): when the repository secret SITE_PASSWORD is set, the
+// check logs in once (POST /login) and sends the session cookie with every request, browser pages included.
+// Without the secret, a gated site answers 401 and the deploy check says what to add.
+const sitePassword = process.env.SITE_PASSWORD || "";
+let sessionCookie = null; // { name, value } once logged in
+const cookieHeaders = () => (sessionCookie ? { cookie: `${sessionCookie.name}=${sessionCookie.value}` } : {});
+async function login() {
+  if (!sitePassword) return;
+  try {
+    const r = await fetch(new URL("/login", pageUrl), { method: "POST", redirect: "manual", headers: { "content-type": "application/x-www-form-urlencoded" }, body: new URLSearchParams({ password: sitePassword, next: "/" }) });
+    const m = /fnam_session=([^;]+)/.exec(r.headers.get("set-cookie") || "");
+    if (m) { sessionCookie = { name: "fnam_session", value: m[1] }; notes.push("Password gate: on; logged in with SITE_PASSWORD"); }
+    else if (r.status === 401) problem("deploy", "the password gate rejected SITE_PASSWORD: the GitHub secret differs from the Cloudflare variable");
+    else notes.push("Password gate: off (no session issued); SITE_PASSWORD not needed");
+  } catch (e) { problem("deploy", "could not log in through the password gate (" + e.message.split("\n")[0] + ")"); }
+}
 
 const problems = [];       // { where: the page or pass, section, what }
 const notes = [];
@@ -68,7 +84,7 @@ function expectedPage() {
   return null;
 }
 async function livePage() {
-  const r = await fetch(pageUrl + (pageUrl.includes("?") ? "&" : "?") + "livecheck=" + Date.now(), { headers: { "cache-control": "no-cache" } });
+  const r = await fetch(pageUrl + (pageUrl.includes("?") ? "&" : "?") + "livecheck=" + Date.now(), { headers: { "cache-control": "no-cache", ...cookieHeaders() } });
   return { status: r.status, type: r.headers.get("content-type") || "", buf: Buffer.from(await r.arrayBuffer()) };
 }
 async function checkDeploy() {
@@ -82,7 +98,8 @@ async function checkDeploy() {
       return;
     }
     if (Date.now() >= deadline) {
-      if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
+      if (live && live.status === 401) problem("deploy", "the page answered HTTP 401: the site is password-protected; add the repository secret SITE_PASSWORD with the same value as the Cloudflare variable");
+      else if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
       else if (live && exp) problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, expected ${sha(exp.buf).slice(0, 12)}): Cloudflare has not published the latest commit`);
       return;
     }
@@ -171,6 +188,7 @@ function inspectSection(o) {
 }
 
 async function run() {
+  await login();
   await checkDeploy();
   const chromium = await loadChromium();
   const browser = await chromium.launch();
@@ -181,6 +199,7 @@ async function run() {
 
   async function open(width, height, lang, scheme, query) {
     const ctx = await browser.newContext({ viewport: { width, height }, colorScheme: scheme, deviceScaleFactor: 1 });
+    if (sessionCookie) await ctx.addCookies([{ ...sessionCookie, url: origin }]);
     const page = await ctx.newPage();
     const errors = [];
     page.on("pageerror", e => errors.push("script error: " + e.message.split("\n")[0]));
@@ -263,6 +282,7 @@ async function run() {
   // address left as typed, noindex; on the live site the server's 404 (functions/macro/_middleware.js)
   try {
     const ctx = await browser.newContext({ viewport: { width: 1280, height: 900 } });
+    if (sessionCookie) await ctx.addCookies([{ ...sessionCookie, url: origin }]);
     const page = await ctx.newPage();
     if (local) await page.route("**/*", r => r.request().url().startsWith(origin) ? r.continue() : r.abort());
     const resp = await page.goto(pageUrl + "?view=zz-live-check&lang=en", { waitUntil: "load", timeout: 90000 });
@@ -282,7 +302,7 @@ async function run() {
   if (!local) {
     for (const [path, want] of [["/macro/zz-live-check-missing", 404], ["/favicon.ico", 200]]) {
       try {
-        const res = await fetch(new URL(path, pageUrl), { redirect: "manual" });
+        const res = await fetch(new URL(path, pageUrl), { redirect: "manual", headers: cookieHeaders() });
         const type = res.headers.get("content-type") || "";
         if (res.status !== want) problem("site", `${path} answered ${res.status}, expected ${want}`);
         else if (path === "/favicon.ico" && !/^image\//.test(type)) problem("site", `${path} is served as "${type}", not an image`);

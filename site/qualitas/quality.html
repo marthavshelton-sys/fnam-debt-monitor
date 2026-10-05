@@ -9,7 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <!-- Hidden owner page: not linked from the navigation; reachable from section 11 of the model. Reads
-     data/quality.js, written by scripts/qualitas/validate_data.py after every data build. -->
+     data/quality.js, written by the validator after every data build. -->
 <script src="data/quality.js"></script>
 <style>
 :root{color-scheme:light; --page:#f9f9f7; --surface:#fcfcfb; --surface-2:#f2f1ec; --text:#0b0b0b; --text-2:#52514e; --muted:#6f6e69; --border:rgba(11,11,11,.12); --grid:#e1e0d9; --accent:#1b4332; --accent-ink:#0f2c20; --accent-soft:#e6ede8; --good:#006300; --warn:#8a5a00; --warn-bg:#fff3d6; --bad:#b32828; --bad-bg:#fde5e5; --good-bg:#e4f3e4;}
@@ -46,9 +46,9 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
   <div class="cards" id="cards"></div>
   <section><h2><span class="es">Series y periodos: vigencia</span><span class="en" hidden>Series and periods: freshness</span></h2><p class="sub"><span class="es">Última fecha de cada serie de mercado y el último trimestre frente al calendario de resultados.</span><span class="en" hidden>Last date of each market series and the latest quarter against the results calendar.</span></p><div class="tblwrap" id="stale"></div></section>
   <section><h2><span class="es">Archivos curados</span><span class="en" hidden>Curated files</span></h2><p class="sub"><span class="es">¿Comentarios, expectativas, resumen y referencia cubren el último trimestre?</span><span class="en" hidden>Do comments, expectations, summary and reference cover the latest quarter?</span></p><div class="tblwrap" id="curated"></div></section>
-  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por build_data.py: archivos sin capa de texto, tablas no encontradas, trimestres sin flujo de efectivo.</span><span class="en" hidden>Written by build_data.py: image-only files, tables not found, quarters without a cash-flow statement.</span></p><div class="tblwrap" id="parse"></div></section>
+  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por el constructor de datos: archivos sin capa de texto, tablas no encontradas, trimestres sin flujo de efectivo.</span><span class="en" hidden>Written by the data builder: image-only files, tables not found, quarters without a cash-flow statement.</span></p><div class="tblwrap" id="parse"></div></section>
   <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
-  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/qualitas-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a></p>
 </div>
 <script>
 (function () {
@@ -63,7 +63,7 @@ td{padding:6px 10px; border-bottom:1px solid var(--grid); vertical-align:top; fo
     document.querySelectorAll('.es').forEach((e) => { e.hidden = LANG !== 'es'; }); document.querySelectorAll('.en').forEach((e) => { e.hidden = LANG !== 'en'; });
     document.getElementById('es').classList.toggle('active', LANG === 'es'); document.getElementById('en').classList.toggle('active', LANG === 'en');
     document.documentElement.lang = LANG === 'es' ? 'es-MX' : 'en';
-    if (!Q) { document.getElementById('meta').textContent = LANG === 'es' ? 'data/quality.js no existe todavía: ejecute scripts/qualitas/validate_data.py.' : 'data/quality.js does not exist yet: run scripts/qualitas/validate_data.py.'; return; }
+    if (!Q) { document.getElementById('meta').textContent = LANG === 'es' ? 'data/quality.js no existe todavía: ejecute el validador.' : 'data/quality.js does not exist yet: run the validator.'; return; }
     const es = LANG === 'es';
     document.getElementById('meta').innerHTML = `${es ? 'Generado' : 'Generated'} ${fmtDate(Q.generatedAt)} · ${es ? 'datos financieros del' : 'financial data of'} ${fmtDate(Q.financialsGeneratedAt)} · <span class="badge ${Q.ok ? 'ok' : 'fail'}">${Q.ok ? (es ? 'sin fallas' : 'no failures') : (es ? 'con fallas: no se publicó' : 'failures: not published')}</span>`;
     const c = Q.counts || {};

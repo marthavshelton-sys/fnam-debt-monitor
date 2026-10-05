@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T14:23:35.931Z",
+  "generated": "2026-10-05T21:51:04.846Z",
   "summary": {
     "checks": 455,
     "failed": 0,
@@ -3731,7 +3731,7 @@
       "ageDays": 4,
       "limitDays": 5,
       "status": "ok",
-      "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
+      "note": "market fetch, weekdays 13:30 and 21:45 UTC"
     },
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
@@ -3739,7 +3739,7 @@
       "ageDays": 4,
       "limitDays": 5,
       "status": "ok",
-      "note": "fetch-market.mjs"
+      "note": "market fetch"
     },
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
@@ -3747,7 +3747,7 @@
       "ageDays": 5,
       "limitDays": 7,
       "status": "ok",
-      "note": "fetch-market.mjs; credit card proxy while no CDS source exists"
+      "note": "market fetch; credit card proxy while no CDS source exists"
     },
     {
       "series": "Latest quarter release",
@@ -3763,7 +3763,7 @@
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
-      "note": "harvest-filings.mjs, weekdays 13:30 UTC"
+      "note": "filings harvest, weekdays 13:30 UTC"
     },
     {
       "series": "Oracle IR press-release snapshot",
@@ -3771,7 +3771,7 @@
       "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
-      "note": "harvest-filings.mjs"
+      "note": "filings harvest"
     },
     {
       "series": "Investor calendar",
@@ -3779,7 +3779,7 @@
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
-      "note": "fetch-calendar.mjs"
+      "note": "calendar fetch"
     },
     {
       "series": "Peer leverage (SEC XBRL)",
@@ -3787,7 +3787,7 @@
       "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
-      "note": "fetch-peer-leverage.mjs"
+      "note": "peer-leverage fetch"
     },
     {
       "series": "FactSet consensus snapshot",
@@ -3803,7 +3803,7 @@
       "ageDays": 35,
       "limitDays": 45,
       "status": "ok",
-      "note": "fetch-market.mjs reads Damodaran's home page; he posts on the first of each month"
+      "note": "the market fetch reads Damodaran's home page; he posts on the first of each month"
     },
     {
       "series": "Market concerns (press sweep)",

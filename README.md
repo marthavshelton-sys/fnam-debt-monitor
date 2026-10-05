@@ -15,6 +15,29 @@ Live macro and fiscal dashboards for fnam.mx, built directly on official sources
 | `/gentera/` | Gentera interactive financial model (runbook: `tools/gentera/README.md`; pipeline health: `/gentera/quality.html`) | `gentera-refresh.yml` |
 | `/oracle/` | Oracle Corporation (NYSE: ORCL) interactive financial model, the first US-listed company on the site (runbook: `tools/oracle/README.md`; pipeline health: `/oracle/quality.html`) | `oracle-refresh.yml` (market + EDGAR harvest) + weekday reviewing routine (`tools/oracle/ROUTINE.md`) |
 
+## Password protection (site-wide)
+
+`functions/_middleware.js` is a Cloudflare Pages Function that gates every address on fnam.mx behind one shared
+password. It is dormant until the password exists, so the site stays public until the owner sets it.
+
+To turn it on (the only step needed):
+
+1. Cloudflare dashboard → Workers & Pages → the fnam.mx Pages project → Settings → Variables and Secrets →
+   Add `SITE_PASSWORD` (type Secret) with the chosen password, for both Production and Preview.
+2. Deployments → latest deployment → Retry deployment (or push anything to `main`).
+
+From then on every page, data file, PDF and quality page needs a session: visitors get one bilingual login form
+(HTTP 401), sessions last 30 days (`?logout` ends one), `robots.txt` answers `Disallow: /` and every response
+carries `noindex`. Remove the variable and redeploy to turn it off. Optional: `SITE_SESSION_SECRET` (random
+string that signs the session cookies; without it, changing the password ends every session) and
+`SITE_SESSION_DAYS` (default 30).
+
+Also add the same password as the GitHub repository secret `SITE_PASSWORD` (Settings → Secrets and variables →
+Actions): `macro-live-check.yml` reads the live site after every US macro refresh and logs in with it; without
+the secret that check reports the 401 and fails. The section gates under `functions/<section>/` (GAP, Oracle,
+OMA, ASUR, Quálitas) keep working; with the site password on, a section whose own `*_PASSWORD` is also set
+asks twice, so unset those to rely on the site password alone.
+
 ## Mexico fiscal monitor (`site/mx/fiscal/`)
 
 One HTML file, Spanish by default with an English toggle (shared `fnam-lang` key; `?lang=en` works).

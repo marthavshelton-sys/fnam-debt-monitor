@@ -1,6 +1,6 @@
 // Renderer for the hidden owner data-quality pages (site/<slug>/quality.html). One design for every model,
 // copied from the Quálitas page the owner liked. The shell page sets window.QUALITY_PAGE before loading this:
-//   { key: 'GAP_QUALITY', name: 'GAP', workflow: 'gap-refresh.yml', validator: 'scripts/gap/validate-data.mjs', lang: 'gap-lang' }
+//   { key: 'GAP_QUALITY', name: 'GAP', lang: 'gap-lang' }
 // and includes data/quality.js, which the validator writes after every run:
 //   { generatedAt, ok, counts:{checks,ok,warn,fail}, latestQuarter, expectedQuarter, coverage:{...}, financialsGeneratedAt,
 //     cards:[{v,l:{es,en}}], checks:[{tag,check,status,diff,tol,note}], stale:[{series,lastDate,ageDays,limitDays,status,note}],
@@ -25,7 +25,7 @@
     el('es').classList.toggle('active', LANG === 'es'); el('en').classList.toggle('active', LANG === 'en');
     document.documentElement.lang = LANG === 'es' ? 'es-MX' : 'en';
     const es = LANG === 'es';
-    if (!Q) { set('meta', es ? `data/quality.js no existe todavía: ejecute ${esc(CFG.validator || 'el validador')}.` : `data/quality.js does not exist yet: run ${esc(CFG.validator || 'the validator')}.`); return; }
+    if (!Q) { set('meta', es ? 'data/quality.js no existe todavía: ejecute el validador.' : 'data/quality.js does not exist yet: run the validator.'); return; }
     const badge = Q.ok ? (Q.counts && Q.counts.warn ? 'warn' : 'ok') : 'fail';
     const badgeTxt = Q.ok ? (Q.counts && Q.counts.warn ? (es ? `sin fallas · ${Q.counts.warn} ${Q.counts.warn === 1 ? 'aviso' : 'avisos'}` : `no failures · ${Q.counts.warn} ${Q.counts.warn === 1 ? 'warning' : 'warnings'}`) : (es ? 'sin fallas' : 'no failures')) : (es ? 'con fallas: no se publicó' : 'failures: not published');
     set('meta', `${es ? 'Generado' : 'Generated'} ${fmtDate(Q.generatedAt)} · ${es ? 'datos financieros del' : 'financial data of'} ${fmtDate(Q.financialsGeneratedAt)} · <span class="badge ${badge}">${badgeTxt}</span>`);

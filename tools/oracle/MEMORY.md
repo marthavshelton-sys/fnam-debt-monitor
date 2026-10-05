@@ -59,7 +59,9 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   fails on an empty/`undefined`/`null`/`#` href in the markup and on any repository path in the reader-facing markup or the
   narrative data, and the render check fails on both in the rendered DOM plus on "Source:" lines with no source and empty
   Source cells. Repository paths left the page (refresh table, module rules, provenance footer, methodology footer, news sweep
-  note); the technical detail is a section of `quality.html`. One source of truth for the facts quoted more than once:
+  note); since 2026-10-05 `quality.html` carries no repository path, script name, workflow name or GitHub link either (owner's
+  request: nothing on the public site names the repository; the technical detail is `tools/oracle/README.md`), and its
+  freshness notes name the pipeline stage, not the script. One source of truth for the facts quoted more than once:
   `openaiTenants()` (from `buildout.json → sites[].tenant_openai / tenant_basis`; 4 of 5 named by Oracle or the developer,
   Jupiter press-only; `{{fact:openai_campuses}}` resolves it inside `risks.json`), `guaranteeStatus()` (past tense once the
   scheduled maturity has passed), `maturedNote()` (the July-2026 notes: repaid, evidence in `market_reference.json →

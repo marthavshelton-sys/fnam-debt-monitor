@@ -12,7 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/quality.css">
 <!-- Hidden owner page: not linked from the navigation; reachable from the the model's methodology section. Reads
-     data/quality.js, written by scripts/oma/validate-data.mjs after every data build. Same design as the
+     data/quality.js, written by the validator after every data build. Same design as the
      Quálitas page; the renderer is shared (assets/quality-page.js). -->
 <script src="data/quality.js"></script>
 </head>
@@ -26,11 +26,11 @@
   <section><h2><span class="es">Series y periodos: vigencia</span><span class="en" hidden>Series and periods: freshness</span></h2><p class="sub"><span class="es">Última fecha de cada serie de mercado y de datos operativos, y el último trimestre frente al calendario de resultados.</span><span class="en" hidden>Last date of each market and operating series, and the latest quarter against the results calendar.</span></p><div class="tblwrap" id="stale"></div></section>
   <section><h2><span class="es">Archivos curados</span><span class="en" hidden>Curated files</span></h2><p class="sub"><span class="es">¿Comentarios, guía, resumen y referencia cubren el último trimestre?</span><span class="en" hidden>Do comments, guidance, summary and reference cover the latest quarter?</span></p><div class="tblwrap" id="curated"></div></section>
   <section><h2><span class="es">Origen de cada trimestre</span><span class="en" hidden>Origin of every quarter</span></h2><p class="sub"><span class="es">De qué informe salió cada trimestre y qué partes (estado de resultados, balance, flujo) se parsearon de él.</span><span class="en" hidden>Which report each quarter came from and which parts (income statement, balance sheet, cash flow) were parsed from it.</span></p><div class="tblwrap" id="origins"></div><p class="more" id="originsMore"></p></section>
-  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por build-data.mjs: exhibits no encontrados, renglones sin correspondencia, meses derivados del trimestre.</span><span class="en" hidden>Written by build-data.mjs: exhibits not found, unmatched rows, months derived from the quarter.</span></p><div class="tblwrap" id="parse"></div></section>
+  <section><h2><span class="es">Avisos del último parseo</span><span class="en" hidden>Warnings from the last parse</span></h2><p class="sub"><span class="es">Escritos por el constructor de datos: exhibits no encontrados, renglones sin correspondencia, meses derivados del trimestre.</span><span class="en" hidden>Written by the data builder: exhibits not found, unmatched rows, months derived from the quarter.</span></p><div class="tblwrap" id="parse"></div></section>
   <section><h2><span class="es">Cuadres (tie-outs)</span><span class="en" hidden>Tie-outs</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
-  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/oma-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al modelo</span><span class="en" hidden>← Back to the model</span></a></p>
 </div>
-<script>window.QUALITY_PAGE = {"key":"OMA_QUALITY","name":"OMA","workflow":"oma-refresh.yml","validator":"scripts/oma/validate-data.mjs","lang":"oma-lang"};</script>
+<script>window.QUALITY_PAGE = {"key":"OMA_QUALITY","name":"OMA","lang":"oma-lang"};</script>
 <script src="../assets/quality-page.js"></script>
 </body>
 </html>
