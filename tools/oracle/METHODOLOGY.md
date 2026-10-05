@@ -190,7 +190,7 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
   show the cross-check between the two terminal methods: under the perpetuity, the terminal EV/EBITDA it implies (on
   the terminal-year EBITDA and on the last explicit year's); under an exit multiple, the perpetual growth it implies
   (g* = WACC − FCF(N+1) ÷ TV, holding the normalised terminal-year FCF).
-* **Discount rate.** Rf = 10-year Treasury (FRED DGS10, latest). ERP = Aswath Damodaran's implied ERP for the S&P 500
+* **Discount rate.** Rf = 10-year Treasury par yield, latest daily value (U.S. Treasury daily par yield curve, the series FRED republishes as DGS10; FRED is the fallback). The page, the deck and the validator print the value, its source and its date beside the figure (`ORCL_MARKET.rates.US10Y.source/asOf`, owner's rule 2026-10-05). ERP = Aswath Damodaran's implied ERP for the S&P 500
   (trailing 12 months, adjusted payout; posted on the first of each month and read by `fetch-market.mjs`; flagged when
   older than 45 days). β = OLS slope of weekly log returns of ORCL on the S&P 500 over two years (default), with
   cross-checks shown beside it: five-year monthly and the Blume-adjusted versions of both (0.67 β + 0.33); the table shows

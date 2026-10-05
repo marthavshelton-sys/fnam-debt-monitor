@@ -163,6 +163,9 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - `{{fact:id}}` tokens in the narrative must name a key of `FACTS` in `app.js` (validator check).
 - `fetch-market.mjs`: a fallback source (Yahoo, the Treasury's yearly CSV) covers a shorter window than FRED; since round 4 it is
   merged into the stored CSV (missing dates added), never written over it. FRED answers the GitHub runner, not the sandbox.
+- 10-year Treasury (2026-10-05, owner's choice): U.S. Treasury daily par yield CSV first, FRED DGS10 fallback, always merged
+  into the stored history. The value used, its source and date are printed wherever the figure appears (`US10`, `us10Label()`
+  in `app.js`; `M.US10`/`M.us10Last` in the deck); the validator's freshness row carries the source name. Do not hard-code a source label.
 - The deck's `OracleDoc.text/bullets/measure*` resolve `{{sec:}}` and `{{fact:}}`, but table cells go through `fitTable` /
   `table` directly: pass every narrative cell through `this.xref()` first. `finish()` throws on any `{{` drawn (the guard wraps
   `this.pdf.text`, which jsPDF-AutoTable also calls), so a missed token fails the build instead of printing.

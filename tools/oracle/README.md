@@ -135,7 +135,7 @@ Assumptions in `ASSUMPTIONS.md`; open items in `PENDING.md`.
 Since 2026-09-24 the filings job also runs `fetch-peer-leverage.mjs` (SEC XBRL company facts for the peer leverage table in the Off-Balance-Sheet Financing and Leases section) right after the investor calendar; the weekly press sweep is a desktop task, not part of this workflow.
 
 ```
-scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED   -> tools/oracle/data/*.csv, market_reference.json
+scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED (S&P 500) + U.S. Treasury CSV (10-year) -> tools/oracle/data/*.csv, market_reference.json
 scripts/oracle/harvest-filings.mjs  SEC EDGAR (IR feed fallback) -> tools/oracle/raw/*, tools/oracle/data/state.json
 scripts/oracle/fetch-xbrl-facts.mjs SEC XBRL company facts       -> tools/oracle/data/xbrl_facts.json (amendments by accession)
 scripts/oracle/validate-data.mjs    tie-outs; non-zero exit fails the job; writes quality_report.json
@@ -322,6 +322,8 @@ release left unquantified, and rewrites `transcripts.json`.
 Oracle's evening run (21:45 UTC) often finds no new close because Nasdaq's historical endpoint posts the day later in the evening; the next morning's run adds it. This is a one-session lag, never an intraday price.
 
 Since round 4 (2026-10-04) a fallback source (Yahoo for the S&P 500, the Treasury's yearly CSV for the 10-year) is merged into the stored CSV, adding only the dates it brings: a one-day FRED outage can no longer truncate the committed history (FRED answers the runner; it does not answer the sandbox).
+
+The 10-year series (2026-10-05, owner's choice): the U.S. Treasury daily par yield curve CSV is the primary source and FRED `DGS10` (the same series, republished by the St. Louis Fed one day later) the fallback. The Treasury CSV holds one calendar year, so the fetcher always merges it into the stored `treasury_10y.csv` (history from 1962 via FRED). `market_reference.json → treasury_10y` records `source_name`, `source_url`, `series` and `as_of_date`; `build-data.mjs` copies them into `ORCL_MARKET.rates.US10Y` (`source`, `sourceUrl`, `asOf`, `value`) and the page, the deck and the validator print the value, source and date beside the figure (DCF inputs, DCF sources line, cost-of-debt row, refresh table, source grid, deck sources). Never hard-code "FRED DGS10" again.
 
 ## Timestamps (round 4)
 

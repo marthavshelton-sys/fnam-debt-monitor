@@ -182,7 +182,9 @@ emit("market.js", "ORCL_MARKET", {
     "^GSPC": { name: "S&P 500", currency: "USD", exchange: "index", source: mref.price_snapshot?.sp500?.source_name || "FRED SP500 / Yahoo Finance", sourceUrl: mref.price_snapshot?.sp500?.source_url || null, fetchedAt: mref.price_snapshot?.sp500?.accessed || null, points: spxPts },
   },
   dividends: { ORCL: { source: "Quarterly dividends declared in each 8-K earnings release (tools/oracle/data/dividends.json); dated by payment date", points: divs } },
-  rates: { US10Y: { name: "US Treasury 10-year (%)", source: mref.treasury_10y?.source_name || "FRED DGS10 / U.S. Treasury daily par yield curve", points: tsyPts.length ? tsyPts : (mref.treasury_10y?.yield_pct != null ? [[mref.treasury_10y.as_of_date, mref.treasury_10y.yield_pct]] : []) } },
+  // US10Y.source/sourceUrl/asOf name the exact 10-year value the DCF uses (owner's rule, 2026-10-05): the page, the deck and the
+  // validator print them beside the figure instead of a fixed "FRED DGS10" label.
+  rates: { US10Y: { name: "US Treasury 10-year (%)", source: mref.treasury_10y?.source_name || "U.S. Treasury daily par yield curve", sourceUrl: mref.treasury_10y?.source_url || null, series: mref.treasury_10y?.series || "10-year par yield, daily", asOf: mref.treasury_10y?.as_of_date || null, value: mref.treasury_10y?.yield_pct ?? null, fetchedAt: mref.treasury_10y?.accessed || null, points: tsyPts.length ? tsyPts : (mref.treasury_10y?.yield_pct != null ? [[mref.treasury_10y.as_of_date, mref.treasury_10y.yield_pct]] : []) } },
   sharesOutstanding: mref.price_snapshot?.orcl?.shares_outstanding_millions ? { shares: Math.round(mref.price_snapshot.orcl.shares_outstanding_millions * 1e6), asOf: "2026-09-07", source: "Form 10-Q cover page (quarter ended 2026-08-31)", url: "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" } : null,
   range52,
 }, "Oracle market data — daily closes, intraday 52-week range, dividends by payment date, 10-year Treasury.");

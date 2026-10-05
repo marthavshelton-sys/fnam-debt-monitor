@@ -5,7 +5,8 @@
 // Each series tries public sources in order and records which one succeeded:
 //   ORCL:   Nasdaq historical API → Yahoo Finance chart API → Stooq CSV
 //   S&P 500: FRED SP500 → Yahoo Finance chart API (^GSPC) → Stooq CSV
-//   10-year: FRED DGS10 → U.S. Treasury daily par yield curve CSV
+//   10-year: U.S. Treasury daily par yield curve CSV (the official series FRED republishes as DGS10; current calendar year
+//           only, merged into the stored history) → FRED DGS10 as fallback (owner's choice, 2026-10-05)
 //   ERP:    Aswath Damodaran's implied equity risk premium for the S&P 500 (monthly, first of the month), read from
 //           his NYU Stern home page; a failed read keeps the stored value (the page dates it and flags it when old)
 // Run: node scripts/oracle/fetch-market.mjs
@@ -116,14 +117,15 @@ function mergeFallback(series, path) {
   const stored = readCSV(path); if (!stored.length) return series;
   const have = new Set(stored.map((r) => r.date)); const added = series.rows.filter((r) => !have.has(r.date));
   const rows = stored.concat(added).sort((a, b) => (a.date < b.date ? -1 : 1));
-  console.log(`     ${series.via} is a fallback: kept ${stored.length} stored rows, added ${added.length} new date(s)`);
+  console.log(`     ${series.via}: merged into the stored series (kept ${stored.length} rows, added ${added.length} new date(s))`);
   return { ...series, rows };
 }
 
 async function main() {
   const orcl = await firstThatWorks("ORCL daily", [["Nasdaq", () => nasdaq("ORCL")], ["Yahoo Finance", () => yahoo("ORCL")], ["Stooq", () => stooq("orcl.us")]]);
   const spx = await firstThatWorks("S&P 500 daily", [["FRED SP500", () => fred("SP500")], ["Yahoo Finance", () => yahoo("^GSPC")], ["Stooq", () => stooq("^spx")]]);
-  const tsy = await firstThatWorks("10-year Treasury", [["FRED DGS10", () => fred("DGS10")], ["U.S. Treasury CSV", () => treasuryCSV()]]);
+  const tsy = await firstThatWorks("10-year Treasury", [["U.S. Treasury daily par yield curve", () => treasuryCSV()], ["FRED DGS10", () => fred("DGS10")]]);
+  if (tsy) tsy.fallback = true; // the Treasury CSV holds one calendar year: always merge into the stored history (1962-) instead of replacing it
 
   // closes only: the 13:30 UTC run is at the NYSE open, so a bar dated today is dropped until 16:15 New York time
   for (const x of [orcl, spx]) if (x) x.rows = completedSessions(x.rows, { exchange: "NYSE" });
@@ -155,7 +157,8 @@ async function main() {
   }
   if (tsy) {
     const last = tsy.rows.at(-1);
-    ref.treasury_10y = { yield_pct: last.close, as_of_date: last.date, source_url: tsy.url, source_name: tsy.via, accessed: today };
+    // source_name is what the page, the deck and the validator print beside the figure ("which 10-year value is used")
+    ref.treasury_10y = { yield_pct: last.close, as_of_date: last.date, source_url: tsy.via.startsWith("FRED") ? "https://fred.stlouisfed.org/series/DGS10" : "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve", source_name: tsy.via, series: "10-year par yield, daily", fetch_url: tsy.url, accessed: today };
   }
   try { const e = await damodaranErp(); ref.erp = e; console.log(`OK   implied ERP ${e.erp_pct}% as of ${e.as_of}`); }
   catch (e) { console.error(`WARN implied ERP not refreshed (${e.message}); keeping ${ref.erp ? `${ref.erp.erp_pct}% as of ${ref.erp.as_of}` : "none"}`); }

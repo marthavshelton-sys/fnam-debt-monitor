@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-04T15:33:06.103Z",
+  "generated": "2026-10-05T11:29:09.544Z",
   "summary": {
     "checks": 447,
     "failed": 0,
@@ -3670,9 +3670,9 @@
       "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
     },
     {
-      "series": "10-year Treasury (FRED DGS10)",
-      "lastDate": "2026-10-01",
-      "ageDays": 4,
+      "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
+      "lastDate": "2026-10-02",
+      "ageDays": 3,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"
@@ -3919,7 +3919,7 @@
       "label_es": "Hechos de referencia",
       "cadence": "filing",
       "asOf": "2026-08-31",
-      "lastRefresh": "2026-10-04",
+      "lastRefresh": "2026-10-05",
       "nextExpected": "2026-12-11",
       "nextExpectedBasis": "assumed",
       "deadline": "2026-12-18",
@@ -4038,8 +4038,8 @@
       "label_en": "Validation report",
       "label_es": "Reporte de validación",
       "cadence": "daily",
-      "asOf": "2026-10-04",
-      "lastRefresh": "2026-10-04",
+      "asOf": "2026-10-05",
+      "lastRefresh": "2026-10-05",
       "nextExpected": null,
       "nextExpectedBasis": null,
       "deadline": null,

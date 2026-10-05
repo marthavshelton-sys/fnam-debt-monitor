@@ -35,7 +35,9 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 ## Market data
 
 - Daily prices: Nasdaq historical API → Yahoo Finance chart API → Stooq, first that responds. S&P 500 from
-  FRED (`SP500`), 10-year Treasury from FRED (`DGS10`) with the U.S. Treasury daily par yield curve as fallback.
+  FRED (`SP500`), 10-year Treasury from the U.S. Treasury daily par yield curve (primary since 2026-10-05, merged into the stored
+  history) with FRED `DGS10` (the same series, republished) as fallback; `market_reference.json → treasury_10y.source_name` records
+  which one answered and the page prints it beside the value.
 - Market cap = latest close × shares outstanding from the latest 10-Q cover page (3,023.736 M at 2026-09-07).
 - Net debt = notes payable and other borrowings (current + non-current) − cash & equivalents − marketable
   securities. Preferred stock is **not** treated as debt (it is mandatory convertible).
@@ -105,10 +107,10 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
 | Terminal capex / D&A (k) | 1 + g × L / 2 = 1.09 | L = 6-year server life (10-Q note 3); g = terminal growth |
 | Tax rate | Ramp from the LTM effective rate (provision ÷ pretax income, four quarters) to the normalized rate by the last explicit year; modes: hold LTM, ramp (default), normalized from year 1 | `tax.json`: normalized = 21.0% federal statutory + 0.9 pp state net of federal benefit (FY2026 10-K rate reconciliation, cross-checked against XBRL) = 21.9% |
 | Uncommenced leases | Operating (default: rent assumed inside the consensus margin, nothing deducted) or finance (the illustrative PV of the US$288 bn is deducted in the bridge) | 1Q27 10-Q leases note (second reading 2026-10-04); PV method as in the off-balance-sheet section |
-| Risk-free rate | 10-year Treasury, latest | FRED DGS10 |
+| Risk-free rate | 10-year Treasury par yield, latest daily value; source and date printed beside it | U.S. Treasury daily par yield curve (FRED DGS10 as fallback) |
 | Equity risk premium | Damodaran implied ERP, latest month (4.14% on 1-Sep-2026) | fetched monthly by fetch-market.mjs; 4.5% only if no reading exists |
 | Beta | Two years of weekly returns, ORCL on the S&P 500 (raw) | cross-checks shown: five-year monthly, Blume-adjusted (0.67 β + 0.33) of both |
-| Cost of debt | Today's 10-year Treasury + the issue spread of the latest ~10-year fixed note (5.70% Feb-2036 note: 1.41 pp); applied to net debt and finance leases | 10-K debt footnote + FRED DGS10 on the issue date |
+| Cost of debt | Today's 10-year Treasury + the issue spread of the latest ~10-year fixed note (5.70% Feb-2036 note: 1.41 pp); applied to net debt and finance leases | 10-K debt footnote + the 10-year series on the issue date |
 | Cost of the preferred | 6.50% dividend rate, no tax shield | 424B5 prospectus (Feb 2026) |
 | Weights | (net debt + finance-lease liabilities + preferred) / (that + market cap): the same claims the bridge deducts | computed; owner's rule 2026-10-04 |
 | Scenarios | Base = consensus unadjusted; Bull = FY2030 revenue target on consensus economics; Bear = RPO conversion slips one year + Project Jupiter two quarters late (18% of named nameplate × ½ year) + OpenAI volume −25% on S&P's "about half of RPO" (12.5% of incremental revenue) | METHODOLOGY.md §8 |
