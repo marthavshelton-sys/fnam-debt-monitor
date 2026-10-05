@@ -86,6 +86,9 @@ from such figures, or (c) an explicit modelling assumption listed here. Nothing 
   book total until then (so the total stays reconciled to the last filing).
 - Average coupon = principal-weighted coupon of the fixed-rate senior notes only (FRNs, the term loan and
   commercial paper excluded).
+- Credit-spread proxy (2026-10-05, owner's choice): while no CDS or bond-price source exists, the credit card shows the ICE BofA BBB
+  US Corporate Index option-adjusted spread (FRED `BAMLC0A4CBBB`, daily, converted to bp), labeled a proxy for Oracle's rating
+  bucket (BBB+ to BBB-) and never presented as Oracle's own spread; a FRED outage keeps the stored series (`bbb_oas.csv`).
 - CDS: 5-year senior unsecured mid spread in basis points, from the FactSet connector once authorised
   (`tools/oracle/data/cds.json`). Implied cumulative default probability uses the market convention
   PD = 1 − exp(−spread ÷ (1 − recovery) × tenor) with a 40% recovery assumption. It is a market price of

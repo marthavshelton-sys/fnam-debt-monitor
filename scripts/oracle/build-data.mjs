@@ -169,7 +169,7 @@ emit("financials.js", "ORCL_FIN", {
 // ---------- market.js ----------
 const mref = load("market_reference.json", {});
 const csv = (name) => { const p = join(DATA, name); if (!existsSync(p)) return []; const lines = readFileSync(p, "utf8").replace(/^﻿/, "").trim().split(/\r?\n/); const h = lines[0].split(","); const di = h.findIndex((x) => /^(date|observation_date)$/i.test(x.trim())); let ci = h.findIndex((x) => /^close$/i.test(x.trim())); if (ci < 0) ci = 1; return lines.slice(1).map((l) => { const c = l.split(","); const v = parseFloat(c[ci]); return Number.isNaN(v) ? null : [c[di], v]; }).filter(Boolean).sort((a, b) => (a[0] < b[0] ? -1 : 1)); };
-const orclPts = csv("prices_orcl_daily.csv"), spxPts = csv("prices_spx_daily.csv"), tsyPts = csv("treasury_10y.csv");
+const orclPts = csv("prices_orcl_daily.csv"), spxPts = csv("prices_spx_daily.csv"), tsyPts = csv("treasury_10y.csv"), bbbPts = csv("bbb_oas.csv");
 // 52-week range from the daily intraday highs and lows (the closes-only range understated both ends): the window is the
 // 52 weeks ending at the latest close, excluding the same calendar date a year earlier.
 const ohlc = (() => { const p = join(DATA, "prices_orcl_daily.csv"); if (!existsSync(p)) return []; const lines = readFileSync(p, "utf8").replace(/^\uFEFF/, "").trim().split(/\r?\n/); const h = lines[0].split(",").map((x) => x.trim().toLowerCase()); const di = h.indexOf("date"), hi = h.indexOf("high"), lo = h.indexOf("low"), ci = h.indexOf("close"); if (di < 0 || hi < 0 || lo < 0) return []; return lines.slice(1).map((l) => { const c = l.split(","); return { d: c[di], h: parseFloat(c[hi]), l: parseFloat(c[lo]), c: parseFloat(c[ci]) }; }).filter((x) => x.d && Number.isFinite(x.h) && Number.isFinite(x.l)).sort((a, b) => (a.d < b.d ? -1 : 1)); })();
@@ -185,9 +185,12 @@ emit("market.js", "ORCL_MARKET", {
   // US10Y.source/sourceUrl/asOf name the exact 10-year value the DCF uses (owner's rule, 2026-10-05): the page, the deck and the
   // validator print them beside the figure instead of a fixed "FRED DGS10" label.
   rates: { US10Y: { name: "US Treasury 10-year (%)", source: mref.treasury_10y?.source_name || "U.S. Treasury daily par yield curve", sourceUrl: mref.treasury_10y?.source_url || null, series: mref.treasury_10y?.series || "10-year par yield, daily", asOf: mref.treasury_10y?.as_of_date || null, value: mref.treasury_10y?.yield_pct ?? null, fetchedAt: mref.treasury_10y?.accessed || null, points: tsyPts.length ? tsyPts : (mref.treasury_10y?.yield_pct != null ? [[mref.treasury_10y.as_of_date, mref.treasury_10y.yield_pct]] : []) } },
+  // Credit-spread proxy for the credit card while no CDS or bond-price source exists (owner's choice, 2026-10-05): the ICE BofA
+  // BBB US Corporate Index OAS from FRED, in percent; the page prints it in bp with its source, date and the "proxy" label.
+  spreads: { BBB_OAS: mref.credit_spread_proxy ? { name: mref.credit_spread_proxy.name, series: mref.credit_spread_proxy.series, unit: "percent", source: mref.credit_spread_proxy.source_name, sourceUrl: mref.credit_spread_proxy.source_url, asOf: mref.credit_spread_proxy.as_of_date, value: mref.credit_spread_proxy.value_pct, fetchedAt: mref.credit_spread_proxy.accessed, note: mref.credit_spread_proxy.note, points: bbbPts } : null },
   sharesOutstanding: mref.price_snapshot?.orcl?.shares_outstanding_millions ? { shares: Math.round(mref.price_snapshot.orcl.shares_outstanding_millions * 1e6), asOf: "2026-09-07", source: "Form 10-Q cover page (quarter ended 2026-08-31)", url: "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm" } : null,
   range52,
-}, "Oracle market data — daily closes, intraday 52-week range, dividends by payment date, 10-year Treasury.");
+}, "Oracle market data — daily closes, intraday 52-week range, dividends by payment date, 10-year Treasury, BBB corporate OAS (credit-spread proxy).");
 
 // ---------- reference.js ----------
 const ss = load("special_situations.json", {}).ai_cloud_buildout || {};
@@ -394,4 +397,4 @@ changelog.generated = now; changelog.entries = changelog.entries.slice(-600);
 writeFileSync(CHANGELOG_PATH, JSON.stringify(changelog, null, 1) + "\n", "utf8");
 emit("changelog.js", "ORCL_CHANGELOG", { generatedAt: now, entries: changelog.entries.slice(-600).reverse() }, "Change log of the page data files (newest first): each leaf that changed between builds with the file, path, old and new value (tools/oracle/data/changelog.json).");
 
-console.log(`site/data: financials (${finQuarters.length} quarters, ${years.length} years), market (${orclPts.length} ORCL closes, ${spxPts.length} S&P closes, ${tsyPts.length} yield points), guidance (${vint.length} vintages), comments (${Object.keys(periods).length} periods), instruments ${(mref.debt_instruments || []).length}.`);
+console.log(`site/data: financials (${finQuarters.length} quarters, ${years.length} years), market (${orclPts.length} ORCL closes, ${spxPts.length} S&P closes, ${tsyPts.length} yield points, ${bbbPts.length} BBB OAS points), guidance (${vint.length} vintages), comments (${Object.keys(periods).length} periods), instruments ${(mref.debt_instruments || []).length}.`);

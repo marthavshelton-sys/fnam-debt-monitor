@@ -75,7 +75,7 @@
         "xbrl_concept": "RepaymentsOfDebt",
         "xbrl_value_usd_m": 4202,
         "note_en": "Form 10-Q for the quarter ended 31-Aug-2026: repayments of borrowings of US$4,202 M in the quarter (XBRL RepaymentsOfDebt, discrete) and notes payable and other borrowings down from US$129,541 M (31-May-2026) to US$125,337 M; the notes matured 15-Jul-2026 inside the quarter.",
-        "note_es": "Formulario 10-Q del trimestre terminado el 31-ago-2026: pagos de préstamos por US$4,202 M en el trimestre (XBRL RepaymentsOfDebt, trimestre discreto) y notas por pagar y otros préstamos de US$129,541 M (31-may-2026) a US$125,337 M; los bonos vencieron el 15-jul-2026, dentro del trimestre.",
+        "note_es": "Formulario 10-Q del trimestre terminado el 31-ago-2026: pagos de pr\u00e9stamos por US$4,202 M en el trimestre (XBRL RepaymentsOfDebt, trimestre discreto) y notas por pagar y otros pr\u00e9stamos de US$129,541 M (31-may-2026) a US$125,337 M; los bonos vencieron el 15-jul-2026, dentro del trimestre.",
         "url": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm",
         "accession": "0001193125-26-389274"
       }
@@ -556,5 +556,17 @@
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-05"
   },
-  "refreshed_at": "2026-10-05T11:32:07.033Z"
+  "refreshed_at": "2026-10-05T11:50:44.000Z",
+  "credit_spread_proxy": {
+    "series": "BAMLC0A4CBBB",
+    "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
+    "unit": "percent",
+    "value_pct": 1.06,
+    "as_of_date": "2026-10-01",
+    "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
+    "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
+    "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",
+    "accessed": "2026-10-05",
+    "note": "Proxy for Oracle's rating bucket (BBB+ to BBB-), not Oracle's own spread; FRED publishes the index with a one-business-day lag."
+  }
 }

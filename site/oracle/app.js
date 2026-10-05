@@ -196,6 +196,9 @@
   const us10SrcName = () => { const n = US10.source || ''; return LANG === 'es' ? (/^U\.S\. Treasury/i.test(n) ? 'Tesoro de EE. UU., curva par diaria' : n || 'fuente no registrada') : n || 'source not recorded'; };
   const us10Label = (withValue = true) => (us10Last ? `${LANG === 'es' ? 'Tesoro a 10 años' : '10-year Treasury'}${withValue ? ` ${fmtPct(us10Last[1], 2)}` : ''} (${us10SrcName()}, ${fmtDate(us10Last[0])})` : '');
   const us10Link = (label) => (US10.sourceUrl ? extLink(US10.sourceUrl, label || us10SrcName()) : label || us10SrcName());
+  // Credit-spread proxy (owner's choice, 2026-10-05): the ICE BofA BBB US Corporate Index OAS from FRED stands in for Oracle's own
+  // CDS or bond spread while no source exists for those; shown in bp with its source, date and a "proxy, not Oracle" label.
+  const BBB = MK.spreads && MK.spreads.BBB_OAS && MK.spreads.BBB_OAS.points && MK.spreads.BBB_OAS.points.length ? MK.spreads.BBB_OAS : null;
   const orclPx = px('ORCL'); const lastPx = lastPoint(orclPx);
   const sharesNow = (MK.sharesOutstanding && MK.sharesOutstanding.shares) || (REF.shares && REF.shares.total) || (lastQ && lastQ.shares && lastQ.shares.current) || null;
   const sharesAt = (date) => { const h = (REF.shares && REF.shares.history) || []; let v = null; for (const e of h) if (e.asOf <= date) v = e.total; return v || sharesNow; };
@@ -1515,6 +1518,26 @@
       el('cdsCap').textContent = LS(CDS.notes);
       html('cdsSrc', `${t('src')}: ${CDS.source} · ${fmtDate(CDS.updatedAt)}`);
       html('cdsNote', LANG === 'es' ? `<b>Lectura.</b> El spread es lo que cuesta asegurar US$ 10,000 de deuda senior de Oracle por año durante ${T} años, en puntos base; la PD implícita es la probabilidad acumulada de incumplimiento que ese precio implica bajo el supuesto de recuperación estándar. Léalo junto con las calificaciones (tabla a la izquierda): el CDS reacciona antes que las agencias.` : `<b>Reading it.</b> The spread is the annual cost, in basis points, of insuring US$ 10,000 of Oracle senior debt for ${T} years; the implied PD is the cumulative default probability that price implies under the standard recovery assumption. Read it with the ratings (table at left): the CDS moves before the agencies do.`);
+    } else if (BBB) {
+      // no CDS series: the BBB index OAS proxy in bp (last three years), labeled "proxy, not Oracle"; CDS stays pending in the note
+      const nw2 = NEWS ? (NEWS.items || []).filter((x) => /credit default swap|CDS/i.test(x.summary_en || '')).sort((a, b) => (a.date < b.date ? 1 : -1))[0] : null;
+      const checked = fmtDate(QR && QR.generated ? QR.generated : todayET());
+      const press = nw2 ? ` ${LANG === 'es' ? 'Última lectura de prensa' : 'Latest press reading'}: ${extLink(nw2.sources[0].url, nw2.sources[0].title.replace(/:.*$/, ''))} (${fmtDate(nw2.date)}, ${LANG === 'es' ? 'prensa, no entra a ninguna cifra' : 'press, enters no figure'}).` : '';
+      const bp = BBB.points.map((p) => [p[0], Math.round(p[1] * 100)]);
+      const last = bp[bp.length - 1], yAgo = pointAtOrBefore(bp, addDays(last[0], -365));
+      const lo = bp.reduce((a, p) => (p[1] < a[1] ? p : a)), hi = bp.reduce((a, p) => (p[1] > a[1] ? p : a));
+      const win = bp.filter((p) => p[0] >= addDays(last[0], -3 * 365));
+      if (cdsWrap) cdsWrap.hidden = false;
+      mkChart('chartCds', { type: 'line', data: { labels: win.map((p) => p[0]), datasets: [{ label: LANG === 'es' ? 'OAS índice BBB (pb)' : 'BBB index OAS (bp)', data: win.map((p) => p[1]), borderColor: c[7], backgroundColor: c[7] + '1a', fill: true, pointRadius: 0, borderWidth: 1.5 }] }, options: { plugins: { tooltip: { callbacks: { title: (x) => fmtDate(x[0].label), label: (x) => `${fmtN(x.parsed.y)} bp` } } }, scales: { x: { ticks: { maxTicksLimit: 8, maxRotation: 0, callback: (v, i) => (win[i] ? win[i][0].slice(0, 7) : '') }, grid: { display: false } }, y: { ticks: { callback: (v) => v + ' bp' }, beginAtZero: true } } } });
+      const rl = (D2.ratings || []).map((r) => `${String(r.agency).replace(/^S&P Global Ratings$/, 'S&P')} ${r.rating}`).join(', ');
+      html('cdsStats', [
+        { v: `${fmtN(last[1])} bp`, l: `${LANG === 'es' ? 'OAS índice BBB' : 'BBB index OAS'} ${fmtDate(last[0])}` },
+        { v: yAgo ? `${last[1] - yAgo[1] > 0 ? '+' : ''}${fmtN(last[1] - yAgo[1])} bp` : '—', l: t('oneY'), c: yAgo ? cls(yAgo[1] - last[1]) : '' },
+        { v: `${fmtN(lo[1])}–${fmtN(hi[1])} bp`, l: LANG === 'es' ? `rango desde ${fmtDate(bp[0][0])}` : `range since ${fmtDate(bp[0][0])}` },
+      ].map((s) => `<div class="stat"><div class="v ${s.c || ''}">${s.v}</div><div class="l">${s.l}</div></div>`).join(''));
+      el('cdsCap').textContent = LANG === 'es' ? 'OAS del índice ICE BofA BBB US Corporate sobre Treasuries, diario, últimos tres años.' : 'ICE BofA BBB US Corporate Index OAS over Treasuries, daily, last three years.';
+      html('cdsNote', LANG === 'es' ? `<b>Proxy, no Oracle.</b> El índice BBB es el escalón de las calificaciones de Oracle (${rl}) y mide el riesgo de crédito BBB en general. El CDS a ${T} años de Oracle requiere una fuente que el conector de FactSet no tiene (verificado ${checked}).${press}` : `<b>Proxy, not Oracle.</b> The BBB index is the bucket of Oracle's ratings (${rl}) and prices BBB credit risk in general. Oracle's own ${T}-year CDS needs a source the FactSet connector lacks (checked ${checked}).${press}`);
+      html('cdsSrc', `${t('src')}: ${extLink(BBB.sourceUrl, BBB.source)} ${asOf(last[0])} · ${LANG === 'es' ? 'un día hábil de rezago' : 'one-business-day lag'}${nw2 ? ` · ${LANG === 'es' ? 'prensa enlazada en' : 'press linked in'} ${ref('news')}` : ''}`);
     } else {
       // no series yet: one line that says so, with the latest press reading linked from the news file (never an internal path)
       const nw2 = NEWS ? (NEWS.items || []).filter((x) => /credit default swap|CDS/i.test(x.summary_en || '')).sort((a, b) => (a.date < b.date ? 1 : -1))[0] : null;
@@ -1825,7 +1848,7 @@
       [LANG === 'es' ? 'Precios, dividendos, tasas' : 'Prices, dividends, yields', LANG === 'es' ? 'diario, después del cierre de la NYSE' : 'daily after the NYSE close', `${MK.prices.ORCL ? MK.prices.ORCL.source : ''} (ORCL) · ${MK.prices['^GSPC'] ? MK.prices['^GSPC'].source : ''} (S&P 500) · ${US10.source || ''} (${LANG === 'es' ? 'Tesoro a 10 años' : '10-year Treasury'})`, fmtDate(MK.generatedAt || '')],
       [LANG === 'es' ? 'Referencia: acciones, deuda, calificaciones, expansión de IA, RPO, supuestos DCF' : 'Reference: shares, debt, ratings, AI buildout, RPO, DCF defaults', LANG === 'es' ? 'por evento (revisado)' : 'event-driven (reviewed)', LANG === 'es' ? '10-K, 8-K, prospectos y comunicados de las agencias' : '10-K, 8-K, prospectuses and the agencies\' releases', fmtDate(REF.updatedAt)],
       [LANG === 'es' ? 'Consenso FactSet: múltiplos a doce meses, pares, precio objetivo, semilla del DCF' : 'FactSet consensus: forward multiples, peers, price target, DCF seed', LANG === 'es' ? 'días hábiles (rutina con el conector de FactSet)' : 'weekdays (routine with the FactSet connector)', LANG === 'es' ? 'conector de FactSet AI-Ready Data' : 'FactSet AI-Ready Data connector', FS && FS.fetched ? fmtDate(FS.fetched) : '—'],
-      [LANG === 'es' ? 'CDS a 5 años (riesgo de crédito)' : '5-year CDS (credit risk)', LANG === 'es' ? 'pendiente · diario cuando esté conectado' : 'pending · daily once connected', LANG === 'es' ? 'FactSet (sin conjunto de datos de CDS en el conector todavía)' : 'FactSet (no CDS content set in the connector yet)', CDS.updatedAt ? fmtDate(CDS.updatedAt) : '—'],
+      [LANG === 'es' ? 'Spread de crédito (proxy índice BBB; CDS pendiente)' : 'Credit spread (BBB index proxy; CDS pending)', LANG === 'es' ? 'diario (FRED)' : 'daily (FRED)', `${BBB ? BBB.source : 'FRED BAMLC0A4CBBB'} · ${LANG === 'es' ? 'CDS: FactSet sin ese conjunto de datos' : 'CDS: no FactSet content set'}`, BBB ? fmtDate(BBB.asOf) : '—'],
       [LANG === 'es' ? 'Noticias y eventos recientes' : 'News and recent events', LANG === 'es' ? 'diario (rutina en la nube)' : 'daily (cloud routine)', LANG === 'es' ? 'SEC EDGAR, sala de prensa de Oracle, agencias y cables; fuentes primarias primero' : 'SEC EDGAR, Oracle newsroom, agencies and wires; primary sources first', NEWS && NEWS.asOf ? fmtDate(NEWS.asOf) : '—'],
       [LANG === 'es' ? 'Datos XBRL de Oracle (arrendamientos, capex, compromisos)' : 'Oracle XBRL facts (leases, capex, commitments)', LANG === 'es' ? 'diario, con la cosecha de EDGAR' : 'daily, with the EDGAR harvest', LANG === 'es' ? 'API de datos XBRL de la SEC (company facts)' : 'SEC XBRL company-facts API', XB && XB.fetched ? fmtDate(XB.fetched) : '—'],
       [LANG === 'es' ? 'Registro de riesgos' : 'Risk register', LANG === 'es' ? 'con cada 10-Q / 10-K y acción de calificación' : 'with each 10-Q / 10-K and rating action', LANG === 'es' ? 'revisado con cada reporte; cada riesgo cita su evidencia' : 'reviewed with each filing; each risk cites its evidence', RK && RK.updated ? fmtDate(RK.updated) : '—'],
@@ -1840,6 +1863,7 @@
       { t: LANG === 'es' ? 'Transcripciones de llamadas de resultados' : 'Earnings-call transcripts', d: LANG === 'es' ? 'Aportadas por el responsable (FactSet CallStreet); citas breves con orador y página. No se republican.' : 'Supplied by the owner (FactSet CallStreet); short quotes with speaker and page. Not republished.', u: 'https://investor.oracle.com/' },
       { t: LANG === 'es' ? 'Precios diarios' : 'Daily prices', d: `${MK.prices.ORCL ? MK.prices.ORCL.source : ''}; ${LANG === 'es' ? 'S&P 500 de FRED (SP500)' : 'S&P 500 from FRED (SP500)'}.`, u: MK.prices.ORCL && MK.prices.ORCL.sourceUrl ? MK.prices.ORCL.sourceUrl : 'https://www.nasdaq.com/market-activity/stocks/orcl/historical' },
       { t: US10.source || 'U.S. Treasury daily par yield curve', d: `${LANG === 'es' ? 'Rendimiento par a 10 años, diario, para la tasa libre de riesgo del DCF; valor usado' : '10-year par yield, daily, for the DCF risk-free rate; value used'}: ${us10Last ? `${fmtPct(us10Last[1], 2)} (${fmtDate(us10Last[0])})` : '—'}. ${LANG === 'es' ? 'FRED DGS10 republica la misma serie y es el respaldo cuando el CSV del Tesoro no responde.' : 'FRED DGS10 republishes the same series and is the fallback when the Treasury CSV does not answer.'}`, u: US10.sourceUrl || FRED_DGS10 },
+      ...(BBB ? [{ t: 'FRED — ICE BofA BBB US Corporate Index OAS (BAMLC0A4CBBB)', d: `${LANG === 'es' ? 'Proxy de spread de crédito (escalón BBB de Oracle, no su propio spread); valor usado' : "Credit-spread proxy (Oracle's rating bucket, not its own spread); value used"}: ${fmtN(Math.round(BBB.value * 100))} bp (${fmtDate(BBB.asOf)}).`, u: BBB.sourceUrl }] : []),
       { t: 'FactSet', d: LANG === 'es' ? 'Estimaciones de consenso (UPA, ventas, EBITDA, flujo libre, precio objetivo, recomendaciones), precios, valores de mercado y deuda neta de los pares, a través del conector FactSet AI-Ready Data. Base de la UPA: mayoritaria de los brokers.' : 'Consensus estimates (EPS, sales, EBITDA, free cash flow, price target, ratings), prices, market values and peers\' net debt, through the FactSet AI-Ready Data connector. EPS basis: brokers\' majority.', u: 'https://www.factset.com/' },
       { t: LANG === 'es' ? 'Agencias calificadoras' : 'Rating agencies', d: LANG === 'es' ? "Moody's, S&P Global Ratings y Fitch: comunicados de acción de calificación." : "Moody's, S&P Global Ratings and Fitch: rating-action releases.", u: 'https://www.spglobal.com/ratings/' },
     ];
@@ -2598,7 +2622,7 @@
     get LANG() { return LANG; }, t, L, LS, locale, fmtN, fmtM, fmtBn, fmtPct, fmtX, fmtDate, qLabel, qLabelId, ytdLabel, fyLabel, cls, addDays,
     FIN, MK, REF, PEERS, GD, CM, SUM, CDS, BO,
     Q, Y, lastQ, qById, prevQid, yoyQid, REV_LINES, revOnNewBasis, sumParts, fixRatios, combine, ytdFor, ltmFor, lastLTM,
-    px, lastPoint, pointAtOrBefore, us10, US10, us10Last, us10Label, us10SrcName, orclPx, lastPx, sharesNow, sharesAt, qEndDate, netDebt,
+    px, lastPoint, pointAtOrBefore, us10, US10, us10Last, us10Label, us10SrcName, BBB, orclPx, lastPx, sharesNow, sharesAt, qEndDate, netDebt,
     GV, isYoY, yoyCommentsFor, revValue, opsFor, GM, gRange, gMid, gActualFmt, gStatus, gActual, gNote, gCapexNote,
     boQ, boLabel, maturityBuckets, MAT_BUCKETS, fyOfDate, betaFromMarket, kdFromDebt,
     pctChange, OB, PL, obligStats, peerLeverage, SEC, NEWS, XB, RK, CL, secNum, secTitle, secNav, secList, moduleStatus, fmtET, nextExpectedFiling, xbQ, xbQuarters, xbInstant, parseCapexGuide, gCapexNote,

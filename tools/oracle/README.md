@@ -27,7 +27,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `comments.js` (`window.ORCL_COMMENTS`) | Comments column for the income statement, the balance sheet and the cash-flow statement, plus the operating-metrics card, bilingual: 13 quarters 1Q24→1Q27 keyed `2027Q1` (shown for same-quarter-prior-year pairs) and fiscal years FY2024→FY2026 keyed `FY2026` (shown in FY mode for consecutive years); management quotes per period. Driver-only, one clause each, citing the release page or the call page and speaker | `comments.json` ← `_raw_comments_a/b.json` (quarters) and `_raw_comments_y.json` (years); new quarters drafted by the routine as `_raw_comments_c.json` |
 | `summary.js` (`window.ORCL_SUMMARY`) | Executive-summary cards (operations, guidance, debt, what to watch) for the latest quarter | `comments.json` → `exec_summary` |
 | `peers.js` (`window.ORCL_PEERS`) | Peer multiples (Microsoft, SAP, Salesforce, ServiceNow, IBM, Workday) | **Placeholder** until the FactSet connector is authorised (`peers.json`) |
-| `cds.js` (`window.ORCL_CDS`) | 5-year senior CDS spread series, tenor, recovery assumption | **Placeholder** until the FactSet connector is authorised (`cds.json`) |
+| `cds.js` (`window.ORCL_CDS`) | 5-year senior CDS spread series, tenor, recovery assumption | **Placeholder** until a CDS source exists (`cds.json`). Meanwhile the credit card shows the BBB index proxy from `market.js → spreads.BBB_OAS` (FRED `BAMLC0A4CBBB`, ICE BofA BBB US Corporate Index OAS, `bbb_oas.csv`), labeled "proxy, not Oracle" (owner's choice 2026-10-05) |
 | `quality.js` (`window.ORCL_QUALITY`) | Last tie-out report + automation state + module staleness + obligations/XBRL verification + cross-reference check, rendered by `quality.html` | `validate-data.mjs` → `quality_report.json`, `harvest-filings.mjs` → `state.json` |
 | `sections.js` (`window.ORCL_SECTIONS`) | Section registry (order, bilingual titles, nav labels, deck flag, modules) + the freshness rules | `sections.json`, `tools/oracle/freshness.json` |
 | `xbrl.js` (`window.ORCL_XBRL`) | Oracle's XBRL facts: lease balances, maturities and additions, cash capex, purchase obligations, RPO, deferred revenue, interest; latest-filed value per period, derived quarters flagged, amendments | **Automatic, daily** (`fetch-xbrl-facts.mjs` → `xbrl_facts.json`) |
@@ -135,7 +135,7 @@ Assumptions in `ASSUMPTIONS.md`; open items in `PENDING.md`.
 Since 2026-09-24 the filings job also runs `fetch-peer-leverage.mjs` (SEC XBRL company facts for the peer leverage table in the Off-Balance-Sheet Financing and Leases section) right after the investor calendar; the weekly press sweep was never created as a task (`press.json` is an archive; see `NEWS-SWEEP-PROMPT.md` for the daily news routine).
 
 ```
-scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED (S&P 500) + U.S. Treasury CSV (10-year) -> tools/oracle/data/*.csv, market_reference.json
+scripts/oracle/fetch-market.mjs     Nasdaq/Yahoo/Stooq + FRED (S&P 500, BBB OAS) + U.S. Treasury CSV (10-year) -> tools/oracle/data/*.csv, market_reference.json
 scripts/oracle/harvest-filings.mjs  SEC EDGAR (IR feed fallback) -> tools/oracle/raw/*, tools/oracle/data/state.json
 scripts/oracle/fetch-xbrl-facts.mjs SEC XBRL company facts       -> tools/oracle/data/xbrl_facts.json (amendments by accession)
 scripts/oracle/validate-data.mjs    tie-outs; non-zero exit fails the job; writes quality_report.json

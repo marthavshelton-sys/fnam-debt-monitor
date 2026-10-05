@@ -164,6 +164,10 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
 - `{{fact:id}}` tokens in the narrative must name a key of `FACTS` in `app.js` (validator check).
 - `fetch-market.mjs`: a fallback source (Yahoo, the Treasury's yearly CSV) covers a shorter window than FRED; since round 4 it is
   merged into the stored CSV (missing dates added), never written over it. FRED answers the GitHub runner, not the sandbox.
+- Credit-spread proxy (2026-10-05, owner's choice: "build the FRED BBB proxy"): the credit card shows the ICE BofA BBB US Corporate
+  Index OAS (FRED `BAMLC0A4CBBB`, in bp, last three years) while no CDS/bond source exists, labeled "proxy, not Oracle" with
+  Oracle's ratings named; `fetch-market.mjs` merges it into `bbb_oas.csv`, `market.js → spreads.BBB_OAS`, deck debt page and
+  sources updated. FRED's CSV endpoint answers curl but sometimes refuses Node's fetch from the sandbox (503); the runner is fine.
 - 10-year Treasury (2026-10-05, owner's choice): U.S. Treasury daily par yield CSV first, FRED DGS10 fallback, always merged
   into the stored history. The value used, its source and date are printed wherever the figure appears (`US10`, `us10Label()`
   in `app.js`; `M.US10`/`M.us10Last` in the deck); the validator's freshness row carries the source name. Do not hard-code a source label.
