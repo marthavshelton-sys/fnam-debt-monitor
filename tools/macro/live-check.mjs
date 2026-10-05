@@ -109,7 +109,12 @@ async function checkDeploy() {
     }
     if (Date.now() >= deadline) {
       if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
-      else if (live && exp) problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, expected ${sha(exp.buf).slice(0, 12)}): Cloudflare has not published the latest commit`);
+      else if (live && exp) {
+        // Where the two differ, so the report says whether the deploy is stale or the edge rewrote the page.
+        const n = Math.min(live.buf.length, exp.buf.length); let i = 0; while (i < n && live.buf[i] === exp.buf[i]) i++;
+        const at = (buf) => buf.subarray(Math.max(0, i - 60), Math.min(buf.length, i + 160)).toString("utf8").replace(/\s+/g, " ");
+        problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes; expected ${sha(exp.buf).slice(0, 12)}, ${exp.buf.length.toLocaleString("en-US")} bytes; first difference at byte ${i.toLocaleString("en-US")}; live: "${at(live.buf)}"; expected: "${at(exp.buf)}"): Cloudflare has not published the latest commit, or the edge rewrote the page`);
+      }
       return;
     }
     await sleep(30000);
