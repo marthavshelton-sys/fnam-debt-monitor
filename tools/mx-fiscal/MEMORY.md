@@ -46,8 +46,13 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   +0.13 pp; Sep-2026: 4.16 vs 4.08). The macro page used it until 2026-10-05, which is why the two pages disagreed.
   The SIE API carries SR16774 from Feb-2018 only (N/E before). The routine still records the PDF's Cuadro 2
   median as `banxicoSurvey.inflationNext12m`; `check-docs.mjs` fails the run if the SIE series differs from it for
-  the same survey month. Residual: this page compounds the real rate ((1+i)/(1+π)−1) while the macro page subtracts
-  (i−π), so the two ex ante rates still differ by a few basis points (2.33% vs 2.42% in Oct-2026).
+  the same survey month. Both real rates are **differences** (target minus inflation, percentage points), Banxico's
+  definition: Informe Trimestral abril–junio 2026, Gráfica 104, nota 1 ("la diferencia entre el objetivo de la tasa de
+  interés interbancaria a un día y la media de las expectativas de inflación a 12 meses"). Until 2026-10-05 this page
+  compounded ((1+i)/(1+π)−1) and printed 9 bp below the macro page for the same inputs. Two open points, owner's call:
+  Banxico itself uses the **mean** of expectations (SR16773, "mes t+1"; Aug-2026: 6.50 − 4.15 = 2.35%, the figure in
+  that report) while both pages use the median (SR16774); and Banxico's neutral real-rate range is 1.8–3.6% (midpoint
+  2.7%) since 28-Aug-2024, while the macro page's summary sentences still compare with 1.8–3.4%.
 - PEF states amounts in pesos ("10,193,683,700,000"), the LIF table in millones de pesos.
 
 ## Conventions
