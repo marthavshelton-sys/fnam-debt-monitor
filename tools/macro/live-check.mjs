@@ -84,6 +84,16 @@ function expectedPage() {
   if (expectFile) return { buf: readFileSync(expectFile), label: expectFile };
   return null;
 }
+// Cloudflare adds its Web Analytics beacon to the HTML it serves when the project has analytics on
+// (a comment plus one script tag before </body>). It is not part of the page, so the deploy comparison
+// removes it before hashing; the report notes that it was there.
+const EDGE_BEACON = /\s*(?:<!--\s*Cloudflare (?:Pages|Web) Analytics\s*-->\s*)?<script[^>]*static\.cloudflareinsights\.com\/beacon\.min\.js[^>]*>\s*<\/script>/g;
+let edgeNoted = false;
+function withoutEdge(buf) {
+  const text = buf.toString("utf8"), bare = text.replace(EDGE_BEACON, "");
+  if (bare !== text && !edgeNoted) { edgeNoted = true; notes.push("Edge: Cloudflare's Web Analytics beacon is injected into the page; ignored in the deploy comparison"); }
+  return bare === text ? buf : Buffer.from(bare, "utf8");
+}
 async function livePage() {
   const r = await fetch(pageUrl + (pageUrl.includes("?") ? "&" : "?") + "livecheck=" + Date.now(), { headers: { "cache-control": "no-cache", ...cookieHeaders() } });
   return { status: r.status, type: r.headers.get("content-type") || "", buf: Buffer.from(await r.arrayBuffer()) };
@@ -94,7 +104,8 @@ async function checkDeploy() {
     let live, exp;
     try { live = await livePage(); exp = expectedPage(); }
     catch (e) { live = null; exp = null; if (Date.now() >= deadline) { problem("deploy", "could not fetch the page or main's copy (" + e.message.split("\n")[0] + ")"); return; } }
-    if (live && live.status === 200 && (!exp || sha(live.buf) === sha(exp.buf))) {
+    if (live && live.status === 200) live.bare = withoutEdge(live.buf);
+    if (live && live.status === 200 && (!exp || sha(live.bare) === sha(exp.buf))) {
       notes.push(exp ? `Deploy: the live page is ${exp.label} (sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes)` : `Deploy: not compared (no --expect); live page ${live.buf.length.toLocaleString("en-US")} bytes`);
       return;
     }
@@ -111,9 +122,10 @@ async function checkDeploy() {
       if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
       else if (live && exp) {
         // Where the two differ, so the report says whether the deploy is stale or the edge rewrote the page.
-        const n = Math.min(live.buf.length, exp.buf.length); let i = 0; while (i < n && live.buf[i] === exp.buf[i]) i++;
+        const lb = live.bare || live.buf;
+        const n = Math.min(lb.length, exp.buf.length); let i = 0; while (i < n && lb[i] === exp.buf[i]) i++;
         const at = (buf) => buf.subarray(Math.max(0, i - 60), Math.min(buf.length, i + 160)).toString("utf8").replace(/\s+/g, " ");
-        problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes; expected ${sha(exp.buf).slice(0, 12)}, ${exp.buf.length.toLocaleString("en-US")} bytes; first difference at byte ${i.toLocaleString("en-US")}; live: "${at(live.buf)}"; expected: "${at(exp.buf)}"): Cloudflare has not published the latest commit, or the edge rewrote the page`);
+        problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes; expected ${sha(exp.buf).slice(0, 12)}, ${exp.buf.length.toLocaleString("en-US")} bytes; first difference at byte ${i.toLocaleString("en-US")}; live: "${at(lb)}"; expected: "${at(exp.buf)}"): Cloudflare has not published the latest commit, or the edge rewrote the page`);
       }
       return;
     }
