@@ -4,69 +4,6 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
-   "path": "sites[0].mw_series[1].en",
-   "old": null,
-   "new": "42% of capacity delivered (Oracle, 4Q26 call p.7): about 504 MW of 1,200, derived"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[1].es",
-   "old": null,
-   "new": "42% de la capacidad entregada (Oracle, llamada 4T26 p.7): unos 504 MW de 1,200, derivado"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].when",
-   "old": null,
-   "new": "FY2027Q1"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].kind",
-   "old": null,
-   "new": "energized"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].mw",
-   "old": null,
-   "new": 618
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].src",
-   "old": null,
-   "new": "1Q27 call p.6"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].en",
-   "old": null,
-   "new": "618 MW delivered, 6 of 8 buildings live (Oracle, 1Q27 call p.6)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[0].mw_series[2].es",
-   "old": null,
-   "new": "618 MW entregados, 6 de 8 edificios operando (Oracle, llamada 1T27 p.6)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
    "path": "sites[0].mw_series[3].when",
    "old": null,
    "new": "2025-06"
@@ -4200,7 +4137,70 @@
    "path": "peers[7].divYieldPct",
    "old": 0.26017029328287605,
    "new": 0.2561863173216885
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "rates.US10Y.asOf",
+   "old": "2026-10-02",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "rates.US10Y.value",
+   "old": 5.28,
+   "new": 5.31
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "rates.US10Y.points.length",
+   "old": 16174,
+   "new": 16175
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": "2026-10-01",
+   "new": "2026-10-02"
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": 1.06,
+   "new": 1.04
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": 786,
+   "new": 787
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "reference.js",
+   "path": "erp.pct",
+   "old": 4.14,
+   "new": 4.2
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "reference.js",
+   "path": "erp.asOf",
+   "old": "2026-09-01",
+   "new": "2026-10-01"
+  },
+  {
+   "at": "2026-10-05T21:55:12.089Z",
+   "file": "reference.js",
+   "path": "erp.riskfreeUsedPct",
+   "old": 4.75,
+   "new": 5.29
   }
  ],
- "generated": "2026-10-05T14:23:36.266Z"
+ "generated": "2026-10-05T21:55:12.089Z"
 }

@@ -28,8 +28,8 @@
     }
   },
   "treasury_10y": {
-    "yield_pct": 5.28,
-    "as_of_date": "2026-10-02",
+    "yield_pct": 5.31,
+    "as_of_date": "2026-10-05",
     "source_url": "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve",
     "source_name": "U.S. Treasury daily par yield curve",
     "series": "10-year par yield, daily",
@@ -548,21 +548,21 @@
     "Some duplicate-maturity series exist by design per the 10-K (e.g., two separate notes both maturing in May 2030, and both a fixed- and floating-rate tranche maturing in Aug 2028 and again in Feb 2029) -- these are distinct instruments, not data errors."
   ],
   "erp": {
-    "erp_pct": 4.14,
-    "as_of": "2026-09-01",
+    "erp_pct": 4.2,
+    "as_of": "2026-10-01",
     "method": "Trailing 12 month, with adjusted payout",
-    "riskfree_used_pct": 4.75,
+    "riskfree_used_pct": 5.29,
     "source_url": "https://pages.stern.nyu.edu/~adamodar/New_Home_Page/home.htm",
     "source_name": "Aswath Damodaran, NYU Stern: implied ERP for the S&P 500 (monthly)",
     "accessed": "2026-10-05"
   },
-  "refreshed_at": "2026-10-05T14:04:44.172Z",
+  "refreshed_at": "2026-10-05T21:55:11.707Z",
   "credit_spread_proxy": {
     "series": "BAMLC0A4CBBB",
     "name": "ICE BofA BBB US Corporate Index Option-Adjusted Spread",
     "unit": "percent",
-    "value_pct": 1.06,
-    "as_of_date": "2026-10-01",
+    "value_pct": 1.04,
+    "as_of_date": "2026-10-02",
     "source_url": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB",
     "source_name": "FRED BAMLC0A4CBBB (ICE Data Indices)",
     "fetch_url": "https://fred.stlouisfed.org/graph/fredgraph.csv?id=BAMLC0A4CBBB&cosd=2015-01-01",
