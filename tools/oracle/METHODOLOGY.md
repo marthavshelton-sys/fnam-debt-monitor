@@ -37,7 +37,7 @@ each section, whether the board deck builds a page for it (`deck`, in `deck_orde
 "Start here") and the reading `path`s that open the section (5 = five minutes, 20 = twenty minutes; the full path
 opens everything). The page follows the story order — Start here, Contracts, Capacity, Capex, Funding,
 Off-balance-sheet, Credit, Circularity, Multiples, DCF, Risks, News, Calendar — then the appendix (Statements,
-Guidance, Methodology / provenance / glossary / change log, numbered R1–R3). `app.js` numbers sections, figures
+Guidance, Analyst opinions, Methodology / provenance / glossary / change log, numbered R1–R4). `app.js` numbers sections, figures
 (cards with a chart) and tables (cards with a table) from the DOM order at render time, builds the navigation and
 the phone menu, and resolves every cross-reference (`ref('id')` in code, `{{sec:id}}` in the JSON narrative) to
 "§NN Title". `present.js` titles its pages from the same registry and orders them by `deck_order` (the board order),
@@ -292,3 +292,26 @@ Results: `tools/oracle/data/quality_report.json` → `/oracle/quality.html`.
 * **Glossary.** `tools/oracle/data/glossary.json` (bilingual definitions with first-use match patterns) feeds the
   table in the Reference appendix and `glossify()`, which wraps the first visible occurrence of each term in the main
   content in a definition tooltip (hover; tap on a phone).
+
+## 11. Analyst opinions (Reference appendix, 2026-10-05)
+
+* **What it is.** The sell side's view of Oracle by research house, kept apart from the model's own view (the DCF). Three
+  layers, each labelled: (1) the research reports dated inside a 60-day window in the owner's research library (Dropbox:
+  the `Current` folder holds the current month, earlier months sit under `Archives`), read in full in a Claude session and
+  summarised in `tools/oracle/data/analysts.json` — thesis, valuation method, price target, rating, analysts, date, title;
+  (2) the houses that FactSet StreetAccount's analyst summaries reported (rating, target and the basis the summary gave),
+  shown as press tier with a "StreetAccount summary" badge; (3) FactSet's consensus — the current target statistics and
+  rating counts from the daily FactSet file, and a dated weekly snapshot of the same series for the history chart.
+* **Sourcing rules.** The reports are licensed material: the page carries FNAM's summaries and the houses' figures, never a
+  republished page, and no report is stored in the repository; each entry names the house, the report and its date as text
+  (no link). A target is `null` only when the report states none (a sector report that rates without a target, a credit note);
+  credit research (Barclays, Morgan Stanley) is shown as credit, never as an equity target. Each house keeps its own rating
+  wording; `rating_class` (buy = Buy, Outperform, Overweight; hold = Neutral, Sector Perform, Market Perform; sell; credit)
+  only colours the chart. StreetAccount items never replace a report on file. "vs price" compares every target with the
+  model's latest close; the price the house saw on its report date is printed beside it.
+* **Validation.** Every date inside the window, bilingual text for every summary, known rating classes, positive targets,
+  unique ids, the consensus history dated, ascending and with rating counts that add up (`validate-data.mjs`, tag
+  `analysts`). The module `analysts` turns the section stale `window_days` after the sweep date (`freshness.json`).
+* **Reading it.** The lead counts how many targets sit above the model's DCF base and sends the reader to the DCF's "what
+  has to be true" box: the houses capitalise FY2028–FY2030 earnings on P/E multiples (or, at Goldman, 2030 net income
+  discounted back), while the DCF discounts the cash the buildout consumes first. The page endorses no house.

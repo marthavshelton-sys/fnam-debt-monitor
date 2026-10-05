@@ -8,8 +8,8 @@ Start here (reading paths, verdict, six-number chain) → Contracts (RPO, RPO-to
 megawatt timeline) → Capex and FCF → Funding (balance sheet, funding plan, sources and uses) → Off-balance-sheet and
 leases → Credit (ratings, maturities, instruments, CDS note, peer and hyperscaler leverage) → Circularity (deferred
 revenue, counterparties, RPO concentration) → Multiples → DCF (scenarios, tax and lease notes, what has to be true) →
-Risks → News → Calendar, then a collapsed Reference appendix (R1 Statements, R2 Guidance, R3 Methodology, provenance,
-glossary, change log). Every section has a composed headline and is collapsed by default except the Summary. Section
+Risks → News → Calendar, then a collapsed Reference appendix (R1 Statements, R2 Guidance, R3 Analyst opinions, R4 Methodology,
+provenance, glossary, change log). Every section has a composed headline and is collapsed by default except the Summary. Section
 order, titles and numbering come from `tools/oracle/data/sections.json` (see *Numbering*). Every figure on the page comes from
 a data file in `site/oracle/data/`; nothing is hard-coded. Method and sources: `METHODOLOGY.md`; memory: `MEMORY.md`.
 
@@ -33,6 +33,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `xbrl.js` (`window.ORCL_XBRL`) | Oracle's XBRL facts: lease balances, maturities and additions, cash capex, purchase obligations, RPO, deferred revenue, interest; latest-filed value per period, derived quarters flagged, amendments | **Automatic, daily** (`fetch-xbrl-facts.mjs` → `xbrl_facts.json`) |
 | `news.js` (`window.ORCL_NEWS`) | News and recent events: dated, themed, one-line summary, why it matters, sources primary first | `news.json`, daily cloud routine (`NEWS-SWEEP-PROMPT.md`) |
 | `risks.js` (`window.ORCL_RISKS`) | Risk register with evidence, section references and what to watch | `risks.json`, reviewed with each 10-Q/10-K |
+| `analysts.js` (`window.ORCL_ANALYSTS`) | Sell-side opinions by research house (Reference R3): the reports in the owner's research library (Dropbox) dated inside a 60-day window, read in-session and summarised (thesis, valuation method, target, rating, analysts, date; licensed material, never republished), the houses FactSet StreetAccount reported (press tier, labelled) and a dated snapshot of FactSet's weekly consensus target and rating counts; the current consensus comes from `factset.js` | `analysts.json`, in-session sweep (`ANALYSTS-SWEEP-PROMPT.md`); the section turns stale 60 days after `as_of` |
 | `changelog.js` (`window.ORCL_CHANGELOG`) | What changed in each build (file, leaf, old → new) | `build-data.mjs` diff → `changelog.json` |
 
 ## Curated source of truth (`tools/oracle/data/`)
@@ -57,6 +58,7 @@ ties it out, and `build-data.mjs` writes `site/oracle/data/*.js`. Never hand-edi
 | `peer_leverage.json` | Lease-adjusted leverage inputs for the owner's Baa-range peer set (Broadcom, Dell, Intel, IBM, HPE) from SEC XBRL company facts | Written by `fetch-peer-leverage.mjs` on weekdays: latest balance sheet for stocks, latest fiscal year for flows, a tag accepted only when its period matches; each value carries accession and tag. Ratings are not in XBRL and are not shown. |
 | `factset.json` | FactSet consensus snapshot: Oracle NTM and fiscal-year estimates (EPS, sales, EBITDA, capex, FCF), point-in-time NTM history, price target and ratings; eight peers with FactSet price, market value, lease-inclusive net debt and NTM consensus | Written on weekdays by the cloud routine "FNAM Oracle: FactSet refresh" through the FactSet AI-Ready Data connector (`FACTSET-PROMPT.md` lists the calls); feeds `data/factset.js` and `data/peers.js`; the page computes every ratio. FactSet labels Oracle's fiscal year by its starting calendar year; records carry Oracle's label. |
 | `long_range_targets.json` | Management's long-range targets (FY2030 revenue and EPS; OCI revenue by year), each with call, page, speaker and status (`in_force` / `superseded` with date and source) | Curated after each call or investor day; never rewritten by merge-raw; the page shows each vintage beside the reported IaaS revenue (`quarters.json → iaas_revenue_bn`, re-read from each release headline by the parser tests) and the DCF "management targets" basis reads the in-force FY2030 revenue target. |
+| `analysts.json` | Sell-side research sweep: `houses` (reports on file, with `thesis`, `method`, `risks`, `basis_short` in both languages, `target_usd`, `rating`, `rating_class`, `analysts`, `date`, `title`, `source.basis = report`), `reported` (houses known only through FactSet StreetAccount summaries, `source.basis = streetaccount`), `consensus_history` (FactSet weekly target and rating counts, a dated snapshot), `as_of`, `window_days`, `window_start` | Written in-session from the Dropbox library and the FactSet connector (`ANALYSTS-SWEEP-PROMPT.md`); each house keeps its own rating wording, `rating_class` normalises it; `target_usd` is null only when the report states none; the validator checks every date against the window, the bilingual text, the rating classes and that the history's counts add up; no PDF is ever stored in the repository |
 | `alerts.json` | Owner thresholds for the routine's email (1-day share move, max net debt / LTM EBITDA, guidance tracking) | Read by the reviewing routine. |
 | `tax.json` | FY2026 10-K income-tax rate reconciliation (statutory, each reconciling line, effective), the latest separately disclosed state line and the normalized rate behind the DCF tax input | Transcribed from the 10-K; `validate-data.mjs` checks every line against the XBRL rate-reconciliation facts (`fetch-xbrl-facts.mjs`, kind `rate`); emitted into `reference.js → tax`. |
 | `glossary.json` | Bilingual one-sentence definitions with first-use match patterns (`match_en` / `match_es`) | Feeds the Reference glossary and the first-use tooltips (`app.js glossify`). |
@@ -84,6 +86,26 @@ treatments, the implied terminal EV/EBITDA or implied g cross-check, and states 
 grid brackets it. Round 4: the Bull is the Bear's three levers at plan, capped at management's FY2030 target, and one capex
 rule (contracted plan ± revenue difference × terminal intensity) applies to both cases; the recipes sit in a closed panel
 under the scenarios table; a manual edit of an operating input turns the scenario Custom.
+
+## Analyst opinions (Reference R3, 2026-10-05)
+
+The section shows what the sell side publishes on Oracle, by research house: the reports dated inside a 60-day window in
+the owner's research library (Dropbox), read in full in a Claude session and summarised in `analysts.json` (thesis,
+valuation method, price target, rating, analysts, date, title), the houses that FactSet StreetAccount's summaries reported
+(press tier, shown with a "StreetAccount summary" badge and a lighter bar), and FactSet's consensus: the current target
+and rating counts from the daily `factset.json`, the weekly history as a dated snapshot in `analysts.json`. Stat tiles,
+the by-house table (with the consensus as its first row), a target chart with the price, the consensus mean and the
+model's DCF base as reference lines, the weekly consensus chart, and a closed panel with the thesis, method and risks per
+house. The lead counts how many targets sit above the DCF base and points to the DCF's "what has to be true" box.
+
+Rules: the reports are licensed material — summaries only, never a republished page, never a PDF in the repository;
+every house keeps its own rating wording (`rating_class` normalises it for the chart); a target is `null` only when the
+report states none (a sector report, a credit note); StreetAccount items are press tier and never replace a report on
+file; the page endorses no house and says so. Refresh in-session with `ANALYSTS-SWEEP-PROMPT.md` (Dropbox + FactSet
+connectors): the Dropbox `Current` folder holds only the current month, earlier months live under `Archives/<year>/<month>`;
+the Dropbox `fetch` tool extracts text up to 5 MiB — a larger PDF needs `download_link` + `curl` + `pdftotext`. The
+module `analysts` (`freshness.json`, `max_age_days` = the window) turns the section stale 60 days after `as_of`. Not in the
+board deck (`deck: false`); the owner decides whether the deck gets a page.
 
 ## Render check and deck check
 

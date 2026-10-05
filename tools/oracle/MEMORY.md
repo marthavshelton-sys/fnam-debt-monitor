@@ -114,6 +114,17 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   over the nav, verdict and chain in the first screen, Custom state after an edit, per-language word ceilings
   (`--max-words-en/--max-words-es`; baselines 2026-10-04 before round 4: EN 29,337, ES 32,648 expanded).
 
+- **2026-10-05 analyst opinions (owner's request, acting as a PM with a large ORCL position).** New Reference section `analysts`
+  (R3, between Guidance and Methodology; Methodology is R4; `deck: false`): the sell-side reports of the last 60 days in her
+  Dropbox research library read in full and summarised by house in `analysts.json` (thesis, valuation method, target, rating),
+  the houses FactSet StreetAccount reported (press tier, labelled) and FactSet's consensus (daily file for the current values,
+  a weekly snapshot for the history). Found in the window: Deutsche Bank (Buy, US$300), UBS (Buy, US$250 from 245), Goldman
+  (Buy, US$240 in a thematic report), BofA (Buy, US$240, a pre-results preview), Bernstein (Outperform, US$325, a sector
+  primer), BNP Paribas Exane (Outperform, no target in the sector report), Barclays credit (Overweight on the bonds), Morgan
+  Stanley credit/accounting (no rating); via StreetAccount: Citi 330, KeyBanc 300, Wells 280, Piper 225, BMO 195, RBC Sector
+  Perform 165. Rules in `METHODOLOGY.md` §11 and the README (licensed material: summaries only, no PDF in the repository; a
+  target is null only when the report states none; the page endorses no house). Refresh prompt: `ANALYSTS-SWEEP-PROMPT.md`.
+
 ## Pitfalls
 
 - EDGAR answers `data.sec.gov` (XBRL, submissions) from the sandbox with a descriptive User-Agent; `www.sec.gov/Archives`
@@ -178,6 +189,15 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   section is a flex column there with `order` values, so new summary children need an `order` or they land at the end.
 - `markWideTables()` runs after every render and after a section opens (`applyCollapse`): a table hidden in a collapsed section
   has no width, so the sticky-column class is only decided once it is visible.
+- Dropbox (owner's research library): the `Current` folder holds only the current month (`2026/October/Oct N/<house>/…`);
+  earlier months live under `Archives/2026/<Month>/<Mon N>/<house>/…`. The connector's `search` is content-based and returns
+  at most a few hundred hits; its `fetch` extracts text up to 5 MiB and errors above it — use `download_link` (single-use URL,
+  15 minutes) + `curl` through the proxy + `pdftotext` for larger reports (Bernstein, BNP). Sales-desk notes (GS TMT spec
+  sales, Duttenhoefer) and Zero Hedge are not research: never record a rating or target from them.
+- FactSet's `UnstructuredContent` (StreetAccount) returns broker-level ratings and targets in its "Street Takeaways" stories;
+  they are press tier and go into `analysts.json → reported`, never into `houses`. The consensus `PRICE_TGT` history comes from
+  `consensus_rolling` with `startDate`/`endDate` and `frequency: W`; ratings history from `ratings` with the same dates.
+- `sectionLeads()` shadows the i18n dictionary with a local `S` (obligation stats): name new locals there `AS`, `A2`…, never `S`.
 - `.github/workflows/oracle-refresh.yml`: a step `name:` that contains ": " must be quoted. The 3-Oct-2026 edit left one unquoted, so
   GitHub could not parse the file and every run (push-triggered and the 13:30/21:45 schedules) failed at startup with no jobs until
   4 Oct; the stale 2-Oct close the owner noticed in round 4 was that outage. Parse every workflow with `python3 -c "import yaml; ..."`

@@ -361,6 +361,10 @@ if (fsd) {
   emit("peers.js", "ORCL_PEERS", { updatedAt: null, source: "FactSet (no snapshot yet)", peers: [] }, "Peer multiples — empty until tools/oracle/data/factset.json exists.");
 }
 
+// ---------- analysts.js (sell-side opinions by house: reports in the owner's library summarised in-session, StreetAccount-reported houses, consensus snapshot) ----------
+const anj = load("analysts.json", null);
+if (anj) emit("analysts.js", "ORCL_ANALYSTS", { generatedAt: now, asOf: anj.as_of, windowDays: anj.window_days, windowStart: anj.window_start, libraryNote: { en: anj.library_note_en, es: anj.library_note_es }, priceNote: { en: anj.price_note_en, es: anj.price_note_es }, houses: anj.houses || [], reported: anj.reported || [], consensusHistory: anj.consensus_history || null }, "Sell-side opinions on Oracle by research house — the reports in the owner's research library summarised in-session (thesis, valuation method, target, rating; licensed material, never republished), the houses FactSet StreetAccount reported, and a dated snapshot of FactSet's weekly consensus target and ratings (tools/oracle/data/analysts.json).");
+
 // ---------- sections.js (section registry: order, titles, deck flag, modules → numbering is generated, never typed) ----------
 const secReg = load("sections.json", { sections: [] });
 const freshRules = existsSync(join(DATA, "..", "freshness.json")) ? JSON.parse(readFileSync(join(DATA, "..", "freshness.json"), "utf8")) : null;
