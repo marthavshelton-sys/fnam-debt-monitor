@@ -4,7 +4,7 @@
 // reviewed commit when an event lands (AGM, rating action, material event). Figures quoted come from Gentera's
 // quarterly press releases (IR site) unless a source says otherwise.
 window.G_REF = {
-  updatedAt: "2026-09-25",
+  updatedAt: "2026-10-05",
   company: {
     name: "Gentera, S.A.B. de C.V.", short: "Gentera", ticker: "GENTERA", bmv: "GENTERA", bloomberg: "GENTERA* MM", exchange: "BMV", yahoo: "GENTERA.MX",
     sector: { es: "Microfinanzas y servicios financieros de inclusión", en: "Microfinance and inclusion financial services" },
@@ -66,6 +66,7 @@ window.G_REF = {
       { date: "2025-06-30", es: "Compra del ~25.1% restante: 100%, fondeada con dividendos de subsidiarias y fondeo externo; prima de ≈Ps. 575 M cargada a prima en venta de acciones (conferencia 2T25). La participación no controladora cae de Ps. 2,419 M (1T25) a Ps. 234 M (2T25); desde el 3T25 el resultado de ConCrédito es 100% controlador.", en: "Purchase of the remaining ~25.1%: 100%, funded with subsidiary dividends and external funding; ≈Ps. 575 M premium charged to share premium (2Q25 call). Non-controlling interest drops from Ps. 2,419 M (1Q25) to Ps. 234 M (2Q25); from 3Q25 ConCrédito's result is fully attributable to the controlling interest." },
       { date: "2025-12-31", es: "4T25: cancelación de Ps. 328 M de activo por impuesto diferido; pérdida trimestral de Ps. 72 M; utilidad 2025 de Ps. 676 M vs Ps. 1,038 M en 2024.", en: "4Q25: Ps. 328 M deferred-tax write-down; Ps. 72 M quarterly loss; 2025 net income Ps. 676 M vs Ps. 1,038 M in 2024." },
       { date: "2026-06-30", es: "2T26: cartera récord de Ps. 6,472 M (+14.9% a/a), etapa 3 en la zona de 2–3%, ROE 26.5%; CrediTienda Ps. 1,144 M de cuentas por cobrar (+26.9%).", en: "2Q26: record loan book of Ps. 6,472 M (+14.9% y/y), stage 3 in the 2–3% zone, ROE 26.5%; CrediTienda receivables Ps. 1,144 M (+26.9%)." },
+      { date: "2026-09-29", es: "FinCrementar (ConCrédito) coloca Ps. 800 M en certificados bursátiles fiduciarios con sello social \"CONCRCB 26S\": plazo de 3 años, TIIE de Fondeo + 225 pb, demanda de ~1.65 veces (evento relevante BMV, https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1592053_1.pdf).", en: "FinCrementar (ConCrédito) places Ps. 800 M of social-label trust certificados bursátiles \"CONCRCB 26S\": 3-year term, TIIE de Fondeo + 225 bp, ~1.65x demand (BMV material event, https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1592053_1.pdf)." },
     ],
     modelNote: { es: "Ninguna de las compras cambia activos, ingresos ni utilidad neta consolidados: mueven utilidad de la participación no controladora a la controladora. Por eso la UPA (sobre utilidad controladora) crece más que la utilidad neta en 2022–23 y en 2025–26, y la comparación a/a de 'participación no controladora' es mecánica hasta el 2T26.", en: "Neither purchase changes consolidated assets, revenue or net income: they move profit from the non-controlling to the controlling interest. That is why EPS (on controlling income) grows faster than net income in 2022–23 and 2025–26, and why the y/y comparison of 'non-controlling interest' is mechanical until 2Q26." },
     sources: ["Press release 3T22 (Gentera IR)", "Press release 2T25 (Gentera IR)", "Press release 4T25 (Gentera IR)"],
@@ -110,14 +111,14 @@ window.G_REF = {
   // Ratings as printed in the 3Q24 corporate presentation (hand-supplied, tools/gentera/raw/transcripts); the
   // routine updates them from material-event notices when an agency acts.
   ratings: [
-    { agency: "Fitch Ratings", entity: "Banco Compartamos", rating: "AA(mex) / F1+(mex) · BB+ / B (global)", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
+    { agency: "Fitch Ratings", entity: "Banco Compartamos", rating: "AA(mex) / F1+(mex) · BB+ / B (global) · VR bb+ · deuda bursátil senior AA(mex)", outlook: { es: "Estable", en: "Stable" }, date: "2026-09-11", source: { es: "Evento relevante BMV del 11-sep-2026 (ratificación en la revisión anual)", en: "BMV material event of 11-Sep-2026 (affirmed in the annual review)" }, url: "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1588434_1.pdf" },
     { agency: "S&P Global Ratings", entity: "Banco Compartamos", rating: "mxAA / mxA-1+ · BB+ / B (global)", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
     { agency: "Moody's", entity: "Banco Compartamos", rating: "AA.mx / ML A-1.mx", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 34", en: "3Q24 corporate presentation, p. 34" } },
     { agency: "Apoyo & Asociados", entity: "Compartamos Financiera (Perú)", rating: "A-", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
     { agency: "Moody's Local PE", entity: "Compartamos Financiera (Perú)", rating: "A-", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
     { agency: "JCR", entity: "Compartamos Financiera (Perú)", rating: "A", outlook: { es: "Estable", en: "Stable" }, date: "2024-10-22", source: { es: "Presentación corporativa 3T24, p. 40", en: "3Q24 corporate presentation, p. 40" } },
   ],
-  ratingsNote: { es: "Calificaciones tomadas de la presentación corporativa del 3T24 (octubre de 2024), la más reciente suministrada; Gentera (tenedora) no aparece calificada en ella. Se actualizan con los eventos relevantes.", en: "Ratings taken from the 3Q24 corporate presentation (October 2024), the latest one supplied; Gentera (the holding company) is not rated in it. Updated from material-event notices." },
+  ratingsNote: { es: "Calificaciones tomadas de la presentación corporativa del 3T24 (octubre de 2024), la más reciente suministrada, salvo Fitch (ratificada el 11 de septiembre de 2026, evento relevante en la BMV); Gentera (tenedora) no aparece calificada en ella. Se actualizan con los eventos relevantes.", en: "Ratings taken from the 3Q24 corporate presentation (October 2024), the latest one supplied, except Fitch (affirmed on 11 September 2026, BMV material event); Gentera (the holding company) is not rated in it. Updated from material-event notices." },
   // Sell-side coverage seen on the 2023–2025 calls (no targets or recommendations transcribed; FactSet pending).
   analysts: [],
   coverage: ["BofA Securities", "Citi", "Goldman Sachs", "JPMorgan", "HSBC", "UBS", "Bradesco BBI", "Santander", "BBVA", "GBM", "Barclays", "BTG Pactual"],
