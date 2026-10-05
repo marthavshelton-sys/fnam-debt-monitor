@@ -216,7 +216,8 @@ dashboards, everything built from public data by GitHub Actions.
 - Expected 12-month inflation (ex ante real rate on `site/mx/macro` and `site/mx/fiscal`) is one series on both pages:
   Banxico SIE SR16774, the survey median for the 12 months *after* the survey month ("mes t+1" in table CR155), the
   figure Banxico headlines in Cuadro 2 of the survey PDF. SR14195 is the "mes t" median (counted from the survey month
-  itself) and runs about 0.1 pp apart; never mix them (the pages disagreed until 2026-10-05 for that reason). The fiscal
+  itself); the two differ month by month (up to ±0.3 pp); never mix them (the pages disagreed until 2026-10-05 for
+  that reason). The API carries SR16774 from Feb-2018 only. The fiscal
   page reads it from `data.js` (`inflExp12m`); `banxicoSurvey.inflationNext12m` in `docs-data.js` is only the PDF
   cross-check that `scripts/mx-fiscal/check-docs.mjs` enforces.
 - Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and

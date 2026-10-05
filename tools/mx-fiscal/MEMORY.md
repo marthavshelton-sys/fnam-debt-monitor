@@ -42,8 +42,9 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   for the 12 months *after* the survey month, "mes t+1" in table CR155), never from `docs-data.js`. It is the figure
   Banxico headlines in Cuadro 2 of the survey PDF (footnote: "se considera el mes posterior al levantamiento") and the
   series the macro dashboard (`/mx/macro`) reads, so both pages print one number. **SR14195 is the "mes t" median**
-  (12 months counted from the survey month itself) and runs about 0.1 pp higher (Sep-2026: 4.16 vs 4.08); the macro
-  page used it until 2026-10-05, which is why the two pages disagreed. The routine still records the PDF's Cuadro 2
+  (12 months counted from the survey month itself); the two differ month by month (Feb-2018 to Sep-2026: −0.29 to
+  +0.13 pp; Sep-2026: 4.16 vs 4.08). The macro page used it until 2026-10-05, which is why the two pages disagreed.
+  The SIE API carries SR16774 from Feb-2018 only (N/E before). The routine still records the PDF's Cuadro 2
   median as `banxicoSurvey.inflationNext12m`; `check-docs.mjs` fails the run if the SIE series differs from it for
   the same survey month. Residual: this page compounds the real rate ((1+i)/(1+π)−1) while the macro page subtracts
   (i−π), so the two ex ante rates still differ by a few basis points (2.33% vs 2.42% in Oct-2026).

@@ -156,8 +156,10 @@ SIE table CR155) feeds the ex ante real rate since 2026-10-05. It is the
 figure Banxico headlines in Cuadro 2 of the survey PDF and the series the
 Mexico fiscal monitor (`site/mx/fiscal`) reads for its ex ante rate, so both
 pages print one number. `SR14195`, used until 2026-10-05, is the "mes t"
-median (12 months counted from the survey month itself) and runs about 0.1 pp
-apart (Sep-2026: 4.16 vs 4.08); do not mix the two. Ids, labels and values
+median (12 months counted from the survey month itself); the two differ month
+by month (Feb-2018 to Sep-2026: −0.29 to +0.13 pp; Sep-2026: 4.16 vs 4.08); do
+not mix the two. The API carries SR16774 from Feb-2018 only (N/E before), so
+the ex ante real-rate history now starts in 2018 instead of 2010. Ids, labels and values
 were read from the public CR155 table on 2026-10-05 and the fetcher's title
 check (`(mes t+1)` … `mediana`) rejects any other series.
 
