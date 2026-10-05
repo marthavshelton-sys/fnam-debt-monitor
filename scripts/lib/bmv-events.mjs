@@ -42,11 +42,11 @@ const norm = (s) => s.replace(/\s+/g, ' ').trim();
 const days = (a, b) => Math.abs(Date.parse(a) - Date.parse(b)) / 864e5;
 export function bmvClass(t) {
   if (/fecha|conferencia|llamada|invitaci|convocatoria/i.test(t)) return 'other'; // results-date and call notices matter
-  if (/resultados\s+(del?\s+)?\d\s?t|reenv[ií]o del? (resultados\s+)?\d\s?t|resultados (del )?(primer|segundo|tercer|cuarto) trimestre/i.test(t)) return 'results';
+  if (/resultados\s+(del?\s+)?\d\s?t|reenv[ií]o del? (resultados\s+)?\d\s?t|resultados (operativos y financieros )?(del )?(primer|segundo|tercer|cuarto) trimestre|reporte trimestral|earnings results|reports? [1-4]q\d\d results/i.test(t)) return 'results';
   if (/tr[aá]fico|pasajeros/i.test(t)) return 'traffic';
   return 'other';
 }
-const quarterOf = (t) => { const m = t.match(/\b([1-4])\s?T\s?(20)?(\d\d)\b/i); return m ? `20${m[3]}Q${m[1]}` : null; };
+const quarterOf = (t) => { const m = t.match(/\b([1-4])\s?[TQ]\s?(20)?(\d\d)\b/i); return m ? `20${m[3]}Q${m[1]}` : null; }; // 2T26, 2Q26, 4T 2025
 
 // The listing: the "EVENTOS RELEVANTES DE LA EMISORA" table, one row per notice (date, subject, PDF and/or ZIP).
 export function parseListing(html) {
