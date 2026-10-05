@@ -403,8 +403,8 @@ html.no-data canvas{display:none !important;}
           <div class="stat"><div class="v num" data-bind="debtIntragovT">$7.83 billones</div><div class="l"><span class="en" hidden>Intragovernmental (<span data-bind="debtIntragovPct">19.4</span>%)</span><span class="es">Intragubernamental (<span data-bind="debtIntragovPct">19.4</span>%)</span></div></div>
         </div>
         <div class="callout">
-          <span class="en" hidden>Debt has risen roughly <b>$<span data-bind="debtSinceFYT">0.1</span> trillion</b> since fiscal year-end <span data-bind="fyEndYear">2026</span> (<span data-bind="fyEndDebtT">$40.17T</span> on <span data-bind="fyEndDateEn">30-Sep-2026</span>) — a pace of about <b>$<span data-bind="debtMonthlyPaceB">89</span> billion a month</b>. <span data-milestone hidden>Total debt first closed above <span data-bind="milestoneT">$40 trillion</span> on <span data-bind="milestoneDateEn">18-Aug-2026</span>.</span></span>
-          <span class="es">La deuda ha aumentado aproximadamente <b>$<span data-bind="debtSinceFYT">0.1</span> billones</b> desde el fin del año fiscal <span data-bind="fyEndYear">2026</span> (<span data-bind="fyEndDebtTEs">$40.17 billones</span> el <span data-bind="fyEndDateEs">30 de sep. de 2026</span>) — un ritmo de casi <b>$<span data-bind="debtMonthlyPaceB">89</span> mil millones al mes</b>. <span data-milestone hidden>La deuda total cerró por primera vez por encima de <span data-bind="milestoneTEs">$40 billones</span> el <span data-bind="milestoneDateEs">18 de ago. de 2026</span>.</span></span>
+          <span class="en" hidden>Debt has risen roughly <b data-bind="debtSinceFYEn">$0.1 trillion</b> since fiscal year-end <span data-bind="fyEndYear">2026</span> (<span data-bind="fyEndDebtT">$40.17T</span> on <span data-bind="fyEndDateEn">30-Sep-2026</span>)<span data-pace hidden> — a pace of about <b>$<span data-bind="debtMonthlyPaceB">—</span> billion a month</b></span><span data-pace-early hidden> — <b data-bind="debtDaysIntoFYEn">1 day</b> into FY<span data-bind="debtFyCur">2027</span>, too early for a monthly pace</span>. <span data-milestone hidden>Total debt first closed above <span data-bind="milestoneT">$40 trillion</span> on <span data-bind="milestoneDateEn">18-Aug-2026</span>.</span></span>
+          <span class="es">La deuda ha aumentado aproximadamente <b data-bind="debtSinceFYEs">$0.1 billones</b> desde el fin del año fiscal <span data-bind="fyEndYear">2026</span> (<span data-bind="fyEndDebtTEs">$40.17 billones</span> el <span data-bind="fyEndDateEs">30 de sep. de 2026</span>)<span data-pace hidden> — un ritmo de casi <b>$<span data-bind="debtMonthlyPaceB">—</span> mil millones al mes</b></span><span data-pace-early hidden> — <b data-bind="debtDaysIntoFYEs">1 día transcurrido</b> del AF<span data-bind="debtFyCur">2027</span>, aún es pronto para un ritmo mensual</span>. <span data-milestone hidden>La deuda total cerró por primera vez por encima de <span data-bind="milestoneTEs">$40 billones</span> el <span data-bind="milestoneDateEs">18 de ago. de 2026</span>.</span></span>
         </div>
         <div class="callout">
           <span class="en" hidden>A one-day snapshot moves with the Treasury's cash and auction calendar, so day-to-day swings of $10–50B are normal and not a signal of a shift in trend.</span>
@@ -1709,10 +1709,16 @@ html.no-data canvas{display:none !important;}
 
   // Section 01 "debt has risen $X trillion since fiscal year-end FYxxxx ($Y on <date>)" callout. The
   // anchor is the last completed fiscal year-end from Debt to the Penny (data.js), so it rolls over
-  // every October by itself.
+  // every October by itself. The monthly pace is the rise divided by the months elapsed since that
+  // year-end record (30.44 days each) and is shown only once a full month is in: over a shorter base a
+  // "pace" would just repeat the rise itself (1-Oct-2026: one day, +$89B, printed as "$89 billion a
+  // month"). Until then the callout says how many days of the new fiscal year the rise covers.
   var debtSinceFYT = debtTotalT - fyEndDebt.totalDebtT;
-  var monthsSinceFY = Math.max(1, (Date.parse(debtAsOf+'T00:00:00Z') - Date.parse(fyEndDebt.date+'T00:00:00Z')) / (1000*60*60*24*30.44));
-  var debtMonthlyPaceB = (debtSinceFYT*1000)/monthsSinceFY;
+  var monthsSinceFY = (Date.parse(debtAsOf+'T00:00:00Z') - Date.parse(fyEndDebt.date+'T00:00:00Z')) / (864e5*30.44);
+  var paceReady = monthsSinceFY >= 1;
+  var debtMonthlyPaceB = paceReady ? (debtSinceFYT*1000)/monthsSinceFY : null;
+  // Calendar days of the fiscal year in progress, the snapshot day included (1 on 1-Oct).
+  var daysIntoFY = Math.round((Date.parse(debtAsOf+'T00:00:00Z') - Date.parse(fyEndDebt.fy+'-10-01T00:00:00Z')) / 864e5) + 1;
   var curYear = debtAsOf.slice(0,4);
 
   // Section 09 "grown roughly Nx since 2002" multipliers — index 2 in tripleIndex's labels is 2002.
@@ -1897,11 +1903,19 @@ html.no-data canvas{display:none !important;}
   var gdpTrendEndYear = gdpTrend.labels[gdpTrend.labels.length-1];
   // A sentence that needs a fetched date never renders with a placeholder: it stays hidden until the date exists.
   Array.prototype.forEach.call(document.querySelectorAll('[data-milestone]'), function(el){ el.hidden = !(milestone && milestone.date); });
+  // The monthly pace needs a full month of the fiscal year behind it; before that the callout gives the days elapsed.
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pace]'), function(el){ el.hidden = !paceReady; });
+  Array.prototype.forEach.call(document.querySelectorAll('[data-pace-early]'), function(el){ el.hidden = paceReady || !(daysIntoFY >= 1); });
   var BIND = {
     debtAsOfEn: fmtDateEn(debtAsOf), debtAsOfEs: fmtDateEs(debtAsOf),
     debtTotalT: '$'+debtTotalT.toFixed(2)+sfxT(), debtPublicT: '$'+debtPublicT.toFixed(2)+sfxT(), debtIntragovT: '$'+debtIntragovT.toFixed(2)+sfxT(),
     debtPublicPct: (debtPublicT/debtTotalT*100).toFixed(1), debtIntragovPct: (debtIntragovT/debtTotalT*100).toFixed(1),
-    debtSinceFYT: debtSinceFYT.toFixed(1), debtMonthlyPaceB: Math.round(debtMonthlyPaceB),
+    debtSinceFYEn: Math.abs(debtSinceFYT) < 0.05 ? '$'+Math.round(debtSinceFYT*1000)+' billion' : '$'+debtSinceFYT.toFixed(1)+' trillion',
+    debtSinceFYEs: Math.abs(debtSinceFYT) < 0.05 ? '$'+Math.round(debtSinceFYT*1000)+' mil millones' : '$'+debtSinceFYT.toFixed(1)+' billones',
+    debtMonthlyPaceB: paceReady ? String(Math.round(debtMonthlyPaceB)) : '—',
+    debtDaysIntoFYEn: daysIntoFY === 1 ? '1 day' : daysIntoFY+' days',
+    debtDaysIntoFYEs: daysIntoFY === 1 ? '1 día transcurrido' : daysIntoFY+' días transcurridos',
+    debtFyCur: String(Number(fyEndDebt.fy)+1),
     fyEndYear: String(fyEndDebt.fy), fyEndDebtT: '$'+fyEndDebt.totalDebtT.toFixed(2)+sfxT(), fyEndDebtTEs: '$'+fyEndDebt.totalDebtT.toFixed(2)+' billones',
     fyEndDateEn: fmtDateEn(fyEndDebt.date), fyEndDateEs: fmtDateEs(fyEndDebt.date),
     milestoneT: milestone ? '$'+milestone.trillions+' trillion' : '', milestoneTEs: milestone ? '$'+milestone.trillions+' billones' : '',
