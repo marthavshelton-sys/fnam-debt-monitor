@@ -1,4 +1,4 @@
-// Hyperscaler Hub · Module 3: Capex and financing. Reads window.HYP_FIN (scripts/hyperscalers/build.mjs) and renders
+// Hyperscaler Hub · Module 3: Capex and financing. Reads window.HYP_FIN (written by the hub's build script) and renders
 // every section in the language on screen. No figure is computed here except the labelled FNAM calculations
 // (sums of a company's own quarters, ratios); nothing is imputed: a missing input prints "Not disclosed".
 (function () {
@@ -43,7 +43,7 @@
     if (!x) return H.ntCell(c.ticker, k);
     var acc = x[2];
     var links = acc.map(function (a) { return '<a href="' + H.edgar(c.cik, a) + '" target="_blank" rel="noopener">' + a + '</a>'; }).join(', ');
-    // x[6]: the outlier check read in the filing (tools/hyperscalers/data/outliers.json): confirmed clears the flag and
+    // x[6]: the outlier check read in the filing (outliers.json): confirmed clears the flag and
     // prints 'matched'; reclassified keeps the flag and explains it. Both carry the quote, page and verification rows.
     var cf = x[6] || null, cfNote = cf ? (cf['note_' + H.lang] || cf.note_en || '') : '';
     var cfRows = cf ? [[t('Control de atípicos', 'Outlier check'), t('más de 5× la mediana de los cuatro trimestres previos (US$ ' + cf.medianUSDm + ' M); leído en la presentación: ', 'more than 5× the median of the four quarters before (US$ ' + cf.medianUSDm + ' m); read in the filing: ') + (cf.result === 'confirmed' ? t('confirmado. ', 'confirmed. ') : t('explicado, aviso conservado. ', 'explained, flag kept. ')) + cfNote]].concat(H.citeRows(cf.src)) : [];

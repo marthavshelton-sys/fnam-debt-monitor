@@ -1,5 +1,5 @@
 // Hyperscaler Hub · Module 5: sites. Reads window.HYP_SITES (build-modules.mjs) and HYP_MAP (pre-projected base map,
-// scripts/hyperscalers/build-map.mjs). Map positions are the locality / county / state / country the company names,
+// the hub's map builder). Map positions are the locality / county / state / country the company names,
 // never campus coordinates; circles mark a named town or county, diamonds a state or country. Marker size is fixed:
 // MW use different definitions per company and are never compared by area.
 (function () {

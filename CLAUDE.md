@@ -26,6 +26,11 @@ changelog (see `git log` and the runbooks under `tools/<slug>/README.md` for his
    certificate, and the permission check refuses it): browser checks of live pages run on GitHub's runner
    (`macro-live-check.yml` for the US macro page). For other pages, give her the exact URLs to click.
 5. Never disable TLS verification or unset `HTTPS_PROXY`. Egress 403s are policy; report, do not retry.
+6. Site-wide password gate: `functions/_middleware.js` (dormant until the Cloudflare variable `SITE_PASSWORD` is set;
+   README → "Password protection"). Once it is on, every request to fnam.mx needs a session: in-session curl checks send
+   `Authorization: Bearer <password>` (never commit the password), and `macro-live-check.yml` logs in with the GitHub
+   secret `SITE_PASSWORD`. Public copy carries no repository paths, workflow names, GitHub links or the owner's email
+   (`tools/audit-public-copy.mjs` renders every page in both languages and lists any leftover); keep new pages that way.
 
 ## What the site is
 

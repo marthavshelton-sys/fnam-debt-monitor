@@ -4,13 +4,6 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
-   "path": "sites[0].mw_series[3].when",
-   "old": null,
-   "new": "2025-06"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
    "path": "sites[0].mw_series[3].kind",
    "old": null,
    "new": "expected"
@@ -4200,7 +4193,14 @@
    "path": "erp.riskfreeUsedPct",
    "old": 4.75,
    "new": 5.29
+  },
+  {
+   "at": "2026-10-05T22:03:45.293Z",
+   "file": "financials.js",
+   "path": "basisNotes.extraction_notes.supplement.method",
+   "old": "(text)",
+   "new": "(text changed)"
   }
  ],
- "generated": "2026-10-05T21:55:12.089Z"
+ "generated": "2026-10-05T22:03:45.293Z"
 }

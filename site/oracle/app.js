@@ -1,6 +1,6 @@
 /* Oracle interactive financial model — page logic.
    A port of the GAP model's app (same structure, controls and rendering); data contracts (window.ORCL_*) are
-   documented in tools/oracle/README.md. Everything here is derived from those files at render time; no figures are
+   documented in the model's runbook. Everything here is derived from those files at render time; no figures are
    hard-coded. */
 (function () {
   'use strict';
@@ -838,7 +838,7 @@
   // Unlevered free cash flow by Oracle fiscal year, discounted at mid-period to the latest close. The current fiscal year is
   // a stub: the quarters already reported are subtracted, because their cash is already in the balance-sheet net debt. Every
   // default comes from the data files (FactSet consensus, the capex guidance, the 10-Q, the price series, the Treasury
-  // curve, Damodaran's implied ERP); nothing is typed here. Method and sources: tools/oracle/METHODOLOGY.md §DCF.
+  // curve, Damodaran's implied ERP); nothing is typed here. Method and sources: the model's methodology note, DCF section.
   const D = Object.assign({}, REF.dcf || {});
   const dcfState = {};
   const DCF_EDIT_YEARS = 5;

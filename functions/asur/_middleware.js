@@ -17,6 +17,9 @@
 // Cloudflare Pages Functions live in /functions at the project root (the directory that holds
 // the `site/` build output); the file's path decides the route it guards: functions/asur/ → /asur/*.
 
+// A site-wide gate (functions/_middleware.js, SITE_PASSWORD) runs before this one. With SITE_PASSWORD set this
+// section password becomes a second prompt: unset it to rely on the site password alone.
+
 const COOKIE = 'asur_session';
 const LOGIN_PATH = '/asur/login';
 

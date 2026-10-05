@@ -11,7 +11,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,700&family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/quality.css">
-<!-- Data-quality page of the Hyperscaler Hub, module 7 (circular financing). Reads data/quality.js, written by scripts/hyperscalers/validate.mjs after every refresh;
+<!-- Data-quality page of the Hyperscaler Hub, module 7 (circular financing). Reads data/quality.js, written by the validator after every refresh;
      rendered by the shared assets/quality-page.js. Linked from the hub's methodology page. -->
 <script src="data/quality.js"></script>
 </head>
@@ -27,9 +27,9 @@
   <section><h2><span class="es">Presentación más reciente por empresa</span><span class="en" hidden>Latest filing by company</span></h2><p class="sub"><span class="es">Último 10-K, 10-Q o 20-F que alimenta las cifras.</span><span class="en" hidden>Latest 10-K, 10-Q or 20-F feeding the figures.</span></p><div class="tblwrap" id="origins"></div><p class="more" id="originsMore"></p></section>
   <section><h2><span class="es">Avisos de citas</span><span class="en" hidden>Citation warnings</span></h2><p class="sub"><span class="es">Citas que no se cotejaron contra el texto descargado.</span><span class="en" hidden>Citations that did not match the downloaded text.</span></p><div class="tblwrap" id="parse"></div></section>
   <section><h2><span class="es">Verificaciones</span><span class="en" hidden>Checks</span></h2><p class="sub" id="tolNote"></p><div class="filters" id="filters"></div><div class="tblwrap" id="checks"></div></section>
-  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al módulo</span><span class="en" hidden>← Back to the module</span></a> · <a href="https://github.com/marthavshelton-sys/fnam-debt-monitor/actions/workflows/hyperscalers-refresh.yml" target="_blank" rel="noopener">GitHub Actions ↗</a></p>
+  <p class="sub" style="margin-top:28px"><a href="./"><span class="es">← Volver al módulo</span><span class="en" hidden>← Back to the module</span></a></p>
 </div>
-<script>window.QUALITY_PAGE = {"key":"HYP_CIRC_QUALITY","name":"Hyperscalers","workflow":"hyperscalers-refresh.yml","validator":"scripts/hyperscalers/validate.mjs","lang":"hyp-lang"};</script>
+<script>window.QUALITY_PAGE = {"key":"HYP_CIRC_QUALITY","name":"Hyperscalers","lang":"hyp-lang"};</script>
 <script src="/assets/quality-page.js"></script>
 </body>
 </html>

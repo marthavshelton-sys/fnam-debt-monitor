@@ -66,6 +66,8 @@ jobs:
         continue-on-error: true
         env:
           WAIT: ${{ github.event.inputs.wait_minutes || '20' }}
+          # Site-wide password gate (functions/_middleware.js): same value as the Cloudflare variable; unused while the gate is off.
+          SITE_PASSWORD: ${{ secrets.SITE_PASSWORD }}
         run: node tools/macro/live-check.mjs --expect-ref main --wait "$WAIT" --shots live-check-shots --report "$RUNNER_TEMP/live-check-report.md"
 
       - name: Keep the screenshots

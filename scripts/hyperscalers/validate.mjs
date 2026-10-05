@@ -72,8 +72,8 @@ for (const i of F.notTagged || []) {
   if (i.derived) Q.record(tag, `trailing figure derived: ${i.derived.amountUSDm} (US$ m, ${i.derived.period}; ${(i.derived.inputs || []).length} tagged inputs, ${(i.derived.zeroPeriods || []).length} periods read as zero)`, 'ok', null, null, L(i.derived.method_es || '', i.derived.method_en || ''));
 }
 const ntTag = (F.notTagged || []).filter((i) => i.check === 'xbrl_concept').length, ntDer = (F.notTagged || []).filter((i) => i.check === 'derived').length;
-Q.curated('tools/hyperscalers/data/not-tagged.json', (F.notTagged || []).length > 0, L(`${(F.notTagged || []).length} huecos explicados (${ntTag} con etiqueta cotejada, ${ntDer} derivados); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} sin resolver; actualizado ${et((F.notTaggedMeta || {}).updatedAt)}`, `${(F.notTagged || []).length} gaps explained (${ntTag} tag-checked, ${ntDer} derived); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} unresolved; updated ${et((F.notTaggedMeta || {}).updatedAt)}`));
-Q.curated('tools/hyperscalers/data/deal-matches.json', deals.filter((d) => !d.match && !d.fs).length === 0, L(`${deals.filter((d) => d.fs).length} operaciones con presentación; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} sin resolver; actualizado ${et((F.dealMatchesMeta || {}).updatedAt)}`, `${deals.filter((d) => d.fs).length} deals with a filing; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} unresolved; updated ${et((F.dealMatchesMeta || {}).updatedAt)}`));
+Q.curated('not-tagged.json', (F.notTagged || []).length > 0, L(`${(F.notTagged || []).length} huecos explicados (${ntTag} con etiqueta cotejada, ${ntDer} derivados); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} sin resolver; actualizado ${et((F.notTaggedMeta || {}).updatedAt)}`, `${(F.notTagged || []).length} gaps explained (${ntTag} tag-checked, ${ntDer} derived); ${(F.notTagged || []).filter((i) => i.result === 'unknown').length} unresolved; updated ${et((F.notTaggedMeta || {}).updatedAt)}`));
+Q.curated('deal-matches.json', deals.filter((d) => !d.match && !d.fs).length === 0, L(`${deals.filter((d) => d.fs).length} operaciones con presentación; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} sin resolver; actualizado ${et((F.dealMatchesMeta || {}).updatedAt)}`, `${deals.filter((d) => d.fs).length} deals with a filing; ${deals.filter((d) => d.fs && d.fs.result === 'unresolved').length} unresolved; updated ${et((F.dealMatchesMeta || {}).updatedAt)}`));
 // quarterly outliers read in the filing (tools/hyperscalers/data/outliers.json): a confirmed record clears the flag when its
 // value matches the derived quarter; a reclassified one keeps the flag and explains it; every quote must sit on its cited page
 const outl = (F.outliers && F.outliers.items) || [];
@@ -84,14 +84,14 @@ for (const o of outl) {
 }
 const flaggedAnom = Object.values(F.companies).flatMap((c) => (c.anomalies || []).filter((a) => a.result === 'flagged').map((a) => `${c.ticker} ${a.k} ${a.id}`));
 for (const a of flaggedAnom) Q.record(a, 'outlier read in the filing', 'warn', null, null, L('sin registro en outliers.json: sigue «por revisar»', 'no record in outliers.json: still "needs review"'));
-Q.curated('tools/hyperscalers/data/outliers.json', outl.length > 0 && flaggedAnom.length === 0, L(`${outl.filter((o) => o.result === 'confirmed' && o.applied).length} atípicos confirmados, ${outl.filter((o) => o.result !== 'confirmed').length} explicados con aviso, ${flaggedAnom.length} sin leer; actualizado ${et((F.outliers || {}).updatedAt)}`, `${outl.filter((o) => o.result === 'confirmed' && o.applied).length} outliers confirmed, ${outl.filter((o) => o.result !== 'confirmed').length} explained with the flag kept, ${flaggedAnom.length} unread; updated ${et((F.outliers || {}).updatedAt)}`));
+Q.curated('outliers.json', outl.length > 0 && flaggedAnom.length === 0, L(`${outl.filter((o) => o.result === 'confirmed' && o.applied).length} atípicos confirmados, ${outl.filter((o) => o.result !== 'confirmed').length} explicados con aviso, ${flaggedAnom.length} sin leer; actualizado ${et((F.outliers || {}).updatedAt)}`, `${outl.filter((o) => o.result === 'confirmed' && o.applied).length} outliers confirmed, ${outl.filter((o) => o.result !== 'confirmed').length} explained with the flag kept, ${flaggedAnom.length} unread; updated ${et((F.outliers || {}).updatedAt)}`));
 Q.card(deals.filter((d) => d.fs && d.fs.result === 'unresolved').length + (F.notTagged || []).filter((i) => i.result === 'unknown').length + flaggedAnom.length, 'huecos sin resolver', 'unresolved gaps');
 Q.card(ntTag, 'huecos con etiqueta cotejada (no verificados)', 'gaps tag-checked (not verified)');
 reviewedCard(Q, [...(F.notTagged || []), ...deals.filter((d) => d.fs).map((d) => d.fs), ...outl], 'revisados por analista (huecos, operaciones y atípicos)', 'analyst-reviewed (gaps, deals and outliers)');
 const fsAge = F.debt ? ageDays(F.debt.pulledAt) : null;
 Q.curated(`FactSet debt snapshot (${F.debt ? F.debt.file : 'none'})`, fsAge != null && fsAge <= 100, L(`tomada el ${F.debt && F.debt.pulledAt} (${fsAge} días); renovar tras cada temporada de 10-Q`, `pulled ${F.debt && F.debt.pulledAt} (${fsAge} days); renew after each 10-Q season`));
 const gAge = F.guidance ? ageDays(F.guidance.pulledAt) : null;
-Q.curated('tools/hyperscalers/data/guidance.json', gAge != null && gAge <= 100, L(`guías T2 al ${F.guidance && F.guidance.pulledAt} (${gAge} días); actualizar tras cada llamada`, `T2 guidance as of ${F.guidance && F.guidance.pulledAt} (${gAge} days); update after each call`));
+Q.curated('guidance.json', gAge != null && gAge <= 100, L(`guías T2 al ${F.guidance && F.guidance.pulledAt} (${gAge} días); actualizar tras cada llamada`, `T2 guidance as of ${F.guidance && F.guidance.pulledAt} (${gAge} days); update after each call`));
 Q.curated('EDGAR poll (state.json)', !(state.errors || []).length, L(`última corrida ${state.lastRun || '—'}; última exitosa ${state.lastSuccess || '—'}; fallas seguidas ${state.consecutiveFailures || 0}`, `last run ${state.lastRun || '—'}; last success ${state.lastSuccess || '—'}; consecutive failures ${state.consecutiveFailures || 0}`));
 Q.card(Object.keys(F.companies).length, 'empresas', 'companies');
 Q.card(Object.values(F.companies).reduce((s, c) => s + c.quarters.reduce((a, q) => a + Object.keys(q.m).length, 0), 0), 'valores XBRL', 'XBRL values');
@@ -119,7 +119,7 @@ for (const c of Object.values(F.companies)) {
   gaps += missing.length;
   O.curated(`${c.ticker} coverage`, missing.length === 0, L(missing.length ? `pendientes de lectura: ${missing.join(', ')}` : 'completa', missing.length ? `pending reading: ${missing.join(', ')}` : 'complete'));
 }
-O.curated('tools/hyperscalers/data/offbs.json', true, L(`actualizado ${et(OB.updatedAt) || OB.updated}`, `updated ${et(OB.updatedAt) || OB.updated}`));
+O.curated('offbs.json', true, L(`actualizado ${et(OB.updatedAt) || OB.updated}`, `updated ${et(OB.updatedAt) || OB.updated}`));
 O.card(OB.items.length, 'partidas de texto', 'text items');
 O.card(OB.items.filter((i) => i.quoteCheck === 'page').length + ' / ' + OB.items.length, 'citas cotejadas en la página', 'quotes matched on the page');
 O.card(OB.items.filter((i) => i.status !== 'verified').length, 'por revisar', 'to review');
@@ -152,8 +152,8 @@ for (const x of CAPD.current) {
   M1.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
 }
 for (const x of CAPD.notDisclosed) M1.curated(`${x.ticker} ${x.item}`, true, L(`no revelado; buscado en ${x.searched.join(', ')}`, `not disclosed; searched ${x.searched.join(', ')}`));
-if (CAPD.oracle) M1.curated('tools/oracle/data/buildout.json (Oracle, T2)', ageDays(CAPD.oracle.updated) <= 100, L(`almacén del modelo de Oracle al ${CAPD.oracle.updated}`, `Oracle model store as of ${CAPD.oracle.updated}`));
-M1.curated('tools/hyperscalers/data/capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
+if (CAPD.oracle) M1.curated('buildout.json (Oracle model store, T2)', ageDays(CAPD.oracle.updated) <= 100, L(`almacén del modelo de Oracle al ${CAPD.oracle.updated}`, `Oracle model store as of ${CAPD.oracle.updated}`));
+M1.curated('capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
 originsOf(M1, CAPD.current.map((x) => x.src));
 const ml = await readJson(TOOLS + 'data/modules-log.json', { problems: [] });
 for (const pr of ml.problems) M1.R.parse.push({ file: pr.where, msg: `${pr.k || ''} ${pr.issue}` });
@@ -172,7 +172,7 @@ for (const x of CAPD.pipeline) {
   M2.record(tag, 'stage is contracted / under construction / announced', ['contracted', 'under_construction', 'announced'].includes(x.stage) ? 'ok' : 'fail');
   if (x.asOf) M2.stale(tag, x.asOf, 200, L('vigente hasta la siguiente presentación', 'current until the next filing'));
 }
-M2.curated('tools/hyperscalers/data/capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
+M2.curated('capacity.json', true, L(`actualizado ${CAPD.updated}`, `updated ${CAPD.updated}`));
 originsOf(M2, CAPD.pipeline.map((x) => x.src));
 M2.card(CAPD.pipeline.length, 'partidas comprometidas', 'committed items');
 M2.card(CAPD.pipeline.filter((x) => x.subsequent).length, 'posteriores al balance', 'after balance-sheet date');
@@ -188,7 +188,7 @@ for (const g of POWD.grid) {
   const lim = g.nextExpected ? Math.round((Date.parse(g.nextExpected) + 30 * 864e5 - Date.parse(g.editionDate)) / 864e5) : 400;
   M4.stale(`${g.publisher} · ${g.edition}`, g.editionDate, lim, g.nextExpected ? L(`siguiente edición esperada ${g.nextExpected} (+30 días)`, `next edition expected ${g.nextExpected} (+30 days)`) : L('sin calendario publicado: revisión anual (400 días)', 'no published calendar: yearly review (400 days)'));
 }
-M4.curated('tools/hyperscalers/data/power.json', true, L(`actualizado ${POWD.updated}; revisión semanal de fuentes T3/T4`, `updated ${POWD.updated}; weekly review of T3/T4 sources`));
+M4.curated('power.json', true, L(`actualizado ${POWD.updated}; revisión semanal de fuentes T3/T4`, `updated ${POWD.updated}; weekly review of T3/T4 sources`));
 originsOf(M4, POWD.companyDeals.map((d) => d.src).filter((s) => s && s.accn));
 M4.card(POWD.companyDeals.length, 'contratos de energía', 'power deals');
 M4.card(POWD.grid.length, 'fuentes de red (T3/T4)', 'grid sources (T3/T4)');
@@ -204,7 +204,7 @@ for (const s of SITD.sites) {
   if (hasPt) M5.record(tag, 'coordinates in range', Math.abs(s.lat) <= 90 && Math.abs(s.lon) <= 180 ? 'ok' : 'fail');
   M5.record(tag, 'MW definition recorded', s.mw == null || defsOK(s.mwMetric) ? 'ok' : 'fail');
 }
-M5.curated('tools/hyperscalers/data/sites.json', true, L(`actualizado ${SITD.updated}`, `updated ${SITD.updated}`));
+M5.curated('sites.json', true, L(`actualizado ${SITD.updated}`, `updated ${SITD.updated}`));
 originsOf(M5, SITD.sites.map((s) => s.src));
 M5.card(SITD.sites.length, 'sitios', 'sites');
 M5.card(SITD.sites.filter((s) => s.lat == null).length, 'sin ubicación revelada', 'location not disclosed');
@@ -219,7 +219,7 @@ for (const f of CIRD.flows) {
   if (f.shareOf && f.shareOf.calc) M7.record(f.id, 'revenue share computed from XBRL revenue', f.shareOf.pct != null ? 'ok' : 'warn');
 }
 for (const i of [...CIRD.inferences, ...CIRD.breakers]) { const bad = (i.rests_on || []).filter((id) => !flowIds.has(id)); M7.record(i.id || i.en.slice(0, 40), 'inference rests on recorded flows', bad.length ? 'fail' : 'ok', null, null, bad.length ? L(`faltan: ${bad.join(', ')}`, `missing: ${bad.join(', ')}`) : null); if (bad.length) fails.push(`circular inference cites unknown flows: ${bad.join(', ')}`); }
-M7.curated('tools/hyperscalers/data/circular.json', true, L(`actualizado ${CIRD.updated}`, `updated ${CIRD.updated}`));
+M7.curated('circular.json', true, L(`actualizado ${CIRD.updated}`, `updated ${CIRD.updated}`));
 originsOf(M7, CIRD.flows.map((f) => f.src));
 M7.card(CIRD.flows.length, 'flujos', 'flows');
 M7.card(CIRD.inferences.length, 'inferencias FNAM', 'FNAM inferences');
@@ -262,7 +262,7 @@ try {
   M8.curated('FactSet earnings calendar (raw/factset/<date>-calendar.json)', calAge != null && calAge <= 45, L(`tomado el ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} días); renovar cada mes y tras cada temporada`, `pulled ${et(PAYD.calendar && PAYD.calendar.pulledAt)} (${calAge} days); renew monthly and after each season`));
   // a FactSet projection dated after the company's SEC deadline for the same period is flagged on the page; count them here
   for (const c of Object.values(F.companies)) { const ev = (PAYD.calendar ? PAYD.calendar.events : []).filter((e) => e.ticker === c.ticker && e.date >= TODAY).sort((a, b) => a.date.localeCompare(b.date))[0]; if (ev && c.nextFilingDue && ev.status !== 'confirmed' && ev.date > c.nextFilingDue) M8.record(`${c.ticker} results ${ev.date}`, `FactSet projection falls after the SEC deadline for the ${c.nextFilingForm} (${c.nextFilingDue})`, 'warn', null, null, L(`estimación de FactSet modificada el ${ev.modified}; la empresa aún no confirma`, `FactSet estimate last modified ${ev.modified}; not yet confirmed by the company`)); }
-  M8.curated('tools/hyperscalers/data/payoff.json', ageDays(PAYD.updated) <= 100, L(`actualizado ${et(PAYD.updatedAt) || PAYD.updated}; repasar tras cada temporada de 10-Q`, `updated ${et(PAYD.updatedAt) || PAYD.updated}; review after each 10-Q season`));
+  M8.curated('payoff.json', ageDays(PAYD.updated) <= 100, L(`actualizado ${et(PAYD.updatedAt) || PAYD.updated}; repasar tras cada temporada de 10-Q`, `updated ${et(PAYD.updatedAt) || PAYD.updated}; review after each 10-Q season`));
   originsOf(M8, [...PAYD.segments.map((x) => x.src), ...PAYD.rpoTiming.map((x) => x.src), ...PAYD.usefulLives.map((x) => x.src)]);
   for (const t of PAYD.termSheets) M8.R.origins.push({ id: t.ticker, origin: 'primary', title: `${t.ticker} ${t.form} ${t.date}`, url: t.url, date: t.date, page: null, parts: t.accn });
   M8.card(PAYD.segments.length, 'segmentos de nube', 'cloud segments');

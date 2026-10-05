@@ -27,7 +27,7 @@ const curatedLog = await readJson(TOOLS + 'data/curated-log.json', { entries: []
 // latest FactSet debt snapshot (tools/hyperscalers/raw/factset/<date>-debt.json, pulled outside the automated run; dated)
 const fsDir = new URL('tools/hyperscalers/raw/factset/', ROOT);
 const fsFiles = (await readdir(fsDir).catch(() => [])).filter((f) => /^\d{4}-\d{2}-\d{2}-debt\.json$/.test(f)).sort();
-const debtSnap = fsFiles.length ? { file: `tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`, ...(await readJson(`tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`)) } : null;
+const debtSnap = fsFiles.length ? { file: fsFiles.at(-1), ...(await readJson(`tools/hyperscalers/raw/factset/${fsFiles.at(-1)}`)) } : null;
 const guidance = await readJson(TOOLS + 'data/guidance.json', null);
 const offbsCur = await readJson(TOOLS + 'data/offbs.json', { items: [], searched: [] });
 const orclOblig = await readJson('tools/oracle/data/obligations.json', null);

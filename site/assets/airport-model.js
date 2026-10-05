@@ -2,7 +2,7 @@
    The page defines window.MODEL_CFG (company names, tickers, labels, hooks) and loads the data files
    window.<PREFIX>_FIN / _TRAFFIC / _MARKET / _REF / _PEERS / _GUIDANCE / _COMMENTS / _SUMMARY before this
    script. Everything rendered here is derived from those files; no figures are hard-coded. The data
-   contracts are documented in tools/<company>/README.md. */
+   contracts are documented in each company's runbook. */
 (function () {
   'use strict';
   const CFG = window.MODEL_CFG;

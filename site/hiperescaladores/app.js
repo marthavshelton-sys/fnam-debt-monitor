@@ -1,4 +1,4 @@
-// Hyperscaler Hub · summary page. Reads window.HYP_FIN, HYP_STATUS and HYP_LOG (scripts/hyperscalers/build.mjs) and
+// Hyperscaler Hub · summary page. Reads window.HYP_FIN, HYP_STATUS and HYP_LOG (written by the hub's build script) and
 // HYP_CAP, HYP_CIRC, HYP_PAY (build-modules.mjs). Every sentence with a figure — the thesis, "What to know", the
 // heat map, "what changed" and the chart titles — is composed at page load from the same data as the modules: only T1
 // figures (verified or quote-matched, under 12 months old) enter them; FNAM inferences are labeled; a line whose inputs

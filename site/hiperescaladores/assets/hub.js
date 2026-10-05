@@ -88,7 +88,7 @@
     var m = { stale: [t('desactualizado', 'stale'), 'stale'], ok: [t('cotejado', 'matched'), 'ok'], sec: [t('fuente secundaria', 'secondary source'), 'sec'] }[kind];
     return m ? '<span class="flag ' + m[1] + '"' + (kind === 'sec' ? ' title="' + esc(t('Acción de la agencia conocida por una nota de prensa; la página de la agencia y las presentaciones ante la SEC no la publican', 'Agency action known from a press report; neither the agency\'s page nor an SEC filing publishes it')) + '"' : '') + '>' + m[0] + '</span>' : '';
   }
-  // an explained gap: the cell has no XBRL value and the curated file tools/hyperscalers/data/not-tagged.json says why
+  // an explained gap: the cell has no XBRL value and the curated file not-tagged.json says why
   // (none: the line does not exist for this company; text: the figure is in the filing text and shown from it; fy_only:
   // tagged only in the annual report; custom_tag: a company-specific tag the SEC API does not serve; not_disclosed:
   // searched and absent). The cell is not counted as "not tagged" in the data-quality line; the reason is on hover and in ⓘ.
@@ -276,7 +276,7 @@
     return { stale: now > lim, limit: lim };
   }
 
-  // labels of the MW definitions (tools/hyperscalers/data/capacity.json → definitions)
+  // labels of the MW definitions (capacity.json → definitions)
   function metricLabel(m) {
     var L = { active_power: ['Potencia activa', 'Active power'], critical_it_operating: ['Carga crítica de TI en operación', 'Critical IT load operating'], operating_ai: ['Nube de IA en operación', 'AI cloud operating'], mining_dc: ['Centro de datos para minería', 'Bitcoin-mining data center'], hosting: ['Alojamiento (hosting)', 'Hosting'], billable: ['Potencia facturable', 'Billable power'], delivered: ['MW entregados en el periodo', 'MW delivered in the period'], contracted_power: ['Potencia contratada', 'Contracted power'], contracted_it: ['Carga de TI contratada', 'Contracted IT load'], leased_customer: ['Potencia arrendada a clientes', 'Customer leased power'], undelivered_leased: ['Potencia arrendada por entregar', 'Leased power not yet delivered'], grid_gross: ['Potencia bruta de red', 'Gross grid power'], secured_partners: ['Capacidad asegurada vía socios', 'Capacity secured via partners'], option: ['Opción del cliente', 'Customer option'], dc_development: ['Centro de datos en desarrollo', 'Data center in development'], planned_campus: ['Capacidad planeada del campus', 'Planned campus capacity'] }[m];
     return L ? t(L[0], L[1]) : (m || '');
