@@ -49,6 +49,7 @@ const origin = new URL(pageUrl).origin;
 // Without the secret, a gated site answers 401 and the deploy check says what to add.
 const sitePassword = process.env.SITE_PASSWORD || "";
 let sessionCookie = null; // { name, value } once logged in
+let gateBlocked = false;  // the gate refused this run: the browser pass would only repeat the 401
 const cookieHeaders = () => (sessionCookie ? { cookie: `${sessionCookie.name}=${sessionCookie.value}` } : {});
 async function login() {
   if (!sitePassword) return;
@@ -97,9 +98,17 @@ async function checkDeploy() {
       notes.push(exp ? `Deploy: the live page is ${exp.label} (sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes)` : `Deploy: not compared (no --expect); live page ${live.buf.length.toLocaleString("en-US")} bytes`);
       return;
     }
+    // A 401 never clears by waiting: the password gate is on and this run holds no session (the repository
+    // secret is missing, or it differs from the Cloudflare variable). Say so at once instead of spending the wait.
+    if (live && live.status === 401) {
+      problem("deploy", sitePassword
+        ? "the page answered HTTP 401 after the login with SITE_PASSWORD: the GitHub secret differs from the Cloudflare variable"
+        : "the page answered HTTP 401: the site is password-protected; add the repository secret SITE_PASSWORD with the same value as the Cloudflare variable");
+      gateBlocked = true;
+      return;
+    }
     if (Date.now() >= deadline) {
-      if (live && live.status === 401) problem("deploy", "the page answered HTTP 401: the site is password-protected; add the repository secret SITE_PASSWORD with the same value as the Cloudflare variable");
-      else if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
+      if (live && live.status !== 200) problem("deploy", `the page answered HTTP ${live.status}`);
       else if (live && exp) problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, expected ${sha(exp.buf).slice(0, 12)}): Cloudflare has not published the latest commit`);
       return;
     }
@@ -190,6 +199,7 @@ function inspectSection(o) {
 async function run() {
   await login();
   await checkDeploy();
+  if (gateBlocked) return;
   const chromium = await loadChromium();
   const browser = await chromium.launch();
   const shots = [];
