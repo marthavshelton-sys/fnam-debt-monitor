@@ -1,6 +1,6 @@
 {
   "_comment": "Market concerns as stated in credible press and analyst publications, for the executive summary. Window: the last 90 days; at most 8 items; outlets in order of preference: Financial Times, Wall Street Journal, Bloomberg, The Economist, Axios, Semafor, Reuters, plus rating agencies as analyst sources; CNBC and TechCrunch only where they carry site-level detail the primary set does not. Each item: date, outlet, headline as published, link, theme, and a one-line bilingual summary limited to what the piece reports (no inference). Refreshed weekly by the desktop task 'FNAM Oracle: weekly press sweep' (Mondays); items older than the window are dropped by that sweep.",
-  "as_of": "2026-09-27",
+  "as_of": "2026-10-05",
   "window_days": 90,
   "max_items": 8,
   "themes": [
@@ -26,6 +26,27 @@
     }
   ],
   "items": [
+    {
+      "date": "2026-10-03",
+      "outlet": "Bloomberg",
+      "title": "Larry Ellison Risk Exposed by Paramount and Oracle Debt Binges",
+      "url": "https://www.bloomberg.com/news/articles/2026-10-03/larry-ellison-risk-exposed-by-paramount-and-oracle-debt-binges",
+      "theme": "governance",
+      "en": "Bloomberg reports that Oracle has nearly doubled its long-term debt to more than $160bn in two years, making it the fifth-largest US corporate bond borrower, and that investors now treat Oracle and Paramount Skydance as linked Ellison credits: he owns about 40% of Oracle, a family trust backstops Paramount’s Warner Bros. deal, and the two companies’ default-swap costs have converged. Oracle, Paramount and Ellison’s representatives did not respond to requests for comment.",
+      "es": "Bloomberg reporta que Oracle casi duplicó su deuda de largo plazo a más de US$160 mil millones en dos años, lo que la convierte en el quinto mayor emisor de bonos corporativos de EE.UU., y que los inversionistas ya tratan a Oracle y a Paramount Skydance como créditos ligados a Ellison: él posee cerca del 40% de Oracle, un fideicomiso familiar respalda la compra de Warner Bros. por Paramount y el costo de los swaps de incumplimiento de ambas empresas ha convergido. Oracle, Paramount y los representantes de Ellison no respondieron a solicitudes de comentarios.",
+      "also": [
+        {
+          "outlet": "Bloomberg (Yahoo Finance syndication)",
+          "url": "https://finance.yahoo.com/markets/stocks/articles/larry-ellison-risk-exposed-paramount-130000159.html"
+        },
+        {
+          "outlet": "Bloomberg",
+          "url": "https://www.bloomberg.com/news/articles/2026-09-25/ellison-pledges-9-2-billion-more-in-oracle-shares-as-collateral",
+          "note_en": "Sep 25: Oracle’s proxy shows Ellison pledged 67 million more Oracle shares as loan collateral than a year earlier, worth about $9.2bn; Oracle’s policy bars other officers and directors from pledging",
+          "note_es": "25 sep: el informe a accionistas de Oracle muestra que Ellison otorgó en garantía de préstamos 67 millones de acciones más que hace un año, con valor cercano a US$9.2 mil millones; la política de Oracle prohíbe a los demás directivos y consejeros dar acciones en garantía"
+        }
+      ]
+    },
     {
       "date": "2026-09-25",
       "outlet": "Financial Times",
@@ -94,6 +115,12 @@
           "url": "https://www.abqjournal.com/business/oracle-invokes-force-majeure-on-project-jupiter-but-says-data-center-still-on-track/3127907",
           "note_en": "Oracle VP Michael Egbert: 'We are fully committed to New Mexico and confident in our path forward'; 3,600+ construction workers on site",
           "note_es": "Michael Egbert, VP de Oracle: 'Estamos plenamente comprometidos con Nuevo México y confiados en nuestro camino'; más de 3,600 trabajadores en obra"
+        },
+        {
+          "outlet": "Oracle (Project Jupiter statement, Sep 30)",
+          "url": "https://www.oracle.com/news/announcement/project-jupiter-statement-on-southern-new-mexico-floods-2026-09-30/",
+          "note_en": "Sep 30: flooding reached the campus; Oracle and STACK say no critical infrastructure was damaged, they are working with partners and insurers, and the project remains on its planned schedule",
+          "note_es": "30 sep: las inundaciones llegaron al campus; Oracle y STACK afirman que no se dañó infraestructura crítica, que trabajan con socios y aseguradoras y que el proyecto sigue en su calendario previsto"
         }
       ]
     },
@@ -130,16 +157,6 @@
           "url": "https://www.cnbc.com/2026/09/12/larry-ellison-nixes-plan-to-offload-up-to-7point5-billion-worth-of-oracle-stock-.html"
         }
       ]
-    },
-    {
-      "date": "2026-07-20",
-      "outlet": "Bloomberg",
-      "title": "Oracle Credit Risk Hits 18-Year High as AI Spending Raises Debt Concerns",
-      "url": "https://www.bloomberg.com/news/articles/2026-07-20/oracle-credit-risk-hits-near-18-year-high-on-ai-debt-load-angst",
-      "theme": "financing",
-      "en": "Oracle's five-year credit default swaps rose to about 2.03 percentage points a year, the highest in data going back to the end of 2008, as investors priced the debt load behind the AI buildout.",
-      "es": "Los swaps de incumplimiento crediticio a cinco años de Oracle subieron a cerca de 2.03 puntos porcentuales anuales, el nivel más alto en datos desde fines de 2008, al valorar el mercado la carga de deuda detrás de la expansión de IA.",
-      "also": []
     },
     {
       "date": "2026-07-09",

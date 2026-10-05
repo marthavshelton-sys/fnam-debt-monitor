@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T22:04:15.256Z",
+  "generated": "2026-10-05T22:57:34.242Z",
   "summary": {
     "checks": 455,
     "failed": 0,
@@ -3807,8 +3807,8 @@
     },
     {
       "series": "Market concerns (press sweep)",
-      "lastDate": "2026-09-27",
-      "ageDays": 9,
+      "lastDate": "2026-10-05",
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
@@ -3874,7 +3874,7 @@
     {
       "file": "press.json",
       "status": "ok",
-      "detail": "8 items, as of 2026-09-27"
+      "detail": "8 items, as of 2026-10-05"
     },
     {
       "file": "factset.json",
