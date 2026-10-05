@@ -213,6 +213,13 @@ dashboards, everything built from public data by GitHub Actions.
 - The 10-year M bono is Banxico's primary-auction yield (SIE SF44071, about every four weeks, published the same
   day; `scripts/lib/banxico-mx10y.mjs`, FRED/OECD monthly IRLTLT01MXM156N as fallback). Banxico's SIE has no daily
   secondary-market 10-year yield (its daily vector CF300 carries prices and coupons only; checked 2026-09-28).
+- Expected 12-month inflation (ex ante real rate on `site/mx/macro` and `site/mx/fiscal`) is one series on both pages:
+  Banxico SIE SR16774, the survey median for the 12 months *after* the survey month ("mes t+1" in table CR155), the
+  figure Banxico headlines in Cuadro 2 of the survey PDF. SR14195 is the "mes t" median (counted from the survey month
+  itself); the two differ month by month (up to ±0.3 pp); never mix them (the pages disagreed until 2026-10-05 for
+  that reason). The API carries SR16774 from Feb-2018 only. The fiscal
+  page reads it from `data.js` (`inflExp12m`); `banxicoSurvey.inflationNext12m` in `docs-data.js` is only the PDF
+  cross-check that `scripts/mx-fiscal/check-docs.mjs` enforces.
 - Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
   `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
   (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,

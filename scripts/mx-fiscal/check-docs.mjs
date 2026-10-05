@@ -4,6 +4,10 @@
 // LIF card showed the ILIF 2027 proposal as the ceiling in force). Runs on every workflow run after
 // the mirrors are refreshed and exits non-zero on any mismatch, so GitHub e-mails the owner; the
 // daily document routine runs it before committing.
+// Since 2026-10-05 it also checks that the expected 12-month inflation the page prints (data.js
+// inflExp12m, Banxico SIE SR16774: the survey median for the 12 months after the survey month) equals
+// the Cuadro 2 median of the mirrored survey PDF for the same survey month, so the page, the macro
+// dashboard (same series) and Banxico's own publication can never show three different numbers.
 //
 //   node scripts/mx-fiscal/check-docs.mjs            report and exit 1 on mismatch
 //   node scripts/mx-fiscal/check-docs.mjs --json     machine-readable findings
@@ -21,6 +25,16 @@ async function mirror(key) {
   try { return await fs.readFile(new URL(`${key}.txt`, MIRRORS), 'utf8'); } catch { return null; }
 }
 function sourceOf(text) { return (text.match(/^# source: (.+)$/m) || [])[1] || ''; }
+const MESES = { enero: '01', febrero: '02', marzo: '03', abril: '04', mayo: '05', junio: '06', julio: '07', agosto: '08', septiembre: '09', setiembre: '09', octubre: '10', noviembre: '11', diciembre: '12' };
+// "Encuesta sobre las Expectativas ... del Sector Privado:\nSeptiembre de 2026" -> "2026-09" (the survey month the SIE stamps the figure with)
+function surveyMonth(text) { const m = text.match(/Sector Privado:\s*([A-Za-zñÑ]+) de (\d{4})/); return m && MESES[m[1].toLowerCase()] ? `${m[2]}-${MESES[m[1].toLowerCase()]}` : null; }
+async function sieSeries(key) {
+  try {
+    const txt = await fs.readFile(new URL('site/mx/fiscal/data.js', ROOT), 'utf8');
+    const at = txt.indexOf('window.MX_DATA =');
+    return JSON.parse(txt.slice(txt.indexOf('{', at), txt.lastIndexOf('}') + 1)).series?.[key] || null;
+  } catch { return null; }
+}
 function docYear(text, re) { const m = text.match(re); return m ? m[1] : null; }
 
 const findings = []; // { block, field, docs, document, source, note }
@@ -121,6 +135,13 @@ async function main() {
       for (const y of Object.keys(B.rateEnd || {})) compare('banxicoSurvey', `rateEnd.${y}`, B.rateEnd[y], med('Tasa de fondeo interbancario', y), src, 'Cuadro 1, mediana (tasa de fondeo)', 0.005);
       const n12 = enc.match(/Para los pr[oó]ximos 12 meses[\s\S]{0,800}?Mediana\s+[\d.]+\s+([\d.]+)/);
       if (B.inflationNext12m != null) compare('banxicoSurvey', 'inflationNext12m', B.inflationNext12m, n12 ? num(n12[1]) : null, src, 'Cuadro 2, inflación general, próximos 12 meses, mediana', 0.005);
+      // The page prints the SIE series (data.js inflExp12m = SR16774, "mes t+1"), never the PDF figure above; for the same
+      // survey month the two must agree (SR14195, the "mes t" median, would fail here by about 0.1 pp).
+      const month = surveyMonth(enc), sie = await sieSeries('inflExp12m');
+      if (n12 && sie && sie.last && month) {
+        if (sie.last[0] === month) compare('banxicoSurvey', `inflExp12m (data.js, SIE ${sie.id}, ${month})`, sie.last[1], num(n12[1]), src, 'the series the page prints must equal Cuadro 2, próximos 12 meses, mediana', 0.005);
+        else findings.push({ block: 'banxicoSurvey', field: 'inflExp12m month', docs: sie.last[0], document: month, source: src, note: `data.js inflExp12m (SIE ${sie.id}) is not at the survey month of the mirrored PDF yet; one of the two has not updated`, severity: 'warn' });
+      }
       const inst = enc.match(/(\d+) grupos de an[aá]lisis/);
       if (B.institutions != null) compare('banxicoSurvey', 'institutions', B.institutions, inst ? num(inst[1]) : null, src, 'número de instituciones', 0.5);
     }

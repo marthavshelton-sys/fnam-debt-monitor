@@ -37,8 +37,17 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
 - **CGPE 2027 table**: Cetes 28d 2027 *fin de periodo* 6.0 %, *promedio* 6.1 % (2026: 6.5 / 6.5); nominal GDP 2026
   37,160.7 and 2027 **39,419.4** mmdp; FX end-2026 17.8, end-2027 18.0; MME 78.4 (2026) and 61.8 (2027) US$/bbl.
 - **Real rate**: deflating the target with *observed* annual inflation is the **ex post** rate. Banxico's policy
-  statements define the ex ante rate with *expected* 12-month inflation from its survey; the page shows ex ante only
-  when `survey.inflationNext12m` exists (the Banxico survey mirror is where the routine should take it from).
+  statements define the ex ante rate with *expected* 12-month inflation from its survey. Since 2026-10-05 the page
+  takes that expectation from the SIE series `inflExp12m` in `data.js` (Banxico SIE **SR16774**: the survey's median
+  for the 12 months *after* the survey month, "mes t+1" in table CR155), never from `docs-data.js`. It is the figure
+  Banxico headlines in Cuadro 2 of the survey PDF (footnote: "se considera el mes posterior al levantamiento") and the
+  series the macro dashboard (`/mx/macro`) reads, so both pages print one number. **SR14195 is the "mes t" median**
+  (12 months counted from the survey month itself); the two differ month by month (Feb-2018 to Sep-2026: −0.29 to
+  +0.13 pp; Sep-2026: 4.16 vs 4.08). The macro page used it until 2026-10-05, which is why the two pages disagreed.
+  The SIE API carries SR16774 from Feb-2018 only (N/E before). The routine still records the PDF's Cuadro 2
+  median as `banxicoSurvey.inflationNext12m`; `check-docs.mjs` fails the run if the SIE series differs from it for
+  the same survey month. Residual: this page compounds the real rate ((1+i)/(1+π)−1) while the macro page subtracts
+  (i−π), so the two ex ante rates still differ by a few basis points (2.33% vs 2.42% in Oct-2026).
 - PEF states amounts in pesos ("10,193,683,700,000"), the LIF table in millones de pesos.
 
 ## Conventions
@@ -62,8 +71,9 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
 ## Open items
 
 - Surveys (owner's decision, 29-Sep-2026): show BOTH. `survey` = Citi (every two weeks; chart, CGPE analysts
-  column); `banxicoSurvey` = Banco de México's monthly survey (mirror `banxico-encuesta.txt`, official PDF link;
-  supplies `inflationNext12m` for the ex ante real rate). The page prints them side by side.
+  column); `banxicoSurvey` = Banco de México's monthly survey (mirror `banxico-encuesta.txt`, official PDF link).
+  The page prints them side by side. The "próximos 12 meses" row and the ex ante real rate read the SIE series
+  `inflExp12m` (SR16774), not `banxicoSurvey.inflationNext12m`, which stays as the cross-check value (see Real rate).
 - Fed funds and the rating agencies stay (owner's decision, 29-Sep-2026), linked to their own sites.
 - Rating actions and Pemex quarterly figures are not in any mirror; the routine cites the agencies' and Pemex's own
   releases (Pemex 2T26 report URL is in `pemex.url`).
