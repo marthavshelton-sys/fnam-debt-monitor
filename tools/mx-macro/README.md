@@ -149,8 +149,19 @@ the `search` query that reproduces the confirmation): IGAE total `737219`
 (seasonally adjusted, base 2018; `737217` original series as fallback), IGAE
 by activity group `737226` / `737233` / `737268` (primary, secondary,
 tertiary, seasonally adjusted), consumer confidence `454186` (seasonally
-adjusted balance; `454168` original). `SR14195` (Banxico survey, median
-expected inflation 12 months ahead) feeds the ex ante real rate.
+adjusted balance; `454168` original). `SR16774` (Banxico survey of
+private-sector economists, median expected headline inflation for the 12
+months *after* the survey month: "Para los próximos 12 meses (mes t+1)" in
+SIE table CR155) feeds the ex ante real rate since 2026-10-05. It is the
+figure Banxico headlines in Cuadro 2 of the survey PDF and the series the
+Mexico fiscal monitor (`site/mx/fiscal`) reads for its ex ante rate, so both
+pages print one number. `SR14195`, used until 2026-10-05, is the "mes t"
+median (12 months counted from the survey month itself); the two differ month
+by month (Feb-2018 to Sep-2026: −0.29 to +0.13 pp; Sep-2026: 4.16 vs 4.08); do
+not mix the two. The API carries SR16774 from Feb-2018 only (N/E before), so
+the ex ante real-rate history now starts in 2018 instead of 2010. Ids, labels and values
+were read from the public CR155 table on 2026-10-05 and the fetcher's title
+check (`(mes t+1)` … `mediana`) rejects any other series.
 
 Official-source policy: every series' first candidate is an official Mexican
 source (INEGI or Banxico); international mirrors (OECD/IMF via FRED) remain

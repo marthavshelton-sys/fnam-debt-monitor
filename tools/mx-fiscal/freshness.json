@@ -24,6 +24,7 @@
     "cetes364": { "days": 17, "why": "the 364-day Cetes are auctioned every other week" },
     "inpc": { "days": 45, "why": "INEGI publishes the monthly INPC around the 9th of the following month" },
     "inpcAnual": { "days": 45 },
+    "inflExp12m": { "days": 25, "why": "Banxico publishes the monthly survey of forecasters on the first business days of the following month" },
     "vgPlazoPromedio": { "days": 45, "why": "monthly, published early in the following month" },
     "deudaBrutaSPEA": { "days": 120, "why": "quarterly, SHCP's quarterly report 30 days after the quarter, republished by Banxico" },
     "deudaNetaLiquidaSPEA": { "days": 120 }
