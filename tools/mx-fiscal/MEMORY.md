@@ -38,10 +38,12 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   37,160.7 and 2027 **39,419.4** mmdp; FX end-2026 17.8, end-2027 18.0; MME 78.4 (2026) and 61.8 (2027) US$/bbl.
 - **Real rate**: deflating the target with *observed* annual inflation is the **ex post** rate. Banxico's policy
   statements define the ex ante rate with *expected* 12-month inflation from its survey. Since 2026-10-05 the page
-  takes that expectation from the SIE series `inflExp12m` in `data.js` (Banxico SIE **SR16774**: the survey's median
-  for the 12 months *after* the survey month, "mes t+1" in table CR155), never from `docs-data.js`. It is the figure
-  Banxico headlines in Cuadro 2 of the survey PDF (footnote: "se considera el mes posterior al levantamiento") and the
-  series the macro dashboard (`/mx/macro`) reads, so both pages print one number. **SR14195 is the "mes t" median**
+  takes that expectation from the SIE series in `data.js`, never from `docs-data.js`: the survey's **mean**
+  (`inflExp12mMean`, SIE **SR16773**) drives the ex ante rate because that is Banxico's own definition (below), and the
+  **median** (`inflExp12m`, SIE **SR16774**, the figure Banxico headlines in Cuadro 2 of the survey PDF and the
+  statistic consensus surveys report) is printed beside it; both are for the 12 months *after* the survey month
+  ("mes t+1" in table CR155, footnote of the PDF: "se considera el mes posterior al levantamiento"). The macro
+  dashboard (`/mx/macro`) reads the same two series, so both pages print the same figures. **SR14195 is the "mes t" median**
   (12 months counted from the survey month itself); the two differ month by month (Feb-2018 to Sep-2026: −0.29 to
   +0.13 pp; Sep-2026: 4.16 vs 4.08). The macro page used it until 2026-10-05, which is why the two pages disagreed.
   The SIE API carries SR16774 from Feb-2018 only (N/E before). The routine still records the PDF's Cuadro 2
@@ -49,10 +51,11 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
   the same survey month. Both real rates are **differences** (target minus inflation, percentage points), Banxico's
   definition: Informe Trimestral abril–junio 2026, Gráfica 104, nota 1 ("la diferencia entre el objetivo de la tasa de
   interés interbancaria a un día y la media de las expectativas de inflación a 12 meses"). Until 2026-10-05 this page
-  compounded ((1+i)/(1+π)−1) and printed 9 bp below the macro page for the same inputs. Two open points, owner's call:
-  Banxico itself uses the **mean** of expectations (SR16773, "mes t+1"; Aug-2026: 6.50 − 4.15 = 2.35%, the figure in
-  that report) while both pages use the median (SR16774); and Banxico's neutral real-rate range is 1.8–3.6% (midpoint
-  2.7%) since 28-Aug-2024, while the macro page's summary sentences still compare with 1.8–3.4%.
+  compounded ((1+i)/(1+π)−1) and printed 9 bp below the macro page for the same inputs. Mean vs. median (owner's
+  decision, 2026-10-05): show both; the mean is Banxico's statistic for this rate (Aug-2026: 6.50 − 4.15 = 2.35%, the
+  figure in that report), the median is what consensus surveys (Citi, Bloomberg) and the survey's own narrative report.
+  Still open: Banxico's neutral real-rate range is 1.8–3.6% (midpoint 2.7%) since 28-Aug-2024, while the macro page's
+  summary sentences still compare with 1.8–3.4%.
 - PEF states amounts in pesos ("10,193,683,700,000"), the LIF table in millones de pesos.
 
 ## Conventions
@@ -77,8 +80,9 @@ against the mirrored documents in `tools/mx-fiscal/docs/` (each file starts with
 
 - Surveys (owner's decision, 29-Sep-2026): show BOTH. `survey` = Citi (every two weeks; chart, CGPE analysts
   column); `banxicoSurvey` = Banco de México's monthly survey (mirror `banxico-encuesta.txt`, official PDF link).
-  The page prints them side by side. The "próximos 12 meses" row and the ex ante real rate read the SIE series
-  `inflExp12m` (SR16774), not `banxicoSurvey.inflationNext12m`, which stays as the cross-check value (see Real rate).
+  The page prints them side by side. The "próximos 12 meses" rows (mean and median) and the ex ante real rate read the
+  SIE series `inflExp12mMean` (SR16773) and `inflExp12m` (SR16774), not `banxicoSurvey.inflationNext12m`, which stays
+  as the cross-check value (see Real rate).
 - Fed funds and the rating agencies stay (owner's decision, 29-Sep-2026), linked to their own sites.
 - Rating actions and Pemex quarterly figures are not in any mirror; the routine cites the agencies' and Pemex's own
   releases (Pemex 2T26 report URL is in `pemex.url`).

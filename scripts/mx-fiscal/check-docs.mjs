@@ -5,9 +5,10 @@
 // the mirrors are refreshed and exits non-zero on any mismatch, so GitHub e-mails the owner; the
 // daily document routine runs it before committing.
 // Since 2026-10-05 it also checks that the expected 12-month inflation the page prints (data.js
-// inflExp12m, Banxico SIE SR16774: the survey median for the 12 months after the survey month) equals
-// the Cuadro 2 median of the mirrored survey PDF for the same survey month, so the page, the macro
-// dashboard (same series) and Banxico's own publication can never show three different numbers.
+// inflExp12mMean = Banxico SIE SR16773, the survey mean Banxico uses for its ex ante real rate, and
+// inflExp12m = SR16774, the median; both for the 12 months after the survey month) equals the Cuadro 2
+// mean and median of the mirrored survey PDF for the same survey month, so the page, the macro
+// dashboard (same series) and Banxico's own publication can never show different numbers.
 //
 //   node scripts/mx-fiscal/check-docs.mjs            report and exit 1 on mismatch
 //   node scripts/mx-fiscal/check-docs.mjs --json     machine-readable findings
@@ -135,12 +136,16 @@ async function main() {
       for (const y of Object.keys(B.rateEnd || {})) compare('banxicoSurvey', `rateEnd.${y}`, B.rateEnd[y], med('Tasa de fondeo interbancario', y), src, 'Cuadro 1, mediana (tasa de fondeo)', 0.005);
       const n12 = enc.match(/Para los pr[oó]ximos 12 meses[\s\S]{0,800}?Mediana\s+[\d.]+\s+([\d.]+)/);
       if (B.inflationNext12m != null) compare('banxicoSurvey', 'inflationNext12m', B.inflationNext12m, n12 ? num(n12[1]) : null, src, 'Cuadro 2, inflación general, próximos 12 meses, mediana', 0.005);
-      // The page prints the SIE series (data.js inflExp12m = SR16774, "mes t+1"), never the PDF figure above; for the same
-      // survey month the two must agree (SR14195, the "mes t" median, would fail here by about 0.1 pp).
-      const month = surveyMonth(enc), sie = await sieSeries('inflExp12m');
-      if (n12 && sie && sie.last && month) {
-        if (sie.last[0] === month) compare('banxicoSurvey', `inflExp12m (data.js, SIE ${sie.id}, ${month})`, sie.last[1], num(n12[1]), src, 'the series the page prints must equal Cuadro 2, próximos 12 meses, mediana', 0.005);
-        else findings.push({ block: 'banxicoSurvey', field: 'inflExp12m month', docs: sie.last[0], document: month, source: src, note: `data.js inflExp12m (SIE ${sie.id}) is not at the survey month of the mirrored PDF yet; one of the two has not updated`, severity: 'warn' });
+      // The page prints the SIE series (data.js inflExp12mMean = SR16773, the mean; inflExp12m = SR16774, the median; both
+      // "mes t+1"), never the PDF figure above; for the same survey month each must equal its Cuadro 2 row (the "mes t"
+      // series SR14194/SR14195 would fail here by up to a few tenths of a point).
+      const n12mean = enc.match(/Para los pr[oó]ximos 12 meses[\s\S]{0,800}?Media\s+[\d.]+\s+([\d.]+)/);
+      const month = surveyMonth(enc);
+      for (const [key, m, label] of [['inflExp12mMean', n12mean, 'media'], ['inflExp12m', n12, 'mediana']]) {
+        const sie = await sieSeries(key);
+        if (!m || !sie || !sie.last || !month) continue;
+        if (sie.last[0] === month) compare('banxicoSurvey', `${key} (data.js, SIE ${sie.id}, ${month})`, sie.last[1], num(m[1]), src, `the series the page prints must equal Cuadro 2, próximos 12 meses, ${label}`, 0.005);
+        else findings.push({ block: 'banxicoSurvey', field: `${key} month`, docs: sie.last[0], document: month, source: src, note: `data.js ${key} (SIE ${sie.id}) is not at the survey month of the mirrored PDF yet; one of the two has not updated`, severity: 'warn' });
       }
       const inst = enc.match(/(\d+) grupos de an[aá]lisis/);
       if (B.institutions != null) compare('banxicoSurvey', 'institutions', B.institutions, inst ? num(inst[1]) : null, src, 'número de instituciones', 0.5);
