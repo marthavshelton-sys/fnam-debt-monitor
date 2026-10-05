@@ -2,11 +2,220 @@
  "issuer": "OMA-6707-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/OMA-6707-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": null,
- "rows": 0,
- "archived": 0,
+ "checkedAt": "2026-10-05T15:06:17.968Z",
+ "rows": 177,
+ "archived": 3,
  "pending": 0,
  "unmatched": [],
- "error": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/OMA-6707-CGEN_CAPIT -> gave up (HTTP 503)",
- "seen": []
+ "error": null,
+ "seen": [
+  {
+   "id": "1591834",
+   "date": "2026-09-28",
+   "title": "OMA Anuncia Cambio en la Gerencia de Relación con Inversionistas",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1591834_1.pdf",
+   "coveredBy": "2026-09-28_omaOrganizational-change-RI-vf_en.txt"
+  },
+  {
+   "id": "1589791",
+   "date": "2026-09-18",
+   "title": "OMA atiende solicitud de la BMV en relación al volumen operado el día de hoy",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1589791_1.pdf",
+   "coveredBy": "2026-09-18_omaOMAparameter-vf-SEP_en.txt"
+  },
+  {
+   "id": "1586833",
+   "date": "2026-09-04",
+   "title": "OMA reporta incremento de 4.0% en el tráfico de pasajeros del mes de agosto 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1586833_1.pdf",
+   "coveredBy": "2026-09-04_omaOMA-August-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1580183",
+   "date": "2026-08-05",
+   "title": "OMA reporta incremento de 3.9% en el tráfico de pasajeros del mes de julio 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1580183_1.pdf",
+   "coveredBy": "2026-08-05_omaOMA-July-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1577708",
+   "date": "2026-07-29",
+   "title": "OMA publica su Reporte de Sostenibilidad 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1577708_1.pdf",
+   "coveredBy": "2026-07-29_omaInformeESG-DisENG-280726-VF_en.txt"
+  },
+  {
+   "id": "1577262",
+   "date": "2026-07-27",
+   "title": "OMA Informa Resultados Operativos y Financieros del Segundo Trimestre 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1577262_1.pdf",
+   "file": "tools/oma/raw/releases/2026-07-27_bmv1577262_es.txt"
+  },
+  {
+   "id": "1575515",
+   "date": "2026-07-20",
+   "title": "OMA completa emisión de Certificados Bursátiles",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1575515_1.pdf",
+   "coveredBy": "2026-07-20_omaOMA-Informs-20jul26-ENG-vf-1_en.txt"
+  },
+  {
+   "id": "1574904",
+   "date": "2026-07-16",
+   "title": "OMA coloca Certificados Bursátiles por Ps.3,000 millones",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1574904_1.pdf",
+   "coveredBy": "2026-07-16_omaOMA-Issuances2026-16jul26-ENG-vf_en.txt"
+  },
+  {
+   "id": "1572765",
+   "date": "2026-07-06",
+   "title": "OMA reporta incremento de 2.1% en el tráfico de pasajeros del mes de junio 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1572765_1.pdf",
+   "coveredBy": "2026-07-06_omaOMA-June-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1570490",
+   "date": "2026-06-25",
+   "title": "OMA anuncia el cumplimiento de su Objetivo de Desempeño de Sostenibilidad",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1570490_1.pdf",
+   "coveredBy": "2026-06-25_omaOMA-ESGcompliance-v2_en.txt"
+  },
+  {
+   "id": "1565772",
+   "date": "2026-06-04",
+   "title": "OMA reporta incremento de 3.6% en el tráfico de pasajeros del mes de mayo 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1565772_1.pdf",
+   "coveredBy": "2026-06-04_omaOMA-May-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1564215",
+   "date": "2026-05-29",
+   "title": "OMA atiende solicitud de la BMV en relación al volumen operado el día de hoy",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1564215_1.pdf",
+   "coveredBy": "2026-05-29_omaOMAparameter-v1-MAY_en.txt"
+  },
+  {
+   "id": "1559763",
+   "date": "2026-05-14",
+   "title": "OMA informa sobre la fecha de pago de la primera exhibición del dividendo decretado",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1559763_1.pdf",
+   "coveredBy": "2026-05-14_omaOMA-Informa-14mayo26-ENG-vf_en.txt"
+  },
+  {
+   "id": "1556840",
+   "date": "2026-05-05",
+   "title": "OMA reporta disminución de 4.4% en el tráfico de pasajeros del mes de abril 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1556840_1.pdf",
+   "coveredBy": "2026-05-05_omaOMA-April-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1554440",
+   "date": "2026-04-30",
+   "title": "OMA anuncia la publicación de su Reporte Anual y Forma 20-F de 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1554440_1.pdf",
+   "coveredBy": "2026-04-30_omaOMA-Informa-30abr26-ENG-v1-1_en.txt"
+  },
+  {
+   "id": "1551808",
+   "date": "2026-04-27",
+   "title": "OMA Informa Resultados Operativos y Financieros del Primer Trimestre 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1551808_1.pdf",
+   "file": "tools/oma/raw/releases/2026-04-27_bmv1551808_es.txt"
+  },
+  {
+   "id": "1551488",
+   "date": "2026-04-24",
+   "title": "Asamblea de Accionistas de OMA aprobó el pago de un dividendo por Ps.4,900 millones",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1551488_1.pdf",
+   "coveredBy": "2026-04-24_omaDividend-payment-approval-2026-vf_en.txt"
+  },
+  {
+   "id": "1548902",
+   "date": "2026-04-15",
+   "title": "OMA atiende solicitud de la BMV en relación al volumen operado el día de hoy",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1548902_1.pdf",
+   "coveredBy": "2026-04-15_omaOMAparameter-v1_en.txt"
+  },
+  {
+   "id": "1546814",
+   "date": "2026-04-07",
+   "title": "OMA reporta incremento de 2.8% en el tráfico de pasajeros del mes de marzo 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1546814_1.pdf",
+   "coveredBy": "2026-04-07_omaOMA-March-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1546125",
+   "date": "2026-04-06",
+   "title": "OMA convoca a Asamblea General Anual Ordinaria de Accionistas",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1546125_1.pdf",
+   "coveredBy": "2026-04-06_omaOMA-PR-Annual-Shareholder-MeetingCall2026-vf_en.txt"
+  },
+  {
+   "id": "1546102",
+   "date": "2026-04-01",
+   "title": "OMA obtiene créditos de corto plazo por Ps.1,700 millones",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1546102_1.pdf",
+   "coveredBy": "2026-04-01_omaOMA-STDrawdown-2026-vf_en.txt"
+  },
+  {
+   "id": "1539577",
+   "date": "2026-03-05",
+   "title": "OMA reporta incremento de 5.4% en el tráfico de pasajeros del mes de febrero 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1539577_1.pdf",
+   "coveredBy": "2026-03-05_omaOMA-February-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1535866",
+   "date": "2026-02-23",
+   "title": "Reporte Trimestral 4T25",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1535866_1.pdf",
+   "file": "tools/oma/raw/releases/2026-02-23_bmv1535866_es.txt"
+  },
+  {
+   "id": "1531074",
+   "date": "2026-02-06",
+   "title": "OMA informa sobre la publicación de resultados anuales 2025 de VINCI SA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1531074_1.pdf",
+   "coveredBy": "2026-02-06_omaOMA-Reports-on-the-Publication-of-VINCI-SAs-2025-Annual-Resu_en.txt"
+  },
+  {
+   "id": "1530676",
+   "date": "2026-02-05",
+   "title": "OMA reporta incremento de 6.0% en el tráfico de pasajeros del mes de enero 2026",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1530676_1.pdf",
+   "coveredBy": "2026-02-05_omaOMA-January-2026-Traffic-Report-vf_en.txt"
+  },
+  {
+   "id": "1521798",
+   "date": "2026-01-07",
+   "title": "OMA reporta incremento de 6.9% en el tráfico de pasajeros del mes de diciembre 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1521798_1.pdf",
+   "coveredBy": "2026-01-07_omaOMA-December-2025-Traffic-Report-vf_en.txt"
+  }
+ ]
 }
