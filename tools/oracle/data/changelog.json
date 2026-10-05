@@ -4,13 +4,6 @@
   {
    "at": "2026-10-04T00:59:06.195Z",
    "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].url",
-   "old": null,
-   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312525200095/orcl-20250831.htm"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
    "path": "concepts.tax_rate_effective.cumulative[6].superseded[0].accn",
    "old": null,
    "new": "0000950170-24-104905"
@@ -4200,7 +4193,14 @@
    "path": "rates.US10Y.fetchedAt",
    "old": null,
    "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T11:32:15.073Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-04",
+   "new": "2026-10-05"
   }
  ],
- "generated": "2026-10-05T11:29:10.201Z"
+ "generated": "2026-10-05T11:32:15.073Z"
 }
