@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-05T04:04:07Z",
+  "checkedAt": "2026-10-05T16:00:09Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -26,12 +26,12 @@
       },
       "url": "/macro/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T21:31:54Z",
+      "lastSuccess": "2026-10-05T14:24:38Z",
       "lastAttempt": {
-        "at": "2026-10-04T21:31:54Z",
+        "at": "2026-10-05T14:24:38Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-04T14:05:00Z",
+      "requiredSince": "2026-10-04T20:05:00Z",
       "alerts": 0
     },
     {
@@ -43,9 +43,9 @@
       },
       "url": "/fiscal/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T21:50:51Z",
+      "lastSuccess": "2026-10-05T13:41:55Z",
       "lastAttempt": {
-        "at": "2026-10-04T21:50:51Z",
+        "at": "2026-10-05T13:41:55Z",
         "result": "success"
       },
       "requiredSince": "2026-10-04T13:15:00Z",
@@ -60,12 +60,12 @@
       },
       "url": "/mx/macro/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T20:44:49Z",
+      "lastSuccess": "2026-10-05T12:45:23Z",
       "lastAttempt": {
-        "at": "2026-10-04T20:44:49Z",
+        "at": "2026-10-05T12:45:23Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T15:25:00Z",
+      "requiredSince": "2026-10-04T15:25:00Z",
       "alerts": 0
     },
     {
@@ -94,9 +94,9 @@
       },
       "url": "/gap/",
       "status": "ok",
-      "lastSuccess": "2026-10-02T22:47:08Z",
+      "lastSuccess": "2026-10-05T14:43:37Z",
       "lastAttempt": {
-        "at": "2026-10-02T22:47:08Z",
+        "at": "2026-10-05T14:43:37Z",
         "result": "success"
       },
       "requiredSince": "2026-10-02T14:30:00Z",
@@ -111,9 +111,9 @@
       },
       "url": "/oma/",
       "status": "ok",
-      "lastSuccess": "2026-10-02T22:59:52Z",
+      "lastSuccess": "2026-10-05T15:06:47Z",
       "lastAttempt": {
-        "at": "2026-10-02T22:59:52Z",
+        "at": "2026-10-05T15:06:47Z",
         "result": "success"
       },
       "requiredSince": "2026-10-02T14:45:00Z",
@@ -128,9 +128,9 @@
       },
       "url": "/asur/",
       "status": "ok",
-      "lastSuccess": "2026-10-02T22:57:32Z",
+      "lastSuccess": "2026-10-05T14:54:56Z",
       "lastAttempt": {
-        "at": "2026-10-02T22:57:32Z",
+        "at": "2026-10-05T14:54:56Z",
         "result": "success"
       },
       "requiredSince": "2026-10-02T14:40:00Z",
@@ -179,9 +179,9 @@
       },
       "url": "/qualitas/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T23:04:38Z",
+      "lastSuccess": "2026-10-05T15:04:33Z",
       "lastAttempt": {
-        "at": "2026-10-04T23:04:38Z",
+        "at": "2026-10-05T15:04:33Z",
         "result": "success"
       },
       "requiredSince": "2026-10-04T14:50:00Z",
@@ -196,9 +196,9 @@
       },
       "url": "/gentera/",
       "status": "ok",
-      "lastSuccess": "2026-10-02T22:56:06Z",
+      "lastSuccess": "2026-10-05T14:59:12Z",
       "lastAttempt": {
-        "at": "2026-10-02T22:56:06Z",
+        "at": "2026-10-05T14:59:12Z",
         "result": "success"
       },
       "requiredSince": "2026-10-02T14:35:00Z",
@@ -212,10 +212,10 @@
         "en": "Oracle"
       },
       "url": "/oracle/",
-      "status": "late",
-      "lastSuccess": "2026-10-02T21:53:54Z",
+      "status": "ok",
+      "lastSuccess": "2026-10-05T13:46:51Z",
       "lastAttempt": {
-        "at": "2026-10-02T21:53:54Z",
+        "at": "2026-10-05T13:46:51Z",
         "result": "success"
       },
       "requiredSince": "2026-10-03T13:30:00Z",
@@ -230,9 +230,9 @@
       },
       "url": "/hiperescaladores/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T22:29:07Z",
+      "lastSuccess": "2026-10-05T13:38:39Z",
       "lastAttempt": {
-        "at": "2026-10-04T22:29:07Z",
+        "at": "2026-10-05T13:38:39Z",
         "result": "success"
       },
       "requiredSince": "2026-10-04T13:20:00Z",
