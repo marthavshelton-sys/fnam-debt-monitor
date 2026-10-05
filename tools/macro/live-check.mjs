@@ -87,7 +87,11 @@ function expectedPage() {
 // Cloudflare adds its Web Analytics beacon to the HTML it serves when the project has analytics on
 // (a comment plus one script tag before </body>). It is not part of the page, so the deploy comparison
 // removes it before hashing; the report notes that it was there.
-const EDGE_BEACON = /(?:<!--\s*Cloudflare (?:Pages|Web) Analytics\s*-->\s*)?<script[^>]*static\.cloudflareinsights\.com\/beacon\.min\.js[^>]*>\s*<\/script>/g;
+// The comment and the script go together with whatever whitespace Cloudflare puts between them; a comment on its
+// own goes too. Whitespace that belongs to the page (before the comment, after the script) stays.
+const CF_COMMENT = String.raw`<!--\s*Cloudflare\s+(?:Pages|Web)\s+Analytics\s*-->`;
+const CF_SCRIPT = String.raw`<script[^>]*static\.cloudflareinsights\.com\/beacon\.min\.js[^>]*>\s*<\/script>`;
+const EDGE_BEACON = new RegExp(`(?:${CF_COMMENT}\\s*)?${CF_SCRIPT}|${CF_COMMENT}`, "gi");
 let edgeNoted = false;
 function withoutEdge(buf) {
   const text = buf.toString("utf8"), bare = text.replace(EDGE_BEACON, "");
@@ -124,7 +128,7 @@ async function checkDeploy() {
         // Where the two differ, so the report says whether the deploy is stale or the edge rewrote the page.
         const lb = live.bare || live.buf;
         const n = Math.min(lb.length, exp.buf.length); let i = 0; while (i < n && lb[i] === exp.buf[i]) i++;
-        const at = (buf) => buf.subarray(Math.max(0, i - 60), Math.min(buf.length, i + 160)).toString("utf8").replace(/\s+/g, " ");
+        const at = (buf) => JSON.stringify(buf.subarray(Math.max(0, i - 60), Math.min(buf.length, i + 160)).toString("utf8")).slice(1, -1);
         problem("deploy", `after ${waitMin} min the live page is still not ${exp.label} (live sha256 ${sha(live.buf).slice(0, 12)}, ${live.buf.length.toLocaleString("en-US")} bytes; expected ${sha(exp.buf).slice(0, 12)}, ${exp.buf.length.toLocaleString("en-US")} bytes; first difference at byte ${i.toLocaleString("en-US")}; live: "${at(lb)}"; expected: "${at(exp.buf)}"): Cloudflare has not published the latest commit, or the edge rewrote the page`);
       }
       return;
