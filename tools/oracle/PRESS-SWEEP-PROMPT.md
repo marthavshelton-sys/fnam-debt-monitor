@@ -1,4 +1,7 @@
-# Weekly press sweep — task prompt
+# Weekly press sweep — task prompt (retired)
+
+**Retired 2026-10-05.** The desktop task below was never created in the owner's apps (not among her cloud routines, no desktop
+task, no commit by it); nothing to disable. News comes from the daily cloud routine (`NEWS-SWEEP-PROMPT.md`). Kept for the record.
 
 Desktop scheduled task **"FNAM Oracle: weekly press sweep"**, Mondays 14:00 UTC (08:00 Mexico City). It refreshes
 `tools/oracle/data/press.json`, the source of the executive-summary block "What the market is worried about" and of

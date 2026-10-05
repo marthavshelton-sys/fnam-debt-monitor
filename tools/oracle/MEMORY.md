@@ -12,7 +12,8 @@ Read before touching `site/oracle` or `tools/oracle`. Runbook: `README.md`; meth
   were (the owner uses them); RPO/cloud is one section, capex and FCF another, sites and power another.
 - Timestamps on the Oracle page are **Eastern Time only** (`fmtET`), unlike the Mexican models (CDMX).
 - Refresh is **daily, weekends included** (13:30 UTC); a run commits only when data changed. News daily via the cloud
-  routine (`NEWS-SWEEP-PROMPT.md`); the weekly desktop press sweep and `press.js` are retired.
+  routine (`NEWS-SWEEP-PROMPT.md`); the weekly press sweep and `press.js` are retired (the sweep task was never created in the
+  owner's apps, checked 2026-10-05; nothing for her to disable).
 - Off-balance-sheet: three views side by side (reported / ASC 842 lease-adjusted / ASC 810 look-through). Uncommenced
   leases are never added to debt; the PV estimate is illustrative, labeled, and enters no ratio. A guarantee exposure
   is never a liability. Text readings (uncommenced sentence, guarantees, VIE) keep the *needs review* badge until a
