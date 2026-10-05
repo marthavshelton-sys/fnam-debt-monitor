@@ -17,8 +17,9 @@
 // Cloudflare Pages Functions live in /functions at the project root (the directory that holds
 // the `site/` build output); the file's path decides the route it guards: functions/gap/ → /gap/*.
 
-// A site-wide gate (functions/_middleware.js, SITE_PASSWORD) runs before this one. With SITE_PASSWORD set this
-// section password becomes a second prompt: unset it to rely on the site password alone.
+// A site-wide gate (functions/_middleware.js, SITE_PASSWORD) runs before this one. One password for everything:
+// while SITE_PASSWORD is set this gate stands down, whatever its own variable holds (the site gate has already
+// authenticated the request); its own password only matters while the site gate is off.
 
 const COOKIE = 'gap_session';
 const LOGIN_PATH = '/gap/login';
@@ -108,7 +109,7 @@ ${error ? `<div class="err">${error}</div>` : ''}
 
 export async function onRequest({ request, env, next }) {
   const url = new URL(request.url);
-  if (!env.GAP_PASSWORD) {
+  if (!env.GAP_PASSWORD || env.SITE_PASSWORD) {
     // Password protection not enabled yet: serve the page, keep it out of search engines and caches.
     if (request.method === 'POST' && url.pathname === LOGIN_PATH) return new Response(null, { status: 303, headers: { location: '/gap/' } });
     const res = await next();

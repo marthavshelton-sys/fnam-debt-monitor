@@ -34,9 +34,9 @@ string that signs the session cookies; without it, changing the password ends ev
 
 Also add the same password as the GitHub repository secret `SITE_PASSWORD` (Settings → Secrets and variables →
 Actions): `macro-live-check.yml` reads the live site after every US macro refresh and logs in with it; without
-the secret that check reports the 401 and fails. The section gates under `functions/<section>/` (GAP, Oracle,
-OMA, ASUR, Quálitas) keep working; with the site password on, a section whose own `*_PASSWORD` is also set
-asks twice, so unset those to rely on the site password alone.
+the secret that check reports the 401 and fails. One password for everything: the section gates under
+`functions/<section>/` (GAP, Oracle, OMA, ASUR, Quálitas) stand down automatically while `SITE_PASSWORD` is set,
+whatever their own `*_PASSWORD` variables hold; those only matter while the site gate is off.
 
 ## Mexico fiscal monitor (`site/mx/fiscal/`)
 
