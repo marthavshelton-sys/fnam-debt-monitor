@@ -87,7 +87,7 @@ function expectedPage() {
 // Cloudflare adds its Web Analytics beacon to the HTML it serves when the project has analytics on
 // (a comment plus one script tag before </body>). It is not part of the page, so the deploy comparison
 // removes it before hashing; the report notes that it was there.
-const EDGE_BEACON = /\s*(?:<!--\s*Cloudflare (?:Pages|Web) Analytics\s*-->\s*)?<script[^>]*static\.cloudflareinsights\.com\/beacon\.min\.js[^>]*>\s*<\/script>/g;
+const EDGE_BEACON = /(?:<!--\s*Cloudflare (?:Pages|Web) Analytics\s*-->\s*)?<script[^>]*static\.cloudflareinsights\.com\/beacon\.min\.js[^>]*>\s*<\/script>/g;
 let edgeNoted = false;
 function withoutEdge(buf) {
   const text = buf.toString("utf8"), bare = text.replace(EDGE_BEACON, "");
