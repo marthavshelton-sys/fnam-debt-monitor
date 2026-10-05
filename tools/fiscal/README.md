@@ -86,7 +86,11 @@ source and date of each figure, the source in every chart tooltip, and an amber 
 its allowance or when `data.js` has no value for it and the page is showing the values stored in its code
 ("Not refreshed: showing stored values" — never silent). Test a date with `?asof=YYYY-MM-DD`. A sentence
 that needs a fetched date (the whole-trillion milestone) stays hidden until the date exists; no typed-in
-fallback. The customs-duties chart (`tariffTrend`) is typed into the page: `blocks.js` says so and turns it
+fallback. The Section 01 callout's monthly pace (the rise since the fiscal year-end record ÷ the months
+elapsed, 30.44 days each) is shown only once a full month of the new fiscal year is in; until then the
+callout says how many days of the fiscal year the rise covers, because over a shorter base the "pace" would
+just repeat the rise itself (1-Oct-2026: one day, +$89B, printed as "$89 billion a month" until fixed on
+2026-10-05). The customs-duties chart (`tariffTrend`) is typed into the page: `blocks.js` says so and turns it
 amber when BEA's next annual figure is overdue; update `TARIFF_LAST` there with the series.
 
 `scripts/fiscal/check-freshness.mjs` runs after every refresh (and locally: `node
