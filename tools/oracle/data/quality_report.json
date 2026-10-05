@@ -1,5 +1,5 @@
 {
-  "generated": "2026-10-05T11:56:58.221Z",
+  "generated": "2026-10-05T13:43:33.549Z",
   "summary": {
     "checks": 447,
     "failed": 0,
@@ -3664,7 +3664,7 @@
     {
       "series": "Share price (ORCL close)",
       "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs, weekdays 13:30 and 21:45 UTC"
@@ -3672,7 +3672,7 @@
     {
       "series": "10-year Treasury (U.S. Treasury daily par yield curve)",
       "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 5,
       "status": "ok",
       "note": "fetch-market.mjs"
@@ -3680,7 +3680,7 @@
     {
       "series": "BBB corporate OAS proxy (FRED BAMLC0A4CBBB)",
       "lastDate": "2026-10-01",
-      "ageDays": 4,
+      "ageDays": 5,
       "limitDays": 7,
       "status": "ok",
       "note": "fetch-market.mjs; credit card proxy while no CDS source exists"
@@ -3688,7 +3688,7 @@
     {
       "series": "Latest quarter release",
       "lastDate": "2026-09-10",
-      "ageDays": 25,
+      "ageDays": 26,
       "limitDays": 100,
       "status": "ok",
       "note": "FY2027Q1; next results estimated 2026-12-09 to 2026-12-11"
@@ -3696,7 +3696,7 @@
     {
       "series": "EDGAR submissions snapshot",
       "lastDate": "2026-10-05",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs, weekdays 13:30 UTC"
@@ -3704,7 +3704,7 @@
     {
       "series": "Oracle IR press-release snapshot",
       "lastDate": "2026-10-05",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 4,
       "status": "ok",
       "note": "harvest-filings.mjs"
@@ -3712,7 +3712,7 @@
     {
       "series": "Investor calendar",
       "lastDate": "2026-10-05",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-calendar.mjs"
@@ -3720,7 +3720,7 @@
     {
       "series": "Peer leverage (SEC XBRL)",
       "lastDate": "2026-10-05",
-      "ageDays": 0,
+      "ageDays": 1,
       "limitDays": 10,
       "status": "ok",
       "note": "fetch-peer-leverage.mjs"
@@ -3728,7 +3728,7 @@
     {
       "series": "FactSet consensus snapshot",
       "lastDate": "2026-10-02",
-      "ageDays": 3,
+      "ageDays": 4,
       "limitDays": 7,
       "status": "ok",
       "note": "cloud routine FactSet refresh, weekdays 14:20 UTC"
@@ -3736,7 +3736,7 @@
     {
       "series": "Implied equity risk premium (Damodaran, monthly)",
       "lastDate": "2026-09-01",
-      "ageDays": 34,
+      "ageDays": 35,
       "limitDays": 45,
       "status": "ok",
       "note": "fetch-market.mjs reads Damodaran's home page; he posts on the first of each month"
@@ -3744,7 +3744,7 @@
     {
       "series": "Market concerns (press sweep)",
       "lastDate": "2026-09-27",
-      "ageDays": 8,
+      "ageDays": 9,
       "limitDays": 10,
       "status": "ok",
       "note": "desktop task, Mondays"
