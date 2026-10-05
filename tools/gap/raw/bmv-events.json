@@ -2,11 +2,276 @@
  "issuer": "GAP-6579-CGEN_CAPIT",
  "url": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GAP-6579-CGEN_CAPIT",
  "since": "2026-01-01",
- "checkedAt": null,
- "rows": 0,
- "archived": 0,
+ "checkedAt": "2026-10-05T14:43:16.615Z",
+ "rows": 198,
+ "archived": 19,
  "pending": 0,
  "unmatched": [],
- "error": "https://www.bmv.com.mx/es/emisoras/eventosrelevantes/GAP-6579-CGEN_CAPIT -> gave up (HTTP 503)",
- "seen": []
+ "error": null,
+ "seen": [
+  {
+   "id": "1589699",
+   "date": "2026-09-18",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-09-18_bmv1589699_es.txt"
+  },
+  {
+   "id": "1588421",
+   "date": "2026-09-11",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO INFORMA CONTRATACIÓN DE LÍNEAS DE CRÉDITO BANCARIAS POR Ps. 8,000 MILLONES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1588421_1.pdf",
+   "coveredBy": "2026-09-11_gnw3360535_en.txt"
+  },
+  {
+   "id": "1587023",
+   "date": "2026-09-04",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN AGOSTO DE 2026 UN INCREMENTO DEL TRÁFICO DE PASAJEROS DEL 0.5% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1587023_1.pdf",
+   "coveredBy": "2026-09-04_gnw3356843_en.txt"
+  },
+  {
+   "id": "1580606",
+   "date": "2026-08-06",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO INFORMA CAMBIOS EN SU EQUIPO DIRECTIVO",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1580606_1.pdf",
+   "file": "tools/gap/raw/6k/2026-08-06_bmv1580606_es.txt"
+  },
+  {
+   "id": "1580202",
+   "date": "2026-08-05",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN JULIO DE 2026 UN INCREMENTO DEL TRÁFICO DE PASAJEROS DEL 1.2% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1580202_1.pdf",
+   "coveredBy": "2026-08-05_gnw3339852_en.txt"
+  },
+  {
+   "id": "1577498",
+   "date": "2026-07-28",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-07-28_bmv1577498_es.txt"
+  },
+  {
+   "id": "1574986",
+   "date": "2026-07-17",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-07-17_bmv1574986_es.txt"
+  },
+  {
+   "id": "1573976",
+   "date": "2026-07-13",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO ANUNCIA RESULTADOS DEL SEGUNDO TRIMESTRE 2026",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1573976_1.pdf",
+   "coveredBy": "2026-07-14_gnw3326564_en.txt"
+  },
+  {
+   "id": "1572694",
+   "date": "2026-07-06",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN JUNIO DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 5.1% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1572694_1.pdf",
+   "coveredBy": "2026-07-06_gnw3322791_en.txt"
+  },
+  {
+   "id": "1566309",
+   "date": "2026-06-08",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO PUBLICA INFORME DE SOSTENIBILIDAD 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1566309_1.pdf",
+   "file": "tools/gap/raw/6k/2026-06-08_bmv1566309_es.txt"
+  },
+  {
+   "id": "1565962",
+   "date": "2026-06-05",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN MAYO DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 4.1% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1565962_1.pdf",
+   "coveredBy": "2026-06-05_gnw3307640_en.txt"
+  },
+  {
+   "id": "1563941",
+   "date": "2026-05-29",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-05-29_bmv1563941_es.txt"
+  },
+  {
+   "id": "1558742",
+   "date": "2026-05-08",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO ANUNCIA INICIO DEL PROCESO PARA CONSTITUIR UNA FIBRA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1558742_1.pdf",
+   "file": "tools/gap/raw/6k/2026-05-08_bmv1558742_es.txt"
+  },
+  {
+   "id": "1557757",
+   "date": "2026-05-07",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO ANUNCIA CONCLUSIÓN DE PROCESO DE COMBINACIÓN DE NEGOCIOS DEL CBX Y LA PROVEEDURÍA DE LOS SERVICIOS DE ASISTENCIA TÉCNICA",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1557757_1.pdf",
+   "file": "tools/gap/raw/6k/2026-05-07_bmv1557757_es.txt"
+  },
+  {
+   "id": "1556735",
+   "date": "2026-05-05",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN ABRIL DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 7.6% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1556735_1.pdf",
+   "coveredBy": "2026-05-04_gnw3287245_en.txt"
+  },
+  {
+   "id": "1555839",
+   "date": "2026-05-04",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO INFORMA SOBRE IMPACTO DERIVADO DEL CESE DE OPERACIONES DE SPIRIT AIRLINES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1555839_1.pdf",
+   "file": "tools/gap/raw/6k/2026-05-04_bmv1555839_es.txt"
+  },
+  {
+   "id": "1550958",
+   "date": "2026-04-23",
+   "title": "RESOLUCIONES ADOPTADAS EN LA ASAMBLEA GENERAL ANUAL ORDINARIA DE ACCIONISTAS DE GRUPO AEROPORTUARIO DEL PACÍFICO DE FECHA 22 DE ABRIL DE 2026",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1550958_1.pdf",
+   "file": "tools/gap/raw/6k/2026-04-23_bmv1550958_es.txt"
+  },
+  {
+   "id": "1549656",
+   "date": "2026-04-20",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO ANUNCIA RESULTADOS DEL PRIMER TRIMESTRE 2026",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1549656_1.pdf",
+   "coveredBy": "2026-04-20_gnw3277544_en.txt"
+  },
+  {
+   "id": "1549336",
+   "date": "2026-04-17",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO ANUNCIA LA PUBLICACIÓN DE REPORTE ANUAL Y REPORTE 20-F 2025",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1549336_1.pdf",
+   "file": "tools/gap/raw/6k/2026-04-17_bmv1549336_es.txt"
+  },
+  {
+   "id": "1548569",
+   "date": "2026-04-15",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-04-15_bmv1548569_es.txt"
+  },
+  {
+   "id": "1546744",
+   "date": "2026-04-07",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO REPORTA EN MARZO DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 8.9% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1546744_1.pdf",
+   "coveredBy": "2026-04-07_gnw3269747_en.txt"
+  },
+  {
+   "id": "1545742",
+   "date": "2026-03-31",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO INFORMA SOBRE EMISIÓN DE CERTIFICADOS BURSÁTILES POR PS. 10,718.0 MILLONES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1545742_1.pdf",
+   "file": "tools/gap/raw/6k/2026-03-31_bmv1545742_es.txt"
+  },
+  {
+   "id": "1543227",
+   "date": "2026-03-23",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO INFORMA LIQUIDACIÓN DEL CERTIFICADO BURSÁTIL \"GAP 23L\" POR PS.1,120.0 MILLONES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1543227_1.pdf",
+   "file": "tools/gap/raw/6k/2026-03-23_bmv1543227_es.txt"
+  },
+  {
+   "id": "1543013",
+   "date": "2026-03-23",
+   "title": "GRUPO AEROPORTUARIO DEL PACIFICO INFORMA LA OBTENCIÓN DE ASEGURAMIENTO INDEPENDIENTE SOBRE INDICADOR DE LOS BONOS VINCULADOS A LA SOSTENIBILIDAD \"GAP 22L\", \"GAP 23L\", \"GAP 23-2L\", \"GAP 24L\" y \"GAP 24-2L\"",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1543013_1.pdf",
+   "file": "tools/gap/raw/6k/2026-03-23_bmv1543013_es.txt"
+  },
+  {
+   "id": "1542451",
+   "date": "2026-03-19",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO INFORMA REFINANCIAMIENTO DE DEUDA BANCARIA POR USD$95.5 MILLONES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1542451_1.pdf",
+   "file": "tools/gap/raw/6k/2026-03-19_bmv1542451_es.txt"
+  },
+  {
+   "id": "1540014",
+   "date": "2026-03-09",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO ANUNCIA CONVOCATORIA PARA ASAMBLEA GENERAL ANUAL ORDINARIA DE ACCIONISTAS",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1540014_1.pdf",
+   "coveredBy": "2026-03-09_gnw3252376_en.txt"
+  },
+  {
+   "id": "1539809",
+   "date": "2026-03-06",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN FEBRERO DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 5.5% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1539809_1.pdf",
+   "coveredBy": "2026-03-06_gnw3251336_en.txt"
+  },
+  {
+   "id": "1537709",
+   "date": "2026-02-27",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO INFORMA CUMPLIMIENTO DE INDICADOR DE LOS BONOS VINCULADOS A LA SOSTENIBILIDAD \"GAP 22L\", \"GAP 23L\", \"GAP 23-2L\", \"GAP 24L\" y \"GAP 24-2L\"",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1537709_1.pdf",
+   "file": "tools/gap/raw/6k/2026-02-27_bmv1537709_es.txt"
+  },
+  {
+   "id": "1536292",
+   "date": "2026-02-24",
+   "title": "MOVIMIENTOS INUSITADOS EN LA NEGOCIACIÓN DE LOS VALORES REPRESENTATIVOS DEL CAPITAL SOCIAL DE \"GAP\", SERIE \"B\"",
+   "class": "other",
+   "attachment": null,
+   "file": "tools/gap/raw/6k/2026-02-24_bmv1536292_es.txt"
+  },
+  {
+   "id": "1536005",
+   "date": "2026-02-23",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO ANUNCIA RESULTADOS DEL CUARTO TRIMESTRE 2025",
+   "class": "results",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1536005_1.pdf",
+   "coveredBy": "2026-02-24_gnw3243138_en.txt"
+  },
+  {
+   "id": "1530656",
+   "date": "2026-02-05",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN ENERO DE 2026 UN DECREMENTO DEL TRÁFICO DE PASAJEROS DEL 2.2% RESPECTO DE 2025",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1530656_1.pdf",
+   "coveredBy": "2026-02-05_gnw3233515_en.txt"
+  },
+  {
+   "id": "1525294",
+   "date": "2026-01-20",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO INFORMA REFINANCIAMIENTO DE DEUDA BANCARIA POR USD$95.5 MILLONES",
+   "class": "other",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1525294_1.pdf",
+   "file": "tools/gap/raw/6k/2026-01-20_bmv1525294_es.txt"
+  },
+  {
+   "id": "1521476",
+   "date": "2026-01-06",
+   "title": "GRUPO AEROPORTUARIO DEL PACÍFICO REPORTA EN DICIEMBRE DE 2025 UN INCREMENTO DEL TRÁFICO DE PASAJEROS DEL 0.1% RESPECTO DE 2024",
+   "class": "traffic",
+   "attachment": "https://www.bmv.com.mx/docs-pub/eventemi/eventemi_1521476_1.pdf",
+   "coveredBy": "2026-01-06_gnw3214165_en.txt"
+  }
+ ]
 }
