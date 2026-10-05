@@ -4,6 +4,13 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "reference.js",
+   "path": "debt.instruments[0].repaid.evidence.url",
+   "old": null,
+   "new": "https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm"
+  },
+  {
+   "at": "2026-10-04T02:46:09.536Z",
+   "file": "reference.js",
    "path": "debt.instruments[0].repaid.evidence.accession",
    "old": null,
    "new": "0001193125-26-389274"
@@ -4006,201 +4013,194 @@
    "new": 786
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
-   "file": "analysts.js",
-   "path": "(file)",
-   "old": null,
-   "new": "created"
-  },
-  {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].id",
    "old": "method",
    "new": "analysts"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].en",
    "old": "Methodology, Sources, Provenance, Glossary and Change Log",
    "new": "Analyst Opinions: Sell-Side Research and Consensus"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].es",
    "old": "Metodología, fuentes, procedencia, glosario y bitácora de cambios",
    "new": "Opiniones de analistas: investigación del lado vendedor y consenso"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].nav_en",
    "old": "Methodology",
    "new": "Analysts"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].nav_es",
    "old": "Metodología",
    "new": "Analistas"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].deck",
    "old": true,
    "new": false
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].deck_order",
    "old": 15,
    "new": null
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].modules[0]",
    "old": "quality",
    "new": "analysts"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].modules[1]",
    "old": "changelog",
    "new": "factset"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[15].modules[2]",
    "old": "obligations",
    "new": "market"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].id",
    "old": null,
    "new": "method"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].en",
    "old": null,
    "new": "Methodology, Sources, Provenance, Glossary and Change Log"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].es",
    "old": null,
    "new": "Metodología, fuentes, procedencia, glosario y bitácora de cambios"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].nav_en",
    "old": null,
    "new": "Methodology"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].nav_es",
    "old": null,
    "new": "Metodología"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].group",
    "old": null,
    "new": "reference"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].deck",
    "old": null,
    "new": true
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].deck_order",
    "old": null,
    "new": 15
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].modules[0]",
    "old": null,
    "new": "quality"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].modules[1]",
    "old": null,
    "new": "changelog"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "sections[16].modules[2]",
    "old": null,
    "new": "obligations"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.label_en",
    "old": null,
    "new": "Sell-side research sweep"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.label_es",
    "old": null,
    "new": "Barrido de investigación del lado vendedor"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.cadence",
    "old": null,
    "new": "daily"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.max_age_days",
    "old": null,
    "new": 60
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.source_file",
    "old": null,
    "new": "analysts.json"
   },
   {
-   "at": "2026-10-05T13:54:17.571Z",
+   "at": "2026-10-05T14:03:31.734Z",
    "file": "sections.js",
    "path": "freshness.modules.analysts.manual",
    "old": null,
    "new": true
   }
  ],
- "generated": "2026-10-05T13:54:17.571Z"
+ "generated": "2026-10-05T14:03:31.734Z"
 }
