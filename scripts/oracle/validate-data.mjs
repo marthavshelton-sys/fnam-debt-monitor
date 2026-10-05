@@ -367,6 +367,7 @@ const freshness = [];
 const fresh = (series, lastDate, limitDays, note) => { const age = daysSince(lastDate); freshness.push({ series, lastDate: lastDate ? String(lastDate).slice(0, 10) : null, ageDays: age, limitDays, status: lastDate == null || age > limitDays ? "warn" : "ok", note: note || null }); };
 fresh("Share price (ORCL close)", mref?.price_snapshot?.orcl?.close_date, 5, "fetch-market.mjs, weekdays 13:30 and 21:45 UTC");
 fresh(`10-year Treasury (${mref?.treasury_10y?.source_name || "U.S. Treasury daily par yield curve"})`, mref?.treasury_10y?.as_of_date, 5, "fetch-market.mjs");
+fresh("BBB corporate OAS proxy (FRED BAMLC0A4CBBB)", mref?.credit_spread_proxy?.as_of_date, 7, "fetch-market.mjs; credit card proxy while no CDS source exists");
 fresh("Latest quarter release", latest?.release_date, 100, latest ? `${latest.id}${nextRes ? `; next results confirmed for ${nextRes}` : est ? `; next results estimated ${est.window_start} to ${est.window_end}` : ""}` : null);
 fresh("EDGAR submissions snapshot", edg?.fetched, 4, "harvest-filings.mjs, weekdays 13:30 UTC");
 fresh("Oracle IR press-release snapshot", irf?.fetched, 4, "harvest-filings.mjs");

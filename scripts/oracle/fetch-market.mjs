@@ -7,6 +7,8 @@
 //   S&P 500: FRED SP500 → Yahoo Finance chart API (^GSPC) → Stooq CSV
 //   10-year: U.S. Treasury daily par yield curve CSV (the official series FRED republishes as DGS10; current calendar year
 //           only, merged into the stored history) → FRED DGS10 as fallback (owner's choice, 2026-10-05)
+//   BBB OAS: FRED BAMLC0A4CBBB (ICE BofA BBB US Corporate Index option-adjusted spread, daily, percent) -> tools/oracle/data/bbb_oas.csv;
+//           the credit card's proxy for Oracle's rating bucket while no CDS or bond-price source exists (owner's choice, 2026-10-05)
 //   ERP:    Aswath Damodaran's implied equity risk premium for the S&P 500 (monthly, first of the month), read from
 //           his NYU Stern home page; a failed read keeps the stored value (the page dates it and flags it when old)
 // Run: node scripts/oracle/fetch-market.mjs
@@ -58,8 +60,8 @@ async function stooq(symbol) {
   const rows = text.trim().split(/\r?\n/).slice(1).map((l) => { const c = l.split(","); return { date: c[0], open: num(c[1]), high: num(c[2]), low: num(c[3]), close: num(c[4]), volume: num(c[5]) }; }).filter((r) => r.close != null);
   return { rows, url };
 }
-async function fred(series, col) {
-  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${series}`;
+async function fred(series, from) {
+  const url = `https://fred.stlouisfed.org/graph/fredgraph.csv?id=${series}${from ? `&cosd=${from}` : ""}`;
   const text = await (await get(url)).text();
   const lines = text.trim().split(/\r?\n/);
   const rows = lines.slice(1).map((l) => { const [date, v] = l.split(","); return { date, close: num(v) }; }).filter((r) => r.close != null && /^\d{4}-\d{2}-\d{2}$/.test(r.date));
@@ -126,6 +128,8 @@ async function main() {
   const spx = await firstThatWorks("S&P 500 daily", [["FRED SP500", () => fred("SP500")], ["Yahoo Finance", () => yahoo("^GSPC")], ["Stooq", () => stooq("^spx")]]);
   const tsy = await firstThatWorks("10-year Treasury", [["U.S. Treasury daily par yield curve", () => treasuryCSV()], ["FRED DGS10", () => fred("DGS10")]]);
   if (tsy) tsy.fallback = true; // the Treasury CSV holds one calendar year: always merge into the stored history (1962-) instead of replacing it
+  const bbb = await firstThatWorks("BBB corporate OAS", [["FRED BAMLC0A4CBBB", () => fred("BAMLC0A4CBBB", "2015-01-01")]]);
+  if (bbb) bbb.fallback = true; // FRED's public CSV returns about three years whatever cosd says: always merge into the stored history; a FRED outage keeps it
 
   // closes only: the 13:30 UTC run is at the NYSE open, so a bar dated today is dropped until 16:15 New York time
   for (const x of [orcl, spx]) if (x) x.rows = completedSessions(x.rows, { exchange: "NYSE" });
@@ -133,6 +137,8 @@ async function main() {
   if (orclM) { orcl.rows = orclM.rows; writeFileSync(join(DATA, "prices_orcl_daily.csv"), toCSV(orcl.rows), "utf8"); }
   if (spxM) { spx.rows = spxM.rows; writeFileSync(join(DATA, "prices_spx_daily.csv"), toCSV(spx.rows), "utf8"); }
   if (tsyM) { tsy.rows = tsyM.rows; writeFileSync(join(DATA, "treasury_10y.csv"), toCSV(tsy.rows), "utf8"); }
+  const bbbM = mergeFallback(bbb, join(DATA, "bbb_oas.csv"));
+  if (bbbM) { bbb.rows = bbbM.rows; writeFileSync(join(DATA, "bbb_oas.csv"), toCSV(bbb.rows), "utf8"); }
 
   const refPath = join(DATA, "market_reference.json");
   const ref = existsSync(refPath) ? JSON.parse(readFileSync(refPath, "utf8")) : { as_of: today, price_snapshot: {}, treasury_10y: {}, credit_ratings: {}, debt_instruments: [], notes: [] };
@@ -160,6 +166,12 @@ async function main() {
     // source_name is what the page, the deck and the validator print beside the figure ("which 10-year value is used")
     ref.treasury_10y = { yield_pct: last.close, as_of_date: last.date, source_url: tsy.via.startsWith("FRED") ? "https://fred.stlouisfed.org/series/DGS10" : "https://home.treasury.gov/resource-center/data-chart-center/interest-rates/TextView?type=daily_treasury_yield_curve", source_name: tsy.via, series: "10-year par yield, daily", fetch_url: tsy.url, accessed: today };
   }
+  if (bbb) {
+    const last = bbb.rows.at(-1);
+    ref.credit_spread_proxy = { series: "BAMLC0A4CBBB", name: "ICE BofA BBB US Corporate Index Option-Adjusted Spread", unit: "percent", value_pct: last.close, as_of_date: last.date,
+      source_url: "https://fred.stlouisfed.org/series/BAMLC0A4CBBB", source_name: "FRED BAMLC0A4CBBB (ICE Data Indices)", fetch_url: bbb.url, accessed: today,
+      note: "Proxy for Oracle's rating bucket (BBB+ to BBB-), not Oracle's own spread; FRED publishes the index with a one-business-day lag." };
+  } else console.error(`WARN BBB OAS not refreshed; keeping ${ref.credit_spread_proxy ? `${ref.credit_spread_proxy.value_pct}% as of ${ref.credit_spread_proxy.as_of_date}` : "none"}`);
   try { const e = await damodaranErp(); ref.erp = e; console.log(`OK   implied ERP ${e.erp_pct}% as of ${e.as_of}`); }
   catch (e) { console.error(`WARN implied ERP not refreshed (${e.message}); keeping ${ref.erp ? `${ref.erp.erp_pct}% as of ${ref.erp.as_of}` : "none"}`); }
   ref.as_of = today;

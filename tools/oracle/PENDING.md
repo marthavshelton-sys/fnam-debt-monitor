@@ -41,9 +41,9 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
 - FactSet (connected 2026-09-27): consensus, prices, market values and peers' net debt now flow through `factset.json`
   (cloud routine "FNAM Oracle: FactSet refresh"). **CDS still pending**: the connector exposes Estimates, Global Prices,
   Fundamentals, Debt Capital Structure and Terms & Conditions, but no CDS or bond-price endpoint; ask FactSet whether the
-  Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine. Since 2026-10-04 the
-  page shows a one-line "no series available" note (with the latest press reading linked from the news file) instead of
-  the placeholder; the chart and stats appear automatically once `points` is filled.
+  Bond Prices / CDS content sets can be added to the connector, then fill `cds.json` from the routine. Since 2026-10-05 the
+  card shows the BBB index proxy (FRED `BAMLC0A4CBBB`, owner's choice, labeled "proxy, not Oracle") with the latest press
+  reading linked from the news file; the CDS chart and implied-PD stats replace it automatically once `points` is filled.
 - Peer ratings (Off-Balance-Sheet Financing and Leases, peer leverage table): the peer table shows leverage only; add each agency's rating with its release URL to
   `peer_leverage.json` when the FactSet connector or the agencies' pages are accessible.
 - News (round 4, 2026-10-04): the Tencent lease (FT, 30 Sep; US$7 bn, five years, about 100,000 chips, about 30% upfront) is on the

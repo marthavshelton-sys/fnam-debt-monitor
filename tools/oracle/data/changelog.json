@@ -4,69 +4,6 @@
   {
    "at": "2026-10-04T00:59:06.195Z",
    "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].superseded[0].accn",
-   "old": null,
-   "new": "0000950170-24-104905"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].superseded[0].form",
-   "old": null,
-   "new": "10-Q"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].superseded[0].filed",
-   "old": null,
-   "new": "2024-09-10"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].superseded[0].value",
-   "old": null,
-   "new": 7.6
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].fiscal",
-   "old": null,
-   "new": "FY2025Q1"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[6].ytd_months",
-   "old": null,
-   "new": 3
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].start",
-   "old": null,
-   "new": "2024-06-01"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].end",
-   "old": null,
-   "new": "2024-11-30"
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
-   "path": "concepts.tax_rate_effective.cumulative[7].months",
-   "old": null,
-   "new": 6
-  },
-  {
-   "at": "2026-10-04T00:59:06.195Z",
-   "file": "xbrl.js",
    "path": "concepts.tax_rate_effective.cumulative[7].value",
    "old": null,
    "new": 7.3
@@ -4200,7 +4137,70 @@
    "path": "prices.^GSPC.fetchedAt",
    "old": "2026-10-04",
    "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.name",
+   "old": null,
+   "new": "ICE BofA BBB US Corporate Index Option-Adjusted Spread"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.series",
+   "old": null,
+   "new": "BAMLC0A4CBBB"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.unit",
+   "old": null,
+   "new": "percent"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.source",
+   "old": null,
+   "new": "FRED BAMLC0A4CBBB (ICE Data Indices)"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.sourceUrl",
+   "old": null,
+   "new": "https://fred.stlouisfed.org/series/BAMLC0A4CBBB"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.asOf",
+   "old": null,
+   "new": "2026-10-01"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.value",
+   "old": null,
+   "new": 1.06
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": null,
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-05T11:52:35.148Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.points.length",
+   "old": null,
+   "new": 786
   }
  ],
- "generated": "2026-10-05T11:32:15.073Z"
+ "generated": "2026-10-05T11:52:35.148Z"
 }
