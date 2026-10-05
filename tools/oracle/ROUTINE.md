@@ -143,12 +143,13 @@ change is a pull request the routine merges under the policy above. The routine 
 the project's `.claude/settings.local.json` under `additionalDirectories` and in an `Edit(...)` allow rule, so it
 never prompts and never touches the working copies other sessions use.
 
-## Weekly press sweep (desktop task)
+## Weekly press sweep (retired)
 
-The executive-summary block "What the market is worried about" and the deck page after it read `tools/oracle/data/press.json`.
-A separate desktop task, **FNAM Oracle: weekly press sweep** (Mondays 08:00 Mexico City, prompt in `PRESS-SWEEP-PROMPT.md`),
-refreshes that one file from the credible outlets listed there, runs the build and pushes to `main`. It edits nothing else;
-the weekday routine above owns every other block, and STEP 4 now also refreshes `obligations.json` with each 10-Q/10-K.
+`PRESS-SWEEP-PROMPT.md` described a desktop task, **FNAM Oracle: weekly press sweep**, that would refresh `tools/oracle/data/press.json`.
+The task was never created in the owner's apps (checked 2026-10-05: not among her cloud routines, no desktop task, no commit
+by it), `press.js` is retired and `press.json` is an archive. News comes from the daily cloud routine "FNAM Oracle: daily news
+sweep (cloud)" (`NEWS-SWEEP-PROMPT.md`). The weekday routine above owns every other block, and STEP 4 also refreshes
+`obligations.json` with each 10-Q/10-K.
 
 ## FactSet refresh (cloud routine)
 

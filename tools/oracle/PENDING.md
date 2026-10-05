@@ -51,8 +51,9 @@ repositories mounted), so nothing depends on the owner's workstation; the deskto
   until Oracle files or confirms it. The Port Washington grid timing (Aterio via The Register, 2 Oct) is a press item and an
   open issue on the campus; Oracle's 2H 2027 target stands as the company statement.
 - News: since 2026-10-03 `news.json` is refreshed daily by the cloud routine "FNAM Oracle: daily news sweep"
-  (`NEWS-SWEEP-PROMPT.md`); the desktop task "FNAM Oracle: weekly press sweep" and `press.js` are retired — **owner:
-  disable the desktop task**. `press.json` stays in the repository as the archive of the earlier sweeps.
+  (`NEWS-SWEEP-PROMPT.md`); the weekly press sweep (documented as a desktop task, prompt in `PRESS-SWEEP-PROMPT.md`) was never created in the
+  owner's apps (checked 2026-10-05: not among her cloud routines, no desktop task, no commit by it), so there is nothing to
+  disable; `press.js` is retired. `press.json` stays in the repository as the archive of the earlier in-session sweeps.
 - US$288 bn of uncommenced leases: no XBRL concept carries the amount (SEC company-facts API searched 2026-10-04; only
   `CommitmentsAndContingencies`, without a value), so the figure rests on the two readings of the note and keeps the "text ·
   second reading" badge; re-run the search after each 10-Q in case Oracle adds a custom tag.
