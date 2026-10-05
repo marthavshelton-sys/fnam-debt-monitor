@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-10-04T20:48:26Z",
+  "checkedAt": "2026-10-05T04:04:07Z",
   "rule": "up to date = the last two scheduled refreshes did not both fail (3 h grace after each due time) and no alert of the pipeline is open; checked every 12 hours",
   "graceHours": 3,
   "sections": {
@@ -26,12 +26,12 @@
       },
       "url": "/macro/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T19:35:36Z",
+      "lastSuccess": "2026-10-04T21:31:54Z",
       "lastAttempt": {
-        "at": "2026-10-04T19:35:36Z",
+        "at": "2026-10-04T21:31:54Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T20:05:00Z",
+      "requiredSince": "2026-10-04T14:05:00Z",
       "alerts": 0
     },
     {
@@ -43,12 +43,12 @@
       },
       "url": "/fiscal/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T18:26:09Z",
+      "lastSuccess": "2026-10-04T21:50:51Z",
       "lastAttempt": {
-        "at": "2026-10-04T18:26:09Z",
+        "at": "2026-10-04T21:50:51Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T21:30:00Z",
+      "requiredSince": "2026-10-04T13:15:00Z",
       "alerts": 0
     },
     {
@@ -145,9 +145,9 @@
       },
       "url": "/aeropuertos/trafico/",
       "status": "ok",
-      "lastSuccess": "2026-10-03T20:55:48Z",
+      "lastSuccess": "2026-10-04T21:04:45Z",
       "lastAttempt": {
-        "at": "2026-10-03T20:55:48Z",
+        "at": "2026-10-04T21:04:45Z",
         "result": "success"
       },
       "requiredSince": "2026-10-03T17:30:00Z",
@@ -162,12 +162,12 @@
       },
       "url": "/aeropuertos/aerolineas/",
       "status": "ok",
-      "lastSuccess": "2026-10-03T23:48:12Z",
+      "lastSuccess": "2026-10-04T21:21:08Z",
       "lastAttempt": {
-        "at": "2026-10-03T23:48:12Z",
+        "at": "2026-10-04T21:21:08Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-02T18:20:00Z",
+      "requiredSince": "2026-10-03T18:20:00Z",
       "alerts": 0
     },
     {
@@ -179,12 +179,12 @@
       },
       "url": "/qualitas/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T20:38:31Z",
+      "lastSuccess": "2026-10-04T23:04:38Z",
       "lastAttempt": {
-        "at": "2026-10-04T20:38:31Z",
+        "at": "2026-10-04T23:04:38Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T23:00:00Z",
+      "requiredSince": "2026-10-04T14:50:00Z",
       "alerts": 0
     },
     {
@@ -230,12 +230,12 @@
       },
       "url": "/hiperescaladores/",
       "status": "ok",
-      "lastSuccess": "2026-10-04T18:22:46Z",
+      "lastSuccess": "2026-10-04T22:29:07Z",
       "lastAttempt": {
-        "at": "2026-10-04T18:22:46Z",
+        "at": "2026-10-04T22:29:07Z",
         "result": "success"
       },
-      "requiredSince": "2026-10-03T22:20:00Z",
+      "requiredSince": "2026-10-04T13:20:00Z",
       "alerts": 0
     }
   ]
