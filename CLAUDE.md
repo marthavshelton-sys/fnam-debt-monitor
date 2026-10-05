@@ -219,7 +219,8 @@ dashboards, everything built from public data by GitHub Actions.
   itself); the two differ month by month (up to ±0.3 pp); never mix them (the pages disagreed until 2026-10-05 for
   that reason). The API carries SR16774 from Feb-2018 only. The fiscal
   page reads it from `data.js` (`inflExp12m`); `banxicoSurvey.inflationNext12m` in `docs-data.js` is only the PDF
-  cross-check that `scripts/mx-fiscal/check-docs.mjs` enforces.
+  cross-check that `scripts/mx-fiscal/check-docs.mjs` enforces. Real rates on both pages are differences (target
+  minus inflation, Banxico's definition in its Informe Trimestral), never the compounded ratio.
 - Site-wide conventions (owner's): every heading Title Case in both languages (`tc()` in `site/gap/app.js` and
   `site/assets/airport-model.js`, `titleCase(str, es)` in `present-core.js`); American English in the English view
   (installment, amortization, program, itemized, canceled, gray); English finance abbreviations in English (EV, P/E,
