@@ -4,69 +4,6 @@
   {
    "at": "2026-10-04T02:46:09.536Z",
    "file": "buildout.js",
-   "path": "sites[1].mw_series[0].src",
-   "old": null,
-   "new": "Vantage/DigitalBridge PR 18 Aug 2025"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].en",
-   "old": null,
-   "new": "contracted August 2025; 1.4 GW across 10 buildings, US$25 bn+ (Vantage)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[0].es",
-   "old": null,
-   "new": "contratado en agosto de 2025; 1.4 GW en 10 edificios, US$25 mil M+ (Vantage)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].when",
-   "old": null,
-   "new": "FY2026Q4"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].kind",
-   "old": null,
-   "new": "energized"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].mw",
-   "old": null,
-   "new": 115
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].basis",
-   "old": null,
-   "new": "company"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].src",
-   "old": null,
-   "new": "4Q26 call p.7"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
-   "path": "sites[1].mw_series[1].en",
-   "old": null,
-   "new": "115 MW of power capacity online a month ahead of schedule (Oracle, 4Q26 call p.7)"
-  },
-  {
-   "at": "2026-10-04T02:46:09.536Z",
-   "file": "buildout.js",
    "path": "sites[1].mw_series[1].es",
    "old": null,
    "new": "115 MW de capacidad eléctrica en línea un mes antes de lo previsto (Oracle, llamada 4T26 p.7)"
@@ -4200,7 +4137,70 @@
    "path": "peers_note_es",
    "old": "(text)",
    "new": "(text changed)"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "prices.ORCL.sourceUrl",
+   "old": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-05&todate=2026-10-05&limit=10000",
+   "new": "https://api.nasdaq.com/api/quote/ORCL/historical?assetclass=stocks&fromdate=2021-10-06&todate=2026-10-06&limit=10000"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "prices.ORCL.fetchedAt",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.fetchedAt",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "prices.^GSPC.points.length",
+   "old": 2514,
+   "new": 2512
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "rates.US10Y.fetchedAt",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "spreads.BBB_OAS.fetchedAt",
+   "old": "2026-10-05",
+   "new": "2026-10-06"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "range52.from",
+   "old": "2025-10-03",
+   "new": "2025-10-06"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "market.js",
+   "path": "range52.to",
+   "old": "2026-10-02",
+   "new": "2026-10-05"
+  },
+  {
+   "at": "2026-10-06T01:21:36.409Z",
+   "file": "summary.js",
+   "path": "basis.marketDate",
+   "old": "2026-10-02",
+   "new": "2026-10-05"
   }
  ],
- "generated": "2026-10-06T01:20:34.580Z"
+ "generated": "2026-10-06T01:21:36.409Z"
 }
